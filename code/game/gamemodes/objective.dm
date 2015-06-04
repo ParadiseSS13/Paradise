@@ -388,7 +388,7 @@ datum/objective/silence
 
 
 datum/objective/escape
-	explanation_text = "Escape on the shuttle or an escape pod alive and without being in custody."
+	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	var/escape_areas = list(/area/shuttle/escape/centcom,
 		/area/shuttle/escape_pod1/centcom,
 		/area/shuttle/escape_pod1/transit,
@@ -409,10 +409,8 @@ datum/objective/escape
 			return 0
 		if(!owner.current || owner.current.stat == DEAD)
 			return 0
-		if(istype(owner.current, /mob/living/carbon))
-			var/mob/living/carbon/C = owner.current
-			if (C.handcuffed) // If you're cuffed, you're in custody.
-				return 0
+		if(owner.current.restrained())
+			return 0
 		var/turf/location = get_turf(owner.current.loc)
 		if(!location)
 			return 0
