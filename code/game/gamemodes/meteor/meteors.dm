@@ -1,10 +1,4 @@
-/var/const/meteor_wave_delay = 625 //minimum wait between waves in tenths of seconds
-//set to at least 100 unless you want evarr ruining every round
-
-/var/const/meteors_in_wave = 50
-/var/const/meteors_in_small_wave = 10
-
-/proc/meteor_wave(var/number = meteors_in_wave)
+/*/proc/meteor_wave(var/number = meteors_in_wave)
 	if(!ticker || wavesecret)
 		return
 
@@ -14,8 +8,8 @@
 			spawn_meteor()
 	spawn(meteor_wave_delay)
 		wavesecret = 0
-
-/proc/spawn_meteors(var/number = meteors_in_small_wave)
+*/
+/proc/spawn_meteors(var/number)
 	for(var/i = 0; i < number; i++)
 		spawn(0)
 			spawn_meteor()
