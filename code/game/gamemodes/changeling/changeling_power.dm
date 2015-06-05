@@ -49,7 +49,7 @@
 /obj/effect/proc_holder/changeling/proc/can_sting(var/mob/user, var/mob/target)
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
-	if(req_human && !ishuman(user))
+	if(req_human && (!ishuman(user) || issmall(user)))
 		user << "<span class='warning'>We cannot do that in this form!</span>"
 		return 0
 	var/datum/changeling/c = user.mind.changeling

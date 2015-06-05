@@ -14,8 +14,6 @@
 	if(issmall(H)) // Already a monkey
 		return
 	for(var/obj/item/W in H)
-		if (W==H.w_uniform) // will be torn
-			continue
 		if(istype(W,/obj/item/organ))
 			continue
 		H.unEquip(W)
@@ -43,9 +41,9 @@
 	H.set_species(H.species.primitive_form)
 
 	if(H.hud_used)
-		H.hud_used.monkey_hud()
+		H.hud_used.instantiate()
 
-	H << "<B>You are now [H.species.name]. </B>"
+	H << "<B>You are now a [H.species.name]. </B>"
 	qdel(animation)
 
 	return H
@@ -81,12 +79,12 @@
 		H.gib()
 		return
 
-	if(H.hud_used)
-		H.hud_used.human_hud()
-
 	H.set_species(H.species.greater_form)
 
-	H << "<B>You are now [H.species.name]. </B>"
+	if(H.hud_used)
+		H.hud_used.instantiate()
+
+	H << "<B>You are now a [H.species.name]. </B>"
 	qdel(animation)
 
 	return H

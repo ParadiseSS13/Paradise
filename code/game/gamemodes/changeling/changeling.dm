@@ -288,7 +288,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		return
 
 	var/mob/living/carbon/human/T = target
-	if(!istype(T))
+	if(!istype(T) || issmall(T))
 		user << "<span class='warning'>[T] is not compatible with our biology.</span>"
 		return
 
