@@ -192,7 +192,6 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	M << "You have been [muteunmute] from [mute_string]."
 	feedback_add_details("admin_verb","MUTE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
 /client/proc/cmd_admin_add_random_ai_law()
 	set category = "Event"
 	set name = "Add Random AI Law"
@@ -202,13 +201,12 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 	log_admin("[key_name(src)] has added a random AI law.")
-	message_admins("[key_name_admin(src)] has added a random AI law.", 1)
+	message_admins("[key_name_admin(src)] has added a random AI law.")
 
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
-	if(show_log == "Yes")
-		command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
+	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	IonStorm(0)
+	new /datum/event/ion_storm(0, announce_ion_laws)
 	feedback_add_details("admin_verb","ION") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -596,22 +594,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
 	if(!input)
 		return
-	for(var/mob/living/silicon/ai/M in mob_list)
-		if (M.stat == 2)
-			usr << "Upload failed. No signal is being detected from the AI."
-		else if (M.see_in_dark == 0)
-			usr << "Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power."
-		else
-			M.add_ion_law(input)
-			for(var/mob/living/silicon/ai/O in mob_list)
-				O << "\red " + input + "\red...LAWS UPDATED"
 
 	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
-	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]", 1)
+	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]")
 
 	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
-	if(show_log == "Yes")
-		command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
+	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
+
+	new /datum/event/ion_storm(0, announce_ion_laws, input)
+
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
