@@ -295,7 +295,45 @@
 /obj/item/proc/mob_can_equip(M as mob, slot, disable_warning = 0)
 	if(!slot) return 0
 	if(!M) return 0
+	if(issmall(M))
+		//START MONKEY
+		var/mob/living/carbon/human/H = M
 
+		switch(slot)
+			if(slot_l_hand)
+				if(H.l_hand)
+					return 0
+				return 1
+			if(slot_r_hand)
+				if(H.r_hand)
+					return 0
+				return 1
+			if(slot_wear_mask)
+				if(H.wear_mask)
+					return 0
+				if( !(slot_flags & SLOT_MASK) )
+					return 0
+				return 1
+			if(slot_back)
+				if(H.back)
+					return 0
+				if( !(slot_flags & SLOT_BACK) )
+					return 0
+				return 1
+			if(slot_handcuffed)
+				if(H.handcuffed)
+					return 0
+				if(!istype(src, /obj/item/weapon/restraints/handcuffs))
+					return 0
+				return 1
+			if(slot_in_backpack)
+				if (H.back && istype(H.back, /obj/item/weapon/storage/backpack))
+					var/obj/item/weapon/storage/backpack/B = H.back
+					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
+						return 1
+				return 0
+		return 0 //Unsupported slot
+		//END MONKEY
 	if(ishuman(M))
 		//START HUMAN
 		var/mob/living/carbon/human/H = M
