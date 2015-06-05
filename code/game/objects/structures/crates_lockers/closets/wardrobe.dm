@@ -5,6 +5,8 @@
 	icon_closed = "blue"
 
 /obj/structure/closet/wardrobe/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/blue(src)
 	new /obj/item/clothing/under/color/blue(src)
 	new /obj/item/clothing/under/color/blue(src)
@@ -23,6 +25,8 @@
 	icon_closed = "red"
 
 /obj/structure/closet/wardrobe/red/New()
+	..()
+	sleep(2)
 	new /obj/item/weapon/storage/backpack/duffel/security(src)
 	new /obj/item/weapon/storage/backpack/duffel/security(src)
 	new /obj/item/clothing/mask/bandana/red(src)
@@ -55,6 +59,8 @@
 	icon_closed = "red"
 
 /obj/structure/closet/redcorp/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/security/corp(src)
 	new /obj/item/clothing/under/rank/security/corp(src)
 	new /obj/item/clothing/under/rank/security/corp(src)
@@ -68,6 +74,8 @@
 	icon_closed = "pink"
 
 /obj/structure/closet/wardrobe/pink/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/pink(src)
 	new /obj/item/clothing/under/color/pink(src)
 	new /obj/item/clothing/under/color/pink(src)
@@ -82,6 +90,8 @@
 	icon_closed = "black"
 
 /obj/structure/closet/wardrobe/black/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
@@ -106,6 +116,8 @@
 	icon_closed = "black"
 
 /obj/structure/closet/wardrobe/chaplain_black/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/nun(src)
@@ -131,6 +143,8 @@
 	icon_closed = "green"
 
 /obj/structure/closet/wardrobe/green/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/green(src)
 	new /obj/item/clothing/under/color/green(src)
 	new /obj/item/clothing/under/color/green(src)
@@ -145,6 +159,8 @@
 	icon_closed = "green"
 
 /obj/structure/closet/wardrobe/xenos/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/suit/unathi/mantle(src)
 	new /obj/item/clothing/suit/unathi/robe(src)
 	new /obj/item/clothing/shoes/sandal(src)
@@ -160,6 +176,8 @@
 	icon_closed = "orange"
 
 /obj/structure/closet/wardrobe/orange/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/under/color/orange/prison(src)
@@ -175,6 +193,8 @@
 	icon_closed = "wardrobe-y"
 
 /obj/structure/closet/wardrobe/yellow/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/yellow(src)
 	new /obj/item/clothing/under/color/yellow(src)
 	new /obj/item/clothing/under/color/yellow(src)
@@ -190,6 +210,8 @@
 	icon_closed = "yellow"
 
 /obj/structure/closet/wardrobe/atmospherics_yellow/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/atmospheric_technician(src)
 	new /obj/item/clothing/under/rank/atmospheric_technician(src)
 	new /obj/item/clothing/under/rank/atmospheric_technician(src)
@@ -212,6 +234,8 @@
 	icon_closed = "yellow"
 
 /obj/structure/closet/wardrobe/engineering_yellow/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/engineer(src)
 	new /obj/item/clothing/under/rank/engineer(src)
 	new /obj/item/clothing/under/rank/engineer(src)
@@ -233,6 +257,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/white(src)
 	new /obj/item/clothing/under/color/white(src)
 	new /obj/item/clothing/under/color/white(src)
@@ -245,6 +271,8 @@
 	name = "medical doctor's wardrobe"
 
 /obj/structure/closet/wardrobe/white/medical/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/nursesuit (src)
 	new /obj/item/clothing/head/nursehat (src)
 	new /obj/item/clothing/under/rank/nurse(src)
@@ -269,6 +297,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/pjs/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/pj/red(src)
 	new /obj/item/clothing/under/pj/red(src)
 	new /obj/item/clothing/under/pj/blue(src)
@@ -286,6 +316,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/toxins_white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/scientist(src)
 	new /obj/item/clothing/under/rank/scientist(src)
 	new /obj/item/clothing/under/rank/scientist(src)
@@ -307,6 +339,8 @@
 	icon_closed = "black"
 
 /obj/structure/closet/wardrobe/robotics_black/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
@@ -326,6 +360,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/chemistry_white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/chemist(src)
 	new /obj/item/clothing/under/rank/chemist(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -341,6 +377,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/genetics_white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/geneticist(src)
 	new /obj/item/clothing/under/rank/geneticist(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -356,6 +394,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/virology_white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/virologist(src)
 	new /obj/item/clothing/under/rank/virologist(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -373,6 +413,8 @@
 	icon_closed = "white"
 
 /obj/structure/closet/wardrobe/medic_white/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/rank/medical(src)
 	new /obj/item/clothing/under/rank/medical(src)
 	new /obj/item/clothing/under/rank/medical/blue(src)
@@ -393,6 +435,8 @@
 	icon_closed = "grey"
 
 /obj/structure/closet/wardrobe/grey/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/grey(src)
 	new /obj/item/clothing/under/color/grey(src)
 	new /obj/item/clothing/under/color/grey(src)
@@ -417,6 +461,8 @@
 	icon_closed = "mixed"
 
 /obj/structure/closet/wardrobe/mixed/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/under/color/blue(src)
 	new /obj/item/clothing/under/color/yellow(src)
 	new /obj/item/clothing/under/color/green(src)
