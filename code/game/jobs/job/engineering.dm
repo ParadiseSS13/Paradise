@@ -36,7 +36,7 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/melee/telebaton(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
 		return 1
 
 
