@@ -366,10 +366,12 @@
 /datum/seed/proc/randomize()
 
 	roundstart = 0
-	seed_name = "strange plant"     // TODO: name generator.
-	display_name = "strange plants" // TODO: name generator.
+	var/picked_name = pick("strange", "mysterious", "odd", "bulbous", "tendrily", "spiky", "leafy", "soft", "hard", "heavy", "light", "pretty", "ugly", "intriguing", "confusing", "unique", "scientific", "energizing")
+	var/picked_type = pick("plant", "mushroom", "vine", "flower", "rock", "crystal", "tree")
+	seed_name = picked_name + " " + picked_type
+	display_name = picked_name + " " + picked_type + "s"
 	mysterious = 1
-	seed_noun = pick("spores","nodes","cuttings","seeds")
+	seed_noun = pick("spores","nodes","cuttings","seeds", "saplings")
 
 	set_trait(TRAIT_POTENCY,rand(5,30),200,0)
 	set_trait(TRAIT_PRODUCT_ICON,pick(plant_controller.plant_product_sprites))
@@ -378,24 +380,24 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#[get_random_colour(0,75,190)]")
 	update_growth_stages()
 
-	if(prob(20))
+	if(prob(40))
 		set_trait(TRAIT_HARVEST_REPEAT,1)
 
-	if(prob(15))
-		if(prob(15))
+	if(prob(30))
+		if(prob(30))
 			set_trait(TRAIT_JUICY,2)
 		else
 			set_trait(TRAIT_JUICY,1)
 
-	if(prob(5))
+	if(prob(15))
 		set_trait(TRAIT_STINGS,1)
 
-	if(prob(5))
+	if(prob(15))
 		set_trait(TRAIT_PRODUCES_POWER,1)
 
-	if(prob(1))
+	if(prob(5))
 		set_trait(TRAIT_EXPLOSIVE,1)
-	else if(prob(1))
+	else if(prob(5))
 		set_trait(TRAIT_TELEPORTING,1)
 
 	if(prob(5))
@@ -412,52 +414,12 @@
 	if(prob(80))
 		chems["nutriment"] = list(rand(1,10),rand(10,20))
 
-	var/additional_chems = rand(0,5)
+	var/additional_chems = rand(3,8)
 
 	if(additional_chems)
-		var/list/possible_chems = list(
-			"woodpulp",
-			"styptic_powder",
-			"methamphetamine",
-			"cryoxadone",
-			"blood",
-			"water",
-			"potassium",
-			"plasticide",
-			"mutationtoxin",
-			"amutationtoxin",
-			"epinephrine",
-			"space_drugs",
-			"salglu_solution",
-			"mercury",
-			"sugar",
-			"radium",
-			"mutadone",
-			"mannitol",
-			"thermite",
-			"sal_acid",
-			"atropine",
-			"omnizine",
-			"salbutamol",
-			"plasma",
-			"synaptizine",
-			"haloperidol",
-			"potass_iodide",
-			"mitocholide",
-			"toxin",
-			"rezadone",
-			"antihol",
-			"slimejelly",
-			"cyanide",
-			"lsd",
-			"morphine"
-			)
 
 		for(var/x=1;x<=additional_chems;x++)
-			if(!possible_chems.len)
-				break
-			var/new_chem = pick(possible_chems)
-			possible_chems -= new_chem
+			var/new_chem = get_random_chemical()
 			chems[new_chem] = list(rand(1,10),rand(10,20))
 
 	if(prob(90))
@@ -482,28 +444,28 @@
 	set_trait(TRAIT_LOWKPA_TOLERANCE, rand(10,50))
 	set_trait(TRAIT_HIGHKPA_TOLERANCE,rand(100,300))
 
-	if(prob(5))
+	if(prob(15))
 		set_trait(TRAIT_ALTER_TEMP,rand(-5,5))
 
 	if(prob(1))
 		set_trait(TRAIT_IMMUTABLE,-1)
 
 	var/carnivore_prob = rand(100)
-	if(carnivore_prob < 5)
+	if(carnivore_prob < 10)
 		set_trait(TRAIT_CARNIVOROUS,2)
-	else if(carnivore_prob < 10)
+	else if(carnivore_prob < 20)
 		set_trait(TRAIT_CARNIVOROUS,1)
 
-	if(prob(10))
+	if(prob(20))
 		set_trait(TRAIT_PARASITE,1)
 
 	var/vine_prob = rand(100)
-	if(vine_prob < 5)
+	if(vine_prob < 10)
 		set_trait(TRAIT_SPREAD,2)
-	else if(vine_prob < 10)
+	else if(vine_prob < 20)
 		set_trait(TRAIT_SPREAD,1)
 
-	if(prob(5))
+	if(prob(10))
 		set_trait(TRAIT_BIOLUM,1)
 		set_trait(TRAIT_BIOLUM_COLOUR,"#[get_random_colour(0,75,190)]")
 

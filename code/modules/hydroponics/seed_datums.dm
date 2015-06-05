@@ -189,6 +189,7 @@
 
 /datum/seed/tomato/blue/New()
 	..()
+	set_trait(TRAIT_JUICY,2)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#4D86E8")
 	set_trait(TRAIT_PLANT_COLOUR,"#070AAD")
 
@@ -201,6 +202,7 @@
 
 /datum/seed/tomato/blue/teleport/New()
 	..()
+	set_trait(TRAIT_JUICY,1)
 	set_trait(TRAIT_TELEPORTING,1)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#00E5FF")
 	set_trait(TRAIT_BIOLUM,1)

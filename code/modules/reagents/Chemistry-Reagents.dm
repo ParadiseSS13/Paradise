@@ -26,6 +26,7 @@ datum
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 		var/shock_reduction = 0
 		var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
+		var/can_grow_in_plants = 1
 		proc
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 				if(!istype(M, /mob/living))	return 0
@@ -2440,6 +2441,7 @@ datum
 			reagent_state = LIQUID
 			nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 			color = "#404030" // rgb: 64, 64, 48
+			can_grow_in_plants = 0
 			var/datum/martial_art/drunk_brawling/F = new
 			var/dizzy_adj = 3
 			var/slurr_adj = 3

@@ -15,39 +15,6 @@ datum
 		New(maximum=100)
 			maximum_volume = maximum
 
-			//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-			if(!chemical_reagents_list)
-				//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
-				var/paths = typesof(/datum/reagent) - /datum/reagent
-				chemical_reagents_list = list()
-				for(var/path in paths)
-					var/datum/reagent/D = new path()
-					chemical_reagents_list[D.id] = D
-			if(!chemical_reactions_list)
-				//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
-				// It is filtered into multiple lists within a list.
-				// For example:
-				// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
-
-				var/paths = typesof(/datum/chemical_reaction) - /datum/chemical_reaction
-				chemical_reactions_list = list()
-
-				for(var/path in paths)
-
-					var/datum/chemical_reaction/D = new path()
-					var/list/reaction_ids = list()
-
-					if(D && D.required_reagents && D.required_reagents.len)
-						for(var/reaction in D.required_reagents)
-							reaction_ids += reaction
-
-					// Create filters based on each reagent id in the required reagents list
-					for(var/id in reaction_ids)
-						if(!chemical_reactions_list[id])
-							chemical_reactions_list[id] = list()
-						chemical_reactions_list[id] += D
-						break // Don't bother adding ourselves to other reagent ids, it is redundant.
-
 		proc
 
 			remove_any(var/amount=1)
