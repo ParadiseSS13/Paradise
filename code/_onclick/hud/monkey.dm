@@ -154,6 +154,8 @@
 	inv_box.screen_loc = ui_monkey_mask
 	inv_box.slot_id = slot_wear_mask
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
 	inv_box = new /obj/screen/inventory()
@@ -164,6 +166,8 @@
 	inv_box.screen_loc = ui_back
 	inv_box.slot_id = slot_back
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
 	mymob.throw_icon = new /obj/screen()

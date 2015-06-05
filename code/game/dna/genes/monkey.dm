@@ -41,7 +41,7 @@
 	H.set_species(H.species.primitive_form)
 
 	if(H.hud_used)
-		H.hud_used.monkey_hud()
+		H.hud_used.instantiate()
 
 	H << "<B>You are now a [H.species.name]. </B>"
 	qdel(animation)
@@ -79,10 +79,10 @@
 		H.gib()
 		return
 
-	if(H.hud_used)
-		H.hud_used.human_hud()
-
 	H.set_species(H.species.greater_form)
+
+	if(H.hud_used)
+		H.hud_used.instantiate()
 
 	H << "<B>You are now a [H.species.name]. </B>"
 	qdel(animation)
