@@ -388,7 +388,17 @@ datum/objective/silence
 
 
 datum/objective/escape
-	explanation_text = "Escape on the shuttle or an escape pod alive and without being in custody."
+	explanation_text = "Escape on the shuttle or an escape pod alive and free."
+	var/escape_areas = list(/area/shuttle/escape/centcom,
+		/area/shuttle/escape_pod1/centcom,
+		/area/shuttle/escape_pod1/transit,
+		/area/shuttle/escape_pod2/centcom,
+		/area/shuttle/escape_pod2/transit,
+		/area/shuttle/escape_pod3/centcom,
+		/area/shuttle/escape_pod3/transit,
+		/area/shuttle/escape_pod5/centcom,
+		/area/shuttle/escape_pod5/transit,
+		/area/centcom/evac)
 
 	check_completion()
 		if(issilicon(owner.current))
@@ -399,27 +409,14 @@ datum/objective/escape
 			return 0
 		if(!owner.current || owner.current.stat == DEAD)
 			return 0
+		if(owner.current.restrained())
+			return 0
 		var/turf/location = get_turf(owner.current.loc)
 		if(!location)
 			return 0
 
-		if(istype(location, /turf/simulated/shuttle/floor4)) // Fails tratiors if they are in the shuttle brig -- Polymorph
-			if(istype(owner.current, /mob/living/carbon))
-				var/mob/living/carbon/C = owner.current
-				if (!C.handcuffed)
-					return 1
-			return 0
-
-		var/area/check_area = location.loc
-		if(istype(check_area, /area/shuttle/escape/centcom))
-			return 1
-		if(istype(check_area, /area/shuttle/escape_pod1/centcom))
-			return 1
-		if(istype(check_area, /area/shuttle/escape_pod2/centcom))
-			return 1
-		if(istype(check_area, /area/shuttle/escape_pod3/centcom))
-			return 1
-		if(istype(check_area, /area/shuttle/escape_pod5/centcom))
+		var/area/check_area = get_area(location)
+		if(check_area && check_area.type in escape_areas)
 			return 1
 		else
 			return 0

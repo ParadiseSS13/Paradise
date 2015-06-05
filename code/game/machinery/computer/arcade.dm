@@ -6,6 +6,7 @@
 	light_color = "#00FF00"
 
 	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,
+							/obj/item/toy/AI								= 2,
 							/obj/item/clothing/under/syndicate/tacticool	= 2,
 							/obj/item/toy/blink								= 2,
 							/obj/item/weapon/storage/box/fakesyndiesuit		= 2,

@@ -3,7 +3,7 @@
 	config_tag = "meteor"
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-	var/const/meteordelay = 2000
+	var/const/initialmeteordelay = 3000
 	var/nometeors = 1
 	required_players = 0
 
@@ -20,21 +20,25 @@
 	defer_powernet_rebuild = 2//Might help with the lag
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
-	spawn(meteordelay)
+	spawn(initialmeteordelay)
 		nometeors = 0
 	..()
 
 
 /datum/game_mode/meteor/process()
 	if(nometeors) return
-	/*if(prob(80))
-		spawn()
-			dust_swarm("norm")
-	else
-		spawn()
-			dust_swarm("strong")*/
-	spawn() spawn_meteors(6)
+	sendmeteors()
 
+
+/datum/game_mode/meteor/proc/sendmeteors()
+	nometeors = 1
+	var/waveduration = world.timeofday + rand(3000,9000)
+	var/waitduration = rand(3000,9000)
+	while(waveduration - world.timeofday > 0)
+		sleep(20)
+		spawn() spawn_meteors(6)
+	spawn(waitduration)
+		nometeors = 0
 
 /datum/game_mode/meteor/declare_completion()
 	var/text

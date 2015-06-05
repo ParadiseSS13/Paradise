@@ -1259,6 +1259,28 @@ obj/item/toy/cards/deck/syndicate/black
 		user << "<span class='alert'>Nothing happens.</span>"
 
 
+/*
+ * AI core prizes
+ */
+/obj/item/toy/AI
+	name = "toy AI"
+	desc = "A little toy model AI core with real law announcing action!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "AI"
+	w_class = 2.0
+	var/cooldown = 0
+
+/obj/item/toy/AI/attack_self(mob/user)
+	if(!cooldown) //for the sanity of everyone
+		var/message = generate_ion_law()
+		user << "<span class='notice'>You press the button on [src].</span>"
+		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
+		cooldown = 1
+		spawn(30) cooldown = 0
+		return
+	..()
+
 /obj/item/toy/owl
 	name = "owl action figure"
 	desc = "An action figure modeled after 'The Owl', defender of justice."

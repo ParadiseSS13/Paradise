@@ -14,7 +14,6 @@
 	if(user.has_brain_worms())
 		user << "<span class='warning'>We cannot perform this ability at the present time!</span>"
 		return
-	user << "<span class='warning'>Our genes cry out!</span>"
 
 	var/mob/living/carbon/human/H = user
 
@@ -29,5 +28,6 @@
 	for(var/obj/item/weapon/implant/W in H)
 		implants += W
 	H.monkeyize()
+	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
 	feedback_add_details("changeling_powers","LF")
 	return 1

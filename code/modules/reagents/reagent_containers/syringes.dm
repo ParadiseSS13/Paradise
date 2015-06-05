@@ -503,6 +503,15 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
+/obj/item/weapon/reagent_containers/syringe/epinephrine
+	name = "Syringe (Epinephrine)"
+	desc = "Contains epinephrine - used to stabilize patients."
+	New()
+		..()
+		reagents.add_reagent("epinephrine", 15)
+		mode = SYRINGE_INJECT
+		update_icon()
+
 /obj/item/weapon/reagent_containers/syringe/insulin
 	name = "Syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."

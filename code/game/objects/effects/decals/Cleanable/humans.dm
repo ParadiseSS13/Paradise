@@ -209,6 +209,14 @@ var/global/list/image/splatter_cache=list()
                                 break
 
 
+/obj/effect/decal/cleanable/blood/old/New()
+	..()
+	dry()
+
+/obj/effect/decal/cleanable/blood/gibs/old/New()
+	..()
+	dry()
+
 /obj/effect/decal/cleanable/mucus
 	name = "mucus"
 	desc = "Disgusting mucus."

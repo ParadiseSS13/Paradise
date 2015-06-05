@@ -1,7 +1,8 @@
-/datum/hud/proc/monkey_hud(var/ui_style='icons/mob/screen1_old.dmi')
+/datum/hud/proc/monkey_hud(var/ui_style='icons/mob/screen1_White.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 
 	src.adding = list()
 	src.other = list()
+	src.hotkeybuttons = list() //These can be disabled for hotkey usersx
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
@@ -10,8 +11,10 @@
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style
-	using.icon_state = (mymob.a_intent == "harm" ? "harm" : mymob.a_intent)
+	using.icon_state = "intent_"+mymob.a_intent
 	using.screen_loc = ui_acti
+	using.color = ui_color
+	using.alpha = ui_alpha
 	using.layer = 20
 	src.adding += using
 	action_intent = using
@@ -26,6 +29,7 @@
 	using.name = "help"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	help_intent = using
@@ -37,6 +41,7 @@
 	using.name = "disarm"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	disarm_intent = using
@@ -48,6 +53,7 @@
 	using.name = "grab"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	grab_intent = using
@@ -59,6 +65,7 @@
 	using.name = "harm"
 	using.icon = ico
 	using.screen_loc = ui_acti
+	using.alpha = ui_alpha
 	using.layer = 21
 	src.adding += using
 	hurt_intent = using
@@ -72,6 +79,8 @@
 	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
 	using.screen_loc = ui_movi
 	using.layer = 20
+	using.color = ui_color
+	using.alpha = ui_alpha
 	src.adding += using
 	move_intent = using
 
@@ -81,6 +90,8 @@
 	using.icon_state = "act_drop"
 	using.screen_loc = ui_drop_throw
 	using.layer = 19
+	using.color = ui_color
+	using.alpha = ui_alpha
 	src.adding += using
 
 	inv_box = new /obj/screen/inventory()
@@ -93,6 +104,8 @@
 	inv_box.screen_loc = ui_rhand
 	inv_box.slot_id = slot_r_hand
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.r_hand_hud_object = inv_box
 	src.adding += inv_box
 
@@ -106,25 +119,31 @@
 	inv_box.screen_loc = ui_lhand
 	inv_box.slot_id = slot_l_hand
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.l_hand_hud_object = inv_box
 	src.adding += inv_box
 
-	using = new /obj/screen()
+	using = new /obj/screen/inventory()
 	using.name = "hand"
 	using.dir = SOUTH
 	using.icon = ui_style
 	using.icon_state = "hand1"
 	using.screen_loc = ui_swaphand1
 	using.layer = 19
+	using.color = ui_color
+	using.alpha = ui_alpha
 	src.adding += using
 
-	using = new /obj/screen()
+	using = new /obj/screen/inventory()
 	using.name = "hand"
 	using.dir = SOUTH
 	using.icon = ui_style
 	using.icon_state = "hand2"
 	using.screen_loc = ui_swaphand2
 	using.layer = 19
+	using.color = ui_color
+	using.alpha = ui_alpha
 	src.adding += using
 
 	inv_box = new /obj/screen/inventory()
@@ -135,6 +154,8 @@
 	inv_box.screen_loc = ui_monkey_mask
 	inv_box.slot_id = slot_wear_mask
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
 	inv_box = new /obj/screen/inventory()
@@ -145,6 +166,8 @@
 	inv_box.screen_loc = ui_back
 	inv_box.slot_id = slot_back
 	inv_box.layer = 19
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
 	mymob.throw_icon = new /obj/screen()
@@ -152,6 +175,9 @@
 	mymob.throw_icon.icon_state = "act_throw_off"
 	mymob.throw_icon.name = "throw"
 	mymob.throw_icon.screen_loc = ui_drop_throw
+	mymob.throw_icon.color = ui_color
+	mymob.throw_icon.alpha = ui_alpha
+	src.hotkeybuttons += mymob.throw_icon
 
 	mymob.oxygen = new /obj/screen()
 	mymob.oxygen.icon = ui_style
@@ -195,54 +221,82 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_health
 
+	mymob.healthdoll = new /obj/screen()
+	mymob.healthdoll.icon = ui_style
+	mymob.healthdoll.icon_state = "healthdoll_DEAD"
+	mymob.healthdoll.name = "health doll"
+	mymob.healthdoll.screen_loc = ui_healthdoll
+
+	mymob.nutrition_icon = new /obj/screen()
+	mymob.nutrition_icon.icon = ui_style
+	mymob.nutrition_icon.icon_state = "nutrition0"
+	mymob.nutrition_icon.name = "nutrition"
+	mymob.nutrition_icon.screen_loc = ui_nutrition
+
 	mymob.pullin = new /obj/screen()
 	mymob.pullin.icon = ui_style
 	mymob.pullin.icon_state = "pull0"
 	mymob.pullin.name = "pull"
 	mymob.pullin.screen_loc = ui_pull_resist
+	src.hotkeybuttons += mymob.pullin
 
 	mymob.blind = new /obj/screen()
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
-	mymob.blind.name = " "
+	mymob.blind.name = "blind"
 	mymob.blind.screen_loc = "1,1"
+	mymob.blind.mouse_opacity = 0
 	mymob.blind.layer = 0
+
+	mymob.damageoverlay = new /obj/screen()
+	mymob.damageoverlay.icon = 'icons/mob/screen1_full.dmi'
+	mymob.damageoverlay.icon_state = "oxydamageoverlay0"
+	mymob.damageoverlay.name = "dmg"
+	mymob.damageoverlay.screen_loc = "1,1"
+	mymob.damageoverlay.mouse_opacity = 0
+	mymob.damageoverlay.layer = 18.1 //The black screen overlay sets layer to 18 to display it, this one has to be just on top.
 
 	mymob.flash = new /obj/screen()
 	mymob.flash.icon = ui_style
 	mymob.flash.icon_state = "blank"
 	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "1,1 to 15,15"
+	mymob.flash.screen_loc = "1,1 to 17,17"
 	mymob.flash.layer = 17
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
+	mymob.pain = new /obj/screen( null )
+
+	mymob.zone_sel = new /obj/screen/zone_sel( null )
 	mymob.zone_sel.icon = ui_style
+	mymob.zone_sel.color = ui_color
+	mymob.zone_sel.alpha = ui_alpha
 	mymob.zone_sel.overlays.Cut()
 	mymob.zone_sel.overlays += image('icons/mob/zone_sel.dmi', "[mymob.zone_sel.selecting]")
 
 	//Handle the gun settings buttons
 	mymob.gun_setting_icon = new /obj/screen/gun/mode(null)
+	//mymob.gun_setting_icon.color = ui_color
+	mymob.gun_setting_icon.alpha = ui_alpha
+
+	mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//mymob.item_use_icon.color = ui_color
+	mymob.item_use_icon.alpha = ui_alpha
+
+	/*mymob.gun_move_icon = new /obj/screen/gun/move(null)
+	//mymob.gun_move_icon.color = ui_color
+	mymob.gun_move_icon.alpha = ui_alpha
+
+	mymob.gun_run_icon = new /obj/screen/gun/run(null)
+	//mymob.gun_run_icon.color = ui_color
+	mymob.gun_run_icon.alpha = ui_alpha*/
+
 	if (mymob.client)
 		if (mymob.client.gun_mode) // If in aim mode, correct the sprite
 			mymob.gun_setting_icon.dir = 2
-	for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
-		if (G.target)
-			mymob.item_use_icon = new /obj/screen/gun/item(null)
-			if (mymob.client.target_can_click)
-				mymob.item_use_icon.dir = 1
-			src.adding += mymob.item_use_icon
-			/*mymob.gun_move_icon = new /obj/screen/gun/move(null)
-			if (mymob.client.target_can_move)
-				mymob.gun_move_icon.dir = 1
-				mymob.gun_run_icon = new /obj/screen/gun/run(null)
-				if (mymob.client.target_can_run)
-					mymob.gun_run_icon.dir = 1
-				src.adding += mymob.gun_run_icon
-			src.adding += mymob.gun_move_icon*/
+
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.pullin, mymob.blind, mymob.flash, mymob.gun_setting_icon) //, mymob.hands, mymob.rest, mymob.sleep, mymob.mach )
-	mymob.client.screen += src.adding + src.other
+	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, mymob.gun_setting_icon) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
+	mymob.client.screen += src.adding + src.hotkeybuttons
 
 	return

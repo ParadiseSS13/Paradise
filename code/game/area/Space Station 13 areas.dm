@@ -1069,6 +1069,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Bar"
 	icon_state = "bar"
 
+/area/crew_quarters/theatre
+	name = "\improper Theatre"
+	icon_state = "Theatre"
+
 /area/crew_quarters/mrchangs
 	name = "\improper Mr Chang's"
 	icon_state = "Theatre"
@@ -1744,6 +1748,10 @@ area/security/podbay
 	name = "\improper Server Coldroom"
 	icon_state = "servercold"
 
+/area/toxins/explab
+	name = "\improper Experimentation Lab"
+	icon_state = "toxmisc"
+
 //Storage
 
 /area/storage/tools
@@ -1859,6 +1867,10 @@ area/security/podbay
 	name = "\improper Derelict Solar Control"
 	icon_state = "engine"
 
+/area/derelict/se_solar
+	name = "South East Solars"
+	icon_state = "engine"
+
 /area/derelict/crew_quarters
 	name = "\improper Derelict Crew Quarters"
 	icon_state = "fitness"
@@ -1910,6 +1922,14 @@ area/security/podbay
 /area/derelict/singularity_engine
 	name = "\improper Derelict Singularity Engine"
 	icon_state = "engine"
+
+/area/derelict/gravity_generator
+	name = "\improper Derelict Gravity Generator Room"
+	icon_state = "red"
+
+/area/derelict/atmospherics
+	name = "Derelict Atmospherics"
+	icon_state = "red"
 
 //HALF-BUILT STATION (REPLACES DERELICT IN BAYCODE, ABOVE IS LEFT FOR DOWNSTREAM)
 
@@ -2203,6 +2223,10 @@ area/security/podbay
 /area/tcommsat/computer
 	name = "\improper Telecoms Control Room"
 	icon_state = "tcomsatcomp"
+
+/area/tcommsat/server
+	name = "\improper Telecoms Server Room"
+	icon_state = "tcomsatcham"
 
 /area/tcommsat/lounge
 	name = "\improper Telecommunications Satellite Lounge"

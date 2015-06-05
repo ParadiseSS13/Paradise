@@ -336,7 +336,7 @@ var/list/sting_paths
 
 //Reselect powers
 /datum/changeling/proc/lingRespec(var/mob/user)
-	if(!ishuman(user))
+	if(!ishuman(user) || issmall(user))
 		user << "<span class='danger'>We can't remove our evolutions in this form!</span>"
 		return
 	if(canrespec)
