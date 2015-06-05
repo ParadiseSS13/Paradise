@@ -10,7 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "_maps\cyberiad.dm"
+#include "_maps\metastation.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\stylesheet.dm"
@@ -590,6 +590,7 @@
 #include "code\game\objects\effects\decals\Cleanable\tracks.dm"
 #include "code\game\objects\effects\spawners\bombspawner.dm"
 #include "code\game\objects\effects\spawners\gibspawner.dm"
+#include "code\game\objects\effects\spawners\lootdrop.dm"
 #include "code\game\objects\effects\spawners\vaultspawner.dm"
 #include "code\game\objects\items\ashtray.dm"
 #include "code\game\objects\items\blueprints.dm"

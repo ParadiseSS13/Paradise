@@ -28,6 +28,9 @@
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
 
+/obj/machinery/atmospherics/unary/outlet_injector/on
+	on = 1
+
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
 	if(!powered())
 		icon_state = "off"
