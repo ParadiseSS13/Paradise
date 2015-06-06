@@ -224,8 +224,8 @@
 
 			var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
 			var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32
-			var/ox = round(544/2) //"origin" x - Basically center of the screen. This is a bad way of doing it because if you are able to view MORE than 17 tiles at a time your aim will get fucked.
-			var/oy = round(544/2) //"origin" y - Basically center of the screen.
+			var/ox = round(480/2) //"origin" x - Basically center of the screen. This is a bad way of doing it because if you are able to view MORE than 17 tiles at a time your aim will get fucked.
+			var/oy = round(480/2) //"origin" y - Basically center of the screen.
 
 			var/angle = Atan2(y - oy, x - ox)
 
