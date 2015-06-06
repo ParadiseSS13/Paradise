@@ -45,7 +45,7 @@
 	/obj/item/weapon/bonesetter,\
 	/obj/item/weapon/butch,\
 	/obj/item/weapon/caution,\
-	/obj/item/weapon/caution/cone,\
+	/obj/item/clothing/head/cone,\
 	/obj/item/weapon/crowbar,\
 	/obj/item/weapon/clipboard,\
 	/obj/item/weapon/stock_parts/cell,\

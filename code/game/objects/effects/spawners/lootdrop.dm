@@ -15,8 +15,7 @@
 				loot.Remove(lootspawn)
 
 			if(lootspawn)
-				if(!istext(lootspawn))
-					new lootspawn(get_turf(src))
+				new lootspawn(get_turf(src))
 	qdel(src)
 
 /obj/effect/spawner/lootdrop/armory_contraband
@@ -27,6 +26,7 @@
 				/obj/item/weapon/gun/projectile/automatic/pistol = 8,
 				/obj/item/weapon/gun/projectile/shotgun/combat = 5,
 				/obj/item/weapon/gun/projectile/revolver/mateba,
+				/obj/item/weapon/gun/projectile/automatic/deagle
 				)
 
 /obj/effect/spawner/lootdrop/maintenance
@@ -61,7 +61,7 @@
 				/obj/item/bodybag = 1,
 				/obj/item/clothing/glasses/meson = 2,
 				/obj/item/clothing/glasses/sunglasses = 1,
-				/obj/item/clothing/gloves/color/fyellow = 1,
+				/obj/item/clothing/gloves/color/yellow/fake = 1,
 				/obj/item/clothing/head/hardhat = 1,
 				/obj/item/clothing/head/hardhat/red = 1,
 				/obj/item/clothing/head/that{throwforce = 1; throwing = 1} = 1,
@@ -79,7 +79,7 @@
 				/obj/item/device/t_scanner = 6,
 				/obj/item/stack/cable_coil = 4,
 				/obj/item/stack/cable_coil{amount = 5} = 6,
-				/obj/item/stack/medical/bruise_pack = 1,
+				/obj/item/stack/medical/advanced/bruise_pack = 1,
 				/obj/item/stack/rods{amount = 10} = 9,
 				/obj/item/stack/rods{amount = 23} = 1,
 				/obj/item/stack/rods{amount = 50} = 1,
@@ -89,6 +89,7 @@
 				/obj/item/stack/sheet/rglass = 1,
 				/obj/item/weapon/book/manual/engineering_construction = 1,
 				/obj/item/weapon/book/manual/engineering_hacking = 1,
+				/obj/item/clothing/head/cone = 1,
 				/obj/item/weapon/coin/silver = 1,
 				/obj/item/weapon/coin/twoheaded = 1,
 				/obj/item/weapon/contraband/poster = 1,
@@ -99,6 +100,7 @@
 				/obj/item/weapon/hand_labeler = 1,
 				/obj/item/weapon/paper/crumpled = 1,
 				/obj/item/weapon/pen = 1,
+				/obj/item/weapon/plantspray/pests = 1,
 				/obj/item/weapon/stock_parts/cell = 3,
 				/obj/item/weapon/storage/belt/utility = 2,
 				/obj/item/weapon/storage/box = 2,
@@ -113,5 +115,6 @@
 				/obj/item/weapon/weldingtool = 3,
 				/obj/item/weapon/wirecutters = 1,
 				/obj/item/weapon/wrench = 4,
+//				/obj/item/weapon/relic = 3, //disabled until we add in the E.X.P.E.R.I-MENTOR
 				"" = 11
 				)
