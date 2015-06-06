@@ -93,7 +93,7 @@
 	icon_state = "scalpel_laser1_on"
 	item_state = "scalpel"
 	damtype = "fire"
-	hitsound = 'sound/weapons/sear2.ogg'
+	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/scalpel/laser2
 	name = "laser scalpel"
@@ -102,7 +102,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	force = 12.0
-	hitsound = 'sound/weapons/sear2.ogg'
+	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/scalpel/laser3
 	name = "laser scalpel"
@@ -111,7 +111,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	force = 15.0
-	hitsound = 'sound/weapons/sear2.ogg'
+	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/scalpel/manager
 	name = "incision management system"
@@ -120,7 +120,7 @@
 	item_state = "scalpel"
 	damtype = "fire"
 	force = 18.0
-	hitsound = 'sound/weapons/sear2.ogg'
+	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/circular_saw
 	name = "circular saw"
