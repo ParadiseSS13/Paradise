@@ -1,4 +1,3 @@
-sound/music/b12_combined_start.ogg
 sound/music/main.ogg
 sound/music/THUNDERDOME.ogg
 sound/music/space.ogg
