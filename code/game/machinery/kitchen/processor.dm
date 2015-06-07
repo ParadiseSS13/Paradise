@@ -177,10 +177,13 @@
 			"<span class='notice'>You hear a food processor.</span>")
 
 		playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+		var/offset = prob(50) ? -2 : 2
+		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = P.time*5) //start shaking
 		use_power(500)
 
 		sleep(P.time)
 
+		pixel_x = initial(pixel_x) //return to its spot after shaking
 		P.process(src.loc, O)
 		src.processing = 0
 

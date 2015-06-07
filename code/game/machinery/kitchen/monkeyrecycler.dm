@@ -28,8 +28,12 @@
 					del(target)
 					user << "\blue You stuff the monkey in the machine."
 					playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
+					var/offset = prob(50) ? -2 : 2
+					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 					use_power(500)
 					src.grinded++
+					sleep(50)
+					pixel_x = initial(pixel_x)
 					user << "\blue The machine now has [grinded] monkeys worth of material stored."
 			else
 				user << "\red The machine only accepts monkeys!"
