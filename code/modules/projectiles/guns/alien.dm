@@ -103,7 +103,7 @@
 //Projectile.
 /obj/item/projectile/energy/sonic
 	name = "distortion"
-	icon = 'icons/obj/machines/particle_accelerator2.dmi'
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "particle"
 	damage = 60
 	damage_type = BRUTE
