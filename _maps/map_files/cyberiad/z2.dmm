@@ -1775,7 +1775,7 @@
 "Ig" = (/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/unsimulated/floor{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/tdome/tdomeobserve)
 "Ih" = (/turf/unsimulated/floor{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/tdome/tdomeobserve)
 "Ii" = (/obj/machinery/vending/coffee,/turf/unsimulated/floor{tag = "icon-redbluefull (WEST)"; icon_state = "redbluefull"; dir = 8},/area/tdome/tdomeobserve)
-"Ij" = (/obj/structure/table/reinforced,/obj/item/weapon/melee/telebaton,/obj/item/weapon/paper/Court,/obj/item/weapon/pen,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
+"Ij" = (/obj/structure/table/reinforced,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/paper/Court,/obj/item/weapon/pen,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "Ik" = (/obj/structure/table/reinforced,/obj/item/weapon/scalpel,/obj/item/weapon/storage/box/syndie_kit/mindslave,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "Il" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/mousetraps,/obj/item/weapon/storage/box/trackimp,/obj/item/weapon/storage/box/syndie_kit/imp_explosive,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "Im" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/flashbangs,/obj/item/weapon/storage/box/flashes,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
