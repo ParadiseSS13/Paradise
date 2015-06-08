@@ -220,3 +220,8 @@
 	while(slot_start != slot_num) //If we wrap around without finding any free slots, just give up.
 
 	return
+
+/mob/living/silicon/robot/unEquip(obj/item/I)
+	if(I == module_active)
+		deselect_module(get_selected_module())
+	return ..()
