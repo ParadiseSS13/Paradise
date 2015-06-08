@@ -32,6 +32,7 @@
 	SetParalysis(min(paralysis, 30))
 	SetWeakened(min(weakened, 20))
 	sleeping = 0
+	ear_deaf = 0
 	adjustBruteLoss(0)
 	adjustToxLoss(0)
 	adjustOxyLoss(0)

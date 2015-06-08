@@ -104,6 +104,11 @@
 	if(health > maxHealth)
 		health = maxHealth
 
+	if(sleeping)
+		sleeping = max(sleeping-1, 0)
+	if(ear_deaf)
+		ear_deaf = max(ear_deaf-1, 0)
+
 	handle_stunned()
 	handle_weakened()
 	handle_paralysed()
