@@ -38,12 +38,10 @@ var/list/sounds_cache = list()
 	if(!check_rights(R_SOUNDS))	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += "--CANCEL--"
 	sounds += sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list", "--CANCEL--") in sounds
-
-	if(melody == "--CANCEL--")	return
+	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	if(!melody)	return
 
 	play_sound(melody)
 	feedback_add_details("admin_verb","PSS") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
@@ -58,15 +56,14 @@ var/list/sounds_cache = list()
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += "--CANCEL--"
 	sounds += sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list", "--CANCEL--") in sounds
-
-	if(melody == "--CANCEL--")	return
+	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	if(!melody)	return
 
 	var/cvol = 35
 	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	if(!inputvol)	return
 	if(inputvol && inputvol >= 1 && inputvol <= 70)
 		cvol = inputvol
 
