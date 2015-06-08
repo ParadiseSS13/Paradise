@@ -3,7 +3,7 @@
 	vampire_blood_display = new /obj/screen()
 	vampire_blood_display.name = "Vampire Blood"
 	vampire_blood_display.icon_state = "dark128"
-	vampire_blood_display.screen_loc = "16:28,9:15"
+	vampire_blood_display.screen_loc = "EAST-1:28,CENTER+1:15"
 	vampire_blood_display.layer = 20
 
 	mymob.client.screen += list(vampire_blood_display)

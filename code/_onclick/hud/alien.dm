@@ -7,7 +7,7 @@
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
-	
+
 	using = new /obj/screen()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
@@ -16,7 +16,7 @@
 	using.screen_loc = ui_acti
 	using.layer = 20
 	src.adding += using
-	action_intent = using	
+	action_intent = using
 
 	using = new /obj/screen()
 	using.name = "mov_intent"
@@ -26,8 +26,8 @@
 	using.screen_loc = ui_movi
 	using.layer = 20
 	src.adding += using
-	move_intent = using	
-	
+	move_intent = using
+
 	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
 		mymob.leap_icon = new /obj/screen()
 		mymob.leap_icon.icon = 'icons/mob/screen1_alien.dmi'
@@ -35,7 +35,7 @@
 		mymob.leap_icon.icon_state = "leap_off"
 		mymob.leap_icon.screen_loc = ui_alien_storage_r
 		src.adding += mymob.leap_icon
-		
+
 //equippable shit
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "r_hand"
@@ -90,7 +90,7 @@
 	using.screen_loc = ui_pull_resist
 	using.layer = 19
 	src.adding += using
-	
+
 	using = new /obj/screen()
 	using.name = "drop"
 	using.icon = 'icons/mob/screen1_alien.dmi'
@@ -133,8 +133,8 @@
 	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
 	nightvisionicon.icon_state = "nightvision1"
 	nightvisionicon.name = "night vision"
-	nightvisionicon.screen_loc = ui_alien_nightvision	
-	
+	nightvisionicon.screen_loc = ui_alien_nightvision
+
 	mymob.pullin = new /obj/screen()
 	mymob.pullin.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.pullin.icon_state = "pull0"
@@ -151,14 +151,14 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "1,1"
+	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
 	mymob.blind.layer = 0
 
 	mymob.flash = new /obj/screen()
 	mymob.flash.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.flash.icon_state = "blank"
 	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "1,1 to 15,15"
+	mymob.flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	mymob.flash.layer = 17
 
 	mymob.zone_sel = new /obj/screen/zone_sel()

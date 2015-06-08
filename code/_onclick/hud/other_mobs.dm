@@ -45,7 +45,7 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "1,1"
+	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
 	mymob.blind.layer = 0
 
 

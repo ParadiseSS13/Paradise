@@ -49,12 +49,12 @@
 	mymob.healths.icon_state = "health0"
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_alien_health
-	
+
 	nightvisionicon = new /obj/screen()
 	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
 	nightvisionicon.icon_state = "nightvision1"
 	nightvisionicon.name = "night vision"
-	nightvisionicon.screen_loc = ui_alien_nightvision	
+	nightvisionicon.screen_loc = ui_alien_nightvision
 
 	mymob.pullin = new /obj/screen()
 	mymob.pullin.icon = 'icons/mob/screen1_alien.dmi'
@@ -66,14 +66,14 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "1,1"
+	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
 	mymob.blind.layer = 0
 
 	mymob.flash = new /obj/screen()
 	mymob.flash.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.flash.icon_state = "blank"
 	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "1,1 to 15,15"
+	mymob.flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	mymob.flash.layer = 17
 
 	mymob.zone_sel = new /obj/screen/zone_sel()

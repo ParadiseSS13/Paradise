@@ -8,7 +8,7 @@
 	flash = new /obj/screen()
 	flash.icon_state = "blank"
 	flash.name = "flash"
-	flash.screen_loc = "1,1 to 15,15"
+	flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	flash.layer = 17
 	blind = new /obj/screen()
 	blind.icon_state = "black"
