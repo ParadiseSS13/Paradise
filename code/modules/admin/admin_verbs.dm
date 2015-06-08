@@ -65,8 +65,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/aooc,
 	/client/proc/freeze,
 	/client/proc/freezemecha,
-	/client/proc/alt_check
-
+	/client/proc/alt_check,
+	/client/proc/secrets
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -99,7 +99,6 @@ var/list/admin_verbs_event = list(
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
-	/client/proc/secrets,
 	/client/proc/event_manager_panel
 	)
 

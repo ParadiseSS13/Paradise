@@ -38,6 +38,7 @@ var/global/nologevent = 0
 	if (!istype(src,/datum/admins))
 		usr << "Error: you are not an admin!"
 		return
+	if(!check_rights(R_ADMIN|R_MOD)) return
 
 	var/body = "<html><head><title>Options for [M.key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
