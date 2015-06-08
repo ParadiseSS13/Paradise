@@ -90,10 +90,6 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	flags = CONDUCT
 	origin_tech = "materials=1"
 
-/obj/item/stack/sheet/metal/full/New()
-	..()
-	amount = 50
-
 /obj/item/stack/sheet/metal/cyborg
 	name = "metal"
 	desc = "Sheets made out off metal. It has been dubbed Metal Sheets."
@@ -135,10 +131,6 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
 	recipes = plasteel_recipes
 	return ..()
-
-/obj/item/stack/sheet/plasteel/full/New(var/loc, var/amount=null)
-	amount = 50
-	..(loc, amount)
 
 /*
  * Wood
