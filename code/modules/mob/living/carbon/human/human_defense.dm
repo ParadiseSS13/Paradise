@@ -379,6 +379,9 @@ emp_act
 			return
 
 		var/obj/item/organ/external/affecting = get_organ(zone)
+		if(!affecting)
+			visible_message("\blue \The [O] misses [src] narrowly!")
+			return
 		var/hit_area = affecting.name
 
 		src.visible_message("\red [src] has been hit in the [hit_area] by [O].")
