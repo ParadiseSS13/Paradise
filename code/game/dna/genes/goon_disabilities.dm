@@ -12,7 +12,7 @@
 	desc = "Completely shuts down the speech center of the subject's brain."
 	activation_message   = "You feel unable to express yourself at all."
 	deactivation_message = "You feel able to speak freely again."
-	sdisability = 1
+	sdisability = MUTE
 
 	New()
 		..()
