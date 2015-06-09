@@ -48,6 +48,7 @@
 
 /obj/item/organ/brain/removed(var/mob/living/user)
 
+	if(!owner) return ..() // Probably a redundant removal; just bail
 	name = "[owner.real_name]'s brain"
 
 	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
