@@ -182,7 +182,7 @@
 	if (you_are)
 		dat = "<B>\red You are a Vampire! \black</br></B>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 	vampire.current << dat
 	vampire.current << "<B>You must complete the following tasks:</B>"
 
@@ -461,7 +461,8 @@ You are weak to holy things. Don't go into space and avoid the Chaplain, the cha
 
 		if(T.density)
 			return
-	vamp_burn()*/
+	vamp_burn()
+*/
 
 /mob/living/carbon/human/proc/handle_vampire()
 	if(hud_used)
@@ -472,13 +473,13 @@ You are weak to holy things. Don't go into space and avoid the Chaplain, the cha
 		hud_used.vampire_blood_display.maptext_height = 26
 		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"
 	handle_vampire_cloak()
-	/*if(istype(loc, /turf/space))
+/*	if(istype(loc, /turf/space))
 		check_sun()
 	if(istype(loc.loc, /area/chapel) && !(VAMP_FULL in src.mind.vampire.powers))
-		vamp_burn()
+		vamp_burn()*/
 	mind.vampire.nullified = max(0, mind.vampire.nullified - 1)
 
-mob/living/carbon/human/proc/vamp_burn()
+/*mob/living/carbon/human/proc/vamp_burn()
 	if(prob(35))
 		switch(health)
 			if(80 to 100)
@@ -499,4 +500,5 @@ mob/living/carbon/human/proc/vamp_burn()
 				fire_stacks++
 				IgniteMob()
 	adjustFireLoss(3)
-	return*/
+	return
+*/

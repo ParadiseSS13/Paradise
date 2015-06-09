@@ -334,11 +334,18 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	implanted(mob/M)
 		if(!istype(M, /mob/living/carbon/human))	return 0
 		var/mob/living/carbon/human/H = M
-		/*if(H.mind in ticker.mode.head_revolutionaries)
+		if(H.mind in ticker.mode.head_revolutionaries)
 			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 			return 0
-		else if(H.mind in ticker.mode:revolutionaries)
-			ticker.mode:remove_revolutionary(H.mind)*/
+		else if(H.mind in ticker.mode.revolutionaries)
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
+			return 0
+		else if(H.mind in ticker.mode.cult)
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
+			return 0
+		else if(prob(10))
+			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
+			return 0
 		H << "<span class='notice'>Your mind feels protected from brainwashing.</span>"
 		return 1
 
