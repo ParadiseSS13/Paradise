@@ -153,6 +153,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 /obj/item/stack/sheet/wood
 	name = "wooden planks"
 	desc = "One can only guess that this is a bunch of wood."
+	gender = PLURAL
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"

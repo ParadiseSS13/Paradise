@@ -380,7 +380,9 @@ emp_act
 
 		var/obj/item/organ/external/affecting = get_organ(zone)
 		if(!affecting)
-			visible_message("\blue \The [O] misses [src] narrowly!")
+			var/missverb = (O.gender == PLURAL) ? "whizz" : "whizzes"
+			visible_message("<span class='notice'>\The [O] [missverb] past [src]'s missing [parse_zone(zone)]!</span>",
+				"<span class='notice'>\The [O] [missverb] past your missing [parse_zone(zone)]!</span>")
 			return
 		var/hit_area = affecting.name
 
