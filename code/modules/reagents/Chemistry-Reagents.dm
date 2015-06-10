@@ -445,7 +445,7 @@ datum
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
 
-/*			on_mob_life(var/mob/living/M as mob)
+			on_mob_life(var/mob/living/M as mob)
 				if(ishuman(M))
 					if((M.mind in ticker.mode.cult) && prob(10))
 						M << "\blue A cooling sensation from inside you brings you an untold calmness."
@@ -473,7 +473,6 @@ datum
 								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				holder.remove_reagent(src.id, 10 * REAGENTS_METABOLISM) //high metabolism to prevent extended uncult rolls.
-*/
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				// Vampires have their powers weakened by holy water applied to the skin.

@@ -445,7 +445,7 @@ You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 	//world << "Removed [vampire_mind.current.name] from vampire shit"
 	vampire_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>"
 
-/*/mob/living/carbon/human/proc/check_sun()
+/mob/living/carbon/human/proc/check_sun()
 
 	var/ax = x
 	var/ay = y
@@ -462,7 +462,6 @@ You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 		if(T.density)
 			return
 	vamp_burn()
-*/
 
 /mob/living/carbon/human/proc/handle_vampire()
 	if(hud_used)
@@ -473,13 +472,13 @@ You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 		hud_used.vampire_blood_display.maptext_height = 26
 		hud_used.vampire_blood_display.maptext = "<div align='left' valign='top' style='position:relative; top:0px; left:6px'> U:<font color='#33FF33' size='1'>[mind.vampire.bloodusable]</font><br> T:<font color='#FFFF00' size='1'>[mind.vampire.bloodtotal]</font></div>"
 	handle_vampire_cloak()
-/*	if(istype(loc, /turf/space))
+	if(istype(loc, /turf/space))
 		check_sun()
 	if(istype(loc.loc, /area/chapel) && !(VAMP_FULL in src.mind.vampire.powers))
-		vamp_burn()*/
+		vamp_burn()
 	mind.vampire.nullified = max(0, mind.vampire.nullified - 1)
 
-/*mob/living/carbon/human/proc/vamp_burn()
+mob/living/carbon/human/proc/vamp_burn()
 	if(prob(35))
 		switch(health)
 			if(80 to 100)
@@ -501,4 +500,3 @@ You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 				IgniteMob()
 	adjustFireLoss(3)
 	return
-*/
