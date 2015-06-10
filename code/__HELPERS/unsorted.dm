@@ -643,15 +643,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // called when a browser popup window is closed after registering with proc/onclose()
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
-//
 
-//Will return the location of the turf an atom is ultimatly sitting on
-/proc/get_turf_loc(var/atom/movable/M) //gets the location of the turf that the atom is on, or what the atom is in is on, etc
-	//in case they're in a closet or sleeper or something
-	var/atom/loc = M.loc
-	while(!istype(loc, /turf/))
-		loc = loc.loc
-	return loc
 
 // returns the turf located at the map edge in the specified direction relative to A
 // used for mass driver
@@ -1242,21 +1234,11 @@ proc/get_mob_with_client_list()
 	else return zone
 
 
-/proc/get_turf(const/atom/O)
-	if (isnull(O) || isarea(O))
+/proc/get_turf(atom/A)
+	if (!istype(A))
 		return
-
-	var/atom/A = O
-
-	for (var/i = 0, ++i <= 20)
-		if (isturf(A))
-			return A
-
-		switch (istype(A))
-			if (1)
-				A = A.loc
-			if (0)
-				return
+	for(A, A && !isturf(A), A=A.loc); //semicolon is for the empty statement
+	return A
 
 //Finds the distance between two atoms, in pixels
 //centered = 0 counts from turf edge to edge
