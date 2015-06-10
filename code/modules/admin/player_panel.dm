@@ -395,6 +395,7 @@
 
 
 /datum/admins/proc/check_antagonists()
+	if(!check_rights(R_ADMIN))	return
 	if (ticker && ticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[ticker.mode.name]</B><BR>"

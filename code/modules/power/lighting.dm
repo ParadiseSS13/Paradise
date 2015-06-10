@@ -587,7 +587,7 @@
 /obj/machinery/light/power_change()
 	spawn(10)
 		var/area/A = get_area_master(src)
-		seton(A.lightswitch && A.power_light)
+		if(A) seton(A.lightswitch && A.power_light)
 
 // called when on fire
 

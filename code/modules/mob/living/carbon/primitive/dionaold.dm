@@ -12,6 +12,7 @@
 	var/list/donors = list()
 	var/ready_evolve = 0
 	ventcrawler = 1
+	var/environment_smash = 0 // This is a sloppy way to solve attack_animal runtimes. Stupid nymphs...
 
 /mob/living/carbon/primitive/diona/New()
 

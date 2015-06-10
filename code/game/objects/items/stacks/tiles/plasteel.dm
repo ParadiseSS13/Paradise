@@ -1,5 +1,6 @@
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
+	gender = PLURAL
 	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon"
 	icon_state = "tile"

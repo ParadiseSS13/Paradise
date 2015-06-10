@@ -424,9 +424,9 @@ var/can_call_ert
 					M.equip_to_slot_or_del(new /obj/item/weapon/rcd/combat(M), slot_in_backpack)
 					M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
 					M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
-					M.equip_to_slot_or_del(new /obj/item/stack/sheet/metal/full(M), slot_in_backpack)
-					M.equip_to_slot_or_del(new /obj/item/stack/sheet/glass/full(M), slot_in_backpack)
-					M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel/full(M), slot_in_backpack)
+					M.equip_to_slot_or_del(new /obj/item/stack/sheet/metal(M, amount=50), slot_in_backpack)
+					M.equip_to_slot_or_del(new /obj/item/stack/sheet/glass(M, amount=50), slot_in_backpack)
+					M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel(M, amount=50), slot_in_backpack)
 
 					M.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase/inflatable(M), slot_r_hand)
 
@@ -560,9 +560,9 @@ var/can_call_ert
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd/combat(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
 			M.equip_to_slot_or_del(new /obj/item/weapon/rcd_ammo/large(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/stack/sheet/metal/full(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/stack/sheet/glass/full(M), slot_in_backpack)
-			M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel/full(M), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/stack/sheet/metal(M, amount=50), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/stack/sheet/glass(M, amount=50), slot_in_backpack)
+			M.equip_to_slot_or_del(new /obj/item/stack/sheet/plasteel(M, amount=50), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
 

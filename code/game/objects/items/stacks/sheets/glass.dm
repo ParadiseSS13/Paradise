@@ -31,10 +31,6 @@
 	g_amt = 0
 	created_window = /obj/structure/window/basic
 
-/obj/item/stack/sheet/glass/full/New()
-	..()
-	amount = 50
-
 /obj/item/stack/sheet/glass/attack_self(mob/user as mob)
 	construct_window(user)
 
