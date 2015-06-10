@@ -162,7 +162,7 @@ proc/wabbajack(mob/living/M)
 					new_mob.job = "Cyborg"
 					var/mob/living/silicon/robot/Robot = new_mob
 					Robot.mmi = new /obj/item/device/mmi(new_mob)
-					if(istype(M, /mob/living/carbon/human))
+					if(ishuman(M))
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
 					new_mob = new /mob/living/carbon/slime(M.loc)

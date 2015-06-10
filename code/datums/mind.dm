@@ -1069,7 +1069,7 @@ datum/mind
 		else if (href_list["common"])
 			switch(href_list["common"])
 				if("undress")
-					if(istype(current, /mob/living/carbon/human))
+					if(ishuman(current))
 						var/mob/living/carbon/human/H = current
 						// Don't "undress" organs right out of the body
 						for(var/obj/item/W in H.contents - (H.organs | H.internal_organs))
