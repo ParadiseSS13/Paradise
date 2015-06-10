@@ -9,7 +9,7 @@
 
 /obj/item/weapon/antag_spawner/proc/equip_antag(mob/target as mob)
 	return
-	
+
 
 /obj/item/weapon/antag_spawner/borg_tele
 	name = "Syndicate Cyborg Teleporter"
@@ -49,16 +49,16 @@
 				checking = 0
 				spawn_antag(possibleborg, get_turf(src.loc), "syndieborg")
 			else
-				possiblecandidates -= possibleborg		
+				possiblecandidates -= possibleborg
 				get_candidate_answer(user, possiblecandidates)
 				return
-				
+
 		sleep(300)
 		if(checking)
-			possiblecandidates -= possibleborg	
+			possiblecandidates -= possibleborg
 			get_candidate_answer(user, possiblecandidates)
-			return				
-			
+			return
+
 
 /obj/item/weapon/antag_spawner/borg_tele/spawn_antag(var/client/C, var/turf/T, var/type = "")
 	var/datum/effect/effect/system/spark_spread/S = new /datum/effect/effect/system/spark_spread
@@ -70,3 +70,80 @@
 	ticker.mode.update_synd_icons_added(R.mind)
 	R.mind.special_role = "syndicate"
 	R.faction = list("syndicate")
+
+/obj/item/weapon/antag_spawner/slaughter_demon //Warning edgiest item in the game
+	name = "vial of blood"
+	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vial"
+	var/checking = 0
+
+
+/obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
+	//var/list/demon_candidates = get_candidates(BE_ALIEN)
+	if(user.z != 1)
+		user << "<span class='notice'>You should probably wait until you reach the station.</span>"
+		return
+	if(!checking)
+		user << "<span class='notice'>You ready yourself to shatter the bottle...</span>"
+		get_candidate_answer(user, get_candidates(BE_ALIEN))
+	else
+		user << "<span class='notice'>You are already thinking about shattering the bottle.</span>"
+		return
+
+
+/obj/item/weapon/antag_spawner/slaughter_demon/proc/get_candidate_answer(mob/user as mob, var/list/possiblecandidates = list())
+	var/time_passed = world.time
+	if(possiblecandidates.len <= 0)
+		checking = 0
+		user << "<span class='notice'>You can't seem to work up the nerve to shatter the bottle. Perhaps you should try again later..</span>"
+		return
+	else
+		var/demon_candidates = pick(possiblecandidates)
+		spawn(0)
+			var/input = alert(demon_candidates,"Do you want to spawn in as a Slaughter Demon?","Please answer in thirty seconds!","Yes","No")
+			if(input == "Yes" && used == 0)
+				if((world.time-time_passed)>300)
+					return
+				possiblecandidates -= demon_candidates
+				used = 1
+				checking = 0
+				spawn_antag(demon_candidates, get_turf(src.loc), "Slaughter Demon")
+				user << "<span class='notice'>You shatter the bottle, no turning back now!</span>"
+				user << "<span class='notice'>You sense a dark presence lurking just beyond the veil...</span>"
+				playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+				playsound(user.loc,'sound/hallucinations/im_here1.ogg', 50, -1)//THIS IS OVERKILL -AB
+				qdel(src)
+			else
+				possiblecandidates -= demon_candidates
+				get_candidate_answer(user, possiblecandidates)
+				return
+
+		sleep(300)
+		if(checking)
+			possiblecandidates -= demon_candidates
+			get_candidate_answer(user, possiblecandidates)
+			return
+
+/obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "")
+
+	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
+	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+	S.phased = TRUE
+	S.key = C.key
+	S.mind.assigned_role = "Slaughter Demon"
+	S.mind.special_role = "Slaughter Demon"
+	ticker.mode.traitors += S.mind
+	var/datum/objective/assassinate/new_objective = new /datum/objective/assassinate
+	new_objective.owner = S:mind
+	new_objective:target = usr:mind
+	new_objective.explanation_text = "Kill [usr.real_name], the one who foolish enough to summon you."
+	S.mind.objectives += new_objective
+	var/datum/objective/new_objective2 = new /datum/objective
+	new_objective2.owner = S:mind
+	new_objective2.explanation_text = "Kill or Toy with the rest of the crew. Make them know fear!"
+	S.mind.objectives += new_objective2
+	S << S.playstyle_string
+	S << "<B>You are currently not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</B>"
+	S << "<B>Objective #[1]</B>: [new_objective.explanation_text]"
+	S << "<B>Objective #[2]</B>: [new_objective2.explanation_text]"
