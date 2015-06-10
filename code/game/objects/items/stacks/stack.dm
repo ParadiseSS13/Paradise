@@ -142,11 +142,11 @@
 			new_item.amount = R.res_amount*multiplier
 			//new_item.add_to_stacks(usr)
 		src.amount-=R.req_amount*multiplier
-		if (src.amount<=0)
+		if (src.amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after del()
 			usr.unEquip(oldsrc, 1)
-			del(oldsrc)
+			del(oldsrc) // Not qdel, because qdel'd stacks act strange for cyborgs
 			if (istype(O,/obj/item))
 				usr.put_in_hands(O)
 		O.add_fingerprint(usr)
@@ -165,10 +165,11 @@
 	if (amount < used)
 		return 0
 	amount -= used
-	if (amount <= 0)
+	if (amount < 1) // Just in case a stack's amount ends up fractional somehow
 		if(usr)
 			usr.unEquip(src, 1)
-		qdel(src)
+		spawn()
+			del(src) // Not qdel, because qdel'd stacks act strange for cyborgs
 	update_icon()
 	return 1
 

@@ -37,6 +37,7 @@
 
 	if(!stacktypes || !stacktypes.len) return
 
+	var/stack_respawned = 0
 	for(var/T in stacktypes)
 		var/O = locate(T) in src.modules
 		var/obj/item/stack/S = O
@@ -46,9 +47,12 @@
 			S = new T(src)
 			src.modules += S
 			S.amount = 1
+			stack_respawned = 1
 
 		if(S && S.amount < stacktypes[T])
 			S.amount++
+	if(stack_respawned && istype(R) && R.hud_used)
+		R.hud_used.update_robot_modules_display()
 
 /obj/item/weapon/robot_module/proc/rebuild()//Rebuilds the list so it's possible to add/remove items from the module
 	var/list/temp_list = modules

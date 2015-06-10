@@ -23,6 +23,8 @@
 
 	if(href_list["engine_toggle"])
 		tram_linked.automode = !tram_linked.automode
+		if(tram_linked.automode)	tram_linked.startLoop()
+		else	tram_linked.killLoop()
 	else if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=trampad")

@@ -98,9 +98,8 @@
 		/obj/effect/effect/steam, \
 		/obj/effect/mist)
 
-		for(var/this_type in calmers)
-			var/mob/living/simple_animal/check_effect = locate() in src.loc
-			if(check_effect.type == this_type)
+		for(var/obj/effect/check_effect in src.loc)
+			if(check_effect.type in calmers)
 				calming = 1
 				break
 

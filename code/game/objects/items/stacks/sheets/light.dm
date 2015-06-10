@@ -1,5 +1,6 @@
 /obj/item/stack/light_w
 	name = "wired glass tiles"
+	gender = PLURAL
 	singular_name = "wired glass floor tile"
 	desc = "A glass tile, which is wired, somehow."
 	icon_state = "glass_wire"
