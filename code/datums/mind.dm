@@ -1069,8 +1069,14 @@ datum/mind
 		else if (href_list["common"])
 			switch(href_list["common"])
 				if("undress")
-					for(var/obj/item/W in current)
-						current.unEquip(W, 1)
+					if(istype(current, /mob/living/carbon/human))
+						var/mob/living/carbon/human/H = current
+						// Don't "undress" organs right out of the body
+						for(var/obj/item/W in H.contents - (H.organs | H.internal_organs))
+							current.unEquip(W, 1)
+					else
+						for(var/obj/item/W in current)
+							current.unEquip(W, 1)
 				if("takeuplink")
 					take_uplink()
 					memory = null//Remove any memory they may have had.
