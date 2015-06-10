@@ -208,11 +208,11 @@ Made by Xhuis
 					text += "died"
 				else
 					text += "survived"
-			if(shadow.current.real_name != shadow.name)
-				text += " as <b>[shadow.current.real_name]</b>"
+				if(shadow.current.real_name != shadow.name)
+					text += " as <b>[shadow.current.real_name]</b>"
 			else
 				text += "body destroyed"
-		text += ")"
+			text += ")"
 		text += "<br>"
 		if(shadowling_thralls.len)
 			text += "<br><span class='big'><b>The thralls were:</b></span>"
@@ -225,8 +225,9 @@ Made by Xhuis
 						text += "survived"
 					if(thrall.current.real_name != thrall.name)
 						text += " as <b>[thrall.current.real_name]</b>"
-					else
-						text += "body destroyed"
+				else
+					text += "body destroyed"
+				text += ")"
 	text += "<br>"
 	world << text
 

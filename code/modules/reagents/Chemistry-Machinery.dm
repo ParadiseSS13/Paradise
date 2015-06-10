@@ -220,7 +220,7 @@
 		user << "Something is already loaded into the machine."
 		return
 
-	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B,/obj/item/weapon/reagent_containers/food))
+	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
 		user.drop_item()
 		B.loc = src

@@ -231,7 +231,7 @@
 			if(3)
 				A = new /obj/item/projectile/beam/pulse(loc)
 			if(4)
-				A = new /obj/item/projectile/change(loc)
+				A = new /obj/item/projectile/magic/change(loc)
 			if(5)
 				A = new /obj/item/projectile/lasertag/blue(loc)
 			if(6)
