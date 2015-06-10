@@ -484,7 +484,7 @@
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Eject Sleeper"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -495,7 +495,7 @@
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Remove Beaker"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -572,7 +572,7 @@
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
