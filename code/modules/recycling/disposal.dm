@@ -478,6 +478,11 @@
 		else
 			return ..(mover, target, height, air_group)
 
+
+	singularity_pull(S, current_size)
+		if(current_size >= STAGE_FIVE)
+			Destroy()
+
 // virtual disposal object
 // travels through pipes in lieu of actual items
 // contents will be items flushed by the disposal
@@ -681,6 +686,10 @@
 			if(H)
 				expel(H, T, 0)
 		..()
+
+	singularity_pull(S, current_size)
+		if(current_size >= STAGE_FIVE)
+			Destroy()
 
 	// returns the direction of the next pipe object, given the entrance dir
 	// by default, returns the bitmask of remaining directions

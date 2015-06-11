@@ -86,6 +86,7 @@
 	var/obj/item/device/radio/radio
 
 	var/debug = 0
+	var/uneatable = list(/turf/space, /obj/effect/overlay, /atom/movable/lighting_overlay, /mob/dead, /mob/camera, /mob/new_player)
 
 /obj/machinery/power/supermatter/New()
 	. = ..()

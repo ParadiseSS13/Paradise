@@ -10,10 +10,10 @@ var/datum/garbage_collector/garbageCollector
 	set name = "(GC) Hard Del List"
 	set desc = "List types that are hard del()'d by the GC."
 	set category = "Debug"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
-		
+
 	if(!gc_hard_del_types || !gc_hard_del_types.len)
 		usr << "<span class='notice'>No hard del()'d types found.</span>"
 
@@ -45,7 +45,6 @@ var/datum/garbage_collector/garbageCollector
 	var/remainingCollectionPerTick = GC_COLLECTIONS_PER_TICK
 	var/remainingForceDelPerTick = GC_FORCE_DEL_PER_TICK
 	var/collectionTimeScope = world.timeofday - GC_COLLECTION_TIMEOUT
-	if(narsie_cometh) return //don't even fucking bother, its over.
 	while(queue.len && --remainingCollectionPerTick >= 0)
 		var/refID = queue[1]
 		var/destroyedAtTime = queue[refID]

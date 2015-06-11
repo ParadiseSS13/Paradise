@@ -95,6 +95,10 @@ var/global/wcColored
 /obj/structure/window/meteorhit()
 	destroy()
 
+/obj/structure/window/singularity_pull(S, current_size)
+	if(current_size >= STAGE_FIVE)
+		destroy()
+
 /obj/structure/window/CheckExit(var/atom/movable/O, var/turf/target)
 	if(istype(O) && O.checkpass(PASSGLASS))
 		return 1

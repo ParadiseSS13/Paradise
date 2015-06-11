@@ -452,3 +452,12 @@ its easier to just keep the beam vertical.
 		return 1
 	else
 		return 0
+
+/atom/proc/singularity_act()
+	return
+
+/atom/proc/singularity_pull()
+	return
+
+/atom/proc/narsie_act()
+	return

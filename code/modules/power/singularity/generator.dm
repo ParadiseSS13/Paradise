@@ -26,7 +26,7 @@
 		message_admins("[admin_message] at [x],[y],[z]",1)
 		investigate_log("[admin_message] at [x],[y],[z]","singulo")
 
-		new /obj/machinery/singularity/(T, 50)
+		new /obj/singularity/(T, 50)
 		if(src) del(src)
 
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)

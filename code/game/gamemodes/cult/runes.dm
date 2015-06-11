@@ -136,7 +136,7 @@ var/list/sacrificed = list()
 			cultist_count += 1
 	if(cultist_count >= 9)
 		cult_log("THE CULT HAS SUMMONED NAR'SIE. GGNORE")
-		new /obj/machinery/singularity/narsie/large(src.loc)
+		new /obj/singularity/narsie/large(src.loc)
 		if(ticker.mode.name == "cult")
 			ticker.mode:eldergod = 0
 		return

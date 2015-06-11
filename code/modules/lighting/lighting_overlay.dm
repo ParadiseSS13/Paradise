@@ -55,3 +55,9 @@
 	#else
 	color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
 	#endif
+
+/atom/movable/lighting_overlay/singularity_act()
+	return
+
+/atom/movable/lighting_overlay/singularity_pull()
+	return

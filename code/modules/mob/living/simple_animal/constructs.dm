@@ -127,6 +127,8 @@
 				M.show_message("\red [user] gently taps [src] with [O]. ")
 
 
+/mob/living/simple_animal/construct/narsie_act()
+	return
 
 /////////////////Juggernaut///////////////
 
@@ -300,6 +302,29 @@
 				M.show_message("\red [user] gently taps [src] with [O]. ")
 
 
+
+/////////////////////////////Harvester/////////////////////////
+
+/mob/living/simple_animal/construct/harvester
+	name = "Harvester"
+	real_name = "Harvester"
+	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "harvester"
+	icon_living = "harvester"
+	maxHealth = 60
+	health = 60
+	melee_damage_lower = 1
+	melee_damage_upper = 5
+	attacktext = "prods"
+	speed = 0
+	environment_smash = 1
+	see_in_dark = 7
+	attack_sound = 'sound/weapons/tap.ogg'
+	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/smoke/disable)
+
+/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/check_drift = 0)
+	return 1
 
 ////////////////Powers//////////////////
 

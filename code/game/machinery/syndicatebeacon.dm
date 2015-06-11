@@ -127,7 +127,7 @@
 		if(!checkWirePower())
 			if(user) user << "\blue The connected wire doesn't have enough current."
 			return
-		for(var/obj/machinery/singularity/singulo in world)
+		for(var/obj/singularity/singulo in world)
 			if(singulo.z == z)
 				singulo.target = src
 		icon_state = "[icontype]1"
@@ -136,7 +136,7 @@
 
 
 	proc/Deactivate(mob/user = null)
-		for(var/obj/machinery/singularity/singulo in world)
+		for(var/obj/singularity/singulo in world)
 			if(singulo.target == src)
 				singulo.target = null
 		icon_state = "[icontype]0"
