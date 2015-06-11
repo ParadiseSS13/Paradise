@@ -245,6 +245,17 @@
 		damage += Proj.damage * config_bullet_energy
 	return 0
 
+/obj/machinery/power/supermatter/singularity_act()
+	var/gain = 100
+	investigate_log("Supermatter shard consumed by singularity.","singulo")
+	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
+	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
+	for(var/mob/M in mob_list)
+		M << 'sound/effects/supermatter.ogg' //everyone goan know bout this
+		M << "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>"
+	qdel(src)
+	return(gain)
+
 /obj/machinery/power/supermatter/attack_robot(mob/user as mob)
 	if(Adjacent(user))
 		return attack_hand(user)
