@@ -182,7 +182,7 @@
 	if (you_are)
 		dat = "<B>\red You are a Vampire! \black</br></B>"
 	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+You are weak to holy things. Avoid the Chaplain, the chapel and Holy Water."}
 	vampire.current << dat
 	vampire.current << "<B>You must complete the following tasks:</B>"
 

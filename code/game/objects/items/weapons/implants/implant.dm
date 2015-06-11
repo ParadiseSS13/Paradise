@@ -314,19 +314,19 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			malfunction--
 
 /obj/item/weapon/implant/loyalty
-	name = "loyalty"
-	desc = "Makes you loyal or such."
+	name = "brainwash prevention"
+	desc = "Prevents brainwashing."
 
 	get_data()
 		var/dat = {"
 <b>Implant Specifications:</b><BR>
 <b>Name:</b> Nanotrasen Employee Management Implant<BR>
 <b>Life:</b> Ten years.<BR>
-<b>Important Notes:</b> Personnel injected with this device tend to be much more loyal to the company.<BR>
+<b>Important Notes:</b> Personnel injected with this device are immune to brainwashing.<BR>
 <HR>
 <b>Implant Details:</b><BR>
 <b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
-<b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
+<b>Special Features:</b> Will prevent most forms of brainwashing.<BR>
 <b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
 		return dat
 
@@ -339,7 +339,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			return 0
 		else if(H.mind in ticker.mode:revolutionaries)
 			ticker.mode:remove_revolutionary(H.mind)
-		H << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"
+		H << "<span class='notice'>Your mind feels protected from brainwashing.</span>"
 		return 1
 
 /obj/item/weapon/implant/traitor

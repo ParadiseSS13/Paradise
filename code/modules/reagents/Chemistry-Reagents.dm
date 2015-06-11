@@ -474,7 +474,6 @@ datum
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				holder.remove_reagent(src.id, 10 * REAGENTS_METABOLISM) //high metabolism to prevent extended uncult rolls.
 
-
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				// Vampires have their powers weakened by holy water applied to the skin.
 				if(ishuman(M))
