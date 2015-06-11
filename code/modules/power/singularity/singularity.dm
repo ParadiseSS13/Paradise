@@ -8,7 +8,7 @@
 	anchored = 1
 	density = 1
 	layer = 6
-	luminosity = 6
+	light_range = 6
 	unacidable = 1 //Don't comment this out.
 	var/current_size = 1
 	var/allowed_size = 1
