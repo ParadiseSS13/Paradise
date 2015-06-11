@@ -465,7 +465,7 @@
 /obj/structure/table/verb/do_flip()
 	set name = "Flip table"
 	set desc = "Flips a non-reinforced table"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if (!can_touch(usr) || ismouse(usr))

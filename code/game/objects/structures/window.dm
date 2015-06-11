@@ -288,7 +288,7 @@ var/global/wcColored
 
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(anchored)
@@ -304,7 +304,7 @@ var/global/wcColored
 
 /obj/structure/window/verb/revrotate()
 	set name = "Rotate Window Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(anchored)

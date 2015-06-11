@@ -49,7 +49,7 @@
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(config.ghost_interaction)
