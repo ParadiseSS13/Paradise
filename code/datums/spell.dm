@@ -88,7 +88,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			if(user.is_muzzled())
 				user << "Mmmf mrrfff!"
 				return 0
-	var/obj/effect/proc_holder/spell/wizard/noclothes/spell = locate() in user.spell_list
+	var/obj/effect/proc_holder/spell/wizard/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
 	if(clothes_req && !(spell && istype(spell)))//clothes check
 		if(!istype(user, /mob/living/carbon/human))
 			user << "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans."
