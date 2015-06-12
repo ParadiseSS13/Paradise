@@ -3,8 +3,8 @@ language: c
 
 env:
     global:
-    - BYOND_MAJOR="503"
-    - BYOND_MINOR="1224"
+    - BYOND_MAJOR="508"
+    - BYOND_MINOR="1287"
     matrix:
     - DM_MAPFILE="cyberiad"
 
