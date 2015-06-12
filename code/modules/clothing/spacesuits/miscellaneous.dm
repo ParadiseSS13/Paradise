@@ -29,6 +29,9 @@
 	siemens_coefficient = 0.2
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
+	vision_flags = SEE_MOBS
+	see_darkness = 0
+	HUDType = MEDHUD
 
 /obj/item/clothing/suit/space/deathsquad
 	name = "deathsquad suit"
@@ -46,7 +49,6 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_badge"
 	armor = list(melee = 65, bullet = 55, laser = 35,energy = 20, bomb = 30, bio = 30, rad = 30)
-	flags = STOPSPRESSUREDMAGE
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/suit/space/deathsquad/officer
