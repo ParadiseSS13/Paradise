@@ -1192,18 +1192,16 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	/* HUD shit goes here, as long as it doesn't modify sight flags */
 	// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
 
-				if(istype(glasses, /obj/item/clothing/glasses/sunglasses))
-					see_in_dark = 1
-					if(istype(glasses, /obj/item/clothing/glasses/sunglasses/sechud))
-						var/obj/item/clothing/glasses/sunglasses/sechud/O = glasses
-						if(O.hud)		O.hud.process_hud(src)
-						if(!druggy)		see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING) // So we can have meson/thermal/material sunglasses
+				switch(G.HUDType)
+					if(SECHUD)
+						process_sec_hud(src,1)
+					if(MEDHUD)
+						process_med_hud(src,1)
+					if(ANTAGHUD)
+						process_antag_hud(src)
 
-				if(istype(glasses, /obj/item/clothing/glasses/hud))
-					var/obj/item/clothing/glasses/hud/O = glasses
-					O.process_hud(src)
-					if(!druggy)
-						see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING)
+
+
 			else if(!seer)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING

@@ -9,6 +9,7 @@
 	//var/invisa_view = 0
 	var/prescription = 0
 	var/see_darkness = 1
+	var/HUDType = 0
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -258,16 +259,11 @@
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
-	var/obj/item/clothing/glasses/hud/security/hud = null
+	HUDType = SECHUD
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-	New()
-		..()
-		src.hud = new/obj/item/clothing/glasses/hud/security(src)
-		return
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"
