@@ -249,6 +249,12 @@
 	item_path = /obj/item/weapon/scrying
 	log_name = "SO"
 
+/datum/spellbook_entry/item/bloodbottle
+	name = "Bottle of Blood"
+	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/weapon/antag_spawner/slaughter_demon
+	log_name = "BB"
+
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
 		if (!(XRAY in user.mutations))
