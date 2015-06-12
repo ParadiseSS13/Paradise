@@ -1185,8 +1185,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
 					if(G.vision_flags)		// MESONS
 						sight |= G.vision_flags
-						if(!druggy)
-							see_invisible = SEE_INVISIBLE_MINIMUM
 					if(!G.see_darkness)
 						see_invisible = SEE_INVISIBLE_MINIMUM
 	/* HUD shit goes here, as long as it doesn't modify sight flags */
