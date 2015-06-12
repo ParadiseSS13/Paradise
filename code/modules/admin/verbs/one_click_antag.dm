@@ -577,6 +577,7 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/makeSlaughterDemon()
 	//spawn_slaughter()//I know the event proc works..
+	new /datum/event/spawn_slaughter/start()
 	return 1
 
 

@@ -32,6 +32,7 @@
 		return find_slaughter()
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
 	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+	var/datum/objective/new_objective = new /datum/objective
 	S.phased = TRUE
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
