@@ -348,6 +348,8 @@
 
 	src.operating = 1
 	update_icon()
+	var/offset = prob(50) ? -2 : 2
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
@@ -405,5 +407,6 @@
 			gibs.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(1,5),15)
 			sleep(1)
 
+		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		src.operating = 0
 		update_icon()
