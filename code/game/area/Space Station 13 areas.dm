@@ -1118,6 +1118,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Clothing Shop"
 	icon_state = "Theatre"
 
+/area/civilian/pet_store
+	name = "\improper Pet Store"
+	icon_state = "Theatre"
+
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"

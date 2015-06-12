@@ -205,6 +205,24 @@ datum
 			reagent_state = LIQUID
 			color = "#B97A57"
 
+		fishwater
+			name = "Fish Water"
+			id = "fishwater"
+			description = "Smelly water from a fish tank. Gross!"
+			reagent_state = LIQUID
+			color = "#757547"
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M << "Oh god, why did you drink that?"
+				if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
+					if(prob(50))	// 50/50 chance of green vomit vs normal vomit
+						M.fakevomit(1)
+					else
+						M.fakevomit(0)
+					..()
+				return
+
 		water
 			name = "Water"
 			id = "water"

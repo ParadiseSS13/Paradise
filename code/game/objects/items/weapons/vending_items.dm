@@ -77,3 +77,8 @@
 	machine_name = "ClothesMate"
 	icon_state = "refill_clothes"
 	charges = 20// of 62
+
+/obj/item/weapon/vending_refill/crittercare
+	machine_name = "CritterCare"
+	icon_state = "refill_pet"
+	charges = 17// of 54

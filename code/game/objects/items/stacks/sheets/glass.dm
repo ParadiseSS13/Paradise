@@ -68,7 +68,7 @@
 		return 0
 	var/title = "Sheet-Glass"
 	title += " ([src.amount] sheet\s left)"
-	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
+	switch(input(title, "What would you like to construct?") in list("One Direction Window", "Full Window", "Fishbowl", "Fish Tank", "Wall Aquarium", "Cancel"))
 		if("One Direction")
 			if(!src)	return 1
 			if(src.loc != user)	return 1
@@ -118,6 +118,24 @@
 			W.anchored = 0
 			W.air_update_turf(1)
 			src.use(2)
+		if("Fish Tank")
+			if(!src)	return 1
+			if(src.loc != user)	return 1
+			if(src.amount < 3)
+				user << "\red You need more glass to do that."
+				return 1
+			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/tank(user.loc, 0)
+			F.air_update_turf(1)
+			src.use(3)
+		if("Wall Aquarium")
+			if(!src)	return 1
+			if(src.loc != user)	return 1
+			if(src.amount < 4)
+				user << "\red You need more glass to do that."
+				return 1
+			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/wall(user.loc, 0)
+			F.air_update_turf(1)
+			src.use(4)
 	return 0
 
 

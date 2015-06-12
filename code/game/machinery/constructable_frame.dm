@@ -199,7 +199,9 @@ to destroy them and players will be able to make replacements.
 							/obj/machinery/vending/autodrobe = "AutoDrobe",
 							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
 							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-							/obj/machinery/vending/shoedispenser = "Shoelord 9000")
+							/obj/machinery/vending/shoedispenser = "Shoelord 9000",
+							/obj/machinery/vending/clothing = "ClothesMate",
+							/obj/machinery/vending/crittercare = "CritterCare")
 
 /obj/item/weapon/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/screwdriver))
