@@ -96,6 +96,8 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
+/turf/simulated/floor/engine/cult/narsie_act()
+	return
 
 /turf/simulated/floor/engine/n20/New()
 	..()
@@ -107,6 +109,14 @@
 	adding.temperature = T20C
 
 	assume_air(adding)
+
+/turf/simulated/floor/engine/singularity_pull(S, current_size)
+	if(current_size >= STAGE_FIVE)
+		if(prob(30))
+			make_plating()
+		else
+			if(prob(30))
+				ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"

@@ -246,6 +246,9 @@
 /obj/effect/chrono_field/Move()
 	return
 
+/obj/effect/chrono_field/singularity_act()
+	return
+
 /obj/effect/chrono_field/ex_act()
 	return
 

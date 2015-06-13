@@ -616,3 +616,21 @@ var/list/wood_icons = list("wood","wood-broken")
 			P.y = src.y
 			P.z = src.z
 			P.loc = src
+
+/turf/simulated/floor/singularity_pull(S, current_size)
+	if(current_size == STAGE_THREE)
+		if(prob(30))
+			make_plating()
+	else if(current_size == STAGE_FOUR)
+		if(prob(50))
+			make_plating()
+	else if(current_size >= STAGE_FIVE)
+		if(prob(70))
+			make_plating()
+		else
+			if(prob(50))
+				ReplaceWithLattice()
+
+/turf/simulated/floor/narsie_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/floor/engine/cult)

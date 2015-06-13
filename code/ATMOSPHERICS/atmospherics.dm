@@ -192,3 +192,7 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
+
+/obj/machinery/atmospherics/singularity_pull(S, current_size)
+	if(current_size >= STAGE_FIVE)
+		Destroy()
