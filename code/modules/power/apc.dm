@@ -592,14 +592,10 @@
 			user << "Nothing happens."
 		else
 			flick("apc-spark", src)
-			if (do_after(user,6))
-				if(prob(50))
-					emagged = 1
-					locked = 0
-					user << "You emag the APC interface."
-					update_icon()
-				else
-					user << "You fail to [ locked ? "unlock" : "lock"] the APC interface."
+			emagged = 1
+			locked = 0
+			user << "You emag the APC interface."
+			update_icon()
 
 // attack with hand - remove cell (if cover open) or interact with the APC
 /obj/machinery/power/apc/attack_hand(mob/user)
