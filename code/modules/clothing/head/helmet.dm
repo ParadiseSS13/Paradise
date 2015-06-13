@@ -13,6 +13,35 @@
 	siemens_coefficient = 0.7
 	loose = 4 // generally well seated
 
+/obj/item/clothing/head/helmet/visor
+	name = "visor helmet"
+	desc = "A helmet with a built-in visor. It doesn't seem to do anything, but it sure looks cool!"
+	icon_state = "helmetgoggles"
+
+/obj/item/clothing/head/helmet/thermal
+	name = "thermal visor helmet"
+	desc = "A helmet with a built-in thermal scanning visor."
+	icon_state = "helmetthermals"
+	vision_flags = SEE_MOBS
+
+/obj/item/clothing/head/helmet/meson
+	name = "meson visor helmet"
+	desc = "A helmet with a built-in meson scanning visor."
+	icon_state = "helmetmesons"
+	vision_flags = SEE_TURFS
+
+/obj/item/clothing/head/helmet/material
+	name = "material visor helmet"
+	desc = "A helmet with a built-in material scanning visor."
+	icon_state = "helmetmaterials"
+	vision_flags = SEE_OBJS
+
+/obj/item/clothing/head/helmet/night
+	name = "night-vision helmet"
+	desc = "A helmet with a built-in pair of night vision goggles."
+	icon_state = "helmetNVG"
+	see_darkness = 0
+
 /obj/item/clothing/head/helmet/alt
 	name = "bulletproof helmet"
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."

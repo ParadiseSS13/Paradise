@@ -1179,31 +1179,47 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					see_invisible = SEE_INVISIBLE_LIVING
 					seer = 0
 
-			if(glasses)
-				var/obj/item/clothing/glasses/G = glasses
-				if(istype(G))
-					see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
-					if(G.vision_flags)		// MESONS
-						sight |= G.vision_flags
-						if(!druggy)
+			if(glasses || head)
+				if(glasses)
+					var/obj/item/clothing/glasses/G = glasses
+					if(istype(G))
+						see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
+						if(G.vision_flags)		// MESONS
+							sight |= G.vision_flags
+						if(!G.see_darkness)
 							see_invisible = SEE_INVISIBLE_MINIMUM
-					if(!G.see_darkness)
-						see_invisible = SEE_INVISIBLE_MINIMUM
-	/* HUD shit goes here, as long as it doesn't modify sight flags */
-	// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
+		/* HUD shit goes here, as long as it doesn't modify sight flags */
+		// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
 
-				if(istype(glasses, /obj/item/clothing/glasses/sunglasses))
-					see_in_dark = 1
-					if(istype(glasses, /obj/item/clothing/glasses/sunglasses/sechud))
-						var/obj/item/clothing/glasses/sunglasses/sechud/O = glasses
-						if(O.hud)		O.hud.process_hud(src)
-						if(!druggy)		see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING) // So we can have meson/thermal/material sunglasses
+					switch(G.HUDType)
+						if(SECHUD)
+							process_sec_hud(src,1)
+						if(MEDHUD)
+							process_med_hud(src,1)
+						if(ANTAGHUD)
+							process_antag_hud(src)
 
-				if(istype(glasses, /obj/item/clothing/glasses/hud))
-					var/obj/item/clothing/glasses/hud/O = glasses
-					O.process_hud(src)
-					if(!druggy)
-						see_invisible = (!O.see_darkness || O.vision_flags ? SEE_INVISIBLE_MINIMUM : SEE_INVISIBLE_LIVING)
+				if(head)
+					var/obj/item/clothing/head/H = head
+					if(istype(H))
+						if(H.vision_flags)		// MESONS
+							sight |= H.vision_flags
+						if(!H.see_darkness)
+							see_invisible = SEE_INVISIBLE_MINIMUM
+		/* HUD shit goes here, as long as it doesn't modify sight flags */
+		// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
+
+					switch(H.HUDType)
+						if(SECHUD)
+							process_sec_hud(src,1)
+						if(MEDHUD)
+							process_med_hud(src,1)
+						if(ANTAGHUD)
+							process_antag_hud(src)
+
+
+
+
 			else if(!seer)
 				see_in_dark = species.darksight
 				see_invisible = SEE_INVISIBLE_LIVING

@@ -9,7 +9,7 @@ proc/process_med_hud(var/mob/M, var/local_scanner, var/mob/Alt)
 
 	var/datum/arranged_hud_process/P = arrange_hud_process(M, Alt, med_hud_users)
 	for(var/mob/living/carbon/human/patient in P.Mob.in_view(P.Turf))
-		if(P.Mob.see_invisible < patient.invisibility)
+		if(P.Mob.see_invisible < patient.invisibility || patient.alpha < 127)
 			continue
 
 		if(!local_scanner)
@@ -30,7 +30,7 @@ proc/process_sec_hud(var/mob/M, var/advanced_mode, var/mob/Alt)
 		return
 	var/datum/arranged_hud_process/P = arrange_hud_process(M, Alt, sec_hud_users)
 	for(var/mob/living/carbon/human/perp in P.Mob.in_view(P.Turf))
-		if(P.Mob.see_invisible < perp.invisibility)
+		if(P.Mob.see_invisible < perp.invisibility || perp.alpha < 127)
 			continue
 
 		P.Client.images += perp.hud_list[ID_HUD]
@@ -39,6 +39,17 @@ proc/process_sec_hud(var/mob/M, var/advanced_mode, var/mob/Alt)
 			P.Client.images += perp.hud_list[IMPTRACK_HUD]
 			P.Client.images += perp.hud_list[IMPLOYAL_HUD]
 			P.Client.images += perp.hud_list[IMPCHEM_HUD]
+
+
+proc/process_antag_hud(var/mob/M, var/mob/Alt)
+	if(!can_process_hud(M))
+		return
+	var/datum/arranged_hud_process/P = arrange_hud_process(M, Alt, antag_hud_users)
+	for(var/mob/living/carbon/human/target in P.Mob.in_view(P.Turf))
+		if(P.Mob.see_invisible < target.invisibility || target.alpha < 127)
+			continue
+
+		P.Client.images += target.hud_list[SPECIALROLE_HUD]
 
 datum/arranged_hud_process
 	var/client/Client
@@ -70,6 +81,7 @@ mob/proc/regular_hud_updates() //Used in the life.dm of mobs that can use HUDs.
 				client.images -= hud
 	med_hud_users -= src
 	sec_hud_users -= src
+	antag_hud_users -= src
 
 mob/proc/in_view(var/turf/T)
 	return view(T)

@@ -29,3 +29,7 @@
 #define BORGMESON 1
 #define BORGTHERM 2
 #define BORGXRAY  4
+
+#define SECHUD 1
+#define MEDHUD 2
+#define ANTAGHUD 3
