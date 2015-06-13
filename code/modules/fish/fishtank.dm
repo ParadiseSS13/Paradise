@@ -299,7 +299,7 @@
 		fish_list.Add("[type]")						//Add a fish of the specified type
 		fish_count ++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
-		src.visible_message("A new [type] hatched in \the [src]!")
+		src.visible_message("A new [type] has hatched in \the [src]!")
 	//Null type fish are dud eggs, give a message to inform the player
 	else
 		usr << "The eggs disolve in the water. They were duds!"
@@ -481,7 +481,7 @@
 								s.set_up(3, 1, src)
 								s.start()
 						else								//No water or didn't slip, get that fish!
-							M.visible_message("[M.name] caught and devoured a live fish!", "You catch and devour a live fish, yum!")
+							M.visible_message("[M.name] catches and devours a live fish!", "You catch and devour a live fish, yum!")
 							kill_fish()						//Kill a random fish
 							M.health = M.maxHealth			//Eating fish heals the predator
 				else
@@ -499,7 +499,7 @@
 						if(water_level && prob(5))			//Bears are good at catching fish, only a 5% chance to fail
 							M.visible_message("[M.name] swipes at the water!", "You just barely missed that fish!")
 						else								//No water or didn't slip, get that fish!
-							M.visible_message("[M.name] caught and devoured a live fish!", "You catch and devour a live fish, yum!")
+							M.visible_message("[M.name] catches and devours a live fish!", "You catch and devour a live fish, yum!")
 							kill_fish()						//Kill a random fish
 							M.health = M.maxHealth			//Eating fish heals the predator
 				else
@@ -532,8 +532,8 @@
 	else if (usr.a_intent == "harm")
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
-							"\red You bang against the [src.name]!", \
+		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \
+							"<span class='danger'>You bang against the [src.name]!</span>", \
 							"You hear a banging sound.")
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -584,14 +584,14 @@
 	if(O.is_open_container())
 		if(istype(O, /obj/item/weapon/reagent_containers/glass))
 			if(lid_switch)
-				usr << "Open the lid on [src] first!"
+				usr << "Open the lid on \the [src] first!"
 				return
 			var/obj/item/weapon/reagent_containers/glass/C = O
 			//Containers with any reagents will get dumped in
 			if(C.reagents.total_volume)
 				var/water_value = 0
 				water_value += C.reagents.get_reagent_amount("water")				//Water is full value
-				water_value += C.reagents.get_reagent_amount("holywater")			//Holywater is full value
+				water_value += C.reagents.get_reagent_amount("holywater") *1.1		//Holywater is (somehow) better. Who said religion had to make sense?
 				water_value += C.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
 				water_value += C.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
 				water_value += C.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
@@ -633,7 +633,7 @@
 	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	if(istype(O, /obj/item/weapon/wrench))
 		if(water_level == 0)
-			usr << "\blue Now disassembling [src]"
+			usr << "<span class='notice'>Now disassembling [src].</span>"
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			if(do_after(user,50))
 				destroy(1)

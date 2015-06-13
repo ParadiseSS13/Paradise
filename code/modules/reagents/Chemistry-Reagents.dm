@@ -212,9 +212,14 @@ datum
 			reagent_state = LIQUID
 			color = "#757547"
 
+			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+				if(!istype(M, /mob/living))
+					return
+				if(method == INGEST)
+					M << "Oh god, why did you drink that?"
+
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M << "Oh god, why did you drink that?"
 				if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
 					if(prob(50))	// 50/50 chance of green vomit vs normal vomit
 						M.fakevomit(1)

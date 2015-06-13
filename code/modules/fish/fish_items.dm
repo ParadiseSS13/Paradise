@@ -22,7 +22,7 @@
 	throw_range = 7
 
 	suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-		viewers(user) << "<span class='warning'>[user] placed the [src.name] on top of \his head, \his fingers tangled in the netting! It looks like \he's trying to commit suicide.</span>"
+		viewers(user) << "<span class='warning'>[user] places the [src.name] on top of \his head, \his fingers tangled in the netting! It looks like \he's trying to commit suicide.</span>"
 		return(OXYLOSS)
 
 /obj/item/weapon/fishfood
