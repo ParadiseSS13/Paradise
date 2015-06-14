@@ -4,6 +4,9 @@
 	icon_state = "cult"
 	walltype = "cult"
 
+/turf/simulated/wall/cult/narsie_act()
+	return
+
 /turf/simulated/wall/rust
 	name = "rusted wall"
 	desc = "A rusted metal wall."

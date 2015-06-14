@@ -1216,7 +1216,7 @@
 	/obj/item/clothing/accessory/scarf/purple=1,/obj/item/clothing/accessory/scarf/yellow=1,/obj/item/clothing/accessory/scarf/orange=1,
 	/obj/item/clothing/accessory/scarf/lightblue=1,/obj/item/clothing/accessory/scarf/white=1,/obj/item/clothing/accessory/scarf/black=1,
 	/obj/item/clothing/accessory/scarf/zebra=1,/obj/item/clothing/accessory/scarf/christmas=1,/obj/item/clothing/accessory/stripedredscarf=1,
-	/obj/item/clothing/accessory/stripedbluescarf=1,/obj/item/clothing/accessory/stripedgreenscarf=1,/obj/item/clothing/accessory/petcollar =3,/obj/item/clothing/accessory/waistcoat=1,
+	/obj/item/clothing/accessory/stripedbluescarf=1,/obj/item/clothing/accessory/stripedgreenscarf=1,/obj/item/clothing/accessory/waistcoat=1,
 	/obj/item/clothing/under/sundress=2,/obj/item/clothing/under/stripeddress = 1, /obj/item/clothing/under/sailordress = 1, /obj/item/clothing/under/redeveninggown = 1, /obj/item/clothing/under/blacktango=1,/obj/item/clothing/suit/jacket=3,
 	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
 	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
@@ -1250,3 +1250,32 @@
 	/obj/item/weapon/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/weapon/contraband/poster = 5)
+
+/obj/machinery/vending/crittercare
+	name = "CritterCare"
+	desc = "A vending machine for pet supplies."
+	product_slogans = "Stop by for all your animal's needs!;Cuddly pets deserve a stylish collar!;Pets in space, what could be more adorable?;Freshest fish eggs in the system!;Rocks are the perfect pet, buy one today!"
+	product_ads = "House-training costs extra!;Now with 1000% more cat hair!;Allergies are a sign of weakness!;Dogs are man's best friend. Remember that Vulpkanin!; Heat lamps for Unathi!; Vox-y want a cracker?"
+	vend_delay = 34
+	icon_state = "crittercare"
+	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/weapon/fish_net = 5, /obj/item/weapon/fishfood = 5,
+					/obj/item/weapon/tank_brush = 5, /obj/item/weapon/egg_scoop = 5, /obj/item/fish_eggs/goldfish = 5,
+					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/toy/pet_rock = 5,
+					)
+	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/weapon/fish_net = 15, /obj/item/weapon/fishfood = 15,
+					/obj/item/weapon/tank_brush = 15, /obj/item/weapon/egg_scoop = 15, /obj/item/fish_eggs/goldfish = 10,
+					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/toy/pet_rock = 100,
+					)
+	contraband = list(/obj/item/fish_eggs/babycarp = 5)
+	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
+	refill_canister = /obj/item/weapon/vending_refill/crittercare
+
+/obj/machinery/vending/crittercare/New()
+	..()
+	component_parts = list()
+	var/obj/item/weapon/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)
+	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)
+	component_parts += new /obj/item/weapon/vending_refill/crittercare(0)

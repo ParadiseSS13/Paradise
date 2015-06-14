@@ -41,7 +41,7 @@
 	if (A)
 		if(ismob(A))
 			toxmob(A)
-		if((istype(A,/obj/machinery/the_singularitygen))||(istype(A,/obj/machinery/singularity/)))
+		if((istype(A,/obj/machinery/the_singularitygen))||(istype(A,/obj/singularity/)))
 			A:energy += energy
 /*
 		else if( istype(A,/obj/effect/rust_particle_catcher) )

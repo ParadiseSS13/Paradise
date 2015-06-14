@@ -492,3 +492,10 @@ var/list/intents = list("help","disarm","grab","harm")
 						lname = name
 				lname = "<span class='name'>[lname]</span> "
 			M << "<span class='deadsay'>[lname][follow][message]</span>"
+
+/proc/notify_ghosts(var/message, var/ghost_sound = null) //Easy notification of ghosts.
+	for(var/mob/dead/observer/O in player_list)
+		if(O.client)
+			O << "<span class='ghostalert'>[message]<span>"
+			if(ghost_sound)
+				O << sound(ghost_sound)

@@ -186,7 +186,7 @@ rcd light flash thingy on matter drain
 	set name = "Overload Machine"
 	set category = "Malfunction"
 	if (istype(M, /obj/machinery))
-		if(istype(M, /obj/machinery/singularity) || istype(M,/obj/machinery/field_generator) || istype(M, /obj/machinery/singularity/narsie))
+		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
 			return
 		for(var/datum/AI_Module/small/overload_machine/overload in current_modules)
@@ -214,7 +214,7 @@ rcd light flash thingy on matter drain
 	set name = "Override Machine"
 	set category = "Malfunction"
 	if (istype(M, /obj/machinery))
-		if(istype(M, /obj/machinery/singularity) || istype(M,/obj/machinery/field_generator) || istype(M, /obj/machinery/singularity/narsie))
+		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
 			return
 		for(var/datum/AI_Module/small/override_machine/override in current_modules)

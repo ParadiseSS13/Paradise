@@ -195,15 +195,11 @@
 
 	regular_hud_updates()
 
-	var/obj/item/borg/sight/hud/hud = (locate(/obj/item/borg/sight/hud) in src)
-	if(hud && hud.hud)
-		hud.hud.process_hud(src)
-	else
-		switch(src.sensor_mode)
-			if (SEC_HUD)
-				process_sec_hud(src,1)
-			if (MED_HUD)
-				process_med_hud(src,1)
+	switch(src.sensor_mode)
+		if (SEC_HUD)
+			process_sec_hud(src,1)
+		if (MED_HUD)
+			process_med_hud(src,1)
 
 	if (src.healths)
 		if (src.stat != 2)

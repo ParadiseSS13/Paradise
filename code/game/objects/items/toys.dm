@@ -1366,3 +1366,26 @@ obj/item/toy/cards/deck/syndicate/black
 	new /obj/item/toy/character/wizard(src)
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
+
+
+//Pet Rocks, just like from the 70's!
+
+/obj/item/toy/pet_rock
+	name = "pet rock"
+	desc = "The perfect pet!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "pet_rock"
+	w_class = 2
+	force = 5
+	throwforce = 5
+	attack_verb = list("attacked", "bashed", "smashed", "stoned")
+
+/obj/item/toy/pet_rock/fred
+	name = "fred"
+	desc = "Fred, the bestest boy pet in the whole wide universe!"
+	icon_state = "fred"
+
+/obj/item/toy/pet_rock/roxie
+	name = "roxie"
+	desc = "Roxie, the bestest girl pet in the whole wide universe!"
+	icon_state = "roxie"

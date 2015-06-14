@@ -830,6 +830,8 @@
 	float(!has_gravity)
 
 /mob/living/proc/float(on)
+	if(throwing)
+		return
 	if(on && !floating)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		floating = 1
@@ -841,6 +843,21 @@
 	return "You can't fit into that vent."
 
 
+/mob/living/singularity_act()
+	var/gain = 20
+	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	gib()
+	return(gain)
+
+/mob/living/singularity_pull(S)
+	step_towards(src,S)
+
+/mob/living/narsie_act()
+	if(client)
+		makeNewConstruct(/mob/living/simple_animal/construct/harvester, src, null, 1)
+	spawn_dust()
+	gib()
+	return
 
 /atom/movable/proc/do_attack_animation(atom/A)
 	var/pixel_x_diff = 0
@@ -898,3 +915,6 @@
 
 /mob/living/proc/get_standard_pixel_y_offset(lying = 0)
 	return initial(pixel_y)
+
+/mob/living/proc/spawn_dust()
+	new /obj/effect/decal/cleanable/ash(loc)

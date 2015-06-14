@@ -42,7 +42,7 @@
 			user << "\b There is not enough wire in this coil. You need 5 lengths."
 			return
 		CC.use(5)
-		user << "\blue You attach wire to the [name]."
+		user << "<span class='notice'>You attach wire to the [name].</span>"
 		new /obj/item/stack/light_w(user.loc)
 		src.use(1)
 	else if( istype(W, /obj/item/stack/rods) )
@@ -64,12 +64,12 @@
 	if(!user || !src)	return 0
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 0
 	var/title = "Sheet-Glass"
 	title += " ([src.amount] sheet\s left)"
-	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
-		if("One Direction")
+	switch(input(title, "What would you like to construct?") in list("One Direction Window", "Full Window", "Fishbowl", "Fish Tank", "Wall Aquarium", "Cancel"))
+		if("One Direction Window")
 			if(!src)	return 1
 			if(src.loc != user)	return 1
 
@@ -78,11 +78,11 @@
 			for (var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
-					user << "\red There are too many windows in this location."
+					user << "<span class='danger'>There are too many windows in this location.</span>"
 					return 1
 				directions-=win.dir
 				if(win.is_fulltile())
-					user << "\red Can't let you do that."
+					user << "<span class='danger'>Can't let you do that.</span>"
 					return 1
 
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
@@ -108,16 +108,40 @@
 			if(!src)	return 1
 			if(src.loc != user)	return 1
 			if(src.amount < 2)
-				user << "\red You need more glass to do that."
+				user << "<span class='danger'>You need more glass to do that.</span>"
 				return 1
 			if(locate(/obj/structure/window/full) in user.loc)
-				user << "\red There is a full window in the way."
+				user << "<span class='danger'>There is a full window in the way.</span>"
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
 			W.anchored = 0
 			W.air_update_turf(1)
 			src.use(2)
+		if("Fishbowl")
+			if(!src)	return 1
+			if(src.loc != user)	return 1
+			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/bowl(user.loc, 0)
+			F.air_update_turf(1)
+			src.use(1)
+		if("Fish Tank")
+			if(!src)	return 1
+			if(src.loc != user)	return 1
+			if(src.amount < 3)
+				user << "<span class='danger'>You need more glass to do that.</span>"
+				return 1
+			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/tank(user.loc, 0)
+			F.air_update_turf(1)
+			src.use(3)
+		if("Wall Aquarium")
+			if(!src)	return 1
+			if(src.loc != user)	return 1
+			if(src.amount < 4)
+				user << "<span class='danger'>You need more glass to do that.</span>"
+				return 1
+			var/obj/machinery/fishtank/F = new /obj/machinery/fishtank/wall(user.loc, 0)
+			F.air_update_turf(1)
+			src.use(4)
 	return 0
 
 
@@ -150,7 +174,7 @@
 	if(!user || !src)	return 0
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 0
 	var/title = "Sheet Reinf. Glass"
 	title += " ([src.amount] sheet\s left)"
@@ -163,11 +187,11 @@
 			for (var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
-					user << "\red There are too many windows in this location."
+					user << "<span class='danger'>There are too many windows in this location.</span>"
 					return 1
 				directions-=win.dir
 				if(win.is_fulltile())
-					user << "\red Can't let you do that."
+					user << "<span class='danger'>Can't let you do that.</span>"
 					return 1
 
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
@@ -193,10 +217,10 @@
 			if(!src)	return 1
 			if(src.loc != user)	return 1
 			if(src.amount < 2)
-				user << "\red You need more glass to do that."
+				user << "<span class='danger'>You need more glass to do that.</span>"
 				return 1
 			if(locate(/obj/structure/window/full) in user.loc)
-				user << "\red There is a window in the way."
+				user << "<span class='danger'>There is a window in the way.</span>"
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
@@ -207,15 +231,15 @@
 			if(!src || src.loc != user) return 1
 
 			if(isturf(user.loc) && locate(/obj/structure/windoor_assembly/, user.loc))
-				user << "\red There is already a windoor assembly in that location."
+				user << "<span class='danger'>There is already a windoor assembly in that location.</span>"
 				return 1
 
 			if(isturf(user.loc) && locate(/obj/machinery/door/window/, user.loc))
-				user << "\red There is already a windoor in that location."
+				user << "<span class='danger'>There is already a windoor in that location.</span>"
 				return 1
 
 			if(src.amount < 5)
-				user << "\red You need more glass to do that."
+				user << "<span class='danger'>You need more glass to do that.</span>"
 				return 1
 
 			var/obj/structure/windoor_assembly/WD
@@ -278,7 +302,7 @@
 	if(!user || !src)  return 0
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='danger'> You don't have the dexterity to do this!"
 		return 0
 	var/title = "Plasma-glass alloy"
 	title += " ([src.amount] sheet\s left)"
@@ -291,11 +315,11 @@
 			for (var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
-					user << "\red There are too many windows in this location."
+					user << "<span class='danger'>There are too many windows in this location.</span>"
 					return 1
 				directions-=win.dir
 				if(!(win.ini_dir in cardinal))
-					user << "\red Can't let you do that."
+					user << "<span class='danger'>Can't let you do that.</span>"
 					return 1
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
 			var/dir_to_set = 2
@@ -318,10 +342,10 @@
 			if(!src)  return 1
 			if(src.loc != user)  return 1
 			if(src.amount < 2)
-				user << "\red You need more glass to do that."
+				user << "<span class='danger'>You need more glass to do that.</span>"
 				return 1
 			if(locate(/obj/structure/window) in user.loc)
-				user << "\red There is a window in the way."
+				user << "<span class='danger'>There is a window in the way.</span>"
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0
@@ -351,7 +375,7 @@
 	if(!user || !src)  return 0
 	if(!istype(user.loc,/turf)) return 0
 	if(!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 0
 	var/title = "Reinforced plasma-glass alloy"
 	title += " ([src.amount] sheet\s left)"
@@ -364,11 +388,11 @@
 			for (var/obj/structure/window/win in user.loc)
 				i++
 				if(i >= 4)
-					user << "\red There are too many windows in this location."
+					user << "<span class='danger'>There are too many windows in this location.</span>"
 					return 1
 				directions-=win.dir
 				if(!(win.ini_dir in cardinal))
-					user << "\red Can't let you do that."
+					user << "<span class='danger'>Can't let you do that.</span>"
 					return 1
 			//Determine the direction. It will first check in the direction the person making the window is facing, if it finds an already made window it will try looking at the next cardinal direction, etc.
 			var/dir_to_set = 2
@@ -391,10 +415,10 @@
 			if(!src)  return 1
 			if(src.loc != user)  return 1
 			if(src.amount < 2)
-				user << "\red You need more glass to do that."
+				user << "<span class='danger'>You need more glass to do that.</span>"
 				return 1
 			if(locate(/obj/structure/window) in user.loc)
-				user << "\red There is a window in the way."
+				user << "<span class='danger'>There is a window in the way.</span>"
 				return 1
 			var/obj/structure/window/W = new full_window( user.loc, 0 )
 			W.state = 0

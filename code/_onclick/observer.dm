@@ -8,7 +8,7 @@
 			return									// seems legit.
 
 	// Things you might plausibly want to follow
-	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/machinery/singularity))
+	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/singularity))
 		ManualFollow(A)
 
 	// Otherwise jump
@@ -19,7 +19,7 @@
 	if(client.buildmode)
 		build_click(src, client.buildmode, params, A)
 		return
-	if(world.time <= next_move) 
+	if(world.time <= next_move)
 		return
 
 	var/list/modifiers = params2list(params)

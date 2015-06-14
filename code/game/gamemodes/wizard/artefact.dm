@@ -132,7 +132,7 @@
 
 /obj/effect/rend/New()
 	spawn(50)
-		new /obj/machinery/singularity/narsie/wizard(get_turf(src))
+		new /obj/singularity/narsie/wizard(get_turf(src))
 		del(src)
 		return
 	return

@@ -241,6 +241,9 @@ BLIND     // can't see anything
 	var/blockTracking // Do we block AI tracking?
 	var/flash_protect = 0
 	var/tint = 0
+	var/HUDType = 0
+	var/vision_flags = 0
+	var/see_darkness = 1
 
 //Mask
 /obj/item/clothing/mask

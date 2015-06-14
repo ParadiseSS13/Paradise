@@ -219,3 +219,20 @@
 			else
 				U << "\red <b>Creation failed!</b>: \black The soul stone is empty! Go kill someone!"
 	return
+
+/proc/makeNewConstruct(var/mob/living/simple_animal/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
+	var/mob/living/simple_animal/construct/newstruct = new ctype(get_turf(target))
+	newstruct.faction |= "\ref[stoner]"
+	newstruct.key = target.key
+	if(stoner && iscultist(stoner) || cultoverride)
+		if(ticker.mode.name == "cult")
+			ticker.mode:add_cultist(newstruct.mind)
+		else
+			ticker.mode.cult+=newstruct.mind
+		ticker.mode.update_cult_icons_added(newstruct.mind)
+	if(stoner && iswizard(stoner))
+		newstruct << "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>"
+	else if(stoner && iscultist(stoner))
+		newstruct << "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>"
+	else newstruct << "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>"
+	newstruct.cancel_camera()

@@ -11,7 +11,7 @@
 	var/turf/throw_source = null
 	var/throw_speed = 2
 	var/throw_range = 7
-	var/no_spin = 0
+	var/no_spin_thrown = 0 //set this to 1 if you don't want an item that you throw to spin, no matter what. -Fox
 	var/moved_recently = 0
 	var/mob/pulledby = null
 
@@ -147,9 +147,9 @@
 	src.throwing = 1
 	src.thrower = thrower
 	src.throw_source = get_turf(src)	//store the origin turf
-
-	if(!no_spin)
-		SpinAnimation(5, 1)
+	if(target.allow_spin) // turns out 1000+ spinning objects being thrown at the singularity creates lag - Iamgoofball
+		if(!no_spin_thrown)
+			SpinAnimation(5, 1)
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 
@@ -257,11 +257,6 @@
 		return src.master.attack_hand(a, b, c)
 	return
 
-/////////////////////////////
-// SINGULOTH PULL REFACTOR
-/////////////////////////////
-/atom/movable/proc/canSingulothPull(var/obj/machinery/singularity/singulo)
-	return 1
 
 /atom/movable/proc/water_act(var/volume, var/temperature, var/source) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return 1

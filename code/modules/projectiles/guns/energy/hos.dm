@@ -10,6 +10,7 @@
 	charge_cost = 2000
 	modifystate = "hoslaserstun"
 	projectile_type = "/obj/item/projectile/energy/electrode"
+	fire_delay = 15
 	var/mode = 2
 
 	attack_self(mob/living/user as mob)

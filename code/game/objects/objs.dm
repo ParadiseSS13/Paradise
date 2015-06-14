@@ -245,3 +245,16 @@ a {
 	user << browse(dat, "window=mtcomputer")
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
+
+/obj/singularity_act()
+	ex_act(1.0)
+	if(src && isnull(gc_destroyed))
+		qdel(src)
+	return 2
+
+/obj/singularity_pull(S, current_size)
+	if(anchored)
+		if(current_size >= STAGE_FIVE)
+			anchored = 0
+			step_towards(src,S)
+	else step_towards(src,S)

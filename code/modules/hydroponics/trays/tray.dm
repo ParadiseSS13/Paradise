@@ -71,7 +71,8 @@
 		"adminordrazine" =  1,
 		"eznutrient" =      1,
 		"robustharvest" =   1,
-		"left4zed" =        1
+		"left4zed" =        1,
+		"fishwater" =		0.75,
 		)
 	var/global/list/weedkiller_reagents = list(
 		"fluorine" =       -4,
@@ -98,6 +99,7 @@
 		"phosphorus" =     -0.5,
 		"water" =           1,
 		"sodawater" =       1,
+		"fishwater" =		1,
 		)
 
 	// Beneficial reagents also have values for modifying yield_mod and mut_mod (in that order).

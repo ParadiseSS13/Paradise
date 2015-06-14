@@ -349,7 +349,7 @@
 /obj/item/weapon/grenade/clusterbuster/apocalypse
 	name = "Apocalypse Bomb"
 	desc = "No matter what, do not EVER use this."
-	payload = /obj/machinery/singularity
+	payload = /obj/singularity
 
 /obj/item/weapon/grenade/clusterbuster/ultima
 	name = "Earth Shattering Kaboom"
@@ -456,6 +456,6 @@
 		var/atom/A = new payload(loc)
 		if(istype(A,/obj/item/weapon/grenade))
 			A:prime()
-		if(istype(A,/obj/machinery/singularity)) // I can't emphasize enough how much you should never use this grenade
+		if(istype(A,/obj/singularity)) // I can't emphasize enough how much you should never use this grenade
 			A:energy = 200
 		del src

@@ -57,12 +57,6 @@
 	typepath = /obj/item/weapon/storage/box/dice
 	cost = 200
 
-/datum/storeitem/collar
-	name = "Pet Collar"
-	desc = "A box containing a pet collar; perfect for claiming a pet as your own personal accessory."
-	typepath = /obj/item/clothing/accessory/petcollar
-	cost = 350
-
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling lovenotes all over their hallways."

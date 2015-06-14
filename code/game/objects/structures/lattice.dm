@@ -81,4 +81,7 @@
 
 		icon_state = "lattice[dir_sum]"
 		return
-		
+
+/obj/structure/lattice/singularity_pull(S, current_size)
+	if(current_size >= STAGE_FOUR)
+		Destroy()

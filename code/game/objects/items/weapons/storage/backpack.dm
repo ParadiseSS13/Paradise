@@ -41,7 +41,7 @@
 			investigate_log("has become a singularity. Caused by [user.key]","singulo")
 			user << "\red The Bluespace interfaces of the two devices catastrophically malfunction!"
 			del(W)
-			var/obj/machinery/singularity/singulo = new /obj/machinery/singularity (get_turf(src))
+			var/obj/singularity/singulo = new /obj/singularity (get_turf(src))
 			singulo.energy = 300 //should make it a bit bigger~
 			message_admins("[key_name_admin(user)] detonated a bag of holding")
 			log_game("[key_name(user)] detonated a bag of holding")
@@ -60,6 +60,11 @@
 				del(O)
 			crit_fail = 1
 			icon_state = "brokenpack"
+
+	singularity_act(current_size)
+		var/dist = max((current_size - 2),1)
+		explosion(src.loc,(dist),(dist*2),(dist*4))
+		return
 
 
 /obj/item/weapon/storage/backpack/santabag
@@ -300,7 +305,7 @@
 	desc = "A duffelbag designed to hold bananas and bike horns."
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
-	
+
 //ERT backpacks.
 /obj/item/weapon/storage/backpack/ert
 	name = "emergency response team backpack"
@@ -330,7 +335,7 @@
 	name = "emergency response team medical backpack"
 	desc = "A spacious backpack with lots of pockets, worn by medical members of a Nanotrasen Emergency Response Team."
 	icon_state = "ert_medical"
-	
+
 //Janitorial
 /obj/item/weapon/storage/backpack/ert/janitor
 	name = "emergency response team janitor backpack"
