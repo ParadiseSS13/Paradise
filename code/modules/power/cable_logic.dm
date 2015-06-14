@@ -130,7 +130,7 @@
 	if( !(pn_input.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
-		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
+		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
 
 
 
@@ -202,7 +202,7 @@
 	if( (pn_input1.avail >= LOGIC_HIGH) && (pn_input2.avail >= LOGIC_HIGH) )
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
-		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
+		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
 
 //OR GATE
 /obj/machinery/logic/twoinput/or/process()
@@ -222,7 +222,7 @@
 	if( (pn_input1.avail >= LOGIC_HIGH) || (pn_input2.avail >= LOGIC_HIGH) )
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
-		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
+		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
 
 //XOR GATE
 /obj/machinery/logic/twoinput/xor/process()
@@ -242,7 +242,7 @@
 	if( (pn_input1.avail >= LOGIC_HIGH) != (pn_input2.avail >= LOGIC_HIGH) )
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
-		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
+		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
 
 //XNOR GATE (EQUIVALENCE)
 /obj/machinery/logic/twoinput/xnor/process()
@@ -262,7 +262,7 @@
 	if( (pn_input1.avail >= LOGIC_HIGH) == (pn_input2.avail >= LOGIC_HIGH) )
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
-		pn_output.newload += LOGIC_HIGH		//Otherwise increase the load to 5
+		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
 
 #define RELAY_POWER_TRANSFER 2000	//How much power a relay transfers through.
 
@@ -284,7 +284,7 @@
 			return
 
 		if(pn_input2.avail >= RELAY_POWER_TRANSFER)
-			pn_input2.newload += RELAY_POWER_TRANSFER
+			pn_input2.load += RELAY_POWER_TRANSFER
 			pn_output.newavail += RELAY_POWER_TRANSFER
 
 

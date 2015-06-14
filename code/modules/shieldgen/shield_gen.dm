@@ -245,7 +245,7 @@
 		powered = 1
 		if(PN)
 			storedpower += shieldload
-			PN.newload += shieldload //uses powernet power.
+			PN.load += shieldload //uses powernet power.
 			*/
 
 /obj/machinery/shield_gen/proc/toggle()
