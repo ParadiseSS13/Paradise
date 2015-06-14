@@ -250,8 +250,8 @@
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/accessory/holster(src)
 		new /obj/item/clothing/accessory/blue(src)
-		new /obj/item/clothing/suit/storage/blueshield
-		new /obj/item/clothing/shoes/jackboots/jacksandals
+		new /obj/item/clothing/suit/storage/blueshield(src)
+		new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 		return
 
 /obj/structure/closet/secure_closet/ntrep
