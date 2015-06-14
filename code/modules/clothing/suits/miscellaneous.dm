@@ -372,6 +372,7 @@
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags = ONESIZEFITSALL
 	siemens_coefficient = 2.0
 //swimsuit
 /obj/item/clothing/under/swimsuit/
