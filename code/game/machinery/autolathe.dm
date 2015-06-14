@@ -183,7 +183,7 @@
 		selected_category = href_list["category"]
 
 	if(href_list["make"])
-		BuildTurf = get_step(src.loc, get_dir(src,usr))
+		BuildTurf = loc
 
 		/////////////////
 		//href protection
