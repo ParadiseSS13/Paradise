@@ -830,6 +830,8 @@
 	float(!has_gravity)
 
 /mob/living/proc/float(on)
+	if(throwing)
+		return
 	if(on && !floating)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		floating = 1
