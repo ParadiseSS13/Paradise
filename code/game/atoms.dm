@@ -33,6 +33,7 @@ var/global/list/ghdel_profiling = list()
 	// Garbage collection
 	var/gc_destroyed=null
 
+	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
 /atom/Destroy()
 	set_opacity(0)
