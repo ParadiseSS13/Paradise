@@ -20,7 +20,7 @@
 /mob/proc/timed_alert(question as text, title as text, default as text, time as num, \
 					 choice1 as text, choice2 as text, choice3 as text)
 
-	if (client) client.timed_alert(question, title, default, time, choice1, choice2, choice3)
+	if (client) return client.timed_alert(question, title, default, time, choice1, choice2, choice3)
 	return
 
 

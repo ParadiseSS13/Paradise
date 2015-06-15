@@ -168,7 +168,7 @@ client/proc/one_click_antag()
 
 	if(candidates.len)
 		candidates = shuffle(candidates)
-		for(var/mob/i in candidates)
+		for(var/mob/dead/observer/i in candidates)
 			if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
 
 			theghost = i
