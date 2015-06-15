@@ -1191,13 +1191,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		/* HUD shit goes here, as long as it doesn't modify sight flags */
 		// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
 
-					switch(G.HUDType)
-						if(SECHUD)
-							process_sec_hud(src,1)
-						if(MEDHUD)
-							process_med_hud(src,1)
-						if(ANTAGHUD)
-							process_antag_hud(src)
+						switch(G.HUDType)
+							if(SECHUD)
+								process_sec_hud(src,1)
+							if(MEDHUD)
+								process_med_hud(src,1)
+							if(ANTAGHUD)
+								process_antag_hud(src)
 
 				if(head)
 					var/obj/item/clothing/head/H = head
@@ -1209,13 +1209,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		/* HUD shit goes here, as long as it doesn't modify sight flags */
 		// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
 
-					switch(H.HUDType)
-						if(SECHUD)
-							process_sec_hud(src,1)
-						if(MEDHUD)
-							process_med_hud(src,1)
-						if(ANTAGHUD)
-							process_antag_hud(src)
+						switch(H.HUDType)
+							if(SECHUD)
+								process_sec_hud(src,1)
+							if(MEDHUD)
+								process_med_hud(src,1)
+							if(ANTAGHUD)
+								process_antag_hud(src)
 
 
 
