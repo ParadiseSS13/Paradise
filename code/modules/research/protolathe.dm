@@ -199,8 +199,9 @@ Note: Must be placed west/left of and R&D console to function.
 	src.updateUsrDialog()
 
 	if(stack)
-		src.overlays += "protolathe_[stack.name]"
+		var/stackname = stack.name
+		src.overlays += "protolathe_[stackname]"
 		sleep(10)
-		src.overlays -= "protolathe_[stack.name]"
+		src.overlays -= "protolathe_[stackname]"
 
 	return
