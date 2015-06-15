@@ -556,6 +556,7 @@
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
+	if(!istype(location)) return
 	var/datum/gas_mixture/environment = location.return_air()
 	var/total = environment.oxygen + environment.carbon_dioxide + environment.toxins + environment.nitrogen
 	if(total==0)
