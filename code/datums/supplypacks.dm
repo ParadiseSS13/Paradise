@@ -891,6 +891,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "butterflies crate"
 	contraband = 1
 
+/datum/supply_packs/organic/deer
+	name = "Deer Crate"
+	cost = 56 //Deer are best.
+	containertype = /obj/structure/closet/critter/deer
+	containername = "deer crate"
+
 ////// hippy gear
 
 /datum/supply_packs/organic/hydroponics // -- Skie

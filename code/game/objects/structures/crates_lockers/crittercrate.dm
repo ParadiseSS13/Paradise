@@ -86,3 +86,7 @@
 	name = "butterflies crate"
 	content_mob = /mob/living/simple_animal/butterfly
 	amount = 50
+
+/obj/structure/closet/critter/deer
+	name = "Deer crate"
+	content_mob = /mob/living/simple_animal/deer
