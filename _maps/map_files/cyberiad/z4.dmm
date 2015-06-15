@@ -170,7 +170,7 @@
 "dn" = (/obj/structure/bedsheetbin,/obj/structure/table,/obj/machinery/light_switch{pixel_x = 0; pixel_y = 28},/turf/simulated/floor{icon_state = "wood"},/area/engiestation)
 "do" = (/obj/structure/extinguisher_cabinet{pixel_x = -5; pixel_y = 30},/turf/simulated/floor{icon_state = "wood"},/area/engiestation)
 "dp" = (/obj/structure/stool/bed,/obj/machinery/status_display{pixel_x = 0; pixel_y = 32},/obj/item/weapon/bedsheet/orange,/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/engiestation)
-"dq" = (/obj/structure/table,/obj/machinery/light/small/lamp,/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/engiestation)
+"dq" = (/obj/structure/table,/obj/item/device/flashlight/lamp,/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/engiestation)
 "dr" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/engiestation)
 "ds" = (/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/space)
 "dt" = (/obj/structure/lattice,/turf/space,/area/constructionsite/hallway/aft)

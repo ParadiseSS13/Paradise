@@ -62,7 +62,7 @@
 "bj" = (/obj/structure/extinguisher_cabinet{pixel_x = -25; pixel_y = 0},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor{heat_capacity = 1e+006},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
 "bk" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor{dir = 4; heat_capacity = 1e+006; icon_state = "neutral"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
 "bl" = (/obj/structure/stool/bed/chair/comfy/beige{dir = 1; icon_state = "comfychair"},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "grimy"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
-"bm" = (/obj/structure/table/woodentable,/obj/machinery/light/small/lamp/green{pixel_x = 1; pixel_y = 5},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "grimy"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
+"bm" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp/green{pixel_x = 1; pixel_y = 5},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "grimy"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
 "bn" = (/obj/structure/table/woodentable,/obj/item/weapon/storage/fancy/cigarettes{pixel_y = 2},/obj/item/weapon/lighter{pixel_x = 4; pixel_y = 2},/turf/simulated/floor{heat_capacity = 1e+006; icon_state = "grimy"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
 "bo" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor{dir = 8; heat_capacity = 1e+006; icon_state = "neutral"},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
 "bp" = (/turf/simulated/floor/plating{heat_capacity = 1e+006},/area/awaycontent/a1{has_gravity = 1; name = "UO45 Central Hall"})
@@ -1458,3 +1458,4 @@ aayUyVaayWyXyYyZzaaazbzcaazdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aazeaazfzgzhaaziaaaaaaaaaazdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+
