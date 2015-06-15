@@ -241,7 +241,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.forceMove(equipment_system)
+				W.forceMove(src)
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
@@ -253,7 +253,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.forceMove(equipment_system)
+				W.forceMove(src)
 				equipment_system.misc_system = W
 				equipment_system.misc_system.my_atom = src
 				return
