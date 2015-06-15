@@ -174,6 +174,10 @@
 		teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
 		return 0
 
+	if(istype(teleatom, /obj/item/flag/nation)) // Don't let nation's flags get teleported either --Fox
+		teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
+		return 0
+
 	if(!isemptylist(teleatom.search_contents_for(/obj/item/weapon/disk/nuclear)))
 		if(istype(teleatom, /mob/living))
 			var/mob/living/MM = teleatom
