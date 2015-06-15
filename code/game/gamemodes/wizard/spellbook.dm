@@ -392,6 +392,11 @@
 			src.uses++
 			qdel(O)
 
+	if(istype(O, /obj/item/weapon/antag_spawner/slaughter_demon))
+		user << "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>"
+		src.uses++
+		del(O)
+
 /obj/item/weapon/spellbook/proc/GetCategoryHeader(var/category)
 	var/dat = ""
 	switch(category)

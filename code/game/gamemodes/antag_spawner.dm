@@ -112,7 +112,7 @@
 				user << "<span class='notice'>You shatter the bottle, no turning back now!</span>"
 				user << "<span class='notice'>You sense a dark presence lurking just beyond the veil...</span>"
 				playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
-				playsound(user.loc,'sound/hallucinations/im_here1.ogg', 50, -1)//THIS IS OVERKILL -AB
+				playsound(user.loc,'sound/hallucinations/im_here1.ogg', 50, -1)//Paradise Port:THIS IS OVERKILL -AB
 				qdel(src)
 			else
 				possiblecandidates -= demon_candidates
@@ -141,6 +141,7 @@
 	S.mind.objectives += new_objective
 	var/datum/objective/new_objective2 = new /datum/objective
 	new_objective2.owner = S:mind
+	//Paradise port:i changed ther verbage..might want to do so on the above kill objective. Maybe save the wizard for last...
 	new_objective2.explanation_text = "Kill or Toy with the rest of the crew. Make them know fear!"
 	S.mind.objectives += new_objective2
 	S << S.playstyle_string

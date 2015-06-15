@@ -1,10 +1,18 @@
-/datum/event/spawn_slaughter
+///datum/round_event_control/slaughter
+//	name = "Spawn Slaughter Demon"
+//	typepath = /datum/round_event/slaughter
+//	weight = 0 //Admin only
+//	max_occurrences = 1
+//	earliest_start = 30 //Spawn later with more blood, hopefully
+
+
+/datum/event/spawn_slaughter//Paradise port:Changed from round_event to event, i was getting errors
 	var/key_of_slaughter
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	var/time_passed = world.time
 	key_of_slaughter = null
-	if(!key_of_slaughter)
+	if(!key_of_slaughter)//Paradise port change:I added in the whole do you want to be this question
 		var/list/candidates = get_candidates(BE_ALIEN)
 		if(!candidates.len)
 			if(end_if_fail)
@@ -39,7 +47,8 @@
 	player_mind.special_role = "Slaughter Demon"
 	ticker.mode.traitors |= player_mind
 	new_objective.owner = player_mind
-	new_objective.explanation_text = "Kill or Toy with the rest of the crew. Make them know fear!"
+	//Paradise Port:I added the objective for one spawned like this
+	new_objective.explanation_text = "Kill or Toy with the crew. Make them know fear!"
 	player_mind.objectives += new_objective
 	S << S.playstyle_string
 	S << "<B>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</B>"

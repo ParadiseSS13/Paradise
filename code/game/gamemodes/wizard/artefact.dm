@@ -181,7 +181,7 @@
 			del src
 		return
 	..()
-
+//Why did i add this....-Fethas
 /obj/item/weapon/veilrender/honkrender //HONK!!
 	name = "honk render"
 	desc = "A wicked curved 'blade' of honk origin, recovered from the ruins of a vast circus."
