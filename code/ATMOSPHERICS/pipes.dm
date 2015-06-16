@@ -470,7 +470,8 @@
 	update_icon()
 
 /obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
-	var/turf/T = loc
+	var/turf/T = get_turf(src)
+	if(!istype(T)) return
 	if(node)
 		var/node_dir = get_dir(src,node)
 		if(node.icon_connect_type == "-supply")
@@ -632,6 +633,7 @@
 		underlays.Cut()
 
 		var/turf/T = get_turf(src)
+		if(!istype(T)) return
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
@@ -890,6 +892,7 @@
 		*/
 
 		var/turf/T = get_turf(src)
+		if(!istype(T)) return
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
@@ -1104,7 +1107,8 @@
 				node = target
 				break
 
-	var/turf/T = src.loc			// hide if turf is not intact
+	var/turf/T = get_turf(src)			// hide if turf is not intact
+	if(!istype(T)) return
 	hide(T.intact)
 	update_icon()
 

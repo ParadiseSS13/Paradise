@@ -750,7 +750,7 @@
 "ov" = (/turf/simulated/shuttle/wall{dir = 4; icon_state = "wall3"},/area/syndicate_station/start)
 "ow" = (/obj/structure/table,/obj/machinery/microwave,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "ox" = (/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
-"oy" = (/obj/structure/table,/obj/machinery/light/small/lamp{pixel_x = 4; pixel_y = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
+"oy" = (/obj/structure/table,/obj/item/device/flashlight/lamp{pixel_x = 4; pixel_y = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "oz" = (/obj/machinery/computer/shuttle_control/multi/syndicate{req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "oA" = (/obj/structure/table,/obj/machinery/door_control{id = "syndieshutters"; name = "remote shutter control"; req_access_txt = "150"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "oB" = (/obj/structure/computerframe,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)

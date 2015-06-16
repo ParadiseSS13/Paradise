@@ -3,6 +3,7 @@
 
 #define SMESMAXCHARGELEVEL 200000
 #define SMESMAXOUTPUT 200000
+#define SMESRATE 0.05			// rate of internal charge to external power
 
 
 
@@ -44,7 +45,7 @@
 	spawn(5)
 		if(!powernet)
 			connect_to_network()
-		
+
 		dir_loop:
 			for(var/d in cardinal)
 				var/turf/T = get_step(src, d)
@@ -71,7 +72,7 @@
 	for(var/obj/item/weapon/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
-	
+
 /obj/machinery/power/smes/proc/updateicon()
 	overlays.Cut()
 	if(stat & BROKEN)	return
@@ -225,21 +226,20 @@
 /obj/machinery/power/smes/proc/make_terminal(var/turf/T)
 	terminal = new/obj/machinery/power/terminal(T)
 	terminal.dir = get_dir(T,src)
-	terminal.master = src	
-	
+	terminal.master = src
+
 /obj/machinery/power/smes/proc/disconnect_terminal()
 	if(terminal)
 		terminal.master = null
-		terminal = null	
-	
+		terminal = null
+
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/capacity)
 
-#define SMESRATE 0.05			// rate of internal charge to external power
 
 
 /obj/machinery/power/smes/process()
-	if(stat & BROKEN)	
+	if(stat & BROKEN)
 		return
 
 	//store machine state to see if we need to update the icon overlays
@@ -326,16 +326,16 @@
 
 /obj/machinery/power/smes/add_load(var/amount)
 	if(terminal && terminal.powernet)
-		terminal.powernet.newload += amount
+		terminal.powernet.load += amount
 
 
 /obj/machinery/power/smes/attack_ai(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
-	
+
 /obj/machinery/power/smes/attack_ghost(mob/user)
-	ui_interact(user)	
-	
+	ui_interact(user)
+
 /obj/machinery/power/smes/attack_hand(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)

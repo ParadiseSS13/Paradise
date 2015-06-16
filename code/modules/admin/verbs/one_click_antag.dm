@@ -150,7 +150,7 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_WIZARD)
+		if(istype(G) && G.client && G.client.prefs.be_special & BE_WIZARD)
 			if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
 				if(player_old_enough_antag(G.client,BE_WIZARD))
 					spawn(0)
@@ -168,7 +168,7 @@ client/proc/one_click_antag()
 
 	if(candidates.len)
 		candidates = shuffle(candidates)
-		for(var/mob/i in candidates)
+		for(var/mob/dead/observer/i in candidates)
 			if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
 
 			theghost = i
@@ -224,7 +224,7 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_OPERATIVE)
+		if(istype(G) && G.client && G.client.prefs.be_special & BE_OPERATIVE)
 			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
 				if(player_old_enough_antag(G.client,BE_OPERATIVE))
 					spawn(0)
@@ -451,7 +451,7 @@ client/proc/one_click_antag()
 
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)
-		if(G.client.prefs.be_special & BE_RAIDER)
+		if(istype(G) && G.client && G.client.prefs.be_special & BE_RAIDER)
 			if(player_old_enough_antag(G.client,BE_RAIDER))
 				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
 					spawn(0)
