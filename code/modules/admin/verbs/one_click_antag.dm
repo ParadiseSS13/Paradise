@@ -21,7 +21,6 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=9'>Make Slaughter Demon (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -574,11 +573,6 @@ client/proc/one_click_antag()
 		return 1
 
 	return 0
-
-/datum/admins/proc/makeSlaughterDemon()
-	//spawn_slaughter()//I know the event proc works..
-	new /datum/event/spawn_slaughter/start()
-	return 1
 
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.

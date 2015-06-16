@@ -169,6 +169,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bluespace Anomaly",		/datum/event/anomaly/anomaly_bluespace,	50,		list(ASSIGNMENT_ENGINEER = 25)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,		50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,		200),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Slaughter Demon",			/datum/event/spawn_slaughter,		0),
 	)
 
 /datum/event_container/major

@@ -39,6 +39,7 @@
 	maxHealth = 250
 	health = 250
 	environment_smash = 1
+	universal_understand = 1
 	melee_damage_lower = 15//Paradise port:This was also 30, but i moved it down.
 	melee_damage_upper = 30
 	see_in_dark = 8
@@ -57,12 +58,14 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
+	spawn(5)
 	AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper)
 
 /mob/living/simple_animal/slaughter/death()
 	..(1)
 	new /obj/effect/decal/cleanable/blood (src.loc)
-	new /obj/effect/decal/cleanable/blood/gibs(src.loc)//Paradise Port:I added more gibs..
+	new /obj/effect/gibspawner/generic(get_turf(src))
+	new /obj/effect/gibspawner/generic(get_turf(src))
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	new /obj/item/weapon/demonheart (src.loc)
 	visible_message("<span class='danger'>The [src] screams in anger as its form collapes into a pool of viscera.</span>")
@@ -96,15 +99,16 @@
 			if(src.buckled)
 				src.buckled = null
 			if(src.pulling)
-				if(istype(src.pulling, /mob/living))
+				if(istype(src.pulling, /mob/living/))
 					var/mob/living/victim = src.pulling
-					//if (src.pulling.species.flags & IS_SYNTHETIC)//IPCs are too crunchy....I am also calling this wrong.
-					//	src.visible_message("The [src] lets go of [victim] at the last second!")
-					//	src.pulling = FALSE
-					if(victim.stat == CONSCIOUS)
+					var/mob/living/carbon/human/victimType = src.pulling
+					if (victimType.species.flags & IS_SYNTHETIC)//IPCs are too crunchy....I am also calling this wrong.
+						src.visible_message("The [src] lets go of [victim] at the last second!")
+						src.pulling = FALSE
+					else if(victim.stat == CONSCIOUS)
 						src.visible_message("[victim] kicks free of the [src] at the last second!")
 					else
-						victim.loc = B.loc///holder
+						victim.loc = holder///holder
 						src.visible_message("<span class='warning'><B>The [src] drags [victim] into [B]!</B>")
 						src.kidnapped = victim
 			flick("jaunt",animation)
@@ -114,23 +118,27 @@
 
 			if(src.kidnapped)
 				src << "<B>You being to feast on [kidnapped]. You can not move while you are doing this.</B>"
-				src.visible_message("Loud eating sounds come from the blood...")
+				src.visible_message("<span class='warning'>Loud eating sounds come from the blood...</B>")
 				src.eating = TRUE
 				sleep(6)///wait till the anim finishs before we delet it..
 				del(animation)
+				new /obj/effect/gibspawner/generic(get_turf(src))
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
+				new /obj/effect/gibspawner/generic(get_turf(src))
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
+				new /obj/effect/gibspawner/generic(get_turf(src))
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
+				var/mob/living/carbon/human/nomNom = src.kidnapped
+				var/obj/item/organ/brain/brainObj = nomNom.internal_organs_by_name["brain"]
+				if(brainObj && istype(brainObj))
+					//B.removed(kidnapped)
+					brainObj.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,5),15)
+
 				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
 				src.adjustBruteLoss(-1000)
-				//Edit for paradise, Eject the brain in the hops it can be trasnplanted or borged
-				//var/obj/item/organ/brain/brain = new(kidnapped.loc)
-				//if(brain && istype(brain))
-				//	brain.removed(kidnapped)
-				//todo:figure out how to eject brain out and one random organ from blood pool..cuase i am twisted..
 				kidnapped.ghostize()
 				qdel(kidnapped)
 				src.devoured++
@@ -139,7 +147,8 @@
 				src.eating = FALSE
 				src.pulling = FALSE
 			src.notransform = 0
-			if(!(src.eating)) //i don't want to do it like this..dear god...
+			if(!(src.eating))
+				new /obj/effect/gibspawner/human(get_turf(src))///Somewhere a janitor weeps..
 				sleep(6)///wait till the anim finishs before we delet it..
 				del(animation)
 
@@ -166,6 +175,7 @@
 			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 			playsound(get_turf(src), pick(voice),50, 1, -1)
 		src.visible_message("<span class='warning'><B>The [src] rises out of [B]!</B>")
+		new /obj/effect/gibspawner/human(get_turf(src))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 		qdel(src.holder)
 		del(animation)
@@ -221,10 +231,9 @@
 	spawn(1)
 		src.canmove = 1
 
-/obj/effect/dummy/slaughter/ex_act(blah)
-	return
-/obj/effect/dummy/slaughter/bullet_act(blah)
-	return
+/obj/effect/dummy/slaughter/ex_act(severity)
+	return 1
+
 
 ///obj/effect/dummy/slaughter/singularity_act(blah)//this errored on me on compile - Aurora
 //	return
@@ -242,7 +251,7 @@
 	//include_user = 1
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper/cast(list/targets, var/mob/simple_animal/slaughter/user = usr)
+/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper/cast(list/targets, var/mob/simple_animal/slaughter/slaughter/user = usr)
 
 	for(var/mob/living/M in targets)
 		spawn(0)
@@ -260,13 +269,6 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "heart-on"
 	origin_tech = "combat=5;biotech=8"
-
-
-
-
-
-
-
 
 //Event
 

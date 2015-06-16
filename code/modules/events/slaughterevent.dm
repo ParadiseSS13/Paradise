@@ -1,13 +1,8 @@
-///datum/round_event_control/slaughter
-//	name = "Spawn Slaughter Demon"
-//	typepath = /datum/round_event/slaughter
-//	weight = 0 //Admin only
-//	max_occurrences = 1
-//	earliest_start = 30 //Spawn later with more blood, hopefully
-
 
 /datum/event/spawn_slaughter//Paradise port:Changed from round_event to event, i was getting errors
 	var/key_of_slaughter
+
+
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	var/time_passed = world.time
