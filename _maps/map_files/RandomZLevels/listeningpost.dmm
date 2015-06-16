@@ -20,7 +20,7 @@
 "t" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/mineral,/area/mine/unexplored)
 "u" = (/obj/structure/disposaloutlet{dir = 4},/obj/structure/disposalpipe/trunk{dir = 8},/turf/simulated/floor/plating/airless,/area/space)
 "v" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/brown,/turf/simulated/floor,/area/awaymission/listeningpost)
-"w" = (/obj/structure/table,/obj/machinery/light/small/lamp/green,/turf/simulated/floor,/area/awaymission/listeningpost)
+"w" = (/obj/structure/table,/obj/item/device/flashlight/lamp/green,/turf/simulated/floor,/area/awaymission/listeningpost)
 "x" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/awaymission/listeningpost)
 "y" = (/obj/structure/disposalpipe/segment,/turf/simulated/mineral,/area/mine/unexplored)
 "z" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/awaymission/listeningpost)
@@ -150,3 +150,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

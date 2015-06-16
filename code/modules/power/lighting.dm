@@ -165,19 +165,6 @@
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
 
-// the desk lamps are a bit special
-/obj/machinery/light/small/lamp
-	name = "desk lamp"
-	icon_state = "lamp1"
-	base_state = "lamp"
-	desc = "A desk lamp with an adjustable mount."
-
-// green-shaded desk lamp
-/obj/machinery/light/small/lamp/green
-	desc = "A classic green-shaded desk lamp."
-	icon_state = "lampgreen1"
-	base_state = "lampgreen"
-
 /obj/machinery/light/spot
 	name = "spotlight"
 	fitting = "large tube"
