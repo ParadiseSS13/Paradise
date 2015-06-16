@@ -163,7 +163,7 @@
 
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield
-	name = "blueshied coat"
+	name = "blueshield coat"
 	desc = "NT deluxe ripoff. You finally have your own coat."
 	icon_state = "blueshieldcoat"
 	item_state = "det_suit"
