@@ -40,7 +40,7 @@
 	health = 250
 	environment_smash = 1
 	universal_understand = 1
-	melee_damage_lower = 15//Paradise port:This was also 30, but i moved it down.
+	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
@@ -59,7 +59,8 @@
 /mob/living/simple_animal/slaughter/New()
 	..()
 	spawn(5)
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper)
+		src.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper(src))
+		src.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull(src))
 
 /mob/living/simple_animal/slaughter/death()
 	..(1)
@@ -97,15 +98,11 @@
 			animation.dir = src.dir
 			src.ExtinguishMob()
 			if(src.buckled)
-				src.buckled = null
+				src.buckled.unbuckle()
 			if(src.pulling)
 				if(istype(src.pulling, /mob/living/))
 					var/mob/living/victim = src.pulling
-					var/mob/living/carbon/human/victimType = src.pulling
-					if (victimType.species.flags & IS_SYNTHETIC)//IPCs are too crunchy....I am also calling this wrong.
-						src.visible_message("The [src] lets go of [victim] at the last second!")
-						src.pulling = FALSE
-					else if(victim.stat == CONSCIOUS)
+					if(victim.stat == CONSCIOUS)
 						src.visible_message("[victim] kicks free of the [src] at the last second!")
 					else
 						victim.loc = holder///holder
@@ -118,25 +115,19 @@
 
 			if(src.kidnapped)
 				src << "<B>You being to feast on [kidnapped]. You can not move while you are doing this.</B>"
-				src.visible_message("<span class='warning'>Loud eating sounds come from the blood...</B>")
+				src.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B>")
 				src.eating = TRUE
-				sleep(6)///wait till the anim finishs before we delet it..
-				del(animation)
-				new /obj/effect/gibspawner/generic(get_turf(src))
+				sleep(6)
+				qdel(animation)
+				src.GibEat(src.kidnapped)
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-				new /obj/effect/gibspawner/generic(get_turf(src))
+				src.GibEat(src.kidnapped)
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-				new /obj/effect/gibspawner/generic(get_turf(src))
+				src.GibEat(src.kidnapped)
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-				var/mob/living/carbon/human/nomNom = src.kidnapped
-				var/obj/item/organ/brain/brainObj = nomNom.internal_organs_by_name["brain"]
-				if(brainObj && istype(brainObj))
-					//B.removed(kidnapped)
-					brainObj.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,5),15)
-
 				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
 				src.adjustBruteLoss(-1000)
 				kidnapped.ghostize()
@@ -149,8 +140,8 @@
 			src.notransform = 0
 			if(!(src.eating))
 				new /obj/effect/gibspawner/human(get_turf(src))///Somewhere a janitor weeps..
-				sleep(6)///wait till the anim finishs before we delet it..
-				del(animation)
+				sleep(6)
+				qdel(animation)
 
 /mob/living/simple_animal/slaughter/proc/phasein(var/obj/effect/decal/cleanable/B)
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
@@ -167,7 +158,6 @@
 	else
 		flick("jauntup",animation)
 		src.client.eye = src
-		sleep(6)
 		src.loc = B.loc
 		src.phased = FALSE
 		//Paradise port:The hallucination sounds removed from the demon as of a recent commit..i liked it though..
@@ -177,8 +167,9 @@
 		src.visible_message("<span class='warning'><B>The [src] rises out of [B]!</B>")
 		new /obj/effect/gibspawner/human(get_turf(src))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
+		sleep(6)
 		qdel(src.holder)
-		del(animation)
+		qdel(animation)
 
 /obj/effect/decal/cleanable/blood/CtrlClick(var/mob/user)
 	..()
@@ -235,8 +226,8 @@
 	return 1
 
 
-///obj/effect/dummy/slaughter/singularity_act(blah)//this errored on me on compile - Aurora
-//	return
+/obj/effect/dummy/slaughter/singularity_act(blah)
+	return
 
 
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
@@ -248,17 +239,46 @@
 	charge_max = 50
 	clothes_req = 0
 	range = -1
-	//include_user = 1
+	include_user = 1
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper/cast(list/targets, var/mob/simple_animal/slaughter/slaughter/user = usr)
+/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper/cast(list/targets, var/mob/living/simple_animal/slaughter/user = usr)
 
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
+			if(!msg)
+				charge_counter = charge_max
+				return
 			usr << "<span class='info'><b>You whisper to [M]:</b> [msg]</span>"
 			M << "<span class='deadsay'><b>Suddenly a strange,demonic,voice resonates in your head...</b></span><i> [msg]</I>"
 
+
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull //Janitor and janiborg doing thier job? No problem....
+	name = "Exsanguinate"
+	desc = "Cuase blood to be torn our of mortals to help acess the plane."
+	panel = "Daemon"
+	charge_max = 1800
+	clothes_req = 0
+	range = 5
+	//include_user = 1
+
+
+/obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull/cast(list/targets, var/mob/living/simple_animal/slaughter/user = usr)
+
+	for(var/turf/T in targets)
+		for(var/mob/living/carbon/human/target in T.contents)
+			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
+
+			var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
+			target.apply_damage(rand(5, 10), BRUTE, targetPart)
+			target << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
+			var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(target.loc)
+			aniBlood.target_turf = pick(range(1, src))
+			aniBlood.blood_DNA = list()
+			aniBlood.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
+			target.vessel.remove_reagent("blood",rand(25,50))
 
 
 //////////The Loot
@@ -271,4 +291,13 @@
 	origin_tech = "combat=5;biotech=8"
 
 //Event
+//Gib helperfunc
+/mob/living/simple_animal/slaughter/proc/GibEat(var/gibType)
+
+	var/mob/living/carbon/human/victimType = gibType
+	if (victimType.species.flags & IS_SYNTHETIC)
+		new /obj/effect/gibspawner/robot(get_turf(src))
+	else
+		new /obj/effect/gibspawner/generic(get_turf(src))
+
 
