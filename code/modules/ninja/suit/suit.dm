@@ -26,7 +26,6 @@ Contents:
 	var/obj/item/clothing/gloves/space_ninja/suitGloves
 	var/obj/item/clothing/shoes/space_ninja/suitShoes
 	var/obj/item/clothing/mask/gas/voice/space_ninja/suitMask
-	var/obj/item/clothing/glasses/hud/space_ninja/suitGlasses
 	var/mob/living/carbon/human/suitOccupant
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_suit_lock(mob/living/carbon/human/user)
@@ -46,12 +45,6 @@ Contents:
 		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
 			user<< "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate mask.\nABORTING...</span>"
 			return 0
-		if(!istype(user.glasses, /obj/item/clothing/glasses/hud/space_ninja))
-			user<< "<span style='color: #ff0000;'><b>WARNING:</b> Unable to locate eye gear, vision enhancement unavailable.</span><span style='color: #0000ff;'>\nProceeding...</span>"
-		else
-			suitGlasses = user.glasses
-			suitGlasses.enabled = 1
-			suitGlasses.icon_state = "cybereye-green"
 
 		suitHood = user.head
 		suitMask = user.wear_mask
@@ -77,9 +70,6 @@ Contents:
 		flags &= ~NODROP
 		suitHood.flags &= ~NODROP
 		suitMask.flags &= ~NODROP
-		if(suitGlasses)
-			suitGlasses.enabled = 0
-			suitGlasses.icon_state = "cybereye-off"
 		suitGloves.flags &= ~NODROP
 		suitGloves.pickpocket = 0
 		suitShoes.flags &= ~NODROP
@@ -90,7 +80,6 @@ Contents:
 
 		suitHood = null
 		suitMask = null
-		suitGlasses = null
 		suitGloves = null
 		suitShoes = null
 		suitOccupant = null

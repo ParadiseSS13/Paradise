@@ -1458,7 +1458,6 @@
 #include "code\modules\nano\nanoui.dm"
 #include "code\modules\nano\modules\crew_monitor.dm"
 #include "code\modules\ninja\energy_katana.dm"
-#include "code\modules\ninja\suit\eye.dm"
 #include "code\modules\ninja\suit\gloves.dm"
 #include "code\modules\ninja\suit\head.dm"
 #include "code\modules\ninja\suit\mask.dm"
