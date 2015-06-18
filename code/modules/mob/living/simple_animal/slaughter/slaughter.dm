@@ -49,7 +49,8 @@
 	var/holder = null
 	var/eating = FALSE
 	var/mob/living/kidnapped = null
-	//var/cooldown = 0
+	var/list/nearby_mortals = list()
+	var/cooldown = 0
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terible creature from another existence. You have a single desire: To kill.  \
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. </B>"
@@ -58,9 +59,10 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
-	spawn(5)
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper(src))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull(src))
+	spawn()
+		if(src.mind)
+			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/bloodPull
+			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 
 /mob/living/simple_animal/slaughter/death()
 	..(1)
@@ -232,27 +234,53 @@
 
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
 
-/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper
-	name = "Whisper"
-	desc = "Telepathically transmits a message to the target."
-	panel = "Daemon"
-	charge_max = 50
-	clothes_req = 0
-	range = -1
-	include_user = 1
+
+/mob/living/simple_animal/slaughter/proc/slaughterWhisper()
+	set name = "Whisper"
+	set desc = "Whisper to a mortal"
+	set category = "Daemon"
+
+	var/list/choices = list()
+	for(var/mob/living/carbon/C in living_mob_list)
+		if(C.stat != 2)
+			choices += C
+
+	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices
+	spawn(0)
+		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
+		if(!(msg))
+			return
+		usr << "<span class='info'><b>You whisper to [M]:</b> [msg]</span>"
+		M << "<span class='deadsay'><b>Suddenly a strange,demonic,voice resonates in your head...</b></span><i><span class='danger'> [msg]</span></I>"
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/slaughter_whisper/cast(list/targets, var/mob/living/simple_animal/slaughter/user = usr)
+/mob/living/simple_animal/slaughter/proc/bloodPull()
+	set name = "Exsanguinate"
+	set desc = "Cuase blood to be torn our of mortals to help acess the plane.."
+	set category = "Daemon"
 
-	for(var/mob/living/M in targets)
-		spawn(0)
-			var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
-			if(!msg)
-				charge_counter = charge_max
-				return
-			usr << "<span class='info'><b>You whisper to [M]:</b> [msg]</span>"
-			M << "<span class='deadsay'><b>Suddenly a strange,demonic,voice resonates in your head...</b></span><i> [msg]</I>"
+	//var/mob/living/simple_animal/slaughteruser = usr
+	for(var/mob/living/carbon/human/H in view(7,(src.holder || src.loc)))
+		nearby_mortals.Add(H)
 
+	if (cooldown == 0 || world.time - cooldown > 1800)
+		for(var/mob/living/carbon/human/H in view(7,(src.holder || src.loc)))
+			nearby_mortals.Add(H)
+		var/mob/living/carbon/human/M = pop(nearby_mortals)
+		if(nearby_mortals.len)
+			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
+
+			var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
+			M.apply_damage(rand(5, 10), BRUTE, targetPart)
+			M << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
+			var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(M.loc)
+			aniBlood.target_turf = pick(range(1, src))
+			aniBlood.blood_DNA = list()
+			aniBlood.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
+			M.vessel.remove_reagent("blood",rand(25,50))
+			cooldown = world.time
+	else
+		usr << "<span class='info'>You cannot Exsanguinate mortals yet!"
 
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull //Janitor and janiborg doing thier job? No problem....
