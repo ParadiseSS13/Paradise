@@ -30,6 +30,8 @@
 
 	var/dynamic_lighting = 1
 
+	flags = 0
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
