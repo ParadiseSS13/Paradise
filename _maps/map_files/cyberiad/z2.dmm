@@ -1743,7 +1743,7 @@
 "HA" = (/obj/machinery/door/window/southleft{name = "Cell B"; req_access_txt = "101"},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "HB" = (/obj/structure/rack,/obj/item/clothing/suit/space/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
 "HC" = (/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
-"HD" = (/obj/structure/rack,/obj/item/clothing/head/helmet/space/space_ninja,/obj/item/clothing/glasses/hud/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
+"HD" = (/obj/structure/rack,/obj/item/clothing/head/helmet/space/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
 "HE" = (/turf/unsimulated/wall,/area/tdome)
 "HF" = (/turf/unsimulated/wall{desc = "The door appears to be locked tightly."; icon = 'icons/obj/doors/Doorhatchele.dmi'; icon_state = "door_closed"; name = "Locked Door"},/area/tdome)
 "HG" = (/obj/machinery/iv_drip,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
