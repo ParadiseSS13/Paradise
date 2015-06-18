@@ -143,3 +143,15 @@
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	_color = "hos_formal"
+
+
+//Brig Physician
+/obj/item/clothing/under/rank/security/brigphys
+	desc = "Jumpsuit for Brig Physician it has both medical and security protection."
+	name = "brig physician's jumpsuit"
+	icon_state = "brig_phys"
+	item_state = "brig_phys"
+	_color = "brig_phys"
+	permeability_coefficient = 0.50
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	flags = ONESIZEFITSALL
