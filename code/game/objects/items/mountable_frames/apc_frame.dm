@@ -9,7 +9,6 @@
 	if(..())
 		var/turf/turf_loc = get_turf(user)
 		var/area/area_loc = turf_loc.loc
-		if(istype(area_loc,/area/mine))	return
 		if (area_loc.get_apc())
 			user << "<span class='rose'>This area already has an APC.</span>"
 			return //only one APC per area
