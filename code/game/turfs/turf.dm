@@ -304,8 +304,6 @@
 			M.take_damage(100, "brute")
 
 /turf/proc/Bless()
-	if(flags & NOJAUNT)
-		return
 	flags |= NOJAUNT
 
 /////////////////////////////////////////////////////////////////////////
