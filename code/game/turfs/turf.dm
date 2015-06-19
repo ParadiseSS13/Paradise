@@ -1,6 +1,7 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1.0
+	luminosity = 1
 
 	//for floors, use is_plating(), is_plasteel_floor() and is_light_floor()
 	var/intact = 1
@@ -232,6 +233,12 @@
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights
+	#if LIGHTING_RESOLUTION == 1
+	var/old_lighting_overlay = lighting_overlay
+	#else
+	var/old_lighting_overlay = lighting_overlays
+	#endif
+
 	if(air_master)
 		air_master.remove_from_active(src)
 
@@ -243,6 +250,12 @@
 
 	for(var/turf/space/S in range(W,1))
 		S.update_starlight()
+
+	#if LIGHTING_RESOLUTION == 1
+	lighting_overlay = old_lighting_overlay
+	#else
+	lighting_overlays = old_lighting_overlay
+	#endif
 
 	affecting_lights = old_affecting_lights
 	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting))

@@ -8,3 +8,8 @@
 #define LIGHTING_RESOLUTION 1 // resolution of the lighting overlays, powers of 2 only, max of 32
 #define LIGHTING_LAYER 10 // drawing layer for lighting overlays
 #define LIGHTING_ICON 'icons/effects/lighting_overlay.dmi' // icon used for lighting shading effects
+
+#ifdef LIGHTING_TRANSITIONS
+#define LIGHTING_TRANSITION_SPEED (LIGHTING_INTERVAL - 1)
+#endif
+#define LIGHTING_ROUND_VALUE 1 / 128 //Value used to round lumcounts, values smaller than 1/255 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.

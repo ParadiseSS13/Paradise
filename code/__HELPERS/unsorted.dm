@@ -1659,3 +1659,24 @@ atom/proc/GetTypeInAllContents(typepath)
 		dest_x = max(0, dest_x-distance)
 
 	return locate(dest_x,dest_y,dest_z)
+
+//Version of view() which ignores darkness, because BYOND doesn't have it.
+/proc/dview(var/range = world.view, var/center, var/invis_flags = 0)
+	if(!center)
+		return
+
+	var/global/mob/dview/DV
+	if(!DV)
+		DV = new
+
+	DV.loc = center
+
+	DV.see_in_dark = range
+	DV.see_invisible = invis_flags
+
+	. = view(range, DV)
+	DV.loc = null
+
+/mob/dview
+	invisibility = 101
+	density = 0
