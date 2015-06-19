@@ -72,7 +72,6 @@ datum/controller/game_controller/proc/setup()
 	*/
 
 
-	color_windows_init()
 	setup_objects()
 	setup_starlight()
 	setupgenetics()
