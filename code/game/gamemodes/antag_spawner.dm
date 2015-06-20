@@ -125,26 +125,25 @@
 			get_candidate_answer(user, possiblecandidates)
 			return
 
+
 /obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "")
 
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
+	S.vialspawned = TRUE
 	S.phased = TRUE
 	S.key = C.key
 	S.mind.assigned_role = "Slaughter Demon"
 	S.mind.special_role = "Slaughter Demon"
 	ticker.mode.traitors += S.mind
-	var/datum/objective/assassinate/new_objective = new /datum/objective/assassinate
-	new_objective.owner = S:mind
-	new_objective:target = usr:mind
-	new_objective.explanation_text = "Kill [usr.real_name], the one who foolish enough to summon you."
-	S.mind.objectives += new_objective
-	var/datum/objective/new_objective2 = new /datum/objective
-	new_objective2.owner = S:mind
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.owner = S:mind
+	KillDaWiz:target = usr:mind
+	KillDaWiz.explanation_text = "Kill [usr.real_name], the one who was foolish enough to summon you."
+	S.mind.objectives += KillDaWiz
+	var/datum/objective/slaughter/objective = new
+	objective.owner = S:mind
 	//Paradise port:i changed ther verbage..might want to do so on the above kill objective. Maybe save the wizard for last...
-	new_objective2.explanation_text = "Kill or Toy with the rest of the crew. Make them know fear!"
-	S.mind.objectives += new_objective2
-	S << S.playstyle_string
-	S << "<B>You are currently not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</B>"
-	S << "<B>Objective #[1]</B>: [new_objective.explanation_text]"
-	S << "<B>Objective #[2]</B>: [new_objective2.explanation_text]"
+	S.mind.objectives += objective
+	S << "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]"
+	S << "<B>Objective #[2]</B>: [objective.explanation_text]"

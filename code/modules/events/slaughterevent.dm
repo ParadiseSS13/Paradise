@@ -35,19 +35,10 @@
 		return find_slaughter()
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
 	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
-	var/datum/objective/new_objective = new /datum/objective
 	S.phased = TRUE
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
 	player_mind.special_role = "Slaughter Demon"
-	ticker.mode.traitors |= player_mind
-	new_objective.owner = player_mind
-	//Paradise Port:I added the objective for one spawned like this
-	new_objective.explanation_text = "Kill or Toy with the crew. Make them know fear!"
-	player_mind.objectives += new_objective
-	S << S.playstyle_string
-	S << "<B>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</B>"
-	S << "<B>Objective #[1]</B>: [new_objective.explanation_text]"
 	message_admins("[key_of_slaughter] has been made into a Slaughter Demon by an event.")
 	log_game("[key_of_slaughter] was spawned as a Slaughter Demon by an event.")
 	return 1

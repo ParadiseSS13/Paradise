@@ -51,6 +51,7 @@
 	var/mob/living/kidnapped = null
 	var/list/nearby_mortals = list()
 	var/cooldown = 0
+	var/vialspawned = FALSE
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terible creature from another existence. You have a single desire: To kill.  \
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. </B>"
@@ -63,6 +64,16 @@
 		if(src.mind)
 			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/bloodPull
 			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
+			src << src.playstyle_string
+			src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
+			if(!(vialspawned))
+				var/datum/objective/slaughter/objective = new
+				ticker.mode.traitors |= src.mind
+				objective.owner = src.mind
+				//Paradise Port:I added the objective for one spawned like this
+				src.mind.objectives += objective
+				src << "<B>Objective #[1]</B>: [objective.explanation_text]"
+
 
 /mob/living/simple_animal/slaughter/death()
 	..(1)
@@ -121,13 +132,13 @@
 				src.eating = TRUE
 				sleep(6)
 				qdel(animation)
-				src.GibEat(src.kidnapped)
+				src.GibEat()
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-				src.GibEat(src.kidnapped)
+				src.GibEat()
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-				src.GibEat(src.kidnapped)
+				src.GibEat()
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
 				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
@@ -200,7 +211,7 @@
 	if(istype(user, /mob/living/simple_animal/slaughter))
 		var/mob/living/simple_animal/slaughter/S = user
 		for(var/obj/effect/decal/cleanable/B in src.contents)
-			if(istype(B, /obj/effect/decal/cleanable/blood) || istype(B, /obj/effect/decal/cleanable/trail_holder))
+			if((istype(B, /obj/effect/decal/cleanable/blood) || istype(B, /obj/effect/decal/cleanable/trail_holder))&& !istype(B,/obj/effect/decal/cleanable/blood/gibs/robot))
 				if(S.phased)
 					S.phasein(B)
 					break
@@ -227,6 +238,8 @@
 /obj/effect/dummy/slaughter/ex_act(severity)
 	return 1
 
+/obj/effect/dummy/slaughter/bullet_act(blah)
+	return
 
 /obj/effect/dummy/slaughter/singularity_act(blah)
 	return
@@ -242,7 +255,7 @@
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in living_mob_list)
-		if(C.stat != 2)
+		if(C.stat != 2 && C.mind)
 			choices += C
 
 	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices
@@ -259,8 +272,7 @@
 	set desc = "Cuase blood to be torn our of mortals to help acess the plane.."
 	set category = "Daemon"
 
-	//var/mob/living/simple_animal/slaughteruser = usr
-	for(var/mob/living/carbon/human/H in view(7,(src.holder || src.loc)))
+	for(var/mob/living/carbon/human/H in view(10,(src.holder || src.loc)))
 		nearby_mortals.Add(H)
 
 	if (cooldown == 0 || world.time - cooldown > 1800)
@@ -283,31 +295,6 @@
 		usr << "<span class='info'>You cannot Exsanguinate mortals yet!"
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull //Janitor and janiborg doing thier job? No problem....
-	name = "Exsanguinate"
-	desc = "Cuase blood to be torn our of mortals to help acess the plane."
-	panel = "Daemon"
-	charge_max = 1800
-	clothes_req = 0
-	range = 5
-	//include_user = 1
-
-
-/obj/effect/proc_holder/spell/wizard/aoe_turf/bloodpull/cast(list/targets, var/mob/living/simple_animal/slaughter/user = usr)
-
-	for(var/turf/T in targets)
-		for(var/mob/living/carbon/human/target in T.contents)
-			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
-
-			var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
-			target.apply_damage(rand(5, 10), BRUTE, targetPart)
-			target << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
-			var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(target.loc)
-			aniBlood.target_turf = pick(range(1, src))
-			aniBlood.blood_DNA = list()
-			aniBlood.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
-			target.vessel.remove_reagent("blood",rand(25,50))
-
 
 //////////The Loot
 
@@ -318,14 +305,57 @@
 	icon_state = "heart-on"
 	origin_tech = "combat=5;biotech=8"
 
+/obj/item/weapon/guts
+	name = "guts"
+	desc = "Ewwwwwwwwwwww"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "innards"
+
 //Event
 //Gib helperfunc
-/mob/living/simple_animal/slaughter/proc/GibEat(var/gibType)
+/mob/living/simple_animal/slaughter/proc/GibEat()
 
-	var/mob/living/carbon/human/victimType = gibType
-	if (victimType.species.flags & IS_SYNTHETIC)
-		new /obj/effect/gibspawner/robot(get_turf(src))
-	else
-		new /obj/effect/gibspawner/generic(get_turf(src))
+	//at some point we may eat a robot..and its gonna throw out gibs..
+	//don't question...When a demon drags you into a blood portal you have no idea whos gibs you are actually seeing
+	//...Or we can just blame bluespace.
+	var/atom/throwtarget = get_edge_target_turf(src.holder, get_dir(src.holder, get_step_away(src.holder, src.holder)))
+
+	if(istype(src.kidnapped,/mob/living/carbon/human))
+		var/mob/living/carbon/human/victimType = src.kidnapped
+
+		var/obj/effect/decal/cleanable/blood/gibs/gore = new victimType.species.single_gib_type(get_turf(src))
+		src << "[victimType.species]"//debug
+		if(victimType.species.flesh_color)
+			gore.fleshcolor = victimType.species.flesh_color
+		if(victimType.species.blood_color)
+			gore.basecolor = victimType.species.blood_color
+		gore.update_icon()
+		spawn()//Wait for itt....
+			gore.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),40)
+
+	else//in case we eat ian.
+		new /obj/effect/gibspawner/human(get_turf(src))
+
+	var/obj/tossGuts = new /obj/item/weapon/guts (get_turf(src.holder))
+	tossGuts.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),10)
 
 
+//Objective info, Based on Reverent mini Atang
+/datum/objective/slaughter
+	var/targetKill = 10
+
+/datum/objective/slaughter/New()
+	targetKill = rand(10,20)
+	explanation_text = "Devour [targetKill] mortals."
+	..()
+
+/datum/objective/slaughter/check_completion()
+	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
+		return 0
+	var/mob/living/simple_animal/slaughter/R = owner.current
+	if(!R || R.stat == DEAD)
+		return 0
+	var/deathCount = R.devoured
+	if(deathCount < targetKill)
+		return 0
+	return 1
