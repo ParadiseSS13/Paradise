@@ -82,7 +82,7 @@
 				if (attempts == 0)
 					user << "<span class='danger'>The crate's anti-tamper system activates!</span>"
 					var/turf/T = get_turf(src.loc)
-					explosion(T, 0, 0, 0, 1)
+					explosion(T, -1, -1, 1, 1)
 					qdel(src)
 					return
 		else
