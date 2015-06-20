@@ -633,7 +633,7 @@
 						T.Entered(O)
 
 			if(prob(30))
-				explosion(T, 0, 0, 1, 3)
+				explosion(get_turf(loc), 0, 0, 1, 3)
 			spawn(0)
 				if(wreckage)
 					var/obj/effect/decal/mecha_wreckage/WR = new wreckage(T)

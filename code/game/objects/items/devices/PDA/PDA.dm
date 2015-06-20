@@ -1293,14 +1293,14 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	if (ismob(loc))
 		var/mob/M = loc
-		M.show_message("\red Your [src] explodes!", 1)
+		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
 
 		explosion(T, -1, -1, 2, 3)
 	JFLOG("Exploded")
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/device/pda/Destroy()

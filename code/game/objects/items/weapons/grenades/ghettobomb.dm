@@ -122,7 +122,7 @@
 
 /obj/item/weapon/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
-	explosion(src.loc,0,0,2,2) //explosion(src.loc,-1,-1,-1, flame_range = range)
+	explosion(src.loc,-1,-1,-1, flame_range = range)	// no explosive damage, only a large fireball.
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine(mob/user)
