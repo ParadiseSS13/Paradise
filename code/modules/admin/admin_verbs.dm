@@ -402,7 +402,7 @@ var/list/admin_verbs_mentor = list(
 			var/flash_range = input("Flash range (in tiles):") as null|num
 			if(flash_range == null)
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
 	message_admins("<span class='adminnotice'>[ckey] creating an admin explosion at [epicenter.loc].</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
