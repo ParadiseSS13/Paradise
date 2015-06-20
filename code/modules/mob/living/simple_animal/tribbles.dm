@@ -165,12 +165,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		del(src)
 
 
-/obj/structure/tribble_cage/meteorhit(obj/O as obj)
-		new /obj/item/weapon/shard( src.loc )
-		Break()
-		del(src)
-
-
 /obj/structure/tribble_cage/proc/healthcheck()
 	if (src.health <= 0)
 		if (!( src.destroyed ))

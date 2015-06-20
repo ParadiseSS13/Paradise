@@ -196,10 +196,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	del(src)
 	return
 
-/obj/machinery/hologram/meteorhit()
-	del(src)
-	return
-
 /obj/machinery/hologram/Del()
 	if(hologram)
 		src:clear_holo()

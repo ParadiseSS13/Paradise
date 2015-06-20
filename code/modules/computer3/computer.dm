@@ -201,14 +201,6 @@
 
 		// todo does this do enough
 
-
-	meteorhit(var/obj/O as obj)
-		for(var/x in verbs)
-			verbs -= x
-		set_broken()
-		return
-
-
 	emp_act(severity)
 		if(prob(20/severity)) set_broken()
 		..()
