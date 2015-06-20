@@ -1,37 +1,21 @@
-//This proc is called in master-controller, and updates the color of all windows and windoors on the map
-var/global/wcBar
-var/global/wcBrig
-var/global/wcCommon
-var/global/wcColored
-/proc/color_windows_init()
-	var/list/bar = list("#0d8395", "#58b5c3", "#58c366", "#90d79a", "#ffffff")
-	var/list/brig = list("#aa0808", "#7f0606", "#ff0000")
-	var/list/common = list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff")
-
-	wcBar = pick(bar)
-	wcBrig = pick(brig)
-	wcCommon = pick(common)
+var/global/wcBar = pick(list("#0d8395", "#58b5c3", "#58c366", "#90d79a", "#ffffff"))
+var/global/wcBrig = pick(list("#aa0808", "#7f0606", "#ff0000"))
+var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff"))
 
 /obj/proc/color_windows(var/obj/W as obj)
-	if(!wcColored)
-		sleep(50) // Sleeping to make sure the glass has initialized on the map
-		wcColored = 1
-
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/security/main,/area/security/lobby,/area/security/brig,/area/security/permabrig,/area/security/prison,/area/security/prison/cell_block/A,/area/security/prison/cell_block/B,/area/security/prison/cell_block/C,/area/security/execution,/area/security/processing,/area/security/interrogation,/area/security/interrogationobs,/area/security/evidence,/area/security/prisonlockers,/area/security/medbay,/area/security/processing,/area/security/warden,/area/security/armoury,/area/security/securearmoury,/area/security/armoury/gamma,/area/security/securehallway,/area/security/hos,/area/security/podbay,/area/security/detectives_office,/area/security/range,/area/security/nuke_storage,/area/security/customs,/area/security/customs2,/area/security/checkpoint,/area/security/checkpoint2,/area/security/checkpoint2,/area/security/checkpoint/supply,/area/security/checkpoint/engineering,/area/security/checkpoint/medical,/area/security/checkpoint/science,/area/security/vacantoffice2,/area/prison,/area/prison/arrival_airlock,/area/prison/control,/area/prison/crew_quarters,/area/prison/rec_room,/area/prison/closet,/area/prison/hallway/fore,/area/prison/hallway/aft,/area/prison/hallway/port,/area/prison/hallway/starboard,/area/prison/morgue,/area/prison/medical_research,/area/prison/medical,/area/prison/solar,/area/prison/podbay,/area/prison/solar_control,/area/prison/solitary,/area/prison/cell_block,/area/prison/cell_block/A,/area/prison/cell_block/B,/area/prison/cell_block/C,/area/shuttle/gamma/space,/area/shuttle/gamma/station,/area/security/prisonershuttle)
+	var/list/wcBrigAreas = list(/area/security,/area/prison,/area/shuttle/gamma)
 
 	var/newcolor
-	for(var/A in wcBarAreas)
-		if(W.areaMaster == locate(A))
-			newcolor = wcBar
-			break
+	var/turf/T = get_turf(W)
+	if(!istype(T))	return
+	var/area/A = T.loc
 
-	for(var/A in wcBrigAreas)
-		if(W.areaMaster == locate(A))
-			newcolor = wcBrig
-			break
-
-	if(!newcolor)
+	if(is_type_in_list(A,wcBarAreas))
+		newcolor = wcBar
+	else if(is_type_in_list(A,wcBrigAreas))
+		newcolor = wcBrig
+	else
 		newcolor = wcCommon
 
 	return newcolor
