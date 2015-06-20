@@ -138,3 +138,8 @@
 #define STAGE_FOUR 7
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
+
+//SOUND:
+#define SOUND_MINIMUM_PRESSURE 10
+#define FALLOFF_SOUNDS	1
+#define SURROUND_CAP	7

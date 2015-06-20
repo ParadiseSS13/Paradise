@@ -973,7 +973,7 @@ obj/item/toy/cards/deck/syndicate/black
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
 			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/Alarm.ogg', 100, 0, 0)
+			playsound(src, 'sound/machines/Alarm.ogg', 100, 0, surround = 0)
 			sleep(135)
 			icon_state = "nuketoycool"
 			sleep(cooldown - world.time)
@@ -1138,7 +1138,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if (cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
-		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
+		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, surround = 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
