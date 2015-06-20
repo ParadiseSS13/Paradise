@@ -34,8 +34,12 @@
 		H.shock_stage = 0
 		spawn(1)
 			H.fixblood()
+		H.species.create_organs(H)
+		// Now that recreating all organs is necessary, the rest of this organ stuff probably
+		//  isn't, but I don't want to remove it, just in case.
 		for(var/organ_name in H.organs_by_name)
 			var/obj/item/organ/external/O = H.organs_by_name[organ_name]
+			if(!O) continue
 			for(var/obj/item/weapon/shard/shrapnel/s in O.implants)
 				if(istype(s))
 					O.implants -= s
