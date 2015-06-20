@@ -60,15 +60,14 @@
 		if(top_atom != source_atom)
 			if(!top_atom.light_sources) top_atom.light_sources = list()
 			top_atom.light_sources += src
-	lighting_update_lights += src
 
-	if(!needs_update)
+	if(!needs_update) //Incase we're already updating either way.
 		lighting_update_lights += src
 		needs_update = 1
 
 /datum/light_source/proc/force_update()
 	force_update = 1
-	if(!needs_update)
+	if(!needs_update) //Incase we're already updating either way.
 		needs_update = 1
 		lighting_update_lights += src
 
@@ -157,7 +156,11 @@
 				effect_g[T.lighting_overlay] = round(lum_g * strength, LIGHTING_ROUND_VALUE)
 				effect_b[T.lighting_overlay] = round(lum_b * strength, LIGHTING_ROUND_VALUE)
 
-				T.lighting_overlay.update_lumcount(effect_r[T.lighting_overlay], effect_g[T.lighting_overlay], effect_b[T.lighting_overlay])
+				T.lighting_overlay.update_lumcount(
+					round(lum_r * strength, LIGHTING_ROUND_VALUE),
+					round(lum_g * strength, LIGHTING_ROUND_VALUE),
+					round(lum_b * strength, LIGHTING_ROUND_VALUE)
+				)
 
 			if(!T.affecting_lights)
 				T.affecting_lights = list()
@@ -174,7 +177,11 @@
 				effect_g[L] = round(lum_g * strength, LIGHTING_ROUND_VALUE)
 				effect_b[L] = round(lum_b * strength, LIGHTING_ROUND_VALUE)
 
-				L.update_lumcount(effect_r[L], effect_g[L], effect_b[L])
+				L.update_lumcount(
+					round(lum_r * strength, LIGHTING_ROUND_VALUE),
+					round(lum_g * strength, LIGHTING_ROUND_VALUE),
+					round(lum_b * strength, LIGHTING_ROUND_VALUE)
+				)
 
 			if(!T.affecting_lights)
 				T.affecting_lights = list()
@@ -198,7 +205,7 @@
 		#endif
 
 
-	effect_r.len = 0
-	effect_g.len = 0
-	effect_b.len = 0
-	effect_turf.len = 0
+	effect_r.Cut()
+	effect_g.Cut()
+	effect_b.Cut()
+	effect_turf.Cut()

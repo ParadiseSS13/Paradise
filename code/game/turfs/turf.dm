@@ -37,7 +37,9 @@
 		spawn( 0 )
 			src.Entered(AM)
 			return
-	return
+
+	if(!dynamic_lighting)
+		luminosity = 1
 
 // Adds the adjacent turfs to the current atmos processing
 /turf/Del()

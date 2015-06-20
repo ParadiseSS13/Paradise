@@ -12,4 +12,4 @@
 #ifdef LIGHTING_TRANSITIONS
 #define LIGHTING_TRANSITION_SPEED (LIGHTING_INTERVAL - 1)
 #endif
-#define LIGHTING_ROUND_VALUE 1 / 128 //Value used to round lumcounts, values smaller than 1/255 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
+#define LIGHTING_ROUND_VALUE (1 / 128) //Value used to round lumcounts, values smaller than 1/255 don't matter (if they do, thanks sinking points), greater values will make lighting less precise, but in turn increase performance, VERY SLIGHTLY.
