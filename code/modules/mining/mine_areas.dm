@@ -2,7 +2,6 @@
 
 /area/mine
 	icon_state = "mining"
-	music = 'sound/ambience/song_game.ogg'
 
 /area/mine/explored
 	name = "Mine"

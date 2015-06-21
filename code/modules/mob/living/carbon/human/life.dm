@@ -1151,6 +1151,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(85 to INFINITY)
 						damageoverlay.overlays += brutefireloss_overlays["6"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6")
 				//damageoverlay.overlays += I
+
+		see_invisible = SEE_INVISIBLE_LIVING
 		if( stat == DEAD )
 			sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			see_in_dark = 8
@@ -1186,6 +1188,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
 						if(G.vision_flags)		// MESONS
 							sight |= G.vision_flags
+							if(!druggy)
+								see_invisible = SEE_INVISIBLE_MINIMUM
 						if(!G.see_darkness)
 							see_invisible = SEE_INVISIBLE_MINIMUM
 		/* HUD shit goes here, as long as it doesn't modify sight flags */
@@ -1204,6 +1208,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(istype(H))
 						if(H.vision_flags)		// MESONS
 							sight |= H.vision_flags
+							if(!druggy)
+								see_invisible = SEE_INVISIBLE_MINIMUM
 						if(!H.see_darkness)
 							see_invisible = SEE_INVISIBLE_MINIMUM
 		/* HUD shit goes here, as long as it doesn't modify sight flags */

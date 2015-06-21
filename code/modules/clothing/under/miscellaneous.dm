@@ -114,7 +114,7 @@
 	name = "\improper Nanotrasen Diplomatic Uniform"
 	icon_state = "presidente"
 	item_state = "g_suit"
-	_color = "officer"
+	_color = "presidente"
 	displays_id = 0
 
 /obj/item/clothing/under/rank/blueshield

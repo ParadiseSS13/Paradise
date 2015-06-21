@@ -10,4 +10,6 @@
 #define T20C 293.15					// 20degC
 #define TCMB 2.7					// -270.3degC
 
-#define CLAMP01(x) max(0, min(1, x))
+#define Clamp(x, y, z) 	(x <= y ? y : (x >= z ? z : x))
+
+#define CLAMP01(x) 		(Clamp(x, 0, 1))

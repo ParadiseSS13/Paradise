@@ -404,8 +404,11 @@
 	return null
 
 /area/proc/get_apc()
-	var/obj/machinery/power/apc/FINDME = locate() in src
-	if (FINDME)
+	// This was a simple locate() in src, but an unresolved BYOND bug causes trying to locate() in an
+	//  area to take an inconceivably long time, especially for large areas.
+	// See: http://www.byond.com/forum/?post=1860571
+	var/obj/machinery/power/apc/FINDME
+	for(FINDME in src)
 		return FINDME
 
 
