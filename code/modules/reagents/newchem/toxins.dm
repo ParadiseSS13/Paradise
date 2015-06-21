@@ -511,6 +511,7 @@ datum/reagent/sarin
 	metabolization_rate = 0.1
 	penetrates_skin = 1
 
+/* Disabled, on account of being a bit too deadly for how easy it was to make.
 /datum/chemical_reaction/sarin
 	name = "sarin"
 	id = "sarin"
@@ -519,6 +520,7 @@ datum/reagent/sarin
 	result_amount = 3
 	mix_message = "The mixture yields a colorless, odorless liquid."
 	required_temp = 374
+*/
 
 datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
