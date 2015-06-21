@@ -8,6 +8,7 @@
 	small = 1
 	pass_flags = 1
 	density = 0
+	holder_type = /obj/item/weapon/holder/pai
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -461,7 +462,16 @@
 		src.client.perspective = EYE_PERSPECTIVE
 		src.client.eye = card
 
-	//This seems redundant but not including the forced loc setting messes the behavior up.
+	// If we are being held, handle removing our holder from their inv.
+	var/obj/item/weapon/holder/H = loc
+	if(istype(H))
+		var/mob/living/M = H.loc
+		if(istype(M))
+			M.drop_from_inventory(H)
+		H.loc = get_turf(src)
+		src.loc = get_turf(H)
+
+	// Move us into the card and move the card to the ground
 	src.loc = card
 	card.loc = get_turf(card)
 	src.forceMove(card)
@@ -520,3 +530,22 @@
 // No binary for pAIs.
 /mob/living/silicon/pai/binarycheck()
 	return 0
+
+// Handle being picked up.
+/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
+	var/obj/item/weapon/holder/H = ..()
+	if(!istype(H))
+		return
+	H.icon_state = "pai-[icon_state]"
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
+	return H
+
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	var/mob/living/carbon/H = over_object
+	if(!istype(H) || !Adjacent(H)) return ..()
+	if(H.a_intent == "help")
+		get_scooped(H)
+		return
+	else
+		return ..()

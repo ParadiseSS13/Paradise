@@ -49,3 +49,8 @@
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 	origin_tech = "magnets=3;engineering=5"
+
+/obj/item/weapon/holder/pai
+	name = "pAI"
+	desc = "It's a little robot."
+	icon_state = "pai"

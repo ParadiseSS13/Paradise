@@ -547,3 +547,62 @@
 			P.sradio.code = min(100, P.sradio.code)
 			P.sradio.code = max(1, P.sradio.code)
 			return 1
+
+/datum/pai_software/host_scan
+	name = "Host Bioscan"
+	ram_cost = 5
+	id = "bioscan"
+
+
+	var/mob/living/silicon/pai/P = usr
+		if(!istype(P)) return
+
+	var/mob/living/M = P.loc
+		var/count = 0
+
+			// Find the carrier
+			while(!istype(M, /mob/living))
+				if(!M || !M.loc || count > 6)
+					src << "You are not being carried by anyone!"
+					return 0
+				M = M.loc
+				count++
+
+	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+
+		var/data[0]
+
+
+		if(istype(M, /mob/living)
+			data["holder"] = M
+			data["health"] = "[M.stat > 1 ? "dead" : "[M.health]% healthy"]"
+			data["oxy"] = "[M.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getOxyLoss()]</font>"
+			data["tox"] = "[M.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getToxLoss()]</font>"
+			data["burn"] = "[M.getFireLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][M.getFireLoss()]</font>"
+			data["temp"] = "[M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F"
+
+			if (M.viruses)
+				data["infected"] = 1
+				var/virus[0]
+					for(var/datum/disease/D in M.viruses)
+						var/vdata[0]
+						vdata["name"] = D.name || "unknown"
+						vdata["type"] = D.spread || "unknown"
+						vdata["stage"] = D.stage || "unknown"
+						vdata["stageMax"] = D.max_stages || "unknown"
+						vdata["cure"] = D.cure || "unknown"
+
+						virus[++virus.len]=vdata
+						data["infectionDat"] = virus
+
+
+			else
+				data["holder"] = 0
+
+		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
+		if(!ui)
+			// Don't copy-paste this unless you're making a pAI software module!
+			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 450, 600)
+			ui.set_initial_data(data)
+			ui.open()
+			ui.set_auto_update(1)
