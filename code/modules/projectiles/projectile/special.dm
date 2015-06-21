@@ -38,7 +38,8 @@
 	flag = "bullet"
 
 /obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
-	explosion(target, -1, 0, 2, 1, 0)
+	..()
+	explosion(target, -1, 0, 2, 1, 0, flame_range = 3)
 	return 1
 
 /obj/item/projectile/temp
@@ -217,6 +218,7 @@ obj/item/projectile/kinetic/New()
 	weaken = 5
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
+	..()
 	explosion(target, -1, 0, 1)
 	return 1
 

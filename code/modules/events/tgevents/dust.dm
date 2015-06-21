@@ -99,5 +99,5 @@
 
 
 	ex_act(severity)
-		del(src)
+		qdel(src)
 		return

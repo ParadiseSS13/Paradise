@@ -101,7 +101,7 @@
 			getFromPool(/obj/item/weapon/shard, loc)
 			if (occupant)
 				dump()
-			del(src)
+			qdel(src)
 		if (2)
 			if (prob(50))
 				src.health -= 15

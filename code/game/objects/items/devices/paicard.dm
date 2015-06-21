@@ -317,4 +317,4 @@
 	if(pai)
 		pai.ex_act(severity)
 	else
-		del(src)
+		qdel(src)

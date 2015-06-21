@@ -208,8 +208,8 @@
 			new /obj/structure/alien/weeds(T, linked_node)
 
 
-/obj/structure/alien/weeds/ex_act(severity, target)
-	del(src)
+/obj/structure/alien/weeds/ex_act(severity)
+	qdel(src)
 
 
 /obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)

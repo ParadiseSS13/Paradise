@@ -140,7 +140,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		if (1)
 			new /obj/item/weapon/shard( src.loc )
 			Break()
-			del(src)
+			qdel(src)
 		if (2)
 			if (prob(50))
 				src.health -= 15
