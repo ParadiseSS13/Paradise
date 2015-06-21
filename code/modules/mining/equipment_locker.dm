@@ -264,7 +264,7 @@
 	s.set_up(5, 1, src)
 	s.start()
 	if(prob(50 / severity) && severity < 3)
-		del(src)
+		qdel(src)
 
 /**********************Mining Equipment Locker Items**************************/
 

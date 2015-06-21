@@ -97,6 +97,7 @@
 	icon = 'icons/obj/doors/vault.dmi'
 	opacity = 1
 	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity //Until somebody makes better sprites.
+	explosion_block = 2
 
 /obj/machinery/door/airlock/freezer
 	name = "Freezer Airlock"
