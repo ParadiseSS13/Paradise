@@ -126,8 +126,8 @@
 
 /obj/item/weapon/rcs/Destroy()
 	processing_objects.Remove(src)
-	..()
-	
+	return ..()
+
 /obj/item/weapon/rcs/process()
 	if(rcharges > 10)
 		rcharges = 10
@@ -156,4 +156,3 @@
 		s.start()
 		user << "<span class = 'caution'> You emag the RCS. Click on it to toggle between modes.</span>"
 		return
-		

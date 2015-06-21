@@ -56,8 +56,7 @@
 	air_update_turf(1)
 	update_freelok_sight()
 	airlocks -= src
-	..()
-	return
+	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
 	if(p_open || operating) return

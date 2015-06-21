@@ -40,7 +40,7 @@
 	for(var/obj/tram/controlpad/CP in controllers)
 		remove_controller(CP)
 	killLoop()
-	..()
+	return ..()
 
 /obj/tram/tram_controller/emp_act(severity)
 	if(automode)	automode = 0

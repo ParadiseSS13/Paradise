@@ -12,8 +12,7 @@
 /obj/item/assembly/shock_kit/Destroy()
 	del(part1)
 	del(part2)
-	..()
-	return
+	return ..()
 
 /obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && !status)

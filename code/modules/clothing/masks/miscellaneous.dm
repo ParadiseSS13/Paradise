@@ -138,7 +138,7 @@
 /obj/item/clothing/mask/horsehead/Destroy()
 	if(flags & NODROP)
 		goodbye_horses(loc)
-	..()
+	return ..()
 
 /obj/item/clothing/mask/horsehead/proc/goodbye_horses(mob/user) //I'm flying over you
 	if(!ismob(user))

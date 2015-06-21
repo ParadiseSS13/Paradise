@@ -182,7 +182,7 @@
 //This could all be done better, but it works for now.
 /obj/machinery/computer/HolodeckControl/Destroy()
 	emergencyShutdown()
-	..()
+	return ..()
 
 /obj/machinery/computer/HolodeckControl/meteorhit(var/obj/O as obj)
 	emergencyShutdown()
@@ -442,7 +442,7 @@
 
 
 /obj/structure/holowindow/Destroy()
-	..()
+	return ..()
 
 /obj/item/weapon/holo
 	damtype = STAMINA

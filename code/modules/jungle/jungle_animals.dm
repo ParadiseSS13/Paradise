@@ -25,6 +25,7 @@
 
 /obj/effect/landmark/animal_spawner/Destroy()
 	processing_objects.Remove(src)
+	return ..()
 
 /obj/effect/landmark/animal_spawner/panther
 	name = "panther spawner"

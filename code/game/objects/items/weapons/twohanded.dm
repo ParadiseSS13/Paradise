@@ -444,7 +444,7 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/singularityhammer/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 
 /obj/item/weapon/twohanded/singularityhammer/process()
@@ -567,7 +567,7 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/knighthammer/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 
 /obj/item/weapon/twohanded/knighthammer/process()

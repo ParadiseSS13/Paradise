@@ -634,3 +634,5 @@ atom/proc/create_reagents(var/max_vol)
 
 	if(my_atom)
 		my_atom = null
+
+	return ..()

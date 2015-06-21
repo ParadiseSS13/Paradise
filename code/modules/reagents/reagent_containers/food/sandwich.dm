@@ -78,7 +78,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/Destroy()
 	for(var/obj/item/O in ingredients)
 		del(O)
-	..()
+	return ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/examine()
 	..()

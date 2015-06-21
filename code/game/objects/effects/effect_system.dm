@@ -62,8 +62,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	//if (istype(T, /turf))
 	//	T.firelevel = 0 //TODO: FIX
 	src.delete()
-	..()
-	return
+	return ..()
 
 /obj/effect/effect/water/Move(turf/newloc)
 	//var/turf/T = src.loc
@@ -183,8 +182,7 @@ steam.start() -- spawns the effect
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(1000,100)
-	..()
-	return
+	return ..()
 
 /obj/effect/effect/sparks/Move()
 	..()
@@ -960,7 +958,7 @@ steam.start() -- spawns the effect
 			if(A == src)
 				continue
 			reagents.reaction(A, 1, 1)
-	..()
+	return ..()
 
 /obj/effect/effect/foam/process()
 	if(--amount < 0)
@@ -1249,8 +1247,8 @@ steam.start() -- spawns the effect
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(3000,100)
-	..()
-	return
+	return ..()
+
 /obj/effects/sparkels/Move()
 	..()
 	var/turf/T = src.loc

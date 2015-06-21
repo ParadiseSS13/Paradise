@@ -26,7 +26,7 @@
 /obj/structure/Destroy()
 	if(hascall(src, "unbuckle"))
 		src:unbuckle()
-	..()
+	return ..()
 
 /obj/structure/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")

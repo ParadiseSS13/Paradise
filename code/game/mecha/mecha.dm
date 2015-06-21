@@ -99,8 +99,7 @@
 /obj/mecha/Destroy()
 	src.go_out()
 	mechas_list -= src //global mech list
-	..()
-	return
+	return ..()
 
 ////////////////////////
 ////// Helpers /////////
@@ -378,7 +377,7 @@
 			G.destroyed = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
-			getFromPool(/obj/item/stack/rods, get_turf(G.loc))
+			PoolOrNew(/obj/item/stack/rods, get_turf(G.loc))
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -658,7 +657,7 @@
 						E.forceMove(T)
 						E.destroy()
 		spawn(0)
-			del(src)
+			qdel(src)
 	return
 
 /obj/mecha/ex_act(severity)

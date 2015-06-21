@@ -157,7 +157,7 @@
 /obj/machinery/porta_turret/Destroy()
 	//deletes its own cover with it
 	qdel(cover) // qdel
-	..()
+	return ..()
 
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))

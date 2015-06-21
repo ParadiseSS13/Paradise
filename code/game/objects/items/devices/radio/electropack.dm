@@ -25,6 +25,7 @@
 		else if(S.part2 == src)
 			S.part2 = null
 		master = null
+	return ..()
 
 /obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()

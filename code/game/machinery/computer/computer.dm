@@ -129,7 +129,7 @@
 				C.loc = src.loc
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
-				getFromPool(/obj/item/weapon/shard, loc)
+				PoolOrNew(/obj/item/weapon/shard, loc)
 				A.state = 3
 				A.icon_state = "3"
 			else

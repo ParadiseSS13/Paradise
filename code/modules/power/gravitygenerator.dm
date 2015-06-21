@@ -54,7 +54,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	set_broken()
 	if(main_part)
 		qdel(main_part)
-	..()
+	return ..()
 
 //
 // Part generator which is mostly there for looks
@@ -126,7 +126,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		if (!(A.z in config.station_levels)) continue
 		A.gravitychange(0,A)
 	shake_everyone()
-	..()
+	return ..()
 
 
 

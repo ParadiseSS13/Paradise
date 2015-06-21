@@ -26,7 +26,7 @@
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()
 	dump_contents()
-	..()
+	return ..()
 
 /obj/structure/closet/alter_health()
 	return get_turf(src)
