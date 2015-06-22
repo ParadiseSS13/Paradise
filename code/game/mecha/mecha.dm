@@ -632,7 +632,7 @@
 						T.Entered(O)
 
 			if(prob(30))
-				explosion(T, 0, 0, 1, 3)
+				explosion(get_turf(loc), 0, 0, 1, 3)
 			spawn(0)
 				if(wreckage)
 					var/obj/effect/decal/mecha_wreckage/WR = new wreckage(T)
@@ -708,9 +708,6 @@
 /obj/mecha/blob_act()
 	take_damage(30, "brute")
 	return
-
-/obj/mecha/meteorhit()
-	return ex_act(rand(1,3))//should do for now
 
 /obj/mecha/emp_act(severity)
 	if(get_charge())

@@ -555,8 +555,8 @@
 
 /obj/item/weapon/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0)
-	del(src)
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	qdel(src)
 
 /obj/item/weapon/spellbook/oneuse/smoke
 	spell = /obj/effect/proc_holder/spell/wizard/targeted/smoke

@@ -101,7 +101,7 @@
 			PoolOrNew(/obj/item/weapon/shard, loc)
 			if (occupant)
 				dump()
-			del(src)
+			qdel(src)
 		if (2)
 			if (prob(50))
 				src.health -= 15
@@ -124,13 +124,6 @@
 		PoolOrNew(/obj/item/weapon/shard, loc)
 		if(occupant) dump()
 		del(src)
-
-
-/obj/structure/displaycase/meteorhit(obj/O as obj)
-		PoolOrNew(/obj/item/weapon/shard, loc)
-		if(occupant) dump()
-		del(src)
-
 
 /obj/structure/displaycase/proc/healthcheck()
 	if (src.health <= 0)

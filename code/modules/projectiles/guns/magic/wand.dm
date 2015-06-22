@@ -148,6 +148,6 @@
 
 /obj/item/weapon/gun/magic/wand/fireball/zap_self(mob/living/user as mob)
 	if(alert(user, "Zapping yourself with a wand of fireball is probably a bad idea, do it anyway?",, "Yes", "No") == "Yes" && charges && user.get_active_hand() == src && isliving(user))
-		explosion(user.loc, -1, 0, 2, 3, 0)
+		explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 		charges--
 		..()

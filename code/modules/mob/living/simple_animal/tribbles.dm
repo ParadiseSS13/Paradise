@@ -140,7 +140,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		if (1)
 			new /obj/item/weapon/shard( src.loc )
 			Break()
-			del(src)
+			qdel(src)
 		if (2)
 			if (prob(50))
 				src.health -= 15
@@ -160,12 +160,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 /obj/structure/tribble_cage/blob_act()
 	if (prob(75))
-		new /obj/item/weapon/shard( src.loc )
-		Break()
-		del(src)
-
-
-/obj/structure/tribble_cage/meteorhit(obj/O as obj)
 		new /obj/item/weapon/shard( src.loc )
 		Break()
 		del(src)

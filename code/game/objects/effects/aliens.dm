@@ -99,7 +99,6 @@
 
 /obj/structure/alien/resin/hitby(atom/movable/AM)
 	..()
-	visible_message("<span class='danger'>[src] was hit by [AM].</span>")
 	var/tforce = 0
 	if(!isobj(AM))
 		tforce = 10
@@ -209,8 +208,8 @@
 			new /obj/structure/alien/weeds(T, linked_node)
 
 
-/obj/structure/alien/weeds/ex_act(severity, target)
-	del(src)
+/obj/structure/alien/weeds/ex_act(severity)
+	qdel(src)
 
 
 /obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)
