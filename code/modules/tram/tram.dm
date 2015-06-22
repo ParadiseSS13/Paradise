@@ -242,9 +242,6 @@
 	if(prob(50))
 		qdel(src)
 
-/obj/tram/meteorhit()
-	qdel(src)
-
 /obj/tram/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return
 	if(prob(M.melee_damage_upper))

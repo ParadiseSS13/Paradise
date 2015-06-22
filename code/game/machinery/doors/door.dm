@@ -124,11 +124,6 @@
 			flick("door_deny", src)
 	return
 
-/obj/machinery/door/meteorhit(obj/M as obj)
-	src.open()
-	return
-
-
 /obj/machinery/door/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 

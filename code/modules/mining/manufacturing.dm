@@ -54,10 +54,6 @@
 		if (prob(25)) del src
 		return
 
-	meteorhit()
-		if (prob(50)) del src
-		return
-
 	power_change()
 		if(stat & BROKEN) icon_state = "fab-broken"
 		else

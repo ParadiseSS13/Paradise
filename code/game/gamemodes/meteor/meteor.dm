@@ -37,7 +37,7 @@
 		var/waitduration = rand(3000,9000)
 		while(waveduration - world.time > 0)
 			sleep(20)
-			spawn() spawn_meteors(6)
+			spawn() spawn_meteors(6, meteors_normal)
 		sleep(waitduration)
 		nometeors = 0
 

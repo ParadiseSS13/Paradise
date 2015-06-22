@@ -46,10 +46,6 @@
 /obj/structure/grille/blob_act()
 	returnToPool(src)
 
-/obj/structure/grille/meteorhit(var/obj/M)
-	returnToPool(src)
-
-
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user)) shock(user, 70)
 

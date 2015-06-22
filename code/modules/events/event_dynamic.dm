@@ -86,7 +86,6 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
 
 		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
-		possibleEvents[/datum/event/meteor_shower] = 20 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/blob] = 10 * active_with_role["Engineer"]
 
 	if(active_with_role["Medical"] > 0)
