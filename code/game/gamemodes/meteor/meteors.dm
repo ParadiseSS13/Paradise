@@ -216,7 +216,7 @@
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..(heavy)
-	explosion(src.loc, 1, 2, 3, 4, 0, 0, 5)
+	explosion(src.loc, 1, 2, 3, 4, 0, 0, flame_range = 5)
 
 //Radiation meteor
 /obj/effect/meteor/irradiated
