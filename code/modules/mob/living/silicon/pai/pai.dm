@@ -537,8 +537,8 @@
 	if(!istype(H))
 		return
 	H.icon_state = "pai-[icon_state]"
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	//grabber.update_inv_l_hand()
+	//grabber.update_inv_r_hand()
 	return H
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
