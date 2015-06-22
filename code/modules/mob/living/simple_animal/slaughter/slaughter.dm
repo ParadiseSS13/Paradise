@@ -68,11 +68,15 @@
 			src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
 			if(!(vialspawned))
 				var/datum/objective/slaughter/objective = new
+				var/datum/objective/demonFluff/fluffObjective = new
 				ticker.mode.traitors |= src.mind
 				objective.owner = src.mind
+				fluffObjective.owner = src.mind
 				//Paradise Port:I added the objective for one spawned like this
 				src.mind.objectives += objective
+				src.mind.objectives += fluffObjective
 				src << "<B>Objective #[1]</B>: [objective.explanation_text]"
+				src << "<B>Objective #[2]</B>: [fluffObjective.explanation_text]"
 
 
 /mob/living/simple_animal/slaughter/death()
@@ -278,18 +282,19 @@
 	if (cooldown == 0 || world.time - cooldown > 1800)
 		for(var/mob/living/carbon/human/H in view(7,(src.holder || src.loc)))
 			nearby_mortals.Add(H)
-		var/mob/living/carbon/human/M = pop(nearby_mortals)
+		//var/mob/living/carbon/human/M = pop(nearby_mortals)
 		if(nearby_mortals.len)
 			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
-
-			var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
-			M.apply_damage(rand(5, 10), BRUTE, targetPart)
-			M << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
-			var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(M.loc)
-			aniBlood.target_turf = pick(range(1, src))
-			aniBlood.blood_DNA = list()
-			aniBlood.blood_DNA[M.dna.unique_enzymes] = M.dna.b_type
-			M.vessel.remove_reagent("blood",rand(25,50))
+			new /datum/artifact_effect/badfeeling/DoEffectPulse()
+			for (var/mob/living/carbon/human/portal in nearby_mortals)
+				var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
+				portal.apply_damage(rand(5, 10), BRUTE, targetPart)
+				portal << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
+				var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(portal.loc)
+				aniBlood.target_turf = pick(range(1, src))
+				aniBlood.blood_DNA = list()
+				aniBlood.blood_DNA[portal.dna.unique_enzymes] = portal.dna.b_type
+				portal.vessel.remove_reagent("blood",rand(25,50))
 			cooldown = world.time
 	else
 		usr << "<span class='info'>You cannot Exsanguinate mortals yet!"
@@ -358,4 +363,26 @@
 	var/deathCount = R.devoured
 	if(deathCount < targetKill)
 		return 0
+	return 1
+
+/datum/objective/demonFluff
+
+
+/datum/objective/demonFluff/New()
+	find_target()
+	var/targetname = "someone"
+	if(target && target.current)
+		targetname = target.current.real_name
+	var/list/explanationTexts = list("Attempt to make your presence unknown to the crew.", \
+									 "Kill or Dystroy all Janitors or Sanitation bots.", \
+									 "Drive [targetname] insane."
+									 )
+
+	if(target && target.current)
+		explanationTexts += "Drive [target.current.real_name] insane."
+
+	explanation_text = pick(explanationTexts)
+	..()
+
+/datum/objective/demonFluff/check_completion()
 	return 1
