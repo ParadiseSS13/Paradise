@@ -1399,13 +1399,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if (getToxLoss() >= 45 && nutrition > 20)
 				vomit()
 
-		//0.1% chance of playing a scary sound to someone who's in complete darkness
-		if(isturf(loc) && rand(1,1000) == 1)
-			var/turf/currentTurf = loc
-			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in currentTurf
-			if(L && L.lum_r + L.lum_g + L.lum_b == 0)
-				playsound_local(src,pick(scarySounds),50, 1, -1)
-
 	// Separate proc so we can jump out of it when we've succeeded in spreading disease.
 	proc/findAirborneVirii()
 		for(var/obj/effect/decal/cleanable/blood/B in get_turf(src))
