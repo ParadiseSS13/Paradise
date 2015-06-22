@@ -270,10 +270,12 @@
 	new /obj/item/clothing/shoes/white(src)
 	return
 
-/obj/structure/closet/wardrobe/white/medical
+/obj/structure/closet/wardrobe/medical_white
 	name = "medical doctor's wardrobe"
+	icon_state = "white"
+	icon_closed = "white"
 
-/obj/structure/closet/wardrobe/white/medical/New()
+/obj/structure/closet/wardrobe/medical_white/New()
 	..()
 	sleep(2)
 	new /obj/item/clothing/under/rank/nursesuit (src)
