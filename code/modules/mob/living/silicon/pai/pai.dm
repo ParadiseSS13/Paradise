@@ -467,7 +467,7 @@
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
-			M.drop_from_inventory(H)
+			M.unEquip(H)
 		H.loc = get_turf(src)
 		src.loc = get_turf(H)
 
@@ -532,20 +532,17 @@
 	return 0
 
 // Handle being picked up.
-/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
-	var/obj/item/weapon/holder/H = ..()
-	if(!istype(H))
-		return
-	H.icon_state = "pai-[icon_state]"
-	//grabber.update_inv_l_hand()
-	//grabber.update_inv_r_hand()
-	return H
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/H = over_object
-	if(!istype(H) || !Adjacent(H)) return ..()
-	if(H.a_intent == "help")
-		get_scooped(H)
+	var/mob/living/carbon/held = over_object
+	if(held.a_intent == "help")
+		var/obj/item/weapon/holder/pai/pie = new(loc)
+		src.loc = pie
+		pie.MouseDrop(held)
+		pie << "You scoop up [src]."
+		src << "[held] scoops you up."
+		pie.status_flags |= PASSEMOTES
+		held.icon_state = "pai-[icon_state]"
 		return
-	else
-		return ..()
+
+	..()

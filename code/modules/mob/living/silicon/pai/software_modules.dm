@@ -554,25 +554,10 @@
 	id = "bioscan"
 
 
-	var/mob/living/silicon/pai/pie = user
-	if(!istype(pie))
-		return
-
-	var/mob/living/held = pie.loc
-	var/count = 0
-
-			// Find the carrier
-	while(!istype(held, /mob/living))
-		if(!held || !held.loc || count > 6)
-			src << "You are not being carried by anyone!"
-			return 0
-		held = held.loc
-		count++
-
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
-
+		var/mob/living/held = user.loc
 
 		if(istype(held, /mob/living))
 			data["holder"] = held
@@ -585,10 +570,10 @@
 			if (held.viruses)
 				data["infected"] = 1
 				var/virus[0]
-					for(var/datum/disease/D in held.viruses)
+					for(var/datum/disease2/disease/D  in held.viruses)
 						var/vdata[0]
 						vdata["name"] = D.name || "unknown"
-						vdata["type"] = D.spread || "unknown"
+						vdata["type"] = D.spreadtype || "unknown"
 						vdata["stage"] = D.stage || "unknown"
 						vdata["stageMax"] = D.max_stages || "unknown"
 						vdata["cure"] = D.cure || "unknown"
