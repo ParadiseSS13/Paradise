@@ -498,7 +498,7 @@
 "jM" = (/obj/structure/closet/wardrobe/orange,/turf/simulated/floor/airless,/area/space)
 "jN" = (/obj/structure/window/basic{dir = 4},/turf/space,/area/space)
 "jO" = (/obj/structure/grille,/turf/simulated/floor/plating,/area/derelict/arrival)
-"jP" = (/obj/structure/closet/wardrobe,/turf/simulated/floor,/area/derelict/arrival)
+"jP" = (/obj/structure/closet/wardrobe/generic,/turf/simulated/floor,/area/derelict/arrival)
 "jQ" = (/turf/simulated/floor/airless{icon_state = "floorscorched1"},/area/derelict/hallway/primary)
 "jR" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/window/reinforced,/turf/simulated/floor/airless,/area/space)
 "jS" = (/obj/structure/window/reinforced,/turf/simulated/floor/airless,/area/space)

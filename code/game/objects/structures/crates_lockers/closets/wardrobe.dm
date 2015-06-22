@@ -4,7 +4,10 @@
 	icon_state = "blue"
 	icon_closed = "blue"
 
-/obj/structure/closet/wardrobe/New()
+/obj/structure/closet/wardrobe/generic
+	// Identical to the base wardrobe, aside from containing some stuff.
+
+/obj/structure/closet/wardrobe/generic/New()
 	..()
 	sleep(2)
 	new /obj/item/clothing/under/color/blue(src)
