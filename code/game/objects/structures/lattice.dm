@@ -30,7 +30,7 @@
 		if(locate(/obj/structure/lattice, get_step(src, dir)))
 			L = locate(/obj/structure/lattice, get_step(src, dir))
 			L.updateOverlays(src.loc)
-	..()
+	return ..()
 
 /obj/structure/lattice/blob_act()
 	qdel(src)

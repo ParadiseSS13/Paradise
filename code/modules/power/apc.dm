@@ -1330,7 +1330,7 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	area.power_change()
 	if(occupant)
 		malfvacate(1)
-	..()
+	return ..()
 
 /obj/machinery/power/apc/proc/shock(mob/user, prb)
 	if(!prob(prb))

@@ -37,14 +37,13 @@
 	icon='icons/fence-ns.dmi'
 
 /obj/structure/grille/Destroy()
-	loc = null //garbage collect
-
+	return QDEL_HINT_PUTINPOOL //pool grilles
 
 /obj/structure/grille/ex_act(severity)
-	returnToPool(src)
+	qdel(src)
 
 /obj/structure/grille/blob_act()
-	returnToPool(src)
+	qdel(src)
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user)) shock(user, 70)
@@ -140,7 +139,7 @@
 		if(!shock(user, 100))
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			new /obj/item/stack/rods(loc, 2)
-			returnToPool(src)
+			qdel(src)
 	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
 		if(!shock(user, 90))
 			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -220,12 +219,12 @@
 			icon_state = "brokengrille"
 			density = 0
 			destroyed = 1
-			new /obj/item/stack/rods(loc)
+			PoolOrNew(/obj/item/stack/rods,loc)
 
 		else
 			if(health <= -6)
-				new /obj/item/stack/rods(loc)
-				returnToPool(src)
+				PoolOrNew(/obj/item/stack/rods,loc)
+				qdel(src)
 				return
 	return
 

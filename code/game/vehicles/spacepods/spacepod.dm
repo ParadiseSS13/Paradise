@@ -73,7 +73,7 @@
 
 /obj/spacepod/Destroy()
 	spacepods_list -= src
-	..()
+	return ..()
 
 /obj/spacepod/process()
 	if(src.empcounter > 0)

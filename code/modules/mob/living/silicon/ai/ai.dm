@@ -225,7 +225,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
-	..()
+	return ..()
 
 
 /*

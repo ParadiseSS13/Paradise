@@ -21,7 +21,6 @@
 		return (BRUTELOSS)
 
 /obj/item/weapon/shard/New()
-
 	src.icon_state = pick("large", "medium", "small")
 	switch(src.icon_state)
 		if("small")
@@ -34,7 +33,10 @@
 			src.pixel_x = rand(-5, 5)
 			src.pixel_y = rand(-5, 5)
 		else
-	return
+	..()
+
+/obj/item/weapon/shard/Destroy()
+	return QDEL_HINT_PUTINPOOL
 
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))

@@ -101,4 +101,4 @@
 
 /obj/machinery/media/Destroy()
 	disconnect_media_source()
-	..()
+	return ..()

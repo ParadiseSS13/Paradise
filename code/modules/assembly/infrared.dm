@@ -216,4 +216,4 @@
 	if(previous)
 		previous.next = null
 		master.last = previous
-	..()
+	return ..()

@@ -408,7 +408,7 @@
 /obj/machinery/teleport/station/Destroy()
 	if(teleporter_hub)
 		teleporter_hub.update_icon()
-	..()
+	return ..()
 
 /obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/device/multitool) && !panel_open)

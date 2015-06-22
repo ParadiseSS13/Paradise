@@ -35,7 +35,7 @@
 	var/turf/T = loc
 	loc = null
 	T.relativewall_neighbours()
-	..()
+	return ..()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
@@ -181,7 +181,7 @@
 	loc = null
 	for (var/obj/structure/alien/weeds/W in range(1,T))
 		W.updateWeedOverlays()
-	..()
+	return ..()
 
 /obj/structure/alien/weeds/proc/Life()
 	set background = BACKGROUND_ENABLED

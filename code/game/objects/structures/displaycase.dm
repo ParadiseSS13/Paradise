@@ -98,7 +98,7 @@
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if (1)
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			if (occupant)
 				dump()
 			qdel(src)
@@ -121,7 +121,7 @@
 
 /obj/structure/displaycase/blob_act()
 	if (prob(75))
-		getFromPool(/obj/item/weapon/shard, loc)
+		PoolOrNew(/obj/item/weapon/shard, loc)
 		if(occupant) dump()
 		del(src)
 
@@ -130,7 +130,7 @@
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			playsound(get_turf(src), "shatter", 70, 1)
 			update_icon()
 	else

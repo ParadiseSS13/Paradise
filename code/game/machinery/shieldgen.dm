@@ -19,7 +19,7 @@
 	opacity = 0
 	density = 0
 	air_update_turf(1)
-	..()
+	return ..()
 
 /obj/machinery/shield/Move()
 	var/turf/T = loc
@@ -140,7 +140,7 @@
 /obj/machinery/shieldgen/Destroy()
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
-	..()
+	return ..()
 
 
 /obj/machinery/shieldgen/proc/shields_up()
@@ -502,7 +502,7 @@
 	src.cleanup(2)
 	src.cleanup(4)
 	src.cleanup(8)
-	..()
+	return ..()
 
 /obj/machinery/shieldwallgen/bullet_act(var/obj/item/projectile/Proj)
 	storedpower -= Proj.damage

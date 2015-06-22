@@ -45,6 +45,7 @@ var/global/list/ghdel_profiling = list()
 
 	// Idea by ChuckTheSheep to make the object even more unreferencable.
 	invisibility = 101
+	return ..()
 
 /atom/proc/CheckParts()
 	return

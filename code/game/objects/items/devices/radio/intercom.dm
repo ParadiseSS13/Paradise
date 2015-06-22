@@ -32,7 +32,7 @@
 
 /obj/item/device/radio/intercom/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/device/radio/intercom/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
