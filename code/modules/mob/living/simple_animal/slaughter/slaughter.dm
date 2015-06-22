@@ -44,6 +44,8 @@
 	melee_damage_upper = 30
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
+
+
 	var/devoured = 0
 	var/phased = FALSE
 	var/holder = null
@@ -51,6 +53,7 @@
 	var/mob/living/kidnapped = null
 	var/list/nearby_mortals = list()
 	var/cooldown = 0
+	var/gorecooldown = 0
 	var/vialspawned = FALSE
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terible creature from another existence. You have a single desire: To kill.  \
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
@@ -154,6 +157,9 @@
 				src.kidnapped = null
 				src.eating = FALSE
 				src.pulling = FALSE
+				if (src.devoured == 5)
+					src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/goreThrow
+					src << "<span class='notice'> You have consumed enough to be able to throw Excess Gore."
 			src.notransform = 0
 			if(!(src.eating))
 				new /obj/effect/gibspawner/human(get_turf(src))///Somewhere a janitor weeps..
@@ -299,6 +305,27 @@
 	else
 		usr << "<span class='info'>You cannot Exsanguinate mortals yet!"
 
+/mob/living/simple_animal/slaughter/proc/goreThrow(mob/target as mob in oview())
+	set name = "Gore Throw"
+	set desc = "Launch blood at some poor unsuspecting person..."
+	set category = "Daemon"
+
+	if (!(src.phased))
+		if (gorecooldown == 0 || world.time - gorecooldown > 600)
+			var/obj/effect/decal/cleanable/blood/gibs/gore = new(src.loc)
+			gore.throw_at(target,10,5,src)
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				src << "[target]"
+				H.bloody_body(target)
+				H.bloody_hands(target)
+			gorecooldown = world.time
+
+		else
+			usr << "<span class='info'>You need more time to do that again!"
+	else
+		usr << "<span class='info'> you can only do that from the material plane!"
+
 
 
 //////////The Loot
@@ -336,13 +363,13 @@
 			gore.basecolor = victimType.species.blood_color
 		gore.update_icon()
 		spawn()//Wait for itt....
-			gore.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),40)
+			gore.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),10)
 
 	else//in case we eat ian.
 		new /obj/effect/gibspawner/human(get_turf(src))
 
 	var/obj/tossGuts = new /obj/item/weapon/guts (get_turf(src.holder))
-	tossGuts.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),10)
+	tossGuts.throw_at(get_edge_target_turf(throwtarget,pick(alldirs)),rand(10,20),5)
 
 
 //Objective info, Based on Reverent mini Atang
