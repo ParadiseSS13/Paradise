@@ -125,7 +125,7 @@ var/datum/garbage_collector/garbageCollector
 			if (QDEL_HINT_PUTINPOOL)	//qdel will put this object in the pool.
 				PlaceInPool(D,0)
 			else
-				world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
+				// world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
 				garbageCollector.addTrash(D)
 
 /datum/controller
