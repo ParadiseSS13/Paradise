@@ -149,9 +149,6 @@
 		return 0
 	..()
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	return
-
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
 	// 20% chance to kill
@@ -542,7 +539,8 @@
 		pie << "You scoop up [src]."
 		src << "[held] scoops you up."
 		//pie.status_flags |= PASSEMOTES
-		held.icon_state = "pai-[icon_state]"
+		held.put_in_active_hand(pie)
+		pie.icon_state = "pai-[icon_state]"
 		return
 
 	..()
