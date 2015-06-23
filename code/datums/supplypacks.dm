@@ -634,7 +634,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "virus crate"
-	access = access_virology
+	access = access_cmo
 
 
 /datum/supply_packs/medical/bloodpacks
