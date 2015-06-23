@@ -8,7 +8,7 @@
 	small = 1
 	pass_flags = 1
 	density = 0
-	holder_type = /obj/item/weapon/holder/pai
+	var/holder_type = /obj/item/weapon/holder/pai
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -541,7 +541,7 @@
 		pie.MouseDrop(held)
 		pie << "You scoop up [src]."
 		src << "[held] scoops you up."
-		pie.status_flags |= PASSEMOTES
+		//pie.status_flags |= PASSEMOTES
 		held.icon_state = "pai-[icon_state]"
 		return
 

@@ -570,16 +570,16 @@
 			if (held.viruses)
 				data["infected"] = 1
 				var/virus[0]
-					for(var/datum/disease2/disease/D  in held.viruses)
-						var/vdata[0]
-						vdata["name"] = D.name || "unknown"
-						vdata["type"] = D.spreadtype || "unknown"
-						vdata["stage"] = D.stage || "unknown"
-						vdata["stageMax"] = D.max_stages || "unknown"
-						vdata["cure"] = D.cure || "unknown"
+				for((var/datum/disease2/disease/D in held.viruses))
+					var/vdata[0]
+					vdata["name"] = D.name() || "unknown"
+					vdata["type"] = D.spreadtype || "unknown"
+					vdata["stage"] = D.stage || "unknown"
+					vdata["stageMax"] = D.max_stage || "unknown"
+					vdata["cure"] = D.antigen || "unknown"
 
-						virus[++virus.len]=vdata
-						data["infectionDat"] = virus
+					virus[++virus.len]=vdata
+					data["infectionDat"] = virus
 
 
 		else
