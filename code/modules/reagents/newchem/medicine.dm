@@ -560,7 +560,7 @@ datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 		M.losebreath = 5
 	if(M.confused > 60)
 		M.confused += 5
-	M.reagents.remove_reagent("sarin",10)
+	M.reagents.remove_reagent("tabun",10)
 	..()
 	return
 

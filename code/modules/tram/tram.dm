@@ -40,7 +40,7 @@
 	for(var/obj/tram/controlpad/CP in controllers)
 		remove_controller(CP)
 	killLoop()
-	..()
+	return ..()
 
 /obj/tram/tram_controller/emp_act(severity)
 	if(automode)	automode = 0
@@ -241,9 +241,6 @@
 /obj/tram/blob_act()
 	if(prob(50))
 		qdel(src)
-
-/obj/tram/meteorhit()
-	qdel(src)
 
 /obj/tram/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return

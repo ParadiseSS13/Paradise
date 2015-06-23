@@ -203,16 +203,6 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/meteorhit(obj/O as obj)
-	for(var/mob/M in viewers(src, null))
-		M.show_message(text("\red [] has been hit by []", src, O), 1)
-	if (src.health > 0)
-		src.adjustBruteLoss(30)
-		if ((O.icon_state == "flaming"))
-			src.adjustFireLoss(40)
-		src.updatehealth()
-	return
-
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")

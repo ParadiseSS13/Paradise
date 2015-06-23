@@ -29,6 +29,7 @@
 		del(ghostimage)
 		ghostimage = null;
 		updateallghostimages()
+	return ..()
 
 // Movement code. Returns 0 to stop air movement from moving it.
 /mob/aiEye/Move()

@@ -118,4 +118,4 @@
 
 /obj/machinery/computer/atmos_alert/Destroy()
 	radio_controller.remove_object(src, receive_frequency)
-	..()
+	return ..()

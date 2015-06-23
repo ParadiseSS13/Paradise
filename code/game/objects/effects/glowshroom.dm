@@ -51,7 +51,7 @@
 
 /obj/effect/glowshroom/Destroy()
 	processing_objects -= src
-	..()
+	return ..()
 
 /obj/effect/glowshroom/process()
 	if(!spreaded)

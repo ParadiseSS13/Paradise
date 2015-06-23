@@ -85,36 +85,48 @@ var/datum/garbage_collector/garbageCollector
 
 	dels_count++
 
+/datum/garbage_collector/proc/hardDel(const/datum/D)
+	WARNING("GC hard-delling [D.type].")
+	gc_hard_del_types |= D.type
+	del(D)
+	garbageCollector.hard_dels++
+	garbageCollector.dels_count++
+
 /*
  * NEVER USE THIS FOR ANYTHING OTHER THAN /atom/movable
  * OTHER TYPES CANNOT BE QDEL'D BECAUSE THEIR LOC IS LOCKED OR THEY DON'T HAVE ONE.
  */
-/proc/qdel(const/atom/movable/AM, ignore_pooling = 0)
-	if(isnull(AM))
+/proc/qdel(var/datum/D, ignore_pooling = 0)
+	if(isnull(D))
 		return
 
 	if(isnull(garbageCollector))
-		del(AM)
+		del(D)
 		return
 
-	if(!istype(AM))
-		WARNING("qdel() passed object of type [AM.type]. qdel() can only handle /atom/movable types.")
-		gc_hard_del_types |= AM.type
-		del(AM)
-		garbageCollector.hard_dels++
-		garbageCollector.dels_count++
+	if(!istype(D))
+		WARNING("qdel() passed object of type [D.type]. qdel() can only handle /datum/ types.")
+		del(D)	//no clue what could even do this, but just in case.
 		return
 
-	//We are object pooling this.
-	if(("[AM.type]" in masterPool) && !ignore_pooling)
-		returnToPool(AM)
-		return
-
-	if(isnull(AM.gcDestroyed))
+	if(isnull(D.gcDestroyed))
 		// Let our friend know they're about to get fucked up.
-		AM.Destroy()
+		var/hint = D.Destroy()
 
-		garbageCollector.addTrash(AM)
+		switch(hint)
+			if(QDEL_HINT_QUEUE)			//qdel should queue the object for deletion
+				garbageCollector.addTrash(D)
+			if(QDEL_HINT_LETMELIVE)		//qdel should let the object live after calling destroy.
+				return
+			if(QDEL_HINT_IWILLGC)		//functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
+				return
+			if (QDEL_HINT_HARDDEL_NOW)	//qdel should assume this object won't gc, and hard del it post haste.
+				garbageCollector.hardDel(D)
+			if (QDEL_HINT_PUTINPOOL)	//qdel will put this object in the pool.
+				PlaceInPool(D,0)
+			else
+				// world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
+				garbageCollector.addTrash(D)
 
 /datum/controller
 	var/processing = 0
@@ -128,7 +140,7 @@ var/datum/garbage_collector/garbageCollector
  * Called BEFORE qdel moves shit.
  */
 /datum/proc/Destroy()
-	del(src)
+	return QDEL_HINT_HARDDEL_NOW //qdel can't handle datums, therefore tell it to immediately del
 
 /client/proc/qdel_toggle()
 	set name = "Toggle qdel Behavior"

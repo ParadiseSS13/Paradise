@@ -186,7 +186,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/grown/glowberries/Destroy()
 	if(istype(loc,/mob))
 		loc.set_light(round(loc.luminosity - potency/5,1))
-	..()
+	return ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/glowberries/pickup(mob/user)
 	src.set_light(0)
@@ -614,7 +614,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/Destroy()
 	if(istype(loc,/mob))
 		loc.set_light(round(loc.luminosity - potency/10,1))
-	..()
+	return ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom/pickup(mob/user)
 	set_light(0)

@@ -38,7 +38,7 @@
 				G.attackby(NG, user, params)
 				usr << "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets."
 			//SN src = null
-			returnToPool(src)
+			qdel(src)
 			return
 	return ..()
 

@@ -196,7 +196,7 @@ rcd light flash thingy on matter drain
 					V.show_message("<span class='notice'>You hear a loud electrical buzzing sound!</span>", 2)
 				spawn(50)
 					explosion(get_turf(M), 0,1,1,0)
-					del(M)
+					qdel(M)
 			else src << "<span class='notice'>Out of uses.</span>"
 	else src << "<span class='notice'>That's not a machine.</span>"
 

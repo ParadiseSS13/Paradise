@@ -38,7 +38,8 @@
 			src.Entered(AM)
 			return
 
-	if(!dynamic_lighting)
+	var/area/A = loc
+	if(!dynamic_lighting || !A.lighting_use_dynamic)
 		luminosity = 1
 
 // Adds the adjacent turfs to the current atmos processing

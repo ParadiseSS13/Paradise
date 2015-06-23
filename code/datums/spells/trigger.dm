@@ -16,7 +16,7 @@
 	for(var/spell in contents)
 		del(spell)
 
-	..()
+	return ..()
 
 /obj/effect/proc_holder/spell/wizard/targeted/trigger/cast(list/targets)
 	for(var/mob/living/target in targets)

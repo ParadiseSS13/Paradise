@@ -27,8 +27,7 @@
 
 /obj/structure/stool/bed/Destroy()
 	unbuckle()
-	..()
-	return
+	return ..()
 
 /obj/structure/stool/bed/attack_hand(mob/user as mob)
 	manual_unbuckle(user)

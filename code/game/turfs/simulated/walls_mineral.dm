@@ -53,7 +53,6 @@
 	icon_state = "uranium0"
 	walltype = "uranium"
 	mineral = "uranium"
-	explosion_block = 0
 
 /turf/simulated/wall/mineral/uranium/proc/radiate()
 	if(!active)
