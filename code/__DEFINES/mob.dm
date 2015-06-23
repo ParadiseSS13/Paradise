@@ -54,11 +54,10 @@
 #define GETPULSE_HAND	0	//less accurate (hand)
 #define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
-//Some on_mob_life() procs check for alien races.
-#define IS_DIONA 1
-#define IS_VOX 2
-#define IS_SKRELL 3
-#define IS_UNATHI 4
+//Reagent Metabolization flags, defines the type of reagents that affect this mob
+#define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_DUO 4		//Only processes reagents with "ORGANIC | SYNTHETIC"
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
@@ -75,3 +74,7 @@
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
+
+// Reagent type flags, defines the types of mobs this reagent will affect
+#define ORGANIC 1
+#define SYNTHETIC 2

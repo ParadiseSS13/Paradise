@@ -4,7 +4,7 @@
 
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
-datum/reagent/nicotine
+/datum/reagent/nicotine
 	name = "Nicotine"
 	id = "nicotine"
 	description = "Slightly reduces stun times. If overdosed it will deal toxin and oxygen damage."
@@ -13,7 +13,7 @@ datum/reagent/nicotine
 	overdose_threshold = 35
 	addiction_threshold = 30
 
-datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/smoke_message = pick("You can just feel your lungs dying!", "You feel relaxed.", "You feel calmed.", "You feel the lung cancer forming.", "You feel the money you wasted.", "You feel like a space cowboy.", "You feel rugged.")
 	if(prob(5))
@@ -26,7 +26,7 @@ datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
+/datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
 	if(prob(20))
 		M << "You feel like you smoked too much."
 	M.adjustToxLoss(1*REM)
@@ -34,7 +34,7 @@ datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/crank
+/datum/reagent/crank
 	name = "Crank"
 	id = "crank"
 	description = "Reduces stun times by about 200%. If overdosed or addicted it will deal significant Toxin, Brute and Brain damage."
@@ -43,7 +43,7 @@ datum/reagent/crank
 	overdose_threshold = 20
 	addiction_threshold = 10
 
-datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
 	if(prob(5))
@@ -53,26 +53,26 @@ datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
 	M.AdjustWeakened(-2)
 	..()
 	return
-datum/reagent/crank/overdose_process(var/mob/living/M as mob)
+/datum/reagent/crank/overdose_process(var/mob/living/M as mob)
 	M.adjustBrainLoss(rand(1,10)*REM)
 	M.adjustToxLoss(rand(1,10)*REM)
 	M.adjustBruteLoss(rand(1,10)*REM)
 	..()
 	return
 
-datum/reagent/crank/addiction_act_stage1(var/mob/living/M as mob)
+/datum/reagent/crank/addiction_act_stage1(var/mob/living/M as mob)
 	M.adjustBrainLoss(rand(1,10)*REM)
 	..()
 	return
-datum/reagent/crank/addiction_act_stage2(var/mob/living/M as mob)
+/datum/reagent/crank/addiction_act_stage2(var/mob/living/M as mob)
 	M.adjustToxLoss(rand(1,10)*REM)
 	..()
 	return
-datum/reagent/crank/addiction_act_stage3(var/mob/living/M as mob)
+/datum/reagent/crank/addiction_act_stage3(var/mob/living/M as mob)
 	M.adjustBruteLoss(rand(1,10)*REM)
 	..()
 	return
-datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
+/datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	M.adjustBrainLoss(rand(1,10)*REM)
 	M.adjustToxLoss(rand(1,10)*REM)
 	M.adjustBruteLoss(rand(1,10)*REM)
@@ -397,6 +397,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	color = "#A42964"
 	metabolization_rate = 0.2
 	overdose_threshold = 15
+	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 
 /datum/chemical_reaction/fliptonium
 	name = "fliptonium"
@@ -406,7 +407,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	result_amount = 4
 	mix_message = "The mixture swirls around excitedly!"
 
-datum/reagent/fliptonium/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+/datum/reagent/fliptonium/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST || method == TOUCH)
@@ -437,10 +438,10 @@ datum/reagent/fliptonium/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	..()
 	return
 
-datum/reagent/fliptonium/reagent_deleted(var/mob/living/M as mob)
+/datum/reagent/fliptonium/reagent_deleted(var/mob/living/M as mob)
 	M.SpinAnimation(speed = 12, loops = -1)
 
-datum/reagent/fliptonium/overdose_process(var/mob/living/M as mob)
+/datum/reagent/fliptonium/overdose_process(var/mob/living/M as mob)
 	if(volume > 15)
 		if(prob(5))
 			switch(pick(1, 2, 3))
@@ -458,3 +459,172 @@ datum/reagent/fliptonium/overdose_process(var/mob/living/M as mob)
 					M.adjustToxLoss(1)
 	..()
 	return
+
+//////////////////////////////
+//		Synth-Drugs			//
+//////////////////////////////
+
+//Ultra-Lube: Meth
+/datum/reagent/lube/ultra
+	name = "Ultra-Lube"
+	id = "ultralube"
+	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	reagent_state = LIQUID
+	color = "#1BB1FF"
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 20
+	addiction_threshold = 10
+	metabolization_rate = 0.6
+
+/datum/chemical_reaction/lube/ultra
+	name = "Ultra-Lube"
+	id = "ultralube"
+	result = "ultralube"
+	required_reagents = list("lube" = 2, "formaldehyde" = 1, "cryostylane" = 1)
+	result_amount = 2
+	mix_message = "The mixture darkens and appears to partially vaporize into a chilling aerosol."
+
+/datum/reagent/lube/ultra/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
+	if(prob(1))
+		if(prob(1))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
+	if(prob(5))
+		M << "<span class='notice'>[high_message]</span>"
+	M.AdjustParalysis(-2)
+	M.AdjustStunned(-2)
+	M.AdjustWeakened(-2)
+	M.adjustStaminaLoss(-2)
+	M.status_flags |= GOTTAGOREALLYFAST
+	M.Jitter(3)
+	M.adjustBrainLoss(0.5)
+	if(prob(5))
+		M.emote(pick("twitch", "shiver"))
+	..()
+	return
+
+/datum/reagent/lube/ultra/overdose_process(var/mob/living/M as mob)
+	if(prob(20))
+		M.emote("ping")
+	if(prob(33))
+		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_item()
+	..()
+	if(prob(50))
+		M.adjustToxLoss(10)
+	M.adjustBrainLoss(pick(0.5, 0.6, 0.7, 0.8, 0.9, 1))
+	return
+
+/datum/reagent/lube/ultra/addiction_act_stage1(var/mob/living/M as mob)
+	M.Jitter(5)
+	if(prob(20))
+		M.emote(pick("twitch","buzz","moan"))
+	..()
+	return
+
+/datum/reagent/lube/ultra/addiction_act_stage2(var/mob/living/M as mob)
+	M.Jitter(10)
+	M.Dizzy(10)
+	if(prob(30))
+		M.emote(pick("twitch","buzz","moan"))
+	..()
+	return
+
+/datum/reagent/lube/ultra/addiction_act_stage3(var/mob/living/M as mob)
+	M.Jitter(15)
+	M.Dizzy(15)
+	if(prob(40))
+		M.emote(pick("twitch","buzz","moan"))
+	..()
+	return
+
+/datum/reagent/lube/ultra/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
+	M.Jitter(20)
+	M.Dizzy(20)
+	M.adjustToxLoss(5)
+	if(prob(50))
+		M.emote(pick("twitch","buzz","moan"))
+	..()
+	return
+
+//Surge: Krokodil
+/datum/reagent/surge
+	name = "Surge"
+	id = "surge"
+	description = "A sketchy superconducting gel that overloads processors, causing an effect reportedly similar to opiates in synthetic units."
+	reagent_state = LIQUID
+	color = "#6DD16D"
+
+	process_flags = SYNTHETIC
+	overdose_threshold = 20
+	addiction_threshold = 15
+
+
+/datum/reagent/surge/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.druggy = max(M.druggy, 15)
+	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+	if(prob(1))
+		if(prob(1))
+			high_message = "01010100010100100100000101001110010100110100001101000101010011100100010001000101010011100100001101000101."
+	if(prob(5))
+		M << "<span class='notice'>[high_message]</span>"
+	..()
+	return
+
+/datum/reagent/surge/overdose_process(var/mob/living/M as mob)
+	//Hit them with the same effects as an electrode!
+	M.Stun(5)
+	M.Weaken(5)
+	M.Jitter(20)
+	M.apply_effect(STUTTER, 5)
+	if(prob(10))
+		M << "<span class='danger'>You experience a violent electrical discharge!</span>"
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
+		//Lightning effect for electrical discharge visualization
+		var/icon/I=new('icons/obj/zap.dmi',"lightningend")
+		I.Turn(-135)
+		var/obj/effect/overlay/beam/B = new(get_turf(M))
+		B.pixel_x = rand(-20, 0)
+		B.pixel_y = rand(-20, 0)
+		B.icon = I
+		M.adjustFireLoss(rand(1,5)*REM)
+		M.adjustBruteLoss(rand(1,5)*REM)
+	..()
+	return
+
+/datum/reagent/surge/addiction_act_stage1(var/mob/living/M as mob)
+	M.adjustBrainLoss(rand(1,5)*REM)
+	M.adjustToxLoss(rand(1,5)*REM)
+	..()
+	return
+/datum/reagent/surge/addiction_act_stage2(var/mob/living/M as mob)
+	if(prob(25))
+		M << "<span class='danger'>Your casing feels loose...</span>"
+	..()
+	return
+/datum/reagent/surge/addiction_act_stage3(var/mob/living/M as mob)
+	if(prob(25))
+		M << "<span class='danger'>Your casing starts to come apart...</span>"
+	M.adjustBruteLoss(3*REM)
+	..()
+	return
+
+/datum/reagent/surge/addiction_act_stage4(var/mob/living/carbon/human/M as mob)
+	if(prob(25))
+		M << "<span class='userdanger'>Your exposed wiring begins corroding!</span>"
+	M.adjustFireLoss(5*REM)
+	..()
+	return
+
+/datum/chemical_reaction/surge
+	name = "Surge"
+	id = "surge"
+	result = "surge"
+	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
+	result_amount = 6
+	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."

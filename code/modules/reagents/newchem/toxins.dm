@@ -226,6 +226,7 @@ datum/reagent/facid
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	reagent_state = LIQUID
 	color = "#4141D2"
+	process_flags = ORGANIC | SYNTHETIC
 
 datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
@@ -720,6 +721,7 @@ datum/reagent/ants
 	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
 	reagent_state = SOLID
 	color = "#993333"
+	process_flags = ORGANIC | SYNTHETIC
 
 datum/reagent/ants/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //NOT THE ANTS
 	if(iscarbon(M))
