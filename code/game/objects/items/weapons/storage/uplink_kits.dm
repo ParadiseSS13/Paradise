@@ -199,12 +199,12 @@
 		new /obj/item/weapon/implanter/emp/(src)
 		new /obj/item/device/flashlight/emp/(src)
 
-/obj/item/weapon/storage/box/syndie_kit/sarin
-	name = "Sarin Gas Grenades"
+/obj/item/weapon/storage/box/syndie_kit/tabun
+	name = "Tabun Gas Grenades"
 
 	New()
 		..()
-		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
-		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
-		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
-		new /obj/item/weapon/grenade/chem_grenade/saringas(src)
+		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
+		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
+		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
+		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
