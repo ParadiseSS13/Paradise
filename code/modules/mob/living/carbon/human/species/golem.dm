@@ -7,7 +7,7 @@
 	default_language = "Galactic Common"
 	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
-	reagent_tag = PROCESS_DUO	//golems only process a select few chems like acid and hellwater because magic?
+	reagent_tag = PROCESS_ORG
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
