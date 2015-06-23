@@ -271,7 +271,6 @@
 	item_state = "g_suit"
 	_color = "fox_suit"
 	displays_id = 0 //still appears on examine; this is pure fluff.
-	flags = ONESIZEFITSALL
 
 /obj/item/clothing/suit/jacket/fluff/fox
 	name = "Aeronautics Jacket"
