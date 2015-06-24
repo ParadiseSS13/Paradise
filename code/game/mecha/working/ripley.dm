@@ -27,7 +27,7 @@
 		A.loc = loc
 		step_rand(A)
 	cargo.Cut()
-	..()
+	return ..()
 
 /obj/mecha/working/ripley/go_out()
 	..()
@@ -148,5 +148,4 @@
 		if(T)
 			T.Entered(A)
 		step_rand(A)
-	..()
-	return
+	return ..()

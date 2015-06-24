@@ -305,8 +305,8 @@
 /datum/game_mode/proc/cult_icon_pair_unlink(datum/mind/first_cultist,datum/mind/second_cultist)
 	if (!istype(first_cultist) || !istype(second_cultist))
 		return 0
-	remove_cult_icon(first_cultist,second_cultist)
-	remove_cult_icon(second_cultist,first_cultist)
+	remove_cult_icon_from_cultist(first_cultist,second_cultist)
+	remove_cult_icon_from_cultist(second_cultist,first_cultist)
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)

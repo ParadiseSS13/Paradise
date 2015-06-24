@@ -110,6 +110,44 @@
 	brightness_on = 2
 	w_class = 1
 
+// the desk lamps are a bit special
+/obj/item/device/flashlight/lamp
+	name = "desk lamp"
+	desc = "A desk lamp with an adjustable mount."
+	icon_state = "lamp"
+	item_state = "lamp"
+	brightness_on = 5
+	w_class = 4
+	flags = CONDUCT
+	m_amt = 0
+	g_amt = 0
+	on = 1
+
+
+// green-shaded desk lamp
+/obj/item/device/flashlight/lamp/green
+	desc = "A classic green-shaded desk lamp."
+	icon_state = "lampgreen"
+	item_state = "lampgreen"
+
+
+
+/obj/item/device/flashlight/lamp/verb/toggle_light()
+	set name = "Toggle light"
+	set category = "Object"
+	set src in oview(1)
+
+	if(!usr.stat)
+		attack_self(usr)
+
+//Bananalamp
+obj/item/device/flashlight/lamp/bananalamp
+	name = "banana lamp"
+	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
+	icon_state = "bananalamp"
+	item_state = "bananalamp"
+
+
 // FLARES
 
 /obj/item/device/flashlight/flare
@@ -196,19 +234,19 @@
 
 
 /obj/item/device/flashlight/emp/New()
-		..()
-		processing_objects.Add(src)
+	..()
+	processing_objects.Add(src)
 
 /obj/item/device/flashlight/emp/Destroy()
-		processing_objects.Remove(src)
-		..()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/device/flashlight/emp/process()
-		charge_tick++
-		if(charge_tick < 10) return 0
-		charge_tick = 0
-		emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
-		return 1
+	charge_tick++
+	if(charge_tick < 10) return 0
+	charge_tick = 0
+	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
+	return 1
 
 /obj/item/device/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes

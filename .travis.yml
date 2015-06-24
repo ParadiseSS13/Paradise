@@ -4,7 +4,7 @@ language: c
 env:
     global:
     - BYOND_MAJOR="508"
-    - BYOND_MINOR="1287"
+    - BYOND_MINOR="1289"
     matrix:
     - DM_MAPFILE="cyberiad"
 

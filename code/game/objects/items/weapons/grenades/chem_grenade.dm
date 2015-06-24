@@ -479,9 +479,9 @@
 		beakers += B2
 		update_icon()
 
-/obj/item/weapon/grenade/chem_grenade/saringas
-	payload_name = "saringas"
-	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
+/obj/item/weapon/grenade/chem_grenade/tabungas
+	payload_name = "tabungas"
+	desc = "Contains tabun gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 
 	New()
@@ -489,7 +489,7 @@
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("sarin", 25)
+		B1.reagents.add_reagent("tabun", 25)
 		B1.reagents.add_reagent("potassium", 25)
 		B2.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("sugar", 25)

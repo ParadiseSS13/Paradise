@@ -372,6 +372,8 @@
 		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		if(H.species.flags & IS_SYNTHETIC)
 			return
+		if(!E) // No eyes? No problem!
+			return
 		switch(safety)
 			if(1)
 				usr << "\red Your eyes sting a little."

@@ -43,7 +43,7 @@
 
 	ex_act(severity)
 		switch(severity)
-			if(1.0) del(src)
+			if(1.0) qdel(src)
 			if(2.0)
 				if (prob(60)) stat |= BROKEN
 			if(3.0)
@@ -52,10 +52,6 @@
 
 	blob_act()
 		if (prob(25)) del src
-		return
-
-	meteorhit()
-		if (prob(50)) del src
 		return
 
 	power_change()

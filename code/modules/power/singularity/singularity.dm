@@ -26,6 +26,7 @@
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
 	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
+	allow_spin = 0
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
@@ -42,7 +43,7 @@
 
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))

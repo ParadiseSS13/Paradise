@@ -8,7 +8,7 @@
 	..()
 	if (istype(W, /obj/item/weapon/wrench) && sheets_refunded)
 		//new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
-		var/obj/item/stack/sheet/metal/M = getFromPool(/obj/item/stack/sheet/metal, get_turf(src))
+		var/obj/item/stack/sheet/metal/M = PoolOrNew(/obj/item/stack/sheet/metal, get_turf(src))
 		M.amount = sheets_refunded
 		qdel(src)
 
@@ -19,7 +19,9 @@
 		if (src.mount_reqs.Find("simfloor") && !istype(turf_loc, /turf/simulated/floor))
 			user << "<span class='rose'>[src] cannot be placed on this spot.</span>"
 			return
-		if (src.mount_reqs.Find("nospace") && (areaMaster.requires_power == 0 || istype(areaMaster,/area/space)))
-			user << "<span class='rose'>[src] cannot be placed in this area.</span>"
-			return
+		if (src.mount_reqs.Find("nospace"))
+			var/area/my_area = turf_loc.loc
+			if(!istype(my_area) || (my_area.requires_power == 0 || istype(my_area,/area/space)))
+				user << "<span class='rose'>[src] cannot be placed in this area.</span>"
+				return
 		return 1

@@ -183,7 +183,7 @@
 
 /obj/item/weapon/storage/fancy/cigarettes/Destroy()
 	del(reagents)
-	..()
+	return ..()
 
 
 /obj/item/weapon/storage/fancy/cigarettes/update_icon()

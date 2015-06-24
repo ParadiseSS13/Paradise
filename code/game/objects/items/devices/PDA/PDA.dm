@@ -1293,14 +1293,14 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	if (ismob(loc))
 		var/mob/M = loc
-		M.show_message("\red Your [src] explodes!", 1)
+		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
 
 		explosion(T, -1, -1, 2, 3)
 	JFLOG("Exploded")
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/device/pda/Destroy()
@@ -1310,7 +1310,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		src.id.loc = get_turf(src.loc)
 	if(src.pai)
 		src.pai.loc = get_turf(src.loc)
-	..()
+	return ..()
 
 /obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
 	if (istype(AM, /mob/living/carbon))

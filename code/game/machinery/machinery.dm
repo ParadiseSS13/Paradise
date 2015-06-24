@@ -136,7 +136,7 @@ Class Procs:
 	if (src in machines)
 		removeAtProcessing()
 
-	..()
+	return ..()
 
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL

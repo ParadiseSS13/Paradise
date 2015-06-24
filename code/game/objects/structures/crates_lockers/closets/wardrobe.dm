@@ -4,7 +4,10 @@
 	icon_state = "blue"
 	icon_closed = "blue"
 
-/obj/structure/closet/wardrobe/New()
+/obj/structure/closet/wardrobe/generic
+	// Identical to the base wardrobe, aside from containing some stuff.
+
+/obj/structure/closet/wardrobe/generic/New()
 	..()
 	sleep(2)
 	new /obj/item/clothing/under/color/blue(src)
@@ -267,10 +270,12 @@
 	new /obj/item/clothing/shoes/white(src)
 	return
 
-/obj/structure/closet/wardrobe/white/medical
+/obj/structure/closet/wardrobe/medical_white
 	name = "medical doctor's wardrobe"
+	icon_state = "white"
+	icon_closed = "white"
 
-/obj/structure/closet/wardrobe/white/medical/New()
+/obj/structure/closet/wardrobe/medical_white/New()
 	..()
 	sleep(2)
 	new /obj/item/clothing/under/rank/nursesuit (src)

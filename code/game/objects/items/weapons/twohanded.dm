@@ -298,7 +298,7 @@ obj/item/weapon/twohanded/
 	force_wielded = 18 // Was 13, Buffed - RR
 	throwforce = 20
 	throw_speed = 3
-	no_spin = 1
+	no_spin_thrown = 1 // Thrown spears that spin look dumb. -Fox
 	flags = NOSHIELD
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 
@@ -444,7 +444,7 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/singularityhammer/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 
 /obj/item/weapon/twohanded/singularityhammer/process()
@@ -567,7 +567,7 @@ obj/item/weapon/twohanded/
 
 /obj/item/weapon/twohanded/knighthammer/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 
 /obj/item/weapon/twohanded/knighthammer/process()

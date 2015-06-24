@@ -11,7 +11,7 @@
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
-	..()
+	return ..()
 
 // common helper procs for all power machines
 /obj/machinery/power/proc/add_avail(var/amount)
@@ -20,7 +20,7 @@
 
 /obj/machinery/power/proc/add_load(var/amount)
 	if(powernet)
-		powernet.newload += amount
+		powernet.load += amount
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
@@ -313,55 +313,25 @@
 
 
 /datum/powernet/proc/reset()
-	load = newload
-	newload = 0
+
+	//see if there's a surplus of power remaining in the powernet and stores unused power in the SMES
+	netexcess = avail - load
+
+	if(netexcess > 100 && nodes && nodes.len)		// if there was excess power last cycle
+		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
+			S.restore()				// and restore some of the power that was used
+
+	//updates the viewed load (as seen on power computers)
+	viewload = 0.8*viewload + 0.2*load
+	viewload = round(viewload)
+
+	//reset the powernet
+	load = 0
 	avail = newavail
 	newavail = 0
 
-
-	viewload = 0.8*viewload + 0.2*load
-
-	viewload = round(viewload)
-
-	var/numapc = 0
-
-	if(nodes && nodes.len) // Added to fix a bad list bug -- TLE
-		for(var/obj/machinery/power/terminal/term in nodes)
-			if( istype( term.master, /obj/machinery/power/apc ) )
-				numapc++
-
-	if(numapc)
-		perapc = avail/numapc
-
-	netexcess = avail - load
-
-	if( netexcess > 100)		// if there was excess power last cycle
-		if(nodes && nodes.len)
-			for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
-				if(S.powernet == src)
-					S.restore()				// and restore some of the power that was used
-				else
-					error("[S.name] (\ref[S]) had a [S.powernet ? "different (\ref[S.powernet])" : "null"] powernet to our powernet (\ref[src]).")
-					nodes.Remove(S)
-
 /datum/powernet/proc/get_electrocute_damage()
-	switch(avail)/*
-		if (1300000 to INFINITY)
-			return min(rand(70,150),rand(70,150))
-		if (750000 to 1300000)
-			return min(rand(50,115),rand(50,115))
-		if (100000 to 750000-1)
-			return min(rand(35,101),rand(35,101))
-		if (75000 to 100000-1)
-			return min(rand(30,95),rand(30,95))
-		if (50000 to 75000-1)
-			return min(rand(25,80),rand(25,80))
-		if (25000 to 50000-1)
-			return min(rand(20,70),rand(20,70))
-		if (10000 to 25000-1)
-			return min(rand(20,65),rand(20,65))
-		if (1000 to 10000-1)
-			return min(rand(10,20),rand(10,20))*/
+	switch(avail)
 		if (5000000 to INFINITY)
 			return min(rand(200,300),rand(200,300))
 		if (4000000 to 5000000)
@@ -434,8 +404,11 @@
 	return null
 
 /area/proc/get_apc()
-	var/obj/machinery/power/apc/FINDME = locate() in src
-	if (FINDME)
+	// This was a simple locate() in src, but an unresolved BYOND bug causes trying to locate() in an
+	//  area to take an inconceivably long time, especially for large areas.
+	// See: http://www.byond.com/forum/?post=1860571
+	var/obj/machinery/power/apc/FINDME
+	for(FINDME in src)
 		return FINDME
 
 
@@ -502,7 +475,7 @@
 		source_area.use_power(drained_energy/CELLRATE)
 	else if (istype(power_source,/datum/powernet))
 		var/drained_power = drained_energy/CELLRATE //convert from "joules" to "watts"
-		PN.newload+=drained_power
+		PN.load+=drained_power
 	else if (istype(power_source, /obj/item/weapon/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy

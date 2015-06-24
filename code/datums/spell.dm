@@ -196,6 +196,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				var/datum/effect/effect/system/bad_smoke_spread/smoke = new /datum/effect/effect/system/bad_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
+			else if(smoke_spread == 3)
+				var/datum/effect/effect/system/sleep_smoke_spread/smoke = new /datum/effect/effect/system/sleep_smoke_spread()
+				smoke.set_up(smoke_amt, 0, location) // same here
+				smoke.start()
 
 /obj/effect/proc_holder/spell/wizard/proc/cast(list/targets)
 	return

@@ -121,7 +121,7 @@
 "cq" = (/obj/structure/window/reinforced{dir = 8},/turf/space,/area/space)
 "cr" = (/obj/structure/table/woodentable,/obj/item/weapon/melee/chainofcommand,/obj/item/weapon/stamp/granted,/turf/simulated/floor/carpet,/area/awaymission/challenge/end)
 "cs" = (/obj/structure/table/woodentable,/obj/item/weapon/paper{info = "Congratulations,<br><br>Your station has been selected to carry out the Gateway Project.<br><br>The equipment will be shipped to you at the start of the next quarter.<br> You are to prepare a secure location to house the equipment as outlined in the attached documents.<br><br>--Nanotrasen Blue Space Research"; name = "Confidential Correspondence, Pg 1"; pixel_x = 0; pixel_y = 0},/obj/item/weapon/folder/blue,/turf/simulated/floor/carpet,/area/awaymission/challenge/end)
-"ct" = (/obj/structure/table/woodentable,/obj/machinery/light/small/lamp/green{pixel_x = 1; pixel_y = 5},/turf/simulated/floor/carpet,/area/awaymission/challenge/end)
+"ct" = (/obj/structure/table/woodentable,/obj/item/device/flashlight/lamp/green{pixel_x = 1; pixel_y = 5},/turf/simulated/floor/carpet,/area/awaymission/challenge/end)
 "cu" = (/obj/structure/rack,/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/silenced,/turf/simulated/floor/wood,/area/awaymission/challenge/end)
 "cv" = (/mob/living/simple_animal/hostile/syndicate/melee,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/awaymission/challenge/end)
 "cw" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/wood,/area/awaymission/challenge/end)
@@ -243,3 +243,4 @@ bPaacncocGcecocKdocecedpdqcedocLcocececocqbPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 bPaacncodrcococqdgdscodtdudvdgcncocodrcocqbPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 bPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPbPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

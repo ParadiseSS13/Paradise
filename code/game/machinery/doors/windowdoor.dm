@@ -25,7 +25,7 @@
 	density = 0
 	if(health == 0)
 		playsound(src, "shatter", 70, 1)
-	..()
+	return ..()
 
 
 /obj/machinery/door/window/proc/open_and_close()
@@ -175,7 +175,6 @@
 /obj/machinery/door/window/hitby(AM as mob|obj)
 
 	..()
-	visible_message("<span class='danger'>\The [src] was hit by \the [AM].</span>")
 	var/tforce = 0
 	if(ismob(AM))
 		tforce = 40

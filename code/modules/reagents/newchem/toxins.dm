@@ -502,25 +502,25 @@ datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/sarin
-	name = "Sarin"
-	id = "sarin"
+datum/reagent/tabun
+	name = "Tabun"
+	id = "tabun"
 	description = "An extremely deadly neurotoxin."
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
 
-/datum/chemical_reaction/sarin
-	name = "sarin"
-	id = "sarin"
-	result = "sarin"
-	required_reagents = list("chlorine" = 1, "fluorine" = 1, "hydrogen" = 1, "oxygen" = 1, "phosphorus" = 1, "fuel" = 1, "acetone" = 1, "atrazine" = 1)
-	result_amount = 3
+/datum/chemical_reaction/tabun
+	name = "tabun"
+	id = "tabun"
+	result = "tabun"
+	required_reagents = list("phenol" = 1, "diethylamine" = 1, "phosphorus" = 1, "oxygen" = 1, "chlorine" = 1, "sodiumchloride" = 1, "ethanol" = 1, "cyanide" = 1)
+	result_amount = 8
 	mix_message = "The mixture yields a colorless, odorless liquid."
 	required_temp = 374
 
-datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
+datum/reagent/tabun/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustFireLoss(1)
 	if(prob(20))

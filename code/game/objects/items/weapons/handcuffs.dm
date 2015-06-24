@@ -157,7 +157,7 @@ var/last_chew = 0
 					C.handcuffed = new /obj/item/weapon/restraints/handcuffs/cable/zipties/used(C)
 					C.update_inv_handcuffed(1)
 					user << "<span class='notice'>You handcuff [C].</span>"
-					add_logs(user, C, "handcuffed")
+					add_logs(C, user, "ziptie-cuffed")
 			else
 				user << "<span class='warning'>You fail to handcuff [C].</span>"
 

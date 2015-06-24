@@ -61,7 +61,7 @@
 	if(air_temporary && loc)
 		loc.assume_air(air_temporary)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
@@ -252,7 +252,7 @@
 	if(node2)
 		node2.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
@@ -470,7 +470,8 @@
 	update_icon()
 
 /obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
-	var/turf/T = loc
+	var/turf/T = get_turf(src)
+	if(!istype(T)) return
 	if(node)
 		var/node_dir = get_dir(src,node)
 		if(node.icon_connect_type == "-supply")
@@ -579,7 +580,7 @@
 	if(node3)
 		node3.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
@@ -632,6 +633,7 @@
 		underlays.Cut()
 
 		var/turf/T = get_turf(src)
+		if(!istype(T)) return
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
@@ -818,7 +820,7 @@
 	if(node4)
 		node4.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold4w/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
@@ -890,6 +892,7 @@
 		*/
 
 		var/turf/T = get_turf(src)
+		if(!istype(T)) return
 		var/list/directions = list(NORTH, SOUTH, EAST, WEST)
 		var/node1_direction = get_dir(src, node1)
 		var/node2_direction = get_dir(src, node2)
@@ -1067,7 +1070,7 @@
 	if(node)
 		node.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/cap/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
@@ -1104,7 +1107,8 @@
 				node = target
 				break
 
-	var/turf/T = src.loc			// hide if turf is not intact
+	var/turf/T = get_turf(src)			// hide if turf is not intact
+	if(!istype(T)) return
 	hide(T.intact)
 	update_icon()
 
@@ -1184,7 +1188,7 @@
 	if(node1)
 		node1.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/tank/pipeline_expansion()
 	return list(node1)
@@ -1384,7 +1388,7 @@
 	if(node1)
 		node1.disconnect(src)
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/pipe/vent/pipeline_expansion()
 	return list(node1)

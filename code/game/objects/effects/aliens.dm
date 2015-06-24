@@ -35,7 +35,7 @@
 	var/turf/T = loc
 	loc = null
 	T.relativewall_neighbours()
-	..()
+	return ..()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
@@ -99,7 +99,6 @@
 
 /obj/structure/alien/resin/hitby(atom/movable/AM)
 	..()
-	visible_message("<span class='danger'>[src] was hit by [AM].</span>")
 	var/tforce = 0
 	if(!isobj(AM))
 		tforce = 10
@@ -182,7 +181,7 @@
 	loc = null
 	for (var/obj/structure/alien/weeds/W in range(1,T))
 		W.updateWeedOverlays()
-	..()
+	return ..()
 
 /obj/structure/alien/weeds/proc/Life()
 	set background = BACKGROUND_ENABLED
@@ -209,8 +208,8 @@
 			new /obj/structure/alien/weeds(T, linked_node)
 
 
-/obj/structure/alien/weeds/ex_act(severity, target)
-	del(src)
+/obj/structure/alien/weeds/ex_act(severity)
+	qdel(src)
 
 
 /obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)

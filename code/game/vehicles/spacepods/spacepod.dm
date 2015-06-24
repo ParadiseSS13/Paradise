@@ -73,7 +73,7 @@
 
 /obj/spacepod/Destroy()
 	spacepods_list -= src
-	..()
+	return ..()
 
 /obj/spacepod/process()
 	if(src.empcounter > 0)
@@ -179,8 +179,8 @@
 				H2.forceMove(get_turf(src))
 				H2.ex_act(severity + 1)
 				H2 << "<span class='warning'>You are forcefully thrown from \the [src]!</span>"
-			del(ion_trail)
-			del(src)
+			qdel(ion_trail)
+			qdel(src)
 		if(2)
 			deal_damage(100)
 		if(3)
@@ -241,7 +241,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.forceMove(equipment_system)
+				W.forceMove(src)
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
 				return
@@ -253,7 +253,7 @@
 			else
 				user << "<span class='notice'>You insert \the [W] into the equipment system.</span>"
 				user.drop_item(W)
-				W.forceMove(equipment_system)
+				W.forceMove(src)
 				equipment_system.misc_system = W
 				equipment_system.misc_system.my_atom = src
 				return

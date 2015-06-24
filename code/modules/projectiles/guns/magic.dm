@@ -46,7 +46,7 @@
 
 /obj/item/weapon/gun/magic/Destroy()
 	if(can_charge)	processing_objects.Remove(src)
-	..()
+	return ..()
 
 
 /obj/item/weapon/gun/magic/process()

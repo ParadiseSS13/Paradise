@@ -108,14 +108,6 @@ for reference:
 					qdel(src)
 				return
 
-	meteorhit()
-		visible_message("\red <B>The barricade is smashed apart!</B>")
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		new /obj/item/stack/sheet/wood(get_turf(src))
-		del(src)
-		return
-
 	blob_act()
 		src.health -= 25
 		if (src.health <= 0)
@@ -200,7 +192,7 @@ for reference:
 			if (src.health <= 0)
 				src.explode()
 			..()
-		
+
 	emag_act(user as mob)
 		if (!emagged)
 			emagged = 1
@@ -235,10 +227,6 @@ for reference:
 			locked = !locked
 			anchored = !anchored
 			icon_state = "barrier[src.locked]"
-
-	meteorhit()
-		src.explode()
-		return
 
 	blob_act()
 		src.health -= 25

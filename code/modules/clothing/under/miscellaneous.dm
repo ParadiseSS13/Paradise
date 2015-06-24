@@ -109,6 +109,14 @@
 	displays_id = 0
 	flags = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/centcom/diplomatic
+	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
+	name = "\improper Nanotrasen Diplomatic Uniform"
+	icon_state = "presidente"
+	item_state = "g_suit"
+	_color = "presidente"
+	displays_id = 0
+
 /obj/item/clothing/under/rank/blueshield
 	name = "blueshield uniform"
 	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshield officers."
