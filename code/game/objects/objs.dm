@@ -48,8 +48,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
-	return ..()
-
+	..()
 /obj/item/proc/is_used_on(obj/O, mob/user)
 
 /obj/proc/process()

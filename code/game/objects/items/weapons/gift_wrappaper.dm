@@ -35,7 +35,7 @@
 	return
 
 /obj/item/weapon/a_gift/ex_act()
-	qdel(src)
+	del(src)
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)

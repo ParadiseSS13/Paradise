@@ -50,7 +50,6 @@ var/global/list/possibleEvents = list()
 	//possibleEvents[/datum/event/mundane_news] = 300
 
 	possibleEvents[/datum/event/cargo_bonus] = 150
-	possibleEvents[/datum/event/revenant] = 75
 
 	possibleEvents[/datum/event/pda_spam] = max(min(25, player_list.len) * 4, 200)
 	possibleEvents[/datum/event/money_lotto] = max(min(5, player_list.len), 50)
@@ -87,6 +86,7 @@ var/global/list/possibleEvents = list()
 		possibleEvents[/datum/event/anomaly/anomaly_flux] = 50 + 50 * active_with_role["Engineer"]
 
 		possibleEvents[/datum/event/meteor_wave] = 10 * active_with_role["Engineer"]
+		possibleEvents[/datum/event/meteor_shower] = 20 * active_with_role["Engineer"]
 		possibleEvents[/datum/event/blob] = 10 * active_with_role["Engineer"]
 
 	if(active_with_role["Medical"] > 0)

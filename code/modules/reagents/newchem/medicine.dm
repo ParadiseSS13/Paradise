@@ -560,7 +560,7 @@ datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 		M.losebreath = 5
 	if(M.confused > 60)
 		M.confused += 5
-	M.reagents.remove_reagent("tabun",10)
+	M.reagents.remove_reagent("sarin",10)
 	..()
 	return
 
@@ -912,70 +912,3 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("chlorine" = 1, "fluorine" = 1, "aluminum" = 1, "potass_iodide" = 1, "oil" = 1)
 	result_amount = 4
 	mix_message = "The chemicals mix into an odd pink slush."
-
-//////////////////////////////
-//		Synth-Meds			//
-//////////////////////////////
-
-//Degreaser: Anti-toxin / Lube Remover
-/datum/reagent/degreaser
-	name = "Degreaser"
-	id = "degreaser"
-	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
-	reagent_state = LIQUID
-	color = "#CC7A00"
-	process_flags = SYNTHETIC
-
-/datum/chemical_reaction/degreaser
-	name = "Degreaser"
-	id = "degreaser"
-	result = "degreaser"
-	required_reagents = list("oil" = 1, "sterilizine" = 1)
-	result_amount = 2
-
-/datum/reagent/degreaser/reaction_turf(var/turf/simulated/T, var/volume)
-	if (!istype(T)) return
-	src = null
-	if(volume >= 1)
-		if(T.wet >= 2)			//Clears lube! Fight back against the slipping, and WIN!
-			T.wet = 0
-			if(T.wet_overlay)
-				T.overlays -= T.wet_overlay
-				T.wet_overlay = null
-			return
-
-/datum/reagent/degreaser/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.adjustToxLoss(-1.5*REM)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
-			else
-				M.reagents.remove_reagent(R.id,1)
-	..()
-	return
-
-//Liquid Solder: Mannitol
-/datum/reagent/liquid_solder
-	name = "Liquid Solder"
-	id = "liquid_solder"
-	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
-	reagent_state = LIQUID
-	color = "#D7B395"
-	process_flags = SYNTHETIC
-
-/datum/reagent/liquid_solder/on_mob_life(mob/living/M as mob)
-	M.adjustBrainLoss(-3)
-	..()
-	return
-
-/datum/chemical_reaction/liquid_solder
-	name = "Liquid Solder"
-	id = "liquid_solder"
-	result = "liquid_solder"
-	required_reagents = list("ethanol" = 1, "copper" = 1, "silver" = 1)
-	result_amount = 3
-	required_temp = 370
-	mix_message = "The solution gently swirls with a metallic sheen."

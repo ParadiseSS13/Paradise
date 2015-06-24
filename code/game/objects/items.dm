@@ -63,7 +63,7 @@
 	/*  BROKEN, FUCK BYOND
 	if(hasvar(src, "my_atom"))
 		src:my_atom = null*/
-	return ..()
+	..()
 
 /obj/item/device
 	icon = 'icons/obj/device.dmi'

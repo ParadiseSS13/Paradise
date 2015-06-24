@@ -163,7 +163,6 @@
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
 	loc = null
-	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
 

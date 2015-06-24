@@ -21,9 +21,9 @@
 
 /obj/structure/transit_tube_pod/Destroy()
 	for(var/atom/movable/AM in contents)
-		AM.forceMove(get_turf(src))
+		AM.loc = loc
 
-	return ..()
+	..()
 
 /obj/structure/transit_tube_pod/proc/follow_tube(var/reverse_launch)
 	if(moving)

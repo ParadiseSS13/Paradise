@@ -181,13 +181,13 @@
 	switch(severity)
 		if(1.0)
 			for(var/obj/O in src.contents)
-				qdel(O)
+				del(O)
 			qdel(src)
 			return
 		if(2.0)
 			for(var/obj/O in src.contents)
 				if(prob(50))
-					qdel(O)
+					del(O)
 			qdel(src)
 			return
 		if(3.0)

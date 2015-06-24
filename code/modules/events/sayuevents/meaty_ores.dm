@@ -32,7 +32,7 @@
 			invisibility = 101
 			new /obj/effect/decal/cleanable/blood(get_turf(A))
 			if(ismob(A))
-				A.ex_act(strength)
+				A.meteorhit(src)
 			else
 				spawn(0)
 					if(A)

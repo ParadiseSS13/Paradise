@@ -574,6 +574,7 @@ client/proc/one_click_antag()
 
 	return 0
 
+
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 
 	var/list/mob/candidates = list()

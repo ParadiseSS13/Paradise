@@ -26,7 +26,6 @@
 	reagent_state = LIQUID
 	color = "#FF0000"
 	metabolization_rate = 4
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/chemical_reaction/clf3
 	name = "Chlorine Trifluoride"
@@ -414,7 +413,6 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	description = "Catches you on fire and makes you ignite."
 	reagent_state = LIQUID
 	color = "#FF9999"
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/chemical_reaction/phlogiston
 	name = "phlogiston"
@@ -445,7 +443,6 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	description = "Very flammable."
 	reagent_state = LIQUID
 	color = "#FF9999"
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/napalm/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -470,7 +467,6 @@ datum/reagent/cryostylane
 	id = "cryostylane"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
 	color = "#B2B2FF" // rgb: 139, 166, 233
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/chemical_reaction/cryostylane
 	name = "cryostylane"
@@ -504,7 +500,6 @@ datum/reagent/pyrosium
 	id = "pyrosium"
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly cools all other reagents in the mob down to 0K."
 	color = "#B20000" // rgb: 139, 166, 233
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/chemical_reaction/pyrosium
 	name = "pyrosium"

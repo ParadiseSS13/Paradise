@@ -28,11 +28,12 @@ var/Debug = 0	// global debug switch
 var/Debug2 = 1   // enables detailed job debug file in secrets
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
+var/MAX_EXPLOSION_RANGE = 14
 var/MAX_EX_DEVESTATION_RANGE = 3
 var/MAX_EX_HEAVY_RANGE = 7
 var/MAX_EX_LIGHT_RANGE = 14
 var/MAX_EX_FLASH_RANGE = 14
-var/MAX_EX_FLAME_RANGE = 14
+//#define MAX_EXPLOSION_RANGE		14					// Defaults to 12 (was 8) -- TLE
 
 var/list/be_special_flags = list(
 	"traitor" = BE_TRAITOR,
@@ -48,8 +49,7 @@ var/list/be_special_flags = list(
 	"raider" = BE_RAIDER,
 	"vampire" = BE_VAMPIRE,
 	"mutineer" = BE_MUTINEER,
-	"blob" = BE_BLOB,
-	"Revenant" = BE_REVENANT
+	"blob" = BE_BLOB
 )
 
 //Random event stuff, apparently used

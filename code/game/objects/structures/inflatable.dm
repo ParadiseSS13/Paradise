@@ -62,6 +62,11 @@
 	blob_act()
 		deflate(1)
 
+
+	meteorhit()
+	//world << "glass at [x],[y],[z] Mhit"
+		deflate(1)
+
 	attack_hand(mob/user as mob)
 		add_fingerprint(user)
 		return

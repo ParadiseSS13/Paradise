@@ -35,7 +35,7 @@ Pipelines + Other Objects -> Pipe network
 		M.forceMove(src.loc)
 	if(pipe_image)
 		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
-	return ..()
+	..()
 
 // Find a connecting /obj/machinery/atmospherics in specified direction.
 /obj/machinery/atmospherics/proc/findConnecting(var/direction)

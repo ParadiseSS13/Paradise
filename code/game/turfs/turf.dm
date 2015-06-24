@@ -31,8 +31,6 @@
 
 	var/dynamic_lighting = 1
 
-	flags = 0
-
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
@@ -40,8 +38,7 @@
 			src.Entered(AM)
 			return
 
-	var/area/A = loc
-	if(!dynamic_lighting || !A.lighting_use_dynamic)
+	if(!dynamic_lighting)
 		luminosity = 1
 
 // Adds the adjacent turfs to the current atmos processing
@@ -322,6 +319,8 @@
 			M.take_damage(100, "brute")
 
 /turf/proc/Bless()
+	if(flags & NOJAUNT)
+		return
 	flags |= NOJAUNT
 
 /////////////////////////////////////////////////////////////////////////

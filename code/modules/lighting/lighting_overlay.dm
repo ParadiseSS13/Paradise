@@ -113,5 +113,3 @@
 			D.effect_r -= src
 			D.effect_g -= src
 			D.effect_b -= src
-
-	return ..()

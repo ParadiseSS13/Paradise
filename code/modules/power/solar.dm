@@ -29,7 +29,7 @@ var/list/solars_list = list()
 
 /obj/machinery/power/solar/Destroy()
 	unset_control() //remove from control computer
-	return ..()
+	..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
 /obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
@@ -304,7 +304,7 @@ var/list/solars_list = list()
 		M.unset_control()
 	if(connected_tracker)
 		connected_tracker.unset_control()
-	return ..()
+	..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
@@ -386,7 +386,7 @@ var/list/solars_list = list()
 	data["connected_panels"] = connected_panels.len
 	data["connected_tracker"] = (connected_tracker ? 1 : 0)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open) 
 	if (!ui)
 		ui = new(user, src, ui_key, "solar_control.tmpl", name, 490, 420)
 		ui.set_initial_data(data)
@@ -446,7 +446,7 @@ var/list/solars_list = list()
 /obj/machinery/power/solar_control/Topic(href, href_list)
 	if(..())
 		return
-
+		
 	if(href_list["rate_control"])
 		if(href_list["cdir"])
 			src.cdir = dd_range(0,359,(360+src.cdir+text2num(href_list["cdir"]))%360)

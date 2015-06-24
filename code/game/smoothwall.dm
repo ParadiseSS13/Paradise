@@ -92,7 +92,7 @@
 				crystal.icon_state = "supermatter_crystalf"
 				crystal.pixel_x = 0
 				crystal.pixel_y = 0
-	return ..()
+	..()
 
 // DE-HACK
 /turf/simulated/wall/vault/relativewall()

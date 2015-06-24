@@ -29,7 +29,6 @@
 
 /obj/effect/jungle_tribe_spawn/Destroy()
 	processing_objects.Remove(src)
-	return ..()
 
 /obj/effect/jungle_tribe_spawn/process()
 	set background = 1

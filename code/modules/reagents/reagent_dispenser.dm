@@ -103,7 +103,7 @@
 				explode()
 
 	blob_act()
-		explosion(src.loc,0,1,5,7,10, flame_range = 5)
+		explode()
 
 	ex_act()
 		explode()
@@ -150,13 +150,14 @@
 		return ..()
 
 /obj/structure/reagent_dispensers/fueltank/proc/explode()
-	explosion(src.loc,-1,0,2, flame_range = 2)
+	explosion(src.loc,0,1,4)
 	if(src)
-		qdel(src)
+		del(src)
 
 /obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, temperature, volume)
-	blob_act() //saving a few lines of copypasta
-
+	if(temperature > T0C+500)
+		explode()
+	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()
@@ -218,7 +219,7 @@
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act()
 	explosion(src.loc,0,3,5,7,10)
-	qdel(src)
+	del(src)
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "Virus Food Dispenser"

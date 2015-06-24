@@ -151,7 +151,7 @@
 	if(coin)
 		del(coin) // qdel
 		coin = null
-	return ..()
+	..()
 
 /obj/machinery/vending/ex_act(severity)
 	switch(severity)

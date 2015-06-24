@@ -11,7 +11,7 @@
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
-	return ..()
+	..()
 
 // common helper procs for all power machines
 /obj/machinery/power/proc/add_avail(var/amount)

@@ -33,7 +33,6 @@
 		del(ghostimage)
 		ghostimage = null;
 		updateallghostimages()
-	return ..()
 
 /mob/camera/blob/Login()
 	..()

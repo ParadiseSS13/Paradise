@@ -156,15 +156,15 @@
 /obj/effect/supermatter_crystal/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			qdel(src)
+			del(src)
 			return
 		if(2.0)
 			if (prob(50))
-				qdel(src)
+				del(src)
 				return
 		if(3.0)
 			if (prob(5))
-				qdel(src)
+				del(src)
 				return
 		else
 	return
@@ -176,4 +176,4 @@
 
 /obj/effect/supermatter_crystal/proc/CheckEndurance()
 	if(endurance <= 0)
-		qdel(src)
+		del(src)

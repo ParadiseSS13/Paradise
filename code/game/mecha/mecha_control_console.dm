@@ -91,11 +91,11 @@
 		return answer
 
 	emp_act()
-		qdel(src)
+		del src
 		return
 
 	ex_act()
-		qdel(src)
+		del src
 		return
 
 	proc/in_mecha()

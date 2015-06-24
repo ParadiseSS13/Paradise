@@ -62,7 +62,8 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	//if (istype(T, /turf))
 	//	T.firelevel = 0 //TODO: FIX
 	src.delete()
-	return ..()
+	..()
+	return
 
 /obj/effect/effect/water/Move(turf/newloc)
 	//var/turf/T = src.loc
@@ -182,7 +183,8 @@ steam.start() -- spawns the effect
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(1000,100)
-	return ..()
+	..()
+	return
 
 /obj/effect/effect/sparks/Move()
 	..()
@@ -958,7 +960,7 @@ steam.start() -- spawns the effect
 			if(A == src)
 				continue
 			reagents.reaction(A, 1, 1)
-	return ..()
+	..()
 
 /obj/effect/effect/foam/process()
 	if(--amount < 0)
@@ -1100,11 +1102,11 @@ steam.start() -- spawns the effect
 		qdel(src)
 
 	blob_act()
-		qdel(src)
+		del(src)
 
 	bullet_act()
 		if(metal==1 || prob(50))
-			qdel(src)
+			del(src)
 
 	attack_hand(var/mob/user)
 		if ((HULK in user.mutations) || (prob(75 - metal*25)))
@@ -1113,7 +1115,7 @@ steam.start() -- spawns the effect
 				if ((O.client && !( O.blinded )))
 					O << "\red [user] smashes through the foamed metal."
 
-			qdel(src)
+			del(src)
 		else
 			user << "\blue You hit the metal foam but bounce off it."
 		return
@@ -1127,8 +1129,8 @@ steam.start() -- spawns the effect
 			for(var/mob/O in viewers(src))
 				if (O.client)
 					O << "\red [G.assailant] smashes [G.affecting] through the foamed metal wall."
-			qdel(I)
-			qdel(src)
+			del(I)
+			del(src)
 			return
 
 		if(prob(I.force*20 - metal*25))
@@ -1136,7 +1138,7 @@ steam.start() -- spawns the effect
 			for(var/mob/O in oviewers(user))
 				if ((O.client && !( O.blinded )))
 					O << "\red [user] smashes through the foamed metal."
-			qdel(src)
+			del(src)
 		else
 			user << "\blue You hit the metal foam to no effect."
 
@@ -1247,8 +1249,8 @@ steam.start() -- spawns the effect
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(3000,100)
-	return ..()
-
+	..()
+	return
 /obj/effects/sparkels/Move()
 	..()
 	var/turf/T = src.loc

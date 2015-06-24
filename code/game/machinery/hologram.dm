@@ -183,16 +183,20 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			qdel(src)
+			del(src)
 		if(2.0)
 			if (prob(50))
-				qdel(src)
+				del(src)
 		if(3.0)
 			if (prob(5))
-				qdel(src)
+				del(src)
 	return
 
 /obj/machinery/hologram/blob_act()
+	del(src)
+	return
+
+/obj/machinery/hologram/meteorhit()
 	del(src)
 	return
 

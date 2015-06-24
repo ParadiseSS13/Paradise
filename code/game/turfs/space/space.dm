@@ -19,8 +19,6 @@
 		update_starlight() //MC will initialize all the space turfs that get created before config
 
 /turf/space/proc/update_starlight()
-	. = ..()
-
 	if(!config)	return
 	if(!config.starlight)
 		return

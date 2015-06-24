@@ -45,7 +45,6 @@ var/global/list/ghdel_profiling = list()
 
 	// Idea by ChuckTheSheep to make the object even more unreferencable.
 	invisibility = 101
-	return ..()
 
 /atom/proc/CheckParts()
 	return
@@ -89,6 +88,8 @@ var/global/list/ghdel_profiling = list()
 */
 
 
+/atom/proc/meteorhit(obj/meteor as obj)
+	return
 
 /atom/proc/allow_drop()
 	return 1

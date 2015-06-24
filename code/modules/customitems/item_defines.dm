@@ -236,7 +236,7 @@
 	icon_state = "noble_boot"
 	_color = "noble_boot"
 	item_state = "noble_boot"
-
+	
 /////Arachno-Man Costume set //the flagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit // Custom Jumpsuit
 	name = "Arachno-Man costume"
@@ -247,7 +247,7 @@
 	_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
-
+	
 /obj/item/clothing/head/fluff/arachno_mask
 	name = "Arachno-Man mask"
 	desc = "Put it on. The mask, it's gonna make you stronger!"
@@ -257,26 +257,5 @@
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-
-
-///Aeronuatical Jumpsuit and Jacket //Fox P McCloud: Fox McCloud
-
-//Huge thanks to Nienhaus for these sprites!
-
-/obj/item/clothing/under/fluff/fox
-	name = "Aeronuatics Jumpsuit"
-	desc = "A jumpsuit tailor made for spacefaring fighter pilots; this one seems very old."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_suit"
-	item_state = "g_suit"
-	_color = "fox_suit"
-	displays_id = 0 //still appears on examine; this is pure fluff.
-
-/obj/item/clothing/suit/jacket/fluff/fox
-	name = "Aeronautics Jacket"
-	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_jacket"
-	item_state = "fox_jacket"
 
 //////////// Weapons ////////////

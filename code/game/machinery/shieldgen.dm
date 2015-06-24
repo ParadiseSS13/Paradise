@@ -19,7 +19,7 @@
 	opacity = 0
 	density = 0
 	air_update_turf(1)
-	return ..()
+	..()
 
 /obj/machinery/shield/Move()
 	var/turf/T = loc
@@ -54,6 +54,18 @@
 	spawn(20) if(src) opacity = 0
 
 	..()
+
+/obj/machinery/shield/meteorhit()
+	src.health -= max_health*0.75 //3/4 health as damage
+
+	if(src.health <= 0)
+		visible_message("\blue The [src] dissipates")
+		del(src)
+		return
+
+	opacity = 1
+	spawn(20) if(src) opacity = 0
+	return
 
 /obj/machinery/shield/bullet_act(var/obj/item/projectile/Proj)
 	health -= Proj.damage
@@ -91,6 +103,8 @@
 
 
 /obj/machinery/shield/hitby(AM as mob|obj)
+	//Let everyone know we've been hit!
+	visible_message("\red <B>[src] was hit by [AM].</B>")
 
 	//Super realistic, resource-intensive, real-time damage calculations.
 	var/tforce = 0
@@ -140,7 +154,7 @@
 /obj/machinery/shieldgen/Destroy()
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
-	return ..()
+	..()
 
 
 /obj/machinery/shieldgen/proc/shields_up()
@@ -176,6 +190,13 @@
 	if(health <= 0)
 		del(src)
 	update_icon()
+	return
+
+/obj/machinery/shieldgen/meteorhit(obj/O as obj)
+	src.health -= max_health*0.25 //A quarter of the machine's health
+	if (prob(5))
+		src.malfunction = 1
+	src.checkhp()
 	return
 
 /obj/machinery/shieldgen/ex_act(severity)
@@ -502,7 +523,7 @@
 	src.cleanup(2)
 	src.cleanup(4)
 	src.cleanup(8)
-	return ..()
+	..()
 
 /obj/machinery/shieldwallgen/bullet_act(var/obj/item/projectile/Proj)
 	storedpower -= Proj.damage
