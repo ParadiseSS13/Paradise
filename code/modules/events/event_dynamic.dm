@@ -50,6 +50,7 @@ var/global/list/possibleEvents = list()
 	//possibleEvents[/datum/event/mundane_news] = 300
 
 	possibleEvents[/datum/event/cargo_bonus] = 150
+	possibleEvents[/datum/event/revenant] = 75
 
 	possibleEvents[/datum/event/pda_spam] = max(min(25, player_list.len) * 4, 200)
 	possibleEvents[/datum/event/money_lotto] = max(min(5, player_list.len), 50)

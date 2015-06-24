@@ -90,6 +90,9 @@ datum/mind
 	proc/store_memory(new_text)
 		memory += "[new_text]<BR>"
 
+	proc/wipe_memory()
+		memory = null
+
 	proc/show_memory(mob/recipient)
 		var/output = "<B>[current.real_name]'s Memory</B><HR>"
 		output += memory

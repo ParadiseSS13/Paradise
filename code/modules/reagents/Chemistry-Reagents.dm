@@ -515,6 +515,15 @@ datum
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				return
 
+
+			reaction_turf(var/turf/simulated/T, var/volume)
+				..()
+				if(!istype(T)) return
+				if(volume>=10)
+					for(var/obj/effect/rune/R in T)
+						qdel(R)
+				T.Bless()
+
 		serotrotium
 			name = "Serotrotium"
 			id = "serotrotium"
