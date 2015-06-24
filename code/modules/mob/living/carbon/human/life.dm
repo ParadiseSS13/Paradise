@@ -744,11 +744,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	proc/handle_chemicals_in_body()
 
-		if(reagents) //Synths don't process reagents. // fuck you they do now - Iamgoofball
-			var/alien = 0
-			if(species && species.reagent_tag)
-				alien = species.reagent_tag
-			reagents.metabolize(src,alien)
+		if(reagents)
+			reagents.metabolize(src)
 
 		if(status_flags & GODMODE)	return 0	//godmode
 

@@ -19,6 +19,7 @@
 
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
+	reagent_tag = PROCESS_ORG
 
 	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
 	//inherent_verbs = list(/mob/living/proc/ventcrawl)
@@ -60,6 +61,7 @@ datum/species/monkey/get_random_name(var/gender)
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
 	tail = "farwatail"
+	reagent_tag = PROCESS_ORG
 
 
 /datum/species/monkey/vulpkanin
@@ -73,6 +75,7 @@ datum/species/monkey/get_random_name(var/gender)
 	flesh_color = "#966464"
 	base_color = "#BE8264"
 	tail = "wolpintail"
+	reagent_tag = PROCESS_ORG
 
 
 /datum/species/monkey/skrell
@@ -85,7 +88,7 @@ datum/species/monkey/get_random_name(var/gender)
 	default_language = "Neara"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
-	reagent_tag = IS_SKRELL
+	reagent_tag = PROCESS_ORG
 	tail = null
 
 	bodyflags = FEET_PADDED
@@ -102,6 +105,6 @@ datum/species/monkey/get_random_name(var/gender)
 	default_language = "Stok"
 	flesh_color = "#34AF10"
 	base_color = "#066000"
-	reagent_tag = IS_UNATHI
+	reagent_tag = PROCESS_ORG
 
 	bodyflags = FEET_CLAWS | HAS_TAIL

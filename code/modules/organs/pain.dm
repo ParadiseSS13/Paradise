@@ -77,7 +77,24 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(species && species.flags & NO_PAIN) return
+	if(species && species.flags & NO_PAIN)
+		//While IPCs don't feel pain, they will notice their gears gunking up with residue (toxins)
+		if(species && species.flags & IS_SYNTHETIC)
+			var/toxDamageMessage = null
+			var/toxMessageProb = 1
+			switch(getToxLoss())
+				if(25 to 50)
+					toxMessageProb = 1
+					toxDamageMessage = "Your servos seem to be working harder."
+				if(50 to 75)
+					toxMessageProb = 2
+					toxDamageMessage = "Your joints seem to stick randomly."
+				if(75 to INFINITY)
+					toxMessageProb = 5
+					toxDamageMessage = "Your motors seem to slip; it really grinds your gears!"
+			if(toxDamageMessage && prob(toxMessageProb))
+				src.custom_pain(toxDamageMessage, getToxLoss() >= 15)
+		return
 
 	if(stat >= 2) return
 	if(reagents.has_reagent("morphine"))

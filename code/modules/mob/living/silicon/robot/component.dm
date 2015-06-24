@@ -202,9 +202,15 @@
 	user.visible_message("<span class='notice'> [user] has analyzed [M]'s components.","<span class='notice'> You have analyzed [M]'s components.")
 	var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 	var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
+	var/TX = M.getToxLoss() > 50 	? 	"<b>[M.getToxLoss()]</b>" 		: M.getToxLoss()
+
 	user.show_message("\blue Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.halloss]% functional"]")
-	user.show_message("\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>", 1)
-	user.show_message("\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
+	if (ishuman(M) && (M:species.flags & IS_SYNTHETIC))
+		user.show_message("\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>/<font color='green'>Residue</font>", 1)
+		user.show_message("\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font> - <font color='green'>[TX]</font>")
+	else
+		user.show_message("\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>", 1)
+		user.show_message("\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	if(M.tod && M.stat == DEAD)
 		user.show_message("\blue Time of Disable: [M.tod]")
 
@@ -238,6 +244,12 @@
 				(org.burn_dam > 0)	?	"<font color='#FFA500'>[org.burn_dam]</font>"	:0),1)
 		else
 			user.show_message("\blue \t Components are OK.",1)
+		if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && M:brain_op_stage == 4.0)
+			user.show_message("\red Subject posibrain is unresponsive. System shutdown imminent.")
+		else if (M.getBrainLoss() >= 60)
+			user.show_message("\red Severe posibrain damage detected. Heavy corrosion present.")
+		else if (M.getBrainLoss() >= 10)
+			user.show_message("\red Significant posibrain damage detected. Moderate corrosion present.")
 
 	user.show_message("\blue Operating Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)", 1)
 

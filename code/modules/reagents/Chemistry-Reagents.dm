@@ -7,10 +7,6 @@
 //The reaction procs must ALWAYS set src = null, this detaches the proc from the object (the reagent)
 //so that it can continue working when the reagent is deleted while the proc is still active.
 
-//Some on_mob_life() procs check for alien races.
-#define IS_DIONA 1
-#define IS_VOX 2
-// ^ fuck this shit holy fuck - Iamgoofball
 datum
 	reagent
 		var/name = "Reagent"
@@ -26,6 +22,9 @@ datum
 		var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 		var/shock_reduction = 0
 		var/penetrates_skin = 0 //Whether or not a reagent penetrates the skin
+		//Processing flags, defines the type of mobs the reagent will affect
+		//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
+		var/process_flags = ORGANIC
 		proc
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 				if(!istype(M, /mob/living))	return 0
@@ -303,6 +302,7 @@ datum
 			name = "Hell Water"
 			id = "hell_water"
 			description = "YOUR FLESH! IT BURNS!"
+			process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 
 			on_mob_life(var/mob/living/M as mob)
 				M.fire_stacks = min(5,M.fire_stacks + 3)
@@ -467,6 +467,7 @@ datum
 			description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
+			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(ishuman(M))
@@ -582,10 +583,12 @@ datum
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2) return
-				if(alien && alien == IS_VOX)
-					M.adjustToxLoss(REAGENTS_METABOLISM)
-					holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
-					return
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.species && (H.species.name == "Vox" || H.species.name =="Vox Armalis"))
+						M.adjustToxLoss(REAGENTS_METABOLISM)
+						holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
+						return
 				..()
 
 		copper
@@ -605,10 +608,12 @@ datum
 
 			on_mob_life(var/mob/living/M as mob, var/alien)
 				if(M.stat == 2) return
-				if(alien && alien == IS_VOX)
-					M.adjustOxyLoss(-2*REM)
-					holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
-					return
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.species && (H.species.name == "Vox" || H.species.name =="Vox Armalis"))
+						M.adjustOxyLoss(-2*REM)
+						holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
+						return
 				..()
 
 		hydrogen
@@ -671,6 +676,7 @@ datum
 			reagent_state = GAS
 			color = "#808080" // rgb: 128, 128, 128
 			penetrates_skin = 1
+			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -685,6 +691,7 @@ datum
 			reagent_state = GAS
 			color = "#6A6054"
 			penetrates_skin = 1
+			process_flags = ORGANIC | SYNTHETIC
 
 
 			on_mob_life(var/mob/living/M as mob)
@@ -758,6 +765,7 @@ datum
 			description = "A strong mineral acid with the molecular formula H2SO4."
 			reagent_state = LIQUID
 			color = "#00D72B"
+			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -881,6 +889,7 @@ datum
 			description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
 			reagent_state = SOLID
 			color = "#673910" // rgb: 103, 57, 16
+			process_flags = ORGANIC | SYNTHETIC
 
 			reaction_turf(var/turf/T, var/volume)
 				src = null
@@ -1199,6 +1208,7 @@ datum
 			description = "It's magic. We don't have to explain it."
 			reagent_state = LIQUID
 			color = "#C8A5DC" // rgb: 200, 165, 220
+			process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 
 			on_mob_life(var/mob/living/carbon/M as mob)
 				if(!M) M = holder.my_atom ///This can even heal dead people.
@@ -1697,6 +1707,7 @@ datum
 			description = "A special oil that noticably chills the body. Extraced from Icepeppers."
 			reagent_state = LIQUID
 			color = "#B31008" // rgb: 139, 166, 233
+			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
@@ -2500,8 +2511,10 @@ datum
 
 				d/=sober_str
 
-				if(alien && alien == IS_SKRELL) //Skrell get very drunk very quickly.
-					d*=5
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.species && (H.species.name == "Skrell" || H.species.name =="Neara"))	 //Skrell and Neara get very drunk very quickly.
+						d*=5
 
 				M.dizziness += dizzy_adj.
 				if(d >= slur_start && d < pass_out)
