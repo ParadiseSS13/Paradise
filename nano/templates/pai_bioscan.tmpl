@@ -9,14 +9,21 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 		</div>
 		<div class="itemContent">
 			Health Status : 	{{:data.health}}
+		</div>
+		<div class="itemContent">
 			Oxygen Content : 	{{:data.oxy}}
+		<div class="itemContent">
 			Toxin Cotnet : 		{{:data.tox}}
+		</div>
+		<div class="itemContent">
 			Burn Status : 		{{:data.burn}}
+		</div>
+		<div class="itemContent">
 			User Temprature :	{{:data.temp}}
 		</div>
 	</div>
 	{{if data.infected}}
-		<span class="bad"> Alert:Viral pathogen detected, Attempting to find information... </spab>
+		<span class="bad"> Alert:Viral pathogen detected, Attempting to find information... </span>
 		{{for data.infectionDat}}
 			<div class="item">
 				<div class="itemLabel">
@@ -24,7 +31,10 @@ code/modules/mob/living/silicon/pai/software_modules.dm
 				</div>
 				<div class="itemContent">
 					Type : 		{{:value.type}}
+				</div>
+				<div class="itemContent">
 					Stage:		{{:value.stage}} / {{:value.stagemax}}
+				<div class="itemContent">
 					Possible Cure or Antigen: 	{{:value.cure}}
 
 				</div>

@@ -565,11 +565,11 @@
 		while(!istype(held, /mob/living))
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-				//src << "You are not being carried by anyone!"
+				src << "You are not being carried by anyone!"
 				return 0
 			held = held.loc
 			count++
-		user << "held"
+		user << "[held]"
 		if(istype(held, /mob/living))
 			data["holder"] = held
 			data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"
@@ -577,7 +577,7 @@
 			data["tox"] = "[held.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getToxLoss()]</font>"
 			data["burn"] = "[held.getFireLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getFireLoss()]</font>"
 			data["temp"] = "[held.bodytemperature-T0C]&deg;C ([held.bodytemperature*1.8-459.67]&deg;F)"
-			data["infected"] = 0
+			data["infected"] = null
 			if (held.viruses)
 				data["infected"] = 1
 				var/virus[0]

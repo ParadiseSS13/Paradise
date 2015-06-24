@@ -8,7 +8,7 @@
 	small = 1
 	pass_flags = 1
 	density = 0
-	var/holder_type = /obj/item/weapon/holder/pai
+	//var/holder_type = /obj/item/weapon/holder/pai
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -539,10 +539,10 @@
 		pie << "You scoop up [src]."
 		src << "[held] scoops you up."
 		//pie.status_flags |= PASSEMOTES
-		held.put_in_active_hand(pie)
 		pie.icon_state = "pai-[icon_state]"
+		held.put_in_active_hand(pie)
+		pie.icon_override = 'icons/mob/head.dmi'
 		pie.item_state = "pai-[icon_state]"
-		pie.icon_override = 'icons/mob/in-hand/paiheld.dmi'
 		return
 
 	..()
