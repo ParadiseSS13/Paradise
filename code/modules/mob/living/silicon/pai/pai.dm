@@ -541,6 +541,7 @@
 		//pie.status_flags |= PASSEMOTES
 		held.put_in_active_hand(pie)
 		pie.icon_state = "pai-[icon_state]"
+		pie.icon_override = 'icons/mob/in-hand/paiheld.dmi'
 		return
 
 	..()

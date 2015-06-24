@@ -552,13 +552,14 @@
 	name = "Host Bioscan"
 	ram_cost = 5
 	id = "bioscan"
+	toggle = 0
 
 
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
 		var/mob/living/held = user.loc
-
+		user << "held"
 		if(istype(held, /mob/living))
 			data["holder"] = held
 			data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"

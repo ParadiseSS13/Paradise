@@ -54,3 +54,4 @@
 	name = "pAI"
 	desc = "It's a little robot."
 	icon_state = "pai"
+	icon_override = 'icons/mob/in-hand/paiheld.dmi'
