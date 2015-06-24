@@ -579,9 +579,10 @@
 /obj/item/weapon/lazarus_injector
 	name = "lazarus injector"
 	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
-	icon = 'icons/obj/syringesyringe.dmi'
-	icon_state = "lazarus_hypo"
+	icon = 'icons/obj/syringe.dmi'
+	icon_state = "autoinjector"
 	item_state = "hypo"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 2.0
 	throw_speed = 3
