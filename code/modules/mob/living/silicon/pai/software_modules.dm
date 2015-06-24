@@ -559,6 +559,16 @@
 
 		var/data[0]
 		var/mob/living/held = user.loc
+		var/count = 0
+
+			// Find the carrier
+		while(!istype(held, /mob/living))
+			if(!held || !held.loc || count > 6)
+				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
+				//src << "You are not being carried by anyone!"
+				return 0
+			held = held.loc
+			count++
 		user << "held"
 		if(istype(held, /mob/living))
 			data["holder"] = held
@@ -566,8 +576,8 @@
 			data["oxy"] = "[held.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getOxyLoss()]</font>"
 			data["tox"] = "[held.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getToxLoss()]</font>"
 			data["burn"] = "[held.getFireLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getFireLoss()]</font>"
-			data["temp"] = "[held.bodytemperature-T0C]&deg;C ([held.bodytemperature*1.8-459.67]&deg;F"
-
+			data["temp"] = "[held.bodytemperature-T0C]&deg;C ([held.bodytemperature*1.8-459.67]&deg;F)"
+			data["infected"] = 0
 			if (held.viruses)
 				data["infected"] = 1
 				var/virus[0]
@@ -589,7 +599,7 @@
 		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
 		if(!ui)
 			// Don't copy-paste this unless you're making a pAI software module!
-			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 450, 600)
+			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 450, 450)
 			ui.set_initial_data(data)
 			ui.open()
-			ui.set_auto_update(1)
+			//.set_auto_update(1)
