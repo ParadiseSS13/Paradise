@@ -74,9 +74,13 @@
 	var/stored_rail = null
 	for(var/obj/tram/rail/RT in get_turf(src))
 		if(RT.godir)
+			if(RT.stop_duration)
+				sleep(RT.stop_duration)
 			handle_move(RT.godir)
 			last_played_rail = RT
 			return
+		if(RT.stop_duration)
+			sleep(RT.stop_duration)
 		stored_rail = RT
 	for(var/cdir in cardinal)
 		for(var/obj/tram/rail/R in get_step(src,cdir))
