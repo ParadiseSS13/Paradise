@@ -38,4 +38,3 @@
 #define BE_MUTINEER		4096
 #define BE_BLOB			8192
 #define BE_SHADOWLING	16384
-#define BE_REVENANT		32768

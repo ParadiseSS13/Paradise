@@ -37,7 +37,6 @@
 	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
-	reagent_tag = PROCESS_ORG
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
@@ -91,7 +90,6 @@
 	flags = IS_WHITELISTED | NO_BREATHE | NO_BLOOD | NO_PAIN | HAS_LIPS | NO_SCAN
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
-	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/heart,
 		"crystalized brain" =    /obj/item/organ/brain/crystal,

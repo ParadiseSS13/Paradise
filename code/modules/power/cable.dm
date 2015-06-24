@@ -98,7 +98,7 @@
 		attached.anchored = 0
 		attached.attached = null
 	attached = null*/
-	return ..()													// then go ahead and delete the cable
+	..()													// then go ahead and delete the cable
 
 /obj/structure/cable/hide(var/i)
 

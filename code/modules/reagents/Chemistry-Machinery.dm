@@ -97,6 +97,10 @@
 	if (prob(50))
 		del(src)
 
+/obj/machinery/chem_dispenser/meteorhit()
+	del(src)
+	return
+
  /**
   * The ui_interact proc is used to open and update Nano UIs
   * If ui_interact is not used then the UI will not update correctly
@@ -396,6 +400,10 @@
 /obj/machinery/chem_master/blob_act()
 	if (prob(50))
 		qdel(src)
+
+/obj/machinery/chem_master/meteorhit()
+	qdel(src)
+	return
 
 /obj/machinery/chem_master/power_change()
 	if(powered())

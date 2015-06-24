@@ -416,7 +416,7 @@
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
 	del(hud)
-	return ..()
+	..()
 
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT

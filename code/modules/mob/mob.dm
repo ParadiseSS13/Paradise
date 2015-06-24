@@ -3,7 +3,7 @@
 	dead_mob_list -= src
 	living_mob_list -= src
 	ghostize()
-	return ..()
+	..()
 
 /mob/New()
 	mob_list += src

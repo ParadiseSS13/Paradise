@@ -43,7 +43,7 @@
 
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
-	return ..()
+	..()
 
 /obj/singularity/Move(atom/newloc, direct)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
