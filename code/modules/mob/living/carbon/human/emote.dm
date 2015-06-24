@@ -692,14 +692,14 @@
 				if (M)
 					var/mob/living/carbon/human/H = M
 					if(ishuman(H) && H.head && (H.head.flags & HEADCOVERSMOUTH))
-						message = "<span class='danger'>[src] tries to slap [H] across the face, but hits their [H.head] instead! Ouch!"
+						message = "<span class='danger'>[src] tries to slap [H] across the face, but hits their [H.head] instead! Ouch!</span>"
 						playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 						src.adjustBruteLoss(4)
 					else
-						message = "<span class = 'danger'>[src] slaps [M] across the face. Ouch!"
+						message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
 						playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 				else
-					message = "<span class = 'danger'>[src] slaps themselves!"
+					message = "<span class='danger'>[src] slaps themselves!</span>"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 					src.adjustFireLoss(4)
 
