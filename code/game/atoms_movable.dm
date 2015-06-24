@@ -24,8 +24,9 @@
 
 
 /atom/movable/Destroy()
-	. = ..()
+	..()
 	loc = null
+	return QDEL_HINT_QUEUE
 
 /proc/delete_profile(var/type, code = 0)
 	if(!ticker || !ticker.current_state < 3) return

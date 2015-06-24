@@ -29,7 +29,7 @@
 		qdel(igniter)
 	if(ptank)
 		qdel(ptank)
-	..()
+	return ..()
 
 
 /obj/item/weapon/flamethrower/process()

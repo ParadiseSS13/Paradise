@@ -99,7 +99,7 @@
 
 /obj/effect/landmark/Destroy()
 	landmarks_list -= src
-	..()
+	return ..()
 
 /obj/effect/landmark/nations
 	name = "nations"

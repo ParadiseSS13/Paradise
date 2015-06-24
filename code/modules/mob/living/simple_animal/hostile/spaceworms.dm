@@ -216,7 +216,7 @@
 /mob/living/simple_animal/hostile/spaceWorm/Destroy()
 	if(previousWorm)
 		previousWorm.Detach(0)
-	..()
+	return ..()
 
 
 //Move all segments if one piece moves.

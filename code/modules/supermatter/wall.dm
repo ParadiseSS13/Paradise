@@ -18,7 +18,7 @@
 
 
 /turf/simulated/floor/plating/smatter/Destroy()
-	..()
+	. = ..()
 
 	var/list/step_overlays = list("n" = NORTH, "s" = SOUTH, "e" = EAST, "w" = WEST)
 	// Kill and update the space overlays around us.
@@ -60,7 +60,7 @@
 				turf_to_check.overlays += image('icons/turf/walls.dmi', "smatter_side_[direction]")
 
 /turf/simulated/smatter/Destroy()
-	..()
+	. = ..()
 
 	var/list/step_overlays = list("n" = NORTH, "s" = SOUTH, "e" = EAST, "w" = WEST)
 	// Kill and update the space overlays around us.

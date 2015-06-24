@@ -37,7 +37,7 @@ REAGENT SCANNER
 /obj/item/device/t_scanner/Destroy()
 	if(on)
 		processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/device/t_scanner/attack_self(mob/user)
 

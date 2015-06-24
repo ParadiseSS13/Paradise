@@ -3215,3 +3215,5 @@ datum
 	if(holder)
 		holder.reagent_list -= src
 		holder = null
+
+	return ..()

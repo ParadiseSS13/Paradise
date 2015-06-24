@@ -98,10 +98,10 @@
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if (1)
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			if (occupant)
 				dump()
-			del(src)
+			qdel(src)
 		if (2)
 			if (prob(50))
 				src.health -= 15
@@ -121,23 +121,16 @@
 
 /obj/structure/displaycase/blob_act()
 	if (prob(75))
-		getFromPool(/obj/item/weapon/shard, loc)
+		PoolOrNew(/obj/item/weapon/shard, loc)
 		if(occupant) dump()
 		del(src)
-
-
-/obj/structure/displaycase/meteorhit(obj/O as obj)
-		getFromPool(/obj/item/weapon/shard, loc)
-		if(occupant) dump()
-		del(src)
-
 
 /obj/structure/displaycase/proc/healthcheck()
 	if (src.health <= 0)
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			playsound(get_turf(src), "shatter", 70, 1)
 			update_icon()
 	else

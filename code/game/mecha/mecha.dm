@@ -99,8 +99,7 @@
 /obj/mecha/Destroy()
 	src.go_out()
 	mechas_list -= src //global mech list
-	..()
-	return
+	return ..()
 
 ////////////////////////
 ////// Helpers /////////
@@ -378,7 +377,7 @@
 			G.destroyed = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
-			getFromPool(/obj/item/stack/rods, get_turf(G.loc))
+			PoolOrNew(/obj/item/stack/rods, get_turf(G.loc))
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -633,7 +632,7 @@
 						T.Entered(O)
 
 			if(prob(30))
-				explosion(T, 0, 0, 1, 3)
+				explosion(get_turf(loc), 0, 0, 1, 3)
 			spawn(0)
 				if(wreckage)
 					var/obj/effect/decal/mecha_wreckage/WR = new wreckage(T)
@@ -658,7 +657,7 @@
 						E.forceMove(T)
 						E.destroy()
 		spawn(0)
-			del(src)
+			qdel(src)
 	return
 
 /obj/mecha/ex_act(severity)
@@ -709,9 +708,6 @@
 /obj/mecha/blob_act()
 	take_damage(30, "brute")
 	return
-
-/obj/mecha/meteorhit()
-	return ex_act(rand(1,3))//should do for now
 
 /obj/mecha/emp_act(severity)
 	if(get_charge())

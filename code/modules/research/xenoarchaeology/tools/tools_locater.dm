@@ -18,7 +18,7 @@
 
 /obj/item/device/beacon_locator/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/device/beacon_locator/process()
 	if(target_radio)

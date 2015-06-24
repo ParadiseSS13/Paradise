@@ -42,7 +42,7 @@
 
 /obj/structure/table/Destroy()
 	update_adjacent()
-	..()
+	return ..()
 
 /obj/structure/table/proc/destroy()
 	new parts(loc)
@@ -725,9 +725,9 @@
 /obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
 	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
 	new /obj/item/weapon/table_parts/glass(loc)
-	getFromPool(/obj/item/weapon/shard, loc)
+	PoolOrNew(/obj/item/weapon/shard, loc)
 	if(prob(50)) //50% chance to spawn two shards
-		getFromPool(/obj/item/weapon/shard, loc)
+		PoolOrNew(/obj/item/weapon/shard, loc)
 	qdel(src)
 
 /obj/structure/table/glass/attackby(obj/item/I as obj, mob/user as mob, params)
@@ -904,10 +904,6 @@
 		if(user.drop_item())
 			W.Move(loc)
 	return
-
-/obj/structure/rack/meteorhit(obj/O as obj)
-	del(src)
-
 
 /obj/structure/table/attack_hand(mob/user)
 	if(HULK in user.mutations)

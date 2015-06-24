@@ -134,6 +134,6 @@
 		if(1.0)
 			del(src)
 		if(2.0)
-			if(prob(50)) del(src)
+			if(prob(50)) qdel(src)
 		if(3.0)
-			if(prob(25)) del(src)
+			if(prob(25)) qdel(src)

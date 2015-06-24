@@ -13,7 +13,7 @@
 /obj/structure/lamarr/ex_act(severity)
 	switch(severity)
 		if (1)
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			Break()
 			qdel(src)
 		if (2)
@@ -35,23 +35,16 @@
 
 /obj/structure/lamarr/blob_act()
 	if (prob(75))
-		getFromPool(/obj/item/weapon/shard, loc)
+		PoolOrNew(/obj/item/weapon/shard, loc)
 		Break()
 		qdel(src)
-
-
-/obj/structure/lamarr/meteorhit(obj/O as obj)
-		getFromPool(/obj/item/weapon/shard, loc)
-		Break()
-		qdel(src)
-
 
 /obj/structure/lamarr/proc/healthcheck()
 	if (src.health <= 0)
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			getFromPool(/obj/item/weapon/shard, loc)
+			PoolOrNew(/obj/item/weapon/shard, loc)
 			playsound(src, "shatter", 70, 1)
 			Break()
 	else

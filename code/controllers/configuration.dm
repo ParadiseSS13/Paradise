@@ -346,9 +346,6 @@
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1
 
-				if("reactionary_explosions")
-					config.reactionary_explosions	= 1
-
 				if ("probability")
 					var/prob_pos = findtext(value, " ")
 					var/prob_name = null
@@ -561,6 +558,22 @@
 					config.bones_can_break = value
 				if("limbs_can_break")
 					config.limbs_can_break = value
+				if("reactionary_explosions")
+					config.reactionary_explosions	= 1
+				if("bombcap")
+					var/BombCap = text2num(value)
+					if (!BombCap)
+						continue
+					if (BombCap < 4)
+						BombCap = 4
+					if (BombCap > 128)
+						BombCap = 128
+
+					MAX_EX_DEVESTATION_RANGE = round(BombCap/4)
+					MAX_EX_HEAVY_RANGE = round(BombCap/2)
+					MAX_EX_LIGHT_RANGE = BombCap
+					MAX_EX_FLASH_RANGE = BombCap
+					MAX_EX_FLAME_RANGE = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
 				else

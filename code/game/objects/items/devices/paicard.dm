@@ -18,7 +18,7 @@
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
 	if(!isnull(pai))
 		pai.death(0)
-	..()
+	return ..()
 
 /obj/item/device/paicard/attack_self(mob/user)
 	if (!in_range(src, user))
@@ -317,4 +317,4 @@
 	if(pai)
 		pai.ex_act(severity)
 	else
-		del(src)
+		qdel(src)

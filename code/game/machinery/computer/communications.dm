@@ -490,7 +490,7 @@ var/shuttle_call/shuttle_calls[0]
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 
-	..()
+	return ..()
 
 /obj/item/weapon/circuitboard/communications/Destroy()
 
@@ -513,4 +513,4 @@ var/shuttle_call/shuttle_calls[0]
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 
-	..()
+	return ..()

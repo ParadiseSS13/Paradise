@@ -293,10 +293,10 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency")
 	surplus = 35
 
-/datum/uplink_item/dangerous/saringrenades
-	name = "Sarin Gas Grenades"
-	desc = "A box of four (4) grenades filled with sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintaind with team to avoid accidental gassings."
-	item = /obj/item/weapon/storage/box/syndie_kit/sarin
+/datum/uplink_item/dangerous/tabungrenades
+	name = "Tabun Gas Grenades"
+	desc = "A box of four (4) grenades filled with tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintaind with team to avoid accidental gassings."
+	item = /obj/item/weapon/storage/box/syndie_kit/tabun
 	cost = 15
 	gamemodes = list("nuclear emergency")
 	surplus = 0
