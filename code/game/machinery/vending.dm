@@ -1261,12 +1261,10 @@
 	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/weapon/fish_net = 5, /obj/item/weapon/fishfood = 5,
 					/obj/item/weapon/tank_brush = 5, /obj/item/weapon/egg_scoop = 5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/toy/pet_rock = 5,
-					/obj/item/weapon/lazarus_injector = 5,
 					)
 	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/weapon/fish_net = 15, /obj/item/weapon/fishfood = 15,
 					/obj/item/weapon/tank_brush = 15, /obj/item/weapon/egg_scoop = 15, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/toy/pet_rock = 100,
-					/obj/item/weapon/lazarus_injector = 300,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
