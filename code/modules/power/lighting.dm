@@ -347,6 +347,7 @@
 
 		else
 			user << "You hit the light!"
+			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
@@ -434,7 +435,7 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (RESIST_COLD in user.mutations))
+		if(prot > 0 || (RESIST_HEAT in user.mutations))
 			user << "You remove the light [fitting]"
 		else if(TK in user.mutations)
 			user << "You telekinetically remove the light [fitting]."
@@ -555,7 +556,7 @@
 
 // called when on fire
 
-/obj/machinery/light/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		broken()
 
