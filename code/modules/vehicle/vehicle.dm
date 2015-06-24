@@ -118,10 +118,6 @@
 	..()
 	healthcheck()
 
-/obj/vehicle/meteorhit()
-	explode()
-	return
-
 /obj/vehicle/blob_act()
 	src.health -= rand(20,40)*fire_dam_coeff
 	healthcheck()

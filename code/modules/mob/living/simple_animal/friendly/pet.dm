@@ -14,6 +14,7 @@
 		user << "<span class='notice'>You put the [P] around [src]'s neck.</span>"
 		if(P.tagname)
 			name = P.tagname
+			real_name = P.tagname
 		qdel(P)
 		return
 	if(istype(O, /obj/item/weapon/newspaper))

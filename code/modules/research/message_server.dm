@@ -68,8 +68,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 
 /obj/machinery/message_server/Destroy()
 	message_servers -= src
-	..()
-	return
+	return ..()
 
 /obj/machinery/message_server/process()
 	//if(decryptkey == "password")
@@ -185,7 +184,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/list/msg_syndicate = list()
 	var/list/msg_mining = list()
 	var/list/msg_cargo = list()
-	var/list/msg_service = list()	
+	var/list/msg_service = list()
 
 	var/list/datum/feedback_variable/feedback = new()
 
@@ -217,7 +216,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 		BR.messages_admin = messages_admin
 		if(blackbox != BR)
 			blackbox = BR
-	..()
+	return ..()
 
 /obj/machinery/blackbox_recorder/proc/find_feedback_datum(var/variable)
 	for(var/datum/feedback_variable/FV in feedback)

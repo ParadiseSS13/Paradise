@@ -29,7 +29,7 @@
 
 /obj/item/weapon/reagent_containers/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/weapon/reagent_containers/process()
 	if(reagents)

@@ -404,6 +404,27 @@ datum
 					del_reagent(R.id)
 				return 0
 
+			reaction_check(var/mob/M, var/datum/reagent/R)
+				var/can_process = 0
+				if(!istype(M, /mob/living))		//Non-living mobs can't metabolize reagents, so don't bother trying (runtime safety check)
+					return can_process
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					//Check if this mob's species is set and can process this type of reagent
+					if(H.species && H.species.reagent_tag)
+						if((R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+							can_process = 1
+						if((R.process_flags & ORGANIC) && (H.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+							can_process = 1
+						//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+						if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
+							can_process = 1
+				//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
+				else
+					if(R.process_flags != SYNTHETIC)
+						can_process = 1
+				return can_process
+
 			reaction(var/atom/A, var/method=TOUCH, var/volume_modifier=0)
 
 				switch(method)
@@ -412,7 +433,11 @@ datum
 							if(ismob(A))
 								spawn(0)
 									if(!R) return
-									else R.reaction_mob(A, TOUCH, R.volume+volume_modifier)
+									var/check = reaction_check(A, R)
+									if(!check)
+										continue
+									else
+										R.reaction_mob(A, TOUCH, R.volume+volume_modifier)
 							if(isturf(A))
 								spawn(0)
 									if(!R) return
@@ -426,7 +451,11 @@ datum
 							if(ismob(A) && R)
 								spawn(0)
 									if(!R) return
-									else R.reaction_mob(A, INGEST, R.volume+volume_modifier)
+									var/check = reaction_check(A, R)
+									if(!check)
+										continue
+									else
+										R.reaction_mob(A, INGEST, R.volume+volume_modifier)
 							if(isturf(A) && R)
 								spawn(0)
 									if(!R) return
@@ -634,3 +663,5 @@ atom/proc/create_reagents(var/max_vol)
 
 	if(my_atom)
 		my_atom = null
+
+	return ..()
