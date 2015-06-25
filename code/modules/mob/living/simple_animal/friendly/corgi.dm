@@ -363,6 +363,11 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
+			if(/obj/item/clothing/mask/fakemoustache)
+				name = "Definitely Not [real_name]"
+				desc = "That's Definitely Not [real_name]"
+				valid = 1
+
 	if(valid)
 		if(user && !user.drop_item())
 			user << "<span class='warning'>\The [item_to_add] is stuck to your hand, you cannot put it on [src]'s head!</span>"
