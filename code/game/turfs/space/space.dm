@@ -3,6 +3,7 @@
 	name = "\proper space"
 	icon_state = "0"
 	dynamic_lighting = 0
+	luminosity = 1
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -13,14 +14,14 @@
 	var/destination_y
 
 /turf/space/New()
+	. = ..()
+
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	if(config)
 		update_starlight() //MC will initialize all the space turfs that get created before config
 
 /turf/space/proc/update_starlight()
-	. = ..()
-
 	if(!config)	return
 	if(!config.starlight)
 		return
