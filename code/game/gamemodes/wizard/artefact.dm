@@ -181,6 +181,79 @@
 			del src
 		return
 	..()
+//Why did i add this....-Fethas
+/obj/item/weapon/veilrender/honkrender //HONK!!
+	name = "honk render"
+	desc = "A wicked curved 'blade' of honk origin, recovered from the ruins of a vast circus."
+	icon_state = "clownrender"
+
+/obj/item/weapon/veilrender/honkrender/attack_self(mob/user as mob)
+	if(charged)
+		new /obj/effect/rend/honk(get_turf(usr))
+		charged = 0
+		visible_message("\red <B>[src] hums with power as [usr] deals a blow to depression itself!</B>")
+		playsound(get_turf(usr),"sound/items/bikehorn.ogg",50,10,1)
+	else
+		user << "\red The honk energies that powered the blade are now dormant."
+
+/obj/effect/rend/honk
+	desc = "Gently wafting with the sounds of endless laughter."
+	var/honkleft = 10
+
+/obj/effect/rend/honk/New()
+	processing_objects.Add(src)
+	return
+
+/obj/effect/rend/honk/process()
+	if(locate(/mob) in loc) return
+	new /mob/living/simple_animal/hostile/retaliate/clown(loc)
+	honkleft--
+	if(honkleft <= 0)
+		del src
+
+/obj/effect/rend/honk/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/weapon/nullrod))
+		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
+		spawn(1)
+			del src
+		return
+	..()
+
+/obj/item/weapon/veilrender/crabrender //HONK!!
+	name = "crab render"
+	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
+
+
+/obj/item/weapon/veilrender/crabrender/attack_self(mob/user as mob)
+	if(charged)
+		new /obj/effect/rend/crab(get_turf(usr))
+		charged = 0
+		visible_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
+	else
+		user << "\red The energies that powered the blade are now dormant."
+
+/obj/effect/rend/crab
+	desc = "Gently wafting with the sounds of endless clacking."
+	var/crableft = 10
+
+/obj/effect/rend/crab/New()
+	processing_objects.Add(src)
+	return
+
+/obj/effect/rend/crab/process()
+	if(locate(/mob) in loc) return
+	new /mob/living/simple_animal/crab(loc)
+	crableft--
+	if(crableft <= 0)
+		del src
+
+///obj/effect/rend/crab/attackby(obj/item/I as obj, mob/user as mob, params)
+//	if(istype(I, /obj/item/weapon/nullrod))
+//		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
+//		spawn(1)
+//			del src
+//		return
+//	..()
 
 
 /////////////////////////////////////////Scrying///////////////////

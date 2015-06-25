@@ -249,6 +249,12 @@
 	item_path = /obj/item/weapon/scrying
 	log_name = "SO"
 
+/datum/spellbook_entry/item/bloodbottle
+	name = "Bottle of Blood"
+	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/weapon/antag_spawner/slaughter_demon
+	log_name = "BB"
+
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
 		if (!(XRAY in user.mutations))
@@ -385,6 +391,11 @@
 			user << "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>"
 			src.uses++
 			qdel(O)
+
+	if(istype(O, /obj/item/weapon/antag_spawner/slaughter_demon))
+		user << "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>"
+		src.uses++
+		qdel(O)
 
 /obj/item/weapon/spellbook/proc/GetCategoryHeader(var/category)
 	var/dat = ""
@@ -555,8 +566,8 @@
 
 /obj/item/weapon/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
-	qdel(src)
+	explosion(user.loc, -1, 0, 2, 3, 0)
+	del(src)
 
 /obj/item/weapon/spellbook/oneuse/smoke
 	spell = /obj/effect/proc_holder/spell/wizard/targeted/smoke
