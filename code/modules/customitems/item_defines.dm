@@ -122,6 +122,13 @@
 	icon_state = "deus_blueshield"
 	item_state = "deus_blueshield"
 
+/obj/item/clothing/suit/jacket/fluff/kidosvest //Anxipal: Kido Qasteth
+	name = "Kido's Vest"
+	desc = "A rugged leather vest with a tag labelled \"Men of Mayhem.\""
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "kidosvest"
+	item_state = "kidosvest"
+
 //////////// Uniforms ////////////
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
