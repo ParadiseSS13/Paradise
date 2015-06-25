@@ -20,6 +20,8 @@
 	var/activated = 0
 	var/looptick = 0
 
+	var/delay_timer = null
+
 	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_overlay)
 	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/stool/bed/chair, /obj/structure/grille, /obj/structure/window)
 
@@ -72,7 +74,11 @@
 
 /obj/tram/tram_controller/proc/tram_rail_follow()
 	var/stored_rail = null
+	if(delay_timer >= world.time)	return
 	for(var/obj/tram/rail/RT in get_turf(src))
+		if(RT.stop_duration && !delay_timer)
+			delay_timer = world.time + RT.stop_duration
+			return
 		if(RT.godir)
 			handle_move(RT.godir)
 			last_played_rail = RT
@@ -84,6 +90,7 @@
 			if(R != last_played_rail)
 				handle_move(get_dir(src,R))
 				last_played_rail = stored_rail
+				return
 
 //INITIALIZATION PROCS
 
@@ -212,6 +219,7 @@
 	collide_list = collisions
 
 /obj/tram/tram_controller/proc/handle_move(var/dir)
+	delay_timer = null //reset delay
 	gen_collision() //Look for collisions
 	if(dir in collide_list) //Prevent moving if there are collisions in that direction
 		return 0
