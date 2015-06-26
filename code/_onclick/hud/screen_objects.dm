@@ -391,6 +391,12 @@
 			if(istype(usr, /mob/living/silicon/robot))
 				usr:toggle_module(3)
 
+		//Integrated Light for all borgs
+		if("Toggle Integrated Light")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				R.toggle_lights()
+
 		/*if("Allow Walking")
 			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
 				return

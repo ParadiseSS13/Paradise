@@ -324,3 +324,27 @@
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return 1
+
+//Robot Awakeshake; for the Medgripper
+/mob/living/silicon/proc/help_shake_act(mob/living/carbon/C, mob/living/silicon/M)
+	//M << "DEBUG: /mob/living/silicon/proc/help_shake_act | Target: [C] | Shaker: [M]" //Debug
+	if(C.player_logged)
+		M.visible_message("<span class='notice'>[M] shakes [C], but they do not respond. Probably suffering from SSD.", \
+		"<span class='notice'>You shake [C], but they are unresponsive. Probably suffering from SSD.</span>")
+	if(C.lying)
+		var/t_him = "it"
+		if (C.gender == MALE)
+			t_him = "him"
+		else if (C.gender == FEMALE)
+			t_him = "her"
+		src.sleeping = max(0,C.sleeping-5)
+		if(C.sleeping == 0)
+			C.resting = 0
+		C.AdjustParalysis(-3)
+		C.AdjustStunned(-3)
+		C.AdjustWeakened(-3)
+		playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		M.visible_message( \
+			"\blue [M] shakes [C] trying to wake [t_him] up!", \
+			"\blue You shake [C] trying to wake [t_him] up!", \
+			)

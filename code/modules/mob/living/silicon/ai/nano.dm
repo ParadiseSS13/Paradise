@@ -1,4 +1,5 @@
-/mob/living/silicon/ai
+//Changed so this can apply to Medborgs as well
+/mob/living/silicon
   var/obj/nano_module/crew_monitor/crew_monitor
 
 /mob/living/silicon/ai/proc/init_subsystems()

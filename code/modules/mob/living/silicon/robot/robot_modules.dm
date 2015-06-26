@@ -83,7 +83,7 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded(src)
 		src.modules += new /obj/item/weapon/extinguisher(src)
@@ -95,18 +95,13 @@
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
-	stacktypes = list(
-		/obj/item/stack/medical/advanced/bruise_pack = 5,
-		/obj/item/stack/medical/advanced/ointment = 5,
-		/obj/item/stack/medical/splint = 5,
-		/obj/item/stack/nanopaste = 5
-		)
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer/advanced(src)
 		src.modules += new /obj/item/device/reagent_scanner/adv(src)
+		src.modules += new /obj/item/device/mass_spectrometer/adv(src) //For analyzing blood samples in order to better determine appropriate course of action
+		src.modules += new /obj/item/device/med_scanner/robot(src) //Multiscanner that combines the functionality of the Health/Antibody/Reagent Scanner
 		src.modules += new /obj/item/weapon/borg_defib(src)
 		src.modules += new /obj/item/roller_holder(src)
 		src.modules += new /obj/item/weapon/reagent_containers/borghypo(src)
@@ -114,10 +109,6 @@
 		src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
 		src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
 		src.modules += new /obj/item/weapon/extinguisher/mini(src)
-		src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
-		src.modules += new /obj/item/stack/medical/advanced/ointment(src)
-		src.modules += new /obj/item/stack/medical/splint(src)
-		src.modules += new /obj/item/stack/nanopaste(src)
 		src.modules += new /obj/item/weapon/scalpel(src)
 		src.modules += new /obj/item/weapon/hemostat(src)
 		src.modules += new /obj/item/weapon/retractor(src)
@@ -127,6 +118,14 @@
 		src.modules += new /obj/item/weapon/bonesetter(src)
 		src.modules += new /obj/item/weapon/circular_saw(src)
 		src.modules += new /obj/item/weapon/surgicaldrill(src)
+		src.modules += new /obj/item/weapon/gripper/medical(src) //Allows the Medborg to manipulate organs/iv bags/patches/pills and biomass
+		src.modules += new /obj/item/weapon/matter_decompiler(src) //For cleaning and accumulating biomass to deposit at the cloner
+		src.modules += new /obj/item/weapon/soap(src) //For cleaning the disgusting mess that is Medbay
+		src.modules += new /obj/item/weapon/crowbar(src) //For accessing patients in depowered areas
+		src.modules += new /obj/item/weapon/reagent_containers/robot/chemvac(src) //For efficiently transferring chemicals.
+		src.modules += new /obj/item/weapon/cyborg/bodybag_containment_unit(src) //Body bag holder/dispenser; stores up to 10. Quality of life addition.
+		src.modules += new /obj/item/weapon/robot/medical/nanopastesynth(src) //New med synthesizers; use cell power instead of charges.
+		src.modules += new /obj/item/weapon/robot/medical/multisynth(src) //New med synthesizers; use cell power instead of charges. Aggregates trauma, burn and splint synthesizers
 
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
@@ -153,7 +152,7 @@
 		)
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src) //Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/rcd/borg(src)
@@ -203,7 +202,7 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/seclite(src)
+//		src.modules += new /obj/item/device/flashlight/seclite(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
@@ -219,13 +218,15 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
 		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
 		src.modules += new /obj/item/weapon/mop(src)
 		src.modules += new /obj/item/device/lightreplacer(src)
 		src.modules += new /obj/item/weapon/holosign_creator(src)
+		src.modules += new /obj/item/weapon/matter_decompiler(src) //Should have had this since the beginning; reprocess waste into useful resouces.
+
 		src.emag = new /obj/item/weapon/reagent_containers/spray(src)
 
 		src.emag.reagents.add_reagent("lube", 250)
@@ -239,7 +240,7 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
@@ -309,7 +310,7 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/lantern(src)
+//		src.modules += new /obj/item/device/flashlight/lantern(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
@@ -325,7 +326,7 @@
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
@@ -339,7 +340,7 @@
 
 /obj/item/weapon/robot_module/syndicate/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/printer(src)
 	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
@@ -354,7 +355,7 @@
 	name = "combat robot module"
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
+//		src.modules += new /obj/item/device/flashlight(src)//Not necessary due to integrated lights
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/thermal(src)
 		src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)

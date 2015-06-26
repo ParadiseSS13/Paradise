@@ -204,3 +204,17 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amount=null)
 		recipes = cardboard_recipes
 		return ..()
+
+//NEW BIOMASS STACK TYPE; FOR FUELING THE CLONER; MADE PRIMARILY VIA THE NEW MATTER DECOMPILER
+/obj/item/stack/sheet/biomass
+	name = "biomass"
+	desc = "An aggregate of proteins, stem cells and nutrients. Used to supply the cloner and biogenerator."
+	singular_name = "biomass"
+	icon_state = "biomass"
+	origin_tech = "materials=1;biotech=1"
+	amount = 50
+	max_amount = 300
+
+/obj/item/stack/sheet/biomass/full/New()
+	..()
+	amount = 300

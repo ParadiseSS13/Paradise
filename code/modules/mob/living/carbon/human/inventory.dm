@@ -340,6 +340,8 @@
 	var/obj/item/item = null
 	var/place = null
 	var/pickpocket = null
+	//Medigripper var
+	var/gripper = null
 
 /obj/effect/equip_e/human
 	name = "human"
@@ -362,6 +364,14 @@
 /obj/effect/equip_e/human/process()
 	if (item)
 		item.add_fingerprint(source)
+
+	//Medgripper code so Process has correct notifications.
+	if(istype(item,/obj/item/weapon/gripper/medical))
+		var/obj/item/weapon/gripper/medical/I = item
+		gripper = I
+		item = I.wrapped
+		//source << "<span class='warning'>DEBUG: mob\living\carbon\human\inventory| Wrapped item: [item] | Gripper: [I] </span>"
+
 	else
 		switch(place)
 			if("mask")
@@ -806,6 +816,12 @@ It can still be worn/put on as normal.
 		else
 			if(item && target.has_organ_for_slot(slot_to_process)) //Placing an item on the mob
 				if(item.mob_can_equip(target, slot_to_process, 0))
+					//Medigripper handle; make sure there's nothing in the gripper post-xfer
+					if(gripper && item)
+						var/obj/item/weapon/gripper/medical/G = gripper
+						if(G.wrapped == item)
+							item.loc = get_turf(source)
+							G.wrapped = null
 					source.unEquip(item)
 					target.equip_to_slot_if_possible(item, slot_to_process, 0, 1, 1)
 					item.dropped(source)

@@ -116,6 +116,11 @@
 		else
 			src.name = "Morgue"
 			src.overlays.Cut()
+
+	//Medical Gripper Interaction for Medborgs
+	else if(istype(P,/obj/item/weapon/gripper/medical))
+		return src.attack_hand(user)
+
 	src.add_fingerprint(user)
 	return
 
@@ -153,6 +158,10 @@
 	anchored = 1.0
 	throwpass = 1
 
+//Medical Gripper Interaction for Medborgs
+/obj/structure/m_tray/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/gripper/medical))
+		return src.attack_hand(user)
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
 	if (src.connected)

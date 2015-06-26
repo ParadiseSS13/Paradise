@@ -3,6 +3,11 @@ var/list/robot_verbs_default = list(
 	/mob/living/silicon/robot/proc/checklaws
 )
 
+//Medical borg crew monitoring verb list
+var/list/robot_verbs_medical = list(
+	/mob/living/silicon/proc/subsystem_crew_monitor,
+)
+
 /mob/living/silicon/robot
 	name = "Cyborg"
 	real_name = "Cyborg"
@@ -11,6 +16,14 @@ var/list/robot_verbs_default = list(
 	maxHealth = 100
 	health = 100
 	universal_understand = 1
+
+//**NEW INTEGRATED LIGHTS VARIABLES
+
+	var/lights_on = 0 // Is our integrated light on?
+	var/integrated_light_power = 8 // Integrated light intensity.
+	var/integrated_light_range = 3 // Integrated light range
+
+//**NEW INTEGRATED LIGHTS VARIABLES
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -116,6 +129,9 @@ var/list/robot_verbs_default = list(
 	for(var/V in components) if(V != "power cell")
 		var/datum/robot_component/C = components[V]
 		C.installed = 1
+		//START WITH INTEGRATED LIGHTS OFF
+		if(components[V] == components["integrated light"])
+			C.toggled = 0
 		C.wrapped = new C.external_type
 
 	if(!cell)
@@ -241,6 +257,9 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
+			module_sprites["Hoverdrone"] = "drone-medical"
+			sensor_mode = MED_HUD //Default to Medical HUD; quality of life improvement.
+			add_medborg_verbs() //Add crew monitoring verbs.
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -250,6 +269,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
+			module_sprites["Hoverdrone"] = "drone-sec"
+			sensor_mode = SEC_HUD //Default to Security HUD; quality of life improvement.
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -260,6 +281,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
+			module_sprites["Hoverdrone"] = "drone-engineer"
 
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)
@@ -415,31 +437,6 @@ var/list/robot_verbs_default = list(
 	var/dat = self_diagnosis()
 	src << browse(dat, "window=robotdiagnosis")
 
-
-/mob/living/silicon/robot/verb/toggle_component()
-	set category = "Robot Commands"
-	set name = "Toggle Component"
-	set desc = "Toggle a component, conserving power."
-
-	var/list/installed_components = list()
-	for(var/V in components)
-		if(V == "power cell") continue
-		var/datum/robot_component/C = components[V]
-		if(C.installed)
-			installed_components += V
-
-	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
-	if(!toggle)
-		return
-
-	var/datum/robot_component/C = components[toggle]
-	if(C.toggled)
-		C.toggled = 0
-		src << "\red You disable [C.name]."
-	else
-		C.toggled = 1
-		src << "\red You enable [C.name]."
-
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
@@ -451,6 +448,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
 	src.verbs -= robot_verbs_default
+	src.verbs -= robot_verbs_medical //Get rid of the new Medical module verbs
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
@@ -508,6 +506,47 @@ var/list/robot_verbs_default = list(
 	if (client.statpanel == "Status")
 		show_cell_power()
 		show_jetpack_pressure()
+		var/datum/robot_component/I = components["integrated light"]
+		stat(null, text("Lights: [I.toggled ? "ON" : "OFF"]"))
+		//QUALITY OF LIFE NEW STATUS PANEL INFO; NEEDS SELF DIAGNOSIS UNIT TO FUNCTION
+		var/datum/robot_component/D = components["diagnosis unit"]
+		if(D.toggled == 1)
+			if(src.module && src.module.modules)
+				var/list/um = src.contents|src.module.modules
+				for(var/obj/O in um)
+					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
+						var/obj/item/weapon/gun/energy/disabler/cyborg/W = O
+						stat(null, text("[W] | Charge: [W.power_supply.charge]/[W.power_supply.maxcharge]"))
+					if(istype(O,/obj/item/weapon/reagent_containers/glass/beaker/large))
+						var/obj/item/weapon/reagent_containers/glass/beaker/large/W = O
+						stat(null, text("[W] | Units Stored: [W.reagents.total_volume]/[W.reagents.maximum_volume]"))
+					if(istype(O,/obj/item/weapon/reagent_containers/robot/chemvac))
+						var/obj/item/weapon/reagent_containers/robot/chemvac/W = O
+						stat(null, text("[W] | Units Stored: [W.reagents.total_volume]/[W.reagents.maximum_volume]"))
+					if(istype(O,/obj/item/weapon/extinguisher))
+						var/obj/item/weapon/extinguisher/W = O
+						stat(null, text("[W] | Water: [W.reagents.total_volume]/[W.max_water]"))
+					if(istype(O,/obj/item/weapon/cyborg/bodybag_containment_unit))
+						var/obj/item/weapon/cyborg/bodybag_containment_unit/W = O
+						stat(null, text("[W] | Bodybags: [W.bodybags_stored] | Stasis Bags: [W.cryobags_stored] | Total Stored: [W.bags_stored]/[W.bags_max]"))
+					if(istype(O,/obj/item/weapon/reagent_containers/borghypo))
+						var/obj/item/weapon/reagent_containers/borghypo/W = O
+						var/datum/reagents/RG1 = W.reagent_list[1]
+						var/datum/reagent/RN1 = chemical_reagents_list[W.reagent_ids[1]]
+						var/datum/reagents/RG2 = W.reagent_list[2]
+						var/datum/reagent/RN2 = chemical_reagents_list[W.reagent_ids[2]]
+						var/datum/reagents/RG3 = W.reagent_list[3]
+						var/datum/reagent/RN3 = chemical_reagents_list[W.reagent_ids[3]]
+						var/datum/reagents/RG4 = W.reagent_list[4]
+						var/datum/reagent/RN4 = chemical_reagents_list[W.reagent_ids[4]]
+						stat(null, text("[W] | [RN1.name] | Units Stored: [RG1.total_volume]/[RG1.maximum_volume]"))
+						stat(null, text("[W] | [RN2.name] | Units Stored: [RG2.total_volume]/[RG2.maximum_volume]"))
+						stat(null, text("[W] | [RN3.name] | Units Stored: [RG3.total_volume]/[RG3.maximum_volume]"))
+						stat(null, text("[W] | [RN4.name] | Units Stored: [RG4.total_volume]/[RG4.maximum_volume]"))
+					if(istype(O,/obj/item/weapon/gripper))
+						var/obj/item/weapon/gripper/W = O
+						stat(null, text("Gripped Item: [W.wrapped]"))
+
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -867,7 +906,7 @@ var/list/robot_verbs_default = list(
 		return
 
 /mob/living/silicon/robot/verb/unlock_own_cover()
-	set category = "Robot Commands"
+	set category = "Robot Commands" //Changed to Robot Commands because Drones are robots and having a separate tab for this is retarded.
 	set name = "Unlock Cover"
 	set desc = "Unlocks your own cover if it is locked. You can not lock it again. A human will have to lock it for you."
 	if(locked)
@@ -1424,3 +1463,66 @@ var/list/robot_verbs_default = list(
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
 		if(3) //New Name
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
+
+
+//**INTEGRATED LIGHTS STUFF: NEW TOGGLE_COMPONENT COMMAND, TOGGLE_LIGHTS
+/mob/living/silicon/robot/verb/toggle_component()
+	set category = "Robot Commands"
+	set name = "Toggle Component"
+	set desc = "Toggle a component, conserving power."
+
+	var/list/installed_components = list()
+	for(var/V in components)
+		if(V == "power cell") continue
+		var/datum/robot_component/C = components[V]
+		if(C.installed)
+			installed_components += V
+
+	var/toggle = input(src, "Which component do you want to toggle?", "Toggle Component") as null|anything in installed_components
+	if(!toggle)
+		return
+
+	var/datum/robot_component/C = components[toggle]
+	if(C.name == "integrated light")//integrated lights turn on when its component is turned on
+		toggle_lights()//call the toggle verb.
+	else if(C.toggled)
+		C.toggled = 0
+		src << "\red You disable your [C.name]."
+	else
+		C.toggled = 1
+		src << "\red You enable your [C.name]."
+
+// integrated lights
+/mob/living/silicon/robot/verb/toggle_lights()
+	set category = "Robot Commands"
+	set name = "Toggle Lights"
+	var/datum/robot_component/C = components["integrated light"]
+	if(!C.installed)
+		C.toggled = 0
+		set_light(0)
+		usr << "\blue You disable your integrated light."
+		src << "\red You do not have a functional integrated light."
+		return null
+	if(cell.charge<100 || !cell && !C.toggled)
+		src << "\red You do not have adequate power to utilize your integrated light."
+		return null
+	if(C.toggled)
+		C.toggled = 0
+		set_light(0)
+		usr << "\blue You disable your integrated light."
+	else
+		C.toggled = 1
+		set_light(integrated_light_power,integrated_light_range) // 8 power, 3 range by default
+		usr << "\blue You enable your integrated light."
+
+
+//**Medical Cyborg Stuff**
+/mob/living/silicon/robot/proc/add_medborg_verbs()
+	src.verbs |= robot_verbs_medical
+	crew_monitor = new(src)
+
+/mob/living/silicon/proc/subsystem_crew_monitor()
+	set name = "Crew Monitor"
+	set category = "Subsystems"
+
+	crew_monitor.ui_interact(usr)

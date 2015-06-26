@@ -43,6 +43,7 @@
 #define ui_inv3 "CENTER  :16,SOUTH:5"			//borgs
 #define ui_borg_module "CENTER+1:16,SOUTH:5"
 #define ui_borg_store "CENTER+2:16,SOUTH:5"		//borgs
+#define ui_borg_integrated_light "CENTER-4:16,1:5" //new integrated light icon for all borgs
 
 
 #define ui_monkey_mask "CENTER-3:14,SOUTH:5"	//monkey

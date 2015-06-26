@@ -37,6 +37,7 @@
 	R.status_flags |= CANPUSH
 	R.languages = list()
 	R.speech_synthesizer_langs = list()
+	R.remove_robot_verbs() //Get rid of special module specific verbs
 	R.notify_ai(2)
 	R.updateicon()
 

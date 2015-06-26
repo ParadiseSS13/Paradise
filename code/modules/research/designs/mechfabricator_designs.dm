@@ -120,6 +120,17 @@
 	construction_time = 200
 	category = list("Cyborg Repair")
 
+//NEW BORG INTEGRATED LIGHT
+/datum/design/borg_integrated_light
+	name = "Cyborg Integrated Light"
+	id = "borg_integrated_light"
+	build_type = MECHFAB
+	build_path = /obj/item/robot_parts/robot_component/integrated_light
+	materials = list("$metal"=1000, "$glass"=1000)
+	construction_time = 200
+	category = list("Cyborg Repair")
+
+
 //Ripley
 /datum/design/ripley_chassis
 	name = "Exosuit Chassis (APLU \"Ripley\")"
