@@ -33,8 +33,8 @@
 		var/obj/item/clothing/glasses/meson/prescription/P = new /obj/item/clothing/glasses/meson/prescription(get_turf(H))
 		H << "You fit \the [src.name] with lenses from \the [O.name]."
 		H.put_in_hands(P)
-		del(O)
-		del(src)
+		qdel(O)
+		qdel(src)
 		return
 	..()
 
@@ -75,7 +75,7 @@
 		H << "You salvage the prescription lenses from \the [src.name]."
 		H.put_in_hands(M)
 		H.put_in_hands(R)
-		del(src)
+		qdel(src)
 		return
 	..()
 
@@ -194,8 +194,8 @@
 		var/obj/item/clothing/glasses/sunglasses/prescription/P = new /obj/item/clothing/glasses/sunglasses/prescription(get_turf(H))
 		H << "You fit \the [src.name] with lenses from \the [O.name]."
 		H.put_in_hands(P)
-		del(O)
-		del(src)
+		qdel(O)
+		qdel(src)
 		return
 	..()
 
@@ -315,7 +315,7 @@
 		H << "You salvage the prescription lenses from \the [src.name]."
 		H.put_in_hands(S)
 		H.put_in_hands(R)
-		del(src)
+		qdel(src)
 		return
 	..()
 
@@ -353,8 +353,8 @@
 		var/obj/item/clothing/glasses/sunglasses/sechud/prescription/P = new /obj/item/clothing/glasses/sunglasses/sechud/prescription(get_turf(H))
 		H << "You fit \the [src.name] with lenses from \the [O.name]."
 		H.put_in_hands(P)
-		del(O)
-		del(src)
+		qdel(O)
+		qdel(src)
 		return
 	..()
 
@@ -380,7 +380,7 @@
 		H << "You salvage the prescription lenses from \the [src.name]."
 		H.put_in_hands(S)
 		H.put_in_hands(R)
-		del(src)
+		qdel(src)
 		return
 	..()
 
