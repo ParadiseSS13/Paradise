@@ -248,12 +248,22 @@
 	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
 	item_path = /obj/item/weapon/scrying
 	log_name = "SO"
+	var/limit = 0
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
 	item_path = /obj/item/weapon/antag_spawner/slaughter_demon
 	log_name = "BB"
+	var/limit = 0
+
+/datum/spellbook_entry/item/bloodbottle/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
+	if(..())
+		limit = 1
+	return 1
+
+/datum/spellbook_entry/item/bloodbottle/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
+	return ..() && !limit
 
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
@@ -263,7 +273,11 @@
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 			user << "\blue The walls suddenly disappear."
+			limit = 1
 	return 1
+
+/datum/spellbook_entry/item/scryingorb/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
+	return ..() && !limit
 
 /datum/spellbook_entry/item/soulstones
 	name = "Six Soul Stone Shards and the spell Artificer"

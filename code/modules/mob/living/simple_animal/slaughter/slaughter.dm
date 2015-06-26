@@ -20,6 +20,7 @@
 	response_harm   = "punches"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
+	icon_living = "daemon"
 	speed = 0
 	a_intent = "harm"
 	stop_automated_movement = 1
