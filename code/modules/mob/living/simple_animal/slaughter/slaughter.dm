@@ -160,7 +160,8 @@
 				src.pulling = FALSE
 				if (src.devoured == 5)
 					src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/goreThrow
-					src << "<span class='notice'> You have consumed enough to be able to throw Excess Gore."
+					src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/bloodSac
+					src << "<span class='notice'> You have consumed enough to be able to summon Excess Gore."
 			src.notransform = 0
 			if(!(src.eating))
 				new /obj/effect/gibspawner/human(get_turf(src))///Somewhere a janitor weeps..
@@ -292,7 +293,8 @@
 		//var/mob/living/carbon/human/M = pop(nearby_mortals)
 		if(nearby_mortals.len)
 			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
-			new /datum/artifact_effect/badfeeling/DoEffectPulse()
+			//new /datum/artifact_effect/badfeeling/DoEffectPulse()
+
 			for (var/mob/living/carbon/human/portal in nearby_mortals)
 				var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
 				portal.apply_damage(rand(5, 10), BRUTE, targetPart)
@@ -329,6 +331,21 @@
 		usr << "<span class='info'> you can only do that from the material plane!</span>"
 
 
+//inverse of gore throw, can only use while phased OUT
+/mob/living/simple_animal/slaughter/proc/bloodSac()
+	set name = "Blood Pustile"
+	set desc = "Summon a blood filled that expels blood."
+	set category = "Daemon"
+	if (src.phased)
+		if (gorecooldown == 0 || world.time - gorecooldown > 1200)
+
+			new /obj/effect/bloodnode(src.holder)
+			gorecooldown = world.time
+
+		else
+			usr << "<span class='info'>You need more time to do that again!</span>"
+	else
+		usr << "<span class='info'> you can only do that from outside the material plane!</span>"
 
 //////////The Loot
 
