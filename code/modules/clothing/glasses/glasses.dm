@@ -23,6 +23,21 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/meson/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H.unEquip(src)
+		H.unEquip(O)
+		var/obj/item/clothing/glasses/meson/prescription/P = new /obj/item/clothing/glasses/meson/prescription(get_turf(H))
+		H << "You fit \the [src.name] with lenses from \the [O.name]."
+		H.put_in_hands(P)
+		qdel(O)
+		qdel(src)
+		return
+	..()
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
@@ -30,6 +45,12 @@
 	item_state = "glasses"
 	darkness_view = 8
 	see_darkness = 0
+
+/obj/item/clothing/glasses/meson/night/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		user << "\The [src.name] is too complex for you to fit with prescription lenses."
+		return
+	..()
 
 /obj/item/clothing/glasses/meson/prescription
 	name = "prescription mesons"
@@ -39,6 +60,24 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/meson/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
+		return
+	if(istype(O, /obj/item/weapon/screwdriver))
+		H.unEquip(src)
+		var/obj/item/clothing/glasses/meson/M = new /obj/item/clothing/glasses/meson(get_turf(H))
+		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
+		H << "You salvage the prescription lenses from \the [src.name]."
+		H.put_in_hands(M)
+		H.put_in_hands(R)
+		qdel(src)
+		return
+	..()
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -145,6 +184,21 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H.unEquip(src)
+		H.unEquip(O)
+		var/obj/item/clothing/glasses/sunglasses/prescription/P = new /obj/item/clothing/glasses/sunglasses/prescription(get_turf(H))
+		H << "You fit \the [src.name] with lenses from \the [O.name]."
+		H.put_in_hands(P)
+		qdel(O)
+		qdel(src)
+		return
+	..()
+
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	name = "sunglasses"
@@ -233,6 +287,12 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/blindfold/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		user << "You doubt you can make a blindfold actually IMPROVE vision."
+		return
+	..()
+
 /obj/item/clothing/glasses/sunglasses/prescription
 	name = "prescription sunglasses"
 	prescription = 1
@@ -240,6 +300,24 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/sunglasses/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
+		return
+	if(istype(O, /obj/item/weapon/screwdriver))
+		H.unEquip(src)
+		var/obj/item/clothing/glasses/sunglasses/S = new /obj/item/clothing/glasses/sunglasses(get_turf(H))
+		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
+		H << "You salvage the prescription lenses from \the [src.name]."
+		H.put_in_hands(S)
+		H.put_in_hands(R)
+		qdel(src)
+		return
+	..()
 
 /obj/item/clothing/glasses/sunglasses/big
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
@@ -264,6 +342,47 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/sunglasses/sechud/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H.unEquip(src)
+		H.unEquip(O)
+		var/obj/item/clothing/glasses/sunglasses/sechud/prescription/P = new /obj/item/clothing/glasses/sunglasses/sechud/prescription(get_turf(H))
+		H << "You fit \the [src.name] with lenses from \the [O.name]."
+		H.put_in_hands(P)
+		qdel(O)
+		qdel(src)
+		return
+	..()
+
+/obj/item/clothing/glasses/sunglasses/sechud/prescription
+	name = "prescription HUDSunglasses"
+	prescription = 1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/sunglasses/sechud/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(istype(O, /obj/item/clothing/glasses/regular))
+		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
+		return
+	if(istype(O, /obj/item/weapon/screwdriver))
+		H.unEquip(src)
+		var/obj/item/clothing/glasses/sunglasses/sechud/S = new /obj/item/clothing/glasses/sunglasses/sechud(get_turf(H))
+		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
+		H << "You salvage the prescription lenses from \the [src.name]."
+		H.put_in_hands(S)
+		H.put_in_hands(R)
+		qdel(src)
+		return
+	..()
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"
