@@ -346,7 +346,7 @@
 		return
 	on = !on
 	if(on)
-		user << "<span class='notice'>You switch your helmet to travel mode.</span>"
+		user << "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
 		name = "blood-red hardsuit helmet"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
@@ -354,7 +354,7 @@
 		cold_protection = HEAD
 		set_light(brightness_on)
 	else
-		user << "<span class='notice'>You switch your helmet to combat mode.</span>"
+		user << "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		flags = BLOCKHAIR
@@ -387,7 +387,7 @@
 /obj/item/clothing/suit/space/rig/syndi/attack_self(mob/user)
 	on = !on
 	if(on)
-		user << "<span class='notice'>You switch your hardsuit to travel mode.</span>"
+		user << "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
 		name = "blood-red hardsuit helmet"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		slowdown = 1
@@ -395,7 +395,7 @@
 		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	else
-		user << "<span class='notice'>You switch your hardsuit to combat mode.</span>"
+		user << "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		slowdown = 0
