@@ -379,7 +379,7 @@
 	show_message("\red The blob attacks you!")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(10, BRUTE, affecting, run_armor_check(affecting, "melee"))
+	apply_damage(rand(20,30), BRUTE, affecting, run_armor_check(affecting, "melee"))
 	return
 
 /mob/living/carbon/human/meteorhit(O as obj)
