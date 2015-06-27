@@ -8,7 +8,7 @@
 	//#endif
 
 	for(var/obj/machinery/M in machines)
-		if(M && !M.gcDestroyed)
+		if(M && isnull(M.gcDestroyed))
 			#ifdef PROFILE_MACHINES
 			var/time_start = world.timeofday
 			#endif
@@ -29,6 +29,7 @@
 
 			machine_profiling[M.type] += (time_end - time_start)
 			#endif
+		else
+			machines -= M
 
 		scheck()
-

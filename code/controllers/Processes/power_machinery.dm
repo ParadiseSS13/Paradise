@@ -8,18 +8,15 @@ var/global/list/power_machinery_profiling = list()
 	schedule_interval = 20 // every 2 seconds
 
 /datum/controller/process/power_machinery/doWork()
-	for(var/i = 1 to power_machines.len)
-		if(i > power_machines.len)
-			break
-		var/obj/machinery/M = power_machines[i]
-		if(istype(M) && !M.gcDestroyed)
+	for(var/obj/machinery/M in power_machines)
+		if(istype(M) && isnull(M.gcDestroyed))
 			#ifdef PROFILE_MACHINES
 			var/time_start = world.timeofday
 			#endif
 
 			if(M.process() == PROCESS_KILL)
 				M.inMachineList = 0
-				power_machines.Remove(M)
+				power_machines -= M
 				continue
 
 			if(M && M.use_power)
@@ -34,12 +31,10 @@ var/global/list/power_machinery_profiling = list()
 				power_machinery_profiling[M.type] += (time_end - time_start)
 				#endif
 			else
-				if(!power_machines.Remove(M))
-					power_machines.Cut(i,i+1)
+				power_machines -= M
 		else
-			if(M)
+			if(istype(M))
 				M.inMachineList = 0
-			if(!power_machines.Remove(M))
-				power_machines.Cut(i,i+1)
+			power_machines -= M
 
 		scheck()

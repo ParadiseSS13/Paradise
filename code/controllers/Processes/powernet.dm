@@ -4,9 +4,9 @@
 
 /datum/controller/process/powernet/doWork()
 	for(var/datum/powernet/powerNetwork in powernets)
-		if(istype(powerNetwork) && !powerNetwork.disposed)
+		if(istype(powerNetwork) && isnull(powerNetwork.gcDestroyed))
 			powerNetwork.reset()
 			scheck()
 			continue
-
-		powernets.Remove(powerNetwork)
+		else
+			powernets -= powerNetwork
