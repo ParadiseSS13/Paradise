@@ -238,7 +238,9 @@
 		return
 
 	for (var/mob/living/M in T.contents)
-		M.blob_act()
+		if(M && !(M.stat))
+			src << "You can't expand to a tile containing a living entity."
+			return
 
 	if(!can_buy(5))
 		return
