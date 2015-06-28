@@ -158,7 +158,7 @@
 
 //PodPilot
 /obj/item/clothing/under/rank/security/podpilot
-	desc = "Suit for proud and brave pod pilot.Comes with stylish red belt. There is tag on chest with /Pod Pilot/ writen on it."
+	desc = "Ordinary suit for brave pod pilot."
 	name = "pod pilot's jumpsuit"
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
