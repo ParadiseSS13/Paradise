@@ -48,7 +48,8 @@ var/list/be_special_flags = list(
 	"raider" = BE_RAIDER,
 	"vampire" = BE_VAMPIRE,
 	"mutineer" = BE_MUTINEER,
-	"blob" = BE_BLOB
+	"blob" = BE_BLOB,
+	"Revenant" = BE_REVENANT
 )
 
 //Random event stuff, apparently used

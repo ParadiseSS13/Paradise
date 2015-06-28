@@ -7,6 +7,7 @@
 
 	flags = IS_WHITELISTED | NO_BLOOD
 	dietflags = DIET_OMNI
+	reagent_tag = PROCESS_ORG
 
 	//default_mutations=list(SKELETON) // This screws things up
 

@@ -77,8 +77,8 @@
 				var/mob/living/carbon/human/drownee = M //Typecast them as human.
 				if(drownee.stat == DEAD) //Check stat, if they are dead, ignore them.
 					continue
-				if(drownee && drownee.lying && !drownee.internal && !(drownee.species.flags & NO_BREATHE) && !(drownee.species.reagent_tag == IS_SKRELL) && !(NO_BREATH in drownee.mutations))
-				//Establish that there is a mob, the mob is lying down, has no internals, species does breathe, is not a skrell, and does not have NO_BREATHE
+				if(drownee && drownee.lying && !drownee.internal && !(drownee.species.flags & NO_BREATHE) && !(drownee.species.name == "Skrell" || drownee.species.name =="Neara") && !(NO_BREATH in drownee.mutations))
+				//Establish that there is a mob, the mob is lying down, has no internals, species does breathe, is not a skrell/neara, and does not have NO_BREATHE
 					if(drownee.stat != CONSCIOUS) //Mob is in critical.
 						drownee.adjustOxyLoss(9) //Kill em quickly.
 						drownee << "<span class='danger'>You're quickly drowning!</span>" //inform them that they are fucked.

@@ -592,6 +592,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/firstaid/adv)
 	cost = 10
 	containername = "advaced first aid kits crate"
+	
+/datum/supply_packs/medical/firstaibrute
+	name = "Brute Trauma Treatment Kits Crate"
+	contains = list(/obj/item/weapon/storage/firstaid/brute,
+					/obj/item/weapon/storage/firstaid/brute,
+					/obj/item/weapon/storage/firstaid/brute)
+	cost = 10
+	containername = "brute trauma treatment kit"
 
 /datum/supply_packs/medical/firstaidburns
 	name = "Burns Treatment Kits Crate"
@@ -616,7 +624,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/firstaid/o2)
 	cost = 10
 	containername = "oxygen deprivation kits crate"
-
 
 /datum/supply_packs/medical/virus
 	name = "Virus Crate"
