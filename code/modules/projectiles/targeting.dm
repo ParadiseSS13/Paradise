@@ -69,33 +69,6 @@
 			usr.visible_message("\red <b>[usr] aims \a [src] at [M]!</b>")
 		M.Targeted(src)
 
-//HE MOVED, SHOOT HIM!
-/obj/item/weapon/gun/proc/TargetActed(var/mob/living/T)
-	var/mob/living/M = loc
-	if(M == T) return
-	if(!istype(M)) return
-	if(src != M.equipped())
-		stop_aim()
-		return
-	M.last_move_intent = world.time
-	if(can_fire())
-		var/firing_check = can_hit(T,usr) //0 if it cannot hit them, 1 if it is capable of hitting, and 2 if a special check is preventing it from firing.
-		if(firing_check > 0)
-			if(firing_check == 1)
-				Fire(T,usr, reflex = 1)
-		else if(!told_cant_shoot)
-			M << "\red They can't be hit from here!"
-			told_cant_shoot = 1
-			spawn(30)
-				told_cant_shoot = 0
-	else
-		click_empty(M)
-
-	usr.dir = get_cardinal_dir(src, T)
-
-	if (!firerate) // If firerate is set to lower aim after one shot, untarget the target
-		T.NotTargeted(src)
-
 //Yay, math!
 
 #define SIGN(X) ((X<0)?-1:1)
@@ -162,10 +135,7 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 	if(!targeted_by) targeted_by = list()
 	targeted_by += I
 	I.lock_time = world.time + 20 //Target has 2 second to realize they're targeted and stop (or target the opponent).
-	src << "((\red <b>Your character is being targeted. They have 2 seconds to stop any click or move actions.</b> \black While targeted, they may \
-	drag and drop items in or into the map, speak, and click on interface buttons. Clicking on the map objects (floors and walls are fine), their items \
-	 (other than a weapon to de-target), or moving will result in being fired upon. \red The aggressor may also fire manually, \
-	 so try not to get on their bad side.\black ))"
+	src << "((\red <b>Your character is being targeted!</b> ))"
 
 	if(targeted_by.len == 1)
 		spawn(0)
@@ -189,27 +159,6 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 			src << "\red Your move intent is now set to walk, as your targeter permits it."  //Self explanitory.
 			set_m_intent("walk")*/
 
-		//Processing the aiming. Should be probably in separate object with process() but lasy.
-		while(targeted_by && T.client)
-			if(last_move_intent > I.lock_time + 10 && !T.client.target_can_move) //If target moved when not allowed to
-				I.TargetActed(src)
-				if(I.last_moved_mob == src) //If they were the last ones to move, give them more of a grace period, so that an automatic weapon can hold down a room better.
-					I.lock_time = world.time + 5
-				I.lock_time = world.time + 5
-				I.last_moved_mob = src
-			else if(last_move_intent > I.lock_time + 10 && !T.client.target_can_run && m_intent == "run") //If the target ran while targeted
-				I.TargetActed(src)
-				if(I.last_moved_mob == src) //If they were the last ones to move, give them more of a grace period, so that an automatic weapon can hold down a room better.
-					I.lock_time = world.time + 5
-				I.lock_time = world.time + 5
-				I.last_moved_mob = src
-			if(last_target_click > I.lock_time + 10 && !T.client.target_can_click) //If the target clicked the map to pick something up/shoot/etc
-				I.TargetActed(src)
-				if(I.last_moved_mob == src) //If they were the last ones to move, give them more of a grace period, so that an automatic weapon can hold down a room better.
-					I.lock_time = world.time + 5
-				I.lock_time = world.time + 5
-				I.last_moved_mob = src
-			sleep(1)
 
 mob/living/proc/NotTargeted(var/obj/item/weapon/gun/I)
 	if(!I.silenced)
