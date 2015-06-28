@@ -4,9 +4,9 @@
 
 /datum/controller/process/pipenet/doWork()
 	for(var/datum/pipe_network/pipeNetwork in pipe_networks)
-		if(istype(pipeNetwork) && !pipeNetwork.disposed)
+		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
 			pipeNetwork.process()
 			scheck()
 			continue
-
-		pipe_networks.Remove(pipeNetwork)
+		else
+			pipe_networks -= pipeNetwork
