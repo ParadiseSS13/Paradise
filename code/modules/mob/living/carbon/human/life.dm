@@ -924,16 +924,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				else
 					hallucination -= 2
 
-			else
-				for(var/atom/a in hallucinations)
-					del a
 
-				if(halloss > 100)
-					src << "<span class='notice'>You're in too much pain to keep going...</span>"
-					for(var/mob/O in oviewers(src, null))
-						O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
-					Paralyse(10)
-					setHalLoss(99)
+			if(halloss > 100)
+				src << "<span class='notice'>You're in too much pain to keep going...</span>"
+				for(var/mob/O in oviewers(src, null))
+					O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
+				Paralyse(10)
+				setHalLoss(99)
 
 			if(paralysis)
 				AdjustParalysis(-1)
