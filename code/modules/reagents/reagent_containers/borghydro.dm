@@ -42,13 +42,29 @@
 
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
+		//Was set to only recharge the reagent selected; silly. Now recharges all reagents per trigger assuming enough power.
+		var/reagentcount = 0
+		var/datum/reagents/RE = null
+		while(reagent_list.len > reagentcount)
+			if(R && R.cell.charge > 100)
+				reagentcount += 1
+				RE = reagent_list[reagentcount]
+				if(RE.total_volume < RE.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
+					R.cell.use(charge_cost) 					//Take power from borg...
+					RE.add_reagent(reagent_ids[reagentcount], 5)		//And fill hypo with reagent.
+			else
+				return
+	//update_icon()
+	return 1
+
+/*
+		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
 			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
 				R.cell.use(charge_cost) 					//Take power from borg...
 				RG.add_reagent(reagent_ids[mode], 5)		//And fill hypo with reagent.
-	//update_icon()
-	return 1
+*/
 
 // Purely for testing purposes I swear~
 /*
@@ -90,7 +106,7 @@
 	if(mode > reagent_list.len)
 		mode = 1
 
-	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
+	//charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
 	user << "\blue Synthesizer is now producing '[R.name]'."
 	return

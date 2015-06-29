@@ -61,6 +61,9 @@
 			src.name = "body bag"
 			src.overlays.Cut()
 			return
+		//Medborg Bodybag Containment Unit Proc
+		if(istype(W, /obj/item/weapon/cyborg/bodybag_containment_unit))
+			BCU_store(W, user)
 
 
 	close()
@@ -135,3 +138,25 @@
 			else
 				user << "\red Access denied."
 			return
+		//Medborg Bodybag Containment Unit Proc
+		if(istype(W, /obj/item/weapon/cyborg/bodybag_containment_unit))
+			BCU_store(W, user)
+
+
+//Medborg Bodybag Containment Unit Proc
+/obj/structure/closet/body_bag/proc/BCU_store(W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/cyborg/bodybag_containment_unit))
+		var/obj/item/weapon/cyborg/bodybag_containment_unit/BCU = W
+		if(BCU.bags_stored >= BCU.bags_max)
+			playsound(user, 'sound/machines/buzz-two.ogg', 50, 0)
+			user << "You do not have enough space in your [W] to store this bag."
+			return
+		if(istype(src,/obj/structure/closet/body_bag/cryobag))
+			BCU.cryobags_stored += 1
+		else if(istype(src,/obj/structure/closet/body_bag))
+			BCU.bodybags_stored += 1
+		BCU.bags_stored = BCU.cryobags_stored + BCU.bodybags_stored
+		user << "<span class='notice'>You store [src]. You currently have [BCU.bodybags_stored] bodybag(s) stored and [BCU.cryobags_stored] stasis bag(s) stored.</span>"
+		playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
+		qdel(src)
+		return

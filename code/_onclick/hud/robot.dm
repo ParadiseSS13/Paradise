@@ -70,6 +70,15 @@
 	src.adding += using
 	action_intent = using
 
+//Integrated Light (new borg feature)
+	using = new /obj/screen()
+	using.name = "Toggle Integrated Light"
+	using.icon = 'icons/mob/screen_ai.dmi'
+	using.icon_state = "camera_light"
+	using.screen_loc = ui_borg_integrated_light
+	using.layer = 20
+	adding += using
+
 //Cell
 	mymob:cells = new /obj/screen()
 	mymob:cells.icon = 'icons/mob/screen1_robot.dmi'
@@ -90,7 +99,6 @@
 	mymob.hands.icon_state = "nomod"
 	mymob.hands.name = "module"
 	mymob.hands.screen_loc = ui_borg_module
-
 
 //Store
 	mymob.throw_icon = new /obj/screen()

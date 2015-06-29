@@ -21,9 +21,19 @@
 
 /datum/robot_component/proc/install()
 /datum/robot_component/proc/uninstall()
+	//Integrated Lights removed? Lights out.
+	if(istype(src,/datum/robot_component/integrated_light))
+		var/mob/living/silicon/robot/R = src.owner
+		toggled = 0
+		R.set_light(0)
 
 /datum/robot_component/proc/destroy()
 	if(wrapped)
+		//Integrated Lights removed? Lights out.
+		if(istype(src,/datum/robot_component/integrated_light))
+			var/mob/living/silicon/robot/R = src.owner
+			toggled = 0
+			R.set_light(0)
 		del wrapped
 
 
@@ -107,6 +117,13 @@
 	external_type = /obj/item/robot_parts/robot_component/diagnosis_unit
 	max_damage = 30
 
+//NEW INTEGRATED LIGHT COMPONENT
+/datum/robot_component/integrated_light
+	name = "integrated light"
+	energy_consumption = 4
+	external_type = /obj/item/robot_parts/robot_component/integrated_light
+	max_damage = 40
+
 /mob/living/silicon/robot/proc/initialize_components()
 	// This only initializes the components, it doesn't set them to installed.
 
@@ -117,6 +134,7 @@
 	components["camera"] = new/datum/robot_component/camera(src)
 	components["comms"] = new/datum/robot_component/binary_communication(src)
 	components["armour"] = new/datum/robot_component/armour(src)
+	components["integrated light"] = new/datum/robot_component/integrated_light(src)
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
@@ -164,6 +182,10 @@
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
 	icon_state = "radio"
+
+/obj/item/robot_parts/robot_component/integrated_light
+	name = "integrated light"
+	icon_state = "integrated_light"
 
 //
 //Robotic Component Analyser, basically a health analyser for robots
