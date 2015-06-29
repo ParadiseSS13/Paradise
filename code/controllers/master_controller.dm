@@ -10,6 +10,13 @@ var/global/last_tick_duration = 0
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
+/datum/controller
+  var/processing = 0
+  var/iteration = 0
+  var/processing_interval = 0
+
+/datum/controller/proc/recover() // If we are replacing an existing controller (due to a crash) we attempt to preserve as much as we can.
+
 datum/controller/game_controller
 	var/breather_ticks = 2		//a somewhat crude attempt to iron over the 'bumps' caused by high-cpu use by letting the MC have a breather for this many ticks after every loop
 	var/minimum_ticks = 20		//The minimum length of time between MC ticks
@@ -288,12 +295,13 @@ datum/controller/game_controller/proc/process()
 
 /datum/controller/game_controller/proc/process_bots()
 	for(var/obj/machinery/bot/Bot in aibots)
-		if(!Bot.gc_destroyed)
+		if(Bot && isnull(Bot.gcDestroyed))
 			last_thing_processed = Bot.type
 			spawn(0)
 				Bot.bot_process()
 			continue
-		aibots -= Bot
+		else
+			aibots -= Bot
 
 /datum/controller/game_controller/proc/processObjects()
 	for (var/obj/Object in processing_objects)

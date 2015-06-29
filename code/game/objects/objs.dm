@@ -249,7 +249,7 @@ a {
 
 /obj/singularity_act()
 	ex_act(1.0)
-	if(src && isnull(gc_destroyed))
+	if(src && isnull(gcDestroyed))
 		qdel(src)
 	return 2
 

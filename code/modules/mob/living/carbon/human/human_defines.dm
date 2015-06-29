@@ -80,7 +80,5 @@
 
 	var/lastFart = 0 // Toxic fart cooldown.
 
-	var/frozen = 0 //used for preventing attacks on admin-frozen people
-
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"

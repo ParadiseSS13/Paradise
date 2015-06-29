@@ -675,7 +675,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("morphine", 3)
+		reagents.add_reagent("ether", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing
@@ -3116,7 +3116,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 12)
-		reagents.add_reagent("morphine", 3)
+		reagents.add_reagent("ether", 3)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/stuffing

@@ -142,8 +142,10 @@ var/list/admin_verbs_debug = list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
 	/client/proc/toggledebuglogs,
-	/client/proc/qdel_toggle, // /vg/
+	/client/proc/qdel_toggle,
 	/client/proc/gc_dump_hdl,
+	/client/proc/gc_toggle_profiling,
+	/client/proc/gc_show_del_report,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
