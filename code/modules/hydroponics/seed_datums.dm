@@ -499,7 +499,7 @@
 	seed_name = "liberty cap"
 	display_name = "liberty cap mushrooms"
 	mutants = null
-	chems = list("plantmatter" = list(1), "ether" = list(3,3), "space_drugs" = list(1,25))
+	chems = list("plantmatter" = list(1), "morphine" = list(3,3), "space_drugs" = list(1,25))
 	kitchen_tag = "libertycap"
 
 /datum/seed/mushroom/hallucinogenic/strong/New()
