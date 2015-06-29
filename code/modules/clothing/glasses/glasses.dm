@@ -8,8 +8,41 @@
 	//var/darkness_view = 0//Base human is 2
 	//var/invisa_view = 0
 	var/prescription = 0
+	var/prescription_upgradable = 0
 	var/see_darkness = 1
 	var/HUDType = 0
+
+/obj/item/clothing/glasses/New()
+	. = ..()
+	if(prescription_upgradable && prescription)
+		// Pre-upgraded upgradable glasses
+		name = "prescription [name]"
+
+/obj/item/clothing/glasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (user.stat || user.restrained() || !ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/H = user
+	if(prescription_upgradable)
+		if(istype(O, /obj/item/clothing/glasses/regular))
+			if(prescription)
+				H << "You can't possibly imagine how adding more lenses would improve \the [name]."
+				return
+			H.unEquip(O)
+			O.loc = src // Store the glasses for later removal
+			H << "You fit \the [name] with lenses from \the [O]."
+			prescription = 1
+			name = "prescription [name]"
+			return
+		if(prescription && istype(O, /obj/item/weapon/screwdriver))
+			var/obj/item/clothing/glasses/regular/G = locate() in src
+			if(!G)
+				G = new(get_turf(H))
+			H << "You salvage the prescription lenses from \the [name]."
+			prescription = 0
+			name = initial(name)
+			H.put_in_hands(G)
+			return
+	return ..()
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -18,25 +51,11 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/meson/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H.unEquip(src)
-		H.unEquip(O)
-		var/obj/item/clothing/glasses/meson/prescription/P = new /obj/item/clothing/glasses/meson/prescription(get_turf(H))
-		H << "You fit \the [src.name] with lenses from \the [O.name]."
-		H.put_in_hands(P)
-		qdel(O)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
@@ -45,39 +64,10 @@
 	item_state = "glasses"
 	darkness_view = 8
 	see_darkness = 0
-
-/obj/item/clothing/glasses/meson/night/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		user << "\The [src.name] is too complex for you to fit with prescription lenses."
-		return
-	..()
+	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/meson/prescription
-	name = "prescription mesons"
-	desc = "Optical Meson Scanner with prescription lenses."
 	prescription = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/meson/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
-		return
-	if(istype(O, /obj/item/weapon/screwdriver))
-		H.unEquip(src)
-		var/obj/item/clothing/glasses/meson/M = new /obj/item/clothing/glasses/meson(get_turf(H))
-		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
-		H << "You salvage the prescription lenses from \the [src.name]."
-		H.put_in_hands(M)
-		H.put_in_hands(R)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -85,6 +75,7 @@
 	icon_state = "cybereye-green"
 	item_state = "eyepatch"
 	flags = NODROP
+	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
@@ -147,14 +138,14 @@
 	flags = NODROP
 
 /obj/item/clothing/glasses/regular
-	name = "Prescription Glasses"
+	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
 	prescription = 1
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "Prescription Glasses"
+	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
@@ -179,25 +170,11 @@
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/sunglasses/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H.unEquip(src)
-		H.unEquip(O)
-		var/obj/item/clothing/glasses/sunglasses/prescription/P = new /obj/item/clothing/glasses/sunglasses/prescription(get_turf(H))
-		H << "You fit \the [src.name] with lenses from \the [O.name]."
-		H.put_in_hands(P)
-		qdel(O)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -282,42 +259,14 @@
 	//vision_flags = BLIND
 	flash_protect = 2
 	tint = 3				//to make them blind
+	prescription_upgradable = 0
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/sunglasses/blindfold/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		user << "You doubt you can make a blindfold actually IMPROVE vision."
-		return
-	..()
 
 /obj/item/clothing/glasses/sunglasses/prescription
-	name = "prescription sunglasses"
 	prescription = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/sunglasses/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
-		return
-	if(istype(O, /obj/item/weapon/screwdriver))
-		H.unEquip(src)
-		var/obj/item/clothing/glasses/sunglasses/S = new /obj/item/clothing/glasses/sunglasses(get_turf(H))
-		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
-		H << "You salvage the prescription lenses from \the [src.name]."
-		H.put_in_hands(S)
-		H.put_in_hands(R)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/sunglasses/big
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
@@ -338,51 +287,14 @@
 	flash_protect = 1
 	tint = 1
 	HUDType = SECHUD
+	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/sunglasses/sechud/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H.unEquip(src)
-		H.unEquip(O)
-		var/obj/item/clothing/glasses/sunglasses/sechud/prescription/P = new /obj/item/clothing/glasses/sunglasses/sechud/prescription(get_turf(H))
-		H << "You fit \the [src.name] with lenses from \the [O.name]."
-		H.put_in_hands(P)
-		qdel(O)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/sunglasses/sechud/prescription
-	name = "prescription HUDSunglasses"
 	prescription = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/sunglasses/sechud/prescription/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if (user.stat || user.restrained() || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(istype(O, /obj/item/clothing/glasses/regular))
-		H <<"You can't possibly imagine how adding more lenses would improve \the [src.name]."
-		return
-	if(istype(O, /obj/item/weapon/screwdriver))
-		H.unEquip(src)
-		var/obj/item/clothing/glasses/sunglasses/sechud/S = new /obj/item/clothing/glasses/sunglasses/sechud(get_turf(H))
-		var/obj/item/clothing/glasses/regular/R = new /obj/item/clothing/glasses/regular(get_turf(H))
-		H << "You salvage the prescription lenses from \the [src.name]."
-		H.put_in_hands(S)
-		H.put_in_hands(R)
-		qdel(src)
-		return
-	..()
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"
