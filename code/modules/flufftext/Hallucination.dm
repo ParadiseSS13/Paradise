@@ -229,17 +229,22 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		if(!U.welded)
 			pump = U
 			break
+	if(!pump)	return 0
 	xeno = new(pump.loc,target)
 	sleep(10)
+	if(!xeno)	return
 	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
 	xeno.throw_at(target,7,1)
 	sleep(10)
+	if(!xeno)	return
 	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
 	xeno.throw_at(pump,7,1)
 	sleep(10)
+	if(!xeno)	return
 	var/xeno_name = xeno.name
 	target << "<span class='notice'>[xeno_name] begins climbing into the ventilation system...</span>"
 	sleep(10)
+	if(!xeno)	return
 	qdel(xeno)
 	target << "<span class='notice'>[xeno_name] scrambles into the ventilation ducts!</span>"
 	qdel(src)
