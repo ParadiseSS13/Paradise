@@ -368,14 +368,14 @@ obj/item/weapon/twohanded/
 	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
-	desc = "Perfect for felling trees or fellow spaceman."
+	desc = "Perfect for felling trees or fellow spacemen."
 	force = 15
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 5
 	w_class = 4.0 // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
-	force_wielded = 50  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	flags = NOSHIELD
@@ -409,11 +409,14 @@ obj/item/weapon/twohanded/
 		playsound(loc, "swing_hit", 50, 1, -1)
 		return ..()
 
-/obj/item/weapon/twohanded/chainsaw/IsShield() //Disarming someone with a chainsaw should be difficult.
-	if(wielded)
-		return 1
-	else
-		return 0
+/obj/item/weapon/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
+	..()
+	flags |= NODROP
+
+/obj/item/weapon/twohanded/chainsaw/unwield()
+	..()
+	flags &= ~NODROP
+
 
 // SINGULOHAMMER
 
