@@ -140,7 +140,7 @@
 		sleep(2)
 		new /obj/item/clothing/suit/straight_jacket(src)
 		new /obj/item/weapon/reagent_containers/syringe(src)
-		new /obj/item/weapon/reagent_containers/glass/bottle/morphine(src)
+		new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
 		new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
 
 		return

@@ -22,7 +22,7 @@
 
 		var/list/gunk = list("water","carbon","flour","radium","toxin","cleaner","nutriment","condensedcapsaicin","psilocybin","lube",
 							"atrazine","banana","charcoal","space_drugs","methamphetamine","holywater","ethanol","hot_coco","facid",
-							"blood","morphine","fluorine","mutadone","mutagen","hydrocodone","fuel",
+							"blood","morphine","ether","fluorine","mutadone","mutagen","hydrocodone","fuel",
 							"haloperidol","lsd","nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
 							"omnizine", "amanitin", "adminordrazine", "neurotoxin", "synaptizine")
 		var/datum/reagents/R = new/datum/reagents(50)
