@@ -520,7 +520,9 @@
 	throwforce = 20
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
+	icon_override = 'icons/mob/in-hand/staff.dmi'
 	icon_state = "bostaff0"
+
 
 /obj/item/weapon/twohanded/bostaff/update_icon()
 	icon_state = "bostaff[wielded]"
