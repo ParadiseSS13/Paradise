@@ -410,7 +410,7 @@
 							dat += text("[]\tBlood Level %: [] ([] units)</FONT><BR>", (blood_volume > 448 ?"<font color='blue'>" : "<font color='red'>"), blood_percent, blood_volume)
 						if(occupant.reagents)
 							dat += text("Epinephrine units: [] units<BR>", occupant.reagents.get_reagent_amount("Epinephrine"))
-							dat += text("Morphine: [] units<BR>", occupant.reagents.get_reagent_amount("morphine"))
+							dat += text("Ether: [] units<BR>", occupant.reagents.get_reagent_amount("ether"))
 							dat += text("[]\tSilver Sulfadiazine: [] units</FONT><BR>", (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("silver_sulfadiazine"))
 							dat += text("[]\tStyptic Powder: [] units<BR>", (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("styptic_powder"))
 							dat += text("[]\tsalbutamol: [] units<BR>", (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>"), occupant.reagents.get_reagent_amount("salbutamol"))

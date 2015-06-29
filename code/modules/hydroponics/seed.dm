@@ -450,7 +450,8 @@
 			"slimejelly",
 			"cyanide",
 			"lsd",
-			"morphine"
+			"morphine",
+			"ether"
 			)
 
 		for(var/x=1;x<=additional_chems;x++)

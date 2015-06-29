@@ -913,6 +913,36 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result_amount = 4
 	mix_message = "The chemicals mix into an odd pink slush."
 
+
+/datum/reagent/ether
+	name = "Ether"
+	id = "ether"
+	description = "A strong anesthetic and sedative."
+	reagent_state = LIQUID
+	color = "#96DEDE"
+
+/datum/reagent/ether/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	switch(current_cycle)
+		if(0 to 15)
+			if(prob(5))
+				M.emote("yawn")
+		if(16 to 35)
+			M.drowsyness = max(M.drowsyness, 10)
+		if(36 to INFINITY)
+			M.Paralyse(10)
+			M.drowsyness = max(M.drowsyness, 15)
+	..()
+	return
+
+/datum/chemical_reaction/ether
+	name = "Ether"
+	id = "ether"
+	result = "ether"
+	required_reagents = list("sacid" = 1, "ethanol" = 1, "oxygen" = 1)
+	result_amount = 1
+	mix_message = "The mixture yields a pungent odor, which makes you tired."
+
 //////////////////////////////
 //		Synth-Meds			//
 //////////////////////////////

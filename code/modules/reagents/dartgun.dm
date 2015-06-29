@@ -297,7 +297,7 @@
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
 
 /obj/item/weapon/gun/dartgun/vox/raider
-	starting_chems = list("space_drugs","morphine","haloperidol")
+	starting_chems = list("space_drugs","ether","haloperidol")
 
 /obj/effect/syringe_gun_dummy //moved this shitty thing here
 	name = ""

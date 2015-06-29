@@ -373,7 +373,7 @@
 		src.modules += new /obj/item/device/flash/cyborg/alien(src)
 		src.modules += new /obj/item/borg/sight/thermal/alien(src)
 		var/obj/item/weapon/reagent_containers/spray/alien/stun/S = new /obj/item/weapon/reagent_containers/spray/alien/stun(src)
-		S.reagents.add_reagent("morphine",250) //nerfed to sleeptoxin to make it less instant drop.
+		S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
 		src.modules += S
 		var/obj/item/weapon/reagent_containers/spray/alien/smoke/A = new /obj/item/weapon/reagent_containers/spray/alien/smoke(src)
 		S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.

@@ -944,7 +944,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				adjustStaminaLoss(-10)
 				adjustHalLoss(-3)
 				if (mind)
-					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of morphine or similar.
+					//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of ether or similar.
 					if(player_logged)
 						sleeping = max(sleeping-1, 2)
 					else
