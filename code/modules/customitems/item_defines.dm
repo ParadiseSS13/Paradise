@@ -107,6 +107,13 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "norah_briggs_1"
 
+/obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
+	name = "polar bear pelt hat"
+	desc = "Fuzzy, and also stained with blood."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "polarbearpelt"
+	item_state = "polarbearpelt"
+
 //////////// Suits ////////////
 
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Robotics Labcoat - Aeneas Rinil [APPR]
