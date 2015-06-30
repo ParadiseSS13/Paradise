@@ -18,7 +18,7 @@
 	var/lastout = 0
 	var/loaddemand = 0
 	var/capacity = 5e6
-	var/charge = 1e6
+	var/charge = 0
 	var/charging = 0
 	var/chargemode = 0
 	var/chargecount = 0
@@ -469,6 +469,9 @@
 	..()
 
 
+
+/obj/machinery/power/smes/engineering
+	charge = 1e6 // Engineering starts with some charge for singulo
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"
