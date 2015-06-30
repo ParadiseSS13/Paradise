@@ -19,7 +19,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
 	"blob" = IS_MODE_COMPILED("blob"),          	     	// 8192 / 14
 	"shadowling" = IS_MODE_COMPILED("shadowling"),		//16384 / 15
-	"Revenant" = IS_MODE_COMPILED("Revenant"),		//32768 / 16
+	"Revenant" =  1             						//32768 / 16
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
 	num2text(BE_PAI) = 0,
