@@ -156,7 +156,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	return I:amount
 
 /datum/theft_objective/number/plasma_gas
-	name = "moles of plasma (full tank)"
+	name = "moles of phoron (full tank)"
 	typepath = /obj/item/weapon/tank
 	min=28
 	max=28

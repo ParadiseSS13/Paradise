@@ -116,7 +116,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/list/flood_images = list()
 	var/list/turf/flood_turfs = list()
 	var/image_icon = 'icons/effects/tile_effects.dmi'
-	var/image_state = "plasma"
+	var/image_state = "phoron"
 	var/radius = 0
 	var/next_expand = 0
 
@@ -127,7 +127,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		if(!U.welded)
 			src.loc = U.loc
 			break
-	image_state = pick("plasma","sleeping_agent")
+	image_state = pick("phoron","sleeping_agent")
 	flood_images += image(image_icon,src,image_state,MOB_LAYER)
 	flood_turfs += get_turf(src.loc)
 	if(target.client) target.client.images |= flood_images

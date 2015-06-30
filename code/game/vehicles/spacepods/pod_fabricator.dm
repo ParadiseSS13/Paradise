@@ -19,7 +19,7 @@
 								"$bananium"=0,
 								"$diamond"=0,
 								"$gold"=0,
-								"$plasma"=0,
+								"$phoron"=0,
 								"$silver"=0,
 								"$uranium"=0
 								)
@@ -484,7 +484,7 @@
 			type = /obj/item/stack/sheet/mineral/silver
 		if("$diamond")
 			type = /obj/item/stack/sheet/mineral/diamond
-		if("$plasma")
+		if("$phoron")
 			type = /obj/item/stack/sheet/mineral/plasma
 		if("$uranium")
 			type = /obj/item/stack/sheet/mineral/uranium
@@ -536,7 +536,7 @@
 			if(/obj/item/stack/sheet/mineral/diamond)
 				material = "$diamond"
 			if(/obj/item/stack/sheet/mineral/plasma)
-				material = "$plasma"
+				material = "$phoron"
 			if(/obj/item/stack/sheet/metal)
 				material = "$metal"
 			if(/obj/item/stack/sheet/glass)

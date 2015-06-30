@@ -4,7 +4,7 @@
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen/pacman2
 	name = "Pacman II"
-	desc = "P.A.C.M.A.N. type II portable generator. Uses liquid plasma as a fuel source."
+	desc = "P.A.C.M.A.N. type II portable generator. Uses liquid phoron as a fuel source."
 	power_gen = 4500
 	var/obj/item/weapon/tank/plasma/P = null
 	var/board_path = "/obj/item/weapon/circuitboard/pacman2"
@@ -75,12 +75,12 @@
 	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 		if(istype(O, /obj/item/weapon/tank/plasma))
 			if(P)
-				user << "\red The generator already has a plasma tank loaded!"
+				user << "\red The generator already has a phoron tank loaded!"
 				return
 			P = O
 			user.drop_item()
 			O.loc = src
-			user << "\blue You add the plasma tank to the generator."
+			user << "\blue You add the phoron tank to the generator."
 		else if(!active)
 			if(istype(O, /obj/item/weapon/wrench))
 				anchored = !anchored
@@ -141,9 +141,9 @@
 			else
 				dat += text("Generator: <A href='?src=\ref[src];action=enable'>Off</A><br>")
 			if(P)
-				dat += text("Currently loaded plasma tank: [P.air_contents.toxins]<br>")
+				dat += text("Currently loaded phoron tank: [P.air_contents.toxins]<br>")
 			else
-				dat += text("No plasma tank currently loaded.<br>")
+				dat += text("No phoron tank currently loaded.<br>")
 			dat += text("Power output: <A href='?src=\ref[src];action=lower_power'>-</A> [power_gen * power_output] <A href='?src=\ref[src];action=higher_power'>+</A><br>")
 			dat += text("Heat: [heat]<br>")
 			dat += "<br><A href='?src=\ref[src];action=close'>Close</A>"

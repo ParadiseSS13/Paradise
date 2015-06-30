@@ -428,7 +428,7 @@
 	w_class = 3.0
 	m_amt = 70
 	g_amt = 120
-	origin_tech = "engineering=4;plasma=3"
+	origin_tech = "engineering=4;phoron=3"
 	icon_state = "ewelder"
 	var/last_gen = 0
 

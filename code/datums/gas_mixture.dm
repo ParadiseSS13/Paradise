@@ -107,7 +107,7 @@ What are the archived variables for?
 	//returns 1 if graphic changed
 	graphic = null
 	if(toxins > MOLES_PLASMA_VISIBLE)
-		graphic = "plasma"
+		graphic = "phoron"
 	else
 		var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in trace_gases
 		if(sleeping_agent && (sleeping_agent.moles > 1))

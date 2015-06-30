@@ -234,10 +234,10 @@
 	return
 
 /obj/machinery/door/airlock/plasma
-	name = "plasma airlock"
+	name = "phoron airlock"
 	desc = "No way this can end badly."
-	icon = 'icons/obj/doors/Doorplasma.dmi'
-	mineral = "plasma"
+	icon = 'icons/obj/doors/Doorphoron.dmi'
+	mineral = "phoron"
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -301,7 +301,7 @@
 	name = "Alien Airlock"
 	desc = "A mysterious alien airlock with a complicated opening mechanism."
 	hackProof = 1
-	icon = 'icons/obj/doors/Doorplasma.dmi'
+	icon = 'icons/obj/doors/Doorphoron.dmi'
 
 /obj/machinery/door/airlock/alien/bumpopen(mob/living/user as mob)
 	if(istype(user,/mob/living/carbon/alien) || isrobot(user) || isAI(user))

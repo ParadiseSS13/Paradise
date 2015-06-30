@@ -457,7 +457,7 @@
 			if(4)
 				reagents.add_reagent("sprinkles", 3)
 			if(5)
-				reagents.add_reagent("plasma", 3)
+				reagents.add_reagent("phoron", 3)
 			if(6)
 				reagents.add_reagent("coco", 3)
 			if(7)

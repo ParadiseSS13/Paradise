@@ -1,5 +1,5 @@
 /datum/species/plasmaman // /vg/
-	name = "Plasmaman"
+	name = "Phoronman"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
 	//language = "Clatter"
@@ -11,7 +11,7 @@
 
 	//default_mutations=list(SKELETON) // This screws things up
 
-	breath_type = "plasma"
+	breath_type = "phoron"
 
 	heat_level_1 = 350  // Heat damage level 1 above this point.
 	heat_level_2 = 400  // Heat damage level 2 above this point.
@@ -23,7 +23,7 @@
 	return message
 
 /datum/species/plasmaman/equip(var/mob/living/carbon/human/H)
-	H.fire_sprite = "Plasmaman"
+	H.fire_sprite = "Phoronman"
 
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
@@ -107,7 +107,7 @@
 	H.equip_or_collect(new suit(H), slot_wear_suit)
 	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
-	H << "\blue You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable."
+	H << "\blue You are now running on phoron internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable."
 	H.internal = H.get_item_by_slot(tank_slot)
 	if (H.internals)
 		H.internals.icon_state = "internal1"

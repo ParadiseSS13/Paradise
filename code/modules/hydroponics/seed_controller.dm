@@ -106,7 +106,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 
 	if(survive_on_station)
 		if(seed.consume_gasses)
-			seed.consume_gasses["plasma"] = null
+			seed.consume_gasses["phoron"] = null
 			seed.consume_gasses["carbon_dioxide"] = null
 		if(seed.chems && !isnull(seed.chems["pacid"]))
 			seed.chems["pacid"] = null // Eating through the hull will make these plants completely inviable, albeit very dangerous.

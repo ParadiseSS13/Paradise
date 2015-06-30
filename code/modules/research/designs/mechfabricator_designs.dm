@@ -474,7 +474,7 @@
 	id = "phazon_torso"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_torso
-	materials = list("$metal"=35000,"$glass"=10000,"$plasma"=20000)
+	materials = list("$metal"=35000,"$glass"=10000,"$phoron"=20000)
 	construction_time = 300
 	category = list("Phazon")
 
@@ -483,7 +483,7 @@
 	id = "phazon_head"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_head
-	materials = list("$metal"=15000,"$glass"=5000,"$plasma"=10000)
+	materials = list("$metal"=15000,"$glass"=5000,"$phoron"=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -492,7 +492,7 @@
 	id = "phazon_left_arm"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_arm
-	materials = list("$metal"=20000,"$plasma"=10000)
+	materials = list("$metal"=20000,"$phoron"=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -501,7 +501,7 @@
 	id = "phazon_right_arm"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_arm
-	materials = list("$metal"=20000,"$plasma"=10000)
+	materials = list("$metal"=20000,"$phoron"=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -510,7 +510,7 @@
 	id = "phazon_left_leg"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_leg
-	materials = list("$metal"=20000,"$plasma"=10000)
+	materials = list("$metal"=20000,"$phoron"=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -519,7 +519,7 @@
 	id = "phazon_right_leg"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_leg
-	materials = list("$metal"=20000,"$plasma"=10000)
+	materials = list("$metal"=20000,"$phoron"=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -528,7 +528,7 @@
 	id = "phazon_armor"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_armor
-	materials = list("$metal"=45000,"$plasma"=30000)
+	materials = list("$metal"=45000,"$phoron"=30000)
 	construction_time = 300
 	category = list("Phazon")
 
@@ -588,7 +588,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
-	name = "Exosuit Equipment (Plasma Generator)"
+	name = "Exosuit Equipment (Phoron Generator)"
 	id = "mech_generator"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
@@ -693,7 +693,7 @@
 	build_type = MECHFAB
 	req_tech = list("materials" = 4, "bluespace" = 3, "magnets" = 4, "powerstorage"=4, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/rcd
-	materials = list("$metal"=30000,"$gold"=20000,"$plasma"=25000,"$silver"=20000)
+	materials = list("$metal"=30000,"$gold"=20000,"$phoron"=25000,"$silver"=20000)
 	construction_time = 1200
 	category = list("Exosuit Equipment")
 
@@ -870,7 +870,7 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/jetpack
 	req_tech = list("engineering" = 4, "power" = 4)
-	materials = list("$metal"=10000, "$plasma"=5000, "$uranium" = 6000)
+	materials = list("$metal"=10000, "$phoron"=5000, "$uranium" = 6000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

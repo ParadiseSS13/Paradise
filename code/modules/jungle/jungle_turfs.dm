@@ -174,5 +174,5 @@
 	desc = ""
 	density = 1
 	icon = 'icons/turf/walls.dmi'
-	icon_state = "plasma0"
-	var/mineral = "plasma"
+	icon_state = "phoron0"
+	var/mineral = "phoron"

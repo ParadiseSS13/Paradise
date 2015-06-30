@@ -24,7 +24,7 @@
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 
 	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
-	var/poison_type = "plasma"   // Poisonous air.
+	var/poison_type = "phoron"   // Poisonous air.
 	var/exhale_type = "carbon_dioxide"      // Exhaled gas type.
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
@@ -236,7 +236,7 @@
 		var/ratio = (breath.toxins/safe_toxins_max) * 10
 		//adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))	//Limit amount of damage toxin exposure can do per second
 		if(H.reagents)
-			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+			H.reagents.add_reagent("phoron", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
 		H.toxins_alert = max(H.toxins_alert, 1)
 
 	else if(O2_pp > vox_oxygen_max && name == "Vox") //Oxygen is toxic to vox.

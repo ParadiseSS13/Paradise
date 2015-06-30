@@ -37,7 +37,7 @@ var/global/list/datum/stack_recipe/gold_recipes = list ( \
 	)
 
 var/global/list/datum/stack_recipe/plasma_recipes = list ( \
-	new/datum/stack_recipe("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("phoron door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/plastic_recipes = list ( \
@@ -129,11 +129,11 @@ obj/item/stack/sheet/mineral/iron/New()
 	recipes = uranium_recipes
 
 /obj/item/stack/sheet/mineral/plasma
-	name = "solid plasma"
-	icon_state = "sheet-plasma"
-	origin_tech = "plasmatech=2;materials=2"
+	name = "solid phoron"
+	icon_state = "sheet-phoron"
+	origin_tech = "phorontech=2;materials=2"
 	perunit = 2000
-	sheettype = "plasma"
+	sheettype = "phoron"
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()

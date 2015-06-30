@@ -719,7 +719,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "\improper \"Odysseus\" circuit crate"
 
 /datum/supply_packs/science/plasma
-	name = "Plasma Assembly Crate"
+	name = "Phoron Assembly Crate"
 	contains = list(/obj/item/weapon/tank/plasma,
 					/obj/item/weapon/tank/plasma,
 					/obj/item/weapon/tank/plasma,
@@ -734,7 +734,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/device/assembly/timer)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
-	containername = "plasma assembly crate"
+	containername = "phoron assembly crate"
 	access = access_tox_storage
 	group = supply_science
 

@@ -91,8 +91,8 @@
 	cointype=/obj/item/weapon/coin/diamond
 
 /datum/material/plasma
-	name="Plasma"
-	id="plasma"
+	name="Phoron"
+	id="phoron"
 	value=40
 	oretype=/obj/item/weapon/ore/plasma
 	sheettype=/obj/item/stack/sheet/mineral/plasma

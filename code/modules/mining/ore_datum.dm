@@ -25,7 +25,7 @@
 
 /datum/ore/plasma
 	smelts_to = /obj/item/stack/sheet/mineral/plasma
-	oretag = "plasma"
+	oretag = "phoron"
 
 /datum/ore/silver
 	smelts_to = /obj/item/stack/sheet/mineral/silver

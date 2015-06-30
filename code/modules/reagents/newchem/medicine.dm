@@ -854,7 +854,7 @@ datum/reagent/insulin/on_mob_life(var/mob/living/M as mob)
 datum/reagent/teporone
 	name = "Teporone"
 	id = "teporone"
-	description = "This experimental plasma-based compound seems to regulate body temperature."
+	description = "This experimental phoron-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
 
@@ -871,7 +871,7 @@ datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	name = "Teporone"
 	id = "teporone"
 	result = "teporone"
-	required_reagents = list("acetone" = 1, "silicon" = 1, "plasma" = 1)
+	required_reagents = list("acetone" = 1, "silicon" = 1, "phoron" = 1)
 	result_amount = 2
 	mix_message = "The mixture turns an odd lavender color."
 

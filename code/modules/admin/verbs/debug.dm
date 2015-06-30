@@ -178,7 +178,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/t = ""
 	t+= "Nitrogen : [env.nitrogen]\n"
 	t+= "Oxygen : [env.oxygen]\n"
-	t+= "Plasma : [env.toxins]\n"
+	t+= "Phoron : [env.toxins]\n"
 	t+= "CO2: [env.carbon_dioxide]\n"
 
 	usr.show_message(t, 1)

@@ -52,7 +52,7 @@
 	selection_color = "#ffeeff"
 	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Xenoarcheologist", "Anomalist", "Phoron Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
 
 	// All science-y guys get bonuses for maxing out their tech.

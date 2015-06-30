@@ -489,7 +489,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					"nitrogen" = "[round(n2_level*100,0.1)]",\
 					"oxygen" = "[round(o2_level*100,0.1)]",\
 					"carbon_dioxide" = "[round(co2_level*100,0.1)]",\
-					"plasma" = "[round(plasma_level*100,0.01)]",\
+					"phoron" = "[round(plasma_level*100,0.01)]",\
 					"other" = "[round(unknown_level, 0.01)]",\
 					"temp" = "[round(environment.temperature-T0C,0.1)]",\
 					"reading" = 1\
@@ -1199,7 +1199,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					user << "\blue Nitrogen: [round(n2_concentration*100)]%"
 					user << "\blue Oxygen: [round(o2_concentration*100)]%"
 					user << "\blue CO2: [round(co2_concentration*100)]%"
-					user << "\blue Plasma: [round(plasma_concentration*100)]%"
+					user << "\blue Phoron: [round(plasma_concentration*100)]%"
 					if(unknown_concentration>0.01)
 						user << "\red Unknown: [round(unknown_concentration*100)]%"
 					user << "\blue Temperature: [round(A:air_contents.temperature-T0C)]&deg;C"
@@ -1228,7 +1228,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					user << "\blue Nitrogen: [round(n2_concentration*100)]%"
 					user << "\blue Oxygen: [round(o2_concentration*100)]%"
 					user << "\blue CO2: [round(co2_concentration*100)]%"
-					user << "\blue Plasma: [round(plasma_concentration*100)]%"
+					user << "\blue Phoron: [round(plasma_concentration*100)]%"
 					if(unknown_concentration>0.01)
 						user << "\red Unknown: [round(unknown_concentration*100)]%"
 					user << "\blue Temperature: [round(T.parent.air.temperature-T0C)]&deg;C"

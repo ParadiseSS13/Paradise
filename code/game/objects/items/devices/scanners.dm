@@ -348,7 +348,7 @@ REAGENT SCANNER
 			user.show_message("\blue CO2: [round(co2_concentration*100)]%", 1)
 
 		if(plasma_concentration > 0.01)
-			user.show_message("\red Plasma: [round(plasma_concentration*100)]%", 1)
+			user.show_message("\red Phoron: [round(plasma_concentration*100)]%", 1)
 
 		if(unknown_concentration > 0.01)
 			user.show_message("\red Unknown: [round(unknown_concentration*100)]%", 1)

@@ -173,7 +173,7 @@
 	..()
 
 	if (client.statpanel == "Status")
-		stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
+		stat(null, "Phoron Stored: [getPlasma()]/[max_plasma]")
 
 	if(emergency_shuttle)
 		var/eta_status = emergency_shuttle.get_status_panel_eta()

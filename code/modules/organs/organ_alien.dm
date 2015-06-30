@@ -255,13 +255,13 @@
 	parent_organ = "groin"
 
 /obj/item/organ/xenos/plasmavessel
-	name = "plasma vessel"
+	name = "phoron vessel"
 	parent_organ = "chest"
 	var/stored_plasma = 0
 	var/max_plasma = 500
 
 /obj/item/organ/xenos/plasmavessel/queen
-	name = "bloated plasma vessel"
+	name = "bloated phoron vessel"
 	stored_plasma = 200
 	max_plasma = 500
 
@@ -270,7 +270,7 @@
 	max_plasma = 250
 
 /obj/item/organ/xenos/plasmavessel/hunter
-	name = "tiny plasma vessel"
+	name = "tiny phoron vessel"
 	stored_plasma = 100
 	max_plasma = 150
 
@@ -297,9 +297,9 @@
 	organ_tag = "egg sac"
 
 /obj/item/organ/xenos/plasmavessel
-	name = "plasma vessel"
+	name = "phoron vessel"
 	icon_state = "xgibdown1"
-	organ_tag = "plasma vessel"
+	organ_tag = "phoron vessel"
 
 /obj/item/organ/xenos/acidgland
 	name = "acid gland"

@@ -30,10 +30,10 @@
 	oretag = "sand"
 
 /obj/item/weapon/ore/plasma
-	name = "plasma crystals"
-	icon_state = "Plasma ore"
+	name = "phoron crystals"
+	icon_state = "Phoron ore"
 	origin_tech = "materials=2"
-	oretag = "plasma"
+	oretag = "phoron"
 
 /obj/item/weapon/ore/silver
 	name = "native silver ore"

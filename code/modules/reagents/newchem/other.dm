@@ -115,7 +115,7 @@ datum/reagent/colorful_reagent
 	name = "colorful_reagent"
 	id = "colorful_reagent"
 	result = "colorful_reagent"
-	required_reagents = list("plasma" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1, "stabilizing_agent" = 1)
+	required_reagents = list("phoron" = 1, "radium" = 1, "space_drugs" = 1, "cryoxadone" = 1, "triple_citrus" = 1, "stabilizing_agent" = 1)
 	result_amount = 6
 	mix_message = "The substance flashes multiple colors and emits the smell of a pocket protector."
 

@@ -236,7 +236,7 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 	if(siding_icon_state)
 		overlays += image('icons/turf/floors.dmi',siding_icon_state)
 	switch(model.graphic)
-		if("plasma")
+		if("phoron")
 			overlays.Add(plmaster)
 		if("sleeping_agent")
 			overlays.Add(slmaster)

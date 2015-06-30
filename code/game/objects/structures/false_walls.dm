@@ -216,11 +216,11 @@
 	walltype = "diamond"
 
 /obj/structure/falsewall/plasma
-	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definately a bad idea."
+	name = "phoron wall"
+	desc = "A wall with phoron plating. This is definately a bad idea."
 	icon_state = ""
-	mineral = "plasma"
-	walltype = "plasma"
+	mineral = "phoron"
+	walltype = "phoron"
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/Welder.ogg', 100, 1)

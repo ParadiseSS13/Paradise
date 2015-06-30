@@ -67,7 +67,7 @@
 					if(1 to 50)
 						objective = "Steal [pick("a hand teleporter", "the Captain's antique laser gun", "a jetpack", "the Captain's ID", "the Captain's jumpsuit")]."
 					if(51 to 60)
-						objective = "Destroy 70% or more of the station's plasma tanks."
+						objective = "Destroy 70% or more of the station's phoron tanks."
 					if(61 to 70)
 						objective = "Cut power to 80% or more of the station's tiles."
 					if(71 to 80)

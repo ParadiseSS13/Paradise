@@ -204,7 +204,7 @@ obj/machinery/air_sensor
 							if(data["carbon_dioxide"])
 								sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
 							if(data["toxins"])
-								sensor_part += "<li>[data["toxins"]]% Plasma</li>"
+								sensor_part += "<li>[data["toxins"]]% Phoron</li>"
 							sensor_part += "</ul></td></tr>"
 						sensor_part += "</table>"
 

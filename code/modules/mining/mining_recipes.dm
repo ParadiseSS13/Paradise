@@ -108,7 +108,7 @@
 	create = 1
 
 /datum/manufacture/cutter
-	name = "Plasma Cutter"
+	name = "Phoron Cutter"
 	item = /obj/item/weapon/pickaxe/plasmacutter
 	cost1 = /obj/item/weapon/ore/iron
 	cname1 = "Iron"
@@ -117,7 +117,7 @@
 	cname2 = "Gold"
 	amount2 = 10
 	cost3 = /obj/item/weapon/ore/plasma
-	cname3 = "Plasma"
+	cname3 = "Phoron"
 	amount3 = 15
 	time = 30
 	create = 1
@@ -224,7 +224,7 @@
 
 /obj/item/weapon/disk/data/schematic/mining2
 	name = "Mining Schematics Level 2"
-	desc = "Contains the schematics for a new line of drills. And a Plasma Cutter. Has the previous level as well."
+	desc = "Contains the schematics for a new line of drills. And a Phoron Cutter. Has the previous level as well."
 
 	New()
 		src.schematics += new /datum/manufacture/spick(src)

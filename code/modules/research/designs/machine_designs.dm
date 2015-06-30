@@ -6,7 +6,7 @@
 	name = "Machine Board (Freezer/Heater)"
 	desc = "The circuit board for a Freezer/Heater."
 	id = "thermomachine"
-	req_tech = list("programming" = 3, "plasmatech" = 3)
+	req_tech = list("programming" = 3, "phorontech" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/thermomachine
@@ -106,7 +106,7 @@
 	name = "Machine Board (Portable Chem Dispenser)"
 	desc = "The circuit board for a Portable Chem Dispenser."
 	id = "chem_dispenser"
-	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 4, "materials" = 4, "plasmatech" = 3)
+	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 4, "materials" = 4, "phorontech" = 3)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_dispenser
@@ -266,7 +266,7 @@
 	name = "Machine Board (Oven)"
 	desc = "The circuit board for an Oven."
 	id = "oven"
-	req_tech = list("programming" = 1, "plasmatech" = 1)
+	req_tech = list("programming" = 1, "phorontech" = 1)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/oven
@@ -276,7 +276,7 @@
 	name = "Machine Board (Grill)"
 	desc = "The circuit board for a Grill."
 	id = "grill"
-	req_tech = list("programming" = 1, "plasmatech" = 1)
+	req_tech = list("programming" = 1, "phorontech" = 1)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/grill

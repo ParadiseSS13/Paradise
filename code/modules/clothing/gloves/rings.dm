@@ -81,9 +81,9 @@
 	material = "glass"
 
 /obj/item/clothing/gloves/ring/plasma
-	name = "plasma ring"
-	icon_state = "plasmaring"
-	material = "plasma"
+	name = "phoron ring"
+	icon_state = "phoronring"
+	material = "phoron"
 
 /obj/item/clothing/gloves/ring/uranium
 	name = "uranium ring"

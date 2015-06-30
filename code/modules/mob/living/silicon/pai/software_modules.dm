@@ -432,7 +432,7 @@
 				co2["name"] = "Carbon Dioxide"
 				co2["percent"] = round((env.carbon_dioxide/t_moles)*100)
 				var/plasma[0]
-				plasma["name"] = "Plasma"
+				plasma["name"] = "Phoron"
 				plasma["percent"] = round((env.toxins/t_moles)*100)
 				var/other[0]
 				other["name"] = "Other"

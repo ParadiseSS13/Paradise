@@ -414,7 +414,7 @@
 		src.modules += new /obj/item/weapon/soap(src)
 
 		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
-		src.emag.name = "Plasma Cutter"
+		src.emag.name = "Phoron Cutter"
 
 		for(var/T in stacktypes)
 			var/obj/item/stack/sheet/W = new T(src)

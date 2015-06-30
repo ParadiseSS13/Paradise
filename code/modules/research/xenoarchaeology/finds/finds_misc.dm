@@ -1,24 +1,24 @@
 
 /obj/item/weapon/shard/plasma
-	name = "plasma shard"
-	desc = "A shard of plasma glass. Considerably tougher then normal glass shards. Apparently not tough enough to be a window."
+	name = "phoron shard"
+	desc = "A shard of phoron glass. Considerably tougher then normal glass shards. Apparently not tough enough to be a window."
 	force = 8.0
 	throwforce = 15.0
-	icon_state = "plasmalarge"
+	icon_state = "phoronlarge"
 	sharp = 1
 	edge = 1
 
 /obj/item/weapon/shard/plasma/New()
 
-	src.icon_state = pick("plasmalarge", "plasmamedium", "plasmasmall")
+	src.icon_state = pick("phoronlarge", "phoronmedium", "phoronsmall")
 	switch(src.icon_state)
-		if("plasmasmall")
+		if("phoronsmall")
 			src.pixel_x = rand(-12, 12)
 			src.pixel_y = rand(-12, 12)
-		if("plasmamedium")
+		if("phoronmedium")
 			src.pixel_x = rand(-8, 8)
 			src.pixel_y = rand(-8, 8)
-		if("plasmalarge")
+		if("phoronlarge")
 			src.pixel_x = rand(-5, 5)
 			src.pixel_y = rand(-5, 5)
 		else
@@ -36,7 +36,7 @@
 				if(G.amount>=G.max_amount)
 					continue
 				G.attackby(NG, user, params)
-				usr << "You add the newly-formed plasma glass to the stack. It now contains [NG.amount] sheets."
+				usr << "You add the newly-formed phoron glass to the stack. It now contains [NG.amount] sheets."
 			//SN src = null
 			qdel(src)
 			return

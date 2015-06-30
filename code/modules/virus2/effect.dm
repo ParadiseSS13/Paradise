@@ -171,7 +171,7 @@
 // === burn brute toxin clone brain damage symptoms - Bone White ===
 
 /datum/disease2/effect/burn_major
-	name = "Blood Plasma Pyroclastia"
+	name = "Blood Phoron Pyroclastia"
 	stage = 4
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.take_overall_damage(0,15)

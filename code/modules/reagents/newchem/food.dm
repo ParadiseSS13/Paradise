@@ -456,7 +456,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	name = "Beff"
 	id = "beff"
 	result = "beff"
-	required_reagents = list("hydrogenated_soybeanoil" = 2, "meatslurry" = 1, "plasma" = 1)
+	required_reagents = list("hydrogenated_soybeanoil" = 2, "meatslurry" = 1, "phoron" = 1)
 	result_amount = 4
 	mix_message = "The mixture solidifies, taking a crystalline appearance."
 	mix_sound = 'sound/effects/blobattack.ogg'

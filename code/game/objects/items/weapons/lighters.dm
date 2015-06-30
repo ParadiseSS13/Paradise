@@ -153,7 +153,7 @@
 
 /obj/item/weapon/lighter/zippo/fluff/purple
 	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
+	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined phoron sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "purple_zippo_off"
 	icon_on = "purple_zippo_on"

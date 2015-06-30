@@ -903,7 +903,7 @@ datum/objective/heist/salvage
 				target = "plasteel"
 				target_amount = 100
 			if(4)
-				target = "solid plasma"
+				target = "solid phoron"
 				target_amount = 100
 			if(5)
 				target = "silver"

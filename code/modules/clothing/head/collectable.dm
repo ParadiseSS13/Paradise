@@ -7,7 +7,7 @@
 
 /obj/item/clothing/head/collectable/petehat
 	name = "ultra rare Pete's hat!"
-	desc = "It smells faintly of plasma"
+	desc = "It smells faintly of phoron"
 	icon_state = "petehat"
 	loose = 0
 

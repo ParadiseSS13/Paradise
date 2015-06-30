@@ -190,9 +190,9 @@ datum/tech/engineering
 	max_level = 5
 
 datum/tech/plasmatech
-	name = "Plasma Research"
-	desc = "Research into the mysterious substance colloqually known as 'plasma'."
-	id = "plasmatech"
+	name = "Phoron Research"
+	desc = "Research into the mysterious substance colloqually known as 'phoron'."
+	id = "phorontech"
 	max_level = 4
 
 datum/tech/powerstorage

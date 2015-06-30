@@ -38,7 +38,7 @@
 		possibledecals = list( //var that stores all possible decals, used by ui
 			list("name" = "Low temperature canister", "icon" = "cold"),
 			list("name" = "High temperature canister", "icon" = "hot"),
-			list("name" = "Plasma containing canister", "icon" = "plasma")
+			list("name" = "Phoron containing canister", "icon" = "phoron")
 		)
 
 var/datum/canister_icons/canister_icon_container = new()
@@ -86,7 +86,7 @@ var/datum/canister_icons/canister_icon_container = new()
 		"ter" = "none",
 		"quart" = "none")
 		oldcolor = new /list()
-		decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
+		decals = list("cold" = 0, "hot" = 0, "phoron" = 0)
 		colorcontainer = new /list(4)
 		possibledecals = new /list(3)
 		update_icon()
@@ -503,7 +503,7 @@ update_flag
 
 
 /obj/machinery/portable_atmospherics/canister/toxins
-	name = "Canister \[Toxin (Plasma)\]"
+	name = "Canister \[Toxin (Phoron)\]"
 	icon_state = "orange" //See New()
 	can_label = 0
 /obj/machinery/portable_atmospherics/canister/oxygen
@@ -536,7 +536,7 @@ update_flag
 	..()
 
 	_color["prim"] = "orange"
-	decals["plasma"] = 1
+	decals["phoron"] = 1
 	src.air_contents.toxins = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	src.update_icon()

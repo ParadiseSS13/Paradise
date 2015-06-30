@@ -168,13 +168,13 @@ obj/item/weapon/gun/energy/staff/focus
 
 
 /obj/item/weapon/gun/energy/toxgun
-	name = "plasma pistol"
+	name = "phoron pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	w_class = 3.0
-	origin_tech = "combat=5;plasmatech=4"
-	projectile_type = "/obj/item/projectile/energy/plasma"
+	origin_tech = "combat=5;phorontech=4"
+	projectile_type = "/obj/item/projectile/energy/phoron"
 
 /obj/item/weapon/gun/energy/sniperrifle
 	name = "L.W.A.P. Sniper Rifle"

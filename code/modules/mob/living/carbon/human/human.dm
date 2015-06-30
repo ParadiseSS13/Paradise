@@ -87,7 +87,7 @@
 
 /mob/living/carbon/human/plasma/New(var/new_loc)
 	h_style = "Bald"
-	..(new_loc, "Plasmaman")
+	..(new_loc, "Phoronman")
 
 /mob/living/carbon/human/slime/New(var/new_loc)
 	..(new_loc, "Slime People")

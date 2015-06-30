@@ -400,10 +400,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_breath(breath)
 
-		if(species.name=="Plasmaman") //this is stupid as fuck
+		if(species.name=="Phoronman") //this is stupid as fuck
 			// Check if we're wearing our biosuit and mask.
 			if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
-				//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
+				//testing("Phoronman [src] leakin'.  coverflags=[cover_flags]")
 				// OH FUCK HE LEAKIN'.
 				// This was OP.
 				//environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)

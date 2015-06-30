@@ -411,7 +411,7 @@
 
 		B1.reagents.add_reagent("aluminum", 25)
 		B1.reagents.add_reagent("incendiaryfuel",25)
-		B2.reagents.add_reagent("plasma", 25)
+		B2.reagents.add_reagent("phoron", 25)
 		B2.reagents.add_reagent("sacid", 25)
 
 

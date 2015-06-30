@@ -174,7 +174,7 @@
 		if(ATM_CO2)
 			return "Carbon Dioxide"
 		if(ATM_P)
-			return "Plasma" //*cough* Plasma *cough*
+			return "Phoron" //*cough* Plasma *cough*
 		if(ATM_N2O)
 			return "Nitrous Oxide"
 		else
@@ -202,7 +202,7 @@
 			if("switch_mode")
 				switch_mode(dir_flag(href_list["dir"]), mode_return_switch(href_list["mode"]))
 			if("switch_filter")
-				var/new_filter = input(usr,"Select filter mode:","Change filter",href_list["mode"]) in list("None", "Oxygen", "Nitrogen", "Carbon Dioxide", "Plasma", "Nitrous Oxide")
+				var/new_filter = input(usr,"Select filter mode:","Change filter",href_list["mode"]) in list("None", "Oxygen", "Nitrogen", "Carbon Dioxide", "Phoron", "Nitrous Oxide")
 				switch_filter(dir_flag(href_list["dir"]), mode_return_switch(new_filter))
 
 	update_icon()
@@ -217,7 +217,7 @@
 			return ATM_N2
 		if("Carbon Dioxide")
 			return ATM_CO2
-		if("Plasma")
+		if("Phoron")
 			return ATM_P
 		if("Nitrous Oxide")
 			return ATM_N2O

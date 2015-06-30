@@ -346,7 +346,7 @@
 /datum/barsign/solaris
 	name = "Solaris"
 	icon = "solaris"
-	desc = "When is a plasma giant not a plasma giant? When it's a bar serving plasma from a plasma giant."
+	desc = "When is a phoron giant not a plasma giant? When it's a bar serving plasma from a plasma giant."
 
 /datum/barsign/thehive
 	name = "The Hive"

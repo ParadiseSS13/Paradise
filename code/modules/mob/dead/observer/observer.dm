@@ -471,7 +471,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			src << "\blue CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)"
 
 		if(plasma_concentration > 0.01)
-			src << "\red Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)"
+			src << "\red Phoron: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)"
 
 		if(unknown_concentration > 0.01)
 			src << "\red Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)"

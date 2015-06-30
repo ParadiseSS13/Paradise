@@ -29,7 +29,7 @@
 	t+= "\red Temperature: [environment.temperature] \n"
 	t+= "\blue Nitrogen: [environment.nitrogen] \n"
 	t+= "\blue Oxygen: [environment.oxygen] \n"
-	t+= "\blue Plasma : [environment.toxins] \n"
+	t+= "\blue Phoron : [environment.toxins] \n"
 	t+= "\blue Carbon Dioxide: [environment.carbon_dioxide] \n"
 	for(var/datum/gas/trace_gas in environment.trace_gases)
 		usr << "\blue [trace_gas.type]: [trace_gas.moles] \n"

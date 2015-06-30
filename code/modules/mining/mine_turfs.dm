@@ -357,7 +357,7 @@
 
 /turf/simulated/mineral/random
 	name = "Mineral deposit"
-	var/mineralSpawnChanceList = list("Uranium" = 5, "Coal" = 50, "Iron" = 50, "Diamond" = 1, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Plasma" = 25, "Cave" = 1)//Currently, Adamantine won't spawn as it has no uses. -Durandan
+	var/mineralSpawnChanceList = list("Uranium" = 5, "Coal" = 50, "Iron" = 50, "Diamond" = 1, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Phoron" = 25, "Cave" = 1)//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 10  //means 10% chance of this plot changing to a mineral deposit
 
 	New()
@@ -376,12 +376,12 @@
 
 /turf/simulated/mineral/random/high_chance
 	mineralChance = 25
-	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 10, "Silver" = 10, "Platinum" = 10, "Hydrogen" = 10, "Plasma" = 25)
+	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 10, "Silver" = 10, "Platinum" = 10, "Hydrogen" = 10, "Phoron" = 25)
 
 
 /turf/simulated/mineral/random/high_chance_clown
 	mineralChance = 40
-	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Plasma" = 25, "Clown" = 15)
+	mineralSpawnChanceList = list("Uranium" = 10, "Coal" = 30, "Iron" = 30, "Diamond" = 2, "Gold" = 5, "Silver" = 5, "Platinum" = 5, "Hydrogen" = 5, "Phoron" = 25, "Clown" = 15)
 
 /**********************Asteroid**************************/
 
