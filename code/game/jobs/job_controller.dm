@@ -494,7 +494,9 @@ var/global/datum/controller/occupations/job_master
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
-				G.prescription = 1
+				if(istype(G) && !G.prescription)
+					G.prescription = 1
+					G.name = "prescription [G.name]"
 //		H.update_icons()
 
 		H.hud_updateflag |= (1 << ID_HUD)

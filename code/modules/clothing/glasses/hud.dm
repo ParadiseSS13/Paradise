@@ -4,6 +4,7 @@
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = SECHUD
+	prescription_upgradable = 1
 	var/list/icon/current = list() //the current hud icons
 
 
@@ -27,6 +28,7 @@
 	item_state = "glasses"
 	darkness_view = 8
 	see_darkness = 0
+	prescription_upgradable = 0
 
 
 /obj/item/clothing/glasses/hud/security
@@ -50,3 +52,4 @@
 	icon_state = "securityhudnight"
 	darkness_view = 8
 	see_darkness = 0
+	prescription_upgradable = 0
