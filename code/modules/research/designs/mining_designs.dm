@@ -33,12 +33,12 @@
 	category = list("Mining")	
 	
 /datum/design/plasmacutter
-	name = "Plasma Cutter"
+	name = "Phoron Cutter"
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
-	id = "plasmacutter"
-	req_tech = list("materials" = 4, "plasmatech" = 3, "engineering" = 3)
+	id = "phoroncutter"
+	req_tech = list("materials" = 4, "phorontech" = 3, "engineering" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 1500, "$glass" = 500, "$gold" = 500, "$plasma" = 500)
+	materials = list("$metal" = 1500, "$glass" = 500, "$gold" = 500, "$phoron" = 500)
 	reliability_base = 79
 	build_path = /obj/item/weapon/pickaxe/plasmacutter
 	category = list("Mining")

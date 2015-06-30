@@ -11,7 +11,7 @@ Doesn't work on other aliens/AI.*/
 		src << "<span class='noticealien'>You must be conscious to do this.</span>"
 		return 0
 	else if(X && getPlasma() < X)
-		src << "<span class='noticealien'>Not enough plasma stored.</span>"
+		src << "<span class='noticealien'>Not enough phoron stored.</span>"
 		return 0
 	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
 		src << "<span class='noticealien'>You can't place that here!</span>"
@@ -49,20 +49,20 @@ Doesn't work on other aliens/AI.*/
 	return
 
 /mob/living/carbon/alien/humanoid/verb/transfer_plasma(mob/living/carbon/alien/M as mob in oview())
-	set name = "Transfer Plasma"
-	set desc = "Transfer Plasma to another alien"
+	set name = "Transfer Phoron"
+	set desc = "Transfer Phoron to another alien"
 	set category = "Alien"
 
 	if(isalien(M))
-		var/amount = input("Amount:", "Transfer Plasma to [M]") as num
+		var/amount = input("Amount:", "Transfer Phoron to [M]") as num
 		if (amount)
 			amount = abs(round(amount))
 			if(powerc(amount))
 				if (get_dist(src,M) <= 1)
 					M.adjustToxLoss(amount)
 					adjustToxLoss(-amount)
-					M << "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>"
-					src << {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"}
+					M << "<span class='noticealien'>[src] has transfered [amount] phoron to you.</span>"
+					src << {"<span class='noticealien'>You have trasferred [amount] phoron to [M]</span>"}
 				else
 					src << "<span class='noticealien'>You need to be closer.</span>"
 	return

@@ -57,7 +57,7 @@
 	id = "nvgmesons"
 	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 300, "$glass" = 400, "$plasma" = 250, "$uranium" = 1000)
+	materials = list("$metal" = 300, "$glass" = 400, "$phoron" = 250, "$uranium" = 1000)
 	build_path = /obj/item/clothing/glasses/meson/night
 	category = list("Equipment")	
 	
@@ -67,7 +67,7 @@
 	id = "mesons"
 	req_tech = list("materials" = 3, "magnets" = 3, "engineering" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 200, "$glass" = 300, "$plasma" = 100)
+	materials = list("$metal" = 200, "$glass" = 300, "$phoron" = 100)
 	build_path = /obj/item/clothing/glasses/meson
 	category = list("Equipment")
 

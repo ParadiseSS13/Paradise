@@ -216,7 +216,7 @@
 				new_item = new /obj/item/weapon/tank/anesthetic(src.loc)
 			else
 				new_item = new /obj/item/weapon/tank/plasma(src.loc)
-			icon_state = pick("oxygen","oxygen_fr","oxygen_f","plasma","anesthetic")
+			icon_state = pick("oxygen","oxygen_fr","oxygen_f","phoron","anesthetic")
 			additional_desc = "It [pick("gloops","sloshes")] slightly when you shake it."
 		if(13)
 			item_type = "tool"
@@ -498,7 +498,7 @@
 		if(prob(30))
 			descriptors.Add("is encircled with bands of [pick("quadrinium","cordite","ferritic-alloy","plasteel","duranium")]")
 		if(prob(30))
-			descriptors.Add("menaces with spikes of [pick("solid plasma","uranium","white pearl","black steel")]")
+			descriptors.Add("menaces with spikes of [pick("solid phoron","uranium","white pearl","black steel")]")
 		if(descriptors.len > 0)
 			decorations = "It "
 			for(var/index=1, index <= descriptors.len, index++)

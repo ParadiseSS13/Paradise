@@ -62,7 +62,7 @@
 	if (amt_glass)
 		dat += text("<br>Sand: [amt_glass]")
 	if (amt_plasma)
-		dat += text("<br>Plasma ore: [amt_plasma]")
+		dat += text("<br>Phoron ore: [amt_plasma]")
 	if (amt_uranium)
 		dat += text("<br>Uranium ore: [amt_uranium]")
 	if (amt_silver)

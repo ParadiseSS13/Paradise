@@ -69,7 +69,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/core
 	category = list("Pod_Parts")
-	materials = list("$metal"=5000,"$uranium"=1000,"$plasma"=5000)
+	materials = list("$metal"=5000,"$uranium"=1000,"$phoron"=5000)
 
 //////////////////////////////////////////
 ////////SPACEPOD ARMOR////////////////////
@@ -84,7 +84,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/armor
 	category = list("Pod_Armor")
-	materials = list("$metal"=15000,"$glass"=5000,"$plasma"=10000)
+	materials = list("$metal"=15000,"$glass"=5000,"$phoron"=10000)
 
 //////////////////////////////////////////
 //////SPACEPOD GUNS///////////////////////
@@ -110,7 +110,7 @@
 	req_tech = list("materials" = 3, "combat" = 3)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	category = list("Pod_Weaponry")
-	materials = list("$metal" = 15000,"$plasma"=2000)
+	materials = list("$metal" = 15000,"$phoron"=2000)
 	locked = 1
 
 /datum/design/pod_gun_laser
@@ -119,7 +119,7 @@
 	desc = "Allows for the construction of a spacepod mounted laser."
 	id = "podgun_laser"
 	build_type = PODFAB
-	req_tech = list("materials" = 3, "combat" = 3, "plasma" = 2)
+	req_tech = list("materials" = 3, "combat" = 3, "phoron" = 2)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/laser
 	category = list("Pod_Weaponry")
 	materials = list("$metal"=10000,"$glass"=5000,"$gold"=1000,"$silver"=2000)

@@ -80,11 +80,11 @@
 	..()
 
 /turf/simulated/wall/mineral/plasma
-	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definately a bad idea."
-	icon_state = "plasma0"
-	walltype = "plasma"
-	mineral = "plasma"
+	name = "phoron wall"
+	desc = "A wall with phoron plating. This is definately a bad idea."
+	icon_state = "phoron0"
+	walltype = "phoron"
+	mineral = "phoron"
 	thermal_conductivity = 0.04
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -133,6 +133,6 @@
 /turf/simulated/wall/mineral/alien
 	name = "alien wall"
 	desc = "An strange-looking alien wall."
-	icon_state = "plasma0"
-	walltype = "plasma"
-	mineral = "plasma"
+	icon_state = "phoron0"
+	walltype = "phoron"
+	mineral = "phoron"

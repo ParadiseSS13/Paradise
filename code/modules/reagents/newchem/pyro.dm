@@ -118,7 +118,7 @@
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
 	result = "liquid_dark_matter"
-	required_reagents = list("plasma" = 1, "radium" = 1, "carbon" = 1)
+	required_reagents = list("phoron" = 1, "radium" = 1, "carbon" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/ldm_vortex
@@ -420,7 +420,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	name = "phlogiston"
 	id = "phlogiston"
 	result = "phlogiston"
-	required_reagents = list("phosphorus" = 1, "sacid" = 1, "plasma" = 1)
+	required_reagents = list("phosphorus" = 1, "sacid" = 1, "phoron" = 1)
 	result_amount = 3
 
 /datum/chemical_reaction/phlogiston/on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -476,7 +476,7 @@ datum/reagent/cryostylane
 	name = "cryostylane"
 	id = "cryostylane"
 	result = "cryostylane"
-	required_reagents = list("water" = 1, "plasma" = 1, "nitrogen" = 1)
+	required_reagents = list("water" = 1, "phoron" = 1, "nitrogen" = 1)
 	result_amount = 3
 
 datum/reagent/cryostylane/on_mob_life(var/mob/living/M as mob) //TODO: code freezing into an ice cube
@@ -510,7 +510,7 @@ datum/reagent/pyrosium
 	name = "pyrosium"
 	id = "pyrosium"
 	result = "pyrosium"
-	required_reagents = list("plasma" = 1, "radium" = 1, "phosphorus" = 1)
+	required_reagents = list("phoron" = 1, "radium" = 1, "phosphorus" = 1)
 	result_amount = 3
 
 datum/reagent/pyrosium/on_mob_life(var/mob/living/M as mob)

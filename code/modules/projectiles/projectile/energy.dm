@@ -80,7 +80,7 @@
 	damage = 20
 
 /obj/item/projectile/energy/plasma
-	name = "plasma bolt"
+	name = "phoron bolt"
 	icon_state = "energy"
 	damage = 20
 	damage_type = TOX

@@ -292,50 +292,50 @@
 	name="Phazon Torso"
 	icon_state = "phazon_harness"
 	construction_time = 300
-	construction_cost = list("metal"=35000,"glass"=10000,"plasma"=20000)
+	construction_cost = list("metal"=35000,"glass"=10000,"phoron"=20000)
 	origin_tech = "programming=5;materials=6;bluespace=5;powerstorage=5"
 
 /obj/item/mecha_parts/part/phazon_head
 	name="Phazon Head"
 	icon_state = "phazon_head"
 	construction_time = 200
-	construction_cost = list("metal"=15000,"glass"=5000,"plasma"=10000)
+	construction_cost = list("metal"=15000,"glass"=5000,"phoron"=10000)
 	origin_tech = "programming=4;materials=5;magnets=5"
 
 /obj/item/mecha_parts/part/phazon_left_arm
 	name="Phazon Left Arm"
 	icon_state = "phazon_l_arm"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"plasma"=10000)
+	construction_cost = list("metal"=20000,"phoron"=10000)
 	origin_tech = "materials=5;bluespace=2;magnets=2"
 
 /obj/item/mecha_parts/part/phazon_right_arm
 	name="Phazon Right Arm"
 	icon_state = "phazon_r_arm"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"plasma"=10000)
+	construction_cost = list("metal"=20000,"phoron"=10000)
 	origin_tech = "materials=5;bluespace=2;magnets=2"
 
 /obj/item/mecha_parts/part/phazon_left_leg
 	name="Phazon Left Leg"
 	icon_state = "phazon_l_leg"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"plasma"=10000)
+	construction_cost = list("metal"=20000,"phoron"=10000)
 	origin_tech = "materials=5;bluespace=3;magnets=3"
 
 /obj/item/mecha_parts/part/phazon_right_leg
 	name="Phazon Right Leg"
 	icon_state = "phazon_r_leg"
 	construction_time = 200
-	construction_cost = list("metal"=20000,"plasma"=10000)
+	construction_cost = list("metal"=20000,"phoron"=10000)
 	origin_tech = "materials=5;bluespace=3;magnets=3"
 
 /obj/item/mecha_parts/part/phazon_armor
 	name="Phazon armor"
-	desc="Phazon armor plates. They are layered with plasma to protect the pilot from the stress of phasing and have unusual properties."
+	desc="Phazon armor plates. They are layered with phoron to protect the pilot from the stress of phasing and have unusual properties."
 	icon_state = "phazon_armor"
 	construction_time = 300
-	construction_cost = list("metal"=45000,"plasma"=30000)
+	construction_cost = list("metal"=45000,"phoron"=30000)
 	origin_tech = "materials=6;bluespace=5;magnets=5"
 
 ///////// Odysseus

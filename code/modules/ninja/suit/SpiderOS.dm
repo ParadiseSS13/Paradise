@@ -86,7 +86,7 @@
 					dat += "<li>Nitrogen: [round(n2_level*100)]%</li>"
 					dat += "<li>Oxygen: [round(o2_level*100)]%</li>"
 					dat += "<li>Carbon Dioxide: [round(co2_level*100)]%</li>"
-					dat += "<li>Plasma: [round(plasma_level*100)]%</li>"
+					dat += "<li>Phoron: [round(phoron_level*100)]%</li>"
 					dat += "</ul>"
 					if(unknown_level > 0.01)
 						dat += "OTHER: [round(unknown_level)]%<br>"

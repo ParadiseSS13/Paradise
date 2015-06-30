@@ -191,13 +191,13 @@ var/global/vs_control/vsc = new
 		plc.Randomize(V)
 
 /vs_control/proc/SetDefault(var/mob/user)
-	var/list/setting_choices = list("Plasma - Standard", "Plasma - Low Hazard", "Plasma - High Hazard", "Plasma - Oh Shit!",\
+	var/list/setting_choices = list("Phoron - Standard", "Phoron - Low Hazard", "Phoron - High Hazard", "Phoron - Oh Shit!",\
 	"ZAS - Normal", "ZAS - Forgiving", "ZAS - Dangerous", "ZAS - Hellish")
 	var/def = input(user, "Which of these presets should be used?") as null|anything in setting_choices
 	if(!def)
 		return
 	switch(def)
-		if("Plasma - Standard")
+		if("Phoron - Standard")
 			plc.CLOTH_CONTAMINATION = 1 //If this is on, plasma does damage by getting into cloth.
 			plc.PLASMAGUARD_ONLY = 0
 			plc.GENETIC_CORRUPTION = 0 //Chance of genetic corruption as well as toxic damage, X in 1000.
@@ -206,7 +206,7 @@ var/global/vs_control/vsc = new
 			plc.PLASMA_HALLUCINATION = 0
 			plc.CONTAMINATION_LOSS = 0.02
 
-		if("Plasma - Low Hazard")
+		if("Phoron - Low Hazard")
 			plc.CLOTH_CONTAMINATION = 0 //If this is on, plasma does damage by getting into cloth.
 			plc.PLASMAGUARD_ONLY = 0
 			plc.GENETIC_CORRUPTION = 0 //Chance of genetic corruption as well as toxic damage, X in 1000
@@ -215,7 +215,7 @@ var/global/vs_control/vsc = new
 			plc.PLASMA_HALLUCINATION = 0
 			plc.CONTAMINATION_LOSS = 0.01
 
-		if("Plasma - High Hazard")
+		if("Phoron - High Hazard")
 			plc.CLOTH_CONTAMINATION = 1 //If this is on, plasma does damage by getting into cloth.
 			plc.PLASMAGUARD_ONLY = 0
 			plc.GENETIC_CORRUPTION = 0 //Chance of genetic corruption as well as toxic damage, X in 1000.
@@ -224,7 +224,7 @@ var/global/vs_control/vsc = new
 			plc.PLASMA_HALLUCINATION = 1
 			plc.CONTAMINATION_LOSS = 0.05
 
-		if("Plasma - Oh Shit!")
+		if("Phoron - Oh Shit!")
 			plc.CLOTH_CONTAMINATION = 1 //If this is on, plasma does damage by getting into cloth.
 			plc.PLASMAGUARD_ONLY = 1
 			plc.GENETIC_CORRUPTION = 5 //Chance of genetic corruption as well as toxic damage, X in 1000.
@@ -291,7 +291,7 @@ var/global/vs_control/vsc = new
 			connection_insulation = 0
 
 
-	world << "\blue <b>[key_name(user)] changed the global plasma/ZAS settings to \"[def]\"</b>"
+	world << "\blue <b>[key_name(user)] changed the global phoron/ZAS settings to \"[def]\"</b>"
 
 /pl_control/var/list/settings = list()
 

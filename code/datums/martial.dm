@@ -235,7 +235,7 @@
 #define PLASMA_COMBO "HDDDH"
 
 /datum/martial_art/plasma_fist
-	name = "Plasma Fist"
+	name = "Phoron Fist"
 
 /datum/martial_art/plasma_fist/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(findtext(streak,TORNADO_COMBO))
@@ -267,8 +267,8 @@
 	return
 
 /datum/martial_art/plasma_fist/proc/Throwback(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	D.visible_message("<span class='danger'>[A] has hit [D] with Plasma Punch!</span>", \
-								"<span class='userdanger'>[A] has hit [D] with Plasma Punch!</span>")
+	D.visible_message("<span class='danger'>[A] has hit [D] with Phoron Punch!</span>", \
+								"<span class='userdanger'>[A] has hit [D] with Phoron Punch!</span>")
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4)
@@ -348,7 +348,7 @@
 	return
 
 /obj/item/weapon/plasma_fist_scroll
-	name = "Plasma Fist Scroll"
+	name = "Phoron Fist Scroll"
 	desc = "Teaches the traditional wizard martial art."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"

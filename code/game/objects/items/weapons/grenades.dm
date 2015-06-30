@@ -190,7 +190,7 @@
 		var/obj/item/slime_extract/bluespace/B1 = new(src)
 		B1.Uses = rand(1,3)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
-		B2.reagents.add_reagent("plasma",5 * B1.Uses)
+		B2.reagents.add_reagent("phoron",5 * B1.Uses)
 		beakers += B1
 		beakers += B2
 
@@ -220,7 +220,7 @@
 		var/obj/item/slime_extract/gold/B1 = new(src)
 		B1.Uses = rand(1,3)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
-		B2.reagents.add_reagent("plasma",5 * B1.Uses)
+		B2.reagents.add_reagent("phoron",5 * B1.Uses)
 		beakers += B1
 		beakers += B2
 
@@ -249,7 +249,7 @@
 		var/obj/item/slime_extract/silver/B1 = new(src)
 		B1.Uses = rand(1,3)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
-		B2.reagents.add_reagent("plasma",5 * B1.Uses)
+		B2.reagents.add_reagent("phoron",5 * B1.Uses)
 		beakers += B1
 		beakers += B2
 

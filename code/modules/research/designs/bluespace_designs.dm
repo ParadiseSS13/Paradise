@@ -7,7 +7,7 @@
 	id = "bluespace_crystal"
 	req_tech = list("bluespace" = 4, "materials" = 6)
 	build_type = PROTOLATHE
-	materials = list("$diamond" = 1500, "$plasma" = 1500)
+	materials = list("$diamond" = 1500, "$phoron" = 1500)
 	reliability_base = 100
 	build_path = /obj/item/bluespace_crystal/artificial
 	category = list("Bluespace")	
@@ -40,7 +40,7 @@
 	id = "bluespacebeaker"
 	req_tech = list("bluespace" = 2, "materials" = 6)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 3000, "$plasma" = 3000, "$diamond" = 500)
+	materials = list("$metal" = 3000, "$phoron" = 3000, "$diamond" = 500)
 	reliability_base = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	category = list("Medical")

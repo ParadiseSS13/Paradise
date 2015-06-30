@@ -112,7 +112,7 @@
 		if (AMTbohr) dat += "<A href='?src=\ref[src];eject=5'><B>Gold:</B></A> [AMTbohr]<br>"
 		if (AMTereb) dat += "<A href='?src=\ref[src];eject=6'><B>Coal:</B></A> [AMTereb]<br>"
 		if (AMTcere) dat += "<A href='?src=\ref[src];eject=7'><B>Uranium:</B></A> [AMTcere]<br>"
-		if (AMTplas) dat += "<A href='?src=\ref[src];eject=8'><B>Plasma:</B></A> [AMTplas]<br>"
+		if (AMTplas) dat += "<A href='?src=\ref[src];eject=8'><B>Phoron:</B></A> [AMTplas]<br>"
 		if (AMTuqil) dat += "<A href='?src=\ref[src];eject=9'><B>Platinum:</B></A> [AMTuqil]<br>"
 		if (AMTtele) dat += "<A href='?src=\ref[src];eject=10'><B>Hydrogen:</B></A> [AMTtele]<br>"
 		if (AMTfabr) dat += "<A href='?src=\ref[src];eject=11'><B>Fabric:</B></A> [AMTfabr]<br>"
@@ -643,7 +643,7 @@
 	cname1 = "Iron"
 	amount1 = 1
 	cost2 = /obj/item/weapon/ore/plasma
-	cname2 = "Plasma"
+	cname2 = "Phoron"
 	amount2 = 1
 	time = 6
 	create = 1

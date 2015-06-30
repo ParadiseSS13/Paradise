@@ -231,7 +231,7 @@ to destroy them and players will be able to make replacements.
 	desc = "Use screwdriver to switch between heating and cooling modes."
 	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 	board_type = "machine"
-	origin_tech = "programming=3;plasmatech=3"
+	origin_tech = "programming=3;phorontech=3"
 	frame_desc = "Requires 2 Matter Bins, 2 Micro Lasers, 1 piece of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 2,
@@ -287,7 +287,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Oven)"
 	build_path = /obj/machinery/oven
 	board_type = "machine"
-	origin_tech = "programming=1;plasmatech=1"
+	origin_tech = "programming=1;phorontech=1"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 2,
@@ -298,7 +298,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Grill)"
 	build_path = /obj/machinery/grill
 	board_type = "machine"
-	origin_tech = "programming=1;plasmatech=1"
+	origin_tech = "programming=1;phorontech=1"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/weapon/stock_parts/micro_laser = 2,
@@ -320,7 +320,7 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Portable Chem Dispenser)"
 	build_path = /obj/machinery/chem_dispenser/constructable
 	board_type = "machine"
-	origin_tech = "materials=4;engineering=4;programming=4;plasmatech=3;biotech=3"
+	origin_tech = "materials=4;engineering=4;programming=4;phorontech=3;biotech=3"
 	frame_desc = "Requires 2 Matter Bins, 1 Capacitor, 1 Manipulator, 1 Console Screen, and 1 Power Cell."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 2,
@@ -388,7 +388,7 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit Board (PACMAN-type Generator)"
 	build_path = "/obj/machinery/power/port_gen/pacman"
 	board_type = "machine"
-	origin_tech = "programming=3:powerstorage=3;plasmatech=3;engineering=3"
+	origin_tech = "programming=3:powerstorage=3;phorontech=3;engineering=3"
 	frame_desc = "Requires 1 Matter Bin, 1 Micro-Laser, 2 Pieces of Cable, and 1 Capacitor."
 	req_components = list(
 							/obj/item/weapon/stock_parts/matter_bin = 1,

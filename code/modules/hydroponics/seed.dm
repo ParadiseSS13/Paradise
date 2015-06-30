@@ -439,7 +439,7 @@
 			"atropine",
 			"omnizine",
 			"salbutamol",
-			"plasma",
+			"phoron",
 			"synaptizine",
 			"haloperidol",
 			"potass_iodide",

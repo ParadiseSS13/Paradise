@@ -268,12 +268,12 @@
 
 
 /obj/item/stack/sheet/plasmaglass
-	name = "plasma glass"
-	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
+	name = "phoron glass"
+	desc = "A very strong and very resistant sheet of a phoron-glass alloy."
 	singular_name = "glass sheet"
-	icon_state = "sheet-plasmaglass"
+	icon_state = "sheet-phoronglass"
 	g_amt = MINERAL_MATERIAL_AMOUNT * 2
-	origin_tech = "materials=3;plasma=2"
+	origin_tech = "materials=3;phoron=2"
 	var/created_window = /obj/structure/window/plasmabasic
 	var/full_window = /obj/structure/window/full/plasmabasic
 
@@ -304,7 +304,7 @@
 	if(!user.IsAdvancedToolUser())
 		user << "<span class='danger'> You don't have the dexterity to do this!"
 		return 0
-	var/title = "Plasma-glass alloy"
+	var/title = "Phoron-glass alloy"
 	title += " ([src.amount] sheet\s left)"
 	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
 		if("One Direction")
@@ -357,13 +357,13 @@
  * Reinforced plasma glass sheets
  */
 /obj/item/stack/sheet/plasmarglass
-	name = "reinforced plasma glass"
-	desc = "Plasma glass which seems to have rods or something stuck in them."
-	singular_name = "reinforced plasma glass sheet"
-	icon_state = "sheet-plasmarglass"
+	name = "reinforced phoron glass"
+	desc = "Phoron glass which seems to have rods or something stuck in them."
+	singular_name = "reinforced phoron glass sheet"
+	icon_state = "sheet-phoronrglass"
 	g_amt = MINERAL_MATERIAL_AMOUNT * 2
 	m_amt = MINERAL_MATERIAL_AMOUNT / 2
-	origin_tech = "materials=3;plasma=2"
+	origin_tech = "materials=3;phoron=2"
 	var/created_window = /obj/structure/window/plasmareinforced
 	var/full_window = /obj/structure/window/full/plasmareinforced
 
@@ -377,7 +377,7 @@
 	if(!user.IsAdvancedToolUser())
 		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 0
-	var/title = "Reinforced plasma-glass alloy"
+	var/title = "Reinforced phoron-glass alloy"
 	title += " ([src.amount] sheet\s left)"
 	switch(alert(title, "Would you like full tile glass or one direction?", "One Direction", "Full Window", "Cancel", null))
 		if("One Direction")

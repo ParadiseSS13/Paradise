@@ -286,8 +286,8 @@
 	var/trap_type
 
 	New()
-		trap_type = pick(50;"thrower","sawburst","poison_dart","flame_burst",10;"plasma_gas",5;"n2_gas")
-		if( (trap_type == "plasma_gas" || trap_type == "n2_gas") && prob(10))
+		trap_type = pick(50;"thrower","sawburst","poison_dart","flame_burst",10;"phoron_gas",5;"n2_gas")
+		if( (trap_type == "phoron_gas" || trap_type == "n2_gas") && prob(10))
 			new /obj/effect/glowshroom(src.loc)
 
 		//hint that this tile is dangerous
@@ -334,7 +334,7 @@
 				myloc.overlays -= flicker
 				del flicker
 			//flick("flameburst",src)
-		if("plasma_gas")
+		if("phoron_gas")
 			//spawn a bunch of plasma
 		if("n2_gas")
 			//spawn a bunch of sleeping gas

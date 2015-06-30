@@ -1167,8 +1167,8 @@ datum
 					return
 
 		plasma
-			name = "Plasma"
-			id = "plasma"
+			name = "Phoron"
+			id = "phoron"
 			description = "The liquid phase of an unusual extraterrestrial compound."
 			reagent_state = LIQUID
 			color = "#7A2B94"
@@ -1309,7 +1309,7 @@ datum
 		cryoxadone
 			name = "Cryoxadone"
 			id = "cryoxadone"
-			description = "A plasma mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
+			description = "A phoron mixture with almost magical healing powers. Its main limitation is that the targets body temperature must be under 265K for it to metabolise correctly."
 			reagent_state = LIQUID
 			color = "#0000C8" // rgb: 200, 165, 220
 

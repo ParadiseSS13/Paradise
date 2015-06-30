@@ -1,6 +1,6 @@
 
 /datum/artifact_effect/gasplasma
-	effecttype = "gasplasma"
+	effecttype = "gasphoron"
 	var/max_pressure
 	var/target_percentage
 

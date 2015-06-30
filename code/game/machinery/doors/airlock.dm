@@ -234,10 +234,10 @@
 	return
 
 /obj/machinery/door/airlock/plasma
-	name = "plasma airlock"
+	name = "phoron airlock"
 	desc = "No way this can end badly."
 	icon = 'icons/obj/doors/Doorplasma.dmi'
-	mineral = "plasma"
+	mineral = "phoron"
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)

@@ -1,8 +1,8 @@
 // PLASMEN SHIT
 // CAN'T WEAR UNLESS YOU'RE A PINK SKELLINGTON
 /obj/item/clothing/suit/space/eva/plasmaman
-	name = "plasmaman suit"
-	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
+	name = "phoronman suit"
+	desc = "A special containment suit designed to protect a phoronman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
@@ -10,11 +10,11 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	species_restricted = list("Plasmaman")
+	species_restricted = list("Phoronman")
 	flags = STOPSPRESSUREDMAGE  | PLASMAGUARD
 
-	icon_state = "plasmaman_suit"
-	item_state = "plasmaman_suit"
+	icon_state = "phoronman_suit"
+	item_state = "phoronman_suit"
 
 	var/next_extinguish=0
 	var/extinguish_cooldown=10 SECONDS
@@ -36,14 +36,14 @@
 		H.ExtinguishMob()
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman
-	name = "plasmaman helmet"
-	desc = "A special containment helmet designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
+	name = "phoronman helmet"
+	desc = "A special containment helmet designed to protect a phoronman's volatile body from outside exposure and quickly extinguish it in emergencies."
 	flags = STOPSPRESSUREDMAGE | PLASMAGUARD
-	species_restricted = list("Plasmaman")
+	species_restricted = list("Phoronman")
 
-	icon_state = "plasmaman_helmet0"
-	item_state = "plasmaman_helmet0"
-	var/base_state = "plasmaman_helmet"
+	icon_state = "phoronman_helmet0"
+	item_state = "phoronman_helmet0"
+	var/base_state = "phoronman_helmet"
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	var/no_light=0 // Disable the light on the atmos suit
@@ -78,240 +78,240 @@
 
 // ENGINEERING
 /obj/item/clothing/suit/space/eva/plasmaman/assistant
-	name = "plasmaman assistant suit"
-	icon_state = "plasmamanAssistant_suit"
+	name = "phoronman assistant suit"
+	icon_state = "phoronmanAssistant_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/assistant
-	name = "plasmaman assistant helmet"
-	icon_state = "plasmamanAssistant_helmet0"
-	base_state = "plasmamanAssistant_helmet"
+	name = "phoronman assistant helmet"
+	icon_state = "phoronmanAssistant_helmet0"
+	base_state = "phoronmanAssistant_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
-	name = "plasmaman atmospheric suit"
-	icon_state = "plasmamanAtmos_suit"
+	name = "phoronman atmospheric suit"
+	icon_state = "phoronmanAtmos_suit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
-	name = "plasmaman atmospheric helmet"
-	icon_state = "plasmamanAtmos_helmet0"
-	base_state = "plasmamanAtmos_helmet"
+	name = "phoronman atmospheric helmet"
+	icon_state = "phoronmanAtmos_helmet0"
+	base_state = "phoronmanAtmos_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
-	name = "plasmaman engineer suit"
-	icon_state = "plasmamanEngineer_suit"
+	name = "phoronman engineer suit"
+	icon_state = "phoronmanEngineer_suit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
-	name = "plasmaman engineer helmet"
-	icon_state = "plasmamanEngineer_helmet0"
-	base_state = "plasmamanEngineer_helmet"
+	name = "phoronman engineer helmet"
+	icon_state = "phoronmanEngineer_helmet0"
+	base_state = "phoronmanEngineer_helmet"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 
 /obj/item/clothing/suit/space/eva/plasmaman/engineer/ce
-	name = "plasmaman chief engineer suit"
-	icon_state = "plasmaman_CE"
+	name = "phoronman chief engineer suit"
+	icon_state = "phoronman_CE"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer/ce
-	name = "plasmaman chief engineer helmet"
-	icon_state = "plasmaman_CE_helmet0"
-	base_state = "plasmaman_CE_helmet"
+	name = "phoronman chief engineer helmet"
+	icon_state = "phoronman_CE_helmet0"
+	base_state = "phoronman_CE_helmet"
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 
 
 //SERVICE
 
 /obj/item/clothing/suit/space/eva/plasmaman/botanist
-	name = "plasmaman botanist suit"
-	icon_state = "plasmamanBotanist_suit"
+	name = "phoronman botanist suit"
+	icon_state = "phoronmanBotanist_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/botanist
-	name = "plasmaman botanist helmet"
-	icon_state = "plasmamanBotanist_helmet0"
-	base_state = "plasmamanBotanist_helmet"
+	name = "phoronman botanist helmet"
+	icon_state = "phoronmanBotanist_helmet0"
+	base_state = "phoronmanBotanist_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/chaplain
-	name = "plasmaman chaplain suit"
-	icon_state = "plasmamanChaplain_suit"
+	name = "phoronman chaplain suit"
+	icon_state = "phoronmanChaplain_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/chaplain
-	name = "plasmaman chaplain helmet"
-	icon_state = "plasmamanChaplain_helmet0"
-	base_state = "plasmamanChaplain_helmet"
+	name = "phoronman chaplain helmet"
+	icon_state = "phoronmanChaplain_helmet0"
+	base_state = "phoronmanChaplain_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/clown
-	name = "plasmaman clown suit"
-	icon_state = "plasmaman_Clown"
+	name = "phoronman clown suit"
+	icon_state = "phoronman_Clown"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/clown
-	name = "plasmaman clown helmet"
-	icon_state = "plasmaman_Clown_helmet0"
-	base_state = "plasmaman_Clown_helmet"
+	name = "phoronman clown helmet"
+	icon_state = "phoronman_Clown_helmet0"
+	base_state = "phoronman_Clown_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/mime
-	name = "plasmaman mime suit"
-	icon_state = "plasmaman_Mime"
+	name = "phoronman mime suit"
+	icon_state = "phoronman_Mime"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/mime
-	name = "plasmaman mime helmet"
-	icon_state = "plasmaman_Mime_helmet0"
-	base_state = "plasmaman_Mime_helmet"
+	name = "phoronman mime helmet"
+	icon_state = "phoronman_Mime_helmet0"
+	base_state = "phoronman_Mime_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/service
-	name = "plasmaman service suit"
-	icon_state = "plasmamanService_suit"
+	name = "phoronman service suit"
+	icon_state = "phoronmanService_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/service
-	name = "plasmaman service helmet"
-	icon_state = "plasmamanService_helmet0"
-	base_state = "plasmamanService_helmet"
+	name = "phoronman service helmet"
+	icon_state = "phoronmanService_helmet0"
+	base_state = "phoronmanService_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/janitor
-	name = "plasmaman janitor suit"
-	icon_state = "plasmamanJanitor_suit"
+	name = "phoronman janitor suit"
+	icon_state = "phoronmanJanitor_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/janitor
-	name = "plasmaman janitor helmet"
-	icon_state = "plasmamanJanitor_helmet0"
-	base_state = "plasmamanJanitor_helmet"
+	name = "phoronman janitor helmet"
+	icon_state = "phoronmanJanitor_helmet0"
+	base_state = "phoronmanJanitor_helmet"
 
 
 //CARGO
 
 /obj/item/clothing/suit/space/eva/plasmaman/cargo
-	name = "plasmaman cargo suit"
-	icon_state = "plasmamanCargo_suit"
+	name = "phoronman cargo suit"
+	icon_state = "phoronmanCargo_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/cargo
-	name = "plasmaman cargo helmet"
-	icon_state = "plasmamanCargo_helmet0"
-	base_state = "plasmamanCargo_helmet"
+	name = "phoronman cargo helmet"
+	icon_state = "phoronmanCargo_helmet0"
+	base_state = "phoronmanCargo_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/miner
-	name = "plasmaman miner suit"
-	icon_state = "plasmamanMiner_suit"
+	name = "phoronman miner suit"
+	icon_state = "phoronmanMiner_suit"
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/miner
-	name = "plasmaman miner helmet"
-	icon_state = "plasmamanMiner_helmet0"
-	base_state = "plasmamanMiner_helmet"
+	name = "phoronman miner helmet"
+	icon_state = "phoronmanMiner_helmet0"
+	base_state = "phoronmanMiner_helmet"
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
 
 
 // MEDSCI
 
 /obj/item/clothing/suit/space/eva/plasmaman/medical
-	name = "plasmaman medical suit"
-	icon_state = "plasmamanMedical_suit"
+	name = "phoronman medical suit"
+	icon_state = "phoronmanMedical_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical
-	name = "plasmaman medical helmet"
-	icon_state = "plasmamanMedical_helmet0"
-	base_state = "plasmamanMedical_helmet"
+	name = "phoronman medical helmet"
+	icon_state = "phoronmanMedical_helmet0"
+	base_state = "phoronmanMedical_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
-	name = "plasmaman paramedic suit"
-	icon_state = "plasmaman_Paramedic"
+	name = "phoronman paramedic suit"
+	icon_state = "phoronman_Paramedic"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
-	name = "plasmaman paramedic helmet"
-	icon_state = "plasmaman_Paramedic_helmet0"
-	base_state = "plasmaman_Paramedic_helmet"
+	name = "phoronman paramedic helmet"
+	icon_state = "phoronman_Paramedic_helmet0"
+	base_state = "phoronman_Paramedic_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/medical/chemist
-	name = "plasmaman chemist suit"
-	icon_state = "plasmaman_Chemist"
+	name = "phoronman chemist suit"
+	icon_state = "phoronman_Chemist"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical/chemist
-	name = "plasmaman chemist helmet"
-	icon_state = "plasmaman_Chemist_helmet0"
-	base_state = "plasmaman_Chemist_helmet"
+	name = "phoronman chemist helmet"
+	icon_state = "phoronman_Chemist_helmet0"
+	base_state = "phoronman_Chemist_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/medical/cmo
-	name = "plasmaman chief medical officer suit"
-	icon_state = "plasmaman_CMO"
+	name = "phoronman chief medical officer suit"
+	icon_state = "phoronman_CMO"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/medical/cmo
-	name = "plasmaman chief medical officer helmet"
-	icon_state = "plasmaman_CMO_helmet0"
-	base_state = "plasmaman_CMO_helmet"
+	name = "phoronman chief medical officer helmet"
+	icon_state = "phoronman_CMO_helmet0"
+	base_state = "phoronman_CMO_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/science
-	name = "plasmaman scientist suit"
-	icon_state = "plasmamanScience_suit"
+	name = "phoronman scientist suit"
+	icon_state = "phoronmanScience_suit"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/science
-	name = "plasmaman scientist helmet"
-	icon_state = "plasmamanScience_helmet0"
-	base_state = "plasmamanScience_helmet"
+	name = "phoronman scientist helmet"
+	icon_state = "phoronmanScience_helmet0"
+	base_state = "phoronmanScience_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/science/rd
-	name = "plasmaman research director suit"
-	icon_state = "plasmaman_RD"
+	name = "phoronman research director suit"
+	icon_state = "phoronman_RD"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/science/rd
-	name = "plasmaman research director helmet"
-	icon_state = "plasmaman_RD_helmet0"
-	base_state = "plasmaman_RD_helmet"
+	name = "phoronman research director helmet"
+	icon_state = "phoronman_RD_helmet0"
+	base_state = "phoronman_RD_helmet"
 
 
 //SECURITY
 
 /obj/item/clothing/suit/space/eva/plasmaman/security
-	name = "plasmaman security suit"
-	icon_state = "plasmamanSecurity_suit"
+	name = "phoronman security suit"
+	icon_state = "phoronmanSecurity_suit"
 	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security
-	name = "plasmaman security helmet"
-	icon_state = "plasmamanSecurity_helmet0"
-	base_state = "plasmamanSecurity_helmet"
+	name = "phoronman security helmet"
+	icon_state = "phoronmanSecurity_helmet0"
+	base_state = "phoronmanSecurity_helmet"
 	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/hos
-	name = "plasmaman head of security suit"
-	icon_state = "plasmaman_HoS"
+	name = "phoronman head of security suit"
+	icon_state = "phoronman_HoS"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
-	name = "plasmaman head of security helmet"
-	icon_state = "plasmaman_HoS_helmet0"
-	base_state = "plasmaman_HoS_helmet"
+	name = "phoronman head of security helmet"
+	icon_state = "phoronman_HoS_helmet0"
+	base_state = "phoronman_HoS_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/hop
-	name = "plasmaman head of personnel suit"
-	icon_state = "plasmaman_HoP"
+	name = "phoronman head of personnel suit"
+	icon_state = "phoronman_HoP"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security/hop
-	name = "plasmaman head of personnel helmet"
-	icon_state = "plasmaman_HoP_helmet0"
-	base_state = "plasmaman_HoP_helmet"
+	name = "phoronman head of personnel helmet"
+	icon_state = "phoronman_HoP_helmet0"
+	base_state = "phoronman_HoP_helmet"
 
 /obj/item/clothing/suit/space/eva/plasmaman/security/captain
-	name = "plasmaman captain suit"
-	icon_state = "plasmaman_Captain"
+	name = "phoronman captain suit"
+	icon_state = "phoronman_Captain"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
-	name = "plasmaman captain helmet"
-	icon_state = "plasmaman_Captain_helmet0"
-	base_state = "plasmaman_Captain_helmet"
+	name = "phoronman captain helmet"
+	icon_state = "phoronman_Captain_helmet0"
+	base_state = "phoronman_Captain_helmet"
 
 //NUKEOPS
 
 /obj/item/clothing/suit/space/eva/plasmaman/nuclear
-	name = "blood red plasmaman suit"
-	icon_state = "plasmaman_Nukeops"
+	name = "blood red phoronman suit"
+	icon_state = "phoronman_Nukeops"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 60)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs)
 	siemens_coefficient = 0.6
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
-	name = "blood red plasmaman helmet"
-	icon_state = "plasmaman_Nukeops_helmet0"
-	base_state = "plasmaman_Nukeops_helmet"
+	name = "blood red phoronman helmet"
+	icon_state = "phoronman_Nukeops_helmet0"
+	base_state = "phoronman_Nukeops_helmet"
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.6
 	var/obj/machinery/camera/camera

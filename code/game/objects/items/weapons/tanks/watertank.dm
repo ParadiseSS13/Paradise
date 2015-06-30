@@ -186,7 +186,7 @@
 
 /obj/item/weapon/watertank/atmos
 	name = "backpack firefighter tank"
-	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
+	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts phoron in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
 	item_state = "waterbackpackatmos"
 	volume = 200

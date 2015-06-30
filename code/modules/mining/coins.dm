@@ -43,8 +43,8 @@
 	credits = 20
 
 /obj/item/weapon/coin/plasma
-	cmineral = "plasma"
-	icon_state = "coin_plasma_heads"
+	cmineral = "phoron"
+	icon_state = "coin_phoron_heads"
 	credits = 80
 
 /obj/item/weapon/coin/uranium
@@ -107,7 +107,7 @@
 			var/typelist = list("iron" = /obj/item/clothing/gloves/ring,
 								"silver" = /obj/item/clothing/gloves/ring/silver,
 								"gold" = /obj/item/clothing/gloves/ring/gold,
-								"plasma" = /obj/item/clothing/gloves/ring/plasma,
+								"phoron" = /obj/item/clothing/gloves/ring/plasma,
 								"uranium" = /obj/item/clothing/gloves/ring/uranium)
 			var/typekey = typelist[cmineral]
 			if(ispath(typekey))

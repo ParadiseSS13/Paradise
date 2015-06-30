@@ -95,11 +95,11 @@
 		dat += text("chosen")
 	else
 		dat += text("<A href='?src=\ref[src];choose=diamond'>Choose</A>")
-	dat += text("<br><font color='#FF8800'><b>Plasma inserted: </b>[amt_plasma]</font> ")
-	if (chosen == "plasma")
+	dat += text("<br><font color='#FF8800'><b>Phoron inserted: </b>[amt_plasma]</font> ")
+	if (chosen == "phoron")
 		dat += text("chosen")
 	else
-		dat += text("<A href='?src=\ref[src];choose=plasma'>Choose</A>")
+		dat += text("<A href='?src=\ref[src];choose=phoron'>Choose</A>")
 	dat += text("<br><font color='#008800'><b>uranium inserted: </b>[amt_uranium]</font> ")
 	if (chosen == "uranium")
 		dat += text("chosen")
@@ -192,7 +192,7 @@
 						newCoins++
 						src.updateUsrDialog()
 						sleep(5);
-				if("plasma")
+				if("phoron")
 					while(amt_plasma > 0 && coinsToProduce > 0)
 						if (locate(/obj/item/weapon/moneybag,output.loc))
 							M = locate(/obj/item/weapon/moneybag,output.loc)

@@ -79,7 +79,7 @@ Note: Must be placed west/left of and R&D console to function.
 			A = gold_amount
 		if("$silver")
 			A = silver_amount
-		if("$plasma")
+		if("$phoron")
 			A = plasma_amount
 		if("$uranium")
 			A = uranium_amount

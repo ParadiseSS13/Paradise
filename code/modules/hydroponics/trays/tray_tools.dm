@@ -169,13 +169,13 @@
 	if(grown_seed.consume_gasses && grown_seed.consume_gasses.len)
 		for(var/gas in grown_seed.consume_gasses)
 			if(gas == "carbon_dioxide")	gas = "carbon dioxide"
-			if(gas == "toxins")	gas = "plasma"
+			if(gas == "toxins")	gas = "phoron"
 			dat += "<br>It requires an environment rich in [gas] gas to thrive."
 
 	if(grown_seed.exude_gasses && grown_seed.exude_gasses.len)
 		for(var/gas in grown_seed.exude_gasses)
 			if(gas == "carbon_dioxide")	gas = "carbon dioxide"
-			if(gas == "toxins")	gas = "plasma"
+			if(gas == "toxins")	gas = "phoron"
 			dat += "<br>It releases [gas] gas as a byproduct of it's growth."
 
 	if(grown_seed.get_trait(TRAIT_LOWKPA_TOLERANCE) < 20)
