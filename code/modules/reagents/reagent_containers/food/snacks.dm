@@ -100,7 +100,7 @@
 			playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
-				spawn(5)
+				spawn(0)
 					if(reagents.total_volume > bitesize)
 						/*
 						 * I totally cannot understand what this code supposed to do.
