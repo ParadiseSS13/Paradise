@@ -21,12 +21,18 @@
 		return
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if(M == user)
-			M << "\blue You [apply_method] [src]."
+			if(istype(M,/mob/living/carbon/human))
+				var/mob/living/carbon/human/H = M
+				if(H.species.flags & IS_SYNTHETIC)
+					H << "<span class='warning'>You have a monitor for a head, where do you think you're going to put that?</span>"
+					return
+
+			M << "<span class='notify'>You [apply_method] [src].</span>"
 			M.unEquip(src) //icon update
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
-				spawn(5)
-					reagents.trans_to(M, reagents.total_volume)
+				spawn(0)
+					reagents.trans_to_ingest(M, reagents.total_volume)
 					qdel(src)
 			else
 				qdel(src)
@@ -34,14 +40,19 @@
 
 		else if(istype(M, /mob/living/carbon/human) )
 
+			var/mob/living/carbon/human/H = M
+			if(H.species.flags & IS_SYNTHETIC)
+				user << "<span class='warning'>They have a monitor for a head, where do you think you're going to put that?</span>"
+				return
+
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("\red [user] attempts to force [M] to [apply_method] [src].", 1)
+				O.show_message("<span class='warning'>[user] attempts to force [M] to [apply_method] [src].</span>", 1)
 
 			if(!do_mob(user, M)) return
 
 			user.unEquip(src) //icon update
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message("\red [user] forces [M] to [apply_method] [src].", 1)
+				O.show_message("<span class='warning'>[user] forces [M] to [apply_method] [src].</span>", 1)
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
@@ -54,7 +65,7 @@
 
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
-				spawn(5)
+				spawn(0)
 					reagents.trans_to_ingest(M, reagents.total_volume)
 					qdel(src)
 			else
@@ -69,7 +80,7 @@
 
 		if(target.is_open_container() != 0 && target.reagents)
 			if(!target.reagents.total_volume)
-				user << "\red [target] is empty. Cant dissolve [src]."
+				user << "<span class='warning'>[target] is empty. Cant dissolve [src].</span>"
 				return
 
 			// /vg/: Logging transfers of bad things
@@ -83,10 +94,10 @@
 					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
-			user << "\blue You dissolve [src] in [target]"
+			user << "<span class='notify'>You dissolve [src] in [target].</span>"
 			reagents.trans_to(target, reagents.total_volume)
 			for(var/mob/O in viewers(2, user))
-				O.show_message("\red [user] puts something in [target].", 1)
+				O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
 			spawn(5)
 				qdel(src)
 

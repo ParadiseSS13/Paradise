@@ -37,7 +37,7 @@
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
-				spawn(5)
+				spawn(0)
 					reagents.trans_to_ingest(M, gulp_size)
 
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
@@ -65,7 +65,7 @@
 
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
-				spawn(5)
+				spawn(0)
 					reagents.trans_to_ingest(M, gulp_size)
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
