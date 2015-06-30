@@ -234,6 +234,7 @@ datum
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
 			var/cooling_temperature = 2
+			process_flags = ORGANIC | SYNTHETIC
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))

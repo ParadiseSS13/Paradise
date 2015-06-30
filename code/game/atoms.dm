@@ -1,6 +1,3 @@
-var/global/list/del_profiling = list()
-var/global/list/gdel_profiling = list()
-var/global/list/ghdel_profiling = list()
 /atom
 	layer = 2
 	var/level = 2
@@ -30,9 +27,6 @@ var/global/list/ghdel_profiling = list()
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
-	// Garbage collection
-	var/gc_destroyed=null
-
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
 /atom/Destroy()
@@ -40,7 +34,7 @@ var/global/list/ghdel_profiling = list()
 
 
 	if(reagents)
-		reagents.Destroy()
+		qdel(reagents)
 		reagents = null
 
 	// Idea by ChuckTheSheep to make the object even more unreferencable.

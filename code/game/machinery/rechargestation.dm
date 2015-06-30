@@ -170,8 +170,8 @@
 						if(O.reagents.get_reagent_amount("water") < 50)
 							O.reagents.add_reagent("water", 2 * coeff)
 					if(istype(O,/obj/item/weapon/reagent_containers/spray/alien/stun))
-						if(O.reagents.get_reagent_amount("morphine") < 250)
-							O.reagents.add_reagent("morphine", 2 * coeff)
+						if(O.reagents.get_reagent_amount("ether") < 250)
+							O.reagents.add_reagent("ether", 2 * coeff)
 
 
 				if(R)

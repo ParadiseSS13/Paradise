@@ -101,7 +101,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!lst)
 		return
 
-	if(!A || A.gc_destroyed)
+	if(!A || !isnull(A.gcDestroyed))
 		usr << "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>"
 		return
 	if(!hascall(A,procname))

@@ -188,11 +188,11 @@
 
 /obj/item/weapon/melee/energy/sword/green
 	New()
-		_color = "green"
+		blade_color = "green"
 
 /obj/item/weapon/melee/energy/sword/red
 	New()
-		_color = "red"
+		blade_color = "red"
 
 /obj/item/weapon/melee/energy/blade/New()
 	spark_system = new /datum/effect/effect/system/spark_spread()

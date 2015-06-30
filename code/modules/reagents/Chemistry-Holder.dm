@@ -127,32 +127,6 @@ datum
 				if (!target.reagents || src.total_volume<=0)
 					return
 
-				/*var/datum/reagents/R = target.reagents
-
-				var/obj/item/weapon/reagent_containers/glass/beaker/noreact/B = new /obj/item/weapon/reagent_containers/glass/beaker/noreact //temporary holder
-
-				amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
-				var/part = amount / src.total_volume
-				var/trans_data = null
-				for (var/datum/reagent/current_reagent in src.reagent_list)
-					if (!current_reagent)
-						continue
-					//if (current_reagent.id == "blood" && ishuman(target))
-					//	var/mob/living/carbon/human/H = target
-					//	H.inject_blood(my_atom, amount)
-					//	continue
-					var/current_reagent_transfer = current_reagent.volume * part
-					if(preserve_data)
-						trans_data = current_reagent.data
-
-					B.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, safety = 1)	//safety checks on these so all chemicals are transferred
-					src.remove_reagent(current_reagent.id, current_reagent_transfer, safety = 1)							// to the target container before handling reactions
-
-				src.update_total()
-				B.update_total()
-				B.handle_reactions()
-				src.handle_reactions()*/
-
 				var/obj/item/weapon/reagent_containers/glass/beaker/noreact/B = new /obj/item/weapon/reagent_containers/glass/beaker/noreact //temporary holder
 				B.volume = 1000
 
@@ -163,9 +137,13 @@ datum
 
 				src.trans_to(B, amount)
 
-				spawn(100)
+				spawn(-1)
+					src = null // Survive through deletion of the reagent holder
+					sleep(100)
+					if(!target)
+						return
 					BR.trans_to(target, BR.total_volume)
-					del(B)
+					qdel(B)
 
 				return amount
 

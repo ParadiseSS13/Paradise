@@ -176,7 +176,7 @@ var/list/blob_nodes = list()
 			return
 
 		if (1)
-			command_announcement.Announce("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert", new_sound = 'sound/AI/blob_confirmed.ogg')
+			command_announcement.Announce("Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 			return
 
 		if (2)
