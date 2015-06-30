@@ -238,6 +238,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	invisibility = INVISIBILITY_OBSERVER
 
 /obj/effect/dummy/slaughter/relaymove(var/mob/user, direction)
 	if (!src.canmove || !direction) return
@@ -281,7 +282,7 @@
 
 /mob/living/simple_animal/slaughter/proc/bloodPull()
 	set name = "Exsanguinate"
-	set desc = "Cuase blood to be torn our of mortals to help acess the plane.."
+	set desc = "Cuase blood to be torn out of mortals to help acess the plane.."
 	set category = "Daemon"
 
 	for(var/mob/living/carbon/human/H in view(10,(src.holder || src.loc)))

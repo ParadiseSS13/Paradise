@@ -95,6 +95,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	invisibility = INVISIBILITY_OBSERVER
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
 	if (!src.canmove) return
