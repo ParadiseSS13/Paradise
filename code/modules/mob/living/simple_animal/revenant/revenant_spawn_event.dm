@@ -1,4 +1,4 @@
-#define REVENANT_SPAWN_THRESHOLD 1
+#define REVENANT_SPAWN_THRESHOLD 10
 
 /datum/event/revenant
 	var/key_of_revenant
