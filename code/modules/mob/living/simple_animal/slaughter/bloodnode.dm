@@ -81,7 +81,7 @@
 		//update_icon()
 		return
 
-	UnarmedAttack(var/mob/user)
+	attack_hand(var/mob/user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		paranoia.DoEffectTouch(user)

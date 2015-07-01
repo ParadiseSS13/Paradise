@@ -297,7 +297,7 @@
 			var/datum/artifact_effect/paranoia = new /datum/artifact_effect/badfeeling
 
 			for (var/mob/living/carbon/human/portal in nearby_mortals)
-				pranoia.DoEffectPulse()
+				paranoia.DoEffectPulse()
 				var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
 				portal.apply_damage(rand(5, 10), BRUTE, targetPart)
 				portal << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
