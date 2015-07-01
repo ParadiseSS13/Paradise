@@ -18,7 +18,8 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"vampire" = IS_MODE_COMPILED("vampire"),			 // 2048 / 12
 	"mutineer" = IS_MODE_COMPILED("mutiny"),             // 4096 / 13
 	"blob" = IS_MODE_COMPILED("blob"),          	     	// 8192 / 14
-	"shadowling" = IS_MODE_COMPILED("shadowling")		//16384 / 15
+	"shadowling" = IS_MODE_COMPILED("shadowling"),		//16384 / 15
+	"Revenant" =  1             						//32768 / 16
 )
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
 	num2text(BE_PAI) = 0,
@@ -35,7 +36,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	num2text(BE_ALIEN) = 21,
 	num2text(BE_NINJA) = 21,
 	num2text(BE_MUTINEER) = 21,
-	num2text(BE_MALF) = 30
+	num2text(BE_MALF) = 30,
+	num2text(BE_REVENANT) = 7
 )
 
 /proc/player_old_enough_antag(client/C, role)
