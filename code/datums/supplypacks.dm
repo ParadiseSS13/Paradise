@@ -526,14 +526,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "Inflatable Barrier Crate"
 
-/datum/supply_packs/engineering/supermatter
-	name = "Supermatter Crystal Crate"
-	contains = list(/obj/machinery/power/supermatter)
-	cost = 50 //Yes that's a fucking lot.
-	containername = "Supermatter Shard Crate"
-	containertype = /obj/structure/closet/crate/secure/large/reinforced
-	access = access_ce
-
 /datum/supply_packs/engineering/teg
 	name = "Thermo-Electric Generator"
 	contains = list(
@@ -592,7 +584,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/firstaid/adv)
 	cost = 10
 	containername = "advaced first aid kits crate"
-	
+
 /datum/supply_packs/medical/firstaibrute
 	name = "Brute Trauma Treatment Kits Crate"
 	contains = list(/obj/item/weapon/storage/firstaid/brute,
