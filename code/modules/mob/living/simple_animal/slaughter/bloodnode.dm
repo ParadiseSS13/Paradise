@@ -74,23 +74,26 @@
 				if(istype(W, /obj/item/weapon/weldingtool))
 					playsound(get_turf(src), 'sound/items/Welder.ogg', 100, 1)
 			if("brute")
-				paranoia.DoEffectTouch(user)
+				if(prob(25))
+					paranoia.DoEffectTouch(user)
 				damage = (W.force)
 
 		health -= damage
-		//update_icon()
+		update_icon()
 		return
 
 	attack_hand(var/mob/user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		paranoia.DoEffectTouch(user)
+		if(prob(25))
+			paranoia.DoEffectTouch(user)
 		playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
 		var/damage = rand(1,10)
 		if(!damage) // Avoid divide by zero errors
 			return
 		damage = max(damage)
 		health -= damage
+		update_icon()
 		return
 
 
@@ -104,5 +107,5 @@
 			return
 		damage = max(damage)
 		health -= damage
-		//update_icon()
+		update_icon()
 		return
