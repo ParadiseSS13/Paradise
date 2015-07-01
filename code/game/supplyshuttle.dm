@@ -222,7 +222,7 @@ var/list/mechtoys = list(
 							points += points_per_slip
 							find_slip = 0
 
-					// Sell phoron
+					// Sell plasma
 					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 						var/obj/item/stack/sheet/mineral/plasma/P = A
 						plasma_count += P.amount
