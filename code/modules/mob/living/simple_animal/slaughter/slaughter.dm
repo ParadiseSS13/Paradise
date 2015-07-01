@@ -293,7 +293,7 @@
 			nearby_mortals.Add(H)
 		//var/mob/living/carbon/human/M = pop(nearby_mortals)
 		if(nearby_mortals.len)
-			playsound(src.loc, pick('sound/hallucinations/wail.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/far_noise.ogg'), 50, 1, -3)
+			playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 50, 1, -3)
 			var/datum/artifact_effect/paranoia = new /datum/artifact_effect/badfeeling
 
 			for (var/mob/living/carbon/human/portal in nearby_mortals)
