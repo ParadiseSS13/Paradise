@@ -24,7 +24,7 @@
 			mob_container.forceMove(get_turf(src))
 			M.reset_view()
 
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
@@ -33,6 +33,23 @@
 /obj/item/weapon/holder/proc/show_message(var/message, var/m_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
+
+//Mob procs and vars for scooping up
+/mob/living/var/holder_type
+
+/mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
+	if(!holder_type)	return
+
+	var/obj/item/weapon/holder/H = new holder_type(loc)
+	src.forceMove(H)
+	H.name = name
+	if(desc)	H.desc = desc
+	H.attack_hand(grabber)
+
+	grabber << "<span class='notice'>You scoop up \the [src]."
+	src << "<span class='notice'>\The [grabber] scoops you up.</span>"
+	grabber.status_flags |= PASSEMOTES
+	return
 
 //Mob specific holders.
 

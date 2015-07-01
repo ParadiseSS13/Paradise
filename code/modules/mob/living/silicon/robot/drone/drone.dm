@@ -25,6 +25,8 @@
 
 	//Used for self-mailing.
 	var/mail_destination = 0
+
+	holder_type = /obj/item/weapon/holder/drone
 //	var/sprite[0]
 
 
