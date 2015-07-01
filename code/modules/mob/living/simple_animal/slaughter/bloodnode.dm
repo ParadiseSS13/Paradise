@@ -8,6 +8,7 @@
 	density = 1
 	var/lastblood = 0
 	var/nodecount = 0
+	var/datum/artifact_effect/paranoia = new /datum/artifact_effect/badfeeling
 
 
 
@@ -50,14 +51,14 @@
 	ex_act(severity)
 		var/damage = 150
 		health -= ((damage - (severity * 5)))
-		update_icon()
+		//update_icon()
 		return
 
 
 	bullet_act(var/obj/item/projectile/Proj)
 		..()
 		health -= (Proj.damage)
-		update_icon()
+		//update_icon()
 		return 0
 
 
@@ -65,7 +66,6 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		playsound(get_turf(src), 'sound/effects/attackblob.ogg', 50, 1)
-		//new /datum/artifact_effect/badfeeling/DoEffectTouch(user)
 		src.visible_message("\red <B>The [src.name] has been attacked with \the [W][(user ? " by [user]." : ".")]")
 		var/damage = 0
 		switch(W.damtype)
@@ -74,14 +74,23 @@
 				if(istype(W, /obj/item/weapon/weldingtool))
 					playsound(get_turf(src), 'sound/items/Welder.ogg', 100, 1)
 			if("brute")
+				paranoia.DoEffectTouch(user)
 				damage = (W.force)
 
 		health -= damage
-		update_icon()
+		//update_icon()
 		return
 
-	attack_hand(var/mob/user)
-		user << "You REALLY do not want to touch that bare handed."
+	UnarmedAttack(var/mob/user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		paranoia.DoEffectTouch(user)
+		playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
+		var/damage = rand(1,10)
+		if(!damage) // Avoid divide by zero errors
+			return
+		damage = max(damage)
+		health -= damage
 		return
 
 
@@ -95,5 +104,5 @@
 			return
 		damage = max(damage)
 		health -= damage
-		update_icon()
+		//update_icon()
 		return
