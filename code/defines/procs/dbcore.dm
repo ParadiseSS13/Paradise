@@ -45,7 +45,7 @@ DBConnection
 	var/password // This variable contains the password data.
 	var/default_cursor // This contains the default database cursor data.
 		//
-	var/server = ""
+	var/server = "localhost"
 	var/port = 3306
 
 DBConnection/New(dbi_handler,username,password_handler,cursor_handler)

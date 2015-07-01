@@ -2,13 +2,13 @@
 var/sqladdress = "localhost"
 var/sqlport = "3306"
 var/sqldb = "paradise"
-var/sqllogin = "root"
+var/sqllogin = "mylogin"
 var/sqlpass = "example"
 
 	// Feedback gathering sql connection
 var/sqlfdbkdb = "paradise"
-var/sqlfdbklogin = "root"
-var/sqlfdbkpass = "example"
+var/sqlfdbklogin = "mylogin"
+var/sqlfdbkpass = "mypassword"
 
 var/sqllogging = 0 // Should we log deaths, population stats, etc?
 
@@ -18,9 +18,9 @@ var/sqllogging = 0 // Should we log deaths, population stats, etc?
 
 var/forumsqladdress = "localhost"
 var/forumsqlport = "3306"
-var/forumsqldb = "tgstation"
-var/forumsqllogin = "root"
-var/forumsqlpass = "bleh"
+var/forumsqldb = "paradise"
+var/forumsqllogin = "mylogin"
+var/forumsqlpass = "mypassword"
 var/forum_activated_group = "2"
 var/forum_authenticated_group = "10"
 
