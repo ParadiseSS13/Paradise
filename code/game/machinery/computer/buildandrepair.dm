@@ -53,10 +53,6 @@
 /obj/item/weapon/circuitboard/med_data
 	name = "Circuit board (Medical Records)"
 	build_path = "/obj/machinery/computer/med_data"
-/obj/item/weapon/circuitboard/pandemic
-	name = "Circuit board (PanD.E.M.I.C. 2200)"
-	build_path = "/obj/machinery/computer/pandemic"
-	origin_tech = "programming=2;biotech=2"
 /obj/item/weapon/circuitboard/scan_consolenew
 	name = "Circuit board (DNA Machine)"
 	build_path = "/obj/machinery/computer/scan_consolenew"
