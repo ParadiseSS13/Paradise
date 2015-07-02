@@ -296,9 +296,9 @@ REAGENT SCANNER
 	w_class = 2.0
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	throwforce = 5
-	throw_speed = 4
-	throw_range = 20
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 7
 	m_amt = 30
 	g_amt = 20
 	origin_tech = "magnets=1;engineering=1"
@@ -306,9 +306,6 @@ REAGENT SCANNER
 /obj/item/device/analyzer/attack_self(mob/user as mob)
 
 	if (user.stat)
-		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "\red You don't have the dexterity to do this!"
 		return
 
 	var/turf/location = user.loc
@@ -320,11 +317,11 @@ REAGENT SCANNER
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles()
 
-	user.show_message("\blue <B>Results:</B>", 1)
+	user.show_message("<span class='info'><B>Results:</B></span>", 1)
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		user.show_message("\blue Pressure: [round(pressure,0.1)] kPa", 1)
+		user.show_message("<span class='info'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
 	else
-		user.show_message("\red Pressure: [round(pressure,0.1)] kPa", 1)
+		user.show_message("<span class='alert'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
 	if(total_moles)
 		var/o2_concentration = environment.oxygen/total_moles
 		var/n2_concentration = environment.nitrogen/total_moles
@@ -333,27 +330,27 @@ REAGENT SCANNER
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			user.show_message("\blue Nitrogen: [round(n2_concentration*100)]%", 1)
+			user.show_message("<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>", 1)
 		else
-			user.show_message("\red Nitrogen: [round(n2_concentration*100)]%", 1)
+			user.show_message("<span class='alert'>Nitrogen: [round(n2_concentration*100)] %</span>", 1)
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			user.show_message("\blue Oxygen: [round(o2_concentration*100)]%", 1)
+			user.show_message("<span class='info'>Oxygen: [round(o2_concentration*100)] %</span>", 1)
 		else
-			user.show_message("\red Oxygen: [round(o2_concentration*100)]%", 1)
+			user.show_message("<span class='alert'>Oxygen: [round(o2_concentration*100)] %</span>", 1)
 
 		if(co2_concentration > 0.01)
-			user.show_message("\red CO2: [round(co2_concentration*100)]%", 1)
+			user.show_message("<span class='alert'>CO2: [round(co2_concentration*100)] %</span>", 1)
 		else
-			user.show_message("\blue CO2: [round(co2_concentration*100)]%", 1)
+			user.show_message("<span class='info'>CO2: [round(co2_concentration*100)] %</span>", 1)
 
 		if(plasma_concentration > 0.01)
-			user.show_message("\red Plasma: [round(plasma_concentration*100)]%", 1)
+			user.show_message("<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>", 1)
 
 		if(unknown_concentration > 0.01)
-			user.show_message("\red Unknown: [round(unknown_concentration*100)]%", 1)
+			user.show_message("<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>", 1)
 
-		user.show_message("\blue Temperature: [round(environment.temperature-T0C)]&deg;C", 1)
+		user.show_message("<span class='info'>Temperature: [round(environment.temperature-T0C)] &deg;C</span>", 1)
 
 	src.add_fingerprint(user)
 	return
