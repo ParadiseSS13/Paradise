@@ -133,7 +133,7 @@
 /obj/effect/rend/New()
 	spawn(50)
 		new /obj/singularity/narsie/wizard(get_turf(src))
-		del(src)
+		qdel(src)
 		return
 	return
 
@@ -172,13 +172,13 @@
 	new /mob/living/simple_animal/cow(loc)
 	cowsleft--
 	if(cowsleft <= 0)
-		del src
+		qdel(src)
 
 /obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/nullrod))
 		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
 		spawn(1)
-			del src
+			qdel(src)
 		return
 	..()
 

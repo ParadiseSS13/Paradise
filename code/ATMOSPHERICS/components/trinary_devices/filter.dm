@@ -41,7 +41,7 @@ Filter types:
 		icon_state = "m"
 	else
 		icon_state = ""
-	
+
 	if(!powered())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
@@ -173,7 +173,7 @@ Filter types:
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
@@ -272,7 +272,7 @@ obj/machinery/atmospherics/trinary/filter/m_filter/New()
 
 /obj/machinery/atmospherics/trinary/filter/m_filter/initialize()
 	set_frequency(frequency)
-	
+
 	if(node1 && node2 && node3) return
 
 	var/node1_connect = turn(dir, -180)

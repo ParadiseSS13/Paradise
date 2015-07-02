@@ -46,7 +46,7 @@
 				if(summon_lifespan)
 					spawn(summon_lifespan)
 						if(summoned_object)
-							del(summoned_object)
+							qdel(summoned_object)
 	else
 		switch(charge_type)
 			if("recharge")

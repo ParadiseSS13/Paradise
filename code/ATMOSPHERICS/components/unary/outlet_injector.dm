@@ -194,7 +194,7 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
 	update_multitool_menu(user)
