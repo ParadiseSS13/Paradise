@@ -29,7 +29,7 @@
 		sleep(250) // ugly hack, should mean roundstart plants are fine.
 	if(!plant_controller)
 		world << "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>"
-		del(src)
+		qdel(src)
 		return
 
 	seed = plant_controller.seeds[plantname]
@@ -80,7 +80,7 @@
 		sleep(250) // ugly hack, should mean roundstart plants are fine.
 	if(!plant_controller)
 		world << "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>"
-		del(src)
+		qdel(src)
 		return
 
 	if(plant_controller.product_descs["[seed.uid]"])
@@ -178,7 +178,7 @@
 			M.Weaken(5)
 			seed.thrown_at(src,M)
 			sleep(-1)
-			if(src) del(src)
+			if(src) qdel(src)
 			return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
@@ -198,7 +198,7 @@
 					user.put_in_hands(pocell)
 				pocell.maxcharge = src.potency * 10
 				pocell.charge = pocell.maxcharge
-				del(src)
+				qdel(src)
 				return
 		else if(W.sharp)
 			var/reagents_per_slice
@@ -206,21 +206,21 @@
 			if(seed.kitchen_tag == "pumpkin") // Ugggh these checks are awful.
 				user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
 				new /obj/item/clothing/head/hardhat/pumpkinhead (user.loc)
-				del(src)
+				qdel(src)
 				return
 			else if(seed.kitchen_tag == "potato")
 				user << "You slice \the [src] into sticks."
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
-				del(src)
+				qdel(src)
 				return
 			else if(seed.kitchen_tag == "carrot")
 				user << "You slice \the [src] into sticks."
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/carrotfries(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
-				del(src)
+				qdel(src)
 				return
 			else if(seed.kitchen_tag == "watermelon")
 				user << "You slice \the [src] into large slices."
@@ -228,14 +228,14 @@
 				for(var/i=0,i<5,i++)
 					slice = new /obj/item/weapon/reagent_containers/food/snacks/watermelonslice(get_turf(src))
 					reagents.trans_to(slice, reagents_per_slice)
-				del(src)
+				qdel(src)
 				return
 			else if(seed.kitchen_tag == "soybeans")
 				user << "You roughly chop up \the [src]."
 				reagents_per_slice = reagents.total_volume
 				slice = new /obj/item/weapon/reagent_containers/food/snacks/soydope(get_turf(src))
 				reagents.trans_to(slice, reagents_per_slice)
-				del(src)
+				qdel(src)
 				return
 			else if(seed.chems)
 				if(istype(W,/obj/item/weapon/hatchet) && !isnull(seed.chems["woodpulp"]))
@@ -250,7 +250,7 @@
 								continue
 							G.attackby(NG, user)
 						user << "You add the newly-formed wood to the stack. It now contains [NG.amount] planks."
-					del(src)
+					qdel(src)
 					return
 		else if(istype(W, /obj/item/weapon/rollingpaper))
 			if(seed.kitchen_tag == "ambrosia" || seed.kitchen_tag == "ambrosiadeus" || seed.kitchen_tag == "tobacco" || seed.kitchen_tag == "stobacco")
@@ -259,22 +259,22 @@
 					var/obj/item/clothing/mask/cigarette/joint/J = new /obj/item/clothing/mask/cigarette/joint(user.loc)
 					J.chem_volume = src.reagents.total_volume
 					src.reagents.trans_to(J, J.chem_volume)
-					del(W)
+					qdel(W)
 					user.put_in_active_hand(J)
 				else if(seed.kitchen_tag == "ambrosiadeus")
 					var/obj/item/clothing/mask/cigarette/joint/deus/J = new /obj/item/clothing/mask/cigarette/joint/deus(user.loc)
 					J.chem_volume = src.reagents.total_volume
 					src.reagents.trans_to(J, J.chem_volume)
-					del(W)
+					qdel(W)
 					user.put_in_active_hand(J)
 				else if(seed.kitchen_tag == "tobacco" || seed.kitchen_tag == "stobacco")
 					var/obj/item/clothing/mask/cigarette/handroll/J = new /obj/item/clothing/mask/cigarette/handroll(user.loc)
 					J.chem_volume = src.reagents.total_volume
 					src.reagents.trans_to(J, J.chem_volume)
-					del(W)
+					qdel(W)
 					user.put_in_active_hand(J)
 				user << "\blue You roll the [src] into a rolling paper."
-				del(src)
+				qdel(src)
 			else
 				user << "\red You can't roll a smokable from the [src]."
 
@@ -333,7 +333,7 @@
 				if(user)
 					user << "<span class='danger'>\The [src] has fallen to bits.</span>"
 					//user.drop_from_inventory(src)
-				del(src)
+				qdel(src)
 
 		add_fingerprint(user)
 		return 1
@@ -353,7 +353,7 @@
 		user.visible_message("<span class='danger'>\The [user] squashes \the [src]!</span>")
 		seed.thrown_at(src,user)
 		sleep(-1)
-		if(src) del(src)
+		if(src) qdel(src)
 		return
 
 	if(seed.kitchen_tag == "grass")
@@ -368,14 +368,14 @@
 					continue
 				NG.attackby(G, user)
 			user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
-		del(src)
+		qdel(src)
 		return
 
 	if(seed.get_trait(TRAIT_SPREAD) > 0)
 		user << "<span class='notice'>You plant the [src.name].</span>"
 		new /obj/machinery/portable_atmospherics/hydroponics/soil/invisible(get_turf(user),src.seed)
 		new /obj/effect/plant(get_turf(user), src.seed)
-		del(src)
+		qdel(src)
 		return
 
 	/*

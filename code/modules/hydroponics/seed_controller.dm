@@ -37,7 +37,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 /datum/controller/plants/New()
 	if(plant_controller && plant_controller != src)
 		log_debug("Rebuilding plant controller.")
-		del(plant_controller)
+		qdel(plant_controller)
 	plant_controller = src
 	setup()
 	process()
@@ -136,7 +136,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 							break
 						var/obj/effect/plant/plant = pick(plant_queue)
 						plant_queue -= plant
-						if(!istype(plant))
+						if(!istype(plant) || !isnull(plant.gcDestroyed))
 							continue
 						plant.process()
 						processed++

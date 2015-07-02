@@ -519,29 +519,30 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	access = access_eva
 
 /datum/supply_packs/engineering/inflatable
-	name = "Inflatable barriers"
+	name = "Inflatable barriers Crate"
 	contains = list(/obj/item/weapon/storage/briefcase/inflatable,
 					/obj/item/weapon/storage/briefcase/inflatable,
 					/obj/item/weapon/storage/briefcase/inflatable)
 	cost = 20
 	containername = "Inflatable Barrier Crate"
 
-/datum/supply_packs/engineering/supermatter
-	name = "Supermatter Crystal Crate"
-	contains = list(/obj/machinery/power/supermatter)
-	cost = 50 //Yes that's a fucking lot.
-	containername = "Supermatter Shard Crate"
-	containertype = /obj/structure/closet/crate/secure/large/reinforced
+/datum/supply_packs/engineering/engine/supermatter_shard
+	name = "Supermatter Shard Crate"
+	contains = list(/obj/machinery/power/supermatter_shard)
+	cost = 50 //So cargo thinks twice before killing themselves with it
+	containertype = /obj/structure/closet/crate/secure
+	containername = "supermatter shard crate"
 	access = access_ce
 
-/datum/supply_packs/engineering/teg
-	name = "Thermo-Electric Generator"
+/datum/supply_packs/engineering/engine/teg
+	name = "Thermo-Electric Generator Crate"
 	contains = list(
 		/obj/machinery/power/generator,
 		/obj/machinery/atmospherics/binary/circulator,
 		/obj/machinery/atmospherics/binary/circulator
 	)
 	cost = 25
+	containertype = /obj/structure/closet/crate/secure
 	containername = "Thermo-Electric Generator Components"
 	access = access_ce
 
@@ -592,7 +593,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/firstaid/adv)
 	cost = 10
 	containername = "advaced first aid kits crate"
-	
+
 /datum/supply_packs/medical/firstaibrute
 	name = "Brute Trauma Treatment Kits Crate"
 	contains = list(/obj/item/weapon/storage/firstaid/brute,
