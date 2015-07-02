@@ -14,7 +14,7 @@
 
 /obj/effect/proc_holder/spell/wizard/targeted/trigger/Destroy()
 	for(var/spell in contents)
-		del(spell)
+		qdel(spell)
 
 	return ..()
 

@@ -19,7 +19,7 @@
 		icon_state = "t"
 	else
 		icon_state = ""
-	
+
 	if(!powered())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
@@ -131,7 +131,7 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/trinary/mixer/attack_hand(user as mob)
 	if(..())

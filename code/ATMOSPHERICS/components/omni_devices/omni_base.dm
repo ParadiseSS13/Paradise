@@ -28,7 +28,7 @@
 /obj/machinery/atmospherics/omni/New()
 	..()
 	icon_state = "base"
-	
+
 	ports = new()
 	for(var/d in cardinal)
 		var/datum/omni_port/new_port = new(src, d)
@@ -44,7 +44,7 @@
 		if(new_port.mode > 0)
 			initialize_directions |= d
 		ports += new_port
-	
+
 	build_icons()
 
 /obj/machinery/atmospherics/omni/update_icon()
@@ -90,7 +90,7 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/omni/attack_hand(user as mob)
 	if(..())
@@ -173,7 +173,7 @@
 			if(ATM_O2 to ATM_N2O)
 				ic_on += "_filter"
 				ic_off += "_out"
-		
+
 		ic_on = icon_manager.get_atmos_icon("omni", , , ic_on)
 		ic_off = icon_manager.get_atmos_icon("omni", , , ic_off)
 
@@ -229,7 +229,7 @@
 	for(var/datum/omni_port/P in ports)
 		if(P.node)
 			P.node.disconnect(src)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 
 	..()
@@ -283,11 +283,11 @@
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)
 		if(reference == P.node)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 			P.update = 1
 			break
-	
+
 	update_ports()
 
 	return null

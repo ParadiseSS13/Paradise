@@ -49,10 +49,10 @@ obj/machinery/atmospherics/binary
 
 		if(node1)
 			node1.disconnect(src)
-			del(network1)
+			qdel(network1)
 		if(node2)
 			node2.disconnect(src)
-			del(network2)
+			qdel(network2)
 
 		node1 = null
 		node2 = null
@@ -85,7 +85,7 @@ obj/machinery/atmospherics/binary
 
 		update_icon()
 		update_underlays()
-		
+
 	build_network()
 		if(!network1 && node1)
 			network1 = new /datum/pipe_network()
@@ -129,13 +129,13 @@ obj/machinery/atmospherics/binary
 
 	disconnect(obj/machinery/atmospherics/reference)
 		if(reference==node1)
-			del(network1)
+			qdel(network1)
 			node1 = null
 
 		else if(reference==node2)
-			del(network2)
+			qdel(network2)
 			node2 = null
-			
+
 		update_icon()
 		update_underlays()
 

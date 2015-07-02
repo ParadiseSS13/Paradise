@@ -2,7 +2,7 @@ obj/machinery/atmospherics/trinary
 	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
 	use_power = 1
-	
+
 	var/on = 0
 
 	var/datum/gas_mixture/air1
@@ -59,13 +59,13 @@ obj/machinery/atmospherics/trinary
 
 		if(node1)
 			node1.disconnect(src)
-			del(network1)
+			qdel(network1)
 		if(node2)
 			node2.disconnect(src)
-			del(network2)
+			qdel(network2)
 		if(node3)
 			node3.disconnect(src)
-			del(network3)
+			qdel(network3)
 
 		node1 = null
 		node2 = null
@@ -153,17 +153,17 @@ obj/machinery/atmospherics/trinary
 
 	disconnect(obj/machinery/atmospherics/reference)
 		if(reference==node1)
-			del(network1)
+			qdel(network1)
 			node1 = null
 
 		else if(reference==node2)
-			del(network2)
+			qdel(network2)
 			node2 = null
 
 		else if(reference==node3)
-			del(network3)
+			qdel(network3)
 			node3 = null
-		
+
 		update_underlays()
 
 		return null
