@@ -8,7 +8,7 @@
 	small = 1
 	pass_flags = 1
 	density = 0
-	//var/holder_type = /obj/item/weapon/holder/pai
+	holder_type = /obj/item/weapon/holder/pai
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -148,6 +148,17 @@
 	if(istype(src.loc,/obj/item/device/paicard))
 		return 0
 	..()
+
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	return
+//Below was the orignal mousedrop code from Bay, keeping incase.
+//	var/mob/living/carbon/H = over_object
+//	if(!istype(H) || !Adjacent(H)) return ..()
+//	if(H.a_intent == "help")
+//		get_scooped(H)
+//		return
+//	else
+//		return ..()
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -429,9 +440,13 @@
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == 2) return
-	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-	spawn(1)
-		close_up()
+	if(user.a_intent == "help" && src.loc != card)
+		get_scooped(user)
+		return
+	else
+		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+		spawn(1)
+			close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
@@ -520,22 +535,17 @@
 
 // Handle being picked up.
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/held = over_object
-	if(held.a_intent == "help")
-		var/obj/item/weapon/holder/pai/pie = new(loc)
-		src.loc = pie
-		pie.MouseDrop(held)
-		pie << "You scoop up [src]."
-		src << "[held] scoops you up."
-		//pie.status_flags |= PASSEMOTES
-		pie.icon_state = "pai-[icon_state]"
-		held.put_in_active_hand(pie)
-		held.update_icons()
-		src << "[held.get_active_hand()]"
-		//held.update_inv_r_hand()
-		pie.icon_override = 'icons/mob/paihat.dmi'
-		pie.item_state = "pai-[icon_state]"
-		return
+/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
+	if(!holder_type)	return
+	var/obj/item/weapon/holder/pai/H = new(loc)
 
-	..()
+	//H.attack_hand(grabber)
+	src.forceMove(H)
+	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'
+	H.icon_state = "pai-[icon_state]"
+	grabber.put_in_active_hand(H)
+	grabber.update_icons()
+	H.icon_override = 'icons/mob/paihat.dmi'
+	H.item_state = "pai-[icon_state]"
+
+	return H

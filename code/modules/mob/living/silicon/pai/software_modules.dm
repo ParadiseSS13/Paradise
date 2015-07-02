@@ -595,6 +595,7 @@
 
 		else
 			data["holder"] = 0
+			src << "You are not being carried by anyone!"
 
 		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
 		if(!ui)
