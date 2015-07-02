@@ -244,7 +244,7 @@
 /obj/singularity/proc/consume(var/atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/power/supermatter) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
