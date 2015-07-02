@@ -188,16 +188,16 @@
 					N.seeds -= O
 					if (N.amount <= 0 || N.seeds.len <= 0)
 						piles -= N
-						del(N)
+						qdel(N)
 					O.loc = src.loc
 				else
 					piles -= N
-					del(N)
+					qdel(N)
 			else if (task == "purge")
 				for (var/obj/O in N.seeds)
-					del(O)
+					qdel(O)
 					piles -= N
-					del(N)
+					qdel(N)
 			break
 	updateUsrDialog()
 
