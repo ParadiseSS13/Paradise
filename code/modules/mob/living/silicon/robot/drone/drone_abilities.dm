@@ -45,14 +45,7 @@
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)
-
 	if(M.a_intent == "help")
-		var/obj/item/weapon/holder/drone/D = new(loc)
-		src.loc = D
-		D.attack_hand(M)
-		M << "You scoop up [src]."
-		src << "[M] scoops you up."
-		M.status_flags |= PASSEMOTES
-		return
+		get_scooped(M)
 
 	..()
