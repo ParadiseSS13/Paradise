@@ -104,6 +104,6 @@
 		for(var/obj/effect/plant/neighbor in check_turf.contents)
 			neighbor.neighbors |= check_turf
 			plant_controller.add_plant(neighbor)
-	spawn(1) if(src) del(src)
+	spawn(1) if(src) qdel(src)
 
 #undef NEIGHBOR_REFRESH_TIME
