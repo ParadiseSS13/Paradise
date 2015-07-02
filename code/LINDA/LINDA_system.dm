@@ -211,8 +211,8 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
 /atom/movable/proc/air_update_turf(var/command = 0)
 	if(!istype(loc,/turf) && command)
 		return
-	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
-		T.air_update_turf(command)
+	var/turf/T = get_turf(loc)
+	T.air_update_turf(command)
 
 /turf/proc/air_update_turf(var/command = 0)
 	if(command)

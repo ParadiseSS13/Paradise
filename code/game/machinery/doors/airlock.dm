@@ -886,14 +886,11 @@ About the new airlock wires panel:
 	if(operating || welded || locked)
 		return
 	if(!forced)
-		//despite the name, this wire is for general door control.
-		//Bolts are already covered by the check for locked, above
 		if( !arePowerSystemsOn() || isWireCut(AIRLOCK_WIRE_OPEN_DOOR) )
 			return
 	if(safe)
-		for(var/turf/turf in locs)
-			if(locate(/mob/living) in turf)
-			//	playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)	//THE BUZZING IT NEVER STOPS	-Pete
+		for(var/atom/movable/M in get_turf(src))
+			if(M.density && M != src) //something is blocking the door
 				spawn (60)
 					autoclose()
 				return
