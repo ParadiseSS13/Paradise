@@ -378,7 +378,6 @@
 		var/mob/living/carbon/human/victimType = src.kidnapped
 
 		var/obj/effect/decal/cleanable/blood/gibs/gore = new victimType.species.single_gib_type(get_turf(src))
-		src << "[victimType.species]"//debug
 		if(victimType.species.flesh_color)
 			gore.fleshcolor = victimType.species.flesh_color
 		if(victimType.species.blood_color)
