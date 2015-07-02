@@ -26,7 +26,8 @@
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
 		"Corgi" = "borgi",
-		"Fox" = "fox"
+		"Fox" = "fox",
+		"Parrot" = "parrot"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -440,7 +441,7 @@
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == 2) return
-	if(user.a_intent == "help" && src.loc != card)
+	if(user.a_intent == "help")
 		get_scooped(user)
 		return
 	else

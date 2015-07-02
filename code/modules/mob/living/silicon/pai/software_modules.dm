@@ -569,7 +569,6 @@
 				return 0
 			held = held.loc
 			count++
-		user << "[held]"
 		if(istype(held, /mob/living))
 			data["holder"] = held
 			data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"
@@ -595,12 +594,11 @@
 
 		else
 			data["holder"] = 0
-			src << "You are not being carried by anyone!"
 
 		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
 		if(!ui)
 			// Don't copy-paste this unless you're making a pAI software module!
-			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 450, 450)
+			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 450)
 			ui.set_initial_data(data)
 			ui.open()
 			//.set_auto_update(1)
