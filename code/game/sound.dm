@@ -1,16 +1,3 @@
-var/list/shatter_sound = list('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
-var/list/explosion_sound = list('sound/effects/Explosion1.ogg','sound/effects/Explosion2.ogg')
-var/list/spark_sound = list('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
-var/list/rustle_sound = list('sound/effects/rustle1.ogg','sound/effects/rustle2.ogg','sound/effects/rustle3.ogg','sound/effects/rustle4.ogg','sound/effects/rustle5.ogg')
-var/list/bodyfall_sound = list('sound/effects/bodyfall1.ogg','sound/effects/bodyfall2.ogg','sound/effects/bodyfall3.ogg','sound/effects/bodyfall4.ogg')
-var/list/punch_sound = list('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
-var/list/clown_sound = list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
-var/list/jackboot_sound = list('sound/effects/jackboot1.ogg','sound/effects/jackboot2.ogg')
-var/list/swing_hit_sound = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')
-var/list/hiss_sound = list('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
-var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
-//var/list/gun_sound = list('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
-
 /proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global)
 
 	soundin = get_sfx(soundin) // same sound for everyone
@@ -37,8 +24,7 @@ var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pagetur
 
 var/const/FALLOFF_SOUNDS = 0.5
 
-/mob/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
-	if(!src.client || ear_deaf > 0)	return
+/atom/proc/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
 	soundin = get_sfx(soundin)
 
 	var/sound/S = sound(soundin)
@@ -94,9 +80,14 @@ var/const/FALLOFF_SOUNDS = 0.5
 		S.environment = 2
 	src << S
 
+/mob/playsound_local(var/turf/turf_source, soundin, vol as num, vary, frequency, falloff, is_global)
+	if(!client || ear_deaf > 0)
+		return
+	..()
+
 /client/proc/playtitlemusic()
 	if(!ticker || !ticker.login_music) return
-	if(prefs.sound & SOUND_LOBBY)
+	if(prefs && (prefs.toggles & SOUND_LOBBY))
 		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS
 
 /proc/get_rand_frequency()
@@ -105,16 +96,16 @@ var/const/FALLOFF_SOUNDS = 0.5
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
-			if ("shatter") soundin = pick(shatter_sound)
-			if ("explosion") soundin = pick(explosion_sound)
-			if ("sparks") soundin = pick(spark_sound)
-			if ("rustle") soundin = pick(rustle_sound)
-			if ("bodyfall") soundin = pick(bodyfall_sound)
-			if ("punch") soundin = pick(punch_sound)
-			if ("clownstep") soundin = pick(clown_sound)
-			if ("jackboot") soundin = pick(jackboot_sound)
-			if ("swing_hit") soundin = pick(swing_hit_sound)
-			if ("hiss") soundin = pick(hiss_sound)
-			if ("pageturn") soundin = pick(page_sound)
-			//if ("gunshot") soundin = pick(gun_sound)
+			if ("shatter") soundin = pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
+			if ("explosion") soundin = pick('sound/effects/Explosion1.ogg','sound/effects/Explosion2.ogg')
+			if ("sparks") soundin = pick('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
+			if ("rustle") soundin = pick('sound/effects/rustle1.ogg','sound/effects/rustle2.ogg','sound/effects/rustle3.ogg','sound/effects/rustle4.ogg','sound/effects/rustle5.ogg')
+			if ("bodyfall") soundin = pick('sound/effects/bodyfall1.ogg','sound/effects/bodyfall2.ogg','sound/effects/bodyfall3.ogg','sound/effects/bodyfall4.ogg')
+			if ("punch") soundin = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+			if ("clownstep") soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+			if ("jackboot") soundin = pick('sound/effects/jackboot1.ogg','sound/effects/jackboot2.ogg')
+			if ("swing_hit") soundin = pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')
+			if ("hiss") soundin = pick('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
+			if ("pageturn") soundin = pick('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
+			if ("gunshot") soundin = pick('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
 	return soundin
