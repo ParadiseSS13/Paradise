@@ -344,7 +344,7 @@
 		D.emote("scream")
 		D.drop_item()
 		D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
-		D.Stun(2)
+		D.Stun(1)
 		return 1
 	return basic_hit(A,D)
 
@@ -361,10 +361,10 @@
 /datum/martial_art/the_sleeping_carp/proc/kneeStomach(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		D.visible_message("<span class='warning'>[A] knees [D] in the stomach!</span>", \
-						  "<span class'userdanger'>[A] winds you with a knee in the stomach!</span>")
+						  "<span class='userdanger'>[A] winds you with a knee in the stomach!</span>")
 		D.audible_message("<b>[D]</b> gags!")
 		D.losebreath += 3
-		D.Stun(1)
+		D.Stun(2)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		return 1
 	return basic_hit(A,D)
