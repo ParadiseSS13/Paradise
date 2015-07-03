@@ -44,12 +44,12 @@
 	src.forceMove(H)
 	H.name = name
 	if(desc)	H.desc = desc
-	H.attack_hand(grabber)
+	H.MouseDrop(grabber)
 
 	grabber << "<span class='notice'>You scoop up \the [src]."
 	src << "<span class='notice'>\The [grabber] scoops you up.</span>"
 	grabber.status_flags |= PASSEMOTES
-	return
+	return H
 
 //Mob specific holders.
 

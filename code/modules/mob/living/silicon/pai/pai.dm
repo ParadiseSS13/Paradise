@@ -152,14 +152,6 @@
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
 	return
-//Below was the orignal mousedrop code from Bay, keeping incase.
-//	var/mob/living/carbon/H = over_object
-//	if(!istype(H) || !Adjacent(H)) return ..()
-//	if(H.a_intent == "help")
-//		get_scooped(H)
-//		return
-//	else
-//		return ..()
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -441,13 +433,9 @@
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == 2) return
-	if(user.a_intent == "help")
-		get_scooped(user)
-		return
-	else
-		visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
-		spawn(1)
-			close_up()
+	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+	spawn(1)
+		close_up()
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
@@ -537,16 +525,22 @@
 // Handle being picked up.
 
 /mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
-	if(!holder_type)	return
-	var/obj/item/weapon/holder/pai/H = new(loc)
-
-	//H.attack_hand(grabber)
-	src.forceMove(H)
-	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'
+	var/obj/item/weapon/holder/H = ..()
+	if(!istype(H))
+		return
+	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'//I have these in diffrent DMI so i am overriding
 	H.icon_state = "pai-[icon_state]"
-	grabber.put_in_active_hand(H)
-	grabber.update_icons()
-	H.icon_override = 'icons/mob/paihat.dmi'
-	H.item_state = "pai-[icon_state]"
+	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
 
 	return H
+
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	var/mob/living/carbon/H = over_object
+	if(!istype(H) || !Adjacent(H)) return ..()
+	if(H.a_intent == "help")
+		get_scooped(H)
+		return
+	else
+		return ..()

@@ -562,43 +562,27 @@
 		var/count = 0
 
 			// Find the carrier
-		while(!istype(held, /mob/living))
+		while(!isliving(held))
 			if(!held || !held.loc || count > 6)
 				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
 				src << "You are not being carried by anyone!"
 				return 0
 			held = held.loc
 			count++
-		if(istype(held, /mob/living))
+		if(isliving(held))
 			data["holder"] = held
 			data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"
 			data["oxy"] = "[held.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getOxyLoss()]</font>"
 			data["tox"] = "[held.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getToxLoss()]</font>"
 			data["burn"] = "[held.getFireLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getFireLoss()]</font>"
 			data["temp"] = "[held.bodytemperature-T0C]&deg;C ([held.bodytemperature*1.8-459.67]&deg;F)"
-			//data["infected"] = null
-			if (held.viruses)
-				data["infected"] = 1
-				var/virus[0]
-				for((var/datum/disease2/disease/D in held.viruses))
-					var/vdata[0]
-					vdata["name"] = D.name() || "unknown"
-					vdata["type"] = D.spreadtype || "unknown"
-					vdata["stage"] = D.stage || "unknown"
-					vdata["stageMax"] = D.max_stage || "unknown"
-					vdata["cure"] = D.antigen || "unknown"
-
-					virus[++virus.len]=vdata
-					data["infectionDat"] = virus
-
-
 		else
 			data["holder"] = 0
 
 		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
 		if(!ui)
 			// Don't copy-paste this unless you're making a pAI software module!
-			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 450)
+			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 350)
 			ui.set_initial_data(data)
 			ui.open()
 			//.set_auto_update(1)
