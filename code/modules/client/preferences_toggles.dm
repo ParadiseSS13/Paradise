@@ -69,6 +69,24 @@
 	src << "You will [(prefs.toggles & CHAT_PRAYER) ? "now" : "no longer"] see prayerchat."
 	feedback_add_details("admin_verb","TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/togglescoreboard()
+	set name = "Hide/Display End Round Scoreboard"
+	set category = "Preferences"
+	set desc = "Toggles displaying end of round scoreboard"
+	prefs.toggles ^= DISPLAY_SCOREBOARD
+	prefs.save_preferences(src)
+	src << "You will [(prefs.toggles & DISPLAY_SCOREBOARD) ? "now" : "no longer"] see the end of round scoreboard."
+	feedback_add_details("admin_verb","TScoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/togglekarmareminder()
+	set name = "Hide/Display End Round Karma Reminder"
+	set category = "Preferences"
+	set desc = "Toggles displaying end of round karma reminder"
+	prefs.toggles ^= KARMA_REMINDER
+	prefs.save_preferences(src)
+	src << "You will [(prefs.toggles & KARMA_REMINDER) ? "now" : "no longer"] see the end of round karma reminder."
+	feedback_add_details("admin_verb","TKarmabugger") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence LobbyMusic"
 	set category = "Preferences"

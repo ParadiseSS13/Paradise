@@ -454,11 +454,12 @@ var/global/datum/controller/gameticker/ticker
 
 			if(player.client)
 				if(player.client.karma_spent == 0)
-					var/dat
-					dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
-					You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
-					your reward? Look under 'Special Verbs' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
-					player << browse(dat, "window=karmareminder;size=400x300")
+					if(player.client.prefs && (player.client.prefs.toggles & KARMA_REMINDER))
+						var/dat
+						dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
+						You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>
+						your reward? Look under 'Special Verbs' for the 'Award Karma' button, and use it once a round for best results!</table></body></html>"}
+						player << browse(dat, "window=karmareminder;size=400x300")
 
 
 /datum/controller/gameticker/proc/declare_completion()
