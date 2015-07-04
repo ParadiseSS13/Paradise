@@ -44,7 +44,7 @@
 	src.forceMove(H)
 	H.name = name
 	if(desc)	H.desc = desc
-	H.MouseDrop(grabber)
+	H.attack_hand(grabber)
 
 	grabber << "<span class='notice'>You scoop up \the [src]."
 	src << "<span class='notice'>\The [grabber] scoops you up.</span>"

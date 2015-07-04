@@ -528,8 +528,9 @@
 	var/obj/item/weapon/holder/H = ..()
 	if(!istype(H))
 		return
-	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'//I have these in diffrent DMI so i am overriding
 	H.icon_state = "pai-[icon_state]"
+	H.item_state = "pai-[icon_state]"
+	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'//I have these in diffrent DMI so i am overriding
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()
@@ -541,6 +542,6 @@
 	if(!istype(H) || !Adjacent(H)) return ..()
 	if(H.a_intent == "help")
 		get_scooped(H)
-		return
+		//return
 	else
 		return ..()
