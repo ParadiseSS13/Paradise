@@ -98,18 +98,18 @@
 
 	var/turf/simulated/location = loc
 	if(!istype(location))
-		Kill()
+		qdel(src)
 		return
 
 	if(location.excited_group)
 		location.excited_group.reset_cooldowns()
 
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
-		Kill()
+		qdel(src)
 		return
 
 	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
-		Kill()
+		qdel(src)
 		return
 
 	perform_exposure()
@@ -150,9 +150,6 @@
 	return 1
 
 // Garbage collect itself by nulling reference to it
-
-/obj/effect/hotspot/proc/Kill()
-	PlaceInPool(src)
 
 /obj/effect/hotspot/Destroy()
 	air_master.hotspots -= src
