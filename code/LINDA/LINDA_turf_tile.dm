@@ -66,7 +66,7 @@ turf/simulated/New()
 
 turf/simulated/Del()
 	if(active_hotspot)
-		qdel(active_hotspot)
+		active_hotspot.Kill()
 	..()
 
 turf/simulated/assume_air(datum/gas_mixture/giver)

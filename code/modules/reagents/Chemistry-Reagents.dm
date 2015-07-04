@@ -270,25 +270,25 @@ datum
 				for(var/mob/living/carbon/slime/M in T)
 					M.apply_water()
 
-				var/hotspot = (locate(/obj/effect/hotspot) in T)
+				var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot && !istype(T, /turf/space))
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
 					lowertemp.react()
 					T.assume_air(lowertemp)
-					qdel(hotspot)
+					hotspot.Kill()
 				return
 
 			reaction_obj(var/obj/O, var/volume)
 				src = null
 				var/turf/T = get_turf(O)
-				var/hotspot = (locate(/obj/effect/hotspot) in T)
+				var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot && !istype(T, /turf/space))
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
 					lowertemp.react()
 					T.assume_air(lowertemp)
-					qdel(hotspot)
+					hotspot.Kill()
 				if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/monkeycube))
 					var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
 					if(!cube.wrapped)
@@ -1860,13 +1860,13 @@ datum
 						if(T.wet_overlay)
 							T.overlays -= T.wet_overlay
 							T.wet_overlay = null
-				var/hotspot = (locate(/obj/effect/hotspot) in T)
+				var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 				if(hotspot)
 					var/datum/gas_mixture/lowertemp = T.remove_air( T:air:total_moles() )
 					lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
 					lowertemp.react()
 					T.assume_air(lowertemp)
-					qdel(hotspot)
+					hotspot.Kill()
 
 		enzyme
 			name = "Denatured Enzyme"
