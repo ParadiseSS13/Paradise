@@ -197,6 +197,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	blackpowder_detonate(holder, created_volume)
 	return
 
+/*
 /datum/reagent/blackpowder/on_ex_act()
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
@@ -205,7 +206,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	sleep(rand(10,15))
 	blackpowder_detonate(holder, volume)
 	holder.remove_reagent("blackpowder", volume)
-	return
+	return */
 
 /proc/blackpowder_detonate(var/datum/reagents/holder, var/created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
