@@ -25,6 +25,9 @@
 	. = ..()
 	verbs.Cut()
 
+	var/turf/T = loc //If this runtimes atleast we'll know what's creating overlays outside of turfs.
+	T.luminosity = 0
+
 /atom/movable/lighting_overlay/proc/get_clamped_lum(var/minlum = 0, var/maxlum = 1)
 	var/lum = max(lum_r, lum_g, lum_b)
 	if(lum <= minlum)
