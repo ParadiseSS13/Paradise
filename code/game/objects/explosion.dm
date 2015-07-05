@@ -124,7 +124,7 @@
 					var/atom/movable/AM = atom_movable
 					if(AM)	AM.ex_act(dist)
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
-					new/obj/effect/hotspot(T) //Mostly for ambience!
+					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
 					T.ex_act(dist)
 
