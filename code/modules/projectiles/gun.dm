@@ -285,7 +285,7 @@
 			else
 				user << "<span class = 'notice'>Ow...</span>"
 				user.apply_effect(110,AGONY,0)
-			del(in_chamber)
+			qdel(in_chamber)
 			mouthshoot = 0
 			return
 		else

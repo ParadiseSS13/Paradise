@@ -97,7 +97,7 @@
 		in_chamber.pass_flags = pass_flags //And the pass flags to that of the real projectile...
 		in_chamber.firer = user
 		var/output = in_chamber.process() //Test it!
-		del(in_chamber) //No need for it anymore
+		qdel(in_chamber) //No need for it anymore
 		return output //Send it back to the gun!
 
 	Bump(atom/A as mob|obj|turf|area)
@@ -168,7 +168,7 @@
 			if(!istype(src, /obj/item/projectile/beam/lightning))
 				density = 0
 				invisibility = 101
-			del(src)
+			qdel(src)
 		return 1
 
 
