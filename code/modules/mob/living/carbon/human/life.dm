@@ -118,8 +118,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		handle_pain()
 
-		handle_medical_side_effects()
-
 		handle_heartbeat()
 
 		handle_heartattack()
