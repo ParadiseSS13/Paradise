@@ -36,6 +36,7 @@
 	..()
 
 /obj/item/weapon/shard/Destroy()
+	..()
 	return QDEL_HINT_PUTINPOOL
 
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
