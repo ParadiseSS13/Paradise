@@ -153,6 +153,10 @@ datum/preferences
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 0
 
+	var/used_skillpoints = 0
+	var/skill_specialization = null
+	var/list/skills = list() // skills can range from 0 to 3
+
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)
 	var/list/organ_data = list()
@@ -193,6 +197,98 @@ datum/preferences
 					return
 	gender = pick(MALE, FEMALE)
 	real_name = random_name(gender)
+
+
+/datum/preferences/proc/ZeroSkills(var/forced = 0)
+	for(var/V in SKILLS) for(var/datum/skill/S in SKILLS[V])
+		if(!skills.Find(S.ID) || forced)
+			skills[S.ID] = SKILL_NONE
+
+
+/datum/preferences/proc/CalculateSkillPoints()
+	used_skillpoints = 0
+	for(var/V in SKILLS) for(var/datum/skill/S in SKILLS[V])
+		var/multiplier = 1
+		switch(skills[S.ID])
+			if(SKILL_NONE)
+				used_skillpoints += 0 * multiplier
+			if(SKILL_BASIC)
+				used_skillpoints += 1 * multiplier
+			if(SKILL_ADEPT)
+				// secondary skills cost less
+				if(S.secondary)
+					used_skillpoints += 1 * multiplier
+				else
+					used_skillpoints += 3 * multiplier
+			if(SKILL_EXPERT)
+				// secondary skills cost less
+				if(S.secondary)
+					used_skillpoints += 3 * multiplier
+				else
+					used_skillpoints += 6 * multiplier
+
+/datum/preferences/proc/GetSkillClass(points)
+	return CalculateSkillClass(points, age)
+
+/proc/CalculateSkillClass(points, age)
+	if(points <= 0) return "Unconfigured"
+	// skill classes describe how your character compares in total points
+	points -= min(round((age - 20) / 2.5), 4) // every 2.5 years after 20, one extra skillpoint
+	if(age > 30)
+		points -= round((age - 30) / 5) // every 5 years after 30, one extra skillpoint
+	switch(points)
+		if(-1000 to 3)
+			return "Terrifying"
+		if(4 to 6)
+			return "Below Average"
+		if(7 to 10)
+			return "Average"
+		if(11 to 14)
+			return "Above Average"
+		if(15 to 18)
+			return "Exceptional"
+		if(19 to 24)
+			return "Genius"
+		if(24 to 1000)
+			return "God"
+
+/datum/preferences/proc/SetSkills(mob/user)
+	if(SKILLS == null)
+		setup_skills()
+
+	if(skills.len == 0)
+		ZeroSkills()
+
+
+	var/HTML = "<body>"
+	HTML += "<b>Select your Skills</b><br>"
+	HTML += "Current skill level: <b>[GetSkillClass(used_skillpoints)]</b> ([used_skillpoints])<br>"
+	HTML += "<a href=\"byond://?src=\ref[user];preference=skills;preconfigured=1;\">Use preconfigured skillset</a><br>"
+	HTML += "<table>"
+	for(var/V in SKILLS)
+		HTML += "<tr><th colspan = 5><b>[V]</b>"
+		HTML += "</th></tr>"
+		for(var/datum/skill/S in SKILLS[V])
+			var/level = skills[S.ID]
+			HTML += "<tr style='text-align:left;'>"
+			HTML += "<th><a href='byond://?src=\ref[user];preference=skills;skillinfo=\ref[S]'>[S.name]</a></th>"
+			HTML += "<th><a href='byond://?src=\ref[user];preference=skills;setskill=\ref[S];newvalue=[SKILL_NONE]'><font color=[(level == SKILL_NONE) ? "red" : "black"]>\[Untrained\]</font></a></th>"
+			// secondary skills don't have an amateur level
+			if(S.secondary)
+				HTML += "<th></th>"
+			else
+				HTML += "<th><a href='byond://?src=\ref[user];preference=skills;setskill=\ref[S];newvalue=[SKILL_BASIC]'><font color=[(level == SKILL_BASIC) ? "red" : "black"]>\[Amateur\]</font></a></th>"
+			HTML += "<th><a href='byond://?src=\ref[user];preference=skills;setskill=\ref[S];newvalue=[SKILL_ADEPT]'><font color=[(level == SKILL_ADEPT) ? "red" : "black"]>\[Trained\]</font></a></th>"
+			HTML += "<th><a href='byond://?src=\ref[user];preference=skills;setskill=\ref[S];newvalue=[SKILL_EXPERT]'><font color=[(level == SKILL_EXPERT) ? "red" : "black"]>\[Professional\]</font></a></th>"
+			HTML += "</tr>"
+	HTML += "</table>"
+	HTML += "<a href=\"byond://?src=\ref[user];preference=skills;cancel=1;\">\[Done\]</a>"
+
+	user << browse(null, "window=preferences")
+	user << browse(HTML, "window=show_skills;size=600x800")
+	return
+
+
 
 /datum/preferences
 	proc/ShowChoices(mob/user)
@@ -330,6 +426,7 @@ datum/preferences
 					dat += "<b>You are banned from using character records.</b><br>"
 				else
 					dat += "<b><a href=\"byond://?src=\ref[user];preference=records;record=1\">Character Records</a></b><br>"
+				dat += "\t<a href=\"byond://?src=\ref[user];preference=skills\"><b>Set Skills</b> (<i>[GetSkillClass(used_skillpoints)] [used_skillpoints > 0 ? "[used_skillpoints]" : "0"]</i>)</a><br>"
 				dat += "<a href='byond://?src=\ref[user];preference=flavor_text;task=input'><b>Set Flavor Text</b></a><br>"
 				if(lentext(flavor_text) <= 40)
 					if(!lentext(flavor_text))
@@ -910,6 +1007,40 @@ datum/preferences
 				else
 					SetChoices(user)
 			return 1
+		else if(href_list["preference"] == "skills")
+			if(href_list["cancel"])
+				user << browse(null, "window=show_skills")
+				ShowChoices(user)
+			else if(href_list["skillinfo"])
+				var/datum/skill/S = locate(href_list["skillinfo"])
+				var/HTML = "<b>[S.name]</b><br>[S.desc]"
+				user << browse(HTML, "window=\ref[user]skillinfo")
+			else if(href_list["setskill"])
+				var/datum/skill/S = locate(href_list["setskill"])
+				var/value = text2num(href_list["newvalue"])
+				skills[S.ID] = value
+				CalculateSkillPoints()
+				SetSkills(user)
+			else if(href_list["preconfigured"])
+				var/selected = input(user, "Select a skillset", "Skillset") as null|anything in SKILL_PRE
+				if(!selected) return
+
+				ZeroSkills(1)
+				for(var/V in SKILL_PRE[selected])
+					if(V == "field")
+						skill_specialization = SKILL_PRE[selected]["field"]
+						continue
+					skills[V] = SKILL_PRE[selected][V]
+				CalculateSkillPoints()
+
+				SetSkills(user)
+			else if(href_list["setspecialization"])
+				skill_specialization = href_list["setspecialization"]
+				CalculateSkillPoints()
+				SetSkills(user)
+			else
+				SetSkills(user)
+			return 1
 		else if(href_list["preference"] == "disabilities")
 
 			switch(href_list["task"])
@@ -1468,6 +1599,8 @@ datum/preferences
 		character.h_style = h_style
 		character.f_style = f_style
 
+		character.skills = skills
+		character.used_skillpoints = used_skillpoints
 
 		// Destroy/cyborgize organs
 
