@@ -37,7 +37,7 @@
 	Destroy()
 		del(air_contents)
 
-		..()
+		return ..()
 
 	update_icon()
 		return null

@@ -453,9 +453,9 @@
 		f2.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		..()
+		qdel(f1)
+		qdel(f2)
+		return ..()
 
 /obj/machinery/door/poddoor/two_tile_ver
 	var/obj/machinery/door/poddoor/filler_object/f1
@@ -472,9 +472,9 @@
 		f2.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		..()
+		qdel(f1)
+		qdel(f2)
+		return ..()
 
 /obj/machinery/door/poddoor/three_tile_hor
 	var/obj/machinery/door/poddoor/filler_object/f1
@@ -495,10 +495,10 @@
 		f3.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		del f3
-		..()
+		qdel(f1)
+		qdel(f2)
+		qdel(f3)
+		return ..()
 
 /obj/machinery/door/poddoor/three_tile_ver
 	var/obj/machinery/door/poddoor/filler_object/f1
@@ -519,10 +519,10 @@
 		f3.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		del f3
-		..()
+		qdel(f1)
+		qdel(f2)
+		qdel(f3)
+		return ..()
 
 /obj/machinery/door/poddoor/four_tile_hor
 	var/obj/machinery/door/poddoor/filler_object/f1
@@ -547,11 +547,11 @@
 		f4.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		del f3
-		del f4
-		..()
+		qdel(f1)
+		qdel(f2)
+		qdel(f3)
+		qdel(f4)
+		return ..()
 
 /obj/machinery/door/poddoor/four_tile_ver
 	var/obj/machinery/door/poddoor/filler_object/f1
@@ -576,11 +576,11 @@
 		f4.set_opacity(opacity)
 
 	Destroy()
-		del f1
-		del f2
-		del f3
-		del f4
-		..()
+		qdel(f1)
+		qdel(f2)
+		qdel(f3)
+		qdel(f4)
+		return ..()
 
 /obj/machinery/door/poddoor/filler_object
 	name = ""

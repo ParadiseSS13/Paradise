@@ -57,7 +57,7 @@ obj/machinery/atmospherics/binary
 		node1 = null
 		node2 = null
 
-		..()
+		return ..()
 
 	initialize()
 		if(node1 && node2) return
@@ -85,7 +85,7 @@ obj/machinery/atmospherics/binary
 
 		update_icon()
 		update_underlays()
-		
+
 	build_network()
 		if(!network1 && node1)
 			network1 = new /datum/pipe_network()
@@ -135,7 +135,7 @@ obj/machinery/atmospherics/binary
 		else if(reference==node2)
 			del(network2)
 			node2 = null
-			
+
 		update_icon()
 		update_underlays()
 

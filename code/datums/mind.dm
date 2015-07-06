@@ -625,7 +625,7 @@ datum/mind
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
 						for(var/obj/item/organ/external/organs in H.organs)
 							if(I in organs.implants)
-								I.Destroy()
+								qdel(I)
 					H << "\blue <Font size =3><B>Your loyalty implant has been deactivated.</B></FONT>"
 				if("add")
 					var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)

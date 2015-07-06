@@ -25,8 +25,7 @@
 
 	Destroy()
 		blobs -= src
-		..()
-		return
+		return ..()
 
 
 	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)

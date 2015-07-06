@@ -166,7 +166,7 @@ datum
 				if(src.data["virus"])
 					var/datum/disease/D = src.data["virus"]
 					D.cure(0)
-				..()
+				return ..()
 */
 
 /*

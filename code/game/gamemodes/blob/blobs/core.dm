@@ -25,8 +25,7 @@
 		if(overmind)
 			del(overmind)
 		processing_objects.Remove(src)
-		..()
-		return
+		return ..()
 
 	update_icon()
 		if(health <= 0)

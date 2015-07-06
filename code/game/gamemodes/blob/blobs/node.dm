@@ -14,8 +14,7 @@
 	Destroy()
 		blob_nodes -= src
 		processing_objects.Remove(src)
-		..()
-		return
+		return ..()
 
 	Life()
 		for(var/i = 1; i < 8; i += i)

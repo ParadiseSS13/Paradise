@@ -135,7 +135,7 @@ obj/item/weapon/gun/energy/laser/retro
 
 	Destroy()
 		processing_objects.Remove(src)
-		..()
+		return ..()
 
 
 	process()
@@ -172,7 +172,7 @@ obj/item/weapon/gun/energy/laser/retro
 
 	Destroy()
 		processing_objects.Remove(src)
-		..()
+		return ..()
 
 
 	process()
