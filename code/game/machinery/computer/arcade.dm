@@ -42,7 +42,8 @@
 							/obj/item/weapon/id_decal/emag					= 2,
 							/obj/item/weapon/spellbook/oneuse/fake_gib		= 2,
 							/obj/item/toy/foamblade							= 2,
-							/obj/item/toy/flash								= 2
+							/obj/item/toy/flash								= 2,
+							/obj/item/toy/minigibber						= 2
 							)
 
 /obj/machinery/computer/arcade/power_change()
