@@ -637,7 +637,7 @@ atom/proc/create_reagents(var/max_vol)
 
 /datum/reagents/Destroy()
 	for(var/datum/reagent/reagent in reagent_list)
-		reagent.Destroy()
+		qdel(reagent)
 
 	if(my_atom)
 		my_atom = null

@@ -109,7 +109,7 @@
 
 	Destroy()
 		processing_objects.Remove(src)
-		..()
+		return ..()
 
 	process()
 		charge_tick++
