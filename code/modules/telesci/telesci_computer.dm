@@ -318,9 +318,12 @@
 		return
 	return
 
-/obj/machinery/computer/telescience/proc/eject()
+/obj/machinery/computer/telescience/proc/eject(mob/user)
+
+	if(!user) return
+
 	for(var/obj/item/I in crystals)
-		I.loc = src.loc
+		I.loc = user.loc
 		crystals -= I
 	power = 0
 
@@ -361,7 +364,7 @@
 
 	if(href_list["ejectGPS"])
 		if(inserted_gps)
-			inserted_gps.loc = loc
+			inserted_gps.loc = usr.loc
 			inserted_gps = null
 
 	if(href_list["setMemory"])
@@ -385,7 +388,7 @@
 		temp_msg = "NOTICE:<BR>Calibration successful."
 
 	if(href_list["eject"])
-		eject()
+		eject(usr)
 		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
 
 	updateUsrDialog()
