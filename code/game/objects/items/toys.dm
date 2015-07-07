@@ -7,15 +7,16 @@
  *		Toy crossbow
  *		Toy Tommy Gun
  *		Toy swords
- *      Toy mechs
+ *		Toy mechs
  *		Snap pops
  *		Water flower
  *		Toy Nuke
  *		Card Deck
- *      Therapy dolls
- *      Toddler doll
- *      Inflatable duck
+ *		Therapy dolls
+ *		Toddler doll
+ *		Inflatable duck
  *		Foam armblade
+ *		Mini Gibber
  */
 
 
@@ -1278,3 +1279,44 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "roxie"
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
+
+//minigibber, so cute
+
+/obj/item/toy/minigibber
+	name = "miniature gibber"
+	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "minigibber"
+	attack_verb = list("grinded", "gibbed")
+	w_class = 2.0
+	var/cooldown = 0
+	var/obj/stored_minature = null
+
+/obj/item/toy/minigibber/attack_self(var/mob/user)
+
+	if(stored_minature)
+		user << "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>"
+		qdel(stored_minature)
+		stored_minature = null
+		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		cooldown = world.time
+
+	if(cooldown < world.time - 8)
+		user << "<span class='notice'>You hit the gib button on \the [src].</span>"
+		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		cooldown = world.time
+
+/obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
+	if(istype(O,/obj/item/toy/character) && O.loc == user)
+		user << "<span class='notice'>You start feeding \the [O] \icon[O] into \the [src]'s mini-input.</span>"
+		if(do_after(user,10))
+			if(O.loc != user)
+				user << "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>"
+			else
+				user << "<span class='notice'>You feed \the [O] \icon[O] into \the [src]!</span>"
+				user.unEquip(O)
+				O.forceMove(src)
+				stored_minature = O
+		else
+			user << "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>"
+	else ..()
