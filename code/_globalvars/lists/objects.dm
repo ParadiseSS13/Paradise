@@ -10,6 +10,7 @@ var/global/list/spacepods_list = list()				//list of all space pods. Used by hos
 var/global/list/joblist = list()					//list of all jobstypes, minus borg and AI
 var/global/list/flag_list = list()					//list of flags during Nations gamemode
 var/global/list/airlocks = list()					//list of all airlocks
+var/global/list/singularities = list()				//list of all singularities
 
 var/global/list/aibots = list() // AI controlled bots
 var/global/list/table_recipes = list() //list of all table craft recipes
