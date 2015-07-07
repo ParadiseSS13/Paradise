@@ -318,12 +318,11 @@
 		return
 	return
 
-/obj/machinery/computer/telescience/proc/eject(mob/user)
-
-	if(!user) return
+/obj/machinery/computer/telescience/proc/eject()
 
 	for(var/obj/item/I in crystals)
-		I.loc = user.loc
+		I.loc = loc
+		I.pixel_y = -9
 		crystals -= I
 	power = 0
 
@@ -388,7 +387,7 @@
 		temp_msg = "NOTICE:<BR>Calibration successful."
 
 	if(href_list["eject"])
-		eject(usr)
+		eject()
 		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
 
 	updateUsrDialog()
