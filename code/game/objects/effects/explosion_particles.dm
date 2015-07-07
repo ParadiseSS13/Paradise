@@ -9,7 +9,7 @@
 /obj/effect/expl_particles/New()
 	..()
 	spawn (15)
-		src.loc = null
+		qdel(src)
 	return
 
 /obj/effect/expl_particles/Move()
@@ -32,8 +32,7 @@
 		spawn(0)
 			var/obj/effect/expl_particles/expl = new /obj/effect/expl_particles(src.location)
 			var/direct = pick(alldirs)
-			var/a = 0
-			for(a=0, a<pick(1;25,2;50,3,4;200), a++)
+			for(i=0, i<pick(1;25,2;50,3,4;200), i++)
 				sleep(1)
 				step(expl,direct)
 
@@ -50,7 +49,7 @@
 /obj/effect/explosion/New()
 	..()
 	spawn (10)
-		src.loc = null
+		qdel(src)
 	return
 
 /datum/effect/system/explosion
