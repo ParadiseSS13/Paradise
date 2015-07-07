@@ -407,11 +407,11 @@ datum/preferences
 		dat += "</center></body></html>"
 
 //		user << browse(dat, "window=preferences;size=560x580")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 610, 650)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 640, 750)
 		popup.set_content(dat)
 		popup.open(0)
 
-	proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Chief Engineer","Research Director","Captain"), width = 1025, height = 800)
+	proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 755, height = 780)
 		if(!job_master)
 			return
 
@@ -443,7 +443,6 @@ datum/preferences
 					//the last job's selection color. Creating a rather nice effect.
 					for(var/i = 0, i < (limit - index), i += 1)
 						HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
-				HTML += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				HTML += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
 
