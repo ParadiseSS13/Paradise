@@ -34,7 +34,9 @@
 
 
 /turf/simulated/wall/Del()
-	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
+	for(var/obj/effect/E in src)
+		if(E.name == "Wallrot")
+			qdel(E)
 
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E

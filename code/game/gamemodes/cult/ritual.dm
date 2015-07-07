@@ -74,9 +74,9 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		AI.client.images += blood
 	cult_viewpoints += src
 
-/obj/effect/rune/Del()
-	..()
+/obj/effect/rune/Destroy()
 	cult_viewpoints -= src
+	return ..()
 
 /obj/effect/rune/examine()
 	set src in view(2)

@@ -75,7 +75,7 @@
 
 	return null
 
-/obj/machinery/atmospherics/valve/Del()
+/obj/machinery/atmospherics/valve/Destroy()
 	loc = null
 
 	if(node1)
@@ -88,7 +88,7 @@
 	node1 = null
 	node2 = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/valve/proc/open()
 	if(open) return 0

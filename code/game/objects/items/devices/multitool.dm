@@ -36,9 +36,9 @@
 	processing_objects += src
 
 
-/obj/item/device/multitool/ai_detect/Del()
+/obj/item/device/multitool/ai_detect/Destroy()
 	processing_objects -= src
-	..()
+	return ..()
 
 /obj/item/device/multitool/ai_detect/process()
 

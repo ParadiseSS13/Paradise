@@ -26,9 +26,9 @@ var/list/world_uplinks = list()
 	welcome = ticker.mode.uplink_welcome
 	uses = ticker.mode.uplink_uses
 
-/obj/item/device/uplink/Del()
+/obj/item/device/uplink/Destroy()
 	world_uplinks-=src
-	..()
+	return ..()
 
 //Let's build a menu!
 /obj/item/device/uplink/proc/generate_menu(mob/user as mob)
@@ -105,7 +105,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(!active)
 		return
 
@@ -252,8 +252,8 @@ var/list/world_uplinks = list()
 			src.hidden_uplink.trigger(user)
 			return 1
 	return 0
-	
-//Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)	
+
+//Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)
 /obj/item/device/radio/uplink/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/antag_spawner/borg_tele))
 		var/obj/item/weapon/antag_spawner/borg_tele/S = W

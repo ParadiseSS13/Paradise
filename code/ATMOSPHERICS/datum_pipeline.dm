@@ -10,7 +10,7 @@ datum/pipeline
 
 	var/alert_pressure = 0
 
-	Del()
+	Destroy()
 		if(network)
 			del(network)
 
@@ -18,7 +18,7 @@ datum/pipeline
 			temporarily_store_air()
 			del(air)
 
-		..()
+		return ..()
 
 	proc/process()//This use to be called called from the pipe networks
 

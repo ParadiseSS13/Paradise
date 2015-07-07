@@ -404,18 +404,13 @@
 /obj/item/weapon/grab/dropped()
 	qdel(src)
 
-/obj/item/weapon/grab/Del()
-	//make sure the grabbed_by list doesn't fill up with nulls
-	if(affecting) affecting.grabbed_by -= src
-	..()
-
 /obj/item/weapon/grab/Destroy()
 	if(affecting)
 		affecting.pixel_x = 0
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
-	del(hud)
+	qdel(hud)
 	return ..()
 
 #undef EAT_TIME_XENO
