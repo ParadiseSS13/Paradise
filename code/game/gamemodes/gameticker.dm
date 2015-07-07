@@ -453,7 +453,7 @@ var/global/datum/controller/gameticker/ticker
 
 			if(player.client)
 				if(player.client.karma_spent == 0)
-					if(player.client.prefs && (player.client.prefs.toggles & KARMA_REMINDER))
+					if(player.client.prefs && !(player.client.prefs.toggles & DISABLE_KARMA_REMINDER))
 						var/dat
 						dat += {"<html><head><title>Karma Reminder</title></head><body><h1><B>Karma Reminder</B></h1><br>
 						You have not yet spent your karma for the round, surely there is a player who was worthy of receiving<br>

@@ -212,7 +212,7 @@
 	world << "<b><font size='4'>[score_crewscore]</font></b>"
 	for(var/mob/E in player_list)
 		if(E.client)
-			if(E.client.prefs && (E.client.prefs.toggles & DISPLAY_SCOREBOARD))
+			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))
 				E.scorestats()
 	return
 
