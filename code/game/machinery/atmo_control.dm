@@ -136,7 +136,8 @@ obj/machinery/air_sensor
 
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	icon_screen = "tank"
+	icon_keyboard = "atmos_key"
 	circuit = "/obj/item/weapon/circuitboard/air_management"
 	req_one_access_txt = "24;10"
 

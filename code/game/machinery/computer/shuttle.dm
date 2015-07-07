@@ -1,7 +1,8 @@
 /obj/machinery/computer/shuttle
 	name = "Shuttle"
 	desc = "For shuttle control."
-	icon_state = "shuttle"
+	icon_keyboard = "tech_key"
+	icon_screen = "shuttle"
 	var/auth_need = 3.0
 	var/list/authorized = list(  )
 

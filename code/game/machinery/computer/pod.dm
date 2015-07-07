@@ -3,7 +3,7 @@
 /obj/machinery/computer/pod
 	name = "Mass Drivers and Pod Doors Control"
 	desc = "A controll for launching pods. Some people prefer firing Mechas."
-	icon_state = "mass_drivers"
+	icon_screen = "mass_driver"
 	light_color = "#555555"
 	circuit = /obj/item/weapon/circuitboard/pod
 	var/list/id_tags = list()
@@ -90,9 +90,6 @@
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
 
-	if(icon_state != "old")
-		flick("mass_drivers_timing", src)
-
 	for(var/obj/machinery/door/poddoor/M in world)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)
@@ -170,12 +167,10 @@
 /obj/machinery/computer/pod/process()
 	if(!..())
 		return
-	var/timing = 0
 	for(var/ident_tag in id_tags)
 		if(timings[ident_tag])
 			if(times[ident_tag] > 0)
 				times[ident_tag] = round(times[ident_tag]) - 1
-				timing = 1
 			else
 				spawn()
 					launch_sequence(ident_tag)
@@ -187,11 +182,6 @@
 		else
 			times[ident_tag] = maxtimes[ident_tag]
 		updateDialog()
-	if(icon_state != "old")
-		if(timing)
-			icon_state = "mass_drivers_timing"
-		else
-			icon_state = "mass_drivers"
 	return
 
 
@@ -270,7 +260,9 @@
 
 
 /obj/machinery/computer/pod/old
-	icon_state = "old"
+	icon_state = "oldcomp"
+	icon_screen = "library"
+	icon_keyboard = null
 	name = "DoorMex Control Computer"
 	circuit = /obj/item/weapon/circuitboard/olddoor
 
@@ -311,9 +303,6 @@
 	if(!anydriver)
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
-
-	if(icon_state != "old")
-		flick("mass_drivers_timing", src)
 
 	if(teleporter_dest)
 		for(var/obj/structure/deathsquad_tele/D in world)

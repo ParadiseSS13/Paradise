@@ -3,7 +3,8 @@
 /obj/machinery/computer/card
 	name = "Identification Computer"
 	desc = "Terminal for programming Nanotrasen employee ID cards to access parts of the station."
-	icon_state = "id"
+	icon_keyboard = "id_key"
+	icon_screen = "id"
 	req_access = list(access_change_ids)
 	circuit = "/obj/item/weapon/circuitboard/card"
 	var/obj/item/weapon/card/id/scan = null

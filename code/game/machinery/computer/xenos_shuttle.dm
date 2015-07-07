@@ -4,7 +4,8 @@
 /obj/machinery/computer/xenos_station
 	name = "xenos shuttle terminal"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "xenocontrol"
+	icon_keyboard = "telesci_key"
+	icon_screen = "telesci"
 	req_access = list()
 	var/area/curr_location
 	var/moving = 0

@@ -1,7 +1,8 @@
 /obj/machinery/computer/telescience
 	name = "\improper Telepad Control Console"
 	desc = "Used to teleport objects to and from the telescience telepad."
-	icon_state = "teleport"
+	icon_keyboard = "telesci_key"
+	icon_screen = "telesci"
 	circuit = /obj/item/weapon/circuitboard/telesci_console
 	req_access = list(access_research)
 	var/sending = 1
