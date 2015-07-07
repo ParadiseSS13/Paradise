@@ -101,7 +101,7 @@
 
 	return null
 
-/obj/machinery/atmospherics/tvalve/Del()
+/obj/machinery/atmospherics/tvalve/Destroy()
 	loc = null
 
 	if(node1)
@@ -118,7 +118,7 @@
 	node2 = null
 	node3 = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/tvalve/proc/go_to_side()
 
