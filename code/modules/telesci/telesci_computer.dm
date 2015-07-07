@@ -364,7 +364,7 @@
 
 	if(href_list["ejectGPS"])
 		if(inserted_gps)
-			inserted_gps.loc = usr.loc
+			usr.put_in_hands(inserted_gps)
 			inserted_gps = null
 
 	if(href_list["setMemory"])
