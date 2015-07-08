@@ -19,7 +19,7 @@
 		icon_state = "t"
 	else
 		icon_state = ""
-	
+
 	if(!powered())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
@@ -183,7 +183,7 @@
 	src.updateUsrDialog()
 	return
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer
+/obj/machinery/atmospherics/trinary/mixer/t_mixer
 	icon_state = "tmap"
 
 	dir = SOUTH
@@ -191,7 +191,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
+/obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
 	..()
 	switch(dir)
 		if(NORTH)
@@ -203,7 +203,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
 		if(WEST)
 			initialize_directions = WEST|NORTH|SOUTH
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
+/obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
 	if(node1 && node2 && node3) return
 
 	var/node1_connect = turn(dir, -90)
@@ -228,7 +228,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
 	update_icon()
 	update_underlays()
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer
+/obj/machinery/atmospherics/trinary/mixer/m_mixer
 	icon_state = "mmap"
 
 	dir = SOUTH
@@ -236,7 +236,7 @@ obj/machinery/atmospherics/trinary/mixer/m_mixer
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
+/obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
 	..()
 	switch(dir)
 		if(NORTH)
@@ -248,7 +248,7 @@ obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
 		if(WEST)
 			initialize_directions = WEST|SOUTH|EAST
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer/initialize()
+/obj/machinery/atmospherics/trinary/mixer/m_mixer/initialize()
 	if(node1 && node2 && node3) return
 
 	var/node1_connect = turn(dir, -180)
