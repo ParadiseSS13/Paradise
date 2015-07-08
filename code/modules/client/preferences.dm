@@ -1483,7 +1483,8 @@ datum/preferences
 		character.h_style = h_style
 		character.f_style = f_style
 
-		character.body_accessory = body_accessory_datums["[body_accessory]"]
+		if(isnull(body_accessory))	character.body_accessory = null
+		else character.body_accessory = body_accessory_datums["[body_accessory]"]
 
 		// Destroy/cyborgize organs
 

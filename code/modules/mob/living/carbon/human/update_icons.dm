@@ -903,13 +903,13 @@ var/global/list/damage_icon_parts = list()
 
 			overlays_standing[TAIL_LAYER]	= image(tail_s, "pixel_x" = (body_accessory.shift_x_size))
 
-	else //they have no custom tail defined, use species tail
+	/*else //they have no custom tail defined, use species tail
 		if(species.tail && species.bodyflags & HAS_TAIL)
 			if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 				tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
 				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
-			overlays_standing[TAIL_LAYER]	= image(tail_s)
+			overlays_standing[TAIL_LAYER]	= image(tail_s)*/
 
 	if(update_icons)
 		update_icons()
@@ -926,11 +926,11 @@ var/global/list/damage_icon_parts = list()
 
 		overlays_standing[TAIL_LAYER]	= image(tailw_s, "pixel_x" = (body_accessory.shift_x_size))
 
-	else if(species.tail && species.bodyflags & HAS_TAIL) //they have no custom tail defined, use species tail
+	/*else if(species.tail && species.bodyflags & HAS_TAIL) //they have no custom tail defined, use species tail
 		tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
 		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
-		overlays_standing[TAIL_LAYER]	= image(tailw_s)
+		overlays_standing[TAIL_LAYER]	= image(tailw_s)*/
 
 	if(update_icons)
 		update_icons()

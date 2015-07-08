@@ -10,6 +10,16 @@ var/global/list/body_accessory_datums = list()
 
 	return 1
 
+/proc/assign_body_accessory(var/mob/living/carbon/human/H)
+	if(!istype(H))	return 0
+
+	if(H.species && H.species.tail)
+		if(!H.body_accessory)
+			H.body_accessory = body_accessory_datums["[H.species.tail]"]
+			H.update_tail_showing()
+			return 1
+	return 0
+
 /datum/body_accessory
 	var/name
 	var/icon_file = 'icons/effects/species.dmi'
