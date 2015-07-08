@@ -23,7 +23,7 @@
 	Destroy()
 		blob_cores -= src
 		if(overmind)
-			del(overmind)
+			qdel(overmind)
 		processing_objects.Remove(src)
 		return ..()
 

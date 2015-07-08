@@ -14,6 +14,7 @@
 
 	Destroy()
 		active = 0
+		the_disk = null
 		return ..()
 
 	attack_self()

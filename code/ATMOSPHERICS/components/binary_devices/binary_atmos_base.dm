@@ -49,10 +49,10 @@ obj/machinery/atmospherics/binary
 
 		if(node1)
 			node1.disconnect(src)
-			del(network1)
+			qdel(network1)
 		if(node2)
 			node2.disconnect(src)
-			del(network2)
+			qdel(network2)
 
 		node1 = null
 		node2 = null

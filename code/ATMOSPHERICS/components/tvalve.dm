@@ -106,13 +106,13 @@
 
 	if(node1)
 		node1.disconnect(src)
-		del(network_node1)
+		qdel(network_node1)
 	if(node2)
 		node2.disconnect(src)
-		del(network_node2)
+		qdel(network_node2)
 	if(node3)
 		node3.disconnect(src)
-		del(network_node3)
+		qdel(network_node3)
 
 	node1 = null
 	node2 = null

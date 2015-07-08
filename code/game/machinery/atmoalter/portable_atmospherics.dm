@@ -35,7 +35,7 @@
 			update_icon()
 
 	Destroy()
-		del(air_contents)
+		qdel(air_contents)
 
 		return ..()
 
