@@ -1,4 +1,8 @@
 
+/mob/living/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /mob/living/Life()
 	..()
 	if (notransform)	return

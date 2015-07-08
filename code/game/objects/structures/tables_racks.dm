@@ -564,7 +564,7 @@
 	if (istype(I, /obj/item/stack/tile/grass))
 		qdel(I)
 		new /obj/structure/table/woodentable/poker( src.loc )
-		del(src)
+		qdel(src)
 		visible_message("<span class='notice'>[user] adds the grass to the wooden table</span>")
 
 

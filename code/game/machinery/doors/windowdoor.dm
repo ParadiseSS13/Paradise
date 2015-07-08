@@ -25,7 +25,9 @@
 	density = 0
 	if(health == 0)
 		playsound(src, "shatter", 70, 1)
-	electronics = null
+	if(electronics)
+		qdel(electronics)
+		electronics = null
 	return ..()
 
 

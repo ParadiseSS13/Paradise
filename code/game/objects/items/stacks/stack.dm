@@ -24,7 +24,6 @@
 /obj/item/stack/Destroy()
 	if (usr && usr.machine==src)
 		usr << browse(null, "window=stack")
-	src.loc = null
 	return ..()
 
 /obj/item/stack/examine()

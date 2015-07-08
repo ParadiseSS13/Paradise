@@ -50,6 +50,12 @@
 		dna.ready_dna(src)
 	UpdateAppearance()
 
+/mob/living/carbon/human/Destroy()
+	for(var/atom/movable/organelle in organs)
+		qdel(organelle)
+	organs = list()
+	return ..()
+
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH

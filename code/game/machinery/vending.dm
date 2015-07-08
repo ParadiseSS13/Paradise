@@ -146,7 +146,7 @@
 			src.product_records.Add(product)
 
 /obj/machinery/vending/Destroy()
-	del(wires) // qdel
+	qdel(wires) // qdel
 	wires = null
 	if(coin)
 		qdel(coin) // qdel
