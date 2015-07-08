@@ -86,18 +86,9 @@
 
 
 /obj/structure/cable/Destroy()						// called when a cable is deleted
-	if(!defer_powernet_rebuild)					// set if network will be rebuilt manually
-		if(powernet)
-			powernet.cut_cable(src)				// update the powernets
+	if(powernet)
+		powernet.cut_cable(src)				// update the powernets
 	cable_list -= src
-/*	if(istype(attached))
-		attached.set_light(0)
-		attached.icon_state = "powersink0"
-		attached.mode = 0
-		processing_objects.Remove(attached)
-		attached.anchored = 0
-		attached.attached = null
-	attached = null*/
 	return ..()													// then go ahead and delete the cable
 
 /obj/structure/cable/hide(var/i)
