@@ -6,7 +6,7 @@
 	icon_state = "moneybag"
 	flags = CONDUCT
 	force = 10.0
-	throwforce = 2.0
+	throwforce = 0
 	w_class = 4.0
 
 /obj/item/weapon/moneybag/attack_hand(user as mob)
@@ -17,6 +17,7 @@
 	var/amt_plasma = 0
 	var/amt_uranium = 0
 	var/amt_clown = 0
+	var/amt_adamantine = 0
 
 	for (var/obj/item/weapon/coin/C in contents)
 		if (istype(C,/obj/item/weapon/coin/diamond))
@@ -33,6 +34,8 @@
 			amt_uranium++;
 		if (istype(C,/obj/item/weapon/coin/clown))
 			amt_clown++;
+		if (istype(C,/obj/item/weapon/coin/adamantine))
+			amt_adamantine++;
 
 	var/dat = text("<b>The contents of the moneybag reveal...</b><br>")
 	if (amt_gold)
@@ -49,41 +52,23 @@
 		dat += text("Uranium coins: [amt_uranium] <A href='?src=\ref[src];remove=uranium'>Remove one</A><br>")
 	if (amt_clown)
 		dat += text("Bananium coins: [amt_clown] <A href='?src=\ref[src];remove=clown'>Remove one</A><br>")
-/*
-	var/credits=0
-	var/list/ore=list()
-	for(var/oredata in typesof(/datum/material) - /datum/material)
-		var/datum/material/ore_datum = new oredata
-		ore[ore_datum.id]=ore_datum
-
-	for (var/obj/item/weapon/coin/C in contents)
-		if (istype(C,/obj/item/weapon/coin))
-			var/datum/material/ore_info=ore[C.material]
-			ore_info.stored++
-			ore[C.material]=ore_info
-			credits += C.credits
-
-	var/dat = "<b>The contents of the moneybag reveal...</b><ul>"
-	for(var/ore_id in ore)
-		var/datum/material/ore_info=ore[ore_id]
-		if(ore_info.stored)
-			dat += "<li>[ore_info.processed_name] coins: [ore_info.stored] <A href='?src=\ref[src];remove=[ore_id]'>Remove one</A></li>"
-	dat += "</ul><b>Total haul:</b> $[credits]"
-*/
+	if (amt_adamantine)
+		dat += text("Adamantine coins: [amt_adamantine] <A href='?src=\ref[src];remove=adamantine'>Remove one</A><br>")
 	user << browse("[dat]", "window=moneybag")
 
 /obj/item/weapon/moneybag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/coin))
 		var/obj/item/weapon/coin/C = W
-		user << "\blue You add the [C.name] into the bag."
-		usr.drop_item()
+		if(!user.drop_item())
+			return
+		user << "<span class='notice'>You add the [C.name] into the bag.</span>"
 		contents += C
 	if (istype(W, /obj/item/weapon/moneybag))
 		var/obj/item/weapon/moneybag/C = W
 		for (var/obj/O in C.contents)
 			contents += O;
-		user << "\blue You empty the [C.name] into the bag."
+		user << "<span class='notice'>You empty the [C.name] into the bag.</span>"
 	return
 
 /obj/item/weapon/moneybag/Topic(href, href_list)
@@ -108,12 +93,12 @@
 				COIN = locate(/obj/item/weapon/coin/uranium,src.contents)
 			if("clown")
 				COIN = locate(/obj/item/weapon/coin/clown,src.contents)
+			if("adamantine")
+				COIN = locate(/obj/item/weapon/coin/adamantine,src.contents)
 		if(!COIN)
 			return
 		COIN.loc = src.loc
 	return
-
-
 
 /obj/item/weapon/moneybag/vault
 
@@ -125,3 +110,4 @@
 	new /obj/item/weapon/coin/silver(src)
 	new /obj/item/weapon/coin/gold(src)
 	new /obj/item/weapon/coin/gold(src)
+	new /obj/item/weapon/coin/adamantine(src)

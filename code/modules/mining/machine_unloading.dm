@@ -7,8 +7,8 @@
 	icon_state = "unloader"
 	density = 1
 	anchored = 1.0
-	var/obj/machinery/mineral/input = null
-	var/obj/machinery/mineral/output = null
+	input_dir = WEST
+	output_dir = EAST
 
 
 /obj/machinery/mineral/unloading_machine/New()
