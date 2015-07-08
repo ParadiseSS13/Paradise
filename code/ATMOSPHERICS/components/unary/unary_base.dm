@@ -87,7 +87,7 @@
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference==node)
-		del(network)
+		qdel(network)
 		node = null
 
 	update_icon()

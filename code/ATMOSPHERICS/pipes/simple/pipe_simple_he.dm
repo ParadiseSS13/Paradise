@@ -56,7 +56,7 @@
 			break
 
 	if(!node1 && !node2)
-		del(src)
+		qdel(src)
 		return
 
 	update_icon()

@@ -89,7 +89,7 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/unary/thermal_plate/proc/radiate()
 	var/internal_transfer_moles = 0.25 * air_contents.total_moles()

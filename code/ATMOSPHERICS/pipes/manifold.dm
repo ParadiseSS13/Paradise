@@ -58,17 +58,17 @@
 /obj/machinery/atmospherics/pipe/manifold/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
-			del(parent)
+			qdel(parent)
 		node1 = null
 
 	if(reference == node2)
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
-			del(parent)
+			qdel(parent)
 		node2 = null
 
 	if(reference == node3)
 		if(istype(node3, /obj/machinery/atmospherics/pipe))
-			del(parent)
+			qdel(parent)
 		node3 = null
 
 	update_icon()
@@ -97,7 +97,7 @@
 		for (var/obj/machinery/meter/meter in T)
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
-				del(meter)
+				qdel(meter)
 		qdel(src)
 	else
 		overlays.Cut()
@@ -173,7 +173,7 @@
 				break
 
 	if(!node1 && !node2 && !node3)
-		del(src)
+		qdel(src)
 		return
 
 	var/turf/T = get_turf(src)

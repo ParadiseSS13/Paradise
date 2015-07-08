@@ -116,7 +116,7 @@
 		for (var/obj/machinery/meter/meter in T)
 			if (meter.target == src)
 				new /obj/item/pipe_meter(T)
-				del(meter)
+				qdel(meter)
 		if(P)
 			transfer_fingerprints_to(P)
 			P.add_fingerprint(user)

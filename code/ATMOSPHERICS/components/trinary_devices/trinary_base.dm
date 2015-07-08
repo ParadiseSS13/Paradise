@@ -153,15 +153,15 @@
 
 /obj/machinery/atmospherics/trinary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference==node1)
-		del(network1)
+		qdel(network1)
 		node1 = null
 
 	else if(reference==node2)
-		del(network2)
+		qdel(network2)
 		node2 = null
 
 	else if(reference==node3)
-		del(network3)
+		qdel(network3)
 		node3 = null
 
 	update_underlays()
