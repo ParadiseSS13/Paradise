@@ -601,12 +601,6 @@ datum
 						//world << "reagent data set ([reagent_id])"
 						D.data = new_data
 
-			delete()
-				for(var/datum/reagent/R in reagent_list)
-					R.holder = null
-				if(my_atom)
-					my_atom.reagents = null
-
 			copy_data(var/datum/reagent/current_reagent)
 				if (!current_reagent || !current_reagent.data) return null
 				if (!istype(current_reagent.data, /list)) return current_reagent.data
@@ -636,10 +630,11 @@ atom/proc/create_reagents(var/max_vol)
 	reagents.my_atom = src
 
 /datum/reagents/Destroy()
-	for(var/datum/reagent/reagent in reagent_list)
-		qdel(reagent)
-
-	if(my_atom)
-		my_atom = null
-
+	processing_objects.Remove(src)
+	for(var/datum/reagent/R in reagent_list)
+		qdel(R)
+	reagent_list.Cut()
+	reagent_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
 	return ..()

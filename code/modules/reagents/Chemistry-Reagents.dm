@@ -3235,8 +3235,5 @@ datum
 
 
 /datum/reagent/Destroy()
-	if(holder)
-		holder.reagent_list -= src
-		holder = null
-
+	holder = null
 	return ..()

@@ -31,13 +31,6 @@
 
 /atom/Destroy()
 	set_opacity(0)
-
-
-	if(reagents)
-		qdel(reagents)
-		reagents = null
-
-	// Idea by ChuckTheSheep to make the object even more unreferencable.
 	invisibility = 101
 	return ..()
 

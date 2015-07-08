@@ -42,8 +42,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/proc/delete()
 	loc = null
 	if(reagents)
-		reagents.my_atom = null
-		reagents.delete()
+		qdel(reagents)
 	return
 
 
