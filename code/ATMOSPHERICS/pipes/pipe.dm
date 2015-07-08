@@ -74,18 +74,18 @@
 
 	if (istype(W, /obj/item/device/pipe_freezer))
 		if(!src.frozen) // If the pipe is not already frozen
-			user << "\red You begin to freeze the [src]"
+			user << "<span class='alert'>You begin to freeze the [src].</span>"
 			if (do_after(user, 60))
 				user.visible_message( \
 					"[user] freezes \the [src].", \
-					"\blue You finished freezing \the [src].", \
+					"<span class='notice'>You finished freezing \the [src].</span>", \
 					"You hear the hiss of gas.")
 				src.frozen = 1
 				spawn (200)
 					src.frozen = 0
 					src.visible_message( \
-					"\the ice arounds the [src] melts.", \
-					"\blue Your frozen [src] has thawed.", \
+					"\The ice arounds \the [src] melts.", \
+					"<span class='notice'>Your frozen [src] has thawed.</span>", \
 					"You hear dripping water.")
 
 		add_fingerprint(user)
@@ -95,23 +95,23 @@
 		return ..()
 	var/turf/T = src.loc
 	if (level==1 && isturf(T) && T.intact)
-		user << "\red You must remove the plating first."
+		user << "<span class='alert'>You must remove the plating first.</span>"
 		return 1
 
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		if (!src.frozen) // If the pipe is not frozen
-			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+			user << "<span class='alert'>You cannot unwrench this [src], it too exerted due to internal pressure.</span>"
 			add_fingerprint(user)
 			return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "\blue You begin to unfasten \the [src]..."
+	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
 	if (do_after(user, 40))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
-			"You hear ratchet.")
+			"<span class='notice'>You have unfastened \the [src].</span>", \
+			"You hear a ratchet.")
 		var/obj/item/P = new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
 			if (meter.target == src)
