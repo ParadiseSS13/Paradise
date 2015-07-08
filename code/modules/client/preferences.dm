@@ -125,6 +125,7 @@ datum/preferences
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
+	var/custom_tail = null				//Custom tail selected
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
@@ -357,6 +358,9 @@ datum/preferences
 				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Vulpkanin")
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
+
+				dat += "<br><b>Custom Tail</b><br>"
+				dat += "<a href='?_src_=prefs;preference=custom_tail;task=input'>Change tail</a><br><b> Current tail:</b> [custom_tail ? "[custom_tail]" : "Species Default/None"]."
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -1210,6 +1214,15 @@ datum/preferences
 								g_skin = hex2num(copytext(new_skin, 4, 6))
 								b_skin = hex2num(copytext(new_skin, 6, 8))
 
+					if("custom_tail")
+						var/list/availible_tails = list()
+						for(var/datum/tail/T in tail_datums)
+							if(!T.species.len) availible_tails += T.name
+							if(T.species.Find(species)) availible_tails += T.name
+
+						var/new_tail = input(user, "Choose your new tail: ", "Character Preference") as null|anything in availible_tails
+						if(!new_tail) custom_tail = null
+						else	custom_tail = new_tail
 
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
@@ -1467,6 +1480,15 @@ datum/preferences
 		character.h_style = h_style
 		character.f_style = f_style
 
+
+		//setup custom tails
+		var/datum/tail/new_tail = null//this is a mess but I really can't think of a better way to do it
+		for(var/datum/tail/T in tail_datums)
+			if(T.name == custom_tail)
+				new_tail = T
+				break
+
+		character.custom_tail = new_tail
 
 		// Destroy/cyborgize organs
 

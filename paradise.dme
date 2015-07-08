@@ -1315,6 +1315,7 @@
 #include "code\modules\mob\living\carbon\human\login.dm"
 #include "code\modules\mob\living\carbon\human\npcs.dm"
 #include "code\modules\mob\living\carbon\human\say.dm"
+#include "code\modules\mob\living\carbon\human\tail.dm"
 #include "code\modules\mob\living\carbon\human\update_icons.dm"
 #include "code\modules\mob\living\carbon\human\whisper.dm"
 #include "code\modules\mob\living\carbon\human\species\apollo.dm"
