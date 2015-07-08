@@ -112,7 +112,7 @@
 	if(health <= 0)
 		if(buckled_mob)
 			buckled_mob << "The [src.name] was destroyed!"
-		Destroy()
+		qdel(src)
 
 /obj/item/sec_seg_key
 	name = "security segway key"

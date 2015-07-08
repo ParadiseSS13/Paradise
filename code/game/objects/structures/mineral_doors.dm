@@ -23,8 +23,9 @@
 		air_update_turf(1)
 
 	Destroy()
+		density = 0
 		air_update_turf(1)
-		..()
+		return ..()
 
 	Move()
 		var/turf/T = loc

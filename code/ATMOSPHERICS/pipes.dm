@@ -57,7 +57,7 @@
 
 
 /obj/machinery/atmospherics/pipe/Destroy()
-	del(parent)
+	qdel(parent)
 	if(air_temporary && loc)
 		loc.assume_air(air_temporary)
 

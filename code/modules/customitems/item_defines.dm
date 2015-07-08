@@ -75,6 +75,16 @@
 	icon_state = "zeldacrowbar"
 	item_state = "crowbar"
 
+/obj/item/weapon/claymore/fluff //MrBarrelrolll: Maximus Greenwood
+	name = "Greenwood's Blade"
+	desc = "A replica claymore with strange markings scratched into the blade."
+	force = 5
+	sharp = 0
+	edge = 0
+
+/obj/item/weapon/claymore/fluff/IsShield()
+	return 0
+
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////

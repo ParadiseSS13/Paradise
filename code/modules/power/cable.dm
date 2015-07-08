@@ -201,7 +201,7 @@
 
 /obj/structure/cable/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		Destroy()
+		qdel(src)
 
 // the cable coil object, used for laying cable
 

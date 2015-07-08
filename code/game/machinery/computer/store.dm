@@ -1,7 +1,7 @@
 /obj/machinery/computer/merch
 	name = "Merch Computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "comm_logs"
+	icon_screen = "comm_logs"
 	circuit = "/obj/item/weapon/circuitboard/merch"
 
 	light_color = LIGHT_COLOR_GREEN
@@ -145,15 +145,3 @@ td.cost.toomuch {
 			usr << "\blue You've successfully purchased the item.  It should be in your hands or on the floor."
 	src.updateUsrDialog()
 	return
-
-/obj/machinery/computer/merch/update_icon()
-
-	if(stat & BROKEN)
-		icon_state = "comm_logsb"
-	else
-		if(stat & NOPOWER)
-			src.icon_state = "comm_logs0"
-			stat |= NOPOWER
-		else
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER

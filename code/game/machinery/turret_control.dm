@@ -37,12 +37,12 @@
 	lethal = 1
 	icon_state = "control_kill"
 
-/obj/machinery/turretid/Del()
+/obj/machinery/turretid/Destroy()
 	if(control_area)
 		var/area/A = control_area
 		if(A && istype(A))
 			A.turret_controls -= src
-	..()
+	return ..()
 
 /obj/machinery/turretid/initialize()
 	if(!control_area)

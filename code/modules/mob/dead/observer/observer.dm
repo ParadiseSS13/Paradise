@@ -89,7 +89,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 /mob/dead/observer/Destroy()
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
-		del(ghostimage)
+		qdel(ghostimage)
 		ghostimage = null
 		updateallghostimages()
 	return ..()

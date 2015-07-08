@@ -6,6 +6,13 @@ mob/living
 	update_hud()
 	return
 
+/mob/living/carbon/Destroy()
+	for(var/atom/movable/guts in internal_organs)
+		qdel(guts)
+	for(var/atom/movable/food in stomach_contents)
+		qdel(food)
+	return ..()
+
 /mob/living/carbon/Life()
 	..()
 

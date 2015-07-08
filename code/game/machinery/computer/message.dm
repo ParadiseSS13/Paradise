@@ -7,9 +7,9 @@
 /obj/machinery/computer/message_monitor
 	name = "Message Monitor Console"
 	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
-	icon_state = "comm_logs"
+	icon_screen = "comm_logs"
 	light_color = LIGHT_COLOR_GREEN
-	var/hack_icon = "comm_logsc"
+	var/hack_icon = "tcboss"
 	var/normal_icon = "comm_logs"
 	circuit = "/obj/item/weapon/circuitboard/message_monitor"
 	//Server linked to.
@@ -55,7 +55,7 @@
 	// It'll take more time if there's more characters in the password..
 	if(!emag)
 		if(!isnull(src.linkedServer))
-			icon_state = hack_icon // An error screen I made in the computers.dmi
+			icon_screen = hack_icon // An error screen I made in the computers.dmi
 			emag = 1
 			screen = 2
 			spark_system.set_up(5, 0, src)
@@ -70,13 +70,14 @@
 			user << "<span class='notice'>A no server error appears on the screen.</span>"
 
 /obj/machinery/computer/message_monitor/update_icon()
-	..()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(emag || hacking)
-		icon_state = hack_icon
+		icon_screen = hack_icon
 	else
-		icon_state = normal_icon
+		icon_screen = normal_icon
+
+	..()
 
 /obj/machinery/computer/message_monitor/initialize()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
@@ -261,11 +262,11 @@
 		var/currentKey = src.linkedServer.decryptkey
 		user << "<span class='warning'>Brute-force completed! The key is '[currentKey]'.</span>"
 	src.hacking = 0
-	src.icon_state = normal_icon
+	src.icon_screen = normal_icon
 	src.screen = 0 // Return the screen back to normal
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
-	src.icon_state = normal_icon
+	src.icon_screen = normal_icon
 	src.emag = 0
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
@@ -358,7 +359,7 @@
 			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
-				src.icon_state = hack_icon
+				src.icon_screen = hack_icon
 				//Time it takes to bruteforce is dependant on the password length.
 				spawn(100*length(src.linkedServer.decryptkey))
 					if(src && src.linkedServer && usr)

@@ -59,7 +59,7 @@
 		if(bug.current == src)
 			bug.current = null
 		bug = null
-	del(wires)
+	qdel(wires)
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	return ..()
 

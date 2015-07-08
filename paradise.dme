@@ -166,7 +166,6 @@
 #include "code\datums\datumvars.dm"
 #include "code\datums\gas_mixture.dm"
 #include "code\datums\martial.dm"
-#include "code\datums\medical_effects.dm"
 #include "code\datums\mind.dm"
 #include "code\datums\mixed.dm"
 #include "code\datums\modules.dm"

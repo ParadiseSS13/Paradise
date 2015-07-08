@@ -5,7 +5,8 @@
 	name = "Atmospheric Alert Computer"
 	desc = "Used to access the station's atmospheric sensors."
 	circuit = "/obj/item/weapon/circuitboard/atmos_alert"
-	icon_state = "alert:0"
+	icon_keyboard = "atmos_key"
+	icon_screen = "alert:0"
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = 1437
@@ -60,13 +61,14 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(priority_alarms.len)
-		icon_state = "alert:2"
+		icon_screen = "alert:2"
 
 	else if(minor_alarms.len)
-		icon_state = "alert:1"
+		icon_screen = "alert:1"
 
 	else
-		icon_state = "alert:0"
+		icon_screen = "alert:0"
+
 	return
 
 
@@ -117,5 +119,6 @@
 	return
 
 /obj/machinery/computer/atmos_alert/Destroy()
-	radio_controller.remove_object(src, receive_frequency)
+	if(radio_controller)
+		radio_controller.remove_object(src, receive_frequency)
 	return ..()

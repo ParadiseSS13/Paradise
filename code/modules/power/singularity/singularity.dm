@@ -30,6 +30,7 @@
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
+	singularities += src
 	admin_investigate_setup()
 
 	src.energy = starting_energy
@@ -43,6 +44,7 @@
 
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
+	singularities -= src
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)
