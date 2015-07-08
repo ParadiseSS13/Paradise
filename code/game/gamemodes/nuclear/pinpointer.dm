@@ -12,6 +12,9 @@
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
 
+	Destroy()
+		active = 0
+		return ..()
 
 	attack_self()
 		if(!active)
@@ -377,7 +380,7 @@
 /obj/item/weapon/pinpointer/operative/proc/workop()
 	scan_for_ops()
 	point_at(nearest_op, 0)
-	if(active && nearest_op) 
+	if(active && nearest_op)
 		spawn(5)
 			.()
 

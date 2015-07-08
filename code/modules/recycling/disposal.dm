@@ -678,7 +678,7 @@
 				for(var/atom/movable/AM in H)
 					AM.loc = T
 					AM.pipe_eject(0)
-				del(H)
+				qdel(H)
 				..()
 				return
 

@@ -124,3 +124,7 @@
 					spawn(25) can_move = 1
 			step(src,direction)
 		return
+
+/obj/effect/dummy/chameleon/Destroy()
+	master.disrupt(0)
+	return ..()

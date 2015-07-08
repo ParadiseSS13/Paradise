@@ -89,3 +89,9 @@
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
+
+/obj/item/organ/brain/Destroy() //copypasted from MMIs.
+	if(brainmob)
+		qdel(brainmob)
+		brainmob = null
+	return ..()

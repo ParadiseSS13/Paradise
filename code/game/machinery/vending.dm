@@ -149,7 +149,7 @@
 	del(wires) // qdel
 	wires = null
 	if(coin)
-		del(coin) // qdel
+		qdel(coin) // qdel
 		coin = null
 	return ..()
 

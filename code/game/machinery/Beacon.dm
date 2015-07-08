@@ -25,6 +25,7 @@
 	Destroy()
 		if(Beacon)
 			qdel(Beacon)
+		Beacon = null
 		return ..()
 
 	// update the invisibility and icon
