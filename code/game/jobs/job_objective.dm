@@ -22,7 +22,7 @@
 	owner=new_owner
 	owner.job_objectives += src
 
-/datum/job_objective/Del()
+/datum/job_objective/Destroy()
 
 /datum/job_objective/proc/get_description()
 	return "Placeholder objective."

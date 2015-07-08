@@ -481,7 +481,7 @@
 
 	singularity_pull(S, current_size)
 		if(current_size >= STAGE_FIVE)
-			Destroy()
+			qdel(src)
 
 // virtual disposal object
 // travels through pipes in lieu of actual items
@@ -678,18 +678,18 @@
 				for(var/atom/movable/AM in H)
 					AM.loc = T
 					AM.pipe_eject(0)
-				del(H)
+				qdel(H)
 				..()
 				return
 
 			// otherwise, do normal expel from turf
 			if(H)
 				expel(H, T, 0)
-		..()
+		return ..()
 
 	singularity_pull(S, current_size)
 		if(current_size >= STAGE_FIVE)
-			Destroy()
+			qdel(src)
 
 	// returns the direction of the next pipe object, given the entrance dir
 	// by default, returns the bitmask of remaining directions

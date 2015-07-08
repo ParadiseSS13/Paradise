@@ -71,6 +71,12 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = null
 	var/desc_holder = null
 
+/obj/structure/particle_accelerator/Destroy()
+	construction_state = 0
+	if(master)
+		master.part_scan()
+	return ..()
+
 /obj/structure/particle_accelerator/end_cap
 	name = "Alpha Particle Generation Array"
 	desc_holder = "This is where Alpha particles are generated from \[REDACTED\]"
@@ -87,7 +93,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
 		usr << "It is fastened to the floor!"
 		return 0
 	src.dir = turn(src.dir, 270)
@@ -98,7 +106,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
 		usr << "It is fastened to the floor!"
 		return 0
 	src.dir = turn(src.dir, 90)
@@ -119,7 +129,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	..()
 	return
 
-
 /obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(istool(W))
 		if(src.process_tool_hit(W,user))
@@ -133,6 +142,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(master && master.active)
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.","singulo")
+
 
 /obj/structure/particle_accelerator/ex_act(severity)
 	switch(severity)
@@ -153,7 +163,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 	return
 
 
@@ -206,7 +216,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 	switch(src.construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
 		if(0)
-			if(iswrench(O))
+			if(iswrench(O) && !isinspace())
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 				src.anchored = 1
 				user.visible_message("[user.name] secures the [src.name] to the floor.", \
@@ -220,10 +230,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 					"You remove the external bolts.")
 				temp_state--
 			else if(iscoil(O))
-				if(O:use(1,user))
+				var/obj/item/stack/cable_coil/C = O
+				if(C.use(1))
 					user.visible_message("[user.name] adds wires to the [src.name].", \
 						"You add some wires.")
 					temp_state++
+				else
+					user << "<span class='warning'>You need one length of cable to wire the [src.name]!</span>"
+					return
 		if(2)
 			if(iswirecutter(O))//TODO:Shock user if its on?
 				user.visible_message("[user.name] removes some wires from the [src.name].", \
@@ -273,7 +287,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
 		usr << "It is fastened to the floor!"
 		return 0
 	src.dir = turn(src.dir, 270)
@@ -284,7 +300,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if (src.anchored || usr:stat)
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
 		usr << "It is fastened to the floor!"
 		return 0
 	src.dir = turn(src.dir, 90)
@@ -307,7 +325,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				src.desc = src.desc_holder
 	..()
 	return
-
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(istool(W))
@@ -335,7 +352,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/machinery/particle_accelerator/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 	return
 
 

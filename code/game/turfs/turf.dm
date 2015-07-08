@@ -1,7 +1,7 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1.0
-	luminosity = 0
+	luminosity = 1
 
 	//for floors, use is_plating(), is_plasteel_floor() and is_light_floor()
 	var/intact = 1
@@ -40,9 +40,8 @@
 			src.Entered(AM)
 			return
 
-	var/area/A = loc
-	if(!dynamic_lighting || !A.lighting_use_dynamic)
-		luminosity = 1
+/turf/Destroy()
+	return QDEL_HINT_HARDDEL_NOW
 
 // Adds the adjacent turfs to the current atmos processing
 /turf/Del()

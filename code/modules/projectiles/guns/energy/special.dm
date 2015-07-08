@@ -48,9 +48,9 @@
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/gun/energy/floragun/Del()
+/obj/item/weapon/gun/energy/floragun/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/weapon/gun/energy/floragun/process()
 	charge_tick++
@@ -109,7 +109,7 @@
 
 	Destroy()
 		processing_objects.Remove(src)
-		..()
+		return ..()
 
 	process()
 		charge_tick++

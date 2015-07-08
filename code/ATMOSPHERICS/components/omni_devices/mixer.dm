@@ -9,7 +9,7 @@
 	var/datum/omni_port/output
 
 	//setup tags for initial concentration values (must be decimal)
-	var/tag_north_con 
+	var/tag_north_con
 	var/tag_south_con
 	var/tag_east_con
 	var/tag_west_con
@@ -44,10 +44,10 @@
 			tag_east_con = null
 			tag_west_con = null
 
-/obj/machinery/atmospherics/omni/mixer/Del()
+/obj/machinery/atmospherics/omni/mixer/Destroy()
 	inputs.Cut()
 	output = null
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/omni/mixer/sort_ports()
 	for(var/datum/omni_port/P in ports)

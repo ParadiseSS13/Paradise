@@ -28,7 +28,7 @@
 /obj/machinery/atmospherics/omni/New()
 	..()
 	icon_state = "base"
-	
+
 	ports = new()
 	for(var/d in cardinal)
 		var/datum/omni_port/new_port = new(src, d)
@@ -44,7 +44,7 @@
 		if(new_port.mode > 0)
 			initialize_directions |= d
 		ports += new_port
-	
+
 	build_icons()
 
 /obj/machinery/atmospherics/omni/update_icon()
@@ -173,7 +173,7 @@
 			if(ATM_O2 to ATM_N2O)
 				ic_on += "_filter"
 				ic_off += "_out"
-		
+
 		ic_on = icon_manager.get_atmos_icon("omni", , , ic_on)
 		ic_off = icon_manager.get_atmos_icon("omni", , , ic_off)
 
@@ -223,16 +223,16 @@
 
 	return null
 
-/obj/machinery/atmospherics/omni/Del()
+/obj/machinery/atmospherics/omni/Destroy()
 	loc = null
 
 	for(var/datum/omni_port/P in ports)
 		if(P.node)
 			P.node.disconnect(src)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/omni/initialize()
 	for(var/datum/omni_port/P in ports)
@@ -287,7 +287,7 @@
 			P.node = null
 			P.update = 1
 			break
-	
+
 	update_ports()
 
 	return null

@@ -65,7 +65,7 @@
 		processing_objects.Remove(src)
 //		attached.attached = null
 		attached = null
-		..()
+		return ..()
 
 
 	attack_ai()

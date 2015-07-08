@@ -30,7 +30,7 @@
 		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
 			return 0
 
-		active_hotspot = new(src)
+		active_hotspot = PoolOrNew(/obj/effect/hotspot, src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
 
@@ -98,18 +98,18 @@
 
 	var/turf/simulated/location = loc
 	if(!istype(location))
-		Kill()
+		qdel(src)
 		return
 
 	if(location.excited_group)
 		location.excited_group.reset_cooldowns()
 
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
-		Kill()
+		qdel(src)
 		return
 
 	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
-		Kill()
+		qdel(src)
 		return
 
 	perform_exposure()
@@ -151,19 +151,16 @@
 
 // Garbage collect itself by nulling reference to it
 
-/obj/effect/hotspot/proc/Kill()
+/obj/effect/hotspot/Destroy()
 	air_master.hotspots -= src
 	DestroyTurf()
-	qdel(src)
-
-/obj/effect/hotspot/Destroy()
 	set_light(0)
 	if(istype(loc, /turf/simulated))
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
-	loc = null
-	return ..()
+	..()
+	return QDEL_HINT_PUTINPOOL
 
 /obj/effect/hotspot/proc/DestroyTurf()
 

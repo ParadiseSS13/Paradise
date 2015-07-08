@@ -5,7 +5,8 @@
 /obj/machinery/computer/atmoscontrol
 	name = "\improper Central Atmospherics Computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	icon_keyboard = "atmos_key"
+	icon_screen = "tank"
 	density = 1
 	anchored = 1.0
 	circuit = "/obj/item/weapon/circuitboard/atmoscontrol"

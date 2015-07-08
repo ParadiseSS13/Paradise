@@ -216,8 +216,8 @@
 	held_item = null
 
 	robogibs(src.loc, viruses)
-	src.Destroy()
-	return
+	qdel(src)
+
 //Cannibalized from the parrot mob. ~Zuhayr
 
 /mob/living/simple_animal/spiderbot/verb/drop_held_item()

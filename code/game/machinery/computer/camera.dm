@@ -6,7 +6,8 @@ var/camera_cache_id = 1
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
-	icon_state = "cameras"
+	icon_keyboard = "security_key"
+	icon_screen = "cameras"
 	circuit = "/obj/item/weapon/circuitboard/camera"
 	var/obj/machinery/camera/current = null
 	var/list/network = list("")
@@ -264,6 +265,7 @@ var/camera_cache_id = 1
 	desc = "Used for watching camera networks."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
+	light_range_on = 0
 	network = list("SS13")
 	density = 0
 
@@ -279,14 +281,16 @@ var/camera_cache_id = 1
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
 	light_color = "#FFEEDB"
-	light_range_on = 2
+	light_range_on = 0
 	network = list("news")
 	luminosity = 0
 
 /obj/machinery/computer/security/wooden_tv
 	name = "Security Camera Monitor"
 	desc = "An old TV hooked into the stations camera network."
-	icon_state = "security_det"
+	icon_state = "television"
+	icon_keyboard = null
+	icon_screen = "detective_tv"
 	light_color = "#3848B3"
 	light_power_on = 0.5
 	network = list("SS13")
@@ -294,13 +298,15 @@ var/camera_cache_id = 1
 /obj/machinery/computer/security/mining
 	name = "Outpost Camera Monitor"
 	desc = "Used to access the various cameras on the outpost."
-	icon_state = "miningcameras"
+	icon_keyboard = "mining_key"
+	icon_screen = "mining"
 	light_color = "#F9BBFC"
 	network = list("Mining Outpost")
 
 /obj/machinery/computer/security/engineering
 	name = "Engineering Camera Monitor"
 	desc = "Used to monitor fires and breaches."
-	icon_state = "engineeringcameras"
+	icon_keyboard = "power_key"
+	icon_screen = "engie_cams"
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")

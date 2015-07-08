@@ -157,6 +157,7 @@
 /obj/machinery/porta_turret/Destroy()
 	//deletes its own cover with it
 	qdel(cover) // qdel
+	cover = null
 	return ..()
 
 /obj/machinery/porta_turret/proc/isLocked(mob/user)

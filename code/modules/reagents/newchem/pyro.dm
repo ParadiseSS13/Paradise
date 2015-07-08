@@ -46,7 +46,7 @@
 /datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+		PoolOrNew(/obj/effect/hotspot, turf)
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
@@ -59,13 +59,13 @@
 		if(prob(volume/10))
 			F.make_plating()
 		if(istype(F, /turf/simulated/floor/))
-			new /obj/effect/hotspot(F)
+			PoolOrNew(/obj/effect/hotspot, F)
 	if(istype(T, /turf/simulated/wall/))
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
 			W.ChangeTurf(/turf/simulated/floor)
 	if(istype(T, /turf/simulated/shuttle/))
-		new /obj/effect/hotspot(T)
+		PoolOrNew(/obj/effect/hotspot, T)
 	return
 
 /datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -197,6 +197,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	blackpowder_detonate(holder, created_volume)
 	return
 
+/*
 /datum/reagent/blackpowder/on_ex_act()
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
@@ -205,7 +206,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	sleep(rand(10,15))
 	blackpowder_detonate(holder, volume)
 	holder.remove_reagent("blackpowder", volume)
-	return
+	return */
 
 /proc/blackpowder_detonate(var/datum/reagents/holder, var/created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
@@ -428,7 +429,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(created_volume/10,T))
-		new /obj/effect/hotspot(turf)
+		PoolOrNew(/obj/effect/hotspot, turf)
 	return
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)
@@ -592,7 +593,7 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 		lowertemp.temperature = max( min(lowertemp.temperature-2000,lowertemp.temperature / 2) ,0)
 		lowertemp.react()
 		T.assume_air(lowertemp)
-		del(hotspot)
+		qdel(hotspot)
 	return
 
 /datum/chemical_reaction/clf3_firefighting

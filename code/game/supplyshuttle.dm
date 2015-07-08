@@ -87,24 +87,22 @@ var/list/mechtoys = list(
 	name = "\improper Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-	New() //set the turf below the flaps to block air
-		var/turf/T = get_turf(loc)
-		if(T)
-			T.blocks_air = 1
+	New()
+		air_update_turf(1)
 		..()
 
-	Destroy() //lazy hack to set the turf to allow air to pass if it's a simulated floor
-		var/turf/T = get_turf(loc)
-		if(T)
-			if(istype(T, /turf/simulated/floor))
-				T.blocks_air = 0
-		..()
+	Destroy()
+		air_update_turf(1)
+		return ..()
+
+	CanAtmosPass(turf/T)
+		return 0
 
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "supply"
+	icon_screen = "supply"
 	req_access = list(access_cargo)
 	circuit = "/obj/item/weapon/circuitboard/supplycomp"
 	var/temp = null
@@ -117,7 +115,7 @@ var/list/mechtoys = list(
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "request"
+	icon_screen = "request"
 	circuit = "/obj/item/weapon/circuitboard/ordercomp"
 	var/temp = null
 	var/reqtime = 0 //Cooldown for requisitions - Quarxink

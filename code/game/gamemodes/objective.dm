@@ -20,9 +20,9 @@ datum/objective
 		if(text)
 			explanation_text = text
 
-	Del()
+	Destroy()
 		all_objectives -= src
-		..()
+		return ..()
 
 	proc/check_completion()
 		return completed

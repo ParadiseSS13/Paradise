@@ -37,12 +37,6 @@
 		surgery_steps += S
 	sort_surgeries()
 
-	//Medical side effects. List all effects by their names
-	paths = typesof(/datum/medical_effect)-/datum/medical_effect
-	for(var/T in paths)
-		var/datum/medical_effect/M = new T
-		side_effects[M.name] = T
-
 	//List of job. I can't believe this was calculated multiple times per tick!
 	paths = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
 	for(var/T in paths)

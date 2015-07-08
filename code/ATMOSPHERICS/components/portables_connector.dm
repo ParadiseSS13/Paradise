@@ -60,7 +60,7 @@
 
 	return null
 
-/obj/machinery/atmospherics/portables_connector/Del()
+/obj/machinery/atmospherics/portables_connector/Destroy()
 	loc = null
 
 	if(connected_device)
@@ -68,11 +68,11 @@
 
 	if(node)
 		node.disconnect(src)
-		del(network)
+		qdel(network)
 
 	node = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/portables_connector/initialize()
 	if(node) return
@@ -127,7 +127,7 @@
 	if(reference==node)
 		del(network)
 		node = null
-	
+
 	update_underlays()
 
 	return null

@@ -812,73 +812,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	return 1 // return 1 tells it to refresh the UI in NanoUI
 
-
-/obj/item/device/pda/proc/detonate_act(var/obj/item/device/pda/P)
-	//TODO: sometimes these attacks show up on the message server
-	var/i = rand(1,100)
-	var/j = rand(0,1) //Possibility of losing the PDA after the detonation
-	var/message = ""
-	var/mob/living/M = null
-	if(ismob(P.loc))
-		M = P.loc
-
-	//switch(i) //Yes, the overlapping cases are intended.
-	if(i<=10) //The traditional explosion
-		P.explode()
-		j=1
-		message += "Your [P] suddenly explodes!"
-	if(i>=10 && i<= 20) //The PDA burns a hole in the holder.
-		j=1
-		if(M && isliving(M))
-			M.apply_damage( rand(30,60) , BURN)
-		message += "You feel a searing heat! Your [P] is burning!"
-	if(i>=20 && i<=25) //EMP
-		empulse(P.loc, 3, 6, 1)
-		message += "Your [P] emits a wave of electromagnetic energy!"
-	if(i>=25 && i<=40) //Smoke
-		var/datum/effect/effect/system/harmless_smoke_spread/S = new /datum/effect/effect/system/harmless_smoke_spread //Why was this chem_smoke_spread when there are no chems involved?
-		S.attach(P.loc)
-		S.set_up(P, 10, 0, P.loc)
-		playsound(P.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		S.start()
-		message += "Large clouds of smoke billow forth from your [P]!"
-	if(i>=40 && i<=45) //Bad smoke
-		var/datum/effect/effect/system/bad_smoke_spread/B = new /datum/effect/effect/system/bad_smoke_spread
-		B.attach(P.loc)
-		B.set_up(P, 10, 0, P.loc)
-		playsound(P.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		B.start()
-		message += "Large clouds of noxious smoke billow forth from your [P]!"
-	if(i>=65 && i<=75) //Weaken
-		if(M && isliving(M))
-			M.apply_effects(0,1)
-		message += "Your [P] flashes with a blinding white light! You feel weaker."
-	if(i>=75 && i<=85) //Stun and stutter
-		if(M && isliving(M))
-			M.apply_effects(1,0,0,0,1)
-		message += "Your [P] flashes with a blinding white light! You feel weaker."
-	if(i>=85) //Sparks
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-		s.set_up(2, 1, P.loc)
-		s.start()
-		message += "Your [P] begins to spark violently!"
-	if(i>45 && i<65 && prob(50)) //Nothing happens
-		message += "Your [P] bleeps loudly."
-		j = prob(10)
-
-	if(j) //This kills the PDA
-		P.Del()
-		if(message)
-			message += "It melts in a puddle of plastic."
-		else
-			message += "Your [P] shatters in a thousand pieces!"
-
-	JFLOG("[M]'s PDA Detonated >>> [message]")
-
-	if(M && isliving(M))
-		message = "\red" + message
-		M.show_message(message, 1)
-
 /obj/item/device/pda/proc/remove_id()
 	if (id)
 		if (ismob(loc))
@@ -1178,62 +1111,21 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 		if(5)
 			JFLOG("[user] used the air analysis scanner on [A]")
-			if((istype(A, /obj/item/weapon/tank)) || (istype(A, /obj/machinery/portable_atmospherics)))
-				var/obj/icon = A
-				for (var/mob/O in viewers(user, null))
-					O << "\red [user] has used [src] on \icon[icon] [A]"
-				var/pressure = A:air_contents.return_pressure()
-
-				var/total_moles = A:air_contents.total_moles()
-
-				user << "\blue Results of analysis of \icon[icon]"
-				if (total_moles>0)
-					var/o2_concentration = A:air_contents.oxygen/total_moles
-					var/n2_concentration = A:air_contents.nitrogen/total_moles
-					var/co2_concentration = A:air_contents.carbon_dioxide/total_moles
-					var/plasma_concentration = A:air_contents.toxins/total_moles
-
-					var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-
-					user << "\blue Pressure: [round(pressure,0.1)] kPa"
-					user << "\blue Nitrogen: [round(n2_concentration*100)]%"
-					user << "\blue Oxygen: [round(o2_concentration*100)]%"
-					user << "\blue CO2: [round(co2_concentration*100)]%"
-					user << "\blue Plasma: [round(plasma_concentration*100)]%"
-					if(unknown_concentration>0.01)
-						user << "\red Unknown: [round(unknown_concentration*100)]%"
-					user << "\blue Temperature: [round(A:air_contents.temperature-T0C)]&deg;C"
-				else
-					user << "\blue Tank is empty!"
-
-			if (istype(A, /obj/machinery/atmospherics/pipe/tank))
-				var/obj/icon = A
-				var/obj/machinery/atmospherics/pipe/tank/T = A
-				for (var/mob/O in viewers(user, null))
-					O << "\red [user] has used [src] on \icon[icon] [T]"
-
-				var/pressure = T.parent.air.return_pressure()
-				var/total_moles = T.parent.air.total_moles()
-
-				user << "\blue Results of analysis of \icon[icon]"
-				if (total_moles>0)
-					var/o2_concentration = T.parent.air.oxygen/total_moles
-					var/n2_concentration = T.parent.air.nitrogen/total_moles
-					var/co2_concentration = T.parent.air.carbon_dioxide/total_moles
-					var/plasma_concentration = T.parent.air.toxins/total_moles
-
-					var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
-
-					user << "\blue Pressure: [round(pressure,0.1)] kPa"
-					user << "\blue Nitrogen: [round(n2_concentration*100)]%"
-					user << "\blue Oxygen: [round(o2_concentration*100)]%"
-					user << "\blue CO2: [round(co2_concentration*100)]%"
-					user << "\blue Plasma: [round(plasma_concentration*100)]%"
-					if(unknown_concentration>0.01)
-						user << "\red Unknown: [round(unknown_concentration*100)]%"
-					user << "\blue Temperature: [round(T.parent.air.temperature-T0C)]&deg;C"
-				else
-					user << "\blue Tank is empty!"
+			if (istype(A, /obj/item/weapon/tank))
+				var/obj/item/weapon/tank/T = A
+				atmosanalyzer_scan(T.air_contents, user, T)
+			else if (istype(A, /obj/machinery/portable_atmospherics))
+				var/obj/machinery/portable_atmospherics/T = A
+				atmosanalyzer_scan(T.air_contents, user, T)
+			else if (istype(A, /obj/machinery/atmospherics/pipe))
+				var/obj/machinery/atmospherics/pipe/T = A
+				atmosanalyzer_scan(T.parent.air, user, T)
+			else if (istype(A, /obj/machinery/power/rad_collector))
+				var/obj/machinery/power/rad_collector/T = A
+				if(T.P) atmosanalyzer_scan(T.P.air_contents, user, T)
+			else if (istype(A, /obj/item/weapon/flamethrower))
+				var/obj/item/weapon/flamethrower/T = A
+				if(T.ptank) atmosanalyzer_scan(T.ptank.air_contents, user, T)
 
 	if (!scanmode && istype(A, /obj/item/weapon/paper) && owner)
 		JFLOG("[user] used the document scanner on [A]")
