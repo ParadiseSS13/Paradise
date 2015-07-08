@@ -83,4 +83,4 @@
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"
 
-	var/datum/tail/custom_tail = null
+	var/datum/body_accessory/body_accessory = null
