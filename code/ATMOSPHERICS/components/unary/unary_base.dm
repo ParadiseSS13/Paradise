@@ -33,7 +33,7 @@
 
 		if(node)
 			node.disconnect(src)
-			del(network)
+			qdel(network)
 
 		node = null
 

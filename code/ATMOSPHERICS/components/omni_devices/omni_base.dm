@@ -229,7 +229,7 @@
 	for(var/datum/omni_port/P in ports)
 		if(P.node)
 			P.node.disconnect(src)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 
 	return ..()

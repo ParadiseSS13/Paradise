@@ -59,8 +59,8 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 			else
 				flick("liquify",animation)
 				target.loc = holder
@@ -85,8 +85,8 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
@@ -95,6 +95,12 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+
+/obj/effect/dummy/spell_jaunt/Destroy()
+	// Eject contents if deleted somehow
+	for(var/atom/movable/AM in src)
+		AM.loc = get_turf(src)
+	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
 	if (!src.canmove) return

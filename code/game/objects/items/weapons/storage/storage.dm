@@ -441,6 +441,11 @@
 	orient2hud()
 	return
 
+/obj/item/weapon/storage/Destroy()
+	qdel(boxes)
+	qdel(closer)
+	return ..()
+
 /obj/item/weapon/storage/emp_act(severity)
 	if(!istype(src.loc, /mob/living))
 		for(var/obj/O in contents)

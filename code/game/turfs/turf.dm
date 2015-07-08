@@ -40,6 +40,9 @@
 			src.Entered(AM)
 			return
 
+/turf/Destroy()
+	return QDEL_HINT_HARDDEL_NOW
+
 // Adds the adjacent turfs to the current atmos processing
 /turf/Del()
 	if(air_master)

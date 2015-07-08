@@ -19,7 +19,7 @@
 
 	Destroy()
 		processing_objects.Remove(src)
-		..()
+		return ..()
 
 
 	attack_self(mob/living/user as mob)

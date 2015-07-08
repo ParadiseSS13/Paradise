@@ -59,13 +59,13 @@ obj/machinery/atmospherics/trinary
 
 		if(node1)
 			node1.disconnect(src)
-			del(network1)
+			qdel(network1)
 		if(node2)
 			node2.disconnect(src)
-			del(network2)
+			qdel(network2)
 		if(node3)
 			node3.disconnect(src)
-			del(network3)
+			qdel(network3)
 
 		node1 = null
 		node2 = null
