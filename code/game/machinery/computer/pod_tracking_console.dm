@@ -1,7 +1,8 @@
 /obj/machinery/computer/podtracker
 	name = "Pod Tracking Console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "podtracking"
+	icon_keyboard = "tech_key"
+	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE
 	req_access = list(access_robotics)
 	circuit = "/obj/item/weapon/circuitboard/pod_locater"

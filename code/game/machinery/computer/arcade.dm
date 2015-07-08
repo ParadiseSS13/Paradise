@@ -3,6 +3,8 @@
 	desc = "random arcade machine"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
+	icon_keyboard = null
+	icon_screen = "invaders"
 	light_color = "#00FF00"
 
 	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,

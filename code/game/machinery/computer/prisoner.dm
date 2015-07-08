@@ -3,7 +3,8 @@
 /obj/machinery/computer/prisoner
 	name = "Prisoner Management"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "explosive"
+	icon_keyboard = "security_key"
+	icon_screen = "explosive"
 	req_access = list(access_armory)
 	circuit = "/obj/item/weapon/circuitboard/prisoner"
 	var/id = 0.0

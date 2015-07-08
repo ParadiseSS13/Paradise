@@ -4,7 +4,8 @@
 	name = "Hologram Computer"
 	desc = "Rumoured to control holograms."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "holo_console0"
+	icon_keyboard = "tech_key"
+	icon_screen = "holocontrol"
 	var/obj/machinery/hologram/projector/projector = null
 	var/temp = null
 	var/lumens = 0.0

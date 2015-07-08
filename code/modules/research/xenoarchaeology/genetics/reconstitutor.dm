@@ -13,7 +13,8 @@ datum/genesequence
 /obj/machinery/computer/reconstitutor
 	name = "Flora reconstitution console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "dna"
+	icon_keyboard = "med_key"
+	icon_screen = "dna"
 	circuit = "/obj/item/weapon/circuitboard/reconstitutor"
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/clonepod/pod1 = 1 //Linked cloning pod.

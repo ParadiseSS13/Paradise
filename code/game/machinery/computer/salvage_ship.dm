@@ -4,7 +4,8 @@
 /obj/machinery/computer/salvage_ship
 	name = "salvage ship terminal"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
 	req_access = list(access_salvage_captain)
 	var/area/curr_location
 	var/moving = 0
