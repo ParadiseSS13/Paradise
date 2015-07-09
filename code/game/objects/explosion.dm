@@ -89,7 +89,7 @@
 
 		for(var/turf/T in trange(max_range, epicenter))
 
-			var/dist = cheap_pythag(T.x - x0,T.y - y0)
+			var/dist = sqrt((T.x - x0)**2 + (T.y - y0)**2)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -197,7 +197,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in trange(max_range, epicenter))
 		wipe_colours += T
-		var/dist = cheap_pythag(T.x - x0, T.y - y0)
+		var/dist = sqrt((T.x - x0)**2 + (T.y - y0)**2)
 
 		if(newmode == "Yes")
 			var/turf/TT = T
