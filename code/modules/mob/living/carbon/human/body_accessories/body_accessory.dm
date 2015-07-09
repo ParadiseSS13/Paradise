@@ -1,7 +1,7 @@
 var/global/list/body_accessory_datums = list()
 
 /hook/startup/proc/init_body_accessory_datums()
-	for(var/T in typesof(/datum/body_accessory) - /datum/body_accessory - /datum/body_accessory/body)
+	for(var/T in typesof(/datum/body_accessory) - /datum/body_accessory)
 		body_accessory_datums += new T
 
 	for(var/datum/body_accessory/BA in body_accessory_datums)
