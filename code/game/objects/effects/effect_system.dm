@@ -40,11 +40,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/amount = 8.0
 
 /obj/effect/proc/delete()
-	loc = null
-	if(reagents)
-		reagents.my_atom = null
-		reagents.delete()
-	return
+	qdel(src)
 
 
 /obj/effect/effect/water/New()

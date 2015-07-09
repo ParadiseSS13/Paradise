@@ -23,8 +23,14 @@
 
 
 /atom/movable/Destroy()
-	..()
+	for(var/atom/movable/AM in contents)
+		qdel(AM)
 	loc = null
+	if (pulledby)
+		if (pulledby.pulling == src)
+			pulledby.pulling = null
+		pulledby = null
+	..()
 	return QDEL_HINT_QUEUE
 
 // Used in shuttle movement and AI eye stuff.

@@ -52,17 +52,9 @@
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
 /obj/item/Destroy()
-	if(istype(src.loc, /mob))
-		var/mob/H = src.loc
-		H.unEquip(src) // items at the very least get unequipped from their mob before being deleted
-	if(reagents && istype(reagents))
-		reagents.my_atom = null
-		reagents.delete()
-	if(hasvar(src, "holder"))
-		src:holder = null
-	/*  BROKEN, FUCK BYOND
-	if(hasvar(src, "my_atom"))
-		src:my_atom = null*/
+	if(ismob(loc))
+		var/mob/m = loc
+		m.unEquip(src, 1)
 	return ..()
 
 /obj/item/device
