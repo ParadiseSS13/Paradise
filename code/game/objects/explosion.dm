@@ -89,7 +89,7 @@
 
 		for(var/turf/T in trange(max_range, epicenter))
 
-			var/dist = cheap_pythag(T.x - x0,T.y - y0)
+			var/dist = sqrt((T.x - x0)**2 + (T.y - y0)**2)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -118,7 +118,7 @@
 			if(T)
 				for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
 					var/atom/movable/AM = atom_movable
-					if(AM)	AM.ex_act(dist)
+					if(AM && AM.simulated)	AM.ex_act(dist)
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
@@ -197,7 +197,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in trange(max_range, epicenter))
 		wipe_colours += T
-		var/dist = cheap_pythag(T.x - x0, T.y - y0)
+		var/dist = sqrt((T.x - x0)**2 + (T.y - y0)**2)
 
 		if(newmode == "Yes")
 			var/turf/TT = T
