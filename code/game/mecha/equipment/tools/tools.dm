@@ -94,7 +94,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -105,7 +105,7 @@
 				else if(istype(target, /turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.gets_dug()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -162,7 +162,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -172,7 +172,7 @@
 									ore.Move(ore_box)
 				else if(istype(target,/turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(target,1))
-						M.gets_dug()
+						M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo

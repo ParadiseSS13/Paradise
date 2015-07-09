@@ -75,11 +75,11 @@
 
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
 
-		else if(istype(target, /obj/machinery/bunsen_burner))
+		/*else if(istype(target, /obj/machinery/bunsen_burner))
 			return
 
 		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-			return
+			return*/
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)

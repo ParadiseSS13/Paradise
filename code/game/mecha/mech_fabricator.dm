@@ -479,7 +479,7 @@
 		if("$uranium")
 			type = /obj/item/stack/sheet/mineral/uranium
 		if("$bananium")
-			type = /obj/item/stack/sheet/mineral/clown
+			type = /obj/item/stack/sheet/mineral/bananium
 		else
 			return 0
 	var/result = 0
@@ -531,7 +531,7 @@
 				material = "$metal"
 			if(/obj/item/stack/sheet/glass)
 				material = "$glass"
-			if(/obj/item/stack/sheet/mineral/clown)
+			if(/obj/item/stack/sheet/mineral/bananium)
 				material = "$bananium"
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = "$uranium"

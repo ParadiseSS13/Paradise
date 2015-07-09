@@ -61,11 +61,6 @@
 			var/obj/item/stack/sheet/s = new processed_sheet(src,0)
 			s.amount = 0
 			stack_list[processed_sheet] = s
-			if(s.name != "glass" && s.name != "metal")		//we can get these from cargo anyway
-				var/msg = "[capitalize(s.name)] sheets are now available in the Cargo Bay."
-				for(var/obj/machinery/requests_console/D in allConsoles)
-					if(D.department == "Science" || D.department == "Robotics" || D.department == "Research Director's Desk" || (D.department == "Chemistry" && s.name == "uranium"))
-						D.createmessage("Ore Redemption Machine", "New minerals available!", msg, 1, 0)
 		var/obj/item/stack/sheet/storage = stack_list[processed_sheet]
 		storage.amount += sheet_per_ore //Stack the sheets
 		O.loc = null //Let the old sheet...
@@ -106,7 +101,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	if(default_pry_open(W))
+	if(default_deconstruction_crowbar(W))
 		return
 
 	if(default_unfasten_wrench(user, W))
@@ -283,7 +278,7 @@
 		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/weapon/lazarus_injector,                                1000),
 		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  1200),
 		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               1500),
-		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
+		new /datum/data/mining_equipment("Space Cash",    		/obj/item/weapon/spacecash/c1000,                    			  2000),
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/weapon/card/mining_point_card,               			   500),
 		)
 
@@ -378,7 +373,7 @@
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in list("Kinetic Accelerator", "Resonator", "Mining Drone", "Advanced Scanner")
-	if(!selection || !Adjacent(redeemer) || voucher.gc_destroyed || voucher.loc != redeemer)
+	if(!selection || !Adjacent(redeemer) || voucher.loc != redeemer)
 		return
 	switch(selection)
 		if("Kinetic Accelerator")
@@ -598,7 +593,14 @@
 	mouse_opacity = 1
 	faction = list("neutral")
 	a_intent = "harm"
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	min_oxy = 0
+	max_oxy = 0
+	min_tox = 0
+	max_tox = 0
+	min_co2 = 0
+	max_co2 = 0
+	min_n2 = 0
+	max_n2 = 0
 	minbodytemp = 0
 	wander = 0
 	idle_vision_range = 5
@@ -644,7 +646,7 @@
 /mob/living/simple_animal/hostile/mining_drone/death()
 	..()
 	visible_message("<span class='danger'>[src] is destroyed!</span>")
-	new /obj/effect/decal/cleanable/robot_debris(src.loc)
+	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	DropOre()
 	qdel(src)
 	return

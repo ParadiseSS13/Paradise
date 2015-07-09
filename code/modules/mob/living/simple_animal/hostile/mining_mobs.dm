@@ -416,7 +416,7 @@
 	var/turftype = get_turf(src)
 	if(istype(turftype, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = turftype
-		M.GetDrilled()
+		M.gets_drilled()
 	spawn(20)
 		Trip()
 

@@ -864,9 +864,9 @@ var/list/robot_verbs_default = list(
 			laws.show_laws(src)
 			src << "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands."
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
-				for(var/obj/item/weapon/pickaxe/borgdrill/D in src.module.modules)
+				for(var/obj/item/weapon/pickaxe/drill/cyborg/D in src.module.modules)
 					del(D)
-				src.module.modules += new /obj/item/weapon/pickaxe/diamonddrill(src.module)
+				src.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src.module)
 				src.module.rebuild()
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
 				for(var/obj/item/weapon/borg_defib/F in src.module.modules)

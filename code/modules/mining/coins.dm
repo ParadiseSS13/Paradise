@@ -80,7 +80,7 @@
 	cmineral = "valid"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
 	sideslist = list("valid", "salad")
-	value = 20
+	credits = 20
 
 /obj/item/weapon/coin/antagtoken/New()
 	return

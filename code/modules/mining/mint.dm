@@ -46,9 +46,6 @@
 			if (istype(O, /obj/item/stack/sheet/mineral/bananium))
 				amt_clown += 100 * O.amount
 				O.loc = null
-			if (istype(O, /obj/item/stack/sheet/mineral/adamantine))
-				amt_adamantine += 100 * O.amount
-				O.loc = null //Commented out for now. -Durandan
 			return
 
 

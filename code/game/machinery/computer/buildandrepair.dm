@@ -411,7 +411,7 @@
 				if(do_after(user, 20))
 					if(!src || !WT.isOn()) return
 					user << "\blue You deconstruct the frame."
-					new /obj/item/stack/sheet/mineral/clown( src.loc, 5 )
+					new /obj/item/stack/sheet/mineral/bananium( src.loc, 5 )
 					del(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
