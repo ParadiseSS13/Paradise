@@ -14,7 +14,8 @@ datum
 		var/result_amount = 0
 		var/secondary = 0 // set to nonzero if secondary reaction
 		var/list/secondary_results = list()		//additional reagents produced by the reaction
-		var/required_temp = 0
+		var/min_temp = 0		//Minimum temperature required for the reaction to occur (heat to/above this). min_temp = 0 means no requirement
+		var/max_temp = 9999		//Maximum temperature allowed for the reaction to occur (cool to/below this).
 		var/mix_message = "The solution begins to bubble."
 		var/mix_sound = 'sound/effects/bubbles.ogg'
 		var/no_message = 0
@@ -63,6 +64,16 @@ datum
 			required_reagents = list("aluminum" = 1, "silicon" = 1, "oxygen" = 1)
 			result_amount = 3
 */
+
+		ice
+			name = "Ice"
+			id = "ice"
+			result = "ice"
+			required_reagents = list("water" = 1)
+			result_amount = 1
+			max_temp = 273
+			mix_message = "Ice forms as the water freezes."
+			mix_sound = null
 
 		sterilizine
 			name = "Sterilizine"
@@ -352,7 +363,7 @@ datum
 			result = "diethylamine"
 			required_reagents = list ("ammonia" = 1, "ethanol" = 1)
 			result_amount = 2
-			required_temp = 374
+			min_temp = 374
 			mix_message = "A horrible smell pours forth from the mixture."
 
 		space_cleaner

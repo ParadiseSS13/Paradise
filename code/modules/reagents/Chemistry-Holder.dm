@@ -257,7 +257,8 @@ datum
 							var/matching_container = 0
 							var/matching_other = 0
 							var/list/multipliers = new/list()
-							var/required_temp = C.required_temp
+							var/min_temp = C.min_temp			//Minimum temperature required for the reaction to occur (heat to/above this)
+							var/max_temp = C.max_temp			//Maximum temperature allowed for the reaction to occur (cool to/below this)
 							for(var/B in C.required_reagents)
 								if(!has_reagent(B, C.required_reagents[B]))	break
 								total_matching_reagents++
@@ -288,10 +289,10 @@ datum
 									if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 										matching_other = 1
 
-							if(required_temp == 0)
-								required_temp = chem_temp
+							if(min_temp == 0)
+								min_temp = chem_temp
 
-							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp >= required_temp)
+							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
 								var/multiplier = min(multipliers)
 								var/preserved_data = null
 								for(var/B in C.required_reagents)

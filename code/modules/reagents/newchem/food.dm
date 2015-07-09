@@ -61,7 +61,7 @@ datum/reagent/corn_starch
 	result = "corn_syrup"
 	required_reagents = list("corn_starch" = 1, "sacid" = 1)
 	result_amount = 2
-	required_temp = 374
+	min_temp = 374
 	mix_message = "The mixture forms a viscous, clear fluid!"
 
 datum/reagent/corn_syrup
@@ -391,7 +391,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	result = "hydrogenated_soybeanoil"
 	required_reagents = list("soybeanoil" = 1, "hydrogen" = 1)
 	result_amount = 2
-	required_temp = 520
+	min_temp = 520
 	mix_message = "The mixture emits a burnt, oily smell."
 
 /datum/reagent/meatslurry
@@ -430,7 +430,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	result = "gravy"
 	required_reagents = list("porktonium" = 1, "corn_starch" = 1, "milk" = 1)
 	result_amount = 3
-	required_temp = 374
+	min_temp = 374
 	mix_message = "The substance thickens and takes on a meaty odor."
 
 /datum/reagent/beff
