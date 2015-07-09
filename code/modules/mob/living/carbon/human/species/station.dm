@@ -24,7 +24,7 @@
 	path = /mob/living/carbon/human/unathi
 	default_language = "Galactic Common"
 	language = "Sinta'unathi"
-	tail = "sogtail"
+	tail = "Unathi Standard Tail"
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = "Stok"
 	darksight = 3
@@ -36,7 +36,7 @@
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -64,7 +64,7 @@
 	path = /mob/living/carbon/human/tajaran
 	default_language = "Galactic Common"
 	language = "Siik'tajr"
-	tail = "tajtail"
+	tail = "Tajaran Standard Tail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
 
@@ -86,7 +86,7 @@
 	primitive_form = "Farwa"
 
 	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
 
 	reagent_tag = PROCESS_ORG
@@ -105,7 +105,7 @@
 	default_language = "Galactic Common"
 	language = "Canilunzt"
 	primitive_form = "Wolpin"
-	tail = "vulptail"
+	tail = "Vulpkanin Standard Tail"
 	unarmed_type = /datum/unarmed_attack/claws
 	darksight = 8
 
@@ -116,7 +116,7 @@
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
 	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
 
 	reagent_tag = PROCESS_ORG
@@ -245,7 +245,7 @@
 
 	reagent_tag = PROCESS_ORG
 
-	tail = "armalis_tail"
+	tail = "Armalis Standard Tail"
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
 	has_organ = list(

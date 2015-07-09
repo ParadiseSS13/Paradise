@@ -894,12 +894,22 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/update_tail_showing(var/update_icons=1)
 	overlays_standing[TAIL_LAYER] = null
 
-	if(species.tail && species.bodyflags & HAS_TAIL)
-		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
-			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
-			tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+	var/icon/tail_s = null
 
-			overlays_standing[TAIL_LAYER]	= image(tail_s)
+	if(body_accessory) //they have a custom-selected body accessory, use that
+		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+			tail_s = new/icon("icon" = body_accessory.icon_file, "icon_state" = body_accessory.return_icon_state())
+			tail_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.icon_blend_mode)
+
+			overlays_standing[TAIL_LAYER]	= image(tail_s, "pixel_x" = (body_accessory.shift_x_size))
+
+	/*else //they have no custom tail defined, use species tail
+		if(species.tail && species.bodyflags & HAS_TAIL)
+			if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
+				tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
+				tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+
+			overlays_standing[TAIL_LAYER]	= image(tail_s)*/
 
 	if(update_icons)
 		update_icons()
@@ -908,26 +918,25 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
 	overlays_standing[TAIL_LAYER] = null
 
-	if(species.tail && species.bodyflags & HAS_TAIL)
-		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
+	var/icon/tailw_s = null
+
+	if(body_accessory) //they have a custom-selected accessory, use that
+		tailw_s = new/icon("icon" = body_accessory.icon_file, "icon_state" = body_accessory.return_animated_state())
+		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.icon_blend_mode)
+
+		overlays_standing[TAIL_LAYER]	= image(tailw_s, "pixel_x" = (body_accessory.shift_x_size))
+
+	/*else if(species.tail && species.bodyflags & HAS_TAIL) //they have no custom tail defined, use species tail
+		tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
 		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
-		overlays_standing[TAIL_LAYER]	= image(tailw_s)
+		overlays_standing[TAIL_LAYER]	= image(tailw_s)*/
 
 	if(update_icons)
 		update_icons()
 
 /mob/living/carbon/human/proc/stop_tail_wagging(var/update_icons=1)
-	overlays_standing[TAIL_LAYER] = null
-
-	if(species.tail && species.bodyflags & HAS_TAIL)
-		var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
-		tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
-
-		overlays_standing[TAIL_LAYER]	= image(tail_s)
-
-	if(update_icons)
-		update_icons()
+	update_tail_showing(update_icons)	//will reset it to default
 
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi

@@ -299,8 +299,9 @@
 				H.fire_alert = max(H.fire_alert, 2)
 	return
 
-/datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+/datum/species/proc/handle_post_spawn(var/mob/living/carbon/human/C) //Handles anything not already covered by basic species assignment.
 	handle_dna(C)
+	assign_body_accessory(C)
 	return
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
