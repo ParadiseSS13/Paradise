@@ -24,13 +24,13 @@
 /obj/structure/stool/blob_act()
 	if(prob(75))
 		new /obj/item/stack/sheet/metal(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		new /obj/item/stack/sheet/metal(src.loc)
-		del(src)
+		qdel(src)
 	return
 
 /obj/structure/stool/MouseDrop(atom/over_object)

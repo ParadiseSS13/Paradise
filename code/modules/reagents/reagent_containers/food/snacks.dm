@@ -30,7 +30,7 @@
 				usr.put_in_hands(TrashItem)
 			else if(istype(trash,/obj/item))
 				usr.put_in_hands(trash)
-		del(src)
+		qdel(src)
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/attack_self(mob/user as mob)
@@ -40,7 +40,7 @@
 	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		user << "\red None of [src] left, oh no!"
 		M.unEquip(src)	//so icons update :[
-		del(src)
+		qdel(src)
 		return 0
 
 	if(istype(M, /mob/living/carbon))
@@ -169,7 +169,7 @@
 		reagents.trans_to(U,min(reagents.total_volume,5))
 
 		if (reagents.total_volume <= 0)
-			del(src)
+			qdel(src)
 		return
 
 	if((slices_num <= 0 || !slices_num) || !slice_path)
@@ -227,7 +227,7 @@
 	for(var/i=1 to (slices_num-slices_lost))
 		var/obj/slice = new slice_path (src.loc)
 		reagents.trans_to(slice,reagents_per_slice)
-	del(src)
+	qdel(src)
 
 	return
 
@@ -246,7 +246,7 @@
 				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				var/mob/living/simple_animal/pet/corgi/C = M
 				C.health = min(C.health + 5, C.maxHealth)
-				del(src)
+				qdel(src)
 			else
 				M.visible_message("[M] takes a bite of \the [src].","<span class=\"notice\">You take a bite of \the [src].")
 				playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
@@ -541,7 +541,7 @@
 		new/obj/effect/decal/cleanable/egg_smudge(src.loc)
 		src.reagents.reaction(hit_atom, TOUCH)
 		src.visible_message("\red [src.name] has been squashed.","\red You hear a smack.")
-		del(src)
+		qdel(src)
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(istype( W, /obj/item/toy/crayon ))
@@ -1019,7 +1019,7 @@
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(src.loc)
 	src.visible_message("\red [src.name] splats.","\red You hear a splat.")
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/berryclafoutis
 	name = "Berry Clafoutis"
@@ -1731,7 +1731,7 @@
 			M << "\red \The [src] expands!"
 		var/mob/living/carbon/human/H = new (src)
 		H.set_species(monkey_type)
-		del(src)
+		qdel(src)
 
 	proc/Unwrap(mob/user as mob)
 		icon_state = "monkeycube"
@@ -2308,7 +2308,7 @@
 				"\blue You flatten the dough with your rolling pin!" \
 				)
 			new /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough(src.loc)
-			del(src)
+			qdel(src)
 
 /////////////////////////////////////////////////Sliceable////////////////////////////////////////
 // All the food items that can be sliced into smaller bits like Meatbread and Cheesewheels
@@ -3253,16 +3253,16 @@
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
-		del(W)
-		del(src)
+		qdel(W)
+		qdel(src)
 
 // Egg + flour = dough
 /obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/flour))
 		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
 		user << "You make some dough."
-		del(W)
-		del(src)
+		qdel(W)
+		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/dough
 	name = "dough"
@@ -3382,7 +3382,7 @@
 	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
 		user << "You cut the potato."
-		del(src)
+		qdel(src)
 	else
 		..()
 

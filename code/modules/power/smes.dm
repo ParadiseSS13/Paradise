@@ -204,7 +204,7 @@
 				"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
 				"You cut the cables and dismantle the power terminal.")
 			charging = 0 //stop inputting, since we have don't have a terminal anymore
-			del(terminal)
+			qdel(terminal)
 			return
 
 	//crowbarring it !
@@ -436,7 +436,7 @@
 			smoke.attach(src)
 			smoke.start()
 			explosion(src.loc, -1, 0, 1, 3, 0)
-			del(src)
+			qdel(src)
 			return
 		if(prob(15)) //Power drain
 			world << "\red SMES power drain in [src.loc.loc]"

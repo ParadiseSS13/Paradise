@@ -46,7 +46,7 @@
 						world << "\blue <B>Alert: Shuttle launch time shortened to 10 seconds!</B>"
 						emergency_shuttle.set_launch_countdown(10)
 						//src.authorized = null
-						del(src.authorized)
+						qdel(src.authorized)
 						src.authorized = list(  )
 
 				if("Repeal")

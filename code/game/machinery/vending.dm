@@ -22,7 +22,7 @@
 	if(!name)
 		var/atom/tmp = new path
 		src.product_name = initial(tmp.name)
-		del(tmp)
+		qdel(tmp)
 	else
 		src.product_name = name
 
@@ -176,7 +176,7 @@
 	if(prob(75))
 		malfunction()
 	else
-		del(src)
+		qdel(src)
 
 /obj/machinery/vending/proc/refill_inventory(obj/item/weapon/vending_refill/refill, datum/data/vending_product/machine, mob/user)
 	var/total = 0
@@ -306,7 +306,7 @@
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
 	var/left = cashmoney.worth - currently_vending.price
 	usr.unEquip(cashmoney)
-	del(cashmoney)
+	qdel(cashmoney)
 
 	if(left)
 		dispense_cash(left, src.loc, user)
@@ -560,10 +560,10 @@
 				user << "\blue You successfully pull the coin out before the [src] could swallow it."
 			else
 				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
-				del(coin)
+				qdel(coin)
 				categories &= ~CAT_COIN
 		else
-			del(coin)
+			qdel(coin)
 			categories &= ~CAT_COIN
 
 	R.amount--

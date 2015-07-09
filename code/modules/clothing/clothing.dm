@@ -87,7 +87,7 @@
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src,/obj/item/clothing/ears/offear))
-			del(O)
+			qdel(O)
 			O = src
 	else
 		O = src
@@ -99,7 +99,7 @@
 		O.add_fingerprint(user)
 
 	if(istype(src,/obj/item/clothing/ears/offear))
-		del(src)
+		qdel(src)
 
 /obj/item/clothing/ears/offear
 	name = "Other ear"

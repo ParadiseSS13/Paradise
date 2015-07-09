@@ -356,7 +356,7 @@ datum
 							var/mob/living/M = my_atom
 							R.reagent_deleted(M)
 						reagent_list -= A
-						del(A)
+						qdel(A)
 						update_total()
 						my_atom.on_reagent_change()
 						check_ignoreslow(my_atom)

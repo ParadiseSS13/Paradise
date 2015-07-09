@@ -88,7 +88,7 @@
 				if(life <= 0)
 					walk(src,0)
 					spawn(1)
-						del(src)
+						qdel(src)
 					return 0
 		return
 

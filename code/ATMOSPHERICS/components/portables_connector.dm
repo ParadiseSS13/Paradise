@@ -125,7 +125,7 @@
 
 /obj/machinery/atmospherics/portables_connector/disconnect(obj/machinery/atmospherics/reference)
 	if(reference==node)
-		del(network)
+		qdel(network)
 		node = null
 
 	update_underlays()
@@ -155,4 +155,4 @@
 			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)

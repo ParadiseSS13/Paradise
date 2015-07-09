@@ -428,7 +428,7 @@ datum
 					M.invisibility = 101
 					for(var/obj/item/W in M)
 						if(istype(W, /obj/item/weapon/implant))	//TODO: Carn. give implants a dropped() or something
-							del(W)
+							qdel(W)
 							continue
 						W.layer = initial(W.layer)
 						W.loc = M.loc
@@ -440,7 +440,7 @@ datum
 						M.mind.transfer_to(new_mob)
 					else
 						new_mob.key = M.key
-					del(M)
+					qdel(M)
 				..()
 				return
 
@@ -834,7 +834,7 @@ datum
 						I.desc = "Looks like this was \an [O] some time ago."
 						for(var/mob/M in viewers(5, O))
 							M << "\red \the [O] melts."
-						del(O)
+						qdel(O)
 
 		glycerol
 			name = "Glycerol"
@@ -1118,7 +1118,7 @@ datum
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/decal/cleanable))
-					del(O)
+					qdel(O)
 				else
 					if(O)
 						O.clean_blood()
@@ -1127,7 +1127,7 @@ datum
 					T.overlays.Cut()
 					T.clean_blood()
 					for(var/obj/effect/decal/cleanable/C in src)
-						del(C)
+						qdel(C)
 
 					for(var/mob/living/carbon/slime/M in T)
 						M.adjustToxLoss(rand(5,10))

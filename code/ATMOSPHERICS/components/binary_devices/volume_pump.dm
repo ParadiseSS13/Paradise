@@ -191,4 +191,4 @@ Thus, the two variables affect pump operation are set in New():
 			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)

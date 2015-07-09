@@ -287,6 +287,6 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	var/area/skipjack = locate(/area/shuttle/vox/station)
 	for (var/mob/living/M in skipjack.contents)
 		//maybe send the player a message that they've gone home/been kidnapped? Someone responsible for vox lore should write that.
-		del(M)
+		qdel(M)
 	for (var/obj/O in skipjack.contents)
-		del(O)	//no hiding in lockers or anything
+		qdel(O)	//no hiding in lockers or anything

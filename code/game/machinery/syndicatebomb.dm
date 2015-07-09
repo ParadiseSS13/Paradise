@@ -222,7 +222,7 @@
 		holder.loc.visible_message("<span class='danger'>\icon[holder] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
 		reset()
 	else
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/bombcore/training/defuse()
 	var/obj/machinery/syndicatebomb/holder = src.loc
@@ -241,8 +241,8 @@
 
 /obj/item/weapon/bombcore/badmin/defuse() //because we wouldn't want them being harvested by players
 	var/obj/machinery/syndicatebomb/B = src.loc
-	del(B)
-	del(src)
+	qdel(B)
+	qdel(src)
 
 /obj/item/weapon/bombcore/badmin/summon/
 	var/summon_path = /obj/item/weapon/reagent_containers/food/snacks/cookie
@@ -256,8 +256,8 @@
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))
-	del(B)
-	del(src)
+	qdel(B)
+	qdel(src)
 
 /obj/item/weapon/bombcore/badmin/summon/clown
 	summon_path = /mob/living/simple_animal/hostile/retaliate/clown

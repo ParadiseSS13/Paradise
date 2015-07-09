@@ -55,7 +55,7 @@
 
 	New()
 		if(!istype(src.loc,/turf/simulated/floor))
-			del(src)
+			qdel(src)
 
 		spawn_biomass_piece(src.loc)
 		processing_objects.Add(src)
@@ -72,10 +72,10 @@
 
 	process()
 		if(!vines)
-			del(src) //space  vines exterminated. Remove the controller
+			qdel(src) //space  vines exterminated. Remove the controller
 			return
 		if(!growth_queue)
-			del(src) //Sanity check
+			qdel(src) //Sanity check
 			return
 		if(vines.len >= 250 && !reached_collapse_size)
 			reached_collapse_size = 1

@@ -5,7 +5,7 @@
 
 /obj/structure/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 
 /obj/structure/ex_act(severity)
 	switch(severity)

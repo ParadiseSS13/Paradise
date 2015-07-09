@@ -198,10 +198,10 @@ var/list/tape_roll_applications = list()
 			for (var/obj/item/tape/P in cur)
 				if(P.icon_state == icon_dir)
 					N = 0
-					del(P)
+					qdel(P)
 			cur = get_step(cur,dir[i])
 
-	del(src)
+	qdel(src)
 	return
 
 

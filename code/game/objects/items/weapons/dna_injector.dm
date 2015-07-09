@@ -91,7 +91,7 @@
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
 			user.unEquip(src)
-		del(src)
+		qdel(src)
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)

@@ -19,7 +19,7 @@
 		user.put_in_active_hand(S)
 		src.transfer_fingerprints_to(S)
 
-		del(src)
+		qdel(src)
 
 
 	attack(mob/living/target as mob, mob/living/user as mob)

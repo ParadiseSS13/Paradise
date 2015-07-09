@@ -989,7 +989,7 @@
 				user << "You wire \the [src]!"
 				coil.amount -= 5
 				if(!coil.amount)
-					del(coil)
+					qdel(coil)
 
 				buildstage = 2
 				update_icon()
@@ -1009,7 +1009,7 @@
 		if(0)
 			if(istype(W, /obj/item/weapon/airalarm_electronics))
 				user << "You insert the circuit!"
-				del(W)
+				qdel(W)
 				buildstage = 1
 				update_icon()
 				return
@@ -1154,7 +1154,7 @@ FIRE ALARM
 
 					coil.amount -= 5
 					if(!coil.amount)
-						del(coil)
+						qdel(coil)
 
 					buildstage = 2
 					user << "<span class='notice'>You wire \the [src]!</span>"
@@ -1171,7 +1171,7 @@ FIRE ALARM
 			if(0)
 				if(istype(W, /obj/item/weapon/firealarm_electronics))
 					user << "<span class='notice'>You insert the circuit!</span>"
-					del(W)
+					qdel(W)
 					buildstage = 1
 					update_icon()
 
@@ -1179,7 +1179,7 @@ FIRE ALARM
 					user << "<span class='warning'>You remove the fire alarm assembly from the wall!</span>"
 					new /obj/item/mounted/frame/firealarm(get_turf(user))
 					playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
-					del(src)
+					qdel(src)
 		return
 
 	src.alarm()

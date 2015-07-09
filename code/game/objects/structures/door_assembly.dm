@@ -290,7 +290,7 @@ obj/structure/door_assembly
 			else
 				door.name = "[istext(glass) ? "[glass] airlock" : base_name]"
 			src.electronics.loc = door
-			del(src)
+			qdel(src)
 	else
 		..()
 	update_state()

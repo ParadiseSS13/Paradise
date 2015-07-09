@@ -50,7 +50,7 @@
 				name = "Man-Machine Interface: [brainmob.real_name]"
 				icon_state = "mmi_full"
 				alien = 0
-			del(O)
+			qdel(O)
 
 
 			locked = 1

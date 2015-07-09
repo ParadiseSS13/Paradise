@@ -77,7 +77,7 @@
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			del(S)
+			qdel(S)
 			return cost * (spell_levels+1)
 	return -1
 
@@ -373,7 +373,7 @@
 			entries |= E
 			categories |= E.category
 		else
-			del(E)
+			qdel(E)
 	tab = categories[1]
 
 /obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
