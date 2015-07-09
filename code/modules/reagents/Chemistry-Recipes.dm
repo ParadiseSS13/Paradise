@@ -73,6 +73,7 @@ datum
 			result_amount = 1
 			max_temp = 273
 			mix_message = "Ice forms as the water freezes."
+			mix_sound = null
 
 		sterilizine
 			name = "Sterilizine"
