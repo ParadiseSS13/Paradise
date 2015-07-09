@@ -332,7 +332,7 @@
 			myloc.overlays += flicker
 			spawn(8)
 				myloc.overlays -= flicker
-				del flicker
+				qdel(flicker)
 			//flick("flameburst",src)
 		if("plasma_gas")
 			//spawn a bunch of plasma

@@ -458,4 +458,4 @@
 			A:prime()
 		if(istype(A,/obj/singularity)) // I can't emphasize enough how much you should never use this grenade
 			A:energy = 200
-		del src
+		qdel(src)

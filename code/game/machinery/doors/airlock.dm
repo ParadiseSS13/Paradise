@@ -250,7 +250,7 @@
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
 	new/obj/structure/door_assembly( src.loc )
-	del (src)
+	qdel(src)
 
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
 	return 0

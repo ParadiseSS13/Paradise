@@ -879,7 +879,7 @@
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
 	const_holder.icon_state = "durand0"
 	const_holder.density = 1
-	del src
+	qdel(src)
 	return
 
 /datum/construction/reversible/mecha/durand
@@ -1161,7 +1161,7 @@
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
 	const_holder.icon_state = "phazon0"
 	const_holder.density = 1
-	del src
+	qdel(src)
 	return
 
 /datum/construction/reversible/mecha/phazon
@@ -1477,7 +1477,7 @@
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
 	const_holder.icon_state = "odysseus0"
 	const_holder.density = 1
-	del src
+	qdel(src)
 	return
 
 

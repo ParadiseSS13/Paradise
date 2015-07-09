@@ -266,7 +266,7 @@
 	update_mob()
 
 	invisibility = INVISIBILITY_MAXIMUM		//kaboom
-	del nadeassembly // do this now to stop infrared beams
+	qdel(nadeassembly) // do this now to stop infrared beams
 	var/end_temp = 0
 	for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
 		G.reagents.trans_to(src, G.reagents.total_volume)

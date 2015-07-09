@@ -249,7 +249,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(method == TOUCH)
 					if(H.wear_mask)
 						if(!H.wear_mask.unacidable)
-							qdel (H.wear_mask)
+							qdel(H.wear_mask)
 							H.update_inv_wear_mask()
 							H << "\red Your mask melts away but protects you from the acid!"
 						else
@@ -574,7 +574,9 @@ datum/reagent/atrazine/reaction_turf(var/turf/T, var/volume)
 		var/turf/simulated/wall/W = T
 		if(W.rotting)
 			W.rotting = 0
-			for(var/obj/effect/E in W) if(E.name == "Wallrot") del E
+			for(var/obj/effect/E in W)
+				if(E.name == "Wallrot")
+					qdel(E)
 
 			for(var/mob/O in viewers(W, null))
 				O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)

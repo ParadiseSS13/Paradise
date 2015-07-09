@@ -9,7 +9,7 @@
 		var/T = pick(types)
 		new T(loc)
 		spawn(1)
-			del src
+			qdel(src)
 
 // -------------------------------------
 //	Random cleanables, clearly this makes sense
@@ -23,7 +23,7 @@
 		var/T = pick(list)
 		new T(loc)
 		spawn(0)
-			del src
+			qdel(src)
 
 
 /obj/item/stack/sheet/animalhide/random
@@ -34,7 +34,7 @@
 			var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
 			var/obj/item/stack/S = new htype(loc)
 			S.amount = amount
-			del src
+			qdel(src)
 
 // -------------------------------------
 //    Not yet identified chemical.
@@ -115,7 +115,7 @@
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
 		spawn(0)
-			del src
+			qdel(src)
 
 /obj/item/weapon/storage/pill_bottle/random_meds
 	name = "unlabelled pillbottle"
@@ -311,9 +311,9 @@
 			Cat2.desc = "It's was alive the whole time!"
 			sleep(2)
 			if(prob(50))
-				del Cat1
+				qdel(Cat1)
 			else
-				del Cat2
+				qdel(Cat2)
 		..()
 
 // --------------------------------------

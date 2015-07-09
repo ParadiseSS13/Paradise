@@ -53,7 +53,7 @@
 /obj/effect/decal/warning_stripes/New()
 	. = ..()
 	loc.overlays += src
-	del src
+	qdel(src)
 
 // Credit to Neinhaus for making these into individual decals.
 

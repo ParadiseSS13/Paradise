@@ -223,8 +223,8 @@ mob/living/proc/NotTargeted(var/obj/item/weapon/gun/I)
 	if(T && ismob(T) && !I.target)
 		T.client.remove_gun_icons()
 	if(!targeted_by.len)
-		del target_locked //Remove the overlay
-		del targeted_by
+		qdel(target_locked) //Remove the overlay
+		qdel(targeted_by)
 	spawn(1) update_targeted()
 
 mob/living/Move()

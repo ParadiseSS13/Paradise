@@ -340,7 +340,7 @@ update_flag
 			user << "\blue You salvage whats left of \the [src]"
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
 			M.amount = 3
-			del src
+			qdel(src)
 		return
 
 	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
