@@ -18,11 +18,23 @@ var/global/list/rockTurfEdgeCache
 	temperature = TCMB
 	var/mineralType = null
 	var/mineralAmt = 3
+	var/mineralName = null
 	var/spread = 0 //will the seam spread?
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
 	var/last_act = 0
 	var/scan_state = null //Holder for the image we display when we're pinged by a mining scanner
 	var/hidden = 1
+
+	//start xenoarch vars
+	var/datum/geosample/geologic_data
+	var/excavation_level = 0
+	var/list/finds
+	var/next_rock = 0
+	var/archaeo_overlay = ""
+	var/excav_overlay = ""
+	var/obj/item/weapon/last_find
+	var/datum/artifact_find/artifact_find
+	//end xenaorch vars
 
 /turf/simulated/mineral/ex_act(severity, target)
 	..()
@@ -164,6 +176,7 @@ var/global/list/rockTurfEdgeCache
 	name = "iron deposit"
 	icon_state = "rock_Iron"
 	mineralType = /obj/item/weapon/ore/iron
+	mineralName = "Iron"
 	spreadChance = 20
 	spread = 1
 	hidden = 0
@@ -171,6 +184,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/uranium
 	name = "uranium deposit"
 	mineralType = /obj/item/weapon/ore/uranium
+	mineralName = "Uranium"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -179,6 +193,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/diamond
 	name = "diamond deposit"
 	mineralType = /obj/item/weapon/ore/diamond
+	mineralName = "Diamond"
 	spreadChance = 0
 	spread = 1
 	hidden = 1
@@ -187,6 +202,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/gold
 	name = "gold deposit"
 	mineralType = /obj/item/weapon/ore/gold
+	mineralName = "Gold"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -195,6 +211,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/silver
 	name = "silver deposit"
 	mineralType = /obj/item/weapon/ore/silver
+	mineralName = "Silver"
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -204,6 +221,7 @@ var/global/list/rockTurfEdgeCache
 	name = "plasma deposit"
 	icon_state = "rock_Plasma"
 	mineralType = /obj/item/weapon/ore/plasma
+	mineralName = "Plasma"
 	spreadChance = 8
 	spread = 1
 	hidden = 1
@@ -213,6 +231,7 @@ var/global/list/rockTurfEdgeCache
 	name = "bananium deposit"
 	icon_state = "rock_Clown"
 	mineralType = /obj/item/weapon/ore/bananium
+	mineralName = "Bananium"
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
@@ -222,6 +241,7 @@ var/global/list/rockTurfEdgeCache
 	name = "bluespace crystal deposit"
 	icon_state = "rock_BScrystal"
 	mineralType = /obj/item/bluespace_crystal
+	mineralName = "Bluespace crystal"
 	mineralAmt = 1
 	spreadChance = 0
 	spread = 0
@@ -233,6 +253,7 @@ var/global/list/rockTurfEdgeCache
 	name = "gibtonite deposit"
 	icon_state = "rock_Gibtonite"
 	mineralAmt = 1
+	mineralName = "Gibtonite"
 	spreadChance = 0
 	spread = 0
 	hidden = 1
