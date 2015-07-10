@@ -103,7 +103,7 @@
 							dist += D.explosion_block
 
 			var/flame_dist = 0
-			var/throw_dist = dist
+			var/throw_dist = max_range - dist
 
 			if(dist < flame_range)
 				flame_dist = 1
@@ -126,14 +126,16 @@
 
 			//--- THROW ITEMS AROUND ---
 
-			var/throw_dir = get_dir(epicenter,T)
-			for(var/obj/item/I in T)
-				spawn(0) //Simultaneously not one at a time
-					if(I && !I.anchored)
-						var/throw_range = rand(throw_dist, max_range)
-						var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-						I.throw_speed = 4 //Temporarily change their throw_speed for embedding purposes (Reset when it finishes throwing, regardless of hitting anything)
-						I.throw_at(throw_at, throw_range, 2)//Throw it at 2 speed, this is purely visual anyway.
+			if(throw_dist > 0)
+				var/throw_dir = get_dir(epicenter,T)
+				for(var/obj/item/I in T)
+					spawn(0) //Simultaneously not one at a time
+						if(I && !I.anchored)
+							var/throw_mult = 0.5 + (0.5 * rand()) // Between 0.5 and 1.0
+							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
+							if(throw_range > 0)
+								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
+								I.throw_at(throw_at, throw_range, 2, no_spin = 1)//Throw it at 2 speed, this is purely visual anyway.
 
 		var/took = (world.timeofday-start)/10
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
