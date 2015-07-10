@@ -400,7 +400,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(hsbitem)
 		for(var/atom/O in world)
 			if(istype(O, hsbitem))
-				del(O)
+				qdel(O)
 		log_admin("[key_name(src)] has deleted all instances of [hsbitem].")
 		message_admins("[key_name_admin(src)] has deleted all instances of [hsbitem].", 0)
 	feedback_add_details("admin_verb","DELA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -461,7 +461,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
-		del(adminmob)
+		qdel(adminmob)
 	feedback_add_details("admin_verb","ADC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -615,7 +615,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
-			del(I)
+			qdel(I)
 	switch(dresscode)
 		if ("strip")
 			//do nothing
@@ -1111,7 +1111,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G), 50)
 				spawn(0)
-					del(G)
+					qdel(G)
 				S.energy = 1750
 				S.current_size = 7
 				S.icon = 'icons/effects/224x224.dmi'

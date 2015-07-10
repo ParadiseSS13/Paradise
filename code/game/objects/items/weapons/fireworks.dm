@@ -18,7 +18,7 @@ obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
 		if(ismob(src.loc) || isobj(src.loc))
 			S.attach(src.loc)
 		S.start()
-		del(src)
+		qdel(src)
 
 obj/item/weapon/sparkler
 	name = "sparkler"
@@ -42,7 +42,7 @@ obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
 				S.attach(src.loc)
 			S.start()
 			sleep(10)
-		del(src)
+		qdel(src)
 /obj/crate/fireworks
 	name = "Fireworks!"
 /obj/crate/fireworks/New()

@@ -19,7 +19,7 @@
 
 /datum/event/tear/end()
 	if(TE)
-		del(TE)
+		qdel(TE)
 
 /obj/effect/tear
 	name="Dimensional Tear"
@@ -40,7 +40,7 @@
 	animation.master = src
 //	flick("newtear",usr)
 	spawn(15)
-		if(animation)	del(animation)
+		if(animation)	qdel(animation)
 
 
 	spawn(rand(30,120))

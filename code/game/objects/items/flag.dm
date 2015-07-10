@@ -22,17 +22,17 @@
 		if(istype(src.loc,/turf))
 			new /obj/effect/decal/cleanable/ash(src.loc)
 			new /obj/item/stack/rods(src.loc)
-			del(src)
+			qdel(src)
 			return
 		if(istype(src.loc,/mob/living/carbon))
 			var/mob/living/carbon/C = src.loc
 			var/turf/location = get_turf(C)
 			new /obj/effect/decal/cleanable/ash(location)
 			new /obj/item/stack/rods(location)
-			del(src)
+			qdel(src)
 			return
 		else
-			del(src)
+			qdel(src)
 			return
 
 /obj/item/flag/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

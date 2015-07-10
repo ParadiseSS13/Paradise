@@ -40,7 +40,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_flags()
 	for(var/obj/item/flag/F in world)
-		del(F)
+		qdel(F)
 
 /datum/game_mode/nations/proc/spawn_flags()
 

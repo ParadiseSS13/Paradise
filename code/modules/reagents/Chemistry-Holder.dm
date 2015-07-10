@@ -257,7 +257,8 @@ datum
 							var/matching_container = 0
 							var/matching_other = 0
 							var/list/multipliers = new/list()
-							var/required_temp = C.required_temp
+							var/min_temp = C.min_temp			//Minimum temperature required for the reaction to occur (heat to/above this)
+							var/max_temp = C.max_temp			//Maximum temperature allowed for the reaction to occur (cool to/below this)
 							for(var/B in C.required_reagents)
 								if(!has_reagent(B, C.required_reagents[B]))	break
 								total_matching_reagents++
@@ -288,10 +289,10 @@ datum
 									if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 										matching_other = 1
 
-							if(required_temp == 0)
-								required_temp = chem_temp
+							if(min_temp == 0)
+								min_temp = chem_temp
 
-							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp >= required_temp)
+							if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
 								var/multiplier = min(multipliers)
 								var/preserved_data = null
 								for(var/B in C.required_reagents)
@@ -356,7 +357,7 @@ datum
 							var/mob/living/M = my_atom
 							R.reagent_deleted(M)
 						reagent_list -= A
-						del(A)
+						qdel(A)
 						update_total()
 						my_atom.on_reagent_change()
 						check_ignoreslow(my_atom)
@@ -601,12 +602,6 @@ datum
 						//world << "reagent data set ([reagent_id])"
 						D.data = new_data
 
-			delete()
-				for(var/datum/reagent/R in reagent_list)
-					R.holder = null
-				if(my_atom)
-					my_atom.reagents = null
-
 			copy_data(var/datum/reagent/current_reagent)
 				if (!current_reagent || !current_reagent.data) return null
 				if (!istype(current_reagent.data, /list)) return current_reagent.data
@@ -636,10 +631,11 @@ atom/proc/create_reagents(var/max_vol)
 	reagents.my_atom = src
 
 /datum/reagents/Destroy()
-	for(var/datum/reagent/reagent in reagent_list)
-		qdel(reagent)
-
-	if(my_atom)
-		my_atom = null
-
+	processing_objects.Remove(src)
+	for(var/datum/reagent/R in reagent_list)
+		qdel(R)
+	reagent_list.Cut()
+	reagent_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
 	return ..()

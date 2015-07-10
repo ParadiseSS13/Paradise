@@ -40,11 +40,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/amount = 8.0
 
 /obj/effect/proc/delete()
-	loc = null
-	if(reagents)
-		reagents.my_atom = null
-		reagents.delete()
-	return
+	qdel(src)
 
 
 /obj/effect/effect/water/New()
@@ -685,7 +681,7 @@ steam.start() -- spawns the effect
 /obj/effect/effect/mustard_gas/New()
 	..()
 	spawn (100)
-		del(src)
+		qdel(src)
 	return
 
 /obj/effect/effect/mustard_gas/Move()
@@ -752,7 +748,7 @@ steam.start() -- spawns the effect
 					sleep(10)
 					step(smoke,direction)
 				spawn(100)
-					del(smoke)
+					qdel(smoke)
 					src.total_smoke--
 
 
@@ -1238,7 +1234,7 @@ steam.start() -- spawns the effect
 	if (istype(T, /turf))
 		T.hotspot_expose(3000,100)
 	spawn (100)
-		del(src)
+		qdel(src)
 	return
 
 /obj/effects/sparkels/Destroy()
@@ -1294,5 +1290,5 @@ steam.start() -- spawns the effect
 				sleep(5)
 				step(sparks,direction)
 			spawn(20)
-				del(sparks)
+				qdel(sparks)
 				src.total_sparks--

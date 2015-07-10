@@ -165,7 +165,7 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 	src.ion += law
 
 /datum/ai_laws/proc/clear_inherent_laws()
-	del(src.inherent)
+	qdel(src.inherent)
 	src.inherent = list()
 
 /datum/ai_laws/proc/add_supplied_law(var/number, var/law)
@@ -179,7 +179,7 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 
 /datum/ai_laws/proc/clear_ion_laws()
 	src.ion = list()
-	
+
 /datum/ai_laws/proc/clear_zeroth_law(var/law_borg = null)
 	src.zeroth = null
 	if(law_borg)

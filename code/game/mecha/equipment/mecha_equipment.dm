@@ -58,7 +58,7 @@
 		else
 			chassis.occupant << sound('sound/mecha/critdestr.ogg',volume=50)
 	spawn
-		del src
+		qdel(src)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()

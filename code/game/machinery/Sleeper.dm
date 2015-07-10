@@ -285,7 +285,7 @@
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
 			A.blob_act()
-		del(src)
+		qdel(src)
 	return
 
 
@@ -360,7 +360,7 @@
 			M << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
 
 			src.add_fingerprint(user)
-			del(G)
+			qdel(G)
 		return
 	return
 
@@ -601,7 +601,7 @@
 		src.icon_state = "sleeper"
 
 		for(var/obj/O in src)
-			del(O)
+			qdel(O)
 		src.add_fingerprint(usr)
 		return
 	return

@@ -29,7 +29,7 @@
 		part.loc = loc
 		part.master = null
 		part = null
-		del(src)
+		qdel(src)
 		return
 	return
 
@@ -87,4 +87,3 @@
 	A.power_light = light
 	A.updateicon()
 	return
-	

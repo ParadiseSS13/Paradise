@@ -344,7 +344,7 @@ var/list/wood_icons = list("wood","wood-broken")
 						FF.update_icon() //so siding get updated properly
 
 	if(!floor_tile) return
-	del(floor_tile)
+	qdel(floor_tile)
 	icon_plating = "plating"
 	set_light(0)
 	floor_tile = null
@@ -465,7 +465,7 @@ var/list/wood_icons = list("wood","wood-broken")
 			var/obj/item/stack/tile/light/T = floor_tile
 			if(T.state)
 				user.drop_item(C)
-				del(C)
+				qdel(C)
 				T.state = C //fixing it by bashing it with a light bulb, fun eh?
 				update_icon()
 				user << "\blue You replace the light bulb."

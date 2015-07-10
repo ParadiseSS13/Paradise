@@ -351,7 +351,7 @@
 		s.set_up(5, 1, src)
 		s.start()
 	if(L.damage <= 0)
-		del(L)
+		qdel(L)
 	if(L)
 		playsound(get_turf(src), 'sound/effects/eleczap.ogg', 75, 1)
 		L.tang = L.adjustAngle(get_angle(U,T))

@@ -153,7 +153,7 @@ Implant Specifics:<BR>"}
 		msg = sanitize_simple(msg, replacechars)
 		if(findtext(msg,phrase))
 			activate()
-			del(src)
+			qdel(src)
 
 	activate()
 		if (malfunction == MALFUNCTION_PERMANENT)
@@ -177,11 +177,11 @@ Implant Specifics:<BR>"}
 							istype(part,/obj/item/organ/external/head))
 							part.createwound(BRUISE, 60)	//mangle them instead
 							explosion(get_turf(imp_in), -1, -1, 2, 3)
-							del(src)
+							qdel(src)
 						else
 							explosion(get_turf(imp_in), -1, -1, 2, 3)
 							part.droplimb()
-							del(src)
+							qdel(src)
 				if (elevel == "Destroy Body")
 					explosion(get_turf(T), -1, 0, 1, 6)
 					T.gib()
@@ -247,7 +247,7 @@ Implant Specifics:<BR>"}
 					else
 						part.droplimb()
 				explosion(get_turf(imp_in), -1, -1, 2, 3)
-				del(src)
+				qdel(src)
 
 /obj/item/weapon/implant/chem
 	name = "chem"
@@ -294,7 +294,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(!src.reagents.total_volume)
 			R << "You hear a faint click from your chest."
 			spawn(0)
-				del(src)
+				qdel(src)
 		return
 
 	emp_act(severity)
@@ -484,17 +484,17 @@ the implant may become unstable and either pre-maturely inject the subject or si
 					a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
 				else
 					a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
-				del(a)
+				qdel(a)
 				processing_objects.Remove(src)
 			if ("emp")
 				var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 				var/name = prob(50) ? t.name : pick(teleportlocs)
 				a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
-				del(a)
+				qdel(a)
 			else
 				var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
 				a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
-				del(a)
+				qdel(a)
 				processing_objects.Remove(src)
 
 	emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
@@ -552,7 +552,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 			imp_in.put_in_hands(scanned)
 		else
 			scanned.loc = t
-		del src
+		qdel(src)
 
 	implanted(mob/source as mob)
 		src.activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")

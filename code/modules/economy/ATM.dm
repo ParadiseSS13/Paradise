@@ -115,7 +115,7 @@ log transactions
 
 			user << "<span class='info'>You insert [I] into [src].</span>"
 			src.attack_hand(user)
-			del I
+			qdel(I)
 	else
 		..()
 

@@ -82,13 +82,13 @@
 	if(lasercolor == "b" && disabled == 0)
 		if(istype(Proj, /obj/item/weapon/gun/energy/laser/redtag))
 			disabled = 1
-			del(Proj) // qdel
+			qdel(Proj) // qdel
 			sleep(100)
 			disabled = 0
 	if(lasercolor == "r" && disabled == 0)
 		if(istype(Proj, /obj/item/weapon/gun/energy/laser/bluetag))
 			disabled = 1
-			del(Proj) // qdel
+			qdel(Proj) // qdel
 			sleep(100)
 			disabled = 0
 

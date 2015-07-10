@@ -10,7 +10,7 @@
 	if(!spawn_type)
 		var/new_type = pick(typesof(/obj/effect/landmark/animal_spawner) - /obj/effect/landmark/animal_spawner)
 		new new_type(get_turf(src))
-		del(src)
+		qdel(src)
 
 	processing_objects.Add(src)
 	spawned_animal = new spawn_type(get_turf(src))

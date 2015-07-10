@@ -26,7 +26,7 @@
 		else if (in_space && time_entered_space + (10 SECONDS) < world.time)
 			// Time is up
 			radio.autosay("This device has left the station's perimeter. Triggering emergency activation failsafe.", name)
-			del(src)
+			qdel(src)
 			return
 
 		spawn(10 SECONDS)

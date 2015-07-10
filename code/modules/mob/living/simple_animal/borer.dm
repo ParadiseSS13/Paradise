@@ -204,7 +204,7 @@
 			host.computer_id = null
 			host.lastKnownIP = null
 
-			del(host_brain)
+			qdel(host_brain)
 			host_brain = new(src)
 
 			host_brain.ckey = host.ckey
@@ -352,7 +352,7 @@ mob/living/simple_animal/borer/proc/detatch()
 		if(!host.lastKnownIP)
 			host.lastKnownIP = b2h_ip
 
-	del(host_brain)
+	qdel(host_brain)
 
 	return
 

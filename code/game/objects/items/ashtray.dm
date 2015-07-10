@@ -31,7 +31,7 @@
 				processing_objects.Remove(cig)
 				var/obj/item/butt = new cig.type_butt(src)
 				cig.transfer_fingerprints_to(butt)
-				del(cig)
+				qdel(cig)
 			else if (cig.lit == 0)
 				user << "You place [cig] in [src] without even smoking it. Why would you do that?"
 

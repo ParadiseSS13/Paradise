@@ -52,7 +52,7 @@
 	if(hasShocked)
 		return 0
 	if(!FG1 || !FG2)
-		del(src)
+		qdel(src)
 		return 0
 	if(iscarbon(user))
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread

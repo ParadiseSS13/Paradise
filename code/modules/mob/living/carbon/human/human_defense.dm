@@ -247,7 +247,7 @@ emp_act
 			else
 				LAssailant = user
 
-			del(src)
+			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
 	if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))

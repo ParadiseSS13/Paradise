@@ -56,7 +56,7 @@
 			if(screen == 2)
 				screen = 1
 		user << "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
-		del(W)
+		qdel(W)
 	else
 		if(istype(W, /obj/item/stack/tape_roll))
 			return 0
@@ -91,7 +91,7 @@
 					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				del(src)
+				qdel(src)
 
 			else
 				user << "\red You must hold \the [P] steady to burn \the [src]."
@@ -171,7 +171,7 @@
 				var/obj/item/weapon/paper/P = src[1]
 				usr.unEquip(src)
 				usr.put_in_hands(P)
-				del(src)
+				qdel(src)
 			else if(page == amount)
 				screen = 2
 			else if(page == amount+1)
@@ -210,7 +210,7 @@
 		O.layer = initial(O.layer)
 		O.add_fingerprint(usr)
 	usr.unEquip(src)
-	del(src)
+	qdel(src)
 	return
 
 

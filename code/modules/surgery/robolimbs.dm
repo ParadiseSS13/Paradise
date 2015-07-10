@@ -52,7 +52,7 @@
 		target.updatehealth()
 		target.UpdateDamageIcon()
 
-		del(tool)
+		qdel(tool)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("\red [user]'s hand slips, damaging [target]'s flesh!", \

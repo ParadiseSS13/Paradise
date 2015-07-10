@@ -80,7 +80,7 @@ obj/machinery/air_sensor
 			if(do_after(user, 40))
 				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
 				new /obj/item/pipe_gsensor(src.loc)
-				del(src)
+				qdel(src)
 				return 1
 		if(..())
 			return 1

@@ -1152,7 +1152,7 @@ Buildable meters
 	if(machineReference)
 		transfer_fingerprints_to(machineReference)
 		machineReference.add_fingerprint(user)
-	del(src)	// remove the pipe item
+	qdel(src)	// remove the pipe item
 
 	return
 	 //TODO: DEFERRED
@@ -1180,7 +1180,7 @@ Buildable meters
 	new/obj/machinery/meter( src.loc )
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You have fastened the meter to the pipe"
-	del(src)
+	qdel(src)
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
@@ -1197,7 +1197,7 @@ Buildable meters
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You have fastened the gas sensor"
-	del(src)
+	qdel(src)
 //not sure why these are necessary
 #undef PIPE_SIMPLE_STRAIGHT
 #undef PIPE_SIMPLE_BENT

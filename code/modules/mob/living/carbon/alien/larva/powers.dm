@@ -53,7 +53,7 @@
 		else
 			new_xeno.key = key
 		new_xeno.mind.name = new_xeno.name
-		del(src)
+		qdel(src)
 		return
 	else
 		src << "<span class='warning'>You are not fully grown.</span>"

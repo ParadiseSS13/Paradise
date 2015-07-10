@@ -115,7 +115,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/clear_holo()
 //	hologram.set_light(0)//Clear lighting.	//handled by the lighting controller when its ower is deleted
-	del(hologram)//Get rid of hologram.
+	qdel(hologram)//Get rid of hologram.
 	if(master.holo == src)
 		master.holo = null
 	master = null//Null the master, since no-one is using it now.
@@ -193,7 +193,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return
 
 /obj/machinery/hologram/blob_act()
-	del(src)
+	qdel(src)
 	return
 
 /obj/machinery/hologram/Destroy()

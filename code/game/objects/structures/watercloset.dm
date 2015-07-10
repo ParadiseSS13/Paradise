@@ -171,7 +171,7 @@
 /obj/machinery/shower/update_icon()	//this is terribly unreadable, but basically it makes the shower mist up
 	overlays.Cut()					//once it's been on for a while, in addition to handling the water overlay.
 	if(mymist)
-		del(mymist)
+		qdel(mymist)
 
 	if(on)
 		overlays += image('icons/obj/watercloset.dmi', src, "water", MOB_LAYER + 1, dir)
@@ -190,7 +190,7 @@
 		mymist = new /obj/effect/mist(loc)
 		spawn(250)
 			if(src && !on)
-				del(mymist)
+				qdel(mymist)
 				ismist = 0
 
 /obj/machinery/shower/Crossed(atom/movable/O)
@@ -300,7 +300,7 @@
 		loc.clean_blood()
 		for(var/obj/effect/E in tile)
 			if(istype(E,/obj/effect/rune) || istype(E,/obj/effect/decal/cleanable) || istype(E,/obj/effect/overlay))
-				del(E)
+				qdel(E)
 
 /obj/machinery/shower/process()
 	if(!on || !mobpresent) return

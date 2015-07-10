@@ -74,7 +74,7 @@ datum
 			secondary_results = list("chemical_waste" = 1)
 			required_reagents = list("density_separated_sample" = 5)
 			result_amount = 4
-			required_temp = 375
+			min_temp = 375
 
 /obj/item/weapon/reagent_containers/glass/solution_tray
 	name = "solution tray"

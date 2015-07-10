@@ -423,7 +423,7 @@
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
 								//G = null
-								del(G)
+								qdel(G)
 						else
 							ok = 0
 						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
@@ -565,7 +565,7 @@
 
 	for(var/obj/O in L.requests)
 		L.requests.Remove(O)
-		del(O)
+		qdel(O)
 		resisting++
 
 	for(var/obj/item/weapon/grab/G in usr.grabbed_by)
@@ -739,7 +739,7 @@
 
 			if(hulklien)
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-				del(CM.handcuffed)
+				qdel(CM.handcuffed)
 				CM.handcuffed = null
 				CM.update_inv_handcuffed()
 				return
