@@ -385,7 +385,7 @@
 			if (href_list["del_r2"])
 				if (src.active2)
 					//src.active2 = null
-					del(src.active2)
+					qdel(src.active2)
 
 			if (href_list["d_rec"])
 				var/datum/data/record/R = locate(href_list["d_rec"])
@@ -510,7 +510,7 @@
 			continue
 
 		else if(prob(1))
-			del(R)
+			qdel(R)
 			continue
 
 	..(severity)

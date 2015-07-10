@@ -668,5 +668,5 @@
 	s.set_up(3, 1, src)
 	s.start()
 	respawnable_list += src
-	del src
+	qdel(src)
 	return

@@ -42,7 +42,7 @@
 		if (equip_to_slot_if_possible(W, slots[slot], del_on_fail = 0))
 			return slot
 	if (del_on_fail)
-		del(W)
+		qdel(W)
 	return null
 
 /mob/living/carbon/human/proc/is_in_hands(var/typepath)
@@ -353,9 +353,9 @@
 
 /obj/effect/equip_e/New()
 	if (!ticker)
-		del(src)
+		qdel(src)
 	spawn(100)
-		del(src)
+		qdel(src)
 	..()
 	return
 
@@ -366,22 +366,22 @@
 		switch(place)
 			if("mask")
 				if (!( target.wear_mask ))
-					del(src)
+					qdel(src)
 			if("l_hand")
 				if (!( target.l_hand ))
-					del(src)
+					qdel(src)
 			if("r_hand")
 				if (!( target.r_hand ))
-					del(src)
+					qdel(src)
 			if("suit")
 				if (!( target.wear_suit ))
-					del(src)
+					qdel(src)
 			if("uniform")
 				if (!( target.w_uniform ))
-					del(src)
+					qdel(src)
 			if("back")
 				if (!( target.back ))
-					del(src)
+					qdel(src)
 			if("syringe")
 				return
 			if("pill")
@@ -394,10 +394,10 @@
 				return
 			if("handcuff")
 				if (!( target.handcuffed ))
-					del(src)
+					qdel(src)
 			if("id")
 				if ((!( target.wear_id ) || !( target.w_uniform )))
-					del(src)
+					qdel(src)
 			if("splints")
 				var/count = 0
 				for(var/organ in list("l_leg","r_leg","l_arm","r_arm"))
@@ -406,11 +406,11 @@
 						count = 1
 						break
 				if(count == 0)
-					del(src)
+					qdel(src)
 					return
 			if("internal")
 				if ((!( (istype(target.wear_mask, /obj/item/clothing/mask) && (istype(target.back, /obj/item/weapon/tank) || istype(target.belt, /obj/item/weapon/tank) || istype(target.s_store, /obj/item/weapon/tank)) && !( target.internal )) ) && !( target.internal )))
-					del(src)
+					qdel(src)
 
 	var/message=null
 	if(target.frozen)
@@ -557,7 +557,7 @@
 			message = "\red <B>[source] is trying to empty [target]'s pockets!</B>"
 		if("CPR")
 			if (!target.cpr_time)
-				del(src)
+				qdel(src)
 			target.cpr_time = 0
 			message = "\red <B>[source] is trying perform CPR on [target]!</B>"
 		if("id")
@@ -668,13 +668,13 @@ It can still be worn/put on as normal.
 				strip_item = target.shoes
 		if("l_hand")
 			if (istype(target, /obj/item/clothing/suit/straight_jacket))
-				del(src)
+				qdel(src)
 			slot_to_process = slot_l_hand
 			if (target.l_hand)
 				strip_item = target.l_hand
 		if("r_hand")
 			if (istype(target, /obj/item/clothing/suit/straight_jacket))
-				del(src)
+				qdel(src)
 			slot_to_process = slot_r_hand
 			if (target.r_hand)
 				strip_item = target.r_hand
@@ -746,11 +746,11 @@ It can still be worn/put on as normal.
 				S.add_fingerprint(source)
 				if (!( istype(S, /obj/item/weapon/dnainjector) ))
 					S.inuse = 0
-					del(src)
+					qdel(src)
 				S.inject(target, source)
 				if (S.s_time >= world.time + 30)
 					S.inuse = 0
-					del(src)
+					qdel(src)
 				S.s_time = world.time
 				for(var/mob/O in viewers(source, null))
 					O.show_message("\red [source] injects [target] with the DNA Injector!", 1)
@@ -815,7 +815,7 @@ It can still be worn/put on as normal.
 	if(source && target)
 		if(source.machine == target)
 			target.show_inv(source)
-	del(src)
+	qdel(src)
 
 
 /mob/proc/get_item_by_slot(slot_id)

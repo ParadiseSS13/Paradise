@@ -83,7 +83,7 @@
 
 /proc/makepowernets()
 	for(var/datum/powernet/PN in powernets)
-		del(PN)
+		qdel(PN)
 	powernets.Cut()
 
 	for(var/obj/structure/cable/PC in cable_list)
@@ -373,7 +373,7 @@
 			Cable.powernet = net1
 			net1.cables += Cable
 
-	del(net2)
+	qdel(net2)
 	return net1
 
 

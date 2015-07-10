@@ -60,7 +60,7 @@
 		if(WT.remove_fuel(0, user))
 			user << "\blue Slicing lattice joints ..."
 		new /obj/item/stack/rods(src.loc)
-		del(src)
+		qdel(src)
 
 	return
 

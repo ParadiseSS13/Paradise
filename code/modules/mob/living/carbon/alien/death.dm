@@ -16,8 +16,8 @@
 	dead_mob_list -= src
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/alien/dust()
 	death(1)
@@ -37,8 +37,8 @@
 	dead_mob_list -= src
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/alien/death(gibbed)
 	if(stat == DEAD)	return

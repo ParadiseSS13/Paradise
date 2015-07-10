@@ -40,7 +40,7 @@
 				else
 					step(peel,direction)
 		new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
-		del(src)
+		qdel(src)
 		return
 /*
 	proc/banana(turf/T as turf)

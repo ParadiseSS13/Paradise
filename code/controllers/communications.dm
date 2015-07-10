@@ -226,7 +226,7 @@ var/global/datum/controller/radio/radio_controller
 		frequency.remove_listener(device)
 
 		if(frequency.devices.len == 0)
-			del(frequency)
+			qdel(frequency)
 			frequencies -= f_text
 
 	return 1
@@ -251,7 +251,7 @@ var/global/datum/controller/radio/radio_controller
 	if(range)
 		start_point = get_turf(source)
 		if(!start_point)
-			del(signal)
+			qdel(signal)
 			return 0
 	if (filter)
 		send_to_filter(source, signal, filter, start_point, range)
@@ -300,7 +300,7 @@ var/global/datum/controller/radio/radio_controller
 			devices_line -= null
 		if (devices_line.len==0)
 			devices -= devices_filter
-			del(devices_line)
+			qdel(devices_line)
 
 /datum/signal
 	var/obj/source

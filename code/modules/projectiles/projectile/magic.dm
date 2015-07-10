@@ -56,7 +56,7 @@
 				O.mind.transfer_to(A)
 			else
 				A.key = O.key
-			del(O)
+			qdel(O)
 			target = A
 		else
 			target.revive()
@@ -136,15 +136,15 @@ proc/wabbajack(mob/living/M)
 
 			if(istype(M, /mob/living/silicon/robot))
 				var/mob/living/silicon/robot/Robot = M
-				if(Robot.mmi)	del(Robot.mmi)
+				if(Robot.mmi)	qdel(Robot.mmi)
 			else
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					// Make sure there are no organs or limbs to drop
 					for(var/t in H.organs)
-						del(t)
+						qdel(t)
 					for(var/i in H.internal_organs)
-						del(i)
+						qdel(i)
 				for(var/obj/item/W in M)
 					M.unEquip(W)
 
@@ -240,7 +240,7 @@ proc/wabbajack(mob/living/M)
 
 			new_mob << "<B>Your form morphs into that of a [randomize].</B>"
 
-			del(M)
+			qdel(M)
 			return new_mob
 
 /obj/item/projectile/magic/animate
@@ -265,7 +265,7 @@ proc/wabbajack(mob/living/M)
 					S << "You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved! Do not harm [firer.name], your creator."
 				H = change
 				H.loc = S
-				del(src)
+				qdel(src)
 		else
 			var/obj/O = change
 			new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)

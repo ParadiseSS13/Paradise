@@ -46,7 +46,7 @@ RCD
 				return
 			matter += R.ammoamt
 			user.drop_item()
-			del(W)
+			qdel(W)
 			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 			user << "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>"
 			desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."

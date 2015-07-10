@@ -49,7 +49,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 			T.gestation = src.gestation
 			T.pickup(user)
 			user.put_in_active_hand(T)
-			del(src)
+			qdel(src)
 
 
 /mob/living/simple_animal/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob, params)
@@ -109,7 +109,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		T.gestation = src.gestation
 
 	user << "<span class='notice'>The tribble gets up and wanders around.</span>"
-	del(src)
+	qdel(src)
 
 /obj/item/toy/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob) //neutering and un-neutering
 	..()
@@ -162,7 +162,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	if (prob(75))
 		new /obj/item/weapon/shard( src.loc )
 		Break()
-		del(src)
+		qdel(src)
 
 
 /obj/structure/tribble_cage/proc/healthcheck()

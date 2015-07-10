@@ -59,7 +59,7 @@ datum/genesequence
 				visible_message("\red \icon[src] [src] can not extract any more genetic data from new fossils.")
 			if(4)
 				src.visible_message("\blue \icon[src] [user] inserts [W] into [src], the fossil is consumed as [src] extracts genetic data from it.")
-				del(W)
+				qdel(W)
 				updateDialog()
 	else if (istype(W, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
@@ -76,7 +76,7 @@ datum/genesequence
 				if(SCANFOSSIL_RETVAL_SUCCESS)
 					numaccepted += 1
 					S.remove_from_storage(F, src) //This will move the item to this item's contents
-					del(F)
+					qdel(F)
 					updateDialog()
 		var/outmsg = "\blue You empty all the fossils from [S] into [src]."
 		if(numaccepted)

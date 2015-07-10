@@ -204,7 +204,7 @@
 
 	move_into_gibber(user,G.affecting)
 
-	del(G)
+	qdel(G)
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
 	if(usr.stat || (!ishuman(user)) || user.restrained() || user.weakened || user.stunned || user.paralysis || user.resting)
@@ -395,7 +395,7 @@
 	src.occupant.death(1)
 	src.occupant.ghostize()
 
-	del(src.occupant)
+	qdel(src.occupant)
 
 	spawn(src.gibtime)
 

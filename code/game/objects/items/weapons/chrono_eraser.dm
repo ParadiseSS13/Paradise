@@ -18,7 +18,7 @@
 
 /obj/item/weapon/chrono_eraser/dropped()
 	if(PA)
-		del(PA)
+		qdel(PA)
 
 /obj/item/weapon/chrono_eraser/Destroy()
 	dropped()
@@ -28,7 +28,7 @@
 	var/mob/living/carbon/user = src.loc
 	if(iscarbon(user) && (user.back == src))
 		if(PA)
-			del(PA)
+			qdel(PA)
 		else
 			PA = new(src)
 			user.put_in_hands(PA)
@@ -58,10 +58,10 @@
 		TED = T
 	else //admin must have spawned it
 		TED = new(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/gun/energy/chrono_gun/update_icon()
 	return
@@ -193,7 +193,7 @@
 		if(tickstokill > initial(tickstokill))
 			for(var/atom/movable/AM in contents)
 				AM.loc = loc
-			del(src)
+			qdel(src)
 		else if(tickstokill <= 0)
 			captured << "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>"
 			var/mob/dead/observer/ghost = captured.ghostize(1)
@@ -202,8 +202,8 @@
 					ghost.mind = null
 				if(gun)
 					gun.pass_mind(captured.mind)
-			del(captured)
-			del(src)
+			qdel(captured)
+			qdel(src)
 		else
 			captured.Paralyse(4)
 			if(captured.reagents)
@@ -222,7 +222,7 @@
 			else
 				tickstokill++
 	else
-		del(src)
+		qdel(src)
 
 /obj/effect/chrono_field/bullet_act(var/obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy/chrono_beam))

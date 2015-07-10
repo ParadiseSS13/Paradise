@@ -312,7 +312,7 @@
 		if(buildstate == 5)
 			user << "\blue You secure the crossbow's various parts."
 			new /obj/item/weapon/gun/launcher/crossbow(get_turf(src))
-			del(src)
+			qdel(src)
 		return
 	else
 		..()

@@ -200,7 +200,7 @@
 
 		// remove the cult viewpoint object
 		var/obj/viewpoint = getCultViewpoint(cult_mind.current)
-		del(viewpoint)
+		qdel(viewpoint)
 
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
@@ -243,13 +243,13 @@
 /datum/game_mode/proc/remove_cult_icon(client/target_client,mob/target_mob)
 	for(var/image/I in target_client.images)
 		if(I.icon_state == "cult" && I.loc == target_mob)
-			del(I)
+			qdel(I)
 
 
 /datum/game_mode/proc/remove_all_cult_icons_from_client(client/target)
 	for(var/image/I in target.images)
 		if(I.icon_state == "cult")
-			del(I)
+			qdel(I)
 
 
 /datum/game_mode/proc/remove_all_cult_icons(target)

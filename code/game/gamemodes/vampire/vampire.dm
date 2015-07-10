@@ -417,7 +417,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 					for(var/image/I in t_mind.current.client.images)
 						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
 							//world.log << "deleting [vampire_mind] overlay"
-							del(I)
+							qdel(I)
 		if(head)
 			//world.log << "found [head.name]"
 			if(head.current)
@@ -425,12 +425,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 					for(var/image/I in head.current.client.images)
 						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
 							//world.log << "deleting [vampire_mind] overlay"
-							del(I)
+							qdel(I)
 	if(vampire_mind.current)
 		if(vampire_mind.current.client)
 			for(var/image/I in vampire_mind.current.client.images)
 				if(I.icon_state == "vampthrall" || I.icon_state == "vampire")
-					del(I)
+					qdel(I)
 
 /datum/game_mode/proc/remove_vampire_mind(datum/mind/vampire_mind, datum/mind/head)
 	//var/list/removal

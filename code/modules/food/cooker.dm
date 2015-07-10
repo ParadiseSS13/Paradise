@@ -52,7 +52,7 @@ obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 	on = 0
-	del(olditem)
+	qdel(olditem)
 	return
 
 // Burns the food with a chance of starting a fire - for if you try cooking something that's already been cooked that way

@@ -300,7 +300,7 @@
 					user.unEquip(src)
 
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				del(src)
+				qdel(src)
 
 			else
 				user << "\red You must hold \the [P] steady to burn \the [src]."

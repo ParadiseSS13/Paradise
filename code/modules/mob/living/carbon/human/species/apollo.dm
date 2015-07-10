@@ -60,7 +60,7 @@
 			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
 			do_after(H, 250)
 			if(p_loc == M.loc && p_loc_m == H.loc)
-				del(H.internal_organs_by_name["antennae"])
+				qdel(H.internal_organs_by_name["antennae"])
 				H.remove_language("Wryn Hivemind")
 				new /obj/item/organ/wryn/hivenode(M.loc)
 				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
@@ -110,4 +110,4 @@
 	H.visible_message("\red[H]'s body explodes, leaving behind a pile of microscopic crystals!")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
 //	new /obj/item/weapon/shard/supermatter( T )
-	del(H)
+	qdel(H)

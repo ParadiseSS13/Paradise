@@ -48,7 +48,7 @@
 
 		// teehee - Ah, tg coders...
 		if ("delete")
-			del(src)
+			qdel(src)
 
 		//If you want to re-add fire, just add "fire" = 15 to the pick list.
 		/*if ("fire")

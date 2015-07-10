@@ -167,7 +167,7 @@
 		return
 
 	proc/Delete()
-		del(src)
+		qdel(src)
 
 /obj/effect/blob/normal
 	icon_state = "blob"

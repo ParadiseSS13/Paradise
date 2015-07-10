@@ -731,7 +731,7 @@ obj/spacepod/verb/toggleLights()
 					if(t_air)
 						t_air.merge(removed)
 					else //just delete the cabin gas, we're in space or some shit
-						del(removed)
+						qdel(removed)
 		else
 			return stop()
 		return

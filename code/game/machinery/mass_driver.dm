@@ -29,7 +29,7 @@
 			F.anchored = 1
 			F.build = 4
 			F.update_icon()
-			del(src)
+			qdel(src)
 		return 1
 
 	return ..()
@@ -111,7 +111,7 @@
 				if(do_after(user, 30) && (build == 0))
 					user << "<span class='notice'>You detach the plasteel sheets from each others.</span>"
 					new /obj/item/stack/sheet/plasteel(get_turf(src),3)
-					del(src)
+					qdel(src)
 				return 1
 			if(istype(W, /obj/item/weapon/wrench))
 				user << "You begin to anchor \the [src] on the floor."
@@ -199,7 +199,7 @@
 				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 				var/obj/machinery/mass_driver/M = new(get_turf(src))
 				M.dir = src.dir
-				del(src)
+				qdel(src)
 				return 1
 	..()
 

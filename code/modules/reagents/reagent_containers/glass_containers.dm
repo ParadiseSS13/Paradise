@@ -346,7 +346,7 @@
 	attackby(var/obj/D, mob/user as mob, params)
 		if(isprox(D))
 			user << "You add [D] to [src]."
-			del(D)
+			qdel(D)
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 			user.unEquip(src)
 			qdel(src)

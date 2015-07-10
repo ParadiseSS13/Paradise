@@ -192,7 +192,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 /obj/machinery/blackbox_recorder/New()
 	if(blackbox)
 		if(istype(blackbox,/obj/machinery/blackbox_recorder))
-			del(src)
+			qdel(src)
 	blackbox = src
 
 /obj/machinery/blackbox_recorder/Destroy()

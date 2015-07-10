@@ -158,7 +158,7 @@
 	if(istype(W,/obj/item/pipe))
 		if(buildstate == 0)
 			user.drop_item()
-			del(W)
+			qdel(W)
 			user << "\blue You secure the piping inside the frame."
 			buildstate++
 			update_icon()
@@ -177,7 +177,7 @@
 	else if(istype(W,/obj/item/device/transfer_valve))
 		if(buildstate == 4)
 			user.drop_item()
-			del(W)
+			qdel(W)
 			user << "\blue You install the transfer valve and connect it to the piping."
 			buildstate++
 			update_icon()
@@ -206,7 +206,7 @@
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 				user << "\blue You weld the valve into place."
 				new /obj/item/weapon/gun/launcher/pneumatic(get_turf(src))
-				del(src)
+				qdel(src)
 		return
 	else
 		..()

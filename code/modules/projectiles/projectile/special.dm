@@ -82,7 +82,7 @@
 				for(var/mob/M in range(10, src))
 					if(!M.stat && !istype(M, /mob/living/silicon/ai))\
 						shake_camera(M, 3, 1)
-				del(src)
+				qdel(src)
 				return 1
 		else
 			return 0
@@ -167,7 +167,7 @@
 		new /obj/effect/decal/cleanable/ash(src.loc)
 		src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
 		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/kinetic
 	name = "kinetic force"
@@ -192,7 +192,7 @@ obj/item/projectile/kinetic/New()
 	range--
 	if(range <= 0)
 		new /obj/item/effect/kinetic_blast(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/kinetic/on_hit(atom/target)
 	var/turf/target_turf= get_turf(target)
@@ -210,7 +210,7 @@ obj/item/projectile/kinetic/New()
 
 /obj/item/effect/kinetic_blast/New()
 	spawn(4)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"

@@ -65,7 +65,7 @@
 		overmind_get_delay = world.time + 300 // 30 seconds
 
 		if(overmind)
-			del(overmind)
+			qdel(overmind)
 
 		var/client/C = null
 		var/list/candidates = list()
