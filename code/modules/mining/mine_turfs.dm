@@ -8,8 +8,8 @@ var/global/list/rockTurfEdgeCache
 
 /turf/simulated/mineral //wall piece
 	name = "Rock"
-	icon = 'icons/turf/walls.dmi'
-	icon_state = "rock"
+	icon = 'icons/turf/mining.dmi'
+	icon_state = "rock_nochance"
 	oxygen = 0
 	nitrogen = 0
 	opacity = 1
@@ -362,7 +362,7 @@ var/global/list/rockTurfEdgeCache
 		user << "<span class='notice'>You start picking...</span>"
 		P.playDigSound()
 
-		if(do_after(user,P.digspeed, target = src))
+		if(do_after(user, P.digspeed))
 			if(istype(src, /turf/simulated/mineral)) //sanity check against turf being deleted during digspeed delay
 				user << "<span class='notice'>You finish cutting into the rock.</span>"
 				P.update_icon()
@@ -381,6 +381,11 @@ var/global/list/rockTurfEdgeCache
 	var/turf/simulated/floor/plating/asteroid/airless/N = ChangeTurf(/turf/simulated/floor/plating/asteroid/airless)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 	N.fullUpdateMineralOverlays()
+
+	if(rand(1,750) == 1)
+		visible_message("<span class='notice'>An old dusty crate was buried within!</span>")
+		new /obj/structure/closet/crate/secure/loot(src)
+
 	return
 
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user as mob)

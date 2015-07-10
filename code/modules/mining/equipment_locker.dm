@@ -3,7 +3,7 @@
 
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
-	desc = "A machine that accepts ore and instantly transforms it into workable material sheets, but cannot produce alloys such as Plasteel. Points for ore are generated based on type and can be redeemed at a mining equipment locker."
+	desc = "A machine that accepts ore and instantly transforms it into workable material sheets, but cannot produce alloys such as Plasteel. Points for ore are generated based on type and can be redeemed at a mining equipment vendor."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = 1
@@ -130,6 +130,8 @@
 	interact(user)
 
 /obj/machinery/mineral/ore_redemption/interact(mob/user)
+	user.set_machine(src)
+
 	var/obj/item/stack/sheet/s
 	var/dat
 
@@ -288,6 +290,11 @@
 	var/equipment_path = null
 	var/cost = 0
 
+/datum/data/mining_equipment/New(name, path, cost)
+	src.equipment_name = name
+	src.equipment_path = path
+	src.cost = cost
+
 /obj/machinery/mineral/equipment_vendor/New()
 	..()
 	component_parts = list()
@@ -298,12 +305,14 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_locker/attack_hand(user as mob)
+/obj/machinery/mineral/equipment_vendor/attack_hand(user as mob)
 	if(..())
 		return
 	interact(user)
 
 /obj/machinery/mineral/equipment_vendor/interact(mob/user)
+	user.set_machine(src)
+
 	var/dat
 	dat +="<div class='statusDisplay'>"
 	if(istype(inserted_id))
@@ -400,7 +409,7 @@
 
 /obj/item/weapon/mining_voucher
 	name = "mining voucher"
-	desc = "A token to redeem a piece of equipment. Use it on a mining equipment locker."
+	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "mining_voucher"
 	w_class = 1
@@ -458,7 +467,7 @@
 			user << "<span class='notice'>The [src.name] failed to create a wormhole.</span>"
 			return
 		var/chosen_beacon = pick(L)
-		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon, lifespan=100)
+		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon)
 		J.target = chosen_beacon
 		try_move_adjacent(J)
 		playsound(src,'sound/effects/sparks4.ogg',50,1)
@@ -821,7 +830,7 @@
 		spawn(35)
 			cooldown = 0
 		var/turf/t = get_turf(src)
-		var/list/mobs = recursive_mob_check(t, 1,0,0)
+		var/list/mobs = recursive_mob_check(t, client_check = 1, sight_check = 0, include_radio = 0)
 		if(!mobs.len)
 			return
 		mineral_scan_pulse(mobs, t)

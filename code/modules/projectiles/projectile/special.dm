@@ -172,7 +172,7 @@
 /obj/item/projectile/kinetic
 	name = "kinetic force"
 	icon_state = null
-	damage = 15
+	damage = 10
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
@@ -185,22 +185,22 @@ obj/item/projectile/kinetic/New()
 	var/pressure = environment.return_pressure()
 	if(pressure < 50)
 		name = "full strength kinetic force"
-		damage = 30
+		damage *= 4
 	..()
 
 /obj/item/projectile/kinetic/Range()
 	range--
 	if(range <= 0)
 		new /obj/item/effect/kinetic_blast(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/kinetic/on_hit(atom/target)
+	. = ..()
 	var/turf/target_turf= get_turf(target)
 	if(istype(target_turf, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = target_turf
-		M.gets_drilled()
+		M.gets_drilled(firer)
 	new /obj/item/effect/kinetic_blast(target_turf)
-	..()
 
 /obj/item/effect/kinetic_blast
 	name = "kinetic explosion"

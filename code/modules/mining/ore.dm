@@ -108,8 +108,9 @@
 	name = "gibtonite ore"
 	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under space law."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "Gibtonite ore"
-	item_state = "Gibtonite ore"
+	icon_state = "Gibtonite_ore"
+	item_state = "Gibtonite_ore"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 4
 	throw_range = 0
 	anchored = 1 //Forces people to carry it by hand, no pulling!

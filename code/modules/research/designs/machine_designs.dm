@@ -338,7 +338,7 @@
 	id = "ore_redemption"
 	req_tech = list("programming" = 1, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list("$glass"=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/ore_redemption
 	category = list ("Misc. Machinery")
 
@@ -348,6 +348,6 @@
 	id = "mining_equipment_vendor"
 	req_tech = list("programming" = 1, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list("$glass"=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/mining_equipment_vendor
 	category = list ("Misc. Machinery")

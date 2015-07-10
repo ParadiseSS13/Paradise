@@ -43,12 +43,23 @@
 	build_path = /obj/item/weapon/gun/energy/plasmacutter
 	category = list("Mining")
 
+/datum/design/plasmacutter_adv
+	name = "Advanced Plasma Cutter"
+	desc = "It's an advanced plasma cutter, oh my god."
+	id = "plasmacutter_adv"
+	req_tech = list("materials" = 4, "plasmatech" = 3, "engineering" = 3, "combat" = 3, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 3000, "$glass" = 1000, "$plasma" = 2000, "$gold" = 500)
+	reliability = 79
+	build_path = /obj/item/weapon/gun/energy/plasmacutter/adv
+	category = list("Mining Designs")
+
 /datum/design/jackhammer
 	name = "Sonic Jackhammer"
-	desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
+	desc = "Essentially a handheld planet-cracker. Can drill through walls with ease as well."
 	id = "jackhammer"
-	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2)
+	req_tech = list("materials" = 6, "powerstorage" = 6, "engineering" = 5, "magnets" = 6)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 2000, "$glass" = 500, "$silver" = 500)
+	materials = list("$metal" = 8000, "$glass" = 1500, "$silver" = 2000, "$diamond" = 6000)
 	build_path = /obj/item/weapon/pickaxe/drill/jackhammer
-	category = list("Mining")
+	category = list("Mining Designs")

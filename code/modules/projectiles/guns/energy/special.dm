@@ -237,11 +237,12 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
 	var/overheat = 0
+	var/overheat_time = 16
 	var/recent_reload = 1
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
 	overheat = 1
-	spawn(20)
+	spawn(overheat_time)
 		overheat = 0
 		recent_reload = 0
 	..()
@@ -272,6 +273,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 1
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	fire_sound = 'sound/weapons/Genhit.ogg'
+	overheat_time = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -294,12 +296,14 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
+	modifystate = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
 	projectile_type = /obj/item/projectile/plasma
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	charge_cost = 250
 	fire_delay = 10
+	icon_override = 'icons/mob/in-hand/guns.dmi'
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
 	..()
@@ -322,6 +326,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 /obj/item/weapon/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
+	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=3;engineering=2"
 	projectile_type = /obj/item/projectile/plasma/adv
 	fire_delay = 8

@@ -62,11 +62,6 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
 	)
 
-var/global/list/datum/stack_recipe/iron_recipes = list ( \
-	new/datum/stack_recipe("iron door", /obj/structure/mineral_door/iron, 20, one_per_turf = 1, on_floor = 1), \
-	null, \
-)
-
 /obj/item/stack/sheet/mineral
 	force = 5.0
 	throwforce = 5
@@ -78,18 +73,6 @@ var/global/list/datum/stack_recipe/iron_recipes = list ( \
 	..()
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4
-
-obj/item/stack/sheet/mineral/iron
-	name = "iron"
-	icon_state = "sheet-silver"
-	origin_tech = "materials=1"
-	sheettype = "iron"
-	color = "#333333"
-	perunit = 2000
-
-obj/item/stack/sheet/mineral/iron/New()
-	..()
-	recipes = iron_recipes
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
@@ -192,11 +175,3 @@ obj/item/stack/sheet/mineral/iron/New()
 	icon_state = "sheet-enruranium"
 	origin_tech = "materials=5"
 	perunit = 1000
-
-//Valuable resource, cargo can sell it.
-/obj/item/stack/sheet/mineral/platinum
-	name = "platinum"
-	icon_state = "sheet-adamantine"
-	origin_tech = "materials=2"
-	sheettype = "platinum"
-	perunit = 2000

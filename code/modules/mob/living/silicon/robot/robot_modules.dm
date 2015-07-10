@@ -314,7 +314,7 @@
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
 		src.modules += new /obj/item/weapon/screwdriver(src)
-		src.modules += new /obj/item/weapon/storage/bag/ore(src)
+		src.modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
 		src.modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
 		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
 		src.emag = new /obj/item/borg/stun(src)
