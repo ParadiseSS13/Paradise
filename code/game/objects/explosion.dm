@@ -103,7 +103,7 @@
 							dist += D.explosion_block
 
 			var/flame_dist = 0
-			var/throw_dist = dist
+//			var/throw_dist = dist
 
 			if(dist < flame_range)
 				flame_dist = 1
@@ -126,7 +126,7 @@
 
 			//--- THROW ITEMS AROUND ---
 
-			var/throw_dir = get_dir(epicenter,T)
+/*			var/throw_dir = get_dir(epicenter,T)
 			for(var/obj/item/I in T)
 				spawn(0) //Simultaneously not one at a time
 					if(I && !I.anchored)
@@ -134,7 +134,7 @@
 						var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
 						I.throw_speed = 4 //Temporarily change their throw_speed for embedding purposes (Reset when it finishes throwing, regardless of hitting anything)
 						I.throw_at(throw_at, throw_range, 2)//Throw it at 2 speed, this is purely visual anyway.
-
+*/
 		var/took = (world.timeofday-start)/10
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
 		if(Debug2)	world.log << "## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds."
