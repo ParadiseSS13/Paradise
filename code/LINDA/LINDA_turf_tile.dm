@@ -270,14 +270,10 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 
 
 atom/movable/var/pressure_resistance = 5
-atom/movable/var/last_forced_movement = 0
 
 atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
-	if(last_forced_movement >= air_master.current_cycle)
-		return 0
-	else if(!anchored)
+	if(!anchored)
 		if(pressure_difference > pressure_resistance)
-			last_forced_movement = air_master.current_cycle
 			spawn step(src, direction)
 		return 1
 
