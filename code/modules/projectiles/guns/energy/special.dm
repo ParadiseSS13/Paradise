@@ -240,6 +240,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	var/overheat_time = 16
 	var/recent_reload = 1
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
+	flags = NODROP
+
 /obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
 	overheat = 1
 	spawn(overheat_time)

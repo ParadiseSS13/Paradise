@@ -824,6 +824,9 @@
 	slot_flags = SLOT_BELT
 	var/cooldown = 0
 
+/obj/item/device/t_scanner/adv_mining_scanner/cyborg
+	flags = CONDUCT | NODROP
+
 /obj/item/device/t_scanner/adv_mining_scanner/scan()
 	if(!cooldown)
 		cooldown = 1

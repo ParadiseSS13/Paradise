@@ -173,8 +173,10 @@
 		return 0
 	else
 		for(var/obj/item/weapon/pickaxe/drill/cyborg/D in R.module.modules)
+			R.module.modules -= D
 			qdel(D)
 		for(var/obj/item/weapon/shovel/S in R.module.modules)
+			R.module.modules -= S
 			qdel(S)
 		R.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(R.module)
 		R.module.rebuild()
@@ -195,6 +197,7 @@
 		return 0
 	else
 		for(var/obj/item/weapon/storage/bag/ore/cyborg/S in R.module.modules)
+			R.module.modules -= S
 			qdel(S)
 		R.module.modules += new /obj/item/weapon/storage/bag/ore/holding/cyborg(R.module)
 		R.module.rebuild()
