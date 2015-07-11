@@ -71,7 +71,7 @@
 				new/mob/living/carbon/alien/larva(mob.loc)
 			var/datum/disease2/disease/D = mob:virus2
 			mob:gib()
-			del D
+			qdel(D)
 
 
 /datum/disease2/effect/invisible

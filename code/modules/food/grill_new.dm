@@ -38,7 +38,7 @@
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
 			else
-				del(recipe)
+				qdel(recipe)
 		acceptable_items = new
 		acceptable_reagents = new
 		for (var/datum/recipe/grill/recipe in available_recipes)
@@ -402,7 +402,7 @@
 			var/id = O.reagents.get_master_reagent_id()
 			if (id)
 				amount+=O.reagents.get_reagent_amount(id)
-		del(O)
+		qdel(O)
 	src.reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)

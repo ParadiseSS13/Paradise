@@ -135,11 +135,11 @@ datum/game_mode/mutiny
 		var/slots = get_equipment_slots()
 		switch(faction)
 			if("loyalist")
-				if(captains_key) del(captains_key)
+				if(captains_key) qdel(captains_key)
 				captains_key = new(H)
 				H.equip_in_one_of_slots(captains_key, slots)
 			if("mutineer")
-				if(secondary_key) del(secondary_key)
+				if(secondary_key) qdel(secondary_key)
 				secondary_key = new(H)
 				H.equip_in_one_of_slots(secondary_key, slots)
 
@@ -190,7 +190,7 @@ datum/game_mode/mutiny
 	proc/replace_nuke_with_ead()
 		for(var/obj/machinery/nuclearbomb/N in world)
 			ead = new(N.loc, src)
-			del(N)
+			qdel(N)
 
 	proc/unbolt_vault_door()
 		var/obj/machinery/door/airlock/vault = locate(/obj/machinery/door/airlock/vault)
@@ -247,11 +247,11 @@ datum/game_mode/mutiny
 
 		for(var/image/I in head_loyalist.current.client.images)
 			if(I.loc == M.current && (I.icon_state == "loyalist" || I.icon_state == "mutineer"))
-				del(I)
+				qdel(I)
 
 		for(var/image/I in head_mutineer.current.client.images)
 			if(I.loc == M.current && (I.icon_state == "loyalist" || I.icon_state == "mutineer"))
-				del(I)
+				qdel(I)
 
 		if(M in loyalists)
 			var/I = image('icons/mob/mob.dmi', loc=M.current, icon_state = "loyalist")

@@ -50,4 +50,4 @@
 				else
 					new /mob/living/simple_animal/cow(loc)
 
-				del(src)
+				qdel(src)

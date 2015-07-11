@@ -25,7 +25,7 @@
 		part2.master = null
 		part1 = null
 		part2 = null
-		del(src)
+		qdel(src)
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		status = !status

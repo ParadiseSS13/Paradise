@@ -95,11 +95,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 /obj/effect/rune/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
 		user << "You retrace your steps, carefully undoing the lines of the rune."
-		del(src)
+		qdel(src)
 		return
 	else if(istype(I, /obj/item/weapon/nullrod))
 		user << "\blue You disrupt the vile magic with the deadening field of the null rod!"
-		del(src)
+		qdel(src)
 		return
 	return
 

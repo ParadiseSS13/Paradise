@@ -64,7 +64,7 @@
 	usr << P.desc
 
 	// TG uses a special garbage collector.. qdel(P)
-	del(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
+	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
 
 /obj/item/device/camera/siliconcam/proc/deletepicture(obj/item/device/camera/siliconcam/cam)
 	var/datum/picture/selection = selectpicture(cam)

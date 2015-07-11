@@ -276,7 +276,7 @@ What a mess.*/
 				if(PDA_Manifest.len)
 					PDA_Manifest.Cut()
 				for(var/datum/data/record/R in data_core.security)
-					del(R)
+					qdel(R)
 				temp = "All Employment records deleted."
 
 			if ("Delete Record (ALL)")
@@ -373,9 +373,9 @@ What a mess.*/
 								PDA_Manifest.Cut()
 							for(var/datum/data/record/R in data_core.medical)
 								if ((R.fields["name"] == active1.fields["name"] || R.fields["id"] == active1.fields["id"]))
-									del(R)
+									qdel(R)
 								else
-							del(active1)
+							qdel(active1)
 					else
 						temp = "This function does not appear to be working at the moment. Our apologies."
 
@@ -406,7 +406,7 @@ What a mess.*/
 			continue
 
 		else if(prob(1))
-			del(R)
+			qdel(R)
 			continue
 
 	..(severity)

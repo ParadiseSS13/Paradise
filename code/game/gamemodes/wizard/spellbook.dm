@@ -77,7 +77,7 @@
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			del(S)
+			qdel(S)
 			return cost * (spell_levels+1)
 	return -1
 
@@ -373,7 +373,7 @@
 			entries |= E
 			categories |= E.category
 		else
-			del(E)
+			qdel(E)
 	tab = categories[1]
 
 /obj/item/weapon/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
@@ -677,9 +677,9 @@
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
-			del user.wear_mask
+			qdel(user.wear_mask)
 		user.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
-		del src
+		qdel(src)
 	else
 		user <<"<span class='notice'>I say thee neigh</span>"
 

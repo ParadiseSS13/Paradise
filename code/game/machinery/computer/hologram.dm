@@ -65,7 +65,7 @@
 			if (src.projector.hologram)
 				src.projector.icon_state = "hologram0"
 				//src.projector.hologram = null
-				del(src.projector.hologram)
+				qdel(src.projector.hologram)
 			else
 				src.projector.hologram = new(src.projector.loc)
 				src.projector.hologram.icon = 'icons/mob/human.dmi'

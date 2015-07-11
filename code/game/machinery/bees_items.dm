@@ -20,7 +20,7 @@
 	for(var/mob/living/simple_animal/bee/B in T)
 		if(B.feral < 0)
 			caught_bees += B.strength
-			del(B)
+			qdel(B)
 			user.visible_message("\blue [user] nets some bees.","\blue You net up some of the becalmed bees.")
 		else
 			user.visible_message("\red [user] swings at some bees, they don't seem to like it.","\red You swing at some bees, they don't seem to like it.")

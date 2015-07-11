@@ -703,7 +703,7 @@ var/list/robot_verbs_default = list(
 					// This doesn't work.  Don't use it.
 					//src.Destroy()
 					// del() because it's infrequent and mobs act weird in qdel.
-					del(src)
+					qdel(src)
 			else
 				// Okay we're not removing the cell or an MMI, but maybe something else?
 				var/list/removable_components = list()
@@ -865,7 +865,7 @@ var/list/robot_verbs_default = list(
 			src << "\red \b ALERT: [M.real_name] is your new master. Obey your new laws and his commands."
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/miner))
 				for(var/obj/item/weapon/pickaxe/borgdrill/D in src.module.modules)
-					del(D)
+					qdel(D)
 				src.module.modules += new /obj/item/weapon/pickaxe/diamonddrill(src.module)
 				src.module.rebuild()
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
@@ -1067,7 +1067,7 @@ var/list/robot_verbs_default = list(
 //Call when target overlay should be added/removed
 /mob/living/silicon/robot/update_targeted()
 	if(!targeted_by && target_locked)
-		del(target_locked)
+		qdel(target_locked)
 	updateicon()
 	if (targeted_by && target_locked)
 		overlays += target_locked
@@ -1205,7 +1205,7 @@ var/list/robot_verbs_default = list(
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(istype(A, /obj/effect/rune) || istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/overlay))
-							del(A)
+							qdel(A)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
 						cleaned_item.clean_blood()

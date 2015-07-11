@@ -40,7 +40,7 @@ var/const/SAFETY_COOLDOWN = 100
 		..()
 		return
 	add_fingerprint(user)
-	
+
 /obj/machinery/recycler/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
@@ -93,7 +93,7 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/proc/recycle(var/obj/item/I, var/sound = 1)
 	I.loc = src.loc
 	if(!istype(I, /obj/item/weapon/disk/nuclear) && !istype(I,/obj/item/flag/nation))
-		del(I)
+		qdel(I)
 		if(prob(15))
 			new /obj/item/stack/sheet/metal(loc)
 		if(prob(10))

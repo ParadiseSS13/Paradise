@@ -65,7 +65,7 @@
 	if (notransform)
 		return
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 
 	return ..(move)
 
@@ -159,7 +159,7 @@
 				"[src] disappears into the shadows, never to be seen again.", \
 				"You disappear into the shadows, never to be seen again.", \
 				"You hear strange noise, you can't quite place it.")
-			del(src)
+			qdel(src)
 
 	new_spirit << "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>"
 	new_spirit << "<font color=\"purple\"><b><i>Your job is to help your acolytes complete their goals. Be spooky. Do evil.</b></i></font>"
@@ -188,9 +188,9 @@
 	icon = null
 	invisibility = 101
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 	for(var/i in internal_organs)
-		del(i)
+		qdel(i)
 
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 
@@ -233,7 +233,7 @@
 	O.Namepick()
 
 	spawn(0)//To prevent the proc from returning null.
-		del(src)
+		qdel(src)
 	return O
 
 //human -> alien
@@ -248,7 +248,7 @@
 	icon = null
 	invisibility = 101
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 
 	var/alien_caste = pick("Hunter","Sentinel","Drone")
 	var/mob/living/carbon/alien/humanoid/new_xeno
@@ -266,7 +266,7 @@
 	new_xeno << "<B>You are now an alien.</B>"
 	new_xeno.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
-		del(src)
+		qdel(src)
 	return
 
 /mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
@@ -280,7 +280,7 @@
 	icon = null
 	invisibility = 101
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 
 	var/mob/living/carbon/slime/new_slime
 	if(reproduce)
@@ -302,7 +302,7 @@
 	new_slime << "<B>You are now a slime. Skreee!</B>"
 	new_slime.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
-		del(src)
+		qdel(src)
 	return
 
 /mob/living/carbon/human/proc/corgize()
@@ -316,7 +316,7 @@
 	icon = null
 	invisibility = 101
 	for(var/t in organs)	//this really should not be necessary
-		del(t)
+		qdel(t)
 
 	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
 	new_corgi.a_intent = "harm"
@@ -325,7 +325,7 @@
 	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
 	new_corgi.update_pipe_vision()
 	spawn(0)//To prevent the proc from returning null.
-		del(src)
+		qdel(src)
 	return
 
 /mob/living/carbon/human/Animalize()
@@ -349,7 +349,7 @@
 	invisibility = 101
 
 	for(var/t in organs)
-		del(t)
+		qdel(t)
 
 	var/mob/new_mob = new mobpath(src.loc)
 
@@ -360,7 +360,7 @@
 	new_mob << "You suddenly feel more... animalistic."
 	new_mob.update_pipe_vision()
 	spawn()
-		del(src)
+		qdel(src)
 	return
 
 /mob/proc/Animalize()
@@ -379,7 +379,7 @@
 	new_mob << "You feel more... animalistic"
 	new_mob.update_pipe_vision()
 
-	del(src)
+	qdel(src)
 
 /* Certain mob types have problems and should not be allowed to be controlled by players.
  *

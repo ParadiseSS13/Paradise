@@ -95,7 +95,7 @@
 
 /obj/machinery/chem_dispenser/blob_act()
 	if (prob(50))
-		del(src)
+		qdel(src)
 
  /**
   * The ui_interact proc is used to open and update Nano UIs
@@ -209,7 +209,7 @@
 			S.use(1)
 		else
 			user.drop_item()
-			del(B)
+			qdel(B)
 		return
 
 	if(src.beaker)
@@ -970,7 +970,7 @@
 
 /obj/machinery/reagentgrinder/proc/remove_object(var/obj/item/O)
 	holdingitems -= O
-	del(O)
+	qdel(O)
 
 /obj/machinery/reagentgrinder/proc/juice()
 	power_change()

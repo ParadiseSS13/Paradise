@@ -63,13 +63,13 @@
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, src.cleanspeed) && target)
 			user << "<span class='notice'>You scrub \the [target.name] out.</span>"
-			del(target)
+			qdel(target)
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, src.cleanspeed))
 			user << "<span class='notice'>You clean \the [target.name].</span>"
 			var/obj/effect/decal/cleanable/C = locate() in target
-			del(C)
+			qdel(C)
 			target.clean_blood()
 	return
 

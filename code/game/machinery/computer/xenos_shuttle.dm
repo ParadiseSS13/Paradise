@@ -72,7 +72,7 @@
 		for(var/atom/movable/AM as mob|obj in T)
 			AM.Move(D)
 		if(istype(T, /turf/simulated))
-			del(T)
+			qdel(T)
 
 	for(var/mob/living/carbon/bug in dest_location) // If someone somehow is still in the shuttle's docking area...
 		bug.gib()

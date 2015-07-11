@@ -247,7 +247,7 @@
 		B.ckey = owner.ckey
 
 	spawn(0)
-		del(src)
+		qdel(src)
 
 //XENOMORPH ORGANS
 /obj/item/organ/xenos/eggsac

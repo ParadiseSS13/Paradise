@@ -17,7 +17,7 @@
 				continue
 			if(istype (I, /obj/item/organ))
 				continue
-			del(I)
+			qdel(I)
 
 		H << "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>"
 

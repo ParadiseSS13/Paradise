@@ -289,12 +289,12 @@
 	if(!istype(R)) return ..()
 
 	R.contents -= R.mmi
-	del(R.mmi)
+	qdel(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
 		for(var/obj/item/O in I) // the things inside the tools, if anything; mainly for janiborg trash bags
 			O.loc = R
-		del(I)
-	del(R.module)
+		qdel(I)
+	qdel(R.module)
 
 	return ..()
 
@@ -333,7 +333,7 @@
 				break
 
 		if(!preserve)
-			del(W)
+			qdel(W)
 		else
 			if(control_computer && control_computer.allow_items)
 				control_computer.frozen_items += W
@@ -346,7 +346,7 @@
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
-			del(O)
+			qdel(O)
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
 				if(O.owner && O.owner.current)
@@ -358,7 +358,7 @@
 					if(!(O.target))
 						all_objectives -= O
 						O.owner.objectives -= O
-						del(O)
+						qdel(O)
 
 	//Handle job slot/tater cleanup.
 	var/job = occupant.mind.assigned_role
@@ -366,7 +366,7 @@
 	job_master.FreeRole(job)
 
 	if(occupant.mind.objectives.len)
-		del(occupant.mind.objectives)
+		qdel(occupant.mind.objectives)
 		occupant.mind.special_role = null
 	else
 		if(ticker.mode.name == "AutoTraitor")
@@ -379,13 +379,13 @@
 		PDA_Manifest.Cut()
 	for(var/datum/data/record/R in data_core.medical)
 		if ((R.fields["name"] == occupant.real_name))
-			del(R)
+			qdel(R)
 	for(var/datum/data/record/T in data_core.security)
 		if ((T.fields["name"] == occupant.real_name))
-			del(T)
+			qdel(T)
 	for(var/datum/data/record/G in data_core.general)
 		if ((G.fields["name"] == occupant.real_name))
-			del(G)
+			qdel(G)
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
@@ -412,7 +412,7 @@
 	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
 
 	// Delete the mob.
-	del(occupant)
+	qdel(occupant)
 	occupant = null
 	name = initial(name)
 

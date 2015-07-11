@@ -329,7 +329,7 @@
 					C.update()
 					C.anchored = 1
 					C.density = 1
-					del(src)
+					qdel(src)
 				return
 			else
 				user << "You need more welding fuel to complete this task."

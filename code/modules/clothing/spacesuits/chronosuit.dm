@@ -36,7 +36,7 @@
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)
 	if(camera)
-		del(camera)
+		qdel(camera)
 	camera = new /obj/effect/chronos_cam(get_turf(user))
 	camera.holder = user
 	user.remote_control = camera
@@ -104,11 +104,11 @@
 							user.client.eye = camera
 						else
 							user.client.eye = user
-				del(holder)
+				qdel(holder)
 			else if(user)
 				user.loc = from_turf
 			if(phaseanim)
-				del(phaseanim)
+				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
 				user.loc = locate(0,0,1)
@@ -163,7 +163,7 @@
 				user << "\nroot@ChronosuitMK4# chronowalk4 --stop\n"
 				if(camera)
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Sending TERM signal to chronowalk4-view" //yes I know they aren't a different color when shutting down, but they were too similar at a glance
-					del(camera)
+					qdel(camera)
 				if(helmet)
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver"
 					user << "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner"
@@ -201,7 +201,7 @@
 				else
 					src.loc = step
 	else
-		del(src)
+		qdel(src)
 
 /obj/effect/chronos_cam/Destroy()
 	if(holder)

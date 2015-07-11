@@ -34,7 +34,7 @@
 	result = "clf3"
 	required_reagents = list("chlorine" = 1, "fluorine" = 3)
 	result_amount = 2
-	required_temp = 424
+	min_temp = 424
 
 /datum/reagent/clf3/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -94,7 +94,7 @@
 	id = "sorium_vortex"
 	result = null
 	required_reagents = list("sorium" = 1)
-	required_temp = 474
+	min_temp = 474
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
@@ -126,7 +126,7 @@
 	id = "ldm_vortex"
 	result = null
 	required_reagents = list("liquid_dark_matter" = 1)
-	required_temp = 474
+	min_temp = 474
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
@@ -177,7 +177,7 @@
 	result = null
 	required_reagents = list("blackpowder" = 1)
 	result_amount = 1
-	required_temp = 474
+	min_temp = 474
 	no_message = 1
 	mix_sound = null
 
@@ -240,7 +240,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	id = "flash_powder_flash"
 	result = null
 	required_reagents = list("flash_powder" = 1)
-	required_temp = 374
+	min_temp = 374
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -324,7 +324,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
-	required_temp = 374
+	min_temp = 374
 	secondary = 1
 	result_amount = 1
 	forbidden_reagents = list()
@@ -350,7 +350,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	id = "sonic_powder_deafen"
 	result = null
 	required_reagents = list("sonic_powder" = 1)
-	required_temp = 374
+	min_temp = 374
 
 /datum/chemical_reaction/sonic_powder_deafen/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)

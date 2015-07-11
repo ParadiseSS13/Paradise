@@ -80,7 +80,7 @@
 				user << "\blue You add the glass to the frame."
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
-				del(src)
+				qdel(src)
 				return
 
 			if(istype(P, /obj/item/weapon/wrench))

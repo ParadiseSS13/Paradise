@@ -15,14 +15,14 @@
 				if(!src) return
 				user << "\blue You dissasembled the girder!"
 				new /obj/item/stack/sheet/metal(get_turf(src))
-				del(src)
+				qdel(src)
 		else if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 			user << "\blue Now securing the girder"
 			if(get_turf(user, 40))
 				user << "\blue You secured the girder!"
 				new/obj/structure/girder( src.loc )
-				del(src)
+				qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
 		user << "\blue Now slicing apart the girder"
@@ -30,12 +30,12 @@
 			if(!src) return
 			user << "\blue You slice apart the girder!"
 			new /obj/item/stack/sheet/metal(get_turf(src))
-			del(src)
+			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		user << "\blue You drill through the girder!"
 		new /obj/item/stack/sheet/metal(get_turf(src))
-		del(src)
+		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -52,7 +52,7 @@
 			if(!src) return
 			user << "\blue You removed the support struts!"
 			new/obj/structure/girder( src.loc )
-			del(src)
+			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/crowbar) && state == 0 && anchored )
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
@@ -61,7 +61,7 @@
 			if(!src) return
 			user << "\blue You dislodged the girder!"
 			new/obj/structure/girder/displaced( src.loc )
-			del(src)
+			qdel(src)
 
 	else if(istype(W, /obj/item/stack/sheet))
 
@@ -74,7 +74,7 @@
 					S.use(2)
 					user << "\blue You create a false wall! Push on it to open or close the passage."
 					new /obj/structure/falsewall (src.loc)
-					del(src)
+					qdel(src)
 				else
 					if(S.amount < 2) return ..()
 					user << "\blue Now adding plating..."
@@ -86,7 +86,7 @@
 						Tsrc.ChangeTurf(/turf/simulated/wall)
 						for(var/turf/simulated/wall/X in Tsrc.loc)
 							if(X)	X.add_hiddenprint(usr)
-						del(src)
+						qdel(src)
 					return
 
 			if(/obj/item/stack/sheet/plasteel)
@@ -95,7 +95,7 @@
 					S.use(2)
 					user << "\blue You create a false wall! Push on it to open or close the passage."
 					new /obj/structure/falsewall/reinforced (src.loc)
-					del(src)
+					qdel(src)
 				else
 					if (src.icon_state == "reinforced") //I cant believe someone would actually write this line of code...
 						if(S.amount < 1) return ..()
@@ -108,7 +108,7 @@
 							Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
 							for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
 								if(X)	X.add_hiddenprint(usr)
-							del(src)
+							qdel(src)
 						return
 					else
 						if(S.amount < 1) return ..()
@@ -118,7 +118,7 @@
 							S.use(1)
 							user << "\blue Girders reinforced!"
 							new/obj/structure/girder/reinforced( src.loc )
-							del(src)
+							qdel(src)
 						return
 
 		if(S.sheettype)
@@ -129,7 +129,7 @@
 				user << "\blue You create a false wall! Push on it to open or close the passage."
 				var/F = text2path("/obj/structure/falsewall/[M]")
 				new F (src.loc)
-				del(src)
+				qdel(src)
 			else
 				if(S.amount < 2) return ..()
 				user << "\blue Now adding plating..."
@@ -141,7 +141,7 @@
 					Tsrc.ChangeTurf(text2path("/turf/simulated/wall/mineral/[M]"))
 					for(var/turf/simulated/wall/mineral/X in Tsrc.loc)
 						if(X)	X.add_hiddenprint(usr)
-					del(src)
+					qdel(src)
 				return
 
 		add_hiddenprint(usr)
@@ -157,7 +157,7 @@
 
 /obj/structure/girder/blob_act()
 	if(prob(40))
-		del(src)
+		qdel(src)
 
 /obj/structure/girder/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/beam))
@@ -165,7 +165,7 @@
 		..()
 		if(health <= 0)
 			new /obj/item/stack/sheet/metal(get_turf(src))
-			del(src)
+			qdel(src)
 
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
 		src.ex_act(2)

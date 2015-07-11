@@ -31,7 +31,7 @@
 		src.gift.add_fingerprint(user)
 	else
 		user << "\blue The gift was empty!"
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/weapon/a_gift/ex_act()
@@ -58,7 +58,7 @@
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
 
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/a_gift/attack_self(mob/M as mob)
 	var/gift_type = pick(/obj/item/weapon/sord,
@@ -112,7 +112,7 @@
 	M.unEquip(src, 1)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
-	del(src)
+	qdel(src)
 	return
 
 /*

@@ -1471,7 +1471,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(M.stat == 2)
 						M.death(1)
 						stomach_contents.Remove(M)
-						del(M)
+						qdel(M)
 						continue
 					if(mob_master.current_cycle%3==1)
 						if(!(M.status_flags & GODMODE))

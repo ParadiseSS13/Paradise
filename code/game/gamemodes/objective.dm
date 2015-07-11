@@ -598,7 +598,7 @@ datum/objective/steal
 			if (!O.typepath) return
 			var/tmp_obj = new O.typepath
 			var/custom_name = tmp_obj:name
-			del(tmp_obj)
+			qdel(tmp_obj)
 			O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
 			if (!O.name) return
 			steal_target = O

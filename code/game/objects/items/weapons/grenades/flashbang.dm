@@ -18,7 +18,7 @@
 		var/damage = round(30/(get_dist(B,get_turf(src))+1))
 		B.health -= damage
 		B.update_icon()
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
 	M.show_message("<span class='warning'>BANG</span>", 2)
@@ -96,7 +96,7 @@
 
 	playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 
-	del(src)
+	qdel(src)
 
 
 //////////////////////
@@ -126,7 +126,7 @@
 
 	playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 
-	del(src)
+	qdel(src)
 
 ////////////////////////////////
 //Clusterbang spawned flashbang

@@ -73,14 +73,12 @@
 							far_volume += (dist <= far_dist * 0.5 ? 50 : 0) // add 50 volume if the mob is pretty close to the explosion
 							M.playsound_local(epicenter, 'sound/effects/explosionfar.ogg', far_volume, 1, frequency, falloff = 5)
 
-
-		//Pause the lighting updates for a bit
-		var/datum/controller/process/lighting = processScheduler.getProcess("lighting")
-		lighting.disable()
-
-		var/powernet_rebuild_was_deferred_already = defer_powernet_rebuild
-		if(defer_powernet_rebuild != 2)
-			defer_powernet_rebuild = 1
+			var/close = range(world.view+round(devastation_range,1), epicenter)
+			// to all distanced mobs play a different sound
+			for(var/mob/M in world) if(M.z == epicenter.z) if(!(M in close))
+				// check if the mob can hear
+				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
+					M << 'sound/effects/explosionfar.ogg'
 
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
@@ -107,7 +105,7 @@
 							dist += D.explosion_block
 
 			var/flame_dist = 0
-			var/throw_dist = dist
+			var/throw_dist = max_range - dist
 
 			if(dist < flame_range)
 				flame_dist = 1
@@ -122,7 +120,7 @@
 			if(T)
 				for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
 					var/atom/movable/AM = atom_movable
-					if(AM)	AM.ex_act(dist)
+					if(AM && AM.simulated)	AM.ex_act(dist)
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
@@ -130,14 +128,16 @@
 
 			//--- THROW ITEMS AROUND ---
 
-			var/throw_dir = get_dir(epicenter,T)
-			for(var/obj/item/I in T)
-				spawn(0) //Simultaneously not one at a time
-					if(I && !I.anchored)
-						var/throw_range = rand(throw_dist, max_range)
-						var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-						I.throw_speed = 4 //Temporarily change their throw_speed for embedding purposes (Reset when it finishes throwing, regardless of hitting anything)
-						I.throw_at(throw_at, throw_range, 2)//Throw it at 2 speed, this is purely visual anyway.
+			if(throw_dist > 0)
+				var/throw_dir = get_dir(epicenter,T)
+				for(var/obj/item/I in T)
+					spawn(0) //Simultaneously not one at a time
+						if(I && !I.anchored)
+							var/throw_mult = 0.5 + (0.5 * rand()) // Between 0.5 and 1.0
+							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
+							if(throw_range > 0)
+								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
+								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
 
 		var/took = (world.timeofday-start)/10
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
@@ -148,14 +148,6 @@
 			var/obj/machinery/doppler_array/Array = doppler_arrays[i]
 			if(Array)
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
-
-		sleep(8)
-
-		lighting.enable()
-
-		if(!powernet_rebuild_was_deferred_already)
-			if(defer_powernet_rebuild != 2)
-				defer_powernet_rebuild = 0
 
 	return 1
 
