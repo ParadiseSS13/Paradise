@@ -15,6 +15,7 @@
 	var/efficiency = 0
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
+	var/recipe_type		//Make sure to set this on the machine definition, or else you're gonna runtime on New()
 	var/list/datum/recipe/available_recipes // List of the recipes you can use
 	var/list/acceptable_items // List of the items you can put in
 	var/list/acceptable_reagents // List of the reagents you can put in
@@ -31,9 +32,25 @@
 ********************/
 
 /obj/machinery/kitchen_machine/New()
-	//..() //do not need this
 	reagents = new/datum/reagents(100)
 	reagents.my_atom = src
+	if (!available_recipes)
+		available_recipes = new
+		acceptable_items = new
+		acceptable_reagents = new
+		for (var/type in (typesof(recipe_type)-recipe_type))
+			var/datum/recipe/recipe = new type
+			if(recipe.result) // Ignore recipe subtypes that lack a result
+				available_recipes += recipe
+				for (var/item in recipe.items)
+					acceptable_items |= item
+				for (var/reagent in recipe.reagents)
+					acceptable_reagents |= reagent
+				if (recipe.items || recipe.fruit)
+					max_n_of_items = max(max_n_of_items,recipe.count_n_items())
+			else
+				qdel(recipe)
+		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks/grown
 
 /*******************
 *   Item Adding

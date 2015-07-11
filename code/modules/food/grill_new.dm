@@ -5,6 +5,7 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "grill_off"
 	cook_verbs = list("Grilling", "Searing", "Frying")
+	recipe_type = /datum/recipe/grill
 	off_icon = "grill_off"
 	on_icon = "grill_on"
 	broken_icon = "grill_broke"
@@ -19,25 +20,6 @@
 
 /obj/machinery/kitchen_machine/grill/New()
 	..()
-	if (!available_recipes)
-		available_recipes = new
-		for (var/type in (typesof(/datum/recipe/grill)-/datum/recipe/grill))
-			var/datum/recipe/recipe = new type
-			if(recipe.result) // Ignore recipe subtypes that lack a result
-				available_recipes += recipe
-			else
-				qdel(recipe)
-		acceptable_items = new
-		acceptable_reagents = new
-		for (var/datum/recipe/grill/recipe in available_recipes)
-			for (var/item in recipe.items)
-				acceptable_items |= item
-			for (var/reagent in recipe.reagents)
-				acceptable_reagents |= reagent
-			if (recipe.items)
-				max_n_of_items = max(max_n_of_items,recipe.count_n_items())
-		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks/grown
-
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/grill(null)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)

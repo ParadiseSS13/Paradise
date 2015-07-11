@@ -5,6 +5,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
 	cook_verbs = list("Microwaving", "Reheating", "Heating")
+	recipe_type = /datum/recipe/microwave
 	off_icon = "mw"
 	on_icon = "mw1"
 	broken_icon = "mwb"
@@ -19,25 +20,6 @@
 
 /obj/machinery/kitchen_machine/microwave/New()
 	..()
-	if (!available_recipes)
-		available_recipes = new
-		for (var/type in (typesof(/datum/recipe/microwave)-/datum/recipe/microwave))
-			var/datum/recipe/recipe = new type
-			if(recipe.result) // Ignore recipe subtypes that lack a result
-				available_recipes += recipe
-			else
-				qdel(recipe)
-		acceptable_items = new
-		acceptable_reagents = new
-		for (var/datum/recipe/microwave/recipe in available_recipes)
-			for (var/item in recipe.items)
-				acceptable_items |= item
-			for (var/reagent in recipe.reagents)
-				acceptable_reagents |= reagent
-			if (recipe.items)
-				max_n_of_items = max(max_n_of_items,recipe.count_n_items())
-		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks/grown
-
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/microwave(null)
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
@@ -59,3 +41,15 @@
 	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
 		E += M.rating
 	efficiency = E
+
+// The following code is present as temporary assurance for compatibility and to avoid merge conflicts for the TG mining port
+// Please delete this portion once all maps are updated to use the new object path: /obj/machinery/kitchen_machine/microwave
+
+/obj/machinery/microwave
+	name = "Microwave spawner"
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "mw"
+
+/obj/machinery/microwave/New()
+	new /obj/machinery/kitchen_machine/microwave(get_turf(src))
+	qdel(src)
