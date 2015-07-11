@@ -188,6 +188,7 @@
 		new /obj/item/weapon/storage/belt/security/sec(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
+		new /obj/item/clothing/head/helmet(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/taperoll/police(src)
 		return
