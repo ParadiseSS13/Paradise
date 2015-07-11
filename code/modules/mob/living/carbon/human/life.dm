@@ -70,14 +70,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			loc_as_cryobag.used++
 			in_stasis = 1
 
-	if(life_tick%30==15)
+	if(life_tick % 30 == 15)
 		hud_updateflag = 1022
 
 	voice = GetVoice()
 
 	//No need to update all of these procs if the guy is dead.
 	if(stat != DEAD && !in_stasis)
-		if(mob_master.current_cycle % 4==2 || failed_last_breath) 	//First, resolve location and get a breath
+		if(mob_master.current_cycle % 4 == 2 || failed_last_breath) 	//First, resolve location and get a breath
 			breathe() 				//Only try to take a breath every 4 ticks, unless suffocating
 
 		else //Still give containing object the chance to interact
