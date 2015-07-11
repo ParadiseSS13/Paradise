@@ -180,11 +180,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/handle_disabilities()
 	if (disabilities & EPILEPSY)
 		if ((prob(1) && paralysis < 1))
-			src << "\red You have a seizure!"
-			for(var/mob/O in viewers(src, null))
-				if(O == src)
-					continue
-				O.show_message(text("\red <B>[src] starts having a seizure!"), 1)
+			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 			Paralyse(10)
 			Jitter(1000)
 
@@ -233,7 +229,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		silent += 2
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
-		visible_message("<span class='danger'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
 		death()
 
 /mob/living/carbon/human/proc/handle_stasis_bag()
@@ -273,7 +269,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			radiation -= 0.1
 			reagents.add_reagent("radium", rads/10)
 			if( prob(10) )
-				src << "\blue You feel relaxed."
+				src << "<span class='notice'>You feel relaxed.</span>"
 			return
 
 		if (radiation > 100)
@@ -281,7 +277,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!(species.flags & RAD_ABSORB))
 				Weaken(10)
 				if(!lying)
-					src << "\red You feel weak."
+					src << "<span class='alert'>You feel weak.</span>"
 					emote("collapse")
 
 		if (radiation < 0)
@@ -315,7 +311,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						radiation -= 5
 						Weaken(3)
 						if(!lying)
-							src << "\red You feel weak."
+							src << "<span class='alert'>You feel weak.</span>"
 							emote("collapse")
 					updatehealth()
 
@@ -324,7 +320,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustToxLoss(3)
 					damage = 3
 					if(prob(1))
-						src << "\red You mutate!"
+						src << "<span class='alert'>You mutate!</span>"
 						randmutb(src)
 						domutcheck(src,null)
 						emote("gasp")
@@ -335,7 +331,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					adjustToxLoss(5)
 					damage = 5
 					if(prob(1))
-						src << "\red You mutate!"
+						src << "<span class='alert'>You mutate!</span>"
 						randmutb(src)
 						domutcheck(src,null)
 						emote("gasp")
@@ -804,7 +800,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(species.flags & CAN_BE_FAT)
 		if(FAT in mutations)
 			if(overeatduration < 100)
-				src << "\blue You feel fit again!"
+				src << "<span class='notice'>You feel fit again!</span>"
 				mutations.Remove(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -812,7 +808,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				update_inv_wear_suit()
 		else
 			if(overeatduration > 500)
-				src << "\red You suddenly feel blubbery!"
+				src << "<span class='alert'>You suddenly feel blubbery!</span>"
 				mutations.Add(FAT)
 				update_mutantrace(0)
 				update_mutations(0)
@@ -1368,18 +1364,18 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				isRemoteObserve = 1
 				// Is he unconscious or dead?
 				if(remoteview_target.stat!=CONSCIOUS)
-					src << "\red Your psy-connection grows too faint to maintain!"
+					src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
 					isRemoteObserve = 0
 
 				// Does he have psy resist?
 				if(PSY_RESIST in remoteview_target.mutations)
-					src << "\red Your mind is shut out!"
+					src << "<span class='alert'>Your mind is shut out!</span>"
 					isRemoteObserve = 0
 
 				// Not on the station or mining?
 				var/turf/temp_turf = get_turf(remoteview_target)
 				if((!(temp_turf.z in config.contact_levels)) || remoteview_target.stat!=CONSCIOUS)
-					src << "\red Your psy-connection grows too faint to maintain!"
+					src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
 					isRemoteObserve = 0
 			if(!isRemoteObserve && client && !client.adminobs)
 				remoteview_target = null
