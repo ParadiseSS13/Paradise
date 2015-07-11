@@ -119,3 +119,4 @@ var/global/datum/controller/process/air_system/air_master
 	slmaster.icon = 'icons/effects/tile_effects.dmi'
 	slmaster.icon_state = "sleeping_agent"
 	slmaster.layer = FLY_LAYER
+	slmaster.mouse_opacity = 0
