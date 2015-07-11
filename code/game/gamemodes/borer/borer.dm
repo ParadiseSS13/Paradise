@@ -94,7 +94,7 @@
 		M.perform_infestation(first_host.current)
 		forge_borer_objectives(borer, first_host)
 
-		del original
+		del(original)
 
 	log_admin("Created [borers.len] borers.")
 
