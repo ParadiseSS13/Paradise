@@ -121,7 +121,7 @@
 	factory = null
 	if(contents)
 		for(var/mob/M in contents)
-			M.loc = src.loc
+			M.loc = get_turf(src)
 	return ..()
 
 

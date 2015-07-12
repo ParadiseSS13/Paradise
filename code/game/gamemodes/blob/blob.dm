@@ -186,7 +186,7 @@ var/list/blob_nodes = list()
 		sleep(30000)
 		stage(2)
 
-	return ..(0)
+	return ..()
 
 /datum/game_mode/blob/proc/stage(var/stage)
 
