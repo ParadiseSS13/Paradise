@@ -1,5 +1,6 @@
 /obj/machinery/chem_heater
-	name = "chemical heater"
+	name = "chemical hvc unit"
+	desc = "It's a Heating-Venting-Cooling unit for chemicals."
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'

@@ -330,7 +330,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/weapon/stock_parts/cell = 1)
 
 /obj/item/weapon/circuitboard/chem_heater
-	name = "circuit board (Chemical Heater)"
+	name = "circuit board (Chemical HVC)"
 	build_path = /obj/machinery/chem_heater
 	board_type = "machine"
 	origin_tech = "materials=2;engineering=2"
