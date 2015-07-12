@@ -83,7 +83,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		world << "<B>The OOC channel has been globally disabled!</B>"
 
 /proc/auto_toggle_ooc(var/on)
-	if(!config.ooc_during_round && ooc_allowed != on)
+	if(config.auto_toggle_ooc_during_round && ooc_allowed != on)
 		toggle_ooc()
 
 /client/proc/set_ooc(newColor as color)

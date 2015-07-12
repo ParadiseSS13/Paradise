@@ -101,7 +101,7 @@
 	var/revival_brain_life = -1
 
 
-	var/ooc_during_round = 0
+	var/auto_toggle_ooc_during_round = 0
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
@@ -537,8 +537,8 @@
 					config.revival_cloning = value
 				if("revival_brain_life")
 					config.revival_brain_life = value
-				if("ooc_during_round")
-					config.ooc_during_round			= 1
+				if("auto_toggle_ooc_during_round")
+					config.auto_toggle_ooc_during_round	= 1
 				if("run_speed")
 					config.run_speed = value
 				if("walk_speed")
