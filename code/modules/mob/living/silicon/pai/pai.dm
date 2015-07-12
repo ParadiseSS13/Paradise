@@ -27,7 +27,11 @@
 		"Monkey" = "monkey",
 		"Corgi" = "borgi",
 		"Fox" = "fox",
-		"Parrot" = "parrot"
+		"Parrot" = "parrot",
+		"Box Bot" = "boxbot",
+		"Spider Bot" = "spiderbot",
+		"Pony" = "pony" ,
+		"Fairy" = "fairy"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -36,6 +40,7 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
+		"Equine" = list("nickers","whinnys","neighs"),
 		"Canine" = list("yaps","barks","growls")
 		)
 
