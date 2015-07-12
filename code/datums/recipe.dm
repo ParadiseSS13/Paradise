@@ -142,3 +142,12 @@
 		return byproduct
 	else
 		return null
+
+/datum/recipe/proc/count_n_items()
+	var/count = 0
+	if(items && items.len)
+		count += items.len
+	if(fruit && fruit.len)
+		for(var/ktag in fruit)
+			count += fruit[ktag]
+	return count

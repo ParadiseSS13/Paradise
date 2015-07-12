@@ -524,6 +524,7 @@
 #include "code\game\machinery\kitchen\gibber.dm"
 #include "code\game\machinery\kitchen\icecream_vat.dm"
 #include "code\game\machinery\kitchen\juicer.dm"
+#include "code\game\machinery\kitchen\kitchen_machine.dm"
 #include "code\game\machinery\kitchen\microwave.dm"
 #include "code\game\machinery\kitchen\monkeyrecycler.dm"
 #include "code\game\machinery\kitchen\processor.dm"
