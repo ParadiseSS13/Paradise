@@ -96,8 +96,8 @@
 	if (!message)
 		return
 
-	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[message_a]</span></span></i></font>"
+	var/verb = "states,"
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for (var/mob/M in mob_list)
 		if(isovermind(M) || isobserver(M))
