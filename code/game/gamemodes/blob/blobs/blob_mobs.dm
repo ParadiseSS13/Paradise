@@ -18,6 +18,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 	maxbodytemp = 360
+	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
