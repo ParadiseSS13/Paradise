@@ -5,7 +5,7 @@
 		return 1
 	if(!blob_cores.len) // blob is dead
 		return 1
-	return 0
+	return ..()
 
 
 /datum/game_mode/blob/declare_completion()
