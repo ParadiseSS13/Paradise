@@ -335,10 +335,9 @@
 	if(layer != MOB_LAYER)
 		overlay_layer=TURF_LAYER+0.2
 
-	overlays += image('icons/mob/cultglows.dmi',"glow-[icon_state]",overlay_layer)
+	overlays += image(icon,"glow-[icon_state]",overlay_layer)
+	set_light(2, -2, l_color = "#FFFFFF")
 
-
-	//set_light(1,2,"red")
 ////////////////Powers//////////////////
 
 
