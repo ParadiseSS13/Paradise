@@ -339,7 +339,7 @@
 			if(istype(user))
 				M.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>"
 				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
-				log_attack("\[[time_stamp()]\] [user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
+				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
 			M.ghostize()
 			qdel(M)
