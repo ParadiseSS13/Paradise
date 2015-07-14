@@ -50,21 +50,21 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = loc
+				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(5))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
@@ -78,7 +78,7 @@
 	if (connected)
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if (!( A.anchored ))
-				A.loc = src
+				A.forceMove(src)
 		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		qdel(connected)
 		connected = null
@@ -92,7 +92,7 @@
 			connected.connected = src
 			icon_state = "morgue0"
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = connected.loc
+				A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
 		else
@@ -123,14 +123,14 @@
 	if (user.stat)
 		return
 	connected = new /obj/structure/m_tray( loc )
-	step(connected, EAST)
+	step(connected, dir)
 	connected.layer = OBJ_LAYER
-	var/turf/T = get_step(src, EAST)
+	var/turf/T = get_step(src, dir)
 	if (T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "morgue0"
 		for(var/atom/movable/A as mob|obj in src)
-			A.loc = connected.loc
+			A.forceMove(connected.loc)
 		connected.icon_state = "morguet"
 	else
 		qdel(connected)
@@ -163,7 +163,7 @@
 	if (connected)
 		for(var/atom/movable/A as mob|obj in loc)
 			if (!( A.anchored ))
-				A.loc = connected
+				A.forceMove(connected)
 		connected.connected = null
 		connected.update()
 		add_fingerprint(user)
@@ -178,7 +178,7 @@
 		return
 	if (!ismob(user) || user.stat || user.lying || user.stunned)
 		return
-	O.loc = loc
+	O.forceMove(loc)
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
@@ -222,21 +222,21 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = loc
+				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(5))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
@@ -253,7 +253,7 @@
 	if ((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
 			if (!( A.anchored ))
-				A.loc = src
+				A.forceMove(src)
 		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		qdel(connected)
 		connected = null
@@ -267,7 +267,7 @@
 			connected.connected = src
 			icon_state = "crema0"
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = connected.loc
+				A.forceMove(connected.loc)
 			connected.icon_state = "cremat"
 		else
 			qdel(connected)
@@ -301,7 +301,7 @@
 		connected.connected = src
 		icon_state = "crema0"
 		for(var/atom/movable/A as mob|obj in src)
-			A.loc = connected.loc
+			A.forceMove(connected.loc)
 		connected.icon_state = "cremat"
 	else
 		qdel(connected)
@@ -331,13 +331,15 @@
 		locked = 1
 		icon_state = "crema_active"
 
-		for(var/mob/living/M in contents)
+		for(var/mob/living/M in search_contents_for(/mob/living))
+			if(!M || !isnull(M.gcDestroyed))
+				continue
 			if (M.stat!=2)
 				M.emote("scream")
 			if(istype(user))
-				M.attack_log += "\[[time_stamp()]\] Has been cremated by <b>[user]/[user.ckey]</b>"
-				user.attack_log +="\[[time_stamp()]\] Cremated <b>[M]/[M.ckey]</b>"
-				log_attack("\[[time_stamp()]\] <b>[user]/[user.ckey]</b> cremated <b>[M]/[M.ckey]</b>")
+				M.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>"
+				user.attack_log +="\[[time_stamp()]\] <font color='red'>Cremated [M.name] ([M.ckey])</font>"
+				log_attack("\[[time_stamp()]\] [user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
 			M.ghostize()
 			qdel(M)
@@ -378,7 +380,7 @@
 	if (connected)
 		for(var/atom/movable/A as mob|obj in loc)
 			if (!( A.anchored ))
-				A.loc = connected
+				A.forceMove(connected)
 			//Foreach goto(26)
 		connected.connected = null
 		connected.update()
@@ -394,7 +396,7 @@
 		return
 	if (!ismob(user) || user.stat || user.lying || user.stunned)
 		return
-	O.loc = loc
+	O.forceMove(loc)
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
@@ -402,7 +404,7 @@
 			//Foreach goto(99)
 	return
 
-/obj/structure/m_tray/Destroy()
+/obj/structure/c_tray/Destroy()
 	if(connected && connected.connected == src)
 		connected.connected = null
 	connected = null
