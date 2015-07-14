@@ -62,10 +62,11 @@
 /obj/effect/proc_holder/changeling/sting/transformation
 	name = "Transformation Sting"
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform."
-	helptext = "Does not provide a warning to others. The victim will transform much like a changeling would."
+	helptext = "The victim will transform much like a changeling would. The effects will be obvious to the victim, and the process will damage our genomes."
 	sting_icon = "sting_transform"
 	chemical_cost = 40
 	dna_cost = 2
+	genetic_damage = 100
 	var/datum/dna/selected_dna = null
 
 /obj/effect/proc_holder/changeling/sting/transformation/Click()
@@ -77,12 +78,11 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
-	..()
 
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)) )
+	if((HUSK in target.mutations) || (!ishuman(target)))
 		user << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
 	if(ishuman(target))
@@ -90,20 +90,31 @@
 		if(H.species.flags & NO_SCAN) //Prevents transforming slimes and killing them instantly
 			user << "<span class='warning'>This won't work on a creature with abnormal genetic material.</span>"
 			return 0
+		if(H.species.flags & NO_BLOOD)
+			user << "<span class='warning'>This won't work on a creature without a circulatory system.</span>"
+			return 0
 	return 1
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_logs(target, user, "stung", object="transformation sting", addition=" new identity is [selected_dna.real_name]")
 	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
-		user << "<span class='notice'>We stealthily sting [target.name].</span>"
-	target.dna = NewDNA.Clone()
-	target.real_name = NewDNA.real_name
-	var/mob/living/carbon/human/H = target
-	if(istype(H))
-		H.set_species()
-	target.UpdateAppearance()
-	domutcheck(target, null)
+		user << "<span class='notice'>Our genes cry out as we sting [target.name]!</span>"
+
+	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
+		var/mob/living/carbon/C = target
+		C.do_jitter_animation(500)
+
+	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
+
+	spawn(10)
+		target.dna = NewDNA.Clone()
+		target.real_name = NewDNA.real_name
+		var/mob/living/carbon/human/H = target
+		if(istype(H))
+			H.set_species()
+		target.UpdateAppearance()
+		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")
 	return 1
 
@@ -172,7 +183,7 @@ obj/effect/proc_holder/changeling/sting/LSD
 			target.hallucination = max(400, target.hallucination)
 	feedback_add_details("changeling_powers","HS")
 	return 1
-/*
+
 obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
 	desc = "We silently sting a human with a cocktail of chemicals that freeze them."
@@ -188,4 +199,4 @@ obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed 
 		target.reagents.add_reagent("ice", 30)
 	feedback_add_details("changeling_powers","CS")
 	return 1
-*/
+

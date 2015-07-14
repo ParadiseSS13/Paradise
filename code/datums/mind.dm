@@ -825,7 +825,7 @@ datum/mind
 						ticker.mode.changelings -= src
 						special_role = null
 						current.remove_changeling_powers()
-						if(changeling)	del(changeling)
+						if(changeling)	qdel(changeling)
 						current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
 						log_admin("[key_name_admin(usr)] has de-changeling'ed [current].")
 				if("changeling")
@@ -855,7 +855,7 @@ datum/mind
 						ticker.mode.vampires -= src
 						special_role = null
 						current.remove_vampire_powers()
-						if(vampire)  del(vampire)
+						if(vampire)  qdel(vampire)
 						current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 						log_admin("[key_name_admin(usr)] has de-vampired [current].")
 				if("vampire")
@@ -1021,7 +1021,7 @@ datum/mind
 						A.malf_picker.remove_verbs(A)
 
 						A.make_laws()
-						del(A.malf_picker)
+						qdel(A.malf_picker)
 						A.show_laws()
 						A.icon_state = "ai"
 

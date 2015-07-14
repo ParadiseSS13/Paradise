@@ -427,7 +427,7 @@ steam.start() -- spawns the effect
 	if(seed_name && plant_controller)
 		seed = plant_controller.seeds[seed_name]
 	if(!seed)
-		del(src)
+		qdel(src)
 	..()
 
 
