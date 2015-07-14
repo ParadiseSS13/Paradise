@@ -30,7 +30,6 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Pony" = "pony" ,
 		"Fairy" = "fairy"
 		)
 
@@ -40,7 +39,6 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
-		"Equine" = list("nickers","whinnys","neighs"),
 		"Canine" = list("yaps","barks","growls")
 		)
 
