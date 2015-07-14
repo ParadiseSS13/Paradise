@@ -1,5 +1,5 @@
 #define SOLAR_MAX_DIST 40
-#define SOLARGENRATE 1500
+#define SOLARGENRATE 3000
 
 var/list/solars_list = list()
 
