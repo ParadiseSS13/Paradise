@@ -978,8 +978,8 @@ var/list/slot_equipment_priority = list( \
 				process = processScheduler.getProcess("garbage")
 				stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
-				//process = processScheduler.getProcess("sun")
-				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+				process = processScheduler.getProcess("sun")
+				stat(null, "SUN([sun.solars.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				//process = processScheduler.getProcess("garbage")
 				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")

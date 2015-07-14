@@ -184,7 +184,6 @@
 #include "code\datums\periodic_news.dm"
 #include "code\datums\recipe.dm"
 #include "code\datums\spell.dm"
-#include "code\datums\sun.dm"
 #include "code\datums\supplypacks.dm"
 #include "code\datums\uplink_item.dm"
 #include "code\datums\helper_datums\construction_datum.dm"
