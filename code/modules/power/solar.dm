@@ -1,8 +1,6 @@
 #define SOLAR_MAX_DIST 40
 #define SOLARGENRATE 1500
 
-var/list/solars_list = list()
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar electrical generator."
@@ -308,12 +306,12 @@ var/list/solars_list = list()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	solars_list.Remove(src)
+	sun.solars.Remove(src)
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
-	if(powernet) //if connected and not already in solar_list...
-		solars_list |= src //... add it
+	if(powernet) //if connected and not already in solar list...
+		sun.solars |= src
 	return to_return
 
 //search for unconnected panels and trackers in the computer powernet and connect them
