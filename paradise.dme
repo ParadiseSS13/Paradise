@@ -157,7 +157,6 @@
 #include "code\controllers\Processes\nanoui.dm"
 #include "code\controllers\Processes\obj.dm"
 #include "code\controllers\Processes\pipenet.dm"
-#include "code\controllers\Processes\powernet.dm"
 #include "code\controllers\Processes\shuttle.dm"
 #include "code\controllers\Processes\sun.dm"
 #include "code\controllers\Processes\supply.dm"
