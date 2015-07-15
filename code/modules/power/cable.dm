@@ -86,18 +86,9 @@
 
 
 /obj/structure/cable/Destroy()						// called when a cable is deleted
-	if(!defer_powernet_rebuild)					// set if network will be rebuilt manually
-		if(powernet)
-			powernet.cut_cable(src)				// update the powernets
+	if(powernet)
+		powernet.cut_cable(src)				// update the powernets
 	cable_list -= src
-/*	if(istype(attached))
-		attached.set_light(0)
-		attached.icon_state = "powersink0"
-		attached.mode = 0
-		processing_objects.Remove(attached)
-		attached.anchored = 0
-		attached.attached = null
-	attached = null*/
 	return ..()													// then go ahead and delete the cable
 
 /obj/structure/cable/hide(var/i)
@@ -145,7 +136,7 @@
 
 		investigate_log("was cut by [key_name(usr, usr.client)] in [user.loc.loc]","wires")
 
-		del(src)
+		qdel(src)
 		return
 
 
@@ -318,7 +309,7 @@
 		if(ismob(loc))
 			var/mob/M = loc
 			M.unEquip(src)
-		del(src)
+		qdel(src)
 	else
 		amount -= used
 		update_icon()
@@ -380,7 +371,7 @@
 		if (C.shock(user, 50))
 			if (prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 1, C.cable_color)
-				del(C)
+				qdel(C)
 		//src.laying = 1
 		//last = C
 
@@ -440,7 +431,7 @@
 			if (NC.shock(user, 50))
 				if (prob(50)) //fail
 					new/obj/item/stack/cable_coil(NC.loc, 1, NC.cable_color)
-					del(NC)
+					qdel(NC)
 
 			return
 	else if(C.d1 == 0)		// exisiting cable doesn't point at our position, so see if it's a stub
@@ -479,7 +470,7 @@
 		if (C.shock(user, 50))
 			if (prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 2, C.cable_color)
-				del(C)
+				qdel(C)
 
 		return
 

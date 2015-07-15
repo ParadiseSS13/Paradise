@@ -119,7 +119,7 @@
 			user << "<span class='notice'>You insert the toner cartridge into \the [src].</span>"
 			var/obj/item/device/toner/T = O
 			toner += T.toner_amount
-			del(O)
+			qdel(O)
 			updateUsrDialog()
 		else
 			user << "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>"

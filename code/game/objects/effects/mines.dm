@@ -33,7 +33,7 @@
 	randmutb(obj)
 	domutcheck(obj,null)
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/proc/triggerstun(obj)
 	if(ismob(obj))
@@ -43,30 +43,30 @@
 	s.set_up(3, 1, src)
 	s.start()
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/proc/triggern2o(obj)
 	atmos_spawn_air(SPAWN_N2O, 360)
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/proc/triggerplasma(obj)
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 360)
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/proc/triggerkick(obj)
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	del(obj:client)
+	qdel(obj:client)
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/proc/explode(obj)
 	explosion(loc, 0, 1, 2, 3)
 	spawn(0)
-		del(src)
+		qdel(src)
 
 /obj/effect/mine/dnascramble
 	name = "Radiation Mine"

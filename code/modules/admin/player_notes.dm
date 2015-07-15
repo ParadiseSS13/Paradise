@@ -126,7 +126,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 	message_admins("\blue [key_name_admin(usr)] has edited [key]'s notes.")
 	log_admin("[key_name(usr)] has edited [key]'s notes.")
 
-	del info
+	del(info)
 
 	//Updating list of keys with notes on them
 	var/savefile/note_list = new("data/player_notes.sav")
@@ -135,7 +135,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 	if(!note_keys) note_keys = list()
 	if(!note_keys.Find(key)) note_keys += key
 	note_list << note_keys
-	del note_list
+	del(note_list)
 
 
 /proc/notes_del(var/key, var/index)
@@ -151,7 +151,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 	message_admins("\blue [key_name_admin(usr)] deleted one of [key]'s notes.")
 	log_admin("[key_name(usr)] deleted one of [key]'s notes.")
 
-	del info
+	del(info)
 
 /proc/show_player_info_irc(var/key as text)
 	var/dat = "          Info on [key]%0D%0A"

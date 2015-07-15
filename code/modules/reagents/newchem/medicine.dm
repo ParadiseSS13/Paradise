@@ -124,7 +124,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("ash" = 1, "sodiumchloride" = 1)
 	result_amount = 2
 	mix_message = "The mixture yields a fine black powder."
-	required_temp = 380
+	min_temp = 380
 
 /datum/chemical_reaction/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -210,7 +210,7 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 	result = "calomel"
 	required_reagents = list("mercury" = 1, "chlorine" = 1)
 	result_amount = 2
-	required_temp = 374
+	min_temp = 374
 	mix_message = "Stinging vapors rise from the solution."
 
 datum/reagent/potass_iodide
@@ -349,7 +349,7 @@ datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	result = "perfluorodecalin"
 	required_reagents = list("hydrogen" = 1, "fluorine" = 1, "oil" = 1)
 	result_amount = 3
-	required_temp = 370
+	min_temp = 370
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 
 datum/reagent/ephedrine
@@ -687,7 +687,7 @@ datum/reagent/life
 	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
 	result_amount = 3
-	required_temp = 374
+	min_temp = 374
 
 /datum/chemical_reaction/life/on_reaction(var/datum/reagents/holder, var/created_volume)
 	chemical_mob_spawn(holder, 1, "Life")
@@ -1007,5 +1007,5 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result = "liquid_solder"
 	required_reagents = list("ethanol" = 1, "copper" = 1, "silver" = 1)
 	result_amount = 3
-	required_temp = 370
+	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."

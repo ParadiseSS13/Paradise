@@ -12,7 +12,7 @@
 	var/w_class = 3.0
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
-	pressure_resistance = 5
+	pressure_resistance = 3
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
@@ -52,17 +52,9 @@
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
 /obj/item/Destroy()
-	if(istype(src.loc, /mob))
-		var/mob/H = src.loc
-		H.unEquip(src) // items at the very least get unequipped from their mob before being deleted
-	if(reagents && istype(reagents))
-		reagents.my_atom = null
-		reagents.delete()
-	if(hasvar(src, "holder"))
-		src:holder = null
-	/*  BROKEN, FUCK BYOND
-	if(hasvar(src, "my_atom"))
-		src:my_atom = null*/
+	if(ismob(loc))
+		var/mob/m = loc
+		m.unEquip(src, 1)
 	return ..()
 
 /obj/item/device
@@ -85,7 +77,7 @@
 	return
 
 /obj/item/blob_act()
-	del(src)
+	qdel(src)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user

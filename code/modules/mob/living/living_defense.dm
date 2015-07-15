@@ -41,30 +41,6 @@
 		src << "\blue Your [C.name] was disrupted!"
 		Stun(2)
 
-/*
-	//Being hit while using a deadman switch
-	if(istype(equipped(),/obj/item/device/assembly/signaler))
-		var/obj/item/device/assembly/signaler/signaler = equipped()
-		if(signaler.deadman && prob(80))
-			src.visible_message("\red [src] triggers their deadman's switch!")
-			signaler.signal()
-*/
-
-/*
-	//Stun Beams -- These were commented out, making appropriate changes here. - Dave
-	if(istype(P, /obj/item/projectile/beam/stun) || istype(P, /obj/item/projectile/bullet/stunshot))
-		stun_effect_act(0, P.agony, def_zone, P)
-		src <<"\red You have been hit by [P]!"
-		del P
-		return
-
-	if(istype(P, /obj/item/projectile/energy/electrode) || istype(P, /obj/item/projectile/bullet/stunshot))
-		stun_effect_act(0, P.agony, def_zone, P)
-		src <<"\red You have been hit by [P]!"
-		del P
-		return
-*/
-
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag)
 	var/proj_sharp = is_sharp(P)

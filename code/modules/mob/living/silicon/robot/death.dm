@@ -17,8 +17,8 @@
 	living_mob_list -= src
 	dead_mob_list -= src
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/silicon/robot/dust()
 	death(1)
@@ -35,12 +35,12 @@
 
 	flick("dust-r", animation)
 	new /obj/effect/decal/remains/robot(loc)
-	if(mmi)		del(mmi)	//Delete the MMI first so that it won't go popping out.
+	if(mmi)		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 
 	dead_mob_list -= src
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 
 /mob/living/silicon/robot/death(gibbed)

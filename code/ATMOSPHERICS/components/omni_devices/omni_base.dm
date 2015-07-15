@@ -79,18 +79,18 @@
 		int_pressure += P.air.return_pressure()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_pressure - env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='warning'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
+		user << "<span class='alert'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
-	user << "\blue You begin to unfasten \the [src]..."
+	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	if(do_after(user, 40))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
+			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/omni/attack_hand(user as mob)
 	if(..())
@@ -283,7 +283,7 @@
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)
 		if(reference == P.node)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 			P.update = 1
 			break

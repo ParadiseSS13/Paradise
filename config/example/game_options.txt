@@ -33,6 +33,9 @@ REVIVAL_CLONING 1
 REVIVAL_BRAIN_LIFE -1
 
 
+### AUTO TOGGLE OOC DURING ROUND ###
+#Uncomment this if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
+#AUTO_TOGGLE_OOC_DURING_ROUND
 
 ### MOB MOVEMENT ###
 

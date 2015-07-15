@@ -73,8 +73,8 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
 				newSaber.blade_color = "rainbow"
-			del(W)
-			del(src)
+			qdel(W)
+			qdel(src)
 
 	else if(istype(W, /obj/item/device/multitool))
 		if(hacked == 0)
@@ -201,11 +201,11 @@
 	return
 
 /obj/item/weapon/melee/energy/blade/dropped()
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/weapon/melee/energy/blade/proc/toss()
-	del(src)
+	qdel(src)
 	return
 
 /*

@@ -67,6 +67,8 @@
 
 			if( !H.shoes && ( !H.wear_suit || !(H.wear_suit.body_parts_covered & FEET) ) )
 				var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
+				if(!affecting)
+					return
 				if(affecting.status & ORGAN_ROBOT)
 					return
 				H.Weaken(3)

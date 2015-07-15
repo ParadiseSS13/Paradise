@@ -416,7 +416,7 @@
 	spark_system.start()	//creates some sparks because they look cool
 	density = 1
 	update_icon()
-	del(cover)	//deletes the cover - no need on keeping it there! - del
+	qdel(cover)	//deletes the cover - no need on keeping it there! - del
 
 /obj/machinery/porta_turret/proc/create_cover()
 	if(cover == null && anchored)

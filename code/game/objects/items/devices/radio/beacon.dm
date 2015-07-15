@@ -38,7 +38,7 @@
 /obj/item/device/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 	proc/digest_delay()
 		spawn(600)
-			del(src)
+			qdel(src)
 
 
 // SINGULO BEACON SPAWNER
@@ -54,7 +54,7 @@
 		user << "\blue Locked In"
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		del(src)
+		qdel(src)
 	return
 
 /obj/item/device/radio/beacon/syndicate/bomb
@@ -67,7 +67,7 @@
 		user << "\blue Locked In"
 		new /obj/machinery/syndicatebomb( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		del(src)
+		qdel(src)
 	return
 
 
@@ -84,5 +84,5 @@
 		user << "\blue Locked In"
 		new /obj/machinery/telepad_cargo(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		del(src)
+		qdel(src)
 	return

@@ -215,7 +215,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	if (online())
 		if (is_stranded())
 			return "ETA-ERR"
-		
+
 		if (waiting_to_leave())
 			if (shuttle.moving_status == SHUTTLE_WARMUP)
 				return "Departing..."
@@ -256,7 +256,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 		sleep(speed)
 		step(src, direction)
 		for(var/obj/effect/starender/E in loc)
-			del(src)
+			qdel(src)
 
 
 /obj/effect/starender

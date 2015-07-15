@@ -282,4 +282,4 @@ var/list/organ_cache = list()
 	if(fingerprintslast) O.fingerprintslast = fingerprintslast
 
 	user.put_in_active_hand(O)
-	del(src)
+	qdel(src)

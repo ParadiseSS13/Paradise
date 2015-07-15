@@ -834,7 +834,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	victim.bad_external_organs -= src
 
 	for(var/implant in implants) //todo: check if this can be left alone
-		del(implant)
+		qdel(implant)
 
 	// Attached organs also fly off.
 	if(!ignore_children)
@@ -864,8 +864,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		spark_system.attach(owner)
 		spark_system.start()
 		spawn(10)
-			del(spark_system)
-		del(src)
+			qdel(spark_system)
+		qdel(src)
 
 /obj/item/organ/external/proc/disfigure(var/type = "brute")
 	if (disfigured)

@@ -80,7 +80,7 @@
 				user << "\blue You add the glass to the frame."
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
-				del(src)
+				qdel(src)
 				return
 
 			if(istype(P, /obj/item/weapon/wrench))
@@ -274,7 +274,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/microwave
 	name = "circuit board (Microwave)"
-	build_path = /obj/machinery/microwave
+	build_path = /obj/machinery/kitchen_machine/microwave
 	board_type = "machine"
 	origin_tech = "programming=1"
 	frame_desc = "Requires 1 Micro Laser, 2 pieces of cable and 1 Console Screen."
@@ -285,7 +285,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/oven
 	name = "circuit board (Oven)"
-	build_path = /obj/machinery/oven
+	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
 	origin_tech = "programming=1;plasmatech=1"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
@@ -296,7 +296,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/grill
 	name = "circuit board (Grill)"
-	build_path = /obj/machinery/grill
+	build_path = /obj/machinery/kitchen_machine/grill
 	board_type = "machine"
 	origin_tech = "programming=1;plasmatech=1"
 	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
@@ -307,7 +307,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/candy_maker
 	name = "circuit board (Candy Maker)"
-	build_path = /obj/machinery/candy_maker
+	build_path = /obj/machinery/kitchen_machine/candy_maker
 	board_type = "machine"
 	origin_tech = "programming=2"
 	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Console Screen."

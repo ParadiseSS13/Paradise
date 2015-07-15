@@ -96,6 +96,7 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
+	pressure_resistance = 10
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = 1
@@ -174,7 +175,7 @@ Class Procs:
 
 /obj/machinery/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
@@ -462,7 +463,7 @@ Class Procs:
 		if(I.reliability != 100 && crit_fail)
 			I.crit_fail = 1
 		I.loc = loc
-	del(src)
+	qdel(src)
 	return 1
 
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)

@@ -44,7 +44,7 @@
 				if(istype(s))
 					O.implants -= s
 					H.contents -= s
-					del(s)
+					qdel(s)
 			O.brute_dam = 0
 			O.burn_dam = 0
 			O.damage_state = "00"

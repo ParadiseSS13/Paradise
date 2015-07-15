@@ -4,7 +4,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stool"
 	anchored = 1.0
-	pressure_resistance = 15
 
 /obj/structure/stool/ex_act(severity)
 	switch(severity)
@@ -24,13 +23,13 @@
 /obj/structure/stool/blob_act()
 	if(prob(75))
 		new /obj/item/stack/sheet/metal(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		new /obj/item/stack/sheet/metal(src.loc)
-		del(src)
+		qdel(src)
 	return
 
 /obj/structure/stool/MouseDrop(atom/over_object)
@@ -58,7 +57,7 @@
 	origin.loc = get_turf(src)
 	user.unEquip(src)
 	user.visible_message("\blue [user] puts [src] down.", "\blue You put [src] down.")
-	del src
+	qdel(src)
 
 /obj/item/weapon/stool/attack(mob/M as mob, mob/user as mob)
 	if (prob(5) && istype(M,/mob/living))
@@ -66,7 +65,7 @@
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
-		del src
+		qdel(src)
 		var/mob/living/T = M
 		T.Weaken(5)
 		return

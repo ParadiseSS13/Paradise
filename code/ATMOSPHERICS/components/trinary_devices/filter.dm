@@ -41,7 +41,7 @@ Filter types:
 		icon_state = "m"
 	else
 		icon_state = ""
-	
+
 	if(!powered())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
@@ -162,18 +162,18 @@ Filter types:
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "\blue You begin to unfasten \the [src]..."
+	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
 	if (do_after(user, 40))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
-			"You hear ratchet.")
+			"<span class='notice'>You have unfastened \the [src].</span>", \
+			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
@@ -181,7 +181,7 @@ Filter types:
 		return
 
 	if(!src.allowed(user))
-		user << "\red Access denied."
+		user << "<span class='alert'>Access denied.</span>"
 		return
 
 	var/dat
@@ -272,7 +272,7 @@ obj/machinery/atmospherics/trinary/filter/m_filter/New()
 
 /obj/machinery/atmospherics/trinary/filter/m_filter/initialize()
 	set_frequency(frequency)
-	
+
 	if(node1 && node2 && node3) return
 
 	var/node1_connect = turn(dir, -180)

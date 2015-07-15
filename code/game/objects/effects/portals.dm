@@ -44,7 +44,7 @@
 	if (icon_state == "portal1")
 		return
 	if (!( target ))
-		del(src)
+		qdel(src)
 		return
 	if (istype(M, /atom/movable))
 		if(prob(failchance)) //oh dear a problem, put em in deep space

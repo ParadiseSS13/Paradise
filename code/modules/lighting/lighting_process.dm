@@ -1,6 +1,9 @@
+var/global/datum/controller/process/lighting/lighting_controller
+
 /datum/controller/process/lighting/setup()
 	name = "lighting"
 	schedule_interval = LIGHTING_INTERVAL
+	lighting_controller = src
 
 	create_lighting_overlays()
 

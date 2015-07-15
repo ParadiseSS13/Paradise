@@ -191,7 +191,7 @@
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target=follow_target)
-	del(A)
+	qdel(A)
 	return
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum

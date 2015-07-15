@@ -20,8 +20,8 @@
 	else
 		if(spike(G.affecting))
 			visible_message("<span class = 'danger'>[user] has forced [G.affecting] onto the spike, killing them instantly!</span>")
-			del(G.affecting)
-			del(G)
+			qdel(G.affecting)
+			qdel(G)
 		else
 			user << "<span class='danger'>They are too big for the spike, try something smaller!</span>"
 
