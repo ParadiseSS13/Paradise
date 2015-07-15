@@ -33,7 +33,7 @@
 	real_name = name
 	for(var/spell in construct_spells)
 		AddSpell(new spell(src))
-	updateicon()
+	updateglow()
 
 /mob/living/simple_animal/construct/Die()
 	..()
@@ -329,7 +329,7 @@
 
 
 ////////////////Glow////////////////////
-/mob/living/simple_animal/construct/proc/updateicon()
+/mob/living/simple_animal/construct/proc/updateglow()
 	overlays = 0
 	var/overlay_layer = LIGHTING_LAYER + 1
 	if(layer != MOB_LAYER)
