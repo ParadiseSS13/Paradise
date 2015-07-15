@@ -362,8 +362,6 @@ legend {
 		return 1
 
 	large_tank_control
-		icon = 'icons/obj/computer.dmi'
-		icon_state = "tank"
 		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
 		req_one_access_txt = "24;10"
 		settagwhitelist = list("input_tag", "output_tag")
@@ -587,7 +585,7 @@ legend {
 
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
-		icon_state = "atmos"
+		icon_screen = "atmos"
 		circuit = "/obj/item/weapon/circuitboard/injector_control"
 
 		var/device_tag
