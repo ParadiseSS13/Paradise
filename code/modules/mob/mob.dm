@@ -966,9 +966,6 @@ var/list/slot_equipment_priority = list( \
 				process = processScheduler.getProcess("pipenet")
 				stat(null, "PIP([pipe_networks.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
-				process = processScheduler.getProcess("powernet")
-				stat(null, "POW([powernets.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
 				process = processScheduler.getProcess("nanoui")
 				stat(null, "NAN([nanomanager.processing_uis.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
@@ -978,8 +975,8 @@ var/list/slot_equipment_priority = list( \
 				process = processScheduler.getProcess("garbage")
 				stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
-				//process = processScheduler.getProcess("sun")
-				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
+				process = processScheduler.getProcess("sun")
+				stat(null, "SUN([sun.solars.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
 
 				//process = processScheduler.getProcess("garbage")
 				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")

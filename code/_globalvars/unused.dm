@@ -12,7 +12,7 @@ var/list/liftable_structures = list(\
 	/obj/machinery/optable, \
 	/obj/structure/dispenser, \
 	/obj/machinery/gibber, \
-	/obj/machinery/microwave, \
+	/obj/machinery/kitchen_machine/microwave, \
 	/obj/machinery/vending, \
 	/obj/machinery/seed_extractor, \
 	/obj/machinery/space_heater, \

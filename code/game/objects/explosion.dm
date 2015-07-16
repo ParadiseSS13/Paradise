@@ -1,11 +1,5 @@
 //TODO: Flash range does nothing currently
 
-//A very crude linear approximatiaon of pythagoras theorem.
-/proc/cheap_pythag(var/dx, var/dy)
-	dx = abs(dx); dy = abs(dy);
-	if(dx>=dy)	return dx + (0.5*dy)	//The longest side add half the shortest side approximates the hypotenuse
-	else		return dy + (0.5*dx)
-
 /proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY processes turfs and thus less intensive)
 	if(Center==null) return
 
@@ -73,10 +67,12 @@
 							far_volume += (dist <= far_dist * 0.5 ? 50 : 0) // add 50 volume if the mob is pretty close to the explosion
 							M.playsound_local(epicenter, 'sound/effects/explosionfar.ogg', far_volume, 1, frequency, falloff = 5)
 
-
-		//Pause the lighting updates for a bit
-		var/datum/controller/process/lighting = processScheduler.getProcess("lighting")
-		lighting.disable()
+			var/close = range(world.view+round(devastation_range,1), epicenter)
+			// to all distanced mobs play a different sound
+			for(var/mob/M in world) if(M.z == epicenter.z) if(!(M in close))
+				// check if the mob can hear
+				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
+					M << 'sound/effects/explosionfar.ogg'
 
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
@@ -89,7 +85,7 @@
 
 		for(var/turf/T in trange(max_range, epicenter))
 
-			var/dist = cheap_pythag(T.x - x0,T.y - y0)
+			var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -103,7 +99,7 @@
 							dist += D.explosion_block
 
 			var/flame_dist = 0
-			var/throw_dist = max_range - dist
+//			var/throw_dist = max_range - dist
 
 			if(dist < flame_range)
 				flame_dist = 1
@@ -125,7 +121,7 @@
 					T.ex_act(dist)
 
 			//--- THROW ITEMS AROUND ---
-
+/*
 			if(throw_dist > 0)
 				var/throw_dir = get_dir(epicenter,T)
 				for(var/obj/item/I in T)
@@ -135,8 +131,8 @@
 							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
 							if(throw_range > 0)
 								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-								I.throw_at(throw_at, throw_range, 2, no_spin = 1)//Throw it at 2 speed, this is purely visual anyway.
-
+								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
+*/
 		var/took = (world.timeofday-start)/10
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
 		if(Debug2)	world.log << "## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds."
@@ -146,10 +142,6 @@
 			var/obj/machinery/doppler_array/Array = doppler_arrays[i]
 			if(Array)
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
-
-		sleep(8)
-
-		lighting.enable()
 
 	return 1
 
@@ -199,7 +191,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in trange(max_range, epicenter))
 		wipe_colours += T
-		var/dist = cheap_pythag(T.x - x0, T.y - y0)
+		var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
 		if(newmode == "Yes")
 			var/turf/TT = T

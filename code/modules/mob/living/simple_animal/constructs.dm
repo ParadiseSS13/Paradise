@@ -33,6 +33,7 @@
 	real_name = name
 	for(var/spell in construct_spells)
 		AddSpell(new spell(src))
+	updateglow()
 
 /mob/living/simple_animal/construct/Die()
 	..()
@@ -325,6 +326,17 @@
 
 /mob/living/simple_animal/construct/harvester/Process_Spacemove(var/check_drift = 0)
 	return 1
+
+
+////////////////Glow////////////////////
+/mob/living/simple_animal/construct/proc/updateglow()
+	overlays = 0
+	var/overlay_layer = LIGHTING_LAYER + 1
+	if(layer != MOB_LAYER)
+		overlay_layer=TURF_LAYER+0.2
+
+	overlays += image(icon,"glow-[icon_state]",overlay_layer)
+	set_light(2, -2, l_color = "#FFFFFF")
 
 ////////////////Powers//////////////////
 

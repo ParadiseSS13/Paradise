@@ -27,7 +27,7 @@
 
 /timed_alert/proc/timed_alert(client/ref_client, question, title, time, choice1, choice2, choice3)
         if (!ref_client) return
-        spawn (time) del src // When src is deleted, the proc ends immediately. The alert itself closes.
+        spawn (time) del(src) // When src is deleted, the proc ends immediately. The alert itself closes.
 
         var/ref_answer
         ref_answer = alert(ref_client, question, title, choice1, choice2, choice3)

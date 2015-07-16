@@ -3,10 +3,10 @@
 	schedule_interval = 20 // every 2 seconds
 
 /datum/controller/process/machinery/doWork()
-	//#ifdef PROFILE_MACHINES
-	//machine_profiling.len = 0
-	//#endif
+	process_power()
+	process_machines()
 
+/datum/controller/process/machinery/proc/process_machines()
 	for(var/obj/machinery/M in machines)
 		if(M && isnull(M.gcDestroyed))
 			#ifdef PROFILE_MACHINES
@@ -33,3 +33,12 @@
 			machines -= M
 
 		scheck()
+
+/datum/controller/process/machinery/proc/process_power()
+	for(var/datum/powernet/powerNetwork in powernets)
+		if(istype(powerNetwork) && isnull(powerNetwork.gcDestroyed))
+			powerNetwork.reset()
+			scheck()
+			continue
+		else
+			powernets -= powerNetwork

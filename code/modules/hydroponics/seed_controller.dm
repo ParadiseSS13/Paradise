@@ -37,7 +37,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 /datum/controller/plants/New()
 	if(plant_controller && plant_controller != src)
 		log_debug("Rebuilding plant controller.")
-		qdel(plant_controller)
+		del(plant_controller)
 	plant_controller = src
 	setup()
 	process()
