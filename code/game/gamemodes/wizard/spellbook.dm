@@ -10,11 +10,12 @@
 	var/surplus = -1 // -1 for infinite, not used by anything atm
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
+	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 
 /datum/spellbook_entry/proc/IsAvailible() // For config prefs / gamemode restrictions - these are round applied
 	return 1
 /datum/spellbook_entry/proc/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book) // Specific circumstances
-	if(book.uses<cost)
+	if(book.uses<cost || limit == 0)
 		return 0
 	return 1
 /datum/spellbook_entry/proc/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book) //return 1 on success
@@ -248,22 +249,13 @@
 	desc = "An incandescent orb of crackling energy, using it will allow you to ghost while alive, allowing you to spy upon the station with ease. In addition, buying it will permanently grant you x-ray vision."
 	item_path = /obj/item/weapon/scrying
 	log_name = "SO"
-	var/limit = 0
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
 	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
 	item_path = /obj/item/weapon/antag_spawner/slaughter_demon
 	log_name = "BB"
-	var/limit = 0
-
-/datum/spellbook_entry/item/bloodbottle/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
-	if(..())
-		limit = 1
-	return 1
-
-/datum/spellbook_entry/item/bloodbottle/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
-	return ..() && !limit
+	limit = 3
 
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
@@ -403,12 +395,21 @@
 			user << "<span class='warning'>The contract has been used, you can't get your points back now!</span>"
 		else
 			user << "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>"
-			src.uses++
+
+			uses++
+
+			for(var/datum/spellbook_entry/item/contract/CT in entries)
+				if(!isnull(CT.limit))
+					CT.limit++
 			qdel(O)
 
 	if(istype(O, /obj/item/weapon/antag_spawner/slaughter_demon))
 		user << "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>"
-		src.uses++
+
+		uses++
+		for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
+			if(!isnull(BB.limit))
+				BB.limit++
 		qdel(O)
 
 /obj/item/weapon/spellbook/proc/GetCategoryHeader(var/category)
@@ -517,6 +518,8 @@
 			E = entries[text2num(href_list["buy"])]
 			if(E && E.CanBuy(H,src))
 				if(E.Buy(H,src))
+					if(E.limit)
+						E.limit--
 					uses -= E.cost
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
