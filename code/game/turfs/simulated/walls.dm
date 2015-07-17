@@ -189,8 +189,8 @@
 	return
 
 /turf/simulated/wall/blob_act()
-	take_damage(rand(75, 125))
-	return
+	if(prob(50))
+		dismantle_wall()
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
