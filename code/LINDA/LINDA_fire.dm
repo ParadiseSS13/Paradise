@@ -85,7 +85,8 @@
 		if(item && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
-	animate(src, color = heat2color(temperature), 5)
+//	animate(src, color = heat2color(temperature), 5)
+	color = heat2color(temperature)
 	set_light(l_color = color)
 
 	return 0
