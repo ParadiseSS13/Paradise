@@ -173,4 +173,5 @@
 	return
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Die()
+	..()
 	flick("blobbernaut_death", src)
