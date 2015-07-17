@@ -39,6 +39,7 @@
 	R.speech_synthesizer_langs = list()
 	R.notify_ai(2)
 	R.updateicon()
+	R.add_language("Robot Talk", 1)
 
 	return 1
 

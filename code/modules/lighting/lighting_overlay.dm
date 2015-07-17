@@ -9,15 +9,11 @@
 	invisibility = INVISIBILITY_LIGHTING
 	blend_mode = BLEND_MULTIPLY
 	color = "#000000"
+	icon_state = "light1"
 
 	var/lum_r
 	var/lum_g
 	var/lum_b
-
-	#if LIGHTING_RESOLUTION != 1
-	var/xoffset
-	var/yoffset
-	#endif
 
 	var/needs_update
 
@@ -107,11 +103,7 @@
 
 	var/turf/T = loc
 	if(istype(T))
-		#if LIGHTING_RESOLUTION == 1
 		T.lighting_overlay = null
-		#else
-		T.lighting_overlays -= src
-		#endif
 		for(var/datum/light_source/D in T.affecting_lights) //Remove references to us on the light sources affecting us.
 			D.effect_r -= src
 			D.effect_g -= src

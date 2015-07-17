@@ -110,21 +110,6 @@
 
 	updatehealth()
 
-/mob/living/carbon/alien/humanoid/blob_act()
-	if (stat == 2)
-		return
-	var/shielded = 0
-	var/damage = null
-	if (stat != 2)
-		damage = rand(30,40)
-
-	if(shielded)
-		damage /= 4
-
-	show_message("<span class='userdanger'>The blob attacks!</span>")
-	adjustFireLoss(damage)
-	return
-
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
 		M << "You cannot attack people before the game has started."
