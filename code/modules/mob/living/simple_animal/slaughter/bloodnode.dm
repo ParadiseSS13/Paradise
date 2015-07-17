@@ -1,8 +1,8 @@
 //yes i did stealfrom blobcode...
 /obj/effect/bloodnode
 	name = "blood pustilue"
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "bloodnode"
+	icon = 'icons/mob/blob.dmi'
+	icon_state = "blank_blob"
 	var/health = 100
 	anchored = 1
 	density = 1
@@ -15,6 +15,7 @@
 	New(loc, var/h = 100)
 		nodecount +=1
 		processing_objects.Add(src)
+		NodeColor()
 		..(loc, h)
 
 	Destroy()
@@ -25,7 +26,7 @@
 
 	process()
 		if(lastblood == 0 || (world.time - lastblood) > 600)
-			src.visible_message("pulse!")
+			//src.visible_message("pulse!")//debug
 			var/obj/effect/decal/cleanable/blood/splatter/blooddecal = new (src.loc)
 			playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 			//throw that then use a gibspawner
@@ -35,12 +36,20 @@
 			lastblood += world.time
 		return
 
+	proc/NodeColor()//Stealing from NEW blob code...
+		overlays.Cut()
+		var/image/I = new('icons/mob/blob.dmi', "blob")
+		I.color = "#7F0000"
+		overlays += I
+		var/image/C = new('icons/mob/blob.dmi', "blob_node_overlay")
+		C.color = "#FF4C4C"
+		overlays += C
 
 	proc/Delete()
 		qdel(src)
 
 	update_icon()
-		src.visible_message("[health]")
+		//src.visible_message("[health]")
 		if(health <= 0)
 			playsound(get_turf(src), 'sound/effects/gib.ogg', 50, 1)
 			new /obj/effect/gibspawner/human(get_turf(src))
