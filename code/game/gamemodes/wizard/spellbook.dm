@@ -265,7 +265,6 @@
 			user.see_in_dark = 8
 			user.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 			user << "\blue The walls suddenly disappear."
-			limit = 1
 	return 1
 
 /datum/spellbook_entry/item/scryingorb/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
