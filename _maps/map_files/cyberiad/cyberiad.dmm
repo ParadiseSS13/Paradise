@@ -2055,7 +2055,7 @@
 "aNA" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor{dir = 4; icon_state = "arrival"},/area/hallway/secondary/entry)
 "aNB" = (/obj/machinery/camera{c_tag = "Security Checkpoint"; dir = 1},/obj/machinery/alarm{dir = 4; icon_state = "alarm0"; pixel_x = -22},/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/turf/simulated/floor{icon_state = "red"; dir = 10},/area/security/checkpoint2)
 "aNC" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor{icon_state = "red"},/area/security/checkpoint2)
-"aND" = (/obj/structure/table/reinforced,/obj/machinery/computer/skills{icon_state = "medlaptop"},/turf/simulated/floor{icon_state = "red"},/area/security/checkpoint2)
+"aND" = (/obj/structure/table/reinforced,/obj/machinery/computer/skills,/turf/simulated/floor{icon_state = "red"},/area/security/checkpoint2)
 "aNE" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin{pixel_x = 1; pixel_y = 9},/obj/item/weapon/pen,/turf/simulated/floor{icon_state = "red"},/area/security/checkpoint2)
 "aNF" = (/obj/machinery/recharger{pixel_y = 4},/obj/structure/table/reinforced,/turf/simulated/floor{icon_state = "red"},/area/security/checkpoint2)
 "aNG" = (/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_y = -29},/obj/item/device/radio,/turf/simulated/floor{icon_state = "red"; dir = 6},/area/security/checkpoint2)
