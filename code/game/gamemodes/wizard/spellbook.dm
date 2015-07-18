@@ -525,6 +525,8 @@
 			if(E && E.refundable)
 				var/result = E.Refund(H,src)
 				if(result > 0)
+					if(!isnull(E.limit))
++						E.limit += result
 					uses += result
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
