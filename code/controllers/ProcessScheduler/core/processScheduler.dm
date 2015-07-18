@@ -66,6 +66,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/start()
 	isRunning = 1
+	updateStartDelays()
 	spawn(0)
 		process()
 
@@ -108,12 +109,8 @@ var/global/datum/controller/processScheduler/processScheduler
 		if (p.disabled || p.running || p.queued || !p.idle)
 			continue
 
-		// If world.timeofday has rolled over, then we need to adjust.
-		if (world.timeofday < last_start[p])
-			last_start[p] -= 864000
-
 		// If the process should be running by now, go ahead and queue it
-		if (world.timeofday > last_start[p] + p.schedule_interval)
+		if (world.time >= last_start[p] + p.schedule_interval)
 			setQueuedProcessState(p)
 
 /datum/controller/processScheduler/proc/runQueuedProcesses()
@@ -176,6 +173,10 @@ var/global/datum/controller/processScheduler/processScheduler
 
 	nameToProcessMap[newProcess.name] = newProcess
 
+/datum/controller/processScheduler/proc/updateStartDelays()
+	for(var/datum/controller/process/p in processes)
+		if(p.start_delay)
+			last_start[p] = world.time - p.start_delay
 
 /datum/controller/processScheduler/proc/runProcess(var/datum/controller/process/process)
 	spawn(0)
@@ -222,17 +223,13 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/recordStart(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = world.timeofday
+		time = world.time
 
 	last_start[process] = time
 
 /datum/controller/processScheduler/proc/recordEnd(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
-		time = world.timeofday
-
-	// If world.timeofday has rolled over, then we need to adjust.
-	if (time < last_start[process])
-		last_start[process] -= 864000
+		time = world.time
 
 	var/lastRunTime = time - last_start[process]
 
@@ -316,5 +313,16 @@ var/global/datum/controller/processScheduler/processScheduler
 /datum/controller/processScheduler/proc/getProcessLastRunTime(var/datum/controller/process/process)
 	return last_run_time[process]
 
+/datum/controller/processScheduler/proc/getProcessHighestRunTime(var/datum/controller/process/process)
+	return highest_run_time[process]
+
 /datum/controller/processScheduler/proc/getIsRunning()
 	return isRunning
+
+/datum/controller/processScheduler/proc/statProcesses()
+	if(!isRunning)
+		stat("Processes", "Scheduler not running")
+		return
+	stat("Processes", "[processes.len] (R[running.len]/Q[queued.len]/I[idle.len])")
+	for(var/datum/controller/process/p in processes)
+		p.statProcess()

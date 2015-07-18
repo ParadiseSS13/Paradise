@@ -1,11 +1,19 @@
 /datum/controller/process/nanoui
-	var/tmp/datum/updateQueue/updateQueueInstance
 
 /datum/controller/process/nanoui/setup()
 	name = "nanoui"
 	schedule_interval = 20 // every 2 seconds
-	updateQueueInstance = new
+
+/datum/controller/process/nanoui/statProcess()
+	..()
+	stat(null, "[nanomanager.processing_uis.len] UIs")
 
 /datum/controller/process/nanoui/doWork()
-	updateQueueInstance.init(nanomanager.processing_uis, "process")
-	updateQueueInstance.Run()
+	for(var/datum/nanoui/NUI in nanomanager.processing_uis)
+		if(istype(NUI) && isnull(NUI.gcDestroyed))
+			try
+				NUI.process()
+			catch(var/exception/e)
+				catchException(e, NUI)
+		else
+			nanomanager.processing_uis -= NUI

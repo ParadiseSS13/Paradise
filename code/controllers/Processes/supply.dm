@@ -1,5 +1,5 @@
 /datum/controller/process/supply/setup()
-	name = "supply controller"
+	name = "supply"
 	schedule_interval = 300 // every 30 seconds
 
 /datum/controller/process/supply/doWork()

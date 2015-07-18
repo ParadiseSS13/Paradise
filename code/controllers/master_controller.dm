@@ -42,8 +42,6 @@ datum/controller/game_controller
 	var/list/shuttle_list	                    // For debugging and VV
 	var/datum/ore_distribution/asteroid_ore_map // For debugging and VV.
 
-	var/global/datum/garbage_collector/garbageCollector
-
 datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
@@ -255,7 +253,7 @@ datum/controller/game_controller/proc/process()
 				// GC
 				timer = world.timeofday
 				last_thing_processed = garbageCollector.type
-				garbageCollector.process()
+				garbageCollector.processGarbage()
 				garbageCollectorCost = (world.timeofday - timer) / 10
 
 				//TIMING

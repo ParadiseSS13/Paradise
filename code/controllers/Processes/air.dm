@@ -15,9 +15,17 @@ var/global/datum/controller/process/air_system/air_master
 	var/failed_ticks = 0
 	var/tick_progress = 0
 
+	// Stats
+	var/last_active = 0
+	var/last_excited = 0
+	var/last_hpd = 0
+	var/last_hotspots = 0
+	var/last_asc = 0
+
 /datum/controller/process/air_system/setup()
 	name = "air"
 	schedule_interval = 20 // every 2 seconds
+	start_delay = 4
 	air_master = src
 
 	world << "<span class='danger'>Processing Geometry...</span>"
@@ -32,30 +40,41 @@ var/global/datum/controller/process/air_system/air_master
 	current_cycle++
 	process_active_turfs()
 	process_excited_groups()
-	scheck()
 	process_high_pressure_delta()
 	process_hotspots()
 	process_super_conductivity()
-	scheck()
 	return 1
 
+/datum/controller/process/air_system/statProcess()
+	..()
+	stat(null, "[last_active] active")
+	stat(null, "[last_excited] EG|[last_hpd] HPD|[last_asc] ASC|[last_hotspots] Hot")
+
 /datum/controller/process/air_system/proc/process_hotspots()
+	last_hotspots = hotspots.len
 	for(var/obj/effect/hotspot/H in hotspots)
 		H.process()
+		scheck()
 
 /datum/controller/process/air_system/proc/process_super_conductivity()
+	last_asc = active_super_conductivity.len
 	for(var/turf/simulated/T in active_super_conductivity)
 		T.super_conduct()
+		scheck()
 
 /datum/controller/process/air_system/proc/process_high_pressure_delta()
+	last_hpd = high_pressure_delta.len
 	for(var/turf/T in high_pressure_delta)
 		T.high_pressure_movements()
 		T.pressure_difference = 0
-	high_pressure_delta.len = 0
+		scheck()
+	high_pressure_delta.Cut()
 
 /datum/controller/process/air_system/proc/process_active_turfs()
+	last_active = active_turfs.len
 	for(var/turf/simulated/T in active_turfs)
 		T.process_cell()
+		scheck()
 
 /datum/controller/process/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))
@@ -100,6 +119,7 @@ var/global/datum/controller/process/air_system/air_master
 						active_turfs |= T
 
 /datum/controller/process/air_system/proc/process_excited_groups()
+	last_excited = excited_groups.len
 	for(var/datum/excited_group/EG in excited_groups)
 		EG.breakdown_cooldown ++
 		if(EG.breakdown_cooldown == 10)
@@ -107,6 +127,7 @@ var/global/datum/controller/process/air_system/air_master
 			return
 		if(EG.breakdown_cooldown > 20)
 			EG.dismantle()
+		scheck()
 
 /datum/controller/process/air_system/proc/setup_overlays()
 	plmaster = new /obj/effect/overlay()

@@ -1,14 +1,10 @@
-var/global/datum/controller/process/lighting/lighting_controller
-
-/datum/controller/process/lighting/setup()
-	name = "lighting"
-	schedule_interval = LIGHTING_INTERVAL
-	lighting_controller = src
-
-	create_lighting_overlays()
+/datum/controller/process/lighting
+	var/last_light_count = 0
+	var/last_overlay_count = 0
 
 /datum/controller/process/lighting/doWork()
 	var/list/lighting_update_lights_old = lighting_update_lights //We use a different list so any additions to the update lists during a delay from scheck() don't cause things to be cut from the list without being updated.
+	last_light_count = lighting_update_lights.len
 	lighting_update_lights = list()
 
 	for(var/datum/light_source/L in lighting_update_lights_old)
@@ -22,6 +18,7 @@ var/global/datum/controller/process/lighting/lighting_controller
 		scheck()
 
 	var/list/lighting_update_overlays_old = lighting_update_overlays //Same as above.
+	last_overlay_count = lighting_update_overlays.len
 	lighting_update_overlays = list()
 
 	for(var/atom/movable/lighting_overlay/O in lighting_update_overlays_old)

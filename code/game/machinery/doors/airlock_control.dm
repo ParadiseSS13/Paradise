@@ -11,7 +11,8 @@ obj/machinery/door/airlock
 obj/machinery/door/airlock/process()
 	..()
 	if (arePowerSystemsOn())
-		execute_current_command()
+		spawn()
+			execute_current_command()
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if (!arePowerSystemsOn()) return //no power
