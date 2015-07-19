@@ -3,9 +3,8 @@
 #define X_SUIT_LAYER			2
 #define X_L_HAND_LAYER			3
 #define X_R_HAND_LAYER			4
-#define TARGETED_LAYER			5
-#define X_FIRE_LAYER			6
-#define X_TOTAL_LAYERS			6
+#define X_FIRE_LAYER			5
+#define X_TOTAL_LAYERS			5
 /////////////////////////////////
 
 /mob/living/carbon/alien/humanoid
@@ -152,21 +151,10 @@
 		overlays_standing[X_L_HAND_LAYER]	= null
 	if(update_icons)	update_icons()
 
-//Call when target overlay should be added/removed
-/mob/living/carbon/alien/humanoid/update_targeted(var/update_icons=1)
-	if (targeted_by && target_locked)
-		overlays_standing[TARGETED_LAYER]	= target_locked
-	else if (!targeted_by && target_locked)
-		qdel(target_locked)
-	if (!targeted_by)
-		overlays_standing[TARGETED_LAYER]	= null
-	if(update_icons)		update_icons()
-
 //Xeno Overlays Indexes//////////
 #undef X_HEAD_LAYER
 #undef X_SUIT_LAYER
 #undef X_L_HAND_LAYER
 #undef X_R_HAND_LAYER
-#undef TARGETED_LAYER
 #undef X_FIRE_LAYER
 #undef X_TOTAL_LAYERS

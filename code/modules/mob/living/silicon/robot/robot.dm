@@ -1064,14 +1064,6 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/updatefire()
 	return
 
-//Call when target overlay should be added/removed
-/mob/living/silicon/robot/update_targeted()
-	if(!targeted_by && target_locked)
-		qdel(target_locked)
-	updateicon()
-	if (targeted_by && target_locked)
-		overlays += target_locked
-
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
 		src << "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]"

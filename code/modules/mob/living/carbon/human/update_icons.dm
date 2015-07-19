@@ -72,7 +72,6 @@ There are several things that need to be remembered:
 		update_body()	//Handles updating your mob's icon to reflect their gender/race/complexion etc
 		update_hair()	//Handles updating your hair overlay (used to be update_face, but mouth and
 																			...eyes were merged into update_body)
-		update_targeted() // Updates the target overlay when someone points a gun at you
 
 >	All of these procs update our overlays_lying and overlays_standing, and then call update_icons() by default.
 	If you wish to update several overlays at once, you can set the argument to 0 to disable the update and call
@@ -127,9 +126,8 @@ Please contact me on #coderbus IRC. ~Carn x
 #define LEGCUFF_LAYER			20
 #define L_HAND_LAYER			21
 #define R_HAND_LAYER			22
-#define TARGETED_LAYER			23		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				24    //If you're on fire
-#define TOTAL_LAYERS			24
+#define FIRE_LAYER				23    //If you're on fire
+#define TOTAL_LAYERS			23
 
 
 
@@ -441,16 +439,6 @@ var/global/list/damage_icon_parts = list()
 
 	update_hair(0)
 	if(update_icons)   update_icons()
-
-//Call when target overlay should be added/removed
-/mob/living/carbon/human/update_targeted(var/update_icons=1)
-	if (targeted_by && target_locked)
-		overlays_standing[TARGETED_LAYER]	= target_locked
-	else if (!targeted_by && target_locked)
-		qdel(target_locked)
-	if (!targeted_by)
-		overlays_standing[TARGETED_LAYER]	= null
-	if(update_icons)		update_icons()
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
@@ -1007,6 +995,5 @@ var/global/list/damage_icon_parts = list()
 #undef LEGCUFF_LAYER
 #undef L_HAND_LAYER
 #undef R_HAND_LAYER
-#undef TARGETED_LAYER
 #undef FIRE_LAYER
 #undef TOTAL_LAYERS
