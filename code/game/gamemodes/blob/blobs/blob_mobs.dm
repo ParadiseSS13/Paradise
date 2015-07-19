@@ -106,7 +106,7 @@
 	if(overmind && overmind.blob_reagent_datum)
 		reagents.add_reagent(overmind.blob_reagent_datum.id, 25)
 	else
-		reagents.add_reagent("spore", 25)
+		reagents.add_reagent("spores", 25)
 
 	// Attach the smoke spreader and setup/start it.
 	S.attach(location)
