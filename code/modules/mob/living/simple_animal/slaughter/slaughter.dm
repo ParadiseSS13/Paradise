@@ -1,12 +1,3 @@
-///The following mini-antag was coded by 	KorPhaeron   for TG Station
-//Credits: Concept: KorPhaeron, Sprite:Ausops, Sounds:Cuboos
-///Ported for paradise by Aurorablade/Fethas
-///Things added for port:
-//Various tweeks
-//Blood...
-/// Made the message tell you waht the demon is sinking into(gibs/blood etc)
-///Alot of blood...Alot..Of blood..
-
 //////////////////The Monster
 
 /mob/living/simple_animal/slaughter
@@ -27,20 +18,21 @@
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	min_oxy = 0
-	max_oxy = 0
+	max_oxy = INFINITY
 	min_tox = 0
-	max_tox = 0
+	max_tox = INFINITY
 	min_co2 = 0
-	max_co2 = 0
+	max_co2 = INFINITY
 	min_n2  = 0
-	max_n2  = 0
+	max_n2  = INFINITY
 	minbodytemp = 0
+	maxbodytemp = INFINITY
 	faction = list("slaughter")
 	attacktext = "wildly tears into"
 	maxHealth = 250
 	health = 250
 	environment_smash = 1
-	universal_understand = 1
+	//universal_understand = 1
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
@@ -93,10 +85,9 @@
 	visible_message("<span class='danger'>The [src] screams in anger as its form collapes into a pool of viscera.</span>")
 	ghostize()
 	qdel(src)
-	return
 
-
-
+/mob/living/simple_animal/slaughter/say(message)
+	return 0
 ////////////////////The Powers
 
 /mob/living/simple_animal/slaughter/proc/phaseout(var/obj/effect/decal/cleanable/B)
@@ -124,10 +115,10 @@
 				if(istype(src.pulling, /mob/living/))
 					var/mob/living/victim = src.pulling
 					if(victim.stat == CONSCIOUS)
-						src.visible_message("[victim] kicks free of the [src] at the last second!")
+						src.visible_message("[victim] kicks free of \the [src] at the last second!")
 					else
 						victim.loc = holder///holder
-						src.visible_message("<span class='danger'><B>The [src] drags [victim] into [B]!</B></span>")
+						src.visible_message("<span class='danger'><B>\The [src] drags [victim] into [B]!</B></span>")
 						src.kidnapped = victim
 			flick("jaunt",animation)
 			src.loc = holder
@@ -161,12 +152,13 @@
 				if (src.devoured == 5)
 					src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/goreThrow
 					src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/bloodSac
-					src << "<span class='notice'> You have consumed enough to be able to summon Excess Gore."
+					src << "<span class='notice'> You have consumed enough to be able to summon Excess Gore.</span>"
 			src.notransform = 0
 			if(!(src.eating))
 				new /obj/effect/gibspawner/human(get_turf(src))///Somewhere a janitor weeps..
 				sleep(6)
-				qdel(animation)
+				if(animation)
+					qdel(animation)
 
 /mob/living/simple_animal/slaughter/proc/phasein(var/obj/effect/decal/cleanable/B)
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
@@ -189,12 +181,14 @@
 		if (prob(25))
 			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 			playsound(get_turf(src), pick(voice),50, 1, -1)
-		src.visible_message("<span class='danger'><B>The [src] rises out of [B]!</B></span>")
+		src.visible_message("<span class='danger'><B>\The [src] rises out of [B]!</B></span>")
 		new /obj/effect/gibspawner/human(get_turf(src))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 		sleep(6)
-		qdel(src.holder)
-		qdel(animation)
+		if(src.holder)
+			qdel(src.holder)
+		if(animation)
+			qdel(animation)
 
 /obj/effect/decal/cleanable/blood/CtrlClick(var/mob/user)
 	..()
@@ -238,7 +232,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
-	invisibility = INVISIBILITY_OBSERVER
+	//invisibility = INVISIBILITY_OBSERVER
 
 /obj/effect/dummy/slaughter/relaymove(var/mob/user, direction)
 	if (!src.canmove || !direction) return
@@ -268,7 +262,7 @@
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in living_mob_list)
-		if(C.stat != 2 && C.mind)
+		if(C.stat != 2 && C.client && C.stat != DEAD)
 			choices += C
 
 	var/mob/living/carbon/M = input(src,"Who do you wish to talk to?") in null|choices
@@ -301,7 +295,7 @@
 					paranoia.DoEffectPulse()
 				var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
 				portal.apply_damage(rand(5, 10), BRUTE, targetPart)
-				portal << "\red The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out."
+				portal << "<span class='notice'>\The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out.</span>"
 				var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(portal.loc)
 				aniBlood.target_turf = pick(range(1, src))
 				aniBlood.blood_DNA = list()
@@ -309,7 +303,7 @@
 				portal.vessel.remove_reagent("blood",rand(25,50))
 			cooldown = world.time
 	else
-		usr << "<span class='info'>You cannot Exsanguinate mortals yet!"
+		usr << "<span class='info'>You cannot Exsanguinate mortals yet!</span>"
 
 /mob/living/simple_animal/slaughter/proc/goreThrow(mob/target as mob in oview())
 	set name = "Gore Throw"

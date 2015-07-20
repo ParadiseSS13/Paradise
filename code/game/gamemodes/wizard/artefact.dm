@@ -118,143 +118,82 @@
 	force = 15
 	throwforce = 10
 	w_class = 3
-	var/charged = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/charged = 1
+	var/spawn_type = /obj/singularity/narsie/wizard
+	var/spawn_amt = 1
+	var/activate_descriptor = "reality"
+	var/rend_desc = "You should run now."
+
+/obj/item/weapon/veilrender/attack_self(mob/user as mob)
+	if(charged)
+		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
+		charged = 0
+		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
+	else
+		user << "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>"
+
 
 /obj/effect/rend
 	name = "tear in the fabric of reality"
-	desc = "You should run now"
+	desc = "You should run now."
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = 1
 	unacidable = 1
 	anchored = 1.0
+	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
+	var/spawn_amt_left = 20
 
-/obj/effect/rend/New()
-	spawn(50)
-		new /obj/singularity/narsie/wizard(get_turf(src))
+/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+	..()
+	src.spawn_path = spawn_type
+	src.spawn_amt_left = spawn_amt
+	src.desc = desc
+
+	processing_objects.Add(src)
+	//return
+
+/obj/effect/rend/process()
+	for(var/mob/M in loc)
+		return
+	new spawn_path(loc)
+	spawn_amt_left--
+	if(spawn_amt_left <= 0)
+		qdel(src)
+
+/obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
+	if(istype(I, /obj/item/weapon/nullrod))
+		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
 		qdel(src)
 		return
-	return
-
-/obj/item/weapon/veilrender/attack_self(mob/user as mob)
-	if(charged == 1)
-		new /obj/effect/rend(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
-	else
-		user << "\red The unearthly energies that powered the blade are now dormant."
-
-
+	..()
 
 /obj/item/weapon/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
+	spawn_type = /mob/living/simple_animal/cow
+	spawn_amt = 20
+	activate_descriptor = "hunger"
+	rend_desc = "Reverberates with the sound of ten thousand moos."
 
-/obj/item/weapon/veilrender/vealrender/attack_self(mob/user as mob)
-	if(charged)
-		new /obj/effect/rend/cow(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to hunger itself!</B>")
-	else
-		user << "\red The unearthly energies that powered the blade are now dormant."
-
-/obj/effect/rend/cow
-	desc = "Reverberates with the sound of ten thousand moos."
-	var/cowsleft = 20
-
-/obj/effect/rend/cow/New()
-	processing_objects.Add(src)
-	return
-
-/obj/effect/rend/cow/process()
-	if(locate(/mob) in loc) return
-	new /mob/living/simple_animal/cow(loc)
-	cowsleft--
-	if(cowsleft <= 0)
-		qdel(src)
-
-/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/nullrod))
-		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
-		spawn(1)
-			qdel(src)
-		return
-	..()
-//Why did i add this....-Fethas
-/obj/item/weapon/veilrender/honkrender //HONK!!
+/obj/item/weapon/veilrender/honkrender
 	name = "honk render"
-	desc = "A wicked curved 'blade' of honk origin, recovered from the ruins of a vast circus."
+	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast circus."
+	spawn_type = /mob/living/simple_animal/hostile/retaliate/clown
+	spawn_amt = 10
+	activate_descriptor = "depression"
+	rend_desc = "Gently wafting with the sounds of endless laughter."
 	icon_state = "clownrender"
 
-/obj/item/weapon/veilrender/honkrender/attack_self(mob/user as mob)
-	if(charged)
-		new /obj/effect/rend/honk(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to depression itself!</B>")
-		playsound(get_turf(usr),"sound/items/bikehorn.ogg",50,10,1)
-	else
-		user << "\red The honk energies that powered the blade are now dormant."
 
-/obj/effect/rend/honk
-	desc = "Gently wafting with the sounds of endless laughter."
-	var/honkleft = 10
-
-/obj/effect/rend/honk/New()
-	processing_objects.Add(src)
-	return
-
-/obj/effect/rend/honk/process()
-	if(locate(/mob) in loc) return
-	new /mob/living/simple_animal/hostile/retaliate/clown(loc)
-	honkleft--
-	if(honkleft <= 0)
-		del src
-
-/obj/effect/rend/honk/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/nullrod))
-		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
-		spawn(1)
-			del src
-		return
-	..()
-
-/obj/item/weapon/veilrender/crabrender //HONK!!
+/obj/item/weapon/veilrender/crabrender
 	name = "crab render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
-
-
-/obj/item/weapon/veilrender/crabrender/attack_self(mob/user as mob)
-	if(charged)
-		new /obj/effect/rend/crab(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
-	else
-		user << "\red The energies that powered the blade are now dormant."
-
-/obj/effect/rend/crab
-	desc = "Gently wafting with the sounds of endless clacking."
-	var/crableft = 10
-
-/obj/effect/rend/crab/New()
-	processing_objects.Add(src)
-	return
-
-/obj/effect/rend/crab/process()
-	if(locate(/mob) in loc) return
-	new /mob/living/simple_animal/crab(loc)
-	crableft--
-	if(crableft <= 0)
-		del src
-
-///obj/effect/rend/crab/attackby(obj/item/I as obj, mob/user as mob, params)
-//	if(istype(I, /obj/item/weapon/nullrod))
-//		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
-//		spawn(1)
-//			del src
-//		return
-//	..()
-
+	spawn_type = /mob/living/simple_animal/crab
+	spawn_amt = 10
+	activate_descriptor = "sea life"
+	rend_desc = "Gently wafting with the sounds of endless clacking."
 
 /////////////////////////////////////////Scrying///////////////////
 
@@ -272,5 +211,5 @@
 
 /obj/item/weapon/scrying/attack_self(mob/user as mob)
 	user << "\blue You can see...everything!"
-	visible_message("\red <B>[usr] stares into [src], their eyes glazing over.</B>")
+	visible_message("\red <B>[user] stares into [src], their eyes glazing over.</B>")
 	user.ghostize(1)

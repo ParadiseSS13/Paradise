@@ -95,7 +95,6 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
-	invisibility = INVISIBILITY_OBSERVER
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow

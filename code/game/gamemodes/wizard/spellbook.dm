@@ -267,7 +267,7 @@
 			user << "\blue The walls suddenly disappear."
 	return 1
 
-/datum/spellbook_entry/item/scryingorb/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
+/datum/spellbook_entry/item/bloodbottle/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	return ..() && !limit
 
 /datum/spellbook_entry/item/soulstones

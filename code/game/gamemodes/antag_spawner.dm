@@ -81,7 +81,7 @@
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
 	//var/list/demon_candidates = get_candidates(BE_ALIEN)
-	if(user.z != 1)
+	if(user.z != ZLEVEL_STATION)//this is to make sure the wizard does NOT summon a demon from the Den..
 		user << "<span class='notice'>You should probably wait until you reach the station.</span>"
 		return
 	if(!checking)
@@ -108,7 +108,7 @@
 				possiblecandidates -= demon_candidates
 				used = 1
 				checking = 0
-				spawn_antag(demon_candidates, get_turf(src.loc), "Slaughter Demon")
+				spawn_antag(demon_candidates, get_turf(src.loc), "Slaughter Demon",user)
 				user << "<span class='notice'>You shatter the bottle, no turning back now!</span>"
 				user << "<span class='notice'>You sense a dark presence lurking just beyond the veil...</span>"
 				playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
@@ -126,24 +126,25 @@
 			return
 
 
-/obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "")
+/obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "", mob/user as mob)
 
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
 	S.vialspawned = TRUE
 	S.phased = TRUE
 	S.key = C.key
-	S.mind.assigned_role = "Slaughter Demon"
-	S.mind.special_role = "Slaughter Demon"
-	ticker.mode.traitors += S.mind
-	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = S:mind
-	KillDaWiz:target = usr:mind
-	KillDaWiz.explanation_text = "Kill [usr.real_name], the one who was foolish enough to summon you."
-	S.mind.objectives += KillDaWiz
-	var/datum/objective/slaughter/objective = new
-	objective.owner = S:mind
-	//Paradise port:i changed ther verbage..might want to do so on the above kill objective. Maybe save the wizard for last...
-	S.mind.objectives += objective
-	S << "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]"
-	S << "<B>Objective #[2]</B>: [objective.explanation_text]"
+	if(S.mind)
+		S.mind.assigned_role = "Slaughter Demon"
+		S.mind.special_role = "Slaughter Demon"
+		ticker.mode.traitors += S.mind
+		var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+		KillDaWiz.owner = S.mind
+		KillDaWiz.target = user.mind
+		KillDaWiz.explanation_text = "Kill [user.real_name], the one who was foolish enough to summon you."
+		S.mind.objectives += KillDaWiz
+		var/datum/objective/slaughter/objective = new
+		objective.owner = S.mind
+		//Paradise port:i changed ther verbage..might want to do so on the above kill objective. Maybe save the wizard for last...
+		S.mind.objectives += objective
+		S << "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]"
+		S << "<B>Objective #[2]</B>: [objective.explanation_text]"

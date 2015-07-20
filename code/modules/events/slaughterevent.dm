@@ -67,4 +67,3 @@
 			return 0
 		message_admins("Unfortunately, no candidates were available for becoming a Slaugter Demon. Shutting down.")
 	kill()
-	return
