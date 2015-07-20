@@ -166,7 +166,6 @@ AI MODULES
 	targetName = targName
 	laws[1] = "Only [targetName] is crew"
 	desc = "A 'one crew' AI module: '[laws[1]]'"
-	removeownlaw = list(2,3,4,5)
 
 /obj/item/weapon/aiModule/zeroth/oneHuman/install(var/mob/living/silicon/S,var/mob/user)
 	if(!targetName)
