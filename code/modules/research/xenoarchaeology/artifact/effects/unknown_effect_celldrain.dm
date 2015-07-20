@@ -5,12 +5,15 @@
 	effect_type = 3
 
 /datum/artifact_effect/celldrain/DoEffectTouch(var/mob/user)
+	var/already_known = 0
 	if(user)
 		if(istype(user, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/R = user
 			for (var/obj/item/weapon/stock_parts/cell/D in R.contents)
 				D.charge = max(D.charge - rand() * 100, 0)
-				R << "\blue SYSTEM ALERT: Energy drain detected!"
+				if(!already_known)
+					R << "\blue SYSTEM ALERT: Energy drain detected!"
+					already_known = 1
 			return 1
 
 		return 1
