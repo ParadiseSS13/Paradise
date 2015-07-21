@@ -104,9 +104,5 @@
 	var/turf/T = loc
 	if(istype(T))
 		T.lighting_overlay = null
-		for(var/datum/light_source/D in T.affecting_lights) //Remove references to us on the light sources affecting us.
-			D.effect_r -= src
-			D.effect_g -= src
-			D.effect_b -= src
 
 	return ..()
