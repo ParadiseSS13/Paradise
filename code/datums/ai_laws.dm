@@ -1,6 +1,7 @@
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/zeroth = null
+	var/zeroth_type = null // In order to override zeroth laws
 	var/zeroth_borg = null
 	var/list/inherent = list()
 	var/list/supplied = list()
@@ -152,8 +153,9 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 
 /* General ai_law functions */
 
-/datum/ai_laws/proc/set_zeroth_law(var/law, var/law_borg = null)
+/datum/ai_laws/proc/set_zeroth_law(var/law, var/law_borg = null, law_type)
 	src.zeroth = law
+	src.zeroth_type = law_type
 	if(law_borg) //Making it possible for slaved borgs to see a different law 0 than their AI. --NEO
 		src.zeroth_borg = law_borg
 
@@ -182,6 +184,7 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 
 /datum/ai_laws/proc/clear_zeroth_law(var/law_borg = null)
 	src.zeroth = null
+	src.zeroth_type = null
 	if(law_borg)
 		src.zeroth_borg = null
 
