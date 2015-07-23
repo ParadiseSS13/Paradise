@@ -2982,6 +2982,74 @@
 				Secrets(usr)
 				return 1
 
+	/*
+
+		STATION-BUSE PANEL
+
+	*/
+
+	if(href_list["stationPanel"])
+
+		var/stpsignoff = "<font color='#5522cc'>(stationPanel)</font>" //shortener, instead of including a signoff in every msg_admins, just uses a var
+
+		switch(href_list["stationPanel"])
+			//DOOR SUBSECTION
+			if("lockdoors")
+				//BOLTING DOORS CODE
+
+				var/check = alert(usr,"Are you sure you want to bolt every door on the station?", "Confirmation", "Yes", "No")
+				if(check == "No")	return
+
+				message_admins("[key_name(usr)] has bolted every door on-station. [stpsignoff]")
+				log_admin("[key_name(usr)] has bolted every door on-station. (stationPanel)")
+
+				for(var/obj/machinery/door/airlock/AL in airlocks)
+					if(AL.z == ZLEVEL_STATION)
+						AL.lock(1)
+
+				//BOLTING DOORS CODE END
+
+
+			if("opendoors")
+				//OPENING ALL DOORS CODE
+
+				var/check = alert(usr,"Are you sure you want to unbolt & open every door on the station, including external airlocks?", "Confirmation: Dangerous", "Yes", "No")
+				if(check == "No")	return
+
+				message_admins("[key_name(usr)] has unbolted, opened, and disabled autoclose for every door on-station, including external airlocks. [stpsignoff]")
+				log_admin("[key_name(usr)] has unbolted, opened, and disabled autoclose for every door on-station, including external airlocks. (stationPanel)")
+
+				for(var/obj/machinery/door/airlock/AL in airlocks)
+					if(AL.z == ZLEVEL_STATION)
+						spawn(-1) //airlocks have a tendency to sometimes sleep in these procs, spamming threads ensures they all open around the same time as intended
+							AL.unlock(1)
+							AL.autoclose = 0
+							AL.open()
+
+				//OPENING ALL DOORS CODE END
+			//END DOOR SUBSECTION
+
+			//ALARM SUBSECTION
+			if("firedrill")
+
+				var/check = alert(usr, "Are you sure you want to trigger every fire alarm on the station?", "Confirmation", "Yes", "No")
+				if(check == "No")	return
+
+				message_admins("[key_name(usr)] has triggered every fire-alarm on-station. [stpsignoff]")
+				log_admin("[key_name(usr)] has triggered every fire alarm on-station. (stationPanel)")
+
+				for(var/obj/machinery/firealarm/FA in world) //in world is heresy, but in machines wasn't working
+					if(FA.z == ZLEVEL_STATION)
+						spawn(-1)
+							FA.alarm()
+
+
+	/*
+
+		END STATION-BUSE PANEL
+
+	*/
+
 /proc/admin_jump_link(var/atom/target, var/source)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
