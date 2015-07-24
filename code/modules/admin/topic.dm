@@ -2994,11 +2994,13 @@
 
 		switch(href_list["stationPanel"])
 			//DOOR SUBSECTION
+
+			//BOLTING SUB-SUBSECTION
 			if("lockdoors")
 				//BOLTING DOORS CODE
 
 				var/check = alert(usr,"Are you sure you want to bolt every door on the station?", "Confirmation", "Yes", "No")
-				if(check == "No")	return
+				if(check != "Yes")	return
 
 				message_admins("[key_name(usr)] has bolted every door on-station. [stpsignoff]")
 				log_admin("[key_name(usr)] has bolted every door on-station. (stationPanel)")
@@ -3009,12 +3011,27 @@
 
 				//BOLTING DOORS CODE END
 
+			if("unlockdoors") //SISTER TO LOCKDOORS
+				//UNLOCKING DOORS CODE
 
+				var/check = alert(usr,"Are you sure you want to <b>un</b>-bolt every door on the station?", "Confirmation", "Yes", "No")
+				if(check != "Yes")	return
+
+				message_admins("[key_name(usr)] has <b>un</b>-bolted every door on-station. [stpsignoff]")
+				log_admin("[key_name(usr)] has un-bolted every door on-station. (stationPanel)")
+
+				for(var/obj/machinery/door/airlock/AL in airlocks)
+					if(AL.z == ZLEVEL_STATION)
+						spawn(-1)
+							AL.unlock(1)
+			//END BOLTING SUB-SUBSECTION
+
+			//OPENCLOSE SUB-SUBSECTION
 			if("opendoors")
 				//OPENING ALL DOORS CODE
 
 				var/check = alert(usr,"Are you sure you want to unbolt & open every door on the station, including external airlocks?", "Confirmation: Dangerous", "Yes", "No")
-				if(check == "No")	return
+				if(check != "Yes")	return
 
 				message_admins("[key_name(usr)] has unbolted, opened, and disabled autoclose for every door on-station, including external airlocks. [stpsignoff]")
 				log_admin("[key_name(usr)] has unbolted, opened, and disabled autoclose for every door on-station, including external airlocks. (stationPanel)")
@@ -3025,15 +3042,32 @@
 							AL.unlock(1)
 							AL.autoclose = 0
 							AL.open()
-
 				//OPENING ALL DOORS CODE END
+
+			if("closedoors") //SISTER TO OPENDOORS
+				//CLOSING ALL DOORS CODE
+
+				var/check = alert(usr, "Are you sure you want to close every door on the station, and re-enable automatic closing?", "Confirmation", "Yes", "No")
+				if(check != "Yes")	return
+
+				message_admins("[key_name(usr)] has closed every door on-station, and re-enabled autoclose. [stpsignoff]")
+				log_admin("[key_name(usr)] has closed every door on-station, and re-enabled autoclose. (stationPanel)")
+
+				for(var/obj/machinery/door/airlock/AL in airlocks)
+					if(AL.z == ZLEVEL_STATION)
+						spawn(-1)
+							AL.autoclose = 1
+							AL.close()
+				//CLOSING ALL DOORS CODE END
+			//END OPENCLOSE SUB-SUBSECTION
+
 			//END DOOR SUBSECTION
 
 			//ALARM SUBSECTION
 			if("firedrill")
 
 				var/check = alert(usr, "Are you sure you want to trigger every fire alarm on the station?", "Confirmation", "Yes", "No")
-				if(check == "No")	return
+				if(check != "Yes")	return
 
 				message_admins("[key_name(usr)] has triggered every fire-alarm on-station. [stpsignoff]")
 				log_admin("[key_name(usr)] has triggered every fire alarm on-station. (stationPanel)")
@@ -3043,6 +3077,19 @@
 						spawn(-1)
 							FA.alarm()
 
+			if("stopfiredrill")
+
+				var/check = alert(usr, "Are you sure you want to reset every fire alarm on the station?", "Confirmation", "Yes", "No")
+				if(check != "Yes")	return
+
+				message_admins("[key_name(usr)] has reset every fire-alarm on-station. [stpsignoff]")
+				log_admin("[key_name(usr)] has reset every fire alarm on-station. (stationPanel)")
+
+
+				for(var/obj/machinery/firealarm/FA in world)
+					if(FA.z == ZLEVEL_STATION)
+						spawn(-1)
+							FA.reset()
 
 	/*
 

@@ -19,11 +19,15 @@ This is an admin verb specifically for station-wide effects.
 	var/dat = "<center>"
 
 	//DOORS
-	dat += "<p><b>Doors:</b> <a href='?src=\ref[src];stationPanel=lockdoors'>Bolt all doors on station-Z.</a>"
-	dat += "[TAB][TAB]<a href='?src=\ref[src];stationPanel=opendoors'>Open all doors on station-Z.</a></p>"
+	dat += "<p><b>Doors:</b> "
+	dat += "<a href='?src=\ref[src];stationPanel=lockdoors'>Bolt all doors on station-Z.</a>"
+	dat += "[TAB]<a href='?src=\ref[src];stationPanel=unlockdoors'>Unbolt all doors on station-Z</a></br>"
+	dat += "[TAB]<a href='?src=\ref[src];stationPanel=opendoors'>Open all doors on station-Z.</a>"
+	dat += "[TAB]<a href='?src=\ref[src];stationPanel=closedoors'>Close all doors on station-Z.</a></p>"
 
 	//ALARMS
-	dat += "<p><b>Alarm:</b> <a href='?src=\ref[src];stationPanel=firedrill'>Start a fire drill (Turn on all fire-alarms).</a></p>"
+	dat += "<p><b>Alarm:</b> <a href='?src=\ref[src];stationPanel=firedrill'>Start a fire drill (Turn on all fire-alarms).</a>"
+	dat += "[TAB]<a href='?src=\ref[src];stationPanel=stopfiredrill'>Reset every fire alarm</a></p>"
 
 	dat += "</center>"
 
