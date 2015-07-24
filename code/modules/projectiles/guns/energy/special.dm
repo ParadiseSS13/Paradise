@@ -307,6 +307,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	charge_cost = 250
 	fire_delay = 10
 	icon_override = 'icons/mob/in-hand/guns.dmi'
+	can_charge = 0
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
 	..()
