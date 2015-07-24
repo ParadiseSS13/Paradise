@@ -127,33 +127,34 @@
 		lum_g = 1
 		lum_b = 1
 
-/datum/light_source/proc/falloff(atom/movable/lighting_overlay/O)
-  #if LIGHTING_FALLOFF == 1 // circular
-	. = (O.x - source_turf.x)**2 + (O.y - source_turf.y)**2 + LIGHTING_HEIGHT
-
-   #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(sqrt(.) / max(1,light_range))) * (1 / (sqrt(. + 1))))
-   #else
-	. = 1 - CLAMP01(sqrt(.) / max(1,light_range))
-   #endif
-
-  #elif LIGHTING_FALLOFF == 2 // square
-	. = abs(O.x - source_turf.x) + abs(O.y - source_turf.y) + LIGHTING_HEIGHT
-
-   #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(. / max(1,light_range))) * (1 / (sqrt(.)**2 + )))
-   #else
-	. = 1 - CLAMP01(. / max(1,light_range))
-   #endif
+#if LIGHTING_FALLOFF == 1 //circular
+  #define LUM_DISTANCE(swapvar, O, T) swapvar = (O.x - T.x)**2 + (O.y - T.y)**2 + LIGHTING_HEIGHT
+  #if LIGHTING_LAMBERTIAN == 1
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / light_range)) * (1 / sqrt(swapvar + 1)))
+  #else
+    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / light_range)
   #endif
+#elif LIGHTING_FALLOFF == 2 //square
+  #define LUM_DISTANCE(swapvar, O, T) swapvar = abs(O.x - T.x) + abs(O.y - T.y) + LIGHTING_HEIGHT
+  #if LIGHTING_LAMBERTIAN == 1
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / light_range)) * (1 / sqrt(swapvar**2 + 1)))
+  #else
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / light_range)
+  #endif
+#endif
+
+#define LUM_FALLOFF(swapvar, O, T) \
+  LUM_DISTANCE(swapvar, O, T); \
+  LUM_ATTENUATION(swapvar);
 
 /datum/light_source/proc/apply_lum()
 	applied = 1
 	if(istype(source_turf))
-		for(var/turf/T in dview(light_range, source_turf, INVISIBILITY_LIGHTING))
+		FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
 			if(T.lighting_overlay)
-
-				var/strength = light_power * falloff(T.lighting_overlay)
+				var/strength
+				LUM_FALLOFF(strength, T, source_turf)
+				strength *= light_power
 
 				if(!strength) //Don't add turfs that aren't affected to the affected turfs.
 					continue
@@ -198,7 +199,7 @@
 //Stupid dumb copy pasta because BYOND and speed.
 /datum/light_source/proc/smart_vis_update()
 	var/list/view[0]
-	for(var/turf/T in dview(light_range, source_turf, INVISIBILITY_LIGHTING))
+	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
 		view += T	//Filter out turfs.
 
 	//This is the part where we calculate new turfs (if any)
@@ -206,7 +207,9 @@
 	for(var/turf/T in new_turfs)
 		//Big huge copy paste from apply_lum() incoming because screw unreadable defines and screw proc call overhead.
 		if(T.lighting_overlay)
-			. = light_power * falloff(T.lighting_overlay)
+			LUM_FALLOFF(., T, source_turf)
+			. *= light_power
+
 			if(!.) //Don't add turfs that aren't affected to the affected turfs.
 				continue
 
@@ -242,3 +245,7 @@
 
 		effect_turf.Cut(idx, idx + 1)
 		effect_str.Cut(idx, idx + 1)
+
+#undef LUM_FALLOFF
+#undef LUM_DISTANCE
+#undef LUM_ATTENUATION
