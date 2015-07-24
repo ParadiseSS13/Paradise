@@ -117,7 +117,8 @@ rcd light flash thingy on matter drain
 	command_announcement.Announce("Hostile runtime detected in door controllers. Isolation Lockdown protocols are now in effect. Please remain calm.","Network Alert:", 'sound/misc/notice1.ogg')
 	src << "<span class = 'warning'>Lockdown Initiated. Network reset in 90 seconds.</span>"
 	spawn(900) //90 Seconds.
-		disablelockdown() //Reset the lockdown after 90 seconds.
+		if(src && src.stat != DEAD)
+			disablelockdown() //Reset the lockdown after 90 seconds.
 
 /mob/living/silicon/ai/proc/disablelockdown()
 	set category = "Malfunction"
