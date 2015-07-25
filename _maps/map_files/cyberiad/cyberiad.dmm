@@ -2703,7 +2703,7 @@
 "aZY" = (/turf/simulated/floor{tag = "icon-stage_stairs"; icon_state = "stage_stairs"},/area/hallway/primary/central/nw)
 "aZZ" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4},/turf/simulated/shuttle/plating,/area/medical/research{name = "Research Division"})
 "baa" = (/obj/machinery/computer/robotics,/turf/simulated/floor{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
-"bab" = (/obj/effect/spawner/window/reinforced,/obj/structure/sign/securearea{desc = "A warning sign which reads 'SERVER ROOM'."; name = "SERVER ROOM"; pixel_y = 32},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{tag = "icon-intact (WEST)"; icon_state = "intact"; dir = 8},/turf/simulated/floor/plating,/area/toxins/server)
+"bab" = (/obj/effect/spawner/window/reinforced,/obj/structure/sign/securearea{desc = "A warning sign which reads 'SERVER ROOM'."; name = "SERVER ROOM"; pixel_y = 32},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{tag = "icon-intact (WEST)"; icon_state = "intact"; dir = 8},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/toxins/server)
 "bac" = (/turf/simulated/wall/r_wall,/area/bridge)
 "bad" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/crew_quarters/hor)
 "bae" = (/obj/machinery/computer/mecha,/turf/simulated/floor{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/crew_quarters/hor)
