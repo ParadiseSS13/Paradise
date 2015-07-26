@@ -37,6 +37,7 @@
 	health = 100
 	min_broken_damage = 50
 	body_part = LOWER_TORSO
+	vital = 1
 	parent_organ = "chest"
 
 /obj/item/organ/external/diona/arm
@@ -117,6 +118,7 @@
 	health = 50
 	min_broken_damage = 25
 	body_part = HEAD
+	vital = 1
 	parent_organ = "chest"
 
 /obj/item/organ/external/diona/head/removed()
