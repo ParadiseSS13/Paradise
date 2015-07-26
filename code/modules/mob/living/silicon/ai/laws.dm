@@ -20,9 +20,9 @@
 	if (!src.laws)
 		make_laws()
 
-/mob/living/silicon/ai/proc/set_zeroth_law(var/law, var/law_borg)
+/mob/living/silicon/ai/proc/set_zeroth_law(var/law, var/law_borg, var/law_type)
 	src.laws_sanity_check()
-	src.laws.set_zeroth_law(law, law_borg)
+	src.laws.set_zeroth_law(law, law_borg, law_type)
 	
 /mob/living/silicon/ai/proc/clear_zeroth_law(var/law_borg)
 	src.laws_sanity_check()

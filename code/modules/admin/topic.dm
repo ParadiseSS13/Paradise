@@ -1646,6 +1646,32 @@
 		log_admin("[src.owner] replied to [key_name(H)]'s HONKplanet message with the message [input].")
 		H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your HONKbrothers.  Message as follows, HONK. [input].  Message ends, HONK.\""
 
+	else if(href_list["ErtReply"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+			var/mob/living/carbon/human/H = locate(href_list["ErtReply"])
+			if(!istype(H))
+				usr << "This can only be used on instances of type /mob/living/carbon/human"
+				return
+			if(H.stat != 0)
+				usr << "The person you are trying to contact is not conscious."
+				return
+			if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+				usr << "The person you are trying to contact is not wearing a headset"
+				return
+
+			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
+			if(!input)	return
+
+			src.owner << "You sent [input] to [H] via a secure channel."
+			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
+			H << "You hear something crackle in your headset for a moment before a voice speaks.  \"Your ERT request has been denied for the following reasons: [input].  Message ends.\""
+		else
+			src.owner.response_team()
+
+
 	else if(href_list["AdminFaxView"])
 		if(!check_rights(R_ADMIN))
 			return

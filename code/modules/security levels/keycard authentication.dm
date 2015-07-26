@@ -13,6 +13,7 @@
 	var/obj/machinery/keycard_auth/event_source
 	var/mob/event_triggered_by
 	var/mob/event_confirmed_by
+	var/ert_reason = "Reason for ERT"
 	//1 = select event
 	//2 = authenticate
 	anchored = 1.0
@@ -38,8 +39,8 @@
 					event_source.confirmed = 1
 					event_source.event_confirmed_by = usr
 			else if(screen == 2)
-				if(event == "Emergency Response Team" && !ert_chosen.len)
-					user << "<span class='notice'>Pick the Emergency Response Team type first!</span>"
+				if(event == "Emergency Response Team" && ert_reason == "Reason for ERT")
+					user << "<span class='notice'>Supply a reason for calling the ERT first!</span>"
 					return
 				event_triggered_by = usr
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
@@ -69,12 +70,7 @@
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
-	data["erttypes"] = list()
-	for(var/type in response_team_types)
-		var/active = 0
-		if((type in ert_chosen))
-			active = 1
-		data["erttypes"] += list(list("name" = type, "active" = active))
+	data["ertreason"] = ert_reason
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
@@ -92,17 +88,12 @@
 		usr << "This device is without power."
 		return
 	if(href_list["triggerevent"])
-		ert_chosen.Cut()
 		event = href_list["triggerevent"]
 		screen = 2
 	if(href_list["reset"])
 		reset()
 	if(href_list["ert"])
-		var/chosen = href_list["ert"]
-		if((chosen in response_team_types) && !(chosen in ert_chosen))
-			ert_chosen |= chosen
-		else
-			ert_chosen -= chosen
+		ert_reason = input(usr, "Reason for ERT Call:", "", "")
 
 	nanomanager.update_uis(src)
 	add_fingerprint(usr)
@@ -165,9 +156,13 @@
 				usr << "\red All Emergency Response Teams are dispatched and can not be called at this time."
 				return
 
-			response_team_chosen_types += ert_chosen
-			trigger_armed_response_team(1)
-			feedback_inc("alert_keycard_auth_ert",1)
+			usr << "<span class = 'notice'>ERT request transmitted.</span>"
+			if(admins.len)
+				ERT_Announce(ert_reason , event_triggered_by)
+				ert_reason = "Reason for ERT"
+				feedback_inc("alert_keycard_auth_ert",1)
+			else
+				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return ticker.mode && ticker.mode.ert_disabled

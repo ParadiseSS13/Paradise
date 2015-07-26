@@ -47,3 +47,11 @@
 	for(var/client/X in admins)
 		if(R_EVENT & X.holder.rights)
 			X << msg
+
+/proc/ERT_Announce(var/text , var/mob/Sender)
+	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
+	msg = "\blue <b><font color=orange>ERT REQUEST:</font>[key_name(Sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[Sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[Sender]'>SM</A>) ([admin_jump_link(Sender, "holder")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?_src_=holder;ErtReply=\ref[Sender]'>REPLY</A>):</b> [msg]"
+
+	for(var/client/X in admins)
+		if(R_EVENT & X.holder.rights)
+			X << msg
