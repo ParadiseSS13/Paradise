@@ -318,9 +318,6 @@
 			return
 
 	else
-		if(!isemptylist(search_contents_for(/obj/item/weapon/disk/nuclear)))
-			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
-			return
 		if(!isemptylist(search_contents_for(/obj/item/flag/nation)))
 			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
 			return
