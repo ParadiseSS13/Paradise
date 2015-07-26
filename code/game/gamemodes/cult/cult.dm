@@ -95,10 +95,6 @@
 					possible_targets += player.mind
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)
-		else
-			objectives -= "sacrifice"
-			objectives |= "survive"
-			objectives |= "eldergod"
 
 	for(var/datum/mind/cult_mind in cult)
 		equip_cultist(cult_mind.current)
