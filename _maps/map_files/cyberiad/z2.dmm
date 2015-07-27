@@ -901,7 +901,7 @@
 "rq" = (/turf/unsimulated/floor{icon = 'icons/turf/snow.dmi'; icon_state = "snow"},/obj/structure/flora/bush,/turf/unsimulated/floor{tag = "icon-gravsnow_corner (WEST)"; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow_corner"; dir = 8},/area/syndicate_mothership)
 "rr" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "rs" = (/obj/effect/landmark{name = "Nuclear-Bomb"},/obj/machinery/light/spot,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
-"rt" = (/obj/machinery/telecomms/allinone,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
+"rt" = (/obj/machinery/telecomms/allinone{intercept = 1},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "ru" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular,/obj/item/robot_parts/r_arm,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "rv" = (/obj/structure/closet/crate/internals,/obj/item/weapon/tank/oxygen/red,/obj/item/clothing/mask/gas,/obj/item/weapon/tank/oxygen/red,/obj/item/clothing/mask/gas,/obj/item/weapon/tank/oxygen/red,/obj/item/clothing/mask/gas,/obj/item/weapon/tank/oxygen/red,/obj/item/clothing/mask/gas,/obj/item/weapon/tank/oxygen/red,/obj/item/clothing/mask/gas,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
 "rw" = (/obj/structure/closet/crate/medical,/obj/item/weapon/surgicaldrill,/obj/item/weapon/scalpel,/obj/item/weapon/reagent_containers/glass/bottle/morphine,/obj/item/weapon/storage/box/beakers,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/syndicate_station/start)
