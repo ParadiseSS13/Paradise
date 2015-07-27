@@ -10,10 +10,17 @@
 
 
 /proc/is_convertable_to_cult(datum/mind/mind)
-	if(!istype(mind))	return 0
-	if(istype(mind.current, /mob/living/carbon/human) && (mind.assigned_role in list("Captain", "Chaplain")))	return 0
-	for(var/obj/item/weapon/implant/loyalty/L in mind.current)
-		if(L && (L.imp_in == mind.current))//Checks to see if the person contains an implant, then checks that the implant is actually inside of them
+	if(!mind)	
+		return 0
+	if(!mind.current)
+		return 0
+	if(iscultist(mind.current))	
+		return 1 //If they're already in the cult, assume they are convertable
+	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))	
+		return 0
+	if(ishuman(mind.current))
+		var/mob/living/carbon/human/H = mind.current
+		if(H.is_loyalty_implanted())
 			return 0
 	return 1
 
@@ -42,7 +49,7 @@
 
 	var/eldergod = 1 //for the summon god objective
 
-	var/const/acolytes_needed = 5 //for the survive objective
+	var/acolytes_needed = 4 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
 	var/const/min_cultists_to_start = 3
 	var/const/max_cultists_to_start = 4
 	var/acolytes_survived = 0
@@ -54,7 +61,7 @@
 
 
 /datum/game_mode/cult/pre_setup()
-	if(prob(50))
+	if(prob(50)) 
 		objectives += "survive"
 		objectives += "sacrifice"
 	else
@@ -79,14 +86,13 @@
 
 /datum/game_mode/cult/post_setup()
 	modePlayer += cult
+	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
 	if("sacrifice" in objectives)
 		var/list/possible_targets = get_unconvertables()
-
 		if(!possible_targets.len)
 			for(var/mob/living/carbon/human/player in player_list)
 				if(player.mind && !(player.mind in cult))
 					possible_targets += player.mind
-
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)
 
@@ -95,7 +101,7 @@
 		grant_runeword(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		cult_mind.current << "\blue You are a member of the cult!"
-		memoize_cult_objectives(cult_mind)
+		memorize_cult_objectives(cult_mind)
 		cult_mind.special_role = "Cultist"
 
 	spawn (rand(waittime_l, waittime_h))
@@ -103,7 +109,7 @@
 	..()
 
 
-/datum/game_mode/cult/proc/memoize_cult_objectives(var/datum/mind/cult_mind)
+/datum/game_mode/cult/proc/memorize_cult_objectives(var/datum/mind/cult_mind)
 	for(var/obj_count = 1,obj_count <= objectives.len,obj_count++)
 		var/explanation
 		switch(objectives[obj_count])
@@ -111,7 +117,7 @@
 				explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 			if("sacrifice")
 				if(sacrifice_target)
-					explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (Hell blood join) and three acolytes to do so."
+					explanation = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (hell blood join) and three acolytes to do so."
 				else
 					explanation = "Free objective."
 			if("eldergod")
@@ -189,7 +195,7 @@
 /datum/game_mode/cult/add_cultist(datum/mind/cult_mind) //INHERIT
 	if (!..(cult_mind))
 		return
-	memoize_cult_objectives(cult_mind)
+	memorize_cult_objectives(cult_mind)
 
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
@@ -327,7 +333,7 @@
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
-	for(var/mob/living/carbon/human/player in mob_list)
+	for(var/mob/living/carbon/human/player in player_list)
 		if(!is_convertable_to_cult(player.mind))
 			ucs += player.mind
 	return ucs
@@ -340,7 +346,7 @@
 	if(objectives.Find("eldergod"))
 		cult_fail += eldergod //1 by default, 0 if the elder god has been summoned at least once
 	if(objectives.Find("sacrifice"))
-		if(sacrifice_target && !sacrificed.Find(sacrifice_target)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
+		if(sacrifice_target && !(sacrifice_target in sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
 			cult_fail++
 
 	return cult_fail //if any objectives aren't met, failure
