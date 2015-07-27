@@ -28,14 +28,17 @@
 
 
 /obj/machinery/computer/operating/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
+	if(..(user))
 		return
+
+	if(stat & (NOPOWER|BROKEN)) 
+		return	
+		
 	interact(user)
 
 
 /obj/machinery/computer/operating/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) || (stat & (BROKEN|NOPOWER)) )
+	if ( ((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)) )
 		if (!istype(user, /mob/living/silicon))
 			user.unset_machine()
 			user << browse(null, "window=op")

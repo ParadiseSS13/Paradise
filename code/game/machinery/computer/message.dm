@@ -86,10 +86,10 @@
 			linkedServer = message_servers[1]
 	return
 
-/obj/machinery/computer/message_monitor/attack_hand(var/mob/living/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+/obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
+	if(..()) 
 		return
-	if(!istype(user))
+	if(stat & (NOPOWER|BROKEN)) 
 		return
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
@@ -276,12 +276,8 @@
 	customjob 		= "Admin"
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
-	if(..())
+	if(..(href, href_list))
 		return 1
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!istype(usr, /mob/living))
-		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		//Authenticate
 		if (href_list["auth"])

@@ -30,6 +30,9 @@
 	if(active)
 		toggle_power()
 	return ..()
+	
+/obj/machinery/particle_accelerator/control_box/attack_ghost(user as mob)
+	return src.attack_hand(user)
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
 	if(construction_state >= 3)
@@ -77,8 +80,8 @@
 	return
 
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
-	if(..())
-		return
+	if(..(href, href_list))
+		return 1
 
 	if(!interface_control)
 		usr << "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>"
@@ -231,7 +234,7 @@
 
 
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
 		if(!istype(user, /mob/living/silicon))
 			user.unset_machine()
 			user << browse(null, "window=pacontrol")

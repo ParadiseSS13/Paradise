@@ -262,16 +262,16 @@ var/shuttle_call/shuttle_calls[0]
 	if(..(user))
 		return
 
+	if(stat & (NOPOWER|BROKEN)) 
+		return	
+		
 	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
-
+		
 	ui_interact(user)
 
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	if(user.stat)
-		return
-
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["is_ai"] = issilicon(user)
