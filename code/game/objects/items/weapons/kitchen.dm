@@ -155,6 +155,7 @@
 	name = "combat knife"
 	force = 15.0
 	throwforce = 10.0
+	w_class = 2
 	origin_tech = "materials=2;combat=2"
 	desc = "A razor sharp knife, built from advanced alloys, designed for quick, melee killing. Also not half bad as a kitchen knife."
 	slot_flags = SLOT_BELT

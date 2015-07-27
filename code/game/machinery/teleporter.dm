@@ -21,6 +21,7 @@
 
 /obj/machinery/computer/teleporter/initialize()
 	link_power_station()
+	update_icon()
 
 /obj/machinery/computer/teleporter/Destroy()
 	if (power_station)

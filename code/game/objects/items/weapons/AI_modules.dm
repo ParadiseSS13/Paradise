@@ -106,18 +106,18 @@ AI MODULES
 
 /obj/item/weapon/aiModule/zeroth/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	if(target.laws.zeroth)
-		if(removeownlaw && (laws[1] == target.laws.zeroth))
+		if(removeownlaw && (src.type == target.laws.zeroth_type))
 			target.clear_zeroth_law()
-			return 2
+			return 1
 		else
 			target << "[sender.real_name] attempted to modify your zeroth law."
 			target << "It would be in your best interest to play along with [sender.real_name] that:"
 			for(var/failedlaw in laws)
 				target << "[failedlaw]"
-			return 1
+			return 2
 
 	for(var/templaw in laws)
-		target.set_zeroth_law(templaw)
+		target.set_zeroth_law(templaw, null, src.type)
 
 /obj/item/weapon/aiModule/ion/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	for(var/templaw in laws)
@@ -175,10 +175,11 @@ AI MODULES
 	..()
 
 /obj/item/weapon/aiModule/zeroth/oneHuman/transmitInstructions(var/mob/living/silicon/target, var/mob/sender)
-	if(..() == 1)
-		return "[targetName], but the AI's existing zeroth law cannot be overriden."
-	if(..() == 2)
+	var/result = ..()
+	if(result == 1)
 		return "The AI's zeroth law has been overridden."
+	if(result == 2)
+		return "[targetName], but the AI's existing zeroth law cannot be overriden."
 	return targetName
 
 
@@ -204,9 +205,9 @@ AI MODULES
 /obj/item/weapon/aiModule/zeroth/quarantine/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	var/result = ..()
 	if(result == 1)
-		return "The AI's existing zeroth law cannot be overriden."
-	if(result == 2)
 		return "The AI's zeroth law has been overridden."
+	if(result == 2)
+		return "The AI's existing zeroth law cannot be overriden."		
 	return laws[1]
 
 /******************** OxygenIsToxicToHumans ********************/

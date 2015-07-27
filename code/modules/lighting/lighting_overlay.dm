@@ -7,7 +7,6 @@
 	icon = LIGHTING_ICON
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
-	blend_mode = BLEND_MULTIPLY
 	color = "#000000"
 	icon_state = "light1"
 
@@ -62,34 +61,33 @@
 		lighting_update_overlays += src
 
 /atom/movable/lighting_overlay/proc/update_overlay()
-	var/mx = max(lum_r, lum_g, lum_b)
-	. = 1 // factor
-	if(mx > 1)
-		. = 1/mx
-	#if LIGHTING_TRANSITIONS == 1
-	animate(src,
-		color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .),
-		LIGHTING_TRANSITION_SPEED
-	)
-	#else
-	color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
-	#endif
-
 	var/turf/T = loc
 
 	if(istype(T)) //Incase we're not on a turf, pool ourselves, something happened.
-		if(color != "#000000")
-			T.luminosity = 1
-		else  //No light, set the turf's luminosity to 0 to remove it from view()
-			#if LIGHTING_TRANSITIONS == 1
-			spawn(LIGHTING_TRANSITION_SPEED)
+		if(lum_r == lum_g && lum_r == lum_b) //greyscale
+			blend_mode = BLEND_OVERLAY
+			if(lum_r <= 0)
 				T.luminosity = 0
-			#else
-			T.luminosity = 0
-			#endif
-
+				color = "#000000"
+				alpha = 255
+			else
+				T.luminosity = 1
+				color = "#000000"
+				alpha = (1 - min(lum_r, 1)) * 255
+		else
+			alpha = 255
+			var/mx = max(lum_r, lum_g, lum_b)
+			. = 1 // factor
+			if(mx > 1)
+				. = 1/mx
+			blend_mode = BLEND_MULTIPLY
+			color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
+			if(color != "#000000")
+				T.luminosity = 1
+			else  //No light, set the turf's luminosity to 0 to remove it from view()
+				T.luminosity = 0
 	else
-		warning("A lighting overlay realised it's loc was NOT a turf (actual loc: [loc], [loc.type]) in update_overlay() and got qdel'd!")
+		warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : ""]) in update_overlay() and got qdel'ed!")
 		qdel(src)
 
 /atom/movable/lighting_overlay/singularity_act()
@@ -104,9 +102,5 @@
 	var/turf/T = loc
 	if(istype(T))
 		T.lighting_overlay = null
-		for(var/datum/light_source/D in T.affecting_lights) //Remove references to us on the light sources affecting us.
-			D.effect_r -= src
-			D.effect_g -= src
-			D.effect_b -= src
 
 	return ..()

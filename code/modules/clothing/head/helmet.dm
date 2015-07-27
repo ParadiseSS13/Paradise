@@ -148,6 +148,7 @@ obj/item/clothing/head/blob
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
 	desc = "An in-atmosphere helmet worn by the commander of a NanoTrasen Emergency Response Team. Has blue highlights."
+	icon_state = "erthelmet_cmd"
 
 //Security
 /obj/item/clothing/head/helmet/ert/security

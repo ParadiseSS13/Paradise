@@ -106,31 +106,11 @@
 		if(destination_y)
 			A.y = destination_y
 
-		var/mob/living/MM = null
-		var/fukkendisk = A.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
 		var/obj/item/flag/nation/fukkenflag = A.GetTypeInAllContents(/obj/item/flag/nation)
 		if(fukkenflag)
 			fukkenflag.loc = fukkenflag.startloc
 			if(isliving(A))
 				A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
-		if(fukkendisk)
-			if(isliving(A))
-				MM = A
-				if(MM.client && !MM.stat)
-					MM << "<span class='warning'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
-					if(MM.x <= TRANSITIONEDGE)
-						MM.inertia_dir = 4
-					else if(MM.x >= world.maxx -TRANSITIONEDGE)
-						MM.inertia_dir = 8
-					else if(MM.y <= TRANSITIONEDGE)
-						MM.inertia_dir = 1
-					else if(MM.y >= world.maxy -TRANSITIONEDGE)
-						MM.inertia_dir = 2
-				else
-					qdel(fukkendisk)//Make the disk respawn if it is on a clientless mob or corpse
-			else
-				qdel(fukkendisk)//Make the disk respawn if it is floating on its own
-			return
 
 		A.z =  text2num(transition)
 
