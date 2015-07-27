@@ -11,6 +11,13 @@
 /obj/structure/table/proc/check_contents(datum/table_recipe/R)
 	check_table()
 	main_loop:
+		if(R.fruit)
+			for(var/A in R.fruit)
+				for(var/B in table_contents)
+					if(B == A)
+						if(table_contents[B] >= R.fruit[A])
+							continue main_loop
+					return 0
 		for(var/A in R.reqs)
 			for(var/B in table_contents)
 				if(ispath(B, A))
@@ -28,6 +35,10 @@
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
 			table_contents[I.type] += S.amount
+		else if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown))
+			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = I
+			if(G.seed && G.seed.kitchen_tag)
+				table_contents[G.seed.kitchen_tag] += 1
 		else
 			if(istype(I, /obj/item/weapon/reagent_containers))
 				var/obj/item/weapon/reagent_containers/RC = I
@@ -75,6 +86,7 @@
 						I.reagents = new /datum/reagents()
 					I.reagents.reagent_list.Add(A)
 			I.CheckParts()
+			R.AdjustChems(I)
 			return 1
 	return 0
 
@@ -84,6 +96,19 @@
 	var/reagenttransfer = 0
 	if(istype(resultobject,/obj/item/weapon/reagent_containers))
 		reagenttransfer = 1
+	if(R.fruit)
+		for(var/A in R.fruit)
+			amt = R.fruit[A]
+			fruit_loop:	//ha
+				for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in loc)
+					if(G.seed && G.seed.kitchen_tag && (G.seed.kitchen_tag == A))
+						amt--
+						G.loc = null	//remove it from the table loc so that we don't locate the same fruit every time
+						if(reagenttransfer)
+							G.reagents.trans_to(resultobject, G.reagents.total_volume)
+						qdel(G)
+					if(amt <= 0)
+						break fruit_loop
 	for(var/A in R.reqs)
 		amt = R.reqs[A]
 		if(ispath(A, /obj/item/stack))

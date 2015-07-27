@@ -1151,6 +1151,7 @@
 #include "code\modules\food\recipes_grill.dm"
 #include "code\modules\food\recipes_microwave.dm"
 #include "code\modules\food\recipes_oven.dm"
+#include "code\modules\food\recipes_table.dm"
 #include "code\modules\garbage collection\garbage_collector.dm"
 #include "code\modules\garbage collection\gc_testing.dm"
 #include "code\modules\genetics\side_effects.dm"
