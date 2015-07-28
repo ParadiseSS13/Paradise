@@ -54,7 +54,7 @@
 	var/wrenching = 0
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 	
-/obj/machinery/porta_turret/crescent
+/obj/machinery/porta_turret/centcom
 	enabled = 0
 	ailock = 1
 	check_synth	 = 0
@@ -81,7 +81,7 @@
 
 	setup()
 
-/obj/machinery/porta_turret/crescent/New()
+/obj/machinery/porta_turret/centcom/New()
 	..()
 	req_one_access = list()
 	req_access = list(access_cent_specops)
