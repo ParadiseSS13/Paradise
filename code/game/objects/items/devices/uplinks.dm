@@ -159,7 +159,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/hidden/New()
 	spawn(2)
 		if(!istype(src.loc, /obj/item))
-			del(src)
+			qdel(src)
 	..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
