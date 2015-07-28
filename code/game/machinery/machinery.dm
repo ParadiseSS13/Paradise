@@ -472,7 +472,7 @@ Class Procs:
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())
@@ -486,7 +486,13 @@ Class Procs:
 	var/obj/item/weapon/card/id/id = GetIdCard(perp)
 	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 2
+	// A proper	CentCom id is hard currency.
+	else if(id && istype(id, /obj/item/weapon/card/id/centcom))
+		threatcount -= 2
 
+	if(check_access && !allowed(perp))
+		threatcount += 4		
+		
 	if(auth_weapons && !src.allowed(perp))
 		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
 			threatcount += 4

@@ -189,13 +189,17 @@
 	..()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
+		set_light(0)
 	else if (enabled)
 		if (lethal)
 			icon_state = "control_kill"
+			set_light(1.5, 1,"#990000")
 		else
 			icon_state = "control_stun"
+			set_light(1.5, 1,"#FF9900")
 	else
 		icon_state = "control_standby"
+		set_light(1.5, 1,"#003300")
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)
