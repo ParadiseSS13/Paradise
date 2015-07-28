@@ -103,6 +103,9 @@
 		if("Scheduler")
 			debug_variables(processScheduler)
 			feedback_add_details("admin_verb","DprocessScheduler")
+		if("Nano")
+			debug_variables(nanomanager)
+			feedback_add_details("admin_verb","DNano")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
 	return

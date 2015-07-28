@@ -1910,11 +1910,11 @@ area/security/podbay
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/engipost
-	name = "\improper Abandoned Ship"
+	name = "\improper Engineering Outpost"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
-	name = "\improper Abandoned Ship"
+	name = "\improper NSS Cyberiad"
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
