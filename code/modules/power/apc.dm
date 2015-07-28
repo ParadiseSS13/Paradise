@@ -1308,15 +1308,16 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 
 // overload all the lights in this APC area
 
-/obj/machinery/power/apc/proc/overload_lighting()
+/obj/machinery/power/apc/proc/overload_lighting(var/chance = 100)
 	if(/* !get_connection() || */ !operating || shorted)
 		return
 	if( cell && cell.charge>=20)
 		cell.use(20);
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
-				L.on = 1
-				L.broken()
+				if(prob(chance))
+					L.on = 1
+					L.broken()
 				sleep(1)
 
 /obj/machinery/power/apc/Destroy()
