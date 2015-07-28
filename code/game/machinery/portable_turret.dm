@@ -71,7 +71,8 @@
 
 /obj/machinery/porta_turret/New()
 	..()
-	req_access = list()
+	if(req_access && req_access.len)
+		req_access.Cut()
 	req_one_access = list(access_security, access_heads)
 
 	//Sets up a spark system
@@ -83,7 +84,8 @@
 
 /obj/machinery/porta_turret/centcom/New()
 	..()
-	req_one_access = list()
+	if(req_one_access && req_one_access.len)
+		req_one_access.Cut()
 	req_access = list(access_cent_specops)
 
 /obj/machinery/porta_turret/proc/setup()
@@ -231,7 +233,7 @@ var/list/turret_icons
 		usr << "<span class='notice'>\The [src] has to be secured first!</span>"
 		return STATUS_CLOSE
 
-	return STATUS_INTERACTIVE
+	return ..()
 
 /obj/machinery/porta_turret/Topic(href, href_list, var/nowindow = 0)
 	if(..())

@@ -299,7 +299,7 @@ Class Procs:
 	return 0
 
 
-/obj/machinery/CanUseTopic(var/mob/user, var/be_close)
+/obj/machinery/CanUseTopic(var/mob/user)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 

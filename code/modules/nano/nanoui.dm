@@ -10,7 +10,7 @@ nanoui is used to open and update nano browser uis
 	// the user who opened this ui
 	var/mob/user
 	// the object this ui "belongs" to
-	var/atom/movable/src_object
+	var/datum/src_object
 	// the title of this ui
 	var/title
 	// the key of this ui, this is to allow multiple (different) uis for each src_object
@@ -55,7 +55,7 @@ nanoui is used to open and update nano browser uis
 	// Relationship between a master interface and its children. Used in update_status
 	var/datum/nanoui/master_ui
 	var/list/datum/nanoui/children = list()
-	var/datum/topic_state/custom_state = null
+	var/datum/topic_state/state = null
 
  /**
   * Create a new nanoui instance.
@@ -71,7 +71,7 @@ nanoui is used to open and update nano browser uis
   *
   * @return /nanoui new nanoui object
   */
-/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/custom_state = default_state)
+/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/state = default_state)
 	user = nuser
 	src_object = nsrc_object
 	ui_key = nui_key
@@ -80,7 +80,7 @@ nanoui is used to open and update nano browser uis
 	src.master_ui = master_ui
 	if(master_ui)
 		master_ui.children += src
-	src.custom_state = custom_state
+	src.state = state
 
 	// add the passed template filename as the "main" template, this is required
 	add_template("main", ntemplate_filename)
@@ -140,8 +140,7 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/update_status(var/push_update = 0)
-	var/atom/movable/host = src_object.nano_host()
-	var/new_status = host.CanUseTopic(user, list(), custom_state)
+	var/new_status = src_object.CanUseTopic(user, state)
 	if(master_ui)
 		new_status = min(new_status, master_ui.status)
 
@@ -177,7 +176,7 @@ nanoui is used to open and update nano browser uis
 /datum/nanoui/proc/get_config_data()
 	var/list/config_data = list(
 			"title" = title,
-			"srcObject" = list("name" = src_object.name),
+			"srcObject" = list("name" = "[src_object]"),
 			"stateKey" = state_key,
 			"status" = status,
 			"autoUpdateLayout" = auto_update_layout,
@@ -467,7 +466,7 @@ nanoui is used to open and update nano browser uis
 		set_map_z_level(text2num(href_list["mapZLevel"]))
 		map_update = 1
 
-	if ((src_object && src_object.Topic(href, href_list, 0, custom_state)) || map_update)
+	if ((src_object && src_object.Topic(href, href_list, 0, state)) || map_update)
 		nanomanager.update_uis(src_object) // update all UIs attached to src_object
 
  /**
@@ -494,4 +493,4 @@ nanoui is used to open and update nano browser uis
   * @return nothing
   */
 /datum/nanoui/proc/update(var/force_open = 0)
-	src_object.ui_interact(user, ui_key, src, force_open, master_ui, custom_state)
+	src_object.ui_interact(user, ui_key, src, force_open, master_ui, state)

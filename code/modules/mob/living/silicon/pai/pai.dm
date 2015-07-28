@@ -268,6 +268,18 @@
 	src.reset_view(C)
 	return 1
 
+/mob/living/silicon/pai/verb/reset_record_view()
+	set category = "pAI Commands"
+	set name = "Reset Records Software"
+
+	securityActive1 = null
+	securityActive2 = null
+	security_cannotfind = 0
+	medicalActive1 = null
+	medicalActive2 = null
+	medical_cannotfind = 0
+	nanomanager.update_uis(src)
+	usr << "<span class='notice'>You reset your record-viewing software.</span>"	
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"

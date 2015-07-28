@@ -24,6 +24,9 @@ var/list/world_uplinks = list()
 	var/job = null
 	var/show_descriptions = 0
 
+/obj/item/device/uplink/nano_host()
+	return loc		
+	
 /obj/item/device/uplink/New()
 	..()
 	welcome = ticker.mode.uplink_welcome
@@ -202,7 +205,7 @@ var/list/world_uplinks = list()
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600)
+		ui = new(user, src, ui_key, "uplink.tmpl", title, 700, 600, state = inventory_state)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -294,8 +297,8 @@ var/list/world_uplinks = list()
 			qdel(S)
 			user << "<span class='notice'>Teleporter refunded.</span>"
 		else
-			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"
-
+			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"		
+			
 // PRESET UPLINKS
 // A collection of preset uplinks.
 //

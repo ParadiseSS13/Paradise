@@ -73,6 +73,12 @@
 		return 1
 
 	return 0
+	
+/obj/machinery/turretid/CanUseTopic(mob/user)
+	if(isLocked(user))
+		return STATUS_CLOSE
+
+	return ..()
 
 /obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user)
 	if(stat & BROKEN)

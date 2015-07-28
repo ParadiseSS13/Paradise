@@ -1,39 +1,36 @@
-/atom/movable/proc/nano_host()
-	return src
+/var/global/datum/topic_state/default/default_state = new()
 
-/obj/nano_module/nano_host()
-	return loc
+/datum/topic_state/default/href_list(var/mob/user)
+	return list()
 
+/datum/topic_state/default/can_use_topic(var/src_object, var/mob/user)
+	return user.default_can_use_topic(src_object)
 
-/atom/movable/proc/CanUseTopic(var/mob/user, href_list, var/datum/topic_state/custom_state)
-	return user.can_use_topic(nano_host(), custom_state)
-
-
-/mob/proc/can_use_topic(var/mob/user, var/datum/topic_state/custom_state)
+/mob/proc/default_can_use_topic(var/src_object)
 	return STATUS_CLOSE // By default no mob can do anything with NanoUI
 
-/mob/dead/observer/can_use_topic()
+/mob/dead/observer/default_can_use_topic()
 	if(check_rights(R_ADMIN, 0, src))
 		return STATUS_INTERACTIVE				// Admins are more equal
 	return STATUS_UPDATE						// Ghosts can view updates
 
-/mob/living/silicon/pai/can_use_topic(var/src_object)
+/mob/living/silicon/pai/default_can_use_topic(var/src_object)
 	if(src_object == src && !stat)
 		return STATUS_INTERACTIVE
 	else
 		return ..()
 
-/mob/living/silicon/robot/can_use_topic(var/src_object, var/datum/topic_state/custom_state)
+/mob/living/silicon/robot/default_can_use_topic(var/src_object)
 	if(stat || !client)
 		return STATUS_CLOSE
 	if(lockcharge || stunned || weakened)
 		return STATUS_DISABLED
 	// robots can interact with things they can see within their view range
-	if(!(custom_state.flags & NANO_IGNORE_DISTANCE) && (src_object in view(src)))
+	if((src_object in view(src)) && get_dist(src_object, src) <= src.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return STATUS_DISABLED			// no updates, completely disabled (red visibility)
 
-/mob/living/silicon/robot/syndicate/can_use_topic(var/src_object)
+/mob/living/silicon/robot/syndicate/default_can_use_topic(var/src_object)
 	. = ..()
 	if(. != STATUS_INTERACTIVE)
 		return
@@ -48,7 +45,7 @@
 			return STATUS_INTERACTIVE
 	return STATUS_UPDATE
 
-/mob/living/silicon/ai/can_use_topic(var/src_object)
+/mob/living/silicon/ai/default_can_use_topic(var/src_object)
 	if(!client || check_unable(1))
 		return STATUS_CLOSE
 	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
@@ -69,22 +66,13 @@
 			return apc_override ? STATUS_INTERACTIVE : STATUS_CLOSE
 		return STATUS_INTERACTIVE
 
-	return 	STATUS_CLOSE
+	return STATUS_CLOSE
 
-/mob/living/proc/shared_living_nano_interaction(var/src_object)
-	if (src.stat != CONSCIOUS)
-		return STATUS_CLOSE						// no updates, close the interface
-	else if (restrained() || lying || stat || stunned || weakened)
-		return STATUS_UPDATE					// update only (orange visibility)
-	return STATUS_INTERACTIVE
+//Some atoms such as vehicles might have special rules for how mobs inside them interact with NanoUI.
+/atom/proc/contents_nano_distance(var/src_object, var/mob/living/user)
+	return user.shared_living_nano_distance(src_object)
 
 /mob/living/proc/shared_living_nano_distance(var/atom/movable/src_object)
-	if(!isturf(src_object.loc))
-		if(src_object.loc == src)				// Item in the inventory
-			return STATUS_INTERACTIVE
-		if(src.contents.Find(src_object.loc))	// A hidden uplink inside an item
-			return STATUS_INTERACTIVE
-
 	if (!(src_object in view(4, src))) 	// If the src object is not in visable, disable updates
 		return STATUS_CLOSE
 
@@ -97,24 +85,17 @@
 		return STATUS_DISABLED 		// no updates, completely disabled (red visibility)
 	return STATUS_CLOSE
 
-/mob/living/can_use_topic(var/src_object, var/datum/topic_state/custom_state)
-	. = shared_living_nano_interaction(src_object)
-	if(. == STATUS_INTERACTIVE && !(custom_state.flags & NANO_IGNORE_DISTANCE))
-		. = shared_living_nano_distance(src_object)
+/mob/living/default_can_use_topic(var/src_object)
+	. = shared_nano_interaction(src_object)
+	if(. == STATUS_INTERACTIVE)
+		if(loc)
+			. = loc.contents_nano_distance(src_object, src)
 	if(STATUS_INTERACTIVE)
 		return STATUS_UPDATE
 
-/mob/living/carbon/human/can_use_topic(var/src_object, var/datum/topic_state/custom_state)
-	. = shared_living_nano_interaction(src_object)
-	if(. == STATUS_INTERACTIVE && !(custom_state.flags & NANO_IGNORE_DISTANCE))
+/mob/living/carbon/human/default_can_use_topic(var/src_object)
+	. = shared_nano_interaction(src_object)
+	if(. == STATUS_INTERACTIVE)
 		. = shared_living_nano_distance(src_object)
 		if(. == STATUS_UPDATE && (TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
 			return STATUS_INTERACTIVE
-
-/var/global/datum/topic_state/default_state = new()
-
-/datum/topic_state
-	var/flags = 0
-
-/datum/topic_state/proc/href_list(var/mob/user)
-	return list()

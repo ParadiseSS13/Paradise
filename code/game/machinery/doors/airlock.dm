@@ -635,7 +635,7 @@ About the new airlock wires panel:
 		..(user)
 	return
 
-/obj/machinery/door/airlock/CanUseTopic(var/mob/user, href_list)
+/obj/machinery/door/airlock/CanUseTopic(var/mob/user)
 	if(!issilicon(user))
 		return STATUS_CLOSE
 
@@ -652,7 +652,7 @@ About the new airlock wires panel:
 				user << "<span class='warning'>Unable to interface: Connection refused.</span>"
 		return STATUS_CLOSE
 
-	return STATUS_INTERACTIVE
+	return ..()
 
 /obj/machinery/door/airlock/Topic(href, href_list, var/nowindow = 0)
 	if(..())
