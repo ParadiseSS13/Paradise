@@ -1,8 +1,8 @@
-var/camera_cache_id = 1
+/var/camera_cache_id = 1
 
 /proc/invalidateCameraCache()
 	camera_cache_id = (++camera_cache_id % 999999)
-
+		
 /obj/machinery/computer/security
 	name = "Camera Monitor"
 	desc = "Used to access the various cameras networks on the station."
@@ -79,32 +79,21 @@ var/camera_cache_id = 1
 
 	var/data[0]
 
-
 	data["current"] = null
 
-	var/list/L = list()
-	for (var/obj/machinery/camera/C in cameranet.cameras)
-		if(can_access_camera(C))
-			L.Add(C)
+	if(camera_cache_id != cache_id)
+		cache_id = camera_cache_id
+		cameranet.process_sort()
 
-	cameranet.process_sort()
+		var/cameras[0]
+		for(var/obj/machinery/camera/C in cameranet.cameras)
+			if(!can_access_camera(C))
+				continue
 
-	var/cameras[0]
-	for(var/obj/machinery/camera/C in L)
-		var/cam[0]
-		cam["name"] = C.c_tag
-		cam["deact"] = !C.can_use()
-		cam["camera"] = "\ref[C]"
-		cam["x"] = C.x
-		cam["y"] = C.y
-		cam["z"] = C.z
+			var/cam = C.nano_structure()
+			cameras[++cameras.len] = cam
 
-		cameras[++cameras.len] = cam
-
-		if(C == current)
-			data["current"] = cam
-
-	data["cameras"] = cameras
+		camera_cache=list2json(cameras)
 
 	tempnets.Cut()
 	if(emagged)
@@ -124,6 +113,10 @@ var/camera_cache_id = 1
 				break
 	if(tempnets.len)
 		data["networks"] = tempnets
+		
+	if(current)
+		data["current"] = current.nano_structure()
+	data["cameras"] = list("__json_cache" = camera_cache)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)

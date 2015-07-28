@@ -37,6 +37,8 @@
 	assembly.anchored = 1
 	assembly.update_icon()
 
+	invalidateCameraCache()
+	
 	/* // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
@@ -50,6 +52,7 @@
 		deactivate()
 
 /obj/machinery/camera/Destroy()
+	invalidateCameraCache()
 	deactivate(null, 0) //kick anyone viewing out
 	if(assembly)
 		qdel(assembly)
@@ -66,6 +69,7 @@
 /obj/machinery/camera/emp_act(severity)
 	if(!isEmpProof())
 		if(prob(100/severity))
+			invalidateCameraCache()
 			icon_state = "[initial(icon_state)]emp"
 			var/list/previous_network = network
 			network = list()
@@ -85,6 +89,7 @@
 						if(can_use())
 							cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
+						invalidateCameraCache()
 			for(var/mob/O in mob_list)
 				if (O.client && O.client.eye == src)
 					O.unset_machine()
@@ -114,6 +119,7 @@
 	user.electrocute_act(10, src)
 
 /obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
+	invalidateCameraCache()
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
@@ -221,6 +227,7 @@
 
 /obj/machinery/camera/proc/deactivate(user as mob, var/choice = 1)
 	if(choice==1)
+		invalidateCameraCache()
 		status = !( src.status )
 		if (!(src.status))
 			if(user)
@@ -331,3 +338,13 @@
 		return 1
 	busy = 0
 	return 0
+
+/obj/machinery/camera/proc/nano_structure()
+	var/cam[0]
+	cam["name"] = sanitize(c_tag)
+	cam["deact"] = !can_use()
+	cam["camera"] = "\ref[src]"
+	cam["x"] = x
+	cam["y"] = y
+	cam["z"] = z
+	return cam	
