@@ -63,7 +63,7 @@
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
+		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.get_species()
 		G.fields["photo"]		= get_id_photo(H)
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
@@ -114,7 +114,7 @@
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
+		L.fields["sex"]			= capitalize(H.gender)
 		L.fields["b_type"]		= H.b_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["enzymes"]		= H.dna.SE // Used in respawning
