@@ -71,7 +71,7 @@
 
 /obj/machinery/porta_turret/New()
 	..()
-	req_access.Cut()
+	req_access = list()
 	req_one_access = list(access_security, access_heads)
 
 	//Sets up a spark system
@@ -83,7 +83,7 @@
 
 /obj/machinery/porta_turret/crescent/New()
 	..()
-	req_one_access.Cut()
+	req_one_access = list()
 	req_access = list(access_cent_specops)
 
 /obj/machinery/porta_turret/proc/setup()
@@ -479,7 +479,7 @@ var/list/turret_icons
 
 	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
-
+		
 	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
@@ -502,13 +502,11 @@ var/list/turret_icons
 
 	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+		
 	if(isalien(L)) // Xenos are dangerous
 		return check_anomalies ? TURRET_PRIORITY_TARGET	: TURRET_NOT_TARGET
 
-	if(ishuman(L))	//if the target is a human, analyze threat level
-		if(emagged)
-			return 10
-			
+	if(ishuman(L))	//if the target is a human, analyze threat level			
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
