@@ -34,6 +34,8 @@
 	if(stat & (NOPOWER|BROKEN)) 
 		return	
 		
+		
+	add_fingerprint(user)	
 	interact(user)
 
 
