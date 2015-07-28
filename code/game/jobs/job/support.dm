@@ -189,16 +189,17 @@
 		H.equip_or_collect(new /obj/item/device/pda/shaftminer(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/weapon/pickaxe(H), slot_belt)
+		H.equip_or_collect(new /obj/item/weapon/mining_voucher(H), slot_r_hand)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 			H.equip_or_collect(new /obj/item/weapon/crowbar(H), slot_l_hand)
 			H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H), slot_l_store)
-			H.equip_or_collect(new /obj/item/weapon/mining_voucher(H), slot_r_store)
+			H.equip_or_collect(new /obj/item/weapon/reagent_containers/pill/patch/styptic(H), slot_r_store)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/engineer(H.back), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/crowbar(H), slot_in_backpack)
 			H.equip_or_collect(new /obj/item/weapon/storage/bag/ore(H), slot_in_backpack)
-			H.equip_or_collect(new /obj/item/weapon/mining_voucher(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/reagent_containers/pill/patch/styptic(H), slot_in_backpack)
 		return 1
 
 
