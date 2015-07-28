@@ -32,9 +32,9 @@ var/list/world_uplinks = list()
 
 	world_uplinks += src
 
-/obj/item/device/uplink/Del()
+/obj/item/device/uplink/Destroy()
 	world_uplinks -= src
-	..()
+	return ..()
 
 /obj/item/device/uplink/proc/generate_items(mob/user as mob)
 	var/datum/nano_item_lists/IL = generate_item_lists(user)
