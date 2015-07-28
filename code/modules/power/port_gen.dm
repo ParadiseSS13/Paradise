@@ -297,11 +297,11 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_ai(var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
 	
-/obj/machinery/portable_atmospherics/pump/attack_ghost(var/mob/user)
+/obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
 	return src.attack_hand(user)
 
 /obj/machinery/power/port_gen/pacman/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
