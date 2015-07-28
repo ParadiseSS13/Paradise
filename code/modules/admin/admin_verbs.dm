@@ -228,19 +228,19 @@ var/list/admin_verbs_mentor = list(
 	set name = "Invisimin"
 	set category = "Admin"
 	set desc = "Toggles ghost-like invisibility (Don't abuse this)"
+
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
-			mob.icon_state = "ghost"
+			mob << "<span class='danger'>Invisimin off. Invisibility reset.</span>"
+			/*mob.icon_state = "ghost" //this is pointless and ruins an otherwise good feature
 			mob.icon = 'icons/mob/human.dmi'
-			mob.update_icons()
+			mob.update_icons()*/
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
-			mob.icon_state = "ghost"
-			mob.icon = 'icons/mob/mob.dmi'
-
+			mob << "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>"
+			/*mob.icon_state = "ghost" //see above
+			mob.icon = 'icons/mob/mob.dmi'*/
 
 /client/proc/player_panel()
 	set name = "Player Panel"
