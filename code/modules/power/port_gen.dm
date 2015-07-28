@@ -33,7 +33,6 @@
 	if(active && HasFuel() && !IsBroken() && anchored && powernet)
 		add_avail(power_gen * power_output)
 		UseFuel()
-		src.updateDialog()
 	else
 		active = 0
 		icon_state = initial(icon_state)
@@ -52,9 +51,9 @@
 	if(!..(user,1 ))
 		return
 	if(active)
-		usr << "\blue The generator is on."
+		usr << "<span class='notice'>The generator is on.</span>"
 	else
-		usr << "\blue The generator is off."
+		usr << "<span class='notice'>The generator is off.</span>"
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -86,7 +85,7 @@
 	name = "\improper P.A.C.M.A.N.-type Portable Generator"
 	desc = "A power generator that runs on solid plasma sheets. Rated for 80 kW max safe output."
 
-	var/sheet_name = "plasma Sheets"
+	var/sheet_name = "Plasma Sheets"
 	var/sheet_path = /obj/item/stack/sheet/mineral/plasma
 	var/board_path = "/obj/item/weapon/circuitboard/pacman"
 
@@ -223,7 +222,7 @@
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
 		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
-		src.updateDialog()
+		nanomanager.update_uis(src)
 
 	if(overheating)
 		overheating--
@@ -259,9 +258,9 @@
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			user << "\blue The [src.name] is full!"
+			user << "<span class='notice'>The [src.name] is full!</span>"
 			return
-		user << "\blue You add [amount] sheet\s to the [src.name]."
+		user << "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>"
 		sheets += amount
 		addstack.use(amount)
 		nanomanager.update_uis(src)
@@ -271,10 +270,10 @@
 
 			if(!anchored)
 				connect_to_network()
-				user << "\blue You secure the generator to the floor."
+				user << "<span class='notice'>You secure the generator to the floor.</span>"
 			else
 				disconnect_from_network()
-				user << "\blue You unsecure the generator from the floor."
+				user << "<span class='notice'>You unsecure the generator from the floor.</span>"
 
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			anchored = !anchored
@@ -283,9 +282,9 @@
 			panel_open = !panel_open
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(panel_open)
-				user << "\blue You open the access panel."
+				user << "<span class='notice'>You open the access panel.</span>"
 			else
-				user << "\blue You close the access panel."
+				user << "<span class='notice'>You close the access panel.</span>"
 		else if(istype(O, /obj/item/weapon/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
