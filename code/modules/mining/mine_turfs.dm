@@ -127,7 +127,7 @@ var/global/list/rockTurfEdgeCache
 				if("Plasma")
 					M = new/turf/simulated/mineral/plasma(src)
 				if("Cave")
-					new/turf/simulated/floor/plating/asteroid/airless/cave(src)
+					new/turf/simulated/floor/plating/airless/asteroid/cave(src)
 				if("Gibtonite")
 					M = new/turf/simulated/mineral/gibtonite(src)
 				if("Bananium")
@@ -336,10 +336,10 @@ var/global/list/rockTurfEdgeCache
 		if(det_time >= 1 && det_time <= 2)
 			G.quality = 2
 			G.icon_state = "Gibtonite ore 2"
-	var/turf/simulated/floor/plating/asteroid/airless/gibtonite_remains/G = ChangeTurf(/turf/simulated/floor/plating/asteroid/airless/gibtonite_remains)
+	var/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains/G = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains)
 	G.fullUpdateMineralOverlays()
 
-/turf/simulated/floor/plating/asteroid/airless/gibtonite_remains
+/turf/simulated/floor/plating/airless/asteroid/gibtonite_remains
 	var/det_time = 0
 	var/stage = 0
 
@@ -378,7 +378,7 @@ var/global/list/rockTurfEdgeCache
 		for (i=0;i<mineralAmt;i++)
 			new mineralType(src)
 		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
-	var/turf/simulated/floor/plating/asteroid/airless/N = ChangeTurf(/turf/simulated/floor/plating/asteroid/airless)
+	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 	N.fullUpdateMineralOverlays()
 
@@ -416,27 +416,24 @@ var/global/list/rockTurfEdgeCache
 
 /**********************Asteroid**************************/
 
-
-/turf/simulated/floor/plating/asteroid //floor piece
+/turf/simulated/floor/plating/airless/asteroid
 	name = "Asteroid"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
-
-/turf/simulated/floor/plating/asteroid/airless
 	oxygen = 0.01
 	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/plating/asteroid/New()
+/turf/simulated/floor/plating/airless/asteroid/New()
 	var/proper_name = name
 	..()
 	name = proper_name
 	if(prob(20))
 		icon_state = "asteroid[rand(0,12)]"
 
-/turf/simulated/floor/plating/asteroid/ex_act(severity, target)
+/turf/simulated/floor/plating/airless/asteroid/ex_act(severity, target)
 	switch(severity)
 		if(3.0)
 			return
@@ -447,7 +444,7 @@ var/global/list/rockTurfEdgeCache
 			src.gets_dug()
 	return
 
-/turf/simulated/floor/plating/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	//note that this proc does not call ..()
 	if(!W || !user)
 		return 0
@@ -496,7 +493,7 @@ var/global/list/rockTurfEdgeCache
 				O.attackby(W,user)
 				return
 
-/turf/simulated/floor/plating/asteroid/proc/gets_dug()
+/turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
 	if(dug)
 		return
 	new/obj/item/weapon/ore/glass(src)
@@ -544,12 +541,12 @@ var/global/list/rockTurfEdgeCache
 			else
 				return
 
-/turf/simulated/floor/plating/asteroid/airless/cave
+/turf/simulated/floor/plating/airless/asteroid/cave
 	var/length = 100
 	var/mob_spawn_list = list("Goldgrub" = 1, "Goliath" = 5, "Basilisk" = 4, "Hivelord" = 3)
 	var/sanity = 1
 
-/turf/simulated/floor/plating/asteroid/airless/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
+/turf/simulated/floor/plating/airless/asteroid/cave/New(loc, var/length, var/go_backwards = 1, var/exclude_dir = -1)
 
 	// If length (arg2) isn't defined, get a random length; otherwise assign our length to the length arg.
 	if(!length)
@@ -570,7 +567,7 @@ var/global/list/rockTurfEdgeCache
 	SpawnFloor(src)
 	..()
 
-/turf/simulated/floor/plating/asteroid/airless/cave/proc/make_tunnel(var/dir)
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/make_tunnel(var/dir)
 
 	var/turf/simulated/mineral/tunnel = src
 	var/next_angle = pick(45, -45)
@@ -607,7 +604,7 @@ var/global/list/rockTurfEdgeCache
 			next_angle = -next_angle
 			dir = angle2dir(dir2angle(dir) + next_angle)
 
-/turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(var/turf/T)
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnFloor(var/turf/T)
 	for(var/turf/S in range(2,T))
 		if(istype(S, /turf/space) || istype(S.loc, /area/mine/explored))
 			sanity = 0
@@ -616,11 +613,11 @@ var/global/list/rockTurfEdgeCache
 		return
 
 	SpawnMonster(T)
-	var/turf/simulated/floor/t = new /turf/simulated/floor/plating/asteroid/airless(T)
+	var/turf/simulated/floor/t = new /turf/simulated/floor/plating/airless/asteroid(T)
 	spawn(2)
 		t.fullUpdateMineralOverlays()
 
-/turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(var/turf/T)
+/turf/simulated/floor/plating/airless/asteroid/cave/proc/SpawnMonster(var/turf/T)
 	if(prob(30))
 		if(istype(loc, /area/mine/explored))
 			return
