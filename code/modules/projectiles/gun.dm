@@ -197,7 +197,7 @@
 		return 0
 	if(targloc == curloc)			//Fire the projectile
 		user.bullet_act(in_chamber)
-		qdel(in_chamber)
+		del(in_chamber)
 		update_icon()
 		return 1
 
@@ -285,7 +285,7 @@
 			else
 				user << "<span class = 'notice'>Ow...</span>"
 				user.apply_effect(110,AGONY,0)
-			qdel(in_chamber)
+			del(in_chamber)
 			mouthshoot = 0
 			return
 		else

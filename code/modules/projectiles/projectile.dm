@@ -80,7 +80,7 @@
 
 	proc/on_range() //if we want there to be effects when they reach the end of their range
 		proj_hit = 1
-		qdel(src)
+		del(src)
 
 	proc/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 		if(!isliving(target))	return 0
@@ -97,7 +97,7 @@
 		in_chamber.pass_flags = pass_flags //And the pass flags to that of the real projectile...
 		in_chamber.firer = user
 		var/output = in_chamber.process() //Test it!
-		qdel(in_chamber) //No need for it anymore
+		del(in_chamber) //No need for it anymore
 		return output //Send it back to the gun!
 
 	Bump(atom/A as mob|obj|turf|area)
@@ -168,7 +168,7 @@
 			if(!istype(src, /obj/item/projectile/beam/lightning))
 				density = 0
 				invisibility = 101
-			qdel(src)
+			del(src)
 		return 1
 
 
@@ -187,7 +187,7 @@
 			spawn() //New projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
 					kill_count--
 					if((!( current ) || loc == current))
@@ -262,7 +262,7 @@
 			spawn() //Old projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
 					kill_count--
 					if((!( current ) || loc == current))

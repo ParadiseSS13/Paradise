@@ -465,6 +465,17 @@ var/global/datum/controller/gameticker/ticker
 
 /datum/controller/gameticker/proc/declare_completion()
 
+	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	//Round statistics report
+	var/datum/station_state/end_state = new /datum/station_state()
+	end_state.count()
+	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
+
+	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero("[world.time / 600 % 60]", 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
+	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
+	world << "<BR>"
+
+	//Silicon laws report
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>"

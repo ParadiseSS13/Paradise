@@ -46,10 +46,10 @@ var/global/list/possibleEvents = list()
 	// Code/WorkInProgress/Cael_Aislinn/Economy/Economy_Events_Mundane.dm
 
 	possibleEvents[/datum/event/economic_event] = 300
-	//possibleEvents[/datum/event/trivial_news] = 400
-	//possibleEvents[/datum/event/mundane_news] = 300
+	possibleEvents[/datum/event/trivial_news] = 400
+	possibleEvents[/datum/event/mundane_news] = 300
 
-	possibleEvents[/datum/event/cargo_bonus] = 150
+	possibleEvents[/datum/event/cargo_bonus] = 100
 	possibleEvents[/datum/event/revenant] = 75
 
 	possibleEvents[/datum/event/pda_spam] = max(min(25, player_list.len) * 4, 200)
