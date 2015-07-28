@@ -7,7 +7,7 @@
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
 
-/obj/machinery/disposal/
+/obj/machinery/disposal
 	name = "disposal unit"
 	desc = "A pneumatic waste disposal unit."
 	icon = 'icons/obj/pipes/disposal.dmi'
@@ -208,6 +208,10 @@
 
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
+	src.add_hiddenprint(user)
+	ui_interact(user)
+	
+/obj/machinery/disposal/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
 // human interact with machine
@@ -241,10 +245,10 @@
 	data["mode"] = mode
 	if(mode <= 0)
 		data["pumpstatus"] = ""
-	else if(mode == 1 && pressure_round != "100")
+	else if(mode == 1)
 		data["pumpstatus"] = "(pressurizing)"
 	else if(mode == 2)
-		data["pumpstatus"] = "(flushing)"
+		data["pumpstatus"] = "(ready)"
 	else
 		data["pumpstatus"] = "(idle)"
 	data["pressure"] = pressure_round

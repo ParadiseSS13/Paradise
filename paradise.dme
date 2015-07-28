@@ -1478,6 +1478,7 @@
 #include "code\modules\nano\interaction\contained.dm"
 #include "code\modules\nano\interaction\default.dm"
 #include "code\modules\nano\interaction\inventory.dm"
+#include "code\modules\nano\interaction\physical.dm"
 #include "code\modules\nano\interaction\zlevel.dm"
 #include "code\modules\nano\modules\crew_monitor.dm"
 #include "code\modules\nano\modules\nano_module.dm"

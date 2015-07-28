@@ -21,10 +21,10 @@
 		return ..()
 
 /mob/living/silicon/robot/default_can_use_topic(var/src_object)
-	if(stat || !client)
-		return STATUS_CLOSE
-	if(lockcharge || stunned || weakened)
-		return STATUS_DISABLED
+	. = shared_nano_interaction()
+	if(. <= STATUS_DISABLED)
+		return
+
 	// robots can interact with things they can see within their view range
 	if((src_object in view(src)) && get_dist(src_object, src) <= src.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
@@ -46,8 +46,10 @@
 	return STATUS_UPDATE
 
 /mob/living/silicon/ai/default_can_use_topic(var/src_object)
-	if(!client || check_unable(1))
-		return STATUS_CLOSE
+	. = shared_nano_interaction()
+	if(. != STATUS_INTERACTIVE)
+		return
+
 	// Prevents the AI from using Topic on admin levels (by for example viewing through the court/thunderdome cameras)
 	// unless it's on the same level as the object it's interacting with.
 	var/turf/T = get_turf(src_object)
@@ -61,9 +63,10 @@
 	// If we're installed in a chassi, rather than transfered to an inteliCard or other container, then check if we have camera view
 	if(is_in_chassis())
 		//stop AIs from leaving windows open and using then after they lose vision
-		//apc_override is needed here because AIs use their own APC when powerless
 		if(cameranet && !cameranet.checkTurfVis(get_turf(src_object)))
-			return apc_override ? STATUS_INTERACTIVE : STATUS_CLOSE
+			return STATUS_CLOSE
+		return STATUS_INTERACTIVE
+	else if(get_dist(src_object, src) <= client.view)	// View does not return what one would expect while installed in an inteliCard
 		return STATUS_INTERACTIVE
 
 	return STATUS_CLOSE
@@ -87,15 +90,15 @@
 
 /mob/living/default_can_use_topic(var/src_object)
 	. = shared_nano_interaction(src_object)
-	if(. == STATUS_INTERACTIVE)
+	if(. != STATUS_CLOSE)
 		if(loc)
-			. = loc.contents_nano_distance(src_object, src)
+			. = min(., loc.contents_nano_distance(src_object, src))
 	if(STATUS_INTERACTIVE)
 		return STATUS_UPDATE
 
 /mob/living/carbon/human/default_can_use_topic(var/src_object)
 	. = shared_nano_interaction(src_object)
-	if(. == STATUS_INTERACTIVE)
-		. = shared_living_nano_distance(src_object)
+	if(. != STATUS_CLOSE)
+		. = min(., shared_living_nano_distance(src_object))
 		if(. == STATUS_UPDATE && (TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
 			return STATUS_INTERACTIVE
