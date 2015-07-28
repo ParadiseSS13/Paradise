@@ -1914,7 +1914,7 @@ area/security/podbay
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
-	name = "\improper NSS Cyberiad"
+	name = "\improper North of SS13"
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
