@@ -26,6 +26,9 @@ var/bomb_set
 	var/is_syndicate = 0
 	use_power = 0
 	unacidable = 1
+	
+/obj/machinery/nuclearbomb/syndicate
+	is_syndicate = 1
 
 /obj/machinery/nuclearbomb/New()
 	..()
