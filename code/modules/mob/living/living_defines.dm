@@ -46,6 +46,9 @@
 	var/floating = 0
 	var/nightvision = 0
 
+	var/bloodcrawl = 0 //0 No blood crawling, 1 blood crawling, 2 blood crawling+mob devour
+	var/holder = null //The holder for blood crawling
+
 	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
 	var/list/icon/pipes_shown = list()
 	var/last_played_vent

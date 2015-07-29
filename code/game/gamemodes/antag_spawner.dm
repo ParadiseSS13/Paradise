@@ -131,7 +131,7 @@
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
 	S.vialspawned = TRUE
-	S.phased = TRUE
+	S.holder = holder
 	S.key = C.key
 	if(S.mind)
 		S.mind.assigned_role = "Slaughter Demon"
