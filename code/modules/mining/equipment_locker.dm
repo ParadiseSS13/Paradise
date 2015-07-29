@@ -10,8 +10,6 @@
 	anchored = 1.0
 	input_dir = NORTH
 	output_dir = SOUTH
-	var/obj/machinery/mineral/input = null
-	var/obj/machinery/mineral/output = null
 	req_one_access = list(
 		access_mining_station,
 		access_chemistry,

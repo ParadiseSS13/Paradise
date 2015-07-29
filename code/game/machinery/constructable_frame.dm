@@ -401,6 +401,11 @@ to destroy them and players will be able to make replacements.
 	build_path = "/obj/machinery/power/port_gen/pacman/super"
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
 
+/obj/item/weapon/circuitboard/pacman/mrs
+	name = "Circuit Board (MRSPACMAN-type Generator)"
+	build_path = "/obj/machinery/power/port_gen/pacman/mrs"
+	origin_tech = "programming=3;powerstorage=5;engineering=5"
+
 obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
 	build_path = "/obj/machinery/r_n_d/server"

@@ -302,6 +302,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	modifystate = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
 	projectile_type = /obj/item/projectile/plasma
+	fire_sound = 'sound/weapons/laser.ogg'
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	charge_cost = 250
