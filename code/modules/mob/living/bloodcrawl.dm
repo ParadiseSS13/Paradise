@@ -1,5 +1,6 @@
 //Travel through pools of blood. Slaughter Demon powers for everyone!
-
+#define BLOODCRAWL     1
+#define BLOODCRAWL_EAT 2
 
 /mob/living/proc/phaseout(var/obj/effect/decal/cleanable/B)
 	var/mob/living/kidnapped = null

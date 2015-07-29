@@ -1,6 +1,4 @@
 //////////////////The Monster
-#define BLOODCRAWL     1
-#define BLOODCRAWL_EAT 2
 
 /mob/living/simple_animal/slaughter
 	name = "Slaughter Demon"
@@ -39,7 +37,7 @@
 	melee_damage_upper = 30
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
-	bloodcrawl = 2
+	bloodcrawl = BLOODCRAWL_EAT
 
 
 	var/devoured = 0
@@ -196,11 +194,11 @@
 	visible_message("[user] feasts upon the [src].")
 	if(user.bloodcrawl == 0)
 		user << "You absorb some of the demon's power!"
-		user.bloodcrawl = 1
+		user.bloodcrawl = BLOODCRAWL
 	else if(user.bloodcrawl == 1)
 		user << "You absorb some of the demon's power!"
 		user << "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>"
-		user.bloodcrawl = 2
+		user.bloodcrawl = BLOODCRAWL_EAT
 	qdel(src)
 
 

@@ -267,8 +267,6 @@
 			user << "\blue The walls suddenly disappear."
 	return 1
 
-/datum/spellbook_entry/item/bloodbottle/CanBuy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
-	return ..() && !limit
 
 /datum/spellbook_entry/item/soulstones
 	name = "Six Soul Stone Shards and the spell Artificer"
@@ -397,9 +395,6 @@
 
 			uses++
 
-			for(var/datum/spellbook_entry/item/contract/CT in entries)
-				if(!isnull(CT.limit))
-					CT.limit++
 			qdel(O)
 
 	if(istype(O, /obj/item/weapon/antag_spawner/slaughter_demon))
