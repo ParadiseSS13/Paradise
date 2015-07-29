@@ -59,17 +59,6 @@
 	build_path = /obj/item/weapon/circuitboard/pacman
 	category = list("Engineering Machinery")
 
-/datum/design/mrspacman
-	name = "Machine Board (MRSPACMAN-type Generator)"
-	desc = "The circuit board that for a MRSPACMAN-type portable generator."
-	id = "mrspacman"
-	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5)
-	build_type = IMPRINTER
-	reliability_base = 74
-	materials = list("$glass" = 2000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/pacman/mrs
-	category = list("Engineering Machinery")
-
 /datum/design/superpacman
 	name = "Machine Board (SUPERPACMAN-type Generator)"
 	desc = "The circuit board that for a SUPERPACMAN-type portable generator."
