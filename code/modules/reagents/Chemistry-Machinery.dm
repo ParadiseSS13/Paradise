@@ -730,13 +730,13 @@
 		//Sheets
 		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
-		/obj/item/stack/sheet/mineral/clown = list("banana" = 20),
+		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/weapon/grown/novaflower = list("capsaicin" = 0),
 
 		//archaeology!
-		/obj/item/weapon/rocksliver = list("ground_rock" = 50),
+		///obj/item/weapon/rocksliver = list("ground_rock" = 50),
 
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -1102,7 +1102,7 @@
 		remove_object(O)
 
 	//xenoarch
-	for(var/obj/item/weapon/rocksliver/O in holdingitems)
+	/*for(var/obj/item/weapon/rocksliver/O in holdingitems)
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/allowed = get_allowed_by_id(O)
@@ -1113,7 +1113,7 @@
 
 			if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
-		remove_object(O)
+		remove_object(O)*/
 
 	//Everything else - Transfers reagents from it into beaker
 	for (var/obj/item/weapon/reagent_containers/O in holdingitems)

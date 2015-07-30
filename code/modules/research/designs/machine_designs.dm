@@ -331,3 +331,23 @@
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pod
 	category = list("Misc. Machinery")
+
+/datum/design/ore_redemption
+	name = "Machine Design (Ore Redemption Board)"
+	desc = "The circuit board for an Ore Redemption machine."
+	id = "ore_redemption"
+	req_tech = list("programming" = 1, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass"=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/ore_redemption
+	category = list ("Misc. Machinery")
+
+/datum/design/mining_equipment_vendor
+	name = "Machine Design (Mining Rewards Vender Board)"
+	desc = "The circuit board for a Mining Rewards Vender."
+	id = "mining_equipment_vendor"
+	req_tech = list("programming" = 1, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass"=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/mining_equipment_vendor
+	category = list ("Misc. Machinery")

@@ -136,8 +136,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_debug_del_all,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
-	/client/proc/remake_distribution_map,
-	/client/proc/show_distribution_map,
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
@@ -228,19 +226,15 @@ var/list/admin_verbs_mentor = list(
 	set name = "Invisimin"
 	set category = "Admin"
 	set desc = "Toggles ghost-like invisibility (Don't abuse this)"
+
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
-			mob.icon_state = "ghost"
-			mob.icon = 'icons/mob/human.dmi'
-			mob.update_icons()
+			mob << "<span class='danger'>Invisimin off. Invisibility reset.</span>"
+			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
-			mob.icon_state = "ghost"
-			mob.icon = 'icons/mob/mob.dmi'
-
+			mob << "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>"
 
 /client/proc/player_panel()
 	set name = "Player Panel"

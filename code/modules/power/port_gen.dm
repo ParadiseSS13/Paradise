@@ -87,7 +87,7 @@
 
 	var/sheet_name = "Plasma Sheets"
 	var/sheet_path = /obj/item/stack/sheet/mineral/plasma
-	var/board_path = "/obj/item/weapon/circuitboard/pacman"
+	var/board_path = /obj/item/weapon/circuitboard/pacman
 
 	/*
 		These values were chosen so that the generator can run safely up to 80 kW
@@ -369,7 +369,7 @@
 	sheet_path = /obj/item/stack/sheet/mineral/uranium
 	sheet_name = "Uranium Sheets"
 	time_per_sheet = 576 //same power output, but a 50 sheet stack will last 2 hours at max safe power
-	board_path = "/obj/item/weapon/circuitboard/pacman/super"
+	board_path = /obj/item/weapon/circuitboard/pacman/super
 
 /obj/machinery/power/port_gen/pacman/super/UseFuel()
 	//produces a tiny amount of radiation when in use
@@ -391,10 +391,10 @@
 
 /obj/machinery/power/port_gen/pacman/mrs
 	name = "M.R.S.P.A.C.M.A.N.-type Portable Generator"
-	desc = "An advanced power generator that runs on tritium. Rated for 200 kW maximum safe output!"
+	desc = "An advanced power generator that runs on diamonds. Rated for 200 kW maximum safe output!"
 	icon_state = "portgen2"
-	sheet_path = /obj/item/stack/sheet/mineral/tritium
-	sheet_name = "Tritium Fuel Sheets"
+	sheet_path = /obj/item/stack/sheet/mineral/diamond
+	sheet_name = "Diamond Sheets"
 
 	//I don't think tritium has any other use, so we might as well make this rewarding for players
 	//max safe power output (power level = 8) is 200 kW and lasts for 1 hour - 3 or 4 of these could power the station
@@ -404,7 +404,7 @@
 	time_per_sheet = 576
 	max_temperature = 800
 	temperature_gain = 90
-	board_path = "/obj/item/weapon/circuitboard/pacman/mrs"
+	board_path = /obj/item/weapon/circuitboard/pacman/mrs
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).

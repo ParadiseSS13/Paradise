@@ -314,9 +314,11 @@
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
 		src.modules += new /obj/item/weapon/screwdriver(src)
-		src.modules += new /obj/item/weapon/storage/bag/ore(src)
-		src.modules += new /obj/item/weapon/pickaxe/borgdrill(src)
+		src.modules += new /obj/item/device/t_scanner/adv_mining_scanner/cyborg(src)
+		src.modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
+		src.modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
 		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
+		src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg(src)
 		src.emag = new /obj/item/borg/stun(src)
 		return
 
@@ -358,7 +360,7 @@
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/thermal(src)
 		src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
-		src.modules += new /obj/item/weapon/pickaxe/plasmacutter(src)
+		src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
 		src.modules += new /obj/item/borg/combat/shield(src)
 		src.modules += new /obj/item/borg/combat/mobility(src)
 		src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
@@ -413,7 +415,7 @@
 		src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 		src.modules += new /obj/item/weapon/soap(src)
 
-		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
+		src.emag = new /obj/item/weapon/gun/energy/plasmacutter(src)
 		src.emag.name = "Plasma Cutter"
 
 		for(var/T in stacktypes)

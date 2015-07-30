@@ -467,7 +467,7 @@
 	reagents = list("water" = 10)
 	fruit = list("banana" = 1)
 	items = list(
-		/obj/item/weapon/ore/clown,
+		/obj/item/weapon/ore/bananium,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/clownstears
 
