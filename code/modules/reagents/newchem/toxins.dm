@@ -555,6 +555,38 @@ datum/reagent/tabun/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
+/datum/reagent/chloralhydrate
+	name = "Chloral Hydrate"
+	id = "chloralhydrate"
+	description = "A powerful sedative, Lethal in larger doses."
+	reagent_state = LIQUID
+	color = "#000067" // rgb: 0, 0, 103
+
+	on_mob_life(var/mob/living/M as mob)
+		if(!M) M = holder.my_atom
+		if(!data) data = 1
+		data++
+		switch(data)
+			if(1)
+				M.confused += 2
+				M.drowsyness += 2
+			if(2 to 50)
+				M.sleeping += 1
+			if(51 to INFINITY)
+				M.sleeping += 1
+				M:toxloss += (data - 50)
+		..()
+
+		return
+
+/datum/chemical_reaction/chloralhydrate
+	name = "Chloral Hydrate"
+	id = "chloralhydrate"
+	result = "ether"
+	required_reagents = list("ethanol" = 1, "chlorine" = 3, "water" = 1)
+	result_amount = 1
+	mix_message = "The mixture yields colorless, oily liquid with a pungent odor."
+
 datum/reagent/atrazine
 	name = "Atrazine"
 	id = "atrazine"
