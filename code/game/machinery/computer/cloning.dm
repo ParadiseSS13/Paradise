@@ -62,7 +62,7 @@
 		for(var/obj/machinery/dna_scannernew/S in get_area(src))
 			return S
 
-	return
+	return 0
 
 /obj/machinery/computer/cloning/proc/releasecloner()
 	for(var/obj/machinery/clonepod/P in pods)
@@ -313,6 +313,8 @@
 					menu = 1
 				else
 					var/mob/selected = find_dead_player("[C.ckey]")
+					if(!selected)
+						return
 					selected << 'sound/machines/chime.ogg'	//probably not the best sound but I think it's reasonable
 					var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
 					if(answer != "No" && pod.growclone(C))
