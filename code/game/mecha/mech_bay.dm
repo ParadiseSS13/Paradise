@@ -105,8 +105,10 @@
 	var/MC
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
-	pr_recharger.max_charge = MC * 10
-	recharge_console.voltage = MC * 10
+	if(pr_recharger)
+		pr_recharger.max_charge = MC * 10
+	if(recharge_console)
+		recharge_console.voltage = MC * 10
 	
 /obj/machinery/mech_bay_recharge_port/Destroy()
 	recharge_console.recharge_port = null
