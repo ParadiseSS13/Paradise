@@ -421,7 +421,13 @@
 			if(!isnull(connected))
 				attack_hand(user)
 				break
-	else if(!..())
+	else
+		if(..(user))
+			return
+
+		if(stat & (NOPOWER|BROKEN)) 
+			return			
+			
 		ui_interact(user)
 
  /**
@@ -436,8 +442,7 @@
   * @return nothing
   */
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
-	if(user == connected.occupant || user.stat)
+	if(user == connected.occupant)
 		return
 
 	// this is the data which will be sent to the ui

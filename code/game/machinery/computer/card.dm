@@ -77,8 +77,11 @@
 
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
-	if(..()) return
-	if(stat & (NOPOWER|BROKEN)) return
+	if(..()) 
+		return
+	if(stat & (NOPOWER|BROKEN)) 
+		return
+		
 	ui_interact(user)
 
 /obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)

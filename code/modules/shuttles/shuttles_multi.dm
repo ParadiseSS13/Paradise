@@ -1,7 +1,7 @@
 //This is a holder for things like the Vox and Nuke shuttle.
 /datum/shuttle/multi_shuttle
-
 	var/cloaked = 1
+	var/can_cloak = 1
 	var/at_origin = 1
 	var/returned_home = 0
 	var/move_time = 240
@@ -16,11 +16,11 @@
 	var/area/last_departed
 	var/list/destinations
 	var/area/origin
-	var/return_warning = 0
 
 /datum/shuttle/multi_shuttle/New()
 	..()
-	if(origin) last_departed = origin
+	if(origin) 
+		last_departed = origin
 
 /datum/shuttle/multi_shuttle/move(var/area/origin, var/area/destination)
 	..()
@@ -29,115 +29,181 @@
 		returned_home = 1
 
 /datum/shuttle/multi_shuttle/proc/announce_departure()
-
 	if(cloaked || isnull(departure_message))
 		return
 
 	command_announcement.Announce(departure_message,(announcer ? announcer : "Central Command"))
 
 /datum/shuttle/multi_shuttle/proc/announce_arrival()
-
 	if(cloaked || isnull(arrival_message))
 		return
 
 	command_announcement.Announce(arrival_message,(announcer ? announcer : "Central Command"))
 
 /obj/machinery/computer/shuttle_control/multi
-	icon_screen = "syndishuttle"
-	icon_keyboard = "syndie_key"
+	icon_screen = "shuttle"
+	icon_keyboard = "med_key"
+	var/is_syndicate = 0
+	var/warn_on_return = 0
+	
+/obj/machinery/computer/shuttle_control/multi/New()
+	..()
+	if(is_syndicate)
+		icon_screen = "syndishuttle"
+		icon_keyboard = "syndie_key"
 
 /obj/machinery/computer/shuttle_control/multi/attack_hand(user as mob)
-
 	if(..(user))
-		return
-	src.add_fingerprint(user)
-
+		return 1
+	
+	if(!allowed(user))
+		user << "\red Access Denied."
+		return 1	
+	
+	ui_interact(user)
+	
+/obj/machinery/computer/shuttle_control/multi/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
 	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
-	if(!istype(MS)) return
+	if (!istype(MS))
+		return
 
-	var/dat
-	dat = "<center>[shuttle_tag] Ship Control<hr>"
+	var/shuttle_state
+	switch(MS.moving_status)
+		if(SHUTTLE_IDLE) shuttle_state = "idle"
+		if(SHUTTLE_WARMUP) shuttle_state = "warmup"
+		if(SHUTTLE_INTRANSIT) shuttle_state = "in_transit"
+	if(MS.moving_status == SHUTTLE_IDLE && (MS.last_move + MS.cooldown*10) > world.time)
+		shuttle_state = "charging"
 
-
-	if(MS.moving_status != SHUTTLE_IDLE)
-		dat += "Location: <font color='red'>Moving</font> <br>"
+	var/shuttle_status
+	if (MS.moving_status != SHUTTLE_IDLE)
+		shuttle_status = "Proceeding to destination."
+	else if (MS.at_origin)
+		shuttle_status = "Standing-by at base."
 	else
 		var/area/areacheck = get_area(src)
-		dat += "Location: [areacheck.name]<br>"
+		shuttle_status = "Standing-by at [sanitize(areacheck.name)]."		
 
-	if((MS.last_move + MS.cooldown*10) > world.time)
-		dat += "<font color='red'>Engines charging.</font><br>"
-	else
-		dat += "<font color='green'>Engines ready.</font><br>"
+	data = list(
+		"shuttle_status" = shuttle_status,
+		"shuttle_state" = shuttle_state,
+		"can_launch" = can_launch(),
+		"can_return_to_base" = can_return_to_base(),
+		"can_cloak" = MS.can_cloak,
+		"cloaked" = MS.cloaked,
+		"is_syndicate" = is_syndicate
+	)
 
-	dat += "<br><b><A href='?src=\ref[src];toggle_cloak=[1]'>Toggle cloaking field</A></b><br>"
-	dat += "<b><A href='?src=\ref[src];move_multi=[1]'>Move ship</A></b><br>"
-	dat += "<b><A href='?src=\ref[src];start=[1]'>Return to base</A></b></center>"
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	user << browse("[dat]", "window=[shuttle_tag]shuttlecontrol;size=300x600")
+	if (!ui)
+		ui = new(user, src, ui_key, "shuttle_control_multi_console.tmpl", "[shuttle_tag] Ship Control", 470, 310)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
+/obj/machinery/computer/shuttle_control/multi/proc/can_launch()
+	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(MS))
+		return
+	
+	if (MS.moving_status != SHUTTLE_IDLE)
+		return 0
+
+	if((MS.last_move + MS.cooldown * 10) > world.time)
+		return 0
+	
+	return 1
+	
+/obj/machinery/computer/shuttle_control/multi/proc/can_return_to_base()
+	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(MS))
+		return
+	
+	if(MS.moving_status != SHUTTLE_IDLE)
+		return 0
+
+	if((MS.last_move + MS.cooldown * 10) > world.time)
+		return 0
+	
+	if(MS.at_origin)
+		return 0
+	
+	return 1
+	
+/obj/machinery/computer/shuttle_control/multi/proc/return_to_base()
+	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(MS))
+		return
+	
+	if(!can_return_to_base())
+		return
+
+	if(warn_on_return)
+		var/confirm = alert("Returning to your home base will end your mission. Are you sure you want to return to base?", "Confirm Return to Base", "Yes", "No")
+		if(confirm == "No")
+			return
+
+	MS.long_jump(MS.last_departed,MS.origin,MS.interim,MS.move_time)
+	MS.last_departed = MS.origin
+	MS.at_origin = 1
+	
+/obj/machinery/computer/shuttle_control/multi/proc/toggle_cloak()
+	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(MS))
+		return
+	
+	MS.cloaked = !MS.cloaked
+	
+/obj/machinery/computer/shuttle_control/multi/proc/launch_multi()
+	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	if (!istype(MS))
+		return
+	
+	if(MS.moving_status != SHUTTLE_IDLE)
+		return 0
+
+	if((MS.last_move + MS.cooldown * 10) > world.time)
+		return 0
+
+	var/choice = input("Select a destination.") as null|anything in MS.destinations
+	if(!choice) 
+		return
+
+	if(MS.at_origin)
+		MS.announce_arrival()
+		MS.last_departed = MS.origin
+		MS.at_origin = 0
+		MS.long_jump(MS.last_departed, MS.destinations[choice], MS.interim, MS.move_time)
+		MS.last_departed = MS.destinations[choice]
+		return
+
+	else if(choice == MS.origin)
+		MS.announce_departure()
+
+	MS.short_jump(MS.last_departed, MS.destinations[choice])
+	MS.last_departed = MS.destinations[choice]
+	
 /obj/machinery/computer/shuttle_control/multi/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+	
+	if(!allowed(usr))
+		return 1
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
 	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
-	if(!istype(MS)) return
-
-	//world << "multi_shuttle: last_departed=[MS.last_departed], origin=[MS.origin], interim=[MS.interim], travel_time=[MS.move_time]"
-
-	if (MS.moving_status != SHUTTLE_IDLE)
-		usr << "\blue [shuttle_tag] vessel is moving."
+	if(!istype(MS)) 
 		return
 
 	if(href_list["start"])
-
-		if(MS.at_origin)
-			usr << "\red You are already at your home base."
-			return
-
-		if(!MS.return_warning)
-			usr << "\red Returning to your home base will end your mission. If you are sure, press the button again."
-			//TODO: Actually end the mission.
-			MS.return_warning = 1
-			return
-
-		MS.long_jump(MS.last_departed,MS.origin,MS.interim,MS.move_time)
-		MS.last_departed = MS.origin
-		MS.at_origin = 1
+		return_to_base()
 
 	if(href_list["toggle_cloak"])
-
-		MS.cloaked = !MS.cloaked
-		usr << "\red Ship stealth systems have been [(MS.cloaked ? "activated. The station will not" : "deactivated. The station will")] be warned of our arrival."
+		toggle_cloak()
 
 	if(href_list["move_multi"])
-		if((MS.last_move + MS.cooldown*10) > world.time)
-			usr << "\red The ship's drive is inoperable while the engines are charging."
-			return
-
-		var/choice = input("Select a destination.") as null|anything in MS.destinations
-		if(!choice) return
-
-		usr << "\blue [shuttle_tag] main computer recieved message."
-
-		if(MS.at_origin)
-			MS.announce_arrival()
-			MS.last_departed = MS.origin
-			MS.at_origin = 0
-
-
-			MS.long_jump(MS.last_departed, MS.destinations[choice], MS.interim, MS.move_time)
-			MS.last_departed = MS.destinations[choice]
-			return
-
-		else if(choice == MS.origin)
-
-			MS.announce_departure()
-
-		MS.short_jump(MS.last_departed, MS.destinations[choice])
-		MS.last_departed = MS.destinations[choice]
-
-	updateUsrDialog()
+		launch_multi()

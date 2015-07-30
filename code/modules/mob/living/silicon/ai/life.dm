@@ -23,10 +23,6 @@
 			death()
 			return
 
-		if (src.machine)
-			if (!( src.machine.check_eye(src) ))
-				src.reset_view(null)
-
 		// Handle power damage (oxy)
 		if(src:aiRestorePowerRoutine != 0)
 			// Lost power

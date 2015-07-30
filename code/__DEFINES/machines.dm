@@ -24,8 +24,6 @@
 
 #define HYDRO_SPEED_MULTIPLIER 1
 
-#define NANO_IGNORE_DISTANCE 1
-
 // multitool_topic() shit
 #define MT_ERROR  -1
 #define MT_UPDATE 1

@@ -635,7 +635,7 @@ About the new airlock wires panel:
 		..(user)
 	return
 
-/obj/machinery/door/airlock/CanUseTopic(var/mob/user, href_list)
+/obj/machinery/door/airlock/CanUseTopic(var/mob/user)
 	if(!issilicon(user))
 		return STATUS_CLOSE
 
@@ -652,7 +652,7 @@ About the new airlock wires panel:
 				user << "<span class='warning'>Unable to interface: Connection refused.</span>"
 		return STATUS_CLOSE
 
-	return STATUS_INTERACTIVE
+	return ..()
 
 /obj/machinery/door/airlock/Topic(href, href_list, var/nowindow = 0)
 	if(..())
@@ -972,14 +972,6 @@ About the new airlock wires panel:
 		welded = 1
 		update_icon()
 
-
-/obj/machinery/door/airlock/proc/prison_open()
-	src.unlock()
-	src.open()
-	src.locked = 1
-	return
-
-
 /obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
@@ -1055,3 +1047,10 @@ About the new airlock wires panel:
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0
 	update_icon()
+
+/obj/machinery/door/airlock/proc/prison_open()
+	if(arePowerSystemsOn())
+		src.unlock()
+		src.open()
+		src.lock()
+	return	

@@ -11,35 +11,86 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 		<b>Functions</b>:
 	</div>
 	<div class="itemContent">
+		{{:helper.link('Request Items', 'gear', {'menu' : 0}, null, 'fixedLeftWider')}}
+		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, null, 'fixedLeftWider')}}
+		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'fixedLeftWider')}}
+		{{:helper.link('Return', 'arrowreturn-1-w', {'return' : 1}, null, 'fixedLeft')}}
 		{{:helper.link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
 	</div>
 </div>
 <br>
-<div class="item">
-    <div class="itemLabel">
-        <b>Tele-Crystals</b>:
-    </div>
-    <div class="itemContent">
-        {{:data.crystals}}
-    </div>
-</div>
-<H2><span class="white">Request items:</span></H2><br>
-<span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
 
-<br><br>
-{{for data.nano_items}}
-    <div class="item">
-	    <H3><span class="white">{{:value.Category}}</span></H3>
-    </div>
-	{{for data.items :itemValue:itemIndex}}
-        <div class="item">
-            {{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+{{if data.menu == 0}}
+    <H2><span class="white">Request items:</span></H2>
+    <span class="white"><i>Each item costs a number of tele-crystals as indicated by the number following their name.</i></span>
+	<div class="item">
+        <div class="itemLabel">
+            <b>Tele-Crystals</b>:
         </div>
-	{{/for}}
+        <div class="itemContent">
+            {{:data.crystals}}
+        </div>
+    </div>
     <br>
-{{/for}}
+    {{for data.nano_items}}
+        <div class="item">
+            <h3><span class="white">{{:value.Category}}</span></h3>
+        </div>
+        {{for value.items :itemValue:itemIndex}}
+            <div class="item">
+                {{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
+            </div>
+            
+            {{if itemValue.Cost <= data.crystals && data.descriptions}}
+                <div class="item">
+                    {{:itemValue.Description}}
+                </div>
+            {{/if}}
+        {{/for}}
+        <br>
+    {{/for}}
 
-<div class="item">
-    {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, null, 'fixedLeftWidest')}}
-</div>
+    <div class="item">
+        {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, null)}}
+    </div>
+	
+{{else data.menu == 1}}
+    <h2><span class="white">Information Record List:</span></h2>
+    <br>
+    <div class="item">
+        Select a Record
+    </div>
+    <br>
+    {{for data.exploit_records}}
+        <div class="item">
+             {{:helper.link(value.Name, 'gear', {'menu' : 11, 'id' : value.id}, null, null)}}
+        </div>
+    {{/for}}
+	
+{{else data.menu == 11}}
+    <h2><span class="white">Information Record:</span></h2>
+    <br>
+    <div class="statusDisplayRecords">
+        <div class="item">
+            <div class="itemContent" style="width: 100%;">
+                {{if data.exploit_exists == 1}}
+                    <span class="good">Name:		</span> <span class="average">{{:data.exploit.name}}		</span><br>
+                    <span class="good">Sex:			</span> <span class="average">{{:data.exploit.sex}}			</span><br>
+                    <span class="good">Species:		</span> <span class="average">{{:data.exploit.species}}		</span><br>
+                    <span class="good">Age:			</span> <span class="average">{{:data.exploit.age}}			</span><br>
+                    <span class="good">Rank:		</span> <span class="average">{{:data.exploit.rank}}		</span><br>
+                    <span class="good">Fingerprint:	</span> <span class="average">{{:data.exploit.fingerprint}}	</span><br>
 
+                    <br>Acquired Information:<br>
+                    <span class="good">Notes:<br>	</span> <span class="average">{{:data.exploit.nanoui_exploit_record}}</span><br><br>
+                {{else}}
+                    <span class="bad">
+                        No exploitative information acquired!
+                        <br>
+                        <br>
+                    </span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+{{/if}}

@@ -432,3 +432,11 @@
 		if(T && gravity_generators["[T.z]"] && length(gravity_generators["[T.z]"]))
 			return 1
 	return 0
+
+/area/proc/prison_break()
+	for(var/obj/machinery/power/apc/temp_apc in src)
+		temp_apc.overload_lighting(70)
+	for(var/obj/machinery/door/airlock/temp_airlock in src)
+		temp_airlock.prison_open()
+	for(var/obj/machinery/door/window/temp_windoor in src)
+		temp_windoor.open()
