@@ -29,7 +29,7 @@
 			if(t == src.door_tag)
 				src.release_door = d
 		if (machine && (release_door || !use_release_door))
-			machine.console = src
+			machine.CONSOLE = src
 		else
 			qdel(src)
 
@@ -65,7 +65,7 @@
 	if(istype(I, /obj/item/weapon/card/id))
 		return attack_hand(user)
 	..()
-	
+
 /obj/machinery/mineral/labor_claim_console/emag_act(user as mob)
 	emag(user)
 
@@ -109,9 +109,9 @@
 							usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
 							shuttle.launch()
 						else
-							usr << "\blue Shuttle is already moving."
+							usr << "<span class='notice'>Shuttle is already moving.</span>"
 					else
-						usr << "\blue Shuttle is already on-station."
+						usr << "<span class='notice'>Shuttle is already on-station.</span>"
 
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
@@ -132,7 +132,7 @@
 
 /obj/machinery/mineral/stacking_machine/laborstacker
 	var/points = 0 //The unclaimed value of ore stacked.  Value for each ore loosely relative to its rarity.
-	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("iron" = 3), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
+	var/list/ore_values = list(("glass" = 1), ("metal" = 2), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
 
 /obj/machinery/mineral/stacking_machine/laborstacker/proc/get_ore_values()
 	var/dat = "<table border='0' width='200'>"
@@ -142,31 +142,13 @@
 	dat += "</table>"
 	return dat
 
-/obj/machinery/mineral/stacking_machine/laborstacker/process()
-	if (src.output && src.input)
-		var/turf/T = get_turf(input)
-		for(var/obj/item/O in T.contents)
-			if(!O) return
-			if(istype(O,/obj/item/stack))
-				var/obj/item/stack/S = O
-				if(S.name in ore_values)
-					points += ore_values[S.name] * S.amount
-					S.loc = null
-				else
-					S.loc = output.loc
-			else
-				O.loc = output.loc
-				
-	//Output amounts that are past stack_amt.
-	for(var/sheet in stack_storage)
-		if(stack_storage[sheet] >= stack_amt)
-			var/stacktype = stack_paths[sheet]
-			var/obj/item/stack/sheet/S = new stacktype (get_turf(output))
-			S.amount = stack_amt
-			stack_storage[sheet] -= stack_amt
-
-	console.updateUsrDialog()
-	return
+/obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)
+	if(istype(inp))
+		var/n = inp.name
+		var/a = inp.amount
+		if(n in ore_values)
+			points += ore_values[n] * a
+	..()
 
 
 /**********************Point Lookup Console**************************/

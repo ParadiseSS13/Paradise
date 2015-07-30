@@ -135,11 +135,11 @@
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
-		else if(istype(target, /obj/machinery/bunsen_burner))
+		/*else if(istype(target, /obj/machinery/bunsen_burner))
 			return
 
 		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-			return
+			return*/
 
 		else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
 			return

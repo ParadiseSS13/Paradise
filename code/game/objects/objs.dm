@@ -155,15 +155,18 @@
 
 
 /obj/proc/hear_talk(mob/M as mob, text)
+
 	if(talking_atom)
 		talking_atom.catchMessage(text, M)
+
 /*
 	var/mob/mo = locate(/mob) in src
 	if(mo)
 		var/rendered = "<span class='game say'><span class='name'>[M.name]: </span> <span class='message'>[text]</span></span>"
 		mo.show_message(rendered, 2)
-		*/
+*/
 	return
+
 
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"

@@ -40,7 +40,6 @@ datum/controller/game_controller
 	var/last_thing_processed
 
 	var/list/shuttle_list	                    // For debugging and VV
-	var/datum/ore_distribution/asteroid_ore_map // For debugging and VV.
 
 	var/global/datum/garbage_collector/garbageCollector
 
@@ -84,7 +83,7 @@ datum/controller/game_controller/proc/setup()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
-	SetupXenoarch()
+	//SetupXenoarch()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
@@ -119,11 +118,6 @@ datum/controller/game_controller/proc/setup_objects()
 		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
-
-	//Create the mining ore distribution map.
-	asteroid_ore_map = new /datum/ore_distribution()
-	asteroid_ore_map.populate_distribution_map()
-
 
 	//Set up roundstart seed list.
 	//populate_seed_list()

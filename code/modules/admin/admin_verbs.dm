@@ -136,8 +136,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_debug_del_all,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
-	/client/proc/remake_distribution_map,
-	/client/proc/show_distribution_map,
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
