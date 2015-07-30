@@ -59,6 +59,11 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
+	
+/obj/machinery/clonepod/Destroy()
+	if(connected)
+		connected.pods -= src
+	..()
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_coeff = 0
@@ -375,7 +380,7 @@
 		else
 			if(src.anchored)
 				src.anchored = 0
-				connected.pod1 = null
+				connected.pods -= src
 				connected = null
 			else
 				src.anchored = 1
