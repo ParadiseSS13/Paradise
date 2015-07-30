@@ -55,6 +55,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
+	
 	files = new /datum/research(src) //Setup the research data holder.
 	for(var/direction in cardinal)
 		exit = get_step(src,direction)
