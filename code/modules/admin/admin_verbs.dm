@@ -233,14 +233,10 @@ var/list/admin_verbs_mentor = list(
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
 			mob << "<span class='danger'>Invisimin off. Invisibility reset.</span>"
-			/*mob.icon_state = "ghost" //this is pointless and ruins an otherwise good feature
-			mob.icon = 'icons/mob/human.dmi'
-			mob.update_icons()*/
+			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			mob << "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>"
-			/*mob.icon_state = "ghost" //see above
-			mob.icon = 'icons/mob/mob.dmi'*/
 
 /client/proc/player_panel()
 	set name = "Player Panel"
