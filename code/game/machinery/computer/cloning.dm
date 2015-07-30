@@ -6,7 +6,7 @@
 	circuit = "/obj/item/weapon/circuitboard/cloning"
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/dna_scannernew/scanner = null //Linked scanner. For scanning.
-	var/obj/machinery/clonepod/pod1 = null //Linked cloning pod.
+	var/list/pods = list() //Linked cloning pods.
 	var/temp = ""
 	var/scantemp = "Scanner ready."
 	var/menu = 1 //Which menu screen to display
@@ -41,38 +41,35 @@
 
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
-	src.pod1 = findcloner()
-
-	if (!isnull(src.pod1))
-		src.pod1.connected = src // Some variable the pod needs
+	findcloner()
+	var/num = 1
+	for (var/obj/machinery/clonepod/pod in pods)
+		pod.connected = src
+		pod.name = "[initial(pod.name)] #[num++]"
 
 /obj/machinery/computer/cloning/proc/findscanner()
 	var/obj/machinery/dna_scannernew/scannerf = null
 
-	// Loop through every direction
+	//Try to find scanner on adjacent tiles first
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
-
-		// Try to find a scanner in that direction
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+		if (scannerf)
+			return scannerf
 
-		// If found, then we break, and return the scanner
-		if (!isnull(scannerf))
-			break
+	//Then look for a free one in the area
+	if(!scannerf)
+		for(var/obj/machinery/dna_scannernew/S in get_area(src))
+			return S
 
-	// If no scanner was found, it will return null
-	return scannerf
+	return
 
 /obj/machinery/computer/cloning/proc/findcloner()
-	var/obj/machinery/clonepod/podf = null
+	pods.Cut()
+	for(var/obj/machinery/clonepod/P in get_area(src))
+		if(!P.connected)
+			pods += P
 
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-
-		podf = locate(/obj/machinery/clonepod, get_step(src, dir))
-
-		if (!isnull(podf))
-			break
-
-	return podf
+	return
 
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/disk/data)) //INSERT SOME DISKETTES
@@ -83,6 +80,15 @@
 			user << "You insert [W]."
 			nanomanager.update_uis(src)
 			return
+	else if(istype(W, /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = W
+		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
+			var/obj/machinery/clonepod/P = M.buffer
+			if(P && !(P in pods))
+				pods += P
+				P.connected = src
+				P.name = "[initial(P.name)] #[pods.len]"
+				user << "<span class='notice'>You connect [P] to [src].</span>"
 	else
 		..()
 	return
@@ -109,7 +115,8 @@
 
 	data["menu"] = src.menu
 	data["scanner"] = src.scanner
-	data["pod"] = src.pod1
+	if(pods.len)
+		data["pod"] = src.pods
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
 	if(scanner && pod1 && ((scanner.scan_level > 2) || (pod1.efficiency > 5)))
