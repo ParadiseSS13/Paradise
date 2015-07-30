@@ -20,7 +20,7 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = CLONE_BIOMASS // * 3 - N3X
+	var/biomass = 0 
 	var/speed_coeff
 	var/efficiency
 
@@ -31,6 +31,9 @@
 			set_light(2)
 		else
 			set_light(0)
+		
+/obj/machinery/clonepod/biomass
+	biomass = CLONE_BIOMASS
 
 /obj/machinery/clonepod/New()
 	..()
@@ -45,8 +48,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	update_icon()
-
-
+	
 /obj/machinery/clonepod/upgraded/New()
 	..()
 	component_parts = list()
@@ -58,6 +60,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	biomass = CLONE_BIOMASS
 	RefreshParts()
 	
 /obj/machinery/clonepod/Destroy()
