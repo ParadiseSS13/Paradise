@@ -574,7 +574,9 @@ datum/reagent/tabun/on_mob_life(var/mob/living/M as mob)
 				M.sleeping += 1
 			if(51 to INFINITY)
 				M.sleeping += 1
-				M:toxloss += (data - 50)
+				if(iscarbon(M))
+					var/mob/living/carbon/C = M
+					C.toxloss += (data - 50)
 		..()
 
 		return
