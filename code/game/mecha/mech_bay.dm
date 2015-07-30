@@ -195,7 +195,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
-	light_color = "#a97faa"
+	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/autostart = 1
 	var/voltage = 50
