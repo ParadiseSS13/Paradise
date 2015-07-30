@@ -38,7 +38,9 @@
 	R.languages = list()
 	R.speech_synthesizer_langs = list()
 	R.notify_ai(2)
-	R.updateicon()
+	R.jetpackoverlay = 0
+	R.update_icons()
+	R.update_headlamp()
 	R.add_language("Robot Talk", 1)
 
 	return 1
@@ -156,7 +158,8 @@
 		R.module.modules += new/obj/item/weapon/tank/jetpack/carbondioxide
 		for(var/obj/item/weapon/tank/jetpack/carbondioxide in R.module.modules)
 			R.internals = src
-		//R.icon_state="Miner+j"
+		R.jetpackoverlay = 1
+		R.update_icons()
 		return 1
 
 /obj/item/borg/upgrade/ddrill

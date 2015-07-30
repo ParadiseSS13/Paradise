@@ -22,6 +22,7 @@ var/list/robot_verbs_default = list(
 	var/obj/screen/inv1 = null
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
+	var/obj/screen/lamp_button = null
 
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
 	var/obj/screen/robot_modules_background
@@ -74,6 +75,12 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+	
+	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
+	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
+	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	
+	var/jetpackoverlay = 0
 
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
@@ -92,7 +99,8 @@ var/list/robot_verbs_default = list(
 	robot_modules_background.layer = 19	//Objects that appear on screen are on layer 20, UI should be just below it.
 	ident = rand(1, 999)
 	updatename("Default")
-	updateicon()
+	update_icons()
+	update_headlamp()
 
 	radio = new /obj/item/device/radio/borg(src)
 	common_radio = radio
@@ -364,7 +372,7 @@ var/list/robot_verbs_default = list(
 			custom_name = newname
 
 		updatename()
-		updateicon()
+		update_icons()
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
 	set category = "Robot Commands"
@@ -683,7 +691,7 @@ var/list/robot_verbs_default = list(
 			if(cell)
 				user << "You close the cover."
 				opened = 0
-				updateicon()
+				update_icons()
 			else if(wiresexposed && wires.IsAllCut())
 				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 				if(!mmi)
@@ -735,7 +743,7 @@ var/list/robot_verbs_default = list(
 			else
 				user << "You open the cover."
 				opened = 1
-				updateicon()
+				update_icons()
 
 	else if (istype(W, /obj/item/weapon/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/C = components["power cell"]
@@ -765,14 +773,14 @@ var/list/robot_verbs_default = list(
 	else if(istype(W, /obj/item/weapon/screwdriver) && opened && !cell)	// haxing
 		wiresexposed = !wiresexposed
 		user << "The wires have been [wiresexposed ? "exposed" : "unexposed"]"
-		updateicon()
+		update_icons()
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && opened && cell)	// radio
 		if(radio)
 			radio.attackby(W,user)//Push it to the radio to let it handle everything
 		else
 			user << "Unable to locate a radio."
-		updateicon()
+		update_icons()
 
 	else if(istype(W, /obj/item/device/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
@@ -789,7 +797,7 @@ var/list/robot_verbs_default = list(
 			if(allowed(usr))
 				locked = !locked
 				user << "You [ locked ? "lock" : "unlock"] [src]'s interface."
-				updateicon()
+				update_icons()
 			else
 				user << "\red Access denied."
 
@@ -871,7 +879,7 @@ var/list/robot_verbs_default = list(
 			if(src.module && istype(src.module, /obj/item/weapon/robot_module/medical))
 				for(var/obj/item/weapon/borg_defib/F in src.module.modules)
 					F.safety = 0
-			updateicon()
+			update_icons()
 		return
 
 /mob/living/silicon/robot/verb/unlock_own_cover()
@@ -882,7 +890,7 @@ var/list/robot_verbs_default = list(
 		switch(alert("You can not lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
 			if("Yes")
 				locked = 0
-				updateicon()
+				update_icons()
 				usr << "You unlock your cover."
 
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
@@ -991,7 +999,7 @@ var/list/robot_verbs_default = list(
 			user.put_in_active_hand(cell)
 			user << "You remove \the [cell]."
 			cell = null
-			updateicon()
+			update_icons()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
 		if (user.a_intent == "help")
@@ -1023,12 +1031,10 @@ var/list/robot_verbs_default = list(
 			return 1
 	return 0
 
-/mob/living/silicon/robot/proc/updateicon()
+/mob/living/silicon/robot/update_icons()
 
 	overlays.Cut()
-	if(stat == 0)
-		overlays += "eyes"
-		overlays.Cut()
+	if(stat != DEAD && !(paralysis || stunned || weakened)) //Not dead, not stunned.
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
@@ -1059,16 +1065,16 @@ var/list/robot_verbs_default = list(
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
-		return
-
-/mob/living/silicon/robot/proc/updatefire()
-	return
+			
+	if(jetpackoverlay)
+		overlays += "minerjetpack-[icon_state]"
+	update_fire()
 
 //Call when target overlay should be added/removed
 /mob/living/silicon/robot/update_targeted()
 	if(!targeted_by && target_locked)
 		qdel(target_locked)
-	updateicon()
+	update_icons()
 	if (targeted_by && target_locked)
 		overlays += target_locked
 
@@ -1189,6 +1195,32 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/radio_menu()
 	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
 
+/mob/living/silicon/robot/proc/control_headlamp()
+	if(stat || lamp_recharging)
+		src << "<span class='danger'>This function is currently offline.</span>"
+		return
+
+//Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
+	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
+	src << "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]"
+	update_headlamp()
+
+/mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
+	set_light(0)
+
+	if(lamp_intensity && (turn_off || stat))
+		src << "<span class='danger'>Your headlamp has been deactivated.</span>"
+		lamp_intensity = 0
+		lamp_recharging = 1
+		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
+			lamp_recharging = 0
+	else
+		set_light(light_range + lamp_intensity)
+
+	if(lamp_button)
+		lamp_button.icon_state = "lamp[lamp_intensity]"
+
+	update_icons()	
 
 /mob/living/silicon/robot/Move(a, b, flag)
 
@@ -1309,8 +1341,7 @@ var/list/robot_verbs_default = list(
 		lockcharge = null
 		return
 
-	overlays -= "eyes"
-	updateicon()
+	update_icons()
 
 	if (triesleft >= 1)
 		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")

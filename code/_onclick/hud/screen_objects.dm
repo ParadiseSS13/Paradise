@@ -378,6 +378,11 @@
 			if(isrobot(usr))
 				var/mob/living/silicon/robot/R = usr
 				R.sensor_mode()
+				
+		if("Toggle Headlamp")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				R.control_headlamp()
 
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
