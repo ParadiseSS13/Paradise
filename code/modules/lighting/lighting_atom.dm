@@ -46,20 +46,12 @@
 		T.reconsider_lights()
 	return ..()
 
-/atom/movable/Move()
-	var/turf/old_loc = loc
+/atom/Entered(atom/movable/obj, atom/prev_loc)
 	. = ..()
 
-	if(loc != old_loc)
-		for(var/datum/light_source/L in light_sources)
+	if(obj && prev_loc != src)
+		for(var/datum/light_source/L in obj.light_sources)
 			L.source_atom.update_light()
-
-	var/turf/new_loc = loc
-	if(istype(old_loc) && opacity)
-		old_loc.reconsider_lights()
-
-	if(istype(new_loc) && opacity)
-		new_loc.reconsider_lights()
 
 /atom/proc/set_opacity(new_opacity)
 	var/old_opacity = opacity
