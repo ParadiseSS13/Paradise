@@ -140,7 +140,7 @@
 /obj/machinery/power/apc/Destroy()
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
-			if (src.z == 1) //if (is_type_in_list(get_area(src), the_station_areas))
+			if (src.z == ZLEVEL_STATION)
 				ticker.mode:apcs--
 	area.power_light = 0
 	area.power_equip = 0
@@ -153,7 +153,7 @@
 		qdel(cell) // qdel
 	if(terminal)
 		disconnect_terminal()
-	..()
+	return ..()
 
 /obj/machinery/power/apc/proc/make_terminal()
 	// create a terminal object at the same position as original turf loc

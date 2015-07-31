@@ -27,7 +27,7 @@
 /obj/item/device/powersink/Destroy()
 	processing_objects.Remove(src)
 	processing_power_items.Remove(src)
-	..()
+	return ..()
 
 /obj/item/device/powersink/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
