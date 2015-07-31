@@ -86,7 +86,7 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	var/shadowlings = 2 //How many shadowlings there are; hardcoded to 2
+	var/shadowlings = max(2, round(num_players()/10)) //How many shadowlings there are; hardcoded to 2
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
@@ -133,8 +133,8 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.current.verbs += /mob/living/carbon/human/proc/shadowling_hatch
-	S.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/enthrall)
+	shadow_mind.current.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch)
+	shadow_mind.current.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/enthrall)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -144,18 +144,53 @@ Made by Xhuis
 		shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
-	if (!istype(new_thrall_mind))
+	if(!istype(new_thrall_mind))
 		return 0
 	if(!(new_thrall_mind in shadowling_thralls))
 		shadowling_thralls += new_thrall_mind
+		new_thrall_mind.special_role = "shadowling thrall"
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
-		new_thrall_mind.memory += "<b>The Shadowlings' Objectives:</b> [objective_explanation]"
-		new_thrall_mind.current << "<b>The objectives of the shadowlings:</b> [objective_explanation]"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
+		new_thrall_mind.current.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_glare)
+		new_thrall_mind.current.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_shadow_walk)
+		//new_thrall_mind.current.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/thrall_vision) //Uncomment when vision code is unfucked.
+		new_thrall_mind.current << "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
+		new_thrall_mind.current << "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
+		new_thrall_mind.current << "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
+		new_thrall_mind.current << "<span class='shadowling'>Your body has been irreversibly altered. The attentive can see this - you may conceal it by wearing a mask.</span>"
+		new_thrall_mind.current << "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>"
+		new_thrall_mind.current << "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>"
+
 		new_thrall_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return 1
 
+/datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
+	if(!istype(thrall_mind) || !(thrall_mind in thralls) || !isliving(thrall_mind.current))
+		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
+	update_shadow_icons_removed(thrall_mind)
+	thralls.Remove(thrall_mind)
+	thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Dethralled</span>"
+	thrall_mind.special_role = null
+	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_glare)
+	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_shadow_walk)
+	//thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/thrall_vision) //uncomment when vision code is unfucked.
+	thrall_mind.current.remove_language("Shadowling Hivemind")
+	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
+		var/mob/living/carbon/human/H = thrall_mind.current
+		H.visible_message("<span class='warning'>[H] jerks violently and falls still.</span>", \
+							"<span class='userdanger'>A piercing white light floods your mind, banishing your memories as a thrall and--</span>")
+		H.death()
+		return 1
+	var/mob/living/M = thrall_mind.current
+	if(issilicon(M))
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
+							"<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
+	else
+		M.visible_message("<span class='big'>[M] looks like their mind is their own again!</span>", \
+						"<span class='userdanger'>A piercing white light floods your eyes. Your mind is your own again! Though you try, you cannot remember anything about the shadowlings or your time \
+							under their command...</span>")
+	return 1
 
 
 /*
@@ -191,7 +226,7 @@ Made by Xhuis
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		world << "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>"
 	else if(!check_shadow_victory() && emergency_shuttle.returned())
-		world << "<span class='redtext'><b>The crew has escaped the station before the shadowlings could ascend!</b></span>"
+		world << "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>"
 	..()
 	return 1
 

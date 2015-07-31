@@ -18,9 +18,9 @@
 	response_harm   = "flails at"
 
 	harm_intent_damage = 0
-	melee_damage_lower = 35
-	melee_damage_upper = 35
-	attacktext = "claws at"
+	melee_damage_lower = 60 //Was 35, buffed
+	melee_damage_upper = 60
+	attacktext = "rends"
 	attack_sound = 'sound/weapons/slash.ogg'
 
 	minbodytemp = 0
@@ -31,3 +31,9 @@
 
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(var/movement_dir = 0)
 	return 1 //copypasta from carp code
+
+/mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
+	return //You think an ascendant can be hurt by bombs? HA
+
+/mob/living/simple_animal/ascendant_shadowling/singularity_act()
+	return 0 //Well hi, fellow god! How are you today?
