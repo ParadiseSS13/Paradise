@@ -55,27 +55,67 @@
 		return 1
 	return 0
 
-/obj/machinery/smartfridge/extract
+/obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
+	req_access_txt = "47"
 
-/obj/machinery/smartfridge/extract/accept_check(var/obj/item/O as obj)
+/obj/machinery/smartfridge/secure/extract/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/slime_extract))
 		return 1
-	if(istype(O,/obj/item/device/slime_scanner))
-		return 1
 	return 0
 
-/obj/machinery/smartfridge/medbay
-	name = "\improper Medical Fridge"
-	desc = "Am refridgerated storage unit for medicine."
-	icon = 'icons/obj/vending.dmi'
+/obj/machinery/smartfridge/secure/medbay
+	name = "\improper Refrigerated Medicine Storage"
+	desc = "A refrigerated storage unit for storing medicine and chemicals."
+	icon_state = "smartfridge" //To fix the icon in the map editor.
+	icon_on = "smartfridge_chem"
 	req_one_access_txt = "5;33"
 
-/obj/machinery/smartfridge/medbay/accept_check(var/obj/item/O as obj)
-	if(istype(O,/obj/item/weapon/reagent_containers/) || istype(O,/obj/item/weapon/storage/pill_bottle))
+/obj/machinery/smartfridge/secure/medbay/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
+		return 1
+	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
+		return 1
+	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
 		return 1
 	return 0
+
+/obj/machinery/smartfridge/secure/virology
+	name = "\improper Refrigerated Virus Storage"
+	desc = "A refrigerated storage unit for storing viral material."
+	req_access_txt = "39"
+	icon_state = "smartfridge_virology"
+	icon_on = "smartfridge_virology"
+	icon_off = "smartfridge_virology-off"
+
+/obj/machinery/smartfridge/secure/virology/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/reagent_containers/glass/beaker/vial/))
+		return 1
+	if(istype(O,/obj/item/weapon/virusdish/))
+		return 1
+	return 0
+
+/obj/machinery/smartfridge/chemistry
+	name = "\improper Smart Chemical Storage"
+	desc = "A refrigerated storage unit for medicine and chemical storage."
+
+/obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
+		return 1
+	return 0
+
+/obj/machinery/smartfridge/chemistry/virology
+	name = "\improper Smart Virus Storage"
+	desc = "A refrigerated storage unit for volatile sample storage."
+
+/obj/machinery/smartfridge/drinks
+	name = "\improper Drink Showcase"
+	desc = "A refrigerated storage unit for tasty tasty alcohol."
+
+/obj/machinery/smartfridge/drinks/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/food/drinks) || istype(O,/obj/item/weapon/reagent_containers/food/condiment))
+		return 1
 
 /obj/machinery/smartfridge/process()
 	if(stat & (BROKEN|NOPOWER))
@@ -164,7 +204,7 @@
 		return 1
 
 /obj/machinery/smartfridge/attack_ai(mob/user as mob)
-	attack_hand(user)
+	return 0
 
 /obj/machinery/smartfridge/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
@@ -202,7 +242,12 @@
 	if(P.contents.len > 0)
 		user << "<span class='notice'>Some items are refused.</span>"
 	nanomanager.update_uis(src)
-
+	
+/obj/machinery/smartfridge/secure/emag_act(user as mob)	
+	emagged = 1
+	locked = -1
+	user << "You short out the product lock on [src]."
+		
 /*******************
 *   SmartFridge Menu
 ********************/
