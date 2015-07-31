@@ -1,5 +1,5 @@
 /mob/living/simple_animal/ascendant_shadowling
-	name = "Ascendant Shadowling"
+	name = "ascendant shadowling"
 	desc = "A large, floating eldritch horror. It has pulsing markings all about its body and large horns. It seems to be floating without any form of support."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadowling_ascended"
@@ -25,7 +25,7 @@
 
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	environment_smash = 2
+	environment_smash = 3
 
 	faction = list("faithless")
 
