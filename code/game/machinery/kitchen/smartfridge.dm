@@ -144,6 +144,7 @@
 
 /obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/screwdriver))
+		playsound(holder, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		user.visible_message("[user] [panel_open ? "opens" : "closes"] the maintenance panel of \the [src].", "You [panel_open ? "open" : "close"] the maintenance panel of \the [src].")
 		overlays.Cut()
@@ -345,5 +346,6 @@
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			usr << "<span class='warning'>Access denied.</span>"
+			nanomanager.update_uis(src)
 			return 0
 	return ..()
