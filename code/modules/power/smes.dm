@@ -395,19 +395,8 @@
 		ui.set_auto_update(1)
 
 /obj/machinery/power/smes/Topic(href, href_list)
-	..()
-
-	if (usr.stat || usr.restrained() )
-		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		if(!istype(usr, /mob/living/silicon/ai))
-			usr << "\red You don't have the dexterity to do this!"
-			return
-
-//world << "[href] ; [href_list[href]]"
-
-	if (!istype(src.loc, /turf) && !istype(usr, /mob/living/silicon/))
-		return 0 // Do not update ui
+	if(..())
+		return 1
 
 	if( href_list["cmode"] )
 		inputting(!input_attempt)
@@ -416,6 +405,7 @@
 	else if( href_list["online"] )
 		outputting(!output_attempt)
 		update_icon()
+		
 	else if( href_list["input"] )
 		switch( href_list["input"] )
 			if("min")
