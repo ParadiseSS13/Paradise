@@ -192,7 +192,7 @@
 		return PROCESS_KILL
 	else
 		if(surplus() > 1500)
-			add_load(1500)
+			draw_power(1500)
 		else
 			Deactivate()
 

@@ -87,6 +87,8 @@ obj/machinery/air_sensor
 
 	process()
 		if(on)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.data["tag"] = id_tag
@@ -127,12 +129,6 @@ obj/machinery/air_sensor
 
 	initialize()
 		set_frequency(frequency)
-
-	New()
-		..()
-
-		if(radio_controller)
-			set_frequency(frequency)
 
 	Destroy()
 		if(radio_controller)
@@ -533,6 +529,8 @@ legend {
 			send_signal(list("tag"=device, "status"))
 
 		proc/send_signal(var/list/data)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.source = src

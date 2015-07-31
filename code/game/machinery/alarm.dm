@@ -141,8 +141,6 @@
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 		update_icon()
-		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
-			initialize()
 		return
 
 	first_run()
@@ -528,19 +526,6 @@
 					E.update_icon()*/
 
 
-
-/obj/machinery/alarm/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)))		// unpowered, no shock
-		return 0
-	if(!prob(prb))
-		return 0 //you lucked out, no shock for you
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start() //sparks always.
-	if (electrocute_mob(user, get_area(src), src))
-		return 1
-	else
-		return 0
 ///////////////
 //END HACKING//
 ///////////////
@@ -626,6 +611,7 @@
 /obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0, AtmosConsoleEmagged=0)
 
 	var/data[0]
+	data["name"] = sanitize(name)
 	data["air"]=ui_air_status()
 	data["alarmActivated"]=alarmActivated || local_danger_level==2
 	data["sensors"]=TLV

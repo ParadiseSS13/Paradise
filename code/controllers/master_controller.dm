@@ -318,13 +318,8 @@ datum/controller/game_controller/proc/process()
 
 /datum/controller/game_controller/proc/processPowernets()
 	last_thing_processed = /datum/powernet
-
-	for (var/datum/powernet/Powernet in powernets)
-		if (Powernet)
-			Powernet.reset()
-			continue
-
-		powernets -= Powernet
+	for(var/datum/powernet/Powernet in powernets)
+		Powernet.reset()
 
 /datum/controller/game_controller/proc/processNano()
 	last_thing_processed = /datum/nanoui

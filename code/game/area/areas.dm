@@ -16,7 +16,6 @@
 	icon_state = ""
 	layer = 10
 	uid = ++global_uid
-	active_areas += src
 	all_areas += src
 
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
@@ -245,7 +244,7 @@
 	if(radalert) // always show the radiation alert, regardless of power
 		icon_state = "radiation"
 		blend_mode = BLEND_MULTIPLY
-	else if ((fire || eject || party) && ((!requires_power)?(!requires_power):power_environ))//If it doesn't require power, can still activate this proc.
+	else if ((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
 		if(fire && !radalert && !eject && !party)
 			icon_state = "red"
 			blend_mode = BLEND_MULTIPLY
@@ -297,9 +296,8 @@
 // called when power status changes
 
 /area/proc/power_change()
-	powerupdate = 2
 	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()				// reverify power status (to update icons etc.)
+		M.power_change()			// reverify power status (to update icons etc.)
 	if (fire || eject || party)
 		updateicon()
 

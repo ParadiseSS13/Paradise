@@ -15,8 +15,8 @@ var/global/list/singularities = list()				//list of all singularities
 var/global/list/aibots = list() // AI controlled bots
 var/global/list/table_recipes = list() //list of all table craft recipes
 
-var/global/list/active_areas = list()
 var/global/list/all_areas = list()
 var/global/list/machines = list()
+var/global/list/processing_power_items   = list()
 		//items that ask to be called every cycle
 
