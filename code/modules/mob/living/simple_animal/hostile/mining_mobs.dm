@@ -262,8 +262,8 @@
 	OpenFire()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/Die()
-	new /obj/item/asteroid/hivelord_core(src.loc)
-	mouse_opacity = 1
+	if(stat != DEAD)
+		new /obj/item/asteroid/hivelord_core(src.loc)
 	..()
 
 /obj/item/asteroid/hivelord_core
