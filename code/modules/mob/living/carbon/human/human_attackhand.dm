@@ -65,11 +65,11 @@
 				return 1
 //			if(M.health < -75)	return 0
 
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove your mask!</B>"
+			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !mask_adjusted))
+				M << "<span class='boldnotice'>Remove your mask!</span>"
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove his mask!</B>"
+			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !mask_adjusted))
+				M << "<span class='boldnotice'>Remove his mask!</span>"
 				return 0
 
 			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()
