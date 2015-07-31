@@ -113,6 +113,9 @@
 			C.visible_message("<span class='danger'>[C] grows dim, its screen barely readable.</span>")
 		for(var/mob/living/H in T.contents)
 			extinguishMob(H)
+		for(var/mob/living/silicon/robot/borg in T.contents)
+			borg.update_headlamp(1, charge_max)
+
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk
 	name = "Shadow Walk"

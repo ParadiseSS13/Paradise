@@ -32,6 +32,9 @@ var/global/list/limb_icon_cache = list()
 
 	..()
 	overlays.Cut()
+	if(!owner)
+		return
+		
 	if(owner.species.has_organ["eyes"])
 		var/obj/item/organ/eyes/eyes = owner.internal_organs_by_name["eyes"]
 		if(owner.species.eyes)
