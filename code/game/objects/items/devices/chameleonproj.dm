@@ -118,7 +118,8 @@
 /obj/effect/dummy/chameleon/ex_act(var/severity) //no longer bomb-proof
 	for(var/mob/M in src)
 		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
-		M.ex_act(severity)
+		spawn()
+			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
