@@ -416,7 +416,7 @@
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
-		data["product"] = currently_vending.product_name
+		data["product"] = sanitize(currently_vending.product_name)
 		data["price"] = currently_vending.price
 		data["message_err"] = 0
 		data["message"] = src.status_message
