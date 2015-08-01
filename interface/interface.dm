@@ -51,7 +51,7 @@
 	set desc = "Donate to help with development costs."
 	set hidden = 1
 
-	if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
+	if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
 		return
 	src << link(DONATE)
 	return
