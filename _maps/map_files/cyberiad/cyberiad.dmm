@@ -5232,7 +5232,7 @@
 "bWF" = (/turf/simulated/floor/plating/airless,/area/toxins/test_area)
 "bWG" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless,/area/toxins/test_area)
 "bWH" = (/turf/simulated/floor/airless,/area/toxins/test_area)
-"bWI" = (/obj/machinery/computer/monitor,/obj/structure/cable,/turf/simulated/floor{icon_state = "caution"; dir = 5},/area/engine/controlroom)
+"bWI" = (/obj/structure/cable,/obj/machinery/computer/monitor{name = "Grid Power Monitoring Computer"},/turf/simulated/floor{icon_state = "caution"; dir = 5},/area/engine/controlroom)
 "bWJ" = (/obj/machinery/light/small{dir = 8},/turf/simulated/shuttle/floor,/area/shuttle/mining/station)
 "bWK" = (/obj/machinery/door/airlock/external{frequency = 1380; icon_state = "door_locked"; id_tag = "mining_shuttle_hatch"; locked = 1; name = "Shuttle Hatch"; req_access_txt = "13"},/turf/simulated/shuttle/floor,/area/shuttle/mining/station)
 "bWL" = (/obj/machinery/door/airlock/external{frequency = 1380; icon_state = "door_locked"; id_tag = "mining_dock_outer"; locked = 1; name = "Mining Dock Airlock"; req_access = null; req_access_txt = "13"},/turf/simulated/floor/plating,/area/quartermaster/miningdock)
