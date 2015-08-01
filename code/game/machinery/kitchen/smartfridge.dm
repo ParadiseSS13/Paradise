@@ -55,6 +55,21 @@
 		return 1
 	return 0
 
+/obj/machinery/smartfridge/medbay
+	name = "\improper Refrigerated Medicine Storage"
+	desc = "A refrigerated storage unit for storing medicine and chemicals."
+	icon_state = "smartfridge" //To fix the icon in the map editor.
+	icon_on = "smartfridge_chem"
+	
+/obj/machinery/smartfridge/medbay/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
+		return 1
+	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
+		return 1
+	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
+		return 1
+	return 0
+
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
@@ -64,9 +79,9 @@
 	if(istype(O,/obj/item/slime_extract))
 		return 1
 	return 0
-
+	
 /obj/machinery/smartfridge/secure/medbay
-	name = "\improper Refrigerated Medicine Storage"
+	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
@@ -96,18 +111,22 @@
 		return 1
 	return 0
 
-/obj/machinery/smartfridge/chemistry
+/obj/machinery/smartfridge/secure/chemistry
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
-
+	icon_state = "smartfridge" //To fix the icon in the map editor.
+	icon_on = "smartfridge_chem"
+	req_access_txt = "33"
+	
 /obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
 		return 1
 	return 0
 
-/obj/machinery/smartfridge/chemistry/virology
+/obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+	req_access_txt = "39"
 
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"
@@ -342,7 +361,8 @@
 *************************/
 
 /obj/machinery/smartfridge/secure/Topic(href, href_list)
-	if(stat & (NOPOWER|BROKEN)) return 0
+	if(stat & (NOPOWER|BROKEN)) 
+		return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			usr << "<span class='warning'>Access denied.</span>"

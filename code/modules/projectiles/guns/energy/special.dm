@@ -236,6 +236,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	fire_delay = 16 //Because guncode is bad and you can bug the reload for rapid fire otherwise.
 	var/overheat = 0
 	var/overheat_time = 16
 	var/recent_reload = 1
@@ -277,6 +278,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	fire_sound = 'sound/weapons/Genhit.ogg'
 	overheat_time = 20
+	fire_delay = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"

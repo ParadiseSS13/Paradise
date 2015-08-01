@@ -168,18 +168,18 @@
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 10)
+		reagents.add_reagent("sugar", 10)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin."
 	icon_state = "gworm"
 	filling_color = "#FFFFFF"
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 10)
+		reagents.add_reagent("sugar", 10)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean
@@ -190,7 +190,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 10)
+		reagents.add_reagent("sugar", 10)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jawbreaker
@@ -201,7 +201,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 10)
+		reagents.add_reagent("sugar", 10)
 		bitesize = 0.1	//this is gonna take a while, you'll be working at this all shift.
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/cash
@@ -239,7 +239,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 5)
+		reagents.add_reagent("sugar", 5)
 		bitesize = 0.2
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/sucker
@@ -250,7 +250,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("sugar" = 10)
+		reagents.add_reagent("sugar", 10)
 		bitesize = 1
 
 // ***********************************************************
@@ -265,7 +265,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("cherryjelly" = 2)
+		reagents.add_reagent("cherryjelly", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/blue
@@ -276,7 +276,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("berryjuice" = 2)
+		reagents.add_reagent("berryjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/poison
@@ -287,7 +287,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("poisonberryjuice" = 12)
+		reagents.add_reagent("poisonberryjuice", 12)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 3
@@ -301,7 +301,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("limejuice" = 2)
+		reagents.add_reagent("limejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/yellow
@@ -312,7 +312,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("lemonjuice" = 2)
+		reagents.add_reagent("lemonjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/orange
@@ -323,7 +323,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("orangejuice" = 2)
+		reagents.add_reagent("orangejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/purple
@@ -334,7 +334,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("grapejuice" = 2)
+		reagents.add_reagent("grapejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummybear/wtf
@@ -345,7 +345,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("space_drugs" = 2)
+		reagents.add_reagent("space_drugs", 2)
 		bitesize = 3
 
 
@@ -354,93 +354,93 @@
 // ***********************************************************
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/red
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's red!"
 	icon_state = "gworm_red"
 	filling_color = "#801E28"
 
 	New()
 		..()
-		reagents.add_reagent("cherryjelly" = 2)
+		reagents.add_reagent("cherryjelly", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/blue
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's blue!"
 	icon_state = "gworm_blue"
 	filling_color = "#863333"
 
 	New()
 		..()
-		reagents.add_reagent("berryjuice" = 2)
+		reagents.add_reagent("berryjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/poison
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's blue!"
 	icon_state = "gworm_blue"
 	filling_color = "#863353"
 
 	New()
 		..()
-		reagents.add_reagent("poisonberryjuice" = 12)
+		reagents.add_reagent("poisonberryjuice", 12)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/green
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's green!"
 	icon_state = "gworm_green"
 	filling_color = "#365E30"
 
 	New()
 		..()
-		reagents.add_reagent("limejuice" = 10)
+		reagents.add_reagent("limejuice", 10)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/yellow
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's yellow!"
 	icon_state = "gworm_yellow"
 	filling_color = "#863333"
 
 	New()
 		..()
-		reagents.add_reagent("lemonjuice" = 2)
+		reagents.add_reagent("lemonjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/orange
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's orange!"
 	icon_state = "gworm_orange"
 	filling_color = "#E78108"
 
 	New()
 		..()
-		reagents.add_reagent("orangejuice" = 2)
+		reagents.add_reagent("orangejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/purple
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm, made from gelatin. It's purple!"
 	icon_state = "gworm_purple"
 	filling_color = "#993399"
 
 	New()
 		..()
-		reagents.add_reagent("grapejuice" = 2)
+		reagents.add_reagent("grapejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/gummyworm/wtf
-	name = "gummy bear"
+	name = "gummy worm"
 	desc = "An edible worm. Did it just move?"
 	icon_state = "gworm_wtf"
 	filling_color = "#60A584"
 
 	New()
 		..()
-		reagents.add_reagent("space_drugs" = 2)
+		reagents.add_reagent("space_drugs", 2)
 		bitesize = 3
 
 
@@ -456,7 +456,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("cherryjelly" = 2)
+		reagents.add_reagent("cherryjelly", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/blue
@@ -467,7 +467,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("berryjuice" = 2)
+		reagents.add_reagent("berryjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/poison
@@ -478,7 +478,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("poisonberryjuice" = 12)
+		reagents.add_reagent("poisonberryjuice", 12)
 		reagents.del_reagent("sugar")
 		reagents.update_total()
 		bitesize = 3
@@ -491,7 +491,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("limejuice" = 10)
+		reagents.add_reagent("limejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/yellow
@@ -502,7 +502,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("lemonjuice" = 2)
+		reagents.add_reagent("lemonjuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/orange
@@ -513,7 +513,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("orangejuice" = 2)
+		reagents.add_reagent("orangejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/purple
@@ -524,7 +524,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("grapejuice" = 2)
+		reagents.add_reagent("grapejuice", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/chocolate
@@ -546,7 +546,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("nutriment" = 2)
+		reagents.add_reagent("nutriment", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/cola
@@ -557,7 +557,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("cola" = 2)
+		reagents.add_reagent("cola", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/drgibb
@@ -568,7 +568,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("dr_gibb" = 2)
+		reagents.add_reagent("dr_gibb", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/coffee
@@ -579,7 +579,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("coffee" = 2)
+		reagents.add_reagent("coffee", 2)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/candy/jellybean/wtf
@@ -590,7 +590,7 @@
 
 	New()
 		..()
-		reagents.add_reagent("space_drugs" = 2)
+		reagents.add_reagent("space_drugs", 2)
 		bitesize = 3
 
 // ***********************************************************

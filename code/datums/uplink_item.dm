@@ -36,8 +36,8 @@ var/list/uplink_items = list()
 
 /datum/nano_item_lists
 	var/list/items_nano
-	var/list/items_reference	
-	
+	var/list/items_reference
+
 // You can change the order of the list by putting datums before/after one another OR
 // you can use the last variable to make sure it appears last, well have the category appear last.
 
@@ -61,7 +61,7 @@ var/list/uplink_items = list()
 		U.used_TC += cost
 		feedback_add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
-		
+
 /datum/uplink_item/proc/description()
 	if(!desc)
 		// Fallback description
@@ -71,7 +71,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/proc/buy(var/obj/item/device/uplink/hidden/U, var/mob/user)
 	..()
-	
+
 	if(!istype(U))
 		return 0
 
@@ -119,7 +119,7 @@ var/list/uplink_items = list()
 	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
 	reference = "BG"
 	item = /obj/item/weapon/grenade/clown_grenade
-	cost = 8
+	cost = 5
 	job = list("Clown")
 
 //Chef
@@ -763,7 +763,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
 	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their posessions have been stripped from them makes this implant excellent for escaping confinement."
-	reference = "UI"	
+	reference = "UI"
 	item = /obj/item/weapon/implanter/uplink
 	cost = 14
 	surplus = 0
@@ -840,7 +840,7 @@ var/list/uplink_items = list()
 	desc = "Picking this choice will send you a random item from the list. Useful for when you cannot think of a strategy to finish your objectives with."
 	reference = "RAIT"
 	item = /obj/item/weapon/storage/box/syndicate
-	cost = 0 
+	cost = 0
 
 /datum/uplink_item/badass/random/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
 
