@@ -290,11 +290,24 @@
 	var/track = 0			// 0= off  1=timed  2=auto (tracker)
 	var/trackrate = 600		// 300-900 seconds
 	var/nexttime = 0		// time for a panel to rotate of 1? in manual tracking
+	var/autostart = 0 		// Automatically search for connected devices
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
+	
+// Used for mapping in solar array which automatically starts itself (telecomms, for example)
+/obj/machinery/power/solar_control/autostart
+	track = 2 // Auto tracking mode
+	autostart = 1 // Automatically start
 
 /obj/machinery/power/solar_control/initialize()
-	connect_to_network()
+	..()
+	if(!powernet) 
+		return
+	if(autostart)
+		src.search_for_connected()
+		if(connected_tracker && track == 2)
+			connected_tracker.set_angle(sun.angle)
+	set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
 	for(var/obj/machinery/power/solar/M in connected_panels)
@@ -343,13 +356,6 @@
 
 	set_panels(cdir)
 	updateDialog()
-
-
-/obj/machinery/power/solar_control/initialize()
-	..()
-	if(!powernet) 
-		return
-	set_panels(cdir)
 
 /obj/machinery/power/solar_control/update_icon()
 	overlays.Cut()
@@ -523,18 +529,6 @@
 	if (prob(75))
 		broken()
 		src.density = 0
-		
-// Used for mapping in solar array which automatically starts itself (telecomms, for example)
-/obj/machinery/power/solar_control/autostart
-	track = 2 // Auto tracking mode
-
-/obj/machinery/power/solar_control/autostart/initialize()
-	..()
-	spawn(500) // Make sure the powernet has initialized
-		src.search_for_connected()
-		if(connected_tracker && track == 2)
-			connected_tracker.set_angle(sun.angle)
-		src.set_panels(cdir)
 
 //
 // MISC
