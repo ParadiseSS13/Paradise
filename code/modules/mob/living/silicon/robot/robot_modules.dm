@@ -405,8 +405,7 @@
 		src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 		src.modules += new /obj/item/weapon/soap(src)
 
-		src.emag = new /obj/item/weapon/gun/energy/plasmacutter(src)
-		src.emag.name = "Plasma Cutter"
+		src.emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
 		for(var/T in stacktypes)
 			var/obj/item/stack/sheet/W = new T(src)
