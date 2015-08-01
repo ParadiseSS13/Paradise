@@ -347,7 +347,8 @@
 
 /obj/machinery/power/solar_control/initialize()
 	..()
-	if(!powernet) return
+	if(!powernet) 
+		return
 	set_panels(cdir)
 
 /obj/machinery/power/solar_control/update_icon()
@@ -522,7 +523,18 @@
 	if (prob(75))
 		broken()
 		src.density = 0
+		
+// Used for mapping in solar array which automatically starts itself (telecomms, for example)
+/obj/machinery/power/solar_control/autostart
+	track = 2 // Auto tracking mode
 
+/obj/machinery/power/solar_control/autostart/initialize()
+	..()
+	spawn(500) // Make sure the powernet has initialized
+		src.search_for_connected()
+		if(connected_tracker && track == 2)
+			connected_tracker.set_angle(sun.angle)
+		src.set_panels(cdir)
 
 //
 // MISC
