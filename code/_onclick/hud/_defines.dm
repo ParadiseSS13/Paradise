@@ -37,7 +37,8 @@
 #define ui_alien_head "4:12,1:5"	//aliens
 #define ui_alien_oclothing "5:14,1:5"	//aliens
 
-#define ui_borg_sensor "CENTER-3:16, SOUTH:5"			//borgs
+#define ui_borg_sensor "CENTER-3:16, SOUTH:5"	//borgs
+#define ui_borg_lamp "CENTER-4:16, SOUTH:5"		//borgs
 #define ui_inv1 "CENTER-2:16,SOUTH:5"			//borgs
 #define ui_inv2 "CENTER-1  :16,SOUTH:5"			//borgs
 #define ui_inv3 "CENTER  :16,SOUTH:5"			//borgs

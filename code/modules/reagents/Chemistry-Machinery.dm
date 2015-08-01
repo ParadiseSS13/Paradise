@@ -950,7 +950,7 @@
 			return blend_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
-	for(var/i in juice_tags)
+	for(var/i in juice_items)
 		if(istype(O, i))
 			return juice_items[i]
 

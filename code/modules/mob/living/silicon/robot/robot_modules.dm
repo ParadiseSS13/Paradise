@@ -83,7 +83,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded(src)
 		src.modules += new /obj/item/weapon/extinguisher(src)
@@ -103,7 +102,6 @@
 		)
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer/advanced(src)
 		src.modules += new /obj/item/device/reagent_scanner/adv(src)
@@ -153,7 +151,6 @@
 		)
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/rcd/borg(src)
@@ -203,7 +200,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/seclite(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
@@ -219,7 +215,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
 		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
@@ -239,7 +234,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
@@ -309,7 +303,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/lantern(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
@@ -327,7 +320,6 @@
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
@@ -341,7 +333,6 @@
 
 /obj/item/weapon/robot_module/syndicate/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/printer(src)
 	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
@@ -356,7 +347,6 @@
 	name = "combat robot module"
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/thermal(src)
 		src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
@@ -415,8 +405,7 @@
 		src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 		src.modules += new /obj/item/weapon/soap(src)
 
-		src.emag = new /obj/item/weapon/gun/energy/plasmacutter(src)
-		src.emag.name = "Plasma Cutter"
+		src.emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
 		for(var/T in stacktypes)
 			var/obj/item/stack/sheet/W = new T(src)

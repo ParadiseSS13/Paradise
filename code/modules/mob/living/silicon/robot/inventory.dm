@@ -15,11 +15,7 @@
 	if(istype(O,/obj/item/borg/sight))
 		var/obj/item/borg/sight/S = O
 		sight_mode &= ~S.sight_mode
-	else if(istype(O, /obj/item/device/flashlight))
-		var/obj/item/device/flashlight/F = O
-		if(F.on)
-			F.on = 0
-			F.update_brightness(src)
+		
 	if(client)
 		client.screen -= O
 	contents -= O

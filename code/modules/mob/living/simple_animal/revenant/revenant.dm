@@ -43,7 +43,7 @@
 			strikes--
 			src << "<span class='boldannounce'>Your essence has dropped below critical levels. You barely manage to save yourself - [strikes ? "you can't keep this up!" : "next time, it's death."]</span>"
 		else if(strikes <= 0)
-			death()
+			Die()
 	maxHealth = essence * 2
 	if(!revealed)
 		health = maxHealth //Heals to full when not revealed
@@ -123,10 +123,10 @@
 		return 1
 	return 0
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/Die()
 	if(strikes)
 		return 0 //Impossible to die with strikes still active
-	..(1)
+	..()
 	src << "<span class='userdanger'><b>NO! No... it's too late, you can feel yourself fading...</b></span>"
 	notransform = 1
 	revealed = 1
