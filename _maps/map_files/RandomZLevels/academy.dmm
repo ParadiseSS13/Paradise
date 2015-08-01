@@ -69,10 +69,10 @@
 "bq" = (/obj/machinery/door/airlock/gold,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/carpet,/area/awaymission/academy/headmaster)
 "br" = (/turf/simulated/floor,/area/awaymission/academy/headmaster)
 "bs" = (/turf/simulated/wall/r_wall,/area/awaymission/academy/classrooms)
-"bt" = (/obj/machinery/door/poddoor/shutters{dir = 2; id = "AcademyAuto"},/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/awaymission/academy/classrooms)
-"bu" = (/obj/machinery/door/poddoor/shutters{dir = 2; id = "AcademyAuto"},/turf/simulated/floor/plating{tag = "icon-warnplate (WEST)"; icon_state = "warnplate"; dir = 8},/area/awaymission/academy/classrooms)
-"bv" = (/obj/machinery/door/poddoor/shutters{dir = 2; id = "AcademyAuto"},/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
-"bw" = (/obj/machinery/door/poddoor/shutters{dir = 2; id = "AcademyAuto"},/turf/simulated/floor/plating{tag = "icon-warnplate (EAST)"; icon_state = "warnplate"; dir = 4},/area/awaymission/academy/classrooms)
+"bt" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "AcademyAuto"},/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/awaymission/academy/classrooms)
+"bu" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "AcademyAuto"},/turf/simulated/floor/plating{tag = "icon-warnplate (WEST)"; icon_state = "warnplate"; dir = 8},/area/awaymission/academy/classrooms)
+"bv" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "AcademyAuto"},/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
+"bw" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "AcademyAuto"},/turf/simulated/floor/plating{tag = "icon-warnplate (EAST)"; icon_state = "warnplate"; dir = 4},/area/awaymission/academy/classrooms)
 "bx" = (/turf/simulated/floor{dir = 1; icon_state = "chapel"},/area/awaymission/academy/headmaster)
 "by" = (/turf/simulated/floor{dir = 4; icon_state = "chapel"},/area/awaymission/academy/headmaster)
 "bz" = (/turf/simulated/floor,/area/awaymission/academy/classrooms)
@@ -175,7 +175,7 @@
 "ds" = (/obj/structure/stool/bed/chair/wood/normal{dir = 1},/turf/simulated/floor/wood,/area/awaymission/academy/classrooms)
 "dt" = (/turf/simulated/floor{icon_state = "green"; dir = 8},/area/awaymission/academy/classrooms)
 "du" = (/obj/structure/stool,/turf/simulated/floor,/area/awaymission/academy/classrooms)
-"dv" = (/obj/item/seeds/eggyseed,/turf/simulated/floor,/area/awaymission/academy/classrooms)
+"dv" = (/turf/simulated/floor,/area/awaymission/academy/classrooms)
 "dw" = (/turf/simulated/floor{icon_state = "green"; dir = 4},/area/awaymission/academy/classrooms)
 "dx" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/effect/landmark{name = "awaystart"},/obj/item/weapon/weldingtool,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
 "dy" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
@@ -538,7 +538,7 @@
 "kr" = (/obj/machinery/gateway{dir = 6},/turf/simulated/floor/plating,/area/awaymission/academy/academygate)
 "ks" = (/obj/machinery/light,/turf/simulated/floor/carpet,/area/awaymission/academy/academygate)
 "kt" = (/obj/machinery/door_control{id = "AcademyGate"; pixel_y = -24},/turf/simulated/floor/carpet,/area/awaymission/academy/academygate)
-"ku" = (/obj/machinery/door/poddoor/shutters{dir = 2; id = "AcademyGate"},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/awaymission/academy/academygate)
+"ku" = (/obj/machinery/door/poddoor/shutters{dir = 2; id_tag = "AcademyGate"},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"; tag = "icon-warnplate (NORTH)"},/area/awaymission/academy/academygate)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
