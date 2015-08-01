@@ -32,7 +32,7 @@
 			new /obj/item/stack/sheet/metal(get_turf(src))
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		user << "\blue You drill through the girder!"
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
@@ -224,7 +224,7 @@
 			user << "\blue You slice apart the girder!"
 			dismantle()
 
-	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		user << "\blue You drill through the girder!"
 		dismantle()
 

@@ -177,6 +177,7 @@
 
 			T.affecting_lights += src
 			effect_turf += T
+		END_FOR_DVIEW
 
 /datum/light_source/proc/remove_lum()
 	applied = 0
@@ -201,11 +202,10 @@
 	var/list/view[0]
 	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
 		view += T	//Filter out turfs.
-
+	END_FOR_DVIEW
 	//This is the part where we calculate new turfs (if any)
 	var/list/new_turfs = view - effect_turf //This will result with all the tiles that are added.
 	for(var/turf/T in new_turfs)
-		//Big huge copy paste from apply_lum() incoming because screw unreadable defines and screw proc call overhead.
 		if(T.lighting_overlay)
 			LUM_FALLOFF(., T, source_turf)
 			. *= light_power
