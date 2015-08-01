@@ -39,7 +39,6 @@
 //	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
 
-
 /area/proc/poweralert(var/state, var/obj/source as obj)
 	if (state != poweralm)
 		poweralm = state
