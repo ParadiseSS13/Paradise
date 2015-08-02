@@ -182,7 +182,4 @@
 		valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles
-
-/proc/q()
-	var/mob/living/carbon/human/H = usr
-	H.change_appearance(APPEARANCE_ALL)
+	
