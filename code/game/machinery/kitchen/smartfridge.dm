@@ -35,7 +35,7 @@
 
 /obj/machinery/smartfridge/Destroy()
 	qdel(wires)
-	..()
+	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/))
