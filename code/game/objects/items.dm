@@ -702,3 +702,6 @@
 		if(current_size >= STAGE_FOUR)
 			throw_at(S,14,3)
 		else ..()
+		
+/obj/item/proc/pwr_drain()
+	return 0 // Process Kill 

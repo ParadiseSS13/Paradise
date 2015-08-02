@@ -191,6 +191,9 @@
 
 /obj/item/stack/proc/get_amount()
 	return amount
+	
+/obj/item/stack/proc/get_max_amount()
+	return max_amount
 
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)

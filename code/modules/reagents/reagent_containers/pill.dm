@@ -176,7 +176,7 @@
 		reagents.add_reagent("methamphetamine", 5)
 
 /obj/item/weapon/reagent_containers/pill/charcoal
-	name = "Chacoal pill"
+	name = "Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
 	New()

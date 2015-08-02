@@ -127,7 +127,7 @@
 "cw" = (/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/wood,/area/awaymission/wwmines)
 "cx" = (/obj/effect/mine/plasma,/obj/item/ammo_box/c10mm,/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1"; icon_state = "ironsand1"},/area/awaymission/wwmines)
 "cy" = (/obj/item/weapon/storage/toolbox/electrical,/turf/simulated/floor/wood,/area/awaymission/wwgov)
-"cz" = (/obj/item/clothing/gloves/yellow,/obj/item/device/multitool,/turf/simulated/floor/wood,/area/awaymission/wwgov)
+"cz" = (/obj/item/clothing/gloves/color/yellow,/obj/item/device/multitool,/turf/simulated/floor/wood,/area/awaymission/wwgov)
 "cA" = (/obj/structure/stool/bed/chair/wood/normal{dir = 4},/turf/simulated/floor/wood,/area/awaymission/wwgov)
 "cB" = (/mob/living/simple_animal/hostile/creature,/turf/simulated/floor{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
 "cC" = (/obj/effect/landmark/corpse/chef{mobname = "Chef"},/turf/simulated/floor{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
