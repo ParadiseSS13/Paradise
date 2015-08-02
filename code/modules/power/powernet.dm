@@ -21,7 +21,7 @@
 
 /datum/powernet/Destroy()
 	powernets -= src
-	..()
+	return ..()
 
 //Returns the amount of excess power (before refunding to SMESs) from last tick.
 //This is for machines that might adjust their power consumption using this data.
@@ -121,7 +121,11 @@
 
 /datum/powernet/proc/get_electrocute_damage()
 	switch(avail)
-		if (1000000 to INFINITY)
+		if (5000000 to INFINITY)
+			return min(rand(200,300),rand(200,300))
+		if (4000000 to 5000000)
+			return min(rand(80,180),rand(80,180))
+		if (1000000 to 4000000)
 			return min(rand(50,160),rand(50,160))
 		if (200000 to 1000000)
 			return min(rand(25,80),rand(25,80))
