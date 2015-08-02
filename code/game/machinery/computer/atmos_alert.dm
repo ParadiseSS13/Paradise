@@ -10,7 +10,7 @@ var/global/list/minor_air_alarms = list()
 	circuit = "/obj/item/weapon/circuitboard/atmos_alert"
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
-	light_color = "#e6ffff"
+	light_color = LIGHT_COLOR_CYAN
 
 /obj/machinery/computer/atmos_alert/New()
 	..()
@@ -18,7 +18,7 @@ var/global/list/minor_air_alarms = list()
 
 /obj/machinery/computer/atmos_alert/Destroy()
     atmosphere_alarm.unregister(src)
-    ..()
+    return ..()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
 	ui_interact(user)

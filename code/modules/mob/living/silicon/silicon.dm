@@ -35,7 +35,7 @@
 /mob/living/silicon/Destroy()
 	for(var/datum/alarm_handler/AH in alarm_manager.all_handlers)
 		AH.unregister(src)
-	..()
+	return ..()
 
 /mob/living/silicon/proc/show_laws()
 	return

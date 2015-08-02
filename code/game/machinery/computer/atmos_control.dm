@@ -3,7 +3,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
-	light_color = "#00b000"
+	light_color = LIGHT_COLOR_GREEN
 	density = 1
 	anchored = 1.0
 	circuit = /obj/item/weapon/circuitboard/atmoscontrol

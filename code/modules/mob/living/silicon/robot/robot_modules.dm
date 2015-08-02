@@ -30,7 +30,6 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.emag = new /obj/item/toy/sword(src)
 	src.emag.name = "Placeholder Emag Item"
-	return
 
 /obj/item/weapon/robot_module/proc/respawn_consumable(var/mob/living/silicon/robot/R)
 	if(!stacktypes || !stacktypes.len) return

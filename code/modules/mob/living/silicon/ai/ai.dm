@@ -23,7 +23,7 @@ var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/toggle_acceleration,
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
-	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/change_arrival_message
 )
 
 //Not sure why this is necessary...

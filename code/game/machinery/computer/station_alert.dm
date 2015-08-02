@@ -4,6 +4,7 @@
 	desc = "Used to access the station's automated alert system."
 	icon_keyboard = "tech_key"
 	icon_screen = "alert:0"
+	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/weapon/circuitboard/stationalert_engineering
 	var/datum/nano_module/alarm_monitor/alarm_monitor
 	var/monitor_type = /datum/nano_module/alarm_monitor/engineering
@@ -24,21 +25,19 @@
 /obj/machinery/computer/station_alert/Destroy()
 	alarm_monitor.unregister(src)
 	qdel(alarm_monitor)
-	..()
+	return ..()
 
 /obj/machinery/computer/station_alert/attack_ai(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	interact(user)
-	return
 
 /obj/machinery/computer/station_alert/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	interact(user)
-	return
 
 /obj/machinery/computer/station_alert/interact(mob/user)
 	alarm_monitor.ui_interact(user)

@@ -99,26 +99,14 @@
 		fire = 1	//used for firedoor checks
 		updateicon()
 		mouse_opacity = 0
-		for(var/obj/machinery/door/firedoor/D in all_doors)
-			if(!D.blocked)
-				if(D.operating)
-					D.nextstate = CLOSED
-				else if(!D.density)
-					spawn()
-						D.close()
+		air_doors_close()
 
 /area/proc/fire_reset()
 	if (fire)
 		fire = 0	//used for firedoor checks
 		updateicon()
 		mouse_opacity = 0
-		for(var/obj/machinery/door/firedoor/D in all_doors)
-			if(!D.blocked)
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-					D.open()
+		air_doors_open()
 					
 /area/proc/readyalert()
 	if(!eject)
@@ -162,7 +150,7 @@
 					D.nextstate = OPEN
 				else if(D.density)
 					spawn(0)
-					D.open()
+						D.open()
 	return
 
 /area/proc/updateicon()
