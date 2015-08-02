@@ -18,7 +18,7 @@
 	var/delay = 0
 	var/datum/radio_frequency/radio_connection
 	var/airlock_wire = null
-
+	
 	New()
 		..()
 		if(!radio_controller)

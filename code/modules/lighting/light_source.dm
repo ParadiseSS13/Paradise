@@ -130,16 +130,16 @@
 #if LIGHTING_FALLOFF == 1 //circular
   #define LUM_DISTANCE(swapvar, O, T) swapvar = (O.x - T.x)**2 + (O.y - T.y)**2 + LIGHTING_HEIGHT
   #if LIGHTING_LAMBERTIAN == 1
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / light_range)) * (1 / sqrt(swapvar + 1)))
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / max(1,light_range))) * (1 / sqrt(swapvar + 1)))
   #else
-    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / light_range)
+    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / max(1,light_range))
   #endif
 #elif LIGHTING_FALLOFF == 2 //square
   #define LUM_DISTANCE(swapvar, O, T) swapvar = abs(O.x - T.x) + abs(O.y - T.y) + LIGHTING_HEIGHT
   #if LIGHTING_LAMBERTIAN == 1
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / light_range)) * (1 / sqrt(swapvar**2 + 1)))
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / max(1,light_range))) * (1 / sqrt(swapvar**2 + 1)))
   #else
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / light_range)
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / max(1,light_range))
   #endif
 #endif
 

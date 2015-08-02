@@ -113,11 +113,6 @@
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/proc/shock(var/mob/living/user)
-	if(!istype(user))
-		return
-	user.electrocute_act(10, src)
-
 /obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
 	invalidateCameraCache()
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"

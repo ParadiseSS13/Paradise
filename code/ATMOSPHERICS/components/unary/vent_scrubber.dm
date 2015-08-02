@@ -42,9 +42,6 @@
 	if (!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	if(ticker && ticker.current_state == 3)//if the game is running
-		src.initialize()
-		src.broadcast_status()
 	..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
@@ -131,6 +128,7 @@
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
+		src.broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
 	..()

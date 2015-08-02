@@ -16,11 +16,14 @@
 	var/mob/pulledby = null
 
 	var/area/areaMaster
+	
+	var/auto_init = 1
 
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
-
+	if(auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
+		initialize()
 
 /atom/movable/Destroy()
 	for(var/atom/movable/AM in contents)
@@ -32,6 +35,9 @@
 		pulledby = null
 	..()
 	return QDEL_HINT_QUEUE
+	
+/atom/movable/proc/initialize()
+	return
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
