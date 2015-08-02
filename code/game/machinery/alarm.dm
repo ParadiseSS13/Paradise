@@ -37,7 +37,7 @@
 #define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
 #define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
 #define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 8 //Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
 
 #define AALARM_PRESET_HUMAN     1 // Default
 #define AALARM_PRESET_VOX       2 // Support Vox
@@ -711,6 +711,7 @@
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
+	data["emagged"] = emagged || isAI(user)
 	data["modes"] = list(
 		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants"),\
 		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing"),\
@@ -719,10 +720,9 @@
 		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room"),\
 		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly"),\
 		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output"),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers")
+		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers"),\
+		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = 1)
 	)
-	if(emagged || isAI(user))
-		data["modes"]["AALARM_MODE_FLOOD"] = list("name" = "Flood", "desc" = "Shuts off scrubbers and opens vents")
 	data["mode"] = mode
 	data["presets"] = list(
 		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for Oxygen and Nitrogen"),\
@@ -971,6 +971,12 @@
 			target_temperature = input_temperature + T0C
 		return 1
 
+/obj/machinery/alarm/emag_act(mob/user)
+	if(!emagged)
+		src.emagged = 1
+		user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
+		return
 
 /obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob, params)
 	src.add_fingerprint(user)

@@ -204,12 +204,14 @@ Used In File(s): /code/game/machinery/alarm.dm
 		<h3>System Mode</h3>
 		<div class="statusDisplay">
 			{{for data.modes}}
-			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.name,'gear',{'mode':index+1},null,(index+1==data.mode?'linkOn':''))}}</div>
-				<div class="statusValue">
-					{{:value.desc}}
+			{{if !value.emagonly || value.emagonly && data.emagged}}
+				<div class="line">
+					<div class="statusLabel">{{:helper.link(value.name,'gear',{'mode':index+1},null,(index+1==data.mode?'linkOn':value.emagonly ? 'redButton' : ''))}}</div>
+					<div class="statusValue">
+						{{:value.desc}}
+					</div>
 				</div>
-			</div>
+			{{/if}}
 			{{/for}}
 		</div>
 		<h3>System Preset</h3>
@@ -235,9 +237,9 @@ Used In File(s): /code/game/machinery/alarm.dm
 			{{for data.thresholds}}
 				<tr>
 					<td>{{:value.name}}</td>
-					{{for value.settings :selected:SelectedNull}}
+					{{for value.settings :selectedItem:SelectedNull}}
 						<td>
-							{{:helper.link(value.selected >= 0 ? helper.round(value.selected*100)/100 : "Off", null, { 'command' : 'set_threshold', 'env' : value.env, 'var' : value.val })}}
+							{{:helper.link(selectedItem.selected >= 0 ? helper.round(selectedItem.selected*100)/100 : "Off", null, { 'command' : 'set_threshold', 'env' : selectedItem.env, 'var' : selectedItem.val })}}
 						</td>
 					{{/for}}
 				</tr>			
