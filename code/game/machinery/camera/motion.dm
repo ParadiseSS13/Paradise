@@ -45,8 +45,7 @@
 	if (!status || (stat & NOPOWER))
 		return 0
 	if (detectTime == -1)
-		for (var/mob/living/silicon/aiPlayer in player_list)
-			aiPlayer.cancelAlarm("Motion", get_area(src), src)
+		motion_alarm.clearAlarm(loc, src)
 	detectTime = 0
 	return 1
 
@@ -54,8 +53,7 @@
 	if (!status || (stat & NOPOWER))
 		return 0
 	if (!detectTime) return 0
-	for (var/mob/living/silicon/aiPlayer in player_list)
-		aiPlayer.triggerAlarm("Motion", get_area(src), list(src), src)
+	motion_alarm.triggerAlarm(loc, src)
 	detectTime = -1
 	return 1
 

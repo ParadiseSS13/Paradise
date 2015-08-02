@@ -300,6 +300,8 @@ var/list/robot_verbs_default = list(
 
 	//languages
 	module.add_languages(src)
+	//subsystems
+	module.add_subsystems(src)
 
 	//Custom_sprite check and entry
 	if (custom_sprite == 1)
@@ -374,40 +376,11 @@ var/list/robot_verbs_default = list(
 		updatename()
 		update_icons()
 
-/mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = "Robot Commands"
-	set name = "Show Alerts"
-	robot_alerts()
-
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = "Robot Commands"
 	set name = "Show Station Manifest"
 	show_station_manifest()
-
-
-/mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-	dat += "<A HREF='?src=\ref[src];mach_close=robotalerts'>Close</A><BR><BR>"
-	for (var/cat in alarms)
-		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
-				var/list/alm = L[alarm]
-				var/area/A = alm[1]
-				var/list/sources = alm[3]
-				dat += "<NOBR>" // wat
-				dat += text("-- [A.name]")
-				if (sources.len > 1)
-					dat += text("- [sources.len] sources")
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
-
-	viewalerts = 1
-	src << browse(dat, "window=robotalerts&can_close=0")
 
 /mob/living/silicon/robot/proc/self_diagnosis()
 	if(!is_component_functioning("diagnosis unit"))
@@ -419,7 +392,6 @@ var/list/robot_verbs_default = list(
 		dat += "<b>[C.name]</b><br><table><tr><td>Power consumption</td><td>[C.energy_consumption]</td></tr><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[(!C.energy_consumption || C.is_powered()) ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 
 	return dat
-
 
 /mob/living/silicon/robot/verb/self_diagnosis_verb()
 	set category = "Robot Commands"
@@ -464,9 +436,11 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
 	src.verbs |= robot_verbs_default
+	src.verbs |= silicon_subsystems
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
 	src.verbs -= robot_verbs_default
+	src.verbs -= silicon_subsystems
 
 /mob/living/silicon/robot/blob_act()
 	if (stat != 2)
@@ -589,50 +563,6 @@ var/list/robot_verbs_default = list(
 			now_pushing = null
 		return
 	return
-
-
-/mob/living/silicon/robot/triggerAlarm(var/class, area/A, var/O, var/alarmsource)
-	if (stat == 2)
-		return 1
-	var/list/L = alarms[class]
-	for (var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
-				sources += alarmsource
-			return 1
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if (O && istype(O, /list))
-		CL = O
-		if (CL.len == 1)
-			C = CL[1]
-	else if (O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
-	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
-//	if (viewalerts) robot_alerts()
-	return 1
-
-
-/mob/living/silicon/robot/cancelAlarm(var/class, area/A as area, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if (origin in srcs)
-				srcs -= origin
-			if (srcs.len == 0)
-				cleared = 1
-				L -= I
-	if (cleared)
-		queueAlarm(text("--- [class] alarm in [A.name] has been cleared."), class, 0)
-//		if (viewalerts) robot_alerts()
-	return !cleared
-
 
 /mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
@@ -1124,32 +1054,32 @@ var/list/robot_verbs_default = list(
 
 
 /mob/living/silicon/robot/Topic(href, href_list)
-	..()
+	if(..())
+		return 1
 
 	if(usr != src)
-		return
+		return 1
 
 	if (href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
 		src << browse(null, t1)
-		return
-
-
+		return 1
 
 	if (href_list["showalerts"])
-		robot_alerts()
-		return
+		subsystem_alarm_monitor()
+		return 1
 
 	if (href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if (istype(O) && (O.loc == src))
 			O.attack_self(src)
+		return 1
 
 	if (href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
 		if (!istype(O) || !(O.loc == src || O.loc == src.module))
-			return
+			return 1
 
 		activate_module(O)
 		installed_modules()
@@ -1171,6 +1101,7 @@ var/list/robot_verbs_default = list(
 		else
 			src << "Module isn't activated"
 		installed_modules()
+		return 1
 
 	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawc"])
@@ -1179,6 +1110,7 @@ var/list/robot_verbs_default = list(
 			if ("No") lawcheck[L+1] = "Yes"
 //		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
 		checklaws()
+		return 1
 
 	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
 		var/L = text2num(href_list["lawi"])
@@ -1187,10 +1119,12 @@ var/list/robot_verbs_default = list(
 			if ("No") ioncheck[L] = "Yes"
 //		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
 		checklaws()
+		return 1
 
 	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
-	return
+		return 1
+	return 1
 
 /mob/living/silicon/robot/proc/radio_menu()
 	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
@@ -1347,6 +1281,7 @@ var/list/robot_verbs_default = list(
 		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
 		if(choice=="No")
 			choose_icon(triesleft, module_sprites)
+			return
 		else
 			triesleft = 0
 			return

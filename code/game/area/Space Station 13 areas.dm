@@ -128,6 +128,24 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_environ = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
+	
+/area/space/atmosalert()
+	return
+
+/area/space/fire_alert()
+	return
+
+/area/space/fire_reset()
+	return
+
+/area/space/readyalert()
+	return
+	
+/area/space/radiation_alert()
+	return
+
+/area/space/partyalert()
+	return
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.

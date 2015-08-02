@@ -19,6 +19,7 @@
 	if (src.stat != DEAD) //still using power
 		use_power()
 		process_locks()
+		process_queued_alarms()
 
 	update_canmove()
 

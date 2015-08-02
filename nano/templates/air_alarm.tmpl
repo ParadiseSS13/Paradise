@@ -25,7 +25,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 			<div class="statusLabel">Pressure:</div>
 			{{:helper.string("<div class='statusValue {0}'>{1} kPa</div>",helper.dangerToClass(data.air.danger.pressure),helper.precisionRound(data.air.pressure,4))}}
 			<div class="statusValue" style="margin-left:5px;">
-			{{if !data.locked}}
+			{{if !data.locked || (data.remote_connection && data.remote_access)}}
 				{{if data.mode == 3}}
 					{{:helper.link("DEACTIVATE PANIC SYPHON",null,{"mode" : 1},null,'linkOn')}}
 				{{else}}
@@ -71,20 +71,20 @@ Used In File(s): /code/game/machinery/alarm.dm
 			<div class="statusLabel">Local Status:</div>
 			{{if data.air.danger.overall == 0}}
 				{{if data.atmos_alarm}}
-					<div class="average">Caution: Atmos alert in area
+					<div class="average">Caution: Atmos alert in area</div>
 				{{else}}
-					<div class="good">Optimal
+					<div class="good">Optimal</div>
 				{{/if}}
 			{{else data.air.danger.overall == 1}}
-				<div class="average">Caution
+				<div class="average">Caution</div>
 			{{else}}
-				<div class="notice">DANGER: Internals Required
+				<div class="notice">DANGER: Internals Required</div>
 			{{/if}}
-			{{if !data.locked}}
+			{{if !data.locked || (data.remote_connection && data.remote_access)}}
 				{{if data.alarmActivated}}
 					{{:helper.link('Reset Alarm',null,{'atmos_reset':1},null,'linkOn')}}
 				{{else}}
-					{{:helper.link('Activate Alarm',null,{'atmos_alarm':1},null,'red')}}
+					{{:helper.link('Activate Alarm',null,{'atmos_alarm':1},null)}}
 				{{/if}}
 			{{/if}}
 			</div>
@@ -96,9 +96,9 @@ Used In File(s): /code/game/machinery/alarm.dm
 			#define RCON_YES	3
 			-->
 			<div class="statusLabel">Remote Control:</div>
-			{{:helper.link('Off',  null, {'rcon' : 1}, (data.rcon != 1) ? null : 'disabled')}}
-			{{:helper.link('Auto', null, {'rcon' : 2}, (data.rcon != 2) ? null : 'disabled')}}
-			{{:helper.link('On',   null, {'rcon' : 3}, (data.rcon != 3) ? null : 'disabled')}}
+			{{:helper.link('Off',  null, {'rcon' : 1}, data.remote_connection && !data.remote_access ? (data.rcon == 1 ? '' : 'disabled') : null, data.rcon == 1 ? 'selected' : null)}}
+			{{:helper.link('Auto', null, {'rcon' : 2}, data.remote_connection && !data.remote_access ? (data.rcon == 2 ? '' : 'disabled') : null, data.rcon == 2 ? 'selected' : null)}}
+			{{:helper.link('On',   null, {'rcon' : 3}, data.remote_connection && !data.remote_access ? (data.rcon == 3 ? '' : 'disabled') : null, data.rcon == 3 ? 'selected' : null)}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Thermostat:</div>
@@ -107,7 +107,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 	</div>
 {{/if}}
 
-{{if data.locked}}
+{{if data.locked && !data.remote_connection && !data.remote_access}}
 	<div class="notice">Swipe card to unlock.</div>
 {{else}}
 	<div class="notice">Remember to lock with ID card after use.</div>

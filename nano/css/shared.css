@@ -272,9 +272,11 @@ div.notice {
     width: 69%;
 }
 
-.itemLabelWidest {
-    width: 100%;
-}
++.itemLabelWidest {
+	float: left;
+	width: 100%;
+	color: #e9c183;
++}
 
 .itemContentWide {
     float: left;

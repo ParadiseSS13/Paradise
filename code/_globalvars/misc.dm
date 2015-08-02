@@ -3,8 +3,10 @@ var/global/obj/effect/overlay/slmaster = null
 
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()
-// event manager, the manager for events
-var/datum/event_manager/event_manager = new()
+// Event Manager, the manager for events.
+var/datum/event_manager/event_manager = new() 
+// Alarm Manager, the manager for alarms.
+var/datum/subsystem/alarm/alarm_manager	= new() 
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/device/radio/intercom/global_announcer = create_global_announcer()
 // Load order issues means this can't be new'd until other code runs

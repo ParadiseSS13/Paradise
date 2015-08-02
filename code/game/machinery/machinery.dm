@@ -291,9 +291,10 @@ Class Procs:
 			update_multitool_menu(usr)
 			return 1
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
-	if(..())
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+	if(..(href, href_list, nowindow, state))
 		return 1
+		
 	handle_multitool_topic(href,href_list,usr)
 	add_fingerprint(usr)
 	return 0

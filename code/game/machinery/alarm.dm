@@ -49,6 +49,7 @@
 	active_power_usage = 8
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
+	var/alarm_id = null
 	var/frequency = 1439
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = 1437
@@ -82,16 +83,19 @@
 	var/datum/radio_frequency/radio_connection
 
 	var/list/TLV = list()
-	var/hidden = 0
+	
+	var/report_danger_level = 1
 
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
 	req_access = list(access_rd, access_atmospherics, access_engine_equip)
 
-
 /obj/machinery/alarm/vox
 	preset = AALARM_PRESET_VOX
 	req_access = list()
+
+/obj/machinery/alarm/monitor
+	report_danger_level = 0
 
 /obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
 	// Propogate settings.
@@ -232,7 +236,7 @@
 	// we're going up a level
 	// OR if we're going down a level and have sufficient confidence (prevents spamming update_icon).
 	if (old_level < new_danger || (danger_averted_confidence >= 5 && new_danger < old_level))
-		setDangerLevel(new_danger)
+		apply_danger_level(new_danger)
 		update_icon()
 		danger_averted_confidence=0 // Reset counter.
 
@@ -252,8 +256,6 @@
 				remote_control = 1
 		if(RCON_YES)
 			remote_control = 3
-	if(screen == AALARM_SCREEN_MAIN)
-		updateDialog()
 	return
 
 /obj/machinery/alarm/proc/calculate_local_danger_level()
@@ -441,13 +443,11 @@
 			for(var/device_id in alarm_area.air_vent_names)
 				send_signal(device_id, list("power"= 0) )
 
-// This sets our danger level, and, if it's changed, forces a new election of danger levels.
-/obj/machinery/alarm/proc/setDangerLevel(var/new_danger_level)
-	if(local_danger_level==new_danger_level)
-		return
-	local_danger_level=new_danger_level
-	if(alarm_area.updateDangerLevel())
+/obj/machinery/alarm/proc/apply_danger_level(var/new_danger_level)
+	if (report_danger_level && alarm_area.atmosalert(new_danger_level, src))
 		post_alert(new_danger_level)
+
+	update_icon()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(alarm_frequency)
@@ -459,7 +459,6 @@
 	alert_signal.transmission_method = 1
 	alert_signal.data["zone"] = alarm_area.name
 	alert_signal.data["type"] = "Atmospheric"
-	alert_signal.data["hidden"] = hidden
 
 	if(alert_level==2)
 		alert_signal.data["alert"] = "severe"
@@ -557,6 +556,16 @@
 	if (.)
 		return
 	return interact(user)
+	
+/obj/machinery/alarm/interact(mob/user)
+	if(buildstage != 2)
+		return
+
+	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
+		wires.Interact(user)
+		
+	if(!shorted)
+		ui_interact(user)
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
@@ -623,21 +632,18 @@
 	data["danger"]=danger
 	return data
 
-/obj/machinery/alarm/proc/get_nano_data(mob/user, fromAtmosConsole=0, AtmosConsoleEmagged=0)
-
+/obj/machinery/alarm/proc/get_nano_data(mob/user)
 	var/data[0]
-	data["name"] = name
-	data["air"]=ui_air_status()
-	data["alarmActivated"]=alarmActivated || local_danger_level==2
-	data["sensors"]=TLV
+	data["name"] = sanitize(name)
+	data["air"] = ui_air_status()
+	data["alarmActivated"] = alarmActivated || local_danger_level==2
+	data["sensors"] = TLV
 
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
-	data["locked"]=!fromAtmosConsole && (!(istype(user, /mob/living/silicon)) && locked)
-	if(fromAtmosConsole && (remote_control < 2 && !AtmosConsoleEmagged))
-		data["locked"] = 1
-	data["rcon"]=rcon_setting
+	data["locked"] =  (!(istype(user, /mob/living/silicon)) && locked)
+	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["modes"] = list(
@@ -681,107 +687,79 @@
 			scrubbers+=list(scrubber_data)
 	data["scrubbers"]=scrubbers
 	return data
+	
+/obj/machinery/alarm/proc/get_nano_data_console(mob/user)
+	var/data[0]
+	data["name"] = sanitize(name)
+	data["ref"] = "\ref[src]"
+	data["danger"] = max(local_danger_level, alarm_area.atmosalm)
+	data["area"] = sanitize(get_area(src))
+	var/turf/pos = get_turf(src)
+	data["x"] = pos.x
+	data["y"] = pos.y
+	data["z"] = pos.z
+	return data
 
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	var/list/data = get_nano_data(user)
+	
+	var/remote_connection = 0
+	var/remote_access = 0
+	if(state)
+		var/list/href = state.href_list(user)
+		remote_connection = href["remote_connection"]	// Remote connection means we're non-adjacent/connecting from another computer
+		remote_access = href["remote_access"]			// Remote access means we also have the privilege to alter the air alarm.
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	if(user.stat && !isobserver(user))
-		return
-
-	var/list/data=src.get_nano_data(user,FALSE)
-
-	if (!ui) // no ui has been passed, so we'll search for one
-	{
-		ui = nanomanager.get_open_ui(user, src, ui_key)
-	}
-	if (!ui)
-		// the ui does not exist, so we'll create a new one
-		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410)
-		// When the UI is first opened this is the data it will use
+	data["remote_connection"] = remote_connection
+	data["remote_access"] = remote_access		
+		
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
 		ui.set_initial_data(data)
 		ui.open()
-		// Auto update every Master Controller tick
 		ui.set_auto_update(1)
-	else
-		// The UI is already open so push the new data to it
-		ui.push_data(data)
-		return
-
-
-/obj/machinery/alarm/interact(mob/user)
-	user.set_machine(src)
-
-	if(buildstage!=2)
-		return
-
-	if ( (get_dist(src, user) > 1 ))
-		if (!istype(user, /mob/living/silicon))
-			user.machine = null
-			user << browse(null, "window=air_alarm")
-			user << browse(null, "window=AAlarmwires")
-			return
-
-
-		else if (istype(user, /mob/living/silicon) && aidisabled)
-			user << "AI control for this Air Alarm interface has been disabled."
-			user << browse(null, "window=air_alarm")
-			return
-
-
-	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
-		wires.Interact(user)
-	if(!shorted)
-		ui_interact(user)
-
-/obj/machinery/alarm/proc/can_use(mob/user as mob)
-	if (user.stat && !isobserver(user))
-		user << "\red You must be conscious to use this [src]!"
-		return 0
-
-	if(stat & (NOPOWER|BROKEN))
-		return 0
-
-	if(buildstage != 2)
-		return 0
-
-	if((get_dist(src, user) > 1) && !istype(user, /mob/living/silicon))
-		return 0
-
-	if(istype(user, /mob/living/silicon) && aidisabled)
-		user << "AI control for this air alarm interface has been disabled."
-		return 0
-
-	return 1
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user as mob)
 	if(isAI(user) || isrobot(user))
 		return 1
 	else
 		return !locked
+		
+/obj/machinery/alarm/CanUseTopic(var/mob/user, var/datum/topic_state/state, var/href_list = list())
+	if(buildstage != 2)
+		return STATUS_CLOSE
 
-/obj/machinery/alarm/Topic(href, href_list)
-	if(..())
+	if(aidisabled && isAI(user))
+		user << "<span class='warning'>AI control for \the [src] interface has been disabled.</span>"
+		return STATUS_CLOSE
+
+	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+
+	if(. == STATUS_INTERACTIVE)
+		var/extra_href = state.href_list(usr)
+		// Prevent remote users from altering RCON settings unless they already have access
+		if(href_list["rcon"] && extra_href["remote_connection"] && !extra_href["remote_access"])
+			. = STATUS_UPDATE
+	return min(..(), .)
+
+/obj/machinery/alarm/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state)	
+	if(..(href, href_list, nowindow, state))
 		return 1
-
-	if(!can_use(usr))
-		return 1
-
-	var/changed=0
-
+		
 	if(href_list["rcon"])
-		rcon_setting = text2num(href_list["rcon"])
-		changed=1
-
-	if ( (get_dist(src, usr) > 1 ))
-		if (!istype(usr, /mob/living/silicon))
-			usr.machine = null
-			usr << browse(null, "window=air_alarm")
-			usr << browse(null, "window=AAlarmwires")
-			return
+		var/attempted_rcon_setting = text2num(href_list["rcon"])
+		switch(attempted_rcon_setting)
+			if(RCON_NO)
+				rcon_setting = RCON_NO
+			if(RCON_AUTO)
+				rcon_setting = RCON_AUTO
+			if(RCON_YES)
+				rcon_setting = RCON_YES
+		return 1
 
 	add_fingerprint(usr)
-	usr.machine = src
 
-	//testing(href)
 	if(href_list["command"])
 		if(!is_authenticated(usr))
 			return
@@ -815,7 +793,6 @@
 					val = newval
 
 				send_signal(device_id, list(href_list["command"] = val ) )
-				changed=0 // We wait for the device to reply.
 				waiting_on_device=device_id
 
 			if("set_threshold")
@@ -867,7 +844,6 @@
 						selected[3] = selected[4]
 
 				apply_mode()
-				ui_interact(usr)
 				return 1
 
 	if(href_list["screen"])
@@ -875,27 +851,20 @@
 			return
 
 		screen = text2num(href_list["screen"])
-		ui_interact(usr)
 		return 1
 
 	if(href_list["atmos_alarm"])
-		if(!is_authenticated(usr))
-			return
-
-		alarmActivated=1
-		alarm_area.updateDangerLevel()
+		if (alarm_area.atmosalert(2, src))
+			apply_danger_level(2)
+		alarmActivated = 1
 		update_icon()
-		ui_interact(usr)
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(!is_authenticated(usr))
-			return
-
-		alarmActivated=0
-		alarm_area.updateDangerLevel()
+		if (alarm_area.atmosalert(0, src))
+			apply_danger_level(0)
+		alarmActivated = 0
 		update_icon()
-		ui_interact(usr)
 		return 1
 
 	if(href_list["mode"])
@@ -904,7 +873,6 @@
 
 		mode = text2num(href_list["mode"])
 		apply_mode()
-		ui_interact(usr)
 		return 1
 
 	if(href_list["preset"])
@@ -913,7 +881,6 @@
 
 		preset = text2num(href_list["preset"])
 		apply_preset()
-		ui_interact(usr)
 		return 1
 
 	if(href_list["temperature"])
@@ -927,10 +894,7 @@
 			usr << "Temperature must be between [min_temperature]C and [max_temperature]C"
 		else
 			target_temperature = input_temperature + T0C
-		ui_interact(usr)
 		return 1
-	if(changed)
-		updateUsrDialog()
 
 
 /obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -1122,7 +1086,8 @@ FIRE ALARM
 
 
 /obj/machinery/firealarm/emp_act(severity)
-	if(prob(50/severity)) alarm()
+	if(prob(50/severity))
+		alarm(rand(30/severity, 60/severity))
 	..()
 
 /obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -1298,24 +1263,19 @@ FIRE ALARM
 /obj/machinery/firealarm/proc/reset()
 	if (!( src.working ))
 		return
-	var/area/A = src.loc
-	A = A.loc
-	if (!( istype(A, /area) ))
-		return
-	A.firereset()
-	update_icon()
+	var/area/A = get_area(src)
+	for(var/obj/machinery/firealarm/FA in A)
+		fire_alarm.clearAlarm(loc, FA)
 	return
 
-/obj/machinery/firealarm/proc/alarm()
-	if (!( src.working ))
+/obj/machinery/firealarm/proc/alarm(var/duration = 0)
+	if (!( src.working))
 		return
-	var/area/A = src.loc
-	A = A.loc
-	if (!( istype(A, /area) ))
-		return
-	A.firealert()
+	var/area/A = get_area(src)
+	for(var/obj/machinery/firealarm/FA in A)
+		fire_alarm.triggerAlarm(loc, FA, duration)
 	update_icon()
-	//playsound(get_turf(src), 'sound/ambience/signal.ogg', 75, 0)
+	//playsound(src.loc, 'sound/ambience/signal.ogg', 75, 0)
 	return
 
 /obj/machinery/firealarm/New(loc, dir, building)

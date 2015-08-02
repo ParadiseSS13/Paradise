@@ -98,6 +98,10 @@
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
+	var/report_power_alarm = 1
+	
+/obj/machinery/power/apc/noalarm
+	report_power_alarm = 0
 
 /obj/machinery/power/apc/updateDialog()
 	if (stat & (BROKEN|MAINT))
@@ -1153,29 +1157,30 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				area.poweralert(1, src)
-				if(cell_charge >= 4000)
-					area.poweralert(1, src)
+				power_alarm.clearAlarm(loc, src)
 		else if(cell_charge < 1250 && cell_charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				area.poweralert(0, src)
+				if(report_power_alarm)
+					power_alarm.triggerAlarm(loc, src)
 				autoflag = 2
 		else if(cell_charge < 750 && cell_charge > 10 && longtermpower < 0)        // <15%, turn off lighting & equipment
 			if(autoflag != 1)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				area.poweralert(0, src)
+				if(report_power_alarm)
+					power_alarm.triggerAlarm(loc, src)
 				autoflag = 1
 		else if(cell_charge <= 0)                                   // zero charge, turn all off
 			if(autoflag != 0)
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				area.poweralert(0, src)
+				if(report_power_alarm)
+					power_alarm.triggerAlarm(loc, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
@@ -1221,7 +1226,8 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		area.poweralert(0, src)
+		if(report_power_alarm)
+			power_alarm.triggerAlarm(loc, src)
 		autoflag = 0
 
 

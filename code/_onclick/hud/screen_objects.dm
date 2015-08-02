@@ -479,7 +479,7 @@
 		if("Crew Monitoring")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.nano_crew_monitor()
+				AI.subsystem_crew_monitor()
 
 		if("Show Crew Manifest")
 			if(isAI(usr))
@@ -489,7 +489,7 @@
 		if("Show Alerts")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.ai_alerts()
+				AI.subsystem_alarm_monitor()
 
 		if("Announcement")
 			if(isAI(usr))

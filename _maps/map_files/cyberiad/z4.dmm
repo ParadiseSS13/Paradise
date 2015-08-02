@@ -321,7 +321,7 @@
 "gv" = (/obj/item/ammo_casing{pixel_y = 3},/turf/simulated/floor/plating,/area/exploration/methlab)
 "gw" = (/obj/effect/decal/cleanable/blood/oil,/obj/item/ammo_casing{pixel_x = -4; pixel_y = -6},/turf/simulated/floor/plating,/area/exploration/methlab)
 "gx" = (/obj/structure/table,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/obj/item/weapon/reagent_containers/drugs/baggie/meth,/turf/simulated/floor/plating,/area/exploration/methlab)
-"gy" = (/obj/machinery/power/apc{pixel_x = 26},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plating,/area/exploration/methlab)
+"gy" = (/obj/machinery/power/apc/noalarm{pixel_x = 26},/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plating,/area/exploration/methlab)
 "gz" = (/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/exploration/methlab)
 "gA" = (/obj/machinery/chem_master,/turf/simulated/floor/plating,/area/exploration/methlab)
 "gB" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plating,/area/exploration/methlab)
