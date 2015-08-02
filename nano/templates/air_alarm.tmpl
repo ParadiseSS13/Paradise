@@ -217,7 +217,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 		<div class="statusDisplay">
 			{{for data.presets}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.name,'gear',{'preset':index+1},null,(index+1==value.preset?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(value.name,'gear',{'preset':index+1},null,(index+1==data.preset?'linkOn':''))}}</div>
 				<div class="statusValue">
 					{{:value.desc}}
 				</div>
@@ -226,55 +226,22 @@ Used In File(s): /code/game/machinery/alarm.dm
 		</div>
 	<!-- SENSORS -->
 	{{else data.screen == 5}}
-		<h3>Sensor Thresholds</h3>
-		<div class="statusDisplay">
-			<table>
-				<thead>
-					<th>&nbsp;</th>
-					<th class="bad">min2</th>
-					<th class="average">min1</th>
-					<th class="average">max1</th>
-					<th class="bad">max2</th>
-				</thead>
-				<tbody>
-					<tr>
-						<th>O<sub>2</sub></th>
-						{{for data.sensors.oxygen}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'oxygen','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>N<sub>2</sub></th>
-						{{for data.sensors.nitrogen}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'nitrogen','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>CO<sub>2</sub></th>
-						{{for data.sensors.carbon_dioxide}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'carbon_dioxide','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Toxins</th>
-						{{for data.sensors.plasma}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'plasma','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Pressure</th>
-						{{for data.sensors.pressure}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'pressure','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Temperature (K)</th>
-						{{for data.sensors.temperature}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'temperature','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<h3>Alarm Threshold</h3>
+		Partial pressure for gases.
+		<table class='fixed'>
+			<tr>
+				<td></td><td><span class='bad'>min2</span></td><td><span class='average'>min1</span></td><td><span class='average'>max1</span></td><td><span class='bad'>max2</span></td>
+			</tr>
+			{{for data.thresholds}}
+				<tr>
+					<td>{{:value.name}}</td>
+					{{for value.settings :selected:SelectedNull}}
+						<td>
+							{{:helper.link(value.selected >= 0 ? helper.round(value.selected*100)/100 : "Off", null, { 'command' : 'set_threshold', 'env' : value.env, 'var' : value.val })}}
+						</td>
+					{{/for}}
+				</tr>			
+			{{/for}}
+		<table>
 	{{/if}}
 {{/if}}
