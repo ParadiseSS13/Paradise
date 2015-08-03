@@ -569,7 +569,7 @@ proc/dd_sortedObjectList(list/incoming)
 
 /proc/subtypesof(var/path) //Returns a list containing all subtypes of the given path, but not the given path itself.
 	if(!path || !ispath(path))
-		return
+		CRASH("Invalid path, failed to fetch subtypes of \"[path]\".)")
 	return (typesof(path) - path)
 
 /datum/proc/dd_SortValue()

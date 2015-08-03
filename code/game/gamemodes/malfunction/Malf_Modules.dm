@@ -393,7 +393,7 @@ rcd light flash thingy on matter drain
 	var/list/possible_modules = list()
 
 /datum/module_picker/New()
-	for(var/type in typesof(/datum/AI_Module))
+	for(var/type in subtypesof(/datum/AI_Module))
 		var/datum/AI_Module/AM = new type
 		if(AM.power_type != null)
 			src.possible_modules += AM

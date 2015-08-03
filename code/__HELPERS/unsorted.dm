@@ -407,7 +407,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = (typesof(/datum/objective)  - /datum/objective)
+		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
 		for(var/datum/objective/objective in O)

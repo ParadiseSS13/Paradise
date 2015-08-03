@@ -328,7 +328,7 @@
 	if(!check_rights(R_SERVER))	return
 
 	var/list/choice = list()
-	for(var/H in typesof(/datum/holiday) - /datum/holiday)
+	for(var/H in subtypesof(/datum/holiday))
 		choice += "[H]"
 
 	choice += "--CANCEL--"

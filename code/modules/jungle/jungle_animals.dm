@@ -8,7 +8,7 @@
 
 /obj/effect/landmark/animal_spawner/New()
 	if(!spawn_type)
-		var/new_type = pick(typesof(/obj/effect/landmark/animal_spawner) - /obj/effect/landmark/animal_spawner)
+		var/new_type = pick(subtypesof(/obj/effect/landmark/animal_spawner))
 		new new_type(get_turf(src))
 		qdel(src)
 
