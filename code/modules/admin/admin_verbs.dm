@@ -66,7 +66,9 @@ var/list/admin_verbs_admin = list(
 	/client/proc/freeze,
 	/client/proc/freezemecha,
 	/client/proc/alt_check,
-	/client/proc/secrets
+	/client/proc/secrets,
+	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
+	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself change its basic appearance */
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -542,6 +544,41 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
+
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in world)
+	set name = "Change Mob Appearance - Admin"
+	set desc = "Allows you to change the mob appearance"
+	set category = "Admin"
+
+	if(!istype(H))
+		return
+
+	if(holder)
+		admin_log_and_message_admins("is altering the appearance of [H].")
+		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
+	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H in world)
+	set name = "Change Mob Appearance - Self"
+	set desc = "Allows the mob to change its appearance"
+	set category = "Admin"
+
+	if(!istype(H))
+		return
+
+	if(!H.client)
+		usr << "Only mobs with clients can alter their own appearance."
+		return
+
+	if(holder)
+		switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
+			if("Yes")
+				admin_log_and_message_admins("has allowed [H] to change \his appearance, without whitelisting of races.")
+				H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
+			if("No")
+				admin_log_and_message_admins("has allowed [H] to change \his appearance, with whitelisting of races.")
+				H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
+	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 //---- bs12 verbs ----

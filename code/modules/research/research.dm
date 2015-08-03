@@ -53,9 +53,9 @@ research holder datum.
 	var/list/known_designs = list()			//List of available designs (at base reliability).
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
-	for(var/T in typesof(/datum/tech) - /datum/tech)
+	for(var/T in subtypesof(/datum/tech))
 		possible_tech += new T(src)
-	for(var/D in typesof(/datum/design) - /datum/design)
+	for(var/D in subtypesof(/datum/design))
 		possible_designs += new D(src)
 	RefreshResearch()
 
@@ -140,7 +140,7 @@ research holder datum.
 						D.reliability = min(100, D.reliability + rand(1,3))
 						if(I.crit_fail)
 							D.reliability = min(100, D.reliability + rand(3, 5))
-							
+
 /datum/research/proc/FindDesignByID(var/id)
 	for(var/datum/design/D in known_designs)
 		if(D.id == id)
@@ -148,9 +148,9 @@ research holder datum.
 
 //Autolathe files
 /datum/research/autolathe/New()
-	for(var/T in (typesof(/datum/tech) - /datum/tech))
+	for(var/T in subtypesof(/datum/tech))
 		possible_tech += new T(src)
-	for(var/path in typesof(/datum/design) - /datum/design)
+	for(var/path in subtypesof(/datum/design))
 		var/datum/design/D = new path(src)
 		possible_designs += D
 		if((D.build_type & AUTOLATHE) && ("initial" in D.category))  //autolathe starts without hacked designs
@@ -278,7 +278,7 @@ datum/tech/robotics
 /obj/item/weapon/disk/tech_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
-	
+
 /obj/item/weapon/disk/design_disk
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."

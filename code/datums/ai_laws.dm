@@ -125,7 +125,7 @@ datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
 				add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
 				add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 		if(2)
-			var/datum/ai_laws/lawtype = pick(typesof(/datum/ai_laws/default) - /datum/ai_laws/default)
+			var/datum/ai_laws/lawtype = pick(subtypesof(/datum/ai_laws/default))
 			var/datum/ai_laws/templaws = new lawtype()
 			inherent = templaws.inherent
 	set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*´&110010")

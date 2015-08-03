@@ -110,7 +110,7 @@
 		if(0)  laws = new /datum/ai_laws/asimov()
 		if(1)  laws = new /datum/ai_laws/custom()
 		if(2)
-			var/datum/ai_laws/lawtype = pick(typesof(/datum/ai_laws/default) - /datum/ai_laws/default)
+			var/datum/ai_laws/lawtype = pick(subtypesof(/datum/ai_laws/default))
 			laws = new lawtype()
 
 /mob/living/silicon/robot/proc/statelaws() // -- TLE
@@ -200,4 +200,4 @@
 
 	list += {"<br><br><A href='byond://?src=\ref[src];laws=1'>State Laws</A>"}
 
-	usr << browse(list, "window=laws")			
+	usr << browse(list, "window=laws")

@@ -22,7 +22,7 @@
 	var/datum/event_meta/new_event = new
 
 /datum/event_manager/New()
-	allEvents = typesof(/datum/event) - /datum/event
+	allEvents = subtypesof(/datum/event)
 
 /datum/event_manager/proc/process()
 	for(var/datum/event/E in event_manager.active_events)

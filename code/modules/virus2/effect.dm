@@ -15,7 +15,7 @@
 
 /datum/disease2/effectholder/proc/getrandomeffect(var/badness = 1)
 	var/list/datum/disease2/effect/list = list()
-	for(var/e in (typesof(/datum/disease2/effect) - /datum/disease2/effect))
+	for(var/e in subtypesof(/datum/disease2/effect))
 		var/datum/disease2/effect/f = new e
 		if (f.badness > badness)	//we don't want such strong effects
 			continue

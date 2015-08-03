@@ -122,7 +122,7 @@ proc/process_newscaster()
 
 var/global/tmp/announced_news_types = list()
 proc/check_for_newscaster_updates(type)
-	for(var/subtype in typesof(type)-type)
+	for(var/subtype in subtypesof(type))
 		var/datum/news_announcement/news = new subtype()
 		if(news.round_time * 10 <= world.time && !(subtype in announced_news_types))
 			announced_news_types += subtype

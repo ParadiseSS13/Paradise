@@ -303,11 +303,13 @@
 	..()
 	if(!powernet) 
 		return
+	connect_to_network()
+	set_panels(cdir)
 	if(autostart)
 		src.search_for_connected()
 		if(connected_tracker && track == 2)
 			connected_tracker.set_angle(sun.angle)
-	set_panels(cdir)
+		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
 	for(var/obj/machinery/power/solar/M in connected_panels)

@@ -160,8 +160,8 @@ var/global/datum/controller/gameticker/ticker
 				world << "<h4>[holiday.greet()]</h4>"
 
 	spawn(0) // Forking dynamic room selection
-		var/list/area/dynamic/source/available_source_candidates = typesof(/area/dynamic/source) - /area/dynamic/source
-		var/list/area/dynamic/destination/available_destination_candidates = typesof(/area/dynamic/destination) - /area/dynamic/destination
+		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
+		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
 
 		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
 			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)

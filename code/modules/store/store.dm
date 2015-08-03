@@ -25,7 +25,7 @@ var/global/datum/store/centcomm_store=new
 	var/obj/machinery/account_database/linked_db
 
 /datum/store/New()
-	for(var/itempath in typesof(/datum/storeitem) - /datum/storeitem/)
+	for(var/itempath in subtypesof(/datum/storeitem))
 		items += new itempath()
 
 /datum/store/proc/charge(var/datum/mind/mind,var/amount,var/datum/storeitem/item)

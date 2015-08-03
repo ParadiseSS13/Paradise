@@ -2,7 +2,7 @@ var/list/spawntypes = list()
 
 /proc/populate_spawn_points()
 	spawntypes = list()
-	for(var/type in typesof(/datum/spawnpoint)-/datum/spawnpoint)
+	for(var/type in subtypesof(/datum/spawnpoint))
 		var/datum/spawnpoint/S = new type()
 		spawntypes[S.display_name] = S
 
