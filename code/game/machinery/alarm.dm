@@ -869,7 +869,7 @@
 				"n2o_scrub",
 				"n2_scrub",
 				"o2_scrub",
-				"panic_siphon",
+				"widenet",
 				"scrubbing",
 				"direction")
 				var/val

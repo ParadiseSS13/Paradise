@@ -183,6 +183,12 @@ Used In File(s): /code/game/machinery/alarm.dm
 						{{/if}}
 					</div>
 				</div>
+				<div class="line">
+					<div class="statusLabel">Scrub Range:</div>
+					<div class="statusValue">
+						{{:helper.link(value.widenet ? 'Extended' : 'Normal', null, { 'id_tag' : value.id_tag, 'command' : 'widenet', 'val' : value.widenet ? 0 : 1}, null, value.widenet ? 'selected' : null)}}
+					</div>
+				</div>
 				{{if value.scrubbing==1}}
 				<div class="line">
 					<div class="statusLabel">Filtering:</div>
