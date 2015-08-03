@@ -89,7 +89,7 @@ datum/game_mode/mutiny
 
 	proc/get_directive_candidates()
 		var/list/candidates[0]
-		for(var/T in (typesof(/datum/directive) - /datum/directive))
+		for(var/T in subtypesof(/datum/directive))
 			var/datum/directive/D = new T(src)
 //			world << D.name
 			if (D.meets_prerequisites())

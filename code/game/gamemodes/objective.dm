@@ -1,8 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
-var/list/potential_theft_objectives=typesof(/datum/theft_objective) \
-	- /datum/theft_objective \
+var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
 	- /datum/theft_objective/special \
 	- /datum/theft_objective/number \
 	- /datum/theft_objective/number/special \
@@ -722,7 +721,7 @@ datum/objective/destroy
 		survivecult
 			var/num_cult
 			var/cult_needed = 4 + round((num_players_started() / 10))
-			
+
 			explanation_text = "Our knowledge must live on. Make sure at least [cult_needed] acolytes escape on the shuttle to spread their work on an another station."
 
 			check_completion()
@@ -747,11 +746,11 @@ datum/objective/destroy
 			proc/find_target() //I don't know how to make it work with the rune otherwise, so I'll do it via a global var, sacrifice_target, defined in rune15.dm
 				var/datum/game_mode/cult/C = ticker.mode
 				var/list/possible_targets = C.get_unconvertables()
-				
+
 				if(!possible_targets.len)
 					for(var/mob/living/carbon/human/player in player_list)
 						if(player.mind && !(player.mind in cult))
-							possible_targets += player.mind				
+							possible_targets += player.mind
 
 				if(possible_targets.len > 0)
 					sacrifice_target = pick(possible_targets)

@@ -16,7 +16,7 @@ var/global/datum/controller/occupations/job_master
 	proc/SetupOccupations(var/list/faction = list("Station"))
 		if(no_synthetic)
 			occupations = list()
-			var/list/all_jobs = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
+			var/list/all_jobs = subtypesof(/datum/job) -list(/datum/job/ai,/datum/job/cyborg)
 			if(!all_jobs.len)
 				world << "\red \b Error setting up jobs, no job datums found"
 				return 0
@@ -27,7 +27,7 @@ var/global/datum/controller/occupations/job_master
 				occupations += job
 		else
 			occupations = list()
-			var/list/all_jobs = typesof(/datum/job) -/datum/job
+			var/list/all_jobs = subtypesof(/datum/job)
 			if(!all_jobs.len)
 				world << "\red \b Error setting up jobs, no job datums found"
 				return 0
@@ -231,8 +231,8 @@ var/global/datum/controller/occupations/job_master
 				AssignRole(mAI.current, "AI")
 				ai_selected++
 			if(ai_selected)	return 1
-			return 0		
-		
+			return 0
+
 		for(var/i = job.total_positions, i > 0, i--)
 			for(var/level = 1 to 3)
 				var/list/candidates = list()

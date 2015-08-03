@@ -160,7 +160,7 @@ var/list/mechtoys = list(
 
 	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
 	proc/process()
-		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
+		for(var/typepath in subtypesof(/datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
 			if(P.name == "HEADER")
 				qdel(P)

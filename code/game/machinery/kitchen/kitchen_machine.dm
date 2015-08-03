@@ -38,7 +38,7 @@
 		available_recipes = new
 		acceptable_items = new
 		acceptable_reagents = new
-		for (var/type in (typesof(recipe_type)-recipe_type))
+		for (var/type in subtypesof(recipe_type))
 			var/datum/recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
