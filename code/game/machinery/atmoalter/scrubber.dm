@@ -7,6 +7,7 @@
 
 	var/on = 0
 	var/volume_rate = 800
+	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 
 	volume = 750
 	
@@ -23,58 +24,6 @@
 		update_icon()
 
 	..(severity)
-
-/obj/machinery/portable_atmospherics/scrubber/huge
-	name = "Huge Air Scrubber"
-	icon_state = "scrubber:0"
-	anchored = 1
-	volume = 50000
-	volume_rate = 5000
-
-	var/global/gid = 1
-	var/id = 0
-	New()
-		..()
-		id = gid
-		gid++
-
-		name = "[name] (ID [id])"
-
-	attack_hand(var/mob/user as mob)
-		usr << "\blue You can't directly interact with this machine. Use the area atmos computer."
-
-	update_icon()
-		src.overlays = 0
-
-		if(on)
-			icon_state = "scrubber:1"
-		else
-			icon_state = "scrubber:0"
-
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/wrench))
-			if(on)
-				user << "\blue Turn it off first!"
-				return
-
-			anchored = !anchored
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You [anchored ? "wrench" : "unwrench"] \the [src]."
-
-			return
-
-		..()
-
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary
-	name = "Stationary Air Scrubber"
-
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/wrench))
-			user << "\blue The bolts are too tight for you to unscrew!"
-			return
-
-		..()
-
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon()
 	src.overlays = 0
@@ -95,56 +44,63 @@
 /obj/machinery/portable_atmospherics/scrubber/process()
 	..()
 
-	if(on)
-		var/datum/gas_mixture/environment
+	if(!on)
+		return
+	scrub(loc)
+	if (widenet)
+		var/turf/T = loc
+		if (istype(T))
+			for (var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
+				scrub(tile)
+	
+/obj/machinery/portable_atmospherics/scrubber/proc/scrub(var/turf/simulated/tile)
+	var/datum/gas_mixture/environment
+	if(holding)
+		environment = holding.air_contents
+	else
+		environment = tile.return_air()
+	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
+
+	//Take a gas sample
+	var/datum/gas_mixture/removed
+	if(holding)
+		removed = environment.remove(transfer_moles)
+	else
+		removed = loc.remove_air(transfer_moles)
+
+	//Filter it
+	if (removed)
+		var/datum/gas_mixture/filtered_out = new
+
+		filtered_out.temperature = removed.temperature
+
+
+		filtered_out.toxins = removed.toxins
+		removed.toxins = 0
+
+		filtered_out.carbon_dioxide = removed.carbon_dioxide
+		removed.carbon_dioxide = 0
+
+		if(removed.trace_gases.len>0)
+			for(var/datum/gas/trace_gas in removed.trace_gases)
+				if(istype(trace_gas, /datum/gas/sleeping_agent))
+					removed.trace_gases -= trace_gas
+					filtered_out.trace_gases += trace_gas
+
+		if(removed.trace_gases.len>0)
+			for(var/datum/gas/trace_gas in removed.trace_gases)
+				if(istype(trace_gas, /datum/gas/oxygen_agent_b))
+					removed.trace_gases -= trace_gas
+					filtered_out.trace_gases += trace_gas
+
+	//Remix the resulting gases
+		air_contents.merge(filtered_out)
+
 		if(holding)
-			environment = holding.air_contents
+			environment.merge(removed)
 		else
-			environment = loc.return_air()
-		var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
-
-		//Take a gas sample
-		var/datum/gas_mixture/removed
-		if(holding)
-			removed = environment.remove(transfer_moles)
-		else
-			removed = loc.remove_air(transfer_moles)
-
-		//Filter it
-		if (removed)
-			var/datum/gas_mixture/filtered_out = new
-
-			filtered_out.temperature = removed.temperature
-
-
-			filtered_out.toxins = removed.toxins
-			removed.toxins = 0
-
-			filtered_out.carbon_dioxide = removed.carbon_dioxide
-			removed.carbon_dioxide = 0
-
-			if(removed.trace_gases.len>0)
-				for(var/datum/gas/trace_gas in removed.trace_gases)
-					if(istype(trace_gas, /datum/gas/sleeping_agent))
-						removed.trace_gases -= trace_gas
-						filtered_out.trace_gases += trace_gas
-
-			if(removed.trace_gases.len>0)
-				for(var/datum/gas/trace_gas in removed.trace_gases)
-					if(istype(trace_gas, /datum/gas/oxygen_agent_b))
-						removed.trace_gases -= trace_gas
-						filtered_out.trace_gases += trace_gas
-
-		//Remix the resulting gases
-			air_contents.merge(filtered_out)
-
-			if(holding)
-				environment.merge(removed)
-			else
-				loc.assume_air(removed)
-		//src.update_icon()
-	src.updateDialog()
-	return
+			tile.assume_air(removed)
+			tile.air_update_turf()
 
 /obj/machinery/portable_atmospherics/scrubber/return_air()
 	return air_contents
@@ -204,3 +160,53 @@
 		volume_rate = Clamp(volume_rate+diff, minrate, maxrate)
 
 	src.add_fingerprint(usr)
+	
+/obj/machinery/portable_atmospherics/scrubber/huge
+	name = "Huge Air Scrubber"
+	icon_state = "scrubber:0"
+	anchored = 1
+	volume = 50000
+	volume_rate = 5000
+	widenet = 1
+
+	var/global/gid = 1
+	var/id = 0
+	var/stationary = 0
+	
+/obj/machinery/portable_atmospherics/scrubber/huge/New()
+	..()
+	id = gid
+	gid++
+
+	name = "[name] (ID [id])"
+
+/obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(var/mob/user as mob)
+	usr << "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>"
+
+/obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
+	src.overlays = 0
+
+	if(on)
+		icon_state = "scrubber:1"
+	else
+		icon_state = "scrubber:0"
+
+/obj/machinery/portable_atmospherics/scrubber/huge/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/wrench))
+		if(stationary)
+			user << "<span class='warning'>The bolts are too tight for you to unscrew!</span>"
+			return
+		if(on)
+			user << "<span class='warning'>Turn it off first!</span>"
+			return
+
+		anchored = !anchored
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		return
+
+	..()
+
+/obj/machinery/portable_atmospherics/scrubber/huge/stationary
+	name = "Stationary Air Scrubber"
+	stationary = 1

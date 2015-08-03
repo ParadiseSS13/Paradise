@@ -1,5 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
+var/global/list/priority_air_alarms = list()
+var/global/list/minor_air_alarms = list()
+
 
 /obj/machinery/computer/atmos_alert
 	name = "Atmospheric Alert Computer"
@@ -7,118 +10,79 @@
 	circuit = "/obj/item/weapon/circuitboard/atmos_alert"
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
-	var/list/priority_alarms = list()
-	var/list/minor_alarms = list()
-	var/receive_frequency = 1437
-	var/datum/radio_frequency/radio_connection
-
 	light_color = LIGHT_COLOR_CYAN
 
-
-/obj/machinery/computer/atmos_alert/initialize()
+/obj/machinery/computer/atmos_alert/New()
 	..()
-	set_frequency(receive_frequency)
+	atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/update_icon)
 
-/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption) return
-
-	var/zone = signal.data["zone"]
-	var/severity = signal.data["alert"]
-	var/hidden = signal.data["hidden"]
-
-	if(!zone || !severity) return
-	if(hidden) return
-
-	minor_alarms -= zone
-	priority_alarms -= zone
-	if(severity=="severe")
-		priority_alarms += zone
-	else if (severity=="minor")
-		minor_alarms += zone
-	update_icon()
-	return
-
-
-/obj/machinery/computer/atmos_alert/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, receive_frequency)
-	receive_frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, receive_frequency, RADIO_ATMOSIA)
-
+/obj/machinery/computer/atmos_alert/Destroy()
+    atmosphere_alarm.unregister(src)
+    return ..()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
-	if(..(user))
-		return
-	user << browse(return_text(),"window=computer")
-	user.set_machine(src)
-	onclose(user, "computer")
+	ui_interact(user)
 
-/obj/machinery/computer/atmos_alert/process()
-	if(..())
-		src.updateDialog()
+/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	var/major_alarms[0]
+	var/minor_alarms[0]
+
+	for(var/datum/alarm/alarm in atmosphere_alarm.major_alarms())
+		major_alarms[++major_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
+
+	for(var/datum/alarm/alarm in atmosphere_alarm.minor_alarms())
+		minor_alarms[++minor_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
+
+	data["priority_alarms"] = major_alarms
+	data["minor_alarms"] = minor_alarms
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "atmos_alert.tmpl", src.name, 500, 500)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/atmos_alert/update_icon()
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(priority_alarms.len)
+	var/list/alarms = atmosphere_alarm.major_alarms()
+	if(alarms.len)
 		icon_screen = "alert:2"
-
-	else if(minor_alarms.len)
-		icon_screen = "alert:1"
-
 	else
-		icon_screen = "alert:0"
-
+		alarms = atmosphere_alarm.minor_alarms()
+		if(alarms.len)
+			icon_screen = "alert:1"
+		else
+			icon_screen = "alert:0"
 	return
-
-
-/obj/machinery/computer/atmos_alert/proc/return_text()
-	var/priority_text
-	var/minor_text
-
-	if(priority_alarms.len)
-		for(var/zone in priority_alarms)
-			priority_text += "<FONT color='red'><B>[zone]</B></FONT>  <A href='?src=\ref[src];priority_clear=[ckey(zone)]'>X</A><BR>"
-	else
-		priority_text = "No priority alerts detected.<BR>"
-
-	if(minor_alarms.len)
-		for(var/zone in minor_alarms)
-			minor_text += "<B>[zone]</B>  <A href='?src=\ref[src];minor_clear=[ckey(zone)]'>X</A><BR>"
-	else
-		minor_text = "No minor alerts detected.<BR>"
-
-	var/output = {"<B>[name]</B><HR>
-<B>Priority Alerts:</B><BR>
-[priority_text]
-<BR>
-<HR>
-<B>Minor Alerts:</B><BR>
-[minor_text]
-<BR>"}
-
-	return output
-
 
 /obj/machinery/computer/atmos_alert/Topic(href, href_list)
 	if(..())
 		return 1
 
-	if(href_list["priority_clear"])
-		var/removing_zone = href_list["priority_clear"]
-		for(var/zone in priority_alarms)
-			if(ckey(zone) == removing_zone)
-				priority_alarms -= zone
+	if(href_list["clear_alarm"])
+		var/datum/alarm/alarm = locate(href_list["clear_alarm"]) in atmosphere_alarm.alarms
+		if(alarm)
+			for(var/datum/alarm_source/alarm_source in alarm.sources)
+				var/obj/machinery/alarm/air_alarm = alarm_source.source
+				if(istype(air_alarm))
+					var/list/new_ref = list("atmos_reset" = 1)
+					air_alarm.Topic(href, new_ref, state = air_alarm_topic)
+					update_icon()
+		return 1
 
-	if(href_list["minor_clear"])
-		var/removing_zone = href_list["minor_clear"]
-		for(var/zone in minor_alarms)
-			if(ckey(zone) == removing_zone)
-				minor_alarms -= zone
-	update_icon()
-	return
 
-/obj/machinery/computer/atmos_alert/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src, receive_frequency)
-	return ..()
+var/datum/topic_state/air_alarm_topic/air_alarm_topic = new()
+
+/datum/topic_state/air_alarm_topic/href_list(var/mob/user)
+	var/list/extra_href = list()
+	extra_href["remote_connection"] = 1
+	extra_href["remote_access"] = 1
+
+	return extra_href
+	
+/datum/topic_state/air_alarm_topic/can_use_topic(var/src_object, var/mob/user)
+	return STATUS_INTERACTIVE

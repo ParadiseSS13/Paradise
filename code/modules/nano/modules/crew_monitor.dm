@@ -3,7 +3,8 @@
 	var/list/tracked = new
 
 /datum/nano_module/crew_monitor/Topic(href, href_list)
-	if(..()) return
+	if(..()) 
+		return 1
 	var/turf/T = get_turf(nano_host())
 	if (!T || !(T.z in config.player_levels))
 		usr << "<span class='warning'>Unable to establish a connection<span>: You're too far away from the station!"
@@ -16,7 +17,7 @@
 				AI.ai_actual_track(H)
 		return 1
 
-/datum/nano_module/crew_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/datum/nano_module/crew_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
 	src.scan()
 
 	var/data[0]

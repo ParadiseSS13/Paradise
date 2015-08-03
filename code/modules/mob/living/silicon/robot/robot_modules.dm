@@ -9,32 +9,29 @@
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
+	var/list/subsystems = list()
+	
 	var/list/stacktypes
 	var/channels = list()
 
 
-	emp_act(severity)
-		if(modules)
-			for(var/obj/O in modules)
-				O.emp_act(severity)
-		if(emag)
-			emag.emp_act(severity)
-		..()
-		return
+/obj/item/weapon/robot_module/emp_act(severity)
+	if(modules)
+		for(var/obj/O in modules)
+			O.emp_act(severity)
+	if(emag)
+		emag.emp_act(severity)
+	..()
+	return
 
 
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.emag = new /obj/item/toy/sword(src)
-		src.emag.name = "Placeholder Emag Item"
-//		src.jetpack = new /obj/item/toy/sword(src)
-//		src.jetpack.name = "Placeholder Upgrade Item"
-		return
-
+/obj/item/weapon/robot_module/New()
+	src.modules += new /obj/item/device/flashlight(src)
+	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.emag = new /obj/item/toy/sword(src)
+	src.emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/proc/respawn_consumable(var/mob/living/silicon/robot/R)
-
 	if(!stacktypes || !stacktypes.len) return
 
 	var/stack_respawned = 0
@@ -77,6 +74,12 @@
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
 	R.add_language("Clownish",0)
+	
+/obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
+	R.verbs |= subsystems
+
+/obj/item/weapon/robot_module/proc/remove_subsystems(var/mob/living/silicon/robot/R)
+	R.verbs -= subsystems
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
@@ -94,13 +97,14 @@
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 5,
 		/obj/item/stack/medical/advanced/ointment = 5,
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
-
+	
 	New()
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer/advanced(src)
@@ -140,6 +144,7 @@
 
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
@@ -197,6 +202,7 @@
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 
 
 	New()

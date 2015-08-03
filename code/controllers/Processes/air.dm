@@ -84,8 +84,7 @@ var/global/datum/controller/process/air_system/air_master
 	for(var/turf/simulated/T in turfs_in)
 		T.CalculateAdjacentTurfs()
 		if(!T.blocks_air)
-			if(T.air.check_tile_graphic())
-				T.update_visuals(T.air)
+			T.update_visuals()
 			for(var/direction in cardinal)
 				if(!(T.atmos_adjacent_turfs & direction))
 					continue

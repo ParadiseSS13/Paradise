@@ -11,10 +11,6 @@
 	usr = null
 	src = null
 	switch(controller)
-		if("Master")
-			new /datum/controller/game_controller()
-			master_controller.process()
-			feedback_add_details("admin_verb","RMC")
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			feedback_add_details("admin_verb","RFailsafe")
@@ -25,7 +21,7 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Scheduler"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -77,6 +73,9 @@
 		if("Event")
 			debug_variables(event_manager)
 			feedback_add_details("admin_verb","DEvent")
+		if("Alarm")
+			debug_variables(alarm_manager)
+			feedback_add_details("admin_verb", "DAlarm")
 		if("Garbage")
 			debug_variables(garbageCollector)
 			feedback_add_details("admin_verb","DGarbage")

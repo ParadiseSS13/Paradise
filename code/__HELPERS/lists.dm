@@ -580,3 +580,7 @@ proc/dd_sortedObjectList(list/incoming)
 
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
+
+/datum/alarm/dd_SortValue()
+	return "[sanitize(last_name)]"
+	

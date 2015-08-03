@@ -76,7 +76,7 @@
 			cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
-			triggerCameraAlarm()
+			triggerCameraAlarm(10 * severity)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
@@ -251,16 +251,16 @@
 			O.reset_view(null)
 			O << "The screen bursts into static."
 
-/obj/machinery/camera/proc/triggerCameraAlarm()
+/obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)
 	alarm_on = 1
-	for(var/mob/living/silicon/S in mob_list)
-		S.triggerAlarm("Camera", get_area(src), list(src), src)
-
+	camera_alarm.triggerAlarm(loc, src, duration)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
+	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
+		return
+
 	alarm_on = 0
-	for(var/mob/living/silicon/S in mob_list)
-		S.cancelAlarm("Camera", get_area(src), src)
+	camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

@@ -1,12 +1,20 @@
+/var/global/machinery_sort_required = 0
+
 /datum/controller/process/machinery/setup()
 	name = "machinery"
 	schedule_interval = 20 // every 2 seconds
 
 /datum/controller/process/machinery/doWork()
+	process_sort()
 	process_power()
 	process_power_drain()
 	process_machines()
 
+/datum/controller/process/machinery/proc/process_sort()
+	if(machinery_sort_required)
+		machinery_sort_required = 0
+		machines = dd_sortedObjectList(machines)	
+	
 /datum/controller/process/machinery/proc/process_machines()
 	for(var/obj/machinery/M in machines)
 		if(M && isnull(M.gcDestroyed))
