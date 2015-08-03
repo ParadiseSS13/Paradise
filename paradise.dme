@@ -1485,6 +1485,7 @@
 #include "code\modules\nano\modules\atmos_control.dm"
 #include "code\modules\nano\modules\crew_monitor.dm"
 #include "code\modules\nano\modules\nano_module.dm"
+#include "code\modules\nano\modules\power_monitor.dm"
 #include "code\modules\ninja\energy_katana.dm"
 #include "code\modules\ninja\suit\gloves.dm"
 #include "code\modules\ninja\suit\head.dm"

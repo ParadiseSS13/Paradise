@@ -144,6 +144,7 @@
 
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
