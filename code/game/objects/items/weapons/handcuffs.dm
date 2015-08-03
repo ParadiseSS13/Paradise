@@ -91,34 +91,34 @@ var/last_chew = 0
 /obj/item/weapon/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
-	icon_state = "cuff_red"
+	icon_state = "cuff_white"
 	item_state = "coil_red"
 	breakouttime = 300 //Deciseconds = 30s
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
 /obj/item/weapon/restraints/handcuffs/cable/red
-	icon_state = "cuff_red"
+	color = COLOR_RED
 
 /obj/item/weapon/restraints/handcuffs/cable/yellow
-	icon_state = "cuff_yellow"
+	color = COLOR_YELLOW
 
 /obj/item/weapon/restraints/handcuffs/cable/blue
-	icon_state = "cuff_blue"
+	color = COLOR_BLUE
 
 /obj/item/weapon/restraints/handcuffs/cable/green
-	icon_state = "cuff_green"
+	color = COLOR_GREEN
 
 /obj/item/weapon/restraints/handcuffs/cable/pink
-	icon_state = "cuff_pink"
+	color = COLOR_PINK
 
 /obj/item/weapon/restraints/handcuffs/cable/orange
-	icon_state = "cuff_orange"
+	color = COLOR_ORANGE
 
 /obj/item/weapon/restraints/handcuffs/cable/cyan
-	icon_state = "cuff_cyan"
+	color = COLOR_CYAN
 
 /obj/item/weapon/restraints/handcuffs/cable/white
-	icon_state = "cuff_white"
+	color = COLOR_WHITE
 
 /obj/item/weapon/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
