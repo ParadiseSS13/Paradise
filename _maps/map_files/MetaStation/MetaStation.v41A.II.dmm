@@ -5132,7 +5132,7 @@
 "bUJ" = (/turf/simulated/wall/r_wall,/area/blueshield)
 "bUK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/airlock/command{name = "Blueshield's Office"; req_access_txt = "67"},/turf/simulated/floor/wood,/area/blueshield)
 "bUL" = (/turf/simulated/wall/r_wall,/area/ntrep)
-"bUM" = (/obj/machinery/door/airlock/command{name = "Blueshield's Office"; req_access_txt = "67"},/turf/simulated/floor/wood,/area/ntrep)
+"bUM" = (/obj/machinery/door/airlock/command{name = "NT Representative's Office"; req_access_txt = "73"},/turf/simulated/floor/wood,/area/ntrep)
 "bUN" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/wall/r_wall,/area/ntrep)
 "bUO" = (/obj/machinery/door/firedoor,/obj/machinery/door/poddoor/shutters{id_tag = "gateshutter"; name = "Gateway Access Shutter"},/turf/simulated/floor{icon_state = "delivery"},/area/gateway)
 "bUP" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/airlock/maintenance{req_access_txt = "0"; req_one_access_txt = "12;17"},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating,/area/maintenance/maintcentral{name = "Central Maintenance"})
