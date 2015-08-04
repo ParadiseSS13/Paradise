@@ -8,6 +8,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "hatch"
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch/cast(list/targets)
 	if(usr.stat || !ishuman(usr) || !usr)
@@ -24,10 +25,8 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-				for(var/obj/item/I in H) //drops all items
-					var/obj/item/organ/O = I
-					if(!istype(O) || O.owner != src)
-						H.unEquip(I)
+				for(var/obj/item/I in H.contents - (H.organs | H.internal_organs)) //drops all items except organs
+					H.unEquip(I)
 
 				sleep(50)
 				var/turf/simulated/floor/F
@@ -91,12 +90,13 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 
 				sleep(10)
 				H << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/glare)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/aoe_turf/veil)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadow_walk)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/collective_mind)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/glare)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/veil)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze)
+				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/collective_mind)
+				H.mind.remove_spell(src)
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend
 	name = "Ascend"
@@ -106,6 +106,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "ascend"
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend/cast(list/targets)
 	if(usr.stat || !ishuman(usr) || !usr)
@@ -153,14 +154,14 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
 					if(S == src) continue
 					H.mind.remove_spell(S)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/annihilate)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/hypnosis)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast)
-				H.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadowlingAscendantTransmit)
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
+				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/annihilate)
+				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/hypnosis)
+				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift)
+				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/ascendant_storm)
+				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowlingAscendantTransmit)
 				if(A.real_name)
 					A.real_name = H.real_name
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly

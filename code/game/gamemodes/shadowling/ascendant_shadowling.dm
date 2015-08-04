@@ -4,6 +4,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadowling_ascended"
 	icon_living = "shadowling_ascended"
+	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
 	speak_emote = list("telepathically thunders", "telepathically booms")
 	force_threshold = INFINITY //Can't die by normal means
 	health = 100000
@@ -12,6 +13,8 @@
 	var/phasing = 0
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
+
+	universal_speak = 1
 
 	response_help   = "stares at"
 	response_disarm = "flails at"

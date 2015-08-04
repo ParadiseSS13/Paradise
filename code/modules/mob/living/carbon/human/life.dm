@@ -767,7 +767,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(isturf(loc))
 			var/turf/T = loc
 			light_amount = T.get_lumcount()*10
-		if(light_amount > species.light_dam) //if there's enough light, start dying
+		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
 			if(species.light_effect_amp)
 				adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
 			else
@@ -1797,9 +1797,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "mutineer"
 				if("mutineer")
 					holder.icon_state = "mutineer"
-				if("Shadowling")
+				if("shadowling")
 					holder.icon_state = "hudshadowling"
-				if("Shadowling Thrall")
+				if("shadowling thrall")
 					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder

@@ -4,6 +4,7 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
+	action_icon_state = "glare"
 
 /obj/effect/proc_holder/spell/wizard/targeted/glare/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
@@ -34,6 +35,7 @@
 	panel = "Thrall Abilities"
 	charge_max = 450
 	clothes_req = 0
+	action_icon_state = "glare"
 
 /obj/effect/proc_holder/spell/wizard/targeted/lesser_glare/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
@@ -65,13 +67,14 @@
 	clothes_req = 0
 	range = 5
 	var/blacklisted_lights = list(/obj/item/device/flashlight/flare, /obj/item/device/flashlight/slime)
+	action_icon_state = "veil"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/veil/proc/extinguishItem(var/obj/item/I) //WARNING NOT SUFFICIENT TO EXTINGUISH AN ITEM HELD BY A MOB
 	if(istype(I, /obj/item/device/flashlight))
 		var/obj/item/device/flashlight/F = I
 		if(F.on)
 			if(is_type_in_list(I, blacklisted_lights))
-				I.visible_message("<span class='danger'>[I] dims slightly, before the shadows around it scatter.</span>")
+				I.visible_message("<span class='danger'>[I] dims slightly before scattering the shadows around it.</span>")
 				return
 			F.on = 0
 			F.update_brightness()
@@ -125,6 +128,7 @@
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk/cast(list/targets)
 	for(var/mob/living/user in targets)
@@ -149,6 +153,7 @@
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/wizard/targeted/lesser_shadow_walk/cast(list/targets)
 	for(var/mob/living/user in targets)
@@ -199,6 +204,7 @@
 	range = 5
 	charge_max = 1200
 	clothes_req = 0
+	action_icon_state = "icy_veins"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze/cast(list/targets)
 	usr << "<span class='shadowling'>You freeze the nearby air.</span>"
@@ -230,6 +236,7 @@
 	clothes_req = 0
 	range = 1 //Adjacent to user
 	var/enthralling = 0
+	action_icon_state = "enthrall"
 
 /obj/effect/proc_holder/spell/wizard/targeted/enthrall/cast(list/targets)
 	var/mob/living/carbon/human/user = usr
@@ -319,6 +326,7 @@
 	var/screech_acquired
 	var/drainLifeAcquired
 	var/reviveThrallAcquired
+	action_icon_state = "collective_mind"
 
 /obj/effect/proc_holder/spell/wizard/targeted/collective_mind/cast(list/targets)
 	for(var/mob/living/user in targets)
@@ -372,7 +380,7 @@
 						M.mind.spell_list -= CM
 						qdel(CM)
 					M.mind.remove_spell(/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch)
-					M.AddSpell(/obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend)
+					M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend)
 					if(M == usr)
 						M << "<span class='shadowling'><i>You project this power to the rest of the shadowlings.</i></span>"
 					else
@@ -388,6 +396,7 @@
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "black_smoke"
 
 /obj/effect/proc_holder/spell/wizard/targeted/blindness_smoke/cast(list/targets) //Extremely hacky
 	for(var/mob/living/user in targets)
@@ -438,6 +447,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	range = 7
 	charge_max = 300
 	clothes_req = 0
+	action_icon_state = "screech"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/unearthly_screech/cast(list/targets)
 	usr.audible_message("<span class='warning'><b>[usr] lets out a horrible scream!</b></span>")
@@ -458,7 +468,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				M.ear_damage += 3
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
-				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSOR OVERLOAD \[$(!@#</b></span>"
+				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>"
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				var/datum/effect/effect/system/spark_spread/sp = new /datum/effect/effect/system/spark_spread
@@ -479,12 +489,15 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	clothes_req = 0
 	var/targetsDrained
 	var/list/nearbyTargets
+	action_icon_state = "drain_life"
 
 /obj/effect/proc_holder/spell/wizard/aoe_turf/drainLife/cast(list/targets, var/mob/living/carbon/human/U = usr)
 	targetsDrained = 0
 	nearbyTargets = list()
 	for(var/turf/T in targets)
 		for(var/mob/living/carbon/M in T.contents)
+			if(M == src)
+				continue
 			targetsDrained++
 			nearbyTargets.Add(M)
 	if(!targetsDrained)
@@ -514,6 +527,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	clothes_req = 0
 	include_user = 0
 	var/list/thralls_in_world = list()
+	action_icon_state = "revive_thrall"
 
 /obj/effect/proc_holder/spell/wizard/targeted/reviveThrall/cast(list/targets)
 	for(var/mob/living/carbon/human/thrallToRevive in targets)
@@ -531,15 +545,15 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 		if(ghost)
 			ghost << "<span class='ghostalert'>Your masters are resuscitating you! Return to your corpse if you wish to be brought to life.</span> (Verbs -> Ghost -> Re-enter corpse)"
 			ghost << 'sound/effects/genetics.ogg'
-		if(!do_mob(usr, thrallToRevive, 100))
+		if(!do_mob(usr, thrallToRevive, 30))
 			usr << "<span class='warning'>Your concentration snaps. The flow of energy ebbs.</span>"
 			charge_counter= charge_max
 			return
-		usr << "<span class='shadowling'><b><i>You release a massive surge of energy into [thrallToRevive]!</b></i></span>"
+		usr << "<span class='shadowling'><b><i>You release a massive surge of power into [thrallToRevive]!</b></i></span>"
 		usr.visible_message("<span class='boldannounce'><i>Red lightning surges from [usr]'s hands into [thrallToRevive]'s chest!</i></span>")
 		playsound(thrallToRevive, 'sound/weapons/Egloves.ogg', 50, 1)
 		playsound(thrallToRevive, 'sound/machines/defib_zap.ogg', 50, 1)
-		sleep(20)
+		sleep(10)
 		thrallToRevive.revive()
 		thrallToRevive.visible_message("<span class='boldannounce'>[thrallToRevive] draws in a huge breath, blinding violet light shining from their eyes.</span>", \
 										"<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
@@ -556,6 +570,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	range = 7
 	charge_max = 0
 	clothes_req = 0
+	action_icon_state = "annihilate"
 
 /obj/effect/proc_holder/spell/wizard/targeted/annihilate/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
@@ -585,6 +600,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	range = 7
 	charge_max = 0
 	clothes_req = 0
+	action_icon_state = "enthrall"
 
 /obj/effect/proc_holder/spell/wizard/targeted/hypnosis/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
@@ -627,6 +643,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	include_user = 1
 	charge_max = 15
 	clothes_req = 0
+	action_icon_state = "shadow_walk"
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
@@ -645,37 +662,33 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast
-	name = "Glacial Blast"
-	desc = "Extremely empowered version of Icy Veins."
+/obj/effect/proc_holder/spell/wizard/aoe_turf/ascendant_storm
+	name = "Lightning Storm"
+	desc = "Shocks everyone nearby."
 	panel = "Ascendant"
-	range = 5
+	range = 6
 	charge_max = 100
 	clothes_req = 0
+	action_icon_state = "lightning_storm"
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/glacial_blast/cast(list/targets)
+/obj/effect/proc_holder/spell/wizard/aoe_turf/ascendant_storm/cast(list/targets)
 	var/mob/living/simple_animal/ascendant_shadowling/SHA = usr
 	if(SHA.phasing)
 		usr << "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>"
 		charge_counter = charge_max
 		return
 
-	usr << "<span class='shadowling'>You freeze the nearby air.</span>"
-	playsound(usr.loc, 'sound/effects/ghost2.ogg', 100, 1)
+	usr.visible_message("<span class='warning'><b>A massive ball of lightning appears in [usr]'s hands and flares out!</b></span>", \
+						"<span class='shadowling'>You conjure a ball of lightning and release it.</span>")
 
 	for(var/turf/T in targets)
 		for(var/mob/living/carbon/human/target in T.contents)
 			if(is_shadow_or_thrall(target))
-				if(target == usr) //No message for the user, of course
-					continue
-				else
-					target << "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>"
-					continue
-			target << "<span class='userdanger'>You are hit by a blast of cold unlike anything you have ever felt. Your limbs instantly lock in place and you feel frost burns across your body!</span>"
-			target.Weaken(15)
-			if(target.bodytemperature)
-				target.bodytemperature -= INFINITY //:^)
-			target.take_organ_damage(0,80)
+				continue
+			target << "<span class='userdanger'>You are struck by a bolt of lightning!</span>"
+			playsound(target, 'sound/effects/eleczap.ogg', 50, 1)
+			target.electrocute_act(80, "lightning bolt")
+			usr.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowlingAscendantTransmit
 	name = "Ascendant Broadcast"
@@ -685,10 +698,11 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 	clothes_req = 0
 	range = -1
 	include_user = 1
+	action_icon_state = "transmit"
 
 /obj/effect/proc_holder/spell/wizard/targeted/shadowlingAscendantTransmit/cast(list/targets)
 	for(var/mob/living/user in targets)
-		var/text = stripped_input(user, "What do you want to say to everything on and near [world.name]?.", "Transmit to World", "")
+		var/text = stripped_input(user, "What do you want to say to everything on and near [station_name()]?.", "Transmit to World", "")
 		if(!text)
 			return
 		world << "<font size=4><span class='shadowling'><b>\"[text]\"</font></span>"

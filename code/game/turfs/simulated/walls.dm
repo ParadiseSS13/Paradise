@@ -251,14 +251,13 @@
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(M.environment_smash >= 2)
-		if(istype(src, /turf/simulated/wall/r_wall))
-			if(M.environment_smash == 3)
-				dismantle_wall(1)
-				M << "<span class='info'>You smash through the wall.</span>"
-			else
-				M << text("\blue You smash against the wall.")
-				take_damage(rand(25, 75))
-				return
+		if(M.environment_smash == 3)
+			dismantle_wall(1)
+			M << "<span class='info'>You smash through the wall.</span>"
+		else
+			M << text("<span class='notice'>You smash against the wall.</span>")
+			take_damage(rand(25, 75))
+			return
 
 	M << "\blue You push the wall but nothing happens!"
 	return
