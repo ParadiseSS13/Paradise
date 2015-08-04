@@ -109,14 +109,14 @@ Please contact me on #coderbus IRC. ~Carn x
 #define MUTATIONS_LAYER			2
 #define DAMAGE_LAYER			3
 #define UNIFORM_LAYER			4
-#define TAIL_LAYER				5		//bs12 specific. this hack is probably gonna come back to haunt me
-#define ID_LAYER				6
-#define SHOES_LAYER				7
-#define GLOVES_LAYER			8
-#define EARS_LAYER				9
-#define SUIT_LAYER				10
-#define GLASSES_LAYER			11
-#define BELT_LAYER				12		//Possible make this an overlay of somethign required to wear a belt?
+#define ID_LAYER				5
+#define SHOES_LAYER				6
+#define GLOVES_LAYER			7
+#define EARS_LAYER				8
+#define SUIT_LAYER				9
+#define GLASSES_LAYER			10
+#define BELT_LAYER				11		//Possible make this an overlay of somethign required to wear a belt?
+#define TAIL_LAYER				12		//bs12 specific. this hack is probably gonna come back to haunt me
 #define SUIT_STORE_LAYER		13
 #define BACK_LAYER				14
 #define HAIR_LAYER				15		//TODO: make part of head layer?
