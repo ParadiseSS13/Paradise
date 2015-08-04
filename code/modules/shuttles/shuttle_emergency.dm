@@ -64,7 +64,7 @@
 	if (!can_launch(user)) return
 
 	if(emergency_shuttle.no_escape)
-		user << "<span class='warning'>The emergency shuttle has been disabled by Centcom.</span>"
+		user << "<span class='warning'>The emergency shuttle has been disabled by Central Command.</span>"
 		return
 
 	if (istype(user, /obj/machinery/computer/shuttle_control/emergency))	//if we were given a command by an emergency shuttle console
@@ -146,7 +146,7 @@
 	src.visible_message("[src] beeps as it scans [ident].")
 	authorized[dna_hash] = auth_name
 	if (req_authorizations - authorized.len)
-		world << "\blue <B>Alert: [req_authorizations - authorized.len] authorization\s needed to override the shuttle autopilot.</B>"
+		world << "<span class='notice'>Alert: [req_authorizations - authorized.len] authorization\s needed to override the shuttle autopilot.</span>"
 	return 1
 
 
@@ -158,7 +158,7 @@
 
 /obj/machinery/computer/shuttle_control/emergency/emag_act(user as mob)
 	if (!emagged)
-		user << "\blue You short out the [src]'s authorization protocols."
+		user << "<span class='notice'>You short out the [src]'s authorization protocols.</span>"
 		emagged = 1
 		return
 

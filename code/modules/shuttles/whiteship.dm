@@ -12,7 +12,7 @@
 /obj/machinery/computer/shuttle_control/multi/whiteship/New()
 	var/area/A = get_area(src)
 	if(!istype(A,/area/shuttle/derelict/ship))
-		visible_message("<span class='warning'>\The [src] displays a message: No connectable systems located. Shutting down.</span>")
+		visible_message("<span class='warning'>\The [src] displays a message: No connectible systems located. Shutting down.</span>")
 		var/V = text2path(circuit)
 		new V(loc)
 

@@ -51,6 +51,7 @@
 	update_canmove()
 	if(camera)
 		camera.status = 0
+	update_headlamp(1) //So borg lights are disabled when killed.
 
 	if(in_contents_of(/obj/machinery/recharge_station))//exit the recharge station
 		var/obj/machinery/recharge_station/RC = loc
@@ -60,8 +61,7 @@
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	updateicon()
-	update_fire()
+	update_icons()
 	tod = worldtime2text() //weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
 

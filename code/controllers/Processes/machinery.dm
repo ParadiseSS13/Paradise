@@ -1,3 +1,5 @@
+/var/global/machinery_sort_required = 0
+
 /datum/controller/process/machinery/setup()
 	name = "machinery"
 	schedule_interval = 20 // every 2 seconds
@@ -9,9 +11,16 @@
 	stat(null, "[powernets.len] powernets")
 
 /datum/controller/process/machinery/doWork()
+	process_sort()
 	process_power()
+	process_power_drain()
 	process_machines()
 
+/datum/controller/process/machinery/proc/process_sort()
+	if(machinery_sort_required)
+		machinery_sort_required = 0
+		machines = dd_sortedObjectList(machines)	
+	
 /datum/controller/process/machinery/proc/process_machines()
 	for(var/obj/machinery/M in machines)
 		if(M && isnull(M.gcDestroyed))
@@ -53,5 +62,12 @@
 			// Use src explicitly after a try/catch, or BYOND messes src up. I have no idea why.
 			src.scheck()
 			continue
-		else
-			powernets -= powerNetwork
+			
+		powernets.Remove(powerNetwork)
+		
+/datum/controller/process/machinery/proc/process_power_drain()
+	// Currently only used by powersinks. These items get priority processed before machinery
+	for(var/obj/item/I in processing_power_items)
+		if(!I.pwr_drain()) // 0 = Process Kill, remove from processing list.
+			processing_power_items.Remove(I)
+		scheck()

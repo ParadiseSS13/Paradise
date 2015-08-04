@@ -23,15 +23,14 @@
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
+/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return 1
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	var/obj/host = nano_host()
-	if(host.CanUseTopic(usr, href_list, custom_state) == STATUS_INTERACTIVE)
+	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
 		return 0
 
@@ -83,9 +82,6 @@
 		return remove_air(breath_request)
 	else
 		return null
-
-/atom/movable/proc/initialize()
-	return
 
 /obj/proc/updateUsrDialog()
 	if(in_use)
@@ -155,15 +151,18 @@
 
 
 /obj/proc/hear_talk(mob/M as mob, text)
+
 	if(talking_atom)
 		talking_atom.catchMessage(text, M)
+
 /*
 	var/mob/mo = locate(/mob) in src
 	if(mo)
 		var/rendered = "<span class='game say'><span class='name'>[M.name]: </span> <span class='message'>[text]</span></span>"
 		mo.show_message(rendered, 2)
-		*/
+*/
 	return
+
 
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"

@@ -109,7 +109,7 @@
 //END RECIPE DATUMS
 
 /obj/machinery/processor/proc/select_recipe(var/X)
-	for (var/Type in typesof(/datum/food_processor_process) - /datum/food_processor_process - /datum/food_processor_process/mob)
+	for (var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/P = new Type()
 		if(istype(X, /obj/item/weapon/reagent_containers/food/snacks/grown))
 			var/obj/item/weapon/reagent_containers/food/snacks/grown/G = X

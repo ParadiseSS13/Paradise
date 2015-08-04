@@ -289,16 +289,27 @@
 	var/lastgen = 0
 	var/track = 0			// 0= off  1=timed  2=auto (tracker)
 	var/trackrate = 600		// 300-900 seconds
-	var/nexttime = 0		// time for a panel to rotate of 1° in manual tracking
+	var/nexttime = 0		// time for a panel to rotate of 1? in manual tracking
+	var/autostart = 0 		// Automatically search for connected devices
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
+	
+// Used for mapping in solar array which automatically starts itself (telecomms, for example)
+/obj/machinery/power/solar_control/autostart
+	track = 2 // Auto tracking mode
+	autostart = 1 // Automatically start
 
-
-/obj/machinery/power/solar_control/New()
+/obj/machinery/power/solar_control/initialize()
 	..()
-	if(ticker)
-		initialize()
+	if(!powernet) 
+		return
 	connect_to_network()
+	set_panels(cdir)
+	if(autostart)
+		src.search_for_connected()
+		if(connected_tracker && track == 2)
+			connected_tracker.set_angle(sun.angle)
+		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
 	for(var/obj/machinery/power/solar/M in connected_panels)
@@ -309,11 +320,12 @@
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	sun.solars.Remove(src)
+	if(sun)
+		sun.solars.Remove(src)
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
-	if(powernet) //if connected and not already in solar list...
+	if(powernet && sun) //if connected and not already in solar list...
 		sun.solars |= src //... add it
 	return to_return
 
@@ -347,12 +359,6 @@
 	set_panels(cdir)
 	updateDialog()
 
-
-/obj/machinery/power/solar_control/initialize()
-	..()
-	if(!powernet) return
-	set_panels(cdir)
-
 /obj/machinery/power/solar_control/update_icon()
 	overlays.Cut()
 	if(stat & NOPOWER)
@@ -366,9 +372,21 @@
 	if(cdir > -1)
 		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
 
+/obj/machinery/power/solar_control/attack_ai(mob/user as mob)
+	src.add_hiddenprint(user)
+	ui_interact(user)
+	
+/obj/machinery/power/solar_control/attack_ghost(mob/user as mob)
+	ui_interact(user)		
+		
 /obj/machinery/power/solar_control/attack_hand(mob/user)
-	if(!..())
-		ui_interact(user)
+	if(..(user))
+		return 1
+	
+	if(stat & BROKEN)
+		return
+		
+	ui_interact(user)
 
 /obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
@@ -438,9 +456,9 @@
 			connected_tracker.unset_control()
 
 	if(track==1 && trackrate) //manual tracking and set a rotation speed
-		if(nexttime <= world.time) //every time we need to increase/decrease the angle by 1°...
+		if(nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
 			targetdir = (targetdir + trackrate/abs(trackrate) + 360) % 360 	//... do it
-			nexttime += 36000/abs(trackrate) //reset the counter for the next 1°
+			nexttime += 36000/abs(trackrate) //reset the counter for the next 1?
 
 /obj/machinery/power/solar_control/Topic(href, href_list)
 	if(..())
@@ -513,7 +531,6 @@
 	if (prob(75))
 		broken()
 		src.density = 0
-
 
 //
 // MISC

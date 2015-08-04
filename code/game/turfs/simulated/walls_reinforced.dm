@@ -66,7 +66,7 @@
 				thermitemelt(user)
 				return
 
-		else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+		else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 			thermitemelt(user)
 			return
 
@@ -157,7 +157,7 @@
 					user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 				return
 
-			if( istype(W, /obj/item/weapon/pickaxe/plasmacutter) )
+			if( istype(W, /obj/item/weapon/gun/energy/plasmacutter) )
 
 				user << "<span class='notice'>You begin slicing through the metal cover.</span>"
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
@@ -221,7 +221,7 @@
 					user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 				return
 
-			if( istype(W, /obj/item/weapon/pickaxe/plasmacutter) )
+			if( istype(W, /obj/item/weapon/gun/energy/plasmacutter) )
 
 				user << "<span class='notice'>You begin slicing through the support rods.</span>"
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
@@ -253,7 +253,7 @@
 //vv OK, we weren't performing a valid deconstruction step or igniting thermite,let's check the other possibilities vv
 
 	//DRILLING
-	if (istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	if (istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 
 		user << "<span class='notice'>You begin to drill though the wall.</span>"
 

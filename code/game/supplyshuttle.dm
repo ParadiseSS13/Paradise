@@ -145,7 +145,6 @@ var/list/mechtoys = list(
 	var/points_per_process = 1
 	var/points_per_slip = 2
 	var/points_per_crate = 5
-	var/points_per_platinum = 5 // 5 points per sheet
 	var/points_per_plasma = 5
 	//control
 	var/ordernum
@@ -161,7 +160,7 @@ var/list/mechtoys = list(
 
 	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
 	proc/process()
-		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
+		for(var/typepath in subtypesof(/datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
 			if(P.name == "HEADER")
 				qdel(P)
@@ -199,7 +198,6 @@ var/list/mechtoys = list(
 		if(!area_shuttle)	return
 
 		var/plasma_count = 0
-		var/plat_count = 0
 
 		for(var/atom/movable/MA in area_shuttle)
 			if(MA.anchored)	continue
@@ -225,20 +223,12 @@ var/list/mechtoys = list(
 						var/obj/item/stack/sheet/mineral/plasma/P = A
 						plasma_count += P.amount
 
-					// Sell platinum
-					else if(istype(A, /obj/item/stack/sheet/mineral/platinum))
-						var/obj/item/stack/sheet/mineral/platinum/P = A
-						plat_count += P.amount
-
 					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
 					qdel(A)
 			qdel(MA)
 
 		if(plasma_count)
 			points += plasma_count * points_per_plasma
-
-		if(plat_count)
-			points += plat_count * points_per_platinum
 
 	//Buyin
 	proc/buy()

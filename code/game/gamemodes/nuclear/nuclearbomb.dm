@@ -23,8 +23,12 @@ var/bomb_set
 	var/timing_wire
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
+	var/is_syndicate = 0
 	use_power = 0
 	unacidable = 1
+	
+/obj/machinery/nuclearbomb/syndicate
+	is_syndicate = 1
 
 /obj/machinery/nuclearbomb/New()
 	..()
@@ -186,6 +190,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	var/uiwidth
 	var/uiheight
 	var/uititle
+	data["is_syndicate"] = is_syndicate
 	if(!src.opened)
 		data["hacking"] = 0
 		data["auth"] = src.auth
@@ -465,7 +470,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 
 /obj/item/weapon/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
-	if(disk_loc.z > ZLEVEL_CENTCOMM)
+	if(disk_loc.z != ZLEVEL_STATION && disk_loc.z != ZLEVEL_CENTCOMM)
 		get(src, /mob) << "<span class='danger'>You can't help but feel that you just lost something back there...</span>"
 		qdel(src)
 

@@ -243,7 +243,7 @@
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Alien"
-	set name = "Secrete Chemicals (50)"
+	set name = "Secrete Chemicals (30)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
@@ -257,17 +257,17 @@
 		src << "\blue You are feeling far too docile to do that."
 		return
 
-	if(chemicals < 50)
+	if(chemicals < 30)
 		src << "You don't have enough chemicals!"
 
 	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","styptic_powder","methamphetamine","sal_acid")
 
-	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
+	if(!chem || chemicals < 30 || !host || controlling || !src || stat) //Sanity check.
 		return
 
 	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
-	host.reagents.add_reagent(chem, 15)
-	chemicals -= 50
+	host.reagents.add_reagent(chem, 9)
+	chemicals -= 30
 
 /mob/living/simple_animal/borer/verb/release_host()
 	set category = "Alien"

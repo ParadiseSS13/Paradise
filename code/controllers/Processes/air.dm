@@ -101,8 +101,7 @@ var/global/datum/controller/process/air_system/air_master
 	for(var/turf/simulated/T in turfs_in)
 		T.CalculateAdjacentTurfs()
 		if(!T.blocks_air)
-			if(T.air.check_tile_graphic())
-				T.update_visuals(T.air)
+			T.update_visuals()
 			for(var/direction in cardinal)
 				if(!(T.atmos_adjacent_turfs & direction))
 					continue
@@ -124,6 +123,7 @@ var/global/datum/controller/process/air_system/air_master
 		EG.breakdown_cooldown ++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
+			scheck()
 			return
 		if(EG.breakdown_cooldown > 20)
 			EG.dismantle()

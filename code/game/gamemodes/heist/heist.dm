@@ -248,12 +248,12 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	..()
 
-datum/game_mode/proc/auto_declare_completion_heist()
+datum/game_mode/declare_completion()
 	if(raiders.len)
 		var/check_return = 0
 		if(ticker && istype(ticker.mode,/datum/game_mode/heist))
 			check_return = 1
-		var/text = "<FONT size = 2><B>The vox raiders were:</B></FONT>"
+		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
 		for(var/datum/mind/vox in raiders)
 			text += "<br>[vox.key] was [vox.name] ("
@@ -274,6 +274,8 @@ datum/game_mode/proc/auto_declare_completion_heist()
 			text += ")"
 
 		world << text
+		
+	..()	
 	return 1
 
 /datum/game_mode/heist/check_finished()

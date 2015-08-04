@@ -291,15 +291,21 @@ Class Procs:
 			update_multitool_menu(usr)
 			return 1
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
-	if(..())
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+	if(..(href, href_list, nowindow, state))
 		return 1
+		
 	handle_multitool_topic(href,href_list,usr)
 	add_fingerprint(usr)
 	return 0
 
+/obj/machinery/proc/operable(var/additional_flags = 0)
+	return !inoperable(additional_flags)
 
-/obj/machinery/CanUseTopic(var/mob/user, var/be_close)
+/obj/machinery/proc/inoperable(var/additional_flags = 0)
+	return (stat & (NOPOWER|BROKEN|additional_flags))
+	
+/obj/machinery/CanUseTopic(var/mob/user)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
 
@@ -347,9 +353,6 @@ Class Procs:
 			return 1
 
 	src.add_fingerprint(user)
-
-	var/area/A = get_area(src)
-	A.powerupdate = 1
 
 	return 0
 
@@ -472,7 +475,7 @@ Class Procs:
 /obj/machinery/proc/is_assess_emagged()
 	return emagged
 
-/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/auth_weapons, var/check_records, var/check_arrest)
+/obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, var/check_access, var/auth_weapons, var/check_records, var/check_arrest)
 	var/threatcount = 0	//the integer returned
 
 	if(is_assess_emagged())
@@ -486,7 +489,13 @@ Class Procs:
 	var/obj/item/weapon/card/id/id = GetIdCard(perp)
 	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
 		threatcount -= 2
+	// A proper	CentCom id is hard currency.
+	else if(id && istype(id, /obj/item/weapon/card/id/centcom))
+		threatcount -= 2
 
+	if(check_access && !allowed(perp))
+		threatcount += 4		
+		
 	if(auth_weapons && !src.allowed(perp))
 		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
 			threatcount += 4
@@ -513,3 +522,17 @@ Class Procs:
 			threatcount += 4
 
 	return threatcount
+	
+
+/obj/machinery/proc/shock(mob/user, prb)
+	if(inoperable())
+		return 0
+	if(!prob(prb))
+		return 0
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(5, 1, src)
+	s.start()
+	if (electrocute_mob(user, get_area(src), src, 0.7))
+		if(user.stunned)
+			return 1
+	return 0

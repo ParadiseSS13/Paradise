@@ -6,7 +6,7 @@
 	circuit = "/obj/item/weapon/circuitboard/cloning"
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/dna_scannernew/scanner = null //Linked scanner. For scanning.
-	var/obj/machinery/clonepod/pod1 = null //Linked cloning pod.
+	var/list/pods = list() //Linked cloning pods.
 	var/temp = ""
 	var/scantemp = "Scanner ready."
 	var/menu = 1 //Which menu screen to display
@@ -15,64 +15,68 @@
 	var/obj/item/weapon/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
 	var/autoprocess = 0
-	var/data[0]
+	var/obj/machinery/clonepod/selected_pod
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/cloning/New()
+/obj/machinery/computer/cloning/initialize()
 	..()
-	spawn(5)
-		updatemodules()
-		return
-	return
+	updatemodules()
+	
+/obj/machinery/computer/cloning/Destroy()
+	releasecloner()
+	..()
 
 /obj/machinery/computer/cloning/process()
-	if(!(scanner && pod1 && autoprocess))
+	if(!scanner || !pods.len || !autoprocess)
 		return
 
 	if(scanner.occupant && (scanner.scan_level > 2))
 		scan_mob(scanner.occupant)
 
-	if(!(pod1.occupant || pod1.mess) && (pod1.efficiency > 5))
-		for(var/datum/dna2/record/R in src.records)
-			if(!(pod1.occupant || pod1.mess))
-				if(pod1.growclone(R))
-					records.Remove(R)
-
+	for (var/obj/machinery/clonepod/pod in pods)
+		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
+			for(var/datum/dna2/record/R in src.records)
+				if(!(pod.occupant || pod.mess))
+					if(pod.growclone(R))
+						records.Remove(R)		
+						
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
-	src.pod1 = findcloner()
-
-	if (!isnull(src.pod1))
-		src.pod1.connected = src // Some variable the pod needs
+	releasecloner()
+	findcloner()
+	if(!selected_pod)
+		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
 	var/obj/machinery/dna_scannernew/scannerf = null
 
-	// Loop through every direction
+	//Try to find scanner on adjacent tiles first
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
-
-		// Try to find a scanner in that direction
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+		if (scannerf)
+			return scannerf
 
-		// If found, then we break, and return the scanner
-		if (!isnull(scannerf))
-			break
+	//Then look for a free one in the area
+	if(!scannerf)
+		for(var/obj/machinery/dna_scannernew/S in get_area(src))
+			return S
 
-	// If no scanner was found, it will return null
-	return scannerf
+	return 0
+
+/obj/machinery/computer/cloning/proc/releasecloner()
+	for(var/obj/machinery/clonepod/P in pods)
+		P.connected = null
+		P.name = initial(P.name)
+	pods.Cut()
 
 /obj/machinery/computer/cloning/proc/findcloner()
-	var/obj/machinery/clonepod/podf = null
-
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-
-		podf = locate(/obj/machinery/clonepod, get_step(src, dir))
-
-		if (!isnull(podf))
-			break
-
-	return podf
+	var/num = 1
+	for(var/obj/machinery/clonepod/P in get_area(src))
+		if(!P.connected)
+			pods += P
+			P.connected = src
+			P.name = "[initial(P.name)] #[num++]"
 
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/disk/data)) //INSERT SOME DISKETTES
@@ -83,6 +87,15 @@
 			user << "You insert [W]."
 			nanomanager.update_uis(src)
 			return
+	else if(istype(W, /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = W
+		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
+			var/obj/machinery/clonepod/P = M.buffer
+			if(P && !(P in pods))
+				pods += P
+				P.connected = src
+				P.name = "[initial(P.name)] #[pods.len]"
+				user << "<span class='notice'>You connect [P] to [src].</span>"
 	else
 		..()
 	return
@@ -102,30 +115,40 @@
 	ui_interact(user)
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(..())
-		return
 	if(stat & (NOPOWER|BROKEN))
 		return
-
+	var/data[0]
 	data["menu"] = src.menu
-	data["scanner"] = src.scanner
-	data["pod"] = src.pod1
+	data["scanner"] = src.scanner	
+	
+	var/canpodautoprocess = 0
+	if(pods.len)
+		data["numberofpods"] = src.pods.len
+		
+		var/list/tempods[0]
+		for (var/obj/machinery/clonepod/pod in pods)
+			if(pod.efficiency > 5)
+				canpodautoprocess = 1
+				
+			tempods.Add(list(list("pod" = "\ref[pod]", "name" = capitalize(pod.name), "biomass" = pod.biomass)))
+			data["pods"] = tempods
+	
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
-	if(scanner && pod1 && ((scanner.scan_level > 2) || (pod1.efficiency > 5)))
+	
+	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
 	else
 		data["autoallowed"] = 0
 	if(src.scanner)
 		data["occupant"] = src.scanner.occupant
 		data["locked"] = src.scanner.locked
-	if(src.pod1)
-		data["biomass"] = src.pod1.biomass
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = src.diskette
+	data["selected_pod"] = "\ref[selected_pod]"
 	var/list/temprecords[0]
-	for(var/datum/dna2/record/R in src.records)
+	for(var/datum/dna2/record/R in records)
 		var tempRealName = R.dna.real_name
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = tempRealName)))
 	data["records"] = temprecords
@@ -142,15 +165,15 @@
 			data["realname"] = src.active_record.dna.real_name
 			data["unidentity"] = src.active_record.dna.uni_identity
 			data["strucenzymes"] = src.active_record.dna.struc_enzymes
-		if(pod1 && pod1.biomass >= CLONE_BIOMASS)
-			data["enoughbiomass"] = 1
+		if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
+			data["podready"] = 1
 		else
-			data["enoughbiomass"] = 0
+			data["podready"] = 0
 
 	// Set up the Nano UI
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 480)
+		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 520)
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -165,13 +188,11 @@
 		scantemp = "Scanner ready."
 
 		loading = 1
-		nanomanager.update_uis(src)
 
 		spawn(20)
 			src.scan_mob(src.scanner.occupant)
 
 			loading = 0
-			nanomanager.update_uis(src)
 
 	if(href_list["task"])
 		switch(href_list["task"])
@@ -188,7 +209,6 @@
 			src.scanner.locked = 1
 		else
 			src.scanner.locked = 0
-		nanomanager.update_uis(src)
 
 	else if (href_list["view_rec"])
 		src.active_record = locate(href_list["view_rec"])
@@ -201,7 +221,6 @@
 		else
 			src.active_record = null
 			src.temp = "<span class=\"bad\">Error: Record missing.</span>"
-		nanomanager.update_uis(src)
 
 	else if (href_list["del_rec"])
 		if ((!src.active_record) || (src.menu < 3))
@@ -220,30 +239,26 @@
 					src.menu = 2
 				else
 					src.temp = "<span class=\"bad\">Error: Access denied.</span>"
-		nanomanager.update_uis(src)
 
 	else if (href_list["disk"]) //Load or eject.
 		switch(href_list["disk"])
 			if("load")
 				if ((isnull(src.diskette)) || isnull(src.diskette.buf))
 					src.temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
-					nanomanager.update_uis(src)
 					return
 				if (isnull(src.active_record))
 					src.temp = "<span class=\"bad\">Error: No active record was found.</span>"
 					src.menu = 1
-					nanomanager.update_uis(src)
 					return
 
 				src.active_record = src.diskette.buf
 
 				src.temp = "Load successful."
-				nanomanager.update_uis(src)
+				
 			if("eject")
 				if (!isnull(src.diskette))
 					src.diskette.loc = src.loc
-					src.diskette = null
-				nanomanager.update_uis(src)
+					src.diskette = null			
 
 	else if (href_list["save_disk"]) //Save to disk!
 		if ((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.active_record)))
@@ -263,46 +278,55 @@
 				src.diskette.buf.types=DNA2_BUF_SE
 		src.diskette.name = "data disk - '[src.active_record.dna.real_name]'"
 		src.temp = "Save \[[href_list["save_disk"]]\] successful."
-		nanomanager.update_uis(src)
 
 	else if (href_list["refresh"])
 		nanomanager.update_uis(src)
+		
+	else if (href_list["selectpod"])
+		var/obj/machinery/clonepod/selected = locate(href_list["selectpod"])
+		if(istype(selected) && (selected in pods))
+			selected_pod = selected
 
 	else if (href_list["clone"])
 		var/datum/dna2/record/C = locate(href_list["clone"])
 		//Look for that player! They better be dead!
-		if(C)
+		if(istype(C))
 			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
-			if(!pod1)
+			if(!pods.len)
 				temp = "<span class=\"bad\">Error: No cloning pod detected.</span>"
-			else if(pod1.occupant)
-				temp = "<span class=\"bad\">Error: The cloning pod is currently occupied.</span>"
-			else if(pod1.biomass < CLONE_BIOMASS)
-				temp = "<span class=\"bad\">Error: Not enough biomass.</span>"
-			else if(pod1.mess)
-				temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"
-			else if(!config.revival_cloning)
-				temp = "<span class=\"bad\">Error: Unable to initiate cloning cycle.</span>"
-			else if(pod1.growclone(C))
-				temp = "Initiating cloning cycle..."
-				records.Remove(C)
-				qdel(C)
-				menu = 1
-			else
-				var/mob/selected = find_dead_player("[C.ckey]")
-				selected << 'sound/machines/chime.ogg'	//probably not the best sound but I think it's reasonable
-				var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
-				if(answer != "No" && pod1.growclone(C))
+			else 
+				var/obj/machinery/clonepod/pod = selected_pod
+				if (!selected_pod)
+					temp = "<span class=\"bad\">Error: No cloning pod selected.</span>"
+				else if(pod.occupant)
+					temp = "<span class=\"bad\">Error: The cloning pod is currently occupied.</span>"
+				else if(pod.biomass < CLONE_BIOMASS)
+					temp = "<span class=\"bad\">Error: Not enough biomass.</span>"
+				else if(pod.mess)
+					temp = "<span class=\"bad\">Error: The cloning pod is malfunctioning.</span>"
+				else if(!config.revival_cloning)
+					temp = "<span class=\"bad\">Error: Unable to initiate cloning cycle.</span>"
+				else if(pod.growclone(C))
 					temp = "Initiating cloning cycle..."
 					records.Remove(C)
 					qdel(C)
 					menu = 1
 				else
-					temp = "Initiating cloning cycle...<br /><span class=\"bad\">Error: Post-initialisation failed. Cloning cycle aborted.</span>"
+					var/mob/selected = find_dead_player("[C.ckey]")
+					if(!selected)
+						return
+					selected << 'sound/machines/chime.ogg'	//probably not the best sound but I think it's reasonable
+					var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
+					if(answer != "No" && pod.growclone(C))
+						temp = "Initiating cloning cycle..."
+						records.Remove(C)
+						qdel(C)
+						menu = 1
+					else
+						temp = "Initiating cloning cycle...<br /><span class=\"bad\">Error: Post-initialisation failed. Cloning cycle aborted.</span>"
 
 		else
 			temp = "<span class=\"bad\">Error: Data corruption.</span>"
-		nanomanager.update_uis(src)
 
 	else if (href_list["menu"])
 		src.menu = text2num(href_list["menu"])

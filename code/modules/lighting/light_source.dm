@@ -130,16 +130,16 @@
 #if LIGHTING_FALLOFF == 1 //circular
   #define LUM_DISTANCE(swapvar, O, T) swapvar = (O.x - T.x)**2 + (O.y - T.y)**2 + LIGHTING_HEIGHT
   #if LIGHTING_LAMBERTIAN == 1
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / light_range)) * (1 / sqrt(swapvar + 1)))
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / max(1,light_range))) * (1 / sqrt(swapvar + 1)))
   #else
-    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / light_range)
+    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / max(1,light_range))
   #endif
 #elif LIGHTING_FALLOFF == 2 //square
   #define LUM_DISTANCE(swapvar, O, T) swapvar = abs(O.x - T.x) + abs(O.y - T.y) + LIGHTING_HEIGHT
   #if LIGHTING_LAMBERTIAN == 1
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / light_range)) * (1 / sqrt(swapvar**2 + 1)))
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / max(1,light_range))) * (1 / sqrt(swapvar**2 + 1)))
   #else
-    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / light_range)
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / max(1,light_range))
   #endif
 #endif
 
@@ -177,6 +177,7 @@
 
 			T.affecting_lights += src
 			effect_turf += T
+		END_FOR_DVIEW
 
 /datum/light_source/proc/remove_lum()
 	applied = 0
@@ -201,11 +202,10 @@
 	var/list/view[0]
 	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
 		view += T	//Filter out turfs.
-
+	END_FOR_DVIEW
 	//This is the part where we calculate new turfs (if any)
 	var/list/new_turfs = view - effect_turf //This will result with all the tiles that are added.
 	for(var/turf/T in new_turfs)
-		//Big huge copy paste from apply_lum() incoming because screw unreadable defines and screw proc call overhead.
 		if(T.lighting_overlay)
 			LUM_FALLOFF(., T, source_turf)
 			. *= light_power

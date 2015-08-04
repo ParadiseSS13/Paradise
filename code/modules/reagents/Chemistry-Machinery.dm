@@ -295,13 +295,25 @@
 /obj/machinery/chem_dispenser/constructable/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/chem_dispenser(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/cell/super(src)
+	component_parts += new /obj/item/weapon/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/super(null)
+	RefreshParts()
+	
+/obj/machinery/chem_dispenser/constructable/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/chem_dispenser(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/constructable/RefreshParts()
@@ -730,13 +742,13 @@
 		//Sheets
 		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
-		/obj/item/stack/sheet/mineral/clown = list("banana" = 20),
+		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/weapon/grown/novaflower = list("capsaicin" = 0),
 
 		//archaeology!
-		/obj/item/weapon/rocksliver = list("ground_rock" = 50),
+		///obj/item/weapon/rocksliver = list("ground_rock" = 50),
 
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
@@ -938,7 +950,7 @@
 			return blend_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_allowed_juice_by_id(var/obj/item/weapon/reagent_containers/food/snacks/O)
-	for(var/i in juice_tags)
+	for(var/i in juice_items)
 		if(istype(O, i))
 			return juice_items[i]
 
@@ -1102,7 +1114,7 @@
 		remove_object(O)
 
 	//xenoarch
-	for(var/obj/item/weapon/rocksliver/O in holdingitems)
+	/*for(var/obj/item/weapon/rocksliver/O in holdingitems)
 		if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 		var/allowed = get_allowed_by_id(O)
@@ -1113,7 +1125,7 @@
 
 			if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
-		remove_object(O)
+		remove_object(O)*/
 
 	//Everything else - Transfers reagents from it into beaker
 	for (var/obj/item/weapon/reagent_containers/O in holdingitems)

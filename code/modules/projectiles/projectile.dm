@@ -297,7 +297,7 @@
 			return //cannot shoot yourself
 		if(istype(A, /obj/item/projectile))
 			return
-		if(istype(A, /mob/living))
+		if(istype(A, /mob/living) || istype(A, /obj/mecha) || istype(A, /obj/spacepod) || istype(A, /obj/vehicle))
 			result = 2 //We hit someone, return 1!
 			return
 		result = 1
@@ -324,3 +324,15 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
+					
+/proc/check_trajectory(atom/target as mob|obj, atom/firer as mob|obj, var/pass_flags=PASSTABLE|PASSGLASS|PASSGRILLE, flags=null)  //Checks if you can hit them or not.
+	if(!istype(target) || !istype(firer))
+		return 0
+	var/obj/item/projectile/test/trace = new /obj/item/projectile/test(get_turf(firer)) //Making the test....
+	trace.target = target
+	if(!isnull(flags))
+		trace.flags = flags //Set the flags...
+	trace.pass_flags = pass_flags //And the pass flags to that of the real projectile...
+	var/output = trace.process() //Test it!
+	qdel(trace) //No need for it anymore
+	return output //Send it back to the gun!

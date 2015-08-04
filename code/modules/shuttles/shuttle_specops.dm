@@ -77,12 +77,12 @@
 	if (location)	//just arrived home
 		for(var/turf/T in get_area_turfs(destination))
 			var/mob/M = locate(/mob) in T
-			M << "\red You have arrived at Central Command. Operation has ended!"
+			M << "<span class='warning'>You have arrived at Central Command. Operation has ended!</span>"
 	else	//just left for the station
 		launch_mauraders()
 		for(var/turf/T in get_area_turfs(destination))
 			var/mob/M = locate(/mob) in T
-			M << "\red You have arrived at [station_name]. Commence operation!"
+			M << "<span class='warning'>You have arrived at [station_name]. Commence operation!</span>"
 
 	reset_time = world.time + specops_return_delay	//set the timeout
 
@@ -94,7 +94,7 @@
 	radio_announce("ALERT: LAUNCH SEQUENCE ABORTED")
 	if (istype(in_use, /obj/machinery/computer))
 		var/obj/machinery/computer/C = in_use
-		C.visible_message("\red Launch sequence aborted.")
+		C.visible_message("<span class='warning'>Launch sequence aborted.</span>")
 
 	..()
 

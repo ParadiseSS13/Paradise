@@ -95,7 +95,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/riot/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
 		sawoff(user)
 
 
@@ -154,7 +154,7 @@
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
-	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
 		sawoff(user)
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user as mob)
@@ -197,7 +197,7 @@
 		else
 			user << "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>"
 			return
-			
+
 // Sawing guns related procs //
 
 /obj/item/weapon/gun/projectile/proc/blow_up(mob/user as mob)
@@ -238,4 +238,3 @@
 		return
 	else
 		sawn_state = SAWN_INTACT
-		

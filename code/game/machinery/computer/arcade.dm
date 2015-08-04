@@ -57,7 +57,7 @@
 
 /obj/machinery/computer/arcade/New()
 	..()
-	var/choice = pick(typesof(/obj/machinery/computer/arcade) - /obj/machinery/computer/arcade)
+	var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
 	new choice(loc)
 	qdel(src)
 

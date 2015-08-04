@@ -58,7 +58,7 @@
 /obj/machinery/cooking/oven/updatefood()
 	for(var/U in food_choices)
 		food_choices.Remove(U)
-	for(var/U in typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable/cook)-(/obj/item/weapon/reagent_containers/food/snacks/customizable/cook))
+	for(var/U in subtypesof(/obj/item/weapon/reagent_containers/food/snacks/customizable/cook))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/cook/V = new U
 		src.food_choices += V
 	return
@@ -73,7 +73,7 @@
 /obj/machinery/cooking/candy/updatefood()
 	for(var/U in food_choices)
 		food_choices.Remove(U)
-	for(var/U in typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable/candy)-(/obj/item/weapon/reagent_containers/food/snacks/customizable/candy))
+	for(var/U in subtypesof(/obj/item/weapon/reagent_containers/food/snacks/customizable/candy))
 		var/obj/item/weapon/reagent_containers/food/snacks/customizable/candy/V = new U
 		src.food_choices += V
 	return

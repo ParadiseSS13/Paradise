@@ -24,7 +24,7 @@
 				new/obj/structure/girder( src.loc )
 				qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		user << "\blue Now slicing apart the girder"
 		if(do_after(user,30))
 			if(!src) return
@@ -32,7 +32,7 @@
 			new /obj/item/stack/sheet/metal(get_turf(src))
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		user << "\blue You drill through the girder!"
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
@@ -218,13 +218,13 @@
 			user << "\blue You dissasembled the girder!"
 			dismantle()
 
-	else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		user << "\blue Now slicing apart the girder"
 		if(do_after(user,30))
 			user << "\blue You slice apart the girder!"
 			dismantle()
 
-	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		user << "\blue You drill through the girder!"
 		dismantle()
 

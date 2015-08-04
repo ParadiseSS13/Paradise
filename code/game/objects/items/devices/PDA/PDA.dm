@@ -467,7 +467,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				data["convo_job"] = sanitize(c["job"])
 				break
 	if(mode==41)
-		data["manifest"] = data_core.get_manifest_json()
+		data_core.get_manifest_json()
 
 
 	if(mode==3)
@@ -499,12 +499,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			data["aircontents"] = list("reading" = 0)
 
 
+	data["manifest"] = list("__json_cache" = ManifestJSON)
+	
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600)
+		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = inventory_state)
+
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -812,6 +815,21 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	return 1 // return 1 tells it to refresh the UI in NanoUI
 
+/obj/item/device/pda/verb/verb_reset_pda()
+	set category = "Object"
+	set name = "Reset PDA"
+	set src in usr
+
+	if(issilicon(usr))
+		return
+
+	if(can_use(usr))
+		mode = 0
+		nanomanager.update_uis(src)
+		usr << "<span class='notice'>You press the reset button on \the [src].</span>"
+	else
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"	
+	
 /obj/item/device/pda/proc/remove_id()
 	if (id)
 		if (ismob(loc))

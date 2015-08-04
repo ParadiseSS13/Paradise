@@ -137,8 +137,7 @@
 
 	if(istype(target))
 		if(target.air)
-			if(target.air.check_tile_graphic())
-				target.update_visuals(target.air)
+			target.update_visuals()
 	if(network)
 		network.update = 1
 

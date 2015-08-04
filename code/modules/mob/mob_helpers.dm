@@ -499,3 +499,18 @@ var/list/intents = list("help","disarm","grab","harm")
 			O << "<span class='ghostalert'>[message]<span>"
 			if(ghost_sound)
 				O << sound(ghost_sound)
+				
+/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
+	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+		return 0
+	check_eye(src)
+	return 1
+
+/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
+	if(!C.can_use() || !is_in_chassis())
+		return 0
+
+	eyeobj.setLoc(get_turf(C))
+	client.eye = eyeobj
+	return 1
+	

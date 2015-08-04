@@ -9,32 +9,29 @@
 	var/list/modules = list()
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
+	var/list/subsystems = list()
+	
 	var/list/stacktypes
 	var/channels = list()
 
 
-	emp_act(severity)
-		if(modules)
-			for(var/obj/O in modules)
-				O.emp_act(severity)
-		if(emag)
-			emag.emp_act(severity)
-		..()
-		return
+/obj/item/weapon/robot_module/emp_act(severity)
+	if(modules)
+		for(var/obj/O in modules)
+			O.emp_act(severity)
+	if(emag)
+		emag.emp_act(severity)
+	..()
+	return
 
 
-	New()
-		src.modules += new /obj/item/device/flashlight(src)
-		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.emag = new /obj/item/toy/sword(src)
-		src.emag.name = "Placeholder Emag Item"
-//		src.jetpack = new /obj/item/toy/sword(src)
-//		src.jetpack.name = "Placeholder Upgrade Item"
-		return
-
+/obj/item/weapon/robot_module/New()
+	src.modules += new /obj/item/device/flashlight(src)
+	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.emag = new /obj/item/toy/sword(src)
+	src.emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/proc/respawn_consumable(var/mob/living/silicon/robot/R)
-
 	if(!stacktypes || !stacktypes.len) return
 
 	var/stack_respawned = 0
@@ -77,13 +74,18 @@
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
 	R.add_language("Clownish",0)
+	
+/obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
+	R.verbs |= subsystems
+
+/obj/item/weapon/robot_module/proc/remove_subsystems(var/mob/living/silicon/robot/R)
+	R.verbs -= subsystems
 
 /obj/item/weapon/robot_module/standard
 	name = "standard robot module"
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded(src)
 		src.modules += new /obj/item/weapon/extinguisher(src)
@@ -95,15 +97,15 @@
 
 /obj/item/weapon/robot_module/medical
 	name = "medical robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
 		/obj/item/stack/medical/advanced/bruise_pack = 5,
 		/obj/item/stack/medical/advanced/ointment = 5,
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
-
+	
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/device/healthanalyzer/advanced(src)
 		src.modules += new /obj/item/device/reagent_scanner/adv(src)
@@ -142,6 +144,7 @@
 
 /obj/item/weapon/robot_module/engineering
 	name = "engineering robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 
 	stacktypes = list(
 		/obj/item/stack/sheet/metal = 50,
@@ -153,7 +156,6 @@
 		)
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/rcd/borg(src)
@@ -200,10 +202,10 @@
 
 /obj/item/weapon/robot_module/security
 	name = "security robot module"
+	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/seclite(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 		src.modules += new /obj/item/weapon/melee/baton/loaded/robot(src)
@@ -219,7 +221,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/soap/nanotrasen(src)
 		src.modules += new /obj/item/weapon/storage/bag/trash/cyborg(src)
@@ -239,7 +240,6 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
 		src.modules += new /obj/item/weapon/reagent_containers/food/condiment/enzyme(src)
@@ -309,14 +309,15 @@
 
 
 	New()
-		src.modules += new /obj/item/device/flashlight/lantern(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/meson(src)
 		src.modules += new /obj/item/weapon/wrench(src)
 		src.modules += new /obj/item/weapon/screwdriver(src)
-		src.modules += new /obj/item/weapon/storage/bag/ore(src)
-		src.modules += new /obj/item/weapon/pickaxe/borgdrill(src)
+		src.modules += new /obj/item/device/t_scanner/adv_mining_scanner/cyborg(src)
+		src.modules += new /obj/item/weapon/storage/bag/ore/cyborg(src)
+		src.modules += new /obj/item/weapon/pickaxe/drill/cyborg(src)
 		src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
+		src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg(src)
 		src.emag = new /obj/item/borg/stun(src)
 		return
 
@@ -325,7 +326,6 @@
 
 /obj/item/weapon/robot_module/deathsquad/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/cyborg(src)
@@ -339,7 +339,6 @@
 
 /obj/item/weapon/robot_module/syndicate/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
-	src.modules += new /obj/item/device/flashlight(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/printer(src)
 	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
@@ -354,11 +353,10 @@
 	name = "combat robot module"
 
 	New()
-		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
 		src.modules += new /obj/item/borg/sight/thermal(src)
 		src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
-		src.modules += new /obj/item/weapon/pickaxe/plasmacutter(src)
+		src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
 		src.modules += new /obj/item/borg/combat/shield(src)
 		src.modules += new /obj/item/borg/combat/mobility(src)
 		src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
@@ -413,8 +411,7 @@
 		src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 		src.modules += new /obj/item/weapon/soap(src)
 
-		src.emag = new /obj/item/weapon/pickaxe/plasmacutter(src)
-		src.emag.name = "Plasma Cutter"
+		src.emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
 		for(var/T in stacktypes)
 			var/obj/item/stack/sheet/W = new T(src)

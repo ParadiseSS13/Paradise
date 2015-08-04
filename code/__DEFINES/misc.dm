@@ -50,6 +50,9 @@
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
 
+// Damage above this value must be repaired with surgery.
+#define ROBOLIMB_SELF_REPAIR_CAP 30
+
 //metal, glass, rod stacks
 #define MAX_STACK_AMOUNT_METAL	50
 #define MAX_STACK_AMOUNT_GLASS	50
@@ -143,3 +146,4 @@
 	dview_mob.loc = center; \
 	dview_mob.see_invisible = invis_flags; \
 	for(type in view(range, dview_mob))
+#define END_FOR_DVIEW dview_mob.loc = null

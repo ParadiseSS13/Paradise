@@ -1,11 +1,5 @@
 var/global/datum/controller/gameticker/ticker
 
-#define GAME_STATE_PREGAME		1
-#define GAME_STATE_SETTING_UP	2
-#define GAME_STATE_PLAYING		3
-#define GAME_STATE_FINISHED		4
-
-
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
@@ -166,8 +160,8 @@ var/global/datum/controller/gameticker/ticker
 				world << "<h4>[holiday.greet()]</h4>"
 
 	spawn(0) // Forking dynamic room selection
-		var/list/area/dynamic/source/available_source_candidates = typesof(/area/dynamic/source) - /area/dynamic/source
-		var/list/area/dynamic/destination/available_destination_candidates = typesof(/area/dynamic/destination) - /area/dynamic/destination
+		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
+		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
 
 		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
 			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)

@@ -236,12 +236,17 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	fire_delay = 16 //Because guncode is bad and you can bug the reload for rapid fire otherwise.
 	var/overheat = 0
+	var/overheat_time = 16
 	var/recent_reload = 1
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
+	flags = NODROP
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
 	overheat = 1
-	spawn(20)
+	spawn(overheat_time)
 		overheat = 0
 		recent_reload = 0
 	..()
@@ -272,6 +277,8 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 1
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	fire_sound = 'sound/weapons/Genhit.ogg'
+	overheat_time = 20
+	fire_delay = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -288,6 +295,49 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "crossbowlarge"
 	origin_tech = null
 	m_amt = 0
+
+/obj/item/weapon/gun/energy/plasmacutter
+	name = "plasma cutter"
+	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	icon_state = "plasmacutter"
+	item_state = "plasmacutter"
+	modifystate = "plasmacutter"
+	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=2;engineering=1"
+	projectile_type = /obj/item/projectile/plasma
+	fire_sound = 'sound/weapons/laser.ogg'
+	flags = CONDUCT | OPENCONTAINER
+	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	charge_cost = 250
+	fire_delay = 10
+	icon_override = 'icons/mob/in-hand/guns.dmi'
+	can_charge = 0
+
+/obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
+	..()
+	if(power_supply)
+		user <<"<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
+
+/obj/item/weapon/gun/energy/plasmacutter/attackby(var/obj/item/A, var/mob/user)
+	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+		var/obj/item/stack/sheet/S = A
+		S.use(1)
+		power_supply.give(10000)
+		user << "<span class='notice'>You insert [A] in [src], recharging it.</span>"
+	else if(istype(A, /obj/item/weapon/ore/plasma))
+		qdel(A)
+		power_supply.give(5000)
+		user << "<span class='notice'>You insert [A] in [src], recharging it.</span>"
+	else
+		..()
+
+/obj/item/weapon/gun/energy/plasmacutter/adv
+	name = "advanced plasma cutter"
+	icon_state = "adv_plasmacutter"
+	modifystate = "adv_plasmacutter"
+	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=3;engineering=2"
+	projectile_type = /obj/item/projectile/plasma/adv
+	fire_delay = 8
+	charge_cost = 100
 
 /obj/item/weapon/gun/energy/disabler
 	name = "disabler"

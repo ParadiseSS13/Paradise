@@ -955,8 +955,8 @@ proc/move_gamma_ship()
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
 
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
-		P.locate_recharge_turf()
+	for(var/turf/simulated/floor/mech_bay_recharge_floor/F in toArea)
+		F.init_devices()
 
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()

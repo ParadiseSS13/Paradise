@@ -25,7 +25,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 			<div class="statusLabel">Pressure:</div>
 			{{:helper.string("<div class='statusValue {0}'>{1} kPa</div>",helper.dangerToClass(data.air.danger.pressure),helper.precisionRound(data.air.pressure,4))}}
 			<div class="statusValue" style="margin-left:5px;">
-			{{if !data.locked}}
+			{{if !data.locked || (data.remote_connection && data.remote_access)}}
 				{{if data.mode == 3}}
 					{{:helper.link("DEACTIVATE PANIC SYPHON",null,{"mode" : 1},null,'linkOn')}}
 				{{else}}
@@ -71,20 +71,20 @@ Used In File(s): /code/game/machinery/alarm.dm
 			<div class="statusLabel">Local Status:</div>
 			{{if data.air.danger.overall == 0}}
 				{{if data.atmos_alarm}}
-					<div class="average">Caution: Atmos alert in area
+					<div class="average">Caution: Atmos alert in area</div>
 				{{else}}
-					<div class="good">Optimal
+					<div class="good">Optimal</div>
 				{{/if}}
 			{{else data.air.danger.overall == 1}}
-				<div class="average">Caution
+				<div class="average">Caution</div>
 			{{else}}
-				<div class="notice">DANGER: Internals Required
+				<div class="notice">DANGER: Internals Required</div>
 			{{/if}}
-			{{if !data.locked}}
+			{{if !data.locked || (data.remote_connection && data.remote_access)}}
 				{{if data.alarmActivated}}
 					{{:helper.link('Reset Alarm',null,{'atmos_reset':1},null,'linkOn')}}
 				{{else}}
-					{{:helper.link('Activate Alarm',null,{'atmos_alarm':1},null,'red')}}
+					{{:helper.link('Activate Alarm',null,{'atmos_alarm':1},null)}}
 				{{/if}}
 			{{/if}}
 			</div>
@@ -96,9 +96,9 @@ Used In File(s): /code/game/machinery/alarm.dm
 			#define RCON_YES	3
 			-->
 			<div class="statusLabel">Remote Control:</div>
-			{{:helper.link('Off',  null, {'rcon' : 1}, (data.rcon != 1) ? null : 'disabled')}}
-			{{:helper.link('Auto', null, {'rcon' : 2}, (data.rcon != 2) ? null : 'disabled')}}
-			{{:helper.link('On',   null, {'rcon' : 3}, (data.rcon != 3) ? null : 'disabled')}}
+			{{:helper.link('Off',  null, {'rcon' : 1}, data.remote_connection && !data.remote_access ? (data.rcon == 1 ? '' : 'disabled') : null, data.rcon == 1 ? 'selected' : null)}}
+			{{:helper.link('Auto', null, {'rcon' : 2}, data.remote_connection && !data.remote_access ? (data.rcon == 2 ? '' : 'disabled') : null, data.rcon == 2 ? 'selected' : null)}}
+			{{:helper.link('On',   null, {'rcon' : 3}, data.remote_connection && !data.remote_access ? (data.rcon == 3 ? '' : 'disabled') : null, data.rcon == 3 ? 'selected' : null)}}
 		</div>
 		<div class="line">
 			<div class="statusLabel">Thermostat:</div>
@@ -107,7 +107,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 	</div>
 {{/if}}
 
-{{if data.locked}}
+{{if data.locked && !data.remote_connection && !data.remote_access}}
 	<div class="notice">Swipe card to unlock.</div>
 {{else}}
 	<div class="notice">Remember to lock with ID card after use.</div>
@@ -183,6 +183,12 @@ Used In File(s): /code/game/machinery/alarm.dm
 						{{/if}}
 					</div>
 				</div>
+				<div class="line">
+					<div class="statusLabel">Scrub Range:</div>
+					<div class="statusValue">
+						{{:helper.link(value.widenet ? 'Extended' : 'Normal', null, { 'id_tag' : value.id_tag, 'command' : 'widenet', 'val' : value.widenet ? 0 : 1}, null, value.widenet ? 'selected' : null)}}
+					</div>
+				</div>
 				{{if value.scrubbing==1}}
 				<div class="line">
 					<div class="statusLabel">Filtering:</div>
@@ -204,12 +210,14 @@ Used In File(s): /code/game/machinery/alarm.dm
 		<h3>System Mode</h3>
 		<div class="statusDisplay">
 			{{for data.modes}}
-			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.name,'gear',{'mode':index+1},null,(index+1==data.mode?'linkOn':''))}}</div>
-				<div class="statusValue">
-					{{:value.desc}}
+			{{if !value.emagonly || value.emagonly && data.emagged}}
+				<div class="line">
+					<div class="statusLabel">{{:helper.link(value.name,'gear',{'mode':index+1},null,(index+1==data.mode?'linkOn':value.emagonly ? 'redButton' : ''))}}</div>
+					<div class="statusValue">
+						{{:value.desc}}
+					</div>
 				</div>
-			</div>
+			{{/if}}
 			{{/for}}
 		</div>
 		<h3>System Preset</h3>
@@ -217,7 +225,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 		<div class="statusDisplay">
 			{{for data.presets}}
 			<div class="line">
-				<div class="statusLabel">{{:helper.link(value.name,'gear',{'preset':index+1},null,(index+1==value.preset?'linkOn':''))}}</div>
+				<div class="statusLabel">{{:helper.link(value.name,'gear',{'preset':index+1},null,(index+1==data.preset?'linkOn':''))}}</div>
 				<div class="statusValue">
 					{{:value.desc}}
 				</div>
@@ -226,55 +234,22 @@ Used In File(s): /code/game/machinery/alarm.dm
 		</div>
 	<!-- SENSORS -->
 	{{else data.screen == 5}}
-		<h3>Sensor Thresholds</h3>
-		<div class="statusDisplay">
-			<table>
-				<thead>
-					<th>&nbsp;</th>
-					<th class="bad">min2</th>
-					<th class="average">min1</th>
-					<th class="average">max1</th>
-					<th class="bad">max2</th>
-				</thead>
-				<tbody>
-					<tr>
-						<th>O<sub>2</sub></th>
-						{{for data.sensors.oxygen}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'oxygen','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>N<sub>2</sub></th>
-						{{for data.sensors.nitrogen}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'nitrogen','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>CO<sub>2</sub></th>
-						{{for data.sensors.carbon_dioxide}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'carbon_dioxide','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Toxins</th>
-						{{for data.sensors.plasma}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'plasma','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Pressure</th>
-						{{for data.sensors.pressure}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'pressure','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-					<tr>
-						<th>Temperature (K)</th>
-						{{for data.sensors.temperature}}
-							<td>{{:helper.link(value >= 0 ? helper.precisionRound(value,4) : "OFF",null,{'command':'set_threshold','env':'temperature','var':index+1})}}</td>
-						{{/for}}
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<h3>Alarm Threshold</h3>
+		Partial pressure for gases.
+		<table class='fixed'>
+			<tr>
+				<td></td><td><span class='bad'>min2</span></td><td><span class='average'>min1</span></td><td><span class='average'>max1</span></td><td><span class='bad'>max2</span></td>
+			</tr>
+			{{for data.thresholds}}
+				<tr>
+					<td>{{:value.name}}</td>
+					{{for value.settings :selectedItem:SelectedNull}}
+						<td>
+							{{:helper.link(selectedItem.selected >= 0 ? helper.round(selectedItem.selected*100)/100 : "Off", null, { 'command' : 'set_threshold', 'env' : selectedItem.env, 'var' : selectedItem.val })}}
+						</td>
+					{{/for}}
+				</tr>			
+			{{/for}}
+		<table>
 	{{/if}}
 {{/if}}

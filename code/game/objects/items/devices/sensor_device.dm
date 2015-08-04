@@ -6,7 +6,7 @@
 	w_class = 2.0
 	slot_flags = SLOT_BELT
 	origin_tech = "biotech=3;materials=3;magnets=3"
-	var/obj/nano_module/crew_monitor/crew_monitor
+	var/datum/nano_module/crew_monitor/crew_monitor
 	
 /obj/item/device/sensor_device/New()
 	crew_monitor = new(src)
