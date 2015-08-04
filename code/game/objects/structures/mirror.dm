@@ -16,7 +16,7 @@
 		var/datum/nano_module/appearance_changer/AC = ui_users[user]
 		if(!AC)
 			AC = new(src, user)
-			AC.name = "SalonPro Nano-Mirror(TM)"
+			AC.name = "SalonPro Nano-Mirror&trade;"
 			ui_users[user] = AC
 		AC.ui_interact(user)
 
