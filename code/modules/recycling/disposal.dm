@@ -42,6 +42,12 @@
 		update()
 
 
+/obj/machinery/disposal/Destroy()
+	eject()
+	if(trunk)
+		trunk.linked = null
+	return ..()
+
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
 	if(stat & BROKEN || !I || !user || (I.flags & NODROP))
@@ -210,7 +216,7 @@
 /obj/machinery/disposal/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	ui_interact(user)
-	
+
 /obj/machinery/disposal/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
@@ -218,7 +224,7 @@
 /obj/machinery/disposal/attack_hand(mob/user as mob)
 	if(..(user))
 		return 1
-		
+
 	if(stat & BROKEN)
 		return
 
@@ -233,13 +239,13 @@
 		flush = !flush
 		update()
 	return
-	
+
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
-	
+
 	var/pressure = 100 * air_contents.return_pressure() / (SEND_PRESSURE)
 	var/pressure_round = round(pressure,1)
-	
+
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
@@ -252,7 +258,7 @@
 	else
 		data["pumpstatus"] = "(idle)"
 	data["pressure"] = pressure_round
-	
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
 	if (!ui)
@@ -269,10 +275,10 @@
 	if(mode==-1 && !href_list["eject"]) // only allow ejecting if mode is -1
 		usr << "\red The disposal units power is disabled."
 		return
-		
+
 	if(..())
 		return
-		
+
 	if(stat & BROKEN)
 		return
 
@@ -492,6 +498,10 @@
 	var/tomail = 0 //changes if contains wrapped package
 	var/hasmob = 0 //If it contains a mob
 
+	Destroy()
+		qdel(gas)
+		active = 0
+		return ..()
 
 	// initialize a holder from the contents of a disposal unit
 	proc/init(var/obj/machinery/disposal/D)
