@@ -40,8 +40,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
 	RefreshParts()
-	reagents.my_atom = null
-	
+	reagents.my_atom = src
+
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
 	..()
 	component_parts = list()
@@ -51,7 +51,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
-	reagents.my_atom = null
+	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	var/T = 0
