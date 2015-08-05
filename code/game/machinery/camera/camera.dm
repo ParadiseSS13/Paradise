@@ -38,7 +38,7 @@
 	assembly.update_icon()
 
 	invalidateCameraCache()
-	
+
 	/* // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
@@ -108,6 +108,17 @@
 /obj/machinery/camera/blob_act()
 	qdel(src)
 	return
+
+/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user as mob)
+	if(!istype(user))
+		return
+	user.do_attack_animation(src)
+	status = 0
+	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	icon_state = "[initial(icon_state)]1"
+	add_hiddenprint(user)
+	deactivate(user,0)
 
 /obj/machinery/camera/proc/setViewRange(var/num = 7)
 	src.view_range = num
@@ -342,4 +353,4 @@
 	cam["x"] = x
 	cam["y"] = y
 	cam["z"] = z
-	return cam	
+	return cam
