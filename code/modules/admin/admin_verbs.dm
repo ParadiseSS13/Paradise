@@ -552,7 +552,7 @@ var/list/admin_verbs_mentor = list(
 		src.holder.output_ai_laws()
 
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in world)
-	set name = "Change Mob Appearance - Admin"
+	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = "Admin"
 
@@ -565,7 +565,7 @@ var/list/admin_verbs_mentor = list(
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in world)
-	set name = "Change Mob Appearance - Self"
+	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = "Admin"
 
