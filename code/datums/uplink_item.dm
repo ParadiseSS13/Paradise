@@ -233,7 +233,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/jobspecific/poisonbottle
 	name = "Poison Bottle"
 	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
-	reference = "PB"
+	reference = "TPB"
 	item = /obj/item/weapon/reagent_containers/glass/bottle/traitor
 	cost = 2
 	job = list("Scientist","Research Director","Chief Medical Officer","Medical Doctor","Psychiatrist","Chemist","Paramedic","Virologist","Bartender")
