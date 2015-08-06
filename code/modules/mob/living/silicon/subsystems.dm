@@ -40,6 +40,7 @@
 	for(var/datum/alarm_handler/AH in register_to)
 		AH.register(src, /mob/living/silicon/proc/receive_alarm)
 		queued_alarms[AH] = list()	// Makes sure alarms remain listed in consistent order
+		alarm_handlers |= AH
 
 /********************
 *	Alarm Monitor	*
