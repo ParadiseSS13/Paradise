@@ -2,8 +2,8 @@
 //They get a traitor objective and a blood sucking objective
 /datum/game_mode
 	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/enthralled = list() //those controlled by a vampire
-	var/list/thralls = list() //vammpires controlling somebody
+	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
+	var/list/vampire_thralls = list() //vammpires controlling somebody
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
@@ -124,9 +124,9 @@
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
-	if(enthralled.len)
+	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
-		for(var/datum/mind/Mind in enthralled)
+		for(var/datum/mind/Mind in vampire_enthralled)
 			text += "<br>[Mind.key] was [Mind.name] ("
 			if(Mind.current)
 				if(Mind.current.stat == DEAD)
@@ -386,13 +386,13 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
 	var/ref = "\ref[vampire_mind]"
-	if(ref in thralls)
+	if(ref in vampire_thralls)
 		if(vampire_mind.current)
 			if(vampire_mind.current.client)
 				var/I = image('icons/mob/mob.dmi', loc = vampire_mind.current, icon_state = "vampire")
 				vampire_mind.current.client.images += I
-	for(var/headref in thralls)
-		for(var/datum/mind/t_mind in thralls[headref])
+	for(var/headref in vampire_thralls)
+		for(var/datum/mind/t_mind in vampire_thralls[headref])
 			var/datum/mind/head = locate(headref)
 			if(head)
 				if(head.current)
@@ -409,9 +409,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 						t_mind.current.client.images += I
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	for(var/headref in thralls)
+	for(var/headref in vampire_thralls)
 		var/datum/mind/head = locate(headref)
-		for(var/datum/mind/t_mind in thralls[headref])
+		for(var/datum/mind/t_mind in vampire_thralls[headref])
 			if(t_mind.current)
 				if(t_mind.current.client)
 					for(var/image/I in t_mind.current.client.images)
@@ -437,9 +437,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(!istype(head))
 		head = vampire_mind //workaround for removing a thrall's control over the enthralled
 	var/ref = "\ref[head]"
-	if(ref in thralls)
-		thralls[ref] -= vampire_mind
-	enthralled -= vampire_mind
+	if(ref in vampire_thralls)
+		vampire_thralls[ref] -= vampire_mind
+	vampire_enthralled -= vampire_mind
 	vampire_mind.special_role = null
 	update_vampire_icons_removed(vampire_mind)
 	//world << "Removed [vampire_mind.current.name] from vampire shit"

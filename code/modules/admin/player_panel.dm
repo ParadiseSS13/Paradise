@@ -534,8 +534,8 @@
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)
 
-		if(ticker.mode.enthralled.len)
-			dat += check_role_table("Vampire Thralls", ticker.mode.enthralled, src)
+		if(ticker.mode.vampire_enthralled.len)
+			dat += check_role_table("Vampire Thralls", ticker.mode.vampire_enthralled, src)
 
 		if(ticker.mode.xenos.len)
 			dat += check_role_table("Xenos", ticker.mode.xenos, src)

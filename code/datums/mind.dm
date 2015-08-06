@@ -261,7 +261,7 @@ datum/mind
 			else
 				text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
 
-			if(src in ticker.mode.enthralled)
+			if(src in ticker.mode.vampire_enthralled)
 				text += "<b><font color='#FF0000'>YES</font></b>|no"
 			else
 				text += "yes|<font color='#00FF00'>NO</font></b>"

@@ -166,9 +166,9 @@ Made by Xhuis
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
-	if(!istype(thrall_mind) || !(thrall_mind in thralls) || !isliving(thrall_mind.current))
+	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
-	thralls.Remove(thrall_mind)
+	shadowling_thralls.Remove(thrall_mind)
 	thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Dethralled</span>"
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
@@ -315,7 +315,7 @@ Made by Xhuis
 						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
 							qdel(I)
 
-		for(var/datum/mind/thrall in thralls)
+		for(var/datum/mind/thrall in shadowling_thralls)
 			if(thrall.current)
 				if(thrall.current.client)
 					for(var/image/I in thrall.current.client.images)
