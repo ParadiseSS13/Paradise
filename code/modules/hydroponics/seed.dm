@@ -4,24 +4,27 @@
 
 /datum/seed
 	//Tracking.
-	var/uid                        // Unique identifier.
-	var/name                       // Index for global list.
-	var/seed_name                  // Plant name for seed packet.
-	var/seed_noun = "seeds"        // Descriptor for packet.
-	var/display_name               // Prettier name.
-	var/roundstart                 // If set, seed will not display variety number.
-	var/mysterious                 // Only used for the random seed packets.
-	var/can_self_harvest = 0       // Mostly used for living mobs.
-	var/growth_stages = 0          // Number of stages the plant passes through before it is mature.
-	var/list/traits = list()       // Initialized in New()
-	var/list/mutants               // Possible predefined mutant varieties, if any.
-	var/list/chems                 // Chemicals that plant produces in products/injects into victim.
-	var/list/consume_gasses        // The plant will absorb these gasses during its life.
-	var/list/exude_gasses          // The plant will exude these gasses during its life.
-	var/kitchen_tag                // Used by the reagent grinder.
-	var/trash_type                 // Garbage item produced when eaten.
+	var/uid							// Unique identifier.
+	var/name						// Index for global list.
+	var/seed_name					// Plant name for seed packet.
+	var/seed_noun = "seeds"			// Descriptor for packet.
+	var/display_name				// Prettier name.
+	var/roundstart					// If set, seed will not display variety number.
+	var/mysterious					// Only used for the random seed packets.
+	var/can_self_harvest = 0		// Mostly used for living mobs.
+	var/growth_stages = 0			// Number of stages the plant passes through before it is mature.
+	var/list/traits = list()		// Initialized in New()
+	var/list/mutants				// Possible predefined mutant varieties, if any.
+	var/list/chems					// Chemicals that plant produces in products/injects into victim.
+	var/list/consume_gasses			// The plant will absorb these gasses during its life.
+	var/list/exude_gasses			// The plant will exude these gasses during its life.
+	var/kitchen_tag					// Used by the reagent grinder.
+	var/trash_type					// Garbage item produced when eaten.
 	var/splat_type = /obj/effect/decal/cleanable/fruit_smudge // Graffiti decal.
 	var/has_mob_product
+	var/modular_icon = 0			// Dictates if the product uses a modular sprite. 0 = preset, 1 = modular
+	var/preset_icon = "undef"		// Name of the iconstate in icon/obj/harvest.dmi to use for preset sprite
+									//		Make sure to set this to the correct icon if not using a modular sprite
 
 /datum/seed/New()
 
@@ -370,6 +373,7 @@
 	display_name = "strange plants" // TODO: name generator.
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
+	modular_icon = 1
 
 	set_trait(TRAIT_POTENCY,rand(5,30),200,0)
 	set_trait(TRAIT_PRODUCT_ICON,pick(plant_controller.plant_product_sprites))

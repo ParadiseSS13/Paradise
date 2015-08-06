@@ -39,7 +39,11 @@
 
 	name = "[seed.seed_name]"
 
-	update_icon()
+	if(seed.modular_icon == 1)
+		update_icon()
+	else
+		icon = 'icons/obj/harvest.dmi'
+		icon_state = seed.preset_icon
 
 	if(!seed.chems)
 		return
@@ -141,6 +145,8 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/update_icon()
 	if(!seed || !plant_controller || !plant_controller.plant_icon_cache)
+		return
+	if(seed.modular_icon != 1)
 		return
 	overlays.Cut()
 	var/image/plant_icon
