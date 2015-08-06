@@ -43,6 +43,8 @@
 	networks["ERT"] = list(access_cent_specops_commander,access_cent_commander)
 	networks["CentCom"] = list(access_cent_security,access_cent_commander)
 	networks["Thunderdome"] = list(access_cent_thunder,access_cent_commander)
+	
+	..()
 
 /obj/machinery/computer/security/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -157,6 +159,7 @@
 				else
 					src.network += net
 					break
+				invalidateCameraCache()
 		nanomanager.update_uis(src)
 	else
 		. = ..()

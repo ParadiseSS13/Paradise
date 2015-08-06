@@ -235,6 +235,9 @@
 	return
 	
 /obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	if(!air_contents) // I'm totally blaming Pete for you Donkie, because this is really shitty
+		return
+		
 	var/data[0]
 	
 	var/pressure = 100 * air_contents.return_pressure() / (SEND_PRESSURE)
@@ -741,6 +744,9 @@
 
 	proc/expel(var/obj/structure/disposalholder/H, var/turf/T, var/direction)
 
+		if(!T)
+			return
+			
 		var/turf/target
 
 		if(T.density)		// dense ouput turf, so stop holder

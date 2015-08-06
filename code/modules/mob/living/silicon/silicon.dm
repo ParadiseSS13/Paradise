@@ -8,8 +8,7 @@
 	var/list/alarms_to_clear = list()
 	var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_handlers = list() // List of alarm handlers this silicon is registered to
 	var/designation = ""
 	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
@@ -33,7 +32,7 @@
 	init_subsystems()
 	
 /mob/living/silicon/Destroy()
-	for(var/datum/alarm_handler/AH in alarm_manager.all_handlers)
+	for(var/datum/alarm_handler/AH in alarm_handlers)
 		AH.unregister(src)
 	return ..()
 
