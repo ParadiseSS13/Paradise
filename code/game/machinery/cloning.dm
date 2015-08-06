@@ -256,6 +256,8 @@
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
 		ticker.mode.update_vampire_icons_added(H.mind)
+ 	if(("\ref[H.mind]" in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
+ 		ticker.mode.update_shadow_icons_added(H.mind)
 
 	// -- End mode specific stuff
 

@@ -50,7 +50,7 @@
 								 "<span class='warning'><b>You fumble and tear out [target]'s tumor!</span>")
 			ticker.mode.remove_thrall(target.mind,1)
 		else
-			user.visible_message("<span class='warning'>[user] screws up!</span>")
+			user.visible_message("<span class='warning'>[user]'s hand slips and fumbles! Luckily, they didn't damage anything!</span>")
 
 //////////////////////////////////////////////////////////////////
 //					ALIEN EMBRYO SURGERY						//
