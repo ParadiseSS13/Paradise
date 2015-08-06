@@ -20,7 +20,7 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = 0 
+	var/biomass = 0
 	var/speed_coeff
 	var/efficiency
 
@@ -31,7 +31,7 @@
 			set_light(2)
 		else
 			set_light(0)
-		
+
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
 
@@ -48,7 +48,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	update_icon()
-	
+
 /obj/machinery/clonepod/upgraded/New()
 	..()
 	component_parts = list()
@@ -62,7 +62,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	biomass = CLONE_BIOMASS
 	RefreshParts()
-	
+
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
@@ -254,8 +254,10 @@
 		ticker.mode.update_all_cult_icons() //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.thralls) || (H.mind in ticker.mode.enthralled))
+	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
 		ticker.mode.update_vampire_icons_added(H.mind)
+ 	if(("\ref[H.mind]" in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
+ 		ticker.mode.update_shadow_icons_added(H.mind)
 
 	// -- End mode specific stuff
 
@@ -280,7 +282,7 @@
 		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3") */
 
 	H.set_species(R.dna.species)
-	
+
 	update_icon()
 
 	for(var/datum/language/L in R.languages)
@@ -356,7 +358,7 @@
 		if(panel_open)
 			default_deconstruction_crowbar(W)
 		return
-		
+
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (!src.check_access(W))
 			user << "\red Access Denied."
@@ -399,7 +401,7 @@
 		return
 	else
 		..()
-		
+
 /obj/machinery/clonepod/emag_act(user as mob)
 	if (isnull(src.occupant))
 		return
@@ -466,7 +468,7 @@
 		spawn(5)
 			qdel(src.occupant)
 	return
-	
+
 /obj/machinery/clonepod/update_icon()
 	..()
 	icon_state = "pod_0"

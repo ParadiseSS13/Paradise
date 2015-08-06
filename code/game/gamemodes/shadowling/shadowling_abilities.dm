@@ -240,8 +240,8 @@
 
 /obj/effect/proc_holder/spell/wizard/targeted/enthrall/cast(list/targets)
 	var/mob/living/carbon/human/user = usr
-	listclearnulls(ticker.mode.thralls)
-	if(ticker.mode.thralls.len >= 5 && (!istype(user.species, /datum/species/shadow/ling)))
+	listclearnulls(ticker.mode.shadowling_thralls)
+	if(ticker.mode.shadowling_thralls.len >= 5 && (!istype(user.species, /datum/species/shadow/ling)))
 		user << "<span class='warning'>With your telepathic abilities suppressed, your human form will not allow you to enthrall any others. Hatch first.</span>"
 		charge_counter = charge_max
 		return

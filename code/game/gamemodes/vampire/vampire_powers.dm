@@ -305,7 +305,7 @@
 	if(!C.mind)
 		src << "\red [C.name]'s mind is not there for you to enthrall."
 		return 0
-	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.enthralled ))
+	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
 		C.visible_message("\red [C] seems to resist the takeover!", "\blue You feel a familiar sensation in your skull that quickly dissipates.")
 		return 0
 	if(!C.vampire_affected(mind))
@@ -320,12 +320,12 @@
 		src << "<b>\red SOMETHING WENT WRONG, YELL AT POMF OR NEXIS</b>"
 		return 0
 	var/ref = "\ref[src.mind]"
-	if(!(ref in ticker.mode.thralls))
-		ticker.mode.thralls[ref] = list(H.mind)
+	if(!(ref in ticker.mode.vampire_thralls))
+		ticker.mode.vampire_thralls[ref] = list(H.mind)
 	else
-		ticker.mode.thralls[ref] += H.mind
-	ticker.mode.enthralled.Add(H.mind)
-	ticker.mode.enthralled[H.mind] = src.mind
+		ticker.mode.vampire_thralls[ref] += H.mind
+	ticker.mode.vampire_enthralled.Add(H.mind)
+	ticker.mode.vampire_enthralled[H.mind] = src.mind
 	H.mind.special_role = "VampThrall"
 	H << "<b>\red You have been Enthralled by [name]. Follow their every command.</b>"
 	src << "\red You have successfully Enthralled [H.name]. <i>If they refuse to do as you say just adminhelp.</i>"
