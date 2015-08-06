@@ -1,24 +1,19 @@
 
-/datum/event/spawn_slaughter//Paradise port:Changed from round_event to event, i was getting errors
+/datum/event/spawn_slaughter
 	var/key_of_slaughter
 
 
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
-	var/time_passed = world.time
 	key_of_slaughter = null
-	if(!key_of_slaughter)//Paradise port change:I added in the whole do you want to be this question
+	if(!key_of_slaughter)
 		var/list/candidates = get_candidates(BE_ALIEN)
 		if(!candidates.len)
 			if(end_if_fail)
 				return 0
 			return find_slaughter()
 		var/client/C = pick(candidates)
-		var/input = alert(C,"Do you want to spawn in as a Slaughter Demon?","Please answer in thirty seconds!","Yes","No")
-		if(input == "Yes")
-			if((world.time-time_passed)>300)
-				return
-			key_of_slaughter = C.key
+		key_of_slaughter = C.key
 	if(!key_of_slaughter)
 		if(end_if_fail)
 			return 0

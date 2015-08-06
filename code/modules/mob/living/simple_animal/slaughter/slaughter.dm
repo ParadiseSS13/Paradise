@@ -47,7 +47,7 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 	var/vialspawned = FALSE
-	var/playstyle_string = "<B>You are the Slaughter Demon, a terible creature from another existence. You have a single desire: To kill.  \
+	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: To kill.  \
 						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
@@ -57,7 +57,6 @@
 	..()
 	spawn()
 		if(src.mind)
-			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/bloodPull
 			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 			src << src.playstyle_string
 			src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
@@ -81,8 +80,8 @@
 	else
 		speed = 0
 
-/mob/living/simple_animal/slaughter/death()
-	..(1)
+/mob/living/simple_animal/slaughter/Die()
+	..()
 	new /obj/effect/decal/cleanable/blood (src.loc)
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	new /obj/effect/gibspawner/generic(get_turf(src))
@@ -123,77 +122,6 @@
 			return
 		usr << "<span class='info'><b>You whisper to [M]:</b> [msg]</span>"
 		M << "<span class='deadsay'><b>Suddenly a strange,demonic,voice resonates in your head...</b></span><i><span class='danger'> [msg]</span></I>"
-
-
-/mob/living/simple_animal/slaughter/proc/bloodPull()
-	set name = "Exsanguinate"
-	set desc = "Cuase blood to be torn out of mortals to help acess the plane.."
-	set category = "Daemon"
-
-	for(var/mob/living/carbon/human/H in view(10,(src.holder || src.loc)))
-		nearby_mortals.Add(H)
-
-	if (cooldown == 0 || world.time - cooldown > 1800)
-		for(var/mob/living/carbon/human/H in view(7,(src.holder || src.loc)))
-			nearby_mortals.Add(H)
-		//var/mob/living/carbon/human/M = pop(nearby_mortals)
-		if(nearby_mortals.len)
-			playsound(src.loc, pick('sound/effects/ghost.ogg','sound/effects/ghost2.ogg'), 50, 1, -3)
-			var/datum/artifact_effect/paranoia = new /datum/artifact_effect/badfeeling
-
-			for (var/mob/living/carbon/human/portal in nearby_mortals)
-				if(prob(25))
-					paranoia.DoEffectPulse()
-				var/targetPart = pick("chest","groin","head","l_arm","r_arm","r_leg","l_leg","l_hand","r_hand","l_foot","r_foot")
-				portal.apply_damage(rand(5, 10), BRUTE, targetPart)
-				portal << "<span class='notice'>\The skin on your [parse_zone(targetPart)] feels like it's ripping apart, and a stream of blood flies out.</span>"
-				var/obj/effect/decal/cleanable/blood/splatter/animated/aniBlood = new(portal.loc)
-				aniBlood.target_turf = pick(range(1, src))
-				aniBlood.blood_DNA = list()
-				aniBlood.blood_DNA[portal.dna.unique_enzymes] = portal.dna.b_type
-				portal.vessel.remove_reagent("blood",rand(25,50))
-			cooldown = world.time
-	else
-		usr << "<span class='info'>You cannot Exsanguinate mortals yet!</span>"
-
-/mob/living/simple_animal/slaughter/proc/goreThrow(mob/target as mob in oview())
-	set name = "Gore Throw"
-	set desc = "Launch blood at some poor unsuspecting person..."
-	set category = "Daemon"
-
-	if (!(src.notransform))
-		if (gorecooldown == 0 || world.time - gorecooldown > 600)
-			var/obj/effect/decal/cleanable/blood/gibs/gore = new(src.loc)
-			gore.throw_at(target,10,5,src)
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				//src << "[target]"//debug
-				src.visible_message("<span class='warning'>[src] throws gore at [target]!</span>")
-				H.bloody_body(target)
-				H.bloody_hands(target)
-			gorecooldown = world.time
-
-		else
-			usr << "<span class='info'>You need more time to do that again!</span>"
-	else
-		usr << "<span class='info'> you can only do that from the material plane!</span>"
-
-
-//inverse of gore throw, can only use while phased OUT
-/mob/living/simple_animal/slaughter/proc/bloodSac()
-	set name = "Blood Pustile"
-	set desc = "Summon a blood filled that expels blood."
-	set category = "Daemon"
-	if (src.notransform)
-		if (gorecooldown == 0 || world.time - gorecooldown > 1200)
-
-			new /obj/effect/bloodnode(src.holder)
-			gorecooldown = world.time
-
-		else
-			usr << "<span class='info'>You need more time to do that again!</span>"
-	else
-		usr << "<span class='info'> you can only do that from outside the material plane!</span>"
 
 //////////The Loot
 
