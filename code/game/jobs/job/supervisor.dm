@@ -197,7 +197,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id
 	req_admin_notify = 1
-	minimal_player_age = 21
+	minimal_player_age = 30
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
 			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
 			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
@@ -208,7 +208,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/heads/magistrate(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset/heads/magistrate/alt(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
@@ -220,6 +220,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/head/powdered_wig(H), slot_head)
 		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/device/pda/heads/magistrate(H), slot_wear_pda)
+		H.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -240,11 +242,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	alt_titles = list("Lawyer","Public Defender")
-	minimal_player_age = 21
+	minimal_player_age = 30
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/device/radio/headset/headset_sec/alt(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
@@ -252,10 +254,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/internalaffairs(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/internalaffairs(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/brown(H), slot_shoes)
-		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/big(H), slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/device/pda/lawyer(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 		H.equip_or_collect(new /obj/item/device/laser_pointer(H), slot_l_store)
+		H.equip_or_collect(new /obj/item/device/flash(H), slot_r_store)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
