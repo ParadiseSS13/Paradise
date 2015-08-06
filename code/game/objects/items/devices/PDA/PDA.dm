@@ -31,7 +31,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/tnote[0]  //Current Texts
 	var/last_text //No text spamming
 	var/last_honk //Also no honk spamming that's bad too
+
 	var/ttone = "beep" //The ringtone!
+	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"slip" = 'sound/misc/slip.ogg',
+								"honk" = 'sound/items/bikehorn.ogg',
+								"SKREE" = 'sound/voice/shriek1.ogg',
+								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg')
+
 	var/lock_code = "" // Lockcode to unlock uplink
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
@@ -500,7 +509,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 
 	data["manifest"] = list("__json_cache" = ManifestJSON)
-	
+
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
@@ -828,8 +837,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		nanomanager.update_uis(src)
 		usr << "<span class='notice'>You press the reset button on \the [src].</span>"
 	else
-		usr << "<span class='notice'>You cannot do this while restrained.</span>"	
-	
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+
 /obj/item/device/pda/proc/remove_id()
 	if (id)
 		if (ismob(loc))
@@ -913,7 +922,11 @@ var/global/list/obj/item/device/pda/PDAs = list()
 */
 
 		if (!P.silent)
-			playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
+			var/sound/S = sound('sound/machines/twobeep.ogg')
+
+			if(P.ttone in ttone_sound)
+				S = ttone_sound[P.ttone]
+			playsound(P.loc, S, 50, 1)
 		for (var/mob/O in hearers(3, P.loc))
 			if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
 		//Search for holder of the PDA.
