@@ -106,6 +106,12 @@
 	Radio.follow_target = src
 
 
+/obj/machinery/bot/Destroy()
+	aibots -= src
+	qdel(Radio)
+	qdel(botcard)
+	return ..()
+
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
 	spawn(20)
 		if(radio_controller)
@@ -114,7 +120,6 @@
 				radio_controller.add_object(src, control_freq, bot_filter)
 
 /obj/machinery/bot/proc/explode()
-	aibots -= src
 	qdel(src)
 
 /obj/machinery/bot/proc/healthcheck()
