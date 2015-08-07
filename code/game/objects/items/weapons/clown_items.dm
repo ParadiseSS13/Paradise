@@ -89,7 +89,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
-	hitsound = 'sound/items/bikehorn.ogg'
+	hitsound = null
 	throwforce = 3
 	w_class = 1.0
 	throw_speed = 3
@@ -97,12 +97,26 @@
 	attack_verb = list("HONKED")
 	var/spam_flag = 0
 	var/honk_sound = 'sound/items/bikehorn.ogg'
+	var/cooldowntime = 20
 
-/obj/item/weapon/bikehorn/attack_self(mob/user as mob)
-	if (spam_flag == 0)
+/obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!spam_flag)
+		playsound(loc, honk_sound, 50, 1, -1) //plays instead of tap.ogg!
+	return ..()
+
+/obj/item/weapon/bikehorn/attack_self(mob/user)
+	if(!spam_flag)
 		spam_flag = 1
 		playsound(src.loc, honk_sound, 50, 1)
 		src.add_fingerprint(user)
-		spawn(20)
+		spawn(cooldowntime)
 			spam_flag = 0
 	return
+
+
+/obj/item/weapon/bikehorn/airhorn
+	name = "air horn"
+	desc = "Damn son, where'd you find this?"
+	icon_state = "air_horn"
+	honk_sound = 'sound/items/AirHorn2.ogg'
+	cooldowntime = 50
