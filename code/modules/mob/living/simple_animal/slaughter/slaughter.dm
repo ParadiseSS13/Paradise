@@ -176,8 +176,8 @@
 	if(target && target.current)
 		targetname = target.current.real_name
 	var/list/explanationTexts = list("Attempt to make your presence unknown to the crew.", \
-									 "Kill or Dystroy all Janitors or Sanitation bots.", \
-									 "Drive [targetname] insane."
+									 "Kill or Destroy all Janitors or Sanitation bots.", \
+									 "Drive [targetname] insane with demonic whispering."
 									 )
 
 	explanation_text = pick(explanationTexts)
