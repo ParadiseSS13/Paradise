@@ -1,6 +1,3 @@
-var/global/list/object_profiling = list()
-/datum/controller/process/obj
-
 /datum/controller/process/obj/setup()
 	name = "obj"
 	schedule_interval = 20 // every 2 seconds
@@ -16,13 +13,16 @@ var/global/list/object_profiling = list()
 	stat(null, "[processing_objects.len] objects")
 
 /datum/controller/process/obj/doWork()
-	for(var/obj/O in processing_objects)
+	for(last_object in processing_objects)
+		var/datum/O = last_object
 		if(istype(O) && isnull(O.gcDestroyed))
 			try
-				O.process()
+				// Reagent datums get shoved in here, but the process proc isn't on the
+				//  base datum type, so we just call it blindly.
+				O:process()
 			catch(var/exception/e)
 				catchException(e, O)
-			// Use src explicitly after a try/catch, or BYOND messes src up. I have no idea why.
-			src.scheck()
+			SCHECK
 		else
+			catchBadType(O)
 			processing_objects -= O

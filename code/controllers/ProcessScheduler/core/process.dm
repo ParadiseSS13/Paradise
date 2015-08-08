@@ -48,7 +48,7 @@
 	// This controls how often the process will yield (call sleep(0)) while it is running.
 	// Every concurrent process should sleep periodically while running in order to allow other
 	// processes to execute concurrently.
-	var/tmp/sleep_interval = PROCESS_DEFAULT_SLEEP_INTERVAL
+	var/tmp/sleep_interval
 
 	// hang_warning_time - this is the time (in 1/10 seconds) after which the server will begin to show "maybe hung" in the context window
 	var/tmp/hang_warning_time = PROCESS_DEFAULT_HANG_WARNING_TIME
@@ -59,20 +59,20 @@
 	// hang_restart_time - After this much time(in 1/10 seconds), the server will automatically kill and restart the process.
 	var/tmp/hang_restart_time = PROCESS_DEFAULT_HANG_RESTART_TIME
 
-	// cpu_threshold - if world.cpu >= cpu_threshold, scheck() will call sleep(1) to defer further work until the next tick. This keeps a process from driving a tick into overtime (causing perceptible lag)
-	var/tmp/cpu_threshold = PROCESS_DEFAULT_CPU_THRESHOLD
-
 	// How many times in the current run has the process deferred work till the next tick?
 	var/tmp/cpu_defer_count = 0
+
+	// How many SCHECKs have been skipped (to limit btime calls)
+	var/tmp/calls_since_last_scheck = 0
 
 	/**
 	 * recordkeeping vars
 	 */
 
-	// Records the time (server ticks) at which the process last finished sleeping
+	// Records the time (1/10s timeofday) at which the process last finished sleeping
 	var/tmp/last_slept = 0
 
-	// Records the time (s-ticks) at which the process last began running
+	// Records the time (1/10s timeofday) at which the process last began running
 	var/tmp/run_start = 0
 
 	// Records the number of times this process has been killed and restarted
@@ -98,7 +98,7 @@
 	idle()
 	name = "process"
 	schedule_interval = 50
-	sleep_interval = 2
+	sleep_interval = world.tick_lag / PROCESS_DEFAULT_SLEEP_INTERVAL
 	last_slept = 0
 	run_start = 0
 	ticks = 0
@@ -106,11 +106,12 @@
 	last_object = null
 
 /datum/controller/process/proc/started()
+	var/timeofhour = TimeOfHour
 	// Initialize last_slept so we can know when to sleep
-	last_slept = world.timeofday
+	last_slept = timeofhour
 
 	// Initialize run_start so we can detect hung processes.
-	run_start = world.timeofday
+	run_start = timeofhour
 
 	// Initialize defer count
 	cpu_defer_count = 0
@@ -162,16 +163,16 @@
 	setStatus(PROCESS_STATUS_HUNG)
 
 /datum/controller/process/proc/handleHung()
+	var/timeofhour = TimeOfHour
 	var/datum/lastObj = last_object
 	var/lastObjType = "null"
 	if(istype(lastObj))
 		lastObjType = lastObj.type
 
-	// If world.timeofday has rolled over, then we need to adjust.
-	if (world.timeofday < run_start)
-		run_start -= 864000
-
-	var/msg = "[name] process hung at tick #[ticks]. Process was unresponsive for [(world.timeofday - run_start) / 10] seconds and was restarted. Last task: [last_task]. Last Object Type: [lastObjType]"
+	// If timeofhour has rolled over, then we need to adjust.
+	if (timeofhour < run_start)
+		run_start -= 36000
+	var/msg = "[name] process hung at tick #[ticks]. Process was unresponsive for [(timeofhour - run_start) / 10] seconds and was restarted. Last task: [last_task]. Last Object Type: [lastObjType]"
 	logTheThing("debug", null, null, msg)
 	logTheThing("diary", null, null, msg, "debug")
 	message_admins(msg)
@@ -188,33 +189,36 @@
 		// Allow inheritors to clean up if needed
 		onKill()
 
-		killed = TRUE
-
 		// This should del
 		del(src)
 
-/datum/controller/process/proc/scheck(var/tickId = 0)
+// Do not call this directly - use SHECK or SCHECK_EVERY
+/datum/controller/process/proc/sleepCheck(var/tickId = 0)
+	calls_since_last_scheck = 0
 	if (killed)
 		// The kill proc is the only place where killed is set.
 		// The kill proc should have deleted this datum, and all sleeping procs that are
 		// owned by it.
 		CRASH("A killed process is still running somehow...")
+	if (hung)
+		// This will only really help if the doWork proc ends up in an infinite loop.
+		handleHung()
+		CRASH("Process [name] hung and was restarted.")
 
-	// For each tick the process defers, it increments the cpu_defer_count so we don't
-	// defer indefinitely
-	if (world.cpu >= (cpu_threshold + cpu_defer_count * world.tick_lag * 10))
-		sleep(world.tick_lag)
+	if (main.getCurrentTickElapsedTime() > main.timeAllowance)
+		sleep(world.tick_lag*1)
 		cpu_defer_count++
-		last_slept = world.timeofday
+		last_slept = TimeOfHour
 	else
-		// If world.timeofday has rolled over, then we need to adjust.
-		if (world.timeofday < last_slept)
-			last_slept -= 864000
+		var/timeofhour = TimeOfHour
+		// If timeofhour has rolled over, then we need to adjust.
+		if (timeofhour < last_slept)
+			last_slept -= 36000
 
-		if (world.timeofday > last_slept + sleep_interval)
-			// If we haven't slept in sleep_interval ticks, sleep to allow other work to proceed.
+		if (timeofhour > last_slept + sleep_interval)
+			// If we haven't slept in sleep_interval deciseconds, sleep to allow other work to proceed.
 			sleep(0)
-			last_slept = world.timeofday
+			last_slept = TimeOfHour
 
 /datum/controller/process/proc/update()
 	// Clear delta
@@ -223,17 +227,22 @@
 
 	var/elapsedTime = getElapsedTime()
 
-	if (elapsedTime > hang_restart_time)
+	if (hung)
+		handleHung()
+		return
+	else if (elapsedTime > hang_restart_time)
 		hung()
 	else if (elapsedTime > hang_alert_time)
 		setStatus(PROCESS_STATUS_PROBABLY_HUNG)
 	else if (elapsedTime > hang_warning_time)
 		setStatus(PROCESS_STATUS_MAYBE_HUNG)
 
+
 /datum/controller/process/proc/getElapsedTime()
-	if (world.timeofday < run_start)
-		return world.timeofday - (run_start - 864000)
-	return world.timeofday - run_start
+	var/timeofhour = TimeOfHour
+	if (timeofhour < run_start)
+		return timeofhour - (run_start - 36000)
+	return timeofhour - run_start
 
 /datum/controller/process/proc/tickDetail()
 	return
@@ -316,6 +325,8 @@
 /datum/controller/process/proc/enable()
 	disabled = 0
 
+/datum/controller/process/proc/getAverageRunTime()
+	return main.averageRunTime(src)
 /datum/controller/process/proc/getLastRunTime()
 	return main.getProcessLastRunTime(src)
 
@@ -326,7 +337,10 @@
 	return ticks
 
 /datum/controller/process/proc/statProcess()
-	stat("[name]", "T#[getTicks()]|LR [getLastRunTime()]|HR [getHighestRunTime()]|D [cpu_defer_count]")
+	var/averageRunTime = round(getAverageRunTime(), 0.1)/10
+	var/lastRunTime = round(getLastRunTime(), 0.1)/10
+	var/highestRunTime = round(getHighestRunTime(), 0.1)/10
+	stat("[name]", "T#[getTicks()]|AR [averageRunTime]|LR [lastRunTime]|HR [highestRunTime]|D [cpu_defer_count]")
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
 	var/etext = "[e]"
@@ -351,3 +365,8 @@
 		world.log << "This exception will now be ignored for ten minutes."
 		spawn(6000)
 			exceptions[eid] = 0
+
+/datum/controller/process/proc/catchBadType(var/datum/caught)
+	if(isnull(caught) || !istype(caught) || !isnull(caught.gcDestroyed))
+		return // Only bother with types we can identify and that don't belong
+	catchException("Type [caught.type] does not belong in process' queue")

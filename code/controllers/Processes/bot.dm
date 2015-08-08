@@ -1,5 +1,3 @@
-/datum/controller/process/bot
-
 /datum/controller/process/bot/setup()
 	name = "bot"
 	schedule_interval = 20 // every 2 seconds
@@ -14,7 +12,8 @@
 	stat(null, "[aibots && aibots.len] bots")
 
 /datum/controller/process/bot/doWork()
-	for(var/obj/machinery/bot/B in aibots)
+	for(last_object in aibots)
+		var/obj/machinery/bot/B = last_object
 		if(istype(B) && isnull(B.gcDestroyed))
 			// Some bots sleep when they process, but there's not many bots, so just spawn them off
 			spawn(-1)
@@ -22,7 +21,7 @@
 					B.bot_process()
 				catch(var/exception/e)
 					catchException(e, B)
-			// Use src explicitly after a try/catch, or BYOND messes src up. I have no idea why.
-			src.scheck()
+			SCHECK
 		else
+			catchBadType(B)
 			aibots -= B

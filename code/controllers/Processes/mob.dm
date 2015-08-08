@@ -18,15 +18,16 @@
 	stat(null, "[mob_list.len] mobs")
 
 /datum/controller/process/mob/doWork()
-	for(var/mob/M in mob_list)
+	for(last_object in mob_list)
+		var/mob/M = last_object
 		if(istype(M) && isnull(M.gcDestroyed))
 			try
 				M.Life()
 			catch(var/exception/e)
 				catchException(e, M)
-			// Use src explicitly after a try/catch, or BYOND messes src up. I have no idea why.
-			src.scheck()
+			SCHECK
 		else
+			catchBadType(M)
 			mob_list -= M
 	mob_master.process()
 

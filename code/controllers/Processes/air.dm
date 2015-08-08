@@ -54,27 +54,27 @@ var/global/datum/controller/process/air_system/air_master
 	last_hotspots = hotspots.len
 	for(var/obj/effect/hotspot/H in hotspots)
 		H.process()
-		scheck()
+		SCHECK
 
 /datum/controller/process/air_system/proc/process_super_conductivity()
 	last_asc = active_super_conductivity.len
 	for(var/turf/simulated/T in active_super_conductivity)
 		T.super_conduct()
-		scheck()
+		SCHECK
 
 /datum/controller/process/air_system/proc/process_high_pressure_delta()
 	last_hpd = high_pressure_delta.len
 	for(var/turf/T in high_pressure_delta)
 		T.high_pressure_movements()
 		T.pressure_difference = 0
-		scheck()
+		SCHECK
 	high_pressure_delta.Cut()
 
 /datum/controller/process/air_system/proc/process_active_turfs()
 	last_active = active_turfs.len
 	for(var/turf/simulated/T in active_turfs)
 		T.process_cell()
-		scheck()
+		SCHECK
 
 /datum/controller/process/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))
@@ -123,11 +123,11 @@ var/global/datum/controller/process/air_system/air_master
 		EG.breakdown_cooldown ++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
-			scheck()
+			SCHECK
 			return
 		if(EG.breakdown_cooldown > 20)
 			EG.dismantle()
-		scheck()
+		SCHECK
 
 /datum/controller/process/air_system/proc/setup_overlays()
 	plmaster = new /obj/effect/overlay()

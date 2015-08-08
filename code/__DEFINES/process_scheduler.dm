@@ -11,7 +11,9 @@
 #define PROCESS_DEFAULT_HANG_ALERT_TIME 	600 // 60 seconds
 #define PROCESS_DEFAULT_HANG_RESTART_TIME 	900 // 90 seconds
 #define PROCESS_DEFAULT_SCHEDULE_INTERVAL 	50  // 50 ticks
-#define PROCESS_DEFAULT_SLEEP_INTERVAL		2	// 2 ticks
-#define PROCESS_DEFAULT_CPU_THRESHOLD		90  // 90%
+#define PROCESS_DEFAULT_SLEEP_INTERVAL		8	// 1/8th of a tick
 
-//#define UPDATE_QUEUE_DEBUG
+// SCHECK macros
+// This references src directly to work around a weird bug with try/catch
+#define SCHECK_EVERY(this_many_calls) if(++src.calls_since_last_scheck >= this_many_calls) sleepCheck()
+#define SCHECK SCHECK_EVERY(50)

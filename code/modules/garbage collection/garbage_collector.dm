@@ -64,7 +64,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			queue.Cut(1, 2)
 			soft_dels++
 			dels_count++
-		scheck()
+		SCHECK
 
 #ifdef GC_DEBUG
 #undef GC_DEBUG

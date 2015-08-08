@@ -8,14 +8,15 @@
 	stat(null, "[pipe_networks.len] pipe nets")
 
 /datum/controller/process/pipenet/doWork()
-	for(var/datum/pipe_network/pipeNetwork in pipe_networks)
+	for(last_object in pipe_networks)
+		var/datum/pipe_network/pipeNetwork = last_object
 		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
 			try
 				pipeNetwork.process()
 			catch(var/exception/e)
 				catchException(e, pipeNetwork)
-			// Use src explicitly after a try/catch, or BYOND messes src up. I have no idea why.
-			src.scheck()
+			SCHECK
 			continue
 		else
+			catchBadType(pipeNetwork)
 			pipe_networks -= pipeNetwork
