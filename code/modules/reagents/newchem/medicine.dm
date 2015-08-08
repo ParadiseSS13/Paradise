@@ -10,7 +10,7 @@ datum/reagent/silver_sulfadiazine
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
 	color = "#F0C814"
-	metabolization_rate = 2
+	metabolization_rate = 3
 
 datum/reagent/silver_sulfadiazine/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
 	if(iscarbon(M))
@@ -37,7 +37,7 @@ datum/reagent/styptic_powder
 	description = "Styptic (aluminium sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	metabolization_rate = 2
+	metabolization_rate = 3
 
 datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume, var/show_message = 1)
 	if(iscarbon(M))
@@ -55,8 +55,7 @@ datum/reagent/styptic_powder/reaction_mob(var/mob/living/M as mob, var/method=TO
 
 datum/reagent/styptic_powder/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(55))
-		M.adjustBruteLoss(-8*REM)
+	M.adjustBruteLoss(-2*REM)
 	..()
 	return
 
@@ -111,9 +110,10 @@ datum/reagent/charcoal
 datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(-1.5*REM)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,1)
+	if(prob(50))
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(R != src)
+				M.reagents.remove_reagent(R.id,1)
 	..()
 	return
 
@@ -173,6 +173,8 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	M.adjustOxyLoss(-1*REM)
 	M.adjustBruteLoss(-2*REM)
 	M.adjustFireLoss(-2*REM)
+	if(prob(50))
+		M.losebreath -= 1
 	..()
 	return
 
@@ -249,10 +251,11 @@ datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(M.radiation > 0)
 		M.radiation -= 7
-	if(prob(70))
+	if(prob(75))
 		M.adjustToxLoss(-4*REM)
 	if(prob(33))
 		M.adjustBruteLoss(1*REM)
+		M.adjustFireLoss(1*REM)
 	if(M.radiation < 0)
 		M.radiation = 0
 	for(var/datum/reagent/R in M.reagents.reagent_list)
@@ -280,16 +283,15 @@ datum/reagent/sal_acid
 
 datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.getBruteLoss() < 50)
-		if(prob(50))
-			M.adjustBruteLoss(-1*REM)
+	if(prob(55))
+		M.adjustBruteLoss(-2*REM)
 	..()
 	return
 
 datum/reagent/sal_acid/overdose_process(var/mob/living/M as mob)
-	if(M.getBruteLoss() < 50)
-		if(prob(50))
-			M.adjustBruteLoss(2*REM)
+	if(volume > 25)
+		if(prob(8))
+			M.adjustToxLoss(rand(1,2))
 	..()
 	return
 
@@ -786,6 +788,8 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	M.slurring = 0
 	M.confused = 0
 	M.reagents.remove_reagent("ethanol", 8)
+	if(M.health < 25)
+		M.adjustToxLoss(-2.0)
 	..()
 
 /datum/chemical_reaction/antihol
