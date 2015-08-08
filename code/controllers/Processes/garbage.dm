@@ -1,6 +1,7 @@
 /datum/controller/process/garbage_collector/setup()
 	name = "garbage"
-	schedule_interval = 20 // every 2 seconds
+	schedule_interval = 10
+	start_delay = 3
 
 	garbageCollector = src
 

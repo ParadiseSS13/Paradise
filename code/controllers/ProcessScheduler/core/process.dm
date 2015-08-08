@@ -206,7 +206,7 @@
 		CRASH("Process [name] hung and was restarted.")
 
 	if (main.getCurrentTickElapsedTime() > main.timeAllowance)
-		sleep(world.tick_lag*1)
+		sleep(world.tick_lag)
 		cpu_defer_count++
 		last_slept = TimeOfHour
 	else

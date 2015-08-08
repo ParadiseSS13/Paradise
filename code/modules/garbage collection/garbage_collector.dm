@@ -2,9 +2,9 @@
 
 // For general information about how the GC works and how to use it, see __gc_info.dm
 
-#define GC_COLLECTIONS_PER_TICK 300 // Was 100.
+#define GC_COLLECTIONS_PER_TICK 150 // Was 100.
 #define GC_COLLECTION_TIMEOUT (30 SECONDS)
-#define GC_FORCE_DEL_PER_TICK 60
+#define GC_FORCE_DEL_PER_TICK 30
 //#define GC_DEBUG
 
 // A list of types that were queued in the GC, and had to be soft deleted; used in testing
@@ -60,6 +60,8 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 			queue.Cut(1, 2)
 
 			remainingForceDelPerTick--
+			// Sleep check more aggressively when force deleting.
+			calls_since_last_scheck += 9
 		else // Otherwise, it was GC'd - remove it from the queue
 			queue.Cut(1, 2)
 			soft_dels++
