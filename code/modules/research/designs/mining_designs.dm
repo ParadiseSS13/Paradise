@@ -52,7 +52,7 @@
 	materials = list("$metal" = 3000, "$glass" = 1000, "$plasma" = 2000, "$gold" = 500)
 	reliability_base = 79
 	build_path = /obj/item/weapon/gun/energy/plasmacutter/adv
-	category = list("Mining Designs")
+	category = list("Mining")
 
 /datum/design/jackhammer
 	name = "Sonic Jackhammer"
@@ -62,4 +62,4 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 8000, "$glass" = 1500, "$silver" = 2000, "$diamond" = 6000)
 	build_path = /obj/item/weapon/pickaxe/drill/jackhammer
-	category = list("Mining Designs")
+	category = list("Mining")
