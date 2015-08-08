@@ -116,10 +116,10 @@
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	if(src.mind)
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/revenant_harvest
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/revenant_transmit
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/revenant_light
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/revenantDefile
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/revenant_harvest
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/revenant_transmit
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/revenant_light
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/revenantDefile
 		return 1
 	return 0
 

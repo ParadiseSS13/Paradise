@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/charge
+/obj/effect/proc_holder/spell/targeted/charge
 	name = "Charge"
 	desc = "This spell can be used to charge up spent magical artifacts, among other things."
 
@@ -12,7 +12,7 @@
 	include_user = 1
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/charge/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/charge/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/list/hand_items = list(user.get_active_hand(),user.get_inactive_hand())
 		var/charged_item = null
@@ -23,7 +23,7 @@
 				if(G.affecting)
 					var/mob/M = G.affecting
 					if(M.spell_list.len != 0)
-						for(var/obj/effect/proc_holder/spell/wizard/S in M.spell_list)
+						for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 							S.charge_counter = S.charge_max
 						M <<"<span class='notice'>you feel raw magic flowing through you, it feels good!</span>"
 					else

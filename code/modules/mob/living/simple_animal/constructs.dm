@@ -153,7 +153,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 
 /mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
@@ -227,7 +227,7 @@
 	attacktext = "slashes"
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 
 
 
@@ -251,11 +251,11 @@
 	attacktext = "rams"
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
 
 
 /////////////////////////////Behemoth/////////////////////////
@@ -322,7 +322,7 @@
 	environment_smash = 1
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/tap.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/smoke/disable)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
 
 /mob/living/simple_animal/construct/harvester/Process_Spacemove(var/check_drift = 0)
 	return 1

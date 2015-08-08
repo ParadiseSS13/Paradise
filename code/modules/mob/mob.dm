@@ -916,10 +916,10 @@ var/list/slot_equipment_priority = list( \
 		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
 	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
+		for(var/obj/effect/proc_holder/spell/S in spell_list)
 			add_spell_to_statpanel(S)
 	if(mind && istype(src, /mob/living) && mind.spell_list && mind.spell_list.len)
-		for(var/obj/effect/proc_holder/spell/wizard/S in mind.spell_list)
+		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
 
@@ -1005,7 +1005,7 @@ var/list/slot_equipment_priority = list( \
 	for(var/obj/effect/proc_holder/changeling/S in stings)
 		if(S.chemical_cost >=0 && S.can_be_used_by(src))
 			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
-/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/wizard/S)
+/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
 			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)

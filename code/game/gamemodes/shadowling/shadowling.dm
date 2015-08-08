@@ -133,8 +133,8 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch)
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/enthrall)
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch)
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -152,9 +152,9 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/lesser_glare)
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/lesser_shadow_walk)
-		//new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/thrall_vision) //Uncomment when vision code is unfucked.
+		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
+		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+		//new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
 		new_thrall_mind.current << "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		new_thrall_mind.current << "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
@@ -172,8 +172,8 @@ Made by Xhuis
 	thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Dethralled</span>"
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
-	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_glare)
-	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/wizard/targeted/lesser_shadow_walk)
+	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
+	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 	//thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/thrall_vision) //uncomment when vision code is unfucked.
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them

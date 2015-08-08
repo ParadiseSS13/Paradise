@@ -296,13 +296,13 @@
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
 	instability=5
 
-	spelltype=/obj/effect/proc_holder/spell/wizard/targeted/immolate
+	spelltype=/obj/effect/proc_holder/spell/targeted/immolate
 
 	New()
 		..()
 		block = IMMOLATEBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/immolate
+/obj/effect/proc_holder/spell/targeted/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
@@ -320,7 +320,7 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/wizard/targeted/immolate/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets)
 
 /*	if(!targets.len) Uncomment this to allow the power to be used on targets other than yourself. That said, if you uncomment this I will find you and hurt you. Uncounterable and untracable burn damage with a 60-second cooldown is fun for exactly one person, and that's the person who is using it.
 		usr << "<span class='notice'>No target found in range.</span>"

@@ -1,6 +1,6 @@
 //In here: Hatch and Ascendance
 var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "Noaey'gief", "Mii`mahza", "Amerziox", "Gyrg-mylin", "Kanet'pruunance")
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch
+/obj/effect/proc_holder/spell/targeted/shadowling_hatch
 	name = "Hatch"
 	desc = "Casts off your disguise."
 	panel = "Shadowling Evolution"
@@ -10,7 +10,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	include_user = 1
 	action_icon_state = "hatch"
 
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_hatch/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets)
 	if(usr.stat || !ishuman(usr) || !usr)
 		return
 	for(var/mob/living/carbon/human/H in targets)
@@ -90,15 +90,15 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 
 				sleep(10)
 				H << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend)
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/glare)
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/veil)
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadow_walk)
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/flashfreeze)
-				H.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/collective_mind)
+				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
+				H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil)
+				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk)
+				H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze)
+				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind)
 				H.mind.remove_spell(src)
 
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend
 	name = "Ascend"
 	desc = "Enters your true form."
 	panel = "Shadowling Evolution"
@@ -108,7 +108,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	include_user = 1
 	action_icon_state = "ascend"
 
-/obj/effect/proc_holder/spell/wizard/targeted/shadowling_ascend/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/shadowling_ascend/cast(list/targets)
 	if(usr.stat || !ishuman(usr) || !usr)
 		return
 	for(var/mob/living/carbon/human/H in targets)
@@ -157,11 +157,11 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.mind.transfer_to(A)
 				A.name = H.real_name
 				A.languages = H.languages
-				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/annihilate)
-				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/hypnosis)
-				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowling_phase_shift)
-				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/ascendant_storm)
-				A.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/shadowlingAscendantTransmit)
+				A.AddSpell(new /obj/effect/proc_holder/spell/targeted/annihilate)
+				A.AddSpell(new /obj/effect/proc_holder/spell/targeted/hypnosis)
+				A.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_phase_shift)
+				A.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/ascendant_storm)
+				A.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit)
 				if(A.real_name)
 					A.real_name = H.real_name
 				H.invisibility = 60 //This is pretty bad, but is also necessary for the shuttle call to function properly

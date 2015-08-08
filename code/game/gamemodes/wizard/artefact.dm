@@ -59,21 +59,21 @@
 				M << "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals."
 				switch(href_list["school"])
 					if("destruction")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/dumbfire/fireball(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball."
 					if("bluespace")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/area_teleport/teleport(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt."
 					if("healing")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/charge(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall(M))
 						M.equip_to_slot_or_del(new /obj/item/weapon/gun/magic/staff/healing(M), slot_r_hand)
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall."
 					if("robeless")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/knock(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/mind_transfer(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap."
 
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
