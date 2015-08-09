@@ -45,9 +45,6 @@ var/global/list/minor_air_alarms = list()
 		ui.set_auto_update(1)
 
 /obj/machinery/computer/atmos_alert/update_icon()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
 	var/list/alarms = atmosphere_alarm.major_alarms()
 	if(alarms.len)
 		icon_screen = "alert:2"
@@ -57,7 +54,7 @@ var/global/list/minor_air_alarms = list()
 			icon_screen = "alert:1"
 		else
 			icon_screen = "alert:0"
-	return
+	..()
 
 /obj/machinery/computer/atmos_alert/Topic(href, href_list)
 	if(..())
