@@ -315,7 +315,7 @@
 				return
 			usr.visible_message("\red [usr] [pick("chomps","bites")] off [the_item]'s [limb]!")
 			playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_BLUNT)
+			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_EDGE)
 			if(limb_obj)
 				var/obj/item/organ/external/chest=usr:get_organ("chest")
 				chest.implants += limb_obj

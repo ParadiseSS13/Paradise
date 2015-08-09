@@ -325,7 +325,7 @@
 				if(ishuman(mob))
 					for (var/obj/item/organ/external/E in H.organs)
 						if(pick(1,0))
-							E.droplimb(0,DROPLIMB_BLUNT)
+							E.droplimb(0,DROPLIMB_EDGE)
 			if(3)
 				if(ishuman(mob))
 					if(H.species.name != "Skellington")
