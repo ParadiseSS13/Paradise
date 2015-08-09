@@ -68,7 +68,7 @@
 		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
-	if(locked && !(isrobot(user) || isAI(user)))
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
 		user << "<span class='notice'>Access denied.</span>"
 		return 1
 
@@ -106,6 +106,9 @@
 	if(isLocked(user))
 		return
 
+	ui_interact(user)
+	
+/obj/machinery/turretid/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)

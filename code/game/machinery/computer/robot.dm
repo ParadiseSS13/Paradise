@@ -55,11 +55,11 @@
 		if(!target || !istype(target))
 			return
 		if(isAI(user) && (target.connected_ai != user))
-			user << "Access Denied. This robot is not linked to you."
+			user << "<span class='warning'>Access Denied. This robot is not linked to you.</span>"
 			return
 		// Cyborgs may blow up themselves via the console
 		if(isrobot(user) && user != target)
-			user << "Access Denied."
+			user << "<span class='warning'>Access Denied.</span>"
 			return
 		var/choice = input("Really detonate [target.name]?") in list ("Yes", "No")
 		if(choice != "Yes")
@@ -87,11 +87,11 @@
 			return
 
 		if(isAI(user) && (target.connected_ai != user))
-			user << "Access Denied. This robot is not linked to you."
+			user << "<span class='warning'>Access Denied. This robot is not linked to you.</span>"
 			return
 
 		if(isrobot(user))
-			user << "Access Denied."
+			user << "<span class='warning'>Access Denied.</span>"
 			return
 
 		var/choice = input("Really [target.lockcharge ? "unlock" : "lockdown"] [target.name] ?") in list ("Yes", "No")
@@ -119,11 +119,15 @@
 
 		// Antag AI checks
 		if(!istype(user, /mob/living/silicon/ai) || !(user.mind.special_role && user.mind.original == user))
-			user << "Access Denied"
+			user << "<span class='warning'>Access Denied.</span>"
+			return
+			
+		if(target.connected_ai != user)
+			user << "<span class='warning'>Access Denied. This robot is not linked to you.</span>"
 			return
 
 		if(target.emagged)
-			user << "Robot is already hacked."
+			user << "<span class='warning'>Robot is already hacked.</span>"
 			return
 
 		var/choice = input("Really hack [target.name]? This cannot be undone.") in list("Yes", "No")
@@ -141,11 +145,11 @@
 	// Arms the emergency self-destruct system
 	else if(href_list["arm"])
 		if(istype(user, /mob/living/silicon))
-			user << "Access Denied"
+			user << "<span class='warning'>Access Denied.</span>"
 			return
 
 		safety = !safety
-		user << "You [safety ? "disarm" : "arm"] the emergency self destruct"
+		user << "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>"
 
 	// Destroys all accessible cyborgs if safety is disabled
 	else if(href_list["nuke"])

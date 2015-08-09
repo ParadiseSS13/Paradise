@@ -43,14 +43,11 @@
 	alarm_monitor.ui_interact(user)
 
 /obj/machinery/computer/station_alert/update_icon()
-	..()
-	if(stat & (BROKEN|NOPOWER))
-		return
-
 	if(alarm_monitor)
 		var/list/alarms = alarm_monitor.major_alarms()
 		if(alarms.len)
 			icon_screen = "alert:2"
 		else
 			icon_screen = "alert:0"
-		return
+
+	..()

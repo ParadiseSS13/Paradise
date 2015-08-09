@@ -223,6 +223,7 @@
 /obj/machinery/computer/mech_bay_power_console/proc/mecha_out()
 	if(recharge_port)
 		recharge_port.stop_charge()
+		update_icon()
 	return
 
 /obj/machinery/computer/mech_bay_power_console/power_change()
