@@ -21,7 +21,7 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
