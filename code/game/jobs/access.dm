@@ -252,7 +252,13 @@
 
 /proc/get_all_syndicate_access()
 	return list(access_syndicate, access_syndicate_leader, access_vox)
-
+	
+/proc/get_all_misc_access()
+	return list(access_salvage_captain)
+	
+/proc/get_absolutely_all_accesses()
+	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
+		
 /proc/get_region_accesses(var/code)
 	switch(code)
 		if(0)

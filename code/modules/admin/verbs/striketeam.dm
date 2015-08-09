@@ -167,7 +167,7 @@ var/global/sent_strike_team = 0
 
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
-	W.icon_state = "centcom"
+	W.icon_state = "deathsquad"
 	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)
 	W.registered_name = real_name
