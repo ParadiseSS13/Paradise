@@ -208,17 +208,10 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
-		if(!cannot_amputate && config.limbs_can_break && (brute_dam + burn_dam) >= (max_damage * config.organ_health_multiplier))
-			var/dropped
-			if(burn >= 20 && prob(burn / 2))
-				if(body_part == HEAD) return
-				dropped = 1
-				droplimb(0,DROPLIMB_BURN)
-			if(!dropped && prob(brute / 2))
+		if(!cannot_amputate && config.limbs_can_break && (brute_dam) >= (max_damage * config.organ_health_multiplier))
+			if(prob(brute / 2))
 				if(edge)
 					droplimb(0,DROPLIMB_EDGE)
-				else
-					droplimb(0,DROPLIMB_BLUNT)
 
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
