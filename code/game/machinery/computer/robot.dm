@@ -119,11 +119,15 @@
 
 		// Antag AI checks
 		if(!istype(user, /mob/living/silicon/ai) || !(user.mind.special_role && user.mind.original == user))
-			user << "Access Denied"
+			user << "<span class='warning'>Access Denied.</span>"
+			return
+			
+		if(target.connected_ai != user)
+			user << "Access Denied. This robot is not linked to you."
 			return
 
 		if(target.emagged)
-			user << "Robot is already hacked."
+			user << "<span class='warning'>Robot is already hacked.</span>"
 			return
 
 		var/choice = input("Really hack [target.name]? This cannot be undone.") in list("Yes", "No")
