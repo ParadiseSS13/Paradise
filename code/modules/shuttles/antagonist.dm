@@ -16,7 +16,7 @@
 	is_syndicate = 1
 
 /obj/machinery/computer/shuttle_control/multi/syndicate/attack_ai(user as mob)
-	user << "<span class='warning'> Access Denied.</span>"
+	user << "<span class='warning'>Access Denied.</span>"
 	return 1
 	
 /obj/machinery/computer/shuttle_control/multi/xenos
