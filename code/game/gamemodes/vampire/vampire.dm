@@ -62,6 +62,7 @@
 			vampires += vampire
 			vampire.restricted_roles = restricted_jobs
 			modePlayer += vampires
+			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
 		return 1
 	else
 		return 0
@@ -69,7 +70,6 @@
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
 		grant_vampire_powers(vampire.current)
-		vampire.special_role = "Vampire"
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 

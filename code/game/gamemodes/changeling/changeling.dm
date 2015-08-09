@@ -61,6 +61,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
+			changeling.special_role = "Changeling"
 		return 1
 	else
 		return 0
@@ -68,7 +69,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		changeling.special_role = "Changeling"
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
 
