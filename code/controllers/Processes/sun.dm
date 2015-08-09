@@ -44,8 +44,17 @@ var/global/datum/controller/process/sun/sun
 
 //now tell the solar control computers to update their status and linked devices
 /datum/controller/process/sun/proc/update_solar_machinery()
-	for(var/obj/machinery/power/solar_control/SC in solars)
-		if(!SC.powernet)
-			solars.Remove(SC)
-			continue
-		SC.update()
+	for(last_object in solars)
+		var/obj/machinery/power/solar_control/SC = last_object
+		if(istype(SC) && isnull(SC.gcDestroyed))
+			if(!SC.powernet)
+				solars -= SC
+				continue
+			try
+				SC.update()
+			catch(var/exception/e)
+				catchException(e, SC)
+			SCHECK
+		else
+			catchBadType(SC)
+			solars -= SC

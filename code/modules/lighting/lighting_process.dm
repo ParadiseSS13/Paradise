@@ -1,14 +1,10 @@
-var/global/datum/controller/process/lighting/lighting_controller
-
-/datum/controller/process/lighting/setup()
-	name = "lighting"
-	lighting_controller = src
-	schedule_interval = LIGHTING_INTERVAL
-
-	create_lighting_overlays()
+/datum/controller/process/lighting
+	var/last_light_count = 0
+	var/last_overlay_count = 0
 
 /datum/controller/process/lighting/doWork()
-	var/list/lighting_update_lights_old = lighting_update_lights //We use a different list so any additions to the update lists during a delay from scheck() don't cause things to be cut from the list without being updated.
+	var/list/lighting_update_lights_old = lighting_update_lights //We use a different list so any additions to the update lists during a delay from SCHECK don't cause things to be cut from the list without being updated.
+	last_light_count = lighting_update_lights.len
 	lighting_update_lights = null //Nulling it first because of http://www.byond.com/forum/?post=1854520
 	lighting_update_lights = list()
 
@@ -25,9 +21,10 @@ var/global/datum/controller/process/lighting/lighting_controller
 		L.force_update = 0
 		L.needs_update = 0
 
-		scheck()
+		SCHECK
 
 	var/list/lighting_update_overlays_old = lighting_update_overlays //Same as above.
+	last_overlay_count = lighting_update_overlays.len
 	lighting_update_overlays = null //Same as above
 	lighting_update_overlays = list()
 
@@ -35,4 +32,4 @@ var/global/datum/controller/process/lighting/lighting_controller
 		O.update_overlay()
 		O.needs_update = 0
 
-		scheck()
+		SCHECK
