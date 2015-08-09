@@ -53,12 +53,7 @@ FIRE ALARM
 	if(src.detecting)
 		if(temperature > T0C+200)
 			src.alarm()			// added check of detector status here
-	return
-	
-/obj/machinery/alarm/attack_ghost(user as mob)
-	if(stat & (BROKEN|MAINT))
-		return
-	return ui_interact(user)	
+	return	
 
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)

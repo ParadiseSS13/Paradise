@@ -107,6 +107,9 @@
 		return
 
 	ui_interact(user)
+	
+/obj/machinery/turretid/attack_ghost(mob/user as mob)
+	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
 	if(isLocked(user))
