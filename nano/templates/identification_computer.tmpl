@@ -204,13 +204,11 @@
           <div class='item'>
             <h2>Central Command</h2>
           </div>
-          <div class='item' style='width: 100%'>
+          <div class='item'>
             {{for data.all_centcom_access}}
-              <div class='itemContentWide'>
               {{:helper.link(value.desc, '', {'choice' : 'access', 'access_target' : value.ref, 'allowed' : value.allowed}, null, value.allowed ? 'selected' : null)}}
-              </div>
             {{/for}}
-			<div style='float: left; width: 175px; min-height: 250px'>
+			<div class="item">
 			<div class='average'><b>Card Skin</b></div>
 			{{for data.all_centcom_skins}}
 				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
@@ -221,7 +219,7 @@
           <div class='item'>
             <h2>{{:data.station_name}}</h2>
           </div>
-          <div class='item' style='width: 100%'>
+          <div class='item'>
             {{for data.regions}}
               <div style='float: left; width: 175px; min-height: 250px'>
                 <div class='average'><b>{{:value.name}}</b></div>
