@@ -96,107 +96,107 @@
 
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
-	spell_type = /obj/effect/proc_holder/spell/wizard/noclothes
+	spell_type = /obj/effect/proc_holder/spell/noclothes
 	log_name = "NC"
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
-	spell_type = /obj/effect/proc_holder/spell/wizard/dumbfire/fireball
+	spell_type = /obj/effect/proc_holder/spell/dumbfire/fireball
 	log_name = "FB"
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile
+	spell_type = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile
 	log_name = "MM"
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/disintegrate
+	spell_type = /obj/effect/proc_holder/spell/targeted/inflict_handler/disintegrate
 	log_name = "DG"
 
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/emplosion/disable_tech
+	spell_type = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
 	log_name = "DT"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
-	spell_type = /obj/effect/proc_holder/spell/wizard/aoe_turf/repulse
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/repulse
 	log_name = "RP"
 
 /datum/spellbook_entry/smoke
 	name = "Smoke"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/smoke
+	spell_type = /obj/effect/proc_holder/spell/targeted/smoke
 	log_name = "SM"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/targeted/trigger/blind
 	log_name = "BD"
 
 /datum/spellbook_entry/mindswap
 	name = "Mindswap"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/mind_transfer
+	spell_type = /obj/effect/proc_holder/spell/targeted/mind_transfer
 	log_name = "MT"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/forcewall
 	name = "Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	log_name = "FW"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/blink
 	name = "Blink"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/turf_teleport/blink
+	spell_type = /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	log_name = "BL"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/teleport
 	name = "Teleport"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/area_teleport/teleport
+	spell_type = /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	log_name = "TP"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/genetic/mutate
+	spell_type = /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	log_name = "MU"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/jaunt
 	name = "Ethereal Jaunt"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt
+	spell_type = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt
 	log_name = "EJ"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/wizard/aoe_turf/knock
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
 	log_name = "KN"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/horseman
 	name = "Curse of The Horseman"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/horsemask
+	spell_type = /obj/effect/proc_holder/spell/targeted/horsemask
 	log_name = "HH"
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/flesh_to_stone
+	spell_type = /obj/effect/proc_holder/spell/targeted/inflict_handler/flesh_to_stone
 	log_name = "FS"
 
 /datum/spellbook_entry/summonitem
 	name = "Summon Item"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/summonitem
+	spell_type = /obj/effect/proc_holder/spell/targeted/summonitem
 	log_name = "IS"
 	category = "Utility Spells"
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
-	spell_type = /obj/effect/proc_holder/spell/wizard/targeted/lightning
+	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
 	log_name = "LB"
 
 /datum/spellbook_entry/item
@@ -277,7 +277,7 @@
 /datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	. =..()
 	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct(null))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
 	return .
 
 /datum/spellbook_entry/item/wands
@@ -531,7 +531,7 @@
 //Single Use Spellbooks//
 
 /obj/item/weapon/spellbook/oneuse
-	var/spell = /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
+	var/spell = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
 	var/used = 0
 	name = "spellbook of "
@@ -543,8 +543,8 @@
 	name += spellname
 
 /obj/item/weapon/spellbook/oneuse/attack_self(mob/user as mob)
-	var/obj/effect/proc_holder/spell/wizard/S = new spell
-	for(var/obj/effect/proc_holder/spell/wizard/knownspell in user.spell_list)
+	var/obj/effect/proc_holder/spell/S = new spell
+	for(var/obj/effect/proc_holder/spell/knownspell in user.spell_list)
 		if(knownspell.type == S.type)
 			if(user.mind)
 				if(user.mind.special_role == "apprentice" || user.mind.special_role == "Wizard")
@@ -572,7 +572,7 @@
 	return
 
 /obj/item/weapon/spellbook/oneuse/fireball
-	spell = /obj/effect/proc_holder/spell/wizard/dumbfire/fireball
+	spell = /obj/effect/proc_holder/spell/dumbfire/fireball
 	spellname = "fireball"
 	icon_state ="bookfireball"
 	desc = "This book feels warm to the touch."
@@ -583,7 +583,7 @@
 	qdel(src)
 
 /obj/item/weapon/spellbook/oneuse/smoke
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/smoke
+	spell = /obj/effect/proc_holder/spell/targeted/smoke
 	spellname = "smoke"
 	icon_state ="booksmoke"
 	desc = "This book is overflowing with the dank arts."
@@ -597,7 +597,7 @@
 			user.nutrition = 0
 
 /obj/item/weapon/spellbook/oneuse/blind
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/trigger/blind
+	spell = /obj/effect/proc_holder/spell/targeted/trigger/blind
 	spellname = "blind"
 	icon_state ="bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
@@ -608,7 +608,7 @@
 	user.eye_blind = 10
 
 /obj/item/weapon/spellbook/oneuse/mindswap
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/mind_transfer
+	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer
 	spellname = "mindswap"
 	icon_state ="bookmindswap"
 	desc = "This book's cover is pristine, though its pages look ragged and torn."
@@ -663,7 +663,7 @@
 	stored_swap = null
 
 /obj/item/weapon/spellbook/oneuse/forcewall
-	spell = /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall
+	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall
 	spellname = "forcewall"
 	icon_state ="bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."
@@ -677,7 +677,7 @@
 
 
 /obj/item/weapon/spellbook/oneuse/knock
-	spell = /obj/effect/proc_holder/spell/wizard/aoe_turf/knock
+	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
 	spellname = "knock"
 	icon_state ="bookknock"
 	desc = "This book is hard to hold closed properly."
@@ -688,7 +688,7 @@
 	user.Weaken(20)
 
 /obj/item/weapon/spellbook/oneuse/horsemask
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/horsemask
+	spell = /obj/effect/proc_holder/spell/targeted/horsemask
 	spellname = "horses"
 	icon_state ="bookhorses"
 	desc = "This book is more horse than your mind has room for."
@@ -708,7 +708,7 @@
 		user <<"<span class='notice'>I say thee neigh</span>"
 
 /obj/item/weapon/spellbook/oneuse/charge
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/charge
+	spell = /obj/effect/proc_holder/spell/targeted/charge
 	spellname = "charging"
 	icon_state ="bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
@@ -719,7 +719,7 @@
 	empulse(src, 1, 1)
 
 /obj/item/weapon/spellbook/oneuse/summonitem
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/summonitem
+	spell = /obj/effect/proc_holder/spell/targeted/summonitem
 	spellname = "instant summons"
 	icon_state ="booksummons"
 	desc = "This book is bright and garish, very hard to miss."
@@ -731,7 +731,7 @@
 
 
 /obj/item/weapon/spellbook/oneuse/fake_gib
-	spell = /obj/effect/proc_holder/spell/wizard/targeted/fake_gib
+	spell = /obj/effect/proc_holder/spell/targeted/fake_gib
 	spellname = "disintegrate"
 	icon_state ="bookfireball"
 	desc = "This book feels like it will rip stuff apart."

@@ -56,9 +56,9 @@
 /mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
 	..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/flicker_lights(src))
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/blindness(src))
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/night_vision(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(src))
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(src))
 
 	// Give nightvision
 	see_invisible = SEE_INVISIBLE_OBSERVER_NOLIGHTING
@@ -205,7 +205,7 @@
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/wizard/aoe_turf/flicker_lights
+/obj/effect/proc_holder/spell/aoe_turf/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
@@ -213,14 +213,14 @@
 	clothes_req = 0
 	range = 14
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/flicker_lights/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.flicker()
 	return
 
 //Blind AOE
-/obj/effect/proc_holder/spell/wizard/aoe_turf/blindness
+/obj/effect/proc_holder/spell/aoe_turf/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
@@ -229,7 +229,7 @@
 	clothes_req = 0
 	range = 8
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/blindness/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets)
 	for(var/mob/living/L in living_mob_list)
 		var/turf/T = get_turf(L.loc)
 		if(T && T in targets)
@@ -239,7 +239,7 @@
 	return
 
 //Toggle Night Vision
-/obj/effect/proc_holder/spell/wizard/targeted/night_vision
+/obj/effect/proc_holder/spell/targeted/night_vision
 	name = "Toggle Nightvision \[ON\]"
 	desc = "Toggle your nightvision mode."
 
@@ -250,7 +250,7 @@
 	range = -1
 	include_user = 1
 
-/obj/effect/proc_holder/spell/wizard/targeted/night_vision/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/night_vision/cast(list/targets)
 
 	for(var/mob/living/target in targets)
 		if(target.see_invisible == SEE_INVISIBLE_LIVING)

@@ -1,5 +1,5 @@
 //Harvest Essence: The bread and butter of the revenant. The basic way of harvesting additional essence.
-/obj/effect/proc_holder/spell/wizard/targeted/revenant_harvest
+/obj/effect/proc_holder/spell/targeted/revenant_harvest
 	name = "Harvest (0E)"
 	desc = "Siphons the lingering spectral essence from a human, empowering yourself."
 	panel = "Revenant Abilities"
@@ -10,7 +10,7 @@
 	var/draining
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 
-/obj/effect/proc_holder/spell/wizard/targeted/revenant_harvest/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/targeted/revenant_harvest/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
 	if(!user.castcheck(0))
 		charge_counter = charge_max
 		return
@@ -72,7 +72,7 @@
 
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob for 5E.
-/obj/effect/proc_holder/spell/wizard/targeted/revenant_transmit
+/obj/effect/proc_holder/spell/targeted/revenant_transmit
 	name = "Transmit (5E)"
 	desc = "Telepathically transmits a message to the target."
 	panel = "Revenant Abilities (Locked)"
@@ -82,7 +82,7 @@
 	include_user = 1
 	var/locked = 1
 
-/obj/effect/proc_holder/spell/wizard/targeted/revenant_transmit/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/targeted/revenant_transmit/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
 	if(!user.castcheck(-5))
 		charge_counter = charge_max
 		return
@@ -105,7 +105,7 @@
 
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
-/obj/effect/proc_holder/spell/wizard/aoe_turf/revenant_light
+/obj/effect/proc_holder/spell/aoe_turf/revenant_light
 	name = "Overload Light (25E)"
 	desc = "Directs a large amount of essence into an electrical light, causing an impressive light show."
 	panel = "Revenant Abilities (Locked)"
@@ -114,7 +114,7 @@
 	range = 1
 	var/locked = 1
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/revenant_light/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/revenant_light/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
 	if(!user.castcheck(-25))
 		charge_counter = charge_max
 		return
@@ -143,7 +143,7 @@
 
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
-/obj/effect/proc_holder/spell/wizard/aoe_turf/revenantDefile
+/obj/effect/proc_holder/spell/aoe_turf/revenantDefile
 	name = "Defile (30E)"
 	desc = "Twists and corrupts certain nearby objects. Also dispels holy auras on floors, but not salt lines."
 	panel = "Revenant Abilities (Locked)"
@@ -152,7 +152,7 @@
 	range = 1
 	var/locked = 1
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/revenantDefile/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/revenantDefile/cast(list/targets, var/mob/living/simple_animal/revenant/user = usr)
 	if(!user.castcheck(-30))
 		charge_counter = charge_max
 		return

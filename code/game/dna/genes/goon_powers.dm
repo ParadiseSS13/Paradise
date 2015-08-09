@@ -87,7 +87,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell
-	var/obj/effect/proc_holder/spell/wizard/spelltype
+	var/obj/effect/proc_holder/spell/spelltype
 
 	activate(var/mob/M, var/connected, var/flags)
 		M.AddSpell(new spelltype(M))
@@ -95,7 +95,7 @@
 		return 1
 
 	deactivate(var/mob/M, var/connected, var/flags)
-		for(var/obj/effect/proc_holder/spell/wizard/S in M.spell_list)
+		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 			if(istype(S,spelltype))
 				M.spell_list.Remove(S)
 		..()
@@ -121,13 +121,13 @@
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability=10
 
-	spelltype = /obj/effect/proc_holder/spell/wizard/targeted/cryokinesis
+	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
 
 	New()
 		..()
 		block = CRYOBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/cryokinesis
+/obj/effect/proc_holder/spell/targeted/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
@@ -146,7 +146,7 @@
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/wizard/targeted/cryokinesis/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
 		usr << "<span class='notice'>No target found in range.</span>"
 		return
@@ -218,13 +218,13 @@
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability=3
 
-	spelltype=/obj/effect/proc_holder/spell/wizard/targeted/eat
+	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
 	New()
 		..()
 		block = EATBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat
+/obj/effect/proc_holder/spell/targeted/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
 	panel = "Abilities"
@@ -242,7 +242,7 @@
 
 	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/human)
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()
 
@@ -258,7 +258,7 @@
 
 	perform(targets)
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat/proc/doHeal(var/mob/user)
+/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H=user
 		for(var/name in H.organs_by_name)
@@ -272,7 +272,7 @@
 		H.UpdateDamageIcon()
 		H.updatehealth()
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets)
 	if(!targets.len)
 		usr << "<span class='notice'>No target found in range.</span>"
 		return
@@ -340,13 +340,13 @@
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability=2
 
-	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/leap
+	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
 	New()
 		..()
 		block = JUMPBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/leap
+/obj/effect/proc_holder/spell/targeted/leap
 	name = "Jump"
 	desc = "Leap great distances!"
 	panel = "Abilities"
@@ -362,7 +362,7 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/wizard/targeted/leap/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
 		usr << "\red You can't jump right now!"
@@ -435,7 +435,7 @@
 	name = "Polymorphism"
 	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
 
-	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/polymorph
+	spelltype =/obj/effect/proc_holder/spell/targeted/polymorph
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
@@ -445,7 +445,7 @@
 		..()
 		block = POLYMORPHBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/polymorph
+/obj/effect/proc_holder/spell/targeted/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
@@ -459,7 +459,7 @@
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/wizard/targeted/polymorph/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
 		usr << "\red You can only change your appearance to that of another human."
@@ -485,7 +485,7 @@
 	name = "Empathic Thought"
 	desc = "The subject becomes able to read the minds of others for certain information."
 
-	spelltype = /obj/effect/proc_holder/spell/wizard/targeted/empath
+	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
@@ -495,7 +495,7 @@
 		..()
 		block = EMPATHBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath
+/obj/effect/proc_holder/spell/targeted/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
@@ -507,13 +507,13 @@
 
 	action_icon_state = "genetic_empath"
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
 
 	perform(targets)
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets)
 	if(!ishuman(usr))	return
 
 

@@ -1,9 +1,9 @@
 //////////////////////////////Construct Spells/////////////////////////
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
 	charge_max = 1800
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/floor
+/obj/effect/proc_holder/spell/aoe_turf/conjure/floor
 	name = "Floor Construction"
 	desc = "This spell constructs a cult floor"
 
@@ -16,7 +16,7 @@
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = 0 //Stop crashing the server by spawning turfs on transit tiles
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall
+/obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Lesser Construction"
 	desc = "This spell constructs a cult wall"
 
@@ -29,7 +29,7 @@
 	summon_type = list(/turf/simulated/wall/cult)
 	centcom_cancast = 0 //Stop crashing the server by spawning turfs on transit tiles
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall/reinforced
+/obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
 
@@ -44,7 +44,7 @@
 
 	summon_type = list(/turf/simulated/wall/r_wall)
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/soulstone
+/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone
 	name = "Summon Soulstone"
 	desc = "This spell reaches into Nar-Sie's realm, summoning one of the legendary fragments across time and space"
 
@@ -58,7 +58,7 @@
 	summon_type = list(/obj/item/device/soulstone)
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall
+/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire"
 
@@ -72,7 +72,7 @@
 	summon_lifespan = 200
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls"
 
@@ -88,7 +88,7 @@
 	centcom_cancast = 0 //Stop people from getting to centcom
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile/lesser
+/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
@@ -100,7 +100,7 @@
 	proj_lifespan = 10
 	max_targets = 6
 
-/obj/effect/proc_holder/spell/wizard/targeted/smoke/disable
+/obj/effect/proc_holder/spell/targeted/smoke/disable
 	name = "Paralysing Smoke"
 	desc = "This spell spawns a cloud of paralysing smoke."
 
