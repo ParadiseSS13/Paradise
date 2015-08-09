@@ -139,10 +139,10 @@
 		if (user.hand)
 			temp = H.organs_by_name["l_hand"]
 		if(!temp)
-			user << "<span class='warning'>You try to use your hand, but it's missing!"
+			user << "<span class='warning'>You try to use your hand, but it's missing!</span>"
 			return 0
 		if(temp && !temp.is_usable())
-			user << "<span class='warning'>You try to move your [temp.name], but cannot!"
+			user << "<span class='warning'>You try to move your [temp.name], but cannot!</span>"
 			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
