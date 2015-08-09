@@ -245,7 +245,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	MS.interim = locate(/area/syndicate_station/transit)
 
 	MS.warmup_time = 0
-	shuttles["Xenomorph"] = MS
+	shuttles["Syndicate"] = MS
 	
 	//Xenos shuttle.
 	var/datum/shuttle/multi_shuttle/XS = new/datum/shuttle/multi_shuttle()
