@@ -11,6 +11,37 @@
 	var/obj/item/weapon/card/id/modify = null
 	var/mode = 0.0
 	var/printing = null
+	var/list/card_skins = list(
+		"data",
+		"id",
+		"gold",
+		"silver",
+		"security",
+		"medical",
+		"research",
+		"engineering",
+		"HoS",
+		"CMO",
+		"RD",
+		"CE",
+		"clown",
+		"mime"
+	)
+	var/list/centcom_card_skins = list(
+		"centcom",
+		"centcom_old",
+		"ERT_leader",
+		"ERT_empty",
+		"ERT_security",
+		"ERT_engineering",
+		"ERT_medical",
+		"ERT_janitorial",
+		"deathsquad",
+		"commander",
+		"syndie",
+		"TDred",
+		"TDgreen"
+	)	
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
@@ -27,9 +58,18 @@
 		var/list/formatted = list()
 		for(var/job in jobs)
 			formatted.Add(list(list(
-				"display_name" = replacetext(job, " ", "&nbsp"),
+				"display_name" = replacetext(job, " ", "&nbsp;"),
 				"target_rank" = get_target_rank(),
 				"job" = job)))
+
+		return formatted
+		
+	proc/format_card_skins(list/card_skins)
+		var/list/formatted = list()
+		for(var/skin in card_skins)
+			formatted.Add(list(list(
+				"display_name" = replacetext(skin, " ", "&nbsp;"),
+				"skin" = skin)))
 
 		return formatted
 
@@ -112,16 +152,29 @@
 	data["civilian_jobs"] = format_jobs(civilian_positions)
 	data["special_jobs"] = format_jobs(whitelisted_positions)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
+	data["card_skins"] = format_card_skins(card_skins)
+	
+	if(modify)
+		data["current_skin"] = modify.icon_state
 
 	if (modify && is_centcom())
 		var/list/all_centcom_access = list()
 		for(var/access in get_all_centcom_access())
 			all_centcom_access.Add(list(list(
-				"desc" = replacetext(get_centcom_access_desc(access), " ", "&nbsp"),
+				"desc" = replacetext(get_centcom_access_desc(access), " ", "&nbsp;"),
 				"ref" = access,
 				"allowed" = (access in modify.access) ? 1 : 0)))
 
 		data["all_centcom_access"] = all_centcom_access
+		
+		var/list/all_centcom_skins = list()
+		for(var/skin in centcom_card_skins)
+			all_centcom_skins.Add(list(list(
+				"display_name" = replacetext(skin, " ", "&nbsp;"),
+				"skin" = skin)))
+				
+		data["all_centcom_skins"] = all_centcom_skins
+				
 	else if (modify)
 		var/list/regions = list()
 		for(var/i = 1; i <= 7; i++)
@@ -129,7 +182,7 @@
 			for(var/access in get_region_accesses(i))
 				if (get_access_desc(access))
 					accesses.Add(list(list(
-						"desc" = replacetext(get_access_desc(access), " ", "&nbsp"),
+						"desc" = replacetext(get_access_desc(access), " ", "&nbsp;"),
 						"ref" = access,
 						"allowed" = (access in modify.access) ? 1 : 0)))
 
@@ -141,7 +194,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 600, 700)
+		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -195,6 +248,11 @@
 						modify.access -= access_type
 						if(!access_allowed)
 							modify.access += access_type
+							
+		if("skin")
+			var/skin = href_list["skin_target"]
+			if(is_authenticated() && modify && ((skin in card_skins) || ((skin in centcom_card_skins) && is_centcom())))
+				modify.icon_state = href_list["skin_target"]
 
 		if ("assign")
 			if (is_authenticated() && modify)

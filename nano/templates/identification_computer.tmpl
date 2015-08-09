@@ -210,6 +210,12 @@
               {{:helper.link(value.desc, '', {'choice' : 'access', 'access_target' : value.ref, 'allowed' : value.allowed}, null, value.allowed ? 'selected' : null)}}
               </div>
             {{/for}}
+			<div style='float: left; width: 175px; min-height: 250px'>
+			<div class='average'><b>Card Skin</b></div>
+			{{for data.all_centcom_skins}}
+				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+			{{/for}}	
+			</div>
           </div>
         {{else}}
           <div class='item'>
@@ -226,6 +232,12 @@
                 {{/for}}
               </div>
             {{/for}}
+            <div style='float: left;'>
+			<div class='average'><b>Card Skin</b></div>
+			  {{for data.card_skins}}
+				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+			  {{/for}}
+			</div>
           </div>
         {{/if}}
       {{/if}}
