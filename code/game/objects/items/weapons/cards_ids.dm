@@ -142,12 +142,12 @@
 		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
 	src.add_fingerprint(user)
 	return
-	
+
 /obj/item/weapon/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
 /obj/item/weapon/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
-	if(!H || !H.dna) 
+	if(!H || !H.dna)
 		return
 
 	sex = capitalize(H.gender)
@@ -155,7 +155,7 @@
 	blood_type = H.dna.b_type
 	dna_hash = H.dna.unique_enzymes
 	fingerprint_hash = md5(H.dna.uni_identity)
-	
+
 	dat = ("<table><tr><td>")
 	dat += text("Name: []</A><BR>", registered_name)
 	dat += text("Sex: []</A><BR>\n", sex)
@@ -215,7 +215,7 @@
 	var/registered_user = null
 
 /obj/item/weapon/card/id/syndicate/afterattack(var/obj/item/weapon/O as obj, mob/user as mob, proximity)
-	if(!proximity) 
+	if(!proximity)
 		return
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = O
@@ -246,12 +246,12 @@
 		faked = getFlatIcon(H)
 		H.dir = storedDir
 
-	return faked				
-				
+	return faked
+
 /obj/item/weapon/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
 		var t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
-		if(!t) 
+		if(!t)
 			user << "<span class='warning'>Invalid name.</span>"
 			return
 		src.registered_name = t
@@ -266,7 +266,7 @@
 		user << "<span class='notice'>You successfully forge the ID card.</span>"
 		registered_user = user
 	else if(!registered_user || registered_user == user)
-		if(!registered_user) 
+		if(!registered_user)
 			registered_user = user
 
 		switch(alert(user,"Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
@@ -276,22 +276,22 @@
 				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Photo","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.registered_name = new_name
 						UpdateName()
 						user << "<span class='notice'>Name changed to [new_name].</span>"
 
 					if("Photo")
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						photo = fake_id_photo(user)
 						var/icon/photoside = fake_id_photo(user,1)
 						front = new(photo)
 						side = new(photoside)
 						if(photo && photoside)
-							user << "<span class='notice'>Photo changed.</span>"						
-						
+							user << "<span class='notice'>Photo changed.</span>"
+
 					if("Appearance")
 						var/list/appearances = list(
 							"data",
@@ -310,6 +310,7 @@
 							"CE",
 							"clown",
 							"mime",
+							"rainbow",
 							"prisoner",
 							"syndie",
 							"deathsquad",
@@ -330,29 +331,29 @@
 
 					if("Sex")
 						var/new_sex = sanitize(stripped_input(user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(user) ? capitalize(user.gender) : "Male", MAX_MESSAGE_LEN))
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.sex = new_sex
 						user << "<span class='notice'>Sex changed to [new_sex].</span>"
 
 					if("Age")
 						var/new_age = sanitize(stripped_input(user,"What age would you like to put on this card?","Agent Card Age","21", MAX_MESSAGE_LEN))
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.age = new_age
-						user << "<span class='notice'>Age changed to [new_age].</span>"								
-						
+						user << "<span class='notice'>Age changed to [new_age].</span>"
+
 					if("Occupation")
 						var/new_job = sanitize(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.assignment = new_job
 						user << "<span class='notice'>Occupation changed to [new_job].</span>"
-						UpdateName()						
+						UpdateName()
 
 					if("Money Account")
 						var/new_account = input(user,"What money account would you like to link to this card?","Agent Card Account",12345) as num
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						associated_account_number = new_account
 						user << "<span class='notice'>Linked money account changed to [new_account].</span>"
@@ -365,7 +366,7 @@
 								default = H.dna.b_type
 
 						var/new_blood_type = sanitize(input(user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.blood_type = new_blood_type
 						user << "<span class='notice'>Blood type changed to [new_blood_type].</span>"
@@ -378,7 +379,7 @@
 								default = H.dna.unique_enzymes
 
 						var/new_dna_hash = sanitize(input(user,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.dna_hash = new_dna_hash
 						user << "<span class='notice'>DNA hash changed to [new_dna_hash].</span>"
@@ -391,7 +392,7 @@
 								default = md5(H.dna.uni_identity)
 
 						var/new_fingerprint_hash = sanitize(input(user,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
-						if(!Adjacent(user)) 
+						if(!Adjacent(user))
 							return
 						src.fingerprint_hash = new_fingerprint_hash
 						user << "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>"
@@ -429,12 +430,12 @@
 	item_state = "gold_id"
 	registered_name = "Captain"
 	assignment = "Captain"
-	
+
 /obj/item/weapon/card/id/captains_spare/New()
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	..()
-		
+
 /obj/item/weapon/card/id/admin
 	name = "admin ID card"
 	icon_state = "admin"
@@ -584,6 +585,10 @@
 	desc = "..."
 	access = list(access_mime, access_theatre, access_maint_tunnels)
 
+/obj/item/weapon/card/id/rainbow
+	name = "Rainbow ID"
+	icon_state = "rainbow"
+
 /obj/item/weapon/card/id/thunderdome/red
 	name = "Thunderdome Red ID"
 	registered_name = "Red Team Fighter"
@@ -596,8 +601,8 @@
 	registered_name = "Green Team Fighter"
 	assignment = "Green Team Fighter"
 	icon_state = "TDgreen"
-	desc = "This ID card is given to those who fought inside the thunderdome for the Green Team. Not many have lived to see one of those, even fewer lived to keep it."	
-	
+	desc = "This ID card is given to those who fought inside the thunderdome for the Green Team. Not many have lived to see one of those, even fewer lived to keep it."
+
 // Decals
 /obj/item/weapon/id_decal
 	name = "identification card decal"
@@ -641,20 +646,20 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","prisoner")
-	
+	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","prisoner","rainbow")
+
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
-	
-/proc/get_all_card_skins()	
+
+/proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
-	
+
 /proc/get_skin_desc(skin)
 	switch(skin)
 		if("id")
 			return "Standard"
 		if("HoS")
-			return "Head of Security"	
+			return "Head of Security"
 		if("CMO")
 			return "Chief Medical Officer"
 		if("RD")
@@ -664,22 +669,22 @@
 		if("centcom_old")
 			return "Centcom Old"
 		if("ERT_leader")
-			return "ERT Leader"	
+			return "ERT Leader"
 		if("ERT_empty")
-			return "ERT Default"	
+			return "ERT Default"
 		if("ERT_security")
-			return "ERT Security"	
+			return "ERT Security"
 		if("ERT_engineering")
-			return "ERT Engineering"	
+			return "ERT Engineering"
 		if("ERT_medical")
-			return "ERT Medical"	
+			return "ERT Medical"
 		if("ERT_janitorial")
-			return "ERT Janitorial"	
+			return "ERT Janitorial"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")
-			return "Thunderdome Red"		
+			return "Thunderdome Red"
 		if("TDgreen")
-			return "Thunderdome Green"				
+			return "Thunderdome Green"
 		else
 			return capitalize(skin)

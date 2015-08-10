@@ -6,7 +6,6 @@
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffddff"
-	idtype = /obj/item/weapon/card/id/silver
 	req_admin_notify = 1
 	idtype = /obj/item/weapon/card/id/rd
 	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue,

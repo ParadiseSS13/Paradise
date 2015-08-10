@@ -243,6 +243,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	alt_titles = list("Lawyer","Public Defender")
 	minimal_player_age = 30
+	idtype = /obj/item/weapon/card/id/security
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
