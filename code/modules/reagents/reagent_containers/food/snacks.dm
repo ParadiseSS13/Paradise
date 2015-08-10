@@ -1245,6 +1245,17 @@
 		reagents.add_reagent("protein", 4)
 		bitesize = 2
 
+/obj/item/weapon/reagent_containers/food/snacks/pistachios
+	name = "Pistachios"
+	icon_state = "pistachios"
+	desc = "A snack of delciously salted pistachios. A perfectly valid choice..."
+	trash = /obj/item/trash/pistachios
+	filling_color = "#BAD145"
+
+	New()
+		..()
+		reagents.add_reagent("plantmatter", 6)
+
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
 	icon_state = "4no_raisins"
