@@ -260,7 +260,7 @@ var/send_emergency_team
 			W.assignment = "Emergency Response Team Member"
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team Engineer)"
-			W.icon_state = "centcom"
+			W.icon_state = "ERT_engineering"
 			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -284,7 +284,7 @@ var/send_emergency_team
 			W.assignment = "Emergency Response Team Member"
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team Officer)"
-			W.icon_state = "centcom"
+			W.icon_state = "ERT_security"
 			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -306,7 +306,7 @@ var/send_emergency_team
 			W.assignment = "Emergency Response Team Member"
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team Medic)"
-			W.icon_state = "centcom"
+			W.icon_state = "ERT_medical"
 			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
@@ -328,7 +328,7 @@ var/send_emergency_team
 			W.assignment = "Emergency Response Team Leader"
 			W.registered_name = M.real_name
 			W.name = "[M.real_name]'s ID Card (Emergency Response Team Leader)"
-			W.icon_state = "centcom"
+			W.icon_state = "ERT_leader"
 			W.access = get_centcom_access(W.assignment)
 			M.equip_to_slot_or_del(W, slot_wear_id)
 

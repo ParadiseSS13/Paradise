@@ -169,7 +169,7 @@ var/global/sent_syndicate_strike_team = 0
 
 	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
-	W.icon_state = "id"
+	W.icon_state = "syndie"
 	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
 	W.assignment = "Syndicate Commando"
 	W.access = get_syndicate_access(W.assignment)
