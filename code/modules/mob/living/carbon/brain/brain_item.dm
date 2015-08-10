@@ -14,6 +14,9 @@
 	parent_organ = "head"
 	vital = 1
 
+/obj/item/organ/brain/attack_self(mob/user as mob)
+	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
+
 /obj/item/organ/brain/xeno
 	name = "thinkpan"
 	desc = "It looks kind of like an enormous wad of purple bubblegum."
