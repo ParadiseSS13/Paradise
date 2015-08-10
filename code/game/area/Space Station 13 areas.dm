@@ -2250,12 +2250,12 @@ area/security/podbay
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
-	name = "\improper Telecommunications Satellite West Wing"
+	name = "\improper Telecoms West Wing"
 	icon_state = "tcomsatwest"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
-	name = "\improper Telecommunications Satellite East Wing"
+	name = "\improper Telecoms East Wing"
 	icon_state = "tcomsateast"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
@@ -2268,10 +2268,12 @@ area/security/podbay
 	icon_state = "tcomsatcham"
 
 /area/tcommsat/lounge
-	name = "\improper Telecommunications Satellite Lounge"
+	name = "\improper Telecoms Lounge"
 	icon_state = "tcomsatlounge"
 
-
+/area/tcommsat/powercontrol
+	name = "\improper Telecoms Power Control"
+	icon_state = "tcomsatwest"
 
 // Away Missions
 /area/awaymission
