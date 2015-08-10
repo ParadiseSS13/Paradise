@@ -21,23 +21,23 @@ var/time_last_changed_position = 0
 	var/change_position_cooldown = 60
 	//Jobs you cannot open new positions for
 	var/list/blacklisted = list(
-		"AI",
-		"Cyborg",
-		"Captain",
-		"Head of Personnel",
-		"Head of Security",
-		"Chief Engineer",
-		"Research Director",
-		"Chief Medical Officer",
-		"Magistrate",
-		"Blueshield",
-		"Nanotrasen Representative",
-		"Security Pod Pilot",
-		"Brig Physician",
-		"Mechanic",
-		"Barber",
-		"Civilian",	
-		"Chaplain"
+		/datum/job/ai,
+		/datum/job/cyborg,
+		/datum/job/captain,
+		/datum/job/hop,
+		/datum/job/hos,
+		/datum/job/chief_engineer,
+		/datum/job/rd,
+		/datum/job/cmo,
+		/datum/job/judge,
+		/datum/job/blueshield,
+		/datum/job/nanotrasenrep,
+		/datum/job/pilot,
+		/datum/job/brigdoc,
+		/datum/job/mechanic,
+		/datum/job/barber,
+		/datum/job/chaplain,	
+		/datum/job/civilian
 	)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -46,39 +46,6 @@ var/time_last_changed_position = 0
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list();
-
-	var/list/card_skins = list(
-		"data",
-		"id",
-		"gold",
-		"silver",
-		"security",
-		"medical",
-		"research",
-		"engineering",
-		"HoS",
-		"CMO",
-		"RD",
-		"CE",
-		"clown",
-		"mime",
-		"prisoner"
-	)
-	var/list/centcom_card_skins = list(
-		"centcom",
-		"centcom_old",
-		"ERT_leader",
-		"ERT_empty",
-		"ERT_security",
-		"ERT_engineering",
-		"ERT_medical",
-		"ERT_janitorial",
-		"deathsquad",
-		"commander",
-		"syndie",
-		"TDred",
-		"TDgreen"
-	)	
 
 /obj/machinery/computer/card/proc/is_centcom()
 	return istype(src, /obj/machinery/computer/card/centcom)
@@ -102,7 +69,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/format_job_slots()
 	var/list/formatted = list()
 	for(var/datum/job/job in job_master.occupations)
-		if(job.title in blacklisted)
+		if(job_blacklisted(job))
 			continue
 		formatted.Add(list(list(
 			"title" = job.title,
@@ -117,7 +84,7 @@ var/time_last_changed_position = 0
 	var/list/formatted = list()
 	for(var/skin in card_skins)
 		formatted.Add(list(list(
-			"display_name" = replacetext(skin, " ", "&nbsp;"),
+			"display_name" = get_skin_desc(skin),
 			"skin" = skin)))
 
 	return formatted
@@ -162,14 +129,13 @@ var/time_last_changed_position = 0
 	attack_hand(user)
 	
 //Check if you can't open a new position for a certain job
-/obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return (jobtitle in blacklisted)
-
+/obj/machinery/computer/card/proc/job_blacklisted(datum/job/job)
+	return (job.type in blacklisted)
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job.title))
+		if(!job_blacklisted(job))
 			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
@@ -181,7 +147,7 @@ var/time_last_changed_position = 0
 //Logic check for Topic() if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted(job.title))
+		if(!job_blacklisted(job))
 			if(job.total_positions > job.current_positions)
 				var/delta = (world.time / 10) - time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
@@ -229,7 +195,7 @@ var/time_last_changed_position = 0
 	data["civilian_jobs"] = format_jobs(civilian_positions)
 	data["special_jobs"] = format_jobs(whitelisted_positions)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
-	data["card_skins"] = format_card_skins(card_skins)
+	data["card_skins"] = format_card_skins(get_station_card_skins())
 	
 	data["job_slots"] = format_job_slots()
 	
@@ -251,14 +217,7 @@ var/time_last_changed_position = 0
 				"allowed" = (access in modify.access) ? 1 : 0)))
 
 		data["all_centcom_access"] = all_centcom_access
-		
-		var/list/all_centcom_skins = list()
-		for(var/skin in centcom_card_skins)
-			all_centcom_skins.Add(list(list(
-				"display_name" = replacetext(skin, " ", "&nbsp;"),
-				"skin" = skin)))
-				
-		data["all_centcom_skins"] = all_centcom_skins
+		data["all_centcom_skins"] = format_card_skins(get_centcom_card_skins())
 				
 	else if (modify)
 		var/list/regions = list()
@@ -336,7 +295,7 @@ var/time_last_changed_position = 0
 							
 		if("skin")
 			var/skin = href_list["skin_target"]
-			if(is_authenticated() && modify && ((skin in card_skins) || ((skin in centcom_card_skins) && is_centcom())))
+			if(is_authenticated() && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
 				modify.icon_state = href_list["skin_target"]
 
 		if ("assign")

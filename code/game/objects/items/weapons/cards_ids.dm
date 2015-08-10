@@ -123,10 +123,16 @@
 		usr << "<span class='warning'>It is too far away.</span>"
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
+	if(!front)
+		front = new(photo, dir = SOUTH)
+	if(!side)
+		side = new(photo, dir = WEST)
+	user << browse_rsc(front, "front.png")
+	user << browse_rsc(side, "side.png")
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
+	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-
 	return
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
@@ -158,7 +164,8 @@
 	dat += text("Fingerprint: []</A><BR>\n", fingerprint_hash)
 	dat += text("Blood Type: []<BR>\n", blood_type)
 	dat += text("DNA Hash: []<BR><BR>\n", dna_hash)
-	dat += "</td></tr></table>"
+	dat +="<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
+	<img src=side.png height=80 width=80 border=4></td></tr></table>"
 
 /obj/item/weapon/card/id/GetAccess()
 	return access
@@ -217,6 +224,30 @@
 				usr << "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>"
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
+/obj/item/weapon/card/id/syndicate/proc/fake_id_photo(var/mob/living/carbon/human/H, var/side=0)//get_id_photo wouldn't work correctly
+	if(!istype(H))
+		return
+	var/storedDir = H.dir //don't want to lose track of this
+
+	var/icon/faked
+	if(!side)
+		if(!H.equip_to_slot_if_possible(src, slot_l_store, 0, 1))
+			H << "<span class='warning'>You need to empty your pockets before taking the ID picture.</span>"
+			return
+
+	if(side)
+		H.dir = WEST //ensure the icon is actually the proper direction before copying it
+		faked = getFlatIcon(H)
+		H.dir = storedDir //reset the user back to their original direction, not even noticable they changed
+		H.equip_to_slot_if_possible(src, slot_l_hand, 0, 1)
+
+	else
+		H.dir = SOUTH
+		faked = getFlatIcon(H)
+		H.dir = storedDir
+
+	return faked				
+				
 /obj/item/weapon/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
 		var t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
@@ -242,7 +273,7 @@
 			if("Show")
 				return ..()
 			if("Edit")
-				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
+				switch(input(user,"What would you like to edit on \the [src]?") in list("Name","Photo","Appearance","Sex","Age","Occupation","Money Account","Blood Type","DNA Hash","Fingerprint Hash","Reset Card"))
 					if("Name")
 						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
 						if(!Adjacent(user)) 
@@ -251,6 +282,16 @@
 						UpdateName()
 						user << "<span class='notice'>Name changed to [new_name].</span>"
 
+					if("Photo")
+						if(!Adjacent(user)) 
+							return
+						photo = fake_id_photo(user)
+						var/icon/photoside = fake_id_photo(user,1)
+						front = new(photo)
+						side = new(photoside)
+						if(photo && photoside)
+							user << "<span class='notice'>Photo changed.</span>"						
+						
 					if("Appearance")
 						var/list/appearances = list(
 							"data",
@@ -598,3 +639,47 @@
 	decal_desc = "It's a card with a magnetic strip attached to some circuitry."
 	decal_icon_state = "emag"
 	override_name = 1
+
+/proc/get_station_card_skins()
+	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","prisoner")
+	
+/proc/get_centcom_card_skins()
+	return list("centcom","centcom_old","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	
+/proc/get_all_card_skins()	
+	return get_station_card_skins() + get_centcom_card_skins()
+	
+/proc/get_skin_desc(skin)
+	switch(skin)
+		if("id")
+			return "Standard"
+		if("HoS")
+			return "Head of Security"	
+		if("CMO")
+			return "Chief Medical Officer"
+		if("RD")
+			return "Research Director"
+		if("CE")
+			return "Chief Engineer"
+		if("centcom_old")
+			return "Centcom Old"
+		if("ERT_leader")
+			return "ERT Leader"	
+		if("ERT_empty")
+			return "ERT Default"	
+		if("ERT_security")
+			return "ERT Security"	
+		if("ERT_engineering")
+			return "ERT Engineering"	
+		if("ERT_medical")
+			return "ERT Medical"	
+		if("ERT_janitorial")
+			return "ERT Janitorial"	
+		if("syndie")
+			return "Syndicate"
+		if("TDred")
+			return "Thunderdome Red"		
+		if("TDgreen")
+			return "Thunderdome Green"				
+		else
+			return capitalize(skin)
