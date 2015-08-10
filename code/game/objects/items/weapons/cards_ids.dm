@@ -130,9 +130,8 @@
 	return
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
-	for(var/mob/O in viewers(user, null))
-		user.visible_message("[user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
-			"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
+		"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
 		user << "There's [mining_points] mining equipment redemption points loaded onto this card."
 	src.add_fingerprint(user)
