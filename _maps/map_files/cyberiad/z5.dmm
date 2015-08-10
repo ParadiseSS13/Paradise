@@ -1358,7 +1358,7 @@
 "Af" = (/obj/machinery/atmospherics/pipe/tank/air{dir = 1; initialize_directions = 0; level = 1},/turf/simulated/floor/plating,/area/mine/west_outpost)
 "Ag" = (/obj/machinery/power/port_gen/pacman{anchored = 1},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/alarm{dir = 1; icon_state = "alarm0"; pixel_y = -22},/turf/simulated/floor/plating,/area/mine/west_outpost)
 "Ah" = (/obj/machinery/power/terminal{dir = 4},/obj/machinery/light/small,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/mine/west_outpost)
-"Ai" = (/obj/machinery/power/smes,/obj/structure/cable,/turf/simulated/floor/plating,/area/mine/west_outpost)
+"Ai" = (/obj/machinery/power/smes{charge = 5e+006},/obj/structure/cable,/turf/simulated/floor/plating,/area/mine/west_outpost)
 "Aj" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/machinery/door/airlock/glass_medical{id_tag = null; name = "Infirmary"; req_access_txt = "0"},/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/turf/simulated/floor{icon_state = "white"},/area/mine/living_quarters)
 "Ak" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'HIGH VOLTAGE'"; icon_state = "shock"; name = "HIGH VOLTAGE"},/turf/simulated/wall,/area/mine/living_quarters)
 "Al" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/door/airlock/maintenance{name = "Mining Station Maintenance"; req_access_txt = "48"},/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/turf/simulated/floor/plating,/area/mine/living_quarters)
