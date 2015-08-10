@@ -85,6 +85,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
+		
+	return ..()
 
 /datum/game_mode/proc/create_vox(var/datum/mind/newraider)
 
