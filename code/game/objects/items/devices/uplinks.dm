@@ -17,7 +17,7 @@ var/list/world_uplinks = list()
 	var/nanoui_menu = 0		// The current menu we are in
 	var/list/nanoui_data = new // Additional data for NanoUI use
 
-	var/list/purchase_log = new
+	var/purchase_log = ""
 	var/uplink_owner = null//text-only
 	var/used_TC = 0
 	
