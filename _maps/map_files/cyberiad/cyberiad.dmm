@@ -6050,7 +6050,7 @@
 "cmr" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "cms" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/wall/r_wall,/area/maintenance/asmaint)
 "cmt" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/disposalpipe/segment,/turf/simulated/wall,/area/lawoffice)
-"cmu" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/door/airlock/maintenance{name = "Internal Affairs Maintenance"; req_access_txt = "38"},/turf/simulated/floor/plating,/area/lawoffice)
+"cmu" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/machinery/door/airlock/maintenance{name = "Internal Affairs Maintenance"; req_access_txt = "38"},/turf/simulated/floor/plating,/area/maintenance/fpmaint)
 "cmv" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/wall/r_wall,/area/toxins/xenobiology)
 "cmw" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/door/firedoor{dir = 2; name = "hazard door south"},/turf/simulated/floor{dir = 2; icon_state = "whitegreen"; tag = "icon-whitehall (WEST)"},/area/toxins/xenobiology)
 "cmx" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/door/firedoor{dir = 2; name = "hazard door south"},/obj/structure/disposalpipe/segment,/turf/simulated/floor{dir = 2; icon_state = "whitegreen"; tag = "icon-whitehall (WEST)"},/area/toxins/xenobiology)
