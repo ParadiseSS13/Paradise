@@ -15,7 +15,6 @@
 	{{if data.mode == 1}}
 	<div class='item'>
 		<h2>Job Management</h2>
-		<h3>Cooldown: {{:data.cooldown}}</h3>
 	</div>
     <div class='item'>
 		<div class='itemLabel'>
@@ -28,7 +27,7 @@
 			Cooldown:
 		</div>
 		<div class='itemContent'>
-			{{if data.cooldown_mins || data.cooldown_secs}}
+			{{if data.cooldown_mins > 0 || data.cooldown_mins == 0 && data.cooldown_secs > 0}}
 				<span class='bad'>Next change in: {{:data.cooldown_mins}}:{{:data.cooldown_secs}}</span>
 			{{else}}
 				<span class='good'>Ready!</span>
@@ -38,10 +37,10 @@
     <hr>
 	<div class='item'>
 		{{for data.job_slots}}
-			<div class='item'>
+			 <div class='item'>
 				<span class="average" style="font-weight: bold;">{{:value.title}}: {{:value.current_positions}}/{{:value.total_positions}}</span>
-				{{:helper.link('', 'minus', {'choice' : 'make_job_unavailable', 'job' : value.title}, value.can_close != 1 && data.authenticated ? null : 'disabled')}}
-				{{:helper.link('', 'plus', {'choice' : 'make_job_available', 'job' : value.title}, value.can_open != 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('', 'minus', {'choice' : 'make_job_unavailable', 'job' : value.title}, value.can_close == 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('', 'plus', {'choice' : 'make_job_available', 'job' : value.title}, value.can_open == 1 && data.authenticated ? null : 'disabled')}}
 			</div>
 		{{/for}}
 	</div>
