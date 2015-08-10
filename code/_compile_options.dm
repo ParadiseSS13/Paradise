@@ -10,4 +10,11 @@
 #define MAX_BOOK_MESSAGE_LEN 9216
 #define MAX_NAME_LEN 26
 
+// Version check, terminates compilation if someone is using a version of BYOND that's too old
+#if DM_VERSION < 508
+#error OUTDATED VERSION ERROR - \
+Due to BYOND features used in this codebase, you must update to version 508 or later to compile. \
+This may require updating to a beta release.
+#endif
+
 var/global/list/processing_objects = list() //This has to be initialized BEFORE world

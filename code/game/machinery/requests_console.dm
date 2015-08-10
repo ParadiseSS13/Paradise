@@ -98,6 +98,12 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			req_console_information -= department
 	..()
 
+/obj/machinery/requests_console/attack_ghost(user as mob)
+	if(stat & NOPOWER)
+		return
+		
+	ui_interact(user)	
+	
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))
 		return
@@ -132,7 +138,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		ui.set_auto_update(1)
 
 /obj/machinery/requests_console/Topic(href, href_list)
-	if(..())	return
+	if(..())	
+		return 1
 	usr.set_machine(src)
 	add_fingerprint(usr)
 

@@ -64,19 +64,21 @@
 			MK.loc = src.loc
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
-			spawn(100*length(src.linkedServer.decryptkey)) UnmagConsole()
+			update_icon()
+			spawn(100*length(src.linkedServer.decryptkey)) 
+				UnmagConsole()
+				update_icon()
 			message = rebootmsg
 		else
 			user << "<span class='notice'>A no server error appears on the screen.</span>"
 
 /obj/machinery/computer/message_monitor/update_icon()
-	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
 	if(emag || hacking)
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
+		
+	..()
 
 /obj/machinery/computer/message_monitor/initialize()
 	..()

@@ -61,6 +61,12 @@ datum/reagent/acetone
 	reagent_state = LIQUID
 	color = "#474747"
 
+/datum/reagent/acetone/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(1.5)
+	..()
+	return
+
 /datum/chemical_reaction/acetone
 	name = "acetone"
 	id = "acetone"

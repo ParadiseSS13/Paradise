@@ -25,7 +25,7 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
+			E.droplimb(DROPLIMB_EDGE)
 
 	if(!(species.flags & IS_SYNTHETIC))
 		flick("gibbed-h", animation)

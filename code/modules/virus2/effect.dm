@@ -218,7 +218,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/organ = pick(list("r_arm","l_arm","r_leg","r_leg"))
 			var/obj/item/organ/external/E = H.organs_by_name[organ]
-			if (!(E.status & ORGAN_DEAD))
+			if (!(E.status & ORGAN_DEAD) && !(E.status & ORGAN_ROBOT))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.name] anymore...</span>"
 				for (var/obj/item/organ/external/C in E.children)
@@ -233,9 +233,10 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.status &= ~ORGAN_DEAD
-				for (var/obj/item/organ/external/C in E.children)
-					C.status &= ~ORGAN_DEAD
+				if(!(E.status & ORGAN_ROBOT))
+					E.status &= ~ORGAN_DEAD
+					for (var/obj/item/organ/external/C in E.children)
+						C.status &= ~ORGAN_DEAD
 
 
 /datum/disease2/effect/immortal
@@ -245,7 +246,7 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				if (E.status & ORGAN_BROKEN && prob(30))
+				if (E.status & ORGAN_BROKEN && prob(30) && !(E.status & ORGAN_ROBOT))
 					E.status ^= ORGAN_BROKEN
 		var/heal_amt = -5*multiplier
 		mob.apply_damages(heal_amt,heal_amt,heal_amt,heal_amt)
@@ -324,14 +325,14 @@
 			if(2)
 				if(ishuman(mob))
 					for (var/obj/item/organ/external/E in H.organs)
-						if(pick(1,0))
-							E.droplimb(0,DROPLIMB_BLUNT)
+						if(pick(1,0) && !(E.status & ORGAN_ROBOT))
+							E.droplimb(0,DROPLIMB_EDGE)
 			if(3)
 				if(ishuman(mob))
 					if(H.species.name != "Skellington")
 						mob << "<span class = 'warning'> Your necrotic skin ruptures!</span>"
 						for (var/obj/item/organ/external/E in H.organs)
-							if(pick(1,0))
+							if(pick(1,0) && !(E.status & ORGAN_ROBOT))
 								E.createwound(CUT, pick(2,4))
 						if(prob(30))
 							if(H.species.name != "Skellington")
@@ -453,13 +454,15 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.min_broken_damage = max(5, E.min_broken_damage - 30)
+				if(!(E.status & ORGAN_ROBOT))
+					E.min_broken_damage = max(5, E.min_broken_damage - 30)
 
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.min_broken_damage = initial(E.min_broken_damage)
+				if(!(E.status & ORGAN_ROBOT))
+					E.min_broken_damage = initial(E.min_broken_damage)
 
 /datum/disease2/effect/shakey
 	name = "World Shaking Syndrome"

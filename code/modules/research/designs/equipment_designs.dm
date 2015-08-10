@@ -90,3 +90,13 @@
 	materials = list("$metal" = 4000, "$bananium" = 1000)
 	build_path = /obj/item/weapon/bikehorn/airhorn
 	category = list("Equipment")
+
+/datum/design/welding_mask
+	name = "Welding Gas Mask"
+	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
+	id = "weldingmask"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4000, "$glass" = 1000)
+	build_path = /obj/item/clothing/mask/gas/welding
+	category = list("Equipment")
