@@ -37,7 +37,8 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/classic_baton/telescopic,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator)
+		/obj/item/weapon/gun/energy/kinetic_accelerator,\
+		/obj/item/weapon/gun/energy/floragun)
 
 
 /obj/machinery/bot/secbot/beepsky
