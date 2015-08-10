@@ -118,8 +118,7 @@
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
-					spawn(0)
-						T.ex_act(dist)
+					T.ex_act(dist)
 
 			//--- THROW ITEMS AROUND ---
 /*
