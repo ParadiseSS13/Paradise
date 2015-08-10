@@ -266,6 +266,13 @@
 		add_admin_verbs()
 		admin_memo_show()
 
+	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
+	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
+	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
+		if(src)
+			winset(src, null, "command=\".configure graphics-hwmode off\"")
+			winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 	log_client_to_db()
 
 	send_resources()
