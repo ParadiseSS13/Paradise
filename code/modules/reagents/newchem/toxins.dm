@@ -94,8 +94,11 @@ datum/reagent/venom
 
 datum/reagent/venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss((0.1*volume)*REM)
-	M.adjustBruteLoss((0.1*volume)*REM)
+	M.adjustToxLoss(1*REM)
+	M.adjustBruteLoss(1*REM)
+	if(volume >= 20)
+		M.adjustToxLoss(1*REM)
+		M.adjustBruteLoss(1*REM)
 	if(prob(25))
 		M.reagents.add_reagent("histamine",rand(5,10))
 	..()
@@ -347,8 +350,10 @@ datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(current_cycle >= 10)
 		M.Weaken(3)
-	if(prob(7))
-		M.losebreath += rand(3,5)
+		if(prob(10))
+			M.losebreath += 1
+		if(prob(7))
+			M.losebreath += 3
 	..()
 	return
 
