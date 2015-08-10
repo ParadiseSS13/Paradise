@@ -1,4 +1,6 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+//Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
+//increase the slots of many jobs.
+var/time_last_changed_position = 0
 
 /obj/machinery/computer/card
 	name = "Identification Computer"
@@ -6,11 +8,45 @@
 	icon_keyboard = "id_key"
 	icon_screen = "id"
 	req_access = list(access_change_ids)
-	circuit = "/obj/item/weapon/circuitboard/card"
+	circuit = /obj/item/weapon/circuitboard/card
+	light_color = LIGHT_COLOR_LIGHTBLUE
 	var/obj/item/weapon/card/id/scan = null
 	var/obj/item/weapon/card/id/modify = null
 	var/mode = 0.0
 	var/printing = null
+	
+	//Cooldown for closing positions in seconds
+	//if set to -1: No cooldown... probably a bad idea
+	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
+	var/change_position_cooldown = 60
+	//Jobs you cannot open new positions for
+	var/list/blacklisted = list(
+		"AI",
+		"Cyborg",
+		"Captain",
+		"Head of Personnel",
+		"Head of Security",
+		"Chief Engineer",
+		"Research Director",
+		"Chief Medical Officer",
+		"Magistrate",
+		"Blueshield",
+		"Nanotrasen Representative",
+		"Security Pod Pilot",
+		"Brig Physician",
+		"Mechanic",
+		"Barber",
+		"Civilian",	
+		"Chaplain"
+	)
+
+	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
+	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
+
+	//This is used to keep track of opened positions for jobs to allow instant closing
+	//Assoc array: "JobName" = (int)<Opened Positions>
+	var/list/opened_positions = list();
+
 	var/list/card_skins = list(
 		"data",
 		"id",
@@ -25,7 +61,8 @@
 		"RD",
 		"CE",
 		"clown",
-		"mime"
+		"mime",
+		"prisoner"
 	)
 	var/list/centcom_card_skins = list(
 		"centcom",
@@ -43,35 +80,47 @@
 		"TDgreen"
 	)	
 
-	light_color = LIGHT_COLOR_LIGHTBLUE
+/obj/machinery/computer/card/proc/is_centcom()
+	return istype(src, /obj/machinery/computer/card/centcom)
 
-	proc/is_centcom()
-		return istype(src, /obj/machinery/computer/card/centcom)
+/obj/machinery/computer/card/proc/is_authenticated()
+	return scan ? check_access(scan) : 0
 
-	proc/is_authenticated()
-		return scan ? check_access(scan) : 0
+/obj/machinery/computer/card/proc/get_target_rank()
+	return modify && modify.assignment ? modify.assignment : "Unassigned"
 
-	proc/get_target_rank()
-		return modify && modify.assignment ? modify.assignment : "Unassigned"
+/obj/machinery/computer/card/proc/format_jobs(list/jobs)
+	var/list/formatted = list()
+	for(var/job in jobs)
+		formatted.Add(list(list(
+			"display_name" = replacetext(job, " ", "&nbsp;"),
+			"target_rank" = get_target_rank(),
+			"job" = job)))
 
-	proc/format_jobs(list/jobs)
-		var/list/formatted = list()
-		for(var/job in jobs)
-			formatted.Add(list(list(
-				"display_name" = replacetext(job, " ", "&nbsp;"),
-				"target_rank" = get_target_rank(),
-				"job" = job)))
+	return formatted
+	
+/obj/machinery/computer/card/proc/format_job_slots()
+	var/list/formatted = list()
+	for(var/datum/job/job in job_master.occupations)
+		if(job.title in blacklisted)
+			continue
+		formatted.Add(list(list(
+			"title" = job.title,
+			"current_positions" = job.current_positions,
+			"total_positions" = job.total_positions,
+			"can_open" = can_open_job(job),
+			"can_close" = can_close_job(job))))
 
-		return formatted
+	return formatted
 		
-	proc/format_card_skins(list/card_skins)
-		var/list/formatted = list()
-		for(var/skin in card_skins)
-			formatted.Add(list(list(
-				"display_name" = replacetext(skin, " ", "&nbsp;"),
-				"skin" = skin)))
+/obj/machinery/computer/card/proc/format_card_skins(list/card_skins)
+	var/list/formatted = list()
+	for(var/skin in card_skins)
+		formatted.Add(list(list(
+			"display_name" = replacetext(skin, " ", "&nbsp;"),
+			"skin" = skin)))
 
-		return formatted
+	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
 	set category = null
@@ -111,10 +160,38 @@
 
 	nanomanager.update_uis(src)
 	attack_hand(user)
+	
+//Check if you can't open a new position for a certain job
+/obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
+	return (jobtitle in blacklisted)
+
+
+//Logic check for Topic() if you can open the job
+/obj/machinery/computer/card/proc/can_open_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted(job.title))
+			if((job.total_positions <= player_list.len * (max_relative_positions / 100)))
+				var/delta = (world.time / 10) - time_last_changed_position
+				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
+					return 1
+				return -2
+			return -1
+	return 0
+
+//Logic check for Topic() if you can close the job
+/obj/machinery/computer/card/proc/can_close_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted(job.title))
+			if(job.total_positions > job.current_positions)
+				var/delta = (world.time / 10) - time_last_changed_position
+				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
+					return 1
+				return -2
+			return -1
+	return 0
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
-
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
 	if(..()) 
@@ -154,6 +231,14 @@
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
 	data["card_skins"] = format_card_skins(card_skins)
 	
+	data["job_slots"] = format_job_slots()
+	
+	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - time_last_changed_position), 1)
+	var/mins = round(time_to_wait / 60)
+	var/seconds = time_to_wait - (60*mins)
+	data["cooldown_mins"] = mins
+	data["cooldown_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+					
 	if(modify)
 		data["current_skin"] = modify.icon_state
 
@@ -315,13 +400,13 @@
 					nanomanager.update_uis(src)
 
 					var/obj/item/weapon/paper/P = new(loc)
-					if (mode)
+					if (mode == 2)
 						P.name = text("crew manifest ([])", worldtime2text())
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
 							[data_core ? data_core.get_manifest(0) : ""]
 						"}
-					else if (modify)
+					else if (modify && !mode)
 						P.name = "access report"
 						P.info = {"<h4>Access Report</h4>
 							<u>Prepared By:</u> [scan.registered_name ? scan.registered_name : "Unknown"]<br>
@@ -342,6 +427,37 @@
 				modify.access = list()
 
 				callHook("terminate_employee", list(modify))
+				
+		if("make_job_available")
+			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
+			if(is_authenticated())
+				var/edit_job_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!j)
+					return 0
+				if(can_open_job(j) != 1)
+					return 0
+				if(opened_positions[edit_job_target] >= 0)
+					time_last_changed_position = world.time / 10
+				j.total_positions++
+				opened_positions[edit_job_target]++
+				nanomanager.update_uis(src)
+
+		if("make_job_unavailable")
+			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
+			if(is_authenticated())
+				var/edit_job_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(edit_job_target)
+				if(!j)
+					return 0
+				if(can_close_job(j) != 1)
+					return 0
+				//Allow instant closing without cooldown if a position has been opened before
+				if(opened_positions[edit_job_target] <= 0)
+					time_last_changed_position = world.time / 10
+				j.total_positions--
+				opened_positions[edit_job_target]--
+				nanomanager.update_uis(src)
 
 	if (modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
