@@ -1248,7 +1248,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/pistachios
 	name = "Pistachios"
 	icon_state = "pistachios"
-	desc = "A snack of delciously salted pistachios. A perfectly valid choice..."
+	desc = "A snack of deliciously salted pistachios. A perfectly valid choice..."
 	trash = /obj/item/trash/pistachios
 	filling_color = "#BAD145"
 
