@@ -131,7 +131,7 @@
 		shock(user,50)
 
 	if(istype(O, /obj/item/weapon/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server")
+		default_deconstruction_screwdriver(user, "server_o", "server", O)
 		return 1
 
 	if(exchange_parts(user, O))
