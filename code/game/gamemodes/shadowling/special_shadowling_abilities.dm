@@ -90,13 +90,12 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 
 				sleep(10)
 				H << "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>"
-				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_ascend)
+				H.mind.remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
 				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare)
 				H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil)
 				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk)
 				H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze)
 				H.AddSpell(new /obj/effect/proc_holder/spell/targeted/collective_mind)
-				H.mind.remove_spell(src)
 
 /obj/effect/proc_holder/spell/targeted/shadowling_ascend
 	name = "Ascend"
