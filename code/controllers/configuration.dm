@@ -159,6 +159,8 @@
 	var/allow_holidays = 0
 	var/player_overflow_cap = 0 //number of players before the server starts rerouting
 	var/list/overflow_whitelist = list() //whitelist for overflow
+	
+	var/disable_away_missions = 0 // disable away missions
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -516,6 +518,9 @@
 
 				if("overflow_server_url")
 					config.overflow_server_url = value
+					
+				if("disable_away_missions")
+					config.disable_away_missions = value
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
