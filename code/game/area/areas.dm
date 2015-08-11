@@ -66,8 +66,10 @@
 		atmosalm = danger_level
 		for (var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
-
+			
+		air_alarm_repository.update_cache(src)
 		return 1
+	air_alarm_repository.update_cache(src)
 	return 0
 
 /area/proc/air_doors_close()

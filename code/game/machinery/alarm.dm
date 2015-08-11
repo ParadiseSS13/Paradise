@@ -204,6 +204,10 @@
 /obj/machinery/alarm/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
+		
+	if (src in machines) // So the cache can properly update
+		removeAtProcessing()
+	air_alarm_repository.update_cache(src)
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
@@ -212,6 +216,7 @@
 	if (name == "alarm")
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
+	air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/initialize()
 	set_frequency(frequency)

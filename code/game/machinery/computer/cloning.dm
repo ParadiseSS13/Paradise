@@ -193,6 +193,7 @@
 			src.scan_mob(src.scanner.occupant)
 
 			loading = 0
+			nanomanager.update_uis(src)
 
 	if(href_list["task"])
 		switch(href_list["task"])
@@ -245,10 +246,12 @@
 			if("load")
 				if ((isnull(src.diskette)) || isnull(src.diskette.buf))
 					src.temp = "<span class=\"bad\">Error: The disk's data could not be read.</span>"
+					nanomanager.update_uis(src)
 					return
 				if (isnull(src.active_record))
 					src.temp = "<span class=\"bad\">Error: No active record was found.</span>"
 					src.menu = 1
+					nanomanager.update_uis(src)
 					return
 
 				src.active_record = src.diskette.buf

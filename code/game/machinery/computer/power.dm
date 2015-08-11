@@ -12,10 +12,20 @@
 	var/datum/nano_module/power_monitor/power_monitor
 
 /obj/machinery/computer/monitor/New()
+	..()
 	power_monitor = new(src)	
 	powernet = find_powernet()
-		
+	powermonitor_repository.update_cache()	
+	
+/obj/machinery/computer/monitor/Destroy()
+	if (src in machines) // So the cache can properly update
+		removeAtProcessing()
+	powermonitor_repository.update_cache()	
+	return ..()	
+	
+/obj/machinery/computer/monitor/power_change()
 	..()
+	powermonitor_repository.update_cache()	
 	
 /obj/machinery/computer/monitor/process() 
 	if(!powernet)

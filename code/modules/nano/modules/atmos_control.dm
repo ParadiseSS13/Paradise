@@ -31,14 +31,7 @@
 
 /datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	var/data[0]
-	var/alarms[0]
-
-	// TODO: Move these to a cache, similar to cameras
-	for(var/obj/machinery/alarm/alarm in sortAtom((monitored_alarms.len ? monitored_alarms : machines)))
-		if(!monitored_alarms.len && alarm.z != ZLEVEL_STATION && alarm.z != ZLEVEL_ASTEROID)
-			continue
-		alarms[++alarms.len] = alarm.get_nano_data_console()
-	data["alarms"] = alarms
+	data["alarms"] = air_alarm_repository.air_alarm_data(monitored_alarms)
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
