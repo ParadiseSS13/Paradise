@@ -457,10 +457,8 @@
 /obj/item/weapon/reagent_containers/ld50_syringe/lethal
 	New()
 		..()
-		reagents.add_reagent("sulfonal", 4)
-		reagents.add_reagent("pancuronium", 6)
-		reagents.add_reagent("tabun", 20)
-		reagents.add_reagent("amanitin", 20)
+		reagents.add_reagent("cyanide", 10)
+		reagents.add_reagent("neurotoxin2", 40)
 		mode = SYRINGE_INJECT
 		update_icon()
 
