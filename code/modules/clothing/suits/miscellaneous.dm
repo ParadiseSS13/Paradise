@@ -505,3 +505,36 @@
 	icon_state = "lordadmiral"
 	item_state = "lordadmiral"
 	allowed = list (/obj/item/weapon/gun)
+
+
+//Kluys fluff nanofibre suit
+/obj/item/clothing/suit/kluysfluff
+	name = "Nano Fibre Jacket"
+	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
+	icon_state = "Kluysfluff1"
+	item_state = "Kluysfluff1"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+
+	verb/toggle()
+		set name = "Toggle Nanofibre Mode"
+		set category = "Object"
+		set src in usr
+
+		if(!usr.canmove || usr.stat || usr.restrained())
+			return 0
+
+		switch(icon_state)
+			if("Kluysfluff1")
+				src.icon_state = "Kluysfluff2"
+				usr << "The fibre unfolds into a jacket"
+			if("Kluysfluff2")
+				src.icon_state = "Kluysfluff3"
+				usr << "The fibre unfolds into a coat"
+			if("Kluysfluff3")
+				src.icon_state = "Kluysfluff1"
+				usr << "The fibre gets sucked back into its holder."
+			else
+				usr << "You attempt to hit the button but can't"
+				return
+		usr.update_inv_wear_suit()	//so our overlays update
