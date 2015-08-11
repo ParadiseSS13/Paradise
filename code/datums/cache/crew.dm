@@ -1,12 +1,5 @@
 var/global/datum/repository/crew/crew_repository = new()
 
-/datum/cache_entry
-	var/timestamp
-	var/data
-
-/datum/repository/crew
-	var/list/cache_data
-
 /datum/repository/crew/New()
 	cache_data = list()
 	..()

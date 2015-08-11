@@ -14,8 +14,12 @@
 /obj/machinery/computer/monitor/New()
 	power_monitor = new(src)	
 	powernet = find_powernet()
-		
+	powermonitor_repository.update_cache()	
 	..()
+	
+/obj/machinery/computer/monitor/Destroy()
+	powermonitor_repository.update_cache()	
+	return ..()	
 	
 /obj/machinery/computer/monitor/process() 
 	if(!powernet)
