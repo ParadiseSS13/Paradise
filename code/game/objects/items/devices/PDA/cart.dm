@@ -289,7 +289,7 @@
 			values["powerconnected"] = 1
 			values["poweravail"] = powmonitor.powernet.avail
 			values["powerload"] = num2text(powmonitor.powernet.viewload,10)
-			values["apcs"] = apc_repository.apc_data(powermonitor)
+			values["apcs"] = apc_repository.apc_data(powmonitor)
 		else
 			values["powerconnected"] = 0
 
