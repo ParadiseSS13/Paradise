@@ -285,7 +285,7 @@
 	if(mode==43 || mode==433)						
 		values["powermonitors"] = powermonitor_repository.powermonitor_data()
 
-		if (!isnull(powmonitor.powernet))
+		if (powmonitor && !isnull(powmonitor.powernet))
 			values["powerconnected"] = 1
 			values["poweravail"] = powmonitor.powernet.avail
 			values["powerload"] = num2text(powmonitor.powernet.viewload,10)

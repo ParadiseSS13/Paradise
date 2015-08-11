@@ -20,6 +20,9 @@
 		data["powermonitors"] = powermonitor_repository.powermonitor_data()
 		
 	if (powermonitor && !isnull(powermonitor.powernet))	
+		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
+			powermonitor = null
+			return
 		data["poweravail"] = powermonitor.powernet.avail
 		data["powerload"] = num2text(powermonitor.powernet.viewload,10)	
 		data["apcs"] = apc_repository.apc_data(powermonitor)

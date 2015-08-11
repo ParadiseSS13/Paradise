@@ -10,8 +10,8 @@ var/global/datum/repository/powermonitor/powermonitor_repository = new()
 
 	if(!refresh)
 		return cache_entry.data
-		
-	for(var/obj/machinery/computer/monitor/pMon in world)
+	
+	for(var/obj/machinery/computer/monitor/pMon in machines)
 		if( !(pMon.stat & (NOPOWER|BROKEN)) )
 			pMonData[++pMonData.len] = list ("Name" = pMon.name, "ref" = "\ref[pMon]")
 
@@ -20,5 +20,5 @@ var/global/datum/repository/powermonitor/powermonitor_repository = new()
 	return pMonData
 	
 /datum/repository/powermonitor/proc/update_cache()
-	return powermonitor_data(1)
+	return powermonitor_data(refresh = 1)
 	
