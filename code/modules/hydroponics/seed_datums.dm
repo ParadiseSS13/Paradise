@@ -4,7 +4,7 @@
 	seed_name = "chili"
 	display_name = "chili plants"
 	chems = list("capsaicin" = list(3,5), "plantmatter" = list(1,25))
-	mutants = list("icechili")
+	mutants = list("icechili", "ghostchili")
 	kitchen_tag = "chili"
 	preset_icon = "chilipepper"
 
@@ -27,6 +27,21 @@
 	chems = list("frostoil" = list(3,5), "plantmatter" = list(1,50))
 	kitchen_tag = "icechili"
 	preset_icon = "icepepper"
+
+/datum/seed/chili/ice/New()
+	..()
+	set_trait(TRAIT_MATURATION,4)
+	set_trait(TRAIT_PRODUCTION,4)
+	set_trait(TRAIT_PRODUCT_COLOUR,"#00EDC6")
+
+/datum/seed/chili/ghost
+	name = "ghostchili"
+	seed_name = "ghost pepper"
+	display_name = "ghost pepper plants"
+	mutants = null
+	chems = list("capsaicin" = list(8,2), "condensedcapsaicin" = list(4,4), "plantmatter" = list(1,50))
+	kitchen_tag = "ghostchili"
+	preset_icon = "ghostchilipepper"
 
 /datum/seed/chili/ice/New()
 	..()
@@ -671,9 +686,11 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#B33715")
 	set_trait(TRAIT_PLANT_ICON,"flower3")
 
+//Sunflowers/varieties
 /datum/seed/flower/sunflower
 	name = "sunflowers"
 	seed_name = "sunflower"
+	mutants = list("moonflowers", "novaflowers")
 	display_name = "sunflowers"
 	preset_icon = "sunflower"
 
@@ -682,6 +699,36 @@
 	set_trait(TRAIT_MATURATION,6)
 	set_trait(TRAIT_PRODUCT_ICON,"flower2")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#FFF700")
+	set_trait(TRAIT_PLANT_ICON,"flower2")
+
+/datum/seed/flower/moonflower
+	name = "moonflowers"
+	seed_name = "moonflowers"
+	chems = list("plantmatter" = list(1,50), "moonshine" = list(1,10))
+	mutants = null
+	display_name = "moonflowers"
+	preset_icon = "moonflower"
+
+/datum/seed/flower/moonflower/New()
+	..()
+	set_trait(TRAIT_MATURATION,6)
+	set_trait(TRAIT_PRODUCT_ICON,"flower2")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#B5ABDD")
+	set_trait(TRAIT_PLANT_ICON,"flower2")
+
+/datum/seed/flower/novaflower
+	name = "novaflowers"
+	seed_name = "novaflower"
+	mutants = null
+	chems = list("fuel" = list(1,10))
+	display_name = "novaflowers"
+	preset_icon = "novaflower"
+
+/datum/seed/flower/novaflower/New()
+	..()
+	set_trait(TRAIT_MATURATION,6)
+	set_trait(TRAIT_PRODUCT_ICON,"flower2")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#E2A932")
 	set_trait(TRAIT_PLANT_ICON,"flower2")
 
 //Grapes/varieties
@@ -716,6 +763,47 @@
 /datum/seed/grapes/green/New()
 	..()
 	set_trait(TRAIT_PRODUCT_COLOUR,"42ed2f")
+
+//Soybeans/varieties
+/datum/seed/soybean
+	name = "soybean"
+	seed_name = "soybean"
+	display_name = "soybeans"
+	chems = list("plantmatter" = list(1,20), "soybeanoil" = list(1,20))
+	mutants = list("koibean")
+	kitchen_tag = "soybeans"
+	preset_icon = "soybeans"
+
+/datum/seed/soybean/New()
+	..()
+	set_trait(TRAIT_HARVEST_REPEAT,1)
+	set_trait(TRAIT_MATURATION,4)
+	set_trait(TRAIT_PRODUCTION,4)
+	set_trait(TRAIT_YIELD,3)
+	set_trait(TRAIT_POTENCY,5)
+	set_trait(TRAIT_PRODUCT_ICON,"bean")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#EBE7C0")
+	set_trait(TRAIT_PLANT_ICON,"stalk")
+
+/datum/seed/soybean/koi
+	name = "koibean"
+	seed_name = "koibean"
+	display_name = "koi beans"
+	chems = list("plantmatter" = list(1,30), "carpotoxin" = list(1,20))
+	mutants = null
+	kitchen_tag = "koibean"
+	preset_icon = "koibeans"
+
+/datum/seed/soybean/koi/New()
+	..()
+	set_trait(TRAIT_HARVEST_REPEAT,1)
+	set_trait(TRAIT_MATURATION,4)
+	set_trait(TRAIT_PRODUCTION,4)
+	set_trait(TRAIT_YIELD,3)
+	set_trait(TRAIT_POTENCY,5)
+	set_trait(TRAIT_PRODUCT_ICON,"bean")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#EBE7C0")
+	set_trait(TRAIT_PLANT_ICON,"stalk")
 
 //Everything else
 /datum/seed/peanuts
@@ -814,25 +902,6 @@
 	set_trait(TRAIT_PRODUCT_ICON,"potato")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#D4CAB4")
 	set_trait(TRAIT_PLANT_ICON,"bush2")
-
-/datum/seed/soybean
-	name = "soybean"
-	seed_name = "soybean"
-	display_name = "soybeans"
-	chems = list("plantmatter" = list(1,20), "soybeanoil" = list(1,20))
-	kitchen_tag = "soybeans"
-	preset_icon = "soybeans"
-
-/datum/seed/soybean/New()
-	..()
-	set_trait(TRAIT_HARVEST_REPEAT,1)
-	set_trait(TRAIT_MATURATION,4)
-	set_trait(TRAIT_PRODUCTION,4)
-	set_trait(TRAIT_YIELD,3)
-	set_trait(TRAIT_POTENCY,5)
-	set_trait(TRAIT_PRODUCT_ICON,"bean")
-	set_trait(TRAIT_PRODUCT_COLOUR,"#EBE7C0")
-	set_trait(TRAIT_PLANT_ICON,"stalk")
 
 /datum/seed/wheat
 	name = "wheat"
