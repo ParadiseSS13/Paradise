@@ -462,10 +462,6 @@
 	name = "nanotrasen ID card"
 	icon_state = "nanotrasen"
 
-/obj/item/weapon/card/id/centcom/New()
-	access = get_all_centcom_access()
-	..()
-
 /obj/item/weapon/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
