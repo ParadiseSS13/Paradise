@@ -459,7 +459,8 @@
 		..()
 		reagents.add_reagent("sulfonal", 4)
 		reagents.add_reagent("pancuronium", 6)
-		reagents.add_reagent("neurotoxin2", 40)
+		reagents.add_reagent("Tabun", 20)
+		reagents.add_reagent("amanitin", 20)
 		mode = SYRINGE_INJECT
 		update_icon()
 
