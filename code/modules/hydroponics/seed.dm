@@ -733,8 +733,9 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
-					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
+				if(modular_icon == 1)
+					if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
+						product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
 					food.filling_color = get_trait(TRAIT_PRODUCT_COLOUR)
@@ -775,6 +776,8 @@
 	if(chems)          new_seed.chems = chems.Copy()
 	if(consume_gasses) new_seed.consume_gasses = consume_gasses.Copy()
 	if(exude_gasses)   new_seed.exude_gasses = exude_gasses.Copy()
+	new_seed.modular_icon = modular_icon
+	new_seed.preset_icon = preset_icon
 
 	new_seed.seed_name =            "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][seed_name]"
 	new_seed.display_name =         "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][display_name]"

@@ -107,7 +107,7 @@
 			descriptors |= "sweet-sour"
 		if(reagents.has_reagent("radium") || reagents.has_reagent("uranium"))
 			descriptors |= "radioactive"
-		if(reagents.has_reagent("amanitin") || reagents.has_reagent("toxin"))
+		if(reagents.has_reagent("amanitin") || reagents.has_reagent("toxin") || reagents.has_reagent("carpotoxin"))
 			descriptors |= "poisonous"
 		if(reagents.has_reagent("lsd") || reagents.has_reagent("space_drugs") || reagents.has_reagent("psilocybin"))
 			descriptors |= "hallucinogenic"
@@ -119,6 +119,10 @@
 			descriptors |= "slippery"
 		if(reagents.has_reagent("facid") || reagents.has_reagent("sacid"))
 			descriptors |= "acidic"
+		if(reagents.has_reagent("fuel"))
+			descriptors |= "flammable"
+		if(reagents.has_reagent("moonshine"))
+			descriptors |= "intoxicating"
 		if(seed.get_trait(TRAIT_JUICY))
 			descriptors |= "juicy"
 		if(seed.get_trait(TRAIT_STINGS))
