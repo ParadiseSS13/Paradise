@@ -824,11 +824,17 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user as mob)
-	if(isAI(user) || isrobot(user))
+/obj/machinery/alarm/proc/is_authenticated(mob/user as mob, href_list)
+	if(isAI(user) || isrobot(user) || emagged || is_auth_rcon(href_list))
 		return 1
 	else
 		return !locked
+		
+/obj/machinery/alarm/proc/is_auth_rcon(href_list)
+	if(href_list["remote_connection"] && href_list["remote_access"])
+		return 1
+	else
+		return 0
 		
 /obj/machinery/alarm/CanUseTopic(var/mob/user, var/datum/topic_state/state, var/href_list = list())
 	if(buildstage != 2)
@@ -842,14 +848,16 @@
 
 	if(. == STATUS_INTERACTIVE)
 		var/extra_href = state.href_list(usr)
-		// Prevent remote users from altering RCON settings unless they already have access
-		if(href_list["rcon"] && extra_href["remote_connection"] && !extra_href["remote_access"])
+		// Prevent remote users from altering RCON settings or activating atmos alarms unless they already have access
+		if((href_list["atmos_alarm"] || href_list["rcon"]) && extra_href["remote_connection"] && !extra_href["remote_access"])
 			. = STATUS_UPDATE
 	return min(..(), .)
 
 /obj/machinery/alarm/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state)	
 	if(..(href, href_list, nowindow, state))
 		return 1
+		
+	var/state_href = state.href_list(usr)
 		
 	if(href_list["rcon"])
 		var/attempted_rcon_setting = text2num(href_list["rcon"])
@@ -865,7 +873,7 @@
 	add_fingerprint(usr)
 
 	if(href_list["command"])
-		if(!is_authenticated(usr))
+		if(!is_authenticated(usr, state_href))
 			return
 
 		var/device_id = href_list["id_tag"]
@@ -920,7 +928,7 @@
 					tlv.vars[varname] = newval
 
 	if(href_list["screen"])
-		if(!is_authenticated(usr))
+		if(!is_authenticated(usr, state_href))
 			return
 
 		screen = text2num(href_list["screen"])
@@ -941,7 +949,7 @@
 		return 1
 
 	if(href_list["mode"])
-		if(!is_authenticated(usr))
+		if(!is_authenticated(usr, state_href))
 			return
 
 		mode = text2num(href_list["mode"])
@@ -949,7 +957,7 @@
 		return 1
 
 	if(href_list["preset"])
-		if(!is_authenticated(usr))
+		if(!is_authenticated(usr, state_href))
 			return
 
 		preset = text2num(href_list["preset"])
