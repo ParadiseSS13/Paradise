@@ -520,7 +520,7 @@
 					config.overflow_server_url = value
 					
 				if("disable_away_missions")
-					config.disable_away_missions = value
+					config.disable_away_missions = 1
 
 				else
 					diary << "Unknown setting in configuration: '[name]'"
