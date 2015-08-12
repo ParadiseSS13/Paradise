@@ -457,6 +457,10 @@
 /obj/item/weapon/card/id/centcom/New()
 	access = get_all_centcom_access()
 	..()
+	
+/obj/item/weapon/card/id/nanotrasen
+	name = "nanotrasen ID card"
+	icon_state = "nanotrasen"
 
 /obj/item/weapon/card/id/prisoner
 	name = "prisoner ID card"
@@ -646,10 +650,10 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","prisoner","rainbow")
+	return list("data","id","gold","silver","security","medical","research","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
