@@ -150,7 +150,7 @@
 			return
 
 		if(terminal) //is there already a terminal ?
-			user << "<span class='alert'>This SMES already have a power terminal!</span>"
+			user << "<span class='alert'>This SMES already has a power terminal!</span>"
 			return
 
 		if(!panel_open) //is the panel open ?
@@ -162,31 +162,14 @@
 			user << "<span class='alert'>You must first remove the floor plating!</span>"
 			return
 
-
 		var/obj/item/stack/cable_coil/C = I
 		if(C.amount < 10)
 			user << "<span class='alert'>You need more wires.</span>"
 			return
 
-		user << "You start building the power terminal..."
-		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-
-		if(do_after(user, 20) && C.amount >= 10)
-			var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-			if (prob(50) && electrocute_mob(usr, N, N)) //animate the electrocution if uncautious and unlucky
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
-				return
-
-			C.use(10)
-			user.visible_message(\
-				"<span class='alert'>[user.name] has built a power terminal!</span>",\
-				"You build the power terminal.")
-
-			//build the terminal and link it to the network
-			make_terminal(T)
-			terminal.connect_to_network()
+		//build the terminal and link it to the network
+		make_terminal(user)
+		terminal.connect_to_network()
 		return
 
 	//disassembling the terminal
@@ -196,7 +179,7 @@
 			user << "<span class='alert'>You must first expose the power terminal!</span>"
 			return
 
-		user << "You begin to dismantle the power terminal..."
+		user << "<span class='notice'>You begin to dismantle the power terminal...</span>"
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
 		if(do_after(user, 50))
@@ -210,13 +193,20 @@
 			new /obj/item/stack/cable_coil(T,10)
 			user.visible_message(\
 				"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-				"You cut the cables and dismantle the power terminal.")
+				"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
 			inputting = 0 //stop inputting, since we have don't have a terminal anymore
 			qdel(terminal)
 			return
 
 	//crowbarring it !
 	default_deconstruction_crowbar(I)
+	
+/obj/machinery/power/smes/disconnect_terminal()
+	if(terminal)
+		terminal.master = null
+		terminal = null
+		return 1
+	return 0
 
 /obj/machinery/power/smes/Destroy()
 	if(ticker && ticker.current_state == GAME_STATE_PLAYING)
@@ -332,6 +322,18 @@
 			return 1
 	user << "<span class='notice'>You start adding cable to the [src].</span>"
 	if(do_after(user, 50))
+		var/turf/T = get_turf(user)
+		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
+		if (prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(5, 1, src)
+			s.start()
+			return
+			
+		user.visible_message(\
+			"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
+			"<span class='notice'>You add the cables and connect the power terminal.</span>")
+			
 		terminal = new /obj/machinery/power/terminal(tempLoc)
 		terminal.dir = tempDir
 		terminal.master = src
