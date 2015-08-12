@@ -464,11 +464,9 @@
 			usr << "There is no coin in this machine."
 			return
 
-		coin.loc = src.loc
-		if(!usr.get_active_hand())
-			usr.put_in_hands(coin)
-		usr << "\blue You remove the [coin] from the [src]"
+		usr.put_in_hands(coin)
 		coin = null
+		usr << "\blue You remove the [coin] from the [src]"
 		categories &= ~CAT_COIN
 
 	if (href_list["pay"])
@@ -560,9 +558,11 @@
 				user << "\blue You successfully pull the coin out before the [src] could swallow it."
 			else
 				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
+				coin = null
 				qdel(coin)
 				categories &= ~CAT_COIN
 		else
+			coin = null
 			qdel(coin)
 			categories &= ~CAT_COIN
 
