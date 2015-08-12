@@ -134,7 +134,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		return 0
 
 	for(var/obj/stack in cortical_stacks)
-		if (get_area(stack) != locate(/area/shuttle/vox/station))
+		if (get_area(stack.loc) != locate(/area/shuttle/vox/station))
 			return 0
 	return 1
 

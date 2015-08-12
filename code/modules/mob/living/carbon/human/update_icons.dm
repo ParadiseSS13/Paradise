@@ -213,6 +213,7 @@ var/global/list/damage_icon_parts = list()
 			if(O.damage_state == "00") continue
 			var/icon/DI
 			var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
+
 			if(damage_icon_parts[cache_index] == null)
 				DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
 				DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels

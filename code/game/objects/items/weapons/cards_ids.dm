@@ -210,10 +210,18 @@
 
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
-	access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
+	var/list/initial_access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
 	origin_tech = "syndicate=3"
 	var/registered_user = null
-
+	
+/obj/item/weapon/card/id/syndicate/New()
+	access = initial_access.Copy()
+	..()
+	
+/obj/item/weapon/card/id/syndicate/vox
+	name = "agent card"
+	initial_access = list(access_maint_tunnels, access_vox, access_external_airlocks)
+	
 /obj/item/weapon/card/id/syndicate/afterattack(var/obj/item/weapon/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
@@ -408,7 +416,7 @@
 						blood_type = initial(blood_type)
 						dna_hash = initial(dna_hash)
 						fingerprint_hash = initial(fingerprint_hash)
-						access = initial(access)
+						access = initial_access.Copy() // Initial() doesn't work on lists
 						registered_user = null
 
 						user << "<span class='notice'>All information has been deleted from \the [src].</span>"

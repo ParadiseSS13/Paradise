@@ -47,6 +47,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
+	nanomanager.close_uis(src)
 	return ..()
 
 /obj/item/proc/is_used_on(obj/O, mob/user)

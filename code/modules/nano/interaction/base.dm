@@ -27,7 +27,7 @@
 
 /mob/living/silicon/robot/shared_nano_interaction()
 	. = STATUS_INTERACTIVE
-	if(cell.charge <= 0)
+	if(!cell || cell.charge <= 0)
 		return STATUS_CLOSE
 	if(lockcharge)
 		. = STATUS_DISABLED
