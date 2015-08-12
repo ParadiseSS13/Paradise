@@ -27,7 +27,6 @@
 			if(alarm)
 				var/datum/topic_state/TS = generate_state(alarm)
 				alarm.ui_interact(usr, master_ui = ui_ref, state = TS)
-		return 1
 
 /datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	var/data[0]
@@ -69,4 +68,4 @@
 	return extra_href
 
 /datum/topic_state/air_alarm/proc/has_access(var/mob/user)
-	return user && (isAI(user) || atmos_control.access.allowed(user) || atmos_control.emagged || air_alarm.rcon_setting == RCON_YES || (air_alarm.alarm_area.atmosalm && air_alarm.rcon_setting == RCON_AUTO))
+	return user && (isAI(user) || atmos_control.access.allowed(user) || atmos_control.emagged || air_alarm.rcon_setting == RCON_YES || air_alarm.emagged || (air_alarm.alarm_area.atmosalm && air_alarm.rcon_setting == RCON_AUTO))

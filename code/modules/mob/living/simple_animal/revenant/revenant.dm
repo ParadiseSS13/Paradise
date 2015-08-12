@@ -216,7 +216,7 @@
 	..()
 
 /datum/objective/revenant/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/revenant) || !owner.current)
+	if(!owner || !istype(owner.current, /mob/living/simple_animal/revenant))
 		return 0
 	var/mob/living/simple_animal/revenant/R = owner.current
 	if(!R || R.stat == DEAD)
