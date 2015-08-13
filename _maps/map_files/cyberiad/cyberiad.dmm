@@ -6140,7 +6140,7 @@
 "cod" = (/obj/machinery/atmospherics/pipe/simple/visible,/turf/simulated/floor{icon_state = "floorgrime"},/area/maintenance/incinerator)
 "coe" = (/obj/effect/landmark{name = "xeno_spawn"; pixel_x = -1},/obj/machinery/hologram/holopad,/mob/living/simple_animal/mouse,/turf/simulated/floor{icon_state = "floorgrime"},/area/maintenance/incinerator)
 "cof" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor{icon_state = "floorgrime"},/area/maintenance/incinerator)
-"cog" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/machinery/door/firedoor{dir = 4; name = "Firelock East"},/obj/machinery/door/airlock/atmos{name = "Incinterator Access"; req_access_txt = "24"},/turf/simulated/floor/plating,/area/maintenance/incinerator)
+"cog" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/machinery/door/firedoor{dir = 4; name = "Firelock East"},/obj/machinery/door/airlock/atmos{name = "Incinerator Access"; req_access_txt = "24"},/turf/simulated/floor/plating,/area/maintenance/incinerator)
 "coh" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/maintenance/apmaint)
 "coi" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plating,/area/maintenance/apmaint)
 "coj" = (/obj/machinery/camera{c_tag = "Prison Recreation Room"; dir = 1; network = list("Prison","SS13"); pixel_x = 22},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/permabrig)
