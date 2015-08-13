@@ -65,3 +65,5 @@ var/score_dmgestdamage = 0
 var/score_dmgestkey = null
 
 var/TAB = "&nbsp;&nbsp;&nbsp;&nbsp;"
+
+var/timezoneOffset = 0 // The difference betwen midnight (of the host computer) and 0 world.ticks.
