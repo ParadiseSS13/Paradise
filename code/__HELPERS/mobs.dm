@@ -1,4 +1,16 @@
-proc/random_hair_style(gender, species = "Human")
+/proc/random_underwear(var/gender)
+	switch(gender)
+		if(MALE)	return pick(underwear_m)
+		if(FEMALE)	return pick(underwear_f)
+		else		return pick(underwear_list)
+
+/proc/random_undershirt(var/gender)
+	switch(gender)
+		if(MALE)	return pick(undershirt_m)
+		if(FEMALE)	return pick(undershirt_f)
+		else		return pick(undershirt_list)
+
+proc/random_hair_style(var/gender, species = "Human")
 	var/h_style = "Bald"
 
 	var/list/valid_hairstyles = list()
@@ -29,7 +41,7 @@ proc/random_hair_style(gender, species = "Human")
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-proc/random_facial_hair_style(gender, species = "Human")
+proc/random_facial_hair_style(var/gender, species = "Human")
 	var/f_style = "Shaved"
 
 	var/list/valid_facialhairstyles = list()

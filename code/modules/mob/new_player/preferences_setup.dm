@@ -1,11 +1,12 @@
 datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
-	proc/randomize_appearance_for(var/mob/living/carbon/human/H)
-		if(H)
-			if(H.gender == MALE)
-				gender = MALE
-			else
-				gender = FEMALE
+	proc/random_character(gender_override)
+		if(gender_override)
+			gender = gender_override
+		else
+			gender = pick(MALE, FEMALE)
+		underwear = random_underwear(gender)
+		undershirt = random_undershirt(gender)
 		if(species == "Human")
 			s_tone = random_skin_tone()
 		h_style = random_hair_style(gender, species)
@@ -16,12 +17,8 @@ datum/preferences
 		randomize_eyes_color()
 		if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Vulpkanin")
 			randomize_skin_color()
-		underwear = rand(1,underwear_m.len)
-		undershirt = rand(1,undershirt_t.len)
 		backbag = 2
 		age = rand(AGE_MIN,AGE_MAX)
-		if(H)
-			copy_to(H,1)
 
 
 	proc/randomize_hair_color(var/target = "hair")
@@ -256,12 +253,16 @@ datum/preferences
 
 
 		var/icon/underwear_s = null
-		if(underwear > 0 && underwear < 7 && current_species.flags & HAS_UNDERWEAR)
-			underwear_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "underwear[underwear]_[g]_s")
+		if(underwear && current_species.flags & HAS_UNDERWEAR)
+			var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
+			if(U)
+				underwear_s = new/icon(U.icon, "[U.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/undershirt_s = null
-		if(undershirt > 0 && undershirt < 45 && current_species.flags & HAS_UNDERWEAR)
-			undershirt_s = new/icon("icon" = 'icons/mob/human.dmi', "icon_state" = "undershirt[undershirt]_s")
+		if(undershirt && current_species.flags & HAS_UNDERWEAR)
+			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+			if(U2)
+				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/clothes_s = null
 		var/uniform_dmi='icons/mob/uniform.dmi'
