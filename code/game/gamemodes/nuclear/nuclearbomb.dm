@@ -163,13 +163,13 @@ var/bomb_set
 				return
 	..()
 
-
+/obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
+	ui_interact(user)
+	
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if (src.extended)
 		if (src.opened)
-			nukehack_win(user,50)
-		user.set_machine(src)
-		ui_interact(user)
+			ui_interact(user)
 	else if (src.deployable)
 		if(removal_stage < 5)
 			src.anchored = 1
@@ -181,9 +181,6 @@ var/bomb_set
 			src.icon_state = "nuclearbomb1"
 		src.extended = 1
 	return
-
-obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
-	ui_interact(user)
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -230,6 +227,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 		uiwidth = 420
 		uiheight = 440
 		uititle = "Nuclear Bomb Defusion"
+		
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
@@ -254,135 +252,127 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 
 /obj/machinery/nuclearbomb/Topic(href, href_list)
 	if(..())
-		return
-	if (!usr.canmove || usr.stat || usr.restrained())
-		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
-		usr.set_machine(src)
-		if(href_list["act"])
-			var/temp_wire = href_list["wire"]
-			if(href_list["act"] == "pulse")
-				if (!istype(usr.get_active_hand(), /obj/item/device/multitool))
-					usr << "You need a multitool!"
+		return 1
+		
+	if(href_list["act"])
+		var/temp_wire = href_list["wire"]
+		if(href_list["act"] == "pulse")
+			if (!istype(usr.get_active_hand(), /obj/item/device/multitool))
+				usr << "You need a multitool!"
+			else
+				if(src.wires[temp_wire])
+					usr << "You can't pulse a cut wire."
 				else
-					if(src.wires[temp_wire])
-						usr << "You can't pulse a cut wire."
-					else
-						if(src.light_wire == temp_wire)
-							src.lighthack = !src.lighthack
-							spawn(100) src.lighthack = !src.lighthack
-						if(src.timing_wire == temp_wire)
-							if(src.timing)
-								explode()
-						if(src.safety_wire == temp_wire)
-							src.safety = !src.safety
-							spawn(100) src.safety = !src.safety
-							if(src.safety == 1)
-								visible_message("\blue The [src] quiets down.")
-								if(!src.lighthack)
-									if (src.icon_state == "nuclearbomb2")
-										src.icon_state = "nuclearbomb1"
-							else
-								visible_message("\blue The [src] emits a quiet whirling noise!")
-			if(href_list["act"] == "wire")
-				if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
-					usr << "You need wirecutters!"
-				else
-					wires[temp_wire] = !wires[temp_wire]
-					if(src.safety_wire == temp_wire)
-						if(src.timing)
-							explode()
-					if(src.timing_wire == temp_wire)
-						if(!src.lighthack)
-							if (src.icon_state == "nuclearbomb2")
-								src.icon_state = "nuclearbomb1"
-						src.timing = 0
-						bomb_set = 0
 					if(src.light_wire == temp_wire)
 						src.lighthack = !src.lighthack
-
-		if (href_list["auth"])
-			if (src.auth)
-				src.auth.loc = src.loc
-				src.yes_code = 0
-				src.auth = null
+						spawn(100) src.lighthack = !src.lighthack
+					if(src.timing_wire == temp_wire)
+						if(src.timing)
+							explode()
+					if(src.safety_wire == temp_wire)
+						src.safety = !src.safety
+						spawn(100) src.safety = !src.safety
+						if(src.safety == 1)
+							visible_message("\blue The [src] quiets down.")
+							if(!src.lighthack)
+								if (src.icon_state == "nuclearbomb2")
+									src.icon_state = "nuclearbomb1"
+						else
+							visible_message("\blue The [src] emits a quiet whirling noise!")
+		if(href_list["act"] == "wire")
+			if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
+				usr << "You need wirecutters!"
 			else
-				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/weapon/disk/nuclear))
-					usr.drop_item()
-					I.loc = src
-					src.auth = I
-		if (src.auth)
-			if (href_list["type"])
-				if (href_list["type"] == "E")
-					if (src.code == src.r_code)
-						src.yes_code = 1
-						src.code = null
-					else
-						src.code = "ERROR"
-				else
-					if (href_list["type"] == "R")
-						src.yes_code = 0
-						src.code = null
-					else
-						lastentered = text("[]", href_list["type"])
-						if (text2num(lastentered) == null)
-							var/turf/LOC = get_turf(usr)
-							message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
-							log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
-						else
-							src.code += lastentered
-							if (length(src.code) > 5)
-								src.code = "ERROR"
-			if (src.yes_code)
-				if (href_list["time"])
-					var/time = text2num(href_list["time"])
-					src.timeleft += time
-					src.timeleft = min(max(round(src.timeleft), 60), 600)
-				if (href_list["timer"])
-					if (src.timing == -1.0)
-						return
-					if (src.safety)
-						usr << "\red The safety is still on."
-						nanomanager.update_uis(src)
-						return
-					src.timing = !( src.timing )
-					if (src.timing)
-						if(!src.lighthack)
-							src.icon_state = "nuclearbomb2"
-						if(!src.safety)
-							bomb_set = 1//There can still be issues with this reseting when there are multiple bombs. Not a big deal tho for Nuke/N
-						else
-							bomb_set = 0
-					else
-						bomb_set = 0
-						if(!src.lighthack)
+				wires[temp_wire] = !wires[temp_wire]
+				if(src.safety_wire == temp_wire)
+					if(src.timing)
+						explode()
+				if(src.timing_wire == temp_wire)
+					if(!src.lighthack)
+						if (src.icon_state == "nuclearbomb2")
 							src.icon_state = "nuclearbomb1"
-				if (href_list["safety"])
-					src.safety = !( src.safety )
-					if(safety)
-						src.timing = 0
-						bomb_set = 0
-				if (href_list["anchor"])
-					if(removal_stage == 5)
-						src.anchored = 0
-						visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
-						return
+					src.timing = 0
+					bomb_set = 0
+				if(src.light_wire == temp_wire)
+					src.lighthack = !src.lighthack
 
-					src.anchored = !( src.anchored )
-					if(src.anchored)
-						visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+	if (href_list["auth"])
+		if (src.auth)
+			src.auth.loc = src.loc
+			src.yes_code = 0
+			src.auth = null
+		else
+			var/obj/item/I = usr.get_active_hand()
+			if (istype(I, /obj/item/weapon/disk/nuclear))
+				usr.drop_item()
+				I.loc = src
+				src.auth = I
+	if (src.auth)
+		if (href_list["type"])
+			if (href_list["type"] == "E")
+				if (src.code == src.r_code)
+					src.yes_code = 1
+					src.code = null
+				else
+					src.code = "ERROR"
+			else
+				if (href_list["type"] == "R")
+					src.yes_code = 0
+					src.code = null
+				else
+					lastentered = text("[]", href_list["type"])
+					if (text2num(lastentered) == null)
+						var/turf/LOC = get_turf(usr)
+						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
+						log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
 					else
-						visible_message("\red The anchoring bolts slide back into the depths of [src].")
+						src.code += lastentered
+						if (length(src.code) > 5)
+							src.code = "ERROR"
+		if (src.yes_code)
+			if (href_list["time"])
+				var/time = text2num(href_list["time"])
+				src.timeleft += time
+				src.timeleft = min(max(round(src.timeleft), 60), 600)
+			if (href_list["timer"])
+				if (src.timing == -1.0)
+					nanomanager.update_uis(src)
+					return
+				if (src.safety)
+					usr << "\red The safety is still on."
+					nanomanager.update_uis(src)
+					return
+				src.timing = !( src.timing )
+				if (src.timing)
+					if(!src.lighthack)
+						src.icon_state = "nuclearbomb2"
+					if(!src.safety)
+						bomb_set = 1//There can still be issues with this reseting when there are multiple bombs. Not a big deal tho for Nuke/N
+					else
+						bomb_set = 0
+				else
+					bomb_set = 0
+					if(!src.lighthack)
+						src.icon_state = "nuclearbomb1"
+			if (href_list["safety"])
+				src.safety = !( src.safety )
+				if(safety)
+					src.timing = 0
+					bomb_set = 0
+			if (href_list["anchor"])
+				if(removal_stage == 5)
+					src.anchored = 0
+					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
+					nanomanager.update_uis(src)
+					return
 
-		src.add_fingerprint(usr)
-		for(var/mob/M in viewers(1, src))
-			if ((M.client && M.machine == src))
-				nanomanager.update_uis(src)
-	else
-		return
-	return
+				src.anchored = !( src.anchored )
+				if(src.anchored)
+					visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+				else
+					visible_message("\red The anchoring bolts slide back into the depths of [src].")
 
+	nanomanager.update_uis(src)
 
 /obj/machinery/nuclearbomb/ex_act(severity)
 	return
@@ -393,7 +383,6 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	else
 		return ..()
 	return
-
 
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
