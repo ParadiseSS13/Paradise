@@ -837,7 +837,7 @@
 		return 0
 	else if(is_auth_rcon(href_list))
 		return 0
-	else if(isAI(user))
+	else if(isAI(user) || isrobot(user))
 		return 0
 	else
 		return locked
@@ -852,7 +852,7 @@
 	if(buildstage != 2)
 		return STATUS_CLOSE
 
-	if(aidisabled && isAI(user))
+	if(aidisabled && (isAI(user) || isrobot(user)))
 		user << "<span class='warning'>AI control for \the [src] interface has been disabled.</span>"
 		return STATUS_CLOSE
 
