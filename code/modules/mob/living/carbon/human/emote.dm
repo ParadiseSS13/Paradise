@@ -848,4 +848,4 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text = TextPreview(input(usr, "Please enter your new flavour text.", "Flavour text", null) as text, 1)
+	flavor_text = TextPreview(input(usr, "Please enter your new flavour text.", "Flavour text", null) as text)
