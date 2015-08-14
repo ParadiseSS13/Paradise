@@ -233,13 +233,32 @@ var/shuttle_call/shuttle_calls[0]
 			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
 
+		if("nukerequest")
+			if(is_authenticated(usr) == 2)
+				if(centcomm_message_cooldown)
+					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
+					nanomanager.update_uis(src)
+					return
+				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
+				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
+					return
+				Nuke_request(input, usr)
+				usr << "<span class='notice'>Request sent.</span>"
+				log_say("[key_name(usr)] has requested the nuclear codes from Centcomm")
+				priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				centcomm_message_cooldown = 1
+				spawn(6000)//10 minute cooldown
+					centcomm_message_cooldown = 0
+			setMenuState(usr,COMM_SCREEN_MAIN)			
+			
 		if("MessageCentcomm")
 			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
 					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
 					nanomanager.update_uis(src)
 					return
-				var/input = input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
@@ -250,7 +269,6 @@ var/shuttle_call/shuttle_calls[0]
 				spawn(6000)//10 minute cooldown
 					centcomm_message_cooldown = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
-
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
