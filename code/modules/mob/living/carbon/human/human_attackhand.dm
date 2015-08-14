@@ -101,16 +101,19 @@
 				if(M.zone_sel && M.zone_sel.selecting == "head" && src != M)
 					if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining)
 						if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove their mask!"
+							M << "<span class='warning'>Remove their mask!</span>"
 							return 0
 						if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove your mask!"
+							M << "<span class='warning'>Remove your mask!</span>"
 							return 0
 						if(mind && mind.vampire && (mind in ticker.mode.vampires))
-							M << "\red Your fangs fail to pierce [src.name]'s cold flesh"
+							M << "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>"
 							return 0
 						if(SKELETON in mutations)
-							M << "\red There is no blood in a skeleton!"
+							M << "<span class='warning'>There is no blood in a skeleton!</span>"
+							return 0
+						if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okey, monkeys are not.
+							M << "<span class='warning'>Blood from a monkey is useless!</span>"
 							return 0
 						//we're good to suck the blood, blaah
 						M.handle_bloodsucking(src)
