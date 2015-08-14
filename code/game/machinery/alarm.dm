@@ -843,7 +843,7 @@
 		return locked
 		
 /obj/machinery/alarm/proc/is_auth_rcon(href_list)
-	if(href_list["remote_connection"] && href_list["remote_access"])
+	if(href_list && href_list["remote_connection"] && href_list["remote_access"])
 		return 1
 	else
 		return 0
