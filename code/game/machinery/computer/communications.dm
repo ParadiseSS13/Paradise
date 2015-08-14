@@ -170,11 +170,14 @@ var/shuttle_call/shuttle_calls[0]
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/response = alert("Are you sure you wish to call the shuttle?", "Confirm", "Yes", "No")
-			if(response == "Yes")
-				call_shuttle_proc(usr)
-				if(emergency_shuttle.online())
-					post_status("shuttle")
+			var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			if(!input || ..() || !(is_authenticated(usr) == 2))
+				nanomanager.update_uis(src)
+				return
+				
+			call_shuttle_proc(usr, input)
+			if(emergency_shuttle.online())
+				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 			
 		if("cancelshuttle")
@@ -239,7 +242,7 @@ var/shuttle_call/shuttle_calls[0]
 					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
 					nanomanager.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
+				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","") as text|null
 				if(!input || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
@@ -258,7 +261,7 @@ var/shuttle_call/shuttle_calls[0]
 					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
 					nanomanager.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
 				if(!input || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
@@ -277,7 +280,7 @@ var/shuttle_call/shuttle_calls[0]
 					usr << "Arrays recycling.  Please stand by."
 					nanomanager.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
 				if(!input || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
@@ -410,38 +413,37 @@ var/shuttle_call/shuttle_calls[0]
 	for(var/obj/machinery/computer/prison_shuttle/PS in world)
 		PS.allowedtocall = !(PS.allowedtocall)
 
-/proc/call_shuttle_proc(var/mob/user)
+/proc/call_shuttle_proc(var/mob/user, var/reason)
 	if ((!( ticker ) || !emergency_shuttle.location()))
 		return
 
 	if(sent_strike_team == 1)
-		user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
+		user << "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>"
 		return
 
 	if(emergency_shuttle.deny_shuttle)
-		user << "The emergency shuttle may not be sent at this time. Please try again later."
+		user << "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>"
 		return
 
 	if(world.time < 6000) // Ten minute grace period to let the game get going without lolmetagaming. -- TLE
-		user << "The emergency shuttle is refueling. Please wait another [round((6000-world.time)/60)] minutes before trying again."
+		user << "<span class='warning'>The emergency shuttle is refueling. Please wait another [round((6000-world.time)/60)] minutes before trying again.</span>"
 		return
 
 	if(emergency_shuttle.going_to_centcom())
-		user << "The emergency shuttle may not be called while returning to CentCom."
+		user << "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>"
 		return
 
 	if(emergency_shuttle.online())
-		user << "The emergency shuttle is already on its way."
+		user << "<span class='warning'>The emergency shuttle is already on its way.</span>"
 		return
 
 	if(ticker.mode.name == "blob")
-		user << "Under directive 7-10, [station_name()] is quarantined until further notice."
+		user << "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>"
 		return
 
-	emergency_shuttle.call_evac()
+	emergency_shuttle.call_evac(reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
-
 
 	return
 

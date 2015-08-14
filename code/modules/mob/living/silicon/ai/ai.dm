@@ -329,20 +329,21 @@ var/list/ai_verbs_default = list(
 	set name = "Call Emergency Shuttle"
 	set category = "AI Commands"
 
-	if(src.stat == 2)
-		src << "You can't call the shuttle because you are dead!"
+	if(src.stat == DEAD)
+		src << "<span class='warning'>You can't call the shuttle because you are dead!</span>"
 		return
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/confirm = alert("Are you sure you want to call the shuttle?", "Confirm Shuttle Call", "Yes", "No")
+	var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+	if(!input || stat)
+		return
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	if(confirm == "Yes")
-		call_shuttle_proc(src)
+	call_shuttle_proc(src, input)
 
 	// hack to display shuttle timer
 	if(emergency_shuttle.online())
