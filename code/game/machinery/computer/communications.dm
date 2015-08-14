@@ -316,7 +316,7 @@ var/shuttle_call/shuttle_calls[0]
 			list("alert"="biohazard", "label"="Biohazard",   "desc"="Great for virus outbreaks and parties."),
 		)
 	)
-	data["security_level"] = capitalize(security_level)
+	data["security_level"] = security_level
 	data["str_security_level"] = capitalize(get_security_level())
 	data["levels"] = list(
 		list("id"=SEC_LEVEL_GREEN, "name"="Green"),
