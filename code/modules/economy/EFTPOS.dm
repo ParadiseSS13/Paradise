@@ -10,7 +10,7 @@
 	var/transaction_amount = 0
 	var/transaction_purpose = "Default charge"
 	var/access_code = 0
-	var/obj/machinery/account_database/linked_db
+	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/linked_account
 
 /obj/item/device/eftpos/New()
@@ -53,7 +53,7 @@
 	if(!location)
 		return
 
-	for(var/obj/machinery/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
+	for(var/obj/machinery/computer/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
 		if(DB.z == location.z)
 			linked_db = DB
 			break

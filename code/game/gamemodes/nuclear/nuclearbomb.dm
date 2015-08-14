@@ -190,8 +190,8 @@ var/bomb_set
 	data["is_syndicate"] = is_syndicate
 	if(!src.opened)
 		data["hacking"] = 0
-		data["auth"] = src.auth
-		if (src.auth)
+		data["auth"] = is_auth(user)
+		if (is_auth(user))
 			if (src.yes_code)
 				data["authstatus"] = src.timing ? "Functional/Set" : "Functional"
 			else
@@ -208,7 +208,7 @@ var/bomb_set
 		data["anchored"] = src.anchored
 		data["yescode"] = src.yes_code
 		data["message"] = "AUTH"
-		if (src.auth)
+		if (is_auth(user))
 			data["message"] = src.code
 			if (src.yes_code)
 				data["message"] = "*****"
@@ -233,6 +233,7 @@ var/bomb_set
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
 		ui.set_initial_data(data)
 		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/nuclearbomb/verb/make_deployable()
 	set category = "Object"
@@ -250,6 +251,14 @@ var/bomb_set
 		src.deployable = 1
 	return
 
+/obj/machinery/nuclearbomb/proc/is_auth(user as mob)
+	if(auth)
+		return 1
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
+	else
+		return 0
+	
 /obj/machinery/nuclearbomb/Topic(href, href_list)
 	if(..())
 		return 1
@@ -307,7 +316,7 @@ var/bomb_set
 				usr.drop_item()
 				I.loc = src
 				src.auth = I
-	if (src.auth)
+	if (is_auth(usr))
 		if (href_list["type"])
 			if (href_list["type"] == "E")
 				if (src.code == src.r_code)

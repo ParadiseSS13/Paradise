@@ -50,8 +50,12 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/is_centcom()
 	return istype(src, /obj/machinery/computer/card/centcom)
 
-/obj/machinery/computer/card/proc/is_authenticated()
-	return scan ? check_access(scan) : 0
+/obj/machinery/computer/card/proc/is_authenticated(user as mob)
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
+	if(scan)
+		return check_access(scan)
+	return 0
 
 /obj/machinery/computer/card/proc/get_target_rank()
 	return modify && modify.assignment ? modify.assignment : "Unassigned"
@@ -180,7 +184,7 @@ var/time_last_changed_position = 0
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
 	data["scan_name"] = scan ? scan.name : "-----"
-	data["authenticated"] = is_authenticated()
+	data["authenticated"] = is_authenticated(user)
 	data["has_modify"] = !!modify
 	data["account_number"] = modify ? modify.associated_account_number : null
 	data["centcom_access"] = is_centcom()
@@ -285,7 +289,7 @@ var/time_last_changed_position = 0
 
 		if("access")
 			if(href_list["allowed"])
-				if(is_authenticated())
+				if(is_authenticated(usr))
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
 					if(access_type in (is_centcom() ? get_all_centcom_access() : get_all_accesses()))
@@ -295,11 +299,11 @@ var/time_last_changed_position = 0
 							
 		if("skin")
 			var/skin = href_list["skin_target"]
-			if(is_authenticated() && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
+			if(is_authenticated(usr) && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
 				modify.icon_state = href_list["skin_target"]
 
 		if ("assign")
-			if (is_authenticated() && modify)
+			if (is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
 					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
@@ -330,7 +334,7 @@ var/time_last_changed_position = 0
 				callHook("reassign_employee", list(modify))
 
 		if ("reg")
-			if (is_authenticated())
+			if (is_authenticated(usr))
 				var/t2 = modify
 				if ((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/temp_name = reject_bad_name(href_list["reg"])
@@ -341,7 +345,7 @@ var/time_last_changed_position = 0
 			nanomanager.update_uis(src)
 
 		if ("account")
-			if (is_authenticated())
+			if (is_authenticated(usr))
 				var/t2 = modify
 				if ((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
 					var/account_num = text2num(href_list["account"])
@@ -381,7 +385,7 @@ var/time_last_changed_position = 0
 							P.info += "  [get_access_desc(A)]"
 
 		if ("terminate")
-			if (is_authenticated())
+			if (is_authenticated(usr))
 				modify.assignment = "Terminated"
 				modify.access = list()
 
@@ -389,7 +393,7 @@ var/time_last_changed_position = 0
 				
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(is_authenticated())
+			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
 				if(!j)
@@ -404,7 +408,7 @@ var/time_last_changed_position = 0
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(is_authenticated())
+			if(is_authenticated(usr))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = job_master.GetJob(edit_job_target)
 				if(!j)
