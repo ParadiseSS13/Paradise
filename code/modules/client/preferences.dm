@@ -337,7 +337,7 @@ datum/preferences
 					else
 						dat += "[flavor_text]"
 				else
-					dat += "[copytext(flavor_text, 1, 37)]...<br>"
+					dat += "[TextPreview(flavor_text, 1, 37)]...<br>"
 				dat += "<br>"
 
 				var/hairname = "Hair"
