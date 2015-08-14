@@ -83,7 +83,7 @@ var/shuttle_call/shuttle_calls[0]
 
 	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		usr << "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>"
-		return
+		return 1
 		
 	if(href_list["login"])
 		var/mob/living/carbon/human/M = usr
@@ -120,6 +120,7 @@ var/shuttle_call/shuttle_calls[0]
 		if("newalertlevel")
 			if(isAI(usr) || isrobot(usr)) 
 				usr << "<span class='warning'>Firewalls prevent you from changing the alert level.</span>"
+				nanomanager.update_uis(src)
 				return 1
 			tmp_alertlevel = text2num(href_list["level"])
 			var/mob/living/carbon/human/L = usr
@@ -155,9 +156,11 @@ var/shuttle_call/shuttle_calls[0]
 			if(is_authenticated(usr) == 2)
 				if(message_cooldown)
 					usr << "<span class='warning'>Please allow at least one minute to pass between announcements.</span>"
+					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				crew_announcement.Announce(input)
 				message_cooldown = 1
@@ -175,6 +178,7 @@ var/shuttle_call/shuttle_calls[0]
 		if("cancelshuttle")
 			if(isAI(usr) || isrobot(usr)) 
 				usr << "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>"
+				nanomanager.update_uis(src)
 				return 1
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 			if(response == "Yes")
@@ -231,9 +235,11 @@ var/shuttle_call/shuttle_calls[0]
 			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
 					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
+					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
 				usr << "Message transmitted."
@@ -249,9 +255,11 @@ var/shuttle_call/shuttle_calls[0]
 			if((is_authenticated(usr) == 2) && (src.emagged))
 				if(centcomm_message_cooldown)
 					usr << "Arrays recycling.  Please stand by."
+					nanomanager.update_uis(src)
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				Syndicate_announce(input, usr)
 				usr << "Message transmitted."
