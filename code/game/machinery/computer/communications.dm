@@ -87,7 +87,8 @@ var/shuttle_call/shuttle_calls[0]
 		
 	if(href_list["login"])
 		var/mob/living/carbon/human/M = usr
-		var/obj/item/weapon/card/id/I = M.get_active_hand()||M.wear_id||M.wear_pda
+		var/obj/item/card = M.get_active_hand()
+		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
 		if (istype(I, /obj/item/device/pda))
 			var/obj/item/device/pda/pda = I
 			I = pda.id
@@ -124,7 +125,8 @@ var/shuttle_call/shuttle_calls[0]
 				return 1
 			tmp_alertlevel = text2num(href_list["level"])
 			var/mob/living/carbon/human/L = usr
-			var/obj/item/weapon/card/id/I = L.get_active_hand()||L.wear_id||L.wear_pda
+			var/obj/item/card = L.get_active_hand()
+			var/obj/item/weapon/card/id/I = (card && card.GetID())||L.wear_id||L.wear_pda
 			if (istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
