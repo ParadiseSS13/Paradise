@@ -44,7 +44,7 @@ proc/createRandomZlevel()
 			if(air_master)
 				air_master.setup_allturfs(block(locate(1, 1, world.maxz), locate(world.maxx, world.maxy, world.maxz)))
 			create_lighting_overlays(world.maxz)
-			world.log << "away mission loaded: [map]"
+			log_to_dd("away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if (L.name != "awaystart")

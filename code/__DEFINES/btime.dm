@@ -10,8 +10,8 @@ var/global/__btime__libName = "btime.[world.system_type==MS_WINDOWS?"dll":"so"]"
 		// This will always return 1 unless the btime library cannot be accessed
 		if(TimeOfHour || 1) return 1
 	catch(var/exception/e)
-		world.log << "PRECISE_TIMER_AVAILABLE is defined in btime.dm, but calling the btime library failed: [e]"
-		world.log << "This is a fatal error. The world will now shut down."
+		log_to_dd("PRECISE_TIMER_AVAILABLE is defined in btime.dm, but calling the btime library failed: [e]")
+		log_to_dd("This is a fatal error. The world will now shut down.")
 		del(world)
 #else
 #define TimeOfHour (world.timeofday % 36000)

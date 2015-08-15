@@ -166,4 +166,4 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 	return ..()
 
 /proc/gcwarning(msg)
-	world.log << "## GC WARNING: [msg]"
+	log_to_dd("## GC WARNING: [msg]")

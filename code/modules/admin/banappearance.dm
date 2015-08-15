@@ -52,7 +52,7 @@ DEBUG
 			log_admin("appearance_keylist was empty")
 	else
 		if(!establish_db_connection())
-			world.log << "Database connection failed. Reverting to the legacy ban system."
+			log_to_dd("Database connection failed. Reverting to the legacy ban system.")
 			diary << "Database connection failed. Reverting to the legacy ban system."
 			config.ban_legacy_system = 1
 			appearance_loadbanfile()

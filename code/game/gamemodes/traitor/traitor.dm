@@ -374,15 +374,15 @@
 				if(t_mind.current.client)
 					for(var/image/I in t_mind.current.client.images)
 						if((I.icon_state == "greytide" || I.icon_state == "greytide_head") && I.loc == traitor_mind.current)
-							//world.log << "deleting [traitor_mind] overlay"
+							//log_to_dd("deleting [traitor_mind] overlay")
 							qdel(I)
 		if(head)
-			//world.log << "found [head.name]"
+			//log_to_dd("found [head.name]")
 			if(head.current)
 				if(head.current.client)
 					for(var/image/I in head.current.client.images)
 						if((I.icon_state == "greytide" || I.icon_state == "greytide_head") && I.loc == traitor_mind.current)
-							//world.log << "deleting [traitor_mind] overlay"
+							//log_to_dd("deleting [traitor_mind] overlay")
 							qdel(I)
 	if(traitor_mind.current)
 		if(traitor_mind.current.client)
