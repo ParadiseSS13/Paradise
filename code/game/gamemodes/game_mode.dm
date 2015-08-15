@@ -134,12 +134,7 @@
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
 						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.tnote += "<i><b>&larr; From [command_name()] (Payroll):</b></i><br>[msg]<br>"
-
-						if (!P.silent)
-							playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						for (var/mob/O in hearers(3, P.loc))
-							if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+						P.play_ringtone()
 						//Search for holder of the PDA.
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
