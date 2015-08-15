@@ -70,6 +70,11 @@
 			kill_objective.owner = wizard
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
+			
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
 
 			if (!(locate(/datum/objective/escape) in wizard.objectives))
 				var/datum/objective/escape/escape_objective = new
@@ -81,10 +86,10 @@
 			steal_objective.find_target()
 			wizard.objectives += steal_objective
 
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = wizard
-				wizard.objectives += escape_objective
+			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
 
 		if(61 to 85)
 			var/datum/objective/assassinate/kill_objective = new
