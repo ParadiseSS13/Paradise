@@ -63,13 +63,17 @@
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
 				return 1
-//			if(M.health < -75)	return 0
-
+			if(!H.check_has_mouth())
+				H << "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if(!check_has_mouth())
+				H << "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>"
+				return
 			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
-				M << "<span class='boldnotice'>Remove your mask!</span>"
+				M << "<span class='warning'>Remove your mask!</span>"
 				return 0
 			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-				M << "<span class='boldnotice'>Remove his mask!</span>"
+				M << "<span class='warning'>Remove his mask!</span>"
 				return 0
 
 			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()

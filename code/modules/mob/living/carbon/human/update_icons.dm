@@ -365,7 +365,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(species.flags & IS_SYNTHETIC)))
+	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style && hair_style.species_allowed)
 			if(src.species.name in hair_style.species_allowed)

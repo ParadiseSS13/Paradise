@@ -78,8 +78,8 @@ mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
 	if(species && species.flags & NO_PAIN)
-		//While IPCs don't feel pain, they will notice their gears gunking up with residue (toxins)
-		if(species && species.flags & IS_SYNTHETIC)
+		//While synthetics don't feel pain, they will notice their gears gunking up with residue (toxins)
+		if(isSynthetic())
 			var/toxDamageMessage = null
 			var/toxMessageProb = 1
 			switch(getToxLoss())

@@ -505,21 +505,18 @@ obj/structure/cable/proc/cableColor(var/colorC)
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
 			return ..()
 
-		if(H.species.flags & IS_SYNTHETIC)
-			if(M == user)
-				user << "\red You can't repair damage to your own body - it's against OH&S."
-				return
-
 		if(S.burn_dam > 0 && use(1))
-			S.heal_damage(0,15,0,1)
-			user.visible_message("\red \The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].")
+			if(S.burn_dam < ROBOLIMB_SELF_REPAIR_CAP)
+				S.heal_damage(0,15,0,1)
+				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
+			else
+				user << "<span class='warning'>The damage is far too severe to patch over externally.</span>"
 			return
 		else
-			user << "Nothing to fix!"
+			user << "<span class='notice'>Nothing to fix!</span>"
 
 	else
 		return ..()
-
 
 /obj/item/stack/cable_coil/update_icon()
 	if (!color)

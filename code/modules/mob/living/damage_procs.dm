@@ -75,7 +75,7 @@
 
 
 /mob/living/carbon/human/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
-	if((species.flags & IS_SYNTHETIC) && (effecttype == IRRADIATE))
+	if((species.flags & NO_DNA_RAD) && (effecttype == IRRADIATE))
 		return
 	return ..()
 

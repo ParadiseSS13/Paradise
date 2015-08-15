@@ -30,8 +30,8 @@
 
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "\red You have a monitor for a head, where do you think you're going to put that?"
+				if(!H.check_has_mouth())
+					user << "Where do you intend to put \the [src]? You don't have a mouth!"
 					return
 
 			M << "\blue You swallow a gulp of [src]."
@@ -45,8 +45,8 @@
 		else if( istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				user << "\red They have a monitor for a head, where do you think you're going to put that?"
+			if(!H.check_has_mouth())
+				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
 			for(var/mob/O in viewers(world.view, user))

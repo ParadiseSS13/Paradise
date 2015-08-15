@@ -17,7 +17,7 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
 		return
-	if(!istype(target) || issmall(target) || target.species.flags & IS_SYNTHETIC || target.species.flags & NO_SCAN || target.species.flags & NO_BLOOD)
+	if(!istype(target) || issmall(target) || target.species.flags & NO_DNA_RAD || target.species.flags & NO_SCAN || target.species.flags & NO_BLOOD)
 		user << "<span class='warning'>[target] is not compatible with this ability.</span>"
 		return
 	return 1

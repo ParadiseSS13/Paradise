@@ -23,8 +23,8 @@
 		if(M == user)
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "<span class='warning'>You have a monitor for a head, where do you think you're going to put that?</span>"
+				if(!H.check_has_mouth())
+					user << "Where do you intend to put \the [src]? You don't have a mouth!"
 					return
 
 			M << "<span class='notify'>You [apply_method] [src].</span>"
@@ -41,8 +41,8 @@
 		else if(istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				user << "<span class='warning'>They have a monitor for a head, where do you think you're going to put that?</span>"
+			if(!H.check_has_mouth())
+				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
 			for(var/mob/O in viewers(world.view, user))

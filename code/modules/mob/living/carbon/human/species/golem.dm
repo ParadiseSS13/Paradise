@@ -1,11 +1,12 @@
 /datum/species/golem
 	name = "Golem"
+	name_plural = "Golems"
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
 	default_language = "Galactic Common"
-	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN
+	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN | NO_POISON
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 

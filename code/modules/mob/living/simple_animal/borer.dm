@@ -148,7 +148,7 @@
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in view(3,src))
-		if(C.stat != 2)
+		if(C.stat != DEAD)
 			choices += C
 
 	if(world.time - used_dominate < 300)
@@ -387,11 +387,14 @@ mob/living/simple_animal/borer/proc/detatch()
 		return
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/C in view(1,src))
-		if(C.stat != 2 && src.Adjacent(C))
-			choices += C
+	for(var/mob/living/carbon/human/H in view(1,src))
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head.status & ORGAN_ROBOT)
+			continue
+		if(H.stat != DEAD && src.Adjacent(H) && !H.has_brain_worms())
+			choices += H
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
 
 	if(!M || !src) return
 
@@ -400,13 +403,6 @@ mob/living/simple_animal/borer/proc/detatch()
 	if(M.has_brain_worms())
 		src << "You cannot infest someone who is already infested!"
 		return
-/*
-	if(istype(M,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		if(H.check_head_coverage())
-			src << "You cannot get through that host's protective gear."
-			return
-*/
 
 	src << "You slither up [M] and begin probing at their ear canal..."
 

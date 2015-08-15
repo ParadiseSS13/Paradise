@@ -245,10 +245,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustCloneLoss(0.1)
 
 /mob/living/carbon/human/proc/handle_mutations_and_radiation()
-
-	if(species.flags & IS_SYNTHETIC) //Robots don't suffer from mutations or radloss.
-		return
-
 	if(getFireLoss())
 		if((RESIST_HEAT in mutations) || (prob(1)))
 			heal_organ_damage(0,1)
@@ -847,7 +843,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(species && species.flags & NO_INTORGANS) return
 
-	if(!(species.flags & IS_SYNTHETIC)) handle_trace_chems()
+	handle_trace_chems()
 
 	updatehealth()
 
@@ -904,7 +900,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!reagents.has_reagent("epinephrine"))
 				adjustOxyLoss(1)*/
 
-		if(hallucination && !(species.flags & IS_SYNTHETIC))
+		if(hallucination && !(species.flags & NO_DNA_RAD))
 			spawn handle_hallucinations()
 
 			if(hallucination<=2)
@@ -967,18 +963,35 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!E.len)
 				embedded_flag = 0
 
-
-		//Eyes
-		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
-			blinded = 1
-		else if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
-			blinded = 1
-		else if(tinttotal >= TINT_BLIND)	//covering your eyes heals blurry eyes faster
-			eye_blurry = max(eye_blurry-3, 0)
-		//	blinded = 1						//now handled under /handle_regular_hud_updates()
-		else if(eye_blurry)	//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
+		//Vision
+		var/obj/item/organ/vision
+		if(species.vision_organ)
+			vision = internal_organs_by_name[species.vision_organ]
+		
+		if(!vision) // Presumably if a species has no vision organs, they see via some other means.
+			eye_blind =  0
+			blinded =    0
+			eye_blurry = 0
+		else if(vision.is_broken())   // Vision organs cut out or broken? Permablind.
+			eye_blind =  1
+			blinded =    1
+			eye_blurry = 1
+		else 
+			//blindness
+			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+				blinded =    1
+			else if(eye_blind)		       // Blindness, heals slowly over time
+				eye_blind =  max(eye_blind-1,0)
+				blinded =    1
+			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+				eye_blurry = max(eye_blurry-3, 0)
+				blinded =    1
+			
+			//blurry sight
+			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
+				eye_blurry = 1
+			if(eye_blurry)	           // Blurry eyes heal slowly
+				eye_blurry = max(eye_blurry-1, 0)
 
 		//Ears
 		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
@@ -1569,7 +1582,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(species.flags & IS_SYNTHETIC)
+	if(isSynthetic())
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay

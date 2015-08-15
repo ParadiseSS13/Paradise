@@ -1,5 +1,6 @@
 /datum/species/human
 	name = "Human"
+	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = "Monkey"
@@ -19,6 +20,7 @@
 
 /datum/species/unathi
 	name = "Unathi"
+	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	path = /mob/living/carbon/human/unathi
@@ -59,6 +61,7 @@
 
 /datum/species/tajaran
 	name = "Tajaran"
+	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	path = /mob/living/carbon/human/tajaran
@@ -99,6 +102,7 @@
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
+	name_plural = "Vulpakanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	path = /mob/living/carbon/human/vulpkanin
@@ -129,6 +133,7 @@
 
 /datum/species/skrell
 	name = "Skrell"
+	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
@@ -153,6 +158,7 @@
 
 /datum/species/vox
 	name = "Vox"
+	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/r_vox.dmi'
 	deform = 'icons/mob/human_races/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
@@ -213,6 +219,7 @@
 
 /datum/species/vox/armalis
 	name = "Vox Armalis"
+	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
 	path = /mob/living/carbon/human/voxarmalis
@@ -260,6 +267,7 @@
 
 /datum/species/kidan
 	name = "Kidan"
+	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
@@ -278,6 +286,7 @@
 
 /datum/species/slime
 	name = "Slime People"
+	name_plural = "Slime People"
 	default_language = "Galactic Common"
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
@@ -299,6 +308,7 @@
 
 /datum/species/grey
 	name = "Grey"
+	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
@@ -332,6 +342,7 @@
 
 /datum/species/diona
 	name = "Diona"
+	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	path = /mob/living/carbon/human/diona
@@ -421,20 +432,28 @@
 		else
 			del(D)
 
-	H.visible_message("\red[H] splits apart with a wet slithering noise!") */
+	H.visible_message("<span class='danger">[H] splits apart with a wet slithering noise!"</span>) */
 
 /datum/species/machine
 	name = "Machine"
+	name_plural = "Machines"
+	
+	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
+	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
+	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
+	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
+	inhuman in outlook and perspective."	
+	
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
 	path = /mob/living/carbon/human/machine
 	default_language = "Galactic Common"
 	language = "Trinary"
 	unarmed_type = /datum/unarmed_attack/punch
-
+	
 	eyes = "blank_eyes"
-	brute_mod = 1.5
-	burn_mod = 1.5
+	brute_mod = 2.5
+	burn_mod = 2.5
 
 	cold_level_1 = 50
 	cold_level_2 = -1
@@ -445,19 +464,43 @@
 	heat_level_3 = 600
 	heat_level_3_breathe = 600
 
-	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
+	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | IS_SYNTHETIC | NO_INTORGANS
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_POISON | NO_DNA_RAD
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+	virus_immune = 1
 	reagent_tag = PROCESS_SYN
 	
 	has_organ = list(
+		"brain" = /obj/item/organ/mmi_holder/posibrain,
+		"cell" = /obj/item/organ/cell,
+		"optics" = /obj/item/organ/optical_sensor
+		)
+
+	vision_organ = "optics"	
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
+		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
+		"head" =   list("path" = /obj/item/organ/external/head/ipc),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/ipc),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/ipc),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/ipc),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/ipc),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/ipc),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/ipc),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.emote("deathgasp")
+	
+	/*H.h_style = ""
+	spawn(100)
+		if(H) H.update_hair()*/
+			
 	for(var/organ_name in H.organs_by_name)
 		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
 			continue
@@ -465,4 +508,5 @@
 		if(O && (O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
 			O.droplimb(1)
 	var/obj/item/organ/external/O = H.organs_by_name["head"]
-	if(O) O.droplimb(1)
+	if(O) 
+		O.droplimb(1)

@@ -542,13 +542,6 @@ var/list/robot_verbs_default = list(
 				return
 		now_pushing = 0
 		..()
-		if (istype(AM, /obj/machinery/recharge_station))
-			var/obj/machinery/recharge_station/F = AM
-			if(F.panel_open)
-				usr << "\blue <b>Close the maintenance panel first.</b>"
-				return
-			else
-				F.move_inside()
 		if (!istype(AM, /atom/movable))
 			return
 		if (!now_pushing)

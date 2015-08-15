@@ -171,7 +171,7 @@
 
 		if(Environment)
 
-			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & IS_SYNTHETIC))
+			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & NO_BREATHE))
 				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
 
 			if(min_oxy)
@@ -204,7 +204,7 @@
 			if(max_co2)
 				if(Environment.carbon_dioxide > max_co2)
 					atmos_suitable = 0
-			if(flags & NO_BREATHE || flags & IS_SYNTHETIC)
+			if(flags & NO_BREATHE)
 				atmos_suitable = 1
 
 	//Atmos effect
