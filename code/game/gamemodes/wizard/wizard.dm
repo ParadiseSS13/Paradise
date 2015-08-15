@@ -42,7 +42,7 @@
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(wizardstart)
+		wiz.current.loc = pick(wizardstart)io
 
 	return 1
 
@@ -81,17 +81,6 @@
 				escape_objective.owner = wizard
 				wizard.objectives += escape_objective
 		if(31 to 60)
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = wizard
-			steal_objective.find_target()
-			wizard.objectives += steal_objective
-
-			if (!(locate(/datum/objective/hijack) in wizard.objectives))
-				var/datum/objective/hijack/hijack_objective = new
-				hijack_objective.owner = wizard
-				wizard.objectives += hijack_objective
-
-		if(61 to 85)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
@@ -106,6 +95,17 @@
 				var/datum/objective/survive/survive_objective = new
 				survive_objective.owner = wizard
 				wizard.objectives += survive_objective
+
+		if(61 to 85)
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
+			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
 
 		else
 			var/datum/objective/steal/steal_objective = new
