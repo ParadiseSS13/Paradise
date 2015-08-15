@@ -1935,28 +1935,13 @@
 			dirty_paths = href_list["object_list"]
 
 		var/paths = list()
-		var/removed_paths = list()
 
 		for(var/dirty_path in dirty_paths)
 			var/path = text2path(dirty_path)
 			if(!path)
-				removed_paths += dirty_path
 				continue
 			else if(!ispath(path, /obj) && !ispath(path, /turf) && !ispath(path, /mob))
-				removed_paths += dirty_path
 				continue
-			else if(ispath(path, /obj/item/weapon/gun/energy/pulse_rifle))
-				if(!check_rights((R_SERVER|R_EVENT),0))
-					removed_paths += dirty_path
-					continue
-			else if(ispath(path, /obj/item/weapon/melee/energy/blade))//Not an item one should be able to spawn./N
-				if(!check_rights((R_SERVER|R_EVENT),0))
-					removed_paths += dirty_path
-					continue
-			else if(ispath(path, /obj/effect/anomaly/bhole))
-				if(!check_rights((R_SERVER|R_EVENT),0))
-					removed_paths += dirty_path
-					continue
 			paths += path
 
 		if(!paths)
@@ -1965,8 +1950,6 @@
 		if(length(paths) > 5)
 			alert("Select fewer object types, (max 5)")
 			return
-		else if(length(removed_paths))
-			alert("Removed:\n" + list2text(removed_paths, "\n"))
 
 		var/list/offset = text2list(href_list["offset"],",")
 		var/number = dd_range(1, 100, text2num(href_list["object_count"]))
@@ -1978,41 +1961,36 @@
 		if(!obj_dir || !(obj_dir in list(1,2,4,8,5,6,9,10)))
 			obj_dir = 2
 		var/obj_name = sanitize(href_list["object_name"])
+
+
+		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
 		if (!( where in list("onfloor","inhand","inmarked") ))
 			where = "onfloor"
 
-		if( where == "inhand" )
-			usr << "Support for inhand not available yet. Will spawn on floor."
-			where = "onfloor"
 
-		if ( where == "inhand" )	//Can only give when human or monkey
-			if ( !( ishuman(usr)  ) )
-				usr << "Can only spawn in hand when you're a human or a monkey."
-				where = "onfloor"
-			else if ( usr.get_active_hand() )
-				usr << "Your active hand is full. Spawning on floor."
-				where = "onfloor"
+		switch(where)
+			if("inhand")
+				if (!iscarbon(usr) && !isrobot(usr))
+					usr << "Can only spawn in hand when you're a carbon mob or cyborg."
+					where = "onfloor"
+				target = usr
 
-		if ( where == "inmarked" )
-			if ( !marked_datum )
-				usr << "You don't have any object marked. Abandoning spawn."
-				return
-			else
-				if ( !istype(marked_datum,/atom) )
-					usr << "The object you have marked cannot be used as a target. Target must be of type /atom. Abandoning spawn."
-					return
-
-		var/atom/target //Where the object will be spawned
-		switch ( where )
-			if ( "onfloor" )
-				switch (href_list["offset_type"])
+			if("onfloor")
+				switch(href_list["offset_type"])
 					if ("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
 					if ("relative")
 						target = locate(loc.x + X,loc.y + Y,loc.z + Z)
-			if ( "inmarked" )
-				target = marked_datum
+			if("inmarked")
+				if(!marked_datum)
+					usr << "You don't have any object marked. Abandoning spawn."
+					return
+				else if(!istype(marked_datum,/atom))
+					usr << "The object you have marked cannot be used as a target. Target must be of type /atom. Abandoning spawn."
+					return
+				else
+					target = marked_datum
 
 		if(target)
 			for (var/path in paths)
@@ -2020,9 +1998,8 @@
 					if(path in typesof(/turf))
 						var/turf/O = target
 						var/turf/N = O.ChangeTurf(path)
-						if(N)
-							if(obj_name)
-								N.name = obj_name
+						if(N && obj_name)
+							N.name = obj_name
 					else
 						var/atom/O = new path(target)
 						if(O)
@@ -2032,18 +2009,29 @@
 								if(istype(O,/mob))
 									var/mob/M = O
 									M.real_name = obj_name
+							if(where == "inhand" && isliving(usr) && istype(O, /obj/item))
+								var/mob/living/L = usr
+								var/obj/item/I = O
+								L.put_in_hands(I)
+								if(isrobot(L))
+									var/mob/living/silicon/robot/R = L
+									if(R.module)
+										R.module.modules += I
+										I.loc = R.module
+										R.module.rebuild()
+										R.activate_module(I)
 
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
-					message_admins("[key_name_admin(usr)] created a [english_list(paths)]", 1)
+					message_admins("[key_name_admin(usr)] created a [english_list(paths)]")
 					break
 		else
 			log_admin("[key_name(usr)] created [number]ea [english_list(paths)]")
 			for(var/path in paths)
 				if(ispath(path, /mob))
-					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]", 1)
+					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
 					break
 		return
 
