@@ -261,7 +261,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 			text += "<br>[vox.key] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
-				if(get_area(stack) != locate(/area/shuttle/vox/station))
+				if(get_area(stack.loc) != locate(/area/shuttle/vox/station))
 					text += "left behind)"
 					continue
 			if(vox.current)

@@ -174,7 +174,7 @@ var/list/turret_icons
 		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
-	if(locked && !(isrobot(user) || isAI(user)))
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
 		user << "<span class='notice'>Access denied.</span>"
 		return 1
 
@@ -184,6 +184,9 @@ var/list/turret_icons
 	if(isLocked(user))
 		return
 
+	ui_interact(user)
+	
+/obj/machinery/porta_turret/attack_ghost(mob/user)
 	ui_interact(user)
 
 /obj/machinery/porta_turret/attack_hand(mob/user)

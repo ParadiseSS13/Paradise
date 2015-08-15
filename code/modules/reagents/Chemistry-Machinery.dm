@@ -155,8 +155,8 @@
 		ui.open()
 
 /obj/machinery/chem_dispenser/Topic(href, href_list)
-	if(stat & (NOPOWER|BROKEN))
-		return 0 // don't update UIs attached to this object
+	if(..())
+		return 1
 
 	if(href_list["amount"])
 		amount = round(text2num(href_list["amount"]), 5) // round to nearest 5
@@ -244,6 +244,9 @@
 			return
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user as mob)
+	return src.attack_hand(user)
+	
+/obj/machinery/chem_dispenser/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user as mob)
@@ -444,9 +447,8 @@
 	return
 
 /obj/machinery/chem_master/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(usr.stat || usr.restrained()) return
-	if(!in_range(src, usr)) return
+	if(..())
+		return 1
 
 	src.add_fingerprint(usr)
 	usr.set_machine(src)
@@ -457,7 +459,8 @@
 			loaded_pill_bottle.loc = src.loc
 			loaded_pill_bottle = null
 	else if(href_list["close"])
-		usr << browse(null, "window=chemmaster")
+		usr << browse(null, "window=chem_master")
+		onclose(usr, "chem_master")
 		usr.unset_machine()
 		return
 
@@ -635,6 +638,9 @@
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user as mob)
+	return src.attack_hand(user)
+	
+/obj/machinery/chem_master/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user as mob)
