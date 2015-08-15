@@ -446,16 +446,13 @@
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
-							if (!customrecepient.silent)
-								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
-								if( customrecepient.loc && ishuman(customrecepient.loc) )
-									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
-								log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
-								customrecepient.overlays.Cut()
-								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							customrecepient.play_ringtone()
+							if( customrecepient.loc && ishuman(customrecepient.loc) )
+								var/mob/living/carbon/human/H = customrecepient.loc
+								H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
+							log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
+							customrecepient.overlays.Cut()
+							customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
@@ -464,16 +461,13 @@
 							if(!customrecepient.conversations.Find("\ref[PDARec]"))
 								customrecepient.conversations.Add("\ref[PDARec]")
 
-							if (!customrecepient.silent)
-								playsound(customrecepient.loc, 'sound/machines/twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(3, customrecepient.loc))
-									O.show_message(text("\icon[customrecepient] *[customrecepient.ttone]*"))
-								if( customrecepient.loc && ishuman(customrecepient.loc) )
-									var/mob/living/carbon/human/H = customrecepient.loc
-									H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
-								log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
-								customrecepient.overlays.Cut()
-								customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							customrecepient.play_ringtone()
+							if( customrecepient.loc && ishuman(customrecepient.loc) )
+								var/mob/living/carbon/human/H = customrecepient.loc
+								H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
+							log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
+							customrecepient.overlays.Cut()
+							customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
 						//Finally..
 						ResetMessage()
 
