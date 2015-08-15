@@ -42,7 +42,7 @@
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(wizardstart)io
+		wiz.current.loc = pick(wizardstart)
 
 	return 1
 
@@ -65,7 +65,6 @@
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
 	switch(rand(1,100))
 		if(1 to 30)
-
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
@@ -97,10 +96,10 @@
 				wizard.objectives += survive_objective
 
 		if(61 to 85)
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = wizard
-			steal_objective.find_target()
-			wizard.objectives += steal_objective
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
 
 			if (!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
