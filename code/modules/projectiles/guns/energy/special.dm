@@ -308,7 +308,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	flags = CONDUCT | OPENCONTAINER
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	charge_cost = 250
-	fire_delay = 10
+	fire_delay = 15
 	icon_override = 'icons/mob/in-hand/guns.dmi'
 	can_charge = 0
 
@@ -336,7 +336,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=3;engineering=2"
 	projectile_type = /obj/item/projectile/plasma/adv
-	fire_delay = 8
+	fire_delay = 10
 	charge_cost = 100
 
 /obj/item/weapon/gun/energy/disabler
