@@ -65,17 +65,11 @@
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
 	switch(rand(1,100))
 		if(1 to 30)
-
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
-
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = wizard
-				wizard.objectives += escape_objective
-		if(31 to 60)
+			
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = wizard
 			steal_objective.find_target()
@@ -85,8 +79,7 @@
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = wizard
 				wizard.objectives += escape_objective
-
-		if(61 to 85)
+		if(31 to 60)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
@@ -102,7 +95,23 @@
 				survive_objective.owner = wizard
 				wizard.objectives += survive_objective
 
+		if(61 to 85)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
+
 		else
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+			
 			if (!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
