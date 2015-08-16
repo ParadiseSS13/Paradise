@@ -941,7 +941,7 @@ client
 			usr << "This can only be done to instances of type /mob/living/carbon"
 			return
 
-		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in typesof(/obj/item/organ)-/obj/item/organ
+		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
 		if(!new_organ) return
 
 		if(!M)

@@ -452,8 +452,8 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	
 	eyes = "blank_eyes"
-	brute_mod = 2.5
-	burn_mod = 2.5
+	brute_mod = 1.5
+	burn_mod = 1.5
 
 	cold_level_1 = 50
 	cold_level_2 = -1
@@ -495,18 +495,7 @@
 		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
-	H.emote("deathgasp")
-	
-	/*H.h_style = ""
+	H.h_style = ""
 	spawn(100)
-		if(H) H.update_hair()*/
-			
-	for(var/organ_name in H.organs_by_name)
-		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
-			continue
-		var/obj/item/organ/external/O = H.organs_by_name[organ_name]
-		if(O && (O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
-			O.droplimb(1)
-	var/obj/item/organ/external/O = H.organs_by_name["head"]
-	if(O) 
-		O.droplimb(1)
+		if(H) H.update_hair()
+	

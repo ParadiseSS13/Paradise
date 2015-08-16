@@ -150,7 +150,7 @@
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
-		"You start poking around inside [target]'s [affected.name] with \the [tool]" )
+		"You start poking around inside [target]'s [affected.name] with \the [tool]." )
 		target.custom_pain("The pain in your [affected.name] is living hell!",1)
 		..()
 

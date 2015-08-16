@@ -96,7 +96,7 @@
 				if(prob(5))
 					host.adjustBrainLoss(rand(1,2))
 
-				if(prob(host.brainloss/20))
+				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
@@ -188,7 +188,7 @@
 
 	src << "You begin delicately adjusting your connection to the host brain..."
 
-	spawn(300+(host.brainloss*5))
+	spawn(300+(host.getBrainLoss()*5))
 
 		if(!host || !src || controlling)
 			return

@@ -499,9 +499,12 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 //you can use wires to heal robotics
 /obj/item/stack/cable_coil/attack(mob/M as mob, mob/user as mob)
-	if(istype(M,/mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
+		
+		if(!S) 
+			return		
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
 			return ..()
 
@@ -511,8 +514,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
 			else
 				user << "<span class='warning'>The damage is far too severe to patch over externally.</span>"
-			return
-		else
+			return 1
+		else if(!S.open)
 			user << "<span class='notice'>Nothing to fix!</span>"
 
 	else

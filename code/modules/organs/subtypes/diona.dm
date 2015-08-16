@@ -125,6 +125,7 @@
 	name = "head"
 	max_damage = 50
 	min_broken_damage = 25
+	vital = 1
 	w_class = 3
 	body_part = HEAD
 	parent_organ = "chest"

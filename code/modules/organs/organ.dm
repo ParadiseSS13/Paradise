@@ -58,6 +58,7 @@ var/list/organ_cache = list()
 	if(status & ORGAN_ROBOT)
 		return
 	damage = max_damage
+	status |= ORGAN_DEAD
 	processing_objects -= src
 	if(dead_icon)
 		icon_state = dead_icon
@@ -80,17 +81,23 @@ var/list/organ_cache = list()
 	if ((status & ORGAN_ROBOT) || (owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
+		
 	if(!owner)
 		if(reagents)
 			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
 			if(B && prob(40))
 				reagents.remove_reagent("blood",0.1)
 				blood_splatter(src,B,1)
-		if(prob(5)) //How about we not have organs become completely useless less than a minute after removal?
-			damage += 1
+
+		germ_level += rand(2,6)
+		if(germ_level >= INFECTION_LEVEL_TWO)
+			germ_level += rand(2,6)
+		if(germ_level >= INFECTION_LEVEL_THREE)
+			die()
 
 		if(damage >= max_damage)
 			die()
+		
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
@@ -99,6 +106,11 @@ var/list/organ_cache = list()
 	//check if we've hit max_damage
 	if(damage >= max_damage)
 		die()
+	
+/obj/item/organ/examine(mob/user)
+	..(user)
+	if(status & ORGAN_DEAD)
+		user << "<span class='notice'>The decay has set in.</span>"
 
 /obj/item/organ/proc/handle_germ_effects()
 	//** Handle the effects of infections

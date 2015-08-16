@@ -37,9 +37,6 @@ emp_act
 		return 2
 		
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
-	world << organ
-	world << def_zone
-	world << check_zone(def_zone)
 	if(isnull(organ))
 		return 
 

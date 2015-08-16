@@ -106,6 +106,7 @@
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
+	status = status & ~ORGAN_DESTROYED
 	if(istype(owner))
 		owner.organs_by_name[limb_name] = src
 		owner.organs |= src
@@ -123,8 +124,8 @@
 /obj/item/organ/external/robotize()
 	..()
 	//robot limbs take reduced damage
-	brute_mod = 0.8
-	burn_mod = 0.8
+	brute_mod = 0.66
+	burn_mod = 0.66
 
 /****************************************************
 			   DAMAGE PROCS
@@ -302,12 +303,12 @@ This function completely restores a damaged organ to perfect condition.
 				W.open_wound(damage)
 				if(prob(25))
 					if(status & ORGAN_ROBOT)
-						owner.visible_message("\red The damage to [owner.name]'s [name] worsens.",\
-						"\red The damage to your [name] worsens.",\
+						owner.visible_message("<span class='alert'>The damage to [owner.name]'s [name] worsens.</span>",\
+						"<span class='alert'>The damage to your [name] worsens.</span>",\
 						"You hear the screech of abused metal.")
 					else
-						owner.visible_message("\red The wound on [owner.name]'s [name] widens with a nasty ripping noise.",\
-						"\red The wound on your [name] widens with a nasty ripping noise.",\
+						owner.visible_message("<span class='alert'>The wound on [owner.name]'s [name] widens with a nasty ripping noise.</span>",\
+						"<span class='alert'>The wound on your [name] widens with a nasty ripping noise.</span>",\
 						"You hear a nasty ripping noise, as if flesh is being torn apart.")
 				return
 				
@@ -348,11 +349,6 @@ This function completely restores a damaged organ to perfect condition.
 
 /obj/item/organ/external/process()
 	if(owner)
-		//Dismemberment
-		if(status & ORGAN_DESTROYED)
-			if(config.limbs_can_break)
-				droplimb(0,DROPLIMB_EDGE) //Might be worth removing this check since take_damage handles it.
-			return
 		if(parent)
 			if(parent.status & ORGAN_DESTROYED)
 				status |= ORGAN_DESTROYED
@@ -718,13 +714,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
-	owner.visible_message(\
-		"\red You hear a loud cracking sound coming from \the [owner].",\
-		"\red <b>Something feels like it shattered in your [name]!</b>",\
-		"You hear a sickening crack.")
-
-	if(owner.species && !(owner.species.flags & NO_PAIN))
-		owner.emote("scream")
+	if(owner)
+		owner.visible_message(\
+			"\red You hear a loud cracking sound coming from \the [owner].",\
+			"\red <b>Something feels like it shattered in your [name]!</b>",\
+			"You hear a sickening crack.")
+		if(owner.species && !(owner.species.flags & NO_PAIN))
+			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken","fracture","hairline fracture")
@@ -762,11 +758,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mutate()
 	src.status |= ORGAN_MUTATED
-	owner.update_body()
+	if(owner) owner.update_body()
 
 /obj/item/organ/external/proc/unmutate()
 	src.status &= ~ORGAN_MUTATED
-	owner.update_body()
+	if(owner) owner.update_body()
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?
@@ -786,7 +782,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return ((status & ORGAN_ROBOT) && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam))
 
 /obj/item/organ/external/proc/embed(var/obj/item/weapon/W, var/silent = 0)
-	if(loc != owner)
+	if(!owner || loc != owner)
 		return
 	if(!silent)
 		owner.visible_message("<span class='danger'>\The [W] sticks in the wound!</span>")
@@ -819,12 +815,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		for(var/obj/item/organ/external/O in children)
 			O.removed()
 			if(O)
-				O.loc = src
+				O.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/organ in internal_organs)
 		organ.removed()
-		organ.loc = src
+		organ.forceMove(src)
 
 	release_restraints(victim)
 	victim.organs -= src

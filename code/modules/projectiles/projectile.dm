@@ -130,6 +130,11 @@
 				forcedodge = -1
 			else
 			*/
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+				if(isnull(organ))
+					return 
 			if(silenced)
 				playsound(loc, hitsound, 5, 1, -1)
 				M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"

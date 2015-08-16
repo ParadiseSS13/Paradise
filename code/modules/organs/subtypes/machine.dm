@@ -70,12 +70,12 @@
 	..()
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	if(owner && owner.stat == DEAD)
-		owner.stat = 0
+		owner.stat = ALIVE
 		owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
 /obj/item/organ/optical_sensor
 	name = "optical sensor"
-	organ_tag = "eyes"
+	organ_tag = "optics"
 	parent_organ = "head"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"

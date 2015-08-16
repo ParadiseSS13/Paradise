@@ -968,11 +968,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
 		
-		if(!vision) // Presumably if a species has no vision organs, they see via some other means.
+		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			eye_blind =  0
 			blinded =    0
 			eye_blurry = 0
-		else if(vision.is_broken())   // Vision organs cut out or broken? Permablind.
+		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
 			eye_blind =  1
 			blinded =    1
 			eye_blurry = 1

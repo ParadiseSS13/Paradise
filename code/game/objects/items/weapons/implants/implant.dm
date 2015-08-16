@@ -369,7 +369,8 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		if(M == user)
 			user << "<span class='notice'>Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot.</span>"
 			if(isliving(user))
-				user:brainloss += 20
+				var/mob/living/L = user
+				L.adjustBrainLoss(20)
 			return
 		if(locate(/obj/item/weapon/implant/loyalty) in H.contents)
 			H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")

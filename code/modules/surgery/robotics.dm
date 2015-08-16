@@ -146,7 +146,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\blue [user] finishes patching damage to [target]'s [affected.name] with \the [tool].", \
 		"\blue You finish patching damage to [target]'s [affected.name] with \the [tool].")
-		affected.heal_damage(rand(30,50),0)
+		affected.heal_damage(rand(30,50),0,1,1)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -177,7 +177,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\blue [user] finishes splicing cable into [target]'s [affected.name].", \
 		"\blue You finishes splicing new cable into [target]'s [affected.name].")
-		affected.heal_damage(0,rand(30,50))
+		affected.heal_damage(0,rand(30,50),1,1)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)

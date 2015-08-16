@@ -474,10 +474,12 @@
 	icon_state = "crowbar_large"
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
-	if(hasorgans(M))
-		var/obj/item/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
 
-		if (!S) return
+		if (!S) 
+			return
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
 			return ..()
 
@@ -487,10 +489,13 @@
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					S.heal_damage(15,0,0,1)
 					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
+				else
+					user << "<span class='warning'>Need more welding fuel!</span>"
+					return 1
 			else
 				user << "<span class='warning'>The damage is far too severe to patch over externally.</span>"
-			return
-		else
+			return 1
+		else if(!S.open)
 			user << "<span class='notice'>Nothing to fix!</span>"
 
 	else
