@@ -11,7 +11,7 @@
 	var/datum/vampire/vampire = src.mind.vampire
 
 	if(!vampire)
-		world.log << "[src] has vampire verbs but isn't a vampire."
+		log_to_dd("[src] has vampire verbs but isn't a vampire.")
 		return 0
 
 	var/fullpower = (VAMP_FULL in vampire.powers)
@@ -300,7 +300,7 @@
 			enthrall_safe = 1
 			break
 	if(!C)
-		world.log << "something bad happened on enthralling a mob src is [src] [src.key] \ref[src]"
+		log_to_dd("something bad happened on enthralling a mob src is [src] [src.key] \ref[src]")
 		return 0
 	if(!C.mind)
 		src << "\red [C.name]'s mind is not there for you to enthrall."

@@ -4,7 +4,7 @@
 
 	var/releaseWhen = 60
 	var/list/area/areas = list()		//List of areas to affect. Filled by start()
-	
+
 	var/eventDept = "Security"			//Department name in announcement
 	var/list/areaName = list("Brig")	//Names of areas mentioned in AI and Engineering announcements
 	var/list/areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig)	//Area types to include.
@@ -54,7 +54,7 @@
 			A << "<span class='danger'>Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department].</span>"
 
 	else
-		world.log << "ERROR: Could not initate grey-tide. Unable to find suitable containment area."
+		log_to_dd("ERROR: Could not initate grey-tide. Unable to find suitable containment area.")
 		kill()
 
 
