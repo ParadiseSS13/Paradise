@@ -2,7 +2,7 @@
 	name = "bluespace artillery control"
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
-	icon_state = "computer_wires"
+	icon_state = "computer-wires"
 	req_access = list(access_cent_commander)
 	var/last_fire = 0
 	var/reload_cooldown = 180 // 3 minute cooldown
