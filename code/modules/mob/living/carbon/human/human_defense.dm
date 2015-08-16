@@ -499,7 +499,7 @@ emp_act
 
 		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)]</font>")
 		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M]</font>")
-		if(M.ckey)
+		if(ckey)
 			msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M]")
 			
 
