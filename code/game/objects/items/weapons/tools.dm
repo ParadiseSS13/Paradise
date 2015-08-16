@@ -308,7 +308,7 @@
 /obj/item/weapon/weldingtool/proc/setWelding(var/temp_welding)
 	//If we're turning it on
 	if(temp_welding > 0)
-		if (remove_fuel(1))
+		if (get_fuel() > 0)
 			usr << "\blue The [src] switches on."
 			src.force = 15
 			src.damtype = "fire"
@@ -480,7 +480,7 @@
 
 		if (!S) 
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
 			return ..()
 
 		if(S.brute_dam)
@@ -489,13 +489,13 @@
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 					S.heal_damage(15,0,0,1)
 					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
-				else
+				else if(S.open != 2)
 					user << "<span class='warning'>Need more welding fuel!</span>"
 					return 1
 			else
-				user << "<span class='warning'>The damage is far too severe to patch over externally.</span>"
+				user << "<span class='danger'>The damage is far too severe to patch over externally.</span>"
 			return 1
-		else if(!S.open)
+		else if(S.open != 2)
 			user << "<span class='notice'>Nothing to fix!</span>"
 
 	else

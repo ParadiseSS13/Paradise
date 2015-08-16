@@ -76,7 +76,7 @@
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] open the maintenance hatch on [target]'s [affected.name] with \the [tool].", \
+		user.visible_message("\blue [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].", \
 		 "\blue You open the maintenance hatch on [target]'s [affected.name] with \the [tool]." )
 		affected.open = 2
 
@@ -134,7 +134,7 @@
 				var/obj/item/weapon/weldingtool/welder = tool
 				if(!welder.isOn() || !welder.remove_fuel(1,user))
 					return 0
-			return affected && affected.open && affected.brute_dam > 0 && target_zone != "mouth"
+			return affected && affected.open == 2 && affected.brute_dam > 0 && target_zone != "mouth"
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -164,8 +164,17 @@
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if(..())
+			var/obj/item/stack/cable_coil/C = tool
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
-			return affected && affected.open && affected.burn_dam > 0 && target_zone != "mouth"
+			var/limb_can_operate = (affected && affected.open == 2 && affected.burn_dam > 0 && target_zone != "mouth")
+			if(limb_can_operate)
+				if(istype(C))
+					if(!C.get_amount() >= 3)
+						user << "<span class='warning'>You need three or more cable pieces to repair this damage.</span>"
+						return 2
+					C.use(3)
+				return 1
+			return 0
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
