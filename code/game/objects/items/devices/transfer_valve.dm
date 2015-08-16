@@ -181,9 +181,6 @@
 		else
 			attacher_name = "[key_name_admin(attacher)]"
 
-		if(attacher)
-			log_str += ""
-
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 		
 		bombers += "Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]"
