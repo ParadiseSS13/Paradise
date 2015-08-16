@@ -653,7 +653,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return .
 
 /proc/key_name_admin(var/whom, var/include_name = 1)
-	return key_name(whom, 1, include_name)
+	var/message = "[key_name(whom, 1, include_name)][isAntag(whom) ? " (ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>) ([admin_jump_link(whom, "holder")])"
+	return message
+	
+/proc/get_mob_by_ckey(key)
+	if(!key)
+		return
+	var/list/mobs = sortmobs()
+	for(var/mob/M in mobs)
+		if(M.ckey == key)
+			return M
 
 // Returns the atom sitting on the turf.
 // For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.

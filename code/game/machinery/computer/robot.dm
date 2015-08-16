@@ -72,13 +72,13 @@
 			target << "Extreme danger.  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered."
 			target.ResetSecurityCodes()
 		else
-			message_admins("\blue [key_name_admin(usr)] detonated [target.name]!")
-			log_game("\blue [key_name_admin(usr)] detonated [target.name]!")
+			message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) detonated [key_name(target, target.client)](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)!</span>")
+			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(target)]!</span>")
 			target << "<span class='danger'>Self-destruct command received.</span>"
+			if(target.connected_ai)
+				target.connected_ai << "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [target.name]</span><br>"
 			spawn(10)
 				target.self_destruct()
-
-
 
 	// Locks or unlocks the cyborg
 	else if (href_list["lockdown"])
@@ -101,15 +101,13 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("\blue [key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [target.name]!")
-		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [target.name]!")
+		message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) [target.canmove ? "locked down" : "released"] [key_name(target, target.client)]([admin_jump_link(usr, "holder")])!</span>")
+		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [key_name(target)]!")
 		target.canmove = !target.canmove
-		if (target.lockcharge)
-			target.lockcharge = !target.lockcharge
-			target << "Your lockdown has been lifted!"
-		else
-			target.lockcharge = !target.lockcharge
-			target << "You have been locked down!"
+		target.lockcharge = !target.lockcharge
+		target << "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]"
+		if(target.connected_ai)
+			target.connected_ai << "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=\ref[target.connected_ai];track=[html_encode(target.name)]'>[target.name]</a></span><br>"
 
 	// Remotely hacks the cyborg. Only antag AIs can do this and only to linked cyborgs.
 	else if (href_list["hack"])
@@ -160,9 +158,9 @@
 			user << "Self-destruct aborted - safety active"
 			return
 
-		message_admins("\blue [key_name_admin(usr)] detonated all cyborgs!")
-		log_game("[key_name(usr)] detonated all cyborgs!")
-
+		message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) detonated all cyborgs!</span>")
+		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")			
+		
 		for(var/mob/living/silicon/robot/R in mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
@@ -170,6 +168,8 @@
 			if(R.scrambledcodes)
 				continue
 			R << "<span class='danger'>Self-destruct command received.</span>"
+			if(R.connected_ai)
+				R.connected_ai << "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>"
 			spawn(10)
 				R.self_destruct()	
 

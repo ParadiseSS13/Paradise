@@ -20,6 +20,7 @@ PASSWORD mypassword
 FEEDBACK_DATABASE paradise
 FEEDBACK_LOGIN mylogin
 FEEDBACK_PASSWORD mypassword
+FEEDBACK_TABLEPREFIX myprefix
 
 # Track population and death statistics
 # Comment this out to disable

@@ -335,8 +335,8 @@
 	var/mob/living/carbon/L = usr
 
 	if(L)
-		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr.real_name] ([usr.ckey]) cast the spell [name] on [L.real_name] ([L.ckey]).</font>")
-		msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast the spell [name] on [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] cast the spell [name] on [key_name(L)]</font>")
+		msg_admin_attack("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has cast the spell [name] on [key_name_admin(L)]")
 
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")

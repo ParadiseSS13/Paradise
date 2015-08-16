@@ -160,6 +160,7 @@
 				admin_datums -= adm_ckey
 				D.disassociate()
 
+				updateranktodb(adm_ckey, "player")
 				message_admins("[key_name_admin(usr)] removed [adm_ckey] from the admins list")
 				log_admin("[key_name(usr)] removed [adm_ckey] from the admins list")
 				log_admin_rank_modification(adm_ckey, "Removed")
@@ -204,6 +205,7 @@
 			var/client/C = directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
 			D.associate(C)											//link up with the client and add verbs
 
+			updateranktodb(adm_ckey, new_rank)
 			message_admins("[key_name_admin(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
 			log_admin("[key_name(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
 			log_admin_rank_modification(adm_ckey, new_rank)
@@ -1032,6 +1034,63 @@
 			if("Cancel")
 				return
 
+	//Watchlist
+	else if(href_list["watchlist"])
+		if(!check_rights(R_ADMIN))	return
+		var/mob/M = locate(href_list["watchlist"])
+		if(!dbcon.IsConnected())
+			usr << "<span class='danger'>Failed to establish database connection.</span>"
+			return
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(!M.ckey)
+			usr << "This mob has no ckey"
+			return
+		var/sql_ckey = sanitizeSQL(M.ckey)
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM [format_table_name("watch")] WHERE (ckey = '[sql_ckey]')")
+		query.Execute()
+		if(query.NextRow())
+			switch(alert(usr, "Ckey already flagged", "[sql_ckey] is already on the watchlist, do you want to:", "Remove", "Edit reason", "Cancel"))
+				if("Cancel")
+					return
+				if("Remove")
+					var/DBQuery/query_watchdel = dbcon.NewQuery("DELETE FROM [format_table_name("watch")] WHERE ckey = '[sql_ckey]'")
+					if(!query_watchdel.Execute())
+						var/err = query_watchdel.ErrorMsg()
+						log_game("SQL ERROR during removing watch entry. Error : \[[err]\]\n")
+						return
+					log_admin("[key_name_admin(usr)] has removed [key_name_admin(M)] from the watchlist")
+					message_admins("[key_name_admin(usr)] has removed [key_name_admin(M)] from the watchlist", 1)
+				if("Edit reason")
+					var/DBQuery/query_reason = dbcon.NewQuery("SELECT ckey, reason FROM [format_table_name("watch")] WHERE (ckey = '[sql_ckey]')")
+					query_reason.Execute()
+					if(query_reason.NextRow())
+						var/watch_reason = query_reason.item[2]
+						var/new_reason = input("Insert new reason", "New Reason", "[watch_reason]", null) as null|text
+						new_reason = sanitizeSQL(new_reason)
+						if(!new_reason)
+							return
+						var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("watch")] SET reason = '[new_reason]' WHERE (ckey = '[sql_ckey]')")
+						if(!update_query.Execute())
+							var/err = update_query.ErrorMsg()
+							log_game("SQL ERROR during edit watch entry reason. Error : \[[err]\]\n")
+							return
+						log_admin("[key_name_admin(usr)] has edited [sql_ckey]'s reason from [watch_reason] to [new_reason]",1)
+						message_admins("[key_name_admin(usr)] has edited [sql_ckey]'s reason from [watch_reason] to [new_reason]",1)
+		else
+			var/reason = input(usr,"Reason?","reason","Metagaming") as text|null
+			if(!reason)
+				return
+			reason = sanitizeSQL(reason)
+			var/DBQuery/query_watchadd = dbcon.NewQuery("INSERT INTO [format_table_name("watch")] (ckey, reason) VALUES ('[sql_ckey]', '[reason]')")
+			if(!query_watchadd.Execute())
+				var/err = query_watchadd.ErrorMsg()
+				log_game("SQL ERROR during adding new watch entry. Error : \[[err]\]\n")
+				return
+			log_admin("[key_name_admin(usr)] has added [key_name_admin(M)] to the watchlist - Reason: [reason]")
+			message_admins("[key_name_admin(usr)] has added [key_name_admin(M)] to the watchlist - Reason: [reason]", 1)				
+				
 	else if(href_list["mute"])
 		if(!check_rights(R_MOD))
 			return
@@ -1452,6 +1511,17 @@
 		if(!isobserver(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptomob(M)
+		
+	else if(href_list["adminplayerobservefollow"])
+		if(!check_rights(R_MOD,0) && !check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["adminplayerobservefollow"])
+
+		var/client/C = usr.client
+		if(!isobserver(usr))	C.admin_ghost()
+		var/mob/dead/observer/A = C.mob
+		sleep(2)
+		A.ManualFollow(M)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
@@ -1519,7 +1589,7 @@
 		src.owner << "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;"
 		src.owner << "Location = [location_description];"
 		src.owner << "[special_role_description]"
-		src.owner << "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) ([admin_jump_link(M, src)]) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)"
+		src.owner << "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)"
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -2992,15 +3062,15 @@
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
+		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<A HREF='?[source];adminplayerobservejump=\ref[A.eyeobj]'>EYE</A>"
+			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[A.eyeobj]'>EYE</A>"
 		return
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
+		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(O.mind && O.mind.current)
-			. += "|<A HREF='?[source];adminplayerobservejump=\ref[O.mind.current]'>BDY</A>"
+			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[O.mind.current]'>BDY</A>"
 		return
 	else
-		return "<A HREF='?[source];adminplayerobservejump=\ref[target]'>JMP</A>"
+		return "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"

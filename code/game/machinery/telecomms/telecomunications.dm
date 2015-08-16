@@ -604,8 +604,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		if(istext(t))
 			rawcode = t
 
-/obj/machinery/telecomms/server/proc/compile()
+/obj/machinery/telecomms/server/proc/compile(mob/user as mob)
 	if(Compiler)
+		admin_log(user)
 		return Compiler.Compile(rawcode)
 
 /obj/machinery/telecomms/server/proc/update_logs()
@@ -627,8 +628,14 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	log_entries.Add(log)
 	update_logs()
 
+/obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
 
-
+	var/msg="[key_name(mob)] has compiled a script to server [src]:"
+	diary << msg
+	diary << rawcode
+	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
+	if(length(rawcode)) // Let's not bother the admins for empty code.
+		message_admins("[key_name_admin(mob)] ([admin_jump_link(usr, "holder")]) has compiled and uploaded a NTSL script to [src.id]",0,1)
 
 // Simple log entry datum
 

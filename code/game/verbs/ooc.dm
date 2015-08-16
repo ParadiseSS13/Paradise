@@ -17,7 +17,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		src << "\red You have OOC muted."
 		return
 
-	if(!(holder && holder.rights && (holder.rights & R_MOD)))
+	if(!check_rights(R_MOD,0))
 		if(!ooc_allowed)
 			src << "\red OOC is globally muted"
 			return
@@ -141,9 +141,8 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(C in admins)
-			if(C.holder.rights | R_MENTOR)
-				continue //they are handled after that
+		if(check_rights(R_MENTOR,0))
+			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
 			if(holder)
@@ -160,7 +159,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(C.holder.rights | R_MENTOR)
+		if(check_rights(R_MENTOR,0))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)
