@@ -653,7 +653,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return .
 
 /proc/key_name_admin(var/whom, var/include_name = 1)
-	var/message = "[key_name(whom, 1, include_name)](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>) [isAntag(whom) ? "(ANTAG)" : ""] ([admin_jump_link(whom, "holder")])"
+	var/message = "[key_name(whom, 1, include_name)](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>)[isAntag(whom) ? " (ANTAG)" : ""] ([admin_jump_link(whom, "holder")])"
 	return message
 	
 /proc/get_mob_by_ckey(key)
