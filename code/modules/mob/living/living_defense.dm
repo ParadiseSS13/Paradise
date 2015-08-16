@@ -119,7 +119,7 @@
 				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [key_name(M)]</font>")
 				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [O]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[key_name_admin(src)](<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) ([admin_jump_link(src, "holder")]) was hit by a [O], thrown by [key_name_admin(M)]")
+					msg_admin_attack("[key_name_admin(src)] was hit by a [O], thrown by [key_name_admin(M)]")
 
 		// Begin BS12 momentum-transfer code.
 		if(O.throw_source && speed >= 15)

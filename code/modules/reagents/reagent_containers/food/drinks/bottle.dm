@@ -100,7 +100,7 @@
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has attacked [key_name(target)] with a bottle!</font>")
 	target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been smashed with a bottle by [key_name(user)]</font>")
 	if(target.ckey)
-		msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) attacked [key_name_admin(target)] with a bottle. (INTENT: [uppertext(user.a_intent)])")
+		msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(target)] with a bottle. (INTENT: [uppertext(user.a_intent)])")
 	if(!iscarbon(user))
 		target.LAssailant = null
 	else

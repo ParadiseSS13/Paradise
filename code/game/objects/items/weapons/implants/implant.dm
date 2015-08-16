@@ -162,7 +162,7 @@ Implant Specifics:<BR>"}
 		var/need_gib = null
 		if(istype(imp_in, /mob/))
 			var/mob/T = imp_in
-			message_admins("Explosive implant triggered in [key_name_admin(T)](<A HREF='?_src_=holder;adminmoreinfo=\ref[T]'>?</A>) ([admin_jump_link(T, "holder")])")
+			message_admins("Explosive implant triggered in [key_name_admin(T)]")
 			log_game("Explosive implant triggered in [key_name(T)].")
 			need_gib = 1
 

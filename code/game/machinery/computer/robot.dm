@@ -72,7 +72,7 @@
 			target << "Extreme danger.  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered."
 			target.ResetSecurityCodes()
 		else
-			message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) detonated [key_name(target, target.client)](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)!</span>")
+			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)!</span>")
 			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(target)]!</span>")
 			target << "<span class='danger'>Self-destruct command received.</span>"
 			if(target.connected_ai)
@@ -101,7 +101,7 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) [target.canmove ? "locked down" : "released"] [key_name(target, target.client)]([admin_jump_link(usr, "holder")])!</span>")
+		message_admins("<span class='notice'>[key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [key_name_admin(target)]!</span>")
 		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [key_name(target)]!")
 		target.canmove = !target.canmove
 		target.lockcharge = !target.lockcharge
@@ -135,8 +135,8 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("\blue [key_name_admin(usr)] emagged [target.name] using robotic console!")
-		log_game("[key_name(usr)] emagged [target.name] using robotic console!")
+		message_admins("\blue [key_name_admin(usr)] emagged [key_name_admin(target)] using robotic console!")
+		log_game("[key_name(usr)] emagged [key_name(target)] using robotic console!")
 		target.emagged = 1
 		target << "<span class='notice'>Failsafe protocols overriden. New tools available.</span>"
 
@@ -158,7 +158,7 @@
 			user << "Self-destruct aborted - safety active"
 			return
 
-		message_admins("<span class='notice'>[key_name_admin(usr)] ([admin_jump_link(usr, "holder")]) detonated all cyborgs!</span>")
+		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")			
 		
 		for(var/mob/living/silicon/robot/R in mob_list)

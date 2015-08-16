@@ -332,7 +332,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had the [name] used on him by [key_name(user)]</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [name] on [key_name(M)]</font>")
-		msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) used [name] on [key_name_admin(M)]")
+		msg_admin_attack("[key_name_admin(user)] used [name] on [key_name_admin(M)]")
 		if(!iscarbon(M))
 			M.LAssailant = null
 		else

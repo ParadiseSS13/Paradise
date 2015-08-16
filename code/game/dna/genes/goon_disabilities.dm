@@ -336,7 +336,7 @@
 
 	if(L)
 		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] cast the spell [name] on [key_name(L)]</font>")
-		msg_admin_attack("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has cast the spell [name] on [key_name_admin(L)]")
+		msg_admin_attack("[key_name_admin(usr)] has cast the spell [name] on [key_name_admin(L)]")
 
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")

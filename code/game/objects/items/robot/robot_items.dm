@@ -13,7 +13,7 @@
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [key_name(user)]</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [key_name(M)]</font>")
 		if(M.ckey)
-			msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) used the [src.name] to attack [key_name_admin(M)]")
+			msg_admin_attack("[key_name_admin(user)] used the [src.name] to attack [key_name_admin(M)]")
 
 		if(!iscarbon(user))
 			M.LAssailant = null

@@ -145,5 +145,5 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 		if(what_done in ignore) return
 		if(target == user)return
 		if(!admin) return
-		msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
+		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 

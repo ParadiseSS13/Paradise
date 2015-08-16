@@ -635,7 +635,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	diary << rawcode
 	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
 	if(length(rawcode)) // Let's not bother the admins for empty code.
-		message_admins("[key_name_admin(mob)] ([admin_jump_link(usr, "holder")]) has compiled and uploaded a NTSL script to [src.id]",0,1)
+		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id]",0,1)
 
 // Simple log entry datum
 

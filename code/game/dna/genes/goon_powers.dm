@@ -170,12 +170,12 @@
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
 										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
 					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
-					msg_admin_attack("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has cast cryokinesis on [key_name_admin(C)]")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 				else
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
 										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)]")
-					msg_admin_attack("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has cast cryokinesis on [key_name_admin(C)]")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -185,7 +185,7 @@
 
 		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
 		log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] without internals or a suit")
-		msg_admin_attack("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has cast cryokinesis on [key_name_admin(C)]")
+		msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 

@@ -34,7 +34,7 @@
 
 				M.attack_log += text("\[[time_stamp()]\] <font color='orange'> Implanted with [src.name] ([src.imp.name]) by [key_name(user)]</font>")
 				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] ([src.imp.name]) to implant [key_name(M)]</font>")
-				msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])")
+				msg_admin_attack("[key_name_admin(user)] implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 				user.show_message("\red You implanted the implant into [M].")
 				if(src.imp.implanted(M, user))

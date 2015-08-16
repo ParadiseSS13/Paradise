@@ -55,7 +55,7 @@
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
 				D << "\red You hit [M]!"
-				msg_admin_attack("[key_name_admin(D)](<A HREF='?_src_=holder;adminmoreinfo=\ref[D]'>?</A>) ([admin_jump_link(D, "holder")]) hit [key_name_admin(M)] with [src].")
+				msg_admin_attack("[key_name_admin(D)] hit [key_name_admin(M)] with [src].")
 
 
 //-------------------------------------------

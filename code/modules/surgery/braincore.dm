@@ -94,7 +94,7 @@
 
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Debrained [key_name(target)] with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
 		target.attack_log += "\[[time_stamp()]\]<font color='orange'> Debrained by [key_name(user)] with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
-		msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) debrained [key_name_admin(target)] with [tool.name]")
+		msg_admin_attack("[key_name_admin(user)] debrained [key_name_admin(target)] with [tool.name]")
 
 		var/obj/item/organ/brain/B = target.internal_organs_by_name["brain"]
 		if(B && istype(B))

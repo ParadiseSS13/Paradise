@@ -41,7 +41,7 @@
 	else
 		M.LAssailant = user
 
-	msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
+	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red The rod slips out of your hand and hits your head."

@@ -450,11 +450,11 @@ update_flag
 			else
 				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
 				if(air_contents.toxins > 0)
-					message_admins("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					message_admins("[key_name_admin(usr)] opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
 				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
 				if(sleeping_agent && (sleeping_agent.moles > 1))
-					message_admins("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					message_admins("[key_name_admin(usr)] opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
 		investigate_log(logmsg, "atmos")
 		release_log += logmsg

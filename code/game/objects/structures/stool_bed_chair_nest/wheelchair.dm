@@ -157,7 +157,7 @@
 
 			pulling.attack_log += "\[[time_stamp()]\]<font color='red'> Crashed [key_name(occupant)] [name] into \a [A]</font>"
 			occupant.attack_log += "\[[time_stamp()]\]<font color='orange'> Thrusted into \a [A] by [key_name(pulling)] with \the [name]</font>"
-			msg_admin_attack("[key_name_admin(pulling)](<A HREF='?_src_=holder;adminmoreinfo=\ref[pulling]'>?</A>) ([admin_jump_link(pulling, "holder")]) has thrusted [key_name_admin(occupant)] [name] into \a [A]")
+			msg_admin_attack("[key_name_admin(pulling)] has thrusted [key_name_admin(occupant)] [name] into \a [A]")
 		else
 			occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 

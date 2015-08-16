@@ -197,7 +197,7 @@
 			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
 			var/borer_key = src.key
 			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
-			msg_admin_attack("[key_name_admin(src)](<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) ([admin_jump_link(src, "holder")]) has assumed control of [key_name_admin(host)]")
+			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
 			// host -> brain
 			var/h2b_id = host.computer_id
 			var/h2b_ip= host.lastKnownIP

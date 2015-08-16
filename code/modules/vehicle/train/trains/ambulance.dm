@@ -163,7 +163,7 @@
 		D << "\red \b You ran over [H]!"
 		visible_message("<B>\red \The [src] ran over [H]!</B>")
 		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)], driven by [key_name(D)]</font>")
-		msg_admin_attack("[key_name_admin(D)](<A HREF='?_src_=holder;adminmoreinfo=\ref[D]'>?</A>) ([admin_jump_link(D, "holder")]) ran over [key_name_admin(H)]")
+		msg_admin_attack("[key_name_admin(D)] ran over [key_name_admin(H)]")
 	else
 		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)]</font>")
 

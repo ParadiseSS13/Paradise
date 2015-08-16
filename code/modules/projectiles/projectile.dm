@@ -140,7 +140,7 @@
 				M.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				firer.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				if(M.ckey && chatlog_attacks)
-					msg_admin_attack("[key_name_admin(firer)](<A HREF='?_src_=holder;adminmoreinfo=\ref[firer]'>?</A>) ([admin_jump_link(firer, "holder")]) shot [key_name_admin(M)] with a [src][reagent_note]") //BS12 EDIT ALG
+					msg_admin_attack("[key_name_admin(firer)] shot [key_name_admin(M)] with a [src][reagent_note]") //BS12 EDIT ALG
 				if(!iscarbon(firer))
 					M.LAssailant = null
 				else

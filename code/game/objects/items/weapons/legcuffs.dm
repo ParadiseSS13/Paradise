@@ -44,7 +44,7 @@
 			if(2,3)
 				user.drop_item(src)
 				I.loc = src
-				message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) has rigged a beartrap with an IED.")
+				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 				log_game("[key_name(user)] has rigged a beartrap with an IED.")
 				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
 				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
@@ -67,7 +67,7 @@
 			IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
 			IED.icon_state = initial(icon_state) + "_active"
 			IED.assembled = 3
-			message_admins("[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) has triggered an IED-rigged [name].")
+			message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
 			log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 			spawn(IED.det_time)
 				IED.prime()

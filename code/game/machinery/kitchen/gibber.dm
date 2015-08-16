@@ -339,7 +339,7 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)](<A HREF='?_src_=holder;adminmoreinfo=\ref[occupant]'>?</A>) ([admin_jump_link(occupant, "holder")]) was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 
 	if(src.operating)
 		return

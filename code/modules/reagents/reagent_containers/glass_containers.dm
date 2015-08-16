@@ -88,7 +88,7 @@
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) splashed [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+				msg_admin_attack("[key_name_admin(user)] splashed [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -129,7 +129,7 @@
 						badshit += reagents_to_log[bad_reagent]
 				if(badshit.len)
 					var/hl="\red <b>([english_list(badshit)])</b> \black"
-					message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) ([admin_jump_link(user, "holder")]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
+					message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
 					log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)

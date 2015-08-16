@@ -111,7 +111,7 @@
 		if(href_list["time"])
 			timing = !timing
 			if(timing && istype(holder, /obj/item/device/transfer_valve))
-				var/timer_message = "[key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) ([admin_jump_link(usr, "holder")]) activated [src] attachment on [holder]."
+				var/timer_message = "[key_name_admin(usr)] activated [src] attachment on [holder]."
 				message_admins(timer_message)
 				bombers += timer_message
 				log_game("[key_name(usr)] activated [src] attachment for [loc]")
