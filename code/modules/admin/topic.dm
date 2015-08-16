@@ -2020,6 +2020,7 @@
 										I.loc = R.module
 										R.module.rebuild()
 										R.activate_module(I)
+										R.module.fix_modules()
 
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")

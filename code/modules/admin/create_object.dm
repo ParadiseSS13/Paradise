@@ -10,7 +10,7 @@ var/list/create_object_forms = list(/obj, /obj/structure, /obj/machinery, /obj/e
 
 	user << browse(replacetext(create_object_html, "/* ref src */", "\ref[src]"), "window=create_object;size=425x475")
 
-/datum/admins/proc/quick_create_object(mob/user)
+/datum/admins/proc/quick_create_object(var/mob/user)
 	var/path = input("Select the path of the object you wish to create.", "Path", /obj) in create_object_forms
 	var/html_form = create_object_forms[path]
 
