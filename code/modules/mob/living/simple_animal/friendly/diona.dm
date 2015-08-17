@@ -26,7 +26,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 8
 	attacktext = "bites"
-	attacksound = 'sound/weapons/bite.ogg'
+	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
 	stop_automated_movement = 0
