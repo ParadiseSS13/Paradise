@@ -66,10 +66,7 @@ var/global/datum/global_init/init = new ()
 		processScheduler.setup()
 
 		master_controller.setup()
-
-	process_teleport_locs()			//Sets up the wizard teleport locations
-	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
-
+		
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
 	#else

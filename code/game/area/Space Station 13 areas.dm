@@ -58,7 +58,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
-/proc/process_teleport_locs()
+/hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
 		if(teleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
@@ -73,7 +73,7 @@ var/list/teleportlocs = list()
 	return 1
 	
 var/list/ghostteleportlocs = list()
-/proc/process_ghost_teleport_locs()
+/hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
