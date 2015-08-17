@@ -1184,7 +1184,7 @@
 	seed_noun = "nodes"
 	display_name = "replicant pods"
 	can_self_harvest = 1
-	has_mob_product = /mob/living/carbon/primitive/diona
+	has_mob_product = /mob/living/simple_animal/diona
 
 /datum/seed/diona/New()
 	..()
