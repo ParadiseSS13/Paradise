@@ -697,8 +697,8 @@
 			if(isanimal(usr)) 
 				return //animals cannot strip people
 
-			if(target.frozen)
-				source << "\red Do not attempt to strip frozen people."
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
 				return
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
@@ -736,8 +736,8 @@
 			if(isanimal(usr)) 
 				return //animals cannot strip people
 				
-			if(target.frozen)
-				source << "\red Do not attempt to strip frozen people."
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
 				return				
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
