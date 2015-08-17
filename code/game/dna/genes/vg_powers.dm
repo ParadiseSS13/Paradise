@@ -250,9 +250,7 @@ Obviously, requires DNA2.
 			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
 		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
 		for(var/mob/dead/observer/G in player_list)
-			G.show_message("<i>Telepathic message from <b>[usr]</b> to <b>[target]</b>: [say]</i>")
-
-
+			G.show_message("<i>Telepathic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"

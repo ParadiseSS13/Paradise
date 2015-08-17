@@ -564,6 +564,11 @@ var/list/sacrificed = list()
 
 	for(var/mob/spirit/spirit in spirits)
 		spirit << "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>"
+		
+	for(var/mob/player in player_list)
+		if(istype(player,/mob/dead))
+			var/msg_dead = "<span class='cultspeech'><span class='name'>[displayName] ([cultName]) ([ghost_follow_link(usr, ghost=player)]): </span><span class='message'>[input]</span></span>"
+			player << msg_dead
 
 	qdel(src)
 	return 1
