@@ -8,6 +8,7 @@
 
 	var/icon_living = ""
 	var/icon_dead = ""
+	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 
 	var/oxygen_alert = 0
@@ -86,6 +87,10 @@
 	return
 
 /mob/living/simple_animal/Life()
+	if(paralysis || stunned || weakened || buckled || resting) 
+		canmove = 0
+	else 
+		canmove = 1
 
 	//Health
 	if(stat == DEAD)
@@ -97,12 +102,16 @@
 			density = 1
 		return 0
 
-
 	if(health < 1)
 		Die()
 
 	if(health > maxHealth)
 		health = maxHealth
+		
+	if(resting && icon_resting && stat != DEAD)
+		icon_state = icon_resting
+	else if(stat != DEAD)
+		icon_state = icon_living
 
 	if(sleeping)
 		sleeping = max(sleeping-1, 0)

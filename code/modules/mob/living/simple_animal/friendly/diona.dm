@@ -6,7 +6,10 @@
 /mob/living/simple_animal/diona
 	name = "diona nymph"
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = "nymph1"
+	icon_state = "nymph"
+	icon_living = "nymph"
+	icon_dead = "nymph_dead"
+	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE
 	small = 1
 	ventcrawler = 2
