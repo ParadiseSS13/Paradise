@@ -17,16 +17,29 @@
 	conversion in savefile.dm
 */
 
+/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female)
+	if(!istype(L))	L = list()
+	if(!istype(male))	male = list()
+	if(!istype(female))	female = list()
+
+	for(var/path in subtypesof(prototype))
+		var/datum/sprite_accessory/D = new path()
+
+		L[D.name] = D
+
+		switch(D.gender)
+			if(MALE)	male += D.name
+			if(FEMALE)	female += D.name
+			else
+				male += D.name
+				female += D.name
+	return L
+
 /datum/sprite_accessory
-
-	var/icon			// the icon file the accessory is located in
-	var/icon_state		// the icon_state of the accessory
-	var/preview_state	// a custom preview state for whatever reason
-
-	var/name			// the preview name of the accessory
-
-	// Determines if the accessory will be skipped or included in random hair generations
-	var/gender = NEUTER
+	var/icon			//the icon file the accessory is located in
+	var/icon_state		//the icon_state of the accessory
+	var/name			//the preview name of the accessory
+	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list("Human")
@@ -935,3 +948,316 @@
 		icon_state = "default"
 		icon = 'icons/mob/human_races/r_skrell.dmi'
 		species_allowed = list("Skrell")
+
+///////////////////////////
+// Underwear Definitions //
+///////////////////////////
+/datum/sprite_accessory/underwear
+	icon = 'icons/mob/underwear.dmi'
+
+	species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+
+	nude
+		name = "Nude"
+		icon_state = null
+		gender = NEUTER
+
+	male_white
+		name = "Mens White"
+		icon_state = "male_white"
+		gender = MALE
+
+	male_grey
+		name = "Mens Grey"
+		icon_state = "male_grey"
+		gender = MALE
+
+	male_green
+		name = "Mens Green"
+		icon_state = "male_green"
+		gender = MALE
+
+	male_blue
+		name = "Mens Blue"
+		icon_state = "male_blue"
+		gender = MALE
+
+	male_black
+		name = "Mens Black"
+		icon_state = "male_black"
+		gender = MALE
+
+	male_mankini
+		name = "Mankini"
+		icon_state = "male_mankini"
+		gender = MALE
+
+	female_red
+		name = "Ladies Red"
+		icon_state = "female_red"
+		gender = FEMALE
+
+	female_white
+		name = "Ladies White"
+		icon_state = "female_white"
+		gender = FEMALE
+
+	female_yellow
+		name = "Ladies Yellow"
+		icon_state = "female_yellow"
+		gender = FEMALE
+
+	female_blue
+		name = "Ladies Blue"
+		icon_state = "female_blue"
+		gender = FEMALE
+
+	female_black
+		name = "Ladies Black"
+		icon_state = "female_black"
+		gender = FEMALE
+
+	female_kinky
+		name = "Ladies Kinky"
+		icon_state = "female_kinky"
+		gender = FEMALE
+
+////////////////////////////
+// Undershirt Definitions //
+////////////////////////////
+/datum/sprite_accessory/undershirt
+	icon = 'icons/mob/underwear.dmi'
+
+	species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+
+/datum/sprite_accessory/undershirt/nude
+	name = "Nude"
+	icon_state = null
+	gender = NEUTER
+
+//plain color shirts
+/datum/sprite_accessory/undershirt/shirt_white
+	name = "White Shirt"
+	icon_state = "shirt_white"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_black
+	name = "Black Shirt"
+	icon_state = "shirt_black"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_grey
+	name = "Grey Shirt"
+	icon_state = "shirt_grey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_red
+	name = "Red Shirt"
+	icon_state = "shirt_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_blue
+	name = "Blue Shirt"
+	icon_state = "shirt_blue"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_yellow
+	name = "Yellow Shirt"
+	icon_state = "shirt_yellow"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_green
+	name = "Green Shirt"
+	icon_state = "shirt_green"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_darkblue
+	name = "Dark Blue Shirt"
+	icon_state = "shirt_darkblue"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_darkred
+	name = "Dark Red Shirt"
+	icon_state = "shirt_darkred"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_darkgreen
+	name = "Dark Green Shirt"
+	icon_state = "shirt_darkgreen"
+	gender = NEUTER
+//end plain color shirts
+
+/datum/sprite_accessory/undershirt/shirt_heart
+	name = "Heart Shirt"
+	icon_state = "shirt_heart"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_corgi
+	name = "Corgi Shirt"
+	icon_state = "shirt_corgi"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_jack
+	name = "Union Jack Shirt"
+	icon_state = "shirt_jack"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/love_nt
+	name = "I Love NT Shirt"
+	icon_state = "shirt_lovent"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/peace
+	name = "Peace Shirt"
+	icon_state = "shirt_peace"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/mondmondjaja
+	name = "Band Shirt"
+	icon_state = "shirt_band"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/pacman
+	name = "Pogoman Shirt"
+	icon_state = "shirt_pogoman"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_ss13
+	name = "SS13 Shirt"
+	icon_state = "shirt_ss13"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_question
+	name = "Question Mark Shirt"
+	icon_state = "shirt_question"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_skull
+	name = "Skull Shirt"
+	icon_state = "shirt_skull"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_commie
+	name = "Communist Shirt"
+	icon_state = "shirt_commie"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_nano
+	name = "Nanotrasen Shirt"
+	icon_state = "shirt_nano"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_meat
+	name = "Meat Shirt"
+	icon_state = "shirt_meat"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_tiedie
+	name = "Tiedie Shirt"
+	icon_state = "shirt_tiedie"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blue_striped
+	name = "Striped Blue Shirt"
+	icon_state = "shirt_bluestripe"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/brightblue_striped
+	name = "Striped Bright Blue Shirt"
+	icon_state = "shirt_brightbluestripe"
+	gender = NEUTER
+
+
+//short sleeved
+/datum/sprite_accessory/undershirt/short_white
+	name = "White Short-sleeved Shirt"
+	icon_state = "short_white"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/short_purple
+	name = "Purple Short-sleeved Shirt"
+	icon_state = "short_purple"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/short_blue
+	name = "Blue Short-sleeved Shirt"
+	icon_state = "short_blue"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/short_green
+	name = "Green Short-sleeved Shirt"
+	icon_state = "short_green"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/short_black
+	name = "Black Short-sleeved Shirt"
+	icon_state = "short_black"
+	gender = NEUTER
+//end short sleeved
+
+//polo shirts
+/datum/sprite_accessory/undershirt/polo_blue
+	name = "Blue Polo Shirt"
+	icon_state = "polo_blue"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/polo_red
+	name = "Red Polo Shirt"
+	icon_state = "polo_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/polo_greyelllow
+	name = "Grey-Yellow Polo Shirt"
+	icon_state = "polo_greyellow"
+	gender = NEUTER
+//end polo shirts
+
+//sport shirts
+/datum/sprite_accessory/undershirt/sport_green
+	name = "Green Sports Shirt"
+	icon_state = "sport_green"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/sport_red
+	name = "Red Sports Shirt"
+	icon_state = "sport_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/sport_blue
+	name = "Blue Sports Shirt"
+	icon_state = "sport_blue"
+	gender = NEUTER
+//end sport shirts
+
+/datum/sprite_accessory/undershirt/jersey_red
+	name = "Red Jersey"
+	icon_state = "jersey_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/jersey_blue
+	name = "Blue Jersey"
+	icon_state = "jersey_blue"
+	gender = NEUTER
+
+
+//tanktops
+/datum/sprite_accessory/undershirt/tank_white
+	name = "White Tank-Top"
+	icon_state = "tank_white"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_black
+	name = "Black Tank-Top"
+	icon_state = "tank_black"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_grey
+	name = "Grey Tank-Top"
+	icon_state = "tank_grey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_fire
+	name = "Fire Tank-Top"
+	icon_state = "tank_fire"
+	gender = NEUTER
+//end tanktops
