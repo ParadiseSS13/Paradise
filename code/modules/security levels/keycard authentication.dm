@@ -174,8 +174,7 @@ var/global/maint_all_access = 0
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	world << "<font size=4 color='red'>Attention!</font>"
-	world << "<font color='red'>The maintenance access requirement has been revoked on all airlocks.</font>"
+	minor_announcement.Announce("The maintenance access requirement has been revoked on all airlocks.")
 	maint_all_access = 1
 
 /proc/revoke_maint_all_access()
@@ -183,6 +182,5 @@ var/global/maint_all_access = 0
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	world << "<font size=4 color='red'>Attention!</font>"
-	world << "<font color='red'>The maintenance access requirement has been readded on all maintenance airlocks.</font>"
+	minor_announcement.Announce("The maintenance access requirement has been readded on all maintenance airlocks.")
 	maint_all_access = 0

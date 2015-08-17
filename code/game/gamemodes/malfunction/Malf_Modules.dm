@@ -79,8 +79,8 @@ rcd light flash thingy on matter drain
 /datum/AI_Module/large/lockdown
 	module_name = "Hostile Station Lockdown"
 	mod_pick_name = "lockdown"
-	description = "Take control of the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks."
-	cost = 20
+	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 90 seconds."
+	cost = 30
 	one_time = 1
 
 	power_type = /mob/living/silicon/ai/proc/lockdown
@@ -89,15 +89,12 @@ rcd light flash thingy on matter drain
 	set category = "Malfunction"
 	set name = "Initiate Hostile Lockdown"
 
-	if(src.stat == 2)
-		src <<"You cannot begin a lockdown because you are dead!"
-		return
-
-	if(malf_cooldown)
+	if(src.stat == DEAD)
+		src << "<span class='warning'>You cannot begin a lockdown because you are dead!</span>"
 		return
 
 	var/obj/machinery/door/airlock/AL
-	for(var/obj/machinery/door/D in airlocks)
+	for(var/obj/machinery/door/airlock/D in airlocks)
 		if(!(D.z in config.contact_levels))
 			continue
 		spawn()
@@ -107,8 +104,7 @@ rcd light flash thingy on matter drain
 					AL.locked = 0 //For airlocks that were bolted open.
 					AL.safe = 0 //DOOR CRUSH
 					AL.close()
-					AL.locked = 1 //Bolt it!
-					AL.lights = 0 //Stealth bolt for a classic AI door trap.
+					AL.lock()
 					AL.electrified_until = -1  //Shock it!
 			else if(!D.stat) //So that only powered doors are closed.
 				D.close() //Close ALL the doors!
@@ -117,40 +113,30 @@ rcd light flash thingy on matter drain
 	if(C)
 		C.post_status("alert", "lockdown")
 
-	src.verbs += /mob/living/silicon/ai/proc/disablelockdown
-	src << "<span class = 'warning'>Lockdown Initiated.</span>"
-	malf_cooldown = 1
-	spawn(30)
-	malf_cooldown = 0
+	verbs -= /mob/living/silicon/ai/proc/lockdown
+	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
+	src << "<span class='danger'>Lockdown initiated. Network reset in 90 seconds.</span>"
+	spawn(900) //90 Seconds.
+		disablelockdown() //Reset the lockdown after 90 seconds.
 
 /mob/living/silicon/ai/proc/disablelockdown()
 	set category = "Malfunction"
 	set name = "Disable Lockdown"
 
-	if(src.stat == 2)
-		src <<"You cannot disable lockdown because you are dead!"
-		return
-	if(malf_cooldown)
-		return
-
 	var/obj/machinery/door/airlock/AL
-	for(var/obj/machinery/door/D in airlocks)
+	for(var/obj/machinery/door/airlock/D in airlocks)
 		spawn()
 			if(istype(D, /obj/machinery/door/airlock))
 				AL = D
 				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-					AL.locked = 0
+					AL.unlock()
 					AL.electrified_until = 0
 					AL.open()
 					AL.safe = 1
-					AL.lights = 1 //Essentially reset the airlock to normal.
 			else if(!D.stat) //Opens only powered doors.
-				D.open() //Open everything!
-
-	src << "<span class = 'notice'>Lockdown Lifted.</span>"
-	malf_cooldown = 1
-	spawn(30)
-	malf_cooldown = 0
+				D.open() //Open everything!	
+				
+	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
 
 /datum/AI_Module/large/disable_rcd
 	module_name = "RCD disable"

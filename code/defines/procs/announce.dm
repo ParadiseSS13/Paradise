@@ -1,3 +1,4 @@
+/var/datum/announcement/minor/minor_announcement = new()
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
 /var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 1)
 
@@ -15,6 +16,11 @@
 	sound = new_sound
 	log = do_log
 	newscast = do_newscast
+	
+/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+	..(do_log, new_sound, do_newscast)
+	title = "Attention"
+	announcement_type = "Minor Announcement"
 
 /datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -55,8 +61,9 @@ datum/announcement/proc/Message(message as text, message_title as text)
 			if (announcer)
 				M << "<span class='alert'> -[html_encode(announcer)]</span>"
 
-datum/announcement/minor/Message(message as text, message_title as text)
-	world << "<b>[message]</b>"
+/datum/announcement/minor/Message(message as text, message_title as text)
+	world << "<b><font size=3><font color=red>[message_title]</font color></font></b>"
+	world << "<b><font size=3>[message]</font size></font></b>"
 
 datum/announcement/priority/Message(message as text, message_title as text)
 	world << "<h1 class='alert'>[message_title]</h1>"
