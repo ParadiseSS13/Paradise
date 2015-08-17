@@ -431,12 +431,10 @@
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)	
-	if(!istype(M))
-		return 0
-	for(var/L in M.contents)
+/mob/living/carbon/human/proc/is_loyalty_implanted()	
+	for(var/L in contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/obj/item/organ/external/O in M.organs)
+			for(var/obj/item/organ/external/O in organs)
 				if(L in O.implants)
 					return 1
 	return 0
