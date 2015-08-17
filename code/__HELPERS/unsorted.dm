@@ -659,8 +659,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/get_mob_by_ckey(key)
 	if(!key)
 		return
-	var/list/mobs = sortmobs()
-	for(var/mob/M in mobs)
+	for(var/mob/M in mobs_list)
 		if(M.ckey == key)
 			return M
 
