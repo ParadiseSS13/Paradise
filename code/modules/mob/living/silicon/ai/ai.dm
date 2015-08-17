@@ -502,18 +502,18 @@ var/list/ai_verbs_default = list(
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
-
-		if(target && (!istype(target, /mob/living/carbon/human) || html_decode(href_list["trackname"]) == target:get_face_name()))
+		if(target && trackable(target))
 			ai_actual_track(target)
 		else
-			src << "\red System error. Cannot locate [html_decode(href_list["trackname"])]."
+			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["trackbot"])
 		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
-		if(A && target)
-			A.ai_actual_track(target)
+		if(target && trackable(target))
+			ai_actual_track(target)
+		else
+			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
@@ -925,10 +925,8 @@ var/list/ai_verbs_default = list(
 	spawn(0)
 		if(istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
-			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
-				src << "Unable to locate an airlock"
-				return
-			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+			var/obj/item/weapon/card/id/id = H.wear_id
+			if(istype(id) && id.is_untrackable())
 				src << "Unable to locate an airlock"
 				return
 			if(H.digitalcamo)
