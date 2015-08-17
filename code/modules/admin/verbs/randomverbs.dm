@@ -916,7 +916,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")
 	if (choice == "Emergency")
-		var/reason = stripped_input(usr, "Optional: Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+		var/reason = input(usr, "Optional: Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 		emergency_shuttle.call_evac(reason)
 	else
 		emergency_shuttle.call_transfer()

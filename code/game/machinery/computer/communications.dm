@@ -170,7 +170,7 @@ var/shuttle_call/shuttle_calls[0]
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 			if(!input || ..() || !(is_authenticated(usr) == 2))
 				nanomanager.update_uis(src)
 				return
