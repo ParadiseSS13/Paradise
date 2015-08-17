@@ -12,9 +12,9 @@
 /obj/machinery/computer/shuttle_control/attack_hand(user as mob)
 	if(..(user))
 		return
-	//src.add_fingerprint(user)	//shouldn't need fingerprints just for looking at it.
-	if(!allowed(user))
-		user << "\red Access Denied."
+
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access Denied.</span>"
 		return 1
 
 	ui_interact(user)

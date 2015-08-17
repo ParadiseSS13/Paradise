@@ -407,7 +407,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					search_pda = 0
 
 		//Fixes renames not being reflected in objective text
-		var/list/O = (typesof(/datum/objective)  - /datum/objective)
+		var/list/O = subtypesof(/datum/objective)
 		var/length
 		var/pos
 		for(var/datum/objective/objective in O)
@@ -1379,7 +1379,7 @@ var/global/list/common_tools = list(
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		return 3800
 	if(istype(W, /obj/item/weapon/melee/energy))
 		var/obj/item/weapon/melee/energy/O = W
@@ -1685,23 +1685,70 @@ atom/proc/GetTypeInAllContents(typepath)
 
 	return locate(dest_x,dest_y,dest_z)
 
+var/mob/dview/dview_mob = new
+
 //Version of view() which ignores darkness, because BYOND doesn't have it.
 /proc/dview(var/range = world.view, var/center, var/invis_flags = 0)
 	if(!center)
 		return
 
-	var/global/mob/dview/DV
-	if(!DV)
-		DV = new
+	dview_mob.loc = center
 
-	DV.loc = center
+	dview_mob.see_invisible = invis_flags
 
-	DV.see_in_dark = range
-	DV.see_invisible = invis_flags
-
-	. = view(range, DV)
-	DV.loc = null
+	. = view(range, dview_mob)
+	dview_mob.loc = null
 
 /mob/dview
 	invisibility = 101
 	density = 0
+
+	anchored = 1
+	simulated = 0
+
+	see_in_dark = 1e6
+
+/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+
+/proc/IsValidSrc(var/A)
+	if(istype(A, /datum))
+		var/datum/B = A
+		return isnull(B.gcDestroyed)
+	if(istype(A, /client))
+		return 1
+	return 0
+
+//ORBITS
+/atom/movable/var/atom/orbiting = null
+//This is just so you can stop an orbit.
+//orbit() can run without it (swap orbiting for A)
+//but then you can never stop it and that's just silly.
+
+/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = 1, angle_increment = 15)
+	if(!istype(A))
+		return
+	orbiting = A
+	var/angle = 0
+	var/matrix/initial_transform = matrix(transform)
+	spawn
+		while(orbiting)
+			loc = orbiting.loc
+
+			angle += angle_increment
+
+			var/matrix/shift = matrix(initial_transform)
+			shift.Translate(radius,0)
+			if(clockwise)
+				shift.Turn(angle)
+			else
+				shift.Turn(-angle)
+			animate(src,transform = shift,2)
+
+			sleep(0.6) //the effect breaks above 0.6 delay
+		animate(src,transform = initial_transform,2)
+
+
+/atom/movable/proc/stop_orbit()
+	if(orbiting)
+		loc = get_turf(orbiting)
+		orbiting = null

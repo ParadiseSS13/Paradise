@@ -39,7 +39,11 @@
 
 	name = "[seed.seed_name]"
 
-	update_icon()
+	if(seed.modular_icon == 1)
+		update_icon()
+	else
+		icon = 'icons/obj/harvest.dmi'
+		icon_state = seed.preset_icon
 
 	if(!seed.chems)
 		return
@@ -103,7 +107,7 @@
 			descriptors |= "sweet-sour"
 		if(reagents.has_reagent("radium") || reagents.has_reagent("uranium"))
 			descriptors |= "radioactive"
-		if(reagents.has_reagent("amanitin") || reagents.has_reagent("toxin"))
+		if(reagents.has_reagent("amanitin") || reagents.has_reagent("toxin") || reagents.has_reagent("carpotoxin"))
 			descriptors |= "poisonous"
 		if(reagents.has_reagent("lsd") || reagents.has_reagent("space_drugs") || reagents.has_reagent("psilocybin"))
 			descriptors |= "hallucinogenic"
@@ -115,6 +119,10 @@
 			descriptors |= "slippery"
 		if(reagents.has_reagent("facid") || reagents.has_reagent("sacid"))
 			descriptors |= "acidic"
+		if(reagents.has_reagent("fuel"))
+			descriptors |= "flammable"
+		if(reagents.has_reagent("moonshine"))
+			descriptors |= "intoxicating"
 		if(seed.get_trait(TRAIT_JUICY))
 			descriptors |= "juicy"
 		if(seed.get_trait(TRAIT_STINGS))
@@ -141,6 +149,8 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/update_icon()
 	if(!seed || !plant_controller || !plant_controller.plant_icon_cache)
+		return
+	if(seed.modular_icon != 1)
 		return
 	overlays.Cut()
 	var/image/plant_icon

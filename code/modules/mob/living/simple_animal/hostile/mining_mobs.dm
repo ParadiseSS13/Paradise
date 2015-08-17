@@ -80,7 +80,6 @@
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
-	var/droppeddiamond = 0 // Safety check to prevent diamond duplication bug
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -113,12 +112,11 @@
 			adjustBruteLoss(110)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/Die()
-	if(!droppeddiamond)
+	if(stat != DEAD)
 		var/counter
 		for(counter=0, counter<2, counter++)
 			var/obj/item/weapon/ore/diamond/D = new /obj/item/weapon/ore/diamond(src.loc)
 			D.layer = 4.1
-		droppeddiamond = 1
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub
@@ -264,8 +262,8 @@
 	OpenFire()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/Die()
-	new /obj/item/asteroid/hivelord_core(src.loc)
-	mouse_opacity = 1
+	if(stat != DEAD)
+		new /obj/item/asteroid/hivelord_core(src.loc)
 	..()
 
 /obj/item/asteroid/hivelord_core
@@ -354,7 +352,7 @@
 	speed = 3
 	maxHealth = 300
 	health = 300
-	harm_intent_damage = 0
+	harm_intent_damage = 1 //Only the manliest of men can kill a Goliath with only their fists.
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "pulverizes"
@@ -382,6 +380,9 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Die()
 	anchored = 0
+	if(stat != DEAD)
+		var/obj/item/asteroid/goliath_hide/G = new /obj/item/asteroid/goliath_hide(src.loc)
+		G.layer = 4.1
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
@@ -416,7 +417,7 @@
 	var/turftype = get_turf(src)
 	if(istype(turftype, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = turftype
-		M.GetDrilled()
+		M.gets_drilled()
 	spawn(20)
 		Trip()
 
@@ -441,17 +442,13 @@
 		M.Stun(5)
 		M.adjustBruteLoss(rand(10,15))
 		latched = 1
-		visible_message("<span class='danger'>The [src.name] grabs hold of [M.name]!</span>")
+		if(src && M)
+			visible_message("<span class='danger'>The [src.name] grabs hold of [M.name]!</span>")
 	if(!latched)
 		qdel(src)
 	else
 		spawn(50)
 			qdel(src)
-
-/mob/living/simple_animal/hostile/asteroid/goliath/Die()
-	var/obj/item/asteroid/goliath_hide/G = new /obj/item/asteroid/goliath_hide(src.loc)
-	G.layer = 4.1
-	..()
 
 /obj/item/asteroid/goliath_hide
 	name = "goliath hide plates"
@@ -464,7 +461,7 @@
 
 /obj/item/asteroid/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag)
-		if(istype(target, /obj/item/clothing/suit/space/rig/mining) || istype(target, /obj/item/clothing/head/helmet/space/rig/mining))
+		if(istype(target, /obj/item/clothing/suit/space/rig/mining) || istype(target, /obj/item/clothing/head/helmet/space/rig/mining) || istype(target, /obj/item/clothing/suit/space/eva/plasmaman/miner) || istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman/miner))
 			var/obj/item/clothing/C = target
 			var/current_armor = C.armor
 			if(current_armor.["melee"] < 80)

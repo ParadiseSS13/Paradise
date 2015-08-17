@@ -6,7 +6,10 @@
 
 	name = "Air Scrubber"
 	desc = "Has a valve and pump attached to it"
+
 	use_power = 1
+	idle_power_usage = 10
+	active_power_usage = 60
 
 	level = 1
 
@@ -15,6 +18,8 @@
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
 	var/advcontrol = 0//does this device listen to the AAC?
+	
+	var/list/turf/simulated/adjacent_turfs = list()
 
 	var/on = 0
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
@@ -23,9 +28,10 @@
 	var/scrub_CO2 = 1
 	var/scrub_Toxins = 0
 	var/scrub_N2O = 0
+	
+	var/volume_rate = 200
+	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 
-	var/volume_rate = 120
-	var/panic = 0 //is this scrubber panicked?
 	var/welded = 0
 
 	var/area_uid
@@ -34,7 +40,6 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
-
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	icon = null
 	initial_loc = get_area(loc)
@@ -42,10 +47,40 @@
 	if (!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	if(ticker && ticker.current_state == 3)//if the game is running
-		src.initialize()
-		src.broadcast_status()
 	..()
+	
+/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
+	if(initial_loc && frequency == 1439)
+		initial_loc.air_scrub_info -= id_tag
+		initial_loc.air_scrub_names -= id_tag
+	return ..()
+	
+/obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
+	if(!powered(power_channel))
+		return 0
+	if (!on || welded)
+		return 0
+	if(stat & (NOPOWER|BROKEN))
+		return 0
+
+	var/amount = idle_power_usage
+
+	if (scrubbing)
+		if (scrub_CO2)
+			amount += idle_power_usage
+		if (scrub_Toxins)
+			amount += idle_power_usage
+		if (scrub_N2)
+			amount += idle_power_usage
+		if (scrub_N2O)
+			amount += idle_power_usage
+	else
+		amount = active_power_usage
+
+	if (widenet)
+		amount += amount*(adjacent_turfs.len*(adjacent_turfs.len/2))
+	use_power(amount, power_channel)
+	return 1
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
 	if(!check_icon_cache())
@@ -107,7 +142,7 @@
 		"timestamp" = world.time,
 		"power" = on,
 		"scrubbing" = scrubbing,
-		"panic" = panic,
+		"widenet" = widenet,
 		"filter_o2" = scrub_O2,
 		"filter_n2" = scrub_N2,
 		"filter_co2" = scrub_CO2,
@@ -131,21 +166,45 @@
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
+		src.broadcast_status()
+	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
 	..()
+	
+	if (widenet)
+		check_turfs()	
+	
 	if(stat & (NOPOWER|BROKEN))
 		return
+		
 	if (!node)
 		on = 0
+		
 	if(welded)
 		return 0
 	//broadcast_status()
 	if(!on)
 		return 0
+		
+	scrub(loc)
+	if (widenet)
+		for (var/turf/simulated/tile in adjacent_turfs)
+			scrub(tile)
+			
+//we populate a list of turfs with nonatmos-blocked cardinal turfs AND
+//	diagonal turfs that can share atmos with *both* of the cardinal turfs
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/check_turfs()
+	adjacent_turfs.Cut()
+	var/turf/T = loc
+	if (istype(T))
+		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
+	
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
+	if (!tile || !istype(tile))
+		return 0
 
-
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/datum/gas_mixture/environment = tile.return_air()
 
 	if(scrubbing)
 		if((environment.toxins>0.001) || (environment.carbon_dioxide>0.001) || (environment.trace_gases.len>0))
@@ -181,15 +240,11 @@
 						removed.trace_gases -= trace_gas
 						filtered_out.trace_gases += trace_gas
 
-
 			//Remix the resulting gases
 			air_contents.merge(filtered_out)
 
-			loc.assume_air(removed)
-			air_update_turf()
-
-			if(network)
-				network.update = 1
+			tile.assume_air(removed)
+			tile.air_update_turf()
 
 	else //Just siphoning all air
 		if (air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
@@ -197,13 +252,13 @@
 
 		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
 
-		var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 
 		air_contents.merge(removed)
-		air_update_turf()
+		tile.air_update_turf()
 
-		if(network)
-			network.update = 1
+	if(network)
+		network.update = 1
 
 	return 1
 
@@ -221,24 +276,10 @@
 	if(signal.data["power_toggle"] != null)
 		on = !on
 
-	if(signal.data["panic_siphon"]) //must be before if("scrubbing" thing
-		panic = text2num(signal.data["panic_siphon"] != null)
-		if(panic)
-			on = 1
-			scrubbing = 0
-			volume_rate = 2000
-		else
-			scrubbing = 1
-			volume_rate = initial(volume_rate)
-	if(signal.data["toggle_panic_siphon"] != null)
-		panic = !panic
-		if(panic)
-			on = 1
-			scrubbing = 0
-			volume_rate = 2000
-		else
-			scrubbing = 1
-			volume_rate = initial(volume_rate)
+	if("widenet" in signal.data)
+		widenet = text2num(signal.data["widenet"])
+	if("toggle_widenet" in signal.data)
+		widenet = !widenet
 
 	if(signal.data["scrubbing"] != null)
 		scrubbing = text2num(signal.data["scrubbing"])
@@ -279,7 +320,6 @@
 			broadcast_status()
 		return //do not update_icon
 
-//			log_admin("DEBUG \[[world.timeofday]\]: vent_scrubber/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
 	spawn(2)
 		broadcast_status()
 	update_icon()
@@ -369,9 +409,3 @@
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		qdel(src)
-
-/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
-	if(initial_loc  && frequency == 1439)
-		initial_loc.air_scrub_info -= id_tag
-		initial_loc.air_scrub_names -= id_tag
-	return ..()

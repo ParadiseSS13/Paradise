@@ -51,11 +51,12 @@
 	treatment_brute = "styptic_powder"
 	treatment_fire = "silver_sulfadiazine"
 	treatment_tox = "charcoal"
+	req_one_access =list(access_syndicate)
 
 /obj/machinery/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
-	skin = "bezerk"
+	skin = "bezerk2"
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "styptic_powder"
 	treatment_fire = "silver_sulfadiazine"

@@ -208,17 +208,10 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner && loc == owner)
-		if(!cannot_amputate && config.limbs_can_break && (brute_dam + burn_dam) >= (max_damage * config.organ_health_multiplier))
-			var/dropped
-			if(burn >= 20 && prob(burn / 2))
-				if(body_part == HEAD) return
-				dropped = 1
-				droplimb(0,DROPLIMB_BURN)
-			if(!dropped && prob(brute / 2))
+		if(!cannot_amputate && config.limbs_can_break && (brute_dam) >= (max_damage * config.organ_health_multiplier))
+			if(prob(brute / 2))
 				if(edge)
 					droplimb(0,DROPLIMB_EDGE)
-				else
-					droplimb(0,DROPLIMB_BLUNT)
 
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
@@ -610,16 +603,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 					"<span class='danger'>\The [owner]'s [src.name] flies off in an arc!</span>",\
 					"<span class='moderate'><b>Your [src.name] goes flying off!</b></span>",\
 					"<span class='danger'>You hear a terrible sound of ripping tendons and flesh.</span>")
-		if(DROPLIMB_BURN)
-			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [src.name] flashes away into ashes!</span>",\
-				"<span class='moderate'><b>Your [src.name] flashes away into ashes!</b></span>",\
-				"<span class='danger'>You hear the crackling sound of burning flesh.</span>")
-		if(DROPLIMB_BLUNT)
-			owner.visible_message(
-				"<span class='danger'>\The [owner]'s [src.name] explodes in a shower of gore!</span>",\
-				"<span class='moderate'><b>Your [src.name] explodes in a shower of gore!</b></span>",\
-				"<span class='danger'>You hear the sickening splatter of gore.</span>")
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	removed(null, ignore_children)
@@ -663,24 +646,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 					throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
 			return
-		if(DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(get_turf(victim))
-			qdel(src)
-		if(DROPLIMB_BLUNT)
-			var/obj/effect/decal/cleanable/blood/gibs/gore = new victim.species.single_gib_type(get_turf(victim))
-			if(victim.species.flesh_color)
-				gore.fleshcolor = victim.species.flesh_color
-			if(victim.species.blood_color)
-				gore.basecolor = victim.species.blood_color
-			gore.update_icon()
-			gore.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
-
-			for(var/obj/item/organ/I in contents)
-				I.loc = loc
-				if(istype(loc,/turf))
-					I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
-			qdel(src)
-
 
 /****************************************************
 			   HELPERS

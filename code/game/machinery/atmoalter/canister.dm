@@ -374,6 +374,9 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
+	
+/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
+	return src.ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
@@ -408,7 +411,7 @@ update_flag
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400)
+		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = physical_state)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window

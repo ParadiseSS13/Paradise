@@ -9,10 +9,10 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 #define COMM_SCREEN_SECLEVEL	4
 -->
 {{if !data.authenticated}}
-<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'operation':'login'},null,'fixed')}}</div>
+<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'login':1},null,'fixed')}}</div>
 {{else}}
 	{{if !data.is_ai}}
-	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'operation':'logout'},null,'fixed')}}</div>
+	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'logout':1},null,'fixed')}}</div>
 	{{/if}}
 	
 	<div class="item">
@@ -41,18 +41,21 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<div class="item">
 			{{if data.authenticated==2}}
 				<div class="line">
-					{{:helper.link('Make an Announcement','alert',{'operation':'announce'})}}
+					{{:helper.link('Make an Announcement','info',{'operation':'announce'})}}
 				</div>
 				<div class="line">
 				{{if data.emagged}}
 					{{:helper.link('Message [UNKNOWN]','mail-closed',{'operation':'MessageSyndicate'})}}
 					</div>
 					<div class="line">
-					{{:helper.link('Reset Relays','refresh',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Reset Relays','refresh',{'operation':'RestoreBackup'})}}
 				{{else}}
 					{{:helper.link('Message CentComm','mail-closed',{'operation':'MessageCentcomm'})}}
 				{{/if}}
 				</div>
+				<div class="line">
+					{{:helper.link('Request Nuclear Authentication Codes','alert',{'operation':'nukerequest'})}}
+				</div>		
 			{{/if}}
 			<div class="line">
 				{{:helper.link('Change Alert Level','signal-diag',{'operation':'changeseclevel'})}}

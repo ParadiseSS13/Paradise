@@ -32,7 +32,7 @@
 /datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
-			var/obj/effect/proc_holder/spell/wizard/S = spell
+			var/obj/effect/proc_holder/spell/S = spell
 			if(!S) return
 			H.AddSpell(new S)
 
@@ -74,7 +74,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/recruit)
+	default_spells = list(/obj/effect/proc_holder/spell/targeted/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
@@ -103,7 +103,7 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian)
+	default_spells = list(/obj/effect/proc_holder/spell/targeted/lightning/lightnian)
 
 /datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
 	..()
@@ -122,7 +122,7 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/magnet)
+	default_spells = list(/obj/effect/proc_holder/spell/targeted/magnet)
 
 /datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
 	..()
@@ -140,7 +140,7 @@
 
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/wizard/targeted/recruit
+/obj/effect/proc_holder/spell/targeted/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
 	charge_max = 450
@@ -149,7 +149,7 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-/obj/effect/proc_holder/spell/wizard/targeted/recruit/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/recruit/cast(list/targets)
 	for(var/mob/living/carbon/human/target in targets)
 		if(ticker.mode.greyshirts.len >= 3)
 			usr << "<span class='warning'>You have already recruited the maximum number of henchmen.</span>"

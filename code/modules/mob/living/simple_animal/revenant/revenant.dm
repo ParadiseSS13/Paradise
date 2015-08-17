@@ -43,7 +43,7 @@
 			strikes--
 			src << "<span class='boldannounce'>Your essence has dropped below critical levels. You barely manage to save yourself - [strikes ? "you can't keep this up!" : "next time, it's death."]</span>"
 		else if(strikes <= 0)
-			death()
+			Die()
 	maxHealth = essence * 2
 	if(!revealed)
 		health = maxHealth //Heals to full when not revealed
@@ -116,17 +116,17 @@
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	if(src.mind)
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/revenant_harvest
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/revenant_transmit
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/revenant_light
-		src.mind.spell_list += new /obj/effect/proc_holder/spell/wizard/aoe_turf/revenantDefile
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/revenant_harvest
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/revenant_transmit
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/revenant_light
+		src.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/revenantDefile
 		return 1
 	return 0
 
-/mob/living/simple_animal/revenant/death()
+/mob/living/simple_animal/revenant/Die()
 	if(strikes)
 		return 0 //Impossible to die with strikes still active
-	..(1)
+	..()
 	src << "<span class='userdanger'><b>NO! No... it's too late, you can feel yourself fading...</b></span>"
 	notransform = 1
 	revealed = 1
@@ -216,7 +216,7 @@
 	..()
 
 /datum/objective/revenant/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/revenant) || !owner.current)
+	if(!owner || !istype(owner.current, /mob/living/simple_animal/revenant))
 		return 0
 	var/mob/living/simple_animal/revenant/R = owner.current
 	if(!R || R.stat == DEAD)

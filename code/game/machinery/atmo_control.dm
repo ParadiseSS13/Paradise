@@ -87,6 +87,8 @@ obj/machinery/air_sensor
 
 	process()
 		if(on)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.data["tag"] = id_tag
@@ -127,12 +129,6 @@ obj/machinery/air_sensor
 
 	initialize()
 		set_frequency(frequency)
-
-	New()
-		..()
-
-		if(radio_controller)
-			set_frequency(frequency)
 
 	Destroy()
 		if(radio_controller)
@@ -362,8 +358,6 @@ legend {
 		return 1
 
 	large_tank_control
-		icon = 'icons/obj/computer.dmi'
-		icon_state = "tank"
 		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
 		req_one_access_txt = "24;10"
 		settagwhitelist = list("input_tag", "output_tag")
@@ -535,6 +529,8 @@ legend {
 			send_signal(list("tag"=device, "status"))
 
 		proc/send_signal(var/list/data)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.source = src
@@ -587,7 +583,7 @@ legend {
 
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
-		icon_state = "atmos"
+		icon_screen = "atmos"
 		circuit = "/obj/item/weapon/circuitboard/injector_control"
 
 		var/device_tag

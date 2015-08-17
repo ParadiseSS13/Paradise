@@ -66,7 +66,7 @@
 
 	//Some tidying-up.
 	flavor_text = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
-	updateicon()
+	update_icons()
 
 /mob/living/silicon/robot/drone/init()
 	laws = new /datum/ai_laws/drone()
@@ -80,7 +80,7 @@
 	real_name = "maintenance drone ([rand(100,999)])"
 	name = real_name
 
-/mob/living/silicon/robot/drone/updateicon()
+/mob/living/silicon/robot/drone/update_icons()
 
 	overlays.Cut()
 	if(stat == 0)
@@ -318,3 +318,9 @@
 	else
 		src << "<span class='warning'>You are too small to pull that.</span>"
 		return
+
+/mob/living/silicon/robot/drone/add_robot_verbs()
+	src.verbs |= silicon_subsystems
+
+/mob/living/silicon/robot/drone/remove_robot_verbs()
+	src.verbs -= silicon_subsystems		

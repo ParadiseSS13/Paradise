@@ -23,11 +23,9 @@ Used In File(s): \code\modules\security_levels\keycard_authentication.dm
 		{{else data.screen == 2}}
 			{{if data.event == 'Emergency Response Team'}}
 				<div class="item">
-					<div class="itemLabel">Select ERT Type:</div>
+					<div class="itemLabel">Reason for ERT Call:</div>
 					<div class="itemContent">
-						{{for data.erttypes}}				
-								{{:helper.link(value.name, value.active ? 'minus' : 'plus', { 'ert' : value.name }, '', value.active ? 'linkOn' : '')}}
-						{{/for}}
+						{{:helper.link(data.ertreason, 'alert', { 'ert' : 'callreason' })}}
 					</div>
 				</div>
 			{{/if}}

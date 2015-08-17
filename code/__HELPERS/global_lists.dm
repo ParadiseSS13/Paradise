@@ -4,57 +4,41 @@
 //////////////////////////
 
 /proc/makeDatumRefLists()
+	//hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
+	//facial hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
+	//underwear
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	//undershirt
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+
 	var/list/paths
-
-	//Hair - Initialise all /datum/sprite_accessory/hair into an list indexed by hair-style name
-	paths = typesof(/datum/sprite_accessory/hair) - /datum/sprite_accessory/hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/hair/H = new path()
-		hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	hair_styles_male_list += H.name
-			if(FEMALE)	hair_styles_female_list += H.name
-			else
-				hair_styles_male_list += H.name
-				hair_styles_female_list += H.name
-
-	//Facial Hair - Initialise all /datum/sprite_accessory/facial_hair into an list indexed by facialhair-style name
-	paths = typesof(/datum/sprite_accessory/facial_hair) - /datum/sprite_accessory/facial_hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/facial_hair/H = new path()
-		facial_hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	facial_hair_styles_male_list += H.name
-			if(FEMALE)	facial_hair_styles_female_list += H.name
-			else
-				facial_hair_styles_male_list += H.name
-				facial_hair_styles_female_list += H.name
-
 	//Surgery Steps - Initialize all /datum/surgery_step into a list
-	paths = typesof(/datum/surgery_step)-/datum/surgery_step
+	paths = subtypesof(/datum/surgery_step)
 	for(var/T in paths)
 		var/datum/surgery_step/S = new T
 		surgery_steps += S
 	sort_surgeries()
 
 	//List of job. I can't believe this was calculated multiple times per tick!
-	paths = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
+	paths = subtypesof(/datum/job) -list(/datum/job/ai,/datum/job/cyborg)
 	for(var/T in paths)
 		var/datum/job/J = new T
 		joblist[J.title] = J
 
-	paths = typesof(/datum/nations)-/datum/nations
+	paths = subtypesof(/datum/nations)
 	for(var/T in paths)
 		var/datum/nations/N = new T
 		all_nations[N.name] = N
 
-	paths = typesof(/datum/superheroes)-/datum/superheroes
+	paths = subtypesof(/datum/superheroes)
 	for(var/T in paths)
 		var/datum/superheroes/S = new T
 		all_superheroes[S.name] = S
 
 	//Languages and species.
-	paths = typesof(/datum/language)-/datum/language
+	paths = subtypesof(/datum/language)
 	for(var/T in paths)
 		var/datum/language/L = new T
 		all_languages[L.name] = L
@@ -67,7 +51,7 @@
 			language_keys["#[lowertext(L.key)]"] = L
 
 	var/rkey = 0
-	paths = typesof(/datum/species)-/datum/species
+	paths = subtypesof(/datum/species)
 	for(var/T in paths)
 		rkey++
 		var/datum/species/S = new T

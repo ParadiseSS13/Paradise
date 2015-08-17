@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/lightning
+/obj/effect/proc_holder/spell/targeted/lightning
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at the nearby enemy. Classic."
 	charge_type = "recharge"
@@ -15,11 +15,11 @@
 	var/image/halo = null
 	action_icon_state = "lightning"
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/lightnian
+/obj/effect/proc_holder/spell/targeted/lightning/lightnian
 	clothes_req = 0
 	invocation_type = "none"
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/Click()
+/obj/effect/proc_holder/spell/targeted/lightning/Click()
 	if(!ready)
 		if(cast_check())
 			StartChargeup()
@@ -28,7 +28,7 @@
 			choose_targets()
 	return 1
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/StartChargeup(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	user << "<span class='notice'>You start gathering the power.</span>"
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
@@ -40,18 +40,18 @@
 			if(energy >= 100 && ready)
 				Discharge()
 
-obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Reset(mob/user = usr)
+obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	ready = 0
 	energy = 0
 	if(halo)
 		user.overlays.Remove(halo)
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/revert_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/revert_cast(mob/user = usr)
 	user << "<span class='notice'>No target found in range.</span>"
 	Reset(user)
 	..()
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Discharge(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
 	//M.electrocute_act(25,"Lightning Bolt")
 	M << "<span class='danger'>You lose control over the spell.</span>"
@@ -59,7 +59,7 @@ obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Reset(mob/user = usr
 	start_recharge()
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/target = targets[1]
 
@@ -70,26 +70,17 @@ obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Reset(mob/user = usr
 
 	user.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
 
-	switch(energy)
-		if(0 to 25)
-			target.electrocute_act(10,"Lightning Bolt")
-			playsound(get_turf(target), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-		if(25 to 75)
-			target.electrocute_act(25,"Lightning Bolt")
-			playsound(get_turf(target), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-		if(75 to 100)
-			//CHAIN LIGHTNING
-			Bolt(user,target,energy,user)
+	Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
 	Reset(user)
 
-/obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Bolt(mob/origin,mob/target,bolt_energy,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/target, bolt_energy, bounces, mob/user = usr)
 	origin.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
 	var/mob/living/carbon/current = target
-	if(bolt_energy < 75)
-		current.electrocute_act(25,"Lightning Bolt")
+	if(bounces < 1)
+		current.electrocute_act(bolt_energy,"Lightning Bolt", def_zone = "chest")
 		playsound(get_turf(current), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	else
-		current.electrocute_act(25,"Lightning Bolt")
+		current.electrocute_act(bolt_energy,"Lightning Bolt", def_zone = "chest")
 		playsound(get_turf(current), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
@@ -100,4 +91,4 @@ obj/effect/proc_holder/spell/wizard/targeted/lightning/proc/Reset(mob/user = usr
 			return
 		var/mob/living/next = pick(possible_targets)
 		if(next)
-			Bolt(current,next,bolt_energy-6,user) // 5 max bounces
+			Bolt(current,next,bolt_energy,bounces-1,user) // 5 max bounces

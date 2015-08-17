@@ -92,7 +92,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 /obj/machinery/recycler/proc/recycle(var/obj/item/I, var/sound = 1)
 	I.loc = src.loc
-	if(!istype(I, /obj/item/weapon/disk/nuclear) && !istype(I,/obj/item/flag/nation))
+	if(!istype(I,/obj/item/flag/nation))
 		qdel(I)
 		if(prob(15))
 			new /obj/item/stack/sheet/metal(loc)

@@ -20,6 +20,17 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	
+/obj/machinery/telepad/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/telesci_pad(null)
+	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	RefreshParts()
 
 /obj/machinery/telepad/RefreshParts()
 	var/E

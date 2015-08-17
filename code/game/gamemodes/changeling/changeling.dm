@@ -9,7 +9,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
-	protected_species = list("Machine", "Slime People")
+	protected_species = list("Machine", "Slime People", "Plasmaman")
 	required_players = 2
 	required_players_secret = 10
 	required_enemies = 1
@@ -61,6 +61,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
+			changeling.special_role = "Changeling"
 		return 1
 	else
 		return 0
@@ -68,7 +69,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		changeling.special_role = "Changeling"
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
 
@@ -302,6 +302,10 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	if(T.species.flags & NO_SCAN)
 		user << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		return
+
+	if(T.species.flags & NO_BLOOD)
+		user << "<span class='warning'>We are not able to use the DNA of a creature without a circulatory system.</span>"
 		return
 
 	if(has_dna(target.dna))

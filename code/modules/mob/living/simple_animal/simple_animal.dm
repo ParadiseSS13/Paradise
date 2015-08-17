@@ -490,6 +490,10 @@
 		var/obj/mecha/M = the_target
 		if (M.occupant)
 			return 0
+	if (istype(the_target,/obj/spacepod))
+		var/obj/spacepod/S = the_target
+		if (S.occupant || S.occupant2)
+			return 0
 	return 1
 
 /mob/living/simple_animal/update_fire()

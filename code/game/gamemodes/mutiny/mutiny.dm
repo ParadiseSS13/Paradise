@@ -89,7 +89,7 @@ datum/game_mode/mutiny
 
 	proc/get_directive_candidates()
 		var/list/candidates[0]
-		for(var/T in (typesof(/datum/directive) - /datum/directive))
+		for(var/T in subtypesof(/datum/directive))
 			var/datum/directive/D = new T(src)
 //			world << D.name
 			if (D.meets_prerequisites())
@@ -105,10 +105,7 @@ datum/game_mode/mutiny
 		if (!pda)
 			return 0
 
-		if (!pda.silent)
-			playsound(pda.loc, 'sound/machines/twobeep.ogg', 50, 1)
-			for (var/mob/O in hearers(3, pda.loc))
-				O.show_message(text("\icon[pda] *[pda.ttone]*"))
+		pda.play_ringtone()
 
 		head_mutineer.current << fluff.get_pda_body()
 		return 1

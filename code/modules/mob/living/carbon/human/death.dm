@@ -25,7 +25,7 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
+			E.droplimb(DROPLIMB_EDGE)
 
 	if(!(species.flags & IS_SYNTHETIC))
 		flick("gibbed-h", animation)
@@ -136,7 +136,7 @@
 	tod = worldtime2text()		//weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
 	if(ticker && ticker.mode)
-//		world.log << "k"
+//		log_to_dd("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 	return ..(gibbed)

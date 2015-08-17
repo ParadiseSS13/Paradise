@@ -11,6 +11,6 @@
 					C << "<SPAN CLASS='warning'>You have been inactive for more than 10 minutes and have been disconnected.</SPAN>"
 					del(C)
 
-			scheck()
+			SCHECK
 
 #undef INACTIVITY_KICK*/

@@ -505,6 +505,7 @@ emp_act
 	return
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+	playsound(src, 'sound/effects/space_wind.ogg', 50, 1)
 	if(shoes)
 		if(istype(shoes,/obj/item/clothing/shoes/magboots) && (shoes.flags & NOSLIP)) //TODO: Make a not-shit shoe var system to negate airflow.
 			return 0

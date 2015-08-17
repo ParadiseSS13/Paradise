@@ -26,6 +26,9 @@
 	update_icon()
 	src.updateDialog()
 
+/obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
+	src.ui_interact(user)	
+	
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
 	src.ui_interact(user)
 

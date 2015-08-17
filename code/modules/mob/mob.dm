@@ -605,7 +605,7 @@ var/list/slot_equipment_priority = list( \
 		if(lentext(msg) <= 40)
 			return "\blue [msg]"
 		else
-			return "\blue [copytext(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
+			return "\blue [copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
 
 /mob/proc/is_dead()
 	return stat == DEAD
@@ -916,90 +916,22 @@ var/list/slot_equipment_priority = list( \
 		add_stings_to_statpanel(mind.changeling.purchasedpowers)
 
 	if(spell_list && spell_list.len)
-		for(var/obj/effect/proc_holder/spell/wizard/S in spell_list)
+		for(var/obj/effect/proc_holder/spell/S in spell_list)
 			add_spell_to_statpanel(S)
 	if(mind && istype(src, /mob/living) && mind.spell_list && mind.spell_list.len)
-		for(var/obj/effect/proc_holder/spell/wizard/S in mind.spell_list)
+		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
 
 	if(client && client.holder)
 
 		if(statpanel("DI"))	//not looking at that panel
-			stat(null, "Location:\t([x], [y], [z])")
-			stat(null, "CPU:\t[world.cpu]")
-			stat(null, "Instances:\t[world.contents.len]")
+			stat("Loc", "([x], [y], [z]) [loc]")
+			stat("CPU", "[world.cpu]")
+			stat("Instances", "[world.contents.len]")
 
-			if (garbageCollector)
-				stat(null, "\tqdel - [garbageCollector.del_everything ? "off" : "on"]")
-				stat(null, "\ton queue - [garbageCollector.queue.len]")
-				stat(null, "\ttotal delete - [garbageCollector.dels_count]")
-				stat(null, "\tsoft delete - [garbageCollector.soft_dels]")
-				stat(null, "\thard delete - [garbageCollector.hard_dels]")
-			else
-				stat(null, "Garbage Controller is not running.")
-
-			if(processScheduler.getIsRunning())
-				var/datum/controller/process/process
-
-				process = processScheduler.getProcess("ticker")
-				stat(null, "TIC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("air")
-				stat(null, "AIR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("lighting")
-				stat(null, "LIG\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("mob")
-				stat(null, "MOB([mob_list.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("machinery")
-				stat(null, "MAC([machines.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("obj")
-				stat(null, "OBJ([processing_objects.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("bot")
-				stat(null, "BOT([aibots.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("pipenet")
-				stat(null, "PIP([pipe_networks.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("powernet")
-				stat(null, "POW([powernets.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("nanoui")
-				stat(null, "NAN([nanomanager.processing_uis.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("disease")
-				stat(null, "DIS([active_diseases.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				process = processScheduler.getProcess("garbage")
-				stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("sun")
-				//stat(null, "SUN\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("garbage")
-				//stat(null, "GAR\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("vote")
-				//stat(null, "VOT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("shuttle controller")
-				//stat(null, "SHT\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("emergency shuttle")
-				//stat(null, "EME\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("inactivity")
-				//stat(null, "IAC\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-
-				//process = processScheduler.getProcess("event")
-				//stat(null, "EVE([events.len])\t - #[process.getTicks()]\t - [process.getLastRunTime()]")
-			else
-				stat(null, "processScheduler is not running.")
+			if(processScheduler)
+				processScheduler.statProcesses()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
@@ -1008,7 +940,7 @@ var/list/slot_equipment_priority = list( \
 	for(var/obj/effect/proc_holder/changeling/S in stings)
 		if(S.chemical_cost >=0 && S.can_be_used_by(src))
 			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
-/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/wizard/S)
+/mob/proc/add_spell_to_statpanel(var/obj/effect/proc_holder/spell/S)
 	switch(S.charge_type)
 		if("recharge")
 			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)

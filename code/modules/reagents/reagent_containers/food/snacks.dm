@@ -37,7 +37,7 @@
 	return
 
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
-	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
+	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		user << "\red None of [src] left, oh no!"
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
@@ -144,33 +144,35 @@
 		..() // -> item/attackby(, params)
 
 	if(istype(W,/obj/item/weapon/kitchen/utensil))
+		//This will allow forks/spoons/plastic cutlery to pick up sliceables, but requires it to be unsliceable for the knife to pick it up
+		if((istype(W, /obj/item/weapon/kitchen/utensil/knife) && !slice_path) || !istype(W, /obj/item/weapon/kitchen/utensil/knife))
 
-		var/obj/item/weapon/kitchen/utensil/U = W
+			var/obj/item/weapon/kitchen/utensil/U = W
 
-		if(!U.reagents)
-			U.create_reagents(5)
+			if(!U.reagents)
+				U.create_reagents(5)
 
-		if (U.reagents.total_volume > 0)
-			user << "\red You already have something on your [U]."
+			if (U.reagents.total_volume > 0)
+				user << "\red You already have something on your [U]."
+				return
+
+			user.visible_message( \
+				"[user] scoops up some [src] with \the [U]!", \
+				"\blue You scoop up some [src] with \the [U]!" \
+			)
+
+			src.bitecount++
+			U.overlays.Cut()
+			U.loaded = "[src]"
+			var/image/I = new(U.icon, "loadedfood")
+			I.color = src.filling_color
+			U.overlays += I
+
+			reagents.trans_to(U,min(reagents.total_volume,5))
+
+			if (reagents.total_volume <= 0)
+				qdel(src)
 			return
-
-		user.visible_message( \
-			"[user] scoops up some [src] with \the [U]!", \
-			"\blue You scoop up some [src] with \the [U]!" \
-		)
-
-		src.bitecount++
-		U.overlays.Cut()
-		U.loaded = "[src]"
-		var/image/I = new(U.icon, "loadedfood")
-		I.color = src.filling_color
-		U.overlays += I
-
-		reagents.trans_to(U,min(reagents.total_volume,5))
-
-		if (reagents.total_volume <= 0)
-			qdel(src)
-		return
 
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return 0
@@ -1242,6 +1244,17 @@
 		..()
 		reagents.add_reagent("protein", 4)
 		bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/pistachios
+	name = "Pistachios"
+	icon_state = "pistachios"
+	desc = "A snack of deliciously salted pistachios. A perfectly valid choice..."
+	trash = /obj/item/trash/pistachios
+	filling_color = "#BAD145"
+
+	New()
+		..()
+		reagents.add_reagent("plantmatter", 6)
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"

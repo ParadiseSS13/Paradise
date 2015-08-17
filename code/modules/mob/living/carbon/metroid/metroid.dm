@@ -3,6 +3,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE
+	ventcrawler = 2
 	speak_emote = list("telepathically chirps")
 
 	layer = 5
@@ -212,23 +213,8 @@
 
 
 /mob/living/carbon/slime/blob_act()
-	if (stat == 2)
-		return
-	var/shielded = 0
-
-	var/damage = null
-	if (stat != 2)
-		damage = rand(10,30)
-
-	if(shielded)
-		damage /= 4
-
-		//paralysis += 1
-
 	show_message("<span class='userdanger'> The blob attacks you!</span>")
-
-	adjustFireLoss(damage)
-
+	adjustBruteLoss(20)
 	updatehealth()
 	return
 

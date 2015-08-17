@@ -123,7 +123,7 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
-		data["manifest"] = data_core.get_manifest_json()
+		data["manifest"] = list("__json_cache" = ManifestJSON)
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
 		if(!ui)

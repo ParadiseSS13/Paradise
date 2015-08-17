@@ -189,8 +189,8 @@
 	return
 
 /turf/simulated/wall/blob_act()
-	take_damage(rand(75, 125))
-	return
+	if(prob(50))
+		dismantle_wall()
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
@@ -251,14 +251,13 @@
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(M.environment_smash >= 2)
-		if(istype(src, /turf/simulated/wall/r_wall))
-			if(M.environment_smash == 3)
-				dismantle_wall(1)
-				M << "<span class='info'>You smash through the wall.</span>"
-			else
-				M << text("\blue You smash against the wall.")
-				take_damage(rand(25, 75))
-				return
+		if(M.environment_smash == 3)
+			dismantle_wall(1)
+			M << "<span class='info'>You smash through the wall.</span>"
+		else
+			M << text("<span class='notice'>You smash against the wall.</span>")
+			take_damage(rand(25, 75))
+			return
 
 	M << "\blue You push the wall but nothing happens!"
 	return
@@ -318,7 +317,7 @@
 				thermitemelt(user)
 				return
 
-		else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+		else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 			thermitemelt(user)
 			return
 
@@ -367,7 +366,7 @@
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
 
-	else if( istype(W, /obj/item/weapon/pickaxe/plasmacutter) )
+	else if( istype(W, /obj/item/weapon/gun/energy/plasmacutter) )
 
 		user << "<span class='notice'>You begin slicing through the outer plating.</span>"
 		playsound(src, 'sound/items/Welder.ogg', 100, 1)
@@ -385,7 +384,7 @@
 		return
 
 	//DRILLING
-	else if (istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if (istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 
 		user << "<span class='notice'>You begin to drill though the wall.</span>"
 

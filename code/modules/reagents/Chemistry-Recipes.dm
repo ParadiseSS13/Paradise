@@ -555,7 +555,7 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 
-				var/list/borks = typesof(/obj/item/weapon/reagent_containers/food/snacks) - /obj/item/weapon/reagent_containers/food/snacks
+				var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/snacks)
 				// BORK BORK BORK
 
 				playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -582,7 +582,7 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 
-				var/list/borks = typesof(/obj/item/weapon/reagent_containers/food/drinks) - /obj/item/weapon/reagent_containers/food/drinks
+				var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/drinks)
 				// BORK BORK BORK
 
 				playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -888,7 +888,7 @@ datum
 			required_other = 1
 			on_reaction(var/datum/reagents/holder)
 				feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
-				var/list/paints = typesof(/obj/item/weapon/reagent_containers/glass/paint) - /obj/item/weapon/reagent_containers/glass/paint
+				var/list/paints = subtypesof(/obj/item/weapon/reagent_containers/glass/paint)
 				var/chosen = pick(paints)
 				var/obj/P = new chosen
 				if(P)

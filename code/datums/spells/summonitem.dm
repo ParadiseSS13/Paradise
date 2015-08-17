@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/summonitem
+/obj/effect/proc_holder/spell/targeted/summonitem
 	name = "Instant Summons"
 	desc = "This spell can be used to recall a previously marked item to your hand from anywhere in the universe."
 	school = "transmutation"
@@ -15,7 +15,7 @@
 
 	action_icon_state = "summons"
 
-/obj/effect/proc_holder/spell/wizard/targeted/summonitem/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/summonitem/cast(list/targets)
 	for(var/mob/living/user in targets)
 		var/list/hand_items = list(user.get_active_hand(),user.get_inactive_hand())
 		var/butterfingers = 0

@@ -59,21 +59,21 @@
 				M << "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals."
 				switch(href_list["school"])
 					if("destruction")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/dumbfire/fireball(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/dumbfire/fireball(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball."
 					if("bluespace")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/area_teleport/teleport(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt."
 					if("healing")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/charge(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/forcewall(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/forcewall(M))
 						M.equip_to_slot_or_del(new /obj/item/weapon/gun/magic/staff/healing(M), slot_r_hand)
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall."
 					if("robeless")
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/knock(M))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/wizard/targeted/mind_transfer(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(M))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(M))
 						M << "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap."
 
 				M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
@@ -118,70 +118,82 @@
 	force = 15
 	throwforce = 10
 	w_class = 3
-	var/charged = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/charged = 1
+	var/spawn_type = /obj/singularity/narsie/wizard
+	var/spawn_amt = 1
+	var/activate_descriptor = "reality"
+	var/rend_desc = "You should run now."
+
+/obj/item/weapon/veilrender/attack_self(mob/user as mob)
+	if(charged)
+		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
+		charged = 0
+		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
+	else
+		user << "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>"
+
 
 /obj/effect/rend
 	name = "tear in the fabric of reality"
-	desc = "You should run now"
+	desc = "You should run now."
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = 1
 	unacidable = 1
 	anchored = 1.0
+	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
+	var/spawn_amt_left = 20
 
-/obj/effect/rend/New()
-	spawn(50)
-		new /obj/singularity/narsie/wizard(get_turf(src))
+/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+	..()
+	src.spawn_path = spawn_type
+	src.spawn_amt_left = spawn_amt
+	src.desc = desc
+
+	processing_objects.Add(src)
+	//return
+
+/obj/effect/rend/process()
+	for(var/mob/M in loc)
+		return
+	new spawn_path(loc)
+	spawn_amt_left--
+	if(spawn_amt_left <= 0)
+		qdel(src)
+
+/obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
+	if(istype(I, /obj/item/weapon/nullrod))
+		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
 		qdel(src)
 		return
-	return
-
-/obj/item/weapon/veilrender/attack_self(mob/user as mob)
-	if(charged == 1)
-		new /obj/effect/rend(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
-	else
-		user << "\red The unearthly energies that powered the blade are now dormant."
-
-
+	..()
 
 /obj/item/weapon/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
+	spawn_type = /mob/living/simple_animal/cow
+	spawn_amt = 20
+	activate_descriptor = "hunger"
+	rend_desc = "Reverberates with the sound of ten thousand moos."
 
-/obj/item/weapon/veilrender/vealrender/attack_self(mob/user as mob)
-	if(charged)
-		new /obj/effect/rend/cow(get_turf(usr))
-		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to hunger itself!</B>")
-	else
-		user << "\red The unearthly energies that powered the blade are now dormant."
+/obj/item/weapon/veilrender/honkrender
+	name = "honk render"
+	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast circus."
+	spawn_type = /mob/living/simple_animal/hostile/retaliate/clown
+	spawn_amt = 10
+	activate_descriptor = "depression"
+	rend_desc = "Gently wafting with the sounds of endless laughter."
+	icon_state = "clownrender"
 
-/obj/effect/rend/cow
-	desc = "Reverberates with the sound of ten thousand moos."
-	var/cowsleft = 20
 
-/obj/effect/rend/cow/New()
-	processing_objects.Add(src)
-	return
-
-/obj/effect/rend/cow/process()
-	if(locate(/mob) in loc) return
-	new /mob/living/simple_animal/cow(loc)
-	cowsleft--
-	if(cowsleft <= 0)
-		qdel(src)
-
-/obj/effect/rend/cow/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/nullrod))
-		visible_message("\red <b>[I] strikes a blow against \the [src], banishing it!</b>")
-		spawn(1)
-			qdel(src)
-		return
-	..()
-
+/obj/item/weapon/veilrender/crabrender
+	name = "crab render"
+	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
+	spawn_type = /mob/living/simple_animal/crab
+	spawn_amt = 10
+	activate_descriptor = "sea life"
+	rend_desc = "Gently wafting with the sounds of endless clacking."
 
 /////////////////////////////////////////Scrying///////////////////
 
@@ -198,6 +210,6 @@
 	hitsound = 'sound/items/welder2.ogg'
 
 /obj/item/weapon/scrying/attack_self(mob/user as mob)
-	user << "\blue You can see...everything!"
-	visible_message("\red <B>[usr] stares into [src], their eyes glazing over.</B>")
+	user << "<span class='notice'> You can see...everything!</span>"
+	visible_message("<span class='danger'>[user] stares into [src], their eyes glazing over.</span>")
 	user.ghostize(1)

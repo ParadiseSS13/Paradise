@@ -108,13 +108,13 @@ var/global/sent_syndicate_strike_team = 0
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(last_names)
 
-	new_syndicate_commando.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_syndicate_commando)
-
-	new_syndicate_commando.real_name = "[!syndicate_leader_selected ? syndicate_commando_rank : syndicate_commando_leader_rank] [syndicate_commando_name]"
-	new_syndicate_commando.age = !syndicate_leader_selected ? rand(23,35) : rand(35,45)
+	if(syndicate_leader_selected)
+		A.age = rand(35,45)
+		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+	else
+		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	A.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -169,10 +169,10 @@ var/global/sent_syndicate_strike_team = 0
 
 	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
-	W.icon_state = "id"
+	W.icon_state = "syndie"
 	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.
 	W.assignment = "Syndicate Commando"
-	W.access = get_syndicate_access(W.assignment)
+	W.access += get_syndicate_access(W.assignment)
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 

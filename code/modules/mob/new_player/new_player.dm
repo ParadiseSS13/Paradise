@@ -138,7 +138,7 @@
 					observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 				observer.key = key
 				respawnable_list += observer
-				del(src)
+				qdel(src)
 				return 1
 
 		if(href_list["late_join"])
@@ -325,8 +325,8 @@
 			AnnounceCyborg(character, rank, "has been downloaded to the empty core in \the [character.loc.loc]")
 			ticker.mode.latespawn(character)
 
-			del(C)
-			del(src)
+			qdel(C)
+			qdel(src)
 			return
 
 		//Find our spawning point.
@@ -364,7 +364,7 @@
 		else
 			AnnounceCyborg(character, rank, join_message)
 			callHook("latespawn", list(character))
-		del(src)
+		qdel(src)
 
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
@@ -468,11 +468,9 @@
 			if(is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))
 				new_character.add_language(client.prefs.language)
 		if(ticker.random_players || appearance_isbanned(new_character))
-			new_character.gender = pick(MALE, FEMALE)
+			client.prefs.random_character()
 			client.prefs.real_name = random_name(new_character.gender)
-			client.prefs.randomize_appearance_for(new_character)
-		else
-			client.prefs.copy_to(new_character)
+		client.prefs.copy_to(new_character)
 
 		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 

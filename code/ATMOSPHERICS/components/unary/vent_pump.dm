@@ -64,9 +64,6 @@
 	if (!id_tag)
 		assign_uid()
 		id_tag = num2text(uid)
-	if(ticker && ticker.current_state == 3)//if the game is running
-		src.initialize()
-		src.broadcast_status()
 	..()
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
@@ -227,11 +224,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/initialize()
 	..()
 
-	//some vents work his own spesial way
+	//some vents work his own special way
 	radio_filter_in = frequency==1439?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==1439?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
+		src.broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))

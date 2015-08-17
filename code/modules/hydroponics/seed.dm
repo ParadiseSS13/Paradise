@@ -4,24 +4,27 @@
 
 /datum/seed
 	//Tracking.
-	var/uid                        // Unique identifier.
-	var/name                       // Index for global list.
-	var/seed_name                  // Plant name for seed packet.
-	var/seed_noun = "seeds"        // Descriptor for packet.
-	var/display_name               // Prettier name.
-	var/roundstart                 // If set, seed will not display variety number.
-	var/mysterious                 // Only used for the random seed packets.
-	var/can_self_harvest = 0       // Mostly used for living mobs.
-	var/growth_stages = 0          // Number of stages the plant passes through before it is mature.
-	var/list/traits = list()       // Initialized in New()
-	var/list/mutants               // Possible predefined mutant varieties, if any.
-	var/list/chems                 // Chemicals that plant produces in products/injects into victim.
-	var/list/consume_gasses        // The plant will absorb these gasses during its life.
-	var/list/exude_gasses          // The plant will exude these gasses during its life.
-	var/kitchen_tag                // Used by the reagent grinder.
-	var/trash_type                 // Garbage item produced when eaten.
+	var/uid							// Unique identifier.
+	var/name						// Index for global list.
+	var/seed_name					// Plant name for seed packet.
+	var/seed_noun = "seeds"			// Descriptor for packet.
+	var/display_name				// Prettier name.
+	var/roundstart					// If set, seed will not display variety number.
+	var/mysterious					// Only used for the random seed packets.
+	var/can_self_harvest = 0		// Mostly used for living mobs.
+	var/growth_stages = 0			// Number of stages the plant passes through before it is mature.
+	var/list/traits = list()		// Initialized in New()
+	var/list/mutants				// Possible predefined mutant varieties, if any.
+	var/list/chems					// Chemicals that plant produces in products/injects into victim.
+	var/list/consume_gasses			// The plant will absorb these gasses during its life.
+	var/list/exude_gasses			// The plant will exude these gasses during its life.
+	var/kitchen_tag					// Used by the reagent grinder.
+	var/trash_type					// Garbage item produced when eaten.
 	var/splat_type = /obj/effect/decal/cleanable/fruit_smudge // Graffiti decal.
 	var/has_mob_product
+	var/modular_icon = 0			// Dictates if the product uses a modular sprite. 0 = preset, 1 = modular
+	var/preset_icon = "undef"		// Name of the iconstate in icon/obj/harvest.dmi to use for preset sprite
+									//		Make sure to set this to the correct icon if not using a modular sprite
 
 /datum/seed/New()
 
@@ -370,6 +373,7 @@
 	display_name = "strange plants" // TODO: name generator.
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
+	modular_icon = 1
 
 	set_trait(TRAIT_POTENCY,rand(5,30),200,0)
 	set_trait(TRAIT_PRODUCT_ICON,pick(plant_controller.plant_product_sprites))
@@ -729,8 +733,9 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
-					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
+				if(modular_icon == 1)
+					if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
+						product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
 					food.filling_color = get_trait(TRAIT_PRODUCT_COLOUR)
@@ -771,6 +776,8 @@
 	if(chems)          new_seed.chems = chems.Copy()
 	if(consume_gasses) new_seed.consume_gasses = consume_gasses.Copy()
 	if(exude_gasses)   new_seed.exude_gasses = exude_gasses.Copy()
+	new_seed.modular_icon = modular_icon
+	new_seed.preset_icon = preset_icon
 
 	new_seed.seed_name =            "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][seed_name]"
 	new_seed.display_name =         "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][display_name]"

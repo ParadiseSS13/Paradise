@@ -41,30 +41,42 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	</div>
 	<div class="item">
-		<div class="itemLabelNarrow">Pod</div>
-		<div class="itemContentWide{{if data.pod}} good{{else}} bad{{/if}}">
-			{{if data.pod}} Found!{{else}} Error: Not detected!{{/if}}
+		<div class="itemLabelNarrow">Pods</div>
+		<div class="itemContentWide{{if data.numberofpods}} good{{else}} bad{{/if}}">
+			{{if data.numberofpods}} Found {{:data.numberofpods}}!{{else}} Error: None detected!{{/if}}
 		</div>
 	</div>
 	{{if data.scanner}}
-	<h2>Scanner Functions</h2>
-	{{if data.loading}}
-		<b>Scanning...</b>
-	{{else}}	
-		<b>{{:data.scantemp}}</b>
+		<h2>Scanner Functions</h2>
+		{{if data.loading}}
+			<b>Scanning...</b>
+		{{else}}	
+			<b>{{:data.scantemp}}</b>
+		{{/if}}
+		<div class="item">
+			<div class="itemLabelNarrow">Scan Occupant</div>
+			<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
+		</div>		
+		<div class="item">
+			<div class="itemLabelNarrow">Scanner Lock</div>
+			<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'locked', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
+		</div>	
 	{{/if}}
-	<div class="item">
-		<div class="itemLabelNarrow">Scan Occupant</div>
-		<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
-	</div>		
-	<div class="item">
-		<div class="itemLabelNarrow">Scanner Lock</div>
-		<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'locked', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
-	</div>	
-	<div class="item">
-		<div class="itemLabelNarrow">Biomass</div>
-		<div class="itemContentWide">{{:data.biomass}}</div>
-	</div>	
+	{{if data.numberofpods}}
+		<h2>Pods</h2>
+		{{for data.pods}}
+			<div class="item">
+				<b>{{:value.name}}</b>
+				<div class="itemLabelNarrow">Biomass</div>
+				<div class="itemContentWide{{if value.biomass > 0}} good{{else}} bad{{/if}}">
+					{{:value.biomass}}
+				</div>
+				<div class="itemLabelNarrow">Select</div>
+				<div class="itemContentWide">
+					{{:helper.link('Select', 'check', {'selectpod' : value.pod}, value.pod == data.selected_pod ? 'selected' : '')}}
+				</div>
+			</div>
+		{{/for}}
 	{{/if}}
 {{/if}}
 {{if data.menu == 2}}
@@ -106,7 +118,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		{{/if}}
 		<div class="item">
 			<div class="itemLabelNarrow">Actions</div>
-			<div class="itemContentWide">{{:helper.link('Clone', 'arrowreturnthick-1-e', {'clone' : data.activerecord}, !data.enoughbiomass ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
+			<div class="itemContentWide">{{:helper.link('Clone', 'arrowreturnthick-1-e', {'clone' : data.activerecord}, !data.podready ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
 		</div>
 	{{/if}}
 {{/if}}

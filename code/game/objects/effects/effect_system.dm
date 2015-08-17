@@ -427,7 +427,7 @@ steam.start() -- spawns the effect
 	if(seed_name && plant_controller)
 		seed = plant_controller.seeds[seed_name]
 	if(!seed)
-		del(src)
+		qdel(src)
 	..()
 
 
@@ -1226,7 +1226,7 @@ steam.start() -- spawns the effect
 	var/r = rand(0,255)
 	var/g = rand(0,255)
 	var/b = rand(0,255)
-	world.log << "Colour , [r],[g],[b]"
+	log_to_dd("Colour , [r],[g],[b]")
 	I.Blend(rgb(r,g,b),ICON_MULTIPLY)
 	src.icon = I
 	playsound(src.loc, "sparks", 100, 1)

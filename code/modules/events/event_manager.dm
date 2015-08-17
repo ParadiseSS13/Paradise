@@ -22,7 +22,7 @@
 	var/datum/event_meta/new_event = new
 
 /datum/event_manager/New()
-	allEvents = typesof(/datum/event) - /datum/event
+	allEvents = subtypesof(/datum/event)
 
 /datum/event_manager/proc/process()
 	for(var/datum/event/E in event_manager.active_events)
@@ -182,7 +182,7 @@
 			if(!E.event_meta)
 				continue
 			var/datum/event_meta/EM = E.event_meta
-			var/ends_at = E.startedAt + (E.lastProcessAt() * master_controller.minimum_ticks)	// A best estimate
+			var/ends_at = E.startedAt + (E.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
 			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
 			var/no_end = E.noAutoEnd
 			html += "<tr>"

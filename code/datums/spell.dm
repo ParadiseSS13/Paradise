@@ -53,7 +53,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
 
-/obj/effect/proc_holder/spell/wizard/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.spell_list))
 		user << "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>"
@@ -88,7 +88,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			if(user.is_muzzled())
 				user << "Mmmf mrrfff!"
 				return 0
-	var/obj/effect/proc_holder/spell/wizard/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
+	var/obj/effect/proc_holder/spell/noclothes/spell = locate() in (user.spell_list | (user.mind ? user.mind.spell_list : list()))
 	if(clothes_req && !(spell && istype(spell)))//clothes check
 		if(!istype(user, /mob/living/carbon/human))
 			user << "You aren't a human, Why are you trying to cast a human spell, silly non-human? Casting human spells is for humans."
@@ -114,7 +114,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	return 1
 
-/obj/effect/proc_holder/spell/wizard/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
+/obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
 			if(prob(50))//Auto-mute? Fuck that noise
@@ -127,25 +127,25 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			else
 				user.whisper(replacetext(invocation," ","`"))
 
-/obj/effect/proc_holder/spell/wizard/New()
+/obj/effect/proc_holder/spell/New()
 	..()
 
 	charge_counter = charge_max
 
-/obj/effect/proc_holder/spell/wizard/Click()
+/obj/effect/proc_holder/spell/Click()
 	if(cast_check())
 		choose_targets()
 	return 1
 
-/obj/effect/proc_holder/spell/wizard/proc/choose_targets(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
 	return
 
-/obj/effect/proc_holder/spell/wizard/proc/start_recharge()
+/obj/effect/proc_holder/spell/proc/start_recharge()
 	while(charge_counter < charge_max)
 		sleep(1)
 		charge_counter++
 
-/obj/effect/proc_holder/spell/wizard/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
+/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation()
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>[user.real_name] ([user.ckey]) cast the spell [name].</font>")
@@ -158,7 +158,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		cast(targets)
 	after_cast(targets)
 
-/obj/effect/proc_holder/spell/wizard/proc/before_cast(list/targets)
+/obj/effect/proc_holder/spell/proc/before_cast(list/targets)
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
@@ -174,7 +174,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			spawn(overlay_lifespan)
 				qdel(spell)
 
-/obj/effect/proc_holder/spell/wizard/proc/after_cast(list/targets)
+/obj/effect/proc_holder/spell/proc/after_cast(list/targets)
 	for(var/atom/target in targets)
 		var/location
 		if(istype(target,/mob/living))
@@ -201,13 +201,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				smoke.set_up(smoke_amt, 0, location) // same here
 				smoke.start()
 
-/obj/effect/proc_holder/spell/wizard/proc/cast(list/targets)
+/obj/effect/proc_holder/spell/proc/cast(list/targets)
 	return
 
-/obj/effect/proc_holder/spell/wizard/proc/critfail(list/targets)
+/obj/effect/proc_holder/spell/proc/critfail(list/targets)
 	return
 
-/obj/effect/proc_holder/spell/wizard/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
+/obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
 	switch(charge_type)
 		if("recharge")
 			charge_counter = charge_max
@@ -218,7 +218,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	return
 
-/obj/effect/proc_holder/spell/wizard/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
+/obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	switch(type)
 		if("bruteloss")
 			target.adjustBruteLoss(amount)
@@ -238,7 +238,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
 
-/obj/effect/proc_holder/spell/wizard/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
+/obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
 	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range
 	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
 	var/include_user = 0 //if it includes usr in the target list
@@ -246,10 +246,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/random_target_priority = TARGET_CLOSEST // if random_target is enabled how it will pick the target
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf //affects all turfs in view or range (depends)
+/obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
 	var/inner_radius = -1 //for all your ring spell needs
 
-/obj/effect/proc_holder/spell/wizard/targeted/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
 	var/list/targets = list()
 
 	switch(max_targets)
@@ -315,7 +315,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	return
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
 	var/list/targets = list()
 
 	for(var/turf/target in view_or_range(range,user,selection_type))
@@ -331,7 +331,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	return
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/proc/los_check(mob/A,mob/B)
+/obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
@@ -370,8 +370,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
 			return 0
 
-		var/obj/effect/proc_holder/spell/wizard/noclothes/clothcheck = locate() in user.spell_list
-		var/obj/effect/proc_holder/spell/wizard/noclothes/clothcheck2 = locate() in user.mind.spell_list
+		var/obj/effect/proc_holder/spell/noclothes/clothcheck = locate() in user.spell_list
+		var/obj/effect/proc_holder/spell/noclothes/clothcheck2 = locate() in user.mind.spell_list
 		if(clothes_req && !(clothcheck && istype(clothcheck)) && !(clothcheck2 && istype(clothcheck2)))//clothes check
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/rig/wizard))
 				return 0

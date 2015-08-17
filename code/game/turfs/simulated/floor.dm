@@ -99,7 +99,7 @@ var/list/wood_icons = list("wood","wood-broken")
 		return
 
 	if(air)
-		update_visuals(air)
+		update_visuals()
 
 	if(is_plasteel_floor())
 		if(!broken && !burnt)

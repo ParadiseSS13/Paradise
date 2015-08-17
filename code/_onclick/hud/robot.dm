@@ -99,6 +99,13 @@
 	mymob.throw_icon.name = "store"
 	mymob.throw_icon.screen_loc = ui_borg_store
 
+//Headlamp
+	mymob:lamp_button = new /obj/screen()
+	mymob:lamp_button.icon = 'icons/mob/screen1_robot.dmi'
+	mymob:lamp_button.icon_state = "lamp0"
+	mymob:lamp_button.name = "Toggle Headlamp"
+	mymob:lamp_button.screen_loc = ui_borg_lamp
+
 //Temp
 	mymob.bodytemp = new /obj/screen()
 	mymob.bodytemp.icon_state = "temp0"
@@ -128,7 +135,7 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
+	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
 	mymob.blind.layer = 0
 
 	mymob.flash = new /obj/screen()
@@ -165,7 +172,7 @@
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin, mymob.blind, mymob.flash, mymob.gun_setting_icon) //, mymob.rest, mymob.sleep, mymob.mach )
+	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin, mymob.blind, mymob.flash, mymob.gun_setting_icon, mymob:lamp_button) //, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += src.adding + src.other
 
 	return

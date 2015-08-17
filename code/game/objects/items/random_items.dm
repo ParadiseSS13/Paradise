@@ -5,7 +5,7 @@
 	name = "Random Toy"
 	New()
 		..()
-		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + typesof(/obj/item/toy/prize) - /obj/item/toy/prize
+		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 		var/T = pick(types)
 		new T(loc)
 		spawn(1)
@@ -19,7 +19,7 @@
 	name = "Random Mess"
 	New()
 		..()
-		var/list/list = typesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable,/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
+		var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
 		var/T = pick(list)
 		new T(loc)
 		spawn(0)

@@ -419,6 +419,8 @@
 		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
+	if(!wear_mask && is_thrall(src) && in_range(usr,src))
+		msg += "Their features seem unnaturally tight and drawn.\n"
 	if(decaylevel == 1)
 		msg += "[t_He] [t_is] starting to smell.\n"
 	if(decaylevel == 2)

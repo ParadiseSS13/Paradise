@@ -2,6 +2,9 @@
 Title: Nuke Control Panel/Nuclear Bomb Defusion
 Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 -->
+{{if data.is_syndicate}}
+	{{:helper.syndicateMode()}}
+{{/if}}
 {{if !data.hacking}}
 	<div class="item">
 		<b>Authorization Disk:</b> {{if data.auth}}{{:helper.link('++++++++++', 'eject', {'auth' : 1})}} {{else}} {{:helper.link('----------', 'disk', {'auth' : 1})}}{{/if}}

@@ -450,24 +450,18 @@ About the new airlock wires panel:
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
 // The preceding comment was borrowed from the grille's shock script
-/obj/machinery/door/airlock/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)) || !src.arePowerSystemsOn())		// unpowered, no shock
+/obj/machinery/door/airlock/shock(mob/user, prb)
+	if(!arePowerSystemsOn())
 		return 0
 	if(hasShocked)
 		return 0	//Already shocked someone recently?
-	if(!prob(prb))
-		return 0 //you lucked out, no shock for you
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start() //sparks always.
-	if(electrocute_mob(user, get_area(src), src))
+	if(..())
 		hasShocked = 1
-		spawn(10)
-			hasShocked = 0
+		sleep(10)
+		hasShocked = 0
 		return 1
 	else
 		return 0
-
 
 /obj/machinery/door/airlock/update_icon()
 	if(overlays) overlays.Cut()
@@ -635,7 +629,7 @@ About the new airlock wires panel:
 		..(user)
 	return
 
-/obj/machinery/door/airlock/CanUseTopic(var/mob/user, href_list)
+/obj/machinery/door/airlock/CanUseTopic(var/mob/user)
 	if(!issilicon(user))
 		return STATUS_CLOSE
 
@@ -652,7 +646,7 @@ About the new airlock wires panel:
 				user << "<span class='warning'>Unable to interface: Connection refused.</span>"
 		return STATUS_CLOSE
 
-	return STATUS_INTERACTIVE
+	return ..()
 
 /obj/machinery/door/airlock/Topic(href, href_list, var/nowindow = 0)
 	if(..())
@@ -972,14 +966,6 @@ About the new airlock wires panel:
 		welded = 1
 		update_icon()
 
-
-/obj/machinery/door/airlock/proc/prison_open()
-	src.unlock()
-	src.open()
-	src.locked = 1
-	return
-
-
 /obj/machinery/door/airlock/hatch/gamma/attackby(C as obj, mob/user as mob, params)
 	//world << text("airlock attackby src [] obj [] mob []", src, C, user)
 	if(!istype(usr, /mob/living/silicon))
@@ -1055,3 +1041,10 @@ About the new airlock wires panel:
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0
 	update_icon()
+
+/obj/machinery/door/airlock/proc/prison_open()
+	if(arePowerSystemsOn())
+		src.unlock()
+		src.open()
+		src.lock()
+	return	

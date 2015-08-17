@@ -14,11 +14,6 @@
 	var/light_range_on = 2
 	var/light_power_on = 1
 
-/obj/machinery/computer/New()
-	..()
-	if(ticker)
-		initialize()
-
 /obj/machinery/computer/initialize()
 	power_change()
 	update_icon()
@@ -73,7 +68,8 @@
 	var/overlay_layer = LIGHTING_LAYER+0.1
 
 	if(stat & NOPOWER)
-		overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+		if(icon_keyboard)
+			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return
 	overlays += image(icon, icon_keyboard ,overlay_layer)
 	if(stat & BROKEN)

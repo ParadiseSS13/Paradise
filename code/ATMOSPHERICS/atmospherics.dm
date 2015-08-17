@@ -10,6 +10,9 @@ Pipelines + Other Objects -> Pipe network
 
 */
 /obj/machinery/atmospherics
+
+	auto_init = 0
+
 	anchored = 1
 	idle_power_usage = 0
 	active_power_usage = 0
@@ -156,8 +159,6 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
 	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
-		return
-	if(user.machine == src) //temporary fix until we overhaul movement code
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)

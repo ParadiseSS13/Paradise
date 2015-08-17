@@ -66,7 +66,9 @@ var/list/admin_verbs_admin = list(
 	/client/proc/freeze,
 	/client/proc/freezemecha,
 	/client/proc/alt_check,
-	/client/proc/secrets
+	/client/proc/secrets,
+	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
+	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself change its basic appearance */
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -136,8 +138,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/cmd_debug_del_all,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
-	/client/proc/remake_distribution_map,
-	/client/proc/show_distribution_map,
 	/client/proc/enable_debug_verbs,
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
@@ -228,19 +228,15 @@ var/list/admin_verbs_mentor = list(
 	set name = "Invisimin"
 	set category = "Admin"
 	set desc = "Toggles ghost-like invisibility (Don't abuse this)"
+
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
-			mob.icon_state = "ghost"
-			mob.icon = 'icons/mob/human.dmi'
-			mob.update_icons()
+			mob << "<span class='danger'>Invisimin off. Invisibility reset.</span>"
+			//TODO: Make some kind of indication for the badmin that they are currently invisible
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
-			mob.icon_state = "ghost"
-			mob.icon = 'icons/mob/mob.dmi'
-
+			mob << "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>"
 
 /client/proc/player_panel()
 	set name = "Player Panel"
@@ -412,8 +408,14 @@ var/list/admin_verbs_mentor = list(
 	set category = "Event"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
-	var/obj/effect/proc_holder/spell/wizard/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spells
-	if(!S) return
+	var/list/spell_list = list()
+	var/type_length = length("/obj/effect/proc_holder/spell") + 2
+	for(var/A in spells)
+		spell_list[copytext("[A]", type_length)] = A
+	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
+	if(!S)
+		return
+	S = spell_list[S]
 	if(T.mind)
 		T.mind.AddSpell(new S)
 	else
@@ -548,6 +550,41 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 	if(holder)
 		src.holder.output_ai_laws()
+
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in world)
+	set name = "C.M.A. - Admin"
+	set desc = "Allows you to change the mob appearance"
+	set category = "Admin"
+
+	if(!istype(H))
+		return
+
+	if(holder)
+		admin_log_and_message_admins("is altering the appearance of [H].")
+		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
+	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H in world)
+	set name = "C.M.A. - Self"
+	set desc = "Allows the mob to change its appearance"
+	set category = "Admin"
+
+	if(!istype(H))
+		return
+
+	if(!H.client)
+		usr << "Only mobs with clients can alter their own appearance."
+		return
+
+	if(holder)
+		switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
+			if("Yes")
+				admin_log_and_message_admins("has allowed [H] to change \his appearance, without whitelisting of races.")
+				H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
+			if("No")
+				admin_log_and_message_admins("has allowed [H] to change \his appearance, with whitelisting of races.")
+				H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
+	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 //---- bs12 verbs ----

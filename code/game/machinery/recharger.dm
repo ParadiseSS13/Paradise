@@ -29,14 +29,18 @@
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
 
-		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear))
-			user << "<span class='notice'>Your gun's recharge port was removed to make room for a miniaturized reactor.</span>"
-			return
+		if (istype(G, /obj/item/weapon/gun/energy))
+			var/obj/item/weapon/gun/energy/E = G
+			if(!E.can_charge)
+				user << "<span class='notice'>Your gun has no external power connector.</span>"
+				return
+
 		if(istype(G, /obj/item/device/laptop))
 			var/obj/item/device/laptop/L = G
 			if(!L.stored_computer.battery)
 				user << "There's no battery in it!"
 				return
+
 		user.drop_item()
 		G.loc = src
 		charging = G

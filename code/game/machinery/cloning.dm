@@ -20,7 +20,7 @@
 	var/mess = 0 //Need to clean out it if it's full of exploded clone.
 	var/attempting = 0 //One clone attempt at a time thanks
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
-	var/biomass = CLONE_BIOMASS // * 3 - N3X
+	var/biomass = 0
 	var/speed_coeff
 	var/efficiency
 
@@ -32,31 +32,41 @@
 		else
 			set_light(0)
 
+/obj/machinery/clonepod/biomass
+	biomass = CLONE_BIOMASS
+
 /obj/machinery/clonepod/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/clonepod(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/clonepod(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	update_icon()
 
 /obj/machinery/clonepod/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/clonepod(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/clonepod(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	biomass = CLONE_BIOMASS
 	RefreshParts()
+
+/obj/machinery/clonepod/Destroy()
+	if(connected)
+		connected.pods -= src
+	..()
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_coeff = 0
@@ -219,7 +229,6 @@
 		R.dna.real_name = "clone ([rand(0,999)])"
 	H.real_name = R.dna.real_name
 
-	src.icon_state = "pod_1"
 	//Get the clone body ready
 	H.adjustCloneLoss(190) //new damage var so you can't eject a clone early then stab them to abuse the current damage system --NeoFite
 	H.adjustBrainLoss(90) // The rand(10, 30) will come out as extra brain damage
@@ -245,8 +254,10 @@
 		ticker.mode.update_all_cult_icons() //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
-	if(("\ref[H.mind]" in ticker.mode.thralls) || (H.mind in ticker.mode.enthralled))
+	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
 		ticker.mode.update_vampire_icons_added(H.mind)
+ 	if(("\ref[H.mind]" in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
+ 		ticker.mode.update_shadow_icons_added(H.mind)
 
 	// -- End mode specific stuff
 
@@ -271,6 +282,8 @@
 		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3") */
 
 	H.set_species(R.dna.species)
+
+	update_icon()
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
@@ -324,8 +337,6 @@
 		src.occupant = null
 		if (src.locked)
 			src.locked = 0
-		if (!src.mess && !panel_open)
-			icon_state = "pod_0"
 		//use_power(200)
 		return
 
@@ -347,6 +358,7 @@
 		if(panel_open)
 			default_deconstruction_crowbar(W)
 		return
+
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (!src.check_access(W))
 			user << "\red Access Denied."
@@ -359,13 +371,6 @@
 		else
 			src.locked = 0
 			user << "System unlocked."
-	else if (istype(W, /obj/item/weapon/card/emag))
-		if (isnull(src.occupant))
-			return
-		user << "You force an emergency ejection."
-		src.locked = 0
-		src.go_out()
-		return
 
 //Removing cloning pod biomass
 	else if (istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
@@ -380,7 +385,7 @@
 		else
 			if(src.anchored)
 				src.anchored = 0
-				connected.pod1 = null
+				connected.pods -= src
 				connected = null
 			else
 				src.anchored = 1
@@ -389,8 +394,21 @@
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else
 				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
+	else if(istype(W, /obj/item/device/multitool))
+		var/obj/item/device/multitool/M = W
+		M.buffer = src
+		user << "<span class='notice'>You load connection data from [src] to [M].</span>"
+		return
 	else
 		..()
+
+/obj/machinery/clonepod/emag_act(user as mob)
+	if (isnull(src.occupant))
+		return
+	user << "You force an emergency ejection."
+	src.locked = 0
+	src.go_out()
+	return
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(var/message)
@@ -399,7 +417,7 @@
 	if (!message)
 		return 0
 
-	src.connected.temp = message
+	src.connected.temp = "[name] : [message]"
 	src.connected.updateUsrDialog()
 	return 1
 
@@ -420,12 +438,7 @@
 	if (src.mess) //Clean that mess and dump those gibs!
 		src.mess = 0
 		gibs(src.loc)
-		src.icon_state = "pod_0"
-
-		/*
-		for(var/obj/O in src)
-			O.loc = src.loc
-		*/
+		update_icon()
 		return
 
 	if (!(src.occupant))
@@ -435,31 +448,34 @@
 	if (src.locked)
 		user << "<span class=\"warning\">The cloning pod is locked!</span>"
 		return
-	/*
-	for(var/obj/O in src)
-		O.loc = src.loc
-	*/
 
 	if (src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
 	src.occupant.loc = src.loc
-	src.icon_state = "pod_0"
 	src.eject_wait = 0 //If it's still set somehow.
 	domutcheck(src.occupant) //Waiting until they're out before possible notransform.
 	src.occupant = null
-
+	update_icon()
 	return
 
 /obj/machinery/clonepod/proc/malfunction()
 	if(src.occupant)
 		src.connected_message("Critical Error!")
 		src.mess = 1
-		src.icon_state = "pod_g"
+		update_icon()
 		src.occupant.ghostize()
 		spawn(5)
 			qdel(src.occupant)
 	return
+
+/obj/machinery/clonepod/update_icon()
+	..()
+	icon_state = "pod_0"
+	if (occupant && !(stat & NOPOWER))
+		icon_state = "pod_1"
+	else if (mess && !panel_open)
+		icon_state = "pod_g"
 
 /obj/machinery/clonepod/relaymove(mob/user as mob)
 	if (user.stat)

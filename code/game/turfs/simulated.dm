@@ -43,7 +43,7 @@
 	tracks.AddTracks(bloodDNA,comingdir,goingdir,bloodcolor)
 
 /turf/simulated/Entered(atom/A, atom/OL)
-
+	..()
 	if(ishuman(A))
 		var/mob/living/carbon/human/M = A
 		if(M.lying)	return
@@ -147,8 +147,6 @@
 				else
 					M.inertia_dir = 0
 					return
-
-	..()
 
 //returns 1 if made bloody, returns 0 otherwise
 /turf/simulated/add_blood(mob/living/carbon/human/M as mob)

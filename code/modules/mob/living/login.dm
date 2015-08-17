@@ -31,7 +31,7 @@
 				if(mode)
 					mode.update_all_icons()
 			if("vampire")
-				if((ref in ticker.mode.thralls) || (mind in ticker.mode.enthralled))
+				if((ref in ticker.mode.vampire_thralls) || (mind in ticker.mode.vampire_enthralled))
 					ticker.mode.update_vampire_icons_added(mind)
 			if("shadowling")
 				if((mind in ticker.mode.shadowling_thralls) || (mind in ticker.mode.shadows))

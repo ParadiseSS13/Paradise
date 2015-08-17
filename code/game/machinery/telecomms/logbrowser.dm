@@ -101,7 +101,7 @@
 							race = "<i>Unidentifiable</i>"
 							language = race
 
-						del(M)
+						qdel(M)
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 

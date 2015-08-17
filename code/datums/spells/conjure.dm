@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure
+/obj/effect/proc_holder/spell/aoe_turf/conjure
 	name = "Conjure"
 	desc = "This spell conjures objs of the specified types in range."
 
@@ -14,7 +14,7 @@
 	//should have format of list("emagged" = 1,"name" = "Wizard's Justicebot"), for example
 	var/delay = 1//Go Go Gadget Inheritance
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/conjure/cast(list/targets)
 
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
@@ -57,7 +57,7 @@
 
 	return
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/summonEdSwarm //test purposes
+/obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm //test purposes
 	name = "Dispense Wizard Justice"
 	desc = "This spell dispenses wizard justice."
 

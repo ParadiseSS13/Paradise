@@ -29,8 +29,6 @@
 #define ORGAN_ASSISTED   4096
 
 #define DROPLIMB_EDGE 0
-#define DROPLIMB_BLUNT 1
-#define DROPLIMB_BURN 2
 
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
@@ -78,3 +76,16 @@
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2
+
+// Appearance change flags
+#define APPEARANCE_UPDATE_DNA 1
+#define APPEARANCE_RACE	2|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_GENDER 4|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_SKIN 8
+#define APPEARANCE_HAIR 16
+#define APPEARANCE_HAIR_COLOR 32
+#define APPEARANCE_FACIAL_HAIR 64
+#define APPEARANCE_FACIAL_HAIR_COLOR 128
+#define APPEARANCE_EYE_COLOR 256
+#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR
+#define APPEARANCE_ALL 511

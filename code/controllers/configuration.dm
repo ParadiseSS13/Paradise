@@ -17,6 +17,7 @@
 	var/log_adminchat = 0				// log admin chat messages
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
+	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // Logs all runtimes.
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/log_runtime = 0					// logs world.log to a file
@@ -100,6 +101,9 @@
 	var/revival_cloning = 1
 	var/revival_brain_life = -1
 
+
+	var/auto_toggle_ooc_during_round = 0
+
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
 	var/run_speed = 0
@@ -157,8 +161,10 @@
 	var/player_overflow_cap = 0 //number of players before the server starts rerouting
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
+	var/disable_away_missions = 0 // disable away missions
+
 /datum/configuration/New()
-	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
+	var/list/L = subtypesof(/datum/game_mode)
 	for (var/T in L)
 		// I wish I didn't have to instance the game modes in order to look up
 		// their information, but it is the only way (at least that I know of).
@@ -261,6 +267,9 @@
 
 				if ("log_pda")
 					config.log_pda = 1
+
+				if ("log_world_output")
+					config.log_world_output = 1
 
 				if ("log_hrefs")
 					config.log_hrefs = 1
@@ -514,6 +523,9 @@
 				if("overflow_server_url")
 					config.overflow_server_url = value
 
+				if("disable_away_missions")
+					config.disable_away_missions = 1
+
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -534,6 +546,8 @@
 					config.revival_cloning = value
 				if("revival_brain_life")
 					config.revival_brain_life = value
+				if("auto_toggle_ooc_during_round")
+					config.auto_toggle_ooc_during_round	= 1
 				if("run_speed")
 					config.run_speed = value
 				if("walk_speed")
@@ -683,7 +697,7 @@
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
-	for (var/T in (typesof(/datum/game_mode) - /datum/game_mode))
+	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
 		if (M.config_tag && M.config_tag == mode_name)
 			return M
@@ -692,7 +706,7 @@
 
 /datum/configuration/proc/get_runnable_modes()
 	var/list/datum/game_mode/runnable_modes = new
-	for (var/T in (typesof(/datum/game_mode) - /datum/game_mode))
+	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
 		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
 		if (!(M.config_tag in modes))

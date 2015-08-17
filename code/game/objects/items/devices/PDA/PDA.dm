@@ -31,7 +31,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/tnote[0]  //Current Texts
 	var/last_text //No text spamming
 	var/last_honk //Also no honk spamming that's bad too
+
 	var/ttone = "beep" //The ringtone!
+	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"slip" = 'sound/misc/slip.ogg',
+								"honk" = 'sound/items/bikehorn.ogg',
+								"SKREE" = 'sound/voice/shriek1.ogg',
+								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg')
+
 	var/lock_code = "" // Lockcode to unlock uplink
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
@@ -467,7 +476,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				data["convo_job"] = sanitize(c["job"])
 				break
 	if(mode==41)
-		data["manifest"] = data_core.get_manifest_json()
+		data_core.get_manifest_json()
 
 
 	if(mode==3)
@@ -499,12 +508,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			data["aircontents"] = list("reading" = 0)
 
 
+	data["manifest"] = list("__json_cache" = ManifestJSON)
+
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600)
+		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = inventory_state)
+
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -812,6 +824,21 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	return 1 // return 1 tells it to refresh the UI in NanoUI
 
+/obj/item/device/pda/verb/verb_reset_pda()
+	set category = "Object"
+	set name = "Reset PDA"
+	set src in usr
+
+	if(issilicon(usr))
+		return
+
+	if(can_use(usr))
+		mode = 0
+		nanomanager.update_uis(src)
+		usr << "<span class='notice'>You press the reset button on \the [src].</span>"
+	else
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+
 /obj/item/device/pda/proc/remove_id()
 	if (id)
 		if (ismob(loc))
@@ -894,10 +921,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					ai.show_message("<i>Intercepted message from <b>[who]</b>: [t]</i>")
 */
 
-		if (!P.silent)
-			playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-		for (var/mob/O in hearers(3, P.loc))
-			if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+		P.play_ringtone()
 		//Search for holder of the PDA.
 		var/mob/living/L = null
 		if(P.loc && isliving(P.loc))
@@ -920,6 +944,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		U << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
 
+/obj/item/device/pda/proc/play_ringtone()
+	if (!silent)
+		var/sound/S = sound('sound/machines/twobeep.ogg')
+
+		if(ttone in ttone_sound)
+			S = ttone_sound[ttone]
+		playsound(loc, S, 50, 1)
+	for (var/mob/O in hearers(3, loc))
+		if(!silent) O.show_message(text("\icon[src] *[ttone]*"))
 
 /obj/item/device/pda/verb/verb_remove_id()
 	set category = null

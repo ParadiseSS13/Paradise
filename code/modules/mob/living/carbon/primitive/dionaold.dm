@@ -237,3 +237,25 @@
 /mob/living/carbon/primitive/diona/put_in_active_hand(obj/item/W)
 	src << "\red You don't have any hands!"
 	return
+
+/mob/living/carbon/primitive/diona/say(var/message)
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			src << "\red You cannot speak in IC (Muted)."
+			return
+
+	message = trim_strip_html_properly(message)
+
+	if(stat)
+		if(stat == 2)
+			return say_dead(message)
+		return
+
+	if (is_muzzled())
+		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
+		return
+
+	if(copytext(message,1,2) == "*")
+		return emote(copytext(message,2))
+
+	..(message)

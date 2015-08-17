@@ -65,17 +65,11 @@
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
 	switch(rand(1,100))
 		if(1 to 30)
-
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
-
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = wizard
-				wizard.objectives += escape_objective
-		if(31 to 60)
+			
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = wizard
 			steal_objective.find_target()
@@ -85,8 +79,7 @@
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = wizard
 				wizard.objectives += escape_objective
-
-		if(61 to 85)
+		if(31 to 60)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
@@ -102,7 +95,23 @@
 				survive_objective.owner = wizard
 				wizard.objectives += survive_objective
 
+		if(61 to 85)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
+
 		else
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+			
 			if (!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
@@ -147,7 +156,7 @@
 		wizard_mob.verbs += /client/proc/jaunt
 		wizard_mob.mind.special_verbs += /client/proc/jaunt
 	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt(usr)
+		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
@@ -260,7 +269,7 @@
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/wizard/S in wizard.spell_list)
+				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
 					text += "[S.name]"
 					if(wizard.spell_list.len > i)
 						text += ", "
@@ -274,9 +283,16 @@
 
 //To batch-remove wizard spells. Linked to mind.dm.
 /mob/proc/spellremove(var/mob/M as mob, var/removeallspells=1)
-	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
 		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
 		qdel(spell_to_remove)
+
+/datum/mind/proc/remove_spell(var/obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+	if(!spell) return
+	for(var/obj/effect/proc_holder/spell/S in spell_list)
+		if(istype(S, spell))
+			qdel(S)
+			spell_list -= S
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

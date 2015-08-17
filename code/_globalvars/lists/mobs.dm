@@ -45,12 +45,11 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/mining_drone,
 			/mob/living/simple_animal/hostile/spaceWorm,
 			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
-			/mob/living/simple_animal/ascendant_shadowling
+			/mob/living/simple_animal/ascendant_shadowling,
+			/mob/living/simple_animal/slaughter
 			)
 
 var/global/list/med_hud_users = list()
 var/global/list/sec_hud_users = list()
 var/global/list/antag_hud_users = list()
 		//items that ask to be called every cycle
-
-var/global/list/active_diseases = list() //Diseases are mob-based, so they get to go here

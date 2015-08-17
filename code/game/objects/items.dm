@@ -12,7 +12,7 @@
 	var/w_class = 3.0
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
-	pressure_resistance = 5
+	pressure_resistance = 3
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
@@ -56,6 +56,12 @@
 		var/mob/m = loc
 		m.unEquip(src, 1)
 	return ..()
+
+/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
+	if(((src in target) && !target_self) || ((!istype(target.loc, /turf)) && (!istype(target, /turf)) && (not_inside)))
+		return 0
+	else
+		return 1
 
 /obj/item/device
 	icon = 'icons/obj/device.dmi'
@@ -132,8 +138,11 @@
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
 		if (user.hand)
 			temp = H.organs_by_name["l_hand"]
+		if(!temp)
+			user << "<span class='warning'>You try to use your hand, but it's missing!</span>"
+			return 0
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			user << "<span class='warning'>You try to move your [temp.name], but cannot!</span>"
 			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -333,7 +342,7 @@
 
 		if(istype(src, /obj/item/clothing/under) || istype(src, /obj/item/clothing/suit))
 			if(FAT in H.mutations)
-				testing("[M] TOO FAT TO WEAR [src]!")
+				//testing("[M] TOO FAT TO WEAR [src]!")
 				if(!(flags & ONESIZEFITSALL))
 					if(!disable_warning)
 						H << "\red You're too fat to wear the [name]."
@@ -696,3 +705,6 @@
 		if(current_size >= STAGE_FOUR)
 			throw_at(S,14,3)
 		else ..()
+		
+/obj/item/proc/pwr_drain()
+	return 0 // Process Kill 

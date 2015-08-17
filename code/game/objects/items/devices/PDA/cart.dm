@@ -28,7 +28,7 @@
 	var/datum/data/record/active1 = null //General
 	var/datum/data/record/active2 = null //Medical
 	var/datum/data/record/active3 = null //Security
-	var/obj/machinery/power/monitor/powmonitor = null // Power Monitor
+	var/obj/machinery/computer/monitor/powmonitor = null // Power Monitor
 	var/list/powermonitors = list()
 	var/message1	// used for status_displays
 	var/message2
@@ -59,10 +59,9 @@
 	icon_state = "cart-s"
 	access_security = 1
 
-/obj/item/weapon/cartridge/security/New()
+/obj/item/weapon/cartridge/security/initialize()
+	radio = new /obj/item/radio/integrated/beepsky(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/beepsky(src)
 
 /obj/item/weapon/cartridge/detective
 	name = "D.E.T.E.C.T. Cartridge"
@@ -111,12 +110,9 @@
 	access_reagent_scanner = 1
 	access_atmos = 1
 
-/obj/item/weapon/cartridge/signal/New()
+/obj/item/weapon/cartridge/signal/initialize()
+	radio = new /obj/item/radio/integrated/signal(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/signal(src)
-
-
 
 /obj/item/weapon/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
@@ -124,10 +120,9 @@
 	icon_state = "cart-q"
 	access_quartermaster = 1
 
-/obj/item/weapon/cartridge/quartermaster/New()
+/obj/item/weapon/cartridge/quartermaster/initialize()
+	radio = new /obj/item/radio/integrated/mule(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/mule(src)
 
 /obj/item/weapon/cartridge/head
 	name = "Easy-Record DELUXE"
@@ -142,10 +137,9 @@
 	access_janitor = 1
 	access_security = 1
 
-/obj/item/weapon/cartridge/hop/New()
+/obj/item/weapon/cartridge/hop/initialize()
+	radio = new /obj/item/radio/integrated/mule(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/mule(src)
 
 /obj/item/weapon/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
@@ -153,10 +147,9 @@
 	access_status_display = 1
 	access_security = 1
 
-/obj/item/weapon/cartridge/hos/New()
+/obj/item/weapon/cartridge/hos/initialize()
+	radio = new /obj/item/radio/integrated/beepsky(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/beepsky(src)
 
 /obj/item/weapon/cartridge/ce
 	name = "Power-On DELUXE"
@@ -179,10 +172,9 @@
 	access_reagent_scanner = 1
 	access_atmos = 1
 
-/obj/item/weapon/cartridge/rd/New()
-	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/signal(src)
+/obj/item/weapon/cartridge/rd/initialize()
+	radio = new /obj/item/radio/integrated/signal(src)
+	..()		
 
 /obj/item/weapon/cartridge/captain
 	name = "Value-PAK Cartridge"
@@ -196,18 +188,17 @@
 	access_reagent_scanner = 1
 	access_status_display = 1
 	access_atmos = 1
-	
-/obj/item/weapon/cartridge/captain/New()
-	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/beepsky(src)
-		
+
+/obj/item/weapon/cartridge/captain/initialize()
+	radio = new /obj/item/radio/integrated/beepsky(src)
+	..()		
+
 /obj/item/weapon/cartridge/supervisor
 	name = "Easy-Record DELUXE"
 	icon_state = "cart-h"
 	access_status_display = 1
 	access_security = 1
-	
+
 /obj/item/weapon/cartridge/centcom
 	name = "Value-PAK Cartridge"
 	desc = "Now with 200% more value!"
@@ -220,11 +211,10 @@
 	access_reagent_scanner = 1
 	access_status_display = 1
 	access_atmos = 1
-	
-/obj/item/weapon/cartridge/centcom/New()
+
+/obj/item/weapon/cartridge/centcom/initialize()
+	radio = new /obj/item/radio/integrated/beepsky(src)
 	..()
-	spawn(5)
-		radio = new /obj/item/radio/integrated/beepsky(src)
 
 /obj/item/weapon/cartridge/syndicate
 	name = "Detomatix Cartridge"
@@ -292,31 +282,16 @@
 
 
 	/*		Power Monitor (Mode: 43 / 433)			*/
-	if(mode==43 || mode==433)
-		var/pMonData[0]
-		for(var/obj/machinery/power/monitor/pMon in world)
-			if(!(pMon.stat & (NOPOWER|BROKEN)) )
-				pMonData[++pMonData.len] = list ("Name" = pMon.name, "ref" = "\ref[pMon]")
-				if(isnull(powmonitor)) powmonitor = pMon
+	if(mode==43 || mode==433)						
+		values["powermonitors"] = powermonitor_repository.powermonitor_data()
 
-		values["powermonitors"] = pMonData
-
-		values["poweravail"] = powmonitor.powernet.avail
-		values["powerload"] = num2text(powmonitor.powernet.viewload,10)
-
-		var/list/L = list()
-		for(var/obj/machinery/power/terminal/term in powmonitor.powernet.nodes)
-			if(istype(term.master, /obj/machinery/power/apc))
-				var/obj/machinery/power/apc/A = term.master
-				L += A
-
-		var/list/Status = list(0,0,1,1) // Status:  off, auto-off, on, auto-on
-		var/list/chg = list(0,1,1)	// Charging: nope, charging, full
-		var/apcData[0]
-		for(var/obj/machinery/power/apc/A in L)
-			apcData[++apcData.len] = list("Name" = html_encode(A.area.name), "Equipment" = Status[A.equipment+1], "Lights" = Status[A.lighting+1], "Environment" = Status[A.environ+1], "CellPct" = A.cell ? round(A.cell.percent(),1) : -1, "CellStatus" = A.cell ? chg[A.charging+1] : 0)
-
-		values["apcs"] = apcData
+		if (powmonitor && !isnull(powmonitor.powernet))
+			values["powerconnected"] = 1
+			values["poweravail"] = powmonitor.powernet.avail
+			values["powerload"] = num2text(powmonitor.powernet.viewload,10)
+			values["apcs"] = apc_repository.apc_data(powmonitor)
+		else
+			values["powerconnected"] = 0
 
 
 

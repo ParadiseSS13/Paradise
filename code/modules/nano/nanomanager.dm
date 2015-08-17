@@ -105,6 +105,26 @@
 	return update_count
 
  /**
+  * Close all /nanoui uis attached to src_object
+  *
+  * @param src_object /obj|/mob The obj or mob which the uis are attached to
+  *
+  * @return int The number of uis close
+  */
+/datum/nanomanager/proc/close_uis(src_object)
+	var/src_object_key = "\ref[src_object]"
+	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+		return 0
+
+	var/close_count = 0
+	for (var/ui_key in open_uis[src_object_key])
+		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
+				ui.close()
+				close_count++
+	return close_count	
+	
+ /**
   * Update /nanoui uis belonging to user
   *
   * @param user /mob The mob who owns the uis

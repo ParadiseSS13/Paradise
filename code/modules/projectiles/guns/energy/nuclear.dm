@@ -46,6 +46,7 @@
 	var/lightfail = 0
 	var/charge_tick = 0
 	can_flashlight = 0
+	can_charge = 0
 
 	New()
 		..()

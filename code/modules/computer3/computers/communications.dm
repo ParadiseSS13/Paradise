@@ -129,7 +129,10 @@
 			if(!computer.radio.subspace)
 				return
 			if(authenticated)
-				call_shuttle_proc(usr)
+				var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+				if(!input || ..(href, href_list) || !authenticated)
+					return
+				call_shuttle_proc(usr, input)
 				if(emergency_shuttle.online())
 					post_status("shuttle")
 			state = STATE_DEFAULT
@@ -236,7 +239,10 @@
 		if("ai-callshuttle2" in href_list)
 			if(!computer.radio.subspace)
 				return
-			call_shuttle_proc(usr)
+			var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			if(!input || ..(href, href_list))
+				return
+			call_shuttle_proc(usr, input)
 			aistate = STATE_DEFAULT
 		if("ai-messagelist" in href_list)
 			aicurrmsg = 0

@@ -13,6 +13,46 @@
 	return affected && affected.open == (affected.encased ? 3 : 2)
 
 //////////////////////////////////////////////////////////////////
+//					Dethrall Shadowling 						//
+//////////////////////////////////////////////////////////////////
+/datum/surgery_step/internal/dethrall
+	allowed_tools = list(
+	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/weapon/wirecutters = 75,	\
+	/obj/item/weapon/kitchen/utensil/fork = 20
+	)
+
+	min_duration = 120
+	max_duration = 120
+
+	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		if (!hasorgans(target))
+			return
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		return ..() && affected && is_thrall(target) && affected.open == 3 && target_zone == "head"
+
+	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		user.visible_message("[user] begins looking around in [target]'s head.", "<span class='notice'>You begin looking for foreign influences on [target]'s brain...")
+		user << "<span class='warning'>You locate a small, pulsing black tumor on the side of [target]'s brain and begin to remove it.</span>"
+		target << "<span class='boldannounce'>A small part of your head pulses with agony as the light impacts it.</span>"
+		user.visible_message("[user] begins removing something from [target]'s head.</span>", \
+							 "<span class='notice'>You begin carefully extracting the tumor...</span>")
+		..()
+
+	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		user.visible_message("<span class='notice'>[user] carefully extracts the tumor from [target]'s brain!</span>", \
+							 "<span class='notice'>You extract the black tumor from [target]'s head. It quickly shrivels and burns away.</span>")
+		ticker.mode.remove_thrall(target.mind,0)
+
+	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		if(prob(50))
+			user.visible_message("<span class='warning'>[user] slips and rips the tumor out from [target]'s head!</span>", \
+								 "<span class='warning'><b>You fumble and tear out [target]'s tumor!</span>")
+			ticker.mode.remove_thrall(target.mind,1)
+		else
+			user.visible_message("<span class='warning'>[user]'s hand slips and fumbles! Luckily, they didn't damage anything!</span>")
+
+//////////////////////////////////////////////////////////////////
 //					ALIEN EMBRYO SURGERY						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/internal/remove_embryo

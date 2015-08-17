@@ -452,6 +452,9 @@
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	reagent_tag = PROCESS_SYN
+	
+	has_organ = list(
+		)
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.emote("deathgasp")

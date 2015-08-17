@@ -37,11 +37,13 @@
 	assembly.anchored = 1
 	assembly.update_icon()
 
+	invalidateCameraCache()
+
 	/* // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
 		if(C != src && C.c_tag == src.c_tag && tempnetwork.len)
-			world.log << "[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]"
+			log_to_dd("[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]")
 	*/
 	..()
 
@@ -50,6 +52,7 @@
 		deactivate()
 
 /obj/machinery/camera/Destroy()
+	invalidateCameraCache()
 	deactivate(null, 0) //kick anyone viewing out
 	if(assembly)
 		qdel(assembly)
@@ -66,13 +69,14 @@
 /obj/machinery/camera/emp_act(severity)
 	if(!isEmpProof())
 		if(prob(100/severity))
+			invalidateCameraCache()
 			icon_state = "[initial(icon_state)]emp"
 			var/list/previous_network = network
 			network = list()
 			cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
-			triggerCameraAlarm()
+			triggerCameraAlarm(10 * severity)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
@@ -85,6 +89,7 @@
 						if(can_use())
 							cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
+						invalidateCameraCache()
 			for(var/mob/O in mob_list)
 				if (O.client && O.client.eye == src)
 					O.unset_machine()
@@ -104,16 +109,23 @@
 	qdel(src)
 	return
 
+/obj/machinery/camera/attack_alien(mob/living/carbon/alien/humanoid/user as mob)
+	if(!istype(user))
+		return
+	user.do_attack_animation(src)
+	status = 0
+	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	icon_state = "[initial(icon_state)]1"
+	add_hiddenprint(user)
+	deactivate(user,0)
+
 /obj/machinery/camera/proc/setViewRange(var/num = 7)
 	src.view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/proc/shock(var/mob/living/user)
-	if(!istype(user))
-		return
-	user.electrocute_act(10, src)
-
 /obj/machinery/camera/attackby(W as obj, mob/living/user as mob, params)
+	invalidateCameraCache()
 	var/msg = "<span class='notice'>You attach [W] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
@@ -221,6 +233,7 @@
 
 /obj/machinery/camera/proc/deactivate(user as mob, var/choice = 1)
 	if(choice==1)
+		invalidateCameraCache()
 		status = !( src.status )
 		if (!(src.status))
 			if(user)
@@ -249,16 +262,16 @@
 			O.reset_view(null)
 			O << "The screen bursts into static."
 
-/obj/machinery/camera/proc/triggerCameraAlarm()
+/obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)
 	alarm_on = 1
-	for(var/mob/living/silicon/S in mob_list)
-		S.triggerAlarm("Camera", get_area(src), list(src), src)
-
+	camera_alarm.triggerAlarm(loc, src, duration)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
+	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
+		return
+
 	alarm_on = 0
-	for(var/mob/living/silicon/S in mob_list)
-		S.cancelAlarm("Camera", get_area(src), src)
+	camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
@@ -331,3 +344,13 @@
 		return 1
 	busy = 0
 	return 0
+
+/obj/machinery/camera/proc/nano_structure()
+	var/cam[0]
+	cam["name"] = sanitize(c_tag)
+	cam["deact"] = !can_use()
+	cam["camera"] = "\ref[src]"
+	cam["x"] = x
+	cam["y"] = y
+	cam["z"] = z
+	return cam

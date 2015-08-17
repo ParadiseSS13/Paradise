@@ -304,14 +304,18 @@
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
 
-	if(teleporter_dest)
-		for(var/obj/structure/deathsquad_tele/D in world)
-			if(D.z != src.z)	continue
-			if(D.id_tag == ident_tag)
-				D.icon_state = "tele1"
-				D.ztarget = teleporter_dest
-				D.density = 1
-
+	var/spawn_marauder[] = new()
+	for(var/obj/effect/landmark/L in world)
+		if(L.name == "Marauder Entry")
+			spawn_marauder.Add(L)
+	for(var/obj/effect/landmark/L in world)
+		if(L.name == "Marauder Exit")
+			var/obj/effect/portal/P = new(L.loc)
+			P.invisibility = 101//So it is not seen by anyone.
+			P.failchance = 0//So it has no fail chance when teleporting.
+			P.target = pick(spawn_marauder)//Where the marauder will arrive.
+			spawn_marauder.Remove(P.target)
+				
 	for(var/obj/machinery/door/poddoor/M in world)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)

@@ -11,9 +11,6 @@
 	var/path = 0
 	var/affected_area = 2
 
-	New()
-		icon_state = initial(icon_state) +"_locked"
-
 	prime()
 		..()
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)

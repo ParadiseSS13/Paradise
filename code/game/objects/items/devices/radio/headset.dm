@@ -232,6 +232,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/magistrate
 
+/obj/item/device/radio/headset/heads/magistrate/alt
+	name = "\proper magistrate's bowman headset"
+	desc = "The headset of the Magistrate. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+
 /obj/item/device/radio/headset/heads/blueshield
 	name = "blueshield's headset"
 	desc = "The headset of the Blueshield."

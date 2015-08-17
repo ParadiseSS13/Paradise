@@ -1,11 +1,5 @@
 var/global/datum/controller/gameticker/ticker
 
-#define GAME_STATE_PREGAME		1
-#define GAME_STATE_SETTING_UP	2
-#define GAME_STATE_PLAYING		3
-#define GAME_STATE_FINISHED		4
-
-
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
 	var/current_state = GAME_STATE_PREGAME
@@ -166,8 +160,8 @@ var/global/datum/controller/gameticker/ticker
 				world << "<h4>[holiday.greet()]</h4>"
 
 	spawn(0) // Forking dynamic room selection
-		var/list/area/dynamic/source/available_source_candidates = typesof(/area/dynamic/source) - /area/dynamic/source
-		var/list/area/dynamic/destination/available_destination_candidates = typesof(/area/dynamic/destination) - /area/dynamic/destination
+		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
+		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
 
 		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
 			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)
@@ -219,6 +213,7 @@ var/global/datum/controller/gameticker/ticker
 			admins_number++
 	if(admins_number == 0)
 		send2adminirc("Round has started with no admins online.")
+	auto_toggle_ooc(0) // Turn it off
 
 	/* DONE THROUGH PROCESS SCHEDULER
 	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE
@@ -250,6 +245,7 @@ var/global/datum/controller/gameticker/ticker
 	proc/station_explosion_cinematic(var/station_missed=0, var/override = null)
 		if( cinematic )	return	//already a cinematic in progress!
 
+		auto_toggle_ooc(1) // Turn it on
 		//initialise our cinematic screen object
 		cinematic = new(src)
 		cinematic.icon = 'icons/effects/station_explosion.dmi'
@@ -348,14 +344,14 @@ var/global/datum/controller/gameticker/ticker
 	proc/create_characters()
 		for(var/mob/new_player/player in player_list)
 			if(player.ready && player.mind)
-				if(player.mind.assigned_role=="AI")
+				if(player.mind.assigned_role == "AI" || player.mind.special_role == "malfunctioning AI")
 					player.close_spawn_windows()
 					player.AIize()
 				else if(!player.mind.assigned_role)
 					continue
 				else
 					player.create_character()
-					del(player)
+					qdel(player)
 
 
 	proc/collect_minds()
@@ -400,7 +396,7 @@ var/global/datum/controller/gameticker/ticker
 
 		if(!mode.explosion_in_progress && game_finished && (mode_finished || post_game))
 			current_state = GAME_STATE_FINISHED
-
+			auto_toggle_ooc(1) // Turn it on
 			spawn
 				declare_completion()
 
@@ -463,6 +459,17 @@ var/global/datum/controller/gameticker/ticker
 
 /datum/controller/gameticker/proc/declare_completion()
 
+	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	//Round statistics report
+	var/datum/station_state/end_state = new /datum/station_state()
+	end_state.count()
+	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
+
+	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero("[world.time / 600 % 60]", 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
+	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
+	world << "<BR>"
+
+	//Silicon laws report
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>"
@@ -497,6 +504,11 @@ var/global/datum/controller/gameticker/ticker
 		world << "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round."
 
 	mode.declare_completion()//To declare normal completion.
+	
+	//calls auto_declare_completion_* for all modes
+	for(var/handler in typesof(/datum/game_mode/proc))
+		if (findtext("[handler]","auto_declare_completion_"))
+			call(mode, handler)()
 
 	mode.declare_job_completion()
 

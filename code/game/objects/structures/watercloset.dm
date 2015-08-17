@@ -331,7 +331,6 @@
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
 	attack_verb = list("quacked", "squeaked")
-	hitsound = 'sound/items/squeaktoy.ogg'
 	honk_sound = 'sound/items/squeaktoy.ogg' //credit to DANMITCH3LL of freesound for this
 
 
