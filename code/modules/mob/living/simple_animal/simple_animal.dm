@@ -110,7 +110,7 @@
 		
 	if(resting && icon_resting && stat != DEAD)
 		icon_state = icon_resting
-	else if(stat != DEAD)
+	else if(icon_resting && stat != DEAD)
 		icon_state = icon_living
 
 	if(sleeping)
