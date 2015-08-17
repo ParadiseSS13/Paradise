@@ -221,6 +221,14 @@
 	icon_state = ""
 	mineral = "plasma"
 	walltype = "plasma"
+	
+/obj/structure/falsewall/plasma/attackby(obj/item/weapon/W, mob/user, params)
+	if(is_hot(W) > 300)
+		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma falsewall ignited by [key_name(user)] in ([x],[y],[z])")
+		burnbabyburn()
+		return
+	..()
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/Welder.ogg', 100, 1)

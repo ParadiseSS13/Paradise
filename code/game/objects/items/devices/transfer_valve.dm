@@ -51,7 +51,7 @@
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 
 		bombers += "[key_name(user)] attached a [item] to a transfer valve."
-		msg_admin_attack("[key_name_admin(user)][isAntag(user) ? "(ANTAG)" : ""] attached [item] to a transfer valve.")
+		msg_admin_attack("[key_name_admin(user)]attached [item] to a transfer valve.")
 		log_game("[key_name_admin(user)] attached [item] to a transfer valve.")
 		attacher = user
 		nanomanager.update_uis(src) // update all UIs attached to src
@@ -179,23 +179,13 @@
 		if(!attacher)
 			attacher_name = "Unknown"
 		else
-			attacher_name = "[attacher.name]([attacher.ckey])"
-
-		var/log_str = "Bomb valve opened in <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name]</a> "
-		log_str += "with [attached_device ? attached_device : "no device"] attacher: [attacher_name]"
-
-		if(attacher)
-			log_str += "(<A HREF='?_src_=holder;adminmoreinfo=\ref[attacher]'>?</A>)"
+			attacher_name = "[key_name_admin(attacher)]"
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
-		var/last_touch_info = ""
-		if(mob)
-			last_touch_info = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[mob]'>?</A>)"
-
-		log_str += " Last touched by: [src.fingerprintslast][last_touch_info]"
-		bombers += log_str
-		msg_admin_attack(log_str, 0, 1)
-		log_game(log_str)
+		
+		bombers += "Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]"
+		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
+		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for (var/i=0,i<5,i++)

@@ -1,6 +1,6 @@
 /datum/preferences/proc/load_preferences(client/C)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT ooccolor,UI_style,UI_style_color,UI_style_alpha,be_special,default_slot,toggles,sound,randomslot,volume FROM erro_player WHERE ckey='[C.ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT ooccolor,UI_style,UI_style_color,UI_style_alpha,be_special,default_slot,toggles,sound,randomslot,volume FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during loading player preferences. Error : \[[err]\]\n")
@@ -37,7 +37,7 @@
 
 /datum/preferences/proc/save_preferences(client/C)
 
-	var/DBQuery/query = dbcon.NewQuery("UPDATE erro_player SET ooccolor='[ooccolor]',UI_style='[UI_style]',UI_style_color='[UI_style_color]',UI_style_alpha='[UI_style_alpha]',be_special='[be_special]',default_slot='[default_slot]',toggles='[toggles]',sound='[sound]',randomslot='[randomslot]',volume='[volume]' WHERE ckey='[C.ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET ooccolor='[ooccolor]',UI_style='[UI_style]',UI_style_color='[UI_style_color]',UI_style_alpha='[UI_style_alpha]',be_special='[be_special]',default_slot='[default_slot]',toggles='[toggles]',sound='[sound]',randomslot='[randomslot]',volume='[volume]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
@@ -51,7 +51,7 @@
 	slot = sanitize_integer(slot, 1, MAX_SAVE_SLOTS, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
-		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE erro_player SET default_slot=[slot] WHERE ckey='[C.ckey]'")
+		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE [format_table_name("player")] SET default_slot=[slot] WHERE ckey='[C.ckey]'")
 		firstquery.Execute()
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM characters WHERE ckey='[C.ckey]' AND slot='[slot]'")

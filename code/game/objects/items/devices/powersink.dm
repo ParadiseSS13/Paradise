@@ -42,6 +42,8 @@
 					anchored = 1
 					mode = 1
 					src.visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
+					message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
 					return
 			else
 				user << "Device must be placed over an exposed cable to attach to it."
