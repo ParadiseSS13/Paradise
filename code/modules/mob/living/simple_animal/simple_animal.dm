@@ -50,7 +50,7 @@
 	var/max_co2 = 5
 	var/min_n2 = 0
 	var/max_n2 = 0
-	var/unsuitable_atoms_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
+	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
@@ -218,7 +218,7 @@
 		fire_alert = 0
 
 	if(!atmos_suitable)
-		adjustBruteLoss(unsuitable_atoms_damage)
+		adjustBruteLoss(unsuitable_atmos_damage)
 	return 1
 
 /mob/living/simple_animal/Bumped(AM as mob|obj)
