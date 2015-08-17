@@ -867,7 +867,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 /proc/hasvar(var/datum/A, var/varname)
 	if(A.vars.Find(lowertext(varname))) return 1
 	else return 0
-
+	
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
@@ -877,8 +877,8 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 //Returns: all the areas in the world, sorted.
 /proc/return_sorted_areas()
-	return sortAtom(return_areas())
-
+	return sortAtom(return_areas())	
+	
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all areas of that type in the world.
 /proc/get_areas(var/areatype)

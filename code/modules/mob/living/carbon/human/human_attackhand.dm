@@ -115,7 +115,7 @@
 						//we're good to suck the blood, blaah
 						M.handle_bloodsucking(src)
 						add_logs(src, M, "vampirebit")
-						message_admins("[M.name] ([M.ckey]) vampirebit [src.name] ([src.ckey])")
+						msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 						return
 				//end vampire codes
 

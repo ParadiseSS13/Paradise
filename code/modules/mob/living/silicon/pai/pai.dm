@@ -522,3 +522,10 @@
 // No binary for pAIs.
 /mob/living/silicon/pai/binarycheck()
 	return 0
+	
+/mob/living/silicon/pai/on_forcemove(atom/newloc)
+	if(card)
+		card.loc = newloc
+	else //something went very wrong.
+		CRASH("pAI without card")
+	loc = card

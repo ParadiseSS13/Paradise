@@ -444,7 +444,7 @@ var/list/admin_verbs_mentor = list(
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
-	message_admins("<span class='adminnotice'>[ckey] creating an admin explosion at [epicenter.loc].</span>")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] creating an admin explosion at [epicenter.loc].</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_spell(mob/T as mob in mob_list) // -- Urist
@@ -569,8 +569,8 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 
 	if(holder)
-		log_admin("[src] deadmined themself.")
-		message_admins("[src] deadmined themself.")
+		log_admin("[key_name(usr)] deadmined themself.")
+		message_admins("[key_name_admin(usr)] deadmined themself.")
 		deadmin()
 		verbs += /client/proc/readmin
 		deadmins += ckey
@@ -614,8 +614,8 @@ var/list/admin_verbs_mentor = list(
 		D = new(rank,admin_ranks[rank],ckey)
 		var/client/C = directory[ckey]
 		D.associate(C)
-		message_admins("[src] re-adminned themselves.")
-		log_admin("[src] re-adminned themselves.")
+		message_admins("[key_name_admin(usr)] re-adminned themselves.")
+		log_admin("[key_name(usr)] re-adminned themselves.")
 		deadmins -= ckey
 		feedback_add_details("admin_verb","RAS")
 		return

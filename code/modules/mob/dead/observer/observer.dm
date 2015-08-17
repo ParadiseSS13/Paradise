@@ -330,9 +330,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Teleport"
 	set desc= "Teleport to a location"
-	if(!istype(usr, /mob/dead/observer))
+	
+	if(!isobserver(usr))
 		usr << "Not when you're not dead!"
 		return
+		
 	usr.verbs -= /mob/dead/observer/proc/dead_tele
 	spawn(30)
 		usr.verbs += /mob/dead/observer/proc/dead_tele
@@ -348,7 +350,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!L || !L.len)
 		usr << "No area available."
 
-	usr.loc = pick(L)
+	usr.forceMove(pick(L))
 
 /mob/dead/observer/verb/follow()
 	set category = "Ghost"

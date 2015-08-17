@@ -27,7 +27,8 @@
 		if( findtext(memo,"<script",1,0) )
 			return
 		F[ckey] << "[key] on [time2text(world.realtime,"(DDD) DD MMM hh:mm")]<br>[memo]"
-		message_admins("[key] set an admin memo:<br>[memo]")
+		log_admin("[key_name(usr)] set an admin memo:<br>[memo]")
+		message_admins("[key_name_admin(usr)] set an admin memo:<br>[memo]")
 
 //show all memos
 /client/proc/admin_memo_show()

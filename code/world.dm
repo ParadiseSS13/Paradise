@@ -67,6 +67,9 @@ var/global/datum/global_init/init = new ()
 
 		master_controller.setup()
 
+	process_teleport_locs()			//Sets up the wizard teleport locations
+	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
+
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
 	#else
@@ -265,13 +268,13 @@ var/world_topic_spam_protect_time = world.timeofday
 					sleep(600)
 					if(!C.client && C.stat != DEAD && C.brain_op_stage!=4.0)
 						job_master.FreeRole(C.job)
-						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
+						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client disconnect for 10 minutes</b></font>)\n")
 						for(var/obj/item/W in C)
 							C.unEquip(W)
 						del(C)
 					else if(!C.key && C.stat != DEAD && C.brain_op_stage!=4.0)
 						job_master.FreeRole(C.job)
-						message_admins("<b>[C.name]</b> ([C.ckey]), the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
+						message_admins("[key_name_admin(C)], the [C.job] has been freed due to (<font color='#ffcc00'><b>Client quit BYOND</b></font>)\n")
 						for(var/obj/item/W in C)
 							C.unEquip(W)
 						del(C)

@@ -428,9 +428,9 @@ datum/game_mode/nations
 			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
 			return 1
 		else
-			message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
+			message_admins("[key_name_admin(H)] with [H.mind.assigned_role] could not find any nation to assign!")
 			return 1
-	message_admins("[H.name] latejoined with no mind.")
+	message_admins("[key_name_admin(H)] latejoined with no mind.")
 	return 1
 
 /proc/get_nations_mode()
