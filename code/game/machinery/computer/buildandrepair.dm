@@ -3,7 +3,7 @@
 /obj/structure/computerframe
 	density = 1
 	anchored = 0
-	name = "Computer-frame"
+	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "0"
 	var/state = 0
@@ -14,7 +14,7 @@
 	density = 0
 	anchored = 0
 	w_class = 2.0
-	name = "Circuit board"
+	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
 	item_state = "electronic"
