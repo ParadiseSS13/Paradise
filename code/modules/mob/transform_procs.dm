@@ -121,8 +121,9 @@
 	O.add_ai_verbs()
 
 	O.rename_self("ai",1)
-	. = O
-	qdel(src)
+	spawn
+		qdel(src)
+	return O
 
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
