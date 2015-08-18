@@ -175,9 +175,9 @@
 					if(!affected)
 						user << "<span class='danger'>\The [H] is missing that limb!</span>"
 						return
-					else if(affected.status & ORGAN_ROBOT)
+					/* else if(affected.status & ORGAN_ROBOT)
 						user << "<span class='danger'>You cannot inject a robotic limb.</span>"
-						return
+						return */
 
 				if(ismob(target) && target != user)
 					var/time = 30 //Injecting through a hardsuit takes longer due to needing to find a port.
