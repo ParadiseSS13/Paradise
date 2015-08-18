@@ -60,7 +60,7 @@
 			frequency = sanitize_frequency(frequency, maxf)
 	// The max freq is higher than a regular headset to decrease the chance of people listening in, if you use the higher channels.
 	else if (frequency < 1441 || frequency > maxf)
-		//world.log << "[src] ([type]) has a frequency of [frequency], sanitizing."
+		//log_to_dd("[src] ([type]) has a frequency of [frequency], sanitizing.")
 		frequency = sanitize_frequency(frequency, maxf)
 
 	set_frequency(frequency)

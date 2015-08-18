@@ -416,15 +416,15 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				if(t_mind.current.client)
 					for(var/image/I in t_mind.current.client.images)
 						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//world.log << "deleting [vampire_mind] overlay"
+							//log_to_dd("deleting [vampire_mind] overlay")
 							qdel(I)
 		if(head)
-			//world.log << "found [head.name]"
+			//log_to_dd("found [head.name]")
 			if(head.current)
 				if(head.current.client)
 					for(var/image/I in head.current.client.images)
 						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//world.log << "deleting [vampire_mind] overlay"
+							//log_to_dd("deleting [vampire_mind] overlay")
 							qdel(I)
 	if(vampire_mind.current)
 		if(vampire_mind.current.client)

@@ -750,7 +750,7 @@
 		return
 
 	var/list/data = list(
-		"locked" = locked,
+		"locked" = is_locked(user),
 		"isOperating" = operating,
 		"externalPower" = main_status,
 		"powerCellStatus" = cell ? cell.percent() : null,
@@ -799,7 +799,7 @@
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new one
-		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 500, data["siliconUser"] ? 465 : 390)
+		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 510, data["siliconUser"] ? 465 : 390)
 		// When the UI is first opened this is the data it will use
 		ui.set_initial_data(data)
 		ui.open()
@@ -834,25 +834,9 @@
 
 
 /obj/machinery/power/apc/proc/can_use(mob/user as mob, var/loud = 0) //used by attack_hand() and Topic()
-	if (user.stat && !isobserver(user))
-		user << "<span class='warning'>You must be conscious to use this [src]!</span>"
-		return 0
-	if(stat & (NOPOWER|BROKEN))
-		return 0
-	if(!user.client)
-		return 0
-	if(!user.IsAdvancedToolUser())
-		return 0
-	if ( ! (istype(user, /mob/living/carbon/human) || \
-			istype(user, /mob/living/silicon)))
-		user << "<span class='warning'>You don't have the dexterity to use this [src]!</span>"
-		return 0
-	if(user.restrained())
-		user << "<span class='warning'>You must have free hands to use this [src]</span>"
-		return 0
-	if(user.lying)
-		user << "<span class='warning'>You must stand to use this [src]!</span>"
-		return 0
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
+
 	autoflag = 5
 	if (istype(user, /mob/living/silicon))
 		var/mob/living/silicon/ai/AI = user
@@ -886,10 +870,20 @@
 	return 1
 
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
 	if(isAI(user) || isrobot(user))
 		return 1
 	else
 		return !locked
+		
+/obj/machinery/power/apc/proc/is_locked(mob/user as mob)
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 0
+	if(isAI(user) || isrobot(user))
+		return 0
+	else
+		return locked
 
 /obj/machinery/power/apc/Topic(href, href_list, var/usingUI = 1)
 	if(..())

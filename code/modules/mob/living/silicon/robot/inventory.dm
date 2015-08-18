@@ -12,6 +12,7 @@
 	if(!O)
 		return 0
 
+	O.mouse_opacity = 2	
 	if(istype(O,/obj/item/borg/sight))
 		var/obj/item/borg/sight/S = O
 		sight_mode &= ~S.sight_mode
@@ -44,6 +45,7 @@
 		src << "Already activated"
 		return
 	if(!module_state_1)
+		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O
 		O.layer = 20
 		O.screen_loc = inv1.screen_loc
@@ -51,6 +53,7 @@
 		if(istype(module_state_1,/obj/item/borg/sight))
 			sight_mode |= module_state_1:sight_mode
 	else if(!module_state_2)
+		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
 		O.layer = 20
 		O.screen_loc = inv2.screen_loc
@@ -58,6 +61,7 @@
 		if(istype(module_state_2,/obj/item/borg/sight))
 			sight_mode |= module_state_2:sight_mode
 	else if(!module_state_3)
+		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
 		O.layer = 20
 		O.screen_loc = inv3.screen_loc

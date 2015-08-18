@@ -360,9 +360,9 @@
 		if(istype(thrower, /atom))
 			var/atom/A = thrower
 			ptext += " ([A]) ([A.x],[A.y],[A.z])"
-	world.log << "\[[time_stamp()]\] Process [name] caught exception[ptext]: [etext]"
+	log_to_dd("\[[time_stamp()]\] Process [name] caught exception[ptext]: [etext]")
 	if(exceptions[eid] >= 10)
-		world.log << "This exception will now be ignored for ten minutes."
+		log_to_dd("This exception will now be ignored for ten minutes.")
 		spawn(6000)
 			exceptions[eid] = 0
 

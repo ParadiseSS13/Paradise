@@ -96,7 +96,7 @@
 		sleep(150)
 		command_announcement.Announce("Gr3y.T1d3 virus detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
 	else
-		world.log << "ERROR: Could not initate grey-tide virus. Unable find prison or brig area."
+		log_to_dd("ERROR: Could not initate grey-tide virus. Unable find prison or brig area.")
 
 /proc/carp_migration() // -- Darem
 	for(var/obj/effect/landmark/C in landmarks_list)

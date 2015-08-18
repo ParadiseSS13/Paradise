@@ -4,32 +4,16 @@
 //////////////////////////
 
 /proc/makeDatumRefLists()
+	//hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
+	//facial hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
+	//underwear
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	//undershirt
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+
 	var/list/paths
-
-	//Hair - Initialise all /datum/sprite_accessory/hair into an list indexed by hair-style name
-	paths = subtypesof(/datum/sprite_accessory/hair)
-	for(var/path in paths)
-		var/datum/sprite_accessory/hair/H = new path()
-		hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	hair_styles_male_list += H.name
-			if(FEMALE)	hair_styles_female_list += H.name
-			else
-				hair_styles_male_list += H.name
-				hair_styles_female_list += H.name
-
-	//Facial Hair - Initialise all /datum/sprite_accessory/facial_hair into an list indexed by facialhair-style name
-	paths = subtypesof(/datum/sprite_accessory/facial_hair)
-	for(var/path in paths)
-		var/datum/sprite_accessory/facial_hair/H = new path()
-		facial_hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	facial_hair_styles_male_list += H.name
-			if(FEMALE)	facial_hair_styles_female_list += H.name
-			else
-				facial_hair_styles_male_list += H.name
-				facial_hair_styles_female_list += H.name
-
 	//Surgery Steps - Initialize all /datum/surgery_step into a list
 	paths = subtypesof(/datum/surgery_step)
 	for(var/T in paths)

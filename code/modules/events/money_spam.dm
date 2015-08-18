@@ -104,10 +104,7 @@
 			//Commented out because we don't send messages like this anymore.  Instead it will just popup in their chat window.
 			//P.tnote += "<i><b>&larr; From [sender] (Unknown / spam?):</b></i><br>[message]<br>"
 
-			if (!P.silent)
-				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-			for (var/mob/O in hearers(3, P.loc))
-				if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+			P.play_ringtone()
 			//Search for holder of the PDA.
 			var/mob/living/L = null
 			if(P.loc && isliving(P.loc))

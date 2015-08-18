@@ -25,7 +25,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 			<div class="statusLabel">Pressure:</div>
 			{{:helper.string("<div class='statusValue {0}'>{1} kPa</div>",helper.dangerToClass(data.air.danger.pressure),helper.precisionRound(data.air.pressure,4))}}
 			<div class="statusValue" style="margin-left:5px;">
-			{{if !data.locked || (data.remote_connection && data.remote_access)}}
+			{{if !data.locked}}
 				{{if data.mode == 3}}
 					{{:helper.link("DEACTIVATE PANIC SYPHON",null,{"mode" : 1},null,'linkOn')}}
 				{{else}}
@@ -80,7 +80,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 			{{else}}
 				<div class="notice">DANGER: Internals Required</div>
 			{{/if}}
-			{{if !data.locked || (data.remote_connection && data.remote_access)}}
+			{{if !data.locked}}
 				{{if data.alarmActivated}}
 					{{:helper.link('Reset Alarm',null,{'atmos_reset':1},null,'linkOn')}}
 				{{else}}
@@ -107,7 +107,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 	</div>
 {{/if}}
 
-{{if data.locked && !data.remote_connection && !data.remote_access}}
+{{if data.locked}}
 	<div class="notice">Swipe card to unlock.</div>
 {{else}}
 	<div class="notice">Remember to lock with ID card after use.</div>

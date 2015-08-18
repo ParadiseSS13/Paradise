@@ -11,7 +11,7 @@
 	var/datum/vampire/vampire = src.mind.vampire
 
 	if(!vampire)
-		world.log << "[src] has vampire verbs but isn't a vampire."
+		log_to_dd("[src] has vampire verbs but isn't a vampire.")
 		return 0
 
 	var/fullpower = (VAMP_FULL in vampire.powers)
@@ -198,7 +198,8 @@
 	if(M.current.vampire_power(50, 0))
 		M.current.visible_message("<span class='warning'>[M.current.name] transforms!</span>")
 		M.current.client.prefs.real_name = M.current.generate_name() //random_name(M.current.gender)
-		M.current.client.prefs.randomize_appearance_for(M.current)
+		M.current.client.prefs.random_character()
+		M.current.client.prefs.copy_to(M.current)
 		M.current.regenerate_icons()
 		M.current.remove_vampire_blood(50)
 		M.current.verbs -= /client/vampire/proc/vampire_shapeshift
@@ -300,7 +301,7 @@
 			enthrall_safe = 1
 			break
 	if(!C)
-		world.log << "something bad happened on enthralling a mob src is [src] [src.key] \ref[src]"
+		log_to_dd("something bad happened on enthralling a mob src is [src] [src.key] \ref[src]")
 		return 0
 	if(!C.mind)
 		src << "\red [C.name]'s mind is not there for you to enthrall."

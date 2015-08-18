@@ -66,7 +66,7 @@
 		interpreter.SetVar("$science",	1351)
 		interpreter.SetVar("$command",	1353)
 		interpreter.SetVar("$medical",	1355)
-		interpreter.SetVar("$engineering",1357)
+		interpreter.SetVar("$engineering", 1357)
 		interpreter.SetVar("$security",	1359)
 		interpreter.SetVar("$supply",	1347)
 		interpreter.SetVar("$service",	1349)
@@ -79,6 +79,12 @@
 		interpreter.SetVar("$job"    , 	signal.data["job"])
 		interpreter.SetVar("$sign"   ,	signal)
 		interpreter.SetVar("$pass"	 ,  !(signal.data["reject"])) // if the signal isn't rejected, pass = 1; if the signal IS rejected, pass = 0
+		
+		var/datum/language/speaking = signal.data["language"]
+		if(speaking)
+			interpreter.SetVar("$language", speaking.name)
+		else
+			interpreter.SetVar("$language", "Unknown")
 
 		// Set up the script procs
 
@@ -102,49 +108,9 @@
 		*/
 		interpreter.SetProc("mem", "mem", signal, list("address", "value"))
 
-		/*
-			-> Delay code for a given amount of deciseconds
-					@format: sleep(time)
-
-					@param time: 		time to sleep in deciseconds (1/10th second)
-		*/
-		interpreter.SetProc("sleep", /proc/delay)
-
-		/*
-			-> Replaces a string with another string
-					@format: replace(string, substring, replacestring)
-
-					@param string: 			the string to search for substrings (best used with $content$ constant)
-					@param substring: 		the substring to search for
-					@param replacestring: 	the string to replace the substring with
-
-		*/
-		interpreter.SetProc("replace", /proc/string_replacetext)
-
-		/*
-			-> Locates an element/substring inside of a list or string
-					@format: find(haystack, needle, start = 1, end = 0)
-
-					@param haystack:	the container to search
-					@param needle:		the element to search for
-					@param start:		the position to start in
-					@param end:			the position to end in
-
-		*/
-		interpreter.SetProc("find", /proc/smartfind)
-
-		/*
-			-> Finds the length of a string or list
-					@format: length(container)
-
-					@param container: the list or container to measure
-
-		*/
-		interpreter.SetProc("length", /proc/smartlength)
-
 		/* -- Clone functions, carried from default BYOND procs --- */
-
-		// vector namespace
+		
+		// Vector
 		interpreter.SetProc("vector", /proc/n_list)
 		interpreter.SetProc("at", /proc/n_listpos)
 		interpreter.SetProc("copy", /proc/n_listcopy)
@@ -153,19 +119,22 @@
 		interpreter.SetProc("cut", /proc/n_listcut)
 		interpreter.SetProc("swap", /proc/n_listswap)
 		interpreter.SetProc("insert", /proc/n_listinsert)
-
 		interpreter.SetProc("pick", /proc/n_pick)
-		interpreter.SetProc("prob", /proc/prob_chance)
-		interpreter.SetProc("substr", /proc/docopytext)
+		interpreter.SetProc("prob", /proc/n_prob)
+		interpreter.SetProc("substr", /proc/n_substr)
+		interpreter.SetProc("find", /proc/n_smartfind)
+		interpreter.SetProc("length", /proc/n_smartlength)
 
-		// Donkie~
 		// Strings
 		interpreter.SetProc("lower", /proc/n_lower)
 		interpreter.SetProc("upper", /proc/n_upper)
-		interpreter.SetProc("explode", /proc/string_explode)
+		interpreter.SetProc("explode", /proc/n_explode)
+		interpreter.SetProc("implode", /proc/n_implode)
 		interpreter.SetProc("repeat", /proc/n_repeat)
 		interpreter.SetProc("reverse", /proc/n_reverse)
 		interpreter.SetProc("tonum", /proc/n_str2num)
+		interpreter.SetProc("replace", /proc/n_replace)
+		interpreter.SetProc("proper", /proc/n_proper)
 
 		// Numbers
 		interpreter.SetProc("tostring", /proc/n_num2str)
@@ -176,8 +145,20 @@
 		interpreter.SetProc("round", /proc/n_round)
 		interpreter.SetProc("clamp", /proc/n_clamp)
 		interpreter.SetProc("inrange", /proc/n_inrange)
-		// End of Donkie~
+		interpreter.SetProc("rand", /proc/n_rand)
+		interpreter.SetProc("randseed", /proc/n_randseed)
+		interpreter.SetProc("min", /proc/n_min)
+		interpreter.SetProc("max", /proc/n_max)
+		interpreter.SetProc("sin", /proc/n_sin)
+		interpreter.SetProc("cos", /proc/n_cos)
+		interpreter.SetProc("asin", /proc/n_asin)
+		interpreter.SetProc("acos", /proc/n_acos)
+		interpreter.SetProc("log", /proc/n_log)
 
+		// Time
+		interpreter.SetProc("time", /proc/n_time)
+		interpreter.SetProc("sleep", /proc/n_delay)
+		interpreter.SetProc("timestamp", /proc/gameTimestamp)
 
 		// Run the compiled code
 		interpreter.Run()

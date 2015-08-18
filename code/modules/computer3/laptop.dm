@@ -49,10 +49,10 @@
 		if(!stored_computer)
 			if(contents.len)
 				for(var/obj/O in contents)
-					O.loc = loc
+					O.forceMove(loc)
 			usr << "\The [src] crumbles to pieces."
 			spawn(5)
-				qdel(src)
+				qdel(src) 
 			return
 
 		if(!stored_computer.manipulating)
@@ -65,7 +65,7 @@
 
 			spawn(5)
 				stored_computer.manipulating = 0
-				qdel(src)
+				qdel(src) 
 		else
 			usr << "\red You are already opening the computer!"
 
@@ -73,6 +73,9 @@
 	AltClick()
 		if(Adjacent(usr))
 			open_computer()
+		
+	Destroy()
+		return QDEL_HINT_HARDDEL_NOW // Warning: GC'ing will cause the laptop to vanish when it next closes
 
 //Quickfix until Snapshot works out how he wants to redo power. ~Z
 /obj/item/device/laptop/verb/eject_id()
@@ -150,12 +153,12 @@
 			return
 
 		if(!portable)
-			portable=new
+			portable = new
 			portable.stored_computer = src
 
 		if(!manipulating)
-			portable.loc = loc
-			loc = portable
+			portable.forceMove(loc)
+			forceMove(portable)
 			stat |= MAINT
 			usr << "You close \the [src]."
 

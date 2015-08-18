@@ -433,14 +433,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		new_character.gender = pick(MALE,FEMALE)
 		var/datum/preferences/A = new()
-		A.randomize_appearance_for(new_character)
-		new_character.real_name = G_found.real_name
+		A.real_name = G_found.real_name
+		A.copy_to(new_character)
 
 	if(!new_character.real_name)
-		if(new_character.gender == MALE)
-			new_character.real_name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
-		else
-			new_character.real_name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+		new_character.real_name = random_name(new_character.gender)
 	new_character.name = new_character.real_name
 
 	if(G_found.mind && !G_found.mind.active)
@@ -911,10 +908,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		choice = input("The shuttle will not be able to leave if you call it. Call anyway?") in list("Confirm", "Cancel")
 		if(choice != "Confirm")
 			return
+			
+	
 
 	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")
 	if (choice == "Emergency")
-		emergency_shuttle.call_evac()
+		var/reason = input(usr, "Optional: Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+		emergency_shuttle.call_evac(reason)
 	else
 		emergency_shuttle.call_transfer()
 

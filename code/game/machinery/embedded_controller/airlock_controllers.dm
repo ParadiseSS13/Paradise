@@ -45,7 +45,7 @@
 
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)

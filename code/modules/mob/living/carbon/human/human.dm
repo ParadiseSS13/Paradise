@@ -431,12 +431,10 @@
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)	
-	if(!istype(M))
-		return 0
-	for(var/L in M.contents)
+/mob/living/carbon/human/proc/is_loyalty_implanted()	
+	for(var/L in contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/obj/item/organ/external/O in M.organs)
+			for(var/obj/item/organ/external/O in organs)
 				if(L in O.implants)
 					return 1
 	return 0
@@ -696,6 +694,12 @@
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
@@ -722,16 +726,19 @@
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
-
-
-
+					
 			else if(!pickpocket)
 				// Display a warning if the user mocks up
 				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
-
 		// if looting id with gloves, do it quietly - this allows pickpocket gloves to take/place id stealthily - Bone White
 		if(href_list["item"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+				
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return				
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
 				if(pickpocket)
@@ -763,9 +770,6 @@
 					else if(!pickpocket)
 						// Display a warning if the user mocks up
 						src << "<span class='warning'>You feel your ID slot being fumbled with!</span>"
-
-
-
 
 	if (href_list["refresh"])
 		if((machine)&&(in_range(src, usr)))

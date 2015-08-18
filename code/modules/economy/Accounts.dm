@@ -3,7 +3,7 @@ var/global/num_financial_terminals = 1
 var/global/datum/money_account/station_account
 var/global/list/datum/money_account/department_accounts = list()
 var/global/next_account_number = 0
-var/global/obj/machinery/account_database/centcomm_account_db
+var/global/obj/machinery/computer/account_database/centcomm_account_db
 var/global/datum/money_account/vendor_account
 var/global/list/all_money_accounts = list()
 
@@ -57,7 +57,7 @@ var/global/list/all_money_accounts = list()
 //the current ingame time (hh:mm) can be obtained by calling:
 //worldtime2text()
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/account_database/source_db)
+/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
 
 	//create a new account
 	var/datum/money_account/M = new()
@@ -336,7 +336,7 @@ var/global/list/all_money_accounts = list()
 
 	src.attack_hand(usr)
 */
-/obj/machinery/account_database/proc/charge_to_account(var/attempt_account_number, var/source_name, var/purpose, var/terminal_id, var/amount)
+/obj/machinery/computer/account_database/proc/charge_to_account(var/attempt_account_number, var/source_name, var/purpose, var/terminal_id, var/amount)
 	if(!activated)
 		return 0
 	for(var/datum/money_account/D in all_money_accounts)
@@ -367,7 +367,7 @@ var/global/list/all_money_accounts = list()
 			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
 				return D
 
-/obj/machinery/account_database/proc/get_account(var/account_number)
+/obj/machinery/computer/account_database/proc/get_account(var/account_number)
 	for(var/datum/money_account/D in all_money_accounts)
 		if(D.account_number == account_number)
 			return D

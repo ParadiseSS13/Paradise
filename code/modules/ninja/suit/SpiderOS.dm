@@ -216,10 +216,17 @@
 				display_to << "<span class='danger'>Error: unable to deliver message.</span>"
 				display_spideros()
 				return
-			P.tnote += "<i><b>&larr; From an unknown source:</b></i><br>[t]<br>"
-			if (!P.silent)
-				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-				P.audible_message("\icon[P] *[P.ttone]*", null, 3)
+			//Search for holder of the PDA.
+			var/mob/living/L = null
+			if(P.loc && isliving(P.loc))
+				L = P.loc
+			//Maybe they are a pAI!
+			else
+				L = get(P, /mob/living/silicon)
+
+			if(L)
+				L << "\icon[P] <b>Message from unknown source: </b>\"[t]\" (Unable to Reply)"
+			P.play_ringtone()
 			P.overlays.Cut()
 			P.overlays += image('icons/obj/pda.dmi', "pda-r")
 

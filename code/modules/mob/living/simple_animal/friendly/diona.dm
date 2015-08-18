@@ -3,57 +3,73 @@
 */
 
 //Mob defines.
-/mob/living/carbon/primitive/diona
+/mob/living/simple_animal/diona
 	name = "diona nymph"
-	voice_name = "diona nymph"
-	speak_emote = list("chirrups")
 	icon = 'icons/mob/monkey.dmi'
-	icon_state = "nymph1"
+	icon_state = "nymph"
+	icon_living = "nymph"
+	icon_dead = "nymph_dead"
+	icon_resting = "nymph_sleep"
+	pass_flags = PASSTABLE
+	small = 1
+	ventcrawler = 2
+	
+	maxHealth = 50
+	health = 50	
+	
+	voice_name = "diona nymph"
+	speak_emote = list("chirrups")	
+	emote_hear = list("chirrups")
+	emote_see = list("chirrups")
+	
+	response_help  = "pets"
+	response_disarm = "pushes"
+	response_harm   = "kicks"
+	
+	melee_damage_lower = 5
+	melee_damage_upper = 8
+	attacktext = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+
+	speed = 0
+	stop_automated_movement = 0
+	turns_per_move = 4
+	status_flags = 0
+	
 	var/list/donors = list()
 	var/ready_evolve = 0
-	ventcrawler = 1
-	var/environment_smash = 0 // This is a sloppy way to solve attack_animal runtimes. Stupid nymphs...
 	holder_type = /obj/item/weapon/holder/diona
 
-/mob/living/carbon/primitive/diona/New()
-
+/mob/living/simple_animal/diona/New()
 	..()
-	gender = NEUTER
-	//greaterform = "Diona"
+	if(name == initial(name)) //To stop Pun-Pun becoming generic.
+		name = "[name] ([rand(1, 1000)])"
+		real_name = name
+		
 	add_language("Rootspeak")
+	src.verbs += /mob/living/simple_animal/diona/proc/merge
 
-/mob/living/carbon/primitive/diona/attack_hand(mob/living/carbon/human/M as mob)
-
+/mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M as mob)
 	//Let people pick the little buggers up.
 	if(M.a_intent == "help")
 		if(M.species && M.species.name == "Diona")
 			M << "You feel your being twine with that of [src] as it merges with your biomass."
 			src << "You feel your being twine with that of [M] as you merge with its biomass."
-			src.verbs += /mob/living/carbon/primitive/diona/proc/split
-			src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
+			src.verbs += /mob/living/simple_animal/diona/proc/split
+			src.verbs -= /mob/living/simple_animal/diona/proc/merge
 			src.forceMove(M)
 		else
 			get_scooped(M)
 
 	..()
 
-/mob/living/carbon/primitive/diona/New()
-
-	..()
-	gender = NEUTER
-	//greaterform = "Diona"
-	add_language("Rootspeak")
-	src.verbs += /mob/living/carbon/primitive/diona/proc/merge
-
-
-/mob/living/carbon/primitive/diona/proc/merge()
-
+/mob/living/simple_animal/diona/proc/merge()
 	set category = "Diona"
 	set name = "Merge with gestalt"
 	set desc = "Merge with another diona."
 
 	if(istype(src.loc,/mob/living/carbon))
-		src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
+		src.verbs -= /mob/living/simple_animal/diona/proc/merge
 		return
 
 	var/list/choices = list()
@@ -76,19 +92,18 @@
 
 		src << "You feel your being twine with that of [M] as you merge with its biomass."
 		src.loc = M
-		src.verbs += /mob/living/carbon/primitive/diona/proc/split
-		src.verbs -= /mob/living/carbon/primitive/diona/proc/merge
+		src.verbs += /mob/living/simple_animal/diona/proc/split
+		src.verbs -= /mob/living/simple_animal/diona/proc/merge
 	else
 		return
 
-/mob/living/carbon/primitive/diona/proc/split()
-
+/mob/living/simple_animal/diona/proc/split()
 	set category = "Diona"
 	set name = "Split from gestalt"
 	set desc = "Split away from your gestalt as a lone nymph."
 
 	if(!(istype(src.loc,/mob/living/carbon)))
-		src.verbs -= /mob/living/carbon/primitive/diona/proc/split
+		src.verbs -= /mob/living/simple_animal/diona/proc/split
 		return
 
 	src.loc << "You feel a pang of loss as [src] splits away from your biomass."
@@ -97,8 +112,8 @@
 	var/mob/living/M = src.loc
 
 	src.loc = get_turf(src)
-	src.verbs -= /mob/living/carbon/primitive/diona/proc/split
-	src.verbs += /mob/living/carbon/primitive/diona/proc/merge
+	src.verbs -= /mob/living/simple_animal/diona/proc/split
+	src.verbs += /mob/living/simple_animal/diona/proc/merge
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -106,8 +121,7 @@
 				return
 	M.status_flags &= ~PASSEMOTES
 
-/mob/living/carbon/primitive/diona/verb/fertilize_plant()
-
+/mob/living/simple_animal/diona/verb/fertilize_plant()
 	set category = "Diona"
 	set name = "Fertilize plant"
 	set desc = "Turn your food into nutrients for plants."
@@ -123,10 +137,9 @@
 
 	src.nutrition -= ((10-target.nutrilevel)*5)
 	target.nutrilevel = 10
-	src.visible_message("\red [src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.")
+	src.visible_message("<span class='danger'>[src] secretes a trickle of green liquid from its tail, refilling [target]'s nutrient tray.","\red You secrete a trickle of green liquid from your tail, refilling [target]'s nutrient tray.</span>")
 
-/mob/living/carbon/primitive/diona/verb/eat_weeds()
-
+/mob/living/simple_animal/diona/verb/eat_weeds()
 	set category = "Diona"
 	set name = "Eat Weeds"
 	set desc = "Clean the weeds out of soil or a hydroponics tray."
@@ -142,24 +155,23 @@
 
 	src.nutrition += target.weedlevel * 15
 	target.weedlevel = 0
-	src.visible_message("\red [src] begins rooting through [target], ripping out weeds and eating them noisily.","\red You begin rooting through [target], ripping out weeds and eating them noisily.")
+	src.visible_message("<span class='danger'>[src] begins rooting through [target], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [target], ripping out weeds and eating them noisily.</span>")
 
-/mob/living/carbon/primitive/diona/verb/evolve()
-
+/mob/living/simple_animal/diona/verb/evolve()
 	set category = "Diona"
 	set name = "Evolve"
 	set desc = "Grow to a more complex form."
 
 	if(donors.len < 5)
-		src << "You need more blood in order to ascend to a new state of consciousness..."
+		src << "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>"
 		return
 
 	if(nutrition < 500)
-		src << "You need to binge on weeds in order to have the energy to grow..."
+		src << "<span class='warning'>You need to binge on weeds in order to have the energy to grow...</span>"
 		return
 
 	src.split()
-	src.visible_message("\red [src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.","\red You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.")
+	src.visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(src.loc))
 	adult.set_species("Diona")
@@ -184,7 +196,7 @@
 
 	qdel(src)
 
-/mob/living/carbon/primitive/diona/verb/steal_blood()
+/mob/living/simple_animal/diona/verb/steal_blood()
 	set category = "Diona"
 	set name = "Steal Blood"
 	set desc = "Take a blood sample from a suitable donor."
@@ -198,14 +210,14 @@
 	if(!M || !src) return
 
 	if(M.species.flags & NO_BLOOD)
-		src << "\red That donor has no blood to take."
+		src << "<span class='warning'>That donor has no blood to take.</span>"
 		return
 
 	if(donors.Find(M.real_name))
-		src << "\red That donor offers you nothing new."
+		src << "<span class='warning'>That donor offers you nothing new.</span>"
 		return
 
-	src.visible_message("\red [src] flicks out a feeler and neatly steals a sample of [M]'s blood.","\red You flick out a feeler and neatly steal a sample of [M]'s blood.")
+	src.visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
 		if(!(L.flags & HIVEMIND))
@@ -214,36 +226,37 @@
 	spawn(25)
 		update_progression()
 
-/mob/living/carbon/primitive/diona/proc/update_progression()
-
+/mob/living/simple_animal/diona/proc/update_progression()
 	if(!donors.len)
 		return
 
 	if(donors.len == 5)
 		ready_evolve = 1
-		src << "\green You feel ready to move on to your next stage of growth."
+		src << "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>"
 	else if(donors.len == 3)
 		universal_understand = 1
-		src << "\green You feel your awareness expand, and realize you know how to understand the creatures around you."
+		src << "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>"
 	else
-		src << "\green The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind."
+		src << "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>"
 
 
-/mob/living/carbon/primitive/diona/put_in_hands(obj/item/W)
+/mob/living/simple_animal/diona/put_in_hands(obj/item/W)
 	W.loc = get_turf(src)
 	W.layer = initial(W.layer)
 	W.dropped()
 
-/mob/living/carbon/primitive/diona/put_in_active_hand(obj/item/W)
-	src << "\red You don't have any hands!"
+/mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
+	src << "<span class='warning'>You don't have any hands!</span>"
 	return
+	
 
-/mob/living/carbon/primitive/diona/say(var/message)
+/mob/living/simple_animal/diona/say(var/message)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			src << "\red You cannot speak in IC (Muted)."
 			return
 
+	var/verb
 	message = trim_strip_html_properly(message)
 
 	if(stat)
@@ -257,5 +270,22 @@
 
 	if(copytext(message,1,2) == "*")
 		return emote(copytext(message,2))
+		
+	//parse the language code and consume it
+	var/datum/language/speaking = parse_language(message)
+	if(speaking)
+		message = copytext(message,2+length(speaking.key))
+	else
+		speaking = get_default_language()
 
-	..(message)
+	var/ending = copytext(message, length(message))
+	if (speaking)
+		// This is broadcast to all mobs with the language,
+		// irrespective of distance or anything else.
+		if(speaking.flags & HIVEMIND)
+			speaking.broadcast(src,trim(message))
+			return
+		//If we've gotten this far, keep going!
+		verb = speaking.get_spoken_verb(ending)
+
+	..(message,speaking,verb)

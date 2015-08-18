@@ -23,7 +23,7 @@ log transactions
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 10
-	var/obj/machinery/account_database/linked_db
+	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/authenticated_account
 	var/number_incorrect_tries = 0
 	var/previous_account_number = 0
@@ -80,7 +80,7 @@ log transactions
 				authenticated_account.charge(-amount,null,"Credit deposit",terminal_id=machine_id,dest_name = "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
+	for(var/obj/machinery/computer/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
 		if( DB.z == src.z && !(DB.stat & NOPOWER) && DB.activated )
 			linked_db = DB
 			break

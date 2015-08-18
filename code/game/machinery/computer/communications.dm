@@ -64,50 +64,69 @@ var/shuttle_call/shuttle_calls[0]
 /obj/machinery/computer/communications/New()
 	..()
 	crew_announcement.newscast = 1
+	
+/obj/machinery/computer/communications/proc/is_authenticated(user as mob, var/message = 1)
+	if(authenticated == 2)
+		return 2
+	else if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 2
+	else if(authenticated)
+		return 1
+	else
+		if(message)
+			user << "<span class='warning'>Access denied.</span>"
+		return 0
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
 
 	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
-		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		usr << "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>"
+		return 1
+		
+	if(href_list["login"])
+		var/mob/living/carbon/human/M = usr
+		var/obj/item/card = M.get_active_hand()
+		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
+		if (istype(I, /obj/item/device/pda))
+			var/obj/item/device/pda/pda = I
+			I = pda.id
+		if (I && istype(I))
+			if(src.check_access(I))
+				authenticated = 1
+			if(access_captain in I.access)
+				authenticated = 2
+				crew_announcement.announcer = GetNameAndAssignmentFromId(I)
+		nanomanager.update_uis(src)
+		return
+				
+	if(href_list["logout"])
+		authenticated = 0
+		crew_announcement.announcer = ""
+		setMenuState(usr,COMM_SCREEN_MAIN)	
+		nanomanager.update_uis(src)
 		return
 
-	usr.set_machine(src)
+	if(!is_authenticated(usr))
+		return 1
 
-	if(!href_list["operation"])
-		return
 	switch(href_list["operation"])
-		// main interface
 		if("main")
 			setMenuState(usr,COMM_SCREEN_MAIN)
-		if("login")
-			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
-				I = pda.id
-			if (I && istype(I))
-				if(src.check_access(I))
-					authenticated = 1
-				if(access_captain in I.access)
-					authenticated = 2
-					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
-		if("logout")
-			authenticated = 0
-			crew_announcement.announcer = ""
-			setMenuState(usr,COMM_SCREEN_MAIN)
-
-		// ALART LAVUL
+		
 		if("changeseclevel")
 			setMenuState(usr,COMM_SCREEN_SECLEVEL)
 
 		if("newalertlevel")
-			if(issilicon(usr))
-				return
+			if(isAI(usr) || isrobot(usr)) 
+				usr << "<span class='warning'>Firewalls prevent you from changing the alert level.</span>"
+				nanomanager.update_uis(src)
+				return 1
 			tmp_alertlevel = text2num(href_list["level"])
-			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.get_active_hand()
+			var/mob/living/carbon/human/L = usr
+			var/obj/item/card = L.get_active_hand()
+			var/obj/item/weapon/card/id/I = (card && card.GetID())||L.wear_id||L.wear_pda
 			if (istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
@@ -128,20 +147,22 @@ var/shuttle_call/shuttle_calls[0]
 							if(SEC_LEVEL_BLUE)
 								feedback_inc("alert_comms_blue",1)
 					tmp_alertlevel = 0
-				else:
-					usr << "You are not authorized to do this."
+				else
+					usr << "<span class='warning'>You are not authorized to do this.</span>"
 					tmp_alertlevel = 0
 				setMenuState(usr,COMM_SCREEN_MAIN)
 			else
-				usr << "You need to swipe your ID."
+				usr << "<span class='warning'>You need to swipe your ID.</span>"
 
 		if("announce")
-			if(src.authenticated==2)
+			if(is_authenticated(usr) == 2)
 				if(message_cooldown)
-					usr << "Please allow at least one minute to pass between announcements"
+					usr << "<span class='warning'>Please allow at least one minute to pass between announcements.</span>"
+					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
-				if(!input || !(usr in view(1,src)))
+				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				crew_announcement.Announce(input)
 				message_cooldown = 1
@@ -149,27 +170,34 @@ var/shuttle_call/shuttle_calls[0]
 					message_cooldown = 0
 
 		if("callshuttle")
-			if(src.authenticated)
-				var/response = alert("Are you sure you wish to call the shuttle?", "Confirm", "Yes", "No")
-				if(response == "Yes")
-					call_shuttle_proc(usr)
-					if(emergency_shuttle.online())
-						post_status("shuttle")
+			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			if(!input || ..() || !is_authenticated(usr))
+				nanomanager.update_uis(src)
+				return
+				
+			call_shuttle_proc(usr, input)
+			if(emergency_shuttle.online())
+				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
+			
 		if("cancelshuttle")
-			if(issilicon(usr)) return
-			if(src.authenticated)
-				var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
-				if(response == "Yes")
-					cancel_call_proc(usr)
-					if(emergency_shuttle.online())
-						post_status("shuttle")
+			if(isAI(usr) || isrobot(usr)) 
+				usr << "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>"
+				nanomanager.update_uis(src)
+				return 1
+			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
+			if(response == "Yes")
+				cancel_call_proc(usr)
+				if(emergency_shuttle.online())
+					post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
+			
 		if("messagelist")
 			src.currmsg = 0
 			if(href_list["msgid"])
 				setCurrentMessage(usr, text2num(href_list["msgid"]))
 			setMenuState(usr,COMM_SCREEN_MESSAGES)
+			
 		if("delmessage")
 			if(href_list["msgid"])
 				src.currmsg = text2num(href_list["msgid"])
@@ -203,18 +231,39 @@ var/shuttle_call/shuttle_calls[0]
 		if("setmsg1")
 			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
+			
 		if("setmsg2")
 			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
 
-		// OMG CENTCOMM LETTERHEAD
-		if("MessageCentcomm")
-			if(src.authenticated==2)
+		if("nukerequest")
+			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
-					usr << "Arrays recycling.  Please stand by."
+					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
+					nanomanager.update_uis(src)
 					return
-				var/input = input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || !(usr in view(1,src)))
+				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","") as text|null
+				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
+					return
+				Nuke_request(input, usr)
+				usr << "<span class='notice'>Request sent.</span>"
+				log_say("[key_name(usr)] has requested the nuclear codes from Centcomm")
+				priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				centcomm_message_cooldown = 1
+				spawn(6000)//10 minute cooldown
+					centcomm_message_cooldown = 0
+			setMenuState(usr,COMM_SCREEN_MAIN)			
+			
+		if("MessageCentcomm")
+			if(is_authenticated(usr) == 2)
+				if(centcomm_message_cooldown)
+					usr << "<span class='warning'>Arrays recycling. Please stand by.</span>"
+					nanomanager.update_uis(src)
+					return
+				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
+				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
 				usr << "Message transmitted."
@@ -224,15 +273,16 @@ var/shuttle_call/shuttle_calls[0]
 					centcomm_message_cooldown = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
-
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((src.authenticated==2) && (src.emagged))
+			if((is_authenticated(usr) == 2) && (src.emagged))
 				if(centcomm_message_cooldown)
 					usr << "Arrays recycling.  Please stand by."
+					nanomanager.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
-				if(!input || !(usr in view(1,src)))
+				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
+				if(!input || ..() || !(is_authenticated(usr) == 2))
+					nanomanager.update_uis(src)
 					return
 				Syndicate_announce(input, usr)
 				usr << "Message transmitted."
@@ -247,16 +297,17 @@ var/shuttle_call/shuttle_calls[0]
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
+	nanomanager.update_uis(src)		
 	return 1
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
 		src.emagged = 1
-		user << "You scramble the communication routing circuits!"
+		user << "<span class='notice'>You scramble the communication routing circuits!</span>"
+		nanomanager.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
-
 
 /obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
 	if(..(user))
@@ -266,7 +317,7 @@ var/shuttle_call/shuttle_calls[0]
 		return	
 		
 	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
-		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		user << "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>"
 		return
 		
 	ui_interact(user)
@@ -274,10 +325,10 @@ var/shuttle_call/shuttle_calls[0]
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// this is the data which will be sent to the ui
 	var/data[0]
-	data["is_ai"] = issilicon(user)
+	data["is_ai"] = isAI(user)||isrobot(user)
 	data["menu_state"] = data["is_ai"] ? ai_menu_state : menu_state
 	data["emagged"] = emagged
-	data["authenticated"] = authenticated
+	data["authenticated"] = is_authenticated(user, 0)
 	data["screen"] = getMenuState(usr)
 
 	data["stat_display"] = list(
@@ -297,7 +348,7 @@ var/shuttle_call/shuttle_calls[0]
 		)
 	)
 	data["security_level"] = security_level
-	data["str_security_level"] = get_security_level()
+	data["str_security_level"] = capitalize(get_security_level())
 	data["levels"] = list(
 		list("id"=SEC_LEVEL_GREEN, "name"="Green"),
 		list("id"=SEC_LEVEL_BLUE,  "name"="Blue"),
@@ -333,29 +384,27 @@ var/shuttle_call/shuttle_calls[0]
 		ui.set_initial_data(data)
 		// open the new ui window
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
-	if(issilicon(user))
+	if(isAI(user) || isrobot(user))
 		aicurrmsg=value
 	else
 		currmsg=value
 
 /obj/machinery/computer/communications/proc/getCurrentMessage(var/mob/user)
-	if(issilicon(user))
+	if(isAI(user) || isrobot(user))
 		return aicurrmsg
 	else
 		return currmsg
 
 /obj/machinery/computer/communications/proc/setMenuState(var/mob/user,var/value)
-	if(issilicon(user))
+	if(isAI(user) || isrobot(user))
 		ai_menu_state=value
 	else
 		menu_state=value
 
 /obj/machinery/computer/communications/proc/getMenuState(var/mob/user)
-	if(issilicon(user))
+	if(isAI(user) || isrobot(user))
 		return ai_menu_state
 	else
 		return menu_state
@@ -364,38 +413,37 @@ var/shuttle_call/shuttle_calls[0]
 	for(var/obj/machinery/computer/prison_shuttle/PS in world)
 		PS.allowedtocall = !(PS.allowedtocall)
 
-/proc/call_shuttle_proc(var/mob/user)
+/proc/call_shuttle_proc(var/mob/user, var/reason)
 	if ((!( ticker ) || !emergency_shuttle.location()))
 		return
 
 	if(sent_strike_team == 1)
-		user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
+		user << "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>"
 		return
 
 	if(emergency_shuttle.deny_shuttle)
-		user << "The emergency shuttle may not be sent at this time. Please try again later."
+		user << "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>"
 		return
 
 	if(world.time < 6000) // Ten minute grace period to let the game get going without lolmetagaming. -- TLE
-		user << "The emergency shuttle is refueling. Please wait another [round((6000-world.time)/60)] minutes before trying again."
+		user << "<span class='warning'>The emergency shuttle is refueling. Please wait another [round((6000-world.time)/600)] minutes before trying again.</span>"
 		return
 
 	if(emergency_shuttle.going_to_centcom())
-		user << "The emergency shuttle may not be called while returning to CentCom."
+		user << "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>"
 		return
 
 	if(emergency_shuttle.online())
-		user << "The emergency shuttle is already on its way."
+		user << "<span class='warning'>The emergency shuttle is already on its way.</span>"
 		return
 
 	if(ticker.mode.name == "blob")
-		user << "Under directive 7-10, [station_name()] is quarantined until further notice."
+		user << "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>"
 		return
 
-	emergency_shuttle.call_evac()
+	emergency_shuttle.call_evac(reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
-
 
 	return
 
@@ -422,7 +470,7 @@ var/shuttle_call/shuttle_calls[0]
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going
-			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/60)] minutes before trying again."
+			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again."
 			return
 
 		if(ticker.mode.name == "epidemic")

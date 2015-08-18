@@ -921,14 +921,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					ai.show_message("<i>Intercepted message from <b>[who]</b>: [t]</i>")
 */
 
-		if (!P.silent)
-			var/sound/S = sound('sound/machines/twobeep.ogg')
-
-			if(P.ttone in ttone_sound)
-				S = ttone_sound[P.ttone]
-			playsound(P.loc, S, 50, 1)
-		for (var/mob/O in hearers(3, P.loc))
-			if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+		P.play_ringtone()
 		//Search for holder of the PDA.
 		var/mob/living/L = null
 		if(P.loc && isliving(P.loc))
@@ -951,6 +944,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		U << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
 
+/obj/item/device/pda/proc/play_ringtone()
+	if (!silent)
+		var/sound/S = sound('sound/machines/twobeep.ogg')
+
+		if(ttone in ttone_sound)
+			S = ttone_sound[ttone]
+		playsound(loc, S, 50, 1)
+	for (var/mob/O in hearers(3, loc))
+		if(!silent) O.show_message(text("\icon[src] *[ttone]*"))
 
 /obj/item/device/pda/verb/verb_remove_id()
 	set category = null

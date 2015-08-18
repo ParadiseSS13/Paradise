@@ -241,7 +241,7 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))
+	flavor_text =  sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text)
 
 /mob/living/silicon/binarycheck()
 	return 1

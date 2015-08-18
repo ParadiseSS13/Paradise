@@ -25,6 +25,7 @@
 	minbodytemp = 0
 	faction = list("cult")
 	flying = 1
+	universal_speak = 1
 	var/list/construct_spells = list()
 
 /mob/living/simple_animal/construct/New()

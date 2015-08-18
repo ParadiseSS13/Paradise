@@ -406,7 +406,7 @@
 		)
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/carbon/primitive/diona/D = other
+	var/mob/living/simple_animal/diona/D = other
 	if(istype(D))
 		return 1
 	return 0
@@ -419,14 +419,14 @@
 /*        //overpowered and dumb as hell; they get cloning back, though.
 /datum/species/diona/handle_death(var/mob/living/carbon/human/H)
 
-	var/mob/living/carbon/primitive/diona/S = new(get_turf(H))
+	var/mob/living/simple_animal/diona/S = new(get_turf(H))
 
 	if(H.mind)
 		H.mind.transfer_to(S)
 	else
 		S.key = H.key
 
-	for(var/mob/living/carbon/primitive/diona/D in H.contents)
+	for(var/mob/living/simple_animal/diona/D in H.contents)
 		if(D.client)
 			D.loc = H.loc
 		else

@@ -234,7 +234,7 @@
 
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(var/obj/O, var/datum/powernet/PN)
-	//world.log << "propagating new network"
+	//log_to_dd("propagating new network")
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1
@@ -282,7 +282,7 @@
 	//merge net2 into net1
 	for(var/obj/structure/cable/Cable in net2.cables) //merge cables
 		net1.add_cable(Cable)
-		
+
 	if(!net2) return net1
 
 	for(var/obj/machinery/power/Node in net2.nodes) //merge power machines

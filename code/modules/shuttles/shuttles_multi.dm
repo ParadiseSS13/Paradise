@@ -56,8 +56,8 @@
 	if(..(user))
 		return 1
 	
-	if(!allowed(user))
-		user << "\red Access Denied."
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access Denied.</span>"
 		return 1	
 	
 	ui_interact(user)
