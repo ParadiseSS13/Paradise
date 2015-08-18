@@ -992,7 +992,8 @@
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		src.emagged = 1
-		user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
 		return
 

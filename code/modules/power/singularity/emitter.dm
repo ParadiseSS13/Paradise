@@ -276,4 +276,5 @@
 	if(!emagged)
 		locked = 0
 		emagged = 1
-		user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
+		if(user)
+			user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
