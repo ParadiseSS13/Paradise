@@ -81,6 +81,7 @@ rcd light flash thingy on matter drain
 	mod_pick_name = "lockdown"
 	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 120 seconds."
 	cost = 20
+	uses = 1
 
 	power_type = /mob/living/silicon/ai/proc/lockdown
 
@@ -91,27 +92,32 @@ rcd light flash thingy on matter drain
 	if(stat)
 		return
 		
-	var/obj/machinery/door/airlock/AL
-	for(var/obj/machinery/door/D in airlocks)
-		if(!(D.z in config.contact_levels))
-			continue
-		spawn()
-			if(istype(D, /obj/machinery/door/airlock))
-				AL = D
-				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-					AL.locked = 0 //For airlocks that were bolted open.
-					AL.safe = 0 //DOOR CRUSH
-					AL.close()
-					AL.lock()
-					AL.electrified_until = -1  //Shock it!
-			else if(!D.stat) //So that only powered doors are closed.
-				D.close() //Close ALL the doors!
+	for(var/datum/AI_Module/large/lockdown/lockdown in current_modules)
+		if(lockdown.uses > 0)
+			lockdown.uses --
+			
+			var/obj/machinery/door/airlock/AL
+			for(var/obj/machinery/door/D in airlocks)
+				if(!(D.z in config.contact_levels))
+					continue
+				spawn()
+					if(istype(D, /obj/machinery/door/airlock))
+						AL = D
+						if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
+							AL.locked = 0 //For airlocks that were bolted open.
+							AL.safe = 0 //DOOR CRUSH
+							AL.close()
+							AL.lock()
+							AL.electrified_until = -1  //Shock it!
+					else if(!D.stat) //So that only powered doors are closed.
+						D.close() //Close ALL the doors!
 
-	var/obj/machinery/computer/communications/C = locate() in machines
-	if(C)
-		C.post_status("alert", "lockdown")
-
-	verbs -= /mob/living/silicon/ai/proc/lockdown
+			var/obj/machinery/computer/communications/C = locate() in machines
+			if(C)
+				C.post_status("alert", "lockdown")
+		else 
+			src << "<span class='warning'>Out of uses.</span>"
+			
 	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
 	src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
 	spawn(1200) //120 Seconds.
@@ -213,7 +219,7 @@ rcd light flash thingy on matter drain
 				spawn(50)
 					explosion(get_turf(M), 0,1,1,0)
 					qdel(M)
-			else src << "<span class='notice'>Out of uses.</span>"
+			else src << "<span class='warning'>Out of uses.</span>"
 	else src << "<span class='notice'>That's not a machine.</span>"
 
 /datum/AI_Module/small/override_machine
@@ -246,7 +252,7 @@ rcd light flash thingy on matter drain
 				spawn(50)
 					if(M)
 						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
-			else src << "<span class='notice'>Out of uses.</span>"
+			else src << "<span class='warning'>Out of uses.</span>"
 	else src << "<span class='notice'>That's not a machine.</span>"
 
 /datum/AI_Module/large/place_cyborg_transformer
@@ -346,7 +352,7 @@ rcd light flash thingy on matter drain
 					apc.overload_lighting()
 				else apc.overload++
 			src << "<span class='notice'>Overcurrent applied to the powernet.</span>"
-		else src << "<span class='notice'>Out of uses.</span>"
+		else src << "<span class='warning'>Out of uses.</span>"
 
 /datum/AI_Module/small/reactivate_cameras
 	module_name = "Reactivate Camera Network"
@@ -362,7 +368,7 @@ rcd light flash thingy on matter drain
 	set name = "Reactivate Cameranet"
 	set category = "Malfunction"
 	
-	if(!CanUseTopic() || malf_cooldown)
+	if(stat || malf_cooldown)
 		return	
 	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.	
 	
@@ -371,7 +377,7 @@ rcd light flash thingy on matter drain
 			var/initial_range = initial(C.view_range) //To prevent calling the proc twice
 			if(camera.uses > 0)
 				if(!C.status)
-					C.deactivate(src, 0) //Reactivates the camera based on status. Badly named proc.
+					C.deactivate(src, 1) //Reactivates the camera based on status. Badly named proc.
 					fixedcams++
 					camera.uses--
 				if(C.view_range != initial_range)
@@ -453,9 +459,9 @@ rcd light flash thingy on matter drain
 			<B>Install Module:</B><BR>
 			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
 	for(var/datum/AI_Module/large/module in src.possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	for(var/datum/AI_Module/small/module in src.possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
 	if (src.temp)
 		dat += "[src.temp]"
@@ -497,5 +503,9 @@ rcd light flash thingy on matter drain
 			temp = AM.description
 			src.processing_time -= AM.cost
 
+		if(href_list["showdesc"])
+			if(AM.mod_pick_name == href_list["showdesc"])
+				temp = AM.description			
+			
 	src.use(usr)
 	return

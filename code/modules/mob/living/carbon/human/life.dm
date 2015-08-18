@@ -1212,6 +1212,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(!seer)
 			see_in_dark = species.darksight
 			see_invisible = SEE_INVISIBLE_LIVING
+			
+		if(see_override)	//Override all
+			see_invisible = see_override
 
 		if(ticker && ticker.mode.name == "nations")
 			process_nations()

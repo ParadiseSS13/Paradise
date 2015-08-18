@@ -56,7 +56,8 @@
 			src.sight |= SEE_OBJS
 			src.see_in_dark = 8
 			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-
+			if(see_override)
+				see_invisible = see_override
 
 			//Congratulations!  You've found a way for AI's to run without using power!
 			//Todo:  Without snowflaking up master_controller procs find a way to make AI use_power but only when APC's clear the area usage the tick prior
