@@ -20,7 +20,7 @@
 		var/obj/spacepod/myPod = TR.my_atom
 		var/enabled = TR.enabled
 		if(myPod && enabled)
-			var/podname = sanitize(capitalize(myPod.name))
+			var/podname = capitalize(sanitize(myPod.name))
 			var/occupant = "None"
 			var/occupant2 = "None"
 			if(myPod.occupant)

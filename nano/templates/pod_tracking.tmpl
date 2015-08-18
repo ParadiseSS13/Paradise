@@ -16,17 +16,18 @@ h3 {
 <div class="refresh">{{:helper.link('Refresh', 'refresh', {'refresh' : 1})}}</div>
 <h2>Pods</h2>
 {{for data.pods}}
-	<div class='statusDisplay'>
-		<div class="item">
-			<h3>{{:value.name}}</h3>
-			<div class="itemLabel">Pilot</div>
-			<div class="itemContent">{{:value.occupant}}</div>
-			<div class="itemLabel">Passenger</div>
-			<div class="itemContent">{{:value.occupant2}}</div>
-			<div class="itemLabel">Coordinates</div>
-			<div class="itemContent">{{:value.x}}, {{:value.y}}, {{:value.z}}</div>
-		</div>
+	<hr>
+	<div class="item">
+		<h3>{{:value.name}}</h3>
+		<div class="itemLabel">Pilot</div>
+		<div class="itemContent">{{:value.occupant}}</div>
+		<div class="itemLabel">Passenger</div>
+		<div class="itemContent">{{:value.occupant2}}</div>
+		<div class="itemLabel">Coordinates</div>
+		<div class="itemContent">{{:value.x}}, {{:value.y}}, {{:value.z}}</div>
 	</div>
 {{empty}}
-	<div class="item">No pod trackers detected!</div>
+	<div class='item'> 
+		<h3>No pod trackers were found.</h3>
+	</div>
 {{/for}}
