@@ -558,6 +558,7 @@ var/list/sacrificed = list()
 	else
 		usr.whisper("[input]")
 
+	log_say("Cult Message: [key_name(usr)]: [input]")	
 	for(var/datum/mind/H in ticker.mode.cult)
 		if (H.current)
 			H.current << "<span class='cultspeech'><span class='name'>[cultName]: </span><span class='message'>[input]</span></span>"
@@ -565,10 +566,8 @@ var/list/sacrificed = list()
 	for(var/mob/spirit/spirit in spirits)
 		spirit << "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[spirit];track2=\ref[spirit];track=\ref[usr]'>[displayName]: </a></span><span class='message'>[input]</span></span>"
 		
-	for(var/mob/player in player_list)
-		if(istype(player,/mob/dead))
-			var/msg_dead = "<span class='cultspeech'><span class='name'>[displayName] ([cultName]) ([ghost_follow_link(usr, ghost=player)]): </span><span class='message'>[input]</span></span>"
-			player << msg_dead
+	for(var/mob/dead/observer/G in player_list)
+		G.show_message("<span class='cultspeech'><span class='name'>[displayName] ([cultName]) ([ghost_follow_link(usr, ghost=G)]): </span><span class='message'>[input]</span></span>")
 
 	qdel(src)
 	return 1

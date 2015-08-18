@@ -244,6 +244,7 @@ Obviously, requires DNA2.
 	var/say = strip_html(input("What do you wish to say"))
 
 	for(var/mob/living/target in targets)
+		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [msg]")	
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
 		else

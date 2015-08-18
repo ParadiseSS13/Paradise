@@ -103,8 +103,11 @@
 			if(!msg)
 				charge_counter = charge_max
 				return
-			usr << "<span class='info'><b>You transmit to [M]:</b> [msg]</span>"
-			M << "<span class='deadsay'><b>A strange voice resonates in your head...</b></span><i> [msg]</I>"
+			log_say("Revenant Transmit: [key_name(usr)]->[key_name(M)]: [msg]")
+			usr << "<span class='info'><b>You transmit to [M]: </b>[msg]</span>"
+			M << "<span class='deadsay'><b>A strange voice resonates in your head... </b></span><i>[msg]</I>"
+			for(var/mob/dead/observer/G in player_list)
+				G.show_message("<i>Revenant message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
