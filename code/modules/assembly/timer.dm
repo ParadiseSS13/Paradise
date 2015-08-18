@@ -53,7 +53,7 @@
 
 	process()
 		if(timing && (time > 0))
-			time--
+			time -= 2 // 2 seconds per process()
 		if(timing && time <= 0)
 			timing = repeat
 			timer_end()
@@ -120,7 +120,7 @@
 		if(href_list["tp"])
 			var/tp = text2num(href_list["tp"])
 			set_time += tp
-			set_time = min(max(round(set_time), 5), 600)
+			set_time = min(max(round(set_time), 6), 600)
 			if(!timing)
 				time = set_time
 
