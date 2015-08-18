@@ -115,13 +115,13 @@ rcd light flash thingy on matter drain
 			var/obj/machinery/computer/communications/C = locate() in machines
 			if(C)
 				C.post_status("alert", "lockdown")
+				
+			minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
+			src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
+			spawn(1200) //120 Seconds.
+				disablelockdown() //Reset the lockdown after 120 seconds.
 		else 
 			src << "<span class='warning'>Out of uses.</span>"
-			
-	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
-	src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
-	spawn(1200) //120 Seconds.
-		disablelockdown() //Reset the lockdown after 120 seconds.
 
 /mob/living/silicon/ai/proc/disablelockdown()
 	set category = "Malfunction"
@@ -141,7 +141,11 @@ rcd light flash thingy on matter drain
 					AL.safe = 1
 			else if(!D.stat) //Opens only powered doors.
 				D.open() //Open everything!	
-				
+	
+	var/obj/machinery/computer/communications/C = locate() in machines
+	if(C)
+		C.post_status("alert", "default")
+	
 	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
 
 /datum/AI_Module/large/disable_rcd
