@@ -44,7 +44,7 @@
 			loc = T.loc
 			if (istype(loc, /area))
 				//stage = 4
-				if (!loc.power_equip && !istype(src.loc,/obj/item))
+				if (!loc.power_equip && !is_type_in_list(src.loc,list(/obj/item, /obj/mecha)))
 					//stage = 5
 					blind = 1
 
@@ -97,7 +97,7 @@
 			src.see_in_dark = 0
 			src.see_invisible = SEE_INVISIBLE_LIVING
 
-			if (((!loc.power_equip) || istype(T, /turf/space)) && !istype(src.loc,/obj/item))
+			if (((!loc.power_equip) || istype(T, /turf/space)) && !is_type_in_list(src.loc,list(/obj/item, /obj/mecha)))
 				if (src:aiRestorePowerRoutine==0)
 					src:aiRestorePowerRoutine = 1
 

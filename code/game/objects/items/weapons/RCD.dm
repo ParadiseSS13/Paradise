@@ -34,8 +34,14 @@ RCD
 		src.spark_system = new /datum/effect/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
+		rcd_list += src
 		return
-
+		
+	Destroy()
+		qdel(spark_system)
+		spark_system = null
+		rcd_list -= src
+		return ..()		
 
 	attackby(obj/item/weapon/W, mob/user, params)
 		..()

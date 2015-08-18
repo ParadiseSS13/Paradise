@@ -284,12 +284,18 @@
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/disabled = 0 //malf
 	var/canRwall = 0
+	
+	New()
+		rcd_list += src
+		..()
+
+	Destroy()
+		rcd_list -= src
+		..()
 
 	action(atom/target)
-		if(istype(target,/area/shuttle)||istype(target, /turf/space/transit))//>implying these are ever made -Sieve
-			disabled = 1
-		else
-			disabled = 0
+		if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
+			return
 		if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
 			target = get_turf(target)
 		if(!action_checks(target) || disabled || get_dist(chassis, target)>3) return

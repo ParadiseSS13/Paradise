@@ -17,6 +17,6 @@ var/global/list/table_recipes = list() //list of all table craft recipes
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()
-var/global/list/processing_power_items   = list()
-		//items that ask to be called every cycle
+var/global/list/processing_power_items = list() //items that ask to be called every cycle
+var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 
