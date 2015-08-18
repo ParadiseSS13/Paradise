@@ -1,6 +1,6 @@
 /datum/preferences/proc/load_preferences(client/C)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT ooccolor,UI_style,UI_style_color,UI_style_alpha,be_special,default_slot,toggles,sound,randomslot,volume FROM erro_player WHERE ckey='[C.ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT ooccolor,UI_style,UI_style_color,UI_style_alpha,be_special,default_slot,toggles,sound,randomslot,volume FROM [format_table_name("player")] WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during loading player preferences. Error : \[[err]\]\n")
@@ -37,7 +37,7 @@
 
 /datum/preferences/proc/save_preferences(client/C)
 
-	var/DBQuery/query = dbcon.NewQuery("UPDATE erro_player SET ooccolor='[ooccolor]',UI_style='[UI_style]',UI_style_color='[UI_style_color]',UI_style_alpha='[UI_style_alpha]',be_special='[be_special]',default_slot='[default_slot]',toggles='[toggles]',sound='[sound]',randomslot='[randomslot]',volume='[volume]' WHERE ckey='[C.ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET ooccolor='[ooccolor]',UI_style='[UI_style]',UI_style_color='[UI_style_color]',UI_style_alpha='[UI_style_alpha]',be_special='[be_special]',default_slot='[default_slot]',toggles='[toggles]',sound='[sound]',randomslot='[randomslot]',volume='[volume]' WHERE ckey='[C.ckey]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
@@ -51,7 +51,7 @@
 	slot = sanitize_integer(slot, 1, MAX_SAVE_SLOTS, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
-		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE erro_player SET default_slot=[slot] WHERE ckey='[C.ckey]'")
+		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE [format_table_name("player")] SET default_slot=[slot] WHERE ckey='[C.ckey]'")
 		firstquery.Execute()
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM characters WHERE ckey='[C.ckey]' AND slot='[slot]'")
@@ -87,8 +87,8 @@
 		r_eyes = text2num(query.item[23])
 		g_eyes = text2num(query.item[24])
 		b_eyes = text2num(query.item[25])
-		underwear = text2num(query.item[26])
-		undershirt = text2num(query.item[27])
+		underwear = query.item[26]
+		undershirt = query.item[27]
 		backbag = text2num(query.item[28])
 		b_type = query.item[29]
 
@@ -147,8 +147,8 @@
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
-	underwear		= sanitize_integer(underwear, 1, underwear_m.len, initial(underwear))
-	undershirt		= sanitize_integer(undershirt, 1, undershirt_t.len, initial(undershirt))
+	underwear		= sanitize_text(underwear, initial(underwear))
+	undershirt		= sanitize_text(undershirt, initial(undershirt))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
@@ -204,7 +204,7 @@
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		return
 	return 1
-
+/*
 /datum/preferences/proc/random_character(client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM characters WHERE ckey='[C.ckey]' ORDER BY slot")
 
@@ -218,4 +218,4 @@
 		load_character(C)
 		return 0
 	load_character(C,pick(saves))
-	return 1
+	return 1*/

@@ -293,8 +293,7 @@ datum/game_mode/nations
 			else
 				new_character.gender = pick(MALE,FEMALE)
 				var/datum/preferences/A = new()
-				A.randomize_appearance_for(new_character)
-				new_character.real_name = real_name
+				A.copy_to(new_character)
 
 			if(!new_character.real_name)
 				if(new_character.gender == MALE)

@@ -43,7 +43,7 @@
 				var/isadmin = 0
 				if(src.client && src.client.holder)
 					isadmin = 1
-				var/DBQuery/query = dbcon.NewQuery("SELECT id FROM erro_poll_question WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM erro_poll_vote WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM erro_poll_textreply WHERE ckey = \"[ckey]\")")
+				var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
 				query.Execute()
 				var/newpoll = 0
 				while(query.NextRow())
@@ -178,7 +178,7 @@
 			var/voted = 0
 
 			//First check if the person has not voted yet.
-			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM erro_privacy WHERE ckey='[src.ckey]'")
+			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]'")
 			query.Execute()
 			while(query.NextRow())
 				voted = 1
@@ -203,7 +203,7 @@
 				return
 
 			if(!voted)
-				var/sql = "INSERT INTO erro_privacy VALUES (null, Now(), '[src.ckey]', '[option]')"
+				var/sql = "INSERT INTO [format_table_name("privacy")] VALUES (null, Now(), '[src.ckey]', '[option]')"
 				var/DBQuery/query_insert = dbcon.NewQuery(sql)
 				query_insert.Execute()
 				usr << "<b>Thank you for your vote!</b>"
@@ -468,11 +468,9 @@
 			if(is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))
 				new_character.add_language(client.prefs.language)
 		if(ticker.random_players || appearance_isbanned(new_character))
-			new_character.gender = pick(MALE, FEMALE)
+			client.prefs.random_character()
 			client.prefs.real_name = random_name(new_character.gender)
-			client.prefs.randomize_appearance_for(new_character)
-		else
-			client.prefs.copy_to(new_character)
+		client.prefs.copy_to(new_character)
 
 		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 

@@ -12,7 +12,7 @@
 	mode.update_icon(H.mind)
 	return 1
 
-/hook/harvest_podman/proc/update_icon(mob/living/carbon/primitive/diona/D)
+/hook/harvest_podman/proc/update_icon(mob/living/simple_animal/diona/D)
 	var/datum/game_mode/mutiny/mode = get_mutiny_mode()
 	if (!mode) return 1
 

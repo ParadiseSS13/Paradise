@@ -140,7 +140,7 @@ proc/sql_commit_feedback()
 		log_game("SQL ERROR during feedback reporting. Failed to connect.")
 	else
 
-		var/DBQuery/max_query = dbcon.NewQuery("SELECT MAX(roundid) AS max_round_id FROM erro_feedback")
+		var/DBQuery/max_query = dbcon.NewQuery("SELECT MAX(roundid) AS max_round_id FROM [format_table_name("feedback")]")
 		max_query.Execute()
 
 		var/newroundid
@@ -160,7 +160,7 @@ proc/sql_commit_feedback()
 			var/variable = item.get_variable()
 			var/value = item.get_value()
 
-			var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_feedback (id, roundid, time, variable, value) VALUES (null, [newroundid], Now(), '[variable]', '[value]')")
+			var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("feedback")] (id, roundid, time, variable, value) VALUES (null, [newroundid], Now(), '[variable]', '[value]')")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")

@@ -111,7 +111,7 @@ var/list/sacrificed = list()
 		"\red AAAAAAHHHH!.", \
 		"\red You hear an anguished scream.")
 		cult_log("[key_name_admin(usr)] tried to convert [key_name_admin(M)]")
-		if(is_convertable_to_cult(M.mind) && !jobban_isbanned(M, "cultist") && !jobban_isbanned(M,"Syndicate"))//putting jobban check here because is_convertable uses mind as argument
+		if(is_convertable_to_cult(M.mind))
 			ticker.mode.add_cultist(M.mind)
 			M.mind.special_role = "Cultist"
 			M << "<font color=\"purple\"><b><i>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible truth. The veil of reality has been ripped away and in the festering wound left behind something sinister takes root.</b></i></font>"

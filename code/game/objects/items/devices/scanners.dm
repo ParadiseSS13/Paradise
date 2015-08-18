@@ -72,7 +72,7 @@ REAGENT SCANNER
 				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
-						if(U.intact)
+						if(U && U.intact)
 							O.invisibility = 101
 							O.alpha = 255
 		for(var/mob/living/M in T.contents)

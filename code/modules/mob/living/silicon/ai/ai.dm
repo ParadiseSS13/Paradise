@@ -243,6 +243,7 @@ var/list/ai_verbs_default = list(
 	powered_ai = ai
 	if(isnull(powered_ai))
 		qdel(src)
+		return
 
 	loc = powered_ai.loc
 	use_power(1) // Just incase we need to wake up the power system.
@@ -252,6 +253,7 @@ var/list/ai_verbs_default = list(
 /obj/machinery/ai_powersupply/process()
 	if(!powered_ai || powered_ai.stat & DEAD)
 		qdel(src)
+		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		use_power = 0
@@ -337,7 +339,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+	var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 	if(!input || stat)
 		return
 

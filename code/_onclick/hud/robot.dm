@@ -191,6 +191,8 @@
 
 	var/mob/living/silicon/robot/r = mymob
 
+	if(!r.client) return
+
 	if(r.shown_robot_modules)
 		//Modules display is shown
 		r.client.screen += r.throw_icon	//"store" icon

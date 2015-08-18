@@ -634,6 +634,8 @@
 				sqlfdbklogin = value
 			if ("feedback_password")
 				sqlfdbkpass = value
+			if("feedback_tableprefix")
+				sqlfdbktableprefix = value
 			if ("enable_stat_tracking")
 				sqllogging = 1
 			else

@@ -44,11 +44,8 @@
 			if(2,3)
 				user.drop_item(src)
 				I.loc = src
-				var/turf/bombturf = get_turf(src)
-				var/area/A = get_area(bombturf)
-				var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A> has rigged a beartrap with an IED at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-				message_admins(log_str)
-				log_game(log_str)
+				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
+				log_game("[key_name(user)] has rigged a beartrap with an IED.")
 				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
 				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 			else
@@ -70,11 +67,8 @@
 			IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
 			IED.icon_state = initial(icon_state) + "_active"
 			IED.assembled = 3
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			var/log_str = "[key_name(usr)]<A HREF='?_src_=holder;adminmoreinfo=\ref[AM]'>?</A> has triggered an IED-rigged [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			message_admins(log_str)
-			log_game(log_str)
+			message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+			log_game("[key_name(usr)] has triggered an IED-rigged [name].")
 			spawn(IED.det_time)
 				IED.prime()
 		if(ishuman(AM))
@@ -95,7 +89,7 @@
 					H.update_inv_legcuffed()
 					H << "<span class='danger'>You step on \the [src]!</span>"
 					if(IED && IED.active)
-						H << "<span class='danger'>The [src]'s IED has been activated!</span>"
+						H << "<span class='danger'>\The [src]'s IED has been activated!</span>"
 					feedback_add_details("handcuffs","B") //Yes, I know they're legcuffs. Don't change this, no need for an extra variable. The "B" is used to tell them apart.
 					for(var/mob/O in viewers(H, null))
 						if(O == H)

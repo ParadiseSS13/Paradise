@@ -299,6 +299,10 @@
 	user.do_attack_animation(src)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	destroy()
+	
+/obj/structure/table/mech_melee_attack(obj/mecha/M)		
+	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
+	destroy()
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
@@ -905,13 +909,15 @@
 			W.Move(loc)
 	return
 
-/obj/structure/table/attack_hand(mob/user)
+/obj/structure/rack/attack_hand(mob/user)
 	if(HULK in user.mutations)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
-
-
+		
+/obj/structure/rack/mech_melee_attack(obj/mecha/M)		
+	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
+	destroy()
 
 /obj/structure/rack/attack_alien(mob/living/user)
 	user.do_attack_animation(src)

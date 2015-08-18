@@ -18,7 +18,7 @@
 	var/affected_area = 3
 	var/obj/item/device/assembly_holder/nadeassembly = null
 	var/label = null
-
+	var/assemblyattacher
 
 /obj/item/weapon/grenade/chem_grenade/New()
 	create_reagents(1000)
@@ -90,10 +90,9 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			msg_admin_attack(log_str)
-			log_game(log_str)
-			bombers += "[log_str]"
+			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
+			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])"
 			user << "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>"
 			active = 1
 			update_icon()
@@ -138,9 +137,8 @@
 						contained = "\[[contained]\]"
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
-				var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
-				msg_admin_attack(log_str)
-				log_game(log_str)
+				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
 			else
 				user << "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>"
 		else if(stage == READY && !nadeassembly)
@@ -173,7 +171,7 @@
 		nadeassembly = A
 		A.master = src
 		A.loc = src
-
+		assemblyattacher = user.ckey
 		stage = WIRED
 		user << "<span class='notice'>You add [A] to [src]!</span>"
 		update_icon()
@@ -259,7 +257,15 @@
 
 	if(!has_reagents)
 		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
-		return
+		return	
+
+	if(nadeassembly)
+		var/mob/M = get_mob_by_ckey(assemblyattacher)
+		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> ([admin_jump_link(M, "holder")]) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> ([admin_jump_link(last, "holder")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
 
 	playsound(loc, 'sound/effects/bamf.ogg', 50, 1)
 
