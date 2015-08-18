@@ -6,7 +6,7 @@
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
 	default_language = "Galactic Common"
-	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN | NO_POISON
+	flags = NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 

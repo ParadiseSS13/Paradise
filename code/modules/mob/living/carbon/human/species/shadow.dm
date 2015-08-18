@@ -17,7 +17,7 @@
 		"brain" = /obj/item/organ/brain
 		)
 
-	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_POISON
+	flags = NO_BLOOD | NO_BREATHE | NO_SCAN
 	bodyflags = FEET_NOSLIP
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
