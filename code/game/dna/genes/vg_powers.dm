@@ -224,8 +224,7 @@ Obviously, requires DNA2.
 	var/list/validtargets = new /list()
 	for(var/mob/M in living_mob_list)
 		if(M && M.mind)
-			var/special_role = M.mind.special_role
-			if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+			if(isAntag(M))
 				continue
 
 			validtargets += M
