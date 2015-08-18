@@ -10,7 +10,7 @@ var/bomb_set
 	var/extended = 0.0
 	var/lighthack = 0
 	var/opened = 0.0
-	var/timeleft = 60.0
+	var/timeleft = 120.0
 	var/timing = 0.0
 	var/r_code = "ADMIN"
 	var/code = ""
@@ -51,12 +51,11 @@ var/bomb_set
 /obj/machinery/nuclearbomb/process()
 	if (src.timing)
 		bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
-		src.timeleft--
-		if (src.timeleft <= 0)
-			explode()
-		for(var/mob/M in viewers(1, src))
-			if ((M.client && M.machine == src))
-				nanomanager.update_uis(src)
+		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
+		if (timeleft <= 0)
+			spawn
+				explode()
+		nanomanager.update_uis(src)
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
@@ -277,7 +276,8 @@ var/bomb_set
 						spawn(100) src.lighthack = !src.lighthack
 					if(src.timing_wire == temp_wire)
 						if(src.timing)
-							explode()
+							spawn
+								explode()
 					if(src.safety_wire == temp_wire)
 						src.safety = !src.safety
 						spawn(100) src.safety = !src.safety
@@ -295,7 +295,8 @@ var/bomb_set
 				wires[temp_wire] = !wires[temp_wire]
 				if(src.safety_wire == temp_wire)
 					if(src.timing)
-						explode()
+						spawn
+							explode()
 				if(src.timing_wire == temp_wire)
 					if(!src.lighthack)
 						if (src.icon_state == "nuclearbomb2")
@@ -342,7 +343,7 @@ var/bomb_set
 			if (href_list["time"])
 				var/time = text2num(href_list["time"])
 				src.timeleft += time
-				src.timeleft = min(max(round(src.timeleft), 60), 600)
+				src.timeleft = min(max(round(src.timeleft), 120), 600)
 			if (href_list["timer"])
 				if (src.timing == -1.0)
 					nanomanager.update_uis(src)
