@@ -2231,15 +2231,22 @@ datum
 				adj_drowsy = -3
 				adj_sleepy = -2
 				adj_temp = 25
+				overdose_threshold = 45
 
 				on_mob_life(var/mob/living/M as mob)
-					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
 					if(prob(50))
 						M.AdjustParalysis(-1)
 						M.AdjustStunned(-1)
 						M.AdjustWeakened(-1)
+					..()
+					return
+					
+				overdose_process(var/mob/living/M as mob)
+					if(volume > 45)
+						M.Jitter(5)
+						
 					..()
 					return
 
