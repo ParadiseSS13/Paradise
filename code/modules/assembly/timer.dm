@@ -110,6 +110,10 @@
 
 		if(href_list["time"])
 			timing = !timing
+			if(timing && istype(holder, /obj/item/device/transfer_valve))
+				message_admins("[key_name_admin(usr)] activated [src] attachment on [holder].")
+				bombers += "[key_name(usr)] activated [src] attachment for [loc]"
+				log_game("[key_name(usr)] activated [src] attachment for [loc]")
 			update_icon()
 		if(href_list["reset"])
 			time = set_time

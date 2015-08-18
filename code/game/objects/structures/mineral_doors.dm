@@ -194,10 +194,10 @@
 	mineralType = "plasma"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if(istype(W,/obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
-			if(WT.remove_fuel(0, user))
-				TemperatureAct(100)
+		if(is_hot(W))
+			message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("Plasma mineral door ignited by [key_name(user)] in ([x],[y],[z])")
+			TemperatureAct(100)
 		..()
 
 	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
