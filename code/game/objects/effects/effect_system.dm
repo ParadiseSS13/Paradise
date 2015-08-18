@@ -483,7 +483,7 @@ steam.start() -- spawns the effect
 					var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
 					var/more = ""
 					if(M)
-						more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
+						more = " "
 					msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
 					log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 				else

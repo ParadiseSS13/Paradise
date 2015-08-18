@@ -270,7 +270,7 @@ client
 				body += "<option value='?_src_=vars;makemonkey=\ref[D]'>Make monkey</option>"
 				body += "<option value='?_src_=vars;makealien=\ref[D]'>Make alien</option>"
 				body += "<option value='?_src_=vars;makeslime=\ref[D]'>Make slime</option>"
-				body += "<option value='?_src_=vars;makesuper=\ref[D]'>Make Superhero</option>"
+				body += "<option value='?_src_=vars;makesuper=\ref[D]'>Make superhero</option>"
 			body += "<option value>---</option>"
 			body += "<option value='?_src_=vars;gib=\ref[D]'>Gib</option>"
 		if(isobj(D))

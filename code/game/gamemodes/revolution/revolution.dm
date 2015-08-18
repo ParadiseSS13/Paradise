@@ -250,7 +250,7 @@
 
 		if(beingborged)
 			rev_mind.current << "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>"
-
+			message_admins("[key_name_admin(rev_mind.current)] has been borged while being a member of the revolution.")
 		else
 			rev_mind.current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>"
 

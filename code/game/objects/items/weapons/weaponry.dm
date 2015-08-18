@@ -41,11 +41,7 @@
 	else
 		M.LAssailant = user
 
-	msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
-		return
+	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red The rod slips out of your hand and hits your head."

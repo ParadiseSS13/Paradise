@@ -129,7 +129,7 @@
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS)
+					if(useMS && P)
 						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 

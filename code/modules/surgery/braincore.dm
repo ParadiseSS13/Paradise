@@ -92,9 +92,9 @@
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
 
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Debrained [target.name] ([target.ckey]) with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
-		target.attack_log += "\[[time_stamp()]\]<font color='orange'> Debrained by [user.name] ([user.ckey]) with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
-		msg_admin_attack("[user.name] ([user.ckey]) debrained [target.name] ([target.ckey]) with [tool.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		user.attack_log += "\[[time_stamp()]\]<font color='red'> Debrained [key_name(target)] with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
+		target.attack_log += "\[[time_stamp()]\]<font color='orange'> Debrained by [key_name(user)] with [tool.name] (INTENT: [uppertext(user.a_intent)])</font>"
+		msg_admin_attack("[key_name_admin(user)] debrained [key_name_admin(target)] with [tool.name]")
 
 		var/obj/item/organ/brain/B = target.internal_organs_by_name["brain"]
 		if(B && istype(B))

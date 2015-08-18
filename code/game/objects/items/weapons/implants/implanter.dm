@@ -32,9 +32,9 @@
 				for (var/mob/O in viewers(M, null))
 					O.show_message("\red [M] has been implanted by [user].", 1)
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'> Implanted with [src.name] ([src.imp.name])  by [user.name] ([user.ckey])</font>")
-				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] ([src.imp.name]) to implant [M.name] ([M.ckey])</font>")
-				msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				M.attack_log += text("\[[time_stamp()]\] <font color='orange'> Implanted with [src.name] ([src.imp.name]) by [key_name(user)]</font>")
+				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] ([src.imp.name]) to implant [key_name(M)]</font>")
+				msg_admin_attack("[key_name_admin(user)] implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 				user.show_message("\red You implanted the implant into [M].")
 				if(src.imp.implanted(M, user))

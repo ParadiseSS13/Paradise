@@ -417,3 +417,51 @@
 		usr << "\red Access denied."
 	return
 
+/hook/Login/proc/update_morgue(var/client/client, var/mob/L)	
+	//Update morgues on login/logout
+	if (L.stat == DEAD)
+		var/obj/structure/morgue/Morgue = null
+		var/mob/living/carbon/human/C = null
+		if (istype(L,/mob/dead/observer)) //We're a ghost, let's find our corpse
+			var/mob/dead/observer/G = L
+			if(!G.mind) //This'll probably break morgue sprites, but the line under the next If statement causes runtimes with Assume Direct Control.
+				return
+			if (G.can_reenter_corpse && G.mind.current)
+				C = G.mind.current
+		else if (istype(L,/mob/living/carbon/human))
+			C = L
+
+		if (C) //We found our corpse, is it inside a morgue?
+			if (istype(C.loc,/obj/structure/morgue))
+				Morgue = C.loc
+			else if (istype(C.loc,/obj/structure/closet/body_bag))
+				var/obj/structure/closet/body_bag/B = C.loc
+				if (istype(B.loc,/obj/structure/morgue))
+					Morgue = B.loc
+			if (Morgue)
+				Morgue.update()
+				
+/hook/Logout/proc/update_morgue(var/client/client, var/mob/L)					
+	//Update morgues on login/logout
+	if (L.stat == DEAD)
+		var/obj/structure/morgue/Morgue = null
+		var/mob/living/carbon/human/C = null
+		if (istype(L,/mob/dead/observer)) //We're a ghost, let's find our corpse
+			var/mob/dead/observer/G = L
+			if(!G.mind) //This'll probably break morgue sprites, but the line under the next If statement causes runtimes with Assume Direct Control.
+				return 1
+			if (G.can_reenter_corpse && G.mind.current)
+				C = G.mind.current
+		else if (istype(L,/mob/living/carbon/human))
+			C = L
+
+		if (C) //We found our corpse, is it inside a morgue?
+			if (istype(C.loc,/obj/structure/morgue))
+				Morgue = C.loc
+			else if (istype(C.loc,/obj/structure/closet/body_bag))
+				var/obj/structure/closet/body_bag/B = C.loc
+				if (istype(B.loc,/obj/structure/morgue))
+					Morgue = B.loc
+			if (Morgue)
+				Morgue.update()
+
