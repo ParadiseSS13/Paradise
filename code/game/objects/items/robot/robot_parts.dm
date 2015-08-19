@@ -66,6 +66,7 @@
 	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
+	part = list("groin","chest")
 	construction_time = 350
 	construction_cost = list("metal"=40000)
 	var/wires = 0.0
@@ -75,6 +76,7 @@
 	name = "head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
+	part = list("head")
 	construction_time = 350
 	construction_cost = list("metal"=5000)
 	var/obj/item/device/flash/flash1 = null

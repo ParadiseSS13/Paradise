@@ -258,6 +258,10 @@ client
 			body += "<option value='?_src_=vars;regenerateicons=\ref[D]'>Regenerate Icons</option>"
 			body += "<option value='?_src_=vars;addlanguage=\ref[D]'>Add Language</option>"
 			body += "<option value='?_src_=vars;remlanguage=\ref[D]'>Remove Language</option>"
+			body += "<option value='?_src_=vars;addorgan=\ref[D]'>Add Organ</option>"
+			body += "<option value='?_src_=vars;remorgan=\ref[D]'>Remove Organ</option>"
+
+			body += "<option value='?_src_=vars;fix_nano=\ref[D]'>Fix NanoUI</option>"
 
 			body += "<option value='?_src_=vars;addverb=\ref[D]'>Add Verb</option>"
 			body += "<option value='?_src_=vars;remverb=\ref[D]'>Remove Verb</option>"
@@ -929,7 +933,65 @@ client
 		else
 			H.verbs -= verb
 
+	else if(href_list["addorgan"])
+		if(!check_rights(R_SPAWN))	return
 
+		var/mob/living/carbon/M = locate(href_list["addorgan"])
+		if(!istype(M))
+			usr << "This can only be done to instances of type /mob/living/carbon"
+			return
+
+		var/new_organ = input("Please choose an organ to add.","Organ",null) as null|anything in subtypesof(/obj/item/organ)-/obj/item/organ
+		if(!new_organ) return
+
+		if(!M)
+			usr << "Mob doesn't exist anymore"
+			return
+
+		if(locate(new_organ) in M.internal_organs)
+			usr << "Mob already has that organ."
+			return
+
+		new new_organ(M)
+	
+
+	else if(href_list["remorgan"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/living/carbon/M = locate(href_list["remorgan"])
+		if(!istype(M))
+			usr << "This can only be done to instances of type /mob/living/carbon"
+			return
+
+		var/obj/item/organ/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+
+		if(!M)
+			usr << "Mob doesn't exist anymore"
+			return
+
+		if(!(locate(rem_organ) in M.internal_organs))
+			usr << "Mob does not have that organ."
+			return
+
+		usr << "Removed [rem_organ] from [M]."
+		rem_organ.removed()
+		qdel(rem_organ)
+
+	else if(href_list["fix_nano"])
+		if(!check_rights(R_DEBUG)) return
+
+		var/mob/H = locate(href_list["fix_nano"])
+
+		if(!istype(H) || !H.client)
+			usr << "This can only be done on mobs with clients"
+			return
+
+		nanomanager.send_resources(H.client)
+
+		usr << "Resource files sent"
+		H << "Your NanoUI Resource files have been refreshed"
+
+		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)] ")
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return

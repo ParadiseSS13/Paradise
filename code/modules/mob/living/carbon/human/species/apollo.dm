@@ -1,5 +1,6 @@
 /datum/species/wryn
 	name = "Wryn"
+	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	language = "Wryn Hivemind"
@@ -76,6 +77,7 @@
 
 /datum/species/nucleation
 	name = "Nucleation"
+	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \

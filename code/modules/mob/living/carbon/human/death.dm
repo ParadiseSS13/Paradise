@@ -5,7 +5,7 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
@@ -27,7 +27,7 @@
 			// Override the current limb status and don't cause an explosion
 			E.droplimb(DROPLIMB_EDGE)
 
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else

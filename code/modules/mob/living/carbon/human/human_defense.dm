@@ -35,13 +35,13 @@ emp_act
 	if(check_shields(P.damage, "the [P.name]", P))
 		P.on_hit(src, 100, def_zone)
 		return 2
-
+		
+	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
+	if(isnull(organ))
+		return 
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
-		var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
-		if(!organ)
-			return
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -50,9 +50,7 @@ emp_act
 			(SP.loc) = organ
 			organ.embed(SP)
 
-	var/mob/living/carbon/human/M = src
-	var/obj/item/organ/external/affected = M.get_organ(def_zone)
-	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
+	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
 
@@ -204,11 +202,6 @@ emp_act
 	for(var/obj/O in src)
 		if(!O)	continue
 		O.emp_act(severity)
-	for(var/obj/item/organ/external/O  in organs)
-		if(O.status & ORGAN_DESTROYED)	continue
-		O.emp_act(severity)
-		for(var/obj/item/organ/I  in O.internal_organs)
-			I.emp_act(severity)
 	..()
 
 /mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)

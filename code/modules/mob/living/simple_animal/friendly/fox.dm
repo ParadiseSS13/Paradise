@@ -31,5 +31,5 @@
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
 	icon_resting = "Syndifox_rest"
-	flags = IS_SYNTHETIC|NO_BREATHE
+	flags = NO_BREATHE
 	faction = list("syndicate")

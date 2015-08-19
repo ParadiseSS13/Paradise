@@ -51,7 +51,7 @@
 #define INFECTION_LEVEL_THREE	1000
 
 // Damage above this value must be repaired with surgery.
-#define ROBOLIMB_SELF_REPAIR_CAP 30
+#define ROBOLIMB_SELF_REPAIR_CAP 60
 
 //metal, glass, rod stacks
 #define MAX_STACK_AMOUNT_METAL	50

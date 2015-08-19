@@ -542,13 +542,6 @@ var/list/robot_verbs_default = list(
 				return
 		now_pushing = 0
 		..()
-		if (istype(AM, /obj/machinery/recharge_station))
-			var/obj/machinery/recharge_station/F = AM
-			if(F.panel_open)
-				usr << "\blue <b>Close the maintenance panel first.</b>"
-				return
-			else
-				F.move_inside()
 		if (!istype(AM, /atom/movable))
 			return
 		if (!now_pushing)
@@ -587,34 +580,35 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if (istype(W, /obj/item/weapon/weldingtool))
-		if(W == module_active) return
+	if (istype(W, /obj/item/weapon/weldingtool) && user.a_intent == "help")
+		if(W == module_active) 
+			return
 		if (!getBruteLoss())
-			user << "Nothing to fix here!"
+			user << "<span class='notice'>Nothing to fix!</span>"
 			return
 		var/obj/item/weapon/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if (WT.remove_fuel(0))
+			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
 			adjustBruteLoss(-30)
 			updatehealth()
 			add_fingerprint(user)
-			for(var/mob/O in viewers(user, null))
-				O.show_message(text("\red [user] has fixed some of the dents on [src]!"), 1)
+			user.visible_message("<span class='alert'>\The [user] patches some dents on \the [src] with \the [WT].</span>")
 		else
-			user << "Need more welding fuel!"
+			user << "<span class='warning'>Need more welding fuel!</span>"
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == "help" && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if (!getFireLoss())
-			user << "Nothing to fix here!"
+			user << "<span class='notice'>Nothing to fix!</span>"
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
 		updatehealth()
+		add_fingerprint(user)
 		coil.use(1)
-		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\red [user] has fixed some of the burnt wires on [src]!"), 1)
+		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
 
 	else if (istype(W, /obj/item/weapon/crowbar))	// crowbar means open or close the cover
 		if(opened)

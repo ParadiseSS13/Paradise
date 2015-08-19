@@ -177,6 +177,10 @@ Class Procs:
 	if(prob(50))
 		qdel(src)
 
+//sets the use_power var and then forces an area power update
+/obj/machinery/proc/update_use_power(var/new_use_power)
+	use_power = new_use_power	
+	
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
 		return 0
