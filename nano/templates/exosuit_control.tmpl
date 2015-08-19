@@ -2,17 +2,11 @@
 Title: Exosuit Control Console
 Used In File(s): \code\game\mecha\mecha_control_console.dm
 -->
-<script type="text/javascript">
-	$('.name').each(function(key, value) {
-		var name = decodeURI($(value).text());
-		$(value).text(name);	
-	});
-</script>
 {{if data.screen == 0}}
 	{{for data.mechas}}
 		<hr>
 		<div class='item'>
-			<h2 class="name">{{:value.name}}</h2>
+			<h2>{{:value.name}}</h2>
 			<h3>Information</h3>
 			<div class="itemLabel">
 				Pilot: 

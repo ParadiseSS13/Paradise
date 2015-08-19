@@ -35,6 +35,7 @@
 		ui = new(user, src, ui_key, "exosuit_control.tmpl", "Exosuit Control Console", 420, 500)
 		ui.set_initial_data(data)
 		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/mecha/Topic(href, href_list)
 	if(..())
@@ -80,7 +81,7 @@
 	var/obj/mecha/M = src.loc
 	var/list/answer[0]
 	answer["reference"] = "\ref[src]"
-	answer["name"] = html_encode(sanitize(M.name)) // Has to be encoded to prevent NanoUI from blanking - JavaScript decodes it in the .tmpl
+	answer["name"] = sanitize(replacetext(M.name,"\"","")) // Apostrophes break JSON
 	if(M.cell)
 		answer["cell"] = 1
 		answer["cell_capacity"] = M.cell.maxcharge
@@ -90,8 +91,9 @@
 		answer["cell"] = 0
 	answer["integrity"] = M.health/initial(M.health)*100
 	answer["airtank"] = M.return_pressure()
-	answer["pilot"] = "[M.occupant||"None"]"
-	answer["location"] = "[sanitize(get_area(M))||"Unknown"]"
+	answer["pilot"] = "[M.occupant||"None"]"	 	
+	var/area/area = get_area(M)
+	answer["location"] = "[sanitize(area.name)||"Unknown"]"
 	answer["equipment"] = "[M.selected||"None"]"
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M

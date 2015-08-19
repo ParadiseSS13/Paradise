@@ -37,6 +37,7 @@
 		ui = new(user, src, ui_key, "pod_tracking.tmpl", "Pod Tracking Console", 400, 500)
 		ui.set_initial_data(data)
 		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/podtracker/Topic(href, href_list)
 	if(..())
