@@ -21,57 +21,52 @@
 		..()
 		
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
-	return interact(user)
+	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
-	if(..())
-		return
+	ui_interact(user)
+
+/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	if(occupant)
+		data["occupant"] = occupant.name
+		data["reference"] = "\ref[occupant]"
+		data["integrity"] = (occupant.health+100)/2
+		data["stat"] = occupant.stat
+		data["active"] = active
+		data["wireless"] = occupant.control_disabled
+		data["radio"] = occupant.aiRadio.disabledAi
+		data["zeroth"] = occupant.laws.zeroth
 		
-	interact(user)
-
-/obj/machinery/computer/aifixer/interact(mob/user)	
-	var/dat = "<h3>AI System Integrity Restorer</h3><br><br>"
-
-	if (src.occupant)
-		var/laws
-		dat += "Stored AI: [src.occupant.name]<br>System integrity: [(src.occupant.health+100)/2]%<br>"
-
-		if (src.occupant.laws.zeroth)
-			laws += "0: [src.occupant.laws.zeroth]<BR>"
-
+		var/laws[0]
 		var/number = 1
-		for (var/index = 1, index <= src.occupant.laws.inherent.len, index++)
-			var/law = src.occupant.laws.inherent[index]
-			if (length(law) > 0)
-				laws += "[number]: [law]<BR>"
+		for (var/index = 1, index <= occupant.laws.inherent.len, index++)
+			var/law = occupant.laws.inherent[index]
+			if(length(law) > 0)
+				laws.Add(list(list("law" = law, "number" = number)))
 				number++
 
-		for (var/index = 1, index <= src.occupant.laws.supplied.len, index++)
-			var/law = src.occupant.laws.supplied[index]
+		for (var/index = 1, index <= occupant.laws.supplied.len, index++)
+			var/law = occupant.laws.supplied[index]
 			if (length(law) > 0)
-				laws += "[number]: [law]<BR>"
-				number++
+				laws += "<b>[number]:</b> [law]<BR>"
+				number++				
+				
+		data["laws"] = laws
+				
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-		dat += "Laws:<br>[laws]<br>"
-
-		if (src.occupant.stat == 2)
-			dat += "<b>AI nonfunctional</b>"
-		else
-			dat += "<b>AI functional</b>"
-		if (!src.active)
-			dat += {"<br><br><A href='byond://?src=\ref[src];fix=1'>Begin Reconstruction</A>"}
-		else
-			dat += "<br><br>Reconstruction in process, please wait.<br>"
-	dat += {" <A href='?src=\ref[user];mach_close=computer'>Close</A>"}
-
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
+	if (!ui)
+		ui = new(user, src, ui_key, "ai_fixer.tmpl", "AI System Integrity Restorer", 550, 500)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/aifixer/Topic(href, href_list)
 	if(..())
 		return 1
-	if (href_list["fix"])
+	
+	if(href_list["fix"])
 		src.active = 1
 		while (src.occupant.health < 100)
 			src.occupant.adjustOxyLoss(-1)
@@ -84,11 +79,21 @@
 				src.occupant.lying = 0
 				dead_mob_list -= src.occupant
 				living_mob_list += src.occupant
-			src.updateUsrDialog()
 			sleep(10)
 		src.active = 0
 		src.add_fingerprint(usr)
-	src.updateUsrDialog()
+	
+	if(href_list["wireless"])	
+		var/wireless = text2num(href_list["wireless"])
+		if(wireless == 0 || wireless == 1)
+			occupant.control_disabled = wireless
+	
+	if(href_list["radio"])
+		var/radio = text2num(href_list["radio"])
+		if(radio == 0 || radio == 1)
+			occupant.aiRadio.disabledAi = radio
+
+	nanomanager.update_uis(src)
 	update_icon()
 	return
 
