@@ -1337,7 +1337,7 @@
 "azK" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/crew_quarters/fitness)
 "azL" = (/turf/simulated/wall,/area/mimeoffice)
 "azM" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/spray/waterflower,/turf/simulated/floor/wood,/area/mimeoffice)
-"azN" = (/obj/structure/table/woodentable,/obj/item/weapon/pen/red{pixel_x = 2; pixel_y = 6},/obj/item/weapon/paper_bin,/obj/item/toy/crayon/mime,/obj/machinery/light_switch{name = "light switch "; dir = 2; pixel_x = 0; pixel_y = -22},/turf/simulated/floor/wood,/area/mimeoffice)
+"azN" = (/obj/structure/table/woodentable,/obj/item/weapon/pen/red{pixel_x = 2; pixel_y = 6},/obj/item/weapon/paper_bin,/obj/item/toy/crayon/mime,/turf/simulated/floor/wood,/area/mimeoffice)
 "azO" = (/obj/machinery/camera{c_tag = "Magistrate's Office"; dir = 4; network = list("SS13")},/turf/simulated/floor/carpet,/area/magistrateoffice)
 "azP" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/carpet,/area/magistrateoffice)
 "azQ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/carpet,/area/magistrateoffice)
