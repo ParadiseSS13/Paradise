@@ -26,8 +26,8 @@ var/global/list/frozen_mob_list = list()
 
 /mob/living/proc/admin_Freeze(var/client/admin)
 	if(istype(admin))
-		src << "<b><font color= red>You have been frozen by <a href='?priv_msg=\ref[admin]'>[admin.key]</a></b></font>"
-		message_admins("\blue [key_name_admin(admin)] froze [key_name(src)]")
+		src << "<b><font color= red>You have been frozen by [key_name(admin)]</b></font>"
+		message_admins("<span class='notice'>[key_name_admin(admin)]</span> froze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] froze [key_name(src)]")
 
 	var/obj/effect/overlay/adminoverlay/AO = new
@@ -42,8 +42,8 @@ var/global/list/frozen_mob_list = list()
 
 /mob/living/proc/admin_unFreeze(var/client/admin)
 	if(istype(admin))
-		src << "<b><font color= red>You have been unfrozen by <a href='?priv_msg=\ref[usr.client]'>[key]</a></b></font>"
-		message_admins("\blue [key_name_admin(admin)] unfroze [key_name(src)]")
+		src << "<b><font color= red>You have been unfrozen by [key_name(admin)]</b></font>"
+		message_admins("\blue [key_name_admin(admin)] unfroze [key_name_admin(src)]")
 		log_admin("[key_name(admin)] unfroze [key_name(src)]")
 
 	update_icons()

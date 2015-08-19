@@ -605,56 +605,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return M
 	if(M < 0)
 		return -M
-
-
-/proc/key_name(var/whom, var/include_link = null, var/include_name = 1, var/type = null)
-	var/mob/M
-	var/client/C
-	var/key
-
-	if(!whom)	return "*null*"
-	if(istype(whom, /client))
-		C = whom
-		M = C.mob
-		key = C.key
-	else if(ismob(whom))
-		M = whom
-		C = M.client
-		key = M.key
-	else if(istype(whom, /datum))
-		var/datum/D = whom
-		return "*invalid:[D.type]*"
-	else
-		return "*invalid*"
-
-	. = ""
-
-	if(key)
-		if(include_link && C)
-			. += "<a href='?priv_msg=\ref[C];type=[type]'>"
-
-		if(C && C.holder && C.holder.fakekey && !include_name)
-			. += "Administrator"
-		else
-			. += key
-
-		if(include_link)
-			if(C)	. += "</a>"
-			else	. += " (DC)"
-	else
-		. += "*no key*"
-
-	if(include_name && M)
-		if(M.real_name)
-			. += "/([M.real_name])"
-		else if(M.name)
-			. += "/([M.name])"
-
-	return .
-
-/proc/key_name_admin(var/whom, var/include_name = 1)
-	var/message = "[key_name(whom, 1, include_name)](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>)[isAntag(whom) ? " (ANTAG)" : ""] ([admin_jump_link(whom, "holder")])"
-	return message
 	
 /proc/get_mob_by_ckey(key)
 	if(!key)
@@ -867,7 +817,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 /proc/hasvar(var/datum/A, var/varname)
 	if(A.vars.Find(lowertext(varname))) return 1
 	else return 0
-
+	
 //Returns: all the areas in the world
 /proc/return_areas()
 	var/list/area/areas = list()
@@ -877,8 +827,8 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 //Returns: all the areas in the world, sorted.
 /proc/return_sorted_areas()
-	return sortAtom(return_areas())
-
+	return sortAtom(return_areas())	
+	
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all areas of that type in the world.
 /proc/get_areas(var/areatype)

@@ -11,7 +11,7 @@
 	garbageCollector.del_everything = !garbageCollector.del_everything
 	// world << "<b>GC: qdel turned [garbageCollector.del_everything ? "off" : "on"].</b>"
 	log_admin("[key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].")
-	message_admins("\blue [key_name(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
+	message_admins("\blue [key_name_admin(usr)] turned qdel [garbageCollector.del_everything ? "off" : "on"].", 1)
 
 /client/proc/gc_toggle_profiling()
 	set name = "(GC) Toggle Profiling"
@@ -23,7 +23,7 @@
 
 	del_profiling = !del_profiling
 	log_admin("[key_name(usr)] turned deletion profiling [del_profiling ? "on" : "off"].")
-	message_admins("\blue [key_name(usr)] turned deletion profiling [del_profiling ? "on" : "off"].", 1)
+	message_admins("\blue [key_name_admin(usr)] turned deletion profiling [del_profiling ? "on" : "off"].", 1)
 
 /client/proc/gc_show_del_report()
 	set name = "(GC) Show Del Report"
