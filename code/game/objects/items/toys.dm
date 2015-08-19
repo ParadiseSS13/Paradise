@@ -1183,7 +1183,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/misc/hoot.ogg', 50, 1)
+		playsound(user, 'sound/misc/hoot.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1202,7 +1202,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/misc/caw.ogg', 50, 1)
+		playsound(user, 'sound/misc/caw.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
