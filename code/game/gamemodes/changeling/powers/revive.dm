@@ -28,6 +28,7 @@
 	user.germ_level = 0
 	user.next_pain_time = 0
 	user.traumatic_shock = 0
+	user.timeofdeath = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
