@@ -12,7 +12,7 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
 	</div>
 	<div class="itemContent">
 		{{:helper.link('Request Items', 'gear', {'menu' : 0}, null, 'fixedLeftWider')}}
-		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, null, 'fixedLeftWider')}}
+		{{:helper.link(data.descriptions ? 'Hide Descriptions' : 'Show Descriptions', 'gear', {'descriptions' : 1}, data.menu == 0 ? '' : 'disabled', 'fixedLeftWider')}}
 		{{:helper.link('Exploitable Information', 'gear', {'menu' : 1}, null, 'fixedLeftWider')}}
 		{{:helper.link('Return', 'arrowreturn-1-w', {'return' : 1}, null, 'fixedLeft')}}
 		{{:helper.link('Close', 'gear', {'lock' : "1"}, null, 'fixedLeft')}}
@@ -80,9 +80,6 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
                     <span class="good">Age:			</span> <span class="average">{{:data.exploit.age}}			</span><br>
                     <span class="good">Rank:		</span> <span class="average">{{:data.exploit.rank}}		</span><br>
                     <span class="good">Fingerprint:	</span> <span class="average">{{:data.exploit.fingerprint}}	</span><br>
-
-                    <br>Acquired Information:<br>
-                    <span class="good">Notes:<br>	</span> <span class="average">{{:data.exploit.nanoui_exploit_record}}</span><br><br>
                 {{else}}
                     <span class="bad">
                         No exploitative information acquired!
