@@ -26,8 +26,6 @@ RCD
 	var/working = 0
 	var/mode = 1
 	var/canRwall = 0
-	var/disabled = 0
-
 
 	New()
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
@@ -88,8 +86,6 @@ RCD
 
 	afterattack(atom/A, mob/user, proximity)
 		if(!proximity) return
-		if(disabled && !isrobot(user))
-			return 0
 		if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 			return 0
 		if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock)))

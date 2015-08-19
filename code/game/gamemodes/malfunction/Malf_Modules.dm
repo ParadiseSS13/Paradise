@@ -81,7 +81,6 @@ rcd light flash thingy on matter drain
 	mod_pick_name = "lockdown"
 	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 120 seconds."
 	cost = 20
-	uses = 1
 
 	power_type = /mob/living/silicon/ai/proc/lockdown
 
@@ -148,10 +147,10 @@ rcd light flash thingy on matter drain
 	
 	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
 
-/datum/AI_Module/large/disable_rcd
-	module_name = "RCD Disable"
+/datum/AI_Module/large/destroy_rcd
+	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
-	description = "Send a specialised pulse to break all hand-held and exosuit Rapid Cconstruction Devices on the station."
+	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Cconstruction Devices on the station."
 	cost = 25
 	one_time = 1
 
@@ -159,19 +158,24 @@ rcd light flash thingy on matter drain
 
 /mob/living/silicon/ai/proc/disable_rcd()
 	set category = "Malfunction"
-	set name = "Disable RCDs"
-	set desc = "Disable all RCD devices on the station, while sparing onboard cyborg RCDs."
+	set name = "Destroy RCDs"
+	set desc = "Detonate all RCDs on the station, while sparing onboard cyborg RCDs."
 	
-	if(stat)
+	if(stat || malf_cooldown)
 		return	
 	
-	for(var/obj/item/weapon/rcd/RCD in rcd_list)
-		if(!istype(/obj/item/weapon/rcd/borg, RCD)) //Ensures that cyborg RCDs are spared.
-			RCD.disabled = 1
-	for(var/obj/item/mecha_parts/mecha_equipment/tool/rcd/MRCD in rcd_list)
-		MRCD.disabled = 1
+	for(var/obj/item/RCD in rcd_list)
+		if(!istype(RCD, /obj/item/weapon/rcd/borg)) //Ensures that cyborg RCDs are spared.
+			RCD.audible_message("<span class='danger'><b>[RCD] begins to vibrate and buzz loudly!</b></span>","<span class='danger'><b>[RCD] begins vibrating violently!</b></span>")
+			spawn(50) //5 seconds to get rid of it!
+				if(RCD) //Make sure it still exists (In case of chain-reaction)
+					explosion(RCD, 0, 0, 3, 1, flame_range = 1)
+					qdel(RCD)
 
-	src << "<span class='warning'>RCD-disabling pulse emitted.</span>"
+	src << "<span class='danger'>RCD detonation pulse emitted.</span>"
+	malf_cooldown = 1
+	spawn(100)
+		malf_cooldown = 0
 
 /datum/AI_Module/large/mecha_domination
 	module_name = "Viral Mech Domination"
