@@ -5,7 +5,7 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
@@ -25,9 +25,9 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
+			E.droplimb(DROPLIMB_EDGE)
 
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
@@ -37,8 +37,8 @@
 		s.start()
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/dust()
 	death(1)
@@ -57,8 +57,8 @@
 	new /obj/effect/decal/remains/human(loc)
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/melt()
 	death(1)
@@ -77,8 +77,8 @@
 	//new /obj/effect/decal/remains/human(loc)
 
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)
 
 /mob/living/carbon/human/death(gibbed)
 	if(stat == DEAD)	return
@@ -136,7 +136,7 @@
 	tod = worldtime2text()		//weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
 	if(ticker && ticker.mode)
-//		world.log << "k"
+//		log_to_dd("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 	return ..(gibbed)

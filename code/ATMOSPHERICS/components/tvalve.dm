@@ -101,24 +101,24 @@
 
 	return null
 
-/obj/machinery/atmospherics/tvalve/Del()
+/obj/machinery/atmospherics/tvalve/Destroy()
 	loc = null
 
 	if(node1)
 		node1.disconnect(src)
-		del(network_node1)
+		qdel(network_node1)
 	if(node2)
 		node2.disconnect(src)
-		del(network_node2)
+		qdel(network_node2)
 	if(node3)
 		node3.disconnect(src)
-		del(network_node3)
+		qdel(network_node3)
 
 	node1 = null
 	node2 = null
 	node3 = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/tvalve/proc/go_to_side()
 
@@ -128,9 +128,9 @@
 	update_icon()
 
 	if(network_node1)
-		del(network_node1)
+		qdel(network_node1)
 	if(network_node3)
-		del(network_node3)
+		qdel(network_node3)
 	build_network()
 
 	if(network_node1&&network_node2)
@@ -153,9 +153,9 @@
 	update_icon()
 
 	if(network_node1)
-		del(network_node1)
+		qdel(network_node1)
 	if(network_node2)
-		del(network_node2)
+		qdel(network_node2)
 	build_network()
 
 	if(network_node1&&network_node3)
@@ -271,15 +271,15 @@
 
 /obj/machinery/atmospherics/tvalve/disconnect(obj/machinery/atmospherics/reference)
 	if(reference==node1)
-		del(network_node1)
+		qdel(network_node1)
 		node1 = null
 
 	else if(reference==node2)
-		del(network_node2)
+		qdel(network_node2)
 		node2 = null
 
 	else if(reference==node3)
-		del(network_node3)
+		qdel(network_node3)
 		node2 = null
 
 	update_underlays()
@@ -317,7 +317,7 @@
 	if(!powered())
 		return
 	if(!src.allowed(user))
-		user << "\red Access denied."
+		user << "<span class='alert'>Access denied.</span>"
 		return
 	..()
 
@@ -359,23 +359,23 @@
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/tvalve/digital))
-		user << "\red You cannot unwrench this [src], it's too complicated."
+		user << "<span class='alert'>You cannot unwrench this [src], it's too complicated.</span>"
 		return 1
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
+		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "\blue You begin to unfasten \the [src]..."
+	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
 	if (do_after(user, 40))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
-			"You hear ratchet.")
+			"<span class='notice'>You have unfastened \the [src].</span>", \
+			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/tvalve/mirrored
 	icon_state = "map_tvalvem0"
@@ -457,7 +457,7 @@
 	if(!powered())
 		return
 	if(!src.allowed(user))
-		user << "\red Access denied."
+		user << "<span class='alert'>Access denied.</span>"
 		return
 	..()
 

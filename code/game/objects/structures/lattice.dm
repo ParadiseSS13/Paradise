@@ -60,7 +60,7 @@
 		if(WT.remove_fuel(0, user))
 			user << "\blue Slicing lattice joints ..."
 		new /obj/item/stack/rods(src.loc)
-		del(src)
+		qdel(src)
 
 	return
 
@@ -84,4 +84,4 @@
 
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
-		Destroy()
+		qdel(src)

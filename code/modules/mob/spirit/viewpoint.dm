@@ -23,11 +23,10 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	..()
 
 
-/obj/cult_viewpoint/Del()
+/obj/cult_viewpoint/Destroy()
 	processing_objects.Remove(src)
 	cult_viewpoints-=src
-	..()
-	return
+	return ..()
 
 
 // VERBS

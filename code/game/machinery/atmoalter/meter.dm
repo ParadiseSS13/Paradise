@@ -23,6 +23,10 @@
 		id_tag = id
 	return 1
 
+/obj/machinery/meter/Destroy()
+	src.target = null
+	return ..()
+
 /obj/machinery/meter/initialize()
 	if (!target)
 		src.target = locate(/obj/machinery/atmospherics/pipe) in loc
@@ -86,13 +90,13 @@
 
 /obj/machinery/meter/examine()
 	var/t = "A gas flow meter. "
-	
+
 	if(get_dist(usr, src) > 3 && !(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/dead)))
 		t += "\blue <B>You are too far away to read it.</B>"
-	
+
 	else if(stat & (NOPOWER|BROKEN))
-		t += "\red <B>The display is off.</B>"	
-	
+		t += "\red <B>The display is off.</B>"
+
 	else if(src.target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
@@ -101,14 +105,14 @@
 			t += "The sensor error light is blinking."
 	else
 		t += "The connect error light is blinking."
-	
+
 	usr << t
 
 /obj/machinery/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
 		src.examine()
 		return 1
-	
+
 	return ..()
 
 /obj/machinery/meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
@@ -126,7 +130,7 @@
 			"\blue You have unfastened \the [src].", \
 			"You hear ratchet.")
 		new /obj/item/pipe_meter(src.loc)
-		del(src)
+		qdel(src)
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 

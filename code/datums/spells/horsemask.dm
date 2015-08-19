@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/horsemask
+/obj/effect/proc_holder/spell/targeted/horsemask
 	name = "Curse of the Horseman"
 	desc = "This spell triggers a curse on a target, causing them to wield an unremovable horse head mask. They will speak like a horse! Any masks they are wearing will be disintegrated. This spell does not require robes."
 	school = "transmutation"
@@ -16,7 +16,7 @@
 
 	action_icon_state = "spell_horse"
 
-/obj/effect/proc_holder/spell/wizard/targeted/horsemask/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)
 		user << "<span class='notice'>No target found in range.</span>"
 		return
@@ -41,7 +41,7 @@
 	target.visible_message(	"<span class='danger'>[target]'s face  lights up in fire, and after the event a horse's head takes its place!</span>", \
 							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
 	if(!target.unEquip(target.wear_mask))
-		del target.wear_mask
+		qdel(target.wear_mask)
 	target.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
 
 	flick("e_flash", target.flash)

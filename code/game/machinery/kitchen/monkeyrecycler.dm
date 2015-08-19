@@ -25,7 +25,7 @@
 					user << "\red The monkey is struggling far too much to put it in the recycler."
 				else
 					user.drop_item()
-					del(target)
+					qdel(target)
 					user << "\blue You stuff the monkey in the machine."
 					playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2

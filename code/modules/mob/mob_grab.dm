@@ -27,8 +27,13 @@
 	w_class = 5.0
 
 
-/obj/item/weapon/grab/New(mob/user, mob/victim)
+/obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
 	..()
+
+	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
+	if(!istype(user) || !istype(victim))
+		return
+
 	loc = user
 	assailant = user
 	affecting = victim
@@ -52,7 +57,24 @@
 				G.dancing = 1
 				G.adjust_position()
 				dancing = 1
+
+	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+
+/obj/item/weapon/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
+	if(istype(user))
+
+		for(var/entry in user.grabbed_by)
+			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab)) //the isnull() here is probably redundant- but it might outperform istype, who knows. Better safe than sorry.
+				user.grabbed_by -= entry
+
+	if(istype(victim))
+
+		for(var/entry in victim.grabbed_by)
+			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab))
+				victim.grabbed_by -= entry
+
+	return 1
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/weapon/grab/proc/get_mob_if_throwable()
@@ -73,7 +95,7 @@
 
 
 /obj/item/weapon/grab/process()
-	confirm()
+	if(!confirm())	return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
 	if(assailant.client)
 		if(!hud)	return //this somehow can runtime under the right circumstances
@@ -384,7 +406,7 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/carbon/primitive/diona)) //Kidan eating nymphs
+	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/simple_animal/diona)) //Kidan eating nymphs
 		return 1
 
 	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
@@ -404,18 +426,13 @@
 /obj/item/weapon/grab/dropped()
 	qdel(src)
 
-/obj/item/weapon/grab/Del()
-	//make sure the grabbed_by list doesn't fill up with nulls
-	if(affecting) affecting.grabbed_by -= src
-	..()
-
 /obj/item/weapon/grab/Destroy()
 	if(affecting)
 		affecting.pixel_x = 0
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
-	del(hud)
+	qdel(hud)
 	return ..()
 
 #undef EAT_TIME_XENO

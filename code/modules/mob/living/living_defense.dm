@@ -41,30 +41,6 @@
 		src << "\blue Your [C.name] was disrupted!"
 		Stun(2)
 
-/*
-	//Being hit while using a deadman switch
-	if(istype(equipped(),/obj/item/device/assembly/signaler))
-		var/obj/item/device/assembly/signaler/signaler = equipped()
-		if(signaler.deadman && prob(80))
-			src.visible_message("\red [src] triggers their deadman's switch!")
-			signaler.signal()
-*/
-
-/*
-	//Stun Beams -- These were commented out, making appropriate changes here. - Dave
-	if(istype(P, /obj/item/projectile/beam/stun) || istype(P, /obj/item/projectile/bullet/stunshot))
-		stun_effect_act(0, P.agony, def_zone, P)
-		src <<"\red You have been hit by [P]!"
-		del P
-		return
-
-	if(istype(P, /obj/item/projectile/energy/electrode) || istype(P, /obj/item/projectile/bullet/stunshot))
-		stun_effect_act(0, P.agony, def_zone, P)
-		src <<"\red You have been hit by [P]!"
-		del P
-		return
-*/
-
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag)
 	var/proj_sharp = is_sharp(P)
@@ -96,7 +72,7 @@
 		apply_effect(STUTTER, agony_amount/10)
 		apply_effect(EYE_BLUR, agony_amount/10)
 
-/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0)
+/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
 	  return 0 //only carbon liveforms have this proc
 
 /mob/living/emp_act(severity)
@@ -139,12 +115,11 @@
 
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower
-			var/client/assailant = M.client
-			if(assailant)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [M.name] ([assailant.ckey])</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
+			if(M)
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [key_name(M)]</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [O]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[src.name] ([src.ckey]) was hit by a [O], thrown by [M.name] ([assailant.ckey])[isAntag(M) ? "(ANTAG)" : ""] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+					msg_admin_attack("[key_name_admin(src)] was hit by a [O], thrown by [key_name_admin(M)]")
 
 		// Begin BS12 momentum-transfer code.
 		if(O.throw_source && speed >= 15)
@@ -190,13 +165,16 @@
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 						"<span class='userdanger'>[src] has been hit by [M.name].</span>")
-		add_logs(M.occupant, src, "attacked", object=M, addition="(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
+		
 	else
+	
 		step_away(src,M)
 		add_logs(M.occupant, src, "pushed", object=M, admin=0)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
-
 		return
 
 //Mobs on Fire

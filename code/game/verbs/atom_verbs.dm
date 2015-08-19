@@ -31,6 +31,6 @@
 	var/P = new /obj/effect/decal/point(tile)
 	usr.changeNext_move(CLICK_CD_POINT)
 	spawn (20)
-		if(P)	del(P)
+		if(P)	qdel(P)
 
 	usr.visible_message("<b>[usr]</b> points to [this]")

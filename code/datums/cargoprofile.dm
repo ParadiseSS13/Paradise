@@ -384,13 +384,13 @@
 		if(istype(W,/obj/item/stack))
 			var/obj/item/stack/I = W
 			if(!I.amount) // todo: am I making a bad assumption here?
-				del I
+				qdel(I)
 				return
 			for(var/obj/item/stack/O in master.contents)
 				if(O.type == I.type && O.amount < O.max_amount)
 					if(I.amount + O.amount <= O.max_amount)
 						O.amount += I.amount
-						del I
+						qdel(I)
 						return O.w_class
 					var/leftover = I.amount + O.amount - O.max_amount
 					O.amount = O.max_amount
@@ -403,13 +403,13 @@
 		if(istype(W,/obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/I = W
 			if(!I.amount) // todo: am I making a bad assumption here?
-				del I
+				qdel(I)
 				return
 			for(var/obj/item/stack/cable_coil/O in master.contents)
 				if(O.type == I.type && O.amount < MAXCOIL)
 					if(I.amount + O.amount <= MAXCOIL)
 						O.amount += I.amount
-						del I
+						qdel(I)
 						return O.w_class
 					var/leftover = I.amount + O.amount - MAXCOIL
 					O.amount = MAXCOIL
@@ -473,7 +473,7 @@
 				if(O.type == I.type && O.amount < O.max_amount)
 					if(I.amount + O.amount <= O.max_amount)
 						O.amount += I.amount
-						del I
+						qdel(I)
 						return
 					var/leftover = I.amount + O.amount - O.max_amount
 					O.amount = O.max_amount
@@ -489,7 +489,7 @@
 					if(I.amount + O.amount <= MAXCOIL) // Why did they make it a #define.
 						O.amount += I.amount
 						O.update_icon()
-						del I
+						qdel(I)
 						return
 					var/leftover = I.amount + O.amount - MAXCOIL // That wasn't a question
 					O.amount = MAXCOIL // It was a complaint
@@ -572,13 +572,13 @@
 
 	outlet_reaction(var/atom/W,var/turf/D)
 		if(istype(W,/obj/item/weapon/paper/crumpled))
-			del W
+			qdel(W)
 			return
 		if(istype(W,/obj/item/weapon/clipboard) || istype(W,/obj/item/weapon/folder))
 			// destroy folder, various effects on contents
 			for(var/obj/item/I in W.contents)
 				if(prob(25))//JUNK IT
-					del I
+					qdel(I)
 				else if(prob(50))  //We've been over this.  I can't just take it apart with a crowbar.
 					var/obj/item/weapon/paper/crumpled/P = new(master.loc)
 					if(I.name)
@@ -589,11 +589,11 @@
 					if(istype(I,/obj/item/weapon/paper))
 						var/obj/item/weapon/paper/O = I
 						P.info = garble_keeptags(O.info)
-					del I
+					qdel(I)
 					..(P,D)
 				else
 					..(I,D) // Eject
-			del W //destroy container
+			qdel(W) //destroy container
 			return
 		if(prob(50)) //JUNK IT NOW!
 			var/obj/item/weapon/paper/crumpled/P = new(master.loc)
@@ -612,10 +612,10 @@
 					P.info = garble_keeptags(B.dat)
 				if(B.carved && B.store)
 					..(B.store,D)
-			del W
+			qdel(W)
 			..(P,D)
 		else //I want it junked
-			del W
+			qdel(W)
 		return
 
 /datum/cargoprofile/unary/gibber
@@ -673,7 +673,7 @@
 	id = "people"
 
 	whitelist = null
-	blacklist = list(/mob/camera,/mob/new_player,/mob/living/simple_animal/hostile/blobspore,/mob/living/simple_animal/hostile/creature,
+	blacklist = list(/mob/camera,/mob/new_player,/mob/living/simple_animal/hostile/blob/blobspore,/mob/living/simple_animal/hostile/creature,
 					/mob/living/simple_animal/hostile/spaceWorm,/mob/living/simple_animal/shade,/mob/living/simple_animal/hostile/faithless,/mob/dead)
 	universal = 1
 	mobcheck = 1

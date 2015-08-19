@@ -85,10 +85,10 @@
 			for(var/datum/reagent/R in src.reagents.reagent_list)
 				injected += R.name
 			var/contained = english_list(injected)
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [M.name] ([M.key]). Reagents: [contained]</font>")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [key_name(M)]. Reagents: [contained]</font>")
 			if(M.ckey)
-				msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] splashed [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(user)] splashed [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -129,17 +129,17 @@
 						badshit += reagents_to_log[bad_reagent]
 				if(badshit.len)
 					var/hl="\red <b>([english_list(badshit)])</b> \black"
-					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
+					message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
+					log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
-		else if(istype(target, /obj/machinery/bunsen_burner))
+		/*else if(istype(target, /obj/machinery/bunsen_burner))
 			return
 
 		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-			return
+			return*/
 
 		else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
 			return
@@ -346,7 +346,7 @@
 	attackby(var/obj/D, mob/user as mob, params)
 		if(isprox(D))
 			user << "You add [D] to [src]."
-			del(D)
+			qdel(D)
 			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 			user.unEquip(src)
 			qdel(src)

@@ -508,7 +508,7 @@
 			//for(var/obj/O in src)
 			//	O.loc = src.loc
 			src.add_fingerprint(user)
-			del(G)
+			qdel(G)
 			src.updateUsrDialog()
 			src.update_icon()
 			return
@@ -585,7 +585,7 @@
 	var/active = 0          // PLEASE HOLD.
 	var/safeties = 1        // The cycler won't start with a living thing inside it unless safeties are off.
 	var/irradiating = 0     // If this is > 0, the cycler is decontaminating whatever is inside it.
-	var/radiation_level = 2 // 1 is removing germs, 2 is removing blood, 3 is removing phoron.
+	var/radiation_level = 2 // 1 is removing germs, 2 is removing blood, 3 is removing plasma.
 	var/model_text = ""     // Some flavour text for the topic box.
 	var/locked = 1          // If locked, nothing can be taken from or added to the cycler.
 
@@ -663,7 +663,7 @@
 			src.occupant = M
 
 			src.add_fingerprint(user)
-			del(G)
+			qdel(G)
 
 			src.updateUsrDialog()
 
@@ -1016,18 +1016,6 @@
 		if (WIRE_SCANID)
 			locked = !locked
 */
-/obj/machinery/suit_cycler/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
-		return 0
-	if(!prob(prb))
-		return 0
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7))
-		return 1
-	else
-		return 0
 
 //There HAS to be a less bloated way to do this. TODO: some kind of table/icon name coding? ~Z
 /obj/machinery/suit_cycler/proc/apply_paintjob()

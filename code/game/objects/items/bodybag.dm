@@ -79,15 +79,17 @@
 			visible_message("[usr] folds up the [src.name]")
 			new item_path(get_turf(src))
 			spawn(0)
-				del(src)
+				qdel(src)
 			return
 
-/obj/structure/closet/bodybag/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
+/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+	if(user.stat)
+		return
 
+	// Make it possible to escape from bodybags in morgues and crematoriums
+	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+		if(!open())
+			user << "<span class='notice'>It won't budge!</span>"
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"
@@ -98,7 +100,7 @@
 	attack_self(mob/user)
 		var/obj/structure/closet/body_bag/cryobag/R = new /obj/structure/closet/body_bag/cryobag(user.loc)
 		R.add_fingerprint(user)
-		del(src)
+		qdel(src)
 
 
 
@@ -119,7 +121,7 @@
 			O.icon = src.icon
 			O.icon_state = "bodybag_used"
 			O.desc = "Pretty useless now.."
-			del(src)
+			qdel(src)
 
 	MouseDrop(over_object, src_location, over_location)
 		if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))

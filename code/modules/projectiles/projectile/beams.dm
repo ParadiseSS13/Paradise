@@ -76,6 +76,7 @@
 	return //don't want the emitters to miss
 
 /obj/item/projectile/beam/emitter/Destroy()
+	..()
 	return QDEL_HINT_PUTINPOOL
 
 /obj/item/projectile/lasertag
@@ -196,21 +197,21 @@
 			if(TT == firer.loc)
 				continue
 			if(TT.density)
-				del(X)
+				qdel(X)
 				break
 			for(var/atom/O in TT)
 				if(istype(O,/mob/living))
 					if(O.density)
-						del(X)
+						qdel(X)
 						broke = 1
 						break
 				if(!O.CanPass(src))
-					del(X)
+					qdel(X)
 					broke = 1
 					break
 			if(broke)
 				if(X)
-					del(X)
+					qdel(X)
 				break
 		spawn
 			while(src) //Move until we hit something
@@ -263,7 +264,7 @@
 					if(src.loc != current)
 						tang = adjustAngle(get_angle(src.loc,current))
 					icon_state = "[tang]"
-			del(src)
+			qdel(src)
 		return
 	/*cleanup(reference) //Waits .3 seconds then removes the overlay.
 		//world << "setting invisibility"

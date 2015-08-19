@@ -100,7 +100,7 @@
 				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
 				log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src]</font>")
 		if(life <= 0)
-			del(src)
+			qdel(src)
 		return
 
 
@@ -166,6 +166,9 @@
 
 		chassis.use_power(energy_drain)
 		log_message("Honked from [src.name]. HONK!")
+		var/turf/T = get_turf(src)
+		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Mecha Honker in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		log_game("[chassis.occupant.ckey]([chassis.occupant]) used a Mecha Honker in ([T.x],[T.y],[T.z])")
 		do_after_cooldown()
 		return
 
@@ -238,6 +241,9 @@
 			sleep(2)
 		set_ready_state(0)
 		log_message("Fired from [src.name], targeting [target].")
+		var/turf/T = get_turf(src)
+		message_admins("[key_name(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) fired a [src] in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		log_game("[key_name(chassis.occupant)] fired a [src] ([T.x],[T.y],[T.z])")
 		do_after_cooldown()
 		return
 
@@ -351,6 +357,9 @@
 		M.throw_at(target, missile_range, missile_speed, chassis)
 		projectiles--
 		log_message("Fired from [src.name], targeting [target].")
+		var/turf/T = get_turf(src)
+		message_admins("[key_name(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) fired a [src] in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		log_game("[key_name(chassis.occupant)] fired a [src] ([T.x],[T.y],[T.z])")
 		do_after_cooldown()
 		return
 
@@ -497,3 +506,20 @@
 		log_message("Fired from [src.name], targeting [target].")
 		do_after_cooldown()
 		return
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
+	equip_cooldown = 20
+	name = "217-D Heavy Plasma Cutter"
+	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demloishing solid obstacles."
+	icon_state = "mecha_plasmacutter"
+	item_state = "plasmacutter"
+	energy_drain = 60
+	origin_tech = "materials=3;combat=2;powerstorage=3;plasma=3"
+	projectile = /obj/item/projectile/plasma/adv/mech
+	fire_sound = 'sound/weapons/laser.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M as obj)
+	if(istype(M, /obj/mecha/working))
+		if(M.equipment.len<M.max_equip)
+			return 1
+	return 0

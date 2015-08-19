@@ -19,7 +19,7 @@
 		user.put_in_active_hand(S)
 		src.transfer_fingerprints_to(S)
 
-		del(src)
+		qdel(src)
 
 
 	attack(mob/living/target as mob, mob/living/user as mob)
@@ -556,6 +556,14 @@
 					icon_state = "rewriter"
 					name = "Rewriter"
 					desc = "The secert of the sanctuary of the Libarian..."
+				if("applejack")
+					icon_state = "cognacglass"
+					name = "Glass of applejack"
+					desc = "When cider isn't strong enough, you gotta jack it."
+				if("jackrose")
+					icon_state = "patronglass"
+					name = "Jack Rose"
+					desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
 				else
 					icon_state ="glass_brown"
 					name = "Glass of ..what?"

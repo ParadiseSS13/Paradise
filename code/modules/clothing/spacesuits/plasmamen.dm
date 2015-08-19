@@ -194,6 +194,7 @@
 	name = "plasmaman miner suit"
 	icon_state = "plasmamanMiner_suit"
 	armor = list(melee = 40, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
+	slowdown = 2
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/miner
 	name = "plasmaman miner helmet"

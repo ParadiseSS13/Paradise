@@ -109,14 +109,14 @@ Please contact me on #coderbus IRC. ~Carn x
 #define MUTATIONS_LAYER			2
 #define DAMAGE_LAYER			3
 #define UNIFORM_LAYER			4
-#define TAIL_LAYER				5		//bs12 specific. this hack is probably gonna come back to haunt me
-#define ID_LAYER				6
-#define SHOES_LAYER				7
-#define GLOVES_LAYER			8
-#define EARS_LAYER				9
-#define SUIT_LAYER				10
-#define GLASSES_LAYER			11
-#define BELT_LAYER				12		//Possible make this an overlay of somethign required to wear a belt?
+#define ID_LAYER				5
+#define SHOES_LAYER				6
+#define GLOVES_LAYER			7
+#define EARS_LAYER				8
+#define SUIT_LAYER				9
+#define GLASSES_LAYER			10
+#define BELT_LAYER				11		//Possible make this an overlay of somethign required to wear a belt?
+#define TAIL_LAYER				12		//bs12 specific. this hack is probably gonna come back to haunt me
 #define SUIT_STORE_LAYER		13
 #define BACK_LAYER				14
 #define HAIR_LAYER				15		//TODO: make part of head layer?
@@ -213,6 +213,7 @@ var/global/list/damage_icon_parts = list()
 			if(O.damage_state == "00") continue
 			var/icon/DI
 			var/cache_index = "[O.damage_state]/[O.icon_name]/[species.blood_color]/[species.name]"
+
 			if(damage_icon_parts[cache_index] == null)
 				DI = new /icon(species.damage_overlays, O.damage_state)			// the damage icon for whole human
 				DI.Blend(new /icon(species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
@@ -243,7 +244,7 @@ var/global/list/damage_icon_parts = list()
 	//0 = destroyed, 1 = normal, 2 = robotic, 3 = necrotic.
 	//Create a new, blank icon for our mob to use.
 	if(stand_icon)
-		del(stand_icon)
+		qdel(stand_icon)
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
 	var/icon_key = "[species.race_key][g][s_tone][r_skin][g_skin][b_skin]"
 	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
@@ -317,10 +318,14 @@ var/global/list/damage_icon_parts = list()
 
 	//Underwear
 	if(underwear && species.flags & HAS_UNDERWEAR)
-		stand_icon.Blend(new /icon('icons/mob/human.dmi', "underwear[underwear]_[g]_s"), ICON_OVERLAY)
+		var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
+		if(U)
+			stand_icon.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && species.flags & HAS_UNDERWEAR)
-		stand_icon.Blend(new /icon('icons/mob/human.dmi', "undershirt[undershirt]_s"), ICON_OVERLAY)
+		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+		if(U2)
+			stand_icon.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
 	if(update_icons)
 		update_icons()
@@ -364,7 +369,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(species.flags & IS_SYNTHETIC)))
+	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style && hair_style.species_allowed)
 			if(src.species.name in hair_style.species_allowed)
@@ -447,7 +452,7 @@ var/global/list/damage_icon_parts = list()
 	if (targeted_by && target_locked)
 		overlays_standing[TARGETED_LAYER]	= target_locked
 	else if (!targeted_by && target_locked)
-		del(target_locked)
+		qdel(target_locked)
 	if (!targeted_by)
 		overlays_standing[TARGETED_LAYER]	= null
 	if(update_icons)		update_icons()

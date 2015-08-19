@@ -23,8 +23,9 @@
 		air_update_turf(1)
 
 	Destroy()
+		density = 0
 		air_update_turf(1)
-		..()
+		return ..()
 
 	Move()
 		var/turf/T = loc
@@ -193,10 +194,10 @@
 	mineralType = "plasma"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
-		if(istype(W,/obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
-			if(WT.remove_fuel(0, user))
-				TemperatureAct(100)
+		if(is_hot(W))
+			message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("Plasma mineral door ignited by [key_name(user)] in ([x],[y],[z])")
+			TemperatureAct(100)
 		..()
 
 	temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -242,7 +243,7 @@
 		if(!devastated)
 			for(var/i = 1, i <= oreAmount, i++)
 				new/obj/item/stack/sheet/wood(get_turf(src))
-		del(src)
+		qdel(src)
 
 /obj/structure/mineral_door/resin
 	mineralType = "resin"
@@ -280,7 +281,7 @@
 		isSwitchingStates = 0
 
 	Dismantle(devastated = 0)
-		del(src)
+		qdel(src)
 
 	CheckHardness()
 		playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)

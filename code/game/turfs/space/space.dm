@@ -21,6 +21,9 @@
 	if(config)
 		update_starlight() //MC will initialize all the space turfs that get created before config
 
+/turf/space/Destroy()
+	return QDEL_HINT_LETMELIVE
+
 /turf/space/proc/update_starlight()
 	if(!config)	return
 	if(!config.starlight)
@@ -62,7 +65,7 @@
 				user << "\blue You build a catwalk!"
 				R.use(2)
 				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
-				del(L)
+				qdel(L)
 				return
 
 		user << "\blue Constructing support lattice ..."
@@ -75,7 +78,7 @@
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
-			del(L)
+			qdel(L)
 			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			S.build(src)
 			S.use(1)
@@ -103,31 +106,11 @@
 		if(destination_y)
 			A.y = destination_y
 
-		var/mob/living/MM = null
-		var/fukkendisk = A.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
 		var/obj/item/flag/nation/fukkenflag = A.GetTypeInAllContents(/obj/item/flag/nation)
 		if(fukkenflag)
 			fukkenflag.loc = fukkenflag.startloc
 			if(isliving(A))
 				A << "<span class='warning'>The flag you were carrying was just returned to it's base. Nice try.</span>"
-		if(fukkendisk)
-			if(isliving(A))
-				MM = A
-				if(MM.client && !MM.stat)
-					MM << "<span class='warning'>Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is.</span>"
-					if(MM.x <= TRANSITIONEDGE)
-						MM.inertia_dir = 4
-					else if(MM.x >= world.maxx -TRANSITIONEDGE)
-						MM.inertia_dir = 8
-					else if(MM.y <= TRANSITIONEDGE)
-						MM.inertia_dir = 1
-					else if(MM.y >= world.maxy -TRANSITIONEDGE)
-						MM.inertia_dir = 2
-				else
-					qdel(fukkendisk)//Make the disk respawn if it is on a clientless mob or corpse
-			else
-				qdel(fukkendisk)//Make the disk respawn if it is floating on its own
-			return
 
 		A.z =  text2num(transition)
 
@@ -151,7 +134,7 @@
 
 	if(src.x <= 1)
 		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
-			del(A)
+			qdel(A)
 			return
 
 		var/list/cur_pos = src.get_global_map_pos()
@@ -176,7 +159,7 @@
 					A.loc.Entered(A)
 	else if (src.x >= world.maxx)
 		if(istype(A, /obj/effect/meteor))
-			del(A)
+			qdel(A)
 			return
 
 		var/list/cur_pos = src.get_global_map_pos()
@@ -201,7 +184,7 @@
 					A.loc.Entered(A)
 	else if (src.y <= 1)
 		if(istype(A, /obj/effect/meteor))
-			del(A)
+			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
 		if(!cur_pos) return
@@ -226,7 +209,7 @@
 
 	else if (src.y >= world.maxy)
 		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
-			del(A)
+			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
 		if(!cur_pos) return

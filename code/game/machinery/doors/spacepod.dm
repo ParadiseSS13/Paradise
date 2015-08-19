@@ -7,23 +7,18 @@
 	density = 0
 	anchored = 1
 
-	New() //set the turf below the flaps to block air
-		var/turf/T = get_turf(loc)
-		if(T)
-			T.blocks_air = 1
-		..()
+/obj/structure/spacepoddoor/New()
+	..()
+	air_update_turf(1)
 
-	Destroy() //lazy hack to set the turf to allow air to pass if it's a simulated floor
-		var/turf/T = get_turf(loc)
-		if(T)
-			if(istype(T, /turf/simulated/floor))
-				T.blocks_air = 0
-		..()
+/obj/structure/spacepoddoor/CanAtmosPass(turf/T)
+	return 0
 
+/obj/structure/spacepoddoor/Destroy()
+	air_update_turf(1)
+	return ..()
 
-
-/obj/structure/spacepoddoor/CanPass(atom/A, turf/T)
+/obj/structure/spacepoddoor/CanPass(atom/movable/A, turf/T)
 	if(istype(A, /obj/spacepod))
 		return ..()
 	else return 0
-

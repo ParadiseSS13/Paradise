@@ -20,6 +20,8 @@ PASSWORD mypassword
 FEEDBACK_DATABASE paradise
 FEEDBACK_LOGIN mylogin
 FEEDBACK_PASSWORD mypassword
+# Table prefix - make sure you properly prefix the tables currently marked as erro_ in the .sql file as this is not fully implemented
+FEEDBACK_TABLEPREFIX erro
 
 # Track population and death statistics
 # Comment this out to disable

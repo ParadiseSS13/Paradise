@@ -5,7 +5,7 @@
 
 /obj/machinery/computer/telecomms/server
 	name = "Telecommunications Server Monitor"
-	icon_state = "comm_logs"
+	icon_screen = "comm_logs"
 
 
 	var/screen = 0				// the screen number:
@@ -101,7 +101,7 @@
 							race = "<i>Unidentifiable</i>"
 							language = race
 
-						del(M)
+						qdel(M)
 
 						// -- If the orator is a human, or universal translate is active, OR mob has universal speech on --
 
@@ -194,7 +194,7 @@
 				temp = "<font color = #336699>- DELETED ENTRY: [D.name] -</font color>"
 
 				SelectedServer.log_entries.Remove(D)
-				del(D)
+				qdel(D)
 
 			else
 				temp = "<font color = #D70B00>- FAILED: NO SELECTED MACHINE -</font color>"
@@ -232,7 +232,7 @@
 					A.state = 3
 					A.icon_state = "3"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 				else
 					user << "\blue You disconnect the monitor."
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
@@ -243,7 +243,7 @@
 					A.state = 4
 					A.icon_state = "4"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 		src.updateUsrDialog()
 		return
 

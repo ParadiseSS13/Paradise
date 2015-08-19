@@ -29,7 +29,7 @@ var/turf/T
 
 
 
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/weapon/grenade/bananade/casing
@@ -44,7 +44,7 @@ var/turf/T
 		if(fillamt < 9)
 			usr << "<span  class='notice'>You add another banana peel to the assembly.</span>"
 			fillamt += 1
-			del(I)
+			qdel(I)
 		else
 			usr << "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>"
 	if(istype(I, /obj/item/weapon/screwdriver))
@@ -54,7 +54,7 @@ var/turf/T
 			user.put_in_hands(G)
 			G.deliveryamt = src.fillamt
 			user << "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>"
-			del(src)
+			qdel(src)
 		else
 			usr << "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>"
 	else

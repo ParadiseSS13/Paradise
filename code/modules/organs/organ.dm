@@ -58,39 +58,59 @@ var/list/organ_cache = list()
 	if(status & ORGAN_ROBOT)
 		return
 	damage = max_damage
+	status |= ORGAN_DEAD
 	processing_objects -= src
 	if(dead_icon)
 		icon_state = dead_icon
+	if(owner && vital)
+		owner.death()
 
 /obj/item/organ/process()
+	if(loc != owner)
+		owner = null
 
+	//dead already, no need for more processing
+	if(status & ORGAN_DEAD)
+		return	
+	
 	// Don't process if we're in a freezer, an MMI or a stasis bag. //TODO: ambient temperature?
 	if(istype(loc,/obj/item/device/mmi) || istype(loc,/obj/item/bodybag/cryobag) || istype(loc,/obj/structure/closet/crate/freezer))
 		return
 
 	//Process infections
-	if (robotic >= 2 || (owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if ((status & ORGAN_ROBOT) || (owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
-
-	if(loc != owner)
-		owner = null
-
+		
 	if(!owner)
 		if(reagents)
 			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
 			if(B && prob(40))
 				reagents.remove_reagent("blood",0.1)
 				blood_splatter(src,B,1)
-		if(prob(5)) //How about we not have organs become completely useless less than a minute after removal?
-			damage += 1
+
+		germ_level += rand(2,6)
+		if(germ_level >= INFECTION_LEVEL_TWO)
+			germ_level += rand(2,6)
+		if(germ_level >= INFECTION_LEVEL_THREE)
+			die()
 
 		if(damage >= max_damage)
 			die()
+		
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
 		handle_germ_effects()
+		
+	//check if we've hit max_damage
+	if(damage >= max_damage)
+		die()
+	
+/obj/item/organ/examine(mob/user)
+	..(user)
+	if(status & ORGAN_DEAD)
+		user << "<span class='notice'>The decay has set in.</span>"
 
 /obj/item/organ/proc/handle_germ_effects()
 	//** Handle the effects of infections
@@ -188,31 +208,17 @@ var/list/organ_cache = list()
 	min_broken_damage = 35
 
 /obj/item/organ/emp_act(severity)
-	switch(robotic)
-		if(0)
+	if(!(status & ORGAN_ROBOT))
+		return
+	switch (severity)
+		if (1.0)
+			take_damage(0,20)
 			return
-		if(1)
-			switch (severity)
-				if (1.0)
-					take_damage(20,0)
-					return
-				if (2.0)
-					take_damage(7,0)
-					return
-				if(3.0)
-					take_damage(3,0)
-					return
-		if(2)
-			switch (severity)
-				if (1.0)
-					take_damage(40,0)
-					return
-				if (2.0)
-					take_damage(15,0)
-					return
-				if(3.0)
-					take_damage(10,0)
-					return
+		if (2.0)
+			take_damage(0,7)
+			return
+		if(3.0)
+			take_damage(0,3)
 
 /obj/item/organ/proc/removed(var/mob/living/user)
 
@@ -236,9 +242,9 @@ var/list/organ_cache = list()
 
 	if(owner && vital)
 		if(user)
-			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [owner.name] ([owner.ckey]) (INTENT: [uppertext(user.a_intent)])</font>"
-			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [user.name] ([user.ckey]) (INTENT: [uppertext(user.a_intent)])</font>"
-			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] removed a vital organ ([src]) from [owner.name] ([owner.ckey]) (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>"
+			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
+			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
 		owner.death()
 	owner = null
 
@@ -282,4 +288,4 @@ var/list/organ_cache = list()
 	if(fingerprintslast) O.fingerprintslast = fingerprintslast
 
 	user.put_in_active_hand(O)
-	del(src)
+	qdel(src)

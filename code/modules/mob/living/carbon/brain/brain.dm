@@ -20,7 +20,7 @@
 			if(stat!=DEAD)	//If not dead.
 				death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
 			ghostize()		//Ghostize checks for key so nothing else is necessary.
-		..()
+		return ..()
 
 	say_understands(var/other)//Goddamn is this hackish, but this say code is so odd
 		if (istype(other, /mob/living/silicon/ai))
@@ -59,6 +59,17 @@
 
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
+
+/mob/living/carbon/brain/blob_act()
+	return
+	
+
+/mob/living/carbon/brain/on_forcemove(atom/newloc)
+	if(container)
+		container.loc = newloc
+	else //something went very wrong.
+		CRASH("Brainmob without container.")
+	loc = container
 
 /mob/living/carbon/brain/binarycheck()
 	return istype(loc, /obj/item/device/mmi/posibrain)

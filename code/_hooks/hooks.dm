@@ -32,21 +32,21 @@ var/global/list/hooks = list()
 	for (var/hook_path in typesof(/hook))
 		var/hook/hook = new hook_path
 		hooks[hook.name] = hook
-//		world.log << "Found hook: " + hook.name
+//		log_to_dd("Found hook: " + hook.name)
 	for (var/hook_path in typesof(/hook_handler))
 		var/hook_handler/hook_handler = new hook_path
 		for (var/name in hooks)
 			if (hascall(hook_handler, "On" + name))
 				var/hook/hook = hooks[name]
 				hook.handlers += hook_handler
-//				world.log << "Found hook handler for: " + name
+//				log_to_dd("Found hook handler for: " + name)
 	for (var/hook/hook in hooks)
 		hook.Setup()
 
 /proc/CallHook(var/name as text, var/list/args)
 	var/hook/hook = hooks[name]
 	if (!hook)
-		//world.log << "WARNING: Hook with name " + name + " does not exist"
+		//log_to_dd("WARNING: Hook with name " + name + " does not exist")
 		return
 	if (hook.Called(args))
 		return

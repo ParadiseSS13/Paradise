@@ -1,7 +1,8 @@
 /obj/machinery/computer/teleporter
 	name = "Teleporter Control Console"
 	desc = "Used to control a linked teleportation Hub and Station."
-	icon_state = "teleport"
+	icon_screen = "teleport"
+	icon_keyboard = "teleport_key"
 	circuit = "/obj/item/weapon/circuitboard/teleporter"
 	var/obj/item/device/gps/locked = null
 	var/regime_set = "Teleporter"
@@ -20,6 +21,13 @@
 
 /obj/machinery/computer/teleporter/initialize()
 	link_power_station()
+	update_icon()
+
+/obj/machinery/computer/teleporter/Destroy()
+	if (power_station)
+		power_station.teleporter_console = null
+		power_station = null
+	return ..()
 
 /obj/machinery/computer/teleporter/proc/link_power_station()
 	if(power_station)
@@ -35,14 +43,11 @@
 		var/obj/item/device/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			if(!user.unEquip(L))
-				user << "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
+				user << "<span class='warning'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>"
 				return
 			L.loc = src
 			locked = L
 			user << "<span class='caution'>You insert the GPS device into the [name]'s slot.</span>"
-			src.attack_hand(user)
-		else
-			user << "<span class='warning'>No useable data was found on te GPS device.</span>"
 	else
 		..()
 	return
@@ -164,7 +169,7 @@
 
 /obj/machinery/computer/teleporter/proc/eject()
 	if(locked)
-		locked.loc = src.loc
+		locked.loc = loc
 		locked = null
 
 /obj/machinery/computer/teleporter/proc/set_target(mob/user)
@@ -290,6 +295,12 @@
 /obj/machinery/teleport/hub/initialize()
 	link_power_station()
 
+/obj/machinery/teleport/hub/Destroy()
+	if (power_station)
+		power_station.teleporter_hub = null
+		power_station = null
+	return ..()
+
 /obj/machinery/teleport/hub/RefreshParts()
 	var/A = 0
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
@@ -339,7 +350,7 @@
 	if (!com)
 		return
 	if (!com.target)
-		visible_message("<span class='notice'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
+		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
 	if (istype(M, /atom/movable))
 		if(!calibrated && prob(25 - ((accurate) * 10))) //oh dear a problem
@@ -407,7 +418,12 @@
 
 /obj/machinery/teleport/station/Destroy()
 	if(teleporter_hub)
+		teleporter_hub.power_station = null
 		teleporter_hub.update_icon()
+		teleporter_hub = null
+	if (teleporter_console)
+		teleporter_console.power_station = null
+		teleporter_console = null
 	return ..()
 
 /obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user, params)
@@ -419,8 +435,9 @@
 				M.buffer = null
 				user << "<span class='caution'>You upload the data from the [W.name]'s buffer.</span>"
 			else
-				user << "<span class='alert'>This station cant hold more information, try to use better parts.</span>"
+				user << "<span class='alert'>This station can't hold more information, try to use better parts.</span>"
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", W))
+		update_icon()
 		return
 
 	if(exchange_parts(user, W))
@@ -467,10 +484,9 @@
 
 /obj/machinery/teleport/station/power_change()
 	..()
-	if(stat & NOPOWER)
-		update_icon()
-		if(teleporter_hub)
-			teleporter_hub.update_icon()
+	update_icon()
+	if(teleporter_hub)
+		teleporter_hub.update_icon()
 
 /obj/machinery/teleport/station/update_icon()
 	if(panel_open)

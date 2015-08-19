@@ -171,7 +171,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		if(istype(G.affecting,/mob/living))
 			var/mob/living/M = G.affecting
 			var/state = G.state
-			del(W)	//gotta delete it here because if window breaks, it won't get deleted
+			qdel(W)	//gotta delete it here because if window breaks, it won't get deleted
 			switch (state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
@@ -241,7 +241,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		density = 0
 		air_update_turf(1)
 		update_nearby_icons()
-		del(src)
+		qdel(src)
 	else
 		if(W.damtype == BRUTE || W.damtype == BURN)
 			user.changeNext_move(CLICK_CD_MELEE)

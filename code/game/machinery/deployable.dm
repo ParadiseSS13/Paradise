@@ -89,7 +89,7 @@ for reference:
 				new /obj/item/stack/sheet/wood(get_turf(src))
 				new /obj/item/stack/sheet/wood(get_turf(src))
 				new /obj/item/stack/sheet/wood(get_turf(src))
-				del(src)
+				qdel(src)
 			..()
 
 	ex_act(severity)
@@ -112,7 +112,7 @@ for reference:
 		src.health -= 25
 		if (src.health <= 0)
 			visible_message("\red <B>The blob eats through the barricade!</B>")
-			del(src)
+			qdel(src)
 		return
 
 	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)//So bullets will fly over and stuff.

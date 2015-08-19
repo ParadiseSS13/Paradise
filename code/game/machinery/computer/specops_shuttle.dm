@@ -14,7 +14,8 @@ var/specops_shuttle_timeleft = 0
 /obj/machinery/computer/specops_shuttle
 	name = "Spec. Ops. Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "shuttle"
+	icon_keyboard = "security_key"
+	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(access_cent_specops)
 //	req_access = list(ACCESS_CENT_SPECOPS)
@@ -76,7 +77,7 @@ var/specops_shuttle_timeleft = 0
 		for(var/atom/movable/AM as mob|obj in T)
 			AM.Move(D)
 		if(istype(T, /turf/simulated))
-			del(T)
+			qdel(T)
 
 	for(var/mob/living/carbon/bug in end_location) // If someone somehow is still in the shuttle's docking area...
 		bug.gib()
@@ -95,7 +96,7 @@ var/specops_shuttle_timeleft = 0
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
 
-	del(announcer)
+	qdel(announcer)
 
 /proc/specops_process()
 	var/area/centcom/specops/special_ops = locate()//Where is the specops area located?
@@ -225,7 +226,7 @@ var/specops_shuttle_timeleft = 0
 		for(var/atom/movable/AM as mob|obj in T)
 			AM.Move(D)
 		if(istype(T, /turf/simulated))
-			del(T)
+			qdel(T)
 
 	start_location.move_contents_to(end_location)
 
@@ -236,7 +237,7 @@ var/specops_shuttle_timeleft = 0
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
 
-	del(announcer)
+	qdel(announcer)
 
 /proc/specops_can_move()
 	if(specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom)

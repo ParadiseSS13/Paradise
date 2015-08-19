@@ -378,6 +378,11 @@
 			if(isrobot(usr))
 				var/mob/living/silicon/robot/R = usr
 				R.sensor_mode()
+				
+		if("Toggle Headlamp")
+			if(isrobot(usr))
+				var/mob/living/silicon/robot/R = usr
+				R.control_headlamp()
 
 		if("module1")
 			if(istype(usr, /mob/living/silicon/robot))
@@ -474,7 +479,7 @@
 		if("Crew Monitoring")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.nano_crew_monitor()
+				AI.subsystem_crew_monitor()
 
 		if("Show Crew Manifest")
 			if(isAI(usr))
@@ -484,7 +489,7 @@
 		if("Show Alerts")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.ai_alerts()
+				AI.subsystem_alarm_monitor()
 
 		if("Announcement")
 			if(isAI(usr))

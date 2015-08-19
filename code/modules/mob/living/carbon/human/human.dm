@@ -50,6 +50,12 @@
 		dna.ready_dna(src)
 	UpdateAppearance()
 
+/mob/living/carbon/human/Destroy()
+	for(var/atom/movable/organelle in organs)
+		qdel(organelle)
+	organs = list()
+	return ..()
+
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
@@ -240,7 +246,7 @@
 	if (client.statpanel == "Status")
 		if (internal)
 			if (!internal.air_contents)
-				del(internal)
+				qdel(internal)
 			else
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
@@ -375,11 +381,11 @@
 	..()
 
 /mob/living/carbon/human/blob_act()
-	if(stat == 2)	return
-	show_message("\red The blob attacks you!")
+	if(stat == DEAD)	return
+	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(rand(20,30), BRUTE, affecting, run_armor_check(affecting, "melee"))
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 	return
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M as mob)
@@ -425,10 +431,10 @@
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
-	for(var/L in M.contents)
+/mob/living/carbon/human/proc/is_loyalty_implanted()	
+	for(var/L in contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/obj/item/organ/external/O in M.organs)
+			for(var/obj/item/organ/external/O in organs)
 				if(L in O.implants)
 					return 1
 	return 0
@@ -688,6 +694,12 @@
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
@@ -714,16 +726,19 @@
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
-
-
-
+					
 			else if(!pickpocket)
 				// Display a warning if the user mocks up
 				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
-
 		// if looting id with gloves, do it quietly - this allows pickpocket gloves to take/place id stealthily - Bone White
 		if(href_list["item"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+				
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return				
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
 				if(pickpocket)
@@ -755,9 +770,6 @@
 					else if(!pickpocket)
 						// Display a warning if the user mocks up
 						src << "<span class='warning'>You feel your ID slot being fumbled with!</span>"
-
-
-
 
 	if (href_list["refresh"])
 		if((machine)&&(in_range(src, usr)))
@@ -1118,26 +1130,47 @@
 	return
 
 /mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
-	. = 1 // Default to returning true.
-	if(user && !target_zone)
-		target_zone = user.zone_sel.selecting
-	// If targeting the head, see if the head item is thin enough.
-	// If targeting anything else, see if the wear suit is thin enough.
-	if(above_neck(target_zone))
-		if(head && head.flags & THICKMATERIAL)
-			. = 0
+	. = 1
+
+	if(!target_zone)
+		if(!user)
+			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
+		else
+			target_zone = user.zone_sel.selecting
+
+	var/obj/item/organ/external/affecting = get_organ(target_zone)
+	var/fail_msg
+	if(!affecting)
+		. = 0
+		fail_msg = "They are missing that limb."
+	else if (affecting.status & ORGAN_ROBOT)
+		. = 0
+		fail_msg = "That limb is robotic."
 	else
-		if(wear_suit && wear_suit.flags & THICKMATERIAL)
-			. = 0
+		switch(target_zone)
+			if("head")
+				if(head && head.flags & THICKMATERIAL)
+					. = 0
+			else
+				if(wear_suit && wear_suit.flags & THICKMATERIAL)
+					. = 0
 	if(!. && error_msg && user)
-		// Might need re-wording.
-		user << "<span class='alert'>There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"].</span>"
+		if(!fail_msg)
+			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"] to inject into."
+		user << "<span class='alert'>[fail_msg]</span>"
+		
+/mob/living/carbon/human/proc/check_has_mouth()
+	// Todo, check stomach organ when implemented.
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H || !H.can_intake_reagents)
+		return 0
+	return 1
 
 /mob/living/carbon/human/proc/vomit(hairball=0)
-	if(stat==2)return
+	if(stat==DEAD)return
 
-	if(species.flags & IS_SYNTHETIC)
-		return //Machines don't throw up.
+	if(!check_has_mouth())
+		return 
 
 	if(!lastpuke)
 		lastpuke = 1
@@ -1199,7 +1232,7 @@
 				if(H.brainmob.real_name == src.real_name)
 					if(H.brainmob.mind)
 						H.brainmob.mind.transfer_to(src)
-						del(H)
+						qdel(H)
 
 
 
@@ -1273,7 +1306,7 @@
 	.=..()
 	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
 		feet_blood_color = null
-		del(feet_blood_DNA)
+		qdel(feet_blood_DNA)
 		update_inv_shoes(1)
 		return 1
 

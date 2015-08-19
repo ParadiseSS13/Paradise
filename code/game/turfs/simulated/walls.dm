@@ -34,10 +34,14 @@
 
 
 /turf/simulated/wall/Del()
-	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
+	for(var/obj/effect/E in src)
+		if(E.name == "Wallrot")
+			qdel(E)
 
 /turf/simulated/wall/ChangeTurf(var/newtype)
-	for(var/obj/effect/E in src) if(E.name == "Wallrot") del E
+	for(var/obj/effect/E in src)
+		if(E.name == "Wallrot")
+			qdel(E)
 	var/dsr=0
 	if(del_suppress_resmoothing)	dsr=1
 	..(newtype)
@@ -185,8 +189,8 @@
 	return
 
 /turf/simulated/wall/blob_act()
-	take_damage(rand(75, 125))
-	return
+	if(prob(50))
+		dismantle_wall()
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
@@ -237,7 +241,7 @@
 	user << "<span class='warning'>The thermite starts melting through the wall.</span>"
 
 	spawn(100)
-		if(O)	del(O)
+		if(O)	qdel(O)
 //	F.sd_LumReset()		//TODO: ~Carn
 	return
 
@@ -247,14 +251,13 @@
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(M.environment_smash >= 2)
-		if(istype(src, /turf/simulated/wall/r_wall))
-			if(M.environment_smash == 3)
-				dismantle_wall(1)
-				M << "<span class='info'>You smash through the wall.</span>"
-			else
-				M << text("\blue You smash against the wall.")
-				take_damage(rand(25, 75))
-				return
+		if(M.environment_smash == 3)
+			dismantle_wall(1)
+			M << "<span class='info'>You smash through the wall.</span>"
+		else
+			M << text("<span class='notice'>You smash against the wall.</span>")
+			take_damage(rand(25, 75))
+			return
 
 	M << "\blue You push the wall but nothing happens!"
 	return
@@ -298,7 +301,7 @@
 				user << "<span class='notice'>You burn away the fungi with \the [WT].</span>"
 				playsound(src, 'sound/items/Welder.ogg', 10, 1)
 				for(var/obj/effect/E in src) if(E.name == "Wallrot")
-					del E
+					qdel(E)
 				rotting = 0
 				return
 		else if(!is_sharp(W) && W.force >= 10 || W.force >= 20)
@@ -314,7 +317,7 @@
 				thermitemelt(user)
 				return
 
-		else if(istype(W, /obj/item/weapon/pickaxe/plasmacutter))
+		else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 			thermitemelt(user)
 			return
 
@@ -363,7 +366,7 @@
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
 
-	else if( istype(W, /obj/item/weapon/pickaxe/plasmacutter) )
+	else if( istype(W, /obj/item/weapon/gun/energy/plasmacutter) )
 
 		user << "<span class='notice'>You begin slicing through the outer plating.</span>"
 		playsound(src, 'sound/items/Welder.ogg', 100, 1)
@@ -381,7 +384,7 @@
 		return
 
 	//DRILLING
-	else if (istype(W, /obj/item/weapon/pickaxe/diamonddrill))
+	else if (istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 
 		user << "<span class='notice'>You begin to drill though the wall.</span>"
 

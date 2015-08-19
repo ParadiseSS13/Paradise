@@ -123,7 +123,7 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
-		data["manifest"] = data_core.get_manifest_json()
+		data["manifest"] = list("__json_cache" = ManifestJSON)
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
 		if(!ui)
@@ -369,6 +369,8 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
+		if(!T || !(T.z in config.contact_levels))
+			break
 		if(T.loc)
 			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>"
 		else

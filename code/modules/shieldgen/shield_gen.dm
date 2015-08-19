@@ -259,14 +259,14 @@
 		for(var/turf/O in covered_turfs)
 			var/obj/effect/energy_field/E = new(O)
 			field.Add(E)
-		del covered_turfs
+		qdel(covered_turfs)
 
 		for(var/mob/M in view(5,src))
 			M << "\icon[src] You hear heavy droning start up."
 	else
 		for(var/obj/effect/energy_field/D in field)
 			field.Remove(D)
-			del D
+			qdel(D)
 
 		for(var/mob/M in view(5,src))
 			M << "\icon[src] You hear heavy droning fade out."

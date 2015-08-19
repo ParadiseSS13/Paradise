@@ -40,11 +40,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/amount = 8.0
 
 /obj/effect/proc/delete()
-	loc = null
-	if(reagents)
-		reagents.my_atom = null
-		reagents.delete()
-	return
+	qdel(src)
 
 
 /obj/effect/effect/water/New()
@@ -176,7 +172,7 @@ steam.start() -- spawns the effect
 	if (istype(T, /turf))
 		T.hotspot_expose(1000, 100)
 	spawn (100)
-		delete()
+		qdel(src)
 
 /obj/effect/effect/sparks/Destroy()
 	var/turf/T = src.loc
@@ -223,8 +219,7 @@ steam.start() -- spawns the effect
 					sleep(5)
 					step(sparks,direction)
 				spawn(20)
-					if(sparks)
-						sparks.delete()
+					qdel(sparks)
 					src.total_sparks--
 
 /////////////////////////////////////////////
@@ -432,7 +427,7 @@ steam.start() -- spawns the effect
 	if(seed_name && plant_controller)
 		seed = plant_controller.seeds[seed_name]
 	if(!seed)
-		del(src)
+		qdel(src)
 	..()
 
 
@@ -488,7 +483,7 @@ steam.start() -- spawns the effect
 					var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
 					var/more = ""
 					if(M)
-						more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
+						more = " "
 					msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
 					log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 				else
@@ -686,7 +681,7 @@ steam.start() -- spawns the effect
 /obj/effect/effect/mustard_gas/New()
 	..()
 	spawn (100)
-		del(src)
+		qdel(src)
 	return
 
 /obj/effect/effect/mustard_gas/Move()
@@ -753,7 +748,7 @@ steam.start() -- spawns the effect
 					sleep(10)
 					step(smoke,direction)
 				spawn(100)
-					del(smoke)
+					qdel(smoke)
 					src.total_smoke--
 
 
@@ -1079,10 +1074,9 @@ steam.start() -- spawns the effect
 		air_update_turf(1)
 
 	Destroy()
-
 		density = 0
 		air_update_turf(1)
-		..()
+		return ..()
 
 	Move()
 		var/turf/T = loc
@@ -1232,7 +1226,7 @@ steam.start() -- spawns the effect
 	var/r = rand(0,255)
 	var/g = rand(0,255)
 	var/b = rand(0,255)
-	world.log << "Colour , [r],[g],[b]"
+	log_to_dd("Colour , [r],[g],[b]")
 	I.Blend(rgb(r,g,b),ICON_MULTIPLY)
 	src.icon = I
 	playsound(src.loc, "sparks", 100, 1)
@@ -1240,7 +1234,7 @@ steam.start() -- spawns the effect
 	if (istype(T, /turf))
 		T.hotspot_expose(3000,100)
 	spawn (100)
-		del(src)
+		qdel(src)
 	return
 
 /obj/effects/sparkels/Destroy()
@@ -1296,5 +1290,5 @@ steam.start() -- spawns the effect
 				sleep(5)
 				step(sparks,direction)
 			spawn(20)
-				del(sparks)
+				qdel(sparks)
 				src.total_sparks--

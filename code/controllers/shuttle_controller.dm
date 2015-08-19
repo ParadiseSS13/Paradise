@@ -246,8 +246,30 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 	MS.warmup_time = 0
 	shuttles["Syndicate"] = MS
+	
+	//Xenos shuttle.
+	var/datum/shuttle/multi_shuttle/XS = new/datum/shuttle/multi_shuttle()
+	XS.origin = locate(/area/xenos_station/start)
 
-	//Vox Shuttle.
+	XS.destinations = list(
+		"Northwest of the station" = locate(/area/xenos_station/northwest),
+		"Northeast of the station" = locate(/area/xenos_station/northeast),
+		"East of the station" = locate(/area/xenos_station/east),
+		"Southwest of the station" = locate(/area/xenos_station/southwest),
+		"Southeast of the station" = locate(/area/xenos_station/southeast),
+		"West of the station" = locate(/area/xenos_station/west),
+		"Research Outpost" = locate(/area/xenos_station/researchoutpost)
+		)
+
+	XS.announcer = "NSV Icarus"
+	XS.arrival_message = "Attention, [station_name()], you have an unknown signature approaching the station - scanners detect an alien presence on board. It's somehow scrambling our weapons targetting system: brace for hostile visitors."
+	XS.departure_message = "The unknown ship appears to be pulling away from the station, [station_name()]. We're still unable to target them. Let's hope they stay away."
+	XS.interim = locate(/area/xenos_station/transit)
+
+	XS.warmup_time = 0
+	shuttles["Xenomorph"] = XS
+
+	//Derelict Shuttle.
 	var/datum/shuttle/multi_shuttle/WS = new/datum/shuttle/multi_shuttle()
 	WS.origin = locate(/area/shuttle/derelict/ship/start)
 

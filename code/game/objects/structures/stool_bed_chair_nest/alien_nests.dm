@@ -71,6 +71,7 @@
 	..()
 
 /obj/structure/stool/bed/nest/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	var/aforce = W.force
 	health = max(0, health - aforce)
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
@@ -80,5 +81,5 @@
 /obj/structure/stool/bed/nest/proc/healthcheck()
 	if(health <=0)
 		density = 0
-		del(src)
+		qdel(src)
 	return

@@ -40,7 +40,7 @@
 	var/list/res = list()
 	for (var/specie in all_species)
 		var/datum/species/S = all_species[specie]
-		if(!(S.flags & IS_SYNTHETIC))
+		if(!(S.virus_immune))
 			meat += S.name
 	if(meat.len)
 		var/num = rand(1,meat.len)
@@ -58,10 +58,11 @@
 	if(mob.stat == 2)
 		return
 
-	var/mob/living/carbon/human/MS = mob
-	if(istype(MS))
-		if(MS.species.flags & IS_SYNTHETIC)
-			return
+	// Some species are flat out immune to organic viruses.
+	var/mob/living/carbon/human/H = mob
+	if(istype(H) && H.species.virus_immune)
+		cure(mob)
+		return
 
 	if(stage <= 1 && clicks == 0) 	// with a certain chance, the mob may become immune to the disease before it starts properly
 		if(prob(5))

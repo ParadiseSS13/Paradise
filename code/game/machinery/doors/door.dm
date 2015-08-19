@@ -166,7 +166,7 @@
 
 /obj/machinery/door/blob_act()
 	if(prob(40))
-		del(src)
+		qdel(src)
 	return
 
 
@@ -262,11 +262,6 @@
 	operating = 0
 	air_update_turf(1)
 	update_freelok_sight()
-
-	//I shall not add a check every x ticks if a door has closed over some fire.
-	var/obj/effect/hotspot/fire = locate() in loc
-	if(fire)
-		qdel(fire)
 	return
 
 /obj/machinery/door/proc/crush()

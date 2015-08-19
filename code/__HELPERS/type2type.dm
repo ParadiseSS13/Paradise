@@ -248,7 +248,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			world.log << "UNKNOWN DIRECTION: [direction]"
+			log_to_dd("UNKNOWN DIRECTION: [direction]")
 
 /proc/dir2text(direction)
 	switch(direction)

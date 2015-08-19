@@ -24,7 +24,7 @@
 	if(!parts)
 		user << "<span class='warning'>This kit has no parts for this modification left.</span>"
 		user.unEquip(src)
-		del(src)
+		qdel(src)
 		return
 
 	var/allowed = 0
@@ -60,7 +60,7 @@
 
 	if(!parts)
 		user.unEquip(src)
-		del(src)
+		qdel(src)
 
 /obj/item/device/modkit/examine()
 	..()

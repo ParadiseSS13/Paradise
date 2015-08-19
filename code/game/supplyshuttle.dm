@@ -87,24 +87,22 @@ var/list/mechtoys = list(
 	name = "\improper Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-	New() //set the turf below the flaps to block air
-		var/turf/T = get_turf(loc)
-		if(T)
-			T.blocks_air = 1
+	New()
+		air_update_turf(1)
 		..()
 
-	Destroy() //lazy hack to set the turf to allow air to pass if it's a simulated floor
-		var/turf/T = get_turf(loc)
-		if(T)
-			if(istype(T, /turf/simulated/floor))
-				T.blocks_air = 0
-		..()
+	Destroy()
+		air_update_turf(1)
+		return ..()
+
+	CanAtmosPass(turf/T)
+		return 0
 
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "supply"
+	icon_screen = "supply"
 	req_access = list(access_cargo)
 	circuit = "/obj/item/weapon/circuitboard/supplycomp"
 	var/temp = null
@@ -117,7 +115,7 @@ var/list/mechtoys = list(
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "request"
+	icon_screen = "request"
 	circuit = "/obj/item/weapon/circuitboard/ordercomp"
 	var/temp = null
 	var/reqtime = 0 //Cooldown for requisitions - Quarxink
@@ -147,7 +145,6 @@ var/list/mechtoys = list(
 	var/points_per_process = 1
 	var/points_per_slip = 2
 	var/points_per_crate = 5
-	var/points_per_platinum = 5 // 5 points per sheet
 	var/points_per_plasma = 5
 	//control
 	var/ordernum
@@ -163,10 +160,10 @@ var/list/mechtoys = list(
 
 	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
 	proc/process()
-		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
+		for(var/typepath in subtypesof(/datum/supply_packs))
 			var/datum/supply_packs/P = new typepath()
 			if(P.name == "HEADER")
-				del(P)
+				qdel(P)
 				continue
 			supply_packs[P.name] = P
 
@@ -201,7 +198,6 @@ var/list/mechtoys = list(
 		if(!area_shuttle)	return
 
 		var/plasma_count = 0
-		var/plat_count = 0
 
 		for(var/atom/movable/MA in area_shuttle)
 			if(MA.anchored)	continue
@@ -222,15 +218,10 @@ var/list/mechtoys = list(
 							points += points_per_slip
 							find_slip = 0
 
-					// Sell phoron
+					// Sell plasma
 					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 						var/obj/item/stack/sheet/mineral/plasma/P = A
 						plasma_count += P.amount
-
-					// Sell platinum
-					else if(istype(A, /obj/item/stack/sheet/mineral/platinum))
-						var/obj/item/stack/sheet/mineral/platinum/P = A
-						plat_count += P.amount
 
 					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
 					qdel(A)
@@ -238,9 +229,6 @@ var/list/mechtoys = list(
 
 		if(plasma_count)
 			points += plasma_count * points_per_plasma
-
-		if(plat_count)
-			points += plat_count * points_per_platinum
 
 	//Buyin
 	proc/buy()
@@ -542,11 +530,11 @@ var/list/mechtoys = list(
 
 /obj/machinery/computer/supplycomp/Topic(href, href_list)
 	if(!supply_controller)
-		world.log << "## ERROR: Eek. The supply_controller controller datum is missing somehow."
+		log_to_dd("## ERROR: Eek. The supply_controller controller datum is missing somehow.")
 		return
 	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
 	if (!shuttle)
-		world.log << "## ERROR: Eek. The supply/shuttle datum is missing somehow."
+		log_to_dd("## ERROR: Eek. The supply/shuttle datum is missing somehow.")
 		return
 	if(..())
 		return

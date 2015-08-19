@@ -31,7 +31,7 @@ obj/machinery/seed_extractor/attackby(var/obj/item/O as obj, var/mob/user as mob
 		else
 			user << "[O] doesn't seem to have any usable seeds inside it."
 
-		del(O)
+		qdel(O)
 
 	//Grass.
 	else if(istype(O, /obj/item/stack/tile/grass))

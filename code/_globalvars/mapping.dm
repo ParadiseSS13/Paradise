@@ -5,6 +5,7 @@
 
 var/list/cardinal = list( NORTH, SOUTH, EAST, WEST )
 var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+var/list/diagonals = list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 
 //This list contains the z-level numbers which can be accessed via space travel and the percentile chances to get there.
 //(Exceptions: extended, sandbox and nuke) -Errorage
@@ -50,5 +51,5 @@ var/list/blobstart = list()
 var/list/ninjastart = list()
 var/list/carplist = list() //list of all carp-spawn landmarks
 
-	//away missions
+//away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

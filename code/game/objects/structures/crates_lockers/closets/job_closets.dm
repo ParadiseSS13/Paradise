@@ -110,6 +110,8 @@
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
 
 //Paramedic
 

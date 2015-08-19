@@ -139,13 +139,9 @@
 
 /obj/singularity/narsie/wizard/eat()
 	set background = BACKGROUND_ENABLED
-//	if(defer_powernet_rebuild != 2)
-//		defer_powernet_rebuild = 1
 	for(var/atom/X in orange(consume_range,src))
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
-//	if(defer_powernet_rebuild != 2)
-//		defer_powernet_rebuild = 0
 	return
 
 

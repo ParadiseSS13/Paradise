@@ -6,7 +6,7 @@ world/IsBanned(key,address,computer_id)
 	//Guest Checking
 	if(!guests_allowed && IsGuestKey(key))
 		log_access("Failed Login: [key] - Guests not allowed")
-		message_admins("\blue Failed Login: [key] - Guests not allowed")
+		// message_admins("\blue Failed Login: [key] - Guests not allowed")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
 
 	//check if the IP address is a known TOR node
@@ -34,7 +34,7 @@ world/IsBanned(key,address,computer_id)
 		var/ckeytext = ckey(key)
 
 		if(!establish_db_connection())
-			world.log << "Ban database connection failure. Key [ckeytext] not checked"
+			log_to_dd("Ban database connection failure. Key [ckeytext] not checked")
 			diary << "Ban database connection failure. Key [ckeytext] not checked"
 			return
 
@@ -51,7 +51,7 @@ world/IsBanned(key,address,computer_id)
 			failedcid = 0
 			cidquery = " OR computerid = '[computer_id]' "
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM erro_ban WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN'  OR (bantype = 'TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN'  OR (bantype = 'TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
 
 		query.Execute()
 

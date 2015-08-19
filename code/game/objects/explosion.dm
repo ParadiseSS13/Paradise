@@ -1,11 +1,5 @@
 //TODO: Flash range does nothing currently
 
-//A very crude linear approximatiaon of pythagoras theorem.
-/proc/cheap_pythag(var/dx, var/dy)
-	dx = abs(dx); dy = abs(dy);
-	if(dx>=dy)	return dx + (0.5*dy)	//The longest side add half the shortest side approximates the hypotenuse
-	else		return dy + (0.5*dx)
-
 /proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY processes turfs and thus less intensive)
 	if(Center==null) return
 
@@ -37,10 +31,11 @@
 		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
 	spawn(0)
-		var/start = world.timeofday
+		var/start = TimeOfHour
 		if(!epicenter) return
 
 		var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
+		var/list/cached_exp_block = new
 
 		if(adminlog)
 			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] ([epicenter.x],[epicenter.y],[epicenter.z]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[epicenter.x];Y=[epicenter.y];Z=[epicenter.z]'>JMP</a>)")
@@ -73,14 +68,12 @@
 							far_volume += (dist <= far_dist * 0.5 ? 50 : 0) // add 50 volume if the mob is pretty close to the explosion
 							M.playsound_local(epicenter, 'sound/effects/explosionfar.ogg', far_volume, 1, frequency, falloff = 5)
 
-
-		//Pause the lighting updates for a bit
-		var/datum/controller/process/lighting = processScheduler.getProcess("lighting")
-		lighting.disable()
-
-		var/powernet_rebuild_was_deferred_already = defer_powernet_rebuild
-		if(defer_powernet_rebuild != 2)
-			defer_powernet_rebuild = 1
+			var/close = range(world.view+round(devastation_range,1), epicenter)
+			// to all distanced mobs play a different sound
+			for(var/mob/M in world) if(M.z == epicenter.z) if(!(M in close))
+				// check if the mob can hear
+				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
+					M << 'sound/effects/explosionfar.ogg'
 
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
@@ -91,23 +84,30 @@
 		var/y0 = epicenter.y
 		var/z0 = epicenter.z
 
+		if(config.reactionary_explosions)
+			// Cache the explosion block rating of every turf in the explosion area so
+			//  exploded turfs don't leave the explosion lopsided
+			for(var/turf/T in trange(max_range, epicenter))
+				cached_exp_block[T] = 0
+				if(T.density && T.explosion_block)
+					cached_exp_block[T] += T.explosion_block
+
+				for(var/obj/machinery/door/D in T)
+					if(D.density && D.explosion_block)
+						cached_exp_block[T] += D.explosion_block
+
 		for(var/turf/T in trange(max_range, epicenter))
 
-			var/dist = cheap_pythag(T.x - x0,T.y - y0)
+			var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
 				while(Trajectory != epicenter)
 					Trajectory = get_step_towards(Trajectory, epicenter)
-					if(Trajectory.density && Trajectory.explosion_block)
-						dist += Trajectory.explosion_block
-
-					for(var/obj/machinery/door/D in Trajectory)
-						if(D.density && D.explosion_block)
-							dist += D.explosion_block
+					dist += cached_exp_block[Trajectory]
 
 			var/flame_dist = 0
-			var/throw_dist = dist
+//			var/throw_dist = max_range - dist
 
 			if(dist < flame_range)
 				flame_dist = 1
@@ -120,42 +120,37 @@
 			//------- TURF FIRES -------
 
 			if(T)
-				for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
-					var/atom/movable/AM = atom_movable
-					if(AM)	AM.ex_act(dist)
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
-					new/obj/effect/hotspot(T) //Mostly for ambience!
+					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
 				if(dist > 0)
+					for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
+						var/atom/movable/AM = atom_movable
+						if(AM && AM.simulated)	AM.ex_act(dist)
 					T.ex_act(dist)
 
 			//--- THROW ITEMS AROUND ---
-
-			var/throw_dir = get_dir(epicenter,T)
-			for(var/obj/item/I in T)
-				spawn(0) //Simultaneously not one at a time
-					if(I && !I.anchored)
-						var/throw_range = rand(throw_dist, max_range)
-						var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-						I.throw_speed = 4 //Temporarily change their throw_speed for embedding purposes (Reset when it finishes throwing, regardless of hitting anything)
-						I.throw_at(throw_at, throw_range, 2)//Throw it at 2 speed, this is purely visual anyway.
-
-		var/took = (world.timeofday-start)/10
+/*
+			if(throw_dist > 0)
+				var/throw_dir = get_dir(epicenter,T)
+				for(var/obj/item/I in T)
+					spawn(0) //Simultaneously not one at a time
+						if(I && !I.anchored)
+							var/throw_mult = 0.5 + (0.5 * rand()) // Between 0.5 and 1.0
+							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
+							if(throw_range > 0)
+								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
+								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
+*/
+		var/timeofhour = TimeOfHour
+		var/took = round((start <= timeofhour) ? ((timeofhour-start)/10) : ((timeofhour-(start-36000))/10), 0.01)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		if(Debug2)	world.log << "## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds."
+		if(Debug2)	log_to_dd("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
 		//Machines which report explosions.
 		for(var/i,i<=doppler_arrays.len,i++)
 			var/obj/machinery/doppler_array/Array = doppler_arrays[i]
 			if(Array)
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
-
-		sleep(8)
-
-		lighting.enable()
-
-		if(!powernet_rebuild_was_deferred_already)
-			if(defer_powernet_rebuild != 2)
-				defer_powernet_rebuild = 0
 
 	return 1
 
@@ -205,7 +200,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in trange(max_range, epicenter))
 		wipe_colours += T
-		var/dist = cheap_pythag(T.x - x0, T.y - y0)
+		var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
 		if(newmode == "Yes")
 			var/turf/TT = T

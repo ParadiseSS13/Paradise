@@ -72,7 +72,7 @@
 
 /obj/structure/alien/resin/proc/healthcheck()
 	if(health <=0)
-		del(src)
+		qdel(src)
 
 
 /obj/structure/alien/resin/bullet_act(obj/item/projectile/Proj)
@@ -167,7 +167,7 @@
 	..()
 	linked_node = node
 	if(istype(loc, /turf/space))
-		del(src)
+		qdel(src)
 		return
 	if(icon_state == "weeds")
 		icon_state = pick("weeds", "weeds1", "weeds2")
@@ -178,9 +178,9 @@
 
 /obj/structure/alien/weeds/Destroy()
 	var/turf/T = loc
-	loc = null
 	for (var/obj/structure/alien/weeds/W in range(1,T))
 		W.updateWeedOverlays()
+	linked_node = null
 	return ..()
 
 /obj/structure/alien/weeds/proc/Life()
@@ -188,7 +188,7 @@
 	var/turf/U = get_turf(src)
 
 	if(istype(U, /turf/space))
-		del(src)
+		qdel(src)
 		return
 
 	direction_loop:
@@ -232,7 +232,7 @@
 
 /obj/structure/alien/weeds/proc/healthcheck()
 	if(health <= 0)
-		del(src)
+		qdel(src)
 
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -315,7 +315,7 @@
 			if(BURST)
 				user << "<span class='notice'>You clear the hatched egg.</span>"
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-				del(src)
+				qdel(src)
 				return
 			if(GROWING)
 				user << "<span class='notice'>The child is not developed yet.</span>"
@@ -390,7 +390,7 @@
 		if(status != BURST && status != BURSTING)
 			Burst()
 		else if(status == BURST && prob(50))
-			del(src)	//Remove the egg after it has been hit after bursting.
+			qdel(src)	//Remove the egg after it has been hit after bursting.
 
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -453,7 +453,7 @@
 
 /obj/effect/acid/proc/tick()
 	if(!target)
-		del(src)
+		qdel(src)
 
 	ticks++
 
@@ -464,9 +464,9 @@
 			var/turf/simulated/wall/W = target
 			W.dismantle_wall(1)
 		else
-			del(target)
+			qdel(target)
 
-		del(src)
+		qdel(src)
 		return
 
 	x = target.x

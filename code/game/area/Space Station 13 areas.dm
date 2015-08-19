@@ -35,7 +35,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/eject = null
 
 	var/debug = 0
-	var/powerupdate = 10		//We give everything 10 ticks to settle out it's power usage.
 	var/requires_power = 1
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
 
@@ -55,14 +54,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/air_doors_activated = 0
 
 	var/tele_proof = 0
-
+	
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
-
-/hook/startup/proc/setupTeleportLocs()
+/hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
@@ -74,21 +71,15 @@ var/list/teleportlocs = list()
 	teleportlocs = sortAssoc(teleportlocs)
 
 	return 1
-
+	
 var/list/ghostteleportlocs = list()
-
-/hook/startup/proc/setupGhostTeleportLocs()
+/hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/tdome))
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			var/turf/picked = pick(turfs)
-			if ((picked.z in config.player_levels))
-				ghostteleportlocs += AR.name
-				ghostteleportlocs[AR.name] = AR
+			ghostteleportlocs += AR.name
+			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -128,6 +119,24 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_environ = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
+	
+/area/space/atmosalert()
+	return
+
+/area/space/fire_alert()
+	return
+
+/area/space/fire_reset()
+	return
+
+/area/space/readyalert()
+	return
+	
+/area/space/radiation_alert()
+	return
+
+/area/space/partyalert()
+	return
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
@@ -497,6 +506,8 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
 	requires_power = 0
+	lighting_use_dynamic = 0
+
 
 /area/tdome/arena_source
 	name = "\improper Thunderdome Arena Template"
@@ -1495,6 +1506,14 @@ var/list/ghostteleportlocs = list()
 /area/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
+	
+/area/security/brig/prison_break()
+	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
+		temp_closet.locked = 0
+		temp_closet.icon_state = temp_closet.icon_closed
+	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_timer.releasetime = 1
+	..()
 
 /area/security/permabrig
 	name = "\improper Prison Wing"
@@ -1503,6 +1522,14 @@ var/list/ghostteleportlocs = list()
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
+	
+/area/security/prison/prison_break()
+	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
+		temp_closet.locked = 0
+		temp_closet.icon_state = temp_closet.icon_closed
+	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_timer.releasetime = 1
+	..()
 
 /area/security/prison/cell_block
 	name = "\improper Prison Cell Block"
@@ -1908,11 +1935,11 @@ area/security/podbay
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/engipost
-	name = "\improper Abandoned Ship"
+	name = "\improper Engineering Outpost"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
-	name = "\improper Abandoned Ship"
+	name = "\improper North of SS13"
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
@@ -2215,12 +2242,12 @@ area/security/podbay
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
-	name = "\improper Telecommunications Satellite West Wing"
+	name = "\improper Telecoms West Wing"
 	icon_state = "tcomsatwest"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
-	name = "\improper Telecommunications Satellite East Wing"
+	name = "\improper Telecoms East Wing"
 	icon_state = "tcomsateast"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
@@ -2233,10 +2260,12 @@ area/security/podbay
 	icon_state = "tcomsatcham"
 
 /area/tcommsat/lounge
-	name = "\improper Telecommunications Satellite Lounge"
+	name = "\improper Telecoms Lounge"
 	icon_state = "tcomsatlounge"
 
-
+/area/tcommsat/powercontrol
+	name = "\improper Telecoms Power Control"
+	icon_state = "tcomsatwest"
 
 // Away Missions
 /area/awaymission

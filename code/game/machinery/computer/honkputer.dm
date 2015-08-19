@@ -2,7 +2,9 @@
 	name = "HONKputer Mark I"
 	desc = "A yellow computer used in case of critically low levels of HONK."
 	icon = 'icons/obj/machines/HONKputer.dmi'
-	icon_state = "honk"
+	icon_state = "honkputer"
+	icon_keyboard = "key_honk"
+	icon_screen = "honkcomms"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_clown)
 	circuit = "/obj/item/weapon/circuitboard/HONKputer"
@@ -110,7 +112,7 @@
 				user << "\blue You disconnect the monitor."
 				A.state = 4
 				A.icon_state = "4"
-			del(src)
+			qdel(src)
 	else
 		src.attack_hand(user)
 	return

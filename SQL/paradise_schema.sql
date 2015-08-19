@@ -50,8 +50,8 @@ CREATE TABLE `characters` (
   `eyes_red` smallint(4) NOT NULL,
   `eyes_green` smallint(4) NOT NULL,
   `eyes_blue` smallint(4) NOT NULL,
-  `underwear` smallint(4) NOT NULL,
-  `undershirt` smallint(4) NOT NULL,
+  `underwear` mediumtext NOT NULL,
+  `undershirt` mediumtext NOT NULL,
   `backbag` smallint(4) NOT NULL,
   `b_type` varchar(45) NOT NULL,
   `alternate_option` smallint(4) NOT NULL,
@@ -437,5 +437,22 @@ CREATE TABLE `whitelist` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+--
+-- Table structure for table `watch`
+--
+
+DROP TABLE IF EXISTS `erro_watch`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `erro_watch` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `reason` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- Dump completed on 2013-03-24 18:02:35
 
 -- Dump completed on 2015-05-28 19:57:44

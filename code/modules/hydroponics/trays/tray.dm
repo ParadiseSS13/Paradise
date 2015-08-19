@@ -140,8 +140,8 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/attack_generic(var/mob/user)
-	if(istype(user,/mob/living/carbon/primitive/diona))
-		var/mob/living/carbon/primitive/diona/nymph = user
+	if(istype(user,/mob/living/simple_animal/diona))
+		var/mob/living/simple_animal/diona/nymph = user
 
 		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
 			return
@@ -162,10 +162,10 @@
 	..()
 
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/hydroponics(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/circuitboard/hydroponics(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
 	temp_chem_holder = new()
@@ -324,6 +324,10 @@
 		seed.harvest(user,yield_mod)
 	else
 		seed.harvest(get_turf(src),yield_mod)
+	//Increases harvest count for round-end score
+	//Currently per-plant (not per-item) harvested
+	// --FalseIncarnate
+	score_stuffharvested++
 
 	// Reset values.
 	harvest = 0
@@ -574,7 +578,7 @@
 			weedlevel -= P.weed_kill_str
 			user << "You spray [src] with [O]."
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-			del(O)
+			qdel(O)
 
 			check_level_sanity()
 			update_icon()
@@ -587,7 +591,7 @@
 			weedlevel -= W.weed_kill_str
 			user << "You spray [src] with [O]."
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-			del(O)
+			qdel(O)
 
 			check_level_sanity()
 			update_icon()
@@ -682,7 +686,7 @@
 
 			if(!S.seed)
 				user << "The packet seems to be empty. You throw it away."
-				del(O)
+				qdel(O)
 				return
 
 			user << "You plant the [S.seed.seed_name] [S.seed.seed_noun]."
@@ -693,7 +697,7 @@
 			health = (istype(S, /obj/item/seeds/cutting) ? round(seed.get_trait(TRAIT_ENDURANCE)/rand(2,5)) : seed.get_trait(TRAIT_ENDURANCE))
 			lastcycle = world.time
 
-			del(O)
+			qdel(O)
 
 			check_health()
 
@@ -735,13 +739,13 @@
 			user << "<span class='danger'>[src] is already occupied!</span>"
 		else
 			user.drop_item()
-			del(O)
+			qdel(O)
 
 			var/obj/machinery/apiary/A = new(src.loc)
 			A.icon = src.icon
 			A.icon_state = src.icon_state
 			A.hydrotray_type = src.type
-			del(src)
+			qdel(src)
 	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
 		if (src.holding)
 			user << "\blue There is alreadu a tank loaded into the [src]."

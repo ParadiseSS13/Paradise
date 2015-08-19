@@ -9,7 +9,7 @@
 
 /obj/machinery/computer/telecomms/monitor
 	name = "Telecommunications Monitor"
-	icon_state = "comm_monitor"
+	icon_screen = "comm_monitor"
 
 	var/screen = 0				// the screen number:
 	var/list/machinelist = list()	// the machines located by the computer
@@ -141,7 +141,7 @@
 					A.state = 3
 					A.icon_state = "3"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 				else
 					user << "\blue You disconnect the monitor."
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
@@ -152,7 +152,7 @@
 					A.state = 4
 					A.icon_state = "4"
 					A.anchored = 1
-					del(src)
+					qdel(src)
 		src.updateUsrDialog()
 		return
 

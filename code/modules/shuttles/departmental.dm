@@ -1,7 +1,7 @@
 /obj/machinery/computer/shuttle_control/mining
 	name = "Mining Shuttle Console"
 	shuttle_tag = "Mining"
-	req_access = list(access_mining)
+	req_access = list()
 	circuit = /obj/item/weapon/circuitboard/mining_shuttle
 
 /obj/machinery/computer/shuttle_control/engineering
@@ -33,7 +33,7 @@
 		src.visible_message("\blue Shuttle is already at the outpost.")
 		return
 	..()
-	
+
 /obj/machinery/computer/shuttle_control/labor_camp/one_way/force_launch()
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))

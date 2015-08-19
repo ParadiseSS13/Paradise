@@ -638,7 +638,7 @@
 									/obj/machinery/door/poddoor/four_tile_hor, /obj/machinery/door/poddoor/four_tile_ver)
 
 	if(CheckIfOccupant2(usr))	return
-	for(var/obj/machinery/door/poddoor/P in oview(3,src))
+	for(var/obj/machinery/door/poddoor/P in orange(3,src))
 		if(is_type_in_list(P,pod_door_types))
 			var/mob/living/carbon/human/L = usr
 			if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
@@ -731,7 +731,7 @@ obj/spacepod/verb/toggleLights()
 					if(t_air)
 						t_air.merge(removed)
 					else //just delete the cabin gas, we're in space or some shit
-						del(removed)
+						qdel(removed)
 		else
 			return stop()
 		return

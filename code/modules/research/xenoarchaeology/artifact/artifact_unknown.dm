@@ -72,12 +72,12 @@ var/list/valid_secondary_effect_types = list(\
 	..()
 
 	//setup primary effect - these are the main ones (mixed)
-	var/effecttype = pick(typesof(/datum/artifact_effect) - /datum/artifact_effect)
+	var/effecttype = pick(subtypesof(/datum/artifact_effect))
 	my_effect = new effecttype(src)
 
 	//75% chance to have a secondary stealthy (and mostly bad) effect
 	if(prob(75))
-		effecttype = pick(typesof(/datum/artifact_effect) - /datum/artifact_effect)
+		effecttype = pick(subtypesof(/datum/artifact_effect))
 		secondary_effect = new effecttype(src)
 		if(prob(75))
 			secondary_effect.ToggleActivate(0)

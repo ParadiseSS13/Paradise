@@ -28,7 +28,7 @@
 /obj/machinery/atmospherics/omni/New()
 	..()
 	icon_state = "base"
-	
+
 	ports = new()
 	for(var/d in cardinal)
 		var/datum/omni_port/new_port = new(src, d)
@@ -44,7 +44,7 @@
 		if(new_port.mode > 0)
 			initialize_directions |= d
 		ports += new_port
-	
+
 	build_icons()
 
 /obj/machinery/atmospherics/omni/update_icon()
@@ -79,18 +79,18 @@
 		int_pressure += P.air.return_pressure()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_pressure - env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='warning'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
+		user << "<span class='alert'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
-	user << "\blue You begin to unfasten \the [src]..."
+	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	if(do_after(user, 40))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
-			"\blue You have unfastened \the [src].", \
+			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
-		del(src)
+		qdel(src)
 
 /obj/machinery/atmospherics/omni/attack_hand(user as mob)
 	if(..())
@@ -173,7 +173,7 @@
 			if(ATM_O2 to ATM_N2O)
 				ic_on += "_filter"
 				ic_off += "_out"
-		
+
 		ic_on = icon_manager.get_atmos_icon("omni", , , ic_on)
 		ic_off = icon_manager.get_atmos_icon("omni", , , ic_off)
 
@@ -223,16 +223,16 @@
 
 	return null
 
-/obj/machinery/atmospherics/omni/Del()
+/obj/machinery/atmospherics/omni/Destroy()
 	loc = null
 
 	for(var/datum/omni_port/P in ports)
 		if(P.node)
 			P.node.disconnect(src)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/omni/initialize()
 	for(var/datum/omni_port/P in ports)
@@ -283,11 +283,11 @@
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)
 		if(reference == P.node)
-			del(P.network)
+			qdel(P.network)
 			P.node = null
 			P.update = 1
 			break
-	
+
 	update_ports()
 
 	return null

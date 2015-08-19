@@ -51,9 +51,9 @@
 	tally += 2*stance_damage //damaged/missing feet or legs is slow
 
 	if(RUN in mutations)
-		tally = 0
+		tally = -1
 	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
-		tally = 0
+		tally = -1
 
 	if(status_flags & GOTTAGOFAST)
 		tally -= 1

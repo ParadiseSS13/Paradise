@@ -152,7 +152,7 @@ var/global/list/breach_burn_descriptors = list(
 	for(var/datum/breach/B in breaches)
 		if(!B.class)
 			src.breaches -= B
-			del(B)
+			qdel(B)
 		else
 			damage += B.class
 			if(B.damtype == BRUTE)

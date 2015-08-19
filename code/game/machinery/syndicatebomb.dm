@@ -19,7 +19,7 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(active && !defused && (timer > 0)) 	//Tick Tock
-		var/volume = (timer <= 10 ? 30 : 5) // Tick louder when the bomb is closer to being detonated.
+		var/volume = (timer <= 10 ? 40 : 10) // Tick louder when the bomb is closer to being detonated.
 		playsound(loc, beepsound, volume, 0)
 		timer--
 	if(active && !defused && (timer <= 0))	//Boom
@@ -138,7 +138,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/weapon/bombcore/training))
-				msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A> has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name]([bombturf.x],[bombturf.y],[bombturf.z])")
 				payload.adminlog = "The [src.name] that [key_name(user)] had primed detonated!"
 
@@ -187,7 +187,7 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	explosion(get_turf(src),2,5,11, flame_range = 11)
+	explosion(get_turf(src),3,9,17, flame_range = 17)
 	if(src.loc && istype(src.loc,/obj/machinery/syndicatebomb/))
 		qdel(src.loc)
 	qdel(src)
@@ -222,7 +222,7 @@
 		holder.loc.visible_message("<span class='danger'>\icon[holder] Alert: Bomb has detonated. Your score is now [defusals] for [attempts]. Resetting wires...</span>")
 		reset()
 	else
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/bombcore/training/defuse()
 	var/obj/machinery/syndicatebomb/holder = src.loc
@@ -241,8 +241,8 @@
 
 /obj/item/weapon/bombcore/badmin/defuse() //because we wouldn't want them being harvested by players
 	var/obj/machinery/syndicatebomb/B = src.loc
-	del(B)
-	del(src)
+	qdel(B)
+	qdel(src)
 
 /obj/item/weapon/bombcore/badmin/summon/
 	var/summon_path = /obj/item/weapon/reagent_containers/food/snacks/cookie
@@ -256,8 +256,8 @@
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))
-	del(B)
-	del(src)
+	qdel(B)
+	qdel(src)
 
 /obj/item/weapon/bombcore/badmin/summon/clown
 	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
@@ -311,10 +311,9 @@
 			var/turf/T = get_turf(src)
 			var/area/A = get_area(T)
 			detonated--
-			var/log_str = "[key_name(user)]<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A> has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>."
-			bombers += log_str
-			message_admins(log_str)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name]([T.x],[T.y],[T.z])")
+			message_admins("[key_name_admin(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")			
+			bombers += "[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])"
+			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 		detonated =	0
 		existant =	0
 		cooldown = 1

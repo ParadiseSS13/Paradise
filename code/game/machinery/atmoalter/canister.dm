@@ -340,7 +340,7 @@ update_flag
 			user << "\blue You salvage whats left of \the [src]"
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
 			M.amount = 3
-			del src
+			qdel(src)
 		return
 
 	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
@@ -374,6 +374,9 @@ update_flag
 
 /obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
 	return
+	
+/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
+	return src.ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
@@ -408,7 +411,7 @@ update_flag
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400)
+		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = physical_state)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -435,16 +438,26 @@ update_flag
 		menu = text2num(href_list["mode_target"])
 
 	if(href_list["toggle"])
+		var/logmsg
 		if (valve_open)
 			if (holding)
-				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
+				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
 			else
-				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the <font color='red'><b>air</b></font><br>"
+				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the <font color='red'><b>air</b></font><br>"
 		else
 			if (holding)
-				release_log += "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the [holding]<br>"
+				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the [holding]<br>"
 			else
-				release_log += "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
+				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
+				if(air_contents.toxins > 0)
+					message_admins("[key_name_admin(usr)] opened a canister that contains plasma! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains plasma at [x], [y], [z]")
+				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
+				if(sleeping_agent && (sleeping_agent.moles > 1))
+					message_admins("[key_name_admin(usr)] opened a canister that contains N2O! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					log_admin("[key_name(usr)] opened a canister that contains N2O at [x], [y], [z]")
+		investigate_log(logmsg, "atmos")
+		release_log += logmsg
 		valve_open = !valve_open
 
 	if (href_list["remove_tank"])

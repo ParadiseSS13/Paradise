@@ -71,7 +71,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 			plant_product_sprites |= copytext(icostate,1,split)
 
 	// Populate the global seed datum list.
-	for(var/type in typesof(/datum/seed)-/datum/seed)
+	for(var/type in subtypesof(/datum/seed))
 		var/datum/seed/S = new type
 		seeds[S.name] = S
 		S.uid = "[seeds.len]"
@@ -136,7 +136,7 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 							break
 						var/obj/effect/plant/plant = pick(plant_queue)
 						plant_queue -= plant
-						if(!istype(plant))
+						if(!istype(plant) || !isnull(plant.gcDestroyed))
 							continue
 						plant.process()
 						processed++

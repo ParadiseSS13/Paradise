@@ -18,6 +18,9 @@
 	var/sqltext = dbcon.Quote(t);
 	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
 
+/proc/format_table_name(table as text)
+	return sqlfdbktableprefix + table	
+	
 /*
  * Text sanitization
  */
@@ -140,7 +143,7 @@
 	if(last_char_group == 1)
 		t_out = copytext(t_out,1,length(t_out))	//removes the last character (in this case a space)
 
-	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai"))	//prevents these common metagamey names
+	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
 		if(cmptext(t_out,bad_name))	return	//(not case sensitive)
 
 	return t_out
@@ -339,4 +342,19 @@ proc/checkhtml(var/t)
 
 /proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN)
     return trim(strip_html_properly(input, max_length))
+	
+//Used in preferences' SetFlavorText and human's set_flavor verb
+//Previews a string of len or less length
+/proc/TextPreview(var/string,var/len=40)
+	if(lentext(string) <= len)
+		if(!lentext(string))
+			return "\[...\]"
+		else
+			return string
+	else
+		return "[copytext_preserve_html(string, 1, 37)]..."
+
+//alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
+/proc/copytext_preserve_html(var/text, var/first, var/last)
+	return html_encode(copytext(html_decode(text), first, last))
 	

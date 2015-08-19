@@ -82,7 +82,7 @@
 				for(var/mob/M in range(10, src))
 					if(!M.stat && !istype(M, /mob/living/silicon/ai))\
 						shake_camera(M, 3, 1)
-				del(src)
+				qdel(src)
 				return 1
 		else
 			return 0
@@ -167,12 +167,12 @@
 		new /obj/effect/decal/cleanable/ash(src.loc)
 		src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
 		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/kinetic
 	name = "kinetic force"
 	icon_state = null
-	damage = 15
+	damage = 10
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
@@ -185,22 +185,22 @@ obj/item/projectile/kinetic/New()
 	var/pressure = environment.return_pressure()
 	if(pressure < 50)
 		name = "full strength kinetic force"
-		damage = 30
+		damage *= 4
 	..()
 
 /obj/item/projectile/kinetic/Range()
 	range--
 	if(range <= 0)
 		new /obj/item/effect/kinetic_blast(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/kinetic/on_hit(atom/target)
+	. = ..()
 	var/turf/target_turf= get_turf(target)
 	if(istype(target_turf, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = target_turf
-		M.GetDrilled()
+		M.gets_drilled(firer)
 	new /obj/item/effect/kinetic_blast(target_turf)
-	..()
 
 /obj/item/effect/kinetic_blast
 	name = "kinetic explosion"
@@ -210,7 +210,7 @@ obj/item/projectile/kinetic/New()
 
 /obj/item/effect/kinetic_blast/New()
 	spawn(4)
-		del(src)
+		qdel(src)
 
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
@@ -239,3 +239,36 @@ obj/item/projectile/kinetic/New()
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
 
+/obj/item/projectile/plasma
+	name = "plasma blast"
+	icon_state = "plasmacutter"
+	damage_type = BRUTE
+	damage = 5
+	range = 3
+
+/obj/item/projectile/plasma/New()
+	var/turf/proj_turf = get_turf(src)
+	if(!istype(proj_turf, /turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	if(environment)
+		var/pressure = environment.return_pressure()
+		if(pressure < 30)
+			name = "full strength plasma blast"
+			damage *= 3
+	..()
+
+/obj/item/projectile/plasma/on_hit(atom/target)
+	. = ..()
+	if(istype(target, /turf/simulated/mineral))
+		var/turf/simulated/mineral/M = target
+		M.gets_drilled(firer)
+		range = max(range - 1, 1)
+		return -1
+
+/obj/item/projectile/plasma/adv
+	range = 5
+
+/obj/item/projectile/plasma/adv/mech
+	damage = 10
+	range = 6

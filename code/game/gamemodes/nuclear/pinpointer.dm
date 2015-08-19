@@ -12,6 +12,10 @@
 	var/obj/item/weapon/disk/nuclear/the_disk = null
 	var/active = 0
 
+	Destroy()
+		active = 0
+		the_disk = null
+		return ..()
 
 	attack_self()
 		if(!active)
@@ -155,7 +159,7 @@
 						var/n="[tmp_object]"
 						item_names+=n
 						item_paths[n]=typepath
-						del(tmp_object)
+						qdel(tmp_object)
 					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in potential_theft_objectives
 					if(!targetitem)
 						return
@@ -377,7 +381,7 @@
 /obj/item/weapon/pinpointer/operative/proc/workop()
 	scan_for_ops()
 	point_at(nearest_op, 0)
-	if(active && nearest_op) 
+	if(active && nearest_op)
 		spawn(5)
 			.()
 

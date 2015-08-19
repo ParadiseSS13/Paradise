@@ -97,7 +97,7 @@
 	return (copytext(message, length(message)) == "!") ? 2 : 1
 
 /datum/language/proc/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
-	log_say("[key_name(speaker)] : ([name]) [message]")
+	log_say("[key_name(speaker)]: ([name]) [message]")
 
 	if(!speaker_mask) speaker_mask = speaker.name
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
@@ -246,6 +246,13 @@
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+	
+/datum/language/machine/get_random_name()
+	if(prob(70))
+		name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+	else
+		name = pick(ai_names)
+	return name
 
 /datum/language/kidan
 	name = "Chittin"
@@ -468,7 +475,7 @@
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[speaker];trackname=[html_encode(speaker.name)]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
 		else if (!S.binarycheck())
 			continue
 

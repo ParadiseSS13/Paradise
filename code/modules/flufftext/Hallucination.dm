@@ -443,16 +443,16 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/fake_attacker/proc/updateimage()
 //	del src.currentimage
 	if(src.dir == NORTH)
-		del src.currentimage
+		del(src.currentimage)
 		src.currentimage = new /image(up,src)
 	else if(src.dir == SOUTH)
-		del src.currentimage
+		del(src.currentimage)
 		src.currentimage = new /image(down,src)
 	else if(src.dir == EAST)
-		del src.currentimage
+		del(src.currentimage)
 		src.currentimage = new /image(right,src)
 	else if(src.dir == WEST)
-		del src.currentimage
+		del(src.currentimage)
 		src.currentimage = new /image(left,src)
 	my_target << currentimage
 

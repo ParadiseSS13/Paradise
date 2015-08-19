@@ -105,7 +105,7 @@
 	if ((istype(H, /obj/item/weapon/restraints/handcuffs) && !( src.chained )))
 		//H = null
 		if (src.icon_state != "orange") return
-		del(H)
+		qdel(H)
 		src.chained = 1
 		src.slowdown = 15
 		src.icon_state = "orange1"

@@ -33,45 +33,6 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
-	var/uplink_items = {"Highly Visible and Dangerous Weapons;
-/obj/item/weapon/gun/projectile:6:Revolver;
-/obj/item/ammo_magazine/a357:2:Ammo-357;
-/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow:5:Energy Crossbow;
-/obj/item/weapon/melee/energy/sword:4:Energy Sword;
-/obj/item/weapon/storage/box/syndicate:10:Syndicate Bundle;
-/obj/item/weapon/storage/box/emps:3:5 EMP Grenades;
-Whitespace:Seperator;
-Stealthy and Inconspicuous Weapons;
-/obj/item/weapon/pen/sleepy:3:Sleepy Pen;
-/obj/item/weapon/soap/syndie:1:Syndicate Soap;
-/obj/item/weapon/cartridge/syndicate:3:Detomatix PDA Cartridge;
-Whitespace:Seperator;
-Stealth and Camouflage Items;
-/obj/item/clothing/under/chameleon:3:Chameleon Jumpsuit;
-/obj/item/clothing/shoes/syndigaloshes:2:No-Slip Syndicate Shoes;
-/obj/item/weapon/card/id/syndicate:2:Agent ID card;
-/obj/item/clothing/mask/gas/voice:4:Voice Changer;
-/obj/item/device/chameleon:4:Chameleon-Projector;
-Whitespace:Seperator;
-Devices and Tools;
-/obj/item/weapon/card/emag:3:Cryptographic Sequencer;
-/obj/item/weapon/storage/toolbox/syndicate:1:Fully Loaded Toolbox;
-/obj/item/weapon/storage/box/syndie_kit/space:3:Space Suit;
-/obj/item/clothing/glasses/thermal/syndi:3:Thermal Imaging Glasses;
-/obj/item/device/encryptionkey/binary:3:Binary Translator Key;
-/obj/item/weapon/aiModule/syndicate:7:Hacked AI Upload Module;
-/obj/item/weapon/c4:2:C-4 (Destroys walls);
-/obj/item/device/powersink:5:Powersink (DANGER!);
-/obj/item/device/radio/beacon/syndicate:7:Singularity Beacon (DANGER!);
-/obj/item/weapon/circuitboard/teleporter:20:Teleporter Circuit Board;
-Whitespace:Seperator;
-Implants;
-/obj/item/weapon/storage/box/syndie_kit/imp_freedom:3:Freedom Implant;
-/obj/item/weapon/storage/box/syndie_kit/imp_uplink:10:Uplink Implant (Contains 5 Telecrystals);
-/obj/item/weapon/storage/box/syndie_kit/imp_explosive:6:Explosive Implant (DANGER!);
-/obj/item/weapon/storage/box/syndie_kit/imp_compress:4:Compressed Matter Implant;Whitespace:Seperator;
-(Pointless) Badassery;
-/obj/item/toy/syndicateballoon:10:For showing that You Are The BOSS (Useless Balloon);"}
 
 /datum/game_mode/proc/announce() //to be calles when round starts
 	world << "<B>Notice</B>: [src] did not define announce()"
@@ -115,6 +76,8 @@ Implants;
 //	if(revdata)
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
+	start_state = new /datum/station_state()
+	start_state.count()
 	return 1
 
 
@@ -166,17 +129,12 @@ Implants;
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS)
+					if(useMS && P)
 						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
 						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.tnote += "<i><b>&larr; From [command_name()] (Payroll):</b></i><br>[msg]<br>"
-
-						if (!P.silent)
-							playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						for (var/mob/O in hearers(3, P.loc))
-							if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+						P.play_ringtone()
 						//Search for holder of the PDA.
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
@@ -264,7 +222,6 @@ Implants;
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
 	send2mainirc("A round of [src.name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
-
 	return 0
 
 
@@ -281,8 +238,7 @@ Implants;
 	var/list/suspects = list()
 	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
 		// NT relation option
-		var/special_role = man.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+		if(isAntag(man))
 			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
 		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
 		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
@@ -517,7 +473,7 @@ proc/display_roundstart_logout_report()
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
 					job_master.FreeRole(L.job)
-					message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
+					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
 				if(L.stat == UNCONSCIOUS)
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dying)\n"
@@ -543,7 +499,7 @@ proc/display_roundstart_logout_report()
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						job_master.FreeRole(L.job)
-						message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
+						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 
 
@@ -591,6 +547,7 @@ proc/get_nt_opposed()
 		if(BE_TRAITOR)		roletext="traitor"
 		if(BE_OPERATIVE)	roletext="operative"
 		if(BE_WIZARD)		roletext="wizard"
+		if(BE_MALF)			roletext="malf AI"
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
 		if(BE_NINJA)		roletext="ninja"
@@ -600,3 +557,10 @@ proc/get_nt_opposed()
 		if(BE_MUTINEER)		roletext="mutineer"
 		if(BE_BLOB)			roletext="blob"
 	return roletext
+	
+/proc/get_nuke_code()
+	var/nukecode = "ERROR"
+	for(var/obj/machinery/nuclearbomb/bomb in world)
+		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
+			nukecode = bomb.r_code
+	return nukecode

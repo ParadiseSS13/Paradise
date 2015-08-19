@@ -70,8 +70,9 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	wait_for_launch = 0
 
 //calls the shuttle for an emergency evacuation
-/datum/emergency_shuttle_controller/proc/call_evac()
-	if(!can_call()) return 0
+/datum/emergency_shuttle_controller/proc/call_evac(var/reason)
+	if(!can_call()) 
+		return 0
 
 	//set the launch timer
 	autopilot = 1
@@ -82,7 +83,10 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	shuttle.move_time = SHUTTLE_TRANSIT_DURATION
 
 	evac = 1
-	emergency_shuttle_called.Announce("An emergency evacuation shuttle has been called. It will arrive in approximately [round(estimate_arrival_time()/60)] minutes.")
+	var/emergencytext = "An emergency evacuation shuttle has been called. It will arrive in approximately [round(estimate_arrival_time()/60)] minutes."
+	if(reason)
+		emergencytext += "\n\nReason: [reason]"
+	emergency_shuttle_called.Announce(emergencytext)
 	for(var/area/A in world)
 		if(istype(A, /area/hallway))
 			A.readyalert()
@@ -215,7 +219,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 	if (online())
 		if (is_stranded())
 			return "ETA-ERR"
-		
+
 		if (waiting_to_leave())
 			if (shuttle.moving_status == SHUTTLE_WARMUP)
 				return "Departing..."
@@ -256,7 +260,7 @@ var/global/datum/emergency_shuttle_controller/emergency_shuttle
 		sleep(speed)
 		step(src, direction)
 		for(var/obj/effect/starender/E in loc)
-			del(src)
+			qdel(src)
 
 
 /obj/effect/starender

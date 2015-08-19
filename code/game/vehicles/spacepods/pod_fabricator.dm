@@ -55,6 +55,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
+	
 	files = new /datum/research(src) //Setup the research data holder.
 	for(var/direction in cardinal)
 		exit = get_step(src,direction)
@@ -489,7 +490,7 @@
 		if("$uranium")
 			type = /obj/item/stack/sheet/mineral/uranium
 		if("$bananium")
-			type = /obj/item/stack/sheet/mineral/clown
+			type = /obj/item/stack/sheet/mineral/bananium
 		else
 			return 0
 	var/result = 0
@@ -541,7 +542,7 @@
 				material = "$metal"
 			if(/obj/item/stack/sheet/glass)
 				material = "$glass"
-			if(/obj/item/stack/sheet/mineral/clown)
+			if(/obj/item/stack/sheet/mineral/bananium)
 				material = "$bananium"
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = "$uranium"

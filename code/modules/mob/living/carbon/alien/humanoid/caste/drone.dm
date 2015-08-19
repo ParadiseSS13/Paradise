@@ -42,7 +42,7 @@
 			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
 			mind.transfer_to(new_xeno)
 			new_xeno.mind.name = new_xeno.name
-			del(src)
+			qdel(src)
 		else
 			src << "<span class='notice'>We already have an alive queen.</span>"
 	return

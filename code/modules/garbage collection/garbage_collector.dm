@@ -2,21 +2,21 @@
 
 // For general information about how the GC works and how to use it, see __gc_info.dm
 
-#define GC_COLLECTIONS_PER_TICK 300 // Was 100.
+#define GC_COLLECTIONS_PER_TICK 150 // Was 100.
 #define GC_COLLECTION_TIMEOUT (30 SECONDS)
-#define GC_FORCE_DEL_PER_TICK 60
+#define GC_FORCE_DEL_PER_TICK 30
 //#define GC_DEBUG
 
 // A list of types that were queued in the GC, and had to be soft deleted; used in testing
 var/list/gc_hard_del_types = list()
-var/datum/garbage_collector/garbageCollector
+var/global/datum/controller/process/garbage_collector/garbageCollector
 
 // The time a datum was destroyed by the GC, or null if it hasn't been
 /datum/var/gcDestroyed
 // Whether a datum was hard-deleted by the GC; 0 if not, 1 if it was queued, -1 if directly deleted
 /datum/var/hard_deleted = 0
 
-/datum/garbage_collector
+/datum/controller/process/garbage_collector
 	var/list/queue = new
 	var/del_everything = 0
 
@@ -25,7 +25,7 @@ var/datum/garbage_collector/garbageCollector
 	var/hard_dels = 0
 	var/soft_dels = 0
 
-/datum/garbage_collector/proc/addTrash(var/datum/D)
+/datum/controller/process/garbage_collector/proc/addTrash(var/datum/D)
 	if(!istype(D) || del_everything)
 		del(D)
 		hard_dels++
@@ -35,7 +35,7 @@ var/datum/garbage_collector/garbageCollector
 	queue -= "\ref[D]" // If this is a re-used ref, remove the old ref from the queue
 	queue["\ref[D]"] = world.time
 
-/datum/garbage_collector/proc/process()
+/datum/controller/process/garbage_collector/proc/processGarbage()
 	var/remainingCollectionPerTick = GC_COLLECTIONS_PER_TICK
 	var/remainingForceDelPerTick = GC_FORCE_DEL_PER_TICK
 	var/collectionTimeScope = world.time - GC_COLLECTION_TIMEOUT
@@ -60,10 +60,13 @@ var/datum/garbage_collector/garbageCollector
 			queue.Cut(1, 2)
 
 			remainingForceDelPerTick--
+			// Sleep check more aggressively when force deleting.
+			calls_since_last_scheck += 9
 		else // Otherwise, it was GC'd - remove it from the queue
 			queue.Cut(1, 2)
 			soft_dels++
 			dels_count++
+		SCHECK
 
 #ifdef GC_DEBUG
 #undef GC_DEBUG
@@ -73,7 +76,7 @@ var/datum/garbage_collector/garbageCollector
 #undef GC_COLLECTION_TIMEOUT
 #undef GC_COLLECTIONS_PER_TICK
 
-/datum/garbage_collector/proc/hardDel(var/datum/D)
+/datum/controller/process/garbage_collector/proc/hardDel(var/datum/D)
 	gc_hard_del_types |= D.type
 	D.hard_deleted = 1
 	if(!D.gcDestroyed)
@@ -163,4 +166,4 @@ var/datum/garbage_collector/garbageCollector
 	return ..()
 
 /proc/gcwarning(msg)
-	world.log << "## GC WARNING: [msg]"
+	log_to_dd("## GC WARNING: [msg]")

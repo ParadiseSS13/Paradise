@@ -80,7 +80,7 @@
 
 	proc/on_range() //if we want there to be effects when they reach the end of their range
 		proj_hit = 1
-		qdel(src)
+		del(src)
 
 	proc/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 		if(!isliving(target))	return 0
@@ -130,6 +130,11 @@
 				forcedodge = -1
 			else
 			*/
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+				if(isnull(organ))
+					return 
 			if(silenced)
 				playsound(loc, hitsound, 5, 1, -1)
 				M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
@@ -137,18 +142,18 @@
 				playsound(loc, hitsound, 20, 1, -1)
 				visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 			if(istype(firer, /mob))
-				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
-				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
+				M.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
+				firer.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				if(M.ckey && chatlog_attacks)
-					msg_admin_attack("[firer] ([firer.ckey])[isAntag(firer) ? "(ANTAG)" : ""] shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					msg_admin_attack("[key_name_admin(firer)] shot [key_name_admin(M)] with a [src][reagent_note]") //BS12 EDIT ALG
 				if(!iscarbon(firer))
 					M.LAssailant = null
 				else
 					M.LAssailant = firer
 			else
-				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>[reagent_note]"
+				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name(M)]</b> with a <b>[src]</b>[reagent_note]"
 				if(M.ckey  && chatlog_attacks)
-					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					msg_admin_attack("UNKNOWN shot [key_name_admin(M)] with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
 		spawn(0)
 		if(A)
@@ -187,7 +192,7 @@
 			spawn() //New projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
 					kill_count--
 					if((!( current ) || loc == current))
@@ -262,7 +267,7 @@
 			spawn() //Old projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
 					kill_count--
 					if((!( current ) || loc == current))
@@ -297,7 +302,7 @@
 			return //cannot shoot yourself
 		if(istype(A, /obj/item/projectile))
 			return
-		if(istype(A, /mob/living))
+		if(istype(A, /mob/living) || istype(A, /obj/mecha) || istype(A, /obj/spacepod) || istype(A, /obj/vehicle))
 			result = 2 //We hit someone, return 1!
 			return
 		result = 1
@@ -324,3 +329,15 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
+					
+/proc/check_trajectory(atom/target as mob|obj, atom/firer as mob|obj, var/pass_flags=PASSTABLE|PASSGLASS|PASSGRILLE, flags=null)  //Checks if you can hit them or not.
+	if(!istype(target) || !istype(firer))
+		return 0
+	var/obj/item/projectile/test/trace = new /obj/item/projectile/test(get_turf(firer)) //Making the test....
+	trace.target = target
+	if(!isnull(flags))
+		trace.flags = flags //Set the flags...
+	trace.pass_flags = pass_flags //And the pass flags to that of the real projectile...
+	var/output = trace.process() //Test it!
+	qdel(trace) //No need for it anymore
+	return output //Send it back to the gun!

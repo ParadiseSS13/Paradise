@@ -73,7 +73,7 @@ proc/issyndicate(mob/living/M as mob)
 				if(synd_mind.current.client)
 					for(var/image/I in synd_mind.current.client.images)
 						if(I.icon_state == "synd")
-							del(I)
+							qdel(I)
 
 		for(var/datum/mind/synd_mind in syndicates)
 			if(synd_mind.current)
@@ -97,13 +97,13 @@ proc/issyndicate(mob/living/M as mob)
 				if(synd.current.client)
 					for(var/image/I in synd.current.client.images)
 						if(I.icon_state == "synd" && I.loc == synd_mind.current)
-							del(I)
+							qdel(I)
 
 		if(synd_mind.current)
 			if(synd_mind.current.client)
 				for(var/image/I in synd_mind.current.client.images)
 					if(I.icon_state == "synd")
-						del(I)
+						qdel(I)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -157,7 +157,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(uplinklocker)
 		new /obj/structure/closet/syndicate/nuclear(uplinklocker.loc)
 	if(nuke_spawn && synd_spawn.len > 0)
-		var/obj/machinery/nuclearbomb/the_bomb = new /obj/machinery/nuclearbomb(nuke_spawn.loc)
+		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
 	spawn (rand(waittime_l, waittime_h))

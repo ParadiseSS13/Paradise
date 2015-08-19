@@ -11,9 +11,6 @@
 	var/path = 0
 	var/affected_area = 2
 
-	New()
-		icon_state = initial(icon_state) +"_locked"
-
 	prime()
 		..()
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
@@ -40,7 +37,7 @@
 				else
 					step(peel,direction)
 		new /obj/item/weapon/bananapeel/traitorpeel(get_turf(src.loc))
-		del(src)
+		qdel(src)
 		return
 /*
 	proc/banana(turf/T as turf)

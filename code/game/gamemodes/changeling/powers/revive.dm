@@ -28,6 +28,7 @@
 	user.germ_level = 0
 	user.next_pain_time = 0
 	user.traumatic_shock = 0
+	user.timeofdeath = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
@@ -44,7 +45,7 @@
 				if(istype(s))
 					O.implants -= s
 					H.contents -= s
-					del(s)
+					qdel(s)
 			O.brute_dam = 0
 			O.burn_dam = 0
 			O.damage_state = "00"

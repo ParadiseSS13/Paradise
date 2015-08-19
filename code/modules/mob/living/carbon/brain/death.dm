@@ -34,10 +34,10 @@
 
 	dead_mob_list -= src
 	if(container && istype(container, /obj/item/device/mmi))
-		del(container)//Gets rid of the MMI if there is one
+		qdel(container)//Gets rid of the MMI if there is one
 	if(loc)
 		if(istype(loc,/obj/item/organ/brain))
-			del(loc)//Gets rid of the brain item
+			qdel(loc)//Gets rid of the brain item
 	spawn(15)
-		if(animation)	del(animation)
-		if(src)			del(src)
+		if(animation)	qdel(animation)
+		if(src)			qdel(src)

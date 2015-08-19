@@ -3,7 +3,7 @@ var/global/obj/effect/overlay/slmaster = null
 
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()
-// event manager, the manager for events
+// Event Manager, the manager for events.
 var/datum/event_manager/event_manager = new()
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
 var/global/obj/item/device/radio/intercom/global_announcer = create_global_announcer()
@@ -63,3 +63,7 @@ var/score_dmgestname = null // who had the most damage on the shuttle (but was s
 var/score_dmgestjob = null
 var/score_dmgestdamage = 0
 var/score_dmgestkey = null
+
+var/TAB = "&nbsp;&nbsp;&nbsp;&nbsp;"
+
+var/timezoneOffset = 0 // The difference betwen midnight (of the host computer) and 0 world.ticks.

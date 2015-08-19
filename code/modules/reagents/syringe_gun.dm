@@ -25,7 +25,7 @@
 	in_chamber.name = S.name
 	syringes.Remove(S)
 
-	del(S)
+	qdel(S)
 	return 1
 
 /obj/item/weapon/gun/syringe/examine()

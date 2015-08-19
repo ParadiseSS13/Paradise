@@ -16,16 +16,28 @@
 	var/mob/pulledby = null
 
 	var/area/areaMaster
+	
+	var/auto_init = 1
 
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
-
+	if(auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
+		initialize()
 
 /atom/movable/Destroy()
-	..()
+	for(var/atom/movable/AM in contents)
+		qdel(AM)
 	loc = null
+	if (pulledby)
+		if (pulledby.pulling == src)
+			pulledby.pulling = null
+		pulledby = null
+	..()
 	return QDEL_HINT_QUEUE
+	
+/atom/movable/proc/initialize()
+	return
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
@@ -104,7 +116,7 @@
 				if(A.density && !A.throwpass)	// **TODO: Better behaviour for windows which are dense, but shouldn't always stop movement
 					src.throw_impact(A,speed)
 
-/atom/movable/proc/throw_at(atom/target, range, speed, thrower)
+/atom/movable/proc/throw_at(atom/target, range, speed, thrower, no_spin)
 	if(!target || !src || (flags & NODROP))
 		return 0
 	//use a modified version of Bresenham's algorithm to get from the atom's current position to that of the target
@@ -113,7 +125,7 @@
 	src.thrower = thrower
 	src.throw_source = get_turf(src)	//store the origin turf
 	if(target.allow_spin) // turns out 1000+ spinning objects being thrown at the singularity creates lag - Iamgoofball
-		if(!no_spin_thrown)
+		if(!no_spin_thrown && !no_spin)
 			SpinAnimation(5, 1)
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -134,9 +146,6 @@
 	var/area/a = get_area(src.loc)
 	if(dist_x > dist_y)
 		var/error = dist_x/2 - dist_y
-
-
-
 		while(src && target &&((((src.x < target.x && dx == EAST) || (src.x > target.x && dx == WEST)) && dist_travelled < range) || (a && a.has_gravity == 0)  || istype(src.loc, /turf/space)) && src.throwing && istype(src.loc, /turf))
 			// only stop when we've gone the whole distance (or max throw range) and are on a non-space tile, or hit something, or hit the end of the map, or someone picks it up
 			if(error < 0)

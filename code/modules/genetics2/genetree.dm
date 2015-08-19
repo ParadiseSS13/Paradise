@@ -9,7 +9,7 @@
 /datum/genetree/New(var/obj/machinery/networked/biomass_controller/holder)
 	biomass = holder
 	// Build list of all sectors
-	for(var/typepath in typesof(/datum/genetic_sector) - /datum/genetic_sector)
+	for(var/typepath in subtypesof(/datum/genetic_sector))
 		var/datum/genetic_sector/sector = new typepath
 		sectors[sector.id]=sector
 

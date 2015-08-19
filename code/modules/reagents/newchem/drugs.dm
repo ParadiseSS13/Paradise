@@ -51,6 +51,11 @@
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
+	if(prob(8))
+		M.reagents.add_reagent("methamphetamine",2)
+	if(prob(4))
+		M.Jitter(10)
+		M.adjustToxLoss(1.0)
 	..()
 	return
 /datum/reagent/crank/overdose_process(var/mob/living/M as mob)
@@ -85,12 +90,12 @@
 	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
 	result_amount = 5
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
-	required_temp = 390
+	min_temp = 390
 
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+		PoolOrNew(/obj/effect/hotspot, turf)
 	explosion(T,0,0,2)
 	return
 
@@ -150,7 +155,7 @@
 	required_reagents = list("diphenhydramine" = 1, "morphine" = 1, "cleaner" = 1, "potassium" = 1, "phosphorus" = 1, "fuel" = 1)
 	result_amount = 6
 	mix_message = "The mixture dries into a pale blue powder."
-	required_temp = 380
+	min_temp = 380
 
 /datum/reagent/methamphetamine
 	name = "Methamphetamine"
@@ -167,13 +172,14 @@
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
-	M.AdjustParalysis(-2)
-	M.AdjustStunned(-2)
-	M.AdjustWeakened(-2)
+	M.AdjustParalysis(-2.5)
+	M.AdjustStunned(-2.5)
+	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
 	M.status_flags |= GOTTAGOREALLYFAST
 	M.Jitter(3)
-	M.adjustBrainLoss(0.5)
+	if(prob(50))
+		M.adjustBrainLoss(1.0)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
 	..()
@@ -228,7 +234,7 @@
 	result = "methamphetamine"
 	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
 	result_amount = 4
-	required_temp = 374
+	min_temp = 374
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -279,7 +285,7 @@
 	result = "bath_salts"
 	required_reagents = list("????" = 1, "saltpetre" = 1, "msg" = 1, "cleaner" = 1, "enzyme" = 1, "mugwort" = 1, "mercury" = 1)
 	result_amount = 6
-	required_temp = 374
+	min_temp = 374
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
 
 /datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob)

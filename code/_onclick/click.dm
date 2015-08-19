@@ -193,12 +193,19 @@
 	A.point()
 	return
 
+// See click_override.dm
+/mob/living/MiddleClickOn(var/atom/A)
+ if(src.middleClickOverride)
+ 	middleClickOverride.onClick(A, src)
+ else
+ 	..()
+
 /mob/living/carbon/MiddleClickOn(var/atom/A)
 	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
 		next_click = world.time + 5
 		mind.changeling.chosen_sting.try_to_sting(src, A)
 	else
-		A.point()
+		..()
 
 // In case of use break glass
 /*
@@ -241,6 +248,13 @@
 /mob/proc/AltClickOn(var/atom/A)
 	A.AltClick(src)
 	return
+
+// See click_override.dm
+/mob/living/AltClickOn(var/atom/A)
+ if(src.middleClickOverride)
+ 	middleClickOverride.onClick(A, src)
+ else
+ 	..()
 
 /mob/living/carbon/AltClickOn(var/atom/A)
 	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
@@ -351,7 +365,7 @@
 		s.set_up(5, 1, src)
 		s.start()
 	if(L.damage <= 0)
-		del(L)
+		qdel(L)
 	if(L)
 		playsound(get_turf(src), 'sound/effects/eleczap.ogg', 75, 1)
 		L.tang = L.adjustAngle(get_angle(U,T))

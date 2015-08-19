@@ -100,7 +100,7 @@
 				if("rapid")
 					new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
 		spawn(100)
-			del(src)
+			qdel(src)
 		return
 
 
