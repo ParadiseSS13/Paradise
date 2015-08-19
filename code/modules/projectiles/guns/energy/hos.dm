@@ -1,6 +1,6 @@
 /obj/item/weapon/gun/energy/hos
-	name = "HoS Energy Gun"
-	desc = "This is a modern recreation of the captain's antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
+	name = "head of security's energy gun"
+	desc = "This is a modern recreation of the captain's antique laser gun. This gun has several unique fire modes, but lacks the ability to recharge over time."
 	icon_state = "hoslaser"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	icon_override = 'icons/mob/in-hand/guns.dmi'
