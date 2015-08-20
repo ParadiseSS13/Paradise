@@ -88,7 +88,7 @@ datum/controller/game_controller/proc/setup_objects()
 			T.broadcast_status()
 			count++
 
-	log_startup_progress("  Initialized [count] atmos devices in [stop_watch(watch)]s.")
+	log_startup_progress("  Initialized [count] atmospherics devices in [stop_watch(watch)]s.")
 	log_startup_progress("Finished initializations in [stop_watch(overwatch)]s.")
 
 datum/controller/game_controller/proc/setup_starlight()
