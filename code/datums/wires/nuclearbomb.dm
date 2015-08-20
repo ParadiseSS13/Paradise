@@ -37,7 +37,7 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 			spawn(100)
 				N.safety = !N.safety
 				if(N.safety == 1)
-					if(!is_syndicate)
+					if(!N.is_syndicate)
 						set_security_level(N.previous_level)
 					N.visible_message("\blue The [N] quiets down.")
 					if(!N.lighthack)
