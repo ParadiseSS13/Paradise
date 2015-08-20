@@ -9,6 +9,22 @@
 	if(ticker.mode && ticker.mode.check_antagonists_topic(href, href_list))
 		check_antagonists()
 		return
+		
+	if(href_list["rejectadminhelp"])
+		if(!check_rights(R_MOD))
+			return
+		var/client/C = locate(href_list["rejectadminhelp"])
+		if(!C)
+			return
+
+		C << 'sound/effects/adminhelp.ogg'
+
+		C << "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>"
+		C << "<font color='red'><b>Your admin help was rejected.</b></font>"
+		C << "Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking."
+
+		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
+		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
 
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
