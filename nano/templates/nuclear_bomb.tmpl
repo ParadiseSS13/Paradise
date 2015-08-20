@@ -20,7 +20,7 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 				<b>Timer:</b> {{:helper.link('On', 'play', {'timer' : 1}, data.timer ? 'selected' : '')}}{{:helper.link('Off', 'stop', {'timer' : 0}, !data.timer ? 'selected' : '')}}
 			</div>
 			<div class="item">
-				<b>Time:</b> {{:helper.link('--', '', {'time' : -10}, data.time <= 60 ? 'disabled' : '')}}{{:helper.link('-', '', {'time' : -1}, data.time <= 60 ? 'disabled' : '')}} {{:data.time}} {{:helper.link('+', '', {'time' : 1})}}{{:helper.link('++', '', {'time' : 10})}}
+				<b>Time:</b> {{:helper.link('--', '', {'time' : -10}, data.time <= 120 ? 'disabled' : '')}}{{:helper.link('-', '', {'time' : -1}, data.time <= 120 ? 'disabled' : '')}} {{:data.time}} {{:helper.link('+', '', {'time' : 1})}}{{:helper.link('++', '', {'time' : 10})}}
 			</div>
 		{{else}}
 			<div class="item">

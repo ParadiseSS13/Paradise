@@ -6,21 +6,22 @@ var/bomb_set
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
 	density = 1
-	var/deployable = 0.0
-	var/extended = 0.0
+	var/deployable = 0
+	var/extended = 0
 	var/lighthack = 0
-	var/timeleft = 120.0
-	var/timing = 0.0
+	var/timeleft = 120
+	var/timing = 0
 	var/r_code = "ADMIN"
 	var/code = ""
-	var/yes_code = 0.0
-	var/safety = 1.0
+	var/yes_code = 0
+	var/safety = 1
 	var/obj/item/weapon/disk/nuclear/auth = null
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = 0
 	unacidable = 1
+	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 	
 /obj/machinery/nuclearbomb/syndicate
@@ -30,6 +31,7 @@ var/bomb_set
 	..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
+	previous_level = get_security_level()
 	
 /obj/machinery/nuclearbomb/Destroy()
 	qdel(wires)
@@ -53,10 +55,12 @@ var/bomb_set
 				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				user << "You unscrew the control panel of [src]."
+				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			else
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
+				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 		else
 			if (panel_open == 0)
 				user << "[src] emits a buzzing noise, the panel staying locked in."
@@ -64,6 +68,7 @@ var/bomb_set
 				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
+				playsound(src, 'sound/items/Screwdriver.ogg', 50, 1)
 			flick("nuclearbombc", src)
 		return
 
@@ -281,16 +286,20 @@ var/bomb_set
 					if(!lighthack)
 						icon_state = "nuclearbomb2"
 					if(!safety)
-						bomb_set = 1//There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
+						message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						set_security_level("delta")
+						bomb_set = 1 //There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
 					else
 						bomb_set = 0
 				else
+					set_security_level(previous_level)
 					bomb_set = 0
 					if(!lighthack)
 						icon_state = "nuclearbomb1"
 			if (href_list["safety"])
 				safety = !(safety)
 				if(safety)
+					set_security_level(previous_level)
 					timing = 0
 					bomb_set = 0
 			if (href_list["anchor"])
@@ -299,12 +308,15 @@ var/bomb_set
 					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
 					nanomanager.update_uis(src)
 					return
-
-				anchored = !(anchored)
-				if(anchored)
-					visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+			
+				if(!isinspace())
+					anchored = !(anchored)
+					if(anchored)
+						visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+					else
+						visible_message("\red The anchoring bolts slide back into the depths of [src].")
 				else
-					visible_message("\red The anchoring bolts slide back into the depths of [src].")
+					usr << "<span class='warning'>There is nothing to anchor to!</span>"
 
 	nanomanager.update_uis(src)
 

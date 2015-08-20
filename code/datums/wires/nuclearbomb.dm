@@ -30,12 +30,14 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 		if(NUCLEARBOMB_WIRE_TIMING)
 			if(N.timing)
 				spawn
+					message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonation wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 					N.explode()
 		if(NUCLEARBOMB_WIRE_SAFETY)
 			N.safety = !N.safety
 			spawn(100)
 				N.safety = !N.safety
 				if(N.safety == 1)
+					set_security_level(N.previous_level)
 					N.visible_message("\blue The [N] quiets down.")
 					if(!N.lighthack)
 						if (N.icon_state == "nuclearbomb2")
@@ -49,6 +51,7 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 		if(NUCLEARBOMB_WIRE_SAFETY)
 			if(N.timing)
 				spawn
+					message_admins("[key_name_admin(usr)] cut a nuclear bomb's timing wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 					N.explode()
 		if(NUCLEARBOMB_WIRE_TIMING)
 			if(!N.lighthack)
