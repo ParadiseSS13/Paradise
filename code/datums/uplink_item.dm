@@ -141,7 +141,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/syndidonk
 	name = "Syndicate Donk Pockets"
-	desc = "A box of highly specialized donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
+	desc = "A box of highly specialized Donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
 	reference = "SDP"
 	item = /obj/item/weapon/storage/box/syndidonkpockets
 	cost = 2
@@ -162,7 +162,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser,  After a moderate delay, causes temporary collapse and radiation.  Has adjustable controls, but will not function as a regular health analyser, only appears like one.  May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation.  Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/device/rad_laser
 	cost = 6
@@ -270,7 +270,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/car
 	name = "C-90gl Compact Assault Rifle"
-	desc = "A fully-loaded Zashchita Industriya toploading bullpup assault rifle that uses 30-round 5.45x39mm magazines with a togglable underslung 40mm grenade launcher."
+	desc = "A fully-loaded Zashchita Industriya toploading bullpup assault rifle that uses 30-round 5.45x39mm magazines with a toggleable underslung 40mm grenade launcher."
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/c90gl
 	cost = 18
@@ -297,7 +297,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Flamethrower"
-	desc = "A flamethrower, fueled by a portion of highly flammable biotoxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
+	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
 	reference = "FT"
 	item = /obj/item/weapon/flamethrower/full/tank
 	cost = 11
@@ -306,7 +306,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
-	desc = "The esword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
+	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
 	item = /obj/item/weapon/melee/energy/sword
 	cost = 8
@@ -329,7 +329,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/tabungrenades
 	name = "Tabun Gas Grenades"
-	desc = "A box of four (4) grenades filled with tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintaind with team to avoid accidental gassings."
+	desc = "A box of four (4) grenades filled with Tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
 	reference = "TGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/tabun
 	cost = 15
@@ -345,7 +345,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/syndicate_minibomb
 	name = "Syndicate Minibomb"
-	desc = "The Minibomb is a grenade with a five-second fuse."
+	desc = "The minibomb is a grenade with a five-second fuse."
 	reference = "SMB"
 	item = /obj/item/weapon/grenade/syndieminibomb
 	cost = 6
@@ -362,7 +362,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/dangerous/mauler
 	name = "Mauler Exosuit"
-	desc = "A massive and incredibly deadly Syndicate exosuit. Features long-range targetting, thrust vectoring, and deployable smoke."
+	desc = "A massive and incredibly deadly Syndicate exosuit. Features long-range targeting, thrust vectoring, and deployable smoke."
 	reference = "ME"
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
@@ -453,8 +453,8 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency")
 
 /datum/uplink_item/ammo/machinegun
-	name = "Box Magazine - 7.62×51mm"
-	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Box Magazine - 7.62x51mm"
+	desc = "A 50-round magazine of 7.62x51mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	reference = "762"
 	item = /obj/item/ammo_box/magazine/m762
 	cost = 12
@@ -488,8 +488,6 @@ var/list/uplink_items = list()
 	reference = "DEPC"
 	item = /obj/item/weapon/cartridge/syndicate
 	cost = 6
-
-// Commented out until a fix can be found, currently doesn't work with the PDA NanoUI and people keep wasting Telecrystals on it. -- Dave
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
@@ -528,7 +526,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_tools/chameleon_stamp
 	name = "Chameleon Stamp"
-	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp™. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
+	desc = "A stamp that can be activated to imitate an official Nanotrasen Stamp. The disguised stamp will work exactly like the real stamp and will allow you to forge false documents to gain access or equipment; \
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/weapon/stamp/chameleon
@@ -551,14 +549,14 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/stealthy_tools/voice_changer
 	name = "Voice Changer"
-	desc = "A conspicuous gas mask that mimics the voice named on your identification card. When no identification is worn, the mask will render your voice unrecognizable."
+	desc = "A conspicuous gas mask that mimics the voice named on your identification card. When no identification is worn, the mask will render your voice unrecognisable."
 	reference = "VC"
 	item = /obj/item/clothing/mask/gas/voice
 	cost = 5
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
-	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and rojectiles pass over them."
+	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	reference = "CP"
 	item = /obj/item/device/chameleon
 	cost = 7
@@ -594,7 +592,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
-	desc = "The emag is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
+	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	reference = "EMAG"
 	item = /obj/item/weapon/card/emag
 	cost = 6
@@ -609,7 +607,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
-	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical hud for quick identification of injured comrades, \
+	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/weapon/storage/firstaid/tactical
@@ -632,8 +630,8 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/hardsuit
 	name = "Blood-red Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring. When the helmet is deployed your identity will be protected. Toggling the suit into combat mode \
-	will allow you all the mobility of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
+	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armor. When the helmet is deployed your identity will be protected. Toggling the suit into combat mode \
+	will allow you all the mobility of a loose fitting uniform without sacrificing armor. Additionally the suit is collapsible, small enough to fit within a backpack. \
 	Nanotrasen crewmembers are trained to report red space suit sightings, these suits in particular are known to drive employees into a panic."
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
@@ -641,7 +639,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
-	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infrared light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
+	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 6
@@ -680,7 +678,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaler to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. You can use it to breach walls or connect a signaller to its wiring to make it remotely detonable. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "C4"
 	item = /obj/item/weapon/c4
 	cost = 1
@@ -762,7 +760,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their posessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "An implant injected into the body, and later activated using a bodily gesture to open an uplink with 5 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/weapon/implanter/uplink
 	cost = 14
