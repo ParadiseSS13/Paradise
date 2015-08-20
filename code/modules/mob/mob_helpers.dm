@@ -182,7 +182,7 @@ proc/isNonCrewAntag(A)
 	var/mob/living/carbon/C = A
 	var/special_role = C.mind.special_role
 	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
-	if((special_role in allowed_roles))
+	if((special_role in crew_roles))
 		return 0
 	   
 	return 1
