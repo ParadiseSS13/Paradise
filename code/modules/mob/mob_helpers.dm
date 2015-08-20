@@ -503,7 +503,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(check_rights(R_MOD,0)) 							// What admins see
+				if(check_rights(R_MOD,0,M)) 							// What admins see
 					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
 					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
