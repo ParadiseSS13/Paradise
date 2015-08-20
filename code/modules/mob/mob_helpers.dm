@@ -96,6 +96,16 @@ proc/isembryo(A)
 	if(istype(A, /mob/living/silicon/ai))
 		return 1
 	return 0
+	
+/mob/proc/isSynthetic()
+	return 0
+
+/mob/living/carbon/human/isSynthetic()
+	// If they are 100% robotic, they count as synthetic.
+	for(var/obj/item/organ/external/E in organs)
+		if(!(E.status & ORGAN_ROBOT))
+			return 0
+	return 1
 
 /proc/isAIEye(A)
 	if(istype(A, /mob/aiEye))
@@ -470,7 +480,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || (M.client.holder && (M.client.holder.rights & R_MOD))) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_MOD,0)) && (M.client.prefs.toggles & CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -481,7 +491,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(M.client.holder) 							// What admins see
+				if(check_rights(R_MOD,0)) 							// What admins see
 					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
 					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
@@ -499,3 +509,18 @@ var/list/intents = list("help","disarm","grab","harm")
 			O << "<span class='ghostalert'>[message]<span>"
 			if(ghost_sound)
 				O << sound(ghost_sound)
+				
+/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
+	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+		return 0
+	check_eye(src)
+	return 1
+
+/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
+	if(!C.can_use() || !is_in_chassis())
+		return 0
+
+	eyeobj.setLoc(get_turf(C))
+	client.eye = eyeobj
+	return 1
+	

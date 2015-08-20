@@ -73,7 +73,7 @@
 /obj/machinery/atmospherics/binary/circulator/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		anchored = !anchored
-		user << "\blue You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor."
+		user << "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>"
 
 		if(anchored)
 			if(dir & (NORTH|SOUTH))
@@ -92,10 +92,10 @@
 		else
 			if(node1)
 				node1.disconnect(src)
-				del(network1)
+				qdel(network1)
 			if(node2)
 				node2.disconnect(src)
-				del(network2)
+				qdel(network2)
 
 			node1 = null
 			node2 = null

@@ -61,6 +61,12 @@ datum/reagent/acetone
 	reagent_state = LIQUID
 	color = "#474747"
 
+/datum/reagent/acetone/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(1.5)
+	..()
+	return
+
 /datum/chemical_reaction/acetone
 	name = "acetone"
 	id = "acetone"
@@ -100,7 +106,7 @@ datum/reagent/acetone
 	result = "ash"
 	required_reagents = list("oil" = 1)
 	result_amount = 0.5
-	required_temp = 480
+	min_temp = 480
 	mix_sound = null
 	no_message = 1
 
@@ -142,7 +148,7 @@ datum/reagent/colorful_reagent/reaction_turf(var/turf/T, var/volume)
 	result = null
 	required_reagents = list("nutriment" = 1, "colorful_reagent" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 3
-	required_temp = 374
+	min_temp = 374
 
 datum/reagent/corgium
 	name = "Corgium"
@@ -164,7 +170,7 @@ datum/reagent/corgium
 	result = null
 	required_reagents = list("egg" = 1, "colorful_reagent" = 1, "chicken_soup" = 1, "strange_reagent" = 1, "blood" = 1)
 	result_amount = 5
-	required_temp = 374
+	min_temp = 374
 	mix_message = "The substance turns an airy sky-blue and foams up into a new shape."
 
 /datum/chemical_reaction/flaptonium/on_reaction(var/datum/reagents/holder, var/created_volume)

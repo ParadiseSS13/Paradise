@@ -18,29 +18,29 @@
 		if(master)
 			master.vines -= src
 			master.growth_queue -= src
-		..()
+		return ..()
 
 /obj/effect/biomass/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (!W || !user || !W.type) return
 	switch(W.type)
-		if(/obj/item/weapon/circular_saw) del src
-		if(/obj/item/weapon/kitchen/utensil/knife) del src
-		if(/obj/item/weapon/scalpel) del src
-		if(/obj/item/weapon/twohanded/fireaxe) del src
-		if(/obj/item/weapon/hatchet) del src
-		if(/obj/item/weapon/melee/energy) del src
+		if(/obj/item/weapon/circular_saw) qdel(src)
+		if(/obj/item/weapon/kitchen/utensil/knife) qdel(src)
+		if(/obj/item/weapon/scalpel) qdel(src)
+		if(/obj/item/weapon/twohanded/fireaxe) qdel(src)
+		if(/obj/item/weapon/hatchet) qdel(src)
+		if(/obj/item/weapon/melee/energy) qdel(src)
 
 		//less effective weapons
 		if(/obj/item/weapon/wirecutters)
-			if(prob(25)) del src
+			if(prob(25)) qdel(src)
 		if(/obj/item/weapon/shard)
-			if(prob(25)) del src
+			if(prob(25)) qdel(src)
 
 		else //weapons with subtypes
-			if(istype(W, /obj/item/weapon/melee/energy/sword)) del src
+			if(istype(W, /obj/item/weapon/melee/energy/sword)) qdel(src)
 			else if(istype(W, /obj/item/weapon/weldingtool))
 				var/obj/item/weapon/weldingtool/WT = W
-				if(WT.remove_fuel(0, user)) del src
+				if(WT.remove_fuel(0, user)) qdel(src)
 			else
 				return
 	..()
@@ -55,7 +55,7 @@
 
 	New()
 		if(!istype(src.loc,/turf/simulated/floor))
-			del(src)
+			qdel(src)
 
 		spawn_biomass_piece(src.loc)
 		processing_objects.Add(src)
@@ -72,10 +72,10 @@
 
 	process()
 		if(!vines)
-			del(src) //space  vines exterminated. Remove the controller
+			qdel(src) //space  vines exterminated. Remove the controller
 			return
 		if(!growth_queue)
-			del(src) //Sanity check
+			qdel(src) //Sanity check
 			return
 		if(vines.len >= 250 && !reached_collapse_size)
 			reached_collapse_size = 1
@@ -155,7 +155,7 @@
 	return
 
 /obj/effect/biomass/fire_act(null, temp, volume) //hotspots kill biomass
-	del src
+	qdel(src)
 
 /datum/event/biomass/start()
 	biomass_infestation()

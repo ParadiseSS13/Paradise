@@ -41,7 +41,7 @@
 		if(AC.reagents && AC.BB.reagents)
 			var/datum/reagents/casting_reagents = AC.reagents
 			casting_reagents.trans_to(AC.BB, casting_reagents.total_volume) //For chemical darts/bullets
-			casting_reagents.delete()
+			qdel(casting_reagents)
 		in_chamber = AC.BB //Load projectile into chamber.
 		AC.BB.loc = src //Set projectile loc to gun.
 		AC.update_icon()

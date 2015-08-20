@@ -54,7 +54,7 @@
 	else
 		icon_state = "[colour] baby slime eat"
 
-	while(Victim && M.health > -70 && stat != 2)
+	while(Victim && M.health > -70 && M.stat != DEAD && stat != DEAD)
 		canmove = 0
 
 		if(Adjacent(M))
@@ -221,7 +221,7 @@
 				src.mind.transfer_to(new_slime)
 			else
 				new_slime.key = src.key
-			del(src)
+			qdel(src)
 		else
 			src << "<i>I am not ready to reproduce yet...</i>"
 	else

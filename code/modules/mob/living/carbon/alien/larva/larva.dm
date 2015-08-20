@@ -101,30 +101,6 @@
 
 	updatehealth()
 
-
-
-/mob/living/carbon/alien/larva/blob_act()
-	if (stat == 2)
-		return
-	var/shielded = 0
-
-	var/damage = null
-	if (stat != 2)
-		damage = rand(10,30)
-
-	if(shielded)
-		damage /= 4
-
-		//paralysis += 1
-
-	show_message("<span class='userdanger'>The blob attacks you!</span>")
-
-	adjustFireLoss(damage)
-
-	updatehealth()
-	return
-
-
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return

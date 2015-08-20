@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/magnet
+/obj/effect/proc_holder/spell/targeted/magnet
 	name = "Magnetic Pull"
 	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
 	charge_type = "recharge"
@@ -16,7 +16,7 @@
 	action_icon_state = "tech"
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/Click()
+/obj/effect/proc_holder/spell/targeted/magnet/Click()
 	if(!ready)
 		if(cast_check())
 			StartChargeup()
@@ -25,7 +25,7 @@
 			choose_targets()
 	return 1
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/StartChargeup(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/magnet/proc/StartChargeup(mob/user = usr)
 	ready = 1
 	user << "<span class='notice'>You start gathering the power.</span>"
 	halo = image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = EFFECTS_LAYER)
@@ -37,18 +37,18 @@
 			if(energy >= 100 && ready)
 				Discharge()
 
-obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/Reset(mob/user = usr)
+obj/effect/proc_holder/spell/targeted/magnet/proc/Reset(mob/user = usr)
 	ready = 0
 	energy = 0
 	if(halo)
 		user.overlays.Remove(halo)
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/revert_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/magnet/revert_cast(mob/user = usr)
 	user << "<span class='notice'>No target found in range.</span>"
 	Reset(user)
 	..()
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/Discharge(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/magnet/proc/Discharge(mob/user = usr)
 	var/mob/living/M = user
 	//M.electrocute_act(25,"magnet Bolt")
 	M << "<span class='danger'>You lose control over the power.</span>"
@@ -56,7 +56,7 @@ obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/Reset(mob/user = usr)
 	start_recharge()
 
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/magnet/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/target = targets[1]
 
@@ -91,7 +91,7 @@ obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/Reset(mob/user = usr)
 			Bolt(user,target,energy,user)
 	Reset(user)
 
-/obj/effect/proc_holder/spell/wizard/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/magnet/proc/Bolt(mob/origin,mob/target,bolt_energy,mob/user = usr)
 	origin.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
 	var/mob/living/carbon/current = target
 	if(bolt_energy < 75)

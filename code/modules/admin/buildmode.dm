@@ -15,9 +15,9 @@
 			M.client.show_popup_menus = 1
 			for(var/obj/effect/bmode/buildholder/H)
 				if(H.cl == M.client)
-					del(H)
+					qdel(H)
 		else
-			message_admins("[key_name(usr)] has entered build mode.")
+			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 			M.client.buildmode = 1
 			M.client.show_popup_menus = 0
@@ -179,7 +179,7 @@
 					if("turf-reference")
 						master.buildmode.valueholder = input(usr,"Enter variable value:" ,"Value") as turf in world
 			if(AREA_BUILDMODE)
-				var/list/gen_paths = typesof(/datum/mapGenerator) - /datum/mapGenerator
+				var/list/gen_paths = subtypesof(/datum/mapGenerator)
 
 				var/type = input(usr,"Select Generator Type","Type") as null|anything in gen_paths
 				if(!type)	return

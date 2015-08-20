@@ -69,7 +69,7 @@
 	..()
 /mob/living/simple_animal/hostile/retaliate/ghost/Die()
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(loc)
-	del src
+	qdel(src)
 	return
 
 /mob/living/simple_animal/hostile/retaliate/skeleton
@@ -107,7 +107,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/Die()
 	new /obj/effect/decal/remains/human(loc)
-	del src
+	qdel(src)
 	return
 
 /mob/living/simple_animal/hostile/retaliate/zombie
@@ -145,5 +145,5 @@
 
 /mob/living/simple_animal/hostile/retaliate/zombie/Die()
 	new /obj/effect/decal/cleanable/blood/gibs(loc)
-	del src
+	qdel(src)
 	return

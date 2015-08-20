@@ -19,6 +19,7 @@
 	if (src.stat != DEAD) //still using power
 		use_power()
 		process_locks()
+		process_queued_alarms()
 
 	update_canmove()
 
@@ -42,7 +43,8 @@
 	if (is_component_functioning("power cell") && cell)
 		if(src.cell.charge <= 0)
 			uneq_all()
-			src.stat = 1
+			update_headlamp(1)
+			src.stat = UNCONSCIOUS
 			has_power = 0
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
@@ -63,6 +65,9 @@
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
 				C.consume_power()
+				
+			var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+			cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 
 			if(!is_component_functioning("actuator"))
 				Paralyse(3)
@@ -71,7 +76,8 @@
 			has_power = 1
 	else
 		uneq_all()
-		src.stat = 1
+		src.stat = UNCONSCIOUS
+		update_headlamp(1)
 		Paralyse(3)
 
 /mob/living/silicon/robot/proc/handle_regular_status_updates()
@@ -324,7 +330,7 @@
 		src.module_state_2:screen_loc = ui_inv2
 	if(src.module_state_3)
 		src.module_state_3:screen_loc = ui_inv3
-	updateicon()
+	update_icons()
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)
@@ -358,8 +364,6 @@
 	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing")
 	if(on_fire)
 		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing")
-	update_icons()
-	return
 
 /mob/living/silicon/robot/fire_act()
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them

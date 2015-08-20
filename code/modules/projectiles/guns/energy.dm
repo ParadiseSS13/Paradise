@@ -9,6 +9,7 @@
 	var/cell_type = "/obj/item/weapon/stock_parts/cell"
 	var/projectile_type = "/obj/item/projectile/beam"
 	var/modifystate
+	var/can_charge = 1
 
 	emp_act(severity)
 		power_supply.use(round(power_supply.charge / severity))

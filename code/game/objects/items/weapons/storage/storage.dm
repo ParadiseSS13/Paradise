@@ -165,6 +165,7 @@
 
 	if(display_contents_with_number)
 		for(var/datum/numbered_display/ND in display_contents)
+			ND.sample_object.mouse_opacity = 2
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = 20
@@ -174,6 +175,7 @@
 				cy--
 	else
 		for(var/obj/O in contents)
+			O.mouse_opacity = 2 //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = 20
@@ -190,7 +192,7 @@
 
 	New(obj/item/sample as obj)
 		if(!istype(sample))
-			del(src)
+			qdel(src)
 		sample_object = sample
 		number = 1
 
@@ -310,6 +312,7 @@
 		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
+	W.mouse_opacity = 2 //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
 	return 1
 
@@ -345,6 +348,7 @@
 		W.maptext = ""
 	W.on_exit_storage(src)
 	update_icon()
+	W.mouse_opacity = initial(W.mouse_opacity)
 	return 1
 
 //This proc is called when you want to place an item into the storage item.
@@ -441,6 +445,14 @@
 	orient2hud()
 	return
 
+/obj/item/weapon/storage/Destroy()
+	for(var/obj/O in contents)
+		O.mouse_opacity = initial(O.mouse_opacity)
+
+	qdel(boxes)
+	qdel(closer)
+	return ..()
+
 /obj/item/weapon/storage/emp_act(severity)
 	if(!istype(src.loc, /mob/living))
 		for(var/obj/O in contents)
@@ -474,7 +486,7 @@
 	// Now make the cardboard
 	user << "<span class='notice'>You fold [src] flat.</span>"
 	new src.foldable(get_turf(src))
-	del(src)
+	qdel(src)
 //BubbleWrap END
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).

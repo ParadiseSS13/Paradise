@@ -71,7 +71,7 @@ datum/mind
 
 	proc/transfer_to(mob/living/new_character)
 		if(!istype(new_character))
-			world.log << "## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn"
+			log_to_dd("## DEBUG: transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob. Please inform Carn")
 		if(current)					//remove ourself from our old body's mind variable
 			current.mind = null
 
@@ -142,7 +142,7 @@ datum/mind
 		var/mob/living/carbon/human/H = current
 		if (istype(current, /mob/living/carbon/human))
 			/** Impanted**/
-			if(H.is_loyalty_implanted(H))
+			if(H.is_loyalty_implanted())
 				text = "Loyalty Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
 			else
 				text = "Loyalty Implant:<b>No Implant</b>|<a href='?src=\ref[src];implant=add'>Implant him!</a></br>"
@@ -152,7 +152,7 @@ datum/mind
 			if (ticker.mode.config_tag=="revolution")
 				text += uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text += "<b>LOYAL EMPLOYEE</b>|headrev|rev"
 			else if (src in ticker.mode.head_revolutionaries)
 				text = "<a href='?src=\ref[src];revolution=clear'>employee</a>|<b>HEADREV</b>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
@@ -188,7 +188,7 @@ datum/mind
 			if (ticker.mode.config_tag=="cult")
 				text = uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text += "<B>LOYAL EMPLOYEE</B>|cultist"
 			else if (src in ticker.mode.cult)
 				text += "<a href='?src=\ref[src];cult=clear'>employee</a>|<b>CULTIST</b>"
@@ -261,7 +261,7 @@ datum/mind
 			else
 				text += "<a href='?src=\ref[src];vampire=vampire'>yes</a>|<b>NO</b>"
 
-			if(src in ticker.mode.enthralled)
+			if(src in ticker.mode.vampire_enthralled)
 				text += "<b><font color='#FF0000'>YES</font></b>|no"
 			else
 				text += "yes|<font color='#00FF00'>NO</font></b>"
@@ -302,7 +302,7 @@ datum/mind
 			if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan")
 				text = uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text +="traitor|<b>LOYAL EMPLOYEE</b>"
 			else
 				if (src in ticker.mode.traitors)
@@ -625,7 +625,7 @@ datum/mind
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
 						for(var/obj/item/organ/external/organs in H.organs)
 							if(I in organs.implants)
-								I.Destroy()
+								qdel(I)
 					H << "\blue <Font size =3><B>Your loyalty implant has been deactivated.</B></FONT>"
 				if("add")
 					var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -650,7 +650,7 @@ datum/mind
 						special_role = null
 						var/datum/game_mode/cult/cult = ticker.mode
 						if (istype(cult))
-							cult.memoize_cult_objectives(src)
+							cult.memorize_cult_objectives(src)
 						current << "\red <FONT size = 3><B>The nanobots in the loyalty implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT>"
 						memory = ""
 					if(src in ticker.mode.traitors)
@@ -825,7 +825,7 @@ datum/mind
 						ticker.mode.changelings -= src
 						special_role = null
 						current.remove_changeling_powers()
-						if(changeling)	del(changeling)
+						if(changeling)	qdel(changeling)
 						current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
 						log_admin("[key_name_admin(usr)] has de-changeling'ed [current].")
 				if("changeling")
@@ -855,7 +855,7 @@ datum/mind
 						ticker.mode.vampires -= src
 						special_role = null
 						current.remove_vampire_powers()
-						if(vampire)  del(vampire)
+						if(vampire)  qdel(vampire)
 						current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 						log_admin("[key_name_admin(usr)] has de-vampired [current].")
 				if("vampire")
@@ -971,14 +971,11 @@ datum/mind
 							current.mind.spell_list.Cut()
 						message_admins("[key_name_admin(usr)] has de-shadowling'ed [current].")
 						log_admin("[key_name(usr)] has de-shadowling'ed [current].")
-						current.verbs -= /mob/living/carbon/human/proc/shadowling_hatch
-						current.verbs -= /mob/living/carbon/human/proc/shadowling_ascendance
+						remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_hatch)
+						remove_spell(/obj/effect/proc_holder/spell/targeted/shadowling_ascend)
 						current.remove_language("Shadowling Hivemind")
 					else if(src in ticker.mode.shadowling_thralls)
-						ticker.mode.shadowling_thralls -= src
-						special_role = null
-						current.remove_language("Shadowling Hivemind")
-						current << "<span class='userdanger'>You have been brainwashed! You are no longer a thrall!</span>"
+						ticker.mode.remove_thrall(src,0)
 						message_admins("[key_name_admin(usr)] has de-thrall'ed [current].")
 						log_admin("[key_name(usr)] has de-thrall'ed [current].")
 				if("shadowling")
@@ -987,9 +984,9 @@ datum/mind
 						return
 					ticker.mode.shadows += src
 					special_role = "Shadowling"
-					current << "<span class='deadsay'><b>You notice a brightening around you. No, it isn't that. The shadows grow, darken, swirl. The darkness has a new welcome for you, and you realize with a \
-					start that you can't be human. No, you are a shadowling, a harbringer of the shadows! Your alien abilities have been unlocked from within, and you may both commune with your allies and use \
-					a chrysalis to reveal your true form. You are to ascend at all costs.</b></span>"
+					current << "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
+					time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
+					</b></span>"
 					ticker.mode.finalize_shadowling(src)
 					ticker.mode.update_shadow_icons_added(src)
 				if("thrall")
@@ -997,10 +994,6 @@ datum/mind
 						usr << "<span class='warning'>This only works on humans!</span>"
 						return
 					ticker.mode.add_thrall(src)
-					special_role = "Shadowling Thrall"
-					current << "<span class='deadsay'>All at once it becomes clear to you. Where others see darkness, you see an ally. You realize that the shadows are not dead and dark as one would think, but \
-					living, and breathing, and <b>eating</b>. Their children, the Shadowlings, are to be obeyed and protected at all costs.</span>"
-					current << "<span class='danger'>You may use the Hivemind Commune ability to communicate with your fellow enlightened ones.</span>"
 					message_admins("[key_name_admin(usr)] has thrall'ed [current].")
 					log_admin("[key_name(usr)] has thrall'ed [current].")
 
@@ -1021,7 +1014,7 @@ datum/mind
 						A.malf_picker.remove_verbs(A)
 
 						A.make_laws()
-						del(A.malf_picker)
+						qdel(A.malf_picker)
 						A.show_laws()
 						A.icon_state = "ai"
 
@@ -1239,7 +1232,7 @@ datum/mind
 			current << "<font color=\"purple\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>"
 			var/datum/game_mode/cult/cult = ticker.mode
 			if (istype(cult))
-				cult.memoize_cult_objectives(src)
+				cult.memorize_cult_objectives(src)
 			else
 				var/explanation = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it."
 				current << "<B>Objective #1</B>: [explanation]"

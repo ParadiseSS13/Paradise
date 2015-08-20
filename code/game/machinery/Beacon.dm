@@ -24,8 +24,9 @@
 
 	Destroy()
 		if(Beacon)
-			del(Beacon)
-		..()
+			qdel(Beacon)
+		Beacon = null
+		return ..()
 
 	// update the invisibility and icon
 	hide(var/intact)

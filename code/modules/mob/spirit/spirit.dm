@@ -29,38 +29,38 @@ mob/spirit/is_active()
 	if (client && client.inactivity <= 10 * 60 * 10)
 		return TRUE
 	return FALSE
-	
-	
+
+
 mob/spirit/New()
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_SPIRITS
 	see_in_dark = 100
 
 	loc = pick(latejoin)
-	
+
 	// no nameless spirits
 	if (!name)
 		name = "Boogyman"
-	
+
 	spirits+=src
-	
+
 	..()
-	
-mob/spirit/Del()
+
+mob/spirit/Destroy()
 	spirits-=src
-	..()
-	
-	
+	return ..()
+
+
 mob/spirit/Topic(href, href_list)
-	
+
 	if(usr != src)
 		return
 	..()
-	
+
 	usr << "Spirit Href = [href]"
 	for (var/tempref in href_list)
 		usr << "Spirit href list [tempref] = [href_list[tempref]]"
-	
+
 	if (href_list["track"])
 		usr << "Got to tracking."
 		var/mob/target = locate(href_list["track"]) in mob_list

@@ -101,7 +101,7 @@
 	var/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp/HC = new /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp
 	HC.attach(src)
 	for(var/obj/item/mecha_parts/mecha_tracking/B in src.contents)//Deletes the beacon so it can't be found easily
-		del (B)
+		qdel(B)
 
 /obj/mecha/working/ripley/Exit(atom/movable/O)
 	if(O in cargo)

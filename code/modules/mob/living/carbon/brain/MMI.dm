@@ -50,7 +50,7 @@
 				name = "Man-Machine Interface: [brainmob.real_name]"
 				icon_state = "mmi_full"
 				alien = 0
-			del(O)
+			qdel(O)
 
 
 			locked = 1
@@ -165,3 +165,12 @@
 			if(3)
 				brainmob.emp_damage += rand(0,10)
 	..()
+
+/obj/item/device/mmi/Destroy()
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/borg = loc
+		borg.mmi = null
+	if(brainmob)
+		qdel(brainmob)
+		brainmob = null
+	return ..()

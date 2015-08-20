@@ -31,7 +31,7 @@
 
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
-		world.log << "Attempted use of scripts within a topic call, by [src]"
+		log_to_dd("Attempted use of scripts within a topic call, by [src]")
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		//del(usr)
 		return
@@ -266,6 +266,13 @@
 		add_admin_verbs()
 		admin_memo_show()
 
+	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
+	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
+	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
+		if(src)
+			winset(src, null, "command=\".configure graphics-hwmode off\"")
+			winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 	log_client_to_db()
 
 	send_resources()
@@ -296,7 +303,7 @@
 
 	var/sql_ckey = sql_sanitize_text(src.ckey)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM erro_player WHERE ckey = '[sql_ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
@@ -305,24 +312,30 @@
 		player_age = text2num(query.item[2])
 		break
 
-	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
+	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
 	query_ip.Execute()
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
 		if(ckey != query_ip.item[1])
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
-	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid = '[computer_id]'")
+	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
 		if(ckey != query_cid.item[1])
-			related_accounts_cid.Add("[query_cid.item[1]]")
-
+			related_accounts_cid.Add("[query_cid.item[1]]")			
+			
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
 
+	var/DBQuery/query_watch = dbcon.NewQuery("SELECT ckey, reason FROM [format_table_name("watch")] WHERE (ckey = '[sql_ckey]')")
+	query_watch.Execute()
+	if(query_watch.NextRow())
+		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is flagged for watching and has just connected - Reason: [query_watch.item[2]]</font>")
+		send2irc_adminless_only("Watchlist", "[key_name_admin(src)] is flagged for watching and has just connected - Reason: [query_watch.item[2]]")		
+		
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
 		if(istext(sql_id))
@@ -341,16 +354,16 @@
 
 	if(sql_id)
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/DBQuery/query_update = dbcon.NewQuery("UPDATE erro_player SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
+		var/DBQuery/query_update = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
 		query_update.Execute()
 	else
 		//New player!! Need to insert all the stuff
-		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO erro_player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
+		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		query_insert.Execute()
 
 	//Logging player access
 	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `erro_connection_log`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
+	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
 

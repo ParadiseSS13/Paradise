@@ -296,13 +296,13 @@
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
 	instability=5
 
-	spelltype=/obj/effect/proc_holder/spell/wizard/targeted/immolate
+	spelltype=/obj/effect/proc_holder/spell/targeted/immolate
 
 	New()
 		..()
 		block = IMMOLATEBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/immolate
+/obj/effect/proc_holder/spell/targeted/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
@@ -320,7 +320,7 @@
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/wizard/targeted/immolate/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets)
 
 /*	if(!targets.len) Uncomment this to allow the power to be used on targets other than yourself. That said, if you uncomment this I will find you and hurt you. Uncounterable and untracable burn damage with a 60-second cooldown is fun for exactly one person, and that's the person who is using it.
 		usr << "<span class='notice'>No target found in range.</span>"
@@ -335,8 +335,8 @@
 	var/mob/living/carbon/L = usr
 
 	if(L)
-		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[usr.real_name] ([usr.ckey]) cast the spell [name] on [L.real_name] ([L.ckey]).</font>")
-		msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast the spell [name] on [L.real_name] ([L.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+		usr.attack_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] cast the spell [name] on [key_name(L)]</font>")
+		msg_admin_attack("[key_name_admin(usr)] has cast the spell [name] on [key_name_admin(L)]")
 
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")

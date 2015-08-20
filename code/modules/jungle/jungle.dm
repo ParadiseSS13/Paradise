@@ -49,8 +49,8 @@
 		dest_temple.my_ladder.up = my_ladder
 
 		//delete the landmarks now that we're finished
-		del(dest_temple)
-		del(src)
+		qdel(dest_temple)
+		qdel(src)
 
 /obj/effect/landmark/temple/destination/New()
 	//nothing
@@ -74,7 +74,7 @@
 			fwall.mineral = mineral
 			if(mineral == "iron")
 				fwall.is_metal = 1
-			del(F)
+			qdel(F)
 
 		for(var/obj/effect/landmark/door_spawner/D in T.contents)
 			var/spawn_type
@@ -83,7 +83,7 @@
 			else
 				spawn_type = text2path("/obj/machinery/door/airlock/[mineral]")
 			new spawn_type(D.loc)
-			del(D)
+			qdel(D)
 
 	for(var/turf/unsimulated/wall/T in temple_turfs)
 		if(mineral != "plasma")

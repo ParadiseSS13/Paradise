@@ -33,7 +33,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole
 	name = "R&D Console"
-	icon_state = "rdcomp"
+	icon_screen = "rdcomp"
+	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/rdconsole
 	var/datum/research/files							//Stores all the collected research data.
@@ -56,12 +57,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/CallTechName(var/ID) //A simple helper proc to find the name of a tech with a given ID.
 	var/datum/tech/check_tech
 	var/return_name = null
-	for(var/T in typesof(/datum/tech) - /datum/tech)
+	for(var/T in subtypesof(/datum/tech))
 		check_tech = null
 		check_tech = new T()
 		if(check_tech.id == ID)
 			return_name = check_tech.name
-			del(check_tech)
+			qdel(check_tech)
 			check_tech = null
 			break
 
@@ -90,12 +91,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if("clown")
 				return_name = "Bananium"
 	else
-		for(var/R in typesof(/datum/reagent) - /datum/reagent)
+		for(var/R in subtypesof(/datum/reagent))
 			temp_reagent = null
 			temp_reagent = new R()
 			if(temp_reagent.id == ID)
 				return_name = temp_reagent.name
-				del(temp_reagent)
+				qdel(temp_reagent)
 				temp_reagent = null
 				break
 	return return_name
@@ -538,7 +539,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				type = /obj/item/stack/sheet/mineral/diamond
 				res_amount = "diamond_amount"
 			if("clown")
-				type = /obj/item/stack/sheet/mineral/clown
+				type = /obj/item/stack/sheet/mineral/bananium
 				res_amount = "clown_amount"
 		if(ispath(type) && hasvar(linked_lathe, res_amount))
 			var/obj/item/stack/sheet/sheet = new type(linked_lathe.loc)
@@ -594,7 +595,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/choice = alert("R&D Console Database Reset", "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "Continue", "Cancel")
 		if(choice == "Continue")
 			screen = 0.0
-			del(files)
+			qdel(files)
 			files = new /datum/research(src)
 			spawn(20)
 				screen = 1.6

@@ -20,6 +20,13 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
+/obj/machinery/gibber/Destroy()
+	if(contents.len)
+		for(var/atom/movable/A in contents)
+			A.loc = get_turf(src)
+	if(occupant)	occupant = null
+	return ..()
+
 //gibs anything that stands on it's input
 
 /obj/machinery/gibber/autogibber
@@ -197,7 +204,7 @@
 
 	move_into_gibber(user,G.affecting)
 
-	del(G)
+	qdel(G)
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
 	if(usr.stat || (!ishuman(user)) || user.restrained() || user.weakened || user.stunned || user.paralysis || user.resting)
@@ -281,52 +288,50 @@
 	return
 
 /obj/machinery/gibber/proc/feedinTopanim()
-	if(!src.occupant)
-		return
+	if(!occupant)	return
 
-	src.layer = MOB_LAYER + 0.1
+	var/arbitrary_delay = 16 //arbitrary delay for animating going down
+	locked = 1 //lock gibber
 
-	src.locked = 1
-
-	var/image/gibberoverlay = new
+	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = src.icon
 	gibberoverlay.icon_state = "grinderoverlay"
 	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "gridle")
 
 	var/image/feedee = new
 	occupant.dir = 2
-	feedee.icon = getFlatIcon(occupant, 2)
-	feedee.pixel_y = 25
-	feedee.pixel_x = 2
+	feedee.icon = getFlatIcon(occupant, 2) //makes the image a copy of the occupant
 
-	overlays += feedee
-	overlays += gibberoverlay
+	var/atom/movable/holder = new //holder for occupant image
+	holder.name = null //make unclickable
+	holder.overlays += feedee //add occupant to holder overlays
+	holder.pixel_y = 25 //above the gibber
+	holder.pixel_x = 2
+	holder.loc = get_turf(src)
+	holder.layer = MOB_LAYER //simulate mob-like layering
+	holder.anchored = 1
 
-	var/i //our counter
-	for(i=0,i<30,i++) //32 tenths of a second (3.2seconds), counting from 0 to 31
-		overlays -= gibberoverlay
-		overlays -= feedee
+	var/atom/movable/holder2 = new //holder for gibber overlay, used to simulate 3D effect
+	holder2.name = null
+	holder2.overlays += gibberoverlay
+	holder2.loc = get_turf(src)
+	holder2.layer = MOB_LAYER + 0.1 //3D, it's above the mob, rest of the gibber is behind
+	holder2.anchored = 1
 
-		feedee.pixel_y--
+	animate(holder, pixel_y = 16, time = arbitrary_delay) //animate going down
 
-		if(feedee.pixel_y == 16)
-			feedee.icon += icon('icons/obj/kitchen.dmi', "footicon")
-			continue
+	sleep(arbitrary_delay)
 
-		if(feedee.pixel_y == -5)
-			overlays -= feedee
-			overlays -= gibberoverlay
-			src.locked = 0
-			break
+	holder.overlays -= feedee //reset static icon
+	feedee.icon += icon('icons/obj/kitchen.dmi', "footicon") //this is some byond magic; += to the icon var with a black and white image will mask it
+	holder.overlays += feedee
+	animate(holder, pixel_y = -3, time = arbitrary_delay) //animate going down further
 
-		overlays += feedee
-		overlays += gibberoverlay
+	sleep(arbitrary_delay) //time everything right, animate doesn't prevent proc from continuing
 
-		sleep(1)
-
-	overlays -= feedee
-	overlays -= gibberoverlay
-	src.layer = 3
+	qdel(holder) //get rid of holder object
+	qdel(holder2) //get rid of holder object
+	locked = 0 //unlock
 
 /obj/machinery/gibber/proc/startgibbing(var/mob/user, var/UserOverride=0)
 	if(!istype(user) && !UserOverride)
@@ -334,7 +339,7 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[occupant] ([occupant.ckey]) was gibbed by an autogibber (\the [src]) at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 
 	if(src.operating)
 		return
@@ -390,7 +395,7 @@
 	src.occupant.death(1)
 	src.occupant.ghostize()
 
-	del(src.occupant)
+	qdel(src.occupant)
 
 	spawn(src.gibtime)
 

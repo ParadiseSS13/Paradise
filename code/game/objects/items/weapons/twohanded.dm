@@ -115,10 +115,10 @@
 	flags = ABSTRACT
 
 /obj/item/weapon/twohanded/offhand/unwield()
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/twohanded/offhand/wield()
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/twohanded/offhand/IsShield()//if the actual twohanded weapon is a shield, we count as a shield too!
 	var/mob/user = loc

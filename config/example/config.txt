@@ -54,6 +54,9 @@ LOG_PDA
 ## log world.log and runtime errors to a file
 LOG_RUNTIME
 
+## log world.log messages
+# LOG_WORLD_OUTPUT
+
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
 # LOG_HREFS
 
@@ -283,3 +286,6 @@ PLAYER_REROUTE_CAP 0
 
 ## Server to reroute to
 #OVERFLOW_SERVER_URL byond://example.org:1111
+
+## Disable the loading of away missions
+# DISABLE_AWAY_MISSIONS

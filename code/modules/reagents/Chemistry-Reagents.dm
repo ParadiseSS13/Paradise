@@ -166,7 +166,7 @@ datum
 				if(src.data["virus"])
 					var/datum/disease/D = src.data["virus"]
 					D.cure(0)
-				..()
+				return ..()
 */
 
 /*
@@ -234,6 +234,7 @@ datum
 			reagent_state = LIQUID
 			color = "#0064C8" // rgb: 0, 100, 200
 			var/cooling_temperature = 2
+			process_flags = ORGANIC | SYNTHETIC
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 				if(!istype(M, /mob/living))
@@ -427,7 +428,7 @@ datum
 					M.invisibility = 101
 					for(var/obj/item/W in M)
 						if(istype(W, /obj/item/weapon/implant))	//TODO: Carn. give implants a dropped() or something
-							del(W)
+							qdel(W)
 							continue
 						W.layer = initial(W.layer)
 						W.loc = M.loc
@@ -439,7 +440,7 @@ datum
 						M.mind.transfer_to(new_mob)
 					else
 						new_mob.key = M.key
-					del(M)
+					qdel(M)
 				..()
 				return
 
@@ -756,6 +757,8 @@ datum
 				if(volume > 200)
 					M << "<span class = 'danger'>You pass out from hyperglycemic shock!</span>"
 					M.Paralyse(1)
+					if(prob(8))
+						M.adjustToxLoss(rand(1,2))
 				..()
 				return
 
@@ -769,7 +772,6 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(1*REM)
 				M.adjustFireLoss(1)
 				..()
 				return
@@ -833,7 +835,7 @@ datum
 						I.desc = "Looks like this was \an [O] some time ago."
 						for(var/mob/M in viewers(5, O))
 							M << "\red \the [O] melts."
-						del(O)
+						qdel(O)
 
 		glycerol
 			name = "Glycerol"
@@ -1117,7 +1119,7 @@ datum
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/decal/cleanable))
-					del(O)
+					qdel(O)
 				else
 					if(O)
 						O.clean_blood()
@@ -1126,7 +1128,7 @@ datum
 					T.overlays.Cut()
 					T.clean_blood()
 					for(var/obj/effect/decal/cleanable/C in src)
-						del(C)
+						qdel(C)
 
 					for(var/mob/living/carbon/slime/M in T)
 						M.adjustToxLoss(rand(5,10))
@@ -1175,7 +1177,9 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustToxLoss(3*REM)
+				M.adjustToxLoss(1*REM)
+				if(holder.has_reagent("epinephrine"))
+					holder.remove_reagent("epinephrine", 2)
 				..()
 				return
 
@@ -1269,6 +1273,8 @@ datum
 				M.AdjustParalysis(-1)
 				M.AdjustStunned(-1)
 				M.AdjustWeakened(-1)
+				if(prob(50))
+					M.adjustBrainLoss(-1.0)
 				..()
 				return
 
@@ -1745,6 +1751,15 @@ datum
 			reagent_state = SOLID
 			color = "#B1B0B0"
 
+			overdose_process(var/mob/living/M as mob)
+				if(volume > 100)
+					if(prob(70))
+						M.adjustBrainLoss(1)
+					if(prob(8))
+						M.adjustToxLoss(rand(1,2))
+				..()
+				return
+
 		blackpepper
 			name = "Black Pepper"
 			id = "blackpepper"
@@ -2216,15 +2231,22 @@ datum
 				adj_drowsy = -3
 				adj_sleepy = -2
 				adj_temp = 25
+				overdose_threshold = 45
 
 				on_mob_life(var/mob/living/M as mob)
-					M.Jitter(5)
 					if(adj_temp > 0 && holder.has_reagent("frostoil"))
 						holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
 					if(prob(50))
 						M.AdjustParalysis(-1)
 						M.AdjustStunned(-1)
 						M.AdjustWeakened(-1)
+					..()
+					return
+					
+				overdose_process(var/mob/living/M as mob)
+					if(volume > 45)
+						M.Jitter(5)
+						
 					..()
 					return
 
@@ -3234,8 +3256,5 @@ datum
 
 
 /datum/reagent/Destroy()
-	if(holder)
-		holder.reagent_list -= src
-		holder = null
-
+	holder = null
 	return ..()

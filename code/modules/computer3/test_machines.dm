@@ -82,5 +82,5 @@
 /obj/item/weapon/storage/box/testing_disks
 	New()
 		..()
-		for(var/typekey in typesof(/obj/item/weapon/disk/file) - /obj/item/weapon/disk/file)
+		for(var/typekey in subtypesof(/obj/item/weapon/disk/file))
 			new typekey(src)

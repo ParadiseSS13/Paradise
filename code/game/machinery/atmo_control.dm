@@ -80,13 +80,15 @@ obj/machinery/air_sensor
 			if(do_after(user, 40))
 				user.visible_message("[user] unfastens \the [src].", "\blue You have unfastened \the [src].", "You hear ratchet.")
 				new /obj/item/pipe_gsensor(src.loc)
-				del(src)
+				qdel(src)
 				return 1
 		if(..())
 			return 1
 
 	process()
 		if(on)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.data["tag"] = id_tag
@@ -128,15 +130,16 @@ obj/machinery/air_sensor
 	initialize()
 		set_frequency(frequency)
 
-	New()
-		..()
-
+	Destroy()
 		if(radio_controller)
-			set_frequency(frequency)
+			radio_controller.remove_object(src,frequency)
+		return ..()
+
 
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	icon_screen = "tank"
+	icon_keyboard = "atmos_key"
 	circuit = "/obj/item/weapon/circuitboard/air_management"
 	req_one_access_txt = "24;10"
 
@@ -355,8 +358,6 @@ legend {
 		return 1
 
 	large_tank_control
-		icon = 'icons/obj/computer.dmi'
-		icon_state = "tank"
 		circuit = "/obj/item/weapon/circuitboard/large_tank_control"
 		req_one_access_txt = "24;10"
 		settagwhitelist = list("input_tag", "output_tag")
@@ -528,6 +529,8 @@ legend {
 			send_signal(list("tag"=device, "status"))
 
 		proc/send_signal(var/list/data)
+			if(!radio_connection)
+				return
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.source = src
@@ -580,7 +583,7 @@ legend {
 
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
-		icon_state = "atmos"
+		icon_screen = "atmos"
 		circuit = "/obj/item/weapon/circuitboard/injector_control"
 
 		var/device_tag

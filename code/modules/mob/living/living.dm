@@ -1,4 +1,8 @@
 
+/mob/living/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
+
 /mob/living/Life()
 	..()
 	if (notransform)	return
@@ -419,7 +423,7 @@
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("\red [] has been pulled from []'s grip by []", G.affecting, G.assailant, src), 1)
 								//G = null
-								del(G)
+								qdel(G)
 						else
 							ok = 0
 						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
@@ -480,6 +484,10 @@
 	//resisting grabs (as if it helps anyone...)
 	if ((!(L.stat) && !(L.restrained())))
 		resist_grab(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
+
+	// Sliding out of a morgue/crematorium
+	if(loc && (istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+		resist_tray(L)
 
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
@@ -561,7 +569,7 @@
 
 	for(var/obj/O in L.requests)
 		L.requests.Remove(O)
-		del(O)
+		qdel(O)
 		resisting++
 
 	for(var/obj/item/weapon/grab/G in usr.grabbed_by)
@@ -683,6 +691,17 @@
 					BD.attack_hand(usr)
 				C.open()
 
+// resist_tray allows a mob to slide themselves out of a morgue or crematorium
+/mob/living/proc/resist_tray(var/mob/living/carbon/CM)
+	if(!istype(CM))
+		return
+	if (usr.stat || usr.restrained())
+		return
+
+	usr << "<span class='alert'>You attempt to slide yourself out of \the [loc]...</span>"
+	var/obj/structure/S = loc
+	S.attack_hand(src)
+
 /* resist_stop_drop_roll allows a mob to stop, drop, and roll in order to put out a fire burning on them.
 */////
 /mob/living/proc/resist_stop_drop_roll(var/mob/living/carbon/CM)
@@ -735,7 +754,7 @@
 
 			if(hulklien)
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-				del(CM.handcuffed)
+				qdel(CM.handcuffed)
 				CM.handcuffed = null
 				CM.update_inv_handcuffed()
 				return

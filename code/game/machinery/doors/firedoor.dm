@@ -25,7 +25,7 @@
 	for(var/obj/machinery/door/firedoor/F in loc)
 		if(F != src)
 			spawn(1)
-				del src
+				qdel(src)
 			return .
 
 	var/area/A = get_area(src)

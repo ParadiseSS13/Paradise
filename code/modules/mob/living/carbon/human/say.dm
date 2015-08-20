@@ -190,7 +190,7 @@
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if (!speaking)
-		if (istype(other, /mob/living/carbon/primitive/diona))
+		if (istype(other, /mob/living/simple_animal/diona))
 			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
 				return 1
 		if (istype(other, /mob/living/silicon))
@@ -207,16 +207,22 @@
 	//	return 0
 
 	return ..()
-
-/mob/living/carbon/human/GetVoice()
-
-	var/voice_sub
+	
+/mob/living/carbon/human/proc/HasVoiceChanger()
 	for(var/obj/item/gear in list(wear_mask,wear_suit,head))
 		if(!gear)
 			continue
 		var/obj/item/voice_changer/changer = locate() in gear
 		if(changer && changer.active && changer.voice)
-			voice_sub = changer.voice
+			return changer
+	return 0
+		
+/mob/living/carbon/human/GetVoice()
+
+	var/voice_sub
+	var/has_changer = HasVoiceChanger()
+	if(has_changer)
+		voice_sub = has_changer
 	if(voice_sub)
 		return voice_sub
 	if(mind && mind.changeling && mind.changeling.mimicing)

@@ -51,10 +51,10 @@
 		message_admins("[key_name_admin(user)] fired sulphuric acid from \a [src].")
 		log_game("[key_name(user)] fired sulphuric acid from \a [src].")
 	if(reagents.has_reagent("facid"))
-		message_admins("[key_name_admin(user)] fired Fluorosulfuric Acid from \a [src].")
+		message_admins("[key_name_admin(user)] fired fluorosulfuric acid from \a [src].")
 		log_game("[key_name(user)] fired Fluorosulfuric Acid from \a [src].")
 	if(reagents.has_reagent("lube"))
-		message_admins("[key_name_admin(user)] fired Space lube from \a [src].")
+		message_admins("[key_name_admin(user)] fired space lube from \a [src].")
 		log_game("[key_name(user)] fired Space lube from \a [src].")
 	return
 
@@ -71,7 +71,7 @@
 			for(var/atom/T in get_turf(D))
 				D.reagents.reaction(T)
 			sleep(3)
-		del(D)
+		qdel(D)
 
 
 /obj/item/weapon/reagent_containers/spray/attack_self(var/mob/user)
@@ -200,7 +200,7 @@
 				for(var/atom/t in get_turf(D))
 					D.reagents.reaction(t)
 				sleep(2)
-			del(D)
+			qdel(D)
 
 
 

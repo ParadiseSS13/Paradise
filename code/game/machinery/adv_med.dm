@@ -22,11 +22,21 @@
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 2)
+	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	RefreshParts()
+	
+/obj/machinery/bodyscanner/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
 /obj/machinery/bodyscanner/RefreshParts()
@@ -82,7 +92,7 @@
 		src.icon_state = "body_scanner_1"
 		src.add_fingerprint(user)
 		//G = null
-		del(G)
+		qdel(G)
 		return
 
 /obj/machinery/bodyscanner/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -178,7 +188,7 @@
 	src.icon_state = "bodyscanner"
 	for(var/obj/O in src)
 		//O = null
-		del(O)
+		qdel(O)
 		//Foreach goto(124)
 	src.add_fingerprint(usr)
 	return
@@ -229,7 +239,7 @@
 	if(prob(50))
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
-		del(src)
+		qdel(src)
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
@@ -261,10 +271,10 @@
 /obj/machinery/body_scanconsole/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner_console(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 2)
+	component_parts += new /obj/item/weapon/circuitboard/bodyscanner_console(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 	findscanner()
 
@@ -286,7 +296,7 @@
 
 /obj/machinery/body_scanconsole/blob_act()
 	if(prob(50))
-		del(src)
+		qdel(src)
 
 /obj/machinery/body_scanconsole/proc/findscanner()
 	spawn( 5 )

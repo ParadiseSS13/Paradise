@@ -37,6 +37,7 @@
 	icon='icons/fence-ns.dmi'
 
 /obj/structure/grille/Destroy()
+	..()
 	return QDEL_HINT_PUTINPOOL //pool grilles
 
 /obj/structure/grille/ex_act(severity)

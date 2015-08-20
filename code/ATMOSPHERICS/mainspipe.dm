@@ -37,7 +37,7 @@ obj/machinery/atmospherics/mains_pipe
 	layer = 2.4 //under wires with their 2.5
 
 	force = 20
-	
+
 	var/volume = 0
 
 	var/alert_pressure = 80*ONE_ATMOSPHERE
@@ -99,9 +99,9 @@ obj/machinery/atmospherics/mains_pipe
 		for(var/obj/machinery/atmospherics/pipe/mains_component/node in nodes)
 			node.disconnect()
 
-	Del()
+	Destroy()
 		disconnect()
-		..()
+		return ..()
 
 	initialize()
 		for(var/i = 1 to nodes.len)
@@ -649,7 +649,7 @@ obj/machinery/atmospherics/mains_pipe/valve
 
 		attack_hand(mob/user as mob)
 			if(!src.allowed(user))
-				user << "\red Access denied."
+				user << "<span class='alert>Access denied.</span>"
 				return
 			..()
 

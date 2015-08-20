@@ -30,6 +30,7 @@
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
+	singularities += src
 	admin_investigate_setup()
 
 	src.energy = starting_energy
@@ -43,6 +44,7 @@
 
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
+	singularities -= src
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)
@@ -111,7 +113,7 @@
 /obj/singularity/proc/admin_investigate_setup()
 	last_warning = world.time
 	var/count = locate(/obj/machinery/containment_field) in orange(30, src)
-	if(!count)	message_admins("A singulo has been created without containment fields active ([x],[y],[z])",1)
+	if(!count)	message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
 /obj/singularity/proc/dissipate()
@@ -244,7 +246,7 @@
 /obj/singularity/proc/consume(var/atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/power/supermatter) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1

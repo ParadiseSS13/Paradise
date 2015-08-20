@@ -1,10 +1,5 @@
 /datum/controller/gameticker/proc/scoreboard()
 
-	//calls auto_declare_completion_* for all modes
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if (findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
-
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
@@ -211,7 +206,9 @@
 	world << "<b>The crew's final score is:</b>"
 	world << "<b><font size='4'>[score_crewscore]</font></b>"
 	for(var/mob/E in player_list)
-		if(E.client) E.scorestats()
+		if(E.client)
+			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))
+				E.scorestats()
 	return
 
 

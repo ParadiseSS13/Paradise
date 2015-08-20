@@ -30,7 +30,7 @@
 	max_co2 = 5
 	min_n2 = 0
 	max_n2 = 0
-	unsuitable_atoms_damage = 15
+	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	status_flags = CANPUSH
 
@@ -42,7 +42,7 @@
 		new weapon1 (src.loc)
 	if(weapon2)
 		new weapon2 (src.loc)
-	del src
+	qdel(src)
 	return
 
 ///////////////Sword and shield////////////
@@ -165,5 +165,5 @@
 /mob/living/simple_animal/hostile/viscerator/Die()
 	..()
 	visible_message("\red <b>[src]</b> is smashed into pieces!")
-	del src
+	qdel(src)
 	return

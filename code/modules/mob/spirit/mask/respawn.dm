@@ -10,9 +10,9 @@
 				ghost.timeofdeath = world.time - 20000
 				ghost.newPlayerType = /mob/new_player/cultist
 				// remove old mask body
-				del(currentSpirit)
+				qdel(currentSpirit)
 
-	
+
 /mob/new_player/cultist/AttemptLateSpawn(rank)
 	var/mob/newCharacter = ..(rank)
 	if(ticker.mode)

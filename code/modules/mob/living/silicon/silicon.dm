@@ -8,8 +8,7 @@
 	var/list/alarms_to_clear = list()
 	var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_handlers = list() // List of alarm handlers this silicon is registered to
 	var/designation = ""
 	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
@@ -17,90 +16,28 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
+	
 	var/sensor_mode = 0 //Determines the current HUD.
+	
+	var/next_alarm_notice
+	var/list/datum/alarm/queued_alarms = new()
+	
 	#define SEC_HUD 1 //Security HUD mode
 	#define MED_HUD 2 //Medical HUD mode
 	var/local_transmit //If set, can only speak to others of the same type within a short range.
 	var/obj/item/device/radio/common_radio
-
-/mob/living/silicon/proc/cancelAlarm()
-	return
-
-/mob/living/silicon/proc/triggerAlarm()
-	return
+	
+/mob/living/silicon/New()
+	..()
+	init_subsystems()
+	
+/mob/living/silicon/Destroy()
+	for(var/datum/alarm_handler/AH in alarm_handlers)
+		AH.unregister(src)
+	return ..()
 
 /mob/living/silicon/proc/show_laws()
 	return
-
-/mob/living/silicon/proc/queueAlarm(var/message, var/type, var/incoming = 1)
-	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
-	if(incoming)
-		alarms_to_show += message
-		alarm_types_show[type] += 1
-	else
-		alarms_to_clear += message
-		alarm_types_clear[type] += 1
-
-	if(!in_cooldown)
-		spawn(10 * 10) // 10 seconds
-
-			if(alarms_to_show.len < 5)
-				for(var/msg in alarms_to_show)
-					src << msg
-			else if(alarms_to_show.len)
-
-				var/msg = "--- "
-
-				if(alarm_types_show["Motion"])
-					msg += "MOTION: [alarm_types_show["Motion"]] alarms detected. - "
-
-				if(alarm_types_show["Fire"])
-					msg += "FIRE: [alarm_types_show["Fire"]] alarms detected. - "
-
-				if(alarm_types_show["Atmosphere"])
-					msg += "ATMOSPHERE: [alarm_types_show["Atmosphere"]] alarms detected. - "
-
-				if(alarm_types_show["Power"])
-					msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
-
-				if(alarm_types_show["Camera"])
-					msg += "CAMERA: [alarm_types_show["Power"]] alarms detected. - "
-
-				msg += "<A href=?src=\ref[src];showalerts=1'>\[Show Alerts\]</a>"
-				src << msg
-
-			if(alarms_to_clear.len < 3)
-				for(var/msg in alarms_to_clear)
-					src << msg
-
-			else if(alarms_to_clear.len)
-				var/msg = "--- "
-
-				if(alarm_types_clear["Motion"])
-					msg += "MOTION: [alarm_types_clear["Motion"]] alarms cleared. - "
-
-				if(alarm_types_clear["Fire"])
-					msg += "FIRE: [alarm_types_clear["Fire"]] alarms cleared. - "
-
-				if(alarm_types_clear["Atmosphere"])
-					msg += "ATMOSPHERE: [alarm_types_clear["Atmosphere"]] alarms cleared. - "
-
-				if(alarm_types_clear["Power"])
-					msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
-
-				if(alarm_types_show["Camera"])
-					msg += "CAMERA: [alarm_types_show["Power"]] alarms detected. - "
-
-				msg += "<A href=?src=\ref[src];showalerts=1'>\[Show Alerts\]</a>"
-				src << msg
-
-
-			alarms_to_show = list()
-			alarms_to_clear = list()
-			for(var/i = 1; i < alarm_types_show.len; i++)
-				alarm_types_show[i] = 0
-			for(var/i = 1; i < alarm_types_clear.len; i++)
-				alarm_types_clear[i] = 0
 
 /mob/living/silicon/drop_item()
 	return
@@ -304,7 +241,7 @@
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))
+	flavor_text =  sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text)
 
 /mob/living/silicon/binarycheck()
 	return 1
@@ -324,3 +261,61 @@
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return 1
+
+/mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)
+	if(!next_alarm_notice)
+		next_alarm_notice = world.time + SecondsToTicks(10)
+
+	var/list/alarms = queued_alarms[alarm_handler]
+	if(was_raised)
+		// Raised alarms are always set
+		alarms[alarm] = 1
+	else
+		// Alarms that were raised but then cleared before the next notice are instead removed
+		if(alarm in alarms)
+			alarms -= alarm
+		// And alarms that have only been cleared thus far are set as such
+		else
+			alarms[alarm] = -1
+
+/mob/living/silicon/proc/process_queued_alarms()
+	if(next_alarm_notice && (world.time > next_alarm_notice))
+		next_alarm_notice = 0
+
+		var/alarm_raised = 0
+		for(var/datum/alarm_handler/AH in queued_alarms)
+			var/list/alarms = queued_alarms[AH]
+			var/reported = 0
+			for(var/datum/alarm/A in alarms)
+				if(alarms[A] == 1)
+					if(!reported)
+						reported = 1
+						src << "<span class='warning'>--- [AH.category] Detected ---</span>"
+					raised_alarm(A)
+
+		for(var/datum/alarm_handler/AH in queued_alarms)
+			var/list/alarms = queued_alarms[AH]
+			var/reported = 0
+			for(var/datum/alarm/A in alarms)
+				if(alarms[A] == -1)
+					if(!reported)
+						reported = 1
+						src << "<span class='notice'>--- [AH.category] Cleared ---</span>"
+					src << "\The [A.alarm_name()]."
+					
+		if(alarm_raised)
+			src << "<A HREF=?src=\ref[src];showalerts=1>\[Show Alerts\]</A>"
+
+		for(var/datum/alarm_handler/AH in queued_alarms)
+			var/list/alarms = queued_alarms[AH]
+			alarms.Cut()
+
+/mob/living/silicon/proc/raised_alarm(var/datum/alarm/A)
+	src << "[A.alarm_name()]!"
+
+/mob/living/silicon/ai/raised_alarm(var/datum/alarm/A)
+	var/cameratext = ""
+	for(var/obj/machinery/camera/C in A.cameras())
+		cameratext += "[(cameratext == "")? "" : "|"]<A HREF=?src=\ref[src];switchcamera=\ref[C]>[C.c_tag]</A>"
+	src << "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])"
+	

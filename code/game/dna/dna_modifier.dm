@@ -57,27 +57,27 @@
 /obj/machinery/dna_scannernew/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/clonescanner(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/dna_scannernew/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/clonescanner(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
+	
 /obj/machinery/dna_scannernew/RefreshParts()
 	scan_level = 0
 	damage_coeff = 0
@@ -317,7 +317,8 @@
 	name = "DNA Modifier Access Console"
 	desc = "Allows you to scan and modify DNA."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "scanner"
+	icon_screen = "dna"
+	icon_keyboard = "med_key"
 	density = 1
 	circuit = /obj/item/weapon/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
@@ -371,17 +372,6 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/computer/scan_consolenew/power_change()
-	if(stat & BROKEN)
-		icon_state = "broken"
-	else if(powered())
-		icon_state = initial(icon_state)
-		stat &= ~NOPOWER
-	else
-		spawn(rand(0, 15))
-			src.icon_state = "c_unpowered"
-			stat |= NOPOWER
-
 /obj/machinery/computer/scan_consolenew/New()
 	..()
 	for(var/i=0;i<3;i++)
@@ -431,7 +421,13 @@
 			if(!isnull(connected))
 				attack_hand(user)
 				break
-	else if(!..())
+	else
+		if(..(user))
+			return
+
+		if(stat & (NOPOWER|BROKEN)) 
+			return			
+			
 		ui_interact(user)
 
  /**
@@ -446,8 +442,7 @@
   * @return nothing
   */
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
-	if(user == connected.occupant || user.stat)
+	if(user == connected.occupant)
 		return
 
 	// this is the data which will be sent to the ui

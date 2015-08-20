@@ -326,7 +326,7 @@ field_generator power level display
 	for (var/obj/machinery/containment_field/F in fields)
 		if (isnull(F))
 			continue
-		del(F)
+		qdel(F)
 	fields = list()
 	for(var/obj/machinery/field_generator/FG in connected_gens)
 		if (isnull(FG))
@@ -344,7 +344,7 @@ field_generator power level display
 	//I want to avoid using global variables.
 	spawn(1)
 		var/temp = 1 //stops spam
-		for(var/obj/singularity/O in machines)
+		for(var/obj/singularity/O in singularities)
 			if(O.last_warning && temp)
 				if((world.time - O.last_warning) > 50) //to stop message-spam
 					temp = 0

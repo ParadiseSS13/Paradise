@@ -17,12 +17,21 @@
 /obj/machinery/r_n_d/server/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/rdserver(src)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(src)
-	component_parts += new /obj/item/stack/cable_coil(src,1)
-	component_parts += new /obj/item/stack/cable_coil(src,1)
+	component_parts += new /obj/item/weapon/circuitboard/rdserver(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
 	RefreshParts()
-	src.initialize(); //Agouri
+	initialize(); //Agouri
+	
+/obj/machinery/r_n_d/server/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/rdserver(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
+	component_parts += new /obj/item/stack/cable_coil(null,1)
+	RefreshParts()
 
 /obj/machinery/r_n_d/server/Destroy()
 	griefProtection()
@@ -122,7 +131,7 @@
 		shock(user,50)
 
 	if(istype(O, /obj/item/weapon/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server")
+		default_deconstruction_screwdriver(user, "server_o", "server", O)
 		return 1
 
 	if(exchange_parts(user, O))
@@ -175,7 +184,8 @@
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D Server Controller"
-	icon_state = "rdcomp"
+	icon_screen = "rdcomp"
+	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/weapon/circuitboard/rdservercontrol
 	var/screen = 0

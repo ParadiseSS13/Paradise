@@ -9,11 +9,11 @@
 	var/datum/omni_port/input
 	var/datum/omni_port/output
 
-/obj/machinery/atmospherics/omni/filter/Del()
+/obj/machinery/atmospherics/omni/filter/Destroy()
 	input = null
 	output = null
 	filters.Cut()
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/omni/filter/sort_ports()
 	for(var/datum/omni_port/P in ports)
@@ -46,7 +46,7 @@
 	..()
 	if(!on)
 		return 0
-	
+
 	if(!input || !output)
 		return
 
@@ -54,7 +54,7 @@
 	var/datum/gas_mixture/input_air = input.air		// it's completely happy with them if they're in a loop though i.e. "P.air.return_pressure()"... *shrug*
 
 	var/output_pressure = output_air.return_pressure()
-	
+
 	if(output_pressure >= target_pressure)
 		return
 	for(var/datum/omni_port/P in filters)
@@ -68,14 +68,14 @@
 
 	if(input.transfer_moles > 0)
 		var/datum/gas_mixture/removed = input_air.remove(input.transfer_moles)
-		
+
 		if(!removed)
 			return
-		
+
 		for(var/datum/omni_port/P in filters)
 			var/datum/gas_mixture/filtered_out = new
 			filtered_out.temperature = removed.return_temperature()
-			
+
 			switch(P.mode)
 				if(ATM_O2)
 					filtered_out.oxygen = removed.oxygen
@@ -97,15 +97,15 @@
 								filtered_out.trace_gases += trace_gas
 				else
 					filtered_out = null
-			
+
 			P.air.merge(filtered_out)
 			if(P.network)
 				P.network.update = 1
-		
+
 		output_air.merge(removed)
 		if(output.network)
 			output.network.update = 1
-		
+
 		input.transfer_moles = 0
 		if(input.network)
 			input.network.update = 1

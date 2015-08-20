@@ -122,7 +122,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	var/speech_bubble_test = say_test(message)
 	var/image/speech_bubble = image('icons/mob/talk.dmi',src,"h[speech_bubble_test]")
-	spawn(30) del(speech_bubble)
+	spawn(30) qdel(speech_bubble)
 
 	for(var/mob/M in listening)
 		M << speech_bubble

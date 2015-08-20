@@ -61,6 +61,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 	//clear the datums references
 	admin_datums.Cut()
 	for(var/client/C in admins)
+		C.remove_admin_verbs()
 		C.holder = null
 	admins.Cut()
 
@@ -102,13 +103,13 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 
 		establish_db_connection()
 		if(!dbcon.IsConnected())
-			world.log << "Failed to connect to database in load_admins(). Reverting to legacy system."
+			log_to_dd("Failed to connect to database in load_admins(). Reverting to legacy system.")
 			diary << "Failed to connect to database in load_admins(). Reverting to legacy system."
 			config.admin_legacy_system = 1
 			load_admins()
 			return
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, rank, level, flags FROM erro_admin")
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
 		query.Execute()
 		while(query.NextRow())
 			var/ckey = query.item[1]
@@ -122,7 +123,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 			//find the client for a ckey if they are connected and associate them with the new admin datum
 			D.associate(directory[ckey])
 		if(!admin_datums)
-			world.log << "The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system."
+			log_to_dd("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
 			diary << "The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system."
 			config.admin_legacy_system = 1
 			load_admins()

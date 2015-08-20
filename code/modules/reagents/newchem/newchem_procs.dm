@@ -17,6 +17,8 @@ datum/reagents/proc/metabolize(var/mob/M)
 		handle_reactions()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
+		if(!istype(R))
+			continue
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent

@@ -87,7 +87,7 @@
 
 				M << "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>"
 
-				message_admins("[N]/([N.ckey]) has accepted a traitor objective from a syndicate beacon.")
+				message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
 				var/obj_count = 1
 				for(var/datum/objective/OBJ in M.mind.objectives)
@@ -127,7 +127,7 @@
 	if(surplus() < 1500)
 		if(user) user << "<span class='notice'>The connected wire doesn't have enough current.</span>"
 		return
-	for(var/obj/singularity/singulo in world)
+	for(var/obj/singularity/singulo in singularities)
 		if(singulo.z == z)
 			singulo.target = src
 	icon_state = "[icontype]1"
@@ -192,7 +192,7 @@
 		return PROCESS_KILL
 	else
 		if(surplus() > 1500)
-			add_load(1500)
+			draw_power(1500)
 		else
 			Deactivate()
 

@@ -11,7 +11,7 @@
 	var/datum/vampire/vampire = src.mind.vampire
 
 	if(!vampire)
-		world.log << "[src] has vampire verbs but isn't a vampire."
+		log_to_dd("[src] has vampire verbs but isn't a vampire.")
 		return 0
 
 	var/fullpower = (VAMP_FULL in vampire.powers)
@@ -198,7 +198,8 @@
 	if(M.current.vampire_power(50, 0))
 		M.current.visible_message("<span class='warning'>[M.current.name] transforms!</span>")
 		M.current.client.prefs.real_name = M.current.generate_name() //random_name(M.current.gender)
-		M.current.client.prefs.randomize_appearance_for(M.current)
+		M.current.client.prefs.random_character()
+		M.current.client.prefs.copy_to(M.current)
 		M.current.regenerate_icons()
 		M.current.remove_vampire_blood(50)
 		M.current.verbs -= /client/vampire/proc/vampire_shapeshift
@@ -300,12 +301,12 @@
 			enthrall_safe = 1
 			break
 	if(!C)
-		world.log << "something bad happened on enthralling a mob src is [src] [src.key] \ref[src]"
+		log_to_dd("something bad happened on enthralling a mob src is [src] [src.key] \ref[src]")
 		return 0
 	if(!C.mind)
 		src << "\red [C.name]'s mind is not there for you to enthrall."
 		return 0
-	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.enthralled ))
+	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
 		C.visible_message("\red [C] seems to resist the takeover!", "\blue You feel a familiar sensation in your skull that quickly dissipates.")
 		return 0
 	if(!C.vampire_affected(mind))
@@ -320,12 +321,12 @@
 		src << "<b>\red SOMETHING WENT WRONG, YELL AT POMF OR NEXIS</b>"
 		return 0
 	var/ref = "\ref[src.mind]"
-	if(!(ref in ticker.mode.thralls))
-		ticker.mode.thralls[ref] = list(H.mind)
+	if(!(ref in ticker.mode.vampire_thralls))
+		ticker.mode.vampire_thralls[ref] = list(H.mind)
 	else
-		ticker.mode.thralls[ref] += H.mind
-	ticker.mode.enthralled.Add(H.mind)
-	ticker.mode.enthralled[H.mind] = src.mind
+		ticker.mode.vampire_thralls[ref] += H.mind
+	ticker.mode.vampire_enthralled.Add(H.mind)
+	ticker.mode.vampire_enthralled[H.mind] = src.mind
 	H.mind.special_role = "VampThrall"
 	H << "<b>\red You have been Enthralled by [name]. Follow their every command.</b>"
 	src << "\red You have successfully Enthralled [H.name]. <i>If they refuse to do as you say just adminhelp.</i>"
@@ -412,8 +413,8 @@
 							break
 			M.current.canmove = 1
 			M.current.client.eye = M.current
-			del(animation)
-			del(holder)
+			qdel(animation)
+			qdel(holder)
 		M.current.remove_vampire_blood(30)
 		M.current.verbs -= /client/vampire/proc/vampire_jaunt
 		spawn(600) M.current.verbs += /client/vampire/proc/vampire_jaunt
@@ -473,7 +474,7 @@
 			//animation.master = src
 			usr.loc = picked
 			spawn(10)
-				del(animation)
+				qdel(animation)
 		M.current.remove_vampire_blood(30)
 		M.current.verbs -= /client/vampire/proc/vampire_shadowstep
 		spawn(20)

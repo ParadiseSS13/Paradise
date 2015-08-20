@@ -653,6 +653,15 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_mining_scanner
+	name = "Exosuit Engineering Equipement (Mining Scanner)"
+	id = "mech_mscanner"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/tool/mining_scanner
+	materials = list("$metal"=5000,"$glass"=2500)
+	construction_time = 50
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator_nuclear
 	name = "Exosuit Module (ExoNuclear Reactor)"
 	desc = "Compact nuclear reactor module."
@@ -852,6 +861,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_plasma_cutter
+	name = "Exosuit Module Design (217-D Heavy Plasma Cutter)"
+	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
+	id = "mech_plasma_cutter"
+	build_type = MECHFAB
+	req_tech = list("powerstorage"= 3, "engineering" = 3, "materials" = 3, "combat" = 1, "plasma" = 2)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
+	materials = list("$metal"=1500, "$glass"=500, "$plasma"=200)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 //Cyborg Upgrade Modules
 /datum/design/borg_syndicate_module
 	name = "Borg Illegal Weapons Upgrade"
@@ -875,7 +895,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_disablercooler
-	name = "Cyborg Upgrade Module (Rapid Disabler Cooling Module)"
+	name = "Cyborg Upgrade Module (Rapid Disabler Cooling)"
 	id = "borg_upgrade_disablercooler"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/disablercooler
@@ -885,7 +905,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_rename
-	name = "Cyborg Upgrade Module (Rename Module)"
+	name = "Cyborg Upgrade Module (Rename)"
 	id = "borg_upgrade_rename"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/rename
@@ -894,7 +914,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset Module)"
+	name = "Cyborg Upgrade Module (Reset)"
 	id = "borg_upgrade_reset"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
@@ -903,7 +923,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_restart
-	name = "Cyborg Upgrade Module (Restart Module)"
+	name = "Cyborg Upgrade Module (Restart)"
 	id = "borg_upgrade_restart"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/restart
@@ -912,12 +932,32 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_vtec
-	name = "Cyborg Upgrade Module (VTEC Module)"
+	name = "Cyborg Upgrade Module (VTEC)"
 	id = "borg_upgrade_vtec"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/vtec
 	req_tech = list("engineering" = 4, "materials" = 5)
 	materials = list("$metal"=80000 , "$glass"=6000 , "$uranium"= 5000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_diamonddrill
+	name = "Cyborg Upgrade (Diamond Drill)"
+	id = "borg_upgrade_diamonddrill"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/ddrill
+	req_tech = list("engineering" = 5, "materials" = 5)
+	materials = list("$metal"=10000, "$diamond"=3750)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_holding
+	name = "Cyborg Upgrade (Ore Satchel of Holding)"
+	id = "borg_upgrade_holding"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/soh
+	req_tech = list("engineering" = 5, "materials" = 5, "bluespace" = 3)
+	materials = list("$metal" = 10000, "$gold" = 250, "$uranium" = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

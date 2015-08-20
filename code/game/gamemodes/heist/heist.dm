@@ -85,6 +85,8 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
+		
+	return ..()
 
 /datum/game_mode/proc/create_vox(var/datum/mind/newraider)
 
@@ -132,7 +134,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		return 0
 
 	for(var/obj/stack in cortical_stacks)
-		if (get_area(stack) != locate(/area/shuttle/vox/station))
+		if (get_area(stack.loc) != locate(/area/shuttle/vox/station))
 			return 0
 	return 1
 
@@ -253,13 +255,13 @@ datum/game_mode/proc/auto_declare_completion_heist()
 		var/check_return = 0
 		if(ticker && istype(ticker.mode,/datum/game_mode/heist))
 			check_return = 1
-		var/text = "<FONT size = 2><B>The vox raiders were:</B></FONT>"
+		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
 
 		for(var/datum/mind/vox in raiders)
 			text += "<br>[vox.key] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
-				if(get_area(stack) != locate(/area/shuttle/vox/station))
+				if(get_area(stack.loc) != locate(/area/shuttle/vox/station))
 					text += "left behind)"
 					continue
 			if(vox.current)
@@ -274,6 +276,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 			text += ")"
 
 		world << text
+		
 	return 1
 
 /datum/game_mode/heist/check_finished()
@@ -287,6 +290,6 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	var/area/skipjack = locate(/area/shuttle/vox/station)
 	for (var/mob/living/M in skipjack.contents)
 		//maybe send the player a message that they've gone home/been kidnapped? Someone responsible for vox lore should write that.
-		del(M)
+		qdel(M)
 	for (var/obj/O in skipjack.contents)
-		del(O)	//no hiding in lockers or anything
+		qdel(O)	//no hiding in lockers or anything

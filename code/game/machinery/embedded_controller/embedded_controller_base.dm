@@ -26,6 +26,9 @@
 	update_icon()
 	src.updateDialog()
 
+/obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
+	src.ui_interact(user)	
+	
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
 	src.ui_interact(user)
 
@@ -69,7 +72,7 @@
 		//use_power(radio_power_use)	//neat idea, but causes way too much lag.
 		return radio_connection.post_signal(src, signal, filter)
 	else
-		del(signal)
+		qdel(signal)
 
 /obj/machinery/embedded_controller/radio/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)

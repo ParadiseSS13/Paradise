@@ -1,7 +1,8 @@
 /obj/machinery/computer/HolodeckControl
 	name = "Holodeck Control Computer"
 	desc = "A computer used to control a nearby holodeck."
-	icon_state = "holocontrol"
+	icon_keyboard = "tech_key"
+	icon_screen = "holocontrol"
 	var/area/linkedholodeck = null
 	var/area/target = null
 	var/active = 0
@@ -239,7 +240,7 @@
 	if(!silent)
 		var/obj/oldobj = obj
 		visible_message("The [oldobj.name] fades away!")
-	del(obj)
+	qdel(obj)
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
 	for(var/turf/T in A)
@@ -292,10 +293,10 @@
 		derez(item)
 
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
-		del(B)
+		qdel(B)
 
 	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
-		del(C)
+		qdel(C)
 
 	holographic_items = A.copy_contents_to(linkedholodeck , 1)
 
@@ -401,7 +402,7 @@
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(5)
 		visible_message("\red [G.assailant] puts [G.affecting] on the table.")
-		del(W)
+		qdel(W)
 		return
 
 	if (istype(W, /obj/item/weapon/wrench))
@@ -521,7 +522,7 @@
 		G.affecting.loc = src.loc
 		G.affecting.Weaken(5)
 		visible_message("\red [G.assailant] dunks [G.affecting] into the [src]!", 3)
-		del(W)
+		qdel(W)
 		return
 	else if (istype(W, /obj/item) && get_dist(src,user)<2)
 		user.drop_item(src)
@@ -576,7 +577,7 @@
 
 	currentarea = get_area(src.loc)
 	if(!currentarea)
-		del(src)
+		qdel(src)
 
 	if(eventstarted)
 		usr << "The event has already begun!"
@@ -607,7 +608,7 @@
 	eventstarted = 1
 
 	for(var/obj/structure/holowindow/W in currentarea)
-		del(W)
+		qdel(W)
 
 	for(var/mob/M in currentarea)
 		M << "FIGHT!"

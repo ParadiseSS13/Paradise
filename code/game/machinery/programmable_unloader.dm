@@ -100,9 +100,9 @@
 			for(var/datum/cargoprofile/p in emag_overrides + overrides + profiles)
 				p.master = src
 
-			del C
+			qdel(C)
 		else
-			del O
+			qdel(O)
 
 /obj/machinery/programmable/attack_hand(mob/user as mob)
 	if(stat) // moved, or something else

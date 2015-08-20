@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
 
 /obj/machinery/particle_accelerator/control_box
-	name = "Particle Accelerator Control Computer"
+	name = "Particle Accelerator Control Console"
 	desc = "This controls the density of the particles."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
@@ -26,6 +26,13 @@
 	connected_parts = list()
 	..()
 
+/obj/machinery/particle_accelerator/control_box/Destroy()
+	if(active)
+		toggle_power()
+	return ..()
+	
+/obj/machinery/particle_accelerator/control_box/attack_ghost(user as mob)
+	return src.attack_hand(user)
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
 	if(construction_state >= 3)
@@ -73,8 +80,8 @@
 	return
 
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
-	if(..())
-		return
+	if(..(href, href_list))
+		return 1
 
 	if(!interface_control)
 		usr << "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>"
@@ -87,8 +94,10 @@
 	if(href_list["togglep"])
 		if(!wires.IsIndexCut(PARTICLE_TOGGLE_WIRE))
 			src.toggle_power()
+
 	else if(href_list["scan"])
 		src.part_scan()
+
 	else if(href_list["strengthup"])
 		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
 			add_strength()
@@ -113,9 +122,11 @@
 		if(strength > strength_upper_limit)
 			strength = strength_upper_limit
 		else
-			msg_admin_attack("PA Control Computer increased to [strength] by [key_name(usr, usr.client)][isAntag(usr) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-			log_game("PA Control Computer increased to [strength] by [usr.ckey]([usr]) in ([x],[y],[z])")
-			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has increased the PA Control Computer to [strength].</font>")
+			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("PA Control Computer increased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)]","singulo")
+			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
+		
 			investigate_log("increased to <font color='red'>[strength]</font> by [usr.key]","singulo")
 		strength_change()
 
@@ -125,8 +136,11 @@
 		if(strength < 0)
 			strength = 0
 		else
-			investigate_log("decreased to <font color='green'>[strength]</font> by [usr.key]","singulo")
-			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([usr.ckey]) has decreased the PA Control Computer to [strength].</font>")
+			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("PA Control Computer decreased to [strength] by [key_name(usr)] in ([x],[y],[z])")
+			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)]","singulo")
+			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")			
+
 		strength_change()
 
 /obj/machinery/particle_accelerator/control_box/power_change()
@@ -206,7 +220,7 @@
 	src.active = !src.active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if (active)
-		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)][isAntag(usr) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("PA Control Computer turned ON by [usr.ckey]([usr]) in ([x],[y],[z])")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has turned on the PA Control Computer.</font>")
 	if(src.active)
@@ -225,7 +239,7 @@
 
 
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
 		if(!istype(user, /mob/living/silicon))
 			user.unset_machine()
 			user << browse(null, "window=pacontrol")
@@ -233,9 +247,8 @@
 	user.set_machine(src)
 
 	var/dat = ""
-	dat += "Particle Accelerator Control Panel<BR>"
 	dat += "<A href='?src=\ref[src];close=1'>Close</A><BR><BR>"
-	dat += "Status:<BR>"
+	dat += "<h3>Status</h3>"
 	if(!assembled)
 		dat += "Unable to detect all parts!<BR>"
 		dat += "<A href='?src=\ref[src];scan=1'>Run Scan</A><BR><BR>"
@@ -250,6 +263,10 @@
 		dat += "Particle Strength: [src.strength] "
 		dat += "<A href='?src=\ref[src];strengthdown=1'>--</A>|<A href='?src=\ref[src];strengthup=1'>++</A><BR><BR>"
 
-	user << browse(dat, "window=pacontrol;size=420x500")
-	onclose(user, "pacontrol")
+	//user << browse(dat, "window=pacontrol;size=420x500")
+	//onclose(user, "pacontrol")
+	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500)
+	popup.set_content(dat)
+	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
+	popup.open()
 	return

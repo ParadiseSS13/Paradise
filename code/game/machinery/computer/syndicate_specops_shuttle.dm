@@ -13,7 +13,8 @@ var/syndicate_elite_shuttle_timeleft = 0
 /obj/machinery/computer/syndicate_elite_shuttle
 	name = "Elite Syndicate Squad Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(access_syndicate)
 	var/temp = null
@@ -159,7 +160,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 		for(var/atom/movable/AM as mob|obj in T)
 			AM.Move(D)
 		if(istype(T, /turf/simulated))
-			del(T)
+			qdel(T)
 
 	for(var/mob/living/carbon/bug in end_location) // If someone somehow is still in the shuttle's docking area...
 		bug.gib()

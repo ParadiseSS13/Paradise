@@ -94,7 +94,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -105,7 +105,7 @@
 				else if(istype(target, /turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.gets_dug()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -162,7 +162,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -172,7 +172,7 @@
 									ore.Move(ore_box)
 				else if(istype(target,/turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(target,1))
-						M.gets_dug()
+						M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -323,7 +323,7 @@
 					if(do_after_cooldown(target))
 						if(disabled) return
 						chassis.spark_system.start()
-						del(target)
+						qdel(target)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.use_power(energy_drain)
 			if(1)
@@ -443,10 +443,12 @@
 		P.failchance = 0
 		P.icon_state = "anom"
 		P.name = "wormhole"
+		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([T.x],[T.y],[T.z])")
 		do_after_cooldown()
 		src = null
 		spawn(rand(150,300))
-			del(P)
+			qdel(P)
 		return
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult
@@ -1081,3 +1083,31 @@
 			chassis.use_power(energy_drain)
 			do_after_cooldown()
 		return 1
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner
+	name = "exosuit mining scanner"
+	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
+	icon_state = "mecha_analyzer"
+	origin_tech = "materials=3;engineering=2"
+	equip_cooldown = 30
+	var/scanning = 0
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner/New()
+	processing_objects.Add(src)
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner/process()
+	if(!loc)
+		processing_objects.Remove(src)
+		qdel(src)
+	if(scanning)
+		return
+	if(istype(loc,/obj/mecha/working))
+		var/obj/mecha/working/mecha = loc
+		if(!mecha.occupant)
+			return
+		var/list/occupant = list()
+		occupant |= mecha.occupant
+		scanning = 1
+		mineral_scan_pulse(occupant,get_turf(loc))
+		spawn(equip_cooldown)
+			scanning = 0

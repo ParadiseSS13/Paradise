@@ -37,8 +37,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 
 /obj/item/clothing/mask/cigarette/Destroy()
-	. = ..()
-	del(reagents)
+	qdel(reagents)
+	return ..()
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
@@ -102,7 +102,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(ismob(loc))
 				var/mob/M = loc
 				M.unEquip(src, 1)
-			del(src)
+			qdel(src)
 			return
 		if(reagents.get_reagent_amount("fuel")) // the fuel explodes, too, but much less violently
 			var/datum/effect/effect/system/reagents_explosion/e = new()
@@ -111,7 +111,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(ismob(loc))
 				var/mob/M = loc
 				M.unEquip(src, 1)
-			del(src)
+			qdel(src)
 			return
 		flags &= ~NOREACT // allowing reagents to react after being lit
 		reagents.handle_reactions()
@@ -174,7 +174,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		M << "<span class='notice'>Your [name] goes out.</span>"
 		M.unEquip(src, 1)		//Force the un-equip so the overlays update
 	processing_objects.Remove(src)
-	del(src)
+	qdel(src)
 
 
 /obj/item/clothing/mask/cigarette/joint
@@ -383,7 +383,7 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 		var/obj/item/weapon/rollingpaper/P = new /obj/item/weapon/rollingpaper()
 		user.put_in_inactive_hand(P)
 		user << "You take the last paper out of the pack, and throw the pack away."
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/rollingpaperpack/MouseDrop(atom/over_object)
 	var/mob/M = usr

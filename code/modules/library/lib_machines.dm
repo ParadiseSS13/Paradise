@@ -352,7 +352,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 							usr << query.ErrorMsg()
 						else
 							log_game("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs")
-							message_admins("[usr.name]/[usr.key] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs")
+							message_admins("[key_name_admin(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs")
 							alert("Upload Complete.")
 
 	if(href_list["targetid"])
@@ -469,7 +469,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		b.dat = O:info
 		b.name = "Print Job #" + "[rand(100, 999)]"
 		b.icon_state = "book[rand(1,7)]"
-		del(O)
+		qdel(O)
 	else
 		..()
 /client/proc/delbook()

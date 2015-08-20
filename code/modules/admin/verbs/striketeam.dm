@@ -104,13 +104,13 @@ var/global/sent_strike_team = 0
 	var/commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/commando_name = pick(last_names)
 
-	new_commando.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_commando)
-
-	new_commando.real_name = "[!leader_selected ? commando_rank : commando_leader_rank] [commando_name]"
-	new_commando.age = !leader_selected ? rand(23,35) : rand(35,45)
+	if(leader_selected)
+		A.age = rand(35,45)
+		A.real_name = "[commando_leader_rank] [commando_name]"
+	else
+		A.real_name = "[commando_rank] [commando_name]"
+	A.copy_to(new_commando)
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
 
@@ -167,7 +167,7 @@ var/global/sent_strike_team = 0
 
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
-	W.icon_state = "centcom"
+	W.icon_state = "deathsquad"
 	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)
 	W.registered_name = real_name

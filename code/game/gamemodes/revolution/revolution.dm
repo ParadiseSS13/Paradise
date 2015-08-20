@@ -250,7 +250,7 @@
 
 		if(beingborged)
 			rev_mind.current << "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>"
-
+			message_admins("[key_name_admin(rev_mind.current)] has been borged while being a member of the revolution.")
 		else
 			rev_mind.current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>"
 
@@ -277,14 +277,14 @@
 				if(head_rev_mind.current.client)
 					for(var/image/I in head_rev_mind.current.client.images)
 						if(I.icon_state == "rev" || I.icon_state == "rev_head")
-							del(I)
+							qdel(I)
 
 		for(var/datum/mind/rev_mind in revolutionaries)
 			if(rev_mind.current)
 				if(rev_mind.current.client)
 					for(var/image/I in rev_mind.current.client.images)
 						if(I.icon_state == "rev" || I.icon_state == "rev_head")
-							del(I)
+							qdel(I)
 
 		for(var/datum/mind/head_rev in head_revolutionaries)
 			if(head_rev.current)
@@ -346,20 +346,20 @@
 				if(head_rev_mind.current.client)
 					for(var/image/I in head_rev_mind.current.client.images)
 						if((I.icon_state == "rev" || I.icon_state == "rev_head") && I.loc == rev_mind.current)
-							del(I)
+							qdel(I)
 
 		for(var/datum/mind/rev_mind_1 in revolutionaries)
 			if(rev_mind_1.current)
 				if(rev_mind_1.current.client)
 					for(var/image/I in rev_mind_1.current.client.images)
 						if((I.icon_state == "rev" || I.icon_state == "rev_head") && I.loc == rev_mind.current)
-							del(I)
+							qdel(I)
 
 		if(rev_mind.current)
 			if(rev_mind.current.client)
 				for(var/image/I in rev_mind.current.client.images)
 					if(I.icon_state == "rev" || I.icon_state == "rev_head")
-						del(I)
+						qdel(I)
 
 //////////////////////////
 //Checks for rev victory//

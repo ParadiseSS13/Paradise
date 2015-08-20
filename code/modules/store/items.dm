@@ -75,6 +75,12 @@
 	typepath = /obj/item/weapon/storage/fancy/candle_box/full
 	cost = 200
 
+/datum/storeitem/minigibber
+	name = "miniature gibber"
+	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	typepath = /obj/item/toy/minigibber
+	cost = 400
+
 /datum/storeitem/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."

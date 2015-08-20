@@ -66,6 +66,7 @@
 	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
+	part = list("groin","chest")
 	construction_time = 350
 	construction_cost = list("metal"=40000)
 	var/wires = 0.0
@@ -75,6 +76,7 @@
 	name = "head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
+	part = list("head")
 	construction_time = 350
 	construction_cost = list("metal"=5000)
 	var/obj/item/device/flash/flash1 = null
@@ -131,7 +133,7 @@
 		if (user.get_inactive_hand()==src)
 			user.unEquip(src)
 			user.put_in_inactive_hand(B)
-		del(src)
+		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
 		if(src.l_leg)	return
 		user.drop_item()
@@ -254,7 +256,7 @@
 			callHook("borgify", list(O))
 			O.Namepick()
 
-			del(src)
+			qdel(src)
 		else
 			user << "\blue The MMI must go in after everything else!"
 
@@ -314,8 +316,8 @@
 		user << "\blue You install some manipulators and modify the head, creating a functional spider-bot!"
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
 		user.drop_item()
-		del(W)
-		del(src)
+		qdel(W)
+		qdel(src)
 		return
 	return
 

@@ -23,10 +23,6 @@
 			death()
 			return
 
-		if (src.machine)
-			if (!( src.machine.check_eye(src) ))
-				src.reset_view(null)
-
 		// Handle power damage (oxy)
 		if(src:aiRestorePowerRoutine != 0)
 			// Lost power
@@ -177,6 +173,7 @@
 							sleep(50)
 							theAPC = null
 
+	process_queued_alarms()						
 	regular_hud_updates()
 	switch(src.sensor_mode)
 		if (SEC_HUD)
@@ -193,3 +190,12 @@
 			health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss()
 		else
 			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+			
+/mob/living/silicon/ai/proc/lacks_power()
+	var/turf/T = get_turf(src)
+	var/area/A = get_area(src)
+	return ((!A.power_equip) && A.requires_power == 1 || istype(T, /turf/space)) && !istype(src.loc,/obj/item)
+	
+/mob/living/silicon/ai/rejuvenate()
+	..()
+	add_ai_verbs(src)

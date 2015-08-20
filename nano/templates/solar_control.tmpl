@@ -3,7 +3,7 @@ Title: Solar Control Computer
 Used In File(s): \code\modules\power\solar.dm
 -->
 
-<h1>Status:</h1>
+<h1>Status</h1>
 <div class='statusDisplay'>
 	<div class="line">
 		<div class='statusLabel' style='font-weight:bold;'>
@@ -30,11 +30,11 @@ Used In File(s): \code\modules\power\solar.dm
 	</div>
 </div>
 
-<h1>Tracking:</h1>
+<h1>Tracking</h1>
 <div class='statusDisplay'>
 	<div class="line">
-		<div class='statusLabel' style='font-weight:bold'>
-			Tracker status:&nbsp;
+		<div class='statusLabel' style='font-weight:bold;'>
+			Tracker status:
 		</div>
 
 		{{:helper.link('Off', 'close', {'track' : '0'}, (data.tracking_state == 0) ? 'selected' : '')}}
@@ -47,7 +47,7 @@ Used In File(s): \code\modules\power\solar.dm
 	</div>
 
 	<div class="line">
-		<div class='statusLabel' style='font-weight:bold'>
+		<div class='statusLabel' style='font-weight:bold;'>
 			Tracking rate:
 		</div>
 
@@ -66,10 +66,10 @@ Used In File(s): \code\modules\power\solar.dm
 	</div>
 </div>
 
-<h1>Connected devices :</h1>
+<h1>Connected Devices</h1>
 <div class='statusDisplay'>
 	<div class="line">
-		<div class='statusLabel' style='font-weight:bold'>
+		<div class='statusLabel' style='font-weight:bold;'>
 			Solars panels:
 		</div>
 		<div class='statusValue'>
@@ -78,15 +78,15 @@ Used In File(s): \code\modules\power\solar.dm
 	</div>
 
 	<div class='line'>
-		<div class='statusLabel' style='font-weight:bold'>
+		<div class='statusLabel' style='font-weight:bold;'>
 			Solar tracker:
 		</div>
 
 		<div class='statusValue'>
 			{{if data.connected_tracker}}
-				<span class='good'>Found</span>&nbsp;
+				<span class='good'>Found</span>
 			{{else}}
-				<span class='bad'>Not found</span>&nbsp;
+				<span class='bad'>Not Found</span>
 			{{/if}}
 		</div>
 	</div>

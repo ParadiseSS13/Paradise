@@ -63,13 +63,17 @@
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
 				return 1
-//			if(M.health < -75)	return 0
-
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove your mask!</B>"
+			if(!H.check_has_mouth())
+				H << "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if(!check_has_mouth())
+				H << "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
+				M << "<span class='warning'>Remove your mask!</span>"
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove his mask!</B>"
+			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+				M << "<span class='warning'>Remove his mask!</span>"
 				return 0
 
 			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()
@@ -101,21 +105,24 @@
 				if(M.zone_sel && M.zone_sel.selecting == "head" && src != M)
 					if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining)
 						if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove their mask!"
+							M << "<span class='warning'>Remove their mask!</span>"
 							return 0
 						if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove your mask!"
+							M << "<span class='warning'>Remove your mask!</span>"
 							return 0
 						if(mind && mind.vampire && (mind in ticker.mode.vampires))
-							M << "\red Your fangs fail to pierce [src.name]'s cold flesh"
+							M << "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>"
 							return 0
 						if(SKELETON in mutations)
-							M << "\red There is no blood in a skeleton!"
+							M << "<span class='warning'>There is no blood in a skeleton!</span>"
+							return 0
+						if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okey, monkeys are not.
+							M << "<span class='warning'>Blood from a monkey is useless!</span>"
 							return 0
 						//we're good to suck the blood, blaah
 						M.handle_bloodsucking(src)
 						add_logs(src, M, "vampirebit")
-						message_admins("[M.name] ([M.ckey]) vampirebit [src.name] ([src.ckey])")
+						msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 						return
 				//end vampire codes
 
@@ -206,14 +213,14 @@
 							visible_message("\red <b>[M] has broken [src]'s grip on [lgrab.affecting]!</B>")
 							talked = 1
 						spawn(1)
-							del(lgrab)
+							qdel(lgrab)
 					if(istype(r_hand, /obj/item/weapon/grab))
 						var/obj/item/weapon/grab/rgrab = r_hand
 						if(rgrab.affecting)
 							visible_message("\red <b>[M] has broken [src]'s grip on [rgrab.affecting]!</B>")
 							talked = 1
 						spawn(1)
-							del(rgrab)
+							qdel(rgrab)
 					//End BubbleWrap
 
 					if(!talked)	//BubbleWrap

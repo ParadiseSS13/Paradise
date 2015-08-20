@@ -286,10 +286,6 @@
 		if(istype(mob.buckled, /obj/vehicle) || istype(mob.buckled, /obj/structure/stool/bed/chair/cart))
 			return mob.buckled.relaymove(mob,direct)
 
-		if(istype(mob.machine, /obj/machinery))
-			if(mob.machine.relaymove(mob,direct))
-				return
-
 		if(mob.pulledby || mob.buckled) // Wheelchair driving!
 			if(istype(mob.loc, /turf/space))
 				return // No wheelchair driving in space
@@ -374,17 +370,17 @@
 			var/obj/item/weapon/grab/G = mob.r_hand
 			grabbing += G.affecting
 		for(var/obj/item/weapon/grab/G in mob.grabbed_by)
-			if((G.state == 1)&&(!grabbing.Find(G.assailant)))	del(G)
+			if((G.state == 1)&&(!grabbing.Find(G.assailant)))	qdel(G)
 			if(G.state == 2)
 				move_delay = world.time + 10
 				if(!prob(25))	return 1
 				mob.visible_message("\red [mob] has broken free of [G.assailant]'s grip!")
-				del(G)
+				qdel(G)
 			if(G.state == 3)
 				move_delay = world.time + 10
 				if(!prob(5))	return 1
 				mob.visible_message("\red [mob] has broken free of [G.assailant]'s headlock!")
-				del(G)
+				qdel(G)
 	return 0
 
 

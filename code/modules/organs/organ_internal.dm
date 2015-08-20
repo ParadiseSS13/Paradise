@@ -81,17 +81,6 @@
 		owner.b_eyes ? owner.b_eyes : 0
 		)
 
-
-/obj/item/organ/eyes/process() //Eye damage replaces the old eye_stat var.
-	..()
-	if(!owner)
-		return
-	if(is_bruised())
-		owner.eye_blurry = 20
-	if(is_broken())
-		owner.eye_blind = 20
-
-
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"

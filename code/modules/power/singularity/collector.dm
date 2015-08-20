@@ -8,7 +8,6 @@ var/global/list/rad_collectors = list()
 	icon_state = "ca"
 	anchored = 0
 	density = 1
-	directwired = 1
 	req_access = list(access_engine_equip)
 //	use_power = 0
 	var/obj/item/weapon/tank/plasma/P = null
@@ -51,9 +50,11 @@ var/global/list/rad_collectors = list()
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/analyzer))
-		user << "\blue The [W.name] detects that [last_power]W were recently produced."
+	if(istype(W, /obj/item/device/multitool))
+		user << "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>"
 		return 1
+	else if(istype(W, /obj/item/device/analyzer) && P)
+		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/weapon/tank/plasma))
 		if(!src.anchored)
 			user << "\red The [src] needs to be secured to the floor first."

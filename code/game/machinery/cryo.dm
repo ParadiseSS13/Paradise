@@ -30,25 +30,25 @@
 	initialize_directions = dir
 	initialize()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
-	component_parts += new /obj/item/stack/cable_coil(src, 1)
+	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
@@ -72,6 +72,7 @@
 		var/obj/item/weapon/reagent_containers/glass/B = beaker
 		if(beaker)
 			B.loc = get_step(T, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
+			beaker = null
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
@@ -302,7 +303,7 @@
 				return
 		var/mob/M = G:affecting
 		if(put_mob(M))
-			del(G)
+			qdel(G)
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()

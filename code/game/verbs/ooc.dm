@@ -17,7 +17,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		src << "\red You have OOC muted."
 		return
 
-	if(!(holder && holder.rights && (holder.rights & R_MOD)))
+	if(!check_rights(R_MOD,0))
 		if(!ooc_allowed)
 			src << "\red OOC is globally muted"
 			return
@@ -75,6 +75,17 @@ var/global/normal_ooc_colour = "#002eb8"
 				C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[src.key]:</EM> <span class='message'>[msg]</span></span></font>"
 			*/
 
+/proc/toggle_ooc()
+	ooc_allowed = !( ooc_allowed )
+	if (ooc_allowed)
+		world << "<B>The OOC channel has been globally enabled!</B>"
+	else
+		world << "<B>The OOC channel has been globally disabled!</B>"
+
+/proc/auto_toggle_ooc(var/on)
+	if(config.auto_toggle_ooc_during_round && ooc_allowed != on)
+		toggle_ooc()
+
 /client/proc/set_ooc(newColor as color)
 	set name = "Set Player OOC Colour"
 	set desc = "Set to yellow for eye burning goodness."
@@ -130,9 +141,8 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(C in admins)
-			if(C.holder.rights | R_MENTOR)
-				continue //they are handled after that
+		if(check_rights(R_MENTOR,0))
+			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
 			if(holder)
@@ -149,7 +159,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(C.holder.rights | R_MENTOR)
+		if(check_rights(R_MENTOR,0))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)

@@ -54,4 +54,4 @@
 	..()
 	visible_message("\red <b>[src]</b> is hacked into pieces!")
 	new /obj/item/stack/sheet/wood(loc)
-	del(src)
+	qdel(src)

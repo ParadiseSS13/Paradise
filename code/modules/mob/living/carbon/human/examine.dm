@@ -283,7 +283,7 @@
 		if(temp && !temp.is_stump())
 			if(temp.status & ORGAN_ROBOT)
 				if(!(temp.brute_dam + temp.burn_dam))
-					if(!(species.flags & IS_SYNTHETIC))
+					if(!isSynthetic())
 						wound_flavor_text["[temp.limb_name]"] = "<span class='warning'>[t_He] has a robotic [temp.name]!</span>\n"
 						continue
 				else
@@ -419,6 +419,8 @@
 		msg += "<span class='warning'><b>[src] has \a [implant] sticking out of [t_his] flesh!</span>\n"
 	if(digitalcamo)
 		msg += "[t_He] [t_is] repulsively uncanny!\n"
+	if(!wear_mask && is_thrall(src) && in_range(usr,src))
+		msg += "Their features seem unnaturally tight and drawn.\n"
 	if(decaylevel == 1)
 		msg += "[t_He] [t_is] starting to smell.\n"
 	if(decaylevel == 2)

@@ -1,24 +1,57 @@
 {{if data.printing}}
-  <h5 class='average'>The computer is currently busy.</h5>
-  <div class='notice'>
-    <center><span class='bad'>Printing...</span></center>
-  </div>
-  <p>
-    Thank you for your patience!
-  </p>
+	<h5 class='average'>The computer is currently busy.</h5>
+	<div class='notice'>
+		<center><span class='bad'>Printing...</span></center>
+	</div>
+	<p>
+		Thank you for your patience!
+	</p>
 {{else}}
-  {{:helper.link('Access Modification', 'home', {'choice' : 'mode', 'mode_target' : 0}, !data.mode ? 'disabled' : null)}}
-  {{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 1}, data.mode ? 'disabled' : null)}}
-  {{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode || data.has_modify) ? null : 'disabled')}}
+	{{:helper.link('Access Modification', 'home', {'choice' : 'mode', 'mode_target' : 0}, !data.mode ? 'disabled' : null)}}
+	{{:helper.link('Job Management', 'gear', {'choice' : 'mode', 'mode_target' : 1}, data.mode == 1 ? 'disabled' : null)}}
+	{{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 2}, data.mode == 2 ? 'disabled' : null)}}
+	{{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode == 2 || data.has_modify && !data.mode) ? null : 'disabled')}}
 
-  {{if data.mode}}
+	{{if data.mode == 1}}
+	<div class='item'>
+		<h2>Job Management</h2>
+	</div>
     <div class='item'>
-      <h2>Crew Manifest</h2>
+		<div class='itemLabel'>
+			Authorized Identity:
+		</div>
+		<div class='itemContent'>
+			{{:helper.link(data.scan_name, 'eject', {'choice' : 'scan'})}}
+		</div>
+		<div class='itemLabel'>
+			Cooldown:
+		</div>
+		<div class='itemContent'>
+			{{if data.cooldown_mins > 0 || data.cooldown_mins == 0 && data.cooldown_secs > 0}}
+				<span class='bad'>Next change in: {{:data.cooldown_mins}}:{{:data.cooldown_secs}}</span>
+			{{else}}
+				<span class='good'>Ready</span>
+			{{/if}}
+		</div>
     </div>
-    <div class='item'>
-      {{:data.manifest}}
-    </div>
-  {{else}}
+    <hr>
+	<div class='item'>
+		{{for data.job_slots}}
+			 <div class='item'>
+				<span class="average" style="font-weight: bold;">{{:value.title}}: {{:value.current_positions}}/{{:value.total_positions}}</span>
+				{{:helper.link('-', null, {'choice' : 'make_job_unavailable', 'job' : value.title}, value.can_close == 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('+', null, {'choice' : 'make_job_available', 'job' : value.title}, value.can_open == 1 && data.authenticated ? null : 'disabled')}}
+			</div>
+		{{/for}}
+	</div>
+	{{else data.mode == 2}}
+		<div class='item'>
+			<h2>Crew Manifest</h2>
+		</div>
+		<div class='item'>
+			{{:data.manifest}}
+		</div>
+	{{else}}
     <div class='item'>
       <h2>Access Modification</h2>
     </div>
@@ -204,18 +237,22 @@
           <div class='item'>
             <h2>Central Command</h2>
           </div>
-          <div class='item' style='width: 100%'>
+          <div class='item'>
             {{for data.all_centcom_access}}
-              <div class='itemContentWide'>
               {{:helper.link(value.desc, '', {'choice' : 'access', 'access_target' : value.ref, 'allowed' : value.allowed}, null, value.allowed ? 'selected' : null)}}
-              </div>
             {{/for}}
+			<div class="item">
+			<div class='average'><b>Card Skin</b></div>
+			{{for data.all_centcom_skins}}
+				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+			{{/for}}	
+			</div>
           </div>
         {{else}}
           <div class='item'>
             <h2>{{:data.station_name}}</h2>
           </div>
-          <div class='item' style='width: 100%'>
+          <div class='item'>
             {{for data.regions}}
               <div style='float: left; width: 175px; min-height: 250px'>
                 <div class='average'><b>{{:value.name}}</b></div>
@@ -226,6 +263,12 @@
                 {{/for}}
               </div>
             {{/for}}
+            <div style='float: left;'>
+			<div class='average'><b>Card Skin</b></div>
+			  {{for data.card_skins}}
+				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
+			  {{/for}}
+			</div>
           </div>
         {{/if}}
       {{/if}}

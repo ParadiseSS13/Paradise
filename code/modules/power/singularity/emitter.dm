@@ -48,7 +48,6 @@
 	..()
 	if(state == 2 && anchored)
 		connect_to_network()
-		src.directwired = 1
 	if(frequency)
 		set_frequency(frequency)
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
@@ -108,17 +107,17 @@
 			if(src.active==1)
 				src.active = 0
 				user << "You turn off the [src]."
-				msg_admin_attack("Emitter turned off by [key_name(user, user.client)][isAntag(user) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned off by [user.ckey]([user]) in ([x],[y],[z])")
-				investigate_log("turned <font color='red'>off</font> by [user.key]","singulo")
+				message_admins("Emitter turned off by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned off by [key_name(user)] in ([x],[y],[z])")
+				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
 				user << "You turn on the [src]."
 				src.shot_number = 0
 				src.fire_delay = 100
-				msg_admin_attack("Emitter turned on by [key_name(user, user.client)][isAntag(user) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned on by [user.ckey]([user]) in ([x],[y],[z])")
-				investigate_log("turned <font color='green'>on</font> by [user.key]","singulo")
+				message_admins("Emitter turned on by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned on by [key_name(user)] in ([x],[y],[z])")
+				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else
 			user << "\red The controls are locked!"
@@ -145,8 +144,8 @@
 		return
 	if(((src.last_shot + src.fire_delay) <= world.time) && (src.active == 1))
 
-		if(!active_power_usage || avail(active_power_usage))
-			add_load(active_power_usage)
+		var/actual_load = draw_power(active_power_usage)
+		if(actual_load >= active_power_usage) //does the laser have enough power to shoot?
 			if(!powered)
 				powered = 1
 				update_icon()
@@ -238,7 +237,6 @@
 						state = 2
 						user << "You weld the [src] to the floor."
 						connect_to_network()
-						src.directwired = 1
 				else
 					user << "\red You need more welding fuel to complete this task."
 			if(2)
@@ -252,7 +250,6 @@
 						state = 1
 						user << "You cut the [src] free from the floor."
 						disconnect_from_network()
-						src.directwired = 0
 				else
 					user << "\red You need more welding fuel to complete this task."
 		return
@@ -275,11 +272,9 @@
 	..()
 	return
 
-/obj/machinery/power/emitter/emag_act(user as mob)
+/obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)
-		if(!ishuman(user))
-			return
-		var/mob/living/carbon/human/H = user
 		locked = 0
 		emagged = 1
-		H.visible_message("[H.name] emags the [src.name].","\red You short out the lock.")
+		if(user)
+			user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")

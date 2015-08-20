@@ -66,7 +66,7 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
+	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
 	mymob.blind.layer = 0
 
 	mymob.flash = new /obj/screen()

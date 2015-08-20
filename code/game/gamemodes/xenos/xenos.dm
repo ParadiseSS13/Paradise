@@ -150,13 +150,6 @@
 	else
 		return 0
 
-/datum/game_mode/xenos/proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
-			nukecode = bomb.r_code
-	return nukecode
-
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()
 	for(var/datum/mind/xeno in xenos)

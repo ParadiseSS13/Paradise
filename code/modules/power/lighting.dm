@@ -53,7 +53,7 @@
 			user.visible_message("[user.name] deconstructs [src].", \
 				"You deconstruct [src].", "You hear a noise.")
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
-			del(src)
+			qdel(src)
 		if (src.stage == 2)
 			usr << "You have to remove the wires first."
 			return
@@ -111,7 +111,7 @@
 
 			newlight.dir = src.dir
 			src.transfer_fingerprints_to(newlight)
-			del(src)
+			qdel(src)
 			return
 	..()
 
@@ -256,7 +256,7 @@
 		use_power = 1
 		set_light(0)
 
-	active_power_usage = ((light_range + light_power) * 10)
+	active_power_usage = brightness_range * 10
 	if(on != on_gs)
 		on_gs = on
 
@@ -315,7 +315,7 @@
 				update()
 
 				user.drop_item()	//drop the item to update overlays and such
-				del(L)
+				qdel(L)
 
 				if(on && rigged)
 
@@ -370,7 +370,7 @@
 			newlight.fingerprints = src.fingerprints
 			newlight.fingerprintshidden = src.fingerprintshidden
 			newlight.fingerprintslast = src.fingerprintslast
-			del(src)
+			qdel(src)
 			return
 
 		user << "You stick \the [W] into the light socket!"
@@ -564,11 +564,11 @@
 
 #define LIGHTING_POWER_FACTOR 20		//20W per unit luminosity
 
-/*
+
 /obj/machinery/light/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
 	if(on)
-		use_power(light_range * LIGHTING_POWER_FACTOR, LIGHT)
-*/
+		use_power(brightness_range * LIGHTING_POWER_FACTOR, LIGHT)
+
 
 // called when area power state changes
 /obj/machinery/light/power_change()
@@ -591,7 +591,7 @@
 		sleep(2)
 		explosion(T, 0, 0, 2, 2)
 		sleep(1)
-		del(src)
+		qdel(src)
 
 // the light item
 // can be tube or bulb subtypes

@@ -101,6 +101,18 @@
 		"/obj/item/device/sensor_device"
 	)
 
+/obj/item/weapon/storage/belt/medical/response_team
+
+/obj/item/weapon/storage/belt/medical/response_team/New()
+	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+
+
 /obj/item/weapon/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
@@ -361,7 +373,7 @@
 		else
 			user << "\red The Bluespace generator malfunctions!"
 			for (var/obj/O in src.contents) //it broke, delete what was in it
-				del(O)
+				qdel(O)
 			crit_fail = 1
 			return 0
 

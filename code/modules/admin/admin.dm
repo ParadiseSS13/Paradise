@@ -44,7 +44,7 @@ var/global/nologevent = 0
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?src=\ref[src];editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+		body += "\[<A href='?src=\ref[src];editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
@@ -64,7 +64,8 @@ var/global/nologevent = 0
 		<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> |
 		<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> |
 		<A href='?src=\ref[src];appearanceban=\ref[M]'>Appearance Ban</A> |
-		<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A>
+		<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A> |
+		<A href='?_src_=holder;watchlist=\ref[M]'>Watchlist Flag</A>
 	"}
 
 	if(M.client)
@@ -121,7 +122,7 @@ var/global/nologevent = 0
 					<A href='?src=\ref[src];makemask=\ref[M]'>Make Mask</A> |
 					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
 					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
-					<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A>
+					<A href='?src=\ref[src];makeslime=\ref[M]'>Make Slime</A> |
 					<A href='?src=\ref[src];makesuper=\ref[M]'>Make Superhero</A>
 				"}
 
@@ -629,11 +630,7 @@ var/global/nologevent = 0
 	set category = "Server"
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
-	ooc_allowed = !( ooc_allowed )
-	if (ooc_allowed)
-		world << "<B>The OOC channel has been globally enabled!</B>"
-	else
-		world << "<B>The OOC channel has been globally disabled!</B>"
+	toggle_ooc()
 	log_admin("[key_name(usr)] toggled OOC.")
 	message_admins("[key_name_admin(usr)] toggled OOC.", 1)
 	feedback_add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -959,8 +956,8 @@ proc/move_gamma_ship()
 		toArea = locate(/area/shuttle/gamma/space)
 	fromArea.move_contents_to(toArea)
 
-	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
-		P.locate_recharge_turf()
+	for(var/turf/simulated/floor/mech_bay_recharge_floor/F in toArea)
+		F.init_devices()
 
 	for(var/obj/machinery/power/apc/A in toArea)
 		A.init()
@@ -1010,7 +1007,6 @@ proc/formatPlayerPanel(var/mob/U,var/text="PP")
 	if (!frommob.ckey)
 		return 0
 
-
 	var/question = ""
 	if (tomob.ckey)
 		question = "This mob already has a user ([tomob.key]) in control of it! "
@@ -1034,3 +1030,4 @@ proc/formatPlayerPanel(var/mob/U,var/text="PP")
 	qdel(frommob)
 
 	return 1
+	

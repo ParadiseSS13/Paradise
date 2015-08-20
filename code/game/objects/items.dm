@@ -12,7 +12,7 @@
 	var/w_class = 3.0
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
-	pressure_resistance = 5
+	pressure_resistance = 3
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
@@ -52,18 +52,16 @@
 	var/list/species_fit = null //This object has a different appearance when worn by these species
 
 /obj/item/Destroy()
-	if(istype(src.loc, /mob))
-		var/mob/H = src.loc
-		H.unEquip(src) // items at the very least get unequipped from their mob before being deleted
-	if(reagents && istype(reagents))
-		reagents.my_atom = null
-		reagents.delete()
-	if(hasvar(src, "holder"))
-		src:holder = null
-	/*  BROKEN, FUCK BYOND
-	if(hasvar(src, "my_atom"))
-		src:my_atom = null*/
+	if(ismob(loc))
+		var/mob/m = loc
+		m.unEquip(src, 1)
 	return ..()
+
+/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
+	if(((src in target) && !target_self) || ((!istype(target.loc, /turf)) && (!istype(target, /turf)) && (not_inside)))
+		return 0
+	else
+		return 1
 
 /obj/item/device
 	icon = 'icons/obj/device.dmi'
@@ -85,7 +83,7 @@
 	return
 
 /obj/item/blob_act()
-	del(src)
+	qdel(src)
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -140,8 +138,11 @@
 		var/obj/item/organ/external/temp = H.organs_by_name["r_hand"]
 		if (user.hand)
 			temp = H.organs_by_name["l_hand"]
+		if(!temp)
+			user << "<span class='warning'>You try to use your hand, but it's missing!</span>"
+			return 0
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			user << "<span class='warning'>You try to move your [temp.name], but cannot!</span>"
 			return 0
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -341,7 +342,7 @@
 
 		if(istype(src, /obj/item/clothing/under) || istype(src, /obj/item/clothing/suit))
 			if(FAT in H.mutations)
-				testing("[M] TOO FAT TO WEAR [src]!")
+				//testing("[M] TOO FAT TO WEAR [src]!")
 				if(!(flags & ONESIZEFITSALL))
 					if(!disable_warning)
 						H << "\red You're too fat to wear the [name]."
@@ -598,10 +599,10 @@
 		user << "\red You cannot locate any eyes on this creature!"
 		return
 
-	user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
-	M.attack_log += "\[[time_stamp()]\]<font color='orange'> Attacked by [user.name] ([user.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
+	user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [key_name(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
+	M.attack_log += "\[[time_stamp()]\]<font color='orange'> Attacked by [key_name(user)] with [src.name] (INTENT: [uppertext(user.a_intent)])</font>"
 	if(M.ckey)
-		msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)") //BS12 EDIT ALG
+		msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])") //BS12 EDIT ALG
 
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -704,3 +705,6 @@
 		if(current_size >= STAGE_FOUR)
 			throw_at(S,14,3)
 		else ..()
+		
+/obj/item/proc/pwr_drain()
+	return 0 // Process Kill 

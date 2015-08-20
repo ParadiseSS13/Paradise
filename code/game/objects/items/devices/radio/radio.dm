@@ -60,7 +60,7 @@
 			frequency = sanitize_frequency(frequency, maxf)
 	// The max freq is higher than a regular headset to decrease the chance of people listening in, if you use the higher channels.
 	else if (frequency < 1441 || frequency > maxf)
-		//world.log << "[src] ([type]) has a frequency of [frequency], sanitizing."
+		//log_to_dd("[src] ([type]) has a frequency of [frequency], sanitizing.")
 		frequency = sanitize_frequency(frequency, maxf)
 
 	set_frequency(frequency)
@@ -191,7 +191,7 @@
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
 						4, 0, zlevel, connection.frequency, follow_target=follow_target)
-	del(A)
+	qdel(A)
 	return
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum

@@ -45,8 +45,8 @@
 		icon_state = "alien[caste]_leap"
 		pixel_x = -32
 		pixel_y = -32
-	else
-		icon = initial(icon)
+	else if(icon == 'icons/mob/alienleap.dmi' && pixel_x == -32 && pixel_y == -32)
+		icon = initial(icon)// ^ this looks odd, but in theory it will prevent the icon and pixel_xy from being reset unless it needs to be
 		pixel_x = initial(pixel_x)
 		pixel_y = initial(pixel_y)
 
@@ -157,7 +157,7 @@
 	if (targeted_by && target_locked)
 		overlays_standing[TARGETED_LAYER]	= target_locked
 	else if (!targeted_by && target_locked)
-		del(target_locked)
+		qdel(target_locked)
 	if (!targeted_by)
 		overlays_standing[TARGETED_LAYER]	= null
 	if(update_icons)		update_icons()

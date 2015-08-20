@@ -79,6 +79,13 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi'
 		)
+		
+/obj/item/clothing/gloves/color/red/insulated
+	name = "insulated gloves"
+	desc = "These gloves will protect the wearer from electric shock."
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	
 /obj/item/clothing/gloves/color/rainbow
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."

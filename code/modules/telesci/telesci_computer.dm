@@ -1,7 +1,8 @@
 /obj/machinery/computer/telescience
 	name = "\improper Telepad Control Console"
 	desc = "Used to teleport objects to and from the telescience telepad."
-	icon_state = "teleport"
+	icon_keyboard = "telesci_key"
+	icon_screen = "telesci"
 	circuit = /obj/item/weapon/circuitboard/telesci_console
 	req_access = list(access_research)
 	var/sending = 1
@@ -318,8 +319,10 @@
 	return
 
 /obj/machinery/computer/telescience/proc/eject()
+
 	for(var/obj/item/I in crystals)
-		I.loc = src.loc
+		I.loc = loc
+		I.pixel_y = -9
 		crystals -= I
 	power = 0
 
@@ -360,7 +363,7 @@
 
 	if(href_list["ejectGPS"])
 		if(inserted_gps)
-			inserted_gps.loc = loc
+			usr.put_in_hands(inserted_gps)
 			inserted_gps = null
 
 	if(href_list["setMemory"])

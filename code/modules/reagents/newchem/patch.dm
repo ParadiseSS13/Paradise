@@ -29,3 +29,10 @@
 	New()
 		..()
 		reagents.add_reagent("silver_sulfadiazine", 40)
+
+/obj/item/weapon/reagent_containers/pill/patch/synthflesh
+	name = "syntheflesh patch"
+	desc = "Helps with burn injuries."
+	New()
+		..()
+		reagents.add_reagent("synthflesh", 20)

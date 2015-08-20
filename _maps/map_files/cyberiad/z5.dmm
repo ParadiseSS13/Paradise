@@ -2,29 +2,29 @@
 "ab" = (/turf/space,/area/xenos_station/researchoutpost)
 "ac" = (/turf/simulated/mineral,/area/mine/unexplored)
 "ad" = (/turf/space,/area/syndicate_station/mining)
-"ae" = (/turf/simulated/floor/plating/airless/asteroid,/area/mine/unexplored)
-"af" = (/obj/structure/lattice,/turf/space,/area/space)
-"ag" = (/obj/structure/transit_tube{icon_state = "D-SE"},/obj/structure/lattice,/turf/space,/area/space)
-"ah" = (/obj/structure/lattice,/obj/structure/transit_tube{icon_state = "E-SW"},/turf/space,/area/space)
-"ai" = (/obj/structure/lattice,/obj/structure/transit_tube,/turf/space,/area/space)
-"aj" = (/obj/structure/transit_tube,/turf/simulated/floor/plating/airless/asteroid,/area/mine/unexplored)
-"ak" = (/obj/machinery/light/small,/obj/structure/transit_tube,/turf/simulated/floor/plating/airless/asteroid,/area/mine/unexplored)
-"al" = (/obj/structure/transit_tube{icon_state = "W-SE"},/turf/simulated/floor/plating/airless/asteroid,/area/mine/unexplored)
-"am" = (/obj/structure/transit_tube{icon_state = "D-SW"},/turf/simulated/mineral,/area/mine/unexplored)
-"an" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/space,/area/research_outpost/hallway)
-"ao" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/hallway)
-"ap" = (/obj/structure/transit_tube,/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating/airless/asteroid,/area/research_outpost/hallway)
+"ae" = (/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
+"af" = (/turf/simulated/mineral,/area/mine/explored)
+"ag" = (/obj/structure/lattice,/turf/space,/area/space)
+"ah" = (/obj/structure/transit_tube{icon_state = "D-SE"},/obj/structure/lattice,/turf/space,/area/space)
+"ai" = (/obj/structure/lattice,/obj/structure/transit_tube{icon_state = "E-SW"},/turf/space,/area/space)
+"aj" = (/obj/structure/lattice,/obj/structure/transit_tube,/turf/space,/area/space)
+"ak" = (/obj/structure/transit_tube,/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
+"al" = (/obj/machinery/light/small,/obj/structure/transit_tube,/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
+"am" = (/obj/structure/transit_tube{icon_state = "W-SE"},/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
+"an" = (/obj/structure/transit_tube{icon_state = "D-SW"},/turf/simulated/mineral,/area/mine/explored)
+"ao" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/space,/area/research_outpost/hallway)
+"ap" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/hallway)
 "aq" = (/obj/structure/lattice,/obj/structure/transit_tube{icon_state = "NE-SW"},/turf/space,/area/space)
 "ar" = (/obj/structure/transit_tube{icon_state = "D-NW"},/obj/structure/lattice,/turf/space,/area/space)
 "as" = (/turf/simulated/wall/r_wall,/area/research_outpost/maintstore1)
 "at" = (/obj/structure/transit_tube{icon_state = "D-NE"},/turf/simulated/wall/r_wall,/area/research_outpost/maintstore1)
 "au" = (/obj/structure/transit_tube{icon_state = "NW-SE"},/turf/simulated/wall/r_wall,/area/research_outpost/maintstore1)
-"av" = (/obj/structure/transit_tube{icon_state = "D-SE"},/turf/simulated/mineral,/area/mine/unexplored)
-"aw" = (/obj/structure/transit_tube{icon_state = "E-SW"},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless/asteroid,/area/mine/unexplored)
-"ax" = (/obj/effect/spawner/window/reinforced,/obj/structure/transit_tube,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/hallway)
+"av" = (/obj/structure/transit_tube{icon_state = "D-SE"},/turf/simulated/mineral,/area/mine/explored)
+"aw" = (/obj/structure/transit_tube{icon_state = "E-SW"},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
+"ax" = (/obj/structure/transit_tube,/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating/airless/asteroid,/area/research_outpost/hallway)
 "ay" = (/obj/structure/transit_tube/station,/turf/simulated/floor{icon_state = "bot"; dir = 1},/area/research_outpost/hallway)
 "az" = (/obj/structure/transit_tube,/turf/simulated/floor{icon_state = "delivery"; name = "floor"},/area/research_outpost/hallway)
-"aA" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/atmos)
+"aA" = (/obj/effect/spawner/window/reinforced,/obj/structure/transit_tube,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/hallway)
 "aB" = (/obj/structure/transit_tube,/obj/structure/lattice,/turf/space,/area/space)
 "aC" = (/obj/structure/transit_tube{icon_state = "W-SE"},/obj/structure/lattice,/turf/space,/area/space)
 "aD" = (/obj/structure/lattice,/obj/structure/transit_tube{icon_state = "D-SW"},/turf/space,/area/space)
@@ -66,14 +66,14 @@
 "bn" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/shovel/spade,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/minihoe,/obj/item/weapon/reagent_containers/spray/plantbgone{pixel_x = 13; pixel_y = 5},/obj/item/weedkiller/triclopyr,/obj/item/weapon/reagent_containers/glass/fertilizer/ez,/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
 "bo" = (/obj/machinery/light/small,/obj/structure/closet/walllocker/emerglocker/north{dir = 1; pixel_y = -32},/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
 "bp" = (/obj/machinery/light_switch{pixel_y = -23},/turf/simulated/floor/plating,/area/research_outpost/maintstore1)
-"bq" = (/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock/maintenance{name = "Auxiliary Storage"; req_access_txt = "0"; req_one_access_txt = "65;12"},/turf/simulated/floor{icon_state = "white"},/area/research_outpost/maintstore1)
+"bq" = (/obj/machinery/door/firedoor{dir = 4; name = "Firelock"},/obj/machinery/door/airlock/maintenance{name = "Auxiliary Storage"; req_access_txt = "0"; req_one_access_txt = "65;12"},/turf/simulated/floor{icon_state = "white"},/area/research_outpost/maintstore1)
 "br" = (/turf/simulated/floor,/area/research_outpost/maintstore1)
 "bs" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor,/area/research_outpost/maintstore1)
 "bt" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 2; on = 1},/obj/machinery/camera{c_tag = "Research Outpost Auxiliary Storage"; dir = 8; network = list("Research Outpost")},/obj/machinery/alarm{dir = 8; icon_state = "alarm0"; pixel_x = 24},/turf/simulated/floor,/area/research_outpost/maintstore1)
 "bu" = (/obj/structure/table,/turf/simulated/floor/carpet,/area/research_outpost/hallway)
 "bv" = (/obj/machinery/light_switch{pixel_y = -23},/turf/simulated/floor/carpet,/area/research_outpost/hallway)
-"bw" = (/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock{id_tag = "rminingdorm1"; name = "Dorm 1"},/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/research_outpost/hallway)
-"bx" = (/obj/machinery/door/firedoor{dir = 4; layer = 2.6; name = "Firelock"},/obj/machinery/door/airlock{id_tag = "rdorm2"; name = "Dorm 2"},/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/research_outpost/hallway)
+"bw" = (/obj/machinery/door/firedoor{dir = 4; name = "Firelock"},/obj/machinery/door/airlock{id_tag = "rminingdorm1"; name = "Dorm 1"},/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/research_outpost/hallway)
+"bx" = (/obj/machinery/door/firedoor{dir = 4; name = "Firelock"},/obj/machinery/door/airlock{id_tag = "rdorm2"; name = "Dorm 2"},/turf/simulated/floor{dir = 2; icon_state = "carpet"},/area/research_outpost/hallway)
 "by" = (/obj/structure/transit_tube{icon_state = "N-S"},/obj/structure/lattice,/turf/space,/area/space)
 "bz" = (/obj/structure/lattice,/obj/structure/transit_tube{icon_state = "D-SE"},/turf/space,/area/space)
 "bA" = (/obj/structure/transit_tube{icon_state = "E-SW"},/obj/structure/lattice,/turf/space,/area/space)
@@ -90,6 +90,7 @@
 "bL" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 2; on = 1},/obj/machinery/firealarm{dir = 8; pixel_x = -24},/turf/simulated/floor,/area/research_outpost/hallway)
 "bM" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 0; scrub_Toxins = 0},/turf/simulated/floor{dir = 2; icon_state = "whitecorner"},/area/research_outpost/hallway)
 "bN" = (/turf/simulated/wall/r_wall,/area/research_outpost/atmos)
+<<<<<<< HEAD
 <<<<<<< HEAD
 "bO" = (/obj/effect/spawner/window/reinforced,/obj/structure/transit_tube{icon_state = "N-S"},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "bP" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/research_outpost/anomaly)
@@ -1478,6 +1479,8 @@
 "Dv" = (/obj/machinery/conveyor{tag = "icon-conveyor0 (SOUTHWEST)"; icon_state = "conveyor0"; dir = 10; id = "mining_internal"},/obj/machinery/mineral/input,/turf/simulated/floor{dir = 8; icon_state = "loadingarea"; tag = "loading"},/area/mine/production)
 "Dw" = (/turf/space,/area/vox_station/mining)
 =======
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 "bO" = (/obj/effect/spawner/window/reinforced,/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "bP" = (/obj/effect/spawner/window/reinforced,/obj/structure/transit_tube{icon_state = "N-S"},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "bQ" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/mine/abandoned)
@@ -2751,6 +2754,7 @@
 "Ak" = (/obj/structure/disposalpipe/junction{tag = "icon-pipe-j2 (EAST)"; icon_state = "pipe-j2"; dir = 4},/turf/simulated/wall,/area/mine/production)
 "Al" = (/obj/structure/disposaloutlet{dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/mine/production)
 <<<<<<< HEAD
+<<<<<<< HEAD
 "Am" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/mine/production)
 "An" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/mine/production)
 "Ao" = (/obj/machinery/vending/cigarette,/turf/simulated/floor,/area/mine/production)
@@ -2843,6 +2847,8 @@
 "BX" = (/turf/space,/area/vox_station/mining)
 >>>>>>> 7ee475f... Mining Outpost Update!
 =======
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 "Am" = (/turf/simulated/floor{dir = 4; icon_state = "loadingarea"; tag = "loading"},/area/mine/production)
 "An" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/mine/production)
 "Ao" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/mine/production)
@@ -2906,6 +2912,7 @@
 "Bu" = (/obj/machinery/embedded_controller/radio/airlock/docking_port{frequency = 1380; id_tag = "mining_outpost_airlock"; pixel_x = 0; pixel_y = 30; req_access_txt = "0"; req_one_access_txt = "13;48"; tag_airpump = "mining_outpost_pump"; tag_chamber_sensor = "mining_outpost_sensor"; tag_exterior_door = "mining_outpost_outer"; tag_interior_door = "mining_outpost_inner"},/obj/machinery/airlock_sensor{frequency = 1380; id_tag = "mining_outpost_sensor"; pixel_x = 0; pixel_y = -25},/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 4; frequency = 1380; id_tag = "mining_outpost_pump"},/turf/simulated/floor,/area/mine/production)
 "Bv" = (/obj/machinery/door/airlock/external{frequency = 1380; icon_state = "door_locked"; id_tag = "mining_outpost_inner"; locked = 1; name = "Mining Dock Airlock"; req_access = null; req_access_txt = "13"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4},/turf/simulated/floor,/area/mine/production)
 "Bw" = (/obj/machinery/access_button{command = "cycle_interior"; frequency = 1380; master_tag = "mining_outpost_airlock"; name = "interior access button"; pixel_x = -30; pixel_y = -25; req_access_txt = "0"; req_one_access_txt = "13;48"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; initialize_directions = 10},/turf/simulated/floor,/area/mine/production)
+<<<<<<< HEAD
 "Bx" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/machinery/camera{c_tag = "Mining Outpost Production Room"; dir = 8; network = list("Mining Outpost")},/turf/simulated/floor,/area/mine/production)
 "By" = (/obj/machinery/mineral/ore_redemption,/turf/simulated/floor,/area/mine/production)
 "Bz" = (/obj/machinery/atmospherics/portables_connector{dir = 1},/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor{dir = 10; icon_state = "warning"},/area/mine/production)
@@ -2920,6 +2927,22 @@
 "BI" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/turf/simulated/floor,/area/mine/production)
 "BJ" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/turf/simulated/floor,/area/mine/production)
 "BK" = (/obj/machinery/hologram/holopad,/turf/simulated/floor,/area/mine/production)
+=======
+"Bx" = (/obj/machinery/hologram/holopad,/turf/simulated/floor,/area/mine/production)
+"By" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/machinery/camera{c_tag = "Mining Outpost Production Room"; dir = 8; network = list("Mining Outpost")},/turf/simulated/floor,/area/mine/production)
+"Bz" = (/obj/machinery/mineral/ore_redemption,/turf/simulated/floor,/area/mine/production)
+"BA" = (/obj/machinery/atmospherics/portables_connector{dir = 1},/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor{dir = 10; icon_state = "warning"},/area/mine/production)
+"BB" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8},/obj/machinery/telepad_cargo,/turf/simulated/floor,/area/mine/production)
+"BC" = (/obj/machinery/door/window/westleft{name = "Production Area"; req_access_txt = "48"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; level = 1},/turf/simulated/floor,/area/mine/production)
+"BD" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/turf/simulated/floor,/area/mine/production)
+"BE" = (/obj/structure/lattice,/obj/machinery/access_button{command = "cycle_exterior"; frequency = 1380; master_tag = "mining_outpost_airlock"; name = "exterior access button"; pixel_x = -8; pixel_y = 25; req_access_txt = "0"; req_one_access_txt = "13;48"},/turf/space,/area/space)
+"BF" = (/obj/machinery/computer/shuttle_control/mining{req_access_txt = "48"},/turf/simulated/floor,/area/mine/production)
+"BG" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor,/area/mine/production)
+"BH" = (/turf/simulated/wall/r_wall,/area/mine/production)
+"BI" = (/obj/machinery/light_switch{pixel_x = -23; pixel_y = 0},/turf/simulated/floor,/area/mine/production)
+"BJ" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/turf/simulated/floor,/area/mine/production)
+"BK" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/turf/simulated/floor,/area/mine/production)
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 "BL" = (/turf/simulated/floor{dir = 1; icon_state = "loadingarea"; tag = "loading"},/area/mine/production)
 "BM" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/grille,/turf/simulated/floor/plating,/area/mine/explored)
 "BN" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/wall/r_wall,/area/mine/explored)
@@ -2934,7 +2957,10 @@
 "BW" = (/obj/machinery/mineral/equipment_vendor,/turf/simulated/floor,/area/mine/production)
 "BX" = (/obj/machinery/firealarm{dir = 1; pixel_y = -24},/turf/simulated/floor,/area/mine/production)
 "BY" = (/turf/space,/area/vox_station/mining)
+<<<<<<< HEAD
 >>>>>>> c92656c... Fix
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -2978,6 +3004,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<<<<<<< HEAD
 <<<<<<< HEAD
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeacacacacacacacacafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaagahaiaiajajajajajakajalamacacacacacacacacanaoaoaoafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3168,6 +3195,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaDwDwDwDwDwDwDwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaDwDwDwDwDwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 =======
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeafafafafafafafafagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaahaiajajakakakakakalakamanafafafafafafafafaoapapapagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaahaqarafafafafafafasasasatauanafafafavawakakaxayazaAaBaBajaCaDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadadadadadadadadadadadadadadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3314,6 +3343,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacafaeaeaeaeaeaeaeaeaeaeaeafacacacacacacacafafaeaeaeqSrArArAqTaeaeaeaeaeaeaeaeaeaeaeaeaeqKaeafafacacacacacacacafafaeaeaeaeaeqSrArArAukulrArArAqTaeaeaeaevOADAEAFAGvOAHAIAIAJAKvOALAMANvOaeaeaeaeaeaeagagagagagagagAOAOAOAOAOagaaaaxOAPAQzsARygygygygygygygxOaeaeaeaeaeafafafafpepeafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacafaeaeaeaeaeaeaeaeaeafafafacacacacacacacacafafafaeaeaeaeaeqSqTaeaesdqCaeaeuirArArArArAujaeafacacacacbkbkbkacacafafafaeaeaeaeaeaeaeqxqzaeaeaeqKaeaeaeaexZvOvOvOvOvOASATAUAVAKvOvOAWybxZaeaeaeaeaeaeaaaaagaaaaaaagAOAOAOAOAOagaaxPxPAXAYAZxOxOxOxOxOygygygxOaeaeaeaeaeafafafpepepeafafafafpepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacafafafafaeaeaeaeafafafacacacacacacacacacacacacafafafaeqMaeaeqSrArAukulrArAujaeaeaeaeaeaeaeafacacacbkbkbkbkbkacacacafafafafaeaeaeaeaeaeaeaeaeqSrArAqTaeaeaeaeaeaexZvOvOvOvOvOxZBaBbBcBdaeaeaeaeaeaaaaaaagaaaaaaagAOAOAOAOAOBexPBfBgBhBizsBjBkBlBmBnBoygBpxOaeaeaeaeafafafafpepeafafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<<<<<<< HEAD
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacafafafafafafacacacacacacacacacacacacacacacacafafntafaeaeaeaeqxqzaeaeaeaeqMaeafafafafafacacbkbkbkbkbkbkbkacacacacacafafafafafafafafaeaeaeaeaeqKaeaeaeaeaeaeaeaeqxBqBrBrBrBrBsqzaeaeaeaeaeaeagagagagagagagagAOAOAOAOAOBtBuBvBwygBizsygygARygygBxygByxOaeaeaeaeafafafafpepeafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacbkbkbkbkbkbkacacacacacacafafaeaeaeaeaeaeaeaeaentafafacacacacacbkbkbkbkbkbkbkbkacacacacacacacacacacacacafafaeaeaeaeqKaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaaaaaaaaaaaaagAOAOAOAOAOxPxPxPBzygBiBAzUzUBBzUzUBCygBpxOaeaeaerKntafafafpeafafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkacacacacacacafafafaeaeaeafafafafafacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacafaeaeaeaeqSrArArArArArArArArArArArArArArArArAqTaeaeaeaeaeaeaaaaaaaaaaagAOAOAOAOAOBDaaxPxPBEBizsygygBFygygygygygxOaeaeaeaeafafafafafafafafpepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3323,6 +3353,17 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacafafafafafafafafafafntueaeaeaeaeaeaeaeaeaeaeaeaeaeaeagaaaaaaaaaaaaaaaaaaaaaaaaBGBVygygygygxPaeaeaeaeaeaeaeafafafafpepepepepepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacacafaeaeaeaeaeaeaeaeaeaeaeaeaeqMaeaeaaaaaaaaaaaaaaaaaaaaaaaaBGBGBWBWBXygxPaeaeaeaeaeaeafafafafpepepepepepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacafaeaeaeaeaeaeaeaeaeaeaeaeafntafafaaaaaaaaaaaaaaaaaaaaaaaaaaBGxOxOxOxOxOaeaeaeaeofntafafafpepepepepepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+=======
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacafafafafafafacacacacacacacacacacacacacacacacafafntafaeaeaeaeqxqzaeaeaeaeqMaeafafafafafacacbkbkbkbkbkbkbkacacacacacafafafafafafafafaeaeaeaeaeqKaeaeaeaeaeaeaeaeqxBqBrBrBrBrBsqzaeaeaeaeaeaeagagagagagagagagAOAOAOAOAOBtBuBvBwygBizsygygARygBxByygBzxOaeaeaeaeafafafafpepeafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacacacacacbkbkbkbkbkbkacacacacacacafafaeaeaeaeaeaeaeaeaentafafacacacacacbkbkbkbkbkbkbkbkacacacacacacacacacacacacafafaeaeaeaeqKaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaaaaaaaaaaaaagAOAOAOAOAOxPxPxPBAygBiBBzUzUBCzUzUBDygBpxOaeaeaerKntafafafpeafafafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkacacacacacacafafafaeaeaeafafafafafacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacafaeaeaeaeqSrArArArArArArArArArArArArArArArArAqTaeaeaeaeaeaeaaaaaaaaaaagAOAOAOAOAOBEaaxPxPBFBizsygygBGygygygygygxOaeaeaeaeafafafafafafafafpepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacafafafafafacacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacafafafaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeqKaesdqCaeaeaepMpMaaaaaaagAOAOAOAOAOagaaaaBHBIBiBJzUBKBGygygygBLygxOaeaeaeaeafafafafafpeafafpepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacafafafaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeqSrAukulrArArABMBNBOBOBOBOBOBOBOBOBOBOBOBOxPBPBQygygygBRygygygBSBTxOaeaeafafafafafpepepeafpepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacafafafaeaeaeaeaeaeaeafafaeaeaeaeaeaeaeaeaeqxqzaeaeaepMpMagaaaaaaaaaaaaaaaaaaaaaaBHBHygygygygBUxOxOxOxOxOxOaeaeafafafafpepepepepepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacafafafafafafafafafafntueaeaeaeaeaeaeaeaeaeaeaeaeaeaeagaaaaaaaaaaaaaaaaaaaaaaaaBHBVygygygygxPaeaeaeaeaeaeaeafafafafpepepepepepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacacafaeaeaeaeaeaeaeaeaeaeaeaeaeqMaeaeaaaaaaaaaaaaaaaaaaaaaaaaBHBHBWBWBXygxPaeaeaeaeaeaeafafafafpepepepepepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacafaeaeaeaeaeaeaeaeaeaeaeaeafntafafaaaaaaaaaaaaaaaaaaaaaaaaaaBHxOxOxOxOxOaeaeaeaeofntafafafpepepepepepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacafafaeaeaeaeaeaeaeaeaeafacacafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaeaeaeaeaeaeaeaeaeaeaeafafafpepepepepepepeafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacafafafafafafafafafafafacacacafafafaaaaaaaaaaaaaaaaaaaaaaaaaeaeaeaeaeaeaeaeaeaeafafafpepepepepepepeafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacacacacacacacacacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaeaeaevoaeaeaeafafafafafafpepepepepeafafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3337,6 +3378,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacaaaaaaaaacacacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<<<<<<< HEAD
 <<<<<<< HEAD
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacaaaaaaaaaaaaaaaaaaaaaaBXaaaaaaBXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacaaaaaaaaaaaaaaaaaaaaaaBXBXBXBXBXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3359,6 +3401,8 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBXBXBXBXBXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 >>>>>>> 7ee475f... Mining Outpost Update!
 =======
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacacacaaaaaaaaaaaaaaaaaaaaaaBYaaaaaaBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkctbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacacaaaaaaaaaaaaaaaaaaaaaaBYBYBYBYBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacacacbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkbkacacacaaaaaaaaBYaaaaBYaaaaBYBYBYBYBYBYBYaaaaBYaaaaBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -3378,7 +3422,10 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBYBYBYBYBYBYBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBYBYBYBYBYBYBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaBYBYBYBYBYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<<<<<<< HEAD
 >>>>>>> c92656c... Fix
+=======
+>>>>>>> c92656cd16a3cb18c5bb0b273dfa304c2720061e
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

@@ -71,7 +71,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 									src.nutrition += (15 * REAGENTS_METABOLISM)
 									BL.volume -= REAGENTS_METABOLISM
 									if(BL.volume <= 0)
-										del(BL)
+										qdel(BL)
 									break //Only process one blood per tick, to maintain the same metabolism as nutriment for non-vampires.
 
 					if(B.data["donor"] != src) //If it's not theirs, then we look for theirs
@@ -332,7 +332,7 @@ proc/blood_splatter(var/target,var/datum/reagent/blood/source,var/large)
 	// Only a certain number of drips (or one large splatter) can be on a given turf.
 	for(var/obj/effect/decal/cleanable/blood/drip/drop in T)
 		drips |= drop.drips
-		del(drop)
+		qdel(drop)
 	if(!large && drips.len < 3)
 		decal_type = /obj/effect/decal/cleanable/blood/drip
 

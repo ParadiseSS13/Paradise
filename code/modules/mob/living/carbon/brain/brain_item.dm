@@ -14,6 +14,9 @@
 	parent_organ = "head"
 	vital = 1
 
+/obj/item/organ/brain/attack_self(mob/user as mob)
+	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
+
 /obj/item/organ/brain/xeno
 	name = "thinkpan"
 	desc = "It looks kind of like an enormous wad of purple bubblegum."
@@ -89,3 +92,9 @@
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
+
+/obj/item/organ/brain/Destroy() //copypasted from MMIs.
+	if(brainmob)
+		qdel(brainmob)
+		brainmob = null
+	return ..()

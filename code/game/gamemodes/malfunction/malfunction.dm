@@ -20,6 +20,7 @@
 	var/station_captured = 0
 	var/to_nuke_or_not_to_nuke = 0
 	var/apcs = 0 //Adding dis to track how many APCs the AI hacks. --NeoFite
+	var/list/datum/mind/antag_candidates = list() // List of possible starting antags goes here
 
 
 /datum/game_mode/malfunction/announce()
@@ -27,15 +28,36 @@
 		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br />
 		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."}
 
+/datum/game_mode/malfunction/get_players_for_role(var/role = BE_MALF)
+	var/roletext = get_roletext(role)
+	
+	var/datum/job/ai/DummyAIjob = new
+	for(var/mob/new_player/player in player_list)
+		if(player.client && player.ready)
+			if(player.client.prefs.be_special & BE_MALF)
+				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, "AI") && !jobban_isbanned(player, roletext) && DummyAIjob.player_old_enough(player.client))
+					if(player_old_enough_antag(player.client,role))
+						antag_candidates += player.mind
+	antag_candidates = shuffle(antag_candidates)
+	return antag_candidates
 
 /datum/game_mode/malfunction/pre_setup()
-	for(var/mob/new_player/player in player_list)
-		if(player.mind && player.mind.assigned_role == "AI" && (player.client.prefs.be_special & BE_MALF))
-			malf_ai+=player.mind
-	if(malf_ai.len)
-		return 1
-	return 0
+	get_players_for_role(BE_MALF)
 
+	var/datum/mind/chosen_ai
+	if(!antag_candidates.len)
+		return 0
+	for(var/i = required_enemies, i > 0, i--)
+		chosen_ai=pick(antag_candidates)
+		malf_ai += chosen_ai
+		antag_candidates -= malf_ai
+	if (malf_ai.len < required_enemies)
+		return 0
+	for(var/datum/mind/ai_mind in malf_ai)
+		ai_mind.assigned_role = "MODE"
+		ai_mind.special_role = "malfunctioning AI"//So they actually have a special role/N
+		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
+	return 1
 
 /datum/game_mode/malfunction/post_setup()
 	for(var/datum/mind/AI_mind in malf_ai)

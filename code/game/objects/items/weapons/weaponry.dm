@@ -41,11 +41,7 @@
 	else
 		M.LAssailant = user
 
-	msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
-		return
+	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red The rod slips out of your hand and hits your head."
@@ -175,8 +171,8 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 
 		user.put_in_hands(S)
 		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
-		del(I)
-		del(src)
+		qdel(I)
+		qdel(src)
 
 	else if(istype(I, /obj/item/weapon/wirecutters))
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
@@ -186,8 +182,8 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 
 		user.put_in_hands(P)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
-		del(I)
-		del(src)
+		qdel(I)
+		qdel(src)
 
 
 /obj/item/weapon/spear/kidan

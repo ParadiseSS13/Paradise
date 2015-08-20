@@ -22,12 +22,12 @@
 
 /obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		del(user.l_hand)
+		qdel(user.l_hand)
 		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
 		return
 	if(istype(user.r_hand, weapon_type))
-		del(user.r_hand)
+		qdel(user.r_hand)
 		user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
 		return
@@ -65,8 +65,8 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
 		H.visible_message("<span class='warning'>[H] casts off their [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
-		del(H.wear_suit)
-		del(H.head)
+		qdel(H.wear_suit)
+		qdel(H.head)
 		H.update_inv_wear_suit()
 		H.update_inv_head()
 		H.update_hair()
@@ -140,7 +140,7 @@
 
 /obj/item/weapon/melee/arm_blade/dropped(mob/user)
 	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -216,7 +216,7 @@
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/weapon/shield/changeling/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/weapon/shield/changeling/IsShield()
 	if(remaining_uses < 1)
@@ -224,7 +224,7 @@
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
-		del(src)
+		qdel(src)
 		return 0
 	else
 		remaining_uses--
@@ -266,7 +266,7 @@
 	processing_objects += src
 
 /obj/item/clothing/suit/space/changeling/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
@@ -281,7 +281,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/head/helmet/space/changeling/dropped()
-	del(src)
+	qdel(src)
 
 
 /***************************************\
@@ -321,7 +321,7 @@
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/clothing/suit/armor/changeling/dropped()
-	del(src)
+	qdel(src)
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
@@ -332,4 +332,4 @@
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/head/helmet/changeling/dropped()
-	del(src)
+	qdel(src)

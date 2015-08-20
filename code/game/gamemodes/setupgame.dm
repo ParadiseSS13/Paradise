@@ -141,7 +141,7 @@
 	for(var/x in typesof(/datum/faction))
 		var/datum/faction/F = new x
 		if(!F.name)
-			del(F)
+			qdel(F)
 			continue
 		else
 			ticker.factions.Add(F)

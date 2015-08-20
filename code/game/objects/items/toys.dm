@@ -7,15 +7,16 @@
  *		Toy crossbow
  *		Toy Tommy Gun
  *		Toy swords
- *      Toy mechs
+ *		Toy mechs
  *		Snap pops
  *		Water flower
  *		Toy Nuke
  *		Card Deck
- *      Therapy dolls
- *      Toddler doll
- *      Inflatable duck
+ *		Therapy dolls
+ *		Toddler doll
+ *		Inflatable duck
  *		Foam armblade
+ *		Mini Gibber
  */
 
 
@@ -62,7 +63,7 @@
 				if(O.reagents.has_reagent("facid", 1))
 					user << "The acid chews through the balloon!"
 					O.reagents.reaction(user)
-					del(src)
+					qdel(src)
 				else
 					src.desc = "A translucent balloon with some form of liquid sloshing around in it."
 					user << "\blue You fill the balloon with the contents of [O]."
@@ -79,7 +80,7 @@
 		src.icon_state = "burst"
 		spawn(5)
 			if(src)
-				del(src)
+				qdel(src)
 	return
 
 /obj/item/toy/balloon/update_icon()
@@ -222,7 +223,7 @@
 		if(istype(I, /obj/item/toy/ammo/crossbow))
 			if(bullets <= 4)
 				user.drop_item()
-				del(I)
+				qdel(I)
 				bullets++
 				user << "\blue You load the foam dart into the crossbow."
 			else
@@ -253,21 +254,21 @@
 						if(M == user) continue
 						D.visible_message("<span class='danger'>[M] was hit by the foam dart!</span>")
 						new /obj/item/toy/ammo/crossbow(M.loc)
-						del(D)
+						qdel(D)
 						return
 
 					for(var/atom/A in D.loc)
 						if(A == user) continue
 						if(A.density)
 							new /obj/item/toy/ammo/crossbow(A.loc)
-							del(D)
+							qdel(D)
 
 				sleep(1)
 
 			spawn(10)
 				if(D)
 					new /obj/item/toy/ammo/crossbow(D.loc)
-					del(D)
+					qdel(D)
 
 			return
 		else if (bullets == 0)
@@ -331,7 +332,7 @@
 	if(istype(I, /obj/item/toy/ammo/crossbow))
 		if(bullets <= 19)
 			user.drop_item()
-			del(I)
+			qdel(I)
 			bullets++
 			user << "<span class='notice'>You load the foam dart into the tommy gun.</span>"
 		else
@@ -388,8 +389,8 @@
 			new /obj/item/weapon/twohanded/dualsaber/toy(user.loc)
 			user.unEquip(W)
 			user.unEquip(src)
-			del(W)
-			del(src)
+			qdel(W)
+			qdel(src)
 
 /*
  * Subtype of Double-Bladed Energy Swords
@@ -456,7 +457,7 @@
 
 
 		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		del(src)
+		qdel(src)
 
 
 
@@ -480,7 +481,7 @@
 		new /obj/effect/decal/cleanable/ash(src.loc)
 		src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
 		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		del(src)
+		qdel(src)
 
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if((ishuman(H))) //i guess carp and shit shouldn't set them off
@@ -494,7 +495,7 @@
 			new /obj/effect/decal/cleanable/ash(src.loc)
 			src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
 			playsound(src, 'sound/effects/snap.ogg', 50, 1)
-			del(src)
+			qdel(src)
 
 
 
@@ -690,7 +691,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/use
 				return
 			src.cards += C.cardname
 			user.visible_message("<span class='notice'>[user] adds a card to the bottom of the deck.</span>","<span class='notice'>You add the card to the bottom of the deck.</span>")
-			del(C)
+			qdel(C)
 		else
 			user << "<span class='notice'>You can't mix cards from other decks.</span>"
 		if(cards.len > 26)
@@ -710,7 +711,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user,
 				return
 			src.cards += C.currenthand
 			user.visible_message("<span class='notice'>[user] puts their hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
-			del(C)
+			qdel(C)
 		else
 			user << "<span class='notice'>You can't mix cards from other decks.</span>"
 		if(cards.len > 26)
@@ -802,7 +803,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 				cardUser.put_in_any_hand_if_possible(N)
 				cardUser << "<span class='notice'>You also take [currenthand[1]] and hold it.</span>"
 				cardUser << browse(null, "window=cardhand")
-				del(src)
+				qdel(src)
 		return
 
 obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living/user, params)
@@ -818,7 +819,7 @@ obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living
 				src.icon_state = "[deckstyle]_hand4"
 			else if(currenthand.len > 2)
 				src.icon_state = "[deckstyle]_hand3"
-			del(C)
+			qdel(C)
 		else
 			user << "<span class='notice'>You can't mix cards from other decks.</span>"
 
@@ -889,8 +890,8 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 			H.pickup(user)
 			user.put_in_active_hand(H)
 			user << "<span class='notice'>You combine the [C.cardname] and the [src.cardname] into a hand.</span>"
-			del(C)
-			del(src)
+			qdel(C)
+			qdel(src)
 		else
 			user << "<span class='notice'>You can't mix cards from other decks.</span>"
 
@@ -907,7 +908,7 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 				H.icon_state = "[deckstyle]_hand4"
 			else if(H.currenthand.len > 2)
 				H.icon_state = "[deckstyle]_hand3"
-			del(src)
+			qdel(src)
 		else
 			user << "<span class='notice'>You can't mix cards from other decks.</span>"
 
@@ -1056,7 +1057,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor™"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-MeteorÂ™"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
 	w_class = 2.0
@@ -1067,7 +1068,7 @@ obj/item/toy/cards/deck/syndicate/black
 	for(var/mob/M in range(10, src))
 		if(!M.stat && !istype(M, /mob/living/silicon/ai))\
 			shake_camera(M, 3, 1)
-	del(src)
+	qdel(src)
 
 /*
  * Carp plushie
@@ -1182,7 +1183,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/misc/hoot.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1201,7 +1202,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/misc/caw.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1278,3 +1279,44 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "roxie"
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
+
+//minigibber, so cute
+
+/obj/item/toy/minigibber
+	name = "miniature gibber"
+	desc = "A miniature recreation of NanoTrasen's famous meat grinder."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "minigibber"
+	attack_verb = list("grinded", "gibbed")
+	w_class = 2.0
+	var/cooldown = 0
+	var/obj/stored_minature = null
+
+/obj/item/toy/minigibber/attack_self(var/mob/user)
+
+	if(stored_minature)
+		user << "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>"
+		qdel(stored_minature)
+		stored_minature = null
+		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		cooldown = world.time
+
+	if(cooldown < world.time - 8)
+		user << "<span class='notice'>You hit the gib button on \the [src].</span>"
+		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		cooldown = world.time
+
+/obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
+	if(istype(O,/obj/item/toy/character) && O.loc == user)
+		user << "<span class='notice'>You start feeding \the [O] \icon[O] into \the [src]'s mini-input.</span>"
+		if(do_after(user,10))
+			if(O.loc != user)
+				user << "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>"
+			else
+				user << "<span class='notice'>You feed \the [O] \icon[O] into \the [src]!</span>"
+				user.unEquip(O)
+				O.forceMove(src)
+				stored_minature = O
+		else
+			user << "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>"
+	else ..()

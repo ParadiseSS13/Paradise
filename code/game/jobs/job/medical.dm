@@ -6,14 +6,14 @@
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffddf0"
-	idtype = /obj/item/weapon/card/id/silver
+	idtype = /obj/item/weapon/card/id/cmo
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
 	minimal_player_age = 21
 
 	equip(var/mob/living/carbon/human/H)
@@ -46,7 +46,8 @@
 	spawn_positions = 3
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
+	idtype = /obj/item/weapon/card/id/medical
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse","Coroner")
 	minimal_player_age = 3
@@ -108,24 +109,25 @@
 	spawn_positions = 2
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
-	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels)
+	idtype = /obj/item/weapon/card/id/medical
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
 
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chemist(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_wear_pda)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/chemist(H), slot_wear_suit)
 		switch(H.backbag)
 			if(1) H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_chem(H), slot_back)
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
+		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chemist(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_wear_pda)
+		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/chemist(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		return 1
 
@@ -139,23 +141,24 @@
 	spawn_positions = 2
 	supervisors = "the chief medical officer and the research director"
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research)
+	idtype = /obj/item/weapon/card/id/medical
+	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
+		switch(H.backbag)
+			if(1) H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
+			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_gen(H), slot_back)
+			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_medsci(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/geneticist(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/geneticist(H), slot_wear_pda)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/labcoat/genetics(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/device/flashlight/pen(H), slot_s_store)
-		switch(H.backbag)
-			if(1) H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_gen(H), slot_back)
-			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 		return 1
 
@@ -167,6 +170,7 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
+	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels)
 	alt_titles = list("Pathologist","Microbiologist")
@@ -199,6 +203,7 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
+	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
 	alt_titles = list("Psychologist","Therapist")
@@ -238,6 +243,7 @@
 	spawn_positions = 1
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
+	idtype = /obj/item/weapon/card/id/medical
 	access = list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_access=list(access_paramedic, access_medical, access_sec_doors, access_maint_tunnels, access_external_airlocks, access_morgue)
 	minimal_player_age = 3

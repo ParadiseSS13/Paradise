@@ -10,7 +10,7 @@
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/clothing/glasses/hud/health
 	category = list("Equipment")
-	
+
 /datum/design/magboots
 	name = "Magnetic Boots"
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
@@ -20,7 +20,7 @@
 	materials = list("$metal" = 4500, "$silver" = 1500, "$gold" = 2500)
 	build_path = /obj/item/clothing/shoes/magboots
 	category = list("Equipment")
-	
+
 /datum/design/night_vision_goggles
 	name = "Night Vision Goggles"
 	desc = "Goggles that let you see through darkness unhindered."
@@ -40,7 +40,7 @@
 	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$silver" = 250)
 	build_path = /obj/item/clothing/glasses/hud/health/night
 	category = list("Equipment")
-	
+
 /datum/design/security_hud_night
 	name = "Night Vision Security HUD"
 	desc = "A heads-up display which provides id data and vision in complete darkness."
@@ -59,8 +59,8 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 300, "$glass" = 400, "$plasma" = 250, "$uranium" = 1000)
 	build_path = /obj/item/clothing/glasses/meson/night
-	category = list("Equipment")	
-	
+	category = list("Equipment")
+
 /datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -79,4 +79,24 @@
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/clothing/glasses/hud/security
+	category = list("Equipment")
+
+/datum/design/air_horn
+	name = "Air Horn"
+	desc = "Damn son, where'd you find this?"
+	id = "air_horn"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4000, "$bananium" = 1000)
+	build_path = /obj/item/weapon/bikehorn/airhorn
+	category = list("Equipment")
+
+/datum/design/welding_mask
+	name = "Welding Gas Mask"
+	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
+	id = "weldingmask"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 4000, "$glass" = 1000)
+	build_path = /obj/item/clothing/mask/gas/welding
 	category = list("Equipment")

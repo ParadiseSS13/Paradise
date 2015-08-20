@@ -155,7 +155,7 @@
 		cartridge.darts--
 		src.update_icon()
 		S.reagents.trans_to(D, S.reagents.total_volume)
-		del(S)
+		qdel(S)
 		D.icon_state = "syringeproj"
 		D.name = "syringe"
 		D.flags |= NOREACT
@@ -180,30 +180,30 @@
 						M.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
 						user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
 						if(M.ckey)
-							msg_admin_attack("[user] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] shot [M] ([M.ckey]) with a dartgun ([R]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+							msg_admin_attack("[key_name_admin(user)] shot [M] ([M.ckey]) with a dartgun ([R]).")
 						if(!iscarbon(user))
 							M.LAssailant = null
 						else
 							M.LAssailant = user
 
 					else
-						M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])"
-						msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a <b>dartgun</b> ([R]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+						M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name_admin(M)]</b> with a <b>dartgun</b> ([R])"
+						msg_admin_attack("UNKNOWN shot [key_name(M)] with a <b>dartgun</b> ([R]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
 					M << "<span class='danger'>You feel a slight prick.</span>"
 
-					del(D)
+					qdel(D)
 					break
 			if(D)
 				for(var/atom/A in D.loc)
 					if(A == user) continue
-					if(A.density) del(D)
+					if(A.density) qdel(D)
 
 			sleep(1)
 
-		if (D) spawn(10) del(D)
+		if (D) spawn(10) qdel(D)
 
 		return
 

@@ -95,7 +95,7 @@
 
 	if(!(language && (language.flags & INNATE))) // skip understanding checks for INNATE languages
 		if(!say_understands(speaker,language))
-			if(istype(speaker,/mob/living/simple_animal))
+			if(isanimal(speaker))
 				var/mob/living/simple_animal/S = speaker
 				if(S.speak && S.speak.len)
 					message = pick(S.speak)
@@ -111,33 +111,27 @@
 			message = stars(message)
 
 	var/speaker_name = "unknown"
-	if(speaker) speaker_name = speaker.name
+	if(speaker) 
+		speaker_name = speaker.name
 
 	if(vname)
 		speaker_name = vname
-
-	if(istype(speaker, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = speaker
-		if(H.voice)
-			speaker_name = H.voice
-
 	if(hard_to_hear)
 		speaker_name = "unknown"
 
 	var/changed_voice
 
-	if(istype(src, /mob/living/silicon/ai) && !hard_to_hear)
+	if(isAI(src) && !hard_to_hear)
 		var/jobname // the mob's "job"
 		var/mob/living/carbon/human/impersonating //The crewmember being impersonated, if any.
 
 		if (ishuman(speaker))
 			var/mob/living/carbon/human/H = speaker
 
-			if((H.wear_id && istype(H.wear_id,/obj/item/weapon/card/id/syndicate)) && (H.wear_mask && istype(H.wear_mask,/obj/item/clothing/mask/gas/voice)))
-
+			var/obj/item/weapon/card/id/id = H.wear_id
+			if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
 				changed_voice = 1
 				var/mob/living/carbon/human/I = locate(speaker_name)
-
 				if(I)
 					impersonating = I
 					jobname = impersonating.get_assignment()
@@ -147,28 +141,28 @@
 				jobname = H.get_assignment()
 
 		else if (iscarbon(speaker)) // Nonhuman carbon mob
-			jobname = "No id"
+			jobname = "No ID"
 		else if (isAI(speaker))
 			jobname = "AI"
 		else if (isrobot(speaker))
 			jobname = "Cyborg"
-		else if (istype(speaker, /mob/living/silicon/pai))
+		else if (ispAI(speaker))
 			jobname = "Personal AI"
 		else
 			jobname = "Unknown"
 
 		if(changed_voice)
 			if(impersonating)
-				track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[impersonating]'>[speaker_name] ([jobname])</a>"
+				track = "<a href='byond://?src=\ref[src];track=\ref[impersonating]'>[speaker_name] ([jobname])</a>"
 			else
 				track = "[speaker_name] ([jobname])"
 		else
-			if(istype(follow_target, /obj/machinery/bot) && isAI(src))
-				track = "<a href='byond://?src=\ref[src];track2=\ref[src];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
+			if(istype(follow_target, /obj/machinery/bot))
+				track = "<a href='byond://?src=\ref[src];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
 			else
-				track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
+				track = "<a href='byond://?src=\ref[src];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
 
-	if(istype(src, /mob/dead/observer))
+	if(isobserver(src))
 		if(speaker && (speaker_name != speaker.real_name) && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"

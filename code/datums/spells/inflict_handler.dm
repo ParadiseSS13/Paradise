@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/inflict_handler
+/obj/effect/proc_holder/spell/targeted/inflict_handler
 	name = "Inflict Handler"
 	desc = "This spell blinds and/or destroys/damages/heals and/or weakens/stuns the target."
 
@@ -19,7 +19,7 @@
 
 	var/summon_type = null //this will put an obj at the target's location
 
-/obj/effect/proc_holder/spell/wizard/targeted/inflict_handler/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/inflict_handler/cast(list/targets)
 
 	for(var/mob/living/target in targets)
 		switch(destroys)

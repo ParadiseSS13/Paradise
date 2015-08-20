@@ -12,11 +12,10 @@
 /proc/GenerateTheft(var/job,var/datum/mind/traitor)
 	var/list/datum/objective/objectives = list()
 
-	for(var/o in typesof(/datum/objective/steal))
-		if(o != /datum/objective/steal)		//Make sure not to get a blank steal objective.
-			var/datum/objective/target = new o(null,job)
-			objectives += target
-			objectives[target] = target.weight
+	for(var/o in subtypesof(/datum/objective/steal))
+		var/datum/objective/target = new o(null,job)
+		objectives += target
+		objectives[target] = target.weight
 	return objectives
 
 /proc/GenerateAssassinate(var/job,var/datum/mind/traitor)
@@ -841,7 +840,7 @@ datum
 					return 2
 
 			diamond_drill
-				steal_target = /obj/item/weapon/pickaxe/diamonddrill
+				steal_target = /obj/item/weapon/pickaxe/drill/diamonddrill
 				explanation_text = "Steal a diamond drill."
 				weight = 20
 

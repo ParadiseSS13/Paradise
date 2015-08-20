@@ -193,13 +193,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return
 
 /obj/machinery/hologram/blob_act()
-	del(src)
+	qdel(src)
 	return
 
-/obj/machinery/hologram/Del()
+/obj/machinery/hologram/Destroy()
 	if(hologram)
 		src:clear_holo()
-	..()
+	return ..()
 
 /*
 Holographic project of everything else.

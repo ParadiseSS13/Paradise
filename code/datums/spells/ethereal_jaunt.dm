@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt
 	name = "Ethereal Jaunt"
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
 
@@ -17,7 +17,7 @@
 
 	action_icon_state = "jaunt"
 
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		spawn(0)
 
@@ -59,8 +59,8 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 			else
 				flick("liquify",animation)
 				target.loc = holder
@@ -85,8 +85,8 @@
 								break
 				target.canmove = 1
 				target.client.eye = target
-				del(animation)
-				del(holder)
+				qdel(animation)
+				qdel(holder)
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
@@ -95,6 +95,12 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+
+/obj/effect/dummy/spell_jaunt/Destroy()
+	// Eject contents if deleted somehow
+	for(var/atom/movable/AM in src)
+		AM.loc = get_turf(src)
+	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
 	if (!src.canmove) return
