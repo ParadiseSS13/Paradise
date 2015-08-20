@@ -9,7 +9,6 @@ var/bomb_set
 	var/deployable = 0.0
 	var/extended = 0.0
 	var/lighthack = 0
-	var/opened = 0.0
 	var/timeleft = 120.0
 	var/timing = 0.0
 	var/r_code = "ADMIN"
@@ -17,15 +16,12 @@ var/bomb_set
 	var/yes_code = 0.0
 	var/safety = 1.0
 	var/obj/item/weapon/disk/nuclear/auth = null
-	var/list/wires = list()
-	var/light_wire
-	var/safety_wire
-	var/timing_wire
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = 0
 	unacidable = 1
+	var/datum/wires/nuclearbomb/wires = null
 	
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = 1
@@ -33,23 +29,14 @@ var/bomb_set
 /obj/machinery/nuclearbomb/New()
 	..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
-	src.wires["Red"] = 0
-	src.wires["Blue"] = 0
-	src.wires["Green"] = 0
-	src.wires["Marigold"] = 0
-	src.wires["Fuschia"] = 0
-	src.wires["Black"] = 0
-	src.wires["Pearl"] = 0
-	var/list/w = list("Red","Blue","Green","Marigold","Black","Fuschia","Pearl")
-	src.light_wire = pick(w)
-	w -= src.light_wire
-	src.timing_wire = pick(w)
-	w -= src.timing_wire
-	src.safety_wire = pick(w)
-	w -= src.safety_wire
-
+	wires = new/datum/wires/nuclearbomb(src)
+	
+/obj/machinery/nuclearbomb/Destroy()
+	qdel(wires)
+	return ..()	
+	
 /obj/machinery/nuclearbomb/process()
-	if (src.timing)
+	if (timing)
 		bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if (timeleft <= 0)
@@ -60,40 +47,38 @@ var/bomb_set
 
 /obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
 	if (istype(O, /obj/item/weapon/screwdriver))
-		src.add_fingerprint(user)
-		if (src.auth)
-			if (src.opened == 0)
-				src.opened = 1
+		add_fingerprint(user)
+		if (auth)
+			if (panel_open == 0)
+				panel_open = 1
 				overlays += image(icon, "npanel_open")
 				user << "You unscrew the control panel of [src]."
 			else
-				src.opened = 0
+				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
 		else
-			if (src.opened == 0)
+			if (panel_open == 0)
 				user << "[src] emits a buzzing noise, the panel staying locked in."
-			if (src.opened == 1)
-				src.opened = 0
+			if (panel_open == 1)
+				panel_open = 0
 				overlays -= image(icon, "npanel_open")
 				user << "You screw the control panel of [src] back on."
 			flick("nuclearbombc", src)
-		ui_interact(user)
 		return
 
-	if (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters))
-		ui_interact(user)
+	if (panel_open && (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters)))
+		return attack_hand(user)
 
-	if (src.extended)
+	if (extended)
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			usr.drop_item()
 			O.loc = src
-			src.auth = O
-			src.add_fingerprint(user)
-			ui_interact(user)
-			return
+			auth = O
+			add_fingerprint(user)
+			return attack_hand(user)
 
-	if (src.anchored)
+	if (anchored)
 		switch(removal_stage)
 			if(0)
 				if(istype(O,/obj/item/weapon/weldingtool))
@@ -163,73 +148,56 @@ var/bomb_set
 	..()
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	ui_interact(user)
+	attack_hand(user)
 	
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
-	if (src.extended)
-		if (src.opened)
+	if (extended)
+		if (panel_open)
+			wires.Interact(user)
+		else
 			ui_interact(user)
-	else if (src.deployable)
+	else if (deployable)
 		if(removal_stage < 5)
-			src.anchored = 1
+			anchored = 1
 			visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring!")
 		else
 			visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
-		if(!src.lighthack)
+		if(!lighthack)
 			flick("nuclearbombc", src)
-			src.icon_state = "nuclearbomb1"
-		src.extended = 1
+			icon_state = "nuclearbomb1"
+		extended = 1
 	return
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
-	var/uiwidth
-	var/uiheight
-	var/uititle
 	data["is_syndicate"] = is_syndicate
-	if(!src.opened)
-		data["hacking"] = 0
-		data["auth"] = is_auth(user)
-		if (is_auth(user))
-			if (src.yes_code)
-				data["authstatus"] = src.timing ? "Functional/Set" : "Functional"
-			else
-				data["authstatus"] = "Auth. S2"
+	data["hacking"] = 0
+	data["auth"] = is_auth(user)
+	if (is_auth(user))
+		if (yes_code)
+			data["authstatus"] = timing ? "Functional/Set" : "Functional"
 		else
-			if (src.timing)
-				data["authstatus"] = "Set"
-			else
-				data["authstatus"] = "Auth. S1"
-		data["safe"] = src.safety ? "Safe" : "Engaged"
-		data["time"] = src.timeleft
-		data["timer"] = src.timing
-		data["safety"] = src.safety
-		data["anchored"] = src.anchored
-		data["yescode"] = src.yes_code
-		data["message"] = "AUTH"
-		if (is_auth(user))
-			data["message"] = src.code
-			if (src.yes_code)
-				data["message"] = "*****"
-		uiwidth = 300
-		uiheight = 510
-		uititle = "Nuke Control Panel"
+			data["authstatus"] = "Auth. S2"
 	else
-		data["hacking"] = 1
-		var/list/tempwires[0]
-		for(var/wire in src.wires)
-			tempwires.Add(list(list("name" = wire, "cut" = src.wires[wire])))
-		data["wires"] = tempwires
-		data["timing"] = src.timing
-		data["safety"] = src.safety
-		data["lighthack"] = src.lighthack
-		uiwidth = 420
-		uiheight = 440
-		uititle = "Nuclear Bomb Defusion"
+		if (timing)
+			data["authstatus"] = "Set"
+		else
+			data["authstatus"] = "Auth. S1"
+	data["safe"] = safety ? "Safe" : "Engaged"
+	data["time"] = timeleft
+	data["timer"] = timing
+	data["safety"] = safety
+	data["anchored"] = anchored
+	data["yescode"] = yes_code
+	data["message"] = "AUTH"
+	if (is_auth(user))
+		data["message"] = code
+		if (yes_code)
+			data["message"] = "*****"
 		
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", uititle, uiwidth, uiheight)
+		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 300, 510)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -242,12 +210,12 @@ var/bomb_set
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 
-	if (src.deployable)
+	if (deployable)
 		usr << "\red You close several panels to make [src] undeployable."
-		src.deployable = 0
+		deployable = 0
 	else
 		usr << "\red You adjust some panels to make [src] deployable."
-		src.deployable = 1
+		deployable = 1
 	return
 
 /obj/machinery/nuclearbomb/proc/is_auth(user as mob)
@@ -262,73 +230,29 @@ var/bomb_set
 	if(..())
 		return 1
 		
-	if(href_list["act"])
-		var/temp_wire = href_list["wire"]
-		if(href_list["act"] == "pulse")
-			if (!istype(usr.get_active_hand(), /obj/item/device/multitool))
-				usr << "You need a multitool!"
-			else
-				if(src.wires[temp_wire])
-					usr << "You can't pulse a cut wire."
-				else
-					if(src.light_wire == temp_wire)
-						src.lighthack = !src.lighthack
-						spawn(100) src.lighthack = !src.lighthack
-					if(src.timing_wire == temp_wire)
-						if(src.timing)
-							spawn
-								explode()
-					if(src.safety_wire == temp_wire)
-						src.safety = !src.safety
-						spawn(100) src.safety = !src.safety
-						if(src.safety == 1)
-							visible_message("\blue The [src] quiets down.")
-							if(!src.lighthack)
-								if (src.icon_state == "nuclearbomb2")
-									src.icon_state = "nuclearbomb1"
-						else
-							visible_message("\blue The [src] emits a quiet whirling noise!")
-		if(href_list["act"] == "wire")
-			if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
-				usr << "You need wirecutters!"
-			else
-				wires[temp_wire] = !wires[temp_wire]
-				if(src.safety_wire == temp_wire)
-					if(src.timing)
-						spawn
-							explode()
-				if(src.timing_wire == temp_wire)
-					if(!src.lighthack)
-						if (src.icon_state == "nuclearbomb2")
-							src.icon_state = "nuclearbomb1"
-					src.timing = 0
-					bomb_set = 0
-				if(src.light_wire == temp_wire)
-					src.lighthack = !src.lighthack
-
 	if (href_list["auth"])
-		if (src.auth)
-			src.auth.loc = src.loc
-			src.yes_code = 0
-			src.auth = null
+		if (auth)
+			auth.loc = loc
+			yes_code = 0
+			auth = null
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if (istype(I, /obj/item/weapon/disk/nuclear))
 				usr.drop_item()
 				I.loc = src
-				src.auth = I
+				auth = I
 	if (is_auth(usr))
 		if (href_list["type"])
 			if (href_list["type"] == "E")
-				if (src.code == src.r_code)
-					src.yes_code = 1
-					src.code = null
+				if (code == r_code)
+					yes_code = 1
+					code = null
 				else
-					src.code = "ERROR"
+					code = "ERROR"
 			else
 				if (href_list["type"] == "R")
-					src.yes_code = 0
-					src.code = null
+					yes_code = 0
+					code = null
 				else
 					lastentered = text("[]", href_list["type"])
 					if (text2num(lastentered) == null)
@@ -336,48 +260,48 @@ var/bomb_set
 						message_admins("[key_name_admin(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: <a href='?_src_=vars;Vars=\ref[src]'>[lastentered]</a>! ([LOC ? "<a href='?_src_=holder;adminplayerobservecoodjump=1;X=[LOC.x];Y=[LOC.y];Z=[LOC.z]'>JMP</a>" : "null"])", 0)
 						log_admin("EXPLOIT: [key_name(usr)] tried to exploit a nuclear bomb by entering non-numerical codes: [lastentered]!")
 					else
-						src.code += lastentered
-						if (length(src.code) > 5)
-							src.code = "ERROR"
-		if (src.yes_code)
+						code += lastentered
+						if (length(code) > 5)
+							code = "ERROR"
+		if (yes_code)
 			if (href_list["time"])
 				var/time = text2num(href_list["time"])
-				src.timeleft += time
-				src.timeleft = min(max(round(src.timeleft), 120), 600)
+				timeleft += time
+				timeleft = min(max(round(src.timeleft), 120), 600)
 			if (href_list["timer"])
-				if (src.timing == -1.0)
+				if (timing == -1.0)
 					nanomanager.update_uis(src)
 					return
-				if (src.safety)
+				if (safety)
 					usr << "\red The safety is still on."
 					nanomanager.update_uis(src)
 					return
-				src.timing = !( src.timing )
-				if (src.timing)
-					if(!src.lighthack)
-						src.icon_state = "nuclearbomb2"
-					if(!src.safety)
-						bomb_set = 1//There can still be issues with this reseting when there are multiple bombs. Not a big deal tho for Nuke/N
+				timing = !(timing)
+				if (timing)
+					if(!lighthack)
+						icon_state = "nuclearbomb2"
+					if(!safety)
+						bomb_set = 1//There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
 					else
 						bomb_set = 0
 				else
 					bomb_set = 0
-					if(!src.lighthack)
-						src.icon_state = "nuclearbomb1"
+					if(!lighthack)
+						icon_state = "nuclearbomb1"
 			if (href_list["safety"])
-				src.safety = !( src.safety )
+				safety = !(safety)
 				if(safety)
-					src.timing = 0
+					timing = 0
 					bomb_set = 0
 			if (href_list["anchor"])
 				if(removal_stage == 5)
-					src.anchored = 0
+					anchored = 0
 					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
 					nanomanager.update_uis(src)
 					return
 
-				src.anchored = !( src.anchored )
-				if(src.anchored)
+				anchored = !(anchored)
+				if(anchored)
 					visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
 				else
 					visible_message("\red The anchoring bolts slide back into the depths of [src].")
@@ -388,7 +312,7 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/blob_act()
-	if (src.timing == -1.0)
+	if (timing == -1.0)
 		return
 	else
 		return ..()
@@ -396,14 +320,14 @@ var/bomb_set
 
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
-	if (src.safety)
-		src.timing = 0
+	if (safety)
+		timing = 0
 		return
-	src.timing = -1.0
-	src.yes_code = 0
-	src.safety = 1
-	if(!src.lighthack)
-		src.icon_state = "nuclearbomb3"
+	timing = -1.0
+	yes_code = 0
+	safety = 1
+	if(!lighthack)
+		icon_state = "nuclearbomb3"
 	playsound(src,'sound/machines/Alarm.ogg',100,0,5)
 	if (ticker && ticker.mode)
 		ticker.mode.explosion_in_progress = 1
