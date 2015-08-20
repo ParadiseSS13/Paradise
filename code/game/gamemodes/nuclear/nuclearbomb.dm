@@ -287,19 +287,22 @@ var/bomb_set
 						icon_state = "nuclearbomb2"
 					if(!safety)
 						message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						set_security_level("delta")
+						if(!is_syndicate)
+							set_security_level("delta")
 						bomb_set = 1 //There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
 					else
 						bomb_set = 0
 				else
-					set_security_level(previous_level)
+					if(!is_syndicate)
+						set_security_level(previous_level)
 					bomb_set = 0
 					if(!lighthack)
 						icon_state = "nuclearbomb1"
 			if (href_list["safety"])
 				safety = !(safety)
 				if(safety)
-					set_security_level(previous_level)
+					if(!is_syndicate)
+						set_security_level(previous_level)
 					timing = 0
 					bomb_set = 0
 			if (href_list["anchor"])
