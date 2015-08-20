@@ -91,4 +91,4 @@
  */
 /proc/log_startup_progress(var/message)
 	world << "<span class='danger'>[message]</span>"
-	world.log << message
+	log_to_dd(message)
