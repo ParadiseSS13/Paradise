@@ -282,17 +282,22 @@
 	construction_time = 1200
 	construction_cost = list("metal"=30000,"plasma"=25000,"silver"=20000,"gold"=20000)
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
-	var/disabled = 0 //malf
 	var/canRwall = 0
+	
+	New()
+		rcd_list += src
+		..()
+
+	Destroy()
+		rcd_list -= src
+		..()
 
 	action(atom/target)
-		if(istype(target,/area/shuttle)||istype(target, /turf/space/transit))//>implying these are ever made -Sieve
-			disabled = 1
-		else
-			disabled = 0
+		if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
+			return
 		if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
 			target = get_turf(target)
-		if(!action_checks(target) || disabled || get_dist(chassis, target)>3) return
+		if(!action_checks(target) || get_dist(chassis, target)>3) return
 		playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 		//meh
 		switch(mode)
@@ -303,7 +308,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -312,7 +316,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						target:ChangeTurf(/turf/space)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -321,7 +324,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						qdel(target)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -331,7 +333,6 @@
 					occupant_message("Building Floor...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.spark_system.start()
@@ -340,7 +341,6 @@
 					occupant_message("Building Wall...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						target:ChangeTurf(/turf/simulated/wall)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.spark_system.start()
@@ -350,7 +350,6 @@
 					occupant_message("Building Airlock...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 						T.autoclose = 1

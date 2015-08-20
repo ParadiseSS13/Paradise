@@ -26,16 +26,20 @@ RCD
 	var/working = 0
 	var/mode = 1
 	var/canRwall = 0
-	var/disabled = 0
-
 
 	New()
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		src.spark_system = new /datum/effect/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
+		rcd_list += src
 		return
-
+		
+	Destroy()
+		qdel(spark_system)
+		spark_system = null
+		rcd_list -= src
+		return ..()		
 
 	attackby(obj/item/weapon/W, mob/user, params)
 		..()
@@ -82,8 +86,6 @@ RCD
 
 	afterattack(atom/A, mob/user, proximity)
 		if(!proximity) return
-		if(disabled && !isrobot(user))
-			return 0
 		if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 			return 0
 		if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock)))
