@@ -224,7 +224,7 @@ Obviously, requires DNA2.
 	var/list/validtargets = new /list()
 	for(var/mob/M in living_mob_list)
 		if(M && M.mind)
-			if(isAntag(M))
+			if(M.z != user.z || isNonCrewAntag(M))
 				continue
 
 			validtargets += M
@@ -277,17 +277,22 @@ Obviously, requires DNA2.
 
 	action_icon_state = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)	
 	var/list/targets = living_mob_list
-	var/list/remoteviewers = new /list()
+	var/list/validtargets = new /list()
 	for(var/mob/M in targets)
-		if(REMOTE_VIEW in M.mutations)
-			remoteviewers += M
-	if(!remoteviewers.len || remoteviewers.len == 1)
+		if(M && M.mind)
+			if(M.z != user.z || isNonCrewAntag(M))
+				continue
+				
+			validtargets += M
+			
+	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
 		start_recharge()
 		return
-	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
+		
+	targets += input("Choose the target to spy on.", "Targeting") as mob in validtargets
 
 	perform(targets)
 

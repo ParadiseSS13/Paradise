@@ -174,6 +174,18 @@ proc/isAntag(A)
 		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
+	
+proc/isNonCrewAntag(A)
+	if(!isAntag(A))
+		return 0
+		
+	var/mob/living/carbon/C = A
+	var/special_role = C.mind.special_role
+	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
+	if((special_role in allowed_roles))
+		return 0
+	   
+	return 1
 
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
