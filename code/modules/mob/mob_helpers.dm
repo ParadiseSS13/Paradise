@@ -492,7 +492,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_MOD,0)) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
