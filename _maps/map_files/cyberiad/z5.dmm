@@ -1362,7 +1362,7 @@
 "Aj" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor,/area/mine/production)
 "Ak" = (/obj/structure/disposalpipe/junction{tag = "icon-pipe-j2 (EAST)"; icon_state = "pipe-j2"; dir = 4},/turf/simulated/wall,/area/mine/production)
 "Al" = (/obj/structure/disposaloutlet{dir = 4},/turf/simulated/floor,/area/mine/production)
-"Am" = (/obj/structure/table/woodentable,/obj/structure/sign/poster/legit{step_y = 31},/turf/simulated/floor,/area/mine/production)
+"Am" = (/obj/structure/table/woodentable,/obj/structure/sign/poster/legit{pixel_y = 31},/turf/simulated/floor,/area/mine/production)
 "An" = (/obj/structure/table/woodentable,/obj/item/weapon/coin/silver,/obj/machinery/light/small{dir = 1},/turf/simulated/floor,/area/mine/production)
 "Ao" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/mine/production)
 "Ap" = (/obj/machinery/vending/cola,/turf/simulated/floor,/area/mine/production)
