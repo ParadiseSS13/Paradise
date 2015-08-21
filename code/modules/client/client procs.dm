@@ -377,7 +377,7 @@
 	if(inactivity > duration)	return inactivity
 	return 0
 
-//Sned resources to the client.
+//Send resources to the client.
 /client/proc/send_resources()
 	// Most assets are now handled through global_cache.dm
 	getFiles(
