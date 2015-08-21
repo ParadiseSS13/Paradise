@@ -11,7 +11,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	flags = NOREACT
-	var/global/max_n_of_items = 999 // Sorry but the BYOND infinite loop detector doesn't look things over 1000.
+	var/max_n_of_items = 999 //No, this should NOT be a global var.
 	var/icon_on = "smartfridge"
 	var/icon_off = "smartfridge-off"
 	var/icon_panel = "smartfridge-panel"
@@ -22,7 +22,7 @@
 	var/scan_id = 1
 	var/is_secure = 0
 	var/datum/wires/smartfridge/wires = null
-	
+
 /obj/machinery/smartfridge/secure
 	is_secure = 1
 
@@ -60,7 +60,7 @@
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
-	
+
 /obj/machinery/smartfridge/medbay/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
 		return 1
@@ -79,7 +79,7 @@
 	if(istype(O,/obj/item/slime_extract))
 		return 1
 	return 0
-	
+
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
@@ -117,7 +117,7 @@
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	icon_on = "smartfridge_chem"
 	req_access_txt = "33"
-	
+
 /obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
 		return 1
@@ -262,12 +262,12 @@
 	if(P.contents.len > 0)
 		user << "<span class='notice'>Some items are refused.</span>"
 	nanomanager.update_uis(src)
-	
-/obj/machinery/smartfridge/secure/emag_act(user as mob)	
+
+/obj/machinery/smartfridge/secure/emag_act(user as mob)
 	emagged = 1
 	locked = -1
 	user << "You short out the product lock on [src]."
-		
+
 /*******************
 *   SmartFridge Menu
 ********************/
@@ -361,7 +361,7 @@
 *************************/
 
 /obj/machinery/smartfridge/secure/Topic(href, href_list)
-	if(stat & (NOPOWER|BROKEN)) 
+	if(stat & (NOPOWER|BROKEN))
 		return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])

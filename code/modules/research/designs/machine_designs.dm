@@ -242,6 +242,36 @@
 	build_path = /obj/item/weapon/circuitboard/rdserver
 	category = list("Research Machinery")
 
+/datum/design/monkey_recycler
+	name = "Machine Design (Monkey Recycler Board)"
+	desc = "The circuit board for a monkey recycler."
+	id = "smartfridge"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/monkey_recycler
+	category = list ("Misc. Machinery")
+
+/datum/design/processor
+	name = "Machine Design (Processor Board)"
+	desc = "The circuit board for a processor."
+	id = "processor"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/processor
+	category = list ("Misc. Machinery")
+
+/datum/design/holopad
+	name = "Machine Design (AI Holopad Board)"
+	desc = "The circuit board for a holopad."
+	id = "holopad"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/holopad
+	category = list ("Misc. Machinery")
+
 /datum/design/arcadebattle
 	name = "Machine Board (Battle Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Arcade Machine."

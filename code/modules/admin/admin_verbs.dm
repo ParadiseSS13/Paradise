@@ -150,7 +150,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
-	/client/proc/test_snap_UI
+	/client/proc/test_snap_UI,
+	/proc/machine_upgrade
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -203,7 +204,7 @@ var/list/admin_verbs_mentor = list(
 		if(holder.rights & R_SPAWN)			verbs += admin_verbs_spawn
 		if(holder.rights & R_MOD)			verbs += admin_verbs_mod
 		if(holder.rights & R_MENTOR)		verbs += admin_verbs_mentor
-		
+
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
 		admin_verbs_default,
@@ -244,7 +245,7 @@ var/list/admin_verbs_mentor = list(
 	add_admin_verbs()
 
 	src << "<span class='interface'>All of your adminverbs are now visible.</span>"
-	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!		
+	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -576,7 +577,7 @@ var/list/admin_verbs_mentor = list(
 		deadmins += ckey
 		src << "<span class='interface'>You are now a normal player.</span>"
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 /client/proc/readmin()
 	set name = "Re-admin self"
 	set category = "Admin"
