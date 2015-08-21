@@ -100,3 +100,14 @@
 	materials = list("$metal" = 4000, "$glass" = 1000)
 	build_path = /obj/item/clothing/mask/gas/welding
 	category = list("Equipment")
+
+/datum/design/detective_scanner
+	name = "Forensic Scanner"
+	desc = "A high tech scanner designed for forensic evidence collection, DNA recovery, and fiber analysis."
+	id = "detectivescanner"
+	req_tech = list("biotech" = 2, "magnets" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 6000, "$glass" = 2000)
+	build_path = /obj/item/device/detective_scanner
+	locked = 1      //no validhunting scientists.
+	category = list("Equipment")
