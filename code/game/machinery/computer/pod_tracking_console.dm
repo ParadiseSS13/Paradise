@@ -5,39 +5,43 @@
 	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE
 	req_access = list(access_robotics)
-	circuit = "/obj/item/weapon/circuitboard/pod_locater"
+	circuit = /obj/item/weapon/circuitboard/pod_locater
 
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/computer/podtracker/attack_hand(var/mob/user as mob)
-	if(..())
-		return
-	user.set_machine(src)
-	var/dat = "<html><head><title>[src.name]</title><style>h3 {margin: 0px; padding: 0px;}</style></head><body>"
-	dat += "<h3>Pod beacons data</h3>"
+	return attack_hand(user)
+	
+/obj/machinery/computer/podtracker/attack_hand(user as mob)
+	ui_interact(user)
+	
+/obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	var/list/pods[0]
 	for(var/obj/item/device/spacepod_equipment/misc/tracker/TR in world)
 		var/obj/spacepod/myPod = TR.my_atom
 		var/enabled = TR.enabled
 		if(myPod && enabled)
-			dat += {"<hr>[capitalize(myPod.name)]</br>
-					  <b>&nbsp;Pod SPS X:</b> [myPod.x]</br>
-					  <b>&nbsp;Pod SPS Y:</b> [myPod.y]</br>
-					  <b>&nbsp;Pod SPS Z:</b> [myPod.z]</br>"}
+			var/podname = capitalize(sanitize(myPod.name))
+			var/occupant = "None"
+			var/occupant2 = "None"
 			if(myPod.occupant)
-				dat += {"<b>&nbsp;Pod Pilot:</b> [myPod.occupant.name]</br>"}
+				occupant = myPod.occupant.name
 			if(myPod.occupant2)
-				dat += {"<b>&nbsp;Pod Passenger:</b> [myPod.occupant2.name]</br>"}
+				occupant2 = myPod.occupant2.name
+			pods.Add(list(list("pod" = "\ref[myPod]", "name" = podname, "occupant" = occupant, "occupant2" = occupant2, "x" = myPod.x, "y" = myPod.y, "z" = myPod.z)))
+			
+	data["pods"] = pods
 
-	dat += "<A href='?src=\ref[src];refresh=1'>(Refresh)</A><BR>"
-	dat += "</body></html>"
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
+	if (!ui)
+		ui = new(user, src, ui_key, "pod_tracking.tmpl", "Pod Tracking Console", 400, 500)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/computer/podtracker/Topic(href, href_list)
 	if(..())
-		return
-	src.updateUsrDialog()
-	return
+		return 1
+	
+	if(href_list["refresh"])
+		nanomanager.update_uis(src)

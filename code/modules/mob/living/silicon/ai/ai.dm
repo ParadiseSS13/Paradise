@@ -55,6 +55,7 @@ var/list/ai_verbs_default = list(
 	var/ioncheck[1]
 	var/lawchannel = "Common" // Default channel on which to state laws
 	var/icon/holo_icon//Default is assigned when AI is created.
+	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/custom_sprite = 0 //For our custom sprites
@@ -66,7 +67,7 @@ var/list/ai_verbs_default = list(
 	var/processing_time = 100
 	var/list/datum/AI_Module/current_modules = list()
 	var/fire_res_on_core = 0
-
+	var/can_dominate_mechs = 0
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
 	var/malf_cooldown = 0 //Cooldown var for malf modules
@@ -242,6 +243,7 @@ var/list/ai_verbs_default = list(
 	powered_ai = ai
 	if(isnull(powered_ai))
 		qdel(src)
+		return
 
 	loc = powered_ai.loc
 	use_power(1) // Just incase we need to wake up the power system.
@@ -251,6 +253,7 @@ var/list/ai_verbs_default = list(
 /obj/machinery/ai_powersupply/process()
 	if(!powered_ai || powered_ai.stat & DEAD)
 		qdel(src)
+		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		use_power = 0
@@ -336,7 +339,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+	var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 	if(!input || stat)
 		return
 
@@ -502,18 +505,18 @@ var/list/ai_verbs_default = list(
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
-
-		if(target && (!istype(target, /mob/living/carbon/human) || html_decode(href_list["trackname"]) == target:get_face_name()))
+		if(target && trackable(target))
 			ai_actual_track(target)
 		else
-			src << "\red System error. Cannot locate [html_decode(href_list["trackname"])]."
+			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["trackbot"])
 		var/obj/machinery/bot/target = locate(href_list["trackbot"]) in aibots
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
-		if(A && target)
-			A.ai_actual_track(target)
+		if(target && trackable(target))
+			ai_actual_track(target)
+		else
+			src << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 		return
 
 	if (href_list["callbot"]) //Command a bot to move to a selected location.
@@ -533,6 +536,14 @@ var/list/ai_verbs_default = list(
 	if (href_list["botrefresh"]) //Refreshes the bot control panel.
 		botcall()
 		return
+
+	if (href_list["ai_take_control"]) //Mech domination
+		var/obj/mecha/M = locate(href_list["ai_take_control"])
+		if(controlled_mech)
+			src << "You are already loaded into an onboard computer!"
+			return
+		if(M)
+			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
 
 	else if (href_list["faketrack"])
 		var/mob/target = locate(href_list["track"]) in mob_list
@@ -925,10 +936,8 @@ var/list/ai_verbs_default = list(
 	spawn(0)
 		if(istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
-			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
-				src << "Unable to locate an airlock"
-				return
-			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+			var/obj/item/weapon/card/id/id = H.wear_id
+			if(istype(id) && id.is_untrackable())
 				src << "Unable to locate an airlock"
 				return
 			if(H.digitalcamo)
@@ -981,6 +990,24 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/is_in_chassis()
 	return istype(loc, /turf)
+	
+/mob/living/silicon/ai/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+	if(!..())
+		return
+	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
+		if(!mind)
+			user << "<span class='warning'>No intelligence patterns detected.</span>"    //No more magical carding of empty cores, AI RETURN TO BODY!!!11
+			return
+		if (mind.special_role == "malfunction") //AI MALF!!
+			user << "<span class='boldannounce'>ERROR</span>: Remote transfer interface disabled."//Do ho ho ho~
+			return
+		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
+		aiRestorePowerRoutine = 0//So the AI initially has power.
+		control_disabled = 1//Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+		loc = card//Throw AI into the card.
+		src << "You have been downloaded to a mobile storage device. Remote device connection severed."
+		user << "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
 
 #undef AI_CHECK_WIRELESS
 #undef AI_CHECK_RADIO

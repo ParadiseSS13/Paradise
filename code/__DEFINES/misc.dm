@@ -51,7 +51,7 @@
 #define INFECTION_LEVEL_THREE	1000
 
 // Damage above this value must be repaired with surgery.
-#define ROBOLIMB_SELF_REPAIR_CAP 30
+#define ROBOLIMB_SELF_REPAIR_CAP 60
 
 //metal, glass, rod stacks
 #define MAX_STACK_AMOUNT_METAL	50
@@ -133,6 +133,11 @@
 #define LIGHT_COLOR_WHITE		"#FFFFFF"
 
 #define RESIZE_DEFAULT_SIZE 1
+
+//transfer_ai() defines. Main proc in ai_core.dm
+#define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
+#define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
+#define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha 
 
 //singularity defines
 #define STAGE_ONE 1

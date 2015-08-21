@@ -16,6 +16,8 @@
 		return 0
 	if(iscultist(mind.current))	
 		return 1 //If they're already in the cult, assume they are convertable
+	if(jobban_isbanned(mind.current, "cultist") || jobban_isbanned(mind.current, "Syndicate"))
+		return 0
 	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))	
 		return 0
 	if(ishuman(mind.current))

@@ -133,7 +133,7 @@ var/global/Holiday = null
 	world.update_status()
 	Holiday_Game_Start()
 
-	message_admins("\blue ADMIN: Event: [key_name(src)] force-set Holiday to \"[Holiday]\"")
+	message_admins("\blue ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[Holiday]\"")
 	log_admin("[key_name(src)] force-set Holiday to \"[Holiday]\"")
 
 

@@ -84,7 +84,8 @@
 	return
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M))	return ..()
+	if(!istype(M) || user.a_intent == "help")	
+		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
 	if((CLUMSY in user.mutations) && prob(50))
@@ -257,7 +258,7 @@
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && get_dist(src,O) <= 1 && src.welding)
-		msg_admin_attack("[key_name_admin(user)][isAntag(user) ? "(ANTAG)" : ""] triggered a fueltank explosion.")
+		msg_admin_attack("[key_name_admin(user)] triggered a fueltank explosion.")
 		log_game("[key_name(user)] triggered a fueltank explosion.")
 		user << "\red That was stupid of you."
 		var/obj/structure/reagent_dispensers/fueltank/tank = O
@@ -307,7 +308,7 @@
 /obj/item/weapon/weldingtool/proc/setWelding(var/temp_welding)
 	//If we're turning it on
 	if(temp_welding > 0)
-		if (remove_fuel(1))
+		if (get_fuel() > 0)
 			usr << "\blue The [src] switches on."
 			src.force = 15
 			src.damtype = "fire"
@@ -370,8 +371,6 @@
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-		if(H.species.flags & IS_SYNTHETIC)
-			return
 		if(!E) // No eyes? No problem!
 			return
 		switch(safety)
@@ -475,37 +474,29 @@
 	icon_state = "crowbar_large"
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
-	if(hasorgans(M))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
 
-		var/obj/item/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
-
-		if (!S) return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
+		if (!S) 
+			return
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
 			return ..()
 
-		if(istype(M,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				if(M == user)
-					user << "\red You can't repair damage to your own body - it's against OH&S."
-					return
-
 		if(S.brute_dam)
-			var/obj/item/weapon/weldingtool/WT = src
-			if (WT.remove_fuel(0,null))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
-				S.heal_damage(15,0,0,1)
-				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.name] with \the [src].")
-				if(istype(M,/mob/living/carbon/human))
-					var/mob/living/carbon/human/H = M
-					H.updatehealth()
-				return
+			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
+				if (remove_fuel(0,null))
+					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+					S.heal_damage(15,0,0,1)
+					user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
+				else if(S.open != 2)
+					user << "<span class='warning'>Need more welding fuel!</span>"
+					return 1
 			else
-				user << "\red You need more welding fuel to complete this task."
-				return
-		else
-			user << "Nothing to fix!"
-			return
+				user << "<span class='danger'>The damage is far too severe to patch over externally.</span>"
+			return 1
+		else if(S.open != 2)
+			user << "<span class='notice'>Nothing to fix!</span>"
 
 	else
 		return ..()

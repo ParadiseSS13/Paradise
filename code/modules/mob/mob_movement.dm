@@ -191,8 +191,6 @@
 
 	if(world.time < move_delay)  return
 
-	if(isAI(mob))  return AIMove(n,direct,mob)
-
 	if(!isliving(mob))  return mob.Move(n,direct)
 
 	if(moving)  return 0
@@ -210,10 +208,6 @@
 	if(istype(mob,/mob/spirit))
 		var/mob/spirit/currentSpirit = mob
 		return currentSpirit.Spirit_Move(direct)
-
-	// handle possible AI movement
-	if(isAI(mob))
-		return AIMove(n,direct,mob)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
@@ -235,6 +229,9 @@
 	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
+	if(isAI(mob))
+		return AIMove(n,direct,mob)		
+		
 	if(!mob.canmove)
 		return
 

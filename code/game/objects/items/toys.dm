@@ -1057,7 +1057,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor™"
+	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-MeteorÂ™"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minimeteor"
 	w_class = 2.0
@@ -1183,7 +1183,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/misc/hoot.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1202,7 +1202,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
 		user << "<span class='notice'>You pull the string on the [src].</span>"
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/misc/caw.ogg', 25, 1)
 		src.loc.visible_message("<span class='danger'>\icon[src] [message]</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0

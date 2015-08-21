@@ -46,7 +46,6 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 			if(!source.client && source.mind)
 				for(var/mob/O in respawnable_list)
 					if(O.mind == source.mind && config.revival_pod_plants)
-						message_admins("Found mind, asking for respawn")
 						switch(alert(O,"Your corpse has been placed into a pod plant. Do you want to be resurrected/cloned? Please note if you select 'No', you will still be able to be cloned or borged again this round.","Pod Alert","Yes","No"))
 							if("Yes")
 								source.key = O.key

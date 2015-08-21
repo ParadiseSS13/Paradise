@@ -121,8 +121,9 @@
 	O.add_ai_verbs()
 
 	O.rename_self("ai",1)
-	. = O
-	qdel(src)
+	spawn
+		qdel(src)
+	return O
 
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
@@ -481,7 +482,7 @@
 		return 1
 
 //Friendly Creatures!
-	if(ispath(MP, /mob/living/carbon/primitive/diona) && !jobban_isbanned(src, "Dionaea"))
+	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
 	//Not in here? Must be untested!

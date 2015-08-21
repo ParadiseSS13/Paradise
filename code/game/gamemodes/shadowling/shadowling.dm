@@ -152,9 +152,9 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-		//new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+		//new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
 		new_thrall_mind.current << "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		new_thrall_mind.current << "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"

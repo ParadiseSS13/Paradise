@@ -333,8 +333,8 @@
 		for(var/bad in paper_blacklist)
 			if(findtext(t,bad))
 				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
-				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
+				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
 		t = html_encode(t)

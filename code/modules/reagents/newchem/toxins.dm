@@ -125,7 +125,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 	if(current_cycle >= 5)
 		if(prob(5))
 			M.emote("drool")
-		if(M.brainloss < 60)
+		if(M.getBrainLoss() < 60)
 			M.adjustBrainLoss(1*REM)
 		M.adjustToxLoss(1*REM)
 	if(current_cycle >= 9)
@@ -610,8 +610,8 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 					H.adjustToxLoss(50)
 					..()
 					return
-		else if(istype(M,/mob/living/carbon/primitive/diona)) //plantmen monkeys (diona) take EVEN MORE damage
-			var/mob/living/carbon/primitive/diona/D = M
+		else if(istype(M,/mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+			var/mob/living/simple_animal/diona/D = M
 			D.adjustToxLoss(100)
 			..()
 			return

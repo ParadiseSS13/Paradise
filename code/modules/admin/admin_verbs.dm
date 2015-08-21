@@ -2,6 +2,7 @@
 var/list/admin_verbs_default = list(
 //	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
+	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 //	/client/proc/check_antagonists,		/*shows all antags*/
 //	/client/proc/deadchat				/*toggles deadchat on/off*/
 	/client/proc/cmd_mentor_check_new_players
@@ -202,6 +203,48 @@ var/list/admin_verbs_mentor = list(
 		if(holder.rights & R_SPAWN)			verbs += admin_verbs_spawn
 		if(holder.rights & R_MOD)			verbs += admin_verbs_mod
 		if(holder.rights & R_MENTOR)		verbs += admin_verbs_mentor
+		
+/client/proc/remove_admin_verbs()
+	verbs.Remove(
+		admin_verbs_default,
+		/client/proc/togglebuildmodeself,
+		admin_verbs_admin,
+		admin_verbs_ban,
+		admin_verbs_event,
+		admin_verbs_server,
+		admin_verbs_debug,
+		admin_verbs_possess,
+		admin_verbs_permissions,
+		/client/proc/stealth,
+		admin_verbs_rejuv,
+		admin_verbs_sounds,
+		admin_verbs_spawn,
+		admin_verbs_mod,
+		admin_verbs_mentor,
+		admin_verbs_show_debug_verbs,
+		/client/proc/readmin,
+	)
+
+/client/proc/hide_verbs()
+	set name = "Adminverbs - Hide All"
+	set category = "Admin"
+
+	remove_admin_verbs()
+	verbs += /client/proc/show_verbs
+
+	src << "<span class='interface'>Almost all of your adminverbs have been hidden.</span>"
+	feedback_add_details("admin_verb","TAVVH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/proc/show_verbs()
+	set name = "Adminverbs - Show"
+	set category = "Admin"
+
+	verbs -= /client/proc/show_verbs
+	add_admin_verbs()
+
+	src << "<span class='interface'>All of your adminverbs are now visible.</span>"
+	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!		
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -401,7 +444,7 @@ var/list/admin_verbs_mentor = list(
 			if(flash_range == null)
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
-	message_admins("<span class='adminnotice'>[ckey] creating an admin explosion at [epicenter.loc].</span>")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] creating an admin explosion at [epicenter.loc].</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_spell(mob/T as mob in mob_list) // -- Urist
@@ -526,12 +569,61 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 
 	if(holder)
-		if(alert("Confirm self-deadmin for the round? You can't re-admin yourself without someont promoting you.",,"Yes","No") == "Yes")
-			log_admin("[src] deadmined themself.")
-			message_admins("[src] deadmined themself.", 1)
-			deadmin()
-			src << "<span class='interface'>You are now a normal player.</span>"
+		log_admin("[key_name(usr)] deadmined themself.")
+		message_admins("[key_name_admin(usr)] deadmined themself.")
+		deadmin()
+		verbs += /client/proc/readmin
+		deadmins += ckey
+		src << "<span class='interface'>You are now a normal player.</span>"
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	
+/client/proc/readmin()
+	set name = "Re-admin self"
+	set category = "Admin"
+	set desc = "Regain your admin powers."
+	var/datum/admins/D = admin_datums[ckey]
+	var/rank = null
+	if(config.admin_legacy_system)
+		//load text from file
+		var/list/Lines = file2list("config/admins.txt")
+		for(var/line in Lines)
+			var/list/splitline = text2list(line, " - ")
+			if(n_lower(splitline[1]) == ckey)
+				if(splitline.len >= 2)
+					rank = ckeyEx(splitline[2])
+				break
+			continue
+	else
+		if(!dbcon.IsConnected())
+			message_admins("Warning, mysql database is not connected.")
+			src << "Warning, mysql database is not connected."
+			return
+		var/sql_ckey = sanitizeSQL(ckey)
+		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+		query.Execute()
+		while(query.NextRow())
+			rank = ckeyEx(query.item[1])
+	if(!D)
+		if(admin_ranks[rank] == null)
+			var/error_extra = ""
+			if(!config.admin_legacy_system)
+				error_extra = " Check mysql DB connection."
+			error("Error while re-adminning [src], admin rank ([rank]) does not exist.[error_extra]")
+			src << "Error while re-adminning, admin rank ([rank]) does not exist.[error_extra]"
+			return
+		D = new(rank,admin_ranks[rank],ckey)
+		var/client/C = directory[ckey]
+		D.associate(C)
+		message_admins("[key_name_admin(usr)] re-adminned themselves.")
+		log_admin("[key_name(usr)] re-adminned themselves.")
+		deadmins -= ckey
+		feedback_add_details("admin_verb","RAS")
+		return
+	else
+		src << "You are already an admin."
+		verbs -= /client/proc/readmin
+		deadmins -= ckey
+		return
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"

@@ -296,10 +296,10 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
 		return
 
-	if(T.species.flags & IS_SYNTHETIC)
+	if(T.species.flags & NO_DNA_RAD)
 		user << "<span class='warning'>This creature does not have DNA!</span>"
-		return
-
+		return		
+		
 	if(T.species.flags & NO_SCAN)
 		user << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
 		return

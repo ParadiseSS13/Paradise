@@ -96,6 +96,16 @@ proc/isembryo(A)
 	if(istype(A, /mob/living/silicon/ai))
 		return 1
 	return 0
+	
+/mob/proc/isSynthetic()
+	return 0
+
+/mob/living/carbon/human/isSynthetic()
+	// If they are 100% robotic, they count as synthetic.
+	for(var/obj/item/organ/external/E in organs)
+		if(!(E.status & ORGAN_ROBOT))
+			return 0
+	return 1
 
 /proc/isAIEye(A)
 	if(istype(A, /mob/aiEye))
@@ -164,6 +174,18 @@ proc/isAntag(A)
 		if(C.mind && C.mind.special_role)
 			return 1
 	return 0
+	
+proc/isNonCrewAntag(A)
+	if(!isAntag(A))
+		return 0
+		
+	var/mob/living/carbon/C = A
+	var/special_role = C.mind.special_role
+	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
+	if((special_role in crew_roles))
+		return 0
+	   
+	return 1
 
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
@@ -470,7 +492,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || (M.client.holder && (M.client.holder.rights & R_MOD))) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -481,7 +503,7 @@ var/list/intents = list("help","disarm","grab","harm")
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(M.client.holder) 							// What admins see
+				if(check_rights(R_MOD,0,M)) 							// What admins see
 					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
 					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous

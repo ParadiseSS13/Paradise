@@ -3,6 +3,11 @@ proc/get_infection_chance(var/mob/living/carbon/M, var/vector = "Airborne")
 	var/score = 0
 	if (!istype(M))
 		return 0
+	
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && H.species.virus_immune)
+		return 0	
+	
 	if(istype(M, /mob/living/carbon/human))
 		if (vector == "Airborne")
 			if(M.internal)  //not breathing infected air helps greatly

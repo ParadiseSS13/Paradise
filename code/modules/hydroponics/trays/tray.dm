@@ -140,8 +140,8 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/attack_generic(var/mob/user)
-	if(istype(user,/mob/living/carbon/primitive/diona))
-		var/mob/living/carbon/primitive/diona/nymph = user
+	if(istype(user,/mob/living/simple_animal/diona))
+		var/mob/living/simple_animal/diona/nymph = user
 
 		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
 			return

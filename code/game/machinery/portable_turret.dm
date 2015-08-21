@@ -352,8 +352,9 @@ var/list/turret_icons
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.
-		user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
-		visible_message("[src] hums oddly...")
+		if(user)
+			user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
+			visible_message("[src] hums oddly...")
 		emagged = 1
 		iconholder = 1
 		controllock = 1
