@@ -61,6 +61,11 @@ datum/controller/game_controller/proc/setup_objects()
 	var/count = 0
 	var/overwatch = start_watch() // Overall.
 	
+	log_startup_progress("Populating asset cache...")
+	populate_asset_cache()
+	log_startup_progress("  Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
+
+	watch = start_watch()		
 	log_startup_progress("Initializing objects...")
 	for(var/atom/movable/object in world)
 		object.initialize()
@@ -89,11 +94,11 @@ datum/controller/game_controller/proc/setup_objects()
 			count++
 
 	log_startup_progress("  Initialized [count] atmospherics devices in [stop_watch(watch)]s.")
-	log_startup_progress("Finished initializations in [stop_watch(overwatch)]s.")
+	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
 
 datum/controller/game_controller/proc/setup_starlight()
 	var/watch = start_watch()
 	log_startup_progress("Initializing starlight...")
 	for(var/turf/space/S in world)
 		S.update_starlight()
-	log_startup_progress("  Initialized starlight in [stop_watch(watch)]s.")
+	log_startup_progress("  Initialized starlight in [stop_watch(watch)]s.")	
