@@ -471,6 +471,7 @@
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	virus_immune = 1
+	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
 	
 	has_organ = list(
@@ -499,3 +500,6 @@
 	spawn(100)
 		if(H) H.update_hair()
 	
+/datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
+	..()
+	H.verbs += /mob/living/carbon/human/proc/change_monitor

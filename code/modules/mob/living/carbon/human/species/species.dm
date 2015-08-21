@@ -61,8 +61,8 @@
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/flags = 0       // Various specific features.
-	var/bloodflags=0
-	var/bodyflags=0
+	var/bloodflags = 0
+	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/list/abilities = list()	// For species-derived or admin-given powers
@@ -77,9 +77,11 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
+	
 	var/is_small
 	var/show_ssd = 1
 	var/virus_immune
+	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
