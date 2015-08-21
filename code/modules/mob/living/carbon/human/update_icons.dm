@@ -327,6 +327,13 @@ var/global/list/damage_icon_parts = list()
 		if(U2)
 			stand_icon.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
+
+	if(socks && species.flags & HAS_UNDERWEAR)
+		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		if(U3)
+			stand_icon.Blend(new /icon(U3.icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+
+
 	if(update_icons)
 		update_icons()
 

@@ -1261,3 +1261,95 @@
 	icon_state = "tank_fire"
 	gender = NEUTER
 //end tanktops
+
+///////////////////////
+// Socks Definitions //
+///////////////////////
+/datum/sprite_accessory/socks
+	icon = 'icons/mob/underwear.dmi'
+	species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+
+/datum/sprite_accessory/socks/nude
+	name = "Nude"
+	icon_state = null
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/white_norm
+	name = "Normal White"
+	icon_state = "white_norm"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/black_norm
+	name = "Normal Black"
+	icon_state = "black_norm"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/white_short
+	name = "Short White"
+	icon_state = "white_short"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/black_short
+	name = "Short Black"
+	icon_state = "black_short"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/white_knee
+	name = "Knee-high White"
+	icon_state = "white_knee"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/black_knee
+	name = "Knee-high Black"
+	icon_state = "black_knee"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/thin_knee
+	name = "Knee-high Thin"
+	icon_state = "thin_knee"
+	gender = FEMALE
+
+/datum/sprite_accessory/socks/striped_knee
+	name = "Knee-high Striped"
+	icon_state = "striped_knee"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/rainbow_knee
+	name = "Knee-high Rainbow"
+	icon_state = "rainbow_knee"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/white_thigh
+	name = "Thigh-high White"
+	icon_state = "white_thigh"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/black_thigh
+	name = "Thigh-high Black"
+	icon_state = "black_thigh"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/thin_thigh
+	name = "Thigh-high Thin"
+	icon_state = "thin_thigh"
+	gender = FEMALE
+
+/datum/sprite_accessory/socks/striped_thigh
+	name = "Thigh-high Striped"
+	icon_state = "striped_thigh"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/rainbow_thigh
+	name = "Thigh-high Rainbow"
+	icon_state = "rainbow_thigh"
+	gender = NEUTER
+
+/datum/sprite_accessory/socks/pantyhose
+	name = "Pantyhose"
+	icon_state = "pantyhose"
+	gender = FEMALE
+
+/datum/sprite_accessory/socks/black_fishnet
+	name = "Black Fishnet"
+	icon_state = "black_fishnet"
+	gender = NEUTER
