@@ -199,7 +199,7 @@ AI MODULES
 	name = "'Quarantine' AI Module"
 	desc = "A 'quarantine' AI module: 'The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.' This module adds a zeroth law, which can only be removed by uploading this board again."
 	origin_tech = "programming=3;biotech=2;materials=4"
-	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving.")
+	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, organics from leaving. It is impossible to harm an organic while preventing them from leaving. NOTE: Attempting to remove this law does not constitute an attempt to leave the station.")
 	removeownlaw = 1
 
 /obj/item/weapon/aiModule/zeroth/quarantine/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
