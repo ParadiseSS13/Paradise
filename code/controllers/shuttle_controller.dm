@@ -279,7 +279,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 		)
 
 	WS.announcer = "NSV Icarus"
-	WS.arrival_message = "Attention, [station_name()], we just tracked a large medical vessel approaching the station from the telecommunications satellite. Can't fire on them without hitting the station - prepare for visitors."
+	WS.arrival_message = "Attention, [station_name()], we just tracked a large medical vessel approaching the station from the telecommunications satellite. Might have wounded on board, can't destroy it - prepare for visitors."
 	WS.departure_message = "Your guests are pulling away, [station_name()] - moving too fast for us to draw a bead on them. Looks like they're heading back to the telecommunications satellite."
 	WS.interim = locate(/area/shuttle/derelict/ship/transit)
 
