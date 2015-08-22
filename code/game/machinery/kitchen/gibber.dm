@@ -40,6 +40,14 @@
 		var/turf/T = get_step(src, acceptdir)
 		if(istype(T))
 			lturf = T
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/gibber(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
 
 /obj/machinery/gibber/autogibber/process()
 	if(!lturf || occupant || locked || dirty || operating)
@@ -194,17 +202,26 @@
 	else
 		src.startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/weapon/grab/G as obj, mob/user as mob, params)
-	if(!istype(G))
-		return ..()
-
-	if(G.state < 2)
-		user << "<span class='danger'>You need a better grip to do that!</span>"
+/obj/machinery/gibber/attackby(obj/item/P as obj, mob/user as mob, params)
+	if(istype(P, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = P
+		if(G.state < 2)
+			user << "<span class='danger'>You need a better grip to do that!</span>"
+			return
+		move_into_gibber(user,G.affecting)
+		qdel(G)
 		return
 
-	move_into_gibber(user,G.affecting)
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
+		return
 
-	qdel(G)
+	if(exchange_parts(user, P))
+		return
+
+	if(default_unfasten_wrench(user, P))
+		return
+
+	default_deconstruction_crowbar(P)
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
 	if(usr.stat || (!ishuman(user)) || user.restrained() || user.weakened || user.stunned || user.paralysis || user.resting)

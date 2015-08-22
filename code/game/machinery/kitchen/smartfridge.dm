@@ -11,7 +11,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	flags = NOREACT
-	var/max_n_of_items = 999 //No, this should NOT be a global var.
+	var/max_n_of_items = 1500
 	var/icon_on = "smartfridge"
 	var/icon_off = "smartfridge-off"
 	var/icon_panel = "smartfridge-panel"
@@ -22,6 +22,17 @@
 	var/scan_id = 1
 	var/is_secure = 0
 	var/datum/wires/smartfridge/wires = null
+
+/obj/machinery/smartfridge/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/smartfridge(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	RefreshParts()
+
+/obj/machinery/smartfridge/RefreshParts()
+	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/secure
 	is_secure = 1
@@ -162,15 +173,17 @@
 ********************/
 
 /obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/screwdriver))
-		playsound(user, 'sound/items/Screwdriver.ogg', 50, 1)
-		panel_open = !panel_open
-		user.visible_message("[user] [panel_open ? "opens" : "closes"] the maintenance panel of \the [src].", "You [panel_open ? "open" : "close"] the maintenance panel of \the [src].")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, icon_panel)
-		nanomanager.update_uis(src)
+	if(default_deconstruction_screwdriver(user, "smartfridge_open", "smartfridge", O))
 		return
+
+	if(exchange_parts(user, O))
+		return
+
+	if(default_unfasten_wrench(user, O))
+		power_change()
+		return
+
+	default_deconstruction_crowbar(O)
 
 	if(istype(O, /obj/item/device/multitool)||istype(O, /obj/item/weapon/wirecutters))
 		if(panel_open)

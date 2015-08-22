@@ -294,7 +294,7 @@
 	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen", "tungsten", "water"),
 						 		list("lithium", "sugar", "copper", "mercury", "sodium","iodine","bromine"),
 								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"),
-								list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine"))
+								list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel"))
 
 /obj/machinery/chem_dispenser/constructable/New()
 	..()

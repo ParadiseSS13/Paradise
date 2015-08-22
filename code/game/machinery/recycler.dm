@@ -17,7 +17,15 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/New()
 	// On us
 	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/recycler(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
 	update_icon()
+
+/obj/machinery/recycler/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
 
 /obj/machinery/recycler/examine()
 	set src in view()
@@ -32,14 +40,19 @@ var/const/SAFETY_COOLDOWN = 100
 
 
 /obj/machinery/recycler/attackby(var/obj/item/I, var/mob/user, params)
-	if(istype(I, /obj/item/weapon/screwdriver) && emagged)
-		emagged = 0
-		update_icon()
-		user << "<span class='notice'>You reset the crusher to its default factory settings.</span>"
-	else
-		..()
+	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
 		return
+
+	if(exchange_parts(user, I))
+		return
+
+	if(default_unfasten_wrench(user, I))
+		return
+
+	default_deconstruction_crowbar(I)
+	..()
 	add_fingerprint(user)
+	return
 
 /obj/machinery/recycler/emag_act(user as mob)
 	if(!emagged)
