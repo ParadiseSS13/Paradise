@@ -49,7 +49,7 @@ var/list/be_special_flags = list(
 	"vampire" = BE_VAMPIRE,
 	"mutineer" = BE_MUTINEER,
 	"blob" = BE_BLOB,
-	"shadowling" = BE_SHADOWLING
+	"shadowling" = BE_SHADOWLING,
 	"revenant" = BE_REVENANT
 )
 
