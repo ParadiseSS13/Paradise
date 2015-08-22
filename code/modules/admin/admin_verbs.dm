@@ -595,8 +595,8 @@ var/list/admin_verbs_mentor = list(
 			continue
 	else
 		if(!dbcon.IsConnected())
-			message_admins("Warning, mysql database is not connected.")
-			src << "Warning, mysql database is not connected."
+			message_admins("Warning, MySQL database is not connected.")
+			src << "Warning, MYSQL database is not connected."
 			return
 		var/sql_ckey = sanitizeSQL(ckey)
 		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
@@ -604,16 +604,34 @@ var/list/admin_verbs_mentor = list(
 		while(query.NextRow())
 			rank = ckeyEx(query.item[1])
 	if(!D)
-		if(admin_ranks[rank] == null)
-			var/error_extra = ""
-			if(!config.admin_legacy_system)
-				error_extra = " Check mysql DB connection."
-			error("Error while re-adminning [src], admin rank ([rank]) does not exist.[error_extra]")
-			src << "Error while re-adminning, admin rank ([rank]) does not exist.[error_extra]"
-			return
-		D = new(rank,admin_ranks[rank],ckey)
+		if(config.admin_legacy_system)
+			if(admin_ranks[rank] == null)
+				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
+				src << "Error while re-adminning, admin rank ([rank]) does not exist."
+				return
+				
+			D = new(rank, admin_ranks[rank], ckey)
+		else
+			var/sql_ckey = sanitizeSQL(ckey)
+			var/DBQuery/query = dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+			query.Execute()
+			while(query.NextRow())
+				var/admin_ckey = query.item[1]
+				var/admin_rank = query.item[2]
+				var/flags = query.item[3]
+				if(!admin_ckey)
+					src << "Error while re-adminning, ckey [admin_ckey] was not found in the admin database."
+					return
+				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
+					src << "Error while re-adminning, ckey [admin_ckey] is not an admin."
+					return	
+
+				if(istext(flags))	
+					flags = text2num(flags)
+				D = new(admin_rank, flags, ckey)
+
 		var/client/C = directory[ckey]
-		D.associate(C)
+		D.associate(C)				
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		deadmins -= ckey
