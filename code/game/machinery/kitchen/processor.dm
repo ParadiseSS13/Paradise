@@ -137,10 +137,6 @@
 	return 0
 
 /obj/machinery/processor/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(!istype(O))
-		return
-
-	var/obj/item/what = O
 
 	if(src.processing)
 		user << "<span class='warning'>\the [src] is already processing something!</span>"
@@ -157,10 +153,7 @@
 
  	default_deconstruction_crowbar(O)
 
-	if(src.contents.len > 0) //TODO: several items at once? several different items?
-		user << "<span class='warning'>Something is already in the processing chamber.</span>"
-		return 1
-
+	var/obj/item/what = O
 
 	if (istype(O, /obj/item/weapon/grab))
 		var/obj/item/weapon/grab/G = O

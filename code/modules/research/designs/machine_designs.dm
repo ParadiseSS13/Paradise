@@ -265,7 +265,7 @@
 /datum/design/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"
 	desc = "The circuit board for a monkey recycler."
-	id = "smartfridge"
+	id = "monkey_recycler"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
