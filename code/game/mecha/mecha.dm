@@ -920,7 +920,7 @@
 		emagged = 1
 		usr << "\blue You slide the card through the [src]'s ID slot."
 		playsound(src.loc, "sparks", 100, 1)
-		src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+		src.desc += "</br><b>\red The mech's equipment slots spark dangerously!</b>"
 	else
 		usr <<"\red The [src]'s ID slot rejects the card."
 	return

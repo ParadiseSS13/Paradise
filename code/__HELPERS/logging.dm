@@ -85,3 +85,10 @@
 	world.log << text //this comes before the config check because it can't possibly runtime
 	if(config.log_world_output)
 		diary << "\[[time_stamp()]]DD_OUTPUT: [text][log_end]"
+
+/**
+ * Standardized method for tracking startup times.
+ */
+/proc/log_startup_progress(var/message)
+	world << "<span class='danger'>[message]</span>"
+	log_to_dd(message)

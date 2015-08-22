@@ -59,14 +59,24 @@
 		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
 	return
 
-/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow=0)
+/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)		
 	set src in oview(1)
-	if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow)
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+	if(user.client) // Send the paper images to the client
+		var/datum/asset/simple/S = new/datum/asset/simple/paper()
+		send_asset_list(user.client, S.assets)	
+
+	var/data
+	if((!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow) || forcestars)
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
+		if(view)
+			usr << browse(data, "window=[name]")
+			onclose(usr, "[name]")
 	else
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
+		if(view)
+			usr << browse(data, "window=[name]")
+			onclose(usr, "[name]")
+	return data
 
 /obj/item/weapon/paper/verb/rename()
 	set name = "Rename paper"
@@ -101,11 +111,9 @@
 	else //cyborg or AI not seeing through a camera
 		dist = get_dist(src, user)
 	if(dist < 2)
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		show_content(user, forceshow = 1)
 	else
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
-		onclose(usr, "[name]")
+		show_content(user, forcestars = 1)
 	return
 
 /obj/item/weapon/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -347,7 +355,7 @@
 			info += t // Oh, he wants to edit to the end of the file, let him.
 			updateinfolinks()
 
-		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]") // Update the window
+		show_content(usr, forceshow = 1, infolinks = 1)
 
 		update_icon()
 
@@ -414,7 +422,7 @@
 		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
 			P:RenamePaper(user,src)
 		else
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+			show_content(user, forceshow = 1, infolinks = 1)
 		//openhelp(user)
 		return
 
