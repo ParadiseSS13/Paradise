@@ -1320,6 +1320,7 @@
 #include "code\modules\mob\living\carbon\brain\posibrain.dm"
 #include "code\modules\mob\living\carbon\brain\say.dm"
 #include "code\modules\mob\living\carbon\human\appearance.dm"
+#include "code\modules\mob\living\carbon\human\body.dm"
 #include "code\modules\mob\living\carbon\human\death.dm"
 #include "code\modules\mob\living\carbon\human\emote.dm"
 #include "code\modules\mob\living\carbon\human\examine.dm"
