@@ -1517,10 +1517,32 @@
 
 		W.add_fingerprint(src)
 
+// Allows IPC's to change their monitor display		
+/mob/living/carbon/human/proc/change_monitor()
+	set category = "IC"	
+	set name = "Change Monitor Display"
+	set desc = "Change the display on your monitor."
+	
+	if(stat || paralysis || stunned || weakened)
+		src << "<span class='warning'>You cannot change your monitor display in your current state.</span>"
+		return	
+		
+	var/list/hair = list()
+	for(var/i in hair_styles_list)
+		var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+		if(species.name in tmp_hair.species_allowed)
+			hair += i
 
+	var/new_style = input(src, "Select a monitor display", "Monitor Display")  as null|anything in hair
+	if(stat || paralysis || stunned || weakened)
+		return
+	if(new_style)
+		h_style = new_style
+
+	update_hair()
+		
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
-
 /mob/living/carbon/human/proc/leap()
 	set category = "Abilities"
 	set name = "Leap"
