@@ -1,12 +1,14 @@
-var/global/list/alt_bodies_by_name = list()
+var/global/list/alt_bodies_by_name = list("None" = null) //since this is primarily for preferences setup, include a null option
 
 /hook/startup/proc/init_alt_body()
+
 	for(var/type in subtypesof(/datum/body))
 		var/datum/body/s = new type
 		if(istype(s,/datum/body))
 			alt_bodies_by_name["[s.name]"] = s
 
 	if(alt_bodies_by_name.len)
+		alt_bodies_by_name["None"] = null //this is here so that the startup hook will still fail if no body subtypes are availible
 		return 1
 	return 0
 

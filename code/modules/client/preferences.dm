@@ -362,9 +362,10 @@ datum/preferences
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
 
-				dat += "<br><b>Alt Body</b><br>"
-				dat += "<a href='?_src_=prefs;preference=alt_body_colors;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(alt_body_colors_red, 2)][num2hex(alt_body_colors_green, 2)][num2hex(alt_body_colors_blue, 2)]'><table style='display:inline;' bgcolor='#[num2hex(alt_body_colors_red, 2)][num2hex(alt_body_colors_green, 2)][num2hex(alt_body_colors_blue, 2)]'><tr><td>__</td></tr></table></font> "
-				dat += " Body: <a href='?_src_=prefs;preference=alt_body;task=input'>[alt_body ? "[alt_body]" : "None"]</a><br>"
+				if(check_rights(R_ADMIN, 1, user)) //admins only
+					dat += "<br><b>Alt Body</b><br>"
+					dat += "<a href='?_src_=prefs;preference=alt_body_colors;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(alt_body_colors_red, 2)][num2hex(alt_body_colors_green, 2)][num2hex(alt_body_colors_blue, 2)]'><table style='display:inline;' bgcolor='#[num2hex(alt_body_colors_red, 2)][num2hex(alt_body_colors_green, 2)][num2hex(alt_body_colors_blue, 2)]'><tr><td>__</td></tr></table></font> "
+					dat += " Body: <a href='?_src_=prefs;preference=alt_body;task=input'>[alt_body ? "[alt_body]" : "None"]</a><br>"
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -1152,10 +1153,13 @@ datum/preferences
 							h_style = new_h_style
 
 					if("alt_body")
+						if(!check_rights(R_ADMIN, 1, user))	return //nonadmins don't get to fuck with this (yet)
 						var/new_alt_body = input(user, "Choose your character's alternate body:", "Character Preference") as null|anything in alt_bodies_by_name
-						alt_body = new_alt_body
+						if(new_alt_body)
+							alt_body = new_alt_body
 
 					if("alt_body_colors")
+						if(!check_rights(R_ADMIN, 1, user))	return //nonadmins don't get to fuck with this (yet)
 						var/new_alt_body_color = input(user, "Choose your character's alternate body colour:", "Character Preference") as color|null
 						if(new_alt_body_color)
 							alt_body_colors_red = hex2num(copytext(new_alt_body_color, 2, 4))
