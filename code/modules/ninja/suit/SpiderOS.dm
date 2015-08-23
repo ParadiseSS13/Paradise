@@ -16,6 +16,10 @@
 	if(!affecting)	return//If no mob is wearing the suit. I almost forgot about this variable.
 	var/mob/living/carbon/human/U = affecting
 	var/display_to = U//Who do we want to display certain messages to?
+	
+	if(U.client) // Send the spider OS images to the client
+		var/datum/asset/simple/S = new/datum/asset/simple/spider_os()
+		send_asset_list(U.client, S.assets)	
 
 	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"
 	dat += "<a href='byond://?src=\ref[src];choice=Refresh'><img src=sos_7.png> Refresh</a>"

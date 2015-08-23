@@ -124,6 +124,10 @@
 		usr << "<span class='warning'>It is too far away.</span>"
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
+	if(user.client) // Send the stamp images to the client
+		var/datum/asset/simple/S = new/datum/asset/simple/paper()
+		send_asset_list(user.client, S.assets)	
+		
 	if(!front)
 		front = new(photo, dir = SOUTH)
 	if(!side)

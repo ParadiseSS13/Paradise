@@ -3,7 +3,7 @@ proc/createRandomZlevel()
 		return
 
 	var/list/potentialRandomZlevels = list()
-	world << "<span class='userdanger'>Searching for away missions...</span>"
+	log_startup_progress("Searching for away missions...")
 	var/list/Lines = file2list("_maps/map_files/RandomZLevels/fileList.txt")
 
 	if(!Lines.len)	return
@@ -34,7 +34,8 @@ proc/createRandomZlevel()
 
 
 	if(potentialRandomZlevels.len)
-		world << "<span class='userdanger'>Loading away mission...</span>"
+		var/watch = start_watch()
+		log_startup_progress("  Loading away mission...")
 
 		var/map = pick(potentialRandomZlevels)
 		var/file = file(map)
@@ -51,8 +52,8 @@ proc/createRandomZlevel()
 				continue
 			awaydestinations.Add(L)
 
-		world << "<span class='userdanger'>Away mission loaded.</span>"
+		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 
 	else
-		world << "<span class='userdanger'>No away missions found.</span>"
+		log_startup_progress("  No away missions found.")
 		return
