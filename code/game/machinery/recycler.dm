@@ -17,7 +17,15 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/New()
 	// On us
 	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/recycler(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
 	update_icon()
+
+/obj/machinery/recycler/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
 
 /obj/machinery/recycler/examine()
 	set src in view()
@@ -32,14 +40,21 @@ var/const/SAFETY_COOLDOWN = 100
 
 
 /obj/machinery/recycler/attackby(var/obj/item/I, var/mob/user, params)
-	if(istype(I, /obj/item/weapon/screwdriver) && emagged)
-		emagged = 0
-		update_icon()
-		user << "<span class='notice'>You reset the crusher to its default factory settings.</span>"
-	else
-		..()
+	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
+		if(!panel_open)
+			update_icon()
 		return
+
+	if(exchange_parts(user, I))
+		return
+
+	if(default_unfasten_wrench(user, I))
+		return
+
+	default_deconstruction_crowbar(I)
+	..()
 	add_fingerprint(user)
+	return
 
 /obj/machinery/recycler/emag_act(user as mob)
 	if(!emagged)
@@ -68,6 +83,8 @@ var/const/SAFETY_COOLDOWN = 100
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
+		return
+	if(!anchored)
 		return
 	// If we're not already grinding something.
 	if(!grinding)
@@ -152,7 +169,37 @@ var/const/SAFETY_COOLDOWN = 100
 	else if(emagged == 1)
 		L.adjustBruteLoss(1000)
 
+/obj/machinery/recycler/verb/rotate()
+	set name = "Rotate Clockwise"
+	set category = "Object"
+	set src in oview(1)
 
+	var/mob/living/user = usr
+
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
+		usr << "[src] is fastened to the floor!"
+		return 0
+	eat_dir = turn(eat_dir, 270)
+	user << "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>"
+	return 1
+
+/obj/machinery/recycler/verb/rotateccw()
+	set name = "Rotate Counter Clockwise"
+	set category = "Object"
+	set src in oview(1)
+
+	var/mob/living/user = usr
+
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
+		usr << "[src] is fastened to the floor!"
+		return 0
+	eat_dir = turn(eat_dir, 90)
+	user << "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>"
+	return 1
 
 /obj/item/weapon/paper/recycler
 	name = "paper - 'garbage duty instructions'"
