@@ -526,7 +526,7 @@
 		src << "You wriggle out of [M]'s grip!"
 	else if(istype(H.loc,/obj/item))
 		src << "You struggle free of [H.loc]."
-		H.loc = get_turf(H)
+		H.forceMove(get_turf(H))
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
