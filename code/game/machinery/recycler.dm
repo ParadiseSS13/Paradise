@@ -41,6 +41,8 @@ var/const/SAFETY_COOLDOWN = 100
 
 /obj/machinery/recycler/attackby(var/obj/item/I, var/mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
+		if(!panel_open)
+			update_icon()
 		return
 
 	if(exchange_parts(user, I))
@@ -81,6 +83,8 @@ var/const/SAFETY_COOLDOWN = 100
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
+		return
+	if(!anchored)
 		return
 	// If we're not already grinding something.
 	if(!grinding)
@@ -165,7 +169,37 @@ var/const/SAFETY_COOLDOWN = 100
 	else if(emagged == 1)
 		L.adjustBruteLoss(1000)
 
+/obj/machinery/recycler/verb/rotate()
+	set name = "Rotate Clockwise"
+	set category = "Object"
+	set src in oview(1)
 
+	var/mob/living/user = usr
+
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
+		usr << "[src] is fastened to the floor!"
+		return 0
+	eat_dir = turn(eat_dir, 270)
+	user << "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>"
+	return 1
+
+/obj/machinery/recycler/verb/rotateccw()
+	set name = "Rotate Counter Clockwise"
+	set category = "Object"
+	set src in oview(1)
+
+	var/mob/living/user = usr
+
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	if (src.anchored)
+		usr << "[src] is fastened to the floor!"
+		return 0
+	eat_dir = turn(eat_dir, 90)
+	user << "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>"
+	return 1
 
 /obj/item/weapon/paper/recycler
 	name = "paper - 'garbage duty instructions'"
