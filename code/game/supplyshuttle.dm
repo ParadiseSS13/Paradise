@@ -461,7 +461,7 @@ var/list/mechtoys = list(
 	return
 
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
-	if(!allowed(user))
+	if(!allowed(user) && !isobserver(user))
 		user << "\red Access Denied."
 		return
 
