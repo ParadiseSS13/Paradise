@@ -22,6 +22,16 @@
 	build_path = /obj/item/weapon/circuitboard/smes
 	category = list ("Engineering Machinery")
 
+/datum/design/emitter
+	name = "Machine Board (Emitter)"
+	desc = "The circuit board for an emitter."
+	id = "emitter"
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/emitter
+	category = list ("Engineering Machinery")
+
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."

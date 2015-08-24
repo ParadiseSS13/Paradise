@@ -13,7 +13,8 @@
 
 	// Otherwise jump
 	else
-		loc = get_turf(A)
+		following = null
+		forceMove(get_turf(A))
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
 	if(client.buildmode)
@@ -33,28 +34,6 @@
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
 
-
-// This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(var/atom/target)
-	following = target
-	if(target)
-		src << "\blue Now following [target]"
-		spawn(0)
-			var/turf/pos = get_turf(src)
-			while(loc == pos && target && following == target)
-
-				var/turf/T = get_turf(target)
-				if(!T)
-					break
-				if(following != target)
-					break
-				if(!client)
-					break
-				loc = T
-				pos = loc
-				sleep(15)
-			following = null
-
 // We don't need a fucking toggle.
 /mob/dead/observer/ShiftClickOn(var/atom/A)
 	A.examine()
@@ -71,33 +50,20 @@
 	if(S)
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
-			user.loc = get_turf(com.target)
+			user.forceMove(get_turf(com.target))
 
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
-		user.loc = get_turf(target)
+		user.forceMove(get_turf(target))
 
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
 	if(awaygate)
-		user.loc = awaygate.loc
+		user.forceMove(awaygate.loc)
 	else
 		user << "[src] has no destination."
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
 	if(stationgate)
-		user.loc = stationgate.loc
+		user.forceMove(stationgate.loc)
 	else
 		user << "[src] has no destination."
-
-// -------------------------------------------
-// This was supposed to be used by adminghosts
-// I think it is a *terrible* idea
-// but I'm leaving it here anyway
-// commented out, of course.
-
-/atom/proc/attack_admin(mob/user as mob)
-	if(!user || !user.client || !user.client.holder)
-		return
-	attack_hand(user)
-
-

@@ -41,7 +41,7 @@
 /obj/item/trash/bowl
 	name = "bowl"
 	desc = "An empty bowl. Put some food in it to start making a soup."
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "soup"
 
 /obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob, params)

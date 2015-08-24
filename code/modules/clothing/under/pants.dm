@@ -1,6 +1,7 @@
 /obj/item/clothing/under/pants
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
+	displays_id = 0
 
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"
