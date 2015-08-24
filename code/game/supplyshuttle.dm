@@ -158,159 +158,159 @@ var/list/mechtoys = list(
 	var/movetime = 1200
 	var/datum/shuttle/ferry/supply/shuttle
 
-	New()
-		ordernum = rand(1,9000)
+/datum/controller/supply/New()
+	ordernum = rand(1,9000)
 
-	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
-	proc/process()
-		for(var/typepath in subtypesof(/datum/supply_packs))
-			var/datum/supply_packs/P = new typepath()
-			if(P.name == "HEADER")
-				qdel(P)
-				continue
-			supply_packs[P.name] = P
+//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
+/datum/controller/supply/proc/process()
+	for(var/typepath in subtypesof(/datum/supply_packs))
+		var/datum/supply_packs/P = new typepath()
+		if(P.name == "HEADER")
+			qdel(P)
+			continue
+		supply_packs[P.name] = P
 
-		spawn(0)
-			if(processing)
-				iteration++
-				points += points_per_process
+	spawn(0)
+		if(processing)
+			iteration++
+			points += points_per_process
 
-				//sleep(processing_interval)
+			//sleep(processing_interval)
 
-	//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
-	proc/forbidden_atoms_check(atom/A)
-		if(istype(A,/mob/living))
-			return 1
-		if(istype(A,/obj/item/weapon/disk/nuclear))
-			return 1
-		if(istype(A,/obj/item/flag/nation))
-			return 1
-		if(istype(A,/obj/machinery/nuclearbomb))
-			return 1
-		if(istype(A,/obj/item/device/radio/beacon))
-			return 1
+//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
+/datum/controller/supply/proc/forbidden_atoms_check(atom/A)
+	if(istype(A,/mob/living))
+		return 1
+	if(istype(A,/obj/item/weapon/disk/nuclear))
+		return 1
+	if(istype(A,/obj/item/flag/nation))
+		return 1
+	if(istype(A,/obj/machinery/nuclearbomb))
+		return 1
+	if(istype(A,/obj/item/device/radio/beacon))
+		return 1
 
-		for(var/i=1, i<=A.contents.len, i++)
-			var/atom/B = A.contents[i]
-			if(.(B))
-				return 1
+	for(var/i=1, i<=A.contents.len, i++)
+		var/atom/B = A.contents[i]
+		if(.(B))
+			return 1
 
 	//Sellin
-	proc/sell()
-		var/area/area_shuttle = shuttle.get_location_area()
-		if(!area_shuttle)	return
+/datum/controller/supply/proc/sell()
+	var/area/area_shuttle = shuttle.get_location_area()
+	if(!area_shuttle)	return
 
-		var/plasma_count = 0
+	var/plasma_count = 0
 
-		for(var/atom/movable/MA in area_shuttle)
-			if(MA.anchored)	continue
+	for(var/atom/movable/MA in area_shuttle)
+		if(MA.anchored)	continue
 
-			// Must be in a crate!
-			if(istype(MA,/obj/structure/closet/crate))
-				callHook("sell_crate", list(MA, area_shuttle))  // check this
+		// Must be in a crate!
+		if(istype(MA,/obj/structure/closet/crate))
+			callHook("sell_crate", list(MA, area_shuttle))  // check this
 
-				points += points_per_crate
-				var/find_slip = 1
+			points += points_per_crate
+			var/find_slip = 1
 
-				for(var/atom in MA)
-					// Sell manifests
-					var/atom/A = atom
-					if(find_slip && istype(A,/obj/item/weapon/paper/manifest))
-						var/obj/item/weapon/paper/slip = A
-						if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
-							points += points_per_slip
-							find_slip = 0
+			for(var/atom in MA)
+				// Sell manifests
+				var/atom/A = atom
+				if(find_slip && istype(A,/obj/item/weapon/paper/manifest))
+					var/obj/item/weapon/paper/slip = A
+					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+						points += points_per_slip
+						find_slip = 0
 
-					// Sell plasma
-					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
-						var/obj/item/stack/sheet/mineral/plasma/P = A
-						plasma_count += P.amount
+				// Sell plasma
+				else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+					var/obj/item/stack/sheet/mineral/plasma/P = A
+					plasma_count += P.amount
 
-					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
-					qdel(A)
-			qdel(MA)
+				// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
+				qdel(A)
+		qdel(MA)
 
-		if(plasma_count)
-			points += plasma_count * points_per_plasma
+	if(plasma_count)
+		points += plasma_count * points_per_plasma
 
-	//Buyin
-	proc/buy()
-		if(!shoppinglist.len) return
+//Buyin
+/datum/controller/supply/proc/buy()
+	if(!shoppinglist.len) return
 
-		var/area/area_shuttle = shuttle.get_location_area()
-		if(!area_shuttle)	return
+	var/area/area_shuttle = shuttle.get_location_area()
+	if(!area_shuttle)	return
 
-		var/list/clear_turfs = list()
+	var/list/clear_turfs = list()
 
-		for(var/turf/T in area_shuttle)
-			if(T.density)	continue
-			var/contcount
-			for(var/atom/A in T.contents)
-				if(istype(A,/atom/movable/lighting_overlay))
-					continue
-				if(istype(A,/obj/machinery/light))
-					continue
-				contcount++
-			if(contcount)	continue
-			clear_turfs += T
+	for(var/turf/T in area_shuttle)
+		if(T.density)	continue
+		var/contcount
+		for(var/atom/A in T.contents)
+			if(istype(A,/atom/movable/lighting_overlay))
+				continue
+			if(A.simulated)
+				continue
+			contcount++
+		if(contcount)	continue
+		clear_turfs += T
 
-		for(var/S in shoppinglist)
-			if(!clear_turfs.len)	break
-			var/i = rand(1,clear_turfs.len)
-			var/turf/pickedloc = clear_turfs[i]
-			clear_turfs.Cut(i,i+1)
+	for(var/S in shoppinglist)
+		if(!clear_turfs.len)	break
+		var/i = rand(1,clear_turfs.len)
+		var/turf/pickedloc = clear_turfs[i]
+		clear_turfs.Cut(i,i+1)
 
-			var/datum/supply_order/SO = S
-			var/datum/supply_packs/SP = SO.object
+		var/datum/supply_order/SO = S
+		var/datum/supply_packs/SP = SO.object
 
-			var/atom/A = new SP.containertype(pickedloc)
-			A.name = "[SP.containername]"// [SO.comment ? "([SO.comment])":"" ]"
+		var/atom/A = new SP.containertype(pickedloc)
+		A.name = "[SP.containername]"// [SO.comment ? "([SO.comment])":"" ]"
 
-			//supply manifest generation begin
+		//supply manifest generation begin
 
-			var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
-			slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
-			slip.info +="Order #[SO.ordernum]<br>"
-			slip.info +="Destination: [station_name]<br>"
-			slip.info +="[shoppinglist.len] PACKAGES IN THIS SHIPMENT<br>"
-			slip.info +="CONTENTS:<br><ul>"
+		var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
+		slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+		slip.info +="Order #[SO.ordernum]<br>"
+		slip.info +="Destination: [station_name]<br>"
+		slip.info +="[shoppinglist.len] PACKAGES IN THIS SHIPMENT<br>"
+		slip.info +="CONTENTS:<br><ul>"
 
-			//spawn the stuff, finish generating the manifest while you're at it
-			if(SP.access)
-				A:req_access = list()
-				A:req_access += text2num(SP.access)
+		//spawn the stuff, finish generating the manifest while you're at it
+		if(SP.access)
+			A:req_access = list()
+			A:req_access += text2num(SP.access)
 
-			var/list/contains
-			if(istype(SP,/datum/supply_packs/misc/randomised))
-				var/datum/supply_packs/misc/randomised/SPR = SP
-				contains = list()
-				if(SPR.contains.len)
-					for(var/j=1,j<=SPR.num_contained,j++)
-						contains += pick(SPR.contains)
-			else
-				contains = SP.contains
+		var/list/contains
+		if(istype(SP,/datum/supply_packs/misc/randomised))
+			var/datum/supply_packs/misc/randomised/SPR = SP
+			contains = list()
+			if(SPR.contains.len)
+				for(var/j=1,j<=SPR.num_contained,j++)
+					contains += pick(SPR.contains)
+		else
+			contains = SP.contains
 
-			for(var/typepath in contains)
-				if(!typepath)	continue
-				var/atom/B2 = new typepath(A)
-				if(SP.amount && B2:amount) B2:amount = SP.amount
-				slip.info += "<li>[B2.name]</li>" //add the item to the manifest
+		for(var/typepath in contains)
+			if(!typepath)	continue
+			var/atom/B2 = new typepath(A)
+			if(SP.amount && B2:amount) B2:amount = SP.amount
+			slip.info += "<li>[B2.name]</li>" //add the item to the manifest
 
-			//manifest finalisation
-			slip.info += "</ul><br>"
-			slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
-			if(!SP.contraband)
-				if(istype(A, /obj/structure/closet/crate))
-					var/obj/structure/closet/crate/CR = A
-					CR.manifest = slip
-					CR.update_icon()
-				if(istype(A, /obj/structure/largecrate))
-					var/obj/structure/largecrate/LC = A
-					LC.manifest = slip
-					LC.update_icon()
-			else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
-		shoppinglist.Cut()
-		return
+		//manifest finalisation
+		slip.info += "</ul><br>"
+		slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
+		if(!SP.contraband)
+			if(istype(A, /obj/structure/closet/crate))
+				var/obj/structure/closet/crate/CR = A
+				CR.manifest = slip
+				CR.update_icon()
+			if(istype(A, /obj/structure/largecrate))
+				var/obj/structure/largecrate/LC = A
+				LC.manifest = slip
+				LC.update_icon()
+		else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
+	shoppinglist.Cut()
+	return
 
 /obj/item/weapon/paper/manifest
 	name = "Supply Manifest"
