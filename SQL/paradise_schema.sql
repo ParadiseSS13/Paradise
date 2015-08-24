@@ -52,6 +52,7 @@ CREATE TABLE `characters` (
   `eyes_blue` smallint(4) NOT NULL,
   `underwear` mediumtext NOT NULL,
   `undershirt` mediumtext NOT NULL,
+  `socks` mediumtext NOT NULL,
   `backbag` smallint(4) NOT NULL,
   `b_type` varchar(45) NOT NULL,
   `alternate_option` smallint(4) NOT NULL,

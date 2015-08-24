@@ -149,6 +149,9 @@
 		nanotrasen_relation = query.item[52]
 		speciesprefs = text2num(query.item[53])
 
+		//socks
+		socks = query.item[54]
+
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
@@ -177,6 +180,7 @@
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
+	socks			= sanitize_text(socks, initial(socks))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
@@ -242,6 +246,7 @@
 												eyes_blue='[b_eyes]',
 												underwear='[underwear]',
 												undershirt='[undershirt]',
+												socks='[socks]',
 												backbag='[backbag]',
 												b_type='[b_type]',
 												alternate_option='[alternate_option]',
@@ -287,7 +292,7 @@
 											skin_tone, skin_red, skin_green, skin_blue,
 											hair_style_name, facial_style_name,
 											eyes_red, eyes_green, eyes_blue,
-											underwear, undershirt,
+											underwear, undershirt,socks,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
 											job_medsci_high, job_medsci_med, job_medsci_low,
@@ -304,7 +309,7 @@
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
 											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
-											'[underwear]', '[undershirt]',
+											'[underwear]', '[undershirt]','[socks]',
 											'[backbag]', '[b_type]', '[alternate_option]',
 											'[job_support_high]', '[job_support_med]', '[job_support_low]',
 											'[job_medsci_high]', '[job_medsci_med]', '[job_medsci_low]',

@@ -266,7 +266,7 @@ datum/preferences
 				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/socks_s = null
-		if(socks && current_species.flags & HAS_UNDERWEAR)
+		if(socks)
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
 				socks_s = new/icon(U3.icon, "[U3.icon_state]_s", ICON_OVERLAY)
