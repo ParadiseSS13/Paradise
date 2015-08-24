@@ -28,7 +28,7 @@
 	id = "emitter"
 	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/emitter
 	category = list ("Engineering Machinery")
 
