@@ -261,3 +261,11 @@
 			qdel(W)
 	return equipped
 
+/mob/proc/get_all_slots()
+	return list(wear_mask, back, l_hand, r_hand)	
+	
+/mob/proc/get_id_card()
+	for(var/obj/item/I in src.get_all_slots())
+		. = I.GetID()
+		if(.)
+			break
