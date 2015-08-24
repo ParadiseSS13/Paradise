@@ -86,6 +86,9 @@ var/shuttle_call/shuttle_calls[0]
 		return 1
 		
 	if(href_list["login"])
+		if(!ishuman(usr))
+			usr << "<span class='warning'>Access denied.</span>" 
+			return
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
 		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
