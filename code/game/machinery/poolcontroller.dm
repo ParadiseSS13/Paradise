@@ -81,12 +81,14 @@
 				//Establish that there is a mob, the mob is lying down, has no internals, species does breathe, is not a skrell/neara, and does not have NO_BREATHE
 					if(drownee.stat != CONSCIOUS) //Mob is in critical.
 						drownee.adjustOxyLoss(9) //Kill em quickly.
-						drownee << "<span class='danger'>You're quickly drowning!</span>" //inform them that they are fucked.
+						add_logs(drownee, src, "drowned")
+						drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 					else
 						if(!drownee.internal) //double check they have no internals, just in case.
 							drownee.adjustOxyLoss(5) //5 oxyloss per cycle.
+							add_logs(drownee, src, "drowned")
 							if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
-								drownee << "<span class='danger'>You're lacking air!</span>" //*gasp* *gasp* *gasp* *gasp* *gasp*
+								drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like they are drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 
 		for(var/obj/effect/decal/cleanable/decal in W)
 			animate(decal, alpha = 10, time = 20)
