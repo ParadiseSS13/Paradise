@@ -168,6 +168,9 @@
 	busy = 0
 	src.updateUsrDialog()
 
+/obj/machinery/autolathe/attack_ghost(mob/user)	
+	interact(user)
+	
 /obj/machinery/autolathe/attack_hand(mob/user)
 	if(..(user, 0))
 		return
@@ -176,6 +179,7 @@
 /obj/machinery/autolathe/Topic(href, href_list)
 	if(..())
 		return 1
+		
 	if(href_list["menu"])
 		screen = text2num(href_list["menu"])
 

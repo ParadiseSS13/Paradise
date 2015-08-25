@@ -13,6 +13,11 @@
 	//TODO: fix husking
 	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
 		ChangeToHusk()
+	if(species.can_revive_by_healing)
+		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
+		if(B)
+			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD) 
+				update_revive()
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
 	return
@@ -33,7 +38,6 @@
 		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
 		if(sponge)
 			sponge.take_damage(amount)
-			sponge.damage = min(max(sponge.damage, 0),(maxHealth*2))
 			brainloss = sponge.damage
 		else
 			brainloss = 200

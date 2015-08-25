@@ -44,6 +44,12 @@
 		return powernet.avail
 	else
 		return 0
+		
+/obj/machinery/power/proc/load()
+	if(powernet)
+		return powernet.load
+	else
+		return 0
 
 /obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
 	return

@@ -245,7 +245,7 @@
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/chem_dispenser/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -293,7 +293,8 @@
 	dispensable_reagents = list()
 	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen", "tungsten", "water"),
 						 		list("lithium", "sugar", "copper", "mercury", "sodium","iodine","bromine"),
-								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"))
+								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"),
+								list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel"))
 
 /obj/machinery/chem_dispenser/constructable/New()
 	..()
@@ -306,7 +307,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/weapon/stock_parts/cell/super(null)
 	RefreshParts()
-	
+
 /obj/machinery/chem_dispenser/constructable/upgraded/New()
 	..()
 	component_parts = list()
@@ -640,7 +641,7 @@
 
 /obj/machinery/chem_master/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/chem_master/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 

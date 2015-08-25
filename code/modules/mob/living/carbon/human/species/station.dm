@@ -452,8 +452,8 @@
 	unarmed_type = /datum/unarmed_attack/punch
 	
 	eyes = "blank_eyes"
-	brute_mod = 1.5
-	burn_mod = 1.5
+	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
+	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
 
 	cold_level_1 = 50
 	cold_level_2 = -1
@@ -471,6 +471,7 @@
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 	virus_immune = 1
+	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
 	
 	has_organ = list(
@@ -499,3 +500,6 @@
 	spawn(100)
 		if(H) H.update_hair()
 	
+/datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
+	..()
+	H.verbs += /mob/living/carbon/human/proc/change_monitor

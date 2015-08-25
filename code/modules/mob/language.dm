@@ -246,13 +246,14 @@
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
-	
+
 /datum/language/machine/get_random_name()
+	var/new_name
 	if(prob(70))
-		name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	else
-		name = pick(ai_names)
-	return name
+		new_name = pick(ai_names)
+	return new_name
 
 /datum/language/kidan
 	name = "Chittin"
@@ -333,6 +334,8 @@
 	name = "Gutter"
 	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
 	speech_verb = "growls"
+	ask_verb = "gnarls"
+	exclaim_verb = "snarls"
 	colour = "rough"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")

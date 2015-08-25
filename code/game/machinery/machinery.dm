@@ -179,8 +179,8 @@ Class Procs:
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
-	use_power = new_use_power	
-	
+	use_power = new_use_power
+
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
 		return 0
@@ -298,7 +298,7 @@ Class Procs:
 /obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
-		
+
 	handle_multitool_topic(href,href_list,usr)
 	add_fingerprint(usr)
 	return 0
@@ -308,7 +308,7 @@ Class Procs:
 
 /obj/machinery/proc/inoperable(var/additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
-	
+
 /obj/machinery/CanUseTopic(var/mob/user)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
 		return STATUS_CLOSE
@@ -431,9 +431,13 @@ Class Procs:
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
-		if(panel_open)
+		if(panel_open || W.works_from_distance)
 			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
 			var/P
+			if(W.works_from_distance)
+				user << "<span class='notice'>Following parts detected in the machine:</span>"
+				for(var/var/obj/item/C in component_parts)
+					user << "<span class='notice'>    [C.name]</span>"
 			for(var/obj/item/weapon/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
@@ -498,8 +502,8 @@ Class Procs:
 		threatcount -= 2
 
 	if(check_access && !allowed(perp))
-		threatcount += 4		
-		
+		threatcount += 4
+
 	if(auth_weapons && !src.allowed(perp))
 		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
 			threatcount += 4
@@ -526,7 +530,7 @@ Class Procs:
 			threatcount += 4
 
 	return threatcount
-	
+
 
 /obj/machinery/proc/shock(mob/user, prb)
 	if(inoperable())

@@ -27,11 +27,13 @@ datum/controller/game_controller/New()
 			del(master_controller)
 		master_controller = src
 
+	var/watch=0
 	if(!job_master)
+		watch = start_watch()
 		job_master = new /datum/controller/occupations()
 		job_master.SetupOccupations()
 		job_master.LoadJobs("config/jobs.txt")
-		world << "\red \b Job setup complete"
+		log_startup_progress("Job setup complete in [stop_watch(watch)]s.")
 
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
@@ -48,7 +50,6 @@ datum/controller/game_controller/proc/setup()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
-	//SetupXenoarch()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
@@ -56,31 +57,48 @@ datum/controller/game_controller/proc/setup()
 	populate_spawn_points()
 
 datum/controller/game_controller/proc/setup_objects()
-	world << "\red \b Initializing objects"
-	sleep(-1)
+	var/watch = start_watch()
+	var/count = 0
+	var/overwatch = start_watch() // Overall.
+	
+	log_startup_progress("Populating asset cache...")
+	populate_asset_cache()
+	log_startup_progress("  Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
+
+	watch = start_watch()		
+	log_startup_progress("Initializing objects...")
 	for(var/atom/movable/object in world)
 		object.initialize()
+		count++
+	log_startup_progress("  Initialized [count] objects in [stop_watch(watch)]s.")
 
-	world << "\red \b Initializing pipe networks"
-	sleep(-1)
+	watch = start_watch()
+	count = 0
+	log_startup_progress("Initializing pipe networks...")
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
+		count++
+	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
 
-	world << "\red \b Initializing atmos machinery."
-	sleep(-1)
+	watch = start_watch()
+	count = 0
+	log_startup_progress("Initializing atmospherics machinery...")
 	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 			var/obj/machinery/atmospherics/unary/vent_pump/T = U
 			T.broadcast_status()
+			count++
 		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
+			count++
 
-	world << "\red \b Initializations complete."
-	sleep(-1)
+	log_startup_progress("  Initialized [count] atmospherics devices in [stop_watch(watch)]s.")
+	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
 
 datum/controller/game_controller/proc/setup_starlight()
-	world << "\red \b Initializing Starlight"
+	var/watch = start_watch()
+	log_startup_progress("Initializing starlight...")
 	for(var/turf/space/S in world)
 		S.update_starlight()
-	world << "\red \b Starlight Initilization Complete"
+	log_startup_progress("  Initialized starlight in [stop_watch(watch)]s.")	
