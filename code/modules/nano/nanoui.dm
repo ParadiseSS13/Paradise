@@ -347,7 +347,7 @@ nanoui is used to open and update nano browser uis
 		template_data_json = list2json(templates)
 
 	var/list/send_data = get_send_data(initial_data)
-	var/initial_data_json = replacetext(list2json_usecache(send_data), "'", "&#39;")
+	var/initial_data_json = replacetext(replacetext(list2json_usecache(send_data), "&#34;", "&amp;#34;"), "'", "&#39;")
 
 	var/url_parameters_json = list2json(list("src" = "\ref[src]"))
 
