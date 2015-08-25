@@ -183,7 +183,7 @@
 "dA" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/wall/r_wall,/area/space)
 "dB" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless,/area/space)
 "dC" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating/airless,/area/space)
-"dD" = (/obj/structure/disposaloutlet{dir = 4},/turf/simulated/floor/plating/airless,/area/space)
+"dD" = (/obj/structure/disposaloutlet{dir = 4},/obj/structure/disposalpipe/trunk{dir = 8},/turf/simulated/floor/plating/airless,/area/space)
 "dE" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/supply{level = 1},/turf/simulated/floor{tag = "icon-vault (NORTHEAST)"; icon_state = "vault"; dir = 5},/area/turret_protected/tcomsat)
 "dF" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/space,/area/turret_protected/tcomsat)
 "dG" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/lattice,/obj/machinery/light,/turf/space,/area/turret_protected/tcomsat)

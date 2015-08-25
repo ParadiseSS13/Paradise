@@ -970,3 +970,30 @@
 	materials = list("$metal"=500)
 	construction_time = 50
 	category = list("Misc")
+	
+/datum/design/ipc_head
+	name = "IPC Head"
+	id = "ipc_head"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/external/head/ipc
+	materials = list("$metal"=15000, "$glass"=5000)
+	construction_time = 350
+	category = list("Misc")
+	
+/datum/design/ipc_cell
+	name = "IPC Microbattery"
+	id = "ipc_cell"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/cell
+	materials = list("$metal"=2000, "$glass"=750)
+	construction_time = 200
+	category = list("Misc")
+	
+/datum/design/ipc_optics
+	name = "IPC Optical Sensor"
+	id = "ipc_optics"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/optical_sensor
+	materials = list("$metal"=1000, "$glass"=2500)
+	construction_time = 200
+	category = list("Misc")

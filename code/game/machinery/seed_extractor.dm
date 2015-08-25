@@ -1,12 +1,34 @@
 /obj/machinery/seed_extractor
 	name = "seed extractor"
 	desc = "Extracts and bags seeds from produce."
-	icon = 'icons/obj/hydroponics.dmi'
+	icon = 'icons/obj/hydroponics_machines.dmi'
 	icon_state = "sextractor"
 	density = 1
 	anchored = 1
 
+/obj/machinery/seed_extractor/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/seed_extractor(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/seed_extractor/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
+
 obj/machinery/seed_extractor/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+
+	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
+		return
+
+	if(exchange_parts(user, O))
+		return
+
+	if(default_unfasten_wrench(user, O))
+		return
+
+	default_deconstruction_crowbar(O)
 
 	// Fruits and vegetables.
 	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown) || istype(O, /obj/item/weapon/grown))
