@@ -74,7 +74,7 @@ h1.alert, h2.alert		{color: #000000;}
 .tajaran				{color: #803B56;}
 .tajaran_signlang		{color: #941C1C;}
 .skrell					{color: #00CED1;}
-.soghun					{color: #228B22;}
+.soghun					{color: #145314;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
