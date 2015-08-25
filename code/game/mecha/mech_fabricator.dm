@@ -309,6 +309,9 @@
 /obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(datum/design/D, roundto = 1) //aran
 	return round(initial(D.construction_time)*time_coeff*time_coeff_tech, roundto)
 
+/obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)	
+	interact(user)
+	
 /obj/machinery/mecha_part_fabricator/attack_hand(mob/user)
 	if(!(..()))
 		return interact(user)
@@ -374,7 +377,7 @@
 
 /obj/machinery/mecha_part_fabricator/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["part_set"])
 		var/tpart_set = filter.getStr("part_set")
