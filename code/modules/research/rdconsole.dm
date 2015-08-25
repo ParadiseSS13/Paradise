@@ -771,7 +771,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				dat += "<span class='linkOn'>Disconnect from Research Network</span><BR>"
 			dat += "<A href='?src=\ref[src];menu=1.7'>Device Linkage Menu</A><BR>"
 			dat += "<A href='?src=\ref[src];lock=0.2'>Lock Console</A><BR>"
-			if(check_rights(R_ADMIN))
+			if(check_rights(R_ADMIN,0))
 				dat += "<A href='?src=\ref[src];maxresearch=1'>\[ADMIN\] Maximize Research Levels</A><BR>"
 			dat += "<A href='?src=\ref[src];reset=1'>Reset R&D Database</A></div>"
 
