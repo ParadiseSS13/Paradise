@@ -180,7 +180,6 @@
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
 	underwear		= sanitize_text(underwear, initial(underwear))
 	undershirt		= sanitize_text(undershirt, initial(undershirt))
-	socks			= sanitize_text(socks, initial(socks))
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
@@ -199,6 +198,9 @@
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 	be_special = sanitize_integer(be_special, 0, 65535, initial(be_special))
+
+	socks			= sanitize_text(socks, initial(socks))
+
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -246,7 +248,6 @@
 												eyes_blue='[b_eyes]',
 												underwear='[underwear]',
 												undershirt='[undershirt]',
-												socks='[socks]',
 												backbag='[backbag]',
 												b_type='[b_type]',
 												alternate_option='[alternate_option]',
@@ -273,6 +274,7 @@
 												rlimb_data='[rlimblist]',
 												nanotrasen_relation='[nanotrasen_relation]',
 												speciesprefs='[speciesprefs]'
+												socks='[socks]',
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -292,7 +294,7 @@
 											skin_tone, skin_red, skin_green, skin_blue,
 											hair_style_name, facial_style_name,
 											eyes_red, eyes_green, eyes_blue,
-											underwear, undershirt,socks,
+											underwear, undershirt,
 											backbag, b_type, alternate_option,
 											job_support_high, job_support_med, job_support_low,
 											job_medsci_high, job_medsci_med, job_medsci_low,
@@ -300,7 +302,7 @@
 											job_karma_high, job_karma_med, job_karma_low,
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles, be_special,
-											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs)
+											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs, socks)
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
@@ -309,7 +311,7 @@
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
 											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
-											'[underwear]', '[undershirt]','[socks]',
+											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',
 											'[job_support_high]', '[job_support_med]', '[job_support_low]',
 											'[job_medsci_high]', '[job_medsci_med]', '[job_medsci_low]',
@@ -317,7 +319,7 @@
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
 											'[sql_sanitize_text(flavor_text)]', '[sql_sanitize_text(med_record)]', '[sql_sanitize_text(sec_record)]', '[sql_sanitize_text(gen_record)]',
 											'[playertitlelist]', '[be_special]',
-											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]')
+											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]','[socks]')
 "}
 )
 

@@ -1195,14 +1195,20 @@ datum/preferences
 						ShowChoices(user)
 
 					if("socks")
-						var/new_socks
-						if(gender == MALE)
-							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_m
-						else
-							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_f
+						var/list/valid_sockstyles = list()
+						for(var/sockstyle in socks_list)
+							var/datum/sprite_accessory/S = socks_list[sockstyle]
+							if(gender == MALE && S.gender == FEMALE)
+								continue
+							if(gender == FEMALE && S.gender == MALE)
+								continue
+							if( !(species in S.species_allowed))
+								continue
+							valid_sockstyles[sockstyle] = socks_list[sockstyle]
+						var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+						ShowChoices(user)
 						if(new_socks)
 							socks = new_socks
-						ShowChoices(user)
 
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null

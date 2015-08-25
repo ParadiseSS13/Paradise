@@ -1,4 +1,4 @@
-/*
+/paradise_schema.sql/*
 
 	Hello and welcome to sprite_accessories: For sprite accessories, such as hair,
 	facial hair, and possibly tattoos and stuff somewhere along the line. This file is
@@ -1400,3 +1400,8 @@
 		gender = NEUTER
 		species_allowed = list("Vox")
 
+	vox_fishnet
+		name = "Vox Fishnets"
+		icon_state = "vox_fishnet"
+		gender = NEUTER
+		species_allowed = list("Vox")
