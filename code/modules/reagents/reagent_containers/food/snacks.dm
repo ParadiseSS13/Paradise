@@ -366,6 +366,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("sodiumchloride", 1)
 		bitesize = 1
 
 /obj/item/weapon/reagent_containers/food/snacks/cornchips
@@ -1228,6 +1229,7 @@
 	New()
 		..()
 		reagents.add_reagent("plantmatter", 6)
+		reagents.add_reagent("sodiumchloride", 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
