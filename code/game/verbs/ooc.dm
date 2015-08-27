@@ -40,7 +40,7 @@ var/global/normal_ooc_colour = "#002eb8"
 	var/display_colour = normal_ooc_colour
 	if(holder && !holder.fakekey)
 		display_colour = "#0099cc"	//light blue
-		if(holder.rights & R_MOD && !(holder.rights & R_ADMIN))
+		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = "#184880"	//dark blue
 		else if(holder.rights & R_ADMIN)
 			if(config.allow_admin_ooccolor)
@@ -59,22 +59,6 @@ var/global/normal_ooc_colour = "#002eb8"
 						display_name = holder.fakekey
 			C << "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 
-			/*
-			if(holder)
-				if(!holder.fakekey || C.holder)
-					if(holder.rights & R_ADMIN)
-						C << "<font color=[config.allow_admin_ooccolor ? src.prefs.ooccolor :"#b82e00" ]><b><span class='prefix'>OOC:</span> <EM>[key][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
-					else if(holder.rights & R_MOD)
-						C << "<font color=#184880><b><span class='prefix'>OOC:</span> <EM>[src.key][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
-					else
-						C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[src.key]:</EM> <span class='message'>[msg]</span></span></font>"
-
-				else
-					C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : src.key]:</EM> <span class='message'>[msg]</span></span></font>"
-			else
-				C << "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[src.key]:</EM> <span class='message'>[msg]</span></span></font>"
-			*/
-
 /proc/toggle_ooc()
 	ooc_allowed = !( ooc_allowed )
 	if (ooc_allowed)
@@ -91,7 +75,6 @@ var/global/normal_ooc_colour = "#002eb8"
 	set desc = "Set to yellow for eye burning goodness."
 	set category = "Server"
 	normal_ooc_colour = newColor
-
 
 /client/verb/looc(msg as text)
 	set name = "LOOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
@@ -110,7 +93,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		src << "\red You have LOOC muted."
 		return
 
-	if(!(holder && holder.rights && (holder.rights & R_MOD)))
+	if(!check_rights(R_MOD,0))
 		if(!ooc_allowed)
 			src << "\red LOOC is globally muted"
 			return
@@ -141,7 +124,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(check_rights(R_MENTOR,0))
+		if(check_rights(R_MOD,0))
 			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
@@ -159,7 +142,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(check_rights(R_MENTOR,0))
+		if(check_rights(R_MOD,0))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)
