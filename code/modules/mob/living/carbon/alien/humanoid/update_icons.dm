@@ -41,14 +41,20 @@
 		icon_state = "alien[caste]_s"
 
 	if(leaping)
-		icon = 'icons/mob/alienleap.dmi'
+		if(alt_icon == initial(alt_icon))
+			var/old_icon = icon
+			icon = alt_icon
+			alt_icon = old_icon
 		icon_state = "alien[caste]_leap"
 		pixel_x = -32
 		pixel_y = -32
-	else if(icon == 'icons/mob/alienleap.dmi' && pixel_x == -32 && pixel_y == -32)
-		icon = initial(icon)// ^ this looks odd, but in theory it will prevent the icon and pixel_xy from being reset unless it needs to be
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+	else
+		if(alt_icon != initial(alt_icon))
+			var/old_icon = icon
+			icon = alt_icon
+			alt_icon = old_icon
+		pixel_x = get_standard_pixel_x_offset(lying)
+		pixel_y = get_standard_pixel_y_offset(lying)
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
