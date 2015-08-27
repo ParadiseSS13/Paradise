@@ -1391,9 +1391,57 @@
 	gender = NEUTER
 	species_allowed = list("Vox")
 
+/datum/sprite_accessory/socks/vox_black
+	name = "Vox Black"
+	icon_state = "vox_black"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_thin
+	name = "Vox Black Thin"
+	icon_state = "vox_blackthin"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_rainbow
+	name = "Vox Rainbow"
+	icon_state = "vox_rainbow"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_stripped
+	name = "Vox Stripped"
+	icon_state = "vox_white"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
 /datum/sprite_accessory/socks/vox_white_thigh
 	name = "Vox Thigh-high White"
 	icon_state = "vox_whiteTH"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_black_thigh
+	name = "Vox Thigh-high Black"
+	icon_state = "vox_blackTH"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_thin_thigh
+	name = "Vox Thigh-high Thin"
+	icon_state = "vox_blackthinTH"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_rainbow_thigh
+	name = "Vox Thigh-high Rainbow"
+	icon_state = "vox_rainbowTH"
+	gender = NEUTER
+	species_allowed = list("Vox")
+
+/datum/sprite_accessory/socks/vox_stripped_thigh
+	name = "Vox Thigh-high Stripped"
+	icon_state = "vox_strippedTH"
 	gender = NEUTER
 	species_allowed = list("Vox")
 
