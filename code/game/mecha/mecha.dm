@@ -363,7 +363,7 @@
 	if(src.throwing)//high velocity mechas in your face!
 		var/breakthrough = 0
 		if(istype(obstacle, /obj/structure/window/))
-			obstacle.Destroy(brokenup = 1)
+			qdel(obstacle)
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/grille/))
@@ -377,7 +377,7 @@
 
 		else if(istype(obstacle, /obj/structure/table))
 			var/obj/structure/table/T = obstacle
-			T.destroy()
+			qdel(T)
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/rack))
@@ -450,7 +450,7 @@
 		if(ignore_threshold || src.health*100/initial(src.health)<src.internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/destr = safepick(equipment)
 			if(destr)
-				destr.destroy()
+				qdel(destr)
 	return
 
 /obj/mecha/proc/hasInternalDamage(int_dam_flag=null)
@@ -500,7 +500,7 @@
 	if(src.health > 0)
 		src.spark_system.start()
 	else
-		src.destroy()
+		qdel(src)
 	return
 
 /obj/mecha/attack_hand(mob/living/user as mob)
@@ -609,7 +609,7 @@
 	Proj.on_hit(src)
 	return
 
-/obj/mecha/proc/destroy()
+/obj/mecha/Destroy()
 	go_out()
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
@@ -624,7 +624,7 @@
 		var/obj/mecha/working/ripley/R = src
 		if(R.cargo)
 			for(var/obj/O in R.cargo) //Dump contents of stored cargo
-				O.loc = loc
+				O.forceMove(loc)
 				R.cargo -= O
 				loc.Entered(O)
 
@@ -638,7 +638,7 @@
 				E.reliability = round(rand(E.reliability/3,E.reliability))
 			else
 				E.forceMove(loc)
-				E.destroy()
+				qdel(E)
 		if(cell)
 			WR.crowbar_salvage += cell
 			cell.forceMove(WR)
@@ -649,7 +649,7 @@
 	else
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			E.forceMove(loc)
-			E.destroy()
+			qdel(E)
 		if(cell)
 			qdel(cell)
 		if(internal_tank)
@@ -677,16 +677,16 @@
 		src.log_append_to_last("Armor saved, changing severity to [severity].")
 	switch(severity)
 		if(1.0)
-			src.destroy()
+			qdel(src)
 		if(2.0)
 			if (prob(30))
-				src.destroy()
+				qdel(src)
 			else
 				src.take_damage(initial(src.health)/2)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
 		if(3.0)
 			if (prob(5))
-				src.destroy()
+				qdel(src)
 			else
 				src.take_damage(initial(src.health)/5)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
