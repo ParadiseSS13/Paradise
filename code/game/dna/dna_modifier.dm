@@ -5,6 +5,8 @@
 #define DNA2_BUF_UE 2
 #define DNA2_BUF_SE 4
 
+#define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
+
 //list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0),
 /datum/dna2/record
 	var/datum/dna/dna = null
@@ -306,12 +308,27 @@
 		else
 	return
 
-
 /obj/machinery/dna_scannernew/blob_act()
 	if(prob(75))
 		for(var/atom/movable/A as mob|obj in src)
 			A.loc = src.loc
 		qdel(src)
+	
+// Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
+/obj/machinery/dna_scannernew/proc/radiation_check()
+	if(!occupant)
+		return 1
+		
+	if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		if((H.species.flags & NO_DNA_RAD))
+			return 1
+			
+	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
+	if (radiation_protection > NEGATE_MUTATION_THRESHOLD)
+		return 1
+		
+	return 0
 
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier Access Console"
@@ -566,6 +583,10 @@
 		if (!src.connected.occupant)
 			return 1 // return 1 forces an update to all Nano uis attached to src
 
+		if(src.connected.radiation_check())
+			src.connected.locked = lock_state
+			return 1
+			
 		if (prob(95))
 			if(prob(75))
 				randmutb(src.connected.occupant)
@@ -577,7 +598,8 @@
 			else
 				randmuti(src.connected.occupant)
 
-		src.connected.occupant.radiation += (((src.radiation_intensity*3)+src.radiation_duration*3) / connected.damage_coeff)
+		var/radiation = (((src.radiation_intensity*3)+src.radiation_duration*3) / connected.damage_coeff)
+		src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
 		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
@@ -666,12 +688,17 @@
 
 		if (!src.connected.occupant)
 			return 1
+			
+		if(src.connected.radiation_check())
+			src.connected.locked = lock_state
+			return 1
 
 		if (prob((80 + (src.radiation_duration / 2))))
 			block = miniscrambletarget(num2text(selected_ui_target), src.radiation_intensity, src.radiation_duration)
 			src.connected.occupant.dna.SetUISubBlock(src.selected_ui_block,src.selected_ui_subblock,block)
 			src.connected.occupant.UpdateAppearance()
-			src.connected.occupant.radiation += (src.radiation_intensity+src.radiation_duration)
+			var/radiation = (src.radiation_intensity+src.radiation_duration)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
 		else
 			if (prob(20+src.radiation_intensity))
 				randmutb(src.connected.occupant)
@@ -679,7 +706,8 @@
 			else
 				randmuti(src.connected.occupant)
 				src.connected.occupant.UpdateAppearance()
-			src.connected.occupant.radiation += ((src.radiation_intensity*2)+src.radiation_duration)
+			var/radiation = ((src.radiation_intensity*2)+src.radiation_duration)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)			
 		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
@@ -724,6 +752,10 @@
 		irradiating = 0
 
 		if(src.connected.occupant)
+			if(src.connected.radiation_check())
+				src.connected.locked = lock_state
+				return 1
+			
 			if (prob((80 + ((src.radiation_duration / 2) + (connected.precision_coeff ** 3)))))
 				// FIXME: Find out what these corresponded to and change them to the WHATEVERBLOCK they need to be.
 				//if ((src.selected_se_block != 2 || src.selected_se_block != 12 || src.selected_se_block != 8 || src.selected_se_block || 10) && prob (20))
@@ -737,10 +769,12 @@
 
 				//testing("Irradiated SE block [real_SE_block]:[src.selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 				connected.occupant.dna.SetSESubBlock(real_SE_block,selected_se_subblock,block)
-				src.connected.occupant.radiation += ((src.radiation_intensity+src.radiation_duration) / connected.damage_coeff)
+				var/radiation = ((src.radiation_intensity+src.radiation_duration) / connected.damage_coeff)
+				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)	
 				domutcheck(src.connected.occupant,src.connected)
 			else
-				src.connected.occupant.radiation += (((src.radiation_intensity*2)+src.radiation_duration) / connected.damage_coeff)
+				var/radiation = (((src.radiation_intensity*2)+src.radiation_duration) / connected.damage_coeff)
+				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)	
 				if (prob(80-src.radiation_duration))
 					//testing("Random bad mut!")
 					randmutb(src.connected.occupant)
@@ -839,7 +873,7 @@
 
 		if (bufferOption == "transfer")
 			if (!src.connected.occupant || (NOCLONE in src.connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
-				return
+				return 1
 
 			irradiating = 2
 			var/lock_state = src.connected.locked
@@ -850,6 +884,9 @@
 
 			irradiating = 0
 			src.connected.locked = lock_state
+
+			if(src.connected.radiation_check())
+				return 1
 
 			var/datum/dna2/record/buf = src.buffers[bufferId]
 
@@ -862,7 +899,8 @@
 				src.connected.occupant.dna.SE = buf.dna.SE
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
-			src.connected.occupant.radiation += (rand(20,50) / connected.damage_coeff)
+			var/radiation = (rand(20,50) / connected.damage_coeff)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
 			return 1
 
 		if (bufferOption == "createInjector")
