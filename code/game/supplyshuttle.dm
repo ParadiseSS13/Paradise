@@ -3,7 +3,7 @@
 #define SUPPLY_STATIONZ 1       //Z-level of the Station.
 #define SUPPLY_STATION_AREATYPE "/area/supply/station" //Type of the supply shuttle area for station
 #define SUPPLY_DOCK_AREATYPE "/area/supply/dock"	//Type of the supply shuttle area for dock
-#define COMP_SCREEN_WIDTH 590 //width of supply computer interaction window
+#define COMP_SCREEN_WIDTH 600 //width of supply computer interaction window
 #define COMP_SCREEN_HEIGHT 555 //height of supply computer interaction window
 
 var/datum/controller/supply/supply_controller = new()
