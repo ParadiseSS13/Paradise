@@ -211,7 +211,7 @@ datum/controller/vote
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 					else
-						if (get_security_level() == "red" || get_security_level() == "delta")
+						if (security_level > SEC_LEVEL_BLUE)
 							return 0
 						if(ticker.current_state <= 2)
 							return 0
@@ -273,11 +273,8 @@ datum/controller/vote
 	proc/interface(var/client/C)
 		if(!C)	return
 		var/admin = 0
-		var/trialmin = 0
-		if(C.holder)
+		if(check_rights(R_ADMIN,0))
 			admin = 1
-			if(C.holder.rights & R_ADMIN)
-				trialmin = 1
 		voting |= C
 
 		. = "<html><head><title>Voting Panel</title></head><body>"
@@ -299,29 +296,29 @@ datum/controller/vote
 		else
 			. += "<h2>Start a vote:</h2><hr><ul><li>"
 			//restart
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
 			else
 				. += "<font color='grey'>Restart (Disallowed)</font>"
 			. += "</li><li>"
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
 			else
 				. += "<font color='grey'>Crew Transfer (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
 			. += "</li><li>"
 			//gamemode
-			if(trialmin || config.allow_vote_mode)
+			if(admin || config.allow_vote_mode)
 				. += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
 			else
 				. += "<font color='grey'>GameMode (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
 
 			. += "</li>"
 			//custom
-			if(trialmin)
+			if(admin)
 				. += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
 			. += "</ul><hr>"
 		. += "<a href='?src=\ref[src];vote=close' style='position:absolute;right:50px'>Close</a></body></html>"
