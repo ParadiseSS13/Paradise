@@ -665,10 +665,9 @@
 		M.overlays += droid_overlay
 		return
 
-	destroy()
+	Destroy()
 		chassis.overlays -= droid_overlay
-		..()
-		return
+		return ..()
 
 	detach()
 		chassis.overlays -= droid_overlay
@@ -941,7 +940,7 @@
 			GM.toxins += 100
 			GM.temperature = 1500+T0C //should be enough to start a fire
 			T.visible_message("The [src] suddenly disgorges a cloud of heated plasma.")
-			destroy()
+			qdel(src)
 		else
 			GM.toxins += 5
 			GM.temperature = istype(T) ? T.air.temperature : T20C

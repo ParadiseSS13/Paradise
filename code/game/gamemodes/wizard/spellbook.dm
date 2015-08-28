@@ -488,7 +488,7 @@
 		dat += cat_dat[category]
 		dat += "</div>"
 
-	user << browse(wrap(dat), "window=spellbook;size=600x300")
+	user << browse(wrap(dat), "window=spellbook;size=700x300")
 	onclose(user, "spellbook")
 	return
 
