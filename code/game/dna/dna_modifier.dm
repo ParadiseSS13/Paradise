@@ -579,12 +579,14 @@
 		sleep(10*src.radiation_duration) // sleep for radiation_duration seconds
 
 		irradiating = 0
+		src.connected.locked = lock_state
 
 		if (!src.connected.occupant)
 			return 1 // return 1 forces an update to all Nano uis attached to src
 
-		if(src.connected.radiation_check())
-			src.connected.locked = lock_state
+		var/radiation = (((src.radiation_intensity*3)+src.radiation_duration*3) / connected.damage_coeff)
+		src.connected.occupant.apply_effect(radiation,IRRADIATE,0)			
+		if(src.connected.radiation_check())			
 			return 1
 			
 		if (prob(95))
@@ -598,9 +600,6 @@
 			else
 				randmuti(src.connected.occupant)
 
-		var/radiation = (((src.radiation_intensity*3)+src.radiation_duration*3) / connected.damage_coeff)
-		src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
-		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
 	if (href_list["radiationDuration"])
@@ -685,30 +684,33 @@
 		sleep(10*src.radiation_duration) // sleep for radiation_duration seconds
 
 		irradiating = 0
+		src.connected.locked = lock_state
 
 		if (!src.connected.occupant)
 			return 1
 			
-		if(src.connected.radiation_check())
-			src.connected.locked = lock_state
-			return 1
-
 		if (prob((80 + (src.radiation_duration / 2))))
+			var/radiation = (src.radiation_intensity+src.radiation_duration)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
+			
+			if(src.connected.radiation_check())
+				return 1
+				
 			block = miniscrambletarget(num2text(selected_ui_target), src.radiation_intensity, src.radiation_duration)
 			src.connected.occupant.dna.SetUISubBlock(src.selected_ui_block,src.selected_ui_subblock,block)
 			src.connected.occupant.UpdateAppearance()
-			var/radiation = (src.radiation_intensity+src.radiation_duration)
-			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
 		else
+			var/radiation = ((src.radiation_intensity*2)+src.radiation_duration)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)		
+			if(src.connected.radiation_check())
+				return 1
+				
 			if (prob(20+src.radiation_intensity))
 				randmutb(src.connected.occupant)
 				domutcheck(src.connected.occupant,src.connected)
 			else
 				randmuti(src.connected.occupant)
-				src.connected.occupant.UpdateAppearance()
-			var/radiation = ((src.radiation_intensity*2)+src.radiation_duration)
-			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)			
-		src.connected.locked = lock_state
+				src.connected.occupant.UpdateAppearance()	
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
 	////////////////////////////////////////////////////////
@@ -750,15 +752,16 @@
 		sleep(10*src.radiation_duration) // sleep for radiation_duration seconds
 
 		irradiating = 0
-
-		if(src.connected.occupant)
-			if(src.connected.radiation_check())
-				src.connected.locked = lock_state
-				return 1
-			
+		src.connected.locked = lock_state	
+		
+		if(src.connected.occupant)					
 			if (prob((80 + ((src.radiation_duration / 2) + (connected.precision_coeff ** 3)))))
-				// FIXME: Find out what these corresponded to and change them to the WHATEVERBLOCK they need to be.
-				//if ((src.selected_se_block != 2 || src.selected_se_block != 12 || src.selected_se_block != 8 || src.selected_se_block || 10) && prob (20))
+				var/radiation = ((src.radiation_intensity+src.radiation_duration) / connected.damage_coeff)
+				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)	
+				
+				if(src.connected.radiation_check())
+					return 1
+				
 				var/real_SE_block=selected_se_block
 				block = miniscramble(block, src.radiation_intensity, src.radiation_duration)
 				if(prob(20))
@@ -769,12 +772,14 @@
 
 				//testing("Irradiated SE block [real_SE_block]:[src.selected_se_subblock] ([original_block] now [block]) [(real_SE_block!=selected_se_block) ? "(SHIFTED)":""]!")
 				connected.occupant.dna.SetSESubBlock(real_SE_block,selected_se_subblock,block)
-				var/radiation = ((src.radiation_intensity+src.radiation_duration) / connected.damage_coeff)
-				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)	
 				domutcheck(src.connected.occupant,src.connected)
 			else
 				var/radiation = (((src.radiation_intensity*2)+src.radiation_duration) / connected.damage_coeff)
-				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)	
+				src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
+
+				if(src.connected.radiation_check())
+					return 1
+				
 				if (prob(80-src.radiation_duration))
 					//testing("Random bad mut!")
 					randmutb(src.connected.occupant)
@@ -783,7 +788,6 @@
 					randmuti(src.connected.occupant)
 					//testing("Random identity mut!")
 					src.connected.occupant.UpdateAppearance()
-		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
 	if(href_list["ejectBeaker"])
@@ -885,6 +889,9 @@
 			irradiating = 0
 			src.connected.locked = lock_state
 
+			var/radiation = (rand(20,50) / connected.damage_coeff)
+			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)			
+			
 			if(src.connected.radiation_check())
 				return 1
 
@@ -899,8 +906,6 @@
 				src.connected.occupant.dna.SE = buf.dna.SE
 				src.connected.occupant.dna.UpdateSE()
 				domutcheck(src.connected.occupant,src.connected)
-			var/radiation = (rand(20,50) / connected.damage_coeff)
-			src.connected.occupant.apply_effect(radiation,IRRADIATE,0)
 			return 1
 
 		if (bufferOption == "createInjector")
