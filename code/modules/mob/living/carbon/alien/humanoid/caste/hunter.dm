@@ -110,6 +110,7 @@
 
 		if(leaping)
 			leaping = 0
+			update_icons()
 			update_canmove()
 
 
