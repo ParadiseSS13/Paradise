@@ -13,6 +13,8 @@
 
 /obj/machinery/computer/monitor/New()
 	..()
+	power_monitors += src
+	sortAtom(power_monitors)
 	power_monitor = new(src)	
 	powermonitor_repository.update_cache()	
 	
@@ -21,8 +23,7 @@
 	powernet = find_powernet()
 	
 /obj/machinery/computer/monitor/Destroy()
-	if (src in machines) // So the cache can properly update
-		removeAtProcessing()
+	power_monitors -= src
 	powermonitor_repository.update_cache()	
 	return ..()	
 	
