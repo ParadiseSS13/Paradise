@@ -272,9 +272,7 @@ datum/controller/vote
 
 	proc/interface(var/client/C)
 		if(!C)	return
-		var/admin = 0
-		if(check_rights(R_ADMIN,0))
-			admin = 1
+		var/admin = check_rights(R_ADMIN,0)
 		voting |= C
 
 		. = "<html><head><title>Voting Panel</title></head><body>"
@@ -327,31 +325,32 @@ datum/controller/vote
 
 	Topic(href,href_list[],hsrc)
 		if(!usr || !usr.client)	return	//not necessary but meh...just in-case somebody does something stupid
+		var/admin = check_rights(R_ADMIN,0)
 		switch(href_list["vote"])
 			if("close")
 				voting -= usr.client
 				usr << browse(null, "window=vote")
 				return
 			if("cancel")
-				if(usr.client.holder)
+				if(admin)
 					reset()
 			if("toggle_restart")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_restart = !config.allow_vote_restart
 			if("toggle_gamemode")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_mode = !config.allow_vote_mode
 			if("restart")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("restart",usr.key)
 			if("gamemode")
-				if(config.allow_vote_mode || usr.client.holder)
+				if(config.allow_vote_mode || admin)
 					initiate_vote("gamemode",usr.key)
 			if("crew_transfer")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("crew_transfer",usr.key)
 			if("custom")
-				if(usr.client.holder)
+				if(admin)
 					initiate_vote("custom",usr.key)
 			else
 				submit_vote(usr.ckey, round(text2num(href_list["vote"])))
