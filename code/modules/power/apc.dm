@@ -116,7 +116,7 @@
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	..()
 	apcs += src
-	sortAtom(apcs)
+	apcs = sortAtom(apcs)
 	wires = new(src)
 	var/tmp/obj/item/weapon/stock_parts/cell/tmp_cell = new
 	standard_max_charge = tmp_cell.maxcharge

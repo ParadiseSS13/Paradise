@@ -14,7 +14,7 @@
 /obj/machinery/computer/monitor/New()
 	..()
 	power_monitors += src
-	sortAtom(power_monitors)
+	power_monitors = sortAtom(power_monitors)
 	power_monitor = new(src)	
 	powermonitor_repository.update_cache()	
 	
