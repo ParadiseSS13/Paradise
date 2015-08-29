@@ -115,6 +115,8 @@
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	..()
+	apcs += src
+	apcs = sortAtom(apcs)
 	wires = new(src)
 	var/tmp/obj/item/weapon/stock_parts/cell/tmp_cell = new
 	standard_max_charge = tmp_cell.maxcharge
@@ -143,6 +145,7 @@
 			src.update()
 			
 /obj/machinery/power/apc/Destroy()
+	apcs -= src
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
 			if (src.z == ZLEVEL_STATION)
