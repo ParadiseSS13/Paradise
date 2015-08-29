@@ -89,7 +89,7 @@ obj/var/contaminated = 0
 		if(vsc.plc.SKIN_BURNS)
 			if(!pl_head_protected() || !pl_suit_protected())
 				burn_skin(0.75)
-				if(prob(20)) src << "\red Your skin burns!"
+				if(prob(20)) src << "<span class='danger'>Your skin burns!</span>"
 				updatehealth()
 
 		//Burn eyes if exposed.
@@ -119,19 +119,23 @@ obj/var/contaminated = 0
 		if(vsc.plc.GENETIC_CORRUPTION)
 			if(rand(1,10000) < vsc.plc.GENETIC_CORRUPTION)
 				randmutb(src)
-				src << "\red High levels of toxins cause you to spontaneously mutate."
+				src << "<span class='danger'>High levels of toxins cause you to spontaneously mutate.</span>"
 				domutcheck(src,null)
 
 
 /mob/living/carbon/human/proc/burn_eyes()
 	//The proc that handles eye burning.
-	if(prob(20)) src << "\red Your eyes burn!"
+	if(!species.has_organ["eyes"])
+		return
+
 	var/obj/item/organ/eyes/E = internal_organs_by_name["eyes"]
-	E.damage += 2.5
-	eye_blurry = min(eye_blurry+1.5,50)
-	if (prob(max(0,E.damage - 15) + 1) && !eye_blind)
-		src << "\red You are blinded!"
-		eye_blind += 20
+	if(E && !(E.status & ORGAN_ROBOT))
+		if(prob(20)) src << "<span class='danger'>Your eyes burn!</span>"
+		E.damage += 2.5
+		eye_blurry = min(eye_blurry+1.5,50)
+		if (prob(max(0,E.damage - 15) + 1) && !eye_blind)
+			src << "<span class='danger'>You are blinded!</span>"
+			eye_blind += 20
 
 /mob/living/carbon/human/proc/pl_head_protected()
 	//Checks if the head is adequately sealed.
