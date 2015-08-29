@@ -54,7 +54,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/air_doors_activated = 0
 
 	var/tele_proof = 0
-	
+
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
@@ -71,7 +71,7 @@ var/list/teleportlocs = list()
 	teleportlocs = sortAssoc(teleportlocs)
 
 	return 1
-	
+
 var/list/ghostteleportlocs = list()
 /hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
@@ -119,7 +119,7 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_environ = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
-	
+
 /area/space/atmosalert()
 	return
 
@@ -131,7 +131,7 @@ var/list/ghostteleportlocs = list()
 
 /area/space/readyalert()
 	return
-	
+
 /area/space/radiation_alert()
 	return
 
@@ -464,6 +464,9 @@ var/list/ghostteleportlocs = list()
 
 /area/centcom/holding
 	name = "\improper Holding Facility"
+
+/area/centcom/bathroom
+	name = "\improper Centcom Emergency Shuttle Bathrooms"
 
 //SYNDICATES
 
@@ -1506,7 +1509,7 @@ var/list/ghostteleportlocs = list()
 /area/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
-	
+
 /area/security/brig/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
@@ -1522,7 +1525,7 @@ var/list/ghostteleportlocs = list()
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
-	
+
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
