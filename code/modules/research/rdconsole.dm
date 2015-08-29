@@ -442,6 +442,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
 									new_item.loc = L
 									L.name += " ([new_item.name])"
+									L.origin_tech = new_item.origin_tech
 								else
 									new_item.loc = linked_lathe.loc
 						linked_lathe.busy = 0

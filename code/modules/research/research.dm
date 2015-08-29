@@ -223,7 +223,7 @@ datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
-	max_level = 5
+	max_level = 6
 
 datum/tech/programming
 	name = "Data Theory Research"

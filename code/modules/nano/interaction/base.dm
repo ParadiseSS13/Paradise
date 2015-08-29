@@ -17,6 +17,11 @@
 	else if (restrained() || lying || stat || stunned || weakened)
 		return STATUS_UPDATE					// update only (orange visibility)
 	return STATUS_INTERACTIVE
+	
+/mob/dead/observer/shared_nano_interaction()
+	if(check_rights(R_ADMIN, 0, src))
+		return STATUS_INTERACTIVE				// Admins are more equal
+	return STATUS_UPDATE						// Ghosts can view updates
 
 /mob/living/silicon/ai/shared_nano_interaction()
 	if(lacks_power())

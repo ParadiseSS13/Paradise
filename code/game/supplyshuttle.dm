@@ -552,7 +552,6 @@ var/list/mechtoys = list(
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
 		
 /obj/machinery/computer/supplycomp/proc/is_authorized(user)
 	if(allowed(user))
