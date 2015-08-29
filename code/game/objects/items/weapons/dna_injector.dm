@@ -62,7 +62,7 @@
 
 /obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
 	if(istype(M,/mob/living))
-		M.apply_effect(rand(10,25),IRRADIATE,-1)
+		M.apply_effect(rand(10,25),IRRADIATE,0,1)
 
 	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.

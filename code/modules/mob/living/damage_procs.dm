@@ -44,7 +44,7 @@
 
 
 
-/mob/living/proc/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
+/mob/living/proc/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
 	blocked = (100-blocked)/100
 	if(!effect || (blocked <= 0))	
 		return 0
@@ -59,7 +59,7 @@
 			halloss += effect // Useful for objects that cause "subdual" damage. PAIN!
 		if(IRRADIATE)
 			var/rad_damage = effect
-			if(blocked != -1) // Setting blocked to -1 overrides radiation armor checks, which are automatic otherwise
+			if(negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
 				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
 			radiation += rad_damage
 		if(SLUR)
