@@ -10,22 +10,22 @@
 	icon_living = "nymph"
 	icon_dead = "nymph_dead"
 	icon_resting = "nymph_sleep"
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
 	small = 1
 	ventcrawler = 2
-	
+
 	maxHealth = 50
-	health = 50	
-	
+	health = 50
+
 	voice_name = "diona nymph"
-	speak_emote = list("chirrups")	
+	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
 	emote_see = list("chirrups")
-	
+
 	response_help  = "pets"
 	response_disarm = "pushes"
 	response_harm   = "kicks"
-	
+
 	melee_damage_lower = 5
 	melee_damage_upper = 8
 	attacktext = "bites"
@@ -34,8 +34,7 @@
 	speed = 0
 	stop_automated_movement = 0
 	turns_per_move = 4
-	status_flags = 0
-	
+
 	var/list/donors = list()
 	var/ready_evolve = 0
 	holder_type = /obj/item/weapon/holder/diona
@@ -45,7 +44,7 @@
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
-		
+
 	add_language("Rootspeak")
 	src.verbs += /mob/living/simple_animal/diona/proc/merge
 
@@ -248,7 +247,7 @@
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
 	src << "<span class='warning'>You don't have any hands!</span>"
 	return
-	
+
 
 /mob/living/simple_animal/diona/say(var/message)
 	if(client)
@@ -270,7 +269,7 @@
 
 	if(copytext(message,1,2) == "*")
 		return emote(copytext(message,2))
-		
+
 	//parse the language code and consume it
 	var/datum/language/speaking = parse_language(message)
 	if(speaking)
