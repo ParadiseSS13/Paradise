@@ -12,11 +12,11 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
-	/obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
-		if (ishuman(user) && user.species.name == "Vox")
-			flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
-		else
-			flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
+/obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
+	if (ishuman(user) && user.species.name == "Vox")
+		flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+	else
+		flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 
 
 /obj/item/clothing/suit/space/captain
