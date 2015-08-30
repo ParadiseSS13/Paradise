@@ -26,7 +26,7 @@
 	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
 //ADMINVERBS
-/client/proc/investigate_show( subject in list("hrefs","pda","singulo","atmos","ntsl","gold core","cult") )
+/client/proc/investigate_show( subject in list("hrefs","pda","singulo","atmos","watchlist","ntsl","gold core","cult") )
 	set name = "Investigate"
 	set category = "Admin"
 	if(!holder)	return
@@ -76,3 +76,6 @@
 				src << "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>"
 				return
 			src << browse(F,"window=investigate[subject];size=800x300")
+			
+		if("watchlist")
+			watchlist_show()
