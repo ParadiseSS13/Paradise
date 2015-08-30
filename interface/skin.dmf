@@ -967,6 +967,15 @@ menu "menu"
 		group = ""
 		is-disabled = false
 		saved-params = "is-checked"
+	elem "avr1517"
+		name = "Adjust View Range"
+		command = "Set-View-Range"
+		category = "&Icons"
+		is-checked = false
+		can-check = false
+		group = ""
+		is-disabled = false
+		saved-params = "is-checked"
 	elem 
 		name = "&Help"
 		command = ""
