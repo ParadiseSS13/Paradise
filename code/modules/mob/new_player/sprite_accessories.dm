@@ -1,4 +1,4 @@
-/paradise_schema.sql/*
+/*
 
 	Hello and welcome to sprite_accessories: For sprite accessories, such as hair,
 	facial hair, and possibly tattoos and stuff somewhere along the line. This file is
