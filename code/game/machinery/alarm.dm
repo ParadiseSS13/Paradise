@@ -434,11 +434,9 @@
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
 					"power"= 1,
-					"co2_scrub"= 1,
 					"o2_scrub" = (preset==AALARM_PRESET_VOX),
-					"tox_scrub"= 0,
-					"n2_scrub"= 1,
-					"n2o_scrub"= 0,
+					"n2_scrub" = 0,
+					"co2_scrub"= 1,
 					"scrubbing"= 1,
 					"widenet"= 0,
 				))
@@ -454,7 +452,6 @@
 					"power"= 1,
 					"co2_scrub"= 1,
 					"tox_scrub"= 1,
-					"n2_scrub"= 1,
 					"n2o_scrub"= 1,
 					"scrubbing"= 1,
 					"widenet"= 1,
@@ -484,7 +481,6 @@
 					"power"= 1,
 					"co2_scrub"= 1,
 					"tox_scrub"= 0,
-					"n2_scrub"= 0,
 					"n2o_scrub"= 0,
 					"scrubbing"= 1,
 					"widenet"= 0,
