@@ -75,7 +75,12 @@
 /obj/item/weapon/stamp/centcom
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-cent"
-	_color = "internalaffairs"
+	_color = "centcom"
+	
+/obj/item/weapon/stamp/syndicate
+	name = "suspicious rubber stamp"
+	icon_state = "stamp-syndicate"
+	_color = "syndicate"
 
 // Syndicate stamp to forge documents.
 

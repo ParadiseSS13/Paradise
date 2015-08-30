@@ -1849,10 +1849,12 @@
 			if("Administrator")
 				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
 				if(stamptype == "icon")
-					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","granted","denied","clown")
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown")
 					switch(stampname)
 						if("centcom")
 							stampvalue = "cent"
+						if("syndicate")
+							stampvalue = "syndicate"
 						if("granted")
 							stampvalue = "ok"
 						if("denied")
