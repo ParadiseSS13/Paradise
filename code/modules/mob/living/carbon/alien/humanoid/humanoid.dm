@@ -7,11 +7,14 @@
 	var/obj/item/weapon/r_store = null
 	var/obj/item/weapon/l_store = null
 	var/caste = ""
+	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
 	update_icon = 1
 	var/leap_on_click = 0
+	var/custom_pixel_x_offset = 0 //for admin fuckery.
+	var/custom_pixel_y_offset = 0
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
@@ -337,3 +340,19 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/humanoid/canBeHandcuffed()
 	return 1
+
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+	if(leaping)
+		return -32
+	else if(custom_pixel_y_offset)
+		return custom_pixel_y_offset
+	else
+		return initial(pixel_y)
+
+/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
+	if(leaping)
+		return -32
+	else if(custom_pixel_x_offset)
+		return custom_pixel_x_offset
+	else
+		return initial(pixel_x)

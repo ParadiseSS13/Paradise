@@ -49,6 +49,9 @@
 	_color = "grey"
 	flags = ONESIZEFITSALL
 	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/under/color/grey/greytide
 	flags = ONESIZEFITSALL | NODROP

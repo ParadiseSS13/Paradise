@@ -226,7 +226,6 @@
 	
 	fix_modules()
 
-
 /obj/item/weapon/robot_module/janitor
 	name = "janitorial robot module"
 

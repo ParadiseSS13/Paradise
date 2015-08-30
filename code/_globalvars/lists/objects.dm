@@ -20,3 +20,6 @@ var/global/list/machines = list()
 var/global/list/processing_power_items = list() //items that ask to be called every cycle
 var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 
+var/global/list/apcs = list()
+var/global/list/air_alarms = list()
+var/global/list/power_monitors = list()

@@ -140,6 +140,15 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 				// world << "WARNING GC DID NOT GET A RETURN VALUE FOR [D], [D.type]!"
 				garbageCollector.addTrash(D)
 
+
+// Returns 1 if the object has been queued for deletion.
+/proc/qdeleted(var/datum/D)
+	if (!istype(D))
+		return 0
+	if (!isnull(D.gcDestroyed))
+		return 1
+	return 0
+
 /*
  * Like Del(), but for qdel.
  * Called BEFORE qdel moves shit.

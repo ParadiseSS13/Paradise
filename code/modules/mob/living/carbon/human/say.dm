@@ -27,7 +27,7 @@
 		return emote(copytext(message,2))
 
 	if(name != GetVoice())
-		alt_name = "(as [get_id_name("Unknown")])"
+		alt_name = " (as [get_id_name("Unknown")])"
 
 	//parse the radio code and consume it
 	if (message_mode)
@@ -214,17 +214,13 @@
 			continue
 		var/obj/item/voice_changer/changer = locate() in gear
 		if(changer && changer.active && changer.voice)
-			return changer
+			return changer.voice
 	return 0
 		
 /mob/living/carbon/human/GetVoice()
-
-	var/voice_sub
 	var/has_changer = HasVoiceChanger()
 	if(has_changer)
-		voice_sub = has_changer
-	if(voice_sub)
-		return voice_sub
+		return has_changer
 	if(mind && mind.changeling && mind.changeling.mimicing)
 		return mind.changeling.mimicing
 	if(GetSpecialVoice())

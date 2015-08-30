@@ -41,6 +41,7 @@
 	R.jetpackoverlay = 0
 	R.update_icons()
 	R.update_headlamp()
+	R.magpulse = 0
 	R.add_language("Robot Talk", 1)
 
 	return 1
