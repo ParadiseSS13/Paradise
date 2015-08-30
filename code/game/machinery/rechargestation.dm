@@ -245,7 +245,7 @@
 		if(H.stat == DEAD)
 			return		
 		if(occupant)
-			R << "<span class='warning'>The cell is already occupied!</span>"
+			H << "<span class='warning'>The cell is already occupied!</span>"
 			return			
 		if(isnull(H.internal_organs_by_name["cell"]))
 			return
