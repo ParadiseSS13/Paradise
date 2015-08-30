@@ -241,8 +241,15 @@
 	
 	else if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!isnull(H.internal_organs_by_name["cell"]))
-			can_accept_user = 1
+		
+		if(H.stat == DEAD)
+			return		
+		if(occupant)
+			R << "<span class='warning'>The cell is already occupied!</span>"
+			return			
+		if(isnull(H.internal_organs_by_name["cell"]))
+			return
+		can_accept_user = 1
 
 	if(!can_accept_user)
 		user << "<span class='notice'>Only non-organics may enter the recharger!</span>"
