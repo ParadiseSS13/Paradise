@@ -82,7 +82,7 @@ Obviously, requires DNA2.
 	M.update_mutations()		//update our mutation overlays
 	M.update_body()
 	//M.say(pick("",";")+pick("HULK MAD","YOU MADE HULK ANGRY")) // Just a note to security.
-	message_admins("[key_name(usr)] has hulked out! ([formatJumpTo(usr)])")
+	message_admins("[key_name_admin(usr)] has hulked out! ([formatJumpTo(usr)])")
 	return
 */
 
@@ -224,8 +224,7 @@ Obviously, requires DNA2.
 	var/list/validtargets = new /list()
 	for(var/mob/M in living_mob_list)
 		if(M && M.mind)
-			var/special_role = M.mind.special_role
-			if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+			if(M.z != user.z || isNonCrewAntag(M))
 				continue
 
 			validtargets += M
@@ -244,15 +243,14 @@ Obviously, requires DNA2.
 	var/say = strip_html(input("What do you wish to say"))
 
 	for(var/mob/living/target in targets)
+		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")	
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
 		else
 			target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
 		usr.show_message("\blue You project your mind into [target.real_name]: [say]")
 		for(var/mob/dead/observer/G in player_list)
-			G.show_message("<i>Telepathic message from <b>[usr]</b> to <b>[target]</b>: [say]</i>")
-
-
+			G.show_message("<i>Telepathic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name="Remote Viewing"
@@ -279,17 +277,22 @@ Obviously, requires DNA2.
 
 	action_icon_state = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)	
 	var/list/targets = living_mob_list
-	var/list/remoteviewers = new /list()
+	var/list/validtargets = new /list()
 	for(var/mob/M in targets)
-		if(REMOTE_VIEW in M.mutations)
-			remoteviewers += M
-	if(!remoteviewers.len || remoteviewers.len == 1)
+		if(M && M.mind)
+			if(M.z != user.z || isNonCrewAntag(M))
+				continue
+				
+			validtargets += M
+			
+	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
 		start_recharge()
 		return
-	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
+		
+	targets += input("Choose the target to spy on.", "Targeting") as mob in validtargets
 
 	perform(targets)
 

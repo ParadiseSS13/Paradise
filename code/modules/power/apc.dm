@@ -115,6 +115,8 @@
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	..()
+	apcs += src
+	apcs = sortAtom(apcs)
 	wires = new(src)
 	var/tmp/obj/item/weapon/stock_parts/cell/tmp_cell = new
 	standard_max_charge = tmp_cell.maxcharge
@@ -143,6 +145,7 @@
 			src.update()
 			
 /obj/machinery/power/apc/Destroy()
+	apcs -= src
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
 			if (src.z == ZLEVEL_STATION)
@@ -641,16 +644,15 @@
 	//Synthetic human mob goes here.
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(H.species.flags & IS_SYNTHETIC && H.a_intent == "grab")
+		if(!isnull(H.internal_organs_by_name["cell"]) && H.a_intent == "grab")
 			if(emagged || stat & BROKEN)
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
-				H << "<span class='warning'>The APC power currents surge eratically, damaging your chassis!</span>"
+				H << "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>"
 				H.adjustFireLoss(10,0)
 			else if(src.cell && src.cell.charge > 0)
 				if(H.nutrition < 450)
-
 					if(src.cell.charge >= 500)
 						H.nutrition += 50
 						src.cell.charge -= 500
@@ -659,14 +661,15 @@
 						src.cell.charge = 0
 
 					user << "<span class='notice'>You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.</span>"
-					if(src.cell.charge < 0) src.cell.charge = 0
-					if(H.nutrition > 500) H.nutrition = 500
+					if(src.cell.charge < 0) 
+						src.cell.charge = 0
+					if(H.nutrition > 500) 
+						H.nutrition = 500
 					src.charging = 1
-
 				else
 					user << "<span class='notice'>You are already fully charged.</span>"
 			else
-				user << "There is no charge to draw from that APC."
+				user << "<span class='warning'>There is no charge to draw from that APC.</span>"
 			return
 
 	if(usr == user && opened && (!issilicon(user)))

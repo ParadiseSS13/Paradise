@@ -11,12 +11,12 @@
 		total_burn += O.burn_dam
 	health = 100 - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 	//TODO: fix husking
-	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) && (!(species.flags & IS_SYNTHETIC)))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
+	if( (((100 - total_burn) < config.health_threshold_dead) && stat == DEAD))//100 only being used as the magic human max health number, feel free to change it if you add a var for it -- Urist
 		ChangeToHusk()
-	if (species.flags & IS_SYNTHETIC)
-		var/obj/item/organ/external/head/H = organs_by_name["head"]
-		if(H)
-			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)  //need to get them 25% away from death point before reviving synthetics
+	if(species.can_revive_by_healing)
+		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
+		if(B)
+			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD) 
 				update_revive()
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
@@ -31,17 +31,44 @@
 	tod = 0
 	timeofdeath = 0
 
+/mob/living/carbon/human/adjustBrainLoss(var/amount)
+	if(status_flags & GODMODE)	return 0	//godmode
+
+	if(species && species.has_organ["brain"])
+		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		if(sponge)
+			sponge.take_damage(amount)
+			brainloss = sponge.damage
+		else
+			brainloss = 200
+	else
+		brainloss = 0
+
+/mob/living/carbon/human/setBrainLoss(var/amount)
+	if(status_flags & GODMODE)	return 0	//godmode
+
+	if(species && species.has_organ["brain"])
+		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		if(sponge)
+			sponge.damage = min(max(amount, 0),(maxHealth*2))
+			brainloss = sponge.damage
+		else
+			brainloss = 200
+	else
+		brainloss = 0	
+	
 /mob/living/carbon/human/getBrainLoss()
-	var/res = brainloss
-	var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
-	if(!sponge)
-		return
-	if (sponge.is_bruised())
-		res += 20
-	if (sponge.is_broken())
-		res += 50
-	res = min(res,maxHealth*2)
-	return res
+	if(status_flags & GODMODE)	return 0	//godmode
+
+	if(species && species.has_organ["brain"])
+		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
+		if(sponge)
+			brainloss = min(sponge.damage,maxHealth*2)
+		else
+			brainloss = 200
+	else
+		brainloss = 0
+	return brainloss
 
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
@@ -114,13 +141,12 @@
 /mob/living/carbon/human/Paralyse(amount)
 	..()
 
-
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
-
-	if(species.flags & IS_SYNTHETIC)
-		return
-
 	..()
+	
+	if(species.flags & (NO_SCAN))
+		cloneloss = 0
+		return
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
 	var/mut_prob = min(80, getCloneLoss()+10)
@@ -151,6 +177,41 @@
 				O.unmutate()
 				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 	hud_updateflag |= 1 << HEALTH_HUD
+	
+// Defined here solely to take species flags into account without having to recast at mob/living level.
+/mob/living/carbon/human/getOxyLoss()
+	if(species.flags & NO_BREATHE)
+		oxyloss = 0
+	return ..()
+
+/mob/living/carbon/human/adjustOxyLoss(var/amount)
+	if(species.flags & NO_BREATHE)
+		oxyloss = 0
+	else
+		..()
+
+/mob/living/carbon/human/setOxyLoss(var/amount)
+	if(species.flags & NO_BREATHE)
+		oxyloss = 0
+	else
+		..()
+
+/mob/living/carbon/human/getToxLoss()
+	if(species.flags & NO_POISON)
+		toxloss = 0
+	return ..()
+
+/mob/living/carbon/human/adjustToxLoss(var/amount)
+	if(species.flags & NO_POISON)
+		toxloss = 0
+	else
+		..()
+
+/mob/living/carbon/human/setToxLoss(var/amount)
+	if(species.flags & NO_POISON)
+		toxloss = 0
+	else
+		..()
 
 ////////////////////////////////////////////
 

@@ -10,6 +10,7 @@
 	var/mob/occupant = null
 	var/circuitboard = "/obj/item/weapon/circuitboard/cyborgrecharger"
 	var/recharge_speed
+	var/recharge_speed_nutrition
 	var/repairs
 
 /obj/machinery/recharge_station/New()
@@ -35,9 +36,11 @@
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
+	recharge_speed_nutrition = 0
 	repairs = 0
 	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
 		recharge_speed += C.rating * 100
+		recharge_speed_nutrition += C.rating * 10
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/weapon/stock_parts/cell/C in component_parts)
@@ -51,6 +54,9 @@
 		process_occupant()
 	return 1
 
+/obj/machinery/recharge_station/Bumped(var/mob/AM)
+	move_inside(AM)	
+	
 /obj/machinery/recharge_station/allow_drop()
 	return 0
 
@@ -105,6 +111,14 @@
 					R.cell.charge = R.cell.maxcharge
 				else
 					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+		else if(istype(occupant, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = occupant
+			if(!isnull(H.internal_organs_by_name["cell"]) && H.nutrition < 450)
+				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
+				if(repairs)
+					H.adjustBruteLoss(-(repairs))
+					H.adjustFireLoss(-(repairs))
+					H.updatehealth()
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!( src.occupant ))
@@ -198,34 +212,51 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/recharge_station/verb/move_inside()
+/obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-	if (usr.stat == 2)
-		//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
+	
+	if(!user)
 		return
-	if (!(istype(usr, /mob/living/silicon/)))
-		usr << "\blue <b>Only non-organics may enter the recharger!</b>"
-		return
-	if (src.occupant)
-		usr << "\blue <b>The cell is already occupied!</b>"
-		return
-	if (!usr:cell)
-		usr << "\blue <b>Without a powercell, you can't be recharged.</b>"
-		//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-		return
+	
 	if (panel_open)
-		usr << "\blue <b>Close the maintenance panel first.</b>"
+		usr << "<span class='warning'>Close the maintenance panel first.</span>"
+		return	
+	
+	var/can_accept_user
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+
+		if(R.stat == DEAD)
+			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
+			return
+		if(occupant)
+			R << "<span class='warning'>The cell is already occupied!</span>"
+			return
+		if(!R.cell)
+			R << "<span class='warning'>Without a power cell, you can't be recharged.</span>"
+			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
+			return
+		can_accept_user = 1	
+	
+	else if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(!isnull(H.internal_organs_by_name["cell"]))
+			can_accept_user = 1
+
+	if(!can_accept_user)
+		user << "<span class='notice'>Only non-organics may enter the recharger!</span>"
 		return
-	usr.stop_pulling()
-	if(usr && usr.client)
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-	usr.loc = src
-	src.occupant = usr
-	/*for(var/obj/O in src)
-		O.loc = src.loc*/
-	src.add_fingerprint(usr)
+
+	user.stop_pulling()
+	if(user && user.client)
+		user.client.perspective = EYE_PERSPECTIVE
+		user.client.eye = src
+	user.forceMove(src)
+	occupant = user
+
+	add_fingerprint(user)
 	build_icon()
-	src.use_power = 2
+	update_use_power(1)
 	return
+	

@@ -58,10 +58,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
-
-/hook/startup/proc/setupTeleportLocs()
+/hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
@@ -75,19 +73,13 @@ var/list/teleportlocs = list()
 	return 1
 
 var/list/ghostteleportlocs = list()
-
-/hook/startup/proc/setupGhostTeleportLocs()
+/hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/tdome))
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			var/turf/picked = pick(turfs)
-			if ((picked.z in config.player_levels))
-				ghostteleportlocs += AR.name
-				ghostteleportlocs[AR.name] = AR
+			ghostteleportlocs += AR.name
+			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -127,7 +119,7 @@ var/list/ghostteleportlocs = list()
 	power_equip = 0
 	power_environ = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
-	
+
 /area/space/atmosalert()
 	return
 
@@ -139,7 +131,7 @@ var/list/ghostteleportlocs = list()
 
 /area/space/readyalert()
 	return
-	
+
 /area/space/radiation_alert()
 	return
 
@@ -472,6 +464,9 @@ var/list/ghostteleportlocs = list()
 
 /area/centcom/holding
 	name = "\improper Holding Facility"
+
+/area/centcom/bathroom
+	name = "\improper Centcom Emergency Shuttle Bathrooms"
 
 //SYNDICATES
 
@@ -1514,7 +1509,7 @@ var/list/ghostteleportlocs = list()
 /area/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
-	
+
 /area/security/brig/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
@@ -1530,7 +1525,7 @@ var/list/ghostteleportlocs = list()
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
-	
+
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0

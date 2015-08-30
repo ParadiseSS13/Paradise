@@ -72,7 +72,7 @@ REAGENT SCANNER
 				spawn(pulse_duration)
 					if(O)
 						var/turf/U = O.loc
-						if(U.intact)
+						if(U && U.intact)
 							O.invisibility = 101
 							O.alpha = 255
 		for(var/mob/living/M in T.contents)
@@ -137,12 +137,9 @@ REAGENT SCANNER
 		user.show_message("\blue Key: Suffocation/Toxin/Burns/Brute", 1)
 		user.show_message("\blue Body Temperature: ???", 1)
 		return
-	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "\red You don't have the dexterity to do this!"
-		return
-	user.visible_message("<span class='notice'> [user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
 
-	if (!istype(M, /mob/living/carbon) || (ishuman(M) && (M:species.flags & IS_SYNTHETIC)))
+	if (!istype(M,/mob/living/carbon/human) || M.isSynthetic())
 		//these sensors are designed for organic life
 		user.show_message("\blue Analyzing Results for ERROR:\n\t Overall Status: ERROR")
 		user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>", 1)

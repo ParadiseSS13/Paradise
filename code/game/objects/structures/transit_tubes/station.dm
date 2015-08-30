@@ -6,11 +6,10 @@
 	name = "station tube station"
 	icon = 'icons/obj/pipes/transit_tube_station.dmi'
 	icon_state = "closed"
-	exit_delay = 2
-	enter_delay = 3
+	exit_delay = 1
+	enter_delay = 2
 	var/pod_moving = 0
-	var/automatic_launch_time = 100
-	var/cooldown_delay = 200
+	var/cooldown_delay = 50
 	var/launch_cooldown = 0
 	var/reverse_launch = 0
 

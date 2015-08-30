@@ -30,8 +30,8 @@
 
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "\red You have a monitor for a head, where do you think you're going to put that?"
+				if(!H.check_has_mouth())
+					user << "Where do you intend to put \the [src]? You don't have a mouth!"
 					return
 
 			M << "\blue You swallow a gulp of [src]."
@@ -45,8 +45,8 @@
 		else if( istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				user << "\red They have a monitor for a head, where do you think you're going to put that?"
+			if(!H.check_has_mouth())
+				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
 			for(var/mob/O in viewers(world.view, user))
@@ -55,9 +55,9 @@
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] feeds [M] [src].", 1)
 
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-			log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [key_name(user)] Reagents: [reagentlist(src)]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [key_name(M)] Reagents: [reagentlist(src)]</font>")
+			log_attack("[key_name_admin(user)] fed [key_name_admin(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -203,7 +203,7 @@
 /obj/item/weapon/reagent_containers/food/drinks/flour
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "flour"
 	item_state = "flour"
 	New()

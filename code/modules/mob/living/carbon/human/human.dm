@@ -431,12 +431,10 @@
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)	
-	if(!istype(M))
-		return 0
-	for(var/L in M.contents)
+/mob/living/carbon/human/proc/is_loyalty_implanted()	
+	for(var/L in contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/obj/item/organ/external/O in M.organs)
+			for(var/obj/item/organ/external/O in organs)
 				if(L in O.implants)
 					return 1
 	return 0
@@ -696,6 +694,12 @@
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return
 			var/pocket_side = href_list["pockets"]
 			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
@@ -722,16 +726,19 @@
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
-
-
-
+					
 			else if(!pickpocket)
 				// Display a warning if the user mocks up
 				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
-
 		// if looting id with gloves, do it quietly - this allows pickpocket gloves to take/place id stealthily - Bone White
 		if(href_list["item"])
+			if(isanimal(usr)) 
+				return //animals cannot strip people
+				
+			if(frozen)
+				usr << "\red Do not attempt to strip frozen people."
+				return				
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
 				if(pickpocket)
@@ -763,9 +770,6 @@
 					else if(!pickpocket)
 						// Display a warning if the user mocks up
 						src << "<span class='warning'>You feel your ID slot being fumbled with!</span>"
-
-
-
 
 	if (href_list["refresh"])
 		if((machine)&&(in_range(src, usr)))
@@ -1126,26 +1130,47 @@
 	return
 
 /mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
-	. = 1 // Default to returning true.
-	if(user && !target_zone)
-		target_zone = user.zone_sel.selecting
-	// If targeting the head, see if the head item is thin enough.
-	// If targeting anything else, see if the wear suit is thin enough.
-	if(above_neck(target_zone))
-		if(head && head.flags & THICKMATERIAL)
-			. = 0
+	. = 1
+
+	if(!target_zone)
+		if(!user)
+			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
+		else
+			target_zone = user.zone_sel.selecting
+
+	var/obj/item/organ/external/affecting = get_organ(target_zone)
+	var/fail_msg
+	if(!affecting)
+		. = 0
+		fail_msg = "They are missing that limb."
+	else if (affecting.status & ORGAN_ROBOT)
+		. = 0
+		fail_msg = "That limb is robotic."
 	else
-		if(wear_suit && wear_suit.flags & THICKMATERIAL)
-			. = 0
+		switch(target_zone)
+			if("head")
+				if(head && head.flags & THICKMATERIAL)
+					. = 0
+			else
+				if(wear_suit && wear_suit.flags & THICKMATERIAL)
+					. = 0
 	if(!. && error_msg && user)
-		// Might need re-wording.
-		user << "<span class='alert'>There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"].</span>"
+		if(!fail_msg)
+			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"] to inject into."
+		user << "<span class='alert'>[fail_msg]</span>"
+		
+/mob/living/carbon/human/proc/check_has_mouth()
+	// Todo, check stomach organ when implemented.
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H || !H.can_intake_reagents)
+		return 0
+	return 1
 
 /mob/living/carbon/human/proc/vomit(hairball=0)
-	if(stat==2)return
+	if(stat==DEAD)return
 
-	if(species.flags & IS_SYNTHETIC)
-		return //Machines don't throw up.
+	if(!check_has_mouth())
+		return 
 
 	if(!lastpuke)
 		lastpuke = 1
@@ -1492,10 +1517,32 @@
 
 		W.add_fingerprint(src)
 
+// Allows IPC's to change their monitor display		
+/mob/living/carbon/human/proc/change_monitor()
+	set category = "IC"	
+	set name = "Change Monitor Display"
+	set desc = "Change the display on your monitor."
+	
+	if(stat || paralysis || stunned || weakened)
+		src << "<span class='warning'>You cannot change your monitor display in your current state.</span>"
+		return	
+		
+	var/list/hair = list()
+	for(var/i in hair_styles_list)
+		var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
+		if(species.name in tmp_hair.species_allowed)
+			hair += i
 
+	var/new_style = input(src, "Select a monitor display", "Monitor Display")  as null|anything in hair
+	if(stat || paralysis || stunned || weakened)
+		return
+	if(new_style)
+		h_style = new_style
+
+	update_hair()
+		
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
-
 /mob/living/carbon/human/proc/leap()
 	set category = "Abilities"
 	set name = "Leap"

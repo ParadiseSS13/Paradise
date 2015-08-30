@@ -442,6 +442,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
 									new_item.loc = L
 									L.name += " ([new_item.name])"
+									L.origin_tech = new_item.origin_tech
 								else
 									new_item.loc = linked_lathe.loc
 						linked_lathe.busy = 0
@@ -771,7 +772,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				dat += "<span class='linkOn'>Disconnect from Research Network</span><BR>"
 			dat += "<A href='?src=\ref[src];menu=1.7'>Device Linkage Menu</A><BR>"
 			dat += "<A href='?src=\ref[src];lock=0.2'>Lock Console</A><BR>"
-			if(check_rights(R_ADMIN))
+			if(check_rights(R_ADMIN,0))
 				dat += "<A href='?src=\ref[src];maxresearch=1'>\[ADMIN\] Maximize Research Levels</A><BR>"
 			dat += "<A href='?src=\ref[src];reset=1'>Reset R&D Database</A></div>"
 

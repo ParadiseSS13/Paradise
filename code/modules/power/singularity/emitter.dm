@@ -16,6 +16,8 @@
 	var/active = 0
 	var/powered = 0
 	var/fire_delay = 100
+	var/maximum_fire_delay = 100
+	var/minimum_fire_delay = 20
 	var/last_shot = 0
 	var/shot_number = 0
 	var/state = 0
@@ -24,6 +26,30 @@
 	var/frequency = 0
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+
+/obj/machinery/power/emitter/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/emitter(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/power/emitter/RefreshParts()
+	var/max_firedelay = 120
+	var/firedelay = 120
+	var/min_firedelay = 24
+	var/power_usage = 350
+	for(var/obj/item/weapon/stock_parts/micro_laser/L in component_parts)
+		max_firedelay -= 20 * L.rating
+		min_firedelay -= 4 * L.rating
+		firedelay -= 20 * L.rating
+	maximum_fire_delay = max_firedelay
+	minimum_fire_delay = min_firedelay
+	fire_delay = firedelay
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		power_usage -= 50 * M.rating
+	active_power_usage = power_usage
 
 	//Radio remote control
 /obj/machinery/power/emitter/proc/set_frequency(new_frequency)
@@ -80,7 +106,7 @@
 		active=on
 		var/statestr=on?"on":"off"
 		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
-		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x],[y],[z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
+		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
 		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [list2text(signal.data["hiddenprints"])]","singulo")
 		update_icon()
 
@@ -107,17 +133,17 @@
 			if(src.active==1)
 				src.active = 0
 				user << "You turn off the [src]."
-				msg_admin_attack("Emitter turned off by [key_name(user, user.client)][isAntag(user) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned off by [user.ckey]([user]) in ([x],[y],[z])")
-				investigate_log("turned <font color='red'>off</font> by [user.key]","singulo")
+				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
+				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
 				user << "You turn on the [src]."
 				src.shot_number = 0
-				src.fire_delay = 100
-				msg_admin_attack("Emitter turned on by [key_name(user, user.client)][isAntag(user) ? "(ANTAG)" : ""](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned on by [user.ckey]([user]) in ([x],[y],[z])")
-				investigate_log("turned <font color='green'>on</font> by [user.key]","singulo")
+				src.fire_delay = maximum_fire_delay
+				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned on by [key_name(user)] in [x], [y], [z]")
+				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else
 			user << "\red The controls are locked!"
@@ -162,7 +188,7 @@
 			src.fire_delay = 2
 			src.shot_number ++
 		else
-			src.fire_delay = rand(20,100)
+			src.fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
 			src.shot_number = 0
 
 		var/obj/item/projectile/beam/emitter/A = PoolOrNew(/obj/item/projectile/beam/emitter,src.loc)
@@ -269,6 +295,14 @@
 			user << "\red Access denied."
 		return
 
+	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
+		return
+
+	if(exchange_parts(user, W))
+		return
+
+	default_deconstruction_crowbar(W)
+
 	..()
 	return
 
@@ -276,4 +310,5 @@
 	if(!emagged)
 		locked = 0
 		emagged = 1
-		user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")
+		if(user)
+			user.visible_message("[user.name] emags the [src.name].","\red You short out the lock.")

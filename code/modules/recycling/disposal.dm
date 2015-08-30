@@ -50,11 +50,9 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
-	if(stat & BROKEN || !I || !user || (I.flags & NODROP))
+	if(stat & BROKEN || !I || !user || ((I.flags & NODROP) && !istype(I, /obj/item/weapon/storage/bag/trash/cyborg)))
 		return
 
-	if(isrobot(user) && !istype(I, /obj/item/weapon/storage/bag/trash))
-		return
 	src.add_fingerprint(user)
 	if(mode<=0) // It's off
 		if(istype(I, /obj/item/weapon/screwdriver))
@@ -124,10 +122,10 @@
 				for (var/mob/C in viewers(src))
 					C.show_message("\red [GM.name] has been placed in the [src] by [user].", 3)
 				qdel(G)
-				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [GM.name] ([GM.ckey]) in disposals.</font>")
-				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [usr.name] ([usr.ckey])</font>")
+				usr.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(GM)] in disposals.</font>")
+				GM.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 				if(GM.ckey)
-					msg_admin_attack("[usr] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] placed [GM] ([GM.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
 	if(!I)	return
@@ -171,10 +169,10 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		user << "You stuff [target.name] into the [src]!"
 
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [target.name] ([target.ckey]) in disposals.</font>")
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [user.name] ([user.ckey])</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has placed [key_name(target)] in disposals.</font>")
+		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
 		if(target.ckey)
-			msg_admin_attack("[user] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] placed [target] ([target.ckey]) in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
 	else
 		return
 	if (target.client)

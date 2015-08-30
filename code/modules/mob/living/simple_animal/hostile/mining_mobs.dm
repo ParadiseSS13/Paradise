@@ -8,7 +8,7 @@
 	max_co2 = 0
 	min_n2 = 0
 	max_n2 = 0
-	unsuitable_atoms_damage = 15
+	unsuitable_atmos_damage = 15
 	faction = list("mining")
 	environment_smash = 2
 	minbodytemp = 0
@@ -269,7 +269,7 @@
 /obj/item/asteroid/hivelord_core
 	name = "hivelord remains"
 	desc = "All that remains of a hivelord, it seems to be what allows it to break pieces of itself off without being hurt... its healing properties will soon become inert if not used quickly. Try not to think about what you're eating."
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "boiledrorocore"
 	var/inert = 0
 

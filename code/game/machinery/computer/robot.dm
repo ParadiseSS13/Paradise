@@ -22,6 +22,13 @@
 		return
 		
 	ui_interact(user)
+	
+/obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
+	else if(allowed(user))
+		return 1
+	return 0
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -31,7 +38,7 @@
 	data["safety"] = safety
 	// Also applies for cyborgs. Hides the manual self-destruct button.
 	data["is_ai"] = issilicon(user)
-	data["allowed"] = src.allowed(user)
+	data["allowed"] = is_authenticated(user)
 
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -43,10 +50,11 @@
 
 /obj/machinery/computer/robotics/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+	
 	var/mob/user = usr
-	if(!src.allowed(user))
-		user << "<span class='warning'>Access Denied.</span>"
+	if(!is_authenticated(user))
+		user << "<span class='warning'>Access denied.</span>"
 		return
 
 	// Destroys the cyborg
@@ -72,13 +80,13 @@
 			target << "Extreme danger.  Termination codes detected.  Scrambling security codes and automatic AI unlink triggered."
 			target.ResetSecurityCodes()
 		else
-			message_admins("\blue [key_name_admin(usr)] detonated [target.name]!")
-			log_game("\blue [key_name_admin(usr)] detonated [target.name]!")
+			message_admins("<span class='notice'>[key_name_admin(usr)] detonated [key_name_admin(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)!</span>")
+			log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(target)]!</span>")
 			target << "<span class='danger'>Self-destruct command received.</span>"
+			if(target.connected_ai)
+				target.connected_ai << "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [target.name]</span><br>"
 			spawn(10)
 				target.self_destruct()
-
-
 
 	// Locks or unlocks the cyborg
 	else if (href_list["lockdown"])
@@ -101,15 +109,13 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("\blue [key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [target.name]!")
-		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [target.name]!")
+		message_admins("<span class='notice'>[key_name_admin(usr)] [target.canmove ? "locked down" : "released"] [key_name_admin(target)]!</span>")
+		log_game("[key_name(usr)] [target.canmove ? "locked down" : "released"] [key_name(target)]!")
 		target.canmove = !target.canmove
-		if (target.lockcharge)
-			target.lockcharge = !target.lockcharge
-			target << "Your lockdown has been lifted!"
-		else
-			target.lockcharge = !target.lockcharge
-			target << "You have been locked down!"
+		target.lockcharge = !target.lockcharge
+		target << "[!target.lockcharge ? "<span class='notice'>Your lockdown has been lifted!</span>" : "<span class='alert'>You have been locked down!</span>"]"
+		if(target.connected_ai)
+			target.connected_ai << "[!target.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=\ref[target.connected_ai];track=[html_encode(target.name)]'>[target.name]</a></span><br>"
 
 	// Remotely hacks the cyborg. Only antag AIs can do this and only to linked cyborgs.
 	else if (href_list["hack"])
@@ -137,8 +143,8 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("\blue [key_name_admin(usr)] emagged [target.name] using robotic console!")
-		log_game("[key_name(usr)] emagged [target.name] using robotic console!")
+		message_admins("\blue [key_name_admin(usr)] emagged [key_name_admin(target)] using robotic console!")
+		log_game("[key_name(usr)] emagged [key_name(target)] using robotic console!")
 		target.emagged = 1
 		target << "<span class='notice'>Failsafe protocols overriden. New tools available.</span>"
 
@@ -160,9 +166,9 @@
 			user << "Self-destruct aborted - safety active"
 			return
 
-		message_admins("\blue [key_name_admin(usr)] detonated all cyborgs!")
-		log_game("[key_name(usr)] detonated all cyborgs!")
-
+		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
+		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")			
+		
 		for(var/mob/living/silicon/robot/R in mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
@@ -170,6 +176,8 @@
 			if(R.scrambledcodes)
 				continue
 			R << "<span class='danger'>Self-destruct command received.</span>"
+			if(R.connected_ai)
+				R.connected_ai << "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>"
 			spawn(10)
 				R.self_destruct()	
 

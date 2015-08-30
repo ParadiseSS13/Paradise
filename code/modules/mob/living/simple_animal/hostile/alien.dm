@@ -30,7 +30,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	var/dead = 0
-	unsuitable_atoms_damage = 15
+	unsuitable_atmos_damage = 15
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0

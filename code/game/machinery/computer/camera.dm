@@ -159,7 +159,7 @@
 				else
 					src.network += net
 					break
-				invalidateCameraCache()
+		invalidateCameraCache()
 		nanomanager.update_uis(src)
 	else
 		. = ..()

@@ -245,7 +245,7 @@
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/chem_dispenser/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -293,7 +293,8 @@
 	dispensable_reagents = list()
 	var/list/special_reagents = list(list("hydrogen", "oxygen", "silicon", "phosphorus", "sulfur", "carbon", "nitrogen", "tungsten", "water"),
 						 		list("lithium", "sugar", "copper", "mercury", "sodium","iodine","bromine"),
-								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"))
+								list("ethanol", "chlorine", "potassium", "aluminum","plasma", "radium", "fluorine", "iron", "silver"),
+								list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel"))
 
 /obj/machinery/chem_dispenser/constructable/New()
 	..()
@@ -306,7 +307,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/weapon/stock_parts/cell/super(null)
 	RefreshParts()
-	
+
 /obj/machinery/chem_dispenser/constructable/upgraded/New()
 	..()
 	component_parts = list()
@@ -562,6 +563,7 @@
 				var/count = 1
 				if (href_list["createpill_multiple"]) count = isgoodnumber(input("Select the number of pills to make.", 10, pillamount) as num)
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
+				if (count <= 0) return
 				var/amount_per_pill = reagents.total_volume/count
 				if (amount_per_pill > 50) amount_per_pill = 50
 				var/name = reject_bad_text(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)"))
@@ -639,7 +641,7 @@
 
 /obj/machinery/chem_master/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/chem_master/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 

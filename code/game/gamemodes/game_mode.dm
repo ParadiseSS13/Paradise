@@ -129,7 +129,7 @@
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS)
+					if(useMS && P)
 						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
@@ -238,8 +238,7 @@
 	var/list/suspects = list()
 	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
 		// NT relation option
-		var/special_role = man.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien")
+		if(isNonCrewAntag(man))
 			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
 		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
 		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
@@ -247,6 +246,7 @@
 		// Antags
 		else if(special_role == "traitor" && prob(40) || \
 		   special_role == "Changeling" && prob(50) || \
+		   special_role == "Vampire" && prob(40) || \
 		   special_role == "Cultist" && prob(30) || \
 		   special_role == "Head Revolutionary" && prob(30) || \
 		   special_role == "Shadowling" && prob(15))
@@ -474,7 +474,7 @@ proc/display_roundstart_logout_report()
 				if(L.suiciding)	//Suicider
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
 					job_master.FreeRole(L.job)
-					message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
+					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
 				if(L.stat == UNCONSCIOUS)
 					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dying)\n"
@@ -500,7 +500,7 @@ proc/display_roundstart_logout_report()
 					else
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						job_master.FreeRole(L.job)
-						message_admins("<b>[L.name]</b> ([L.ckey]), the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
+						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 
 

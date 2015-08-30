@@ -214,6 +214,8 @@
 	///////////
 /client/New(TopicData)
 	TopicData = null							//Prevent calls to client.Topic from connect
+	client_cache += src
+	client_cache[src] = list()
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
@@ -221,7 +223,7 @@
 		return null
 
 	if(IsGuestKey(key))
-		alert(src,"Baystation12 doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
+		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
 		del(src)
 		return
 
@@ -277,8 +279,6 @@
 
 	send_resources()
 
-	nanomanager.send_resources(src)
-
 	//////////////
 	//DISCONNECT//
 	//////////////
@@ -303,7 +303,7 @@
 
 	var/sql_ckey = sql_sanitize_text(src.ckey)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM erro_player WHERE ckey = '[sql_ckey]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if their is a record.
@@ -312,24 +312,30 @@
 		player_age = text2num(query.item[2])
 		break
 
-	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
+	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
 	query_ip.Execute()
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
 		if(ckey != query_ip.item[1])
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
-	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid = '[computer_id]'")
+	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
 		if(ckey != query_cid.item[1])
-			related_accounts_cid.Add("[query_cid.item[1]]")
-
+			related_accounts_cid.Add("[query_cid.item[1]]")			
+			
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
 
+	var/DBQuery/query_watch = dbcon.NewQuery("SELECT ckey, reason FROM [format_table_name("watch")] WHERE (ckey = '[sql_ckey]')")
+	query_watch.Execute()
+	if(query_watch.NextRow())
+		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is flagged for watching and has just connected - Reason: [query_watch.item[2]]</font>")
+		send2irc_adminless_only("Watchlist", "[key_name_admin(src)] is flagged for watching and has just connected - Reason: [query_watch.item[2]]")		
+		
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
 		if(istext(sql_id))
@@ -348,16 +354,16 @@
 
 	if(sql_id)
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/DBQuery/query_update = dbcon.NewQuery("UPDATE erro_player SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
+		var/DBQuery/query_update = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
 		query_update.Execute()
 	else
 		//New player!! Need to insert all the stuff
-		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO erro_player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
+		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[sql_ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		query_insert.Execute()
 
 	//Logging player access
 	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `erro_connection_log`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
+	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
 
@@ -371,65 +377,13 @@
 	if(inactivity > duration)	return inactivity
 	return 0
 
-//send resources to the client. It's here in its own proc so we can move it around easiliy if need be
+//Send resources to the client.
 /client/proc/send_resources()
-//	preload_vox() //Causes long delays with initial start window and subsequent windows when first logged in.
-
+	// Most assets are now handled through global_cache.dm
 	getFiles(
-		'html/search.js',
-		'html/panels.css',
-		'html/painew.png',
-		'html/loading.gif',
-		'icons/pda_icons/pda_atmos.png',
-		'icons/pda_icons/pda_back.png',
-		'icons/pda_icons/pda_bell.png',
-		'icons/pda_icons/pda_blank.png',
-		'icons/pda_icons/pda_boom.png',
-		'icons/pda_icons/pda_bucket.png',
-		'icons/pda_icons/pda_crate.png',
-		'icons/pda_icons/pda_cuffs.png',
-		'icons/pda_icons/pda_eject.png',
-		'icons/pda_icons/pda_exit.png',
-		'icons/pda_icons/pda_flashlight.png',
-		'icons/pda_icons/pda_honk.png',
-		'icons/pda_icons/pda_mail.png',
-		'icons/pda_icons/pda_medical.png',
-		'icons/pda_icons/pda_menu.png',
-		'icons/pda_icons/pda_mule.png',
-		'icons/pda_icons/pda_notes.png',
-		'icons/pda_icons/pda_power.png',
-		'icons/pda_icons/pda_rdoor.png',
-		'icons/pda_icons/pda_reagent.png',
-		'icons/pda_icons/pda_refresh.png',
-		'icons/pda_icons/pda_scanner.png',
-		'icons/pda_icons/pda_signaler.png',
-		'icons/pda_icons/pda_status.png',
-		'icons/spideros_icons/sos_1.png',
-		'icons/spideros_icons/sos_2.png',
-		'icons/spideros_icons/sos_3.png',
-		'icons/spideros_icons/sos_4.png',
-		'icons/spideros_icons/sos_5.png',
-		'icons/spideros_icons/sos_6.png',
-		'icons/spideros_icons/sos_7.png',
-		'icons/spideros_icons/sos_8.png',
-		'icons/spideros_icons/sos_9.png',
-		'icons/spideros_icons/sos_10.png',
-		'icons/spideros_icons/sos_11.png',
-		'icons/spideros_icons/sos_12.png',
-		'icons/spideros_icons/sos_13.png',
-		'icons/spideros_icons/sos_14.png',
-		'icons/stamp_icons/large_stamp-clown.png',
-		'icons/stamp_icons/large_stamp-deny.png',
-		'icons/stamp_icons/large_stamp-ok.png',
-		'icons/stamp_icons/large_stamp-hop.png',
-		'icons/stamp_icons/large_stamp-cmo.png',
-		'icons/stamp_icons/large_stamp-ce.png',
-		'icons/stamp_icons/large_stamp-hos.png',
-		'icons/stamp_icons/large_stamp-rd.png',
-		'icons/stamp_icons/large_stamp-cap.png',
-		'icons/stamp_icons/large_stamp-qm.png',
-		'icons/stamp_icons/large_stamp-law.png',
-		'icons/stamp_icons/large_stamp-cent.png',
-		'html/talisman.png',
-		'html/images/ntlogo.png'
-		)
+		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
+		'html/panels.css' // Used for styling certain panels, such as in the new player panel
+	)
+		
+	// Send NanoUI resources to this client
+	spawn nanomanager.send_resources(src)

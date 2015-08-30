@@ -153,6 +153,9 @@
 	go_out()
 	return
 
+/obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
+	return attack_hand(user)
+	
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	if(panel_open)
 		usr << "\blue <b>Close the maintenance panel first.</b>"

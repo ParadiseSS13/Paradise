@@ -149,7 +149,7 @@
 
 		var/pdas[0]
 		if(!user.pda.toff)
-			for(var/obj/item/device/pda/P in sortAtom(PDAs))
+			for(var/obj/item/device/pda/P in PDAs)
 				if(!P.owner || P.toff || P == user.pda || P.hidden) continue
 				var/pda[0]
 				pda["name"] = "[P]"
@@ -369,6 +369,8 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
+		if(!T || !(T.z in config.contact_levels))
+			break
 		if(T.loc)
 			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>"
 		else

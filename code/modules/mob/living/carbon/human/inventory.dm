@@ -56,7 +56,7 @@
 /mob/living/carbon/human/proc/has_organ(name)
 	var/obj/item/organ/external/O = organs_by_name[name]
 
-	return (O && !(O.status & ORGAN_DESTROYED) )
+	return (O && !(O.status & ORGAN_DESTROYED)  && !O.is_stump())
 
 /mob/living/carbon/human/proc/has_organ_for_slot(slot)
 	switch(slot)
@@ -884,3 +884,33 @@ It can still be worn/put on as normal.
 		if(slot_s_store)
 			return s_store
 	return null
+
+/mob/living/carbon/human/get_all_slots()
+	. = get_head_slots() | get_body_slots()
+
+/mob/living/carbon/human/proc/get_body_slots()
+	return list(
+		l_hand,
+		r_hand,
+		back,
+		s_store,
+		handcuffed,
+		legcuffed,
+		wear_suit,
+		gloves,
+		shoes,
+		belt,
+		wear_id,
+		l_store,
+		r_store,
+		w_uniform
+		)
+
+/mob/living/carbon/human/proc/get_head_slots()
+	return list(
+		head,
+		wear_mask,
+		glasses,
+		r_ear,
+		l_ear,
+		)	

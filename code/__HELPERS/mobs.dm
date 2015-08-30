@@ -148,14 +148,14 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [user.name][ismob(user) ? "([user.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
-		log_attack("<font color='red'>[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(target.client)
 		if(what_done in ignore) return
 		if(target == user)return
 		if(!admin) return
-		msg_admin_attack("[user.name][ismob(user) ? "([user.ckey])" : ""][isAntag(user) ? "(ANTAG)" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 

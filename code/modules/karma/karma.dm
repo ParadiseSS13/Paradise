@@ -63,8 +63,7 @@ var/list/karma_spenders = list()
 
 	var/list/karma_list = list("Cancel")
 	for(var/mob/M in player_list) if(M.client && M.mind)
-		var/special_role = M.mind.special_role
-		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate" || special_role == "Syndicate Commando" || special_role == "Vox Raider" || special_role == "Alien") // Don't include special roles, because players use it to meta
+		if(isNonCrewAntag(M)) // Don't include special roles, because players use it to meta
 			continue
 		karma_list += M
 

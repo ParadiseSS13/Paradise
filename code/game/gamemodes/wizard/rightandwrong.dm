@@ -5,7 +5,7 @@
 	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos")
 	usr << "<B>You summoned [summon_type ? "magic" : "guns"]!</B>"
-	message_admins("[key_name_admin(usr, 1)] summoned [summon_type ? "magic" : "guns"]!")
+	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]!")
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == 2 || !(H.client)) continue
 		if(H.mind)

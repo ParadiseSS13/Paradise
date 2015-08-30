@@ -135,8 +135,8 @@
 
 			var/obj/item/device/assembly_holder/H = W
 			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
-				msg_admin_attack("[key_name_admin(user)][isAntag(user) ? "(ANTAG)" : ""] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
-				log_game("[key_name(user)] rigged fueltank at ([loc.x],[loc.y],[loc.z]) for explosion.")
+				msg_admin_attack("[key_name_admin(user)] rigged a fueltank for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				log_game("[key_name(user)] rigged fueltank a fueltank for explosion at [loc.x], [loc.y], [loc.z]")
 
 				rig = W
 				user.drop_item()

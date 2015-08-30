@@ -62,7 +62,7 @@
 
 /obj/item/weapon/dnainjector/proc/inject(mob/living/M as mob, mob/user as mob)
 	if(istype(M,/mob/living))
-		M.apply_effect(rand(10,25),IRRADIATE,0)
+		M.apply_effect(rand(10,25),IRRADIATE,0,1)
 
 	if (!(NOCLONE in M.mutations)) // prevents drained people from having their DNA changed
 		// UI in syringe.
@@ -95,8 +95,9 @@
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & IS_SYNTHETIC)
+		if(H.species.flags & NO_DNA_RAD)
 			return
+			
 	if (!usr.IsAdvancedToolUser())
 		return
 

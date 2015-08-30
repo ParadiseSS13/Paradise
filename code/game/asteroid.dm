@@ -97,7 +97,7 @@ var/global/max_secret_rooms = 6
 			theme = "xenoden"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
-			treasureitems = list(/obj/item/clothing/mask/facehugger=1)
+			treasureitems = list(/obj/item/clothing/mask/facehugger=1,/obj/item/stack/sheet/animalhide/xeno=2,/obj/item/clothing/suit/xenos=2,/obj/item/clothing/head/xenos=2)
 			fluffitems = list(/obj/effect/decal/remains/human=1,/obj/effect/decal/cleanable/blood/xeno=5)
 
 		if("hitech")

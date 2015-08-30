@@ -156,13 +156,78 @@
 	reliability_base = 75
 	build_path = /obj/item/weapon/stock_parts/matter_bin/super
 	category = list("Stock Parts")
-	
+
+/datum/design/quadratic_capacitor
+	name = "Quadratic Capacitor"
+	desc = "A stock part used in the construction of various devices."
+	id = "quadratic_capacitor"
+	req_tech = list("powerstorage" = 6, "materials" = 5)
+	build_type = PROTOLATHE
+	reliability_base = 71
+	materials = list("$metal" = 100, "$glass" = 100, "$diamond" = 40)
+	build_path = /obj/item/weapon/stock_parts/capacitor/quadratic
+	category = list("Stock Parts")
+
+/datum/design/triphasic_scanning
+	name = "Triphasic Scanning Module"
+	desc = "A stock part used in the construction of various devices."
+	id = "triphasic_scanning"
+	req_tech = list("magnets" = 6, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 100, "$glass" = 40, "$diamond" = 20)
+	reliability_base = 72
+	build_path = /obj/item/weapon/stock_parts/scanning_module/triphasic
+	category = list("Stock Parts")
+
+/datum/design/femto_mani
+	name = "Femto Manipulator"
+	desc = "A stock part used in the construction of various devices."
+	id = "femto_mani"
+	req_tech = list("materials" = 6, "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 60, "$diamond" = 30)
+	reliability_base = 73
+	build_path = /obj/item/weapon/stock_parts/manipulator/femto
+	category = list("Stock Parts")
+
+/datum/design/quadultra_micro_laser
+	name = "Quad-Ultra Micro-Laser"
+	desc = "A stock part used in the construction of various devices."
+	id = "quadultra_micro_laser"
+	req_tech = list("magnets" = 6, "materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 20, "$glass" = 40, "$uranium" = 20, "$diamond" = 20)
+	reliability_base = 70
+	build_path = /obj/item/weapon/stock_parts/micro_laser/quadultra
+	category = list("Stock Parts")
+
+/datum/design/bluespace_matter_bin
+	name = "Bluespace Matter Bin"
+	desc = "A stock part used in the construction of various devices."
+	id = "bluespace_matter_bin"
+	req_tech = list("materials" = 6)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 160, "$diamond" = 200)
+	reliability_base = 75
+	build_path = /obj/item/weapon/stock_parts/matter_bin/bluespace
+	category = list("Stock Parts")
+
 /datum/design/RPED
 	name = "Rapid Part Exchange Device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	id = "rped"
 	req_tech = list("engineering" = 3, "materials" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 15000, "$glass" = 5000) //hardcore
+	materials = list("$metal" = 10000, "$glass" = 5000) //hardcore
 	build_path = /obj/item/weapon/storage/part_replacer
+	category = list("Stock Parts")
+
+/datum/design/BS_RPED
+	name = "Bluespace RPED"
+	desc = "Powered by bluespace technology, this RPED variant can upgrade buildings from a distance, without needing to remove the panel first."
+	id = "bs_rped"
+	req_tech = list("engineering" = 3, "materials" = 5, "programming" = 3, "bluespace" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 15000, "$glass" = 5000, "$silver" = 2500) //hardcore
+	build_path = /obj/item/weapon/storage/part_replacer/bluespace
 	category = list("Stock Parts")

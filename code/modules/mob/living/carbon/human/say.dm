@@ -27,7 +27,7 @@
 		return emote(copytext(message,2))
 
 	if(name != GetVoice())
-		alt_name = "(as [get_id_name("Unknown")])"
+		alt_name = " (as [get_id_name("Unknown")])"
 
 	//parse the radio code and consume it
 	if (message_mode)
@@ -190,7 +190,7 @@
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if (!speaking)
-		if (istype(other, /mob/living/carbon/primitive/diona))
+		if (istype(other, /mob/living/simple_animal/diona))
 			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
 				return 1
 		if (istype(other, /mob/living/silicon))
@@ -207,18 +207,20 @@
 	//	return 0
 
 	return ..()
-
-/mob/living/carbon/human/GetVoice()
-
-	var/voice_sub
+	
+/mob/living/carbon/human/proc/HasVoiceChanger()
 	for(var/obj/item/gear in list(wear_mask,wear_suit,head))
 		if(!gear)
 			continue
 		var/obj/item/voice_changer/changer = locate() in gear
 		if(changer && changer.active && changer.voice)
-			voice_sub = changer.voice
-	if(voice_sub)
-		return voice_sub
+			return changer.voice
+	return 0
+		
+/mob/living/carbon/human/GetVoice()
+	var/has_changer = HasVoiceChanger()
+	if(has_changer)
+		return has_changer
 	if(mind && mind.changeling && mind.changeling.mimicing)
 		return mind.changeling.mimicing
 	if(GetSpecialVoice())

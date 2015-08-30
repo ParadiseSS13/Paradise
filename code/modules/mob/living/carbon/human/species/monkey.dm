@@ -1,5 +1,6 @@
 /datum/species/monkey
 	name = "Monkey"
+	name_plural = "Monkeys"
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
@@ -52,7 +53,8 @@ datum/species/monkey/get_random_name(var/gender)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
-
+	name_plural = "Farwa"
+	
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
@@ -66,6 +68,7 @@ datum/species/monkey/get_random_name(var/gender)
 
 /datum/species/monkey/vulpkanin
 	name = "Wolpin"
+	name_plural = "Wolpin"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
@@ -80,6 +83,7 @@ datum/species/monkey/get_random_name(var/gender)
 
 /datum/species/monkey/skrell
 	name = "Neara"
+	name_plural = "Neara"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
@@ -96,6 +100,7 @@ datum/species/monkey/get_random_name(var/gender)
 
 /datum/species/monkey/unathi
 	name = "Stok"
+	name_plural = "Stok"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'

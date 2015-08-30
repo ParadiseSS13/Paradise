@@ -29,7 +29,7 @@
 	allow_drop()
 		return 0
 
-	destroy()
+	Destroy()
 		for(var/atom/movable/AM in src)
 			AM.forceMove(get_turf(src))
 		return ..()
@@ -263,7 +263,7 @@
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 
-	destroy()
+	Destroy()
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 

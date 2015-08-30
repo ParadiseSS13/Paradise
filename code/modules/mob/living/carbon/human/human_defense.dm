@@ -35,13 +35,13 @@ emp_act
 	if(check_shields(P.damage, "the [P.name]", P))
 		P.on_hit(src, 100, def_zone)
 		return 2
-
+		
+	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
+	if(isnull(organ))
+		return 
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
-		var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
-		if(!organ)
-			return
 		var/armor = getarmor_organ(organ, "bullet")
 		if((P.embed && prob(20 + max(P.damage - armor, -10))))
 			var/obj/item/weapon/shard/shrapnel/SP = new()
@@ -50,9 +50,7 @@ emp_act
 			(SP.loc) = organ
 			organ.embed(SP)
 
-	var/mob/living/carbon/human/M = src
-	var/obj/item/organ/external/affected = M.get_organ(def_zone)
-	affected.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
+	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
 
@@ -204,11 +202,6 @@ emp_act
 	for(var/obj/O in src)
 		if(!O)	continue
 		O.emp_act(severity)
-	for(var/obj/item/organ/external/O  in organs)
-		if(O.status & ORGAN_DESTROYED)	continue
-		O.emp_act(severity)
-		for(var/obj/item/organ/I  in O.internal_organs)
-			I.emp_act(severity)
 	..()
 
 /mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
@@ -239,9 +232,9 @@ emp_act
 		--src.meatleft
 		user << "\red You hack off a chunk of meat from [src.name]"
 		if(!src.meatleft)
-			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[user]/[user.ckey]</b>"
-			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[src]/[src.ckey]</b> into meat</b>"
-			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] chopped up [src] ([src.ckey]) into meat (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			src.attack_log += "\[[time_stamp()]\] Was chopped up into meat by <b>[key_name(user)]</b>"
+			user.attack_log += "\[[time_stamp()]\] Chopped up <b>[key_name(src)]</b> into meat</b>"
+			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
 			if(!iscarbon(user))
 				LAssailant = null
 			else
@@ -394,12 +387,11 @@ emp_act
 
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower
-			var/client/assailant = M.client
-			if(assailant)
-				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [M.name] ([assailant.ckey])</font>")
-				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [src.name] ([src.ckey]) with a thrown [O]</font>")
+			if(M)
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been hit with a [O], thrown by [key_name(M)]</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Hit [key_name(src)] with a thrown [O]</font>")
 				if(!istype(src,/mob/living/simple_animal/mouse))
-					msg_admin_attack("[src.name] ([src.ckey]) was hit by a [O], thrown by [M.name] ([assailant.ckey])[isAntag(M) ? "(ANTAG)" : ""] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+					msg_admin_attack("[key_name_admin(src)] was hit by a [O], thrown by [key_name_admin(M)]")
 
 		//thrown weapon embedded object code.
 		if(dtype == BRUTE && istype(O,/obj/item))
@@ -497,8 +489,11 @@ emp_act
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
-		add_logs(M.occupant, src, "attacked", object=M, addition="(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 
+		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
+		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
+			
 	else
 		..()
 

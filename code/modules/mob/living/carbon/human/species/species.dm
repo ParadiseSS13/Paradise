@@ -4,6 +4,7 @@
 
 /datum/species
 	var/name                     // Species name.
+	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/path 					// Species path
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
@@ -37,7 +38,7 @@
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
-	var/synth_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
+	var/passive_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
 	var/reagent_tag                 //Used for metabolizing reagents.
 
 	var/darksight = 2
@@ -60,8 +61,8 @@
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/flags = 0       // Various specific features.
-	var/bloodflags=0
-	var/bodyflags=0
+	var/bloodflags = 0
+	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/list/abilities = list()	// For species-derived or admin-given powers
@@ -76,8 +77,11 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
+	
 	var/is_small
 	var/show_ssd = 1
+	var/virus_immune
+	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
@@ -95,8 +99,8 @@
 		"brain" =    /obj/item/organ/brain,
 		"appendix" = /obj/item/organ/appendix,
 		"eyes" =     /obj/item/organ/eyes
-		)
-
+		)		
+	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
 		"groin" =  list("path" = /obj/item/organ/external/groin),
@@ -112,6 +116,10 @@
 		)
 
 /datum/species/New()
+	//If the species has eyes, they are the default vision organ
+	if(!vision_organ && has_organ["eyes"])
+		vision_organ = "eyes"
+
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(var/gender)
@@ -149,14 +157,6 @@
 
 	for(var/obj/item/organ/external/O in H.organs)
 		O.owner = H
-
-	if(flags & IS_SYNTHETIC)
-		for(var/obj/item/organ/external/E in H.organs)
-			if(E.status & ORGAN_CUT_AWAY || E.status & ORGAN_DESTROYED) continue
-			E.robotize()
-		for(var/obj/item/organ/I in H.internal_organs)
-			I.robotize()
-
 
 /datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
 	var/safe_oxygen_min = 16 // Minimum safe partial pressure of O2, in kPa

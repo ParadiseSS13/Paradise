@@ -42,7 +42,7 @@
 		if(!(T.z in config.station_levels))
 			continue
 		if(istype(H,/mob/living/carbon/human))
-			if(H.species.flags & IS_SYNTHETIC)
+			if(H.species.flags & NO_DNA_RAD)
 				return
 			H.apply_effect((rand(15,75)),IRRADIATE,0)
 			if (prob(5))

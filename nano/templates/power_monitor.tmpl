@@ -23,14 +23,6 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 	<h2>Powernet Status</h2>
 	<div class="item">
 		<div class="itemLabelNarrow">
-			<b>Current Load:</b>
-		</div>
-		<div class="itemContent">
-			<span class="average">{{:data.powerload}} W</span>
-		</div>
-	</div>
-	<div class="item">
-		<div class="itemLabelNarrow">
 			<b>Total Power:</b>
 		</div>
 		<div class="itemContent">
@@ -38,14 +30,31 @@ Used In File(s): \code\modules\nano\modules\power_monitor.dm
 		</div>
 	</div>
 	<div class="item">
-		<table class="curvedEdges"><tbody>
-			<tr><th>Area</th><th>Equip.</th><th>Lighting</th><th>Environ.</th><th>Cell</th></tr>
+		<div class="itemLabelNarrow">
+			<b>Total Load:</b>
+		</div>
+		<div class="itemContent">
+			<span class="average">{{:data.powerload}} W</span>
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			<b>Total Demand:</b>
+		</div>
+		<div class="itemContent">
+			<span class="average">{{:data.powerdemand}} W</span>
+		</div>
+	</div>
+	<div class="item">
+		<table class="curvedEdges" style="text-align: center;"><tbody>
+			<tr><th>Area</th><th>Equip.</th><th>Lighting</th><th>Environ.</th><th>Cell</th><th>Load</th></tr>
 			{{for data.apcs}}		
-				<tr><td><span class="average">{{:value.Name}}</span></td>
-					{{:helper.string('<td width="55px" bgcolor="{0}">&nbsp;</td>', value.Equipment == 1 ? '#4f7529' : '#8f1414')}}
-					{{:helper.string('<td width="55px" bgcolor="{0}">&nbsp;</td>', value.Lights == 1 ? '#4f7529' : '#8f1414')}}
-					{{:helper.string('<td width="55px" bgcolor="{0}">&nbsp;</td>', value.Environment == 1 ? '#4f7529' : '#8f1414')}}
-					{{:helper.string('<td style="text-align: center;" width="35px" bgcolor="{0}">{1}</td>', value.CellStatus == 1 ? '#4f7529' : '#8f1414', value.CellStatus == -1 ? 'No Cell' : value.CellPct + '%')}}
+				<tr><td style="text-align: left; font-weight: bold;">{{:value.Name}}</td>
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Equipment == "On" || value.Equipment == "AOn" ? '#4f7529' : '#8f1414', value.Equipment)}}
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Lights == "On" || value.Lights == "AOn" ? '#4f7529' : '#8f1414', value.Lights)}}
+					{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Environment == "On" || value.Environment == "AOn" ? '#4f7529' : '#8f1414', value.Environment)}}
+					{{:helper.string('<td style="text-align: center;" width="65px" bgcolor="{0}">{1}{2}</td>', value.CellStatus == "F" ? '#4f7529' : value.CellStatus == "C" ? '#cd6500' : '#8f1414', value.CellStatus == "M" ? 'No Cell' : value.CellPct + '%', value.CellStatus == "M" ? '' : ' (' + value.CellStatus + ')')}}
+					<td width="65px">{{:value.Load}}W</td>
 				</tr>
 			{{/for}}
 		</tbody></table>

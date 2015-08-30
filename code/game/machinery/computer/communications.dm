@@ -86,6 +86,9 @@ var/shuttle_call/shuttle_calls[0]
 		return 1
 		
 	if(href_list["login"])
+		if(!ishuman(usr))
+			usr << "<span class='warning'>Access denied.</span>" 
+			return
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
 		var/obj/item/weapon/card/id/I = (card && card.GetID())||M.wear_id||M.wear_pda
@@ -170,8 +173,8 @@ var/shuttle_call/shuttle_calls[0]
 					message_cooldown = 0
 
 		if("callshuttle")
-			var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
-			if(!input || ..() || !(is_authenticated(usr) == 2))
+			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			if(!input || ..() || !is_authenticated(usr))
 				nanomanager.update_uis(src)
 				return
 				
@@ -426,7 +429,7 @@ var/shuttle_call/shuttle_calls[0]
 		return
 
 	if(world.time < 6000) // Ten minute grace period to let the game get going without lolmetagaming. -- TLE
-		user << "<span class='warning'>The emergency shuttle is refueling. Please wait another [round((6000-world.time)/60)] minutes before trying again.</span>"
+		user << "<span class='warning'>The emergency shuttle is refueling. Please wait another [round((6000-world.time)/600)] minutes before trying again.</span>"
 		return
 
 	if(emergency_shuttle.going_to_centcom())
@@ -470,7 +473,7 @@ var/shuttle_call/shuttle_calls[0]
 			return
 
 		if(world.time < 54000) // 30 minute grace period to let the game get going
-			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/60)] minutes before trying again."
+			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again."
 			return
 
 		if(ticker.mode.name == "epidemic")

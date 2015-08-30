@@ -109,7 +109,7 @@
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
 	
-/obj/machinery/portable_atmospherics/scrubber/attack_ghost(var/mob/user)
+/obj/machinery/portable_atmospherics/scrubber/attack_ghost(var/mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_hand(var/mob/user as mob)

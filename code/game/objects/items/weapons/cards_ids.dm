@@ -88,6 +88,7 @@
 	var/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
+	var/untrackable // Can not be tracked by AI's
 
 	var/blood_type = "\[UNSET\]"
 	var/dna_hash = "\[UNSET\]"
@@ -123,6 +124,10 @@
 		usr << "<span class='warning'>It is too far away.</span>"
 
 /obj/item/weapon/card/id/proc/show(mob/user as mob)
+	if(user.client) // Send the stamp images to the client
+		var/datum/asset/simple/S = new/datum/asset/simple/paper()
+		send_asset_list(user.client, S.assets)	
+		
 	if(!front)
 		front = new(photo, dir = SOUTH)
 	if(!side)
@@ -172,6 +177,9 @@
 
 /obj/item/weapon/card/id/GetID()
 	return src
+	
+/obj/item/weapon/card/id/proc/is_untrackable()
+	return untrackable
 
 /obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
@@ -213,6 +221,7 @@
 	var/list/initial_access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
 	origin_tech = "syndicate=3"
 	var/registered_user = null
+	untrackable = 1
 	
 /obj/item/weapon/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -429,6 +438,7 @@
 	registered_name = "Syndicate"
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
+	untrackable = 1
 	access = list(access_syndicate, access_external_airlocks)
 
 /obj/item/weapon/card/id/captains_spare
@@ -450,6 +460,7 @@
 	item_state = "gold_id"
 	registered_name = "Admin"
 	assignment = "Testing Shit"
+	untrackable = 1
 
 /obj/item/weapon/card/id/admin/New()
 	access = get_absolutely_all_accesses()

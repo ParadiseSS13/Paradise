@@ -14,12 +14,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
 
-	/**src.verbs -= /client/verb/adminhelp
-
-	spawn(1200)
-		src.verbs += /client/verb/adminhelp	// 2 minute cool-down for adminhelps
-		src.verbs += /client/verb/adminhelp	// 2 minute cool-down for adminhelps//Go to hell
-	**/
 	var/msg
 	var/list/type = list("Question","Player Complaint")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
@@ -35,8 +29,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg
-
-
 
 	//explode the input msg into a list
 	var/list/msglist = text2list(msg, " ")
@@ -87,14 +79,15 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 							mobs_found += found
 							if(!ai_found && isAI(found))
 								ai_found = 1
-							msg += "<b><font color='black'>[original_word] (<A HREF='?_src_=holder;adminmoreinfo=\ref[found]'>?</A>)</font></b> "
+							msg += "<b><font color='black'>[original_word] </font></b> "
 							continue
 			msg += "[original_word] "
 
 	if(!mob)	return						//this doesn't happen
 
 	var/ref_mob = "\ref[mob]"
-	msg = "\blue <b><font color=red>[selected_type]: </font>[key_name(src, 1, 1, selected_type)] (<A HREF='?_src_=holder;adminmoreinfo=[ref_mob]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[ref_mob]'>PP</A>) (<A HREF='?_src_=vars;Vars=[ref_mob]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[ref_mob]'>SM</A>) ([admin_jump_link(mob, "holder")]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[ref_mob]'>CL</A>)" : ""]:</b> [msg]"
+	var/ref_client = "\ref[src]"
+	msg = "\blue <b><font color=red>[selected_type]: </font>[key_name(src, 1, 1, selected_type)] (<A HREF='?_src_=holder;adminmoreinfo=[ref_mob]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[ref_mob]'>PP</A>) (<A HREF='?_src_=vars;Vars=[ref_mob]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[ref_mob]'>SM</A>) ([admin_jump_link(mob, "holder")]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;rejectadminhelp=[ref_client]'>REJT</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[ref_mob]'>CL</A>)" : ""]:</b> [msg]"
 
 	//send this msg to all admins
 	var/admin_number_afk = 0
@@ -147,3 +140,31 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
+
+/proc/send2irc_adminless_only(source, msg, requiredflags = R_BAN)
+	var/admin_number_total = 0		//Total number of admins
+	var/admin_number_afk = 0		//Holds the number of admins who are afk
+	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
+	var/admin_number_decrease = 0	//Holds the number of admins with are afk, ignored or both
+	for(var/client/X in admins)
+		admin_number_total++;
+		var/invalid = 0
+		if(requiredflags != 0 && !check_rights_for(X, requiredflags))
+			admin_number_ignored++
+			invalid = 1
+		if(X.is_afk())
+			admin_number_afk++
+			invalid = 1
+		if(X.holder.fakekey)
+			admin_number_ignored++
+			invalid = 1
+		if(invalid)
+			admin_number_decrease++
+	var/admin_number_present = admin_number_total - admin_number_decrease	//Number of admins who are neither afk nor invalid
+	if(admin_number_present <= 0)
+		if(!admin_number_afk && !admin_number_ignored)
+			send2irc(source, "[msg] - No admins online")
+		else
+			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
+	return admin_number_present
+	
