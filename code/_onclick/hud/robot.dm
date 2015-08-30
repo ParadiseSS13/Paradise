@@ -98,7 +98,7 @@
 	mymob.throw_icon.icon_state = "store"
 	mymob.throw_icon.name = "store"
 	mymob.throw_icon.screen_loc = ui_borg_store
-
+	
 //Headlamp
 	mymob:lamp_button = new /obj/screen()
 	mymob:lamp_button.icon = 'icons/mob/screen1_robot.dmi'
@@ -135,7 +135,7 @@
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
+	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
 	mymob.blind.layer = 0
 
 	mymob.flash = new /obj/screen()
