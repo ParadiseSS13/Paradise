@@ -8,7 +8,6 @@
 	small = 1
 	pass_flags = 1
 	density = 0
-	holder_type = /obj/item/weapon/holder/pai
 
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -26,11 +25,7 @@
 		"Mouse" = "mouse",
 		"Monkey" = "monkey",
 		"Corgi" = "borgi",
-		"Fox" = "fox",
-		"Parrot" = "parrot",
-		"Box Bot" = "boxbot",
-		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fox" = "fox"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -115,8 +110,6 @@
 
 /mob/living/silicon/pai/Login()
 	..()
-	usr << browse_rsc('html/paigrid.png')			// Go ahead and cache the interface resources as early as possible
-
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -284,20 +277,7 @@
 	medicalActive2 = null
 	medical_cannotfind = 0
 	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"
-
-/mob/living/silicon/pai/verb/reset_record_view()
-	set category = "pAI Commands"
-	set name = "Reset Records Software"
-
-	securityActive1 = null
-	securityActive2 = null
-	security_cannotfind = 0
-	medicalActive1 = null
-	medicalActive2 = null
-	medical_cannotfind = 0
-	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"
+	usr << "<span class='notice'>You reset your record-viewing software.</span>"	
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -481,16 +461,7 @@
 		src.client.perspective = EYE_PERSPECTIVE
 		src.client.eye = card
 
-	// If we are being held, handle removing our holder from their inv.
-	var/obj/item/weapon/holder/H = loc
-	if(istype(H))
-		var/mob/living/M = H.loc
-		if(istype(M))
-			M.unEquip(H)
-		H.loc = get_turf(src)
-		src.loc = get_turf(H)
-
-	// Move us into the card and move the card to the ground
+	//This seems redundant but not including the forced loc setting messes the behavior up.
 	src.loc = card
 	card.loc = get_turf(card)
 	src.forceMove(card)
@@ -549,27 +520,10 @@
 // No binary for pAIs.
 /mob/living/silicon/pai/binarycheck()
 	return 0
-
-// Handle being picked up.
-
-/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber)
-	var/obj/item/weapon/holder/H = ..()
-	if(!istype(H))
-		return
-	H.icon_state = "pai-[icon_state]"
-	H.item_state = "pai-[icon_state]"
-	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'//I have these in diffrent DMI so i am overriding
-	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
-
-	return H
-
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/H = over_object
-	if(!istype(H) || !Adjacent(H)) return ..()
-	if(H.a_intent == "help")
-		get_scooped(H)
-		//return
-	else
-		return ..()
+	
+/mob/living/silicon/pai/on_forcemove(atom/newloc)
+	if(card)
+		card.loc = newloc
+	else //something went very wrong.
+		CRASH("pAI without card")
+	loc = card
