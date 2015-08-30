@@ -335,4 +335,12 @@
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
 
+/obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
+	name = "Castile formal outfit"
+	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "castile_dress"
+	item_state = "castile_dress"
+	_color = "castile_dress"
+
 //////////// Weapons ////////////
