@@ -211,12 +211,11 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return show_player_info_irc(input["notes"])
 
-
-
-
-
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if (reason == 1) //special reboot, do none of the normal stuff
+		if(usr)
+			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
+			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
 		return ..(1)
