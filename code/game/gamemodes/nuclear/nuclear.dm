@@ -221,6 +221,10 @@ proc/issyndicate(mob/living/M as mob)
 		var/obj/item/weapon/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
+		var/obj/item/weapon/stamp/syndicate/stamp = new
+		P.stamp(stamp)
+		qdel(stamp)
+		
 		if (ticker.mode.config_tag=="nuclear")
 			P.loc = synd_mind.current.loc
 		else

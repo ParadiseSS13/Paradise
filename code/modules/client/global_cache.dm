@@ -78,6 +78,7 @@
 		"large_stamp-qm.png" = 'icons/paper_icons/large_stamp-qm.png',
 		"large_stamp-law.png" = 'icons/paper_icons/large_stamp-law.png',
 		"large_stamp-cent.png" = 'icons/paper_icons/large_stamp-cent.png',
+		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
 		"talisman.png" = 'icons/paper_icons/talisman.png',
 		"ntlogo.png" = 'icons/paper_icons/ntlogo.png'	
 	)
