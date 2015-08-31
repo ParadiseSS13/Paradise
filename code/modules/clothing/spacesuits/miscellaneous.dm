@@ -14,10 +14,9 @@
 		)
 /obj/item/clothing/head/helmet/space/capspace/equipped(var/mob/living/carbon/human/user, var/slot)
 	if (ishuman(user) && user.species.name == "Vox")
-		flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
+		flags &= ~BLOCKHAIR
 	else
-		flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
-
+		flags |= BLOCKHAIR
 
 /obj/item/clothing/suit/space/captain
 	name = "captain's space suit"
