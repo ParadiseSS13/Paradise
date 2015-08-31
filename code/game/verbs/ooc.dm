@@ -42,7 +42,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_colour = "#0099cc"	//light blue
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = "#184880"	//dark blue
-		else if(holder.rights & R_ADMIN)
+		else if(check_rights(R_ADMIN,0))
 			if(config.allow_admin_ooccolor)
 				display_colour = src.prefs.ooccolor
 			else
@@ -124,7 +124,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(check_rights(R_MOD,0))
+		if(check_rights(R_MOD,0,M))
 			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
@@ -142,7 +142,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(check_rights(R_MOD,0))
+		if(check_rights(R_MOD,0,C.mob))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)
