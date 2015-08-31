@@ -167,12 +167,7 @@ datum/controller/vote
 
 
 		if(restart)
-			world << "World restarting due to vote..."
-			feedback_set_details("end_error","restart vote")
-			if(blackbox)	blackbox.save_all_data_to_sql()
-			sleep(50)
-			log_game("Rebooting due to restart vote")
-			world.Reboot()
+			world.Reboot("Restart vote successful.", "end_error", "restart vote")
 
 		return .
 
