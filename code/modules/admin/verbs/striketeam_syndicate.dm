@@ -12,9 +12,6 @@ var/global/sent_syndicate_strike_team = 0
 	if(!ticker)
 		alert("The game hasn't started yet!")
 		return
-//	if(world.time < 6000)
-//		alert("Not so fast, buddy. Wait a few minutes until the game gets going. There are [(6000-world.time)/10] seconds remaining.")
-//		return
 	if(sent_syndicate_strike_team == 1)
 		alert("The Syndicate are already sending a team, Mr. Dumbass.")
 		return
