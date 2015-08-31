@@ -53,7 +53,7 @@
 /obj/machinery/computer/security/check_eye(var/mob/user as mob)
 	if ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 		return null
-	reset_current()	
+	user.reset_view(current)
 	return 1
 
 // Network configuration
