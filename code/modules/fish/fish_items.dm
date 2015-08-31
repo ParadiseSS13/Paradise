@@ -143,6 +143,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 /obj/item/weapon/fish/toothless_shark
 	name = "toothless shark"
 	desc = "Looks like someone ripped it's teeth out!"
+	icon_state = "shark"
 	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/weapon/shard/shark_teeth
@@ -153,6 +154,10 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	force = 2.0
 	throwforce = 5.0
 	g_amt = 0
+
+/obj/item/weapon/shard/shark_teeth/New()
+	src.pixel_x = rand(-5,5)
+	src.pixel_y = rand(-5,5)
 
 /obj/item/weapon/fish/catfish
 	name = "catfish"

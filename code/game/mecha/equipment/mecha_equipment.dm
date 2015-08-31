@@ -44,7 +44,7 @@
 		return 1
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/destroy()//missiles detonating, teleporter creating singularity?
+/obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
 		chassis.equipment -= src
 		listclearnulls(chassis.equipment)
@@ -57,9 +57,8 @@
 			chassis.occupant << sound('sound/mecha/weapdestr.ogg',volume=50)
 		else
 			chassis.occupant << sound('sound/mecha/critdestr.ogg',volume=50)
-	spawn
-		qdel(src)
-	return
+		chassis = null
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
 	if(chassis)

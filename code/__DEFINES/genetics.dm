@@ -7,6 +7,8 @@
 #define DISABILITY_FLAG_FAT         2
 #define DISABILITY_FLAG_EPILEPTIC   4
 #define DISABILITY_FLAG_DEAF        8
+#define DISABILITY_FLAG_BLIND       16
+#define DISABILITY_FLAG_MUTE        32
 
 ///////////////////////////////////////
 // MUTATIONS

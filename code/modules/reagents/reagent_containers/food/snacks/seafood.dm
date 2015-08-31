@@ -160,7 +160,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("protien", 1)
+		reagents.add_reagent("protein", 1)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/sushi_Sake
@@ -216,19 +216,19 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("protien", 1)
+		reagents.add_reagent("protein", 1)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/sushi_Tobiko
-	name = "Ikura Sushi"
+	name = "Tobiko Sushi"
 	desc = "A simple sushi consisting of shark roe."
 	icon = 'icons/obj/food/seafood.dmi'
-	icon_state = "sushi_Tobiko"
+	icon_state = "sushi_Masago"
 
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("protien", 1)
+		reagents.add_reagent("protein", 1)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/sushi_TobikoEgg
@@ -240,7 +240,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("protien", 1)
+		reagents.add_reagent("protein", 1)
 		bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/sushi_Tai

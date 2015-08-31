@@ -505,6 +505,14 @@
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
 
+		if(client.prefs.disabilities & DISABILITY_FLAG_BLIND)
+			new_character.dna.SetSEState(BLINDBLOCK,1,1)
+			new_character.sdisabilities |= BLIND
+			
+		if(client.prefs.disabilities & DISABILITY_FLAG_MUTE)
+			new_character.dna.SetSEState(MUTEBLOCK,1,1)
+			new_character.sdisabilities |= MUTE
+			
 		chosen_species.handle_dna(new_character)
 
 		domutcheck(new_character)

@@ -11,7 +11,7 @@ var/global/datum/repository/powermonitor/powermonitor_repository = new()
 	if(!refresh)
 		return cache_entry.data
 	
-	for(var/obj/machinery/computer/monitor/pMon in machines)
+	for(var/obj/machinery/computer/monitor/pMon in power_monitors)
 		if( !(pMon.stat & (NOPOWER|BROKEN)) )
 			pMonData[++pMonData.len] = list ("Name" = pMon.name, "ref" = "\ref[pMon]")
 

@@ -937,3 +937,4 @@
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
+	

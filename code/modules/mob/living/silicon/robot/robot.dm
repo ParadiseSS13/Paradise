@@ -79,6 +79,7 @@ var/list/robot_verbs_default = list(
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 	
 	var/jetpackoverlay = 0
+	var/magpulse = 0
 
 	var/obj/item/borg/sight/hud/sec/sechud = null
 	var/obj/item/borg/sight/hud/med/healthhud = null
@@ -234,21 +235,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
-/*
-		if("Clerical")
-			module = new /obj/item/weapon/robot_module/clerical(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Service"
-			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Brobot"
-			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Service2"
-*/
+
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
 			if(camera && "Robots" in camera.network)
-				camera.network.Add("MINE")
+				camera.network.Add("Mining Outpost")
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
@@ -281,6 +273,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
+			magpulse = 1
 
 		if("Janitor")
 			module = new /obj/item/weapon/robot_module/janitor(src)

@@ -3,8 +3,8 @@
 #define SUPPLY_STATIONZ 1       //Z-level of the Station.
 #define SUPPLY_STATION_AREATYPE "/area/supply/station" //Type of the supply shuttle area for station
 #define SUPPLY_DOCK_AREATYPE "/area/supply/dock"	//Type of the supply shuttle area for dock
-#define COMP_SCREEN_WIDTH 580 //width of supply.order computer interaction window
-#define COMP_SCREEN_HEIGHT 555 //height of supply order computer interaction window
+#define COMP_SCREEN_WIDTH 600 //width of supply computer interaction window
+#define COMP_SCREEN_HEIGHT 555 //height of supply computer interaction window
 
 var/datum/controller/supply/supply_controller = new()
 
@@ -248,7 +248,7 @@ var/list/mechtoys = list(
 		for(var/atom/A in T.contents)
 			if(istype(A,/atom/movable/lighting_overlay))
 				continue
-			if(A.simulated)
+			if(!A.simulated)
 				continue
 			contcount++
 		if(contcount)	continue
@@ -552,7 +552,6 @@ var/list/mechtoys = list(
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
 		
 /obj/machinery/computer/supplycomp/proc/is_authorized(user)
 	if(allowed(user))

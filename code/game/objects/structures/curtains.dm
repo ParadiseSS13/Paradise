@@ -55,5 +55,8 @@
 /obj/structure/curtain/open/shower/security
 	color = "#AA0000"
 
+/obj/structure/curtain/open/shower/centcom
+	color = "#000066"
+
 #undef SHOWER_OPEN_LAYER
 #undef SHOWER_CLOSED_LAYER

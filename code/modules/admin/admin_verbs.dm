@@ -880,10 +880,13 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 	set name = "Man Up Global"
 	set desc = "Tells everyone to man up and deal with it."
+	
+	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
-	for (var/mob/T as mob in mob_list)
-		T << "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>"
-		T << 'sound/voice/ManUp1.ogg'
+	if(confirm == "Yes")	
+		for (var/mob/T as mob in mob_list)
+			T << "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>"
+			T << 'sound/voice/ManUp1.ogg'
 
-	log_admin("[key_name(usr)] told everyone to man up and deal with it.")
-	message_admins("\blue [key_name_admin(usr)] told everyone to man up and deal with it.", 1)
+		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
+		message_admins("\blue [key_name_admin(usr)] told everyone to man up and deal with it.", 1)

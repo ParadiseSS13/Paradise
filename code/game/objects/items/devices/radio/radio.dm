@@ -122,14 +122,9 @@
 	listening = !listening && !(wires.IsIndexCut(WIRE_RECEIVE) || wires.IsIndexCut(WIRE_SIGNAL))
 
 /obj/item/device/radio/Topic(href, href_list)
-	//..()
-	if (usr.stat || !on)
-		return
+	if(..())
+		return 1
 
-	if (!(issilicon(usr) || (usr.contents.Find(src) || ( in_range(src, usr) && istype(loc, /turf) ))))
-		usr << browse(null, "window=radio")
-		return
-	usr.set_machine(src)
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"])
 		var/mob/living/silicon/ai/A = locate(href_list["track2"])
