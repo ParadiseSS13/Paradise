@@ -610,72 +610,43 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/is_dead()
 	return stat == DEAD
 
-
-/*
-/mob/verb/help()
-	set name = "Help"
-	src << browse('html/help.html', "window=help")
-	return
-*/
-
-
 /mob
-
 	var/newPlayerType = /mob/new_player
 
-/*
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (!( abandon_allowed ))
-		usr << "\blue Respawn is disabled."
+	if (!abandon_allowed)
+		usr << "<span class='warning'>Respawning is disabled.</span>"
 		return
-	if ((stat != 2 || !( ticker )))
-		usr << "\blue <B>You must be dead to use this!</B>"
+		
+	if (stat != DEAD || !ticker)
+		usr << "<span class='boldnotice'>You must be dead to use this!</span>"
 		return
-	if (ticker.mode.name == "meteor" || ticker.mode.name == "epidemic") //BS12 EDIT
-		usr << "\blue Respawn is disabled."
-		return
-	else
-		var/deathtime = world.time - src.timeofdeath
-		var/deathtimeminutes = round(deathtime / 600)
-		var/pluralcheck = "minute"
-		if(deathtimeminutes == 0)
-			pluralcheck = ""
-		else if(deathtimeminutes == 1)
-			pluralcheck = " [deathtimeminutes] minute and"
-		else if(deathtimeminutes > 1)
-			pluralcheck = " [deathtimeminutes] minutes and"
-		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
-		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
-		if (deathtime < 18000)
-			usr << "You must wait 30 minutes to respawn!"
-			return
-		else
-			usr << "You can respawn now, enjoy your new life!"
 
-	log_game("[usr.name]/[usr.key] used abandon mob.")
+	log_game("[key_name(usr)] has respawned.")
 
 	usr << "\blue <B>Make sure to play a different character, and please roleplay correctly!</B>"
 
 	if(!client)
-		log_game("[usr.key] AM failed due to disconnect.")
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
 	client.screen.Cut()
+	
 	if(!client)
-		log_game("[usr.key] AM failed due to disconnect.")
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
 
-	var/mob/newPlayer = new newPlayerType()
+	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
-		log_game("[usr.key] AM failed due to disconnect.")
-		del(newPlayer)
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		qdel(M)
 		return
 
-	newPlayer.key = key
+	M.key = key
 	return
-*/
+
 /mob/verb/observe()
 	set name = "Observe"
 	set category = "OOC"
