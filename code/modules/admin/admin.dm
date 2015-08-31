@@ -597,7 +597,7 @@ var/global/nologevent = 0
 /datum/admins/proc/restart()
 	set category = "Server"
 	set name = "Restart"
-	set desc="Restarts the world immediately"
+	set desc = "Restarts the world."
 	
 	if(!check_rights(R_ADMIN))	return
 		
