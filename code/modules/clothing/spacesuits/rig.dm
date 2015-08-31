@@ -334,8 +334,6 @@
 	on = 1
 	flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	action_button_name = "Toggle Helmet Mode"
-	species_restricted = null
-	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/rig/syndi/update_icon()
 	icon_state = "hardsuit[on]-[_color]"
@@ -378,8 +376,6 @@
 	action_button_name = "Toggle Hardsuit Mode"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	species_restricted = null
-	sprite_sheets = null
 
 /obj/item/clothing/suit/space/rig/syndi/update_icon()
 	icon_state = "hardsuit[on]-[_color]"
