@@ -1229,7 +1229,7 @@ mob/proc/yank_out_object()
 	else
 		U << "<span class='warning'>You attempt to get a good grip on [selection] in [S]'s body.</span>"
 
-	if(!do_after(U, 80))
+	if(!do_after(U, 80, target = S))
 		return
 	if(!selection || !S || !U)
 		return

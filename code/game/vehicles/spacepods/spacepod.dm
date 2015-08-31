@@ -269,7 +269,7 @@
 		if (health < initial(health))
 			user << "\blue You start welding the spacepod..."
 			playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = src))
 				if(!src || !WT.remove_fuel(3, user)) return
 				repair_damage(10)
 				user << "\blue You mend some [pick("dents","bumps","damage")] with \the [WT]"

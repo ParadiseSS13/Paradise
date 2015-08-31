@@ -72,7 +72,7 @@
 			return
 		usr << "\blue Assembling grille..."
 
-		if (!do_after(usr, 10))
+		if (!do_after(usr, 10, target = src))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )

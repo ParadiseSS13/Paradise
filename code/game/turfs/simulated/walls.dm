@@ -292,12 +292,12 @@
 		return
 
 	//get the user's location
-	if( !istype(user.loc, /turf) )	return	//can't do this stuff whilst inside objects and such
+	if(!istype(user.loc, /turf))	return	//can't do this stuff whilst inside objects and such
 
 	if(rotting)
 		if(istype(W, /obj/item/weapon/weldingtool) )
 			var/obj/item/weapon/weldingtool/WT = W
-			if( WT.remove_fuel(0,user) )
+			if(WT.remove_fuel(0,user))
 				user << "<span class='notice'>You burn away the fungi with \the [WT].</span>"
 				playsound(src, 'sound/items/Welder.ogg', 10, 1)
 				for(var/obj/effect/E in src) if(E.name == "Wallrot")
@@ -310,10 +310,10 @@
 			return
 
 	//THERMITE related stuff. Calls src.thermitemelt() which handles melting simulated walls and the relevant effects
-	if( thermite )
-		if( istype(W, /obj/item/weapon/weldingtool) )
+	if(thermite)
+		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
-			if( WT.remove_fuel(0,user) )
+			if(WT.remove_fuel(0,user))
 				thermitemelt(user)
 				return
 
@@ -321,7 +321,7 @@
 			thermitemelt(user)
 			return
 
-		else if( istype(W, /obj/item/weapon/melee/energy/blade) )
+		else if(istype(W, /obj/item/weapon/melee/energy/blade))
 			var/obj/item/weapon/melee/energy/blade/EB = W
 
 			EB.spark_system.start()
@@ -332,10 +332,8 @@
 			thermitemelt(user)
 			return
 
-	var/turf/T = user.loc	//get user's location for delay checks
-
 	//DECONSTRUCTION
-	if( istype(W, /obj/item/weapon/weldingtool) )
+	if(istype(W, /obj/item/weapon/weldingtool))
 
 		var/response = "Dismantle"
 		if(damage)
@@ -347,7 +345,7 @@
 			if(response == "Repair")
 				user << "<span class='notice'>You start repairing the damage to [src].</span>"
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
-				if(do_after(user, max(5, damage / 5)) && WT && WT.isOn())
+				if(do_after(user, max(5, damage / 5), target = src) && WT && WT.isOn())
 					user << "<span class='notice'>You finish repairing the damage to [src].</span>"
 					take_damage(-damage)
 
@@ -355,71 +353,51 @@
 				user << "<span class='notice'>You begin slicing through the outer plating.</span>"
 				playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
-				sleep(100)
-				if( !istype(src, /turf/simulated/wall) || !user || !WT || !WT.isOn() || !T )	return
-
-				if( user.loc == T && user.get_active_hand() == WT )
+				if(do_after(user, 100, target = src) && WT && WT.isOn())
 					user << "<span class='notice'>You remove the outer plating.</span>"
 					dismantle_wall()
-			return
+
+				else
+					user << "<span class='warning'>You stop slicing through [src].</span>"
+					return
+
 		else
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
 
-	else if( istype(W, /obj/item/weapon/gun/energy/plasmacutter) )
+	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 
 		user << "<span class='notice'>You begin slicing through the outer plating.</span>"
 		playsound(src, 'sound/items/Welder.ogg', 100, 1)
 
-		sleep(60)
-		if(mineral == "diamond")//Oh look, it's tougher
-			sleep(60)
-		if( !istype(src, /turf/simulated/wall) || !user || !W || !T )	return
-
-		if( user.loc == T && user.get_active_hand() == W )
+		if(do_after(user, mineral == "diamond" ? 120 : 60, target = src))
 			user << "<span class='notice'>You remove the outer plating.</span>"
 			dismantle_wall()
-			for(var/mob/O in viewers(user, 5))
-				O.show_message("<span class='warning'>The wall was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear metal being sliced apart.</span>", 2)
-		return
+			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart.</span>")
 
 	//DRILLING
 	else if (istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 
 		user << "<span class='notice'>You begin to drill though the wall.</span>"
 
-		sleep(60)
-		if(mineral == "diamond")
-			sleep(60)
-		if( !istype(src, /turf/simulated/wall) || !user || !W || !T )	return
-
-		if( user.loc == T && user.get_active_hand() == W )
+		if(do_after(user, mineral == "diamond" ? 120 : 60, target = src))
 			user << "<span class='notice'>Your drill tears though the last of the reinforced plating.</span>"
 			dismantle_wall()
-			for(var/mob/O in viewers(user, 5))
-				O.show_message("<span class='warning'>The wall was drilled through by [user]!</span>", 1, "<span class='warning'>You hear the grinding of metal.</span>", 2)
-		return
+			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
-	else if( istype(W, /obj/item/weapon/melee/energy/blade) )
+	else if(istype(W, /obj/item/weapon/melee/energy/blade))
 		var/obj/item/weapon/melee/energy/blade/EB = W
 
 		EB.spark_system.start()
 		user << "<span class='notice'>You stab \the [EB] into the wall and begin to slice it apart.</span>"
 		playsound(src, "sparks", 50, 1)
 
-		sleep(70)
-		if(mineral == "diamond")
-			sleep(70)
-		if( !istype(src, /turf/simulated/wall) || !user || !EB || !T )	return
-
-		if( user.loc == T && user.get_active_hand() == W )
+		if(do_after(user, mineral == "diamond" ? 140 : 70, target = src))
 			EB.spark_system.start()
 			playsound(src, "sparks", 50, 1)
 			playsound(src, 'sound/weapons/blade1.ogg', 50, 1)
 			dismantle_wall(1)
-			for(var/mob/O in viewers(user, 5))
-				O.show_message("<span class='warning'>The wall was sliced apart by [user]!</span>", 1, "<span class='warning'>You hear metal being sliced apart and sparks flying.</span>", 2)
-		return
+			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart and sparks flying.</span>")
 
 	else if(istype(W,/obj/item/mounted)) //if we place it, we don't want to have a silly message
 		return
@@ -440,7 +418,7 @@
 				"[user] starts drilling a hole in \the [src].", \
 				"\blue You start drilling a hole in \the [src].", \
 				"You hear ratchet.")
-			if (do_after(user, 80))
+			if (do_after(user, 80, target = src))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
 					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \

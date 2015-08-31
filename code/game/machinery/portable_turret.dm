@@ -325,7 +325,7 @@ var/list/turret_icons
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			user << "<span class='notice'>You begin prying the metal coverings off.</span>"
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = src))
 				if(prob(70))
 					user << "<span class='notice'>You remove the turret and salvage some components.</span>"
 					if(installation)
@@ -357,7 +357,7 @@ var/list/turret_icons
 			)
 
 		wrenching = 1
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
 				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
@@ -782,7 +782,7 @@ var/list/turret_icons
 					return
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					if(!src || !WT.remove_fuel(5, user)) return
 					build_step = 1
 					user << "You remove the turret's interior metal armor."
@@ -863,7 +863,7 @@ var/list/turret_icons
 					user << "<span class='notice'>You need more fuel to complete this task.</span>"
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 30))
+				if(do_after(user, 30, target = src))
 					if(!src || !WT.remove_fuel(5, user))
 						return
 					build_step = 8

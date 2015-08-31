@@ -293,7 +293,7 @@
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					user << "\blue You wrench the frame into place."
 					src.anchored = 1
 					src.state = 1
@@ -303,7 +303,7 @@
 					user << "The welding tool must be on to complete this task."
 					return
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue You deconstruct the frame."
 					new /obj/item/stack/sheet/metal( src.loc, 5 )
@@ -311,7 +311,7 @@
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					user << "\blue You unfasten the frame."
 					src.anchored = 0
 					src.state = 0
@@ -347,7 +347,7 @@
 			if(istype(P, /obj/item/stack/cable_coil))
 				if(P:amount >= 5)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20))
+					if(do_after(user, 20, target = src))
 						if(P)
 							P:amount -= 5
 							if(!P:amount) qdel(P)
@@ -366,7 +366,7 @@
 			if(istype(P, /obj/item/stack/sheet/glass))
 				if(P:amount >= 2)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20))
+					if(do_after(user, 20, target = src))
 						if(P)
 							P:use(2)
 							user << "\blue You put in the glass panel."
@@ -404,7 +404,7 @@
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					user << "\blue You wrench the frame into place."
 					src.anchored = 1
 					src.state = 1
@@ -414,7 +414,7 @@
 					user << "The welding tool must be on to complete this task."
 					return
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue You deconstruct the frame."
 					new /obj/item/stack/sheet/mineral/bananium( src.loc, 5 )
@@ -422,7 +422,7 @@
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					user << "\blue You unfasten the frame."
 					src.anchored = 0
 					src.state = 0
@@ -458,7 +458,7 @@
 			if(istype(P, /obj/item/stack/cable_coil))
 				if(P:amount >= 5)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20))
+					if(do_after(user, 20, target = src))
 						if(P)
 							P:amount -= 5
 							if(!P:amount) qdel(P)
@@ -477,7 +477,7 @@
 			if(istype(P, /obj/item/stack/sheet/glass))
 				if(P:amount >= 2)
 					playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-					if(do_after(user, 20))
+					if(do_after(user, 20, target = src))
 						if(P)
 							P:use(2)
 							user << "\blue You put in the glass panel."

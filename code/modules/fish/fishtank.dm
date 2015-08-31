@@ -659,7 +659,7 @@
 		if(water_level == 0)
 			usr << "<span class='notice'>Now disassembling [src].</span>"
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if(do_after(user,50))
+			if(do_after(user,50, target = src))
 				destroy(1)
 		else
 			usr << "[src] must be empty before you disassemble it!"

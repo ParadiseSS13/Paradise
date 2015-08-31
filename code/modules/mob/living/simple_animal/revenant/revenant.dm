@@ -56,8 +56,8 @@
 	return 1 //Immune to the effects of explosions.
 
 /mob/living/simple_animal/revenant/blob_act()
-	return 1 //blah blah blobs aren't in tune with the spirit world, or something.	
-	
+	return 1 //blah blah blobs aren't in tune with the spirit world, or something.
+
 /mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.
 	if(client.buildmode)
 		build_click(src, client.buildmode, params, A)
@@ -82,7 +82,7 @@
 	A.attack_ghost(src)
 	if(ishuman(A) && in_range(src, A))
 		Harvest(A)
-		
+
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
 	if(!castcheck(0))
 		return
@@ -100,7 +100,7 @@
 	draining = 1
 	essence_drained = 2
 	src << "<span class='notice'>You search for the soul of [target].</span>"
-	if(do_after(src, 10, 3, 0, target)) //did they get deleted in that second?
+	if(do_after(src, 10, 3, 0, target = target)) //did they get deleted in that second?
 		if(target.ckey)
 			src << "<span class='notice'>Their soul burns with intelligence.</span>"
 			essence_drained += 2
@@ -109,7 +109,7 @@
 			essence_drained += 2
 		else
 			src << "<span class='notice'>Their soul is weak and faltering.</span>"
-		if(do_after(src, 20, 6, 0, target)) //did they get deleted NOW?
+		if(do_after(src, 20, 6, 0, target = target)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 2)
 					src << "<span class='info'>[target] will not yield much essence. Still, every bit counts.</span>"
@@ -117,7 +117,7 @@
 					src << "<span class='info'>[target] will yield an average amount of essence.</span>"
 				if(5 to INFINITY)
 					src << "<span class='info'>Such a feast! [target] will yield much essence to you.</span>"
-			if(do_after(src, 30, 9, 0, target)) //how about now
+			if(do_after(src, 30, 9, 0, target = target)) //how about now
 				if(!target.stat)
 					src << "<span class='warning'>They are now powerful enough to fight off your draining.</span>"
 					target << "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>"
@@ -221,7 +221,7 @@
 		inhibited = 1
 		spawn(30)
 			inhibited = 0
-			
+
 	..()
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
@@ -278,8 +278,8 @@
 	src << "<span class='warning'>You cannot move!</span>"
 	spawn(time)
 		notransform = 0
-		src << "<span class='notice'>You can move again!</span>"	
-		
+		src << "<span class='notice'>You can move again!</span>"
+
 /datum/objective/revenant
 	var/targetAmount = 100
 

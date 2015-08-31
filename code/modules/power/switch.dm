@@ -42,12 +42,12 @@
 
 	busy = 1
 	for(var/mob/O in viewers(user))
-		O.show_message(text("\red [user] started pulling the [src]."), 1)
+		O.show_message(text("\red [user] starts pulling the [src]."), 1)
 
-	if(do_after(user, 50))
+	if(do_after(user, 50, target = src))
 		set_state(!on)
 		for(var/mob/O in viewers(user))
-			O.show_message(text("\red [user] flipped the [src] into the [on ? "on": "off"] position."), 1)
+			O.show_message(text("\red [user] flips the [src] into the [on ? "on": "off"] position."), 1)
 	busy = 0
 
 /obj/structure/powerswitch/proc/set_state(var/state)

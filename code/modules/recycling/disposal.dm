@@ -78,7 +78,7 @@
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 				user << "You start slicing the floorweld off the disposal unit."
 
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					if(!src || !W.isOn()) return
 					user << "You sliced the floorweld off the disposal unit."
 					var/obj/structure/disposalconstruct/C = new (src.loc)
@@ -114,7 +114,7 @@
 			var/mob/GM = G.affecting
 			for (var/mob/V in viewers(usr))
 				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
-			if(do_after(usr, 20))
+			if(do_after(usr, 20, target = GM))
 				if (GM.client)
 					GM.client.perspective = EYE_PERSPECTIVE
 					GM.client.eye = src
@@ -157,7 +157,7 @@
 		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 			if(target.anchored) return
 			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
-	if(!do_after(usr, 20))
+	if(!do_after(usr, 20, target = target))
 		return
 	if(target_loc != target.loc)
 		return
@@ -745,7 +745,7 @@
 
 		if(!T)
 			return
-			
+
 		var/turf/target
 
 		if(T.density)		// dense ouput turf, so stop holder
@@ -1319,7 +1319,7 @@
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 				user << "You start slicing the floorweld off the disposal outlet."
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					if(!src || !W.isOn()) return
 					user << "You sliced the floorweld off the disposal outlet."
 					var/obj/structure/disposalconstruct/C = new (src.loc)

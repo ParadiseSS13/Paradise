@@ -72,7 +72,7 @@
 		return
 	user << "Planting explosives..."
 
-	if(do_after(user, 50) && in_range(user, target))
+	if(do_after(user, 50, target = target) && in_range(user, target))
 		user.drop_item()
 		src.target = target
 		loc = null

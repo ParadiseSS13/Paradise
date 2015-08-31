@@ -517,7 +517,7 @@ var/list/wood_icons = list("wood","wood-broken")
 		if (is_plating())
 			if (R.amount >= 2)
 				user << "\blue Reinforcing the floor..."
-				if(do_after(user, 30) && R && R.amount >= 2 && is_plating())
+				if(do_after(user, 30, target = src) && R && R.amount >= 2 && is_plating())
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, 'sound/items/Deconstruct.ogg', 80, 1)
 					R.use(2)

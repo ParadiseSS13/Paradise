@@ -69,7 +69,7 @@
 			angry_swarm(user)
 		else
 			user << "\blue You begin to dislodge the dead apiary from the tray."
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			new hydrotray_type(src.loc)
 			new /obj/item/apiary(src.loc)
 			user << "\red You dislodge the apiary from the tray."
@@ -90,7 +90,7 @@
 				angry_swarm(user)
 			else
 				user << "\blue You begin to harvest the honey."
-			if(do_after(user,50))
+			if(do_after(user,50, target = src))
 				G.reagents.add_reagent("honey",harvestable_honey)
 				harvestable_honey = 0
 				user << "\blue You successfully harvest the honey."

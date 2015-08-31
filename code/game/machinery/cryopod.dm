@@ -456,7 +456,7 @@
 
 			visible_message("[user] starts putting [G:affecting:name] into \the [src].", 3)
 
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
 
 				M.loc = src
@@ -547,7 +547,7 @@
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.", 3)
 
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = L))
 			if(!L) return
 
 			L.loc = src
@@ -635,7 +635,7 @@
 
 	visible_message("[usr] starts climbing into \the [src].", 3)
 
-	if(do_after(usr, 20))
+	if(do_after(usr, 20, target = usr))
 
 		if(!usr || !usr.client)
 			return

@@ -624,7 +624,7 @@ Auto Patrol[]"},
 					user << "<span class='warning'>You need one length of cable to wire the ED-209.</span>"
 					return
 				user << "<span class='notice'>You start to wire [src]...</span>"
-				if (do_after(user, 40))
+				if (do_after(user, 40, target = src))
 					if (coil.amount >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7

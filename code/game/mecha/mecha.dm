@@ -140,7 +140,7 @@
 	pr_give_air = new /datum/global_iterator/mecha_tank_give_air(list(src))
 	pr_internal_damage = new /datum/global_iterator/mecha_internal_damage(list(src),0)
 
-/obj/mecha/proc/do_after(delay as num)
+/obj/mecha/proc/mecha_do_after(delay as num)
 	sleep(delay)
 	if(src)
 		return 1
@@ -252,7 +252,7 @@
 			return
 		target.mech_melee_attack(src)
 		melee_can_hit = 0
-		if(do_after(melee_cooldown))
+		if(mecha_do_after(melee_cooldown))
 			melee_can_hit = 1
 	return
 
@@ -335,7 +335,7 @@
 			if(!src.check_for_support())
 				src.pr_inertial_movement.start(list(src,direction))
 				src.log_message("Movement control lost. Inertial movement started.")
-		if(do_after(step_in))
+		if(mecha_do_after(step_in))
 			can_move = 1
 		return 1
 	return 0
@@ -616,10 +616,10 @@
 			M.gib() //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. Forever.
 		else
 			M.Move(loc)
-			
+
 	if(prob(30))
 		explosion(get_turf(loc), 0, 0, 1, 3)
-			
+
 	if(istype(src, /obj/mecha/working/ripley/))
 		var/obj/mecha/working/ripley/R = src
 		if(R.cargo)
@@ -666,7 +666,7 @@
 	pr_give_air = null
 	pr_internal_damage = null
 	spark_system = null
-				
+
 	mechas_list -= src //global mech list
 	return ..()
 
@@ -962,7 +962,7 @@
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = 1
-			AI.aiRadio.disabledAi = 1 	
+			AI.aiRadio.disabledAi = 1
 			AI.loc = card
 			occupant = null
 			AI.controlled_mech = null
@@ -1783,7 +1783,7 @@
 		src.occupant_message("Recalibrating coordination system.")
 		src.log_message("Recalibration of coordination system started.")
 		var/T = src.loc
-		if(do_after(100))
+		if(mecha_do_after(100))
 			if(T == src.loc)
 				src.clearInternalDamage(MECHA_INT_CONTROL_LOST)
 				src.occupant_message("<font color='blue'>Recalibration successful.</font>")
