@@ -41,6 +41,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 	/client/proc/check_words,			/*displays cult-words*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
+	/client/proc/rename_silicon,		/*properly renames silicons*/
+	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/toggleprayers,			/*toggles prayers on/off*/
@@ -659,10 +661,42 @@ var/list/admin_verbs_mentor = list(
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
 	set category = "Admin"
+	
+	if(!check_rights(R_ADMIN)) return
+	
 	if(holder)
 		src.holder.output_ai_laws()
 
-/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in world)
+/client/proc/rename_silicon()
+	set name = "Rename Silicon"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN)) return
+
+	var/mob/living/silicon/S = input("Select silicon.", "Rename Silicon.") as null|anything in silicon_mob_list
+	if(!S) return
+
+	var/new_name = sanitizeSafe(input(src, "Enter new name. Leave blank or as is to cancel.", "[S.real_name] - Enter new silicon name", S.real_name))
+	if(new_name && new_name != S.real_name)
+		log_and_message_admins("has renamed the silicon '[S.real_name]' to '[new_name]'")
+		S.SetName(new_name)
+	feedback_add_details("admin_verb","RAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/manage_silicon_laws()
+	set name = "Manage Silicon Laws"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN)) return
+
+	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in silicon_mob_list
+	if(!S) return
+
+	var/datum/nano_module/law_manager/L = new(S)
+	L.ui_interact(usr, state = admin_state)
+	log_and_message_admins("has opened [S]'s law manager.")
+	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = "Admin"
@@ -675,7 +709,7 @@ var/list/admin_verbs_mentor = list(
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_self(mob/living/carbon/human/H in world)
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H in mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = "Admin"

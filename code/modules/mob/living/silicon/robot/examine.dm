@@ -50,4 +50,5 @@
 		msg += "\nIt is [pose]"
 
 	usr << msg
+	usr.showLaws(src)
 	return

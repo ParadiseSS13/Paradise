@@ -177,6 +177,7 @@
 		return
 
 	src << "Follow camera mode [forced ? "terminated" : "ended"]."
+	cameraFollow.tracking_cancelled()
 	cameraFollow = null
 
 /mob/living/silicon/ai/proc/ai_actual_track(atom/movable/target as mob|obj)
@@ -185,7 +186,8 @@
 
 	U.cameraFollow = target
 	U << "Now tracking [target.name] on camera."
-
+	target.tracking_initiated()
+	
 	spawn (0)
 		while (U.cameraFollow == target)
 			if (U.cameraFollow == null)
@@ -243,3 +245,18 @@
 
 /mob/living/silicon/ai/attack_ai(var/mob/user as mob)
 	ai_camera_list()
+
+/atom/movable/proc/tracking_initiated()
+
+/mob/living/silicon/robot/tracking_initiated()
+	tracking_entities++
+	if(tracking_entities == 1 && has_zeroth_law())
+		src << "<span class='warning'>Internal camera is currently being accessed.</span>"
+
+/atom/movable/proc/tracking_cancelled()
+
+/mob/living/silicon/robot/tracking_initiated()
+	tracking_entities--
+	if(!tracking_entities && has_zeroth_law())
+		src << "<span class='notice'>Internal camera is no longer being accessed.</span>"
+	

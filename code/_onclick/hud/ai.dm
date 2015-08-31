@@ -87,7 +87,7 @@
 
 //Laws
 	using = new /obj/screen()
-	using.name = "State Laws"
+	using.name = "Law Manager"
 	using.icon = 'icons/mob/screen_ai.dmi'
 	using.icon_state = "state_laws"
 	using.screen_loc = ui_ai_state_laws

@@ -3,7 +3,9 @@
 	robot_talk_understand = 1
 	voice_name = "synthesized voice"
 	var/syndicate = 0
-	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
+	var/const/MAIN_CHANNEL = "Main Frequency"
+	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
+	var/list/stating_laws = list()// Channels laws are currently being stated on
 	var/list/alarms_to_show = list()
 	var/list/alarms_to_clear = list()
 	var/list/hud_list[10]
@@ -28,14 +30,21 @@
 	var/obj/item/device/radio/common_radio
 	
 /mob/living/silicon/New()
+	silicon_mob_list |= src
 	..()
+	add_language("Galactic Common")
 	init_subsystems()
 	
 /mob/living/silicon/Destroy()
+	silicon_mob_list -= src
 	for(var/datum/alarm_handler/AH in alarm_handlers)
 		AH.unregister(src)
 	return ..()
 
+/mob/living/silicon/proc/SetName(pickedName as text)
+	real_name = pickedName
+	name = real_name	
+	
 /mob/living/silicon/proc/show_laws()
 	return
 
@@ -142,13 +151,12 @@
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
-	..()
-	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if(statpanel("Status"))
 		show_station_time()
 		show_emergency_shuttle_eta()
 		show_system_integrity()
 		show_malf_ai()
+	..()
 
 //Silicon mob language procs
 

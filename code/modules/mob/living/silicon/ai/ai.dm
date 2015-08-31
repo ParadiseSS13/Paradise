@@ -14,7 +14,6 @@ var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/ai_roster,
 	/mob/living/silicon/ai/proc/ai_statuschange,
 	/mob/living/silicon/ai/proc/ai_store_location,
-	/mob/living/silicon/ai/proc/checklaws,
 	/mob/living/silicon/ai/proc/control_integrated_radio,
 	/mob/living/silicon/ai/proc/core,
 	/mob/living/silicon/ai/proc/pick_icon,
@@ -51,9 +50,6 @@ var/list/ai_verbs_default = list(
 	//var/list/laws = list()
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
-	var/lawcheck[1]
-	var/ioncheck[1]
-	var/lawchannel = "Common" // Default channel on which to state laws
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/device/pda/ai/aiPDA = null
@@ -210,9 +206,9 @@ var/list/ai_verbs_default = list(
 
 	job = "AI"
 
-/mob/living/silicon/ai/proc/SetName(pickedName as text)
-	real_name = pickedName
-	name = pickedName
+/mob/living/silicon/ai/SetName(pickedName as text)
+	..()
+
 	if(eyeobj)
 		eyeobj.name = "[pickedName] (AI Eye)"
 
@@ -472,32 +468,6 @@ var/list/ai_verbs_default = list(
 				H.attack_ai(src) //may as well recycle
 			else
 				src << "<span class='notice'>Unable to locate the holopad.</span>"
-
-	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
-		var/L = text2num(href_list["lawc"])
-		switch(lawcheck[L+1])
-			if ("Yes") lawcheck[L+1] = "No"
-			if ("No") lawcheck[L+1] = "Yes"
-//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
-		checklaws()
-
-	if (href_list["lawr"]) // Selects on which channel to state laws
-		var/setchannel = input(usr, "Specify channel.", "Channel selection") in list("State","Common","Science","Command","Medical","Engineering","Security","Supply","Binary","Holopad", "Cancel")
-		if(setchannel == "Cancel")
-			return
-		lawchannel = setchannel
-		checklaws()
-
-	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
-		var/L = text2num(href_list["lawi"])
-		switch(ioncheck[L])
-			if ("Yes") ioncheck[L] = "No"
-			if ("No") ioncheck[L] = "Yes"
-//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
-		checklaws()
-
-	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
-		statelaws()
 
 	if(href_list["say_word"])
 		play_vox_word(href_list["say_word"], null, src)

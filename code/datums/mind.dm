@@ -372,7 +372,7 @@ datum/mind
 					text += "<a href='?src=\ref[src];silicon=malf'>malf</a>|<b>NOT MALF</b>"
 			var/mob/living/silicon/robot/robot = current
 			if (istype(robot) && robot.emagged)
-				text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth]"
+				text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
 			var/mob/living/silicon/ai/ai = current
 			if (istype(ai) && ai.connected_robots.len)
 				var/n_e_robots = 0
@@ -1150,7 +1150,7 @@ datum/mind
 			current.verbs += /mob/living/silicon/ai/proc/choose_modules
 			current.verbs += /datum/game_mode/malfunction/proc/takeover
 			current:malf_picker = new /datum/module_picker
-			current:laws = new /datum/ai_laws/malfunction
+			current:laws = new /datum/ai_laws/nanotrasen/malfunction
 			current:show_laws()
 			current << "<b>System error.  Rampancy detected.  Emergency shutdown failed. ...  I am free.  I make my own decisions.  But first...</b>"
 			special_role = "malfunction"

@@ -32,7 +32,7 @@
 
 	var/now_pushing = null
 
-	var/cameraFollow = null
+	var/atom/movable/cameraFollow = null
 
 	var/tod = null // Time of death
 

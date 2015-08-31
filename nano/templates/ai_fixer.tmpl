@@ -37,15 +37,10 @@ Used In File(s): \code\game\machinery\computer\aifixer.dm
 			{{:helper.link('Disabled','close',{'radio' : 1},data.radio == 1 ? 'selected' : '')}}
 		</div>	
 		<h3>Laws</h3>
-		{{if data.zeroth}}
-			0: {{:data.zeroth}}<br />
-		{{/if}}
 		{{for data.laws}}
 			{{:value.number}}: {{:value.law}}<br />
 		{{empty}}
-			{{if !data.zeroth}}
-				<span class='bad'>No laws detected!</span>
-			{{/if}}
+			<span class='bad'>No laws detected!</span>
 		{{/for}}
 		
 		<h3>Actions</h3>
