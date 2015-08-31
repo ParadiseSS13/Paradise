@@ -39,8 +39,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/RefreshParts()
-
 /obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(src.occupant)
@@ -278,8 +276,6 @@
 	RefreshParts()
 	findscanner()
 
-/obj/machinery/body_scanconsole/RefreshParts()
-
 /obj/machinery/body_scanconsole/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -352,20 +348,23 @@
 
 	default_deconstruction_crowbar(G)
 
-
 /obj/machinery/body_scanconsole/attack_ai(user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
+	
+/obj/machinery/body_scanconsole/attack_ghost(user as mob)
+	return attack_hand(user)
 
 /obj/machinery/body_scanconsole/attack_hand(user as mob)
-	if(..())
-		return
 	if(stat & (NOPOWER|BROKEN))
 		return
+		
 	if (panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
+		
 	if(!src.connected)
 		findscanner()
+		
 	if (src.connected)
 		if(!connected.occupant)
 			user << "<span class='notice'>The scanner is empty.</span>"

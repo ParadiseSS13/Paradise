@@ -99,18 +99,22 @@
 	default_deconstruction_crowbar(G)
 
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+	return attack_hand(user)
+	
+/obj/machinery/sleep_console/attack_ghost(mob/user as mob)
+	return attack_hand(user)
 
 /obj/machinery/sleep_console/attack_hand(mob/user as mob)
-	if(..())
-		return
 	if(stat & (NOPOWER|BROKEN))
 		return
+		
 	if (panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
+		
 	if (!src.connected)
 		findsleeper()
+		
 	if (src.connected)
 		var/mob/living/occupant = src.connected.occupant
 		var/dat = "<font color='blue'><B>Occupant Statistics:</B></FONT><BR>"
@@ -163,10 +167,12 @@
 
 /obj/machinery/sleep_console/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+		
 	if(panel_open)
 		usr << "<span class='notice'>Close the maintenance panel first.</span>"
-		return
+		return 1
+		
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.set_machine(src)
 		if (href_list["chemical"])

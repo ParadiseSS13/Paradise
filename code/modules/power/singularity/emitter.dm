@@ -106,7 +106,7 @@
 		active=on
 		var/statestr=on?"on":"off"
 		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
-		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x],[y],[z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
+		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
 		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [list2text(signal.data["hiddenprints"])]","singulo")
 		update_icon()
 
@@ -133,16 +133,16 @@
 			if(src.active==1)
 				src.active = 0
 				user << "You turn off the [src]."
-				message_admins("Emitter turned off by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned off by [key_name(user)] in ([x],[y],[z])")
+				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
 			else
 				src.active = 1
 				user << "You turn on the [src]."
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
-				message_admins("Emitter turned on by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned on by [key_name(user)] in ([x],[y],[z])")
+				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+				log_game("Emitter turned on by [key_name(user)] in [x], [y], [z]")
 				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else

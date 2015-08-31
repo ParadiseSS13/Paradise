@@ -51,22 +51,26 @@ var/global/nologevent = 0
 	else
 		body += " \[<A href='?src=\ref[src];revive=\ref[M]'>Heal</A>\] "
 
-	body += {"
-		<br><br>\[
-		<a href='?_src_=vars;Vars=\ref[M]'>VV</a> -
-		<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -
-		<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -
-		<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -
-		[admin_jump_link(M, src)]\] </b><br>
-		<b>Mob type</b> = [M.type]<br><br>
-		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
-		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
-		<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> |
-		<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> |
-		<A href='?src=\ref[src];appearanceban=\ref[M]'>Appearance Ban</A> |
-		<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A> |
-		<A href='?_src_=holder;watchlist=\ref[M]'>Watchlist Flag</A>
-	"}
+		body += "<br><br>\[ "
+		body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
+		body += "<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -"
+		body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -"
+		body += "<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -"
+		body += "[admin_jump_link(M, src)]\] </b><br>"
+		
+		body += "<b>Mob type</b> = [M.type]<br><br>"
+		
+		body += "<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> | "
+		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
+		body += "<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> | "
+		body += "<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> | "
+		body += "<A href='?src=\ref[src];appearanceban=\ref[M]'>Appearance Ban</A> | "
+		body += "<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A> | "
+		if(M.client.check_watchlist(M.client.ckey))
+			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
+			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
+		else
+			body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
 
 	if(M.client)
 		body += "| <A HREF='?src=\ref[src];sendtoprison=\ref[M]'>Prison</A> | "

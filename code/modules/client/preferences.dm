@@ -670,6 +670,8 @@ datum/preferences
 		HTML += ShowDisabilityState(user,DISABILITY_FLAG_FAT,"Obese")
 		HTML += ShowDisabilityState(user,DISABILITY_FLAG_EPILEPTIC,"Seizures")
 		HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
+		HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
+		HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
 
 
 		// AUTOFIXED BY fix_string_idiocy.py

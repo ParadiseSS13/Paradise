@@ -22,6 +22,13 @@
 		return
 		
 	ui_interact(user)
+	
+/obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
+	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+		return 1
+	else if(allowed(user))
+		return 1
+	return 0
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -31,7 +38,7 @@
 	data["safety"] = safety
 	// Also applies for cyborgs. Hides the manual self-destruct button.
 	data["is_ai"] = issilicon(user)
-	data["allowed"] = src.allowed(user)
+	data["allowed"] = is_authenticated(user)
 
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -43,10 +50,11 @@
 
 /obj/machinery/computer/robotics/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+	
 	var/mob/user = usr
-	if(!src.allowed(user))
-		user << "<span class='warning'>Access Denied.</span>"
+	if(!is_authenticated(user))
+		user << "<span class='warning'>Access denied.</span>"
 		return
 
 	// Destroys the cyborg
