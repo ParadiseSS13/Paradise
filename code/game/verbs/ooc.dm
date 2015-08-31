@@ -40,7 +40,7 @@ var/global/normal_ooc_colour = "#002eb8"
 	var/keyname = key
 	if(prefs.unlock_content)
 		if(prefs.toggles & MEMBER_PUBLIC)
-			keyname = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]</font>"
+			keyname = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]"
 
 	var/display_colour = normal_ooc_colour
 	if(holder && !holder.fakekey)
@@ -54,7 +54,7 @@ var/global/normal_ooc_colour = "#002eb8"
 				display_colour = "#b82e00"	//orange
 	
 	if(prefs.unlock_content)
-		if(display_colour != normal_ooc_colour)
+		if(display_colour == normal_ooc_colour)
 			if((prefs.toggles & MEMBER_PUBLIC) && prefs.ooccolor)
 				display_colour = prefs.ooccolor
 	
@@ -174,7 +174,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(check_rights(R_MOD,0))
+		if(check_rights(R_MOD,0,M))
 			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
@@ -192,7 +192,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(check_rights(R_MOD,0))
+		if(check_rights(R_MOD,0,C.mob))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)
