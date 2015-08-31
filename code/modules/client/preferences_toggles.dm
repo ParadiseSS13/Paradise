@@ -242,3 +242,12 @@
 		media.update_music()
 	else
 		media.stop_music()
+		
+/client/verb/toggle_member_publicity()
+	set name = "Toggle Membership Publicity"
+	set category = "Preferences"
+	set desc = "Toggles whether other players can see that you are a BYOND member (OOC blag icon/colours)."
+	
+	prefs.toggles ^= MEMBER_PUBLIC
+	prefs.save_preferences(src)
+	src << "Others can[(prefs.toggles & MEMBER_PUBLIC) ? "" : " not"] see whether you are a BYOND member."

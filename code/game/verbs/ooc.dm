@@ -36,6 +36,11 @@ var/global/normal_ooc_colour = "#002eb8"
 			return
 
 	log_ooc("[mob.name]/[key] : [msg]")
+	
+	var/keyname = key
+	if(prefs.unlock_content)
+		if(prefs.toggles & MEMBER_PUBLIC)
+			keyname = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]</font>"
 
 	var/display_colour = normal_ooc_colour
 	if(holder && !holder.fakekey)
@@ -47,10 +52,18 @@ var/global/normal_ooc_colour = "#002eb8"
 				display_colour = src.prefs.ooccolor
 			else
 				display_colour = "#b82e00"	//orange
-
+	
+	if(prefs.unlock_content)
+		if(display_colour != normal_ooc_colour)
+			if((prefs.toggles & MEMBER_PUBLIC) && prefs.ooccolor)
+				display_colour = prefs.ooccolor
+	
 	for(var/client/C in clients)
 		if(C.prefs.toggles & CHAT_OOC)
 			var/display_name = src.key
+			if(prefs.unlock_content)
+				if(prefs.toggles & MEMBER_PUBLIC)
+					display_name = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[display_name]"
 			if(holder)
 				if(holder.fakekey)
 					if(C.holder)
@@ -72,9 +85,46 @@ var/global/normal_ooc_colour = "#002eb8"
 
 /client/proc/set_ooc(newColor as color)
 	set name = "Set Player OOC Colour"
-	set desc = "Set to yellow for eye burning goodness."
+	set desc = "Modifies a player's OOC color."
 	set category = "Server"
+	
+	if(!check_rights(R_SERVER))	return
 	normal_ooc_colour = newColor
+	feedback_add_details("admin_verb","SOOC")
+	
+/client/proc/reset_ooc()
+	set name = "Reset Player OOC Color"
+	set desc = "Returns a player's OOC color to default."
+	set category = "Server"
+	
+	if(!check_rights(R_SERVER))	return
+	normal_ooc_colour = initial(normal_ooc_colour)
+	feedback_add_details("admin_verb","ROOC")
+	
+/client/verb/colorooc()
+	set name = "Set Your OOC Color"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN,0))
+		if(!is_content_unlocked())	return
+
+	var/new_ooccolor = input(src, "Please select your OOC color.", "OOC color", prefs.ooccolor) as color|null
+	if(new_ooccolor)
+		prefs.ooccolor = sanitize_ooccolor(new_ooccolor)
+		prefs.save_preferences()
+	feedback_add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/verb/resetcolorooc()
+	set name = "Reset Your OOC Color"
+	set desc = "Returns your OOC color to default"
+	set category = "Preferences"
+
+	if(!check_rights(R_ADMIN,0))
+		if(!is_content_unlocked())	return
+
+	prefs.ooccolor = initial(prefs.ooccolor)
+	prefs.save_preferences()
 
 /client/verb/looc(msg as text)
 	set name = "LOOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
@@ -124,7 +174,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		if(!M.client)
 			continue
 		var/client/C = M.client
-		if(check_rights(R_MOD,0,M))
+		if(check_rights(R_MOD,0))
 			continue //they are handled after that
 
 		if(C.prefs.toggles & CHAT_LOOC)
@@ -142,7 +192,7 @@ var/global/normal_ooc_colour = "#002eb8"
 		display_name = "[S.name]/([S.key])"
 
 	for(var/client/C in admins)
-		if(check_rights(R_MOD,0,C.mob))
+		if(check_rights(R_MOD,0))
 			if(C.prefs.toggles & CHAT_LOOC)
 				var/prefix = "(R)LOOC"
 				if (C.mob in heard)
