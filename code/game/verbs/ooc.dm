@@ -40,11 +40,6 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	log_ooc("[mob.name]/[key] : [msg]")
 	
-	var/keyname = key
-	if(prefs.unlock_content)
-		if(prefs.toggles & MEMBER_PUBLIC)
-			keyname = "<img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]"
-
 	var/display_colour = normal_ooc_colour
 	if(holder && !holder.fakekey)
 		display_colour = mentor_ooc_colour
