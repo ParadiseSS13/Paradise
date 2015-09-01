@@ -466,6 +466,13 @@ var/list/uplink_items = list()
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy and Inconspicuous Weapons"
 
+/datum/uplink_item/stealthy_weapons/edagger
+	name = "Energy Dagger"
+	desc = "A dagger made of energy that looks and functions as a pen when off."
+	reference = "EDP"
+	item = /obj/item/weapon/pen/edagger
+	cost = 2
+
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
 	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \The pen holds two doses of the mixture. The pen can be refilled."
