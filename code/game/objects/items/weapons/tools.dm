@@ -371,7 +371,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-		if(!istype(E)) // No eyes eyes? No problem!
+		if(!istype(E)) // No eyes? No problem!
 			return
 		switch(safety)
 			if(1)
