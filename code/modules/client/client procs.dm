@@ -179,6 +179,12 @@
 
 	..()	//redirect to hsrc.Topic()
 
+/client/proc/is_content_unlocked()
+	if(!prefs.unlock_content)
+		src << "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>."
+		return 0
+	return 1	
+	
 /client/proc/handle_spam_prevention(var/message, var/mute_type)
 	if(config.automute_on && !holder && src.last_message == message)
 		src.last_message_count++
