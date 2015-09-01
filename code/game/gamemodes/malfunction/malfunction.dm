@@ -62,15 +62,7 @@
 /datum/game_mode/malfunction/post_setup()
 	for(var/datum/mind/AI_mind in malf_ai)
 		if(malf_ai.len < 1)
-			world << {"Uh oh, its malfunction and there is no AI! Please report this.<br />
-				Rebooting world in 5 seconds."}
-
-			feedback_set_details("end_error","malf - no AI")
-
-			if(blackbox)
-				blackbox.save_all_data_to_sql()
-			sleep(50)
-			world.Reboot()
+			world.Reboot("No AI during Malfunction.", "end_error", "malf - no AI", 50)
 			return
 		AI_mind.current.verbs += /mob/living/silicon/ai/proc/choose_modules
 		AI_mind.current:laws = new /datum/ai_laws/nanotrasen/malfunction
@@ -83,11 +75,6 @@
 
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
 
-/*		AI_mind.current.icon_state = "ai-malf"
-		spawn(10)
-			if(alert(AI_mind.current,"Do you want to use an alternative sprite for your real core?",,"Yes","No")=="Yes")
-				AI_mind.current.icon_state = "ai-malf2"
-*/
 	if(emergency_shuttle)
 		emergency_shuttle.auto_recall = 1
 	spawn (rand(waittime_l, waittime_h))

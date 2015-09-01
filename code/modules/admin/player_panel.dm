@@ -197,7 +197,7 @@
 			<tr id='title_tr'>
 				<td align='center'>
 					<font size='5'><b>Player panel</b></font><br>
-					Hover over a line to see more information - [check_rights(R_ADMIN,0) ? "<a href='?src=\ref[src];check_antagonist=1'>Check antagonists</a> | " : "" ]
+					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='?src=\ref[src];check_antagonist=1'>Check antagonists</a> | Kick <a href='?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
 			</tr>

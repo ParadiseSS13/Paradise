@@ -380,15 +380,7 @@ var/bomb_set
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
 			if(!ticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
-				world << "<B>Resetting in 30 seconds!</B>"
-
-				feedback_set_details("end_error","nuke - unhandled ending")
-
-				if(blackbox)
-					blackbox.save_all_data_to_sql()
-				sleep(300)
-				log_game("Rebooting due to nuclear detonation.")
-				world.Reboot()
+				world.Reboot("Station destroyed by Nuclear Device.", "end_error", "nuke - unhandled ending")
 				return
 	return
 

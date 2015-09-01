@@ -211,24 +211,42 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return show_player_info_irc(input["notes"])
 
+/world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+	if (reason == 1) //special reboot, do none of the normal stuff
+		if(usr)
+			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
+			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
+		spawn(0)
+			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
+		return ..(1)
+	var/delay
+	if(time)
+		delay = time
+	else
+		delay = ticker.restart_timeout
+	if(ticker.delay_end)
+		world << "<span class='boldannounce'>An admin has delayed the round end.</span>"
+		return
+	world << "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>"
+	sleep(delay)
+	if(blackbox)
+		blackbox.save_all_data_to_sql()
+	if(ticker.delay_end)
+		world << "<span class='boldannounce'>Reboot was cancelled by an admin.</span>"
+		return
+	feedback_set_details("[feedback_c]","[feedback_r]")
+	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
+	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
-
-
-
-/world/Reboot(var/reason)
 	spawn(0)
 		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
-
+	
 	processScheduler.stop()
-
+			
 	for(var/client/C in clients)
 		if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
-		else
-			C << link("byond://[world.address]:[world.port]")
-
-	..(reason)
-
+	..(0)
 
 #define INACTIVITY_KICK	6000	//10 minutes in ticks (approx.)
 /world/proc/KickInactiveClients()

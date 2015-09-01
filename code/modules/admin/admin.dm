@@ -66,11 +66,12 @@ var/global/nologevent = 0
 		body += "<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> | "
 		body += "<A href='?src=\ref[src];appearanceban=\ref[M]'>Appearance Ban</A> | "
 		body += "<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A> | "
-		if(M.client.check_watchlist(M.client.ckey))
-			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
-			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
-		else
-			body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
+		if(M.client)
+			if(M.client.check_watchlist(M.client.ckey))
+				body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
+				body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
+			else
+				body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
 
 	if(M.client)
 		body += "| <A HREF='?src=\ref[src];sendtoprison=\ref[M]'>Prison</A> | "
@@ -596,31 +597,32 @@ var/global/nologevent = 0
 /datum/admins/proc/restart()
 	set category = "Server"
 	set name = "Restart"
-	set desc="Restarts the world"
-	if (!usr.client.holder)
-		return
+	set desc = "Restarts the world."
+	
+	if(!check_rights(R_ADMIN))	return
+		
 	var/confirm = alert("Restart the game world?", "Restart", "Yes", "Cancel")
 	if(confirm == "Cancel")
 		return
 	if(confirm == "Yes")
-		world << "\red <b>Restarting world!</b> \blue Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!"
-		log_admin("[key_name(usr)] initiated a reboot.")
-
-		feedback_set_details("end_error","admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]")
+		var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num
+		if(!delay)
+			delay = 50
+		else
+			delay = delay * 10
+		message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
+		log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
+		ticker.delay_end = 0
 		feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-		if(blackbox)
-			blackbox.save_all_data_to_sql()
-
-		sleep(50)
-		world.Reboot()
+		world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 
 /datum/admins/proc/announce()
 	set category = "Special Verbs"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
-	if(!check_rights(0))	return
+	
+	if(!check_rights(R_ADMIN))	return
 
 	var/message = input("Global message to send:", "Admin Announce", null, null)  as message
 	if(message)
@@ -758,24 +760,6 @@ var/global/nologevent = 0
 		world << "<b>The game will start soon.</b>"
 		log_admin("[key_name(usr)] removed the delay.")
 	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/datum/admins/proc/immreboot()
-	set category = "Server"
-	set desc="Reboots the server post haste"
-	set name="Immediate Reboot"
-	if(!usr.client.holder)	return
-	if( alert("Reboot server?",,"Yes","No") == "No")
-		return
-	world << "\red <b>Rebooting world!</b> \blue Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!"
-	log_admin("[key_name(usr)] initiated an immediate reboot.")
-
-	feedback_set_details("end_error","immediate admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]")
-	feedback_add_details("admin_verb","IR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-	if(blackbox)
-		blackbox.save_all_data_to_sql()
-
-	world.Reboot()
 
 /datum/admins/proc/unprison(var/mob/M in mob_list)
 	set category = "Admin"
@@ -997,6 +981,21 @@ proc/formatLocation(var/location)
 proc/formatPlayerPanel(var/mob/U,var/text="PP")
 	return "<A HREF='?_src_=holder;adminplayeropts=\ref[U]'>[text]</A>"
 
+//Kicks all the clients currently in the lobby. The second parameter (kick_only_afk) determins if an is_afk() check is ran, or if all clients are kicked
+//defaults to kicking everyone (afk + non afk clients in the lobby)
+//returns a list of ckeys of the kicked clients
+/proc/kick_clients_in_lobby(message, kick_only_afk = 0)
+	var/list/kicked_client_names = list()
+	for(var/client/C in clients)
+		if(istype(C.mob, /mob/new_player))
+			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
+				continue
+			if(message)
+				C << message
+			kicked_client_names.Add("[C.ckey]")
+			del(C)
+	return kicked_client_names	
+	
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
 /datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/mob/living/tomob)

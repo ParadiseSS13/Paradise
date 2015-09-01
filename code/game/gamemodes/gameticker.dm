@@ -404,26 +404,9 @@ var/global/datum/controller/gameticker/ticker
 				callHook("roundend")
 
 				if (mode.station_was_nuked)
-					feedback_set_details("end_proper","nuke")
-					if(!delay_end)
-						world << "\blue <B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>"
+					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
-					feedback_set_details("end_proper","proper completion")
-					if(!delay_end)
-						world << "\blue <B>Restarting in [restart_timeout/10] seconds</B>"
-
-
-				if(blackbox)
-					blackbox.save_all_data_to_sql()
-
-				if(!delay_end)
-					sleep(restart_timeout)
-					if(!delay_end)
-						world.Reboot()
-					else
-						world << "\blue <B>An admin has delayed the round end</B>"
-				else
-					world << "\blue <B>An admin has delayed the round end</B>"
+					world.Reboot("Round ended.", "end_proper", "proper completion")
 
 		else if (mode_finished)
 			post_game = 1
