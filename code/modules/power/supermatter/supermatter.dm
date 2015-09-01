@@ -182,7 +182,7 @@
 		// Where we're going, we don't need eyes.
 		// Prosthetic eyes will also protect against this business.
 		var/obj/item/organ/eyes = l.internal_organs_by_name["eyes"]
-		if(!istype(eyes) || (eyes.status & ORGAN_ROBOT))
+		if(!istype(eyes))
 			continue
 		l.hallucination = max(0, min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)) ) ) )
 
