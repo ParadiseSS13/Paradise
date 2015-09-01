@@ -264,7 +264,7 @@
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1
 		M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
-		if(!do_after(user, 40))
+		if(!do_after(user, 40, target = M))
 			M.visible_message("\blue [user] decided life was worth living")
 			mouthshoot = 0
 			return

@@ -59,11 +59,11 @@
 		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
 	return
 
-/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)		
+/obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	set src in oview(1)
 	if(user.client) // Send the paper images to the client
 		var/datum/asset/simple/S = new/datum/asset/simple/paper()
-		send_asset_list(user.client, S.assets)	
+		send_asset_list(user.client, S.assets)
 
 	var/data
 	if((!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow) || forcestars)
@@ -134,7 +134,7 @@
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>", \
 								 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
-				if(do_after(user, 10) && do_after(H, 10, 5, 0))	//user needs to keep their active hand, H does not.
+				if(do_after(user, 10, target = H) && do_after(H, 10, 5, 0))	//user needs to keep their active hand, H does not.
 					user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>", \
 										 "<span class='notice'>You wipe off [H]'s face.</span>")
 					H.lip_style = null

@@ -420,7 +420,7 @@
 	if (istype(W, /obj/item/weapon/wrench))
 		user << "\blue Now disassembling table"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user,50))
+		if(do_after(user,50, target = src))
 			destroy()
 		return
 
@@ -696,7 +696,7 @@
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.amount >= 2)
 			user << "<span class='notice'>You start to add the glass to \the [src].</span>"
-			if(do_after(user, 10))
+			if(do_after(user, 10, target = src))
 				G.use(2)
 				user << "<span class='notice'>You add the glass to \the [src].</span>"
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
@@ -709,7 +709,7 @@
 	if(iswrench(I))
 		user << "<span class='notice'>You start to deconstruct \the [src].</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-		if(do_after(user, 10))
+		if(do_after(user, 10, target = src))
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
 			user << "<span class='notice'>You dismantle \the [src].</span>"
 			new /obj/item/stack/sheet/metal(loc)
@@ -816,14 +816,14 @@
 			if(src.status == 2)
 				user << "\blue Now weakening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50))
+				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue Table weakened"
 					src.status = 1
 			else
 				user << "\blue Now strengthening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50))
+				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue Table strengthened"
 					src.status = 2

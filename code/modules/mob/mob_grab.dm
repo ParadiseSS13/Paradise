@@ -391,7 +391,7 @@
 			var/mob/living/carbon/attacker = user
 			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
 
-			if(!do_mob(user, affecting) || !do_after(user, checktime(user, affecting))) return
+			if(!do_mob(user, affecting) || !do_after(user, checktime(user, affecting, target = affecting))) return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 

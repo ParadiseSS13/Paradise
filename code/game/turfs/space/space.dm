@@ -60,7 +60,7 @@
 				user << "\red You don't have enough rods to do that."
 				return
 			user << "\blue You begin to build a catwalk."
-			if(do_after(user,30))
+			if(do_after(user,30, target = src))
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 				user << "\blue You build a catwalk!"
 				R.use(2)

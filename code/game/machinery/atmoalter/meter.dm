@@ -124,7 +124,7 @@
 		return ..()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You begin to unfasten \the [src]..."
-	if (do_after(user, 40))
+	if (do_after(user, 40, target = src))
 		user.visible_message( \
 			"[user] unfastens \the [src].", \
 			"\blue You have unfastened \the [src].", \

@@ -100,21 +100,21 @@
 
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/sleep_console/attack_ghost(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/sleep_console/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return
-		
+
 	if (panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
-		
+
 	if (!src.connected)
 		findsleeper()
-		
+
 	if (src.connected)
 		var/mob/living/occupant = src.connected.occupant
 		var/dat = "<font color='blue'><B>Occupant Statistics:</B></FONT><BR>"
@@ -168,11 +168,11 @@
 /obj/machinery/sleep_console/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(panel_open)
 		usr << "<span class='notice'>Close the maintenance panel first.</span>"
 		return 1
-		
+
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		usr.set_machine(src)
 		if (href_list["chemical"])
@@ -352,7 +352,7 @@
 
 		visible_message("[user] starts putting [G:affecting:name] into the sleeper.", 3)
 
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = G:affecting))
 			if(src.occupant)
 				user << "\blue <B>The sleeper is already occupied!</B>"
 				return
@@ -555,7 +555,7 @@
 	else
 		visible_message("[user] starts putting [L.name] into the sleeper.", 3)
 
-	if(do_after(user, 20))
+	if(do_after(user, 20, target = L))
 		if(src.occupant)
 			user << "\blue <B>The sleeper is already occupied!</B>"
 			return
@@ -596,7 +596,7 @@
 			usr << "You're too busy getting your life sucked out of you."
 			return
 	visible_message("[usr] starts climbing into the sleeper.", 3)
-	if(do_after(usr, 20))
+	if(do_after(usr, 20, target = usr))
 		if(src.occupant)
 			usr << "\blue <B>The sleeper is already occupied!</B>"
 			return

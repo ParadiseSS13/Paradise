@@ -621,7 +621,7 @@ var/list/robot_verbs_default = list(
 					return
 
 				user << "You jam the crowbar into the robot and begin levering [mmi]."
-				if(do_after(user,3 SECONDS))
+				if(do_after(user,3 SECONDS, target = src))
 					user << "You damage some parts of the chassis, but eventually manage to rip out [mmi]!"
 					var/obj/item/robot_parts/robot_suit/C = new/obj/item/robot_parts/robot_suit(loc)
 					C.l_leg = new/obj/item/robot_parts/l_leg(C)

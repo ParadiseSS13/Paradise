@@ -69,7 +69,7 @@ for reference:
 		if (istype(W, /obj/item/stack/sheet/wood))
 			if (src.health < src.maxhealth)
 				visible_message("\red [user] begins to repair the [src]!")
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					src.health = src.maxhealth
 					W:use(1)
 					visible_message("\red [user] repairs the [src]!")

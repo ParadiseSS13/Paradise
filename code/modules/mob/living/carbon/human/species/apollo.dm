@@ -59,7 +59,7 @@
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
 			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
-			do_after(H, 250)
+			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
 				qdel(H.internal_organs_by_name["antennae"])
 				H.remove_language("Wryn Hivemind")
