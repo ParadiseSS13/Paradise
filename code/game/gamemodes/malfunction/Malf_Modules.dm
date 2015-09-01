@@ -62,10 +62,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/upgrade_turrets()
 	set category = "Malfunction"
 	set name = "Upgrade Turrets"
-	
+
 	if(stat)
 		return
-	
+
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
 	for(var/obj/machinery/porta_turret/turret in machines)
 		var/turf/T = get_turf(turret)
@@ -75,7 +75,7 @@ rcd light flash thingy on matter drain
 			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	src << "<span class='notice'>Turrets upgraded.</span>"
-
+/*
 /datum/AI_Module/large/lockdown
 	module_name = "Hostile Station Lockdown"
 	mod_pick_name = "lockdown"
@@ -90,11 +90,11 @@ rcd light flash thingy on matter drain
 
 	if(stat)
 		return
-		
+
 	for(var/datum/AI_Module/large/lockdown/lockdown in current_modules)
 		if(lockdown.uses > 0)
 			lockdown.uses --
-			
+
 			var/obj/machinery/door/airlock/AL
 			for(var/obj/machinery/door/D in airlocks)
 				if(!(D.z in config.contact_levels))
@@ -114,12 +114,12 @@ rcd light flash thingy on matter drain
 			var/obj/machinery/computer/communications/C = locate() in machines
 			if(C)
 				C.post_status("alert", "lockdown")
-				
+
 			minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
 			src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
 			spawn(1200) //120 Seconds.
 				disablelockdown() //Reset the lockdown after 120 seconds.
-		else 
+		else
 			src << "<span class='warning'>Out of uses.</span>"
 
 /mob/living/silicon/ai/proc/disablelockdown()
@@ -139,13 +139,14 @@ rcd light flash thingy on matter drain
 					AL.open()
 					AL.safe = 1
 			else if(!D.stat) //Opens only powered doors.
-				D.open() //Open everything!	
-	
+				D.open() //Open everything!
+
 	var/obj/machinery/computer/communications/C = locate() in machines
 	if(C)
 		C.post_status("alert", "default")
-	
+
 	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
+*/
 
 /datum/AI_Module/large/destroy_rcd
 	module_name = "Destroy RCDs"
@@ -160,10 +161,10 @@ rcd light flash thingy on matter drain
 	set category = "Malfunction"
 	set name = "Destroy RCDs"
 	set desc = "Detonate all RCDs on the station, while sparing onboard cyborg RCDs."
-	
+
 	if(stat || malf_cooldown)
-		return	
-	
+		return
+
 	for(var/obj/item/RCD in rcd_list)
 		if(!istype(RCD, /obj/item/weapon/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.audible_message("<span class='danger'><b>[RCD] begins to vibrate and buzz loudly!</b></span>","<span class='danger'><b>[RCD] begins vibrating violently!</b></span>")
@@ -194,11 +195,11 @@ rcd light flash thingy on matter drain
 
 	if(stat)
 		return
-		
+
 	can_dominate_mechs = 1 //Yep. This is all it does. Honk!
 	src << "Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>"
-	verbs -= /mob/living/silicon/ai/proc/mech_takeover		
-		
+	verbs -= /mob/living/silicon/ai/proc/mech_takeover
+
 /datum/AI_Module/small/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
@@ -211,10 +212,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/overload_machine(obj/machinery/M as obj in world)
 	set name = "Overload Machine"
 	set category = "Malfunction"
-	
+
 	if(stat)
-		return	
-	
+		return
+
 	if (istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
@@ -243,10 +244,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/override_machine(obj/machinery/M as obj in world)
 	set name = "Override Machine"
 	set category = "Malfunction"
-	
+
 	if(stat)
-		return	
-	
+		return
+
 	if (istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
@@ -280,10 +281,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/place_transformer()
 	set name = "Place Robotic Factory"
 	set category = "Malfunction"
-	
+
 	if(!canPlaceTransformer())
 		return
-		
+
 	var/sure = alert(src, "Are you sure you want to place the machine here?", "Are you sure?", "Yes", "No")
 	if(sure == "Yes")
 		if(!canPlaceTransformer())
@@ -348,10 +349,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/blackout()
 	set category = "Malfunction"
 	set name = "Blackout"
-	
+
 	if(stat)
-		return	
-	
+		return
+
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
@@ -375,11 +376,11 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/reactivate_cameras()
 	set name = "Reactivate Cameranet"
 	set category = "Malfunction"
-	
+
 	if(stat || malf_cooldown)
-		return	
-	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.	
-	
+		return
+	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.
+
 	for(var/datum/AI_Module/small/reactivate_cameras/camera in current_modules)
 		for(var/obj/machinery/camera/C in cameranet.cameras)
 			var/initial_range = initial(C.view_range) //To prevent calling the proc twice
@@ -513,7 +514,7 @@ rcd light flash thingy on matter drain
 
 		if(href_list["showdesc"])
 			if(AM.mod_pick_name == href_list["showdesc"])
-				temp = AM.description			
-			
+				temp = AM.description
+
 	src.use(usr)
 	return
