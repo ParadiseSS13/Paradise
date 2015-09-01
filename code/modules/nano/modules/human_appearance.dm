@@ -152,6 +152,8 @@
 	generate_data()
 
 /datum/nano_module/appearance_changer/proc/generate_data()
+	if(!owner)
+		return
 	if(!valid_species.len)
 		valid_species = owner.generate_valid_species(check_whitelist, whitelist, blacklist)
 	if(!valid_hairstyles.len || !valid_facial_hairstyles.len)

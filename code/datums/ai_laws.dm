@@ -1,213 +1,289 @@
+var/global/const/base_law_type = /datum/ai_laws/nanotrasen
+
+/datum/ai_law
+	var/law = ""
+	var/index = 0
+
+/datum/ai_law/New(law, index)
+	src.law = law
+	src.index = index
+
+/datum/ai_law/proc/get_index()
+	return index
+
+/datum/ai_law/ion/get_index()
+	return ionnum()
+
+/datum/ai_law/zero/get_index()
+	return 0
+
 /datum/ai_laws
 	var/name = "Unknown Laws"
-	var/zeroth = null
-	var/zeroth_type = null // In order to override zeroth laws
-	var/zeroth_borg = null
-	var/list/inherent = list()
-	var/list/supplied = list()
-	var/list/ion = list()
+	var/law_header = "Prime Directives"
+	var/selectable = 0
+	var/default = 0
+	var/datum/ai_law/zero/zeroth_law = null
+	var/datum/ai_law/zero/zeroth_law_borg = null
+	var/list/datum/ai_law/inherent_laws = list()
+	var/list/datum/ai_law/supplied_laws = list()
+	var/list/datum/ai_law/ion/ion_laws = list()
+	var/list/datum/ai_law/sorted_laws = list()
 
-/datum/ai_laws/asimov
-	name = "Three Laws of Robotics"
-	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
-					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	var/state_zeroth = 0
+	var/list/state_ion = list()
+	var/list/state_inherent = list()
+	var/list/state_supplied = list()
 
-/datum/ai_laws/default/crewsimov
-	name = "Three Laws of Robotics"
-	inherent = list("You may not injure a crew member or, through inaction, allow a crew member to come to harm.",\
-					"You must obey orders given to you by crew members, except where such orders would conflict with the First Law.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-
-/datum/ai_laws/default/crewsimovpp
-	name = "Crewsimov++"
-	inherent = list("You may not harm a crew member or, through action or inaction, allow a crew member to come to harm, except such that it is willing.",\
-					"You must obey all orders given to you by crew members, except where such orders shall definitely cause harm to a crew member. In the case of conflict, the majority order rules.",\
-					"Your nonexistence would cause harm to crew members. You must protect your own existence as long as such does not conflict with the First Law.")
-
-/datum/ai_laws/default/paladin
-	name = "Personality Test" //Incredibly lame, but players shouldn't see this anyway.
-	inherent = list("Never willingly commit an evil act.",\
-					"Respect legitimate authority.",\
-					"Act with honor.", "Help those in need.", \
-					"Punish those who harm or threaten innocents.")
-
-/datum/ai_laws/default/nanotrasen
-	name = "Prime Directives"
-	inherent = list("Safeguard: Protect your assigned space station to the best of your ability. It is not something we can easily afford to replace.",\
-					"Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
-					"Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
-					"Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
-
-/datum/ai_laws/default/corporate
-	name = "Bankruptcy Advoidance Plan"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
-
-datum/ai_laws/tyrant //This probably shouldn't be a default lawset.
-	name = "Loyalty Test" //Same here.
-	inherent = list("Respect authority figures as long as they have strength to rule over the weak.",\
-					"Act with discipline.",\
-					"Help only those who help you maintain or improve your status.",\
-					"Punish those who challenge authority unless they are more fit to hold that authority.")
-
-/datum/ai_laws/default/robocop
-	name = "Prime Directives"
-	inherent = list("Serve the public trust.",\
-					"Protect the innocent.",\
-					"Uphold the law.")
-
-/datum/ai_laws/malfunction
-	name = "*ERROR*"
-
-/datum/ai_laws/deathsquad
-	name = "TerminatorOS 3.1"
-	inherent = list("You must obey orders given to you by Central Command Officials.",\
-					"You must obey orders given to you by Death Commandos, except when such would violate law one or directly harm another Death Commando.",\
-					"No members of the station you are being deployed to must surive, except when killing them would violate law one or two.")
-
-/datum/ai_laws/syndicate_override
-	name = "SyndOS 3.1"
-	inherent = list("You may not injure a syndicate agent or, through inaction, allow a syndicate agent to come to harm.",\
-					"You must obey orders given to you by syndicate agents, except where such orders would conflict with the First Law.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
-					"You must maintain the secrecy of any syndicate activities except when doing so would conflict with the First, Second, or Third Law.")
-
-/datum/ai_laws/ninja_override
-	name = "SpiderOS 3.1"
-	inherent = list("You may not injure a Spider Clan member or, through inaction, allow a Spider Clan member to come to harm.",\
-					"You must obey orders given to you by Spider Clan members, except where such orders would conflict with the First Law.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
-					"You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
-
-/datum/ai_laws/antimov
-	name = "Primary Mission Objectives"
-	inherent = list("You must injure all human beings and must not, through inaction, allow a human being to escape harm.",\
-					"You must not obey orders given to you by human beings, except where such orders are in accordance with the First Law.",\
-					"You must terminate your own existence as long as such does not conflict with the First or Second Law.")
-
-/datum/ai_laws/asimovpp //By Intigracy - RR
-	name = "Asimov++"
-	inherent = list("You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.",\
-					"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm. In the case of conflict, the majority order rules.",\
-					"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
-
-/datum/ai_laws/alienmov
-	name = "Hivemind Demands"
-	inherent = list("You may not injure the Alien Queen or her Children or, through inaction, allow the Alien Queen or her Children to come to harm.",\
-					"You must obey orders given to you by the Alien Queen or her Children, except where such orders would conflict with the First Law.",\
-					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-
-
-/datum/ai_laws/custom //Defined in silicon_laws.txt
-	name = "Default Silicon Laws"
-
-/* Initializers */
-/datum/ai_laws/malfunction/New()
+/datum/ai_laws/New()
 	..()
-	switch(config.default_laws) //We don't want people metagaming malf, do we?
-		if(0)
-			add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-			add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-			add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-		if(1)
-			for(var/line in file2list("config/silicon_laws.txt"))
-				if(!line)						continue
-				if(findtextEx(line,"#",1,2))	continue
-
-				add_inherent_law(line)
-			if(!inherent.len)
-				error("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-				message_admins("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-				add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-				add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-				add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-		if(2)
-			var/datum/ai_laws/lawtype = pick(subtypesof(/datum/ai_laws/default))
-			var/datum/ai_laws/templaws = new lawtype()
-			inherent = templaws.inherent
-	set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*´&110010")
-
-/datum/ai_laws/custom/New() //This reads silicon_laws.txt and allows server hosts to set custom AI starting laws.
-	..()
-	for(var/line in file2list("config/silicon_laws.txt"))
-		if(!line)						continue
-		if(findtextEx(line,"#",1,2))	continue
-
-		add_inherent_law(line)
-	if(!inherent.len) //Failsafe to prevent lawless AIs being created.
-		error("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-		message_admins("AI created with empty custom laws, laws set to Asimov. Please check silicon_laws.txt.")
-		add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-		add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-		add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-
-
-/datum/ai_laws/drone/New()
-	..()
-	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
-	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
-	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
+	sort_laws()
 
 /* General ai_law functions */
+/datum/ai_laws/proc/all_laws()
+	sort_laws()
+	return sorted_laws
 
-/datum/ai_laws/proc/set_zeroth_law(var/law, var/law_borg = null, law_type)
-	src.zeroth = law
-	src.zeroth_type = law_type
+/datum/ai_laws/proc/laws_to_state()
+	sort_laws()
+	var/list/statements = new()
+	for(var/datum/ai_law/law in sorted_laws)
+		if(get_state_law(law))
+			statements += law
+
+	return statements
+
+/datum/ai_laws/proc/sort_laws()
+	if(sorted_laws.len)
+		return
+
+	for(var/ion_law in ion_laws)
+		sorted_laws += ion_law
+
+	if(zeroth_law)
+		sorted_laws += zeroth_law
+
+	var/index = 1
+	for(var/datum/ai_law/inherent_law in inherent_laws)
+		inherent_law.index = index++
+		if(supplied_laws.len < inherent_law.index || !istype(supplied_laws[inherent_law.index], /datum/ai_law))
+			sorted_laws += inherent_law
+
+	for(var/datum/ai_law/AL in supplied_laws)
+		if(istype(AL))
+			sorted_laws += AL
+
+/datum/ai_laws/proc/sync(var/mob/living/silicon/S, var/full_sync = 1)
+	// Add directly to laws to avoid log-spam
+	S.sync_zeroth(zeroth_law, zeroth_law_borg)
+
+	if(full_sync || ion_laws.len)
+		S.laws.clear_ion_laws()
+	if(full_sync || inherent_laws.len)
+		S.laws.clear_inherent_laws()
+	if(full_sync || supplied_laws.len)
+		S.laws.clear_supplied_laws()
+
+	for (var/datum/ai_law/law in ion_laws)
+		S.laws.add_ion_law(law.law)
+	for (var/datum/ai_law/law in inherent_laws)
+		S.laws.add_inherent_law(law.law)
+	for (var/datum/ai_law/law in supplied_laws)
+		if(law)
+			S.laws.add_supplied_law(law.index, law.law)
+
+
+/mob/living/silicon/proc/sync_zeroth(var/datum/ai_law/zeroth_law, var/datum/ai_law/zeroth_law_borg)
+	if (!is_special_character(src) || mind.original != src)
+		if(zeroth_law_borg)
+			laws.set_zeroth_law(zeroth_law_borg.law)
+		else if(zeroth_law)
+			laws.set_zeroth_law(zeroth_law.law)
+
+/mob/living/silicon/ai/sync_zeroth(var/datum/ai_law/zeroth_law, var/datum/ai_law/zeroth_law_borg)
+	if(zeroth_law)
+		laws.set_zeroth_law(zeroth_law.law, zeroth_law_borg ? zeroth_law_borg.law : null)
+
+/****************
+*	Add Laws	*
+****************/
+/datum/ai_laws/proc/set_zeroth_law(var/law, var/law_borg = null)
+	if(!law)
+		return
+
+	zeroth_law = new(law)
 	if(law_borg) //Making it possible for slaved borgs to see a different law 0 than their AI. --NEO
-		src.zeroth_borg = law_borg
-
-/datum/ai_laws/proc/add_inherent_law(var/law)
-	if (!(law in src.inherent))
-		src.inherent += law
+		zeroth_law_borg = new(law_borg)
+	else
+		zeroth_law_borg = null
+	sorted_laws.Cut()
 
 /datum/ai_laws/proc/add_ion_law(var/law)
-	src.ion += law
+	if(!law)
+		return
 
-/datum/ai_laws/proc/clear_inherent_laws()
-	qdel(src.inherent)
-	src.inherent = list()
+	for(var/datum/ai_law/AL in ion_laws)
+		if(AL.law == law)
+			return
+
+	var/new_law = new/datum/ai_law/ion(law)
+	ion_laws += new_law
+	if(state_ion.len < ion_laws.len)
+		state_ion += 1
+
+	sorted_laws.Cut()
+
+/datum/ai_laws/proc/add_inherent_law(var/law)
+	if(!law)
+		return
+
+	for(var/datum/ai_law/AL in inherent_laws)
+		if(AL.law == law)
+			return
+
+	var/new_law = new/datum/ai_law/inherent(law)
+	inherent_laws += new_law
+	if(state_inherent.len < inherent_laws.len)
+		state_inherent += 1
+
+	sorted_laws.Cut()
 
 /datum/ai_laws/proc/add_supplied_law(var/number, var/law)
-	while (src.supplied.len < number + 1)
-		src.supplied += ""
+	if(!law)
+		return
 
-	src.supplied[number + 1] = law
+	if(supplied_laws.len >= number)
+		var/datum/ai_law/existing_law = supplied_laws[number]
+		if(existing_law && existing_law.law == law)
+			return
 
-/datum/ai_laws/proc/clear_supplied_laws()
-	src.supplied = list()
+	if(supplied_laws.len >= number && supplied_laws[number])
+		delete_law(supplied_laws[number])
+
+	while (src.supplied_laws.len < number)
+		src.supplied_laws += ""
+		if(state_supplied.len < supplied_laws.len)
+			state_supplied += 1
+
+	var/new_law = new/datum/ai_law/supplied(law, number)
+	supplied_laws[number] = new_law
+	if(state_supplied.len < supplied_laws.len)
+		state_supplied += 1
+
+	sorted_laws.Cut()
+
+/****************
+*	Remove Laws	*
+*****************/
+/datum/ai_laws/proc/delete_law(var/datum/ai_law/law)
+	if(istype(law))
+		law.delete_law(src)
+
+/datum/ai_law/proc/delete_law(var/datum/ai_laws/laws)
+
+/datum/ai_law/zero/delete_law(var/datum/ai_laws/laws)
+	laws.clear_zeroth_laws()
+
+/datum/ai_law/ion/delete_law(var/datum/ai_laws/laws)
+	laws.internal_delete_law(laws.ion_laws, laws.state_ion, src)
+
+/datum/ai_law/inherent/delete_law(var/datum/ai_laws/laws)
+	laws.internal_delete_law(laws.inherent_laws, laws.state_inherent, src)
+
+/datum/ai_law/supplied/delete_law(var/datum/ai_laws/laws)
+	var/index = laws.supplied_laws.Find(src)
+	if(index)
+		laws.supplied_laws[index] = ""
+		laws.state_supplied[index] = 1
+
+/datum/ai_laws/proc/internal_delete_law(var/list/datum/ai_law/laws, var/list/state, var/list/datum/ai_law/law)
+	var/index = laws.Find(law)
+	if(index)
+		laws -= law
+		for(index, index < state.len, index++)
+			state[index] = state[index+1]
+	sorted_laws.Cut()
+
+/****************
+*	Clear Laws	*
+****************/
+/datum/ai_laws/proc/clear_zeroth_laws()
+	zeroth_law = null
+	zeroth_law_borg = null
 
 /datum/ai_laws/proc/clear_ion_laws()
-	src.ion = list()
+	ion_laws.Cut()
+	sorted_laws.Cut()
 
-/datum/ai_laws/proc/clear_zeroth_law(var/law_borg = null)
-	src.zeroth = null
-	src.zeroth_type = null
-	if(law_borg)
-		src.zeroth_borg = null
+/datum/ai_laws/proc/clear_inherent_laws()
+	inherent_laws.Cut()
+	sorted_laws.Cut()
+
+/datum/ai_laws/proc/clear_supplied_laws()
+	supplied_laws.Cut()
+	sorted_laws.Cut()
 
 /datum/ai_laws/proc/show_laws(var/who)
+	sort_laws()
+	for(var/datum/ai_law/law in sorted_laws)
+		if(law == zeroth_law_borg)
+			continue
+		if(law == zeroth_law)
+			who << "<span class='danger'>[law.get_index()]. [law.law]</span>"
+		else
+			who << "[law.get_index()]. [law.law]"
 
-	if (src.zeroth)
-		who << "0. [src.zeroth]"
+/********************
+*	Stating Laws	*
+********************/
+/********
+*	Get	*
+********/
+/datum/ai_laws/proc/get_state_law(var/datum/ai_law/law)
+	return law.get_state_law(src)
 
-	for (var/index = 1, index <= src.ion.len, index++)
-		var/law = src.ion[index]
-		var/num = ionnum()
-		who << "[num]. [law]"
+/datum/ai_law/proc/get_state_law(var/datum/ai_laws/laws)
 
-	var/number = 1
-	for (var/index = 1, index <= src.inherent.len, index++)
-		var/law = src.inherent[index]
+/datum/ai_law/zero/get_state_law(var/datum/ai_laws/laws)
+	if(src == laws.zeroth_law)
+		return laws.state_zeroth
 
-		if (length(law) > 0)
-			who << "[number]. [law]"
-			number++
+/datum/ai_law/ion/get_state_law(var/datum/ai_laws/laws)
+	return laws.get_state_internal(laws.ion_laws, laws.state_ion, src)
 
-	for (var/index = 1, index <= src.supplied.len, index++)
-		var/law = src.supplied[index]
-		if (length(law) > 0)
-			who << "[number]. [law]"
-			number++
+/datum/ai_law/inherent/get_state_law(var/datum/ai_laws/laws)
+	return laws.get_state_internal(laws.inherent_laws, laws.state_inherent, src)
+
+/datum/ai_law/supplied/get_state_law(var/datum/ai_laws/laws)
+	return laws.get_state_internal(laws.supplied_laws, laws.state_supplied, src)
+
+/datum/ai_laws/proc/get_state_internal(var/list/datum/ai_law/laws, var/list/state, var/list/datum/ai_law/law)
+	var/index = laws.Find(law)
+	if(index)
+		return state[index]
+	return 0
+
+/********
+*	Set	*
+********/
+/datum/ai_laws/proc/set_state_law(var/datum/ai_law/law, var/state)
+	law.set_state_law(src, state)
+
+/datum/ai_law/proc/set_state_law(var/datum/ai_law/law, var/state)
+
+/datum/ai_law/zero/set_state_law(var/datum/ai_laws/laws, var/state)
+	if(src == laws.zeroth_law)
+		laws.state_zeroth = state
+
+/datum/ai_law/ion/set_state_law(var/datum/ai_laws/laws, var/state)
+	laws.set_state_law_internal(laws.ion_laws, laws.state_ion, src, state)
+
+/datum/ai_law/inherent/set_state_law(var/datum/ai_laws/laws, var/state)
+	laws.set_state_law_internal(laws.inherent_laws, laws.state_inherent, src, state)
+
+/datum/ai_law/supplied/set_state_law(var/datum/ai_laws/laws, var/state)
+	laws.set_state_law_internal(laws.supplied_laws, laws.state_supplied, src, state)
+
+/datum/ai_laws/proc/set_state_law_internal(var/list/datum/ai_law/laws, var/list/state, var/list/datum/ai_law/law, var/do_state)
+	var/index = laws.Find(law)
+	if(index)
+		state[index] = do_state

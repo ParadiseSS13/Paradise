@@ -501,10 +501,10 @@
 				var/mob/living/silicon/ai/AI = usr
 				AI.ai_call_shuttle()
 
-		if("State Laws")
+		if("Law Manager")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				AI.checklaws()
+				AI.subsystem_law_manager()
 
 		if("PDA - Send Message")
 			if(isAI(usr))

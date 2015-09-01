@@ -94,23 +94,23 @@
 							state = 4
 							icon_state = "4"
 
-			if(istype(P, /obj/item/weapon/aiModule/core/full)) //Allows any full core boards to be applied to AI cores.
-				var/obj/item/weapon/aiModule/core/M = P
+			if(istype(P, /obj/item/weapon/aiModule/purge))
 				laws.clear_inherent_laws()
-				for(var/templaw in M.laws)
-					laws.add_inherent_law(templaw)
 				usr << "<span class='notice'>Law module applied.</span>"
+				return
 
-			if(istype(P, /obj/item/weapon/aiModule/reset/purge))
-				laws.clear_inherent_laws()
-				usr << "Law module applied."
-
-			if(istype(P, /obj/item/weapon/aiModule/supplied/freeform) || istype(P, /obj/item/weapon/aiModule/core/freeformcore))
-				var/obj/item/weapon/aiModule/supplied/freeform/M = P
-				if(M.laws[1] == "")
-					return
-				laws.add_inherent_law(M.laws[1])
+			if(istype(P, /obj/item/weapon/aiModule/freeform))
+				var/obj/item/weapon/aiModule/freeform/M = P
+				laws.add_inherent_law(M.newFreeFormLaw)
 				usr << "<span class='notice'>Added a freeform law.</span>"
+				return
+				
+			if(istype(P, /obj/item/weapon/aiModule))
+				var/obj/item/weapon/aiModule/M = P
+				if(!M.laws)
+					usr << "<span class='warning'>This AI module can not be applied directly to AI cores.</span>"
+					return
+				laws = M.laws
 
 			if(istype(P, /obj/item/device/mmi) || istype(P, /obj/item/device/mmi/posibrain))
 				if(!P:brainmob)

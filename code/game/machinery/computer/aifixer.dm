@@ -36,21 +36,10 @@
 		data["active"] = active
 		data["wireless"] = occupant.control_disabled
 		data["radio"] = occupant.aiRadio.disabledAi
-		data["zeroth"] = occupant.laws.zeroth
 		
 		var/laws[0]
-		var/number = 1
-		for (var/index = 1, index <= occupant.laws.inherent.len, index++)
-			var/law = occupant.laws.inherent[index]
-			if(length(law) > 0)
-				laws.Add(list(list("law" = law, "number" = number)))
-				number++
-
-		for (var/index = 1, index <= occupant.laws.supplied.len, index++)
-			var/law = occupant.laws.supplied[index]
-			if (length(law) > 0)
-				laws += "<b>[number]:</b> [law]<BR>"
-				number++				
+		for (var/datum/ai_law/law in occupant.laws.all_laws())
+			laws.Add(list(list("law" = law.law, "number" = law.get_index())))		
 				
 		data["laws"] = laws
 				

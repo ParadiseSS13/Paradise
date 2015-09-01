@@ -1,6 +1,5 @@
 var/list/robot_verbs_default = list(
 	/mob/living/silicon/robot/proc/sensor_mode,
-	/mob/living/silicon/robot/proc/checklaws
 )
 
 /mob/living/silicon/robot
@@ -67,11 +66,10 @@ var/list/robot_verbs_default = list(
 	var/weapon_lock = 0
 	var/weaponlock_time = 120
 	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
-	var/lawcheck[1] //For stating laws.
-	var/ioncheck[1] //Ditto.
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
@@ -154,16 +152,23 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	make_laws()
-	connected_ai = select_active_ai_with_fewest_borgs()
-	if(connected_ai)
-		connected_ai.connected_robots += src
-		lawsync()
-		photosync()
+	var/new_ai = select_active_ai_with_fewest_borgs()
+	if(new_ai)
 		lawupdate = 1
+		connect_to_ai(new_ai)
 	else
 		lawupdate = 0
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+
+/mob/living/silicon/robot/SetName(pickedName as text)
+	custom_name = pickedName
+	updatename()	
+	
+/mob/living/silicon/robot/proc/sync()
+	if(lawupdate && connected_ai)
+		lawsync()
+		photosync()
 
 // setup the PDA and its name
 /mob/living/silicon/robot/proc/setup_PDA()
@@ -761,8 +766,7 @@ var/list/robot_verbs_default = list(
 			emagged = 1
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-			lawupdate = 0
-			connected_ai = null
+			disconnect_from_ai()
 			user << "You emag [src]'s interface."
 //			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
@@ -1090,27 +1094,6 @@ var/list/robot_verbs_default = list(
 		installed_modules()
 		return 1
 
-	if (href_list["lawc"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
-		var/L = text2num(href_list["lawc"])
-		switch(lawcheck[L+1])
-			if ("Yes") lawcheck[L+1] = "No"
-			if ("No") lawcheck[L+1] = "Yes"
-//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
-		checklaws()
-		return 1
-
-	if (href_list["lawi"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
-		var/L = text2num(href_list["lawi"])
-		switch(ioncheck[L])
-			if ("Yes") ioncheck[L] = "No"
-			if ("No") ioncheck[L] = "Yes"
-//		src << text ("Switching Law [L]'s report status to []", lawcheck[L+1])
-		checklaws()
-		return 1
-
-	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
-		statelaws()
-		return 1
 	return 1
 
 /mob/living/silicon/robot/proc/radio_menu()
@@ -1192,8 +1175,7 @@ var/list/robot_verbs_default = list(
 	return
 
 /mob/living/silicon/robot/proc/UnlinkSelf()
-	if (src.connected_ai)
-		src.connected_ai = null
+	disconnect_from_ai()
 	lawupdate = 0
 	lockcharge = 0
 	canmove = 1
@@ -1206,7 +1188,7 @@ var/list/robot_verbs_default = list(
 		// Instead of being listed as "deactivated". The downside is that I'm going
 		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
 		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
-
+		
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"
 	set name = "Reset Identity Codes"
@@ -1355,6 +1337,7 @@ var/list/robot_verbs_default = list(
 	designation = "Syndicate"
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
+	lawchannel = "State"
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	if(!cell)
@@ -1385,3 +1368,17 @@ var/list/robot_verbs_default = list(
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
 		if(3) //New Name
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
+			
+/mob/living/silicon/robot/proc/disconnect_from_ai()
+	if(connected_ai)
+		sync() // One last sync attempt
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+	if(AI && AI != connected_ai)
+		disconnect_from_ai()
+		connected_ai = AI
+		connected_ai.connected_robots |= src
+		notify_ai(1)
+		sync()

@@ -73,7 +73,7 @@
 			world.Reboot()
 			return
 		AI_mind.current.verbs += /mob/living/silicon/ai/proc/choose_modules
-		AI_mind.current:laws = new /datum/ai_laws/malfunction
+		AI_mind.current:laws = new /datum/ai_laws/nanotrasen/malfunction
 		AI_mind.current:malf_picker = new /datum/module_picker
 		AI_mind.current:show_laws()
 

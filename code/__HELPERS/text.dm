@@ -208,6 +208,11 @@ proc/checkhtml(var/t)
 /proc/replacetextEx(text, find, replacement)
 	return list2text(text2listEx(text, find), replacement)
 
+/proc/replace_characters(var/t,var/list/repl_chars)
+	for(var/char in repl_chars)
+		t = replacetext(t, char, repl_chars[char])
+	return t	
+	
 //Adds 'u' number of zeros ahead of the text 't'
 /proc/add_zero(t, u)
 	while (length(t) < u)
@@ -358,3 +363,9 @@ proc/checkhtml(var/t)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
 	return html_encode(copytext(html_decode(text), first, last))
 	
+//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
+//Best used for sanitize object names, window titles.
+//If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
+//this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
+/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
+	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)	
