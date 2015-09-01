@@ -379,6 +379,7 @@
 					update_icon()
 			else
 				user << "<span class='notice'>The welding tool needs to be on to start this task.</span>"
+			return 1
 		else
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return 1
