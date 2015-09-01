@@ -481,12 +481,12 @@ var/list/sacrificed = list()
 			T.imbue = "blind"
 			imbued_from = R
 			break
-		if(R.word1==cultwords["self"] && R.word2==cultwords["other"] && R.word3==cultwords["technology"]) //communicat
+		if(R.word1==cultwords["self"] && R.word2==cultwords["other"] && R.word3==cultwords["technology"]) //communicate
 			T = new(src.loc)
 			T.imbue = "communicate"
 			imbued_from = R
 			break
-		if(R.word1==cultwords["join"] && R.word2==cultwords["hide"] && R.word3==cultwords["technology"]) //communicat
+		if(R.word1==cultwords["join"] && R.word2==cultwords["hide"] && R.word3==cultwords["technology"]) //stun
 			T = new(src.loc)
 			T.imbue = "runestun"
 			imbued_from = R
