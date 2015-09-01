@@ -1782,10 +1782,10 @@
 
 		if (istype(bundle.contents[page], /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/P = bundle.contents[page]
-			P.show_content(src.owner, 1)
+			P.show_content(usr, 1)
 		else if (istype(bundle.contents[page], /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/H = bundle.contents[page]
-			H.show(src.owner)
+			H.show(usr)
 		return
 
 	else if(href_list["AdminFaxCreate"])
