@@ -16,6 +16,7 @@
 	item_state = "bl_suit"
 	_color = "black"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -47,6 +48,7 @@
 	item_state = "g_suit"
 	_color = "green"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -73,6 +75,7 @@
 	item_state = "o_suit"
 	_color = "orange"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -86,6 +89,7 @@
 	has_sensor = 2
 	sensor_mode = 3
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -97,6 +101,7 @@
 	item_state = "p_suit"
 	_color = "pink"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -107,6 +112,7 @@
 	item_state = "r_suit"
 	_color = "red"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -120,6 +126,7 @@
 	item_state = "w_suit"
 	_color = "white"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -130,6 +137,7 @@
 	item_state = "y_suit"
 	_color = "yellow"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -139,6 +147,7 @@
 	desc = "Groovy!"
 	icon_state = "psyche"
 	_color = "psyche"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -148,6 +157,7 @@
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"
 	_color = "lightblue"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -157,6 +167,7 @@
 	icon_state = "aqua"
 	_color = "aqua"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -166,6 +177,7 @@
 	icon_state = "purple"
 	item_state = "p_suit"
 	_color = "purple"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -174,6 +186,7 @@
 	name = "light purple jumpsuit"
 	icon_state = "lightpurple"
 	_color = "lightpurple"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -182,6 +195,7 @@
 	name = "light green jumpsuit"
 	icon_state = "lightgreen"
 	_color = "lightgreen"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -190,6 +204,7 @@
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"
 	_color = "lightblue"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -199,6 +214,7 @@
 	icon_state = "lightbrown"
 	_color = "lightbrown"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -207,6 +223,7 @@
 	name = "brown jumpsuit"
 	icon_state = "brown"
 	_color = "brown"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -215,6 +232,7 @@
 	name = "yellow green jumpsuit"
 	icon_state = "yellowgreen"
 	_color = "yellowgreen"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -224,6 +242,7 @@
 	icon_state = "darkblue"
 	_color = "darkblue"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -232,6 +251,7 @@
 	name = "light red jumpsuit"
 	icon_state = "lightred"
 	_color = "lightred"
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -241,6 +261,7 @@
 	icon_state = "darkred"
 	_color = "darkred"
 	flags = ONESIZEFITSALL
+	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
