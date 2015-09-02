@@ -320,7 +320,7 @@
 //Huge thanks to Nienhaus for these sprites!
 
 /obj/item/clothing/under/fluff/fox
-	name = "Aeronuatics Jumpsuit"
+	name = "Aeronautics Jumpsuit"
 	desc = "A jumpsuit tailor made for spacefaring fighter pilots; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_suit"
