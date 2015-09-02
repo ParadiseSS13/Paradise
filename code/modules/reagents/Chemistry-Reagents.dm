@@ -471,6 +471,12 @@ datum
 			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(prob(70))
+					M.adjustBrainLoss(1)
+				..()
+
+			on_mob_life(var/mob/living/M as mob)
 				if(ishuman(M))
 					if((M.mind in ticker.mode.cult) && prob(10))
 						M << "\blue A cooling sensation from inside you brings you an untold calmness."
@@ -2242,11 +2248,11 @@ datum
 						M.AdjustWeakened(-1)
 					..()
 					return
-					
+
 				overdose_process(var/mob/living/M as mob)
 					if(volume > 45)
 						M.Jitter(5)
-						
+
 					..()
 					return
 
