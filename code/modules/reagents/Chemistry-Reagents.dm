@@ -471,25 +471,35 @@ datum
 			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
-				if(ishuman(M))
-					if((M.mind in ticker.mode.cult) && prob(10))
-						M << "\blue A cooling sensation from inside you brings you an untold calmness."
+				if(!data) data = 1
+				data++
+				M.jitteriness = max(M.jitteriness-5,0)
+				if(data >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
+					if (!M.stuttering) M.stuttering = 1
+					M.stuttering += 4
+					M.Dizzy(5)
+					if(iscultist(M) && prob(5))
+						M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+				if(data >= 75 && prob(33))	// 30 units, 150 seconds
+					if (!M.confused) M.confused = 1
+					M.confused += 3
+					if(iscultist(M))
 						ticker.mode.remove_cultist(M.mind)
-						ticker.mode.remove_all_cult_icons_from_client(M.client)  // fixes the deconverted's own client not removing their mob's cult icon
-						for(var/mob/O in viewers(M, null))
-							O.show_message(text("\blue []'s eyes blink and become clearer.", M), 1) // So observers know it worked.
-					// Vampires who ingest holy water combust if it's in their system for long enough.
+						holder.remove_reagent(src.id, src.volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+						M.jitteriness = 0
+						M.stuttering = 0
+						M.confused = 0
+				if(ishuman(M))				.
 					if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(80))
-						data++
 						switch(data)
-							if(1 to 3)
+							if(1 to 4)
 								M << "<span class = 'warning'>Something sizzles in your veins!</span>"
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-							if(4 to 10)
+							if(5 to 12)
 								M << "<span class = 'danger'>You feel an intense burning inside of you!</span>"
 								M.adjustFireLoss(1)
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-							if(11 to INFINITY)
+							if(13 to INFINITY)
 								M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
 								for(var/mob/O in viewers(M, null))
 									O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
@@ -497,7 +507,8 @@ datum
 								M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				holder.remove_reagent(src.id, 10 * REAGENTS_METABOLISM) //high metabolism to prevent extended uncult rolls.
+				holder.remove_reagent(src.id, 0.4)	//fixed consumption to prevent balancing going out of whack
+				return
 
 
 			reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -2242,11 +2253,11 @@ datum
 						M.AdjustWeakened(-1)
 					..()
 					return
-					
+
 				overdose_process(var/mob/living/M as mob)
 					if(volume > 45)
 						M.Jitter(5)
-						
+
 					..()
 					return
 
