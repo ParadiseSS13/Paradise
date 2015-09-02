@@ -144,7 +144,7 @@
 
 	attack_tk(mob/user as mob)
 		if(localopened && fireaxe)
-			fireaxe.loc = loc
+			fireaxe.forceMove(loc)
 			user << "\blue You telekinetically remove the fire axe."
 			fireaxe = null
 			update_icon()
