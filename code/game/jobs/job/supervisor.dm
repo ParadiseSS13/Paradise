@@ -159,7 +159,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_blueshield,
 			            access_captain, access_hop, access_hos, access_ce, access_cmo, access_rd, access_ntrep, access_magistrate)
 	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
-			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
+			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons, access_captain, access_hop, access_hos,
+			            access_ce, access_cmo, access_rd, access_ntrep, access_magistrate)
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
