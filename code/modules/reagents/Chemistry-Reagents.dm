@@ -471,10 +471,10 @@ datum
 			process_flags = ORGANIC | SYNTHETIC
 
 			on_mob_life(var/mob/living/M as mob)
-					if(prob(70))
-						M.adjustBrainLoss(1)
-						M << "<span class = 'danger'>You feel your belief in religion bolstering</span>"
-					if(ishuman(M))
+				if(prob(70))
+					M.adjustBrainLoss(1)
+					M << "<span class = 'danger'>You feel your belief in religion bolstering</span>"
+				if(ishuman(M))
 					if((M.mind in ticker.mode.cult) && prob(10))
 						M << "\blue A cooling sensation from inside you brings you an untold calmness."
 						ticker.mode.remove_cultist(M.mind)
