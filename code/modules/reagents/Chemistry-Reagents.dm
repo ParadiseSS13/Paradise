@@ -1076,6 +1076,7 @@ datum
 				name = "Unholy Water"
 				id = "unholywater"
 				description = "Something that shouldn't exist on this plane of existance."
+				process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 
 				on_mob_life(mob/living/M)
 					M.adjustBrainLoss(3)
