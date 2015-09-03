@@ -125,13 +125,13 @@
 	icon_state = "aqua"
 	_color = "aqua"
 	flags = ONESIZEFITSALL
-	
+
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
 	icon_state = "purple"
 	item_state = "p_suit"
 	_color = "purple"
-	
+
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	icon_state = "lightpurple"
@@ -178,4 +178,20 @@
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	_color = "darkred"
+	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/color/red/jersey
+	name = "red team jersey"
+	desc = "The jersey of the Nanotrasen Phi-ghters!"
+	icon_state = "redjersey"
+	item_state = "r_suit"
+	_color = "redjersey"
+	flags = ONESIZEFITSALL
+
+/obj/item/clothing/under/color/blue/jersey
+	name = "blue team jersey"
+	desc = "The jersey of the Nanotrasen Pi-rates!"
+	icon_state = "bluejersey"
+	item_state = "b_suit"
+	_color = "bluejersey"
 	flags = ONESIZEFITSALL
