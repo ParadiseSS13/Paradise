@@ -118,10 +118,7 @@
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"
 	_color = "lightblue"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
+
 
 /obj/item/clothing/under/color/aqua
 	name = "aqua jumpsuit"
