@@ -28,7 +28,6 @@
 
 		src.reagents.add_reagent(M)
 		if(M.reagents)
-
 			var/list/injected = list()
 			for(var/datum/reagent/R in src.reagents.reagent_list)
 				injected += R.name
