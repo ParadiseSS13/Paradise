@@ -117,13 +117,10 @@
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
 
-
-
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"
 	_color = "lightblue"
-
 
 /obj/item/clothing/under/color/aqua
 	name = "aqua jumpsuit"
