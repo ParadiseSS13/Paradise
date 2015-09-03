@@ -1,5 +1,10 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
+
 
 /obj/item/clothing/under/color/random/New()
 	..()
@@ -16,10 +21,6 @@
 	item_state = "bl_suit"
 	_color = "black"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
@@ -34,10 +35,6 @@
 	item_state = "b_suit"
 	_color = "blue"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/blue/dodgeball
 	flags = ONESIZEFITSALL | NODROP
@@ -48,10 +45,6 @@
 	item_state = "g_suit"
 	_color = "green"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
@@ -60,10 +53,6 @@
 	item_state = "gy_suit"
 	_color = "grey"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/grey/greytide
 	flags = ONESIZEFITSALL | NODROP
@@ -75,10 +64,6 @@
 	item_state = "o_suit"
 	_color = "orange"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
@@ -89,10 +74,6 @@
 	has_sensor = 2
 	sensor_mode = 3
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
@@ -101,10 +82,6 @@
 	item_state = "p_suit"
 	_color = "pink"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
@@ -112,10 +89,6 @@
 	item_state = "r_suit"
 	_color = "red"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/red/dodgeball
 	flags = ONESIZEFITSALL | NODROP
@@ -126,10 +99,6 @@
 	item_state = "w_suit"
 	_color = "white"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
@@ -137,20 +106,12 @@
 	item_state = "y_suit"
 	_color = "yellow"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
 	icon_state = "psyche"
 	_color = "psyche"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 
 /obj/item/clothing/under/color/lightblue
@@ -167,117 +128,57 @@
 	icon_state = "aqua"
 	_color = "aqua"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
-
+	
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
 	icon_state = "purple"
 	item_state = "p_suit"
 	_color = "purple"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
-
+	
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	icon_state = "lightpurple"
 	_color = "lightpurple"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightgreen
 	name = "light green jumpsuit"
 	icon_state = "lightgreen"
 	_color = "lightgreen"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
 	icon_state = "lightblue"
 	_color = "lightblue"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
 	icon_state = "lightbrown"
 	_color = "lightbrown"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
 	icon_state = "brown"
 	_color = "brown"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/yellowgreen
 	name = "yellow green jumpsuit"
 	icon_state = "yellowgreen"
 	_color = "yellowgreen"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/darkblue
 	name = "dark blue jumpsuit"
 	icon_state = "darkblue"
 	_color = "darkblue"
 	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
 	icon_state = "lightred"
 	_color = "lightred"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
 
 /obj/item/clothing/under/color/darkred
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	_color = "darkred"
-	flags = ONESIZEFITSALL
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
-
-/obj/item/clothing/under/color/red/jersey
-	name = "red team jersey"
-	desc = "The jersey of the Nanotrasen Phi-ghters!"
-	icon_state = "redjersey"
-	item_state = "r_suit"
-	_color = "redjersey"
-	flags = ONESIZEFITSALL
-
-/obj/item/clothing/under/color/blue/jersey
-	name = "blue team jersey"
-	desc = "The jersey of the Nanotrasen Pi-rates!"
-	icon_state = "bluejersey"
-	item_state = "b_suit"
-	_color = "bluejersey"
 	flags = ONESIZEFITSALL
