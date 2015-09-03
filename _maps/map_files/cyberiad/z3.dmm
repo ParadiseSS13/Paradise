@@ -143,7 +143,7 @@
 "cM" = (/obj/structure/window/reinforced{dir = 8},/turf/space,/area/turret_protected/tcomsat)
 "cN" = (/obj/item/device/radio/intercom{dir = 8; name = "Station Intercom (General)"; pixel_x = -28},/turf/simulated/floor,/area/tcommsat/computer)
 "cO" = (/obj/structure/stool/bed/chair/office/dark{dir = 1},/turf/simulated/floor,/area/tcommsat/computer)
-"cP" = (/obj/machinery/computer/telecomms/monitor{network = list("tcommsat")},/obj/item/device/radio/intercom{anyai = 1; freerange = 1; name = "General Listening Channel"; pixel_x = 28; pixel_y = 0},/turf/simulated/floor,/area/tcommsat/computer)
+"cP" = (/obj/machinery/computer/telecomms/monitor{network = list("tcommsat")},/obj/item/device/radio/intercom{name = "General Listening Channel"; pixel_x = 28; pixel_y = 0},/turf/simulated/floor,/area/tcommsat/computer)
 "cQ" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/orange,/obj/machinery/light{dir = 8},/turf/simulated/floor,/area/tcommsat/computer)
 "cR" = (/obj/machinery/hologram/holopad,/turf/simulated/floor,/area/tcommsat/computer)
 "cS" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/obj/structure/lattice,/turf/space,/area/turret_protected/tcomsat)

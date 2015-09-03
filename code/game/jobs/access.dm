@@ -186,6 +186,17 @@
 				return 1
 		return 0
 	return 1
+	
+/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
+	for(var/req in req_access)
+		if(!(req in accesses)) //doesn't have this access
+			return 0
+	if(req_one_access.len)
+		for(var/req in req_one_access)
+			if(req in accesses) //has an access from the single access list
+				return 1
+		return 0
+	return 1
 
 /proc/get_centcom_access(job)
 	switch(job)
