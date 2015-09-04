@@ -19,6 +19,7 @@
 	icon_state = "id_mod"
 	item_state = "electronic"
 	origin_tech = "programming=2"
+	materials = list(MAT_GLASS=200)
 	var/id = null
 	var/frequency = null
 	var/build_path = null
@@ -82,7 +83,7 @@
 	build_path = /obj/machinery/computer/station_alert
 /obj/item/weapon/circuitboard/stationalert_security
 	name = "Circuit Board (Station Alert Console (Security))"
-	build_path = /obj/machinery/computer/station_alert	
+	build_path = /obj/machinery/computer/station_alert
 /obj/item/weapon/circuitboard/stationalert_all
 	name = "Circuit Board (Station Alert Console (All))"
 	build_path = /obj/machinery/computer/station_alert/all

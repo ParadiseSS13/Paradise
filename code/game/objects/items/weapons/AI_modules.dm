@@ -19,6 +19,7 @@ AI MODULES
 	throw_speed = 3
 	throw_range = 15
 	origin_tech = "programming=3"
+	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
 
 /obj/item/weapon/aiModule/proc/install(var/obj/machinery/computer/C)
@@ -88,7 +89,7 @@ AI MODULES
 
 /obj/item/weapon/aiModule/proc/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 
-		
+
 /******************** Safeguard ********************/
 /obj/item/weapon/aiModule/safeguard
 	name = "\improper 'Safeguard' AI module"
@@ -175,7 +176,7 @@ AI MODULES
 	var/law = "The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, anyone from leaving. It is impossible to harm anyone while preventing them from leaving."
 	target << law
 	target.add_supplied_law(8, law)
-	
+
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/weapon/aiModule/oxygen
 	name = "\improper 'OxygenIsToxicToHumans' AI module"
@@ -263,7 +264,7 @@ AI MODULES
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/asimov
-	
+
 /******************** Crewsimov ********************/
 /obj/item/weapon/aiModule/crewsimov // -- TLE
 	name = "\improper 'Crewsimov' core AI module"
@@ -291,7 +292,7 @@ AI MODULES
 	desc = "A 'Drone' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/drone
-	
+
 /******************** Robocop ********************/
 /obj/item/weapon/aiModule/robocop // -- TLE
 	name = "\improper 'Robocop' core AI module"
@@ -305,7 +306,7 @@ AI MODULES
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=6"
 	laws = new/datum/ai_laws/paladin
-	
+
 /****************** T.Y.R.A.N.T. *****************/
 /obj/item/weapon/aiModule/tyrant // -- Darem
 	name = "\improper 'T.Y.R.A.N.T.' core AI module"
@@ -344,7 +345,7 @@ AI MODULES
 	if(!newFreeFormLaw)
 		usr << "No law detected on module, please create one."
 		return 0
-	..()	
+	..()
 
 /******************** Hacked AI Module ******************/
 /obj/item/weapon/aiModule/syndicate // Slightly more dynamic freeform module -- TLE
@@ -374,7 +375,7 @@ AI MODULES
 	if(!newFreeFormLaw)
 		usr << "No law detected on module, please create one."
 		return 0
-	..()	
+	..()
 
 /******************* Ion Module *******************/
 /obj/item/weapon/aiModule/toyAI // -- Incoming //No actual reason to inherit from ion boards here, either. *sigh* ~Miauw
