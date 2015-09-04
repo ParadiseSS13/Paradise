@@ -1063,8 +1063,8 @@ datum
 					return
 				if(method == TOUCH)
 					M.adjust_fire_stacks(volume / 10)
-				return
-			..()
+					return
+				..()
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
