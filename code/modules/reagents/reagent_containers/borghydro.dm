@@ -30,7 +30,6 @@
 
 	processing_objects.Add(src)
 
-
 /obj/item/weapon/reagent_containers/borghypo/Destroy()
 	processing_objects.Remove(src)
 	return ..()
@@ -50,13 +49,6 @@
 	//update_icon()
 	return 1
 
-// Purely for testing purposes I swear~
-/*
-/obj/item/weapon/reagent_containers/borghypo/verb/add_cyanide()
-	set src in world
-	add_reagent("cyanide")
-*/
-
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(var/reagent)
 	reagent_ids |= reagent
@@ -74,23 +66,20 @@
 		return
 	if (!istype(M))
 		return
-
-	var/mob/living/carbon/human/H = M
-	if(istype(H))
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(!affected)
-			user << "<span class='danger'>\The [H] is missing that limb!</span>"
-			return
-		else if(affected.status & ORGAN_ROBOT)
-			user << "<span class='danger'>You cannot inject a robotic limb.</span>"
-			return	
-	
 	if (R.total_volume && M.can_inject(user,1))
 		user << "<span class='notice'>You inject [M] with the injector.</span>"
 		M << "<span class='notice'>You feel a tiny prick!</span>"
 
 		R.add_reagent(M)
 		if(M.reagents)
+			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
+			var/contained = injected.name
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			if(M.ckey)
+				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+			M.LAssailant = user
+			
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			user << "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>"
 	return

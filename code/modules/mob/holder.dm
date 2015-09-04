@@ -49,7 +49,7 @@
 	grabber << "<span class='notice'>You scoop up \the [src]."
 	src << "<span class='notice'>\The [grabber] scoops you up.</span>"
 	grabber.status_flags |= PASSEMOTES
-	return
+	return H
 
 //Mob specific holders.
 
@@ -66,3 +66,8 @@
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 	origin_tech = "magnets=3;engineering=5"
+
+/obj/item/weapon/holder/pai
+	name = "pAI"
+	desc = "It's a little robot."
+	icon_state = "pai"
