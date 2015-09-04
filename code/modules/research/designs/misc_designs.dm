@@ -7,27 +7,27 @@
 	id = "design_disk"
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list("$metal" = 30, "$glass" = 10)
+	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
 	build_path = /obj/item/weapon/disk/design_disk
 	category = list("Miscellaneous")
-	
+
 /datum/design/intellicard
 	name = "Intellicard"
 	desc = "Allows for the construction of an intellicard."
 	id = "intellicard"
 	req_tech = list("programming" = 4, "materials" = 4)
 	build_type = PROTOLATHE
-	materials = list("$glass" = 1000, "$gold" = 200)
+	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
 	build_path = /obj/item/device/aicard
 	category = list("Miscellaneous")
-	
+
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
 	desc = "Allows for the construction of a pAI Card"
 	id = "paicard"
 	req_tech = list("programming" = 2)
 	build_type = PROTOLATHE
-	materials = list("$glass" = 500, "$metal" = 500)
+	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	build_path = /obj/item/device/paicard
 	category = list("Miscellaneous")
 
@@ -37,7 +37,7 @@
 	id = "tech_disk"
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list("$metal" = 30, "$glass" = 10)
+	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
 	build_path = /obj/item/weapon/disk/tech_disk
 	category = list("Miscellaneous")
 
@@ -47,6 +47,6 @@
 	id = "digitalcamera"
 	req_tech = list("programming" = 2, "materials" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 500, "$glass" = 300)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
 	build_path = /obj/item/device/camera/digital
 	category = list("Miscellaneous")
