@@ -16,8 +16,6 @@
 	materials = list(MAT_METAL=700, MAT_GLASS=50)
 	var/rigged = 0		// true if rigged to explode
 	var/minor_fault = 0 //If not 100% reliable, it will build up faults.
-	var/construction_cost = list("metal"=750,"glass"=75)
-	var/construction_time=100
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>"
@@ -65,7 +63,6 @@
 	maxcharge = 20000
 	materials = list(MAT_GLASS=70)
 	rating = 4
-	construction_cost = list("metal"=750,"glass"=100)
 
 /obj/item/weapon/stock_parts/cell/super/empty/New()
 	..()
@@ -78,7 +75,6 @@
 	maxcharge = 30000
 	rating = 5
 	materials = list(MAT_GLASS=80)
-	construction_cost = list("metal"=500,"glass"=150,"gold"=200,"silver"=200)
 
 /obj/item/weapon/stock_parts/cell/hyper/empty/New()
 	..()
@@ -91,7 +87,6 @@
 	maxcharge = 40000
 	materials = list(MAT_GLASS=80)
 	rating = 6
-	construction_cost = list("metal"=800,"gold"=300,"silver"=300,"glass"=160,"diamond"=160)
 
 /obj/item/weapon/stock_parts/cell/bluespace/empty/New()
 	..()
