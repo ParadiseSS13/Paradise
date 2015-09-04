@@ -47,7 +47,6 @@ var/global/list/default_medbay_channels = list(
 	m_amt = 75
 	g_amt = 25
 	var/const/FREQ_LISTENING = 1
-	var/prison_radio = 0
 	var/atom/follow_target // Custom follow target for autosay-using bots
 
 	var/list/internal_channels
@@ -67,9 +66,6 @@ var/global/list/default_medbay_channels = list(
 	wires = new(src)
 	if(radio_controller)
 		initialize()
-
-	if(prison_radio)
-		wires.CutWireIndex(WIRE_TRANSMIT)
 		
 	internal_channels = default_internal_channels.Copy()
 

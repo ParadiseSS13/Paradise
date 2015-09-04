@@ -25,7 +25,7 @@
 	frequency = AI_FREQ
 
 /obj/item/device/radio/intercom/specops
-	name = "\improper Spec Ops intercom"
+	name = "\improper Special Operations intercom"
 	frequency = ERT_FREQ
 
 /obj/item/device/radio/intercom/department
@@ -75,7 +75,29 @@
 /obj/item/device/radio/intercom/syndicate/New()
 	..()
 	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
+	
+/obj/item/device/radio/intercom/pirate
+	name = "pirate radio intercom"
+	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
+	subspace_transmission = 1
 
+/obj/item/device/radio/intercom/pirate/New()
+	..()
+	internal_channels.Cut()
+	internal_channels = list(
+		num2text(PUB_FREQ) = list(),
+		num2text(AI_FREQ)  = list(),
+		num2text(COMM_FREQ)= list(),
+		num2text(ENG_FREQ) = list(),
+		num2text(MED_FREQ) = list(),
+		num2text(MED_I_FREQ)=list(),
+		num2text(SEC_FREQ) = list(),
+		num2text(SEC_I_FREQ)=list(),
+		num2text(SCI_FREQ) = list(),
+		num2text(SUP_FREQ) = list(),
+		num2text(SRV_FREQ) = list()
+	)
+	
 /obj/item/device/radio/intercom/Destroy()
 	processing_objects.Remove(src)
 	return ..()
@@ -221,3 +243,12 @@
 /obj/item/device/radio/intercom/locked/confessional
 	name = "confessional intercom"
 	frequency = 1480
+	
+/obj/item/device/radio/intercom/locked/prison
+	name = "\improper prison intercom"
+	desc = "Talk through this. It looks like it has been modified to not broadcast."
+
+/obj/item/device/radio/intercom/locked/prison/New()
+	..()
+	wires.CutWireIndex(WIRE_TRANSMIT)
+	
