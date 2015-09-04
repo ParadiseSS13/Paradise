@@ -444,7 +444,7 @@
 	item_state = "videocam"
 	w_class = 2.0
 	slot_flags = SLOT_BELT
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	var/on = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"

@@ -11,7 +11,7 @@
 	force = 5.0
 	throwforce = 10.0
 	item_state = "shard-glass"
-	g_amt = MINERAL_MATERIAL_AMOUNT
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 

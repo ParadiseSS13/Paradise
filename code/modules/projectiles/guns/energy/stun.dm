@@ -63,7 +63,7 @@
 	icon_state = "crossbow"
 	w_class = 2.0
 	item_state = "crossbow"
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=2;magnets=2;syndicate=5"
 	silenced = 1
 	fire_sound = 'sound/weapons/Genhit.ogg'
@@ -98,7 +98,7 @@
 	silenced = 0
 	w_class = 3.0
 	force = 10
-	m_amt = 4000
+	materials = list(MAT_METAL=4000)
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
 
 

@@ -26,8 +26,8 @@
 	throw_range = 9
 	w_class = 2
 
-	m_amt = 75
-	g_amt = 25
+	materials = list(MAT_METAL=75)
+
 	var/const/FREQ_LISTENING = 1
 	var/prison_radio = 0
 	var/atom/follow_target // Custom follow target for autosay-using bots
