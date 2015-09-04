@@ -14,8 +14,8 @@
 	
 	light_color = LIGHT_COLOR_GREEN
 
-/obj/machinery/computer/account_database/proc/get_access_level(user as mob)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
+	if(user.can_admin_interact())
 		return 2
 	if (!held_card)
 		return 0

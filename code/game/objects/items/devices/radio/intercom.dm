@@ -85,10 +85,6 @@
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
-		
-/obj/item/device/radio/intercom/attack_ghost(mob/user as mob)
-	spawn(0)
-		attack_self(user)
 
 /obj/item/device/radio/intercom/attack_hand(mob/user as mob)
 	add_fingerprint(user)
