@@ -294,7 +294,7 @@
 	name = "Metal"
 	id = "metal"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 3750)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/metal
 	category = list("initial","Construction")
 
@@ -318,7 +318,7 @@
 	name = "Reinforced Glass"
 	id = "rglass"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1875, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 
@@ -326,7 +326,7 @@
 	name = "Metal Rod"
 	id = "rods"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1875)
+	materials = list(MAT_METAL = 1000)
 	build_path = /obj/item/stack/rods
 	category = list("initial","Construction")
 
