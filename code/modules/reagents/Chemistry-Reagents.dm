@@ -507,7 +507,7 @@ datum
 								M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
 								M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
 								M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				holder.remove_reagent(src.id, 0.4)	//fixed consumption to prevent balancing going out of whack
+				..()
 				return
 
 
