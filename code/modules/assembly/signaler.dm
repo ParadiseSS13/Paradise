@@ -87,8 +87,8 @@
 
 		if (href_list["freq"])
 			var/new_frequency = (frequency + text2num(href_list["freq"]))
-			if(new_frequency < 1441 || new_frequency > 1489)
-				new_frequency = sanitize_frequency(new_frequency)
+			if(new_frequency < RADIO_LOW_FREQ || new_frequency > RADIO_HIGH_FREQ)
+				new_frequency = sanitize_frequency(new_frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 			set_frequency(new_frequency)
 
 		if(href_list["code"])

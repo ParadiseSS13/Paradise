@@ -65,10 +65,10 @@ var/shuttle_call/shuttle_calls[0]
 	..()
 	crew_announcement.newscast = 1
 	
-/obj/machinery/computer/communications/proc/is_authenticated(user as mob, var/message = 1)
+/obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == 2)
 		return 2
-	else if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	else if(user.can_admin_interact())
 		return 2
 	else if(authenticated)
 		return 1

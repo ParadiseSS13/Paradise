@@ -237,7 +237,7 @@
 /obj/item/radio/integrated/signal/initialize()
 	if(!radio_controller)
 		return
-	if (src.frequency < 1441 || src.frequency > 1489)
+	if (src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
 		src.frequency = sanitize_frequency(src.frequency)
 
 	set_frequency(frequency)
