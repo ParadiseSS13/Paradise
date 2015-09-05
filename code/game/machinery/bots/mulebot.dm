@@ -21,7 +21,6 @@ var/global/mulebot_count = 0
 	var/atom/movable/load = null		// the loaded crate (usually)
 	var/list/delivery_beacons = list() //List of beacons that serve as delivery locations.
 	beacon_freq = 1400
-	control_freq = 1447
 	bot_type = MULE_BOT
 	bot_type_name = "MULEbot"
 	bot_filter = RADIO_MULEBOT
