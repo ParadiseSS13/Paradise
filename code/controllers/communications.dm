@@ -72,14 +72,14 @@ Radio:
 1355 - Medical
 1357 - Engineering
 1359 - Security
-1341 - death squad
+1341 - Special Operations
 1443 - Confession Intercom
-1347 - Cargo techs
-1349 - Service people
+1347 - Cargo
+1349 - Service
 
 Devices:
-1451 - tracking implant
-1457 - RSD default
+1451 - Tracking Implant
+1457 - RSD Default
 
 On the map:
 1311 for prison shuttle console (in fact, it is not used)
@@ -97,11 +97,17 @@ On the map:
 1455 for AI access
 */
 
-var/const/COMM_FREQ = 1353
+var/const/RADIO_LOW_FREQ	= 1200
+var/const/PUBLIC_LOW_FREQ	= 1441
+var/const/PUBLIC_HIGH_FREQ	= 1489
+var/const/RADIO_HIGH_FREQ	= 1600
+
 var/const/SYND_FREQ = 1213
-var/const/ERT_FREQ = 1345
 var/const/DTH_FREQ = 1341
-var/const/AI_FREQ = 1447
+var/const/AI_FREQ	= 1343
+var/const/ERT_FREQ = 1345
+var/const/COMM_FREQ = 1353
+var/const/BOT_FREQ = 1447
 
 // department channels
 var/const/PUB_FREQ = 1459
@@ -111,6 +117,10 @@ var/const/SCI_FREQ = 1351
 var/const/MED_FREQ = 1355
 var/const/SUP_FREQ = 1347
 var/const/SRV_FREQ = 1349
+
+// internal department channels
+var/const/MED_I_FREQ = 1485
+var/const/SEC_I_FREQ = 1475
 
 var/list/radiochannels = list(
 	"Common"		= PUB_FREQ,
@@ -124,7 +134,9 @@ var/list/radiochannels = list(
 	"Syndicate" 	= SYND_FREQ,
 	"Supply" 		= SUP_FREQ,
 	"Service" 		= SRV_FREQ,
-	"AI Private"	= AI_FREQ
+	"AI Private"	= AI_FREQ,
+	"Medical(I)"	= MED_I_FREQ,
+	"Security(I)"	= SEC_I_FREQ
 )
 
 // central command channels, i.e deathsquid & response teams
@@ -133,8 +145,8 @@ var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 // Antag channels, i.e. Syndicate
 var/list/ANTAG_FREQS = list(SYND_FREQ)
 
-//depenging helpers
-var/list/DEPT_FREQS = list(SCI_FREQ, MED_FREQ, ENG_FREQ, SEC_FREQ, SUP_FREQ, SRV_FREQ, ERT_FREQ, SYND_FREQ, DTH_FREQ)
+//Department channels, arranged lexically
+var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ)
 
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
@@ -144,29 +156,28 @@ var/list/DEPT_FREQS = list(SCI_FREQ, MED_FREQ, ENG_FREQ, SEC_FREQ, SUP_FREQ, SRV
 	if (frequency in ANTAG_FREQS)
 		return "syndradio"
 	// centcomm channels (deathsquid and ert)
-	else if(frequency in CENT_FREQS)
+	if(frequency in CENT_FREQS)
 		return "centradio"
 	// command channel
-	else if(frequency == COMM_FREQ)
+	if(frequency == COMM_FREQ)
 		return "comradio"
 	// AI private channel
-	else if(frequency == AI_FREQ)
+	if(frequency == AI_FREQ)
 		return "airadio"
 	// department radio formatting (poorly optimized, ugh)
-	else if(frequency == SEC_FREQ)
+	if(frequency == SEC_FREQ)
 		return "secradio"
-	else if (frequency == ENG_FREQ)
+	if (frequency == ENG_FREQ)
 		return "engradio"
-	else if(frequency == SCI_FREQ)
+	if(frequency == SCI_FREQ)
 		return "sciradio"
-	else if(frequency == MED_FREQ)
+	if(frequency == MED_FREQ)
 		return "medradio"
-	else if(frequency == SUP_FREQ) // cargo
+	if(frequency == SUP_FREQ)
 		return "supradio"
-	else if(frequency == SRV_FREQ) // service
+	if(frequency == SRV_FREQ)
 		return "srvradio"
-	// If all else fails and it's a dept_freq, color me purple!
-	else if(frequency in DEPT_FREQS)
+	if(frequency in DEPT_FREQS)
 		return "deptradio"
 
 	return "radio"

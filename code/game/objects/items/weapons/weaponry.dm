@@ -57,12 +57,6 @@
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
-
-/obj/item/weapon/nullrod/afterattack(atom/A, mob/user as mob)
-	if (istype(A, /turf/simulated/floor))
-		user << "\blue You hit the floor with the [src]."
-		call(/obj/effect/rune/proc/revealrunes)(src)
-
 /obj/item/weapon/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."

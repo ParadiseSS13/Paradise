@@ -836,8 +836,8 @@
 	return wires.IsIndexCut(wireIndex)
 
 
-/obj/machinery/power/apc/proc/can_use(mob/user as mob, var/loud = 0) //used by attack_hand() and Topic()
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+	if(user.can_admin_interact())
 		return 1
 
 	autoflag = 5

@@ -172,17 +172,19 @@
 
 
 /obj/proc/check_access_list(var/list/L)
-	if(!src.req_access  && !src.req_one_access)	return 1
-	if(!istype(src.req_access, /list))	return 1
-	if(!src.req_access.len && (!src.req_one_access || !src.req_one_access.len))	return 1
+	if(!req_access)		req_access = list()
+	if(!req_one_access)	req_one_access = list()
 	if(!L)	return 0
 	if(!istype(L, /list))	return 0
-	for(var/req in src.req_access)
-		if(!(req in L)) //doesn't have this access
+	return has_access(req_access, req_one_access, L)
+	
+/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
+	for(var/req in req_access)
+		if(!(req in accesses)) //doesn't have this access
 			return 0
-	if(src.req_one_access && src.req_one_access.len)
-		for(var/req in src.req_one_access)
-			if(req in L) //has an access from the single access list
+	if(req_one_access.len)
+		for(var/req in req_one_access)
+			if(req in accesses) //has an access from the single access list
 				return 1
 		return 0
 	return 1
