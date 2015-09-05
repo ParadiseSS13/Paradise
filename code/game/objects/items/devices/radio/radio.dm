@@ -671,9 +671,9 @@ var/global/list/default_medbay_channels = list(
 		if(enable_subspace_transmission != subspace_transmission)
 			subspace_transmission = !subspace_transmission
 			if(subspace_transmission)
-				usr << "<span class='notice'>Subspace Transmission is enabled</span>"
+				usr << "<span class='notice'>Subspace Transmission is enabled.</span>"
 			else
-				usr << "<span class='notice'>Subspace Transmission is disabled</span>"
+				usr << "<span class='notice'>Subspace Transmission is disabled.</span>"
 
 			if(subspace_transmission == 0)//Simple as fuck, clears the channel list to prevent talking/listening over them if subspace transmission is disabled
 				channels = list()
@@ -686,10 +686,10 @@ var/global/list/default_medbay_channels = list(
 			shut_up = !shut_up
 			if(shut_up)
 				canhear_range = 0
-				usr << "<span class='notice'>Loadspeaker disabled.</span>"
+				usr << "<span class='notice'>Loudspeaker disabled.</span>"
 			else
 				canhear_range = 3
-				usr << "<span class='notice'>Loadspeaker enabled.</span>"
+				usr << "<span class='notice'>Loudspeaker enabled.</span>"
 		. = 1
 
 	if(.)
