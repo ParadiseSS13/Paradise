@@ -517,9 +517,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		src << "\blue Temperature: [round(environment.temperature-T0C,0.1)]&deg;C"
 		src << "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]"
-
-
-/mob/dead/observer/verb/view_manfiest()
+		
+/mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
 
@@ -638,4 +637,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		client.images |= ghost_darkness_images
 		if (ghostimage)
 			client.images -= ghostimage //remove ourself
-			
+		
+/mob/proc/can_admin_interact()
+	return 0
+		
+/mob/dead/observer/can_admin_interact()
+	return check_rights(R_ADMIN, 0, src)

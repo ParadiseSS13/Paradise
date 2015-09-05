@@ -223,10 +223,10 @@ var/bomb_set
 		deployable = 1
 	return
 
-/obj/machinery/nuclearbomb/proc/is_auth(user as mob)
+/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
 	if(auth)
 		return 1
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+	else if(user.can_admin_interact())
 		return 1
 	else
 		return 0

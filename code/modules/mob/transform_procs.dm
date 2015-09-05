@@ -113,8 +113,6 @@
 				loc_landmark = sloc
 
 	O.loc = loc_landmark.loc
-	for (var/obj/item/device/radio/intercom/comm in O.loc)
-		comm.ai += O
 
 	O.on_mob_init()
 

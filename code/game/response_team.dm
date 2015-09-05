@@ -589,7 +589,6 @@ var/send_emergency_team
 
 /obj/item/device/radio/centcom
 	name = "centcomm bounced radio"
-	freerange = 1
 	frequency = ERT_FREQ
 	icon_state = "radio"
 

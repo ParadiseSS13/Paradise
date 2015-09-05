@@ -50,8 +50,8 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/proc/is_centcom()
 	return istype(src, /obj/machinery/computer/card/centcom)
 
-/obj/machinery/computer/card/proc/is_authenticated(user as mob)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
+	if(user.can_admin_interact())
 		return 1
 	if(scan)
 		return check_access(scan)

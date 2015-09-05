@@ -821,8 +821,8 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user as mob, href_list)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/alarm/proc/is_authenticated(var/mob/user, href_list)
+	if(user.can_admin_interact())
 		return 1
 	else if(isAI(user) || isrobot(user) || emagged || is_auth_rcon(href_list))
 		return 1
