@@ -23,6 +23,10 @@
 /obj/item/device/radio/intercom/private
 	name = "station intercom (Private)"
 	frequency = AI_FREQ
+	
+/obj/item/device/radio/intercom/command
+	name = "station intercom (Command)"
+	frequency = COMM_FREQ
 
 /obj/item/device/radio/intercom/specops
 	name = "\improper Special Operations intercom"
