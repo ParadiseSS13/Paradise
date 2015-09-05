@@ -94,24 +94,24 @@
 	return
 
 /obj/item/weapon/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
-	if(!proximity) return
-/*	if (istype(A, /turf/simulated/floor))
-		user << "\blue You hit the floor with the bible."
+	if(!proximity)
+		return
+	if (istype(A, /turf/simulated/floor))
+		user << "<span class='notice'>You hit the floor with the bible.</span>"
 		if(user.mind && (user.mind.assigned_role == "Chaplain"))
-			call(/obj/effect/rune/proc/revealrunes)(src)*/
+			call(/obj/effect/rune/proc/revealrunes)(src)
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		if(A.reagents && A.reagents.has_reagent("water")) //blesses all the water in the holder
-			user << "\blue You bless [A]."
+			user << "<span class='notice'>You bless [A].</span>"
 			var/water2holy = A.reagents.get_reagent_amount("water")
 			A.reagents.del_reagent("water")
 			A.reagents.add_reagent("holywater",water2holy)
+		if(A.reagents && A.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+			user << "<span class='notice'>You purify [A].</span>"
+			var/unholy2clean = A.reagents.get_reagent_amount("unholywater")
+			A.reagents.del_reagent("unholywater")
+			A.reagents.add_reagent("holywater",unholy2clean)
 
 /obj/item/weapon/storage/bible/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()
-
-	if(W.reagents && W.reagents.has_reagent("water"))
-		user << "<span class='notice'>You feel [deity_name] blessing \the [W] as you insert it into \the [src].</span>"
-		var/water2holy = W.reagents.get_reagent_amount("water")
-		W.reagents.del_reagent("water")
-		W.reagents.add_reagent("holywater",water2holy)

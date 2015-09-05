@@ -1074,23 +1074,35 @@ datum
 					return
 				if(method == TOUCH)
 					M.adjust_fire_stacks(volume / 10)
-				return
-			/*
-			reaction_obj(var/obj/O, var/volume)
-				var/turf/the_turf = get_turf(O)
-				if(!the_turf)
-					return //No sense trying to start a fire if you don't have a turf to set on fire. --NEO
-				new /obj/effect/decal/cleanable/liquid_fuel(the_turf, volume)
-			reaction_turf(var/turf/T, var/volume)
-				new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
-				return
-			*/
+					return
+				..()
+
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.adjustToxLoss(1)
 				..()
 				return
 
+			unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+				name = "Unholy Water"
+				id = "unholywater"
+				description = "Something that shouldn't exist on this plane of existance."
+				process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+
+				on_mob_life(mob/living/M)
+					M.adjustBrainLoss(3)
+					if(iscultist(M))
+						M.status_flags |= GOTTAGOFAST
+						M.drowsyness = max(M.drowsyness-5, 0)
+						M.AdjustParalysis(-2)
+						M.AdjustStunned(-2)
+						M.AdjustWeakened(-2)
+					else
+						M.adjustToxLoss(2)
+						M.adjustFireLoss(2)
+						M.adjustOxyLoss(2)
+						M.adjustBruteLoss(2)
+					holder.remove_reagent(src.id, 1)
 
 		incendiary_fuel //copy-pasta of welding fuel; allow incendiary grenades to function better without the headache of people spraying fuel everywhere with regular welding fuel.
 			name = "Incendiary fuel"
