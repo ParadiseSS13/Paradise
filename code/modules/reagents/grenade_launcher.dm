@@ -15,7 +15,7 @@
 	var/ammo_type = /obj/item/weapon/grenade
 	var/unloaded
 
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 
 	examine()
 		set src in view()

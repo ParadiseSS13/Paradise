@@ -10,7 +10,7 @@
 	var/circuitry_installed = 1
 	var/last_tick //used to delay the powercheck
 	var/buildstage = 0
-	
+
 /obj/item/device/radio/intercom/custom
 	name = "station intercom (Custom)"
 	broadcasting = 0
@@ -23,7 +23,7 @@
 /obj/item/device/radio/intercom/private
 	name = "station intercom (Private)"
 	frequency = AI_FREQ
-	
+
 /obj/item/device/radio/intercom/command
 	name = "station intercom (Command)"
 	frequency = COMM_FREQ
@@ -44,7 +44,7 @@
 /obj/item/device/radio/intercom/department/security
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
-	
+
 /obj/item/device/radio/intercom/New(turf/loc, var/ndir = 0, var/building = 3)
 	..()
 	buildstage = building
@@ -79,7 +79,7 @@
 /obj/item/device/radio/intercom/syndicate/New()
 	..()
 	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
-	
+
 /obj/item/device/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
@@ -101,7 +101,7 @@
 		num2text(SUP_FREQ) = list(),
 		num2text(SRV_FREQ) = list()
 	)
-	
+
 /obj/item/device/radio/intercom/Destroy()
 	processing_objects.Remove(src)
 	return ..()
@@ -209,7 +209,7 @@
 /obj/item/device/radio/intercom/process()
 	if(((world.timeofday - last_tick) > 30) || ((world.timeofday - last_tick) < 0))
 		last_tick = world.timeofday
-		
+
 
 		if(!src.loc)
 			on = 0
@@ -227,9 +227,8 @@
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
 	w_class = 2.0
-	m_amt = 50
-	g_amt = 50
-	
+	materials = list(MAT_METAL=50, MAT_GLASS=50)
+
 /obj/item/device/radio/intercom/locked
     var/locked_frequency
 
@@ -247,7 +246,7 @@
 /obj/item/device/radio/intercom/locked/confessional
 	name = "confessional intercom"
 	frequency = 1480
-	
+
 /obj/item/device/radio/intercom/locked/prison
 	name = "\improper prison intercom"
 	desc = "Talk through this. It looks like it has been modified to not broadcast."
@@ -255,4 +254,3 @@
 /obj/item/device/radio/intercom/locked/prison/New()
 	..()
 	wires.CutWireIndex(WIRE_TRANSMIT)
-	

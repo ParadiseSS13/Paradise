@@ -135,8 +135,6 @@
 /obj/item/robot_parts/robot_component
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "working"
-	construction_time = 200
-	construction_cost = list("metal"=5000)
 	var/brute = 0
 	var/burn = 0
 
@@ -190,7 +188,7 @@
 		user << "<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>"
 		user << "<span class='notice'>Body Temperature: ???</span>"
 		return
-		
+
 	var/scan_type
 	if(istype(M, /mob/living/silicon/robot))
 		scan_type = "robot"
@@ -253,5 +251,5 @@
 					user << "[capitalize(O.name)]: <font color='red'>[O.damage]</font>"
 			if(!organ_found)
 				user << "<span class='warning'>No prosthetics located.</span>"
-			
+
 	src.add_fingerprint(user)

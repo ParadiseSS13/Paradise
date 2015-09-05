@@ -6,7 +6,7 @@
 	icon_state = "glass_empty"
 	amount_per_transfer_from_this = 10
 	volume = 50
-	g_amt = 500
+	materials = list(MAT_GLASS=500)
 
 
 	proc/smash(mob/living/target as mob, mob/living/user as mob)

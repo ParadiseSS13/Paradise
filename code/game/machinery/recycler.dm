@@ -1,7 +1,7 @@
 var/const/SAFETY_COOLDOWN = 100
 
 /obj/machinery/recycler
-	name = "crusher"
+	name = "recycler"
 	desc = "A large crushing machine which is used to recycle small items ineffeciently; there are lights on the side of it."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "grinder-o0"
@@ -13,6 +13,8 @@ var/const/SAFETY_COOLDOWN = 100
 	var/icon_name = "grinder-o"
 	var/blood = 0
 	var/eat_dir = WEST
+	var/amount_produced = 1
+	var/datum/material_container/materials
 
 /obj/machinery/recycler/New()
 	// On us
@@ -21,11 +23,20 @@ var/const/SAFETY_COOLDOWN = 100
 	component_parts += new /obj/item/weapon/circuitboard/recycler(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_URANIUM=1, MAT_BANANIUM=1))
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/recycler/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
-	return
+/obj/machinery/recycler/RefreshParts()
+	var/amt_made = 0
+	var/mat_mod = 0
+	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+		mat_mod = 2 * B.rating
+	mat_mod *= 50000
+	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		amt_made = 25 * M.rating //% of materials salvaged
+	materials.max_amount = mat_mod
+	amount_produced = min(100, amt_made)
 
 /obj/machinery/recycler/examine()
 	set src in view()
@@ -39,7 +50,7 @@ var/const/SAFETY_COOLDOWN = 100
 	update_icon()
 
 
-/obj/machinery/recycler/attackby(var/obj/item/I, var/mob/user, params)
+/obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
 		if(!panel_open)
 			update_icon()
@@ -56,13 +67,14 @@ var/const/SAFETY_COOLDOWN = 100
 	add_fingerprint(user)
 	return
 
-/obj/machinery/recycler/emag_act(user as mob)
+/obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		if(safety_mode)
 			safety_mode = 0
 			update_icon()
 		playsound(src.loc, "sparks", 75, 1, -1)
+		user << "<span class='notice'>You use the cryptographic sequencer on the [src.name].</span>"
 
 /obj/machinery/recycler/update_icon()
 	..()
@@ -107,20 +119,20 @@ var/const/SAFETY_COOLDOWN = 100
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			AM.loc = src.loc
 
-/obj/machinery/recycler/proc/recycle(var/obj/item/I, var/sound = 1)
+/obj/machinery/recycler/proc/recycle(obj/item/I, sound = 1)
 	I.loc = src.loc
-	if(!istype(I,/obj/item/flag/nation))
+	if(!istype(I))
+		return
+
+	if(sound)
+		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+	var/material_amount = materials.can_insert(I)
+	if(!material_amount)
 		qdel(I)
-		if(prob(15))
-			new /obj/item/stack/sheet/metal(loc)
-		if(prob(10))
-			new /obj/item/stack/sheet/glass(loc)
-		if(prob(2))
-			new /obj/item/stack/sheet/plasteel(loc)
-		if(prob(1))
-			new /obj/item/stack/sheet/rglass(loc)
-		if(sound)
-			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+		return
+	materials.insert_item(I, multiplier = (amount_produced / 100))
+	qdel(I)
+	materials.retrieve_all()
 
 
 /obj/machinery/recycler/proc/stop(var/mob/living/L)
