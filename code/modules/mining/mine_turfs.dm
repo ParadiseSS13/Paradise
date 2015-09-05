@@ -393,6 +393,13 @@ var/global/list/rockTurfEdgeCache
 		gets_drilled()
 	..()
 
+/turf/simulated/mineral/attack_alien(var/mob/living/carbon/alien/M)
+	M << "<span class='notice'>You start digging into the rock...</span>"
+	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
+	if(do_after(M, 40, target = src))
+		M << "<span class='notice'>You tunnel into the rock.</span>"
+		gets_drilled()
+
 /turf/simulated/mineral/Bumped(AM as mob|obj)
 	. = ..()
 	if(istype(AM,/mob/living/carbon/human))
