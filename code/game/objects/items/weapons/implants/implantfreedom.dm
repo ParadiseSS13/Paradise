@@ -5,12 +5,12 @@
 	desc = "Use this to escape from those evil Red Shirts."
 	_color = "r"
 	var/activation_emote = "chuckle"
-	var/uses = 1.0
+	origin_tech = "materials=2;magnets=3;biotech=3;syndicate=4"
+	var/uses = 4
 
 
 	New()
 		src.activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		src.uses = rand(1, 5)
 		..()
 		return
 
