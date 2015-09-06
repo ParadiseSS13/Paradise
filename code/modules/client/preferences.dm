@@ -127,6 +127,7 @@ datum/preferences
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 
+	var/body_accessory = null
 
 	var/speciesprefs = 0//I hate having to do this, I really do (Using this for oldvox code, making names universal I guess
 
@@ -185,17 +186,17 @@ datum/preferences
 
 	// jukebox volume
 	var/volume = 100
-	
+
 	// BYOND membership
 	var/unlock_content = 0
-	
+
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
-				max_save_slots = MAX_SAVE_SLOTS_MEMBER 
+				max_save_slots = MAX_SAVE_SLOTS_MEMBER
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
 		if(load_character(C))
@@ -364,9 +365,13 @@ datum/preferences
 				dat += "<br><b>Eyes</b><br>"
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
 
-				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Vulpkanin")
+				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Vulpkanin" || body_accessory_by_species[species] || check_rights(R_ADMIN, 1, user)) //admins can always fuck with this, because they are admins
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
+
+				if(body_accessory_by_species[species] || check_rights(R_ADMIN, 1, user))
+					dat += "<br><b>Body Accessory</b><br>"
+					dat += "Accessory: <a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
 
 				dat += "</td></tr></table><hr><center>"
 
@@ -385,7 +390,7 @@ datum/preferences
 				dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
 				if(config.allow_Metadata)
 					dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-				
+
 				if(user.client)
 					if(user.client.holder)
 						dat += "<b>Adminhelp sound:</b> "
@@ -393,7 +398,7 @@ datum/preferences
 
 					if(check_rights(R_ADMIN,0))
 						dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-						
+
 					if(unlock_content)
 						dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
@@ -1160,9 +1165,26 @@ datum/preferences
 
 							valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
 
-						var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in valid_hairstyles
+						var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 						if(new_h_style)
 							h_style = new_h_style
+
+					if("body_accessory")
+						var/list/possible_body_accessories = list()
+						if(check_rights(R_ADMIN, 1, user))
+							possible_body_accessories = body_accessory_by_name.Copy()
+						else
+							for(var/B in body_accessory_by_name)
+								var/datum/body_accessory/accessory = body_accessory_by_name[B]
+								if(!istype(accessory))
+									possible_body_accessories += "None" //the only null entry should be the "None" option
+									continue
+								if(species in accessory.allowed_species)
+									possible_body_accessories += B
+
+						var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
+						if(new_body_accessory)
+							body_accessory = new_body_accessory
 
 					if("facial")
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as color|null
@@ -1225,7 +1247,7 @@ datum/preferences
 							s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("skin")
-						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People"|| species == "Vulpkanin")
+						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People"|| species == "Vulpkanin" || body_accessory_by_species[species] || check_rights(R_ADMIN, 1, user))
 							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference") as color|null
 							if(new_skin)
 								r_skin = hex2num(copytext(new_skin, 2, 4))
@@ -1360,7 +1382,7 @@ datum/preferences
 					if("publicity")
 						if(unlock_content)
 							toggles ^= MEMBER_PUBLIC
-							
+
 					if("gender")
 						if(gender == MALE)
 							gender = FEMALE
@@ -1548,6 +1570,9 @@ datum/preferences
 
 		character.underwear = underwear
 		character.undershirt = undershirt
+
+		if(body_accessory)
+			character.body_accessory = body_accessory_by_name["[body_accessory]"]
 
 		if(backbag > 4 || backbag < 1)
 			backbag = 1 //Same as above

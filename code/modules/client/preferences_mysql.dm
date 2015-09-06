@@ -148,6 +148,7 @@
 		rlimb_data = params2list(query.item[51])
 		nanotrasen_relation = query.item[52]
 		speciesprefs = text2num(query.item[53])
+		body_accessory = query.item[54]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -267,7 +268,8 @@
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
 												nanotrasen_relation='[nanotrasen_relation]',
-												speciesprefs='[speciesprefs]'
+												speciesprefs='[speciesprefs]',
+												body_accessory='[body_accessory]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -295,7 +297,8 @@
 											job_karma_high, job_karma_med, job_karma_low,
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles, be_special,
-											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs)
+											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+											body_accessory)
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
@@ -312,7 +315,8 @@
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
 											'[sql_sanitize_text(flavor_text)]', '[sql_sanitize_text(med_record)]', '[sql_sanitize_text(sec_record)]', '[sql_sanitize_text(gen_record)]',
 											'[playertitlelist]', '[be_special]',
-											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]')
+											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
+											'[body_accessory]')
 "}
 )
 
