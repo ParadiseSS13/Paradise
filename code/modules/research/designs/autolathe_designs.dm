@@ -162,6 +162,14 @@
 	build_path = /obj/item/device/assembly/infra
 	category = list("initial", "Miscellaneous")
 
+/datum/design/health_sensor
+	name = "Health sensor"
+	id = "health_sensor"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
+	build_path = /obj/item/device/assembly/health
+	category = list("initial", "Medical")
+
 /datum/design/kitchen_knife
 	name = "Kitchen knife"
 	id = "kitchen_knife"
