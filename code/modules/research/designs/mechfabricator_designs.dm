@@ -612,6 +612,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked =  1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_banana_mortar
@@ -748,6 +749,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_bolas
@@ -759,6 +761,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bolas
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_teleporter
@@ -793,6 +796,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_laser
@@ -804,6 +808,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_carbine
@@ -815,6 +820,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_scattershot
@@ -826,6 +832,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_ion
@@ -837,6 +844,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_grenade_launcher
@@ -848,6 +856,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_missile_rack
@@ -859,6 +868,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
+	locked = 1
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_plasma_cutter
