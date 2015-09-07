@@ -141,17 +141,17 @@
 			return
 */
 
-		plastication
-			name = "Plastic"
-			id = "solidplastic"
-			result = null
-			required_reagents = list("facid" = 10, "plasticide" = 20)
-			result_amount = 1
-			on_reaction(var/datum/reagents/holder)
-				var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
-				M.amount = 10
-				M.loc = get_turf(holder.my_atom)
-				return
+	plastication
+		name = "Plastic"
+		id = "solidplastic"
+		result = null
+		required_reagents = list("facid" = 10, "plasticide" = 20)
+		result_amount = 1
+		on_reaction(var/datum/reagents/holder)
+			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/mineral/plastic
+			M.amount = 10
+			M.loc = get_turf(holder.my_atom)
+			return
 
 
 
