@@ -1141,13 +1141,18 @@ datum
 			color = "#61C2C2"
 
 			reaction_obj(var/obj/O, var/volume)
+				if(O)
+					O.color = initial(O.color)
 				if(istype(O,/obj/effect/decal/cleanable))
 					qdel(O)
 				else
 					if(O)
 						O.clean_blood()
+
 			reaction_turf(var/turf/T, var/volume)
 				if(volume >= 1)
+					if(T)
+						T.color = initial(T.color)
 					T.overlays.Cut()
 					T.clean_blood()
 					for(var/obj/effect/decal/cleanable/C in src)
@@ -1155,9 +1160,10 @@ datum
 
 					for(var/mob/living/carbon/slime/M in T)
 						M.adjustToxLoss(rand(5,10))
-			reaction_turf(var/turf/simulated/S, var/volume)
-				if(volume >= 1)
-					S.dirt = 0
+					if(istype(T,/turf/simulated))
+						var/turf/simulated/S = T
+						S.dirt = 0
+
 			reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
