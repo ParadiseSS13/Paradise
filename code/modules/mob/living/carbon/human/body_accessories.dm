@@ -56,6 +56,18 @@ var/global/list/body_accessory_by_species = list("None" = null)
 /datum/body_accessory/proc/get_pixel_y(var/mob/living/carbon/human/H)
 	return pixel_offsets["y"]
 
+/datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
+	if(animated_icon)
+		return animated_icon
+
+	else	return icon
+
+/datum/body_accessory/proc/get_animated_icon_state()
+	if(animated_icon_state)
+		return animated_icon_state
+
+	else	return icon_state
+
 
 //Bodies
 /datum/body_accessory/body

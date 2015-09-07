@@ -924,11 +924,10 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[TAIL_LAYER] = null
 
 	if(body_accessory)
-		if(body_accessory.animated_icon && body_accessory.animated_icon_state)
-			var/icon/accessory_s = new/icon("icon" = body_accessory.animated_icon, "icon_state" = body_accessory.animated_icon_state)
-			accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
+		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
+		accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 
-			overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.get_pixel_x(src), "pixel_y" = body_accessory.get_pixel_y(src))
+		overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.get_pixel_x(src), "pixel_y" = body_accessory.get_pixel_y(src))
 
 	else if(species.tail && species.bodyflags & HAS_TAIL)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
