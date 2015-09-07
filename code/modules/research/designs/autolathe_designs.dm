@@ -546,3 +546,19 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
+
+/datum/design/desttagger
+	name = "Destination tagger"
+	id = "desttagger"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 250, MAT_GLASS = 125)
+	build_path = /obj/item/device/destTagger
+	category = list("initial", "Electronics")
+
+/datum/design/handlabeler
+	name = "Hand labeler"
+	id = "handlabel"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 125)
+	build_path = /obj/item/weapon/hand_labeler
+	category = list("initial", "Electronics")
