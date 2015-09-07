@@ -828,7 +828,7 @@ datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that darmatically enhances the body's performance and healing capabilities."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
