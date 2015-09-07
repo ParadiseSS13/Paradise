@@ -64,6 +64,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	life_tick++
 	var/datum/gas_mixture/environment = loc.return_air()
 
+	in_stasis = 0
 	if(istype(loc, /obj/structure/closet/body_bag/cryobag))
 		var/obj/structure/closet/body_bag/cryobag/loc_as_cryobag = loc
 		if(!loc_as_cryobag.opened)

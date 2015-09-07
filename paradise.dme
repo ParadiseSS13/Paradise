@@ -959,6 +959,7 @@
 #include "code\modules\alarm\power_alarm.dm"
 #include "code\modules\assembly\assembly.dm"
 #include "code\modules\assembly\bomb.dm"
+#include "code\modules\assembly\health.dm"
 #include "code\modules\assembly\helpers.dm"
 #include "code\modules\assembly\holder.dm"
 #include "code\modules\assembly\igniter.dm"
