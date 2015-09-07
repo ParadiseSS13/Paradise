@@ -93,7 +93,7 @@
 			m_type = 1
 
 		if ("help")
-			src << "ping, \nbuzz."
+			src << "ping, \nbuzz, \nbeep."
 		else
 			src << "\blue Unusable emote '[act]'. Say *help for a list."
 
