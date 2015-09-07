@@ -149,6 +149,11 @@
 		nanotrasen_relation = query.item[52]
 		speciesprefs = text2num(query.item[53])
 
+		alt_body = query.item[54]
+		alt_body_colors_red = text2num(query.item[55])
+		alt_body_colors_green = text2num(query.item[56])
+		alt_body_colors_blue = text2num(query.item[57])
+
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
@@ -195,6 +200,11 @@
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 	be_special = sanitize_integer(be_special, 0, 65535, initial(be_special))
+
+	alt_body 				= sanitize_text(alt_body, initial(alt_body))
+	alt_body_colors_red 	= sanitize_integer(alt_body_colors_red, 0, 255, initial(alt_body_colors_red))
+	alt_body_colors_green 	= sanitize_integer(alt_body_colors_green, 0, 255, initial(alt_body_colors_green))
+	alt_body_colors_blue 	= sanitize_integer(alt_body_colors_blue, 0, 255, initial(alt_body_colors_blue))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -267,7 +277,11 @@
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
 												nanotrasen_relation='[nanotrasen_relation]',
-												speciesprefs='[speciesprefs]'
+												speciesprefs='[speciesprefs]',
+												alt_body='[alt_body]',
+												alt_body_colors_red='[alt_body_colors_red]',
+												alt_body_colors_green='[alt_body_colors_green]',
+												alt_body_colors_blue='[alt_body_colors_blue]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
@@ -295,7 +309,8 @@
 											job_karma_high, job_karma_med, job_karma_low,
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles, be_special,
-											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs)
+											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+											alt_body, alt_body_colors_red, alt_body_colors_green, alt_body_colors_blue)
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
@@ -312,7 +327,8 @@
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
 											'[sql_sanitize_text(flavor_text)]', '[sql_sanitize_text(med_record)]', '[sql_sanitize_text(sec_record)]', '[sql_sanitize_text(gen_record)]',
 											'[playertitlelist]', '[be_special]',
-											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]')
+											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
+											'[alt_body]', '[alt_body_colors_red]', '[alt_body_colors_green]', '[alt_body_colors_blue]')
 "}
 )
 

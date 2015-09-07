@@ -82,3 +82,6 @@
 
 	var/fire_dmi = 'icons/mob/OnFire.dmi'
 	var/fire_sprite = "Standing"
+
+	var/datum/body/alt_body = null
+	var/list/alt_body_rgb = list("red" = 0, "green" = 0, "blue" = 0)

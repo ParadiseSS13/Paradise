@@ -899,7 +899,17 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/update_tail_showing(var/update_icons=1)
 	overlays_standing[TAIL_LAYER] = null
 
-	if(species.tail && species.bodyflags & HAS_TAIL)
+	if(alt_body && istype(alt_body))
+		var/icon/alt_body_s = new/icon("icon" = alt_body.icon, "icon_state" = alt_body.icon_state)
+		alt_body_s.Blend(rgb(alt_body_rgb["red"], alt_body_rgb["green"], alt_body_rgb["blue"]), alt_body.blend_mode)
+
+		if(lying)
+			var/image/final = image(alt_body_s, "pixel_x" = alt_body.pixel_offsets["y"], "pixel_y" = alt_body.pixel_offsets["x"]) //x & y swapped because byond bugs
+			overlays_standing[TAIL_LAYER]	= final
+		else
+			overlays_standing[TAIL_LAYER]	= image(alt_body_s, "pixel_x" = alt_body.pixel_offsets["x"], "pixel_y" = alt_body.pixel_offsets["y"])
+
+	else if(species.tail && species.bodyflags & HAS_TAIL)
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
 			tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
@@ -913,7 +923,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
 	overlays_standing[TAIL_LAYER] = null
 
-	if(species.tail && species.bodyflags & HAS_TAIL)
+	if(species.tail && species.bodyflags & HAS_TAIL && !alt_body)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
 		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
@@ -925,7 +935,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/proc/stop_tail_wagging(var/update_icons=1)
 	overlays_standing[TAIL_LAYER] = null
 
-	if(species.tail && species.bodyflags & HAS_TAIL)
+	if(species.tail && species.bodyflags & HAS_TAIL && !alt_body)
 		var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
 		tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
@@ -988,6 +998,10 @@ var/global/list/damage_icon_parts = list()
 	for(var/obj/item/organ/external/O in organs)
 		O.sync_colour_to_human(src)
 	update_body(0)
+
+/mob/living/carbon/human/handle_transform_change()
+	..()
+	update_tail_showing()
 
 //Human Overlays Indexes/////////
 #undef MUTANTRACE_LAYER
