@@ -124,7 +124,7 @@
 "act" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/security{name = "Prisoner Transfer Center"; req_access = null; req_access_txt = "1"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/security/execution{name = "\improper Prisoner Transfer Center"})
 "acu" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor{icon_state = "red"; dir = 8},/area/security/permabrig)
 "acv" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 4; initialize_directions = 11; level = 1},/turf/simulated/floor{icon_state = "red"; dir = 4},/area/security/permabrig)
-"acw" = (/obj/item/weapon/secbot_assembly,/turf/simulated/floor/plating,/area/security/permabrig)
+"acw" = (/obj/item/clothing/mask/muzzle/gag,/turf/simulated/floor/plating,/area/security/permabrig)
 "acx" = (/turf/simulated/wall/r_wall,/area/security/securearmoury)
 "acy" = (/obj/structure/grille,/obj/structure/sign/securearea{name = "\improper ARMORY"; pixel_y = 32},/turf/space,/area/space)
 "acz" = (/obj/structure/grille,/turf/space,/area/space)
