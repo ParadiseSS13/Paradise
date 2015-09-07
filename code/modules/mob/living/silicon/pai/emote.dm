@@ -69,9 +69,9 @@
 				param = null
 
 			if (param)
-				message = "<B>[src]</B> pings at [param]."
+				message = "<B>[src]</B> beeps at [param]."
 			else
-				message = "<B>[src]</B> pings."
+				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 1
 
