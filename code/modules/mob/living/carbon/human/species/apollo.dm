@@ -51,7 +51,7 @@
 			C << "<span class='danger'>It feels like part of you has died.</span>"
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
-	if(M.a_intent == "harm")
+	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
 			if(!(locate(H.internal_organs_by_name["antennae"]) in H.internal_organs))	return
 			var/turf/p_loc = M.loc

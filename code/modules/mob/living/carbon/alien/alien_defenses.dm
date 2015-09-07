@@ -16,7 +16,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -24,7 +24,7 @@ In all, this is a lot like the monkey code. /N
 			AdjustWeakened(-3)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
-		if ("grab")
+		if (I_GRAB)
 			src.grabbedby(M)
 			return 1
 
@@ -53,11 +53,11 @@ In all, this is a lot like the monkey code. /N
 		return 0 //this is horrible but 100% necessary
 
 	switch(M.a_intent)
-		if("help")
+		if(I_HELP)
 			help_shake_act(M)
-		if("grab")
+		if(I_GRAB)
 			src.grabbedby(M)
-		if ("harm", "disarm")
+		if (I_HARM, I_DISARM)
 			return 1
 	return 0
 

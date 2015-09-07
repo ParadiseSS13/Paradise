@@ -27,7 +27,7 @@
 		if(!target)
 			return
 
-		if(user.a_intent != "harm")
+		if(user.a_intent != I_HARM)
 			return ..()
 
 		force = 5

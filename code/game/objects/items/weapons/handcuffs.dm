@@ -63,7 +63,7 @@ var/last_chew = 0
 	var/mob/living/carbon/human/H = A
 	if (!H.handcuffed)
 		return
-	if (H.a_intent != "harm")
+	if (H.a_intent != I_HARM)
 		return
 	if (H.zone_sel.selecting != "mouth")
 		return

@@ -91,7 +91,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	src.verbs |= ai_verbs_default
 	src.verbs |= silicon_subsystems
-	
+
 /mob/living/silicon/ai/proc/remove_ai_verbs()
 	src.verbs -= ai_verbs_default
 	src.verbs -= silicon_subsystems
@@ -551,7 +551,7 @@ var/list/ai_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			visible_message("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>")
 
 		else //harm
@@ -960,7 +960,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/is_in_chassis()
 	return istype(loc, /turf)
-	
+
 /mob/living/silicon/ai/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
 	if(!..())
 		return

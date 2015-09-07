@@ -146,7 +146,7 @@
 					src.pinned += O
 
 /mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == "harm")
+	if(M.occupant.a_intent == I_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		switch(M.damtype)
@@ -168,9 +168,9 @@
 		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
-		
+
 	else
-	
+
 		step_away(src,M)
 		add_logs(M.occupant, src, "pushed", object=M, admin=0)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")

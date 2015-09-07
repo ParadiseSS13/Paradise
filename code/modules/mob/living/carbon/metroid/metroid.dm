@@ -270,7 +270,7 @@
 
 	switch(L.a_intent)
 
-		if("help")
+		if(I_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -366,22 +366,11 @@
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			help_shake_act(M)
 
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src)
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
+		if (I_GRAB)
+			grabbedby(M)
 
 		else
 			M.do_attack_animation(src)
@@ -427,10 +416,10 @@
 		return
 
 	switch(M.a_intent)
-		if ("help")
+		if (I_HELP)
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
 
-		if ("harm")
+		if (I_HARM)
 			M.do_attack_animation(src)
 			if (prob(95))
 				attacked += 10
@@ -450,21 +439,10 @@
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+		if (I_GRAB)
+			grabbedby(M)
 
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'> [M] has grabbed [name] passively!</span>")
-
-		if ("disarm")
+		if (I_DISARM)
 			M.do_attack_animation(src)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5

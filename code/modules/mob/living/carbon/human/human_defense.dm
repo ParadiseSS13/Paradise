@@ -35,10 +35,10 @@ emp_act
 	if(check_shields(P.damage, "the [P.name]", P))
 		P.on_hit(src, 100, def_zone)
 		return 2
-		
+
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
-		return 
+		return
 
 	//Shrapnel
 	if (P.damage_type == BRUTE)
@@ -221,7 +221,7 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	if((istype(I, /obj/item/weapon/butch/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == "harm")
+	if((istype(I, /obj/item/weapon/butch/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == I_HARM)
 		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
 		newmeat.name = src.real_name + newmeat.name
 		newmeat.subjectname = src.real_name
@@ -465,7 +465,7 @@ emp_act
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == "harm")
+	if(M.occupant.a_intent == I_HARM)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
@@ -493,7 +493,7 @@ emp_act
 		attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		M.occupant.attack_log += text("\[[time_stamp()]\] <font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
 		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
-			
+
 	else
 		..()
 

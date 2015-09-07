@@ -232,7 +232,7 @@ proc/wabbajack(mob/living/M)
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
-			new_mob.a_intent = "harm"
+			new_mob.a_intent = I_HARM
 			if(M.mind)
 				M.mind.transfer_to(new_mob)
 			else

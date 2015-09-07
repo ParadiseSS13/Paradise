@@ -299,8 +299,8 @@
 	user.do_attack_animation(src)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	destroy()
-	
-/obj/structure/table/mech_melee_attack(obj/mecha/M)		
+
+/obj/structure/table/mech_melee_attack(obj/mecha/M)
 	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
 	destroy()
 
@@ -402,7 +402,7 @@
 		if (istype(G.affecting, /mob/living))
 			var/mob/living/M = G.affecting
 			if (G.state < 2)
-				if(user.a_intent == "harm")
+				if(user.a_intent == I_HARM)
 					if (prob(15))	M.Weaken(5)
 					M.apply_damage(8,def_zone = "head")
 					visible_message("\red [G.assailant] slams [G.affecting]'s face against \the [src]!")
@@ -914,8 +914,8 @@
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
-		
-/obj/structure/rack/mech_melee_attack(obj/mecha/M)		
+
+/obj/structure/rack/mech_melee_attack(obj/mecha/M)
 	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
 	destroy()
 

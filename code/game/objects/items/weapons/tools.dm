@@ -83,7 +83,7 @@
 	return
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M) || user.a_intent == "help")
+	if(!istype(M) || user.a_intent == I_HELP)
 		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
@@ -475,7 +475,7 @@
 
 		if (!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
 		if(S.brute_dam)

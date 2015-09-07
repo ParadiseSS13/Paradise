@@ -562,13 +562,13 @@
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
-			if ("help")
+			if (I_HELP)
 				usr << "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name]."
-			if ("disarm")
+			if (I_DISARM)
 				usr << "\blue <b>Mood</b>: You sense cautious thoughts from [M.name]."
-			if ("grab")
+			if (I_GRAB)
 				usr << "\blue <b>Mood</b>: You sense hostile thoughts from [M.name]."
-			if ("harm")
+			if (I_HARM)
 				usr << "\blue <b>Mood</b>: You sense cruel thoughts from [M.name]."
 				for(var/mob/living/L in view(7,M))
 					if (L == M)
