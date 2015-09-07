@@ -273,8 +273,8 @@
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
 												nanotrasen_relation='[nanotrasen_relation]',
-												speciesprefs='[speciesprefs]'
-												socks='[socks]',
+												speciesprefs='[speciesprefs]',
+												socks='[socks]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
 												)
