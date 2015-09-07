@@ -470,11 +470,7 @@
 		return 1
 
 //Antag Creatures!
-/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
-		return 1 */
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
-		return 1
-	if(ispath(MP, /mob/living/carbon/alien) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/statue) && !jobban_isbanned(src, "Syndicate"))
 		return 1
