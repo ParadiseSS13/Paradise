@@ -596,7 +596,7 @@ About the new airlock wires panel:
 	if (src.isElectrified())
 		if (istype(mover, /obj/item))
 			var/obj/item/i = mover
-			if (i.m_amt)
+			if (i.materials[MAT_METAL])
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
@@ -1049,4 +1049,4 @@ About the new airlock wires panel:
 		src.unlock()
 		src.open()
 		src.lock()
-	return	
+	return

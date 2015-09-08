@@ -4,6 +4,7 @@
 	name = "implant"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "implant"
+	origin_tech = "materials=2;biotech=3;programming=2"
 	var/implanted = null
 	var/mob/living/imp_in = null
 	var/obj/item/organ/external/part = null
@@ -52,6 +53,7 @@
 /obj/item/weapon/implant/tracking
 	name = "tracking"
 	desc = "Track with this."
+	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	var/id = 1.0
 
 
@@ -92,6 +94,7 @@ Implant Specifics:<BR>"}
 /obj/item/weapon/implant/dexplosive
 	name = "explosive"
 	desc = "And boom goes the weasel."
+	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	icon_state = "implant_evil"
 
 	get_data()
@@ -127,6 +130,7 @@ Implant Specifics:<BR>"}
 /obj/item/weapon/implant/explosive
 	name = "explosive implant"
 	desc = "A military grade micro bio-explosive. Highly dangerous."
+	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	var/elevel = "Localized Limb"
 	var/phrase = "supercalifragilisticexpialidocious"
 	icon_state = "implant_evil"
@@ -252,6 +256,7 @@ Implant Specifics:<BR>"}
 /obj/item/weapon/implant/chem
 	name = "chem"
 	desc = "Injects things."
+	origin_tech = "materials=3;biotech=4"
 	allow_reagents = 1
 
 	get_data()
@@ -316,6 +321,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/loyalty
 	name = "loyalty"
 	desc = "Makes you loyal or such."
+	origin_tech = "materials=2;biotech=4;programming=4"
 
 	get_data()
 		var/dat = {"
@@ -406,6 +412,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/adrenalin
 	name = "adrenalin"
 	desc = "Removes all stuns and knockdowns."
+	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
 	var/uses = 3
 
 	get_data()
@@ -436,7 +443,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 
 			source.reagents.add_reagent("synaptizine", 10)
 			source.reagents.add_reagent("omnizine", 10)
-			source.reagents.add_reagent("methamphetamine", 10)
+			source.reagents.add_reagent("stimulative_agent", 10)
 
 		return
 
@@ -523,6 +530,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	name = "compressed matter implant"
 	desc = "Based on compressed matter technology, can store a single item."
 	icon_state = "implant_evil"
+	origin_tech = "materials=2;magnets=4;bluespace=4;syndicate=4"
 	var/activation_emote = "sigh"
 	var/obj/item/scanned = null
 
@@ -574,7 +582,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/emp
 	name = "emp implant"
 	desc = "Triggers an EMP."
-
+	origin_tech = "materials=2;biotech=3;magnets=4;syndicate=4"
 	var/activation_emote = "chuckle"
 	var/uses = 2
 

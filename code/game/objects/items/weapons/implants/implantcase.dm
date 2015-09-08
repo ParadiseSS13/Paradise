@@ -8,7 +8,14 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 1.0
+	origin_tech = "materials=1;biotech=2"
+	materials = list(MAT_GLASS=500)
 	var/obj/item/weapon/implant/imp = null
+
+	New()
+		..()
+		update()
+
 	proc
 		update()
 
@@ -16,8 +23,10 @@
 	update()
 		if (src.imp)
 			src.icon_state = text("implantcase-[]", src.imp._color)
+			src.origin_tech = src.imp.origin_tech
 		else
 			src.icon_state = "implantcase-0"
+			src.origin_tech = initial(src.origin_tech)
 		return
 
 
@@ -147,5 +156,16 @@
 
 	New()
 		src.imp = new /obj/item/weapon/implant/freedom( src )
+		..()
+		return
+
+/obj/item/weapon/implantcase/adrenaline
+	name = "Glass Case- 'Adrenaline'"
+	desc = "A glass case containing an adrenaline implant."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implantcase-b"
+
+	New()
+		src.imp = new /obj/item/weapon/implant/adrenalin( src )
 		..()
 		return

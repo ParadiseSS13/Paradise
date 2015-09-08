@@ -53,8 +53,8 @@ FIRE ALARM
 	if(src.detecting)
 		if(temperature > T0C+200)
 			src.alarm()			// added check of detector status here
-	return		
-	
+	return
+
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
@@ -213,7 +213,7 @@ FIRE ALARM
 /obj/machinery/firealarm/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	if (buildstage != 2)
 		return 1
 
@@ -285,8 +285,7 @@ Just a object used in constructing fire alarms
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
 	w_class = 2.0
-	m_amt = 50
-	g_amt = 50
+	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"

@@ -272,7 +272,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = 2
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=2;magnets=2;syndicate=5"
 	silenced = 1
 	projectile_type = "/obj/item/projectile/energy/bolt"
@@ -285,7 +285,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "A reverse engineered weapon using syndicate technology."
 	icon_state = "crossbowlarge"
 	w_class = 3
-	m_amt = 4000
+	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=2;magnets=2;syndicate=3" //can be further researched for more syndie tech
 	silenced = 0
 	projectile_type = "/obj/item/projectile/energy/bolt/large"
@@ -294,7 +294,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "One and done!"
 	icon_state = "crossbowlarge"
 	origin_tech = null
-	m_amt = 0
+	materials = list()
 
 /obj/item/weapon/gun/energy/plasmacutter
 	name = "plasma cutter"

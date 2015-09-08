@@ -130,6 +130,7 @@
 	w_class = 2.0
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
+	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
 	var/invisa_view = 0

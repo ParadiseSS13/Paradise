@@ -14,7 +14,7 @@
 	item_state = "radio"
 	throw_speed = 4
 	throw_range = 20
-	m_amt = 100
+	materials = list(MAT_METAL=100)
 	origin_tech = "magnets=2;syndicate=3"*/
 
 /obj/item/weapon/SWF_uplink
@@ -34,5 +34,5 @@
 	w_class = 2.0
 	throw_speed = 4
 	throw_range = 20
-	m_amt = 100
+	materials = list(MAT_METAL=100)
 	origin_tech = "magnets=1"

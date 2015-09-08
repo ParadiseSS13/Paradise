@@ -153,7 +153,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	icon_state = "teeth"
 	force = 2.0
 	throwforce = 5.0
-	g_amt = 0
+	materials = list()
 
 /obj/item/weapon/shard/shark_teeth/New()
 	src.pixel_x = rand(-5,5)

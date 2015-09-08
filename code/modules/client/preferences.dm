@@ -108,6 +108,7 @@ datum/preferences
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
+	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
 	var/h_style = "Bald"				//Hair type
 	var/r_hair = 0						//Hair color
@@ -332,6 +333,7 @@ datum/preferences
 					dat += "<br><br>"
 				dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 				dat += "<b>Undershirt:</b><BR><a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 				dat += "Backpack Type:<br><a href ='?_src_=prefs;preference=bag;task=input'><b>[backbaglist[backbag]]</b></a><br>"
 				dat += "Nanotrasen Relation:<br><a href ='?_src_=prefs;preference=nt_relation;task=input'><b>[nanotrasen_relation]</b></a><br>"
 				dat += "</td><td><b>Preview</b><br><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></td></tr></table>"
@@ -1015,6 +1017,9 @@ datum/preferences
 					if("undershirt")
 						undershirt = random_undershirt(gender)
 						ShowChoices(user)
+					if("socks")
+						socks = random_socks(gender)
+						ShowChoices(user)
 					if("eyes")
 						r_eyes = rand(0,255)
 						g_eyes = rand(0,255)
@@ -1231,6 +1236,22 @@ datum/preferences
 						if(new_undershirt)
 							undershirt = new_undershirt
 						ShowChoices(user)
+
+					if("socks")
+						var/list/valid_sockstyles = list()
+						for(var/sockstyle in socks_list)
+							var/datum/sprite_accessory/S = socks_list[sockstyle]
+							if(gender == MALE && S.gender == FEMALE)
+								continue
+							if(gender == FEMALE && S.gender == MALE)
+								continue
+							if( !(species in S.species_allowed))
+								continue
+							valid_sockstyles[sockstyle] = socks_list[sockstyle]
+						var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+						ShowChoices(user)
+						if(new_socks)
+							socks = new_socks
 
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
@@ -1570,6 +1591,7 @@ datum/preferences
 
 		character.underwear = underwear
 		character.undershirt = undershirt
+		character.socks = socks
 
 		if(body_accessory)
 			character.body_accessory = body_accessory_by_name["[body_accessory]"]

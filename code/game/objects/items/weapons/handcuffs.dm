@@ -10,7 +10,7 @@
 	w_class = 2.0
 	throw_speed = 2
 	throw_range = 5
-	m_amt = 500
+	materials = list(MAT_METAL=500)
 	origin_tech = "materials=1"
 	var/breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'

@@ -148,8 +148,11 @@
 		rlimb_data = params2list(query.item[51])
 		nanotrasen_relation = query.item[52]
 		speciesprefs = text2num(query.item[53])
-		body_accessory = query.item[54]
 
+		//socks
+		socks = query.item[54]
+		body_accessory = query.item[55]
+		
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
@@ -196,6 +199,9 @@
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
 	be_special = sanitize_integer(be_special, 0, 65535, initial(be_special))
+
+	socks			= sanitize_text(socks, initial(socks))
+	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -269,6 +275,7 @@
 												rlimb_data='[rlimblist]',
 												nanotrasen_relation='[nanotrasen_relation]',
 												speciesprefs='[speciesprefs]',
+												socks='[socks]',
 												body_accessory='[body_accessory]'
 												WHERE ckey='[C.ckey]'
 												AND slot='[default_slot]'"}
@@ -298,7 +305,8 @@
 											flavor_text, med_record, sec_record, gen_record,
 											player_alt_titles, be_special,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											body_accessory)
+											socks, body_accessory)
+
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sql_sanitize_text(metadata)]', '[sql_sanitize_text(real_name)]', '[be_random_name]','[gender]',
 											'[age]', '[sql_sanitize_text(species)]', '[sql_sanitize_text(language)]',
@@ -316,7 +324,8 @@
 											'[sql_sanitize_text(flavor_text)]', '[sql_sanitize_text(med_record)]', '[sql_sanitize_text(sec_record)]', '[sql_sanitize_text(gen_record)]',
 											'[playertitlelist]', '[be_special]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[body_accessory]')
+											'[socks]', '[body_accessory]')
+
 "}
 )
 
