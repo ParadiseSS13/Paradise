@@ -7,6 +7,7 @@ datum/preferences
 			gender = pick(MALE, FEMALE)
 		underwear = random_underwear(gender)
 		undershirt = random_undershirt(gender)
+		socks = random_socks(gender)
 		if(species == "Human")
 			s_tone = random_skin_tone()
 		h_style = random_hair_style(gender, species)
@@ -263,6 +264,12 @@ datum/preferences
 			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 			if(U2)
 				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
+
+		var/icon/socks_s = null
+		if(socks)
+			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+			if(U3)
+				socks_s = new/icon(U3.icon, "[U3.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/clothes_s = null
 		var/uniform_dmi='icons/mob/uniform.dmi'
@@ -792,6 +799,8 @@ datum/preferences
 			preview_icon.Blend(underwear_s, ICON_OVERLAY)
 		if(undershirt_s)
 			preview_icon.Blend(undershirt_s, ICON_OVERLAY)
+		if(socks_s)
+			preview_icon.Blend(socks_s, ICON_OVERLAY)
 		if(clothes_s)
 			preview_icon.Blend(clothes_s, ICON_OVERLAY)
 		preview_icon_front = new(preview_icon, dir = SOUTH)
@@ -800,4 +809,5 @@ datum/preferences
 		del(eyes_s)
 		del(underwear_s)
 		del(undershirt_s)
+		del(socks_s)
 		del(clothes_s)

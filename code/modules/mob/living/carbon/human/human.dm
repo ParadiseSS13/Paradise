@@ -244,6 +244,8 @@
 			stat(null, eta_status)
 
 	if (client.statpanel == "Status")
+		if(locate(/obj/item/device/assembly/health) in src)
+			stat(null, "Health: [health]")
 		if (internal)
 			if (!internal.air_contents)
 				qdel(internal)

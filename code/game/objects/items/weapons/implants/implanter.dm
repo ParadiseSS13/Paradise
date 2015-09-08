@@ -6,7 +6,12 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
+	origin_tech = "materials=1;biotech=3;programming=2"
 	var/obj/item/weapon/implant/imp = null
+
+/obj/item/weapon/implanter/New()
+	..()
+	update()
 
 /obj/item/weapon/implanter/proc/update()
 
@@ -14,8 +19,10 @@
 /obj/item/weapon/implanter/update()
 	if (src.imp)
 		src.icon_state = "implanter1"
+		src.origin_tech = src.imp.origin_tech
 	else
 		src.icon_state = "implanter0"
+		src.origin_tech = initial(src.origin_tech)
 	return
 
 
