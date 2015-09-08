@@ -49,7 +49,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 
-	req_access = list(access_research)	//Data and setting manipulation requires scientist access.
+	req_access = list(access_tox)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
@@ -162,11 +162,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
 		else if (istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
 		else
-			user << "<span class='danger'> Machine cannot accept disks in that format.</span>"
+			user << "<span class='danger'>Machine cannot accept disks in that format.</span>"
 			return
-		user.drop_item()
+		if(!user.drop_item())
+			return
 		D.loc = src
-		user << "<span class='notice'> You add the disk to the machine!</span>"
+		user << "<span class='notice'>You add the disk to the machine!</span>"
 	else
 		..()
 	src.updateUsrDialog()
@@ -270,7 +271,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
 		if(linked_destroy)
 			if(linked_destroy.busy)
-				usr << "<span class='danger'> The destructive analyzer is busy at the moment.</span>"
+				usr << "<span class='danger'>The destructive analyzer is busy at the moment.</span>"
 			else
 				var/choice = input("Proceeding will destroy loaded item.") in list("Proceed", "Cancel")
 				if(choice == "Cancel" || !linked_destroy) return
@@ -283,7 +284,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						linked_destroy.busy = 0
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
-								usr <<"<span class='danger'> The destructive analyzer appears to be empty.</span>"
+								usr <<"<span class='danger'>The destructive analyzer appears to be empty.</span>"
 								screen = 1.0
 								return
 							if((linked_destroy.loaded_item.reliability >= 99 - (linked_destroy.decon_mod * 3)) || linked_destroy.loaded_item.crit_fail)
@@ -328,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		screen = 0.0
 		if(!sync)
-			usr << "<span class='danger'> You must connect to the network first!</span>"
+			usr << "<span class='danger'>You must connect to the network first!</span>"
 		else
 			griefProtection() //Putting this here because I dont trust the sync process
 			spawn(30)
@@ -736,11 +737,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				dat += "<A href='?src=\ref[src];menu=1.5'>Load Design to Disk</A>"
 			else
 				dat += "Name: [d_disk.blueprint.name]<BR>"
-				dat += "Level: [Clamp((d_disk.blueprint.reliability + rand(-15,15)), 0, 100)]<BR>"
-				switch(d_disk.blueprint.build_type)
-					if(IMPRINTER) dat += "Lathe Type: Circuit Imprinter<BR>"
-					if(PROTOLATHE) dat += "Lathe Type: Proto-lathe<BR>"
-					if(AUTOLATHE) dat += "Lathe Type: Auto-lathe<BR>"
+				dat += "Level: [d_disk.blueprint.reliability]<BR>"
+				var/b_type = d_disk.blueprint.build_type
+				if(b_type)
+					dat += "Lathe Types:<BR>"
+					if(b_type & IMPRINTER) dat += "Circuit Imprinter<BR>"
+					if(b_type & PROTOLATHE) dat += "Proto-lathe<BR>"
+					if(b_type & AUTOLATHE) dat += "Auto-lathe<BR>"
+					if(b_type & MECHFAB) dat += "Mech Fabricator<BR>"
 				dat += "Required Materials:<BR>"
 				for(var/M in d_disk.blueprint.materials)
 					if(copytext(M, 1, 2) == "$") dat += "* [copytext(M, 2)] x [d_disk.blueprint.materials[M]]<BR>"
@@ -813,7 +817,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			dat += "Origin Tech:<BR>"
 			var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 			for(var/T in temp_tech)
-				dat += "* [CallTechName(T)] [temp_tech[T]]<BR>"
+				dat += "* [CallTechName(T)] [temp_tech[T]]"
+				for(var/datum/tech/F in files.known_tech)
+					if(F.name == CallTechName(T))
+						dat += " (Current: [F.level])"
+						break
+				dat += "<BR>"
 			dat += "</div>Options: "
 			dat += "<A href='?src=\ref[src];deconstruct=1'>Deconstruct Item</A>"
 			dat += "<A href='?src=\ref[src];eject_item=1'>Eject Item</A>"

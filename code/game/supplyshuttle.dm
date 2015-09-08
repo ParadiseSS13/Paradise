@@ -149,6 +149,11 @@ var/list/mechtoys = list(
 	var/points_per_slip = 2
 	var/points_per_crate = 5
 	var/points_per_plasma = 5
+	var/points_per_intel = 250			//points gained per intel returned
+	var/points_per_design = 25			//points gained per max reliability research design returned (only for initilally unreliable designs)
+
+	var/list/techLevels = list()
+	var/list/researchDesigns = list()
 	//control
 	var/ordernum
 	var/list/shoppinglist = list()
@@ -201,6 +206,7 @@ var/list/mechtoys = list(
 	if(!area_shuttle)	return
 
 	var/plasma_count = 0
+	var/intel_count = 0
 
 	for(var/atom/movable/MA in area_shuttle)
 		if(MA.anchored)	continue
@@ -222,9 +228,36 @@ var/list/mechtoys = list(
 						find_slip = 0
 
 				// Sell plasma
-				else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+				if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 					var/obj/item/stack/sheet/mineral/plasma/P = A
 					plasma_count += P.amount
+
+				// Sell syndicate intel
+				if(istype(A, /obj/item/documents/syndicate))
+					++intel_count
+
+				// Sell tech levels
+				if(istype(A, /obj/item/weapon/disk/tech_disk))
+					var/obj/item/weapon/disk/tech_disk/disk = A
+					if(!disk.stored) continue
+					var/datum/tech/tech = disk.stored
+
+					var/cost = tech.getCost(techLevels[tech.id])
+					if(cost)
+						techLevels[tech.id] = tech.level
+						points += cost
+
+				// Sell max reliablity designs
+				if(istype(A, /obj/item/weapon/disk/design_disk))
+					var/obj/item/weapon/disk/design_disk/disk = A
+					if(!disk.blueprint) continue
+					var/datum/design/design = disk.blueprint
+					if(design.id in researchDesigns) continue
+
+					if(initial(design.reliability) < 100 && design.reliability >= 100)
+						// Maxed out reliability designs only.
+						points += points_per_design
+						researchDesigns += design.id
 
 				// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
 				qdel(A)
@@ -232,6 +265,9 @@ var/list/mechtoys = list(
 
 	if(plasma_count)
 		points += plasma_count * points_per_plasma
+
+	if(intel_count)
+		points += intel_count * points_per_intel
 
 //Buyin
 /datum/controller/supply/proc/buy()
@@ -326,12 +362,12 @@ var/list/mechtoys = list(
 	// data to send to ui
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
-	
+
 	var/category_list[0]
 	for(var/category in all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
-	
+
 	var/cat = text2num(last_viewed_group)
 	var/packs_list[0]
 	for(var/set_name in supply_controller.supply_packs)
@@ -339,7 +375,7 @@ var/list/mechtoys = list(
 		if(!pack.contraband && !pack.hidden && pack.group == cat)
 			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
 			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
-	
+
 	data["supply_packs"] = packs_list
 	if(content_pack)
 		var/pack_name = sanitize(content_pack.name)
@@ -358,19 +394,19 @@ var/list/mechtoys = list(
 				owned = 1
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
-	
+
 	var/orders_list[0]
 	for(var/set_name in supply_controller.shoppinglist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
 			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby)))
 	data["orders"] = orders_list
-	
+
 	data["points"] = supply_controller.points
 	data["send"] = list("send" = 1)
-	
+
 	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	data["moving"] = shuttle.has_arrive_time() 
+	data["moving"] = shuttle.has_arrive_time()
 	data["at_station"] = shuttle.at_station()
 	data["timeleft"] = shuttle.eta_minutes()
 	if(shuttle.docking_controller)
@@ -391,7 +427,7 @@ var/list/mechtoys = list(
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 			nanomanager.update_uis(src)
 			return
-			
+
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
 		var/multi = text2num(copytext(href_list["doorder"], -1))
 		if(!isnum(multi))
@@ -402,15 +438,15 @@ var/list/mechtoys = list(
 		var/crates = 1
 		if(multi)
 			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
-			crates = Clamp(round(text2num(num_input)), 1, 20)		
+			crates = Clamp(round(text2num(num_input)), 1, 20)
 			if(..())
 				return
 
 		var/timeout = world.time + 600
 		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
-		if(world.time > timeout || !reason || ..()) 
+		if(world.time > timeout || !reason || ..())
 			return
-			
+
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
 		if(ishuman(usr))
@@ -461,7 +497,7 @@ var/list/mechtoys = list(
 	else if (href_list["last_viewed_group"])
 		content_pack = null
 		last_viewed_group = text2num(href_list["last_viewed_group"])
-		
+
 	else if (href_list["contents"])
 		var/topic = href_list["contents"]
 		if(topic == 1)
@@ -475,8 +511,8 @@ var/list/mechtoys = list(
 	return
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
-	return attack_hand(user)	
-	
+	return attack_hand(user)
+
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		user << "<span class='warning'>Access denied.</span>"
@@ -491,17 +527,17 @@ var/list/mechtoys = list(
 		user << "<span class='notice'>Special supplies unlocked.</span>"
 		hacked = 1
 		return
-		
+
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// data to send to ui
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
-	
+
 	var/category_list[0]
 	for(var/category in all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
-	data["categories"] = category_list	
-	
+	data["categories"] = category_list
+
 	var/cat = text2num(last_viewed_group)
 	var/packs_list[0]
 	for(var/set_name in supply_controller.supply_packs)
@@ -510,14 +546,14 @@ var/list/mechtoys = list(
 			if(pack.group == cat)
 				// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
 				packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
-	
+
 	data["supply_packs"] = packs_list
 	if(content_pack)
 		var/pack_name = sanitize(content_pack.name)
 		data["contents_name"] = pack_name
 		data["contents"] = content_pack.manifest
 		data["contents_access"] = get_access_desc(content_pack.access)
-	
+
 	var/requests_list[0]
 	for(var/set_name in supply_controller.requestlist)
 		var/datum/supply_order/SO = set_name
@@ -526,19 +562,19 @@ var/list/mechtoys = list(
 				SO.comment = "No comment."
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
-	
+
 	var/orders_list[0]
 	for(var/set_name in supply_controller.shoppinglist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
 			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment)))
 	data["orders"] = orders_list
-	
+
 	data["points"] = supply_controller.points
 	data["send"] = list("send" = 1)
-	
+
 	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	data["moving"] = shuttle.has_arrive_time() 
+	data["moving"] = shuttle.has_arrive_time()
 	data["at_station"] = shuttle.at_station()
 	data["timeleft"] = shuttle.eta_minutes()
 	data["can_launch"] = shuttle.can_launch()
@@ -552,32 +588,32 @@ var/list/mechtoys = list(
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
 		ui.set_initial_data(data)
 		ui.open()
-		
+
 /obj/machinery/computer/supplycomp/proc/is_authorized(user)
 	if(allowed(user))
 		return 1
-	
+
 	if(isobserver(user) && check_rights(R_ADMIN, 0))
 		return 1
-	
+
 	return 0
 
 /obj/machinery/computer/supplycomp/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(!is_authorized(usr))
 		return 1
-		
+
 	if(!supply_controller)
 		log_to_dd("## ERROR: The supply_controller controller datum is missing somehow.")
 		return 1
-		
+
 	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
 	if(!shuttle)
 		log_to_dd("## ERROR: The supply or shuttle datum is missing somehow.")
 		return 1
-		
+
 	if(href_list["send"])
 		if(shuttle.at_station())
 			if (shuttle.forbidden_atoms_check())
@@ -610,18 +646,18 @@ var/list/mechtoys = list(
 		var/crates = 1
 		if(multi)
 			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
-			crates = Clamp(round(text2num(num_input)), 1, 20)		
+			crates = Clamp(round(text2num(num_input)), 1, 20)
 			if(..())
-				return			
-			
+				return
+
 		var/timeout = world.time + 600
 		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
-		if(world.time > timeout || !reason || ..())	
+		if(world.time > timeout || !reason || ..())
 			return
-			
+
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
-		
+
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
 			idname = H.get_authentification_name()
@@ -657,7 +693,7 @@ var/list/mechtoys = list(
 			O.orderedby = idname
 			O.comment = reason
 			supply_controller.requestlist += O
-		
+
 	else if(href_list["confirmorder"])
 		//Find the correct supply_order datum
 		var/ordernum = text2num(href_list["confirmorder"])
@@ -675,7 +711,7 @@ var/list/mechtoys = list(
 				else
 					usr << "<span class='warning'>There are insufficient supply points for this request.</span>"
 				break
-	
+
 	else if (href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
 		for(var/i=1, i<=supply_controller.requestlist.len, i++)
@@ -686,8 +722,8 @@ var/list/mechtoys = list(
 
 	else if (href_list["last_viewed_group"])
 		content_pack = null
-		last_viewed_group = text2num(href_list["last_viewed_group"])		
-		
+		last_viewed_group = text2num(href_list["last_viewed_group"])
+
 	else if (href_list["contents"])
 		var/topic = href_list["contents"]
 		if(topic == 1)
