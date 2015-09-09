@@ -153,6 +153,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
+	/client/proc/cinematic,
 	/proc/machine_upgrade
 	)
 var/list/admin_verbs_possess = list(
