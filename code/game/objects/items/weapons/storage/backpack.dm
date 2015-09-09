@@ -255,18 +255,17 @@
 /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded
 	desc = "A large dufflebag, packed to the brim with Bulldog shotgun ammo."
 
-	New()
-		..()
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g(src)
-		new /obj/item/ammo_box/magazine/m12g/buckshot(src)
-		new /obj/item/ammo_box/magazine/m12g/stun(src)
-		new /obj/item/ammo_box/magazine/m12g/dragon(src)
-		return
+/obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g(src)
+	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/stun(src)
+	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	name = "surgery dufflebag"
@@ -275,21 +274,20 @@
 	item_state = "duffle-syndimed"
 	storage_slots = 12
 
-	New()
-		..()
-		new /obj/item/weapon/scalpel(src)
-		new /obj/item/weapon/hemostat(src)
-		new /obj/item/weapon/retractor(src)
-		new /obj/item/weapon/circular_saw(src)
-		new /obj/item/weapon/surgicaldrill(src)
-		new /obj/item/weapon/cautery(src)
-		new /obj/item/weapon/bonegel(src)
-		new /obj/item/weapon/bonesetter(src)
-		new /obj/item/weapon/FixOVein(src)
-		new /obj/item/clothing/suit/straight_jacket(src)
-		new /obj/item/clothing/mask/muzzle(src)
-//		new /obj/item/device/mmi/syndie(src)
-		return
+/obj/item/weapon/storage/backpack/duffel/syndie/surgery/New()
+	..()
+	new /obj/item/weapon/scalpel(src)
+	new /obj/item/weapon/hemostat(src)
+	new /obj/item/weapon/retractor(src)
+	new /obj/item/weapon/circular_saw(src)
+	new /obj/item/weapon/surgicaldrill(src)
+	new /obj/item/weapon/cautery(src)
+	new /obj/item/weapon/bonegel(src)
+	new /obj/item/weapon/bonesetter(src)
+	new /obj/item/weapon/FixOVein(src)
+	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/mask/muzzle(src)
+//	new /obj/item/device/mmi/syndie(src)
 
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
