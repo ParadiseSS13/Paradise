@@ -110,7 +110,7 @@
 	color = "#61C2C2"
 
 /datum/reagent/space_cleaner/reaction_obj(var/obj/O, var/volume)
-	if(O)
+	if(O && !istype(O, /atom/movable/lighting_overlay))
 		O.color = initial(O.color)
 	if(istype(O,/obj/effect/decal/cleanable))
 		qdel(O)
