@@ -105,8 +105,7 @@ var/list/admin_verbs_event = list(
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
-	/client/proc/event_manager_panel,
-	/client/proc/cinematic
+	/client/proc/event_manager_panel
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -154,6 +153,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
+	/client/proc/cinematic,
 	/proc/machine_upgrade
 	)
 var/list/admin_verbs_possess = list(
