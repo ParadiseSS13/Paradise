@@ -1,16 +1,9 @@
 var/global/list/body_accessory_by_name = list("None" = null)
 
 /hook/startup/proc/initalize_body_accessories()
-	//each accessory subtype needs it's own loop
-	for(var/type in subtypesof(/datum/body_accessory/body))
-		var/datum/body_accessory/ac1 = new type
-		if(istype(ac1))
-			body_accessory_by_name["[ac1.name]"] = ac1
 
-	for(var/type in subtypesof(/datum/body_accessory/tail))
-		var/datum/body_accessory/ac2 = new type
-		if(istype(ac2))
-			body_accessory_by_name["[ac2.name]"] = ac2
+	__init_body_accessory(/datum/body_accessory/body)
+	__init_body_accessory(/datum/body_accessory/tail)
 
 	if(body_accessory_by_name.len)
 		if(initialize_body_accessory_by_species())
@@ -24,11 +17,27 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	for(var/B in body_accessory_by_name)
 		var/datum/body_accessory/accessory = body_accessory_by_name[B]
 		if(!istype(accessory))	continue
-		for(var/A in accessory.allowed_species)
-			body_accessory_by_species[A] += accessory
+
+		for(var/species in accessory.allowed_species)
+			if(!body_accessory_by_species["[species]"])	body_accessory_by_species["[species]"] = list()
+			body_accessory_by_species["[species]"] += accessory
 
 	if(body_accessory_by_species.len)
 		return 1
+	return 0
+
+/proc/__init_body_accessory(var/ba_path)
+	if(ispath(ba_path))
+		var/_added_counter = 0
+
+		for(var/A in subtypesof(ba_path))
+			var/datum/body_accessory/B = new A
+			if(istype(B))
+				body_accessory_by_name[B.name] += B
+				++_added_counter
+
+		if(_added_counter)
+			return 1
 	return 0
 
 
@@ -83,9 +92,41 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 //Tails
 /datum/body_accessory/tail
+	icon = 'icons/mob/body_accessory.dmi'
+	animated_icon = 'icons/mob/body_accessory.dmi'
 	blend_mode = ICON_ADD
 
 /datum/body_accessory/tail/try_restrictions(var/mob/living/carbon/human/H)
 	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) && !istype(H.wear_suit, /obj/item/clothing/suit/space))
 		return 1
 	return 0
+
+
+//vulpakin
+/datum/body_accessory/tail/vulpkanin_2
+	name = "Vulpkanin Alt 1 (Bushy)"
+
+	icon_state = "vulptail2"
+	animated_icon_state = "vulptail2_a"
+	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/vulpkanin_3
+	name = "Vulpkanin Alt 2 (Straight)"
+
+	icon_state = "vulptail3"
+	animated_icon_state = "vulptail3_a"
+	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/vulpkanin_4
+	name = "Vulpkanin Alt 3 (Tiny)"
+
+	icon_state = "vulptail4"
+	animated_icon_state = "vulptail4_a"
+	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/vulpkanin_5
+	name = "Vulpkanin Alt 4 (Short)"
+
+	icon_state = "vulptail5"
+	animated_icon_state = "vulptail5_a"
+	allowed_species = list("Vulpkanin")
