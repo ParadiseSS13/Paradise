@@ -152,3 +152,13 @@ Admin:
 
 	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
 	usr << "Hotkey mode changed to [hotkeytype]."
+
+/client/verb/view_range()
+	set name = "Set View Range"
+	set category = "Preferences"
+
+	var/new_range = input(usr,"What would you like to be your new view range?","View Range","15x15") as null|anything in list("15x15", "17x17")
+	if(new_range)
+		view = new_range
+
+		usr << "View range changed to [new_range]."
