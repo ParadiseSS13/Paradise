@@ -8,7 +8,7 @@
 	req_tech = list("bluespace" = 4, "materials" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
-	reliability_base = 100
+	reliability = 100
 	build_path = /obj/item/bluespace_crystal/artificial
 	category = list("Bluespace")
 
@@ -19,7 +19,7 @@
 	req_tech = list("bluespace" = 4, "materials" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250)
-	reliability_base = 80
+	reliability = 80
 	build_path = /obj/item/weapon/storage/backpack/holding
 	category = list("Bluespace")
 
@@ -30,7 +30,7 @@
 	req_tech = list("bluespace" = 4, "materials" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
-	reliability_base = 80
+	reliability = 80
 	build_path = /obj/item/weapon/storage/belt/bluespace
 	category = list("Bluespace")
 
@@ -41,7 +41,7 @@
 	req_tech = list("bluespace" = 2, "materials" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 500)
-	reliability_base = 76
+	reliability = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	category = list("Medical")
 
