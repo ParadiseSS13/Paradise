@@ -1,10 +1,3 @@
-//Fits all uniforms to Vox
-/obj/item/clothing/under/
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
-
 //Alphabetical order of support jobs.
 
 /obj/item/clothing/under/rank/bartender
