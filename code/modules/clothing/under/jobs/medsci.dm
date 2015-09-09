@@ -1,11 +1,3 @@
-//Fits all uniforms to Vox
-/obj/item/clothing/under/rank/
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
-		)
-
-
 /*
  * Science
  */
