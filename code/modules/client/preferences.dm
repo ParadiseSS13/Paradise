@@ -186,17 +186,17 @@ datum/preferences
 
 	// jukebox volume
 	var/volume = 100
-	
+
 	// BYOND membership
 	var/unlock_content = 0
-	
+
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
-				max_save_slots = MAX_SAVE_SLOTS_MEMBER 
+				max_save_slots = MAX_SAVE_SLOTS_MEMBER
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
 		if(load_character(C))
@@ -387,7 +387,7 @@ datum/preferences
 				dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
 				if(config.allow_Metadata)
 					dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-				
+
 				if(user.client)
 					if(user.client.holder)
 						dat += "<b>Adminhelp sound:</b> "
@@ -395,7 +395,7 @@ datum/preferences
 
 					if(check_rights(R_ADMIN,0))
 						dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-						
+
 					if(unlock_content)
 						dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
@@ -1381,7 +1381,7 @@ datum/preferences
 					if("publicity")
 						if(unlock_content)
 							toggles ^= MEMBER_PUBLIC
-							
+
 					if("gender")
 						if(gender == MALE)
 							gender = FEMALE

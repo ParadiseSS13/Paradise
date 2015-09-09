@@ -183,8 +183,8 @@
 	if(!prefs.unlock_content)
 		src << "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>."
 		return 0
-	return 1	
-	
+	return 1
+
 /client/proc/handle_spam_prevention(var/message, var/mute_type)
 	if(config.automute_on && !holder && src.last_message == message)
 		src.last_message_count++
@@ -330,8 +330,8 @@
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
 		if(ckey != query_cid.item[1])
-			related_accounts_cid.Add("[query_cid.item[1]]")			
-			
+			related_accounts_cid.Add("[query_cid.item[1]]")
+
 	//Log all the alts
 	if(related_accounts_cid.len)
 		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
@@ -339,8 +339,8 @@
 	var/watchreason = check_watchlist(sql_ckey)
 	if(watchreason)
 		message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
-		send2irc_adminless_only("Watchlist", "[key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")	
-		
+		send2irc_adminless_only("Watchlist", "[key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
 		if(istext(sql_id))
@@ -389,6 +389,15 @@
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
-		
+
 	// Send NanoUI resources to this client
 	spawn nanomanager.send_resources(src)
+
+//For debugging purposes
+/client/proc/list_all_languages()
+	for(var/L in all_languages)
+		var/datum/language/lang = all_languages[L]
+		var/message = "[lang.name] : [lang.type]"
+		if(lang.flags & RESTRICTED)
+			message += " (RESTRICTED)"
+		world << "[message]"
