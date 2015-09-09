@@ -130,7 +130,7 @@ effective or pretty fucking useless.
 	popup.open()
 
 /obj/item/device/rad_laser/Topic(href, href_list)
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(..())
 		return 1
 
 	usr.set_machine(src)
