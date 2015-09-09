@@ -434,7 +434,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								var/obj/item/new_item = new P(src)
 								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
-								new_item.reliability = R
+								new_item.reliability = 100
 								new_item.materials[MAT_METAL] /= coeff
 								new_item.materials[MAT_GLASS] /= coeff
 								if(linked_lathe.hacked)
@@ -497,7 +497,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					spawn(16)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
-							new_item.reliability = R
+							new_item.reliability = 100
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
 						screen = old_screen
