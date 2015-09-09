@@ -1125,9 +1125,6 @@ datum/preferences
 */
 						for(var/L in all_languages)
 							var/datum/language/lang = all_languages[L]
-							if(lang.name == "an unknown language")
-								//don't add the parent type language as an option
-								continue
 							if(!(lang.flags & RESTRICTED))
 								new_languages += lang.name
 
