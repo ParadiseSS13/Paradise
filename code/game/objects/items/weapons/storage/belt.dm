@@ -98,6 +98,7 @@
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
         "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+        "/obj/item/device/rad_laser",
 		"/obj/item/device/sensor_device"
 	)
 
