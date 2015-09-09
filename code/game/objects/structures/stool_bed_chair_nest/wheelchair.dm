@@ -133,7 +133,7 @@
 	..()
 	if(!buckled_mob)	return
 
-	if(propelled || (pulling && (pulling.a_intent == "harm")))
+	if(propelled || (pulling && (pulling.a_intent == I_HARM)))
 		var/mob/living/occupant = buckled_mob
 		unbuckle()
 

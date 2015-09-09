@@ -25,7 +25,7 @@ var/list/organ_cache = list()
 /obj/item/organ/attack_self(mob/user as mob)
 
 	// Convert it to an edible form, yum yum.
-	if(!robotic && user.a_intent == "harm")
+	if(!robotic && user.a_intent == I_HARM)
 		bitten(user)
 		return
 
@@ -71,8 +71,8 @@ var/list/organ_cache = list()
 
 	//dead already, no need for more processing
 	if(status & ORGAN_DEAD)
-		return	
-	
+		return
+
 	// Don't process if we're in a freezer, an MMI or a stasis bag. //TODO: ambient temperature?
 	if(istype(loc,/obj/item/device/mmi) || istype(loc,/obj/item/bodybag/cryobag) || istype(loc,/obj/structure/closet/crate/freezer))
 		return
@@ -81,7 +81,7 @@ var/list/organ_cache = list()
 	if ((status & ORGAN_ROBOT) || (owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
-		
+
 	if(!owner)
 		if(reagents)
 			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
@@ -97,16 +97,16 @@ var/list/organ_cache = list()
 
 		if(damage >= max_damage)
 			die()
-		
+
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
 		//** Handle antibiotics and curing infections
 		handle_antibiotics()
 		handle_germ_effects()
-		
+
 	//check if we've hit max_damage
 	if(damage >= max_damage)
 		die()
-	
+
 /obj/item/organ/examine(mob/user)
 	..(user)
 	if(status & ORGAN_DEAD)

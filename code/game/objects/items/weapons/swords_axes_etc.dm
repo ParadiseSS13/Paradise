@@ -126,7 +126,7 @@
 			return
 		if(!isliving(target))
 			return
-		if (user.a_intent == "harm")
+		if (user.a_intent == I_HARM)
 			if(!..()) return
 			if(!isrobot(target)) return
 		else

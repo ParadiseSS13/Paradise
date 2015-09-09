@@ -320,7 +320,7 @@
 		user << "<span class='notice'>The instructions on [defib] don't mention how to revive that...</span>"
 		return
 	else
-		if(user.a_intent == "harm" && !defib.safety)
+		if(user.a_intent == I_HARM && !defib.safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
@@ -435,7 +435,7 @@
 		user << "<span class='notice'>This unit is only designed to work on humanoid lifeforms.</span>"
 		return
 	else
-		if(user.a_intent == "harm"  && !safety)
+		if(user.a_intent == I_HARM  && !safety)
 			busy = 1
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")

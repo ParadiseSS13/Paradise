@@ -54,7 +54,7 @@
 	var/areastring = null
 	var/obj/item/weapon/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
-	var/cell_type = 2500				
+	var/cell_type = 2500
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
 	var/shorted = 0
 	var/lighting = 3
@@ -99,9 +99,9 @@
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
-	
+
 	var/report_power_alarm = 1
-	
+
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
 
@@ -143,7 +143,7 @@
 		src.update_icon()
 		spawn(5)
 			src.update()
-			
+
 /obj/machinery/power/apc/Destroy()
 	apcs -= src
 	if(malfai && operating)
@@ -378,7 +378,7 @@
 		results += 2
 	return results
 
-// Used in process so it doesn't update the icon too much	
+// Used in process so it doesn't update the icon too much
 /obj/machinery/power/apc/proc/queue_icon_update()
 
 	if(!updating_icon)
@@ -644,7 +644,7 @@
 	//Synthetic human mob goes here.
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!isnull(H.internal_organs_by_name["cell"]) && H.a_intent == "grab")
+		if(!isnull(H.internal_organs_by_name["cell"]) && H.a_intent == I_GRAB)
 			if(emagged || stat & BROKEN)
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(3, 1, src)
@@ -661,9 +661,9 @@
 						src.cell.charge = 0
 
 					user << "<span class='notice'>You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.</span>"
-					if(src.cell.charge < 0) 
+					if(src.cell.charge < 0)
 						src.cell.charge = 0
-					if(H.nutrition > 500) 
+					if(H.nutrition > 500)
 						H.nutrition = 500
 					src.charging = 1
 				else
@@ -879,7 +879,7 @@
 		return 1
 	else
 		return !locked
-		
+
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 0
@@ -1095,8 +1095,8 @@
 
 //Returns 1 if the APC should attempt to charge
 /obj/machinery/power/apc/proc/attempt_charging()
-	return (chargemode && charging == 1 && operating)		
-		
+	return (chargemode && charging == 1 && operating)
+
 /obj/machinery/power/apc/draw_power(var/amount)
 	if(terminal && terminal.powernet)
 		return terminal.powernet.draw_power(amount)
@@ -1258,7 +1258,7 @@
 		update()
 	else if (last_ch != charging)
 		queue_icon_update()
-		
+
 /obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if(on==0)
 		if(val==2)			// if on, return off
@@ -1275,7 +1275,7 @@
 			return 1
 
 	return val
-	
+
 // damage and destruction acts
 
 /obj/machinery/power/apc/emp_act(severity)
@@ -1317,7 +1317,7 @@
 		set_broken()
 		if (cell && prob(5))
 			cell.blob_act()
-			
+
 
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)

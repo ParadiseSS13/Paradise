@@ -40,7 +40,7 @@
 	O.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
 	O.loc = loc
 	O.viruses = viruses
-	O.a_intent = "harm"
+	O.a_intent = I_HARM
 
 
 	if (client)
@@ -259,7 +259,7 @@
 		if("Drone")
 			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
 
-	new_xeno.a_intent = "harm"
+	new_xeno.a_intent = I_HARM
 	new_xeno.key = key
 
 	new_xeno << "<B>You are now an alien.</B>"
@@ -318,7 +318,7 @@
 		qdel(t)
 
 	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
-	new_corgi.a_intent = "harm"
+	new_corgi.a_intent = I_HARM
 	new_corgi.key = key
 
 	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
@@ -353,7 +353,7 @@
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = "harm"
+	new_mob.a_intent = I_HARM
 
 
 	new_mob << "You suddenly feel more... animalistic."
@@ -374,7 +374,7 @@
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = "harm"
+	new_mob.a_intent = I_HARM
 	new_mob << "You feel more... animalistic"
 	new_mob.update_pipe_vision()
 
