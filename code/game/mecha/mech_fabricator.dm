@@ -185,7 +185,7 @@
 	if(D.locked)
 		var/obj/item/weapon/storage/lockbox/large/L = new /obj/item/weapon/storage/lockbox/large(get_step(src,SOUTH)) //(Don't use capitals in paths, or single letters.
 		I.loc = L
-		L.name += " [initial(D.name)]"
+		L.name += " [initial(I.name)]"
 		L.origin_tech = I.origin_tech
 	else
 		I.loc = get_step(src,SOUTH)
