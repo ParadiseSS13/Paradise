@@ -528,3 +528,14 @@
 		reagents.add_reagent("insulin", 15)
 		mode = SYRINGE_INJECT
 		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/bioterror
+	name = "bioterror syringe"
+	desc = "Contains several paralyzing reagents."
+	New()
+		..()
+		reagents.add_reagent("neurotoxin", 5)
+		reagents.add_reagent("capulettium_plus", 5)
+		reagents.add_reagent("sodium_thiopental", 5)
+		mode = SYRINGE_INJECT
+		update_icon()

@@ -353,7 +353,7 @@
 		user << "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
-		flags = BLOCKHAIR
+		flags = BLOCKHAIR | THICKMATERIAL
 		flags_inv = HIDEEARS
 		cold_protection = null
 		set_light(0)
@@ -393,7 +393,7 @@
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		slowdown = 0
-		flags = BLOCKHAIR
+		flags = THICKMATERIAL
 		flags_inv = null
 		cold_protection = null
 
