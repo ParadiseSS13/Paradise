@@ -426,7 +426,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									linked_lathe.reagents.remove_reagent(M, being_built.materials[M]/coeff * amount)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					var/R = being_built.reliability
 					var/O = being_built.locked
 					spawn(32*amount/coeff)
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
@@ -437,8 +436,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								new_item.reliability = 100
 								new_item.materials[MAT_METAL] /= coeff
 								new_item.materials[MAT_GLASS] /= coeff
-								if(linked_lathe.hacked)
-									R = max((new_item.reliability/2), 0)
 								if(O)
 									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
 									new_item.loc = L
@@ -493,7 +490,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					var/R = being_built.reliability
 					spawn(16)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
