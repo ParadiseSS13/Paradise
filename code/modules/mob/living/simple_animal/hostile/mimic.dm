@@ -36,6 +36,8 @@
 	faction = list("mimic")
 	move_to_delay = 9
 
+	var/is_electronic = 0
+
 /mob/living/simple_animal/hostile/mimic/FindTarget()
 	. = ..()
 	if(.)
@@ -47,7 +49,14 @@
 	ghostize()
 	qdel(src)
 
-
+/mob/living/simple_animal/hostile/mimic/emp_act(severity)
+	if(is_electronic)
+		switch(severity)
+			if(1)
+				Die()
+			if(2)
+				adjustBruteLoss(50)
+	..()
 
 //
 // Crate Mimic
@@ -181,7 +190,15 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		icon_living = icon_state
 		overlays = O.overlays
 
-		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
+		if(istype(O, /obj/structure))
+			health = (anchored * 50) + 50
+			destroy_objects = 1
+			if(O.density && O.anchored)
+				knockdown_people = 1
+				melee_damage_lower *= 2
+				melee_damage_upper *= 2
+		else if(istype(O, /obj/machinery))
+			is_electronic = 1
 			health = (anchored * 50) + 50
 			destroy_objects = 1
 			if(O.density && O.anchored)
@@ -194,6 +211,8 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1
+			if(istype(O, /obj/item/device))
+				is_electronic = 1
 
 		maxHealth = health
 		if(creator)
