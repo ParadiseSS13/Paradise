@@ -405,7 +405,7 @@
 	color = "#9ACD32"
 
 /datum/reagent/spores/on_mob_life(var/mob/living/M as mob)
-	M.adjustToxLoss(0.5)
+	M.adjustToxLoss(1)
 	M.damageoverlaytemp = 60
 	M.eye_blurry = max(M.eye_blurry, 3)
 	..()
@@ -564,7 +564,7 @@
 	id = "frostoil"
 	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
 	reagent_state = LIQUID
-	color = "#B31008" // rgb: 139, 166, 233
+	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/frostoil/on_mob_life(var/mob/living/M as mob)
