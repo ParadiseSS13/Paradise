@@ -56,7 +56,7 @@
 				Die()
 			if(2)
 				adjustBruteLoss(50)
-	..()
+	..(severity)
 
 //
 // Crate Mimic
@@ -190,21 +190,15 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 		icon_living = icon_state
 		overlays = O.overlays
 
-		if(istype(O, /obj/structure))
+		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
 			health = (anchored * 50) + 50
 			destroy_objects = 1
 			if(O.density && O.anchored)
 				knockdown_people = 1
 				melee_damage_lower *= 2
 				melee_damage_upper *= 2
-		else if(istype(O, /obj/machinery))
-			is_electronic = 1
-			health = (anchored * 50) + 50
-			destroy_objects = 1
-			if(O.density && O.anchored)
-				knockdown_people = 1
-				melee_damage_lower *= 2
-				melee_damage_upper *= 2
+			if(istype(O, /obj/machinery))
+				is_electronic = 1
 		else if(istype(O, /obj/item))
 			var/obj/item/I = O
 			health = 15 * I.w_class
