@@ -42,7 +42,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 	/client/proc/check_words,			/*displays cult-words*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
-	/client/proc/rename_silicon,		/*properly renames silicons*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
@@ -154,6 +153,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
 	/client/proc/test_snap_UI,
+	/client/proc/cinematic,
 	/proc/machine_upgrade
 	)
 var/list/admin_verbs_possess = list(
@@ -602,7 +602,7 @@ var/list/admin_verbs_mentor = list(
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				src << "Error while re-adminning, admin rank ([rank]) does not exist."
 				return
-				
+
 			D = new(rank, admin_ranks[rank], ckey)
 		else
 			var/sql_ckey = sanitizeSQL(ckey)
@@ -617,14 +617,14 @@ var/list/admin_verbs_mentor = list(
 					return
 				if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
 					src << "Error while re-adminning, ckey [admin_ckey] is not an admin."
-					return	
+					return
 
-				if(istext(flags))	
+				if(istext(flags))
 					flags = text2num(flags)
 				D = new(admin_rank, flags, ckey)
 
 		var/client/C = directory[ckey]
-		D.associate(C)				
+		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		deadmins -= ckey
@@ -651,26 +651,11 @@ var/list/admin_verbs_mentor = list(
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
 	set category = "Admin"
-	
+
 	if(!check_rights(R_ADMIN)) return
-	
+
 	if(holder)
 		src.holder.output_ai_laws()
-
-/client/proc/rename_silicon()
-	set name = "Rename Silicon"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN)) return
-
-	var/mob/living/silicon/S = input("Select silicon.", "Rename Silicon.") as null|anything in silicon_mob_list
-	if(!S) return
-
-	var/new_name = sanitizeSafe(input(src, "Enter new name. Leave blank or as is to cancel.", "[S.real_name] - Enter new silicon name", S.real_name))
-	if(new_name && new_name != S.real_name)
-		log_and_message_admins("has renamed the silicon '[S.real_name]' to '[new_name]'")
-		S.SetName(new_name)
-	feedback_add_details("admin_verb","RAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/manage_silicon_laws()
 	set name = "Manage Silicon Laws"
@@ -870,10 +855,10 @@ var/list/admin_verbs_mentor = list(
 	set category = "Admin"
 	set name = "Man Up Global"
 	set desc = "Tells everyone to man up and deal with it."
-	
+
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
-	if(confirm == "Yes")	
+	if(confirm == "Yes")
 		for (var/mob/T as mob in mob_list)
 			T << "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>"
 			T << 'sound/voice/ManUp1.ogg'

@@ -7,8 +7,8 @@
 	id = "drill_diamond"
 	req_tech = list("materials" = 6, "powerstorage" = 4, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 3000, "$glass" = 1000, "$diamond" = 3750) //Yes, a whole diamond is needed.
-	reliability_base = 79
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_DIAMOND = 3750) //Yes, a whole diamond is needed.
+	reliability = 79
 	build_path = /obj/item/weapon/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
@@ -18,7 +18,7 @@
 	id = "pick_diamond"
 	req_tech = list("materials" = 6)
 	build_type = PROTOLATHE
-	materials = list("$diamond" = 3000)
+	materials = list(MAT_DIAMOND = 3000)
 	build_path = /obj/item/weapon/pickaxe/diamond
 	category = list("Mining")
 
@@ -28,7 +28,7 @@
 	id = "drill"
 	req_tech = list("materials" = 2, "powerstorage" = 3, "engineering" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 6000, "$glass" = 1000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000)
 	build_path = /obj/item/weapon/pickaxe/drill
 	category = list("Mining")
 
@@ -38,8 +38,8 @@
 	id = "plasmacutter"
 	req_tech = list("materials" = 2, "plasmatech" = 2, "engineering" = 2, "combat" = 1, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 1500, "$glass" = 500, "$gold" = 500, "$plasma" = 500)
-	reliability_base = 79
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_GOLD = 500, MAT_PLASMA = 500)
+	reliability = 79
 	build_path = /obj/item/weapon/gun/energy/plasmacutter
 	category = list("Mining")
 
@@ -49,8 +49,8 @@
 	id = "plasmacutter_adv"
 	req_tech = list("materials" = 4, "plasmatech" = 3, "engineering" = 3, "combat" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 3000, "$glass" = 1000, "$plasma" = 2000, "$gold" = 500)
-	reliability_base = 79
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
+	reliability = 79
 	build_path = /obj/item/weapon/gun/energy/plasmacutter/adv
 	category = list("Mining")
 
@@ -60,6 +60,6 @@
 	id = "jackhammer"
 	req_tech = list("materials" = 6, "powerstorage" = 6, "engineering" = 5, "magnets" = 6)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 8000, "$glass" = 1500, "$silver" = 2000, "$diamond" = 6000)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_DIAMOND = 6000)
 	build_path = /obj/item/weapon/pickaxe/drill/jackhammer
 	category = list("Mining")

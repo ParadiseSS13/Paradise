@@ -73,11 +73,11 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
-	
+
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
-	
+
 	var/jetpackoverlay = 0
 	var/magpulse = 0
 
@@ -163,8 +163,8 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/SetName(pickedName as text)
 	custom_name = pickedName
-	updatename()	
-	
+	updatename()
+
 /mob/living/silicon/robot/proc/sync()
 	if(lawupdate && connected_ai)
 		lawsync()
@@ -578,8 +578,8 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if (istype(W, /obj/item/weapon/weldingtool) && user.a_intent == "help")
-		if(W == module_active) 
+	if (istype(W, /obj/item/weapon/weldingtool) && user.a_intent == I_HELP)
+		if(W == module_active)
 			return
 		if (!getBruteLoss())
 			user << "<span class='notice'>Nothing to fix!</span>"
@@ -597,7 +597,7 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == "help" && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == I_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
 		if (!getFireLoss())
 			user << "<span class='notice'>Nothing to fix!</span>"
 			return
@@ -825,23 +825,15 @@ var/list/robot_verbs_default = list(
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
 					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
 
-		if ("grab")
-			if (M == src || anchored)
-				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+		if (I_GRAB)
+			grabbedby(M)
 
-			M.put_in_active_hand(G)
-
-			G.synch()
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='danger'>[M] has grabbed [src] passively!</span>")
-
-		if ("harm")
+		if (I_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
@@ -857,7 +849,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
 								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
 
-		if ("disarm")
+		if (I_DISARM)
 			if(!(lying))
 				M.do_attack_animation(src)
 				if (prob(85))
@@ -923,7 +915,7 @@ var/list/robot_verbs_default = list(
 			update_icons()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
-		if (user.a_intent == "help")
+		if (user.a_intent == I_HELP)
 			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
 								"<span class='notice'>You pet [src]!</span>")
 
@@ -986,7 +978,7 @@ var/list/robot_verbs_default = list(
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
-			
+
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
 	update_fire()
@@ -1124,7 +1116,7 @@ var/list/robot_verbs_default = list(
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"
 
-	update_icons()	
+	update_icons()
 
 /mob/living/silicon/robot/Move(a, b, flag)
 
@@ -1188,7 +1180,7 @@ var/list/robot_verbs_default = list(
 		// Instead of being listed as "deactivated". The downside is that I'm going
 		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
 		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
-		
+
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"
 	set name = "Reset Identity Codes"
@@ -1368,7 +1360,7 @@ var/list/robot_verbs_default = list(
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
 		if(3) //New Name
 			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
-			
+
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
 		sync() // One last sync attempt

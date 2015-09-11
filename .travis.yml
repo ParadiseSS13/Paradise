@@ -7,6 +7,7 @@ env:
     - BYOND_MINOR="1289"
     matrix:
     - DM_MAPFILE="cyberiad"
+    - DM_MAPFILE="metastation"
 
 before_install:
   - sudo apt-get update -qq

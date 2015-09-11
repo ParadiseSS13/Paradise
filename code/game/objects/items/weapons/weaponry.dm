@@ -57,12 +57,6 @@
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
-
-/obj/item/weapon/nullrod/afterattack(atom/A, mob/user as mob)
-	if (istype(A, /turf/simulated/floor))
-		user << "\blue You hit the floor with the [src]."
-		call(/obj/effect/rune/proc/revealrunes)(src)
-
 /obj/item/weapon/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
@@ -158,7 +152,7 @@ obj/item/weapon/wirerod
 	force = 9
 	throwforce = 10
 	w_class = 3
-	m_amt = 1875
+	materials = list(MAT_METAL=1875)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)

@@ -353,7 +353,7 @@
 		user << "<span class='notice'>You switch your helmet to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
-		flags = BLOCKHAIR
+		flags = BLOCKHAIR | THICKMATERIAL
 		flags_inv = HIDEEARS
 		cold_protection = null
 		set_light(0)
@@ -393,7 +393,7 @@
 		name = "blood-red hardsuit helmet (combat)"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		slowdown = 0
-		flags = BLOCKHAIR
+		flags = THICKMATERIAL
 		flags_inv = null
 		cold_protection = null
 
@@ -450,7 +450,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 	item_state = "medical_hardsuit"
 	slowdown = 1
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical,/obj/item/device/rad_laser)
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
 
 	//Security

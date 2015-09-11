@@ -19,6 +19,7 @@
 	var/list/syllables               // Used when scrambling text for a non-speaker.
 	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
 	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/list/scramble_cache = list()
 
 /datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len)
@@ -37,9 +38,6 @@
 		full_name += " [capitalize(lowertext(new_name))]"
 
 	return "[trim(full_name)]"
-
-/datum/language
-	var/list/scramble_cache = list()
 
 /datum/language/proc/scramble(var/input)
 
@@ -247,7 +245,7 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
 
-/datum/language/machine/get_random_name()
+/datum/language/trinary/get_random_name()
 	var/new_name
 	if(prob(70))
 		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"

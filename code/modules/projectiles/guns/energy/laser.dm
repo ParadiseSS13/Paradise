@@ -6,7 +6,7 @@
 	fire_sound = 'sound/weapons/Laser.ogg'
 	charge_cost = 830
 	w_class = 3.0
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=3;magnets=2"
 	projectile_type = "/obj/item/projectile/beam"
 

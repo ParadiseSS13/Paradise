@@ -98,6 +98,7 @@
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
         "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+        "/obj/item/device/rad_laser",
 		"/obj/item/device/sensor_device"
 	)
 
@@ -201,6 +202,7 @@
 	desc = "Proves to the world that you are the strongest!"
 	icon_state = "championbelt"
 	item_state = "champion"
+	materials = list(MAT_GOLD=400)
 	storage_slots = 1
 	can_hold = list(
 		"/obj/item/clothing/mask/luchador"

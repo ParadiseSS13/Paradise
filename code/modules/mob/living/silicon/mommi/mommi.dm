@@ -338,7 +338,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 
 
 	if(ishuman(user))
-		if(user.a_intent == "help")
+		if(user.a_intent == I_HELP)
 			user.visible_message("\blue [user.name] pats [src.name] on the head.")
 			return
 
@@ -346,7 +346,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 
 	if(!istype(user, /mob/living/silicon))
 		switch(user.a_intent)
-			if("disarm")
+			if(I_DISARM)
 				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Disarmed [src.name] ([src.ckey])</font>")
 				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been disarmed by [user.name] ([user.ckey])</font>")
 				log_admin("ATTACK: [user.name] ([user.ckey]) disarmed [src.name] ([src.ckey])")

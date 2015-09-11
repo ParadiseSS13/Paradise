@@ -470,8 +470,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	w_class = 2.0
 	throw_speed = 2
 	throw_range = 5
-	m_amt = 50
-	g_amt = 20
+	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "coil"
@@ -507,7 +506,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)

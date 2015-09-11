@@ -632,7 +632,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/mint
 
 /datum/recipe/microwave/boiled_shrimp
-	reagents = list("water" = 1)
+	reagents = list("water" = 5)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/shrimp
 	)

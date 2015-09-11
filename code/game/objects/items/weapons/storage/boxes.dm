@@ -133,7 +133,7 @@
 /obj/item/weapon/storage/box/gauge
 	name = "box of 12 gauge slugs"
 	desc = "It has a picture of a gun and several warning symbols on the front."
-	m_amt = 50000
+	materials = list(MAT_METAL=28000)
 
 	New()
 		..()

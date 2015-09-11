@@ -373,9 +373,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/mob/living/silicon/robot/R = src
 		if(oldname != real_name)
 			R.notify_ai(3, oldname, newname)
-		if(R.camera)
-			R.camera.c_tag = real_name
-
+		R.custom_name = newname
+		R.updatename()
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(data_core.general,data_core.medical,data_core.security,data_core.locked))

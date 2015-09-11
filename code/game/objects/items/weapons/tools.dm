@@ -25,7 +25,7 @@
 	force = 5.0
 	throwforce = 7.0
 	w_class = 2.0
-	m_amt = 150
+	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
@@ -35,7 +35,7 @@
  */
 /obj/item/weapon/screwdriver
 	name = "screwdriver"
-	desc = "You can be totally screwwy with this."
+	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "screwdriver"
 	flags = CONDUCT
@@ -45,8 +45,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	g_amt = 0
-	m_amt = 75
+	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -84,7 +83,7 @@
 	return
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M) || user.a_intent == "help")	
+	if(!istype(M) || user.a_intent == I_HELP)
 		return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
@@ -106,7 +105,7 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = 2.0
-	m_amt = 80
+	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
 	hitsound = "sound/items/Wirecutter.ogg"
@@ -148,8 +147,7 @@
 	w_class = 2.0
 
 	//Cost to make in the autolathe
-	m_amt = 70
-	g_amt = 20
+	materials = list(MAT_METAL=70, MAT_GLASS=30)
 
 	//R&D tech level
 	origin_tech = "engineering=1"
@@ -409,24 +407,21 @@
 /obj/item/weapon/weldingtool/largetank
 	name = "Industrial Welding Tool"
 	max_fuel = 40
-	m_amt = 70
-	g_amt = 60
+	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2"
 
 /obj/item/weapon/weldingtool/hugetank
 	name = "Upgraded Welding Tool"
 	max_fuel = 80
 	w_class = 3.0
-	m_amt = 70
-	g_amt = 120
+	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3"
 
 /obj/item/weapon/weldingtool/experimental
 	name = "Experimental Welding Tool"
 	max_fuel = 40
 	w_class = 3.0
-	m_amt = 70
-	g_amt = 120
+	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=4;plasma=3"
 	icon_state = "ewelder"
 	var/last_gen = 0
@@ -454,7 +449,7 @@
 	throwforce = 7.0
 	item_state = "crowbar"
 	w_class = 2.0
-	m_amt = 50
+	materials = list(MAT_METAL=50)
 	origin_tech = "engineering=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
@@ -470,7 +465,7 @@
 	w_class = 3
 	throw_speed = 3
 	throw_range = 3
-	m_amt = 66
+	materials = list(MAT_METAL=70)
 	icon_state = "crowbar_large"
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
@@ -478,9 +473,9 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
 
-		if (!S) 
+		if (!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
 		if(S.brute_dam)

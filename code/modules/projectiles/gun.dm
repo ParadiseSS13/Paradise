@@ -10,7 +10,7 @@
 	item_state = "gun"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	w_class = 3.0
 	throwforce = 5
 	throw_speed = 4
@@ -295,7 +295,7 @@
 
 	if (src.process_chambered())
 		//Point blank shooting if on harm intent or target we were targeting.
-		if(user.a_intent == "harm")
+		if(user.a_intent == I_HARM)
 			user.visible_message("\red <b> \The [user] fires \the [src] point blank at [M]!</b>")
 			if(istype(in_chamber)) in_chamber.damage *= 1.3
 			Fire(M,user,0,0,1)

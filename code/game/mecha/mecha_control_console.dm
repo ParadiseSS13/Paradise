@@ -15,7 +15,7 @@
 
 /obj/machinery/computer/mecha/attack_hand(var/mob/user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	data["screen"] = screen
@@ -40,7 +40,7 @@
 /obj/machinery/computer/mecha/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["send_message"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("send_message")
@@ -50,19 +50,19 @@
 		var/obj/mecha/M = MT.in_mecha()
 		if(M)
 			M.occupant_message(message)
-		
+
 	if(href_list["shock"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("shock")
 		MT.shock()
-		
+
 	if(href_list["get_log"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = filter.getObj("get_log")
 		stored_data = MT.get_mecha_log()
 		screen = 1
-		
+
 	if(href_list["return"])
 		screen = 0
-		
+
 	nanomanager.update_uis(src)
 	return
 
@@ -72,8 +72,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "motion2"
 	origin_tech = "programming=2;magnets=2"
-	construction_time = 50
-	construction_cost = list("metal"=500)
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
 	if(!in_mecha())
@@ -91,7 +89,7 @@
 		answer["cell"] = 0
 	answer["integrity"] = M.health/initial(M.health)*100
 	answer["airtank"] = M.return_pressure()
-	answer["pilot"] = "[M.occupant||"None"]"	 	
+	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
 	answer["location"] = "[sanitize(area.name)||"Unknown"]"
 	answer["equipment"] = "[M.selected||"None"]"
@@ -99,7 +97,7 @@
 		var/obj/mecha/working/ripley/RM = M
 		answer["hascargo"] = 1
 		answer["cargo"] = RM.cargo.len/RM.cargo_capacity*100
-	
+
 	return answer
 
 /obj/item/mecha_parts/mecha_tracking/emp_act()

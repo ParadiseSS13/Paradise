@@ -58,7 +58,7 @@
 	species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
-		if("help")
+		if(I_HELP)
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
@@ -88,14 +88,14 @@
 			add_logs(src, M, "CPRed")
 			return 1
 
-		if("grab")
+		if(I_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
 				src.grabbedby(M)
 				return 1
 
-		if("harm")
+		if(I_HARM)
 			if(attacker_style && attacker_style.harm_act(H, src))
 				return 1
 			else
@@ -163,7 +163,7 @@
 					forcesay(hit_appends)
 
 
-		if("disarm")
+		if(I_DISARM)
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else

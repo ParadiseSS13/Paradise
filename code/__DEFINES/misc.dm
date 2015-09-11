@@ -137,7 +137,7 @@
 //transfer_ai() defines. Main proc in ai_core.dm
 #define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
 #define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
-#define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha 
+#define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
 
 //singularity defines
 #define STAGE_ONE 1
@@ -155,3 +155,16 @@
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
+
+//Material defines
+#define MAT_METAL		"$metal"
+#define MAT_GLASS		"$glass"
+#define MAT_SILVER		"$silver"
+#define MAT_GOLD		"$gold"
+#define MAT_DIAMOND		"$diamond"
+#define MAT_URANIUM		"$uranium"
+#define MAT_PLASMA		"$plasma"
+#define MAT_BANANIUM	"$bananium"
+
+#define MAX_STACK_SIZE 50
+//The maximum size of a stack object.

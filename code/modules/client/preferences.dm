@@ -108,6 +108,7 @@ datum/preferences
 	var/b_type = "A+"					//blood type (not-chooseable)
 	var/underwear = "Nude"					//underwear type
 	var/undershirt = "Nude"					//undershirt type
+	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
 	var/h_style = "Bald"				//Hair type
 	var/r_hair = 0						//Hair color
@@ -185,17 +186,17 @@ datum/preferences
 
 	// jukebox volume
 	var/volume = 100
-	
+
 	// BYOND membership
 	var/unlock_content = 0
-	
+
 /datum/preferences/New(client/C)
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
-				max_save_slots = MAX_SAVE_SLOTS_MEMBER 
+				max_save_slots = MAX_SAVE_SLOTS_MEMBER
 	var/loaded_preferences_successfully = load_preferences(C)
 	if(loaded_preferences_successfully)
 		if(load_character(C))
@@ -331,6 +332,7 @@ datum/preferences
 					dat += "<br><br>"
 				dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 				dat += "<b>Undershirt:</b><BR><a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 				dat += "Backpack Type:<br><a href ='?_src_=prefs;preference=bag;task=input'><b>[backbaglist[backbag]]</b></a><br>"
 				dat += "Nanotrasen Relation:<br><a href ='?_src_=prefs;preference=nt_relation;task=input'><b>[nanotrasen_relation]</b></a><br>"
 				dat += "</td><td><b>Preview</b><br><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></td></tr></table>"
@@ -385,7 +387,7 @@ datum/preferences
 				dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "Nearest Speakers" : "All Chatter"]</b></a><br>"
 				if(config.allow_Metadata)
 					dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-				
+
 				if(user.client)
 					if(user.client.holder)
 						dat += "<b>Adminhelp sound:</b> "
@@ -393,7 +395,7 @@ datum/preferences
 
 					if(check_rights(R_ADMIN,0))
 						dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-						
+
 					if(unlock_content)
 						dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 
@@ -1010,6 +1012,9 @@ datum/preferences
 					if("undershirt")
 						undershirt = random_undershirt(gender)
 						ShowChoices(user)
+					if("socks")
+						socks = random_socks(gender)
+						ShowChoices(user)
 					if("eyes")
 						r_eyes = rand(0,255)
 						g_eyes = rand(0,255)
@@ -1210,6 +1215,22 @@ datum/preferences
 							undershirt = new_undershirt
 						ShowChoices(user)
 
+					if("socks")
+						var/list/valid_sockstyles = list()
+						for(var/sockstyle in socks_list)
+							var/datum/sprite_accessory/S = socks_list[sockstyle]
+							if(gender == MALE && S.gender == FEMALE)
+								continue
+							if(gender == FEMALE && S.gender == MALE)
+								continue
+							if( !(species in S.species_allowed))
+								continue
+							valid_sockstyles[sockstyle] = socks_list[sockstyle]
+						var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+						ShowChoices(user)
+						if(new_socks)
+							socks = new_socks
+
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
 						if(new_eyes)
@@ -1360,7 +1381,7 @@ datum/preferences
 					if("publicity")
 						if(unlock_content)
 							toggles ^= MEMBER_PUBLIC
-							
+
 					if("gender")
 						if(gender == MALE)
 							gender = FEMALE
@@ -1548,6 +1569,7 @@ datum/preferences
 
 		character.underwear = underwear
 		character.undershirt = undershirt
+		character.socks = socks
 
 		if(backbag > 4 || backbag < 1)
 			backbag = 1 //Same as above
