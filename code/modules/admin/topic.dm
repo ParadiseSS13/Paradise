@@ -1833,6 +1833,8 @@
 				stampvalue = "cent"
 				sendername = command_name()
 			if("Syndicate")
+				stamptype = "icon"
+				stampvalue = "syndicate"
 				sendername = "UNKNOWN"
 			if("Administrator")
 				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
@@ -1904,8 +1906,9 @@
 		else
 			for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
 				if((F.z in config.station_levels))
-					if(!F.receivefax(P))
-						src.owner << "\red Message transmission to [F.department] failed."
+					spawn(0)
+						if(!F.receivefax(P))
+							src.owner << "\red Message transmission to [F.department] failed."
 
 		var/datum/fax/admin/A = new /datum/fax/admin()
 		A.name = P.name
@@ -1923,7 +1926,7 @@
 		src.owner << "\blue Message transmitted successfully."
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
-			if(istype(H) && H.stat == 1 && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
 				sender << "Your headset pings, notifying you that a reply to your fax has arrived."
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
