@@ -74,6 +74,7 @@
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
 	icon_state = "jacksandal"
+	_color = "jacksandal"
 	species_restricted = null
 
 /obj/item/clothing/shoes/cult
