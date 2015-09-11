@@ -72,7 +72,6 @@
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
 	_color = "rainbow"
-	species_fit = list("Vox")
 	clown
 		_color = "clown"
 
