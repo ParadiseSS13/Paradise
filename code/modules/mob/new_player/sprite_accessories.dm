@@ -1272,7 +1272,7 @@
 	name = "Nude"
 	icon_state = null
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpakanin","Slime People","Skellington")
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpakanin","Slime People","Skellington","Vox")
 
 
 /datum/sprite_accessory/socks/white_norm
@@ -1410,7 +1410,7 @@
 	species_allowed = list("Vox")
 
 /datum/sprite_accessory/socks/vox_stripped
-	name = "Vox Stripped"
+	name = "Vox Striped"
 	icon_state = "vox_white"
 	gender = NEUTER
 	species_allowed = list("Vox")
@@ -1439,9 +1439,9 @@
 	gender = NEUTER
 	species_allowed = list("Vox")
 
-/datum/sprite_accessory/socks/vox_stripped_thigh
-	name = "Vox Thigh-high Stripped"
-	icon_state = "vox_strippedTH"
+/datum/sprite_accessory/socks/vox_striped_thigh
+	name = "Vox Thigh-high Striped"
+	icon_state = "vox_stripedTH"
 	gender = NEUTER
 	species_allowed = list("Vox")
 

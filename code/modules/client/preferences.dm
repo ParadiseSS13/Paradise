@@ -1223,7 +1223,7 @@ datum/preferences
 								continue
 							if(gender == FEMALE && S.gender == MALE)
 								continue
-							if( !(species in S.species_allowed))
+							if(!(species in S.species_allowed))
 								continue
 							valid_sockstyles[sockstyle] = socks_list[sockstyle]
 						var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
