@@ -310,7 +310,7 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
-	species_restricted = list("exclude","Unathi","Tajaran","Wryn")\
+	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
