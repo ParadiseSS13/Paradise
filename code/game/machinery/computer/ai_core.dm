@@ -8,7 +8,15 @@
 	var/datum/ai_laws/laws = null
 	var/obj/item/weapon/circuitboard/circuit = null
 	var/obj/item/device/mmi/brain = null
-
+	
+/obj/structure/AIcore/Destroy()
+	qdel(laws)
+	qdel(circuit)
+	qdel(brain)
+	laws = null
+	circuit = null
+	brain = null
+	return ..()
 
 /obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
@@ -176,7 +184,8 @@
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
 /obj/structure/AIcore/deactivated/Destroy()
-	empty_playable_ai_cores -= src
+	if(src in empty_playable_ai_cores)
+		empty_playable_ai_cores -= src
 	return ..()
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
