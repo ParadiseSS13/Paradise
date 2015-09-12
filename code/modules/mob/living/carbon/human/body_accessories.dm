@@ -1,3 +1,4 @@
+
 var/global/list/body_accessory_by_name = list("None" = null)
 
 /hook/startup/proc/initalize_body_accessories()
@@ -59,12 +60,6 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 /datum/body_accessory/proc/try_restrictions(var/mob/living/carbon/human/H)
 	return 1
-
-/datum/body_accessory/proc/get_pixel_x(var/mob/living/carbon/human/H)
-	return pixel_x_offset
-
-/datum/body_accessory/proc/get_pixel_y(var/mob/living/carbon/human/H)
-	return pixel_y_offset
 
 /datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
 	if(animated_icon)
