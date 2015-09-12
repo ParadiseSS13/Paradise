@@ -553,7 +553,7 @@
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
 	var/mob/living/carbon/H = over_object
-	if(!istype(H) || !Adjacent(H)) return ..()
+	if(!istype(H) || !Adjacent(H) || usr != src) return ..()
 	switch(alert(H,"[src] wants you to pick them up. Do it?",,"Yes","No"))
 		if("Yes")
 			if(Adjacent(H))
