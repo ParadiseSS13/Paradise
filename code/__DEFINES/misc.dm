@@ -58,10 +58,6 @@
 #define MAX_STACK_AMOUNT_GLASS	50
 #define MAX_STACK_AMOUNT_RODS	60
 
-#define CC_PER_SHEET_METAL 3750
-#define CC_PER_SHEET_GLASS 3750
-#define CC_PER_SHEET_MISC 2000
-
 //some colors
 #define COLOR_RED 		"#FF0000"
 #define COLOR_GREEN 	"#00FF00"
