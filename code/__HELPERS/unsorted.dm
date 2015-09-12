@@ -321,8 +321,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
 	f = round(f)
-	f = max(low, f) 
-	f = min(high, f) 
+	f = max(low, f)
+	f = min(high, f)
 	if ((f % 2) == 0) //Ensure the last digit is an odd number
 		f += 1
 	return f
@@ -778,7 +778,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	else return get_step(ref, base_dir)
 
-/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/stealth = 0) //This is quite an ugly solution but i refuse to use the old request system.
+/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/uninterruptible = 0) //This is quite an ugly solution but i refuse to use the old request system.
 	if(!user || !target)
 		return 0
 	if(numticks == 0)
@@ -797,7 +797,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 			if(user && user.client)
 				user.client.images -= progbar
 			return 0
-		if ( user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying)
+		if (!uninterruptible && (user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying))
 			if(user && user.client)
 				user.client.images -= progbar
 			return 0
