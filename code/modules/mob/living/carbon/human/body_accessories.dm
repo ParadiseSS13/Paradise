@@ -52,7 +52,8 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 	var/blend_mode = null
 
-	var/list/pixel_offsets = list("x" = 0, "y" = 0)
+	var/pixel_x_offset = 0
+	var/pixel_y_offset = 0
 
 	var/list/allowed_species = list()
 
@@ -60,10 +61,10 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return 1
 
 /datum/body_accessory/proc/get_pixel_x(var/mob/living/carbon/human/H)
-	return pixel_offsets["x"]
+	return pixel_x_offset
 
 /datum/body_accessory/proc/get_pixel_y(var/mob/living/carbon/human/H)
-	return pixel_offsets["y"]
+	return pixel_y_offset
 
 /datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
 	if(animated_icon)
@@ -88,7 +89,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon = 'icons/mob/body_accessory_64.dmi'
 	icon_state = "naga"
 
-	pixel_offsets = list("x" = -16, "y" = 0)
+	pixel_x_offset = -16
 
 //Tails
 /datum/body_accessory/tail
