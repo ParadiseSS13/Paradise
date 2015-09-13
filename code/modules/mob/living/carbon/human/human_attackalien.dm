@@ -4,12 +4,12 @@
 		return 0
 
 	switch(M.a_intent)
-		if ("help")
+		if (I_HELP)
 			visible_message(text("\blue [M] caresses [src] with its scythe like arm."))
-		if ("grab")
+		if (I_GRAB)
 			grabbedby(M)
 
-		if("harm")
+		if(I_HARM)
 			M.do_attack_animation(src)
 			if (w_uniform)
 				w_uniform.add_fingerprint(M)
@@ -30,7 +30,7 @@
 				apply_effect(4, WEAKEN, armor_block)
 			updatehealth()
 
-		if("disarm")
+		if(I_DISARM)
 			M.do_attack_animation(src)
 			var/randn = rand(1, 100)
 			if (randn <= 80)

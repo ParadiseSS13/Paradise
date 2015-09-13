@@ -198,13 +198,13 @@
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			help_shake_act(M)
 
-		if ("grab")
+		if (I_GRAB)
 			grabbedby(M)
 
-		if ("harm")
+		if (I_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
 			if (prob(90))
@@ -229,7 +229,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
-		if ("disarm")
+		if (I_DISARM)
 			if (!lying)
 				if (prob(5))//Very small chance to push an alien down.
 					Paralyse(2)
@@ -265,7 +265,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -291,7 +291,7 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/humanoid/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if("help")
+		if(I_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -356,3 +356,6 @@ In all, this is a lot like the monkey code. /N
 		return custom_pixel_x_offset
 	else
 		return initial(pixel_x)
+
+/mob/living/carbon/alien/humanoid/get_permeability_protection()
+	return 0.8

@@ -209,7 +209,7 @@
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
 	item_state = "bl_suit"
-	_color = "black_suit"
+	_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/female
 	name = "executive suit"
@@ -224,7 +224,6 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	_color = "red_suit"
-	species_fit = list("Vox")
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/suit_jacket/navy
@@ -563,17 +562,17 @@
 	_color = "vengine"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 10)
 
-/obj/item/clothing/under/vox_toxins
+/obj/item/clothing/under/vox_sec
 	name = "Vox Security Jumpsuit"
-	desc = "A Security Uniform ripped to better fit a vox."
+	desc = "A Security officer's jumpsuit ripped to better fit a vox."
 	icon_state = "vred"
 	item_state = "vred"
 	_color = "vred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 
-/obj/item/clothing/under/vox_toxins
+/obj/item/clothing/under/vox_chem
 	name = "Vox Chemist Jumpsuit"
-	desc = "A Security Uniform ripped to better fit a vox."
+	desc = "A Chemist's jumpsuit ripped to better fit a vox."
 	icon_state = "vchem"
 	item_state = "vchem"
 	_color = "vchem"

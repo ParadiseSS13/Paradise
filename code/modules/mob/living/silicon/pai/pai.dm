@@ -231,7 +231,7 @@
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
 					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
@@ -281,7 +281,7 @@
 	medicalActive2 = null
 	medical_cannotfind = 0
 	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"	
+	usr << "<span class='notice'>You reset your record-viewing software.</span>"
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -554,12 +554,12 @@
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
 	var/mob/living/carbon/H = over_object
 	if(!istype(H) || !Adjacent(H)) return ..()
-	if(H.a_intent == "help")
+	if(H.a_intent == I_HELP)
 		get_scooped(H)
 		//return
 	else
 		return ..()
-	
+
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)
 		card.loc = newloc

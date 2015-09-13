@@ -181,7 +181,7 @@
 			return
 
 		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		if((tmob.a_intent == "help" || tmob.restrained()) && (a_intent == "help" || src.restrained()) && tmob.canmove && !tmob.buckled && canmove) // mutual brohugs all around!
+		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || src.restrained()) && tmob.canmove && !tmob.buckled && canmove) // mutual brohugs all around!
 			var/turf/oldloc = loc
 			loc = tmob.loc
 			tmob.loc = oldloc
@@ -244,6 +244,8 @@
 			stat(null, eta_status)
 
 	if (client.statpanel == "Status")
+		if(locate(/obj/item/device/assembly/health) in src)
+			stat(null, "Health: [health]")
 		if (internal)
 			if (!internal.air_contents)
 				qdel(internal)
@@ -414,7 +416,7 @@
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if("help")
+		if(I_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -431,7 +433,7 @@
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
-/mob/living/carbon/human/proc/is_loyalty_implanted()	
+/mob/living/carbon/human/proc/is_loyalty_implanted()
 	for(var/L in contents)
 		if(istype(L, /obj/item/weapon/implant/loyalty))
 			for(var/obj/item/organ/external/O in organs)
@@ -694,7 +696,7 @@
 
 		// if looting pockets with gloves, do it quietly
 		if(href_list["pockets"])
-			if(isanimal(usr)) 
+			if(isanimal(usr))
 				return //animals cannot strip people
 
 			if(frozen)
@@ -726,19 +728,19 @@
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
-					
+
 			else if(!pickpocket)
 				// Display a warning if the user mocks up
 				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
 		// if looting id with gloves, do it quietly - this allows pickpocket gloves to take/place id stealthily - Bone White
 		if(href_list["item"])
-			if(isanimal(usr)) 
+			if(isanimal(usr))
 				return //animals cannot strip people
-				
+
 			if(frozen)
 				usr << "\red Do not attempt to strip frozen people."
-				return				
+				return
 			var/itemTarget = href_list["item"]
 			if(itemTarget == "id")
 				if(pickpocket)
@@ -1158,7 +1160,7 @@
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"] to inject into."
 		user << "<span class='alert'>[fail_msg]</span>"
-		
+
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -1170,7 +1172,7 @@
 	if(stat==DEAD)return
 
 	if(!check_has_mouth())
-		return 
+		return
 
 	if(!lastpuke)
 		lastpuke = 1
@@ -1517,16 +1519,16 @@
 
 		W.add_fingerprint(src)
 
-// Allows IPC's to change their monitor display		
+// Allows IPC's to change their monitor display
 /mob/living/carbon/human/proc/change_monitor()
-	set category = "IC"	
+	set category = "IC"
 	set name = "Change Monitor Display"
 	set desc = "Change the display on your monitor."
-	
+
 	if(stat || paralysis || stunned || weakened)
 		src << "<span class='warning'>You cannot change your monitor display in your current state.</span>"
-		return	
-		
+		return
+
 	var/list/hair = list()
 	for(var/i in hair_styles_list)
 		var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
@@ -1540,7 +1542,7 @@
 		h_style = new_style
 
 	update_hair()
-		
+
 //Putting a couple of procs here that I don't know where else to dump.
 //Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
 /mob/living/carbon/human/proc/leap()
@@ -1758,3 +1760,23 @@
 	if(!silent)
 		src << "<span class='warning'>You don't have the dexterity to use that!<span>"
 	return 0
+
+/mob/living/carbon/human/get_permeability_protection()
+	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
+	for(var/obj/item/I in get_equipped_items())
+		if(I.body_parts_covered & HANDS)
+			prot["hands"] = max(1 - I.permeability_coefficient, prot["hands"])
+		if(I.body_parts_covered & UPPER_TORSO)
+			prot["chest"] = max(1 - I.permeability_coefficient, prot["chest"])
+		if(I.body_parts_covered & LOWER_TORSO)
+			prot["groin"] = max(1 - I.permeability_coefficient, prot["groin"])
+		if(I.body_parts_covered & LEGS)
+			prot["legs"] = max(1 - I.permeability_coefficient, prot["legs"])
+		if(I.body_parts_covered & FEET)
+			prot["feet"] = max(1 - I.permeability_coefficient, prot["feet"])
+		if(I.body_parts_covered & ARMS)
+			prot["arms"] = max(1 - I.permeability_coefficient, prot["arms"])
+		if(I.body_parts_covered & HEAD)
+			prot["head"] = max(1 - I.permeability_coefficient, prot["head"])
+	var/protection = (prot["head"] + prot["arms"] + prot["feet"] + prot["legs"] + prot["groin"] + prot["chest"] + prot["hands"])/7
+	return protection

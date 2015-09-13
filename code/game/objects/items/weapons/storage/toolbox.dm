@@ -77,6 +77,7 @@
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=1;syndicate=1"
+	silent = 1
 	force = 15.0
 	throwforce = 18.0
 
@@ -88,4 +89,4 @@
 		new /obj/item/weapon/crowbar(src)
 		new /obj/item/weapon/wirecutters(src)
 		new /obj/item/device/multitool(src)
-		new /obj/item/clothing/gloves/color/red/insulated(src)
+		new /obj/item/clothing/gloves/combat(src)

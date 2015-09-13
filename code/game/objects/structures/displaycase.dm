@@ -195,7 +195,7 @@
 			circuit=null
 			new /obj/machinery/constructable_frame/machine_frame(T)
 		qdel(src)
-	if(user.a_intent == "harm")
+	if(user.a_intent == I_HARM)
 		src.health -= W.force
 		src.healthcheck()
 		..()
@@ -219,7 +219,7 @@
 			src.add_fingerprint(user)
 			update_icon()
 	else
-		if(user.a_intent == "harm")
+		if(user.a_intent == I_HARM)
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			user.visible_message("\red [user.name] kicks \the [src]!", \

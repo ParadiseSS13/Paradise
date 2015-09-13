@@ -62,7 +62,7 @@
 			user << "\red This syringe is broken!"
 			return
 
-/*		if (user.a_intent == "harm" && ismob(target))
+/*		if (user.a_intent == I_HARM && ismob(target))
 			if((CLUMSY in user.mutations) && prob(50))
 				target = user
 			syringestab(target, user)
@@ -168,7 +168,7 @@
 				if(target.reagents.total_volume >= target.reagents.maximum_volume)
 					user << "\red [target] is full."
 					return
-					
+
 				var/mob/living/carbon/human/H = target
 				if(istype(H))
 					var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
@@ -526,5 +526,16 @@
 	New()
 		..()
 		reagents.add_reagent("insulin", 15)
+		mode = SYRINGE_INJECT
+		update_icon()
+
+/obj/item/weapon/reagent_containers/syringe/bioterror
+	name = "bioterror syringe"
+	desc = "Contains several paralyzing reagents."
+	New()
+		..()
+		reagents.add_reagent("neurotoxin", 5)
+		reagents.add_reagent("capulettium_plus", 5)
+		reagents.add_reagent("sodium_thiopental", 5)
 		mode = SYRINGE_INJECT
 		update_icon()

@@ -488,6 +488,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				R.check_icon()
 				R.blood_DNA = list()
 				R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+				R.add_hiddenprint(H)
 			return
 		else
 			user << "The book seems full of illegible scribbles. Is this a joke?"

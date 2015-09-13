@@ -825,6 +825,35 @@ datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	..()
 	return
 
+/datum/reagent/medicine/stimulative_agent
+	name = "Stimulative Agent"
+	id = "stimulative_agent"
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	color = "#C8A5DC"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 60
+
+/datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
+	M.status_flags |= GOTTAGOFAST
+	if(M.health < 50 && M.health > 0)
+		M.adjustOxyLoss(-1*REM)
+		M.adjustToxLoss(-1*REM)
+		M.adjustBruteLoss(-1*REM)
+		M.adjustFireLoss(-1*REM)
+	M.AdjustParalysis(-3)
+	M.AdjustStunned(-3)
+	M.AdjustWeakened(-3)
+	M.adjustStaminaLoss(-5*REM)
+	..()
+
+/datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M)
+	if(prob(33))
+		M.adjustStaminaLoss(2.5*REM)
+		M.adjustToxLoss(1*REM)
+		M.losebreath++
+	..()
+	return
+
 datum/reagent/insulin
 	name = "Insulin"
 	id = "insulin"

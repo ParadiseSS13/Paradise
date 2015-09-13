@@ -10,6 +10,12 @@
 		if(FEMALE)	return pick(undershirt_f)
 		else		return pick(undershirt_list)
 
+/proc/random_socks(gender)
+	switch(gender)
+		if(MALE)	return pick(socks_m)
+		if(FEMALE)	return pick(socks_f)
+		else		return pick(socks_list)
+
 proc/random_hair_style(var/gender, species = "Human")
 	var/h_style = "Bald"
 

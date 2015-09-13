@@ -246,7 +246,7 @@
 		else
 			user << "<span class='warning'>Maintenance panel is locked.</span>"
 	else
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM)
 			if(health >= maxhealth)
 				user << "<span class='warning'>[src] does not need a repair.</span>"
 				return

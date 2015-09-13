@@ -9,7 +9,7 @@
 	req_tech = list("combat" = 4, "materials" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_URANIUM = 2000)
-	reliability_base = 76
+	reliability = 76
 	build_path = /obj/item/weapon/gun/energy/gun/nuclear
 	locked = 1
 	category = list("Weapons")
@@ -35,6 +35,7 @@
 	build_path = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
 	locked = 1
 	category = list("Weapons")
+	reliability = 76
 
 /datum/design/flora_gun
 	name = "Floral Somatoray"
@@ -64,7 +65,7 @@
 	req_tech = list("combat" = 3, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000)
-	reliability_base = 79
+	reliability = 79
 	build_path = /obj/item/weapon/grenade/chem_grenade/large
 	category = list("Weapons")
 

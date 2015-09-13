@@ -506,7 +506,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help" || S.open == 2)
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)

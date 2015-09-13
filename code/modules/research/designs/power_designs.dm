@@ -29,7 +29,7 @@
 	desc = "A power cell that holds 30000 units of energy"
 	id = "hyper_cell"
 	req_tech = list("powerstorage" = 5, "materials" = 4)
-	reliability_base = 70
+	reliability = 70
 	build_type = PROTOLATHE | MECHFAB | PODFAB
 	materials = list(MAT_METAL = 400, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
 	construction_time=100
@@ -41,7 +41,7 @@
 	desc = "A power cell that holds 20000 units of energy"
 	id = "super_cell"
 	req_tech = list("powerstorage" = 3, "materials" = 2)
-	reliability_base = 75
+	reliability = 75
 	build_type = PROTOLATHE | MECHFAB | PODFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
 	construction_time=100
@@ -53,7 +53,7 @@
 	desc = "A power cell that holds 40000 units of energy."
 	id = "bluespace_cell"
 	req_tech = list("powerstorage" = 6, "materials" = 5)
-	reliability_base = 70
+	reliability = 70
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 800, MAT_GOLD = 300, MAT_SILVER = 300, MAT_GLASS = 160, MAT_DIAMOND = 160)
 	construction_time=100
@@ -66,7 +66,7 @@
 	id = "pacman"
 	req_tech = list("programming" = 3, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	reliability_base = 79
+	reliability = 79
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman
 	category = list("Engineering Machinery")
@@ -77,7 +77,7 @@
 	id = "mrspacman"
 	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5)
 	build_type = IMPRINTER
-	reliability_base = 74
+	reliability = 74
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/mrs
 	category = list("Engineering Machinery")
@@ -88,7 +88,7 @@
 	id = "superpacman"
 	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	reliability_base = 76
+	reliability = 76
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/super
 	category = list("Engineering Machinery")

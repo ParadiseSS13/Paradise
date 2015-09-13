@@ -52,7 +52,7 @@
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
 		user << "<span class='warning'>You need an empty hand to draw the [holstered]!</span>"
 	else
-		if(user.a_intent == "hurt")
+		if(user.a_intent == I_HARM)
 			usr.visible_message("\red [user] draws the [holstered], ready to shoot!</span>", \
 			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
 		else

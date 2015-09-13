@@ -40,7 +40,7 @@
 	if(!istype(M))
 		return ..()
 
-	if(user.a_intent != "help")
+	if(user.a_intent != I_HELP)
 		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
 			if((CLUMSY in user.mutations) && prob(50))
 				M = user
