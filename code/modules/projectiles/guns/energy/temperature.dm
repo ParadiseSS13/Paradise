@@ -114,11 +114,11 @@
 		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 		dat += "<FONT color=red><B> SEARING!</B></FONT>"
 	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C) ([round(temperature*1.8-459.67)]&deg;F)</FONT>"
+		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C) ([round(temperature*1.8-459.67)]&deg;F)</FONT>"
+		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C) ([round(temperature*1.8-459.67)]&deg;F)</FONT>"
+		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
 	dat += "<A href='?src=\ref[src];temp=-100'>-</A> "
