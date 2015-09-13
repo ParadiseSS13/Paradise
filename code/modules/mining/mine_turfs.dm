@@ -287,7 +287,7 @@ var/global/list/rockTurfEdgeCache
 		if(z != 5)
 			notify_admins = 1
 			if(!triggered_by_explosion)
-				message_admins("[key_name_admin(user)]<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 			else
 				message_admins("An explosion has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 
@@ -362,7 +362,7 @@ var/global/list/rockTurfEdgeCache
 		user << "<span class='notice'>You start picking...</span>"
 		P.playDigSound()
 
-		if(do_after(user, P.digspeed))
+		if(do_after(user, P.digspeed, target = src))
 			if(istype(src, /turf/simulated/mineral)) //sanity check against turf being deleted during digspeed delay
 				user << "<span class='notice'>You finish cutting into the rock.</span>"
 				P.update_icon()
@@ -392,6 +392,13 @@ var/global/list/rockTurfEdgeCache
 	if(user.environment_smash >= 2)
 		gets_drilled()
 	..()
+
+/turf/simulated/mineral/attack_alien(var/mob/living/carbon/alien/M)
+	M << "<span class='notice'>You start digging into the rock...</span>"
+	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
+	if(do_after(M, 40, target = src))
+		M << "<span class='notice'>You tunnel into the rock.</span>"
+		gets_drilled()
 
 /turf/simulated/mineral/Bumped(AM as mob|obj)
 	. = ..()

@@ -73,7 +73,7 @@
 			if(istype(P, /obj/item/weapon/crowbar))
 				user << "You begin prying out the circuit board other components..."
 				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-				if(do_after(user,60))
+				if(do_after(user,60, target = src))
 					user << "You finish prying out the components."
 
 					// Drop all the component stuff

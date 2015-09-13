@@ -7,8 +7,8 @@
 	id = "adv_mass_spectrometer"
 	req_tech = list("biotech" = 2, "magnets" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 74
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 74
 	build_path = "/obj/item/device/mass_spectrometer/adv"
 	category = list("Medical")
 
@@ -18,8 +18,8 @@
 	id = "adv_reagent_scanner"
 	req_tech = list("biotech" = 2, "magnets" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 74
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 74
 	build_path = /obj/item/device/reagent_scanner/adv
 	category = list("Medical")
 
@@ -29,8 +29,8 @@
 	id = "splitbeaker"
 	req_tech = list("materials" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 3000)
-	reliability_base = 76
+	materials = list(MAT_METAL = 3000)
+	reliability = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
 
@@ -40,8 +40,8 @@
 	id = "cyborg_analyzer"
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 76
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 76
 	build_path = /obj/item/device/robotanalyzer
 	category = list("Medical")
 
@@ -51,7 +51,7 @@
 	id = "healthanalyzer"
 	req_tech = list("biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 20, "$glass" = 20)
+	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
 	build_path = /obj/item/device/healthanalyzer
 	category = list("Medical")
 
@@ -61,7 +61,7 @@
 	id = "healthanalyzer_upgrade"
 	req_tech = list("biotech" = 2, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 20, "$glass" = 20)
+	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
 	build_path = /obj/item/device/healthupgrade
 	category = list("Medical")
 
@@ -71,7 +71,7 @@
 	id = "defib"
 	req_tech = list("materials" = 7, "biotech" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 5000, "$glass" = 2000, "$silver" = 1000)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_SILVER = 1000)
 	reliability = 76
 	build_path = /obj/item/weapon/defibrillator
 	category = list("Medical")
@@ -83,8 +83,8 @@
 	id = "sensor_device"
 	req_tech = list("biotech" = 4, "magnets" = 3, "materials" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 76
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 76
 	build_path = /obj/item/device/sensor_device
 	category = list("Medical")
 
@@ -94,9 +94,9 @@
 	id = "mmi"
 	req_tech = list("programming" = 2, "biotech" = 3)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list("$metal" = 1000, "$glass" = 500)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	construction_time = 75
-	reliability_base = 76
+	reliability = 76
 	build_path = /obj/item/device/mmi
 	category = list("Misc","Medical")
 
@@ -106,18 +106,20 @@
 	id = "mass_spectrometer"
 	req_tech = list("biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 76
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 76
 	build_path = /obj/item/device/mass_spectrometer
 	category = list("Medical")
 
 /datum/design/posibrain
 	name = "Positronic Brain"
-	desc = "Allows for the construction of a positronic brain"
-	id = "posibrain"
-	req_tech = list("engineering" = 4, "materials" = 6, "bluespace" = 2, "programming" = 4)
-	build_type = PROTOLATHE
-	materials = list("$metal" = 2000, "$glass" = 1000, "$silver" = 1000, "$gold" = 500, "$plasma" = 500, "$diamond" = 100)
+	desc = "The latest in Artificial Intelligences."
+	id = "mmi_posi"
+	req_tech = list("programming" = 5, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) //Gold, because SWAG.
+	reliability = 74
+	construction_time = 75
 	build_path = /obj/item/device/mmi/posibrain
 	category = list("Misc","Medical")
 
@@ -127,9 +129,9 @@
 	id = "mmi_radio"
 	req_tech = list("programming" = 2, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list("$metal" = 1200, "$glass" = 500)
+	materials = list(MAT_METAL = 1200, MAT_GLASS = 500)
 	construction_time = 75
-	reliability_base = 74
+	reliability = 74
 	build_path = /obj/item/device/mmi/radio_enabled
 	category = list("Misc","Medical")
 
@@ -139,7 +141,7 @@
 	id = "nanopaste"
 	req_tech = list("materials" = 4, "engineering" = 3)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 7000, "$glass" = 7000)
+	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
 	category = list("Medical")
 
@@ -149,8 +151,8 @@
 	id = "reagent_scanner"
 	req_tech = list("biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 30, "$glass" = 20)
-	reliability_base = 76
+	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	reliability = 76
 	build_path = /obj/item/device/reagent_scanner
 	category = list("Medical")
 
@@ -160,9 +162,9 @@
 	id = "sflash"
 	req_tech = list("magnets" = 3, "combat" = 2)
 	build_type = MECHFAB
-	materials = list("$metal" = 750, "$glass" = 750)
+	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
 	construction_time = 100
-	reliability_base = 76
+	reliability = 76
 	build_path = /obj/item/device/flash/synthetic
 	category = list("Misc")
 
@@ -172,7 +174,7 @@
 	id = "scalpel_laser1"
 	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 12500, "$glass" = 7500)
+	materials = list(MAT_METAL = 12500, MAT_GLASS = 7500)
 	build_path = /obj/item/weapon/scalpel/laser1
 	category = list("Medical")
 
@@ -182,7 +184,7 @@
 	id = "scalpel_laser2"
 	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 12500, "$glass" = 7500, "$silver" = 2500)
+	materials = list(MAT_METAL = 12500, MAT_GLASS = 7500, MAT_SILVER = 2500)
 	build_path = /obj/item/weapon/scalpel/laser2
 	category = list("Medical")
 
@@ -192,7 +194,7 @@
 	id = "scalpel_laser3"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 12500, "$glass" = 7500, "$silver" = 2000, "$gold" = 1500)
+	materials = list(MAT_METAL = 12500, MAT_GLASS = 7500, MAT_SILVER = 2000, MAT_GOLD = 1500)
 	build_path = /obj/item/weapon/scalpel/laser3
 	category = list("Medical")
 
@@ -202,6 +204,50 @@
 	id = "scalpel_manager"
 	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
-	materials = list ("$metal" = 12500, "$glass" = 7500, "$silver" = 1500, "$gold" = 1500, "$diamond" = 750)
+	materials = list (MAT_METAL = 12500, MAT_GLASS = 7500, MAT_SILVER = 1500, MAT_GOLD = 1500, MAT_DIAMOND = 750)
 	build_path = /obj/item/weapon/scalpel/manager
+	category = list("Medical")
+
+/////////////////////////////////////////
+////////////Regular Implants/////////////
+/////////////////////////////////////////
+
+/datum/design/implanter
+	name = "Implanter"
+	desc = "A sterile automatic implant injector."
+	id = "implanter"
+	req_tech = list("materials" = 1, "programming" = 2, "biotech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
+	build_path = /obj/item/weapon/implanter
+	category = list("Medical")
+
+/datum/design/implantcase
+	name = "Implant Case"
+	desc = "A glass case containing an implant."
+	id = "implantcase"
+	req_tech = list("materials" = 1, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_GLASS = 500)
+	build_path = /obj/item/weapon/implantcase
+	category = list("Medical")
+
+/datum/design/implant_freedom
+	name = "Freedom Implant Case"
+	desc = "A glass case containing an implant."
+	id = "implant_freedom"
+	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "syndicate" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 500, MAT_GOLD = 250)
+	build_path = /obj/item/weapon/implantcase/freedom
+	category = list("Medical")
+
+/datum/design/implant_adrenalin
+	name = "Adrenalin Implant Case"
+	desc = "A glass case containing an implant."
+	id = "implant_adrenalin"
+	req_tech = list("materials" = 2, "biotech" = 5, "combat" = 3, "syndicate" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 500, MAT_GOLD = 500, MAT_URANIUM = 100, MAT_DIAMOND = 200)
+	build_path = /obj/item/weapon/implantcase/adrenaline
 	category = list("Medical")

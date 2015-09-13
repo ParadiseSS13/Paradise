@@ -5,7 +5,8 @@
 /mob/living/silicon/robot/get_active_hand()
 	return module_active
 
-
+/mob/living/silicon/robot/get_all_slots()
+	return list(module_state_1, module_state_2, module_state_3)
 
 /*-------TODOOOOOOOOOO--------*/
 /mob/living/silicon/robot/proc/uneq_module(obj/item/O)

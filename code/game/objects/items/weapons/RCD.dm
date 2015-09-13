@@ -18,7 +18,7 @@ RCD
 	throw_speed = 3
 	throw_range = 5
 	w_class = 3.0
-	m_amt = 100000
+	materials = list(MAT_METAL=100000)
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect/effect/system/spark_spread/spark_system
 	var/max_matter = 100
@@ -26,16 +26,20 @@ RCD
 	var/working = 0
 	var/mode = 1
 	var/canRwall = 0
-	var/disabled = 0
-
 
 	New()
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		src.spark_system = new /datum/effect/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
+		rcd_list += src
 		return
 
+	Destroy()
+		qdel(spark_system)
+		spark_system = null
+		rcd_list -= src
+		return ..()
 
 	attackby(obj/item/weapon/W, mob/user, params)
 		..()
@@ -82,8 +86,6 @@ RCD
 
 	afterattack(atom/A, mob/user, proximity)
 		if(!proximity) return
-		if(disabled && !isrobot(user))
-			return 0
 		if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 			return 0
 		if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock)))
@@ -103,7 +105,7 @@ RCD
 					if(checkResource(3, user))
 						user << "Building Wall ..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 20))
+						if(do_after(user, 20, target = A))
 							if(!useResource(3, user)) return 0
 							activate()
 							A:ChangeTurf(/turf/simulated/wall)
@@ -115,7 +117,7 @@ RCD
 					if(checkResource(10, user))
 						user << "Building Airlock..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 50))
+						if(do_after(user, 50, target = A))
 							if(!useResource(10, user)) return 0
 							activate()
 							var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock( A )
@@ -131,7 +133,7 @@ RCD
 					if(checkResource(5, user))
 						user << "Deconstructing Wall..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 40))
+						if(do_after(user, 40, target = A))
 							if(!useResource(5, user)) return 0
 							activate()
 							A:ChangeTurf(/turf/simulated/floor/plating)
@@ -142,7 +144,7 @@ RCD
 					if(checkResource(5, user))
 						user << "Deconstructing Floor..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 50))
+						if(do_after(user, 50, target = A))
 							if(!useResource(5, user)) return 0
 							activate()
 							A:ChangeTurf(/turf/space)
@@ -153,7 +155,7 @@ RCD
 					if(checkResource(20, user))
 						user << "Deconstructing Airlock..."
 						playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-						if(do_after(user, 50))
+						if(do_after(user, 50, target = A))
 							if(!useResource(20, user)) return 0
 							activate()
 							qdel(A)
@@ -204,8 +206,7 @@ RCD
 	density = 0
 	anchored = 0.0
 	origin_tech = "materials=2"
-	m_amt = 16000
-	g_amt = 8000
+	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 
 /obj/item/weapon/rcd_ammo/large

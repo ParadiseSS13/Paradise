@@ -305,9 +305,9 @@
 		if (istype(R, /obj/item/device/radio))
 			// generate list of radio freqs
 			var/obj/item/device/radio/target_radio = R
-			var/freq = 1441
+			var/freq = PUBLIC_LOW_FREQ
 			var/list/freqlist = list()
-			while (freq <= 1489)
+			while (freq <= PUBLIC_HIGH_FREQ)
 				if (freq < 1451 || freq > 1459)
 					freqlist += freq
 				freq += 2

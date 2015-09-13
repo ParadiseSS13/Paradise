@@ -91,7 +91,7 @@
 	if (C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("\red [C] has been laid on the operating table by [user].", 3)
+		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>", 3)
 	if (C.client)
 		C.client.perspective = EYE_PERSPECTIVE
 		C.client.eye = src
@@ -126,12 +126,12 @@
 
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
-	if(src.victim)
-		usr << "\blue <B>The table is already occupied!</B>"
+	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
+		usr << "<span class='notice'>The table is already occupied!</span>"
 		return 0
-
+		
 	if(patient.buckled)
-		usr << "\blue <B>Unbuckle first!</B>"
+		usr << "<span class='notice'>Unbuckle first!</span>"
 		return 0
-
+		
 	return 1

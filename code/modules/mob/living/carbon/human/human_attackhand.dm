@@ -58,18 +58,22 @@
 	species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
-		if("help")
+		if(I_HELP)
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
 				return 1
-//			if(M.health < -75)	return 0
-
+			if(!H.check_has_mouth())
+				H << "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if(!check_has_mouth())
+				H << "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>"
+				return
 			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
-				M << "<span class='boldnotice'>Remove your mask!</span>"
+				M << "<span class='warning'>Remove your mask!</span>"
 				return 0
 			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
-				M << "<span class='boldnotice'>Remove his mask!</span>"
+				M << "<span class='warning'>Remove his mask!</span>"
 				return 0
 
 			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()
@@ -84,14 +88,14 @@
 			add_logs(src, M, "CPRed")
 			return 1
 
-		if("grab")
+		if(I_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
 				src.grabbedby(M)
 				return 1
 
-		if("harm")
+		if(I_HARM)
 			if(attacker_style && attacker_style.harm_act(H, src))
 				return 1
 			else
@@ -118,7 +122,7 @@
 						//we're good to suck the blood, blaah
 						M.handle_bloodsucking(src)
 						add_logs(src, M, "vampirebit")
-						message_admins("[M.name] ([M.ckey]) vampirebit [src.name] ([src.ckey])")
+						msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 						return
 				//end vampire codes
 
@@ -159,7 +163,7 @@
 					forcesay(hit_appends)
 
 
-		if("disarm")
+		if(I_DISARM)
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else

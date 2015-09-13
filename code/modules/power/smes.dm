@@ -182,7 +182,7 @@
 		user << "<span class='notice'>You begin to dismantle the power terminal...</span>"
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
@@ -321,7 +321,7 @@
 			user << "<span class='warning'>You must remove the floor plating first.</span>"
 			return 1
 	user << "<span class='notice'>You start adding cable to the [src].</span>"
-	if(do_after(user, 50))
+	if(do_after(user, 50, target = src))
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
 		if (prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky

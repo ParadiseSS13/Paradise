@@ -200,7 +200,7 @@
 		if (unwrenched==0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "\blue You begin to unfasten \the [src] from the floor..."
-			if (do_after(user, 40))
+			if (do_after(user, 40, target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -213,7 +213,7 @@
 		else /* unwrenched */
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "\blue You begin to fasten \the [src] to the floor..."
-			if (do_after(user, 20))
+			if (do_after(user, 20, target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You fastened \the [src] into place.", \
@@ -238,7 +238,7 @@
 	if(istype(I,/obj/item/weapon/crowbar))
 		if(open)
 			user << "\blue You begin to pry out the [src]'s circuits."
-			if(do_after(user,40))
+			if(do_after(user,40, target = src))
 				user << "\blue You remove the circuitboard."
 				circuit_removed = 1
 				use_power = 0
@@ -501,7 +501,7 @@
 				H << "The boxing machine refuses to acknowledge you unless you face it head on!"
 				return
 			var/damage = 0
-			if(H.a_intent != "harm")
+			if(H.a_intent != I_HARM)
 				damage += rand(0,5)
 			else
 				damage += rand(0,10)

@@ -456,7 +456,7 @@
 
 			visible_message("[user] starts putting [G:affecting:name] into \the [src].", 3)
 
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
 
 				M.loc = src
@@ -488,9 +488,8 @@
 							Gh << "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>"
 
 			// Book keeping!
-			var/turf/location = get_turf(src)
-			log_admin("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[location.x];Y=[location.y];Z=[location.z]'>JMP</a>)")
-			message_admins("<span class='notice'>[key_name_admin(M)] has entered a stasis pod.</span>")
+			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
+			message_admins("[key_name_admin(user)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
@@ -548,7 +547,7 @@
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.", 3)
 
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = L))
 			if(!L) return
 
 			L.loc = src
@@ -636,7 +635,7 @@
 
 	visible_message("[usr] starts climbing into \the [src].", 3)
 
-	if(do_after(usr, 20))
+	if(do_after(usr, 20, target = usr))
 
 		if(!usr || !usr.client)
 			return

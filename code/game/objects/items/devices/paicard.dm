@@ -6,6 +6,8 @@
 	w_class = 2.0
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
+	var/request_cooldown = 60 // one minute
+	var/last_request
 	var/obj/item/device/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
@@ -189,7 +191,7 @@
 			dat += {"
 				<b><font size='3px'>pAI Request Module</font></b><br><br>
 				<p>Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>
-				<img src='loading.gif' /> Searching for personalities<br><br>
+				Searching for personalities, please wait...<br><br>
 
 				<table>
 					<tr>
@@ -241,6 +243,12 @@
 			pai.master_dna = dna.unique_enzymes
 			pai << "<font color = red><h3>You have been bound to a new master.</h3></font>"
 	if(href_list["request"])
+		var/delta = (world.time / 10) - last_request
+		if(request_cooldown > delta)
+			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
+			usr << "\red The request system is currently offline. Please wait another [cooldown_time] seconds."
+			return
+		last_request = world.time / 10
 		src.looking_for_personality = 1
 		paiController.findPAI(src, usr)
 	if(href_list["wipe"])

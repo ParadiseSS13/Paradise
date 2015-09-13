@@ -8,7 +8,7 @@
 	w_class = 1.0
 	throw_speed = 3
 	throw_range = 7
-	m_amt = 60
+	materials = list(MAT_METAL=60)
 	_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
@@ -75,7 +75,12 @@
 /obj/item/weapon/stamp/centcom
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-cent"
-	_color = "internalaffairs"
+	_color = "centcom"
+
+/obj/item/weapon/stamp/syndicate
+	name = "suspicious rubber stamp"
+	icon_state = "stamp-syndicate"
+	_color = "syndicate"
 
 // Syndicate stamp to forge documents.
 

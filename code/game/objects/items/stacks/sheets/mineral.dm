@@ -92,8 +92,8 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "diamond"
 	icon_state = "sheet-diamond"
 	origin_tech = "materials=6"
-	perunit = 2000
 	sheettype = "diamond"
+	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
 
 /obj/item/stack/sheet/mineral/diamond/New()
@@ -104,8 +104,8 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "uranium"
 	icon_state = "sheet-uranium"
 	origin_tech = "materials=5"
-	perunit = 2000
 	sheettype = "uranium"
+	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
@@ -115,8 +115,8 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
 	origin_tech = "plasmatech=2;materials=2"
-	perunit = 2000
 	sheettype = "plasma"
+	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -126,7 +126,6 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "Plastic"
 	icon_state = "sheet-plastic"
 	origin_tech = "materials=3"
-	perunit = 2000
 
 /obj/item/stack/sheet/mineral/plastic/New()
 	..()
@@ -135,14 +134,13 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 /obj/item/stack/sheet/mineral/plastic/cyborg
 	name = "plastic sheets"
 	icon_state = "sheet-plastic"
-	perunit = 2000
 
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
 	origin_tech = "materials=4"
-	perunit = 2000
 	sheettype = "gold"
+	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
@@ -152,8 +150,8 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "silver"
 	icon_state = "sheet-silver"
 	origin_tech = "materials=3"
-	perunit = 2000
 	sheettype = "silver"
+	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
@@ -163,8 +161,8 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "bananium"
 	icon_state = "sheet-clown"
 	origin_tech = "materials=4"
-	perunit = 2000
 	sheettype = "clown"
+	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/bananium/New(var/loc, var/amount=null)
 	..()
@@ -174,4 +172,3 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	name = "enriched uranium"
 	icon_state = "sheet-enruranium"
 	origin_tech = "materials=5"
-	perunit = 1000

@@ -2,7 +2,7 @@
  * Contains:
  *		Pens
  *		Sleepy Pens
- *		Parapens
+ *		Edaggers
  */
 
 
@@ -15,12 +15,13 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
+	icon_override = 'icons/mob/in-hand/tools.dmi'
 	slot_flags = SLOT_BELT | SLOT_EARS
 	throwforce = 0
 	w_class = 1.0
 	throw_speed = 3
 	throw_range = 7
-	m_amt = 10
+	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
 
@@ -67,12 +68,16 @@
 	if(!istype(M))
 		return
 
-	if(M.can_inject(user, 1))
-		user << "<span class='warning'>You stab [M] with the pen.</span>"
-//		M << "<span class='danger'>You feel a tiny prick!</span>"
-		. = 1
+	if(!force)
+		if(M.can_inject(user, 1))
+			user << "<span class='warning'>You stab [M] with the pen.</span>"
+//			M << "<span class='danger'>You feel a tiny prick!</span>"
+			. = 1
 
-	add_logs(M, user, "stabbed", object="[name]")
+		add_logs(M, user, "stabbed", object="[name]")
+
+	else
+		. = ..()
 
 /*
  * Sleepypens
@@ -95,3 +100,45 @@
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
 	..()
+
+
+/*
+ * (Alan) Edaggers
+ */
+/obj/item/weapon/pen/edagger
+	origin_tech = "combat=3;syndicate=5"
+	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
+	var/on = 0
+
+/obj/item/weapon/pen/edagger/attack_self(mob/living/user)
+	if(on)
+		on = 0
+		force = initial(force)
+		sharp = 0
+		edge = 0
+		w_class = initial(w_class)
+		name = initial(name)
+		hitsound = initial(hitsound)
+		throwforce = initial(throwforce)
+		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
+		user << "<span class='warning'>[src] can now be concealed.</span>"
+	else
+		on = 1
+		force = 18
+		sharp = 1
+		edge = 1
+		w_class = 3
+		name = "energy dagger"
+		hitsound = 'sound/weapons/blade1.ogg'
+		throwforce = 35
+		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
+		user << "<span class='warning'>[src] is now active.</span>"
+	update_icon()
+
+/obj/item/weapon/pen/edagger/update_icon()
+	if(on)
+		icon_state = "edagger"
+		item_state = "edagger"
+	else
+		icon_state = initial(icon_state) //looks like a normal pen when off.
+		item_state = initial(item_state)

@@ -105,7 +105,7 @@
 	var/area/alarm_area
 	var/danger_level = 0
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
-	
+
 	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
 
 	var/target_temperature = T0C+20
@@ -114,21 +114,21 @@
 	var/datum/radio_frequency/radio_connection
 
 	var/list/TLV = list()
-	
+
 	var/report_danger_level = 1
-	
+
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
-	
+
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
-	
+
 /obj/machinery/alarm/vox
 	preset = AALARM_PRESET_VOX
-	
+
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
-	
+
 /obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
 	// Propogate settings.
 	for (var/obj/machinery/alarm/AA in alarm_area)
@@ -143,10 +143,10 @@
 		"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 		"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 		"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
-		"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K		
+		"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 	)
 	switch(preset)
-		if(AALARM_PRESET_VOX) 
+		if(AALARM_PRESET_VOX)
 			TLV = list(
 				"oxygen"         = new/datum/tlv(-1.0, -1.0, 1, 2), // Partial pressure, kpa
 				"nitrogen"       = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
@@ -154,9 +154,9 @@
 				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
-				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K	
+				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 			)
-		if(AALARM_PRESET_SERVER) 
+		if(AALARM_PRESET_SERVER)
 			TLV = list(
 				"oxygen"         = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // Partial pressure, kpa
 				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
@@ -166,7 +166,7 @@
 				"pressure"       = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), /* kpa */
 				"temperature"    = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // K
 			)
-		if(AALARM_PRESET_COLDROOM) 
+		if(AALARM_PRESET_COLDROOM)
 			TLV = list(
 				"oxygen"         = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
 				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
@@ -176,13 +176,16 @@
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
 				"temperature"    = new/datum/tlv(200, 210, 273.15, 283.15), // K
 			)
-				
+
 	if(!no_cycle_after)
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
 /obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
 	..()
+	air_alarms += src
+	air_alarms = sortAtom(air_alarms)
+
 	wires = new(src)
 
 	if(building)
@@ -202,11 +205,9 @@
 	first_run()
 
 /obj/machinery/alarm/Destroy()
+	air_alarms -= src
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
-		
-	if (src in machines) // So the cache can properly update
-		removeAtProcessing()
 	air_alarm_repository.update_cache(src)
 	return ..()
 
@@ -222,7 +223,7 @@
 	set_frequency(frequency)
 	if (!master_is_operating())
 		elect_master()
-		
+
 /obj/machinery/alarm/proc/master_is_operating()
 	if (! alarm_area)
 		alarm_area = areaMaster
@@ -242,12 +243,12 @@
 		return
 
 	var/turf/simulated/location = loc
-	if(!istype(location))	
+	if(!istype(location))
 		return 0
 
 	var/datum/gas_mixture/environment = location.return_air()
 	var/datum/tlv/cur_tlv
-	
+
 	handle_heating_cooling(environment, cur_tlv, location)
 
 	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
@@ -255,13 +256,13 @@
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
-	
+
 	cur_tlv = TLV["oxygen"]
 	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)	
-	
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
+
 	cur_tlv = TLV["carbon dioxide"]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
 
@@ -290,11 +291,11 @@
 
 	if (old_danger_level!=danger_level)
 		apply_danger_level()
-		
+
 	if (mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
-		
+
 /obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
@@ -433,11 +434,9 @@
 			for(var/device_id in alarm_area.air_scrub_names)
 				send_signal(device_id, list(
 					"power"= 1,
-					"co2_scrub"= 1,
 					"o2_scrub" = (preset==AALARM_PRESET_VOX),
-					"tox_scrub"= 0,
-					"n2_scrub"= 1,
-					"n2o_scrub"= 0,
+					"n2_scrub" = 0,
+					"co2_scrub"= 1,
 					"scrubbing"= 1,
 					"widenet"= 0,
 				))
@@ -453,7 +452,6 @@
 					"power"= 1,
 					"co2_scrub"= 1,
 					"tox_scrub"= 1,
-					"n2_scrub"= 1,
 					"n2o_scrub"= 1,
 					"scrubbing"= 1,
 					"widenet"= 1,
@@ -483,7 +481,6 @@
 					"power"= 1,
 					"co2_scrub"= 1,
 					"tox_scrub"= 0,
-					"n2_scrub"= 0,
 					"n2o_scrub"= 0,
 					"scrubbing"= 1,
 					"widenet"= 0,
@@ -606,7 +603,7 @@
 
 /obj/machinery/alarm/attack_robot(mob/user)
 	return attack_ai(user)
-	
+
 /obj/machinery/alarm/attack_ghost(user as mob)
 	if(stat & (BROKEN|MAINT))
 		return
@@ -617,22 +614,22 @@
 	if (.)
 		return
 	return interact(user)
-	
+
 /obj/machinery/alarm/interact(mob/user)
 	if(buildstage != 2)
 		return
 
 	if(wiresexposed && !istype(user, /mob/living/silicon/ai))
 		wires.Interact(user)
-		
+
 	if(!shorted)
 		ui_interact(user)
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
-	if(!istype(location)) 
+	if(!istype(location))
 		return
-		
+
 	var/datum/gas_mixture/environment = location.return_air()
 	var/total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
 	if(total==0)
@@ -757,7 +754,7 @@
 			scrubbers+=list(scrubber_data)
 	data["scrubbers"]=scrubbers
 	return data
-	
+
 /obj/machinery/alarm/proc/get_nano_data_console(mob/user)
 	var/data[0]
 	data["name"] = sanitize(name)
@@ -769,7 +766,7 @@
 	data["y"] = pos.y
 	data["z"] = pos.z
 	return data
-	
+
 /obj/machinery/alarm/proc/generate_thresholds_menu()
 	var/datum/tlv/selected
 	var/list/thresholds = list()
@@ -803,9 +800,9 @@
 	thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
 	return thresholds
-	
+
 /obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	var/list/href = state.href_list(user)	
+	var/list/href = state.href_list(user)
 	var/remote_connection = 0
 	var/remote_access = 0
 	if(href)
@@ -815,8 +812,8 @@
 	var/list/data = get_nano_data(user, href)
 
 	data["remote_connection"] = remote_connection
-	data["remote_access"] = remote_access		
-		
+	data["remote_access"] = remote_access
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
@@ -824,14 +821,14 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/alarm/proc/is_authenticated(mob/user as mob, href_list)
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/alarm/proc/is_authenticated(var/mob/user, href_list)
+	if(user.can_admin_interact())
 		return 1
 	else if(isAI(user) || isrobot(user) || emagged || is_auth_rcon(href_list))
 		return 1
 	else
 		return !locked
-		
+
 /obj/machinery/alarm/proc/is_locked(mob/user as mob, href_list)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 0
@@ -841,13 +838,13 @@
 		return 0
 	else
 		return locked
-		
+
 /obj/machinery/alarm/proc/is_auth_rcon(href_list)
 	if(href_list && href_list["remote_connection"] && href_list["remote_access"])
 		return 1
 	else
 		return 0
-		
+
 /obj/machinery/alarm/CanUseTopic(var/mob/user, var/datum/topic_state/state, var/href_list = list())
 	if(buildstage != 2)
 		return STATUS_CLOSE
@@ -865,12 +862,12 @@
 			. = STATUS_UPDATE
 	return min(..(), .)
 
-/obj/machinery/alarm/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state)	
+/obj/machinery/alarm/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state)
 	if(..(href, href_list, nowindow, state))
 		return 1
-		
+
 	var/state_href = state.href_list(usr)
-		
+
 	if(href_list["rcon"])
 		var/attempted_rcon_setting = text2num(href_list["rcon"])
 		switch(attempted_rcon_setting)
@@ -992,7 +989,8 @@
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		src.emagged = 1
-		user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
 		return
 
@@ -1055,7 +1053,7 @@
 			else if(istype(W, /obj/item/weapon/crowbar))
 				user << "You start prying out the circuit."
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					user << "You pry out the circuit!"
 					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
 					circuit.loc = user.loc
@@ -1103,5 +1101,4 @@ Just an object used in constructing air alarms
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
 	w_class = 2.0
-	m_amt = 50
-	g_amt = 50
+	materials = list(MAT_METAL=50, MAT_GLASS=50)

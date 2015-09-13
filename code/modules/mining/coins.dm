@@ -25,36 +25,43 @@
 /obj/item/weapon/coin/gold
 	cmineral = "gold"
 	icon_state = "coin_gold_heads"
+	materials = list(MAT_GOLD = 200)
 	credits = 160
 
 /obj/item/weapon/coin/silver
 	cmineral = "silver"
 	icon_state = "coin_silver_heads"
+	materials = list(MAT_SILVER = 200)
 	credits = 40
 
 /obj/item/weapon/coin/diamond
 	cmineral = "diamond"
 	icon_state = "coin_diamond_heads"
+	materials = list(MAT_DIAMOND = 200)
 	credits = 120
 
 /obj/item/weapon/coin/iron
 	cmineral = "iron"
 	icon_state = "coin_iron_heads"
+	materials = list(MAT_METAL = 200)
 	credits = 20
 
 /obj/item/weapon/coin/plasma
 	cmineral = "plasma"
 	icon_state = "coin_plasma_heads"
+	materials = list(MAT_PLASMA = 200)
 	credits = 80
 
 /obj/item/weapon/coin/uranium
 	cmineral = "uranium"
 	icon_state = "coin_uranium_heads"
+	materials = list(MAT_URANIUM = 200)
 	credits = 160
 
 /obj/item/weapon/coin/clown
 	cmineral = "bananium"
 	icon_state = "coin_bananium_heads"
+	materials = list(MAT_BANANIUM = 200)
 	credits = 600 //makes the clown cri
 
 /obj/item/weapon/coin/adamantine
@@ -133,7 +140,7 @@
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
-		if(do_after(user, 15))
+		if(do_after(user, 15, target = src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")

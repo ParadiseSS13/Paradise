@@ -231,7 +231,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		M << browse(dat, "window=paiRecruit;size=580x580;")
 
 	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-		requestRecruits()
+		requestRecruits(p)
 		var/list/available = list()
 		for(var/datum/paiCandidate/c in paiController.pai_candidates)
 			if(c.ready)
@@ -346,12 +346,12 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		user << browse(dat, "window=findPai")
 
-	proc/requestRecruits()
+	proc/requestRecruits(var/obj/item/device/paicard/P)
 		for(var/mob/dead/observer/O in player_list)
 			if(O.client && O.client.prefs.be_special & BE_PAI)
 				if(player_old_enough_antag(O.client,BE_PAI))
 					if(check_recruit(O))
-						O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
+						O << "\blue <b>A pAI card is looking for personalities. (<a href='?src=\ref[O];jump=\ref[P]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
 						//question(O.client)
 	proc/check_recruit(var/mob/dead/observer/O)
 		if(jobban_isbanned(O, "pAI") || jobban_isbanned(O,"nonhumandept"))

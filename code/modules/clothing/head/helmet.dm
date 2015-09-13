@@ -12,6 +12,10 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.7
 	loose = 4 // generally well seated
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -48,6 +52,10 @@
 	icon_state = "swat"
 	item_state = "swat-alt"
 	armor = list(melee = 25, bullet = 80, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
@@ -72,6 +80,10 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.5
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"

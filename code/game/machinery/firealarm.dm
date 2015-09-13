@@ -53,10 +53,13 @@ FIRE ALARM
 	if(src.detecting)
 		if(temperature > T0C+200)
 			src.alarm()			// added check of detector status here
-	return	
+	return
 
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
+	return src.attack_hand(user)
+
+/obj/machinery/firealarm/attack_ghost(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/firealarm/bullet_act(BLAH)
@@ -174,7 +177,7 @@ FIRE ALARM
 	var/area/A = src.loc
 	var/d1
 	var/d2
-	if (istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon))
+	if (ishuman(user) || issilicon(user) || isobserver(user))
 		A = A.loc
 
 		if (A.fire)
@@ -208,34 +211,27 @@ FIRE ALARM
 	return
 
 /obj/machinery/firealarm/Topic(href, href_list)
-	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
-		return
+	if(..())
+		return 1
 
 	if (buildstage != 2)
-		return
+		return 1
 
-	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.set_machine(src)
-		if (href_list["reset"])
-			src.reset()
-		else if (href_list["alarm"])
-			src.alarm()
-		else if (href_list["time"])
-			src.timing = text2num(href_list["time"])
-			last_process = world.timeofday
-			processing_objects.Add(src)
-		else if (href_list["tp"])
-			var/tp = text2num(href_list["tp"])
-			src.time += tp
-			src.time = min(max(round(src.time), 0), 120)
+	if (href_list["reset"])
+		src.reset()
+	else if (href_list["alarm"])
+		src.alarm()
+	else if (href_list["time"])
+		src.timing = text2num(href_list["time"])
+		last_process = world.timeofday
+		processing_objects.Add(src)
+	else if (href_list["tp"])
+		var/tp = text2num(href_list["tp"])
+		src.time += tp
+		src.time = min(max(round(src.time), 0), 120)
 
-		src.updateUsrDialog()
-
-		src.add_fingerprint(usr)
-	else
-		usr << browse(null, "window=firealarm")
-		return
+	src.updateUsrDialog()
+	src.add_fingerprint(usr)
 	return
 
 /obj/machinery/firealarm/proc/reset()
@@ -289,8 +285,7 @@ Just a object used in constructing fire alarms
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
 	w_class = 2.0
-	m_amt = 50
-	g_amt = 50
+	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"

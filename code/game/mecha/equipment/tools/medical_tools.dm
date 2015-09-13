@@ -6,7 +6,6 @@
 	origin_tech = "programming=2;biotech=3"
 	energy_drain = 20
 	range = MELEE
-	construction_cost = list("metal"=5000,"glass"=10000)
 	reliability = 1000
 	equip_cooldown = 20
 	var/mob/living/carbon/occupant = null
@@ -29,7 +28,7 @@
 	allow_drop()
 		return 0
 
-	destroy()
+	Destroy()
 		for(var/atom/movable/AM in src)
 			AM.forceMove(get_turf(src))
 		return ..()
@@ -263,7 +262,7 @@
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 
-	destroy()
+	Destroy()
 		chassis.events.clearEvent("onMove",event)
 		return ..()
 
@@ -396,8 +395,6 @@
 	range = MELEE|RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4;programming=3"
-	construction_time = 200
-	construction_cost = list("metal"=3000,"glass"=2000)
 
 	New()
 		..()

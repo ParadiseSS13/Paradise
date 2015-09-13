@@ -8,12 +8,6 @@
 	icon_state = "autolathe"
 	density = 1
 
-	var/m_amount = 0.0
-	var/max_m_amount = 150000.0
-
-	var/g_amount = 0.0
-	var/max_g_amount = 75000.0
-
 	var/operating = 0.0
 	var/list/queue = list()
 	var/queue_max_len = 12
@@ -40,6 +34,8 @@
 	var/selected_category
 	var/screen = 1
 
+	var/datum/material_container/materials
+
 	var/list/categories = list(
 							"Communication",
 							"Construction",
@@ -59,6 +55,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1))
 	RefreshParts()
 
 	wires = new(src)
@@ -115,12 +112,7 @@
 
 	if (panel_open)
 		if(istype(O, /obj/item/weapon/crowbar))
-			if(m_amount >= MINERAL_MATERIAL_AMOUNT)
-				var/obj/item/stack/sheet/metal/G = new /obj/item/stack/sheet/metal(src.loc)
-				G.amount = round(m_amount / MINERAL_MATERIAL_AMOUNT)
-			if(g_amount >= MINERAL_MATERIAL_AMOUNT)
-				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
-				G.amount = round(g_amount / MINERAL_MATERIAL_AMOUNT)
+			materials.retrieve_all()
 			default_deconstruction_crowbar(O)
 			return 1
 		else
@@ -129,44 +121,36 @@
 	if (stat)
 		return 1
 
-	if (src.m_amount + O.m_amt > max_m_amount)
-		user << "<span class=\"alert\">The autolathe is full. Please remove metal from the autolathe in order to insert more.</span>"
+	var/material_amount = materials.can_insert(O)
+	if(!material_amount)
+		user << "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>"
 		return 1
-	if (src.g_amount + O.g_amt > max_g_amount)
-		user << "<span class=\"alert\">The autolathe is full. Please remove glass from the autolathe in order to insert more.</span>"
+	if(!materials.has_space(material_amount))
+		user << "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>"
 		return 1
-	if (O.m_amt == 0 && O.g_amt == 0)
-		user << "<span class=\"alert\">This object does not contain significant amounts of metal or glass, or cannot be accepted by the autolathe due to size or hazardous materials.</span>"
+	if(!user.unEquip(O))
+		user << "<span class='warning'>\The [O] is stuck to you and cannot be placed into the autolathe.</span>"
 		return 1
 
-	var/amount = 1
-	var/obj/item/stack/stack
-	var/m_amt = O.m_amt
-	var/g_amt = O.g_amt
-	if (istype(O, /obj/item/stack))
-		stack = O
-		amount = stack.amount
-		if (m_amt)
-			amount = min(amount, round((max_m_amount-src.m_amount)/m_amt))
-			flick("autolathe_o",src)//plays metal insertion animation
-		if (g_amt)
-			amount = min(amount, round((max_g_amount-src.g_amount)/g_amt))
-			flick("autolathe_r",src)//plays glass insertion animation
-		stack.use(amount)
-	else
-		if(!user.unEquip(O))
-			user << "<span class='notice'>/the [O] is stuck to your hand, you can't put it in \the [src]!</span>"
-		O.loc = src
-	icon_state = "autolathe"
 	busy = 1
-	use_power(max(1000, (m_amt+g_amt)*amount/10))
-	src.m_amount += m_amt * amount
-	src.g_amount += g_amt * amount
-	user << "You insert [amount] sheet[amount>1 ? "s" : ""] to the autolathe."
-	if (O && O.loc == src)
-		qdel(O)
+	var/inserted = materials.insert_item(O)
+	if(inserted)
+		if(istype(O,/obj/item/stack))
+			if (O.materials[MAT_METAL])
+				flick("autolathe_o",src)//plays metal insertion animation
+			if (O.materials[MAT_GLASS])
+				flick("autolathe_r",src)//plays glass insertion animation
+			user << "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>"
+			use_power(inserted*100)
+		else
+			user << "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>"
+			use_power(max(500,inserted/10))
+			qdel(O)
 	busy = 0
 	src.updateUsrDialog()
+
+/obj/machinery/autolathe/attack_ghost(mob/user)
+	interact(user)
 
 /obj/machinery/autolathe/attack_hand(mob/user)
 	if(..(user, 0))
@@ -176,6 +160,7 @@
 /obj/machinery/autolathe/Topic(href, href_list)
 	if(..())
 		return 1
+
 	if(href_list["menu"])
 		screen = text2num(href_list["menu"])
 
@@ -196,7 +181,7 @@
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/max_multiplier = min(50, design_last_ordered.materials["$metal"] ?round(m_amount/design_last_ordered.materials["$metal"]):INFINITY,design_last_ordered.materials["$glass"]?round(g_amount/design_last_ordered.materials["$glass"]):INFINITY)
+		var/max_multiplier = min(50, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
 		if(!is_stack && (multiplier > 1))
@@ -244,8 +229,7 @@
 	for(var/obj/item/weapon/stock_parts/matter_bin/MB in component_parts)
 		tot_rating += MB.rating
 	tot_rating *= 25000
-	max_m_amount = tot_rating * 2
-	max_g_amount = tot_rating
+	materials.max_amount = tot_rating * 3
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
 
@@ -257,8 +241,8 @@
 	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
-	var/metal_cost = D.materials["$metal"]
-	var/glass_cost = D.materials["$glass"]
+	var/metal_cost = D.materials[MAT_METAL]
+	var/glass_cost = D.materials[MAT_GLASS]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
 	if (can_build(D,multiplier))
 		being_built = list(D,multiplier)
@@ -266,11 +250,11 @@
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
 		if(is_stack)
-			m_amount -= metal_cost*multiplier
-			g_amount -= glass_cost*multiplier
+			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
+			materials.use_amount(materials_used)
 		else
-			m_amount -= metal_cost/coeff
-			g_amount -= glass_cost/coeff
+			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
+			materials.use_amount(materials_used)
 		updateUsrDialog()
 		sleep(32/coeff)
 		if(is_stack)
@@ -278,38 +262,34 @@
 			S.amount = multiplier
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
-			new_item.m_amt /= coeff
-			new_item.g_amt /= coeff
-		if(m_amount < 0)
-			m_amount = 0
-		if(g_amount < 0)
-			g_amount = 0
+			new_item.materials[MAT_METAL] /= coeff
+			new_item.materials[MAT_GLASS] /= coeff
 	updateUsrDialog()
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(var/datum/design/D,var/multiplier=1,var/custom_metal,var/custom_glass)
 	var/coeff = get_coeff(D)
 
-	var/metal_amount = m_amount
+	var/metal_amount = materials.amount(MAT_METAL)
 	if(custom_metal)
 		metal_amount = custom_metal
-	var/glass_amount = g_amount
+	var/glass_amount = materials.amount(MAT_GLASS)
 	if(custom_glass)
 		glass_amount = custom_glass
 
-	if(D.materials["$metal"] && (metal_amount < (multiplier*D.materials["$metal"] / coeff)))
+	if(D.materials[MAT_METAL] && (metal_amount < (multiplier*D.materials[MAT_METAL] / coeff)))
 		return 0
-	if(D.materials["$glass"] && (glass_amount < (multiplier*D.materials["$glass"] / coeff)))
+	if(D.materials[MAT_GLASS] && (glass_amount < (multiplier*D.materials[MAT_GLASS] / coeff)))
 		return 0
 	return 1
 
 /obj/machinery/autolathe/proc/get_design_cost_as_list(var/datum/design/D,var/multiplier=1)
 	var/list/OutputList = list(0,0)
 	var/coeff = get_coeff(D)
-	if(D.materials["$metal"])
-		OutputList[1] = (D.materials["$metal"] / coeff)*multiplier
-	if(D.materials["$glass"])
-		OutputList[2] = (D.materials["$glass"] / coeff)*multiplier
+	if(D.materials[MAT_METAL])
+		OutputList[1] = (D.materials[MAT_METAL] / coeff)*multiplier
+	if(D.materials[MAT_GLASS])
+		OutputList[2] = (D.materials[MAT_GLASS] / coeff)*multiplier
 	return OutputList
 
 /obj/machinery/autolathe/proc/get_processing_line()
@@ -320,8 +300,8 @@
 	return output
 
 /obj/machinery/autolathe/proc/get_queue()
-	var/temp_metal = m_amount
-	var/temp_glass = g_amount
+	var/temp_metal = materials.amount(MAT_METAL)
+	var/temp_glass = materials.amount(MAT_GLASS)
 	var/output = "<td valign='top' style='width: 300px'>"
 	output += "<div class='statusDisplay'>"
 	output += "<b>Queue contains:</b>"
@@ -398,8 +378,9 @@
 	var/dat = "<table style='width:100%'><tr>"
 	dat += "<td valign='top' style='margin-right: 300px'>"
 	dat += "<div class='statusDisplay'><h3>Autolathe Menu:</h3><br>"
-	dat += "<b>Metal amount:</b> [src.m_amount] / [max_m_amount] cm<sup>3</sup><br>"
-	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup>"
+	dat += "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
+	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
+	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
 	dat += "<form name='search' action='?src=\ref[src]'> \
 	<input type='hidden' name='src' value='\ref[src]'> \
@@ -431,8 +412,9 @@
 	dat += "<div class='statusDisplay'>"
 	dat += "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Browsing [selected_category]:</h3><br>"
-	dat += "<b>Metal amount:</b> [src.m_amount] / [max_m_amount] cm<sup>3</sup><br>"
-	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
+	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
+	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
 	for(var/datum/design/D in files.known_designs)
 		if(!(selected_category in D.category))
@@ -444,7 +426,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials["$metal"] ?round(m_amount/D.materials["$metal"]):INFINITY,D.materials["$glass"]?round(g_amount/D.materials["$glass"]):INFINITY)
+			var/max_multiplier = min(50, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
@@ -465,8 +447,9 @@
 	dat += "<div class='statusDisplay'>"
 	dat += "<A href='?src=\ref[src];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<h3>Search results:</h3><br>"
-	dat += "<b>Metal amount:</b> [src.m_amount] / [max_m_amount] cm<sup>3</sup><br>"
-	dat += "<b>Glass amount:</b> [src.g_amount] / [max_g_amount] cm<sup>3</sup><hr>"
+	dat += "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
+	dat += "<b>Metal amount:</b> [materials.amount(MAT_METAL)] cm<sup>3</sup><br>"
+	dat += "<b>Glass amount:</b> [materials.amount(MAT_GLASS)] cm<sup>3</sup><br>"
 
 	for(var/datum/design/D in matching_designs)
 		if(disabled || !can_build(D))
@@ -475,7 +458,7 @@
 			dat += "<a href='?src=\ref[src];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(ispath(D.build_path, /obj/item/stack))
-			var/max_multiplier = min(50, D.materials["$metal"] ?round(m_amount/D.materials["$metal"]):INFINITY,D.materials["$glass"]?round(g_amount/D.materials["$glass"]):INFINITY)
+			var/max_multiplier = min(50, D.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/D.materials[MAT_METAL]):INFINITY,D.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/D.materials[MAT_GLASS]):INFINITY)
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=\ref[src];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
@@ -494,10 +477,10 @@
 /obj/machinery/autolathe/proc/get_design_cost(var/datum/design/D)
 	var/coeff = get_coeff(D)
 	var/dat
-	if(D.materials["$metal"])
-		dat += "[D.materials["$metal"] / coeff] metal "
-	if(D.materials["$glass"])
-		dat += "[D.materials["$glass"] / coeff] glass"
+	if(D.materials[MAT_METAL])
+		dat += "[D.materials[MAT_METAL] / coeff] metal "
+	if(D.materials[MAT_GLASS])
+		dat += "[D.materials[MAT_GLASS] / coeff] glass"
 	return dat
 
 /obj/machinery/autolathe/proc/adjust_hacked(var/hack)

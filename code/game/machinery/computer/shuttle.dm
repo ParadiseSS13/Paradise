@@ -37,12 +37,12 @@
 					src.authorized -= W:registered_name
 					src.authorized += W:registered_name
 					if (src.auth_need - src.authorized.len > 0)
-						message_admins("[key_name_admin(user)] has authorized early shuttle launch")
-						log_game("[user.ckey] has authorized early shuttle launch")
+						message_admins("[key_name_admin(user.client)] has authorized early shuttle launch ",0,1)
+						log_game("[key_name(user)] has authorized early shuttle launch in ([x],[y],[z])")
 						world << text("\blue <B>Alert: [] authorizations needed until shuttle is launched early</B>", src.auth_need - src.authorized.len)
 					else
-						message_admins("[key_name_admin(user)] has launched the shuttle")
-						log_game("[user.ckey] has launched the shuttle early")
+						message_admins("[key_name_admin(user.client)] has launched the emergency shuttle before launch.",0,1)
+						log_game("[key_name(user)] has launched the emergency shuttle before launch in ([x],[y],[z]).")
 						world << "\blue <B>Alert: Shuttle launch time shortened to 10 seconds!</B>"
 						emergency_shuttle.set_launch_countdown(10)
 						//src.authorized = null
@@ -59,13 +59,15 @@
 					src.authorized = list(  )
 		return
 
-	emag_act(user as mob)
+	emag_act(mob/user as mob)
 		if (!emagged)
 			var/choice = alert(user, "Would you like to launch the shuttle?","Shuttle control", "Launch", "Cancel")
 
 			if(!emagged && !emergency_shuttle.location())
 				switch(choice)
 					if("Launch")
+						message_admins("[key_name_admin(user.client)] has emagged the emergency shuttle before launch.",0,1)
+						log_game("[key_name(user)] has emagged the emergency shuttle in ([x],[y],[z]) before launch.")
 						world << "\blue <B>Alert: Shuttle launch time shortened to 10 seconds!</B>"
 						emergency_shuttle.set_launch_countdown(10)
 						emagged = 1

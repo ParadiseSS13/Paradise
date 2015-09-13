@@ -787,7 +787,7 @@
 
 			if(SUPER_FART in mutations)
 				visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
-				if(do_after(usr,30))
+				if(do_after(usr,30, target = src))
 					visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")
 					//playsound(L.loc, 'superfart.ogg', 50, 0)
 					for(var/mob/living/V in range(location,aoe_range))

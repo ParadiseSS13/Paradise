@@ -33,7 +33,6 @@ var/send_emergency_team
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
 		return
 
-
 	if(get_security_level() != "red") // Allow admins to reconsider if the alert level isn't Red
 		switch(alert("The station is not in red alert. Do you still want to dispatch a response team?",,"Yes","No"))
 			if("No")
@@ -137,10 +136,13 @@ var/send_emergency_team
 	var/obj/item/weapon/paper/P = new
 	P.info = "Your orders, Commander, are to use all means necessary to return the station to a survivable condition.<br>To this end, you have been provided with the best tools we can give for Security, Medical, Engineering and Janitorial duties. The nuclear authorization code is: <b>[ nuke ? nuke.r_code : "UNKNOWN"]</b>. Be warned, if you detonate this without good reason, we will hold you to account for damages. Memorise this code, and then destroy this message."
 	P.name = "ERT Orders and Emergency Nuclear Code"
+	var/obj/item/weapon/stamp/centcom/stamp = new
+	P.stamp(stamp)
+	qdel(stamp)
 	for (var/obj/effect/landmark/A in world)
 		if (A.name == "nukecode")
 			P.loc = A.loc
-			del(A)
+			qdel(A)
 			continue
 */
 
@@ -186,7 +188,7 @@ var/send_emergency_team
 
 	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
 	M.name = M.real_name
-	M.age = rand(23,45)
+	M.age = rand(23,35)
 
 	//Creates mind stuff.
 	M.mind = new
@@ -251,7 +253,7 @@ var/send_emergency_team
 		if("Engineer")
 			engineer_slots -= 1
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/engineer(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/industrial(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/engineer(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full/multitool(M), slot_belt)
@@ -275,7 +277,7 @@ var/send_emergency_team
 		if("Security")
 			security_slots -= 1
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/security(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/response_team(M), slot_belt)
@@ -299,7 +301,7 @@ var/send_emergency_team
 		if("Medic")
 			medical_slots -= 1
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/medic(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/medical(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -320,8 +322,14 @@ var/send_emergency_team
 
 		if("Commander")
 			command_slots = 0
+			
+			// Override name and age for the commander
+			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"			
+			M.name = M.real_name
+			M.age = rand(35,45)
+	
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/captain(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/commander(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)
 
 			var/obj/item/weapon/card/id/W = new(src)
@@ -581,7 +589,6 @@ var/send_emergency_team
 
 /obj/item/device/radio/centcom
 	name = "centcomm bounced radio"
-	freerange = 1
 	frequency = ERT_FREQ
 	icon_state = "radio"
 

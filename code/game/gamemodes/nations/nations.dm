@@ -293,8 +293,7 @@ datum/game_mode/nations
 			else
 				new_character.gender = pick(MALE,FEMALE)
 				var/datum/preferences/A = new()
-				A.randomize_appearance_for(new_character)
-				new_character.real_name = real_name
+				A.copy_to(new_character)
 
 			if(!new_character.real_name)
 				if(new_character.gender == MALE)
@@ -428,9 +427,9 @@ datum/game_mode/nations
 			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
 			return 1
 		else
-			message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
+			message_admins("[key_name_admin(H)] with [H.mind.assigned_role] could not find any nation to assign!")
 			return 1
-	message_admins("[H.name] latejoined with no mind.")
+	message_admins("[key_name_admin(H)] latejoined with no mind.")
 	return 1
 
 /proc/get_nations_mode()

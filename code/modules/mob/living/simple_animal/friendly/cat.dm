@@ -5,6 +5,7 @@
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
+	icon_resting = "cat_rest"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
@@ -76,6 +77,7 @@
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
+	icon_resting = null
 	gender = NEUTER
 	density = 0
 	pass_flags = PASSMOB
@@ -86,8 +88,9 @@
 	icon_state = "Syndicat"
 	icon_living = "Syndicat"
 	icon_dead = "Syndicat_dead"
+	icon_resting = "Syndicat_rest"
 	gender = FEMALE
-	flags = IS_SYNTHETIC|NO_BREATHE
+	flags = NO_BREATHE
 	faction = list("syndicate")
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target

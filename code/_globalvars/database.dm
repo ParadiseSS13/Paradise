@@ -9,6 +9,7 @@ var/sqlpass = "example"
 var/sqlfdbkdb = "paradise"
 var/sqlfdbklogin = "root"
 var/sqlfdbkpass = "example"
+var/sqlfdbktableprefix = "erro_" //backwords compatibility with downstream server hosts
 
 var/sqllogging = 0 // Should we log deaths, population stats, etc?
 

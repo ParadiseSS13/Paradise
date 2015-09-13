@@ -34,7 +34,7 @@
 		return
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.species.flags & IS_SYNTHETIC)
+		if(H.isSynthetic())
 			user << "<span class='warning'>This won't work on synthetics.</span>"
 			return
 	if(!isturf(user.loc))

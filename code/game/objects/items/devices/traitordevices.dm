@@ -80,21 +80,20 @@ effective or pretty fucking useless.
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	discrete = 1 // Makes the item not give an attack log message for viewers.
 	throwforce = 3
 	w_class = 1.0
-	throw_speed = 5
-	throw_range = 10
-	m_amt = 200
+	throw_speed = 3
+	throw_range = 7
+	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;biotech=5;syndicate=3"
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
 
-/obj/item/device/rad_laser/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/device/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
-		..()
-		user.visible_message("<span class='notice'> [user] has analyzed [M]'s vitals.","<span class='notice'> You have analyzed [M]'s vitals.")
+		add_logs(M, user, "irradiated", src)
+		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
 		icon_state = "health1"
@@ -105,18 +104,18 @@ effective or pretty fucking useless.
 					M.apply_effect(round(intensity/1.5), PARALYZE)
 				M.apply_effect(intensity*10, IRRADIATE)
 	else
-		user << "<span class='danger'>The radioactive microlaser is still recharging.</span>"
+		user << "<span class='warning'>The radioactive microlaser is still recharging.</span>"
 
-/obj/item/device/rad_laser/proc/handle_cooldown(var/cooldown)
+/obj/item/device/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
 		used = 0
 		icon_state = "health2"
 
-/obj/item/device/rad_laser/attack_self(mob/user as mob)
+/obj/item/device/rad_laser/attack_self(mob/user)
 	..()
 	interact(user)
 
-/obj/item/device/rad_laser/interact(mob/user as mob)
+/obj/item/device/rad_laser/interact(mob/user)
 	user.set_machine(src)
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
@@ -131,7 +130,7 @@ effective or pretty fucking useless.
 	popup.open()
 
 /obj/item/device/rad_laser/Topic(href, href_list)
-	if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
+	if(..())
 		return 1
 
 	usr.set_machine(src)
@@ -146,7 +145,6 @@ effective or pretty fucking useless.
 		amount += wavelength
 		wavelength = max(1,(min(120,amount)))
 
-	//updateUsrDialog()
-	interact(usr)
+	attack_self(usr)
 	add_fingerprint(usr)
 	return

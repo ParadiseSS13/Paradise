@@ -7,7 +7,7 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 4
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	clumsy_check = 0
 	fire_sound = 'sound/items/syringeproj.ogg'
 	var/list/syringes = list()

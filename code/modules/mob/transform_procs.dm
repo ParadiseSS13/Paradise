@@ -40,7 +40,7 @@
 	O.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
 	O.loc = loc
 	O.viruses = viruses
-	O.a_intent = "harm"
+	O.a_intent = I_HARM
 
 
 	if (client)
@@ -113,16 +113,15 @@
 				loc_landmark = sloc
 
 	O.loc = loc_landmark.loc
-	for (var/obj/item/device/radio/intercom/comm in O.loc)
-		comm.ai += O
 
 	O.on_mob_init()
 
 	O.add_ai_verbs()
 
 	O.rename_self("ai",1)
-	. = O
-	qdel(src)
+	spawn
+		qdel(src)
+	return O
 
 /mob/living/carbon/human/make_into_mask(var/should_gib = 0)
 	for(var/t in organs)
@@ -260,7 +259,7 @@
 		if("Drone")
 			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
 
-	new_xeno.a_intent = "harm"
+	new_xeno.a_intent = I_HARM
 	new_xeno.key = key
 
 	new_xeno << "<B>You are now an alien.</B>"
@@ -319,7 +318,7 @@
 		qdel(t)
 
 	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
-	new_corgi.a_intent = "harm"
+	new_corgi.a_intent = I_HARM
 	new_corgi.key = key
 
 	new_corgi << "<B>You are now a Corgi. Yap Yap!</B>"
@@ -354,7 +353,7 @@
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = "harm"
+	new_mob.a_intent = I_HARM
 
 
 	new_mob << "You suddenly feel more... animalistic."
@@ -375,7 +374,7 @@
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
-	new_mob.a_intent = "harm"
+	new_mob.a_intent = I_HARM
 	new_mob << "You feel more... animalistic"
 	new_mob.update_pipe_vision()
 
@@ -471,17 +470,13 @@
 		return 1
 
 //Antag Creatures!
-/*	if(ispath(MP, /mob/living/simple_animal/hostile/carp) && !jobban_isbanned(src, "Syndicate"))
-		return 1 */
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
-		return 1
-	if(ispath(MP, /mob/living/carbon/alien) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/hostile/statue) && !jobban_isbanned(src, "Syndicate"))
 		return 1
 
 //Friendly Creatures!
-	if(ispath(MP, /mob/living/carbon/primitive/diona) && !jobban_isbanned(src, "Dionaea"))
+	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
 	//Not in here? Must be untested!

@@ -3,6 +3,8 @@
 #define SUPPLY_STATIONZ 1       //Z-level of the Station.
 #define SUPPLY_STATION_AREATYPE "/area/supply/station" //Type of the supply shuttle area for station
 #define SUPPLY_DOCK_AREATYPE "/area/supply/dock"	//Type of the supply shuttle area for dock
+#define COMP_SCREEN_WIDTH 600 //width of supply computer interaction window
+#define COMP_SCREEN_HEIGHT 555 //height of supply computer interaction window
 
 var/datum/controller/supply/supply_controller = new()
 
@@ -104,22 +106,23 @@ var/list/mechtoys = list(
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "supply"
 	req_access = list(access_cargo)
-	circuit = "/obj/item/weapon/circuitboard/supplycomp"
+	circuit = /obj/item/weapon/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0 //Cooldown for requisitions - Quarxink
 	var/hacked = 0
 	var/can_order_contraband = 0
 	var/last_viewed_group = "categories"
+	var/datum/supply_packs/content_pack
 
 /obj/machinery/computer/ordercomp
 	name = "Supply Ordering Console"
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
-	circuit = "/obj/item/weapon/circuitboard/ordercomp"
-	var/temp = null
+	circuit = /obj/item/weapon/circuitboard/ordercomp
 	var/reqtime = 0 //Cooldown for requisitions - Quarxink
 	var/last_viewed_group = "categories"
+	var/datum/supply_packs/content_pack
 
 /*
 /obj/effect/marker/supplymarker
@@ -146,6 +149,11 @@ var/list/mechtoys = list(
 	var/points_per_slip = 2
 	var/points_per_crate = 5
 	var/points_per_plasma = 5
+	var/points_per_intel = 250			//points gained per intel returned
+	var/points_per_design = 25			//points gained per max reliability research design returned (only for initilally unreliable designs)
+
+	var/list/techLevels = list()
+	var/list/researchDesigns = list()
 	//control
 	var/ordernum
 	var/list/shoppinglist = list()
@@ -155,252 +163,289 @@ var/list/mechtoys = list(
 	var/movetime = 1200
 	var/datum/shuttle/ferry/supply/shuttle
 
-	New()
-		ordernum = rand(1,9000)
+/datum/controller/supply/New()
+	ordernum = rand(1,9000)
 
-	//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
-	proc/process()
-		for(var/typepath in subtypesof(/datum/supply_packs))
-			var/datum/supply_packs/P = new typepath()
-			if(P.name == "HEADER")
-				qdel(P)
-				continue
-			supply_packs[P.name] = P
+//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
+/datum/controller/supply/proc/process()
+	for(var/typepath in subtypesof(/datum/supply_packs))
+		var/datum/supply_packs/P = new typepath()
+		if(P.name == "HEADER")
+			qdel(P)
+			continue
+		supply_packs[P.name] = P
 
-		spawn(0)
-			if(processing)
-				iteration++
-				points += points_per_process
+	spawn(0)
+		if(processing)
+			iteration++
+			points += points_per_process
 
-				//sleep(processing_interval)
+			//sleep(processing_interval)
 
-	//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
-	proc/forbidden_atoms_check(atom/A)
-		if(istype(A,/mob/living))
-			return 1
-		if(istype(A,/obj/item/weapon/disk/nuclear))
-			return 1
-		if(istype(A,/obj/item/flag/nation))
-			return 1
-		if(istype(A,/obj/machinery/nuclearbomb))
-			return 1
-		if(istype(A,/obj/item/device/radio/beacon))
-			return 1
+//To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
+/datum/controller/supply/proc/forbidden_atoms_check(atom/A)
+	if(istype(A,/mob/living))
+		return 1
+	if(istype(A,/obj/item/weapon/disk/nuclear))
+		return 1
+	if(istype(A,/obj/item/flag/nation))
+		return 1
+	if(istype(A,/obj/machinery/nuclearbomb))
+		return 1
+	if(istype(A,/obj/item/device/radio/beacon))
+		return 1
 
-		for(var/i=1, i<=A.contents.len, i++)
-			var/atom/B = A.contents[i]
-			if(.(B))
-				return 1
+	for(var/i=1, i<=A.contents.len, i++)
+		var/atom/B = A.contents[i]
+		if(.(B))
+			return 1
 
 	//Sellin
-	proc/sell()
-		var/area/area_shuttle = shuttle.get_location_area()
-		if(!area_shuttle)	return
+/datum/controller/supply/proc/sell()
+	var/area/area_shuttle = shuttle.get_location_area()
+	if(!area_shuttle)	return
 
-		var/plasma_count = 0
+	var/plasma_count = 0
+	var/intel_count = 0
 
-		for(var/atom/movable/MA in area_shuttle)
-			if(MA.anchored)	continue
+	for(var/atom/movable/MA in area_shuttle)
+		if(MA.anchored)	continue
 
-			// Must be in a crate!
-			if(istype(MA,/obj/structure/closet/crate))
-				callHook("sell_crate", list(MA, area_shuttle))  // check this
+		// Must be in a crate!
+		if(istype(MA,/obj/structure/closet/crate))
+			callHook("sell_crate", list(MA, area_shuttle))  // check this
 
-				points += points_per_crate
-				var/find_slip = 1
+			points += points_per_crate
+			var/find_slip = 1
 
-				for(var/atom in MA)
-					// Sell manifests
-					var/atom/A = atom
-					if(find_slip && istype(A,/obj/item/weapon/paper/manifest))
-						var/obj/item/weapon/paper/slip = A
-						if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
-							points += points_per_slip
-							find_slip = 0
+			for(var/atom in MA)
+				// Sell manifests
+				var/atom/A = atom
+				if(find_slip && istype(A,/obj/item/weapon/paper/manifest))
+					var/obj/item/weapon/paper/slip = A
+					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+						points += points_per_slip
+						find_slip = 0
 
-					// Sell plasma
-					else if(istype(A, /obj/item/stack/sheet/mineral/plasma))
-						var/obj/item/stack/sheet/mineral/plasma/P = A
-						plasma_count += P.amount
+				// Sell plasma
+				if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+					var/obj/item/stack/sheet/mineral/plasma/P = A
+					plasma_count += P.amount
 
-					// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
-					qdel(A)
-			qdel(MA)
+				// Sell syndicate intel
+				if(istype(A, /obj/item/documents/syndicate))
+					++intel_count
 
-		if(plasma_count)
-			points += plasma_count * points_per_plasma
+				// Sell tech levels
+				if(istype(A, /obj/item/weapon/disk/tech_disk))
+					var/obj/item/weapon/disk/tech_disk/disk = A
+					if(!disk.stored) continue
+					var/datum/tech/tech = disk.stored
 
-	//Buyin
-	proc/buy()
-		if(!shoppinglist.len) return
+					var/cost = tech.getCost(techLevels[tech.id])
+					if(cost)
+						techLevels[tech.id] = tech.level
+						points += cost
 
-		var/area/area_shuttle = shuttle.get_location_area()
-		if(!area_shuttle)	return
+				// Sell max reliablity designs
+				if(istype(A, /obj/item/weapon/disk/design_disk))
+					var/obj/item/weapon/disk/design_disk/disk = A
+					if(!disk.blueprint) continue
+					var/datum/design/design = disk.blueprint
+					if(design.id in researchDesigns) continue
 
-		var/list/clear_turfs = list()
+					if(initial(design.reliability) < 100 && design.reliability >= 100)
+						// Maxed out reliability designs only.
+						points += points_per_design
+						researchDesigns += design.id
 
-		for(var/turf/T in area_shuttle)
-			if(T.density)	continue
-			var/contcount
-			for(var/atom/A in T.contents)
-				if(istype(A,/atom/movable/lighting_overlay))
-					continue
-				if(istype(A,/obj/machinery/light))
-					continue
-				contcount++
-			if(contcount)	continue
-			clear_turfs += T
+				// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
+				qdel(A)
+		qdel(MA)
 
-		for(var/S in shoppinglist)
-			if(!clear_turfs.len)	break
-			var/i = rand(1,clear_turfs.len)
-			var/turf/pickedloc = clear_turfs[i]
-			clear_turfs.Cut(i,i+1)
+	if(plasma_count)
+		points += plasma_count * points_per_plasma
 
-			var/datum/supply_order/SO = S
-			var/datum/supply_packs/SP = SO.object
+	if(intel_count)
+		points += intel_count * points_per_intel
 
-			var/atom/A = new SP.containertype(pickedloc)
-			A.name = "[SP.containername] [SO.comment ? "([SO.comment])":"" ]"
+//Buyin
+/datum/controller/supply/proc/buy()
+	if(!shoppinglist.len) return
 
-			//supply manifest generation begin
+	var/area/area_shuttle = shuttle.get_location_area()
+	if(!area_shuttle)	return
 
-			var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
-			slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
-			slip.info +="Order #[SO.ordernum]<br>"
-			slip.info +="Destination: [station_name]<br>"
-			slip.info +="[shoppinglist.len] PACKAGES IN THIS SHIPMENT<br>"
-			slip.info +="CONTENTS:<br><ul>"
+	var/list/clear_turfs = list()
 
-			//spawn the stuff, finish generating the manifest while you're at it
-			if(SP.access)
-				A:req_access = list()
-				A:req_access += text2num(SP.access)
+	for(var/turf/T in area_shuttle)
+		if(T.density)	continue
+		var/contcount
+		for(var/atom/A in T.contents)
+			if(istype(A,/atom/movable/lighting_overlay))
+				continue
+			if(!A.simulated)
+				continue
+			contcount++
+		if(contcount)	continue
+		clear_turfs += T
 
-			var/list/contains
-			if(istype(SP,/datum/supply_packs/misc/randomised))
-				var/datum/supply_packs/misc/randomised/SPR = SP
-				contains = list()
-				if(SPR.contains.len)
-					for(var/j=1,j<=SPR.num_contained,j++)
-						contains += pick(SPR.contains)
-			else
-				contains = SP.contains
+	for(var/S in shoppinglist)
+		if(!clear_turfs.len)	break
+		var/i = rand(1,clear_turfs.len)
+		var/turf/pickedloc = clear_turfs[i]
+		clear_turfs.Cut(i,i+1)
 
-			for(var/typepath in contains)
-				if(!typepath)	continue
-				var/atom/B2 = new typepath(A)
-				if(SP.amount && B2:amount) B2:amount = SP.amount
-				slip.info += "<li>[B2.name]</li>" //add the item to the manifest
+		var/datum/supply_order/SO = S
+		var/datum/supply_packs/SP = SO.object
 
-			//manifest finalisation
-			slip.info += "</ul><br>"
-			slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
-			if(!SP.contraband)
-				if(istype(A, /obj/structure/closet/crate))
-					var/obj/structure/closet/crate/CR = A
-					CR.manifest = slip
-					CR.update_icon()
-				if(istype(A, /obj/structure/largecrate))
-					var/obj/structure/largecrate/LC = A
-					LC.manifest = slip
-					LC.update_icon()
-			else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
-		shoppinglist.Cut()
-		return
+		var/atom/A = new SP.containertype(pickedloc)
+		A.name = "[SP.containername]"// [SO.comment ? "([SO.comment])":"" ]"
+
+		//supply manifest generation begin
+
+		var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
+		slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+		slip.info +="Order #[SO.ordernum]<br>"
+		slip.info +="Destination: [station_name]<br>"
+		slip.info +="[shoppinglist.len] PACKAGES IN THIS SHIPMENT<br>"
+		slip.info +="CONTENTS:<br><ul>"
+
+		//spawn the stuff, finish generating the manifest while you're at it
+		if(SP.access)
+			A:req_access = list()
+			A:req_access += text2num(SP.access)
+
+		var/list/contains
+		if(istype(SP,/datum/supply_packs/misc/randomised))
+			var/datum/supply_packs/misc/randomised/SPR = SP
+			contains = list()
+			if(SPR.contains.len)
+				for(var/j=1,j<=SPR.num_contained,j++)
+					contains += pick(SPR.contains)
+		else
+			contains = SP.contains
+
+		for(var/typepath in contains)
+			if(!typepath)	continue
+			var/atom/B2 = new typepath(A)
+			if(SP.amount && B2:amount) B2:amount = SP.amount
+			slip.info += "<li>[B2.name]</li>" //add the item to the manifest
+
+		//manifest finalisation
+		slip.info += "</ul><br>"
+		slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>"
+		if(!SP.contraband)
+			if(istype(A, /obj/structure/closet/crate))
+				var/obj/structure/closet/crate/CR = A
+				CR.manifest = slip
+				CR.update_icon()
+			if(istype(A, /obj/structure/largecrate))
+				var/obj/structure/largecrate/LC = A
+				LC.manifest = slip
+				LC.update_icon()
+		else slip.loc = null	//we are out of blanks for Form #44-D Ordering Illicit Drugs.
+	shoppinglist.Cut()
+	return
 
 /obj/item/weapon/paper/manifest
 	name = "Supply Manifest"
 
-
 /obj/machinery/computer/ordercomp/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-
 /obj/machinery/computer/ordercomp/attack_hand(var/mob/user as mob)
-	if(..())
-		return
-	user.set_machine(src)
-	var/dat
-	if(temp)
-		dat = temp
-	else
-		var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-		if (shuttle)
-			dat += {"<BR><B>Supply shuttle</B><HR>
-			Location: [shuttle.has_arrive_time() ? "Moving to station ([shuttle.eta_minutes()] Mins.)":shuttle.at_station() ? "Docked":"Away"]<BR>
-			<HR>Supply points: [supply_controller.points]<BR>
-		<BR>\n<A href='?src=\ref[src];order=categories'>Request items</A><BR><BR>
-		<A href='?src=\ref[src];vieworders=1'>View approved orders</A><BR><BR>
-		<A href='?src=\ref[src];viewrequests=1'>View requests</A><BR><BR>
-		<A href='?src=\ref[user];mach_close=computer'>Close</A>"}
-
-	user << browse(dat, "window=computer;size=575x450")
-	onclose(user, "computer")
+	ui_interact(usr)
 	return
+
+/obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+	// data to send to ui
+	var/data[0]
+	data["last_viewed_group"] = last_viewed_group
+
+	var/category_list[0]
+	for(var/category in all_supply_groups)
+		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
+	data["categories"] = category_list
+
+	var/cat = text2num(last_viewed_group)
+	var/packs_list[0]
+	for(var/set_name in supply_controller.supply_packs)
+		var/datum/supply_packs/pack = supply_controller.supply_packs[set_name]
+		if(!pack.contraband && !pack.hidden && pack.group == cat)
+			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
+			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
+
+	data["supply_packs"] = packs_list
+	if(content_pack)
+		var/pack_name = sanitize(content_pack.name)
+		data["contents_name"] = pack_name
+		data["contents"] = content_pack.manifest
+		data["contents_access"] = get_access_desc(content_pack.access)
+
+	var/requests_list[0]
+	for(var/set_name in supply_controller.requestlist)
+		var/datum/supply_order/SO = set_name
+		if(SO)
+			// Check if the usr owns the request, so they can cancel requests
+			var/obj/item/weapon/card/id/I = usr.get_id_card()
+			var/owned = 0
+			if(I && SO.orderedby == I.registered_name)
+				owned = 1
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
+	data["requests"] = requests_list
+
+	var/orders_list[0]
+	for(var/set_name in supply_controller.shoppinglist)
+		var/datum/supply_order/SO = set_name
+		if(SO)
+			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby)))
+	data["orders"] = orders_list
+
+	data["points"] = supply_controller.points
+	data["send"] = list("send" = 1)
+
+	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
+	data["moving"] = shuttle.has_arrive_time()
+	data["at_station"] = shuttle.at_station()
+	data["timeleft"] = shuttle.eta_minutes()
+	if(shuttle.docking_controller)
+		data["docked"] = capitalize(shuttle.docking_controller.get_docking_status())
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	if(!ui)
+		ui = new(user, src, ui_key, "order_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
+		ui.set_initial_data(data)
+		ui.open()
 
 /obj/machinery/computer/ordercomp/Topic(href, href_list)
 	if(..())
-		return
+		return 1
 
-	if( isturf(loc) && (in_range(src, usr) || istype(usr, /mob/living/silicon)) )
-		usr.set_machine(src)
-
-	if(href_list["order"])
-		if(href_list["order"] == "categories")
-			//all_supply_groups
-			//Request what?
-			last_viewed_group = "categories"
-			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><HR><BR><BR>"
-			temp += "<b>Select a category</b><BR><BR>"
-			for(var/cat in all_supply_groups )
-				temp += "<A href='?src=\ref[src];order=[cat]'>[get_supply_group_name(cat)]</A><BR>"
-		else
-			last_viewed_group = href_list["order"]
-			var/cat = text2num(last_viewed_group)
-			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-			temp += "<A href='?src=\ref[src];order=categories'>Back to all categories</A><HR><BR><BR>"
-			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
-			for(var/supply_type in supply_controller.supply_packs )
-				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if(N.hidden || N.contraband || N.group != cat) continue
-				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
-				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
-				temp += " Cost: [N.cost]<BR>"
-
-	else if (href_list["see_contents"])
-		//Find the correct supply_pack datum
-		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
-		if(!istype(P))	return
-
-		var/cat = P.group
-		var/tempaccess = get_access_desc(P.access)
-
-		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
-		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
-		temp += "Contents of <b>[P.name]</b>:<BR>"
-		temp += P.manifest
-
-	else if (href_list["doorder"])
+	if (href_list["doorder"])
 		if(world.time < reqtime)
-			for(var/mob/V in hearers(src))
-				V.show_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+			nanomanager.update_uis(src)
 			return
 
-		//Find the correct supply_pack datum
-		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["doorder"]]
-		if(!istype(P))	return
+		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
+		var/multi = text2num(copytext(href_list["doorder"], -1))
+		if(!isnum(multi))
+			return
+		var/datum/supply_packs/P = supply_controller.supply_packs[index]
+		if(!istype(P))
+			return
+		var/crates = 1
+		if(multi)
+			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
+			crates = Clamp(round(text2num(num_input)), 1, 20)
+			if(..())
+				return
 
 		var/timeout = world.time + 600
 		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
-		if(world.time > timeout)	return
-		if(!reason)	return
+		if(world.time > timeout || !reason || ..())
+			return
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
@@ -413,13 +458,14 @@ var/list/mechtoys = list(
 
 		supply_controller.ordernum++
 		var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(loc)
-		reqform.name = "Requisition Form - [P.name]"
+		reqform.name = "Requisition Form - [crates] '[P.name]' for [idname]"
 		reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
 		reqform.info += "INDEX: #[supply_controller.ordernum]<br>"
 		reqform.info += "REQUESTED BY: [idname]<br>"
 		reqform.info += "RANK: [idrank]<br>"
 		reqform.info += "REASON: [reason]<br>"
 		reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
+		reqform.info += "NUMBER OF CRATES: [crates]<br>"
 		reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
 		reqform.info += "CONTENTS:<br>"
 		reqform.info += P.manifest
@@ -429,130 +475,153 @@ var/list/mechtoys = list(
 		reqform.update_icon()	//Fix for appearing blank when printed.
 		reqtime = (world.time + 5) % 1e5
 
-		//make our supply_order datum
-		var/datum/supply_order/O = new /datum/supply_order()
-		O.ordernum = supply_controller.ordernum
-		O.object = P
-		O.orderedby = idname
-		supply_controller.requestlist += O
+		//make our supply_order datums
+		for(var/i = 1; i <= crates; i++)
+			supply_controller.ordernum++
+			var/datum/supply_order/O = new /datum/supply_order()
+			O.ordernum = supply_controller.ordernum
+			O.object = P
+			O.orderedby = idname
+			O.comment = reason
+			supply_controller.requestlist += O
 
-		temp = "Thanks for your request. The cargo team will process it as soon as possible.<BR>"
-		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+	else if (href_list["rreq"])
+		var/ordernum = text2num(href_list["rreq"])
+		var/obj/item/weapon/card/id/I = usr.get_id_card()
+		for(var/i=1, i<=supply_controller.requestlist.len, i++)
+			var/datum/supply_order/SO = supply_controller.requestlist[i]
+			if(SO.ordernum == ordernum && (I && SO.orderedby == I.registered_name))
+				supply_controller.requestlist.Cut(i,i+1)
+				break
 
-	else if (href_list["vieworders"])
-		temp = "Current approved orders: <BR><BR>"
-		for(var/S in supply_controller.shoppinglist)
-			var/datum/supply_order/SO = S
-			temp += "[SO.object.name] approved by [SO.orderedby] [SO.comment ? "([SO.comment])":""]<BR>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
+	else if (href_list["last_viewed_group"])
+		content_pack = null
+		last_viewed_group = text2num(href_list["last_viewed_group"])
 
-	else if (href_list["viewrequests"])
-		temp = "Current requests: <BR><BR>"
-		for(var/S in supply_controller.requestlist)
-			var/datum/supply_order/SO = S
-			temp += "#[SO.ordernum] - [SO.object.name] requested by [SO.orderedby]<BR>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
-
-	else if (href_list["mainmenu"])
-		temp = null
+	else if (href_list["contents"])
+		var/topic = href_list["contents"]
+		if(topic == 1)
+			content_pack = null
+		else
+			var/datum/supply_packs/P = supply_controller.supply_packs[topic]
+			content_pack = P
 
 	add_fingerprint(usr)
-	updateUsrDialog()
+	nanomanager.update_uis(src)
 	return
+
+/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+	return attack_hand(user)
 
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
-	if(!allowed(user))
-		user << "\red Access Denied."
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access denied.</span>"
 		return
 
-	if(..())
-		return
-	user.set_machine(src)
 	post_signal("supply")
-	var/dat
-	if (temp)
-		dat = temp
-	else
-		var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-		if (shuttle)
-			dat += "<BR><B>Supply shuttle</B><HR>"
-			dat += "\nLocation: "
-			if (shuttle.has_arrive_time())
-				dat += "In transit ([shuttle.eta_minutes()] Mins.)<BR>"
-			else
-				if (shuttle.at_station())
-					if (shuttle.docking_controller)
-						switch(shuttle.docking_controller.get_docking_status())
-							if ("docked") dat += "Docked at station<BR>"
-							if ("undocked") dat += "Undocked from station<BR>"
-							if ("docking") dat += "Docking with station [shuttle.can_force()? "<span class='warning'><A href='?src=\ref[src];force_send=1'>Force Launch</A></span>" : ""]<BR>"
-							if ("undocking") dat += "Undocking from station [shuttle.can_force()? "<span class='warning'><A href='?src=\ref[src];force_send=1'>Force Launch</A></span>" : ""]<BR>"
-					else
-						dat += "Station<BR>"
-
-					if (shuttle.can_launch())
-						dat += "<A href='?src=\ref[src];send=1'>Send away</A>"
-					else if (shuttle.can_cancel())
-						dat += "<A href='?src=\ref[src];cancel_send=1'>Cancel launch</A>"
-					else
-						dat += "*Shuttle is busy*"
-					dat += "<BR>\n<BR>"
-				else
-					dat += "Away<BR>"
-					if (shuttle.can_launch())
-						dat += "<A href='?src=\ref[src];send=1'>Request supply shuttle</A>"
-					else if (shuttle.can_cancel())
-						dat += "<A href='?src=\ref[src];cancel_send=1'>Cancel request</A>"
-					else
-						dat += "*Shuttle is busy*"
-					dat += "<BR>\n<BR>"
-
-
-		dat += {"<HR>\nSupply points: [supply_controller.points]<BR>\n<BR>
-		\n<A href='?src=\ref[src];order=categories'>Order items</A><BR>\n<BR>
-		\n<A href='?src=\ref[src];viewrequests=1'>View requests</A><BR>\n<BR>
-		\n<A href='?src=\ref[src];vieworders=1'>View orders</A><BR>\n<BR>
-		\n<A href='?src=\ref[user];mach_close=computer'>Close</A>"}
-
-
-	user << browse(dat, "window=computer;size=575x450")
-	onclose(user, "computer")
+	ui_interact(user)
 	return
 
-/obj/machinery/computer/supplycomp/attackby(I as obj, user as mob, params)
-	if(istype(I,/obj/item/weapon/card/emag) && !hacked)
-		user << "\blue Special supplies unlocked."
+/obj/machinery/computer/supplycomp/emag_act(user as mob)
+	if(!hacked)
+		user << "<span class='notice'>Special supplies unlocked.</span>"
 		hacked = 1
 		return
-	else
-		..()
-	return
+
+/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
+	// data to send to ui
+	var/data[0]
+	data["last_viewed_group"] = last_viewed_group
+
+	var/category_list[0]
+	for(var/category in all_supply_groups)
+		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
+	data["categories"] = category_list
+
+	var/cat = text2num(last_viewed_group)
+	var/packs_list[0]
+	for(var/set_name in supply_controller.supply_packs)
+		var/datum/supply_packs/pack = supply_controller.supply_packs[set_name]
+		if((pack.hidden && src.hacked) || (pack.contraband && src.can_order_contraband) || (!pack.contraband && !pack.hidden))
+			if(pack.group == cat)
+				// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
+				packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
+
+	data["supply_packs"] = packs_list
+	if(content_pack)
+		var/pack_name = sanitize(content_pack.name)
+		data["contents_name"] = pack_name
+		data["contents"] = content_pack.manifest
+		data["contents_access"] = get_access_desc(content_pack.access)
+
+	var/requests_list[0]
+	for(var/set_name in supply_controller.requestlist)
+		var/datum/supply_order/SO = set_name
+		if(SO)
+			if(!SO.comment)
+				SO.comment = "No comment."
+			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
+	data["requests"] = requests_list
+
+	var/orders_list[0]
+	for(var/set_name in supply_controller.shoppinglist)
+		var/datum/supply_order/SO = set_name
+		if(SO)
+			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment)))
+	data["orders"] = orders_list
+
+	data["points"] = supply_controller.points
+	data["send"] = list("send" = 1)
+
+	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
+	data["moving"] = shuttle.has_arrive_time()
+	data["at_station"] = shuttle.at_station()
+	data["timeleft"] = shuttle.eta_minutes()
+	data["can_launch"] = shuttle.can_launch()
+	data["can_force"] = shuttle.can_force()
+	data["can_cancel"] = shuttle.can_cancel()
+	if(shuttle.docking_controller)
+		data["docked"] = capitalize(shuttle.docking_controller.get_docking_status())
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
+	if(!ui)
+		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
+		ui.set_initial_data(data)
+		ui.open()
+
+/obj/machinery/computer/supplycomp/proc/is_authorized(user)
+	if(allowed(user))
+		return 1
+
+	if(isobserver(user) && check_rights(R_ADMIN, 0))
+		return 1
+
+	return 0
 
 /obj/machinery/computer/supplycomp/Topic(href, href_list)
-	if(!supply_controller)
-		log_to_dd("## ERROR: Eek. The supply_controller controller datum is missing somehow.")
-		return
-	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	if (!shuttle)
-		log_to_dd("## ERROR: Eek. The supply/shuttle datum is missing somehow.")
-		return
 	if(..())
-		return
+		return 1
 
-	if(isturf(loc) && ( in_range(src, usr) || istype(usr, /mob/living/silicon) ) )
-		usr.set_machine(src)
+	if(!is_authorized(usr))
+		return 1
 
-	//Calling the shuttle
+	if(!supply_controller)
+		log_to_dd("## ERROR: The supply_controller controller datum is missing somehow.")
+		return 1
+
+	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
+	if(!shuttle)
+		log_to_dd("## ERROR: The supply or shuttle datum is missing somehow.")
+		return 1
+
 	if(href_list["send"])
 		if(shuttle.at_station())
 			if (shuttle.forbidden_atoms_check())
-				temp = "For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
+				usr = "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>"
 			else
 				shuttle.launch(src)
-				temp = "Initiating launch sequence. \[<span class='warning'><A href='?src=\ref[src];force_send=1'>Force Launch</A></span>\]<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		else
 			shuttle.launch(src)
-			temp = "The supply shuttle has been called and will arrive in approximately [round(supply_controller.movetime/600,1)] minutes.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 			post_signal("supply")
 
 	if (href_list["force_send"])
@@ -561,70 +630,34 @@ var/list/mechtoys = list(
 	if (href_list["cancel_send"])
 		shuttle.cancel_launch(src)
 
-	else if (href_list["order"])
-		//if(!shuttle.idle()) return	//this shouldn't be necessary it seems
-		if(href_list["order"] == "categories")
-			//all_supply_groups
-			//Request what?
-			last_viewed_group = "categories"
-			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-			temp += "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><HR><BR><BR>"
-			temp += "<b>Select a category</b><BR><BR>"
-			for(var/cat in all_supply_groups )
-				temp += "<A href='?src=\ref[src];order=[cat]'>[get_supply_group_name(cat)]</A><BR>"
-		else
-			last_viewed_group = href_list["order"]
-			var/cat = text2num(last_viewed_group)
-			temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-			temp += "<A href='?src=\ref[src];order=categories'>Back to all categories</A><HR><BR><BR>"
-			temp += "<b>Request from: [get_supply_group_name(cat)]</b><BR><BR>"
-			for(var/supply_type in supply_controller.supply_packs )
-				var/datum/supply_packs/N = supply_controller.supply_packs[supply_type]
-				if((N.hidden && !hacked) || (N.contraband && !can_order_contraband) || N.group != cat) continue
-				temp += "<A href='?src=\ref[src];doorder=[supply_type]'>[N.name]</A>" //Have to send the type instead of a reference to the obj because it would get caught by the garbage
-				temp += " (<A href='?src=\ref[src];see_contents=[supply_type]'>contents</A>)"
-				temp += " Cost: [N.cost]<BR>"
-
-		/*temp = "Supply points: [supply_controller.points]<BR><HR><BR>Request what?<BR><BR>"
-
-		for(var/supply_name in supply_controller.supply_packs )
-			var/datum/supply_packs/N = supply_controller.supply_packs[supply_name]
-			if(N.hidden && !hacked) continue
-			if(N.contraband && !can_order_contraband) continue
-			temp += "<A href='?src=\ref[src];doorder=[supply_name]'>[supply_name]</A> Cost: [N.cost]<BR>"    //the obj because it would get caught by the garbage
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"*/
-
-	else if (href_list["see_contents"])
-		//Find the correct supply_pack datum
-		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["see_contents"]]
-		if(!istype(P))	return
-
-		var/cat = P.group
-		var/tempaccess = get_access_desc(P.access)
-
-		temp = "<b>Supply points: [supply_controller.points]</b><BR>"
-		temp += "<A href='?src=\ref[src];order=[cat]'>Back to [get_supply_group_name(cat)]</A><HR><BR><BR>"
-		temp += "Access restriction: [tempaccess ? tempaccess : "None"]<br><br>"
-		temp += "Contents of <b>[P.name]</b>:<BR>"
-		temp += P.manifest
-
 	else if (href_list["doorder"])
 		if(world.time < reqtime)
-			for(var/mob/V in hearers(src))
-				V.show_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
+			nanomanager.update_uis(src)
 			return
 
-		//Find the correct supply_pack datum
-		var/datum/supply_packs/P = supply_controller.supply_packs[href_list["doorder"]]
-		if(!istype(P))	return
+		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
+		var/multi = text2num(copytext(href_list["doorder"], -1))
+		if(!isnum(multi))
+			return
+		var/datum/supply_packs/P = supply_controller.supply_packs[index]
+		if(!istype(P))
+			return
+		var/crates = 1
+		if(multi)
+			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
+			crates = Clamp(round(text2num(num_input)), 1, 20)
+			if(..())
+				return
 
 		var/timeout = world.time + 600
 		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
-		if(world.time > timeout)	return
-		if(!reason)	return
+		if(world.time > timeout || !reason || ..())
+			return
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
+
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
 			idname = H.get_authentification_name()
@@ -634,13 +667,14 @@ var/list/mechtoys = list(
 
 		supply_controller.ordernum++
 		var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(loc)
-		reqform.name = "Requisition Form - [P.name]"
+		reqform.name = "Requisition Form - [crates] '[P.name]' for [idname]"
 		reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
 		reqform.info += "INDEX: #[supply_controller.ordernum]<br>"
 		reqform.info += "REQUESTED BY: [idname]<br>"
 		reqform.info += "RANK: [idrank]<br>"
 		reqform.info += "REASON: [reason]<br>"
 		reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
+		reqform.info += "NUMBER OF CRATES: [crates]<br>"
 		reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
 		reqform.info += "CONTENTS:<br>"
 		reqform.info += P.manifest
@@ -651,21 +685,20 @@ var/list/mechtoys = list(
 		reqtime = (world.time + 5) % 1e5
 
 		//make our supply_order datum
-		var/datum/supply_order/O = new /datum/supply_order()
-		O.ordernum = supply_controller.ordernum
-		O.object = P
-		O.orderedby = idname
-		supply_controller.requestlist += O
-
-		temp = "Order request placed.<BR>"
-		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> | <A href='?src=\ref[src];mainmenu=1'>Main Menu</A> | <A href='?src=\ref[src];confirmorder=[O.ordernum]'>Authorize Order</A>"
+		for(var/i = 1; i <= crates; i++)
+			supply_controller.ordernum++
+			var/datum/supply_order/O = new /datum/supply_order()
+			O.ordernum = supply_controller.ordernum
+			O.object = P
+			O.orderedby = idname
+			O.comment = reason
+			supply_controller.requestlist += O
 
 	else if(href_list["confirmorder"])
 		//Find the correct supply_order datum
 		var/ordernum = text2num(href_list["confirmorder"])
 		var/datum/supply_order/O
 		var/datum/supply_packs/P
-		temp = "Invalid Request"
 		for(var/i=1, i<=supply_controller.requestlist.len, i++)
 			var/datum/supply_order/SO = supply_controller.requestlist[i]
 			if(SO.ordernum == ordernum)
@@ -675,65 +708,34 @@ var/list/mechtoys = list(
 					supply_controller.requestlist.Cut(i,i+1)
 					supply_controller.points -= P.cost
 					supply_controller.shoppinglist += O
-					temp = "Thanks for your order.<BR>"
-					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 				else
-					temp = "Not enough supply points.<BR>"
-					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+					usr << "<span class='warning'>There are insufficient supply points for this request.</span>"
 				break
-
-	else if (href_list["vieworders"])
-		temp = "Current approved orders: <BR><BR>"
-		for(var/S in supply_controller.shoppinglist)
-			var/datum/supply_order/SO = S
-			temp += "#[SO.ordernum] - [SO.object.name] approved by [SO.orderedby][SO.comment ? " ([SO.comment])":""]<BR>"// <A href='?src=\ref[src];cancelorder=[S]'>(Cancel)</A><BR>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
-/*
-	else if (href_list["cancelorder"])
-		var/datum/supply_order/remove_supply = href_list["cancelorder"]
-		supply_shuttle_shoppinglist -= remove_supply
-		supply_shuttle_points += remove_supply.object.cost
-		temp += "Canceled: [remove_supply.object.name]<BR><BR><BR>"
-
-		for(var/S in supply_shuttle_shoppinglist)
-			var/datum/supply_order/SO = S
-			temp += "[SO.object.name] approved by [SO.orderedby][SO.comment ? " ([SO.comment])":""] <A href='?src=\ref[src];cancelorder=[S]'>(Cancel)</A><BR>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
-*/
-	else if (href_list["viewrequests"])
-		temp = "Current requests: <BR><BR>"
-		for(var/S in supply_controller.requestlist)
-			var/datum/supply_order/SO = S
-			temp += "#[SO.ordernum] - [SO.object.name] requested by [SO.orderedby] <A href='?src=\ref[src];confirmorder=[SO.ordernum]'>Approve</A> <A href='?src=\ref[src];rreq=[SO.ordernum]'>Remove</A><BR>"
-
-		temp += "<BR><A href='?src=\ref[src];clearreq=1'>Clear list</A>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 
 	else if (href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
-		temp = "Invalid Request.<BR>"
 		for(var/i=1, i<=supply_controller.requestlist.len, i++)
 			var/datum/supply_order/SO = supply_controller.requestlist[i]
 			if(SO.ordernum == ordernum)
 				supply_controller.requestlist.Cut(i,i+1)
-				temp = "Request removed.<BR>"
 				break
-		temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 
-	else if (href_list["clearreq"])
-		supply_controller.requestlist.Cut()
-		temp = "List cleared.<BR>"
-		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
+	else if (href_list["last_viewed_group"])
+		content_pack = null
+		last_viewed_group = text2num(href_list["last_viewed_group"])
 
-	else if (href_list["mainmenu"])
-		temp = null
+	else if (href_list["contents"])
+		var/topic = href_list["contents"]
+		if(topic == 1)
+			content_pack = null
+		else
+			var/datum/supply_packs/P = supply_controller.supply_packs[topic]
+			content_pack = P
 
 	add_fingerprint(usr)
-	updateUsrDialog()
-	return
+	nanomanager.update_uis(src)
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
 
 	if(!frequency) return
@@ -744,7 +746,3 @@ var/list/mechtoys = list(
 	status_signal.data["command"] = command
 
 	frequency.post_signal(src, status_signal)
-
-
-
-

@@ -5,8 +5,7 @@
 	item_state = "analyzer"
 	w_class = 2
 	slot_flags = SLOT_BELT
-	m_amt = 60
-	g_amt = 30
+	materials = list(MAT_METAL=60, MAT_GLASS=30)
 	force = 2
 	throwforce = 0
 	var/recording = 0
@@ -262,8 +261,7 @@
 	icon_state = "tape_white"
 	item_state = "analyzer"
 	w_class = 1
-	m_amt = 20
-	g_amt = 5
+	materials = list(MAT_METAL=20, MAT_GLASS=5)
 	force = 1
 	throwforce = 0
 	var/max_capacity = 600
@@ -292,7 +290,7 @@
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
 	if(ruined && istype(I, /obj/item/weapon/screwdriver))
 		user << "<span class='notice'>You start winding the tape back in.</span>"
-		if(do_after(user, 120))
+		if(do_after(user, 120, target = src))
 			user << "<span class='notice'>You wound the tape back in!</span>"
 			fix()
 

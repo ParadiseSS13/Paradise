@@ -12,7 +12,7 @@
 
 	user << "You begin sweeping \the [src] about, scanning for metal deposits."
 
-	if(!do_after(user,50)) return
+	if(!do_after(user,50, target = src)) return
 
 	if(!user || !src) return
 

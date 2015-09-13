@@ -34,7 +34,7 @@ rcd light flash thingy on matter drain
 
 
 /datum/AI_Module/large/fireproof_core
-	module_name = "Core upgrade"
+	module_name = "Core Upgrade"
 	mod_pick_name = "coreup"
 	description = "An upgrade to improve core resistance, making it immune to fire and heat. This effect is permanent."
 	cost = 50
@@ -51,9 +51,9 @@ rcd light flash thingy on matter drain
 	src << "<span class='notice'>Core fireproofed.</span>"
 
 /datum/AI_Module/large/upgrade_turrets
-	module_name = "AI Turret upgrade"
+	module_name = "AI Turret Upgrade"
 	mod_pick_name = "turret"
-	description = "Improves the firing speed and health of all AI turrets. This effect is permanent."
+	description = "Improves the firing power and health of all AI turrets. This effect is permanent."
 	cost = 50
 	one_time = 1
 
@@ -62,26 +62,25 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/upgrade_turrets()
 	set category = "Malfunction"
 	set name = "Upgrade Turrets"
+
+	if(stat)
+		return
+
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
-	for(var/obj/machinery/turret/turret in machines)
-		var/turf/T = get_turf(turret)
-		if(T.z in config.station_levels)
-			turret.health += 30
-			turret.shot_delay = 20
 	for(var/obj/machinery/porta_turret/turret in machines)
 		var/turf/T = get_turf(turret)
 		if(T.z in config.station_levels)
 			// Increase health by 37.5% of original max, decrease delays between shots to 66%
 			turret.health += initial(turret.health) * 3 / 8
-			turret.shot_delay = initial(turret.shot_delay) * 2 / 3
+			turret.eprojectile = /obj/item/projectile/beam/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 	src << "<span class='notice'>Turrets upgraded.</span>"
-
+/*
 /datum/AI_Module/large/lockdown
 	module_name = "Hostile Station Lockdown"
 	mod_pick_name = "lockdown"
-	description = "Take control of the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks."
+	description = "Overload the airlock, blast door and fire control networks, locking them down. Caution! This command also electrifies all airlocks. The networks will automatically reset after 120 seconds."
 	cost = 20
-	one_time = 1
 
 	power_type = /mob/living/silicon/ai/proc/lockdown
 
@@ -89,12 +88,43 @@ rcd light flash thingy on matter drain
 	set category = "Malfunction"
 	set name = "Initiate Hostile Lockdown"
 
-	if(src.stat == 2)
-		src <<"You cannot begin a lockdown because you are dead!"
+	if(stat)
 		return
 
-	if(malf_cooldown)
-		return
+	for(var/datum/AI_Module/large/lockdown/lockdown in current_modules)
+		if(lockdown.uses > 0)
+			lockdown.uses --
+
+			var/obj/machinery/door/airlock/AL
+			for(var/obj/machinery/door/D in airlocks)
+				if(!(D.z in config.contact_levels))
+					continue
+				spawn()
+					if(istype(D, /obj/machinery/door/airlock))
+						AL = D
+						if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
+							AL.locked = 0 //For airlocks that were bolted open.
+							AL.safe = 0 //DOOR CRUSH
+							AL.close()
+							AL.lock()
+							AL.electrified_until = -1  //Shock it!
+					else if(!D.stat) //So that only powered doors are closed.
+						D.close() //Close ALL the doors!
+
+			var/obj/machinery/computer/communications/C = locate() in machines
+			if(C)
+				C.post_status("alert", "lockdown")
+
+			minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.","Network Alert")
+			src << "<span class='danger'>Lockdown initiated. Network reset in two minutes.</span>"
+			spawn(1200) //120 Seconds.
+				disablelockdown() //Reset the lockdown after 120 seconds.
+		else
+			src << "<span class='warning'>Out of uses.</span>"
+
+/mob/living/silicon/ai/proc/disablelockdown()
+	set category = "Malfunction"
+	set name = "Disable Lockdown"
 
 	var/obj/machinery/door/airlock/AL
 	for(var/obj/machinery/door/D in airlocks)
@@ -104,77 +134,74 @@ rcd light flash thingy on matter drain
 			if(istype(D, /obj/machinery/door/airlock))
 				AL = D
 				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-					AL.locked = 0 //For airlocks that were bolted open.
-					AL.safe = 0 //DOOR CRUSH
-					AL.close()
-					AL.locked = 1 //Bolt it!
-					AL.lights = 0 //Stealth bolt for a classic AI door trap.
-					AL.electrified_until = -1  //Shock it!
-			else if(!D.stat) //So that only powered doors are closed.
-				D.close() //Close ALL the doors!
-
-	var/obj/machinery/computer/communications/C = locate() in machines
-	if(C)
-		C.post_status("alert", "lockdown")
-
-	src.verbs += /mob/living/silicon/ai/proc/disablelockdown
-	src << "<span class = 'warning'>Lockdown Initiated.</span>"
-	malf_cooldown = 1
-	spawn(30)
-	malf_cooldown = 0
-
-/mob/living/silicon/ai/proc/disablelockdown()
-	set category = "Malfunction"
-	set name = "Disable Lockdown"
-
-	if(src.stat == 2)
-		src <<"You cannot disable lockdown because you are dead!"
-		return
-	if(malf_cooldown)
-		return
-
-	var/obj/machinery/door/airlock/AL
-	for(var/obj/machinery/door/D in airlocks)
-		spawn()
-			if(istype(D, /obj/machinery/door/airlock))
-				AL = D
-				if(AL.canAIControl() && !AL.stat) //Must be powered and have working AI wire.
-					AL.locked = 0
+					AL.unlock()
 					AL.electrified_until = 0
 					AL.open()
 					AL.safe = 1
-					AL.lights = 1 //Essentially reset the airlock to normal.
 			else if(!D.stat) //Opens only powered doors.
 				D.open() //Open everything!
 
-	src << "<span class = 'notice'>Lockdown Lifted.</span>"
-	malf_cooldown = 1
-	spawn(30)
-	malf_cooldown = 0
+	var/obj/machinery/computer/communications/C = locate() in machines
+	if(C)
+		C.post_status("alert", "default")
 
-/datum/AI_Module/large/disable_rcd
-	module_name = "RCD disable"
+	minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network Reset")
+*/
+
+/datum/AI_Module/large/destroy_rcd
+	module_name = "Destroy RCDs"
 	mod_pick_name = "rcd"
-	description = "Send a specialised pulse to break all RCD devices on the station."
-	cost = 50
+	description = "Send a specialised pulse to detonate all hand-held and exosuit Rapid Cconstruction Devices on the station."
+	cost = 25
+	one_time = 1
 
 	power_type = /mob/living/silicon/ai/proc/disable_rcd
 
 /mob/living/silicon/ai/proc/disable_rcd()
 	set category = "Malfunction"
-	set name = "Disable RCDs"
-	for(var/datum/AI_Module/large/disable_rcd/rcdmod in current_modules)
-		if(rcdmod.uses > 0)
-			rcdmod.uses --
-			for(var/obj/item/weapon/rcd/rcd in world)
-				rcd.disabled = 1
-			for(var/obj/item/mecha_parts/mecha_equipment/tool/rcd/rcd in world)
-				rcd.disabled = 1
-			src << "<span class='warning>RCD-disabling pulse emitted.</span>"
-		else src << "<span class='notice'>Out of uses.</span>"
+	set name = "Destroy RCDs"
+	set desc = "Detonate all RCDs on the station, while sparing onboard cyborg RCDs."
+
+	if(stat || malf_cooldown)
+		return
+
+	for(var/obj/item/RCD in rcd_list)
+		if(!istype(RCD, /obj/item/weapon/rcd/borg)) //Ensures that cyborg RCDs are spared.
+			RCD.audible_message("<span class='danger'><b>[RCD] begins to vibrate and buzz loudly!</b></span>","<span class='danger'><b>[RCD] begins vibrating violently!</b></span>")
+			spawn(50) //5 seconds to get rid of it!
+				if(RCD) //Make sure it still exists (In case of chain-reaction)
+					explosion(RCD, 0, 0, 3, 1, flame_range = 1)
+					qdel(RCD)
+
+	src << "<span class='danger'>RCD detonation pulse emitted.</span>"
+	malf_cooldown = 1
+	spawn(100)
+		malf_cooldown = 0
+
+/datum/AI_Module/large/mecha_domination
+	module_name = "Viral Mech Domination"
+	mod_pick_name = "mechjack"
+	description = "Hack into a mech's onboard computer, shunting all processes into it and ejecting any occupants. Once uploaded to the mech, it is impossible to leave.\
+	Do not allow the mech to leave the station's vicinity or allow it to be destroyed."
+	cost = 30
+	one_time = 1
+
+	power_type = /mob/living/silicon/ai/proc/mech_takeover
+
+/mob/living/silicon/ai/proc/mech_takeover()
+	set name = "Compile Mecha Virus"
+	set category = "Malfunction"
+	set desc = "Target a mech by clicking it. Click the appropriate command when ready."
+
+	if(stat)
+		return
+
+	can_dominate_mechs = 1 //Yep. This is all it does. Honk!
+	src << "Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>"
+	verbs -= /mob/living/silicon/ai/proc/mech_takeover
 
 /datum/AI_Module/small/overload_machine
-	module_name = "Machine overload"
+	module_name = "Machine Overload"
 	mod_pick_name = "overload"
 	description = "Overloads an electrical machine, causing a small explosion. 2 uses."
 	uses = 2
@@ -185,6 +212,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/overload_machine(obj/machinery/M as obj in world)
 	set name = "Overload Machine"
 	set category = "Malfunction"
+
+	if(stat)
+		return
+
 	if (istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
@@ -197,11 +228,11 @@ rcd light flash thingy on matter drain
 				spawn(50)
 					explosion(get_turf(M), 0,1,1,0)
 					qdel(M)
-			else src << "<span class='notice'>Out of uses.</span>"
+			else src << "<span class='warning'>Out of uses.</span>"
 	else src << "<span class='notice'>That's not a machine.</span>"
 
 /datum/AI_Module/small/override_machine
-	module_name = "Machine override"
+	module_name = "Machine Override"
 	mod_pick_name = "override"
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. 4 uses."
 	uses = 4
@@ -213,6 +244,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/override_machine(obj/machinery/M as obj in world)
 	set name = "Override Machine"
 	set category = "Malfunction"
+
+	if(stat)
+		return
+
 	if (istype(M, /obj/machinery))
 		if(istype(M,/obj/machinery/field_generator))
 			src << "This machine can not be overloaded due to a firewall."
@@ -226,7 +261,7 @@ rcd light flash thingy on matter drain
 				spawn(50)
 					if(M)
 						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
-			else src << "<span class='notice'>Out of uses.</span>"
+			else src << "<span class='warning'>Out of uses.</span>"
 	else src << "<span class='notice'>That's not a machine.</span>"
 
 /datum/AI_Module/large/place_cyborg_transformer
@@ -246,8 +281,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/place_transformer()
 	set name = "Place Robotic Factory"
 	set category = "Malfunction"
+
 	if(!canPlaceTransformer())
 		return
+
 	var/sure = alert(src, "Are you sure you want to place the machine here?", "Are you sure?", "Yes", "No")
 	if(sure == "Yes")
 		if(!canPlaceTransformer())
@@ -312,6 +349,10 @@ rcd light flash thingy on matter drain
 /mob/living/silicon/ai/proc/blackout()
 	set category = "Malfunction"
 	set name = "Blackout"
+
+	if(stat)
+		return
+
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
@@ -320,72 +361,88 @@ rcd light flash thingy on matter drain
 					apc.overload_lighting()
 				else apc.overload++
 			src << "<span class='notice'>Overcurrent applied to the powernet.</span>"
-		else src << "<span class='notice'>Out of uses.</span>"
+		else src << "<span class='warning'>Out of uses.</span>"
 
-/datum/AI_Module/small/reactivate_camera
-	module_name = "Reactivate camera"
+/datum/AI_Module/small/reactivate_cameras
+	module_name = "Reactivate Camera Network"
 	mod_pick_name = "recam"
-	description = "Reactivates a currently disabled camera. 5 uses."
-	uses = 5
-	cost = 5
+	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 30 cameras."
+	uses = 30
+	cost = 10
+	one_time = 1
 
-	power_type = /client/proc/reactivate_camera
+	power_type = /mob/living/silicon/ai/proc/reactivate_cameras
 
-/client/proc/reactivate_camera(obj/machinery/camera/C as obj in cameranet.cameras)
-	set name = "Reactivate Camera"
+/mob/living/silicon/ai/proc/reactivate_cameras()
+	set name = "Reactivate Cameranet"
 	set category = "Malfunction"
-	if (istype (C, /obj/machinery/camera))
-		for(var/datum/AI_Module/small/reactivate_camera/camera in usr:current_modules)
+
+	if(stat || malf_cooldown)
+		return
+	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.
+
+	for(var/datum/AI_Module/small/reactivate_cameras/camera in current_modules)
+		for(var/obj/machinery/camera/C in cameranet.cameras)
+			var/initial_range = initial(C.view_range) //To prevent calling the proc twice
 			if(camera.uses > 0)
 				if(!C.status)
-					C.deactivate(src)
-					camera.uses --
-					src << "<span class='notice'>Camera reactivated.</span>"
-				else
-					src << "<span class='notice'>This camera is either active, or not repairable.</span>"
-			else src << "<span class='notice'>Out of uses.</span>"
-	else src << "<span class='notice'>That's not a camera.</span>"
-
-/datum/AI_Module/small/upgrade_camera
-	module_name = "Upgrade Camera"
-	mod_pick_name = "upgradecam"
-	description = "Upgrades a camera to have X-Ray vision, Motion and be EMP-Proof. 5 uses."
-	uses = 5
-	cost = 5
-
-	power_type = /client/proc/upgrade_camera
-
-/client/proc/upgrade_camera(obj/machinery/camera/C as obj in cameranet.cameras)
-	set name = "Upgrade Camera"
-	set category = "Malfunction"
-	if(istype(C))
-		var/datum/AI_Module/small/upgrade_camera/UC = locate(/datum/AI_Module/small/upgrade_camera) in usr:current_modules
-		if(UC)
-			if(UC.uses > 0)
-				if(C.assembly)
-					var/upgraded = 0
-
-					if(!C.isXRay())
-						C.upgradeXRay()
-						upgraded = 1
-
-					if(!C.isEmpProof())
-						C.upgradeEmpProof()
-						upgraded = 1
-
-					if(!C.isMotion())
-						C.upgradeMotion()
-						upgraded = 1
-
-					if(upgraded)
-						UC.uses --
-						C.visible_message("<span class='notice'>\icon[C] *beep*</span>")
-						src << "<span class='notice'>Camera successully upgraded!</span>"
-					else
-						src << "<span class='notice'>This camera is already upgraded!</span>"
+					C.deactivate(src, 1) //Reactivates the camera based on status. Badly named proc.
+					fixedcams++
+					camera.uses--
+				if(C.view_range != initial_range)
+					C.view_range = initial_range //Fixes cameras with bad focus.
+					camera.uses--
+					fixedcams++
+					//If a camera is both deactivated and has bad focus, it will cost two uses to fully fix!
 			else
-				src << "<span class='notice'>Out of uses.</span>"
+				src << "<span class='warning'>Out of uses.</span>"
+				verbs -= /mob/living/silicon/ai/proc/reactivate_cameras //It is useless now, clean it up.
+				break
+	src << "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>"
 
+	malf_cooldown = 1
+	spawn(30) //Lag protection
+		malf_cooldown = 0
+
+/datum/AI_Module/small/upgrade_cameras
+	module_name = "Upgrade Camera Network"
+	mod_pick_name = "upgradecam"
+	description = "Install broad-spectrum scanning and electrical redundancy firmware to the camera network, enabling EMP-Proofing and light-amplified X-ray vision." //I <3 pointless technobabble
+	//This used to have motion sensing as well, but testing quickly revealed that giving it to the whole cameranet is PURE HORROR.
+	one_time = 1
+	cost = 35 //Decent price for omniscience!
+
+	power_type = /mob/living/silicon/ai/proc/upgrade_cameras
+
+/mob/living/silicon/ai/proc/upgrade_cameras()
+	set name = "Upgrade Cameranet"
+	set category = "Malfunction"
+
+	if(stat)
+		return
+
+	var/upgradedcams = 0
+	see_override = SEE_INVISIBLE_MINIMUM //Night-vision, without which X-ray would be very limited in power.
+
+	for(var/obj/machinery/camera/C in cameranet.cameras)
+		if(C.assembly)
+			var/upgraded = 0
+
+			if(!C.isXRay())
+				C.upgradeXRay()
+				//Update what it can see.
+				cameranet.updateVisibility(C, 0)
+				upgraded = 1
+
+			if(!C.isEmpProof())
+				C.upgradeEmpProof()
+				upgraded = 1
+
+			if(upgraded)
+				upgradedcams++
+
+	src << "<span class='notice'>OTA firmware distribution complete! Cameras upgraded: [upgradedcams]. Light amplification system online.</span>"
+	verbs -= /mob/living/silicon/ai/proc/upgrade_cameras
 
 /datum/module_picker
 	var/temp = null
@@ -411,9 +468,9 @@ rcd light flash thingy on matter drain
 			<B>Install Module:</B><BR>
 			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
 	for(var/datum/AI_Module/large/module in src.possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	for(var/datum/AI_Module/small/module in src.possible_modules)
-		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A> ([module.cost])<BR>"
+		dat += "<A href='byond://?src=\ref[src];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=\ref[src];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
 	dat += "<HR>"
 	if (src.temp)
 		dat += "[src.temp]"
@@ -454,6 +511,10 @@ rcd light flash thingy on matter drain
 			A.current_modules += new AM.type
 			temp = AM.description
 			src.processing_time -= AM.cost
+
+		if(href_list["showdesc"])
+			if(AM.mod_pick_name == href_list["showdesc"])
+				temp = AM.description
 
 	src.use(usr)
 	return

@@ -19,7 +19,7 @@
 	melee_damage_upper = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
-	a_intent = "harm"
+	a_intent = I_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	min_oxy = 0
 	max_oxy = 0
@@ -30,7 +30,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	var/dead = 0
-	unsuitable_atoms_damage = 15
+	unsuitable_atmos_damage = 15
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0

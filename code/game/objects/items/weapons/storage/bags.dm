@@ -356,7 +356,7 @@
  */
 /obj/item/weapon/storage/bag/tray
 	name = "tray"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
@@ -365,7 +365,7 @@
 	throw_range = 5
 	w_class = 4.0
 	flags = CONDUCT
-	m_amt = 3000
+	materials = list(MAT_METAL=3000)
 
 /obj/item/weapon/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
 	..()

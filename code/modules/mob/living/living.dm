@@ -526,7 +526,7 @@
 		src << "You wriggle out of [M]'s grip!"
 	else if(istype(H.loc,/obj/item))
 		src << "You struggle free of [H.loc]."
-		H.loc = get_turf(H)
+		H.forceMove(get_turf(H))
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -610,7 +610,7 @@
 				O.show_message("\red <B>[usr] attempts to unbuckle themself!</B>", 1)
 
 			spawn(0)
-				if(do_after(usr, 1200))
+				if(do_after(usr, 1200, target = C))
 					if(!C.buckled)
 						return
 					for(var/mob/O in viewers(C))
@@ -648,7 +648,7 @@
 
 
 	spawn(0)
-		if(do_after(usr,(breakout_time*60*10))) //minutes * 60seconds * 10deciseconds
+		if(do_after(usr,(breakout_time*60*10), target = C)) //minutes * 60seconds * 10deciseconds
 			if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
@@ -743,7 +743,7 @@
 	for(var/mob/O in viewers(CM))
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
 	spawn(0)
-		if(do_after(CM, breakouttime))
+		if(do_after(CM, breakouttime, target = src))
 			if(!CM.handcuffed || CM.buckled)
 				return // time leniency for lag which also might make this whole thing pointless but the server
 
@@ -786,7 +786,7 @@
 		O.show_message( "\red <B>[usr] attempts to [hulklien ? "break" : "remove"] \the [HC]!</B>", 1)
 
 	spawn(0)
-		if(do_after(CM, breakouttime))
+		if(do_after(CM, breakouttime, target = src))
 			if(!CM.legcuffed || CM.buckled)
 				return // time leniency for lag which also might make this whole thing pointless but the server
 			for(var/mob/O in viewers(CM))//                                         lags so hard that 40s isn't lenient enough - Quarxink
@@ -937,3 +937,7 @@
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
+
+//used in datum/reagents/reaction() proc
+/mob/living/proc/get_permeability_protection()
+	return 0

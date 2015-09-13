@@ -1,5 +1,6 @@
 /datum/species/wryn
 	name = "Wryn"
+	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	language = "Wryn Hivemind"
@@ -50,7 +51,7 @@
 			C << "<span class='danger'>It feels like part of you has died.</span>"
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
-	if(M.a_intent == "harm")
+	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
 			if(!(locate(H.internal_organs_by_name["antennae"]) in H.internal_organs))	return
 			var/turf/p_loc = M.loc
@@ -58,7 +59,7 @@
 
 			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
 			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
-			do_after(H, 250)
+			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
 				qdel(H.internal_organs_by_name["antennae"])
 				H.remove_language("Wryn Hivemind")
@@ -76,6 +77,7 @@
 
 /datum/species/nucleation
 	name = "Nucleation"
+	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
 	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "A sub-race of unforunates who have been exposed to too much supermatter radiation. As a result, \

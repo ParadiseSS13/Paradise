@@ -10,7 +10,7 @@
 	w_class = 2.0
 	throw_speed = 2
 	throw_range = 5
-	m_amt = 500
+	materials = list(MAT_METAL=500)
 	origin_tech = "materials=1"
 	var/breakouttime = 600 //Deciseconds = 60s = 1 minutes
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
@@ -63,7 +63,7 @@ var/last_chew = 0
 	var/mob/living/carbon/human/H = A
 	if (!H.handcuffed)
 		return
-	if (H.a_intent != "harm")
+	if (H.a_intent != I_HARM)
 		return
 	if (H.zone_sel.selecting != "mouth")
 		return

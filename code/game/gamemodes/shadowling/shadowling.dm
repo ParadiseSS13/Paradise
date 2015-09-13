@@ -152,9 +152,9 @@ Made by Xhuis
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Became a thrall</span>"
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
-		new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-		//new_thrall_mind.current.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
+		//new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
 		new_thrall_mind.current << "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		new_thrall_mind.current << "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
@@ -172,9 +172,8 @@ Made by Xhuis
 	thrall_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Dethralled</span>"
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
-	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_glare)
-	thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-	//thrall_mind.remove_spell(/obj/effect/proc_holder/spell/targeted/thrall_vision) //uncomment when vision code is unfucked.
+	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
+		thrall_mind.remove_spell(S)
 	thrall_mind.current.remove_language("Shadowling Hivemind")
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
@@ -211,7 +210,29 @@ Made by Xhuis
 	else
 		shadowling_dead = 1 //but shadowling was kill :(
 		return 1
-
+		
+/datum/game_mode/proc/remove_shadowling(datum/mind/ling_mind)
+	if(!istype(ling_mind) || !(ling_mind in shadows)) return 0
+	update_shadow_icons_removed(ling_mind)
+	shadows.Remove(ling_mind)
+	ling_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Deshadowlinged</span>"
+	ling_mind.special_role = null
+	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
+		ling_mind.remove_spell(S)
+	var/mob/living/M = ling_mind.current
+	if(issilicon(M))
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
+						  "<span class='userdanger'>You have been turned into a robot! You are no longer a shadowling! Though you try, you cannot remember anything about your time as one...</span>")
+	else
+		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
+						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")
+		spawn(30)
+			if(!M || qdeleted(M))
+				return
+			M.visible_message("<span class='warning'>[M] suddenly bloats and explodes!</span>", \
+							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")
+			playsound(M, 'sound/magic/Disintegrate.ogg', 100, 1)
+			M.gib()
 
 /datum/game_mode/shadowling/proc/check_shadow_victory()
 	var/success = 0 //Did they win?

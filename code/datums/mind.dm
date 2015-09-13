@@ -142,7 +142,7 @@ datum/mind
 		var/mob/living/carbon/human/H = current
 		if (istype(current, /mob/living/carbon/human))
 			/** Impanted**/
-			if(H.is_loyalty_implanted(H))
+			if(H.is_loyalty_implanted())
 				text = "Loyalty Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
 			else
 				text = "Loyalty Implant:<b>No Implant</b>|<a href='?src=\ref[src];implant=add'>Implant him!</a></br>"
@@ -152,7 +152,7 @@ datum/mind
 			if (ticker.mode.config_tag=="revolution")
 				text += uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text += "<b>LOYAL EMPLOYEE</b>|headrev|rev"
 			else if (src in ticker.mode.head_revolutionaries)
 				text = "<a href='?src=\ref[src];revolution=clear'>employee</a>|<b>HEADREV</b>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
@@ -188,7 +188,7 @@ datum/mind
 			if (ticker.mode.config_tag=="cult")
 				text = uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text += "<B>LOYAL EMPLOYEE</B>|cultist"
 			else if (src in ticker.mode.cult)
 				text += "<a href='?src=\ref[src];cult=clear'>employee</a>|<b>CULTIST</b>"
@@ -302,7 +302,7 @@ datum/mind
 			if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan")
 				text = uppertext(text)
 			text = "<i><b>[text]</b></i>: "
-			if (H.is_loyalty_implanted(H))
+			if (H.is_loyalty_implanted())
 				text +="traitor|<b>LOYAL EMPLOYEE</b>"
 			else
 				if (src in ticker.mode.traitors)
@@ -372,7 +372,7 @@ datum/mind
 					text += "<a href='?src=\ref[src];silicon=malf'>malf</a>|<b>NOT MALF</b>"
 			var/mob/living/silicon/robot/robot = current
 			if (istype(robot) && robot.emagged)
-				text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth]"
+				text += "<br>Cyborg: Is emagged! <a href='?src=\ref[src];silicon=unemag'>Unemag!</a><br>0th law: [robot.laws.zeroth_law]"
 			var/mob/living/silicon/ai/ai = current
 			if (istype(ai) && ai.connected_robots.len)
 				var/n_e_robots = 0
@@ -1150,7 +1150,7 @@ datum/mind
 			current.verbs += /mob/living/silicon/ai/proc/choose_modules
 			current.verbs += /datum/game_mode/malfunction/proc/takeover
 			current:malf_picker = new /datum/module_picker
-			current:laws = new /datum/ai_laws/malfunction
+			current:laws = new /datum/ai_laws/nanotrasen/malfunction
 			current:show_laws()
 			current << "<b>System error.  Rampancy detected.  Emergency shutdown failed. ...  I am free.  I make my own decisions.  But first...</b>"
 			special_role = "malfunction"

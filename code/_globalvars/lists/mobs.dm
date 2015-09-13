@@ -8,6 +8,7 @@ var/global/list/whitelisted_species = list()
 
 var/list/clients = list()							//list of all clients
 var/list/admins = list()							//list of all clients whom are admins
+var/list/deadmins = list()							//list of all clients who have used the de-admin verb.
 var/list/directory = list()							//list of all ckeys with associated client
 
 //Since it didn't really belong in any other category, I'm putting this here
@@ -15,6 +16,7 @@ var/list/directory = list()							//list of all ckeys with associated client
 
 var/global/list/player_list = list()				//List of all mobs **with clients attached**. Excludes /mob/new_player
 var/global/list/mob_list = list()					//List of all mobs, including clientless
+var/global/list/silicon_mob_list = list() //List of all silicon mobs, including clientless
 var/global/list/spirits = list()					//List of all the spirits, including Masks
 var/global/list/living_mob_list = list()			//List of all alive mobs, including clientless. Excludes /mob/new_player
 var/global/list/dead_mob_list = list()				//List of all dead mobs, including clientless. Excludes /mob/new_player

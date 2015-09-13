@@ -17,7 +17,7 @@
 				if(H.cl == M.client)
 					qdel(H)
 		else
-			message_admins("[key_name(usr)] has entered build mode.")
+			message_admins("[key_name_admin(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 			M.client.buildmode = 1
 			M.client.show_popup_menus = 0

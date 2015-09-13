@@ -8,8 +8,6 @@
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2"
-	construction_time = 100
-	construction_cost = list("metal"=10000)
 	var/equip_cooldown = 0
 	var/equip_ready = 1
 	var/energy_drain = 0
@@ -44,7 +42,7 @@
 		return 1
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/destroy()//missiles detonating, teleporter creating singularity?
+/obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
 		chassis.equipment -= src
 		listclearnulls(chassis.equipment)
@@ -57,9 +55,8 @@
 			chassis.occupant << sound('sound/mecha/weapdestr.ogg',volume=50)
 		else
 			chassis.occupant << sound('sound/mecha/critdestr.ogg',volume=50)
-	spawn
-		qdel(src)
-	return
+		chassis = null
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
 	if(chassis)

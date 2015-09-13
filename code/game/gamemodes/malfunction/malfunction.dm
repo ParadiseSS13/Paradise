@@ -62,18 +62,10 @@
 /datum/game_mode/malfunction/post_setup()
 	for(var/datum/mind/AI_mind in malf_ai)
 		if(malf_ai.len < 1)
-			world << {"Uh oh, its malfunction and there is no AI! Please report this.<br />
-				Rebooting world in 5 seconds."}
-
-			feedback_set_details("end_error","malf - no AI")
-
-			if(blackbox)
-				blackbox.save_all_data_to_sql()
-			sleep(50)
-			world.Reboot()
+			world.Reboot("No AI during Malfunction.", "end_error", "malf - no AI", 50)
 			return
 		AI_mind.current.verbs += /mob/living/silicon/ai/proc/choose_modules
-		AI_mind.current:laws = new /datum/ai_laws/malfunction
+		AI_mind.current:laws = new /datum/ai_laws/nanotrasen/malfunction
 		AI_mind.current:malf_picker = new /datum/module_picker
 		AI_mind.current:show_laws()
 
@@ -83,11 +75,6 @@
 
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
 
-/*		AI_mind.current.icon_state = "ai-malf"
-		spawn(10)
-			if(alert(AI_mind.current,"Do you want to use an alternative sprite for your real core?",,"Yes","No")=="Yes")
-				AI_mind.current.icon_state = "ai-malf2"
-*/
 	if(emergency_shuttle)
 		emergency_shuttle.auto_recall = 1
 	spawn (rand(waittime_l, waittime_h))
@@ -127,7 +114,7 @@
 
 
 /datum/game_mode/malfunction/proc/capture_the_station()
-	world << "<FONT size = 3><B>The AI has won!</B></FONT>"
+	world << "<FONT size = 3><B>The AI has accessed the station's core files!</B></FONT>"
 	world << "<B>It has fully taken control of all of [station_name()]'s systems.</B>"
 
 	to_nuke_or_not_to_nuke = 1
@@ -328,7 +315,8 @@
 /datum/game_mode/proc/auto_declare_completion_malfunction()
 	if( malf_ai.len || istype(ticker.mode,/datum/game_mode/malfunction) )
 		var/text = "<FONT size = 2><B>The malfunctioning AI were:</B></FONT>"
-
+		var/module_text_temp = "<br><b>Purchased modules:</b><br>" //Added at the end
+		
 		for(var/datum/mind/malf in malf_ai)
 
 			text += "<br>[malf.key] was [malf.name] ("
@@ -339,9 +327,13 @@
 					text += "operational"
 				if(malf.current.real_name != malf.name)
 					text += " as [malf.current.real_name]"
+				var/mob/living/silicon/ai/AI = malf.current
+				for(var/datum/AI_Module/mod in AI.current_modules)
+					module_text_temp += mod.module_name + "<br>"
 			else
 				text += "hardware destroyed"
 			text += ")"
-
+		text += module_text_temp
+		
 		world << text
 	return 1

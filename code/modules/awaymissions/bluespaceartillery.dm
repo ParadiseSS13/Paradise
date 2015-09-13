@@ -6,6 +6,7 @@
 	req_access = list(access_cent_commander)
 	var/last_fire = 0
 	var/reload_cooldown = 180 // 3 minute cooldown
+	var/area/targetarea
 	
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
@@ -23,6 +24,11 @@
 	var/seconds = time_to_wait - (60*mins)
 	data["reloadtime_mins"] = mins
 	data["reloadtime_secs"] = (seconds < 10) ? "0[seconds]" : seconds
+	if(targetarea)
+		var/areaname = sanitize(targetarea.name)
+		data["target"] = "Locked on to [areaname]"
+	else
+		data["target"] = "No Lock"
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 
@@ -36,24 +42,30 @@
 	if(..())
 		return 1
 		
-	var/A
-	A = input("Area to jump bombard", "Open Fire", A) in teleportlocs
-	var/area/thearea = teleportlocs[A]
-	if(..() || !istype(thearea))
-		return
+	if(href_list["area"])	
+		var/A
+		A = input("Select the target area.", "Select Area", A) in ghostteleportlocs|null
+		var/area/thearea = ghostteleportlocs[A]
+		if(..() || !istype(thearea))
+			return
+			
+		targetarea = thearea
 		
-	var/delta = (world.time / 10) - last_fire
-	if(reload_cooldown > delta)
-		return 1
+	if(href_list["fire"])
+		var/delta = (world.time / 10) - last_fire
+		if(reload_cooldown > delta)
+			return 1
+			
+		command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
+		message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
+		var/list/L = list()
+		for(var/turf/T in get_area_turfs(targetarea.type))
+			L += T
+		var/loc = pick(L)
+		explosion(loc,2,5,11)
+		last_fire = world.time / 10
 		
-	command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
-	message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
-	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		L+=T
-	var/loc = pick(L)
-	explosion(loc,2,5,11)
-	last_fire = world.time / 10
+	nanomanager.update_uis(src)
 
 /obj/structure/artilleryplaceholder
 	name = "artillery"

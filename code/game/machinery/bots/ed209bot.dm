@@ -186,7 +186,7 @@ Auto Patrol[]"},
 				user << "<span class='notice'>Access denied.</span>"
 	else
 		..()
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm") // Any intent but harm will heal, so we shouldn't get angry.
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 			return
 		if (!istype(W, /obj/item/weapon/screwdriver) && (!target)) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 			if(W.force)//If force is non-zero and damage type isn't stamina.
@@ -624,7 +624,7 @@ Auto Patrol[]"},
 					user << "<span class='warning'>You need one length of cable to wire the ED-209.</span>"
 					return
 				user << "<span class='notice'>You start to wire [src]...</span>"
-				if (do_after(user, 40))
+				if (do_after(user, 40, target = src))
 					if (coil.amount >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7

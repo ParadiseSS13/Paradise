@@ -13,13 +13,17 @@
 
 /obj/machinery/computer/monitor/New()
 	..()
+	power_monitors += src
+	power_monitors = sortAtom(power_monitors)
 	power_monitor = new(src)	
-	powernet = find_powernet()
 	powermonitor_repository.update_cache()	
 	
+/obj/machinery/computer/monitor/initialize()
+	..()
+	powernet = find_powernet()
+	
 /obj/machinery/computer/monitor/Destroy()
-	if (src in machines) // So the cache can properly update
-		removeAtProcessing()
+	power_monitors -= src
 	powermonitor_repository.update_cache()	
 	return ..()	
 	
@@ -27,11 +31,6 @@
 	..()
 	powermonitor_repository.update_cache()	
 	
-/obj/machinery/computer/monitor/process() 
-	if(!powernet)
-		powernet = find_powernet()
-	..()
-			
 /obj/machinery/computer/monitor/proc/find_powernet() 
 	var/obj/structure/cable/attached = null
 	var/turf/T = loc

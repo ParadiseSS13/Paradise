@@ -101,8 +101,8 @@ research holder datum.
 /datum/research/proc/AddDesign2Known(var/datum/design/D)
 	for(var/datum/design/known in known_designs)
 		if(D.id == known.id)
-			if(D.reliability_mod > known.reliability_mod)
-				known.reliability_mod = D.reliability_mod
+			if(D.reliability > known.reliability)
+				known.reliability = D.reliability
 			return
 	known_designs += D
 	return
@@ -117,7 +117,7 @@ research holder datum.
 		if(DesignHasReqs(PD))
 			AddDesign2Known(PD)
 	for(var/datum/tech/T in known_tech)
-		T = between(1,T.level,20)
+		T = Clamp(T.level, 1, 20)
 	for(var/datum/design/D in known_designs)
 		D.CalcReliability(known_tech)
 	return
@@ -127,7 +127,8 @@ research holder datum.
 /datum/research/proc/UpdateTech(var/ID, var/level)
 	for(var/datum/tech/KT in known_tech)
 		if(KT.id == ID)
-			if(KT.level <= level) KT.level = max((KT.level + 1), (level - 1))
+			if(KT.level <= level)
+				KT.level = max((KT.level + 1), (level - 1))
 	return
 
 /datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)
@@ -172,6 +173,7 @@ datum/tech	//Datum of individual technologies.
 	var/id = "id"						//An easily referenced ID. Must be alphanumeric, lower-case, and no symbols.
 	var/level = 1						//A simple number scale of the research level. Level 0 = Secret tech.
 	var/max_level = 1          // Maximum level this can be at (for job objectives)
+	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
 
 
@@ -194,6 +196,7 @@ datum/tech/plasmatech
 	desc = "Research into the mysterious substance colloqually known as 'plasma'."
 	id = "plasmatech"
 	max_level = 4
+	rare = 3
 
 datum/tech/powerstorage
 	name = "Power Manipulation Technology"
@@ -206,6 +209,7 @@ datum/tech/bluespace
 	desc = "Research into the sub-reality known as 'blue-space'"
 	id = "bluespace"
 	max_level = 6
+	rare = 2
 
 datum/tech/biotech
 	name = "Biological Technology"
@@ -223,7 +227,7 @@ datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
-	max_level = 5
+	max_level = 6
 
 datum/tech/programming
 	name = "Data Theory Research"
@@ -236,6 +240,7 @@ datum/tech/syndicate
 	desc = "The study of technologies that violate standard Nanotrasen regulations."
 	id = "syndicate"
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
+	rare = 4
 
 /*
 datum/tech/arcane
@@ -264,6 +269,23 @@ datum/tech/robotics
 	req_tech = list("materials" = 3, "programming" = 3)
 */
 
+/datum/tech/proc/getCost(var/current_level = null)
+	// Calculates tech disk's supply points sell cost
+	if(!current_level)
+		current_level = initial(level)
+
+	if(current_level >= level)
+		return 0
+
+	var/cost = 0
+	var/i
+	for(i=current_level+1, i<=level, i++)
+		if(i == initial(level))
+			continue
+		cost += i*5*rare
+
+	return cost
+
 /obj/item/weapon/disk/tech_disk
 	name = "Technology Disk"
 	desc = "A disk for storing technology data for further research."
@@ -271,8 +293,7 @@ datum/tech/robotics
 	icon_state = "datadisk2"
 	item_state = "card-id"
 	w_class = 1.0
-	m_amt = 30
-	g_amt = 10
+	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
 
 /obj/item/weapon/disk/tech_disk/New()
@@ -286,8 +307,7 @@ datum/tech/robotics
 	icon_state = "datadisk2"
 	item_state = "card-id"
 	w_class = 1.0
-	m_amt = 30
-	g_amt = 10
+	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/design/blueprint
 
 /obj/item/weapon/disk/design_disk/New()

@@ -138,3 +138,7 @@
 	icon_state = "swat"
 	item_state = "swat"
 	loose = 3
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
+		)

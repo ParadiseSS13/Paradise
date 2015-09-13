@@ -300,6 +300,10 @@
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	destroy()
 
+/obj/structure/table/mech_melee_attack(obj/mecha/M)
+	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
+	destroy()
+
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
 		user.do_attack_animation(src)
@@ -398,7 +402,7 @@
 		if (istype(G.affecting, /mob/living))
 			var/mob/living/M = G.affecting
 			if (G.state < 2)
-				if(user.a_intent == "harm")
+				if(user.a_intent == I_HARM)
 					if (prob(15))	M.Weaken(5)
 					M.apply_damage(8,def_zone = "head")
 					visible_message("\red [G.assailant] slams [G.affecting]'s face against \the [src]!")
@@ -416,7 +420,7 @@
 	if (istype(W, /obj/item/weapon/wrench))
 		user << "\blue Now disassembling table"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user,50))
+		if(do_after(user,50, target = src))
 			destroy()
 		return
 
@@ -692,7 +696,7 @@
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.amount >= 2)
 			user << "<span class='notice'>You start to add the glass to \the [src].</span>"
-			if(do_after(user, 10))
+			if(do_after(user, 10, target = src))
 				G.use(2)
 				user << "<span class='notice'>You add the glass to \the [src].</span>"
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
@@ -705,7 +709,7 @@
 	if(iswrench(I))
 		user << "<span class='notice'>You start to deconstruct \the [src].</span>"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-		if(do_after(user, 10))
+		if(do_after(user, 10, target = src))
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
 			user << "<span class='notice'>You dismantle \the [src].</span>"
 			new /obj/item/stack/sheet/metal(loc)
@@ -812,14 +816,14 @@
 			if(src.status == 2)
 				user << "\blue Now weakening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50))
+				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue Table weakened"
 					src.status = 1
 			else
 				user << "\blue Now strengthening the reinforced table"
 				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-				if (do_after(user, 50))
+				if (do_after(user, 50, target = src))
 					if(!src || !WT.isOn()) return
 					user << "\blue Table strengthened"
 					src.status = 2
@@ -905,13 +909,15 @@
 			W.Move(loc)
 	return
 
-/obj/structure/table/attack_hand(mob/user)
+/obj/structure/rack/attack_hand(mob/user)
 	if(HULK in user.mutations)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
 
-
+/obj/structure/rack/mech_melee_attack(obj/mecha/M)
+	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
+	destroy()
 
 /obj/structure/rack/attack_alien(mob/living/user)
 	user.do_attack_animation(src)

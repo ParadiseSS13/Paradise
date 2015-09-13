@@ -14,7 +14,7 @@ var/global/datum/repository/air_alarm/air_alarm_repository = new()
 	if(ticker && ticker.current_state < GAME_STATE_PLAYING && istype(passed_alarm)) // Generating the list for the first time as the game hasn't started - no need to run through the machines list everything every time
 		alarms[++alarms.len] = passed_alarm.get_nano_data_console()
 	else
-		for(var/obj/machinery/alarm/alarm in sortAtom((monitored_alarms ? monitored_alarms : machines)))
+		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : air_alarms))
 			if(!monitored_alarms && alarm.z != ZLEVEL_STATION && alarm.z != ZLEVEL_ASTEROID)
 				continue
 			alarms[++alarms.len] = alarm.get_nano_data_console()

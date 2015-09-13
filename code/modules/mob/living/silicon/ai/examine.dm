@@ -28,4 +28,14 @@
 	msg += "*---------*</span>"
 
 	usr << msg
+	usr.showLaws(src)
+
 	return
+
+/mob/proc/showLaws(var/mob/living/silicon/S)
+	return
+
+/mob/dead/observer/showLaws(var/mob/living/silicon/S)
+	if(antagHUD || check_rights(R_MOD, 0, src))
+		S.laws.show_laws(src)
+	

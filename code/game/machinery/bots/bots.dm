@@ -45,7 +45,7 @@
 	var/turf/nearest_beacon_loc	// the nearest beacon's location
 
 	var/beacon_freq = 1445		// navigation beacon frequency
-	var/control_freq = 1447		// bot control frequency
+	var/control_freq = BOT_FREQ		// bot control frequency
 
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 
@@ -246,7 +246,7 @@
 		else
 			user << "<span class='warning'>Maintenance panel is locked.</span>"
 	else
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM)
 			if(health >= maxhealth)
 				user << "<span class='warning'>[src] does not need a repair.</span>"
 				return

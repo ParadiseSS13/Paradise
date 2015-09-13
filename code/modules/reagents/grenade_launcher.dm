@@ -15,59 +15,59 @@
 	var/ammo_type = /obj/item/weapon/grenade
 	var/unloaded
 
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 
-	examine()
-		set src in view()
-		..()
-		if (!(usr in view(2)) && usr!=src.loc) return
-		usr << "\icon [name]:"
-		usr << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
+/obj/item/weapon/gun/grenadelauncher/examine()
+	set src in view()
+	..()
+	if (!(usr in view(2)) && usr!=src.loc) return
+	usr << "\icon [name]:"
+	usr << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
 
-	attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/weapon/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 
-		if((istype(I, ammo_type)))
-			if(grenades.len < max_grenades)
-				user.drop_item()
-				I.loc = src
-				grenades += I
-				user << "\blue You put the [ammo_name] in the [name]."
-				user << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
-			else
-				usr << "\red The grenade launcher cannot hold more [ammo_name]s."
-
-	afterattack(obj/target, mob/user , flag)
-
-		if (istype(target, /obj/item/weapon/storage/backpack ))
-			return
-
-		else if (locate (/obj/structure/table, src.loc))
-			return
-
-		else if(target == user)
-			return
-
-		if(grenades.len)
-			spawn(0) fire_grenade(target,user)
+	if((istype(I, ammo_type)))
+		if(grenades.len < max_grenades)
+			user.drop_item()
+			I.loc = src
+			grenades += I
+			user << "\blue You put the [ammo_name] in the [name]."
+			user << "\blue [grenades.len] / [max_grenades] [ammo_name]s."
 		else
-			usr << "\red The [name] is empty."
+			usr << "\red The grenade launcher cannot hold more [ammo_name]s."
 
-	proc
-		fire_grenade(atom/target, mob/user)
-			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
-			user << "\red You fire the [name]!"
-			var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
-			grenades -= F
-			F.loc = user.loc
-			F.throw_at(target, 30, 2, user)
-			message_admins("[key_name_admin(user)] fired a [ammo_name] ([F.name]) from a launcher ([name]).")
-			log_game("[key_name_admin(user)] used a [ammo_name] ([name]).")
-			F.active = 1
-			F.icon_state = initial(icon_state) + "_active"
-			playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-			spawn(15)
-				F.prime()
+/obj/item/weapon/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
+
+	if (istype(target, /obj/item/weapon/storage/backpack ))
+		return
+
+	else if (locate (/obj/structure/table, src.loc))
+		return
+
+	else if(target == user)
+		return
+
+	if(grenades.len)
+		spawn(0) fire_grenade(target,user)
+	else
+		usr << "\red The [name] is empty."
+
+/obj/item/weapon/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
+	for(var/mob/O in viewers(world.view, user))
+		O.show_message(text("\red [] fired a [ammo_name]!", user), 1)
+	user << "\red You fire the [name]!"
+	var/obj/item/weapon/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
+	grenades -= F
+	F.loc = user.loc
+	F.throw_at(target, 30, 2, user)
+	message_admins("[key_name_admin(user)] fired a [ammo_name] ([F.name]) from a launcher ([name]).")
+	log_game("[key_name_admin(user)] used a [ammo_name] ([name]).")
+	F.active = 1
+	F.icon_state = initial(icon_state) + "_active"
+	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	spawn(15)
+		F.prime()
+
 
 /obj/item/weapon/gun/grenadelauncher/piecannon
 	name = "pie cannon"

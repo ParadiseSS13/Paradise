@@ -284,14 +284,12 @@
 		if(deliveryCheck == 0)
 			H.destinationTag = 1
 
-		air_contents = new()		// new empty gas resv.
-
 		sleep(10)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		sleep(5) // wait for animation to finish
 
 		H.init(src)	// copy the contents of disposer to holder
-
+		air_contents = new() // The holder just took our gas; replace it
 		H.start(src) // start the holder processing movement
 		flushing = 0
 		// now reset disposal state
@@ -321,7 +319,7 @@
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 				user << "You start slicing the floorweld off the delivery chute."
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					if(!src || !W.isOn()) return
 					user << "You sliced the floorweld off the delivery chute."
 					var/obj/structure/disposalconstruct/C = new (src.loc)

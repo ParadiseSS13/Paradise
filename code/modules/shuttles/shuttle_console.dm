@@ -14,7 +14,7 @@
 		return
 
 	if(!allowed(user) && !isobserver(user))
-		user << "<span class='warning'>Access Denied.</span>"
+		user << "<span class='warning'>Access denied.</span>"
 		return 1
 
 	ui_interact(user)

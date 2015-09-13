@@ -130,7 +130,7 @@
 
 	if (deathtime < 6000 && joinedasobserver == 0)	
 		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
-		usr << "You must wait 10 minutes to respawn as a drone!"
+		usr << "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>"
 		return
 
 	for(var/obj/machinery/drone_fabricator/DF in world)

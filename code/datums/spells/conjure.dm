@@ -21,7 +21,7 @@
 			targets -= T
 	playsound(get_turf(src), 'sound/items/welder.ogg', 50, 1)
 
-	if(do_after(usr,delay))
+	if(do_after(usr,delay, target = usr))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break

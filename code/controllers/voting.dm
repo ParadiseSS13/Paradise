@@ -167,12 +167,7 @@ datum/controller/vote
 
 
 		if(restart)
-			world << "World restarting due to vote..."
-			feedback_set_details("end_error","restart vote")
-			if(blackbox)	blackbox.save_all_data_to_sql()
-			sleep(50)
-			log_game("Rebooting due to restart vote")
-			world.Reboot()
+			world.Reboot("Restart vote successful.", "end_error", "restart vote")
 
 		return .
 
@@ -211,7 +206,7 @@ datum/controller/vote
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 					else
-						if (get_security_level() == "red" || get_security_level() == "delta")
+						if (security_level > SEC_LEVEL_BLUE)
 							return 0
 						if(ticker.current_state <= 2)
 							return 0
@@ -272,12 +267,7 @@ datum/controller/vote
 
 	proc/interface(var/client/C)
 		if(!C)	return
-		var/admin = 0
-		var/trialmin = 0
-		if(C.holder)
-			admin = 1
-			if(C.holder.rights & R_ADMIN)
-				trialmin = 1
+		var/admin = check_rights(R_ADMIN,0)
 		voting |= C
 
 		. = "<html><head><title>Voting Panel</title></head><body>"
@@ -299,29 +289,29 @@ datum/controller/vote
 		else
 			. += "<h2>Start a vote:</h2><hr><ul><li>"
 			//restart
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
 			else
 				. += "<font color='grey'>Restart (Disallowed)</font>"
 			. += "</li><li>"
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
 			else
 				. += "<font color='grey'>Crew Transfer (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
 			. += "</li><li>"
 			//gamemode
-			if(trialmin || config.allow_vote_mode)
+			if(admin || config.allow_vote_mode)
 				. += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
 			else
 				. += "<font color='grey'>GameMode (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
 
 			. += "</li>"
 			//custom
-			if(trialmin)
+			if(admin)
 				. += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
 			. += "</ul><hr>"
 		. += "<a href='?src=\ref[src];vote=close' style='position:absolute;right:50px'>Close</a></body></html>"
@@ -330,31 +320,32 @@ datum/controller/vote
 
 	Topic(href,href_list[],hsrc)
 		if(!usr || !usr.client)	return	//not necessary but meh...just in-case somebody does something stupid
+		var/admin = check_rights(R_ADMIN,0)
 		switch(href_list["vote"])
 			if("close")
 				voting -= usr.client
 				usr << browse(null, "window=vote")
 				return
 			if("cancel")
-				if(usr.client.holder)
+				if(admin)
 					reset()
 			if("toggle_restart")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_restart = !config.allow_vote_restart
 			if("toggle_gamemode")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_mode = !config.allow_vote_mode
 			if("restart")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("restart",usr.key)
 			if("gamemode")
-				if(config.allow_vote_mode || usr.client.holder)
+				if(config.allow_vote_mode || admin)
 					initiate_vote("gamemode",usr.key)
 			if("crew_transfer")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("crew_transfer",usr.key)
 			if("custom")
-				if(usr.client.holder)
+				if(admin)
 					initiate_vote("custom",usr.key)
 			else
 				submit_vote(usr.ckey, round(text2num(href_list["vote"])))

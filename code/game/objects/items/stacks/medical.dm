@@ -246,7 +246,7 @@
 				user << "\red You can't apply a splint to the arm you're using!"
 				return
 			user.visible_message("\red [user] starts to apply \the [src] to their [limb].", "\red You start to apply \the [src] to your [limb].", "\red You hear something being wrapped.")
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = M))
 			if (M != user)
 				user.visible_message("\red [user] finishes applying \the [src] to [M]'s [limb].", "\red You finish applying \the [src] to [M]'s [limb].", "\red You hear something being wrapped.")
 			else

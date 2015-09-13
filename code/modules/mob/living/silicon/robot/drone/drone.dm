@@ -25,6 +25,8 @@
 
 	//Used for self-mailing.
 	var/mail_destination = 0
+	var/reboot_cooldown = 60 // one minute
+	var/last_reboot
 
 	holder_type = /obj/item/weapon/holder/drone
 //	var/sprite[0]
@@ -76,6 +78,12 @@
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
 //Redefining some robot procs...
+/mob/living/silicon/robot/drone/SetName(pickedName as text)
+	// Would prefer to call the grandparent proc but this isn't possible, so..
+	real_name = pickedName
+	name = real_name	
+	
+//Redefining some robot procs...
 /mob/living/silicon/robot/drone/updatename()
 	real_name = "maintenance drone ([rand(100,999)])"
 	name = real_name
@@ -117,8 +125,15 @@
 			if(!allowed(usr))
 				user << "\red Access denied."
 				return
-
+	
+			var/delta = (world.time / 10) - last_reboot
+			if(reboot_cooldown > delta)
+				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
+				usr << "\red The reboot system is currently offline. Please wait another [cooldown_time] seconds."
+				return
+				
 			user.visible_message("\red \the [user] swipes \his ID card through \the [src], attempting to reboot it.", "\red You swipe your ID card through \the [src], attempting to reboot it.")
+			last_reboot = world.time / 10
 			var/drones = 0
 			for(var/mob/living/silicon/robot/drone/D in world)
 				if(D.key && D.client)
@@ -250,13 +265,11 @@
 /mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
-		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No", "Never for this round.")
+		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No")
 		if(!C || ckey)
 			return
 		if(response == "Yes")
 			transfer_personality(C)
-		else if (response == "Never for this round")
-			C.prefs.be_special ^= BE_PAI
 
 /mob/living/silicon/robot/drone/proc/transfer_personality(var/client/player)
 

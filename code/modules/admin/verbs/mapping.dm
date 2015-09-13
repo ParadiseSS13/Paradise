@@ -118,33 +118,37 @@ var/intercom_range_display_status = 0
 					del(F)
 	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+var/list/admin_verbs_show_debug_verbs = list(	
+	/client/proc/camera_view, 				//-errorage
+	/client/proc/sec_camera_report, 		//-errorage
+	/client/proc/intercom_view, 			//-errorage
+	/client/proc/Cell, //More air things
+	/client/proc/atmosscan, //check plumbing
+	/client/proc/powerdebug, //check power
+	/client/proc/count_objects_on_z_level,
+	/client/proc/count_objects_all,
+	/client/proc/cmd_assume_direct_control,	//-errorage
+	/client/proc/startSinglo,
+	/client/proc/ticklag,
+	/client/proc/cmd_admin_grantfullaccess,
+//	/client/proc/splash,
+	/client/proc/cmd_admin_areatest,
+	/client/proc/cmd_admin_rejuvenate,
+	/datum/admins/proc/show_traitor_panel,
+	/client/proc/print_jobban_old,
+	/client/proc/print_jobban_old_filter,
+	/client/proc/forceEvent,
+	///client/proc/cmd_admin_rejuvenate,
+	/client/proc/nanomapgen_DumpImage
+)
+	
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs"
 
 	if(!check_rights(R_DEBUG)) return
 
-	src.verbs += /client/proc/camera_view 				//-errorage
-	src.verbs += /client/proc/sec_camera_report 		//-errorage
-	src.verbs += /client/proc/intercom_view 			//-errorage
-	src.verbs += /client/proc/Cell //More air things
-	src.verbs += /client/proc/atmosscan //check plumbing
-	src.verbs += /client/proc/powerdebug //check power
-	src.verbs += /client/proc/count_objects_on_z_level
-	src.verbs += /client/proc/count_objects_all
-	src.verbs += /client/proc/cmd_assume_direct_control	//-errorage
-	src.verbs += /client/proc/startSinglo
-	src.verbs += /client/proc/ticklag
-	src.verbs += /client/proc/cmd_admin_grantfullaccess
-//	src.verbs += /client/proc/splash
-	src.verbs += /client/proc/cmd_admin_areatest
-	src.verbs += /client/proc/cmd_admin_rejuvenate
-	src.verbs += /datum/admins/proc/show_traitor_panel
-	src.verbs += /client/proc/print_jobban_old
-	src.verbs += /client/proc/print_jobban_old_filter
-	src.verbs += /client/proc/forceEvent
-	//src.verbs += /client/proc/cmd_admin_rejuvenate
-	src.verbs += /client/proc/nanomapgen_DumpImage
+	verbs += admin_verbs_show_debug_verbs
 
 	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

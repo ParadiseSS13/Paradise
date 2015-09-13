@@ -96,11 +96,6 @@
 	mechas_list += src //global mech list
 	return
 
-/obj/mecha/Destroy()
-	src.go_out()
-	mechas_list -= src //global mech list
-	return ..()
-
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
@@ -145,7 +140,7 @@
 	pr_give_air = new /datum/global_iterator/mecha_tank_give_air(list(src))
 	pr_internal_damage = new /datum/global_iterator/mecha_internal_damage(list(src),0)
 
-/obj/mecha/proc/do_after(delay as num)
+/obj/mecha/proc/mecha_do_after(delay as num)
 	sleep(delay)
 	if(src)
 		return 1
@@ -257,7 +252,7 @@
 			return
 		target.mech_melee_attack(src)
 		melee_can_hit = 0
-		if(do_after(melee_cooldown))
+		if(mecha_do_after(melee_cooldown))
 			melee_can_hit = 1
 	return
 
@@ -340,7 +335,7 @@
 			if(!src.check_for_support())
 				src.pr_inertial_movement.start(list(src,direction))
 				src.log_message("Movement control lost. Inertial movement started.")
-		if(do_after(step_in))
+		if(mecha_do_after(step_in))
 			can_move = 1
 		return 1
 	return 0
@@ -368,7 +363,7 @@
 	if(src.throwing)//high velocity mechas in your face!
 		var/breakthrough = 0
 		if(istype(obstacle, /obj/structure/window/))
-			obstacle.Destroy(brokenup = 1)
+			qdel(obstacle)
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/grille/))
@@ -382,7 +377,7 @@
 
 		else if(istype(obstacle, /obj/structure/table))
 			var/obj/structure/table/T = obstacle
-			T.destroy()
+			qdel(T)
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/rack))
@@ -455,7 +450,7 @@
 		if(ignore_threshold || src.health*100/initial(src.health)<src.internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/destr = safepick(equipment)
 			if(destr)
-				destr.destroy()
+				qdel(destr)
 	return
 
 /obj/mecha/proc/hasInternalDamage(int_dam_flag=null)
@@ -505,7 +500,7 @@
 	if(src.health > 0)
 		src.spark_system.start()
 	else
-		src.destroy()
+		qdel(src)
 	return
 
 /obj/mecha/attack_hand(mob/living/user as mob)
@@ -614,51 +609,66 @@
 	Proj.on_hit(src)
 	return
 
-/obj/mecha/proc/destroy()
-	spawn()
-		go_out()
-		var/turf/T = get_turf(src)
-		tag = "\ref[src]" //better safe then sorry
-		if(loc)
-			loc.Exited(src)
-		loc = null
-		if(T)
-			if(istype(src, /obj/mecha/working/ripley/))
-				var/obj/mecha/working/ripley/R = src
-				if(R.cargo)
-					for(var/obj/O in R.cargo) //Dump contents of stored cargo
-						O.loc = T
-						R.cargo -= O
-						T.Entered(O)
+/obj/mecha/Destroy()
+	go_out()
+	for(var/mob/M in src) //Let's just be ultra sure
+		if(isAI(M))
+			M.gib() //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. Forever.
+		else
+			M.Move(loc)
 
-			if(prob(30))
-				explosion(get_turf(loc), 0, 0, 1, 3)
-			spawn(0)
-				if(wreckage)
-					var/obj/effect/decal/mecha_wreckage/WR = new wreckage(T)
-					for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-						if(E.salvageable && prob(30))
-							WR.crowbar_salvage += E
-							E.forceMove(WR)
-							E.equip_ready = 1
-							E.reliability = round(rand(E.reliability/3,E.reliability))
-						else
-							E.forceMove(T)
-							E.destroy()
-					if(cell)
-						WR.crowbar_salvage += cell
-						cell.forceMove(WR)
-						cell.charge = rand(0, cell.charge)
-					if(internal_tank)
-						WR.crowbar_salvage += internal_tank
-						internal_tank.forceMove(WR)
-				else
-					for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-						E.forceMove(T)
-						E.destroy()
-		spawn(0)
-			qdel(src)
-	return
+	if(prob(30))
+		explosion(get_turf(loc), 0, 0, 1, 3)
+
+	if(istype(src, /obj/mecha/working/ripley/))
+		var/obj/mecha/working/ripley/R = src
+		if(R.cargo)
+			for(var/obj/O in R.cargo) //Dump contents of stored cargo
+				O.forceMove(loc)
+				R.cargo -= O
+				loc.Entered(O)
+
+	if(wreckage)
+		var/obj/effect/decal/mecha_wreckage/WR = new wreckage(loc)
+		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+			if(E.salvageable && prob(30))
+				WR.crowbar_salvage += E
+				E.forceMove(WR)
+				E.equip_ready = 1
+				E.reliability = round(rand(E.reliability/3,E.reliability))
+			else
+				E.forceMove(loc)
+				qdel(E)
+		if(cell)
+			WR.crowbar_salvage += cell
+			cell.forceMove(WR)
+			cell.charge = rand(0, cell.charge)
+		if(internal_tank)
+			WR.crowbar_salvage += internal_tank
+			internal_tank.forceMove(WR)
+	else
+		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+			E.forceMove(loc)
+			qdel(E)
+		if(cell)
+			qdel(cell)
+		if(internal_tank)
+			qdel(internal_tank)
+	equipment.Cut()
+	cell = null
+	internal_tank = null
+
+	qdel(pr_int_temp_processor)
+	qdel(pr_give_air)
+	qdel(pr_internal_damage)
+	qdel(spark_system)
+	pr_int_temp_processor = null
+	pr_give_air = null
+	pr_internal_damage = null
+	spark_system = null
+
+	mechas_list -= src //global mech list
+	return ..()
 
 /obj/mecha/ex_act(severity)
 	src.log_message("Affected by explosion of severity: [severity].",1)
@@ -667,16 +677,16 @@
 		src.log_append_to_last("Armor saved, changing severity to [severity].")
 	switch(severity)
 		if(1.0)
-			src.destroy()
+			qdel(src)
 		if(2.0)
 			if (prob(30))
-				src.destroy()
+				qdel(src)
 			else
 				src.take_damage(initial(src.health)/2)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
 		if(3.0)
 			if (prob(5))
-				src.destroy()
+				qdel(src)
 			else
 				src.take_damage(initial(src.health)/5)
 				src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT),1)
@@ -834,7 +844,7 @@
 				user << "There's already a powercell installed."
 		return
 
-	else if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
+	else if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM)
 		var/obj/item/weapon/weldingtool/WT = W
 		if (WT.remove_fuel(0,user))
 			if (hasInternalDamage(MECHA_INT_TANK_BREACH))
@@ -910,22 +920,98 @@
 		emagged = 1
 		usr << "\blue You slide the card through the [src]'s ID slot."
 		playsound(src.loc, "sparks", 100, 1)
-		src.desc += "</br><b>\red The mech's equiptment slots spark dangerously!</b>"
+		src.desc += "</br><b>\red The mech's equipment slots spark dangerously!</b>"
 	else
 		usr <<"\red The [src]'s ID slot rejects the card."
 	return
 
 
-/*
+/////////////////////////////////////
+//////////// AI piloting ////////////
+/////////////////////////////////////
+
 /obj/mecha/attack_ai(var/mob/living/silicon/ai/user as mob)
-	if(!istype(user, /mob/living/silicon/ai))
+	if(!isAI(user))
 		return
-	var/output = {"<b>Assume direct control over [src]?</b>
-						<a href='?src=\ref[src];ai_take_control=\ref[user];duration=3000'>Yes</a><br>
-						"}
-	user << browse(output, "window=mecha_attack_ai")
-	return
-*/
+	//Allows the Malf to scan a mech's status and loadout, helping it to decide if it is a worthy chariot.
+	if(user.can_dominate_mechs)
+		examine(user) //Get diagnostic information!
+		var/obj/item/mecha_parts/mecha_tracking/B = locate(/obj/item/mecha_parts/mecha_tracking) in src
+		if(B) //Beacons give the AI more detailed mech information.
+			user << "<span class='danger'>Warning: Tracking Beacon detected. Enter at your own risk. Beacon Data:"
+			user << "[B.get_mecha_info()]"
+		//Nothing like a big, red link to make the player feel powerful!
+		user << "<a href='?src=\ref[user];ai_take_control=\ref[src]'><span class='userdanger'>ASSUME DIRECT CONTROL?</span></a><br>"
+
+/obj/mecha/transfer_ai(var/interaction, mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+	if(!..())
+		return
+
+ //Transfer from core or card to mech. Proc is called by mech.
+	switch(interaction)
+		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
+			if(!maint_access) //Mech must be in maint mode to allow carding.
+				user << "<span class='warning'>[name] must have maintenance protocols active in order to allow a transfer.</span>"
+				return
+			AI = occupant
+			if(!AI || !isAI(occupant)) //Mech does not have an AI for a pilot
+				user << "<span class='warning'>No AI detected in the [name] onboard computer.</span>"
+				return
+			if (AI.mind.special_role == "malfunction") //Malf AIs cannot leave mechs. Except through death.
+				user << "<span class='boldannounce'>ACCESS DENIED.</span>"
+				return
+			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
+			AI.control_disabled = 1
+			AI.aiRadio.disabledAi = 1
+			AI.loc = card
+			occupant = null
+			AI.controlled_mech = null
+			AI.remote_control = null
+			icon_state = initial(icon_state)+"-open"
+			AI << "You have been downloaded to a mobile storage device. Wireless connection offline."
+			user << "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory."
+
+		if(AI_MECH_HACK) //Called by Malf AI mob on the mech.
+			new /obj/structure/AIcore/deactivated(AI.loc)
+			if(occupant) //Oh, I am sorry, were you using that?
+				AI << "<span class='warning'>Pilot detected! Forced ejection initiated!"
+				occupant << "<span class='danger'>You have been forcibly ejected!</span>"
+				go_out(1) //IT IS MINE, NOW. SUCK IT, RD!
+			ai_enter_mech(AI, interaction)
+
+		if(AI_TRANS_FROM_CARD) //Using an AI card to upload to a mech.
+			AI = locate(/mob/living/silicon/ai) in card
+			if(!AI)
+				user << "<span class='warning'>There is no AI currently installed on this device.</span>"
+				return
+			else if(AI.stat || !AI.client)
+				user << "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>"
+				return
+			else if(occupant || dna) //Normal AIs cannot steal mechs!
+				user << "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"]."
+				return
+			AI.control_disabled = 0
+			AI.aiRadio.disabledAi = 0
+			user << "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."
+			ai_enter_mech(AI, interaction)
+
+//Hack and From Card interactions share some code, so leave that here for both to use.
+/obj/mecha/proc/ai_enter_mech(var/mob/living/silicon/ai/AI, var/interaction)
+	AI.aiRestorePowerRoutine = 0
+	AI.loc = src
+	occupant = AI
+	icon_state = initial(icon_state)
+	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+	if(!hasInternalDamage())
+		occupant << sound('sound/mecha/nominal.ogg',volume=50)
+	AI.cancel_camera()
+	AI.controlled_mech = src
+	AI.remote_control = src
+	AI.canmove = 1 //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
+	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
+	AI << "[interaction == AI_MECH_HACK ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
+	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]"
+	AI << "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>"
 
 /////////////////////////////////////
 ////////  Atmospheric stuff  ////////
@@ -1228,7 +1314,7 @@
 	return
 
 
-/obj/mecha/proc/go_out()
+/obj/mecha/proc/go_out(var/forced)
 	if(!src.occupant) return
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
@@ -1236,6 +1322,10 @@
 	else if(istype(occupant, /mob/living/carbon/brain))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
+	else if(isAI(occupant) && forced) //This should only happen if there are multiple AIs in a round, and at least one is Malf.
+		occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
+		occupant = null
+		return
 	else
 		return
 	if(mob_container.forceMove(src.loc))//ejecting mob container
@@ -1597,7 +1687,7 @@
 	if(href_list["rfreq"])
 		if(usr != src.occupant)	return
 		var/new_frequency = (radio.frequency + filter.getNum("rfreq"))
-		if (!radio.freerange || (radio.frequency < 1200 || radio.frequency > 1600))
+		if ((radio.frequency < PUBLIC_LOW_FREQ || radio.frequency > PUBLIC_HIGH_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		radio.set_frequency(new_frequency)
 		send_byjax(src.occupant,"exosuit.browser","rfreq","[format_frequency(radio.frequency)]")
@@ -1677,13 +1767,13 @@
 		user << browse(null,"window=exosuit_add_access")
 		return
 	if(href_list["dna_lock"])
-		if(usr != src.occupant)	return
-		if(istype(occupant, /mob/living/carbon/brain))
-			occupant_message("You are a brain. No.")
+		if(usr != src.occupant)
 			return
-		if(src.occupant)
-			src.dna = src.occupant.dna.unique_enzymes
-			src.occupant_message("You feel a prick as the needle takes your DNA sample.")
+		if(src.occupant && !iscarbon(src.occupant))
+			src.occupant << "<span class='danger'>You do not have any DNA!</span>"
+			return
+		src.dna = src.occupant.dna.unique_enzymes
+		src.occupant_message("You feel a prick as the needle takes your DNA sample.")
 		return
 	if(href_list["reset_dna"])
 		if(usr != src.occupant)	return
@@ -1693,7 +1783,7 @@
 		src.occupant_message("Recalibrating coordination system.")
 		src.log_message("Recalibration of coordination system started.")
 		var/T = src.loc
-		if(do_after(100))
+		if(mecha_do_after(100))
 			if(T == src.loc)
 				src.clearInternalDamage(MECHA_INT_CONTROL_LOST)
 				src.occupant_message("<font color='blue'>Recalibration successful.</font>")
@@ -1712,54 +1802,6 @@
 		return
 	*/
 
-
-
-/*
-
-	if (href_list["ai_take_control"])
-		var/mob/living/silicon/ai/AI = locate(href_list["ai_take_control"])
-		var/duration = text2num(href_list["duration"])
-		var/mob/living/silicon/ai/O = new /mob/living/silicon/ai(src)
-		var/cur_occupant = src.occupant
-		O.invisibility = 0
-		O.canmove = 1
-		O.name = AI.name
-		O.real_name = AI.real_name
-		O.anchored = 1
-		O.aiRestorePowerRoutine = 0
-		O.control_disabled = 1 // Can't control things remotely if you're stuck in a card!
-		O.laws = AI.laws
-		O.stat = AI.stat
-		O.oxyloss = AI.getOxyLoss()
-		O.fireloss = AI.getFireLoss()
-		O.bruteloss = AI.getBruteLoss()
-		O.toxloss = AI.toxloss
-		O.updatehealth()
-		src.occupant = O
-		if(AI.mind)
-			AI.mind.transfer_to(O)
-		AI.name = "Inactive AI"
-		AI.real_name = "Inactive AI"
-		AI.icon_state = "ai-empty"
-		spawn(duration)
-			AI.name = O.name
-			AI.real_name = O.real_name
-			if(O.mind)
-				O.mind.transfer_to(AI)
-			AI.control_disabled = 0
-			AI.laws = O.laws
-			AI.oxyloss = O.getOxyLoss()
-			AI.fireloss = O.getFireLoss()
-			AI.bruteloss = O.getBruteLoss()
-			AI.toxloss = O.toxloss
-			AI.updatehealth()
-			del(O)
-			if (!AI.stat)
-				AI.icon_state = "ai"
-			else
-				AI.icon_state = "ai-crash"
-			src.occupant = cur_occupant
-*/
 	return
 
 ///////////////////////

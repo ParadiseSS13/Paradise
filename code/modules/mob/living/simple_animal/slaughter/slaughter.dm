@@ -4,6 +4,7 @@
 	name = "Slaughter Demon"
 	real_name = "Slaughter Demon"
 	desc = "You should run."
+	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -13,7 +14,7 @@
 	icon_state = "daemon"
 	icon_living = "daemon"
 	speed = 1
-	a_intent = "harm"
+	a_intent = I_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
@@ -76,7 +77,7 @@
 /mob/living/simple_animal/slaughter/Life()
 	..()
 	if(boost<world.time)
-		speed = 1
+		speed = 2
 	else
 		speed = 0
 
@@ -98,8 +99,6 @@
 	speed = 0
 	boost = world.time + 30
 
-/mob/living/simple_animal/slaughter/say(message)
-	return 0
 ////////////////////The Powers
 
 //Paradise Port:I added this cuase..SPOOPY DEMON IN YOUR BRAIN
@@ -120,8 +119,12 @@
 		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
 		if(!(msg))
 			return
-		usr << "<span class='info'><b>You whisper to [M]:</b> [msg]</span>"
-		M << "<span class='deadsay'><b>Suddenly a strange,demonic,voice resonates in your head...</b></span><i><span class='danger'> [msg]</span></I>"
+		log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(M)]: [msg]")
+		usr << "<span class='info'><b>You whisper to [M]: </b>[msg]</span>"
+		M << "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>"
+		for(var/mob/dead/observer/G in player_list)
+			G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
+
 
 //////////The Loot
 

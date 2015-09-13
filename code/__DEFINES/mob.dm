@@ -29,6 +29,8 @@
 #define ORGAN_ASSISTED   4096
 
 #define DROPLIMB_EDGE 0
+#define DROPLIMB_BLUNT 1
+#define DROPLIMB_BURN 2
 
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
@@ -89,3 +91,9 @@
 #define APPEARANCE_EYE_COLOR 256
 #define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR
 #define APPEARANCE_ALL 511
+
+// Intents
+#define I_HELP		"help"
+#define I_DISARM	"disarm"
+#define I_GRAB		"grab"
+#define I_HARM		"harm"

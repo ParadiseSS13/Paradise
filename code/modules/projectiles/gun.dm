@@ -10,7 +10,7 @@
 	item_state = "gun"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	w_class = 3.0
 	throwforce = 5
 	throw_speed = 4
@@ -98,7 +98,7 @@
 				qdel(src)
 				return
 
-	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/carbon/primitive/diona))
+	if (!user.IsAdvancedToolUser() || istype(user, /mob/living/simple_animal/diona))
 		user << "\red You don't have the dexterity to do this!"
 		return
 	if(istype(user, /mob/living))
@@ -264,7 +264,7 @@
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1
 		M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
-		if(!do_after(user, 40))
+		if(!do_after(user, 40, target = M))
 			M.visible_message("\blue [user] decided life was worth living")
 			mouthshoot = 0
 			return
@@ -295,7 +295,7 @@
 
 	if (src.process_chambered())
 		//Point blank shooting if on harm intent or target we were targeting.
-		if(user.a_intent == "harm")
+		if(user.a_intent == I_HARM)
 			user.visible_message("\red <b> \The [user] fires \the [src] point blank at [M]!</b>")
 			if(istype(in_chamber)) in_chamber.damage *= 1.3
 			Fire(M,user,0,0,1)

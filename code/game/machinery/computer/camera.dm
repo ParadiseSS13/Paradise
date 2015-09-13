@@ -145,7 +145,7 @@
 	else if(href_list["reset"])
 		if(src.z>6 || stat&(NOPOWER|BROKEN)) return
 		if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
-		current = null
+		reset_current()
 		usr.check_eye(current)
 		return 1
 	else if(href_list["activate"]) // Activate: enable or disable networks
@@ -159,7 +159,7 @@
 				else
 					src.network += net
 					break
-				invalidateCameraCache()
+		invalidateCameraCache()
 		nanomanager.update_uis(src)
 	else
 		. = ..()
@@ -204,9 +204,31 @@
 			A.eyeobj.setLoc(get_turf(C))
 			A.client.eye = A.eyeobj
 		else
-			src.current = C
+			set_current(C)
 			use_power(50)
 		return 1
+		
+/obj/machinery/computer/security/proc/set_current(var/obj/machinery/camera/C)
+	if(current == C)
+		return
+
+	if(current)
+		reset_current()
+
+	src.current = C
+	if(current)
+		use_power = 2
+		var/mob/living/L = current.loc
+		if(istype(L))
+			L.tracking_initiated()		
+		
+/obj/machinery/computer/security/proc/reset_current()
+	if(current)
+		var/mob/living/L = current.loc
+		if(istype(L))
+			L.tracking_cancelled()
+	current = null
+	use_power = 1
 
 //Camera control: moving.
 /obj/machinery/computer/security/proc/jump_on_click(var/mob/user,var/A)

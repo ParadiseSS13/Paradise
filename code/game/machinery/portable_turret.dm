@@ -54,6 +54,9 @@
 	var/wrenching = 0
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 	
+	var/screen = 0 // Screen 0: main control, screen 1: access levels
+	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
+	
 /obj/machinery/porta_turret/centcom
 	enabled = 0
 	ailock = 1
@@ -74,7 +77,8 @@
 	if(req_access && req_access.len)
 		req_access.Cut()
 	req_one_access = list(access_security, access_heads)
-
+	one_access = 1
+	
 	//Sets up a spark system
 	spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -87,6 +91,7 @@
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(access_cent_specops)
+	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
@@ -106,15 +111,8 @@
 			iconholder = 1
 			eprojectile = /obj/item/projectile/beam
 
-//			if(/obj/item/weapon/gun/energy/laser/practice/sc_laser)
-//				iconholder = 1
-//				eprojectile = /obj/item/projectile/beam
-
 		if(/obj/item/weapon/gun/energy/laser/retro)
 			iconholder = 1
-
-//			if(/obj/item/weapon/gun/energy/retro/sc_retro)
-//				iconholder = 1
 
 		if(/obj/item/weapon/gun/energy/laser/captain)
 			iconholder = 1
@@ -198,6 +196,7 @@ var/list/turret_icons
 /obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	data["access"] = !isLocked(user)
+	data["screen"] = screen
 	data["locked"] = locked
 	data["enabled"] = enabled
 	data["is_lethal"] = 1
@@ -212,10 +211,23 @@ var/list/turret_icons
 		settings[++settings.len] = list("category" = "Check Access Authorization", "setting" = "check_access", "value" = check_access)
 		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
-
+		
+	data["one_access"] = one_access
+	var/accesses[0]
+	var/list/access_list = get_all_accesses()
+	for (var/access in access_list)
+		var/name = get_access_desc(access)
+		var/active
+		if(one_access)
+			active = (access in req_one_access)
+		else
+			active = (access in req_access)
+		accesses[++accesses.len] = list("name" = name, "active" = active, "number" = access)
+	data["accesses"] = accesses
+					
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 320)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -246,6 +258,8 @@ var/list/turret_icons
 		var/value = text2num(href_list["value"])
 		if(href_list["command"] == "enable")
 			enabled = value
+		else if(href_list["command"] == "screen")
+			screen = value
 		else if(href_list["command"] == "lethal")
 			lethal = value
 		else if(href_list["command"] == "check_synth")
@@ -261,8 +275,40 @@ var/list/turret_icons
 		else if(href_list["command"] == "check_anomalies")
 			check_anomalies = value
 
-		return 1
+	if(href_list["one_access"])
+		toggle_one_access(href_list["one_access"])
+			
+	if(href_list["access"])
+		toggle_access(href_list["access"])
 
+	return 1
+	
+/obj/machinery/porta_turret/proc/toggle_one_access(var/access)
+	one_access = text2num(access)
+
+	if(one_access == 1)
+		req_one_access = req_access.Copy()
+		req_access.Cut()
+	else if(one_access == 0)
+		req_access = req_one_access.Copy()
+		req_one_access.Cut()
+	
+/obj/machinery/porta_turret/proc/toggle_access(var/access)
+	var/required = text2num(access)
+	if(!(required in get_all_accesses()))
+		return
+
+	if(one_access)
+		if((required in req_one_access))
+			req_one_access -= required
+		else
+			req_one_access += required
+	else
+		if((required in req_access))
+			req_access -= required
+		else
+			req_access += required	
+	
 /obj/machinery/porta_turret/power_change()
 	if(powered())
 		stat &= ~NOPOWER
@@ -279,7 +325,7 @@ var/list/turret_icons
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			user << "<span class='notice'>You begin prying the metal coverings off.</span>"
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = src))
 				if(prob(70))
 					user << "<span class='notice'>You remove the turret and salvage some components.</span>"
 					if(installation)
@@ -311,7 +357,7 @@ var/list/turret_icons
 			)
 
 		wrenching = 1
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
 				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
@@ -325,8 +371,7 @@ var/list/turret_icons
 				update_icon()
 		wrenching = 0
 
-	else if(istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
-		//Behavior lock/unlock mangement
+	else if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		if(allowed(user))
 			locked = !locked
 			user << "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>"
@@ -352,8 +397,9 @@ var/list/turret_icons
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.
-		user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
-		visible_message("[src] hums oddly...")
+		if(user)
+			user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
+			visible_message("[src] hums oddly...")
 		emagged = 1
 		iconholder = 1
 		controllock = 1
@@ -736,7 +782,7 @@ var/list/turret_icons
 					return
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					if(!src || !WT.remove_fuel(5, user)) return
 					build_step = 1
 					user << "You remove the turret's interior metal armor."
@@ -817,7 +863,7 @@ var/list/turret_icons
 					user << "<span class='notice'>You need more fuel to complete this task.</span>"
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 30))
+				if(do_after(user, 30, target = src))
 					if(!src || !WT.remove_fuel(5, user))
 						return
 					build_step = 8

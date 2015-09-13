@@ -44,8 +44,11 @@
 		if (E) E.damage += rand(1, 3)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
-		if (E && E.damage >= E.min_bruised_damage)
-			M << "<span class='warning'>Your eyes start to burn badly!</span>"
+		if (istype(E) && E.damage >= E.min_bruised_damage)
+			if(!(E.status & ORGAN_ROBOT))
+				M << "<span class='warning'>Your eyes start to burn badly!</span>"
+			else
+				M << "<span class='warning'>The flash blinds you!</span>"
 			if(!banglet && !(istype(src , /obj/item/weapon/grenade/flashbang/clusterbang)))
 				if (E.damage >= E.min_broken_damage)
 					M << "<span class='warning'>You can't see anything!</span>"

@@ -5,8 +5,7 @@
 	icon_state = "cameracase"
 	w_class = 2
 	anchored = 0
-	m_amt = 400
-	g_amt = 250
+	materials = list(MAT_METAL=400, MAT_GLASS=250)
 
 	//	Motion, EMP-Proof, X-Ray
 	var/list/obj/item/possible_upgrades = list(/obj/item/device/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/device/analyzer)
@@ -165,7 +164,7 @@
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	WT.eyecheck(user)
 	busy = 1
-	if(do_after(user, 20))
+	if(do_after(user, 20, target = src))
 		busy = 0
 		if(!WT.isOn())
 			return 0

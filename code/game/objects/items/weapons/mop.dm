@@ -44,7 +44,7 @@
 	if(istype(turf))
 		user.visible_message("<span class='warning'>[user] begins to clean \the [turf] with [src].</span>")
 
-		if(do_after(user, mopspeed))
+		if(do_after(user, mopspeed, target = src))
 			clean(turf)
 			user << "<span class='notice'>You have finished mopping!</span>"
 

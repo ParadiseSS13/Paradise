@@ -54,7 +54,7 @@
 	var/areastring = null
 	var/obj/item/weapon/stock_parts/cell/cell
 	var/start_charge = 90				// initial cell charge %
-	var/cell_type = 2500				
+	var/cell_type = 2500
 	var/opened = 0 //0=closed, 1=opened, 2=cover removed
 	var/shorted = 0
 	var/lighting = 3
@@ -99,9 +99,9 @@
 	var/global/list/status_overlays_lighting
 	var/global/list/status_overlays_environ
 	var/indestructible = 0 // If set, prevents aliens from destroying it
-	
+
 	var/report_power_alarm = 1
-	
+
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
 
@@ -115,6 +115,8 @@
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
 	..()
+	apcs += src
+	apcs = sortAtom(apcs)
 	wires = new(src)
 	var/tmp/obj/item/weapon/stock_parts/cell/tmp_cell = new
 	standard_max_charge = tmp_cell.maxcharge
@@ -141,8 +143,9 @@
 		src.update_icon()
 		spawn(5)
 			src.update()
-			
+
 /obj/machinery/power/apc/Destroy()
+	apcs -= src
 	if(malfai && operating)
 		if (ticker.mode.config_tag == "malfunction")
 			if (src.z == ZLEVEL_STATION)
@@ -375,7 +378,7 @@
 		results += 2
 	return results
 
-// Used in process so it doesn't update the icon too much	
+// Used in process so it doesn't update the icon too much
 /obj/machinery/power/apc/proc/queue_icon_update()
 
 	if(!updating_icon)
@@ -406,7 +409,7 @@
 				return
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 			user << "You are trying to remove the power control board..." //lpeters - fixed grammar issues
-			if(do_after(user, 50))
+			if(do_after(user, 50, target = src))
 				if (has_electronics==1)
 					has_electronics = 0
 					if ((stat & BROKEN) || malfhack)
@@ -499,7 +502,7 @@
 			return
 		user << "You start adding cables to the APC frame..."
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = src))
 			if (C.amount >= 10 && !terminal && opened && has_electronics != 2)
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
@@ -520,7 +523,7 @@
 			return
 		user << "You begin to cut the cables..."
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			if(terminal && opened && has_electronics!=2)
 				if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
 					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
@@ -533,7 +536,7 @@
 	else if (istype(W, /obj/item/weapon/module/power_control) && opened && has_electronics==0 && !((stat & BROKEN) || malfhack))
 		user << "You trying to insert the power control board into the frame..."
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-		if(do_after(user, 10))
+		if(do_after(user, 10, target = src))
 			if(has_electronics==0)
 				has_electronics = 1
 				user << "<span class='notice'>You place the power control board inside the frame.</span>"
@@ -550,7 +553,7 @@
 							"You start welding the APC frame...", \
 							"You hear welding.")
 		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			if(!src || !WT.remove_fuel(3, user)) return
 			if (emagged || malfhack || (stat & BROKEN) || opened==2)
 				new /obj/item/stack/sheet/metal(loc)
@@ -580,7 +583,7 @@
 			user << "You cannot repair this APC until you remove the electronics still inside."
 			return
 		user << "You begin to replace the damaged APC frame..."
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			user.visible_message(\
 				"<span class='notice'>[user.name] has replaced the damaged APC frame with new one.</span>",\
 				"You replace the damaged APC frame with new one.")
@@ -641,16 +644,15 @@
 	//Synthetic human mob goes here.
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(H.species.flags & IS_SYNTHETIC && H.a_intent == "grab")
+		if(!isnull(H.internal_organs_by_name["cell"]) && H.a_intent == I_GRAB)
 			if(emagged || stat & BROKEN)
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
-				H << "<span class='warning'>The APC power currents surge eratically, damaging your chassis!</span>"
+				H << "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>"
 				H.adjustFireLoss(10,0)
 			else if(src.cell && src.cell.charge > 0)
 				if(H.nutrition < 450)
-
 					if(src.cell.charge >= 500)
 						H.nutrition += 50
 						src.cell.charge -= 500
@@ -659,14 +661,15 @@
 						src.cell.charge = 0
 
 					user << "<span class='notice'>You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.</span>"
-					if(src.cell.charge < 0) src.cell.charge = 0
-					if(H.nutrition > 500) H.nutrition = 500
+					if(src.cell.charge < 0)
+						src.cell.charge = 0
+					if(H.nutrition > 500)
+						H.nutrition = 500
 					src.charging = 1
-
 				else
 					user << "<span class='notice'>You are already fully charged.</span>"
 			else
-				user << "There is no charge to draw from that APC."
+				user << "<span class='warning'>There is no charge to draw from that APC.</span>"
 			return
 
 	if(usr == user && opened && (!issilicon(user)))
@@ -833,8 +836,8 @@
 	return wires.IsIndexCut(wireIndex)
 
 
-/obj/machinery/power/apc/proc/can_use(mob/user as mob, var/loud = 0) //used by attack_hand() and Topic()
-	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
+/obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
+	if(user.can_admin_interact())
 		return 1
 
 	autoflag = 5
@@ -876,7 +879,7 @@
 		return 1
 	else
 		return !locked
-		
+
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 0
@@ -1092,8 +1095,8 @@
 
 //Returns 1 if the APC should attempt to charge
 /obj/machinery/power/apc/proc/attempt_charging()
-	return (chargemode && charging == 1 && operating)		
-		
+	return (chargemode && charging == 1 && operating)
+
 /obj/machinery/power/apc/draw_power(var/amount)
 	if(terminal && terminal.powernet)
 		return terminal.powernet.draw_power(amount)
@@ -1255,7 +1258,7 @@
 		update()
 	else if (last_ch != charging)
 		queue_icon_update()
-		
+
 /obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if(on==0)
 		if(val==2)			// if on, return off
@@ -1272,7 +1275,7 @@
 			return 1
 
 	return val
-	
+
 // damage and destruction acts
 
 /obj/machinery/power/apc/emp_act(severity)
@@ -1314,7 +1317,7 @@
 		set_broken()
 		if (cell && prob(5))
 			cell.blob_act()
-			
+
 
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)
