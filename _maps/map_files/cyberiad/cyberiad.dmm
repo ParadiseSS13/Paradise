@@ -1579,7 +1579,7 @@
 "aEs" = (/obj/item/stack/tile/wood,/turf/simulated/floor/plating,/area/maintenance/abandonedbar)
 "aEt" = (/obj/structure/stool/bed/chair/wood/wings{tag = "icon-wooden_chair_wings (EAST)"; icon_state = "wooden_chair_wings"; dir = 4},/turf/simulated/floor/wood,/area/maintenance/abandonedbar)
 "aEu" = (/obj/structure/table/woodentable,/obj/item/trash/candle,/turf/simulated/floor/plating,/area/maintenance/abandonedbar)
-"aEv" = (/obj/effect/spawner/window,/turf/simulated/floor/plating,/area/hallway/secondary/construction{name = "\improper Garden"})
+"aEv" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/hallway/secondary/construction{name = "\improper Garden"})
 "aEw" = (/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/hallway/secondary/entry)
 "aEx" = (/obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod_berth{frequency = 1380; id_tag = "escape_pod_1_berth"; pixel_x = -25; pixel_y = 30; tag_door = "escape_pod_1_berth_hatch"},/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/hallway/secondary/entry)
 "aEy" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/item/device/radio/intercom{broadcasting = 0; listening = 1; name = "station intercom (General)"; pixel_y = 25},/obj/structure/closet/lasertag/blue,/turf/simulated/floor,/area/crew_quarters/fitness)

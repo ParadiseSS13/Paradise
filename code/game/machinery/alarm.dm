@@ -978,9 +978,9 @@
 		var/max_temperature = min(selected.max1 - T0C, MAX_TEMPERATURE)
 		var/min_temperature = max(selected.min1 - T0C, MIN_TEMPERATURE)
 		var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature]C and [max_temperature]C)", "Thermostat Controls") as num|null
-		if(input_temperature==null || ..(href, href_list, nowindow, state))
+		if(isnull(input_temperature) || ..(href, href_list, nowindow, state))
 			return
-		if(!input_temperature || input_temperature > max_temperature || input_temperature < min_temperature)
+		if(input_temperature > max_temperature || input_temperature < min_temperature)
 			usr << "Temperature must be between [min_temperature]C and [max_temperature]C"
 		else
 			target_temperature = input_temperature + T0C

@@ -39,7 +39,8 @@
 
 		for(var/i = 0, i < 10, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
-				if(H.species.flags & NO_DNA_RAD) // Leave synthetics completely unaffected
+				var/armor = H.getarmor(attack_flag = "rad")
+				if((H.species.flags & NO_DNA_RAD) || armor >= 100) // Leave DNA-less species/fully rad armored players completely unaffected
 					continue
 				var/turf/T = get_turf(H)
 				if(!T)
