@@ -4,10 +4,12 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "staffofnothing"
 	item_state = "staff"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags =  CONDUCT
 	w_class = 5
-	var/projectile_type = "/obj/item/projectile/magic"
+	var/projectile_type = /obj/item/projectile/magic
 	var/max_charges = 6
 	var/charges = 0
 	var/recharge_rate = 4

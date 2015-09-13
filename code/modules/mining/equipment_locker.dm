@@ -734,7 +734,6 @@
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 2.0
 	throw_speed = 3

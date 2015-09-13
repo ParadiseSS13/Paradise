@@ -6,6 +6,8 @@
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
 	var/item_state = null
+	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null

@@ -76,7 +76,6 @@ effective or pretty fucking useless.
 	name = "Health Analyzer"
 	icon_state = "health2"
 	item_state = "healthanalyzer"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
 	flags = CONDUCT
 	slot_flags = SLOT_BELT

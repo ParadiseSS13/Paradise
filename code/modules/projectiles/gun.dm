@@ -8,6 +8,8 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)

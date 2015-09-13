@@ -115,7 +115,6 @@
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	w_class = 3.0
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
@@ -150,7 +149,6 @@
 	desc = "A bullpup and compact 5.45x39 assault rifle with a unique toploading design, designated 'C-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "c90gl"
 	item_state = "c90gl"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	origin_tech = "combat=5;materials=2;syndicate=8"
 	mag_type = "/obj/item/ammo_box/magazine/m545"
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'

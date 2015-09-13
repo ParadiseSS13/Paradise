@@ -3,7 +3,6 @@
 	desc = "A katana infused with a strong energy"
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	force = 40
 	throwforce = 20
 	var/cooldown = 0 // Because spam aint cool, yo.

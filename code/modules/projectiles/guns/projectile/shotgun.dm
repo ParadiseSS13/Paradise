@@ -108,7 +108,6 @@
 	desc = "This piece of junk looks like something that could have been used 700 years ago."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = "/obj/item/ammo_box/magazine/internal/boltaction"
 	var/bolt_open = 0

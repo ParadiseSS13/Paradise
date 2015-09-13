@@ -875,7 +875,7 @@ var/global/list/damage_icon_parts = list()
 			t_state = "[t_state]_r"
 			overlays_standing[R_HAND_LAYER] = image("icon" = r_hand.sprite_sheets[species.name], "icon_state" = "[t_state]")
 		else
-			overlays_standing[R_HAND_LAYER] = image("icon" = 'icons/mob/items_righthand.dmi', "icon_state" = "[t_state]")
+			overlays_standing[R_HAND_LAYER] = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
 
 		if (handcuffed) drop_r_hand()
 	else
@@ -896,7 +896,7 @@ var/global/list/damage_icon_parts = list()
 			t_state = "[t_state]_l"
 			overlays_standing[L_HAND_LAYER] = image("icon" = l_hand.sprite_sheets[species.name], "icon_state" = "[t_state]")
 		else
-			overlays_standing[L_HAND_LAYER] = image("icon" = 'icons/mob/items_lefthand.dmi', "icon_state" = "[t_state]")
+			overlays_standing[L_HAND_LAYER] = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
 
 		if (handcuffed) drop_l_hand()
 	else

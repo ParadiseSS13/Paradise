@@ -110,7 +110,6 @@
 	desc = "An entangling bolas. Throw at your foes to trip them and prevent them from running."
 	gender = NEUTER
 	icon = 'icons/obj/weapons.dmi'
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "bolas"
 	siemens_coefficient = 1
 	slot_flags = SLOT_BELT

@@ -113,7 +113,6 @@ REAGENT SCANNER
 	name = "Health Analyzer"
 	icon_state = "health"
 	item_state = "healthanalyzer"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT
 	slot_flags = SLOT_BELT

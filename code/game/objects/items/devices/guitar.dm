@@ -6,7 +6,6 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "guitar"
 	item_state = "guitar"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 10
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
