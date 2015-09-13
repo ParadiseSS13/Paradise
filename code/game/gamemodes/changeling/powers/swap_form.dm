@@ -50,4 +50,6 @@
 		user.key = ghost.key
 
 	user.Paralyse(2)
+	user.remove_language("Changeling")
+	target.add_language("Changeling")
 	target << "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>"
