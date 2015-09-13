@@ -204,6 +204,7 @@
 	in_chamber.loc = get_turf(user)
 	in_chamber.starting = get_turf(user)
 	in_chamber.current = curloc
+	in_chamber.OnFired()
 	in_chamber.yo = targloc.y - curloc.y
 	in_chamber.xo = targloc.x - curloc.x
 	if(params)

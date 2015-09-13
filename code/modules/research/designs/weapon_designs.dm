@@ -165,13 +165,12 @@
 
 /datum/design/temp_gun
 	name = "Temperature Gun"
-	desc = "A gun that shoots temperature bullet energy things to change temperature."//Change it if you want
+	desc = "A gun that changes the body temperature of its targets."
 	id = "temp_gun"
 	req_tech = list("combat" = 3, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
 	build_path = /obj/item/weapon/gun/energy/temperature
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/suppressor
