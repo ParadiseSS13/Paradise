@@ -868,15 +868,10 @@ var/global/list/damage_icon_parts = list()
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
 
-		if(r_hand.icon_override)
-			t_state = "[t_state]_r"
-			overlays_standing[R_HAND_LAYER] = image("icon" = r_hand.icon_override, "icon_state" = "[t_state]")
-		else if(r_hand.sprite_sheets && r_hand.sprite_sheets[species.name])
-			t_state = "[t_state]_r"
-			overlays_standing[R_HAND_LAYER] = image("icon" = r_hand.sprite_sheets[species.name], "icon_state" = "[t_state]")
-		else
-			overlays_standing[R_HAND_LAYER] = image("icon" = r_hand.righthand_file, "icon_state" = "[t_state]")
-
+		var/image/I = image("icon" = r_hand.righthand_file, "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
+		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
+		overlays_standing[R_HAND_LAYER] = I		
+		
 		if (handcuffed) drop_r_hand()
 	else
 		overlays_standing[R_HAND_LAYER] = null
@@ -889,14 +884,9 @@ var/global/list/damage_icon_parts = list()
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
 
-		if(l_hand.icon_override)
-			t_state = "[t_state]_l"
-			overlays_standing[L_HAND_LAYER] = image("icon" = l_hand.icon_override, "icon_state" = "[t_state]")
-		else if(l_hand.sprite_sheets && l_hand.sprite_sheets[species.name])
-			t_state = "[t_state]_l"
-			overlays_standing[L_HAND_LAYER] = image("icon" = l_hand.sprite_sheets[species.name], "icon_state" = "[t_state]")
-		else
-			overlays_standing[L_HAND_LAYER] = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
+		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
+		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
+		overlays_standing[L_HAND_LAYER] = I
 
 		if (handcuffed) drop_l_hand()
 	else
