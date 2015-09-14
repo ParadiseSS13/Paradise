@@ -29,8 +29,26 @@
 	return
 
 /obj/item/weapon/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	if(..() && chambered)
-		alarmed = 0
+	. = ..()
+	if(.)
+		return
+	if(istype(A, /obj/item/ammo_box/magazine))
+		var/obj/item/ammo_box/magazine/AM = A
+		if(istype(AM, text2path(mag_type)))
+			if(magazine)
+				user << "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>"
+				magazine.forceMove(get_turf(src.loc))
+				magazine.update_icon()
+				magazine = null
+			else
+				user << "<span class='notice'>You insert the magazine into \the [src].</span>"
+			user.remove_from_mob(AM)
+			magazine = AM
+			magazine.forceMove(src)
+			chamber_round()
+			A.update_icon()
+			update_icon()
+			return 1
 	
 /obj/item/weapon/gun/projectile/automatic/ui_action_click()
 	burst_select()
