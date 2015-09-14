@@ -92,8 +92,9 @@ var/global/list/all_money_accounts = list()
 		P.wrapped = R
 		R.name = "Account information: [M.owner_name]"
 
-		// AUTOFIXED BY fix_string_idiocy.py
-		// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:94: R.info = "<b>Account details (confidential)</b><br><hr><br>"
+		var/overseer = "Unknown"
+		if(source_db.held_card)
+			overseer = source_db.held_card.registered_name
 		R.info = {"<b>Account details (confidential)</b><br><hr><br>
 			<i>Account holder:</i> [M.owner_name]<br>
 			<i>Account number:</i> [M.account_number]<br>
@@ -101,7 +102,7 @@ var/global/list/all_money_accounts = list()
 			<i>Starting balance:</i> $[M.money]<br>
 			<i>Date and time:</i> [worldtime2text()], [current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
-			<i>Authorised NT officer overseeing creation:</i> [source_db.held_card.registered_name]<br>"}
+			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
 		// END AUTOFIX
 		//stamp the paper
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
