@@ -13,6 +13,7 @@
 	var/icon_screen = "generic"
 	var/light_range_on = 2
 	var/light_power_on = 1
+	atom_say_verb = "beeps"
 
 /obj/machinery/computer/initialize()
 	power_change()
