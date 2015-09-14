@@ -54,6 +54,21 @@
 		)
 	autohiss_exempt = list("Siik'tajr")
 
+/datum/species/plasmaman
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss")
+		)
+
+/datum/species/kidan
+	autohiss_basic_map = list(
+			"z" = list("zz", "zzz", "zzzz"),
+			"v" = list("vv", "vvv", "vvvv")
+		)
+	autohiss_extra_map = list(
+			"s" = list("z", "zs", "zzz", "zzsz")
+		)
+	autohiss_exempt = list("Chittin")
+
 
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
 	if(!autohiss_basic_map)
