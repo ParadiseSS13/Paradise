@@ -138,6 +138,7 @@ var/list/mechtoys = list(
 	var/ordernum
 	var/datum/supply_packs/object = null
 	var/orderedby = null
+	var/orderedrank = null
 	var/comment = null
 
 /datum/controller/supply
@@ -300,14 +301,19 @@ var/list/mechtoys = list(
 		var/datum/supply_packs/SP = SO.object
 
 		var/atom/A = new SP.containertype(pickedloc)
-		A.name = "[SP.containername]"// [SO.comment ? "([SO.comment])":"" ]"
+		A.name = "[SP.containername]"
 
 		//supply manifest generation begin
-
 		var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
+		slip.name = "Shipping Manifest - '[SP.name]' for [SO.orderedby]"
 		slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
-		slip.info +="Order #[SO.ordernum]<br>"
+		slip.info +="Order: #[SO.ordernum]<br>"
 		slip.info +="Destination: [station_name]<br>"
+		slip.info +="Requested By: [SO.orderedby]<br>"
+		slip.info +="Rank: [SO.orderedrank]<br>"
+		slip.info +="Reason: [SO.comment]<br>"
+		slip.info +="Supply Crate Type: [SP.name]<br>"
+		slip.info +="Access Restriction: [replacetext(get_access_desc(SP.access))]<br>"
 		slip.info +="[shoppinglist.len] PACKAGES IN THIS SHIPMENT<br>"
 		slip.info +="CONTENTS:<br><ul>"
 
@@ -482,6 +488,7 @@ var/list/mechtoys = list(
 			O.ordernum = supply_controller.ordernum
 			O.object = P
 			O.orderedby = idname
+			O.orderedrank = idrank
 			O.comment = reason
 			supply_controller.requestlist += O
 
@@ -691,6 +698,7 @@ var/list/mechtoys = list(
 			O.ordernum = supply_controller.ordernum
 			O.object = P
 			O.orderedby = idname
+			O.orderedrank = idrank
 			O.comment = reason
 			supply_controller.requestlist += O
 
