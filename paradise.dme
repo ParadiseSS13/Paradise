@@ -953,6 +953,7 @@
 #include "code\modules\alarm\alarm.dm"
 #include "code\modules\alarm\alarm_handler.dm"
 #include "code\modules\alarm\atmosphere_alarm.dm"
+#include "code\modules\alarm\burglar_alarm.dm"
 #include "code\modules\alarm\camera_alarm.dm"
 #include "code\modules\alarm\fire_alarm.dm"
 #include "code\modules\alarm\motion_alarm.dm"
