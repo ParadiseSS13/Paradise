@@ -18,8 +18,8 @@
 	var/autohiss_mode = AUTOHISS_OFF
 
 /client/verb/toggle_autohiss()
-	set name = "Toggle Auto-Hiss"
-	set desc = "Toggle automatic hissing as Unathi and r-rolling as Taj"
+	set name = "Toggle Auto-Accent"
+	set desc = "Toggle automatic accents for your species"
 	set category = "OOC"
 
 	autohiss_mode = (autohiss_mode + 1) % AUTOHISS_NUM
