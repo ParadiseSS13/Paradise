@@ -6,7 +6,8 @@
 	primitive_form = "Monkey"
 	path = /mob/living/carbon/human/human
 	language = "Sol Common"
-	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	flags = HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE
 	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
@@ -37,7 +38,8 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_CARN
 
@@ -88,7 +90,8 @@
 
 	primitive_form = "Farwa"
 
-	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	flags = HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 
@@ -119,7 +122,8 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
 
@@ -148,7 +152,8 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB
 
@@ -190,6 +195,7 @@
 	poison_type = "oxygen"
 
 	flags = NO_SCAN | IS_WHITELISTED
+	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
 
 	blood_color = "#2299FC"
@@ -278,6 +284,7 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
+	clothing_flags = HAS_SOCKS
 	bodyflags = FEET_CLAWS
 	dietflags = DIET_HERB
 
@@ -295,6 +302,7 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
+	clothing_flags = HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 	dietflags = DIET_CARN
@@ -322,7 +330,8 @@
 	default_genes = list(REMOTE_TALK)
 
 
-	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB
 
 	reagent_tag = PROCESS_ORG
@@ -373,6 +382,7 @@
 	water and other radiation."
 
 	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
+	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
@@ -467,6 +477,7 @@
 	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA_RAD
+	clothing_flags = HAS_SOCKS
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
