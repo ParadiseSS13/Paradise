@@ -1270,6 +1270,7 @@
 #include "code\modules\mob\dead\observer\observer.dm"
 #include "code\modules\mob\dead\observer\say.dm"
 #include "code\modules\mob\dead\observer\spells.dm"
+#include "code\modules\mob\living\autohiss.dm"
 #include "code\modules\mob\living\bloodcrawl.dm"
 #include "code\modules\mob\living\damage_procs.dm"
 #include "code\modules\mob\living\default_language.dm"
