@@ -250,8 +250,9 @@
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
 	fire_sound = 'sound/weapons/Gunshot4.ogg'
 	can_suppress = 0
-	burst_size = 2
-	fire_delay = 1
+	burst_size = 1
+	fire_delay = 0
+	action_button_name = null
 
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/New()
 	..()
@@ -267,10 +268,6 @@
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/update_icon()
 	overlays.Cut()
 	update_magazine()
-	if(!select)
-		overlays += "[initial(icon_state)]semi"
-	if(select)
-		overlays += "[initial(icon_state)]burst"
 	icon_state = "bulldog[chambered ? "" : "-e"]"
 	return
 

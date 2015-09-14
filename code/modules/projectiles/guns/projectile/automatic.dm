@@ -243,8 +243,8 @@
 	mag_type = "/obj/item/ammo_box/magazine/tommygunm45"
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 	can_suppress = 0
+	fire_delay = 1
 	burst_size = 4
-	
 
 /obj/item/weapon/gun/projectile/automatic/ar
 	name = "ARG"
