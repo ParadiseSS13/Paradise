@@ -606,7 +606,7 @@ var/global/nologevent = 0
 		return
 	if(confirm == "Yes")
 		var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num
-		if(!delay)
+		if(isnull(delay))
 			delay = 50
 		else
 			delay = delay * 10

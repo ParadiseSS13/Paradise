@@ -77,6 +77,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 
 				H.underwear = "None"
 				H.undershirt = "None"
+				H.socks = "None"
 				H.faction |= "faithless"
 
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(usr), slot_w_uniform)
