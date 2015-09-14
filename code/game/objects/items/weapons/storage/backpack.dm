@@ -12,6 +12,7 @@
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3
 	max_combined_w_class = 21
+	storage_slots = 21
 
 /obj/item/weapon/storage/backpack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -73,7 +74,6 @@
 	icon_state = "giftbag0"
 	item_state = "giftbag"
 	w_class = 4.0
-	storage_slots = 20
 	max_w_class = 3
 	max_combined_w_class = 400 // can store a ton of shit!
 
@@ -197,7 +197,6 @@
 	desc = "A very slim satchel that can easily fit into tight spaces."
 	icon_state = "satchel-flat"
 	w_class = 3 //Can fit in backpacks itself.
-	storage_slots = 5
 	max_combined_w_class = 15
 	level = 1
 	cant_hold = list(/obj/item/weapon/storage/backpack/satchel_flat) //muh recursive backpacks
@@ -227,8 +226,7 @@
 	icon_override = 'icons/mob/in-hand/duffelbag.dmi'
 	icon_state = "duffel"
 	item_state = "duffel"
-	storage_slots = 9 // Duffelbags can hold more items.
-	max_combined_w_class = 27
+	max_combined_w_class = 30
 	slowdown = 1
 
 /obj/item/weapon/storage/backpack/duffel/syndie
@@ -272,7 +270,6 @@
 	desc = "A suspicious looking dufflebag for holding surgery tools."
 	icon_state = "duffel-syndimed"
 	item_state = "duffle-syndimed"
-	storage_slots = 12
 
 /obj/item/weapon/storage/backpack/duffel/syndie/surgery/New()
 	..()
