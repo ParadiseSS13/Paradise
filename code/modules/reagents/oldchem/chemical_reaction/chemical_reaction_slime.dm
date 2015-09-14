@@ -214,11 +214,12 @@
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
-			sleep(50)
-			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-			for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
-				M.bodytemperature -= 140
-				M << "\blue You feel a chill!"
+			spawn(50)
+				if(holder && holder.my_atom)
+					playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+					for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
+						M.bodytemperature -= 140
+						M << "\blue You feel a chill!"
 
 //Orange
 	slimecasp
@@ -242,10 +243,11 @@
 			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
-			sleep(50)
-			var/turf/simulated/T = get_turf(holder.my_atom)
-			if(istype(T))
-				T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
+			spawn(50)
+				if(holder && holder.my_atom)
+					var/turf/simulated/T = get_turf(holder.my_atom)
+					if(istype(T))
+						T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
 
 //Yellow
 	slimeoverload
@@ -387,8 +389,9 @@
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
 				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
-			sleep(50)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6)
+			spawn(50)
+				if(holder && holder.my_atom)
+					explosion(get_turf(holder.my_atom), 1 ,3, 6)
 //Light Pink
 	slimepotion2
 		name = "Slime Potion 2"
