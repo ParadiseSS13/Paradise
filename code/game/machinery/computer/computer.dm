@@ -13,7 +13,12 @@
 	var/icon_screen = "generic"
 	var/light_range_on = 2
 	var/light_power_on = 1
+	var/overlay_layer
 
+/obj/machinery/computer/New()
+	overlay_layer = layer
+	..()	
+	
 /obj/machinery/computer/initialize()
 	power_change()
 	update_icon()
@@ -64,18 +69,18 @@
 
 /obj/machinery/computer/update_icon()
 	overlays.Cut()
-
-	var/overlay_layer = LIGHTING_LAYER+0.1
-
 	if(stat & NOPOWER)
 		if(icon_keyboard)
 			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return
-	overlays += image(icon, icon_keyboard ,overlay_layer)
+
 	if(stat & BROKEN)
 		overlays += image(icon,"[icon_state]_broken",overlay_layer)
 	else
 		overlays += image(icon,icon_screen,overlay_layer)
+	
+	if(icon_keyboard)
+		overlays += image(icon, icon_keyboard ,overlay_layer)
 
 
 /obj/machinery/computer/power_change()
@@ -85,7 +90,6 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-
 
 /obj/machinery/computer/proc/set_broken()
 	stat |= BROKEN
