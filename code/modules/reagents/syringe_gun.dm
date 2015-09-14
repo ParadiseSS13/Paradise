@@ -28,10 +28,9 @@
 	qdel(S)
 	return 1
 
-/obj/item/weapon/gun/syringe/examine()
-	..()
-	usr << "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
-	return
+/obj/item/weapon/gun/syringe/examine(mob/user)
+	..(user)
+	user << "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
 
 /obj/item/weapon/gun/syringe/attack_self(mob/living/user as mob)
 	if(!syringes.len)

@@ -1087,12 +1087,12 @@
 	spawn(rand(0,15))
 		update_icon()
 
-/obj/machinery/alarm/examine()
-	..()
+/obj/machinery/alarm/examine(mob/user)
+	..(user)
 	if (buildstage < 2)
-		usr << "It is not wired."
+		user << "It is not wired."
 	if (buildstage < 1)
-		usr << "The circuit is missing."
+		user << "The circuit is missing."
 
 /*
 AIR ALARM CIRCUIT

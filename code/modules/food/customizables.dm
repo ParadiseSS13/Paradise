@@ -382,11 +382,11 @@
 		qdel(O)
 	return ..()
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/examine()
-	..()
+/obj/item/weapon/reagent_containers/food/snacks/customizable/examine(mob/user)
+	..(user)
 	var/whatsinside = pick(ingredients)
 
-	usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+	user << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
 
 /*
 /obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone) //SNOOOOOOOWFLAAAAAAAAAAAAAAAAAKES

@@ -81,13 +81,13 @@
 /obj/structure/proc/getPrint(mob/user as mob)
 	return md5(user:dna:uni_identity)
 
-/obj/structure/displaycase/examine()
-	..()
-	usr << "\blue Peering through the glass, you see that it contains:"
+/obj/structure/displaycase/examine(mob/user)
+	..(user)
+	user << "\blue Peering through the glass, you see that it contains:"
 	if(occupant)
-		usr << "\icon[occupant] \blue \A [occupant]"
-	else:
-		usr << "Nothing."
+		user << "\icon[occupant] \blue \A [occupant]"
+	else
+		user << "Nothing."
 
 /obj/structure/displaycase/proc/dump()
 	if(occupant)

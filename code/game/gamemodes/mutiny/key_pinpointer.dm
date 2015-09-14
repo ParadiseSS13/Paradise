@@ -25,14 +25,14 @@
 			icon_state = "pinoff"
 			usr << "\blue You switch \the [src] off."
 
-/obj/item/weapon/pinpointer/advpinpointer/auth_key/examine()
+/obj/item/weapon/pinpointer/advpinpointer/auth_key/examine(mob/user)
 	switch(mode)
 		if (1)
-			usr << "Is is calibrated for the Captain's Authentication Key."
+			user << "Is is calibrated for the Captain's Authentication Key."
 		if (2)
-			usr << "It is calibrated for the Emergency Secondary Authentication Key."
+			user << "It is calibrated for the Emergency Secondary Authentication Key."
 		else
-			usr << "It is switched off."
+			user << "It is switched off."
 
 /datum/supply_packs/key_pinpointer
 	name = "Authentication Key Pinpointer crate"

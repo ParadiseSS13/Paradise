@@ -436,9 +436,9 @@
 			user << "<span class='info'>There's no points left on [src].</span>"
 	..()
 
-/obj/item/weapon/card/mining_point_card/examine()
-	..()
-	usr << "There's [points] points on the card."
+/obj/item/weapon/card/mining_point_card/examine(mob/user)
+	..(user)
+	user << "There's [points] points on the card."
 
 /**********************Jaunter**********************/
 
@@ -778,7 +778,7 @@
 		malfunctioning = 1
 
 /obj/item/weapon/lazarus_injector/examine(mob/user)
-	..()
+	..(user)
 	if(!loaded)
 		user << "<span class='info'>[src] is empty.</span>"
 	if(malfunctioning)

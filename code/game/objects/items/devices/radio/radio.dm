@@ -66,7 +66,7 @@ var/global/list/default_medbay_channels = list(
 	wires = new(src)
 	if(radio_controller)
 		initialize()
-		
+
 	internal_channels = default_internal_channels.Copy()
 
 /obj/item/device/radio/initialize()
@@ -78,8 +78,8 @@ var/global/list/default_medbay_channels = list(
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/device/radio/attack_ghost(mob/user)
-	interact(user)		
-		
+	interact(user)
+
 /obj/item/device/radio/attack_self(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
@@ -141,18 +141,18 @@ var/global/list/default_medbay_channels = list(
 		return 0
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
-	
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)	
+
+/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	var/obj/item/weapon/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
-	
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)	
+
+/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	var/list/access = get_all_accesses()
 	return has_access(list(), req_one_accesses, access)
-	
+
 /mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	return can_admin_interact()
-	
+
 /obj/item/device/radio/proc/text_wires()
 	if (b_stat)
 		return wires.GetInteractWindow()
@@ -515,7 +515,7 @@ var/global/list/default_medbay_channels = list(
 
 
 /obj/item/device/radio/examine(mob/user)
-	. = ..()
+	..(user)
 	if ((in_range(src, user) || loc == user))
 		if (b_stat)
 			user.show_message("\blue \the [src] can be attached and modified!")
@@ -564,11 +564,11 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
-	
+
 /obj/item/device/radio/borg/Destroy()
 	myborg = null
 	return ..()
-	
+
 /obj/item/device/radio/borg/list_channels(var/mob/user)
 	return list_secure_channels(user)
 
@@ -732,7 +732,7 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/device/radio/off
 	listening = 0
-	
+
 /obj/item/device/radio/phone
 	broadcasting = 0
 	icon = 'icons/obj/items.dmi'

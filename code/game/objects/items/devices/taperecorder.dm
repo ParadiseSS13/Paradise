@@ -23,10 +23,9 @@
 	update_icon()
 
 
-/obj/item/device/taperecorder/examine()
-	set src in view(1)
-	..()
-	usr << "The wire panel is [open_panel ? "opened" : "closed"]."
+/obj/item/device/taperecorder/examine(mob/user)
+	if(..(user, 1))
+		user << "The wire panel is [open_panel ? "opened" : "closed"]."
 
 
 /obj/item/device/taperecorder/attackby(obj/item/I, mob/user)

@@ -28,8 +28,9 @@
 
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)
+	..(user)
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
-	..()
+
 
 
 /obj/item/weapon/grenade/chem_grenade/proc/get_trigger()
@@ -257,7 +258,7 @@
 
 	if(!has_reagents)
 		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
-		return	
+		return
 
 	if(nadeassembly)
 		var/mob/M = get_mob_by_ckey(assemblyattacher)

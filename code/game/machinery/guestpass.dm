@@ -16,16 +16,16 @@
 	else
 		return temp_access
 
-/obj/item/weapon/card/id/guest/examine()
-	..()
+/obj/item/weapon/card/id/guest/examine(mob/user)
+	..(user)
 	if (world.time < expiration_time)
-		usr << "<span class='notice'>This pass expires at [worldtime2text(expiration_time)].</span>"
+		user << "<span class='notice'>This pass expires at [worldtime2text(expiration_time)].</span>"
 	else
-		usr << "<span class='warning'>It expired at [worldtime2text(expiration_time)].</span>"
-	usr << "<span class='notice'>It grants access to following areas:</span>"
+		user << "<span class='warning'>It expired at [worldtime2text(expiration_time)].</span>"
+	user << "<span class='notice'>It grants access to following areas:</span>"
 	for (var/A in temp_access)
-		usr << "<span class='notice'>[get_access_desc(A)].</span>"
-	usr << "<span class='notice'>Issuing reason: [reason].</span>"
+		user << "<span class='notice'>[get_access_desc(A)].</span>"
+	user << "<span class='notice'>Issuing reason: [reason].</span>"
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////

@@ -120,18 +120,16 @@
 /obj/item/weapon/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity)
 	return
 
-/obj/item/weapon/reagent_containers/food/snacks/examine()
-	set src in view()
-	..()
-	if (!(usr in range(0)) && usr!=src.loc) return
-	if (bitecount==0)
-		return
-	else if (bitecount==1)
-		usr << "\blue \The [src] was bitten by someone!"
-	else if (bitecount<=3)
-		usr << "\blue \The [src] was bitten [bitecount] times!"
-	else
-		usr << "\blue \The [src] was bitten multiple times!"
+/obj/item/weapon/reagent_containers/food/snacks/examine(mob/user)
+	if(..(user, 0))
+		if (bitecount==0)
+			return
+		else if (bitecount==1)
+			user << "\blue \The [src] was bitten by someone!"
+		else if (bitecount<=3)
+			user << "\blue \The [src] was bitten [bitecount] times!"
+		else
+			user << "\blue \The [src] was bitten multiple times!"
 
 
 /obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W, mob/user, params)

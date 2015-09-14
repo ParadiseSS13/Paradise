@@ -37,10 +37,10 @@
 
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
 	..()
-	
+
 	if(!ishuman(usr) && !isrobot(usr))
 		return
-		
+
 	var/turf/T = get_turf(src)
 	if(!usr in range(1, T))
 		return
@@ -153,19 +153,18 @@
 	mode = !mode
 	usr << "The IV drip is now [mode ? "injecting" : "taking blood"]."
 
-/obj/machinery/iv_drip/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2)) && usr!=src.loc) return
+/obj/machinery/iv_drip/examine(mob/user)
+	..(user)
+	if (!(user in view(2)) && usr != src.loc) return
 
 	usr << "The IV drip is [mode ? "injecting" : "taking blood"]."
 
 	if(beaker)
 		if(beaker.reagents && beaker.reagents.reagent_list.len)
-			usr << "\blue Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid."
+			user << "\blue Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid."
 		else
-			usr << "\blue Attached is an empty [beaker]."
+			user << "\blue Attached is an empty [beaker]."
 	else
-		usr << "\blue No chemicals are attached."
+		user << "\blue No chemicals are attached."
 
-	usr << "\blue [attached ? attached : "No one"] is attached."
+	user << "\blue [attached ? attached : "No one"] is attached."

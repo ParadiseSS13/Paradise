@@ -126,5 +126,5 @@
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine(mob/user)
-	..()
+	..(user)
 	user << "You can't tell when it will explode!"

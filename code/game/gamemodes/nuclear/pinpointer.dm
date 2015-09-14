@@ -46,11 +46,11 @@
 				icon_state = "pinonfar"
 		spawn(5) .()
 
-	examine()
-		..()
+	examine(mob/user)
+		..(user)
 		for(var/obj/machinery/nuclearbomb/bomb in world)
 			if(bomb.timing)
-				usr << "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
+				user << "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
 
 /obj/item/weapon/pinpointer/advpinpointer
@@ -318,10 +318,10 @@
 		used = 1
 
 
-	examine()
-		..()
+	examine(mob/user)
+		..(user)
 		if (target)
-			usr << "\blue Tracking [target]"
+			user << "\blue Tracking [target]"
 
 	proc/point_at(atom/target)
 		if(!active)
@@ -386,7 +386,7 @@
 			.()
 
 /obj/item/weapon/pinpointer/operative/examine(mob/user)
-	..()
+	..(user)
 	if(nearest_op != null)
 		user << "Nearest operative: <b>[nearest_op]</b>."
 	if(nearest_op == null && active)

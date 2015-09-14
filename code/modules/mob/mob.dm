@@ -482,6 +482,18 @@ var/list/slot_equipment_priority = list( \
 	onclose(user, "mob\ref[src]")
 	return
 
+//mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
+/mob/verb/examinate(atom/A as mob|obj|turf in view())
+	set name = "Examine"
+	set category = "IC"
+
+	if((is_blind(src) || usr.stat) && !isobserver(src))
+		src << "<span class='notice'>Something is there but you can't see it.</span>"
+		return 1
+
+	face_atom(A)
+	A.examine(src)
+
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if ((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
 		if (!( L ))
@@ -620,7 +632,7 @@ var/list/slot_equipment_priority = list( \
 	if (!abandon_allowed)
 		usr << "<span class='warning'>Respawning is disabled.</span>"
 		return
-		
+
 	if (stat != DEAD || !ticker)
 		usr << "<span class='boldnotice'>You must be dead to use this!</span>"
 		return
@@ -633,7 +645,7 @@ var/list/slot_equipment_priority = list( \
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
 	client.screen.Cut()
-	
+
 	if(!client)
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
@@ -793,6 +805,7 @@ var/list/slot_equipment_priority = list( \
 		return
 
 	if (AM.anchored)
+		usr << "<span class='notice'>It won't budge!</span>"
 		return
 
 	var/mob/M = AM

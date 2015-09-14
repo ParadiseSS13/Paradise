@@ -53,7 +53,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/weapon/melee/baton/examine(mob/user)
-	..()
+	..(user)
 	if(bcell)
 		user <<"<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>"
 	if(!bcell)

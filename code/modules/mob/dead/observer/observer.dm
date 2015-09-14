@@ -96,7 +96,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	return 1
-	
+
 
 /*
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
@@ -192,7 +192,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return
 
 
-/mob/dead/observer/Move(NewLoc, direct)	
+/mob/dead/observer/Move(NewLoc, direct)
 	following = null
 	dir = direct
 	if(NewLoc)
@@ -221,15 +221,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/area/A = get_area_master(src)
 	if(A)
 		A.Entered(src)
-		
+
 	..()
 
 /mob/dead/observer/experience_pressure_difference()
 	return 0
-
-/mob/dead/observer/examine()
-	if(usr)
-		usr << desc
 
 /mob/dead/observer/can_use_hands()	return 0
 /mob/dead/observer/is_active()		return 0
@@ -325,15 +321,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set name = "Teleport"
 	set desc= "Teleport to a location"
-	
+
 	if(!isobserver(usr))
 		usr << "Not when you're not dead!"
 		return
-		
+
 	usr.verbs -= /mob/dead/observer/proc/dead_tele
 	spawn(30)
 		usr.verbs += /mob/dead/observer/proc/dead_tele
-		
+
 	var/area/thearea = ghostteleportlocs[A]
 	if(!thearea)	return
 
@@ -414,7 +410,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/Life()
 	// to catch teleports etc which directly set loc
 	update_following()
-	return ..()					
+	return ..()
 
 /mob/dead/observer/verb/jumptomob(target in getmobs()) //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -509,7 +505,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		src << "\blue Temperature: [round(environment.temperature-T0C,0.1)]&deg;C"
 		src << "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]"
-		
+
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
@@ -629,9 +625,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		client.images |= ghost_darkness_images
 		if (ghostimage)
 			client.images -= ghostimage //remove ourself
-		
+
 /mob/proc/can_admin_interact()
 	return 0
-		
+
 /mob/dead/observer/can_admin_interact()
 	return check_rights(R_ADMIN, 0, src)

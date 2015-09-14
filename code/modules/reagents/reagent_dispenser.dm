@@ -23,16 +23,15 @@
 		src.verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
 	..()
 
-/obj/structure/reagent_dispensers/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2)) && usr!=src.loc) return
-	usr << "\blue It contains:"
+/obj/structure/reagent_dispensers/examine(mob/user)
+	if(!..(user, 2))
+		return
+	user << "\blue It contains:"
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			usr << "\blue [R.volume] units of [R.name]"
+			user << "\blue [R.volume] units of [R.name]"
 	else
-		usr << "\blue Nothing."
+		user << "\blue Nothing."
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -111,10 +110,9 @@
 /obj/structure/reagent_dispensers/fueltank/ex_act()
 	explode()
 
-/obj/structure/reagent_dispensers/fueltank/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2)) && usr!=src.loc) return
+/obj/structure/reagent_dispensers/fueltank/examine(mob/user)
+	if(!..(user, 2))
+		return
 	if(rig)
 		usr << "<span class='notice'>There is some kind of device rigged to the tank."
 

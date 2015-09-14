@@ -117,7 +117,7 @@
 
 /atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
 	if(user.client)
-		examine()
+		user.examinate(src)
 	return
 
 /atom/proc/AIAltShiftClick()
@@ -129,7 +129,7 @@
 	else
 		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
 	return
-	
+
 /atom/proc/AIShiftClick()
 	return
 

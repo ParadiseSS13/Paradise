@@ -32,12 +32,12 @@ var/global/list/moneytypes=list(
 	amount = new_amount
 	update_icon()
 
-/obj/item/weapon/spacecash/examine()
+/obj/item/weapon/spacecash/examine(mob/user)
 	if(amount>1)
-		usr << "\icon[src] This is a stack of [amount] [src]s."
+		user << "\icon[src] This is a stack of [amount] [src]s."
 	else
-		usr << "\icon[src] This is \a [src]s."
-	usr << "It's worth [worth*amount] credits."
+		user << "\icon[src] This is \a [src]s."
+	user << "It's worth [worth*amount] credits."
 
 /obj/item/weapon/spacecash/update_icon()
 	icon_state = "cash[worth]"
@@ -60,12 +60,12 @@ var/global/list/moneytypes=list(
 	icon_state = "cash10"
 	worth = 10
 	stack_color = "#663200"
-	
+
 /obj/item/weapon/spacecash/c20
 	icon_state = "cash10"
 	worth = 20
 	stack_color = "#663200"
-	
+
 /obj/item/weapon/spacecash/c50
 	icon_state = "cash10"
 	worth = 50
@@ -75,7 +75,7 @@ var/global/list/moneytypes=list(
 	icon_state = "cash100"
 	worth = 100
 	stack_color = "#663200"
-	
+
 /obj/item/weapon/spacecash/c200
 	icon_state = "cash100"
 	worth = 200

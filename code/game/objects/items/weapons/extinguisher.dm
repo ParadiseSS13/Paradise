@@ -35,15 +35,13 @@
 	max_water = 30
 	sprite_name = "miniFE"
 
-/obj/item/weapon/extinguisher/examine()
-	set src in usr
+/obj/item/weapon/extinguisher/examine(mob/user)
+	if(..(user, 0))
+		usr << "\icon[src] [src.name] contains:"
+		if(reagents && reagents.reagent_list.len)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				user << "\blue [R.volume] units of [R.name]"
 
-	usr << "\icon[src] [src.name] contains:"
-	if(reagents && reagents.reagent_list.len)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			usr << "\blue [R.volume] units of [R.name]"
-	..()
-	return
 
 /obj/item/weapon/extinguisher/New()
 	create_reagents(max_water)
