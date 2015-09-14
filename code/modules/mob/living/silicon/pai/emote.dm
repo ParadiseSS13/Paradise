@@ -13,7 +13,7 @@
 	var/on_CD = 0
 	switch(act)
 		//Cooldown-inducing emotes
-		if("ping","buzz")
+		if("ping","beep","buzz")
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -57,6 +57,23 @@
 				message = "<B>[src]</B> pings."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 1
+		
+		if("beep")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> beeps at [param]."
+			else
+				message = "<B>[src]</B> beeps."
+			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 1
 
 		if("buzz")
 			var/M = null
@@ -76,7 +93,7 @@
 			m_type = 1
 
 		if ("help")
-			src << "ping, \nbuzz."
+			src << "ping, \nbuzz, \nbeep."
 		else
 			src << "\blue Unusable emote '[act]'. Say *help for a list."
 
