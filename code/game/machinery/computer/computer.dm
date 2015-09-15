@@ -14,7 +14,7 @@
 	var/light_range_on = 3
 	var/light_power_on = 2
 	var/overlay_layer
-	atom_say_verb = "beeps
+	atom_say_verb = "beeps"
 
 /obj/machinery/computer/New()
 	overlay_layer = layer
