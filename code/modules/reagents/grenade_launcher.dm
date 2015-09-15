@@ -72,7 +72,6 @@
 /obj/item/weapon/gun/grenadelauncher/piecannon
 	name = "pie cannon"
 	icon = 'icons/obj/gun.dmi'
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	icon_state = "piecannon1"
 	item_state = "piecannon1"
 	w_class = 4.0

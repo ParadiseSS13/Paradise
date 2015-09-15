@@ -152,7 +152,7 @@ obj/item/weapon/wirerod
 	force = 9
 	throwforce = 10
 	w_class = 3
-	materials = list(MAT_METAL=1875)
+	materials = list(MAT_METAL=1000)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)

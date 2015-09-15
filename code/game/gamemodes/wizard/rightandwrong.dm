@@ -1,7 +1,7 @@
 
 
 /mob/proc/rightandwrong(var/summon_type) //0 = Summon Guns, 1 = Summon Magic
-	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction")
+	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg")
 	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special")
 	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos")
 	usr << "<B>You summoned [summon_type ? "magic" : "guns"]!</B>"
@@ -30,7 +30,7 @@
 				if("nuclear")
 					new /obj/item/weapon/gun/energy/gun/nuclear(get_turf(H))
 				if("deagle")
-					new /obj/item/weapon/gun/projectile/automatic/deagle/camo(get_turf(H))
+					new /obj/item/weapon/gun/projectile/automatic/pistol/deagle/camo(get_turf(H))
 				if("gyrojet")
 					new /obj/item/weapon/gun/projectile/automatic/gyropistol(get_turf(H))
 				if("pulse")
@@ -47,17 +47,19 @@
 				if("combatshotgun")
 					new /obj/item/weapon/gun/projectile/shotgun/combat(get_turf(H))
 				if("bulldog")
-					new /obj/item/weapon/gun/projectile/automatic/bulldog(get_turf(H))
+					new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(get_turf(H))
+				if("arg")
+					new /obj/item/weapon/gun/projectile/automatic/ar(get_turf(H))
 				if("mateba")
 					new /obj/item/weapon/gun/projectile/revolver/mateba(get_turf(H))
 				if("sabr")
-					new /obj/item/weapon/gun/projectile/automatic(get_turf(H))
+					new /obj/item/weapon/gun/projectile/automatic/proto(get_turf(H))
 				if("crossbow")
 					new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow(get_turf(H))
 				if("saw")
 					new /obj/item/weapon/gun/projectile/automatic/l6_saw(get_turf(H))
 				if("car")
-					new /obj/item/weapon/gun/projectile/automatic/c90gl(get_turf(H))
+					new /obj/item/weapon/gun/projectile/automatic/m90(get_turf(H))
 				if("boltaction")
 					new /obj/item/weapon/gun/projectile/shotgun/boltaction(get_turf(H))
 		else

@@ -3,14 +3,17 @@
 
 
 /obj/item/weapon/gun/projectile/automatic/gyropistol
-	name = "gyrojet pistol"
+	name = "\improper Gyrojet rocket pistol"
 	desc = "A prototype pistol designed to fire self propelled rockets."
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/Explosion1.ogg'
 	origin_tech = "combat=3"
 	mag_type = "/obj/item/ammo_box/magazine/m75"
-	isHandgun()
-		return 1
+	burst_size = 1
+	fire_delay = 0
+	
+/obj/item/weapon/gun/projectile/automatic/gyropistol/isHandgun()
+	return 1
 
 /obj/item/weapon/gun/projectile/automatic/gyropistol/New()
 	..()
@@ -36,6 +39,7 @@
 	icon_state = "dshotgun-sawn"
 	item_state = "gun"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher"
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	w_class = 3
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
@@ -48,7 +52,6 @@
 	name = "multi grenade launcher"
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi"
 
 /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg

@@ -544,21 +544,10 @@
 	gib()
 	return
 
-/mob/living/simple_animal/say(var/message,var/datum/language/speaking,var/verb)
-	if(stat)
-		return
-
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-
-	if(stat)
-		return
-
-	verb = "says"
+/mob/living/simple_animal/say(var/message)
+	var/verb = "says"
 
 	if(speak_emote.len)
 		verb = pick(speak_emote)
 
-	message = capitalize(trim_left(message))
-
-	..(message, speaking, verb)
+	..(message, null, verb)

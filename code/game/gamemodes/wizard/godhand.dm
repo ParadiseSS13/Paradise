@@ -39,7 +39,6 @@
 	on_use_sound = "sound/magic/Disintegrate.ogg"
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	icon_override = 'icons/mob/in-hand/spells.dmi'
 
 /obj/item/weapon/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
@@ -64,7 +63,6 @@
 	on_use_sound = "sound/magic/FleshToStone.ogg"
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"
-	icon_override = 'icons/mob/in-hand/spells.dmi'
 
 /obj/item/weapon/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //getting hard after touching yourself would also be bad

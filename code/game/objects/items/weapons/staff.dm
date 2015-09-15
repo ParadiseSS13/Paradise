@@ -17,7 +17,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	item_state = "broom0"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 
 /obj/item/weapon/twohanded/staff/broom/attack_self(mob/user as mob)
 	..()
@@ -58,7 +57,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 
 /obj/item/weapon/twohanded/staff/broom/horsebroom/attack_self(mob/user as mob)
 	..()

@@ -88,6 +88,9 @@
 		var/mob/living/L = target
 		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
 
+	proc/OnFired()	//if assigned, allows for code when the projectile gets fired
+		return 1		
+		
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
 			return 0

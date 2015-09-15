@@ -3,7 +3,6 @@
 	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
 	icon_state = "banana"
 	item_state = "flashbang"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 2.0
 	force = 2.0
 	var/stage = 0
