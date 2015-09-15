@@ -15,26 +15,27 @@
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger."
 
-/obj/item/weapon/gun/energy/crossbow
+/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire."
 	description_antag = "This is a stealthy weapon which fires poisoned bolts at your target.  When it hits someone, they will suffer a stun effect, in \
 	addition to toxins.  The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
-/obj/item/weapon/gun/energy/gun
+/obj/item/weapon/gun/energy
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  To recharge this weapon, use a weapon recharger."
 
-/obj/item/weapon/gun/energy/gun/taser
+/obj/item/weapon/gun/energy/advtaser
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger."
+	then click where you want to fire. To recharge this weapon, use a weapon recharger. \
+	To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
 
-/obj/item/weapon/gun/energy/gun/stunrevolver
+/obj/item/weapon/gun/energy/stunrevolver
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  Most energy weapons can fire through windows harmlessly. To recharge this weapon, use a weapon recharger."
+	then click where you want to fire. To recharge this weapon, use a weapon recharger."
 
-/obj/item/weapon/gun/energy/gun/nuclear
+/obj/item/weapon/gun/energy/nuclear
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  Unlike most weapons, this weapon recharges itself."
