@@ -12,7 +12,6 @@
 	name = "first-aid kit"
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon_state = "firstaid"
-	icon_override = 'icons/mob/in-hand/medkits.dmi'
 	throw_speed = 2
 	throw_range = 8
 	var/empty = 0

@@ -78,5 +78,6 @@
 	return
 
 /datum/reagent/Destroy()
+	..()
 	holder = null
-	return ..()
+	return QDEL_HINT_QUEUE

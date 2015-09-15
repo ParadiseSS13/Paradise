@@ -101,22 +101,23 @@
 			inserted_id = I
 			interact(user)
 		return
+		
 	if(exchange_parts(user, W))
 		return
 
-	if(default_deconstruction_crowbar(W))
-		return
-
-	if(default_unfasten_wrench(user, W))
-		return
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
-		updateUsrDialog()
-		return
 	if(panel_open)
 		if(istype(W, /obj/item/weapon/crowbar))
 			empty_content()
 			default_deconstruction_crowbar(W)
-		return 1
+		return
+
+	if(default_unfasten_wrench(user, W))
+		return
+		
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
+		updateUsrDialog()
+		return
+
 	..()
 
 /obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/weapon/ore/O)
@@ -253,7 +254,7 @@
 		while(s.amount > s.max_amount)
 			new s.type(loc,s.max_amount)
 			s.use(s.max_amount)
-		s.loc = loc
+		s.forceMove(loc)
 		s.layer = initial(s.layer)
 
 /**********************Mining Equipment Locker**************************/
@@ -734,7 +735,6 @@
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 2.0
 	throw_speed = 3

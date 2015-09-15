@@ -43,10 +43,11 @@
 	kitchen_tag = "ghostchili"
 	preset_icon = "ghostchilipepper"
 
-/datum/seed/chili/ice/New()
+/datum/seed/chili/ghost/New()
 	..()
-	set_trait(TRAIT_MATURATION,4)
-	set_trait(TRAIT_PRODUCTION,4)
+	set_trait(TRAIT_MATURATION,10)
+	set_trait(TRAIT_PRODUCTION,10)
+	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#00EDC6")
 
 // Berry plants/variants.

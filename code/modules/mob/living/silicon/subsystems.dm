@@ -41,7 +41,7 @@
 	if(!register_alarms)
 		return
 
-	var/list/register_to = list(atmosphere_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
+	var/list/register_to = list(atmosphere_alarm, burglar_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
 	for(var/datum/alarm_handler/AH in register_to)
 		AH.register(src, /mob/living/silicon/proc/receive_alarm)
 		queued_alarms[AH] = list()	// Makes sure alarms remain listed in consistent order

@@ -6,7 +6,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	slot_flags = SLOT_BACK
 	force = 5
 	throwforce = 6
@@ -249,7 +248,6 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 0
 	throwforce = 6
 	w_class = 4

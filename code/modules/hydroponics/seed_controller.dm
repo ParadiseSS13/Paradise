@@ -148,3 +148,10 @@ var/global/datum/controller/plants/plant_controller // Set in New().
 
 /datum/controller/plants/proc/remove_plant(var/obj/effect/plant/plant)
 	plant_queue -= plant
+
+/client/proc/list_plant_sprites()
+	if(!plant_controller || !plant_controller.plant_sprites || !plant_controller.plant_sprites.len)
+		world << "Cannot list plant sprites, plant controller or plant sprites list may not be initialized."
+
+	for(var/base in plant_controller.plant_sprites)
+		world << "[base] : [plant_controller.plant_sprites[base]] growth states"

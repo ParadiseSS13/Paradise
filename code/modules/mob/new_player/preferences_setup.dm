@@ -254,19 +254,19 @@ datum/preferences
 
 
 		var/icon/underwear_s = null
-		if(underwear && current_species.flags & HAS_UNDERWEAR)
+		if(underwear && current_species.clothing_flags & HAS_UNDERWEAR)
 			var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
 			if(U)
 				underwear_s = new/icon(U.icon, "[U.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/undershirt_s = null
-		if(undershirt && current_species.flags & HAS_UNDERWEAR)
+		if(undershirt && current_species.clothing_flags & HAS_UNDERSHIRT)
 			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 			if(U2)
 				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/socks_s = null
-		if(socks)
+		if(socks && current_species.clothing_flags & HAS_SOCKS)
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
 				socks_s = new/icon(U3.icon, "[U3.icon_state]_s", ICON_OVERLAY)
@@ -402,7 +402,7 @@ datum/preferences
 				if(LAWYER)
 					clothes_s = new /icon(uniform_dmi, "internalaffairs_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
-					clothes_s.Blend(new /icon('icons/mob/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
+					clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
 					if(prob(1))
 						clothes_s.Blend(new /icon('icons/mob/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)
 					switch(backbag)
@@ -569,7 +569,7 @@ datum/preferences
 					clothes_s.Blend(new /icon('icons/mob/hands.dmi', "bgloves"), ICON_UNDERLAY)
 					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 					if(prob(1))
-						clothes_s.Blend(new /icon('icons/mob/items_righthand.dmi', "toolbox_blue"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "toolbox_blue"), ICON_OVERLAY)
 					switch(backbag)
 						if(2)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "backpack"), ICON_OVERLAY)
@@ -655,7 +655,7 @@ datum/preferences
 					clothes_s.Blend(new /icon('icons/mob/belt.dmi', "utility"), ICON_OVERLAY)
 					clothes_s.Blend(new /icon('icons/mob/head.dmi', "hardhat0_white"), ICON_OVERLAY)
 					if(prob(1))
-						clothes_s.Blend(new /icon('icons/mob/items_righthand.dmi', "blueprints"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "blueprints"), ICON_OVERLAY)
 					switch(backbag)
 						if(2)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "engiepack"), ICON_OVERLAY)

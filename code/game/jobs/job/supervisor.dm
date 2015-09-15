@@ -42,6 +42,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		callHook("captain_spawned", list("captain" = H))
 		return 1
 
 	get_access()

@@ -1780,3 +1780,8 @@
 			prot["head"] = max(1 - I.permeability_coefficient, prot["head"])
 	var/protection = (prot["head"] + prot["arms"] + prot["feet"] + prot["legs"] + prot["groin"] + prot["chest"] + prot["hands"])/7
 	return protection
+	
+/mob/living/carbon/human/proc/get_full_print()
+	if(!dna || !dna.uni_identity)
+		return
+	return md5(dna.uni_identity)

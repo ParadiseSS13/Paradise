@@ -70,7 +70,6 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 
 	icon = 'icons/obj/gun.dmi' //Actual on-sprite is handled by icon_override.
-	icon_override = 'icons/mob/vox.dmi'
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
 	recoil = 1

@@ -28,4 +28,8 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, pixel_y = final_pixel_y, dir = final_dir, easing = EASE_IN|EASE_OUT)
+		handle_transform_change()
 		floating = 0  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+
+/mob/living/carbon/proc/handle_transform_change()
+	return

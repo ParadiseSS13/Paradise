@@ -538,7 +538,6 @@
 		return
 	H.icon_state = "pai-[icon_state]"
 	H.item_state = "pai-[icon_state]"
-	H.icon_override = 'icons/mob/in-hand/paiheld.dmi'//I have these in diffrent DMI so i am overriding
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()
@@ -546,13 +545,22 @@
 	return H
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/H = over_object
-	if(!istype(H) || !Adjacent(H)) return ..()
-	if(H.a_intent == I_HELP)
-		get_scooped(H)
-		//return
+	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
+	if(!istype(H) || !Adjacent(H))  return ..()
+	if(usr == src)
+		switch(alert(H, "[src] wants you to pick them up. Do it?",,"Yes","No"))
+			if("Yes")
+				if(Adjacent(H))
+					get_scooped(H)
+				else
+					src << "<span class='warning'>You need to stay in reaching distance to be picked up.</span>"
+			if("No")
+				src << "<span class='warning'>[H] decided not to pick you up.</span>"
 	else
-		return ..()
+		if(Adjacent(H))
+			get_scooped(H)
+		else
+			return ..()
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)

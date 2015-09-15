@@ -11,6 +11,13 @@
 	icon_state = "blue_pyjamas"
 	_color = "blue_pyjamas"
 	item_state = "w_suit"
+	
+/obj/item/clothing/under/patriotsuit
+	name = "Patriotic Suit"
+	desc = "Motorcycle not included."
+	icon_state = "ek"
+	item_state = "ek"
+	_color = "ek"
 
 /obj/item/clothing/under/captain_fly
 	name = "rogue captains uniform"

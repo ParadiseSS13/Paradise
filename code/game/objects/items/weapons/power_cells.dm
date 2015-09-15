@@ -155,3 +155,9 @@
 
 /obj/item/weapon/stock_parts/cell/emproof/corrupt()
 	return
+
+/obj/item/weapon/stock_parts/cell/temperaturegun
+	name = "temperature gun cell"
+	desc = "A specially designed power cell for heating and cooling projectiles"
+	icon_state = "icell"
+	maxcharge = 900	

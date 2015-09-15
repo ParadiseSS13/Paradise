@@ -133,6 +133,8 @@
 		)
 	//--FalseIncarnate
 
+	var/last_plant_ikey		//This is for debugging reference, and is otherwise useless. --FalseIncarnate
+
 /obj/machinery/portable_atmospherics/hydroponics/AltClick()
 	if(mechanical && !usr.stat && !usr.lying && Adjacent(usr))
 		close_lid(usr)

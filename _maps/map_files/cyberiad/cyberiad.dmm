@@ -204,7 +204,7 @@
 "adV" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8; name = "Head of Security APC"; pixel_x = -24},/turf/simulated/floor{icon_state = "dark"},/area/security/hos)
 "adW" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/carpet,/area/security/hos)
 "adX" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/carpet,/area/security/hos)
-"adY" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/carpet,/area/security/hos)
+"adY" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/mob/living/simple_animal/hostile/retaliate/araneus,/turf/simulated/floor/carpet,/area/security/hos)
 "adZ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor{icon_state = "dark"},/area/security/hos)
 "aea" = (/obj/structure/table/woodentable,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/item/device/radio,/turf/simulated/floor{icon_state = "dark"},/area/security/hos)
 "aeb" = (/obj/machinery/space_heater,/obj/machinery/light_switch{pixel_x = -25},/obj/effect/decal/warning_stripes/east,/turf/simulated/floor,/area/security/podbay)

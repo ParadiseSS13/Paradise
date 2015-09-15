@@ -36,7 +36,6 @@
 	name = "energy sword"
 	desc = "May the force be within you."
 	icon_state = "sword0"
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 1
