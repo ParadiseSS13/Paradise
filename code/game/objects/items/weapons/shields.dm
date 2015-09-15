@@ -88,7 +88,6 @@
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "teleriot0"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	slot_flags = null
 	force = 3
 	throwforce = 3

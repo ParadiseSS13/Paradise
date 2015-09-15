@@ -131,9 +131,9 @@
 	if(..())
 		return 1
 		
-	if("insert_card")
+	if(href_list["insert_card"])
 		if(held_card)
-			held_card.loc = src.loc
+			held_card.forceMove(loc)
 
 			if(ishuman(usr) && !usr.get_active_hand())
 				usr.put_in_hands(held_card)
@@ -144,7 +144,7 @@
 			if (istype(I, /obj/item/weapon/card/id))
 				var/obj/item/weapon/card/id/C = I
 				usr.drop_item()
-				C.loc = src
+				C.forceMove(src)
 				held_card = C		
 		
 	if(!get_access_level(usr))

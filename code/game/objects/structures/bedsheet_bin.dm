@@ -45,6 +45,12 @@ LINEN BINS
 	icon_state = "sheetpurple"
 	_color = "purple"
 
+/obj/item/weapon/bedsheet/patriot
+	name = "patriotic bedsheet"
+	desc = "You've never felt more free than when sleeping on this."
+	icon_state = "sheetUSA"
+	_color = "sheetUSA"
+
 /obj/item/weapon/bedsheet/rainbow
 	name = "rainbow bedsheet"
 	desc = "A multi_colored blanket.  It's actually several different sheets cut up and sewn together."

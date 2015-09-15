@@ -3,7 +3,6 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 1
 	throw_speed = 3

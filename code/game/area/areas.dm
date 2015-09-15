@@ -108,6 +108,31 @@
 		updateicon()
 		mouse_opacity = 0
 		air_doors_open()
+		
+	return
+
+/area/proc/burglaralert(var/obj/trigger)
+	if(always_unpowered == 1) //no burglar alarms in space/asteroid
+		return
+
+	//Trigger alarm effect
+	set_fire_alarm_effect()
+	
+	//Lockdown airlocks
+	for(var/obj/machinery/door/airlock/A in src)
+		spawn(0)
+			A.close()
+			if(A.density)
+				A.lock()
+
+	burglar_alarm.triggerAlarm(src, trigger)
+	spawn(600)
+		burglar_alarm.clearAlarm(src, trigger)
+				
+/area/proc/set_fire_alarm_effect()
+	fire = 1
+	updateicon()
+	mouse_opacity = 0
 					
 /area/proc/readyalert()
 	if(!eject)

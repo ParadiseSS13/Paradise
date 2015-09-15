@@ -170,7 +170,7 @@
 			if(!mob.control_object)	return
 			mob.control_object.dir = direct
 		else
-			mob.control_object.loc = get_step(mob.control_object,direct)
+			mob.control_object.forceMove(get_step(mob.control_object,direct))
 	return
 
 
@@ -391,7 +391,7 @@
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
 		if(1)
-			L.loc = get_step(L, direct)
+			L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(2)
 			if(prob(50))
@@ -420,7 +420,7 @@
 							return
 					else
 						return
-				L.loc = locate(locx,locy,mobloc.z)
+				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
 					for(var/turf/T in getline(mobloc, L.loc))
@@ -431,7 +431,7 @@
 			else
 				spawn(0)
 					anim(mobloc,mob,'icons/mob/mob.dmi',,"shadow",,L.dir)
-				L.loc = get_step(L, direct)
+				L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(3) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
@@ -441,7 +441,7 @@
 				spawn(2)
 					L.notransform = 0
 			else
-				L.loc = get_step(L, direct)
+				L.forceMove(get_step(L, direct))
 				L.dir = direct
 	return 1
 

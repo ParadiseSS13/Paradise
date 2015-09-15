@@ -8,6 +8,8 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -43,6 +45,8 @@
 	var/can_flashlight = 0
 	var/heavy_weapon = 0
 	var/randomspread = 0
+	
+	var/burst_size = 1
 
 	proc/ready_to_fire()
 		if(world.time >= last_fired + fire_delay)
@@ -124,9 +128,6 @@
 			user << "<span class='warning'>[src] is not ready to fire again!"
 		return
 
-	if(!process_chambered()) //CHECK
-		return click_empty(user)
-
 	if(heavy_weapon)
 		if(user.get_inactive_hand())
 			recoil = 4 //one-handed kick
@@ -142,48 +143,55 @@
 
 	var/spread = 0
 	var/turf/targloc = get_turf(target)
-	if(chambered)
-		for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
-			if(i != max(1, chambered.pellets)) //Have we fired the initial chambered bullet yet?
-				in_chamber = new chambered.projectile_type()
+	for(var/f = 1 to burst_size)
+		if(!process_chambered()) //CHECK
+			return click_empty(user)
+
+		if(chambered)
+			for (var/i = max(1, chambered.pellets), i > 0, i--) //Previous way of doing it fucked up math for spreading. This way, even the first projectile is part of the spread code.
+				if(i != max(1, chambered.pellets)) //Have we fired the initial chambered bullet yet?
+					in_chamber = new chambered.projectile_type()
+				ready_projectile(target, user)
+				prepare_shot(in_chamber)
+				if(chambered.deviation)
+					if(randomspread) //Random spread
+						spread = (rand() - 0.5) * chambered.deviation
+					else //Smart spread
+						spread = (i / chambered.pellets - 0.5) * chambered.deviation
+				if(!process_projectile(targloc, user, params, spread))
+					return 0
+		else
 			ready_projectile(target, user)
 			prepare_shot(in_chamber)
-			if(chambered.deviation)
-				if(randomspread) //Random spread
-					spread = (rand() - 0.5) * chambered.deviation
-				else //Smart spread
-					spread = (i / chambered.pellets - 0.5) * chambered.deviation
 			if(!process_projectile(targloc, user, params, spread))
 				return 0
-	else
-		ready_projectile(target, user)
-		prepare_shot(in_chamber)
-		if(!process_projectile(targloc, user, params, spread))
-			return 0
 
-	if(recoil)
-		spawn()
-			shake_camera(user, recoil + 1, recoil)
+		if(recoil)
+			spawn()
+				shake_camera(user, recoil + 1, recoil)
 
-	if(silenced)
-		playsound(user, fire_sound, 10, 1)
-	else
-		playsound(user, fire_sound, 50, 1)
-		user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
-		"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
-		"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
+		if(silenced)
+			playsound(user, fire_sound, 10, 1)
+		else
+			playsound(user, fire_sound, 50, 1)
+			if(f == 1) // Only print this once
+				user.visible_message("<span class='warning'>[user] fires [src][reflex ? " by reflex":""]!</span>", \
+				"<span class='warning'>You fire [src][reflex ? "by reflex":""]!</span>", \
+				"You hear a [istype(in_chamber, /obj/item/projectile/beam) ? "laser blast" : "gunshot"]!")
 
-	if(heavy_weapon)
-		if(user.get_inactive_hand())
-			if(prob(15))
-				user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
-				user.drop_item()
+		if(heavy_weapon)
+			if(user.get_inactive_hand())
+				if(prob(15))
+					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
+					user.drop_item()
+					break
 
-	update_icon()
-	if(user.hand)
-		user.update_inv_l_hand()
-	else
-		user.update_inv_r_hand()
+		update_icon()
+		if(user.hand)
+			user.update_inv_l_hand()
+		else
+			user.update_inv_r_hand()
+		sleep(fire_delay)
 
 /obj/item/weapon/gun/proc/ready_projectile(atom/target as mob|obj|turf, mob/living/user)
 	in_chamber.firer = user
@@ -204,6 +212,7 @@
 	in_chamber.loc = get_turf(user)
 	in_chamber.starting = get_turf(user)
 	in_chamber.current = curloc
+	in_chamber.OnFired()
 	in_chamber.yo = targloc.y - curloc.y
 	in_chamber.xo = targloc.x - curloc.x
 	if(params)

@@ -131,6 +131,8 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = 3.0
@@ -207,6 +209,8 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	w_class = 2.0
 	attack_verb = list("attacked", "struck", "hit")
 	var/bullets = 5
@@ -1100,7 +1104,6 @@ obj/item/toy/cards/deck/syndicate/black
  	icon = 'icons/obj/toy.dmi'
  	icon_state = "foamblade"
  	item_state = "arm_blade"
- 	icon_override = 'icons/mob/in-hand/changeling.dmi'
  	attack_verb = list("pricked", "absorbed", "gored")
  	w_class = 2
 
@@ -1113,7 +1116,6 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
 	item_state = "flashtool"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 1
 
 /obj/item/toy/flash/attack(mob/living/M, mob/user)

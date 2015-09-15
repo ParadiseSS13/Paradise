@@ -205,7 +205,6 @@
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
 	item_state = "emergency_vox"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	volume = 25
 
 

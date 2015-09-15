@@ -112,19 +112,19 @@
 	category = list("Weapons")
 
 /datum/design/smg
-	name = "Prototype Submachine Gun"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
 	id = "smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/gun/projectile/automatic
+	build_path = /obj/item/weapon/gun/projectile/automatic/proto
 	locked = 1
 	category = list("Weapons")
 
 /datum/design/mag_smg
-	name = "Prototype Submachine Gun Magazine (9mm)"
-	desc = "A 20-round magazine for the prototype submachine gun."
+	name = "Saber Submachine Gun Magazine (9mm)"
+	desc = "A 20-round magazine for the Saber submachine gun."
 	id = "mag_smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
@@ -165,13 +165,12 @@
 
 /datum/design/temp_gun
 	name = "Temperature Gun"
-	desc = "A gun that shoots temperature bullet energy things to change temperature."//Change it if you want
+	desc = "A gun that changes the body temperature of its targets."
 	id = "temp_gun"
 	req_tech = list("combat" = 3, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
 	build_path = /obj/item/weapon/gun/energy/temperature
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/suppressor
@@ -190,7 +189,7 @@
 	id = "techshotshell"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 4, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 200, MAT_SILVER = 300)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 

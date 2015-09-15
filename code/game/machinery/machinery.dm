@@ -381,7 +381,7 @@ Class Procs:
 		for(var/obj/item/I in component_parts)
 			if(I.reliability != 100 && crit_fail)
 				I.crit_fail = 1
-			I.loc = src.loc
+			I.forceMove(loc)
 		qdel(src)
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)

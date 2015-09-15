@@ -848,6 +848,7 @@
 	anchored = 1.0
 	throwpass = 1	//You can throw objects over this, despite it's density.
 	var/parts = /obj/item/weapon/rack_parts
+	var/health = 5
 
 /obj/structure/rack/proc/destroy()
 	new parts(loc)
@@ -914,6 +915,14 @@
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
+	else
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
+		playsound(loc, 'sound/items/dodgeball.ogg', 80, 1)
+		user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
+							 "<span class='danger'>You kick [src].</span>")
+		health -= rand(1,2)
+		healthcheck()
 
 /obj/structure/rack/mech_melee_attack(obj/mecha/M)
 	visible_message("<span class='danger'>[M] smashes [src] apart!</span>")
@@ -933,3 +942,7 @@
 
 /obj/structure/rack/attack_tk() // no telehulk sorry
 	return
+
+/obj/structure/rack/proc/healthcheck()
+	if(health <= 0)
+		destroy()

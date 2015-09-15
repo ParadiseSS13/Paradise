@@ -27,7 +27,7 @@
 	if(!istype(W))
 		return 0
 	if(!l_hand)
-		W.loc = src		//TODO: move to equipped?
+		W.forceMove(src)		//TODO: move to equipped?
 		l_hand = W
 		W.layer = 20	//TODO: move to equipped?
 //		l_hand.screen_loc = ui_lhand
@@ -45,7 +45,7 @@
 	if(!istype(W))
 		return 0
 	if(!r_hand)
-		W.loc = src
+		W.forceMove(src)
 		r_hand = W
 		W.layer = 20
 //		r_hand.screen_loc = ui_rhand
@@ -71,7 +71,7 @@
 //This is probably the main one you need to know :)
 //Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
 /mob/proc/put_in_hands(obj/item/W)
-	W.loc = get_turf(src)
+	W.forceMove(get_turf(src))
 	W.layer = initial(W.layer)
 	W.dropped()
 
@@ -114,7 +114,7 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.loc = loc
+		I.forceMove(loc)
 		I.dropped(src)
 		if(I)
 			I.layer = initial(I.layer)
@@ -249,13 +249,13 @@
 			if (src.back && istype(src.back, /obj/item/weapon/storage/backpack))
 				var/obj/item/weapon/storage/backpack/B = src.back
 				if(B.contents.len < B.storage_slots && W.w_class <= B.max_w_class)
-					W.loc = B
+					W.forceMove(B)
 					equipped = 1
 
 	if(equipped)
 		W.layer = 20
 		if(src.back && W.loc != src.back)
-			W.loc = src
+			W.forceMove(src)
 	else
 		if (del_on_fail)
 			qdel(W)

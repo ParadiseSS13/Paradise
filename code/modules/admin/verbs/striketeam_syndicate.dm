@@ -160,7 +160,7 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
-	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/m2411(src), slot_belt)
+	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m2411(src), slot_belt)
 
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 
