@@ -463,7 +463,7 @@
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()
 	if(!welding && !last_gen)
 		last_gen = 1
-		reagents.add_reagent("welding_fuel",1)
+		reagents.add_reagent("fuel",1)
 		spawn(10)
 			last_gen = 0
 
