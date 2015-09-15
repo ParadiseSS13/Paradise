@@ -345,12 +345,14 @@
 
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/weapon/grenade/P = new type(loc)
-		P.active = 1
+		if(istype(P, /obj/item/weapon/grenade))
+			P.active = 1
 		walk_away(P,loc,rand(1,4))
 
 		spawn(rand(15,60))
 			if(P && isnull(P.gcDestroyed))
-				P.prime()
+				if(istype(P, /obj/item/weapon/grenade))
+					P.prime()
 			qdel(src)
 
 
@@ -430,3 +432,78 @@
 	name = "Newton's First Law"
 	desc = "An object in motion remains in motion."
 	payload = /obj/item/weapon/grenade/chem_grenade/lube
+
+/obj/item/weapon/grenade/clusterbuster/booze
+	name = "Booze Grenade"
+	payload = /obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink
+
+/obj/item/weapon/grenade/clusterbuster/honk
+	name = "Mega Honk Grenade"
+	payload = /obj/item/weapon/bananapeel
+
+/obj/item/weapon/grenade/clusterbuster/xmas
+	name = "Christmas Miracle"
+	payload = /obj/item/weapon/a_gift
+
+/obj/item/weapon/grenade/clusterbuster/dirt
+	name = "Megamaid's Job Security Grenade"
+	payload = /obj/effect/decal/cleanable/random
+
+/obj/item/weapon/grenade/clusterbuster/apocalypsefake
+	name = "Fun Bomb"
+	desc = "Not like the other bomb."
+	payload = /obj/item/toy/spinningtoy
+
+/obj/item/weapon/grenade/clusterbuster/apocalypse
+	name = "Apocalypse Bomb"
+	desc = "No matter what, do not EVER use this."
+	payload = /obj/singularity
+
+/obj/item/weapon/grenade/clusterbuster/tools
+	name = "Quick Repair Grenade"
+	desc = "An assistant's every dream."
+	payload = /obj/random/tool
+
+/obj/item/weapon/grenade/clusterbuster/tools
+	name = "Engineering Deployment Platfom"
+	desc = "For the that time when gearing up was just too hard."
+	payload = /obj/random/tech_supply
+
+/obj/item/weapon/grenade/clusterbuster/toys
+	name = "Toy Delivery System"
+	desc = "Who needs skill at arcades anyway?"
+	payload = /obj/item/toy/random
+
+/obj/item/weapon/grenade/clusterbuster/banquet
+	name = "Bork Bork Bonanza"
+	desc = "Bork bork bork."
+	payload = /obj/item/weapon/grenade/clusterbuster/banquet/child
+
+/obj/item/weapon/grenade/clusterbuster/banquet/child
+	payload = /obj/item/weapon/grenade/chem_grenade/large/feast
+
+/obj/item/weapon/grenade/clusterbuster/aviary
+	name = "Poly-Poly Grenade"
+	desc = "That's an uncomfortable number of birds."
+	payload = /mob/living/simple_animal/parrot
+
+/obj/item/weapon/grenade/clusterbuster/monkey
+	name = "Barrel of Monkeys"
+	desc = "Not really that much fun."
+	payload = /mob/living/carbon/human/monkey
+
+/obj/item/weapon/grenade/clusterbuster/fluffy
+	name = "Fluffy Love Bomb"
+	desc = "Exactly as snuggly as it sounds."
+	payload = /mob/living/simple_animal/pet/corgi/puppy
+
+/obj/item/weapon/grenade/clusterbuster/fox
+	name = "Troublemaking Grenade"
+	desc = "More trouble than two foxes combined."
+	payload = /mob/living/simple_animal/pet/fox
+
+/obj/item/weapon/grenade/clusterbuster/crab
+	name = "Crab Grenade"
+	desc = "Reserved for those pesky request."
+	payload = /mob/living/simple_animal/crab
+
