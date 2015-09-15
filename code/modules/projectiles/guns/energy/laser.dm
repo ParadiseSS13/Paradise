@@ -17,12 +17,13 @@
 	clumsy_check = 0
 
 obj/item/weapon/gun/energy/laser/retro
-	name ="retro laser"
+	name ="retro laser gun"
 	icon_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 
 
 /obj/item/weapon/gun/energy/laser/captain
+	name = "\improper QSJ-01 premium laser pistol"
 	icon_state = "caplaser"
 	item_state = "caplaser"
 	icon_override = 'icons/mob/in-hand/guns.dmi'
