@@ -1,4 +1,6 @@
 /proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server)
+	if(!check_rights(R_MOD))
+		return
 	if(!dbcon.IsConnected())
 		usr << "<span class='danger'>Failed to establish database connection.</span>"
 		return
@@ -19,7 +21,7 @@
 			target_ckey = new_ckey
 	var/target_sql_ckey = sanitizeSQL(target_ckey)
 	if(!notetext)
-		notetext = input(usr,"Write your Note","Add Note") as message
+		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
 			return
 	notetext = sanitizeSQL(notetext)
@@ -45,6 +47,8 @@
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
+	if(!check_rights(R_MOD))
+		return
 	var/ckey
 	var/notetext
 	var/adminckey
@@ -73,6 +77,8 @@
 	show_note(ckey)
 
 /proc/edit_note(note_id)
+	if(!check_rights(R_MOD))
+		return
 	if(!dbcon.IsConnected())
 		usr << "<span class='danger'>Failed to establish database connection.</span>"
 		return
@@ -90,22 +96,24 @@
 		target_ckey = query_find_note_edit.item[1]
 		var/old_note = query_find_note_edit.item[2]
 		var/adminckey = query_find_note_edit.item[3]
-		var/new_note = input("Input new note", "New Note", "[old_note]") as message
+		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
 			return
 		new_note = sanitizeSQL(new_note)
-		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from '[old_note]' to '[new_note]'<hr>"
+		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
 		edit_text = sanitizeSQL(edit_text)
 		var/DBQuery/query_update_note = dbcon.NewQuery("UPDATE [format_table_name("notes")] SET notetext = '[new_note]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE id = [note_id]")
 		if(!query_update_note.Execute())
 			var/err = query_update_note.ErrorMsg()
 			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
 			return
-		log_admin("[key_name(usr)] has edited [target_ckey]'s note made by [adminckey] from [old_note] to [new_note]")
-		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note made by [adminckey] from '[old_note]' to '[new_note]'")
+		log_admin("[key_name(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		show_note(target_ckey)
 
 /proc/show_note(target_ckey, index, linkless = 0)
+	if(!check_rights(R_MOD))
+		return
 	var/output
 	var/navbar
 	var/ruler
@@ -169,7 +177,7 @@
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 	usr << browse(output, "window=show_notes;size=900x500")
-
+	
 /proc/regex_note_sql_extract(str, exp)
 	return new /datum/regex(str, exp, call(LIBREGEX_LIBRARY, "regEx_find")(str, exp))
 
@@ -207,6 +215,8 @@
 /*alternatively this proc can be run once to pass through every note and attempt to convert it before deleting the file, if done then AUTOCONVERT_NOTES should be turned off
 this proc can take several minutes to execute fully if converting and cause DD to hang if converting a lot of notes; it's not advised to do so while a server is live
 /proc/mass_convert_notes()
+	if(!check_rights(R_DEBUG))
+		return
 	world << "Beginning mass note conversion"
 	var/savefile/notesfile = new(NOTESFILE)
 	if(!notesfile)
@@ -220,7 +230,19 @@ this proc can take several minutes to execute fully if converting and cause DD t
 	world << "Finished mass note conversion, remember to turn off AUTOCONVERT_NOTES"*/
 	
 /proc/show_player_info_irc(var/key as text)
-	var/notes = show_note(key, linkless = 1)
-	return notes	
+	var/target_sql_ckey = sanitizeSQL(key)
+	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+	if(!query_get_notes.Execute())
+		var/err = query_get_notes.ErrorMsg()
+		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server from notes table. Error : \[[err]\]\n")
+		return
+	var/output = " Info on [key]%0D%0A"
+	while(query_get_notes.NextRow())
+		var/timestamp = query_get_notes.item[1]
+		var/notetext = query_get_notes.item[2]
+		var/adminckey = query_get_notes.item[3]
+		var/server = query_get_notes.item[4]
+		output += "[notetext]%0D%0Aby [adminckey] on [timestamp] (Server: [server])%0D%0A%0D%0A"
+	return output
 	
 #undef NOTESFILE
