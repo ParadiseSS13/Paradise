@@ -312,7 +312,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	can_charge = 0
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
-	..()
+	..(user)
 	if(power_supply)
 		user <<"<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
 

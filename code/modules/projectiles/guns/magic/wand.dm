@@ -25,10 +25,9 @@
 			max_charges = Ceiling(max_charges / 2)
 	..()
 
-/obj/item/weapon/gun/magic/wand/examine()
-	..()
-	usr << "Has [charges] charge\s remaining."
-	return
+/obj/item/weapon/gun/magic/wand/examine(mob/user)
+	..(user)
+	user << "Has [charges] charge\s remaining."
 
 /obj/item/weapon/gun/magic/wand/attack_self(mob/living/user as mob)
 	if(charges)

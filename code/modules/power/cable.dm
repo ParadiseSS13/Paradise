@@ -541,15 +541,16 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	else
 		w_class = 2.0
 
-/obj/item/stack/cable_coil/examine()
-	set src in view(1)
+/obj/item/stack/cable_coil/examine(mob/user)
+	if(!..(user, 1))
+		return
 
 	if(get_amount() == 1)
-		usr << "A short piece of power cable."
+		user << "A short piece of power cable."
 	else if(get_amount() == 2)
-		usr << "A piece of power cable."
+		user << "A piece of power cable."
 	else
-		usr << "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
+		user << "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
 
 
 /obj/item/stack/cable_coil/verb/make_restraint()

@@ -52,12 +52,11 @@
 		return
 	icon_state = "paper"
 
-/obj/item/weapon/paper/examine()
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		show_content(usr)
+/obj/item/weapon/paper/examine(mob/user)
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		show_content(user)
 	else
-		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
-	return
+		user << "<span class='notice'>You have to go closer if you want to read it.</span>"
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	set src in oview(1)
@@ -95,7 +94,7 @@
 	return
 
 /obj/item/weapon/paper/attack_self(mob/living/user as mob)
-	src.examine(user)
+	user.examinate(src)
 	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
@@ -120,7 +119,7 @@
 	if(user.zone_sel.selecting == "eyes")
 		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
 			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		src.examine(user)
+		M.examinate(src)
 
 	else if(user.zone_sel.selecting == "mouth")
 		if(!istype(M, /mob))	return
@@ -444,7 +443,7 @@
 
 	add_fingerprint(user)
 	return
-	
+
 /obj/item/weapon/paper/proc/stamp(var/obj/item/weapon/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
@@ -460,7 +459,7 @@
 	offset_y += y
 	stampoverlay.pixel_x = x
 	stampoverlay.pixel_y = y
-	
+
 	if(!ico)
 		ico = new
 	ico += "paper_[S.icon_state]"

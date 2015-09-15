@@ -133,8 +133,8 @@ var/global/list/globalBlankCanvases[AMT_OF_CANVASES]
 		user.visible_message("<span class='notice'>[user] cleans the canvas.</span>","<span class='notice'>You clean the canvas.</span>")
 
 //Examine to enlarge
-/obj/item/weapon/canvas/examine(var/mob/user = usr)
-	..()
+/obj/item/weapon/canvas/examine(mob/user)
+	..(user)
 	if(in_range(user, src) && get_turf(src) && user.client && ishuman(user)) //Let only humans be the robust zoominators. I'm too spooked other mobs trying to use it may get broken huds.
 		if(src.loc == user || get_turf(src) == get_turf(user))
 			user << "<span class='notice'>[src] has to be on the ground to focus on it!</span>"

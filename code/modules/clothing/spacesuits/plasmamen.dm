@@ -21,7 +21,7 @@
 	var/extinguishes_left=10 // Yeah yeah, reagents, blah blah blah.  This should be simple.
 
 /obj/item/clothing/suit/space/eva/plasmaman/examine(mob/user)
-	..()
+	..(user)
 	user << "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>"
 
 /obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(var/mob/user)
@@ -328,6 +328,5 @@
 		user << "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>"
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear/examine(mob/user)
-	..()
-	if(get_dist(user,src) <= 1)
+	if(..(user, 1))
 		user << "<span class='info'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"

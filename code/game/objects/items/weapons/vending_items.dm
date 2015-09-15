@@ -21,7 +21,7 @@
 		charges = amt
 
 /obj/item/weapon/vending_refill/examine(mob/user)
-	..()
+	..(user)
 	if(charges)
 		user << "It can restock [charges] item(s)."
 	else

@@ -97,11 +97,10 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		src.show_content(usr)
+	if(..(user, 1))
+		src.show_content(user)
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
-	return
+		user << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat

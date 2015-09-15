@@ -185,14 +185,9 @@
 		return ..()
 
 
-/obj/vehicle/train/ambulance/engine/examine()
-	..()
-
-	if(!istype(usr, /mob/living/carbon/human))
-		return
-
-	if(get_dist(usr,src) <= 1)
-		usr << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
+/obj/vehicle/train/ambulance/engine/examine(mob/user)
+	if(..(user, 1))
+		user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
 
 /obj/vehicle/train/ambulance/engine/verb/check_power()
 	set name = "Check power level"

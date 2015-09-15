@@ -190,9 +190,9 @@
 	return
 
 /obj/effect/blob/examine(mob/user)
-	..()
+	..(user)
 	user << "It looks like it's of a [get_chem_name()] kind."
-	return
+
 
 /obj/effect/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in mob_list)

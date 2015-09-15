@@ -31,9 +31,9 @@
 		last_regen = world.time
 		update_icon()
 
-/obj/item/weapon/gun/launcher/spikethrower/examine()
-	..()
-	usr << "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining."
+/obj/item/weapon/gun/launcher/spikethrower/examine(mob/user)
+	..(user)
+	user << "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining."
 
 /obj/item/weapon/gun/launcher/spikethrower/update_icon()
 	icon_state = "spikethrower[spikes]"

@@ -166,10 +166,10 @@
 	return
 
 
-/obj/item/weapon/weldingtool/examine()
-	set src in usr
-	usr << text("\icon[] [] contains []/[] units of fuel!", src, src.name, get_fuel(),src.max_fuel )
-	return
+/obj/item/weapon/weldingtool/examine(mob/user)
+	if(!..(user, 0))
+		user << text("\icon[] [] contains []/[] units of fuel!", src, src.name, get_fuel(),src.max_fuel )
+
 
 
 /obj/item/weapon/weldingtool/attackby(obj/item/W as obj, mob/user as mob, params)

@@ -44,7 +44,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
-	..()
+	..(user)
 	if(!real)//So that giant red text about probisci doesn't show up.
 		return
 	switch(stat)
@@ -171,7 +171,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
 			return
-	
+
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \

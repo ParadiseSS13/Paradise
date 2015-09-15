@@ -38,12 +38,11 @@ var/const/SAFETY_COOLDOWN = 100
 	materials.max_amount = mat_mod
 	amount_produced = min(100, amt_made)
 
-/obj/machinery/recycler/examine()
-	set src in view()
-	..()
-	usr << "The power light is [(stat & NOPOWER) ? "off" : "on"]."
-	usr << "The safety-mode light is [safety_mode ? "on" : "off"]."
-	usr << "The safety-sensors status light is [emagged ? "off" : "on"]."
+/obj/machinery/recycler/examine(mob/user)
+	..(user)
+	user << "The power light is [(stat & NOPOWER) ? "off" : "on"]."
+	user << "The safety-mode light is [safety_mode ? "on" : "off"]."
+	user << "The safety-sensors status light is [emagged ? "off" : "on"]."
 
 /obj/machinery/recycler/power_change()
 	..()

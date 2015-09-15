@@ -196,31 +196,28 @@
 	spawn(5)
 		src.update()
 
-/obj/machinery/power/apc/examine()
-	set src in oview(1)
-
-	if(usr /*&& !usr.stat*/)
-		..()
+/obj/machinery/power/apc/examine(mob/user)
+	if(..(user, 1))
 		if(stat & BROKEN)
-			usr << "Looks broken."
+			user << "Looks broken."
 			return
 		if(opened)
 			if(has_electronics && terminal)
-				usr << "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
+				user << "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 			else if (!has_electronics && terminal)
-				usr << "There are some wires but no any electronics."
+				user << "There are some wires but no any electronics."
 			else if (has_electronics && !terminal)
-				usr << "Electronics installed but not wired."
+				user << "Electronics installed but not wired."
 			else /* if (!has_electronics && !terminal) */
-				usr << "There is no electronics nor connected wires."
+				user << "There is no electronics nor connected wires."
 
 		else
 			if (stat & MAINT)
-				usr << "The cover is closed. Something wrong with it: it doesn't work."
+				user << "The cover is closed. Something wrong with it: it doesn't work."
 			else if (malfhack)
-				usr << "The cover is broken. It may be hard to force it open."
+				user << "The cover is broken. It may be hard to force it open."
 			else
-				usr << "The cover is closed."
+				user << "The cover is closed."
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights

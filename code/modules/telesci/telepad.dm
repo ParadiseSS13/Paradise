@@ -20,7 +20,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	
+
 /obj/machinery/telepad/upgraded/New()
 	..()
 	component_parts = list()
@@ -132,7 +132,7 @@
 	processing_objects.Add(src)
 
 /obj/item/weapon/rcs/examine(mob/user)
-	..()
+	..(user)
 	user << "There are [rcharges] charge\s left."
 
 /obj/item/weapon/rcs/Destroy()

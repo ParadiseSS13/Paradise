@@ -402,6 +402,6 @@ obj/item/weapon/rollingpaperpack/attack_self(mob/user)
 				M.unEquip(src)
 				M.put_in_l_hand(src)
 
-/obj/item/weapon/rollingpaperpack/examine()
-	..()
-	usr << "There are [src.papers] left"
+/obj/item/weapon/rollingpaperpack/examine(mob/user)
+	..(user)
+	user << "There are [src.papers] left"

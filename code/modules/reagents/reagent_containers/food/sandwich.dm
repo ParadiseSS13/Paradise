@@ -80,10 +80,10 @@
 		del(O)
 	return ..()
 
-/obj/item/weapon/reagent_containers/food/snacks/csandwich/examine()
-	..()
+/obj/item/weapon/reagent_containers/food/snacks/csandwich/examine(mob/user)
+	..(user)
 	var/obj/item/O = pick(contents)
-	usr << "\blue You think you can see [O.name] in there."
+	user << "\blue You think you can see [O.name] in there."
 
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/attack(mob/M as mob, mob/user as mob, def_zone)
 

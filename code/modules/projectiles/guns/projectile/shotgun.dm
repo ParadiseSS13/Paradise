@@ -69,10 +69,10 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/weapon/gun/projectile/shotgun/examine()
-	..()
+/obj/item/weapon/gun/projectile/shotgun/examine(mob/user)
+	..(user)
 	if (chambered)
-		usr << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
+		user << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 // COMBAT SHOTGUN //
 
@@ -129,7 +129,7 @@
 	. = ..()
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction/examine(mob/user)
-	..()
+	..(user)
 	user << "The bolt is [bolt_open ? "open" : "closed"]."
 
 /////////////////////////////

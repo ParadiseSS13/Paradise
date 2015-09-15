@@ -235,18 +235,15 @@
 		return ..()
 
 
-/obj/vehicle/train/janitor/engine/examine()
-	..()
-
-	usr << "\icon[src] This [name] contains [reagents.total_volume] unit\s of [reagents]!"
-	if(mybag)
-		usr << "\A [mybag] is hanging on the [name]."
-
-	if(!istype(usr, /mob/living/carbon/human))
+/obj/vehicle/train/janitor/engine/examine(mob/user)
+	if(!..(user, 1))
 		return
 
-	if(get_dist(usr,src) <= 1)
-		usr << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
+	user << "\icon[src] This [name] contains [reagents.total_volume] unit\s of [reagents]!"
+	if(mybag)
+		user << "\A [mybag] is hanging on the [name]."
+
+	user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
 
 /obj/vehicle/train/janitor/engine/verb/check_power()
 	set name = "Check power level"

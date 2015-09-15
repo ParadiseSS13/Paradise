@@ -45,10 +45,10 @@
 	if(drone_progress >= 100)
 		visible_message("\The [src] voices a strident beep, indicating a drone chassis is prepared.")
 
-/obj/machinery/drone_fabricator/examine()
-	..()
-	if(produce_drones && drone_progress >= 100 && istype(usr,/mob/dead) && config.allow_drone_spawn && count_drones() < config.max_maint_drones)
-		usr << "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
+/obj/machinery/drone_fabricator/examine(mob/user)
+	..(user)
+	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && config.allow_drone_spawn && count_drones() < config.max_maint_drones)
+		user << "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
@@ -101,7 +101,7 @@
 	if(!ticker || ticker.current_state < 3)
 		src << "<span class='warning'>You can't join as a drone before the game starts!</span>"
 		return
-		
+
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
@@ -128,7 +128,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if (deathtime < 6000 && joinedasobserver == 0)	
+	if (deathtime < 6000 && joinedasobserver == 0)
 		usr << "You have been dead for[pluralcheck] [deathtimeseconds] seconds."
 		usr << "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>"
 		return

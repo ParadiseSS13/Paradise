@@ -458,6 +458,13 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	resting = !resting
 	src << "\blue You are now [resting ? "resting" : "getting up"]"
 
+/proc/is_blind(A)
+	if(iscarbon(A))
+		var/mob/living/carbon/C = A
+		if(C.sdisabilities & BLIND || C.blinded)
+			return 1
+	return 0
+
 /proc/get_multitool(mob/user as mob)
 	// Get tool
 	var/obj/item/device/multitool/P
