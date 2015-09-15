@@ -18,3 +18,5 @@ This may require updating to a beta release.
 #endif
 
 var/global/list/processing_objects = list() //This has to be initialized BEFORE world
+
+#define USE_BYGEX 

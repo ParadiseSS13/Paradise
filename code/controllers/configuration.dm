@@ -162,6 +162,8 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
+	
+	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -526,6 +528,9 @@
 				if("disable_away_missions")
 					config.disable_away_missions = 1
 
+				if("autoconvert_notes")
+					config.autoconvert_notes = 1					
+					
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
