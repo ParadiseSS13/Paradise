@@ -112,8 +112,9 @@
 	sharp = 1
 	edge = 1
 
-/obj/item/weapon/wirecutters/New()
-	if(prob(50))
+/obj/item/weapon/wirecutters/New(loc, var/param_color = null)
+	..()
+	if((!param_color && prob(50)) || param_color == "yellow")
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
 
