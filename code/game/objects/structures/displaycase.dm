@@ -7,7 +7,7 @@ var/global/list/captain_display_cases = list()
 /hook/captain_spawned/proc/displaycase(mob/living/carbon/human/captain)
 	if(!captain_display_cases.len)
 		return 1
-	var/fingerprint = captain.get_print()
+	var/fingerprint = captain.get_full_print()
 	for(var/obj/structure/displaycase/D in captain_display_cases)
 		if(istype(D))
 			D.ue = fingerprint
@@ -19,6 +19,7 @@ var/global/list/captain_display_cases = list()
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_glass"
 	var/obj/item/weapon/airlock_electronics/circuit = null
+	var/obj/item/device/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
 
 /obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -26,16 +27,19 @@ var/global/list/captain_display_cases = list()
 	var/turf/T = get_turf(src)
 	switch(state)
 		if(DISPLAYCASE_FRAME_CIRCUIT)
-			if(istype(W, /obj/item/weapon/airlock_electronics) && W:icon_state != "door_electronics_smoked")
+			if(istype(W, /obj/item/weapon/airlock_electronics) && W.icon_state != "door_electronics_smoked")
 				user.drop_item()
 				circuit = W
 				circuit.forceMove(src)
 				state++
-				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
+				user << "<span class='notice'>You add the airlock electronics to the frame.</span>"
+				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 			if(istype(W, /obj/item/weapon/crowbar))
 				new /obj/machinery/constructable_frame/machine_frame(T)
-				new /obj/item/stack/sheet/glass(T)
+				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(T)
+				G.amount = 5
 				qdel(src)
+				user << "<span class='notice'>You pry the glass out of the frame.</span>"
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 				return
 
@@ -48,14 +52,27 @@ var/global/list/captain_display_cases = list()
 				else
 					C.req_access = circuit.conf_access
 					C.req_one_access = null
+				if(isprox(sensor))
+					C.burglar_alarm = 1
 				playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 				qdel(src)
 				return
 			if(istype(W, /obj/item/weapon/crowbar))
 				circuit.forceMove(T)
 				circuit = null
+				if(isprox(sensor))
+					sensor.forceMove(T)
+					sensor = null
 				state--
+				user << "<span class='notice'>You pry the electronics out of the frame.</span>"
 				playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
+			if(isprox(W) && !isprox(sensor))
+				user.drop_item()
+				sensor = W
+				sensor.forceMove(src)
+				user << "<span class='notice'>You add the proximity sensor to the frame.</span>"
+				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+				
 	if(pstate != state)
 		pstate = state
 		update_icon()
@@ -79,13 +96,15 @@ var/global/list/captain_display_cases = list()
 	var/obj/item/occupant = null
 	var/destroyed = 0
 	var/locked = 0
+	var/burglar_alarm = 0
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/weapon/airlock_electronics/circuit
-
+	
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
+	burglar_alarm = 1
 
 /obj/structure/displaycase/captains_laser/New()
 	captain_display_cases += src
@@ -110,7 +129,7 @@ var/global/list/captain_display_cases = list()
 	usr << "<span class='notice'>Peering through the glass, you see that it contains:</span>"
 	if(occupant)
 		usr << "\icon[occupant] <span class='notice'>\A [occupant].</span>"
-	else:
+	else
 		usr << "Nothing."
 
 /obj/structure/displaycase/proc/dump()
@@ -150,6 +169,7 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/proc/healthcheck()
 	if (src.health <= 0)
+		health = 0
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
@@ -163,8 +183,12 @@ var/global/list/captain_display_cases = list()
 	return
 	
 /obj/structure/displaycase/proc/burglar_alarm()
-	var/area/alarmed = get_area(src)
-	alarmed.burglaralert(src)
+	if(burglar_alarm)
+		var/area/alarmed = get_area(src)
+		alarmed.burglaralert(src)
+		visible_message("<span class='notice'>The burglar alarm goes off!</span>")
+		return 1
+	return 0
 			
 /obj/structure/displaycase/update_icon()
 	if(src.destroyed)
@@ -211,21 +235,30 @@ var/global/list/captain_display_cases = list()
 			C.conf_access = req_access
 		else
 			C.conf_access = req_one_access
+		
 		if(!destroyed)
 			var/obj/structure/displaycase_frame/F = new(T)
 			F.state = DISPLAYCASE_FRAME_SCREWDRIVER
 			F.circuit = C
 			F.circuit.forceMove(F)
+			if(burglar_alarm)
+				new /obj/item/device/assembly/prox_sensor(T)
 			F.update_icon()
 		else
 			C.forceMove(T)
 			circuit = null
 			new /obj/machinery/constructable_frame/machine_frame(T)
 		qdel(src)
+		return
 	if(user.a_intent == I_HARM)
-		src.health -= W.force
-		src.healthcheck()
-		..()
+		if(locked && !destroyed)
+			src.health -= W.force
+			src.healthcheck()
+			..()
+		else if(!locked)
+			dump()
+			user << "<span class='danger'>You smash \the [W] into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>"
+			update_icon()			
 	else
 		if(locked)
 			user << "<span class='warning'>It's locked, you can't put anything into it.</span>"
@@ -238,10 +271,10 @@ var/global/list/captain_display_cases = list()
 			update_icon()
 
 /obj/structure/displaycase/attack_hand(mob/user as mob)
-	if (destroyed)
+	if (destroyed || (!locked && user.a_intent == I_HARM))
 		if(occupant)
 			dump()
-			user << "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field permanently.</span>"
+			user << "<span class='danger'>You smash your fist into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>"
 			src.add_fingerprint(user)
 			update_icon()
 	else
@@ -256,7 +289,7 @@ var/global/list/captain_display_cases = list()
 		else if(!locked)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				var/print = H.get_print()
+				var/print = H.get_full_print()
 				if(!ue)
 					user << "<span class='notice'>Your press your thumb against the fingerprint scanner, registering your identity with the case.</span>"
 					ue = print
