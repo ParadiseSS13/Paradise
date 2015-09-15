@@ -186,7 +186,7 @@ var/global/list/captain_display_cases = list()
 	if(burglar_alarm)
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
-		visible_message("<span class='notice'>The burglar alarm goes off!</span>")
+		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
 		return 1
 	return 0
 			
