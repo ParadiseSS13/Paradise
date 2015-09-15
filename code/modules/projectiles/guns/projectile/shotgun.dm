@@ -243,7 +243,6 @@
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	w_class = 3.0
 	origin_tech = "combat=5;materials=4;syndicate=6"
 	mag_type = "/obj/item/ammo_box/magazine/m12g"
