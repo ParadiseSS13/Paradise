@@ -276,7 +276,7 @@
 									/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
 			visible_message("\red Something falls out of the [src]!")
-			var/obj/item/weapon/grenade/flashbang/clusterbang/C = new(src.loc)
+			var/obj/item/weapon/grenade/flashbang/cluster/C = new(src.loc)
 			C.prime()
 			spawn(10)
 				new menace(src.loc)
