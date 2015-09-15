@@ -1,12 +1,7 @@
-/mob/living/silicon/robot/examine()
-	set src in oview()
+/mob/living/silicon/robot/examine(mob/user)
+	..(user)
 
-	if(!usr || !src)	return
-	if( (usr.sdisabilities & BLIND || usr.blinded || usr.stat) && !istype(usr,/mob/dead/observer) )
-		usr << "<span class='notice'>Something is there but you can't see it.</span>"
-		return
-
-	var/msg = "<span class='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>[custom_name ? ", [modtype] [braintype]" : ""]!\n"
+	var/msg = ""
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding \icon[act_module] \a [act_module].\n"
@@ -49,6 +44,5 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 
-	usr << msg
-	usr.showLaws(src)
-	return
+	user << msg
+	user.showLaws(src)

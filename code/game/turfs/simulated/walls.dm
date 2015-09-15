@@ -50,22 +50,22 @@
 
 //Appearance
 
-/turf/simulated/wall/examine()
-	. = ..()
+/turf/simulated/wall/examine(mob/user)
+	. = ..(user)
 
 	if(!damage)
-		usr << "<span class='notice'>It looks fully intact.</span>"
+		user << "<span class='notice'>It looks fully intact.</span>"
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			usr << "<span class='warning'>It looks slightly damaged.</span>"
+			user << "<span class='warning'>It looks slightly damaged.</span>"
 		else if(dam <= 0.6)
-			usr << "<span class='warning'>It looks moderately damaged.</span>"
+			user << "<span class='warning'>It looks moderately damaged.</span>"
 		else
-			usr << "<span class='danger'>It looks heavily damaged.</span>"
+			user << "<span class='danger'>It looks heavily damaged.</span>"
 
 	if(rotting)
-		usr << "<span class='warning'>There is fungus growing on [src].</span>"
+		user << "<span class='warning'>There is fungus growing on [src].</span>"
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated

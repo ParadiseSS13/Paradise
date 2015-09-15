@@ -781,31 +781,30 @@
 	else if(dead)
 		remove_dead(user)
 
-/obj/machinery/portable_atmospherics/hydroponics/examine()
-
-	..()
+/obj/machinery/portable_atmospherics/hydroponics/examine(mob/user)
+	..(user)
 
 	if(!seed)
-		usr << "[src] is empty."
+		user << "[src] is empty."
 		return
 
-	usr << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
+	user << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
 
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 
-	usr << "Water: [round(waterlevel,0.1)]/100"
-	usr << "Nutrient: [round(nutrilevel,0.1)]/10"
+	user << "Water: [round(waterlevel,0.1)]/100"
+	user << "Nutrient: [round(nutrilevel,0.1)]/10"
 
 	if(weedlevel >= 5)
-		usr << "\The [src] is <span class='danger'>infested with weeds</span>!"
+		user << "\The [src] is <span class='danger'>infested with weeds</span>!"
 	if(pestlevel >= 5)
-		usr << "\The [src] is <span class='danger'>infested with tiny worms</span>!"
+		user << "\The [src] is <span class='danger'>infested with tiny worms</span>!"
 
 	if(dead)
-		usr << "<span class='danger'>The plant is dead.</span>"
+		user << "<span class='danger'>The plant is dead.</span>"
 	else if(health <= (seed.get_trait(TRAIT_ENDURANCE)/ 2))
-		usr << "The plant looks <span class='danger'>unhealthy</span>."
+		user << "The plant looks <span class='danger'>unhealthy</span>."
 
 	if(mechanical)
 		var/turf/T = loc
@@ -833,7 +832,7 @@
 				light_available =  5
 			light_string = "a light level of [light_available] lumens"
 
-		usr << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
+		user << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb()
 	set name = "Toggle Tray Lid"

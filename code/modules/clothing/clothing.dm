@@ -190,11 +190,6 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/proc/Touch()
 	return
 
-/obj/item/clothing/gloves/examine()
-	set src in usr
-	..()
-	return
-
 /obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
 	var/mob/M = usr
 	if (istype(M, /mob/dead/)) return
@@ -462,21 +457,20 @@ BLIND     // can't see anything
 			return
 	return
 
-/obj/item/clothing/under/examine()
-	set src in view()
-	..()
+/obj/item/clothing/under/examine(mob/user)
+	..(user)
 	switch(src.sensor_mode)
 		if(0)
-			usr << "Its sensors appear to be disabled."
+			user << "Its sensors appear to be disabled."
 		if(1)
-			usr << "Its binary life sensors appear to be enabled."
+			user << "Its binary life sensors appear to be enabled."
 		if(2)
-			usr << "Its vital tracker appears to be enabled."
+			user << "Its vital tracker appears to be enabled."
 		if(3)
-			usr << "Its vital tracker and tracking beacon appear to be enabled."
+			user << "Its vital tracker and tracking beacon appear to be enabled."
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
-			usr << "\A [A] is attached to it."
+			user << "\A [A] is attached to it."
 
 
 /obj/item/clothing/under/verb/rollsuit()

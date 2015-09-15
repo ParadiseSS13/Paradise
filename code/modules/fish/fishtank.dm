@@ -396,10 +396,13 @@
 //		EXAMINE PROC		//			This proc is massive, messy, and probably could be handled better.
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
 
-/obj/machinery/fishtank/examine()
-	..()
+/obj/machinery/fishtank/examine(mob/user)
+	..(user)
 	var/examine_message = ""
 	//Approximate water level
+
+	examine_message += "Water level: "
+
 	if(water_level == 0)
 		examine_message += "\The [src] is empty! "
 	else if(water_level < water_capacity * 0.1)
@@ -415,6 +418,8 @@
 	else if (water_level == water_capacity)
 		examine_message += "\The [src] is full! "
 
+	examine_message += "<br>Cleanliness level: "
+
 	//Approximate filth level
 	if(filth_level == 0)
 		examine_message += "[src] is spotless! "
@@ -428,6 +433,8 @@
 		examine_message += "[src] is getting hard to see into! Someone should clean it soon! "
 	else if(filth_level == 10)
 		examine_message += "[src] is absolutely disgusting! Someone should clean it NOW! "
+
+	examine_message += "<br>Food level: "
 
 	//Approximate food level
 	if(!fish_count)								//Check if there are fish in the tank
@@ -445,7 +452,9 @@
 
 	//Report the number of harvestable eggs
 	if(egg_count)								//Don't bother if there isn't any eggs
-		examine_message += "There are [egg_count] eggs able to be harvested! "
+		examine_message += "<br>There are [egg_count] eggs able to be harvested! "
+
+	examine_message += "<br>"
 
 	//Report the number and types of live fish if there is water in the tank
 	if(fish_count == 0)
@@ -465,6 +474,8 @@
 		//Display the number of fish and previously constructed message
 		examine_message += "\The [src] contains [fish_count] live fish. [message] "
 
+	examine_message += "<br>"
+
 	//Report lid state for tanks and wall-tanks
 	if(has_lid)									//Only report if the tank actually has a lid
 		//Report lid state
@@ -472,6 +483,8 @@
 			examine_message += "The lid is closed. "
 		else
 			examine_message += "The lid is open. "
+
+	examine_message += "<br>"
 
 	//Report if the tank is leaking/cracked
 	if(water_level > 0)							//Tank has water, so it's actually leaking
@@ -483,7 +496,8 @@
 
 
 	//Finally, report the full examine_message constructed from the above reports
-	usr << "[examine_message]"
+	user << "[examine_message]"
+	return examine_message
 
 //////////////////////////////
 //		ATACK PROCS			//

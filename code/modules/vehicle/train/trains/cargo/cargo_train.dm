@@ -175,15 +175,12 @@
 	else
 		return ..()
 
-/obj/vehicle/train/cargo/engine/examine()
-	..()
-
-	if(!istype(usr, /mob/living/carbon/human))
+/obj/vehicle/train/cargo/engine/examine(mob/user)
+	if(!..(user, 1))
 		return
 
-	if(get_dist(usr,src) <= 1)
-		usr << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
-		usr << "The charge meter reads [cell? round(cell.percent(), 0.01) : 0]%"
+	user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
+	user << "The charge meter reads [cell? round(cell.percent(), 0.01) : 0]%"
 
 /obj/vehicle/train/cargo/engine/verb/start_engine()
 	set name = "Start engine"

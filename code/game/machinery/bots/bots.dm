@@ -141,7 +141,7 @@
 		user << "<span class='notice'>You need to open maintenance panel first.</span>"
 
 /obj/machinery/bot/examine(mob/user)
-	..()
+	..(user)
 	if (health < maxhealth)
 		if (health > maxhealth/3)
 			user << "<span class='danger'>[src]'s parts look loose.</span>"

@@ -118,9 +118,7 @@
 
 	src.loc = T
 
-/obj/item/examine()
-	set src in view()
-
+/obj/item/examine(mob/user)
 	var/size
 	switch(src.w_class)
 		if(1.0)
@@ -135,10 +133,10 @@
 			size = "huge"
 		else
 	//if ((CLUMSY in usr.mutations) && prob(50)) t = "funny-looking"
-	usr << "This is a [src.blood_DNA ? "bloody " : ""]\icon[src][src.name]. It is a [size] item."
+	user << "This is a [src.blood_DNA ? "bloody " : ""]\icon[src][src.name]. It is a [size] item."
 	if(src.desc)
-		usr << src.desc
-	return
+		user << src.desc
+
 
 /obj/item/attack_hand(mob/user as mob)
 	if (!user) return 0

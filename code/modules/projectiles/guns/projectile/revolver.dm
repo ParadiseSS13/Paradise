@@ -60,9 +60,9 @@
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
-/obj/item/weapon/gun/projectile/revolver/examine()
-	..()
-	usr << "[get_ammo(0,0)] of those are live rounds."
+/obj/item/weapon/gun/projectile/revolver/examine(mob/user)
+	..(user)
+	user << "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/weapon/gun/projectile/revolver/detective
 	name = "\improper .38 Mars Special"

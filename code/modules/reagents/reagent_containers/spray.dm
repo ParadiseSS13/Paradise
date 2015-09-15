@@ -83,7 +83,6 @@
 /obj/item/weapon/reagent_containers/spray/examine(mob/user)
 	if(..(user, 0) && user==src.loc)
 		user << "[round(src.reagents.total_volume)] units left."
-	return
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()
 

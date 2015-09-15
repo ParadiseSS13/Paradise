@@ -36,7 +36,7 @@
 	return 0
 
 // Hide popout menu verbs
-/mob/aiEye/examine(atom/A as mob|obj|turf in view())
+/mob/aiEye/examinate(atom/A as mob|obj|turf in view())
 	set popup_menu = 0
 	set src = usr.contents
 	return 0

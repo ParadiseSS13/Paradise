@@ -36,20 +36,20 @@
 			icon_state = "pinoff"
 			usr << "\blue You switch \the [src] off."
 
-/obj/item/weapon/pinpointer/advpinpointer/flag/examine()
+/obj/item/weapon/pinpointer/advpinpointer/flag/examine(mob/user)
 	switch(mode)
 		if (1)
-			usr << "Is is calibrated for the [target.name]"
+			user << "Is is calibrated for the [target.name]"
 		if (2)
-			usr << "Is is calibrated for the [target.name]"
+			user << "Is is calibrated for the [target.name]"
 		if (3)
-			usr << "Is is calibrated for the [target.name]"
+			user << "Is is calibrated for the [target.name]"
 		if (4)
-			usr << "Is is calibrated for the [target.name]"
+			user << "Is is calibrated for the [target.name]"
 		if (5)
-			usr << "Is is calibrated for the [target.name]"
+			user << "Is is calibrated for the [target.name]"
 		else
-			usr << "It is switched off."
+			user << "It is switched off."
 
 /datum/supply_packs/key_pinpointer_nations
 	name = "Nations Flag Pinpointer crate"

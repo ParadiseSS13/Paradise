@@ -79,7 +79,7 @@
 			if(M.ckey)
 				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 			M.LAssailant = user
-			
+
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			user << "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>"
 	return
@@ -95,18 +95,17 @@
 	user << "\blue Synthesizer is now producing '[R.name]'."
 	return
 
-/obj/item/weapon/reagent_containers/borghypo/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2)) && usr!=src.loc) return
+/obj/item/weapon/reagent_containers/borghypo/examine(mob/user)
+	if(!..(user, 2))
+		return
 
 	var/empty = 1
 
 	for(var/datum/reagents/RS in reagent_list)
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
-			usr << "\blue It currently has [R.volume] units of [R.name] stored."
+			user << "\blue It currently has [R.volume] units of [R.name] stored."
 			empty = 0
 
 	if(empty)
-		usr << "\blue It is currently empty. Allow some time for the internal syntheszier to produce more."
+		user << "\blue It is currently empty. Allow some time for the internal syntheszier to produce more."

@@ -18,7 +18,7 @@
 	var/frequency = 1439
 	var/datum/radio_frequency/radio_connection
 	var/advcontrol = 0//does this device listen to the AAC?
-	
+
 	var/list/turf/simulated/adjacent_turfs = list()
 
 	var/on = 0
@@ -28,7 +28,7 @@
 	var/scrub_CO2 = 1
 	var/scrub_Toxins = 0
 	var/scrub_N2O = 0
-	
+
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 
@@ -48,13 +48,18 @@
 		assign_uid()
 		id_tag = num2text(uid)
 	..()
-	
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc && frequency == 1439)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
 	return ..()
-	
+
+/obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
+	..(user)
+	if(welded)
+		user << "It seems welded shut."
+
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
 		return 0
@@ -171,27 +176,27 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process()
 	..()
-	
+
 	if (widenet)
-		check_turfs()	
-	
+		check_turfs()
+
 	if(stat & (NOPOWER|BROKEN))
 		return
-		
+
 	if (!node)
 		on = 0
-		
+
 	if(welded)
 		return 0
 	//broadcast_status()
 	if(!on)
 		return 0
-		
+
 	scrub(loc)
 	if (widenet)
 		for (var/turf/simulated/tile in adjacent_turfs)
 			scrub(tile)
-			
+
 //we populate a list of turfs with nonatmos-blocked cardinal turfs AND
 //	diagonal turfs that can share atmos with *both* of the cardinal turfs
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/check_turfs()
@@ -199,7 +204,7 @@
 	var/turf/T = loc
 	if (istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
-	
+
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
 	if (!tile || !istype(tile))
 		return 0

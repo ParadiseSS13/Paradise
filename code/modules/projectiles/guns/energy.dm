@@ -76,8 +76,7 @@
 			..()
 		return
 
-	examine()
-		set src in view(1)
-		..()
-		if(!power_supply)
-			usr <<"<span class='warning'>The weapon does not have a power source installed.</span>" */
+	examine(mob/user)
+		if(..(user, 1))
+			if(!power_supply)
+				usr <<"<span class='warning'>The weapon does not have a power source installed.</span>" */

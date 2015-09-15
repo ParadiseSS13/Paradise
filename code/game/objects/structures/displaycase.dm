@@ -124,13 +124,13 @@ var/global/list/captain_display_cases = list()
 	captain_display_cases -= src
 	return ..()
 
-/obj/structure/displaycase/examine()
-	..()
-	usr << "<span class='notice'>Peering through the glass, you see that it contains:</span>"
+/obj/structure/displaycase/examine(mob/user)
+	..(user)
+	user << "<span class='notice'>Peering through the glass, you see that it contains:</span>"
 	if(occupant)
-		usr << "\icon[occupant] <span class='notice'>\A [occupant].</span>"
+		user << "\icon[occupant] <span class='notice'>\A [occupant].</span>"
 	else
-		usr << "Nothing."
+		user << "Nothing."
 
 /obj/structure/displaycase/proc/dump()
 	if(occupant)
