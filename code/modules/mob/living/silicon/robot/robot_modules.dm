@@ -171,7 +171,7 @@
 	src.modules += new /obj/item/borg/sight/meson(src)
 	src.modules += new /obj/item/weapon/rcd/borg(src)
 	src.modules += new /obj/item/weapon/extinguisher(src)
-	src.modules += new /obj/item/weapon/weldingtool/largetank(src)
+	src.modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
 	src.modules += new /obj/item/weapon/screwdriver(src)
 	src.modules += new /obj/item/weapon/wrench(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
@@ -412,7 +412,7 @@
 		)
 
 /obj/item/weapon/robot_module/drone/New()
-	src.modules += new /obj/item/weapon/weldingtool(src)
+	src.modules += new /obj/item/weapon/weldingtool/largetank/cyborg(src)
 	src.modules += new /obj/item/weapon/screwdriver(src)
 	src.modules += new /obj/item/weapon/wrench(src)
 	src.modules += new /obj/item/weapon/crowbar(src)

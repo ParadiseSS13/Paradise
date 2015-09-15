@@ -1,6 +1,16 @@
 /////////////////////////////////////////
 /////////////////Equipment///////////////
 /////////////////////////////////////////
+/datum/design/exwelder
+	name = "Experimental Welding Tool"
+	desc = "An experimental welder capable of self-fuel generation."
+	id = "exwelder"
+	req_tech = list("materials" = 4, "engineering" = 4, "bluespace" = 3, "plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 1500, MAT_URANIUM = 200)
+	build_path = /obj/item/weapon/weldingtool/experimental
+	category = list("Equipment")
+	
 /datum/design/health_hud
 	name = "Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."

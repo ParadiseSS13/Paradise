@@ -388,7 +388,6 @@
 					user.disabilities &= ~NEARSIGHTED
 	return
 	
-
 /obj/item/weapon/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
 		user << "<span class='warning'>Turn it off first!</span>"
@@ -423,6 +422,11 @@
 	max_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2"
+
+/obj/item/weapon/weldingtool/largetank/cyborg
+
+/obj/item/weapon/weldingtool/largetank/flamethrower_screwdriver()
+	return
 	
 /obj/item/weapon/weldingtool/mini
 	name = "emergency welding tool"
@@ -432,6 +436,9 @@
 	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 
+/obj/item/weapon/weldingtool/mini/flamethrower_screwdriver()
+	return	
+	
 /obj/item/weapon/weldingtool/hugetank
 	name = "Upgraded Welding Tool"
 	desc = "An upgraded welder based of the industrial welder."
