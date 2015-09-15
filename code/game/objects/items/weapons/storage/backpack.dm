@@ -224,7 +224,6 @@
 /obj/item/weapon/storage/backpack/duffel
 	name = "duffelbag"
 	desc = "A large grey duffelbag designed to hold more items than a regular bag."
-	icon_override = 'icons/mob/in-hand/duffelbag.dmi'
 	icon_state = "duffel"
 	item_state = "duffel"
 	storage_slots = 9 // Duffelbags can hold more items.

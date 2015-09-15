@@ -41,7 +41,6 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	w_class = 3.0
 	projectile_type = "/obj/item/projectile/energy/chrono_beam"
 	fire_sound = 'sound/weapons/Laser.ogg'

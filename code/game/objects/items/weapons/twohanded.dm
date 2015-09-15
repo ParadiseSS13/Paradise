@@ -199,7 +199,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber
 	var/hacked = 0
 	var/blade_color
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
@@ -365,7 +364,6 @@ obj/item/weapon/twohanded/
 ///CHAINSAW///
 
 /obj/item/weapon/twohanded/chainsaw
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
@@ -423,8 +421,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -498,7 +494,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/mjollnir
 	name = "Mjollnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -546,9 +541,7 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
-	icon_state = "adrhammer0"
+	icon_state = "knighthammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	no_embed = 1
@@ -579,7 +572,7 @@ obj/item/weapon/twohanded/
 	return
 
 /obj/item/weapon/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "adrhammer[wielded]"
+	icon_state = "knighthammer[wielded]"
 	return
 
 
