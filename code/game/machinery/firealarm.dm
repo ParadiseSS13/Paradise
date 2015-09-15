@@ -238,6 +238,7 @@ FIRE ALARM
 	if (!( src.working ))
 		return
 	var/area/A = get_area(src)
+	A.fire_reset()
 	for(var/obj/machinery/firealarm/FA in A)
 		fire_alarm.clearAlarm(loc, FA)
 	return
