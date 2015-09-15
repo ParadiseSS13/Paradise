@@ -8,6 +8,8 @@
 	desc = "You wear this on your back and put items into it."
 	icon_state = "backpack"
 	item_state = "backpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = 4.0
 	slot_flags = SLOT_BACK	//ERROOOOO
 	max_w_class = 3

@@ -717,3 +717,13 @@
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
+	
+/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/weapon/storage
+	if(!newLoc)
+		return 0
+	if(istype(loc,/obj/item/weapon/storage))
+		var/obj/item/weapon/storage/S = loc
+		S.remove_from_storage(src,newLoc)
+		return 1
+	return 0
+	

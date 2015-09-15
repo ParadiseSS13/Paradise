@@ -30,7 +30,6 @@
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
-	item_state = "largebox"
 	w_class = 42 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21

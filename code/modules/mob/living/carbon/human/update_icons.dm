@@ -868,7 +868,7 @@ var/global/list/damage_icon_parts = list()
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
 
-		var/image/I = image("icon" = r_hand.righthand_file, "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
+		var/image/I = image("icon" = r_hand.righthand_file, "icon_state"="[t_state]")
 		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		overlays_standing[R_HAND_LAYER] = I		
 		
@@ -884,7 +884,7 @@ var/global/list/damage_icon_parts = list()
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
 
-		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
+		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state"="[t_state]")
 		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = I
 
