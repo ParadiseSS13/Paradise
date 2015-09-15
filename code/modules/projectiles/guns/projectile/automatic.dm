@@ -168,7 +168,6 @@
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	origin_tech = "combat=5;materials=2;syndicate=8"
 	mag_type = "/obj/item/ammo_box/magazine/m556"
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
