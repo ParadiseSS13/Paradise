@@ -48,14 +48,14 @@
 	user.changeNext_move(CLICK_CD_RANGE*2)
 
 	if(reagents.has_reagent("sacid"))
-		message_admins("[key_name_admin(user)] fired sulphuric acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src].")
 		log_game("[key_name(user)] fired sulphuric acid from \a [src].")
 	if(reagents.has_reagent("facid"))
-		message_admins("[key_name_admin(user)] fired fluorosulfuric acid from \a [src].")
-		log_game("[key_name(user)] fired Fluorosulfuric Acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src].")
+		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src].")
 	if(reagents.has_reagent("lube"))
-		message_admins("[key_name_admin(user)] fired space lube from \a [src].")
-		log_game("[key_name(user)] fired Space lube from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src].")
+		log_game("[key_name(user)] fired space lube from \a [src].")
 	return
 
 
