@@ -356,3 +356,6 @@ In all, this is a lot like the monkey code. /N
 		return custom_pixel_x_offset
 	else
 		return initial(pixel_x)
+
+/mob/living/carbon/alien/humanoid/get_permeability_protection()
+	return 0.8

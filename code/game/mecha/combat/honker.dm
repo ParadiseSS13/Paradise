@@ -3,7 +3,7 @@
 	name = "H.O.N.K"
 	icon_state = "honker"
 	initial_icon = "honker"
-	step_in = 2
+	step_in = 3
 	health = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60

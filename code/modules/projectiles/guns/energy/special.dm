@@ -133,7 +133,7 @@
 
 
 /obj/item/weapon/gun/energy/mindflayer
-	name = "mind flayer"
+	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	projectile_type = "/obj/item/projectile/beam/mindflayer"

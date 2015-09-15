@@ -551,13 +551,22 @@
 	return H
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
-	var/mob/living/carbon/H = over_object
-	if(!istype(H) || !Adjacent(H)) return ..()
-	if(H.a_intent == I_HELP)
-		get_scooped(H)
-		//return
+	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
+	if(!istype(H) || !Adjacent(H))  return ..()
+	if(usr == src)
+		switch(alert(H, "[src] wants you to pick them up. Do it?",,"Yes","No"))
+			if("Yes")
+				if(Adjacent(H))
+					get_scooped(H)
+				else
+					src << "<span class='warning'>You need to stay in reaching distance to be picked up.</span>"
+			if("No")
+				src << "<span class='warning'>[H] decided not to pick you up.</span>"
 	else
-		return ..()
+		if(Adjacent(H))
+			get_scooped(H)
+		else
+			return ..()
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)

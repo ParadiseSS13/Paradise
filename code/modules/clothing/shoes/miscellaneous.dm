@@ -9,16 +9,11 @@
 	var/list/clothing_choices = list()
 	siemens_coefficient = 0.8
 	species_restricted = null
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
-		)
 
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"
 	_color = "mime"
-
 
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
@@ -55,10 +50,6 @@
 	flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN+1
 	species_restricted = null
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
-		)
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
@@ -83,6 +74,7 @@
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
 	icon_state = "jacksandal"
+	_color = "jacksandal"
 	species_restricted = null
 
 /obj/item/clothing/shoes/cult
@@ -121,10 +113,7 @@
 	name = "laceup shoes"
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
-		)
+
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."

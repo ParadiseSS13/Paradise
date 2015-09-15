@@ -159,7 +159,7 @@
 				var/new_type = pick(
 				200; /obj/item/weapon/hatchet, \
 				/obj/item/weapon/gun/projectile/automatic/pistol, \
-				/obj/item/weapon/gun/projectile/automatic/deagle, \
+				/obj/item/weapon/gun/projectile/automatic/pistol/deagle, \
 				/obj/item/weapon/gun/projectile/revolver/russian, \
 				)
 				new new_type(C)

@@ -937,3 +937,7 @@
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
+
+//used in datum/reagents/reaction() proc
+/mob/living/proc/get_permeability_protection()
+	return 0

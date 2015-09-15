@@ -3,60 +3,6 @@
 	H.dna.SetSEState(MONKEYBLOCK,1)
 	domutcheck(H, null)
 
-/*
-/mob/living/carbon/human/proc/monkeyize()
-	if (notransform)
-		return
-	for(var/obj/item/W in src)
-		if (W==w_uniform) // will be torn
-			continue
-		unEquip(W)
-	regenerate_icons()
-	notransform = 1
-	canmove = 0
-	stunned = 1
-	icon = null
-	invisibility = 101
-	for(var/t in organs)
-		del(t)
-	var/atom/movable/overlay/animation = new /atom/movable/overlay( loc )
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-	flick("h2monkey", animation)
-	sleep(48)
-	//animation = null
-
-	if(!species.primitive) //If the creature in question has no primitive set, this is going to be messy.
-		gib()
-		return
-
-	var/mob/living/carbon/monkey/O = null
-
-	O = new species.primitive(loc)
-
-	O.dna = dna.Clone()
-	O.dna.SetSEState(MONKEYBLOCK,1)
-	O.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
-	O.loc = loc
-	O.viruses = viruses
-	O.a_intent = I_HARM
-
-
-	if (client)
-		client.mob = O
-	if(mind)
-		mind.transfer_to(O)
-
-	O << "<B>You are now [O]. </B>"
-
-	spawn(0)//To prevent the proc from returning null.
-		del(src)
-	del(animation)
-
-	return O
-*/
-
 /mob/new_player/AIize()
 	spawning = 1
 	return ..()

@@ -112,19 +112,19 @@
 	category = list("Weapons")
 
 /datum/design/smg
-	name = "Prototype Submachine Gun"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
 	id = "smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/gun/projectile/automatic
+	build_path = /obj/item/weapon/gun/projectile/automatic/proto
 	locked = 1
 	category = list("Weapons")
 
 /datum/design/mag_smg
-	name = "Prototype Submachine Gun Magazine (9mm)"
-	desc = "A 20-round magazine for the prototype submachine gun."
+	name = "Saber Submachine Gun Magazine (9mm)"
+	desc = "A 20-round magazine for the Saber submachine gun."
 	id = "mag_smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
