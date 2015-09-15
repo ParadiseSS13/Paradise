@@ -12,6 +12,7 @@
 	var/throwpass = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
+	var/atom_say_verb = "says"
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -451,3 +452,9 @@ its easier to just keep the beam vertical.
 
 /atom/proc/narsie_act()
 	return
+
+/atom/proc/atom_say(var/message)
+	if((!message))
+		return
+	for(var/mob/O in hearers(src, null))
+		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
