@@ -1,5 +1,5 @@
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server)
-	if(!check_rights(R_MOD))
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server, checkrights = 1)
+	if(checkrights && !check_rights(R_MOD))
 		return
 	if(!dbcon.IsConnected())
 		usr << "<span class='danger'>Failed to establish database connection.</span>"
@@ -181,53 +181,39 @@
 /proc/regex_note_sql_extract(str, exp)
 	return new /datum/regex(str, exp, call(LIBREGEX_LIBRARY, "regEx_find")(str, exp))
 
-#define NOTESFILE "data/player_notes.sav"
-//if the AUTOCONVERT_NOTES is turned on, anytime a player connects this will be run to try and add all their notes to the databas
+// If the AUTOCONVERT_NOTES is turned on, any time a player connects this will be run to try and add all their notes to the database
 /proc/convert_notes_sql(ckey)
-	var/savefile/notesfile = new(NOTESFILE)
-	if(!notesfile)
-		log_game("Error: Cannot access [NOTESFILE]")
-		return
-	notesfile.cd = "/[ckey]"
-	while(!notesfile.eof)
-		var/notetext
-		notesfile >> notetext
+	if(!ckey)
+		return 0
+	
+	var/playerfile = "data/player_saves/[copytext(ckey, 1, 2)]/[ckey]/info.sav"
+	var/savefile/info = new(playerfile)
+	var/list/infos
+	info >> infos
+	if(!infos)
+		fdel(playerfile)
+		return 0
+
+	ckey = sanitizeSQL(ckey)
+	for(var/datum/player_info/I in infos)	
+		var/notetext = sanitizeSQL(I.content)
+		var/adminckey = sanitizeSQL(I.author)
 		var/server
 		if (config && config.server_name)
 			server = config.server_name
-		var/regex = "^(\\d{2}-\\w{3}-\\d{4}) \\| (.+) ~(\\w+)$"
-		var/datum/regex/results = regex_note_sql_extract(notetext, regex)
-		var/timestamp = results.str(2)
-		notetext = results.str(3)
-		var/adminckey = results.str(4)
-		var/DBQuery/query_convert_time = dbcon.NewQuery("SELECT ADDTIME(STR_TO_DATE('[timestamp]','%d-%b-%Y'), '0')")
-		if(!query_convert_time.Execute())
-			var/err = query_convert_time.ErrorMsg()
-			log_game("SQL ERROR converting timestamp. Error : \[[err]\]\n")
-			return
-		if(query_convert_time.NextRow())
-			timestamp = query_convert_time.item[1]
-		if(ckey && notetext && timestamp && adminckey && server)
-			add_note(ckey, notetext, timestamp, adminckey, 0, server)
-	notesfile.cd = "/"
-	notesfile.dir.Remove(ckey)
+		
+		var/timestamp = I.timestamp
+		var/regex = "\[A-Za-z\]+\\, (\[A-Za-z\]+) (\[0-9\]+)\[A-Za-z\]+ of (\[0-9\]+)"
+		var/datum/regex/results = regex_note_sql_extract(timestamp, regex)
+		var/month = month2number(results.str(2))
+		var/day = results.str(3)
+		var/year = results.str(4)
+		timestamp = "[year]-[month]-[day] 00:00:00"
 
-/*alternatively this proc can be run once to pass through every note and attempt to convert it before deleting the file, if done then AUTOCONVERT_NOTES should be turned off
-this proc can take several minutes to execute fully if converting and cause DD to hang if converting a lot of notes; it's not advised to do so while a server is live
-/proc/mass_convert_notes()
-	if(!check_rights(R_DEBUG))
-		return
-	world << "Beginning mass note conversion"
-	var/savefile/notesfile = new(NOTESFILE)
-	if(!notesfile)
-		log_game("Error: Cannot access [NOTESFILE]")
-		return
-	notesfile.cd = "/"
-	for(var/ckey in notesfile.dir)
-		convert_notes_sql(ckey)
-	world << "Deleting NOTESFILE"
-	fdel(NOTESFILE)
-	world << "Finished mass note conversion, remember to turn off AUTOCONVERT_NOTES"*/
+		add_note(ckey, notetext, timestamp, adminckey, 0, server, 0)
+		
+	fdel(playerfile)
+	return 1
 	
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = sanitizeSQL(key)
@@ -244,5 +230,3 @@ this proc can take several minutes to execute fully if converting and cause DD t
 		var/server = query_get_notes.item[4]
 		output += "[notetext]%0D%0Aby [adminckey] on [timestamp] (Server: [server])%0D%0A%0D%0A"
 	return output
-	
-#undef NOTESFILE

@@ -42,3 +42,6 @@ proc/isDay(var/month, var/day)
 /proc/stop_watch(wh)
 	return round(0.1*(world.timeofday-wh),0.1)
 	
+/proc/month2number(month)
+	return month_names.Find(month)
+	

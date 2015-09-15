@@ -4,6 +4,9 @@ var/global/list/zero_character_only = list("0")
 var/global/list/hex_characters = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
 var/global/list/binary = list("0","1")
 
+var/global/list/day_names = list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+var/global/list/month_names = list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+
 //Reagent stuff
 var/list/tachycardics = list("coffee", "methamphetamine", "nitroglycerin", "thirteenloko", "nicotine")	//increase heart rate
 var/list/bradycardics = list("neurotoxin", "cryoxadone", "space_drugs")					//decrease heart rate
