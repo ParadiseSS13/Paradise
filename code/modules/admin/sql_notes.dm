@@ -190,7 +190,7 @@
 	var/savefile/info = new(playerfile)
 	var/list/infos
 	info >> infos
-	if(!infos)
+	if(!infos || !infos.len)
 		fdel(playerfile)
 		return 0
 
