@@ -360,6 +360,9 @@
 		return MT_UPDATE
 
 	return ..()
+	
+/obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
+	return !welded
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/weldingtool))
