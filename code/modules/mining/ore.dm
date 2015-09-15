@@ -22,6 +22,7 @@
 	origin_tech = "materials=5"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/uranium
+	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/iron
 	name = "iron ore"
@@ -29,6 +30,7 @@
 	origin_tech = "materials=1"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/glass
 	name = "sand pile"
@@ -36,6 +38,7 @@
 	origin_tech = "materials=1"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/glass/attack_self(mob/living/user as mob)
 	user << "<span class='notice'>You use the sand to make sandstone.</span>"
@@ -59,9 +62,10 @@
 /obj/item/weapon/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"
-	origin_tech = "materials=2"
+	origin_tech = "plasmatech=2;materials=2"
 	points = 36
 	refined_type = /obj/item/stack/sheet/mineral/plasma
+	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/plasma/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
@@ -77,6 +81,7 @@
 	origin_tech = "materials=3"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/silver
+	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/gold
 	name = "gold ore"
@@ -84,6 +89,7 @@
 	origin_tech = "materials=4"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/gold
+	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/diamond
 	name = "diamond ore"
@@ -91,6 +97,7 @@
 	origin_tech = "materials=6"
 	points = 36
 	refined_type = /obj/item/stack/sheet/mineral/diamond
+	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/bananium
 	name = "bananium ore"
@@ -98,6 +105,7 @@
 	origin_tech = "materials=4"
 	points = 27
 	refined_type = /obj/item/stack/sheet/mineral/bananium
+	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/weapon/ore/slag
 	name = "slag"
