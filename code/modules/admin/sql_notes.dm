@@ -215,6 +215,33 @@
 	fdel(playerfile)
 	return 1
 	
+/proc/mass_convert_notes()
+	if(!check_rights(R_SERVER))
+		return 0
+	world << "Beginning mass note conversion."
+	
+	var/player_notes_file = "data/player_notes.sav"
+	var/savefile/notesfile = new(player_notes_file)
+	var/list/note_keys
+	notesfile >> note_keys
+
+	if(!notesfile)
+		log_game("Error: Cannot access player_notes.sav file.")
+		return 0
+	if(!note_keys || !note_keys.len)
+		log_game("Error: player_notes.sav file is empty. Deleting it.")
+		fdel(player_notes_file)
+		return 0
+		
+	note_keys = sortList(note_keys)
+	for(var/i = 1, i <= note_keys.len, i++)
+		var/ckey = note_keys[i]
+		convert_notes_sql(ckey)
+	world << "Finished mass note conversion ([i] notes converted). Remember to turn off AUTOCONVERT_NOTES."
+	world << "Deleting the player_notes.sav file."
+	fdel(player_notes_file)	
+	return 1
+	
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = sanitizeSQL(key)
 	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
