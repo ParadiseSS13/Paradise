@@ -415,8 +415,7 @@
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
 
-		B1.reagents.add_reagent("aluminum", 25)
-		B1.reagents.add_reagent("incendiaryfuel",25)
+		B1.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("plasma", 25)
 		B2.reagents.add_reagent("sacid", 25)
 
@@ -484,6 +483,26 @@
 		beakers += B1
 		beakers += B2
 		update_icon()
+
+/obj/item/weapon/grenade/chem_grenade/facid
+	name = "acid grenade"
+	desc = "Used for melting armoured opponents."
+	stage = READY
+
+/obj/item/weapon/grenade/chem_grenade/facid/New()
+	..()
+	var/obj/item/weapon/reagent_containers/glass/beaker/bluespace/B1 = new(src)
+	var/obj/item/weapon/reagent_containers/glass/beaker/bluespace/B2 = new(src)
+
+	B1.reagents.add_reagent("facid", 280)
+	B1.reagents.add_reagent("potassium", 20)
+	B2.reagents.add_reagent("phosphorus", 20)
+	B2.reagents.add_reagent("sugar", 20)
+	B2.reagents.add_reagent("facid", 260)
+
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/weapon/grenade/chem_grenade/tabungas
 	payload_name = "tabungas"
