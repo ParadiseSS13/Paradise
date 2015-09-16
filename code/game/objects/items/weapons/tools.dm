@@ -436,6 +436,7 @@
 	max_fuel = 10
 	w_class = 1
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
+	change_icons = 0
 
 /obj/item/weapon/weldingtool/mini/flamethrower_screwdriver()
 	return	
@@ -460,6 +461,9 @@
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=4;plasma=3"
 	var/last_gen = 0
+	change_icons = 0
+	can_off_process = 1
+	light_intensity = 1
 
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()
 	if(!welding && !last_gen)
