@@ -182,7 +182,13 @@
 	desc = initial(desc)
 
 	var/obj/item/I = new D.build_path
-	I.loc = get_step(src,SOUTH)
+	if(D.locked)
+		var/obj/item/weapon/storage/lockbox/large/L = new /obj/item/weapon/storage/lockbox/large(get_step(src,SOUTH)) //(Don't use capitals in paths, or single letters.
+		I.loc = L
+		L.name += " [initial(I.name)]"
+		L.origin_tech = I.origin_tech
+	else
+		I.loc = get_step(src,SOUTH)
 	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
 	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
 	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")

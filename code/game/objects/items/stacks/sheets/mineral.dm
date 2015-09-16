@@ -83,6 +83,7 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	throw_range = 5
 	origin_tech = "materials=1"
 	sheettype = "sandstone"
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/sandstone/New()
 	..()
@@ -171,4 +172,5 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"
 	icon_state = "sheet-enruranium"
-	origin_tech = "materials=5"
+	origin_tech = "materials=6"
+	materials = list(MAT_URANIUM=3000)

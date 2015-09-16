@@ -62,6 +62,13 @@
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 
+/obj/item/weapon/storage/lockbox/large
+	name = "Large lockbox"
+	desc = "A large lockbox"
+	max_w_class = 4
+	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
+	storage_slots = 1
+
 /obj/item/weapon/storage/lockbox/loyalty
 	name = "Lockbox (Loyalty Implants)"
 	req_access = list(access_security)
@@ -81,7 +88,7 @@
 
 	New()
 		..()
-		new /obj/item/weapon/grenade/flashbang/clusterbang(src)
+		new /obj/item/weapon/grenade/clusterbuster(src)
 
 
 /obj/item/weapon/storage/lockbox/medal
