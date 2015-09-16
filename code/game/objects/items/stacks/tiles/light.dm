@@ -12,13 +12,8 @@
 	singular_name = "light floor tile"
 	desc = "A floor tile, made out off glass. Use a multitool on it to change its color."
 	icon_state = "tile_light blue"
-	w_class = 3.0
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 5
-	throw_range = 20
-	flags = CONDUCT
-	max_amount = 60
+	force = 3
+	throwforce = 5
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	var/on = 1
 	var/state = LIGHTFLOOR_ON
@@ -50,3 +45,4 @@
 		user << "[src] is now "+color_desc()
 
 	return ..()
+	
