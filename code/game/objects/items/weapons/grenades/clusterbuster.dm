@@ -165,11 +165,6 @@
 	desc = "It's righteous, not badminnery."
 	payload = /obj/item/weapon/grenade/chem_grenade/hellwater
 
-/obj/item/weapon/grenade/clusterbuster/divide_by_zero
-	name = "Divide by Zero Grenade"
-	desc = "If you're really that dumb, then by all means, use this. ProTip: DON'T EVER ARM THIS!"
-	payload = /obj/item/weapon/grenade/clusterbuster/divide_by_zero //hue
-
 /obj/item/weapon/grenade/clusterbuster/booze
 	name = "Booze Grenade"
 	payload = /obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink
@@ -247,3 +242,25 @@
 	name = "Crab Grenade"
 	desc = "Reserved for those pesky request."
 	payload = /mob/living/simple_animal/crab
+
+////////////Clusterbuster of Clusterbusters////////////
+
+/obj/item/weapon/grenade/clusterbuster/mega_fox
+	name = "Mega Troublemaking Grenade."
+	payload = /obj/item/weapon/grenade/clusterbuster/fox
+
+/obj/item/weapon/grenade/clusterbuster/mega_bang
+	name = "For when stunlocking is just too short."
+	payload = /obj/item/weapon/grenade/clusterbuster
+
+/obj/item/weapon/grenade/clusterbuster/mega_syndieminibomb
+	name = "Mega SyndiWrath."
+	payload = /obj/item/weapon/grenade/clusterbuster/syndieminibomb
+
+/obj/item/weapon/grenade/clusterbuster/mega_honk_evil
+	name = "Mega Evil Mega Honk Grenade."
+	payload = /obj/item/weapon/grenade/clusterbuster/honk_evil
+
+/obj/item/weapon/grenade/clusterbuster/mega_emp
+	name = "Electromagnetic Storm"
+	payload = /obj/item/weapon/grenade/clusterbuster/emp
