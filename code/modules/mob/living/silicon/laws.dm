@@ -1,6 +1,6 @@
 /mob/living/silicon
 	var/datum/ai_laws/laws = null
-	var/list/additional_law_channels = list("State")
+	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/proc/laws_sanity_check()
 	if (!src.laws)
@@ -59,11 +59,12 @@
 
 /mob/living/silicon/proc/statelaws(var/datum/ai_laws/laws)
 	var/prefix = ""
-	switch(lawchannel)
-		if(MAIN_CHANNEL) prefix = ";"
-		if("Binary") prefix = ":b "
-		else
-			prefix = get_radio_key_from_channel(lawchannel == "Holopad" ? "department" : lawchannel) + " "
+	if(MAIN_CHANNEL == lawchannel)
+		prefix = ";"
+	else if(lawchannel in additional_law_channels)
+		prefix = additional_law_channels[lawchannel]
+	else
+		prefix = get_radio_key_from_channel(lawchannel)
 
 	dostatelaws(lawchannel, prefix, laws)
 

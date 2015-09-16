@@ -130,8 +130,8 @@ var/list/ai_verbs_default = list(
 	aiRadio = new(src)
 	common_radio = aiRadio
 	aiRadio.myAi = src
-	additional_law_channels += "Binary"
-	additional_law_channels += "Holopad"
+	additional_law_channels["Binary"] = ":b"
+	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/device/camera/siliconcam/ai_camera(src)
 
