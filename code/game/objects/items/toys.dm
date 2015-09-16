@@ -17,6 +17,7 @@
  *		Inflatable duck
  *		Foam armblade
  *		Mini Gibber
+ *		Toy xeno
  */
 
 
@@ -1316,3 +1317,32 @@ obj/item/toy/cards/deck/syndicate/black
 		else
 			user << "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>"
 	else ..()
+
+/*
+ * Xenomorph action figure
+ */
+
+/obj/item/toy/toy_xeno
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "toy_xeno"
+	name = "xenomorph action figure"
+	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+	w_class = 2
+	var/cooldown = 0
+
+/obj/item/toy/toy_xeno/attack_self(mob/user)
+	if(cooldown <= world.time)
+		cooldown = (world.time + 50) //5 second cooldown
+		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
+		icon_state = "[initial(icon_state)]_used"
+		sleep(5)
+		audible_message("<span class='danger'>\icon[src] Hiss!</span>")
+		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+		playsound(get_turf(src), pick(possible_sounds), 50, 1)
+		spawn(45)
+			if(src)
+				icon_state = "[initial(icon_state)]"
+	else
+		user << "<span class='warning'>The string on [src] hasn't rewound all the way!</span>"
+		return
+
