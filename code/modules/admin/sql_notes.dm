@@ -234,7 +234,8 @@
 		return 0
 		
 	note_keys = sortList(note_keys)
-	for(var/i = 1, i <= note_keys.len, i++)
+	var/i = 1
+	for(i, i <= note_keys.len, i++)
 		var/ckey = note_keys[i]
 		convert_notes_sql(ckey)
 	world << "Finished mass note conversion ([i] notes converted). Remember to turn off AUTOCONVERT_NOTES."
