@@ -53,41 +53,6 @@
 		target.update_inv_handcuffed(1)
 		return
 
-var/last_chew = 0
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A)
-	if (A != src)
-		return ..()
-	if (last_chew + 26 > world.time)
-		return
-
-	var/mob/living/carbon/human/H = A
-	if (!H.handcuffed)
-		return
-	if (H.a_intent != I_HARM)
-		return
-	if (H.zone_sel.selecting != "mouth")
-		return
-	if (H.wear_mask)
-		return
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket))
-		return
-
-	var/obj/item/organ/external/O = H.organs_by_name[H.hand ? "l_hand" : "r_hand"]
-	if (!O)
-		return
-
-	var/s = "<span class='danger'>[H.name] chews on \his [O.name]!</span>"
-	H.visible_message(s, "<span class='userdanger'>You chew on your [O.name]!</span>")
-	H.attack_log += text("\[[time_stamp()]\] <font color='red'>[s] ([H.ckey])</font>")
-	log_attack("[s] ([H.ckey])")
-
-	if(O.take_damage(3,0,1,1,"teeth marks"))
-		H.UpdateDamageIcon()
-		if(prob(10))
-			O.droplimb()
-
-	last_chew = world.time
-
 /obj/item/weapon/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
