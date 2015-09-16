@@ -165,6 +165,11 @@
 	desc = "It's righteous, not badminnery."
 	payload = /obj/item/weapon/grenade/chem_grenade/hellwater
 
+/obj/item/weapon/grenade/clusterbuster/divide_by_zero
+	name = "Divide by Zero Grenade"
+	desc = "If you're really that dumb, then by all means, use this. ProTip: DON'T EVER ARM THIS!"
+	payload = /obj/item/weapon/grenade/clusterbuster/divide_by_zero //hue
+
 /obj/item/weapon/grenade/clusterbuster/booze
 	name = "Booze Grenade"
 	payload = /obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink
