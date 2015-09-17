@@ -249,8 +249,6 @@
 				if(ticker.mode.config_tag == "malfunction") //Don't let humans get a cyborg on their side during malf, for balance reasons.
 					O.set_zeroth_law("<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK#*�&110010</span>")
 
-			ticker.mode.remove_cultist(M.brainmob.mind, 1)
-			ticker.mode.remove_revolutionary(M.brainmob.mind, 1)
 			M.brainmob.mind.transfer_to(O)
 
 			if(O.mind && O.mind.special_role)
@@ -270,10 +268,12 @@
 				cell_component.wrapped = O.cell
 				cell_component.installed = 1
 			O.mmi = W
-			O.updatename()
+			O.Namepick()
 
 			feedback_inc("cyborg_birth",1)
 			callHook("borgify", list(O))
+
+			src.loc = O
 
 			if(!locomotion)
 				O.lockcharge = 1
