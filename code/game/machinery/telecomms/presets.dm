@@ -73,7 +73,7 @@
 	id = "Receiver B"
 	network = "tcommsat"
 	autolinkers = list("receiverB") // link to relay
-	freq_listening = list(COMM_FREQ, ENG_FREQ, SEC_FREQ) 
+	freq_listening = list(AI_FREQ, COMM_FREQ, ENG_FREQ, SEC_FREQ) 
 
 	//Common and other radio frequencies for people to freely use
 	New()
@@ -182,10 +182,10 @@
 	
 /obj/machinery/telecomms/server/presets/common
 	id = "Common Server"
-	freq_listening = list()
+	freq_listening = list(PUB_FREQ, AI_FREQ)
 	autolinkers = list("common")
 
-	//Common and other radio frequencies for people to freely use
+//Common and other radio frequencies for people to freely use
 /obj/machinery/telecomms/server/presets/common/New()
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
