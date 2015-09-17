@@ -11,7 +11,6 @@
 	//var/mob/living/carbon/brain/brainmob = null
 	var/list/ghost_volunteers[0]
 	req_access = list(access_robotics)
-	locked = 0
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
 

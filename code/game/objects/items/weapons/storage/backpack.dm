@@ -285,7 +285,7 @@
 	new /obj/item/weapon/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-//	new /obj/item/device/mmi/syndie(src)
+	new /obj/item/device/mmi/syndie(src)
 
 /obj/item/weapon/storage/backpack/duffel/captain
 	name = "captain's duffelbag"

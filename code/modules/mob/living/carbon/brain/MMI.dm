@@ -8,11 +8,9 @@
 	w_class = 3
 	origin_tech = "biotech=3"
 
-	req_access = list(access_robotics)
-
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
-	var/locked = 0
+	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/mob/living/silicon/robot = null//Appears unused.
 	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
@@ -49,19 +47,11 @@
 			qdel(O)
 
 
-			locked = 1
 
 			feedback_inc("cyborg_mmis_filled",1)
 
 			return
 
-		if((istype(O,/obj/item/weapon/card/id)||istype(O,/obj/item/device/pda)) && brainmob)
-			if(allowed(user))
-				locked = !locked
-				user << "\blue You [locked ? "lock" : "unlock"] the brain holder."
-			else
-				user << "\red Access denied."
-			return
 		if(brainmob)
 			O.attack(brainmob, user)//Oh noooeeeee
 			return
@@ -72,10 +62,8 @@
 	attack_self(mob/user as mob)
 		if(!brainmob)
 			user << "\red You upend the MMI, but there's nothing in it."
-		else if(locked)
-			user << "\red You upend the MMI, but the brain is clamped into place."
 		else
-			user << "\blue You upend the MMI, spilling the brain onto the floor."
+			user << "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>"
 			if(alien)
 				var/obj/item/organ/brain/xeno/brain = new(user.loc)
 				dropbrain(brain,get_turf(user))
@@ -96,7 +84,6 @@
 
 			name = "Man-Machine Interface: [brainmob.real_name]"
 			icon_state = "mmi_full"
-			locked = 1
 			return
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -170,3 +157,8 @@
 		qdel(brainmob)
 		brainmob = null
 	return ..()
+
+/obj/item/device/mmi/syndie
+	name = "Syndicate Man-Machine Interface"
+	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
+	syndiemmi = 1
