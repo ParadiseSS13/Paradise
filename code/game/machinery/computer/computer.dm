@@ -11,8 +11,8 @@
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 3
-	var/light_power_on = 2
+	var/light_range_on = 2
+	var/light_power_on = 1
 	var/overlay_layer
 	atom_say_verb = "beeps"
 
