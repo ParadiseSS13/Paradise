@@ -26,7 +26,7 @@
 	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
 //ADMINVERBS
-/client/proc/investigate_show( subject in list("hrefs","pda","singulo","atmos","watchlist","ntsl","gold core","cult") )
+/client/proc/investigate_show( subject in list("hrefs","notes","pda","singulo","atmos","watchlist","ntsl","gold core","cult") )
 	set name = "Investigate"
 	set category = "Admin"
 	if(!holder)	return
@@ -79,3 +79,6 @@
 			
 		if("watchlist")
 			watchlist_show()
+			
+		if("notes")
+			show_note()

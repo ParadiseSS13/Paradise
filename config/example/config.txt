@@ -271,8 +271,8 @@ EVENT_DELAY_UPPER 15;45;70
 
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
-# EVENT_CUSTOM_START_MINOR 10;15
-# EVENT_CUSTOM_START_MODERATE 30;45
+#EVENT_CUSTOM_START_MINOR 10;15
+#EVENT_CUSTOM_START_MODERATE 30;45
 EVENT_CUSTOM_START_MAJOR 80;100
 
 ## Strength of ambient star light. Set to 0 or less to turn off.
@@ -288,4 +288,7 @@ PLAYER_REROUTE_CAP 0
 #OVERFLOW_SERVER_URL byond://example.org:1111
 
 ## Disable the loading of away missions
-# DISABLE_AWAY_MISSIONS
+#DISABLE_AWAY_MISSIONS
+
+## Uncomment this out if you still use the old .sav file based notes system and haven't used the mass conversion proc
+#AUTOCONVERT_NOTES

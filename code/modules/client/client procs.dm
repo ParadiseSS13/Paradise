@@ -283,6 +283,9 @@
 
 	log_client_to_db()
 
+	if (config && config.autoconvert_notes)
+		convert_notes_sql(ckey)	
+	
 	send_resources()
 
 	//////////////

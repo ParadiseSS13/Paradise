@@ -55,7 +55,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mod_say,
-	/datum/admins/proc/show_player_info,
+	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
 	/client/proc/toggledebuglogs,
@@ -175,7 +175,7 @@ var/list/admin_verbs_mod = list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/cmd_mod_say,
-	/datum/admins/proc/show_player_info,
+	/datum/admins/proc/show_player_notes,
 	/client/proc/player_panel_new,
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
