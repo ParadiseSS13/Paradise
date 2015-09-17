@@ -34,6 +34,7 @@
 	description = "You just don't get it maaaan."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
 /datum/reagent/hippies_delight/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -56,7 +57,6 @@
 			M.Dizzy(40)
 			M.druggy = max(M.druggy, 60)
 			if(prob(30)) M.emote(pick("twitch","giggle"))
-	holder.remove_reagent(src.id, 0.2)
 	data++
 	..()
 	return
