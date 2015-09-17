@@ -553,18 +553,40 @@ var/global/nologevent = 0
 	set category = "Server"
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
+
+	if(!check_rights(R_ADMIN))
+		return
+
 	toggle_ooc()
-	log_admin("[key_name(usr)] toggled OOC.")
-	message_admins("[key_name_admin(usr)] toggled OOC.", 1)
+	log_and_message_admins("toggled OOC.")
 	feedback_add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/togglelooc()
+	set category = "Server"
+	set desc="Globally Toggles LOOC"
+	set name="Toggle LOOC"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.looc_allowed = !(config.looc_allowed)
+	if (config.looc_allowed)
+		world << "<B>The LOOC channel has been globally enabled!</B>"
+	else
+		world << "<B>The LOOC channel has been globally disabled!</B>"
+	log_and_message_admins("toggled LOOC.")
+	feedback_add_details("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggledsay()
 	set category = "Server"
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
-	dsay_allowed = !( dsay_allowed )
-	if (dsay_allowed)
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.dsay_allowed = !(config.dsay_allowed)
+	if (config.dsay_allowed)
 		world << "<B>Deadchat has been globally enabled!</B>"
 	else
 		world << "<B>Deadchat has been globally disabled!</B>"
@@ -574,11 +596,14 @@ var/global/nologevent = 0
 
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
-	set desc="Toggle dis bitch"
+	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
-	dooc_allowed = !( dooc_allowed )
 
-	log_admin("[key_name(usr)] toggled OOC.")
+	if(!check_rights(R_ADMIN))
+		return
+
+	config.dooc_allowed = !( config.dooc_allowed )
+	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	feedback_add_details("admin_verb","TDOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

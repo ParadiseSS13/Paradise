@@ -164,6 +164,11 @@
 	var/disable_away_missions = 0 // disable away missions
 	
 	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
+	
+	var/ooc_allowed = 1
+	var/looc_allowed = 1
+	var/dooc_allowed = 1
+	var/dsay_allowed = 1
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -341,6 +346,16 @@
 
 				if ("guest_ban")
 					guests_allowed = 0
+					
+				if ("disable_ooc")
+					config.ooc_allowed = 0
+					config.looc_allowed = 0
+		
+				if ("disable_dead_ooc")
+					config.dooc_allowed = 0
+
+				if ("disable_dsay")
+					config.dsay_allowed = 0
 
 				if ("usewhitelist")
 					config.usewhitelist = 1

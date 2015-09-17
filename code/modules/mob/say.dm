@@ -40,7 +40,7 @@
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
-		if(!dsay_allowed)
+		if(!config.dsay_allowed)
 			src << "<span class='danger'>Deadchat is globally muted.</span>"
 			return
 
