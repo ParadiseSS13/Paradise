@@ -125,7 +125,6 @@
 			if(istype(M, /mob/living/carbon/slime))
 				M.bodytemperature -= rand(15,20)
 	data++
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
 	..()
 	return
 

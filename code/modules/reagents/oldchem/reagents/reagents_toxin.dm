@@ -417,6 +417,7 @@
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/beer2/on_mob_life(var/mob/living/M as mob)
 	if(!data)
@@ -428,7 +429,6 @@
 			M.sleeping += 1
 			M.adjustToxLoss((data - 50)*REM)
 	data++
-	holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 	..()
 	return
 
@@ -558,40 +558,3 @@
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	..()
 	return
-
-/datum/reagent/frostoil
-	name = "Frost Oil"
-	id = "frostoil"
-	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
-	reagent_state = LIQUID
-	color = "#8BA6E9" // rgb: 139, 166, 233
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/frostoil/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(!data) data = 1
-	switch(data)
-		if(1 to 15)
-			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(holder.has_reagent("capsaicin"))
-				holder.remove_reagent("capsaicin", 5)
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(5,20)
-		if(15 to 25)
-			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(10,20)
-		if(25 to INFINITY)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(1))
-				M.emote("shiver")
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(15,20)
-	data++
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
-	..()
-	return
-
-/datum/reagent/frostoil/reaction_turf(var/turf/simulated/T, var/volume)
-	for(var/mob/living/carbon/slime/M in T)
-		M.adjustToxLoss(rand(15,30))
