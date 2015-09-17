@@ -20,7 +20,8 @@
 	id = "decloner"
 	req_tech = list("combat" = 6, "materials" = 7, "biotech" = 5, "powerstorage" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, "mutagen" = 40)
+	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
+	reagents = list("mutagen" = 40)
 	build_path = /obj/item/weapon/gun/energy/decloner
 	locked = 1
 	category = list("Weapons")
@@ -43,7 +44,8 @@
 	id = "flora_gun"
 	req_tech = list("materials" = 2, "biotech" = 3, "powerstorage" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, "radium" = 20)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
+	reagents = list("radium" = 20)
 	build_path = /obj/item/weapon/gun/energy/floragun
 	category = list("Weapons")
 
