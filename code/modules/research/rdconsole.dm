@@ -1101,7 +1101,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "Mechanics R&D Console"
 	desc = "A console used to interface with R&D tools."
-	id = 2
+	id = 4
 	req_access = null
 	req_access_txt = "70"
 
@@ -1109,3 +1109,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "Core R&D Console"
 	desc = "A console used to interface with R&D tools."
 	id = 1
+
+/obj/machinery/computer/rdconsole/experiment
+	name = "E.X.P.E.R.I-MENTOR R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 3
