@@ -152,7 +152,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	make_laws()
-	additional_law_channels["Binary"] = ":b"
+	additional_law_channels["Binary"] = ":b "
 	var/new_ai = select_active_ai_with_fewest_borgs()
 	if(new_ai)
 		lawupdate = 1
