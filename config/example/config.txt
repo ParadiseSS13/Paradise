@@ -290,5 +290,5 @@ PLAYER_REROUTE_CAP 0
 ## Disable the loading of away missions
 #DISABLE_AWAY_MISSIONS
 
-## Comment this out if you've used the mass conversion sql proc for notes or want to stop converting notes
-AUTOCONVERT_NOTES
+## Uncomment this out if you still use the old .sav file based notes system and haven't used the mass conversion proc
+#AUTOCONVERT_NOTES

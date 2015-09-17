@@ -194,10 +194,10 @@
 		fdel(playerfile)
 		return 0
 
-	ckey = sanitizeSQL(ckey)
+	ckey = ckey
 	for(var/datum/player_info/I in infos)	
-		var/notetext = sanitizeSQL(I.content)
-		var/adminckey = sanitizeSQL(I.author)
+		var/notetext = I.content
+		var/adminckey = I.author
 		var/server
 		if (config && config.server_name)
 			server = config.server_name
@@ -214,7 +214,8 @@
 		
 	fdel(playerfile)
 	return 1
-	
+
+// Using this proc causes lag - you have been warned.	
 /proc/mass_convert_notes()
 	if(!check_rights(R_SERVER))
 		return 0
