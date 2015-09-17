@@ -16,7 +16,6 @@
 /datum/event/brand_intelligence/announce()
 	command_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
 
-
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in machines)
 		if(V.z != 1)	continue
@@ -30,7 +29,6 @@
 	vendingMachines.Remove(originMachine)
 	originMachine.shut_up = 0
 	originMachine.shoot_inventory = 1
-
 
 /datum/event/brand_intelligence/tick()
 	if(!originMachine || !isnull(originMachine.gcDestroyed) || originMachine.shut_up || originMachine.wires.IsAllCut())	//if the original vending machine is missing or has it's voice switch flipped

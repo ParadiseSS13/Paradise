@@ -1,8 +1,5 @@
-
 /datum/event/spawn_slaughter
 	var/key_of_slaughter
-
-
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	key_of_slaughter = null
@@ -46,12 +43,8 @@
 	log_game("[key_of_slaughter] was spawned as a Slaughter Demon by an event.")
 	return 1
 
-
-
 /datum/event/spawn_slaughter/start()
 	get_slaughter()
-
-
 
 /datum/event/spawn_slaughter/proc/find_slaughter()
 	message_admins("Attempted to spawn a Slaughter Demon but there was no players available. Will try again momentarily.")
@@ -62,3 +55,4 @@
 			return 0
 		message_admins("Unfortunately, no candidates were available for becoming a Slaugter Demon. Shutting down.")
 	kill()
+	

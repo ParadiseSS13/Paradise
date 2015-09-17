@@ -133,7 +133,6 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Mundane News", 		/datum/event/mundane_news, 		300),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
-		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Cargo Bonus", 		/datum/event/cargo_bonus, 		100)
 	)
 

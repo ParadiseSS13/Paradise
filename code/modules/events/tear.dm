@@ -7,12 +7,10 @@
 /datum/event/tear/announce()
 	command_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
 
-
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		TE = new /obj/effect/tear(T.loc)
-
 
 /datum/event/tear/setup()
 	impact_area = findEventArea()
@@ -41,7 +39,6 @@
 //	flick("newtear",usr)
 	spawn(15)
 		if(animation)	qdel(animation)
-
 
 	spawn(rand(30,120))
 		var/blocked = blocked_mobs //global variable for blocked mobs

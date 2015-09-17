@@ -2,9 +2,7 @@
 
 /datum/event/spider_infestation
 	announceWhen	= 400
-
 	var/spawncount = 1
-
 
 /datum/event/spider_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)

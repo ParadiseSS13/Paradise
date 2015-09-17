@@ -67,7 +67,6 @@
 		walk_towards(src, goal, 1)
 	return
 
-
 /obj/effect/space_dust/Bump(atom/A)
 	spawn(0)
 		if(prob(50))
@@ -90,11 +89,9 @@
 				return 0
 	return
 
-
 /obj/effect/space_dust/Bumped(atom/A)
 	Bump(A)
 	return
-
 
 /obj/effect/space_dust/ex_act(severity)
 	qdel(src)

@@ -2,21 +2,17 @@
 
 /datum/event/alien_infestation
 	announceWhen	= 400
-
 	var/spawncount = 1
 	var/successSpawn = 0	//So we don't make a command report if nothing gets spawned.
-
 
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 	spawncount = rand(1, 2)
 	sent_aliens_to_station = 1
 
-
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
 		command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
-
 
 /datum/event/alien_infestation/start()
 	var/list/vents = list()
@@ -37,3 +33,4 @@
 
 			spawncount--
 			successSpawn = 1
+			
