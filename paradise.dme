@@ -1137,7 +1137,6 @@
 #include "code\modules\events\money_hacker.dm"
 #include "code\modules\events\money_lotto.dm"
 #include "code\modules\events\money_spam.dm"
-#include "code\modules\events\power_failure.dm"
 #include "code\modules\events\prison_break.dm"
 #include "code\modules\events\radiation_storm.dm"
 #include "code\modules\events\rogue_drones.dm"
