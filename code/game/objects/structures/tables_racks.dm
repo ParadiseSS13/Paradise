@@ -946,3 +946,15 @@
 /obj/structure/rack/proc/healthcheck()
 	if(health <= 0)
 		destroy()
+
+/obj/structure/rack/skeletal_bar
+	name = "skeletal minibar"
+	desc = "Made with the skulls of the fallen."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "minibar"
+
+/obj/structure/rack/skeletal_bar/left
+	icon_state = "minibar_left"
+
+/obj/structure/rack/skeletal_bar/right
+	icon_state = "minibar_right"
