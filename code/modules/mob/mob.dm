@@ -504,6 +504,8 @@ var/list/slot_equipment_priority = list( \
 	set name = "Point To"
 	set category = "Object"
 
+	if(next_move >= world.time)
+		return
 	if(!src || !isturf(src.loc))
 		return 0
 	if(istype(A, /obj/effect/decal/point))
@@ -513,6 +515,7 @@ var/list/slot_equipment_priority = list( \
 	if (!tile)
 		return 0
 
+	changeNext_move(CLICK_CD_POINT)
 	var/obj/P = new /obj/effect/decal/point(tile)
 	P.invisibility = invisibility
 	spawn (20)
