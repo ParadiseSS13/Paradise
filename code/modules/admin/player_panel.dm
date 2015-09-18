@@ -76,7 +76,7 @@
 					body += "</td><td align='center'>";
 
 					body += "<a href='?src=\ref[src];adminplayeropts="+ref+"'>PP</a> - "
-					body += "<a href='?src=\ref[src];shownoteckey="+ckey+"'>N</a> - "
+					body += "<a href='?src=\ref[src];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+ref+"'>VV</a> - "
 					body += "<a href='?src=\ref[src];traitor="+ref+"'>TP</a> - "
 					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
