@@ -4,7 +4,7 @@
  *		Wood
  *		Carpet
  */
- /obj/item/stack/tile
+/obj/item/stack/tile
 	name = "broken tile"
 	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
