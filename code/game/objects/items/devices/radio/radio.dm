@@ -514,14 +514,14 @@ var/global/list/default_medbay_channels = list(
 		return get_mobs_in_view(canhear_range, src)
 
 
-/obj/item/device/radio/examine(mob/user)
-	..(user)
+/obj/item/device/radio/examine(mob/user, var/distance = -1)
+	. = ..(user, distance)
 	if ((in_range(src, user) || loc == user))
 		if (b_stat)
 			user.show_message("\blue \the [src] can be attached and modified!")
 		else
 			user.show_message("\blue \the [src] can not be modified or attached!")
-	return
+	return .
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
