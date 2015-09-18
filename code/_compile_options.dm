@@ -1,5 +1,5 @@
 #define DEBUG
-#define TESTING
+//#define TESTING
 
 #define IS_MODE_COMPILED(MODE) (ispath(text2path("/datum/game_mode/"+(MODE))))
 
