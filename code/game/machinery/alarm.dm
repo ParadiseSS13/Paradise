@@ -174,7 +174,7 @@
 				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
-				"temperature"    = new/datum/tlv(T0C-60, T0C-40, T20C, T20C + 10), // K
+				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
 
 	if(!no_cycle_after)
