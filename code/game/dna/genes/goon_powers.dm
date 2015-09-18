@@ -240,13 +240,51 @@
 
 	action_icon_state = "genetic_eat"
 
-	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/human)
+	var/list/types_allowed = list(
+		/obj/item,
+		/mob/living/simple_animal/pet,
+		/mob/living/simple_animal/hostile,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/mouse,
+		/mob/living/carbon/human,
+		/mob/living/carbon/slime,
+		/mob/living/carbon/alien/larva,
+		/mob/living/simple_animal/slime,
+		/mob/living/simple_animal/adultslime,
+		/mob/living/simple_animal/tomato,
+		/mob/living/simple_animal/chick,
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/lizard,
+		/mob/living/simple_animal/cow,
+		/mob/living/simple_animal/spiderbot
+	)
+	var/list/own_blacklist = list(
+		/obj/item/organ,
+		/obj/item/weapon/implant
+	) 
 
+/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		for(var/name in H.organs_by_name)
+			var/obj/item/organ/external/affecting = null
+			if(!H.organs[name])
+				continue
+			affecting = H.organs[name]
+			if(!istype(affecting, /obj/item/organ/external))
+				continue
+			affecting.heal_damage(4, 0)
+		H.UpdateDamageIcon()
+		H.updatehealth()		
+		
 /obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()
 
 	for(var/atom/movable/O in view_or_range(range, user, selection_type))
+		if((O in user) && is_type_in_list(O,own_blacklist))
+			continue
 		if(is_type_in_list(O,types_allowed))
 			possible_targets += O
 
@@ -258,75 +296,57 @@
 
 	perform(targets)
 
-/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H=user
-		for(var/name in H.organs_by_name)
-			var/obj/item/organ/external/affecting = null
-			if(!H.organs[name])
-				continue
-			affecting = H.organs[name]
-			if(!istype(affecting, /obj/item/organ/external))
-				continue
-			affecting.heal_damage(4, 0)
-		H.UpdateDamageIcon()
-		H.updatehealth()
-
 /obj/effect/proc_holder/spell/targeted/eat/cast(list/targets)
+	var/mob/user = usr
 	if(!targets.len)
-		usr << "<span class='notice'>No target found in range.</span>"
+		user << "<span class='notice'>No target found in range.</span>"
 		return
 
 	var/atom/movable/the_item = targets[1]
 	if(ishuman(the_item))
 		//My gender
-		var/m_his="his"
-		if(usr.gender==FEMALE)
-			m_his="her"
+		var/m_his = "his"
+		if(user.gender == FEMALE)
+			m_his = "her"
 		// Their gender
-		var/t_his="his"
-		if(the_item.gender==FEMALE)
-			t_his="her"
+		var/t_his = "his"
+		if(the_item.gender == FEMALE)
+			t_his = "her"
 		var/mob/living/carbon/human/H = the_item
-		var/obj/item/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
 		if(!istype(limb))
-			usr << "\red You can't eat this part of them!"
+			user << "<span class='warning'>You can't eat this part of them!</span>"
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			usr << "\red You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!"
+			user << "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>"
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			usr << "\red You try to put their [limb] in your mouth, but it's too big to fit!"
+			user << "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>"
 			revert_cast()
 			return 0
-		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</b>")
+		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</span>")
 		var/oldloc = H.loc
-		if(!do_mob(usr,H,EAT_MOB_DELAY))
-			usr << "\red You were interrupted before you could eat [the_item]!"
+		if(!do_mob(user,H,EAT_MOB_DELAY))
+			user << "<span class='danger'>You were interrupted before you could eat [the_item]!</span>"
 		else
 			if(!limb || !H)
 				return
-			if(H.loc!=oldloc)
-				usr << "\red \The [limb] moved away from your mouth!"
+			if(H.loc != oldloc)
+				user << "<span class='danger'>\The [limb] moved away from your mouth!</span>"
 				return
-			usr.visible_message("\red [usr] [pick("chomps","bites")] off [the_item]'s [limb]!")
-			playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_EDGE)
-			if(limb_obj)
-				var/obj/item/organ/external/chest=usr:get_organ("chest")
-				chest.implants += limb_obj
-				limb_obj.loc=usr
-			doHeal(usr)
+			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
+			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+			limb.droplimb(0, DROPLIMB_EDGE)
+			doHeal(user)
 	else
-		usr.visible_message("\red [usr] eats \the [the_item].")
-		playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
+		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
-		doHeal(usr)
-
+		doHeal(user)
 	return
 
 ////////////////////////////////////////////////////////////////////////

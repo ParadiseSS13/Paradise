@@ -53,9 +53,9 @@ var/global/nologevent = 0
 
 		body += "<br><br>\[ "
 		body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
-		body += "<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -"
-		body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> -"
-		body += "<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -"
+		body += "<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> - "
+		body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> - "
+		body += "<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> - "
 		body += "[admin_jump_link(M, src)]\] </b><br>"
 		
 		body += "<b>Mob type</b> = [M.type]<br><br>"
