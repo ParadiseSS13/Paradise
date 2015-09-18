@@ -164,7 +164,7 @@
 				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
-				"temperature"    = new/datum/tlv(T0C, T0C-20, T0C, T20C), // K
+				"temperature"    = new/datum/tlv(T0C-50, T0C-20, T0C, T20C), // K
 			)
 		if(AALARM_PRESET_SERVER)
 			TLV = list(
