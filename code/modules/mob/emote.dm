@@ -93,7 +93,7 @@
 		return
 
 	if(!src.client.holder)
-		if(!dsay_allowed)
+		if(!config.dsay_allowed)
 			src << "\red Deadchat is globally muted"
 			return
 

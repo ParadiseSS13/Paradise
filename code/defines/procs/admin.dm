@@ -21,12 +21,13 @@
 	. = ""
 
 	if(key)
-		if(include_link && C)
-			. += "<a href='?priv_msg=\ref[C];type=[type]'>"
-
 		if(C && C.holder && C.holder.fakekey && !include_name)
+			if(include_link)
+				. += "<a href='?priv_msg=[C.findStealthKey()];type=[type]'>"
 			. += "Administrator"
 		else
+			if(include_link)
+				. += "<a href='?priv_msg=\ref[C];type=[type]'>"
 			. += key
 
 		if(include_link)
