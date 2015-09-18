@@ -388,6 +388,10 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 
+/datum/reagent/ethanol/beepsky_smash/on_mob_life(mob/living/M)
+	M.Stun(1)
+	..()
+
 /datum/reagent/ethanol/changelingsting
 	name = "Changeling Sting"
 	id = "changelingsting"

@@ -57,9 +57,9 @@
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
-		B1.reagents.add_reagent("hellwater",80)
+		B1.reagents.add_reagent("hell_water",80)
 		B1.reagents.add_reagent("sugar",20)
-		B2.reagents.add_reagent("hellwater", 60)
+		B2.reagents.add_reagent("hell_water", 60)
 		B2.reagents.add_reagent("potassium", 20)
 		B2.reagents.add_reagent("phosphorus", 20)
 

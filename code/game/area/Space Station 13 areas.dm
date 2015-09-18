@@ -1356,13 +1356,13 @@ var/list/ghostteleportlocs = list()
 	music = "signal"
 	ambientsounds = list('sound/ambience/ambimalf.ogg')
 
-/area/toxins/telesci
-	name = "\improper Telescience Lab"
-	icon_state = "telesci"
+/area/toxins/explab
+	name = "\improper E.X.P.E.R.I-MENTOR Lab"
+	icon_state = "toxmisc"
 
-/area/toxins/telescipad
-	name = "\improper Telescience Lab Pad"
-	icon_state = "telescipad"
+/area/toxins/explab_chamber
+	name = "\improper E.X.P.E.R.I-MENTOR Chamber"
+	icon_state = "toxmisc"
 
 //MedBay
 
