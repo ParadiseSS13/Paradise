@@ -46,6 +46,7 @@
 
 /obj/machinery/smartfridge/Destroy()
 	qdel(wires)
+	wires = null
 	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(var/obj/item/O as obj)
