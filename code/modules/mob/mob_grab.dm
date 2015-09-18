@@ -424,16 +424,28 @@
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
 /obj/item/weapon/grab/dropped()
-	qdel(src)
+	loc = null
+	if(!destroying)
+		qdel(src)
+
+/obj/item/weapon/grab
+	var/destroying = 0
 
 /obj/item/weapon/grab/Destroy()
+	animate(affecting, pixel_x = 0, pixel_y = 0, 4, 1, LINEAR_EASING)
+	affecting.layer = 4
 	if(affecting)
-		affecting.pixel_x = 0
-		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
-		affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
+		affecting = null
+	if(assailant)
+		if(assailant.client)
+			assailant.client.screen -= hud
+		assailant = null
 	qdel(hud)
+	hud = null
+	destroying = 1 // stops us calling qdel(src) on dropped()
 	return ..()
+
 
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT
