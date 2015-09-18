@@ -190,7 +190,7 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(var/atom/A)
-	A.point()
+	pointed(A)
 	return
 
 // See click_override.dm

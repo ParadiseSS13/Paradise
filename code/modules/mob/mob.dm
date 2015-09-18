@@ -73,6 +73,8 @@
 
 /mob/visible_message(var/message, var/self_message, var/blind_message)
 	for(var/mob/M in viewers(src))
+		if(M.see_invisible < invisibility)
+			continue //can't view the invisible
 		var/msg = message
 		if(self_message && M==src)
 			msg = self_message
@@ -493,6 +495,31 @@ var/list/slot_equipment_priority = list( \
 
 	face_atom(A)
 	A.examine(src)
+
+//same as above
+//note: ghosts can point, this is intended
+//visible_message will handle invisibility properly
+//overriden here and in /mob/dead/observer for different point span classes and sanity checks
+/mob/verb/pointed(atom/A as mob|obj|turf in view())
+	set name = "Point To"
+	set category = "Object"
+
+	if(!src || !isturf(src.loc))
+		return 0
+	if(istype(A, /obj/effect/decal/point))
+		return 0
+
+	var/tile = get_turf(A)
+	if (!tile)
+		return 0
+
+	var/obj/P = new /obj/effect/decal/point(tile)
+	P.invisibility = invisibility
+	spawn (20)
+		if(P)
+			qdel(P)
+
+	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if ((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
