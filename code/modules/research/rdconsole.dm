@@ -407,7 +407,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						g2g = 0
 					else
 						for(var/R in being_built.reagents)
-							if(!linked_lathe.reagents.has_reagent(R))
+							if(!linked_lathe.reagents.has_reagent(R, being_built.reagents[R]/coeff))
 								src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough reagents to complete prototype.\"</span>")
 								enough_materials = 0
 								g2g = 0
@@ -415,7 +415,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(enough_materials)
 						linked_lathe.materials.use_amount(efficient_mats, amount)
 						for(var/R in being_built.reagents)
-							linked_lathe.reagents.remove_reagent(R, being_built.reagents[R])
+							linked_lathe.reagents.remove_reagent(R, being_built.reagents[R]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
