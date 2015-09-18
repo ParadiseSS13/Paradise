@@ -707,7 +707,7 @@ obj/spacepod/verb/toggleLights()
 	delay = 15
 
 	process(var/obj/spacepod/spacepod)
-		if(spacepod.internal_tank)
+		if(spacepod && spacepod.internal_tank)
 			var/datum/gas_mixture/tank_air = spacepod.internal_tank.return_air()
 			var/datum/gas_mixture/cabin_air = spacepod.cabin_air
 

@@ -6,12 +6,10 @@
 /datum/event/anomaly/anomaly_bluespace/announce()
 	command_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
 
-
 /datum/event/anomaly/anomaly_bluespace/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		newAnomaly = new /obj/effect/anomaly/bluespace(T.loc)
-
 
 /datum/event/anomaly/anomaly_bluespace/end()
 	if(newAnomaly)//If it hasn't been neutralized, it's time to warp half the station away jeez
@@ -68,3 +66,4 @@
 								M.client.screen -= blueeffect
 								qdel(blueeffect)
 			qdel(newAnomaly)
+			
