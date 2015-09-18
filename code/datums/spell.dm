@@ -131,6 +131,11 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	..()
 
 	charge_counter = charge_max
+	
+/obj/effect/proc_holder/spell/Destroy()	
+	qdel(action)
+	action = null
+	return ..()
 
 /obj/effect/proc_holder/spell/Click()
 	if(cast_check())

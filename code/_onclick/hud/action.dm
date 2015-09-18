@@ -30,6 +30,8 @@
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
+	if(target)
+		target = null
 	return ..()
 
 /datum/action/proc/Grant(mob/living/T)
@@ -227,6 +229,8 @@
 
 /datum/action/spell_action/UpdateName()
 	var/obj/effect/proc_holder/spell/spell = target
+	if(!spell)
+		return 0
 	return spell.name
 
 /datum/action/spell_action/IsAvailable()
