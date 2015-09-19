@@ -264,3 +264,18 @@ proc/get_radio_key_from_channel(var/channel)
 
 /mob/living/proc/GetVoice()
 	return name
+
+/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't
+	if(stat)	return 0                          //already snowflaked to shit can call the parent and handle emoting sanely
+
+	if(..(act, type, message))
+		return 1
+
+	if(act && type && message) //parent call
+		switch(type)
+			if(1) //Visible
+				visible_message(message)
+				return 1
+			if(2) //Audible
+				audible_message(message)
+				return 1

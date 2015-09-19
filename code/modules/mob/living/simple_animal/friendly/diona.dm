@@ -247,3 +247,13 @@
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
 	src << "<span class='warning'>You don't have any hands!</span>"
 	return
+
+/mob/living/simple_animal/diona/emote(var/act, var/m_type=1, var/message = null)
+	if(stat)	return
+
+	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
+		if("chirp")
+			message = "<B>\The [src]</B> chirps!"
+			m_type = 2 //audible
+
+	..(act, m_type, message)
