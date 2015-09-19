@@ -8,7 +8,7 @@
 	var/datum/ai_laws/laws = null
 	var/obj/item/weapon/circuitboard/circuit = null
 	var/obj/item/device/mmi/brain = null
-	
+
 /obj/structure/AIcore/Destroy()
 	qdel(laws)
 	qdel(circuit)
@@ -112,7 +112,7 @@
 				laws.add_inherent_law(M.newFreeFormLaw)
 				usr << "<span class='notice'>Added a freeform law.</span>"
 				return
-				
+
 			if(istype(P, /obj/item/weapon/aiModule))
 				var/obj/item/weapon/aiModule/M = P
 				if(!M.laws)
@@ -130,6 +130,10 @@
 
 				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
 					user << "\red This [P] does not seem to fit."
+					return
+
+				if(istype(P, /obj/item/device/mmi/syndie))
+					user << "<span class='warning'>This MMI does not seem to fit!</span>"
 					return
 
 				if(P:brainmob.mind)
@@ -266,4 +270,3 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		user << "There is no AI loaded on this terminal!"
-		
