@@ -16,7 +16,7 @@
 	if(species.can_revive_by_healing)
 		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
 		if(B)
-			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD) 
+			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)
 				update_revive()
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
@@ -37,7 +37,7 @@
 	if(species && species.has_organ["brain"])
 		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
 		if(sponge)
-			sponge.take_damage(amount)
+			sponge.take_damage(amount, 1)
 			brainloss = sponge.damage
 		else
 			brainloss = 200
@@ -55,8 +55,8 @@
 		else
 			brainloss = 200
 	else
-		brainloss = 0	
-	
+		brainloss = 0
+
 /mob/living/carbon/human/getBrainLoss()
 	if(status_flags & GODMODE)	return 0	//godmode
 
@@ -143,7 +143,7 @@
 
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
-	
+
 	if(species.flags & (NO_SCAN))
 		cloneloss = 0
 		return
@@ -177,7 +177,7 @@
 				O.unmutate()
 				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 	hud_updateflag |= 1 << HEALTH_HUD
-	
+
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/getOxyLoss()
 	if(species.flags & NO_BREATHE)
