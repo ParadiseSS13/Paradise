@@ -272,6 +272,15 @@ proc/get_radio_key_from_channel(var/channel)
 		return 1
 
 	if(act && type && message) //parent call
+		log_emote("[name]/[key] : [message]")
+
+		for(var/mob/M in dead_mob_list)
+			if(!M.client || istype(M, /mob/new_player))
+				continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
+
+			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+				M.show_message(message)
+
 		switch(type)
 			if(1) //Visible
 				visible_message(message)
@@ -279,3 +288,7 @@ proc/get_radio_key_from_channel(var/channel)
 			if(2) //Audible
 				audible_message(message)
 				return 1
+
+	else //everything else failed, emote is probably invalid
+		if(act == "help")	return //except help, because help is handled individually
+		src << "\blue Unusable emote '[act]'. Say *help for a list."
