@@ -248,43 +248,13 @@
 	src << "<span class='warning'>You don't have any hands!</span>"
 	return
 
+/mob/living/simple_animal/diona/emote(var/act, var/m_type=1, var/message = null)
+	if(stat)	return
 
-/mob/living/simple_animal/diona/say(var/message)
-	if(client)
-		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (Muted)."
-			return
+	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
+		if("chirp")
+			message = "<B>\The [src]</B> chirps!"
+			m_type = 2 //audible
+			playsound(src, 'sound/misc/nymphchirp.ogg', 40, 1, 1)
 
-	var/verb
-	message = trim_strip_html_properly(message)
-
-	if(stat)
-		if(stat == 2)
-			return say_dead(message)
-		return
-
-	if (is_muzzled())
-		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
-		return
-
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-
-	//parse the language code and consume it
-	var/datum/language/speaking = parse_language(message)
-	if(speaking)
-		message = copytext(message,2+length(speaking.key))
-	else
-		speaking = get_default_language()
-
-	var/ending = copytext(message, length(message))
-	if (speaking)
-		// This is broadcast to all mobs with the language,
-		// irrespective of distance or anything else.
-		if(speaking.flags & HIVEMIND)
-			speaking.broadcast(src,trim(message))
-			return
-		//If we've gotten this far, keep going!
-		verb = speaking.get_spoken_verb(ending)
-
-	..(message,speaking,verb)
+	..(act, m_type, message)
