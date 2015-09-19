@@ -1,20 +1,13 @@
-/mob/living/carbon/slime/say(var/message)
-	var/verb = say_quote(message)
-
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-
-	return ..(message, null, verb)
-
-/mob/living/carbon/slime/say_quote(var/text)
+/mob/living/carbon/slime/say_quote(var/text, var/datum/language/speaking)
+	var/verb = "telepathically chirps"
 	var/ending = copytext(text, length(text))
 
 	if (ending == "?")
-		return "telepathically asks";
+		verb = "telepathically asks"
 	else if (ending == "!")
-		return "telepathically cries";
+		verb = "telepathically cries"
 
-	return "telepathically chirps";
+	return verb
 
 /mob/living/carbon/slime/say_understands(var/other)
 	if (istype(other, /mob/living/carbon/slime))

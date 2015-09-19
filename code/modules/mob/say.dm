@@ -84,14 +84,17 @@
 
 
 /mob/proc/say_quote(var/message, var/datum/language/speaking = null)
-        var/verb = "says"
-        var/ending = copytext(message, length(message))
-        if(ending=="!")
-                verb=pick("exclaims","shouts","yells")
-        else if(ending=="?")
-                verb="asks"
+	var/verb = "says"
+	var/ending = copytext(message, length(message))
 
-        return verb
+	if(speaking)
+		verb = speaking.get_spoken_verb(ending)
+	else
+		if(ending=="!")
+			verb = pick("exclaims","shouts","yells")
+		else if(ending=="?")
+			verb = "asks"
+	return verb
 
 
 /mob/proc/emote(var/act, var/type, var/message)

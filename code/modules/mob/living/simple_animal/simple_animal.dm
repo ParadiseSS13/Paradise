@@ -544,10 +544,10 @@
 	gib()
 	return
 
-/mob/living/simple_animal/say(var/message)
+/mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"
 
 	if(speak_emote.len)
 		verb = pick(speak_emote)
 
-	..(message, null, verb)
+	return verb

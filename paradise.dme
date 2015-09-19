@@ -1301,7 +1301,6 @@
 #include "code\modules\mob\living\carbon\alien\life.dm"
 #include "code\modules\mob\living\carbon\alien\login.dm"
 #include "code\modules\mob\living\carbon\alien\logout.dm"
-#include "code\modules\mob\living\carbon\alien\say.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\alien_powers.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\emote.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\empress.dm"
