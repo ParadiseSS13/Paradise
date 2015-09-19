@@ -24,28 +24,25 @@
 
 	if(self.holder)		//for catching rare runtimes
 		if(method == TOUCH && self.penetrates_skin)
-			var/block  = 0
-			for(var/obj/item/clothing/C in M.get_equipped_items())
-				if(istype(C, /obj/item/clothing/suit/bio_suit))
-					block += 1
-				if(istype(C, /obj/item/clothing/head/bio_hood))
-					block += 1
-			if(block < 2)
-				if(M.reagents)
-					M.reagents.add_reagent(self.id,self.volume)
+			if(isliving(M))
+				var/mob/living/L = M
+				var/block  = L.get_permeability_protection()
+				var/amount = round(self.volume * (1.0 - block), 0.1)
+				if(L.reagents)
+					if(amount >= 1)
+						L.reagents.add_reagent(self.id,amount)
 
 /*
 		if(method == INGEST && istype(M, /mob/living/carbon))
-			if(prob(1 * self.addictiveness))
-				if(prob(5 * volume))
-					var/datum/disease/addiction/A = new /datum/disease/addiction
-					A.addicted_to = self
-					A.name = "[self.name] Addiction"
-					A.addiction ="[self.name]"
-					A.cure = self.id
-					M.viruses += A
-					A.affected_mob = M
-					A.holder = M
+			if(prob(self.addictiveness))
+				var/datum/disease/addiction/A = new /datum/disease/addiction
+				A.addicted_to = self
+				A.name = "[self.name] Addiction"
+				A.addiction ="[self.name]"
+				A.cure = self.id
+				M.viruses += A
+				A.affected_mob = M
+				A.holder = M
 */
 		return 1
 
