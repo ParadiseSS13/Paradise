@@ -123,7 +123,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new board_path(null)
 	RefreshParts()
-	
+
 /obj/machinery/power/port_gen/pacman/upgraded/New()
 	..()
 	component_parts = list()
@@ -137,7 +137,7 @@
 
 /obj/machinery/power/port_gen/pacman/Destroy()
 	DropFuel()
-	..()
+	return ..()
 
 /obj/machinery/power/port_gen/pacman/RefreshParts()
 	var/temp_rating = 0
@@ -255,11 +255,11 @@
 	sheets = 0
 	sheet_left = 0
 	..()
-	
+
 /obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
 	if (active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
-	
+
 	if (!emagged)
 		emagged = 1
 		return 1
@@ -311,7 +311,7 @@
 /obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-	
+
 /obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
 	return src.attack_hand(user)
 
@@ -370,7 +370,7 @@
 		if (href_list["action"] == "higher_power")
 			if (power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
 				power_output++
-				
+
 	nanomanager.update_uis(src)
 
 /obj/machinery/power/port_gen/pacman/super
@@ -381,7 +381,7 @@
 	sheet_name = "Uranium Sheets"
 	time_per_sheet = 576 //same power output, but a 50 sheet stack will last 2 hours at max safe power
 	board_path = /obj/item/weapon/circuitboard/pacman/super
-	
+
 /obj/machinery/power/port_gen/pacman/super/upgraded/New()
 	..()
 	component_parts = list()
@@ -427,7 +427,7 @@
 	max_temperature = 800
 	temperature_gain = 90
 	board_path = /obj/item/weapon/circuitboard/pacman/mrs
-	
+
 /obj/machinery/power/port_gen/pacman/mrs/upgraded/New()
 	..()
 	component_parts = list()
