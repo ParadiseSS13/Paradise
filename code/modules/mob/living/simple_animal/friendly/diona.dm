@@ -255,5 +255,6 @@
 		if("chirp")
 			message = "<B>\The [src]</B> chirps!"
 			m_type = 2 //audible
+			playsound(src, 'sound/misc/nymphchirp.ogg', 40, 1, 1)
 
 	..(act, m_type, message)
