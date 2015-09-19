@@ -111,7 +111,7 @@
 	if(istype(src, /mob/living/silicon/robot/drone))
 		// Drones cannot point.
 		return
-	A.point()
+	pointed(A)
 	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks

@@ -25,6 +25,18 @@
 					special_role = null
 					current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now..(You don't remember who enslaved you)</B></FONT>"
 				*/
+
+//same as above
+/mob/living/pointed(atom/A as mob|obj|turf in view())
+	if(src.stat || !src.canmove || src.restrained())
+		return 0
+	if(src.status_flags & FAKEDEATH)
+		return 0
+	if(!..())
+		return 0
+	visible_message("<b>[src]</b> points to [A]")
+	return 1
+
 /mob/living/verb/succumb()
 	set hidden = 1
 	if (InCritical())
