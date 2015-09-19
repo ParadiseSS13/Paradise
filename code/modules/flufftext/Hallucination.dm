@@ -107,6 +107,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/Destroy()
 	if(target.client) target.client.images.Remove(current_image)
 	active = 0
+	return ..()
 
 #define FAKE_FLOOD_EXPAND_TIME 30
 #define FAKE_FLOOD_MAX_RADIUS 7
@@ -156,11 +157,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/fake_flood/Destroy()
 	processing_objects -= src
-	del(flood_turfs)
+	qdel(flood_turfs)
 	if(target.client) target.client.images.Remove(flood_images)
 	target = null
-	del(flood_images)
-	return
+	qdel(flood_images)
+	return ..()
 
 /obj/effect/hallucination/simple/xeno
 	image_icon = 'icons/mob/alien.dmi'
