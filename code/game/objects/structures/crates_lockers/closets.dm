@@ -177,7 +177,7 @@
 
 /obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
-		if(locate(user) in src.contents) //to prevent self-teleporting.
+		if(user in contents) //to prevent self-teleporting.
 			return
 		var/obj/item/weapon/rcs/E = W
 		if(E.rcharges != 0)
