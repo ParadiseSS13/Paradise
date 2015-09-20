@@ -103,7 +103,9 @@
 					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 					user << "\blue Teleporting [src.name]..."
 					E.teleporting = 1
-					sleep(50)
+					if(!do_after(user, 50, target = src))
+						E.teleporting = 0
+						return
 					E.teleporting = 0
 					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 					s.set_up(5, 1, src)
@@ -125,7 +127,9 @@
 				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 				user << "\blue Teleporting [src.name]..."
 				E.teleporting = 1
-				sleep(50)
+				if(!do_after(user, 50, target = src))
+					E.teleporting = 0
+					return
 				E.teleporting = 0
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
@@ -295,7 +299,7 @@
 
 
 /obj/structure/closet/crate/secure/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters)))
+	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters,/obj/item/weapon/rcs)))
 		return ..()
 	if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)))
 		emag_act(user)

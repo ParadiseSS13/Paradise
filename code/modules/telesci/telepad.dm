@@ -110,9 +110,10 @@
 ///HANDHELD TELEPAD USER///
 /obj/item/weapon/rcs
 	name = "rapid-crate-sender (RCS)"
-	desc = "Use this to send crates and closets to cargo telepads."
+	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
+	item_state = "rcd"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
@@ -165,5 +166,5 @@
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
-		user << "<span class = 'caution'> You emag the RCS. Click on it to toggle between modes.</span>"
+		user << "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>"
 		return
