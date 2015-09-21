@@ -400,7 +400,6 @@ var/list/turret_icons
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked")
 		take_damage(M.melee_damage_upper)
 	else
 		M << "<span class='danger'>That object is useless to you.</span>"
@@ -412,7 +411,6 @@ var/list/turret_icons
 	if(!(stat & BROKEN))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
-		add_logs(M, src, "attacked")
 		take_damage(15)
 	else
 		M << "<span class='noticealien'>That object is useless to you.</span>"
