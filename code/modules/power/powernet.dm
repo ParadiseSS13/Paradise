@@ -52,7 +52,7 @@
 	cables -= C
 	C.powernet = null
 	if(is_empty())//the powernet is now empty...
-		del(src)///... delete it - qdel
+		qdel(src)///... delete it - qdel
 
 //add a cable to the current powernet
 //Warning : this proc DON'T check if the cable exists
@@ -72,7 +72,7 @@
 	nodes -=M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
-		del(src)///... delete it - qdel
+		qdel(src)///... delete it - qdel
 
 
 //add a power machine to the current powernet
