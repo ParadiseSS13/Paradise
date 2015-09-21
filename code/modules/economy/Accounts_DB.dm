@@ -11,6 +11,7 @@
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
 	var/activated = 1
+	var/const/fund_cap = 1000000
 	
 	light_color = LIGHT_COLOR_GREEN
 
