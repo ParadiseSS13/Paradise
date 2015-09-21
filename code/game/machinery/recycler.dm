@@ -27,6 +27,11 @@ var/const/SAFETY_COOLDOWN = 100
 	RefreshParts()
 	update_icon()
 
+/obj/machinery/recycler/Destroy()
+	qdel(materials)
+	materials = null
+	return ..()
+
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
 	var/mat_mod = 0

@@ -29,7 +29,8 @@
 		M.powernet = null
 
 	powernets -= src
-	return ..()
+	..()
+	return QDEL_HINT_QUEUE
 
 //Returns the amount of excess power (before refunding to SMESs) from last tick.
 //This is for machines that might adjust their power consumption using this data.
