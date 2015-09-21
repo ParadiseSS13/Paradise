@@ -187,7 +187,8 @@
 
 /datum/reagent/radium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(4*REM,IRRADIATE,0)
+	if(M.radiation < 80)
+		M.apply_effect(4,IRRADIATE,0)
 	// radium may increase your chances to cure a disease
 	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
 		var/mob/living/carbon/C = M
@@ -313,13 +314,13 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(20, 0)
+							affecting.take_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
-						M.take_organ_damage(15,0)
+						M.take_organ_damage(5,10)
 			else
-				M.take_organ_damage(15,0)
+				M.take_organ_damage(5,10)
 
 	if(method == INGEST)
 		if(ishuman(M))
@@ -330,7 +331,7 @@
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
-					M.take_organ_damage(min(max(volume-10,2)*2,20),0)
+					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
 					M.emote("scream")
 
 
@@ -339,11 +340,11 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(20, 0)
+							affecting.take_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
-						M.take_organ_damage(15,0)
+						M.take_organ_damage(0,20)
 
 /datum/reagent/sacid/reaction_obj(var/obj/O, var/volume)
 	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))

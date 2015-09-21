@@ -11,8 +11,8 @@
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/temp_vent in machines)
-		if((temp_vent.loc.z in config.station_levels) && temp_vent.network)
-			if(temp_vent.network.normal_members.len > 50)
+		if((temp_vent.loc.z in config.station_levels))
+			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 
 /datum/event/vent_clog/tick()

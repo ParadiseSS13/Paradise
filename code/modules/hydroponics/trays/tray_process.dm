@@ -79,7 +79,7 @@
 
 	// If we're attached to a pipenet, then we should let the pipenet know we might have modified some gasses
 	if (closed_system && connected_port)
-		update_connected_network()
+		connected_port.parent.update = 1
 
 	// Toxin levels beyond the plant's tolerance cause damage, but
 	// toxins are sucked up each tick and slowly reduce over time.

@@ -3,7 +3,7 @@
 	use_power = 0
 	var/datum/gas_mixture/air_contents = new
 
-	var/obj/machinery/atmospherics/portables_connector/connected_port
+	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
 	var/obj/item/weapon/tank/holding
 
 	var/volume = 0
@@ -22,7 +22,7 @@
 /obj/machinery/portable_atmospherics/initialize()
 	. = ..()
 	spawn()
-		var/obj/machinery/atmospherics/portables_connector/port = locate() in loc
+		var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
 		if(port)
 			connect(port)
 			update_icon()
@@ -43,7 +43,7 @@
 /obj/machinery/portable_atmospherics/update_icon()
 	return null
 
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/portables_connector/new_port)
+/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
 		return 0
@@ -55,32 +55,15 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
+	connected_port.parent.reconcile_air()
 
 	anchored = 1 //Prevent movement
 
-	//Actually enforce the air sharing
-	var/datum/pipe_network/network = connected_port.return_network(src)
-	if(network && !network.gases.Find(air_contents))
-		network.gases += air_contents
-		network.update = 1
-
 	return 1
-
-/obj/machinery/portable_atmospherics/proc/update_connected_network()
-	if(!connected_port)
-		return
-
-	var/datum/pipe_network/network = connected_port.return_network(src)
-	if (network)
-		network.update = 1
 
 /obj/machinery/portable_atmospherics/proc/disconnect()
 	if(!connected_port)
 		return 0
-
-	var/datum/pipe_network/network = connected_port.return_network(src)
-	if(network)
-		network.gases -= air_contents
 
 	anchored = 0
 
@@ -88,6 +71,9 @@
 	connected_port = null
 
 	return 1
+	
+/obj/machinery/portable_atmospherics/portableConnectorReturnAir()
+	return air_contents
 
 /obj/machinery/portable_atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if ((istype(W, /obj/item/weapon/tank) && !( src.destroyed )))
@@ -107,7 +93,7 @@
 			update_icon()
 			return
 		else
-			var/obj/machinery/atmospherics/portables_connector/possible_port = locate(/obj/machinery/atmospherics/portables_connector/) in loc
+			var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 			if(possible_port)
 				if(connect(possible_port))
 					user << "\blue You connect [name] to the port."

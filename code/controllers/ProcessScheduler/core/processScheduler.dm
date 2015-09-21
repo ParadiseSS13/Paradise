@@ -98,7 +98,7 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/process()
 	updateCurrentTickData()
-	
+
 	for(var/i=world.tick_lag,i<world.tick_lag*50,i+=world.tick_lag)
 		spawn(i) updateCurrentTickData()
 	while(isRunning)
@@ -252,7 +252,7 @@ var/global/datum/controller/processScheduler/processScheduler
 		last_start[process] = time
 	else
 		last_queued[process] = (time == 0 ? 0 : world.time)
-		last_start[process] = time	
+		last_start[process] = time
 
 /datum/controller/processScheduler/proc/recordEnd(var/datum/controller/process/process, var/time = null)
 	if (isnull(time))
@@ -376,7 +376,7 @@ var/global/datum/controller/processScheduler/processScheduler
 	if(!isRunning)
 		stat("Processes", "Scheduler not running")
 		return
-	stat("Processes", "[processes.len] (R[running.len]/Q[queued.len]/I[idle.len])")
+	stat("Processes", "[processes.len] (R [running.len] / Q [queued.len] / I [idle.len])")
 	stat(null, "[round(cpuAverage, 0.1)] CPU, [round(timeAllowance, 0.1)/10] TA")
 	for(var/datum/controller/process/p in processes)
 		p.statProcess()

@@ -340,7 +340,7 @@
 	var/averageRunTime = round(getAverageRunTime(), 0.1)/10
 	var/lastRunTime = round(getLastRunTime(), 0.1)/10
 	var/highestRunTime = round(getHighestRunTime(), 0.1)/10
-	stat("[name]", "T#[getTicks()]|AR [averageRunTime]|LR [lastRunTime]|HR [highestRunTime]|D [cpu_defer_count]")
+	stat("[name]", "T#[getTicks()] | AR [averageRunTime] | LR [lastRunTime] | HR [highestRunTime] | D [cpu_defer_count]")
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
 	var/etext = "[e]"
