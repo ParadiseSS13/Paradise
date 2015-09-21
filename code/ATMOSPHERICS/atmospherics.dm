@@ -161,7 +161,7 @@ Pipelines + Other Objects -> Pipe network
 			user << "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>"
 			unsafe_wrenching = TRUE //Oh dear oh dear
 		
-		if (do_after(user, 40, target = src) && !gcDestroyed)
+		if (do_after(user, 40, target = src) && isnull(gcDestroyed))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -307,3 +307,4 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		Deconstruct()	
+		
