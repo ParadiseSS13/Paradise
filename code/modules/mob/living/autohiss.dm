@@ -73,7 +73,7 @@
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
 	if(!autohiss_basic_map)
 		return message
-	if(autohiss_exempt && (lang.name in autohiss_exempt))
+	if(autohiss_exempt && (lang && (lang.name in autohiss_exempt)))
 		return message
 
 	var/map = autohiss_basic_map.Copy()
