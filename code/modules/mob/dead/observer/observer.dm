@@ -115,7 +115,7 @@ Works together with spawning an observer, noted above.
 	if(antagHUD)
 		var/list/target_list = list()
 		for(var/mob/living/target in oview(src, 14))
-			if(target.mind&&(target.mind.special_role||issilicon(target)||target.mind.nation) )
+			if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
 				target_list += target
 		if(target_list.len)
 			assess_targets(target_list, src)
@@ -197,13 +197,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	dir = direct
 	if(NewLoc)
 		forceMove(NewLoc)
-		for(var/obj/effect/step_trigger/S in NewLoc)
-			S.Crossed(src)
-
-		var/area/A = get_area_master(src)
-		if(A)
-			A.Entered(src)
-
 		return
 	forceMove(get_turf(src)) //Get out of closets and such as a ghost
 	if((direct & NORTH) && y < world.maxy)
@@ -631,3 +624,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/can_admin_interact()
 	return check_rights(R_ADMIN, 0, src)
+
+//this is a mob verb instead of atom for performance reasons
+//see /mob/verb/examinate() in mob.dm for more info
+//overriden here and in /mob/living for different point span classes and sanity checks
+/mob/dead/observer/pointed(atom/A as mob|obj|turf in view())
+	if(!..())
+		return 0
+	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
+	return 1

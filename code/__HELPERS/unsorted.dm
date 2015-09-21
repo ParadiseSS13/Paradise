@@ -1801,3 +1801,10 @@ var/mob/dview/dview_mob = new
 	I.pixel_y = y_offset
 
 	return I
+
+/proc/turf_clear(turf/T)
+	for(var/atom/A in T)
+		if(A.simulated)
+			return 0
+	return 1
+	

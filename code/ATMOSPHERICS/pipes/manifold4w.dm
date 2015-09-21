@@ -33,14 +33,26 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/Destroy()
 	if(node1)
+		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1 = null
+		A.build_network()
 	if(node2)
+		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
+		node2 = null
+		A.build_network()
 	if(node3)
+		var/obj/machinery/atmospherics/A = node3
 		node3.disconnect(src)
+		node3 = null
+		A.build_network()
 	if(node4)
+		var/obj/machinery/atmospherics/A = node4
 		node4.disconnect(src)
-
+		node4 = null
+		A.build_network()
+	releaseAirToTurf()
 	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold4w/disconnect(obj/machinery/atmospherics/reference)
@@ -140,50 +152,32 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/initialize()
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,1))
-		if(target.initialize_directions & 2)
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node1 = target
+	for(var/D in cardinal)
+		for(var/obj/machinery/atmospherics/target in get_step(src, D))
+			if(target.initialize_directions & get_dir(target,src))
+				var/c = check_connect_types(target,src)
+				if(!c)
+					continue
+				if(D == NORTH)
+					target.connected_to = c
+					connected_to = c
+					node1 = target
+				else if(D == SOUTH)
+					target.connected_to = c
+					connected_to = c
+					node2 = target
+				else if(D == EAST)
+					target.connected_to = c
+					connected_to = c
+					node3 = target
+				else if(D == WEST)
+					target.connected_to = c
+					connected_to = c
+					node4 = target				
 				break
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,2))
-		if(target.initialize_directions & 1)
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node2 = target
-				break
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,4))
-		if(target.initialize_directions & 8)
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node3 = target
-				break
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,8))
-		if(target.initialize_directions & 4)
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node4 = target
-				break
-
-	if(!node1 && !node2 && !node3&& !node4)
-		qdel(src)
-		return
-
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		hide(T.intact)
+			
+	var/turf/T = src.loc			// hide if turf is not intact
+	hide(T.intact)
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible

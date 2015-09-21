@@ -46,11 +46,6 @@
 	set src = usr.contents
 	return 0
 
-/mob/aiEye/point()
-	set popup_menu = 0
-	set src = usr.contents
-	return 0
-
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
 /mob/aiEye/setLoc(var/T, var/cancel_tracking = 1)

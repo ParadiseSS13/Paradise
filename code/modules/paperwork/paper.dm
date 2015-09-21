@@ -590,6 +590,10 @@
 	name = "paper- 'Memo'"
 	info = "GET DAT FUKKEN DISK"
 
+/obj/item/weapon/paper/synditele
+	name = "Teleporter Instructions"
+	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
+
 /obj/item/weapon/paper/russiantraitorobj
 	name = "paper- 'Mission Objectives'"
 	info = "The Syndicate have cunningly disguised a Syndicate Uplink as your PDA. Simply enter the code \"678 Bravo\" into the ringtone select to unlock its hidden features. <br><br><b>Objective #1</b>. Kill the God damn AI in a fire blast that it rocks the station. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"

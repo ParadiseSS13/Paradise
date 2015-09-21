@@ -73,6 +73,13 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
+/obj/machinery/autolathe/Destroy()
+	qdel(wires)
+	wires = null
+	qdel(materials)
+	materials = null
+	return ..()
+
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
 		shock(user,50)

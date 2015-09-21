@@ -728,7 +728,7 @@
 	else if(mechanical && istype(O, /obj/item/weapon/wrench))
 
 		//If there's a connector here, the portable_atmospherics setup can handle it.
-		if(locate(/obj/machinery/atmospherics/portables_connector/) in loc)
+		if(locate(/obj/machinery/atmospherics/unary/portables_connector) in loc)
 			return ..()
 
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)

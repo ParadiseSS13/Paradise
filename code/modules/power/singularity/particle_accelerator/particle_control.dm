@@ -29,8 +29,10 @@
 /obj/machinery/particle_accelerator/control_box/Destroy()
 	if(active)
 		toggle_power()
+	qdel(wires)
+	wires = null
 	return ..()
-	
+
 /obj/machinery/particle_accelerator/control_box/attack_ghost(user as mob)
 	return src.attack_hand(user)
 
@@ -126,7 +128,7 @@
 			log_game("PA Control Computer increased to [strength] by [key_name(usr)] in ([x],[y],[z])")
 			investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)]","singulo")
 			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
-		
+
 			investigate_log("increased to <font color='red'>[strength]</font> by [usr.key]","singulo")
 		strength_change()
 
@@ -139,7 +141,7 @@
 			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("PA Control Computer decreased to [strength] by [key_name(usr)] in ([x],[y],[z])")
 			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)]","singulo")
-			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")			
+			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
 
 		strength_change()
 

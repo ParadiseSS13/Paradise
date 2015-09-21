@@ -58,16 +58,26 @@
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(var/client/C, var/msg, var/type="PM")
+/client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(prefs.muted & MUTE_ADMINHELP)
 		src << "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>"
 		return
 
-	if(!istype(C,/client))
-		if(holder)	src << "<font color='red'>Error: Private-Message: Client not found.</font>"
-		else		adminhelp(msg)	//admin we are replying to left. adminhelp instead
+	var/client/C
+	if(istext(whom))
+		if(cmptext(copytext(whom,1,2),"@"))
+			whom = findStealthKey(whom)
+		C = directory[C]	
+	else if(istype(whom,/client))
+		C = whom
+		
+	if(!C)
+		if(holder)	
+			src << "<span class='danger'>Error: Private-Message: Client not found.</span>"
+		else		
+			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
-
+		
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
@@ -78,12 +88,15 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message to [C.key]") as text|null
+		msg = input(src,"Message:", "Private message to [key_name(C, 0, 0)]") as text|null
 
-		if(!msg)	return
+		if(!msg)	
+			return
 		if(!C)
-			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
-			else		adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
+			if(holder)	
+				src << "<span class='danger'>Error: Admin-PM: Client not found.</span>"
+			else		
+				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
@@ -92,7 +105,8 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
-		if(!msg)	return
+		if(!msg)	
+			return
 
 	var/recieve_color = "purple"
 	var/send_pm_type = " "

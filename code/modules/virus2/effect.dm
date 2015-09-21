@@ -204,7 +204,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(5)
+				B.take_damage(5, 1)
 		else
 			mob.setBrainLoss(50)
 
@@ -425,7 +425,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(1)
+				B.take_damage(1, 1)
 		else
 			mob.setBrainLoss(10)
 
@@ -687,7 +687,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(0.5)
+				B.take_damage(0.5, 1)
 		else
 			mob.setBrainLoss(5)
 

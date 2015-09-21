@@ -41,7 +41,7 @@
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
-		if(!dsay_allowed)
+		if(!config.dsay_allowed)
 			src << "<span class='danger'>Deadchat is globally muted.</span>"
 			return
 
@@ -84,14 +84,17 @@
 
 
 /mob/proc/say_quote(var/message, var/datum/language/speaking = null)
-        var/verb = "says"
-        var/ending = copytext(message, length(message))
-        if(ending=="!")
-                verb=pick("exclaims","shouts","yells")
-        else if(ending=="?")
-                verb="asks"
+	var/verb = "says"
+	var/ending = copytext(message, length(message))
 
-        return verb
+	if(speaking)
+		verb = speaking.get_spoken_verb(ending)
+	else
+		if(ending=="!")
+			verb = pick("exclaims","shouts","yells")
+		else if(ending=="?")
+			verb = "asks"
+	return verb
 
 
 /mob/proc/emote(var/act, var/type, var/message)

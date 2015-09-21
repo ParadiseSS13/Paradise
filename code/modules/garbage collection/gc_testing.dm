@@ -175,7 +175,7 @@ var/global/list/ghdels_profiled = list()
 	if(garbageCollector)
 		while(garbageCollector.queue.len)
 			var/datum/o = locate(garbageCollector.queue[1])
-			if(istype(o) && o.gcDestroyed)
+			if(istype(o) && !isnull(o.gcDestroyed))
 				del(o)
 				garbageCollector.dels_count++
 			garbageCollector.queue.Cut(1, 2)

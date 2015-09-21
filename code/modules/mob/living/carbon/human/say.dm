@@ -97,22 +97,6 @@
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
 
-
-/mob/living/carbon/human/say_quote(var/message, var/datum/language/speaking = null)
-	var/verb = "says"
-	var/ending = copytext(message, length(message))
-
-	if(speaking)
-		verb = speaking.get_spoken_verb(ending)
-	else
-		if(ending == "!")
-			return pick("exclaims", "shouts", "yells")
-		if(ending == "?")
-			return "asks"
-
-	return verb
-
-
 /mob/living/carbon/human/handle_speech_problems(var/message, var/verb)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
