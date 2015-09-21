@@ -180,7 +180,7 @@
 		if(user in contents) //to prevent self-teleporting.
 			return
 		var/obj/item/weapon/rcs/E = W
-		if(E.rcharges != 0)
+		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!(src.z in config.contact_levels))
 				user << "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>"
 				return
@@ -210,14 +210,8 @@
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
-					E.rcharges--
-					if(E.rcharges != 1)
-						user << "\blue Teleport successful. [E.rcharges] charges left."
-						E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
-						return
-					else
-						user << "\blue Teleport successful. [E.rcharges] charge left."
-						E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
+					E.rcell.use(E.chargecost)
+					user << "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>"
 					return
 			else
 				E.rand_x = rand(50,200)
@@ -234,17 +228,11 @@
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
-				E.rcharges--
-				if(E.rcharges != 1)
-					user << "\blue Teleport successful. [E.rcharges] charges left."
-					E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
-					return
-				else
-					user << "\blue Teleport successful. [E.rcharges] charge left."
-					E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
-					return
+				E.rcell.use(E.chargecost)
+				user << "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>"
+				return
 		else
-			user << "\red Out of charges."
+			user << "<span class='warning'>Out of charges.</span>"
 			return
 
 	if(src.opened)
