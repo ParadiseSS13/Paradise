@@ -126,13 +126,34 @@
 
 /datum/design/mag_smg
 	name = "Saber Submachine Gun Magazine (9mm)"
-	desc = "A 20-round magazine for the Saber submachine gun."
+	desc = "A 30-round magazine for the Saber submachine gun."
 	id = "mag_smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/smgm9mm
 	category = list("Weapons")
+	
+/datum/design/mag_smg/ap_mag
+	name = "Saber Submachine Gun Magazine (9mmAP)"
+	desc = "A 30-round armour piercing magazine for the Saber submachine gun. Deals slightly less damage but bypasses most armor."
+	id = "mag_smg_ap"
+	materials = list(MAT_METAL = 3000, MAT_SILVER = 100)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/ap
+
+/datum/design/mag_smg/incin_mag
+	name = "Saber Submachine Gun Magazine (9mmIC)"
+	desc = "A 30-round incendiary round magazine for the Saber submachine gun. Deals significantly less damage but sets the target on fire."
+	id = "mag_smg_ic"
+	materials = list(MAT_METAL = 3000, MAT_SILVER = 100, MAT_GLASS = 400)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/fire
+
+/datum/design/mag_smg/incin_tox
+	name = "Saber Submachine Gun Magazine (9mmTX)"
+	desc = "A 30-round uranium tipped round magazine for the Saber submachine gun. Deals toxin damage, but less overall damage."
+	id = "mag_smg_tx"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 200, MAT_URANIUM = 1000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/toxin
 
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"

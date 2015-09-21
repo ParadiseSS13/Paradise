@@ -132,11 +132,23 @@
 	icon_state = "smg9mm"
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	caliber = "9mm"
-	max_ammo = 20
+	max_ammo = 30
+	
+/obj/item/ammo_box/magazine/smgm9mm/ap
+	name = "SMG magazine (Armour Piercing 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mmap
+
+/obj/item/ammo_box/magazine/smgm9mm/toxin
+	name = "SMG magazine (Toxin Tipped 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mmtox
+
+/obj/item/ammo_box/magazine/smgm9mm/fire
+	name = "SMG Magazine (Incendiary 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mminc
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(),5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),6)]"
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"

@@ -10,8 +10,16 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null)
+/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
+	
+	//the if "armor" check is because this is used for everything on /living, including humans
+	if(armor && armour_penetration)
+		armor = max(0, armor - armour_penetration)
+		if(penetrated_text)
+			src << "<span class='userdanger'>[penetrated_text]</span>"
+		else
+			src << "<span class='userdanger'>Your armor was penetrated!</span>"
 
 	if(armor >= 100)
 		if(absorb_text)
@@ -42,7 +50,7 @@
 		Stun(2)
 
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag)
+	var/armor = run_armor_check(def_zone, P.flag, "", "", P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
 	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
