@@ -21,7 +21,8 @@
 
 /datum/song/Destroy()
 	instrumentObj = null
-	return ..()
+	..()
+	return QDEL_HINT_QUEUE
 
 // note is a number from 1-7 for A-G
 // acc is either "b", "n", or "#"
