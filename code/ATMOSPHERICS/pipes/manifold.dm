@@ -17,10 +17,6 @@
 	layer = 2.4 //under wires with their 2.44
 
 /obj/machinery/atmospherics/pipe/manifold/New()
-	..()
-	alpha = 255
-	icon = null
-
 	switch(dir)
 		if(NORTH)
 			initialize_directions = EAST|SOUTH|WEST
@@ -30,6 +26,37 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
+			
+	..()
+	
+	alpha = 255
+	icon = null
+	
+/obj/machinery/atmospherics/pipe/manifold/initialize()
+	for(var/D in cardinal)
+		if(D == dir)
+			continue
+		for(var/obj/machinery/atmospherics/target in get_step(src, D))
+			if(target.initialize_directions & get_dir(target,src))
+				var/c = check_connect_types(target,src)
+				if(!c)
+					continue
+				if(turn(dir, 90) == D)
+					target.connected_to = c
+					connected_to = c
+					node1 = target
+				if(turn(dir, 270) == D)
+					target.connected_to = c
+					connected_to = c
+					node2 = target
+				if(turn(dir, 180) == D)
+					target.connected_to = c
+					connected_to = c
+					node3 = target
+				break
+	var/turf/T = src.loc			// hide if turf is not intact
+	hide(T.intact)
+	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
@@ -47,12 +74,21 @@
 
 /obj/machinery/atmospherics/pipe/manifold/Destroy()
 	if(node1)
+		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1 = null
+		A.build_network()
 	if(node2)
+		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
+		node2 = null
+		A.build_network()
 	if(node3)
+		var/obj/machinery/atmospherics/A = node3
 		node3.disconnect(src)
-
+		node3 = null
+		A.build_network()
+	releaseAirToTurf()
 	return ..()
 
 /obj/machinery/atmospherics/pipe/manifold/disconnect(obj/machinery/atmospherics/reference)
@@ -60,19 +96,15 @@
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node1 = null
-
 	if(reference == node2)
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node2 = null
-
 	if(reference == node3)
 		if(istype(node3, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node3 = null
-
 	update_icon()
-
 	..()
 
 /obj/machinery/atmospherics/pipe/manifold/change_color(var/new_color)
@@ -123,62 +155,6 @@
 
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()
 	..()
-	update_icon()
-
-/obj/machinery/atmospherics/pipe/manifold/initialize()
-	var/connect_directions = (NORTH|SOUTH|EAST|WEST)&(~dir)
-
-	for(var/direction in cardinal)
-		if(direction&connect_directions)
-			for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-				if(target.initialize_directions & get_dir(target,src))
-					var/c = check_connect_types(target,src)
-					if (c)
-						target.connected_to = c
-						src.connected_to = c
-						node1 = target
-						connect_directions &= ~direction
-						break
-			if (node1)
-				break
-
-
-	for(var/direction in cardinal)
-		if(direction&connect_directions)
-			for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-				if(target.initialize_directions & get_dir(target,src))
-					var/c = check_connect_types(target,src)
-					if (c)
-						target.connected_to = c
-						src.connected_to = c
-						node2 = target
-						connect_directions &= ~direction
-						break
-			if (node2)
-				break
-
-
-	for(var/direction in cardinal)
-		if(direction&connect_directions)
-			for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-				if(target.initialize_directions & get_dir(target,src))
-					var/c = check_connect_types(target,src)
-					if (c)
-						target.connected_to = c
-						src.connected_to = c
-						node3 = target
-						connect_directions &= ~direction
-						break
-			if (node3)
-				break
-
-	if(!node1 && !node2 && !node3)
-		qdel(src)
-		return
-
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		hide(T.intact)
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/visible

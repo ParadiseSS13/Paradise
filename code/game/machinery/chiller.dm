@@ -9,7 +9,6 @@
 	set_temperature = 20		// in celcius, add T0C for kelvin
 	var/cooling_power = 40000
 
-
 /obj/machinery/space_heater/air_conditioner/New()
 	..()
 	cell = new(src)
@@ -104,7 +103,6 @@
 		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] the [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] the [src].</span>")
 		update_icon()
 	return
-
 
 /obj/machinery/space_heater/air_conditioner/Topic(href, href_list)
 	if (usr.stat)

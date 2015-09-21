@@ -4,10 +4,11 @@
 /obj/machinery/atmospherics/unary/thermal_plate
 //Based off Heat Reservoir and Space Heater
 //Transfers heat between a pipe system and environment, based on which has a greater thermal energy concentration
-
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "off"
 	level = 1
+	
+	can_unwrench = 1
 
 	name = "Thermal Transfer Plate"
 	desc = "Transfers heat to and from an area"
@@ -56,40 +57,9 @@
 	internal_removed.temperature = final_temperature
 	air_contents.merge(internal_removed)
 
-	network.update = 1
+	parent.update = 1
 
 	return 1
-
-/obj/machinery/atmospherics/unary/thermal_plate/hide(var/i) //to make the little pipe section invisible, the icon changes.
-	var/prefix=""
-	//var/suffix="_idle" // Also available: _heat, _cool
-	if(i == 1 && istype(loc, /turf/simulated))
-		prefix="h"
-	icon_state = "[prefix]off"
-	return
-
-/obj/machinery/atmospherics/unary/thermal_plate/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
-		return ..()
-	var/turf/T = src.loc
-	if (level==1 && isturf(T) && T.intact)
-		user << "<span class='alert'>You must remove the plating first.</span>"
-		return 1
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
-		add_fingerprint(user)
-		return 1
-	playsound(get_turf(src), 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
 
 /obj/machinery/atmospherics/unary/thermal_plate/proc/radiate()
 	var/internal_transfer_moles = 0.25 * air_contents.total_moles()
@@ -106,7 +76,6 @@
 	internal_removed.temperature = final_temperature
 	air_contents.merge(internal_removed)
 
-	if (network)
-		network.update = 1
+	parent.update = 1
 
 	return 1
