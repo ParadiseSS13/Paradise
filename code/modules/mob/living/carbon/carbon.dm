@@ -329,7 +329,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				break
 
 	if(vent_found)
-		if(vent_found.network && (vent_found.network.normal_members.len || vent_found.network.line_members.len))
+		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
 			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
@@ -362,15 +362,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	var/datum/pipe_network/network = starting_machine.return_network(starting_machine)
-	if(!network)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet())
 		return
-	for(var/datum/pipeline/pipeline in network.line_members)
-		for(var/obj/machinery/atmospherics/A in (pipeline.members || pipeline.edges))
-			if(!A.pipe_image)
-				A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			pipes_shown += A.pipe_image
-			client.images += A.pipe_image
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/list/totalMembers = list()
+	totalMembers |= pipeline.members
+	totalMembers |= pipeline.other_atmosmch
+	for(var/obj/machinery/atmospherics/A in totalMembers)
+		if(!A.pipe_image)
+			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+		pipes_shown += A.pipe_image
+		client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)

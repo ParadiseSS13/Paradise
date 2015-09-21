@@ -35,7 +35,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 		{{else !data.moving && data.at_station}}
 			{{:data.docked}} at the station.
 		{{else data.moving}}
-			Shuttle is en route (ETA: {{:data.timeleft}} minute{{if data.timeleft > 1}}s{{/if}}).
+			Shuttle is en route (ETA: {{:data.timeleft}} minute{{if data.timeleft != 1}}s{{/if}}).
 		{{/if}}
 	</div>
 </div>
