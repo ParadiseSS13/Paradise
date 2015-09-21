@@ -243,7 +243,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 
 			if(volume >=5 && volume <=10)
 				if(!H.unacidable)
-					M.take_organ_damage(max(volume-5,2)*4,0)
+					M.take_organ_damage(0,max(volume-5,2)*4)
 					M.emote("scream")
 
 
@@ -270,7 +270,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 
 				if(!H.unacidable)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(75, 0)
+					affecting.take_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
 					H.status_flags |= DISFIGURED
