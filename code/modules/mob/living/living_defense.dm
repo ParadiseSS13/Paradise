@@ -50,7 +50,7 @@
 		Stun(2)
 
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, "", "", P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
 	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
