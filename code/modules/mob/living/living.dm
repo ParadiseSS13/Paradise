@@ -314,7 +314,7 @@
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
-			C.reagents.addiction_list = list()
+			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
 
