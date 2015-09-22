@@ -38,3 +38,7 @@
 				if(M.client) M << "<b>[src]</b> transmits, \"[message]\""
 		return 1
 	return ..(message, 0)
+
+/mob/living/silicon/robot/drone/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+	say(message) //drones do not get to whisper, only speak normally
+	return 1

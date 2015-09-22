@@ -2,7 +2,7 @@
 /mob/proc/say()
 	return
 
-/mob/verb/whisper()
+/mob/verb/whisper(message as text)
 	set name = "Whisper"
 	set category = "IC"
 	return
