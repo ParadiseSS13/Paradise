@@ -88,9 +88,7 @@
 	var/node3_connect = dir
 
 	if(flipped)
-		node1_connect = turn(node1_connect, 180)
-		node2_connect = turn(node2_connect, 180)
-		node3_connect = turn(node3_connect, 180)
+		node2_connect = turn(node2_connect, -180)
 
 	for(var/obj/machinery/atmospherics/target in get_step(src,node1_connect))
 		if(target.initialize_directions & get_dir(target,src))
