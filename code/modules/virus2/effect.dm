@@ -114,7 +114,7 @@
 		mob.updatehealth()
 		if(prob(40))
 			if(mob.client)
-				if(!jobban_isbanned(mob, "Cyborg") || !jobban_isbanned(mob,"nonhumandept"))
+				if(!jobban_isbanned(mob, "Cyborg") && !jobban_isbanned(mob,"nonhumandept"))
 					var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(mob.loc))
 					mob.mind.transfer_to(O)
 			else
