@@ -153,6 +153,7 @@ var/list/mechtoys = list(
 	var/points_per_intel = 250			//points gained per intel returned
 	var/points_per_design = 25			//points gained per max reliability research design returned (only for initilally unreliable designs)
 
+	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
 	var/list/techLevels = list()
 	var/list/researchDesigns = list()
 	//control
@@ -259,6 +260,18 @@ var/list/mechtoys = list(
 						// Maxed out reliability designs only.
 						points += points_per_design
 						researchDesigns += design.id
+
+				// Sell exotic plants
+				if(istype(A, /obj/item/seeds))
+					var/obj/item/seeds/S = A
+					if(discoveredPlants[S.type]) // This species has already been sent to CentComm
+						var/potDiff = S.seed.get_trait(TRAIT_POTENCY) - discoveredPlants[S.type] // Compare it to the previous best
+						if(potDiff > 0) // This sample is better
+							discoveredPlants[S.type] = S.seed.get_trait(TRAIT_POTENCY)
+							points += potDiff
+					else // This is a new discovery!
+						discoveredPlants[S.type] = S.seed.get_trait(TRAIT_POTENCY)
+						points += S.seed.get_trait(TRAIT_RARITY) // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 
 				// If you send something in a crate, centcom's keeping it! - fixes secure crates being sent to centom to open them
 				qdel(A)

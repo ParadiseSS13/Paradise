@@ -56,3 +56,4 @@
 #define TRAIT_BIOLUM               36
 #define TRAIT_BIOLUM_COLOUR        37
 #define TRAIT_IMMUTABLE            38
+#define TRAIT_RARITY	           39
