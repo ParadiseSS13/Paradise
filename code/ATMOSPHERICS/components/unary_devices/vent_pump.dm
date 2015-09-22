@@ -7,14 +7,13 @@
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 
-	name = "Air Vent"
+	name = "air vent"
 	desc = "Has a valve and pump attached to it"
 	use_power = 1
 	
 	can_unwrench = 1
 
 	var/area/initial_loc
-	level = 1
 	var/area_uid
 	var/id_tag = null
 

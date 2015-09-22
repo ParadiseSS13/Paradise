@@ -4,14 +4,13 @@
 
 	req_one_access_txt = "24;10"
 
-	name = "Air Scrubber"
+	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"
 
 	use_power = 1
 	idle_power_usage = 10
 	active_power_usage = 60
 
-	level = 1
 	can_unwrench = 1
 	
 	var/area/initial_loc

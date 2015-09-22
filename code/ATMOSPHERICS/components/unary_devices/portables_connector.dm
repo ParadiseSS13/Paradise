@@ -11,8 +11,6 @@
 	var/obj/machinery/portable_atmospherics/connected_device
 
 	var/on = 0
-	use_power = 0
-	level = 1
 	
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
 	if(connected_device)

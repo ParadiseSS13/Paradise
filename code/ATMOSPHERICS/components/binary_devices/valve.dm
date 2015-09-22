@@ -6,8 +6,6 @@
 	desc = "A pipe valve"
 
 	can_unwrench = 1
-	
-	level = 1
 
 	var/open = 0
 

@@ -7,7 +7,6 @@
 	icon_state = "base"
 	use_power = 1
 	initialize_directions = 0
-	level = 1
 	
 	can_unwrench = 1
 

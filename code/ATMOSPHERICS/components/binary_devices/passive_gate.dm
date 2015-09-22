@@ -3,7 +3,6 @@
 	//	Uses no power but can not transfer gases from a low pressure area to a high pressure area
 	icon = 'icons/atmos/passive_gate.dmi'
 	icon_state = "map"
-	level = 1
 
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"

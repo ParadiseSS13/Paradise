@@ -16,7 +16,7 @@
 #define PIPE_PASSIVE_GATE      		15
 #define PIPE_VOLUME_PUMP        	16
 #define PIPE_HEAT_EXCHANGE     		17
-#define PIPE_MTVALVE				18
+#define PIPE_TVALVE					18
 #define PIPE_MANIFOLD4W				19
 #define PIPE_CAP					20
 #define PIPE_OMNI_MIXER				21
@@ -117,7 +117,7 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/tvalve/digital))
 			src.pipe_type = PIPE_DTVALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/trinary/tvalve))
-			src.pipe_type = PIPE_MTVALVE
+			src.pipe_type = PIPE_TVALVE
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/visible/supply) || istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply))
 			src.pipe_type = PIPE_SUPPLY_MANIFOLD4W
 			connect_types = list(2)
@@ -152,7 +152,6 @@
 		var/obj/machinery/atmospherics/trinary/triP = make_from
 		if(istype(triP) && triP.flipped)
 			src.flipped = 1
-			src.dir = turn(src.dir, -45)
 
 	else
 		src.pipe_type = pipe_type
@@ -166,13 +165,13 @@
 		else if (pipe_type == PIPE_UNIVERSAL)
 			connect_types = list(1,2,3)
 	//src.pipe_dir = get_pipe_dir()
-	update()
+	update(make_from)
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
 //update the name and icon of the pipe item depending on the type
 
-/obj/item/pipe/proc/update()
+/obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	var/list/nlist = list( \
 		"pipe", \
 		"bent pipe", \
@@ -234,7 +233,7 @@
 		"passivegate", \
 		"volumepump", \
 		"heunary", \
-		"mtvalve", \
+		"tvalve", \
 		"manifold4w", \
 		"cap", \
 		"omni_mixer", \
@@ -257,6 +256,9 @@
 		"dtvalve", \
 		)
 	icon_state = islist[pipe_type + 1]
+	var/obj/machinery/atmospherics/trinary/triP = make_from
+	if(istype(triP) && triP.flipped)
+		icon_state = "m_[icon_state]"
 
 //called when a turf is attacked with a pipe item
 // place the pipe on the turf, setting pipe level to 1 (underfloor) if the turf is not intact
@@ -288,11 +290,14 @@
 	set name = "Flip Pipe"
 	set src in view(1)
 
-	if ( usr.stat || usr.restrained() )
+	if (usr.stat || usr.restrained())
 		return
 
-	if (pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER))
-		src.dir = turn(src.dir, flipped ? 45 : -45)
+	if (pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE))
+		if(flipped)
+			icon_state = copytext(icon_state,3)
+		else
+			icon_state = "m_[icon_state]"
 		flipped = !flipped
 		return
 
@@ -307,8 +312,6 @@
 	if ((pipe_type in list (PIPE_SIMPLE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT, PIPE_HE_BENT, PIPE_INSULATED_BENT)) \
 		&& (src.dir in cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
-	else if ((pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER)) && flipped)
-		src.dir = turn(src.dir, 45+90)
 	else if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
@@ -354,8 +357,11 @@
 			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD)
 			return flip|cw|acw
-		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_MTVALVE, PIPE_DTVALVE)
-			return dir|flip|cw
+		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE)
+			if(!flipped)
+				return dir|flip|cw
+			else
+				return flip|cw|acw
 		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
 			return dir
 	return 0
@@ -506,28 +512,21 @@
 				V.name = pipename
 			V.construction(dir, get_pdir(), color)
 			
-		if(PIPE_MTVALVE)
-			var/obj/machinery/atmospherics/trinary/tvalve/V = new( src.loc )
-			if (pipename)
-				V.name = pipename
-			V.construction(dir, pipe_dir, color)
-			
-		if(PIPE_DTVALVE)
-			var/obj/machinery/atmospherics/trinary/tvalve/digital/V = new( src.loc )
-			if (pipename)
-				V.name = pipename
-			V.construction(dir, pipe_dir, color)
-
 		if(PIPE_PUMP)		//gas pump
 			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
 			P.construction(dir, pipe_dir, color)
 
-		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER)
+		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE)
 			var/obj/machinery/atmospherics/trinary/P
-			if(pipe_type == PIPE_GAS_FILTER)
-				P = new /obj/machinery/atmospherics/trinary/filter(src.loc)
-			else if(pipe_type == PIPE_GAS_MIXER)
-				P = new /obj/machinery/atmospherics/trinary/mixer(src.loc)
+			switch(pipe_type)
+				if(PIPE_GAS_FILTER)
+					P = new /obj/machinery/atmospherics/trinary/filter(src.loc)
+				if(PIPE_GAS_MIXER)
+					P = new /obj/machinery/atmospherics/trinary/mixer(src.loc)
+				if(PIPE_TVALVE)
+					P = new /obj/machinery/atmospherics/trinary/tvalve(src.loc)
+				if(PIPE_DTVALVE)
+					P = new /obj/machinery/atmospherics/trinary/tvalve/digital(src.loc)
 			P.flipped = flipped
 			if (pipename)
 				P.name = pipename
@@ -666,7 +665,7 @@
 #undef PIPE_PASSIVE_GATE
 #undef PIPE_VOLUME_PUMP
 #undef PIPE_HEAT_EXCHANGE
-#undef PIPE_MTVALVE
+#undef PIPE_TVALVE
 #undef PIPE_MANIFOLD4W
 #undef PIPE_CAP
 #undef PIPE_OMNI_MIXER
