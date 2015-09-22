@@ -26,3 +26,12 @@
 				spawn(0) R.radio.hear_talk(src, trim(sanitize(radio_MMI_message)), say_quote(radio_MMI_message), speaking)
 
 		..(message)
+
+/mob/living/carbon/brain/can_speak(var/datum/language/speaking)
+	if(speaking == all_languages["Robot Talk"] && istype(loc, /obj/item/device/mmi/posibrain)) //so posibrains can speak binary; less messy than adding the language
+		return 1
+
+	else return ..()
+
+/mob/living/carbon/brain/binarycheck()
+	return istype(loc, /obj/item/device/mmi/posibrain)
