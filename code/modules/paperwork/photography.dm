@@ -70,7 +70,7 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(..(user, 1))
+	if(..(user, 1) || isobserver(user))
 		show(user)
 	else
 		user << "<span class='notice'>It is too far away.</span>"

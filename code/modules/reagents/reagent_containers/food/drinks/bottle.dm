@@ -53,7 +53,7 @@
 
 		var/mob/living/carbon/human/H = target
 		var/headarmor = 0 // Target's head armour
-		armor_block = H.run_armor_check(affecting, "melee") // For normal attack damage
+		armor_block = H.run_armor_check(affecting, "melee", armour_penetration = armour_penetration) // For normal attack damage
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")

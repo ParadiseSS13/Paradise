@@ -10,19 +10,29 @@
 	
 	can_unwrench = 1
 
-	level = 1
-
 	var/state = TVALVE_STATE_STRAIGHT
 
 /obj/machinery/atmospherics/trinary/tvalve/bypass
 	icon_state = "map_tvalve1"
 	state = TVALVE_STATE_SIDE
 	
+/obj/machinery/atmospherics/trinary/tvalve/flipped
+	icon_state = "map_tvalvem0"
+	flipped = 1
+	
+/obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
+	icon_state = "map_tvalvem1"
+	flipped = 1
+	state = TVALVE_STATE_SIDE
+	
 /obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
+	var/flipstate = ""
+	if(flipped)
+		flipstate = "m"
 	if(animation)
-		flick("tvalve[src.state][!src.state]",src)
+		flick("tvalve[flipstate][src.state][!src.state]",src)
 	else
-		icon_state = "tvalve[state]"
+		icon_state = "tvalve[flipstate][state]"
 
 /obj/machinery/atmospherics/trinary/tvalve/update_underlays()
 	if(..())
@@ -32,7 +42,10 @@
 			return
 		add_underlay(T, node1, turn(dir, -180))
 
-		add_underlay(T, node2, turn(dir, -90))
+		if(flipped)
+			add_underlay(T, node2, turn(dir, 90))
+		else
+			add_underlay(T, node2, turn(dir, -90))
 
 		add_underlay(T, node3, dir)
 			
@@ -92,6 +105,15 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/bypass
 	icon_state = "map_tvalve1"
+	state = TVALVE_STATE_SIDE
+	
+/obj/machinery/atmospherics/trinary/tvalve/digital/flipped
+	icon_state = "map_tvalvem0"
+	flipped = 1
+	
+/obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
+	icon_state = "map_tvalvem1"
+	flipped = 1
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()
