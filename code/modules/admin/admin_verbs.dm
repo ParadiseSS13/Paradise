@@ -783,6 +783,8 @@ var/list/admin_verbs_mentor = list(
 /client/proc/playernotes()
 	set name = "Show Player Info"
 	set category = "Admin"
+	if(!check_rights(R_ADMIN))
+		return
 	if(holder)
 		holder.PlayerNotes()
 	return
@@ -790,18 +792,21 @@ var/list/admin_verbs_mentor = list(
 /client/proc/free_slot()
 	set name = "Free Job Slot"
 	set category = "Admin"
-	if(holder)
-		var/list/jobs = list()
-		for (var/datum/job/J in job_master.occupations)
-			if (J.current_positions >= J.total_positions && J.total_positions != -1)
-				jobs += J.title
-		if (!jobs.len)
-			usr << "There are no fully staffed jobs."
-			return
-		var/job = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
-		if (job)
-			job_master.FreeRole(job)
-	return
+	if(!check_rights(R_ADMIN))
+		return
+		
+	var/list/jobs = list()
+	for (var/datum/job/J in job_master.occupations)
+		if (J.current_positions >= J.total_positions && J.total_positions != -1)
+			jobs += J.title
+	if (!jobs.len)
+		usr << "There are no fully staffed jobs."
+		return
+	var/job = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
+	if (job)
+		job_master.FreeRole(job)
+		log_admin("[key_name(usr)] has freed a job slot for [job].")
+		message_admins("[key_name_admin(usr) has freed a job slot for [job].")
 
 /client/proc/toggleattacklogs()
 	set name = "Toggle Attack Log Messages"

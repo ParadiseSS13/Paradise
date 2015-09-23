@@ -1608,7 +1608,7 @@ datum/preferences
 
 	proc/open_load_dialog(mob/user)
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM characters WHERE ckey='[user.ckey]' ORDER BY slot")
+		var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
 
 		var/dat = "<body>"
 		dat += "<tt><center>"

@@ -63,9 +63,6 @@ LOG_RUNTIME
 ## log admin warning messages
 ##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
 
-## sql switching
-# SQL_ENABLED
-
 ## disconnect players who did nothing during 15 minutes
 KICK_INACTIVE
 

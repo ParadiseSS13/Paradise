@@ -5,15 +5,14 @@
 
 	if(Debug2)
 		Debug2 = 0
-		message_admins("[key_name(src)] toggled debugging off.")
+		message_admins("[key_name_admin(src)] toggled debugging off.")
 		log_admin("[key_name(src)] toggled debugging off.")
 	else
 		Debug2 = 1
-		message_admins("[key_name(src)] toggled debugging on.")
+		message_admins("[key_name_admin(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
 	feedback_add_details("admin_verb","DG2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 
 /* 21st Sept 2010

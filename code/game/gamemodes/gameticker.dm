@@ -214,6 +214,10 @@ var/global/datum/controller/gameticker/ticker
 	if(admins_number == 0)
 		send2adminirc("Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
+	
+	if(config.sql_enabled)
+		spawn(3000)
+			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 
 	/* DONE THROUGH PROCESS SCHEDULER
 	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE
@@ -222,10 +226,6 @@ var/global/datum/controller/gameticker/ticker
 	*/
 
 	processScheduler.start()
-
-	if(config.sql_enabled)
-		spawn(3000)
-		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
 
 	votetimer()
 
