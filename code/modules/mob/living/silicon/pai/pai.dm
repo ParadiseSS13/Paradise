@@ -433,7 +433,7 @@
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/nanopaste))
-	var/obj/item/stack/nanopaste/N = W
+		var/obj/item/stack/nanopaste/N = W
 		if (stat == DEAD)
 			user << "<span class='danger'>The [src] is beyond help, at this point.</span>"
 		else if (getBruteLoss() || getFireLoss())
