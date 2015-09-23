@@ -85,6 +85,6 @@
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!", 3)
+			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>", 3)
 			H.melt()
 			return
