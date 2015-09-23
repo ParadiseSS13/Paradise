@@ -76,9 +76,6 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = pick("yells","roars","hollers")
 		speech_problem_flag = 1
 
-	if(COMIC in mutations)
-		message = "<span class='sans'>[message]</span>"
-
 	if(slurring)
 		message = slur(message)
 		verb = "slurs"
@@ -87,6 +84,9 @@ proc/get_radio_key_from_channel(var/channel)
 		message = stutter(message)
 		verb = "stammers"
 		speech_problem_flag = 1
+
+	if(COMIC in mutations)
+		message = "<span class='sans'>[message]</span>"
 
 	returns[1] = message
 	returns[2] = verb
