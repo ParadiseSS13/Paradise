@@ -525,7 +525,7 @@
 					config.disable_away_missions = 1
 
 				if("autoconvert_notes")
-					config.autoconvert_notes = 1					
+					config.autoconvert_notes = 1				
 					
 				else
 					diary << "Unknown setting in configuration: '[name]'"
