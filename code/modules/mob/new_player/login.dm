@@ -34,7 +34,6 @@
 		verbs += /client/proc/readmin
 	spawn(40)
 		if(client)
-			handle_privacy_poll()
 			client.playtitlemusic()
 
 	if(config.player_overflow_cap && config.overflow_server_url) //Overflow rerouting, if set, forces players to be moved to a different server once a player cap is reached. Less rough than a pure kick.
