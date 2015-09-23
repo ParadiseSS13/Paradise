@@ -50,7 +50,7 @@
 
 	var/turf/T = H.loc
 	var/area/placeofdeath = get_area(T.loc)
-	var/podname = placeofdeath.name
+	var/podname = sanitizeSQL(placeofdeath.name)
 
 	var/sqlname = sanitizeSQL(H.real_name)
 	var/sqlkey = sanitizeSQL(H.key)
@@ -85,7 +85,7 @@
 
 	var/turf/T = H.loc
 	var/area/placeofdeath = get_area(T.loc)
-	var/podname = placeofdeath.name
+	var/podname = sanitizeSQL(placeofdeath.name)
 
 	var/sqlname = sanitizeSQL(H.real_name)
 	var/sqlkey = sanitizeSQL(H.key)
