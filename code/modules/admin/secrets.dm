@@ -40,9 +40,6 @@
 						<A href='?src=\ref[src];secretsfun=quickpower'>Power all SMES</A><BR>
 						<BR>
 						<B>Shuttle options</b><br>
-						<A href='?src=\ref[src];secretsfun=toggleprisonstatus'>Toggle Prison Shuttle Status(Use with S/R)</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=activateprison'>Send Prison Shuttle</A>&nbsp;&nbsp;
-						<A href='?src=\ref[src];secretsfun=deactivateprison'>Return Prison Shuttle</A><BR>
 						<A href='?src=\ref[src];secretsfun=launchshuttle'>Launch a shuttle</A>&nbsp;&nbsp;
 						<A href='?src=\ref[src];secretsfun=forcelaunchshuttle'>Force launch a shuttle</A><BR>
 						<A href='?src=\ref[src];secretsfun=jumpshuttle'>Jump a shuttle</A>&nbsp;&nbsp;
