@@ -289,7 +289,7 @@
 
 				output += "</div>"
 
-				src << browse(output,"window=playerpoll;size=500x250")
+				src << browse(output,"window=playerpoll;size=600x250")
 		return
 
 /mob/new_player/proc/vote_on_poll(var/pollid = -1, var/optionid = -1, var/multichoice = 0)
