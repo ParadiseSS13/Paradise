@@ -203,6 +203,7 @@
 	var/area/lastarea = null
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
+	var/weakeyes //Are they vulnerable to flashes?
 
 	var/list/radar_blips = list() // list of screen objects, radar blips
 	var/radar_open = 0 	// nonzero is radar is open
@@ -235,3 +236,5 @@
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
 	var/resize = 1 //Badminnery resize
+
+	var/datum/vision_override/vision_type = null //Vision override datum.
