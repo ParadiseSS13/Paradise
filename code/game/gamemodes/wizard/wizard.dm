@@ -185,7 +185,6 @@
 
 	wizard_mob.faction = list("wizard")
 	
-	// For Vox and plasmadudes.
 	wizard_mob.species.equip(wizard_mob)
 
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
