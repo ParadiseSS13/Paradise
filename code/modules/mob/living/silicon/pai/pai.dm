@@ -432,7 +432,22 @@
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(W.force)
+	if(isType(W, /obj/item/stack/nanopaste))
+		if (stat == DEAD)
+			user << "<span class='danger'>The [src] is beyond help, at this point.</span>"
+		else if (getBruteLoss() || getFireLoss())
+			adjustBruteLoss(-15)
+			adjustFireLoss(-15)
+			updatehealth()
+			use(1)
+			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
+				"<span class='notice'>You apply some [W] at [src.name]'s damaged areas.</span>")
+		else
+			user << "<span class='notice'>All [src.name]'s systems are nominal.</span>"
+		
+		return
+
+	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		src.adjustBruteLoss(W.force)
 		src.updatehealth()
