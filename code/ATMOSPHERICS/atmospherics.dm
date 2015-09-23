@@ -145,7 +145,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = get_turf(src)
-		if (level==1 && isturf(T) && T.intact)
+		if (level == 1 && isturf(T) && T.intact)
 			user << "<span class='danger'>You must remove the plating first.</span>"
 			return 1
 		var/datum/gas_mixture/int_air = return_air()

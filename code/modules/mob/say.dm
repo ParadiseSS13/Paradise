@@ -2,7 +2,7 @@
 /mob/proc/say()
 	return
 
-/mob/verb/whisper()
+/mob/verb/whisper(message as text)
 	set name = "Whisper"
 	set category = "IC"
 	return
@@ -35,7 +35,7 @@
 
 	set_typing_indicator(0)
 	if(use_me)
-		usr.emote("me",usr.emote_type,message)
+		custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
 

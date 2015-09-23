@@ -1,16 +1,13 @@
 #define RADIATION_CAPACITY 30000 //Radiation isn't particularly effective (TODO BALANCE)
-
-
 /obj/machinery/atmospherics/unary/thermal_plate
 //Based off Heat Reservoir and Space Heater
 //Transfers heat between a pipe system and environment, based on which has a greater thermal energy concentration
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "off"
-	level = 1
 	
 	can_unwrench = 1
 
-	name = "Thermal Transfer Plate"
+	name = "thermal tansfer plate"
 	desc = "Transfers heat to and from an area"
 
 /obj/machinery/atmospherics/unary/thermal_plate/update_icon()

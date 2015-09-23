@@ -1,8 +1,6 @@
 /obj/machinery/atmospherics/trinary/filter
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
-	density = 0
-	level = 1
 
 	can_unwrench = 1
 	
@@ -26,7 +24,7 @@ Filter types:
 	var/frequency = 0
 	var/datum/radio_frequency/radio_connection
 	
-/obj/machinery/atmospherics/trinary/mixer/flipped
+/obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
 	flipped = 1
 

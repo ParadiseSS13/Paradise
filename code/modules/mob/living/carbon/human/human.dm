@@ -285,7 +285,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,1,2),0,1)
+						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -316,7 +316,7 @@
 			while(limbs_affected != 0 && valid_limbs.len > 0)
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,pick(0,2),0,1)
+					processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
@@ -341,7 +341,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,1,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -1780,9 +1780,8 @@
 			prot["head"] = max(1 - I.permeability_coefficient, prot["head"])
 	var/protection = (prot["head"] + prot["arms"] + prot["feet"] + prot["legs"] + prot["groin"] + prot["chest"] + prot["hands"])/7
 	return protection
-	
+
 /mob/living/carbon/human/proc/get_full_print()
 	if(!dna || !dna.uni_identity)
 		return
 	return md5(dna.uni_identity)
-	

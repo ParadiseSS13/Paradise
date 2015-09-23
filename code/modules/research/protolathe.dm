@@ -62,6 +62,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/Destroy()
 	qdel(materials)
+	materials = null
 	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()

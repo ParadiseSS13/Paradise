@@ -311,6 +311,10 @@
 		if (C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
+		if(C.reagents)
+			for(var/datum/reagent/R in C.reagents.reagent_list)
+				C.reagents.clear_reagents()
+			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
 
@@ -322,10 +326,16 @@
 	setCloneLoss(0)
 	setBrainLoss(0)
 	setStaminaLoss(0)
+	SetSleeping(0)
 	setHalLoss(0)
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	losebreath = 0
+	dizziness = 0
+	jitteriness = 0
+	confused = 0
+	drowsyness = 0
 	radiation = 0
 	nutrition = 400
 	bodytemperature = 310
@@ -337,6 +347,7 @@
 	ear_deaf = 0
 	ear_damage = 0
 	heal_overall_damage(1000, 1000)
+	ExtinguishMob()
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0

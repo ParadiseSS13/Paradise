@@ -15,7 +15,7 @@
 
 /datum/disease2/effectholder/proc/getrandomeffect(var/badness = 1)
 	var/list/datum/disease2/effect/list = list()
-	for(var/e in subtypesof(/datum/disease2/effect))
+	for(var/e in subtypesof(/datum/disease2/effect) - /datum/disease2/effect/organs/vampire)
 		var/datum/disease2/effect/f = new e
 		if (f.badness > badness)	//we don't want such strong effects
 			continue
@@ -103,6 +103,25 @@
 
 
 ////////////////////////STAGE 4/////////////////////////////////
+
+/datum/disease2/effect/borg
+	name = "Borgification Disorder"
+	stage = 4
+	badness = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob << "<span class = 'warning'>You feel like beeping and booping...</span>"
+		mob.adjustBruteLoss(10)
+		mob.updatehealth()
+		if(prob(40))
+			if(mob.client)
+				if(!jobban_isbanned(mob, "Cyborg") && !jobban_isbanned(mob,"nonhumandept"))
+					var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(mob.loc))
+					mob.mind.transfer_to(O)
+			else
+				new/mob/living/silicon/robot(get_turf(mob.loc))
+			var/datum/disease2/disease/D = mob.virus2
+			mob.gib()
+			qdel(D)
 
 /datum/disease2/effect/omnizine
 	name = "Panacea Effect"
