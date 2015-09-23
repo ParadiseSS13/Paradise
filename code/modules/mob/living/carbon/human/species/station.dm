@@ -58,8 +58,12 @@
 	base_color = "#066000"
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
+	
+/datum/species/unathi/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown")
+		H.unEquip(H.shoes)
+		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -100,8 +104,12 @@
 	base_color = "#333333"
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
+	
+/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown")
+		H.unEquip(H.shoes)
+		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
@@ -132,7 +140,6 @@
 	base_color = "#BE8264"
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
 
 /datum/species/skrell
@@ -203,23 +210,38 @@
 
 	reagent_tag = PROCESS_ORG
 
-	makeName(var/gender,var/mob/living/carbon/human/H=null)
-		var/sounds = rand(2,8)
-		var/i = 0
-		var/newname = ""
+/datum/species/vox/makeName(var/gender,var/mob/living/carbon/human/H=null)
+	var/sounds = rand(2,8)
+	var/i = 0
+	var/newname = ""
 
-		while(i<=sounds)
-			i++
-			newname += pick(vox_name_syllables)
-		return capitalize(newname)
+	while(i<=sounds)
+		i++
+		newname += pick(vox_name_syllables)
+	return capitalize(newname)
+		
+/datum/species/vox/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown")
+		H.unEquip(H.wear_mask)
+	H.unEquip(H.l_hand)
+
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
+	var/tank_pref = H.client.prefs.speciesprefs
+	if(tank_pref)//Diseasel, here you go
+		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
+	else
+		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
+	H << "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>"
+	H.internal = H.l_hand
+	if (H.internals)
+		H.internals.icon_state = "internal1"
+	
 /*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
-
 	H.verbs += /mob/living/carbon/human/proc/leap
 	..() */
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
-
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 

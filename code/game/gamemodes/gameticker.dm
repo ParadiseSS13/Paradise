@@ -367,7 +367,6 @@ var/global/datum/controller/gameticker/ticker
 				if(player.mind.assigned_role == "Captain")
 					captainless=0
 				if(player.mind.assigned_role != "MODE")
-					EquipRacialItems(player)
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
 					EquipCustomItems(player)
 		if(captainless)
