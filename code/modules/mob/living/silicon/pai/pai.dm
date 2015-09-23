@@ -447,7 +447,6 @@
 			user << "<span class='notice'>All [src.name]'s systems are nominal.</span>"
 		
 		return
-
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		src.adjustBruteLoss(W.force)
