@@ -118,8 +118,8 @@
 			if("Add option")
 				add_option = 1
 			if("Finish")
-				log_admin("[key_name(usr)] has created a new server poll. Poll type: [polltype] - Question: [question]")
-				message_admins("[key_name_admin(usr)] has created a new server poll. Poll type: [polltype] - Question: [question]")
+				log_admin("[key_name(usr)] has created a new server poll. Poll type: [polltype] - Question: [question] - Admin Only: [adminonly ? "Yes" : "No"]")
+				message_admins("[key_name_admin(usr)] has created a new server poll. Poll type: [polltype] - Question: [question] - Admin Only: [adminonly ? "Yes" : "No"]")
 				add_option = 0
 			else
 				return
