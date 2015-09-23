@@ -1496,7 +1496,7 @@
 "CO" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/mine/production)
 "CP" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor,/area/mine/production)
 "CQ" = (/obj/machinery/light/small{dir = 4; pixel_y = 8},/turf/simulated/floor,/area/mine/production)
-"CR" = (/obj/structure/window/reinforced,/obj/structure/table/reinforced,/obj/item/weapon/rcs,/obj/structure/disposalpipe/segment,/turf/simulated/floor,/area/mine/production)
+"CR" = (/obj/structure/window/reinforced,/obj/structure/table/reinforced,/obj/structure/disposalpipe/segment,/obj/machinery/recharger,/turf/simulated/floor,/area/mine/production)
 "CS" = (/obj/structure/window/reinforced,/obj/structure/closet/crate,/turf/simulated/floor,/area/mine/production)
 "CT" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/obj/structure/window/reinforced,/obj/structure/closet/crate{icon_state = "crateopen"; opened = 1},/turf/simulated/floor,/area/mine/production)
 "CU" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8; on = 1},/obj/structure/window/reinforced,/obj/structure/closet/crate,/turf/simulated/floor,/area/mine/production)
