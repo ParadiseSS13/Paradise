@@ -318,7 +318,6 @@
 		return
 
 
-
 /*
 About the new airlock wires panel:
 *	An airlock wire dialog can be accessed by the normal way or by using wirecutters or a multitool on the door while the wire-panel is open. This would show the following wires, which you can either wirecut/mend or send a multitool pulse through. There are 9 wires.
@@ -334,6 +333,11 @@ About the new airlock wires panel:
 */
 // You can find code for the airlock wires in the wire datum folder.
 
+
+/obj/machinery/door/airlock/Destroy()
+	qdel(wires)
+	wires = null
+	return ..()
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user as mob) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(usr))
@@ -925,8 +929,9 @@ About the new airlock wires panel:
 	operating = 0
 	air_update_turf(1)
 	update_freelok_sight()
-	if(locate(/mob/living) in get_turf(src))
-		open()
+	if(safe)
+		if(locate(/mob/living) in get_turf(src))
+			open()
 
 	return
 

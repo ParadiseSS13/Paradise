@@ -1,10 +1,10 @@
 /obj/machinery/meter
-	name = "meter"
+	name = "gas flow meter"
 	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
 	var/obj/machinery/atmospherics/pipe/target = null
-	anchored = 1.0
+	anchored = 1
 	power_channel = ENVIRON
 	var/frequency = 0
 	var/id
@@ -18,18 +18,18 @@
 
 /obj/machinery/meter/New()
 	..()
-	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
 	return 1
 
 /obj/machinery/meter/Destroy()
-	src.target = null
+	target = null
 	return ..()
 
 /obj/machinery/meter/initialize()
 	if (!target)
-		src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process()
 	if(!target)
@@ -78,7 +78,7 @@
 
 /obj/machinery/meter/proc/status()
 	var/t = ""
-	if (src.target)
+	if (target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
 			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]&deg;K ([round(environment.temperature-T0C,0.01)]&deg;C)"
@@ -97,7 +97,7 @@
 	else if(stat & (NOPOWER|BROKEN))
 		t += "\red <B>The display is off.</B>"
 
-	else if(src.target)
+	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
 			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
@@ -136,13 +136,13 @@
 
 /obj/machinery/meter/turf/New()
 	..()
-	src.target = loc
+	target = loc
 	return 1
 
 
 /obj/machinery/meter/turf/initialize()
 	if (!target)
-		src.target = loc
+		target = loc
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	return

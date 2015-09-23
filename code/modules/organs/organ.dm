@@ -22,6 +22,26 @@ var/list/organ_cache = list()
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 
+
+/obj/item/organ/Destroy()
+	if(!owner)
+		return ..()
+
+	if(istype(owner, /mob/living/carbon))
+		if((owner.internal_organs) && (src in owner.internal_organs))
+			owner.internal_organs -= src
+		if(istype(owner, /mob/living/carbon/human))
+			if((owner.internal_organs_by_name) && (src in owner.internal_organs_by_name))
+				owner.internal_organs_by_name -= src
+			if((owner.organs) && (src in owner.organs))
+				owner.organs -= src
+			if((owner.organs_by_name) && (src in owner.organs_by_name))
+				owner.organs_by_name -= src
+	if(src in owner.contents)
+		owner.contents -= src
+
+	return ..()
+
 /obj/item/organ/attack_self(mob/user as mob)
 
 	// Convert it to an edible form, yum yum.

@@ -23,3 +23,6 @@ var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 var/global/list/apcs = list()
 var/global/list/air_alarms = list()
 var/global/list/power_monitors = list()
+
+var/global/list/tracking_implants = list()			//list of all tracking implants to work out what treks everyone are on. Sadly not on lavaworld not implemented...
+var/global/list/beacons = list()

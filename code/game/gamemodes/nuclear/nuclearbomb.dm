@@ -23,7 +23,7 @@ var/bomb_set
 	unacidable = 1
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
-	
+
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = 1
 
@@ -32,11 +32,12 @@ var/bomb_set
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
-	
+
 /obj/machinery/nuclearbomb/Destroy()
 	qdel(wires)
-	return ..()	
-	
+	wires = null
+	return ..()
+
 /obj/machinery/nuclearbomb/process()
 	if (timing)
 		bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
@@ -154,7 +155,7 @@ var/bomb_set
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	attack_hand(user)
-	
+
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if (extended)
 		if (panel_open)
@@ -199,7 +200,7 @@ var/bomb_set
 		data["message"] = code
 		if (yes_code)
 			data["message"] = "*****"
-		
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 300, 510)
@@ -230,11 +231,11 @@ var/bomb_set
 		return 1
 	else
 		return 0
-	
+
 /obj/machinery/nuclearbomb/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if (href_list["auth"])
 		if (auth)
 			auth.loc = loc
@@ -311,7 +312,7 @@ var/bomb_set
 					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
 					nanomanager.update_uis(src)
 					return
-			
+
 				if(!isinspace())
 					anchored = !(anchored)
 					if(anchored)

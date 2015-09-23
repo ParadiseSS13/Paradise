@@ -20,7 +20,7 @@
 		recharge_port.recharge_floor = null
 	recharge_port = null
 	recharging_mecha = null
-	..()
+	return ..()
 
 /turf/simulated/floor/mech_bay_recharge_floor/Entered(var/obj/mecha/mecha)
 	. = ..()

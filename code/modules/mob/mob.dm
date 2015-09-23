@@ -73,6 +73,8 @@
 
 /mob/visible_message(var/message, var/self_message, var/blind_message)
 	for(var/mob/M in viewers(src))
+		if(M.see_invisible < invisibility)
+			continue //can't view the invisible
 		var/msg = message
 		if(self_message && M==src)
 			msg = self_message
@@ -494,6 +496,34 @@ var/list/slot_equipment_priority = list( \
 	face_atom(A)
 	A.examine(src)
 
+//same as above
+//note: ghosts can point, this is intended
+//visible_message will handle invisibility properly
+//overriden here and in /mob/dead/observer for different point span classes and sanity checks
+/mob/verb/pointed(atom/A as mob|obj|turf in view())
+	set name = "Point To"
+	set category = "Object"
+
+	if(next_move >= world.time)
+		return
+	if(!src || !isturf(src.loc))
+		return 0
+	if(istype(A, /obj/effect/decal/point))
+		return 0
+
+	var/tile = get_turf(A)
+	if (!tile)
+		return 0
+
+	changeNext_move(CLICK_CD_POINT)
+	var/obj/P = new /obj/effect/decal/point(tile)
+	P.invisibility = invisibility
+	spawn (20)
+		if(P)
+			qdel(P)
+
+	return 1
+
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if ((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
 		if (!( L ))
@@ -611,13 +641,13 @@ var/list/slot_equipment_priority = list( \
 		src << "<h2 class='alert'>OOC Warning:</h2>"
 		src << "<span class='alert'>Your flavor text is likely out of date! <a href='byond://?src=\ref[src];flavor_change=1'>Change</a></span>"
 
-/mob/proc/print_flavor_text()
+/mob/proc/print_flavor_text(var/shrink = 1)
 	if (flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
-		if(lentext(msg) <= 40)
-			return "\blue [msg]"
+		if(lentext(msg) <= 40 || !shrink)
+			return "<span class='notice'>[msg]</span>"
 		else
-			return "\blue [copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></span>"
 
 /mob/proc/is_dead()
 	return stat == DEAD

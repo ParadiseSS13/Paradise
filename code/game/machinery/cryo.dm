@@ -28,7 +28,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
-	initialize()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
@@ -50,6 +49,9 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	
+/obj/machinery/atmospherics/unary/cryo_cell/construction()
+	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C
@@ -138,7 +140,7 @@
 		if(occupant)
 			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
-		network.update = 1
+		parent.update = 1
 
 	return 1
 
@@ -157,6 +159,9 @@
 	return attack_hand(user)
 	
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+	if(user == occupant)
+		return
+		
 	if(panel_open)
 		usr << "\blue <b>Close the maintenance panel first.</b>"
 		return
@@ -176,10 +181,6 @@
   * @return nothing
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
-	if(user == occupant || user.stat)
-		return
-
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["isOperating"] = on

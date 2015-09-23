@@ -62,7 +62,7 @@
 /obj/item/weapon/reagent_containers/spray/proc/spray(var/atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this)
+	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 	spawn(0)
 		for(var/i=0, i<spray_currentrange, i++)

@@ -593,7 +593,7 @@
 				if (href_list["createpatch_multiple"]) count = isgoodnumber(input("Select the number of patches to make.", 10, patchamount) as num)
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
-				if (amount_per_patch > 50) amount_per_patch = 50
+				if (amount_per_patch > 40) amount_per_patch = 40
 				var/name = reject_bad_text(input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch] units)"))
 				while (count--)
 					var/obj/item/weapon/reagent_containers/pill/patch/P = new/obj/item/weapon/reagent_containers/pill/patch(src.loc)
@@ -699,7 +699,7 @@
 		if(!condi)
 			dat += "<HR><BR><A href='?src=\ref[src];createpill=1'>Create pill (50 units max)</A><a href=\"?src=\ref[src]&change_pill=1\"><img src=\"pill[pillsprite].png\" /></a><BR>"
 			dat += "<A href='?src=\ref[src];createpill_multiple=1'>Create multiple pills</A><BR>"
-			dat += "<HR><BR><A href='?src=\ref[src];createpatch=1'>Create patch (50 units max)</A><BR>"
+			dat += "<HR><BR><A href='?src=\ref[src];createpatch=1'>Create patch (40 units max)</A><BR>"
 			dat += "<A href='?src=\ref[src];createpatch_multiple=1'>Create multiple patches</A><BR>"
 			dat += "<A href='?src=\ref[src];createbottle=1'>Create bottle (30 units max)</A>"
 		else

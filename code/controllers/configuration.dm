@@ -164,6 +164,11 @@
 	
 	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
 	
+	var/ooc_allowed = 1
+	var/looc_allowed = 1
+	var/dooc_allowed = 1
+	var/dsay_allowed = 1
+	
 	var/disable_lobby_music = 0 // Disables the lobby music
 
 /datum/configuration/New()

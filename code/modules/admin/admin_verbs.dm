@@ -49,6 +49,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_hear_radio,     /*toggles whether we hear the radio*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
+	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
@@ -347,6 +348,25 @@ var/list/admin_verbs_mentor = list(
 		holder.Secrets()
 	feedback_add_details("admin_verb","S") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
+	
+/client/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in stealthminID)
+			if(stealthminID[P] == txt)
+				return P
+	txt = stealthminID[ckey]
+	return txt
+
+/client/proc/createStealthKey()
+	var/num = (rand(0,1000))
+	var/i = 0
+	while(i == 0)
+		i = 1
+		for(var/P in stealthminID)
+			if(num == stealthminID[P])
+				num++
+				i = 0
+	stealthminID["[ckey]"] = "@[num2text(num)]"	
 
 /client/proc/stealth()
 	set category = "Admin"
@@ -360,6 +380,7 @@ var/list/admin_verbs_mentor = list(
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
+			createStealthKey()
 		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
 		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
 	feedback_add_details("admin_verb","SM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

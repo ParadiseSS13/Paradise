@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/emote(var/act,var/m_type=1,var/message = null)
+/mob/living/silicon/robot/emote(var/act, var/m_type=1, var/message = null)
 	var/param = null
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
@@ -13,7 +13,7 @@
 	var/on_CD = 0
 	switch(act)
 		//Cooldown-inducing emotes
-		if("ping","buzz","beep","law","flip","halt")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
+		if("law","flip","halt")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -24,22 +24,6 @@
 	//--FalseIncarnate
 
 	switch(act)
-		if ("me")
-			if (src.client)
-				if(client.prefs.muted & MUTE_IC)
-					src << "You cannot send IC messages (muted)."
-					return
-				if (src.client.handle_spam_prevention(message,MUTE_IC))
-					return
-			if (stat)
-				return
-			if(!(message))
-				return
-			else
-				return custom_emote(m_type, message)
-
-		if ("custom")
-			return custom_emote(m_type, message)
 
 		if ("salute")
 			if (!src.buckled)
@@ -151,56 +135,6 @@
 				message = "<B>[src]</B> looks."
 			m_type = 1
 
-		if("beep")
-			var/M = null
-			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
-
-			if (param)
-				message = "<B>[src]</B> beeps at [param]."
-			else
-				message = "<B>[src]</B> beeps."
-			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-			m_type = 1
-
-		if("ping")
-			var/M = null
-			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
-
-			if (param)
-				message = "<B>[src]</B> pings at [param]."
-			else
-				message = "<B>[src]</B> pings."
-			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-			m_type = 1
-
-		if("buzz")
-			var/M = null
-			if(param)
-				for (var/mob/A in view(null, null))
-					if (param == A.name)
-						M = A
-						break
-			if(!M)
-				param = null
-
-			if (param)
-				message = "<B>[src]</B> buzzes at [param]."
-			else
-				message = "<B>[src]</B> buzzes."
-			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			m_type = 1
 
 		if("law")
 			if (istype(module,/obj/item/weapon/robot_module/security))
@@ -227,14 +161,5 @@
 
 		if ("help")
 			src << "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitch_s, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look, beep, ping, \nbuzz, law, halt"
-		else
-			src << "\blue Unusable emote '[act]'. Say *help for a list."
 
-	if ((message && src.stat == 0))
-		if (m_type & 1)
-			for(var/mob/O in viewers(src, null))
-				O.show_message(message, m_type)
-		else
-			for(var/mob/O in hearers(src, null))
-				O.show_message(message, m_type)
-	return
+	..(act, m_type, message)

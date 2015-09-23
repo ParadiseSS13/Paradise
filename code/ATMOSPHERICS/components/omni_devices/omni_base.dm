@@ -7,7 +7,8 @@
 	icon_state = "base"
 	use_power = 1
 	initialize_directions = 0
-	level = 1
+	
+	can_unwrench = 1
 
 	var/on = 0
 	var/configuring = 0
@@ -46,6 +47,28 @@
 		ports += new_port
 
 	build_icons()
+	
+/obj/machinery/atmospherics/omni/Destroy()
+	for(var/datum/omni_port/P in ports)
+		if(P.node)
+			P.node.disconnect(src)
+			P.node = null
+			nullifyPipenet(P.parent)
+	return ..()
+
+/obj/machinery/atmospherics/omni/initialize()
+	for(var/datum/omni_port/P in ports)
+		if(P.node || P.mode == 0)
+			continue
+		for(var/obj/machinery/atmospherics/target in get_step(src, P.dir))
+			if(target.initialize_directions & get_dir(target,src))
+				P.node = target
+				break
+
+	for(var/datum/omni_port/P in ports)
+		P.update = 1
+
+	update_ports()
 
 /obj/machinery/atmospherics/omni/update_icon()
 	if(stat & NOPOWER)
@@ -74,23 +97,26 @@
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
 
-	var/int_pressure = 0
-	for(var/datum/omni_port/P in ports)
-		int_pressure += P.air.return_pressure()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_pressure - env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='alert'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
-		add_fingerprint(user)
-		return 1
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	if(do_after(user, 40, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
+	if(can_unwrench)
+		var/int_pressure = 0
+		for(var/datum/omni_port/P in ports)
+			int_pressure += P.air.return_pressure()
+		var/datum/gas_mixture/env_air = loc.return_air()
+		if ((int_pressure - env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
+			user << "<span class='danger'>You cannot unwrench [src], it is too exerted due to internal pressure.</span>"
+			add_fingerprint(user)
+			return 1
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+		if(do_after(user, 40, target = src))
+			user.visible_message( \
+				"[user] unfastens \the [src].", \
+				"<span class='notice'>You have unfastened \the [src].</span>", \
+				"You hear a ratchet.")
+			new /obj/item/pipe(loc, make_from=src)
+			qdel(src)
+	else
+		return ..()
 
 /obj/machinery/atmospherics/omni/attack_hand(user as mob)
 	if(..())
@@ -207,87 +233,56 @@
 /obj/machinery/atmospherics/omni/proc/sort_ports()
 	return
 
-
-// Housekeeping and pipe network stuff below
-
-/obj/machinery/atmospherics/omni/network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
-	for(var/datum/omni_port/P in ports)
-		if(reference == P.node)
-			P.network = new_network
-			break
-
-	if(new_network.normal_members.Find(src))
-		return 0
-
-	new_network.normal_members += src
-
-	return null
-
-/obj/machinery/atmospherics/omni/Destroy()
-	loc = null
-
-	for(var/datum/omni_port/P in ports)
-		if(P.node)
-			P.node.disconnect(src)
-			qdel(P.network)
-			P.node = null
-
-	return ..()
-
-/obj/machinery/atmospherics/omni/initialize()
-	for(var/datum/omni_port/P in ports)
-		if(P.node || P.mode == 0)
-			continue
-		for(var/obj/machinery/atmospherics/target in get_step(src, P.dir))
-			if(target.initialize_directions & get_dir(target,src))
-				P.node = target
-				break
-
-	for(var/datum/omni_port/P in ports)
-		P.update = 1
-
-	update_ports()
-
+// Pipenet procs	
 /obj/machinery/atmospherics/omni/build_network()
 	for(var/datum/omni_port/P in ports)
-		if(!P.network && P.node)
-			P.network = new /datum/pipe_network()
-			P.network.normal_members += src
-			P.network.build_network(P.node, src)
-
-/obj/machinery/atmospherics/omni/return_network(obj/machinery/atmospherics/reference)
-	build_network()
-
-	for(var/datum/omni_port/P in ports)
-		if(reference == P.node)
-			return P.network
-
-	return null
-
-/obj/machinery/atmospherics/omni/reassign_network(datum/pipe_network/old_network, datum/pipe_network/new_network)
-	for(var/datum/omni_port/P in ports)
-		if(P.network == old_network)
-			P.network = new_network
-
-	return 1
-
-/obj/machinery/atmospherics/omni/return_network_air(datum/pipe_network/reference)
-	var/list/results = list()
-
-	for(var/datum/omni_port/P in ports)
-		if(P.network == reference)
-			results += P.air
-
-	return results
-
+		if(!P.parent)
+			P.parent = new /datum/pipeline()
+			P.parent.build_pipeline(src)	
+	
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)
 		if(reference == P.node)
-			qdel(P.network)
+			if(istype(P.node, /obj/machinery/atmospherics/pipe))
+				qdel(P.parent)
 			P.node = null
-			P.update = 1
-			break
-
 	update_ports()
+	
+/obj/machinery/atmospherics/omni/nullifyPipenet(datum/pipeline/P)
+	..()
+	for(var/datum/omni_port/PO in ports)
+		if(P == PO.parent)
+			PO.parent.other_airs -= PO.air
+			PO.parent = null
+	
+/obj/machinery/atmospherics/omni/returnPipenetAir(datum/pipeline/P)
+	for(var/datum/omni_port/PO in ports)
+		if(P == PO.parent)
+			return PO.air
 
-	return null
+/obj/machinery/atmospherics/omni/pipeline_expansion(datum/pipeline/P)
+	if(P)
+		for(var/datum/omni_port/PO in ports)
+			if(PO.parent == P)
+				return list(PO.node)
+	else
+		var/list/nodes = list()
+		for(var/datum/omni_port/PO in ports)
+			nodes += PO.node
+			
+		return nodes
+		
+/obj/machinery/atmospherics/omni/setPipenet(datum/pipeline/P, obj/machinery/atmospherics/A)
+	for(var/datum/omni_port/PO in ports)
+		if(A == PO.node)
+			PO.parent = P
+		
+/obj/machinery/atmospherics/omni/returnPipenet(obj/machinery/atmospherics/A)
+	for(var/datum/omni_port/P in ports)
+		if(A == P.node)
+			return P.parent
+
+/obj/machinery/atmospherics/omni/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
+	for(var/datum/omni_port/P in ports)
+		if(Old == P.parent)
+			P.parent = New

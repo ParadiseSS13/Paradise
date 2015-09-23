@@ -10,42 +10,26 @@ Pipelines + Other Objects -> Pipe network
 
 */
 /obj/machinery/atmospherics
-
 	auto_init = 0
-
 	anchored = 1
+	layer = 2.4 //under wires with their 2.44
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
 	var/nodealert = 0
-
-	layer = 2.4 //under wires with their 2.44
+	var/can_unwrench = 0
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
 	var/connected_to = 1 //same as above, currently not used for anything
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
 
 	var/initialize_directions = 0
+	
 	var/pipe_color
-
+	var/obj/item/pipe/stored
 	var/image/pipe_image
-
 	var/global/datum/pipe_icon_manager/icon_manager
-
-/obj/machinery/atmospherics/Destroy()
-	for(var/mob/living/M in src) //ventcrawling is serious business
-		M.remove_ventcrawl()
-		M.forceMove(src.loc)
-	if(pipe_image)
-		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
-	return ..()
-
-// Find a connecting /obj/machinery/atmospherics in specified direction.
-/obj/machinery/atmospherics/proc/findConnecting(var/direction)
-	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-		if(target.initialize_directions & get_dir(target,src))
-			return target
-
+	
 /obj/machinery/atmospherics/New()
 	if(!icon_manager)
 		icon_manager = new()
@@ -56,12 +40,39 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
+	
+	if(can_unwrench)
+		stored = new(src, make_from = src)
+	
 	..()
 
-/obj/machinery/atmospherics/attackby(atom/A, mob/user as mob, params)
-	if(istype(A, /obj/item/device/pipe_painter))
-		return
-	..()
+/obj/machinery/atmospherics/Destroy()
+	for(var/mob/living/M in src) //ventcrawling is serious business
+		M.remove_ventcrawl()
+		M.forceMove(loc)
+	if(pipe_image)
+		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
+	return ..()
+
+// Icons/overlays/underlays	
+/obj/machinery/atmospherics/update_icon()
+	return null
+	
+/obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
+	if(!istype(icon_manager))
+		if(!safety) //to prevent infinite loops
+			icon_manager = new()
+			check_icon_cache(1)
+		return 0
+
+	return 1
+
+/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+	//Don't use this for standard pipes
+	if(!istype(node))
+		return null
+
+	return node.pipe_color
 
 /obj/machinery/atmospherics/proc/add_underlay(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
 	if(node)
@@ -81,7 +92,8 @@ Pipelines + Other Objects -> Pipe network
 	else
 		return 0
 
-obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
+// Connect types	
+/obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
 	var/i
 	var/list1[] = atmos1.connect_types
 	var/list2[] = atmos2.connect_types
@@ -93,7 +105,7 @@ obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/a
 				return n
 	return 0
 
-obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/atmospherics/atmos1, obj/item/pipe/pipe2)
+/obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/atmospherics/atmos1, obj/item/pipe/pipe2)
 	var/i
 	var/list1[] = atmos1.connect_types
 	var/list2[] = pipe2.connect_types
@@ -105,58 +117,116 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 				return n
 	return 0
 
-/obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
-	if(!istype(icon_manager))
-		if(!safety) //to prevent infinite loops
-			icon_manager = new()
-			check_icon_cache(1)
-		return 0
+// Pipenet related functions	
+/obj/machinery/atmospherics/proc/returnPipenet()
+	return
 
-	return 1
+/obj/machinery/atmospherics/proc/returnPipenetAir()
+	return
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
-	//Don't use this for standard pipes
-	if(!istype(node))
-		return null
+/obj/machinery/atmospherics/proc/setPipenet()
+	return
 
-	return node.pipe_color
-
-/obj/machinery/atmospherics/process()
-	build_network()
-
-/obj/machinery/atmospherics/proc/network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
-	// Check to see if should be added to network. Add self if so and adjust variables appropriately.
-	// Note don't forget to have neighbors look as well!
-
-	return null
+/obj/machinery/atmospherics/proc/replacePipenet()
+	return
 
 /obj/machinery/atmospherics/proc/build_network()
 	// Called to build a network from this node
-
-	return null
-
-/obj/machinery/atmospherics/proc/return_network(obj/machinery/atmospherics/reference)
-	// Returns pipe_network associated with connection to reference
-	// Notes: should create network if necessary
-	// Should never return null
-
-	return null
-
-/obj/machinery/atmospherics/proc/reassign_network(datum/pipe_network/old_network, datum/pipe_network/new_network)
-	// Used when two pipe_networks are combining
-
-/obj/machinery/atmospherics/proc/return_network_air(datum/network/reference)
-	// Return a list of gas_mixture(s) in the object
-	//		associated with reference pipe_network for use in rebuilding the networks gases list
-	// Is permitted to return null
+	return
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
+	return	
+	
+/obj/machinery/atmospherics/proc/nullifyPipenet(datum/pipeline/P)
+	if(P)
+		P.other_atmosmch -= src
 
-/obj/machinery/atmospherics/update_icon()
-	return null
+//(De)construction
+/obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
+		var/turf/T = get_turf(src)
+		if (level == 1 && isturf(T) && T.intact)
+			user << "<span class='danger'>You must remove the plating first.</span>"
+			return 1
+		var/datum/gas_mixture/int_air = return_air()
+		var/datum/gas_mixture/env_air = loc.return_air()
+		add_fingerprint(user)
+		
+		var/unsafe_wrenching = FALSE
+		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
 
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+		if (internal_pressure > 2*ONE_ATMOSPHERE)
+			user << "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>"
+			unsafe_wrenching = TRUE //Oh dear oh dear
+		
+		if (do_after(user, 40, target = src) && isnull(gcDestroyed))
+			user.visible_message( \
+				"[user] unfastens \the [src].", \
+				"<span class='notice'>You have unfastened \the [src].</span>", \
+				"<span class='italics'>You hear ratchet.</span>")
+			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+			
+			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+			if(unsafe_wrenching)
+				unsafe_pressure_release(user,internal_pressure)			
+			Deconstruct()
+	else
+		return ..()
+	
+//Called when an atmospherics object is unwrenched while having a large pressure difference
+//with it's locs air contents.
+/obj/machinery/atmospherics/proc/unsafe_pressure_release(var/mob/user,var/pressures)
+	if(!user)
+		return
+
+	if(!pressures)
+		var/datum/gas_mixture/int_air = return_air()
+		var/datum/gas_mixture/env_air = loc.return_air()
+		pressures = int_air.return_pressure()-env_air.return_pressure()
+
+	var/fuck_you_dir = get_dir(src,user)
+	var/turf/general_direction = get_edge_target_turf(user,fuck_you_dir)
+	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
+	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
+	user.throw_at(general_direction,pressures/10,pressures/50)
+	
+/obj/machinery/atmospherics/proc/Deconstruct()
+	if(can_unwrench)
+		var/turf/T = get_turf(src)
+		stored.loc = T
+		transfer_fingerprints_to(stored)
+		if(istype(src, /obj/machinery/atmospherics/pipe))
+			for(var/obj/machinery/meter/meter in T)
+				if(meter.target == src)
+					new /obj/item/pipe_meter(T)
+					qdel(meter)
+		qdel(src)
+	
+/obj/machinery/atmospherics/construction(D, P, C)
+	if(C)
+		color = C
+	dir = D
+	initialize_directions = P
+	var/turf/T = loc
+	level = T.intact ? 2 : 1
+	initialize()
+	var/list/nodes = pipeline_expansion()
+	for(var/obj/machinery/atmospherics/A in nodes)
+		A.initialize()
+		A.addMember(src)
+	build_network()
+	
+// Find a connecting /obj/machinery/atmospherics in specified direction.
+/obj/machinery/atmospherics/proc/findConnecting(var/direction)
+	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
+		var/can_connect = check_connect_types(target, src)
+		if(can_connect && (target.initialize_directions & get_dir(target,src)))
+			return target
+
+// Ventcrawling		
 #define VENT_SOUND_DELAY 30
-
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
 	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
 		return
@@ -168,16 +238,16 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(target_move.return_network(target_move) != return_network(src))
-				user.remove_ventcrawl()
-				user.add_ventcrawl(target_move)
+			if(returnPipenet() != target_move.returnPipenet())
+				user.update_pipe_vision(target_move)
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
 				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else
-		if((direction & initialize_directions) || is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
+		var/can_connect = check_connect_types(target_move, src)
+		if((direction & initialize_directions) || (is_type_in_list(src, ventcrawl_machinery) && target_move.can_crawl_through() && can_connect)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
 			user.forceMove(src.loc)
 			user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
@@ -193,7 +263,48 @@ obj/machinery/atmospherics/proc/check_connect_types_construction(obj/machinery/a
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
+	
+/obj/machinery/atmospherics/proc/change_color(var/new_color)
+	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
+	if(!pipe_color_check(new_color))
+		return
 
+	pipe_color = new_color
+	update_icon()
+
+// Additional icon procs	
+/obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
+	var/turf/T = get_turf(src)
+	if(!istype(T)) return
+	if(node)
+		var/node_dir = get_dir(src,node)
+		if(node.icon_connect_type == "-supply")
+			add_underlay_adapter(T, , node_dir, "")
+			add_underlay_adapter(T, node, node_dir, "-supply")
+			add_underlay_adapter(T, , node_dir, "-scrubbers")
+		else if (node.icon_connect_type == "-scrubbers")
+			add_underlay_adapter(T, , node_dir, "")
+			add_underlay_adapter(T, , node_dir, "-supply")
+			add_underlay_adapter(T, node, node_dir, "-scrubbers")
+		else
+			add_underlay_adapter(T, node, node_dir, "")
+			add_underlay_adapter(T, , node_dir, "-supply")
+			add_underlay_adapter(T, , node_dir, "-scrubbers")
+	else
+		add_underlay_adapter(T, , direction, "-supply")
+		add_underlay_adapter(T, , direction, "-scrubbers")
+		add_underlay_adapter(T, , direction, "")
+
+/obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
+	if(node)
+		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
+			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+		else
+			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+	else
+		underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+	
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		qdel(src)
+		Deconstruct()	
+		

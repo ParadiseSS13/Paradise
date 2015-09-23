@@ -2,7 +2,7 @@
 /mob/proc/say()
 	return
 
-/mob/verb/whisper()
+/mob/verb/whisper(message as text)
 	set name = "Whisper"
 	set category = "IC"
 	return
@@ -35,13 +35,13 @@
 
 	set_typing_indicator(0)
 	if(use_me)
-		usr.emote("me",usr.emote_type,message)
+		custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
-		if(!dsay_allowed)
+		if(!config.dsay_allowed)
 			src << "<span class='danger'>Deadchat is globally muted.</span>"
 			return
 
@@ -84,14 +84,17 @@
 
 
 /mob/proc/say_quote(var/message, var/datum/language/speaking = null)
-        var/verb = "says"
-        var/ending = copytext(message, length(message))
-        if(ending=="!")
-                verb=pick("exclaims","shouts","yells")
-        else if(ending=="?")
-                verb="asks"
+	var/verb = "says"
+	var/ending = copytext(message, length(message))
 
-        return verb
+	if(speaking)
+		verb = speaking.get_spoken_verb(ending)
+	else
+		if(ending=="!")
+			verb = pick("exclaims","shouts","yells")
+		else if(ending=="?")
+			verb = "asks"
+	return verb
 
 
 /mob/proc/emote(var/act, var/type, var/message)

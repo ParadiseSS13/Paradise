@@ -10,6 +10,7 @@ var/list/clients = list()							//list of all clients
 var/list/admins = list()							//list of all clients whom are admins
 var/list/deadmins = list()							//list of all clients who have used the de-admin verb.
 var/list/directory = list()							//list of all ckeys with associated client
+var/list/stealthminID = list()						//reference list with IDs that store ckeys, for stealthmins
 
 //Since it didn't really belong in any other category, I'm putting this here
 //This is for procs to replace all the goddamn 'in world's that are chilling around the code
@@ -48,7 +49,8 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/spaceWorm,
 			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
 			/mob/living/simple_animal/ascendant_shadowling,
-			/mob/living/simple_animal/slaughter
+			/mob/living/simple_animal/slaughter,
+			/mob/living/simple_animal/hostile/retaliate/araneus
 			)
 
 var/global/list/med_hud_users = list()

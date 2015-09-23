@@ -102,6 +102,10 @@
 			interact(user)
 		return
 		
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
+		updateUsrDialog()
+		return
+		
 	if(exchange_parts(user, W))
 		return
 
@@ -112,10 +116,6 @@
 		return
 
 	if(default_unfasten_wrench(user, W))
-		return
-		
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
-		updateUsrDialog()
 		return
 
 	..()
