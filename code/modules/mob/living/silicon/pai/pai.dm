@@ -435,7 +435,7 @@
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if (stat == DEAD)
-			user << "<span class='danger'>The [src] is beyond help, at this point.</span>"
+			user << "<span class='danger'>\The [src] is beyond help, at this point.</span>"
 		else if (getBruteLoss() || getFireLoss())
 			adjustBruteLoss(-15)
 			adjustFireLoss(-15)
