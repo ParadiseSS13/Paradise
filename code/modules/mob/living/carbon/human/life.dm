@@ -1227,7 +1227,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(vision_type)
 			see_in_dark = max(see_in_dark, vision_type.see_in_dark, species.darksight)
 			see_invisible = vision_type.see_invisible
-			if(vision_type.light_sensetive)
+			if(vision_type.light_sensitive)
 				weakeyes = 1
 			sight |= vision_type.sight_flags
 

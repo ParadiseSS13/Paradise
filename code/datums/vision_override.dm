@@ -2,7 +2,7 @@
 	var/name = "vision override"
 	var/see_in_dark = 0
 	var/see_invisible = 0
-	var/light_sensetive = 0
+	var/light_sensitive = 0
 	var/sight_flags = 0
 
 /datum/vision_override/nightvision
@@ -13,4 +13,4 @@
 	sight_flags = SEE_MOBS
 
 /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
-	light_sensetive = 1
+	light_sensitive = 1
