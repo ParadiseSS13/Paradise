@@ -493,4 +493,4 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		return
 
 	log_admin("[key_name(usr)] has deleted the book [isbn].")
-	message_admins("[key_name_admin(usr) has deleted the book [isbn].")
+	message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
