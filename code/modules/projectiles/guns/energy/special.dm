@@ -381,19 +381,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	update_icon()
 	return 1
 
-// Telegun for Tator RDs
-
-/obj/item/weapon/gun/energy/telegun
-	name = "Teleporter Gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
-	icon_state = "telegun"
-	item_state = "ionrifle"
-	fire_sound = 'sound/weapons/wave.ogg'
-	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
-	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
-	projectile_type = "/obj/item/projectile/energy/teleport"
-	charge_cost = 1250
-
 /* 3d printer 'pseudo guns' for borgs */
 
 /obj/item/weapon/gun/energy/printer

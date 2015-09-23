@@ -269,15 +269,17 @@ obj/item/projectile/kinetic/New()
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
+	var/obj/item/weapon/gun/energy/telegun/T = null
+	var/teleport_target = null
+
+	OnFired()
+		T = shot_from
+		teleport_target = T.teleport_target
 
 /obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
 	if(isliving(target))
-		var/obj/item/device/radio/beacon/teletarget = null
-		for(var/obj/machinery/computer/teleporter/com in machines)
-			if(com.target)
-				teletarget = com.target
-		if(teletarget)
-			do_teleport(target, teletarget, 0)//teleport what's in the tile to the beacon
+		if(teleport_target)
+			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
 
