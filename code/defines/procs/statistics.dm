@@ -160,4 +160,3 @@
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during feedback reporting. Error : \[[err]\]\n")
-				
