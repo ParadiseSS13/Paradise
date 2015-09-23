@@ -82,7 +82,7 @@
 		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE [format_table_name("player")] SET default_slot=[slot] WHERE ckey='[C.ckey]'")
 		firstquery.Execute()
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM characters WHERE ckey='[C.ckey]' AND slot='[slot]'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'")
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
@@ -221,11 +221,11 @@
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
 
-	var/DBQuery/firstquery = dbcon.NewQuery("SELECT slot FROM characters WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/DBQuery/firstquery = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 	firstquery.Execute()
 	while(firstquery.NextRow())
 		if(text2num(firstquery.item[1]) == default_slot)
-			var/DBQuery/query = dbcon.NewQuery({"UPDATE characters SET OOC_Notes='[sql_sanitize_text(metadata)]',
+			var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("characters")] SET OOC_Notes='[sql_sanitize_text(metadata)]',
 												real_name='[sql_sanitize_text(real_name)]',
 												name_is_always_random='[be_random_name]',
 												gender='[gender]',
@@ -289,7 +289,7 @@
 			return 1
 
 	var/DBQuery/query = dbcon.NewQuery({"
-					INSERT INTO characters (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
+					INSERT INTO [format_table_name("characters")] (ckey, slot, OOC_Notes, real_name, name_is_always_random, gender,
 											age, species, language,
 											hair_red, hair_green, hair_blue,
 											facial_red, facial_green, facial_blue,
@@ -337,7 +337,7 @@
 	return 1
 /*
 /datum/preferences/proc/random_character(client/C)
-	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM characters WHERE ckey='[C.ckey]' ORDER BY slot")
+	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 
 	while(query.NextRow())
 	var/list/saves = list()
