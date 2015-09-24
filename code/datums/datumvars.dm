@@ -253,6 +253,7 @@ client
 			body += "<option value='?_src_=vars;make_skeleton=\ref[D]'>Make 2spooky</option>"
 
 			body += "<option value='?_src_=vars;direct_control=\ref[D]'>Assume Direct Control</option>"
+			body += "<option value='?_src_=vars;offer_control=\ref[D]'>Offer Control to Ghosts</option>"
 			body += "<option value='?_src_=vars;drop_everything=\ref[D]'>Drop Everything</option>"
 
 			body += "<option value='?_src_=vars;regenerateicons=\ref[D]'>Regenerate Icons</option>"
@@ -591,9 +592,37 @@ client
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
+			
+		var/confirm = alert("Are you sure you want to turn this mob into a skeleton?","Confirm Skeleton Transformation","Yes","No")
+		if(confirm != "Yes")
+			return
 
 		H.makeSkeleton()
 		href_list["datumrefresh"] = href_list["make_skeleton"]
+			
+	else if(href_list["offer_control"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locate(href_list["offer_control"])
+		if(!istype(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		M << "Control of your mob has been offered to dead players."
+		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts")
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name]?", "Player Control", null, FALSE, 100)
+		var/mob/dead/observer/theghost = null
+
+		if(candidates.len)
+			theghost = pick(candidates)
+			M << "Your mob has been taken over by a ghost!"
+			message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+			M.ghostize()
+			M.key = theghost.key
+		else
+			M << "There were no ghosts willing to take control."
+			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+
 
 	else if(href_list["delall"])
 		if(!check_rights(R_DEBUG|R_SERVER))	return

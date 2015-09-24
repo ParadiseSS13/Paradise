@@ -95,15 +95,15 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/banholders = list()
 	var/list/adminholders = list()
 	for(var/client/X in admins)
-		if((R_MOD | R_MENTOR) & X.holder.rights)
+		if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
 			if(X.is_afk())
 				admin_number_afk++
 			modholders += X
-		if(R_ADMIN & X.holder.rights)
+		if(check_rights(R_ADMIN, 0, X.mob))
 			if(X.is_afk())
 				admin_number_afk++
 			adminholders += X
-		if(R_BAN & X.holder.rights)
+		if(check_rights(R_BAN, 0, X.mob))
 			banholders += X
 
 	switch(selected_type)

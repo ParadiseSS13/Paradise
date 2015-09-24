@@ -1,22 +1,3 @@
-/proc/EquipRacialItems(mob/living/carbon/human/M)
-	if(M.species.name == "Vox" || M.species.name == "Vox Armalis")
-		M.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(M), slot_wear_mask)
-		if(M.client.prefs.speciesprefs)//Diseasel, here you go
-			M.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(M), slot_l_hand)
-		else
-			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/vox(M), slot_l_hand)
-		M << "\blue You are now running on nitrogen internals from your [M.l_hand]. Your species finds oxygen toxic, so you must breathe nitrogen only."
-		M.internal = M.l_hand
-		if (M.internals)
-			M.internals.icon_state = "internal1"
-
-		//M.generate_name()
-
-	if( M.species.name=="Tajaran" || M.species.name=="Unathi" )
-		if(M.mind.assigned_role == "Cyborg" || M.mind.assigned_role == "Clown")
-			return //Cyborgs don't wear shoes.  Clown shoes are large.
-		M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
-
 /proc/EquipCustomItems(mob/living/carbon/human/M)
 //	testing("\[CustomItem\] Checking for custom items for [M.ckey] ([M.real_name])...")
 	if(!establish_db_connection())
@@ -37,7 +18,7 @@
 	*/
 
 	// Grab the info we want.
-	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM CustomUserItems WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*')")
+	var/DBQuery/query = dbcon.NewQuery("SELECT cuiPath, cuiPropAdjust, cuiJobMask, cuiDescription, cuiItemName FROM [format_table_name("customuseritems")] WHERE cuiCKey='[M.ckey]' AND (cuiRealName='[M.real_name]' OR cuiRealName='*')")
 	query.Execute()
 
 	while(query.NextRow())

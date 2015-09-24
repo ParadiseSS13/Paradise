@@ -222,10 +222,10 @@ var/global/datum/controller/gameticker/ticker
 	*/
 
 	processScheduler.start()
-
+	
 	if(config.sql_enabled)
 		spawn(3000)
-		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
+			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 
 	votetimer()
 
@@ -367,7 +367,6 @@ var/global/datum/controller/gameticker/ticker
 				if(player.mind.assigned_role == "Captain")
 					captainless=0
 				if(player.mind.assigned_role != "MODE")
-					EquipRacialItems(player)
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
 					EquipCustomItems(player)
 		if(captainless)

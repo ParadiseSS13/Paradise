@@ -142,7 +142,7 @@ Admin:
 		winset(usr, "mainwindow.input", "focus=true")//sets focus
 
 /client/verb/hotkey_mode()//asks user for the hotkey type and changes the macro accordingly
-	set name = "Set hotkey mode"
+	set name = "Set Hotkey Mode"
 	set category = "Preferences"
 
 	hotkeytype = input("Choose hotkey mode", "Hotkey mode") as null|anything in hotkeylist//ask the user for the hotkey type

@@ -11,7 +11,7 @@
 		return
 		
 	if(href_list["rejectadminhelp"])
-		if(!check_rights(R_MOD))
+		if(!check_rights(R_ADMIN|R_MOD))
 			return
 		var/client/C = locate(href_list["rejectadminhelp"])
 		if(!C)
@@ -1122,7 +1122,7 @@
 			usr << browse(edit_log,"window=watchedits")		
 				
 	else if(href_list["mute"])
-		if(!check_rights(R_MOD))
+		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
 		var/mob/M = locate(href_list["mute"])
@@ -1533,7 +1533,8 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservejump"])
-		if(!check_rights(R_MOD,0) && !check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
 		var/mob/M = locate(href_list["adminplayerobservejump"])
 
@@ -1543,7 +1544,8 @@
 		C.jumptomob(M)
 		
 	else if(href_list["adminplayerobservefollow"])
-		if(!check_rights(R_MOD,0) && !check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
 		var/mob/M = locate(href_list["adminplayerobservefollow"])
 
@@ -2157,6 +2159,18 @@
 			log_admin("[key_name(usr)] has kicked [afkonly ? "all AFK" : "all"] clients from the lobby. [length(listkicked)] clients kicked: [strkicked ? strkicked : "--"]")
 		else
 			usr << "You may only use this when the game is running."
+			
+	else if(href_list["memoeditlist"])
+		if(!check_rights(R_SERVER)) return
+		var/sql_key = sanitizeSQL("[href_list["memoeditlist"]]")
+		var/DBQuery/query_memoedits = dbcon.NewQuery("SELECT edits FROM [format_table_name("memo")] WHERE (ckey = '[sql_key]')")
+		if(!query_memoedits.Execute())
+			var/err = query_memoedits.ErrorMsg()
+			log_game("SQL ERROR obtaining edits from memo table. Error : \[[err]\]\n")
+			return
+		if(query_memoedits.NextRow())
+			var/edit_log = query_memoedits.item[1]
+			usr << browse(edit_log,"window=memoeditlist")
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return

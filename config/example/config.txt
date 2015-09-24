@@ -63,9 +63,6 @@ LOG_RUNTIME
 ## log admin warning messages
 ##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
 
-## sql switching
-# SQL_ENABLED
-
 ## disconnect players who did nothing during 15 minutes
 KICK_INACTIVE
 
@@ -162,7 +159,7 @@ GUEST_BAN
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
-## forum address
+## Forum address
 # FORUMURL http://example.org
 
 ## Wiki address
@@ -170,6 +167,9 @@ GUEST_BAN
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS http://example.org
+
+## Media base URL - determines where to pull the jukebox playlist from.
+# MEDIA_BASE_URL http://example.org
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
@@ -290,7 +290,7 @@ PLAYER_REROUTE_CAP 0
 ## Disable the loading of away missions
 #DISABLE_AWAY_MISSIONS
 
-## Uncomment this out if you still use the old .sav file based notes system and haven't used the mass conversion proc
+## Uncomment this if you still use the old .sav file based notes system and haven't used the mass conversion proc
 #AUTOCONVERT_NOTES
 
 ## Uncomment to disable the OOC/LOOC channel by default.
@@ -301,3 +301,6 @@ PLAYER_REROUTE_CAP 0
 
 ## Uncomment to disable ghost chat by default.
 #DISABLE_DSAY
+
+## Uncomment this if you want to disable the lobby music
+#DISABLE_LOBBY_MUSIC
