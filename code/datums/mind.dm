@@ -426,7 +426,7 @@
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if (href_list["memory_edit"])
-		var/new_memo = sanitize(copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN))
+		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
 		if (isnull(new_memo)) return
 		memory = new_memo
 		log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
