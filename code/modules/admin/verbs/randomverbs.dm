@@ -152,7 +152,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	else
 		if(!usr || !usr.client)
 			return
-		if(!(usr.client.holder && usr.client.holder.rights && (usr.client.holder.rights & R_MOD)))
+		if(!check_rights(R_ADMIN|R_MOD))
 			usr << "<font color='red'>Error: cmd_admin_mute: You don't have permission to do this.</font>"
 			return
 		if(!M.client)

@@ -8,7 +8,7 @@
 
 	var/list/Lines = list()
 
-	if(holder && R_ADMIN & holder.rights)
+	if(check_rights(R_ADMIN,0))
 		for(var/client/C in clients)
 			var/entry = "\t[C.key]"
 			if(C.holder && C.holder.fakekey)
@@ -67,11 +67,10 @@
 	var/num_admins_online = 0
 	if(holder)
 		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !R_MOD & C.holder.rights)
+			if(check_rights(R_ADMIN, 0, C.mob))
 
-				if(C.holder.fakekey && !(R_ADMIN & holder.rights))		//Mentors/Mods can't see stealthmins
+				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors/Mods can't see stealthmins
 					continue
-
 
 				msg += "\t[C] is a [C.holder.rank]"
 
@@ -91,7 +90,7 @@
 
 				num_admins_online++
 
-			else if((R_MOD | R_MENTOR) & C.holder.rights)
+			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
 				modmsg += "\t[C] is a [C.holder.rank]"
 
 				if(isobserver(C.mob))
@@ -108,11 +107,11 @@
 	else
 		for(var/client/C in admins)
 
-			if(R_ADMIN & C.holder.rights || !R_MOD & C.holder.rights)
+			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)
 					msg += "\t[C] is a [C.holder.rank]\n"
 					num_admins_online++
-			else if ((R_MOD | R_MENTOR) & C.holder.rights)
+			else if (check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				modmsg += "\t[C] is a [C.holder.rank]\n"
 				num_mods_online++
 

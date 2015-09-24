@@ -117,7 +117,7 @@
 		//mod PMs are maroon
 		//PMs sent from admins and mods display their rank
 		if(holder)
-			if( holder.rights & (R_MOD | R_MENTOR) && !holder.rights & R_ADMIN )
+			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
 				recieve_color = "maroon"
 			else
 				recieve_color = "red"
@@ -220,11 +220,11 @@
 	var/list/banholders = list()
 	var/list/adminholders = list()
 	for(var/client/X in admins)
-		if((R_MOD | R_MENTOR) & X.holder.rights)
+		if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
 			modholders += X
-		if(R_ADMIN & X.holder.rights)
+		if(check_rights(R_ADMIN, 0, X.mob))
 			adminholders += X
-		if(R_BAN & X.holder.rights)
+		if(check_rights(R_BAN, 0, X.mob))
 			banholders += X
 
 	//we don't use message_admins here because the sender/receiver might get it too
@@ -235,15 +235,15 @@
 		if(X.key!=key && X.key!=C.key)
 			switch(type)
 				if("Question")
-					if(X.holder.rights & (R_MOD | R_MENTOR))
+					if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
-					else if(!modholders.len && X.holder.rights & R_ADMIN)
+					else if(!modholders.len && check_rights(R_ADMIN, 0, X.mob))
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Any admins in backup of mod question
 				if("Player Complaint")
-					if(X.holder.rights & R_BAN)
+					if(check_rights(R_BAN, 0, X.mob))
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //There should always be at least 1 person with +BAN on
 				else
-					if((X.holder.rights & R_ADMIN) || (X.holder.rights & R_MOD) )
+					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //If there's no type, send to all admins.
 
 /client/proc/cmd_admin_irc_pm()
@@ -271,6 +271,5 @@
 	for(var/client/X in admins)
 		if(X == src)
 			continue
-		if((X.holder.rights & R_ADMIN) || (X.holder.rights & (R_MOD | R_MENTOR)))
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>"
-

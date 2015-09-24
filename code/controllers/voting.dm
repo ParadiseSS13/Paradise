@@ -200,7 +200,7 @@ datum/controller/vote
 						return 0
 					choices.Add(config.votable_modes)
 				if("crew_transfer")
-					if (check_rights(R_ADMIN) || check_rights(R_MOD))
+					if (check_rights(R_ADMIN|R_MOD))
 						if(ticker.current_state <= 2)
 							return 0
 						question = "End the shift?"

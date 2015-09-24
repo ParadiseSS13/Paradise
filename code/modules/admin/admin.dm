@@ -213,7 +213,7 @@ var/global/nologevent = 0
 	set category = "Admin"
 	set name = "Player Notes"
 	
-	if(!check_rights(R_MOD|R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 		
 	show_note()
@@ -222,7 +222,7 @@ var/global/nologevent = 0
 	set category = "Admin"
 	set name = "Show Player Notes"
 	
-	if(!check_rights(R_MOD|R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 		
 	show_note(key)

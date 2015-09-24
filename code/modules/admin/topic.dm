@@ -11,7 +11,7 @@
 		return
 		
 	if(href_list["rejectadminhelp"])
-		if(!check_rights(R_MOD))
+		if(!check_rights(R_ADMIN|R_MOD))
 			return
 		var/client/C = locate(href_list["rejectadminhelp"])
 		if(!C)
@@ -1122,7 +1122,7 @@
 			usr << browse(edit_log,"window=watchedits")		
 				
 	else if(href_list["mute"])
-		if(!check_rights(R_MOD))
+		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
 		var/mob/M = locate(href_list["mute"])
@@ -1533,7 +1533,8 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservejump"])
-		if(!check_rights(R_MOD,0) && !check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
 		var/mob/M = locate(href_list["adminplayerobservejump"])
 
@@ -1543,7 +1544,8 @@
 		C.jumptomob(M)
 		
 	else if(href_list["adminplayerobservefollow"])
-		if(!check_rights(R_MOD,0) && !check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 
 		var/mob/M = locate(href_list["adminplayerobservefollow"])
 
