@@ -41,7 +41,7 @@
 		for(var/mob/living/L in range(1, owner))
 			if(L == owner) continue
 			L << "\red You are enveloped by a soft green glow emanating from [owner]."
-			L.radiation += 5
+			L.apply_effect(5, IRRADIATE)
 		return
 
 	OnDrawUnderlays(var/mob/M,var/g,var/fat)
