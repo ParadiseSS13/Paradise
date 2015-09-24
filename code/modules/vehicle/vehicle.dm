@@ -7,6 +7,8 @@
 	animate_movement=1
 	light_range = 3
 
+	buckle_lying = 0
+
 	var/attack_log = null
 	var/on = 0
 	var/health = 0	//do not forget to set health for your vehicle!

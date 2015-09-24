@@ -53,10 +53,11 @@
 	if(is_train_head() && !on)
 		return 0
 
+	. = ..()
+
 	handle_rotation()
 	update_mob()
 
-	return ..()
 
 /obj/vehicle/train/ambulance/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(open && istype(W, /obj/item/weapon/wirecutters))

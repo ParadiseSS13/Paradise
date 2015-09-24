@@ -32,7 +32,9 @@
 		qdel(src)
 	return
 
-/obj/structure/stool/MouseDrop(atom/over_object)
+/obj/structure/stool/MouseDrop(atom/over_object, skip_fucking_stool_shit = 0)
+	if(skip_fucking_stool_shit)
+		return ..(over_object)
 	if (istype(over_object, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = over_object
 		if (H==usr && !H.restrained() && !H.stat && in_range(src, over_object))

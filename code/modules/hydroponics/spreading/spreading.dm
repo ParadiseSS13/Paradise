@@ -67,7 +67,6 @@
 	var/last_tick = 0
 	var/obj/machinery/portable_atmospherics/hydroponics/soil/invisible/plant
 
-	var/mob/living/buckled_mob = null
 	var/movable = 0
 
 /obj/effect/plant/Destroy()

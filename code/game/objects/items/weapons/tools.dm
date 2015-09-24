@@ -125,6 +125,8 @@
 			"You cut \the [C]'s restraints with \the [src]!",\
 			"You hear cable being cut.")
 			C.handcuffed = null
+			if(C.buckled && C.buckled.buckle_requires_restraints)
+				C.buckled.unbuckle_mob()
 			C.update_inv_handcuffed()
 			return
 	else
@@ -168,15 +170,15 @@
 	reagents.add_reagent("fuel", max_fuel)
 	update_icon()
 	return
-	
+
 /obj/item/weapon/weldingtool/examine(mob/user)
 	if(!..(user, 0))
 		user << "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
-	
+
 /obj/item/weapon/weldingtool/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] welds \his every orifice closed! It looks like \he's trying to commit suicide..</span>")
 	return (FIRELOSS)
-	
+
 /obj/item/weapon/weldingtool/proc/update_torch()
 	overlays.Cut()
 	if(welding)
@@ -235,7 +237,7 @@
 		var/obj/item/organ/external/S = H.organs_by_name[user.zone_sel.selecting]
 		if (!S)
 			return
-			
+
 		if(!(S.status & ORGAN_ROBOT) || user.a_intent != I_HELP || S.open == 2)
 			return ..()
 
@@ -254,7 +256,7 @@
 		else if(S.open != 2)
 			user << "<span class='notice'>Nothing to fix!</span>"
 	else
-		return ..()		
+		return ..()
 
 /obj/item/weapon/weldingtool/afterattack(obj/O as obj, mob/user as mob, proximity)
 	if(!proximity) return
@@ -388,7 +390,7 @@
 				spawn(100)
 					user.disabilities &= ~NEARSIGHTED
 	return
-	
+
 /obj/item/weapon/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
 		user << "<span class='warning'>Turn it off first!</span>"
@@ -428,7 +430,7 @@
 
 /obj/item/weapon/weldingtool/largetank/flamethrower_screwdriver()
 	return
-	
+
 /obj/item/weapon/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
@@ -439,8 +441,8 @@
 	change_icons = 0
 
 /obj/item/weapon/weldingtool/mini/flamethrower_screwdriver()
-	return	
-	
+	return
+
 /obj/item/weapon/weldingtool/hugetank
 	name = "Upgraded Welding Tool"
 	desc = "An upgraded welder based of the industrial welder."
