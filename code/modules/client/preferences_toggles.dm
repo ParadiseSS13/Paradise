@@ -185,7 +185,7 @@
 	set category = "Preferences"
 	set desc = "Toggles hearing musical instruments like the violin and piano"
 	prefs.toggles ^= SOUND_INSTRUMENTS
-	prefs.save_preferences()
+	prefs.save_preferences(src)
 	if(prefs.toggles & SOUND_INSTRUMENTS)
 		src << "You will now hear people playing musical instruments."
 	else
