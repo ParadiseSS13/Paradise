@@ -15,7 +15,7 @@ datum/reagent/polonium
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.radiation += 8
+	M.apply_effect(8, IRRADIATE)
 	..()
 	return
 
