@@ -45,7 +45,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	var/display_colour = normal_ooc_colour
 	if(holder && !holder.fakekey)
 		display_colour = mentor_ooc_colour
-		if(check_rights(R_ADMIN|R_MOD,0) && !check_rights(R_ADMIN,0))
+		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
 			display_colour = moderator_ooc_colour
 		else if(check_rights(R_ADMIN,0))
 			if(config.allow_admin_ooccolor)
