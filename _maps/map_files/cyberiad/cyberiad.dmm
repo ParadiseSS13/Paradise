@@ -372,7 +372,7 @@
 "ahh" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/armoury)
 "ahi" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/armoury)
 "ahj" = (/turf/simulated/floor{icon_state = "floorgrime"},/area/security/armoury)
-"ahk" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass_security{name = "Armory"; req_access_txt = "3"},/turf/simulated/floor{icon_state = "red"},/area/security/armoury)
+"ahk" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/glass_security{name = "Armory"; req_access_txt = "3"},/turf/simulated/floor{icon_state = "red"},/area/security/armoury)
 "ahl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor{icon_state = "red"; dir = 10},/area/security/securehallway)
 "ahm" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor{icon_state = "red"},/area/security/securehallway)
 "ahn" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor{icon_state = "red"},/area/security/securehallway)

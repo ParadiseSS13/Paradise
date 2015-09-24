@@ -41,28 +41,28 @@ var/global/nologevent = 0
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?src=\ref[src];editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
 
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
 	else
-		body += " \[<A href='?src=\ref[src];revive=\ref[M]'>Heal</A>\] "
+		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
 
 		body += "<br><br>\[ "
 		body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
-		body += "<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> - "
+		body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
 		body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> - "
-		body += "<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> - "
+		body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
 		body += "[admin_jump_link(M, src)]\] </b><br>"
 		
 		body += "<b>Mob type</b> = [M.type]<br><br>"
 		
-		body += "<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> | "
+		body += "<A href='?_src_=holder;boot2=\ref[M]'>Kick</A> | "
 		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
-		body += "<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> | "
-		body += "<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> | "
-		body += "<A href='?src=\ref[src];appearanceban=\ref[M]'>Appearance Ban</A> | "
-		body += "<A href='?src=\ref[src];shownoteckey=[M.ckey]'>Notes</A> | "
+		body += "<A href='?_src_=holder;newban=\ref[M]'>Ban</A> | "
+		body += "<A href='?_src_=holder;jobban2=\ref[M]'>Jobban</A> | "
+		body += "<A href='?_src_=holder;appearanceban=\ref[M]'>Appearance Ban</A> | "
+		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		if(M.client)
 			if(M.client.check_watchlist(M.client.ckey))
 				body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
@@ -71,31 +71,31 @@ var/global/nologevent = 0
 				body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
 
 	if(M.client)
-		body += "| <A HREF='?src=\ref[src];sendtoprison=\ref[M]'>Prison</A> | "
+		body += "| <A HREF='?_src_=holder;sendtoprison=\ref[M]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=\ref[M]'>Send back to Lobby</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
-			(<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
+			(<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""
 	if(isAI(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			jumptoeye = " <b>(<A href='?src=\ref[src];jumpto=\ref[A.eyeobj]'>Eye</A>)</b>"
+			jumptoeye = " <b>(<A href='?_src_=holder;jumpto=\ref[A.eyeobj]'>Eye</A>)</b>"
 	body += {"<br><br>
-		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A>[jumptoeye] |
-		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A> |
-		<A href='?src=\ref[src];sendmob=\ref[M]'>Send To</A>
+		<A href='?_src_=holder;jumpto=\ref[M]'><b>Jump to</b></A>[jumptoeye] |
+		<A href='?_src_=holder;getmob=\ref[M]'>Get</A> |
+		<A href='?_src_=holder;sendmob=\ref[M]'>Send To</A>
 		<br><br>
-		[check_rights(R_ADMIN,0) ? "<A href='?src=\ref[src];traitor=\ref[M]'>Traitor panel</A> | " : "" ]
-		<A href='?src=\ref[src];narrateto=\ref[M]'>Narrate to</A> |
-		<A href='?src=\ref[src];subtlemessage=\ref[M]'>Subtle message</A>
+		[check_rights(R_ADMIN,0) ? "<A href='?_src_=holder;traitor=\ref[M]'>Traitor panel</A> | " : "" ]
+		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
+		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
 
 	if (M.client)
@@ -108,31 +108,31 @@ var/global/nologevent = 0
 			if(issmall(M))
 				body += "<B>Monkeyized</B> | "
 			else
-				body += "<A href='?src=\ref[src];monkeyone=\ref[M]'>Monkeyize</A> | "
+				body += "<A href='?_src_=holder;monkeyone=\ref[M]'>Monkeyize</A> | "
 
 			//Corgi
 			if(iscorgi(M))
 				body += "<B>Corgized</B> | "
 			else
-				body += "<A href='?src=\ref[src];corgione=\ref[M]'>Corgize</A> | "
+				body += "<A href='?_src_=holder;corgione=\ref[M]'>Corgize</A> | "
 
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += {"<A href='?src=\ref[src];makeai=\ref[M]'>Make AI</A> |
-					<A href='?src=\ref[src];makemask=\ref[M]'>Make Mask</A> |
-					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
-					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
-					<A href='?src=\ref[src];makeslime=\ref[M]'>Make Slime</A> |
-					<A href='?src=\ref[src];makesuper=\ref[M]'>Make Superhero</A>
+				body += {"<A href='?_src_=holder;makeai=\ref[M]'>Make AI</A> |
+					<A href='?_src_=holder;makemask=\ref[M]'>Make Mask</A> |
+					<A href='?_src_=holder;makerobot=\ref[M]'>Make Robot</A> |
+					<A href='?_src_=holder;makealien=\ref[M]'>Make Alien</A> |
+					<A href='?_src_=holder;makeslime=\ref[M]'>Make Slime</A> |
+					<A href='?_src_=holder;makesuper=\ref[M]'>Make Superhero</A>
 				"}
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Re-Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Re-Animalize</A> | "
 			else
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Animalize</A> | "
 
 			// DNA2 - Admin Hax
 			if(M.dna && iscarbon(M))
@@ -147,7 +147,7 @@ var/global/nologevent = 0
 					if(bname)
 						var/bstate=M.dna.GetSEState(block)
 						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?src=\ref[src];togmutate=\ref[M];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+						body += "<A href='?_src_=holder;togmutate=\ref[M];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body+="</td>"
@@ -155,27 +155,27 @@ var/global/nologevent = 0
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</font><br>
-				<A href='?src=\ref[src];simplemake=observer;mob=\ref[M]'>Observer</A> |
-				\[ Alien: <A href='?src=\ref[src];simplemake=drone;mob=\ref[M]'>Drone</A>,
-				<A href='?src=\ref[src];simplemake=hunter;mob=\ref[M]'>Hunter</A>,
-				<A href='?src=\ref[src];simplemake=queen;mob=\ref[M]'>Queen</A>,
-				<A href='?src=\ref[src];simplemake=sentinel;mob=\ref[M]'>Sentinel</A>,
-				<A href='?src=\ref[src];simplemake=larva;mob=\ref[M]'>Larva</A> \]
-				<A href='?src=\ref[src];simplemake=human;mob=\ref[M]'>Human</A>
-				\[ slime: <A href='?src=\ref[src];simplemake=slime;mob=\ref[M]'>Baby</A>,
-				<A href='?src=\ref[src];simplemake=adultslime;mob=\ref[M]'>Adult</A> \]
-				<A href='?src=\ref[src];simplemake=monkey;mob=\ref[M]'>Monkey</A> |
-				<A href='?src=\ref[src];simplemake=robot;mob=\ref[M]'>Cyborg</A> |
-				<A href='?src=\ref[src];simplemake=cat;mob=\ref[M]'>Cat</A> |
-				<A href='?src=\ref[src];simplemake=runtime;mob=\ref[M]'>Runtime</A> |
-				<A href='?src=\ref[src];simplemake=corgi;mob=\ref[M]'>Corgi</A> |
-				<A href='?src=\ref[src];simplemake=ian;mob=\ref[M]'>Ian</A> |
-				<A href='?src=\ref[src];simplemake=crab;mob=\ref[M]'>Crab</A> |
-				<A href='?src=\ref[src];simplemake=coffee;mob=\ref[M]'>Coffee</A> |
-				\[ Construct: <A href='?src=\ref[src];simplemake=constructarmoured;mob=\ref[M]'>Armoured</A> ,
-				<A href='?src=\ref[src];simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
-				<A href='?src=\ref[src];simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
-				<A href='?src=\ref[src];simplemake=shade;mob=\ref[M]'>Shade</A>
+				<A href='?_src_=holder;simplemake=observer;mob=\ref[M]'>Observer</A> |
+				\[ Alien: <A href='?_src_=holder;simplemake=drone;mob=\ref[M]'>Drone</A>,
+				<A href='?_src_=holder;simplemake=hunter;mob=\ref[M]'>Hunter</A>,
+				<A href='?_src_=holder;simplemake=queen;mob=\ref[M]'>Queen</A>,
+				<A href='?_src_=holder;simplemake=sentinel;mob=\ref[M]'>Sentinel</A>,
+				<A href='?_src_=holder;simplemake=larva;mob=\ref[M]'>Larva</A> \]
+				<A href='?_src_=holder;simplemake=human;mob=\ref[M]'>Human</A>
+				\[ slime: <A href='?_src_=holder;simplemake=slime;mob=\ref[M]'>Baby</A>,
+				<A href='?_src_=holder;simplemake=adultslime;mob=\ref[M]'>Adult</A> \]
+				<A href='?_src_=holder;simplemake=monkey;mob=\ref[M]'>Monkey</A> |
+				<A href='?_src_=holder;simplemake=robot;mob=\ref[M]'>Cyborg</A> |
+				<A href='?_src_=holder;simplemake=cat;mob=\ref[M]'>Cat</A> |
+				<A href='?_src_=holder;simplemake=runtime;mob=\ref[M]'>Runtime</A> |
+				<A href='?_src_=holder;simplemake=corgi;mob=\ref[M]'>Corgi</A> |
+				<A href='?_src_=holder;simplemake=ian;mob=\ref[M]'>Ian</A> |
+				<A href='?_src_=holder;simplemake=crab;mob=\ref[M]'>Crab</A> |
+				<A href='?_src_=holder;simplemake=coffee;mob=\ref[M]'>Coffee</A> |
+				\[ Construct: <A href='?_src_=holder;simplemake=constructarmoured;mob=\ref[M]'>Armoured</A> ,
+				<A href='?_src_=holder;simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
+				<A href='?_src_=holder;simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
+				<A href='?_src_=holder;simplemake=shade;mob=\ref[M]'>Shade</A>
 				<br>
 			"}
 
@@ -183,12 +183,12 @@ var/global/nologevent = 0
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A> |
-			<A href='?src=\ref[src];aroomwarp=\ref[M]'>Admin Room</A> |
-			<A href='?src=\ref[src];tdome1=\ref[M]'>Thunderdome 1</A> |
-			<A href='?src=\ref[src];tdome2=\ref[M]'>Thunderdome 2</A> |
-			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
-			<A href='?src=\ref[src];tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
+			<A href='?_src_=holder;forcespeech=\ref[M]'>Forcesay</A> |
+			<A href='?_src_=holder;aroomwarp=\ref[M]'>Admin Room</A> |
+			<A href='?_src_=holder;tdome1=\ref[M]'>Thunderdome 1</A> |
+			<A href='?_src_=holder;tdome2=\ref[M]'>Thunderdome 2</A> |
+			<A href='?_src_=holder;tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
+			<A href='?_src_=holder;tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
 		"}
 		if(M.client.related_accounts_cid.len)
 			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
@@ -234,6 +234,9 @@ var/global/nologevent = 0
 
 	if(!check_rights(R_EVENT))
 		return
+	
+	if (!istype(src,/datum/admins))
+		src = usr.client.holder
 		
 	var/dat
 	dat = text("<HEAD><TITLE>Admin Newscaster</TITLE></HEAD><H3>Admin Newscaster Unit</H3>")

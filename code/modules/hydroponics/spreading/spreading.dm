@@ -70,11 +70,14 @@
 	var/movable = 0
 
 /obj/effect/plant/Destroy()
+	if(buckled_mob)
+		unbuckle()
 	if(plant_controller)
 		plant_controller.remove_plant(src)
 	for(var/obj/effect/plant/neighbor in range(1,src))
 		plant_controller.add_plant(neighbor)
 	return ..()
+	
 /obj/effect/plant/single
 	spread_chance = 0
 
