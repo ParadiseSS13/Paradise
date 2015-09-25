@@ -346,7 +346,7 @@
 			throwSmoke(src.loc)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] melts [exp_on], ionizing the air around it!</span>")
-			empulse(src.loc, 4, 6)
+			empulse(src.loc, 4, 0) //change this to 4,6 once the EXPERI-Mentor is moved.
 			investigate_log("Experimentor has generated an Electromagnetic Pulse.", "experimentor")
 			ejectItem(TRUE)
 	////////////////////////////////////////////////////////////////////////////////////////////////
