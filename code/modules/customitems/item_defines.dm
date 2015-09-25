@@ -91,7 +91,7 @@
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 
-/obj/item/clothing/suit/kluysfluff // Kluys: Cripty Pandaen
+/obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
 	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
 	icon_state = "Kluysfluff1"
@@ -99,7 +99,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/kluysfluff/verb/toggle()
+/obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Toggle Nanofibre Mode"
 	set category = "Object"
 	set src in usr
@@ -127,6 +127,12 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	
+/obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
+	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
+	desc = "A greatcoat with Nanotrasen colors."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "stobarico_jacket"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani

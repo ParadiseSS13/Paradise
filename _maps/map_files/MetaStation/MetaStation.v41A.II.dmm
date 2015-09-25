@@ -4913,7 +4913,7 @@
 "bQy" = (/obj/structure/table,/obj/item/pod_parts/core,/obj/item/weapon/circuitboard/mecha/pod,/obj/item/clothing/glasses/welding{pixel_y = 12},/obj/machinery/door_control{id = "mechpodbay"; name = "Pod Door Control"; pixel_x = 24},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "bQz" = (/obj/effect/landmark/start{name = "Mechanic"},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "bQA" = (/obj/structure/table/woodentable,/obj/machinery/computer/skills{req_access_txt = "57"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/carpet,/area/ntrep)
-"bQB" = (/obj/structure/table/woodentable,/obj/item/weapon/folder,/obj/item/weapon/stamp/centcom,/obj/item/weapon/pen/fluff/fountainpen,/turf/simulated/floor/carpet,/area/ntrep)
+"bQB" = (/obj/structure/table/woodentable,/obj/item/weapon/folder,/obj/item/weapon/stamp/centcom,/obj/item/weapon/pen/fountain,/turf/simulated/floor/carpet,/area/ntrep)
 "bQC" = (/obj/machinery/door/window{dir = 1; name = "Desk Door"; req_access_txt = "73"},/obj/machinery/keycard_auth{pixel_x = 24; pixel_y = 0},/turf/simulated/floor/wood,/area/ntrep)
 "bQD" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/stack/medical/ointment,/obj/item/stack/medical/bruise_pack,/obj/item/weapon/reagent_containers/syringe/charcoal,/obj/item/weapon/reagent_containers/syringe/epinephrine{pixel_x = -1; pixel_y = 2},/turf/simulated/floor{icon_state = "bot"; dir = 1},/area/gateway)
 "bQE" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor{tag = "icon-warningcorner (WEST)"; icon_state = "warningcorner"; dir = 8},/area/gateway)
