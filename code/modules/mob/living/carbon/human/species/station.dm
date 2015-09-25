@@ -221,7 +221,7 @@
 	return capitalize(newname)
 		
 /datum/species/vox/equip(var/mob/living/carbon/human/H)
-	if(H.mind.assigned_role != "Clown")
+	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 	H.unEquip(H.l_hand)
 
