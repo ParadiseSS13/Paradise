@@ -44,19 +44,9 @@
 	key = new()
 
 /obj/vehicle/train/ambulance/engine/Move()
-	if(on && cell.charge < charge_use)
-		turn_off()
-		update_stats()
-		if(load && is_train_head())
-			load << "The drive motor briefly whines, then drones to a stop."
-
-	if(is_train_head() && !on)
-		return 0
-
+	. = ..()
 	handle_rotation()
 	update_mob()
-
-	return ..()
 
 /obj/vehicle/train/ambulance/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(open && istype(W, /obj/item/weapon/wirecutters))
@@ -176,7 +166,7 @@
 		return 0
 
 	if(is_train_head())
-		if(direction == reverse_direction(dir))
+		if(direction == reverse_direction(dir) && tow) //can reverse with no tow
 			return 0
 		if(Move(get_step(src, direction)))
 			return 1

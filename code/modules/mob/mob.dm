@@ -135,6 +135,9 @@
 /mob/proc/restrained()
 	return
 
+/mob/proc/incapacitated()
+	return
+
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
@@ -989,76 +992,29 @@ var/list/slot_equipment_priority = list( \
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 /mob/proc/update_canmove()
 	var/ko = weakened || paralysis || stat || (status_flags & FAKEDEATH)
-	if(ko || resting || buckled)
-		canmove = 0
-		if(!lying)
-			if(resting) //Presuming that you're resting on a bed, which would look goofy lying the wrong way
-				lying = 90
-			else
-				lying = pick(90, 270) //180 looks like shit since BYOND inverts rather than turns in that case
-	else if(stunned)
-		drop_l_hand()
+	var/buckle_lying = !(buckled && !buckled.buckle_lying)
+	if(ko || resting || stunned)
 		drop_r_hand()
-		canmove = 0
+		drop_l_hand()
 	else
 		lying = 0
 		canmove = 1
-	var/is_movable
-	if(buckled && istype(buckled))
-		is_movable = buckled.movable
-
-	if(istype(buckled, /obj/vehicle))
-		var/obj/vehicle/V = buckled
-		if(stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
-			lying = 90
-			canmove = 0
-			pixel_y = V.mob_offset_y - 5
-		else
-			lying = 0
-			canmove = 1
-			pixel_y = V.mob_offset_y
-	else if(buckled && (!buckled.movable))
-		anchored = 1
-		canmove = 0
-		if( istype(buckled,/obj/structure/stool/bed/chair) )
-			lying = 0
-		else
-			lying = 90
-	else if(buckled && is_movable)
-		anchored = 0
-		canmove = 1
-		lying = 0
-	else if( stat || weakened || paralysis || resting || sleeping || (status_flags & FAKEDEATH))
-		lying = 90
-		canmove = 0
-	else if( stunned )
-		drop_l_hand()
-		drop_r_hand()
-		canmove = 0
+	if(buckled)
+		lying = 90 * buckle_lying
 	else
-		lying = 0
-		canmove = 1
-
-	if(lying)
-		density = 0
-		drop_l_hand()
-		drop_r_hand()
-	else
-		density = 1
-
-	//Temporarily moved here from the various life() procs
-	//I'm fixing stuff incrementally so this will likely find a better home.
-	//It just makes sense for now. ~Carn
-
-	if(lying != lying_prev)
-		if(lying && !lying_prev)
+		if((ko || resting) && !lying)
 			fall(ko)
 
-	if(update_icon)	//forces a full overlay update
-		update_icon = 0
-		regenerate_icons()
+	canmove = !(ko || resting || stunned || buckled)
+	density = !lying
+	if(lying)
+		if(layer == initial(layer))
+			layer = MOB_LAYER - 0.2
+	else
+		if(layer == MOB_LAYER - 0.2)
+			layer = initial(layer)
+
 	update_transform()
-	lying_prev = lying
 	return canmove
 
 /mob/proc/fall(var/forced)
