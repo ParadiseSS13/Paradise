@@ -760,7 +760,7 @@ datum/preferences
 					clothes_s = new /icon(uniform_dmi, "officer_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 					clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "deus_blueshield"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "blueshield"), ICON_OVERLAY)
 					switch(backbag)
 						if(2)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "securitypack"), ICON_OVERLAY)

@@ -132,3 +132,11 @@
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
 	flags = NODROP
+	
+/obj/item/clothing/shoes/fluff/noble_boot
+	name = "noble boots"
+	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
+	icon_state = "noble_boot"
+	_color = "noble_boot"
+	item_state = "noble_boot"
+	

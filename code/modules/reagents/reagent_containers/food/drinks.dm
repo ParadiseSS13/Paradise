@@ -388,14 +388,12 @@
 /obj/item/weapon/reagent_containers/food/drinks/flask/thermos
 	name = "vintage thermos"
 	desc = "An older thermos with a faint shine."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "johann_erzatz_1"
+	icon_state = "thermos"
 	volume = 50
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/shiny
 	name = "shiny flask"
 	desc = "A shiny metal flask. It appears to have a Greek symbol inscribed on it."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shinyflask"
 	volume = 50
 

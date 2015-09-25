@@ -53,7 +53,7 @@
 /obj/item/weapon/implantpad/verb/remove_implant()
 	set category = "Object"
 	set name = "Remove Implant"
-	set src in view(1)
+	set src in usr
 	
 	if (usr.stat || usr.restrained())
 		return

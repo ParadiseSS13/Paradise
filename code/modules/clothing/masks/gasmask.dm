@@ -216,8 +216,15 @@
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
-	action_button_name = "HALT!"
 	icon_state = "officermask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+	
+/obj/item/clothing/mask/gas/sechailer/blue
+	name = "\improper blue SWAT mask"
+	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
+	icon_state = "blue_sechailer"
+	item_state = "blue_sechailer"
 	aggressiveness = 3
 	ignore_maskadjust = 1
 
