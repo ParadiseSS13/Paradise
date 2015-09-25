@@ -711,7 +711,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(view == world.view)
-		view = input("Select view range:", "View Range", 7) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
+		view = input("Select view range:", "View Range", world.view) in list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,128)
 	else
 		view = world.view
 
