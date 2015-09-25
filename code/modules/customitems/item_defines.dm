@@ -19,12 +19,6 @@
 
 /obj/item/weapon/claymore/fluff/IsShield()
 	return 0
-
-/obj/item/weapon/pen/fluff/fountainpen // Froststahr: Viktor Romanov
-	name = "Engraved Fountain Pen"
-	desc = "An expensive looking pen with the initials E.S. engraved into the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fountainpen"	
 	
 /obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
@@ -64,12 +58,6 @@
 //////////// Eye Wear ////////////
 
 //////////// Hats ////////////
-/obj/item/clothing/head/welding/fluff/yuki_matsuda_1 // Shadeykins: Dusk
-	name = "white decal welding helmet"
-	desc = "A white welding helmet with a character written across it."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "yuki_matsuda_1"
-	
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
 	desc= "A beautiful purple rose for your hair."

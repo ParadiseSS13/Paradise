@@ -40,6 +40,11 @@
 	name = "blue flame decal welding helmet"
 	desc = "A welding helmet with blue flame decals on it."
 	icon_state = "welding_blueflame"	
+	
+/obj/item/clothing/head/welding/white
+	name = "white decal welding helmet"
+	desc = "A white welding helmet with a character written across it."
+	icon_state = "welding_white"
 
 /obj/item/clothing/head/welding/attack_self()
 	toggle()
