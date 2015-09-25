@@ -15,7 +15,7 @@ datum/reagent/polonium
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(8, IRRADIATE)
+	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	..()
 	return
 
@@ -712,7 +712,7 @@ datum/reagent/glowing_slurry/reaction_mob(var/mob/M, var/method=TOUCH, var/volum
 
 datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(2*REM,IRRADIATE,0)
+	M.apply_effect(2*REM, IRRADIATE, 0, negate_armor = 1)
 	if(prob(15))
 		randmutb(M)
 	if(prob(5))
