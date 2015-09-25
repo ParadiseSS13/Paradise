@@ -139,6 +139,9 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/proc/locate_machinery()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -544,7 +547,7 @@ Class Procs:
 		if(user.stunned)
 			return 1
 	return 0
-	
+
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/construction()
 	return
