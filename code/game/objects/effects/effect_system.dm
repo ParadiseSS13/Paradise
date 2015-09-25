@@ -769,40 +769,35 @@ steam.start() -- spawns the effect
 	var/processing = 1
 	var/on = 1
 
-	set_up(atom/atom)
-		attach(atom)
-		oldposition = get_turf(atom)
+/datum/effect/effect/system/ion_trail_follow/set_up(atom/atom)
+	attach(atom)
 
-	start()
-		if(!src.on)
-			src.on = 1
-			src.processing = 1
-		if(src.processing)
-			src.processing = 0
-			spawn(0)
-				var/turf/T = get_turf(src.holder)
-				if(T != src.oldposition)
-					if(istype(T, /turf/space))
-						var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
-						src.oldposition = T
-						I.dir = src.holder.dir
-						flick("ion_fade", I)
-						I.icon_state = "blank"
-						spawn( 20 )
-							if(I) I.delete()
-					spawn(2)
-						if(src.on)
-							src.processing = 1
-							src.start()
-				else
-					spawn(2)
-						if(src.on)
-							src.processing = 1
-							src.start()
-
-	proc/stop()
+/datum/effect/effect/system/ion_trail_follow/start() //Whoever is responsible for this abomination of code should become an hero
+	if(!src.on)
+		src.on = 1
+		src.processing = 1
+	if(src.processing)
 		src.processing = 0
-		src.on = 0
+		var/turf/T = get_turf(src.holder)
+		if(T != src.oldposition)
+			if(!has_gravity(T))
+				var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
+				I.dir = src.holder.dir
+				flick("ion_fade", I)
+				I.icon_state = "blank"
+				spawn( 20 )
+					if(I)
+						I.delete()
+			src.oldposition = T
+		spawn(2)
+			if(src.on)
+				src.processing = 1
+				src.start()
+
+/datum/effect/effect/system/ion_trail_follow/proc/stop()
+	src.processing = 0
+	src.on = 0
+	oldposition = null
 
 /datum/effect/effect/system/ion_trail_follow/space_trail
 	var/turf/oldloc // secondary ion trail loc
@@ -850,15 +845,10 @@ steam.start() -- spawns the effect
 					spawn( 20 )
 						if(I) I.delete()
 						if(II) II.delete()
-				spawn(2)
-					if(src.on)
-						src.processing = 1
-						src.start()
-			else
-				spawn(2)
-					if(src.on)
-						src.processing = 1
-						src.start()
+			spawn(2)
+				if(src.on)
+					src.processing = 1
+					src.start()
 			currloc = T
 
 

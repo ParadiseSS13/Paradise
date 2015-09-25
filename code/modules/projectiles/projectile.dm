@@ -89,8 +89,8 @@
 		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
 
 	proc/OnFired()	//if assigned, allows for code when the projectile gets fired
-		return 1		
-		
+		return 1
+
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
 			return 0
@@ -137,7 +137,7 @@
 				var/mob/living/carbon/human/H = A
 				var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
 				if(isnull(organ))
-					return 
+					return
 			if(silenced)
 				playsound(loc, hitsound, 5, 1, -1)
 				M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
@@ -187,6 +187,11 @@
 			return prob(95)
 		else
 			return 1
+
+
+	Process_Spacemove(var/movement_dir = 0)
+		return 1 //Bullets don't drift in space
+
 
 
 	process(var/setAngle)
@@ -332,7 +337,7 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
-					
+
 /proc/check_trajectory(atom/target as mob|obj, atom/firer as mob|obj, var/pass_flags=PASSTABLE|PASSGLASS|PASSGRILLE, flags=null)  //Checks if you can hit them or not.
 	if(!istype(target) || !istype(firer))
 		return 0

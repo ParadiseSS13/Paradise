@@ -5,9 +5,8 @@
 	var/empstun = 0
 	var/health = 100
 	var/destroyed = 0
-	var/inertia_dir = 0
-	var/allowMove = 1
-	var/delay = 1
+	var/move_delay = 1
+	var/keytype = /obj/item/key
 	var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread
 
 /obj/structure/stool/bed/chair/cart/process()
@@ -48,96 +47,6 @@
 	if(istype(W, /obj/item/key))
 		user << "Hold [W] in one of your hands while you drive this [name]."
 
-/obj/structure/stool/bed/chair/cart/proc/Process_Spacemove(var/check_drift = 0, mob/user)
-	//First check to see if we can do things
-
-	/*
-	if(istype(src,/mob/living/carbon))
-		if(src.l_hand && src.r_hand)
-			return 0
-	*/
-
-	var/dense_object = 0
-	if(!user)
-		for(var/turf/turf in oview(1,src))
-			if(istype(turf,/turf/space))
-				continue
-			/*
-			if((istype(turf,/turf/simulated/floor))
-				if(user)
-					if(user.lastarea.has_gravity == 0)
-						continue*/
-
-
-
-		/*
-		if(istype(turf,/turf/simulated/floor) && (src.flags & NOGRAV))
-			continue
-		*/
-
-
-			dense_object++
-			break
-
-		if(!dense_object && (locate(/obj/structure/lattice) in oview(1, src)))
-			dense_object++
-
-		//Lastly attempt to locate any dense objects we could push off of
-		//TODO: If we implement objects drifing in space this needs to really push them
-		//Due to a few issues only anchored and dense objects will now work.
-		if(!dense_object)
-			for(var/obj/O in oview(1, src))
-				if((O) && (O.density) && (O.anchored))
-					dense_object++
-					break
-	else
-		for(var/turf/turf in oview(1,user))
-			if(istype(turf,/turf/space))
-				continue
-			/*
-			if((istype(turf,/turf/simulated/floor))
-				if(user)
-					if(user.lastarea.has_gravity == 0)
-						continue*/
-
-
-
-		/*
-		if(istype(turf,/turf/simulated/floor) && (src.flags & NOGRAV))
-			continue
-		*/
-
-
-			dense_object++
-			break
-
-		if(!dense_object && (locate(/obj/structure/lattice) in oview(1, user)))
-			dense_object++
-
-		//Lastly attempt to locate any dense objects we could push off of
-		//TODO: If we implement objects drifing in space this needs to really push them
-		//Due to a few issues only anchored and dense objects will now work.
-		if(!dense_object)
-			for(var/obj/O in oview(1, user))
-				if((O) && (O.density) && (O.anchored))
-					dense_object++
-					break
-	//Nothing to push off of so end here
-	if(!dense_object)
-		return 0
-
-
-/* The cart has very grippy tires and or magnets to keep it from slipping when on a good surface
-	//Check to see if we slipped
-	if(prob(Process_Spaceslipping(5)))
-		src << "\blue <B>You slipped!</B>"
-		src.inertia_dir = src.last_move
-		step(src, src.inertia_dir)
-		return 0
-	//If not then we can reset inertia and move
-	*/
-	inertia_dir = 0
-	return 1
 
 /obj/structure/stool/bed/chair/cart/user_buckle_mob(mob/living/M, mob/user)
 	if(user.incapacitated()) //user can't move the mob on the janicart's turf if incapacitated
@@ -263,15 +172,11 @@
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 	var/obj/item/weapon/storage/bag/trash/mybag	= null
 
-
-
-
 /obj/structure/stool/bed/chair/cart/janicart/New()
 	..()
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-
 
 /obj/structure/stool/bed/chair/cart/janicart/examine(mob/user)
 	if(!..(user, 1))
@@ -314,21 +219,15 @@
 		if(user)
 			user << "\red \the [src] is unresponsive."
 		return
-	if((istype(src.loc, /turf/space)))
-		if(!src.Process_Spacemove(0))	return
-	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
-		if(!allowMove)
+	if(istype(user.l_hand, keytype) || istype(user.r_hand, keytype))
+		if(!Process_Spacemove(direction) || !has_gravity(src.loc) || move_delay || !isturf(loc))
 			return
-		allowMove = 0
 		step(src, direction)
 		update_mob()
 		handle_rotation()
-		sleep(delay)
-		allowMove = 1
-			/*
-		if(istype(src.loc, /turf/space) && (!src.Process_Spacemove(0, user)))
-			var/turf/space/S = src.loc
-			S.Entered(src)*/
+		move_delay = 1
+		spawn(2)
+			move_delay = 0
 	else
 		user << "<span class='notice'>You'll need the keys in one of your hands to drive this pimpin' ride.</span>"
 
@@ -338,7 +237,7 @@
 	name = "ambulance"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "docwagon"
-	anchored = 1
+	anchored = 0
 	density = 1
 /var/brightness = 4
 /var/strobe = 0
@@ -351,37 +250,17 @@
 		if(user)
 			user << "\red \the [src] is unresponsive."
 		return
-	if((istype(src.loc, /turf/space)))
-		if(!src.Process_Spacemove(0))	return
-	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
-		if(!allowMove)
+	if(istype(user.l_hand, keytype) || istype(user.r_hand, keytype))
+		if(!Process_Spacemove(direction) || !has_gravity(src.loc) || move_delay || !isturf(loc))
 			return
-		allowMove = 0
 		step(src, direction)
-		// NEW PULLING CODE
-		if (istype(user.pulling, /obj/structure/stool/bed/roller))
-			var/turf/T = loc
-			step(user.pulling, get_dir(user.pulling.loc, T))
-
-		// END NEW PULLING CODE
 		update_mob()
 		handle_rotation()
-		sleep(delay)
-		allowMove = 1
-		/*
-		if(istype(src.loc, /turf/space) && (!src.Process_Spacemove(0, user)))
-			var/turf/space/S = src.loc
-			S.Entered(src)*/
+		move_delay = 1
+		spawn(2)
+			move_delay = 0
 	else
 		user << "<span class='notice'>You'll need the keys in one of your hands to drive this ambulance.</span>"
-
-
-
-
-
-
-
-
 
 
 /obj/item/key

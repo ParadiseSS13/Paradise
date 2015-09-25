@@ -268,6 +268,8 @@
 
 	step(src, movement_dir)
 
+/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
+	return 0
 
 /obj/singularity/proc/check_turfs_in(var/direction = 0, var/step = 0)
 	if(!direction)
