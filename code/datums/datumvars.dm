@@ -439,7 +439,7 @@ client
 
 	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
 	else if(href_list["rename"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locate(href_list["rename"])
 		if(!istype(M))
@@ -498,7 +498,7 @@ client
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
 	else if(href_list["mob_player_panel"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_ADMIN|R_MOD))	return
 
 		var/mob/M = locate(href_list["mob_player_panel"])
 		if(!istype(M))
@@ -543,7 +543,7 @@ client
 		href_list["datumrefresh"] = href_list["godmode"]
 
 	else if(href_list["gib"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/M = locate(href_list["gib"])
 		if(!istype(M))
@@ -575,7 +575,7 @@ client
 			usr.client.cmd_admin_drop_everything(M)
 
 	else if(href_list["direct_control"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/mob/M = locate(href_list["direct_control"])
 		if(!istype(M))
@@ -668,7 +668,7 @@ client
 				message_admins("\blue [key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/atom/A = locate(href_list["addreagent"])
 
@@ -731,7 +731,7 @@ client
 		href_list["datumrefresh"] = href_list["mark_object"]
 
 	else if(href_list["proc_call"])
-		if(!check_rights(0))
+		if(!check_rights(R_PROCCALL))
 			return
 
 		var/T = locate(href_list["proc_call"])
@@ -740,7 +740,7 @@ client
 			callproc_datum(T)
 
 	else if(href_list["rotatedatum"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/atom/A = locate(href_list["rotatedatum"])
 		if(!istype(A))
