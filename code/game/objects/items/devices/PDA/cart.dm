@@ -174,7 +174,7 @@
 
 /obj/item/weapon/cartridge/rd/initialize()
 	radio = new /obj/item/radio/integrated/signal(src)
-	..()		
+	..()
 
 /obj/item/weapon/cartridge/captain
 	name = "Value-PAK Cartridge"
@@ -191,7 +191,7 @@
 
 /obj/item/weapon/cartridge/captain/initialize()
 	radio = new /obj/item/radio/integrated/beepsky(src)
-	..()		
+	..()
 
 /obj/item/weapon/cartridge/supervisor
 	name = "Easy-Record DELUXE"
@@ -282,7 +282,7 @@
 
 
 	/*		Power Monitor (Mode: 43 / 433)			*/
-	if(mode==43 || mode==433)						
+	if(mode==43 || mode==433)
 		values["powermonitors"] = powermonitor_repository.powermonitor_data()
 
 		if (powmonitor && !isnull(powmonitor.powernet))
@@ -500,7 +500,7 @@
 		if(!CbotData.len)
 			CbotData[++CbotData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 		var/CartData[0]
-		for(var/obj/structure/stool/bed/chair/cart/janicart/B in world)
+		for(var/obj/structure/stool/bed/chair/janicart/B in world)
 			var/turf/bl = get_turf(B)
 			if(bl)
 				if(bl.z != cl.z)
