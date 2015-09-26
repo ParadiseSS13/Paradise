@@ -8,9 +8,8 @@
 #define ZLEVEL_ENGI 4
 #define ZLEVEL_ASTEROID 5
 #define ZLEVEL_DERELICT 6
-#define ZLEVEL_SYNDIE 7
-#define ZLEVEL_EMPTY 8
-#define MAX_Z	8 // Used in space.dm to defince which Z-levels cannot be exited via space.
+#define ZLEVEL_EMPTY 7
+#define MAX_Z	7 // Used in space.dm to defince which Z-levels cannot be exited via space.
 #define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
 
 ///
