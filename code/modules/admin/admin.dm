@@ -795,7 +795,6 @@ var/global/nologevent = 0
 	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
 	feedback_add_details("admin_verb","SA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
 /datum/admins/proc/show_traitor_panel(var/mob/M in mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
@@ -839,7 +838,7 @@ var/global/nologevent = 0
 			usr << "<b>AI [key_name(S, usr)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			usr << "<b>CYBORG [key_name(S, usr)] [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"]: laws:</b>"
+			usr << "<b>CYBORG [key_name(S, usr)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
 		else if (ispAI(S))
 			var/mob/living/silicon/pai/P = S
 			usr << "<b>pAI [key_name(S, usr)]'s laws:</b>"
@@ -847,14 +846,17 @@ var/global/nologevent = 0
 			if(P.pai_laws) usr << "[P.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			usr << "<b>SOMETHING SILICON [key_name(S, usr)]'s laws:</b>"
+			usr << "<b>SILICON [key_name(S, usr)]'s laws:</b>"
 
 		if (S.laws == null)
-			usr << "[key_name(S, usr)]'s laws are null?? Contact a coder."
+			usr << "[key_name(S, usr)]'s laws are null. Contact a coder."
 		else
 			S.laws.show_laws(usr)
 	if(!ai_number)
-		usr << "<b>No AIs located</b>" //Just so you know the thing is actually working and not just ignoring you.
+		usr << "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
+		
+	log_admin("[key_name(usr)] checked the AI laws")
+	message_admins("[key_name_admin(usr)] checked the AI laws")
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 	set category = "Admin"
@@ -862,10 +864,6 @@ var/global/nologevent = 0
 	set desc = "Should fix any mob sprite update errors."
 	
 	if(!check_rights(R_ADMIN))	
-		return
-
-	if (!holder)
-		src << "Only administrators may use this command."
 		return
 
 	if(istype(H))
