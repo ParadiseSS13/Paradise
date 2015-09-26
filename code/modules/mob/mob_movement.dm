@@ -225,13 +225,15 @@
 
 	if(Process_Grab())	return
 
+	if(mob.buckled)							//if we're buckled to something, tell it we moved.
+		return mob.buckled.relaymove(mob, direct)
 
 	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
 
 	if(isAI(mob))
-		return AIMove(n,direct,mob)		
-		
+		return AIMove(n,direct,mob)
+
 	if(!mob.canmove)
 		return
 
@@ -279,24 +281,6 @@
 			move_delay -= 1.3
 			var/tickcomp = ((1/(world.tick_lag))*1.3)
 			move_delay = move_delay + tickcomp
-
-		if(istype(mob.buckled, /obj/vehicle) || istype(mob.buckled, /obj/structure/stool/bed/chair/cart))
-			return mob.buckled.relaymove(mob,direct)
-
-		if(mob.pulledby || mob.buckled) // Wheelchair driving!
-			if(istype(mob.loc, /turf/space))
-				return // No wheelchair driving in space
-			if(istype(mob.pulledby, /obj/structure/stool/bed/chair/wheelchair))
-				return mob.pulledby.relaymove(mob, direct)
-			else if(istype(mob.buckled, /obj/structure/stool/bed/chair/wheelchair))
-				if(ishuman(mob.buckled))
-					var/mob/living/carbon/human/driver = mob.buckled
-					var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
-					var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
-					if((!l_hand || (l_hand.status & ORGAN_DESTROYED)) && (!r_hand || (r_hand.status & ORGAN_DESTROYED)))
-						return // No hands to drive your chair? Tough luck!
-				move_delay += 2
-				return mob.buckled.relaymove(mob,direct)
 
 		//We are now going to move
 		moving = 1

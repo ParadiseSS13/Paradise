@@ -400,8 +400,11 @@
 	return
 
 /mob/living/Move(a, b, flag)
-	if (buckled)
-		return
+	if (buckled && buckled.loc != a)
+		if (!buckled.anchored)
+			return buckled.Move(a, b)
+		else
+			return 0
 
 	if (restrained())
 		stop_pulling()
@@ -639,10 +642,10 @@
 					for(var/mob/O in viewers(C))
 						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
 					C << "\blue You successfully unbuckle yourself."
-					C.buckled.manual_unbuckle(C)
+					C.buckled.user_unbuckle_mob(C,C)
 
 	else
-		L.buckled.manual_unbuckle(L)
+		L.buckled.user_unbuckle_mob(L,L)
 
 /* resist_closet() allows a mob to break out of a welded/locked closet
 */////
@@ -779,6 +782,8 @@
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 				qdel(CM.handcuffed)
 				CM.handcuffed = null
+				if(CM.buckled && CM.buckled.buckle_requires_restraints)
+					CM.buckled.unbuckle_mob()
 				CM.update_inv_handcuffed()
 				return
 

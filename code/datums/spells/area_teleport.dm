@@ -46,7 +46,7 @@
 			return
 
 		if(target && target.buckled)
-			target.buckled.unbuckle()
+			target.buckled.unbuckle_mob()
 
 		var/list/tempL = L
 		var/attempt = null

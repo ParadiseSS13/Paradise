@@ -24,7 +24,7 @@
 
 			src.ExtinguishMob()
 			if(src.buckled)
-				src.buckled.unbuckle()
+				src.buckled.unbuckle_mob()
 			if(src.pulling && src.bloodcrawl == BLOODCRAWL_EAT)
 				if(istype(src.pulling, /mob/living/))
 					var/mob/living/victim = src.pulling

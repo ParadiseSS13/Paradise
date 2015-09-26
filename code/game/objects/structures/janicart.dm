@@ -10,12 +10,6 @@
 	var/delay = 1
 	var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread
 
-/obj/structure/stool/bed/chair/cart/Move()
-	..()
-	if(buckled_mob)
-		if(buckled_mob.buckled == src)
-			buckled_mob.loc = loc
-
 /obj/structure/stool/bed/chair/cart/process()
 	if(empstun > 0)
 		empstun--
@@ -145,29 +139,27 @@
 	inertia_dir = 0
 	return 1
 
-/obj/structure/stool/bed/chair/cart/buckle_mob(mob/M, mob/user)
-	if(M != user || !ismob(M) || get_dist(src, user) > 1 || user.restrained() || user.lying || user.stat || M.buckled || istype(user, /mob/living/silicon) || destroyed)
+/obj/structure/stool/bed/chair/cart/user_buckle_mob(mob/living/M, mob/user)
+	if(user.incapacitated()) //user can't move the mob on the janicart's turf if incapacitated
 		return
-
-	unbuckle()
-
-	M.visible_message(\
-		"<span class='notice'>[M] climbs onto the [name]!</span>",\
-		"<span class='notice'>You climb onto the [name]!</span>")
-	M.buckled = src
-	M.loc = loc
-	M.dir = dir
-	M.update_canmove()
-	buckled_mob = M
-	update_mob()
-	add_fingerprint(user)
-	return
-
-/obj/structure/stool/bed/chair/cart/unbuckle()
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
+	for(var/atom/movable/A in get_turf(src)) //we check for obstacles on the turf.
+		if(A.density)
+			if(A != src && A != M)
+				return
+	M.loc = loc //we move the mob on the janicart's turf before checking if we can buckle.
 	..()
+	update_mob()
+
+/obj/structure/stool/bed/chair/cart/post_buckle_mob(mob/living/M)
+	update_mob()
+	return ..()
+
+/obj/structure/stool/bed/chair/cart/unbuckle_mob()
+	var/mob/living/M = ..()
+	if(M)
+		M.pixel_x = 0
+		M.pixel_y = 0
+	return M
 
 /obj/structure/stool/bed/chair/cart/handle_rotation()
 	if(dir == SOUTH)
@@ -222,11 +214,11 @@
 			if(act >= 0)
 				visible_message("<span class='warning'>[buckled_mob.name] is hit by [Proj]!")
 				if(istype(Proj, /obj/item/projectile/energy))
-					unbuckle()
+					unbuckle_mob()
 			return
 		if(istype(Proj, /obj/item/projectile/energy/electrode))
 			if(prob(25))
-				unbuckle()
+				unbuckle_mob()
 				visible_message("<span class='warning'>The [src.name] absorbs the [Proj]")
 				if(!istype(buckled_mob, /mob/living/carbon/human))
 					return buckled_mob.bullet_act(Proj)
@@ -245,7 +237,7 @@
 		destroyed = 1
 		density = 0
 		if(buckled_mob)
-			unbuckle()
+			unbuckle_mob()
 		visible_message("<span class='warning'>The [name] explodes!</span>")
 		explosion(src.loc,-1,0,2,7,10)
 		icon_state = "pussywagon_destroyed"
@@ -316,7 +308,7 @@
 
 /obj/structure/stool/bed/chair/cart/janicart/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis  || destroyed)
-		unbuckle()
+		unbuckle_mob()
 		return
 	if(empstun > 0)
 		if(user)
@@ -353,7 +345,7 @@
 
 /obj/structure/stool/bed/chair/cart/ambulance/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis  || destroyed)
-		unbuckle()
+		unbuckle_mob()
 		return
 	if(empstun > 0)
 		if(user)
