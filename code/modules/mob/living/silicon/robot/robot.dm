@@ -729,20 +729,20 @@ var/list/robot_verbs_default = list(
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			usr << "You must access the borgs internals!"
+			user << "<span class='warning'>You must access the borgs internals!</span>"
 		else if(!src.module && U.require_module)
-			usr << "The borg must choose a module before he can be upgraded!"
+			user << "<span class='warning'>The borg must choose a module before it can be upgraded!</span>"
 		else if(U.locked)
-			usr << "The upgrade is locked and cannot be used yet!"
+			user << "<span class='warning'>The upgrade is locked and cannot be used yet!</span>"
 		else
+			if(!user.drop_item())
+				return
 			if(U.action(src))
-				usr << "You apply the upgrade to [src]!"
-				usr.drop_item()
-				U.loc = src
+				user << "<span class='notice'>You apply the upgrade to [src].</span>"
+				U.forceMove(src)
 			else
-				usr << "Upgrade error!"
-
-
+				user << "<span class='danger'>Upgrade error.</span>"
+	
 	else
 		spark_system.start()
 		return ..()

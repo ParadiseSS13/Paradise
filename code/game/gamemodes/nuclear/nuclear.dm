@@ -194,6 +194,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.s_tone = skin_tone
 	M.h_style = hair_style
 	M.f_style = facial_hair_style
+	M.body_accessory = null
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")

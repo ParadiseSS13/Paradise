@@ -128,6 +128,7 @@ obj/machinery/air_sensor
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 	initialize()
+		..()
 		set_frequency(frequency)
 
 	Destroy()
@@ -271,6 +272,7 @@ legend {
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 	initialize()
+		..()
 		set_frequency(frequency)
 
 	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
