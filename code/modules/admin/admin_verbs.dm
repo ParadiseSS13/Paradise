@@ -69,7 +69,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
+	/client/proc/debug_variables
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -139,8 +140,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
-	/client/proc/callproc,
-	/client/proc/callproc_datum,
 	/client/proc/toggledebuglogs,
 	/client/proc/qdel_toggle,
 	/client/proc/gc_dump_hdl,
@@ -179,11 +178,15 @@ var/list/admin_verbs_mod = list(
 	/client/proc/jobbans,
 	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 )
-
 var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel	/*admin-pm list by key*/
+)
+var/list/admin_verbs_proccall = list (
+	/client/proc/callproc,
+	/client/proc/callproc_datum,
+	/client/proc/SDQL2_query
 )
 
 /client/proc/add_admin_verbs()
@@ -203,6 +206,7 @@ var/list/admin_verbs_mentor = list(
 		if(holder.rights & R_SPAWN)			verbs += admin_verbs_spawn
 		if(holder.rights & R_MOD)			verbs += admin_verbs_mod
 		if(holder.rights & R_MENTOR)		verbs += admin_verbs_mentor
+		if(holder.rights & R_PROCCALL)		verbs += admin_verbs_proccall
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(

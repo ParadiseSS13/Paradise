@@ -800,7 +800,7 @@ var/global/nologevent = 0
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
 	
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN|R_MOD))	
 		return
 
 	if(!istype(M))

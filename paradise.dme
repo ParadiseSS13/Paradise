@@ -944,6 +944,8 @@
 #include "code\modules\admin\verbs\ticklag.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\vox_raiders.dm"
+#include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
+#include "code\modules\admin\verbs\SDQL2\SDQL_2_parser.dm"
 #include "code\modules\alarm\alarm.dm"
 #include "code\modules\alarm\alarm_handler.dm"
 #include "code\modules\alarm\atmosphere_alarm.dm"
