@@ -30,10 +30,24 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
 		)
+		
+/obj/item/clothing/head/welding/flamedecal
+	name = "flame decal welding helmet"
+	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
+	icon_state = "welding_redflame"
+
+/obj/item/clothing/head/welding/flamedecal/blue
+	name = "blue flame decal welding helmet"
+	desc = "A welding helmet with blue flame decals on it."
+	icon_state = "welding_blueflame"	
+	
+/obj/item/clothing/head/welding/white
+	name = "white decal welding helmet"
+	desc = "A white welding helmet with a character written across it."
+	icon_state = "welding_white"
 
 /obj/item/clothing/head/welding/attack_self()
 	toggle()
-
 
 /obj/item/clothing/head/welding/proc/toggle()
 	set src in usr

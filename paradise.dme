@@ -1089,7 +1089,6 @@
 #include "code\modules\crafting\table.dm"
 #include "code\modules\customitems\item_defines.dm"
 #include "code\modules\customitems\item_spawning.dm"
-#include "code\modules\customitems\definitions\base.dm"
 #include "code\modules\DetectiveWork\detective_work.dm"
 #include "code\modules\DetectiveWork\evidence.dm"
 #include "code\modules\DetectiveWork\footprints_and_rag.dm"
