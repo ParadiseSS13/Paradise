@@ -399,10 +399,10 @@
 
 	return
 
-/mob/living/Move(a, b, flag)
-	if (buckled && buckled.loc != a)
+/mob/living/Move(atom/newloc, direct)
+	if (buckled && buckled.loc != newloc)
 		if (!buckled.anchored)
-			return buckled.Move(a, b)
+			return buckled.Move(newloc, direct)
 		else
 			return 0
 
@@ -415,7 +415,7 @@
 		for(var/mob/living/M in range(src, 1))
 			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
-	if ((t7 && (pulling && ((get_dist(src, pulling) <= 1 || pulling.loc == loc) && (client && client.moving)))))
+	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
 		var/turf/T = loc
 		. = ..()
 
@@ -463,17 +463,12 @@
 							var/turf/location = M.loc
 							if (istype(location, /turf/simulated))
 								location.add_blood()
-
-
-						step(pulling, get_dir(pulling.loc, T))
-						M.start_pulling(t)
+						pulling.Move(T, get_dir(pulling, T))
+						if(M)
+							M.start_pulling(t)
 				else
 					if (pulling)
-						if (istype(pulling, /obj/structure/window/full))
-							for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
-								stop_pulling()
-					if (pulling)
-						step(pulling, get_dir(pulling.loc, T))
+						pulling.Move(T, get_dir(pulling, T))
 	else
 		stop_pulling()
 		. = ..()

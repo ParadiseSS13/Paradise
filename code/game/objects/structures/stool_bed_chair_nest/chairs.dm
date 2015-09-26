@@ -14,6 +14,10 @@
 		handle_rotation()
 	return
 
+/obj/structure/stool/bed/chair/Move(atom/newloc, direct)
+	..()
+	handle_rotation()
+
 /obj/structure/stool/bed/chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/assembly/shock_kit))
