@@ -42,6 +42,16 @@
 		user << "\red You cannot drive while being pushed."
 		return
 
+	if(istype(user.loc, /turf/space))
+		return
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/driver = user
+		var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
+		var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
+		if((!l_hand || (l_hand.status & ORGAN_DESTROYED)) && (!r_hand || (r_hand.status & ORGAN_DESTROYED)))
+			return // No hands to drive your chair? Tough luck!
+
 	// Let's roll
 	driving = 1
 	var/turf/T = null
@@ -88,7 +98,7 @@
 						if (O != occupant)
 							Bump(O)
 				else
-					unbuckle()
+					unbuckle_mob()
 			if (pulling && (get_dist(src, pulling) > 1))
 				pulling.pulledby = null
 				pulling << "\red You lost your grip!"
@@ -102,7 +112,7 @@
 	if (pulling)
 		MouseDrop(usr)
 	else
-		manual_unbuckle(user)
+		user_unbuckle_mob(user, user)
 	return
 
 /obj/structure/stool/bed/chair/wheelchair/MouseDrop(over_object, src_location, over_location)
@@ -135,7 +145,7 @@
 
 	if(propelled || (pulling && (pulling.a_intent == I_HARM)))
 		var/mob/living/occupant = buckled_mob
-		unbuckle()
+		unbuckle_mob()
 
 		if (pulling && (pulling.a_intent == "hurt"))
 			occupant.throw_at(A, 3, 3, pulling)

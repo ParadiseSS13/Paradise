@@ -372,7 +372,7 @@
 	if(!M) return
 
 	if(M.current.vampire_power(30, 0))
-		if(M.current.buckled) M.current.buckled.unbuckle()
+		if(M.current.buckled) M.current.buckled.unbuckle_mob()
 		spawn(0)
 			var/originalloc = get_turf(M.current.loc)
 			var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt( originalloc )
@@ -386,7 +386,7 @@
 			animation.master = holder
 			M.current.ExtinguishMob()
 			if(M.current.buckled)
-				M.current.buckled.unbuckle()
+				M.current.buckled.unbuckle_mob()
 			flick("liquify",animation)
 			M.current.loc = holder
 			M.current.client.eye = holder
@@ -436,7 +436,7 @@
 	var/max_lum = 1
 
 	if(M.current.vampire_power(30, 0))
-		if(M.current.buckled) M.current.buckled.unbuckle()
+		if(M.current.buckled) M.current.buckled.unbuckle_mob()
 		spawn(0)
 			var/list/turfs = new/list()
 			for(var/turf/T in range(usr,outer_tele_radius))
@@ -463,7 +463,7 @@
 				return
 			M.current.ExtinguishMob()
 			if(M.current.buckled)
-				M.current.buckled.unbuckle()
+				M.current.buckled.unbuckle_mob()
 			var/atom/movable/overlay/animation = new /atom/movable/overlay( get_turf(usr) )
 			animation.name = usr.name
 			animation.density = 0

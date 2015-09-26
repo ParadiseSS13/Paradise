@@ -448,6 +448,9 @@ its easier to just keep the beam vertical.
 	else
 		return 0
 
+/atom/proc/handle_fall()
+	return
+
 /atom/proc/singularity_act()
 	return
 

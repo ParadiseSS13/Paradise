@@ -16,9 +16,19 @@
 	space_move = new /datum/global_iterator/space_movement(null,0)
 	return
 
+/obj/structure/stool/bed/chair/segway/user_buckle_mob(mob/living/M, mob/user)
+	if(user.incapacitated()) //user can't move the mob on the janicart's turf if incapacitated
+		return
+	for(var/atom/movable/A in get_turf(src)) //we check for obstacles on the turf.
+		if(A.density)
+			if(A != src && A != M)
+				return
+	M.loc = loc //we move the mob on the janicart's turf before checking if we can buckle.
+	..()
+
 /obj/structure/stool/bed/chair/segway/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis)
-		unbuckle()
+		unbuckle_mob()
 		icon_state = "sec_seg_idle"
 	if(istype(user.l_hand, /obj/item/sec_seg_key) || istype(user.r_hand, /obj/item/sec_seg_key))
 		if(!allowMove)
@@ -38,7 +48,7 @@
 				playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 				buckled_mob.Stun(8)
 				buckled_mob.Weaken(5)
-				unbuckle()
+				unbuckle_mob()
 				step(src, dir)
 		sleep(delay)
 		allowMove = 1
@@ -47,10 +57,6 @@
 
 /obj/structure/stool/bed/chair/segway/Move()
 	. = ..()
-	if(buckled_mob)
-		if(buckled_mob.buckled == src)
-			buckled_mob.loc = loc
-	return .
 
 /obj/structure/stool/bed/chair/segway/Bump(var/atom/obstacle)
 	if(istype(obstacle, /mob))
@@ -59,47 +65,31 @@
 		obstacle.Bumped(src)
 	return
 
-/obj/structure/stool/bed/chair/segway/buckle_mob(mob/M, mob/user)
-        if(M != user || !ismob(M) || get_dist(src, user) > 1 || user.restrained() || user.lying || user.stat || M.buckled || istype(user, /mob/living/silicon))
-                return
+/obj/structure/stool/bed/chair/segway/post_buckle_mob(mob/living/M)
+	update_mob()
+	add_fingerprint(M)
+	M.pixel_x = 0
+	M.pixel_y = 5
+	return ..()
 
-        unbuckle()
-
-        M.visible_message(\
-                "<span class='notice'>[M] climbs onto the [src.name]!</span>",\
-                "<span class='notice'>You climb onto the [src.name]!</span>")
-        M.buckled = src
-        M.loc = loc
-        M.dir = dir
-        M.update_canmove()
-        buckled_mob = M
-        update_mob()
-        add_fingerprint(user)
-        buckled_mob.pixel_x = 0
-        buckled_mob.pixel_y = 5
-
-/obj/structure/stool/bed/chair/segway/unbuckle()
-        if(buckled_mob)
-                buckled_mob.pixel_x = 0
-                buckled_mob.pixel_y = 0
-        ..()
+/obj/structure/stool/bed/chair/segway/unbuckle_mob()
+	var/mob/living/M = ..()
+	if(M)
+		M.pixel_x = 0
+		M.pixel_y = 0
+	return M
 
 /obj/structure/stool/bed/chair/segway/handle_rotation()
-        if(dir == NORTH)
-                layer = OBJ_LAYER
-        else
-                layer = FLY_LAYER
+	if(dir == NORTH)
+		layer = OBJ_LAYER
+	else
+		layer = FLY_LAYER
 
-        if(buckled_mob)
-                if(buckled_mob.loc != loc)
-                        buckled_mob.buckled = null
-                        buckled_mob.buckled = src
-
-        update_mob()
+	update_mob()
 
 /obj/structure/stool/bed/chair/segway/proc/update_mob()
-        if(buckled_mob)
-                buckled_mob.dir = dir
+	if(buckled_mob)
+		buckled_mob.dir = dir
 
 /obj/structure/stool/bed/chair/segway/bullet_act(var/obj/item/projectile/Proj)
 	if(buckled_mob)
@@ -147,7 +137,7 @@
 
 /obj/structure/stool/bed/chair/segway/snowmobile/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis)
-		unbuckle()
+		unbuckle_mob()
 	if(!allowMove)
 		return
 	if(src.space_move.active())
@@ -159,14 +149,14 @@
 	if(istype(src.loc, /turf/space))
 		src.space_move.start(list(src,direction))
 	if(istype(src.loc, /turf/simulated))
-		health -= 5
+		damage(5)
 		usr << "Your snowmobile takes damage from not being on snow!"
 		var/turf/simulated/T = src.loc
-		if(T.wet == 2)	//Lube! Fall off!
+		if(T && T.wet == 2)	//Lube! Fall off!
 			playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 			buckled_mob.Stun(8)
 			buckled_mob.Weaken(5)
-			unbuckle()
+			unbuckle_mob()
 			step(src, dir)
 	sleep(delay)
 	allowMove = 1

@@ -51,19 +51,9 @@
 	R.my_atom = src
 
 /obj/vehicle/train/janitor/engine/Move()
-	if(on && cell.charge < charge_use)
-		turn_off()
-		update_stats()
-		if(load && is_train_head())
-			load << "The drive motor briefly whines, then drones to a stop."
-
-	if(is_train_head() && !on)
-		return 0
-
+	. = ..()
 	handle_rotation()
 	update_mob()
-
-	return ..()
 
 /obj/vehicle/train/janitor/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(openTop)

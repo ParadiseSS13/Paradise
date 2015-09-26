@@ -2,11 +2,9 @@
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
 	icon_state = "chair"
+	buckle_lying = 0 //you sit in a chair, not lay
 
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
-
-/obj/structure/stool/MouseDrop(atom/over_object)
-	return
 
 /obj/structure/stool/bed/chair/New()
 	if(anchored)
@@ -15,6 +13,10 @@
 	spawn(3)	//sorry. i don't think there's a better way to do this.
 		handle_rotation()
 	return
+
+/obj/structure/stool/bed/chair/Move(atom/newloc, direct)
+	..()
+	handle_rotation()
 
 /obj/structure/stool/bed/chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
@@ -66,11 +68,6 @@
 		handle_rotation()
 		return
 
-/obj/structure/stool/bed/chair/MouseDrop_T(mob/M as mob, mob/user as mob)
-	if(!istype(M)) return
-	buckle_mob(M, user)
-	return
-
 // Chair types
 /obj/structure/stool/bed/chair/wood
 	// TODO:  Special ash subtype that looks like charred chair legs
@@ -106,7 +103,7 @@
 
 	return ..()
 
-/obj/structure/stool/bed/chair/comfy/afterbuckle()
+/obj/structure/stool/bed/chair/comfy/post_buckle_mob(mob/living/M)
 	if(buckled_mob)
 		overlays += armrest
 	else
@@ -143,29 +140,13 @@
 	anchored = 0
 	movable = 1
 
-/obj/structure/stool/bed/chair/office/Move()
-	..()
-	if(buckled_mob)
-		var/mob/living/occupant = buckled_mob
-		occupant.buckled = null
-		occupant.Move(src.loc)
-		occupant.buckled = src
-		if (occupant && (src.loc != occupant.loc))
-			if (propelled)
-				for (var/mob/O in src.loc)
-					if (O != occupant)
-						Bump(O)
-			else
-				unbuckle()
-	handle_rotation()
-
 /obj/structure/stool/bed/chair/office/Bump(atom/A)
 	..()
 	if(!buckled_mob)	return
 
 	if(propelled)
 		var/mob/living/occupant = buckled_mob
-		unbuckle()
+		unbuckle_mob()
 		occupant.throw_at(A, 3, propelled)
 		occupant.apply_effect(6, STUN, 0)
 		occupant.apply_effect(6, WEAKEN, 0)
