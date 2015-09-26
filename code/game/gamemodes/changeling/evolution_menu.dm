@@ -408,6 +408,7 @@ var/list/sting_paths
 			for(var/obj/effect/proc_holder/changeling/p in mind.changeling.purchasedpowers)
 				if(!(p.dna_cost == 0 && keep_free_powers))
 					mind.changeling.purchasedpowers -= p
+			remove_language("Changeling")
 
 /datum/changeling/proc/has_sting(obj/effect/proc_holder/changeling/power)
 	for(var/obj/effect/proc_holder/changeling/P in purchasedpowers)
