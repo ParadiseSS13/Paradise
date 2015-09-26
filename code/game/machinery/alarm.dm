@@ -119,6 +119,9 @@
 
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
+	
+/obj/machinery/alarm/monitor/server
+	preset = AALARM_PRESET_SERVER
 
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER

@@ -35,7 +35,6 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	load_configuration()
 	SetupHooks() // /vg/
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)

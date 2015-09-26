@@ -18,14 +18,12 @@
 
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
-	if(config)
-		update_starlight() //MC will initialize all the space turfs that get created before config
+	update_starlight()
 
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
 
 /turf/space/proc/update_starlight()
-	if(!config)	return
 	if(!config.starlight)
 		return
 	if(locate(/turf/simulated) in orange(src,1))
