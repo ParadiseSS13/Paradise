@@ -24,12 +24,12 @@ Pipelines + Other Objects -> Pipe network
 	var/icon_connect_type = "" //"-supply" or "-scrubbers"
 
 	var/initialize_directions = 0
-	
+
 	var/pipe_color
 	var/obj/item/pipe/stored
 	var/image/pipe_image
 	var/global/datum/pipe_icon_manager/icon_manager
-	
+
 /obj/machinery/atmospherics/New()
 	if(!icon_manager)
 		icon_manager = new()
@@ -40,10 +40,10 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
-	
+
 	if(can_unwrench)
 		stored = new(src, make_from = src)
-	
+
 	..()
 
 /obj/machinery/atmospherics/Destroy()
@@ -54,10 +54,10 @@ Pipelines + Other Objects -> Pipe network
 		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
 	return ..()
 
-// Icons/overlays/underlays	
+// Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	return null
-	
+
 /obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
 	if(!istype(icon_manager))
 		if(!safety) //to prevent infinite loops
@@ -92,7 +92,7 @@ Pipelines + Other Objects -> Pipe network
 	else
 		return 0
 
-// Connect types	
+// Connect types
 /obj/machinery/atmospherics/proc/check_connect_types(obj/machinery/atmospherics/atmos1, obj/machinery/atmospherics/atmos2)
 	var/i
 	var/list1[] = atmos1.connect_types
@@ -117,7 +117,7 @@ Pipelines + Other Objects -> Pipe network
 				return n
 	return 0
 
-// Pipenet related functions	
+// Pipenet related functions
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
@@ -135,8 +135,8 @@ Pipelines + Other Objects -> Pipe network
 	return
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
-	return	
-	
+	return
+
 /obj/machinery/atmospherics/proc/nullifyPipenet(datum/pipeline/P)
 	if(P)
 		P.other_atmosmch -= src
@@ -151,7 +151,7 @@ Pipelines + Other Objects -> Pipe network
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
 		add_fingerprint(user)
-		
+
 		var/unsafe_wrenching = FALSE
 		var/internal_pressure = int_air.return_pressure()-env_air.return_pressure()
 
@@ -160,21 +160,21 @@ Pipelines + Other Objects -> Pipe network
 		if (internal_pressure > 2*ONE_ATMOSPHERE)
 			user << "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>"
 			unsafe_wrenching = TRUE //Oh dear oh dear
-		
+
 		if (do_after(user, 40, target = src) && isnull(gcDestroyed))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
 				"<span class='italics'>You hear ratchet.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
-			
+
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				unsafe_pressure_release(user,internal_pressure)			
+				unsafe_pressure_release(user,internal_pressure)
 			Deconstruct()
 	else
 		return ..()
-	
+
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.
 /obj/machinery/atmospherics/proc/unsafe_pressure_release(var/mob/user,var/pressures)
@@ -191,7 +191,7 @@ Pipelines + Other Objects -> Pipe network
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction,pressures/10,pressures/50)
-	
+
 /obj/machinery/atmospherics/proc/Deconstruct()
 	if(can_unwrench)
 		var/turf/T = get_turf(src)
@@ -203,7 +203,7 @@ Pipelines + Other Objects -> Pipe network
 					new /obj/item/pipe_meter(T)
 					qdel(meter)
 		qdel(src)
-	
+
 /obj/machinery/atmospherics/construction(D, P, C)
 	if(C)
 		color = C
@@ -217,7 +217,7 @@ Pipelines + Other Objects -> Pipe network
 		A.initialize()
 		A.addMember(src)
 	build_network()
-	
+
 // Find a connecting /obj/machinery/atmospherics in specified direction.
 /obj/machinery/atmospherics/proc/findConnecting(var/direction)
 	for(var/obj/machinery/atmospherics/target in get_step(src,direction))
@@ -225,10 +225,13 @@ Pipelines + Other Objects -> Pipe network
 		if(can_connect && (target.initialize_directions & get_dir(target,src)))
 			return target
 
-// Ventcrawling		
+// Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
 	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
+		return
+
+	if(buckled_mob == user)
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)
@@ -263,7 +266,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return 1
-	
+
 /obj/machinery/atmospherics/proc/change_color(var/new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible
 	if(!pipe_color_check(new_color))
@@ -272,7 +275,7 @@ Pipelines + Other Objects -> Pipe network
 	pipe_color = new_color
 	update_icon()
 
-// Additional icon procs	
+// Additional icon procs
 /obj/machinery/atmospherics/proc/universal_underlays(var/obj/machinery/atmospherics/node, var/direction)
 	var/turf/T = get_turf(src)
 	if(!istype(T)) return
@@ -303,8 +306,7 @@ Pipelines + Other Objects -> Pipe network
 			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
-	
+
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		Deconstruct()	
-		
+		Deconstruct()

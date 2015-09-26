@@ -108,9 +108,9 @@
 						var/temp_bitesize =  max(reagents.total_volume /2, bitesize)
 						reagents.trans_to(M, temp_bitesize)
 						*/
-						reagents.trans_to_ingest(M, bitesize)
+						reagents.trans_to(M, bitesize)
 					else
-						reagents.trans_to_ingest(M, reagents.total_volume)
+						reagents.trans_to(M, reagents.total_volume)
 					bitecount++
 					On_Consume(M)
 			return 1

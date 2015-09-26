@@ -113,6 +113,7 @@
 	dat += "<tr><td><b>Maturation time</b></td><td>[grown_seed.get_trait(TRAIT_MATURATION)]</td></tr>"
 	dat += "<tr><td><b>Production time</b></td><td>[grown_seed.get_trait(TRAIT_PRODUCTION)]</td></tr>"
 	dat += "<tr><td><b>Potency</b></td><td>[grown_seed.get_trait(TRAIT_POTENCY)]</td></tr>"
+	dat += "<tr><td><b>Species Discovery Value</b></td><td>[grown_seed.get_trait(TRAIT_RARITY)]</td></tr>"
 
 	//--FalseIncarnate
 	//Tray-specific stats like Age and Mutation Modifier, not shown if target was not a hydroponics tray or soil

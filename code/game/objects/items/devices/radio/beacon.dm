@@ -7,12 +7,12 @@
 	origin_tech = "bluespace=1"
 	var/emagged = 0
 	var/syndicate = 0
-	
+
 /obj/item/device/radio/beacon/New()
 	..()
 	code = "[code] ([beacons.len + 1])"
 	beacons += src
-	
+
 /obj/item/device/radio/beacon/Destroy()
 	beacons -= src
 	return ..()
@@ -34,7 +34,7 @@
 	set name = "Alter Beacon's Signal"
 	set category = "Object"
 	set src in usr
-	
+
 	if (usr.stat || usr.restrained())
 		return
 
@@ -73,23 +73,6 @@
 	if(user)
 		user << "\blue Locked In"
 		new /obj/machinery/syndicatebomb( user.loc )
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		qdel(src)
-	return
-
-
-/obj/item/device/telepad_beacon
-	name = "Telepad Beacon"
-	desc = "Used to warp in a cargo telepad."
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "beacon"
-	item_state = "signaler"
-	origin_tech = "bluespace=3"
-
-/obj/item/device/telepad_beacon/attack_self(mob/user as mob)
-	if(user)
-		user << "\blue Locked In"
-		new /obj/machinery/telepad_cargo(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
 	return

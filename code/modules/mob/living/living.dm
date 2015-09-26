@@ -399,9 +399,12 @@
 
 	return
 
-/mob/living/Move(a, b, flag)
-	if (buckled)
-		return
+/mob/living/Move(atom/newloc, direct)
+	if (buckled && buckled.loc != newloc)
+		if (!buckled.anchored)
+			return buckled.Move(newloc, direct)
+		else
+			return 0
 
 	if (restrained())
 		stop_pulling()
@@ -412,7 +415,7 @@
 		for(var/mob/living/M in range(src, 1))
 			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
-	if ((t7 && (pulling && ((get_dist(src, pulling) <= 1 || pulling.loc == loc) && (client && client.moving)))))
+	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
 		var/turf/T = loc
 		. = ..()
 
@@ -460,17 +463,12 @@
 							var/turf/location = M.loc
 							if (istype(location, /turf/simulated))
 								location.add_blood()
-
-
-						step(pulling, get_dir(pulling.loc, T))
-						M.start_pulling(t)
+						pulling.Move(T, get_dir(pulling, T))
+						if(M)
+							M.start_pulling(t)
 				else
 					if (pulling)
-						if (istype(pulling, /obj/structure/window/full))
-							for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
-								stop_pulling()
-					if (pulling)
-						step(pulling, get_dir(pulling.loc, T))
+						pulling.Move(T, get_dir(pulling, T))
 	else
 		stop_pulling()
 		. = ..()
@@ -639,10 +637,10 @@
 					for(var/mob/O in viewers(C))
 						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
 					C << "\blue You successfully unbuckle yourself."
-					C.buckled.manual_unbuckle(C)
+					C.buckled.user_unbuckle_mob(C,C)
 
 	else
-		L.buckled.manual_unbuckle(L)
+		L.buckled.user_unbuckle_mob(L,L)
 
 /* resist_closet() allows a mob to break out of a welded/locked closet
 */////
@@ -779,6 +777,8 @@
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 				qdel(CM.handcuffed)
 				CM.handcuffed = null
+				if(CM.buckled && CM.buckled.buckle_requires_restraints)
+					CM.buckled.unbuckle_mob()
 				CM.update_inv_handcuffed()
 				return
 

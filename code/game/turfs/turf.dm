@@ -109,12 +109,7 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-		var/has_gravity = O.mob_has_gravity(src)
-		O.update_gravity(has_gravity)
-		if(!has_gravity)
-			inertial_drift(O)
-		else if(!istype(src, /turf/space))
-			O.inertia_dir = 0
+		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
 	for(var/atom/A in range(1))
@@ -144,46 +139,6 @@
 	return 0
 /turf/proc/return_siding_icon_state()		//used for grass floors, which have siding.
 	return 0
-
-/turf/proc/inertial_drift(atom/movable/A as mob|obj)
-	if(!(A.last_move))	return
-	if(istype(A, /obj/spacepod) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
-		var/obj/spacepod/SP = A
-		if(SP.Process_Spacemove(1))
-			SP.inertia_dir = 0
-			return
-		spawn(5)
-			if((SP && (SP.loc == src)))
-				if(SP.inertia_dir)
-					step(SP, SP.inertia_dir)
-					return
-	if(istype(A, /obj/structure/stool/bed/chair/cart/) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
-		var/obj/structure/stool/bed/chair/cart/JC = A //A bomb!
-		if(JC.Process_Spacemove(1))
-			JC.inertia_dir = 0
-			return
-		spawn(5)
-			if((JC && (JC.loc == src)))
-				if(JC.inertia_dir)
-					step(JC, JC.inertia_dir)
-					return
-				JC.inertia_dir = JC.last_move
-				step(JC, JC.inertia_dir)
-
-
-	if((istype(A, /mob/) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1)))
-		var/mob/M = A
-		if(M.Process_Spacemove(1))
-			M.inertia_dir  = 0
-			return
-		spawn(5)
-			if((M && !(M.anchored) && !(M.pulledby) && (M.loc == src)))
-				if(M.inertia_dir)
-					step(M, M.inertia_dir)
-					return
-				M.inertia_dir = M.last_move
-				step(M, M.inertia_dir)
-	return
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -386,6 +341,13 @@
 	return abs(src.x - T.x) + abs(src.y - T.y)
 
 ////////////////////////////////////////////////////
+
+/turf/handle_fall(mob/faller, forced)
+	faller.lying = pick(90, 270)
+	if(!forced)
+		return
+	if(has_gravity(src))
+		playsound(src, "bodyfall", 50, 1)
 
 /turf/singularity_act()
 	if(intact)

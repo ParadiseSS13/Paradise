@@ -179,9 +179,6 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Process_Spaceslipping()
-	return 0 // Don't slip in space.
-
 /mob/living/carbon/alien/Stat()
 
 	statpanel("Status")
