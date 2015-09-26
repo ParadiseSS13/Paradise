@@ -95,69 +95,40 @@
 	return
 
 //EXTRA LIGHTERS
-/obj/item/weapon/lighter/zippo/fluff/li_matsuda_1 //mangled: Li Matsuda
+/obj/item/weapon/lighter/zippo/nt_rep
+	name = "gold engraved zippo"
+	desc = "An engraved golden Zippo lighter with the letters NT on it."
+	icon_state = "zippo_nt_off"
+	icon_on = "zippo_nt_on"
+	icon_off = "zippo_nt_off"
+	
+/obj/item/weapon/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "bluezippo"
 	icon_on = "bluezippoon"
 	icon_off = "bluezippo"
 
-/obj/item/weapon/lighter/zippo/fluff/michael_guess_1 //Dragor23: Michael Guess
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments and a G."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	icon_on = "guessipon"
-	icon_off = "guessip"
-
-/obj/item/weapon/lighter/zippo/fluff/riley_rohtin_1 //rawrtaicho: Riley Rohtin
-	name = "Riley's black zippo"
-	desc = "A black zippo lighter, which holds some form of sentimental value."
-	icon = 'icons/obj/custom_items.dmi'
+/obj/item/weapon/lighter/zippo/black 
+	name = "black zippo lighter"
+	desc = "A black zippo lighter."
 	icon_state = "blackzippo"
 	icon_on = "blackzippoon"
 	icon_off = "blackzippo"
 
-/obj/item/weapon/lighter/zippo/fluff/fay_sullivan_1 //furohman: Fay Sullivan
-	name = "Graduation Lighter"
-	desc = "A silver engraved lighter with 41 on one side and Tharsis University on the other. The lid reads Fay Sullivan, Cybernetic Engineering, 2541"
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "gradzippo"
-	icon_on = "gradzippoon"
-	icon_off = "gradzippo"
-
-/obj/item/weapon/lighter/zippo/fluff/executivekill_1 //executivekill: Hunter Duke
-	name = "Gonzo Fist zippo"
-	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "gonzozippo"
-	icon_on = "gonzozippoon"
-	icon_off = "gonzozippo"
-
-/obj/item/weapon/lighter/zippo/fluff/naples_1 //naples: Russell Vierson
-	name = "Engraved zippo"
-	desc = "A intricately engraved Zippo lighter."
-	icon = 'icons/obj/custom_items.dmi'
+/obj/item/weapon/lighter/zippo/engraved 
+	name = "engraved zippo lighter"
+	desc = "A intricately engraved zippo lighter."
 	icon_state = "engravedzippo"
 	icon_on = "engravedzippoon"
 	icon_off = "engravedzippo"
-
-/obj/item/weapon/lighter/zippo/fluff/nt_rep
-	name = "gold engraved zippo"
-	desc = "An engraved golden Zippo lighter with the letters NT on it."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "zippo_nt_off"
-	icon_on = "zippo_nt_on"
-	icon_off = "zippo_nt_off"
-
-/obj/item/weapon/lighter/zippo/fluff/purple
-	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
+	
+/obj/item/weapon/lighter/zippo/gonzofist
+	name = "Gonzo Fist zippo"
+	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
+	icon_state = "gonzozippo"
+	icon_on = "gonzozippoon"
+	icon_off = "gonzozippo"
 
 ///////////
 //MATCHES//

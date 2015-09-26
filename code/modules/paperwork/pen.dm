@@ -54,14 +54,17 @@
 /obj/item/weapon/pen/fancy
 	name = "fancy pen"
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fancypen"
 
 /obj/item/weapon/pen/gold
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "eugene_pen"
+	icon_state = "goldpen"
+	
+/obj/item/weapon/pen/fountain
+	name = "Engraved Fountain Pen"
+	desc = "An expensive looking pen."
+	icon_state = "fountainpen"	
 
 /obj/item/weapon/pen/attack(mob/living/M, mob/user)
 	if(!istype(M))
