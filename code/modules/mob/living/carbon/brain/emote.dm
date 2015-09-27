@@ -1,4 +1,7 @@
 /mob/living/carbon/brain/emote(var/act,var/m_type=1,var/message = null)
+	if(stat)
+		return
+	
 	if(!(container && istype(container, /obj/item/device/mmi)))//No MMI, no emotes
 		return
 
