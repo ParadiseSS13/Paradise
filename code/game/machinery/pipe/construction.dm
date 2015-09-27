@@ -164,7 +164,7 @@
 			src.color = PIPE_COLOR_RED
 		else if (pipe_type == PIPE_UNIVERSAL)
 			connect_types = list(1,2,3)
-	//src.pipe_dir = get_pipe_dir()
+
 	update(make_from)
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
@@ -275,14 +275,8 @@
 
 	src.dir = turn(src.dir, -90)
 
-	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
-		if(dir==2)
-			dir = 1
-		else if(dir==8)
-			dir = 4
-	else if (pipe_type in list (PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
-		dir = 2
-	//src.pipe_dir = get_pipe_dir()
+	fixdir()
+
 	return
 	
 /obj/item/pipe/verb/flip()
@@ -406,22 +400,6 @@
 
 //Helper to clean up dir
 /obj/item/pipe/proc/fixdir()
-	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
-		if(dir==2)
-			dir = 1
-		else if(dir==8)
-			dir = 4
-
-/obj/item/pipe/attack_self(mob/user as mob)
-	return rotate()
-
-/obj/item/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	..()
-	//*
-	if (!istype(W, /obj/item/weapon/wrench))
-		return ..()
-	if (!isturf(src.loc))
-		return 1
 	if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
 			dir = 1
@@ -429,13 +407,27 @@
 			dir = 4
 	else if (pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER))
 		dir = 2
+
+/obj/item/pipe/attack_self(mob/user as mob)
+	return rotate()
+
+/obj/item/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+	..()
+
+	if (!istype(W, /obj/item/weapon/wrench))
+		return ..()
+		
+	if (!isturf(src.loc))
+		return 1
+
+	fixdir()
+		
 	var/pipe_dir = get_pipe_dir()
 
 	for(var/obj/machinery/atmospherics/M in src.loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M,src))	// matches at least one direction on either type of pipe
-			user << "\red There is already a pipe of the same type at this location."
+			user << "<span class='warning'>There is already a pipe of the same type at this location.</span>"
 			return 1
-	// no conflicts found
 
 	var/obj/machinery/atmospherics/machineReference = null //If somebody wants to overhaul that switch statement below, be my guest. Easier to set a reference here and then transfer logs after the switch statement.
 
@@ -603,11 +595,6 @@
 	qdel(src)	// remove the pipe item
 
 	return
-	 //TODO: DEFERRED
-
-// ensure that setterm() is called for a newly connected pipeline
-
-
 
 /obj/item/pipe_meter
 	name = "meter"

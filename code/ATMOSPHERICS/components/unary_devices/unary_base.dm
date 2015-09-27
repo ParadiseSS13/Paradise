@@ -23,6 +23,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/initialize()
+	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
 			var/c = check_connect_types(target,src)
