@@ -19,8 +19,8 @@
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		usr << "[trace_gas.type]: [trace_gas.moles]"
 		
-	message_admins("[key_name_admin(usr)] has checked the air status of [turf]")
-	log_admin("[key_name(usr)] has checked the air status of [turf]")	
+	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
+	log_admin("[key_name(usr)] has checked the air status of [T]")	
 		
 	feedback_add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
