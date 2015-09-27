@@ -282,15 +282,20 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db()
+	
+	if (ckey in clientmessages)
+		for (var/message in clientmessages[ckey])
+			src << message
+		clientmessages.Remove(ckey)
 
 	if (config && config.autoconvert_notes)
 		convert_notes_sql(ckey)	
 	
 	send_resources()
 
-	//////////////
-	//DISCONNECT//
-	//////////////
+//////////////
+//DISCONNECT//
+//////////////
 /client/Del()
 	if(holder)
 		holder.owner = null

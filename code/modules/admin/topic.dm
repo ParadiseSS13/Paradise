@@ -25,6 +25,9 @@
 
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
 		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
+		
+	if(href_list["stickyban"])
+		stickyban(href_list["stickyban"],href_list)
 
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
