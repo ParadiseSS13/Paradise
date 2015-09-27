@@ -90,10 +90,7 @@
 	if ((!(A) || src != A.loc))	
 		return
 
-	if(destination_z)
-		if(A.z > MAX_Z)
-			return
-			
+	if(destination_z)			
 		A.x = destination_x
 		A.y = destination_y
 		A.z = destination_z
