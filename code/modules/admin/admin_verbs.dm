@@ -639,7 +639,7 @@ var/list/admin_verbs_proccall = list (
 	set name = "De-admin self"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 		
 	log_admin("[key_name(usr)] deadmined themself.")
