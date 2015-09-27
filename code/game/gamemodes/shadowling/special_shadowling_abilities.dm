@@ -13,6 +13,8 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 /obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets)
 	if(usr.stat || !ishuman(usr) || !usr)
 		return
+	if(!isturf(usr.loc))
+		usr << "<span class='warning'>You can't hatch here!</span>"
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
 		switch(hatch_or_no)
