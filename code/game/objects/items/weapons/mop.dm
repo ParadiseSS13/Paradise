@@ -19,7 +19,11 @@
 
 /obj/item/weapon/mop/New()
 	create_reagents(mopcap)
+	janitorial_equipment += src
 
+/obj/item/weapon/mop/Destroy()
+	janitorial_equipment -= src
+	return..()
 
 /obj/item/weapon/mop/proc/clean(turf/simulated/A)
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))

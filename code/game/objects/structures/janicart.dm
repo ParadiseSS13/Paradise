@@ -232,11 +232,11 @@
 
 /obj/structure/janitorialcart/New()
 	create_reagents(100)
-	janitorialcarts += src
+	janitorial_equipment += src
 
 
 /obj/structure/janitorialcart/Destroy()
-	janitorialcarts -= src
+	janitorial_equipment -= src
 	return ..()
 
 /obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)
