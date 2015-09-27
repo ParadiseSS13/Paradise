@@ -500,7 +500,7 @@
 		if(!CbotData.len)
 			CbotData[++CbotData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 		var/CartData[0]
-		for(var/obj/structure/stool/bed/chair/janicart/B in world)
+		for(var/obj/structure/janitorialcart/B in world)
 			var/turf/bl = get_turf(B)
 			if(bl)
 				if(bl.z != cl.z)
