@@ -126,8 +126,9 @@
 
 			log_admin("[key_name(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]</span>")
-			
-	stickyban_show()
+	
+	spawn(10)
+		stickyban_show()
 
 /datum/admins/proc/stickyban_gethtml(ckey, ban)
 	. = "<a href='?_src_=holder;stickyban=remove&ckey=[ckey]'>\[-\]</a><b>[ckey]</b><br />"

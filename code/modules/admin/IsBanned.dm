@@ -2,7 +2,7 @@
 world/IsBanned(key,address,computer_id)
 	if (!key || !address || !computer_id)
 		log_access("Failed Login (invalid data): [key] [address]-[computer_id]")
-		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
+		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
 	var/admin = 0
 	var/ckey = ckey(key)
 	if((ckey in admin_datums) || (ckey in deadmins))
@@ -33,7 +33,7 @@ world/IsBanned(key,address,computer_id)
 			if (admin)
 				log_admin("The admin [key] has been allowed to bypass a matching ban on [.["key"]]")
 				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [.["key"]]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [.["key"]]</span>")
+				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [.["key"]].</span>")
 			else
 				log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 				return .
@@ -79,7 +79,7 @@ world/IsBanned(key,address,computer_id)
 				else
 					log_admin("The admin [key] has been allowed to bypass a matching ban on [pckey]")
 					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [pckey]</span>")
-					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey]</span>")
+					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey].</span>")
 					continue
 			var/expires = ""
 			if(text2num(duration) > 0)
@@ -97,7 +97,6 @@ world/IsBanned(key,address,computer_id)
 			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 			return .
 
-
 	. = ..()	//default pager ban stuff
 	if (.)
 		//byond will not trigger isbanned() for "global" host bans,
@@ -106,7 +105,7 @@ world/IsBanned(key,address,computer_id)
 		if (admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
 			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
-			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban</span>")
+			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
 			return null
 		else
 			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")

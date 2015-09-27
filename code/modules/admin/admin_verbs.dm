@@ -226,6 +226,7 @@ var/list/admin_verbs_proccall = list (
 		admin_verbs_spawn,
 		admin_verbs_mod,
 		admin_verbs_mentor,
+		admin_verbs_proccall,
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
 	)
