@@ -5,6 +5,7 @@
 	switch (action)
 		if ("show")
 			stickyban_show()
+			return
 		if ("add")
 			var/list/ban = list()
 			var/ckey
@@ -30,7 +31,7 @@
 					return
 				ban["message"] = "[reason]"
 
-			world.SetConfig("ban",ckey,list2stickyban(ban))
+			world.SetConfig("ban", ckey, list2stickyban(ban))
 
 			log_admin("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
@@ -49,7 +50,7 @@
 			if (!get_stickyban_from_ckey(ckey))
 				usr << "<span class='adminnotice'>Error: The ban disappeared.</span>"
 				return
-			world.SetConfig("ban",ckey, null)
+			world.SetConfig("ban", ckey, null)
 
 			log_admin("[key_name(usr)] removed [ckey]'s stickyban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
@@ -125,6 +126,8 @@
 
 			log_admin("[key_name(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]</span>")
+			
+	stickyban_show()
 
 /datum/admins/proc/stickyban_gethtml(ckey, ban)
 	. = "<a href='?_src_=holder;stickyban=remove&ckey=[ckey]'>\[-\]</a><b>[ckey]</b><br />"
