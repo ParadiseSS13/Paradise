@@ -493,7 +493,7 @@ var/global/datum/controller/occupations/job_master
 				if(istype(G) && !G.prescription)
 					G.prescription = 1
 					G.name = "prescription [G.name]"
-//		H.update_icons()
+		H.regenerate_icons()
 
 		H.hud_updateflag |= (1 << ID_HUD)
 		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
