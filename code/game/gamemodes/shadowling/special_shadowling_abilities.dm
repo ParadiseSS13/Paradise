@@ -15,6 +15,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 		return
 	if(!isturf(usr.loc))
 		usr << "<span class='warning'>You can't hatch here!</span>"
+		return
 	for(var/mob/living/carbon/human/H in targets)
 		var/hatch_or_no = alert(H,"Are you sure you want to hatch? You cannot undo this!",,"Yes","No")
 		switch(hatch_or_no)
