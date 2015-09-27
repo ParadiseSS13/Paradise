@@ -7,6 +7,8 @@
 	animate_movement=1
 	light_range = 3
 
+	buckle_lying = 0
+
 	var/attack_log = null
 	var/on = 0
 	var/health = 0	//do not forget to set health for your vehicle!
@@ -40,10 +42,7 @@
 	//spawn the cell you want in each vehicle
 
 /obj/vehicle/Move()
-	if(world.time > l_move_time + move_delay)
-		if(on && powered && cell.charge < charge_use)
-			turn_off()
-
+	if(can_move())
 		var/init_anc = anchored
 		anchored = 0
 		if(!..())
@@ -62,6 +61,23 @@
 		return 1
 	else
 		return 0
+
+/obj/vehicle/proc/can_move()
+	if(world.time <= l_move_time + move_delay)
+		return 0
+
+	if(!on || !powered)
+		return 0
+
+	if(on && powered && cell.charge < charge_use)
+		turn_off()
+		return 0
+
+	if(istype(loc, /turf/space))
+		return 0
+
+	return 1
+
 
 /obj/vehicle/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/hand_labeler))
@@ -222,19 +238,19 @@
 
 /obj/vehicle/proc/powercheck()
 	if(!cell && !powered)
-		return
+		return 0
 
 	if(!cell && powered)
 		turn_off()
-		return
+		return 0
 
 	if(cell.charge < charge_use)
 		turn_off()
-		return
+		return 0
 
 	if(cell && powered)
 		turn_on()
-		return
+		return 1
 
 /obj/vehicle/proc/insert_cell(var/obj/item/weapon/stock_parts/cell/C, var/mob/living/carbon/human/H)
 	if(cell)

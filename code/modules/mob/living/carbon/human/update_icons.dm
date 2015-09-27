@@ -676,8 +676,6 @@ var/global/list/damage_icon_parts = list()
 		if(!t_state)
 			t_state = s_store.icon_state
 		var/dmi='icons/mob/belt_mirror.dmi'
-		if(s_store.custom)
-			dmi  = s_store.icon
 		overlays_standing[SUIT_STORE_LAYER]  = image("icon" = dmi, "icon_state" = "[t_state]")
 		s_store.screen_loc = ui_sstore1		//TODO
 	else

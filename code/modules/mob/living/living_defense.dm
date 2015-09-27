@@ -12,7 +12,7 @@
 */
 /mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
-	
+
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
 		armor = max(0, armor - armour_penetration)
@@ -368,3 +368,7 @@
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+
+/mob/living/incapacitated()
+	if(stat || paralysis || stunned || weakened || restrained())
+		return 1

@@ -1,5 +1,5 @@
 /proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server, checkrights = 1)
-	if(checkrights && !check_rights(R_MOD))
+	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
 		usr << "<span class='danger'>Failed to establish database connection.</span>"
@@ -47,7 +47,7 @@
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
-	if(!check_rights(R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	var/ckey
 	var/notetext
@@ -77,7 +77,7 @@
 	show_note(ckey)
 
 /proc/edit_note(note_id)
-	if(!check_rights(R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	if(!dbcon.IsConnected())
 		usr << "<span class='danger'>Failed to establish database connection.</span>"
@@ -112,7 +112,7 @@
 		show_note(target_ckey)
 
 /proc/show_note(target_ckey, index, linkless = 0)
-	if(!check_rights(R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	var/output
 	var/navbar

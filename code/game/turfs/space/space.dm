@@ -18,14 +18,12 @@
 
 	if(!istype(src, /turf/space/transit))
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
-	if(config)
-		update_starlight() //MC will initialize all the space turfs that get created before config
+	update_starlight()
 
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
 
 /turf/space/proc/update_starlight()
-	if(!config)	return
 	if(!config.starlight)
 		return
 	if(locate(/turf/simulated) in orange(src,1))
@@ -94,8 +92,6 @@
 	..()
 	if ((!(A) || src != A.loc))	return
 
-	inertial_drift(A)
-
 	if(transition)
 
 		if(A.z > MAX_Z)	return //for away missions
@@ -121,8 +117,8 @@
 				L.pulling.loc = T
 
 		//now we're on the new z_level, proceed the space drifting
-		if ((A && A.loc))
-			A.loc.Entered(A)
+		sleep(0)//Let a diagonal move finish, if necessary
+		A.newtonian_move(A.inertia_dir)
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

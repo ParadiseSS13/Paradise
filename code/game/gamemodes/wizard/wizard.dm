@@ -184,6 +184,8 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
 
 	wizard_mob.faction = list("wizard")
+	
+	wizard_mob.species.equip(wizard_mob)
 
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
 	wizard_mob << "In your pockets you will find a teleport scroll. Use it as needed."

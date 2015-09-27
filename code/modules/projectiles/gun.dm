@@ -45,7 +45,7 @@
 	var/can_flashlight = 0
 	var/heavy_weapon = 0
 	var/randomspread = 0
-	
+
 	var/burst_size = 1
 
 	proc/ready_to_fire()
@@ -186,6 +186,7 @@
 					user.drop_item()
 					break
 
+		user.newtonian_move(get_dir(target, user))
 		update_icon()
 		if(user.hand)
 			user.update_inv_l_hand()

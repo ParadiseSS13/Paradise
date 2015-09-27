@@ -42,11 +42,9 @@ datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
 	if(!config.disable_away_missions)
-		spawn(20)
-			createRandomZlevel()
+		createRandomZlevel()
 
 	setup_objects()
-	setup_starlight()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
@@ -95,10 +93,3 @@ datum/controller/game_controller/proc/setup_objects()
 	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
 	
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
-
-datum/controller/game_controller/proc/setup_starlight()
-	var/watch = start_watch()
-	log_startup_progress("Initializing starlight...")
-	for(var/turf/space/S in world)
-		S.update_starlight()
-	log_startup_progress("  Initialized starlight in [stop_watch(watch)]s.")	

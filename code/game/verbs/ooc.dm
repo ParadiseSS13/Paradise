@@ -22,7 +22,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		src << "<span class='danger'>You have OOC muted.</span>"
 		return
 
-	if(!check_rights(R_MOD,0))
+	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.ooc_allowed)
 			src << "<span class='danger'>OOC is globally muted.</span>"
 			return
@@ -157,7 +157,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		src << "<span class='danger'>You have LOOC muted.</span>"
 		return
 
-	if(!check_rights(R_MOD,0))
+	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!config.looc_allowed)
 			src << "<span class='danger'>LOOC is globally muted.</span>"
 			return
@@ -193,10 +193,10 @@ var/global/admin_ooc_colour = "#b82e00"
 			var/send = 0
 
 			if(target in admins)
-				if(check_rights(R_MOD,0,target.mob))
+				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
 					admin_stuff += "/([key])"
 					if(target != src)
-						admin_stuff += "([admin_jump_link(mob, target.holder)])"
+						admin_stuff += " ([admin_jump_link(mob, target.holder)])"
 
 			if(target.mob in heard)
 				send = 1
@@ -210,7 +210,7 @@ var/global/admin_ooc_colour = "#b82e00"
 					prefix = " (Eye)"
 
 			if(!send && (target in admins))
-				if(check_rights(R_MOD,0,target.mob))
+				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
 					send = 1
 					prefix = "(R)"
 

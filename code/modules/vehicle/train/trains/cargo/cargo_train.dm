@@ -47,18 +47,6 @@
 	overlays += I
 	turn_off()	//so engine verbs are correctly set
 
-/obj/vehicle/train/cargo/engine/Move()
-	if(on && cell.charge < charge_use)
-		turn_off()
-		update_stats()
-		if(load && is_train_head())
-			load << "The drive motor briefly whines, then drones to a stop."
-
-	if(is_train_head() && !on)
-		return 0
-
-	return ..()
-
 /obj/vehicle/train/cargo/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(open && istype(W, /obj/item/weapon/wirecutters))
 		passenger_allowed = !passenger_allowed

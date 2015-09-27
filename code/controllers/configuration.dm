@@ -21,7 +21,7 @@
 	var/log_runtimes = 0                // Logs all runtimes.
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/log_runtime = 0					// logs world.log to a file
-	var/sql_enabled = 1					// for sql switching
+	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -78,10 +78,10 @@
 
 	var/server
 	var/banappeals
-	var/wikiurl = "http://baystation12.net/wiki"
-	var/forumurl = "http://baystation12.net/forums/"
+	var/wikiurl = "http://example.org"
+	var/forumurl = "http://example.org"
 
-	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
+	var/media_base_url = "http://example.org"
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
@@ -100,7 +100,6 @@
 	var/revival_pod_plants = 1
 	var/revival_cloning = 1
 	var/revival_brain_life = -1
-
 
 	var/auto_toggle_ooc_during_round = 0
 
@@ -169,6 +168,8 @@
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
 	var/dsay_allowed = 1
+	
+	var/disable_lobby_music = 0 // Disables the lobby music
 
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
@@ -238,9 +239,6 @@
 
 				if ("log_access")
 					config.log_access = 1
-
-				if ("sql_enabled")
-					config.sql_enabled = text2num(value)
 
 				if ("log_say")
 					config.log_say = 1
@@ -346,16 +344,6 @@
 
 				if ("guest_ban")
 					guests_allowed = 0
-					
-				if ("disable_ooc")
-					config.ooc_allowed = 0
-					config.looc_allowed = 0
-		
-				if ("disable_dead_ooc")
-					config.dooc_allowed = 0
-
-				if ("disable_dsay")
-					config.dsay_allowed = 0
 
 				if ("usewhitelist")
 					config.usewhitelist = 1
@@ -544,7 +532,10 @@
 					config.disable_away_missions = 1
 
 				if("autoconvert_notes")
-					config.autoconvert_notes = 1					
+					config.autoconvert_notes = 1	
+
+				if("disable_lobby_music")
+					config.disable_lobby_music = 1						
 					
 				else
 					diary << "Unknown setting in configuration: '[name]'"
@@ -638,16 +629,12 @@
 			continue
 
 		switch (name)
+			if("sql_enabled")
+				config.sql_enabled = 1
 			if ("address")
 				sqladdress = value
 			if ("port")
 				sqlport = value
-			if ("database")
-				sqldb = value
-			if ("login")
-				sqllogin = value
-			if ("password")
-				sqlpass = value
 			if ("feedback_database")
 				sqlfdbkdb = value
 			if ("feedback_login")
@@ -656,50 +643,6 @@
 				sqlfdbkpass = value
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
-			if ("enable_stat_tracking")
-				sqllogging = 1
-			else
-				diary << "Unknown setting in configuration: '[name]'"
-
-/datum/configuration/proc/loadforumsql(filename)  // -- TLE
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if (!name)
-			continue
-
-		switch (name)
-			if ("address")
-				forumsqladdress = value
-			if ("port")
-				forumsqlport = value
-			if ("database")
-				forumsqldb = value
-			if ("login")
-				forumsqllogin = value
-			if ("password")
-				forumsqlpass = value
-			if ("activatedgroup")
-				forum_activated_group = value
-			if ("authenticatedgroup")
-				forum_authenticated_group = value
 			else
 				diary << "Unknown setting in configuration: '[name]'"
 

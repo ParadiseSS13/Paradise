@@ -59,7 +59,6 @@
 	var/list/internals_req_access = list(access_engine,access_robotics)//required access level to open cell compartment
 
 	var/datum/global_iterator/pr_int_temp_processor //normalizes internal air mixture temperature
-	var/datum/global_iterator/pr_inertial_movement //controls intertial movement in spesss
 	var/datum/global_iterator/pr_give_air //moves air from tank to cabin
 	var/datum/global_iterator/pr_internal_damage //processes internal damage
 
@@ -136,7 +135,6 @@
 
 /obj/mecha/proc/add_iterators()
 	pr_int_temp_processor = new /datum/global_iterator/mecha_preserve_temp(list(src))
-	pr_inertial_movement = new /datum/global_iterator/mecha_intertial_movement(null,0)
 	pr_give_air = new /datum/global_iterator/mecha_tank_give_air(list(src))
 	pr_internal_damage = new /datum/global_iterator/mecha_internal_damage(list(src),0)
 
@@ -158,13 +156,6 @@
 
 	return 1
 
-
-
-/obj/mecha/proc/check_for_support()
-	if(locate(/obj/structure/grille, orange(1, src)) || locate(/obj/structure/lattice, orange(1, src)) || locate(/turf/simulated, orange(1, src)) || locate(/turf/unsimulated, orange(1, src)))
-		return 1
-	else
-		return 0
 
 /obj/mecha/examine(mob/user)
 	..(user)
@@ -289,11 +280,15 @@
 ////////  Movement procs  ////////
 //////////////////////////////////
 
-/obj/mecha/Move()
+/obj/mecha/Move(atom/newLoc, direct)
 	. = ..()
 	if(.)
 		events.fireEvent("onMove",get_turf(src))
-	return
+
+/obj/mecha/Process_Spacemove(var/movement_dir = 0)
+	if(occupant)
+		return occupant.Process_Spacemove(movement_dir) //We'll just say you used the clamp to grab the wall
+	return ..()
 
 /obj/mecha/relaymove(mob/user,direction)
 	if(user != src.occupant) //While not "realistic", this piece is player friendly.
@@ -316,7 +311,7 @@
 /obj/mecha/proc/dyndomove(direction)
 	if(!can_move)
 		return 0
-	if(src.pr_inertial_movement.active())
+	if(!Process_Spacemove(direction))
 		return 0
 	if(!has_charge(step_energy_drain))
 		return 0
@@ -326,14 +321,9 @@
 	else if(src.dir!=direction)
 		move_result = mechturn(direction)
 	else
-		move_result	= mechstep(direction)
+		move_result = mechstep(direction)
 	if(move_result)
 		can_move = 0
-		use_power(step_energy_drain)
-		if(istype(src.loc, /turf/space))
-			if(!src.check_for_support())
-				src.pr_inertial_movement.start(list(src,direction))
-				src.log_message("Movement control lost. Inertial movement started.")
 		if(mecha_do_after(step_in))
 			can_move = 1
 		return 1
@@ -1070,7 +1060,7 @@
 	connected_port = new_port
 	connected_port.connected_device = src
 	connected_port.parent.reconcile_air()
-	
+
 	log_message("Connected to gas port.")
 	return 1
 
@@ -1082,7 +1072,7 @@
 	connected_port = null
 	src.log_message("Disconnected from gas port.")
 	return 1
-	
+
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
@@ -1881,16 +1871,6 @@
 			return stop()
 		return
 
-/datum/global_iterator/mecha_intertial_movement //inertial movement in space
-	delay = 7
-
-	process(var/obj/mecha/mecha as obj,direction)
-		if(direction)
-			if(!step(mecha, direction)||mecha.check_for_support())
-				src.stop()
-		else
-			src.stop()
-		return
 
 /datum/global_iterator/mecha_internal_damage // processing internal damage
 

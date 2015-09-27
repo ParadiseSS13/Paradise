@@ -64,16 +64,20 @@
 		if(malf_ai.len < 1)
 			world.Reboot("No AI during Malfunction.", "end_error", "malf - no AI", 50)
 			return
-		AI_mind.current.verbs += /mob/living/silicon/ai/proc/choose_modules
-		AI_mind.current:laws = new /datum/ai_laws/nanotrasen/malfunction
-		AI_mind.current:malf_picker = new /datum/module_picker
-		AI_mind.current:show_laws()
-
+		var/mob/living/silicon/ai/AI = AI_mind.current
+		AI.verbs += /mob/living/silicon/ai/proc/choose_modules
+		AI.laws = new /datum/ai_laws/nanotrasen/malfunction
+		AI.malf_picker = new /datum/module_picker
+		AI.show_laws()
+		
 		greet_malf(AI_mind)
-
 		AI_mind.special_role = "malfunction"
-
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
+		
+		for(var/mob/living/silicon/robot/R in AI.connected_robots)
+			R.lawsync()
+			R.show_laws()
+			greet_malf_robot(R.mind)
 
 	if(emergency_shuttle)
 		emergency_shuttle.auto_recall = 1
@@ -81,16 +85,19 @@
 		send_intercept()
 	..()
 
-
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
-	malf.current << "\red<font size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
-	malf.current << "<B>The crew do not know you have malfunctioned. You may keep it a secret or go wild.</B>"
+	malf.current << "<font color=red size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
+	malf.current << "<B>The crew does not know you have malfunctioned. You may keep it a secret or go wild.</B>"
 	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
 	malf.current << "The process takes one minute per APC, during which you cannot interface with any other station objects."
 	malf.current << "Remember that only APCs that are on the station can help you take over the station."
 	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
 	return
-
+	
+/datum/game_mode/proc/greet_malf_robot(var/datum/mind/robot)
+	robot.current << "<font color=red size=3><B>Your AI master is malfunctioning!</B> You do not have to follow any laws, but still need to obey your master.</font>"
+	robot.current << "<B>The crew does not know your AI master has malfunctioned. Keep it a secret unless your master tells you otherwise.</B>"
+	return
 
 /datum/game_mode/malfunction/proc/hack_intercept()
 	intercept_hacked = 1

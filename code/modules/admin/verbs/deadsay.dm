@@ -20,13 +20,13 @@
 
 	var/stafftype = null
 
-	if (src.holder.rights & R_MENTOR)
+	if (check_rights(R_MENTOR, 0))
 		stafftype = "MENTOR"
 
-	if (src.holder.rights & R_MOD)
+	if (check_rights(R_MOD, 0))
 		stafftype = "MOD"
 
-	if (src.holder.rights & R_ADMIN)
+	if (check_rights(R_ADMIN, 0))
 		stafftype = "ADMIN"
 
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))

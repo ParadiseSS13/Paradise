@@ -863,6 +863,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Incinerator"
 	icon_state = "disposal"
 
+/area/maintenance/turbine
+	name = "\improper Turbine"
+	icon_state = "disposal"
+
 /area/maintenance/disposal
 	name = "Waste Disposal"
 	icon_state = "disposal"

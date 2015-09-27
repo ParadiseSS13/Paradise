@@ -675,3 +675,10 @@
 	icon_state = "griffin"
 	_color = "griffin"
 	flags = NODROP
+
+/obj/item/clothing/under/noble_clothes
+	name = "noble clothes"
+	desc = "They fall just short of majestic."
+	icon_state = "noble_clothes"
+	_color = "noble_clothes"
+	item_state = "noble_clothes"

@@ -235,6 +235,24 @@ to destroy them and players will be able to make replacements.
 							/obj/item/weapon/stock_parts/micro_laser = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1)
 
+/obj/item/weapon/circuitboard/power_compressor
+	name = "circuit board (Power Compressor)"
+	build_path = /obj/machinery/power/compressor
+	board_type = "machine"
+	origin_tech = "programming=4;powerstorage=5;engineering=4"
+	req_components = list(
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/weapon/stock_parts/manipulator = 6)
+
+/obj/item/weapon/circuitboard/power_turbine
+	name = "circuit board (Power Turbine)"
+	build_path = /obj/machinery/power/turbine
+	board_type = "machine"
+	origin_tech = "programming=4;powerstorage=4;engineering=5"
+	req_components = list(
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/weapon/stock_parts/capacitor = 6)
+
 /obj/item/weapon/circuitboard/thermomachine
 	name = "circuit board (Freezer)"
 	desc = "Use screwdriver to switch between heating and cooling modes."

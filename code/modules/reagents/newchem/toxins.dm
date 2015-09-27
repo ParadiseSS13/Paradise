@@ -15,7 +15,7 @@ datum/reagent/polonium
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.radiation += 8
+	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	..()
 	return
 
@@ -304,19 +304,19 @@ datum/reagent/initropidril
 datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(33))
-		M.adjustToxLoss(rand(5,25))
-	if(prob(rand(5,10)))
-		var/picked_option = rand(1,3)
-		switch(picked_option)
+		switch(pick(1,2))
 			if(1)
 				M << "<span class = 'danger'>You feel horrendously weak!</span>"
 				M.Stun(2)
-				M.losebreath += 1
 			if(2)
+				M.adjustToxLoss(rand(5,25))
+	if(prob(10))
+		switch(pick(1,2))
+			if(1)
 				M << "<span class = 'danger'>You cannot breathe!</span>"
 				M.losebreath += 5
 				M.adjustOxyLoss(10)
-			if(3)
+			if(2)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
 					H.heart_attack = 1 // rip in pepperoni
@@ -712,7 +712,7 @@ datum/reagent/glowing_slurry/reaction_mob(var/mob/M, var/method=TOUCH, var/volum
 
 datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(2*REM,IRRADIATE,0)
+	M.apply_effect(2*REM, IRRADIATE, 0, negate_armor = 1)
 	if(prob(15))
 		randmutb(M)
 	if(prob(5))

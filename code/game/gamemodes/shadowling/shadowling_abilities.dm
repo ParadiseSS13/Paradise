@@ -139,7 +139,7 @@
 		user.incorporeal_move = 1
 		user.alpha = 0
 		if(user.buckled)
-			user.buckled.unbuckle()
+			user.buckled.unbuckle_mob()
 		sleep(40) //4 seconds
 		user.visible_message("<span class='warning'>[user] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
 		user.incorporeal_move = 0

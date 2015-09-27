@@ -125,9 +125,6 @@
 	name = "circuit board (Orion Trail)"
 	build_path = /obj/machinery/computer/arcade/orion_trail
 	origin_tech = "programming=2"
-/obj/item/weapon/circuitboard/turbine_control
-	name = "Circuit board (Turbine Control)"
-	build_path = /obj/machinery/computer/turbine_computer
 /obj/item/weapon/circuitboard/solar_control
 	name = "Circuit board (Solar Control)"
 	build_path = /obj/machinery/power/solar_control
@@ -244,6 +241,11 @@
 /obj/item/weapon/circuitboard/large_tank_control
 	name = "Circuit board (Atmospheric Tank Control)"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control
+
+/obj/item/weapon/circuitboard/turbine_computer
+	name = "circuit board (Turbine Computer)"
+	build_path = /obj/machinery/computer/turbine_computer
+	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
 /obj/item/weapon/circuitboard/HONKputer
 	name = "Circuit board (HONKputer)"

@@ -18,6 +18,10 @@
 	qdel(song)
 	song = null
 	return ..()
+	
+/obj/item/device/violin/initialize()
+	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
+	..()
 
 /obj/item/device/violin/attack_self(mob/user as mob)
 	interact(user)
