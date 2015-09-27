@@ -570,7 +570,7 @@ var/list/admin_verbs_proccall = list (
 	log_admin("[key_name(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].")
 	message_admins("[key_name_admin(usr)] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].")
 
-/client/proc/make_sound(var/obj/O in world) // -- TLE
+/client/proc/make_sound(var/obj/O in view()) // -- TLE
 	set category = "Event"
 	set name = "Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
