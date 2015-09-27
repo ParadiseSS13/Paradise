@@ -246,7 +246,7 @@
 "eL" = (/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 4},/turf/simulated/wall/r_wall,/area/research_outpost/power)
 "eM" = (/obj/structure/transit_tube{icon_state = "N-S"},/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 4},/turf/simulated/floor/plating/airless/asteroid,/area/mine/explored)
 "eN" = (/obj/machinery/atmospherics/pipe/simple/visible/purple{dir = 4},/turf/simulated/mineral,/area/mine/explored)
-"eO" = (/obj/machinery/atmospherics/unary/outlet_injector/on{dir = 8},/turf/simulated/floor/plating,/area/mine/explored)
+"eO" = (/obj/machinery/atmospherics/unary/outlet_injector/on{dir = 8},/turf/simulated/floor/plating,/area/research_outpost/atmos)
 "eP" = (/obj/item/stack/rods,/obj/structure/window/reinforced{dir = 4},/obj/item/weapon/shard,/turf/simulated/floor/plating,/area/mine/abandoned)
 "eQ" = (/obj/item/stack/rods,/obj/structure/alien/weeds{icon_state = "weeds2"},/turf/simulated/floor/airless{icon_state = "floorscorched1"},/area/mine/abandoned)
 "eR" = (/turf/simulated/floor/airless{icon_state = "damaged2"},/area/mine/abandoned)
