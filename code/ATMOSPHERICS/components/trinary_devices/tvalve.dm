@@ -40,6 +40,7 @@
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
+			
 		add_underlay(T, node1, turn(dir, -180))
 
 		if(flipped)

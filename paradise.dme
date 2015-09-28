@@ -121,6 +121,7 @@
 #include "code\ATMOSPHERICS\components\unary_devices\heat_source.dm"
 #include "code\ATMOSPHERICS\components\unary_devices\outlet_injector.dm"
 #include "code\ATMOSPHERICS\components\unary_devices\oxygen_generator.dm"
+#include "code\ATMOSPHERICS\components\unary_devices\passive_vent.dm"
 #include "code\ATMOSPHERICS\components\unary_devices\portables_connector.dm"
 #include "code\ATMOSPHERICS\components\unary_devices\tank.dm"
 #include "code\ATMOSPHERICS\components\unary_devices\thermal_plate.dm"
