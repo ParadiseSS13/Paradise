@@ -305,6 +305,8 @@
 				user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 				src.updateUsrDialog()
 				return
+			else 
+				user << "\The [G] is stuck to you!"
 		else
 			user << "\red The sleeper has a beaker already."
 			return
