@@ -148,7 +148,7 @@
 	if(!check_rights(R_BAN))
 		return
 		
-	var/list/bans = world.GetConfig("ban")
+	var/list/bans = sortList(world.GetConfig("ban"))
 	var/banhtml = ""
 	for(var/key in bans)
 		var/ckey = ckey(key)
