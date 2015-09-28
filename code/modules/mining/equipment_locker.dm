@@ -656,7 +656,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/death()
+/mob/living/simple_animal/hostile/mining_drone/Die()
 	..()
 	visible_message("<span class='danger'>[src] is destroyed!</span>")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
@@ -707,11 +707,11 @@
 /mob/living/simple_animal/hostile/mining_drone/proc/CollectOre()
 	var/obj/item/weapon/ore/O
 	for(O in src.loc)
-		O.loc = src
+		O.forceMove(src)
 	for(var/dir in alldirs)
 		var/turf/T = get_step(src,dir)
 		for(O in T)
-			O.loc = src
+			O.forceMove(src)
 	return
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
@@ -719,7 +719,7 @@
 		return
 	for(var/obj/item/weapon/ore/O in contents)
 		contents -= O
-		O.loc = src.loc
+		O.forceMove(loc)
 	return
 
 /mob/living/simple_animal/hostile/mining_drone/adjustBruteLoss()

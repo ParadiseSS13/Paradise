@@ -41,10 +41,13 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
+	..()
+	
+/obj/machinery/atmospherics/initialize()
+	..()
+
 	if(can_unwrench)
 		stored = new(src, make_from = src)
-
-	..()
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/mob/living/M in src) //ventcrawling is serious business
@@ -210,7 +213,7 @@ Pipelines + Other Objects -> Pipe network
 	dir = D
 	initialize_directions = P
 	var/turf/T = loc
-	level = T.intact ? 2 : 1
+	level = T.intact ? 2 : 1	
 	initialize()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)

@@ -42,6 +42,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/binary/initialize()
+	..()
 	var/node2_connect = dir
 	var/node1_connect = turn(dir, 180)
 

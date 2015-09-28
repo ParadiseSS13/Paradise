@@ -20,7 +20,7 @@
 <A href='?src=\ref[src];make=20;dir=1'>Pipe Cap</A><BR>
 <A href='?src=\ref[src];make=19;dir=1'>4-Way Manifold</A><BR>
 <A href='?src=\ref[src];make=18;dir=1'>Manual T-Valve</A><BR>
-<A href='?src=\ref[src];make=38;dir=1'>Digital T-Valve</A><BR>
+<A href='?src=\ref[src];make=37;dir=1'>Digital T-Valve</A><BR>
 <b>Supply pipes:</b><BR>
 <A href='?src=\ref[src];make=24;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=25;dir=5'>Bent Pipe</A><BR>
@@ -47,7 +47,6 @@
 <A href='?src=\ref[src];make=14;dir=1'>Gas Mixer</A><BR>
 <A href='?src=\ref[src];make=34;dir=1'>Air Injector</A><BR>
 <A href='?src=\ref[src];make=36;dir=1'>Dual-Port Vent Pump</A><BR>
-<A href='?src=\ref[src];make=37;dir=1'>Passive Vent</A><BR>
 <b>Heat exchange:</b><BR>
 <A href='?src=\ref[src];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=3;dir=5'>Bent Pipe</A><BR>

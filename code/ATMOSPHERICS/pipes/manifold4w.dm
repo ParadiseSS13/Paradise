@@ -152,6 +152,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/initialize()
+	..()
 	for(var/D in cardinal)
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))
 			if(target.initialize_directions & get_dir(target,src))
