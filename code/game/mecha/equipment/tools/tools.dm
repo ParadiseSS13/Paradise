@@ -287,7 +287,7 @@
 
 	Destroy()
 		rcd_list -= src
-		..()
+		return ..()
 
 	action(atom/target)
 		if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve

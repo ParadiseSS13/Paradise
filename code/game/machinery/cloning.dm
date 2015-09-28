@@ -66,7 +66,7 @@
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
-	..()
+	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_coeff = 0
