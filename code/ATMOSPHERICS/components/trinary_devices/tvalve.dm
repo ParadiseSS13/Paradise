@@ -66,7 +66,7 @@
 	parent1.update = 0
 	parent2.update = 0
 	parent3.update = 0
-	parent3.reconcile_air()
+	parent1.reconcile_air()
 
 	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return 1
