@@ -44,6 +44,7 @@
 			initialize_directions = SOUTH|WEST
 		
 /obj/machinery/atmospherics/pipe/simple/initialize()
+	..()
 	normalize_dir()
 	var/N = 2
 	for(var/D in cardinal)

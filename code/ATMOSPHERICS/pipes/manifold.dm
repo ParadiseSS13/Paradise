@@ -33,6 +33,7 @@
 	icon = null
 	
 /obj/machinery/atmospherics/pipe/manifold/initialize()
+	..()
 	for(var/D in cardinal)
 		if(D == dir)
 			continue

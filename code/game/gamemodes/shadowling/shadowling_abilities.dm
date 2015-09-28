@@ -85,10 +85,20 @@
 	else if(istype(I, /obj/item/clothing/head/helmet/space/rig))
 		var/obj/item/clothing/head/helmet/space/rig/R = I
 		if(R.on)
-			R.on = 0
-			R.icon_state = "rig[R.on]-[R._color]"
+			R.toggle_light()
 			R.visible_message("<span class='danger'>[R]'s light fades and turns off.</span>")
-			R.set_light(0)
+	else if(istype(I, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = I
+		if(P.on)
+			P.toggle_light()
+			P.visible_message("<span class='danger'>[P]'s light fades and turns off.</span>")
+	else if(istype(I, /obj/item/weapon/gun))
+		var/obj/item/weapon/gun/G = I
+		if(G.F)
+			var/obj/item/device/flashlight/F = G.F
+			if(F.on)
+				G.toggle_gunlight()
+				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")
 	return I.light_range
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)

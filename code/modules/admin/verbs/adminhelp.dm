@@ -92,7 +92,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	//send this msg to all admins
 	var/admin_number_afk = 0
 	var/list/modholders = list()
-	var/list/banholders = list()
 	var/list/adminholders = list()
 	for(var/client/X in admins)
 		if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
@@ -103,8 +102,6 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			if(X.is_afk())
 				admin_number_afk++
 			adminholders += X
-		if(check_rights(R_BAN, 0, X.mob))
-			banholders += X
 
 	switch(selected_type)
 		if("Question")
@@ -113,15 +110,14 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 					if(X.prefs.sound & SOUND_ADMINHELP)
 						X << 'sound/effects/adminhelp.ogg'
 					X << msg
-			else
-				if(adminholders.len)
-					for(var/client/X in adminholders)
-						if(X.prefs.sound & SOUND_ADMINHELP)
-							X << 'sound/effects/adminhelp.ogg'
-						X << msg
-		else if("Player Complaint")
-			if(banholders.len)
-				for(var/client/X in banholders)
+			if(adminholders.len)
+				for(var/client/X in adminholders)
+					if(X.prefs.sound & SOUND_ADMINHELP)
+						X << 'sound/effects/adminhelp.ogg'
+					X << msg
+		if("Player Complaint")
+			if(adminholders.len)
+				for(var/client/X in adminholders)
 					if(X.prefs.sound & SOUND_ADMINHELP)
 						X << 'sound/effects/adminhelp.ogg'
 					X << msg

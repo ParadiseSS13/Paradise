@@ -67,7 +67,7 @@
 	return ..()
 	
 /obj/machinery/atmospherics/trinary/initialize()
-
+	..()
 	//Mixer:
 	//1 and 2 is input
 	//Node 3 is output
@@ -78,10 +78,6 @@
 	//Node 2 is filtered output
 	//Node 3 is rest output
 	//If we flip the filter, 1 and 3 shall exchange positions
-	
-	if(can_unwrench) // Overridden here to avoid having to snowflake the flipped/icon_state on the construction
-		qdel(stored)
-		stored = new(src, make_from = src) 
 
 	var/node1_connect = turn(dir, -180)
 	var/node2_connect = turn(dir, -90)
