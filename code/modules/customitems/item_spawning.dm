@@ -62,6 +62,7 @@
 			Item.loc = get_turf(M.loc)
 
 		HackProperties(Item,propadjust)
+		M.regenerate_icons()
 
 // This is hacky, but since it's difficult as fuck to make a proper parser in BYOND without killing the server, here it is. - N3X
 /proc/HackProperties(var/mob/living/carbon/human/M,var/obj/item/I,var/script)

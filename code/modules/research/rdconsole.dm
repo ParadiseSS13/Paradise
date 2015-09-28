@@ -184,7 +184,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(..())
 		return 1
 		
-	if(!allowed(usr))
+	if(!allowed(usr) && !isobserver(usr))
 		return 1
 
 	add_fingerprint(usr)
@@ -324,7 +324,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						use_power(250)
 						updateUsrDialog()
 
-	else if(href_list["lock"]) //Lock the console from use by anyone without tox access.
+	else if(href_list["lock"]) //Lock the console from use by anyone without access.
 		if(src.allowed(usr))
 			screen = text2num(href_list["lock"])
 		else
@@ -606,7 +606,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user as mob)
 	if(..())
 		return 1
-	if(!allowed(user))
+	if(!allowed(user) && !isobserver(user))
 		user << "<span class='warning'>Access denied.</span>"
 		return 1
 	interact(user)
@@ -1115,26 +1115,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	dat += "</tr></table></div>"
 	return dat
+	
+/obj/machinery/computer/rdconsole/core
+	name = "Core R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 1
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "Robotics R&D Console"
 	desc = "A console used to interface with R&D tools."
 	id = 2
 	req_access = list(access_robotics)
+	
+/obj/machinery/computer/rdconsole/experiment
+	name = "E.X.P.E.R.I-MENTOR R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 3
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "Mechanics R&D Console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(access_mechanic)
-
-/obj/machinery/computer/rdconsole/core
-	name = "Core R&D Console"
-	desc = "A console used to interface with R&D tools."
-	id = 1
-
-/obj/machinery/computer/rdconsole/experiment
-	name = "E.X.P.E.R.I-MENTOR R&D Console"
-	desc = "A console used to interface with R&D tools."
-	id = 3
 	

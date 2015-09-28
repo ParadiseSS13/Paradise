@@ -509,7 +509,7 @@
 
 
 	proc/has_admin_rights()
-		return client.holder.rights & R_ADMIN
+		return check_rights(R_ADMIN, 0, src)
 
 	proc/is_species_whitelisted(datum/species/S)
 		if(!S) return 1

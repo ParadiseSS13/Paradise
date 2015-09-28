@@ -16,11 +16,9 @@
 	icon_state = "soapnt"
 
 /obj/item/weapon/soap/deluxe
-	icon_state = "soapdeluxe"
-
-/obj/item/weapon/soap/deluxe/New()
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
-	cleanspeed = 40 //same speed as mop because deluxe -- captain gets one of these
+	icon_state = "soapdeluxe"
+	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 
 /obj/item/weapon/soap/syndie
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."

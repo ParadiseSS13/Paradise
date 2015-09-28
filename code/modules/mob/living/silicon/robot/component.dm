@@ -1,14 +1,15 @@
 // TODO: remove the robot.mmi and robot.cell variables and completely rely on the robot component system
 
-/datum/robot_component/var/name
-/datum/robot_component/var/installed = 0
-/datum/robot_component/var/powered = 0
-/datum/robot_component/var/toggled = 1
-/datum/robot_component/var/brute_damage = 0
-/datum/robot_component/var/electronics_damage = 0
-/datum/robot_component/var/energy_consumption = 0
-/datum/robot_component/var/max_damage = 30
-/datum/robot_component/var/mob/living/silicon/robot/owner
+/datum/robot_component
+	var/name = "Component"
+	var/installed = 0
+	var/powered = 1
+	var/toggled = 1
+	var/brute_damage = 0
+	var/electronics_damage = 0
+	var/energy_consumption = 0
+	var/max_damage = 30
+	var/mob/living/silicon/robot/owner
 
 // The actual device object that has to be installed for this.
 /datum/robot_component/var/external_type = null
