@@ -300,11 +300,11 @@
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
 			beaker = G
-			user.drop_item()
-			G.loc = src
-			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
-			src.updateUsrDialog()
-			return
+			if (user.drop_item())
+				G.loc = src
+				user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
+				src.updateUsrDialog()
+				return
 		else
 			user << "\red The sleeper has a beaker already."
 			return
