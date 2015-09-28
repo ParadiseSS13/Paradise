@@ -182,9 +182,9 @@
 
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision
-	name = "Darksight"
-	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
+	name = "Shadowling Darksight"
+	desc = "Gives you night and thermal vision."
+	panel = "Shadowling Abilities"
 	charge_max = 0
 	range = -1
 	include_user = 1
@@ -204,6 +204,9 @@
 			H.vision_type = null
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
+	desc = "Thrall Darksight"
+	desc = "Gives you night vision."
+	panel = "Thrall Abilities"
 	vision_path = /datum/vision_override/nightvision
 
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
