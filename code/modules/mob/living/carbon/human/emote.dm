@@ -337,12 +337,8 @@
 					m_type = 2
 
 		if ("deathgasp")
-			if (species.name == "Machine")
-				message = "<B>[src]</B> gives one shrill beep before falling limp, screen quickly flashing blue before shutting off entirely."
-				m_type = 1
-			else
-				message = "<B>[src]</B> seizes up and falls limp, \his eyes dead and lifeless..."
-				m_type = 1
+			message = "<B>[src]</B> [species.death_message]"	
+			m_type = 1
 
 		if ("giggle")
 			if(miming)
