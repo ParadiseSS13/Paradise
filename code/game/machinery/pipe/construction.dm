@@ -35,7 +35,8 @@
 #define PIPE_INJECTOR    			34
 #define PIPE_DVALVE           	 	35
 #define PIPE_DP_VENT    			36
-#define PIPE_DTVALVE				37
+#define PIPE_PASV_VENT				37
+#define PIPE_DTVALVE				38
 
 /obj/item/pipe
 	name = "pipe"
@@ -142,6 +143,8 @@
 			src.pipe_type = PIPE_INJECTOR
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
 			src.pipe_type = PIPE_DP_VENT
+		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
+			src.pipe_type = PIPE_PASV_VENT
 
 		else if(istype(make_from, /obj/machinery/atmospherics/omni/mixer))
 			src.pipe_type = PIPE_OMNI_MIXER
@@ -344,7 +347,7 @@
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
-		if(PIPE_CONNECTOR, PIPE_UVENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
+		if(PIPE_CONNECTOR, PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir
 		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER)
 			return dir|flip|cw|acw
@@ -427,8 +430,6 @@
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M,src))	// matches at least one direction on either type of pipe
 			user << "<span class='warning'>There is already a pipe of the same type at this location.</span>"
 			return 1
-
-	var/obj/machinery/atmospherics/machineReference = null //If somebody wants to overhaul that switch statement below, be my guest. Easier to set a reference here and then transfer logs after the switch statement.
 
 	switch(pipe_type) //What kind of heartless person thought of doing this?
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_SIMPLE_BENT)
@@ -574,6 +575,12 @@
 			if (pipename)
 				P.name = pipename
 			P.construction(dir, pipe_dir, color)
+			
+		if(PIPE_PASV_VENT)
+			var/obj/machinery/atmospherics/unary/passive_vent/P  = new(src.loc)
+			if (pipename)
+				P.name = pipename
+			P.construction(dir, pipe_dir, color)
 
 		if(PIPE_OMNI_MIXER)
 			var/obj/machinery/atmospherics/omni/mixer/P = new(loc)
@@ -588,9 +595,6 @@
 		"[user] fastens the [src].", \
 		"\blue You have fastened the [src].", \
 		"You hear ratchet.")
-	if(machineReference)
-		transfer_fingerprints_to(machineReference)
-		machineReference.add_fingerprint(user)
 	qdel(src)	// remove the pipe item
 
 	return
@@ -670,4 +674,5 @@
 #undef PIPE_INJECTOR
 #undef PIPE_DVALVE
 #undef PIPE_DP_VENT
+#undef PIPE_PASV_VENT
 #undef PIPE_DTVALVE
