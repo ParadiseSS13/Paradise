@@ -239,12 +239,13 @@
 	if(violent)
 		visible_message("[src] rapidly deflates!")
 		var/obj/item/inflatable/door/torn/R = new /obj/item/inflatable/door/torn(loc)
+		src.transfer_fingerprints_to(R)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
 			var/obj/item/inflatable/door/R = new /obj/item/inflatable/door(loc)
-			
-	src.transfer_fingerprints_to(R)
+			src.transfer_fingerprints_to(R)
+	
 	air_update_turf(1)
 	qdel(src)
 
