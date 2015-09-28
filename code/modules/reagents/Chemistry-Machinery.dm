@@ -591,6 +591,8 @@
 			if(!condi)
 				var/count = 1
 				if (href_list["createpatch_multiple"]) count = isgoodnumber(input("Select the number of patches to make.", 10, patchamount) as num)
+				if(!count || count <= 0)
+					return
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
 				if (amount_per_patch > 40) amount_per_patch = 40
