@@ -6,9 +6,14 @@
 	name = "electrified arm"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "elecarm"
+	var/charge_cost = 30
 	
 /obj/item/borg/stun/attack(mob/M, mob/living/silicon/robot/user)
-	user.cell.charge -= 30
+	var/mob/living/silicon/robot/R = user
+	if(R && R.cell && R.cell.charge > 0)
+		R.cell.use(charge_cost)
+	else
+		return
 
 	user.do_attack_animation(M)
 	M.Weaken(5)
