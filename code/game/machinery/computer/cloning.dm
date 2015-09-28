@@ -22,10 +22,10 @@
 /obj/machinery/computer/cloning/initialize()
 	..()
 	updatemodules()
-	
+
 /obj/machinery/computer/cloning/Destroy()
 	releasecloner()
-	..()
+	return ..()
 
 /obj/machinery/computer/cloning/process()
 	if(!scanner || !pods.len || !autoprocess)
@@ -39,8 +39,8 @@
 			for(var/datum/dna2/record/R in src.records)
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
-						records.Remove(R)		
-						
+						records.Remove(R)
+
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
 	releasecloner()
@@ -119,23 +119,23 @@
 		return
 	var/data[0]
 	data["menu"] = src.menu
-	data["scanner"] = src.scanner	
-	
+	data["scanner"] = src.scanner
+
 	var/canpodautoprocess = 0
 	if(pods.len)
 		data["numberofpods"] = src.pods.len
-		
+
 		var/list/tempods[0]
 		for (var/obj/machinery/clonepod/pod in pods)
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
-				
+
 			tempods.Add(list(list("pod" = "\ref[pod]", "name" = capitalize(pod.name), "biomass" = pod.biomass)))
 			data["pods"] = tempods
-	
+
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
-	
+
 	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
 	else
@@ -257,11 +257,11 @@
 				src.active_record = src.diskette.buf
 
 				src.temp = "Load successful."
-				
+
 			if("eject")
 				if (!isnull(src.diskette))
 					src.diskette.loc = src.loc
-					src.diskette = null			
+					src.diskette = null
 
 	else if (href_list["save_disk"]) //Save to disk!
 		if ((isnull(src.diskette)) || (src.diskette.read_only) || (isnull(src.active_record)))
@@ -284,7 +284,7 @@
 
 	else if (href_list["refresh"])
 		nanomanager.update_uis(src)
-		
+
 	else if (href_list["selectpod"])
 		var/obj/machinery/clonepod/selected = locate(href_list["selectpod"])
 		if(istype(selected) && (selected in pods))
@@ -297,7 +297,7 @@
 			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 			if(!pods.len)
 				temp = "<span class=\"bad\">Error: No cloning pod detected.</span>"
-			else 
+			else
 				var/obj/machinery/clonepod/pod = selected_pod
 				if (!selected_pod)
 					temp = "<span class=\"bad\">Error: No cloning pod selected.</span>"
