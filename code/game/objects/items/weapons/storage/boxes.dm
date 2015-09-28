@@ -258,8 +258,8 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantpad(src)
 
 
 /obj/item/weapon/storage/box/rxglasses
