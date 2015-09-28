@@ -11,10 +11,15 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
+	janitorial_equipment += src
 
 /obj/structure/mopbucket/full/New()
 	..()
 	reagents.add_reagent("water", 100)
+
+/obj/structure/mopbucket/Destroy()
+	janitorial_equipment -= src
+	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)
 	if(..(user, 1))
