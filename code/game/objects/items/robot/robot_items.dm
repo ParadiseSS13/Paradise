@@ -10,6 +10,7 @@
 /obj/item/borg/stun/attack(mob/M, mob/living/silicon/robot/user)
 	user.cell.charge -= 30
 
+	user.do_attack_animation(M)
 	M.Weaken(5)
 	if (M.stuttering < 5)
 		M.stuttering = 5
