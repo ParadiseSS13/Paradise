@@ -1499,6 +1499,7 @@
 #include "code\modules\nano\nanoui.dm"
 #include "code\modules\nano\interaction\admin.dm"
 #include "code\modules\nano\interaction\base.dm"
+#include "code\modules\nano\interaction\conscious.dm"
 #include "code\modules\nano\interaction\contained.dm"
 #include "code\modules\nano\interaction\default.dm"
 #include "code\modules\nano\interaction\inventory.dm"
