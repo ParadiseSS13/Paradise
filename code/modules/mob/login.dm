@@ -60,3 +60,24 @@
 			client.verbs |= H.species.abilities
 
 	CallHook("Login", list("client" = src.client, "mob" = src))
+	
+// Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().
+// Calling it in the overriden Login, such as /mob/living/Login() doesn't cause this.
+/mob/proc/update_interface()
+	if(client)
+		if(winget(src, "mainwindow.hotkey_toggle", "is-checked") == "true")
+			update_hotkey_mode()
+		else
+			update_normal_mode()
+
+/mob/proc/update_hotkey_mode()
+	var/hotkeys = client.hotkeylist[client.hotkeytype]
+	var/hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]
+	client.hotkeyon = 1
+	winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=true mapwindow.map.focus=true input.background-color=#F0F0F0")
+
+/mob/proc/update_normal_mode()
+	var/hotkeys = client.hotkeylist[client.hotkeytype]//get the list containing the hotkey names
+	var/hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
+	client.hotkeyon = 0
+	winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")

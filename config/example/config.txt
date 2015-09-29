@@ -165,7 +165,16 @@ GUEST_BAN
 ## Wiki address
 # WIKIURL http://example.org
 
-## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
+## Rules address
+# RULESURL http://example.org
+
+## Donations address
+# DONATIONSURL http://example.org
+
+## Repository address
+# REPOSITORYURL http://example.org
+
+## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
 
 ## Media base URL - determines where to pull the jukebox playlist from.
