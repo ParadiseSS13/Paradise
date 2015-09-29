@@ -135,6 +135,7 @@ Made by Xhuis
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadowling_hatch)
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall)
+	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision)
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
@@ -154,7 +155,7 @@ Made by Xhuis
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_glare)
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-		//new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/thrall_vision) //Uncomment when vision code is unfucked.
+		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall)
 		new_thrall_mind.current << "<span class='shadowling'><b>You see the truth. Reality has been torn away and you realize what a fool you've been.</b></span>"
 		new_thrall_mind.current << "<span class='shadowling'><b>The shadowlings are your masters.</b> Serve them above all else and ensure they complete their goals.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may not harm other thralls or the shadowlings. However, you do not need to obey other thralls.</span>"
@@ -210,7 +211,7 @@ Made by Xhuis
 	else
 		shadowling_dead = 1 //but shadowling was kill :(
 		return 1
-		
+
 /datum/game_mode/proc/remove_shadowling(datum/mind/ling_mind)
 	if(!istype(ling_mind) || !(ling_mind in shadows)) return 0
 	update_shadow_icons_removed(ling_mind)
@@ -304,7 +305,7 @@ Made by Xhuis
 	flesh_color = "#222222"
 
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
-	burn_mod = 2 //2x burn damage
+	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	spawn(0)
