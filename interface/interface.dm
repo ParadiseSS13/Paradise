@@ -208,7 +208,8 @@ Any-Mode: (hotkey doesn't need to be on)
 	else
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=false")//unchecks the button
 		winset(usr, "mainwindow.input", "focus=true")//sets focus
-	mob.update_interface()
+	if(mob)
+		mob.update_interface()
 
 /client/verb/hotkey_mode()//asks user for the hotkey type and changes the macro accordingly
 	set name = "Set Hotkey Mode"
