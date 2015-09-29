@@ -77,7 +77,7 @@ Admin:
 
 	mob.hotkey_help()
 
-	if(check_rights(0,0))
+	if(check_rights(R_MOD|R_ADMIN,0))
 		src << adminhotkeys
 		
 /mob/proc/hotkey_help()
