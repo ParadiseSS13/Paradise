@@ -203,19 +203,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return 0
 
-// Returns true if direction is blocked from loc
-// Checks doors against access with given ID
-/proc/DirBlockedWithAccess(turf/loc,var/dir,var/obj/item/weapon/card/id/ID)
-	for(var/obj/structure/window/D in loc)
-		if(!D.density)			continue
-		if(D.dir == SOUTHWEST)	return 1 //full-tile window
-		if(D.dir == dir)		return 1 //matching border window
-
-	for(var/obj/machinery/door/D in loc)
-		if(!D.CanAStarPass(ID,dir))
-			return 1
-	return 0
-
 // Returns true if a link between A and B is blocked
 // Movement through doors allowed if door is open
 /proc/LinkBlocked(turf/A, turf/B)
