@@ -214,37 +214,22 @@
 	*/
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
-
-
-	var/list/modholders = list()
-	var/list/banholders = list()
-	var/list/adminholders = list()
-	for(var/client/X in admins)
-		if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
-			modholders += X
-		if(check_rights(R_ADMIN, 0, X.mob))
-			adminholders += X
-		if(check_rights(R_BAN, 0, X.mob))
-			banholders += X
-
 	//we don't use message_admins here because the sender/receiver might get it too
 	for(var/client/X in admins)
 		//check client/X is an admin and isn't the sender or recipient
 		if(X == C || X == src)
 			continue
-		if(X.key!=key && X.key!=C.key)
+		if(X.key != key && X.key != C.key)
 			switch(type)
 				if("Question")
-					if(check_rights(R_MOD|R_MENTOR, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
-					else if(!modholders.len && check_rights(R_ADMIN, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Any admins in backup of mod question
+					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>"
 				if("Player Complaint")
-					if(check_rights(R_BAN, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //There should always be at least 1 person with +BAN on
+					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //If there's no type, send to all admins.
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
