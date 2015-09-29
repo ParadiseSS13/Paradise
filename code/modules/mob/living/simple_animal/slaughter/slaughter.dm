@@ -85,19 +85,19 @@
 
 /mob/living/simple_animal/slaughter/Die()
 	..()
-	new /obj/effect/decal/cleanable/blood (src.loc)
-	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/effect/gibspawner/generic(get_turf(src))
 	var/obj/effect/decal/cleanable/blood/innards = new (get_turf(src))
 	innards.icon = 'icons/obj/surgery.dmi'
 	innards.icon_state = "innards"
 	innards.name = "pile of viscera"
 	innards.desc = "A repulsive pile of guts and gore."
-	new /obj/item/organ/heart/demon(src.loc)
+	new /obj/effect/decal/cleanable/blood (src.loc)
+	new /obj/effect/gibspawner/generic(get_turf(src))
+	new /obj/effect/gibspawner/generic(get_turf(src))
+	new /obj/item/weapon/demonheart(src.loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
 	for(var/mob/living/M in consumed_mobs)
-		M.loc = get_turf(src)
+		M.forceMove(get_turf(src))
 	ghostize()
 	qdel(src)
 
@@ -138,7 +138,7 @@
 //////////The Loot
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
-/obj/item/organ/heart/demon
+/obj/item/weapon/demonheart
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon = 'icons/obj/surgery.dmi'
@@ -146,11 +146,9 @@
 	origin_tech = "combat=5;biotech=8"
 
 
-/obj/item/organ/internal/heart/demon/attack(mob/M, mob/living/carbon/user, obj/target)
-	if(M != user)
-		return ..()
+/obj/item/weapon/demonheart/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
-						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] your mouth and devour it!</span>")
+						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
 	if(user.bloodcrawl == 0)
 		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \

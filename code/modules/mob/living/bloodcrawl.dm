@@ -75,7 +75,7 @@
 						demon.devoured++
 						kidnapped << "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>"
 						kidnapped.adjustBruteLoss(1000)
-						kidnapped.loc = src
+						kidnapped.forceMove(src)
 						demon.consumed_mobs.Add(kidnapped)
 					else
 						kidnapped.ghostize()
@@ -112,7 +112,7 @@
 			return
 		if(!B)
 			return
-		src.loc = B.loc
+		src.forceMove(B)
 		src.client.eye = src
 		if (prob(25) && istype(src, /mob/living/simple_animal/slaughter))
 			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
@@ -133,7 +133,7 @@
 		sleep(6)//wait for animation to finish
 		if(animation)
 			qdel(animation)
-		spawn(24)//was 30, accounting for the above spawn 6
+		spawn(30)
 			src.color = oldcolor
 
 /obj/effect/decal/cleanable/blood/CtrlClick(mob/living/user)
