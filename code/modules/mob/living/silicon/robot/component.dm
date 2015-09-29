@@ -206,8 +206,8 @@
 			user << "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.halloss]% functional"]</span>"
 			user << "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			user << "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
-			if(M.tod && M.stat == DEAD)
-				user << "<span class='notice'>Time of Disable: [M.tod]</span>"
+			if(M.timeofdeath && M.stat == DEAD)
+				user << "<span class='notice'>Time of Disable: [M.timeofdeath]</span>"
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(1,1,1)
 			user << "<span class='notice'>Localized Damage:</span>"
