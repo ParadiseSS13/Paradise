@@ -64,7 +64,7 @@
 			return
 
 		if(user.drop_item())
-			W.loc = src
+			W.forceMove(src)
 			src.beaker = W
 			user << "You attach \the [W] to \the [src]."
 			src.update_icon()

@@ -218,7 +218,7 @@
 
 		beaker = item
 		if(user.drop_item())
-			item.loc = src
+			item.forceMove(src)
 			user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
 			return
 		else

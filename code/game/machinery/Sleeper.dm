@@ -299,9 +299,9 @@
 /obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
-			beaker = G
 			if (user.drop_item())
-				G.loc = src
+				beaker = G
+				G.forceMove(src)
 				user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 				src.updateUsrDialog()
 				return

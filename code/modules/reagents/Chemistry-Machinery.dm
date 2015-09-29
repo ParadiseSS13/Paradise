@@ -219,7 +219,7 @@
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
 		if(user.drop_item())
-			B.loc = src
+			B.forceMove(src)
 			user << "You set [B] on the machine."
 			nanomanager.update_uis(src) // update all UIs attached to src
 			if(!icon_beaker)
