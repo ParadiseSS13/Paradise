@@ -96,7 +96,7 @@
 			//20% chance to actually hit the eyes
 
 			if(prob(effectchance * diode.rating))
-				add_logs(user, C, "shone in the eyes", object="laser pointer")
+				add_logs(C, user, "shone in the eyes", object="laser pointer")
 
 
 				//eye target check
