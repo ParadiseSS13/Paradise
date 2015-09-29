@@ -1,4 +1,3 @@
-
 /mob/living/Login()
 	..()
 	//Mind updates
