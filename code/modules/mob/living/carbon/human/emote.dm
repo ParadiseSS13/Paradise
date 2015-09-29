@@ -1,4 +1,7 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null)
+	if(stat)
+		return
+
 	var/param = null
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
@@ -334,8 +337,12 @@
 					m_type = 2
 
 		if ("deathgasp")
-			message = "<B>[src]</B> seizes up and falls limp, \his eyes dead and lifeless..."
-			m_type = 1
+			if (species.name == "Machine")
+				message = "<B>[src]</B> gives one shrill beep before falling limp, screen quickly flashing blue before shutting off entirely."
+				m_type = 1
+			else
+				message = "<B>[src]</B> seizes up and falls limp, \his eyes dead and lifeless..."
+				m_type = 1
 
 		if ("giggle")
 			if(miming)

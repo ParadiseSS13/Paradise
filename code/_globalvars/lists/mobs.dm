@@ -50,7 +50,8 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/spaceWorm/wormHead,
 			/mob/living/simple_animal/ascendant_shadowling,
 			/mob/living/simple_animal/slaughter,
-			/mob/living/simple_animal/hostile/retaliate/araneus
+			/mob/living/simple_animal/hostile/retaliate/araneus,
+			/mob/living/simple_animal/hostile/syndicate/ranged/orion
 			)
 
 var/global/list/med_hud_users = list()

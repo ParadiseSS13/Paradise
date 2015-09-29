@@ -218,15 +218,17 @@
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
-		user.drop_item()
-		B.loc = src
-		user << "You set [B] on the machine."
-		nanomanager.update_uis(src) // update all UIs attached to src
-		if(!icon_beaker)
-			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
-		icon_beaker.pixel_x = rand(-10,5)
-		overlays += icon_beaker
-		return
+		if(user.drop_item())
+			B.forceMove(src)
+			user << "You set [B] on the machine."
+			nanomanager.update_uis(src) // update all UIs attached to src
+			if(!icon_beaker)
+				icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+			icon_beaker.pixel_x = rand(-10,5)
+			overlays += icon_beaker
+			return
+		else
+			user << "\The [B] is stuck to you!"
 
 /obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 	..()
@@ -591,6 +593,8 @@
 			if(!condi)
 				var/count = 1
 				if (href_list["createpatch_multiple"]) count = isgoodnumber(input("Select the number of patches to make.", 10, patchamount) as num)
+				if(!count || count <= 0)
+					return
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
 				if (amount_per_patch > 40) amount_per_patch = 40

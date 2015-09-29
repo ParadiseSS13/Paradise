@@ -66,17 +66,13 @@
 	flags = ABSTRACT | NODROP
 
 
-/obj/item/clothing/glasses/night/shadowling
+/obj/item/clothing/glasses/shadowling
 	name = "crimson eyes"
 	desc = "A shadowling's eyes. Very light-sensitive and can detect body heat through walls."
 	icon = null
 	icon_state = null
 	item_state = null
 	origin_tech = null
-	vision_flags = SEE_MOBS
-	darkness_view = 8
-	see_darkness = 0
-	invisa_view = 2
 	unacidable = 1
 	flash_protect = -1
 	flags = ABSTRACT | NODROP

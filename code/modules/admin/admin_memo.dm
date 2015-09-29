@@ -11,7 +11,7 @@
 		return
 	admin_memo_output(memotask)
 
-/client/proc/admin_memo_output(task, checkrights = 1)
+/client/proc/admin_memo_output(task, checkrights = 1, silent = 0)
 	if(checkrights && !check_rights(R_SERVER))
 		return
 	if(!task)
@@ -99,7 +99,7 @@
 				if(last_editor)
 					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
 				output += "<br>[memotext]</span><br>"
-			if(!output)
+			if(!output && !silent)
 				src << "No memos found in database."
 				return
 			src << output

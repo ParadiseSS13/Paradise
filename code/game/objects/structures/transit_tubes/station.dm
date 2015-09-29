@@ -15,6 +15,7 @@
 
 	var/const/OPEN_DURATION = 6
 	var/const/CLOSE_DURATION = 6
+	var/list/disallowed_mobs = list(/mob/living/silicon/ai)
 
 /obj/structure/transit_tube/station/New()
 	..()
@@ -32,13 +33,13 @@
 	return 1
 
 /obj/structure/transit_tube/station/Bumped(mob/AM as mob|obj)
-	if(!pod_moving && icon_state == "open" && istype(AM, /mob))
+	if(!pod_moving && icon_state == "open" && istype(AM, /mob/living) && !is_type_in_list(AM, disallowed_mobs))
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
 				AM << "<span class=The pod is already occupied.</span>"
 				return
 			else if(!pod.moving && pod.dir in directions())
-				AM.loc = pod
+				AM.forceMove(pod)
 				return
 
 

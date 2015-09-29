@@ -359,8 +359,8 @@
 /obj/item/weapon/storage/belt/bluespace
 	name = "Belt of Holding"
 	desc = "The greatest in pants-supporting technology."
-	icon_state = "medicalbelt"
-	item_state = "medical"
+	icon_state = "holdingbelt"
+	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = 4
 	max_w_class = 2

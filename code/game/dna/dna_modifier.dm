@@ -217,10 +217,13 @@
 			return
 
 		beaker = item
-		user.drop_item()
-		item.loc = src
-		user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
-		return
+		if(user.drop_item())
+			item.forceMove(src)
+			user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
+			return
+		else
+			user << "\The [item] is stuck to you!"
+			return
 	else if (!istype(item, /obj/item/weapon/grab))
 		return
 	var/obj/item/weapon/grab/G = item

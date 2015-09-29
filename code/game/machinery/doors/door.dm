@@ -83,14 +83,6 @@
 			else
 				flick("door_deny", src)
 		return
-	if(istype(AM, /obj/structure/stool/bed/chair/wheelchair))
-		var/obj/structure/stool/bed/chair/wheelchair/wheel = AM
-		if(density)
-			if(wheel.pulling && (src.allowed(wheel.pulling)))
-				open()
-			else
-				flick("door_deny", src)
-		return
 	return
 
 

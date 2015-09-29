@@ -317,9 +317,16 @@
 			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
+	
+/mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
+	stat = CONSCIOUS
+	dead_mob_list -= src
+	living_mob_list |= src
+	mob_list |= src
+	ear_deaf = 0
+	timeofdeath = 0
 
 /mob/living/proc/rejuvenate()
-
 	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
@@ -367,10 +374,9 @@
 			human_mob.decaylevel = 0
 
 	restore_all_organs()
-	if(stat == 2)
+	if(stat == DEAD)
 		dead_mob_list -= src
 		living_mob_list += src
-		tod = null
 		timeofdeath = 0
 
 	stat = CONSCIOUS

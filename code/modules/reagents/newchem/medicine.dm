@@ -633,6 +633,7 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 		if(method == TOUCH)
 			if(M.stat == DEAD)
 				M.health = M.maxHealth
+				M.update_revive()
 				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
@@ -648,13 +649,12 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
 				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.stat = 1
 					M.setOxyLoss(0)
 					M.adjustBruteLoss(rand(0,15))
 					M.adjustToxLoss(rand(0,15))
 					M.adjustFireLoss(rand(0,15))
-					dead_mob_list -= M
-					living_mob_list |= list(M)
+					M.update_revive()
+					M.stat = UNCONSCIOUS
 					add_logs(M, M, "revived", object="strange reagent")
 	..()
 	return

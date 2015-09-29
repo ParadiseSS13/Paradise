@@ -768,7 +768,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			light_amount = T.get_lumcount()*10
 		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
 			if(species.light_effect_amp)
-				adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
+				adjustFireLoss(4.7) //This gets multiplied by 1.5 due to Shadowling's innate fire weakness, so it ends up being about 7.
 			else
 				adjustFireLoss(1)
 				adjustBruteLoss(1)
@@ -968,7 +968,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/obj/item/organ/vision
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
-		
+
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			eye_blind =  0
 			blinded =    0
@@ -977,7 +977,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			eye_blind =  1
 			blinded =    1
 			eye_blurry = 1
-		else 
+		else
 			//blindness
 			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
@@ -987,7 +987,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
 				blinded =    1
-			
+
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
 				eye_blurry = 1
@@ -1220,13 +1220,17 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(ANTAGHUD)
 							process_antag_hud(src)
 
-
-
-
 		else if(!seer)
 			see_in_dark = species.darksight
 			see_invisible = SEE_INVISIBLE_LIVING
-			
+
+		if(vision_type)
+			see_in_dark = max(see_in_dark, vision_type.see_in_dark, species.darksight)
+			see_invisible = vision_type.see_invisible
+			if(vision_type.light_sensitive)
+				weakeyes = 1
+			sight |= vision_type.sight_flags
+
 		if(see_override)	//Override all
 			see_invisible = see_override
 
