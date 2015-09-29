@@ -195,11 +195,6 @@ Any-Mode: (hotkey doesn't need to be on)
 	set name = ".Toggle Hotkey Mode"
 
 	hotkeyon = !hotkeyon//toggle the var
-
-	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
-	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
-
-	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
 	usr << (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled.")//feedback to the user
 
 	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
