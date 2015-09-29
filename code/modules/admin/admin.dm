@@ -521,7 +521,7 @@ var/global/nologevent = 0
 		
 	var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
 	if(isnull(delay))
-		delay = 50
+		return
 	else
 		delay = delay * 10
 	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
