@@ -153,7 +153,7 @@
 			if(istype(P, /obj/item))
 				var/success
 				for(var/I in req_components)
-					if(istype(P, I) && (req_components[I] > 0))
+					if(istype(P, I) && (req_components[I] > 0) && !(P.flags & NODROP))
 						success=1
 						playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 						if(istype(P, /obj/item/stack/cable_coil))

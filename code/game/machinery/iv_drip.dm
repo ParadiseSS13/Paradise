@@ -63,12 +63,14 @@
 			user << "There is already a reagent container loaded!"
 			return
 
-		user.drop_item()
-		W.loc = src
-		src.beaker = W
-		user << "You attach \the [W] to \the [src]."
-		src.update_icon()
-		return
+		if(user.drop_item())
+			W.forceMove(src)
+			src.beaker = W
+			user << "You attach \the [W] to \the [src]."
+			src.update_icon()
+			return
+		else
+			user << "\The [W] is stuck to you!"
 	else
 		return ..()
 
