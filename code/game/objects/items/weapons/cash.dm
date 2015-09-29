@@ -77,7 +77,7 @@ var/global/list/moneytypes=list(
 	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c200
-	icon_state = "cash100"
+	icon_state = "cash200"
 	worth = 200
 	stack_color = "#663200"
 
