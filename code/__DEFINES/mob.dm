@@ -97,3 +97,7 @@
 #define I_DISARM	"disarm"
 #define I_GRAB		"grab"
 #define I_HARM		"harm"
+
+// AI wire/radio settings
+#define AI_CHECK_WIRELESS 1
+#define AI_CHECK_RADIO 2

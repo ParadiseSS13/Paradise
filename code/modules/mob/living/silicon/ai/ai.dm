@@ -1,6 +1,3 @@
-#define AI_CHECK_WIRELESS 1
-#define AI_CHECK_RADIO 2
-
 var/list/ai_list = list()
 var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/announcement,
@@ -102,6 +99,7 @@ var/list/ai_verbs_default = list(
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
+	announcement.announcer = name
 	announcement.newscast = 1
 	
 	var/list/possibleNames = ai_names
@@ -217,6 +215,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/SetName(pickedName as text)
 	..()
+	
+	announcement.announcer = name
 
 	if(eyeobj)
 		eyeobj.name = "[pickedName] (AI Eye)"
@@ -345,7 +345,7 @@ var/list/ai_verbs_default = list(
 		src << "<span class='warning'>Please allow one minute to pass between announcements.</span>"
 		return
 		
-	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as text|null
+	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
 	if(!input)
 		return
 
@@ -999,7 +999,3 @@ var/list/ai_verbs_default = list(
 		loc = card//Throw AI into the card.
 		src << "You have been downloaded to a mobile storage device. Remote device connection severed."
 		user << "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
-
-#undef AI_CHECK_WIRELESS
-#undef AI_CHECK_RADIO
-
