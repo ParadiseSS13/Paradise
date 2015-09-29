@@ -8,7 +8,7 @@
 
 
 /obj/machinery/power/smes
-	name = "power storage unit"
+	name = "SMES"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = 1
@@ -481,7 +481,7 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 1e6 // Engineering starts with some charge for singulo	
+	charge = 3e6 // Engineering starts with some charge for singulo	
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"
