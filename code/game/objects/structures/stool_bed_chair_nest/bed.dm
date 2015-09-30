@@ -73,7 +73,7 @@
 		if(buckled_mob)
 			user_unbuckle_mob(user)
 		else
-			user.visible_message("<span class='notice'>[user] collapses \the [src.name]."</span>, "<span class='notice'>You collapse \the [src.name].</span>")
+			user.visible_message("<span class='notice'>[user] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
 	return
