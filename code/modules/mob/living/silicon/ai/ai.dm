@@ -857,7 +857,7 @@ var/list/ai_verbs_default = list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = input("What would you like the arrival message to be? Use $name to substitute the crew member's name, and use $rank to substitute the crew member's rank.", "Change Arrival Message", arrivalmsg) as text
+	var/newmsg = input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg) as text
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		usr << "The arrival message has been successfully changed."
