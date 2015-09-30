@@ -486,6 +486,7 @@
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
 	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
+	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
 	cold_level_1 = 50
 	cold_level_2 = -1
