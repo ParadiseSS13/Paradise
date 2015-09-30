@@ -73,8 +73,8 @@
 		if(buckled_mob)
 			user_unbuckle_mob(user)
 		else
-			visible_message("[user] collapses \the [src.name].")
-			new/obj/item/roller(getturf(src))
+			user.visible_message("<span class='notice'>[user] collapses \the [src.name]."</span>, "<span class='notice'>You collapse \the [src.name].</span>")
+			new/obj/item/roller(get_turf(src))
 			qdel(src)
 	return
 
@@ -107,8 +107,8 @@
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)
-			user << "\blue You collect the roller bed."
-			src.loc = RH
+			user.visible_message("<span class='notice'>[user] collects \the [src.name].</span>", "<span class='notice'>You collect \the [src.name].</span>")
+			src.forceMove(RH)
 			RH.held = src
 
 /obj/structure/stool/bed/roller/MouseDrop(over_object, src_location, over_location)
@@ -118,7 +118,7 @@
 			return
 		if(buckled_mob)
 			return 0
-		usr.visible_message("[usr] collapses \the [src.name].", "<span class='notice'>You collapse \the [src.name].</span>")
+		usr.visible_message("<span class='notice'>[usr] collapses \the [src.name].</span>", "<span class='notice'>You collapse \the [src.name].</span>")
 		new/obj/item/roller(get_turf(src))
 		qdel(src)
 		return
@@ -138,10 +138,10 @@
 
 /obj/item/roller_holder/attack_self(mob/user as mob)
 	if(!held)
-		user << "\blue The rack is empty."
+		user << "<span class='info'> The rack is empty.</span>"
 		return
 
-	user << "\blue You deploy the roller bed."
+	user << "<span class='notice'>You deploy the roller bed.</span>"
 	var/obj/structure/stool/bed/roller/R = new /obj/structure/stool/bed/roller(user.loc)
 	R.add_fingerprint(user)
 	qdel(held)
