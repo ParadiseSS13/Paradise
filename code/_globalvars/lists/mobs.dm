@@ -24,7 +24,8 @@ var/global/list/dead_mob_list = list()				//List of all dead mobs, including cli
 var/global/list/respawnable_list = list()				//List of all mobs, dead or in mindless creatures that still be respawned.
 
 //global var of unsafe-to-spawn-on-reaction mobs
-var/global/list/blocked_mobs = list(/mob/living/simple_animal/hostile,
+var/global/list/blocked_mobs = list(/mob/living/simple_animal,
+			/mob/living/simple_animal/hostile,
 			/mob/living/simple_animal/hostile/pirate,
 			/mob/living/simple_animal/hostile/pirate/ranged,
 			/mob/living/simple_animal/hostile/russian,
