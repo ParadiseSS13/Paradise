@@ -17,8 +17,6 @@
 		if (I.implanted)
 			I.trigger(act, src)
 
-
-
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
@@ -42,7 +40,6 @@
 
 	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
-	//--FalseIncarnate
 
 	switch(act)
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
