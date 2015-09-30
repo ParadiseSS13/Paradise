@@ -108,4 +108,4 @@
 	if(. != STATUS_CLOSE)
 		. = min(., shared_living_nano_distance(src_object))
 		if(!IsAdvancedToolUser())
-			. = STATUS_UPDATE
+			. = STATUS_CLOSE
