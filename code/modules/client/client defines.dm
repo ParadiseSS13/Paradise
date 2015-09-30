@@ -60,7 +60,7 @@
 	//adv. hotkey mode vars, code using them in /interface/interface.dm//
 	/////////////////////////////////////////////////////////////////////
 
-	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to ake this save on SQL)
+	var/hotkeytype = "QWERTY" //what set of hotkeys is in use(defaulting to QWERTY because I can't be bothered to make this save on SQL)
 	var/hotkeyon = 0 //is the hotkey on?
 
 	var/hotkeylist = list( //list defining hotkey types, look at lists in place for structure if adding any if the future
@@ -69,7 +69,10 @@
 			"off" = "macro"),
 		"AZERTY" = list(
 			"on" = "AZERTYon",
-			"off" = "AZERTYoff")
+			"off" = "AZERTYoff"),
+		"Cyborg" = list(
+			"on" = "borghotkeymode",
+			"off" = "borgmacro")
 	)
 
 	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.
