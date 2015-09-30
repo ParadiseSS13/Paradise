@@ -484,7 +484,7 @@
 	charge = 2e6 // Engineering starts with some charge for singulo	
 
 /obj/machinery/power/smes/magical
-	name = "magical power storage unit"
+	name = "magical SMES"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Magically produces power."
 	capacity = 9000000
 	output_level = 250000
