@@ -183,7 +183,7 @@ obj/item/device/flashlight/lamp/bananalamp
 		update_brightness(U)
 	else
 		update_brightness(null)
-		
+
 /obj/item/device/flashlight/flare/update_brightness(var/mob/user = null)
 	..()
 	if(on)
@@ -207,7 +207,7 @@ obj/item/device/flashlight/lamp/bananalamp
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
-		
+
 /obj/item/device/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."

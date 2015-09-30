@@ -1758,11 +1758,9 @@
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
 
 
-/mob/living/carbon/human/IsAdvancedToolUser(var/silent)
+/mob/living/carbon/human/IsAdvancedToolUser()
 	if(species.has_fine_manipulation)
 		return 1
-	if(!silent)
-		src << "<span class='warning'>You don't have the dexterity to use that!<span>"
 	return 0
 
 /mob/living/carbon/human/get_permeability_protection()

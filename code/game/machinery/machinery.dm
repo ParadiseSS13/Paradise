@@ -341,10 +341,11 @@ Class Procs:
 		return 1
 	if(user.lying || user.stat)
 		return 1
-	if ( ! (istype(usr, /mob/living/carbon/human) || \
-			istype(usr, /mob/living/silicon)))
-		usr << "\red You don't have the dexterity to do this!"
+
+	if(!user.IsAdvancedToolUser())
+		user << "\red You don't have the dexterity to do this!"
 		return 1
+
 /*
 	//distance checks are made by atom/proc/DblClick
 	if ((get_dist(src, user) > 1 || !istype(src.loc, /turf)) && !istype(user, /mob/living/silicon))
