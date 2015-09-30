@@ -19,6 +19,8 @@
 #define BANTYPE_JOB_TEMP	4
 #define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
 #define BANTYPE_APPEARANCE  6
+#define BANTYPE_ADMIN_PERMA	7
+#define BANTYPE_ADMIN_TEMP	8
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions

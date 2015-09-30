@@ -180,32 +180,34 @@
 		user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
 		user.alpha = initial(user.alpha)
 
-/*
-/obj/effect/proc_holder/spell/targeted/thrall_vision //Uncomment this if we ever update our vision code to not be absolute garbage.
-	name = "Darksight"
-	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
+
+/obj/effect/proc_holder/spell/targeted/shadow_vision
+	name = "Shadowling Darksight"
+	desc = "Gives you night and thermal vision."
+	panel = "Shadowling Abilities"
 	charge_max = 0
 	range = -1
 	include_user = 1
 	clothes_req = 0
-	var/active = 0
+	var/datum/vision_override/vision_path = /datum/vision_override/nightvision/thermals
 
-/obj/effect/proc_holder/spell/targeted/thrall_vision/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/shadow_vision/cast(list/targets)
 	for(var/mob/living/user in targets)
 		if(!istype(user) || !ishuman(user))
 			return
 		var/mob/living/carbon/human/H = user
-		active = !active
-		if(active)
-			user << "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>"
-			H.see_in_dark = 8
-			H.dna.species.invis_sight = SEE_INVISIBLE_MINIMUM
+		if(!H.vision_type)
+			H << "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>"
+			H.vision_type = new vision_path
 		else
-			user << "<span class='notice'>You return your vision to normal.</span>"
-			H.see_in_dark = 0
-			H.dna.species.invis_sight = initial(H.dna.species.invis_sight)
-*/
+			H << "<span class='notice'>You return your vision to normal.</span>"
+			H.vision_type = null
+
+/obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
+	desc = "Thrall Darksight"
+	desc = "Gives you night vision."
+	panel = "Thrall Abilities"
+	vision_path = /datum/vision_override/nightvision
 
 /obj/effect/proc_holder/spell/aoe_turf/flashfreeze
 	name = "Icy Veins"

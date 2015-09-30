@@ -53,7 +53,7 @@
 		if (istype(loc, /obj/item/device/aicard))
 			loc.icon_state = "aicard-404"
 
-	tod = worldtime2text() //weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	timeofdeath = worldtime2text()
+	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
 
 	return ..(gibbed)

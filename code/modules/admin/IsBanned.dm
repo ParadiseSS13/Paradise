@@ -2,38 +2,42 @@
 world/IsBanned(key,address,computer_id)
 	if (!key || !address || !computer_id)
 		log_access("Failed Login (invalid data): [key] [address]-[computer_id]")
-		return list("reason"="invalid login data", "desc"="Your computer provided invalid or blank information to the server on connection (byond username, IP, and Computer ID.) Provided information for reference: Username:'[key]' IP:'[address]' Computer ID:'[computer_id]' If you continue to get this error, please restart byond or contact byond support.")
-	if(ckey(key) in admin_datums)
-		return ..()
+		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
+	var/admin = 0
+	var/ckey = ckey(key)
+	if((ckey in admin_datums) || (ckey in deadmins))
+		admin = 1
 
 	//Guest Checking
 	if(!guests_allowed && IsGuestKey(key))
-		log_access("Failed Login: [key] - Guests not allowed")
+		log_access("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("\blue Failed Login: [key] - Guests not allowed")
-		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
+		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
-	//check if the IP address is a known TOR node
-	if(config && config.ToRban && ToRban_isbanned(address))
-		log_access("Failed Login: [src] - Banned: ToR")
-		message_admins("\blue Failed Login: [src] - Banned: ToR")
+	//check if the IP address is a known Tor node
+	if(config.ToRban && ToRban_isbanned(address))
+		log_access("Failed Login: [key] [computer_id] [address] - Banned: Tor")
+		message_admins("<span class='adminnotice'>Failed Login: [key] - Banned: Tor</span>")
 		//ban their computer_id and ckey for posterity
-		AddBan(ckey(key), computer_id, "Use of ToR", "Automated Ban", 0, 0)
-		return list("reason"="Using ToR", "desc"="\nReason: The network you are using to connect has been banned.\nIf you believe this is a mistake, please request help at [config.banappeals]")
+		AddBan(ckey(key), computer_id, "Use of Tor", "Automated Ban", 0, 0)
+		var/mistakemessage = "" 
+		if(config.banappeals)
+			mistakemessage = "\nIf you believe this is a mistake, please request help at [config.banappeals]."
+		return list("reason"="using Tor", "desc"="\nReason: The network you are using to connect has been banned.[mistakemessage]")
 
 
 	if(config.ban_legacy_system)
-
 		//Ban Checking
-		. = CheckBan( ckey(key), computer_id, address )
+		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
-			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
-			message_admins("\blue Failed Login: [key] id:[computer_id] ip:[address] - Banned [.["reason"]]")
-			return .
-
-		return ..()	//default pager ban stuff
-
+			if (admin)
+				log_admin("The admin [key] has been allowed to bypass a matching ban on [.["key"]]")
+				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [.["key"]]</span>")
+				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [.["key"]].</span>")
+			else
+				log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
+				return .
 	else
-
 		var/ckeytext = ckey(key)
 
 		if(!establish_db_connection())
@@ -49,7 +53,7 @@ world/IsBanned(key,address,computer_id)
 		if(computer_id)
 			cidquery = " OR computerid = '[computer_id]' "
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN'  OR (bantype = 'TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
 
 		query.Execute()
 
@@ -63,18 +67,47 @@ world/IsBanned(key,address,computer_id)
 			var/duration = query.item[7]
 			var/bantime = query.item[8]
 			var/bantype = query.item[9]
-
+			if (bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
+				//admin bans MUST match on ckey to prevent cid-spoofing attacks
+				//	as well as dynamic ip abuse
+				if (pckey != ckey)
+					continue
+			if (admin)
+				if (bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
+					log_admin("The admin [key] is admin banned, and has been disallowed access")
+					message_admins("<span class='adminnotice'>The admin [key] is admin banned, and has been disallowed access</span>")
+				else
+					log_admin("The admin [key] has been allowed to bypass a matching ban on [pckey]")
+					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [pckey]</span>")
+					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey].</span>")
+					continue
 			var/expires = ""
 			if(text2num(duration) > 0)
-				expires = "The ban is for [duration] minutes and expires on [expiration] (server time)."
-			if(istext(bantype) && (bantype == "PERMABAN"))
-				var/appealmsg = ""
-				if(config && config.banappeals)
-					appealmsg = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
-				expires = "The ban is permanent.[appealmsg]"
+				expires = " The ban is for [duration] minutes and expires on [expiration] (server time)."
+			else
+				var/appealmessage = ""
+				if(config.banappeals)
+					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+				expires = " The is a permanent ban.[appealmessage]"
 
-			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime]. [expires]"
+			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
 
-			return list("reason"="[bantype]", "desc"="[desc]")
+			. = list("reason"="[bantype]", "desc"="[desc]")
 
-		return ..()	//default pager ban stuff
+			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
+			return .
+
+	. = ..()	//default pager ban stuff
+	if (.)
+		//byond will not trigger isbanned() for "global" host bans,
+		//ie, ones where the "apply to this game only" checkbox is not checked (defaults to not checked)
+		//So it's safe to let admins walk thru host/sticky bans here
+		if (admin)
+			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
+			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
+			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
+			return null
+		else
+			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")
+
+	return .

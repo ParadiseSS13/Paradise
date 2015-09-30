@@ -74,7 +74,8 @@ var/list/admin_verbs_admin = list(
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
-	/client/proc/jobbans
+	/client/proc/jobbans,
+	/client/proc/stickybanpanel
 	)
 var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
@@ -225,6 +226,7 @@ var/list/admin_verbs_proccall = list (
 		admin_verbs_spawn,
 		admin_verbs_mod,
 		admin_verbs_mentor,
+		admin_verbs_proccall,
 		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
 	)

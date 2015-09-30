@@ -96,11 +96,13 @@
 			//20% chance to actually hit the eyes
 
 			if(prob(effectchance * diode.rating))
-				add_logs(user, C, "shone in the eyes", object="laser pointer")
+				add_logs(C, user, "shone in the eyes", object="laser pointer")
 
 
 				//eye target check
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in their eyes.</span>"
+				if(C.weakeyes)
+					C.Stun(1)
 				var/eye_prot = C.eyecheck()
 				if(C.blinded || eye_prot >= 2)
 					eye_prot = 4

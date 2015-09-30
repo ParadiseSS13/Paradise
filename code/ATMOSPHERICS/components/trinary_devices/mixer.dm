@@ -37,10 +37,7 @@
 		if(!istype(T))
 			return
 
-		if(flipped)
-			add_underlay(T, node1, turn(dir, -90))
-		else
-			add_underlay(T, node1, turn(dir, -180))
+		add_underlay(T, node1, turn(dir, -180))
 
 		if(flipped)
 			add_underlay(T, node2, turn(dir, 90))

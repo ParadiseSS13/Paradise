@@ -279,9 +279,11 @@
 			return
 
 		beaker =  G
-		user.drop_item()
-		G.loc = src
-		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
+		if(user.drop_item())
+			G.forceMove(src)
+			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
+		else
+			user << "The [G] is stuck to you!"
 
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)

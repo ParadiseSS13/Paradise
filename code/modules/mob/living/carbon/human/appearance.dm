@@ -110,7 +110,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_color(var/red, var/green, var/blue)
-	if(red == r_skin && green == g_skin && blue == b_skin || !(species.flags & HAS_SKIN_COLOR))
+	if(red == r_skin && green == g_skin && blue == b_skin || !(species.bodyflags & HAS_SKIN_COLOR))
 		return
 
 	r_skin = red
@@ -122,7 +122,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
-	if(s_tone == tone || !(species.flags & HAS_SKIN_TONE))
+	if(s_tone == tone || !(species.bodyflags & HAS_SKIN_TONE))
 		return
 
 	s_tone = tone
@@ -182,4 +182,3 @@
 		valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles
-	

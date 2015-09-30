@@ -1,3 +1,4 @@
+#define MAX_ADMIN_BANS_PER_ADMIN 1
 
 datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
 
@@ -10,14 +11,22 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	var/serverip = "[world.internet_address]:[world.port]"
 	var/bantype_pass = 0
 	var/bantype_str
+	var/maxadminbancheck	//Used to limit the number of active bans of a certein type that each admin can give. Used to protect against abuse or mutiny.
+	var/announceinirc		//When set, it announces the ban in irc. Intended to be a way to raise an alarm, so to speak.
+	var/blockselfban		//Used to prevent the banning of yourself.
+	var/kickbannedckey		//Defines whether this proc should kick the banned person, if they are connected (if banned_mob is defined).
+							//some ban types kick players after this proc passes (tempban, permaban), but some are specific to db_ban, so
+							//they should kick within this proc.
 	switch(bantype)
 		if(BANTYPE_PERMA)
 			bantype_str = "PERMABAN"
 			duration = -1
 			bantype_pass = 1
+			blockselfban = 1
 		if(BANTYPE_TEMP)
 			bantype_str = "TEMPBAN"
 			bantype_pass = 1
+			blockselfban = 1
 		if(BANTYPE_JOB_PERMA)
 			bantype_str = "JOB_PERMABAN"
 			duration = -1
@@ -29,6 +38,21 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 			bantype_str = "APPEARANCE_BAN"
 			duration = -1
 			bantype_pass = 1
+		if(BANTYPE_ADMIN_PERMA)
+			bantype_str = "ADMIN_PERMABAN"
+			duration = -1
+			bantype_pass = 1
+			maxadminbancheck = 1
+			announceinirc = 1
+			blockselfban = 1
+			kickbannedckey = 1
+		if(BANTYPE_ADMIN_TEMP)
+			bantype_str = "ADMIN_TEMPBAN"
+			bantype_pass = 1
+			maxadminbancheck = 1
+			announceinirc = 1
+			blockselfban = 1
+			kickbannedckey = 1
 
 	if( !bantype_pass ) return
 	if( !istext(reason) ) return
@@ -66,6 +90,11 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		a_ckey = src.owner:ckey
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
+		
+	if(blockselfban)
+		if(a_ckey == ckey)
+			usr << "<span class='danger'>You cannot apply this ban type on yourself.</span>"
+			return
 
 	var/who
 	for(var/client/C in clients)
@@ -82,6 +111,15 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 			adminwho += ", [C]"
 
 	reason = sql_sanitize_text(reason)
+	
+	if(maxadminbancheck)
+		var/DBQuery/adm_query = dbcon.NewQuery("SELECT count(id) AS num FROM [format_table_name("ban")] WHERE (a_ckey = '[a_ckey]') AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)")
+		adm_query.Execute()
+		if(adm_query.NextRow())
+			var/adm_bans = text2num(adm_query.item[1])
+			if(adm_bans >= MAX_ADMIN_BANS_PER_ADMIN)
+				usr << "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>"
+				return
 
 	var/sql = "INSERT INTO [format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`) VALUES (null, Now(), '[serverip]', '[bantype_str]', '[reason]', '[job]', [(duration)?"[duration]":"0"], [(rounds)?"[rounds]":"0"], Now() + INTERVAL [(duration>0) ? duration : 0] MINUTE, '[ckey]', '[computerid]', '[ip]', '[a_ckey]', '[a_computerid]', '[a_ip]', '[who]', '[adminwho]', '', null, null, null, null, null)"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
@@ -89,7 +127,12 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 	usr << "\blue Ban saved to database."
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
+	if(announceinirc)
+		send2irc("BAN ALERT","[a_ckey] applied a [bantype_str] on [ckey]")
 
+	if(kickbannedckey)
+		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
+			del(banned_mob.client)
 
 datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
@@ -113,6 +156,12 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 				bantype_pass = 1
 			if(BANTYPE_APPEARANCE)
 				bantype_str = "APPEARANCE_BAN"
+				bantype_pass = 1
+			if(BANTYPE_ADMIN_PERMA)
+				bantype_str = "ADMIN_PERMABAN"
+				bantype_pass = 1
+			if(BANTYPE_ADMIN_TEMP)
+				bantype_str = "ADMIN_TEMPBAN"
 				bantype_pass = 1
 			if(BANTYPE_ANY_FULLBAN)
 				bantype_str = "ANY"
@@ -300,6 +349,8 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
 	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
+	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
+	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td>"
 	output += "<td width='50%' align='right'><b>Ckey:</b> <input type='text' name='dbbanaddckey'></td></tr>"
 	output += "<tr><td width='50%' align='right'><b>IP:</b> <input type='text' name='dbbanaddip'></td>"
@@ -339,6 +390,8 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	output += "<option value='[BANTYPE_JOB_PERMA]'>JOB PERMABAN</option>"
 	output += "<option value='[BANTYPE_JOB_TEMP]'>JOB TEMPBAN</option>"
 	output += "<option value='[BANTYPE_APPEARANCE]'>APPEARANCE BAN</option>"
+	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
+	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td></tr></table>"
 	output += "<br><input type='submit' value='search'><br>"
 	output += "<input type='checkbox' value='[match]' name='dbmatch' [match? "checked=\"1\"" : null]> Match(min. 3 characters to search by key or ip, and 7 to search by cid)<br>"
@@ -406,6 +459,10 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 						bantypesearch += "'JOB_TEMPBAN' "
 					if(BANTYPE_APPEARANCE)
 						bantypesearch += "'APPEARANCE_BAN' "
+					if(BANTYPE_ADMIN_PERMA)
+						bantypesearch = "'ADMIN_PERMABAN' "
+					if(BANTYPE_ADMIN_TEMP)
+						bantypesearch = "'ADMIN_TEMPBAN' "
 					else
 						bantypesearch += "'PERMABAN' "
 
@@ -448,6 +505,10 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]"
 					if("APPEARANCE_BAN")
 						typedesc = "<b>APPEARANCE/NAME BAN</b>"
+					if("ADMIN_PERMABAN")
+						typedesc = "<b>ADMIN PERMABAN</b>"
+					if("ADMIN_TEMPBAN")
+						typedesc = "<b>ADMIN TEMPBAN</b><br><font size='2'>([duration] minutes [(unbanned) ? "" : "(<a href=\"byond://?src=\ref[src];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
