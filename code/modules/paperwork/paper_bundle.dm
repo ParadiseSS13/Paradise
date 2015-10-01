@@ -177,7 +177,7 @@
 			update_icon()
 	else
 		usr << "<span class='notice'>You need to hold it in your hands to change pages.</span>"
-	if (istype(src.loc, /mob) ||istype(src.loc.loc, /mob))
+	if (istype(src.loc, /mob))
 		src.attack_self(src.loc)
 		updateUsrDialog()
 
@@ -211,9 +211,10 @@
 
 
 /obj/item/weapon/paper_bundle/update_icon()
-	var/obj/item/weapon/paper/P = src[1]
-	icon_state = P.icon_state
-	overlays = P.overlays
+	if(contents.len)
+		var/obj/item/weapon/paper/P = src[1]
+		icon_state = P.icon_state
+		overlays = P.overlays
 	underlays = 0
 	var/i = 0
 	var/photo
