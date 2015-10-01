@@ -377,6 +377,17 @@ var/list/robot_verbs_default = list(
 		updatename()
 		update_icons()
 
+//for borg hotkeys, here module refers to borg inv slot, not core module
+/mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
+	set name = "Toggle Module"
+	set hidden = 1
+	toggle_module(module)
+
+/mob/living/silicon/robot/verb/cmd_unequip_module()
+	set name = "Unequip Module"
+	set hidden = 1
+	uneq_active()		
+		
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = "Robot Commands"

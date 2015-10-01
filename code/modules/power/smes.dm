@@ -481,7 +481,7 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 1e6 // Engineering starts with some charge for singulo	
+	charge = 2e6 // Engineering starts with some charge for singulo	
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

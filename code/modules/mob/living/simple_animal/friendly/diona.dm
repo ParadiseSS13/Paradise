@@ -249,7 +249,18 @@
 	return
 
 /mob/living/simple_animal/diona/emote(var/act, var/m_type=1, var/message = null)
-	if(stat)	return
+	if(stat)	
+		return
+		
+	var/on_CD = 0
+	switch(act)
+		if("chirp")
+			on_CD = handle_emote_CD()			
+		else
+			on_CD = 0	
+
+	if(on_CD == 1)
+		return			
 
 	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("chirp")

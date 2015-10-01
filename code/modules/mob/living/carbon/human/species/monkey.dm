@@ -17,6 +17,7 @@
 	ventcrawler = 1
 	show_ssd = 0
 	eyes = "blank_eyes"
+	death_message = "lets out a faint chimper as it collapses and stops moving..."
 
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
