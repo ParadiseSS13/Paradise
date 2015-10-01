@@ -303,16 +303,16 @@
 		var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
 		M.amount = 5
 		for(var/obj/item/I in target.component_parts)
-			I.loc = M.loc
+			I.forceMove(M)
 		var/obj/effect/swarmer/disintegration/N = new /obj/effect/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
 		N.pixel_z = target.pixel_z
-		//target.dump()
+		target.dismantle()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
-				C.circuit.loc = M.loc
+				C.circuit.forceMove(M)
 		qdel(target)
 
 
@@ -414,7 +414,7 @@
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, def_zone = null,1)
-			if(isrobot(L) || (L.species && L.species.name == "Machine"))
+			if(isrobot(L))
 				L.Weaken(5)
 			qdel(src)
 	..()

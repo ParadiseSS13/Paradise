@@ -1,6 +1,8 @@
 /datum/event/spawn_swarmer
+	//name = "Sawrmer Spawn"
+	//one_shot = 1
 	startWhen = 18000 //30 minutes
-	announceWhen = 100
+	announceWhen = 10
 	severity = 2
 
 
