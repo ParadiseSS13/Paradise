@@ -100,6 +100,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		//Chemicals in the body
 		handle_chemicals_in_body()
+		handle_addictions()
 
 		//Disabilities
 		handle_disabilities()
@@ -850,6 +851,49 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	return //TODO: DEFERRED
 
+/mob/living/carbon/human/proc/handle_addictions()
+	if(!reagents)
+		CRASH("[src] does not have reagents defined somehow!")
+	if(!reagents.addiction_list || !reagents.addiction_list.len)
+		return
+
+	if(status_flags & GODMODE)	return 0	//godmode
+
+	if(reagents.addiction_tick == 6)
+		reagents.addiction_tick = 1
+
+		var/fixer = 0
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if((R.id == "fixer") && (R.volume < R.overdose_threshold))		//Fixer doesn't function while overdosed
+				fixer = 1
+
+		for(var/AR in reagents.addiction_list)
+			if(reagents.get_reagent_amount(AR))
+				continue	//Don't handle withdrawal or addiction decay if they are using the drug
+
+			var/datum/reagent/R = chemical_reagents_list[AR]
+			if(!R || R.id != AR)
+				continue	//something didn't work with this one
+			var/progress = reagents.addiction_list[AR]
+			var/threshold = R.addiction_threshold
+
+			if(!fixer)		//Only handle withdrawal if they aren't on Fixer
+				if(progress >= (4*threshold))
+					R.addiction_act_stage4(src)
+				else if(progress >= (3*threshold))
+					R.addiction_act_stage3(src)
+				else if(progress >= (2*threshold))
+					R.addiction_act_stage2(src)
+				else if(progress >= (threshold))
+					R.addiction_act_stage1(src)
+
+			update_addictions(AR, ADDICT_DECAY)
+
+	reagents.addiction_tick++
+	updatehealth()
+
+	return
+
 /mob/living/carbon/human/proc/handle_regular_status_updates()
 
 	if(status_flags & GODMODE)	return 0
@@ -968,7 +1012,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/obj/item/organ/vision
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
-		
+
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			eye_blind =  0
 			blinded =    0
@@ -977,7 +1021,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			eye_blind =  1
 			blinded =    1
 			eye_blurry = 1
-		else 
+		else
 			//blindness
 			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
@@ -987,7 +1031,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
 				blinded =    1
-			
+
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
 				eye_blurry = 1
@@ -1226,7 +1270,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		else if(!seer)
 			see_in_dark = species.darksight
 			see_invisible = SEE_INVISIBLE_LIVING
-			
+
 		if(see_override)	//Override all
 			see_invisible = see_override
 

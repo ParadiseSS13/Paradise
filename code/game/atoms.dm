@@ -462,3 +462,6 @@ its easier to just keep the beam vertical.
 		return
 	for(var/mob/O in hearers(src, null))
 		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)
+
+/atom/proc/update_addictions(var/datum/reagent/R, var/amount)
+	return	// Only carbon/human and carbon/alien type mobs can suffer addictions (because drug-addict xenos is possible)

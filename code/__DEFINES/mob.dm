@@ -97,3 +97,7 @@
 #define I_DISARM	"disarm"
 #define I_GRAB		"grab"
 #define I_HARM		"harm"
+
+// Addictions
+#define ADDICT_DECAY -0.1
+#define ADDICT_DECAY_CT -0.9
