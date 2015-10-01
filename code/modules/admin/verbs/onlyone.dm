@@ -3,19 +3,19 @@
 		alert("The game hasn't started yet!")
 		return
 
+	var/list/incompatible_species = list("Plasmaman")
 	for(var/mob/living/carbon/human/H in player_list)
-		if(H.stat == 2 || !(H.client)) continue
-		if(is_special_character(H)) continue
+		if(H.stat == DEAD || !(H.client)) 
+			continue
+		if(is_special_character(H)) 
+			continue
+		if(H.species.name in incompatible_species)
+			H.set_species("Human")
+			var/datum/preferences/A = new()	// Randomize appearance
+			A.copy_to(H)
 
 		ticker.mode.traitors += H.mind
 		H.mind.special_role = "traitor"
-
-		/* This never worked.
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = H.mind
-		steal_objective.set_target("nuclear authentication disk")
-		H.mind.objectives += steal_objective
-		*/
 
 		var/datum/objective/hijack/hijack_objective = new
 		hijack_objective.owner = H.mind
@@ -37,7 +37,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(H.loc), slot_l_store)
 
@@ -49,8 +49,9 @@
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
+		H.species.equip(H)
 		H.regenerate_icons()
 
-	message_admins("\blue [key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
-	nologevent = 1
+	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only one.")
+	nologevent = 1

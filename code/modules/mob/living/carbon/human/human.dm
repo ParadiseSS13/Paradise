@@ -10,6 +10,11 @@
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
+
+	if(!dna)
+		dna = new /datum/dna(null)
+		// Species name is handled by set_species()
+
 	if(!species)
 		if(new_species)
 			set_species(new_species,1)
@@ -36,9 +41,6 @@
 
 	..()
 
-	if(dna)
-		dna.real_name = real_name
-
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
@@ -46,8 +48,10 @@
 	faction |= "\ref[M]"
 
 	// Set up DNA.
-	if(!delay_ready_dna)
+	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
+		dna.real_name = real_name
+		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
 	UpdateAppearance()
 
 /mob/living/carbon/human/Destroy()
@@ -144,7 +148,7 @@
 	..(new_loc, "Stok")
 
 /mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
-	if ((!( yes ) || now_pushing))
+	if ((!( yes ) || now_pushing || buckled))
 		return
 	now_pushing = 1
 	if (ismob(AM))
@@ -285,7 +289,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,pick(0,1,2),0,1)
+						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -316,7 +320,7 @@
 			while(limbs_affected != 0 && valid_limbs.len > 0)
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,pick(0,2),0,1)
+					processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
@@ -341,7 +345,7 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,1,0,1)
+						processing_dismember.droplimb(1,DROPLIMB_EDGE,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember

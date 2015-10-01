@@ -309,3 +309,5 @@ var/global/list/captain_display_cases = list()
 				"You gently run your hands over \the [src] in appreciation of its contents.", \
 				"You hear someone streaking glass with their greasy hands.")
 
+#undef DISPLAYCASE_FRAME_CIRCUIT
+#undef DISPLAYCASE_FRAME_SCREWDRIVER

@@ -1,10 +1,10 @@
 /obj/machinery/atmospherics/trinary/filter
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
-	density = 0
-	level = 1
 
-	name = "Gas filter"
+	can_unwrench = 1
+	
+	name = "gas filter"
 
 	var/temp = null // -- TLE
 
@@ -23,6 +23,10 @@ Filter types:
 
 	var/frequency = 0
 	var/datum/radio_frequency/radio_connection
+	
+/obj/machinery/atmospherics/trinary/filter/flipped
+	icon_state = "mmap"
+	flipped = 1
 
 /obj/machinery/atmospherics/trinary/filter/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
@@ -31,7 +35,7 @@ Filter types:
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/trinary/filter/update_icon()
-	if(istype(src, /obj/machinery/atmospherics/trinary/filter/m_filter))
+	if(flipped)
 		icon_state = "m"
 	else
 		icon_state = ""
@@ -53,15 +57,12 @@ Filter types:
 
 		add_underlay(T, node1, turn(dir, -180))
 
-		if(istype(src, /obj/machinery/atmospherics/trinary/filter/m_filter))
+		if(flipped)
 			add_underlay(T, node2, turn(dir, 90))
 		else
 			add_underlay(T, node2, turn(dir, -90))
 
 		add_underlay(T, node3, dir)
-
-/obj/machinery/atmospherics/trinary/filter/hide(var/i)
-	update_underlays()
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
 	var/old_stat = stat
@@ -135,40 +136,17 @@ Filter types:
 		air2.merge(filtered_out)
 		air3.merge(removed)
 
-	if(network2)
-		network2.update = 1
+	parent2.update = 1
 
-	if(network3)
-		network3.update = 1
+	parent3.update = 1
 
-	if(network1)
-		network1.update = 1
+	parent1.update = 1
 
 	return 1
 
 /obj/machinery/atmospherics/trinary/filter/initialize()
 	set_frequency(frequency)
 	..()
-
-/obj/machinery/atmospherics/trinary/filter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if (!istype(W, /obj/item/weapon/wrench))
-		return ..()
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
-		add_fingerprint(user)
-		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
-
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 	if(..())
@@ -225,7 +203,7 @@ Filter types:
 
 /obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
 	if(..())
-		return
+		return 1
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["filterset"])
@@ -245,48 +223,4 @@ Filter types:
 			src.attack_hand(M)
 */
 	return
-
-/obj/machinery/atmospherics/trinary/filter/m_filter
-	icon_state = "mmap"
-
-	dir = SOUTH
-	initialize_directions = SOUTH|NORTH|EAST
-
-obj/machinery/atmospherics/trinary/filter/m_filter/New()
-	..()
-	switch(dir)
-		if(NORTH)
-			initialize_directions = WEST|NORTH|SOUTH
-		if(SOUTH)
-			initialize_directions = SOUTH|EAST|NORTH
-		if(EAST)
-			initialize_directions = EAST|WEST|NORTH
-		if(WEST)
-			initialize_directions = WEST|SOUTH|EAST
-
-/obj/machinery/atmospherics/trinary/filter/m_filter/initialize()
-	set_frequency(frequency)
-
-	if(node1 && node2 && node3) return
-
-	var/node1_connect = turn(dir, -180)
-	var/node2_connect = turn(dir, 90)
-	var/node3_connect = dir
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,node1_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node1 = target
-			break
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,node2_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node2 = target
-			break
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,node3_connect))
-		if(target.initialize_directions & get_dir(target,src))
-			node3 = target
-			break
-
-	update_icon()
-	update_underlays()
+	

@@ -392,6 +392,29 @@ var/list/turret_icons
 					attacked = 0
 
 		..()
+		
+/obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(M.melee_damage_upper == 0)
+		return
+	if(!(stat & BROKEN))
+		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
+		take_damage(M.melee_damage_upper)
+	else
+		M << "<span class='danger'>That object is useless to you.</span>"
+	return
+
+/obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(!(stat & BROKEN))
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
+		take_damage(15)
+	else
+		M << "<span class='noticealien'>That object is useless to you.</span>"
+	return
 
 /obj/machinery/porta_turret/emag_act(user as mob)
 	if(!emagged)

@@ -1,36 +1,11 @@
-
 /obj/mecha/working/hoverpod
 	name = "hover pod"
 	icon_state = "engineering_pod"
 	desc = "Stubby and round, it has a human sized access hatch on the top."
 	wreckage = /obj/effect/decal/mecha_wreckage/hoverpod
 
-//duplicate of parent proc, but without space drifting
-/obj/mecha/working/hoverpod/dyndomove(direction)
-	if(!can_move)
-		return 0
-	if(src.pr_inertial_movement.active())
-		return 0
-	if(!has_charge(step_energy_drain))
-		return 0
-	var/move_result = 0
-	if(hasInternalDamage(MECHA_INT_CONTROL_LOST))
-		move_result = mechsteprand()
-	else if(src.dir!=direction)
-		move_result = mechturn(direction)
-	else
-		move_result	= mechstep(direction)
-	if(move_result)
-		can_move = 0
-		use_power(step_energy_drain)
-		/*if(istype(src.loc, /turf/space))
-			if(!src.check_for_support())
-				src.pr_inertial_movement.start(list(src,direction))
-				src.log_message("Movement control lost. Inertial movement started.")*/
-		if(do_after(step_in, target = src))
-			can_move = 1
-		return 1
-	return 0
+/obj/mecha/working/hoverpod/Process_Spacemove(var/movement_dir = 0)
+	return 1 // puts the hover in hoverpod
 
 //these three procs overriden to play different sounds
 /obj/mecha/working/hoverpod/mechturn(direction)

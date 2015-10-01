@@ -207,7 +207,7 @@
 			dead_mob_list -= C
 			living_mob_list += C
 		C.stat = CONSCIOUS
-		C.tod = null
+		C.timeofdeath = 0
 		C.setToxLoss(0)
 		C.setOxyLoss(0)
 		C.setCloneLoss(0)

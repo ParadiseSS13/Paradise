@@ -74,9 +74,6 @@ var/global/list/image/splatter_cache=list()
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
-	else if (perp.buckled && istype(perp.buckled, /obj/structure/stool/bed/chair/wheelchair))
-		var/obj/structure/stool/bed/chair/wheelchair/W = perp.buckled
-		W.bloodiness = 4
 
 	perp.update_inv_shoes(1)
 	amount--

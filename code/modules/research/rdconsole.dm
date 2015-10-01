@@ -102,8 +102,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return return_name
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in oview(3,src))
-		if(D.linked_console != null || D.disabled || D.panel_open)
+	for(var/obj/machinery/r_n_d/D in range(3,src))
+		if(!isnull(D.linked_console) || D.disabled || D.panel_open)
 			continue
 		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
 			if(linked_destroy == null)
@@ -144,6 +144,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 /obj/machinery/computer/rdconsole/initialize()
+	..()
 	SyncRDevices()
 
 /*	Instead of calling this every tick, it is only being called when needed
@@ -181,7 +182,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
-		return
+		return 1
+		
+	if(!allowed(usr) && !isobserver(usr))
+		return 1
 
 	add_fingerprint(usr)
 
@@ -320,7 +324,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						use_power(250)
 						updateUsrDialog()
 
-	else if(href_list["lock"]) //Lock the console from use by anyone without tox access.
+	else if(href_list["lock"]) //Lock the console from use by anyone without access.
 		if(src.allowed(usr))
 			screen = text2num(href_list["lock"])
 		else
@@ -601,7 +605,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user as mob)
 	if(..())
-		return
+		return 1
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access denied.</span>"
+		return 1
 	interact(user)
 
 /obj/machinery/computer/rdconsole/interact(mob/user)
@@ -1108,27 +1115,26 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	dat += "</tr></table></div>"
 	return dat
-
-/obj/machinery/computer/rdconsole/robotics
-	name = "Robotics R&D Console"
-	desc = "A console used to interface with R&D tools."
-	id = 2
-	req_access = null
-	req_access_txt = "29"
-
-/obj/machinery/computer/rdconsole/mechanics
-	name = "Mechanics R&D Console"
-	desc = "A console used to interface with R&D tools."
-	id = 4
-	req_access = null
-	req_access_txt = "70"
-
+	
 /obj/machinery/computer/rdconsole/core
 	name = "Core R&D Console"
 	desc = "A console used to interface with R&D tools."
 	id = 1
 
+/obj/machinery/computer/rdconsole/robotics
+	name = "Robotics R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 2
+	req_access = list(access_robotics)
+	
 /obj/machinery/computer/rdconsole/experiment
 	name = "E.X.P.E.R.I-MENTOR R&D Console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
+
+/obj/machinery/computer/rdconsole/mechanics
+	name = "Mechanics R&D Console"
+	desc = "A console used to interface with R&D tools."
+	id = 4
+	req_access = list(access_mechanic)
+	

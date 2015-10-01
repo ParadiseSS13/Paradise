@@ -11,6 +11,8 @@ em						{font-style: normal;	font-weight: bold;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 	{color: #638500;}
 
+.italics				{					font-style: italic;}
+
 .prefix					{					font-weight: bold;}
 
 .ooc					{					font-weight: bold;}
@@ -99,6 +101,9 @@ h1.alert, h2.alert		{color: #000000;}
 .reallybig				{font-size: 4;}
 .greentext				{color: #00FF00;	font-size: 3;}
 .redtext				{color: #FF0000;	font-size: 3;}
+
+.memo					{color: #638500;	text-align: center;}
+.memoedit				{text-align: center;	font-size: 2;}
 
 BIG IMG.icon 			{width: 32px; height: 32px;}
 

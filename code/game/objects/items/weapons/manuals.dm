@@ -809,6 +809,12 @@
 		</html>
 
 		"}
+		
+/obj/item/weapon/book/manual/security_space_law/black
+	name = "Space Law - Limited Edition"
+	desc = "A leather-bound, immaculately-written copy of JUSTICE."
+	icon_state = "bookSpaceLawblack"
+	title = "Space Law - Limited Edition"
 
 /obj/item/weapon/book/manual/engineering_guide
 	name = "Engineering Textbook"

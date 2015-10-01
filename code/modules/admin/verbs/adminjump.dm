@@ -13,6 +13,8 @@
 	for(var/turf/T in A)
 		if(T.density)
 			continue
+		if(locate(/obj/structure/grille, T)) // Quick check to not spawn in windows
+			continue
 		turfs.Add(T)
 
 	var/turf/T = pick_n_take(turfs)

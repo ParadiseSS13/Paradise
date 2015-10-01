@@ -3,10 +3,11 @@
 	//	Uses no power but can not transfer gases from a low pressure area to a high pressure area
 	icon = 'icons/atmos/passive_gate.dmi'
 	icon_state = "map"
-	level = 1
 
-	name = "Passive gate"
+	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
+	
+	can_unwrench = 1
 
 	var/on = 0
 	var/target_pressure = ONE_ATMOSPHERE
@@ -14,6 +15,11 @@
 	var/frequency = 0
 	var/id = null
 	var/datum/radio_frequency/radio_connection
+	
+/obj/machinery/atmospherics/binary/passive_gate/initialize()
+	..()
+	if(frequency)
+		set_frequency(frequency)
 
 /obj/machinery/atmospherics/binary/passive_gate/update_icon()
 	icon_state = "[on ? "on" : "off"]"
@@ -26,9 +32,6 @@
 			return
 		add_underlay(T, node1, turn(dir, 180))
 		add_underlay(T, node2, dir)
-
-/obj/machinery/atmospherics/binary/passive_gate/hide(var/i)
-	update_underlays()
 
 /obj/machinery/atmospherics/binary/passive_gate/process()
 	..()
@@ -54,14 +57,11 @@
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 		air2.merge(removed)
 
-		if(network1)
-			network1.update = 1
+		parent1.update = 1
 
-		if(network2)
-			network2.update = 1
+		parent2.update = 1
 
 //Radio remote control
-
 /obj/machinery/atmospherics/binary/passive_gate/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
@@ -97,14 +97,11 @@
 	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_pump")
 	onclose(user, "atmo_pump")
 
-/obj/machinery/atmospherics/binary/passive_gate/initialize()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
 /obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
+	
+	var/old_on = on //for logging
 
 	if("power" in signal.data)
 		on = text2num(signal.data["power"])
@@ -118,6 +115,9 @@
 			text2num(signal.data["set_output_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
+		
+	if(on != old_on)
+		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
 	if("status" in signal.data)
 		spawn(2)
@@ -144,9 +144,11 @@
 	if(..()) return
 	if(href_list["power"])
 		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 	if(href_list["set_press"])
 		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
 		src.target_pressure = max(0, min(4500, new_pressure))
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 	usr.set_machine(src)
 	src.update_icon()
 	src.updateUsrDialog()
@@ -158,18 +160,5 @@
 	if (on)
 		user << "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>"
 		return 1
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
-		add_fingerprint(user)
-		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
+	return ..()
+	

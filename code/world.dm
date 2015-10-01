@@ -35,7 +35,6 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	load_configuration()
 	SetupHooks() // /vg/
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -332,35 +331,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
-	config.loadforumsql("config/forumdbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
 	// apply some settings from config..
-
-/hook/startup/proc/loadMods()
-	world.load_mods()
-	return 1
-
-/world/proc/load_mods()
-	if(config.admin_legacy_system)
-		var/text = file2text("config/moderators.txt")
-		if (!text)
-			diary << "Failed to load config/mods.txt\n"
-		else
-			var/list/lines = text2list(text, "\n")
-			for(var/line in lines)
-				if (!line)
-					continue
-
-				if (copytext(line, 1, 2) == ";")
-					continue
-
-				var/title = "Moderator"
-				if(config.mods_are_mentors) title = "Mentor"
-				var/rights = admin_ranks[title]
-
-				var/ckey = copytext(line, 1, length(line)+1)
-				var/datum/admins/D = new /datum/admins(title, rights, ckey)
-				D.associate(directory[ckey])
 
 /world/proc/update_status()
 	var/s = ""
@@ -466,49 +438,6 @@ proc/establish_db_connection()
 
 	if(!dbcon || !dbcon.IsConnected())
 		return setup_database_connection()
-	else
-		return 1
-
-
-/hook/startup/proc/connectOldDB()
-	if(!setup_old_database_connection())
-		log_to_dd("Your server failed to establish a connection with the SQL database.")
-	else
-		log_to_dd("SQL database connection established.")
-	return 1
-
-//These two procs are for the old database, while it's being phased out. See the tgstation.sql file in the SQL folder for more information.
-proc/setup_old_database_connection()
-
-	if(failed_old_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
-		return 0
-
-	if(!dbcon_old)
-		dbcon_old = new()
-
-	var/user = sqllogin
-	var/pass = sqlpass
-	var/db = sqldb
-	var/address = sqladdress
-	var/port = sqlport
-
-	dbcon_old.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = dbcon_old.IsConnected()
-	if ( . )
-		failed_old_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
-	else
-		failed_old_db_connections++		//If it failed, increase the failed connections counter.
-		log_to_dd(dbcon.ErrorMsg())
-
-	return .
-
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
-proc/establish_old_db_connection()
-	if(failed_old_db_connections > FAILED_DB_CONNECTION_CUTOFF)
-		return 0
-
-	if(!dbcon_old || !dbcon_old.IsConnected())
-		return setup_old_database_connection()
 	else
 		return 1
 

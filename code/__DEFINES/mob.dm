@@ -98,6 +98,9 @@
 #define I_GRAB		"grab"
 #define I_HARM		"harm"
 
-// Addictions
+// AI wire/radio settings
+#define AI_CHECK_WIRELESS 1
+#define AI_CHECK_RADIO 2
+
 #define ADDICT_DECAY -0.1
 #define ADDICT_DECAY_CT -0.9

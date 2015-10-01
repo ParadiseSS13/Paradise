@@ -7,10 +7,10 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-	
+
 	var/brute_mod = 1
 	var/burn_mod = 1
-	
+
 	var/icon_name = null
 	var/body_part = null
 	var/icon_position = 0
@@ -61,6 +61,19 @@
 	var/can_grasp
 	var/can_stand
 
+/obj/item/organ/external/Destroy()
+	if(parent && parent.children)
+		parent.children -= src
+
+	if(children)
+		for(var/obj/item/organ/external/C in children)
+			qdel(C)
+
+	if(internal_organs)
+		for(var/obj/item/organ/O in internal_organs)
+			qdel(O)
+
+	return ..()
 
 /obj/item/organ/external/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	switch(stage)
@@ -120,7 +133,7 @@
 			if(!parent.children)
 				parent.children = list()
 			parent.children.Add(src)
-			
+
 /obj/item/organ/external/robotize()
 	..()
 	//robot limbs take reduced damage
@@ -137,7 +150,7 @@
 
 	if(status & ORGAN_DESTROYED)
 		return 0
-	
+
 	brute *= brute_mod
 	burn *= burn_mod
 
@@ -311,7 +324,7 @@ This function completely restores a damaged organ to perfect condition.
 						"<span class='alert'>The wound on your [name] widens with a nasty ripping noise.</span>",\
 						"You hear a nasty ripping noise, as if flesh is being torn apart.")
 				return
-				
+
 	//Creating wound
 	var/wound_type = get_wound_type(type, damage)
 
@@ -536,8 +549,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/human/H
 	if(istype(owner,/mob/living/carbon/human))
-		H = owner	
-	
+		H = owner
+
 	for(var/datum/wound/W in wounds)
 		if(W.damage_type == CUT || W.damage_type == BRUISE)
 			brute_dam += W.damage
@@ -554,7 +567,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if (open && !clamped && (H && !(H.species.flags & NO_BLOOD)))
 		status |= ORGAN_BLEEDING
-	
+
 	//Bone fractures
 	if(config.bones_can_break && brute_dam > min_broken_damage * config.organ_health_multiplier && !(status & ORGAN_ROBOT))
 		src.fracture()
@@ -723,7 +736,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture()
 	if(status & ORGAN_ROBOT)
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-	
+
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
 	if(owner)
@@ -787,7 +800,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/is_usable()
 	if((status & ORGAN_ROBOT) && get_damage() >= max_damage) //robot limbs just become inoperable at max damage
-		return 
+		return
 	return !(status & (ORGAN_DESTROYED|ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()

@@ -17,6 +17,12 @@
 	wires = new(src)
 	..()
 
+/obj/item/weapon/c4/Destroy()
+	qdel(wires)
+	wires = null
+	target = null
+	return ..()
+
 /obj/item/weapon/c4/suicide_act(var/mob/user)
 	. = (BRUTELOSS)
 	viewers(user) << "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>"

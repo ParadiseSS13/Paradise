@@ -238,15 +238,13 @@ var/global/list/damage_icon_parts = list()
 	var/hulk = (HULK in src.mutations)
 	var/skeleton = (SKELETON in src.mutations)
 
-	var/g = (gender == FEMALE ? "f" : "m")
-
 	//CACHING: Generate an index key from visible bodyparts.
 	//0 = destroyed, 1 = normal, 2 = robotic, 3 = necrotic.
 	//Create a new, blank icon for our mob to use.
 	if(stand_icon)
 		qdel(stand_icon)
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
-	var/icon_key = "[species.race_key][g][s_tone][r_skin][g_skin][b_skin]"
+	var/icon_key = ""
 	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
 
 	if(eyes)
@@ -264,6 +262,13 @@ var/global/list/damage_icon_parts = list()
 			icon_key += "3"
 		else
 			icon_key += "1"
+
+		if(part)
+			icon_key += "[part.species.race_key]"
+			icon_key += "[part.dna.GetUIState(DNA_UI_GENDER)]"
+			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			if(part.s_col)
+				icon_key += "[rgb(part.s_col[1], part.s_col[2], part.s_col[3])]"
 
 	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0]"
 
@@ -676,8 +681,6 @@ var/global/list/damage_icon_parts = list()
 		if(!t_state)
 			t_state = s_store.icon_state
 		var/dmi='icons/mob/belt_mirror.dmi'
-		if(s_store.custom)
-			dmi  = s_store.icon
 		overlays_standing[SUIT_STORE_LAYER]  = image("icon" = dmi, "icon_state" = "[t_state]")
 		s_store.screen_loc = ui_sstore1		//TODO
 	else
@@ -870,8 +873,8 @@ var/global/list/damage_icon_parts = list()
 
 		var/image/I = image("icon" = r_hand.righthand_file, "icon_state"="[t_state]")
 		I = center_image(I, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
-		overlays_standing[R_HAND_LAYER] = I		
-		
+		overlays_standing[R_HAND_LAYER] = I
+
 		if (handcuffed) drop_r_hand()
 	else
 		overlays_standing[R_HAND_LAYER] = null

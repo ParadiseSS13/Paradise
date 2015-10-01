@@ -1,14 +1,15 @@
 // TODO: remove the robot.mmi and robot.cell variables and completely rely on the robot component system
 
-/datum/robot_component/var/name
-/datum/robot_component/var/installed = 0
-/datum/robot_component/var/powered = 0
-/datum/robot_component/var/toggled = 1
-/datum/robot_component/var/brute_damage = 0
-/datum/robot_component/var/electronics_damage = 0
-/datum/robot_component/var/energy_consumption = 0
-/datum/robot_component/var/max_damage = 30
-/datum/robot_component/var/mob/living/silicon/robot/owner
+/datum/robot_component
+	var/name = "Component"
+	var/installed = 0
+	var/powered = 1
+	var/toggled = 1
+	var/brute_damage = 0
+	var/electronics_damage = 0
+	var/energy_consumption = 0
+	var/max_damage = 30
+	var/mob/living/silicon/robot/owner
 
 // The actual device object that has to be installed for this.
 /datum/robot_component/var/external_type = null
@@ -206,8 +207,8 @@
 			user << "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.halloss]% functional"]</span>"
 			user << "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			user << "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
-			if(M.tod && M.stat == DEAD)
-				user << "<span class='notice'>Time of Disable: [M.tod]</span>"
+			if(M.timeofdeath && M.stat == DEAD)
+				user << "<span class='notice'>Time of Disable: [M.timeofdeath]</span>"
 			var/mob/living/silicon/robot/H = M
 			var/list/damaged = H.get_damaged_components(1,1,1)
 			user << "<span class='notice'>Localized Damage:</span>"

@@ -456,7 +456,6 @@ var/list/wood_icons = list("wood","wood-broken")
 	levelupdate()
 
 /turf/simulated/floor/attackby(obj/item/C as obj, mob/user as mob, params)
-
 	if(!C || !user)
 		return 0
 
@@ -468,18 +467,18 @@ var/list/wood_icons = list("wood","wood-broken")
 				qdel(C)
 				T.state = C //fixing it by bashing it with a light bulb, fun eh?
 				update_icon()
-				user << "\blue You replace the light bulb."
+				user << "<span class='notice'>You replace the light bulb.</span>"
 			else
-				user << "\blue The lightbulb seems fine, no need to replace it."
+				user << "<span class='notice'>The light bulb seems fine, no need to replace it.</span>"
 
 	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())) && (!is_catwalk()))
 		if(broken || burnt)
-			user << "\red You remove the broken plating."
+			user << "<span class='notice'>You remove the broken plating.</span>"
 		else
 			if(is_wood_floor())
-				user << "\red You forcefully pry off the planks, destroying them in the process."
+				user << "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>"
 			else
-				user << "\red You remove the [floor_tile.name]."
+				user << "<span class='notice'>You remove the [floor_tile.name].</span>"
 				new floor_tile.type(src)
 
 		make_plating()
@@ -488,20 +487,19 @@ var/list/wood_icons = list("wood","wood-broken")
 
 		return
 
-
 	if(istype(C, /obj/item/weapon/screwdriver))
 		if(is_wood_floor())
 			if(broken || burnt)
 				return
 			else
 				if(is_wood_floor())
-					user << "\red You unscrew the planks."
+					user << "<span class='notice'>You unscrew the planks.</span>"
 					new floor_tile.type(src)
 			make_plating()
 			playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
 		else if(is_catwalk())
 			if(broken) return
-			user << "\red You unscrew the catwalk's rods."
+			user << "<span class='notice'>You unscrew the catwalk's rods.</span>"
 			new /obj/item/stack/rods(src, 2)
 			ReplaceWithLattice()
 			for(var/direction in cardinal)
@@ -516,23 +514,23 @@ var/list/wood_icons = list("wood","wood-broken")
 		var/obj/item/stack/rods/R = C
 		if (is_plating())
 			if (R.amount >= 2)
-				user << "\blue Reinforcing the floor..."
+				user << "<span class='notice'>Reinforcing the floor...</span>"
 				if(do_after(user, 30, target = src) && R && R.amount >= 2 && is_plating())
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, 'sound/items/Deconstruct.ogg', 80, 1)
 					R.use(2)
 					return
 			else
-				user << "\red You need more rods."
+				user << "<span class='warning'>You need more rods.</span>"
 		else if (is_catwalk())
-			user << "\red The entire thing is 100% rods already, it doesn't need any more."
+			user << "<span class='warning'>The entire thing is 100% rods already, it doesn't need any more.</span>"
 		else
-			user << "\red You must remove the plating first."
+			user << "<span class='warning'>You must remove the plating first.</span>"
 		return
 
 	if(istype(C, /obj/item/stack/tile))
 		if (is_catwalk())
-			user << "\red The catwalk is too primitive to support tiling."
+			user << "<span class='warning'>The catwalk is too primitive to support tiling.</span>"
 		if(is_plating())
 			if(!broken && !burnt)
 				var/obj/item/stack/tile/T = C
@@ -558,7 +556,7 @@ var/list/wood_icons = list("wood","wood-broken")
 				levelupdate()
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			else
-				user << "\blue This section is too damaged to support a tile. Use a welder to fix the damage."
+				user << "<span class='warning'>This section is too damaged to support a tile. Use a welder to fix the damage.</span>"
 
 
 	if(istype(C, /obj/item/stack/cable_coil))
@@ -566,29 +564,29 @@ var/list/wood_icons = list("wood","wood-broken")
 			var/obj/item/stack/cable_coil/coil = C
 			coil.turf_place(src, user)
 		else
-			user << "\red You must remove the plating first."
+			user << "<span class='warning'>You must remove the plating first.</span>"
 
 	if(istype(C, /obj/item/weapon/shovel))
 		if(is_grass_floor())
 			new /obj/item/weapon/ore/glass(src)
 			new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
-			user << "\blue You shovel the grass."
+			user << "<span class='notice'>You shovel the grass.</span>"
 			make_plating()
 		else
-			user << "\red You cannot shovel this."
+			user << "<span class='warning'>You cannot shovel this.</span>"
 
 	if(istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/welder = C
 		if(welder.isOn() && (is_plating()))
 			if(broken || burnt)
 				if(welder.remove_fuel(0,user))
-					user << "\red You fix some dents on the broken plating."
+					user << "<span class='notice'>You fix some dents on the broken plating.</span>"
 					playsound(src, 'sound/items/Welder.ogg', 80, 1)
 					icon_state = "plating"
 					burnt = 0
 					broken = 0
 				else
-					user << "\blue You need more welding fuel to complete this task."
+					user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 
 	if(istype(C,/obj/item/pipe))
 		var/obj/item/pipe/V = C
@@ -597,7 +595,7 @@ var/list/wood_icons = list("wood","wood-broken")
 
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
-				"\blue You slide [P] along \the [src].", \
+				"<span class='notice'>You slide [P] along \the [src].</span>", \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
 			if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm

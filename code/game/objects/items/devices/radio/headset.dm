@@ -25,7 +25,16 @@
 	if(ks2type)
 		keyslot2 = new ks2type(src)
 	recalculateChannels(1)
-	
+
+/obj/item/device/radio/headset/Destroy()
+	if(keyslot1)
+		qdel(keyslot1)
+	if(keyslot2)
+		qdel(keyslot2)
+	keyslot1 = null
+	keyslot2 = null
+	return ..()
+
 /obj/item/device/radio/headset/list_channels(var/mob/user)
 	return list_secure_channels()
 
@@ -326,7 +335,7 @@
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
-			
+
 		recalculateChannels()
 	return
 

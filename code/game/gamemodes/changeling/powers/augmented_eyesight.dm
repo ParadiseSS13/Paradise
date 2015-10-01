@@ -7,18 +7,15 @@
 	helptext = "Grants us night vision and thermal vision. It may be toggled on or off."
 	chemical_cost = 0
 	dna_cost = 2 //Would be 1 without thermal vision
-	var/active = 0 //Whether or not vision is enhanced
 
 /obj/effect/proc_holder/changeling/augmented_eyesight/sting_action(var/mob/user)
-	active = !active
-	if(active)
+	if(!user.vision_type)
 		user << "<span class='notice'>We feel a minute twitch in our eyes, and darkness creeps away.</span>"
+		user.vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
 	else
 		user << "<span class='notice'>Our vision dulls. Shadows gather.</span>"
-		user.sight &= ~SEE_MOBS
-	while(active)
-		user.see_in_dark = 8
-		user.see_invisible = 2
-		user.sight |= SEE_MOBS
-		sleep(1) //BAD THINGS HAPPEN WITHOUT THIS.
+		user.vision_type = null
 	return 1
+
+/obj/effect/proc_holder/changeling/augmented_eyesight/on_refund(mob/user)
+	user.vision_type = null

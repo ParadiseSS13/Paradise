@@ -15,10 +15,11 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump
 	icon = 'icons/atmos/pump.dmi'
 	icon_state = "map_off"
-	level = 1
-
-	name = "Gas pump"
+	
+	name = "gas pump"
 	desc = "A pump"
+	
+	can_unwrench = 1
 
 	var/on = 0
 	var/target_pressure = ONE_ATMOSPHERE
@@ -52,9 +53,6 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/pump/hide(var/i)
-	update_underlays()
-
 /obj/machinery/atmospherics/binary/pump/process()
 //		..()
 	if(stat & (NOPOWER|BROKEN))
@@ -77,16 +75,12 @@ Thus, the two variables affect pump operation are set in New():
 		var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 		air2.merge(removed)
 
-		if(network1)
-			network1.update = 1
+		parent1.update = 1
 
-		if(network2)
-			network2.update = 1
-
+		parent2.update = 1
 	return 1
 
 //Radio remote control
-
 /obj/machinery/atmospherics/binary/pump/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
@@ -110,7 +104,6 @@ Thus, the two variables affect pump operation are set in New():
 	)
 
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-
 	return 1
 
 /obj/machinery/atmospherics/binary/pump/interact(mob/user as mob)
@@ -130,6 +123,8 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
 		return 0
+	
+	var/old_on = on //for logging
 
 	if(signal.data["power"])
 		on = text2num(signal.data["power"])
@@ -143,6 +138,9 @@ Thus, the two variables affect pump operation are set in New():
 			text2num(signal.data["set_output_pressure"]),
 			ONE_ATMOSPHERE*50
 		)
+		
+	if(on != old_on)
+		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
 
 	if(signal.data["status"])
 		spawn(2)
@@ -153,7 +151,6 @@ Thus, the two variables affect pump operation are set in New():
 		broadcast_status()
 	update_icon()
 	return
-
 
 /obj/machinery/atmospherics/binary/pump/attack_hand(user as mob)
 	if(..())
@@ -167,12 +164,15 @@ Thus, the two variables affect pump operation are set in New():
 	return
 
 /obj/machinery/atmospherics/binary/pump/Topic(href,href_list)
-	if(..()) return
+	if(..()) 
+		return 1
 	if(href_list["power"])
 		on = !on
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 	if(href_list["set_press"])
 		var/new_pressure = input(usr,"Enter new output pressure (0-4500kPa)","Pressure control",src.target_pressure) as num
 		src.target_pressure = max(0, min(4500, new_pressure))
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 	usr.set_machine(src)
 	src.update_icon()
 	src.updateUsrDialog()
@@ -190,18 +190,4 @@ Thus, the two variables affect pump operation are set in New():
 	if (!(stat & NOPOWER) && on)
 		user << "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>"
 		return 1
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		user << "<span class='alert'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
-		add_fingerprint(user)
-		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
+	return ..()

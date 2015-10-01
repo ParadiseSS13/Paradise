@@ -36,11 +36,20 @@
 				ear_safety++
 
 //Flash
+	var/eye_damage = rand(1,3)
+	if(M.weakeyes)
+		M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
+		M << "<span class='userdanger'>AAAAGH! IT BURNS!</span>"
+		M.Weaken(15) //hella stunned
+		M.Stun(15)
+		eye_damage += 8
+
 	if(!eye_safety && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
 		flick("e_flash", M.flash)
-		if (E) E.damage += rand(1, 3)
+		if (E)
+			E.damage += eye_damage
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))
 		if (istype(E) && E.damage >= E.min_bruised_damage)

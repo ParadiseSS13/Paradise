@@ -1350,3 +1350,68 @@ obj/item/toy/cards/deck/syndicate/black
 		user << "<span class='warning'>The string on [src] hasn't rewound all the way!</span>"
 		return
 
+/obj/item/toy/russian_revolver
+	name = "russian revolver"
+	desc = "for fun and games!"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "detective_gold"
+	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	flags =  CONDUCT
+	slot_flags = SLOT_BELT
+	materials = list(MAT_METAL=2000)
+	w_class = 3.0
+	throwforce = 5
+	throw_speed = 4
+	throw_range = 5
+	force = 5.0
+	origin_tech = "combat=1"
+	attack_verb = list("struck", "hit", "bashed")
+	var/bullet_position = 1
+	var/is_empty = 0
+
+/obj/item/toy/russian_revolver/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into the [src.name]'s cylinder and points it at \his head before pulling the trigger! It looks like they are trying to commit suicide.</span>")
+	playsound(loc, 'sound/weapons/Gunshot.ogg', 50, 1)
+	return (BRUTELOSS)
+
+/obj/item/toy/russian_revolver/New()
+	spin_cylinder()
+	..()
+
+
+/obj/item/toy/russian_revolver/attack_self(mob/user)
+	if(is_empty)
+		user.visible_message("<span class='warning'>[user] loads a bullet into the [src]'s cylinder.</span>")
+		is_empty = 0
+	else
+		spin_cylinder()
+		user.visible_message("<span class='warning'>[user] spins the cylinder on the [src]!</span>")
+
+
+/obj/item/toy/russian_revolver/attack(mob/living/carbon/M, mob/user)
+	if(M != user) //can't use this on other people
+		return
+	if(is_empty)
+		user << "<span class='notice'>The [src] is empty.</span>"
+		return
+	user.visible_message("<span class='danger'>[user] points the [src] at their head, ready to pull the trigger!</span>")
+	if(do_after(user, 30, target = M))
+		if(bullet_position != 1)
+			user.visible_message("<span class='danger'>*click*</span>")
+			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
+			bullet_position -= 1
+			return
+		if(bullet_position == 1)
+			is_empty = 1
+			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
+			user.visible_message("<span class='danger'>The [src] goes off!</span>")
+			M.apply_damage(200, "brute", "head", used_weapon = "Self-inflicted gunshot would to the head.", sharp=1)
+			M.death()
+	else
+		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")
+
+
+/obj/item/toy/russian_revolver/proc/spin_cylinder()
+	bullet_position = rand(1,6)

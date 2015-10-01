@@ -2,11 +2,13 @@
 	set category = "Admin"
 	set name = "Permissions Panel"
 	set desc = "Edit admin permissions"
-	if(!check_rights(R_PERMISSIONS))	return
+	if(!check_rights(R_PERMISSIONS))
+		return
 	usr.client.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
-	if(!check_rights(R_PERMISSIONS))	return
+	if(!check_rights(R_PERMISSIONS))
+		return
 
 	var/output = {"<!DOCTYPE html>
 <html>
@@ -55,8 +57,7 @@
 	if(!usr.client)
 		return
 
-	if(!usr.client.holder || !(usr.client.holder.rights & R_PERMISSIONS))
-		usr << "\red You do not have permission to do this!"
+	if(!check_rights(R_PERMISSIONS))
 		return
 
 	establish_db_connection()
@@ -100,13 +101,13 @@
 			usr << "\blue Admin rank changed."
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
-	if(config.admin_legacy_system)	return
+	if(config.admin_legacy_system)	
+		return
 
 	if(!usr.client)
 		return
 
-	if(!usr.client.holder || !(usr.client.holder.rights & R_PERMISSIONS))
-		usr << "\red You do not have permission to do this!"
+	if(!check_rights(R_PERMISSIONS))
 		return
 
 	establish_db_connection()

@@ -38,7 +38,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(0)
-					reagents.trans_to_ingest(M, gulp_size)
+					reagents.trans_to(M, gulp_size)
 
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 			return 1
@@ -66,7 +66,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(0)
-					reagents.trans_to_ingest(M, gulp_size)
+					reagents.trans_to(M, gulp_size)
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				var/mob/living/silicon/robot/bro = user
@@ -388,14 +388,12 @@
 /obj/item/weapon/reagent_containers/food/drinks/flask/thermos
 	name = "vintage thermos"
 	desc = "An older thermos with a faint shine."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "johann_erzatz_1"
+	icon_state = "thermos"
 	volume = 50
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/shiny
 	name = "shiny flask"
 	desc = "A shiny metal flask. It appears to have a Greek symbol inscribed on it."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shinyflask"
 	volume = 50
 

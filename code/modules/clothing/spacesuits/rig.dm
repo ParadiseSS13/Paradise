@@ -27,20 +27,24 @@
 		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
 		)
 
-	attack_self(mob/user)
-		if(!isturf(user.loc))
-			user << "You cannot turn the light on while in this [user.loc]" //To prevent some lighting anomalities.
-			return
-		on = !on
-		icon_state = "rig[on]-[_color]"
-//		item_state = "rig[on]-[color]"
+/obj/item/clothing/head/helmet/space/rig/attack_self(mob/user)
+	if(!isturf(user.loc))
+		user << "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>" //To prevent some lighting anomalities.
+		return
+	toggle_light(user)
 
-		if(on)	set_light(brightness_on)
-		else	set_light(0)
+/obj/item/clothing/head/helmet/space/rig/proc/toggle_light(mob/user)
+	on = !on
+	icon_state = "rig[on]-[_color]"
 
-		if(istype(user,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = user
-			H.update_inv_head()
+	if(on)	
+		set_light(brightness_on)
+	else	
+		set_light(0)
+
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_head()	
 
 /obj/item/clothing/suit/space/rig
 	name = "hardsuit"
@@ -98,7 +102,7 @@
 		else
 			M << "Your suit's helmet deploys with a hiss."
 			//TODO: Species check, skull damage for forcing an unfitting helmet on?
-			helmet.loc = H
+			helmet.forceMove(H)
 			H.equip_to_slot(helmet, slot_head)
 			helmet.flags |= NODROP
 
@@ -107,7 +111,7 @@
 			M << "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way."
 		else
 			M << "Your suit's boots deploy with a hiss."
-			boots.loc = H
+			boots.forceMove(H)
 			H.equip_to_slot(boots, slot_shoes)
 			boots.flags |= NODROP
 
@@ -122,7 +126,7 @@
 			if(helmet && H.head == helmet)
 				helmet.flags &= ~NODROP
 				H.unEquip(helmet)
-				helmet.loc = src
+				helmet.forceMove(src)
 
 	if(boots)
 		H = boots.loc
@@ -130,58 +134,15 @@
 			if(boots && H.shoes == boots)
 				boots.flags &= ~NODROP
 				H.unEquip(boots)
-				boots.loc = src
-
-/*
-/obj/item/clothing/suit/space/rig/verb/get_mounted_device()
-
-	set name = "Deploy Mounted Device"
-	set category = "Object"
-	set src in usr
-
-	if(!can_mount)
-		verbs -= /obj/item/clothing/suit/space/rig/verb/get_mounted_device
-		verbs -= /obj/item/clothing/suit/space/rig/verb/stow_mounted_device
-		return
-
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-
-	if(active_device)
-		usr << "You already have \the [active_device] deployed."
-		return
-
-	if(!mounted_devices.len)
-		usr << "You do not have any devices mounted on \the [src]."
-		return
-
-/obj/item/clothing/suit/space/rig/verb/stow_mounted_device()
-
-	set name = "Stow Mounted Device"
-	set category = "Object"
-	set src in usr
-
-	if(!can_mount)
-		verbs -= /obj/item/clothing/suit/space/rig/verb/get_mounted_device
-		verbs -= /obj/item/clothing/suit/space/rig/verb/stow_mounted_device
-		return
-
-	if(!istype(usr, /mob/living)) return
-
-	if(usr.stat) return
-
-	if(!active_device)
-		usr << "You have no device currently deployed."
-		return
-*/
-
+				boots.forceMove(src)
+				
 /obj/item/clothing/suit/space/rig/verb/toggle_helmet()
-
 	set name = "Toggle Helmet"
 	set category = "Object"
 	set src in usr
 
-	if(!istype(src.loc,/mob/living)) return
+	if(!isliving(usr)) 
+		return
 
 	if(!helmet)
 		usr << "There is no helmet installed."
@@ -197,23 +158,22 @@
 		helmet.flags &= ~NODROP
 		H.unEquip(helmet)
 		helmet.loc = src
-		H << "\blue You retract your hardsuit helmet."
+		H << "<span class='notice'>You retract your hardsuit helmet.</span>"
 	else
 		if(H.head)
-			H << "\red You cannot deploy your helmet while wearing another helmet."
+			H << "<span class='warning'>You cannot deploy your helmet while wearing another helmet.</span>"
 			return
 		//TODO: Species check, skull damage for forcing an unfitting helmet on?
 		helmet.loc = H
 		helmet.pickup(H)
 		H.equip_to_slot(helmet, slot_head)
 		helmet.flags |= NODROP
-		H << "\blue You deploy your hardsuit helmet, sealing you off from the world."
+		H << "<span class='notice'>You deploy your hardsuit helmet, sealing you off from the world.</span>"
 	H.update_inv_head()
 
 /obj/item/clothing/suit/space/rig/attackby(obj/item/W as obj, mob/user as mob, params)
-
-	if(!istype(user,/mob/living)) return
-
+	if(!isliving(user))
+		return
 
 	if(istype(src.loc,/mob/living))
 		user << "How do you propose to modify a hardsuit while it is being worn?"
@@ -230,7 +190,7 @@
 		if(!boots)
 			user << "\The [src] does not have any boots installed."
 		else
-			user << "You detatch \the [boots] from \the [src]'s boot mounts."
+			user << "You detach \the [boots] from \the [src]'s boot mounts."
 			boots.loc = get_turf(src)
 			boots = null
 		return
@@ -338,8 +298,9 @@
 
 /obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
 	if(!isturf(user.loc))
-		user << "You cannot toggle your helmet while in this [user.loc]" //To prevent some lighting anomalities.
+		user << "You cannot toggle your helmet while in this [user.loc]." //To prevent some lighting anomalities.
 		return
+		
 	on = !on
 	if(on)
 		user << "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
@@ -483,7 +444,6 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-
 
 /obj/item/clothing/suit/space/rig/atmos
 	desc = "A special suit that protects against hazardous, low pressure environments. Has improved thermal protection and minor radiation shielding."

@@ -287,7 +287,7 @@
 
 	Destroy()
 		rcd_list -= src
-		..()
+		return ..()
 
 	action(atom/target)
 		if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -999,10 +999,7 @@
 	process(var/obj/item/mecha_parts/mecha_equipment/generator/nuclear/EG)
 		if(..())
 			for(var/mob/living/carbon/M in view(EG.chassis))
-				if(istype(M,/mob/living/carbon/human))
-					M.apply_effect((EG.rad_per_cycle*3),IRRADIATE,0)
-				else
-					M.radiation += EG.rad_per_cycle
+				M.apply_effect((EG.rad_per_cycle*3),IRRADIATE,0)
 		return 1
 
 

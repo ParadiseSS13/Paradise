@@ -505,3 +505,11 @@
 	icon_state = "lordadmiral"
 	item_state = "lordadmiral"
 	allowed = list (/obj/item/weapon/gun)
+	
+/obj/item/clothing/suit/fluff/noble_coat
+	name = "noble coat"
+	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	icon_state = "noble_coat"
+	item_state = "noble_coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	

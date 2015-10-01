@@ -11,6 +11,7 @@
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
 	var/activated = 1
+	var/const/fund_cap = 1000000
 	
 	light_color = LIGHT_COLOR_GREEN
 
@@ -175,6 +176,10 @@
 			if("finalise_create_account")
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
+				
+				starting_funds = Clamp(starting_funds, 0, station_account.money)	// Not authorized to put the station in debt.
+				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.				
+				
 				create_account(account_name, starting_funds, src)
 				if(starting_funds > 0)
 					//subtract the money

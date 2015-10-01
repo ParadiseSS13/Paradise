@@ -249,7 +249,7 @@ datum/preferences
 				dat += "<br>"
 				dat += "Species: <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
 				if(species == "Vox")//oldvox code, sucks I know
-					dat += "Old Vox? <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes (Large N2 tank)" : "No(Vox-special N2 tank)"]</a><br>"
+					dat += "N2 Tank: <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
@@ -367,7 +367,7 @@ datum/preferences
 				dat += "<br><b>Eyes</b><br>"
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
 
-				if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Vulpkanin" || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+				if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 					dat += "<br><b>Body Color</b><br>"
 					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
 
@@ -1028,7 +1028,7 @@ datum/preferences
 						if(species == "Human")
 							s_tone = random_skin_tone()
 					if("s_color")
-						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People" || species == "Wryn" || species == "Vulpkanin")
+						if(species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Wyrn", "Vulpkanin", "Machine"))
 							r_skin = rand(0,255)
 							g_skin = rand(0,255)
 							b_skin = rand(0,255)
@@ -1115,6 +1115,8 @@ datum/preferences
 							b_hair = 0//hex2num(copytext(new_hair, 6, 8))
 
 							s_tone = 0
+
+							body_accessory = null //no vulpatail on humans damnit
 					if("speciesprefs")//oldvox code
 						speciesprefs = !speciesprefs
 
@@ -1268,7 +1270,7 @@ datum/preferences
 							s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("skin")
-						if(species == "Unathi" || species == "Tajaran" || species == "Skrell" || species == "Slime People"|| species == "Vulpkanin" || body_accessory_by_species[species] || check_rights(R_ADMIN, 1, user))
+						if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference") as color|null
 							if(new_skin)
 								r_skin = hex2num(copytext(new_skin, 2, 4))
@@ -1608,7 +1610,7 @@ datum/preferences
 
 	proc/open_load_dialog(mob/user)
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM characters WHERE ckey='[user.ckey]' ORDER BY slot")
+		var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
 
 		var/dat = "<body>"
 		dat += "<tt><center>"

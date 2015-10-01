@@ -118,32 +118,6 @@ var/const/INGEST = 2
 	src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/trans_to_ingest(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//For items ingested. A delay is added between ingestion and addition of the reagents
-	if (!target )
-		return
-	if (!target.reagents || src.total_volume<=0)
-		return
-
-	var/obj/item/weapon/reagent_containers/glass/beaker/noreact/B = new /obj/item/weapon/reagent_containers/glass/beaker/noreact //temporary holder
-	B.volume = 1000
-
-	var/datum/reagents/BR = B.reagents
-	var/datum/reagents/R = target.reagents
-
-	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
-
-	src.trans_to(B, amount)
-
-	spawn(-1)
-		src = null // Survive through deletion of the reagent holder
-		sleep(100)
-		if(!target)
-			return
-		BR.trans_to(target, BR.total_volume)
-		qdel(B)
-
-	return amount
-
 /datum/reagents/proc/copy_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1, var/safety = 0)
 	if(!target)
 		return

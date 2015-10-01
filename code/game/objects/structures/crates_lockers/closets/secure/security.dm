@@ -250,7 +250,7 @@
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/glasses/hud/health_advanced
 		new /obj/item/clothing/head/beret/centcom/officer(src)
-		new /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield(src)
+		new /obj/item/clothing/suit/armor/vest/blueshield(src)
 		new /obj/item/clothing/suit/storage/blueshield(src)
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/accessory/holster(src)

@@ -76,9 +76,6 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = pick("yells","roars","hollers")
 		speech_problem_flag = 1
 
-	if(COMIC in mutations)
-		message = "<span class='sans'>[message]</span>"
-
 	if(slurring)
 		message = slur(message)
 		verb = "slurs"
@@ -88,12 +85,19 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = "stammers"
 		speech_problem_flag = 1
 
+	if(COMIC in mutations)
+		message = "<span class='sans'>[message]</span>"
+
 	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag
 	return returns
 
 /mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
+	switch(message_mode)
+		if("whisper") //all mobs can whisper by default
+			whisper_say(message, speaking, alt_name)
+			return 1
 	return 0
 
 /mob/living/proc/handle_speech_sound()
@@ -264,3 +268,154 @@ proc/get_radio_key_from_channel(var/channel)
 
 /mob/living/proc/GetVoice()
 	return name
+
+/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't
+	if(stat)	return 0                          //already snowflaked to shit can call the parent and handle emoting sanely
+
+	if(..(act, type, message))
+		return 1
+
+	if(act && type && message) //parent call
+		log_emote("[name]/[key] : [message]")
+
+		for(var/mob/M in dead_mob_list)
+			if(!M.client || istype(M, /mob/new_player))
+				continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
+
+			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+				M.show_message(message)
+
+		switch(type)
+			if(1) //Visible
+				visible_message(message)
+				return 1
+			if(2) //Audible
+				audible_message(message)
+				return 1
+
+	else //everything else failed, emote is probably invalid
+		if(act == "help")	return //except help, because help is handled individually
+		src << "\blue Unusable emote '[act]'. Say *help for a list."
+
+/mob/living/whisper(message as text)
+	message = trim_strip_html_properly(message)
+
+	//parse the language code and consume it
+	var/datum/language/speaking = parse_language(message)
+	if(speaking)
+		message = copytext(message, 2 + length(speaking.key))
+	else
+		speaking = get_default_language()
+
+	// This is broadcast to all mobs with the language,
+	// irrespective of distance or anything else.
+	if(speaking && (speaking.flags & HIVEMIND))
+		speaking.broadcast(src,trim(message))
+		return 1
+
+	message = trim_left(message)
+	message = handle_autohiss(message, speaking)
+
+	whisper_say(message, speaking)
+
+/mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			src << "<span class='danger'>You cannot speak in IC (Muted).</span>"
+			return
+
+	if(stat)
+		if(stat == 2)
+			return say_dead(message)
+		return
+
+	if(is_muzzled())
+		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
+		return
+
+	var/message_range = 1
+	var/eavesdropping_range = 2
+	var/watching_range = 5
+	var/italics = 1
+
+	var/not_heard //the message displayed to people who could not hear the whispering
+	if(speaking)
+		if(speaking.whisper_verb)
+			verb = speaking.whisper_verb
+			not_heard = "[verb] something"
+		else
+			var/adverb = pick("quietly", "softly")
+			verb = "[speaking.speech_verb] [adverb]"
+			not_heard = "[speaking.speech_verb] something [adverb]"
+	else
+		not_heard = "[verb] something" //TODO get rid of the null language and just prevent speech if language is null
+
+	message = trim(message)
+
+	var/speech_problem_flag = 0
+	var/list/handle_s = handle_speech_problems(message, verb)
+	message = handle_s[1]
+	verb = handle_s[2]
+	speech_problem_flag = handle_s[3]
+	if(verb == "yells loudly")
+		verb = "slurs emphatically"
+	else if(speech_problem_flag)
+		var/adverb = pick("quietly", "softly")
+		verb = "[verb] [adverb]"
+
+	if(!message || message=="")
+		return
+
+	var/list/listening = hearers(message_range, src)
+	listening |= src
+
+	//ghosts
+	for(var/mob/M in dead_mob_list)	//does this include players who joined as observers as well?
+		if(!M.client)
+			continue
+		if(M.stat == DEAD && M.client && (M.client.prefs.toggles & CHAT_GHOSTEARS))
+			listening |= M
+
+	//Pass whispers on to anything inside the immediate listeners.
+	for(var/mob/L in listening)
+		for(var/mob/C in L.contents)
+			if(istype(C,/mob/living))
+				listening += C
+
+	//pass on the message to objects that can hear us.
+	for(var/obj/O in view(message_range, src))
+		spawn(0)
+			if(O)
+				O.hear_talk(src, message, verb, speaking)
+
+	var/list/eavesdropping = hearers(eavesdropping_range, src)
+	eavesdropping -= src
+	eavesdropping -= listening
+
+	var/list/watching = hearers(watching_range, src)
+	watching  -= src
+	watching  -= listening
+	watching  -= eavesdropping
+
+	//now mobs
+	var/speech_bubble_test = say_test(message)
+	var/image/speech_bubble = image('icons/mob/talk.dmi',src,"h[speech_bubble_test]")
+	spawn(30) qdel(speech_bubble)
+
+	for(var/mob/M in listening)
+		M << speech_bubble
+		M.hear_say(message, verb, speaking, alt_name, italics, src)
+
+	if(eavesdropping.len)
+		var/new_message = stars(message)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
+		for(var/mob/M in eavesdropping)
+			M << speech_bubble
+			M.hear_say(new_message, verb, speaking, alt_name, italics, src)
+
+	if(watching.len)
+		var/rendered = "<span class='game say'><span class='name'>[src.name]</span> [not_heard].</span>"
+		for (var/mob/M in watching)
+			M.show_message(rendered, 2)
+
+	log_whisper("[src.name]/[src.key] : [message]")
+	return 1

@@ -329,7 +329,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				break
 
 	if(vent_found)
-		if(vent_found.network && (vent_found.network.normal_members.len || vent_found.network.line_members.len))
+		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
 			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
@@ -362,15 +362,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	var/datum/pipe_network/network = starting_machine.return_network(starting_machine)
-	if(!network)
+	if(!istype(starting_machine) || !starting_machine.returnPipenet())
 		return
-	for(var/datum/pipeline/pipeline in network.line_members)
-		for(var/obj/machinery/atmospherics/A in (pipeline.members || pipeline.edges))
-			if(!A.pipe_image)
-				A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
-			pipes_shown += A.pipe_image
-			client.images += A.pipe_image
+	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
+	var/list/totalMembers = list()
+	totalMembers |= pipeline.members
+	totalMembers |= pipeline.other_atmosmch
+	for(var/obj/machinery/atmospherics/A in totalMembers)
+		if(!A.pipe_image)
+			A.pipe_image = image(A, A.loc, layer = 20, dir = A.dir) //the 20 puts it above Byond's darkness (not its opacity view)
+		pipes_shown += A.pipe_image
+		client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
@@ -479,19 +481,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		item.layer = initial(item.layer)
 		src.visible_message("\red [src] has thrown [item].")
 
-		if(!src.lastarea)
-			src.lastarea = get_area(src.loc)
-		if((istype(src.loc, /turf/space)) || (src.lastarea.has_gravity == 0))
-			src.inertia_dir = get_dir(target, src)
-			step(src, inertia_dir)
-
-
-/*
-		if(istype(src.loc, /turf/space) || (src.flags & NOGRAV)) //they're in space, move em one space in the opposite direction
-			src.inertia_dir = get_dir(target, src)
-			step(src, inertia_dir)
-*/
-
+		newtonian_move(get_dir(target, src))
 
 		item.throw_at(target, item.throw_range, item.throw_speed, src)
 /*
@@ -527,6 +517,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		update_inv_wear_mask(0)
 	else if(I == handcuffed)
 		handcuffed = null
+		if(buckled && buckled.buckle_requires_restraints)
+			buckled.unbuckle_mob()
 		update_inv_handcuffed(1)
 	else if(I == legcuffed)
 		legcuffed = null
@@ -674,6 +666,9 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
+
+/mob/living/carbon/fall(forced)
+    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))

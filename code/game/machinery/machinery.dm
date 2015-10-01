@@ -139,6 +139,9 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/proc/locate_machinery()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -401,8 +404,8 @@ Class Procs:
 /obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
 	if(panel_open && istype(W))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		dir = pick(WEST,EAST,SOUTH,NORTH)
-		user << "<span class='notice'>You clumsily rotate [src].</span>"
+		dir = turn(dir,-90)
+		user << "<span class='notice'>You rotate [src].</span>"
 		return 1
 	return 0
 
@@ -544,3 +547,7 @@ Class Procs:
 		if(user.stunned)
 			return 1
 	return 0
+
+//called on machinery construction (i.e from frame to machinery) but not on initialization
+/obj/machinery/proc/construction()
+	return

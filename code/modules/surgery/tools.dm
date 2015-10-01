@@ -96,7 +96,6 @@
 	icon_state = "scalpel_laser2_on"
 	item_state = "scalpel"
 	damtype = "fire"
-	force = 12.0
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/scalpel/laser3
@@ -105,7 +104,6 @@
 	icon_state = "scalpel_laser3_on"
 	item_state = "scalpel"
 	damtype = "fire"
-	force = 15.0
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/scalpel/manager
@@ -114,7 +112,6 @@
 	icon_state = "scalpel_manager_on"
 	item_state = "scalpel"
 	damtype = "fire"
-	force = 18.0
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/weapon/circular_saw
