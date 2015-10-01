@@ -1040,3 +1040,21 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	result_amount = 3
 	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+
+datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
+	name = "Restorative Nanites"
+	id = "syndicate_nanites"
+	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
+	reagent_state = SOLID
+	color = "#555555"
+
+datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
+	M.adjustBruteLoss(-5*REM) //A ton of healing - this is a 50 telecrystal investment.
+	M.adjustFireLoss(-5*REM)
+	M.adjustOxyLoss(-15*REM)
+	M.adjustToxLoss(-5*REM)
+	M.adjustBrainLoss(-15*REM)
+	M.adjustCloneLoss(-3*REM)
+	..()
+	return

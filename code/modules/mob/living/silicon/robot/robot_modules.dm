@@ -344,13 +344,55 @@
 	fix_modules()
 
 /obj/item/weapon/robot_module/syndicate
-	name = "syndicate robot module"
+	name = "syndicate assault robot module"
 
 /obj/item/weapon/robot_module/syndicate/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/printer(src)
 	src.modules += new /obj/item/weapon/gun/projectile/revolver/grenadelauncher/multi/cyborg(src)
+	src.modules += new /obj/item/weapon/card/emag(src)
+	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
+	src.modules += new /obj/item/weapon/crowbar(src)
+	src.modules += new /obj/item/weapon/pinpointer/operative(src)
+	src.emag = null
+	
+	fix_modules()
+	
+/obj/item/weapon/robot_module/syndicate_medical
+	name = "syndicate medical robot module"
+	stacktypes = list(
+		/obj/item/stack/medical/advanced/bruise_pack = 25,
+		/obj/item/stack/medical/advanced/ointment = 25,
+		/obj/item/stack/medical/splint = 25,
+		/obj/item/stack/nanopaste = 25
+	)
+	
+/obj/item/weapon/robot_module/syndicate_medical/New()
+	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.modules += new /obj/item/device/healthanalyzer/advanced(src)
+	src.modules += new /obj/item/device/reagent_scanner/adv(src)
+	src.modules += new /obj/item/weapon/borg_defib(src)
+	src.modules += new /obj/item/roller_holder(src)
+	src.modules += new /obj/item/weapon/reagent_containers/borghypo/syndicate(src)
+	src.modules += new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
+	src.modules += new /obj/item/weapon/reagent_containers/dropper(src)
+	src.modules += new /obj/item/weapon/reagent_containers/syringe(src)
+	src.modules += new /obj/item/weapon/extinguisher/mini(src)
+	src.modules += new /obj/item/stack/medical/advanced/bruise_pack(src)
+	src.modules += new /obj/item/stack/medical/advanced/ointment(src)
+	src.modules += new /obj/item/stack/medical/splint(src)
+	src.modules += new /obj/item/stack/nanopaste(src)
+	src.modules += new /obj/item/weapon/scalpel(src)
+	src.modules += new /obj/item/weapon/hemostat(src)
+	src.modules += new /obj/item/weapon/retractor(src)
+	src.modules += new /obj/item/weapon/cautery(src)
+	src.modules += new /obj/item/weapon/bonegel(src)
+	src.modules += new /obj/item/weapon/FixOVein(src)
+	src.modules += new /obj/item/weapon/bonesetter(src)
+	//src.modules += new /obj/item/weapon/circular_saw(src)
+	src.modules += new /obj/item/weapon/surgicaldrill(src)
+	src.modules += new /obj/item/weapon/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
 	src.modules += new /obj/item/weapon/card/emag(src)
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
