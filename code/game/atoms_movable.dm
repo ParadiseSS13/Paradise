@@ -91,6 +91,9 @@
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
 
+	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+		. = 0
+
 
 // Previously known as Crossed()
 // This is automatically called when something enters your square
@@ -303,3 +306,17 @@
 
 /atom/movable/proc/water_act(var/volume, var/temperature, var/source) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return 1
+
+/atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
+	if(!buckled_mob.Move(newloc, direct))
+		loc = buckled_mob.loc
+		last_move = buckled_mob.last_move
+		inertia_dir = last_move
+		buckled_mob.inertia_dir = last_move
+		return 0
+	return 1
+
+/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
+	if(buckled_mob == mover)
+		return 1
+	return ..()

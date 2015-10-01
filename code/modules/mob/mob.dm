@@ -1020,9 +1020,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/facedir(var/ndir)
 	if(!canface())	return 0
 	dir = ndir
-	if(buckled && buckled.movable)
-		buckled.dir = ndir
-		buckled.handle_rotation()
 	client.move_delay += movement_delay()
 	return 1
 
@@ -1399,3 +1396,30 @@ mob/proc/yank_out_object()
 
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl
+
+//You can buckle on mobs if you're next to them since most are dense
+/mob/buckle_mob(mob/living/M)
+	if(M.buckled)
+		return 0
+	var/turf/T = get_turf(src)
+	if(M.loc != T)
+		var/old_density = density
+		density = 0
+		var/can_step = step_towards(M, T)
+		density = old_density
+		if(!can_step)
+			return 0
+	return ..()
+
+//Default buckling shift visual for mobs
+/mob/post_buckle_mob(mob/living/M)
+	if(M == buckled_mob) //post buckling
+		M.pixel_y = initial(M.pixel_y) + 9
+		if(M.layer < layer)
+			M.layer = layer + 0.1
+	else //post unbuckling
+		M.layer = initial(M.layer)
+		M.pixel_y = initial(M.pixel_y)
+
+/mob/proc/can_unbuckle(mob/user)
+	return 1
