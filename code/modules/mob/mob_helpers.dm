@@ -132,6 +132,11 @@ proc/isembryo(A)
 		return 1
 	return 0
 
+/proc/isswarmer(A)
+	if(istype(A, /mob/living/simple_animal/hostile/swarmer))
+		return 1
+	return 0
+
 /proc/isliving(A)
 	if(istype(A, /mob/living))
 		return 1
@@ -224,7 +229,6 @@ proc/getsensorlevel(A)
 
 /proc/is_admin(var/mob/user)
 	return check_rights(R_ADMIN, 0, user) != 0
-
 
 /proc/check_zone(zone)
 	if(!zone)	return "chest"

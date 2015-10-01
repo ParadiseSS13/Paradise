@@ -12,10 +12,12 @@
 			return
 		if(2.0)
 			if (prob(50))
+				new /obj/item/stack/sheet/metal(loc)
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(5))
+				new /obj/item/stack/sheet/metal(loc)
 				qdel(src)
 				return
 	return
