@@ -292,6 +292,11 @@
 		convert_notes_sql(ckey)	
 	
 	send_resources()
+	
+	if(!void)
+		void = new()
+	
+	screen += void
 
 //////////////
 //DISCONNECT//

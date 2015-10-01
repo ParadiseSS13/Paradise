@@ -667,12 +667,13 @@ var/list/slot_equipment_priority = list( \
 
 	log_game("[key_name(usr)] has respawned.")
 
-	usr << "\blue <B>Make sure to play a different character, and please roleplay correctly!</B>"
+	usr << "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>"
 
 	if(!client)
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
 	client.screen.Cut()
+	client.screen += client.void
 
 	if(!client)
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
