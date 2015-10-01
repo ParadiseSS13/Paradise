@@ -100,10 +100,8 @@
 	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
-	if(operating)	return
-//	if(user.last_airflow > world.time) //Fakkit //remind me to figure out the linda equiv
-//	if(user.last_airflow > world.time - zas_settings.Get("airflow_delay")) //Fakkit
-//		return
+	if(operating)
+		return
 	src.add_fingerprint(user)
 	if(!src.requiresID())
 		user = null
