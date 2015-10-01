@@ -187,7 +187,7 @@ var/global/list/captain_display_cases = list()
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
-		// Play the burglar alarm four times
+		// Play the burglar alarm three times
 		for(var/i = 0, i < 4, i++)
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
 			sleep(74) // 7.4 seconds long
