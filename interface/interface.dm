@@ -13,133 +13,196 @@
 		src << "<span class='danger'>The wiki URL is not set in the server configuration.</span>"
 	return
 
-#define CHANGELOG "https://github.com/ParadiseSS13/Paradise/pulls?q=is%3Apr+is%3Amerged+sort%3Aupdated-desc"
 /client/verb/changes()
 	set name = "Changelog"
-	set desc = "Visit Github to check out the commits."
+	set desc = "Visit our repository to check out the changes."
 	set hidden = 1
-
-	if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
-		return
-	src << link(CHANGELOG)
+	
+	if(config.repositoryurl)
+		if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link("[config.repositoryurl]/pulls?q=is%3Apr+is%3Aclosed")
+	else
+		src << "<span class='danger'>The Repository URL is not set in the server configuration.</span>"
 	return
-#undef CHANGELOG
 
 /client/verb/forum()
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
-	if( config.forumurl )
+	if(config.forumurl)
 		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")=="No")
 			return
 		src << link(config.forumurl)
 	else
-		src << "\red The forum URL is not set in the server configuration."
+		src << "<span class='danger'>The forum URL is not set in the server configuration.</span>"
 	return
 
-#define RULES_FILE "config/rules.html"
 /client/verb/rules()
 	set name = "Rules"
-	set desc = "Show Server Rules."
+	set desc = "View the server rules."
 	set hidden = 1
-	src << browse(file(RULES_FILE), "window=rules;size=480x320")
-#undef RULES_FILE
+	if(config.rulesurl)
+		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.rulesurl)
+	else
+		src << "<span class='danger'>The rules URL is not set in the server configuration.</span>"
+	return
 
-#define DONATE "http://nanotrasen.se/phpBB3/donate.php"
 /client/verb/donate()
 	set name = "Donate"
-	set desc = "Donate to help with development costs."
+	set desc = "Donate to help with hosting costs."
 	set hidden = 1
-
-	if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
-		return
-	src << link(DONATE)
+	if(config.donationsurl)
+		if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.donationsurl)
+	else
+		src << "<span class='danger'>The rules URL is not set in the server configuration.</span>"
 	return
-#undef DONATE
 
 /client/verb/hotkeys_help()
-	set name = "Hotkeys Help"
+	set name = "Hotkey Help"
 	set category = "OOC"
 
+	var/adminhotkeys = {"<font color='purple'>
+Admin:
+\tF5 = Asay
+\tF6 = Admin Ghost
+\tF7 = Player Panel
+\tF8 = Admin PM
+\tF9 = Invisimin
+</font>"}
+
+	mob.hotkey_help()
+
+	if(check_rights(R_MOD|R_ADMIN,0))
+		src << adminhotkeys
+		
+/mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
 Hotkey-Mode: (hotkey-mode must be on)
-\tTAB = toggle hotkey-mode
-\ta = left
-\ts = down
-\td = right
-\tw = up
-\tq = drop item / deselect cyborg module
-\te = equip
-\tr = toggle throw / unequip cyborg module
-\tt = say
-\tx = swap-hand
-\tz = activate held object (or y)
-\tf = cycle-intents-left
-\tg = cycle-intents-right
-\t1 = help-intent
-\t2 = disarm-intent
-\t3 = grab-intent
-\t4 = harm-intent
+\tTAB = Toggle Hotkey Mode
+\ta = Move Left
+\ts = Move Down
+\td = Move Right
+\tw = Move Up
+\tq = Drop Item
+\te = Equip Item
+\tr = Throw Item
+\tm = Me
+\tt = Say
+\to = OOC
+\tb = Resist
+\tx = Swap Hands
+\tz = Activate Held Object (or y)
+\tf = Cycle Intents Left
+\tg = Cycle Intents Right
+\t1 = Help Intent
+\t2 = Disarm Intent
+\t3 = Grab Intent
+\t4 = Harm Intent
 </font>"}
 
 	var/other = {"<font color='purple'>
 Any-Mode: (hotkey doesn't need to be on)
-\tCtrl+a = left
-\tCtrl+s = down
-\tCtrl+d = right
-\tCtrl+w = up
-\tCtrl+q = drop item / deselect cyborg module
-\tCtrl+e = equip
-\tCtrl+r = toggle throw / unequip cyborg module
-\tCtrl+x = swap-hand
-\tCtrl+z = activate held object (or Ctrl+y)
-\tCtrl+f = cycle-intents-left
-\tCtrl+g = cycle-intents-right
-\tCtrl+1 = help-intent
-\tCtrl+2 = disarm-intent
-\tCtrl+3 = grab-intent
-\tCtrl+4 = harm-intent
-\tDEL = pull
-\tINS = cycle-intents-right
-\tHOME = drop item / deselect cyborg module
-\tPGUP = swap-hand
-\tPGDN = activate held object
-\tEND = toggle throw / unequip cyborg module
-</font>"}
-
-	var/admin = {"<font color='purple'>
-Admin:
-\tF5 = Aghost (admin-ghost)
-\tF6 = player-panel-new
-\tF7 = admin-pm
-\tF8 = Invisimin
+\tCtrl+a = Move Left
+\tCtrl+s = Move Down
+\tCtrl+d = Move Right
+\tCtrl+w = Move Up
+\tCtrl+q = Drop Item
+\tCtrl+e = Equip Item
+\tCtrl+r = Throw Item
+\tCtrl+b = Resist
+\tCtrl+o = OOC
+\tCtrl+x = Swap Hands
+\tCtrl+z = Activate Held Object (or Ctrl+y)
+\tCtrl+f = Cycle Intents Left
+\tCtrl+g = Cycle Intents Right
+\tCtrl+1 = Help Intent
+\tCtrl+2 = Disarm Intent
+\tCtrl+3 = Grab Intent
+\tCtrl+4 = Harm Intent
+\tDEL = Pull
+\tINS = Cycle Intents Right
+\tHOME = Drop Item
+\tPGUP = Swap Hands
+\tPGDN = Activate Held Object
+\tEND = Throw Item
+\tF2 = OOC
+\tF3 = Say
+\tF4 = Me
 </font>"}
 
 	src << hotkey_mode
 	src << other
-	if(holder)
-		src << admin
 
+/mob/living/silicon/robot/hotkey_help()
+	var/hotkey_mode = {"<font color='purple'>
+Hotkey-Mode: (hotkey-mode must be on)
+\tTAB = Toggle Hotkey Mode
+\ta = Move Left
+\ts = Move Down
+\td = Move Right
+\tw = Move Up
+\tq = Unequip Active Module
+\tm = Me
+\tt = Say
+\to = OOC
+\tx = Cycle Active Modules
+\tb = Resist
+\tz = Activate Held Object (or y)
+\tf = Cycle Intents Left
+\tg = Cycle Intents Right
+\t1 = Activate Module 1
+\t2 = Activate Module 2
+\t3 = Activate Module 3
+\t4 = Toggle Intents
+</font>"}
+
+	var/other = {"<font color='purple'>
+Any-Mode: (hotkey doesn't need to be on)
+\tCtrl+a = Move Left
+\tCtrl+s = Move Down
+\tCtrl+d = Move Right
+\tCtrl+w = Move Up
+\tCtrl+q = Unequip Active Module
+\tCtrl+x = Cycle Active Modules
+\tCtrl+b = Resist
+\tCtrl+o = OOC
+\tCtrl+z = Activate Held Object (or Ctrl+y)
+\tCtrl+f = Cycle Intents Left
+\tCtrl+g = Cycle Intents Right
+\tCtrl+1 = Activate Module 1
+\tCtrl+2 = Activate Module 2
+\tCtrl+3 = Activate Module 3
+\tCtrl+4 = Toggle Intents
+\tDEL = Pull
+\tINS = Toggle Intents
+\tPGUP = Cycle Active Modules
+\tPGDN = Activate Held Object
+\tF2 = OOC
+\tF3 = Say
+\tF4 = Me
+</font>"}
+
+	src << hotkey_mode
+	src << other
 
 //adv. hotkey mode verbs, vars located in /code/modules/client/client defines.dm
-
 /client/verb/hotkey_toggle()//toggles hotkey mode between on and off, respects selected type
 	set name = ".Toggle Hotkey Mode"
 
 	hotkeyon = !hotkeyon//toggle the var
-
-	var/hotkeys = hotkeylist[hotkeytype]//get the list containing the hotkey names
-	var/hotkeyname = hotkeys[hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
-
-	winset(usr, "mainwindow", "macro=[hotkeyname]")//change the hotkey
 	usr << (hotkeyon ? "Hotkey mode enabled." : "Hotkey mode disabled.")//feedback to the user
 
 	if(hotkeyon)//using an if statement because I don't want to clutter winset() with ? operators
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=true")//checks the button
-		winset(usr, "mapwindow.map", "focus=true")//sets mapwindow focus
 	else
 		winset(usr, "mainwindow.hotkey_toggle", "is-checked=false")//unchecks the button
-		winset(usr, "mainwindow.input", "focus=true")//sets focus
+	if(mob)
+		mob.update_interface()
 
 /client/verb/hotkey_mode()//asks user for the hotkey type and changes the macro accordingly
 	set name = "Set Hotkey Mode"

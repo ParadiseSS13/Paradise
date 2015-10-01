@@ -80,6 +80,9 @@
 	var/banappeals
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
+	var/rulesurl = "http://example.org"
+	var/donationsurl = "http://example.org"
+	var/repositoryurl = "http://example.org"
 
 	var/media_base_url = "http://example.org"
 	var/overflow_server_url
@@ -338,6 +341,15 @@
 
 				if ("forumurl")
 					config.forumurl = value
+					
+				if ("rulesurl")
+					config.rulesurl = value
+		
+				if ("donationsurl")
+					config.donationsurl = value
+					
+				if ("repositoryurl")
+					config.repositoryurl = value
 
 				if ("guest_jobban")
 					config.guest_jobban = 1

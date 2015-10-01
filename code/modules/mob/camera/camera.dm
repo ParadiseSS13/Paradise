@@ -17,3 +17,7 @@
 /mob/camera/Destroy()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
+	
+/mob/camera/Login()
+	..()
+	update_interface()
