@@ -105,7 +105,7 @@
 	..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/updatename()
-	real_name = "Swarmer-[rand(100,999)]-[pick("kappa","sigma","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]"
+	real_name = "Swarmer [rand(100,999)]-[pick("kappa","sigma","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]"
 	name = real_name
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
