@@ -278,7 +278,7 @@
 			M.stuttering = 0
 			M.confused = 0
 			return
-	if(ishuman(M))				.
+	if(ishuman(M) && M.mind)				.
 		if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(80))
 			switch(data)
 				if(1 to 4)

@@ -112,7 +112,7 @@
 			return
 		if(!B)
 			return
-		src.forceMove(B)
+		src.forceMove(B.loc)
 		src.client.eye = src
 		if (prob(25) && istype(src, /mob/living/simple_animal/slaughter))
 			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')

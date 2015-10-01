@@ -552,10 +552,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"soviet admiral",
 		"tunnel clown",
 		"masked killer",
+		"singuloth knight",
 		"dark lord",
 		"assassin",
 		"death commando",
 		"syndicate commando",
+		"chrono legionnaire",
 		"special ops officer",
 		"special ops formal",
 		"blue wizard",
@@ -565,7 +567,6 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		"emergency response team leader",
 		"nanotrasen officer",
 		"nanotrasen captain",
-		"singuloth knight"
 		)
 	var/dostrip = input("Do you want to strip [M] before equipping them? (0=no, 1=yes)", "STRIPTEASE") as null|anything in list(0,1)
 	if(isnull(dostrip))
@@ -1048,11 +1049,28 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
 			var/obj/item/weapon/card/id/W = new(M)
-			W.name = "[M.real_name]'s ID Card (Admiral)"
+			W.name = "[M.real_name]'s ID Card"
 			W.icon_state = "commander"
 			W.access = get_all_accesses()
 			W.access += get_all_centcom_access()
 			W.assignment = "Admiral"
+			W.registered_name = M.real_name
+			M.equip_to_slot_or_del(W, slot_wear_id)
+			
+		if("chrono legionnaire")
+			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/chronos(M), slot_head)
+			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
+			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
+			M.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(M), slot_glasses)
+			M.equip_to_slot_or_del(new /obj/item/clothing/suit/space/chronos(M), slot_wear_suit)
+			M.equip_to_slot_or_del(new /obj/item/weapon/chrono_eraser(M), slot_back)
+			M.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(M), slot_w_uniform)
+			M.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
+			var/obj/item/weapon/card/id/W = new(M)
+			W.name = "[M.real_name]'s ID Card"
+			W.icon_state = "syndie"
+			W.assignment = "Chrono Legionnaire"
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
