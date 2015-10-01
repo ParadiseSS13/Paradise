@@ -29,7 +29,7 @@
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("omnizine", "salbutamol", "mannitol", "mutadone", "charcoal", "potass_iodide")
+	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
@@ -100,7 +100,7 @@
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
-	user << "\blue Synthesizer is now producing '[R.name]'."
+	user << "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>"
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/examine(mob/user)
@@ -112,8 +112,8 @@
 	for(var/datum/reagents/RS in reagent_list)
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
-			user << "\blue It currently has [R.volume] units of [R.name] stored."
+			user << "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
 			empty = 0
 
 	if(empty)
-		user << "\blue It is currently empty. Allow some time for the internal syntheszier to produce more."
+		user << "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

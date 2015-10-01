@@ -511,6 +511,14 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
 	surplus = 50
+	
+/datum/uplink_item/stealthy_weapons/dart_pistol
+	name = "Dart Pistol"
+	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can."
+	reference = "DART"
+	item = /obj/item/weapon/gun/syringe/syndicate
+	cost = 4
+	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/detomatix
 	name = "Detomatix PDA Cartridge"
