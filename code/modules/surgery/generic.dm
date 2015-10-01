@@ -24,7 +24,6 @@
 	/obj/item/weapon/scalpel/laser3 = 95, \
 	/obj/item/weapon/scalpel/laser2 = 85, \
 	/obj/item/weapon/scalpel/laser1 = 75, \
-	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/weapon/melee/energy/sword/saber = 5
 	)
 
