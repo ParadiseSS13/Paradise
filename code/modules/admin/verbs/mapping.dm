@@ -40,13 +40,14 @@ var/intercom_range_display_status = 0
 /client/proc/camera_view()
 	set category = "Mapping"
 	set name = "Camera Range Display"
+	
+	if(!check_rights(R_DEBUG)) 
+		return
 
 	if(camera_range_display_status)
 		camera_range_display_status = 0
 	else
 		camera_range_display_status = 1
-
-
 
 	for(var/obj/effect/debugging/camera_range/C in world)
 		del(C)
@@ -56,15 +57,12 @@ var/intercom_range_display_status = 0
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-
 /client/proc/sec_camera_report()
 	set category = "Mapping"
 	set name = "Camera Report"
-
-	if(!master_controller)
-		alert(usr,"Master_controller not found.","Sec Camera Report")
-		return 0
+	
+	if(!check_rights(R_DEBUG)) 
+		return
 
 	var/list/obj/machinery/camera/CL = list()
 
@@ -101,6 +99,9 @@ var/intercom_range_display_status = 0
 /client/proc/intercom_view()
 	set category = "Mapping"
 	set name = "Intercom Range Display"
+	
+	if(!check_rights(R_DEBUG)) 
+		return
 
 	if(intercom_range_display_status)
 		intercom_range_display_status = 0
@@ -119,26 +120,24 @@ var/intercom_range_display_status = 0
 	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 var/list/admin_verbs_show_debug_verbs = list(	
-	/client/proc/camera_view, 				//-errorage
-	/client/proc/sec_camera_report, 		//-errorage
-	/client/proc/intercom_view, 			//-errorage
+	/client/proc/camera_view,
+	/client/proc/sec_camera_report,
+	/client/proc/intercom_view,
 	/client/proc/Cell, //More air things
 	/client/proc/atmosscan, //check plumbing
 	/client/proc/powerdebug, //check power
 	/client/proc/count_objects_on_z_level,
 	/client/proc/count_objects_all,
-	/client/proc/cmd_assume_direct_control,	//-errorage
+	/client/proc/cmd_assume_direct_control,	
 	/client/proc/startSinglo,
 	/client/proc/ticklag,
 	/client/proc/cmd_admin_grantfullaccess,
-//	/client/proc/splash,
 	/client/proc/cmd_admin_areatest,
 	/client/proc/cmd_admin_rejuvenate,
 	/datum/admins/proc/show_traitor_panel,
 	/client/proc/print_jobban_old,
 	/client/proc/print_jobban_old_filter,
 	/client/proc/forceEvent,
-	///client/proc/cmd_admin_rejuvenate,
 	/client/proc/nanomapgen_DumpImage
 )
 	
@@ -146,7 +145,8 @@ var/list/admin_verbs_show_debug_verbs = list(
 	set category = "Debug"
 	set name = "Debug verbs"
 
-	if(!check_rights(R_DEBUG)) return
+	if(!check_rights(R_DEBUG)) 
+		return
 
 	verbs += admin_verbs_show_debug_verbs
 
@@ -155,6 +155,10 @@ var/list/admin_verbs_show_debug_verbs = list(
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
 	set name = "Count Objects On Level"
+	
+	if(!check_rights(R_DEBUG)) 
+		return	
+	
 	var/level = input("Which z-level?","Level?") as text
 	if(!level) return
 	var/num_level = text2num(level)
@@ -182,22 +186,16 @@ var/list/admin_verbs_show_debug_verbs = list(
 				if(B.z == num_level)
 					count++
 					atom_list += A
-	/*
-	var/atom/temp_atom
-	for(var/i = 0; i <= (atom_list.len/10); i++)
-		var/line = ""
-		for(var/j = 1; j <= 10; j++)
-			if(i*10+j <= atom_list.len)
-				temp_atom = atom_list[i*10+j]
-				line += " no.[i+10+j]@\[[temp_atom.x], [temp_atom.y], [temp_atom.z]\]; "
-		world << line*/
 
-	world << "There are [count] objects of type [type_path] on z-level [num_level]"
+	world << "There are [count] objects of type [type_path] on z-level [num_level]."
 	feedback_add_details("admin_verb","mOBJZ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
 	set category = "Mapping"
 	set name = "Count Objects All"
+	
+	if(!check_rights(R_DEBUG)) 
+		return
 
 	var/type_text = input("Which type path?","") as text
 	if(!type_text) return
@@ -209,15 +207,6 @@ var/list/admin_verbs_show_debug_verbs = list(
 	for(var/atom/A in world)
 		if(istype(A,type_path))
 			count++
-	/*
-	var/atom/temp_atom
-	for(var/i = 0; i <= (atom_list.len/10); i++)
-		var/line = ""
-		for(var/j = 1; j <= 10; j++)
-			if(i*10+j <= atom_list.len)
-				temp_atom = atom_list[i*10+j]
-				line += " no.[i+10+j]@\[[temp_atom.x], [temp_atom.y], [temp_atom.z]\]; "
-		world << line*/
 
-	world << "There are [count] objects of type [type_path] in the game world"
+	world << "There are [count] objects of type [type_path] in the game world."
 	feedback_add_details("admin_verb","mOBJ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

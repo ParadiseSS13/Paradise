@@ -66,9 +66,9 @@
 /obj/item/device/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
-	laser_act(target, user)
+	laser_act(target, user, params)
 
-/obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user)
+/obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if (!diode)
@@ -96,11 +96,13 @@
 			//20% chance to actually hit the eyes
 
 			if(prob(effectchance * diode.rating))
-				add_logs(user, C, "shone in the eyes", object="laser pointer")
+				add_logs(C, user, "shone in the eyes", object="laser pointer")
 
 
 				//eye target check
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in their eyes.</span>"
+				if(C.weakeyes)
+					C.Stun(1)
 				var/eye_prot = C.eyecheck()
 				if(C.blinded || eye_prot >= 2)
 					eye_prot = 4
@@ -173,12 +175,19 @@
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/list/showto = list()
-	for(var/mob/M in range(7,targloc))
+	for(var/mob/M in viewers(7,targloc))
 		if(M.client)
 			showto.Add(M.client)
 	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
-	I.pixel_x = target.pixel_x + rand(-5,5)
-	I.pixel_y = target.pixel_y + rand(-5,5)
+	var/list/click_params = params2list(params)
+	if(click_params)
+		if(click_params["icon-x"])
+			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
+		if(click_params["icon-y"])
+			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
+	else
+		I.pixel_x = target.pixel_x + rand(-5,5)
+		I.pixel_y = target.pixel_y + rand(-5,5)
 
 	if(outmsg)
 		user << outmsg

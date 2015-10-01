@@ -34,7 +34,41 @@
 	SUIT_TYPE = /obj/item/clothing/suit/space/eva
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space/eva
 	MASK_TYPE = /obj/item/clothing/mask/breath
+	
+/obj/machinery/suit_storage_unit/captain
+	SUIT_TYPE = /obj/item/clothing/suit/space/captain
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/capspace
+	MASK_TYPE = /obj/item/clothing/mask/gas
 
+/obj/machinery/suit_storage_unit/engine
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/engineering
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/engineering
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/ce
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/elite
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/elite
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/security
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/security
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/security
+	MASK_TYPE = /obj/item/clothing/mask/gas/sechailer
+
+/obj/machinery/suit_storage_unit/atmos
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/atmos
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/atmos
+	MASK_TYPE = /obj/item/clothing/mask/gas
+
+/obj/machinery/suit_storage_unit/mining
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/mining
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/mining
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/cmo
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/medical
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
+	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/New()
 	src.update_icon()

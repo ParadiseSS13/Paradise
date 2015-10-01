@@ -35,7 +35,6 @@ var/global/datum/global_init/init = new ()
 	if(config && config.log_runtimes)
 		log = file("data/logs/runtime/[time2text(world.realtime,"YYYY-MM-DD-(hh-mm-ss)")]-runtime.log")
 
-	load_configuration()
 	SetupHooks() // /vg/
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -334,32 +333,6 @@ var/world_topic_spam_protect_time = world.timeofday
 	config.loadsql("config/dbconfig.txt")
 	config.loadoverflowwhitelist("config/ofwhitelist.txt")
 	// apply some settings from config..
-
-/hook/startup/proc/loadMods()
-	world.load_mods()
-	return 1
-
-/world/proc/load_mods()
-	if(config.admin_legacy_system)
-		var/text = file2text("config/moderators.txt")
-		if (!text)
-			diary << "Failed to load config/mods.txt\n"
-		else
-			var/list/lines = text2list(text, "\n")
-			for(var/line in lines)
-				if (!line)
-					continue
-
-				if (copytext(line, 1, 2) == ";")
-					continue
-
-				var/title = "Moderator"
-				if(config.mods_are_mentors) title = "Mentor"
-				var/rights = admin_ranks[title]
-
-				var/ckey = copytext(line, 1, length(line)+1)
-				var/datum/admins/D = new /datum/admins(title, rights, ckey)
-				D.associate(directory[ckey])
 
 /world/proc/update_status()
 	var/s = ""

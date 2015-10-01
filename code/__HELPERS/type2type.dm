@@ -346,6 +346,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
 	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
 	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
+	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	return .

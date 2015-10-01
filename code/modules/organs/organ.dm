@@ -21,7 +21,8 @@ var/list/organ_cache = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
-
+	var/datum/dna/dna
+	var/datum/species/species
 
 /obj/item/organ/Destroy()
 	if(!owner)
@@ -59,6 +60,12 @@ var/list/organ_cache = list()
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
 		src.owner = holder
+		species = all_species["Human"]
+		if(holder.dna)
+			dna = holder.dna.Clone()
+			species = all_species[dna.species]
+		else
+			log_to_dd("[src] at [loc] spawned without a proper DNA.")
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(internal)
@@ -67,12 +74,18 @@ var/list/organ_cache = list()
 					if(E.internal_organs == null)
 						E.internal_organs = list()
 					E.internal_organs |= src
-			if(H.dna)
+			if(dna)
 				if(!blood_DNA)
 					blood_DNA = list()
-				blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+				blood_DNA[dna.unique_enzymes] = dna.b_type
 		if(internal)
 			holder.internal_organs |= src
+
+/obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
+	if(new_dna)
+		dna = new_dna.Clone()
+		blood_DNA.Cut()
+		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/die()
 	if(status & ORGAN_ROBOT)

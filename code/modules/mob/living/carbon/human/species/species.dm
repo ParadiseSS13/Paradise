@@ -84,6 +84,9 @@
 	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 
+	//Death vars.
+	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
+
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
 	var/language = "Galactic Common"         // Default racial language, if any.

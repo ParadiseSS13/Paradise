@@ -42,6 +42,7 @@
 	if(href_list["selectmonitor"])
 		if(issilicon(usr))
 			powermonitor = locate(href_list["selectmonitor"])
+			powermonitor.powernet = powermonitor.find_powernet() // Refresh the powernet of the monitor
 		return 1
 		
 	if(href_list["return"])

@@ -342,6 +342,9 @@
 						var/arrivalmessage = announcer.arrivalmsg
 						arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 						arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+						arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+						arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
+						arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 						announcer.say(";[arrivalmessage]")
 			else
 				if(character.mind)
@@ -469,11 +472,11 @@
 		if(client.prefs.disabilities & DISABILITY_FLAG_BLIND)
 			new_character.dna.SetSEState(BLINDBLOCK,1,1)
 			new_character.sdisabilities |= BLIND
-			
+
 		if(client.prefs.disabilities & DISABILITY_FLAG_MUTE)
 			new_character.dna.SetSEState(MUTEBLOCK,1,1)
 			new_character.sdisabilities |= MUTE
-			
+
 		chosen_species.handle_dna(new_character)
 
 		domutcheck(new_character)
@@ -509,7 +512,7 @@
 
 
 	proc/has_admin_rights()
-		return client.holder.rights & R_ADMIN
+		return check_rights(R_ADMIN, 0, src)
 
 	proc/is_species_whitelisted(datum/species/S)
 		if(!S) return 1

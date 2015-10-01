@@ -519,21 +519,16 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))	
 		return
 		
-	var/confirm = alert("Restart the game world?", "Restart", "Yes", "Cancel")
-	if(confirm == "Cancel")
+	var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+	if(isnull(delay))
 		return
-	if(confirm == "Yes")
-		var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num
-		if(isnull(delay))
-			delay = 50
-		else
-			delay = delay * 10
-		message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-		log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
-		ticker.delay_end = 0
-		feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
-
+	else
+		delay = delay * 10
+	message_admins("[key_name_admin(usr)] has initiated a server restart with a delay of [delay/10] seconds")
+	log_admin("[key_name(usr)] has initiated a server restart with a delay of [delay/10] seconds")
+	ticker.delay_end = 0
+	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
 /datum/admins/proc/announce()
 	set category = "Special Verbs"
@@ -800,7 +795,7 @@ var/global/nologevent = 0
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
 	
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN|R_MOD))	
 		return
 
 	if(!istype(M))

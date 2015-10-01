@@ -439,7 +439,7 @@ client
 
 	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
 	else if(href_list["rename"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locate(href_list["rename"])
 		if(!istype(M))
@@ -498,7 +498,7 @@ client
 		cmd_mass_modify_object_variables(A, href_list["varnamemass"])
 
 	else if(href_list["mob_player_panel"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_ADMIN|R_MOD))	return
 
 		var/mob/M = locate(href_list["mob_player_panel"])
 		if(!istype(M))
@@ -543,7 +543,7 @@ client
 		href_list["datumrefresh"] = href_list["godmode"]
 
 	else if(href_list["gib"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/M = locate(href_list["gib"])
 		if(!istype(M))
@@ -575,7 +575,7 @@ client
 			usr.client.cmd_admin_drop_everything(M)
 
 	else if(href_list["direct_control"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/mob/M = locate(href_list["direct_control"])
 		if(!istype(M))
@@ -598,6 +598,8 @@ client
 			return
 
 		H.makeSkeleton()
+		message_admins("[key_name(usr)] has turned [key_name(H)] into a skeleton")
+		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 			
 	else if(href_list["offer_control"])
@@ -622,7 +624,6 @@ client
 		else
 			M << "There were no ghosts willing to take control."
 			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
-
 
 	else if(href_list["delall"])
 		if(!check_rights(R_DEBUG|R_SERVER))	return
@@ -653,8 +654,8 @@ client
 				if(!i)
 					usr << "No objects of this type exist"
 					return
-				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
-				message_admins("\blue [key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted) ")
+				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
+				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
 			if("Type and subtypes")
 				var/i = 0
 				for(var/obj/Obj in world)
@@ -664,11 +665,11 @@ client
 				if(!i)
 					usr << "No objects of this type exist"
 					return
-				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
-				message_admins("\blue [key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted) ")
+				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
+				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/atom/A = locate(href_list["addreagent"])
 
@@ -695,7 +696,7 @@ client
 					if(amount)
 						A.reagents.add_reagent(chosen_id, amount)
 						log_admin("[key_name(usr)] has added [amount] units of [chosen] to \the [A]")
-						message_admins("\blue [key_name(usr)] has added [amount] units of [chosen] to \the [A]")
+						message_admins("[key_name_admin(usr)] has added [amount] units of [chosen] to \the [A]")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -731,7 +732,7 @@ client
 		href_list["datumrefresh"] = href_list["mark_object"]
 
 	else if(href_list["proc_call"])
-		if(!check_rights(0))
+		if(!check_rights(R_PROCCALL))
 			return
 
 		var/T = locate(href_list["proc_call"])
@@ -740,7 +741,7 @@ client
 			callproc_datum(T)
 
 	else if(href_list["rotatedatum"])
-		if(!check_rights(0))	return
+		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
 		var/atom/A = locate(href_list["rotatedatum"])
 		if(!istype(A))
@@ -750,6 +751,9 @@ client
 		switch(href_list["rotatedir"])
 			if("right")	A.dir = turn(A.dir, -45)
 			if("left")	A.dir = turn(A.dir, 45)
+			
+		message_admins("[key_name_admin(usr)] has rotated \the [A]")
+		log_admin("[key_name(usr)] has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
 
 	else if(href_list["makemonkey"])
@@ -836,7 +840,6 @@ client
 			return
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
-
 	else if(href_list["makemask"])
 		if(!check_rights(R_SPAWN)) return
 		var/mob/currentMob = locate(href_list["makemask"])
@@ -864,6 +867,8 @@ client
 		if(H.set_species(new_species))
 			usr << "Set species of [H] to [H.species]."
 			H.regenerate_icons()
+			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
+			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
 		else
 			usr << "Failed! Something went wrong."
 
@@ -886,6 +891,8 @@ client
 
 		if(H.add_language(new_language))
 			usr << "Added [new_language] to [H]."
+			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
+			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
 		else
 			usr << "Mob already knows that language."
 
@@ -912,6 +919,8 @@ client
 
 		if(H.remove_language(rem_language.name))
 			usr << "Removed [rem_language] from [H]."
+			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
+			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")
 		else
 			usr << "Mob doesn't know that language."
 
@@ -944,6 +953,8 @@ client
 			return
 		else
 			H.verbs += verb
+			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the verb [verb]")
+			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
 		if(!check_rights(R_DEBUG))      return
@@ -961,6 +972,8 @@ client
 			return
 		else
 			H.verbs -= verb
+			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(H)]")
+			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(H)]")
 
 	else if(href_list["addorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -982,7 +995,8 @@ client
 			return
 
 		new new_organ(M)
-	
+		message_admins("[key_name_admin(usr)] has given [key_name_admin(M)] the organ [new_organ]")
+		log_admin("[key_name(usr)] has given [key_name(M)] the organ [new_organ]")
 
 	else if(href_list["remorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -1004,6 +1018,8 @@ client
 
 		usr << "Removed [rem_organ] from [M]."
 		rem_organ.removed()
+		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
+		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
 
 	else if(href_list["fix_nano"])
@@ -1020,7 +1036,7 @@ client
 		usr << "Resource files sent"
 		H << "Your NanoUI Resource files have been refreshed"
 
-		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)] ")
+		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)]")
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
@@ -1057,8 +1073,8 @@ client
 				return
 
 		if(amount != 0)
-			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L] ")
-			message_admins("\blue [key_name(usr)] dealt [amount] amount of [Text] damage to [L] ")
+			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L]")
+			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	if(href_list["datumrefresh"])

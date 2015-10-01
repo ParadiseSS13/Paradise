@@ -48,9 +48,10 @@
 	if(!H.key || !H.mind)
 		return
 
-	var/turf/T = H.loc
-	var/area/placeofdeath = get_area(T.loc)
-	var/podname = sanitizeSQL(placeofdeath.name)
+	var/area/placeofdeath = get_area(H.loc)
+	var/podname = "Unknown"
+	if(placeofdeath)
+		podname = sanitizeSQL(placeofdeath.name)
 
 	var/sqlname = sanitizeSQL(H.real_name)
 	var/sqlkey = sanitizeSQL(H.key)

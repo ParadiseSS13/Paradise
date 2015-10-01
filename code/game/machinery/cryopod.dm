@@ -208,6 +208,10 @@
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/weapon/storage/internal
 	)
+	// These items will NOT be preserved
+	var/list/do_not_preserve_items = list (
+		/obj/item/device/mmi/posibrain
+	)
 
 /obj/machinery/cryopod/right
 	orient_right = 1
@@ -335,7 +339,7 @@
 
 		var/preserve = null
 		for(var/T in preserve_items)
-			if(istype(W,T))
+			if(istype(W,T) && !(W in do_not_preserve_items))
 				preserve = 1
 				break
 

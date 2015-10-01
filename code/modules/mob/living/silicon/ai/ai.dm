@@ -1,9 +1,7 @@
-#define AI_CHECK_WIRELESS 1
-#define AI_CHECK_RADIO 2
-
 var/list/ai_list = list()
 var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/announcement,
+	/mob/living/silicon/ai/proc/ai_announcement_text,
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
 	/mob/living/silicon/ai/proc/ai_camera_track,
 	/mob/living/silicon/ai/proc/ai_camera_list,
@@ -79,6 +77,7 @@ var/list/ai_verbs_default = list(
 	var/last_paper_seen = null
 	var/can_shunt = 1
 	var/last_announcement = ""
+	var/datum/announcement/priority/announcement
 	var/obj/machinery/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
@@ -97,6 +96,12 @@ var/list/ai_verbs_default = list(
 	src.verbs -= silicon_subsystems
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
+	announcement = new()
+	announcement.title = "A.I. Announcement"
+	announcement.announcement_type = "A.I. Announcement"
+	announcement.announcer = name
+	announcement.newscast = 1
+	
 	var/list/possibleNames = ai_names
 
 	var/pickedName = null
@@ -210,6 +215,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/SetName(pickedName as text)
 	..()
+	
+	announcement.announcer = name
 
 	if(eyeobj)
 		eyeobj.name = "[pickedName] (AI Eye)"
@@ -325,14 +332,34 @@ var/list/ai_verbs_default = list(
 	set name = "Show Crew Manifest"
 	set category = "AI Commands"
 	show_station_manifest()
+	
+/mob/living/silicon/ai/var/message_cooldown = 0
+/mob/living/silicon/ai/proc/ai_announcement_text()
+	set category = "AI Commands"
+	set name = "Make Station Announcement"
+	
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+		return
+
+	if(message_cooldown)
+		src << "<span class='warning'>Please allow one minute to pass between announcements.</span>"
+		return
+		
+	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
+	if(!input)
+		return
+
+	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
+		return
+
+	announcement.Announce(input)
+	message_cooldown = 1
+	spawn(600)//One minute cooldown
+		message_cooldown = 0
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"
 	set category = "AI Commands"
-
-	if(src.stat == DEAD)
-		src << "<span class='warning'>You can't call the shuttle because you are dead!</span>"
-		return
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -356,11 +383,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/ai_cancel_call()
 	set name = "Recall Emergency Shuttle"
 	set category = "AI Commands"
-
-	if(src.stat == 2)
-		src << "You can't send the shuttle back because you are dead!"
-		return
-
+	
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
@@ -393,10 +416,6 @@ var/list/ai_verbs_default = list(
 	set name = "Announcement"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
 	set category = "AI Commands"
-
-	if(src.stat == 2)
-		src << "You can't call make an announcement because you are dead!"
-		return
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -838,7 +857,7 @@ var/list/ai_verbs_default = list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = input("What would you like the arrival message to be? Use $name to substitute the crew member's name, and use $rank to substitute the crew member's rank.", "Change Arrival Message", arrivalmsg) as text
+	var/newmsg = input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg) as text
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		usr << "The arrival message has been successfully changed."
@@ -949,14 +968,14 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/check_unable(var/flags = 0)
 	if(stat == DEAD)
-		usr << "\red You are dead!"
+		usr << "<span class='warning'>You are dead!</span>"
 		return 1
 
 	if((flags & AI_CHECK_WIRELESS) && src.control_disabled)
-		usr << "\red Wireless control is disabled!"
+		usr << "<span class='warning'>Wireless control is disabled!</span>"
 		return 1
 	if((flags & AI_CHECK_RADIO) && src.aiRadio.disabledAi)
-		src << "\red System Error - Transceiver Disabled!"
+		src << "<span class='warning'>System Error - Transceiver Disabled!</span>"
 		return 1
 	return 0
 
@@ -980,7 +999,3 @@ var/list/ai_verbs_default = list(
 		loc = card//Throw AI into the card.
 		src << "You have been downloaded to a mobile storage device. Remote device connection severed."
 		user << "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory."
-
-#undef AI_CHECK_WIRELESS
-#undef AI_CHECK_RADIO
-

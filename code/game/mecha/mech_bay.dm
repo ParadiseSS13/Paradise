@@ -5,13 +5,13 @@
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/obj/mecha/recharging_mecha = null
-	
+
 /turf/simulated/floor/mech_bay_recharge_floor/airless
 	icon_state = "recharge_floor_asteroid"
 	oxygen = 0.01
 	nitrogen = 0.01
 	temperature = TCMB
-	
+
 /turf/simulated/floor/mech_bay_recharge_floor/Destroy()
 	if(recharge_console && recharge_console.recharge_floor == src)
 		recharge_console.recharge_floor = null
@@ -36,7 +36,7 @@
 		else if(!recharge_port)
 			mecha.occupant_message("<font color='red'>Power port not found. Terminating.</font>")
 	return
-	
+
 /turf/simulated/floor/mech_bay_recharge_floor/Exited(atom)
 	. = ..()
 	if(atom == recharging_mecha)
@@ -91,7 +91,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	
+
 	pr_recharger = new /datum/global_iterator/mech_bay_recharger(null,0)
 
 /obj/machinery/mech_bay_recharge_port/upgraded/New()
@@ -114,12 +114,12 @@
 		pr_recharger.max_charge = MC * 10
 	if(recharge_console)
 		recharge_console.voltage = MC * 10
-	
+
 /obj/machinery/mech_bay_recharge_port/Destroy()
 	recharge_console.recharge_port = null
 	recharge_floor.recharge_port = null
-	..()
-	
+	return ..()
+
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
 		return
@@ -131,7 +131,7 @@
 		return
 
 	default_deconstruction_crowbar(I)
-	
+
 /obj/machinery/mech_bay_recharge_port/proc/start_charge(var/obj/mecha/recharging_mecha)
 	if(stat&(NOPOWER|BROKEN))
 		recharging_mecha.occupant_message("<font color='red'>Power port not responding. Terminating.</font>")
@@ -149,13 +149,13 @@
 		update_icon()
 	pr_recharger.stop()
 	return
-	
+
 /obj/machinery/mech_bay_recharge_port/proc/active()
 	if(pr_recharger.active())
 		return 1
 	else
 		return 0
-		
+
 
 /obj/machinery/mech_bay_recharge_port/power_change()
 	if(powered())
@@ -165,7 +165,7 @@
 			stat |= NOPOWER
 			pr_recharger.stop()
 	return
-	
+
 /obj/machinery/mech_bay_recharge_port/proc/set_voltage(new_voltage)
 	if(new_voltage && isnum(new_voltage))
 		pr_recharger.max_charge = new_voltage
@@ -177,7 +177,7 @@
 	delay = 20
 	var/max_charge = 50
 	check_for_null = 0 //since port.stop_charge() must be called. The checks are made in process()
-	
+
 /datum/global_iterator/mech_bay_recharger/process(var/obj/machinery/mech_bay_recharge_port/port, var/obj/mecha/mecha)
 	if(!port)
 		return 0
@@ -208,11 +208,11 @@
 	var/voltage = 50
 	var/turf/simulated/floor/mech_bay_recharge_floor/recharge_floor
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
-	
+
 /obj/machinery/computer/mech_bay_power_console/Destroy()
 	recharge_port.recharge_console = null
 	recharge_floor.recharge_console = null
-	..()
+	return ..()
 
 /obj/machinery/computer/mech_bay_power_console/proc/mecha_in(var/obj/mecha/mecha)
 	if(stat&(NOPOWER|BROKEN))
@@ -251,7 +251,7 @@
 	..()
 	if(recharge_port)
 		recharge_port.stop_charge()
-		
+
 /obj/machinery/computer/mech_bay_power_console/update_icon()
 	if(!recharge_floor || !recharge_floor.recharging_mecha || !recharge_floor.recharging_mecha.cell || !(recharge_floor.recharging_mecha.cell.charge < recharge_floor.recharging_mecha.cell.maxcharge))
 		icon_screen = "recharge_comp"

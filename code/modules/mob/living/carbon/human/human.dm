@@ -10,6 +10,11 @@
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
+
+	if(!dna)
+		dna = new /datum/dna(null)
+		// Species name is handled by set_species()
+
 	if(!species)
 		if(new_species)
 			set_species(new_species,1)
@@ -36,9 +41,6 @@
 
 	..()
 
-	if(dna)
-		dna.real_name = real_name
-
 	prev_gender = gender // Debug for plural genders
 	make_blood()
 
@@ -46,8 +48,10 @@
 	faction |= "\ref[M]"
 
 	// Set up DNA.
-	if(!delay_ready_dna)
+	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
+		dna.real_name = real_name
+		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
 	UpdateAppearance()
 
 /mob/living/carbon/human/Destroy()

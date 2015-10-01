@@ -1,7 +1,9 @@
 /client/proc/Debug2()
 	set category = "Debug"
 	set name = "Debug-Game"
-	if(!check_rights(R_DEBUG))	return
+	
+	if(!check_rights(R_DEBUG))	
+		return
 
 	if(Debug2)
 		Debug2 = 0
@@ -28,7 +30,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Debug"
 	set name = "Advanced ProcCall"
 
-	if(!check_rights(R_DEBUG)) return
+	if(!check_rights(R_PROCCALL)) 
+		return
 
 	spawn(0)
 		var/target = null
@@ -80,11 +83,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				usr << "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>"
 				return
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
 			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = call(target,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = call(procname)(arglist(lst)) // Pass the lst as an argument list to the proc
 
 		usr << "<font color='blue'>[procname] returned: [returnval ? returnval : "null"]</font>"
@@ -94,7 +99,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Debug"
 	set name = "Atom ProcCall"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_PROCCALL))
 		return
 
 	var/procname = input("Proc name, eg: fake_blood","Proc:", null) as text|null
@@ -112,7 +117,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!A || !IsValidSrc(A))
 		usr << "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>"
 		return
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = call(A,procname)(arglist(lst)) // Pass the lst as an argument list to the proc
@@ -180,6 +186,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/Cell()
 	set category = "Debug"
 	set name = "Air Status in Location"
+	
+	if(!check_rights(R_DEBUG))
+		return	
+	
 	if(!mob)
 		return
 	var/turf/T = mob.loc
@@ -201,6 +211,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_robotize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Robot"
+	
+	if(!check_rights(R_SPAWN))
+		return	
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -216,6 +229,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_animalize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Simple Animal"
+	
+	if(!check_rights(R_SPAWN))
+		return	
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -238,6 +254,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Event"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
+	
+	if(!check_rights(R_SPAWN))
+		return
 
 	var/list/available = list()
 	for(var/mob/C in mob_list)
@@ -264,6 +283,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_alienize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Alien"
+	
+	if(!check_rights(R_SPAWN))
+		return	
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -281,6 +303,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_slimeize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make slime"
+	
+	if(!check_rights(R_SPAWN))
+		return	
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -298,6 +323,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_super(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Superhero"
+	
+	if(!check_rights(R_SPAWN))
+		return	
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -312,101 +340,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		alert("Invalid mob")
 
-/*
-/client/proc/cmd_admin_monkeyize(var/mob/M in world)
-	set category = "Event"
-	set name = "Make Monkey"
-
-	if(!ticker)
-		alert("Wait until the game starts")
-		return
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/target = M
-		log_admin("[key_name(src)] is attempting to monkeyize [M.key].")
-		spawn(10)
-			target.monkeyize()
-	else
-		alert("Invalid mob")
-
-/client/proc/cmd_admin_changelinginize(var/mob/M in world)
-	set category = "Event"
-	set name = "Make Changeling"
-
-	if(!ticker)
-		alert("Wait until the game starts")
-		return
-	if(istype(M, /mob/living/carbon/human))
-		log_admin("[key_name(src)] has made [M.key] a changeling.")
-		spawn(10)
-			M.absorbed_dna[M.real_name] = M.dna.Clone()
-			M.make_changeling()
-			if(M.mind)
-				M.mind.special_role = "Changeling"
-	else
-		alert("Invalid mob")
-*/
-/*
-/client/proc/cmd_admin_abominize(var/mob/M in world)
-	set category = null
-	set name = "Make Abomination"
-
-	usr << "Ruby Mode disabled. Command aborted."
-	return
-	if(!ticker)
-		alert("Wait until the game starts.")
-		return
-	if(istype(M, /mob/living/carbon/human))
-		log_admin("[key_name(src)] has made [M.key] an abomination.")
-
-	//	spawn(10)
-	//		M.make_abomination()
-
-*/
-/*
-/client/proc/make_cultist(var/mob/M in world) // -- TLE, modified by Urist
-	set category = "Event"
-	set name = "Make Cultist"
-	set desc = "Makes target a cultist"
-	if(!cultwords["travel"])
-		runerandom()
-	if(M)
-		if(M.mind in ticker.mode.cult)
-			return
-		else
-			if(alert("Spawn that person a tome?",,"Yes","No")=="Yes")
-				M << "\red You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie. A tome, a message from your new master, appears on the ground."
-				new /obj/item/weapon/tome(M.loc)
-			else
-				M << "\red You catch a glimpse of the Realm of Nar-Sie, The Geometer of Blood. You now see how flimsy the world is, you see that it should be open to the knowledge of Nar-Sie."
-			var/glimpse=pick("1","2","3","4","5","6","7","8")
-			switch(glimpse)
-				if("1")
-					M << "\red You remembered one thing from the glimpse... [cultwords["travel"]] is travel..."
-				if("2")
-					M << "\red You remembered one thing from the glimpse... [cultwords["blood"]] is blood..."
-				if("3")
-					M << "\red You remembered one thing from the glimpse... [cultwords["join"]] is join..."
-				if("4")
-					M << "\red You remembered one thing from the glimpse... [cultwords["hell"]] is Hell..."
-				if("5")
-					M << "\red You remembered one thing from the glimpse... [cultwords["destroy"]] is destroy..."
-				if("6")
-					M << "\red You remembered one thing from the glimpse... [cultwords["technology"]] is technology..."
-				if("7")
-					M << "\red You remembered one thing from the glimpse... [cultwords["self"]] is self..."
-				if("8")
-					M << "\red You remembered one thing from the glimpse... [cultwords["see"]] is see..."
-
-			if(M.mind)
-				M.mind.special_role = "Cultist"
-				ticker.mode.cult += M.mind
-			src << "Made [M] a cultist."
-*/
-
 //TODO: merge the vievars version into this or something maybe mayhaps
 /client/proc/cmd_debug_del_all()
 	set category = "Debug"
 	set name = "Del-All"
+
+	if(!check_rights(R_DEBUG))
+		return	
 
 	// to prevent REALLY stupid deletions
 	var/blocked = list(/mob/living, /mob/living/carbon, /mob/living/carbon/human, /mob/dead, /mob/dead/observer, /mob/living/silicon, /mob/living/silicon/robot, /mob/living/silicon/ai)
@@ -422,6 +362,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
+	
+	if(!check_rights(R_DEBUG))
+		return		
+	
 	makepowernets()
 	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
@@ -430,6 +374,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
+	
+	if(!check_rights(R_EVENT))
+		return
 
 	if (!ticker)
 		alert("Wait until the game starts")
@@ -463,7 +410,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
 
-	if(!check_rights(R_DEBUG|R_ADMIN))	return
+	if(!check_rights(R_DEBUG|R_ADMIN))	
+		return
+	
 	if(M.ckey)
 		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",,"Yes","No") != "Yes")
 			return
@@ -482,6 +431,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_areatest()
 	set category = "Mapping"
 	set name = "Test areas"
+	
+	if(!check_rights(R_DEBUG))
+		return
 
 	var/list/areas_all = list()
 	var/list/areas_with_APC = list()
@@ -570,9 +522,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in mob_list)
 	set category = "Event"
 	set name = "Select equipment"
+	
+	if(!check_rights(R_EVENT))
+		return	
+	
 	if(!ishuman(M))
 		alert("Invalid mob")
 		return
+		
 	//log_admin("[key_name(src)] has alienized [M.key].")
 	var/list/dresspacks = list(
 		"strip",
@@ -1106,11 +1063,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	return
 
 /client/proc/startSinglo()
-
 	set category = "Debug"
 	set name = "Start Singularity"
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
 
+	if(!check_rights(R_DEBUG))
+		return		
+	
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
@@ -1160,6 +1119,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Debug"
 	set name = "Debug Mob Lists"
 	set desc = "For when you just gotta know"
+	
+	if(!check_rights(R_DEBUG))
+		return	
 
 	switch(input("Which list?") in list("Players","Admins","Mobs","Living Mobs","Dead Mobs","Silicons","Clients","Respawnable Mobs"))
 		if("Players")
@@ -1181,6 +1143,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/cmd_admin_toggle_block(var/mob/M,var/block)
+	if(!check_rights(R_SPAWN))
+		return	
+
 	if(!ticker)
 		alert("Wait until the game starts")
 		return
@@ -1194,4 +1159,3 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else
 		alert("Invalid mob")
-
