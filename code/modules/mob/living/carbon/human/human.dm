@@ -1135,7 +1135,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
+/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone, var/penetrate_thick = 0)
 	. = 1
 
 	if(!target_zone)
@@ -1155,10 +1155,10 @@
 	else
 		switch(target_zone)
 			if("head")
-				if(head && head.flags & THICKMATERIAL)
+				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
 					. = 0
 			else
-				if(wear_suit && wear_suit.flags & THICKMATERIAL)
+				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
 					. = 0
 	if(!. && error_msg && user)
 		if(!fail_msg)
