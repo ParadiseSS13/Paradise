@@ -688,7 +688,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				back,
 				wear_mask)
 
-/mob/living/carbon/update_addictions(var/R, var/amount = 0)
+/mob/living/carbon/proc/update_addictions(var/R, var/amount = 0)
 	if(isbrain(src) || isslime(src))		//Only human and xeno types can handle addictions
 		return
 

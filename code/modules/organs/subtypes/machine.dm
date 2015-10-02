@@ -5,14 +5,14 @@
 	max_damage = 50 //made same as arm, since it is not vital
 	min_broken_damage = 30
 	encased = null
-	
+
 /obj/item/organ/external/head/ipc/New()
 	robotize("Morpheus Cyberkinetics")
 	..()
 
 /obj/item/organ/external/chest/ipc
 	encased = null
-	
+
 /obj/item/organ/external/chest/ipc/New()
 	robotize("Morpheus Cyberkinetics")
 	..()
@@ -91,6 +91,7 @@
 	organ_tag = "brain"
 	parent_organ = "chest"
 	vital = 1
+	max_damage = 200
 	var/obj/item/device/mmi/stored_mmi
 
 /obj/item/organ/mmi_holder/proc/update_from_mmi()

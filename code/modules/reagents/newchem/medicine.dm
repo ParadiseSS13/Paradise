@@ -1060,7 +1060,6 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	color = "#00DD33"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.3
-	addiction_threshold = 0		//can't become addicted to an addiction treatment
 	overdose_threshold = 10		//can overdose on it though! best taken in small doses
 
 /datum/reagent/fixer/overdose_process(var/mob/living/M as mob)
@@ -1083,8 +1082,6 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	color = "#CCCC7A"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.5	//metabolizes somewhat faster than most chems
-	overdose_threshold = 0		//luckily you can't overdose on this, it's already harsh
-	addiction_threshold = 0		//can't be addicted to a chem for breaking addictions
 
 /datum/reagent/coldturkey/on_mob_life(var/mob/living/M as mob)
 	if(!iscarbon(M))

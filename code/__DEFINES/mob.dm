@@ -102,5 +102,5 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
-#define ADDICT_DECAY -0.1
-#define ADDICT_DECAY_CT -0.9
+#define ADDICT_DECAY -0.5
+#define ADDICT_DECAY_CT -1.0
