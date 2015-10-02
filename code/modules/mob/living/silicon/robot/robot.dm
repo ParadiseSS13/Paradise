@@ -386,8 +386,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/verb/cmd_unequip_module()
 	set name = "Unequip Module"
 	set hidden = 1
-	uneq_active()		
-		
+	uneq_active()
+
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = "Robot Commands"
@@ -753,7 +753,7 @@ var/list/robot_verbs_default = list(
 				U.forceMove(src)
 			else
 				user << "<span class='danger'>Upgrade error.</span>"
-	
+
 	else
 		spark_system.start()
 		return ..()
@@ -911,7 +911,19 @@ var/list/robot_verbs_default = list(
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
 		updatehealth()
 
 
