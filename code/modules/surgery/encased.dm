@@ -18,6 +18,7 @@
 /datum/surgery_step/open_encased/saw
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/weapon/hatchet = 75
 	)
 

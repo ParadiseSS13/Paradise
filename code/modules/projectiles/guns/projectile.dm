@@ -100,7 +100,7 @@
 
 /obj/item/weapon/gun/projectile/attack_hand(mob/user as mob)
 	if(loc == user)
-		if(silenced)
+		if(silenced && can_unsuppress)
 			var/obj/item/weapon/suppressor/S = silenced
 			if(user.l_hand != src && user.r_hand != src)
 				..()

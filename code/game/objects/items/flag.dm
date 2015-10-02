@@ -57,8 +57,8 @@
 		if(M.lit)
 			light("<span class='notice'>[user] lights the [name] with their [W].</span>")
 
-	else if(istype(W, /obj/item/weapon/melee/energy/sword))
-		var/obj/item/weapon/melee/energy/sword/S = W
+	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
+		var/obj/item/weapon/melee/energy/sword/saber/S = W
 		if(S.active)
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light the [name] in the process.</span>")
 

@@ -307,7 +307,7 @@ var/list/uplink_items = list()
 	name = "Energy Sword"
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
-	item = /obj/item/weapon/melee/energy/sword
+	item = /obj/item/weapon/melee/energy/sword/saber
 	cost = 8
 
 /datum/uplink_item/dangerous/chainsaw
@@ -510,6 +510,14 @@ var/list/uplink_items = list()
 	reference = "SOAP"
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
+	surplus = 50
+	
+/datum/uplink_item/stealthy_weapons/dart_pistol
+	name = "Dart Pistol"
+	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can."
+	reference = "DART"
+	item = /obj/item/weapon/gun/syringe/syndicate
+	cost = 4
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/detomatix
