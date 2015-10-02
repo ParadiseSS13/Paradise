@@ -34,6 +34,7 @@
 	var/heat_protection = 0.5
 	var/leaping = 0
 	ventcrawler = 2
+	addictive_personality = 1
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/carbon/verb/mob_sleep

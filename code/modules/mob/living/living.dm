@@ -317,7 +317,7 @@
 			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
-	
+
 /mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
 	dead_mob_list -= src
@@ -970,3 +970,36 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/update_addictions(var/R, var/amount = 0)
+	if(!addictive_personality)		//Only mobs with addictive_personality = 1 can update addictions
+		return
+
+	if(!reagents)		//Just to be safe
+		CRASH("[src] does not have reagents defined somehow!")
+
+	var/datum/reagent/chem = chemical_reagents_list[R]
+	if(!chem || chem.id != R ||chem.addiction_threshold <= 0)	//Make sure a non-addictive chem wasn't supplied somehow
+		if((chem.addiction_threshold <= 0) && (R in reagents.addiction_list))		//Purge any non-addictive chems from the list
+			reagents.addiction_list[R] = null
+			reagents.addiction_list.Remove(R)
+		return
+
+	var/updated = 0
+	for(var/NR in reagents.addiction_list)
+		if(NR == R)										//Check if the chem already has an entry to update
+			reagents.addiction_list[NR] += amount		//We already are tracking this chem, adjust it's value
+			updated = 1									//Existing entry for the chem was found and updated
+
+	if(!updated)										//If an existing entry was not found and updated
+		reagents.addiction_list.Add(R)		//Create a new entry with the supplied value
+		reagents.addiction_list[R] = amount
+		updated = 1										//New entry was created, thus the list is considered updated
+
+	for(var/AR in reagents.addiction_list)			//Perform a sanity check on ALL addiction entries
+		if(reagents.addiction_list[AR] <= 0)		//If an addiction is less than or equal to 0, remove its entry
+			src << "<span class = 'notice'>You feel like you've gotten over your need for [AR].</span>"
+			reagents.addiction_list[AR] = null
+			reagents.addiction_list.Remove(AR)
+
+	return
