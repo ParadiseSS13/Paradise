@@ -55,7 +55,11 @@ var/global/nologevent = 0
 		body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
 		body += "[admin_jump_link(M, src)]\] </b><br>"
 		
-		body += "<b>Mob type</b> = [M.type]<br><br>"
+		body += "<b>Mob type:</b> [M.type]<br>"
+		if(M.client.related_accounts_cid.len)
+			body += "<b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
+		if(M.client.related_accounts_ip.len)
+			body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br><br>"
 		
 		body += "<A href='?_src_=holder;boot2=\ref[M]'>Kick</A> | "
 		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
@@ -176,7 +180,6 @@ var/global/nologevent = 0
 				<A href='?_src_=holder;simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
 				<A href='?_src_=holder;simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
 				<A href='?_src_=holder;simplemake=shade;mob=\ref[M]'>Shade</A>
-				<br>
 			"}
 
 	if (M.client)
@@ -190,16 +193,12 @@ var/global/nologevent = 0
 			<A href='?_src_=holder;tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
 			<A href='?_src_=holder;tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
 		"}
-		if(M.client.related_accounts_cid.len)
-			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
-			body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br>"
 
 	body += {"<br>
 		</body></html>
 	"}
 
-	usr << browse(body, "window=adminplayeropts;size=550x515")
+	usr << browse(body, "window=adminplayeropts;size=550x615")
 	feedback_add_details("admin_verb","SPP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
