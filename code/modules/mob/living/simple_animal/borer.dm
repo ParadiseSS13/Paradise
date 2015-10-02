@@ -67,7 +67,7 @@
 
 	if(host)
 
-		if(!stat && !host.stat)
+		if(!stat && host.stat != DEAD)
 
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
