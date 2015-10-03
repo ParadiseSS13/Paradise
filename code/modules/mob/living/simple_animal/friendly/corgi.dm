@@ -129,6 +129,9 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
+					if(inventory_head.flags & NODROP)
+						usr << "<span = 'warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>"
+						return
 					name = real_name
 					desc = initial(desc)
 					speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
@@ -145,6 +148,9 @@
 					return
 			if("back")
 				if(inventory_back)
+					if(inventory_back.flags & NODROP)
+						usr << "<span = 'warning'>\The [inventory_back] is stuck too hard to [src] for you to remove!</span>"
+						return
 					inventory_back.loc = src.loc
 					inventory_back = null
 					regenerate_icons()
