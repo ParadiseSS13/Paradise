@@ -246,9 +246,13 @@
    		//Check if any entries are either MAT_METAL or MAT_GLASS
 		if((MAT_METAL in target.materials) || (MAT_GLASS in target.materials))
 			resources++
+			src << "[target.materials]"
 			do_attack_animation(target)
 			changeNext_move(CLICK_CD_MELEE)
 			var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
+			src << "[target.pixel_x]"
+			src << "[target.pixel_y]"
+			src << "[target.pixel_z]"
 			I.pixel_x = target.pixel_x
 			I.pixel_y = target.pixel_y
 			I.pixel_z = target.pixel_z
@@ -320,7 +324,7 @@
 			var/obj/machinery/computer/C = target
 			src << "[C][C.circuit]"
 			if(C.circuit)
-				C.circuit = M.loc
+				C.circuit.loc = M.loc
 		qdel(target)
 
 
@@ -396,7 +400,8 @@
 		var/mob/living/simple_animal/S = user
 		S.do_attack_animation(src)
 		user.changeNext_move(CLICK_CD_MELEE)
-		TakeDamage(rand(S.melee_damage_lower, S.melee_damage_upper))
+		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
+			TakeDamage(rand(S.melee_damage_lower, S.melee_damage_upper))
 	return
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
@@ -421,7 +426,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, def_zone = null,1)
+			L.electrocute_act(0, src, 1, def_zone = "l_foot",1)
 			if(isrobot(L))
 				L.Weaken(5)
 			qdel(src)

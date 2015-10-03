@@ -672,7 +672,7 @@
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,override = 0)
+/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
