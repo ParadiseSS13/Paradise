@@ -230,7 +230,7 @@
 			overlays += icon_beaker
 			return
 		else
-			user << "<span class='warning">\The [B] is stuck to you!</span>"
+			user << "<span class='warning'>\The [B] is stuck to you!</span>"
 
 /obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 	..()
