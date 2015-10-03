@@ -18,8 +18,8 @@
 
 /obj/machinery/computer/New()
 	overlay_layer = layer
-	..()	
-	
+	..()
+
 /obj/machinery/computer/initialize()
 	power_change()
 	update_icon()
@@ -79,7 +79,7 @@
 		overlays += image(icon,"[icon_state]_broken",overlay_layer)
 	else
 		overlays += image(icon,icon_screen,overlay_layer)
-	
+
 	if(icon_keyboard)
 		overlays += image(icon, icon_keyboard ,overlay_layer)
 
@@ -134,6 +134,11 @@
 	return
 
 /obj/machinery/computer/attack_alien(mob/living/user)
+	if(isalien(user) && user.a_intent == I_HELP)
+		var/mob/living/carbon/alien/humanoid/xeno = user
+		if(xeno.has_fine_manipulation)
+			return attack_hand(user)
+
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(circuit)

@@ -312,6 +312,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		src << "You can't vent crawl while you're stunned!"
 		return
 
+	if(buckled_mob)
+		src << "You can't vent crawl with [buckled_mob] on you!"
+		return
+
 	var/obj/machinery/atmospherics/unary/vent_found
 
 	if(clicked_on)

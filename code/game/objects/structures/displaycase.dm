@@ -120,7 +120,7 @@ var/global/list/captain_display_cases = list()
 	circuit = null
 	return ..()
 		
-/obj/structure/displaycase/captain_laser/Destroy()
+/obj/structure/displaycase/captains_laser/Destroy()
 	captain_display_cases -= src
 	return ..()
 
@@ -175,9 +175,9 @@ var/global/list/captain_display_cases = list()
 			src.destroyed = 1
 			PoolOrNew(/obj/item/weapon/shard, loc)
 			playsound(get_turf(src), "shatter", 70, 1)
-			update_icon()
-			
-			burglar_alarm()
+			update_icon()		
+			spawn(0)
+				burglar_alarm()
 	else
 		playsound(get_turf(src), 'sound/effects/Glasshit.ogg', 75, 1)
 	return
@@ -187,9 +187,11 @@ var/global/list/captain_display_cases = list()
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")
-		return 1
-	return 0
-			
+		// Play the burglar alarm three times
+		for(var/i = 0, i < 4, i++)
+			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, 0)
+			sleep(74) // 7.4 seconds long
+
 /obj/structure/displaycase/update_icon()
 	if(src.destroyed)
 		src.icon_state = "glassbox2b"

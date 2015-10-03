@@ -153,6 +153,7 @@
 	mymob.blind.name = " "
 	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
 	mymob.blind.layer = 0
+	mymob.blind.mouse_opacity = 0
 
 	mymob.flash = new /obj/screen()
 	mymob.flash.icon = 'icons/mob/screen1_alien.dmi'
@@ -166,7 +167,8 @@
 	mymob.zone_sel.overlays.Cut()
 	mymob.zone_sel.overlays += image('icons/mob/zone_sel.dmi', "[mymob.zone_sel.selecting]")
 
-	mymob.client.screen = null
+	mymob.client.screen = list()
 
 	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.toxin, mymob.fire, mymob.healths, nightvisionicon, mymob.pullin, alien_plasma_display, mymob.pullin, mymob.blind, mymob.flash) //, mymob.hands, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += src.adding + src.other
+	mymob.client.screen += mymob.client.void 

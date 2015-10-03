@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/projectile/automatic/pistol
-	name = "\improper FK-69 pistol"
+	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = 2
@@ -19,7 +19,7 @@
 	return
 
 /obj/item/weapon/gun/projectile/automatic/pistol/m2411
-	name = "\improper M2411 pistol"
+	name = "M2411"
 	desc = "John Browning's classic updated for the modern day. Uses .45 rounds."
 	icon_state = "m2411"
 	w_class = 3.0
@@ -28,7 +28,7 @@
 	can_suppress = 0
 
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle
-	name = "\improper Desert Eagle pistol"
+	name = "desert eagle"
 	desc = "A robust .50 AE handgun."
 	icon_state = "deagle"
 	force = 14.0

@@ -326,10 +326,11 @@
 			use_power(energy_used/1000, ENVIRON)
 
 			//We need to cool ourselves.
-			if(environment.temperature > target_temperature)
-				gas.temperature -= energy_used/heat_capacity
-			else
-				gas.temperature += energy_used/heat_capacity
+			if(heat_capacity)
+				if(environment.temperature > target_temperature)
+					gas.temperature -= energy_used/heat_capacity
+				else
+					gas.temperature += energy_used/heat_capacity
 
 			environment.merge(gas)
 

@@ -382,17 +382,17 @@ REAGENT SCANNER
 	if (user.stat)
 		return
 	if (crit_fail)
-		user << "\red This device has critically failed and is no longer functional!"
+		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!user.IsAdvancedToolUser())
+		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(reagents.total_volume)
 		var/list/blood_traces = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
 				reagents.clear_reagents()
-				user << "\red The sample was contaminated! Please insert another sample"
+				user << "<span class='warning'>The sample was contaminated! Please insert another sample.</span>"
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])
@@ -441,13 +441,13 @@ REAGENT SCANNER
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if (user.stat)
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!user.IsAdvancedToolUser())
+		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(!istype(O))
 		return
 	if (crit_fail)
-		user << "\red This device has critically failed and is no longer functional!"
+		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
 		return
 
 	if(!isnull(O.reagents))
@@ -456,7 +456,7 @@ REAGENT SCANNER
 			var/one_percent = O.reagents.total_volume / 100
 			for (var/datum/reagent/R in O.reagents.reagent_list)
 				if(prob(reliability))
-					dat += "\n \t \blue [R][details ? ": [R.volume / one_percent]%" : ""]"
+					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 					recent_fail = 0
 				else if(recent_fail)
 					crit_fail = 1
@@ -465,11 +465,11 @@ REAGENT SCANNER
 				else
 					recent_fail = 1
 		if(dat)
-			user << "\blue Chemicals found: [dat]"
+			user << "<span class='notice'>Chemicals found: [dat]</span>"
 		else
-			user << "\blue No active chemical agents found in [O]."
+			user << "<span class='notice'>No active chemical agents found in [O].</span>"
 	else
-		user << "\blue No significant chemical agents found in [O]."
+		user << "<span class='notice'>No significant chemical agents found in [O].</span>"
 
 	return
 

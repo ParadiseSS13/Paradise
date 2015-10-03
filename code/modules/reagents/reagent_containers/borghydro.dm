@@ -12,6 +12,7 @@
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
+	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
@@ -22,6 +23,15 @@
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
 	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
+	
+/obj/item/weapon/reagent_containers/borghypo/syndicate
+	name = "syndicate cyborg hypospray"
+	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
+	icon_state = "borghypo_s"
+	charge_cost = 20
+	recharge_time = 2
+	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
+	bypass_protection = 1
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
@@ -66,7 +76,7 @@
 		return
 	if (!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user,1))
+	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		user << "<span class='notice'>You inject [M] with the injector.</span>"
 		M << "<span class='notice'>You feel a tiny prick!</span>"
 
@@ -92,7 +102,7 @@
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
-	user << "\blue Synthesizer is now producing '[R.name]'."
+	user << "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>"
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/examine(mob/user)
@@ -104,8 +114,8 @@
 	for(var/datum/reagents/RS in reagent_list)
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
-			user << "\blue It currently has [R.volume] units of [R.name] stored."
+			user << "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
 			empty = 0
 
 	if(empty)
-		user << "\blue It is currently empty. Allow some time for the internal syntheszier to produce more."
+		user << "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

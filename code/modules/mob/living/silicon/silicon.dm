@@ -18,23 +18,23 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
-	
+
 	var/sensor_mode = 0 //Determines the current HUD.
-	
+
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
-	
+
 	#define SEC_HUD 1 //Security HUD mode
 	#define MED_HUD 2 //Medical HUD mode
 	var/local_transmit //If set, can only speak to others of the same type within a short range.
 	var/obj/item/device/radio/common_radio
-	
+
 /mob/living/silicon/New()
 	silicon_mob_list |= src
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	
+
 /mob/living/silicon/Destroy()
 	silicon_mob_list -= src
 	for(var/datum/alarm_handler/AH in alarm_handlers)
@@ -43,8 +43,8 @@
 
 /mob/living/silicon/proc/SetName(pickedName as text)
 	real_name = pickedName
-	name = real_name	
-	
+	name = real_name
+
 /mob/living/silicon/proc/show_laws()
 	return
 
@@ -267,9 +267,6 @@
 			sensor_mode = 0
 			src << "Sensor augmentations disabled."
 
-/mob/living/silicon/IsAdvancedToolUser()
-	return 1
-
 /mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)
 	if(!next_alarm_notice)
 		next_alarm_notice = world.time + SecondsToTicks(10)
@@ -310,7 +307,7 @@
 						reported = 1
 						src << "<span class='notice'>--- [AH.category] Cleared ---</span>"
 					src << "\The [A.alarm_name()]."
-					
+
 		if(alarm_raised)
 			src << "<A HREF=?src=\ref[src];showalerts=1>\[Show Alerts\]</A>"
 
@@ -326,4 +323,3 @@
 	for(var/obj/machinery/camera/C in A.cameras())
 		cameratext += "[(cameratext == "")? "" : "|"]<A HREF=?src=\ref[src];switchcamera=\ref[C]>[C.c_tag]</A>"
 	src << "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])"
-	

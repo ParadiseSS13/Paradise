@@ -100,10 +100,8 @@
 	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
-	if(operating)	return
-//	if(user.last_airflow > world.time) //Fakkit //remind me to figure out the linda equiv
-//	if(user.last_airflow > world.time - zas_settings.Get("airflow_delay")) //Fakkit
-//		return
+	if(operating)
+		return
 	src.add_fingerprint(user)
 	if(!src.requiresID())
 		user = null
@@ -263,7 +261,8 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.emote("scream")
+			if(L.stat == CONSCIOUS)
+				L.emote("scream")
 			L.Weaken(5)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)

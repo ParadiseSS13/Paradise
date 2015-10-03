@@ -317,7 +317,7 @@
 			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
-	
+
 /mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
 	dead_mob_list -= src
@@ -406,7 +406,7 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if (buckled && buckled.loc != newloc)
+	if (buckled && buckled.loc != newloc) //not updating position
 		if (!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else

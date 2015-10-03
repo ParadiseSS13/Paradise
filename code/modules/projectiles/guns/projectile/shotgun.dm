@@ -104,7 +104,7 @@
 ///////////////////////
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction
-	name = "\improper Mosin Nagant rifle"
+	name = "\improper Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
@@ -239,7 +239,7 @@
 		sawn_state = SAWN_INTACT
 	
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper MLG-12 'Bulldog' Shotgun"
+	name = "\improper 'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
