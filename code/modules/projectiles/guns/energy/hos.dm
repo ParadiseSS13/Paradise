@@ -1,5 +1,5 @@
 /obj/item/weapon/gun/energy/hos
-	name = "\improper X-01 MultiPhase Energy Gun"
+	name = "head of security's energy gun"
 	desc = "This is a modern recreation of the captain's antique laser gun. This gun has several unique fire modes, but lacks the ability to recharge over time."
 	icon_state = "hoslaser"
 	item_state = null	//so the human update icon uses the icon_state instead.

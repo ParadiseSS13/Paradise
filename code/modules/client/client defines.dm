@@ -47,7 +47,8 @@
 
 	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
-
+	var/global/obj/screen/click_catcher/void
+	
 	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0

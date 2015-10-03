@@ -151,7 +151,7 @@ var/global/sent_strike_team = 0
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/disk/nuclear(src), slot_in_backpack)
 
-	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword(src), slot_l_store)
+	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/weapon/shield/energy(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(src), slot_belt)

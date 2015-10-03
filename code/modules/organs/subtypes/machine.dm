@@ -119,7 +119,7 @@
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	spawn(1)
 		if(owner && owner.stat == DEAD)
-			owner.stat = 0
+			owner.stat = CONSCIOUS
 			owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
 /obj/item/organ/mmi_holder/posibrain/New()

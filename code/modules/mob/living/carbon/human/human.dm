@@ -185,7 +185,7 @@
 			return
 
 		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || src.restrained()) && tmob.canmove && !tmob.buckled && canmove) // mutual brohugs all around!
+		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()) && tmob.canmove && canmove && !tmob.buckled && !tmob.buckled_mob) // mutual brohugs all around!
 			var/turf/oldloc = loc
 			loc = tmob.loc
 			tmob.loc = oldloc
@@ -1135,7 +1135,7 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone)
+/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone, var/penetrate_thick = 0)
 	. = 1
 
 	if(!target_zone)
@@ -1155,10 +1155,10 @@
 	else
 		switch(target_zone)
 			if("head")
-				if(head && head.flags & THICKMATERIAL)
+				if(head && head.flags & THICKMATERIAL && !penetrate_thick)
 					. = 0
 			else
-				if(wear_suit && wear_suit.flags & THICKMATERIAL)
+				if(wear_suit && wear_suit.flags & THICKMATERIAL && !penetrate_thick)
 					. = 0
 	if(!. && error_msg && user)
 		if(!fail_msg)
@@ -1758,11 +1758,9 @@
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
 
 
-/mob/living/carbon/human/IsAdvancedToolUser(var/silent)
+/mob/living/carbon/human/IsAdvancedToolUser()
 	if(species.has_fine_manipulation)
 		return 1
-	if(!silent)
-		src << "<span class='warning'>You don't have the dexterity to use that!<span>"
 	return 0
 
 /mob/living/carbon/human/get_permeability_protection()

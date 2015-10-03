@@ -116,7 +116,6 @@ Implant Specifics:<BR>"}
 <b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
 	return dat
 
-
 /obj/item/weapon/implant/dexplosive/trigger(emote, source as mob)
 	if(emote == "deathgasp")
 		src.activate("death")

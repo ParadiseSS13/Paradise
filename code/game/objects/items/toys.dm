@@ -169,18 +169,17 @@
 	afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
 		if (flag)
 			return
-		if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-			usr << "\red You don't have the dexterity to do this!"
+		if (!user.IsAdvancedToolUser())
+			user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 			return
 		src.add_fingerprint(user)
 		if (src.bullets < 1)
-			user.show_message("\red *click* *click*", 2)
+			user.show_message("<span class='alert'>*click* *click*</span>", 2)
 			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 			return
 		playsound(user, 'sound/weapons/Gunshot.ogg', 100, 1)
 		src.bullets--
-		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\red <B>[] fires a cap gun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
+		user.visible_message("<span class='danger'>[user] fires a cap gun at [target]!</span>", null, "You hear a gunshot.")
 
 /obj/item/toy/ammo/gun
 	name = "ammo-caps"

@@ -27,6 +27,7 @@
 	var/ghettomodded = 0
 	var/recoil = 0
 	var/can_suppress = 0
+	var/can_unsuppress = 1
 	var/clumsy_check = 1
 	var/sawn_desc = null
 	var/sawn_state = SAWN_INTACT

@@ -1,18 +1,22 @@
 //This file contains xenoborg specic weapons.
 
 /obj/item/weapon/melee/energy/alien/claws
-	color
 	name = "energy claws"
-	desc = "Zap zap Wap Wap."
+	desc = "A set of alien energy claws."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-laser-claws"
-	force = 15.0
-	throwforce = 5.0
+	icon_state_on = "borg-laser-claws"
+	force = 15
+	force_on = 15
+	throwforce = 5
+	throwforce_on = 5
 	throw_speed = 1
 	throw_range = 5
-	w_class = 2.0
+	w_class = 2
+	w_class_on = 2
 	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
+	attack_verb_on = list()
 
 //Bottles for borg liquid squirters. PSSH PSSH
 /obj/item/weapon/reagent_containers/spray/alien

@@ -24,7 +24,7 @@
 	/obj/item/weapon/scalpel/laser3 = 95, \
 	/obj/item/weapon/scalpel/laser2 = 85, \
 	/obj/item/weapon/scalpel/laser1 = 75, \
-	/obj/item/weapon/melee/energy/sword = 5
+	/obj/item/weapon/melee/energy/sword/saber = 5
 	)
 
 	min_duration = 90
@@ -270,6 +270,7 @@
 /datum/surgery_step/generic/amputate
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/weapon/hatchet = 75, \
 	/obj/item/weapon/melee/arm_blade = 60
 	)
