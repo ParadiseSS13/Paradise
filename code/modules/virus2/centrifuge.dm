@@ -18,12 +18,12 @@
 			user << "\The [src] is already loaded."
 			return
 
-		sample = O
-		user.drop_item()
-		O.loc = src
+		if(user.drop_item())
+			sample = O
+			O.forceMove(src)
 
-		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
-		nanomanager.update_uis(src)
+			user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
+			nanomanager.update_uis(src)
 
 	src.attack_hand(user)
 
@@ -140,7 +140,7 @@
 
 		if("sample")
 			if(sample)
-				sample.loc = src.loc
+				sample.forceMove(src.loc)
 				sample = null
 			return 1
 

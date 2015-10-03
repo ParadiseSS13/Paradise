@@ -18,18 +18,18 @@
 	if(istype(O, /obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/syringe))
 
 		if(beaker)
-			user << "\The [src] is already loaded."
+			user << "<span class='warning>\The [src] is already loaded.</span>"
 			return
 
-		beaker = O
-		user.drop_item()
-		O.loc = src
+		if(user.drop_item())
+			beaker = O
+			O.forceMove(src)
 
-		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
-		nanomanager.update_uis(src)
+			user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
+			nanomanager.update_uis(src)
 
-		src.attack_hand(user)
-		return
+			src.attack_hand(user)
+			return
 
 	if(istype(O, /obj/item/weapon/virusdish))
 
@@ -37,14 +37,14 @@
 			user << "The dish tray is aleady full!"
 			return
 
-		dish = O
-		user.drop_item()
-		O.loc = src
+		if(user.drop_item())
+			dish = O
+			O.forceMove(src)
 
-		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
-		nanomanager.update_uis(src)
+			user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
+			nanomanager.update_uis(src)
 
-		src.attack_hand(user)
+			src.attack_hand(user)
 
 /obj/machinery/disease2/incubator/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN)) return
@@ -152,7 +152,7 @@
 
 	if (href_list["ejectchem"])
 		if(beaker)
-			beaker.loc = src.loc
+			beaker.forceMove(src.loc)
 			beaker = null
 		return 1
 
@@ -164,7 +164,7 @@
 
 	if (href_list["ejectdish"])
 		if(dish)
-			dish.loc = src.loc
+			dish.forceMove(src.loc)
 			dish = null
 		return 1
 
