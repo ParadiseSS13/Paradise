@@ -36,6 +36,7 @@
 			return
 		if(!user.drop_item())
 			user << "<span class='warning'>\The [I] is stuck to you!</span>"
+			return
 		beaker = I
 		I.forceMove(src)
 		user << "<span class='notice'>You add [I] to [src]</span>"
