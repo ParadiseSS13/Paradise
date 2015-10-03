@@ -70,8 +70,10 @@
 			user << "<span class='warning'>A container is already loaded into the machine.</span>"
 			return
 		else
-			user.unEquip(O)
-			O.loc = src
+			if(!user.drop_item())
+				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				return
+			O.forceMove(src)
 			beaker = O
 			user << "<span class='notice'>You add the container to the machine.</span>"
 			updateUsrDialog()
@@ -82,7 +84,7 @@
 		if(default_deconstruction_screwdriver(user, "biogen-empty-o", "biogen-empty", O))
 			if(beaker)
 				var/obj/item/weapon/reagent_containers/glass/B = beaker
-				B.loc = loc
+				B.forceMove(loc)
 				beaker = null
 			return
 
@@ -104,7 +106,7 @@
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
 				if(i >= max_items)
 					break
-				G.loc = src
+				G.forceMove(src)
 				i++
 			if(i < max_items)
 				user << "<span class='info'>You empty the plant bag into the biogenerator.</span>"
@@ -123,7 +125,7 @@
 			user << "<span class='warning'>The biogenerator is full! Activate it.</span>"
 		else
 			user.unEquip(O)
-			O.loc = src
+			O.forceMove(src)
 			user << "<span class='info'>You put [O.name] in [src.name]</span>"
 
 
@@ -339,7 +341,7 @@
 
 /obj/machinery/biogenerator/proc/detach()
 	if(beaker)
-		beaker.loc = src.loc
+		beaker.forceMove(src.loc)
 		beaker = null
 		update_icon()
 

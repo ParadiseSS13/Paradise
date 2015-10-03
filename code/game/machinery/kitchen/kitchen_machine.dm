@@ -135,11 +135,11 @@
 				"<span class='notice'>[user] has added one of [O] to \the [src].</span>", \
 				"<span class='notice'>You add one of [O] to \the [src].</span>")
 		else
-		//	user.unEquip(O)	//This just causes problems so far as I can tell. -Pete
 			if(!user.drop_item())
 				user << "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>"
 				return 0
-			O.loc = src
+
+			O.forceMove(src)
 			user.visible_message( \
 				"<span class='notice'>[user] has added \the [O] to \the [src].</span>", \
 				"<span class='notice'>You add \the [O] to \the [src].</span>")
@@ -296,7 +296,7 @@
 		byproduct = recipe.get_byproduct()
 		stop()
 		if(cooked)
-			cooked.loc = src.loc
+			cooked.forceMove(src.loc)
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
 		if(byproduct)
@@ -339,7 +339,7 @@
 
 /obj/machinery/kitchen_machine/proc/dispose()
 	for (var/obj/O in contents)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 	if (src.reagents.total_volume)
 		src.dirty++
 	src.reagents.clear_reagents()
@@ -383,7 +383,7 @@
 	src.reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
-	ffuu.loc = get_turf(src)
+	ffuu.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/Topic(href, href_list)
 	if(..() || panel_open)

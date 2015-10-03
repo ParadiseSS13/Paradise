@@ -220,17 +220,17 @@
 
 	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks))
 		src.beaker =  B
-		if(user.drop_item())
-			B.forceMove(src)
-			user << "<span class='notice'>You set [B] on the machine.</span>"
-			nanomanager.update_uis(src) // update all UIs attached to src
-			if(!icon_beaker)
-				icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
-			icon_beaker.pixel_x = rand(-10,5)
-			overlays += icon_beaker
-			return
-		else
+		if(!user.drop_item())
 			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			return
+		B.forceMove(src)
+		user << "<span class='notice'>You set [B] on the machine.</span>"
+		nanomanager.update_uis(src) // update all UIs attached to src
+		if(!icon_beaker)
+			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+		icon_beaker.pixel_x = rand(-10,5)
+		overlays += icon_beaker
+		return
 
 /obj/machinery/chem_dispenser/attackby(var/obj/item/weapon/B as obj, var/mob/user as mob, params)
 	..()
@@ -431,14 +431,14 @@
 		if(src.beaker)
 			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
 			return
-		if(user.drop_item())
-			src.beaker = B
-			B.forceMove(src)
-			user << "<span class='notice'>You add the beaker to the machine!</span>"
-			src.updateUsrDialog()
-			icon_state = "mixer1"
-		else
+		if(!user.drop_item())
 			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			return
+		src.beaker = B
+		B.forceMove(src)
+		user << "<span class='notice'>You add the beaker to the machine!</span>"
+		src.updateUsrDialog()
+		icon_state = "mixer1"
 
 	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
 
@@ -446,13 +446,13 @@
 			user << "<span class='warning'>A pill bottle is already loaded into the machine.</span>"
 			return
 
-		if(user.drop_item())
-			src.loaded_pill_bottle = B
-			B.forceMove(src)
-			user << "<span class='notice'>You add the pill bottle into the dispenser slot!</span>"
-			src.updateUsrDialog()
-		else
+		if(!user.drop_item())
 			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			return
+		src.loaded_pill_bottle = B
+		B.forceMove(src)
+		user << "<span class='notice'>You add the pill bottle into the dispenser slot!</span>"
+		src.updateUsrDialog()
 	return
 
 /obj/machinery/chem_master/Topic(href, href_list)
@@ -822,14 +822,14 @@
 		if (beaker)
 			return 1
 		else
-			if(user.drop_item())
-				src.beaker =  O
-				O.forceMove(src)
-				update_icon()
-				src.updateUsrDialog()
-				return 0
-			else
+			if(!user.drop_item())
 				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				return
+			src.beaker =  O
+			O.forceMove(src)
+			update_icon()
+			src.updateUsrDialog()
+			return 0
 
 	if(holdingitems && holdingitems.len >= limit)
 		usr << "<span class='warning'>The machine cannot hold anymore items.</span>"
