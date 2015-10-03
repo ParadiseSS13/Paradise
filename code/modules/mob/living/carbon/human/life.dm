@@ -62,6 +62,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	//TODO: seperate this out
 	// update the current life tick, can be used to e.g. only do something every 4 ticks
 	life_tick++
+
+	// This is not an ideal place for this but it will do for now.
+	if(wearing_rig && wearing_rig.offline)
+		wearing_rig = null
+
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	in_stasis = 0
@@ -419,6 +424,24 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/isInCrit()
 	// Health is in deep shit and we're not already dead
 	return health <= 0 && stat != 2
+
+/mob/living/carbon/human/get_breath_from_internal(volume_needed=BREATH_VOLUME)
+	if(internal)
+
+		var/obj/item/weapon/tank/rig_supply
+		if(istype(back,/obj/item/weapon/rig))
+			var/obj/item/weapon/rig/rig = back
+			if(!rig.offline && (rig.air_supply && internal == rig.air_supply))
+				rig_supply = rig.air_supply
+
+		if (!rig_supply && (!contents.Find(internal) || !((wear_mask && (wear_mask.flags & AIRTIGHT)) || (head && (head.flags & AIRTIGHT)))))
+			internal = null
+
+		if(internal)
+			return internal.remove_air_volume(volume_needed)
+		else if(internals)
+			internals.icon_state = "internal0"
+	return null
 
 /mob/living/carbon/human/proc/handle_breath(var/datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
@@ -1178,7 +1201,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				see_invisible = SEE_INVISIBLE_LIVING
 				seer = 0
 
-		if(glasses || head)
+		if(glasses || head || back)
 			if(glasses)
 				var/obj/item/clothing/glasses/G = glasses
 				if(istype(G))
@@ -1219,6 +1242,32 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 							process_med_hud(src,1)
 						if(ANTAGHUD)
 							process_antag_hud(src)
+
+			if(back && istype(back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+				var/obj/item/weapon/rig/rig = back         ///but the way it does it now is incompatible with non-snowflake systems ahhhgg
+				if(rig.visor)
+					if(!rig.helmet || (head && rig.helmet == head))
+						if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
+							var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
+							if(istype(G))
+								see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
+								if(G.vision_flags)		// MESONS
+									sight |= G.vision_flags
+									if(!druggy)
+										see_invisible = SEE_INVISIBLE_MINIMUM
+								if(!G.see_darkness)
+									see_invisible = SEE_INVISIBLE_MINIMUM
+
+								/* HUD shit goes here, as long as it doesn't modify sight flags */
+								// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
+								switch(G.HUDType)
+									if(SECHUD)
+										process_sec_hud(src,1)
+									if(MEDHUD)
+										process_med_hud(src,1)
+									if(ANTAGHUD)
+										process_antag_hud(src)
+
 
 		else if(!seer)
 			see_in_dark = species.darksight

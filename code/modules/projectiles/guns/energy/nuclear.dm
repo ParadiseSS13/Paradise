@@ -35,8 +35,10 @@
 		else
 			user.update_inv_r_hand()
 
-
-
+/obj/item/weapon/gun/energy/gun/mounted
+	name = "mounted energy gun"
+	self_recharge = 1
+	use_external_power = 1
 
 /obj/item/weapon/gun/energy/gun/nuclear
 	name = "Advanced Energy Gun"
@@ -44,7 +46,6 @@
 	icon_state = "nucgun"
 	origin_tech = "combat=3;materials=5;powerstorage=3"
 	var/lightfail = 0
-	var/charge_tick = 0
 	can_flashlight = 0
 	can_charge = 0
 

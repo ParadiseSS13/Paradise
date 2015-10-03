@@ -8,12 +8,12 @@
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	
+
 	//Dimensions of the lefthand_file and righthand_file vars
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
-	var/inhand_y_dimension = 32	
-	
+	var/inhand_y_dimension = 32
+
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
@@ -317,6 +317,9 @@
 			if(slot_wear_mask)
 				if(H.wear_mask)
 					return 0
+				if(H.head && H.head.flags & NODROP && H.head.flags & HEADCOVERSMOUTH)
+					H << "<span class='alert'>\The [H.head] is in the way.</span>"
+					return 0
 				if( !(slot_flags & SLOT_MASK) )
 					return 0
 				return 1
@@ -404,6 +407,9 @@
 				return 1
 			if(slot_glasses)
 				if(H.glasses)
+					return 0
+				if(H.head && H.head.flags & NODROP && H.head.flags & HEADCOVERSMOUTH)
+					H << "<span class='alert'>\The [H.head] is in the way.</span>"
 					return 0
 				if( !(slot_flags & SLOT_EYES) )
 					return 0
@@ -713,7 +719,7 @@
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
-	
+
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/weapon/storage
 	if(!newLoc)
 		return 0
@@ -722,4 +728,4 @@
 		S.remove_from_storage(src,newLoc)
 		return 1
 	return 0
-	
+

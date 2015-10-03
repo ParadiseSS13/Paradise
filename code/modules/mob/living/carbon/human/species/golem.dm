@@ -67,7 +67,7 @@
 	desc = "sturdy adamantine feet"
 	icon_state = "golem"
 	item_state = "golem"
-	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH | NODROP
+	flags = NOSLIP | ABSTRACT | AIRTIGHT | MASKCOVERSMOUTH | NODROP
 	slowdown = SHOES_SLOWDOWN+1
 
 

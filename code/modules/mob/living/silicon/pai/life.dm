@@ -25,8 +25,7 @@
 	else	//Not stunned.
 		src.stat = 0
 
-	if(paralysis || stunned || weakened || buckled || resting || src.loc == card) canmove = 0
-	else canmove = 1
+	update_canmove()
 
 	regular_hud_updates()
 	if(src.secHUD == 1)
