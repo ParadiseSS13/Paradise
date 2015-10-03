@@ -81,10 +81,8 @@
 		return
 
 	last_move = direct
-	src.move_speed = world.timeofday - src.l_move_time
-	src.l_move_time = world.timeofday
-
-
+	src.move_speed = world.time - src.l_move_time
+	src.l_move_time = world.time
 
 	spawn(5)	// Causes space drifting. /tg/station has no concept of speed, we just use 5
 		if(loc && direct && last_move == direct)
