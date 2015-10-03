@@ -273,7 +273,7 @@
 	for(var/dir in cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -304,7 +304,7 @@
 		if(T in closed) //turf already proceeded by A*
 			continue
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -318,7 +318,7 @@
 			continue
 		if(istype(T) && !T.density)
 			if(!ID)
-				if(!LinkBlocked(src, T))
+				if(!CanAtmosPass(T))
 					L.Add(T)
 			else
 				if(!LinkBlockedWithAccess(src, T, ID))
