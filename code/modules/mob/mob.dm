@@ -1272,8 +1272,6 @@ mob/proc/yank_out_object()
 					NPC.key = key
 					spawn(5)
 						respawnable_list += usr
-				else
-//					message_admins("Failed to check type")
 	else
 		usr << "You are not dead or you have given up your right to be respawned!"
 		return

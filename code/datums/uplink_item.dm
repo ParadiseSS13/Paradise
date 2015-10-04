@@ -767,11 +767,11 @@ var/list/uplink_items = list()
 	cost = 3
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/device_tools/pdapinpointer
-	name = "PDA Pinpointer"
-	desc = "A pinpointer that tracks any PDA on the station. Useful for locating assassination targets or other high-value targets that you can't find. WARNING: Can only set once."
-	reference = "PDAP"
-	item = /obj/item/weapon/pinpointer/pdapinpointer
+/datum/uplink_item/device_tools/advpinpointer
+	name = "Advanced Pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	reference = "ADVP"
+	item = /obj/item/weapon/pinpointer/advpinpointer
 	cost = 4
 
 /datum/uplink_item/device_tools/ai_detector

@@ -25,16 +25,15 @@
 		spawn(600)
 			if(ghost_volunteers.len)
 				var/mob/dead/observer/O = pick(ghost_volunteers)
-				if(istype(O) && O.client && O.key)
+				if(check_observer(O))
 					transfer_personality(O)
 			reset_search()
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.client && O.client.prefs.be_special & BE_PAI && !jobban_isbanned(O, "Cyborg") && !jobban_isbanned(O,"nonhumandept"))
-			if(check_observer(O))
-				O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
-				//question(O.client)
+		if(check_observer(O))
+			O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
+			//question(O.client)
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
