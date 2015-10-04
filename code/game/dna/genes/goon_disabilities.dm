@@ -36,11 +36,12 @@
 		..()
 		block=RADBLOCK
 
-	OnMobLife(var/mob/owner)
-		owner.radiation = max(owner.radiation, 20)
+	OnMobLife(var/mob/living/owner)
+		owner.apply_effect(max(owner.radiation, 20), IRRADIATE)
 		for(var/mob/living/L in range(1, owner))
-			if(L == owner) continue
-			L << "\red You are enveloped by a soft green glow emanating from [owner]."
+			if(L == owner) 
+				continue
+			L << "<span class='danger'>You are enveloped by a soft green glow emanating from [owner].</span>"
 			L.apply_effect(5, IRRADIATE)
 		return
 
