@@ -25,8 +25,8 @@
 	pressure_resistance = 2
 
 /obj/item/weapon/pen/suicide_act(mob/user)
-		viewers(user) << "<span class='suicide'>[user] starts scribbling over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>"
-		return (BRUTELOSS)
+	viewers(user) << "<span class='suicide'>[user] starts scribbling over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>"
+	return (BRUTELOSS)
 
 /obj/item/weapon/pen/blue
 	name = "blue-ink pen"
