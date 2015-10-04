@@ -170,7 +170,7 @@
 			if(S.victim == mob)
 				return
 
-	if(mob.stat==2)	return
+	if(mob.stat==DEAD)	return
 
 // handle possible spirit movement
 	if(istype(mob,/mob/spirit))
@@ -234,6 +234,7 @@
 			return 0
 
 		move_delay = world.time//set move delay
+		mob.last_movement = world.time
 		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
@@ -286,10 +287,8 @@
 
 		else if(mob.confused)
 			step(mob, pick(cardinal))
-			mob.last_movement = world.time
 		else
 			. = ..()
-			mob.last_movement=world.time
 
 		for (var/obj/item/weapon/grab/G in mob)
 			if (G.state == GRAB_NECK)
