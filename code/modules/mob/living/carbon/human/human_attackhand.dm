@@ -76,17 +76,22 @@
 				M << "<span class='warning'>Remove his mask!</span>"
 				return 0
 
-			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()
-			O.source = M
-			O.target = src
-			O.s_loc = M.loc
-			O.t_loc = loc
-			O.place = "CPR"
-			requests += O
-			spawn(0)
-				O.process()
-			add_logs(src, M, "CPRed")
-			return 1
+			M.visible_message("<span class='danger'>\The [M] is trying to perform CPR on \the [src]!</span>", \
+							  "<span class='danger'>You try to perform CPR on \the [src]!</span>")
+			if(do_mob(M, src, 40))
+				if(health > config.health_threshold_dead && health <= config.health_threshold_crit)
+					var/suff = min(getOxyLoss(), 7)
+					adjustOxyLoss(-suff)
+					updatehealth()
+					M.visible_message("<span class='danger'>\The [M] performs CPR on \the [src]!</span>", \
+									  "<span class='notice'>You perform CPR on \the [src].</span>")
+
+					src << "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>"
+					M << "<span class='alert'>Repeat at least every 7 seconds."
+					add_logs(src, M, "CPRed")
+					return 1
+			else
+				M << "<span class='danger'>You need to stay still while performing CPR!</span>"
 
 		if(I_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))

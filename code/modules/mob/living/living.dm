@@ -890,6 +890,40 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+// The src mob is trying to strip an item from someone
+// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+	if(what.flags & NODROP)
+		src << "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>"
+		return
+	if(!silent)
+		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+	what.add_fingerprint(src)
+	if(do_mob(src, who, what.strip_delay))
+		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
+			who.unEquip(what)
+			add_logs(who, src, "stripped", addition="of [what]")
+
+// The src mob is trying to place an item on someone
+// Override if a certain mob should be behave differently when placing items (can't, for example)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+	what = src.get_active_hand()
+	if(what && (what.flags & NODROP))
+		src << "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>"
+		return
+	if(what)
+		if(!what.mob_can_equip(who, where, 1))
+			src << "<span class='warning'>\The [what.name] doesn't fit in that place!</span>"
+			return
+		if(!silent)
+			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
+		if(do_mob(src, who, what.put_on_delay))
+			if(what && Adjacent(who))
+				unEquip(what)
+				who.equip_to_slot_if_possible(what, where, 0, 1)
+				add_logs(who, src, "equipped", what)
+
 
 /mob/living/singularity_act()
 	var/gain = 20
