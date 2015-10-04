@@ -725,9 +725,9 @@
 					unEquip(pocket_item)
 					usr.put_in_hands(pocket_item)
 				else
-					if(place_item)
+					if(place_item && !(place_item.flags & NODROP))
 						usr.unEquip(place_item)
-					equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))

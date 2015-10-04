@@ -362,6 +362,10 @@
 /obj/effect/equip_e/human/process()
 	if (item)
 		item.add_fingerprint(source)
+		if (item.flags & NODROP)
+			source << "<span class='warning'>\The [item] is stuck to you!</span>"
+			qdel(src)
+			return
 	else
 		switch(place)
 			if("mask")
