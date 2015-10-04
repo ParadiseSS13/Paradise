@@ -191,6 +191,10 @@
 /obj/machinery/message_server/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>"
 
+/obj/machinery/blackbox_recorder/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>This machine has recorded large amounts of data on this structure and its inhabitants, it will be a useful resource to our masters in the future. Aborting. </span>"
+
+
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
 
@@ -241,18 +245,13 @@
 		src << "<span class='warning'>We cannot hold more materials!</span>"
 		return
 	//Make sure the materials list has at least one entry
-	src << "[target]"
 	if(target.materials && target.materials.len)
    		//Check if any entries are either MAT_METAL or MAT_GLASS
 		if((MAT_METAL in target.materials) || (MAT_GLASS in target.materials))
 			resources++
-			src << "[target.materials]"
 			do_attack_animation(target)
 			changeNext_move(CLICK_CD_MELEE)
 			var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
-			src << "[target.pixel_x]"
-			src << "[target.pixel_y]"
-			src << "[target.pixel_z]"
 			I.pixel_x = target.pixel_x
 			I.pixel_y = target.pixel_y
 			I.pixel_z = target.pixel_z
@@ -319,12 +318,11 @@
 		N.pixel_y = target.pixel_y
 		N.pixel_z = target.pixel_z
 		target.dropContents()
-		src << "[target]"
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
-			src << "[C][C.circuit]"
 			if(C.circuit)
-				C.circuit.loc = M.loc
+				var/obj/item/weapon/circuitboard/circuit = text2path(C.circuit)
+				new circuit(get_turf(M))
 		qdel(target)
 
 
@@ -426,7 +424,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, def_zone = "l_foot",1)
+			L.electrocute_act(0, src, 1, "l_foot", 1)
 			if(isrobot(L))
 				L.Weaken(5)
 			qdel(src)

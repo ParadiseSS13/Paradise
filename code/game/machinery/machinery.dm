@@ -328,7 +328,8 @@ Class Procs:
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
 	var/turf/T = get_turf(src)
-	T.contents += contents
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
 	//if(occupant)
 	//	if(occupant.client)
 	//		occupant.client.eye = occupant
