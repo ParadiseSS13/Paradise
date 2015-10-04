@@ -73,7 +73,7 @@
 		T.contents += contents
 		var/obj/item/weapon/reagent_containers/glass/B = beaker
 		if(beaker)
-			B.loc = get_step(T, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
+			B.forceMove(get_step(T, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
 			beaker = null
 	return ..()
 
@@ -261,7 +261,7 @@
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
-			beaker.loc = get_step(loc, SOUTH)
+			beaker.forceMove(get_step(loc, SOUTH))
 			beaker = null
 
 	if(href_list["ejectOccupant"])
@@ -279,11 +279,11 @@
 			return
 
 		beaker =  G
-		if(user.drop_item())
-			G.forceMove(src)
-			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
-		else
+		if(!user.drop_item())
 			user << "The [G] is stuck to you!"
+			return
+		G.forceMove(src)
+		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if (istype(G, /obj/item/weapon/screwdriver))
 		if(occupant || on)
@@ -412,15 +412,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!( occupant ))
 		return
-	//for(var/obj/O in src)
-	//	O.loc = loc
 	if (occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
-	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
-//	occupant.metabslow = 0
 	occupant = null
 	update_icon()
 	return
@@ -441,7 +438,7 @@
 		M.client.perspective = EYE_PERSPECTIVE
 		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
 		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
 	occupant = M
