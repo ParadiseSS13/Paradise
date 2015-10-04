@@ -362,6 +362,10 @@
 /obj/effect/equip_e/human/process()
 	if (item)
 		item.add_fingerprint(source)
+		if (item.flags & NODROP)
+			source << "<span class='warning'>\The [item] is stuck to you!</span>"
+			qdel(src)
+			return
 	else
 		switch(place)
 			if("mask")
@@ -618,7 +622,7 @@ It can still be worn/put on as normal.
 	if(!source || !target) return		//Target or source no longer exist
 	if(source.loc != s_loc) return		//source has moved
 	if(target.loc != t_loc) return		//target has moved
-	if (LinkBlockedUnclimbable(t_loc, s_loc)) return
+	if(!in_range(source, target)) return
 	if(item && source.get_active_hand() != item) return	//Swapped hands / removed item from the active one
 	if ((source.restrained() || source.stat)) return //Source restrained or unconscious / dead
 	if(target.frozen)

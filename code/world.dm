@@ -219,8 +219,8 @@ var/world_topic_spam_protect_time = world.timeofday
 			world << "<span class='boldannounce'>Rebooting world immediately due to host request</span>"
 		return ..(1)
 	var/delay
-	if(time)
-		delay = time
+	if(!isnull(time))
+		delay = max(0,time)
 	else
 		delay = ticker.restart_timeout
 	if(ticker.delay_end)

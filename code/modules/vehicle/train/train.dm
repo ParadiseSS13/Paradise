@@ -2,7 +2,7 @@
 	name = "train"
 	dir = 4
 
-	move_delay = 1
+	move_delay = 2
 
 	health = 100
 	maxhealth = 100

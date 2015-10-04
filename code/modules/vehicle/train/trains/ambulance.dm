@@ -13,14 +13,7 @@
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
-	var/obj/item/weapon/key/ambulance_train/key
-
-/obj/item/weapon/key/ambulance_train
-	name = "ambulance key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it."
-	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "keydoc"
-	w_class = 1
+	var/obj/item/key/ambulance/key
 
 /obj/vehicle/train/ambulance/trolley
 	name = "ambulance train trolley"
@@ -56,7 +49,7 @@
 		..()
 
 /obj/vehicle/train/ambulance/engine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/key/ambulance_train))
+	if(istype(W, /obj/item/key/ambulance))
 		if(!key)
 			user.drop_item()
 			key = W
@@ -174,7 +167,6 @@
 	else
 		return ..()
 
-
 /obj/vehicle/train/ambulance/engine/examine(mob/user)
 	if(..(user, 1))
 		user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
@@ -287,5 +279,5 @@
 	else
 		move_delay = max(0, (-car_limit * active_engines) + train_length - active_engines)	//limits base overweight so you cant overspeed trains
 		move_delay *= (1 / max(1, active_engines)) * 2 										//overweight penalty (scaled by the number of engines)
-		move_delay += config.run_speed 														//base reference speed
+		move_delay += 1+config.run_speed 														//base reference speed
 		move_delay *= 1.05

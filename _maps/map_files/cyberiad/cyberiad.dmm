@@ -5405,7 +5405,7 @@
 "bZW" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/maintenance/asmaint)
 "bZX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plating,/area/maintenance/asmaint)
 "bZY" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/wall,/area/medical/paramedic)
-"bZZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/firealarm{dir = 1; pixel_y = -24},/obj/structure/closet/paramedic,/obj/item/weapon/key/ambulance_train{name = "spare ambulance key"},/turf/simulated/floor{icon_state = "white"},/area/medical/paramedic)
+"bZZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/firealarm{dir = 1; pixel_y = -24},/obj/structure/closet/paramedic,/turf/simulated/floor{icon_state = "white"},/area/medical/paramedic)
 "caa" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4; initialize_directions = 11; level = 1},/turf/simulated/floor{icon_state = "white"},/area/medical/paramedic)
 "cab" = (/obj/machinery/light,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 2; name = "Paramedic APC"; pixel_y = -24},/obj/machinery/camera{c_tag = "Paramedic Bay"; dir = 1; network = list("SS13")},/turf/simulated/floor{icon_state = "white"},/area/medical/paramedic)
 "cac" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/alarm{dir = 1; pixel_y = -22},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor{icon_state = "white"},/area/medical/paramedic)

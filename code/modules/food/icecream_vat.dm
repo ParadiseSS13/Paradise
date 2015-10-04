@@ -34,9 +34,11 @@
 		if(beaker)
 			user << "<span class='notice'>A container is already inside [src].</span>"
 			return
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [I] is stuck to you!</span>"
+			return
 		beaker = I
-		user.drop_item()
-		I.loc = src
+		I.forceMove(src)
 		user << "<span class='notice'>You add [I] to [src]</span>"
 		updateUsrDialog()
 		return
@@ -105,7 +107,7 @@
 
 	else if(href_list["eject"])
 		if(beaker)
-			A.loc = loc
+			A.forceMove(loc)
 			beaker = null
 			reagents.trans_to(A,reagents.total_volume)
 

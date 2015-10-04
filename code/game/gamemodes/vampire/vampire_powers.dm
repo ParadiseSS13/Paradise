@@ -347,7 +347,7 @@
 			if(locs.len == 2) //we found 2 locations and thats all we need
 				break
 			var/turf/T = get_step(M.current,direction) //getting a loc in that direction
-			if(AStar(M.current.loc, T, /turf/proc/AdjacentTurfs, /turf/proc/Distance, 1)) // if a path exists, so no dense objects in the way its valid salid
+			if(AStar(M.current.loc, T, /turf/proc/AdjacentTurfs, /turf/proc/Distance, 1, simulated_only = 0)) // if a path exists, so no dense objects in the way its valid salid
 				locs += T
 		if(locs.len)
 			for(var/turf/tospawn in locs)
