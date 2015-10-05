@@ -492,7 +492,7 @@ var/global/datum/controller/gameticker/ticker
 		if (findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
-	mode.declare_job_completion()
+	//mode.declare_job_completion()
 
 	scoreboard()
 	karmareminder()
