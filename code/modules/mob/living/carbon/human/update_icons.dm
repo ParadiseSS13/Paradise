@@ -515,7 +515,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1)
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under) )
 		w_uniform.screen_loc = ui_iclothing
-		var/t_color = w_uniform._color
+		var/t_color = w_uniform.item_color
 		if(!t_color)		t_color = icon_state
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
@@ -541,7 +541,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(w_uniform:accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE.
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
-				var/tie_color = A._color
+				var/tie_color = A.item_color
 				if(!tie_color) tie_color = A.icon_state
 				standing.overlays	+= image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
 

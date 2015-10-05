@@ -480,11 +480,11 @@ BLIND     // can't see anything
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
-	if(copytext(_color,-2) != "_d")
-		basecolor = _color
+	if(copytext(item_color,-2) != "_d")
+		basecolor = item_color
 	usr << "DEBUG:[basecolor]"
 	if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
-		_color = _color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 		usr.update_inv_w_uniform()
 	else
 		usr << "<span class='notice'>You cannot roll down the uniform!</span>"

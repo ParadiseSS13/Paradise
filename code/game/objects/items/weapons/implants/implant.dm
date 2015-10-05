@@ -8,7 +8,7 @@
 	var/implanted = null
 	var/mob/living/imp_in = null
 	var/obj/item/organ/external/part = null
-	_color = "b"
+	item_color = "b"
 	var/allow_reagents = 0
 	var/malfunction = 0
 

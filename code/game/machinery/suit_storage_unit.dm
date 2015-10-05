@@ -1067,7 +1067,7 @@
 				helmet.name = "engineering hardsuit helmet"
 				helmet.icon_state = "rig0-engineering"
 				helmet.item_state = "eng_helm"
-				helmet._color = "engineering"
+				helmet.item_color = "engineering"
 			if(suit)
 				suit.name = "engineering hardsuit"
 				suit.icon_state = "rig-engineering"
@@ -1077,7 +1077,7 @@
 				helmet.name = "mining hardsuit helmet"
 				helmet.icon_state = "rig0-mining"
 				helmet.item_state = "mining_helm"
-				helmet._color = "mining"
+				helmet.item_color = "mining"
 			if(suit)
 				suit.name = "mining hardsuit"
 				suit.icon_state = "rig-mining"
@@ -1087,7 +1087,7 @@
 				helmet.name = "medical hardsuit helmet"
 				helmet.icon_state = "rig0-medical"
 				helmet.item_state = "medical_helm"
-				helmet._color = "medical"
+				helmet.item_color = "medical"
 			if(suit)
 				suit.name = "medical hardsuit"
 				suit.icon_state = "rig-medical"
@@ -1097,7 +1097,7 @@
 				helmet.name = "security hardsuit helmet"
 				helmet.icon_state = "rig0-sec"
 				helmet.item_state = "sec_helm"
-				helmet._color = "sec"
+				helmet.item_color = "sec"
 			if(suit)
 				suit.name = "security hardsuit"
 				suit.icon_state = "rig-sec"
@@ -1107,7 +1107,7 @@
 				helmet.name = "atmospherics hardsuit helmet"
 				helmet.icon_state = "rig0-atmos"
 				helmet.item_state = "atmos_helm"
-				helmet._color = "atmos"
+				helmet.item_color = "atmos"
 			if(suit)
 				suit.name = "atmospherics hardsuit"
 				suit.icon_state = "rig-atmos"
@@ -1117,7 +1117,7 @@
 				helmet.name = "blood-red hardsuit helmet"
 				helmet.icon_state = "rig0-syndie"
 				helmet.item_state = "syndie_helm"
-				helmet._color = "syndie"
+				helmet.item_color = "syndie"
 			if(suit)
 				suit.name = "blood-red hardsuit"
 				suit.item_state = "syndie_hardsuit"
