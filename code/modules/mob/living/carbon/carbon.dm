@@ -127,6 +127,8 @@ mob/living
 			"\red You feel a mild shock course through your body.", \
 			"\red You hear a light zapping." \
 		)
+		jitteriness += (rand(6,8))//mostly for the swarmer trap
+		do_jitter_animation(jitteriness)
 	if (shock_damage > 10)
 		if (shock_damage < 200)
 			src.visible_message(

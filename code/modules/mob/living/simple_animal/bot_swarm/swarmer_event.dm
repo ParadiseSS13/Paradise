@@ -1,7 +1,7 @@
 /datum/event/spawn_swarmer
 	//name = "Sawrmer Spawn"
 	//one_shot = 1
-	startWhen = 18000 //30 minutes
+	startWhen = 3 //30 minutes
 	announceWhen = 10
 
 
@@ -23,11 +23,11 @@
 
 
 /datum/event/spawn_swarmer/start()
+	src << "[the_gateway]"
 	if(find_swarmer())
 		return 0
 	if(!the_gateway)
 		return 0
-	src << "[the_gateway]"
 	new /obj/item/unactivated_swarmer(get_turf(the_gateway))
 
 
