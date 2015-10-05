@@ -30,6 +30,7 @@
 	var/emped = 0  //Number of consecutive EMP's on this camera
 
 /obj/machinery/camera/New()
+	..()
 	wires = new(src)
 
 	assembly = new(src)
@@ -39,13 +40,22 @@
 
 	invalidateCameraCache()
 
+	if(cameranet.cameras_unsorted || !ticker)
+		cameranet.cameras += src
+		cameranet.cameras_unsorted = 1
+	else
+		dd_insertObjectList(cameranet.cameras, src)
+
+	var/list/open_networks = difflist(network,restricted_camera_networks) //...but if all of camera's networks are restricted, it only works for specific camera consoles.
+	if(open_networks.len) //If there is at least one open network, chunk is available for AI usage.
+		cameranet.addCamera(src)
+
 	/* // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
 		if(C != src && C.c_tag == src.c_tag && tempnetwork.len)
 			log_to_dd("[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]")
 	*/
-	..()
 
 /obj/machinery/camera/initialize()
 	if(z == ZLEVEL_STATION && prob(3) && !start_active)
@@ -65,6 +75,10 @@
 	qdel(wires)
 	wires = null
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
+	cameranet.cameras -= src
+	var/list/open_networks = difflist(network,restricted_camera_networks)
+	if(open_networks.len)
+		cameranet.removeCamera(src)
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -233,6 +247,11 @@
 	return
 
 /obj/machinery/camera/proc/deactivate(user as mob, var/choice = 1)
+	if(can_use())
+		cameranet.addCamera(src)
+	else
+		set_light(0)
+		cameranet.removeCamera(src)
 	if(choice==1)
 		invalidateCameraCache()
 		status = !( src.status )

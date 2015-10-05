@@ -928,7 +928,7 @@ About the new airlock wires panel:
 		set_opacity(1)
 	operating = 0
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	if(safe)
 		if(locate(/mob/living) in get_turf(src))
 			open()

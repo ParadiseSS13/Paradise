@@ -56,6 +56,7 @@ turf/simulated
 turf/simulated/New()
 	..()
 
+	visibilityChanged()
 	if(!blocks_air)
 		air = new
 
@@ -67,6 +68,7 @@ turf/simulated/New()
 		air.temperature = temperature
 
 turf/simulated/Del()
+	visibilityChanged()
 	if(active_hotspot)
 		qdel(active_hotspot)
 	..()

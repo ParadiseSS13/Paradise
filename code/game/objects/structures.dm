@@ -31,6 +31,13 @@
 	..()
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
+	if(ticker)
+		cameranet.updateVisibility(src)
+
+/obj/structure/Destroy()
+	if(ticker)
+		cameranet.updateVisibility(src)
+	return ..()
 
 /obj/structure/proc/climb_on()
 

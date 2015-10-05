@@ -12,6 +12,16 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	mouse_opacity = 0
 	unacidable = 1//So effect are not targeted by alien acid.
 
+/obj/effect/effect/New()
+	..()
+	if(ticker)
+		cameranet.updateVisibility(src)
+
+/obj/effect/effect/Destroy()
+	if(ticker)
+		cameranet.updateVisibility(src)
+	return ..()
+
 /datum/effect/effect/proc/fadeOut(var/atom/A, var/frames = 16)
 	if(A.alpha == 0) //Handle already transparent case
 		return
