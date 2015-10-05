@@ -214,6 +214,7 @@ Pipelines + Other Objects -> Pipe network
 	initialize_directions = P
 	var/turf/T = loc
 	level = T.intact ? 2 : 1	
+	add_fingerprint(usr)
 	initialize()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
