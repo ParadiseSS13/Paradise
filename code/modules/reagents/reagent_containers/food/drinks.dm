@@ -69,11 +69,12 @@
 					reagents.trans_to(M, gulp_size)
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/bro = user
-				bro.cell.use(30)
+				var/mob/living/silicon/robot/borg = user
+				borg.cell.use(30)
 				var/refill = R.get_master_reagent_id()
-				spawn(600)
-					R.add_reagent(refill, fillevel)
+				if(refill in drinks) // Only synthesize drinks
+					spawn(600)
+						R.add_reagent(refill, fillevel)
 
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 			return 1
@@ -125,15 +126,16 @@
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				user << "Now synthesizing [trans] units of [refillName]..."
+				if(refill in drinks) // Only synthesize drinks
+					var/mob/living/silicon/robot/bro = user
+					var/chargeAmount = max(30,4*trans)
+					bro.cell.use(chargeAmount)
+					user << "Now synthesizing [trans] units of [refillName]..."
 
 
-				spawn(300)
-					reagents.add_reagent(refill, trans)
-					user << "Cyborg [src] refilled."
+					spawn(300)
+						reagents.add_reagent(refill, trans)
+						user << "Cyborg [src] refilled."
 
 		return
 

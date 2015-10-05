@@ -162,4 +162,9 @@
 #define MAT_BANANIUM	"$bananium"
 
 #define MAX_STACK_SIZE 50
-//The maximum size of a stack object.
+
+//unmagic-strings for types of polls
+#define POLLTYPE_OPTION		"OPTION"
+#define POLLTYPE_TEXT		"TEXT"
+#define POLLTYPE_RATING		"NUMVAL"
+#define POLLTYPE_MULTI		"MULTICHOICE"

@@ -279,6 +279,7 @@
 	if(src.emag)
 		var/obj/item/weapon/reagent_containers/food/drinks/cans/beer/B = src.emag
 		B.reagents.add_reagent("beer2", 2)
+	..()
 
 /obj/item/weapon/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
 	//full set of languages

@@ -12,6 +12,11 @@
 	. = ..()
 	if(can_buckle && buckled_mob)
 		return user_unbuckle_mob(user)
+		
+/atom/movable/attack_robot(mob/living/user)
+	. = ..()
+	if(can_buckle && buckled_mob && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
+		return user_unbuckle_mob(user)
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
