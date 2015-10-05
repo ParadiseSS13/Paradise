@@ -361,11 +361,6 @@ var/const/POS_HEADER = {"<html>
 	else
 		overlays += "pos-standby"
 
-/obj/machinery/pos/attack_robot(var/mob/user)
-//	if(isMoMMI(user))
-//		return attack_hand(user)
-	return ..()
-
 /obj/machinery/pos/attack_hand(var/mob/user)
 	user.set_machine(src)
 	var/logindata=""
