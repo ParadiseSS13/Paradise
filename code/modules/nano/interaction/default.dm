@@ -43,8 +43,6 @@
 		var/obj/machinery/Machine = src_object
 		if(Machine.emagged)
 			return STATUS_INTERACTIVE
-	if(istype(src_object, /obj/item/device/radio/borg/syndicate)) //Not ideal, but they can't access their own radio otherwise.
-		return STATUS_INTERACTIVE
 	return STATUS_UPDATE
 
 /mob/living/silicon/ai/default_can_use_topic(var/src_object)

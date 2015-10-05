@@ -128,7 +128,7 @@ var/global/list/default_medbay_channels = list(
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 550, 500)
+		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 550)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -583,6 +583,11 @@ var/global/list/default_medbay_channels = list(
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
 
+/obj/item/device/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
+	. = ..()
+	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = STATUS_INTERACTIVE
+
 /obj/item/device/radio/borg/Destroy()
 	myborg = null
 	return ..()
@@ -740,7 +745,7 @@ var/global/list/default_medbay_channels = list(
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 550, 500)
+		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 430, 500)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
