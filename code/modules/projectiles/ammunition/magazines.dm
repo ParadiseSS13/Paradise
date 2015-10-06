@@ -71,7 +71,7 @@
 /obj/item/ammo_box/magazine/internal/shotriot
 	name = "riot shotgun internal magazine"
 	desc = "Oh god, this shouldn't be here"
-	ammo_type = "/obj/item/ammo_casing/shotgun/beanbag"
+	ammo_type = "/obj/item/ammo_casing/shotgun/rubbershot"
 	caliber = "shotgun"
 	max_ammo = 6
 	multiload = 0
@@ -125,26 +125,30 @@
 
 /obj/item/ammo_box/magazine/uzim9mm/update_icon()
 	..()
-	icon_state = "uzi9mm-[round(ammo_count(),4)]"	
-	
+	icon_state = "uzi9mm-[round(ammo_count(),4)]"
+
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "SMG magazine (9mm)"
 	icon_state = "smg9mm"
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	caliber = "9mm"
-	max_ammo = 30
-	
+	max_ammo = 42
+	materials = list(MAT_METAL = 2000)
+
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "SMG magazine (Armour Piercing 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mmap
+	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/toxin
 	name = "SMG magazine (Toxin Tipped 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mmtox
+	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/fire
 	name = "SMG Magazine (Incendiary 9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mminc
+	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
