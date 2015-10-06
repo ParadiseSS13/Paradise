@@ -24,9 +24,9 @@ var/global/list/image/fluidtrack_cache=list()
 	var/crusty=0
 	var/image/overlay
 
-	New(_direction,_color,_wet)
+	New(_direction,item_color,_wet)
 		src.direction=_direction
-		src.basecolor=_color
+		src.basecolor=item_color
 		src.wet=_wet
 
 // Footprints, tire trails...

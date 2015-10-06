@@ -146,7 +146,7 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
-	_color = "pumpkin"
+	item_color = "pumpkin"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
@@ -161,7 +161,7 @@
 	desc = "Some fake antlers and a very fake red nose."
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
-	_color = "reindeer"
+	item_color = "reindeer"
 	flags_inv = 0
 	action_button_name = "Toggle Nose Light"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)

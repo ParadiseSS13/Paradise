@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
-	_color = "bluetie"
+	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = 2.0
 	var/slot = "decor"
@@ -13,7 +13,7 @@
 
 /obj/item/clothing/accessory/New()
 	..()
-	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[_color? "[_color]" : "[icon_state]"]")
+	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 //when user attached an accessory to S
 /obj/item/clothing/accessory/proc/on_attached(obj/item/clothing/under/S, mob/user as mob)
@@ -47,36 +47,36 @@
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
 	icon_state = "bluetie"
-	_color = "bluetie"
+	item_color = "bluetie"
 
 /obj/item/clothing/accessory/red
 	name = "red tie"
 	icon_state = "redtie"
-	_color = "redtie"
+	item_color = "redtie"
 
 /obj/item/clothing/accessory/black
 	name = "black tie"
 	icon_state = "blacktie"
-	_color = "blacktie"
+	item_color = "blacktie"
 
 /obj/item/clothing/accessory/horrible
 	name = "horrible tie"
 	desc = "A neosilk clip-on tie. This one is disgusting."
 	icon_state = "horribletie"
-	_color = "horribletie"
+	item_color = "horribletie"
 
 /obj/item/clothing/accessory/waistcoat // No overlay
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
 	icon_state = "waistcoat"
 	item_state = "waistcoat"
-	_color = "waistcoat"
+	item_color = "waistcoat"
 
 /obj/item/clothing/accessory/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
-	_color = "stethoscope"
+	item_color = "stethoscope"
 
 /obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
@@ -117,7 +117,7 @@
 	name = "bronze medal"
 	desc = "A bronze medal."
 	icon_state = "bronze"
-	_color = "bronze"
+	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 
 /obj/item/clothing/accessory/medal/conduct
@@ -137,7 +137,7 @@
 	name = "silver medal"
 	desc = "A silver medal."
 	icon_state = "silver"
-	_color = "silver"
+	item_color = "silver"
 	materials = list(MAT_SILVER=1000)
 
 /obj/item/clothing/accessory/medal/silver/valor
@@ -152,7 +152,7 @@
 	name = "gold medal"
 	desc = "A prestigious golden medal."
 	icon_state = "gold"
-	_color = "gold"
+	item_color = "gold"
 	materials = list(MAT_GOLD=1000)
 
 /obj/item/clothing/accessory/medal/gold/captain
@@ -173,7 +173,7 @@
 	name = "holobadge"
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
-	_color = "holobadge"
+	item_color = "holobadge"
 	slot_flags = SLOT_BELT | SLOT_TIE
 
 	var/emagged = 0 //Emagging removes Sec check.
@@ -181,7 +181,7 @@
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
-	_color = "holobadge-cord"
+	item_color = "holobadge-cord"
 	slot_flags = SLOT_MASK | SLOT_TIE
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
@@ -250,57 +250,57 @@
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"
 	icon_state = "redscarf"
-	_color = "redscarf"
+	item_color = "redscarf"
 
 /obj/item/clothing/accessory/scarf/green
 	name = "green scarf"
 	icon_state = "greenscarf"
-	_color = "greenscarf"
+	item_color = "greenscarf"
 
 /obj/item/clothing/accessory/scarf/darkblue
 	name = "dark blue scarf"
 	icon_state = "darkbluescarf"
-	_color = "darkbluescarf"
+	item_color = "darkbluescarf"
 
 /obj/item/clothing/accessory/scarf/purple
 	name = "purple scarf"
 	icon_state = "purplescarf"
-	_color = "purplescarf"
+	item_color = "purplescarf"
 
 /obj/item/clothing/accessory/scarf/yellow
 	name = "yellow scarf"
 	icon_state = "yellowscarf"
-	_color = "yellowscarf"
+	item_color = "yellowscarf"
 
 /obj/item/clothing/accessory/scarf/orange
 	name = "orange scarf"
 	icon_state = "orangescarf"
-	_color = "orangescarf"
+	item_color = "orangescarf"
 
 /obj/item/clothing/accessory/scarf/lightblue
 	name = "light blue scarf"
 	icon_state = "lightbluescarf"
-	_color = "lightbluescarf"
+	item_color = "lightbluescarf"
 
 /obj/item/clothing/accessory/scarf/white
 	name = "white scarf"
 	icon_state = "whitescarf"
-	_color = "whitescarf"
+	item_color = "whitescarf"
 
 /obj/item/clothing/accessory/scarf/black
 	name = "black scarf"
 	icon_state = "blackscarf"
-	_color = "blackscarf"
+	item_color = "blackscarf"
 
 /obj/item/clothing/accessory/scarf/zebra
 	name = "zebra scarf"
 	icon_state = "zebrascarf"
-	_color = "zebrascarf"
+	item_color = "zebrascarf"
 
 /obj/item/clothing/accessory/scarf/christmas
 	name = "christmas scarf"
 	icon_state = "christmasscarf"
-	_color = "christmasscarf"
+	item_color = "christmasscarf"
 
 //The three following scarves don't have the scarf subtype
 //This is because Ian can equip anything from that subtype
@@ -308,22 +308,22 @@
 /obj/item/clothing/accessory/stripedredscarf
 	name = "striped red scarf"
 	icon_state = "stripedredscarf"
-	_color = "stripedredscarf"
+	item_color = "stripedredscarf"
 
 /obj/item/clothing/accessory/stripedgreenscarf
 	name = "striped green scarf"
 	icon_state = "stripedgreenscarf"
-	_color = "stripedgreenscarf"
+	item_color = "stripedgreenscarf"
 
 /obj/item/clothing/accessory/stripedbluescarf
 	name = "striped blue scarf"
 	icon_state = "stripedbluescarf"
-	_color = "stripedbluescarf"
+	item_color = "stripedbluescarf"
 
 /obj/item/clothing/accessory/petcollar
 	name = "pet collar"
 	icon_state = "petcollar"
-	_color = "petcollar"
+	item_color = "petcollar"
 	var/tagname = null
 
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
