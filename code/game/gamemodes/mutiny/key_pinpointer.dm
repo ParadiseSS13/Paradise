@@ -13,7 +13,7 @@
 			mode = 1
 			active = 1
 			target = mutiny.captains_key
-			workobj()
+			point_at(target)
 			usr << "\blue You calibrate \the [src] to locate the Captain's Authentication Key."
 		if (1)
 			mode = 2

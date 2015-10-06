@@ -63,13 +63,6 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		return
 	return
 
-/obj/effect/effect/water/Destroy()
-	//var/turf/T = src.loc
-	//if (istype(T, /turf))
-	//	T.firelevel = 0 //TODO: FIX
-	src.delete()
-	return ..()
-
 /obj/effect/effect/water/Move(turf/newloc)
 	//var/turf/T = src.loc
 	//if (istype(T, /turf))

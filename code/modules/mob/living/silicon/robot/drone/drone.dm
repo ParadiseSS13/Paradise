@@ -284,9 +284,9 @@
 	src << "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>."
 	src << "You have no individual will, no personality, and no drives or urges other than your laws."
 	src << "Use <b>;</b> to talk to other drones, and <b>say</b> to speak silently to your nearby fellows."
-	src << "Remember,  you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
+	src << "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
-	src << "<b>If a crewmember has noticed you, <i>you are probably breaking your first law</i></b>."
+	src << "<b>Make sure crew members do not notice you.</b>."
 
 /*
 	sprite["Default"] = "repairbot"

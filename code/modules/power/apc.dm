@@ -160,6 +160,7 @@
 	wires = null
 	if(cell)
 		qdel(cell) // qdel
+		cell = null
 	if(terminal)
 		disconnect_terminal()
 	return ..()

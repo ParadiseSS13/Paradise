@@ -30,6 +30,11 @@
 	if(buckled_mob)
 		if(buckled_mob.incapacitated())
 			return 0
+			
+		var/mob/living/thedriver = user
+		var/mob_delay = thedriver.movement_delay()
+		if(mob_delay > 0)
+			move_delay += mob_delay
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user

@@ -14,7 +14,7 @@
 	name = "warden's jumpsuit"
 	icon_state = "warden"
 	item_state = "r_suit"
-	_color = "warden"
+	item_color = "warden"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
@@ -24,7 +24,7 @@
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
-	_color = "secred"
+	item_color = "secred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
@@ -34,7 +34,7 @@
 	desc = "A dress shirt and khakis with a security patch sewn on."
 	icon_state = "dispatch"
 	item_state = "dispatch"
-	_color = "dispatch"
+	item_color = "dispatch"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
@@ -44,7 +44,7 @@
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt2"
 	item_state = "r_suit"
-	_color = "redshirt2"
+	item_color = "redshirt2"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
@@ -52,12 +52,12 @@
 /obj/item/clothing/under/rank/security/corp
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
-	_color = "sec_corporate"
+	item_color = "sec_corporate"
 
 /obj/item/clothing/under/rank/warden/corp
 	icon_state = "warden_corporate"
 	item_state = "warden_corporate"
-	_color = "warden_corporate"
+	item_color = "warden_corporate"
 
 /*
  * Detective
@@ -67,7 +67,7 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	_color = "detective"
+	item_color = "detective"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
@@ -84,7 +84,7 @@
 	name = "head of security's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
-	_color = "hosred"
+	item_color = "hosred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.8
@@ -92,7 +92,7 @@
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"
 	item_state = "hos_corporate"
-	_color = "hos_corporate"
+	item_color = "hos_corporate"
 
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
@@ -100,7 +100,7 @@
 	name = "head of security's jumpsuit"
 	icon_state = "jensen"
 	item_state = "jensen"
-	_color = "jensen"
+	item_color = "jensen"
 	siemens_coefficient = 0.6
 	flags = ONESIZEFITSALL
 
@@ -133,21 +133,21 @@
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
 	icon_state = "security_formal"
 	item_state = "gy_suit"
-	_color = "security_formal"
+	item_color = "security_formal"
 
 /obj/item/clothing/under/rank/warden/formal
 	name = "warden's suit"
 	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
 	icon_state = "warden_formal"
 	item_state = "gy_suit"
-	_color = "warden_formal"
+	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/head_of_security/formal
 	name = "head of security's suit"
 	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
-	_color = "hos_formal"
+	item_color = "hos_formal"
 
 
 //Brig Physician
@@ -156,7 +156,7 @@
 	name = "brig physician's jumpsuit"
 	icon_state = "brig_phys"
 	item_state = "brig_phys"
-	_color = "brig_phys"
+	item_color = "brig_phys"
 	permeability_coefficient = 0.50
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL

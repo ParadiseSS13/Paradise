@@ -10,11 +10,13 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
 
+	is_special = 1
+
 /obj/item/device/radio/electropack/attack_hand(mob/user as mob)
 	if(src == user.back)
 		user << "<span class='notice'>You need help taking this off!</span>"
-		return
-	..()
+		return 0
+	. = ..()
 
 /obj/item/device/radio/electropack/Destroy()
 	if(istype(src.loc, /obj/item/assembly/shock_kit))
@@ -53,42 +55,22 @@
 			A.flags |= NODROP
 
 /obj/item/device/radio/electropack/Topic(href, href_list)
-	//..()
-	if(usr.stat || usr.restrained())
-		return
-	if(((istype(usr, /mob/living/carbon/human) && ((!( ticker ) || (ticker && ticker.mode != "monkey")) && usr.contents.Find(src))) || (usr.contents.Find(master) || (in_range(src, usr) && istype(loc, /turf)))))
-		usr.set_machine(src)
-		if(href_list["freq"])
-			var/new_frequency = sanitize_frequency(frequency + text2num(href_list["freq"]))
-			set_frequency(new_frequency)
-		else
-			if(href_list["code"])
-				code += text2num(href_list["code"])
-				code = round(code)
-				code = min(100, code)
-				code = max(1, code)
-			else
-				if(href_list["power"])
-					on = !( on )
-					icon_state = "electropack[on]"
-		if(!( master ))
-			if(istype(loc, /mob))
-				attack_self(loc)
-			else
-				for(var/mob/M in viewers(1, src))
-					if(M.client)
-						attack_self(M)
-		else
-			if(istype(master.loc, /mob))
-				attack_self(master.loc)
-			else
-				for(var/mob/M in viewers(1, master))
-					if(M.client)
-						attack_self(M)
-	else
-		usr << browse(null, "window=radio")
-		return
-	return
+	if(..())
+		return 1
+
+	if(href_list["freq"])
+		var/new_frequency = sanitize_frequency(frequency + text2num(href_list["freq"]))
+		set_frequency(new_frequency)
+
+	else if(href_list["code"])
+		code += text2num(href_list["code"])
+		code = round(code)
+		code = Clamp(code, 1, 100)
+
+	else if(href_list["power"])
+		on = !on
+
+	add_fingerprint(usr)
 
 /obj/item/device/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
@@ -115,26 +97,17 @@
 		master.receive_signal()
 	return
 
-/obj/item/device/radio/electropack/attack_self(mob/user as mob, flag1)
 
-	if(!istype(user, /mob/living/carbon/human))
-		return
-	user.set_machine(src)
-	var/dat = {"<TT>
-<A href='?src=\ref[src];power=1'>Turn [on ? "Off" : "On"]</A><BR>
-<B>Frequency/Code</B> for electropack:<BR>
-Frequency:
-<A href='byond://?src=\ref[src];freq=-10'>-</A>
-<A href='byond://?src=\ref[src];freq=-2'>-</A> [format_frequency(frequency)]
-<A href='byond://?src=\ref[src];freq=2'>+</A>
-<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
+/obj/item/device/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
 
-Code:
-<A href='byond://?src=\ref[src];code=-5'>-</A>
-<A href='byond://?src=\ref[src];code=-1'>-</A> [code]
-<A href='byond://?src=\ref[src];code=1'>+</A>
-<A href='byond://?src=\ref[src];code=5'>+</A><BR>
-</TT>"}
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
-	return
+	data["power"] = on
+	data["freq"] = format_frequency(frequency)
+	data["code"] = code
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "radio_electro.tmpl", "[name]", 400, 500)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
