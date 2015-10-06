@@ -65,7 +65,7 @@
 		send_asset_list(user.client, S.assets)
 
 	var/data
-	if(!(user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
+	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
 			usr << browse(data, "window=[name]")
@@ -418,10 +418,11 @@
 		B.update_icon()
 
 	else if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
-			P:RenamePaper(user,src)
+		var/obj/item/weapon/pen/robopen/RP = P
+		if(istype(P, /obj/item/weapon/pen/robopen) && RP.mode == 2)
+			RP.RenamePaper(user,src)
 		else
-			show_content(user, forceshow = 1, infolinks = 1)
+			show_content(user, infolinks = 1)
 		//openhelp(user)
 		return
 
