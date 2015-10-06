@@ -38,7 +38,7 @@
 				I.dna_hash = C.dna_hash
 				I.fingerprint_hash = C.fingerprint_hash
 				qdel(C)
-				ok = M.equip_if_possible(I, slot_wear_id, 0)	//if 1, last argument deletes on fail
+				ok = M.equip_or_collect(I, slot_wear_id, 0)	//if 1, last argument deletes on fail
 				break
 		else if(istype(M.back, /obj/item/weapon/storage)) // Try to place it in something on the mob's back
 			var/obj/item/weapon/storage/S = M.back
@@ -68,7 +68,7 @@
 /proc/HackProperties(var/mob/living/carbon/human/M,var/obj/item/I,var/script)
 	var/list/statements = text2list(script,";")
 	if(statements.len == 0)
-		return 
+		return
 	for(var/statement in statements)
 		var/list/assignmentChunks = text2list(statement,"=")
 		var/varname = assignmentChunks[1]

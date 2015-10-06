@@ -1,8 +1,8 @@
 /client/proc/Debug2()
 	set category = "Debug"
 	set name = "Debug-Game"
-	
-	if(!check_rights(R_DEBUG))	
+
+	if(!check_rights(R_DEBUG))
 		return
 
 	if(Debug2)
@@ -30,7 +30,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Debug"
 	set name = "Advanced ProcCall"
 
-	if(!check_rights(R_PROCCALL)) 
+	if(!check_rights(R_PROCCALL))
 		return
 
 	spawn(0)
@@ -186,10 +186,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/Cell()
 	set category = "Debug"
 	set name = "Air Status in Location"
-	
+
 	if(!check_rights(R_DEBUG))
-		return	
-	
+		return
+
 	if(!mob)
 		return
 	var/turf/T = mob.loc
@@ -211,9 +211,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_robotize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Robot"
-	
+
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -229,9 +229,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_animalize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Simple Animal"
-	
+
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -254,7 +254,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Event"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
-	
+
 	if(!check_rights(R_SPAWN))
 		return
 
@@ -283,9 +283,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_alienize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Alien"
-	
+
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -303,9 +303,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_slimeize(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make slime"
-	
+
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -323,9 +323,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_super(var/mob/M in mob_list)
 	set category = "Event"
 	set name = "Make Superhero"
-	
+
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")
@@ -346,7 +346,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Del-All"
 
 	if(!check_rights(R_DEBUG))
-		return	
+		return
 
 	// to prevent REALLY stupid deletions
 	var/blocked = list(/mob/living, /mob/living/carbon, /mob/living/carbon/human, /mob/dead, /mob/dead/observer, /mob/living/silicon, /mob/living/silicon/robot, /mob/living/silicon/ai)
@@ -362,10 +362,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
-	
+
 	if(!check_rights(R_DEBUG))
-		return		
-	
+		return
+
 	makepowernets()
 	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
@@ -374,7 +374,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
-	
+
 	if(!check_rights(R_EVENT))
 		return
 
@@ -410,9 +410,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
 
-	if(!check_rights(R_DEBUG|R_ADMIN))	
+	if(!check_rights(R_DEBUG|R_ADMIN))
 		return
-	
+
 	if(M.ckey)
 		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",,"Yes","No") != "Yes")
 			return
@@ -431,7 +431,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_areatest()
 	set category = "Mapping"
 	set name = "Test areas"
-	
+
 	if(!check_rights(R_DEBUG))
 		return
 
@@ -522,14 +522,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in mob_list)
 	set category = "Event"
 	set name = "Select equipment"
-	
+
 	if(!check_rights(R_EVENT))
-		return	
-	
+		return
+
 	if(!ishuman(M))
 		alert("Invalid mob")
 		return
-		
+
 	//log_admin("[key_name(src)] has alienized [M.key].")
 	var/list/dresspacks = list(
 		"strip",
@@ -826,43 +826,43 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_syndicate_commando()
 
 		if("nanotrasen officer")
-			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/officer(M), slot_w_uniform)
-			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_if_possible(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
+
+			M.equip_or_collect(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
+			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
+			M.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
+			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/officer(M), slot_head)
 
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
 			pda.ownjob = "Nanotrasen Navy Officer"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
-			M.equip_if_possible(pda, slot_r_store)
-			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
+			M.equip_or_collect(pda, slot_r_store)
+			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Officer)"
 			W.assignment = "Nanotrasen Navy Officer"
 			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
-			M.equip_if_possible(W, slot_wear_id)
+			M.equip_or_collect(W, slot_wear_id)
 
 		if("nanotrasen captain")
-			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
-			M.equip_if_possible(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
-			M.equip_if_possible(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
-			M.equip_if_possible(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
+			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
+			M.equip_or_collect(new /obj/item/clothing/shoes/centcom(M), slot_shoes)
+			M.equip_or_collect(new /obj/item/clothing/gloves/color/white(M), slot_gloves)
+			M.equip_or_collect(new /obj/item/device/radio/headset/heads/captain/alt(M), slot_l_ear)
+			M.equip_or_collect(new /obj/item/clothing/head/beret/centcom/captain(M), slot_head)
 
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
 			pda.ownjob = "Nanotrasen Navy Captain"
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 
-			M.equip_if_possible(pda, slot_r_store)
-			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
+			M.equip_or_collect(pda, slot_r_store)
+			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/weapon/gun/energy/pulse_rifle/pistol(M), slot_belt)
 
 			var/obj/item/weapon/card/id/centcom/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Nanotrasen Navy Captain)"
@@ -870,7 +870,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.assignment = "Nanotrasen Navy Captain"
 			W.access = get_centcom_access(W.assignment)
 			W.registered_name = M.real_name
-			M.equip_if_possible(W, slot_wear_id)
+			M.equip_or_collect(W, slot_wear_id)
 
 		if("emergency response team member")
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
@@ -947,7 +947,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(W, slot_wear_id)
 
 		if("special ops formal")
-			M.equip_if_possible(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
+			M.equip_or_collect(new /obj/item/clothing/under/rank/centcom/captain(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/device/radio/headset/ert/alt(src), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
@@ -957,7 +957,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/matches(M), slot_r_store)
-			M.equip_if_possible(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_l_store)
 
 			var/obj/item/device/pda/centcom/pda = new(M)
 			pda.owner = M.real_name
@@ -966,10 +966,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			pda.name = "PDA-[M.real_name] ([pda.ownjob])"
 			pda.desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition designed for military field work."
 
-			M.equip_if_possible(pda, slot_wear_pda)
+			M.equip_or_collect(pda, slot_wear_pda)
 
-			M.equip_if_possible(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
-			M.equip_if_possible(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
+			M.equip_or_collect(new /obj/item/clothing/glasses/sunglasses(M), slot_l_store)
+			M.equip_or_collect(new /obj/item/weapon/melee/classic_baton/telescopic(M), slot_r_store)
 
 			var/obj/item/weapon/card/id/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Special Operations Officer)"
@@ -1056,7 +1056,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			W.assignment = "Admiral"
 			W.registered_name = M.real_name
 			M.equip_to_slot_or_del(W, slot_wear_id)
-			
+
 		if("chrono legionnaire")
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/chronos(M), slot_head)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
@@ -1086,8 +1086,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
 
 	if(!check_rights(R_DEBUG))
-		return		
-	
+		return
+
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
@@ -1137,9 +1137,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set category = "Debug"
 	set name = "Debug Mob Lists"
 	set desc = "For when you just gotta know"
-	
+
 	if(!check_rights(R_DEBUG))
-		return	
+		return
 
 	switch(input("Which list?") in list("Players","Admins","Mobs","Living Mobs","Dead Mobs","Silicons","Clients","Respawnable Mobs"))
 		if("Players")
@@ -1162,7 +1162,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /client/proc/cmd_admin_toggle_block(var/mob/M,var/block)
 	if(!check_rights(R_SPAWN))
-		return	
+		return
 
 	if(!ticker)
 		alert("Wait until the game starts")

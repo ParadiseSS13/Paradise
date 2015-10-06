@@ -96,10 +96,13 @@
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & NO_DNA_RAD)
-			return
-			
-	if (!usr.IsAdvancedToolUser())
-		return
+			return 0
+
+	if (!user.IsAdvancedToolUser())
+		return 0
+
+	if(inuse)
+		return 0
 
 	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
 	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to inject [M.name] ([M.ckey])</font>")
@@ -110,91 +113,37 @@
 	else
 		M.LAssailant = user
 
-	if (user)
-		if (istype(M, /mob/living/carbon/human))
-			if(!inuse)
-				var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human(  )
-				O.source = user
-				O.target = M
-				O.item = src
-				O.s_loc = user.loc
-				O.t_loc = M.loc
-				O.place = "dnainjector"
-				src.inuse = 1
-				spawn(50) // Not the best fix. There should be an failure proc, for /effect/equip_e/, which is called when the first initital checks fail
-					inuse = 0
-				M.requests += O
-				if (buf.types & DNA2_BUF_SE)
-					if(block)// Isolated injector
-						//testing("Isolated block [block] injector with contents: [GetValue()]")
-						if (GetState() && block == MONKEYBLOCK && istype(M, /mob/living/carbon/human)  )
-							message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
-							log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-							log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
-						else
-							log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
-					else
-	//					testing("DNA injector with contents: [english_list(buf.dna.SE)]")
-						if (GetState(MONKEYBLOCK) && istype(M, /mob/living/carbon/human) )
-							message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name] \red(MONKEY)")
-							log_attack("[key_name(user)] injected [key_name(M)] with the [name] (MONKEY)")
-							log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the [name] \red(MONKEY)")
-						else
-	//						message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name]")
-							log_attack("[key_name(user)] injected [key_name(M)] with the [name]")
-				else
-	//				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name]")
-					log_attack("[key_name(user)] injected [key_name(M)] with the [name]")
+	if(buf.types & DNA2_BUF_SE)
 
-				spawn( 0 )
-					O.process()
-					return
+		if(block)
+			if(GetState() && block == MONKEYBLOCK && ishuman(M))
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+			else
+				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
+
 		else
-			if(!inuse)
+			if(GetState(MONKEYBLOCK) && ishuman(M))
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+			else
+				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
-				for(var/mob/O in viewers(M, null))
-					O.show_message(text("\red [] has been injected with [] by [].", M, src, user), 1)
-					//Foreach goto(192)
-				if (!(istype(M, /mob/living/carbon/human)))
-					user << "\red Apparently it didn't work."
-					return
+	else
+		log_attack("[key_name(user)] injected [key_name(M)] with the [name]")
 
-				if (buf.types & DNA2_BUF_SE)
-					if(block)// Isolated injector
-	//					testing("Isolated block [block] injector with contents: [english_list(GetValue())]")
-						if (GetState() && block == MONKEYBLOCK && istype(M, /mob/living/carbon/human)  )
-							message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
-							log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-							log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
-						else
-							log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
-					else
-	//					testing("DNA injector with contents: [english_list(buf.dna.SE)]")
-						if (GetState(MONKEYBLOCK) && istype(M, /mob/living/carbon/human))
-							message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name] \red(MONKEY)")
-							log_game("[key_name(user)] injected [key_name(M)] with the [name] (MONKEY)")
-						else
-	//						message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name]")
-							log_game("[key_name(user)] injected [key_name(M)] with the [name]")
-				else
-//					message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name]")
-					log_game("[key_name(user)] injected [key_name(M)] with the [name]")
-				inuse = 1
-				inject(M, user)//Now we actually do the heavy lifting.
-				spawn(50)
-					inuse = 0
-				/*
-				A user injecting themselves could mean their own transformation and deletion of mob.
-				I don't have the time to figure out how this code works so this will do for now.
-				I did rearrange things a bit.
-				*/
-				if(user)//If the user still exists. Their mob may not.
-					if(M)//Runtime fix: If the mob doesn't exist, mob.name doesnt work. - Nodrak
-						user.show_message(text("\red You inject [M.name]"))
-					else
-						user.show_message(text("\red You finish the injection."))
-	return
+	user.visible_message("<span class='danger'>\The [user] starts injecting \the [M] with \the [src]!</span>", "<span class='notice'>You start injecting \the [M] with \the [src].</span>")
+	if(do_after(user, 50, target = M))
+		inject(M, user)//Now we actually do the heavy lifting
+		user.visible_message("<span class='danger'>\The [user] injects \the [M] with \the [src]!</span>", "<span class='danger'>You inject \the [M] with \the [src].</span>")
 
+	if(user)//If the user still exists. Their mob may not.
+		if(M)//Runtime fix: If the mob doesn't exist, mob.name doesnt work. - Nodrak
+			user.show_message("<span class='alert'>You inject [M.name]</span>")
+		else
+			user.show_message("<span class='alert'>You finish the injection.</span>")
 
 
 /obj/item/weapon/dnainjector/hulkmut
