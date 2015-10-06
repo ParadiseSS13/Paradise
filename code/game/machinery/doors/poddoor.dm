@@ -84,7 +84,7 @@
 	src.density = 0
 	sleep(5)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -101,7 +101,7 @@
 	src.icon_state = "pdoor1"
 	src.set_opacity(initial(opacity))
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	sleep(5)
 	crush()
 	src.density = 1
@@ -130,7 +130,7 @@
 	f2.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -155,7 +155,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -182,7 +182,7 @@
 	f3.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -209,7 +209,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -238,7 +238,7 @@
 	f4.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -267,7 +267,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -294,7 +294,7 @@
 	f2.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -319,7 +319,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -346,7 +346,7 @@
 	f3.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -373,7 +373,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0
@@ -402,7 +402,7 @@
 	f4.set_opacity(0)
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -431,7 +431,7 @@
 	if (src.visible)
 		src.set_opacity(1)
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	sleep(10)
 	src.operating = 0

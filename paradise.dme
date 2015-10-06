@@ -1394,7 +1394,6 @@
 #include "code\modules\mob\living\silicon\ai\freelook\chunk.dm"
 #include "code\modules\mob\living\silicon\ai\freelook\eye.dm"
 #include "code\modules\mob\living\silicon\ai\freelook\read_me.dm"
-#include "code\modules\mob\living\silicon\ai\freelook\update_triggers.dm"
 #include "code\modules\mob\living\silicon\decoy\death.dm"
 #include "code\modules\mob\living\silicon\decoy\decoy.dm"
 #include "code\modules\mob\living\silicon\decoy\life.dm"
