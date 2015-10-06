@@ -22,7 +22,7 @@
 
 	update()
 		if (src.imp)
-			src.icon_state = text("implantcase-[]", src.imp._color)
+			src.icon_state = text("implantcase-[]", src.imp.item_color)
 			src.origin_tech = src.imp.origin_tech
 		else
 			src.icon_state = "implantcase-0"

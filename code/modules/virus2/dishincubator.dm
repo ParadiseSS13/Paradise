@@ -18,12 +18,15 @@
 	if(istype(O, /obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/syringe))
 
 		if(beaker)
-			user << "\The [src] is already loaded."
+			user << "<span class='warning'>\The [src] is already loaded.</span>"
+			return
+
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [O] is stuck to you!</span>"
 			return
 
 		beaker = O
-		user.drop_item()
-		O.loc = src
+		O.forceMove(src)
 
 		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
 		nanomanager.update_uis(src)
@@ -37,9 +40,11 @@
 			user << "The dish tray is aleady full!"
 			return
 
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [O] is stuck to you!</span>"
+			return
 		dish = O
-		user.drop_item()
-		O.loc = src
+		O.forceMove(src)
 
 		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
 		nanomanager.update_uis(src)
@@ -152,7 +157,7 @@
 
 	if (href_list["ejectchem"])
 		if(beaker)
-			beaker.loc = src.loc
+			beaker.forceMove(src.loc)
 			beaker = null
 		return 1
 
@@ -164,7 +169,7 @@
 
 	if (href_list["ejectdish"])
 		if(dish)
-			dish.loc = src.loc
+			dish.forceMove(src.loc)
 			dish = null
 		return 1
 

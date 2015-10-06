@@ -33,6 +33,8 @@
 
 	flags = 0
 
+	var/image/obscured	//camerachunks
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM in src)
@@ -273,7 +275,7 @@
 	for(var/dir in cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -304,7 +306,7 @@
 		if(T in closed) //turf already proceeded by A*
 			continue
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -318,7 +320,7 @@
 			continue
 		if(istype(T) && !T.density)
 			if(!ID)
-				if(!LinkBlocked(src, T))
+				if(!CanAtmosPass(T))
 					L.Add(T)
 			else
 				if(!LinkBlockedWithAccess(src, T, ID))
@@ -358,6 +360,10 @@
 				O.singularity_act()
 	ChangeTurf(/turf/space)
 	return(2)
+
+/turf/proc/visibilityChanged()
+	if(ticker)
+		cameranet.updateVisibility(src)
 
 /turf/proc/get_lumcount() //Gets the lighting level of a given turf.
 	if(lighting_overlay)

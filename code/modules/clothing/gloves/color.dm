@@ -5,7 +5,7 @@
 	item_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	_color="yellow"
+	item_color="yellow"
 	power
 		var/next_shock = 0
 
@@ -20,7 +20,7 @@
 	item_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
-	_color="yellow"
+	item_color="yellow"
 
 	New()
 		siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
@@ -30,7 +30,7 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "bgloves"
-	_color="brown"
+	item_color="brown"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -38,10 +38,10 @@
 
 
 	hos
-		_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
+		item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
 
 	ce
-		_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
+		item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
 	thief
 		pickpocket = 1
@@ -51,14 +51,14 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
 	item_state = "orangegloves"
-	_color="orange"
+	item_color="orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
 	item_state = "redgloves"
-	_color = "red"
+	item_color = "red"
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
@@ -71,60 +71,60 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
-	_color = "rainbow"
+	item_color = "rainbow"
 	clown
-		_color = "clown"
+		item_color = "clown"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
 	item_state = "bluegloves"
-	_color="blue"
+	item_color="blue"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
 	item_state = "purplegloves"
-	_color="purple"
+	item_color="purple"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
 	item_state = "greengloves"
-	_color="green"
+	item_color="green"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	_color="grey"
+	item_color="grey"
 
 	rd
-		_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
+		item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
 
 	hop
-		_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+		item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
 	item_state = "lightbrowngloves"
-	_color="light brown"
+	item_color="light brown"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
 	item_state = "browngloves"
-	_color="brown"
+	item_color="brown"
 
 	cargo
-		_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
+		item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -133,7 +133,7 @@
 	item_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	_color="white"
+	item_color="white"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/color/latex/nitrile
@@ -142,17 +142,17 @@
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
-	_color = "medical"
+	item_color = "medical"
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	_color="mime"
+	item_color="mime"
 
 	redcoat
-		_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
+		item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
 
 /obj/item/clothing/gloves/color/captain
@@ -160,7 +160,7 @@
 	name = "captain's gloves"
 	icon_state = "captain"
 	item_state = "egloves"
-	_color = "captain"
+	item_color = "captain"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	cold_protection = HANDS

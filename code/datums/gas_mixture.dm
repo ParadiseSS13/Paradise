@@ -53,6 +53,10 @@ What are the archived variables for?
 
 	var/tmp/fuel_burnt = 0
 
+/datum/gas_mixture/Destroy()
+	..()
+	return QDEL_HINT_QUEUE
+
 	//PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
 	var/heat_capacity = HEAT_CAPACITY_CALCULATION(oxygen,carbon_dioxide,nitrogen,toxins)
@@ -319,7 +323,7 @@ What are the archived variables for?
 				trace_gases += corresponding
 			corresponding.moles += trace_gas.moles
 
-//	del(giver)
+//	qdel(giver)
 	return 1
 
 /datum/gas_mixture/remove(amount)

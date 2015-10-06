@@ -4,7 +4,7 @@
 	item_state = "golem"
 	origin_tech = null
 	icon_state = "golem"
-	_color = "golem"
+	item_color = "golem"
 	flags = ABSTRACT | NODROP
 	has_sensor = 0
 	unacidable = 1

@@ -515,7 +515,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1)
 	if(w_uniform && istype(w_uniform, /obj/item/clothing/under) )
 		w_uniform.screen_loc = ui_iclothing
-		var/t_color = w_uniform._color
+		var/t_color = w_uniform.item_color
 		if(!t_color)		t_color = icon_state
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
@@ -541,7 +541,7 @@ var/global/list/damage_icon_parts = list()
 
 		if(w_uniform:accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE.
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
-				var/tie_color = A._color
+				var/tie_color = A.item_color
 				if(!tie_color) tie_color = A.icon_state
 				standing.overlays	+= image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
 
@@ -692,15 +692,12 @@ var/global/list/damage_icon_parts = list()
 	if(head)
 		head.screen_loc = ui_head		//TODO
 		var/image/standing
-		if(istype(head,/obj/item/clothing/head/kitty))
-			standing = image("icon" = head:mob)
+		if(head.icon_override)
+			standing = image("icon" = head.icon_override, "icon_state" = "[head.icon_state]")
+		else if(head.sprite_sheets && head.sprite_sheets[species.name])
+			standing = image("icon" = head.sprite_sheets[species.name], "icon_state" = "[head.icon_state]")
 		else
-			if(head.icon_override)
-				standing = image("icon" = head.icon_override, "icon_state" = "[head.icon_state]")
-			else if(head.sprite_sheets && head.sprite_sheets[species.name])
-				standing = image("icon" = head.sprite_sheets[species.name], "icon_state" = "[head.icon_state]")
-			else
-				standing = image("icon" = 'icons/mob/head.dmi', "icon_state" = "[head.icon_state]")
+			standing = image("icon" = 'icons/mob/head.dmi', "icon_state" = "[head.icon_state]")
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = species.blood_mask, "icon_state" = "helmetblood")

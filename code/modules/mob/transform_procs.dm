@@ -278,10 +278,6 @@
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
 
-	if(!safe_animal(mobpath))
-		usr << "\red Sorry but this mob type is currently unavailable."
-		return
-
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
@@ -313,10 +309,6 @@
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
 
-	if(!safe_animal(mobpath))
-		usr << "\red Sorry but this mob type is currently unavailable."
-		return
-
 	var/mob/new_mob = new mobpath(src.loc)
 
 	new_mob.key = key
@@ -326,72 +318,10 @@
 
 	qdel(src)
 
-/* Certain mob types have problems and should not be allowed to be controlled by players.
- *
- * This proc is here to force coders to manually place their mob in this list, hopefully tested.
- * This also gives a place to explain -why- players shouldnt be turn into certain mobs and hopefully someone can fix them.
- */
-/mob/proc/safe_animal(var/MP)
-
-//Bad mobs! - Remember to add a comment explaining what's wrong with the mob
-	if(!MP)
-		return 0	//Sanity, this should never happen.
-
-	if(ispath(MP, /mob/living/simple_animal/hostile/spaceWorm))
-		return 0 //Unfinished. Very buggy, they seem to just spawn additional space worms everywhere and eating your own tail results in new worms spawning.
-
-	if(ispath(MP, /mob/living/simple_animal/construct/behemoth))
-		return 0 //I think this may have been an unfinished WiP or something. These constructs should really have their own class simple_animal/construct/subtype
-
-	if(ispath(MP, /mob/living/simple_animal/construct/armoured))
-		return 0 //Verbs do not appear for players. These constructs should really have their own class simple_animal/construct/subtype
-
-	if(ispath(MP, /mob/living/simple_animal/construct/wraith))
-		return 0 //Verbs do not appear for players. These constructs should really have their own class simple_animal/construct/subtype
-
-	if(ispath(MP, /mob/living/simple_animal/construct/builder))
-		return 0 //Verbs do not appear for players. These constructs should really have their own class simple_animal/construct/subtype
-
-//Good mobs!
-	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/mushroom))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/shade))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/tomato))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/mouse))
-		return 1 //It is impossible to pull up the player panel for mice (Fixed! - Nodrak)
-	if(ispath(MP, /mob/living/simple_animal/hostile/bear))
-		return 1 //Bears will auto-attack mobs, even if they're player controlled (Fixed! - Nodrak)
-	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1 //Parrots are no longer unfinished! -Nodrak
-	if(ispath(MP, /mob/living/simple_animal/pony))
-		return 1 // ZOMG PONIES WHEEE
-	if(ispath(MP, /mob/living/simple_animal/pet/fox))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chick))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/pug))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/butterfly))
-		return 1
-	//Not in here? Must be untested!
-	return 0
-
-
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
-		return 0	//Sanity, this should never happen.
+		return 0	
 
-//Animals!
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
@@ -415,15 +345,10 @@
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
 
-//Antag Creatures!
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/statue) && !jobban_isbanned(src, "Syndicate"))
-		return 1
-
-//Friendly Creatures!
+		
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
-	//Not in here? Must be untested!
 	return 0

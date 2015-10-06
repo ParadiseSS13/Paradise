@@ -25,10 +25,10 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
-		if(!_color)
+		if(!item_color)
 			icon_state = icon_state_on
 		else
-			icon_state = "sword[_color]"
+			icon_state = "sword[item_color]"
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		user << "<span class='notice'>[src] is now active.</span>"
@@ -86,8 +86,8 @@
 	var/blade_color
 	
 /obj/item/weapon/melee/energy/sword/New()
-	if(_color == null)
-		_color = pick("red", "blue", "green", "purple")
+	if(item_color == null)
+		item_color = pick("red", "blue", "green", "purple")
 
 /obj/item/weapon/melee/energy/sword/IsShield()
 	if(active)
@@ -120,12 +120,12 @@
 	icon_state = "esaw_0"
 	icon_state_on = "esaw_1"
 	hitcost = 75 //Costs more than a standard cyborg esword
-	_color = null
+	item_color = null
 	w_class = 3
 
 /obj/item/weapon/melee/energy/sword/cyborg/saw/New()
 	..()
-	_color = null
+	item_color = null
 
 /obj/item/weapon/melee/energy/sword/cyborg/saw/IsShield()
 	return 0
@@ -133,16 +133,16 @@
 /obj/item/weapon/melee/energy/sword/saber
 
 /obj/item/weapon/melee/energy/sword/saber/blue
-	_color = "blue"
+	item_color = "blue"
 
 /obj/item/weapon/melee/energy/sword/saber/purple
-	_color = "purple"
+	item_color = "purple"
 
 /obj/item/weapon/melee/energy/sword/saber/green
-	_color = "green"
+	item_color = "green"
 
 /obj/item/weapon/melee/energy/sword/saber/red
-	_color = "red"
+	item_color = "red"
 
 /obj/item/weapon/melee/energy/sword/saber/attackby(obj/item/weapon/W, mob/living/user, params)
 	..()
@@ -156,7 +156,7 @@
 			var/obj/item/weapon/twohanded/dualsaber/newSaber = new /obj/item/weapon/twohanded/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
-				newSaber._color = "rainbow"
+				newSaber.item_color = "rainbow"
 			user.unEquip(W)
 			user.unEquip(src)
 			qdel(W)
@@ -165,7 +165,7 @@
 	else if(istype(W, /obj/item/device/multitool))
 		if(hacked == 0)
 			hacked = 1
-			_color = "rainbow"
+			item_color = "rainbow"
 			user << "<span class='warning'>RNBW_ENGAGE</span>"
 
 			if(active)
