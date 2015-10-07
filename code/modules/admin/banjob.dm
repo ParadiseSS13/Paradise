@@ -5,12 +5,12 @@ var/jobban_keylist[0]		//to store the keys & ranks
 
 /proc/jobban_fullban(mob/M, rank, reason)
 	if (!M || !M.key) return
-	jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
+	jobban_keylist.Add("[M.ckey] - [rank] ## [reason]")
 	jobban_savebanfile()
 
 /proc/jobban_client_fullban(ckey, rank)
 	if (!ckey || !rank) return
-	jobban_keylist.Add(text("[ckey] - [rank]"))
+	jobban_keylist.Add("[ckey] - [rank]")
 	jobban_savebanfile()
 
 //returns a reason if M is banned from rank, returns 0 otherwise

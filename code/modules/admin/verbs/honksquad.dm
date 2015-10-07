@@ -5,13 +5,13 @@ var/global/sent_honksquad = 0
 
 /client/proc/honksquad()
 	if(!ticker)
-		usr << "<font color='red'>The game hasn't started yet!</font>"
+		usr << "<span class='warning'>The game hasn't started yet!</span>"
 		return
 	if(world.time < 6000)
-		usr << "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>"
+		usr << "<span class='warning'>There are [(6000-world.time)/10] seconds remaining before it may be called.</span>"
 		return
 	if(sent_honksquad == 1)
-		usr << "<font color='red'>Clown Planet has already dispatched a HONKsquad.</font>"
+		usr << "<span class='warning'>Clown Planet has already dispatched a HONKsquad.</span>"
 		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
@@ -64,12 +64,12 @@ var/global/sent_honksquad = 0
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> \red [input].")
 
-			new_honksquad << "\blue You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: \red<B>[input]</B>"
+			new_honksquad << "<span class='notice'>You are a HONKsquad. [!honk_leader_selected?"commando":"<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill. \nYour current mission is: \red<B>[input]</B></span>"
 
 			honksquad_number--
 
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a HONKsquad.", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a HONKsquad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn HONKsquad.")
 	return 1
 

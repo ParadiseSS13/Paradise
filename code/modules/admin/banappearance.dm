@@ -5,12 +5,12 @@ var/appearance_keylist[0]	//to store the keys
 
 /proc/appearance_fullban(mob/M, reason)
 	if (!M || !M.key) return
-	appearance_keylist.Add(text("[M.ckey] ## [reason]"))
+	appearance_keylist.Add("[M.ckey] ## [reason]")
 	appearance_savebanfile()
 
 /proc/appearance_client_fullban(ckey)
 	if (!ckey) return
-	appearance_keylist.Add(text("[ckey]"))
+	appearance_keylist.Add("[ckey]")
 	appearance_savebanfile()
 
 //returns a reason if M is banned, returns 0 otherwise
