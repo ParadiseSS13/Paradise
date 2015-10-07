@@ -412,8 +412,9 @@
 		var/armor = run_armor_check(affecting, "melee")
 
 		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
-		affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		if(affected)
+			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
+		apply_damage(damage,M.melee_damage_type, affecting, armor, M.name)
 		updatehealth()
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
