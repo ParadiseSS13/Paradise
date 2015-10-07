@@ -412,7 +412,8 @@
 		var/armor = run_armor_check(affecting, "melee")
 
 		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
-		affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
+		if(affected)
+			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, BRUTE, affecting, armor, M.name)
 		updatehealth()
 
