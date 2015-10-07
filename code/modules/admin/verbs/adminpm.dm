@@ -3,7 +3,7 @@
 	set category = null
 	set name = "Admin PM Mob"
 	if(!holder)
-		src << "<font color='red'>Error: Admin-PM-Context: Only administrators may use this command.</font>"
+		src << "<span class='warning'>Error: Admin-PM-Context: Only administrators may use this command.</span>"
 		return
 	if( !ismob(M) || !M.client )	return
 	cmd_admin_pm(M.client,null)
@@ -14,7 +14,7 @@
 	set category = "Admin"
 	set name = "Admin PM Name"
 	if(!holder)
-		src << "<font color='red'>Error: Admin-PM-Panel: Only administrators may use this command.</font>"
+		src << "<span class='warning'>Error: Admin-PM-Panel: Only administrators may use this command.</span>"
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -81,7 +81,7 @@
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
-			src << "\red <b>Simultaneous PMs warning:</b> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]"
+			src << "<span class='warning'><b>Simultaneous PMs warning:</b> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]</span>"
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -223,13 +223,13 @@
 			switch(type)
 				if("Question")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>"
+						X << "<span class='notice'><B>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</span>"
 				if("Player Complaint")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
+						X << "<span class='notice'><B>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</span>" 
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>" 
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
@@ -244,17 +244,17 @@
 	sanitize(msg)
 
 	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
-		src << "\red Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"
-		src << "\blue [msg]"
+		src << "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>"
+		src << "<span class='notice'>[msg]</span>"
 		return
 
 	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
 
-	src << "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>"
+	src << "<span class='notice'>>IRC PM to-<b>IRC-Admins</b>: [msg]</span>"
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
 	for(var/client/X in admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>"
+			X << "<span class='notice'><B>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> [msg]</span>"

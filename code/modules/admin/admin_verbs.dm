@@ -273,7 +273,7 @@ var/list/admin_verbs_proccall = list (
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	else if(istype(mob,/mob/new_player))
-		src << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>"
+		src << "<span class='warning'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</span>"
 	else
 		//ghostize
 		var/mob/body = mob
@@ -587,7 +587,7 @@ var/list/admin_verbs_proccall = list (
 		for (var/mob/V in hearers(O))
 			V.show_message(message, 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
+		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
 		feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/togglebuildmodeself()
@@ -635,7 +635,7 @@ var/list/admin_verbs_proccall = list (
 		usr << "<b>Disabled air processing.</b>"
 	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] used 'kill air'.")
-	message_admins("\blue [key_name_admin(usr)] used 'kill air'.", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] used 'kill air'.</span>", 1)
 
 /client/proc/deadmin_self()
 	set name = "De-admin self"

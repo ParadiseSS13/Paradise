@@ -15,7 +15,7 @@
 		if(T.active_hotspot)
 			burning = 1
 
-	usr << "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]"
+	usr << "<span class='notice'>@[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]</span>"
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		usr << "[trace_gas.type]: [trace_gas.moles]"
 		
