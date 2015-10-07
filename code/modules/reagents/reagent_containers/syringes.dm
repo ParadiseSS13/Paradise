@@ -365,7 +365,7 @@
 		if(SYRINGE_DRAW)
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				user << "<span class='warning'>The syringe is full."</span>
+				user << "<span class='warning'>The syringe is full.</span>"
 				return
 
 			if(ismob(target))
@@ -403,7 +403,7 @@
 
 			if(ismob(target) && target != user)
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message("<span class='danger'>[] is trying to inject [] with a giant syringe!</span>", user, target), 1)
+					O.show_message("<span class='danger'>[user] is trying to inject [target] with a giant syringe!</span>", 1)
 				if(!do_mob(user, target, 300)) return
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message("<span class='warning'>[user] injects [target] with a giant syringe!</span>", 1)
