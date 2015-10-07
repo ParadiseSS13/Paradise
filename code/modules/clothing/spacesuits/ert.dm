@@ -44,7 +44,7 @@
 	desc = "A helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured and space ready."
 	icon_state = "rig0-ert_commander"
 	item_state = "helm-command"
-	_color = "ert_commander"
+	item_color = "ert_commander"
 
 /obj/item/clothing/suit/space/rig/ert/commander
 	name = "emergency response team commander suit"
@@ -58,7 +58,7 @@
 	desc = "A helmet worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured and space ready."
 	icon_state = "rig0-ert_security"
 	item_state = "syndicate-helm-black-red"
-	_color = "ert_security"
+	item_color = "ert_security"
 
 /obj/item/clothing/suit/space/rig/ert/security
 	name = "emergency response team security suit"
@@ -71,7 +71,7 @@
 	name = "emergency response team engineer helmet"
 	desc = "A helmet worn by engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured and space ready."
 	icon_state = "rig0-ert_engineer"
-	_color = "ert_engineer"
+	item_color = "ert_engineer"
 
 /obj/item/clothing/suit/space/rig/ert/engineer
 	name = "emergency response team engineer suit"
@@ -83,7 +83,7 @@
 	name = "emergency response team medical helmet"
 	desc = "A helmet worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "rig0-ert_medical"
-	_color = "ert_medical"
+	item_color = "ert_medical"
 
 /obj/item/clothing/suit/space/rig/ert/medical
 	name = "emergency response team medical suit"
@@ -95,7 +95,7 @@
 	name = "emergency response team janitor helmet"
 	desc = "A helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready."
 	icon_state = "rig0-ert_janitor"
-	_color = "ert_janitor"
+	item_color = "ert_janitor"
 
 /obj/item/clothing/suit/space/rig/ert/janitor
 	name = "emergency response team janitor suit"

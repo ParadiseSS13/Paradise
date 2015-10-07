@@ -30,7 +30,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
 		)
-		
+
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
 	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
@@ -39,8 +39,8 @@
 /obj/item/clothing/head/welding/flamedecal/blue
 	name = "blue flame decal welding helmet"
 	desc = "A welding helmet with blue flame decals on it."
-	icon_state = "welding_blueflame"	
-	
+	icon_state = "welding_blueflame"
+
 /obj/item/clothing/head/welding/white
 	name = "white decal welding helmet"
 	desc = "A white welding helmet with a character written across it."
@@ -146,7 +146,7 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
 	item_state = "hardhat0_pumpkin"
-	_color = "pumpkin"
+	item_color = "pumpkin"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
@@ -161,7 +161,7 @@
 	desc = "Some fake antlers and a very fake red nose."
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
-	_color = "reindeer"
+	item_color = "reindeer"
 	flags_inv = 0
 	action_button_name = "Toggle Nose Light"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
@@ -179,18 +179,24 @@
 	siemens_coefficient = 1.5
 	loose = 33
 
-	update_icon(var/mob/living/carbon/human/user)
-		if(!istype(user)) return
-		mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
+/obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
+	if(!istype(user)) return
+	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty")
 //		mob2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kitty2") - Commented out because it seemingly does nothing.
-		mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
+	mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
 //		mob2.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD) - Commented out because it seemingly does nothing.
 
-		var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
+	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner")
 //		var/icon/earbit2 = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "kittyinner2") - Commented out because it seemingly does nothing.
-		mob.Blend(earbit, ICON_OVERLAY)
+	mob.Blend(earbit, ICON_OVERLAY)
 //		mob2.Blend(earbit2, ICON_OVERLAY) - Commented out because it seemingly does nothing.
 
+	icon_override = mob
+
+/obj/item/clothing/head/kitty/equipped(var/mob/M, slot)
+	. = ..()
+	if(ishuman(M) && slot == slot_head)
+		update_icon(M)
 
 
 /obj/item/clothing/head/kitty/mouse
@@ -198,10 +204,12 @@
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
 
-	update_icon(var/mob/living/carbon/human/user)
-		if(!istype(user)) return
-		mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
-		mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
+/obj/item/clothing/head/kitty/mouse/update_icon(var/mob/living/carbon/human/user)
+	if(!istype(user)) return
+	mob = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mousey")
+	mob.Blend(rgb(user.r_hair, user.g_hair, user.b_hair), ICON_ADD)
 
-		var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
-		mob.Blend(earbit, ICON_OVERLAY)
+	var/icon/earbit = new/icon("icon" = 'icons/mob/head.dmi', "icon_state" = "mouseyinner")
+	mob.Blend(earbit, ICON_OVERLAY)
+
+	icon_override = mob

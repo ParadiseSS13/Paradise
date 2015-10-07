@@ -8,7 +8,7 @@
 			mode = 1
 			active = 1
 			target = locate(/obj/item/flag/nation/atmos)
-			workobj()
+			point_at(target)
 			usr << "\blue You calibrate \the [src] to locate the [target.name]"
 		if (1)
 			mode = 2

@@ -4,7 +4,7 @@
 	name = "chief engineer's jumpsuit"
 	icon_state = "chiefengineer"
 	item_state = "g_suit"
-	_color = "chief"
+	item_color = "chief"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 10)
 	flags = ONESIZEFITSALL
 
@@ -13,7 +13,7 @@
 	name = "atmospheric technician's jumpsuit"
 	icon_state = "atmos"
 	item_state = "atmos_suit"
-	_color = "atmos"
+	item_color = "atmos"
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/engineer
@@ -21,7 +21,7 @@
 	name = "engineer's jumpsuit"
 	icon_state = "engine"
 	item_state = "engi_suit"
-	_color = "engine"
+	item_color = "engine"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 10)
 	flags = ONESIZEFITSALL
 
@@ -30,7 +30,7 @@
 	name = "roboticist's jumpsuit"
 	icon_state = "robotics"
 	item_state = "robotics"
-	_color = "robotics"
+	item_color = "robotics"
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/mechanic
@@ -38,4 +38,4 @@
 	name = "mechanic's overalls"
 	icon_state = "mechanic"
 	item_state = "mechanic"
-	_color = "mechanic"
+	item_color = "mechanic"

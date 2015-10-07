@@ -4,21 +4,21 @@
 
 // MAXIMUM SCIENCE
 /datum/job_objective/maximize_research
-	completion_payment=1000
+	completion_payment = 1000
 
 /datum/job_objective/maximize_research/get_description()
-	return "Maximize all legal research tech levels."
+	var/desc = "Maximize all legal research tech levels."
+	return desc
 
 /datum/job_objective/maximize_research/check_for_completion()
 	var/obj/machinery/r_n_d/server/server = null
 	for(var/obj/machinery/r_n_d/server/serber in machines)
 		if(serber.name == "Core R&D Server")
-			server=serber
+			server = serber
 			break
 	if(!server)
-		// This was just used for testing.
-		//world << "UNABLE TO FIND A GODDAMN RND SERVER. FUCK."
-		return
+		return 0
+
 	for(var/datum/tech/T in server.files.possible_tech)
 		if(T.max_level==0) // Ignore illegal tech, etc
 			continue
@@ -33,28 +33,24 @@
 // Robotics
 /////////////////////////////////////////////////////////////////////////////////////////
 
-// Mek cyburg
+//Cyborgs
 /datum/job_objective/make_cyborg
-	completion_payment=100
-	per_unit=1
+	completion_payment = 100
+	per_unit = 1
 
 /datum/job_objective/make_cyborg/get_description()
-	return "Make a cyborg. ([units_completed] created.)"
-/*
-// Mek MoMMI
-/datum/job_objective/make_mommi
-	completion_payment=150
-	per_unit=1
+	var/desc = "Make a cyborg."
+	desc += "([units_completed] created.)"
+	return desc
 
-/datum/job_objective/make_mommi/get_description()
-	return "Make a Mobile MMI. ([units_completed] created.)"
-*/
-// Mek Ripley
+
+
+//RIPLEY's
 /datum/job_objective/make_ripley
-	completion_payment=600
-	per_unit=1
+	completion_payment = 600
+	per_unit = 1
 
 /datum/job_objective/make_ripley/get_description()
-	return "Make a Ripley. ([units_completed] created.)"
-
-
+	var/desc = "Make a Ripley."
+	desc += "([units_completed] created.)"
+	return desc

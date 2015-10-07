@@ -78,6 +78,8 @@ var/list/robot_verbs_default = list(
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 
+	var/updating = 0 //portable camera camerachunk update
+
 	var/jetpackoverlay = 0
 	var/magpulse = 0
 
@@ -1144,10 +1146,18 @@ var/list/robot_verbs_default = list(
 
 	update_icons()
 
+#define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
-
+	var/oldLoc = src.loc
 	. = ..()
-
+	if(.)
+		if(src.camera)
+			if(!updating)
+				updating = 1
+				spawn(BORG_CAMERA_BUFFER)
+					if(oldLoc != src.loc)
+						cameranet.updatePortableCamera(src.camera)
+					updating = 0
 	if(module)
 		if(module.type == /obj/item/weapon/robot_module/janitor)
 			var/turf/tile = loc
@@ -1179,8 +1189,9 @@ var/list/robot_verbs_default = list(
 								cleaned_human.shoes.clean_blood()
 								cleaned_human.update_inv_shoes(0,0)
 							cleaned_human.clean_blood()
-							cleaned_human << "\red [src] cleans your face!"
+							cleaned_human << "<span class='danger'>[src] cleans your face!</span>"
 		return
+#undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
@@ -1293,7 +1304,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/weapon/robot_module/deathsquad(src)
-	
+
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/device/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
@@ -1307,7 +1318,7 @@ var/list/robot_verbs_default = list(
 		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?", poll_time = 300)
 		if(borg_candidates.len > 0 && isnull(ckey))
 			searching_for_ckey = 0
-			var/mob/M = pick(borg_candidates)					
+			var/mob/M = pick(borg_candidates)
 			M.mind.transfer_to(src)
 			M.mind.assigned_role = "MODE"
 			M.mind.special_role = "Death Commando"
@@ -1316,10 +1327,10 @@ var/list/robot_verbs_default = list(
 		else
 			searching_for_ckey = 0
 			user << "<span class='notice'>Unable to connect to Central Command. Please wait and try again later.</span>"
-			return	
+			return
 	else
 		user << "<span class='warning'>[src] is already checking for possible borgs.</span>"
-		return	
+		return
 
 /mob/living/silicon/robot/syndicate
 	icon_state = "syndie_bloodhound"
@@ -1340,7 +1351,7 @@ var/list/robot_verbs_default = list(
 	..()
 	cell.maxcharge = 25000
 	cell.charge = 25000
-	
+
 /mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/weapon/robot_module/syndicate(src)
@@ -1348,13 +1359,13 @@ var/list/robot_verbs_default = list(
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/device/radio/borg/syndicate(src)
 	radio.recalculateChannels()
-	
+
 	spawn(5)
 		if(playstyle_string)
 			src << playstyle_string
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
-	
+
 /mob/living/silicon/robot/syndicate/medical
 	icon_state = "syndi-medi"
 	designation = "Syndicate Medical"

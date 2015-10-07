@@ -190,48 +190,48 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/proc/Touch()
 	return
 
-/obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
-	var/mob/M = usr
+/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
+	var/mob/M = user
 	if (istype(M, /mob/dead/)) return
-	if (usr.stat || usr.restrained()) return
+	if (user.stat || user.restrained()) return
 	if(has_sensor >= 2)
-		usr << "The controls are locked."
+		user << "The controls are locked."
 		return 0
 	if(has_sensor <= 0)
-		usr << "This suit does not have any sensors."
+		user << "This suit does not have any sensors."
 		return 0
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-	if(get_dist(usr, src) > 1)
-		usr << "You have moved too far away."
+	if(get_dist(user, src) > 1)
+		user << "You have moved too far away."
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if (src.loc == usr)
+	if (src.loc == user)
 		switch(sensor_mode)
 			if(0)
-				usr << "You disable your suit's remote sensing equipment."
+				user << "You disable your suit's remote sensing equipment."
 			if(1)
-				usr << "Your suit will now report whether you are live or dead."
+				user << "Your suit will now report whether you are live or dead."
 			if(2)
-				usr << "Your suit will now report your vital lifesigns."
+				user << "Your suit will now report your vital lifesigns."
 			if(3)
-				usr << "Your suit will now report your vital lifesigns as well as your coordinate position."
+				user << "Your suit will now report your vital lifesigns as well as your coordinate position."
 	else if (istype(src.loc, /mob))
 		switch(sensor_mode)
 			if(0)
-				for(var/mob/V in viewers(usr, 1))
-					V.show_message("\red [usr] disables [src.loc]'s remote sensing equipment.", 1)
+				for(var/mob/V in viewers(user, 1))
+					V.show_message("\red [user] disables [src.loc]'s remote sensing equipment.", 1)
 			if(1)
-				for(var/mob/V in viewers(usr, 1))
-					V.show_message("[usr] turns [src.loc]'s remote sensors to binary.", 1)
+				for(var/mob/V in viewers(user, 1))
+					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)
 			if(2)
-				for(var/mob/V in viewers(usr, 1))
-					V.show_message("[usr] sets [src.loc]'s sensors to track vitals.", 1)
+				for(var/mob/V in viewers(user, 1))
+					V.show_message("[user] sets [src.loc]'s sensors to track vitals.", 1)
 			if(3)
-				for(var/mob/V in viewers(usr, 1))
-					V.show_message("[usr] sets [src.loc]'s sensors to maximum.", 1)
+				for(var/mob/V in viewers(user, 1))
+					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Toggle Suit Sensors"
@@ -480,11 +480,11 @@ BLIND     // can't see anything
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
-	if(copytext(_color,-2) != "_d")
-		basecolor = _color
+	if(copytext(item_color,-2) != "_d")
+		basecolor = item_color
 	usr << "DEBUG:[basecolor]"
 	if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
-		_color = _color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+		item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 		usr.update_inv_w_uniform()
 	else
 		usr << "<span class='notice'>You cannot roll down the uniform!</span>"

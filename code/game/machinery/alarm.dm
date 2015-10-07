@@ -607,9 +607,6 @@
 	src.add_hiddenprint(user)
 	return ui_interact(user)
 
-/obj/machinery/alarm/attack_robot(mob/user)
-	return attack_ai(user)
-
 /obj/machinery/alarm/attack_ghost(user as mob)
 	if(stat & (BROKEN|MAINT))
 		return

@@ -347,8 +347,6 @@ Class Procs:
 		return src.attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
-		return 1
 	if(user.lying || user.stat)
 		return 1
 
@@ -356,11 +354,6 @@ Class Procs:
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return 1
 
-/*
-	//distance checks are made by atom/proc/DblClick
-	if ((get_dist(src, user) > 1 || !istype(src.loc, /turf)) && !istype(user, /mob/living/silicon))
-		return 1
-*/
 	if (ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60)
@@ -369,10 +362,17 @@ Class Procs:
 		else if(prob(H.getBrainLoss()))
 			user << "<span class='warning'>You momentarily forget how to use [src].</span>"
 			return 1
+			
+	if(panel_open)
+		src.add_fingerprint(user)
+		return 0
+		
+	if(!interact_offline && stat & (NOPOWER|BROKEN|MAINT))
+		return 1
 
 	src.add_fingerprint(user)
 
-	return 0
+	return ..()
 
 /obj/machinery/CheckParts()
 	RefreshParts()

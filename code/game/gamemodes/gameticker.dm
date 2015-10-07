@@ -222,7 +222,7 @@ var/global/datum/controller/gameticker/ticker
 	*/
 
 	processScheduler.start()
-	
+
 	if(config.sql_enabled)
 		spawn(3000)
 			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
@@ -486,13 +486,11 @@ var/global/datum/controller/gameticker/ticker
 		world << "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round."
 
 	mode.declare_completion()//To declare normal completion.
-	
+
 	//calls auto_declare_completion_* for all modes
 	for(var/handler in typesof(/datum/game_mode/proc))
 		if (findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
-
-	mode.declare_job_completion()
 
 	scoreboard()
 	karmareminder()

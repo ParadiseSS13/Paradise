@@ -8,7 +8,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 0 ,energy = 0, bomb = 0, bio = 100, rad = 20)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	species_restricted = list("Plasmaman")
 	flags = STOPSPRESSUREDMAGE  | PLASMAGUARD
@@ -53,19 +53,19 @@
 		user << "<span class='warning'>You cannot turn the light on while in this [user.loc].</span>" //To prevent some lighting anomalities.
 		return
 	toggle_light(user)
-	
-/obj/item/clothing/head/helmet/space/eva/plasmaman/proc/toggle_light(mob/user)		
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/proc/toggle_light(mob/user)
 	on = !on
 	icon_state = "[base_state][on]"
 
-	if(on)	
+	if(on)
 		set_light(brightness_on)
-	else	
+	else
 		set_light(0)
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_head()	
+		H.update_inv_head()
 
 // ENGINEERING
 /obj/item/clothing/suit/space/eva/plasmaman/assistant

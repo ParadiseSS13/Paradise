@@ -78,7 +78,7 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
-	
+
 	var/is_small
 	var/show_ssd = 1
 	var/virus_immune
@@ -103,7 +103,7 @@
 		"brain" =    /obj/item/organ/brain,
 		"appendix" = /obj/item/organ/appendix,
 		"eyes" =     /obj/item/organ/eyes
-		)		
+		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
@@ -364,3 +364,6 @@
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
 	damage = 6	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...
+
+/datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
+	return 0

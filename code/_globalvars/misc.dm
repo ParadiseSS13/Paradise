@@ -48,6 +48,7 @@ var/score_allarrested = 0 // did the crew catch all the enemies alive?
 var/score_opkilled = 0 // used during nuke mode, how many operatives died?
 var/score_disc = 0 // is the disc safe and secure?
 var/score_nuked = 0 // was the station blown into little bits?
+var/score_nuked_penalty = 0 //penalty for getting blown to bits
 
 	// these ones are mainly for the stat panel
 var/score_powerbonus = 0 // if all APCs on the station are running optimally, big bonus
