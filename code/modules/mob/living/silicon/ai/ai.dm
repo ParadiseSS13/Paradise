@@ -101,7 +101,7 @@ var/list/ai_verbs_default = list(
 	announcement.announcement_type = "A.I. Announcement"
 	announcement.announcer = name
 	announcement.newscast = 1
-	
+
 	var/list/possibleNames = ai_names
 
 	var/pickedName = null
@@ -215,7 +215,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/SetName(pickedName as text)
 	..()
-	
+
 	announcement.announcer = name
 
 	if(eyeobj)
@@ -229,6 +229,7 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
+	qdel(eyeobj) // No AI, no Eye
 	return ..()
 
 
@@ -332,19 +333,19 @@ var/list/ai_verbs_default = list(
 	set name = "Show Crew Manifest"
 	set category = "AI Commands"
 	show_station_manifest()
-	
+
 /mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
 	set name = "Make Station Announcement"
-	
+
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
 	if(message_cooldown)
 		src << "<span class='warning'>Please allow one minute to pass between announcements.</span>"
 		return
-		
+
 	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
 	if(!input)
 		return
@@ -383,7 +384,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/ai_cancel_call()
 	set name = "Recall Emergency Shuttle"
 	set category = "AI Commands"
-	
+
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 

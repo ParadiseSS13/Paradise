@@ -87,6 +87,10 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	..()
 
 /mob/dead/observer/Destroy()
+	if(ismob(following))
+		var/mob/M = following
+		M.following_mobs -= src
+	following = null
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
 		qdel(ghostimage)
@@ -381,19 +385,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob
 	var/list/following_mobs = list()
-
-/mob/Destroy()
-	for(var/mob/dead/observer/M in following_mobs)
-		M.following = null
-	following_mobs = null
-	return ..()
-
-/mob/dead/observer/Destroy()
-	if(ismob(following))
-		var/mob/M = following
-		M.following_mobs -= src
-	following = null
-	return ..()
 
 /mob/Move()
 	. = ..()
