@@ -85,8 +85,8 @@
 	if(statpanel("Status"))
 		stat("Resources:",resources)
 
-/mob/living/simple_animal/hostile/swarmer/death(gibbed)
-	..(gibbed)
+/mob/living/simple_animal/hostile/swarmer/Die()
+	..()
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	ghostize()
 	qdel(src)
@@ -96,7 +96,7 @@
 		health = 1
 		return
 	else
-		death()
+		Die()
 
 /mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
@@ -244,23 +244,21 @@
 	if(resources >= 100)
 		src << "<span class='warning'>We cannot hold more materials!</span>"
 		return
-	//Make sure the materials list has at least one entry
-	if(target.materials && target.materials.len)
    		//Check if any entries are either MAT_METAL or MAT_GLASS
-		if((MAT_METAL in target.materials) || (MAT_GLASS in target.materials))
-			resources++
-			do_attack_animation(target)
-			changeNext_move(CLICK_CD_MELEE)
-			var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
-			I.pixel_x = target.pixel_x
-			I.pixel_y = target.pixel_y
-			I.pixel_z = target.pixel_z
-			if(istype(target, /obj/item/stack))
-				var/obj/item/stack/S = target
-				S.use(1)
-				if(S.amount)
-					return
-			qdel(target)
+	if((MAT_METAL in target.materials) || (MAT_GLASS in target.materials) || istype(target,/obj/item/weapon/shard))
+		resources++
+		do_attack_animation(target)
+		changeNext_move(CLICK_CD_MELEE)
+		var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
+		I.pixel_x = target.pixel_x
+		I.pixel_y = target.pixel_y
+		I.pixel_z = target.pixel_z
+		if(istype(target, /obj/item/stack))
+			var/obj/item/stack/S = target
+			S.use(1)
+			if(S.amount)
+				return
+		qdel(target)
 	else
 		src << "<span class='warning'>\the [target] is incompatible with our internal matter recycler.</span>"
 		return
