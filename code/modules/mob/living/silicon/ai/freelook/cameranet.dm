@@ -5,7 +5,7 @@
 var/datum/cameranet/cameranet = new()
 
 /datum/cameranet
-	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Destroy().
+	// The cameras on the map, no matter if they work or not. Updated in obj/machinery/camera.dm by New() and Del().
 	var/list/cameras = list()
 	var/cameras_unsorted = 1
 	// The chunks of the map, mapping the areas that the cameras can see.

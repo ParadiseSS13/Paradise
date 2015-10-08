@@ -206,10 +206,6 @@ var/list/robot_verbs_default = list(
 		connected_ai.connected_robots -= src
 	qdel(wires)
 	wires = null
-	qdel(module)
-	module = null
-	camera = null
-	cell = null
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -917,7 +913,19 @@ var/list/robot_verbs_default = list(
 		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
 		updatehealth()
 
 

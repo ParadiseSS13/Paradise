@@ -57,6 +57,8 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
+	var/list/ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 1, OXY = 0) //Set 0 to receive that damage type, 1 to ignore
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -281,7 +283,7 @@
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage,M.melee_damage_type)
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
@@ -322,7 +324,7 @@
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
-			adjustBruteLoss(harm_intent_damage)
+			attack_threshold_check(harm_intent_damage)
 
 	return
 
@@ -342,7 +344,7 @@
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			adjustBruteLoss(damage)
+			attack_threshold_check(damage)
 
 	return
 
@@ -362,7 +364,7 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
+				attack_threshold_check(damage)
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
@@ -384,7 +386,7 @@
 		else
 			damage = rand(5, 35)
 
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage)
 
 
 	return
@@ -475,9 +477,22 @@
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/adjustBruteLoss(damage)
-	health = Clamp(health - damage, 0, maxHealth)
-	if(health < 1)
-		Die()
+	if(!ignored_damage_types[BRUTE])
+		health = Clamp(health - damage, 0, maxHealth)
+		if(health < 1)
+			Die()
+
+/mob/living/simple_animal/adjustFireLoss(damage)
+	if(!ignored_damage_types[BURN])
+		adjustBruteLoss(damage)
+
+/mob/living/simple_animal/adjustToxLoss(damage)
+	if(!ignored_damage_types[TOX])
+		..(damage)
+
+/mob/living/simple_animal/adjustCloneLoss(damage)
+	if(!ignored_damage_types[CLONE])
+		..(damage)
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -495,6 +510,12 @@
 		if (S.occupant || S.occupant2)
 			return 0
 	return 1
+
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
+	if(damage <= force_threshold || ignored_damage_types[damagetype])
+		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+	else
+		adjustBruteLoss(damage)
 
 /mob/living/simple_animal/update_fire()
 	return

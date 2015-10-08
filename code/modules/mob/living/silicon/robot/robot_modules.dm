@@ -10,7 +10,7 @@
 	var/obj/item/emag = null
 	var/obj/item/borg/upgrade/jetpack = null
 	var/list/subsystems = list()
-
+	
 	var/list/stacktypes
 	var/channels = list()
 
@@ -30,11 +30,7 @@
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.emag = new /obj/item/toy/sword(src)
 	src.emag.name = "Placeholder Emag Item"
-
-/obj/item/weapon/robot_module/Destroy()
-	modules.Cut()
-	emag = null
-	return ..()
+	
 
 /obj/item/weapon/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
@@ -87,7 +83,7 @@
 	R.add_language("Chittin", 0)
 	R.add_language("Bubblish", 0)
 	R.add_language("Clownish",0)
-
+	
 /obj/item/weapon/robot_module/proc/add_subsystems(var/mob/living/silicon/robot/R)
 	R.verbs |= subsystems
 
@@ -106,7 +102,7 @@
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.modules += new /obj/item/device/healthanalyzer(src)
 	src.emag = new /obj/item/weapon/melee/energy/sword/cyborg(src)
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/medical
@@ -118,7 +114,7 @@
 		/obj/item/stack/medical/splint = 5,
 		/obj/item/stack/nanopaste = 5
 		)
-
+	
 /obj/item/weapon/robot_module/medical/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/device/healthanalyzer/advanced(src)
@@ -148,7 +144,7 @@
 
 	src.emag.reagents.add_reagent("facid", 250)
 	src.emag.name = "Polyacid spray"
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/medical/respawn_consumable(var/mob/living/silicon/robot/R)
@@ -227,7 +223,7 @@
 	src.modules += new /obj/item/taperoll/police(src)
 	src.modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	src.emag = new /obj/item/weapon/gun/energy/laser/cyborg(src)
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/janitor
@@ -244,7 +240,7 @@
 
 	src.emag.reagents.add_reagent("lube", 250)
 	src.emag.name = "Lube spray"
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/butler
@@ -274,7 +270,7 @@
 	R.my_atom = src.emag
 	R.add_reagent("beer2", 50)
 	src.emag.name = "Mickey Finn's Special Brew"
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
@@ -331,7 +327,7 @@
 	src.modules += new /obj/item/weapon/storage/bag/sheetsnatcher/borg(src)
 	src.modules += new /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg(src)
 	src.emag = new /obj/item/borg/stun(src)
-
+		
 	fix_modules()
 
 /obj/item/weapon/robot_module/deathsquad
@@ -345,7 +341,7 @@
 	src.modules += new /obj/item/weapon/tank/jetpack/carbondioxide(src)
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.emag = null
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/syndicate
@@ -361,9 +357,9 @@
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.modules += new /obj/item/weapon/pinpointer/operative(src)
 	src.emag = null
-
+	
 	fix_modules()
-
+	
 /obj/item/weapon/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
 	stacktypes = list(
@@ -372,7 +368,7 @@
 		/obj/item/stack/medical/splint = 25,
 		/obj/item/stack/nanopaste = 25
 	)
-
+	
 /obj/item/weapon/robot_module/syndicate_medical/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
 	src.modules += new /obj/item/device/healthanalyzer/advanced(src)
@@ -399,7 +395,7 @@
 	src.modules += new /obj/item/weapon/crowbar(src)
 	src.modules += new /obj/item/weapon/pinpointer/operative(src)
 	src.emag = null
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/combat
@@ -414,7 +410,7 @@
 	src.modules += new /obj/item/borg/combat/mobility(src)
 	src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
-
+	
 	fix_modules()
 
 /obj/item/weapon/robot_module/alien/hunter

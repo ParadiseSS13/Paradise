@@ -396,7 +396,7 @@ var/list/turret_icons
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if(M.melee_damage_upper == 0)
+	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
@@ -610,7 +610,7 @@ var/list/turret_icons
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	var/atom/flick_holder = PoolOrNew(/atom/movable/porta_turret_cover, loc)
 	flick_holder.layer = layer + 0.1
 	flick("popup", flick_holder)
 	sleep(10)
@@ -631,7 +631,7 @@ var/list/turret_icons
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	var/atom/flick_holder = PoolOrNew(/atom/movable/porta_turret_cover, loc)
 	flick_holder.layer = layer + 0.1
 	flick("popdown", flick_holder)
 	sleep(10)
