@@ -448,6 +448,7 @@
 	interface_name = "mounted welding fuel tank"
 	interface_desc = "A minitaure fuel tank used for storage of welding fuel, built into a hardsuit."
 	engage_string = "Dispense fuel"
+	usable = 1
 
 	var/max_fuel = 300
 
@@ -472,6 +473,8 @@
 					fill_welder(W)
 		else
 			holder.wearer << "<span class='danger'>Your welding tank is out of fuel!</span>"
+	else
+		holder.wearer << "<span class='notice'>You need to have a welding tool in one of your hands to dispense fuel.</span>"
 
 /obj/item/rig_module/welding_tank/proc/fill_welder(var/obj/item/weapon/weldingtool/W)
 	if(!istype(W))
@@ -480,6 +483,7 @@
 	if(reagents)
 		if(get_fuel() >= W.max_fuel)
 			reagents.trans_to(W, W.max_fuel)
+			holder.wearer << "<span class='notice'>Your [holder] dispenses some of the contents of the welding fuel tank into \the [W].</span>"
 		else
 			reagents.trans_to(W, W.max_fuel)
 			holder.wearer << "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>"
