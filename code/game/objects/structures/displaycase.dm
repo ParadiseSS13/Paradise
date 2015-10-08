@@ -11,7 +11,7 @@ var/global/list/captain_display_cases = list()
 	for(var/obj/structure/displaycase/D in captain_display_cases)
 		if(istype(D))
 			D.ue = fingerprint
-		
+
 	return 1
 
 /obj/structure/displaycase_frame
@@ -72,7 +72,7 @@ var/global/list/captain_display_cases = list()
 				sensor.forceMove(src)
 				user << "<span class='notice'>You add the proximity sensor to the frame.</span>"
 				playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-				
+
 	if(pstate != state)
 		pstate = state
 		update_icon()
@@ -100,7 +100,7 @@ var/global/list/captain_display_cases = list()
 	var/ue = null
 	var/image/occupant_overlay = null
 	var/obj/item/weapon/airlock_electronics/circuit
-	
+
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
@@ -113,13 +113,13 @@ var/global/list/captain_display_cases = list()
 	spawn(5)
 		occupant = new /obj/item/weapon/gun/energy/laser/captain(src)
 		update_icon()
-		
+
 /obj/structure/displaycase/Destroy()
 	dump()
 	qdel(circuit)
 	circuit = null
 	return ..()
-		
+
 /obj/structure/displaycase/captains_laser/Destroy()
 	captain_display_cases -= src
 	return ..()
@@ -141,7 +141,7 @@ var/global/list/captain_display_cases = list()
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if (1)
-			PoolOrNew(/obj/item/weapon/shard, loc)
+			new /obj/item/weapon/shard(loc)
 			if (occupant)
 				dump()
 			qdel(src)
@@ -163,7 +163,7 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/blob_act()
 	if (prob(75))
-		PoolOrNew(/obj/item/weapon/shard, loc)
+		new /obj/item/weapon/shard(loc)
 		if(occupant) dump()
 		qdel(src)
 
@@ -173,15 +173,15 @@ var/global/list/captain_display_cases = list()
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			PoolOrNew(/obj/item/weapon/shard, loc)
+			new /obj/item/weapon/shard(loc)
 			playsound(get_turf(src), "shatter", 70, 1)
-			update_icon()		
+			update_icon()
 			spawn(0)
 				burglar_alarm()
 	else
 		playsound(get_turf(src), 'sound/effects/Glasshit.ogg', 75, 1)
 	return
-	
+
 /obj/structure/displaycase/proc/burglar_alarm()
 	if(burglar_alarm)
 		var/area/alarmed = get_area(src)
@@ -237,7 +237,7 @@ var/global/list/captain_display_cases = list()
 			C.conf_access = req_access
 		else
 			C.conf_access = req_one_access
-		
+
 		if(!destroyed)
 			var/obj/structure/displaycase_frame/F = new(T)
 			F.state = DISPLAYCASE_FRAME_SCREWDRIVER
@@ -260,7 +260,7 @@ var/global/list/captain_display_cases = list()
 		else if(!locked)
 			dump()
 			user << "<span class='danger'>You smash \the [W] into the delicate electronics at the bottom of the case, and deactivate the hover field.</span>"
-			update_icon()			
+			update_icon()
 	else
 		if(locked)
 			user << "<span class='warning'>It's locked, you can't put anything into it.</span>"

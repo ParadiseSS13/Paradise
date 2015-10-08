@@ -36,10 +36,6 @@
 	//height=42
 	icon='icons/fence-ns.dmi'
 
-/obj/structure/grille/Destroy()
-	..()
-	return QDEL_HINT_PUTINPOOL //pool grilles
-
 /obj/structure/grille/ex_act(severity)
 	qdel(src)
 
@@ -220,11 +216,11 @@
 			icon_state = "brokengrille"
 			density = 0
 			destroyed = 1
-			PoolOrNew(/obj/item/stack/rods,loc)
+			new /obj/item/stack/rods(loc)
 
 		else
 			if(health <= -6)
-				PoolOrNew(/obj/item/stack/rods,loc)
+				new /obj/item/stack/rods(loc)
 				qdel(src)
 				return
 	return
