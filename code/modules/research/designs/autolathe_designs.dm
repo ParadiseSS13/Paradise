@@ -418,6 +418,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
 	category = list("initial", "Security")
 
+/datum/design/rubbershot
+	name = "Rubber shot"
+	id = "rubber_shot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/rubbershot
+	category = list("initial", "Security")
+
 /datum/design/c38
 	name = "Speed Loader (.38)"
 	id = "c38"
