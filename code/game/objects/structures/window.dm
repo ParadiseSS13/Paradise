@@ -53,7 +53,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 // This should result in the same materials used to make the window.
 /obj/structure/window/proc/destroy()
 	for(var/i=0;i<sheets;i++)
-		PoolOrNew(shardtype, loc)
+		new shardtype(loc)
 
 		if(reinf)
 			new /obj/item/stack/rods(loc)
@@ -219,7 +219,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		for(var/i=0;i<sheets;i++)
-			var/obj/item/stack/sheet/glass/NG = PoolOrNew(glasstype, src.loc)
+			var/obj/item/stack/sheet/glass/NG = new glasstype(src.loc)
 			for (var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up
 				if(G==NG)
 					continue

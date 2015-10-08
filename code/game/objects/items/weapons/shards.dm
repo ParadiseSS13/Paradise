@@ -35,10 +35,6 @@
 		else
 	..()
 
-/obj/item/weapon/shard/Destroy()
-	..()
-	return QDEL_HINT_PUTINPOOL
-
 /obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = I
