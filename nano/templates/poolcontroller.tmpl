@@ -7,39 +7,49 @@ Used In File(s): \code\game\machinery\poolcontroller.dm
 		<b>Current Temperature</b>: 
 	</div>
 	<div class="itemContent">
-		<font color={{:data.TempColor}}>{{:data.currentTemp}}</font>
+		<font color={{:data.TempColor}}>{{:helper.capitalizeFirstLetter(data.currentTemp)}}</font>
 	</div>
 </div>
+
 <div class="item">
+	<div class="itemLabel">
+		Saftey Status:
+	</div>
 	<div class="itemContent">
 		{{if data.emagged}}
-			<b><font color='red'>WARNING: SAFE MODE OVERRIDE</font></b>
+			<b><font color='red'>WARNING: OVERRIDDEN</font></b>
 		{{else}}
-			<b><font color='green'>Safeties Nominal</font></b>
+			<b><font color='green'>Nominal</font></b>
 		{{/if}}
 	</div>
 </div>
+
 <div class="item">
 	<div class="itemContent">
 		<b>Temperature Selection:</b>
 	</div>
+
 	{{if data.emagged}}
 		<div class="itemContentWide" style="width: 100%;">
-			{{:helper.link('Scalding', 'circle-arrow-n', { 'temp' : 'Scalding' })}}
+			{{:helper.link('Scalding', 'circle-arrow-n', { 'temp' : 'Scalding' }, data.currentTemp == "scalding" ? 'selected' : null)}}
 		</div>
 	{{/if}}
+
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Warm', 'circle-arrow-n', { 'temp' : 'Warm' })}}
+		{{:helper.link('Warm', 'circle-arrow-n', { 'temp' : 'Warm' }, data.currentTemp == "warm" ? 'selected' : null)}}
 	</div>
+
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Normal', 'circle-arrow-e', { 'temp' : 'Normal' })}}
+		{{:helper.link('Normal', 'circle-arrow-e', { 'temp' : 'Normal' }, data.currentTemp == "normal" ? 'selected' : null)}}
 	</div>
+
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Cool', 'circle-arrow-s', { 'temp' : 'Cool' })}}
+		{{:helper.link('Cool', 'circle-arrow-s', { 'temp' : 'Cool' }, data.currentTemp == "cool" ? 'selected' : null)}}
 	</div>
+
 	{{if data.emagged}}
 		<div class="itemContentWide" style="width: 100%;">
-			{{:helper.link('Frigid', 'circle-arrow-s', { 'temp' : 'Frigid' })}}
+			{{:helper.link('Frigid', 'circle-arrow-s', { 'temp' : 'Frigid' }, data.currentTemp == "frigid" ? 'selected' : null)}}
 		</div>
 	{{/if}}
 </div>
