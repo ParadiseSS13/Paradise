@@ -49,8 +49,8 @@
 
 		if(use_external_power)
 			var/obj/item/weapon/stock_parts/cell/external = get_external_power_supply()
-			if(!external || !external.use(charge_cost)) //Take power from the borg...
-				return 0
+			if(!external || !external.use(charge_cost/10)) //Take power from the borg...
+				return 0								//Note, uses /10 because of shitty mods to the cell system
 
 		power_supply.give(charge_cost) //... to recharge the shot
 		update_icon()
