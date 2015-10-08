@@ -130,14 +130,14 @@
 	interface_desc = "Dispenses loaded chemicals directly into the wearer's bloodstream."
 
 	charges = list(
-		list("tricordrazine", "tricordrazine", 0, 80),
-		list("tramadol",      "tramadol",      0, 80),
-		list("dexalin plus",  "dexalinp",      0, 80),
-		list("antibiotics",   "spaceacillin",  0, 80),
-		list("antitoxins",    "anti_toxin",    0, 80),
-		list("nutrients",     "nutriment",     0, 80),
-		list("hyronalin",     "hyronalin",     0, 80),
-		list("radium",        "radium",        0, 80)
+		list("saline-glucose",   "salglu_solution", 0, 80),
+		list("salicylic acid",   "sal_acid",        0, 80),
+		list("salbutamol",       "salbutamol",      0, 80),
+		list("antibiotics",      "spaceacillin",    0, 80),
+		list("charcoal",         "charcoal",        0, 80),
+		list("nutrients",        "nutriment",       0, 80),
+		list("potasssium iodide","potass_iodide",   0, 80),
+		list("radium",           "radium",          0, 80)
 		)
 
 	var/max_reagent_volume = 80 //Used when refilling.
@@ -147,15 +147,16 @@
 
 	//just over a syringe worth of each. Want more? Go refill. Gives the ninja another reason to have to show their face.
 	charges = list(
-		list("tricordrazine", "tricordrazine", 0, 20),
-		list("tramadol",      "tramadol",      0, 20),
-		list("dexalin plus",  "dexalinp",      0, 20),
-		list("antibiotics",   "spaceacillin",  0, 20),
-		list("antitoxins",    "anti_toxin",    0, 20),
-		list("nutrients",     "nutriment",     0, 80),
-		list("hyronalin",     "hyronalin",     0, 20),
-		list("radium",        "radium",        0, 20)
+		list("saline-glucose",   "salglu_solution", 0, 20),
+		list("salicylic acid",   "sal_acid",        0, 20),
+		list("salbutamol",       "salbutamol",      0, 20),
+		list("antibiotics",      "spaceacillin",    0, 20),
+		list("charcoal",         "charcoal",        0, 20),
+		list("nutrients",        "nutriment",       0, 80),
+		list("potasssium iodide","potass_iodide",   0, 20),
+		list("radium",           "radium",          0, 20)
 		)
+
 
 /obj/item/rig_module/chem_dispenser/accepts_item(var/obj/item/input_item, var/mob/living/user)
 
@@ -239,8 +240,7 @@
 
 	charges = list(
 		list("synaptizine",   "synaptizine",   0, 30),
-		list("hyperzine",     "hyperzine",     0, 30),
-		list("oxycodone",     "oxycodone",     0, 30),
+		list("morphine",      "morphine",      0, 30),
 		list("nutrients",     "nutriment",     0, 80),
 		)
 
