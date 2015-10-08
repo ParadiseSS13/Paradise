@@ -574,8 +574,7 @@
 		if(!do_after(M, seal_delay, target = M))
 			if(M && M.back == src)
 				M.back = null
-				M.unEquip(src)
-			src.forceMove(get_turf(src))
+				M.put_in_hands(src)
 			return
 
 	if(istype(M) && M.back == src)
