@@ -28,7 +28,7 @@
 
 /obj/item/clothing/head/helmet/space/new_rig/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "rig[on]-[_color]"
+	icon_state = "rig[on]-[item_color]"
 
 	if(on)
 		set_light(brightness_on)

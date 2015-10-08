@@ -185,29 +185,33 @@
 	integrated_ai = null
 	update_verb_holder()
 
+
+
 /obj/item/rig_module/ai_container/proc/integrate_ai(var/obj/item/ai,var/mob/user)
 	if(!ai) return
 
 	// The ONLY THING all the different AI systems have in common is that they all store the mob inside an item.
 	var/mob/living/ai_mob = locate(/mob/living) in ai.contents
 	if(ai_mob)
-
 		if(ai_mob.key && ai_mob.client)
-
 			if(istype(ai, /obj/item/device/aicard))
+				var/mob/living/silicon/ai/ROBUTT = ai_mob
+				if(istype(ROBUTT))
+					if(!ai_card)
+						ai_card = new /obj/item/device/aicard(src)
 
-				if(!ai_card)
-					ai_card = new /obj/item/device/aicard(src)
-
-				var/obj/item/device/aicard/source_card = ai
-				var/obj/item/device/aicard/target_card = ai_card
-				if(istype(source_card) && istype(target_card))
-					if(target_card.grab_ai(ai_mob, user))
-						source_card.clear()
+					var/obj/item/device/aicard/source_card = ai
+					var/obj/item/device/aicard/target_card = ai_card
+					if(istype(source_card) && istype(target_card))
+						ROBUTT.forceMove(target_card)
+						ROBUTT.aiRestorePowerRoutine = 0//So the AI initially has power.
+						ROBUTT.control_disabled = 1//Can't control things remotely if you're stuck in a card!
+						ROBUTT.aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
+						source_card.update_state()
+						target_card.update_state()
 					else
 						return 0
-				else
-					return 0
+
 			else
 				user.unEquip(ai)
 				ai.forceMove(src)
@@ -225,7 +229,6 @@
 	else
 		user << "<span class='warning'>There is no active AI within \the [ai].</span>"
 	update_verb_holder()
-	return
 
 /obj/item/rig_module/datajack
 
