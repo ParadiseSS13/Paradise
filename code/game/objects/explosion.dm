@@ -121,7 +121,7 @@
 
 			if(T)
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
-					PoolOrNew(/obj/effect/hotspot, T) //Mostly for ambience!
+					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
 					for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
 						var/atom/movable/AM = atom_movable
