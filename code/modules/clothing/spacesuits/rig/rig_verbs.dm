@@ -34,6 +34,10 @@
 		usr << "<span class='warning'>The hardsuit does not have a configurable visor.</span>"
 		return
 
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
 	if(!visor.active)
 		visor.activate()
 	else
@@ -53,7 +57,11 @@
 	if(!check_suit_access(usr))
 		return
 
-	toggle_piece("helmet",wearer)
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
+	toggle_piece("helmet",wearer, user = usr)
 
 /obj/item/weapon/rig/proc/toggle_chest()
 
@@ -65,7 +73,11 @@
 	if(!check_suit_access(usr))
 		return
 
-	toggle_piece("chest",wearer)
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
+	toggle_piece("chest",wearer, user = usr)
 
 /obj/item/weapon/rig/proc/toggle_gauntlets()
 
@@ -81,7 +93,11 @@
 	if(!check_suit_access(usr))
 		return
 
-	toggle_piece("gauntlets",wearer)
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
+	toggle_piece("gauntlets",wearer, user = usr)
 
 /obj/item/weapon/rig/proc/toggle_boots()
 
@@ -97,7 +113,11 @@
 	if(!check_suit_access(usr))
 		return
 
-	toggle_piece("boots",wearer)
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
+	toggle_piece("boots",wearer, user = usr)
 
 /obj/item/weapon/rig/verb/deploy_suit()
 
@@ -116,7 +136,11 @@
 	if(!check_power_cost(usr))
 		return
 
-	deploy(wearer)
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
+	deploy(wearer, usr)
 
 /obj/item/weapon/rig/verb/toggle_seals_verb()
 
@@ -130,6 +154,10 @@
 		return
 
 	if(!check_suit_access(usr))
+		return
+
+	var/mob/M = usr
+	if(M.incapacitated())
 		return
 
 	toggle_seals(wearer)
@@ -153,6 +181,10 @@
 
 	if(!visor)
 		usr << "<span class='warning'>The hardsuit does not have a configurable visor.</span>"
+		return
+
+	var/mob/M = usr
+	if(M.incapacitated())
 		return
 
 	if(!visor.active)
@@ -186,6 +218,10 @@
 		usr << "<span class='warning'>The hardsuit does not have a speech synthesiser.</span>"
 		return
 
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
 	speech.engage()
 
 /obj/item/weapon/rig/verb/select_module()
@@ -207,6 +243,10 @@
 
 	if(!istype(wearer) || !wearer.back == src)
 		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
+		return
+
+	var/mob/M = usr
+	if(M.incapacitated())
 		return
 
 	var/list/selectable = list()
@@ -245,6 +285,10 @@
 		usr << "<span class='warning'>The hardsuit is not being worn.</span>"
 		return
 
+	var/mob/M = usr
+	if(M.incapacitated())
+		return
+
 	var/list/selectable = list()
 	for(var/obj/item/rig_module/module in installed_modules)
 		if(module.toggleable)
@@ -281,6 +325,10 @@
 		return
 
 	if(!check_power_cost(usr, 0, 0, 0, 0))
+		return
+
+	var/mob/M = usr
+	if(M.incapacitated())
 		return
 
 	var/list/selectable = list()

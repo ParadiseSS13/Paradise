@@ -651,7 +651,7 @@
 	if(piece == "helmet" && helmet)
 		helmet.update_light(H)
 
-/obj/item/weapon/rig/proc/deploy(mob/M,var/sealed)
+/obj/item/weapon/rig/proc/deploy(mob/M,var/sealed, mob/user)
 
 	var/mob/living/carbon/human/H = M
 
@@ -686,12 +686,12 @@
 			qdel(garbage)
 
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
-		toggle_piece(piece, H, ONLY_DEPLOY)
+		toggle_piece(piece, wearer, ONLY_DEPLOY, user = user)
 
 /obj/item/weapon/rig/dropped(var/mob/user)
 	..()
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
-		toggle_piece(piece, user, ONLY_RETRACT, 1)
+		toggle_piece(piece, wearer, ONLY_RETRACT, 1, user = user)
 	if(wearer)
 		wearer.wearing_rig = null
 		wearer = null
