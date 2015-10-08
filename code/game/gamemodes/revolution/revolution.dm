@@ -476,3 +476,86 @@
 		istype(mind.current, /mob/living/carbon/human) && \
 		!(mind.assigned_role in command_positions) && \
 		!(mind.assigned_role in list("Security Officer", "Detective", "Warden", "Nanotrasen Representative"))
+
+
+
+/datum/game_mode/revolution/set_scoreboard_gvars()
+	var/foecount = 0
+	for(var/datum/mind/M in ticker.mode.head_revolutionaries)
+		foecount++
+		if(!M || !M.current)
+			score_opkilled++
+			continue
+
+		if(M.current.stat == DEAD)
+			score_opkilled++
+
+		else if(M.current.restrained())
+			score_arrested++
+
+	if(foecount == score_arrested)
+		score_allarrested = 1
+
+	for(var/mob/living/carbon/human/player in world)
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				if(player.stat == DEAD)
+					score_deadcommand++
+
+
+	var/arrestpoints = score_arrested * 1000
+	var/killpoints = score_opkilled * 500
+	var/comdeadpts = score_deadcommand * 500
+	if(score_traitorswon)
+		score_crewscore -= 10000
+
+	score_crewscore += arrestpoints
+	score_crewscore += killpoints
+	score_crewscore -= comdeadpts
+
+
+/datum/game_mode/revolution/get_scoreboard_stats()
+	var/foecount = 0
+	var/comcount = 0
+	var/revcount = 0
+	var/loycount = 0
+	for(var/datum/mind/M in ticker.mode:head_revolutionaries)
+		if (M.current && M.current.stat != DEAD)
+			foecount++
+	for(var/datum/mind/M in ticker.mode:revolutionaries)
+		if (M.current && M.current.stat != DEAD)
+			revcount++
+	for(var/mob/living/carbon/human/player in world)
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				if(player.stat != DEAD)
+					comcount++
+			else
+				if(player.mind in ticker.mode.revolutionaries) continue
+				loycount++
+
+	for(var/mob/living/silicon/X in world)
+		if(X.stat != DEAD)
+			loycount++
+
+
+	var/dat = ""
+
+	dat += "<b><u>Mode Statistics</u></b><br>"
+	dat += "<b>Number of Surviving Revolution Heads:</b> [foecount]<br>"
+	dat += "<b>Number of Surviving Command Staff:</b> [comcount]<br>"
+	dat += "<b>Number of Surviving Revolutionaries:</b> [revcount]<br>"
+	dat += "<b>Number of Surviving Loyal Crew:</b> [loycount]<br>"
+
+	dat += "<br>"
+	dat += "<b>Revolution Heads Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
+	dat += "<b>All Revolution Heads Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+
+	dat += "<b>Revolution Heads Slain:</b> [score_opkilled] ([score_opkilled * 500] Points)<br>"
+	dat += "<b>Command Staff Slain:</b> [score_deadcommand] (-[score_deadcommand * 500] Points)<br>"
+	dat += "<b>Revolution Successful:</b> [score_traitorswon ? "Yes" : "No"] (-[score_traitorswon * 10000] Points)<br>"
+	dat += "<HR>"
+
+	return dat

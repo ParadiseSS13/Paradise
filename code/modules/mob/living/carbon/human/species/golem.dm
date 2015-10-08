@@ -39,7 +39,7 @@
 	desc = "a golem's skin"
 	icon_state = "golem"
 	item_state = "golem"
-	_color = "golem"
+	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
@@ -93,7 +93,7 @@
 /obj/item/clothing/head/space/golem
 	icon_state = "golem"
 	item_state = "dermal"
-	_color = "dermal"
+	item_color = "dermal"
 	name = "golem's head"
 	desc = "a golem's head"
 	unacidable = 1

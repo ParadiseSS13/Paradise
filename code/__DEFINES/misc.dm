@@ -8,9 +8,8 @@
 #define ZLEVEL_ENGI 4
 #define ZLEVEL_ASTEROID 5
 #define ZLEVEL_DERELICT 6
-#define ZLEVEL_SYNDIE 7
-#define ZLEVEL_EMPTY 8
-#define MAX_Z	8 // Used in space.dm to defince which Z-levels cannot be exited via space.
+#define ZLEVEL_EMPTY 7
+#define MAX_Z	7 // Used in space.dm to defince which Z-levels cannot be exited via space.
 #define TRANSITIONEDGE	7 //Distance from edge to move to another z-level
 
 ///
@@ -163,4 +162,9 @@
 #define MAT_BANANIUM	"$bananium"
 
 #define MAX_STACK_SIZE 50
-//The maximum size of a stack object.
+
+//unmagic-strings for types of polls
+#define POLLTYPE_OPTION		"OPTION"
+#define POLLTYPE_TEXT		"TEXT"
+#define POLLTYPE_RATING		"NUMVAL"
+#define POLLTYPE_MULTI		"MULTICHOICE"

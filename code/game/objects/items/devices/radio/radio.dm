@@ -38,6 +38,9 @@ var/global/list/default_medbay_channels = list(
 	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
 	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
+
+	var/is_special = 0 //For electropacks mostly, skips Topic() checks
+
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	throw_speed = 2
@@ -89,59 +92,68 @@ var/global/list/default_medbay_channels = list(
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/device/radio/attack_ghost(mob/user)
-	interact(user)
+	return ui_interact(user)
 
 /obj/item/device/radio/attack_self(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/device/radio/interact(mob/user as mob)
-	if(!on)
-		return
+/obj/item/device/radio/interact(mob/user)
+	if(!user)
+		return 0
 
-	if(active_uplink_check(user))
-		return
+	if(b_stat)
+		wires.Interact(user)
 
-	var/dat = "<html><head><title>[src]</title></head><body><TT>"
+	return ui_interact(user)
 
-	if(!istype(src, /obj/item/device/radio/headset)) //Headsets dont get a mic button
-		dat += "Microphone: [broadcasting ? "<A href='byond://?src=\ref[src];talk=0'>Engaged</A>" : "<A href='byond://?src=\ref[src];talk=1'>Disengaged</A>"]<BR>"
+/obj/item/device/radio/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
 
-	dat += {"
-				Speaker: [listening ? "<A href='byond://?src=\ref[src];listen=0'>Engaged</A>" : "<A href='byond://?src=\ref[src];listen=1'>Disengaged</A>"]<BR>
-				Frequency:
-				<A href='byond://?src=\ref[src];freq=-10'>-</A>
-				<A href='byond://?src=\ref[src];freq=-2'>-</A>
-				[format_frequency(frequency)]
-				<A href='byond://?src=\ref[src];freq=2'>+</A>
-				<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
-				"}
+	data["mic_status"] = broadcasting
+	data["speaker"] = listening
+	data["freq"] = format_frequency(frequency)
+	data["rawfreq"] = num2text(frequency)
 
-	dat+=list_channels(user)
+	data["mic_cut"] = (wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))
+	data["spk_cut"] = (wires.IsIndexCut(WIRE_RECEIVE) || wires.IsIndexCut(WIRE_SIGNAL))
 
-	dat+={"[text_wires()]</TT></body></html>"}
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
-	return
+	var/list/chanlist = list_channels(user)
+	if(islist(chanlist) && chanlist.len)
+		data["chan_list"] = chanlist
+		data["chan_list_len"] = chanlist.len
+
+	if(syndie)
+		data["useSyndMode"] = 1
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 550)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 
 /obj/item/device/radio/proc/list_channels(var/mob/user)
 	return list_internal_channels(user)
 
 /obj/item/device/radio/proc/list_secure_channels(var/mob/user)
-	var/dat = ""
-	for (var/ch_name in channels)
-		dat+=text_sec_channel(ch_name, channels[ch_name])
+	var/dat[0]
+
+	for(var/ch_name in channels)
+		var/chan_stat = channels[ch_name]
+		var/listening = !!(chan_stat & FREQ_LISTENING) != 0
+
+		dat.Add(list(list("chan" = ch_name, "display_name" = ch_name, "secure_channel" = 1, "sec_channel_listen" = !listening)))
+
 	return dat
 
 /obj/item/device/radio/proc/list_internal_channels(var/mob/user)
-	var/dat = ""
-	for (var/internal_chan in internal_channels)
+	var/dat[0]
+	for(var/internal_chan in internal_channels)
 		if(has_channel_access(user, internal_chan))
-			dat+="<A href='byond://?src=\ref[src];spec_freq=[internal_chan]'>[get_frequency_name(text2num(internal_chan))]</A><br>"
+			dat.Add(list(list("chan" = internal_chan, "display_name" = get_frequency_name(text2num(internal_chan)))))
 
-	if(dat)
-		dat = "<br><b>Internal Channels</b><br>" + dat
 	return dat
 
 /obj/item/device/radio/proc/has_channel_access(var/mob/user, var/freq)
@@ -169,13 +181,6 @@ var/global/list/default_medbay_channels = list(
 		return wires.GetInteractWindow()
 	return
 
-/obj/item/device/radio/proc/text_sec_channel(var/chan_name, var/chan_stat)
-	var/list = !!(chan_stat&FREQ_LISTENING)!=0
-	return {"
-			<B>[chan_name]</B><br>
-			Speaker: <A href='byond://?src=\ref[src];ch_name=[chan_name];listen=[!list]'>[list ? "Engaged" : "Disengaged"]</A><BR>
-			"}
-
 /obj/item/device/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))
 
@@ -185,6 +190,9 @@ var/global/list/default_medbay_channels = list(
 /obj/item/device/radio/Topic(href, href_list)
 	if(..())
 		return 1
+
+	if(is_special)
+		return 0
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"])
@@ -205,7 +213,7 @@ var/global/list/default_medbay_channels = list(
 	else if (href_list["talk"])
 		ToggleBroadcast()
 		. = 1
-	else if (href_list["listen"])
+	else if(href_list["listen"])
 		var/chan_name = href_list["ch_name"]
 		if (!chan_name)
 			ToggleReception()
@@ -220,11 +228,10 @@ var/global/list/default_medbay_channels = list(
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
+
 	if(href_list["nowindow"]) // here for pAIs, maybe others will want it, idk
 		return 1
 
-	if(.)
-		interact(usr)
 	add_fingerprint(usr)
 
 /obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels) //BS12 EDIT
@@ -576,6 +583,11 @@ var/global/list/default_medbay_channels = list(
 	syndie = 1
 	keyslot = new /obj/item/device/encryptionkey/syndicate
 
+/obj/item/device/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
+	. = ..()
+	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = STATUS_INTERACTIVE
+
 /obj/item/device/radio/borg/Destroy()
 	myborg = null
 	return ..()
@@ -703,32 +715,40 @@ var/global/list/default_medbay_channels = list(
 				usr << "<span class='notice'>Loudspeaker enabled.</span>"
 		. = 1
 
-	if(.)
-		interact(usr)
 
 /obj/item/device/radio/borg/interact(mob/user as mob)
 	if(!on)
 		return
 
-	var/dat = "<html><head><title>[src]</title></head><body><TT>"
-	dat += {"
-				Speaker: [listening ? "<A href='byond://?src=\ref[src];listen=0'>Engaged</A>" : "<A href='byond://?src=\ref[src];listen=1'>Disengaged</A>"]<BR>
-				Frequency:
-				<A href='byond://?src=\ref[src];freq=-10'>-</A>
-				<A href='byond://?src=\ref[src];freq=-2'>-</A>
-				[format_frequency(frequency)]
-				<A href='byond://?src=\ref[src];freq=2'>+</A>
-				<A href='byond://?src=\ref[src];freq=10'>+</A><BR>
-				Broadcasting: [subspace_transmission ? "<A href='byond://?src=\ref[src];mode=0'>Disable</A>" : "<A href='byond://?src=\ref[src];mode=1'>Enable</A>"]<BR>
-				Loudspeaker: [shut_up ? "<A href='byond://?src=\ref[src];shutup=0'>Enable</A>" : "<A href='byond://?src=\ref[src];shutup=1'>Disable</A>"]<BR>
-				"}
+	. = ..()
 
-	if(subspace_transmission)//Don't even bother if subspace isn't turned on
-		dat+=list_channels(user)
-	dat+={"[text_wires()]</TT></body></html>"}
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
-	return
+/obj/item/device/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+
+	data["mic_status"] = broadcasting
+	data["speaker"] = listening
+	data["freq"] = format_frequency(frequency)
+	data["rawfreq"] = num2text(frequency)
+
+	var/list/chanlist = list_channels(user)
+	if(islist(chanlist) && chanlist.len)
+		data["chan_list"] = chanlist
+		data["chan_list_len"] = chanlist.len
+
+	if(syndie)
+		data["useSyndMode"] = 1
+
+	data["has_loudspeaker"] = 1
+	data["loudspeaker"] = !shut_up
+	data["has_subspace"] = 1
+	data["subspace"] = subspace_transmission
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 430, 500)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 /obj/item/device/radio/proc/config(op)
 	if(radio_controller)

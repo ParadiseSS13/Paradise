@@ -52,10 +52,46 @@ datum/species/monkey/get_random_name(var/gender)
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
 	H.dna.SetSEState(MONKEYBLOCK,1)
 
+/datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
+	switch(slot)
+		if(slot_l_hand)
+			if(user.l_hand)
+				return 2
+			return 1
+		if(slot_r_hand)
+			if(user.r_hand)
+				return 2
+			return 1
+		if(slot_wear_mask)
+			if(user.wear_mask)
+				return 2
+			if(!(I.slot_flags & SLOT_MASK))
+				return 2
+			return 1
+		if(slot_back)
+			if(user.back)
+				return 2
+			if(!(I.slot_flags & SLOT_BACK))
+				return 2
+			return 1
+		if(slot_handcuffed)
+			if(user.handcuffed)
+				return 2
+			if(!istype(I, /obj/item/weapon/restraints/handcuffs))
+				return 2
+			return 1
+		if(slot_in_backpack)
+			if(user.back && istype(user.back, /obj/item/weapon/storage/backpack))
+				var/obj/item/weapon/storage/backpack/B = user.back
+				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+					return 1
+			return 2
+	return 2
+
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
-	
+
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 

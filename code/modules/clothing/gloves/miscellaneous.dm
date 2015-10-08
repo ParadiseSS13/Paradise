@@ -3,7 +3,7 @@
 	desc = "Plain black gloves without fingertips for the hard working."
 	icon_state = "fingerless"
 	item_state = "fingerless"
-	_color = null	//So they don't wash.
+	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -44,4 +44,4 @@
 	name = "batgloves"
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
-	_color="bmgloves"
+	item_color="bmgloves"

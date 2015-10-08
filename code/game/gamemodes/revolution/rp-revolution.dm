@@ -158,9 +158,9 @@
 
 //	spawn (100)
 //		if (rev_mob.r_store)
-//			rev_mob.equip_if_possible(new /obj/item/weapon/paper/communist_manifesto(rev_mob), rev_mob.slot_l_store)
+//			rev_mob.equip_or_collect(new /obj/item/weapon/paper/communist_manifesto(rev_mob), rev_mob.slot_l_store)
 //		if (rev_mob.l_store)
-//			rev_mob.equip_if_possible(new /obj/item/weapon/paper/communist_manifesto(rev_mob), rev_mob.slot_r_store)
+//			rev_mob.equip_or_collect(new /obj/item/weapon/paper/communist_manifesto(rev_mob), rev_mob.slot_r_store)
 
 
 /datum/game_mode/rp_revolution/check_win()

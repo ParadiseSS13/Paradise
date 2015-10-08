@@ -225,7 +225,7 @@ proc/issyndicate(mob/living/M as mob)
 		var/obj/item/weapon/stamp/syndicate/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
-		
+
 		if (ticker.mode.config_tag=="nuclear")
 			P.loc = synd_mind.current.loc
 		else
@@ -447,3 +447,104 @@ proc/issyndicate(mob/living/M as mob)
 				synd_mind.name = "[pick(first_names_female)] [pick(last_names)]"
 		synd_mind.current.real_name = synd_mind.name
 	return
+
+/datum/game_mode/nuclear/set_scoreboard_gvars()
+	var/foecount = 0
+	for(var/datum/mind/M in ticker.mode.syndicates)
+		foecount++
+		if(!M || !M.current)
+			score_opkilled++
+			continue
+
+		if(M.current.stat == DEAD)
+			score_opkilled++
+
+		else if(M.current.restrained())
+			score_arrested++
+
+	if(foecount == score_arrested)
+		score_allarrested = 1
+
+	for(var/obj/machinery/nuclearbomb/nuke in world)
+		if(nuke.r_code == "Nope")	continue
+		var/turf/T = get_turf(nuke)
+		var/area/A = T.loc
+
+		var/list/thousand_penalty = list(/area/syndicate_station, /area/wizard_station, /area/solar, /area)
+		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
+
+		if(is_type_in_list(A, thousand_penalty))
+			score_nuked_penalty = 1000
+
+		else if(is_type_in_list(A, fiftythousand_penalty))
+			score_nuked_penalty = 50000
+
+		else if(istype(A, /area/engine))
+			score_nuked_penalty = 100000
+
+		else
+			score_nuked_penalty = 10000
+
+		break
+
+		var/killpoints = score_opkilled * 250
+		var/arrestpoints = score_arrested * 1000
+		score_crewscore += killpoints
+		score_crewscore += arrestpoints
+		if(score_nuked)
+			score_crewscore -= score_nuked_penalty
+
+
+
+/datum/game_mode/nuclear/get_scoreboard_stats()
+	var/foecount = 0
+	var/crewcount = 0
+
+	var/diskdat = ""
+	var/bombdat = null
+
+	for(var/datum/mind/M in ticker.mode.syndicates)
+		foecount++
+
+	for(var/mob/living/C in world)
+		if(ishuman(C) || isAI(C) || isrobot(C))
+			if(C.stat == 2) continue
+			if(!C.client) continue
+			crewcount++
+
+	var/obj/item/weapon/disk/nuclear/N = locate() in world
+	if(istype(N))
+		var/atom/disk_loc = N.loc
+		while(!isturf(disk_loc))
+			if(ismob(disk_loc))
+				var/mob/M = disk_loc
+				diskdat += "Carried by [M.real_name] "
+			if(isobj(disk_loc))
+				var/obj/O = disk_loc
+				diskdat += "in \a [O]"
+			disk_loc = disk_loc.loc
+		diskdat += "in [disk_loc.loc]"
+
+
+	if(!diskdat)
+		diskdat = "WARNING: Nuked_penalty could not be found, look at [__FILE__], [__LINE__]."
+
+	var/dat = ""
+	dat += "<b><u>Mode Statistics</b></u><br>"
+
+	dat += "<b>Number of Operatives:</b> [foecount]<br>"
+	dat += "<b>Number of Surviving Crew:</b> [crewcount]<br>"
+
+	dat += "<b>Final Location of Nuke:</b> [bombdat]<br>"
+	dat += "<b>Final Location of Disk:</b> [diskdat]<br>"
+
+	dat += "<br>"
+
+	dat += "<b>Operatives Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+
+	dat += "<b>Operatives Killed:</b> [score_opkilled] ([score_opkilled * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [score_nuked ? "Yes" : "No"] (-[score_nuked_penalty] Points)<br>"
+	dat += "<hr>"
+
+	return dat

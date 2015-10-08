@@ -9,12 +9,12 @@
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
 	item_state = "skrell_helmet_white"
-	_color = "skrell_helmet_white"
+	item_color = "skrell_helmet_white"
 
 /obj/item/clothing/head/helmet/space/skrell/black
 	icon_state = "skrell_helmet_black"
 	item_state = "skrell_helmet_black"
-	_color = "skrell_helmet_black"
+	item_color = "skrell_helmet_black"
 
 /obj/item/clothing/suit/space/skrell
 	name = "Skrellian hardsuit"
@@ -28,12 +28,12 @@
 /obj/item/clothing/suit/space/skrell/white
 	icon_state = "skrell_suit_white"
 	item_state = "skrell_suit_white"
-	_color = "skrell_suit_white"
+	item_color = "skrell_suit_white"
 
 /obj/item/clothing/suit/space/skrell/black
 	icon_state = "skrell_suit_black"
 	item_state = "skrell_suit_black"
-	_color = "skrell_suit_black"
+	item_color = "skrell_suit_black"
 
 //Unathi space gear. Huge and restrictive.
 /obj/item/clothing/head/helmet/space/unathi
@@ -48,7 +48,7 @@
 	desc = "Hey! Watch it with that thing! It's a knock-off of a Unathi battle-helm, and that spike could put someone's eye out."
 	icon_state = "unathi_helm_cheap"
 	item_state = "unathi_helm_cheap"
-	_color = "unathi_helm_cheap"
+	item_color = "unathi_helm_cheap"
 
 /obj/item/clothing/suit/space/unathi
 	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
@@ -69,14 +69,14 @@
 	desc = "Weathered, ancient and battle-scarred. The helmet is too."
 	icon_state = "unathi_breacher"
 	item_state = "unathi_breacher"
-	_color = "unathi_breacher"
+	item_color = "unathi_breacher"
 
 /obj/item/clothing/suit/space/unathi/breacher
 	name = "breacher chassis"
 	desc = "Huge, bulky and absurdly heavy. It must be like wearing a tank."
 	icon_state = "unathi_breacher"
 	item_state = "unathi_breacher"
-	_color = "unathi_breacher"
+	item_color = "unathi_breacher"
 	slowdown = 1
 
 // Vox space gear (vaccuum suit, low pressure armour)
@@ -162,7 +162,7 @@
 	name = "alien clothing"
 	desc = "This doesn't look very comfortable."
 	icon_state = "vox-casual-1"
-	_color = "vox-casual-1"
+	item_color = "vox-casual-1"
 	item_state = "vox-casual-1"
 	body_parts_covered = LEGS
 
@@ -170,7 +170,7 @@
 	name = "alien robes"
 	desc = "Weird and flowing!"
 	icon_state = "vox-casual-2"
-	_color = "vox-casual-2"
+	item_color = "vox-casual-2"
 	item_state = "vox-casual-2"
 
 /obj/item/clothing/gloves/color/yellow/vox
@@ -180,7 +180,7 @@
 	item_state = "gloves-vox"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	_color = "gloves-vox"
+	item_color = "gloves-vox"
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',

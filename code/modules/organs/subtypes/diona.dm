@@ -129,6 +129,7 @@
 	w_class = 3
 	body_part = HEAD
 	parent_organ = "chest"
+	var/can_intake_reagents = 1
 
 /obj/item/organ/external/diona/head/removed()
 	if(owner)

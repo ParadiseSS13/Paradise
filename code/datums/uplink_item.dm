@@ -211,7 +211,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
-	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets; will teleport targets to the same beacon a teleporter is locked onto."
+	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
 	reference = "TG"
 	item = /obj/item/weapon/gun/energy/telegun
 	cost = 12
@@ -511,7 +511,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
 	surplus = 50
-	
+
 /datum/uplink_item/stealthy_weapons/dart_pistol
 	name = "Dart Pistol"
 	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can."
@@ -767,11 +767,11 @@ var/list/uplink_items = list()
 	cost = 3
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/device_tools/pdapinpointer
-	name = "PDA Pinpointer"
-	desc = "A pinpointer that tracks any PDA on the station. Useful for locating assassination targets or other high-value targets that you can't find. WARNING: Can only set once."
-	reference = "PDAP"
-	item = /obj/item/weapon/pinpointer/pdapinpointer
+/datum/uplink_item/device_tools/advpinpointer
+	name = "Advanced Pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	reference = "ADVP"
+	item = /obj/item/weapon/pinpointer/advpinpointer
 	cost = 4
 
 /datum/uplink_item/device_tools/ai_detector

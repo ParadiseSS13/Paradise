@@ -141,7 +141,7 @@
 	icon= 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "syndicate"
 	item_state = "bl_suit"
-	_color = "syndicate"
+	item_color = "syndicate"
 	has_sensor = 1 // Jumpsuit has no sensor by default
 	displays_id = 0 // Purely astetic, the ID does not show up on the player sprite when equipped. Examining still reveals it.
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Security jumpsuit stats
@@ -153,7 +153,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "castile_dress"
 	item_state = "castile_dress"
-	_color = "castile_dress"
+	item_color = "castile_dress"
 	
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -165,7 +165,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jane_sid_suit"
 	item_state = "jane_sid_suit"
-	_color = "jane_sid_suit"
+	item_color = "jane_sid_suit"
 	has_sensor = 2
 	sensor_mode = 3
 
@@ -178,14 +178,14 @@
 		return 0
 
 	if(src.icon_state == "jane_sid_suit_down")
-		src._color = "jane_sid_suit"
+		src.item_color = "jane_sid_suit"
 		usr << "You zip up \the [src]."
 	else
-		src._color = "jane_sid_suit_down"
+		src.item_color = "jane_sid_suit_down"
 		usr << "You unzip and roll down \the [src]."
 
-	src.icon_state = "[_color]"
-	src.item_state = "[_color]"
+	src.icon_state = "[item_color]"
+	src.item_state = "[item_color]"
 	usr.update_inv_w_uniform()
 
 //////////// Masks ////////////
@@ -207,7 +207,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_suit"
 	item_state = "g_suit"
-	_color = "fox_suit"
+	item_color = "fox_suit"
 	displays_id = 0 //still appears on examine; this is pure fluff.
 
 // TheFlagbearer: Willow Walker
@@ -217,7 +217,7 @@
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
-	_color = "superior_suit"
+	item_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 

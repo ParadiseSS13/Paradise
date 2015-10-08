@@ -12,6 +12,7 @@
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
+	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
@@ -30,6 +31,7 @@
 	charge_cost = 20
 	recharge_time = 2
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
+	bypass_protection = 1
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
@@ -74,7 +76,7 @@
 		return
 	if (!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user,1))
+	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
 		user << "<span class='notice'>You inject [M] with the injector.</span>"
 		M << "<span class='notice'>You feel a tiny prick!</span>"
 
