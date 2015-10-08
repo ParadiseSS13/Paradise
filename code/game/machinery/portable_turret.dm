@@ -610,7 +610,7 @@ var/list/turret_icons
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	var/atom/flick_holder = PoolOrNew(/atom/movable/porta_turret_cover, loc)
 	flick_holder.layer = layer + 0.1
 	flick("popup", flick_holder)
 	sleep(10)
@@ -631,11 +631,7 @@ var/list/turret_icons
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
 	update_icon()
 
-<<<<<<< HEAD
 	var/atom/flick_holder = PoolOrNew(/atom/movable/porta_turret_cover, loc)
-=======
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
->>>>>>> 09c0f235e673e2309de0c104be3b768e75ba0aa4
 	flick_holder.layer = layer + 0.1
 	flick("popdown", flick_holder)
 	sleep(10)
