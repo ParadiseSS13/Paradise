@@ -568,20 +568,21 @@
 
 /obj/item/weapon/rig/equipped(mob/living/carbon/human/M)
 	..()
+	spawn(1) //equipped() is called BEFORE the item is actually set as the slot
 
-	if(seal_delay > 0 && istype(M) && M.back == src)
-		M.visible_message("<font color='blue'>[M] starts putting on \the [src]...</font>", "<font color='blue'>You start putting on \the [src]...</font>")
-		if(!do_after(M, seal_delay, target = M))
-			if(M && M.back == src)
-				M.back = null
-				M.put_in_hands(src)
-			return
+		if(seal_delay > 0 && istype(M) && M.back == src)
+			M.visible_message("<font color='blue'>[M] starts putting on \the [src]...</font>", "<font color='blue'>You start putting on \the [src]...</font>")
+			if(!do_after(M, seal_delay, target = M))
+				if(M && M.back == src)
+					M.unEquip(src)
+					M.put_in_hands(src)
+				return
 
-	if(istype(M) && M.back == src)
-		M.visible_message("<font color='blue'><b>[M] struggles into \the [src].</b></font>", "<font color='blue'><b>You struggle into \the [src].</b></font>")
-		wearer = M
-		wearer.wearing_rig = src
-		update_icon()
+		if(istype(M) && M.back == src)
+			M.visible_message("<font color='blue'><b>[M] struggles into \the [src].</b></font>", "<font color='blue'><b>You struggle into \the [src].</b></font>")
+			wearer = M
+			wearer.wearing_rig = src
+			update_icon()
 
 /obj/item/weapon/rig/proc/toggle_piece(var/piece, var/mob/living/carbon/human/H, var/deploy_mode, var/force, var/mob/living/user)
 
