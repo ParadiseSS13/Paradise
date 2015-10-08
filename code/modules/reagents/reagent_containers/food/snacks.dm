@@ -1686,7 +1686,7 @@
 		surprise.icon_state = ook.icon_state
 		surprise.name = "malformed [ook.name]"
 		surprise.desc = "Looks like \a very deformed [ook.name], a little small for its kind. It shows no signs of life."
-		del(ook)	//rip nullspace monkey
+		qdel(ook)	//rip nullspace monkey
 		surprise.transform *= 0.6
 		surprise.add_blood(M)
 		var/mob/living/carbon/human/H = M

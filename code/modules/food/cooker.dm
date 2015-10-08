@@ -125,7 +125,7 @@
 			setCooked(I, newfood)
 		newfood.cooktype[thiscooktype] = 1
 		turnoff(I)
-		//del(I)
+		//qdel(I)
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

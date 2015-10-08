@@ -112,7 +112,7 @@ var/send_emergency_team
 				return
 			var/client/C = src.client
 			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
-			del(L) // Do not qdel landmarks!
+			qdel(L) // Do not qdel landmarks!
 			new_commando.mind.key = usr.key
 			new_commando.key = usr.key
 			new_commando.update_icons()
@@ -322,12 +322,12 @@ var/send_emergency_team
 
 		if("Commander")
 			command_slots = 0
-			
+
 			// Override name and age for the commander
-			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"			
+			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
 			M.name = M.real_name
 			M.age = rand(35,45)
-	
+
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/ert/commander(M), slot_back)
 			M.equip_to_slot_or_del(new /obj/item/weapon/storage/box/responseteam(M), slot_in_backpack)

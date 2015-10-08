@@ -108,7 +108,7 @@ datum/controller/game_controller/proc/SetupXenoarch()
 	if(!genome_prefixes)
 		genome_prefixes = alphabet_uppercase.Copy()
 	if(!genome_prefixes.len)
-		del genome_prefixes
+		qdel(genome_prefixes)
 		genome_prefixes = alphabet_uppercase.Copy()
 
 	//create animal gene sequences

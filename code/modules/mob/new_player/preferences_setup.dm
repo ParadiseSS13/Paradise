@@ -189,9 +189,9 @@ datum/preferences
 		return clothes_s
 
 	proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
-		del(preview_icon_front)
-		del(preview_icon_side)
-		del(preview_icon)
+		qdel(preview_icon_front)
+		qdel(preview_icon_side)
+		qdel(preview_icon)
 
 		var/g = "m"
 		if(gender == FEMALE)	g = "f"
@@ -806,8 +806,8 @@ datum/preferences
 		preview_icon_front = new(preview_icon, dir = SOUTH)
 		preview_icon_side = new(preview_icon, dir = WEST)
 
-		del(eyes_s)
-		del(underwear_s)
-		del(undershirt_s)
-		del(socks_s)
-		del(clothes_s)
+		qdel(eyes_s)
+		qdel(underwear_s)
+		qdel(undershirt_s)
+		qdel(socks_s)
+		qdel(clothes_s)
