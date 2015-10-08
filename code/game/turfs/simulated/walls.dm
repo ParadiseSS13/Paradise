@@ -32,12 +32,6 @@
 	/obj/structure/falsewall/reinforced  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
 	)
 
-
-/turf/simulated/wall/Del()
-	for(var/obj/effect/E in src)
-		if(E.name == "Wallrot")
-			qdel(E)
-
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src)
 		if(E.name == "Wallrot")

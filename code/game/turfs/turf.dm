@@ -42,10 +42,7 @@
 	return
 
 /turf/Destroy()
-	return QDEL_HINT_HARDDEL_NOW
-
 // Adds the adjacent turfs to the current atmos processing
-/turf/Del()
 	if(air_master)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
@@ -53,6 +50,7 @@
 				if(istype(T))
 					air_master.add_to_active(T)
 	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /turf/ex_act(severity)
 	return 0
