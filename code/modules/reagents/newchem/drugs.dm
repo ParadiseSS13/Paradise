@@ -95,7 +95,7 @@
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		PoolOrNew(/obj/effect/hotspot, turf)
+		new /obj/effect/hotspot(turf)
 	explosion(T,0,0,2)
 	return
 

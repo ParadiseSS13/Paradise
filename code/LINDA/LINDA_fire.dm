@@ -30,7 +30,7 @@
 		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
 			return 0
 
-		active_hotspot = PoolOrNew(/obj/effect/hotspot, src)
+		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
 
@@ -160,8 +160,7 @@
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
-	..()
-	return QDEL_HINT_PUTINPOOL
+	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
 
