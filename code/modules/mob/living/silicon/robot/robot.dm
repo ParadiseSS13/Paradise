@@ -909,7 +909,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)

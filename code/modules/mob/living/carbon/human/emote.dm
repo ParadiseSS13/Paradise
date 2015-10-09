@@ -42,6 +42,10 @@
 		return			// Suppress emote, you're still cooling off.
 
 	switch(act)
+		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
+			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
+													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
+
 		if("ping")
 			var/M = null
 			if(param)

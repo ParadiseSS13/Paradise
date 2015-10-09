@@ -64,10 +64,10 @@
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		health += 5
-		M.emote("mends some of \the <EM>[src]'s</EM> wounds.")
+		M.custom_emote(1,"mends some of \the <EM>[src]'s</EM> wounds.")
 	else
 		if(M.melee_damage_upper <= 0)
-			M.emote("me", 1, "[M.friendly] \the <EM>[src]</EM>")
+			M.custom_emote(1, "[M.friendly] \the <EM>[src]</EM>")
 		else
 			M.do_attack_animation(src)
 			if(M.attack_sound)

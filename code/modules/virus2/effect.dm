@@ -552,7 +552,7 @@
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(prob(30))
-			mob.emote("me",1,"is sweating profusely!")
+			mob.custom_emote(1,"is sweating profusely!")
 
 			if(istype(mob.loc,/turf/simulated))
 				var/turf/simulated/T = mob.loc
@@ -583,7 +583,7 @@
 		if(pick(0,1))
 			mob.say(pick("Uh HUH!", "Thank you, Thank you very much...", "I ain't nothin' but a hound dog!", "Swing low, sweet chariot!"))
 		else
-			mob.emote("me",1,pick("curls his lip!", "gyrates his hips!", "thrusts his hips!"))
+			mob.custom_emote(1,pick("curls his lip!", "gyrates his hips!", "thrusts his hips!"))
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			if(H.species.name == "Human" && !(H.f_style == "Pompadour"))
@@ -945,7 +945,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	name = "Wheezing"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.emote("me",1,"wheezes.")
+		mob.custom_emote(1,"wheezes.")
 
 
 /datum/disease2/effect/optimistic_minor

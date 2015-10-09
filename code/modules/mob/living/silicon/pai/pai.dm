@@ -207,7 +207,7 @@
 
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -445,7 +445,7 @@
 				"<span class='notice'>You apply some [W] at [src.name]'s damaged areas.</span>")
 		else
 			user << "<span class='notice'>All [src.name]'s systems are nominal.</span>"
-		
+
 		return
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
