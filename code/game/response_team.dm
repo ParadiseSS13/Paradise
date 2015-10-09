@@ -112,7 +112,7 @@ var/send_emergency_team
 				return
 			var/client/C = src.client
 			var/mob/living/carbon/human/new_commando = C.create_response_team(L.loc)
-			qdel(L) // Do not qdel landmarks!
+			qdel(L)
 			new_commando.mind.key = usr.key
 			new_commando.key = usr.key
 			new_commando.update_icons()
