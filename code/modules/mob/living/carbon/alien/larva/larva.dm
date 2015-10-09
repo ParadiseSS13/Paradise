@@ -255,4 +255,4 @@
 	else
 		var/mob/living/carbon/alien/humanoid/A = new(loc)
 		A.key = key
-		del(src) */
+		qdel(src) */

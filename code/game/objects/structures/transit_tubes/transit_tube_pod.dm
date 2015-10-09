@@ -90,7 +90,7 @@
 		moving = 0
 
 
-// Should I return a copy here? If the caller edits or del()s the returned
+// Should I return a copy here? If the caller edits or qdel()s the returned
 //  datum, there might be problems if I don't...
 /obj/structure/transit_tube_pod/return_air()
 	var/datum/gas_mixture/GM = new()

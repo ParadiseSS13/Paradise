@@ -395,13 +395,13 @@
 				var/obj/item/stack/medical/bruise_pack/tajaran/poultice = new /obj/item/stack/medical/bruise_pack/tajaran(user.loc)
 				poultice.heal_brute = potency
 				user << "<span class='notice'>You mash the leaves into a poultice.</span>"
-				del(src)
+				qdel(src)
 				return
 			if("mtear")
 				var/obj/item/stack/medical/ointment/tajaran/poultice = new /obj/item/stack/medical/ointment/tajaran(user.loc)
 				poultice.heal_burn = potency
 				user << "<span class='notice'>You mash the petals into a poultice.</span>"
-				del(src)
+				qdel(src)
 				return
 	*/
 

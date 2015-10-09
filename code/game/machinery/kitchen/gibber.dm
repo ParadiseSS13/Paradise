@@ -139,7 +139,7 @@
 			if(input_obj)
 				if(isturf(input_obj.loc))
 					input_plate = input_obj.loc
-					del(input_obj)
+					qdel(input_obj)
 					break
 
 		if(!input_plate)

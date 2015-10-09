@@ -288,7 +288,7 @@ client/verb/ToggleGunMode()
 	else
 		usr << "Target may no longer move."
 		target_can_run = 0
-		del(usr.gun_run_icon)	//no need for icon for running permission
+		qdel(usr.gun_run_icon)	//no need for icon for running permission
 
 	//Updating walking permission button
 	if(usr.gun_move_icon)

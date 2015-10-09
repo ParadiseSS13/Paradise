@@ -462,7 +462,7 @@
 		if(D.client)
 			D.loc = H.loc
 		else
-			del(D)
+			qdel(D)
 
 	H.visible_message("<span class='danger">[H] splits apart with a wet slithering noise!"</span>) */
 

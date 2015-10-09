@@ -42,7 +42,7 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 	..()
-	
+
 /obj/machinery/atmospherics/initialize()
 	..()
 
@@ -54,7 +54,7 @@ Pipelines + Other Objects -> Pipe network
 		M.remove_ventcrawl()
 		M.forceMove(loc)
 	if(pipe_image)
-		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
+		qdel(pipe_image) //we have to del it, or it might keep a ref somewhere else
 	return ..()
 
 // Icons/overlays/underlays
@@ -213,7 +213,7 @@ Pipelines + Other Objects -> Pipe network
 	dir = D
 	initialize_directions = P
 	var/turf/T = loc
-	level = T.intact ? 2 : 1	
+	level = T.intact ? 2 : 1
 	add_fingerprint(usr)
 	initialize()
 	var/list/nodes = pipeline_expansion()

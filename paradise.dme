@@ -248,7 +248,6 @@
 #include "code\defines\procs\hud.dm"
 #include "code\defines\procs\radio.dm"
 #include "code\defines\procs\records.dm"
-#include "code\defines\procs\sd_Alert.dm"
 #include "code\defines\procs\statistics.dm"
 #include "code\game\asteroid.dm"
 #include "code\game\atoms.dm"
