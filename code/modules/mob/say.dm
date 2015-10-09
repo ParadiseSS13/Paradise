@@ -99,7 +99,9 @@
 
 /mob/proc/emote(var/act, var/type, var/message)
 	if(act == "me")
-		return custom_emote(type, message)
+		message = "\The [src] [message]" // Forgetting something? This should make sure the mob's name actually shows up.
+		custom_emote(type, message)
+		return 1 // Silly rabbit, custom_emote doesn't return anything
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this

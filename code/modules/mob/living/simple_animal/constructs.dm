@@ -67,7 +67,7 @@
 		M.emote("mends some of \the <EM>[src]'s</EM> wounds.")
 	else
 		if(M.melee_damage_upper <= 0)
-			M.emote("[M.friendly] \the <EM>[src]</EM>")
+			M.emote("me", 1, "[M.friendly] \the <EM>[src]</EM>")
 		else
 			M.do_attack_animation(src)
 			if(M.attack_sound)
