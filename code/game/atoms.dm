@@ -34,7 +34,6 @@
 	if(reagents)
 		qdel(reagents)
 		reagents = null
-	set_opacity(0)
 	invisibility = 101
 	return ..()
 
