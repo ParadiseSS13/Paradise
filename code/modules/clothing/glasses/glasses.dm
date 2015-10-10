@@ -79,9 +79,27 @@
 
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
-	desc = "nothing"
+	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items."
 	icon_state = "purple"
 	item_state = "glasses"
+	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/science/equipped(mob/user, slot)
+	if(slot == slot_glasses)
+		user.scanner.Grant(user)
+	..(user, slot)
+
+/obj/item/clothing/glasses/science/dropped(mob/user)
+	user.scanner.devices -= 1
+	..(user)
+
+/obj/item/clothing/glasses/science/night
+	name = "Night Vision Science Goggle"
+	desc = "Now you can science in darkness."
+	icon_state = "nvpurple"
+	item_state = "glasses"
+	darkness_view = 8
+	see_darkness = 0
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
