@@ -144,31 +144,8 @@
 		if(origin_tech)
 			msg += "<span class='notice'>Testing potentials:</span><BR>"
 			var/list/techlvls = params2list(origin_tech)
-			var/tech = null
 			for(var/T in techlvls) //This needs to use the better names.
-				tech = T
-				switch(tech)
-					if("materials")
-						tech = "Materials Research"
-					if("engineering")
-						tech = "Engineering Research"
-					if("plasmatech")
-						tech = "Plasma Research"
-					if("powerstorage")
-						tech = "Power Manipulation Technology"
-					if("bluespace")
-						tech = "'Blue-space' Research"
-					if("biotech")
-						tech = "Biological Technology"
-					if("combat")
-						tech = "Combat Systems Research"
-					if("magnets")
-						tech = "Electromagnetic Spectrum Research"
-					if("programming")
-						tech = "Data Theory Research"
-					if("syndicate")
-						tech = "Illegal Technologies Research"
-				msg += "Tech: [tech] | Magnitude: [techlvls[T]] <BR>"
+				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
 			msg += "Research reliability: [reliability]% <BR>"
 			if(crit_fail)
 				msg += "<span class='danger'>Critical failure detected in subject!</span><BR>"
@@ -179,7 +156,7 @@
 		if(materials.len)
 			msg += "<span class='notice'>Extractable materials:<BR>"
 			for(var/mat in materials)
-				msg += "[capitalize(copytext(mat, 2))]<BR>" //Capitize first word, remove the "$"
+				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
 		else
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
