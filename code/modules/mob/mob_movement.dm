@@ -447,5 +447,27 @@
 /mob/proc/mob_negates_gravity()
 	return 0
 
+/mob/proc/Move_Pulled(atom/A)
+	if (!canmove || restrained() || !pulling)
+		return
+	if (pulling.anchored)
+		return
+	if (!pulling.Adjacent(src))
+		return
+	if (A == loc && pulling.density)
+		return
+	if (!Process_Spacemove(get_dir(pulling.loc, A)))
+		return
+	if (ismob(pulling))
+		var/mob/M = pulling
+		var/atom/movable/t = M.pulling
+		M.stop_pulling()
+		step(pulling, get_dir(pulling.loc, A))
+		if(M)
+			M.start_pulling(t)
+	else
+		step(pulling, get_dir(pulling.loc, A))
+	return
+
 /mob/proc/update_gravity()
 	return
