@@ -1,3 +1,5 @@
+/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
+
 /obj/item/clothing/shoes/syndigaloshes
 	desc = "A pair of brown shoes. They seem to have extra grip."
 	name = "brown shoes"
@@ -61,6 +63,18 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	species_restricted = null
 
+/obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
+	if(!istype(H))	return 0
+
+	if(H.m_intent == "run")
+		if(footstep >= 2)
+			playsound(src, "clownstep", 50, 1)
+			footstep = 0
+		else
+			footstep++
+	else
+		playsound(src, "clownstep", 20, 1)
+
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
@@ -68,7 +82,19 @@
 	item_state = "jackboots"
 	item_color = "hosred"
 	siemens_coefficient = 0.7
-	var/footstep=1
+	var/footstep = 1
+
+/obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
+	if(!istype(H))	return 0
+
+	if(H.m_intent == "run")
+		if(footstep >= 2)
+			playsound(src, "jackboot", 50, 1)
+			footstep = 0
+		else
+			footstep++
+	else
+		playsound(src, "jackboot", 20, 1)
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -132,11 +158,10 @@
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
 	flags = NODROP
-	
+
 /obj/item/clothing/shoes/fluff/noble_boot
 	name = "noble boots"
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
 	item_state = "noble_boot"
-	
