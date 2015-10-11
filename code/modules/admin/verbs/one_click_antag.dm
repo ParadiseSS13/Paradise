@@ -279,12 +279,12 @@ client/proc/one_click_antag()
 		for (var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
 			if (A.name == "Syndicate-Gear-Closet")
 				new /obj/structure/closet/syndicate/personal(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
 			if (A.name == "Syndicate-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
 		for(var/datum/mind/synd_mind in ticker.mode.syndicates)

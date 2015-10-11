@@ -35,7 +35,7 @@
 	if(parent && isnull(parent.gcDestroyed))
 		qdel(parent)
 	parent = null
-	
+
 /obj/machinery/atmospherics/pipe/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/device/analyzer))
 		atmosanalyzer_scan(parent.air, user)
@@ -51,7 +51,7 @@
 
 /obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
 	//Return 1 if parent should continue checking other pipes
-	//Return null if parent should stop checking other pipes. Recall: del(src) will by default return null
+	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
 
 	return 1
 

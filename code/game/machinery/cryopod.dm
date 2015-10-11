@@ -317,7 +317,7 @@
 		occupant.unEquip(W)
 		W.loc = src
 
-		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
+		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
 			var/preserve = null
 			for(var/T in preserve_items)
 				if(istype(W,T))

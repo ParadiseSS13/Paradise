@@ -1,6 +1,6 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
-	level = 1.0
+	level = 1
 	luminosity = 1
 
 	//for floors, use is_plating(), is_plasteel_floor() and is_light_floor()
@@ -20,12 +20,6 @@
 	var/temperature = T20C
 
 	var/blocks_air = 0
-	var/icon_old = null
-	var/pathweight = 1
-
-	//Mining resource generation stuff.
-	var/has_resources
-	var/list/resources
 
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 
@@ -39,7 +33,6 @@
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
-	return
 
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
@@ -51,6 +44,9 @@
 					air_master.add_to_active(T)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
+
+/turf/attack_hand(mob/user as mob)
+	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
 	return 0

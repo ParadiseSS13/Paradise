@@ -38,9 +38,6 @@
 		if(fire)
 			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
 			else									fire.icon_state = "fire0"
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
 		if(oxygen)
 			if(oxygen_alert)						oxygen.icon_state = "oxy1"
 			else									oxygen.icon_state = "oxy0"
@@ -189,6 +186,7 @@
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
+						/obj/item/clothing/suit/space/rig/engineering,
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -367,6 +365,11 @@
 			if(/obj/item/clothing/head/helmet/space/deathsquad)
 				name = "Trooper [real_name]"
 				desc = "That's not red paint. That's real corgi blood."
+				valid = 1
+
+			if(/obj/item/clothing/head/helmet/space/rig/engineering)
+				name = "Space Explorer [real_name]"
+				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
 
 			if(/obj/item/clothing/mask/fakemoustache)

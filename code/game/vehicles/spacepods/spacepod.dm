@@ -71,6 +71,26 @@
 	spacepods_list += src
 
 /obj/spacepod/Destroy()
+	qdel(equipment_system)
+	equipment_system = null
+	qdel(battery)
+	battery = null
+	qdel(cabin_air)
+	cabin_air = null
+	qdel(internal_tank)
+	internal_tank = null
+	qdel(pr_int_temp_processor)
+	pr_int_temp_processor = null
+	qdel(pr_give_air)
+	pr_give_air = null
+	qdel(ion_trail)
+	ion_trail = null
+	if(occupant)
+		occupant.forceMove(get_turf(src))
+		occupant = null
+	if(occupant2)
+		occupant2.forceMove(get_turf(src))
+		occupant2 = null
 	spacepods_list -= src
 	return ..()
 

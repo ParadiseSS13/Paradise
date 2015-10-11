@@ -117,7 +117,7 @@
 			else
 				new_xeno.key = key
 			new_xeno.mind.name = new_xeno.name
-			del(src)
+			qdel(src)
 		else
 			src << "<span class='notice'>We already have an alive empress.</span>"
 	return

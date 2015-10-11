@@ -33,7 +33,6 @@
 /obj/vehicle/train/ambulance/engine/New()
 	..()
 	cell = new /obj/item/weapon/stock_parts/cell/high
-	verbs -= /atom/movable/verb/pull
 	key = new()
 
 /obj/vehicle/train/ambulance/engine/Move()

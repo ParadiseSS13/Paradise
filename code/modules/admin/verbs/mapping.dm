@@ -40,8 +40,8 @@ var/intercom_range_display_status = 0
 /client/proc/camera_view()
 	set category = "Mapping"
 	set name = "Camera Range Display"
-	
-	if(!check_rights(R_DEBUG)) 
+
+	if(!check_rights(R_DEBUG))
 		return
 
 	if(camera_range_display_status)
@@ -50,7 +50,7 @@ var/intercom_range_display_status = 0
 		camera_range_display_status = 1
 
 	for(var/obj/effect/debugging/camera_range/C in world)
-		del(C)
+		qdel(C)
 
 	if(camera_range_display_status)
 		for(var/obj/machinery/camera/C in cameranet.cameras)
@@ -60,8 +60,8 @@ var/intercom_range_display_status = 0
 /client/proc/sec_camera_report()
 	set category = "Mapping"
 	set name = "Camera Report"
-	
-	if(!check_rights(R_DEBUG)) 
+
+	if(!check_rights(R_DEBUG))
 		return
 
 	var/list/obj/machinery/camera/CL = list()
@@ -99,8 +99,8 @@ var/intercom_range_display_status = 0
 /client/proc/intercom_view()
 	set category = "Mapping"
 	set name = "Intercom Range Display"
-	
-	if(!check_rights(R_DEBUG)) 
+
+	if(!check_rights(R_DEBUG))
 		return
 
 	if(intercom_range_display_status)
@@ -109,17 +109,17 @@ var/intercom_range_display_status = 0
 		intercom_range_display_status = 1
 
 	for(var/obj/effect/debugging/marker/M in world)
-		del(M)
+		qdel(M)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/device/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
-					del(F)
+					qdel(F)
 	feedback_add_details("admin_verb","mIRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-var/list/admin_verbs_show_debug_verbs = list(	
+var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/camera_view,
 	/client/proc/sec_camera_report,
 	/client/proc/intercom_view,
@@ -128,7 +128,7 @@ var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/powerdebug, //check power
 	/client/proc/count_objects_on_z_level,
 	/client/proc/count_objects_all,
-	/client/proc/cmd_assume_direct_control,	
+	/client/proc/cmd_assume_direct_control,
 	/client/proc/startSinglo,
 	/client/proc/ticklag,
 	/client/proc/cmd_admin_grantfullaccess,
@@ -140,12 +140,12 @@ var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/forceEvent,
 	/client/proc/nanomapgen_DumpImage
 )
-	
+
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs"
 
-	if(!check_rights(R_DEBUG)) 
+	if(!check_rights(R_DEBUG))
 		return
 
 	verbs += admin_verbs_show_debug_verbs
@@ -155,10 +155,10 @@ var/list/admin_verbs_show_debug_verbs = list(
 /client/proc/count_objects_on_z_level()
 	set category = "Mapping"
 	set name = "Count Objects On Level"
-	
-	if(!check_rights(R_DEBUG)) 
-		return	
-	
+
+	if(!check_rights(R_DEBUG))
+		return
+
 	var/level = input("Which z-level?","Level?") as text
 	if(!level) return
 	var/num_level = text2num(level)
@@ -193,8 +193,8 @@ var/list/admin_verbs_show_debug_verbs = list(
 /client/proc/count_objects_all()
 	set category = "Mapping"
 	set name = "Count Objects All"
-	
-	if(!check_rights(R_DEBUG)) 
+
+	if(!check_rights(R_DEBUG))
 		return
 
 	var/type_text = input("Which type path?","") as text

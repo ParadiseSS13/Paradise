@@ -150,6 +150,7 @@ var/list/robot_verbs_default = list(
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)

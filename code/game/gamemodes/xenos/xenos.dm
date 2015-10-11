@@ -65,7 +65,7 @@
 	for(var/obj/effect/landmark/A in landmarks_list)
 		if(A.name == "Xenos-Spawn")
 			xenos_spawn += get_turf(A)
-			del(A)
+			qdel(A)
 			continue
 
 	var/xenoqueen_selected = 0
@@ -82,7 +82,7 @@
 			else
 				O.key = xeno_mind.current.key
 			xeno_mind.name = O.name
-			//del(xeno_mind)
+			//qdel(xeno_mind)
 			xenoqueen_selected = 1
 			spawnpos++
 			continue
@@ -94,7 +94,7 @@
 			else
 				O.key = xeno_mind.current.key
 			xeno_mind.name = O.name
-			//del(xeno_mind)
+			//qdel(xeno_mind)
 		spawnpos++
 
 	spawn (rand(waittime_l, waittime_h))

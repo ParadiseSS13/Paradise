@@ -93,7 +93,7 @@ var/global/sent_syndicate_strike_team = 0
 	for (var/obj/effect/landmark/L in landmarks_list)
 		if (L.name == "Syndicate-Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
-			del(L)
+			qdel(L)
 
 	message_admins("\blue [key_name_admin(usr)] has spawned a Syndicate strike squad.", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
@@ -121,7 +121,7 @@ var/global/sent_syndicate_strike_team = 0
 	new_syndicate_commando.mind.special_role = "Syndicate Commando"
 	ticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)
-	del(spawn_location)
+	qdel(spawn_location)
 	return new_syndicate_commando
 
 /mob/living/carbon/human/proc/equip_syndicate_commando(syndicate_leader_selected = 0)
