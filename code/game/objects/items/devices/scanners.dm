@@ -124,7 +124,6 @@ REAGENT SCANNER
 	origin_tech = "magnets=1;biotech=1"
 	var/upgraded = 0
 	var/mode = 1;
-	var/timeofdeath = null
 
 
 /obj/item/device/healthanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
