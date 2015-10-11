@@ -35,9 +35,11 @@
 		update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
+	disconnect()
 	qdel(air_contents)
+	air_contents = null
 	qdel(holding)
-	
+	holding = null
 	return ..()
 
 /obj/machinery/portable_atmospherics/update_icon()
@@ -71,7 +73,7 @@
 	connected_port = null
 
 	return 1
-	
+
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
 
