@@ -156,36 +156,36 @@
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	icon_state = "unathiflag"
 
-//Nation Flags (Able to spawn outside Nations gamemode)
+//Department Flags
 
 /obj/item/flag/cargo
-	name = "Cargonia flag"
-	desc = "The flag of the independent, sovereign nation of Cargonia."
+	name = "cargo flag"
+	desc = "The flag of the cargo department."
 	icon_state = "cargoflag"
 
 /obj/item/flag/med
-	name = "Medistan flag"
-	desc = "The flag of the independent, sovereign nation of Medistan."
+	name = "medical flag"
+	desc = "The flag of the medical department."
 	icon_state = "medflag"
 
 /obj/item/flag/sec
-	name = "Brigston flag"
-	desc = "The flag of the independent, sovereign nation of Brigston."
+	name = "security flag"
+	desc = "The flag of the security department."
 	icon_state = "secflag"
 
 /obj/item/flag/rnd
-	name = "Scientopia flag"
-	desc = "The flag of the independent, sovereign nation of Scientopia."
+	name = "science flag"
+	desc = "The flag of the science department."
 	icon_state = "rndflag"
 
 /obj/item/flag/atmos
-	name = "Atmosia flag"
-	desc = "The flag of the independent, sovereign nation of Atmosia."
+	name = "atmospherics flag"
+	desc = "The flag of the atmospherics department."
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Command flag"
-	desc = "The flag of the independent, sovereign nation of Command."
+	name = "command flag"
+	desc = "The flag of the command department"
 	icon_state = "ntflag"
 
 //Antags
