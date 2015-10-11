@@ -882,7 +882,6 @@
 #include "code\game\vehicles\spacepods\parts.dm"
 #include "code\game\vehicles\spacepods\pod_fabricator.dm"
 #include "code\game\vehicles\spacepods\spacepod.dm"
-#include "code\game\verbs\atom_verbs.dm"
 #include "code\game\verbs\ooc.dm"
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
