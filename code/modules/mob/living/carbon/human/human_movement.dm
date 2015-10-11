@@ -60,14 +60,13 @@
 
 	//Do we have a working jetpack?
 	var/obj/item/weapon/tank/jetpack/thrust
-	if(back)
-		if(istype(back,/obj/item/weapon/tank/jetpack))
-			thrust = back
-		else if(istype(back,/obj/item/weapon/rig))
-			var/obj/item/weapon/rig/rig = back
-			for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
-				thrust = module.jets
-				break
+	if(istype(back,/obj/item/weapon/tank/jetpack))
+		thrust = back
+	else if(istype(back,/obj/item/weapon/rig))
+		var/obj/item/weapon/rig/rig = back
+		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
+			thrust = module.jets
+			break
 
 	if(thrust)
 		if((movement_dir || thrust.stabilization_on) && thrust.allow_thrust(0.01, src))
