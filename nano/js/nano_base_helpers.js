@@ -102,10 +102,6 @@ NanoBaseHelpers = function ()
 				parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				return parts.join(".");
 			},
-			// Capitalize the first letter of a string. From http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript
-			capitalizeFirstLetter: function(string) {
-				return string.charAt(0).toUpperCase() + string.slice(1);
-			},
 			// Display a bar. Used to show health, capacity, etc.
 			displayBar: function(value, rangeMin, rangeMax, styleClass, showText) {
 
