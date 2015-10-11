@@ -240,7 +240,7 @@
 
 	charges = list(
 		list("synaptizine",   "synaptizine",   0, 30),
-		list("morphine",      "morphine",      0, 30),
+		list("hydrocodone",   "hydrocodone",   0, 30),
 		list("nutrients",     "nutriment",     0, 80),
 		)
 
