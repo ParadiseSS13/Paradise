@@ -335,6 +335,8 @@
 						wearer << "<span class='danger'>The suit optics drop out completely, drowning you in darkness.</span>"
 		if(!offline)
 			offline = 1
+			if(istype(wearer) && wearer.wearing_rig)
+				wearer.wearing_rig = null
 	else
 		if(offline)
 			offline = 0
