@@ -124,6 +124,7 @@ REAGENT SCANNER
 	origin_tech = "magnets=1;biotech=1"
 	var/upgraded = 0
 	var/mode = 1;
+	var/timeofdeath = null
 
 
 /obj/item/device/healthanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
@@ -162,7 +163,7 @@ REAGENT SCANNER
 	user.show_message("\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	user.show_message("\blue Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)", 1)
 	if(M.timeofdeath && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
-		user.show_message("\blue Time of Death: [M.timeofdeath]")
+		user.show_message("\blue Time of Death: [worldtime2text(timeofdeath)]")
 	if(istype(M, /mob/living/carbon/human) && mode == 1)
 		var/mob/living/carbon/human/H = M
 		var/list/damaged = H.get_damaged_organs(1,1)
