@@ -1507,7 +1507,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
 
 	if(shock_stage >= 30)
-		if(shock_stage == 30) emote("me",1,"is having trouble keeping their eyes open.")
+		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
 		eye_blurry = max(2, eye_blurry)
 		stuttering = max(stuttering, 5)
 
@@ -1515,7 +1515,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 
 	if(shock_stage >=60)
-		if(shock_stage == 60) emote("me",1,"'s body becomes limp.")
+		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
 			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 			Weaken(20)
@@ -1531,7 +1531,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			Paralyse(5)
 
 	if(shock_stage == 150)
-		emote("me",1,"can no longer stand, collapsing!")
+		custom_emote(1,"can no longer stand, collapsing!")
 		Weaken(20)
 
 	if(shock_stage >= 150)

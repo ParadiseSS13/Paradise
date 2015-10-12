@@ -128,7 +128,7 @@
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.melee_damage_upper == 0)
-		user.emote("[user.friendly] [src]")
+		user.custom_emote(1, "[user.friendly] [src]")
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
