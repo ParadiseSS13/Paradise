@@ -156,6 +156,14 @@
 					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
 					I.damage = 0
 
+		if(target_zone == "head")
+			target.disabilities &= ~NEARSIGHTED
+			target.sdisabilities &= ~BLIND
+			target.eye_blurry = 0
+			target.eye_blind = 0
+			target.ear_damage = 0
+			target.ear_deaf = 0
+
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
 		if (!hasorgans(target))
@@ -193,7 +201,7 @@
 
 		if (!..())
 			return 0
-		
+
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		if(!(affected && !(affected.status & ORGAN_ROBOT)))
@@ -310,7 +318,7 @@
 
 		if(!istype(O))
 			return 0
-		
+
 		if((affected.status & ORGAN_ROBOT) && !(O.status & ORGAN_ROBOT))
 			user << "<span class='danger'>You cannot install a naked organ into a robotic body.</span>"
 			return 2

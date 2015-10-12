@@ -61,20 +61,6 @@
 	..()
 	return
 
-/datum/reagent/audioline
-	name = "Audioline"
-	id = "audioline"
-	description = "Heals ear damage."
-	reagent_state = LIQUID
-	color = "#6600FF" // rgb: 100, 165, 255
-
-/datum/reagent/audioline/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	M.ear_damage = 0
-	M.ear_deaf = 0
-	..()
-	return
-
 /datum/reagent/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
@@ -91,7 +77,7 @@
 		for(var/name in H.internal_organs_by_name)
 			var/obj/item/organ/I = H.internal_organs_by_name[name]
 			if(I.damage > 0)
-				I.damage -= 0.20
+				I.damage = max(I.damage-0.2, 0)
 	..()
 	return
 
