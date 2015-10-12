@@ -3,6 +3,7 @@
 	dead_mob_list -= src
 	living_mob_list -= src
 	qdel(hud_used)
+	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
 	ghostize()

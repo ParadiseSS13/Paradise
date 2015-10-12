@@ -25,6 +25,7 @@
 /obj/machinery/computer/station_alert/Destroy()
 	alarm_monitor.unregister(src)
 	qdel(alarm_monitor)
+	alarm_monitor = null
 	return ..()
 
 /obj/machinery/computer/station_alert/attack_ai(mob/user)
