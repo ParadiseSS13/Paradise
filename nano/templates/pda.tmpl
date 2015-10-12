@@ -3,39 +3,41 @@
 Title: PDA UI
 Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
  -->
-<head>
-<style type="text/css">
-html {
-	height: 100%; 
-	overflow: hidden;
-}
+{{if data.useRetro}}
+	<head>
+		<style type="text/css">
+			html {
+				height: 100%; 
+				overflow: hidden;
+			}
 
-body {
-	background: #808000;
-}
+			body {
+				background: #808000;
+			}
 
-.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
-	color: #444400;
-}
+			.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
+				color: #444400;
+			}
 
-.average {
-	color: #554300
-}
+			.average {
+				color: #ABAB00;
+			}
 
-.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton {
-    color: #000000;
-}
+			.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton {
+				color: #000000;
+				background: #ACAC50;
+			}
 
-h1, h2, h3, h4, h5, h6 {
-    color: #000000;
-}
+			h1, h2, h3, h4, h5, h6 {
+				color: #000000;
+			}
 
-.fixedLeft, .fixedLeftWide, .fixedLeftWider, .fixedLeftWidest {
-	color: #000000;
-}
-
-</style>
-</head>
+			.fixedLeft, .fixedLeftWide, .fixedLeftWider, .fixedLeftWidest {
+				color: #000000;
+			}
+		</style>
+	</head>
+{{/if}}
 {{if data.owner}}
 	<div class="item">
 		<div class="itemLabelNarrow">
@@ -46,6 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 			{{:helper.link('Close', 'gear', {'choice' : "Close"}, null, 'fixedLeft')}}
 			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'fixedLeftWide')}} {{/if}}
 			{{if data.mode != 0}} {{:helper.link('Return', 'arrowreturn-1-w', {'choice' : "Return"}, null, 'fixedLeft')}} {{/if}}
+			{{:helper.link('Toggle R.E.T.R.O. mode', 'gear', {'choice': "Retro"}, null, 'floatRight')}}
 		</div>
 	</div>
 	<br>
