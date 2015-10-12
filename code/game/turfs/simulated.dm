@@ -44,55 +44,39 @@
 
 /turf/simulated/Entered(atom/A, atom/OL)
 	..()
-	if(ishuman(A))
-		var/mob/living/carbon/human/M = A
-		if(M.lying)	return
+	if(ismob(A)) //only mobs make dirt
 		if(prob(80))
 			dirt++
+
 		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
 		if(dirt >= 100)
 			if(!dirtoverlay)
 				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
 				dirtoverlay.alpha = 10
 			else if(dirt > 100)
-				dirtoverlay.alpha = min(dirtoverlay.alpha+10, 200)
-		if(istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
-			var/obj/item/clothing/shoes/clown_shoes/O = M.shoes
-			if(M.m_intent == "run")
-				if(O.footstep >= 2)
-					O.footstep = 0
-					playsound(src, "clownstep", 50, 1) // this will get annoying very fast.
-				else
-					O.footstep++
-			else
-				playsound(src, "clownstep", 20, 1)
-		if(istype(M.shoes, /obj/item/clothing/shoes/jackboots))
-			var/obj/item/clothing/shoes/jackboots/O = M.shoes
-			if(M.m_intent == "run")
-				if(O.footstep >= 2)
-					O.footstep = 0
-					playsound(src, "jackboot", 50, 1) // this will get annoying very fast.
-				else
-					O.footstep++
-			else
-				playsound(src, "jackboot", 20, 1)
+				dirtoverlay.alpha = min(dirtoverlay.alpha + 10, 200)
+
+	if(ishuman(A))
+		var/mob/living/carbon/human/M = A
+		if(M.lying)
+			return 1
 
 		if(M.flying)
 			return ..()
 
 		// Tracking blood
 		var/list/bloodDNA = null
-		var/bloodcolor=""
+		var/bloodcolor = ""
 		if(M.shoes)
 			var/obj/item/clothing/shoes/S = M.shoes
 			if(S.track_blood && S.blood_DNA)
 				bloodDNA = S.blood_DNA
-				bloodcolor=S.blood_color
+				bloodcolor = S.blood_color
 				S.track_blood--
 		else
 			if(M.track_blood && M.feet_blood_DNA)
 				bloodDNA = M.feet_blood_DNA
-				bloodcolor=M.feet_blood_color
+				bloodcolor = M.feet_blood_color
 				M.track_blood--
 
 		if (bloodDNA)

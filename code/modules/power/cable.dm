@@ -610,7 +610,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 		if(ismob(loc)) //handle mob icon update
 			var/mob/M = loc
 			M.unEquip(src)
-		qqdel(src)
+		qdel(src)
 		return 1
 	else
 		amount -= used

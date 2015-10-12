@@ -31,23 +31,6 @@
 	else
 		set_light(0)
 
-/turf/space/attack_hand(mob/user as mob)
-	if ((user.restrained() || !( user.pulling )))
-		return
-	if (user.pulling.anchored || !isturf(user.pulling.loc))
-		return
-	if ((user.pulling.loc != user.loc && get_dist(user, user.pulling) > 1))
-		return
-	if (ismob(user.pulling))
-		var/mob/M = user.pulling
-		var/atom/movable/t = M.pulling
-		M.stop_pulling()
-		step(user.pulling, get_dir(user.pulling.loc, src))
-		M.start_pulling(t)
-	else
-		step(user.pulling, get_dir(user.pulling.loc, src))
-	return
-
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 
 	if (istype(C, /obj/item/stack/rods))
@@ -87,10 +70,10 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	..()
-	if ((!(A) || src != A.loc))	
+	if ((!(A) || src != A.loc))
 		return
 
-	if(destination_z)			
+	if(destination_z)
 		A.x = destination_x
 		A.y = destination_y
 		A.z = destination_z

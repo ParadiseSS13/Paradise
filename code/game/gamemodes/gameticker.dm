@@ -103,7 +103,7 @@ var/global/datum/controller/gameticker/ticker
 	can_continue = src.mode.pre_setup()//Setup special modes
 	job_master.DivideOccupations() //Distribute jobs
 	if(!can_continue)
-		del(mode)
+		qdel(mode)
 		current_state = GAME_STATE_PREGAME
 		world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
 		job_master.ResetOccupations()
@@ -138,7 +138,7 @@ var/global/datum/controller/gameticker/ticker
 		for(var/obj/effect/landmark/start/S in landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
 			if (S.name != "AI")
-				del(S)
+				qdel(S)
 
 		// take care of random spesspod spawning
 		var/list/obj/effect/landmark/spacepod/random/L = list()
@@ -149,7 +149,7 @@ var/global/datum/controller/gameticker/ticker
 			var/obj/effect/landmark/spacepod/random/S = pick(L)
 			new /obj/spacepod/random(S.loc)
 			for(var/obj/effect/landmark/spacepod/random/R in L)
-				del(R)
+				qdel(R)
 
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie

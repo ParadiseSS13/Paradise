@@ -476,9 +476,9 @@
 				else target.ex_act(1)
 				if (isobj(target))
 					if (target)
-						del(target)
+						qdel(target)
 				if (src)
-					del(src)
+					qdel(src)
 */
 
 /obj/item/weapon/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)

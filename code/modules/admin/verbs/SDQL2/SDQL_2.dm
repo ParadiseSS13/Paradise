@@ -17,7 +17,7 @@
 
 /client/proc/SDQL2_query(query_text as message)
 	set category = "Debug"
-	
+
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
@@ -95,7 +95,7 @@
 
 			if("delete")
 				for(var/datum/d in objs)
-					del d
+					del(d)
 
 			if("select")
 				var/text = ""
@@ -474,4 +474,3 @@
 	if(word != "")
 		query_list += word
 	return query_list
-	

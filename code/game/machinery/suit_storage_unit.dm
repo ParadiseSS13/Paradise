@@ -34,7 +34,7 @@
 	SUIT_TYPE = /obj/item/clothing/suit/space/eva
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space/eva
 	MASK_TYPE = /obj/item/clothing/mask/breath
-	
+
 /obj/machinery/suit_storage_unit/captain
 	SUIT_TYPE = /obj/item/clothing/suit/space/captain
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space/capspace
@@ -496,7 +496,7 @@
 		src.update_icon()
 
 //		for(var/obj/O in src)
-//			del(O)
+//			qdel(O)
 
 		src.add_fingerprint(usr)
 		src.updateUsrDialog()
