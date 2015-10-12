@@ -12,29 +12,39 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			}
 
 			body {
-				background: #808000;
+				background: #6F7961;
 			}
 
 			.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
-				color: #444400;
+				color: #000000;
+				font-weight: bold;
 			}
 
 			.average {
-				color: #ABAB00;
+				color: #222222;
+			}
+			
+			.pdanote {
+				color: #555555;
 			}
 
 			.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton {
 				color: #000000;
-				background: #ACAC50;
+				background: #565D4B;
 			}
 
 			h1, h2, h3, h4, h5, h6 {
 				color: #000000;
 			}
 
-			.fixedLeft, .fixedLeftWide, .fixedLeftWider, .fixedLeftWidest, floatRight {
+			.fixedLeft, .fixedLeftWide, .fixedLeftWider, .fixedLeftWidest, .floatRight {
 				color: #000000;
 			}
+			
+			#uiTitleText {
+				color: #000000;
+			}
+			
 		</style>
 	</head>
 {{/if}}
@@ -225,7 +235,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         <div class="statusDisplayRecords">
             <div class="item">
                 <div class="itemContent" style="width: 100%;">
-                        <span class="average">{{:data.note}}</span>
+                        <span class="pdanote">{{:data.note}}</span>
                 </div>
             </div>
         </div>
