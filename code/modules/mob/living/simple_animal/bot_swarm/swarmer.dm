@@ -77,7 +77,7 @@
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
 	add_language("Swarmer", 1)
-	verbs -= /atom/movable/verb/pull
+	verbs -= /mob/living/verb/pulled
 	updatename()
 
 /mob/living/simple_animal/hostile/swarmer/Stat()
