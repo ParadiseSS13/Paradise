@@ -2,8 +2,8 @@
 
 /mob/proc/rightandwrong(var/summon_type) //0 = Summon Guns, 1 = Summon Magic
 	var/list/gunslist = list("taser","egun","laser","revolver","detective","c20r","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","bulldog","mateba","sabr","crossbow","saw","car","boltaction","arg")
-	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special")
-	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos")
+	var/list/magiclist = list("fireball","smoke","blind","mindswap","forcewall","knock","horsemask","charge", "summonitem", "wandnothing", "wanddeath", "wandresurrection", "wandpolymorph", "wandteleport", "wanddoor", "wandfireball", "staffhealing", "armor", "scrying", "staffdoor", "special","voodoo")
+	var/list/magicspeciallist = list("staffchange","staffanimation", "wandbelt", "contract", "staffchaos","necromantic")
 	usr << "<B>You summoned [summon_type ? "magic" : "guns"]!</B>"
 	message_admins("[key_name_admin(usr)] summoned [summon_type ? "magic" : "guns"]!")
 	for(var/mob/living/carbon/human/H in player_list)
@@ -110,6 +110,9 @@
 						H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
 						H << "<span class='notice'>The walls suddenly disappear.</span>"
 
+				if("voodoo")
+					new /obj/item/voodoo(get_turf(H))
+
 				if("special")
 					magiclist -= "special" //only one super OP item per summoning max
 					switch (randomizemagicspecial)
@@ -123,4 +126,6 @@
 							new /obj/item/weapon/contract(get_turf(H))
 						if("staffchaos")
 							new /obj/item/weapon/gun/magic/staff/chaos(get_turf(H))
+						if("necromantic")
+							new /obj/item/device/necromantic_stone(get_turf(H))
 					H << "<span class='notice'>You suddenly feel lucky.</span>"
