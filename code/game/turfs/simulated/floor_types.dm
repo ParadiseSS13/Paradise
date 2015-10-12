@@ -324,7 +324,7 @@
 	/** ACT UNSIMULATED! **/
 /*
 	assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
-		del(giver)
+		qdel(giver)
 		return 0
 
 	return_air()

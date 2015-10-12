@@ -168,7 +168,7 @@
 		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	else
 		usr << "All the leaves have fallen off the nettle from violent whacking."
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/grown/nettle/changePotency(newValue) //-QualityVan
 	potency = newValue
@@ -220,7 +220,7 @@
 
 	else
 		usr << "All the leaves have fallen off the deathnettle from violent whacking."
-		del(src)
+		qdel(src)
 
 /obj/item/weapon/grown/deathnettle/changePotency(newValue) //-QualityVan
 	potency = newValue
@@ -235,6 +235,6 @@
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/hatchet) || istype(W, /obj/item/weapon/kitchen/utensil/knife) || istype(W, /obj/item/weapon/kitchenknife) || istype(W, /obj/item/weapon/kitchenknife/ritual))
 		user << "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>"
 		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
-		del(src)
+		qdel(src)
 		return
 */

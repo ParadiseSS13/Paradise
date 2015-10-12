@@ -10,6 +10,10 @@
 	verbs -= /obj/item/verb/verb_pickup	//make sure this is never picked up.
 	..()
 
+/obj/item/weapon/storage/internal/Destroy()
+	master_item = null
+	return ..()
+
 /obj/item/weapon/storage/internal/attack_hand()
 	return		//make sure this is never picked up
 

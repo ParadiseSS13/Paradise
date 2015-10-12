@@ -26,6 +26,16 @@
 					current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now..(You don't remember who enslaved you)</B></FONT>"
 				*/
 
+//mob verbs are a lot faster than object verbs
+//for more info on why this is not atom/pull, see examinate() in mob.dm
+/mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
+	set name = "Pull"
+	set category = "Object"
+
+	if(AM.Adjacent(src))
+		src.start_pulling(AM)
+	return
+
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(src.stat || !src.canmove || src.restrained())

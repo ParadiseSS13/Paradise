@@ -32,8 +32,13 @@
 	src.emag.name = "Placeholder Emag Item"
 
 /obj/item/weapon/robot_module/Destroy()
+	for(var/module in modules)
+		qdel(module)
 	modules.Cut()
+	qdel(emag)
 	emag = null
+	qdel(jetpack)
+	jetpack = null
 	return ..()
 
 /obj/item/weapon/robot_module/proc/fix_modules()

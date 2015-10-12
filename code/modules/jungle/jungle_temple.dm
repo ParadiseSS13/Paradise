@@ -49,7 +49,7 @@
 	New()
 		if(prob(10))
 			new /obj/effect/glowshroom(src.loc)
-		del(src)
+		qdel(src)
 
 /obj/effect/landmark/loot_spawn
 	name = "loot spawner"
@@ -267,7 +267,7 @@
 				for(var/i=0,i<num,i++)
 					new /mob/living/simple_animal/hostile/viscerator(C)
 
-		del(src)
+		qdel(src)
 
 /obj/effect/landmark/loot_spawn/low
 	name = "low prob loot spawner"

@@ -114,6 +114,10 @@
 	radio = new /obj/item/radio/integrated/signal(src)
 	..()
 
+/obj/item/weapon/cartridge/signal/Destroy()
+	qdel(radio)
+	return ..()
+
 /obj/item/weapon/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
 	desc = "Perfect for the Quartermaster on the go!"

@@ -366,7 +366,7 @@
 	else															//We are deconstructing, make glass sheets instead of shards
 		var/sheets = shard_count + 1								//Deconstructing it salvages all the glass used to build the tank
 		new /obj/item/stack/sheet/glass(get_turf(src), sheets)		//Produce the appropriate number of glass sheets, in a single stack
-	qdel(src)														//QDel the tank and it's contents
+	qdel(src)														//qdel the tank and it's contents
 	T.air_update_turf(1)											//Update the air for the turf, to avoid permanent atmos sealing with wall tanks
 
 /obj/machinery/fishtank/proc/spill_water()

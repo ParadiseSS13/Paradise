@@ -145,7 +145,7 @@
 //Allow you to push disposal pipes into it (for those with density 1)
 /obj/machinery/pipedispenser/disposal/Crossed(var/obj/structure/disposalconstruct/pipe as obj)
 	if(istype(pipe) && !pipe.anchored)
-		del(pipe)
+		qdel(pipe)
 
 Nah
 */

@@ -86,6 +86,11 @@
 
 	setup()
 
+/obj/machinery/porta_turret/Destroy()
+	qdel(spark_system)
+	spark_system = null
+	return ..()
+
 /obj/machinery/porta_turret/centcom/New()
 	..()
 	if(req_one_access && req_one_access.len)

@@ -19,6 +19,10 @@
 	src.ion_trail.set_up(src)
 	return
 
+/obj/item/weapon/tank/jetpack/Destroy()
+	qdel(ion_trail)
+	ion_trail = null
+	return ..()
 
 /obj/item/weapon/tank/jetpack/examine(mob/user)
 	if(!..(user, 0))

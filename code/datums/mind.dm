@@ -587,7 +587,7 @@
 			objectives.Insert(objective_pos, new_objective)
 		else
 			objectives += new_objective
-			
+
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
 		message_admins("[key_name_admin(usr)] has updated [key_name_admin(current)]'s objectives: [new_objective]")
 
@@ -595,7 +595,7 @@
 		var/datum/objective/objective = locate(href_list["obj_delete"])
 		if(!istype(objective))	return
 		objectives -= objective
-		
+
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
 
@@ -603,7 +603,7 @@
 		var/datum/objective/objective = locate(href_list["obj_completed"])
 		if(!istype(objective))	return
 		objective.completed = !objective.completed
-		
+
 		log_admin("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has toggled the completion of one of [key_name_admin(current)]'s objectives")
 
@@ -628,7 +628,7 @@
 				var/obj/item/organ/external/affected = H.organs_by_name["head"]
 				affected.implants += L
 				L.part = affected
-				
+
 				log_admin("[key_name(usr)] has given [key_name(current)] a loyalty implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a loyalty implant")
 
@@ -864,7 +864,7 @@
 					current << "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>"
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
-					
+
 			if("autoobjectives")
 				ticker.mode.forge_changeling_objectives(src)
 				usr << "\blue The objectives for changeling [key] have been generated. You can edit them and anounce manually."
@@ -901,7 +901,7 @@
 					current << "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>"
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
-					
+
 			if("autoobjectives")
 				ticker.mode.forge_vampire_objectives(src)
 				usr << "\blue The objectives for vampire [key] have been generated. You can edit them and announce manually."
@@ -961,7 +961,7 @@
 					return
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a nuclear operative")
-				
+
 			if("tellcode")
 				var/code
 				for (var/obj/machinery/nuclearbomb/bombue in machines)
@@ -1177,10 +1177,10 @@
 	var/list/L = current.get_contents()
 	for (var/t in L)
 		if (istype(t, /obj/item/device/pda))
-			if (t:uplink) del(t:uplink)
+			if (t:uplink) qdel(t:uplink)
 			t:uplink = null
 		else if (istype(t, /obj/item/device/radio))
-			if (t:traitorradio) del(t:traitorradio)
+			if (t:traitorradio) qdel(t:traitorradio)
 			t:traitorradio = null
 			t:traitor_frequency = 0.0
 		else if (istype(t, /obj/item/weapon/SWF_uplink) || istype(t, /obj/item/weapon/syndicate_uplink))
@@ -1189,7 +1189,7 @@
 				R.loc = current.loc
 				R.traitorradio = null
 				R.traitor_frequency = 0.0
-			del(t)
+			qdel(t)
 
 	// remove wizards spells
 	//If there are more special powers that need removal, they can be procced into here./N

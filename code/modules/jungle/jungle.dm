@@ -93,7 +93,7 @@
 			//world << "falsewall_spawner found in wall"
 			var/obj/structure/temple_falsewall/fwall = new(F.loc)
 			fwall.mineral = mineral
-			del(F)
+			qdel(F)
 
 		for(var/obj/effect/landmark/door_spawner/D in T.contents)
 			//world << "door_spawner found in wall"
@@ -101,7 +101,7 @@
 			T.icon_state = "dark"
 			var/spawn_type = text2path("/obj/machinery/door/airlock/[door_mineral]")
 			new spawn_type(T)
-			del(D)*/
+			qdel(D)*/
 
 //a shuttle has crashed somewhere on the map, it should have a power cell to let the adventurers get home
 /area/jungle/crash_ship_source

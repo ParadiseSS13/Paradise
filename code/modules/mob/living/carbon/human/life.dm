@@ -1289,12 +1289,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(pressure)
 			pressure.icon_state = "pressure[pressure_alert]"
 
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
-//			if(rest)	//Not used with new UI
-//				if(resting || lying || sleeping)		rest.icon_state = "rest1"
-//				else									rest.icon_state = "rest0"
 		if(toxin)
 			if(hal_screwyhud == 4 || toxins_alert)	toxin.icon_state = "tox1"
 			else									toxin.icon_state = "tox0"
