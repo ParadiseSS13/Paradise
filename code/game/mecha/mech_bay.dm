@@ -116,6 +116,8 @@
 		recharge_console.voltage = MC * 10
 
 /obj/machinery/mech_bay_recharge_port/Destroy()
+	qdel(pr_recharger)
+	pr_recharger = null
 	recharge_console.recharge_port = null
 	recharge_floor.recharge_port = null
 	return ..()

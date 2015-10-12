@@ -109,7 +109,9 @@
 /obj/machinery/bot/Destroy()
 	aibots -= src
 	qdel(Radio)
+	Radio = null
 	qdel(botcard)
+	botcard = null
 	return ..()
 
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
