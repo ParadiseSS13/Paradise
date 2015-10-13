@@ -159,33 +159,33 @@
 //Department Flags
 
 /obj/item/flag/cargo
-	name = "cargo flag"
-	desc = "The flag of the cargo department."
+	name = "Cargonia flag"
+	desc = "The flag of the independent, sovereign nation of Cargonia."
 	icon_state = "cargoflag"
 
 /obj/item/flag/med
-	name = "medical flag"
-	desc = "The flag of the medical department."
+	name = "Medistan flag"
+	desc = "The flag of the independent, sovereign nation of Medistan."
 	icon_state = "medflag"
 
 /obj/item/flag/sec
-	name = "security flag"
-	desc = "The flag of the security department."
+	name = "Brigston flag"
+	desc = "The flag of the independent, sovereign nation of Brigston."
 	icon_state = "secflag"
 
 /obj/item/flag/rnd
-	name = "science flag"
-	desc = "The flag of the science department."
+	name = "Scientopia flag"
+	desc = "The flag of the independent, sovereign nation of Scientopia."
 	icon_state = "rndflag"
 
 /obj/item/flag/atmos
-	name = "atmospherics flag"
-	desc = "The flag of the atmospherics department."
+	name = "Atmosia flag"
+	desc = "The flag of the independent, sovereign nation of Atmosia."
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "command flag"
-	desc = "The flag of the command department"
+	name = "Command flag"
+	desc = "The flag of the independent, sovereign nation of Command."
 	icon_state = "ntflag"
 
 //Antags
