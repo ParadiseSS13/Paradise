@@ -77,7 +77,7 @@
 		for(var/name in H.internal_organs_by_name)
 			var/obj/item/organ/I = H.internal_organs_by_name[name]
 			if(I.damage > 0)
-				I.damage = max(I.damage-0.2, 0)
+				I.damage = max(I.damage-0.4, 0)
 	..()
 	return
 
