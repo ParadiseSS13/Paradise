@@ -81,6 +81,14 @@
 		owner.b_eyes ? owner.b_eyes : 0
 		)
 
+/obj/item/organ/eyes/surgeryize()
+	if(!owner)
+		return
+	owner.disabilities &= ~NEARSIGHTED
+	owner.sdisabilities &= ~BLIND
+	owner.eye_blurry = 0
+	owner.eye_blind = 0
+
 /obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"

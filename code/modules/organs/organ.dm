@@ -324,3 +324,6 @@ var/list/organ_cache = list()
 
 	user.put_in_active_hand(O)
 	qdel(src)
+
+/obj/item/organ/proc/surgeryize()
+	return
