@@ -461,7 +461,7 @@
 "iS" = (/obj/item/device/radio/beacon,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "iT" = (/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "iU" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plating/airless,/area/AIsattele)
-"iV" = (/obj/item/weapon/shard,/obj/item/weapon/module/power_control,/turf/simulated/floor/plating/airless,/area/AIsattele)
+"iV" = (/obj/item/weapon/shard,/obj/item/weapon/apc_electronics,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "iW" = (/obj/structure/closet,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "iX" = (/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/turf/simulated/floor/plating/airless,/area/AIsattele)
 "iY" = (/obj/structure/closet/crate,/obj/item/device/aicard,/obj/item/device/multitool,/obj/item/weapon/weldingtool,/obj/item/weapon/wrench,/obj/item/weapon/circuitboard/teleporter,/turf/simulated/floor/plating/airless,/area/AIsattele)

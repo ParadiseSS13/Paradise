@@ -226,7 +226,7 @@
 "eB" = (/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "eD" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "eE" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plating/airless,/area/AIsattele)
-"eF" = (/obj/item/weapon/shard,/obj/item/weapon/module/power_control,/turf/simulated/floor/plating/airless,/area/AIsattele)
+"eF" = (/obj/item/weapon/shard,/obj/item/weapon/apc_electronics,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "eG" = (/obj/structure/closet,/turf/simulated/floor/plating/airless,/area/AIsattele)
 "eH" = (/obj/item/weapon/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/turf/simulated/floor/plating/airless,/area/AIsattele)
 "eI" = (/obj/structure/closet/crate,/obj/item/device/aicard,/obj/item/device/multitool,/obj/item/weapon/weldingtool,/obj/item/weapon/wrench,/obj/item/weapon/circuitboard/teleporter,/turf/simulated/floor/plating/airless,/area/AIsattele)
