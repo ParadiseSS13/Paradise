@@ -251,7 +251,7 @@
 	if(spooky_scaries.len >= 3 && !unlimited)
 		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
 		return
-	M.makeSkeleton()
+	M.set_species("Skellington")
 	M.revive()
 	spooky_scaries |= M
 	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
@@ -288,6 +288,7 @@
 	else
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
 
 
