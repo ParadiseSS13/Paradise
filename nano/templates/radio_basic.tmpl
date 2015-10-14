@@ -2,6 +2,25 @@
 Title: Basic Radio UI
 Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 -->
+<head>
+	<style type="text/css">
+		.radio					{color: #008000;}
+		.deptradio				{color: #993399;}
+		.comradio				{color: #193A7A;}
+		.syndradio				{color: #6D3F40;}
+		.centradio				{color: #5C5C8A;}
+		.airadio				{color: #FF00FF;}
+		.secradio				{color: #A30000;}
+		.engradio				{color: #A66300;}
+		.medradio				{color: #008160;}
+		.sciradio				{color: #993399;}
+		.supradio				{color: #5F4519;}
+		.srvradio				{color: #6eaa2c;}
+	</style>
+</head>
+
+
+
 {{if data.useSyndMode}}
 	{{:helper.syndicateMode()}}
 {{/if}}
@@ -73,11 +92,10 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 	<div class="item">
 	{{for data.chan_list}}
 		<div class="itemLabel">
-			{{:value.display_name}}
+			<span class="{{:value.chan_span}}">{{:value.display_name}}</span>
 		</div>
 		<div class="itemContent">
 			{{if value.secure_channel}}
-				Speaker:&nbsp;
 				{{:helper.link('On', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? null : 'selected')}}
 				{{:helper.link('Off', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? 'selected' : null)}}
 			{{else}}
