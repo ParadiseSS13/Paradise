@@ -44,6 +44,14 @@ var/list/wood_icons = list("wood","wood-broken")
 	else
 		icon_regular_floor = icon_state
 
+
+/turf/simulated/floor/Destroy()
+	if(floor_tile)
+		qdel(floor_tile)
+		floor_tile = null
+	return ..()
+
+
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 //	if ((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
 //		if (!( locate(/obj/machinery/mass_driver, src) ))
