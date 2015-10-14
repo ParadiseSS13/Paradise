@@ -150,19 +150,13 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		for(var/obj/item/organ/I in affected.internal_organs)
+			if(I)
+				I.surgeryize()
 			if(I && I.damage > 0)
 				if(I.robotic < 2)
 					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
 					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
 					I.damage = 0
-
-		if(target_zone == "head")
-			target.disabilities &= ~NEARSIGHTED
-			target.sdisabilities &= ~BLIND
-			target.eye_blurry = 0
-			target.eye_blind = 0
-			target.ear_damage = 0
-			target.ear_deaf = 0
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 

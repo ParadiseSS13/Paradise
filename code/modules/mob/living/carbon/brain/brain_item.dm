@@ -18,6 +18,12 @@
 /obj/item/organ/brain/attack_self(mob/user as mob)
 	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
 
+/obj/item/organ/brain/surgeryize()
+	if(!owner)
+		return
+	owner.ear_damage = 0 //Yeah, didn't you...hear? The ears are totally inside the brain.
+	owner.ear_deaf = 0
+
 /obj/item/organ/brain/xeno
 	name = "thinkpan"
 	desc = "It looks kind of like an enormous wad of purple bubblegum."
