@@ -12,7 +12,7 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
-		/obj/item/weapon/intercom_electronics
+		/obj/item/weapon/intercom_electronics,
 		/obj/item/weapon/apc_electronics,
 		/obj/item/weapon/stock_parts,
 		/obj/item/mounted/frame/light_fixture,
