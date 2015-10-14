@@ -50,6 +50,9 @@ Pipelines + Other Objects -> Pipe network
 		stored = new(src, make_from = src)
 
 /obj/machinery/atmospherics/Destroy()
+	if(stored)
+		qdel(stored)
+		stored = null
 	for(var/mob/living/M in src) //ventcrawling is serious business
 		M.remove_ventcrawl()
 		M.forceMove(loc)
