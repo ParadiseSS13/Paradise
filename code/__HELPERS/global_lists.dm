@@ -31,11 +31,6 @@
 		var/datum/job/J = new T
 		joblist[J.title] = J
 
-	paths = subtypesof(/datum/nations)
-	for(var/T in paths)
-		var/datum/nations/N = new T
-		all_nations[N.name] = N
-
 	paths = subtypesof(/datum/superheroes)
 	for(var/T in paths)
 		var/datum/superheroes/S = new T

@@ -190,8 +190,6 @@ var/list/mechtoys = list(
 		return 1
 	if(istype(A,/obj/item/weapon/disk/nuclear))
 		return 1
-	if(istype(A,/obj/item/flag/nation))
-		return 1
 	if(istype(A,/obj/machinery/nuclearbomb))
 		return 1
 	if(istype(A,/obj/item/device/radio/beacon))

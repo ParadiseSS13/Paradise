@@ -1234,9 +1234,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(see_override)	//Override all
 			see_invisible = see_override
 
-		if(ticker && ticker.mode.name == "nations")
-			process_nations()
-
 		if(healths)
 			if (analgesic)
 				healths.icon_state = "health_health_numb"
@@ -1820,33 +1817,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
-
-	if(hud_updateflag & 1 << NATIONS_HUD)
-		var/image/holder = hud_list[NATIONS_HUD]
-		holder.icon_state = "hudblank"
-
-		if(mind && mind.nation)
-			switch(mind.nation.name)
-				if("Atmosia")
-					holder.icon_state = "hudatmosia"
-				if("Brigston")
-					holder.icon_state = "hudbrigston"
-				if("Cargonia")
-					holder.icon_state = "hudcargonia"
-				if("People's Republic of Commandzakstan")
-					holder.icon_state = "hudcommand"
-				if("Medistan")
-					holder.icon_state = "hudmedistan"
-				if("Scientopia")
-					holder.icon_state = "hudscientopia"
-
-			hud_list[NATIONS_HUD] = holder
 	hud_updateflag = 0
-
-/mob/living/carbon/human/proc/process_nations()
-	var/client/C = client
-	for(var/mob/living/carbon/human/H in view(src, 14))
-		C.images += H.hud_list[NATIONS_HUD]
 
 /mob/living/carbon/human/handle_silent()
 	if(..())
