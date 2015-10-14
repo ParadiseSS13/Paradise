@@ -36,7 +36,7 @@
 /obj/item/weapon/gun/energy/Destroy()
 	if(self_recharge)
 		processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/weapon/gun/energy/process()
 	if(self_recharge) //Every [recharge_time] ticks, recharge a shot for the cyborg
