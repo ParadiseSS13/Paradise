@@ -48,8 +48,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 
 /datum/wires/Destroy()
 	holder = null
-	..()
-	return QDEL_HINT_QUEUE
+	return ..()
 
 /datum/wires/proc/GenerateWires()
 	var/list/colours_to_pick = wireColours.Copy() // Get a copy, not a reference.

@@ -160,7 +160,7 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
  */
 /datum/proc/Destroy()
 	tag = null
-	return QDEL_HINT_HARDDEL_NOW // By default, assume that queueing any given datum is unsafe
+	return QDEL_HINT_QUEUE // Garbage Collect everything.
 
 // If something gets deleted directly, make sure its Destroy proc is still called
 /datum/Del()
@@ -181,4 +181,3 @@ var/global/datum/controller/process/garbage_collector/garbageCollector
 
 /proc/gcwarning(msg)
 	log_to_dd("## GC WARNING: [msg]")
-	
