@@ -511,11 +511,20 @@
 			return 0
 	return 1
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
-	if(damage <= force_threshold || ignored_damage_types[damagetype])
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype)
+	if(damage <= force_threshold)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 	else
-		adjustBruteLoss(damage)
+		switch(damagetype)
+		 if(BRUTE)
+		 	adjustBruteLoss(damage)
+		 if(BURN)
+		 	adjustFireLoss(damage)
+		 if(TOX)
+		 	adjustToxLoss(damage)
+		 if(CLONE)
+		 	adjustCloneLoss(damage)
+
 
 /mob/living/simple_animal/update_fire()
 	return

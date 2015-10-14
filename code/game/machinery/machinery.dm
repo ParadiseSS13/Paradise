@@ -329,11 +329,7 @@ Class Procs:
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(T)
-	//if(occupant)
-	//	if(occupant.client)
-	//		occupant.client.eye = occupant
-	//		occupant.client.perspective = MOB_PERSPECTIVE
-	//	occupant = null
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/attack_ai(var/mob/user as mob)

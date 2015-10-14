@@ -515,7 +515,7 @@
 	ask_verb = "tones"
 	exclaim_verb = "tones"
 	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
+	key = "zw"//Zwarmer...Or Zerg!
 	flags = RESTRICTED || HIVEMIND
 	follow = 1
 

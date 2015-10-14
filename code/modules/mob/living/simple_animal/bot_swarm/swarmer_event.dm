@@ -23,7 +23,6 @@
 
 
 /datum/event/spawn_swarmer/start()
-	src << "[the_gateway]"
 	if(find_swarmer())
 		return 0
 	if(!the_gateway)
