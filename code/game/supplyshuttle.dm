@@ -146,7 +146,7 @@ var/list/mechtoys = list(
 	//processing_interval = 300
 	//supply points
 	var/points = 50
-	var/points_per_process = 1
+	var/points_per_process = 0.05
 	var/points_per_slip = 2
 	var/points_per_crate = 5
 	var/points_per_plasma = 5
@@ -168,21 +168,14 @@ var/list/mechtoys = list(
 /datum/controller/supply/New()
 	ordernum = rand(1,9000)
 
-//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
-/datum/controller/supply/proc/process()
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
-		if(P.name == "HEADER")
-			qdel(P)
-			continue
+		if(P.name == "HEADER") continue
 		supply_packs[P.name] = P
 
-	spawn(0)
-		if(processing)
-			iteration++
-			points += points_per_process
-
-			//sleep(processing_interval)
+//Supply shuttle ticker - handles supply point regeneration and shuttle travelling between centcomm and the station
+/datum/controller/supply/proc/process()
+	points += points_per_process
 
 //To stop things being sent to centcomm which should not be sent to centcomm. Recursively checks for these types.
 /datum/controller/supply/proc/forbidden_atoms_check(atom/A)
