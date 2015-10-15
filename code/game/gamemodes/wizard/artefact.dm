@@ -251,7 +251,7 @@
 	if(spooky_scaries.len >= 3 && !unlimited)
 		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
 		return
-	M.MakeSkeleton()
+	M.makeSkeleton()
 	M.revive()
 	spooky_scaries |= M
 	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
@@ -293,15 +293,18 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
+			H.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(H), slot_r_hand)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/weapon/katana(H), slot_belt)
 		if("clown")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
 			H.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(H), slot_l_store)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff/stick(H), slot_r_hand)
 
 
 /////////////////////////////////////////Voodoo///////////////////

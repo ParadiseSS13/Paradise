@@ -151,7 +151,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
-	desc = "A doll created by Syndicate Witch Doctors. Ingridents:Something of the Thread,Something of the Head,Something of the Body,Something of the Dead and monosodium glutamate."
+	desc = "A doll created by Syndicate Witch Doctors. Ingredients:Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs and monosodium glutamate."
 	reference = "VD"
 	item = /obj/item/voodoo
 	cost = 13
