@@ -242,21 +242,21 @@
 		user << "<span class='warning'>This artifact can only affect the dead!</span>"
 		return
 
-	//if(!M.mind || !M.client)
-		//user << "<span class='warning'>There is no soul connected to this body...</span>"
-	//	return
+	if(!M.mind || !M.client)
+		user << "<span class='warning'>There is no soul connected to this body...</span>"
+		return
 
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
 		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
 		return
-	M.set_species("Skellington")
+	M.MakeSkeleton()
 	M.revive()
 	spooky_scaries |= M
 	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
 	M << "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>"
-	equip_roman_skeleton(M)
+	equip_skeleton(M)
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/device/necromantic_stone/proc/check_spooky()
@@ -274,22 +274,34 @@
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise
-/obj/item/device/necromantic_stone/proc/equip_roman_skeleton(mob/living/carbon/human/H as mob)
+/obj/item/device/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
 	for(var/obj/item/I in H)
 		H.unEquip(I)
-	if(prob(50))//50 50 chance
-		var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
-		H.equip_to_slot_or_del(new hat(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
-	else
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
+	var/randomSpooky = pick("roman","pirate","yand","clown")
+	switch(randomSpooky)
+		if("roman")
+			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
+			H.equip_to_slot_or_del(new hat(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+		if("pirate")
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
+		if("yand")//mine is an evil laugh
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+		if("clown")
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
+			H.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(H), slot_l_store)
 
 
 /////////////////////////////////////////Voodoo///////////////////
