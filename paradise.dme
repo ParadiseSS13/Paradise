@@ -716,7 +716,6 @@
 #include "code\game\objects\items\weapons\lighters.dm"
 #include "code\game\objects\items\weapons\manuals.dm"
 #include "code\game\objects\items\weapons\misc.dm"
-#include "code\game\objects\items\weapons\module.dm"
 #include "code\game\objects\items\weapons\mop.dm"
 #include "code\game\objects\items\weapons\paint.dm"
 #include "code\game\objects\items\weapons\paiwire.dm"

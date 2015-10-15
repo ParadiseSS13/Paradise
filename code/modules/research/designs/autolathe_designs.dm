@@ -122,6 +122,14 @@
 	build_path = /obj/item/weapon/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/apc_electronics
+	name="Power Control Module"
+	id = "apc_electronics"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/weapon/apc_electronics
+	category = list("initial", "Electronics")
+
 /datum/design/intercom_electronics
 	name = "Intercom Electronics"
 	id = "intercom_electronics"
