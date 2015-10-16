@@ -26,10 +26,10 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 {{/if}}
 
 <div class="item">
-	<div class="itemLabel">
+	<div class="itemLabelWide">
 		Microphone
 	</div>
-	<div class="itemContent">
+	<div class="itemContentMedium">
 		{{if data.mic_cut}}
 			{{:helper.link('On', null, null, 'disabled')}}
 			{{:helper.link('Off', null, null, 'disabled')}}
@@ -41,10 +41,10 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 </div>
 
 <div class="item">
-	<div class="itemLabel">
+	<div class="itemLabelWide">
 		Speaker
 	</div>
-	<div class="itemContent">
+	<div class="itemContentMedium">
 		{{if data.spk_cut}}
 			{{:helper.link('On', null, null, 'disabled')}}
 			{{:helper.link('Off', null, null, 'disabled')}}
@@ -56,30 +56,34 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 </div>
 
 {{if data.has_subspace}}
-	<div class="itemLabel">
-		Subspace Transmission:
-	</div>
-	<div class="itemContent">
-		{{:helper.link('On', null, {'mode' : 1}, data.subspace ? 'selected' : null)}}
-		{{:helper.link('Off', null, {'mode' : 0}, data.subspace ? null : 'selected')}}
+	<div class="item">
+		<div class="itemLabelWide">
+			Subspace Transmission:
+		</div>
+		<div class="itemContentMedium">
+			{{:helper.link('On', null, {'mode' : 1}, data.subspace ? 'selected' : null)}}
+			{{:helper.link('Off', null, {'mode' : 0}, data.subspace ? null : 'selected')}}
+		</div>
 	</div>
 {{/if}}
 		
 {{if data.has_loudspeaker}}
-	<div class="itemLabel">
-		Loudspeaker:
-	</div>
-	<div class="itemContent">
-		{{:helper.link('On', null, {'shutup' : 0}, data.loudspeaker ? 'selected' : null)}}
-		{{:helper.link('Off', null, {'shutup' : 1}, data.loudspeaker ? null : 'selected')}}
+	<div class="item">
+		<div class="itemLabelWide">
+			Loudspeaker:
+		</div>
+		<div class="itemContentMedium">
+			{{:helper.link('On', null, {'shutup' : 0}, data.loudspeaker ? 'selected' : null)}}
+			{{:helper.link('Off', null, {'shutup' : 1}, data.loudspeaker ? null : 'selected')}}
+		</div>
 	</div>
 {{/if}}
 
 <div class="item">
-	<div class="itemLabel">
+	<div class="itemLabelWide">
 		Frequency: {{:data.freq}}
 	</div>
-	<div class="itemContent">
+	<div class="itemContentMedium">
 		{{:helper.link('--', null, {'freq' : -10})}}
 		{{:helper.link('-', null, {'freq' : -2})}}
 		{{:helper.link('+', null, {'freq' : 2})}}
@@ -91,10 +95,10 @@ Used In File(s): /code/game/objects/item/devices/radio/radio.dm
 	<h3>Channels</h3>
 	<div class="item">
 	{{for data.chan_list}}
-		<div class="itemLabel">
-			<span class="{{:value.chan_span}}">{{:value.display_name}}</span>
+		<div class="itemLabelWide">
+			<span class='{{:value.chan_span}}'>&#9724</span>{{:value.display_name}}
 		</div>
-		<div class="itemContent">
+		<div class="itemContentMedium">
 			{{if value.secure_channel}}
 				{{:helper.link('On', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? null : 'selected')}}
 				{{:helper.link('Off', null, {'ch_name' : value.chan, 'listen' : value.sec_channel_listen}, value.sec_channel_listen ? 'selected' : null)}}
