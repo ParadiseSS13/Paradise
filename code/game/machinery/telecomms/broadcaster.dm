@@ -20,7 +20,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	use_power = 1
 	idle_power_usage = 25
 	machinetype = 5
-	delay = 7
 	circuitboard = "/obj/item/weapon/circuitboard/telecomms/broadcaster"
 
 /obj/machinery/telecomms/broadcaster/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -530,7 +529,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		var/obj/item/device/radio/headset/radio = new
 
 		var/part_b = "</span><b> \icon[radio]\[[freq_text]\][part_b_extra]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" 
+		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>"
 		var/part_c = "</span></span>"
 
 		var/blackbox_msg = "[part_a][source][part_blackbox_b]\"[text]\"[part_c]"
