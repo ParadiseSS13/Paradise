@@ -11,7 +11,6 @@
 	flags_inv = 0
 	action_button_name = "Toggle Helmet Light"
 	siemens_coefficient = 0.9
-	loose = 4
 
 	attack_self(mob/user)
 		if(!isturf(user.loc))
