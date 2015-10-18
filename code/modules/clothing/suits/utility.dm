@@ -63,7 +63,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	loose = 5
 
 
 /obj/item/clothing/suit/bomb_suit
@@ -105,7 +104,6 @@
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = HEADCOVERSEYES|HEADCOVERSMOUTH|BLOCKHAIR|THICKMATERIAL
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 60, rad = 100)
-	loose = 8
 
 /obj/item/clothing/suit/radiation
 	name = "Radiation suit"

@@ -43,7 +43,6 @@
 /obj/item/clothing/head/culthood/alt
 	icon_state = "cult_hoodalt"
 	item_state = "cult_hoodalt"
-	loose = 5 // one size fits all
 
 /obj/item/clothing/suit/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -69,7 +68,6 @@
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	armor = list(melee = 30, bullet = 30, laser = 30,energy = 20, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0
-	loose = 6 // mostly one size fits all
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
