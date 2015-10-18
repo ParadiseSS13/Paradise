@@ -22,8 +22,7 @@ var/global/list/datum/pipeline/pipe_networks = list()
 		P.parent = null
 	for(var/obj/machinery/atmospherics/A in other_atmosmch)
 		A.nullifyPipenet(src)
-	..()
-	return QDEL_HINT_QUEUE
+	return ..()
 
 /datum/pipeline/proc/process()//This use to be called called from the pipe networks
 	if(update)

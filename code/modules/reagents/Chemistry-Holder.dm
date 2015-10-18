@@ -602,7 +602,7 @@ atom/proc/create_reagents(var/max_vol)
 	reagents.my_atom = src
 
 /datum/reagents/Destroy()
-	..()
+	. = ..()
 	processing_objects.Remove(src)
 	for(var/datum/reagent/R in reagent_list)
 		qdel(R)
@@ -610,4 +610,3 @@ atom/proc/create_reagents(var/max_vol)
 	reagent_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
-	return QDEL_HINT_QUEUE
