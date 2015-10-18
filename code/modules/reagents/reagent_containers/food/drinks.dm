@@ -156,7 +156,7 @@
 		else if (reagents.total_volume<=src.volume/4)
 			user << "\blue \The [src] is almost empty!"
 		else if (reagents.total_volume<=src.volume*0.66)
-			user << "\blue \The [src] is half full!"
+			user << "\blue \The [src] is half empty!" // Pessimism is the real order of the day.
 		else if (reagents.total_volume<=src.volume*0.90)
 			user << "\blue \The [src] is almost full!"
 		else

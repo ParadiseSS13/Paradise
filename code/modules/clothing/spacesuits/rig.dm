@@ -37,14 +37,14 @@
 	on = !on
 	icon_state = "rig[on]-[item_color]"
 
-	if(on)	
+	if(on)
 		set_light(brightness_on)
-	else	
+	else
 		set_light(0)
 
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_head()	
+		H.update_inv_head()
 
 /obj/item/clothing/suit/space/rig
 	name = "hardsuit"
@@ -135,13 +135,13 @@
 				boots.flags &= ~NODROP
 				H.unEquip(boots)
 				boots.forceMove(src)
-				
+
 /obj/item/clothing/suit/space/rig/verb/toggle_helmet()
 	set name = "Toggle Helmet"
 	set category = "Object"
 	set src in usr
 
-	if(!isliving(usr)) 
+	if(!isliving(usr))
 		return
 
 	if(!helmet)
@@ -300,7 +300,7 @@
 	if(!isturf(user.loc))
 		user << "You cannot toggle your helmet while in this [user.loc]." //To prevent some lighting anomalities.
 		return
-		
+
 	on = !on
 	if(on)
 		user << "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
@@ -404,6 +404,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
 	flash_protect = 0
+	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/rig/medical
 	icon_state = "rig-medical"

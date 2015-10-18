@@ -1443,3 +1443,13 @@ mob/proc/yank_out_object()
 
 /mob/proc/can_unbuckle(mob/user)
 	return 1
+
+
+//Can the mob see reagents inside of containers?
+/mob/proc/can_see_reagents()
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		for(var/obj/item/clothing/C in H) //If they have some clothing equipped that lets them see reagents, they can see reagents
+			if(C.scan_reagents)
+				return 1
+	return 0
