@@ -551,9 +551,10 @@
 
 	throw_impact(atom/hit_atom)
 		..()
-		new/obj/effect/decal/cleanable/egg_smudge(src.loc)
-		src.reagents.reaction(hit_atom, TOUCH)
-		src.visible_message("\red [src.name] has been squashed.","\red You hear a smack.")
+		var/turf/T = get_turf(hit_atom)
+		new/obj/effect/decal/cleanable/egg_smudge(T)
+		if(reagents)
+			reagents.reaction(hit_atom, TOUCH)
 		qdel(src)
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
