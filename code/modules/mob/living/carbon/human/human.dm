@@ -1820,3 +1820,8 @@
 	if(!dna || !dna.uni_identity)
 		return
 	return md5(dna.uni_identity)
+
+/mob/living/carbon/human/can_see_reagents()
+	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
+		if(C.scan_reagents)
+			return 1

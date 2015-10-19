@@ -1443,3 +1443,8 @@ mob/proc/yank_out_object()
 
 /mob/proc/can_unbuckle(mob/user)
 	return 1
+
+
+//Can the mob see reagents inside of containers?
+/mob/proc/can_see_reagents()
+	return 0

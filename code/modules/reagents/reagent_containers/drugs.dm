@@ -18,15 +18,6 @@
 		src.pixel_y = rand(-10.0, 10)
 		base_name = name
 
-
-	examine(mob/user)
-		if(..(user, 2))
-			user << "\blue It contains:"
-			if(reagents && reagents.reagent_list.len)
-				user << "\blue [src.reagents.total_volume] units of powder."
-			else
-				user << "\blue Nothing."
-
 	afterattack(obj/target, mob/user, proximity)
 		if(!proximity) return
 
