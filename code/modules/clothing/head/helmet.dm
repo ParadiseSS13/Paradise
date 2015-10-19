@@ -11,7 +11,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.7
-	loose = 4 // generally well seated
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
@@ -126,7 +125,6 @@
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	siemens_coefficient = 1
-	loose = 0 // full head, won't fall off
 
 obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"

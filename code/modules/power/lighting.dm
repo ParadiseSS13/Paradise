@@ -136,6 +136,7 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = 0					// 1 if on, 0 if off
 	var/on_gs = 0
+	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
 	var/brightness_power = 3
 	var/brightness_color = null
@@ -180,7 +181,6 @@
 // create a new lighting fixture
 /obj/machinery/light/New()
 	..()
-
 	spawn(2)
 		var/area/A = get_area(src)
 		if(A && !A.requires_power)
@@ -233,10 +233,8 @@
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
-
 					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
-
 					explode()
 			else if( prob( min(60, switchcount*switchcount*0.01) ) )
 				if(status == LIGHT_OK && trigger)
@@ -251,10 +249,14 @@
 		use_power = 1
 		set_light(0)
 
-	active_power_usage = brightness_range * 10
+	active_power_usage = (brightness_range * 10)
 	if(on != on_gs)
 		on_gs = on
-
+		if(on)
+			static_power_used = brightness_range * 20 //20W per unit luminosity
+			addStaticPower(static_power_used, STATIC_LIGHT)
+		else
+			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -556,19 +558,10 @@
 // timed process
 // use power
 
-#define LIGHTING_POWER_FACTOR 20		//20W per unit luminosity
-
-
-/obj/machinery/light/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
-	if(on)
-		use_power(brightness_range * LIGHTING_POWER_FACTOR, LIGHT)
-
-
 // called when area power state changes
 /obj/machinery/light/power_change()
-	spawn(10)
-		var/area/A = get_area_master(src)
-		if(A) seton(A.lightswitch && A.power_light)
+	var/area/A = get_area_master(src)
+	if(A) seton(A.lightswitch && A.power_light)
 
 // called when on fire
 

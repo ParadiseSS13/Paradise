@@ -89,7 +89,6 @@
 	add_cell()
 	add_iterators()
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
-	removeVerb(/atom/movable/verb/pull)
 	log_message("[src.name] created.")
 	loc.Entered(src)
 	mechas_list += src //global mech list
@@ -361,7 +360,7 @@
 			G.destroyed = 1
 			G.icon_state = "[initial(G.icon_state)]-b"
 			G.density = 0
-			PoolOrNew(/obj/item/stack/rods, get_turf(G.loc))
+			new /obj/item/stack/rods(get_turf(G.loc))
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -530,7 +529,7 @@
 /obj/mecha/attack_animal(mob/living/simple_animal/user as mob)
 	src.log_message("Attack by simple animal. Attacker - [user].",1)
 	if(user.melee_damage_upper == 0)
-		user.emote("[user.friendly] [src]")
+		user.custom_emote(1, "[user.friendly] [src]")
 	else
 		user.do_attack_animation(src)
 		if(!prob(src.deflect_chance))

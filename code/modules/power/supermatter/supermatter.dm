@@ -72,6 +72,7 @@
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", "supermatter")
 	qdel(radio)
+	radio = null
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
@@ -233,7 +234,7 @@
 
 /obj/machinery/power/supermatter_shard/attack_ai(mob/user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/power/supermatter_shard/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
@@ -242,16 +243,16 @@
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
 
-	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)	
-		
+	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
+
 	Consume(user)
-	
+
 /obj/machinery/power/supermatter_shard/proc/get_integrity()
 	var/integrity = damage / explosion_point
 	integrity = round(100 - integrity * 100)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
-	
+
 // This is purely informational UI that may be accessed by AIs or robots
 /obj/machinery/power/supermatter_shard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]

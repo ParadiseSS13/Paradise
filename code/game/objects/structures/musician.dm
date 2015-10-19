@@ -22,8 +22,7 @@
 
 /datum/song/Destroy()
 	instrumentObj = null
-	..()
-	return QDEL_HINT_QUEUE
+	return ..()
 
 // note is a number from 1-7 for A-G
 // acc is either "b", "n", or "#"
@@ -69,7 +68,7 @@
 
 /datum/song/proc/shouldStopPlaying(mob/user)
 	if(instrumentObj)
-		//if(!user.canUseTopic(instrumentObj)) 
+		//if(!user.canUseTopic(instrumentObj))
 			//return 1
 		return !instrumentObj.anchored		// add special cases to stop in subclasses
 	else
@@ -281,7 +280,7 @@
 
 /datum/song/proc/sanitize_tempo(new_tempo)
 	new_tempo = abs(new_tempo)
-	return max(round(new_tempo, world.tick_lag), world.tick_lag)	
+	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 
 // subclass for handheld instruments, like violin
 /datum/song/handheld
@@ -324,7 +323,7 @@
 	qdel(song)
 	song = null
 	return ..()
-	
+
 /obj/structure/piano/initialize()
 	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
 	..()

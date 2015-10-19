@@ -321,7 +321,7 @@ var/global/dmm_suite/preloader/_preloader = null
 /dmm_suite/preloader/New(var/list/the_attributes, var/path)
 	.=..()
 	if(!the_attributes.len)
-		Del()
+		del(src)
 		return
 	attributes = the_attributes
 	target_path = path
@@ -329,4 +329,4 @@ var/global/dmm_suite/preloader/_preloader = null
 /dmm_suite/preloader/proc/load(atom/what)
 	for(var/attribute in attributes)
 		what.vars[attribute] = attributes[attribute]
-	Del()
+	del(src)

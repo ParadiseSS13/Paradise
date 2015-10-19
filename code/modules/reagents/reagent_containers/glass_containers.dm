@@ -49,11 +49,6 @@
 	examine(mob/user)
 		if(!..(user, 2))
 			return
-		user << "\blue It contains:"
-		if(reagents && reagents.reagent_list.len)
-			user << "\blue [src.reagents.total_volume] units of liquid."
-		else
-			user << "\blue Nothing."
 		if (!is_open_container())
 			user << "\blue Airtight lid seals it completely."
 

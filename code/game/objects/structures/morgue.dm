@@ -318,9 +318,6 @@
 			return
 
 	else
-		if(!isemptylist(search_contents_for(/obj/item/flag/nation)))
-			usr << "You get the feeling that you shouldn't cremate one of the items in the cremator."
-			return
 		for (var/mob/M in viewers(src))
 			M.show_message("\red You hear a roar as the crematorium activates.", 1)
 
@@ -417,7 +414,7 @@
 		usr << "\red Access denied."
 	return
 
-/hook/Login/proc/update_morgue(var/client/client, var/mob/L)	
+/hook/Login/proc/update_morgue(var/client/client, var/mob/L)
 	//Update morgues on login/logout
 	if (L.stat == DEAD)
 		var/obj/structure/morgue/Morgue = null
@@ -440,8 +437,8 @@
 					Morgue = B.loc
 			if (Morgue)
 				Morgue.update()
-				
-/hook/Logout/proc/update_morgue(var/client/client, var/mob/L)					
+
+/hook/Logout/proc/update_morgue(var/client/client, var/mob/L)
 	//Update morgues on login/logout
 	if (L.stat == DEAD)
 		var/obj/structure/morgue/Morgue = null

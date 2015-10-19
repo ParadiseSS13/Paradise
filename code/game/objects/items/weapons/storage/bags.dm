@@ -37,7 +37,7 @@
 	max_w_class = 2
 	storage_slots = 30
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
+	cant_hold = list("/obj/item/weapon/disk/nuclear")
 
 /obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
@@ -88,7 +88,7 @@
 	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
-	cant_hold = list("/obj/item/weapon/disk/nuclear","/obj/item/flag/nation")
+	cant_hold = list("/obj/item/weapon/disk/nuclear")
 	var/head = 0
 
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
@@ -248,7 +248,7 @@
 				usr.client.screen -= S
 			S.dropped(usr)
 			if(!S.amount)
-				del(S)
+				qdel(S)
 			else
 				S.loc = src
 
@@ -293,7 +293,7 @@
 				N.amount = stacksize
 				S.amount -= stacksize
 			if(!S.amount)
-				del(S) // todo: there's probably something missing here
+				qdel(S) // todo: there's probably something missing here
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)

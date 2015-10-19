@@ -32,12 +32,6 @@
 	/obj/structure/falsewall/reinforced  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
 	)
 
-
-/turf/simulated/wall/Del()
-	for(var/obj/effect/E in src)
-		if(E.name == "Wallrot")
-			qdel(E)
-
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src)
 		if(E.name == "Wallrot")
@@ -283,6 +277,7 @@
 	user << "\blue You push the wall but nothing happens!"
 	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
 	src.add_fingerprint(user)
+	..()
 	return
 
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob, params)

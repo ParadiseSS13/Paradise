@@ -38,9 +38,6 @@
 		if(fire)
 			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
 			else									fire.icon_state = "fire0"
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
 		if(oxygen)
 			if(oxygen_alert)						oxygen.icon_state = "oxy1"
 			else									oxygen.icon_state = "oxy0"
@@ -97,7 +94,7 @@
 				user << "<span class='warning'>[src] is wearing too much armor! You can't reach \his skin.<span>"
 				visible_message("[user] gently taps [src] with [O].")
 			if(health>0 && prob(15))
-				emote("me", 1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
+				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
 			return
 
 	if (istype(O, /obj/item/weapon/razor))
@@ -189,6 +186,7 @@
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
+						/obj/item/clothing/suit/space/rig/engineering,
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -369,6 +367,11 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
+			if(/obj/item/clothing/head/helmet/space/rig/engineering)
+				name = "Space Explorer [real_name]"
+				desc = "That's one small step for a corgi. One giant yap for corgikind."
+				valid = 1
+
 			if(/obj/item/clothing/mask/fakemoustache)
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
@@ -461,10 +464,10 @@
 							movement_target.attack_animal(src)
 						else if(ishuman(movement_target.loc) )
 							if(prob(20))
-								emote("me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases its tail!"))
+			custom_emote(1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				if (ckey == null)
 					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
@@ -591,7 +594,7 @@
 	if(!stat && !resting && !buckled)
 		if(prob(1))
 			if (ckey == null)
-				emote("me", 1, pick("dances around.","chases her tail."))
+				custom_emote(1, pick("dances around.","chases her tail."))
 				spawn(0)
 					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 						dir = i
@@ -609,10 +612,10 @@
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				flick_overlay(image('icons/mob/animal.dmi',src,"heart-ani2",MOB_LAYER+1), list(M.client), 20)
-				emote("me", 1, "yaps happily!")
+				custom_emote(1, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				emote("me", 1, "growls!")
+				custom_emote(1, "growls!")
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi
 	name = "E-N"

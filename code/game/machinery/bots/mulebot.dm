@@ -82,6 +82,9 @@ var/global/mulebot_count = 0
 	unload(0)
 	qdel(wires)
 	wires = null
+	if(cell)
+		qdel(cell)
+		cell = null
 	return ..()
 
 // attack by item

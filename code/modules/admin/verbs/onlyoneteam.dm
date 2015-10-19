@@ -2,12 +2,12 @@
 	if(!ticker)
 		alert("The game hasn't started yet!")
 		return
-		
+
 	var/list/incompatible_species = list("Plasmaman")
 	for(var/mob/living/carbon/human/H in player_list)
-		if(H.stat == DEAD || !(H.client)) 
+		if(H.stat == DEAD || !(H.client))
 			continue
-		if(is_special_character(H)) 
+		if(is_special_character(H))
 			continue
 		if(H.species.name in incompatible_species)
 			H.set_species("Human")
@@ -55,7 +55,7 @@
 
 		H.species.equip(H)
 		H.regenerate_icons()
-				
+
 	message_admins("[key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used dodgeball.")
 	nologevent = 1
@@ -85,6 +85,6 @@
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>", 3)
+			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
 			H.melt()
 			return

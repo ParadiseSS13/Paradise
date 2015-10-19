@@ -729,9 +729,9 @@
 /obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
 	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
 	new /obj/item/weapon/table_parts/glass(loc)
-	PoolOrNew(/obj/item/weapon/shard, loc)
+	new /obj/item/weapon/shard(loc)
 	if(prob(50)) //50% chance to spawn two shards
-		PoolOrNew(/obj/item/weapon/shard, loc)
+		new /obj/item/weapon/shard(loc)
 	qdel(src)
 
 /obj/structure/table/glass/attackby(obj/item/I as obj, mob/user as mob, params)

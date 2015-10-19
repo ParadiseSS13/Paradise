@@ -71,6 +71,26 @@
 	spacepods_list += src
 
 /obj/spacepod/Destroy()
+	qdel(equipment_system)
+	equipment_system = null
+	qdel(battery)
+	battery = null
+	qdel(cabin_air)
+	cabin_air = null
+	qdel(internal_tank)
+	internal_tank = null
+	qdel(pr_int_temp_processor)
+	pr_int_temp_processor = null
+	qdel(pr_give_air)
+	pr_give_air = null
+	qdel(ion_trail)
+	ion_trail = null
+	if(occupant)
+		occupant.forceMove(get_turf(src))
+		occupant = null
+	if(occupant2)
+		occupant2.forceMove(get_turf(src))
+		occupant2 = null
 	spacepods_list -= src
 	return ..()
 
@@ -108,7 +128,7 @@
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.melee_damage_upper == 0)
-		user.emote("[user.friendly] [src]")
+		user.custom_emote(1, "[user.friendly] [src]")
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)

@@ -156,7 +156,7 @@
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	icon_state = "unathiflag"
 
-//Nation Flags (Able to spawn outside Nations gamemode)
+//Department Flags
 
 /obj/item/flag/cargo
 	name = "Cargonia flag"

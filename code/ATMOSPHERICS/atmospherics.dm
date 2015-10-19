@@ -42,7 +42,7 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 	..()
-	
+
 /obj/machinery/atmospherics/initialize()
 	..()
 
@@ -50,11 +50,15 @@ Pipelines + Other Objects -> Pipe network
 		stored = new(src, make_from = src)
 
 /obj/machinery/atmospherics/Destroy()
-	for(var/mob/living/M in src) //ventcrawling is serious business
-		M.remove_ventcrawl()
-		M.forceMove(loc)
+	if(stored)
+		qdel(stored)
+		stored = null
+	for(var/mob/living/L in src) //ventcrawling is serious business
+		L.remove_ventcrawl()
+		L.forceMove(get_turf(src))
 	if(pipe_image)
-		del(pipe_image) //we have to del it, or it might keep a ref somewhere else
+		qdel(pipe_image) //we have to del it, or it might keep a ref somewhere else
+		pipe_image = null
 	return ..()
 
 // Icons/overlays/underlays
@@ -197,15 +201,11 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/Deconstruct()
 	if(can_unwrench)
-		var/turf/T = get_turf(src)
-		stored.loc = T
+		stored.loc = get_turf(src)
 		transfer_fingerprints_to(stored)
-		if(istype(src, /obj/machinery/atmospherics/pipe))
-			for(var/obj/machinery/meter/meter in T)
-				if(meter.target == src)
-					new /obj/item/pipe_meter(T)
-					qdel(meter)
-		qdel(src)
+		stored = null
+
+	qdel(src)
 
 /obj/machinery/atmospherics/construction(D, P, C)
 	if(C)
@@ -213,7 +213,7 @@ Pipelines + Other Objects -> Pipe network
 	dir = D
 	initialize_directions = P
 	var/turf/T = loc
-	level = T.intact ? 2 : 1	
+	level = T.intact ? 2 : 1
 	add_fingerprint(usr)
 	initialize()
 	var/list/nodes = pipeline_expansion()

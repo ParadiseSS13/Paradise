@@ -49,7 +49,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	
+
 /obj/machinery/atmospherics/unary/cryo_cell/construction()
 	..(dir,dir)
 
@@ -113,9 +113,9 @@
 			return
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] climbs into the cryo cell.", 3)
+			visible_message("[user] climbs into the cryo cell.")
 		else
-			visible_message("[user] puts [L.name] into the cryo cell.", 3)
+			visible_message("[user] puts [L.name] into the cryo cell.")
 			if(user.pulling == L)
 				user.pulling = null
 
@@ -157,11 +157,11 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	if(user == occupant)
 		return
-		
+
 	if(panel_open)
 		usr << "\blue <b>Close the maintenance panel first.</b>"
 		return

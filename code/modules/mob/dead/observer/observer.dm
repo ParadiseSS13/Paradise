@@ -87,6 +87,10 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	..()
 
 /mob/dead/observer/Destroy()
+	if(ismob(following))
+		var/mob/M = following
+		M.following_mobs -= src
+	following = null
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
 		qdel(ghostimage)
@@ -115,7 +119,7 @@ Works together with spawning an observer, noted above.
 	if(antagHUD)
 		var/list/target_list = list()
 		for(var/mob/living/target in oview(src, 14))
-			if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
+			if(target.mind && (target.mind.special_role || issilicon(target)))
 				target_list += target
 		if(target_list.len)
 			assess_targets(target_list, src)
@@ -142,7 +146,6 @@ Works together with spawning an observer, noted above.
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		C.images += target.hud_list[NATIONS_HUD] // ??? THE SNOWFLAKE IS KILLING ME
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
 
@@ -167,10 +170,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "OOC"
 	set name = "Ghost"
 	set desc = "Relinquish your life and enter the land of the dead."
-
-	if(ticker && ticker.mode.name == "nations")
-		usr << "\blue Ghosting is disabled."
-		return
 
 	var/mob/M = src
 
@@ -381,19 +380,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob
 	var/list/following_mobs = list()
-
-/mob/Destroy()
-	for(var/mob/dead/observer/M in following_mobs)
-		M.following = null
-	following_mobs = null
-	return ..()
-
-/mob/dead/observer/Destroy()
-	if(ismob(following))
-		var/mob/M = following
-		M.following_mobs -= src
-	following = null
-	return ..()
 
 /mob/Move()
 	. = ..()

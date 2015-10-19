@@ -45,6 +45,7 @@
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
 	singularities -= src
+	target = null
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)

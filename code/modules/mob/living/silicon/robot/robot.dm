@@ -149,7 +149,7 @@ var/list/robot_verbs_default = list(
 	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
@@ -206,6 +206,10 @@ var/list/robot_verbs_default = list(
 		connected_ai.connected_robots -= src
 	qdel(wires)
 	wires = null
+	qdel(module)
+	module = null
+	camera = null
+	cell = null
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -905,7 +909,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)

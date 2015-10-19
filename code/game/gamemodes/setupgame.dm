@@ -159,7 +159,7 @@
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
 			M.real_name = "Corpse"
 			M.death()
-			del(A)
+			qdel(A)
 			continue
 		if (A.name == "Corpse-Engineer")
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(A.loc)
@@ -247,6 +247,6 @@
 			else
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(M), slot_wear_suit)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/swat(M), slot_head)
-			del(A)
+			qdel(A)
 			continue
 */

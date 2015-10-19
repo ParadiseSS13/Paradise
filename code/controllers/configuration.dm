@@ -164,14 +164,14 @@
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
 	var/disable_away_missions = 0 // disable away missions
-	
+
 	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
-	
+
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
 	var/dsay_allowed = 1
-	
+
 	var/disable_lobby_music = 0 // Disables the lobby music
 
 /datum/configuration/New()
@@ -341,13 +341,13 @@
 
 				if ("forumurl")
 					config.forumurl = value
-					
+
 				if ("rulesurl")
 					config.rulesurl = value
-		
+
 				if ("donationsurl")
 					config.donationsurl = value
-					
+
 				if ("repositoryurl")
 					config.repositoryurl = value
 
@@ -544,11 +544,11 @@
 					config.disable_away_missions = 1
 
 				if("autoconvert_notes")
-					config.autoconvert_notes = 1	
+					config.autoconvert_notes = 1
 
 				if("disable_lobby_music")
-					config.disable_lobby_music = 1						
-					
+					config.disable_lobby_music = 1
+
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -678,7 +678,7 @@
 		var/datum/game_mode/M = new T()
 		if (M.config_tag && M.config_tag == mode_name)
 			return M
-		del(M)
+		qdel(M)
 	return new /datum/game_mode/extended()
 
 /datum/configuration/proc/get_runnable_modes()
@@ -687,10 +687,10 @@
 		var/datum/game_mode/M = new T()
 		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
 		if (!(M.config_tag in modes))
-			del(M)
+			qdel(M)
 			continue
 		if (probabilities[M.config_tag]<=0)
-			del(M)
+			qdel(M)
 			continue
 		if (M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]

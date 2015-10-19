@@ -122,6 +122,14 @@
 	build_path = /obj/item/weapon/airlock_electronics
 	category = list("initial", "Electronics")
 
+/datum/design/apc_electronics
+	name="Power Control Module"
+	id = "apc_electronics"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	build_path = /obj/item/weapon/apc_electronics
+	category = list("initial", "Electronics")
+
 /datum/design/intercom_electronics
 	name = "Intercom Electronics"
 	id = "intercom_electronics"
@@ -416,6 +424,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 250)
 	build_path = /obj/item/ammo_casing/shotgun/beanbag
+	category = list("initial", "Security")
+
+/datum/design/rubbershot
+	name = "Rubber shot"
+	id = "rubber_shot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
 
 /datum/design/c38

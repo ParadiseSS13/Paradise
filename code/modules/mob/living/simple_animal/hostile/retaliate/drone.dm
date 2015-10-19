@@ -161,7 +161,7 @@
 	..()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/retaliate/malf_drone/Destroy()
+/mob/living/simple_animal/hostile/retaliate/malf_drone/Destroy() //Seriously, what the actual hell.
 	//some random debris left behind
 	if(has_loot)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
@@ -170,16 +170,16 @@
 		var/obj/O
 
 		//shards
-		O = PoolOrNew(/obj/item/weapon/shard, loc)
+		O = new /obj/item/weapon/shard(loc)
 		step_to(O, get_turf(pick(view(7, src))))
 		if(prob(75))
-			O = PoolOrNew(/obj/item/weapon/shard, loc)
+			O = new /obj/item/weapon/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(50))
-			O = PoolOrNew(/obj/item/weapon/shard, loc)
+			O = new /obj/item/weapon/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(25))
-			O = PoolOrNew(/obj/item/weapon/shard, loc)
+			O = new /obj/item/weapon/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//rods

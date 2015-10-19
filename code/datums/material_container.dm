@@ -41,8 +41,7 @@
 
 /datum/material_container/Destroy()
 	owner = null
-	..()
-	return QDEL_HINT_QUEUE
+	return ..()
 
 //For inserting an amount of material
 /datum/material_container/proc/insert_amount(amt, material_type = null)
