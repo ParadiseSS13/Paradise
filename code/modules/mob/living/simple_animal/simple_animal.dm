@@ -513,7 +513,7 @@
 
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype)
 	if(damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
 	else
 		switch(damagetype)
 		 if(BRUTE)

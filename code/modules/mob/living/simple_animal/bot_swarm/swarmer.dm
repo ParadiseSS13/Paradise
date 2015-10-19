@@ -10,12 +10,14 @@
 	..()
 
 /obj/item/unactivated_swarmer/Topic(href, href_list)
+	if(..())
+		return 1
 	if(href_list["ghostjoin"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			attack_ghost(ghost)
 
-/obj/item/unactivated_swarmer/attack_ghost(mob/user)
+/obj/item/unactivated_swarmer/attack_ghost(mob/user as mob)
 	var/be_swarmer = alert("Become a swarmer? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_swarmer == "No")
 		return
@@ -44,6 +46,14 @@
 	harm_intent_damage = 5
 	minbodytemp = 0
 	maxbodytemp = 500
+	min_oxy = 0
+	max_oxy = INFINITY
+	min_tox = 0
+	max_tox = INFINITY
+	min_co2 = 0
+	max_co2 = INFINITY
+	min_n2  = 0
+	max_n2  = INFINITY
 	unsuitable_atmos_damage = 0
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -59,7 +69,6 @@
 	pass_flags = PASSTABLE
 	ventcrawler = 2
 	ranged = 1
-	projectiletype = /obj/item/projectile/beam/disabler
 	ranged_cooldown_cap = 2
 	projectilesound = 'sound/weapons/taser2.ogg'
 	AIStatus = AI_OFF
@@ -224,7 +233,7 @@
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
 
-/mob/living/simple_animal/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/mob/living/carbon/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>"
 
 ////END CTRL CLICK FOR SWARMERS////
@@ -252,7 +261,6 @@
 		var/obj/effect/swarmer/integrate/I = new /obj/effect/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
-		I.pixel_z = target.pixel_z
 		if(istype(target, /obj/item/stack))
 			var/obj/item/stack/S = target
 			S.use(1)
@@ -268,7 +276,6 @@
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(3)
-	return
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
 	if(target != src)
@@ -290,8 +297,7 @@
 								if((pressure > 20) && (pressure < 550))//Account for crushing pressure or vaccuums
 									if(ishuman(target))//If we're getting rid of a human, slap some zipties on them to keep them away from us a little longer
 										var/obj/item/weapon/restraints/handcuffs/cable/zipties/Z = new /obj/item/weapon/restraints/handcuffs/cable/zipties(src)
-										var/mob/living/carbon/human/H = target
-										Z.apply_cuffs(H, src)
+										Z.apply_cuffs(target, src)
 									do_teleport(target, F, 0)
 									playsound(src,'sound/effects/sparks4.ogg',50,1)
 									break
@@ -303,7 +309,6 @@
 	var/obj/effect/swarmer/dismantle/D = new /obj/effect/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
-	D.pixel_z = target.pixel_z
 	if(do_mob(src, target, 100))
 		src << "<span class='info'>Dismantling complete.</span>"
 		var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
@@ -314,7 +319,6 @@
 		var/obj/effect/swarmer/disintegration/N = new /obj/effect/swarmer/disintegration(get_turf(target))
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
-		N.pixel_z = target.pixel_z
 		target.dropContents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
