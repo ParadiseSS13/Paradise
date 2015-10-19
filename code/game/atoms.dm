@@ -12,6 +12,7 @@
 	var/throwpass = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
+	var/atom_say_verb = "says"
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -33,7 +34,6 @@
 	if(reagents)
 		qdel(reagents)
 		reagents = null
-	set_opacity(0)
 	invisibility = 101
 	return ..()
 
@@ -41,6 +41,7 @@
 	return
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
+	qdel(giver)
 	return null
 
 /atom/proc/remove_air(amount)
@@ -219,19 +220,23 @@ its easier to just keep the beam vertical.
 
 
 //All atoms
-/atom/verb/examine()
-	set name = "Examine"
-	set category = "IC"
-	set src in view(usr.client) //If it can be seen, it can be examined.
-	set popup_menu = 0
+/atom/proc/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+	//This reformat names to get a/an properly working on item descriptions when they are bloody
+	var/f_name = "\a [src][infix]."
+	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		if(gender == PLURAL)
+			f_name = "some "
+		else
+			f_name = "a "
+		if(blood_color != "#030303")
+			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+		else
+			f_name += "oil-stained [name][infix]."
 
-	if (!( usr ))
-		return
-	usr << "That's \a [src]." //changed to "That's" from "This is" because "This is some metal sheets" sounds dumb compared to "That's some metal sheets" ~Carn
-	usr << desc
-	// *****RM
-	//usr << "[name]: Dn:[density] dir:[dir] cont:[contents] icon:[icon] is:[icon_state] loc:[loc]"
-	return
+	user << "\icon[src] That's [f_name] [suffix]"
+	user << desc
+
+	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
 /atom/proc/relaymove()
 	return
@@ -342,7 +347,7 @@ its easier to just keep the beam vertical.
 			fingerprints = list()
 
 		//Hash this shit.
-		var/full_print = md5(H.dna.uni_identity)
+		var/full_print = H.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
@@ -443,6 +448,9 @@ its easier to just keep the beam vertical.
 	else
 		return 0
 
+/atom/proc/handle_fall()
+	return
+
 /atom/proc/singularity_act()
 	return
 
@@ -451,3 +459,9 @@ its easier to just keep the beam vertical.
 
 /atom/proc/narsie_act()
 	return
+
+/atom/proc/atom_say(var/message)
+	if((!message))
+		return
+	for(var/mob/O in hearers(src, null))
+		O.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>",2)

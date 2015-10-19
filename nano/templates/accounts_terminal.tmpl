@@ -23,9 +23,35 @@
   {{:helper.link('New Account', 'gear', {'choice' : 'create_account'}, data.creating_new_account ? 'disabled' : null, 'fixedLeft')}}
   {{:helper.link('Print', 'print', {'choice' : 'print'}, data.creating_new_account ? 'disabled' : null, 'fixedLeft')}}
 
+   {{if data.creating_new_account}}
+    <div class='item'>
+      <h2>Create Account</h2>
+    </div>
 
-
-  {{if data.detailed_account_view}}
+    <form name='create_account' action='?src={{:data.src}}' method='get'>
+      <input type='hidden' name='src' value='{{:data.src}}'>
+      <input type='hidden' name='choice' value='finalise_create_account'>
+      <div class='item'>
+        <div class='itemLabel'>
+          <b>Account Holder</b>:
+        </div>
+        <div class='itemContent'>
+          <input type='text' id='holder_name' name='holder_name'>
+        </div>
+      </div>
+      <div class='item'>
+        <div class='itemLabel'>
+          <b>Initial Deposit</b>:
+        </div>
+        <div class='itemContent'>
+          <input type='text' id='starting_funds' name='starting_funds'>
+        </div>
+      </div>
+      <div class='item'>
+        <input type='submit' value='Create'>
+      </div>
+    </form>
+  {{else data.detailed_account_view}}  
     <div class='item'>
       <h2>Account Details</h2>
     </div>
@@ -100,7 +126,6 @@
       {{/if}}
     </div>
   {{else}}
-
     <div class='item'>
       <h2>Nanotrasen Accounts</h2>
     </div>

@@ -113,7 +113,6 @@ REAGENT SCANNER
 	name = "Health Analyzer"
 	icon_state = "health"
 	item_state = "healthanalyzer"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -162,8 +161,8 @@ REAGENT SCANNER
 	user.show_message("\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>", 1)
 	user.show_message("\t Damage Specifics: <font color='blue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 	user.show_message("\blue Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)", 1)
-	if(M.tod && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
-		user.show_message("\blue Time of Death: [M.tod]")
+	if(M.timeofdeath && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
+		user.show_message("\blue Time of Death: [worldtime2text(M.timeofdeath)]")
 	if(istype(M, /mob/living/carbon/human) && mode == 1)
 		var/mob/living/carbon/human/H = M
 		var/list/damaged = H.get_damaged_organs(1,1)
@@ -383,17 +382,17 @@ REAGENT SCANNER
 	if (user.stat)
 		return
 	if (crit_fail)
-		user << "\red This device has critically failed and is no longer functional!"
+		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!user.IsAdvancedToolUser())
+		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(reagents.total_volume)
 		var/list/blood_traces = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
 				reagents.clear_reagents()
-				user << "\red The sample was contaminated! Please insert another sample"
+				user << "<span class='warning'>The sample was contaminated! Please insert another sample.</span>"
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])
@@ -442,13 +441,13 @@ REAGENT SCANNER
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob)
 	if (user.stat)
 		return
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
+	if (!user.IsAdvancedToolUser())
+		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 	if(!istype(O))
 		return
 	if (crit_fail)
-		user << "\red This device has critically failed and is no longer functional!"
+		user << "<span class='warning'>This device has critically failed and is no longer functional!</span>"
 		return
 
 	if(!isnull(O.reagents))
@@ -457,7 +456,7 @@ REAGENT SCANNER
 			var/one_percent = O.reagents.total_volume / 100
 			for (var/datum/reagent/R in O.reagents.reagent_list)
 				if(prob(reliability))
-					dat += "\n \t \blue [R][details ? ": [R.volume / one_percent]%" : ""]"
+					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
 					recent_fail = 0
 				else if(recent_fail)
 					crit_fail = 1
@@ -466,11 +465,11 @@ REAGENT SCANNER
 				else
 					recent_fail = 1
 		if(dat)
-			user << "\blue Chemicals found: [dat]"
+			user << "<span class='notice'>Chemicals found: [dat]</span>"
 		else
-			user << "\blue No active chemical agents found in [O]."
+			user << "<span class='notice'>No active chemical agents found in [O].</span>"
 	else
-		user << "\blue No significant chemical agents found in [O]."
+		user << "<span class='notice'>No significant chemical agents found in [O].</span>"
 
 	return
 

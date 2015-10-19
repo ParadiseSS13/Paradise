@@ -3,7 +3,7 @@
 /obj/item/weapon/implant/freedom
 	name = "freedom"
 	desc = "Use this to escape from those evil Red Shirts."
-	_color = "r"
+	item_color = "r"
 	var/activation_emote = "chuckle"
 	origin_tech = "materials=2;magnets=3;biotech=3;syndicate=4"
 	var/uses = 4
@@ -23,6 +23,8 @@
 			if (source.handcuffed)
 				var/obj/item/weapon/W = source.handcuffed
 				source.handcuffed = null
+				if(source.buckled && source.buckled.buckle_requires_restraints)
+					source.buckled.unbuckle_mob()
 				source.update_inv_handcuffed()
 				if (source.client)
 					source.client.screen -= W

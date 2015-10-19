@@ -187,7 +187,8 @@
 
 /datum/reagent/radium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(4*REM,IRRADIATE,0)
+	if(M.radiation < 80)
+		M.apply_effect(4,IRRADIATE,0)
 	// radium may increase your chances to cure a disease
 	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
 		var/mob/living/carbon/C = M
@@ -313,13 +314,13 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(20, 0)
+							affecting.take_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
-						M.take_organ_damage(15,0)
+						M.take_organ_damage(5,10)
 			else
-				M.take_organ_damage(15,0)
+				M.take_organ_damage(5,10)
 
 	if(method == INGEST)
 		if(ishuman(M))
@@ -330,7 +331,7 @@
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)
-					M.take_organ_damage(min(max(volume-10,2)*2,20),0)
+					M.take_organ_damage(0,min(max(volume-10,2)*2,20))
 					M.emote("scream")
 
 
@@ -339,11 +340,11 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(20, 0)
+							affecting.take_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
-						M.take_organ_damage(15,0)
+						M.take_organ_damage(0,20)
 
 /datum/reagent/sacid/reaction_obj(var/obj/O, var/volume)
 	if((istype(O,/obj/item) || istype(O,/obj/effect/glowshroom)) && prob(40))
@@ -405,7 +406,7 @@
 	color = "#9ACD32"
 
 /datum/reagent/spores/on_mob_life(var/mob/living/M as mob)
-	M.adjustToxLoss(0.5)
+	M.adjustToxLoss(1)
 	M.damageoverlaytemp = 60
 	M.eye_blurry = max(M.eye_blurry, 3)
 	..()
@@ -417,6 +418,7 @@
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/beer2/on_mob_life(var/mob/living/M as mob)
 	if(!data)
@@ -428,7 +430,6 @@
 			M.sleeping += 1
 			M.adjustToxLoss((data - 50)*REM)
 	data++
-	holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 	..()
 	return
 
@@ -558,40 +559,3 @@
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	..()
 	return
-
-/datum/reagent/frostoil
-	name = "Frost Oil"
-	id = "frostoil"
-	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
-	reagent_state = LIQUID
-	color = "#B31008" // rgb: 139, 166, 233
-	process_flags = ORGANIC | SYNTHETIC
-
-/datum/reagent/frostoil/on_mob_life(var/mob/living/M as mob)
-	if(!M) M = holder.my_atom
-	if(!data) data = 1
-	switch(data)
-		if(1 to 15)
-			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(holder.has_reagent("capsaicin"))
-				holder.remove_reagent("capsaicin", 5)
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(5,20)
-		if(15 to 25)
-			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(10,20)
-		if(25 to INFINITY)
-			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(1))
-				M.emote("shiver")
-			if(istype(M, /mob/living/carbon/slime))
-				M.bodytemperature -= rand(15,20)
-	data++
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
-	..()
-	return
-
-/datum/reagent/frostoil/reaction_turf(var/turf/simulated/T, var/volume)
-	for(var/mob/living/carbon/slime/M in T)
-		M.adjustToxLoss(rand(15,30))

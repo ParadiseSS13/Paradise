@@ -7,7 +7,7 @@
 		for(var/areapath in typesof(/area/hallway))
 			var/area/A = locate(areapath)
 			for(var/turf/simulated/floor/F in A.contents)
-				if(!F.contents.len)
+				if(turf_clear(F))
 					turfs += F
 
 		if(turfs.len) //Pick a turf to spawn at if we can
@@ -67,15 +67,17 @@
 	var/last_tick = 0
 	var/obj/machinery/portable_atmospherics/hydroponics/soil/invisible/plant
 
-	var/mob/living/buckled_mob = null
 	var/movable = 0
 
 /obj/effect/plant/Destroy()
+	if(buckled_mob)
+		unbuckle_mob()
 	if(plant_controller)
 		plant_controller.remove_plant(src)
 	for(var/obj/effect/plant/neighbor in range(1,src))
 		plant_controller.add_plant(neighbor)
 	return ..()
+
 /obj/effect/plant/single
 	spread_chance = 0
 

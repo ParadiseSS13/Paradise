@@ -3,7 +3,6 @@
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	fire_sound = 'sound/weapons/IonRifle.ogg'
 	origin_tech = "combat=2;magnets=4"
 	w_class = 5.0
@@ -36,7 +35,7 @@
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
 	icon_state = "floramut100"
-	item_state = "obj/item/gun.dmi"
+	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	projectile_type = "/obj/item/projectile/energy/floramut"
 	origin_tech = "materials=2;biotech=3;powerstorage=3"
@@ -128,11 +127,13 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = 1
 
 
 /obj/item/weapon/gun/energy/mindflayer
-	name = "mind flayer"
+	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	projectile_type = "/obj/item/projectile/beam/mindflayer"
@@ -231,7 +232,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "According to Nanotrasen accounting, this is mining equipment. It's been modified for extreme power output to crush rocks, but often serves as a miner's first defense against hostile alien life; it's not very powerful unless used in a low pressure environment."
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	projectile_type = "/obj/item/projectile/kinetic"
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
@@ -309,11 +309,10 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	charge_cost = 250
 	fire_delay = 15
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	can_charge = 0
 
 /obj/item/weapon/gun/energy/plasmacutter/examine(mob/user)
-	..()
+	..(user)
 	if(power_supply)
 		user <<"<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
 
@@ -381,20 +380,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 	update_icon()
 	return 1
-
-// Telegun for Tator RDs
-
-/obj/item/weapon/gun/energy/telegun
-	name = "Teleporter Gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
-	icon_state = "telegun"
-	item_state = "ionrifle"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
-	fire_sound = 'sound/weapons/wave.ogg'
-	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
-	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
-	projectile_type = "/obj/item/projectile/energy/teleport"
-	charge_cost = 1250
 
 /* 3d printer 'pseudo guns' for borgs */
 

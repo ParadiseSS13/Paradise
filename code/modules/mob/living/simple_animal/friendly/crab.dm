@@ -30,8 +30,10 @@
 		if(isturf(src.loc) && !resting && !buckled)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
-				Move(get_step(src,pick(4,8)))
-				turns_since_move = 0
+				var/east_vs_west = pick(4, 8)
+				if(Process_Spacemove(east_vs_west))
+					Move(get_step(src, east_vs_west), east_vs_west)
+					turns_since_move = 0
 	regenerate_icons()
 
 //COFFEE! SQUEEEEEEEEE!
@@ -61,7 +63,7 @@
 					health = min(maxHealth, health + MED.heal_brute)
 					MED.amount -= 1
 					if(MED.amount <= 0)
-						del(MED)
+						qdel(MED)
 					for(var/mob/M in viewers(src, null))
 						if ((M.client && !( M.blinded )))
 							M.show_message("\blue [user] applies the [MED] on [src]")

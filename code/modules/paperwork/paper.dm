@@ -52,12 +52,11 @@
 		return
 	icon_state = "paper"
 
-/obj/item/weapon/paper/examine()
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		show_content(usr)
+/obj/item/weapon/paper/examine(mob/user)
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		show_content(user)
 	else
-		usr << "<span class='notice'>You have to go closer if you want to read it.</span>"
-	return
+		user << "<span class='notice'>You have to go closer if you want to read it.</span>"
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	set src in oview(1)
@@ -66,7 +65,7 @@
 		send_asset_list(user.client, S.assets)
 
 	var/data
-	if((!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)) && !forceshow) || forcestars)
+	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
 			usr << browse(data, "window=[name]")
@@ -95,7 +94,7 @@
 	return
 
 /obj/item/weapon/paper/attack_self(mob/living/user as mob)
-	src.examine(user)
+	user.examinate(src)
 	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
@@ -120,7 +119,7 @@
 	if(user.zone_sel.selecting == "eyes")
 		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
 			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
-		src.examine(user)
+		M.examinate(src)
 
 	else if(user.zone_sel.selecting == "mouth")
 		if(!istype(M, /mob))	return
@@ -419,10 +418,11 @@
 		B.update_icon()
 
 	else if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
-			P:RenamePaper(user,src)
+		var/obj/item/weapon/pen/robopen/RP = P
+		if(istype(P, /obj/item/weapon/pen/robopen) && RP.mode == 2)
+			RP.RenamePaper(user,src)
 		else
-			show_content(user, forceshow = 1, infolinks = 1)
+			show_content(user, infolinks = 1)
 		//openhelp(user)
 		return
 
@@ -444,7 +444,7 @@
 
 	add_fingerprint(user)
 	return
-	
+
 /obj/item/weapon/paper/proc/stamp(var/obj/item/weapon/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
@@ -460,7 +460,7 @@
 	offset_y += y
 	stampoverlay.pixel_x = x
 	stampoverlay.pixel_y = y
-	
+
 	if(!ico)
 		ico = new
 	ico += "paper_[S.icon_state]"
@@ -590,6 +590,10 @@
 /obj/item/weapon/paper/syndimemo
 	name = "paper- 'Memo'"
 	info = "GET DAT FUKKEN DISK"
+
+/obj/item/weapon/paper/synditele
+	name = "Teleporter Instructions"
+	info = "<h3>Teleporter Instruction</h3><hr><ol><li>Install circuit board, glass and wiring to complete Teleporter Control Console</li><li>Use a screwdriver, wirecutter and screwdriver again on the Teleporter Station to connect it</li><li>Set destination with Teleporter Control Computer</li><li>Activate Teleporter Hub with Teleporter Station</li></ol>"
 
 /obj/item/weapon/paper/russiantraitorobj
 	name = "paper- 'Mission Objectives'"

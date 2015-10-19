@@ -319,7 +319,7 @@ What are the archived variables for?
 				trace_gases += corresponding
 			corresponding.moles += trace_gas.moles
 
-//	del(giver)
+//	qdel(giver)
 	return 1
 
 /datum/gas_mixture/remove(amount)

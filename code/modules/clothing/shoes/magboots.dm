@@ -25,7 +25,7 @@
 	return flags & NOSLIP
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
-	..()
+	..(user)
 	user << "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
 
 

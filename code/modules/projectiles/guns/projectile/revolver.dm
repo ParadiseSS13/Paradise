@@ -1,6 +1,6 @@
 /obj/item/weapon/gun/projectile/revolver
+	name = "\improper .357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
-	name = "revolver"
 	icon_state = "revolver"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder"
 
@@ -60,11 +60,12 @@
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
-/obj/item/weapon/gun/projectile/revolver/examine()
-	..()
-	usr << "[get_ammo(0,0)] of those are live rounds."
+/obj/item/weapon/gun/projectile/revolver/examine(mob/user)
+	..(user)
+	user << "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/weapon/gun/projectile/revolver/detective
+	name = "\improper .38 Mars Special"
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
 	name = "revolver"
 	icon_state = "detective"
@@ -154,8 +155,8 @@
 
 
 /obj/item/weapon/gun/projectile/revolver/mateba
-	name = "autorevolver"
-	desc = "A retro high-powered mateba autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
+	name = "\improper Unica 6 auto-revolver"
+	desc = "A retro high-powered autorevolver typically used by officers of the New Russia military. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
 	origin_tech = "combat=2;materials=2"
 
@@ -163,7 +164,7 @@
 // You can spin the chamber to randomize the position of the bullet.
 
 /obj/item/weapon/gun/projectile/revolver/russian
-	name = "Russian Revolver"
+	name = "\improper Russian Revolver"
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/rus357"

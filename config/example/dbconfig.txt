@@ -1,28 +1,33 @@
-# MySQL Connection Configuration
+## MySQL Connection Configuration
+## This is used for stats, feedback gathering,
+## administration, and the in game library.
 
-# Server the MySQL database can be found at
+## Should SQL be enabled? Uncomment to enable.
+#SQL_ENABLED
+
+## Server the MySQL database can be found at.
 # Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
 ADDRESS localhost
 
-# MySQL server port (default is 3306)
+## MySQL server port (default is 3306).
 PORT 3306
 
-# Database the population, death, karma, etc. tables may be found in
-DATABASE paradise
+## Database for all SQL functions, not just feedback.
+FEEDBACK_DATABASE feedback
 
-# Username/Login used to access the database
-LOGIN mylogin
+## Prefix to be added to the name of every table, older databases will require this be set to erro_
+## If left out defaults to erro_ for legacy reasons, if you want no table prefix, give a blank prefix rather then comment out
+## Note, this does not change the table names in the database, you will have to do that yourself.
+## IE:
+##	FEEDBACK_TABLEPREFIX erro_
+##	FEEDBACK_TABLEPREFIX 
+##	FEEDBACK_TABLEPREFIX SS13_
+##
+## Leave as is if you are using the standard schema file.
+FEEDBACK_TABLEPREFIX 
 
-# Password used to access the database
-PASSWORD mypassword
+## Username/Login used to access the database.
+FEEDBACK_LOGIN username
 
-# The following information is for feedback tracking via the blackbox server
-FEEDBACK_DATABASE paradise
-FEEDBACK_LOGIN mylogin
-FEEDBACK_PASSWORD mypassword
-# Table prefix - make sure you properly prefix the tables currently marked as erro_ in the .sql file as this is not fully implemented
-FEEDBACK_TABLEPREFIX erro
-
-# Track population and death statistics
-# Comment this out to disable
-ENABLE_STAT_TRACKING
+## Password used to access the database.
+FEEDBACK_PASSWORD password

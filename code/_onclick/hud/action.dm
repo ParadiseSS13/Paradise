@@ -30,6 +30,8 @@
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
+	if(target)
+		target = null
 	return ..()
 
 /datum/action/proc/Grant(mob/living/T)
@@ -46,7 +48,8 @@
 	if(button)
 		if(T.client)
 			T.client.screen -= button
-		del(button)
+		qdel(button)
+		button = null
 	T.actions.Remove(src)
 	T.update_action_buttons()
 	owner = null
@@ -227,6 +230,8 @@
 
 /datum/action/spell_action/UpdateName()
 	var/obj/effect/proc_holder/spell/spell = target
+	if(!spell)
+		return 0
 	return spell.name
 
 /datum/action/spell_action/IsAvailable()
@@ -246,3 +251,34 @@
 		if(target in owner.mind.spell_list)
 			return 0
 	return !(target in owner.spell_list)
+
+	//Action button controlling a mob's research examine ability.
+/datum/action/scan_mode
+	name = "Toggle Research Scanner"
+	button_icon_state = "scan_mode"
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_ALIVE
+	action_type = AB_INNATE
+	var/devices = 0 //How may enabled scanners the mob has
+
+/datum/action/scan_mode/Activate()
+	active = 1
+	owner.research_scanner = 1
+	owner << "<span class='notice'> Research analyzer is now active.</span>"
+
+/datum/action/scan_mode/Deactivate()
+	active = 0
+	owner.research_scanner = 0
+	owner << "<span class='notice'> Research analyzer deactivated.</span>"
+
+/datum/action/scan_mode/Grant(mob/living/T)
+	devices += 1
+	..(T)
+
+/datum/action/scan_mode/CheckRemoval(mob/living/user)
+	if(devices)
+		return 0
+	return 1
+
+/datum/action/scan_mode/Remove(mob/living/T)
+	owner.research_scanner = 0
+	..(T)

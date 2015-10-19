@@ -8,7 +8,6 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.6
 
-
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
 	desc = "An armored vest that protects against some damage."
@@ -39,6 +38,18 @@
 	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
 	icon_state = "armorsec"
 	item_state = "armor"
+	
+/obj/item/clothing/suit/armor/vest/blueshield
+	name = "blueshield security armor"
+	desc = "An armored vest with the badge of a Blueshield Lieutenant."
+	icon_state = "blueshield"
+	item_state = "blueshield"
+	
+/obj/item/clothing/suit/armor/vest/bloody
+	name = "bloodied security armor"
+	desc = "A vest drenched in the blood of Greytide. It has seen better days."
+	icon_state = "bloody_armor"
+	item_state = "bloody_armor"
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"

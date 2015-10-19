@@ -2,7 +2,7 @@
 	name = "train"
 	dir = 4
 
-	move_delay = 1
+	move_delay = 2
 
 	health = 100
 	maxhealth = 100
@@ -35,6 +35,15 @@
 		if(lead)
 			unattach()
 		return 0
+
+/obj/vehicle/train/can_move()
+	if(!is_train_head())
+		return 1 //towed objects do not need power to Move()
+
+	if(!..())
+		return 0
+	return 1
+
 
 /obj/vehicle/train/Bump(atom/Obstacle)
 	if(!istype(Obstacle, /atom/movable))

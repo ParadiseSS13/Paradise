@@ -28,7 +28,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
-	
+
 /obj/machinery/bodyscanner/upgraded/New()
 	..()
 	component_parts = list()
@@ -129,9 +129,9 @@
 			usr << "[L.name] will not fit into the body scanner because they have a slime latched onto their head."
 			return
 	if(L == user)
-		visible_message("[user] climbs into the body scanner.", 3)
+		visible_message("[user] climbs into the body scanner.")
 	else
-		visible_message("[user] puts [L.name] into the body scanner.", 3)
+		visible_message("[user] puts [L.name] into the body scanner.")
 
 	if (L.client)
 		L.client.perspective = EYE_PERSPECTIVE
@@ -350,21 +350,21 @@
 
 /obj/machinery/body_scanconsole/attack_ai(user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/body_scanconsole/attack_ghost(user as mob)
 	return attack_hand(user)
 
 /obj/machinery/body_scanconsole/attack_hand(user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return
-		
+
 	if (panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
-		
+
 	if(!src.connected)
 		findscanner()
-		
+
 	if (src.connected)
 		if(!connected.occupant)
 			user << "<span class='notice'>The scanner is empty.</span>"

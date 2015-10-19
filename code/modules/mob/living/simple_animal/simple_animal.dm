@@ -80,7 +80,8 @@
 
 /mob/living/simple_animal/Login()
 	if(src && src.client)
-		src.client.screen = null
+		src.client.screen = list()
+		client.screen += client.void
 	..()
 
 /mob/living/simple_animal/updatehealth()
@@ -130,8 +131,10 @@
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					Move(get_step(src,pick(cardinal)))
-					turns_since_move = 0
+					var/anydir = pick(cardinal)
+					if(Process_Spacemove(anydir))
+						Move(get_step(src,anydir), anydir)
+						turns_since_move = 0
 
 	//Speaking
 	if(!client && speak_chance && (ckey == null))
@@ -149,23 +152,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							emote(pick(emote_see),1)
+							custom_emote(1, pick(emote_see))
 						else
-							emote(pick(emote_hear),2)
+							custom_emote(2, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					emote(pick(emote_see),1)
+					custom_emote(1, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					emote(pick(emote_hear),2)
+					custom_emote(2, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						emote(pick(emote_see),1)
+						custom_emote(1, pick(emote_see))
 					else
-						emote(pick(emote_hear),2)
+						custom_emote(2,pick(emote_hear))
 
 
 	//Atmos
@@ -257,18 +260,19 @@
 	adjustBruteLoss(20)
 	return
 
-/mob/living/simple_animal/emote(var/act,var/m_type=1,var/message = null)
-	if(stat)
-		return
-	switch(act)
+/mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
+	if(stat)	return
+
+	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
-			message = "<B>The [src.name]</B> whimpers."
+			message = "<B>\The [src]</B> whimpers."
 			m_type = 2
-	..()
+
+	..(act, m_type, message)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -544,21 +548,10 @@
 	gib()
 	return
 
-/mob/living/simple_animal/say(var/message,var/datum/language/speaking,var/verb)
-	if(stat)
-		return
-
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-
-	if(stat)
-		return
-
-	verb = "says"
+/mob/living/simple_animal/say_quote(var/message)
+	var/verb = "says"
 
 	if(speak_emote.len)
 		verb = pick(speak_emote)
 
-	message = capitalize(trim_left(message))
-
-	..(message, speaking, verb)
+	return verb

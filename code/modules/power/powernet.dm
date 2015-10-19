@@ -11,7 +11,7 @@
 	var/perapc = 0			// per-apc avilability
 	var/perapc_excess = 0
 	var/netexcess = 0			// excess power on the powernet (typically avail-load)
-		
+
 	var/problem = 0	// If either of these is set to 1 there is some sort of issue at the powernet.
 
 
@@ -20,6 +20,14 @@
 	..()
 
 /datum/powernet/Destroy()
+	//Go away references, you suck!
+	for(var/obj/structure/cable/C in cables)
+		cables -= C
+		C.powernet = null
+	for(var/obj/machinery/power/M in nodes)
+		nodes -= M
+		M.powernet = null
+
 	powernets -= src
 	return ..()
 
@@ -43,7 +51,7 @@
 	cables -= C
 	C.powernet = null
 	if(is_empty())//the powernet is now empty...
-		del(src)///... delete it - qdel
+		qdel(src)///... delete it - qdel
 
 //add a cable to the current powernet
 //Warning : this proc DON'T check if the cable exists
@@ -63,7 +71,7 @@
 	nodes -=M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
-		del(src)///... delete it - qdel
+		qdel(src)///... delete it - qdel
 
 
 //add a power machine to the current powernet
@@ -76,7 +84,7 @@
 			M.disconnect_from_network()//..remove it
 	M.powernet = src
 	nodes[M] = M
-	
+
 // Triggers warning for certain amount of ticks
 /datum/powernet/proc/trigger_warning(var/duration_ticks = 20)
 	problem = max(duration_ticks, problem)
@@ -85,7 +93,7 @@
 //called every ticks by the powernet controller
 /datum/powernet/proc/reset()
 	var/numapc = 0
-	
+
 	if(problem > 0)
 		problem = max(problem - 1, 0)
 

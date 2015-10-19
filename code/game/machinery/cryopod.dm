@@ -110,7 +110,7 @@
 			user << "<span class='notice'>\The [I] is no longer in storage.</span>"
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>", 3)
+		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
 
 		I.loc = get_turf(src)
 		frozen_items -= I
@@ -125,7 +125,7 @@
 			user << "<span class='notice'>There is nothing to recover from storage.</span>"
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>", 3)
+		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
 
 		for(var/obj/item/I in frozen_items)
 			I.loc = get_turf(src)
@@ -207,6 +207,10 @@
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/weapon/storage/internal
+	)
+	// These items will NOT be preserved
+	var/list/do_not_preserve_items = list (
+		/obj/item/device/mmi/posibrain
 	)
 
 /obj/machinery/cryopod/right
@@ -313,7 +317,7 @@
 		occupant.unEquip(W)
 		W.loc = src
 
-		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
+		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
 			var/preserve = null
 			for(var/T in preserve_items)
 				if(istype(W,T))
@@ -335,7 +339,7 @@
 
 		var/preserve = null
 		for(var/T in preserve_items)
-			if(istype(W,T))
+			if(istype(W,T) && !(W in do_not_preserve_items))
 				preserve = 1
 				break
 
@@ -416,7 +420,7 @@
 	else
 		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
+	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Delete the mob.
 	qdel(occupant)
@@ -454,7 +458,7 @@
 
 		if(willing)
 
-			visible_message("[user] starts putting [G:affecting:name] into \the [src].", 3)
+			visible_message("[user] starts putting [G:affecting:name] into \the [src].")
 
 			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
@@ -543,9 +547,9 @@
 
 	if(willing)
 		if(L == user)
-			visible_message("[user] starts climbing into the cryo pod.", 3)
+			visible_message("[user] starts climbing into the cryo pod.")
 		else
-			visible_message("[user] starts putting [L] into the cryo pod.", 3)
+			visible_message("[user] starts putting [L] into the cryo pod.")
 
 		if(do_after(user, 20, target = L))
 			if(!L) return
@@ -633,7 +637,7 @@
 			usr << "You're too busy getting your life sucked out of you."
 			return
 
-	visible_message("[usr] starts climbing into \the [src].", 3)
+	visible_message("[usr] starts climbing into \the [src].")
 
 	if(do_after(usr, 20, target = usr))
 

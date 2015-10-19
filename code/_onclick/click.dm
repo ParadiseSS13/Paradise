@@ -190,7 +190,7 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(var/atom/A)
-	A.point()
+	pointed(A)
 	return
 
 // See click_override.dm
@@ -223,8 +223,7 @@
 	return
 /atom/proc/ShiftClick(var/mob/user)
 	if(user.client && user.client.eye == user)
-		examine()
-		user.face_atom(src)
+		user.examinate(src)
 	return
 
 /*
@@ -386,16 +385,16 @@
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
 
-	// Snowflake for space vines.
+/*	// Snowflake for space vines. //Are you fucking kidding me?
 	var/is_buckled = 0
 	if(buckled)
 		if(istype(buckled))
 			if(!buckled.movable)
 				is_buckled = 1
 		else
-			is_buckled = 0
+			is_buckled = 0*/
 
-	if( stat || is_buckled || !A || !x || !y || !A.x || !A.y ) return
+	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
 	if(!dx && !dy) return
@@ -408,6 +407,24 @@
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
 	usr.dir = direction
-	if(buckled && buckled.movable)
+
+/*	if(buckled && buckled.movable)
 		buckled.dir = direction
-		buckled.handle_rotation()
+		buckled.handle_rotation()*/
+		
+/obj/screen/click_catcher
+	icon = 'icons/mob/screen1_full.dmi'
+	icon_state = "passage0"
+	layer = 0
+	mouse_opacity = 2
+	screen_loc = "CENTER-7,CENTER-7"
+
+/obj/screen/click_catcher/Click(location, control, params)
+	var/list/modifiers = params2list(params)
+	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
+		var/mob/living/carbon/C = usr
+		C.swap_hand()
+	else
+		var/turf/T = screen_loc2turf(modifiers["screen-loc"], get_turf(usr))
+		T.Click(location, control, params)
+	return 1

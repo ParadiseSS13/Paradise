@@ -71,7 +71,7 @@
 /obj/item/ammo_box/magazine/internal/shotriot
 	name = "riot shotgun internal magazine"
 	desc = "Oh god, this shouldn't be here"
-	ammo_type = "/obj/item/ammo_casing/shotgun/beanbag"
+	ammo_type = "/obj/item/ammo_casing/shotgun/rubbershot"
 	caliber = "shotgun"
 	max_ammo = 6
 	multiload = 0
@@ -116,16 +116,43 @@
 	..()
 	icon_state = "[initial(icon_state)]-[ammo_count() ? "8" : "0"]"
 
+/obj/item/ammo_box/magazine/uzim9mm
+	name = "uzi magazine (9mm)"
+	icon_state = "uzi9mm-32"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 32
+
+/obj/item/ammo_box/magazine/uzim9mm/update_icon()
+	..()
+	icon_state = "uzi9mm-[round(ammo_count(),4)]"
+
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "SMG magazine (9mm)"
 	icon_state = "smg9mm"
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	caliber = "9mm"
-	max_ammo = 20
+	max_ammo = 30
+	materials = list(MAT_METAL = 2000)
+
+/obj/item/ammo_box/magazine/smgm9mm/ap
+	name = "SMG magazine (Armour Piercing 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mmap
+	materials = list(MAT_METAL = 3000)
+
+/obj/item/ammo_box/magazine/smgm9mm/toxin
+	name = "SMG magazine (Toxin Tipped 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mmtox
+	materials = list(MAT_METAL = 3000)
+
+/obj/item/ammo_box/magazine/smgm9mm/fire
+	name = "SMG Magazine (Incendiary 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mminc
+	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/smgm9mm/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(),5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),6)]"
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "SMG magazine (.45)"
@@ -163,17 +190,14 @@
 	multiple_sprites = 2
 	max_ammo = 8
 
-/obj/item/ammo_box/magazine/m545
-	name = "box magazine (5.45mm)"
-	icon_state = "5.45m"
+/obj/item/ammo_box/magazine/m556
+	name = "toploader magazine (5.56mm)"
+	icon_state = "5.56m"
 	origin_tech = "combat=5;syndicate=1"
-	ammo_type = "/obj/item/ammo_casing/a545"
-	caliber = "a545"
+	ammo_type = /obj/item/ammo_casing/a556
+	caliber = "a556"
 	max_ammo = 30
-
-/obj/item/ammo_box/magazine/m545/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[round(ammo_count(),10)]"
+	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m762
 	name = "box magazine (7.62mm)"

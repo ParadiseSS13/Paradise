@@ -9,7 +9,7 @@
 
 /datum/controller/process/pipenet/doWork()
 	for(last_object in pipe_networks)
-		var/datum/pipe_network/pipeNetwork = last_object
+		var/datum/pipeline/pipeNetwork = last_object
 		if(istype(pipeNetwork) && isnull(pipeNetwork.gcDestroyed))
 			try
 				pipeNetwork.process()

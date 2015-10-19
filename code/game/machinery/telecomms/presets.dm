@@ -23,7 +23,7 @@
 	hide = 1
 	toggled = 0
 	autolinkers = list("r_relay")
-	
+
 /obj/machinery/telecomms/relay/preset/engioutpost
 	id = "Engineering Outpost"
 	hide = 1
@@ -37,7 +37,6 @@
 	//anchored = 1
 	use_power = 0
 	//idle_power_usage = 0
-	heatgen = 0
 	autolinkers = list("c_relay")
 
 //HUB
@@ -48,7 +47,7 @@
 	autolinkers = list("hub", "relay", "c_relay", "s_relay", "m_relay", "r_relay", "e_relay", "science", "medical",
 	"supply", "service", "common", "command", "engineering", "security",
 	"receiverA", "receiverB", "broadcasterA", "broadcasterB")
-	
+
 /obj/machinery/telecomms/hub/preset_cent
 	id = "CentComm Hub"
 	network = "tcommsat"
@@ -73,14 +72,14 @@
 	id = "Receiver B"
 	network = "tcommsat"
 	autolinkers = list("receiverB") // link to relay
-	freq_listening = list(COMM_FREQ, ENG_FREQ, SEC_FREQ) 
+	freq_listening = list(AI_FREQ, COMM_FREQ, ENG_FREQ, SEC_FREQ)
 
 	//Common and other radio frequencies for people to freely use
 	New()
 		for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 			freq_listening |= i
 		..()
-		
+
 /obj/machinery/telecomms/receiver/preset_cent
 	id = "CentComm Receiver"
 	network = "tcommsat"
@@ -118,7 +117,7 @@
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
 	..()
-	
+
 /obj/machinery/telecomms/bus/preset_cent
 	id = "CentComm Bus"
 	network = "tcommsat"
@@ -147,7 +146,7 @@
 	id = "Processor 4"
 	network = "tcommsat"
 	autolinkers = list("processor4")
-	
+
 /obj/machinery/telecomms/processor/preset_cent
 	id = "CentComm Processor"
 	network = "tcommsat"
@@ -178,14 +177,14 @@
 /obj/machinery/telecomms/server/presets/service
 	id = "Service Server"
 	freq_listening = list(SRV_FREQ)
-	autolinkers = list("service")	
-	
+	autolinkers = list("service")
+
 /obj/machinery/telecomms/server/presets/common
 	id = "Common Server"
-	freq_listening = list()
+	freq_listening = list(PUB_FREQ, AI_FREQ)
 	autolinkers = list("common")
 
-	//Common and other radio frequencies for people to freely use
+//Common and other radio frequencies for people to freely use
 /obj/machinery/telecomms/server/presets/common/New()
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
@@ -210,7 +209,7 @@
 	id = "CentComm Server"
 	freq_listening = list(ERT_FREQ, DTH_FREQ)
 	use_power = 0
-	autolinkers = list("centcomm")	
+	autolinkers = list("centcomm")
 
 //Broadcasters
 

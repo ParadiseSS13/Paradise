@@ -177,8 +177,10 @@
 
 /obj/structure/closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
+		if(user in contents) //to prevent self-teleporting.
+			return
 		var/obj/item/weapon/rcs/E = W
-		if(E.rcharges != 0)
+		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!(src.z in config.contact_levels))
 				user << "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>"
 				return
@@ -200,20 +202,16 @@
 					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 					user << "\blue Teleporting [src.name]..."
 					E.teleporting = 1
-					sleep(50)
+					if(!do_after(user, 50, target = src))
+						E.teleporting = 0
+						return
 					E.teleporting = 0
 					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
-					E.rcharges--
-					if(E.rcharges != 1)
-						user << "\blue Teleport successful. [E.rcharges] charges left."
-						E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
-						return
-					else
-						user << "\blue Teleport successful. [E.rcharges] charge left."
-						E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
+					E.rcell.use(E.chargecost)
+					user << "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>"
 					return
 			else
 				E.rand_x = rand(50,200)
@@ -222,23 +220,19 @@
 				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
 				user << "\blue Teleporting [src.name]..."
 				E.teleporting = 1
-				sleep(50)
+				if(!do_after(user, 50, target = src))
+					E.teleporting = 0
+					return
 				E.teleporting = 0
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
-				E.rcharges--
-				if(E.rcharges != 1)
-					user << "\blue Teleport successful. [E.rcharges] charges left."
-					E.desc = "Use this to send crates and closets to cargo telepads. There are [E.rcharges] charges left."
-					return
-				else
-					user << "\blue Teleport successful. [E.rcharges] charge left."
-					E.desc = "Use this to send crates and closets to cargo telepads. There is [E.rcharges] charge left."
-					return
+				E.rcell.use(E.chargecost)
+				user << "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>"
+				return
 		else
-			user << "\red Out of charges."
+			user << "<span class='warning'>Out of charges.</span>"
 			return
 
 	if(src.opened)

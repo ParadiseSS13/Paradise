@@ -46,6 +46,7 @@
 
 /obj/machinery/smartfridge/Destroy()
 	qdel(wires)
+	wires = null
 	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(var/obj/item/O as obj)
@@ -199,8 +200,11 @@
 			user << "<span class='notice'>\The [src] is full.</span>"
 			return 1
 		else
-			user.remove_from_mob(O)
-			O.loc = src
+			if(!user.drop_item())
+				user << "<span class='warning'>\The [O] is stuck to you!</span>"
+				return
+
+			O.forceMove(src)
 			if(item_quants[O.name])
 				item_quants[O.name]++
 			else
@@ -337,7 +341,7 @@
 			var/i = amount
 			for(var/obj/O in contents)
 				if(O.name == K)
-					O.loc = loc
+					O.forceMove(loc)
 					i--
 					if(i <= 0)
 						return 1
@@ -358,7 +362,7 @@
 		item_quants[O]--
 		for(var/obj/T in contents)
 			if(T.name == O)
-				T.loc = src.loc
+				T.forceMove(src.loc)
 				throw_item = T
 				break
 		break

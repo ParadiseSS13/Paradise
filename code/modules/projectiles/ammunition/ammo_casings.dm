@@ -25,6 +25,20 @@
 	caliber = "9mm"
 	projectile_type = "/obj/item/projectile/bullet/weakbullet3"
 
+/obj/item/ammo_casing/c9mmap
+	desc = "A 9mm bullet casing."
+	caliber = "9mm"
+	projectile_type =/obj/item/projectile/bullet/armourpiercing
+
+/obj/item/ammo_casing/c9mmtox
+	desc = "A 9mm bullet casing."
+	caliber = "9mm"
+	projectile_type = /obj/item/projectile/bullet/toxinbullet
+
+/obj/item/ammo_casing/c9mminc
+	desc = "A 9mm bullet casing."
+	caliber = "9mm"
+	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
@@ -49,6 +63,14 @@
 	pellets = 5
 	deviation = 30
 
+/obj/item/ammo_casing/shotgun/rubbershot
+	name = "rubber shot"
+	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
+	icon_state = "bshell"
+	projectile_type = "/obj/item/projectile/bullet/rpellet"
+	pellets = 5
+	deviation = 30
+	materials = list(MAT_METAL=4000)
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -183,9 +205,9 @@
 	caliber = "a762"
 	projectile_type = "/obj/item/projectile/bullet"
 
-/obj/item/ammo_casing/a545
-	desc = "A 5.45mm bullet casing."
-	caliber = "a545"
+/obj/item/ammo_casing/a556
+	desc = "A 5.56mm bullet casing."
+	caliber = "a556"
 	projectile_type = "/obj/item/projectile/bullet/heavybullet"
 
 /obj/item/ammo_casing/rocket

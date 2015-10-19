@@ -27,12 +27,11 @@
 					chargelevel = newlevel
 			else
 				overlays.Cut()
-	examine()
-		set src in oview(5)
-		..()
-		usr << "There's [charging ? "a" : "no"] cell in the charger."
-		if(charging)
-			usr << "Current charge: [charging.charge]"
+	examine(mob/user)
+		if(..(user, 5))
+			user << "There's [charging ? "a" : "no"] cell in the charger."
+			if(charging)
+				user << "Current charge: [charging.charge]"
 
 	attackby(obj/item/weapon/W, mob/user, params)
 		if(stat & BROKEN)

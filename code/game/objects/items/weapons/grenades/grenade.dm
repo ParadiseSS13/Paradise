@@ -5,7 +5,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
 	item_state = "flashbang"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throw_speed = 4
 	throw_range = 20
 	flags = CONDUCT
@@ -46,13 +45,13 @@
 	return*/
 
 
-/obj/item/weapon/grenade/examine()
-	..()
+/obj/item/weapon/grenade/examine(mob/user)
+	..(user)
 	if(display_timer)
 		if(det_time > 1)
-			usr << "The timer is set to [det_time/10] second\s."
+			user << "The timer is set to [det_time/10] second\s."
 		else
-			usr << "\The [src] is set for instant detonation."
+			user << "\The [src] is set for instant detonation."
 
 /obj/item/weapon/grenade/attack_self(mob/user as mob)
 	if(!active)

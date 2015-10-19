@@ -140,10 +140,10 @@
 	return owner && (flags & flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_tone()
-	return owner && (flags & APPEARANCE_SKIN) && owner.species.flags & HAS_SKIN_TONE
+	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_TONE)
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_color()
-	return owner && (flags & APPEARANCE_SKIN) && owner.species.flags & HAS_SKIN_COLOR
+	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_COLOR)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant

@@ -1,3 +1,4 @@
+
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /*
@@ -168,93 +169,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return destination
 
-///////////////////
-//A* helpers procs
-///////////////////
-
-// Returns true if a link between A and B is blocked
-// Movement through doors allowed if ID has access
-/proc/LinkBlockedWithAccess(turf/A, turf/B, obj/item/weapon/card/id/ID)
-
-	if(A == null || B == null) return 1
-	var/adir = get_dir(A,B)
-	var/rdir = get_dir(B,A)
-	if(adir & (adir-1))	//	diagonal
-		var/turf/iStep = get_step(A,adir&(NORTH|SOUTH))
-		if(!iStep.density && !LinkBlockedWithAccess(A,iStep, ID) && !LinkBlockedWithAccess(iStep,B,ID))
-			return 0
-
-		var/turf/pStep = get_step(A,adir&(EAST|WEST))
-		if(!pStep.density && !LinkBlockedWithAccess(A,pStep,ID) && !LinkBlockedWithAccess(pStep,B,ID))
-			return 0
-
-		return 1
-
-	if(DirBlockedWithAccess(A,adir, ID))
-		return 1
-
-	if(DirBlockedWithAccess(B,rdir, ID))
-		return 1
-
-	for(var/obj/O in B)
-		if(O.density && !istype(O, /obj/machinery/door) && !(O.flags & ON_BORDER))
-			return 1
-
-	return 0
-
-// Returns true if direction is blocked from loc
-// Checks doors against access with given ID
-/proc/DirBlockedWithAccess(turf/loc,var/dir,var/obj/item/weapon/card/id/ID)
-	for(var/obj/structure/window/D in loc)
-		if(!D.density)			continue
-		if(D.dir == SOUTHWEST)	return 1 //full-tile window
-		if(D.dir == dir)		return 1 //matching border window
-
-	for(var/obj/machinery/door/D in loc)
-		if(!D.CanAStarPass(ID,dir))
-			return 1
-	return 0
-
-// Returns true if a link between A and B is blocked
-// Movement through doors allowed if door is open
-/proc/LinkBlocked(turf/A, turf/B)
-	if(A == null || B == null)
-		return 1
-	var/adir = get_dir(A,B)
-	var/rdir = get_dir(B,A)
-	if(adir & (adir-1)) //diagonal
-		var/turf/iStep = get_step(A,adir & (NORTH|SOUTH)) //check the north/south component
-		if(!iStep.density && !LinkBlocked(A,iStep) && !LinkBlocked(iStep,B))
-			return 0
-
-		var/turf/pStep = get_step(A,adir & (EAST|WEST)) //check the east/west component
-		if(!pStep.density && !LinkBlocked(A,pStep) && !LinkBlocked(pStep,B))
-			return 0
-
-		return 1
-
-	if(DirBlocked(A,adir)) return 1
-	if(DirBlocked(B,rdir)) return 1
-
-	for(var/obj/O in B)
-		if(O.density && !istype(O, /obj/machinery/door) && !(O.flags & ON_BORDER))
-			return 1
-
-	return 0
-
-// Returns true if a link is blocked and neither location has something climbable on
-// Used for inventory checks
-/proc/LinkBlockedUnclimbable(turf/A, turf/B)
-	if (!LinkBlocked(A, B))
-		return 0
-	for (var/obj/structure/S in A.contents)
-		if(S.climbable)
-			return 0
-	for (var/obj/structure/S in B.contents)
-		if(S.climbable)
-			return 0
-	return 1
-
 // Returns true if direction is blocked from loc
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
@@ -321,8 +235,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //Ensure the frequency is within bounds of what it should be sending/recieving at
 /proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
 	f = round(f)
-	f = max(low, f) 
-	f = min(high, f) 
+	f = max(low, f)
+	f = min(high, f)
 	if ((f % 2) == 0) //Ensure the last digit is an odd number
 		f += 1
 	return f
@@ -333,7 +247,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /obj/proc/atmosanalyzer_scan(var/datum/gas_mixture/air_contents, mob/user, var/obj/target = src)
 	var/obj/icon = target
-	user.visible_message("[user] has used the analyzer on \icon[icon] [target].", "<span class='notice'>You use the analyzer on \icon[icon] [target].</span>")
+	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 
@@ -778,7 +692,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	else return get_step(ref, base_dir)
 
-/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/stealth = 0) //This is quite an ugly solution but i refuse to use the old request system.
+/proc/do_mob(var/mob/user , var/mob/target, var/time = 30, numticks = 5, var/uninterruptible = 0) //This is quite an ugly solution but i refuse to use the old request system.
 	if(!user || !target)
 		return 0
 	if(numticks == 0)
@@ -797,7 +711,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 			if(user && user.client)
 				user.client.images -= progbar
 			return 0
-		if ( user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying)
+		if (!uninterruptible && (user.loc != user_loc || target.loc != target_loc || user.get_active_hand() != holding || user.stat || user.stunned || user.weakened || user.paralysis || user.lying))
 			if(user && user.client)
 				user.client.images -= progbar
 			return 0
@@ -1765,3 +1679,57 @@ var/mob/dview/dview_mob = new
 	if(orbiting)
 		loc = get_turf(orbiting)
 		orbiting = null
+		
+//Centers an image.
+//Requires:
+//The Image
+//The x dimension of the icon file used in the image
+//The y dimension of the icon file used in the image
+// eg: center_image(I, 32,32)
+// eg2: center_image(I, 96,96)
+/proc/center_image(var/image/I, x_dimension = 0, y_dimension = 0)
+	if(!I)
+		return
+
+	if(!x_dimension || !y_dimension)
+		return
+
+	//Get out of here, punk ass kids calling procs needlessly
+	if((x_dimension == world.icon_size) && (y_dimension == world.icon_size))
+		return I
+
+	//Offset the image so that it's bottom left corner is shifted this many pixels
+	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
+	//but still use them in game
+	var/x_offset = -((x_dimension/world.icon_size)-1)*(world.icon_size*0.5)
+	var/y_offset = -((y_dimension/world.icon_size)-1)*(world.icon_size*0.5)
+
+	//Correct values under world.icon_size
+	if(x_dimension < world.icon_size)
+		x_offset *= -1
+	if(y_dimension < world.icon_size)
+		y_offset *= -1
+
+	I.pixel_x = x_offset
+	I.pixel_y = y_offset
+
+	return I
+
+/proc/turf_clear(turf/T)
+	for(var/atom/A in T)
+		if(A.simulated)
+			return 0
+	return 1
+	
+/proc/screen_loc2turf(scr_loc, turf/origin)
+	var/tX = text2list(scr_loc, ",")
+	var/tY = text2list(tX[2], ":")
+	var/tZ = origin.z
+	tY = tY[1]
+	tX = text2list(tX[1], ":")
+	tX = tX[1]
+	tX = max(1, min(world.maxx, origin.x + (text2num(tX) - (world.view + 1))))
+	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
+	return locate(tX, tY, tZ)
+
+	

@@ -32,12 +32,6 @@
 	/obj/structure/falsewall/reinforced  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
 	)
 
-
-/turf/simulated/wall/Del()
-	for(var/obj/effect/E in src)
-		if(E.name == "Wallrot")
-			qdel(E)
-
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src)
 		if(E.name == "Wallrot")
@@ -50,22 +44,22 @@
 
 //Appearance
 
-/turf/simulated/wall/examine()
-	. = ..()
+/turf/simulated/wall/examine(mob/user)
+	. = ..(user)
 
 	if(!damage)
-		usr << "<span class='notice'>It looks fully intact.</span>"
+		user << "<span class='notice'>It looks fully intact.</span>"
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			usr << "<span class='warning'>It looks slightly damaged.</span>"
+			user << "<span class='warning'>It looks slightly damaged.</span>"
 		else if(dam <= 0.6)
-			usr << "<span class='warning'>It looks moderately damaged.</span>"
+			user << "<span class='warning'>It looks moderately damaged.</span>"
 		else
-			usr << "<span class='danger'>It looks heavily damaged.</span>"
+			user << "<span class='danger'>It looks heavily damaged.</span>"
 
 	if(rotting)
-		usr << "<span class='warning'>There is fungus growing on [src].</span>"
+		user << "<span class='warning'>There is fungus growing on [src].</span>"
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
@@ -283,11 +277,12 @@
 	user << "\blue You push the wall but nothing happens!"
 	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
 	src.add_fingerprint(user)
+	..()
 	return
 
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if (!user.IsAdvancedToolUser())
 		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return
 

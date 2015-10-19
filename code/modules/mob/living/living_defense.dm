@@ -10,8 +10,16 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null)
+/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
+
+	//the if "armor" check is because this is used for everything on /living, including humans
+	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
+		armor = max(0, armor - armour_penetration)
+		if(penetrated_text)
+			src << "<span class='userdanger'>[penetrated_text]</span>"
+		else
+			src << "<span class='userdanger'>Your armor was penetrated!</span>"
 
 	if(armor >= 100)
 		if(absorb_text)
@@ -42,7 +50,7 @@
 		Stun(2)
 
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag)
+	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	var/proj_sharp = is_sharp(P)
 	var/proj_edge = has_edge(P)
 	if ((proj_sharp || proj_edge) && prob(getarmor(def_zone, P.flag)))
@@ -56,21 +64,6 @@
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 	return P.on_hit(src, armor, def_zone)
-
-//Handles the effects of "stun" weapons
-/mob/living/proc/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon=null)
-	flash_pain()
-
-	if (stun_amount)
-		Stun(stun_amount)
-		Weaken(stun_amount)
-		apply_effect(STUTTER, stun_amount)
-		apply_effect(EYE_BLUR, stun_amount)
-
-	if (agony_amount)
-		apply_damage(agony_amount, HALLOSS, def_zone, 0, used_weapon)
-		apply_effect(STUTTER, agony_amount/10)
-		apply_effect(EYE_BLUR, agony_amount/10)
 
 /mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
 	  return 0 //only carbon liveforms have this proc
@@ -360,3 +353,7 @@
 	else*///This is an example of how you can make special types of grabs simply based on direction.
 	if(!supress_message)
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
+
+/mob/living/incapacitated()
+	if(stat || paralysis || stunned || weakened || restrained())
+		return 1

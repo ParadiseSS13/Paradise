@@ -91,45 +91,38 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	//send this msg to all admins
 	var/admin_number_afk = 0
+	var/list/mentorholders = list()
 	var/list/modholders = list()
-	var/list/banholders = list()
 	var/list/adminholders = list()
 	for(var/client/X in admins)
-		if((R_MOD | R_MENTOR) & X.holder.rights)
-			if(X.is_afk())
-				admin_number_afk++
-			modholders += X
-		if(R_ADMIN & X.holder.rights)
+		if(check_rights(R_ADMIN, 0, X.mob))
 			if(X.is_afk())
 				admin_number_afk++
 			adminholders += X
-		if(R_BAN & X.holder.rights)
-			banholders += X
+			continue
+		if(check_rights(R_MOD, 0, X.mob))
+			modholders += X
+			continue
+		if(check_rights(R_MENTOR, 0, X.mob))
+			mentorholders += X
+			continue
 
 	switch(selected_type)
 		if("Question")
-			if(modholders.len)
-				for(var/client/X in modholders)
-					if(X.prefs.sound & SOUND_ADMINHELP)
-						X << 'sound/effects/adminhelp.ogg'
-					X << msg
-			else
-				if(adminholders.len)
-					for(var/client/X in adminholders)
-						if(X.prefs.sound & SOUND_ADMINHELP)
-							X << 'sound/effects/adminhelp.ogg'
-						X << msg
-		else if("Player Complaint")
-			if(banholders.len)
-				for(var/client/X in banholders)
-					if(X.prefs.sound & SOUND_ADMINHELP)
-						X << 'sound/effects/adminhelp.ogg'
-					X << msg
+			for(var/client/X in mentorholders + modholders + adminholders)
+				if(X.prefs.sound & SOUND_ADMINHELP)
+					X << 'sound/effects/adminhelp.ogg'
+				X << msg
+		if("Player Complaint")
+			for(var/client/X in modholders + adminholders)
+				if(X.prefs.sound & SOUND_ADMINHELP)
+					X << 'sound/effects/adminhelp.ogg'
+				X << msg
 
 	//show it to the person adminhelping too
 	src << "<font color='blue'><b>[selected_type]</b>: [original_msg]</font>"
 
-	var/admin_number_present = admins.len - admin_number_afk
+	var/admin_number_present = adminholders.len - admin_number_afk
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)

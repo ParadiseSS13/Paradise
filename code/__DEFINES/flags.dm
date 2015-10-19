@@ -42,13 +42,17 @@
 #define NO_PAIN 		32
 #define REQUIRE_LIGHT 	64
 #define IS_WHITELISTED 	128
-#define HAS_LIPS 		512
-#define HAS_UNDERWEAR 	1024
-#define IS_PLANT 		2048 
-#define CAN_BE_FAT 		4096
-#define IS_RESTRICTED 	8192
-#define NO_INTORGANS	16384
-#define NO_POISON		32768
+#define HAS_LIPS 		256
+#define IS_PLANT 		512
+#define CAN_BE_FAT 		1024
+#define IS_RESTRICTED 	2048
+#define NO_INTORGANS	4096
+#define NO_POISON		8192
+
+//Species clothing flags
+#define HAS_UNDERWEAR 	1
+#define HAS_UNDERSHIRT 	2
+#define HAS_SOCKS		4
 
 //Species Blood Flags
 #define BLOOD_SLIME		1

@@ -29,7 +29,7 @@
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
-	if(H.mind.assigned_role!="Clown")
+	if(H.mind.assigned_role != "Clown")
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
@@ -108,7 +108,7 @@
 	H.equip_or_collect(new suit(H), slot_wear_suit)
 	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
-	H << "\blue You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable."
+	H << "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable.</span>"
 	H.internal = H.get_item_by_slot(tank_slot)
 	if (H.internals)
 		H.internals.icon_state = "internal1"

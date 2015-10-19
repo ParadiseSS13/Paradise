@@ -26,7 +26,7 @@
 				/obj/item/weapon/gun/projectile/automatic/pistol = 8,
 				/obj/item/weapon/gun/projectile/shotgun/combat = 5,
 				/obj/item/weapon/gun/projectile/revolver/mateba,
-				/obj/item/weapon/gun/projectile/automatic/deagle
+				/obj/item/weapon/gun/projectile/automatic/pistol/deagle
 				)
 
 /obj/effect/spawner/lootdrop/maintenance
@@ -115,6 +115,6 @@
 				/obj/item/weapon/weldingtool = 3,
 				/obj/item/weapon/wirecutters = 1,
 				/obj/item/weapon/wrench = 4,
-//				/obj/item/weapon/relic = 3, //disabled until we add in the E.X.P.E.R.I-MENTOR
+				/obj/item/weapon/relic = 3,
 				"" = 11
 				)

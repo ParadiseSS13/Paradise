@@ -21,7 +21,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
@@ -72,7 +71,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
@@ -126,5 +124,5 @@
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine(mob/user)
-	..()
+	..(user)
 	user << "You can't tell when it will explode!"

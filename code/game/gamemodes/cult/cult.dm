@@ -204,6 +204,8 @@
 		cult -= cult_mind
 		cult_mind.current << "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>"
 		cult_mind.memory = ""
+		cult_mind.special_role = null
+		cult_mind.current.hud_updateflag |= 1 << SPECIALROLE_HUD
 
 		// remove the cult viewpoint object
 		var/obj/viewpoint = getCultViewpoint(cult_mind.current)

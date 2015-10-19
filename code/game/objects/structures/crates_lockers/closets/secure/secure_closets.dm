@@ -66,6 +66,9 @@
 		user << "<span class='notice'>Access Denied</span>"
 
 /obj/structure/closet/secure_closet/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/weapon/rcs))
+		return ..()
+
 	if(src.opened)
 		if(istype(W, /obj/item/weapon/grab))
 			if(src.large)

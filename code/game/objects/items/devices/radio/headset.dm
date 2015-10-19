@@ -25,11 +25,20 @@
 	if(ks2type)
 		keyslot2 = new ks2type(src)
 	recalculateChannels(1)
-	
+
+/obj/item/device/radio/headset/Destroy()
+	if(keyslot1)
+		qdel(keyslot1)
+	if(keyslot2)
+		qdel(keyslot2)
+	keyslot1 = null
+	keyslot2 = null
+	return ..()
+
 /obj/item/device/radio/headset/list_channels(var/mob/user)
 	return list_secure_channels()
 
-/obj/item/device/radio/headset/examine(mob/user)
+/obj/item/device/radio/headset/examine(mob/user, var/distance = -1)
 	if(!(..(user, 1) && radio_desc))
 		return
 
@@ -286,7 +295,6 @@
 	return ..(freq, level, 1)
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
-//	..()
 	user.set_machine(src)
 	if (!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
@@ -294,20 +302,15 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(keyslot1 || keyslot2)
 
-
 			for(var/ch_name in channels)
 				radio_controller.remove_object(src, radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
-
 
 			if(keyslot1)
 				var/turf/T = get_turf(user)
 				if(T)
 					keyslot1.loc = T
 					keyslot1 = null
-
-
-
 			if(keyslot2)
 				var/turf/T = get_turf(user)
 				if(T)
@@ -316,7 +319,6 @@
 
 			recalculateChannels()
 			user << "You pop out the encryption keys in the headset!"
-
 		else
 			user << "This headset doesn't have any encryption keys!  How useless..."
 
@@ -329,15 +331,12 @@
 			user.drop_item()
 			W.loc = src
 			keyslot1 = W
-
 		else
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
 
-
 		recalculateChannels()
-
 	return
 
 

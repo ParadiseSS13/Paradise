@@ -8,10 +8,10 @@
 
 	bomb_name = "contact mine"
 
-	examine()
-		..()
+	examine(mob/user)
+		..(user)
 		if(armed)
-			usr << "It looks like it's armed."
+			user << "It looks like it's armed."
 
 	activate()
 		if(..())

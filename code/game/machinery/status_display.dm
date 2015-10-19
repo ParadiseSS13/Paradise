@@ -47,6 +47,11 @@
 	var/const/STATUS_DISPLAY_TIME = 4
 	var/const/STATUS_DISPLAY_CUSTOM = 99
 
+/obj/machinery/status_display/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src,frequency)
+	return ..()
+
 // register for radio system
 /obj/machinery/status_display/initialize()
 	..()
@@ -134,11 +139,10 @@
 			return 1
 	return 0
 
-/obj/machinery/status_display/examine()
-	set src in view()
-	. = ..()
+/obj/machinery/status_display/examine(mob/user)
+	. = ..(user)
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
-		usr << "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]"
+		user << "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]"
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)

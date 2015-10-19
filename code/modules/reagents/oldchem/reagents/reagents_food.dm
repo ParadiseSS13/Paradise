@@ -105,14 +105,60 @@
 			M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(istype(M, /mob/living/carbon/slime))
 				M.bodytemperature += rand(10,20)
-		if(25 to INFINITY)
+		if(25 to 35)
 			M.bodytemperature += 15 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(istype(M, /mob/living/carbon/slime))
 				M.bodytemperature += rand(15,20)
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
+		if(35 to INFINITY)
+			M.bodytemperature += 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(istype(M, /mob/living/carbon/slime))
+				M.bodytemperature += rand(20,25)
 	data++
 	..()
 	return
+
+/datum/reagent/frostoil
+	name = "Frost Oil"
+	id = "frostoil"
+	description = "A special oil that noticably chills the body. Extraced from Icepeppers."
+	reagent_state = LIQUID
+	color = "#8BA6E9" // rgb: 139, 166, 233
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/frostoil/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(!data) data = 1
+	switch(data)
+		if(1 to 15)
+			M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(holder.has_reagent("capsaicin"))
+				holder.remove_reagent("capsaicin", 5)
+			if(istype(M, /mob/living/carbon/slime))
+				M.bodytemperature -= rand(5,20)
+		if(15 to 25)
+			M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(istype(M, /mob/living/carbon/slime))
+				M.bodytemperature -= rand(10,20)
+		if(25 to 35)
+			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(prob(1))
+				M.emote("shiver")
+			if(istype(M, /mob/living/carbon/slime))
+				M.bodytemperature -= rand(15,20)
+		if(35 to INFINITY)
+			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
+			if(prob(1))
+				M.emote("shiver")
+			if(istype(M, /mob/living/carbon/slime))
+				M.bodytemperature -= rand(20,25)
+	data++
+	..()
+	return
+
+/datum/reagent/frostoil/reaction_turf(var/turf/simulated/T, var/volume)
+	if(volume >= 5)
+		for(var/mob/living/carbon/slime/M in T)
+			M.adjustToxLoss(rand(15,30))
 
 
 /datum/reagent/sodiumchloride

@@ -16,20 +16,11 @@
 	if(species.can_revive_by_healing)
 		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
 		if(B)
-			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD) 
+			if((health >= (config.health_threshold_dead/100*75)) && stat == DEAD)
 				update_revive()
 	if (stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
 	return
-
-/mob/living/carbon/human/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
-	stat = CONSCIOUS
-	dead_mob_list -= src
-	living_mob_list |= src
-	mob_list |= src
-	ear_deaf = 0
-	tod = 0
-	timeofdeath = 0
 
 /mob/living/carbon/human/adjustBrainLoss(var/amount)
 	if(status_flags & GODMODE)	return 0	//godmode
@@ -37,7 +28,7 @@
 	if(species && species.has_organ["brain"])
 		var/obj/item/organ/brain/sponge = internal_organs_by_name["brain"]
 		if(sponge)
-			sponge.take_damage(amount)
+			sponge.take_damage(amount, 1)
 			brainloss = sponge.damage
 		else
 			brainloss = 200
@@ -55,8 +46,8 @@
 		else
 			brainloss = 200
 	else
-		brainloss = 0	
-	
+		brainloss = 0
+
 /mob/living/carbon/human/getBrainLoss()
 	if(status_flags & GODMODE)	return 0	//godmode
 
@@ -143,7 +134,7 @@
 
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
-	
+
 	if(species.flags & (NO_SCAN))
 		cloneloss = 0
 		return
@@ -177,7 +168,7 @@
 				O.unmutate()
 				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
 	hud_updateflag |= 1 << HEALTH_HUD
-	
+
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/getOxyLoss()
 	if(species.flags & NO_BREATHE)
@@ -397,22 +388,3 @@ This function restores all organs.
 	updatehealth()
 	hud_updateflag |= 1 << HEALTH_HUD
 	return 1
-
-
-
-// incredibly important stuff follows
-/mob/living/carbon/human/fall(var/forced)
-	..()
-	if(forced)
-		playsound(loc, "bodyfall", 50, 1, -1)
-/*	if(head)
-		var/multiplier = 1
-		if(stat || (status_flags & FAKEDEATH))
-			multiplier = 2
-		var/obj/item/clothing/head/H = head
-		if(!istype(H) || prob(H.loose * multiplier))
-			unEquip(H)
-			if(prob(60))
-				step_rand(H)
-			if(!stat)
-				src << "<span class='warning'>Your [H] fell off!</span>" */

@@ -146,8 +146,8 @@
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
-	name = "\improper FEA Atmospherics Division plaque"
-	desc = "This plaque commemorates the fall of the Atmos FEA division. For all the charred, dizzy, and brittle men who have died in its hands."
+	name = "\improper ZAS Atmospherics Division plaque"
+	desc = "This plaque commemorates the fall of the Atmos ZAS division. For all the charred, dizzy, and brittle men who have died in its horrible hands."
 	icon_state = "atmosplaque"
 
 /obj/structure/sign/kidanplaque

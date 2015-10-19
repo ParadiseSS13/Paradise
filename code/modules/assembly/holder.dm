@@ -35,13 +35,16 @@
 		if((!D)||(!D2))	return 0
 		if((!isassembly(D))||(!isassembly(D2)))	return 0
 		if((D:secured)||(D2:secured))	return 0
-		if(user)
-			user.remove_from_mob(D)
-			user.remove_from_mob(D2)
+		if(!D.remove_item_from_storage(src))
+			if(user)
+				user.remove_from_mob(D)
+			D.loc = src
+		if(!D2.remove_item_from_storage(src))
+			if(user)
+				user.remove_from_mob(D2)
+			D2.loc = src
 		D:holder = src
 		D2:holder = src
-		D.loc = src
-		D2.loc = src
 		a_left = D
 		a_right = D2
 		name = "[D.name]-[D2.name] assembly"
@@ -63,15 +66,13 @@
 			master.update_icon()
 
 
-	examine()
-		set src in view()
-		..()
-		if ((in_range(src, usr) || src.loc == usr))
+	examine(mob/user)
+		..(user)
+		if ((in_range(src, user) || src.loc == user))
 			if (src.secured)
-				usr << "\The [src] is ready!"
+				user << "\The [src] is ready!"
 			else
-				usr << "\The [src] can be attached!"
-		return
+				user << "\The [src] can be attached!"
 
 
 	HasProximity(atom/movable/AM as mob|obj)

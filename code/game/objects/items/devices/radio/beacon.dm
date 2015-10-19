@@ -3,10 +3,19 @@
 	desc = "A beacon used by a teleporter."
 	icon_state = "beacon"
 	item_state = "signaler"
-	var/code = "electronic"
+	var/code = "Beacon"
 	origin_tech = "bluespace=1"
 	var/emagged = 0
 	var/syndicate = 0
+
+/obj/item/device/radio/beacon/New()
+	..()
+	code = "[code] ([beacons.len + 1])"
+	beacons += src
+
+/obj/item/device/radio/beacon/Destroy()
+	beacons -= src
+	return ..()
 
 /obj/item/device/radio/beacon/emag_act(user as mob)
 	if(!emagged)
@@ -21,28 +30,26 @@
 /obj/item/device/radio/beacon/send_hear()
 	return null
 
-
 /obj/item/device/radio/beacon/verb/alter_signal(t as text)
 	set name = "Alter Beacon's Signal"
 	set category = "Object"
 	set src in usr
 
-	if ((usr.canmove && !( usr.restrained() )))
-		src.code = t
-	if (!( src.code ))
-		src.code = "beacon"
+	if (usr.stat || usr.restrained())
+		return
+
+	code = t
+	if (isnull(code))
+		code = initial(code)
 	src.add_fingerprint(usr)
 	return
-
 
 /obj/item/device/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 	proc/digest_delay()
 		spawn(600)
 			qdel(src)
 
-
 // SINGULO BEACON SPAWNER
-
 /obj/item/device/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
@@ -66,23 +73,6 @@
 	if(user)
 		user << "\blue Locked In"
 		new /obj/machinery/syndicatebomb( user.loc )
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
-		qdel(src)
-	return
-
-
-/obj/item/device/telepad_beacon
-	name = "Telepad Beacon"
-	desc = "Used to warp in a cargo telepad."
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "beacon"
-	item_state = "signaler"
-	origin_tech = "bluespace=3"
-
-/obj/item/device/telepad_beacon/attack_self(mob/user as mob)
-	if(user)
-		user << "\blue Locked In"
-		new /obj/machinery/telepad_cargo(user.loc)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
 	return

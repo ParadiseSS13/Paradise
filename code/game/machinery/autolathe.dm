@@ -73,6 +73,13 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
+/obj/machinery/autolathe/Destroy()
+	qdel(wires)
+	wires = null
+	qdel(materials)
+	materials = null
+	return ..()
+
 /obj/machinery/autolathe/interact(mob/user)
 	if(shocked && !(stat & NOPOWER))
 		shock(user,50)
@@ -121,7 +128,7 @@
 	if (stat)
 		return 1
 
-	var/material_amount = materials.can_insert(O)
+	var/material_amount = materials.get_item_material_amount(O)
 	if(!material_amount)
 		user << "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>"
 		return 1

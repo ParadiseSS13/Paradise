@@ -78,18 +78,15 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	cult_viewpoints -= src
 	return ..()
 
-/obj/effect/rune/examine()
-	set src in view(2)
-
-	if(!iscultist(usr) && !isSpirit(usr))
-		usr << "A strange collection of symbols drawn in blood."
+/obj/effect/rune/examine(mob/user)
+	..(user)
+	if(!iscultist(user) && !isSpirit(user))
+		user << "A strange collection of symbols drawn in blood."
 		return
 	if(!desc)
-		usr << "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>."
+		user << "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>."
 	else
-		usr << "Explosive Runes inscription in blood. It reads: <i>[desc]</i>."
-
-	return
+		user << "Explosive Runes inscription in blood. It reads: <i>[desc]</i>."
 
 
 /obj/effect/rune/attackby(I as obj, user as mob, params)
@@ -488,6 +485,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				R.check_icon()
 				R.blood_DNA = list()
 				R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+				R.add_hiddenprint(H)
 			return
 		else
 			user << "The book seems full of illegible scribbles. Is this a joke?"
@@ -508,12 +506,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			user << "You copy the translation notes from your tome."
 
 
-	examine()
-		set src in usr
-		if(!iscultist(usr))
-			usr << "An old, dusty tome with frayed edges and a sinister looking cover."
+	examine(mob/user)
+		if(!iscultist(user))
+			user << "An old, dusty tome with frayed edges and a sinister looking cover."
 		else
-			usr << "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though."
+			user << "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though."
 
 /obj/item/weapon/tome/imbued //admin tome, spawns working runes without waiting
 	w_class = 2.0

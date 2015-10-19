@@ -8,7 +8,6 @@
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "hypo"
 	icon_state = "hypo"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
@@ -100,12 +99,12 @@
 	else
 		icon_state = "[initial(icon_state)]0"
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/examine()
-	..()
+/obj/item/weapon/reagent_containers/hypospray/autoinjector/examine(mob/user)
+	..(user)
 	if(reagents && reagents.reagent_list.len)
-		usr << "\blue It is currently loaded."
+		user << "\blue It is currently loaded."
 	else
-		usr << "\blue It is spent."
+		user << "\blue It is spent."
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"

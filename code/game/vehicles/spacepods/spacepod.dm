@@ -29,7 +29,6 @@
 	var/datum/global_iterator/pr_give_air //moves air from tank to cabin
 
 	var/datum/effect/effect/system/ion_trail_follow/space_trail/ion_trail
-	var/inertia_dir = 0
 
 	var/hatch_open = 0
 
@@ -72,6 +71,26 @@
 	spacepods_list += src
 
 /obj/spacepod/Destroy()
+	qdel(equipment_system)
+	equipment_system = null
+	qdel(battery)
+	battery = null
+	qdel(cabin_air)
+	cabin_air = null
+	qdel(internal_tank)
+	internal_tank = null
+	qdel(pr_int_temp_processor)
+	pr_int_temp_processor = null
+	qdel(pr_give_air)
+	pr_give_air = null
+	qdel(ion_trail)
+	ion_trail = null
+	if(occupant)
+		occupant.forceMove(get_turf(src))
+		occupant = null
+	if(occupant2)
+		occupant2.forceMove(get_turf(src))
+		occupant2 = null
 	spacepods_list -= src
 	return ..()
 
@@ -109,7 +128,7 @@
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user as mob)
 	if(user.melee_damage_upper == 0)
-		user.emote("[user.friendly] [src]")
+		user.custom_emote(1, "[user.friendly] [src]")
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
@@ -707,7 +726,7 @@ obj/spacepod/verb/toggleLights()
 	delay = 15
 
 	process(var/obj/spacepod/spacepod)
-		if(spacepod.internal_tank)
+		if(spacepod && spacepod.internal_tank)
 			var/datum/gas_mixture/tank_air = spacepod.internal_tank.return_air()
 			var/datum/gas_mixture/cabin_air = spacepod.cabin_air
 
@@ -736,25 +755,6 @@ obj/spacepod/verb/toggleLights()
 			return stop()
 		return
 
-/obj/spacepod/Move(NewLoc, Dir = 0, step_x = 0, step_y = 0)
-	..()
-	if(dir == 1 || dir == 4)
-		src.loc.Entered(src)
-
-/obj/spacepod/proc/Process_Spacemove(var/check_drift = 0, mob/user)
-	var/dense_object = 0
-	if(!user)
-		for(var/direction in list(NORTH, NORTHEAST, EAST))
-			var/turf/cardinal = get_step(src, direction)
-			if(istype(cardinal, /turf/space))
-				continue
-			dense_object++
-			break
-	if(!dense_object)
-		return 0
-	inertia_dir = 0
-	return 1
-
 /obj/spacepod/relaymove(mob/user, direction)
 	if(!CheckIfOccupant2(user))
 		handlerelaymove(user, direction)
@@ -764,26 +764,24 @@ obj/spacepod/verb/toggleLights()
 	if(battery && battery.charge >= 3 && health && empcounter == 0)
 		src.dir = direction
 		switch(direction)
-			if(1)
-				if(inertia_dir == 2)
+			if(NORTH)
+				if(inertia_dir == SOUTH)
 					inertia_dir = 0
 					moveship = 0
-			if(2)
-				if(inertia_dir == 1)
+			if(SOUTH)
+				if(inertia_dir == NORTH)
 					inertia_dir = 0
 					moveship = 0
-			if(4)
-				if(inertia_dir == 8)
+			if(EAST)
+				if(inertia_dir == WEST)
 					inertia_dir = 0
 					moveship = 0
-			if(8)
-				if(inertia_dir == 4)
+			if(WEST)
+				if(inertia_dir == EAST)
 					inertia_dir = 0
 					moveship = 0
 		if(moveship)
-			step(src, direction)
-			if(istype(src.loc, /turf/space))
-				inertia_dir = direction
+			Move(get_step(src, direction), direction)
 	else
 		if(!battery)
 			user << "<span class='warning'>No energy cell detected.</span>"

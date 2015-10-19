@@ -127,6 +127,9 @@
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
+/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	return istype(mover, /obj/effect/meteor) ? 1 : ..()
+
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
 	//first bust whatever is in the turf
 	for(var/atom/A in T)
@@ -195,7 +198,7 @@
 
 //Large-sized
 /obj/effect/meteor/big
-	name = "big meteor"
+	name = "large meteor"
 	icon_state = "large"
 	hits = 6
 	heavy = 1

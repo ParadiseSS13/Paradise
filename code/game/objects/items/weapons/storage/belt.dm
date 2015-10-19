@@ -359,8 +359,8 @@
 /obj/item/weapon/storage/belt/bluespace
 	name = "Belt of Holding"
 	desc = "The greatest in pants-supporting technology."
-	icon_state = "medicalbelt"
-	item_state = "medical"
+	icon_state = "holdingbelt"
+	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = 4
 	max_w_class = 2
@@ -476,9 +476,9 @@
 				else target.ex_act(1)
 				if (isobj(target))
 					if (target)
-						del(target)
+						qdel(target)
 				if (src)
-					del(src)
+					qdel(src)
 */
 
 /obj/item/weapon/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)

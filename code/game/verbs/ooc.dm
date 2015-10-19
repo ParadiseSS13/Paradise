@@ -5,32 +5,34 @@ var/global/moderator_ooc_colour = "#184880"
 var/global/admin_ooc_colour = "#b82e00"
 
 /client/verb/ooc(msg as text)
-	set name = "OOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
+	set name = "OOC" 
 	set category = "OOC"
 
-	if(!mob)	return
+	if(!mob)	
+		return
 	if(IsGuestKey(key))
-		src << "Guests may not use OOC."
+		src << "<span class='danger'>Guests may not use OOC.</span>"
 		return
 
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
-	if(!msg)	return
-
-	if(!(prefs.toggles & CHAT_OOC))
-		src << "\red You have OOC muted."
+	if(!msg)	
 		return
 
-	if(!check_rights(R_MOD,0))
-		if(!ooc_allowed)
-			src << "\red OOC is globally muted"
+	if(!(prefs.toggles & CHAT_OOC))
+		src << "<span class='danger'>You have OOC muted.</span>"
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD,0))
+		if(!config.ooc_allowed)
+			src << "<span class='danger'>OOC is globally muted.</span>"
 			return
-		if(!dooc_allowed && (mob.stat == DEAD))
-			usr << "\red OOC for dead mobs has been turned off."
+		if(!config.dooc_allowed && (mob.stat == DEAD))
+			usr << "<span class='danger'>OOC for dead mobs has been turned off.</span>"
 			return
 		if(prefs.muted & MUTE_OOC)
-			src << "\red You cannot use OOC (muted)."
+			src << "<span class='danger'>You cannot use OOC (muted).</span>"
 			return
-		if(handle_spam_prevention(msg,MUTE_OOC))
+		if(handle_spam_prevention(msg, MUTE_OOC))
 			return
 		if(findtext(msg, "byond://"))
 			src << "<B>Advertising other servers is not allowed.</B>"
@@ -71,14 +73,14 @@ var/global/admin_ooc_colour = "#b82e00"
 			C << "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 
 /proc/toggle_ooc()
-	ooc_allowed = !( ooc_allowed )
-	if (ooc_allowed)
+	config.ooc_allowed = ( !config.ooc_allowed )
+	if (config.ooc_allowed)
 		world << "<B>The OOC channel has been globally enabled!</B>"
 	else
-		world << "<B>The OOC channel has been globally disabled!</B>"
-
+		world << "<B>The OOC channel has been globally disabled!</B>"			
+			
 /proc/auto_toggle_ooc(var/on)
-	if(config.auto_toggle_ooc_during_round && ooc_allowed != on)
+	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)
 		toggle_ooc()
 
 /client/proc/set_ooc(newColor as color)
@@ -137,31 +139,33 @@ var/global/admin_ooc_colour = "#b82e00"
 	feedback_add_details("admin_verb","ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/looc(msg as text)
-	set name = "LOOC" //Gave this shit a shorter name so you only have to time out "ooc" rather than "ooc message" to use it --NeoFite
+	set name = "LOOC" 
 	set desc = "Local OOC, seen only by those in view."
 	set category = "OOC"
 
-	if(!mob)	return
+	if(!mob)	
+		return
 	if(IsGuestKey(key))
-		src << "Guests may not use OOC."
+		src << "<span class='danger'>Guests may not use OOC.</span>"
 		return
 
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
-	if(!msg)	return
-
-	if(!(prefs.toggles & CHAT_LOOC))
-		src << "\red You have LOOC muted."
+	if(!msg)	
 		return
 
-	if(!check_rights(R_MOD,0))
-		if(!ooc_allowed)
-			src << "\red LOOC is globally muted"
+	if(!(prefs.toggles & CHAT_LOOC))
+		src << "<span class='danger'>You have LOOC muted.</span>"
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD,0))
+		if(!config.looc_allowed)
+			src << "<span class='danger'>LOOC is globally muted.</span>"
 			return
-		if(!dooc_allowed && (mob.stat == DEAD))
-			usr << "\red LOOC for dead mobs has been turned off."
+		if(!config.dooc_allowed && (mob.stat == DEAD))
+			usr << "<span class='danger'>LOOC for dead mobs has been turned off.</span>"
 			return
 		if(prefs.muted & MUTE_OOC)
-			src << "\red You cannot use LOOC (muted)."
+			src << "<span class='danger'>You cannot use LOOC (muted).</span>"
 			return
 		if(handle_spam_prevention(msg,MUTE_OOC))
 			return
@@ -172,39 +176,52 @@ var/global/admin_ooc_colour = "#b82e00"
 			return
 
 	log_ooc("(LOCAL) [mob.name]/[key] : [msg]")
-	var/list/heard = get_mobs_in_view(7, src.mob)
-	var/mob/S = src.mob
+	
+	var/mob/source = mob.get_looc_source()	
+	var/list/heard = get_mobs_in_view(7, source)
 
-	var/display_name = S.key
-	if(S.stat != DEAD)
-		display_name = S.name
+	var/display_name = key
+	if(holder && holder.fakekey)
+		display_name = holder.fakekey
+	if(mob.stat != DEAD)
+		display_name = mob.name
 
-	// Handle non-admins
-	for(var/mob/M in heard)
-		if(!M.client)
-			continue
-		var/client/C = M.client
-		if(check_rights(R_MOD,0,M))
-			continue //they are handled after that
+	for(var/client/target in clients)		
+		if(target.prefs.toggles & CHAT_LOOC)
+			var/prefix = ""
+			var/admin_stuff = ""
+			var/send = 0
 
-		if(C.prefs.toggles & CHAT_LOOC)
-			if(holder)
-				if(holder.fakekey)
-					if(C.holder)
-						display_name = "[holder.fakekey]/([src.key])"
-					else
-						display_name = holder.fakekey
-			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+			if(target in admins)
+				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
+					admin_stuff += "/([key])"
+					if(target != src)
+						admin_stuff += " ([admin_jump_link(mob, target.holder)])"
 
-	// Now handle admins
-	display_name = S.key
-	if(S.stat != DEAD)
-		display_name = "[S.name]/([S.key])"
+			if(target.mob in heard)
+				send = 1
+				if(isAI(target.mob))
+					prefix = " (Core)"
 
-	for(var/client/C in admins)
-		if(check_rights(R_MOD,0,C.mob))
-			if(C.prefs.toggles & CHAT_LOOC)
-				var/prefix = "(R)LOOC"
-				if (C.mob in heard)
-					prefix = "LOOC"
-				C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
+			else if(isAI(target.mob)) // Special case
+				var/mob/living/silicon/ai/A = target.mob
+				if(A.eyeobj in hearers(7, source))
+					send = 1
+					prefix = " (Eye)"
+
+			if(!send && (target in admins))
+				if(check_rights(R_ADMIN|R_MOD,0,target.mob))
+					send = 1
+					prefix = "(R)"
+
+			if(send)
+				target << "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>"		
+				
+/mob/proc/get_looc_source()
+	return src
+
+/mob/living/silicon/ai/get_looc_source()
+	if(eyeobj)
+		return eyeobj
+	return src
+	

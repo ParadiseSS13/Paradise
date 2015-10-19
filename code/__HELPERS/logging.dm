@@ -30,7 +30,7 @@
 		diary << "\[[time_stamp()]]DEBUG: [text]"
 
 	for(var/client/C in admins)
-		if(C.prefs.toggles & CHAT_DEBUGLOGS)
+		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & CHAT_DEBUGLOGS))
 			C << "DEBUG: [text]"
 
 

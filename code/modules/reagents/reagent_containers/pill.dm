@@ -11,6 +11,7 @@
 	volume = 50
 	var/apply_type = INGEST
 	var/apply_method = "swallow"
+	var/transfer_efficiency = 1.0
 
 	New()
 		..()
@@ -32,7 +33,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
 				spawn(0)
-					reagents.trans_to_ingest(M, reagents.total_volume)
+					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
 					qdel(src)
 			else
 				qdel(src)
@@ -66,7 +67,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
 				spawn(0)
-					reagents.trans_to_ingest(M, reagents.total_volume)
+					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
 					qdel(src)
 			else
 				qdel(src)

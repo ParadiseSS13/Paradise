@@ -28,7 +28,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir
-	initialize()
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
@@ -51,6 +50,9 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
+/obj/machinery/atmospherics/unary/cryo_cell/construction()
+	..(dir,dir)
+
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
@@ -71,7 +73,7 @@
 		T.contents += contents
 		var/obj/item/weapon/reagent_containers/glass/B = beaker
 		if(beaker)
-			B.loc = get_step(T, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
+			B.forceMove(get_step(T, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
 			beaker = null
 	return ..()
 
@@ -111,9 +113,9 @@
 			return
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] climbs into the cryo cell.", 3)
+			visible_message("[user] climbs into the cryo cell.")
 		else
-			visible_message("[user] puts [L.name] into the cryo cell.", 3)
+			visible_message("[user] puts [L.name] into the cryo cell.")
 			if(user.pulling == L)
 				user.pulling = null
 
@@ -138,7 +140,7 @@
 		if(occupant)
 			process_occupant()
 	if(abs(temperature_archived-air_contents.temperature) > 1)
-		network.update = 1
+		parent.update = 1
 
 	return 1
 
@@ -155,8 +157,11 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
+	if(user == occupant)
+		return
+
 	if(panel_open)
 		usr << "\blue <b>Close the maintenance panel first.</b>"
 		return
@@ -176,10 +181,6 @@
   * @return nothing
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-
-	if(user == occupant || user.stat)
-		return
-
 	// this is the data which will be sent to the ui
 	var/data[0]
 	data["isOperating"] = on
@@ -260,7 +261,7 @@
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
-			beaker.loc = get_step(loc, SOUTH)
+			beaker.forceMove(get_step(loc, SOUTH))
 			beaker = null
 
 	if(href_list["ejectOccupant"])
@@ -278,8 +279,10 @@
 			return
 
 		beaker =  G
-		user.drop_item()
-		G.loc = src
+		if(!user.drop_item())
+			user << "The [G] is stuck to you!"
+			return
+		G.forceMove(src)
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if (istype(G, /obj/item/weapon/screwdriver))
@@ -409,15 +412,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!( occupant ))
 		return
-	//for(var/obj/O in src)
-	//	O.loc = loc
 	if (occupant.client)
 		occupant.client.eye = occupant.client.mob
 		occupant.client.perspective = MOB_PERSPECTIVE
-	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
 	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
 		occupant.bodytemperature = 261
-//	occupant.metabslow = 0
 	occupant = null
 	update_icon()
 	return
@@ -438,7 +438,7 @@
 		M.client.perspective = EYE_PERSPECTIVE
 		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
 		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
 	occupant = M

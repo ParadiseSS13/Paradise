@@ -33,10 +33,10 @@
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.emote("me", 1, "coughs up blood!")
+			spawn owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
-			spawn owner.emote("me", 1, "gasps for air!")
+			spawn owner.custom_emote(1, "gasps for air!")
 			owner.losebreath += 5
 
 /obj/item/organ/kidneys
@@ -80,6 +80,14 @@
 		owner.g_eyes ? owner.g_eyes : 0,
 		owner.b_eyes ? owner.b_eyes : 0
 		)
+
+/obj/item/organ/eyes/surgeryize()
+	if(!owner)
+		return
+	owner.disabilities &= ~NEARSIGHTED
+	owner.sdisabilities &= ~BLIND
+	owner.eye_blurry = 0
+	owner.eye_blind = 0
 
 /obj/item/organ/liver
 	name = "liver"

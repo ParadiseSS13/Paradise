@@ -230,13 +230,6 @@
 		else
 			healths.icon_state = "health6"
 
-	if(pullin)
-		if(pulling)
-			pullin.icon_state = "pull"
-		else
-			pullin.icon_state = "pull0"
-
-
 	if (toxin)	toxin.icon_state = "tox[toxins_alert ? 1 : 0]"
 	if (oxygen) oxygen.icon_state = "oxy[oxygen_alert ? 1 : 0]"
 	if (fire) fire.icon_state = "fire[fire_alert ? 1 : 0]"

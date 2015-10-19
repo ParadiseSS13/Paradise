@@ -25,6 +25,28 @@
 					special_role = null
 					current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now..(You don't remember who enslaved you)</B></FONT>"
 				*/
+
+//mob verbs are a lot faster than object verbs
+//for more info on why this is not atom/pull, see examinate() in mob.dm
+/mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
+	set name = "Pull"
+	set category = "Object"
+
+	if(AM.Adjacent(src))
+		src.start_pulling(AM)
+	return
+
+//same as above
+/mob/living/pointed(atom/A as mob|obj|turf in view())
+	if(src.stat || !src.canmove || src.restrained())
+		return 0
+	if(src.status_flags & FAKEDEATH)
+		return 0
+	if(!..())
+		return 0
+	visible_message("<b>[src]</b> points to [A]")
+	return 1
+
 /mob/living/verb/succumb()
 	set hidden = 1
 	if (InCritical())
@@ -299,21 +321,38 @@
 		if (C.legcuffed && !initial(C.legcuffed))
 			C.unEquip(C.legcuffed)
 		C.legcuffed = initial(C.legcuffed)
+		if(C.reagents)
+			for(var/datum/reagent/R in C.reagents.reagent_list)
+				C.reagents.clear_reagents()
+			C.reagents.addiction_list.Cut()
 	hud_updateflag |= 1 << HEALTH_HUD
 	hud_updateflag |= 1 << STATUS_HUD
 
-/mob/living/proc/rejuvenate()
+/mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
+	stat = CONSCIOUS
+	dead_mob_list -= src
+	living_mob_list |= src
+	mob_list |= src
+	ear_deaf = 0
+	timeofdeath = 0
 
+/mob/living/proc/rejuvenate()
 	// shut down various types of badness
 	setToxLoss(0)
 	setOxyLoss(0)
 	setCloneLoss(0)
 	setBrainLoss(0)
 	setStaminaLoss(0)
+	SetSleeping(0)
 	setHalLoss(0)
 	SetParalysis(0)
 	SetStunned(0)
 	SetWeakened(0)
+	losebreath = 0
+	dizziness = 0
+	jitteriness = 0
+	confused = 0
+	drowsyness = 0
 	radiation = 0
 	nutrition = 400
 	bodytemperature = 310
@@ -325,6 +364,7 @@
 	ear_deaf = 0
 	ear_damage = 0
 	heal_overall_damage(1000, 1000)
+	ExtinguishMob()
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -344,10 +384,9 @@
 			human_mob.decaylevel = 0
 
 	restore_all_organs()
-	if(stat == 2)
+	if(stat == DEAD)
 		dead_mob_list -= src
 		living_mob_list += src
-		tod = null
 		timeofdeath = 0
 
 	stat = CONSCIOUS
@@ -376,9 +415,12 @@
 
 	return
 
-/mob/living/Move(a, b, flag)
-	if (buckled)
-		return
+/mob/living/Move(atom/newloc, direct)
+	if (buckled && buckled.loc != newloc) //not updating position
+		if (!buckled.anchored)
+			return buckled.Move(newloc, direct)
+		else
+			return 0
 
 	if (restrained())
 		stop_pulling()
@@ -389,7 +431,7 @@
 		for(var/mob/living/M in range(src, 1))
 			if ((M.pulling == src && M.stat == 0 && !( M.restrained() )))
 				t7 = null
-	if ((t7 && (pulling && ((get_dist(src, pulling) <= 1 || pulling.loc == loc) && (client && client.moving)))))
+	if(t7 && pulling && (get_dist(src, pulling) <= 1 || pulling.loc == loc))
 		var/turf/T = loc
 		. = ..()
 
@@ -437,17 +479,12 @@
 							var/turf/location = M.loc
 							if (istype(location, /turf/simulated))
 								location.add_blood()
-
-
-						step(pulling, get_dir(pulling.loc, T))
-						M.start_pulling(t)
+						pulling.Move(T, get_dir(pulling, T))
+						if(M)
+							M.start_pulling(t)
 				else
 					if (pulling)
-						if (istype(pulling, /obj/structure/window/full))
-							for(var/obj/structure/window/win in get_step(pulling,get_dir(pulling.loc, T)))
-								stop_pulling()
-					if (pulling)
-						step(pulling, get_dir(pulling.loc, T))
+						pulling.Move(T, get_dir(pulling, T))
 	else
 		stop_pulling()
 		. = ..()
@@ -616,10 +653,10 @@
 					for(var/mob/O in viewers(C))
 						O.show_message("\red <B>[usr] manages to unbuckle themself!</B>", 1)
 					C << "\blue You successfully unbuckle yourself."
-					C.buckled.manual_unbuckle(C)
+					C.buckled.user_unbuckle_mob(C,C)
 
 	else
-		L.buckled.manual_unbuckle(L)
+		L.buckled.user_unbuckle_mob(L,L)
 
 /* resist_closet() allows a mob to break out of a welded/locked closet
 */////
@@ -756,6 +793,8 @@
 				CM.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 				qdel(CM.handcuffed)
 				CM.handcuffed = null
+				if(CM.buckled && CM.buckled.buckle_requires_restraints)
+					CM.buckled.unbuckle_mob()
 				CM.update_inv_handcuffed()
 				return
 
@@ -861,6 +900,40 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+// The src mob is trying to strip an item from someone
+// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
+/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, var/silent = 0)
+	if(what.flags & NODROP)
+		src << "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>"
+		return
+	if(!silent)
+		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+	what.add_fingerprint(src)
+	if(do_mob(src, who, what.strip_delay))
+		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
+			who.unEquip(what)
+			add_logs(who, src, "stripped", addition="of [what]")
+
+// The src mob is trying to place an item on someone
+// Override if a certain mob should be behave differently when placing items (can't, for example)
+/mob/living/stripPanelEquip(obj/item/what, mob/who, where, var/silent = 0)
+	what = src.get_active_hand()
+	if(what && (what.flags & NODROP))
+		src << "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>"
+		return
+	if(what)
+		if(!what.mob_can_equip(who, where, 1))
+			src << "<span class='warning'>\The [what.name] doesn't fit in that place!</span>"
+			return
+		if(!silent)
+			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
+		if(do_mob(src, who, what.put_on_delay))
+			if(what && Adjacent(who))
+				unEquip(what)
+				who.equip_to_slot_if_possible(what, where, 0, 1)
+				add_logs(who, src, "equipped", what)
+
 
 /mob/living/singularity_act()
 	var/gain = 20
@@ -937,3 +1010,7 @@
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)
+
+//used in datum/reagents/reaction() proc
+/mob/living/proc/get_permeability_protection()
+	return 0

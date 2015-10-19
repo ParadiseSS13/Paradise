@@ -11,7 +11,6 @@
 	//var/mob/living/carbon/brain/brainmob = null
 	var/list/ghost_volunteers[0]
 	req_access = list(access_robotics)
-	locked = 0
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
 
@@ -26,16 +25,15 @@
 		spawn(600)
 			if(ghost_volunteers.len)
 				var/mob/dead/observer/O = pick(ghost_volunteers)
-				if(istype(O) && O.client && O.key)
+				if(check_observer(O))
 					transfer_personality(O)
 			reset_search()
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.client && O.client.prefs.be_special & BE_PAI && !jobban_isbanned(O, "Cyborg") && !jobban_isbanned(O,"nonhumandept"))
-			if(check_observer(O))
-				O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
-				//question(O.client)
+		if(check_observer(O))
+			O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
+			//question(O.client)
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
@@ -130,12 +128,8 @@
 	ghost_volunteers.Add(O)
 
 
-/obj/item/device/mmi/posibrain/examine()
-	set src in oview()
-
-	if(!usr || !src)	return
-	if( (usr.sdisabilities & BLIND || usr.blinded || usr.stat) && !istype(usr,/mob/dead/observer) )
-		usr << "<span class='notice'>Something is there but you can't see it.</span>"
+/obj/item/device/mmi/posibrain/examine(mob/user)
+	if(!..(user))
 		return
 
 	var/msg = "<span class='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n[desc]\n"
@@ -150,8 +144,7 @@
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	msg += "<span class='info'>*---------*</span>"
-	usr << msg
-	return
+	user << msg
 
 /obj/item/device/mmi/posibrain/emp_act(severity)
 	if(!src.brainmob)

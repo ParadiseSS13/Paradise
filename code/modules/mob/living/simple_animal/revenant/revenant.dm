@@ -354,7 +354,7 @@
 	qdel(src)
 
 /obj/item/weapon/ectoplasm/revenant/examine(mob/user)
-	..()
+	..(user)
 	if(reforming)
 		user << "<span class='warning'>It is shifting and distorted. It would be wise to destroy this.</span>"
 	else if(!reforming)

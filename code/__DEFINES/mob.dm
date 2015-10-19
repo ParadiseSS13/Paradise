@@ -97,3 +97,12 @@
 #define I_DISARM	"disarm"
 #define I_GRAB		"grab"
 #define I_HARM		"harm"
+
+// AI wire/radio settings
+#define AI_CHECK_WIRELESS 1
+#define AI_CHECK_RADIO 2
+
+#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+
+#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody

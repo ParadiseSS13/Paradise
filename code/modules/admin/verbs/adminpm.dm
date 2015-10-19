@@ -58,16 +58,26 @@
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(var/client/C, var/msg, var/type="PM")
+/client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(prefs.muted & MUTE_ADMINHELP)
 		src << "<font color='red'>Error: Private-Message: You are unable to use PM-s (muted).</font>"
 		return
 
-	if(!istype(C,/client))
-		if(holder)	src << "<font color='red'>Error: Private-Message: Client not found.</font>"
-		else		adminhelp(msg)	//admin we are replying to left. adminhelp instead
+	var/client/C
+	if(istext(whom))
+		if(cmptext(copytext(whom,1,2),"@"))
+			whom = findStealthKey(whom)
+		C = directory[C]	
+	else if(istype(whom,/client))
+		C = whom
+		
+	if(!C)
+		if(holder)	
+			src << "<span class='danger'>Error: Private-Message: Client not found.</span>"
+		else		
+			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
-
+		
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
@@ -78,12 +88,15 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message to [C.key]") as text|null
+		msg = input(src,"Message:", "Private message to [key_name(C, 0, 0)]") as text|null
 
-		if(!msg)	return
+		if(!msg)	
+			return
 		if(!C)
-			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
-			else		adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
+			if(holder)	
+				src << "<span class='danger'>Error: Admin-PM: Client not found.</span>"
+			else		
+				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
@@ -92,7 +105,8 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
-		if(!msg)	return
+		if(!msg)	
+			return
 
 	var/recieve_color = "purple"
 	var/send_pm_type = " "
@@ -103,7 +117,7 @@
 		//mod PMs are maroon
 		//PMs sent from admins and mods display their rank
 		if(holder)
-			if( holder.rights & (R_MOD | R_MENTOR) && !holder.rights & R_ADMIN )
+			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
 				recieve_color = "maroon"
 			else
 				recieve_color = "red"
@@ -200,37 +214,22 @@
 	*/
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
-
-
-	var/list/modholders = list()
-	var/list/banholders = list()
-	var/list/adminholders = list()
-	for(var/client/X in admins)
-		if((R_MOD | R_MENTOR) & X.holder.rights)
-			modholders += X
-		if(R_ADMIN & X.holder.rights)
-			adminholders += X
-		if(R_BAN & X.holder.rights)
-			banholders += X
-
 	//we don't use message_admins here because the sender/receiver might get it too
 	for(var/client/X in admins)
 		//check client/X is an admin and isn't the sender or recipient
 		if(X == C || X == src)
 			continue
-		if(X.key!=key && X.key!=C.key)
+		if(X.key != key && X.key != C.key)
 			switch(type)
 				if("Question")
-					if(X.holder.rights & (R_MOD | R_MENTOR))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //inform X
-					else if(!modholders.len && X.holder.rights & R_ADMIN)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //Any admins in backup of mod question
+					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>"
 				if("Player Complaint")
-					if(X.holder.rights & R_BAN)
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //There should always be at least 1 person with +BAN on
+					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
 				else
-					if((X.holder.rights & R_ADMIN) || (X.holder.rights & R_MOD) )
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" //If there's no type, send to all admins.
+					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
@@ -257,6 +256,5 @@
 	for(var/client/X in admins)
 		if(X == src)
 			continue
-		if((X.holder.rights & R_ADMIN) || (X.holder.rights & (R_MOD | R_MENTOR)))
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>"
-

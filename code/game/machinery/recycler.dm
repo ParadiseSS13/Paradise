@@ -23,9 +23,14 @@ var/const/SAFETY_COOLDOWN = 100
 	component_parts += new /obj/item/weapon/circuitboard/recycler(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_URANIUM=1, MAT_BANANIUM=1))
+	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1))
 	RefreshParts()
 	update_icon()
+
+/obj/machinery/recycler/Destroy()
+	qdel(materials)
+	materials = null
+	return ..()
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -38,12 +43,11 @@ var/const/SAFETY_COOLDOWN = 100
 	materials.max_amount = mat_mod
 	amount_produced = min(100, amt_made)
 
-/obj/machinery/recycler/examine()
-	set src in view()
-	..()
-	usr << "The power light is [(stat & NOPOWER) ? "off" : "on"]."
-	usr << "The safety-mode light is [safety_mode ? "on" : "off"]."
-	usr << "The safety-sensors status light is [emagged ? "off" : "on"]."
+/obj/machinery/recycler/examine(mob/user)
+	..(user)
+	user << "The power light is [(stat & NOPOWER) ? "off" : "on"]."
+	user << "The safety-mode light is [safety_mode ? "on" : "off"]."
+	user << "The safety-sensors status light is [emagged ? "off" : "on"]."
 
 /obj/machinery/recycler/power_change()
 	..()
@@ -126,7 +130,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 	if(sound)
 		playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
-	var/material_amount = materials.can_insert(I)
+	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
 		qdel(I)
 		return

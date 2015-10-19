@@ -95,7 +95,6 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	item_state = "seclite"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -185,6 +184,13 @@ obj/item/device/flashlight/lamp/bananalamp
 	else
 		update_brightness(null)
 
+/obj/item/device/flashlight/flare/update_brightness(var/mob/user = null)
+	..()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 /obj/item/device/flashlight/flare/attack_self(mob/user)
 
 	// Usual checks
@@ -201,6 +207,15 @@ obj/item/device/flashlight/lamp/bananalamp
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
+
+/obj/item/device/flashlight/flare/torch
+	name = "torch"
+	desc = "A torch fashioned from some leaves and a log."
+	w_class = 4
+	brightness_on = 7
+	icon_state = "torch"
+	item_state = "torch"
+	on_damage = 10
 
 /obj/item/device/flashlight/slime
 	gender = PLURAL

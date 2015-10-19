@@ -1,4 +1,3 @@
-
 /mob/living/Login()
 	..()
 	//Mind updates
@@ -12,6 +11,8 @@
 		src << "<span class='notice'>You can ventcrawl! Use alt+click on vents to quickly travel about the station.</span>"
 	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
 	update_pipe_vision()
+	
+	update_interface()
 
 	//Round specific stuff like hud updates
 	if(ticker && ticker.mode)

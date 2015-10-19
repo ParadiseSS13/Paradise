@@ -59,7 +59,7 @@
 /mob/living/simple_animal/hostile/retaliate/ghost/FindTarget()
 	. = ..()
 	if(.)
-		emote("wails at [.]")
+		custom_emote(1, "wails at [.]")
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life()
 	if(target)

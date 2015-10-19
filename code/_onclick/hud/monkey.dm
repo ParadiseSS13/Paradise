@@ -233,10 +233,9 @@
 	mymob.nutrition_icon.name = "nutrition"
 	mymob.nutrition_icon.screen_loc = ui_nutrition
 
-	mymob.pullin = new /obj/screen()
+	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = ui_style
-	mymob.pullin.icon_state = "pull0"
-	mymob.pullin.name = "pull"
+	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_pull_resist
 	src.hotkeybuttons += mymob.pullin
 
@@ -247,6 +246,7 @@
 	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
 	mymob.blind.mouse_opacity = 0
 	mymob.blind.layer = 0
+	mymob.blind.mouse_opacity = 0
 
 	mymob.damageoverlay = new /obj/screen()
 	mymob.damageoverlay.icon = 'icons/mob/screen1_full.dmi'
@@ -294,9 +294,10 @@
 			mymob.gun_setting_icon.dir = 2
 
 
-	mymob.client.screen = null
+	mymob.client.screen = list()
 
 	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, mymob.gun_setting_icon) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
 	mymob.client.screen += src.adding + src.hotkeybuttons
+	mymob.client.screen += mymob.client.void
 
 	return

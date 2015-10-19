@@ -22,7 +22,6 @@
 	// Sober block makes it more difficult to get drunk
 	var/sober_str=!(SOBER in M.mutations)?1:2
 	M:nutrition += nutriment_factor
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
 	if(!src.data) data = 1
 	src.data++
 
@@ -67,7 +66,6 @@
 			if (istype(L))
 				L.take_damage(0.1, 1)
 			H.adjustToxLoss(0.1)
-	holder.remove_reagent(src.id, 0.4)
 	..()
 	return
 
@@ -246,7 +244,6 @@
 /datum/reagent/ethanol/thirteenloko/on_mob_life(var/mob/living/M as mob)
 	..()
 	M:nutrition += nutriment_factor
-	holder.remove_reagent(src.id, FOOD_METABOLISM)
 	M:drowsyness = max(0,M:drowsyness-7)
 	//if(!M:sleeping_willingly)
 	//	M:sleeping = max(0,M.sleeping-2)
@@ -390,6 +387,10 @@
 	description = "Deny drinking this and prepare for THE LAW."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
+
+/datum/reagent/ethanol/beepsky_smash/on_mob_life(mob/living/M)
+	M.Stun(1)
+	..()
 
 /datum/reagent/ethanol/changelingsting
 	name = "Changeling Sting"

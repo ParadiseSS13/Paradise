@@ -30,7 +30,6 @@
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
-	item_state = "largebox"
 	w_class = 42 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21
@@ -259,8 +258,8 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantpad(src)
 
 
 /obj/item/weapon/storage/box/rxglasses

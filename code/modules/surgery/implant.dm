@@ -155,7 +155,7 @@
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		var/find_prob = 0
 
@@ -185,6 +185,7 @@
 					if(worm.controlling)
 						target.release_control()
 					worm.detatch()
+					worm.leave_host()
 
 				obj.loc = get_turf(target)
 				if(istype(obj,/obj/item/weapon/implant))

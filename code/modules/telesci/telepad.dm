@@ -20,7 +20,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-	
+
 /obj/machinery/telepad/upgraded/New()
 	..()
 	component_parts = list()
@@ -110,43 +110,38 @@
 ///HANDHELD TELEPAD USER///
 /obj/item/weapon/rcs
 	name = "rapid-crate-sender (RCS)"
-	desc = "Use this to send crates and closets to cargo telepads."
+	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
+	item_state = "rcd"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
 	throw_speed = 2
 	throw_range = 5
-	var/rcharges = 10
+	var/obj/item/weapon/stock_parts/cell/high/rcell = null
 	var/obj/machinery/pad = null
-	var/last_charge = 30
 	var/mode = 0
 	var/rand_x = 0
 	var/rand_y = 0
 	var/emagged = 0
 	var/teleporting = 0
+	var/chargecost = 1500
 
 /obj/item/weapon/rcs/New()
 	..()
-	processing_objects.Add(src)
+	rcell = new(src)
+
 
 /obj/item/weapon/rcs/examine(mob/user)
-	..()
-	user << "There are [rcharges] charge\s left."
+	..(user)
+	user << "There are [round(rcell.charge/chargecost)] charge\s left."
 
 /obj/item/weapon/rcs/Destroy()
-	processing_objects.Remove(src)
+	if(rcell)
+		qdel(rcell)
+		rcell = null
 	return ..()
-
-/obj/item/weapon/rcs/process()
-	if(rcharges > 10)
-		rcharges = 10
-	if(last_charge == 0)
-		rcharges++
-		last_charge = 30
-	else
-		last_charge--
 
 /obj/item/weapon/rcs/attack_self(mob/user)
 	if(emagged)
@@ -165,5 +160,5 @@
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
-		user << "<span class = 'caution'> You emag the RCS. Click on it to toggle between modes.</span>"
+		user << "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>"
 		return

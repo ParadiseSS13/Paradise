@@ -14,7 +14,6 @@ obj/item/weapon/gun/magic/staff/animate
 	projectile_type = "/obj/item/projectile/magic/animate"
 	icon_state = "staffofanimation"
 	item_state = "staffofanimation"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 
 obj/item/weapon/gun/magic/staff/healing
 	name = "staff of healing"
@@ -22,7 +21,6 @@ obj/item/weapon/gun/magic/staff/healing
 	projectile_type = "/obj/item/projectile/magic/resurrection"
 	icon_state = "staffofhealing"
 	item_state = "staffofhealing"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 
 obj/item/weapon/gun/magic/staff/chaos
 	name = "staff of chaos"
@@ -30,7 +28,6 @@ obj/item/weapon/gun/magic/staff/chaos
 	projectile_type = "/obj/item/projectile/magic"
 	icon_state = "staffofchaos"
 	item_state = "staffofchaos"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
 
@@ -49,7 +46,6 @@ obj/item/weapon/gun/magic/staff/door
 	projectile_type = "/obj/item/projectile/magic/door"
 	icon_state = "staffofdoor"
 	item_state = "staffofdoor"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
 

@@ -147,7 +147,7 @@
 /datum/reagent/drink/milk/on_mob_life(var/mob/living/M as mob)
 	if(M.getBruteLoss() && prob(20)) M.heal_organ_damage(1,0)
 	if(holder.has_reagent("capsaicin"))
-		holder.remove_reagent("capsaicin", 10*REAGENTS_METABOLISM)
+		holder.remove_reagent("capsaicin", 2)
 	..()
 	return
 
@@ -189,8 +189,8 @@
 	overdose_threshold = 45
 
 /datum/reagent/drink/coffee/on_mob_life(var/mob/living/M as mob)
-	if(adj_temp > 0 && holder.has_reagent("frostoil"))
-		holder.remove_reagent("frostoil", 10*REAGENTS_METABOLISM)
+	if(holder.has_reagent("frostoil"))
+		holder.remove_reagent("frostoil", 5)
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)

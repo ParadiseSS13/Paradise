@@ -12,6 +12,7 @@
 	var/strapped = 0.0
 
 	var/obj/machinery/computer/operating/computer = null
+	buckle_lying = 90
 
 /obj/machinery/optable/New()
 	..()
@@ -91,7 +92,7 @@
 	if (C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>", 3)
+		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
 	if (C.client)
 		C.client.perspective = EYE_PERSPECTIVE
 		C.client.eye = src
@@ -129,9 +130,9 @@
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
 		usr << "<span class='notice'>The table is already occupied!</span>"
 		return 0
-		
+
 	if(patient.buckled)
 		usr << "<span class='notice'>Unbuckle first!</span>"
 		return 0
-		
+
 	return 1

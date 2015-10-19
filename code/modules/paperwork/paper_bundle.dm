@@ -97,11 +97,10 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		src.show_content(usr)
+	if(..(user, 1))
+		src.show_content(user)
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
-	return
+		user << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat
@@ -178,7 +177,7 @@
 			update_icon()
 	else
 		usr << "<span class='notice'>You need to hold it in your hands to change pages.</span>"
-	if (istype(src.loc, /mob) ||istype(src.loc.loc, /mob))
+	if (istype(src.loc, /mob))
 		src.attack_self(src.loc)
 		updateUsrDialog()
 
@@ -212,9 +211,10 @@
 
 
 /obj/item/weapon/paper_bundle/update_icon()
-	var/obj/item/weapon/paper/P = src[1]
-	icon_state = P.icon_state
-	overlays = P.overlays
+	if(contents.len)
+		var/obj/item/weapon/paper/P = src[1]
+		icon_state = P.icon_state
+		overlays = P.overlays
 	underlays = 0
 	var/i = 0
 	var/photo

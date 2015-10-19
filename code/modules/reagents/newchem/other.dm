@@ -290,7 +290,7 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 					M << "<span class = 'danger'>Something isn't right!"
 					M.adjustBruteLoss(1)
 				if(2)
-					M.emote("me",1,"strains, but nothing happens.")
+					M.custom_emote(1,"strains, but nothing happens.")
 					M.adjustBruteLoss(2)
 				if(3)
 					M.emote("scream")

@@ -78,7 +78,14 @@ var/global/mulebot_count = 0
 			suffix = "#[mulebot_count]"
 		name = "\improper Mulebot ([suffix])"
 
-
+/obj/machinery/bot/mulebot/Destroy()
+	unload(0)
+	qdel(wires)
+	wires = null
+	if(cell)
+		qdel(cell)
+		cell = null
+	return ..()
 
 // attack by item
 // emag : lock/unlock,

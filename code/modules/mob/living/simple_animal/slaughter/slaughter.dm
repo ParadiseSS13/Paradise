@@ -1,9 +1,9 @@
 //////////////////The Monster
 
 /mob/living/simple_animal/slaughter
-	name = "Slaughter Demon"
-	real_name = "Slaughter Demon"
-	desc = "You should run."
+	name = "slaughter demon"
+	real_name = "slaughter demon"
+	desc = "A large, menacing creature covered in armored black scales. You should run."
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
@@ -43,6 +43,7 @@
 
 
 	var/devoured = 0
+	var/list/consumed_mobs = list()
 
 	var/list/nearby_mortals = list()
 	var/cooldown = 0
@@ -61,6 +62,7 @@
 			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 			src << src.playstyle_string
 			src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
+			src << 'sound/misc/demon_dies.ogg'
 			if(!(vialspawned))
 				var/datum/objective/slaughter/objective = new
 				var/datum/objective/demonFluff/fluffObjective = new
@@ -83,12 +85,19 @@
 
 /mob/living/simple_animal/slaughter/Die()
 	..()
+	var/obj/effect/decal/cleanable/blood/innards = new (get_turf(src))
+	innards.icon = 'icons/obj/surgery.dmi'
+	innards.icon_state = "innards"
+	innards.name = "pile of viscera"
+	innards.desc = "A repulsive pile of guts and gore."
 	new /obj/effect/decal/cleanable/blood (src.loc)
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	new /obj/effect/gibspawner/generic(get_turf(src))
+	new /obj/item/weapon/demonheart(src.loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
-	new /obj/item/weapon/demonheart (src.loc)
-	visible_message("<span class='danger'>The [src] screams in anger as its form collapes into a pool of viscera.</span>")
+	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
+	for(var/mob/living/M in consumed_mobs)
+		M.forceMove(get_turf(src))
 	ghostize()
 	qdel(src)
 
@@ -97,7 +106,7 @@
 /mob/living/simple_animal/slaughter/phasein()
 	..()
 	speed = 0
-	boost = world.time + 30
+	boost = world.time + 60
 
 ////////////////////The Powers
 
@@ -128,23 +137,28 @@
 
 //////////The Loot
 
+//The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
 /obj/item/weapon/demonheart
-	name = "demon's heart"
-	desc = "It's still faintly beating with rage"
+	name = "demon heart"
+	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "heart-on"
+	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=8"
 
 
 /obj/item/weapon/demonheart/attack_self(mob/living/user)
-	visible_message("[user] feasts upon the [src].")
+	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
+						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
+	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
 	if(user.bloodcrawl == 0)
-		user << "You absorb some of the demon's power!"
+		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
+						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		user.bloodcrawl = BLOODCRAWL
 	else if(user.bloodcrawl == 1)
-		user << "You absorb some of the demon's power!"
 		user << "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>"
 		user.bloodcrawl = BLOODCRAWL_EAT
+	else
+		user <<"<span class='warning'>...and you don't feel any different.</span>"
 	qdel(src)
 
 

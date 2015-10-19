@@ -46,7 +46,7 @@
 /datum/chemical_reaction/clf3/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/turf/turf in range(1,T))
-		PoolOrNew(/obj/effect/hotspot, turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/clf3/reaction_turf(var/turf/simulated/T, var/volume)
@@ -59,13 +59,13 @@
 		if(prob(volume/10))
 			F.make_plating()
 		if(istype(F, /turf/simulated/floor/))
-			PoolOrNew(/obj/effect/hotspot, F)
+			new /obj/effect/hotspot(F)
 	if(istype(T, /turf/simulated/wall/))
 		var/turf/simulated/wall/W = T
 		if(prob(volume/10))
 			W.ChangeTurf(/turf/simulated/floor)
 	if(istype(T, /turf/simulated/shuttle/))
-		PoolOrNew(/obj/effect/hotspot, T)
+		new /obj/effect/hotspot(T)
 	return
 
 /datum/reagent/clf3/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
@@ -429,7 +429,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	for(var/turf/simulated/turf in range(created_volume/10,T))
-		PoolOrNew(/obj/effect/hotspot, turf)
+		new /obj/effect/hotspot(turf)
 	return
 
 /datum/reagent/phlogiston/on_mob_life(var/mob/living/M as mob)

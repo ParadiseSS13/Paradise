@@ -18,9 +18,12 @@
 			user << "\The [src] is already loaded."
 			return
 
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [O] is stuck to you!</span>"
+			return
+
 		sample = O
-		user.drop_item()
-		O.loc = src
+		O.forceMove(src)
 
 		user.visible_message("[user] adds \a [O] to \the [src]!", "You add \a [O] to \the [src]!")
 		nanomanager.update_uis(src)
@@ -140,7 +143,7 @@
 
 		if("sample")
 			if(sample)
-				sample.loc = src.loc
+				sample.forceMove(src.loc)
 				sample = null
 			return 1
 

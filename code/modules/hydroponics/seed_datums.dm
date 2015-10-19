@@ -33,6 +33,7 @@
 	set_trait(TRAIT_MATURATION,4)
 	set_trait(TRAIT_PRODUCTION,4)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#00EDC6")
+	set_trait(TRAIT_RARITY,20)
 
 /datum/seed/chili/ghost
 	name = "ghostchili"
@@ -43,11 +44,13 @@
 	kitchen_tag = "ghostchili"
 	preset_icon = "ghostchilipepper"
 
-/datum/seed/chili/ice/New()
+/datum/seed/chili/ghost/New()
 	..()
-	set_trait(TRAIT_MATURATION,4)
-	set_trait(TRAIT_PRODUCTION,4)
+	set_trait(TRAIT_MATURATION,10)
+	set_trait(TRAIT_PRODUCTION,10)
+	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#00EDC6")
+	set_trait(TRAIT_RARITY,20)
 
 // Berry plants/variants.
 /datum/seed/berry
@@ -89,6 +92,7 @@
 	set_trait(TRAIT_YIELD,2)
 	set_trait(TRAIT_POTENCY,10)
 	set_trait(TRAIT_PRODUCT_COLOUR,"c9fa16")
+	set_trait(TRAIT_RARITY,20)
 
 /datum/seed/berry/poison
 	name = "poisonberries"
@@ -102,6 +106,7 @@
 /datum/seed/berry/poison/New()
 	..()
 	set_trait(TRAIT_PRODUCT_COLOUR,"#6DC961")
+	set_trait(TRAIT_RARITY,10) // Mildly poisonous berries are common in reality
 
 /datum/seed/berry/poison/death
 	name = "deathberries"
@@ -116,6 +121,7 @@
 	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_POTENCY,50)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#7A5454")
+	set_trait(TRAIT_RARITY,30)
 
 // Nettles/variants.
 /datum/seed/nettle
@@ -154,6 +160,7 @@
 	set_trait(TRAIT_YIELD,2)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#8C5030")
 	set_trait(TRAIT_PLANT_COLOUR,"#634941")
+	set_trait(TRAIT_RARITY,10)
 
 //Tomatoes/variants.
 /datum/seed/tomato
@@ -191,6 +198,7 @@
 	..()
 	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#FF0000")
+	set_trait(TRAIT_RARITY,20)
 
 /datum/seed/tomato/killer
 	name = "killertomato"
@@ -205,6 +213,7 @@
 	..()
 	set_trait(TRAIT_YIELD,2)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#A86747")
+	set_trait(TRAIT_RARITY,30)
 
 /datum/seed/tomato/blue
 	name = "bluetomato"
@@ -218,6 +227,7 @@
 	..()
 	set_trait(TRAIT_PRODUCT_COLOUR,"#4D86E8")
 	set_trait(TRAIT_PLANT_COLOUR,"#070AAD")
+	set_trait(TRAIT_RARITY,20)
 
 /datum/seed/tomato/blue/teleport
 	name = "bluespacetomato"
@@ -233,6 +243,7 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#00E5FF")
 	set_trait(TRAIT_BIOLUM,1)
 	set_trait(TRAIT_BIOLUM_COLOUR,"#4DA4A8")
+	set_trait(TRAIT_RARITY,50)
 
 //Eggplants/varieties.
 /datum/seed/eggplant
@@ -298,6 +309,7 @@
 	set_trait(TRAIT_YIELD,3)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#FFDD00")
 	set_trait(TRAIT_PLANT_COLOUR,"#D6B44D")
+	set_trait(TRAIT_RARITY,40) // Alchemy!
 
 //Ambrosia/varieties.
 /datum/seed/ambrosia
@@ -328,6 +340,10 @@
 	chems = list("plantmatter" = list(1), "styptic_powder" = list(1,8), "synaptizine" = list(1,8,1), "methamphetamine" = list(1,10,1), "thc" = list(1,10))
 	kitchen_tag = "ambrosiadeus"
 	preset_icon = "ambrosiadeus"
+
+/datum/seed/ambrosia/deus/New()
+	..()
+	set_trait(TRAIT_RARITY,40)
 
 //Tobacco/varieties
 /datum/seed/tobacco
@@ -365,6 +381,7 @@
 	set_trait(TRAIT_POTENCY, 5)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#A3F0AD")
 	set_trait(TRAIT_PLANT_COLOUR,"#2A9C61")
+	set_trait(TRAIT_RARITY,20)
 
 //Tea/varieties
 /datum/seed/teaaspera
@@ -404,6 +421,7 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#A3F0AD")
 	set_trait(TRAIT_PLANT_COLOUR,"#2A9C61")
 	set_trait(TRAIT_PLANT_ICON,"tree6")
+	set_trait(TRAIT_RARITY,20)
 
 //Coffee/varieties
 /datum/seed/coffeea
@@ -444,6 +462,7 @@
 	set_trait(TRAIT_PRODUCT_ICON,"coffee")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#A22043")
 	set_trait(TRAIT_PLANT_ICON,"bush8")
+	set_trait(TRAIT_RARITY,20)
 
 //Mushrooms/varieties.
 /datum/seed/mushroom
@@ -518,6 +537,7 @@
 	set_trait(TRAIT_YIELD,1)
 	set_trait(TRAIT_PRODUCT_COLOUR,"#FAC0F2")
 	set_trait(TRAIT_PLANT_COLOUR,"#C4B1C2")
+	set_trait(TRAIT_RARITY,30)
 
 /datum/seed/mushroom/hallucinogenic
 	name = "reishi"
@@ -593,6 +613,7 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#EDE8EA")
 	set_trait(TRAIT_PLANT_COLOUR,"#E6D8DD")
 	set_trait(TRAIT_PLANT_ICON,"mushroom5")
+	set_trait(TRAIT_RARITY,30)
 
 /datum/seed/mushroom/towercap
 	name = "towercap"
@@ -630,6 +651,7 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#DDFAB6")
 	set_trait(TRAIT_PLANT_COLOUR,"#EFFF8A")
 	set_trait(TRAIT_PLANT_ICON,"mushroom7")
+	set_trait(TRAIT_RARITY,20)
 
 /datum/seed/mushroom/plastic
 	name = "plastic"
@@ -715,6 +737,7 @@
 	set_trait(TRAIT_PRODUCT_ICON,"flower2")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#B5ABDD")
 	set_trait(TRAIT_PLANT_ICON,"flower2")
+	set_trait(TRAIT_RARITY,10)
 
 /datum/seed/flower/novaflower
 	name = "novaflowers"
@@ -804,6 +827,7 @@
 	set_trait(TRAIT_PRODUCT_ICON,"bean")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#EBE7C0")
 	set_trait(TRAIT_PLANT_ICON,"stalk")
+	set_trait(TRAIT_RARITY,20)
 
 //Everything else
 /datum/seed/peanuts
@@ -1177,6 +1201,7 @@
 	set_trait(TRAIT_PRODUCT_COLOUR,"#96D278")
 	set_trait(TRAIT_PLANT_COLOUR,"#6F7A63")
 	set_trait(TRAIT_PLANT_ICON,"vine2")
+	set_trait(TRAIT_RARITY,30)
 
 /datum/seed/diona
 	name = "diona"

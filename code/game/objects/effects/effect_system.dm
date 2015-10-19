@@ -12,6 +12,16 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	mouse_opacity = 0
 	unacidable = 1//So effect are not targeted by alien acid.
 
+/obj/effect/effect/New()
+	..()
+	if(ticker)
+		cameranet.updateVisibility(src)
+
+/obj/effect/effect/Destroy()
+	if(ticker)
+		cameranet.updateVisibility(src)
+	return ..()
+
 /datum/effect/effect/proc/fadeOut(var/atom/A, var/frames = 16)
 	if(A.alpha == 0) //Handle already transparent case
 		return
@@ -53,13 +63,6 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		return
 	return
 
-/obj/effect/effect/water/Destroy()
-	//var/turf/T = src.loc
-	//if (istype(T, /turf))
-	//	T.firelevel = 0 //TODO: FIX
-	src.delete()
-	return ..()
-
 /obj/effect/effect/water/Move(turf/newloc)
 	//var/turf/T = src.loc
 	//if (istype(T, /turf))
@@ -86,6 +89,11 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/turf/location
 	var/atom/holder
 	var/setup = 0
+
+	Destroy()
+		holder = null
+		location = null
+		return ..()
 
 	proc/set_up(n = 3, c = 0, turf/loc)
 		if(n > 10)
@@ -446,6 +454,11 @@ steam.start() -- spawns the effect
 	var/direction
 	var/obj/chemholder
 
+	Destroy()
+		qdel(chemholder)
+		chemholder = null
+		return ..()
+
 	New()
 		..()
 		chemholder = new/obj()
@@ -539,35 +552,6 @@ steam.start() -- spawns the effect
 				spawn(150+rand(10,30))
 					if(smoke) smoke.delete()
 					src.total_smoke--
-
-// Goon compat.
-/datum/effect/effect/system/chem_smoke_spread/fart
-
-	set_up(var/mob/M, n = 5, c = 0, loca, direct)
-		if(n > 20)
-			n = 20
-		number = n
-		cardinals = c
-
-		chemholder.reagents.add_reagent("space_drugs", rand(1,10))
-
-		if(istype(loca, /turf/))
-			location = loca
-		else
-			location = get_turf(loca)
-		if(direct)
-			direction = direct
-
-		var/contained = "\[[chemholder.reagents.get_reagent_ids()]\]"
-		var/area/A = get_area(location)
-
-		var/where = "[A.name] | [location.x], [location.y]"
-		var/whereLink=formatJumpTo(location,where)
-
-		var/more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
-		message_admins("[M][more] produced a toxic fart in ([whereLink])[contained].", 0, 1)
-		log_game("[M][more] produced a toxic fart in ([where])[contained].")
-
 
 /////////////////////////////////////////////
 // Sleep smoke
@@ -769,44 +753,49 @@ steam.start() -- spawns the effect
 	var/processing = 1
 	var/on = 1
 
-	set_up(atom/atom)
-		attach(atom)
-		oldposition = get_turf(atom)
+/datum/effect/effect/system/ion_trail_follow/Destroy()
+	oldposition = null
+	return ..()
 
-	start()
-		if(!src.on)
-			src.on = 1
-			src.processing = 1
-		if(src.processing)
-			src.processing = 0
-			spawn(0)
-				var/turf/T = get_turf(src.holder)
-				if(T != src.oldposition)
-					if(istype(T, /turf/space))
-						var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
-						src.oldposition = T
-						I.dir = src.holder.dir
-						flick("ion_fade", I)
-						I.icon_state = "blank"
-						spawn( 20 )
-							if(I) I.delete()
-					spawn(2)
-						if(src.on)
-							src.processing = 1
-							src.start()
-				else
-					spawn(2)
-						if(src.on)
-							src.processing = 1
-							src.start()
+/datum/effect/effect/system/ion_trail_follow/set_up(atom/atom)
+	attach(atom)
 
-	proc/stop()
+/datum/effect/effect/system/ion_trail_follow/start() //Whoever is responsible for this abomination of code should become an hero
+	if(!src.on)
+		src.on = 1
+		src.processing = 1
+	if(src.processing)
 		src.processing = 0
-		src.on = 0
+		var/turf/T = get_turf(src.holder)
+		if(T != src.oldposition)
+			if(!has_gravity(T))
+				var/obj/effect/effect/ion_trails/I = new /obj/effect/effect/ion_trails(src.oldposition)
+				I.dir = src.holder.dir
+				flick("ion_fade", I)
+				I.icon_state = "blank"
+				spawn( 20 )
+					if(I)
+						I.delete()
+			src.oldposition = T
+		spawn(2)
+			if(src.on)
+				src.processing = 1
+				src.start()
+
+/datum/effect/effect/system/ion_trail_follow/proc/stop()
+	src.processing = 0
+	src.on = 0
+	oldposition = null
 
 /datum/effect/effect/system/ion_trail_follow/space_trail
 	var/turf/oldloc // secondary ion trail loc
 	var/turf/currloc
+
+/datum/effect/effect/system/ion_trail_follow/space_trail/Destroy()
+	oldloc = null
+	currloc = null
+	return ..()
+
 /datum/effect/effect/system/ion_trail_follow/space_trail/start()
 	if(!src.on)
 		src.on = 1
@@ -850,15 +839,10 @@ steam.start() -- spawns the effect
 					spawn( 20 )
 						if(I) I.delete()
 						if(II) II.delete()
-				spawn(2)
-					if(src.on)
-						src.processing = 1
-						src.start()
-			else
-				spawn(2)
-					if(src.on)
-						src.processing = 1
-						src.start()
+			spawn(2)
+				if(src.on)
+					src.processing = 1
+					src.start()
 			currloc = T
 
 
@@ -871,6 +855,10 @@ steam.start() -- spawns the effect
 	var/turf/oldposition
 	var/processing = 1
 	var/on = 1
+
+	Destroy()
+		oldposition = null
+		return ..()
 
 	set_up(atom/atom)
 		attach(atom)

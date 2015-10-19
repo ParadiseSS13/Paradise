@@ -290,7 +290,7 @@
 /obj/machinery/sleeper/blob_act()
 	if(prob(75))
 		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
+			A.forceMove(src.loc)
 			A.blob_act()
 		qdel(src)
 	return
@@ -299,12 +299,16 @@
 /obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(!beaker)
+			if (!user.drop_item())
+				user << "<span class='warning'>\The [G] is stuck to you!</span>"
+				return
+
 			beaker = G
-			user.drop_item()
-			G.loc = src
+			G.forceMove(src)
 			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 			src.updateUsrDialog()
 			return
+
 		else
 			user << "\red The sleeper has a beaker already."
 			return
@@ -350,7 +354,7 @@
 				usr << "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head."
 				return
 
-		visible_message("[user] starts putting [G:affecting:name] into the sleeper.", 3)
+		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
 
 		if(do_after(user, 20, target = G:affecting))
 			if(src.occupant)
@@ -361,7 +365,7 @@
 			if(M.client)
 				M.client.perspective = EYE_PERSPECTIVE
 				M.client.eye = src
-			M.loc = src
+			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "sleeper"
 			M << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
@@ -378,21 +382,21 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
+				A.forceMove(src.loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(src.loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(src.loc)
 					ex_act(severity)
 				qdel(src)
 				return
@@ -437,7 +441,7 @@
 	if(src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	src.occupant.forceMove(src.loc)
 	src.occupant = null
 	icon_state = "sleeper-open"
 	return
@@ -508,7 +512,7 @@
 		return
 	if(beaker)
 		filtering = 0
-		beaker.loc = usr.loc
+		beaker.forceMove(usr.loc)
 		beaker = null
 	add_fingerprint(usr)
 	return
@@ -551,9 +555,9 @@
 			usr << "[L.name] will not fit into the sleeper because they have a slime latched onto their head."
 			return
 	if(L == user)
-		visible_message("[user] starts climbing into the sleeper.", 3)
+		visible_message("[user] starts climbing into the sleeper.")
 	else
-		visible_message("[user] starts putting [L.name] into the sleeper.", 3)
+		visible_message("[user] starts putting [L.name] into the sleeper.")
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
@@ -564,7 +568,7 @@
 		if(L.client)
 			L.client.perspective = EYE_PERSPECTIVE
 			L.client.eye = src
-		L.loc = src
+		L.forceMove(src)
 		src.occupant = L
 		src.icon_state = "sleeper"
 		L << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
@@ -595,7 +599,7 @@
 		if(M.Victim == usr)
 			usr << "You're too busy getting your life sucked out of you."
 			return
-	visible_message("[usr] starts climbing into the sleeper.", 3)
+	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
 		if(src.occupant)
 			usr << "\blue <B>The sleeper is already occupied!</B>"
@@ -603,7 +607,7 @@
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
 		usr.client.eye = src
-		usr.loc = src
+		usr.forceMove(src)
 		src.occupant = usr
 		src.icon_state = "sleeper"
 

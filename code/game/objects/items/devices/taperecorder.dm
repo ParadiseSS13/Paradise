@@ -13,20 +13,16 @@
 	var/playsleepseconds = 0
 	var/obj/item/device/tape/mytape
 	var/open_panel = 0
-	var/datum/wires/taperecorder/wires = null
 	var/canprint = 1
 
 
 /obj/item/device/taperecorder/New()
-	wires = new(src)
 	mytape = new /obj/item/device/tape/random(src)
 	update_icon()
 
-
-/obj/item/device/taperecorder/examine()
-	set src in view(1)
-	..()
-	usr << "The wire panel is [open_panel ? "opened" : "closed"]."
+/obj/item/device/taperecorder/examine(mob/user)
+	if(..(user, 1))
+		user << "The wire panel is [open_panel ? "opened" : "closed"]."
 
 
 /obj/item/device/taperecorder/attackby(obj/item/I, mob/user)
@@ -36,14 +32,6 @@
 		mytape = I
 		user << "<span class='notice'>You insert [I] into [src].</span>"
 		update_icon()
-	else if(istype(I, /obj/item/weapon/screwdriver))
-		open_panel = !open_panel
-		user << "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>"
-		if(open_panel)
-			wires.Interact(user)
-	else if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler))
-		wires.Interact(user)
-
 
 /obj/item/device/taperecorder/proc/eject(mob/user)
 	if(mytape)
@@ -119,8 +107,6 @@
 		return
 	if(playing)
 		return
-	if(!wires.get_record())
-		return
 
 	if(mytape.used_capacity < mytape.max_capacity)
 		usr << "<span class='notice'>Recording started.</span>"
@@ -132,8 +118,6 @@
 		var/max = mytape.max_capacity
 		for(used, used < max)
 			if(recording == 0)
-				break
-			if(!wires.get_record())
 				break
 			mytape.used_capacity++
 			used++
@@ -176,8 +160,6 @@
 		return
 	if(playing)
 		return
-	if(!wires.get_play())
-		return
 
 	playing = 1
 	update_icon()
@@ -186,8 +168,6 @@
 	var/max = mytape.max_capacity
 	for(var/i = 1, used < max, sleep(10 * playsleepseconds))
 		if(!mytape)
-			break
-		if(!wires.get_play())
 			break
 		if(playing == 0)
 			break
@@ -251,7 +231,6 @@
 
 //empty tape recorders
 /obj/item/device/taperecorder/empty/New()
-	wires = new(src)
 	return
 
 

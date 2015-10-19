@@ -9,6 +9,14 @@
 	var/obj/item/weapon/circuitboard/circuit = null
 	var/obj/item/device/mmi/brain = null
 
+/obj/structure/AIcore/Destroy()
+	qdel(laws)
+	qdel(circuit)
+	qdel(brain)
+	laws = null
+	circuit = null
+	brain = null
+	return ..()
 
 /obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
@@ -104,7 +112,7 @@
 				laws.add_inherent_law(M.newFreeFormLaw)
 				usr << "<span class='notice'>Added a freeform law.</span>"
 				return
-				
+
 			if(istype(P, /obj/item/weapon/aiModule))
 				var/obj/item/weapon/aiModule/M = P
 				if(!M.laws)
@@ -122,6 +130,10 @@
 
 				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
 					user << "\red This [P] does not seem to fit."
+					return
+
+				if(istype(P, /obj/item/device/mmi/syndie))
+					user << "<span class='warning'>This MMI does not seem to fit!</span>"
 					return
 
 				if(P:brainmob.mind)
@@ -176,7 +188,8 @@
 	state = 20//So it doesn't interact based on the above. Not really necessary.
 
 /obj/structure/AIcore/deactivated/Destroy()
-	empty_playable_ai_cores -= src
+	if(src in empty_playable_ai_cores)
+		empty_playable_ai_cores -= src
 	return ..()
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
@@ -257,4 +270,3 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 		qdel(src)
 	else //If for some reason you use an empty card on an empty AI terminal.
 		user << "There is no AI loaded on this terminal!"
-		

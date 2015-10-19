@@ -118,7 +118,7 @@
 	var/m_int = null//Living
 	var/m_intent = "run"//Living
 	var/lastKnownIP = null
-	var/obj/structure/stool/bed/buckled = null//Living
+	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
 	var/obj/item/weapon/back = null//Human/Monkey
@@ -131,6 +131,9 @@
 
 	var/datum/hud/hud_used = null
 
+	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
+	var/datum/action/scan_mode/scanner = new
+
 	var/list/grabbed_by = list(  )
 	var/list/requests = list(  )
 
@@ -141,8 +144,6 @@
 	var/coughedtime = null
 
 	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
-
-	var/inertia_dir = 0
 
 	var/music_lastplayed = "null"
 
@@ -203,6 +204,7 @@
 	var/area/lastarea = null
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
+	var/weakeyes //Are they vulnerable to flashes?
 
 	var/list/radar_blips = list() // list of screen objects, radar blips
 	var/radar_open = 0 	// nonzero is radar is open
@@ -235,3 +237,5 @@
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
 	var/resize = 1 //Badminnery resize
+
+	var/datum/vision_override/vision_type = null //Vision override datum.

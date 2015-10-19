@@ -191,7 +191,7 @@
 			src.fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
 			src.shot_number = 0
 
-		var/obj/item/projectile/beam/emitter/A = PoolOrNew(/obj/item/projectile/beam/emitter,src.loc)
+		var/obj/item/projectile/beam/emitter/A = new /obj/item/projectile/beam/emitter(src.loc)
 
 		A.dir = src.dir
 		playsound(get_turf(src), 'sound/weapons/emitter.ogg', 25, 1)

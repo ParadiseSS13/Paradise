@@ -1,7 +1,8 @@
+
 /mob/proc/say()
 	return
 
-/mob/verb/whisper()
+/mob/verb/whisper(message as text)
 	set name = "Whisper"
 	set category = "IC"
 	return
@@ -34,13 +35,13 @@
 
 	set_typing_indicator(0)
 	if(use_me)
-		usr.emote("me",usr.emote_type,message)
+		custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
 
 /mob/proc/say_dead(var/message)
 	if(!src.client.holder)
-		if(!dsay_allowed)
+		if(!config.dsay_allowed)
 			src << "<span class='danger'>Deadchat is globally muted.</span>"
 			return
 
@@ -81,24 +82,19 @@
 
 	return 0
 
-/*
-   ***Deprecated***
-   let this be handled at the hear_say or hear_radio proc
-   This is left in for robot speaking when humans gain binary channel access until I get around to rewriting
-   robot_talk() proc.
-   There is no language handling build into it however there is at the /mob level so we accept the call
-   for it but just ignore it.
-*/
 
 /mob/proc/say_quote(var/message, var/datum/language/speaking = null)
-        var/verb = "says"
-        var/ending = copytext(message, length(message))
-        if(ending=="!")
-                verb=pick("exclaims","shouts","yells")
-        else if(ending=="?")
-                verb="asks"
+	var/verb = "says"
+	var/ending = copytext(message, length(message))
 
-        return verb
+	if(speaking)
+		verb = speaking.get_spoken_verb(ending)
+	else
+		if(ending=="!")
+			verb = pick("exclaims","shouts","yells")
+		else if(ending=="?")
+			verb = "asks"
+	return verb
 
 
 /mob/proc/emote(var/act, var/type, var/message)
@@ -137,11 +133,11 @@
 //parses the language code (e.g. :j) from text, such as that supplied to say.
 //returns the language object only if the code corresponds to a language that src can speak, otherwise null.
 /mob/proc/parse_language(var/message)
-	if(length(message) >= 1 && copytext(message,1,2) == "!")
+	var/prefix = copytext(message,1,2)
+	if(length(message) >= 1 && prefix == "!")
 		return all_languages["Noise"]
 
 	if(length(message) >= 2)
-
 		var/language_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
 		var/datum/language/L = language_keys[language_prefix]
 		if (can_speak(L))

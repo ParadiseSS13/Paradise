@@ -768,7 +768,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			light_amount = T.get_lumcount()*10
 		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
 			if(species.light_effect_amp)
-				adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
+				adjustFireLoss(4.7) //This gets multiplied by 1.5 due to Shadowling's innate fire weakness, so it ends up being about 7.
 			else
 				adjustFireLoss(1)
 				adjustBruteLoss(1)
@@ -968,7 +968,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/obj/item/organ/vision
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
-		
+
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			eye_blind =  0
 			blinded =    0
@@ -977,7 +977,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			eye_blind =  1
 			blinded =    1
 			eye_blurry = 1
-		else 
+		else
 			//blindness
 			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
@@ -987,7 +987,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
 				blinded =    1
-			
+
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
 				eye_blurry = 1
@@ -1220,18 +1220,19 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 						if(ANTAGHUD)
 							process_antag_hud(src)
 
-
-
-
 		else if(!seer)
 			see_in_dark = species.darksight
 			see_invisible = SEE_INVISIBLE_LIVING
-			
+
+		if(vision_type)
+			see_in_dark = max(see_in_dark, vision_type.see_in_dark, species.darksight)
+			see_invisible = vision_type.see_invisible
+			if(vision_type.light_sensitive)
+				weakeyes = 1
+			sight |= vision_type.sight_flags
+
 		if(see_override)	//Override all
 			see_invisible = see_override
-
-		if(ticker && ticker.mode.name == "nations")
-			process_nations()
 
 		if(healths)
 			if (analgesic)
@@ -1285,12 +1286,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(pressure)
 			pressure.icon_state = "pressure[pressure_alert]"
 
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
-//			if(rest)	//Not used with new UI
-//				if(resting || lying || sleeping)		rest.icon_state = "rest1"
-//				else									rest.icon_state = "rest0"
 		if(toxin)
 			if(hal_screwyhud == 4 || toxins_alert)	toxin.icon_state = "tox1"
 			else									toxin.icon_state = "tox0"
@@ -1509,7 +1504,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
 
 	if(shock_stage >= 30)
-		if(shock_stage == 30) emote("me",1,"is having trouble keeping their eyes open.")
+		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
 		eye_blurry = max(2, eye_blurry)
 		stuttering = max(stuttering, 5)
 
@@ -1517,7 +1512,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 
 	if(shock_stage >=60)
-		if(shock_stage == 60) emote("me",1,"'s body becomes limp.")
+		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
 			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 			Weaken(20)
@@ -1533,7 +1528,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			Paralyse(5)
 
 	if(shock_stage == 150)
-		emote("me",1,"can no longer stand, collapsing!")
+		custom_emote(1,"can no longer stand, collapsing!")
 		Weaken(20)
 
 	if(shock_stage >= 150)
@@ -1822,33 +1817,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
-
-	if(hud_updateflag & 1 << NATIONS_HUD)
-		var/image/holder = hud_list[NATIONS_HUD]
-		holder.icon_state = "hudblank"
-
-		if(mind && mind.nation)
-			switch(mind.nation.name)
-				if("Atmosia")
-					holder.icon_state = "hudatmosia"
-				if("Brigston")
-					holder.icon_state = "hudbrigston"
-				if("Cargonia")
-					holder.icon_state = "hudcargonia"
-				if("People's Republic of Commandzakstan")
-					holder.icon_state = "hudcommand"
-				if("Medistan")
-					holder.icon_state = "hudmedistan"
-				if("Scientopia")
-					holder.icon_state = "hudscientopia"
-
-			hud_list[NATIONS_HUD] = holder
 	hud_updateflag = 0
-
-/mob/living/carbon/human/proc/process_nations()
-	var/client/C = client
-	for(var/mob/living/carbon/human/H in view(src, 14))
-		C.images += H.hud_list[NATIONS_HUD]
 
 /mob/living/carbon/human/handle_silent()
 	if(..())

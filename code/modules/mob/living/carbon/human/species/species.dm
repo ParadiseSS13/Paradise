@@ -61,6 +61,7 @@
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/flags = 0       // Various specific features.
+	var/clothing_flags = 0 // Underwear and socks.
 	var/bloodflags = 0
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
@@ -77,11 +78,14 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
-	
+
 	var/is_small
 	var/show_ssd = 1
 	var/virus_immune
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
+
+	//Death vars.
+	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
@@ -99,7 +103,7 @@
 		"brain" =    /obj/item/organ/brain,
 		"appendix" = /obj/item/organ/appendix,
 		"eyes" =     /obj/item/organ/eyes
-		)		
+		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest),
@@ -360,3 +364,6 @@
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
 	damage = 6	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...
+
+/datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
+	return 0

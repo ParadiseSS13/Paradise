@@ -46,7 +46,7 @@
 			bound_height = width * world.icon_size
 
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	airlocks += src
 	return
 
@@ -54,7 +54,7 @@
 /obj/machinery/door/Destroy()
 	density = 0
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	airlocks -= src
 	return ..()
 
@@ -83,14 +83,6 @@
 			else
 				flick("door_deny", src)
 		return
-	if(istype(AM, /obj/structure/stool/bed/chair/wheelchair))
-		var/obj/structure/stool/bed/chair/wheelchair/wheel = AM
-		if(density)
-			if(wheel.pulling && (src.allowed(wheel.pulling)))
-				open()
-			else
-				flick("door_deny", src)
-		return
 	return
 
 
@@ -108,10 +100,8 @@
 	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user as mob)
-	if(operating)	return
-//	if(user.last_airflow > world.time) //Fakkit //remind me to figure out the linda equiv
-//	if(user.last_airflow > world.time - zas_settings.Get("airflow_delay")) //Fakkit
-//		return
+	if(operating)
+		return
 	src.add_fingerprint(user)
 	if(!src.requiresID())
 		user = null
@@ -233,7 +223,7 @@
 	set_opacity(0)
 	operating = 0
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(autoclose  && normalspeed)
 		spawn(150)
@@ -261,7 +251,7 @@
 		set_opacity(1)	//caaaaarn!
 	operating = 0
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	return
 
 /obj/machinery/door/proc/crush()
@@ -271,7 +261,8 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.emote("scream")
+			if(L.stat == CONSCIOUS)
+				L.emote("scream")
 			L.Weaken(5)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
@@ -301,6 +292,12 @@
 		else
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
+
+/obj/machinery/door/proc/update_freelook_sight()
+	// Glass door glass = 1
+	// don't check then?
+	if(!glass && cameranet)
+		cameranet.updateVisibility(src, 0)
 
 /obj/machinery/door/BlockSuperconductivity()
 	if(opacity || heat_proof)

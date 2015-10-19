@@ -164,7 +164,7 @@ var/shuttle_call/shuttle_calls[0]
 					nanomanager.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
-				if(!input || ..() || !(is_authenticated(usr) == 2))
+				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
 				crew_announcement.Announce(input)

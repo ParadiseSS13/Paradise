@@ -46,10 +46,10 @@
 	qdel(src)
 	return
 
-/mob/living/simple_animal/construct/examine()
-	set src in oview()
+/mob/living/simple_animal/construct/examine(mob/user)
+	..(user)
 
-	var/msg = "<span cass='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n"
+	var/msg = ""
 	if (src.health < src.maxHealth)
 		msg += "<span class='warning'>"
 		if (src.health >= src.maxHealth/2)
@@ -59,16 +59,15 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	usr << msg
-	return
+	user << msg
 
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		health += 5
-		M.emote("mends some of \the <EM>[src]'s</EM> wounds.")
+		M.custom_emote(1,"mends some of \the <EM>[src]'s</EM> wounds.")
 	else
 		if(M.melee_damage_upper <= 0)
-			M.emote("[M.friendly] \the <EM>[src]</EM>")
+			M.custom_emote(1, "[M.friendly] \the <EM>[src]</EM>")
 		else
 			M.do_attack_animation(src)
 			if(M.attack_sound)
@@ -291,7 +290,7 @@
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
 
-/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/movement_dir = 0)
 	return 1
 
 

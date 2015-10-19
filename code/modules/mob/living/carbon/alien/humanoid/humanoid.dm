@@ -2,8 +2,6 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn
-	var/obj/item/clothing/head/head = null			//
 	var/obj/item/weapon/r_store = null
 	var/obj/item/weapon/l_store = null
 	var/caste = ""
@@ -173,7 +171,7 @@
 
 /mob/living/carbon/alien/humanoid/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -356,3 +354,6 @@ In all, this is a lot like the monkey code. /N
 		return custom_pixel_x_offset
 	else
 		return initial(pixel_x)
+
+/mob/living/carbon/alien/humanoid/get_permeability_protection()
+	return 0.8

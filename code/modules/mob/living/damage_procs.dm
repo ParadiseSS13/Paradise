@@ -59,7 +59,7 @@
 			halloss += effect // Useful for objects that cause "subdual" damage. PAIN!
 		if(IRRADIATE)
 			var/rad_damage = effect
-			if(negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
+			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
 				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
 			radiation += rad_damage
 		if(SLUR)

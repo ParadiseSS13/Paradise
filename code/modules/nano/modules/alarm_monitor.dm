@@ -5,7 +5,7 @@
 
 /datum/nano_module/alarm_monitor/all/New()
 	..()
-	alarm_handlers = list(atmosphere_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
+	alarm_handlers = list(atmosphere_alarm, burglar_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
 
 /datum/nano_module/alarm_monitor/engineering/New()
 	..()
@@ -13,7 +13,7 @@
 
 /datum/nano_module/alarm_monitor/security/New()
 	..()
-	alarm_handlers = list(camera_alarm, motion_alarm)
+	alarm_handlers = list(burglar_alarm, camera_alarm, motion_alarm)
 
 /datum/nano_module/alarm_monitor/proc/register(var/object, var/procName)
 	for(var/datum/alarm_handler/AH in alarm_handlers)

@@ -42,11 +42,9 @@ datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
 	if(!config.disable_away_missions)
-		spawn(20)
-			createRandomZlevel()
+		createRandomZlevel()
 
 	setup_objects()
-	setup_starlight()
 	setupgenetics()
 	setupfactions()
 	setup_economy()
@@ -74,14 +72,6 @@ datum/controller/game_controller/proc/setup_objects()
 
 	watch = start_watch()
 	count = 0
-	log_startup_progress("Initializing pipe networks...")
-	for(var/obj/machinery/atmospherics/machine in machines)
-		machine.build_network()
-		count++
-	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
-
-	watch = start_watch()
-	count = 0
 	log_startup_progress("Initializing atmospherics machinery...")
 	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
@@ -92,13 +82,14 @@ datum/controller/game_controller/proc/setup_objects()
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 			count++
-
-	log_startup_progress("  Initialized [count] atmospherics devices in [stop_watch(watch)]s.")
+	log_startup_progress("  Initialized [count] atmospherics machines in [stop_watch(watch)]s.")	
+	
+	watch = start_watch()
+	count = 0
+	log_startup_progress("Initializing pipe networks...")
+	for(var/obj/machinery/atmospherics/machine in machines)
+		machine.build_network()
+		count++
+	log_startup_progress("  Initialized [count] pipe networks in [stop_watch(watch)]s.")
+	
 	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")
-
-datum/controller/game_controller/proc/setup_starlight()
-	var/watch = start_watch()
-	log_startup_progress("Initializing starlight...")
-	for(var/turf/space/S in world)
-		S.update_starlight()
-	log_startup_progress("  Initialized starlight in [stop_watch(watch)]s.")	

@@ -78,6 +78,8 @@ var/list/robot_verbs_default = list(
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 
+	var/updating = 0 //portable camera camerachunk update
+
 	var/jetpackoverlay = 0
 	var/magpulse = 0
 
@@ -147,11 +149,12 @@ var/list/robot_verbs_default = list(
 	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	make_laws()
+	additional_law_channels["Binary"] = ":b "
 	var/new_ai = select_active_ai_with_fewest_borgs()
 	if(new_ai)
 		lawupdate = 1
@@ -201,6 +204,12 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
+	qdel(wires)
+	wires = null
+	qdel(module)
+	module = null
+	camera = null
+	cell = null
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -374,6 +383,17 @@ var/list/robot_verbs_default = list(
 		updatename()
 		update_icons()
 
+//for borg hotkeys, here module refers to borg inv slot, not core module
+/mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
+	set name = "Toggle Module"
+	set hidden = 1
+	toggle_module(module)
+
+/mob/living/silicon/robot/verb/cmd_unequip_module()
+	set name = "Unequip Module"
+	set hidden = 1
+	uneq_active()
+
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = "Robot Commands"
@@ -453,7 +473,7 @@ var/list/robot_verbs_default = list(
 // this function shows information about the malf_ai gameplay type in the status screen
 /mob/living/silicon/robot/show_malf_ai()
 	..()
-	if(ticker.mode.name == "AI malfunction")
+	if(ticker && ticker.mode.name == "AI malfunction")
 		var/datum/game_mode/malfunction/malf = ticker.mode
 		for (var/datum/mind/malfai in malf.malf_ai)
 			if(connected_ai)
@@ -726,19 +746,19 @@ var/list/robot_verbs_default = list(
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			usr << "You must access the borgs internals!"
+			user << "<span class='warning'>You must access the borgs internals!</span>"
 		else if(!src.module && U.require_module)
-			usr << "The borg must choose a module before he can be upgraded!"
+			user << "<span class='warning'>The borg must choose a module before it can be upgraded!</span>"
 		else if(U.locked)
-			usr << "The upgrade is locked and cannot be used yet!"
+			user << "<span class='warning'>The upgrade is locked and cannot be used yet!</span>"
 		else
+			if(!user.drop_item())
+				return
 			if(U.action(src))
-				usr << "You apply the upgrade to [src]!"
-				usr.drop_item()
-				U.loc = src
+				user << "<span class='notice'>You apply the upgrade to [src].</span>"
+				U.forceMove(src)
 			else
-				usr << "Upgrade error!"
-
+				user << "<span class='danger'>Upgrade error.</span>"
 
 	else
 		spark_system.start()
@@ -889,7 +909,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -1118,10 +1138,18 @@ var/list/robot_verbs_default = list(
 
 	update_icons()
 
+#define BORG_CAMERA_BUFFER 30
 /mob/living/silicon/robot/Move(a, b, flag)
-
+	var/oldLoc = src.loc
 	. = ..()
-
+	if(.)
+		if(src.camera)
+			if(!updating)
+				updating = 1
+				spawn(BORG_CAMERA_BUFFER)
+					if(oldLoc != src.loc)
+						cameranet.updatePortableCamera(src.camera)
+					updating = 0
 	if(module)
 		if(module.type == /obj/item/weapon/robot_module/janitor)
 			var/turf/tile = loc
@@ -1132,7 +1160,7 @@ var/list/robot_verbs_default = list(
 					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
-						if(istype(A, /obj/effect/rune) || istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/overlay))
+						if(is_cleanable(A))
 							qdel(A)
 					else if(istype(A, /obj/item))
 						var/obj/item/cleaned_item = A
@@ -1153,8 +1181,9 @@ var/list/robot_verbs_default = list(
 								cleaned_human.shoes.clean_blood()
 								cleaned_human.update_inv_shoes(0,0)
 							cleaned_human.clean_blood()
-							cleaned_human << "\red [src] cleans your face!"
+							cleaned_human << "<span class='danger'>[src] cleans your face!</span>"
 		return
+#undef BORG_CAMERA_BUFFER
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
@@ -1184,13 +1213,13 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"
 	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permenantly severs you from your AI and the robotics console and will deactivate your camera system."
+	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
 	var/mob/living/silicon/robot/R = src
 
 	if(R)
 		R.UnlinkSelf()
-		R << "Buffers flushed and reset. Camera system shutdown.  All systems operational."
+		R << "Buffers flushed and reset. Camera system shutdown. All systems operational."
 		src.verbs -= /mob/living/silicon/robot/proc/ResetSecurityCodes
 
 /mob/living/silicon/robot/mode()
@@ -1250,75 +1279,50 @@ var/list/robot_verbs_default = list(
 		src << "Your icon has been set. You now require a module reset to change it."
 
 /mob/living/silicon/robot/deathsquad
-	var/searching_for_ckey = 0
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
 	modtype = "Commando"
 	faction = list("nanotrasen")
-	designation = "NT Combat Cyborg"
+	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
+	var/searching_for_ckey = 0
 
 /mob/living/silicon/robot/deathsquad/New(loc)
-	if(!cell)
-		cell = new /obj/item/weapon/stock_parts/cell(src)
-		cell.maxcharge = 25000
-		cell.charge = 25000
-
 	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
 
 /mob/living/silicon/robot/deathsquad/init()
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/weapon/robot_module/deathsquad(src)
 
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/device/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
-	if((ckey == null) && searching_for_ckey == 0)
-		user << "<span class='notice'>Now checking for possible candidates.</span>"
-		var/list/ghosts = list()
-		for(var/mob/dead/observer/G in player_list)
-			ghosts += G
-		get_borg_occupant(user, ghosts)
-		return
-
-/mob/living/silicon/robot/deathsquad/proc/get_borg_occupant(mob/user as mob, var/list/possiblecandidates = list())
-	var/time_passed = world.time
-	searching_for_ckey = 1
-	if(possiblecandidates.len <= 0)
-		searching_for_ckey = 0
-		user << "<span class='notice'>Cyborg MMI interface failure, unit unable to be started.</span>"
-		return
-	else
-		var/possibleborg = pick(possiblecandidates)
-		spawn(0)
-			var/input = alert(possibleborg,"Do you want to spawn in as a cyborg for the NT Deathsquad?","Please answer in thirty seconds!","Yes","No")
-			var/mob/dead/observer/C = possibleborg
-			if(input == "Yes" && ckey == null && C.client)
-				if((world.time-time_passed)>300)
-					return
-				possiblecandidates -= possibleborg
-				searching_for_ckey = 0
-				C.mind.transfer_to(src)
-				C.mind.assigned_role = "MODE"
-				C.mind.special_role = "Death Commando"
-				ticker.mode.traitors |= C.mind // Adds them to current traitor list. Which is really the extra antagonist list.
-				src.key = C.key
-			else
-				possiblecandidates -= possibleborg
-				get_borg_occupant(user, possiblecandidates)
-				return
-
-		sleep(300)
-		if(searching_for_ckey)
-			possiblecandidates -= possibleborg
-			get_borg_occupant(user, possiblecandidates)
+	if(isnull(ckey) && !searching_for_ckey)
+		searching_for_ckey = 1
+		user << "<span class='notice'>Now checking for possible borgs.</span>"
+		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?", poll_time = 300)
+		if(borg_candidates.len > 0 && isnull(ckey))
+			searching_for_ckey = 0
+			var/mob/M = pick(borg_candidates)
+			M.mind.transfer_to(src)
+			M.mind.assigned_role = "MODE"
+			M.mind.special_role = "Death Commando"
+			ticker.mode.traitors |= M.mind // Adds them to current traitor list. Which is really the extra antagonist list.
+			key = M.key
+		else
+			searching_for_ckey = 0
+			user << "<span class='notice'>Unable to connect to Central Command. Please wait and try again later.</span>"
 			return
+	else
+		user << "<span class='warning'>[src] is already checking for possible borgs.</span>"
+		return
 
 /mob/living/silicon/robot/syndicate
 	icon_state = "syndie_bloodhound"
@@ -1326,29 +1330,47 @@ var/list/robot_verbs_default = list(
 	scrambledcodes = 1
 	modtype = "Synd"
 	faction = list("syndicate")
-	designation = "Syndicate"
+	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	lawchannel = "State"
+	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
+							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
+							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
+							<i>Help the operatives secure the disk at all costs!</i></b>"
 
 /mob/living/silicon/robot/syndicate/New(loc)
-	if(!cell)
-		cell = new /obj/item/weapon/stock_parts/cell(src)
-		cell.maxcharge = 25000
-		cell.charge = 25000
-
 	..()
+	cell.maxcharge = 25000
+	cell.charge = 25000
 
 /mob/living/silicon/robot/syndicate/init()
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/weapon/robot_module/syndicate(src)
 
+	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/device/radio/borg/syndicate(src)
 	radio.recalculateChannels()
 
+	spawn(5)
+		if(playstyle_string)
+			src << playstyle_string
+
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+/mob/living/silicon/robot/syndicate/medical
+	icon_state = "syndi-medi"
+	designation = "Syndicate Medical"
+	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
+						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
+						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
+						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
+						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
+						<i>Help the operatives secure the disk at all costs!</i></b>"
+
+/mob/living/silicon/robot/syndicate/medical/init()
+	..()
+	module = new /obj/item/weapon/robot_module/syndicate_medical(src)
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)

@@ -32,6 +32,36 @@
 	build_path = /obj/item/weapon/circuitboard/emitter
 	category = list ("Engineering Machinery")
 
+/datum/design/turbine_computer
+	name = "Computer Design (Power Turbine Console Board)"
+	desc = "The circuit board for a power turbine console."
+	id = "power_turbine_console"
+	req_tech = list("programming" = 4, "powerstorage" = 4, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/turbine_computer
+	category = list ("Engineering Machinery")
+
+/datum/design/power_compressor
+	name = "Machine Design (Power Compressor Board)"
+	desc = "The circuit board for a power compressor."
+	id = "power_compressor"
+	req_tech = list("programming" = 4, "powerstorage" = 5, "engineering" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/power_compressor
+	category = list ("Engineering Machinery")
+
+/datum/design/power_turbine
+	name = "Machine Design (Power Turbine Board)"
+	desc = "The circuit board for a power turbine."
+	id = "power_turbine"
+	req_tech = list("programming" = 4, "powerstorage" = 4, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/power_turbine
+	category = list ("Engineering Machinery")
+
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
 	desc = "Allows for the construction of circuit boards used to build a Telepad."
@@ -230,6 +260,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mech_recharger
+	category = list("Research Machinery")
+
+/datum/design/experimentor
+	name = "Machine Design (E.X.P.E.R.I-MENTOR Board)"
+	desc = "The circuit board for an E.X.P.E.R.I-MENTOR."
+	id = "experimentor"
+	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2, "bluespace" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/experimentor
 	category = list("Research Machinery")
 
 /datum/design/protolathe

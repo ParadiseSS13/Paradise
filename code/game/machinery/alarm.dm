@@ -41,8 +41,8 @@
 
 #define AALARM_PRESET_HUMAN     1 // Default
 #define AALARM_PRESET_VOX       2 // Support Vox
-#define AALARM_PRESET_SERVER    3 // Server coldroom
-#define AALARM_PRESET_COLDROOM  4 // Kitchen coldroom
+#define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
+#define AALARM_PRESET_SERVER    4 // Server coldroom
 
 #define AALARM_SCREEN_MAIN		1
 #define AALARM_SCREEN_VENT		2
@@ -59,8 +59,8 @@
 //1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
 #define MAX_ENERGY_CHANGE 1000
 
-#define MAX_TEMPERATURE 90
-#define MIN_TEMPERATURE -40
+#define MAX_TEMPERATURE 363.15 // 90C
+#define MIN_TEMPERATURE 233.15 // -40C
 
 //all air alarms in area are connected via magic
 /area
@@ -108,7 +108,7 @@
 
 	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
 
-	var/target_temperature = T0C+20
+	var/target_temperature = T20C
 	var/regulating_temperature = 0
 
 	var/datum/radio_frequency/radio_connection
@@ -119,6 +119,9 @@
 
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
+	
+/obj/machinery/alarm/monitor/server
+	preset = AALARM_PRESET_SERVER
 
 /obj/machinery/alarm/server
 	preset = AALARM_PRESET_SERVER
@@ -156,16 +159,6 @@
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.10,ONE_ATMOSPHERE*1.20), /* kpa */
 				"temperature"    = new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66), // K
 			)
-		if(AALARM_PRESET_SERVER)
-			TLV = list(
-				"oxygen"         = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // Partial pressure, kpa
-				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
-				"carbon dioxide" = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // Partial pressure, kpa
-				"plasma"         = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // Partial pressure, kpa
-				"other"          = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // Partial pressure, kpa
-				"pressure"       = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), /* kpa */
-				"temperature"    = new/datum/tlv(-1.0, -1.0,-1.0,-1.0), // K
-			)
 		if(AALARM_PRESET_COLDROOM)
 			TLV = list(
 				"oxygen"         = new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
@@ -174,7 +167,17 @@
 				"plasma"         = new/datum/tlv(-1.0, -1.0, 0.2, 0.5), // Partial pressure, kpa
 				"other"          = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 				"pressure"       = new/datum/tlv(ONE_ATMOSPHERE*0.80,ONE_ATMOSPHERE*0.90,ONE_ATMOSPHERE*1.50,ONE_ATMOSPHERE*1.60), /* kpa */
-				"temperature"    = new/datum/tlv(200, 210, 273.15, 283.15), // K
+				"temperature"    = new/datum/tlv(T0C-50, T0C-20, T0C, T20C), // K
+			)
+		if(AALARM_PRESET_SERVER)
+			TLV = list(
+				"oxygen"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"nitrogen"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"carbon dioxide" = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"plasma"         = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"other"          = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), // Partial pressure, kpa
+				"pressure"       = new/datum/tlv(-1.0, -1.0, -1.0, -1.0), /* kpa */
+				"temperature"    = new/datum/tlv(0, 0, T20C + 5, T20C + 15), // K
 			)
 
 	if(!no_cycle_after)
@@ -209,6 +212,8 @@
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	air_alarm_repository.update_cache(src)
+	qdel(wires)
+	wires = null
 	return ..()
 
 /obj/machinery/alarm/proc/first_run()
@@ -307,11 +312,11 @@
 				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
 				"You hear a click and a faint electronic hum.")
 
-			if(target_temperature > T0C + MAX_TEMPERATURE)
-				target_temperature = T0C + MAX_TEMPERATURE
+			if(target_temperature > MAX_TEMPERATURE)
+				target_temperature = MAX_TEMPERATURE
 
-			if(target_temperature < T0C + MIN_TEMPERATURE)
-				target_temperature = T0C + MIN_TEMPERATURE
+			if(target_temperature < MIN_TEMPERATURE)
+				target_temperature = MIN_TEMPERATURE
 
 			var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles())
 			var/heat_capacity = gas.heat_capacity()
@@ -321,10 +326,11 @@
 			use_power(energy_used/1000, ENVIRON)
 
 			//We need to cool ourselves.
-			if(environment.temperature > target_temperature)
-				gas.temperature -= energy_used/heat_capacity
-			else
-				gas.temperature += energy_used/heat_capacity
+			if(heat_capacity)
+				if(environment.temperature > target_temperature)
+					gas.temperature -= energy_used/heat_capacity
+				else
+					gas.temperature += energy_used/heat_capacity
 
 			environment.merge(gas)
 
@@ -601,9 +607,6 @@
 	src.add_hiddenprint(user)
 	return ui_interact(user)
 
-/obj/machinery/alarm/attack_robot(mob/user)
-	return attack_ai(user)
-
 /obj/machinery/alarm/attack_ghost(user as mob)
 	if(stat & (BROKEN|MAINT))
 		return
@@ -720,10 +723,10 @@
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for Oxygen and Nitrogen"),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for Nitrogen only"),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms"),\
-		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers")
+		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen"),\
+		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only"),\
+		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers"),\
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms")
 	)
 	data["preset"] = preset
 	data["screen"] = screen
@@ -975,15 +978,18 @@
 
 	if(href_list["temperature"])
 		var/datum/tlv/selected = TLV["temperature"]
-		var/max_temperature = min(selected.max1 - T0C, MAX_TEMPERATURE)
-		var/min_temperature = max(selected.min1 - T0C, MIN_TEMPERATURE)
-		var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature]C and [max_temperature]C)", "Thermostat Controls") as num|null
-		if(input_temperature==null || ..(href, href_list, nowindow, state))
+		var/max_temperature = selected.max1 >= 0 ? min(selected.max1, MAX_TEMPERATURE) : max(selected.max1, MAX_TEMPERATURE)
+		var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
+		var/max_temperature_c = max_temperature - T0C
+		var/min_temperature_c = min_temperature - T0C
+		var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+		if(isnull(input_temperature) || ..(href, href_list, nowindow, state))
 			return
-		if(!input_temperature || input_temperature > max_temperature || input_temperature < min_temperature)
-			usr << "Temperature must be between [min_temperature]C and [max_temperature]C"
+		input_temperature = input_temperature + T0C
+		if(input_temperature > max_temperature || input_temperature < min_temperature)
+			usr << "Temperature must be between [min_temperature_c]C and [max_temperature_c]C"
 		else
-			target_temperature = input_temperature + T0C
+			target_temperature = input_temperature
 		return 1
 
 /obj/machinery/alarm/emag_act(mob/user)
@@ -1084,12 +1090,12 @@
 	spawn(rand(0,15))
 		update_icon()
 
-/obj/machinery/alarm/examine()
-	..()
+/obj/machinery/alarm/examine(mob/user)
+	..(user)
 	if (buildstage < 2)
-		usr << "It is not wired."
+		user << "It is not wired."
 	if (buildstage < 1)
-		usr << "The circuit is missing."
+		user << "The circuit is missing."
 
 /*
 AIR ALARM CIRCUIT

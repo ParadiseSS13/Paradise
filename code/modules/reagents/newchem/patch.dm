@@ -5,9 +5,10 @@
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	possible_transfer_amounts = null
-	volume = 50
+	volume = 40
 	apply_type = TOUCH
 	apply_method = "apply"
+	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
 
 /obj/item/weapon/reagent_containers/pill/patch/New()
 	..()

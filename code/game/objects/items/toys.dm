@@ -17,6 +17,7 @@
  *		Inflatable duck
  *		Foam armblade
  *		Mini Gibber
+ *		Toy xeno
  */
 
 
@@ -131,6 +132,8 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	w_class = 3.0
@@ -138,12 +141,9 @@
 	attack_verb = list("struck", "pistol whipped", "hit", "bashed")
 	var/bullets = 7.0
 
-	examine()
-		set src in usr
-
-		src.desc = text("There are [] caps\s left. Looks almost like the real thing! Ages 8 and up.", src.bullets)
-		..()
-		return
+	examine(mob/user)
+		if(..(user, 0))
+			user << "There are [bullets] caps\s left. Looks almost like the real thing! Ages 8 and up."
 
 	attackby(obj/item/toy/ammo/gun/A as obj, mob/user as mob, params)
 
@@ -169,18 +169,17 @@
 	afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
 		if (flag)
 			return
-		if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-			usr << "\red You don't have the dexterity to do this!"
+		if (!user.IsAdvancedToolUser())
+			user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 			return
 		src.add_fingerprint(user)
 		if (src.bullets < 1)
-			user.show_message("\red *click* *click*", 2)
+			user.show_message("<span class='alert'>*click* *click*</span>", 2)
 			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 			return
 		playsound(user, 'sound/weapons/Gunshot.ogg', 100, 1)
 		src.bullets--
-		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\red <B>[] fires a cap gun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
+		user.visible_message("<span class='danger'>[user] fires a cap gun at [target]!</span>", null, "You hear a gunshot.")
 
 /obj/item/toy/ammo/gun
 	name = "ammo-caps"
@@ -207,15 +206,16 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	w_class = 2.0
 	attack_verb = list("attacked", "struck", "hit")
 	var/bullets = 5
 
-	examine()
-		set src in view(2)
-		..()
+	examine(mob/user)
+		..(user)
 		if (bullets)
-			usr << "\blue It is loaded with [bullets] foam darts!"
+			user << "\blue It is loaded with [bullets] foam darts!"
 
 	attackby(obj/item/I as obj, mob/user as mob, params)
 		if(istype(I, /obj/item/toy/ammo/crossbow))
@@ -731,8 +731,12 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 		else if(istype(over_object, /obj/screen))
 			switch(over_object.name)
 				if("l_hand")
+					if(!remove_item_from_storage(M))
+						M.unEquip(src)
 					M.put_in_l_hand(src)
 				else if("r_hand")
+					if(!remove_item_from_storage(M))
+						M.unEquip(src)
 					M.put_in_r_hand(src)
 				usr << "<span class='notice'>You pick up the deck.</span>"
 	else
@@ -844,14 +848,14 @@ obj/item/toy/cards/singlecard
 	pixel_x = -5
 
 
-obj/item/toy/cards/singlecard/examine()
-	set src in usr.contents
-	if(ishuman(usr))
-		var/mob/living/carbon/human/cardUser = usr
-		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
-			cardUser.visible_message("<span class='notice'>[cardUser] checks \his card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
-		else
-			cardUser << "<span class='notice'>You need to have the card in your hand to check it.</span>"
+obj/item/toy/cards/singlecard/examine(mob/user)
+	if(..(user, 0))
+		if(ishuman(user))
+			var/mob/living/carbon/human/cardUser = user
+			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+				cardUser.visible_message("<span class='notice'>[cardUser] checks \his card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
+			else
+				cardUser << "<span class='notice'>You need to have the card in your hand to check it.</span>"
 
 
 obj/item/toy/cards/singlecard/verb/Flip()
@@ -1100,7 +1104,6 @@ obj/item/toy/cards/deck/syndicate/black
  	icon = 'icons/obj/toy.dmi'
  	icon_state = "foamblade"
  	item_state = "arm_blade"
- 	icon_override = 'icons/mob/in-hand/changeling.dmi'
  	attack_verb = list("pricked", "absorbed", "gored")
  	w_class = 2
 
@@ -1113,7 +1116,6 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
 	item_state = "flashtool"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 1
 
 /obj/item/toy/flash/attack(mob/living/M, mob/user)
@@ -1318,3 +1320,97 @@ obj/item/toy/cards/deck/syndicate/black
 		else
 			user << "<span class='warning'>You stop feeding \the [O] into \the [src]'s mini-input.</span>"
 	else ..()
+
+/*
+ * Xenomorph action figure
+ */
+
+/obj/item/toy/toy_xeno
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "toy_xeno"
+	name = "xenomorph action figure"
+	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+	w_class = 2
+	var/cooldown = 0
+
+/obj/item/toy/toy_xeno/attack_self(mob/user)
+	if(cooldown <= world.time)
+		cooldown = (world.time + 50) //5 second cooldown
+		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
+		icon_state = "[initial(icon_state)]_used"
+		sleep(5)
+		audible_message("<span class='danger'>\icon[src] Hiss!</span>")
+		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+		playsound(get_turf(src), pick(possible_sounds), 50, 1)
+		spawn(45)
+			if(src)
+				icon_state = "[initial(icon_state)]"
+	else
+		user << "<span class='warning'>The string on [src] hasn't rewound all the way!</span>"
+		return
+
+/obj/item/toy/russian_revolver
+	name = "russian revolver"
+	desc = "for fun and games!"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "detective_gold"
+	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	flags =  CONDUCT
+	slot_flags = SLOT_BELT
+	materials = list(MAT_METAL=2000)
+	w_class = 3.0
+	throwforce = 5
+	throw_speed = 4
+	throw_range = 5
+	force = 5.0
+	origin_tech = "combat=1"
+	attack_verb = list("struck", "hit", "bashed")
+	var/bullet_position = 1
+	var/is_empty = 0
+
+/obj/item/toy/russian_revolver/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into the [src.name]'s cylinder and points it at \his head before pulling the trigger! It looks like they are trying to commit suicide.</span>")
+	playsound(loc, 'sound/weapons/Gunshot.ogg', 50, 1)
+	return (BRUTELOSS)
+
+/obj/item/toy/russian_revolver/New()
+	spin_cylinder()
+	..()
+
+
+/obj/item/toy/russian_revolver/attack_self(mob/user)
+	if(is_empty)
+		user.visible_message("<span class='warning'>[user] loads a bullet into the [src]'s cylinder.</span>")
+		is_empty = 0
+	else
+		spin_cylinder()
+		user.visible_message("<span class='warning'>[user] spins the cylinder on the [src]!</span>")
+
+
+/obj/item/toy/russian_revolver/attack(mob/living/carbon/M, mob/user)
+	if(M != user) //can't use this on other people
+		return
+	if(is_empty)
+		user << "<span class='notice'>The [src] is empty.</span>"
+		return
+	user.visible_message("<span class='danger'>[user] points the [src] at their head, ready to pull the trigger!</span>")
+	if(do_after(user, 30, target = M))
+		if(bullet_position != 1)
+			user.visible_message("<span class='danger'>*click*</span>")
+			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
+			bullet_position -= 1
+			return
+		if(bullet_position == 1)
+			is_empty = 1
+			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
+			user.visible_message("<span class='danger'>The [src] goes off!</span>")
+			M.apply_damage(200, "brute", "head", used_weapon = "Self-inflicted gunshot would to the head.", sharp=1)
+			M.death()
+	else
+		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")
+
+
+/obj/item/toy/russian_revolver/proc/spin_cylinder()
+	bullet_position = rand(1,6)

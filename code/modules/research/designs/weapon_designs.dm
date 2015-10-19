@@ -20,7 +20,8 @@
 	id = "decloner"
 	req_tech = list("combat" = 6, "materials" = 7, "biotech" = 5, "powerstorage" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, "mutagen" = 40)
+	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
+	reagents = list("mutagen" = 40)
 	build_path = /obj/item/weapon/gun/energy/decloner
 	locked = 1
 	category = list("Weapons")
@@ -43,7 +44,8 @@
 	id = "flora_gun"
 	req_tech = list("materials" = 2, "biotech" = 3, "powerstorage" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 500, "radium" = 20)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
+	reagents = list("radium" = 20)
 	build_path = /obj/item/weapon/gun/energy/floragun
 	category = list("Weapons")
 
@@ -112,25 +114,46 @@
 	category = list("Weapons")
 
 /datum/design/smg
-	name = "Prototype Submachine Gun"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype weapon made using lightweight materials on a traditional frame, designed to fire standard 9mm rounds."
 	id = "smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/gun/projectile/automatic
+	build_path = /obj/item/weapon/gun/projectile/automatic/proto
 	locked = 1
 	category = list("Weapons")
 
 /datum/design/mag_smg
-	name = "Prototype Submachine Gun Magazine (9mm)"
-	desc = "A 20-round magazine for the prototype submachine gun."
+	name = "Saber Submachine Gun Magazine (9mm)"
+	desc = "A 30-round magazine for the Saber submachine gun."
 	id = "mag_smg"
 	req_tech = list("combat" = 4, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/smgm9mm
 	category = list("Weapons")
+	
+/datum/design/mag_smg/ap_mag
+	name = "Saber Submachine Gun Magazine (9mmAP)"
+	desc = "A 30-round armour piercing magazine for the Saber submachine gun. Deals slightly less damage but bypasses most armor."
+	id = "mag_smg_ap"
+	materials = list(MAT_METAL = 3000, MAT_SILVER = 100)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/ap
+
+/datum/design/mag_smg/incin_mag
+	name = "Saber Submachine Gun Magazine (9mmIC)"
+	desc = "A 30-round incendiary round magazine for the Saber submachine gun. Deals significantly less damage but sets the target on fire."
+	id = "mag_smg_ic"
+	materials = list(MAT_METAL = 3000, MAT_SILVER = 100, MAT_GLASS = 400)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/fire
+
+/datum/design/mag_smg/incin_tox
+	name = "Saber Submachine Gun Magazine (9mmTX)"
+	desc = "A 30-round uranium tipped round magazine for the Saber submachine gun. Deals toxin damage, but less overall damage."
+	id = "mag_smg_tx"
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 200, MAT_URANIUM = 1000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/toxin
 
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
@@ -165,13 +188,12 @@
 
 /datum/design/temp_gun
 	name = "Temperature Gun"
-	desc = "A gun that shoots temperature bullet energy things to change temperature."//Change it if you want
+	desc = "A gun that changes the body temperature of its targets."
 	id = "temp_gun"
 	req_tech = list("combat" = 3, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
 	build_path = /obj/item/weapon/gun/energy/temperature
-	locked = 1
 	category = list("Weapons")
 
 /datum/design/suppressor
@@ -190,7 +212,7 @@
 	id = "techshotshell"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 4, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 200, MAT_SILVER = 300)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 

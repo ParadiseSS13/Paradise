@@ -69,10 +69,10 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/weapon/gun/projectile/shotgun/examine()
-	..()
+/obj/item/weapon/gun/projectile/shotgun/examine(mob/user)
+	..(user)
 	if (chambered)
-		usr << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
+		user << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 // COMBAT SHOTGUN //
 
@@ -104,11 +104,10 @@
 ///////////////////////
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction
-	name = "bolt action rifle"
+	name = "\improper Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = "/obj/item/ammo_box/magazine/internal/boltaction"
 	var/bolt_open = 0
@@ -130,7 +129,7 @@
 	. = ..()
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction/examine(mob/user)
-	..()
+	..(user)
 	user << "The bolt is [bolt_open ? "open" : "closed"]."
 
 /////////////////////////////
@@ -238,3 +237,39 @@
 		return
 	else
 		sawn_state = SAWN_INTACT
+	
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
+	name = "\improper 'Bulldog' Shotgun"
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	icon_state = "bulldog"
+	item_state = "bulldog"
+	w_class = 3.0
+	origin_tech = "combat=5;materials=4;syndicate=6"
+	mag_type = "/obj/item/ammo_box/magazine/m12g"
+	fire_sound = 'sound/weapons/Gunshot4.ogg'
+	can_suppress = 0
+	burst_size = 1
+	fire_delay = 0
+	action_button_name = null
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/New()
+	..()
+	update_icon()
+	return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/proc/update_magazine()
+	if(magazine)
+		overlays.Cut()
+		overlays += "[magazine.icon_state]"
+		return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/update_icon()
+	overlays.Cut()
+	update_magazine()
+	icon_state = "bulldog[chambered ? "" : "-e"]"
+	return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	empty_alarm()
+	return

@@ -1,6 +1,6 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
-	level = 1.0
+	level = 1
 	luminosity = 1
 
 	//for floors, use is_plating(), is_plasteel_floor() and is_light_floor()
@@ -20,12 +20,6 @@
 	var/temperature = T20C
 
 	var/blocks_air = 0
-	var/icon_old = null
-	var/pathweight = 1
-
-	//Mining resource generation stuff.
-	var/has_resources
-	var/list/resources
 
 	var/PathNode/PNode = null //associated PathNode in the A* algorithm
 
@@ -33,17 +27,15 @@
 
 	flags = 0
 
+	var/image/obscured	//camerachunks
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM in src)
 		Entered(AM)
-	return
 
 /turf/Destroy()
-	return QDEL_HINT_HARDDEL_NOW
-
 // Adds the adjacent turfs to the current atmos processing
-/turf/Del()
 	if(air_master)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
@@ -51,6 +43,10 @@
 				if(istype(T))
 					air_master.add_to_active(T)
 	..()
+	return QDEL_HINT_HARDDEL_NOW
+
+/turf/attack_hand(mob/user as mob)
+	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
 	return 0
@@ -109,12 +105,7 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-		var/has_gravity = O.mob_has_gravity(src)
-		O.update_gravity(has_gravity)
-		if(!has_gravity)
-			inertial_drift(O)
-		else if(!istype(src, /turf/space))
-			O.inertia_dir = 0
+		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
 	for(var/atom/A in range(1))
@@ -144,46 +135,6 @@
 	return 0
 /turf/proc/return_siding_icon_state()		//used for grass floors, which have siding.
 	return 0
-
-/turf/proc/inertial_drift(atom/movable/A as mob|obj)
-	if(!(A.last_move))	return
-	if(istype(A, /obj/spacepod) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
-		var/obj/spacepod/SP = A
-		if(SP.Process_Spacemove(1))
-			SP.inertia_dir = 0
-			return
-		spawn(5)
-			if((SP && (SP.loc == src)))
-				if(SP.inertia_dir)
-					step(SP, SP.inertia_dir)
-					return
-	if(istype(A, /obj/structure/stool/bed/chair/cart/) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1))
-		var/obj/structure/stool/bed/chair/cart/JC = A //A bomb!
-		if(JC.Process_Spacemove(1))
-			JC.inertia_dir = 0
-			return
-		spawn(5)
-			if((JC && (JC.loc == src)))
-				if(JC.inertia_dir)
-					step(JC, JC.inertia_dir)
-					return
-				JC.inertia_dir = JC.last_move
-				step(JC, JC.inertia_dir)
-
-
-	if((istype(A, /mob/) && src.x > 2 && src.x < (world.maxx - 1) && src.y > 2 && src.y < (world.maxy-1)))
-		var/mob/M = A
-		if(M.Process_Spacemove(1))
-			M.inertia_dir  = 0
-			return
-		spawn(5)
-			if((M && !(M.anchored) && !(M.pulledby) && (M.loc == src)))
-				if(M.inertia_dir)
-					step(M, M.inertia_dir)
-					return
-				M.inertia_dir = M.last_move
-				step(M, M.inertia_dir)
-	return
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
@@ -318,7 +269,7 @@
 	for(var/dir in cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -349,7 +300,7 @@
 		if(T in closed) //turf already proceeded by A*
 			continue
 		if(istype(T) && !T.density)
-			if(!LinkBlocked(src, T))
+			if(!CanAtmosPass(T))
 				L.Add(T)
 	return L
 
@@ -363,7 +314,7 @@
 			continue
 		if(istype(T) && !T.density)
 			if(!ID)
-				if(!LinkBlocked(src, T))
+				if(!CanAtmosPass(T))
 					L.Add(T)
 			else
 				if(!LinkBlockedWithAccess(src, T, ID))
@@ -387,6 +338,13 @@
 
 ////////////////////////////////////////////////////
 
+/turf/handle_fall(mob/faller, forced)
+	faller.lying = pick(90, 270)
+	if(!forced)
+		return
+	if(has_gravity(src))
+		playsound(src, "bodyfall", 50, 1)
+
 /turf/singularity_act()
 	if(intact)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
@@ -396,6 +354,10 @@
 				O.singularity_act()
 	ChangeTurf(/turf/space)
 	return(2)
+
+/turf/proc/visibilityChanged()
+	if(ticker)
+		cameranet.updateVisibility(src)
 
 /turf/proc/get_lumcount() //Gets the lighting level of a given turf.
 	if(lighting_overlay)

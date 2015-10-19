@@ -1,5 +1,4 @@
 /mob/living/carbon/alien/larva/emote(var/act,var/m_type=1,var/message = null)
-
 	var/param = null
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)

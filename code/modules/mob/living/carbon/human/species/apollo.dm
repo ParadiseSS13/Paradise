@@ -35,7 +35,8 @@
 		"antennae" =    /obj/item/organ/wryn/hivenode
 		)
 
-	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
+	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
 	reagent_tag = PROCESS_ORG

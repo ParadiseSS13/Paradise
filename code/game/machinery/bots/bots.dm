@@ -109,7 +109,9 @@
 /obj/machinery/bot/Destroy()
 	aibots -= src
 	qdel(Radio)
+	Radio = null
 	qdel(botcard)
+	botcard = null
 	return ..()
 
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
@@ -141,7 +143,7 @@
 		user << "<span class='notice'>You need to open maintenance panel first.</span>"
 
 /obj/machinery/bot/examine(mob/user)
-	..()
+	..(user)
 	if (health < maxhealth)
 		if (health > maxhealth/3)
 			user << "<span class='danger'>[src]'s parts look loose.</span>"
@@ -448,7 +450,7 @@ obj/machinery/bot/proc/bot_step(var/dest)
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
-	path = AStar(src, waypoint, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 200, id=all_access)
+	path = get_path_to(src, waypoint, src, /turf/proc/Distance_cardinal, 0, 200, id=all_access)
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
@@ -741,13 +743,13 @@ obj/machinery/bot/proc/bot_summon()
 // given an optional turf to avoid
 /obj/machinery/bot/proc/calc_path(var/turf/avoid)
 	check_bot_access()
-	path = AStar(loc, patrol_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 120, id=botcard, exclude=avoid)
+	path = get_path_to(loc, patrol_target, src, /turf/proc/Distance_cardinal, 0, 120, id=botcard, exclude=avoid)
 	if(!path)
 		path = list()
 
 /obj/machinery/bot/proc/calc_summon_path(var/turf/avoid)
 	check_bot_access()
-	path = AStar(loc, summon_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
+	path = get_path_to(loc, summon_target, src, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
 	if(!path || tries >= 5) //Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.", radio_name)
 		bot_reset()

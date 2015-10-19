@@ -15,38 +15,38 @@
 	..()
 	power_monitors += src
 	power_monitors = sortAtom(power_monitors)
-	power_monitor = new(src)	
-	powermonitor_repository.update_cache()	
-	
-/obj/machinery/computer/monitor/initialize()
-	..()
+	power_monitor = new(src)
+	powermonitor_repository.update_cache()
 	powernet = find_powernet()
-	
+
 /obj/machinery/computer/monitor/Destroy()
 	power_monitors -= src
-	powermonitor_repository.update_cache()	
-	return ..()	
-	
+	powermonitor_repository.update_cache()
+	qdel(power_monitor)
+	power_monitor = null
+	return ..()
+
 /obj/machinery/computer/monitor/power_change()
 	..()
-	powermonitor_repository.update_cache()	
-	
-/obj/machinery/computer/monitor/proc/find_powernet() 
+	powermonitor_repository.update_cache()
+
+/obj/machinery/computer/monitor/proc/find_powernet()
 	var/obj/structure/cable/attached = null
 	var/turf/T = loc
 	if(isturf(T))
 		attached = locate() in T
 	if(attached)
 		return attached.get_powernet()
-			
+
 /obj/machinery/computer/monitor/attack_ai(mob/user)
 	attack_hand(user)
-	ui_interact(user)
-	
+
 /obj/machinery/computer/monitor/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	// Update the powernet
+	powernet = find_powernet()
 	ui_interact(user)
 
 /obj/machinery/computer/monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)

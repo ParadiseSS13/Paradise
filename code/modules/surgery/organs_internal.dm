@@ -150,6 +150,8 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		for(var/obj/item/organ/I in affected.internal_organs)
+			if(I)
+				I.surgeryize()
 			if(I && I.damage > 0)
 				if(I.robotic < 2)
 					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
@@ -193,7 +195,7 @@
 
 		if (!..())
 			return 0
-		
+
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		if(!(affected && !(affected.status & ORGAN_ROBOT)))
@@ -310,7 +312,7 @@
 
 		if(!istype(O))
 			return 0
-		
+
 		if((affected.status & ORGAN_ROBOT) && !(O.status & ORGAN_ROBOT))
 			user << "<span class='danger'>You cannot install a naked organ into a robotic body.</span>"
 			return 2

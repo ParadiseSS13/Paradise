@@ -33,13 +33,13 @@
 
 	faction = list("faithless")
 
-/mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
 	return 1
 
 /mob/living/simple_animal/hostile/faithless/FindTarget()
 	. = ..()
 	if(.)
-		emote("me", 1, "wails at [.]!")
+		custom_emote(1, "wails at [.]!")
 
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
 	..()

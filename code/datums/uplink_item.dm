@@ -211,12 +211,11 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
-	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets; will teleport targets to the same beacon a teleporter is locked onto."
+	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
 	reference = "TG"
 	item = /obj/item/weapon/gun/energy/telegun
 	cost = 12
 	job = list("Research Director")
-
 
 //Stimulants
 
@@ -245,14 +244,14 @@ var/list/uplink_items = list()
 
 
 /datum/uplink_item/dangerous/pistol
-	name = "Syndicate Pistol"
+	name = "FK-69 Pistol"
 	reference = "SPI"
 	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/pistol
 	cost = 9
 
 /datum/uplink_item/dangerous/revolver
-	name = "Syndicate Revolver"
+	name = "Syndicate .357 Revolver"
 	reference = "SR"
 	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
 	item = /obj/item/weapon/gun/projectile/revolver
@@ -260,7 +259,7 @@ var/list/uplink_items = list()
 	surplus = 50
 
 /datum/uplink_item/dangerous/smg
-	name = "Syndicate SMG"
+	name = "C-20r Submachine Gun"
 	reference = "SMG"
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/c20r
@@ -268,17 +267,17 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency")
 	surplus = 40
 
-/datum/uplink_item/dangerous/car
-	name = "C-90gl Compact Assault Rifle"
-	desc = "A fully-loaded Zashchita Industriya toploading bullpup assault rifle that uses 30-round 5.45x39mm magazines with a toggleable underslung 40mm grenade launcher."
+/datum/uplink_item/dangerous/carbine
+	name = "M-90gl Carbine"
+	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
 	reference = "AR"
-	item = /obj/item/weapon/gun/projectile/automatic/c90gl
+	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
 	gamemodes = list("nuclear emergency")
 	surplus = 50
 
 /datum/uplink_item/dangerous/machinegun
-	name = "Syndicate LMG"
+	name = "L6 Squad Automatic Weapon"
 	desc = "A fully-loaded Aussec Armoury belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
@@ -308,7 +307,7 @@ var/list/uplink_items = list()
 	name = "Energy Sword"
 	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
 	reference = "ES"
-	item = /obj/item/weapon/melee/energy/sword
+	item = /obj/item/weapon/melee/energy/sword/saber
 	cost = 8
 
 /datum/uplink_item/dangerous/chainsaw
@@ -399,7 +398,7 @@ var/list/uplink_items = list()
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "Ammo-10mm"
+	name = "Magazine - 10mm"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol. These subsonic rounds are dirt cheap but are half as effective as .357 rounds."
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
@@ -460,11 +459,11 @@ var/list/uplink_items = list()
 	cost = 2
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/ammo/car
-	name = "Box Magazine - 5.45x39mm"
-	desc = "An additional 30-round 5.45x39mm magazine for use in the C-90gl assault rifle. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
-	reference = "545"
-	item = /obj/item/ammo_box/magazine/m545
+/datum/uplink_item/ammo/carbine
+	name = "Toploader Magazine - 5.56"
+	desc = "An additional 30-round 5.56 magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
+	reference = "556"
+	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
 	gamemodes = list("nuclear emergency")
 
@@ -511,6 +510,14 @@ var/list/uplink_items = list()
 	reference = "SOAP"
 	item = /obj/item/weapon/soap/syndie
 	cost = 1
+	surplus = 50
+
+/datum/uplink_item/stealthy_weapons/dart_pistol
+	name = "Dart Pistol"
+	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can."
+	reference = "DART"
+	item = /obj/item/weapon/gun/syringe/syndicate
+	cost = 4
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/detomatix
@@ -760,11 +767,11 @@ var/list/uplink_items = list()
 	cost = 3
 	gamemodes = list("nuclear emergency")
 
-/datum/uplink_item/device_tools/pdapinpointer
-	name = "PDA Pinpointer"
-	desc = "A pinpointer that tracks any PDA on the station. Useful for locating assassination targets or other high-value targets that you can't find. WARNING: Can only set once."
-	reference = "PDAP"
-	item = /obj/item/weapon/pinpointer/pdapinpointer
+/datum/uplink_item/device_tools/advpinpointer
+	name = "Advanced Pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	reference = "ADVP"
+	item = /obj/item/weapon/pinpointer/advpinpointer
 	cost = 4
 
 /datum/uplink_item/device_tools/ai_detector

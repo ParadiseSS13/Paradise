@@ -51,14 +51,7 @@ obj/machinery/scanner/attack_hand(mob/living/carbon/human/user)
 	var/list/marks = list()
 	var/age = user.age
 	var/gender = user.gender
-	/* no dbstuff yet
-	var/DBQuery/cquery = dbcon.NewQuery("SELECT * from jobban WHERE ckey='[user.ckey]'")
-	if(!cquery.Execute()) return
-	else
-		while(cquery.NextRow())
-			var/list/row = cquery.GetRowData()
-			marks += row["rank"]
-	*/
+
 	var/text = {"
 	<font size=4><center>Report</center></font><br>
 	<b><u>Name</u></b>: [mname]

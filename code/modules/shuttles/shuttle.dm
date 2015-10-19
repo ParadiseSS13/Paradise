@@ -94,7 +94,7 @@
 	for(var/turf/T in dstturfs)
 		var/turf/D = locate(T.x, throwy - 1, 1)
 		for(var/atom/movable/AM as mob|obj in T)
-			AM.Move(D)
+			AM.Move(D, SOUTH)
 		if(istype(T, /turf/simulated))
 			qdel(T)
 

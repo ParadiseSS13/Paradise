@@ -15,7 +15,7 @@
 		user << "<span class='danger'>\The [src] cannot be applied to [M]!</span>"
 		return 1
 
-	if (!(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon)))
+	if (!user.IsAdvancedToolUser())
 		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 1
 
@@ -229,7 +229,7 @@
 	if(..())
 		return 1
 
-	if (istype(M, /mob/living/carbon/human))
+	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 		var/limb = affecting.name
@@ -238,6 +238,9 @@
 			return
 		if(affecting.status & ORGAN_SPLINTED)
 			user << "\red [M]'s [limb] is already splinted!"
+			if(alert(user, "Would you like to remove the splint from [M]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
+				affecting.status &= ~ORGAN_SPLINTED
+				user << "<span class='notice'>You remove the splint from [M]'s [limb]."
 			return
 		if (M != user)
 			user.visible_message("\red [user] starts to apply \the [src] to [M]'s [limb].", "\red You start to apply \the [src] to [M]'s [limb].", "\red You hear something being wrapped.")

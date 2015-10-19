@@ -117,7 +117,7 @@
 				unEquip(r_hand)
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			emote("me", 1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
+			custom_emote(1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -130,7 +130,7 @@
 					continue
 				unEquip(r_hand)
 
-			emote("me", 1, "drops what they were holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
 			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src)
@@ -145,3 +145,8 @@
 	for(var/datum/reagent/A in reagents.reagent_list)
 		var/obj/item/organ/O = pick(organs)
 		O.trace_chemicals[A.name] = 100
+
+/mob/living/carbon/human/proc/sync_organ_dna()
+	var/list/all_bits = internal_organs|organs
+	for(var/obj/item/organ/O in all_bits)
+		O.set_dna(dna)
