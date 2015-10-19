@@ -44,7 +44,7 @@
 		return powernet.avail
 	else
 		return 0
-		
+
 /obj/machinery/power/proc/load()
 	if(powernet)
 		return powernet.load
@@ -76,6 +76,15 @@
 	if(chan == -1)
 		chan = power_channel
 	A.use_power(amount, chan)
+
+/obj/machinery/proc/addStaticPower(value, powerchannel)
+	var/area/A = get_area(src)
+	if(!A)
+		return
+	A.addStaticPower(value, powerchannel)
+
+/obj/machinery/proc/removeStaticPower(value, powerchannel)
+	addStaticPower(-value, powerchannel)
 
 /obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
