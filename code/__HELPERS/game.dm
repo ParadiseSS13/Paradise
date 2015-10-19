@@ -325,9 +325,9 @@ proc/isInSight(var/atom/A, var/atom/B)
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	sleep(duration)
-	for(var/client/C in show_to)
-		C.images -= I
+	spawn(duration)
+		for(var/client/C in show_to)
+			C.images -= I
 
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
@@ -427,7 +427,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
-	
+
 proc/pollCandidates(var/Question, var/jobbanType, var/antag_age_check = 0, var/be_special_flag = 0, var/poll_time = 300)
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -469,4 +469,3 @@ proc/pollCandidates(var/Question, var/jobbanType, var/antag_age_check = 0, var/b
 			candidates.Remove(G)
 
 	return candidates
-	
