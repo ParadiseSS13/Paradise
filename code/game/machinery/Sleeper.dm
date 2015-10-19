@@ -308,7 +308,7 @@
 			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 			src.updateUsrDialog()
 			return
-			 
+
 		else
 			user << "\red The sleeper has a beaker already."
 			return
@@ -354,7 +354,7 @@
 				usr << "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head."
 				return
 
-		visible_message("[user] starts putting [G:affecting:name] into the sleeper.", 3)
+		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
 
 		if(do_after(user, 20, target = G:affecting))
 			if(src.occupant)
@@ -555,9 +555,9 @@
 			usr << "[L.name] will not fit into the sleeper because they have a slime latched onto their head."
 			return
 	if(L == user)
-		visible_message("[user] starts climbing into the sleeper.", 3)
+		visible_message("[user] starts climbing into the sleeper.")
 	else
-		visible_message("[user] starts putting [L.name] into the sleeper.", 3)
+		visible_message("[user] starts putting [L.name] into the sleeper.")
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
@@ -599,7 +599,7 @@
 		if(M.Victim == usr)
 			usr << "You're too busy getting your life sucked out of you."
 			return
-	visible_message("[usr] starts climbing into the sleeper.", 3)
+	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
 		if(src.occupant)
 			usr << "\blue <B>The sleeper is already occupied!</B>"

@@ -154,23 +154,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							emote(pick(emote_see),1)
+							custom_emote(1, pick(emote_see))
 						else
-							emote(pick(emote_hear),2)
+							custom_emote(2, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					emote(pick(emote_see),1)
+					custom_emote(1, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					emote(pick(emote_hear),2)
+					custom_emote(2, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						emote(pick(emote_see),1)
+						custom_emote(1, pick(emote_see))
 					else
-						emote(pick(emote_hear),2)
+						custom_emote(2,pick(emote_hear))
 
 
 	//Atmos
@@ -274,7 +274,7 @@
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)

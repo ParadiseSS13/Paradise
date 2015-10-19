@@ -15,6 +15,7 @@
 
 	Destroy()
 		qdel(smoke)
+		smoke = null
 		return ..()
 
 	prime()
