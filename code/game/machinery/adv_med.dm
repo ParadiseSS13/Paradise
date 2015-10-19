@@ -328,7 +328,8 @@
 			occupantData["brainLoss"] = H.getBrainLoss()
 			occupantData["paralysis"] = H.paralysis
 			occupantData["paralysisSeconds"] = round(H.paralysis / 4)
-			occupantData["bodyTemperature"] = H.bodytemperature
+			occupantData["bodyTempC"] = H.bodytemperature-T0C
+			occupantData["bodyTempF"] = (((H.bodytemperature-T0C) * 1.8) + 32)
 
 			occupantData["hasBorer"] = H.has_brain_worms()
 
