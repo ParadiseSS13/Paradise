@@ -1,0 +1,308 @@
+<!-- 
+Title: Body Scanner UI
+Used In File(s): \code\game\machinery\adv_med.dm
+ -->
+{{if !data.occupied}}
+	<h3>No occupant detected.</h3>
+{{else}}
+	<h4><b>Occupant Data:</b></h4>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Name: 
+		</div>
+		<div class="itemContent">
+			{{:data.occupant.name}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Health:
+		</div>
+		{{:helper.displayBar(data.occupant.health, 0, 100, (data.occupant.health >= 50) ? 'good' : (data.occupant.health >= 25) ? 'average' : 'bad')}}
+			<div class="itemContent" style="width: 60px">
+				{{:helper.round(data.occupant.health*10)/10}}%
+			</div>
+	<div class="item">
+		<div class="itemLabelNarrow">
+			Status:
+		</div>
+		<div class="itemContent">
+			{{if data.occupant.stat==0}}
+				Alive
+			{{else data.occupant.stat==1}}
+				Critical
+			{{else}}
+				Dead
+			{{/if}}
+		</div>
+	</div>
+	{{:helper.link('Print', 'document', {'print_p' : 1, 'name' : data.occupant.name})}}
+	<div class="item">
+		<h4><b>Damage:</b></h4>
+		<div class="itemLabelWide">
+			Brute: 
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.bruteLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Burn: 
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.fireLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Oxygen: 
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.oxyLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Toxins: 
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.toxLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Brain:
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.brainLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Radiation Level:
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.radLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Genetic:
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.cloneLoss}}
+		</div><br>
+		<div class="itemLabelWide">
+			Paralysis:
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.paralysis}}% ({{:data.occupant.paralysisSeconds}} seconds left!)
+		</div><br>
+	</div>
+	<div class="item">
+		<div class="itemLabelWide">
+			Body Temperature:
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.bodyTemperature}}
+		</div>
+	</div>
+	{{if data.occupant.hasVirus}}
+		<div class="notice">
+			Viral pathogen detected in blood stream.
+		</div>
+	{{/if}}
+	{{if data.occupant.hasBorer}}
+		<div class="notice">
+			Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.
+		</div>
+	{{/if}}
+	{{if data.occupant.blind}}
+		<span class="bad">Pupils unresponsive.</span><br>
+	{{/if}}
+	{{if data.occupant.nearsighted}}
+		<span class="bad">Retinal Misalignment Detected</span>
+	{{/if}}
+	<br>
+	<div class="item">
+		<b>Blood</b>
+		<div class="itemLabelWide">
+			Volume
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.blood.volume}}
+		</div>
+		<div class="itemLabelWide">
+			Percent
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.blood.percent}}%
+		</div>
+	</div>
+	<br>
+	<div class="item">
+		<b>Reagents</b>
+		<div class="itemLabelWide">
+			Epinephrine
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.reagents.epinephrine}}
+		</div>
+		<div class="itemLabelWide">
+			Ether
+		</div>
+		<div class="itemContentMedium">
+			{{:data.occupant.reagents.ether}}
+		</div>
+		<div class="itemLabelWide">
+			<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
+			Silver Sulfadiazine
+			</span>
+		</div>
+		<div class="itemContentMedium">
+			<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
+			{{:data.occupant.reagents.silver_sulfadiazine}}
+			</span>
+		</div>
+		<div class="itemLabelWide">
+			<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
+			Styptic Powder
+			</span>
+		</div>
+		<div class="itemContentMedium">
+			<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
+			{{:data.occupant.reagents.styptic_powder}}
+			</span>
+		</div>
+		<div class="itemLabelWide">
+			<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
+			Salbutamol
+			</span>
+		</div>
+		<div class="itemContentMedium">
+			<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
+			{{:data.occupant.reagents.salbutamol}}
+			</span>
+		</div>
+	</div>
+	<br>
+	<b>External Organs</b>
+	<div class="itemGroup">
+	{{for data.occupant.extOrgan}}
+		<div class="item">
+			{{if value.status.destroyed}}
+				<div class="itemLabelWide">
+					<b>{{:value.name}}</b><span class="bad"> - DESTROYED</span>
+				</div>
+			{{else}}
+				<div class="itemLabelWide">
+					<b>{{:value.name}}</b>
+				</div>
+				<div class="itemContentNarrow">
+					{{if value.status.broken}}
+						{{:value.status.broken}}
+					{{else value.status.splinted}}
+						Splinted
+					{{else value.status.robotic}}
+						Robotic
+					{{/if}}
+				</div>
+				<div class="itemLabelWide">
+					&nbsp;Brute/Burn
+				</div>
+				<div class="itemContentNarrow">
+					{{:value.bruteLoss}}/{{:value.fireLoss}}
+				</div>
+				<div class="itemLabelWide">
+					&nbsp;Injuries
+				</div>
+				<div class="itemContentNarrow">
+					{{if !value.status.bleeding}}
+						{{if !value.status.internalBleeding}}
+							No Injuries Detected
+						{{else}}
+							<span class="bad">Internal Bleeding Detected</span>
+						{{/if}}
+					{{else}}
+						{{if value.status.internalBleeding}}
+							<div class='notice'>Internal Bleeding Detected. External Bleeding Detected.</div>
+						{{else}}
+							<span class="average">External Bleeding Detected</span>
+						{{/if}}
+					{{/if}}
+				</div>
+				{{if value.germ_level > 100}}
+					<div class="itemLabelWide">
+						&nbsp;Infection
+					</div>
+					<div class="itemContentNarrow">
+						{{if value.germ_level < 300}}
+							Mild Infection
+						{{else value.germ_level < 400}}
+							Mild Infection+
+						{{else value.germ_level < 500}}
+							Mild Infection++
+						{{else value.germ_level < 700}}
+							Acute Infection
+						{{else value.germ_level < 800}}
+							Acute Infection+
+						{{else value.germ_level < 900}}
+							Acute Infection++
+						{{else value.germ_level >= 900}}
+							Septic
+						{{/if}}
+					</div>
+				{{/if}}
+				{{if value.open}}
+					<div class="itemLabelWider">
+						&nbsp;Operation Status
+					</div>
+					<div class="itemContentNarrow">
+						Open Incision
+					</div>
+				{{/if}}
+				{{if value.implants_len}}
+					<div class="itemLabelWide">
+						&nbsp;Implants
+					</div><br>
+					{{for value.implants :impValue:impindex}}
+						<div class="itemContentNarrow">
+							&nbsp;&nbsp;{{:impValue.known ? impValue.name : "Unknown"}}
+						</div><br>
+					{{/for}}
+				{{/if}}
+			{{/if}}
+		</div><br>
+	{{/for}}
+	</div>
+	<b>Internal Organs</b>
+	<div class="itemGroup">
+	{{for data.occupant.intOrgan}}
+		<div class="item">
+			<div class="itemLabelWide">
+				<b>{{:value.name}}</b>
+			</div>
+			<div class="itemContentNarrow">
+				{{:value.desc != null ? value.desc : ""}}
+			</div>
+			{{if value.germ_level > 100}}
+				<div class="itemLabelWide">
+					&nbsp;Infection
+				</div>
+				<div class="itemContentNarrow">
+					{{if value.germ_level < 300}}
+						Mild Infection
+					{{else value.germ_level < 400}}
+						Mild Infection+
+					{{else value.germ_level < 500}}
+						Mild Infection++
+					{{else value.germ_level < 700}}
+						Acute Infection
+					{{else value.germ_level < 800}}
+						Acute Infection+
+					{{else value.germ_level < 900}}
+						Acute Infection++
+					{{else value.germ_level >= 900}}
+						Septic
+					{{/if}}
+				</div>
+			{{/if}}
+			<div class="itemLabelWide">
+				&nbsp;Damage
+			</div>
+			<div class="itemContentNarrow">
+				{{:value.damage}}
+			</div>
+		</div>
+	{{/for}}
+	</div>
+{{/if}}
