@@ -20,15 +20,11 @@
 	if(machinery_sort_required)
 		machinery_sort_required = 0
 		machines = dd_sortedObjectList(machines)
-	
+
 /datum/controller/process/machinery/proc/process_machines()
 	for(last_object in machines)
 		var/obj/machinery/M = last_object
 		if(istype(M) && isnull(M.gcDestroyed))
-			#ifdef PROFILE_MACHINES
-			var/time_start = world.timeofday
-			#endif
-
 			try
 				if(M.process() == PROCESS_KILL)
 					machines.Remove(M)
@@ -38,15 +34,6 @@
 					M.auto_use_power()
 			catch(var/exception/e)
 				catchException(e, M)
-
-			#ifdef PROFILE_MACHINES
-			var/time_end = world.timeofday
-
-			if(!(M.type in machine_profiling))
-				machine_profiling[M.type] = 0
-
-			machine_profiling[M.type] += (time_end - time_start)
-			#endif
 		else
 			catchBadType(M)
 			machines -= M
@@ -63,9 +50,9 @@
 				catchException(e, powerNetwork)
 			SCHECK
 			continue
-			
+
 		powernets.Remove(powerNetwork)
-		
+
 /datum/controller/process/machinery/proc/process_power_drain()
 	// Currently only used by powersinks. These items get priority processed before machinery
 	for(var/obj/item/I in processing_power_items)

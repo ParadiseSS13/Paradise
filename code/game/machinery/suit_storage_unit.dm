@@ -389,7 +389,7 @@
 					src.SUIT = null
 				if(src.MASK)
 					src.MASK = null
-				visible_message("<font color='red'>With a loud whining noise, the Suit Storage Unit's door grinds open. Puffs of ashen smoke come out of its chamber.</font>", 3)
+				visible_message("<font color='red'>With a loud whining noise, the Suit Storage Unit's door grinds open. Puffs of ashen smoke come out of its chamber.</font>")
 				src.isbroken = 1
 				src.isopen = 1
 				src.islocked = 0
@@ -484,7 +484,7 @@
 	if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
 		usr << "<font color='red'>It's too cluttered inside for you to fit in!</font>"
 		return
-	visible_message("[usr] starts squeezing into the suit storage unit!", 3)
+	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 10, target = usr))
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
@@ -528,7 +528,7 @@
 		if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
 			user << "<font color='red'>The unit's storage area is too cluttered.</font>"
 			return
-		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.", 3)
+		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.")
 		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return //derpcheck
 			var/mob/M = G.affecting
@@ -685,7 +685,7 @@
 			user << "\red There is no room inside the cycler for [G.affecting.name]."
 			return
 
-		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.", 3)
+		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
 
 		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return

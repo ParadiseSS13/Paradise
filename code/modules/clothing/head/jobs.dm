@@ -7,7 +7,6 @@
 	item_state = "chef"
 	desc = "The commander in chef's head wear."
 	siemens_coefficient = 0.9
-	loose = 35 // why-a do people always push-a me over
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -17,7 +16,6 @@
 	item_state = "caphat"
 	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	loose = 43 // not the answer
 
 //Captain: no longer space-worthy
 /obj/item/clothing/head/caphat/parade
@@ -32,7 +30,6 @@
 	desc = "The symbol of true bureaucratic micromanagement."
 	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	loose = 43 // not the answer
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
@@ -48,7 +45,6 @@
 	icon_state = "chaplain_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
 	siemens_coefficient = 0.9
-	loose = 2
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
@@ -57,7 +53,6 @@
 	icon_state = "nun_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
 	siemens_coefficient = 0.9
-	loose = 2
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -73,7 +68,6 @@
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
 	siemens_coefficient = 0.9
-	loose = 16
 
 //Security
 /obj/item/clothing/head/HoS
@@ -128,7 +122,6 @@
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
-	loose = 13
 
 /obj/item/clothing/head/surgery/purple
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."

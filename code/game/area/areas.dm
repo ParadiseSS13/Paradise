@@ -43,7 +43,7 @@
 	for (var/obj/machinery/camera/C in src)
 		cameras += C
 	return cameras
-	
+
 
 /area/proc/atmosalert(danger_level, var/alarm_source)
 	if (danger_level == 0)
@@ -66,7 +66,7 @@
 		atmosalm = danger_level
 		for (var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
-			
+
 		air_alarm_repository.update_cache(src)
 		return 1
 	air_alarm_repository.update_cache(src)
@@ -108,7 +108,7 @@
 		updateicon()
 		mouse_opacity = 0
 		air_doors_open()
-		
+
 	return
 
 /area/proc/burglaralert(var/obj/trigger)
@@ -117,7 +117,7 @@
 
 	//Trigger alarm effect
 	set_fire_alarm_effect()
-	
+
 	//Lockdown airlocks
 	for(var/obj/machinery/door/airlock/A in src)
 		spawn(0)
@@ -128,12 +128,12 @@
 	burglar_alarm.triggerAlarm(src, trigger)
 	spawn(600)
 		burglar_alarm.clearAlarm(src, trigger)
-				
+
 /area/proc/set_fire_alarm_effect()
 	fire = 1
 	updateicon()
 	mouse_opacity = 0
-					
+
 /area/proc/readyalert()
 	if(!eject)
 		eject = 1
@@ -251,8 +251,22 @@
 			used += used_environ
 		if(TOTAL)
 			used += used_light + used_equip + used_environ
-
+		if(STATIC_EQUIP)
+			used += static_equip
+		if(STATIC_LIGHT)
+			used += static_light
+		if(STATIC_ENVIRON)
+			used += static_environ
 	return used
+
+/area/proc/addStaticPower(value, powerchannel)
+	switch(powerchannel)
+		if(STATIC_EQUIP)
+			static_equip += value
+		if(STATIC_LIGHT)
+			static_light += value
+		if(STATIC_ENVIRON)
+			static_environ += value
 
 /area/proc/clear_usage()
 

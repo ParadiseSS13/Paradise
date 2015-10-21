@@ -18,6 +18,7 @@
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
+		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/reagent(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)

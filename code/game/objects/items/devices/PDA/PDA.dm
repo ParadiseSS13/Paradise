@@ -62,6 +62,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/device/paicard/pai = null	// A slot for a personal AI device
+	var/retro_mode = 0
 
 /obj/item/device/pda/medical
 	default_cartridge = /obj/item/weapon/cartridge/medical
@@ -401,6 +402,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	data["idInserted"] = (id ? 1 : 0)
 	data["idLink"] = (id ? text("[id.registered_name], [id.assignment]") : "--------")
 
+	data["useRetro"] = retro_mode
+
 	data["cart_loaded"] = cartridge ? 1:0
 	if(cartridge)
 		var/cartdata[0]
@@ -574,6 +577,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					mode = 0
 				else if(mode >= 40 && mode <= 49)//Fix for cartridges. Redirects to refresh the menu.
 					cartridge.mode = mode
+		if("Retro")
+			retro_mode = !retro_mode
+			ui_interact(user)
 		if ("Authenticate")//Checks for ID
 			id_check(U, 1)
 		if("UpdateInfo")
@@ -1138,7 +1144,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(T.ptank) atmosanalyzer_scan(T.ptank.air_contents, user, T)
 			else if (istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
 				var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
-				atmosanalyzer_scan(T.air_contents, user, T)	
+				atmosanalyzer_scan(T.air_contents, user, T)
 			else if (istype(A, /obj/machinery/atmospherics/unary/tank))
 				var/obj/machinery/atmospherics/unary/tank/T = A
 				atmosanalyzer_scan(T.air_contents, user, T)
@@ -1276,4 +1282,3 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/emp_act(severity)
 	for(var/atom/A in src)
 		A.emp_act(severity)
-		

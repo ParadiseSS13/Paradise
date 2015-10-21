@@ -54,38 +54,6 @@ emp_act
 
 	return (..(P , def_zone))
 
-/mob/living/carbon/human/stun_effect_act(var/stun_amount, var/agony_amount, var/def_zone, var/used_weapon = null)
-	var/obj/item/organ/external/affected = get_organ(check_zone(def_zone))
-	var/siemens_coeff = get_siemens_coefficient_organ(affected)
-	stun_amount *= siemens_coeff
-	agony_amount *= siemens_coeff
-
-	switch (def_zone)
-		if("head")
-			agony_amount *= 1.50
-		if("l_hand", "r_hand")
-			var/c_hand
-			if (def_zone == "l_hand")
-				c_hand = l_hand
-			else
-				c_hand = r_hand
-
-			if(c_hand && (stun_amount || agony_amount > 10))
-				msg_admin_attack("[src.name] ([src.ckey]) was disarmed by a stun effect")
-
-				unEquip(c_hand)
-				if (affected.status & ORGAN_ROBOT)
-					emote("me", 1, "drops what they were holding, their [affected.name] malfunctioning!")
-				else
-					var/emote_scream = pick("screams in pain and", "lets out a sharp cry and", "cries out and")
-					emote("me", 1, "[(species && species.flags & NO_PAIN) ? "" : emote_scream ] drops what they were holding in their [affected.name]!")
-
-	if(used_weapon)
-		var/obj/item/W = used_weapon
-		affected.add_autopsy_data(W.name, agony_amount) // Add the weapon's name to the autopsy data
-
-	..(stun_amount, agony_amount, def_zone, used_weapon)
-
 /mob/living/carbon/human/getarmor(var/def_zone, var/type)
 	var/armorval = 0
 	var/organnum = 0

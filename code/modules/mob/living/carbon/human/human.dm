@@ -36,7 +36,6 @@
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[NATIONS_HUD]	  = image('icons/mob/hud.dmi', src, "hudblank")
 
 	..()
 
@@ -395,7 +394,7 @@
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -1821,3 +1820,8 @@
 	if(!dna || !dna.uni_identity)
 		return
 	return md5(dna.uni_identity)
+
+/mob/living/carbon/human/can_see_reagents()
+	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
+		if(C.scan_reagents)
+			return 1

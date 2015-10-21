@@ -445,6 +445,11 @@ div.notice {
     white-space: nowrap;
 }
 
+.pdanote {
+    color: #cd6500;
+    font-weight: bold;
+}
+
 /* DNA Modifier styling */
 .dnaBlock {
     float: left;

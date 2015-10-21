@@ -513,16 +513,25 @@ datum/reagent/morphine/addiction_act_stage4(var/mob/living/M as mob)
 
 datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.eye_blurry = max(M.eye_blurry-5 , 0)
-	M.eye_blind = max(M.eye_blind-5 , 0)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
-		if(istype(E))
-			if(E.damage > 0)
-				E.damage -= 1
+	if(prob(80))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+			if(istype(E))
+				E.damage = max(E.damage-1, 0)
+		M.eye_blurry = max(M.eye_blurry-1 , 0)
+		M.ear_damage = max(M.ear_damage-1, 0)
+	if(prob(50))
+		M.disabilities &= ~NEARSIGHTED
+	if(prob(30))
+		M.sdisabilities &= ~BLIND
+		M.eye_blind = 0
+	if(M.ear_damage <= 25)
+		if(prob(30))
+			M.ear_deaf = 0
 	..()
 	return
+
 /datum/chemical_reaction/oculine
 	name = "Oculine"
 	id = "oculine"

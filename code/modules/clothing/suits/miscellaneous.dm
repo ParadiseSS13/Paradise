@@ -445,7 +445,6 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	siemens_coefficient = 0.9
-	loose = 7
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
@@ -505,11 +504,10 @@
 	icon_state = "lordadmiral"
 	item_state = "lordadmiral"
 	allowed = list (/obj/item/weapon/gun)
-	
+
 /obj/item/clothing/suit/fluff/noble_coat
 	name = "noble coat"
 	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
 	icon_state = "noble_coat"
 	item_state = "noble_coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	

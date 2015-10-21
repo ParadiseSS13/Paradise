@@ -25,7 +25,6 @@
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	action_button_name = "flip welding helmet"
 	siemens_coefficient = 0.9
-	loose = 4
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
@@ -84,7 +83,6 @@
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
 	var/processing = 0 //I dont think this is used anywhere.
-	loose = 60
 
 /obj/item/clothing/head/cakehat/process()
 	if(!onfire)
@@ -126,7 +124,6 @@
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	loose = 1 // too warm, your head doesn't want to leave
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
 	if(src.icon_state == "ushankadown")
@@ -153,7 +150,6 @@
 	action_button_name = "Toggle Pumpkin Light"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 2 //luminosity when on
-	loose = 80
 
 
 /obj/item/clothing/head/hardhat/reindeer
@@ -177,7 +173,6 @@
 	icon_state = "kitty"
 	var/icon/mob
 	siemens_coefficient = 1.5
-	loose = 33
 
 /obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
 	if(!istype(user)) return

@@ -781,6 +781,36 @@
 		icon_state = "vox_keetquills"
 		species_allowed = list("Vox")
 
+	vox_quills_kingly
+		name = "Kingly Vox Quills"
+		icon_state = "vox_kingly"
+		species_allowed = list("Vox")
+
+	vox_quills_fluff
+		name = "Fluffy Quills"
+		icon_state = "vox_afro"
+		species_allowed = list("Vox")
+
+	vox_quills_mohawk
+		name = "Quill Mohawk"
+		icon_state = "vox_mohawk"
+		species_allowed = list("Vox")
+
+	vox_quills_long
+		name = "Long Vox Quills"
+		icon_state = "vox_yasu"
+		species_allowed = list("Vox")
+
+	vox_horns
+		name = "Vox Spikes"
+		icon_state = "vox_horns"
+		species_allowed = list("Vox")
+
+	vox_nights
+		name = "Vox Pigtails"
+		icon_state = "vox_nights"
+		species_allowed = list("Vox")
+
 // Apollo-specific
 
 	//Wryn antennae
@@ -855,9 +885,30 @@
 		species_allowed = list("Tajaran")
 
 	taj_smallstache
-		name = "Tajara Smallsatche"
+		name = "Tajara Smallstache"
 		icon_state = "facial_smallstache"
 		species_allowed = list("Tajaran")
+
+	vox_colonel
+		name = "Vox Colonel Beard"
+		icon_state = "vox_colonel"
+		species_allowed = list("Vox")
+
+	vox_long
+		name = "Long Mustache"
+		icon_state = "vox_fu"
+		species_allowed = list("Vox")
+
+	vox_neck
+		name = "Neck Quills"
+		icon_state = "vox_neck"
+		species_allowed = list("Vox")
+
+	vox_beard
+		name = "Vox Quill Beard"
+		icon_state = "vox_beard"
+		species_allowed = list("Vox")
+
 
 //Vulpkanin
 

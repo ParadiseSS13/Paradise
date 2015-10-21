@@ -3,6 +3,7 @@
 	dead_mob_list -= src
 	living_mob_list -= src
 	qdel(hud_used)
+	hud_used = null
 	if(mind && mind.current == src)
 		spellremove(src)
 	ghostize()
@@ -1442,3 +1443,8 @@ mob/proc/yank_out_object()
 
 /mob/proc/can_unbuckle(mob/user)
 	return 1
+
+
+//Can the mob see reagents inside of containers?
+/mob/proc/can_see_reagents()
+	return 0

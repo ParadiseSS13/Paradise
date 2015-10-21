@@ -33,8 +33,7 @@
 		if (pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
-	..()
-	return QDEL_HINT_QUEUE
+	return ..()
 
 /atom/movable/proc/initialize()
 	return

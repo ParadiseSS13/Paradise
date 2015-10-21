@@ -29,24 +29,36 @@
 // find the attached trunk (if present) and init gas resvr.
 /obj/machinery/disposal/New()
 	..()
-	spawn(5)
-		trunk = locate() in src.loc
-		if(!trunk)
-			mode = 0
-			flush = 0
-		else
-			trunk.linked = src	// link the pipe trunk to self
+	trunk_check()
 
-		air_contents = new/datum/gas_mixture()
-		//gas.volume = 1.05 * CELLSTANDARD
-		update()
+	air_contents = new/datum/gas_mixture()
+	//gas.volume = 1.05 * CELLSTANDARD
+	update()
 
+/obj/machinery/disposal/proc/trunk_check()
+	trunk = locate() in src.loc
+	if(!trunk)
+		mode = 0
+		flush = 0
+	else
+		mode = initial(mode)
+		flush = initial(flush)
+		trunk.linked = src	// link the pipe trunk to self
 
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
 		trunk.linked = null
 	return ..()
+
+/obj/machinery/disposal/initialize()
+	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
+	var/atom/L = loc
+	var/datum/gas_mixture/env = new
+	env.copy_from(L.return_air())
+	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
+	air_contents.merge(removed)
+	trunk_check()
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user, params)
@@ -652,266 +664,265 @@
 	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
-	New()
-		..()
-		base_icon_state = icon_state
-		return
+/obj/structure/disposalpipe/New()
+	..()
+	base_icon_state = icon_state
 
 
-	// pipe is deleted
-	// ensure if holder is present, it is expelled
-	Destroy()
-		var/obj/structure/disposalholder/H = locate() in src
-		if(H)
-			// holder was present
-			H.active = 0
-			var/turf/T = src.loc
-			if(T.density)
-				// deleting pipe is inside a dense turf (wall)
-				// this is unlikely, but just dump out everything into the turf in case
-
-				for(var/atom/movable/AM in H)
-					AM.loc = T
-					AM.pipe_eject(0)
-				qdel(H)
-				..()
-				return
-
-			// otherwise, do normal expel from turf
-			if(H)
-				expel(H, T, 0)
-		return ..()
-
-	singularity_pull(S, current_size)
-		if(current_size >= STAGE_FIVE)
-			qdel(src)
-
-	// returns the direction of the next pipe object, given the entrance dir
-	// by default, returns the bitmask of remaining directions
-	proc/nextdir(var/fromdir)
-		return dpdir & (~turn(fromdir, 180))
-
-	// transfer the holder through this pipe segment
-	// overriden for special behaviour
-	//
-	proc/transfer(var/obj/structure/disposalholder/H)
-		var/nextdir = nextdir(H.dir)
-		H.dir = nextdir
-		var/turf/T = H.nextloc()
-		var/obj/structure/disposalpipe/P = H.findpipe(T)
-
-		if(P)
-			// find other holder in next loc, if inactive merge it with current
-			var/obj/structure/disposalholder/H2 = locate() in P
-			if(H2 && !H2.active)
-				H.merge(H2)
-
-			H.loc = P
-		else			// if wasn't a pipe, then set loc to turf
-			H.loc = T
-			return null
-
-		return P
-
-
-	// update the icon_state to reflect hidden status
-	proc/update()
+// pipe is deleted
+// ensure if holder is present, it is expelled
+/obj/structure/disposalpipe/Destroy()
+	var/obj/structure/disposalholder/H = locate() in src
+	if(H)
+		// holder was present
+		H.active = 0
 		var/turf/T = src.loc
-		hide(T.intact && !istype(T,/turf/space))	// space never hides pipes
+		if(T.density)
+			// deleting pipe is inside a dense turf (wall)
+			// this is unlikely, but just dump out everything into the turf in case
 
-	// hide called by levelupdate if turf intact status changes
-	// change visibility status and force update of icon
-	hide(var/intact)
-		invisibility = intact ? 101: 0	// hide if floor is intact
-		updateicon()
-
-	// update actual icon_state depending on visibility
-	// if invisible, append "f" to icon_state to show faded version
-	// this will be revealed if a T-scanner is used
-	// if visible, use regular icon_state
-	proc/updateicon()
-		/*if(invisibility)
-			icon_state = "[base_icon_state]f"
-		else
-			icon_state = base_icon_state*/
-		return
-
-
-	// expel the held objects into a turf
-	// called when there is a break in the pipe
-	//
-
-	proc/expel(var/obj/structure/disposalholder/H, var/turf/T, var/direction)
-
-		if(!T)
+			for(var/atom/movable/AM in H)
+				AM.loc = T
+				AM.pipe_eject(0)
+			qdel(H)
+			..()
 			return
 
-		var/turf/target
-
-		if(T.density)		// dense ouput turf, so stop holder
-			H.active = 0
-			H.loc = src
-			return
-		if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
-			var/turf/simulated/floor/F = T
-			//F.health	= 100
-			F.burnt	= 1
-			F.intact	= 0
-			F.levelupdate()
-			new /obj/item/stack/tile(H)	// add to holder so it will be thrown with other stuff
-			F.icon_state = "Floor[F.burnt ? "1" : ""]"
-
-		if(direction)		// direction is specified
-			if(istype(T, /turf/space)) // if ended in space, then range is unlimited
-				target = get_edge_target_turf(T, direction)
-			else						// otherwise limit to 10 tiles
-				target = get_ranged_target_turf(T, direction, 10)
-
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-			if(H)
-				for(var/atom/movable/AM in H)
-					AM.loc = T
-					AM.pipe_eject(direction)
-					spawn(1)
-						if(AM)
-							AM.throw_at(target, 100, 1)
-				H.vent_gas(T)
-				qdel(H)
-
-		else	// no specified direction, so throw in random direction
-
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-			if(H)
-				for(var/atom/movable/AM in H)
-					target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
-
-					AM.loc = T
-					AM.pipe_eject(0)
-					spawn(1)
-						if(AM)
-							AM.throw_at(target, 5, 1)
-
-				H.vent_gas(T)	// all gas vent to turf
-				qdel(H)
-
-		return
-
-	// call to break the pipe
-	// will expel any holder inside at the time
-	// then delete the pipe
-	// remains : set to leave broken pipe pieces in place
-	proc/broken(var/remains = 0)
-		if(remains)
-			for(var/D in cardinal)
-				if(D & dpdir)
-					var/obj/structure/disposalpipe/broken/P = new(src.loc)
-					P.dir = D
-
-		src.invisibility = 101	// make invisible (since we won't delete the pipe immediately)
-		var/obj/structure/disposalholder/H = locate() in src
+		// otherwise, do normal expel from turf
 		if(H)
-			// holder was present
-			H.active = 0
-			var/turf/T = src.loc
-			if(T.density)
-				// broken pipe is inside a dense turf (wall)
-				// this is unlikely, but just dump out everything into the turf in case
+			expel(H, T, 0)
+	return ..()
 
-				for(var/atom/movable/AM in H)
-					AM.loc = T
-					AM.pipe_eject(0)
-				qdel(H)
-				return
-
-			// otherwise, do normal expel from turf
-			if(H)
-				expel(H, T, 0)
-
-		spawn(2)	// delete pipe after 2 ticks to ensure expel proc finished
-			qdel(src)
-
-
-	// pipe affected by explosion
-	ex_act(severity)
-
-		switch(severity)
-			if(1.0)
-				broken(0)
-				return
-			if(2.0)
-				health -= rand(5,15)
-				healthcheck()
-				return
-			if(3.0)
-				health -= rand(0,15)
-				healthcheck()
-				return
-
-
-	// test health for brokenness
-	proc/healthcheck()
-		if(health < -2)
-			broken(0)
-		else if(health<1)
-			broken(1)
-		return
-
-	//attack by item
-	//weldingtool: unfasten and convert to obj/disposalconstruct
-
-	attackby(var/obj/item/I, var/mob/user, params)
-
-		var/turf/T = src.loc
-		if(T.intact)
-			return		// prevent interaction with T-scanner revealed pipes
-		src.add_fingerprint(user)
-		if(istype(I, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/W = I
-
-			if(W.remove_fuel(0,user))
-				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-				// check if anything changed over 2 seconds
-				var/turf/uloc = user.loc
-				var/atom/wloc = W.loc
-				user << "Slicing the disposal pipe."
-				sleep(30)
-				if(!W.isOn()) return
-				if(user.loc == uloc && wloc == W.loc)
-					welded()
-				else
-					user << "You must stay still while welding the pipe."
-			else
-				user << "You need more welding fuel to cut the pipe."
-				return
-
-	// called when pipe is cut with welder
-	proc/welded()
-
-		var/obj/structure/disposalconstruct/C = new (src.loc)
-		switch(base_icon_state)
-			if("pipe-s")
-				C.ptype = 0
-			if("pipe-c")
-				C.ptype = 1
-			if("pipe-j1")
-				C.ptype = 2
-			if("pipe-j2")
-				C.ptype = 3
-			if("pipe-y")
-				C.ptype = 4
-			if("pipe-t")
-				C.ptype = 5
-			if("pipe-j1s")
-				C.ptype = 9
-			if("pipe-j2s")
-				C.ptype = 10
-		src.transfer_fingerprints_to(C)
-		C.dir = dir
-		C.density = 0
-		C.anchored = 1
-		C.update()
-
+/obj/structure/disposalpipe/singularity_pull(S, current_size)
+	if(current_size >= STAGE_FIVE)
 		qdel(src)
+
+// returns the direction of the next pipe object, given the entrance dir
+// by default, returns the bitmask of remaining directions
+/obj/structure/disposalpipe/proc/nextdir(var/fromdir)
+	return dpdir & (~turn(fromdir, 180))
+
+// transfer the holder through this pipe segment
+// overriden for special behaviour
+//
+/obj/structure/disposalpipe/proc/transfer(var/obj/structure/disposalholder/H)
+	var/nextdir = nextdir(H.dir)
+	H.dir = nextdir
+	var/turf/T = H.nextloc()
+	var/obj/structure/disposalpipe/P = H.findpipe(T)
+
+	if(P)
+		// find other holder in next loc, if inactive merge it with current
+		var/obj/structure/disposalholder/H2 = locate() in P
+		if(H2 && !H2.active)
+			H.merge(H2)
+
+		H.loc = P
+	else			// if wasn't a pipe, then set loc to turf
+		H.loc = T
+		return null
+
+	return P
+
+
+// update the icon_state to reflect hidden status
+/obj/structure/disposalpipe/proc/update()
+	var/turf/T = src.loc
+	hide(T.intact && !istype(T,/turf/space))	// space never hides pipes
+	update_icon()
+
+// hide called by levelupdate if turf intact status changes
+// change visibility status and force update of icon
+/obj/structure/disposalpipe/hide(var/intact)
+	invisibility = intact ? 101: 0	// hide if floor is intact
+	update_icon()
+
+// update actual icon_state depending on visibility
+// if invisible, append "f" to icon_state to show faded version
+// this will be revealed if a T-scanner is used
+// if visible, use regular icon_state
+/obj/structure/disposalpipe/update_icon()
+	if(invisibility)
+		icon_state = "[base_icon_state]f"
+	else
+		icon_state = base_icon_state
+
+
+// expel the held objects into a turf
+// called when there is a break in the pipe
+//
+
+/obj/structure/disposalpipe/proc/expel(var/obj/structure/disposalholder/H, var/turf/T, var/direction)
+
+	if(!T)
+		return
+
+	var/turf/target
+
+	if(T.density)		// dense ouput turf, so stop holder
+		H.active = 0
+		H.loc = src
+		return
+	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
+		var/turf/simulated/floor/F = T
+		//F.health	= 100
+		F.burnt	= 1
+		F.intact	= 0
+		F.levelupdate()
+		new /obj/item/stack/tile(H)	// add to holder so it will be thrown with other stuff
+		F.icon_state = "Floor[F.burnt ? "1" : ""]"
+
+	if(direction)		// direction is specified
+		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+			target = get_edge_target_turf(T, direction)
+		else						// otherwise limit to 10 tiles
+			target = get_ranged_target_turf(T, direction, 10)
+
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(H)
+			for(var/atom/movable/AM in H)
+				AM.loc = T
+				AM.pipe_eject(direction)
+				spawn(1)
+					if(AM)
+						AM.throw_at(target, 100, 1)
+			H.vent_gas(T)
+			qdel(H)
+
+	else	// no specified direction, so throw in random direction
+
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(H)
+			for(var/atom/movable/AM in H)
+				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
+
+				AM.loc = T
+				AM.pipe_eject(0)
+				spawn(1)
+					if(AM)
+						AM.throw_at(target, 5, 1)
+
+			H.vent_gas(T)	// all gas vent to turf
+			qdel(H)
+
+	return
+
+// call to break the pipe
+// will expel any holder inside at the time
+// then delete the pipe
+// remains : set to leave broken pipe pieces in place
+/obj/structure/disposalpipe/proc/broken(var/remains = 0)
+	if(remains)
+		for(var/D in cardinal)
+			if(D & dpdir)
+				var/obj/structure/disposalpipe/broken/P = new(src.loc)
+				P.dir = D
+
+	src.invisibility = 101	// make invisible (since we won't delete the pipe immediately)
+	var/obj/structure/disposalholder/H = locate() in src
+	if(H)
+		// holder was present
+		H.active = 0
+		var/turf/T = src.loc
+		if(T.density)
+			// broken pipe is inside a dense turf (wall)
+			// this is unlikely, but just dump out everything into the turf in case
+
+			for(var/atom/movable/AM in H)
+				AM.loc = T
+				AM.pipe_eject(0)
+			qdel(H)
+			return
+
+		// otherwise, do normal expel from turf
+		if(H)
+			expel(H, T, 0)
+
+	spawn(2)	// delete pipe after 2 ticks to ensure expel proc finished
+		qdel(src)
+
+
+// pipe affected by explosion
+/obj/structure/disposalpipe/ex_act(severity)
+
+	switch(severity)
+		if(1.0)
+			broken(0)
+			return
+		if(2.0)
+			health -= rand(5,15)
+			healthcheck()
+			return
+		if(3.0)
+			health -= rand(0,15)
+			healthcheck()
+			return
+
+
+// test health for brokenness
+/obj/structure/disposalpipe/proc/healthcheck()
+	if(health < -2)
+		broken(0)
+	else if(health<1)
+		broken(1)
+	return
+
+//attack by item
+//weldingtool: unfasten and convert to obj/disposalconstruct
+
+/obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
+
+	var/turf/T = src.loc
+	if(T.intact)
+		return		// prevent interaction with T-scanner revealed pipes
+	src.add_fingerprint(user)
+	if(istype(I, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/W = I
+
+		if(W.remove_fuel(0,user))
+			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
+			// check if anything changed over 2 seconds
+			var/turf/uloc = user.loc
+			var/atom/wloc = W.loc
+			user << "Slicing the disposal pipe."
+			sleep(30)
+			if(!W.isOn()) return
+			if(user.loc == uloc && wloc == W.loc)
+				welded()
+			else
+				user << "You must stay still while welding the pipe."
+		else
+			user << "You need more welding fuel to cut the pipe."
+			return
+
+// called when pipe is cut with welder
+/obj/structure/disposalpipe/proc/welded()
+
+	var/obj/structure/disposalconstruct/C = new (src.loc)
+	switch(base_icon_state)
+		if("pipe-s")
+			C.ptype = 0
+		if("pipe-c")
+			C.ptype = 1
+		if("pipe-j1")
+			C.ptype = 2
+		if("pipe-j2")
+			C.ptype = 3
+		if("pipe-y")
+			C.ptype = 4
+		if("pipe-t")
+			C.ptype = 5
+		if("pipe-j1s")
+			C.ptype = 9
+		if("pipe-j2s")
+			C.ptype = 10
+	src.transfer_fingerprints_to(C)
+	C.dir = dir
+	C.density = 0
+	C.anchored = 1
+	C.update()
+
+	qdel(src)
 
 // *** TEST verb
 //client/verb/dispstop()
@@ -922,16 +933,14 @@
 /obj/structure/disposalpipe/segment
 	icon_state = "pipe-s"
 
-	New()
-		..()
-		if(icon_state == "pipe-s")
-			dpdir = dir | turn(dir, 180)
-		else
-			dpdir = dir | turn(dir, -90)
+/obj/structure/disposalpipe/segment/New()
+	..()
+	if(icon_state == "pipe-s")
+		dpdir = dir | turn(dir, 180)
+	else
+		dpdir = dir | turn(dir, -90)
 
-		update()
-		return
-
+	update()
 
 
 
@@ -939,45 +948,44 @@
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
 
-	New()
-		..()
-		if(icon_state == "pipe-j1")
-			dpdir = dir | turn(dir, -90) | turn(dir,180)
-		else if(icon_state == "pipe-j2")
-			dpdir = dir | turn(dir, 90) | turn(dir,180)
-		else // pipe-y
-			dpdir = dir | turn(dir,90) | turn(dir, -90)
-		update()
-		return
+/obj/structure/disposalpipe/junction/New()
+	..()
+	if(icon_state == "pipe-j1")
+		dpdir = dir | turn(dir, -90) | turn(dir,180)
+	else if(icon_state == "pipe-j2")
+		dpdir = dir | turn(dir, 90) | turn(dir,180)
+	else // pipe-y
+		dpdir = dir | turn(dir,90) | turn(dir, -90)
+	update()
 
 
 	// next direction to move
 	// if coming in from secondary dirs, then next is primary dir
 	// if coming in from primary dir, then next is equal chance of other dirs
 
-	nextdir(var/fromdir)
-		var/flipdir = turn(fromdir, 180)
-		if(flipdir != dir)	// came from secondary dir
-			return dir		// so exit through primary
-		else				// came from primary
-							// so need to choose either secondary exit
-			var/mask = ..(fromdir)
+/obj/structure/disposalpipe/junction/nextdir(var/fromdir)
+	var/flipdir = turn(fromdir, 180)
+	if(flipdir != dir)	// came from secondary dir
+		return dir		// so exit through primary
+	else				// came from primary
+						// so need to choose either secondary exit
+		var/mask = ..(fromdir)
 
-			// find a bit which is set
-			var/setbit = 0
-			if(mask & NORTH)
-				setbit = NORTH
-			else if(mask & SOUTH)
-				setbit = SOUTH
-			else if(mask & EAST)
-				setbit = EAST
-			else
-				setbit = WEST
+		// find a bit which is set
+		var/setbit = 0
+		if(mask & NORTH)
+			setbit = NORTH
+		else if(mask & SOUTH)
+			setbit = SOUTH
+		else if(mask & EAST)
+			setbit = EAST
+		else
+			setbit = WEST
 
-			if(prob(50))	// 50% chance to choose the found bit or the other one
-				return setbit
-			else
-				return mask & (~setbit)
+		if(prob(50))	// 50% chance to choose the found bit or the other one
+			return setbit
+		else
+			return mask & (~setbit)
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction

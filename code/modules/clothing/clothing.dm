@@ -2,6 +2,7 @@
 	name = "clothing"
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
+	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -245,7 +246,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
-	var/loose = 10 // probability (0..100) of coming off your head when you fall over or lay down
 	var/blockTracking // Do we block AI tracking?
 	var/flash_protect = 0
 	var/tint = 0
@@ -346,7 +346,6 @@ BLIND     // can't see anything
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox","Wryn")
-	loose = 0 // What kind of idiot designs a pressurized suit where the helmet can fall off?
 	flash_protect = 2
 
 /obj/item/clothing/suit/space
