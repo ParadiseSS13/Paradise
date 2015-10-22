@@ -305,7 +305,10 @@ var/global/list/multiverse = list()
 
 /obj/item/weapon/multisword/proc/spawn_copy(var/client/C, var/turf/T)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
-	C.prefs.copy_to(M)
+	if(duplicate_self)
+		usr.client.prefs.copy_to(M)
+	else
+		C.prefs.copy_to(M)
 	M.key = C.key
 	M.mind.name = usr.real_name
 	M << "<B>You are an alternate version of [usr.real_name] from another universe! Help them accomplish their goals at all costs.</B>"
