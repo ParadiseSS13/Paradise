@@ -100,6 +100,7 @@
 					<b>TDM</b><br>
 					<A href='?src=\ref[src];secretsfun=traitor_all'>Everyone is the traitor</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=onlyone'>There can only be one!</A>&nbsp;&nbsp;
+					<A href='?src=\ref[src];secretsfun=onlyme'>There can only be me!</A>&nbsp;&nbsp;
 					<A href='?src=\ref[src];secretsfun=onlyoneteam'>Dodgeball (TDM)!</A><BR>
 					<b>Round-enders</b><br>
 					<A href='?src=\ref[src];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
