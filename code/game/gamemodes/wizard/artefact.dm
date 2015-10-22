@@ -237,6 +237,7 @@ var/global/list/multiverse = list()
 	var/cooldown_between_uses = 400 //time in deciseconds between uses--default of 40 seconds.
 	var/assigned = "unassigned"
 	var/evil = TRUE
+	var/probability_evil = 30 //what's the probability this sword will be evil when activated?
 	var/duplicate_self = 0 //Do we want the species randomized along with equipment should the user be duplicated in their entirety?
 	var/sword_type = /obj/item/weapon/multisword //type of sword to equip.
 
@@ -265,7 +266,7 @@ var/global/list/multiverse = list()
 			user.faction = list("[user.real_name]")
 			user << "You bind the sword to yourself. You can now use it to summon help."
 			if(!usr.mind.special_role)
-				if(prob(30))
+				if(prob(probability_evil))
 					user << "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>"
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.owner = usr.mind
@@ -308,20 +309,22 @@ var/global/list/multiverse = list()
 	M.key = C.key
 	M.mind.name = usr.real_name
 	M << "<B>You are an alternate version of [usr.real_name] from another universe! Help them accomplish their goals at all costs.</B>"
-	M.real_name = usr.real_name
-	M.name = usr.real_name
 	M.faction = list("[usr.real_name]")
 	if(duplicate_self)
 		M.set_species(usr.get_species()) //duplicate the sword user's species.
 	else
 		if(prob(50))
-			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Machine","Slime People","Grey","Vulpkanin")
+			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin")
 			M.set_species(pick(all_species))
-	M.dna = usr.dna.Clone()
+	M.real_name = usr.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
+	M.name = usr.real_name
+	if(duplicate_self)
+		M.dna = usr.dna.Clone()
+		M.UpdateAppearance()
+		domutcheck(M, null)
 	M.update_body()
 	M.update_hair()
-	M.UpdateAppearance()
-	domutcheck(M, null)
+
 	equip_copy(M)
 
 	if(evil)
@@ -350,11 +353,70 @@ var/global/list/multiverse = list()
 	sword.evil = evil
 
 	if(duplicate_self)
-		M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
-		M.equip_or_collect(new /obj/item/weapon/storage/backpack(M), slot_back)
-		M.equip_or_collect(new /obj/item/clothing/under/color/random(M), slot_w_uniform)
-		M.equip_or_collect(new /obj/item/clothing/shoes/black(M), slot_shoes)
-		M.equip_to_slot_or_del(sword, slot_r_hand) //Don't duplicate the hands, or duplicate swords could be generated...or weird cases of factionless swords.
+		//Duplicates the user's current equipent
+		var/mob/living/carbon/human/H = usr
+
+		var/obj/head = H.get_item_by_slot(slot_head)
+		if(head)
+			M.equip_to_slot_or_del(new head.type(M), slot_head)
+
+		var/obj/mask = H.get_item_by_slot(slot_wear_mask)
+		if(mask)
+			M.equip_to_slot_or_del(new mask.type(M), slot_wear_mask)
+
+		var/obj/glasses = H.get_item_by_slot(slot_glasses)
+		if(glasses)
+			M.equip_to_slot_or_del(new glasses.type(M), slot_glasses)
+
+		var/obj/left_ear = H.get_item_by_slot(slot_l_ear)
+		if(left_ear)
+			M.equip_to_slot_or_del(new left_ear.type(M), slot_l_ear)
+
+		var/obj/right_ear = H.get_item_by_slot(slot_r_ear)
+		if(right_ear)
+			M.equip_to_slot_or_del(new right_ear.type(M), slot_r_ear)
+
+		var/obj/uniform = H.get_item_by_slot(slot_w_uniform)
+		if(uniform)
+			M.equip_to_slot_or_del(new uniform.type(M), slot_w_uniform)
+
+		var/obj/suit = H.get_item_by_slot(slot_wear_suit)
+		if(suit)
+			M.equip_to_slot_or_del(new suit.type(M), slot_wear_suit)
+
+		var/obj/gloves = H.get_item_by_slot(slot_gloves)
+		if(gloves)
+			M.equip_to_slot_or_del(new gloves.type(M), slot_gloves)
+
+		var/obj/shoes = H.get_item_by_slot(slot_shoes)
+		if(shoes)
+			M.equip_to_slot_or_del(new shoes.type(M), slot_shoes)
+
+		var/obj/belt = H.get_item_by_slot(slot_belt)
+		if(belt)
+			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
+
+		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
+		if(pda)
+			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
+
+		var/obj/back = H.get_item_by_slot(slot_back)
+		if(back)
+			M.equip_to_slot_or_del(new back.type(M), slot_back)
+
+		var/obj/suit_storage = H.get_item_by_slot(slot_s_store)
+		if(suit_storage)
+			M.equip_to_slot_or_del(new suit_storage.type(M), slot_s_store)
+
+		var/obj/left_pocket = H.get_item_by_slot(slot_l_store)
+		if(left_pocket)
+			M.equip_to_slot_or_del(new left_pocket.type(M), slot_l_store)
+
+		var/obj/right_pocket = H.get_item_by_slot(slot_r_store)
+		if(right_pocket)
+			M.equip_to_slot_or_del(new right_pocket.type(M), slot_r_store)
+
+		M.equip_to_slot_or_del(sword, slot_r_hand) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
 	else
 		var/randomize = pick("mobster","roman","wizard","cyborg","syndicate","assistant", "animu", "cultist", "highlander", "clown", "killer", "pirate", "soviet", "officer", "gladiator")
 
@@ -490,8 +552,6 @@ var/global/list/multiverse = list()
 			else
 				return
 
-	M.update_icons()
-
 	var/obj/item/weapon/card/id/W = new /obj/item/weapon/card/id
 	if(duplicate_self)
 		var/duplicated_access = usr.get_item_by_slot(slot_wear_id)
@@ -510,6 +570,10 @@ var/global/list/multiverse = list()
 	W.update_label(M.real_name)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
+	M.update_icons()
+
+/obj/item/weapon/multisword/pure_evil
+	probability_evil = 100
 
 /obj/item/weapon/multisword/pike //If We are to be used and spent, let it be for a noble purpose.
 	name = "phantom pike"
@@ -517,5 +581,6 @@ var/global/list/multiverse = list()
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	cooldown_between_uses = 200 //Half the time
+	probability_evil = 100
 	duplicate_self = 1
 	sword_type = /obj/item/weapon/multisword/pike
