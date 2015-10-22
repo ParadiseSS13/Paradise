@@ -250,6 +250,12 @@ var/global/list/multiverse = list()
 	multiverse.Remove(src)
 	return ..()
 
+/obj/item/weapon/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
+	if(M.faction == user.faction)
+		user << "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>"
+		return
+	..()
+
 /obj/item/weapon/multisword/attack_self(mob/user)
 	if(user.mind.special_role == "apprentice")
 		user << "<span class='warning'>You know better than to touch your teacher's stuff.</span>"
