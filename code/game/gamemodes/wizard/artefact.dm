@@ -242,9 +242,9 @@
 		user << "<span class='warning'>This artifact can only affect the dead!</span>"
 		return
 
-	if(!M.mind || !M.client)
-		user << "<span class='warning'>There is no soul connected to this body...</span>"
-		return
+	//if(!M.mind || !M.client)
+	//	user << "<span class='warning'>There is no soul connected to this body...</span>"
+	//	return
 
 	check_spooky()//clean out/refresh the list
 
@@ -252,6 +252,7 @@
 		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
 		return
 	M.makeSkeleton()
+	M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 	M.revive()
 	spooky_scaries |= M
 	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
