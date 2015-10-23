@@ -96,6 +96,8 @@
 		W.update_label(H.real_name)
 		H.equip_to_slot_or_del(W, slot_wear_id)
 
+		H.update_icons()
+
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ME! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used there can be only me.")
 	nologevent = 1

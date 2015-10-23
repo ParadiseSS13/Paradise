@@ -251,7 +251,7 @@ var/global/list/multiverse = list()
 	return ..()
 
 /obj/item/weapon/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
-	if(M.faction == user.faction)
+	if(M.real_name == user.real_name)
 		user << "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>"
 		return
 	..()
@@ -427,6 +427,9 @@ var/global/list/multiverse = list()
 
 		M.equip_to_slot_or_del(sword, slot_r_hand) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
 	else
+		if(M.get_species() == "Tajaran" || M.get_species() == "Unathi")
+			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)	//If they can't wear shoes, give them a pair of sandals.
+
 		var/randomize = pick("mobster","roman","wizard","cyborg","syndicate","assistant", "animu", "cultist", "highlander", "clown", "killer", "pirate", "soviet", "officer", "gladiator")
 
 		switch(randomize)
@@ -577,6 +580,7 @@ var/global/list/multiverse = list()
 	W.assignment = "Multiverse Traveller"
 	W.registered_name = M.real_name
 	W.update_label(M.real_name)
+	W.SetOwnerInfo(M)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
 	M.update_icons()
