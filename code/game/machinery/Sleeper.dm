@@ -7,6 +7,8 @@
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "console"
 	var/obj/machinery/sleeper/connected = null
+	var/ui_title = "Sleeper"
+	
 	anchored = 1 //About time someone fixed this.
 	density = 1
 	var/orient = "LEFT"
@@ -165,6 +167,40 @@
 		onclose(user, "sleeper")
 	return
 
+/obj/machinery/sleep_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	var/data[0]
+	var/mob/living/carbon/human/occupant = connected.occupant
+	data["hasOccupant"] = occupant ? 1 : 0
+	var/occupantData[0]
+	if (occupant)
+		occupantData["name"] = occupant.name
+		occupantData["stat"] = occupant.stat
+		occupantData["health"] = occupant.health
+		occupantData["maxHealth"] = occupant.maxHealth
+		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["bruteLoss"] = occupant.getBruteLoss()
+		occupantData["oxyLoss"] = occupant.getOxyLoss()
+		occupantData["toxLoss"] = occupant.getToxLoss()
+		occupantData["fireLoss"] = occupant.getFireLoss()
+		occupantData["bodyTemperature"] = occupant.bodytemperature
+	data["occupant"] = occupantData
+	data["maxchem"] = connected.max_chem
+	data["minhealth"] = connected.min_health
+
+	var/chemicals[0]
+	for (var/re in connected.injection_chems)
+		var/datum/reagent/temp = chemical_reagents_list[re]
+		if(temp)
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = occupant.reagents.get_reagent_amount(temp))))
+	data["chemicals"] = chemicals
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if (!ui)
+		// Test values for window size right now
+		ui = new(user, src, ui_key, "sleeper.tmpl", ui_title, 390, 655)
+		ui.set_initial_data(data)
+		ui.open()
+
 /obj/machinery/sleep_console/Topic(href, href_list)
 	if(..())
 		return 1
@@ -219,7 +255,7 @@
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/filtering = 0
-	var/efficiency
+	var/max_chem
 	var/initial_bin_rating = 1
 	var/min_health = 25
 	var/injection_chems = list()
@@ -271,7 +307,7 @@
 		I += M.rating
 
 	injection_chems = possible_chems[I]
-	efficiency = E
+	max_chem = E * 20
 	min_health = -E * 25
 
 /obj/machinery/sleeper/process()
@@ -412,6 +448,7 @@
 		go_out()
 	..(severity)
 
+// ???
 /obj/machinery/sleeper/alter_health(mob/living/M as mob)
 	if (M.health > 0)
 		if (M.getOxyLoss() >= 10)
@@ -449,7 +486,7 @@
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(src.occupant)
 		if(src.occupant.reagents)
-			if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= 20 * efficiency)
+			if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= max_chem)
 				src.occupant.reagents.add_reagent(chemical, amount)
 				user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [chemical] in his/her bloodstream."
 				return
