@@ -52,3 +52,5 @@
 	var/last_played_vent
 
 	var/list/datum/action/actions = list()
+
+	var/addictive_personality = 0	//Only handles addictions if set to 1

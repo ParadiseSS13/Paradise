@@ -83,3 +83,5 @@
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
+
+	addictive_personality = 1

@@ -87,5 +87,5 @@
 		name = "Sterilizine"
 		id = "sterilizine"
 		result = "sterilizine"
-		required_reagents = list("ethanol" = 1, "charcoal" = 1, "chlorine" = 1)
+		required_reagents = list("antihol" = 2, "chlorine" = 1)
 		result_amount = 3

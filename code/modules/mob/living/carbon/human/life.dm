@@ -100,6 +100,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		//Chemicals in the body
 		handle_chemicals_in_body()
+		handle_addictions()
 
 		//Disabilities
 		handle_disabilities()

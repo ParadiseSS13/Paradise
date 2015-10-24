@@ -106,3 +106,6 @@
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
 #define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+
+#define ADDICT_DECAY -0.5
+#define ADDICT_DECAY_CT -1.0

@@ -987,7 +987,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 //		Synth-Meds			//
 //////////////////////////////
 
-//Degreaser: Anti-toxin / Lube Remover
+//Degreaser: Mild Purgative / Lube Remover
 /datum/reagent/degreaser
 	name = "Degreaser"
 	id = "degreaser"
@@ -1003,6 +1003,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("oil" = 1, "sterilizine" = 1)
 	result_amount = 2
 
+
 /datum/reagent/degreaser/reaction_turf(var/turf/simulated/T, var/volume)
 	if (!istype(T)) return
 	src = null
@@ -1016,7 +1017,11 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 
 /datum/reagent/degreaser/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(-1.5*REM)
+	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+		M.confused -= 5
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
@@ -1050,7 +1055,6 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	min_temp = 370
 	mix_message = "The solution gently swirls with a metallic sheen."
 
-
 datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
@@ -1067,3 +1071,99 @@ datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	M.adjustCloneLoss(-3*REM)
 	..()
 	return
+
+//////////////////////////////
+//		Addiction-Meds		//
+//////////////////////////////
+
+//Fixer: Negates addiction effects
+/datum/reagent/fixer
+	name = "Fixer"
+	id = "fixer"
+	description = "A withdrawal suppressent commonly used in addiction rehab. Now fruit flavored!"
+	reagent_state = SOLID
+	color = "#00DD33"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 0.3
+	overdose_threshold = 10		//can overdose on it though! best taken in small doses
+
+/datum/reagent/fixer/overdose_process(var/mob/living/M as mob)
+	M.adjustFireLoss(2)			//Too much of a good thing or something like that
+
+/datum/chemical_reaction/fixer
+	name = "Fixer"
+	id = "fixer"
+	result = "fixer"
+	required_reagents = list("doctorsdelight" = 1, "morphine" = 1, "sugar" = 1)
+	result_amount = 3
+	mix_message = "The solution crystallizes and gives off a fruity smell."
+
+//Cold Turkey: Forces addictions to decay faster, but has unpleasant side-effects
+/datum/reagent/coldturkey
+	name = "Cold Turkey"
+	id = "coldturkey"
+	description = "A purgative used to speed up the process of breaking addictions. Contains 0% turkey."
+	reagent_state = SOLID
+	color = "#CCCC7A"
+	process_flags = ORGANIC | SYNTHETIC
+	metabolization_rate = 0.5	//metabolizes somewhat faster than most chems
+
+/datum/reagent/coldturkey/on_mob_life(var/mob/living/M as mob)
+	if(!iscarbon(M))
+		..()
+		return
+	var/mob/living/carbon/C = M
+	if(isslime(C) || isbrain(C))
+		..()
+		return
+	if(!C.reagents.addiction_list || !C.reagents.addiction_list.len)
+		..()
+		return
+	var/effect = pick("brain", "vomit", "stamina", "confused", "toxin", "suffocate", "fart", "jitter", "vision", "itching", "scream", "deaf", "nothing", "hunger", "hot")
+	switch(effect)
+		if("nothing")	//lucky!
+		if("brain")
+			C.adjustBrainLoss(5)
+		if("stamina")
+			C.adjustStaminaLoss(5)
+		if("suffocate")
+			C.adjustOxyLoss(10)
+		if("hunger")
+			C.nutrition -= 25
+		if("vision")
+			C.eye_blurry += 5
+		if("confused")
+			C.confused += 5
+		if("jitter")
+			C.Jitter(20)
+		if("deaf")
+			C.ear_deaf += 5
+		if("hot")
+			C.bodytemperature = 400		//Should do a little burning to most mobs, xenos will really feel this one though
+		if("fart", "scream")
+			C.emote(effect)
+		if("vomit")						//Humans with no mouth luck out on this one since they can't vomit
+			if(ishuman(C))
+				var/mob/living/carbon/human/H = C
+				H.vomit()
+			else if(istype(C, /mob/living/carbon/alien/humanoid))
+				var/mob/living/carbon/alien/humanoid/A = C
+				A.regurgitate()			//Should make xenos vomit up anyone they ate
+		if("itching")					//Synthetics luck out here, since itching powder doesn't affect them
+			C.reagents.add_reagent("itching_powder", 2)
+	for(var/AR in C.reagents.addiction_list)
+		C.update_addictions(AR, ADDICT_DECAY_CT)
+
+	..()
+	return
+
+/datum/chemical_reaction/coldturkey
+	name = "Cold Turkey"
+	id = "coldturkey"
+	result = "coldturkey"
+	required_reagents = list("nutriment" = 4, "haloperidol" = 1, "ether" = 1)
+	required_catalysts = list("cryostylane" = 5)
+	max_temp = 273
+	result_amount = 6
+	mix_message = "The solution congeals into a chilled, flesh-like substance."
+	mix_sound = 'sound/effects/blobattack.ogg'

@@ -388,6 +388,10 @@ var/const/INGEST = 2
 							continue
 						else
 							R.reaction_mob(A, TOUCH, R.volume+volume_modifier)
+							if(R.addiction_threshold > 0 && isliving(A))
+								var/mob/living/L = A
+								if(L.addictive_personality)
+									L.update_addictions(R.id, R.volume+volume_modifier)
 				if(isturf(A))
 					spawn(0)
 						if(!R) return
@@ -406,6 +410,10 @@ var/const/INGEST = 2
 							continue
 						else
 							R.reaction_mob(A, INGEST, R.volume+volume_modifier)
+							if(R.addiction_threshold > 0 && isliving(A))
+								var/mob/living/L = A
+								if(L.addictive_personality)
+									L.update_addictions(R.id, R.volume+volume_modifier)
 				if(isturf(A) && R)
 					spawn(0)
 						if(!R) return
