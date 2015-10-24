@@ -514,8 +514,8 @@
 		health = 0
 		dead = 0
 
-	nutrilevel =     max(0,min(nutrilevel,10))
-	waterlevel =     max(0,min(waterlevel,100))
+	nutrilevel =     max(0,min(nutrilevel,maxnutri))
+	waterlevel =     max(0,min(waterlevel,maxwater))
 	pestlevel =      max(0,min(pestlevel,10))
 	weedlevel =      max(0,min(weedlevel,10))
 	toxins =         max(0,min(toxins,10))
@@ -793,8 +793,8 @@
 	if(!Adjacent(user))
 		return
 
-	user << "Water: [round(waterlevel,0.1)]/100"
-	user << "Nutrient: [round(nutrilevel,0.1)]/10"
+	user << "Water: [round(waterlevel,0.1)]/[maxwater]"
+	user << "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]"
 
 	if(weedlevel >= 5)
 		user << "\The [src] is <span class='danger'>infested with weeds</span>!"
