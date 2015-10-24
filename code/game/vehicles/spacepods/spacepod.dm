@@ -85,7 +85,7 @@
 	pr_give_air = null
 	qdel(ion_trail)
 	ion_trail = null
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 	if(occupant)
 		occupant.forceMove(get_turf(src))
 		occupant = null
@@ -149,7 +149,7 @@
 	var/oldhealth = health
 	health = max(0, health - damage)
 	var/percentage = (health / initial(health)) * 100
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 	if(occupant && oldhealth > health && percentage <= 25 && percentage > 0)
 		var/sound/S = sound('sound/effects/engine_alert2.ogg')
 		S.wait = 0 //No queue
@@ -188,7 +188,7 @@
 
 
 /obj/spacepod/ex_act(severity)
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 	switch(severity)
 		if(1)
 			var/mob/living/carbon/human/H = occupant
@@ -210,7 +210,7 @@
 				deal_damage(50)
 
 /obj/spacepod/emp_act(severity)
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 	switch(severity)
 		if(1)
 			if(src.occupant)	src.occupant << "<span class='warning'>The pod console flashes 'Heavy EMP WAVE DETECTED'.</span>" //warn the occupants
@@ -469,7 +469,7 @@
 	return
 
 /obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 	if(!occupant2)
 		H.stop_pulling()
 		H.forceMove(src)
@@ -482,7 +482,7 @@
 	if(!isliving(M))
 		return
 
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 
 	if(M != user && M.stat == DEAD && allow2enter)
 		if(occupant2 && !occupant)
@@ -527,7 +527,7 @@
 	if(!istype(user))
 		log_debug("SHIT'S GONE WRONG WITH THE SPACEPOD [src] AT [x], [y], [z], AREA [get_area(src)], TURF [get_turf(src)]")
 
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 
 	if(!occupant)
 		visible_message("<span class='notice'>[user] starts to climb into \the [src].</span>")
@@ -560,27 +560,27 @@
 		user << "<span class='danger'>You can't fit in \the [src], it's full!</span>"
 
 /obj/spacepod/proc
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()	// /obj/spacepod/proc/__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()	// /obj/spacepod/proc/__occupant_sanity_check()
 		if(occupant)
 			if(!ismob(occupant))
-				occupant = null
 				occupant.forceMove(get_turf(src))
 				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [occupant], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			else if(occupant.loc != src)
 				occupant = null
+			else if(occupant.loc != src)
 				log_debug("##SPACEPOD WARNING: OCCUPANT [occupant] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				occupant = null
 		if(occupant2)
 			if(!ismob(occupant2))
-				occupant2 = null
 				occupant2.forceMove(get_turf(src))
 				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [occupant2], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-			else if(occupant2.loc != src)
 				occupant2 = null
+			else if(occupant2.loc != src)
 				log_debug("##SPACEPOD WARNING: OCCUPANT [occupant2] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				occupant2 = null
 
 		if(!occupant && !allow2enter)
 			allow2enter = 1
-			log_debug("##SPACEPOD WARNING: SOME FUCKHEAD LEFT THE DOORS LOCKED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+			log_debug("##SPACEPOD WARNING: DOORS WERE STILL LOCKED WITH NO OCCUPANT, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 
 /obj/spacepod/verb/exit_pod()
 	set name = "Exit pod"
@@ -592,7 +592,7 @@
 	if(!istype(user))
 		return
 
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 
 	if(occupant == user)	spos = 1
 	if(occupant2 == user)	spos = 2
@@ -615,7 +615,7 @@
 	set category = "Spacepod"
 	set src = usr.loc
 
-	__SANITY_CHECK_FUCKING_OCCUPANT_VARS()
+	__occupant_sanity_check()
 
 	if(!occupant2)
 		usr << "<span class='notice'>There is no one in the second seat.</span>"
