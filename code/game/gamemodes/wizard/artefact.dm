@@ -628,9 +628,9 @@ var/global/list/multiverse = list()
 		user << "<span class='warning'>This artifact can only affect the dead!</span>"
 		return
 
-	//if(!M.mind || !M.client)
-	//	user << "<span class='warning'>There is no soul connected to this body...</span>"
-	//	return
+	if(!M.mind || !M.client)
+		user << "<span class='warning'>There is no soul connected to this body...</span>"
+		return
 
 	check_spooky()//clean out/refresh the list
 
