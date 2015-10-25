@@ -607,3 +607,28 @@ th.misc {
 .Pearl {
     color: #C6CACB;
 }
+
+/* Status bar colors for sleeper temperatures */
+.cold1 {
+	color: #94B8FF;
+}
+
+.cold2 {
+	color: #6699FF;
+}
+
+.cold3 {
+	color: #293D66;
+}
+
+.hot1 {
+	color: #FF9966;
+}
+
+.hot2 {
+	color: #993D00;
+}
+
+.hot3 {
+	color: #FF6600;
+}

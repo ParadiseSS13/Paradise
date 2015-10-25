@@ -115,56 +115,6 @@
 
 	if (src.connected)
 		ui_interact(user)
-		/*
-		var/mob/living/occupant = src.connected.occupant
-		var/dat = "<font color='blue'><B>Occupant Statistics:</B></FONT><BR>"
-		if (occupant)
-			var/t1
-			switch(occupant.stat)
-				if(0)
-					t1 = "Conscious"
-				if(1)
-					t1 = "<font color='blue'>Unconscious</font>"
-				if(2)
-					t1 = "<font color='red'>*dead*</font>"
-				else
-			dat += text("[]\tHealth %: [] ([])</FONT><BR>", (occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"), occupant.health, t1)
-			if(iscarbon(occupant))
-				var/mob/living/carbon/C = occupant
-				dat += text("[]\t-Pulse, bpm: []</FONT><BR>", (C.pulse == PULSE_NONE || C.pulse == PULSE_THREADY ? "<font color='red'>" : "<font color='blue'>"), C.get_pulse(GETPULSE_TOOL))
-			dat += text("[]\t-Brute Damage %: []</FONT><BR>", (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>"), occupant.getBruteLoss())
-			dat += text("[]\t-Respiratory Damage %: []</FONT><BR>", (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>"), occupant.getOxyLoss())
-			dat += text("[]\t-Toxin Content %: []</FONT><BR>", (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>"), occupant.getToxLoss())
-			dat += text("[]\t-Burn Severity %: []</FONT><BR>", (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>"), occupant.getFireLoss())
-			dat += text("<HR>Paralysis Summary %: [] ([] seconds left!)<BR>", occupant.paralysis, round(occupant.paralysis / 4))
-			if(occupant.reagents)
-				for(var/chemical in connected.injection_chems)
-					var/datum/reagent/C = chemical_reagents_list[chemical]
-					dat += "[C.name]: [occupant.reagents.get_reagent_amount(chemical)] units<br>"
-			dat += "<A href='?src=\ref[src];refresh=1'>Refresh Meter Readings</A><BR>"
-			if(src.connected.beaker)
-				dat += "<HR><A href='?src=\ref[src];removebeaker=1'>Remove Beaker</A><BR>"
-				if(src.connected.filtering)
-					dat += "<A href='?src=\ref[src];togglefilter=1'>Stop Dialysis</A><BR>"
-					dat += text("Output Beaker has [] units of free space remaining<BR><HR>", src.connected.beaker.reagents.maximum_volume - src.connected.beaker.reagents.total_volume)
-				else
-					dat += "<HR><A href='?src=\ref[src];togglefilter=1'>Start Dialysis</A><BR>"
-					dat += text("Output Beaker has [] units of free space remaining<BR><HR>", src.connected.beaker.reagents.maximum_volume - src.connected.beaker.reagents.total_volume)
-			else
-				dat += "<HR>No Dialysis Output Beaker is present.<BR><HR>"
-			for(var/chemical in connected.injection_chems)
-				var/datum/reagent/C = chemical_reagents_list[chemical]
-				dat += "Inject [C.name]: "
-				for(var/amount in connected.amounts)
-					dat += "<a href ='?src=\ref[src];chemical=[chemical];amount=[amount]'>[amount] units</a><br> "
-			dat += "<HR><A href='?src=\ref[src];ejectify=1'>Eject Patient</A>"
-		else
-			dat += "The sleeper is empty."
-		dat += text("<BR><BR><A href='?src=\ref[];mach_close=sleeper'>Close</A>", user)
-		user << browse(dat, "window=sleeper;size=400x500")
-		onclose(user, "sleeper")
-		*/
-	return
 
 /obj/machinery/sleep_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
@@ -182,13 +132,44 @@
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
-		occupantData["bodyTemperature"] = occupant.bodytemperature
 		occupantData["paralysis"] = occupant.paralysis
 		occupantData["hasBlood"] = 0
+		occupantData["bodyTemperature"] = occupant.bodytemperature
+		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
+		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
+		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
+		if (ishuman(occupant) && occupant.species)
+			// I wanna do something where the bar gets bluer as the temperature gets lower
+			// For now, I'll just use the standard format for the temperature status
+			var/datum/species/sp = occupant.species
+			if (occupant.bodytemperature < sp.cold_level_3)
+				occupantData["temperatureSuitability"] = -3
+			else if (occupant.bodytemperature < sp.cold_level_2)
+				occupantData["temperatureSuitability"] = -2
+			else if (occupant.bodytemperature < sp.cold_level_1)
+				occupantData["temperatureSuitability"] = -1
+			else if (occupant.bodytemperature > sp.heat_level_3)
+				occupantData["temperatureSuitability"] = 3
+			else if (occupant.bodytemperature > sp.heat_level_2)
+				occupantData["temperatureSuitability"] = 2
+			else if (occupant.bodytemperature > sp.heat_level_1)
+				occupantData["temperatureSuitability"] = 1
+		else if (istype(occupant, /mob/living/simple_animal))
+			var/mob/living/simple_animal/silly = occupant
+			if (silly.bodytemperature < silly.minbodytemp)
+				occupantData["temperatureSuitability"] = -3
+			else if (silly.bodytemperature > silly.maxbodytemp)
+				occupantData["temperatureSuitability"] = 3
+		// Blast you, imperial measurement system
+		occupantData["btCelsius"] = occupant.bodytemperature - T0C
+		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
+
+
 		crisis = (occupant.health < connected.min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
-		if (ishuman(occupant) && !(occupant.species.flags & NO_BLOOD) && occupant.vessel)
+		if (ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
+			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount("blood"))
 			occupantData["bloodMax"] = occupant.max_blood
@@ -223,7 +204,7 @@
 					overdosing = 1
 
 			// Because I don't know how to do this on the nano side
-			pretty_amount = round(reagent_amount, 0.1)
+			pretty_amount = round(reagent_amount, 0.05)
 
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 	data["chemicals"] = chemicals
