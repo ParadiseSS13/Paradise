@@ -8,7 +8,7 @@
 	icon_state = "console"
 	var/obj/machinery/sleeper/connected = null
 	var/ui_title = "Sleeper"
-	
+
 	anchored = 1 //About time someone fixed this.
 	density = 1
 	var/orient = "LEFT"
@@ -41,10 +41,6 @@
 /obj/machinery/sleep_console/RefreshParts()
 
 /obj/machinery/sleep_console/process()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	src.updateUsrDialog()
-	return
 
 /obj/machinery/sleep_console/ex_act(severity)
 	switch(severity)
@@ -118,6 +114,8 @@
 		findsleeper()
 
 	if (src.connected)
+		ui_interact(user)
+		/*
 		var/mob/living/occupant = src.connected.occupant
 		var/dat = "<font color='blue'><B>Occupant Statistics:</B></FONT><BR>"
 		if (occupant)
@@ -165,6 +163,7 @@
 		dat += text("<BR><BR><A href='?src=\ref[];mach_close=sleeper'>Close</A>", user)
 		user << browse(dat, "window=sleeper;size=400x500")
 		onclose(user, "sleeper")
+		*/
 	return
 
 /obj/machinery/sleep_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -172,6 +171,7 @@
 	var/mob/living/carbon/human/occupant = connected.occupant
 	data["hasOccupant"] = occupant ? 1 : 0
 	var/occupantData[0]
+	var/crisis = 0
 	if (occupant)
 		occupantData["name"] = occupant.name
 		occupantData["stat"] = occupant.stat
@@ -183,57 +183,87 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 		occupantData["bodyTemperature"] = occupant.bodytemperature
+		occupantData["paralysis"] = occupant.paralysis
+		occupantData["hasBlood"] = 0
+		crisis = (occupant.health < connected.min_health)
+		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
+		// Runtime is aptly named, isn't she?
+		if (ishuman(occupant) && !(occupant.species.flags & NO_BLOOD) && occupant.vessel)
+			occupantData["hasBlood"] = 1
+			occupantData["bloodLevel"] = round(occupant.vessel.get_reagent_amount("blood"))
+			occupantData["bloodMax"] = occupant.max_blood
+			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount("blood")/occupant.max_blood), 0.01)
+
 	data["occupant"] = occupantData
 	data["maxchem"] = connected.max_chem
 	data["minhealth"] = connected.min_health
+	data["dialysis"] = connected.filtering
+	if (connected.beaker)
+		data["isBeakerLoaded"] = 1
+		data["beakerFreeSpace"] = round(connected.beaker.reagents.maximum_volume - connected.beaker.reagents.total_volume)
 
 	var/chemicals[0]
 	for (var/re in connected.injection_chems)
 		var/datum/reagent/temp = chemical_reagents_list[re]
 		if(temp)
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = occupant.reagents.get_reagent_amount(temp))))
+			var/reagent_amount = 0
+			var/pretty_amount
+			var/injectable = occupant ? 1 : 0
+			var/overdosing = 0
+			var/caution = 0 // To make things clear that you're coming close to an overdose
+			if (crisis && !(temp.id in connected.emergency_chems))
+				injectable = 0
+
+			if (occupant && occupant.reagents)
+				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
+				// If they're mashing the highest concentration, they get one warning
+				if (temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
+					caution = 1
+				if (temp.id in occupant.reagents.overdose_list())
+					overdosing = 1
+
+			// Because I don't know how to do this on the nano side
+			pretty_amount = round(reagent_amount, 0.1)
+
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 	data["chemicals"] = chemicals
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		// Test values for window size right now
-		ui = new(user, src, ui_key, "sleeper.tmpl", ui_title, 390, 655)
+		ui = new(user, src, ui_key, "sleeper.tmpl", ui_title, 550, 655)
 		ui.set_initial_data(data)
 		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/sleep_console/Topic(href, href_list)
+	if(!connected | usr == connected.occupant)
+		return 0
+
 	if(..())
 		return 1
 
 	if(panel_open)
 		usr << "<span class='notice'>Close the maintenance panel first.</span>"
-		return 1
+		return 0
 
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
-		usr.set_machine(src)
 		if (href_list["chemical"])
 			if (src.connected)
 				if (src.connected.occupant)
 					if (src.connected.occupant.stat == DEAD)
 						usr << "\red \b This person has no life for to preserve anymore. Take them to a department capable of reanimating them."
-					else if(src.connected.occupant.health > src.connected.min_health || href_list["chemical"] == "epinephrine")
+					else if(src.connected.occupant.health > src.connected.min_health || (href_list["chemical"] in connected.emergency_chems))
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
 						usr << "\red \b This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!"
-					src.updateUsrDialog()
-		if (href_list["refresh"])
-			src.updateUsrDialog()
 		if (href_list["removebeaker"])
 			src.connected.remove_beaker()
-			src.updateUsrDialog()
 		if (href_list["togglefilter"])
 			src.connected.toggle_filter()
-			src.updateUsrDialog()
 		if (href_list["ejectify"])
 			src.connected.eject()
-			src.updateUsrDialog()
 		src.add_fingerprint(usr)
-	return
+	return 1
 
 /////////////////////////////////////////
 // THE SLEEPER ITSELF
@@ -252,6 +282,7 @@
 								   list("epinephrine", "ether", "salbutamol", "styptic_powder", "oculine"),
 								   list("epinephrine", "ether", "salbutamol", "styptic_powder", "oculine", "charcoal", "mutadone", "mannitol"),
 								   list("epinephrine", "ether", "salbutamol", "styptic_powder", "oculine", "charcoal", "mutadone", "mannitol", "pen_acid", "omnizine"))
+	var/emergency_chems = list("epinephrine") // Desnowflaking
 	var/amounts = list(5, 10)
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 	var/filtering = 0
@@ -264,12 +295,12 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			set_light(2)
-		else
-			set_light(0)
+/obj/machinery/sleeper/power_change()
+	..()
+	if(!(stat & (BROKEN|NOPOWER)))
+		set_light(2)
+	else
+		set_light(0)
 
 /obj/machinery/sleeper/New()
 	..()
@@ -313,10 +344,14 @@
 /obj/machinery/sleeper/process()
 	if(filtering > 0)
 		if(beaker)
+			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
+			if(!istype(occupant) || !occupant.dna || (occupant.species && occupant.species.flags & NO_BLOOD))
+				filtering = 0
+				return
+
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				src.occupant.vessel.trans_to(beaker, 1)
 				for(var/datum/reagent/x in src.occupant.reagents.reagent_list)
-	//            world << "FILTERING CHEMS"
 					src.occupant.reagents.trans_to(beaker, 3)
 					src.occupant.vessel.trans_to(beaker, 1)
 	src.updateDialog()
@@ -342,7 +377,6 @@
 			beaker = G
 			G.forceMove(src)
 			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
-			src.updateUsrDialog()
 			return
 
 		else
@@ -484,11 +518,14 @@
 	return
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
+	if (!(chemical in injection_chems))
+		user << "<span class='notice'>The sleeper does not offer that chemical!</notice>"
+		return
+
 	if(src.occupant)
 		if(src.occupant.reagents)
 			if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= max_chem)
 				src.occupant.reagents.add_reagent(chemical, amount)
-				user << "Occupant now has [src.occupant.reagents.get_reagent_amount(chemical)] units of [chemical] in his/her bloodstream."
 				return
 			else
 				user << "You can not inject any more of this chemical."
@@ -532,7 +569,7 @@
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Eject Sleeper"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -543,7 +580,7 @@
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Remove Beaker"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -557,7 +594,7 @@
 /obj/machinery/sleeper/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.resting) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -620,7 +657,7 @@
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Enter Sleeper"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
