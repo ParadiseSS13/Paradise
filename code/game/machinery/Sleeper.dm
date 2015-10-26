@@ -232,11 +232,11 @@
 			if (src.connected)
 				if (src.connected.occupant)
 					if (src.connected.occupant.stat == DEAD)
-						usr << "\red \b This person has no life for to preserve anymore. Take them to a department capable of reanimating them."
+						usr << "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>"
 					else if(src.connected.occupant.health > src.connected.min_health || (href_list["chemical"] in connected.emergency_chems))
 						src.connected.inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 					else
-						usr << "\red \b This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!"
+						usr << "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>"
 		if (href_list["removebeaker"])
 			src.connected.remove_beaker()
 		if (href_list["togglefilter"])
@@ -269,7 +269,7 @@
 	var/filtering = 0
 	var/max_chem
 	var/initial_bin_rating = 1
-	var/min_health = 25
+	var/min_health = -25
 	var/injection_chems = list()
 	idle_power_usage = 1250
 	active_power_usage = 2500
@@ -361,7 +361,7 @@
 			return
 
 		else
-			user << "\red The sleeper has a beaker already."
+			user << "<span class='warning'>The sleeper has a beaker already.</span>"
 			return
 
 	if (istype(G, /obj/item/weapon/screwdriver))
@@ -393,12 +393,12 @@
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
-			user << "\blue <b>Close the maintenance panel first.</b>"
+			user << "<span class='boldnotice'>Close the maintenance panel first.</span>"
 			return
 		if(!ismob(G:affecting))
 			return
 		if(src.occupant)
-			user << "\blue <B>The sleeper is already occupied!</B>"
+			user << "<span class='boldnotice'>The sleeper is already occupied!</span>"
 			return
 		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
 			if(M.Victim == G:affecting)
@@ -409,7 +409,7 @@
 
 		if(do_after(user, 20, target = G:affecting))
 			if(src.occupant)
-				user << "\blue <B>The sleeper is already occupied!</B>"
+				user << "<span class='boldnotice'>The sleeper is already occupied!</span>"
 				return
 			if(!G || !G:affecting) return
 			var/mob/M = G:affecting
@@ -419,7 +419,7 @@
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "sleeper"
-			M << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
+			M << "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>"
 
 			src.add_fingerprint(user)
 			qdel(G)
@@ -464,6 +464,7 @@
 	..(severity)
 
 // ???
+// This looks cool, although mildly broken, should it be included again?
 /obj/machinery/sleeper/alter_health(mob/living/M as mob)
 	if (M.health > 0)
 		if (M.getOxyLoss() >= 10)
@@ -518,36 +519,6 @@
 		user << "There's no occupant in the sleeper!"
 		return
 
-
-/obj/machinery/sleeper/proc/check(mob/living/user as mob)
-	if(src.occupant)
-		user << text("\blue <B>Occupant ([]) Statistics:</B>", src.occupant)
-		var/t1
-		switch(src.occupant.stat)
-			if(0.0)
-				t1 = "Conscious"
-			if(1.0)
-				t1 = "Unconscious"
-			if(2.0)
-				t1 = "*dead*"
-			else
-		user << text("[]\t Health %: [] ([])", (src.occupant.health > 50 ? "\blue " : "\red "), src.occupant.health, t1)
-		user << text("[]\t -Core Temperature: []&deg;C ([]&deg;F)</FONT><BR>", (src.occupant.bodytemperature > 50 ? "<font color='blue'>" : "<font color='red'>"), src.occupant.bodytemperature-T0C, src.occupant.bodytemperature*1.8-459.67)
-		user << text("[]\t -Brute Damage %: []", (src.occupant.getBruteLoss() < 60 ? "\blue " : "\red "), src.occupant.getBruteLoss())
-		user << text("[]\t -Respiratory Damage %: []", (src.occupant.getOxyLoss() < 60 ? "\blue " : "\red "), src.occupant.getOxyLoss())
-		user << text("[]\t -Toxin Content %: []", (src.occupant.getToxLoss() < 60 ? "\blue " : "\red "), src.occupant.getToxLoss())
-		user << text("[]\t -Burn Severity %: []", (src.occupant.getFireLoss() < 60 ? "\blue " : "\red "), src.occupant.getFireLoss())
-		user << "\blue Expected time till occupant can safely awake: (note: If health is below 20% these times are inaccurate)"
-		user << text("\blue \t [] second\s (if around 1 or 2 the sleeper is keeping them asleep.)", src.occupant.paralysis / 5)
-		if(src.beaker)
-			user << text("\blue \t Dialysis Output Beaker has [] of free space remaining.", src.beaker.reagents.maximum_volume - src.beaker.reagents.total_volume)
-		else
-			user << "\blue No Dialysis Output Beaker loaded."
-	else
-		user << "\blue There is no one inside!"
-	return
-
-
 /obj/machinery/sleeper/verb/eject()
 	set name = "Eject Sleeper"
 	set category = "Object"
@@ -590,10 +561,10 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(panel_open)
-		user << "\blue <B>Close the maintenance panel first.</B>"
+		user << "<span class='boldnotice'>Close the maintenance panel first.</span>"
 		return
 	if(occupant)
-		user << "\blue <B>The sleeper is already occupied!</B>"
+		user << "<span class='boldnotice'>The sleeper is already occupied!</span>"
 		return
 /*	if(isrobot(user))
 		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
@@ -603,7 +574,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "\blue <B>Subject cannot have abiotic items on.</B>"
+		user << "<span class='boldnotice'>Subject cannot have abiotic items on.</span>"
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
@@ -616,7 +587,7 @@
 
 	if(do_after(user, 20, target = L))
 		if(src.occupant)
-			user << "\blue <B>The sleeper is already occupied!</B>"
+			user << "<span class='boldnotice'>>The sleeper is already occupied!</span>"
 			return
 		if(!L) return
 
@@ -626,7 +597,7 @@
 		L.forceMove(src)
 		src.occupant = L
 		src.icon_state = "sleeper"
-		L << "\blue <b>You feel cool air surround you. You go numb as your senses turn inward.</b>"
+		L << "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>"
 		src.add_fingerprint(user)
 		if(user.pulling == L)
 			user.pulling = null
@@ -643,10 +614,10 @@
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
 	if(src.occupant)
-		usr << "\blue <B>The sleeper is already occupied!</B>"
+		usr << "<span class='boldnotice'>The sleeper is already occupied!</span>"
 		return
 	if (panel_open)
-		usr << "\blue <B>Close the maintenance panel first.</B>"
+		usr << "<span class='boldnotice'>Close the maintenance panel first.</span>"
 		return
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
@@ -657,7 +628,7 @@
 	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
 		if(src.occupant)
-			usr << "\blue <B>The sleeper is already occupied!</B>"
+			usr << "<span class='boldnotice'>The sleeper is already occupied!</span>"
 			return
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
