@@ -91,8 +91,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
 		return											//We go ahead and process them 5 times for HUD images and other stuff though.
 
-	handle_actions()
-
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 	pulse = handle_pulse()
