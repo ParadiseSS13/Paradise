@@ -1,39 +1,5 @@
-/mob/living/carbon/brain/Life()
-	set invisibility = 0
-	//set background = 1
-	..()
-
-	if(stat != DEAD)
-		//Mutations and radiation
-		handle_mutations_and_radiation()
-
-		//Chemicals in the body
-		handle_chemicals_in_body()
-
-	var/datum/gas_mixture/environment // Added to prevent null location errors-- TLE
-	if(loc)
-		environment = loc.return_air()
-
-	//Apparently, the person who wrote this code designed it so that
-	//blinded get reset each cycle and then get activated later in the
-	//code. Very ugly. I dont care. Moving this stuff here so its easy
-	//to find it.
-	blinded = null
-
-	//Handle temperature/pressure differences between body and environment
-	if(environment)	// More error checking -- TLE
-		handle_environment(environment)
-
-	//Status updates, death etc.
-	handle_regular_status_updates()
-	update_canmove()
-
-	if(client)
-		handle_regular_hud_updates()
-
-
 /mob/living/carbon/brain/
-	proc/handle_mutations_and_radiation()
+	handle_mutations_and_radiation()
 
 		if (radiation)
 			if (radiation > 100)
@@ -68,7 +34,7 @@
 					adjustToxLoss(3)
 					updatehealth()
 
-	proc/handle_environment(datum/gas_mixture/environment)
+	handle_environment(datum/gas_mixture/environment)
 		if(!environment)
 			return
 		var/environment_heat_capacity = environment.heat_capacity()
@@ -104,7 +70,7 @@
 
 
 
-	proc/handle_chemicals_in_body()
+	handle_chemicals_in_body()
 
 		if(reagents) reagents.metabolize(src)
 
@@ -120,7 +86,7 @@
 		return //TODO: DEFERRED
 
 
-	proc/handle_regular_status_updates()	//TODO: comment out the unused bits >_>
+	handle_regular_status_updates()	//TODO: comment out the unused bits >_>
 		updatehealth()
 
 		if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
@@ -191,7 +157,7 @@
 		return 1
 
 
-	proc/handle_regular_hud_updates()
+	handle_regular_hud_updates()
 
 		if (stat == 2 || (XRAY in src.mutations))
 			sight |= SEE_TURFS

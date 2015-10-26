@@ -88,10 +88,9 @@
 	return
 
 /mob/living/simple_animal/Life()
-	if(paralysis || stunned || weakened || buckled || resting)
-		canmove = 0
-	else
-		canmove = 1
+
+	update_gravity(mob_has_gravity())
+	update_canmove()
 
 	//Health
 	if(stat == DEAD)
@@ -555,3 +554,27 @@
 		verb = pick(speak_emote)
 
 	return verb
+
+/mob/living/simple_animal/update_canmove()
+	if(paralysis || stunned || weakened || stat || resting)
+		drop_r_hand()
+		drop_l_hand()
+		canmove = 0
+	else if(buckled)
+		canmove = 0
+	else
+		canmove = 1
+	update_transform()
+	return canmove
+
+/mob/living/simple_animal/update_transform()
+	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)

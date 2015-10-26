@@ -85,7 +85,7 @@
 		return
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
-/mob/living/carbon/alien/proc/handle_environment(var/datum/gas_mixture/environment)
+/mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
 	//If there are alien weeds on the ground then heal if needed or give some toxins
 	if(locate(/obj/structure/alien/weeds) in loc)
@@ -136,7 +136,7 @@
 					fire_alert = max(fire_alert, 2)
 	return
 
-/mob/living/carbon/alien/proc/handle_mutations_and_radiation()
+/mob/living/carbon/alien/handle_mutations_and_radiation()
 	if(getFireLoss())
 		if((RESIST_HEAT in mutations) || prob(5))
 			adjustFireLoss(-1)
@@ -169,11 +169,6 @@
 	if(..())
 		return
 	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
-	return
-
-/mob/living/carbon/alien/proc/handle_wetness()
-	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
-		wetlevel = max(wetlevel - 1,0)
 	return
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
