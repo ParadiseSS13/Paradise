@@ -63,50 +63,50 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 				<div class="statusLabel">Patient Temperature:</div>
 				{{if data.occupant.temperatureSuitability == -3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold3')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold2')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'cold1')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 0}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot1')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot2')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'hot3')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{/if}}
 				If you can get the changing temperature bars to work right, congratulations
 				-->
 				<div class="statusLabel">Patient Temperature:</div>
 				{{if data.occupant.temperatureSuitability == -3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == -1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 0}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'good')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 1}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 2}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'average')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{else data.occupant.temperatureSuitability == 3}}
 				{{:helper.displayBar(data.occupant.bodyTemperature, 0, data.occupant.maxTemp, 'bad')}}
-				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}C, {{:helper.round(data.occupant.btFaren)}}F</div>
+				<div class="statusValue bad">{{:helper.round(data.occupant.btCelsius)}}&deg;C, {{:helper.round(data.occupant.btFaren)}}&deg;F</div>
 				{{/if}}
 			</div>
 			
