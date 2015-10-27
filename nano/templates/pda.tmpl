@@ -69,6 +69,14 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 				margin: 0 2px 2px 0;
 			}
 			
+			.uiIcon16 {
+				background-image: none;
+				float: left;
+				width: auto;
+				height: auto;
+				margin: 0 0 0 0;
+			}
+			
 			#uiTitleText {
 				color: #000000;
 			}
@@ -307,7 +315,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Current Conversations</H3>
                 {{for data.convopdas}}
                     <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, 'pdalink fixedLeftWider')}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, 'pdalink')}}
                         {{if data.cartridge}}
                             {{if data.cartridge.access.access_detonate_pda && value.Detonate}}
                                 {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
@@ -324,7 +332,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Other PDAs</H3>
                 {{for data.pdas}}
                     <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, 'pdalink fixedLeftWider')}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, 'pdalink')}}
                         {{if data.cartridge}}
                             {{if data.cartridge.access.access_detonate_pda && value.Detonate}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'pdalink fixedLeft')}} {{/if}}
                             {{if data.cartridge.access.access_clown}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'pdalink fixedLeft')}} {{/if}}
