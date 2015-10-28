@@ -56,6 +56,9 @@ var/global/list/moneytypes=list(
 		stack.color=stack_color
 		overlays += stack
 
+/obj/item/weapon/spacecash/proc/get_total()
+	return worth * amount
+
 /obj/item/weapon/spacecash/c10
 	icon_state = "cash10"
 	worth = 10
@@ -105,4 +108,4 @@ var/global/list/moneytypes=list(
 /proc/count_cash(var/list/cash)
 	. = 0
 	for(var/obj/item/weapon/spacecash/C in cash)
-		. += C.amount * C.worth
+		. += C.get_total()

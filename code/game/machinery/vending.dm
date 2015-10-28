@@ -292,7 +292,7 @@
  *  usr is the mob who gets the change.
  */
 /obj/machinery/vending/proc/pay_with_cash(var/obj/item/weapon/spacecash/cashmoney, mob/user)
-	if(currently_vending.price > cashmoney.worth)
+	if(currently_vending.price > cashmoney.get_total())
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
 		usr << "\icon[cashmoney] <span class='warning'>That is not enough money.</span>"
@@ -304,7 +304,7 @@
 	// just assume that all spacecash that's not something else is a bill
 
 	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	var/left = cashmoney.worth - currently_vending.price
+	var/left = cashmoney.get_total() - currently_vending.price
 	usr.unEquip(cashmoney)
 	qdel(cashmoney)
 
