@@ -150,6 +150,22 @@
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
+	var/see_ghosts = 0 //for the spoop of it
+
+
+/obj/item/device/camera/CheckParts()
+	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
+	if(C)
+		pictures_max = C.pictures_max
+		pictures_left = C.pictures_left
+		visible_message("[C] has been imbued with godlike power!")
+		qdel(C)
+
+
+/obj/item/device/camera/spooky
+	name = "camera obscura"
+	desc = "A polaroid camera, some say it can see ghosts!"
+	see_ghosts = 1
 
 /obj/item/device/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -199,7 +215,13 @@
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
-			if(A.invisibility) continue
+			if(A.invisibility )
+				if(see_ghosts && istype(A,/mob/dead/observer))
+					var/mob/dead/observer/O = A
+					if(O.following) //so you dont see ghosts following people like antags, etc.
+						continue
+				else
+					continue
 			atoms.Add(A)
 
 	// Sort the atoms into their layers
@@ -235,21 +257,35 @@
 
 /obj/item/device/camera/proc/get_mobs(turf/the_turf as turf)
 	var/mob_detail
-	for(var/mob/living/carbon/A in the_turf)
-		if(A.invisibility) continue
-		var/holding = null
-		if(A.l_hand || A.r_hand)
-			if(A.l_hand) holding = "They are holding \a [A.l_hand]"
-			if(A.r_hand)
-				if(holding)
-					holding += " and \a [A.r_hand]"
+	for(var/mob/M in the_turf)
+		if(M.invisibility)
+			if(see_ghosts && istype(M,/mob/dead/observer))
+				var/mob/dead/observer/O = M
+				if(O.following)
+					continue
+				if(!mob_detail)
+					mob_detail = "You can see a g-g-g-g-ghooooost! "
 				else
-					holding = "They are holding \a [A.r_hand]"
+					mob_detail += "You can also see a g-g-g-g-ghooooost!"
+			else
+				continue
 
-		if(!mob_detail)
-			mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
-		else
-			mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
+		var/holding = null
+
+		if(istype(M, /mob/living/carbon))
+			var/mob/living/carbon/A = M
+			if(A.l_hand || A.r_hand)
+				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
+				if(A.r_hand)
+					if(holding)
+						holding += " and \a [A.r_hand]"
+					else
+						holding = "They are holding \a [A.r_hand]"
+
+			if(!mob_detail)
+				mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
+			else
+				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/device/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)

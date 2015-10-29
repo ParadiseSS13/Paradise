@@ -183,6 +183,10 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
 
+/obj/effect/decal/cleanable/blood/gibs/New()
+	..()
+	reagents.add_reagent("liquidgibs", 5)
+
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
         spawn (0)

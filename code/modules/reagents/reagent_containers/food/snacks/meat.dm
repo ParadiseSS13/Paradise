@@ -33,6 +33,9 @@
 	var/subjectname = ""
 	var/subjectjob = null
 
+/obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct
+	name = "meat product"
+	desc = "A slab of station reclaimed and chemically processed meat product."
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 	//same as plain meat
