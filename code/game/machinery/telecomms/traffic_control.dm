@@ -32,7 +32,9 @@
 		editingcode = user
 		lasteditor = user
 
-	var/dat = "<center><b>Telecommunications Traffic Control</b></center>"
+	var/dat = {"<head><meta http-equiv="X-UA-Compatible" content="IE=edge"/> </head>"}
+
+	dat +=  "<center><b>Telecommunications Traffic Control</b></center>"
 
 	if(screen == 0) //main menu
 		dat += "<br>[temp]</br>"
@@ -71,7 +73,6 @@
 
 					<style type="text/css">
 						.CodeMirror {
-						  border: 1px solid #444;
 						  height: auto;
 						}
 						button {
@@ -101,6 +102,7 @@
 							lineNumbers: true,
 							indentUnit: 4,
 							indentWithTabs: true,
+							mode: "NTSL",
 							theme: "lesser-dark",
 							viewportMargin: Infinity
 							}
@@ -126,10 +128,14 @@
 						</textarea>
 						<script>
 							var editor = CodeMirror.fromTextArea(document.getElementById("fSubmit"),
-							{ lineNumbers: true,
+							{
+							lineNumbers: true,
 							indentUnit: 4,
 							indentWithTabs: true,
-							theme: "lesser-dark" }
+							mode: "NTSL",
+							theme: "lesser-dark",
+							viewportMargin: Infinity
+							}
 							);
 						</script>
 					</div>
