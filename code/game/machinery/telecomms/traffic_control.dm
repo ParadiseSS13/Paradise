@@ -206,7 +206,7 @@
 
 
 					else
-						compiling_errors = "<font color = blue>TCS compilation successful!</font><br>"
+						compiling_errors = "<font color='#4266DB'>TCS compilation successful!</font><br>"
 						compiling_errors += "(0 errors)"
 
 					updateUsrDialog()
@@ -219,7 +219,7 @@
 				var/obj/machinery/telecomms/server/Server = SelectedServer
 				Server.memory = list() // clear the memory
 
-				compiling_errors = "<font color='blue'>Server Memory Cleared!</font>"
+				compiling_errors = "<font color='#4266DB'>Server Memory Cleared!</font>"
 				updateUsrDialog()
 
 	if(href_list["viewserver"])
