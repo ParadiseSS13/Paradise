@@ -1,4 +1,8 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
+
+	if (stat == DEAD)
+		return // No screaming bodies
+
 	var/param = null
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)

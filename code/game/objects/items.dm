@@ -136,7 +136,7 @@
 		if(5.0)
 			size = "huge"
 
-	..(user, distance, "", "It is a [size] item.")
+	. = ..(user, distance, "", "It is a [size] item.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"

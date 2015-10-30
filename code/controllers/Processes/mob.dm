@@ -1,12 +1,16 @@
+var/global/datum/controller/process/mob/mob_master
+
 /datum/controller/process/mob
+	var/current_cycle
 
 /datum/controller/process/mob/setup()
 	name = "mob"
 	schedule_interval = 20 // every 2 seconds
 	start_delay = 16
-	if(!mob_master)
-		mob_master = new
-		mob_master.Setup()
+	log_startup_progress("Mob ticker starting up.")
+	if(mob_master)
+		qdel(mob_master) //only one mob master
+	mob_master = src
 
 /datum/controller/process/mob/started()
 	..()
@@ -29,17 +33,4 @@
 		else
 			catchBadType(M)
 			mob_list -= M
-	mob_master.process()
-
-var/global/datum/controller/mob_system/mob_master
-
-/datum/controller/mob_system
-	var/current_cycle
-	var/starttime
-
-/datum/controller/mob_system/proc/Setup()
-	log_startup_progress("Mob ticker starting up.")
-	starttime = world.timeofday
-
-/datum/controller/mob_system/proc/process()
 	current_cycle++

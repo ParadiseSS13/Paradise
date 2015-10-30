@@ -179,6 +179,13 @@
 /obj/item/weapon/card/id/proc/is_untrackable()
 	return untrackable
 
+/obj/item/weapon/card/id/proc/update_label(newname, newjob)
+	if(newname || newjob)
+		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
+		return
+
+	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+
 /obj/item/weapon/card/id/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 
@@ -623,12 +630,12 @@
 	assignment = "Green Team Fighter"
 	icon_state = "TDgreen"
 	desc = "This ID card is given to those who fought inside the thunderdome for the Green Team. Not many have lived to see one of those, even fewer lived to keep it."
-	
+
 /obj/item/weapon/card/id/lifetime
 	name = "Lifetime ID Card"
 	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."
 	icon_state = "lifetimeid"
-	
+
 // Decals
 /obj/item/weapon/id_decal
 	name = "identification card decal"
