@@ -105,7 +105,7 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-		O.update_gravity(O.mob_has_gravity(src))
+//		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
 	for(var/atom/A in range(1))

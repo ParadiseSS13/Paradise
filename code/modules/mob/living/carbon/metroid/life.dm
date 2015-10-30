@@ -6,45 +6,11 @@
 	var/SStun = 0 // stun variable
 
 /mob/living/carbon/slime/Life()
-	set invisibility = 0
-	//set background = 1
-
-	if (src.notransform)
-		return
-
-	..()
-
-	if(stat != DEAD)
-		//Chemicals in the body
-		handle_chemicals_in_body()
-
+	if(..())
 		handle_nutrition()
-
 		handle_targets()
-
 		if (!ckey)
 			handle_speech_and_mood()
-
-	var/datum/gas_mixture/environment
-	if(src.loc)
-		environment = loc.return_air()
-
-	//Apparently, the person who wrote this code designed it so that
-	//blinded get reset each cycle and then get activated later in the
-	//code. Very ugly. I dont care. Moving this stuff here so its easy
-	//to find it.
-	src.blinded = null
-
-	regular_hud_updates() // Basically just deletes any screen objects :<
-
-	if(environment)
-		handle_environment(environment) // Handle temperature/pressure differences between body and environment
-
-	handle_regular_status_updates() // Status updates, death etc.
-
-	handle_actions()
-
-	handle_wetness()
 
 /mob/living/carbon/slime/proc/AIprocess()  // the master AI process
 
@@ -126,7 +92,7 @@
 
 	AIproc = 0
 
-/mob/living/carbon/slime/proc/handle_environment(datum/gas_mixture/environment)
+/mob/living/carbon/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		adjustToxLoss(rand(10,20))
 		return
@@ -141,7 +107,7 @@
 		loc_temp = loc:air_contents.temperature
 	else
 		loc_temp = environment.temperature
-	
+
 	//Account for massive pressure differences
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 		if(bodytemperature <= (T0C - 40)) // stun temperature
@@ -154,7 +120,7 @@
 				adjustToxLoss(round(sqrt(bodytemperature)) * 2)
 	else
 		Tempstun = 0
-	
+
 
 	/*moved after the temperature damage code so freeze beams can instantly kill slimes -Deity Link*/
 	if(loc_temp < 310.15) // a cold place
@@ -183,7 +149,7 @@
 	temp_change = (temperature - current)
 	return temp_change
 
-/mob/living/carbon/slime/proc/handle_chemicals_in_body()
+/mob/living/carbon/slime/handle_chemicals_in_body()
 
 	if(reagents) reagents.metabolize(src)
 	if (reagents.get_reagent_amount("plasma")>=5)
@@ -196,7 +162,7 @@
 
 	return //TODO: DEFERRED
 
-/mob/living/carbon/slime/proc/handle_regular_status_updates()
+/mob/living/carbon/slime/handle_regular_status_updates()
 
 	if(is_adult)
 		health = 200 - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss())
@@ -289,10 +255,6 @@
 		else
 			Evolve()
 
-/mob/living/carbon/slime/proc/handle_wetness()
-	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
-		wetlevel = max(wetlevel - 1,0)
-	return
 
 /mob/living/carbon/slime/proc/handle_targets()
 	if(Tempstun)
