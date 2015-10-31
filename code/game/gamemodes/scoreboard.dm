@@ -55,15 +55,7 @@
 		var/area/escape_zone = locate(/area/shuttle/escape/centcom)
 
 		if(E.stat != DEAD && location in escape_zone) // Escapee Scores
-			for(var/obj/item/weapon/card/id/C1 in E.contents)
-				cash_score += C1.money
-			for(var/obj/item/weapon/spacecash/C2 in E.contents)
-				cash_score += C2.worth
-			for(var/obj/item/weapon/storage/S in E.contents)
-				for(var/obj/item/weapon/card/id/C3 in S.contents)
-					cash_score += C3.money
-				for(var/obj/item/weapon/spacecash/C4 in S.contents)
-					cash_score += C4.worth
+			cash_score = get_score_container_worth(E)
 
 			if(cash_score > score_richestcash)
 				score_richestcash = cash_score
@@ -163,6 +155,22 @@
 			if(E.client.prefs && !(E.client.prefs.toggles & DISABLE_SCOREBOARD))
 				E.scorestats()
 
+// A recursive function to properly determine the wealthiest escapee
+/datum/controller/gameticker/proc/get_score_container_worth(atom/C, level=0)
+	if(level >= 5)
+		// in case the containers recurse or something
+		return 0
+	else
+		. = 0
+		for(var/obj/item/weapon/card/id/id in C.contents)
+			var/datum/money_account/A = get_money_account(id.associated_account_number)
+			// has an account?
+			if(A)
+				. += A.money
+		for(var/obj/item/weapon/spacecash/cash in C.contents)
+			. += cash.get_total()
+		for(var/obj/item/weapon/storage/S in C.contents)
+			. += .(S, level + 1)
 
 /datum/game_mode/proc/get_scoreboard_stats()
 	return null

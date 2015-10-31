@@ -13,8 +13,6 @@ log transactions
 #define VIEW_TRANSACTION_LOGS 3
 #define PRINT_DELAY 100
 
-/obj/item/weapon/card/id/var/money = 2000
-
 /obj/machinery/atm
 	name = "Nanotrasen Automatic Teller Machine"
 	desc = "For all your monetary needs!"
@@ -97,7 +95,8 @@ log transactions
 	else if(authenticated_account)
 		if(istype(I,/obj/item/weapon/spacecash))
 			//consume the money
-			authenticated_account.money += I:worth * I:amount
+			var/obj/item/weapon/spacecash/C = I
+			authenticated_account.money += C.get_total()
 			if(prob(50))
 				playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 			else
@@ -107,13 +106,13 @@ log transactions
 			var/datum/transaction/T = new()
 			T.target_name = authenticated_account.owner_name
 			T.purpose = "Credit deposit"
-			T.amount = I:worth
+			T.amount = C.get_total()
 			T.source_terminal = machine_id
 			T.date = current_date_string
 			T.time = worldtime2text()
 			authenticated_account.transaction_log.Add(T)
 
-			user << "<span class='info'>You insert [I] into [src].</span>"
+			user << "<span class='info'>You insert [C] into [src].</span>"
 			src.attack_hand(user)
 			qdel(I)
 	else
