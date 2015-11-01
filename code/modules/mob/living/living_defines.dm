@@ -52,3 +52,4 @@
 	var/last_played_vent
 
 	var/list/datum/action/actions = list()
+	var/step_count = 0

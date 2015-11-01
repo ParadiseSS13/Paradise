@@ -82,3 +82,21 @@
 				return
 			var/obj/item/clothing/shoes/S = shoes
 			S.step_action(src)
+
+/mob/living/carbon/human/handle_footstep(turf/T)
+	if(..())
+		if(T.footstep_sounds["human"])
+			var/S = pick(T.footstep_sounds["human"])
+			if(S)
+				if(m_intent == "run")
+					if(!(step_count % 2)) //every other turf makes a sound
+						return 0
+				playsound(T, S, shoes ? 15 : 7, 1, shoes ? 0 : -(world.view/2))
+					//this looks insane but it actually is quite simple
+					//play sound at turf T, using sound S
+					//volume = 15 w/ shoes, volume = 7 w/o shoes
+					//do use vary
+					//add negative world.view/2 if not wearing shoes
+				return 1
+
+	return 0

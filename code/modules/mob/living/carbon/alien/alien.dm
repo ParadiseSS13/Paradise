@@ -295,3 +295,16 @@ Des: Removes all infected images from the alien.
 #undef HEAT_DAMAGE_LEVEL_1
 #undef HEAT_DAMAGE_LEVEL_2
 #undef HEAT_DAMAGE_LEVEL_3
+
+/mob/living/carbon/alien/handle_footstep(turf/T)
+	if(..())
+		if(T.footstep_sounds["xeno"])
+			var/S = pick(T.footstep_sounds["xeno"])
+			if(S)
+				if(m_intent == "run")
+					if(!(step_count % 2)) //every other turf makes a sound
+						return 0
+				if(leaping)
+					return 0
+				playsound(T, S, 6, 1, -(world.view/2)) //xenos are quiet fuckers
+	return 0
