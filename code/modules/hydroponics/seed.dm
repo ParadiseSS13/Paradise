@@ -342,6 +342,8 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
+		if(target.z in config.admin_levels)
+			return 1
 
 		//Plant potency determines radius of teleport.
 		var/outer_teleport_radius = get_trait(TRAIT_POTENCY)/5
