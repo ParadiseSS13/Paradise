@@ -478,13 +478,11 @@
 
 /mob/living/simple_animal/adjustBruteLoss(damage)
 	if(!ignored_damage_types[BRUTE])
-		health = Clamp(health - damage, 0, maxHealth)
-		if(health < 1)
-			Die()
+		..()
 
 /mob/living/simple_animal/adjustFireLoss(damage)
 	if(!ignored_damage_types[BURN])
-		adjustBruteLoss(damage)
+		..(damage)
 
 /mob/living/simple_animal/adjustToxLoss(damage)
 	if(!ignored_damage_types[TOX])
