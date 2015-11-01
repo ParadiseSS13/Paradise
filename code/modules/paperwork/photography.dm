@@ -153,7 +153,7 @@
 	var/see_ghosts = 0 //for the spoop of it
 
 
-/obj/item/device/camera/CheckParts()
+/obj/item/device/camera/spooky/CheckParts()
 	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
 	if(C)
 		pictures_max = C.pictures_max
@@ -166,6 +166,16 @@
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = 1
+/////spooky helpers!/////
+/obj/effect/spookyghost
+	name = "Spooky Ghost"
+	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "ghost"
+	layer = 4
+	density = 0
+	anchored = 1	//  don't get pushed around
+	invisibility = INVISIBILITY_OBSERVER
 
 /obj/item/device/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -215,14 +225,20 @@
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
+			var/obj/effect/spookyghost/SPOOK
 			if(A.invisibility )
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
 					if(O.following) //so you dont see ghosts following people like antags, etc.
 						continue
+					else
+						SPOOK = new(A.loc)
+						A = SPOOK
 				else
 					continue
 			atoms.Add(A)
+			if(SPOOK)
+				qdel(SPOOK)
 
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)

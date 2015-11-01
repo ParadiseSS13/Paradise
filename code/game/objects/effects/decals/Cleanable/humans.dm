@@ -185,6 +185,7 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/gibs/New()
 	..()
+	noclear = 1
 	reagents.add_reagent("liquidgibs", 5)
 
 
