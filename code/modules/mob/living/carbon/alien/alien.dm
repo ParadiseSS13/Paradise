@@ -304,7 +304,21 @@ Des: Removes all infected images from the alien.
 				if(m_intent == "run")
 					if(!(step_count % 2)) //every other turf makes a sound
 						return 0
-				if(leaping)
-					return 0
-				playsound(T, S, 6, 1, -(world.view/2)) //xenos are quiet fuckers
+
+				var/range = -(world.view - 2)
+				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
+				var/volume = 5
+
+				if(m_intent == "walk")
+					return 0 //silent when walking
+
+				if(buckled || lying || throwing)
+					return 0 //people flying, lying down or sitting do not step
+
+				if(!has_gravity(src))
+					if(step_count % 3) //this basically says, every three moves make a noise
+						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
+
+				playsound(T, S, volume, 1, range)
+				return 1
 	return 0
