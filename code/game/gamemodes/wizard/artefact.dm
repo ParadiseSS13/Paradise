@@ -687,6 +687,7 @@ var/global/list/multiverse = list()
 			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
 			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
