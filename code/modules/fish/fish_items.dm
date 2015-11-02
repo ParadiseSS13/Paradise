@@ -86,7 +86,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 		src.bitesize = 1
 
 /obj/item/weapon/reagent_containers/food/snacks/feederfish
-	name = "shrimp"
+	name = "feeder fish"
 	desc = "A tiny feeder fish. Sure doesn't look very filling..."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "feederfish"
