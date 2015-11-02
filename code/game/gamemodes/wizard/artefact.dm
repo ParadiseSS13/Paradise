@@ -685,18 +685,22 @@ var/global/list/multiverse = list()
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
-			H.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/pirate(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/weapon/katana(H), slot_belt)
 		if("clown")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(H), slot_l_store)
-			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/staff/stick(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
 
 
 /obj/item/device/necromantic_stone/nya
@@ -788,7 +792,7 @@ var/global/list/multiverse = list()
 			if("r_arm","l_arm")
 				//use active hand on random nearby mob
 				var/list/nearby_mobs = list()
-				for(var/mob/living/L in range(target,1))
+				for(var/mob/living/L in range(1,target))
 					if(L!=target)
 						nearby_mobs |= L
 				if(nearby_mobs.len)
