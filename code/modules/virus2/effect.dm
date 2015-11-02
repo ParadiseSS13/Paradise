@@ -296,8 +296,31 @@
 			var/mob/living/carbon/human/h = mob
 			if(h.species.name != "Tajaran")
 				if(h.set_species("Tajaran"))
+					h.restore_blood() //in case they're something that doesn't have blood.
+					var/random_tajaran_hair = pick("Tajaran Ears","Tajara Clean","Tajara Bangs","Tajara Braid","Tajara Shaggy","Tajaran Mohawk","Tajara Plait","Tajara Straight","Tajara Long","Tajara Rat Tail","Tajara Spiky","Tajara Messy")
+					h.h_style = random_tajaran_hair
+					if(h.gender == MALE)
+						var/random_tajaran_facial_hair = pick("Tajara Sideburns","Tajara Mutton","Tajara Pencilstache","Tajara Moustache","Tajara Goatee","Tajara Smallstache")
+						h.f_style = random_tajaran_facial_hair
+					scramble(1, h, 30) //give them an appearance other than default.
 					h.regenerate_icons()
 
+/datum/disease2/effect/vulpkanin
+	name = "Kanis Syndrome"
+	stage = 4
+	badness = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob,/mob/living/carbon/human))
+			var/mob/living/carbon/human/h = mob
+			if(h.species.name != "Vulpkanin")
+				if(h.set_species("Vulpkanin"))
+					h.restore_blood() //in case they're something that doesn't have blood.
+					var/random_vulp_hair = pick("None","Kajam","Keid","Adhara","Kleeia","Mizar","Apollo","Belle","Bun","Jagged","Curl","Hawk","Anita","Short","Spike")
+					h.h_style = random_vulp_hair
+					var/random_vulp_facial_hair = pick("Blaze","Vulpine","Earfluff","Mask","Patch","Ruff","Kita","Swift")
+					h.f_style = random_vulp_facial_hair
+					scramble(1, h, 30) //give them an appearance other than default.
+					h.regenerate_icons()
 
 /datum/disease2/effect/scc
 	name = "Spontaneous Cellular Collapse"
