@@ -337,7 +337,7 @@
 /datum/reagent/liquidgibs/reaction_turf(var/turf/T, var/volume) //yes i took it from synthflesh...
 	src = null
 	if(volume >= 5)
-		new /obj/effect/decal/cleanable/blood/gibs(T)
+		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 		return
 

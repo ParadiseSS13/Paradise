@@ -190,20 +190,10 @@ var/global/list/image/splatter_cache=list()
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
-	name = "gibs"
-	desc = "They look bloody and gruesome."
-	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "gibbl5"
-	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
-	fleshcolor = "#FFFFFF"
-	noclear = 1
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs/New() //no reagent!
 	..()
+	reagents.remove_reagent("liquidgibs",5)
 
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
