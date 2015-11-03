@@ -956,7 +956,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 /datum/disease2/effect/anxiety
 	name = "Severe Anxiety"
-	stage = 1
+	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(prob(20))
 			mob << "<span class='notice'>You feel anxious.</span>"
@@ -975,7 +975,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 /datum/disease2/effect/lycan
 	name = "Lycancoughy"
-	stage = 1
+	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(prob(20))
 			mob << "<span class='notice'>You feel itchy.</span>"

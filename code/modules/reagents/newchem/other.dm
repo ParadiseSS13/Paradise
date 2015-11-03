@@ -319,6 +319,20 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	new /obj/item/weapon/soap/homemade(location)
 	return
 
+/datum/chemical_reaction/candlefication
+	name = "Candlefication"
+	id = "candlefication"
+	result = null
+	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5) //
+	min_temp = 374
+	result_amount = 1
+
+/datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/candle(location)
+	return
+
+
 /datum/chemical_reaction/meatification
 	name = "Meatification"
 	id = "meatification"
