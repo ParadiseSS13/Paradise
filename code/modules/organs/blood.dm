@@ -178,11 +178,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		return
 
 	var/amm = 0.1 * amt
-	var/turf/T = get_turf(src)
 
 	if(src.species.bloodflags &BLOOD_SLIME)
 		vessel.remove_reagent("water",amm)
-		vessel.reaction(T, TOUCH, amm)
 		return
 
 	else
