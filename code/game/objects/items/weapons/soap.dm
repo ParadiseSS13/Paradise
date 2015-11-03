@@ -34,7 +34,7 @@
 		if(do_after(user, src.cleanspeed, target = target))
 			user << "<span class='notice'>You 'clean' \the [target.name].</span>"
 			if(istype(target, /turf/simulated))
-				new /obj/effect/decal/cleanable/blood/gibs(target)
+				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if (istype(target,/mob/living/carbon))
 				for(var/obj/item/carried_item in target.contents)
 					if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
