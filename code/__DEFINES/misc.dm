@@ -168,3 +168,5 @@
 #define POLLTYPE_TEXT		"TEXT"
 #define POLLTYPE_RATING		"NUMVAL"
 #define POLLTYPE_MULTI		"MULTICHOICE"
+
+#define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day

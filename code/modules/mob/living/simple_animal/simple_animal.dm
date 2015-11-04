@@ -57,6 +57,8 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
+	var/list/ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 1, OXY = 0) //Set 0 to receive that damage type, 1 to ignore
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -88,10 +90,9 @@
 	return
 
 /mob/living/simple_animal/Life()
-	if(paralysis || stunned || weakened || buckled || resting)
-		canmove = 0
-	else
-		canmove = 1
+
+	update_gravity(mob_has_gravity())
+	update_canmove()
 
 	//Health
 	if(stat == DEAD)
@@ -281,7 +282,7 @@
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage,M.melee_damage_type)
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
@@ -322,7 +323,7 @@
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
-			adjustBruteLoss(harm_intent_damage)
+			attack_threshold_check(harm_intent_damage)
 
 	return
 
@@ -342,7 +343,7 @@
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			adjustBruteLoss(damage)
+			attack_threshold_check(damage)
 
 	return
 
@@ -362,7 +363,7 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
+				attack_threshold_check(damage)
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
@@ -384,7 +385,7 @@
 		else
 			damage = rand(5, 35)
 
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage)
 
 
 	return
@@ -475,9 +476,20 @@
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/adjustBruteLoss(damage)
-	health = Clamp(health - damage, 0, maxHealth)
-	if(health < 1)
-		Die()
+	if(!ignored_damage_types[BRUTE])
+		..()
+
+/mob/living/simple_animal/adjustFireLoss(damage)
+	if(!ignored_damage_types[BURN])
+		..(damage)
+
+/mob/living/simple_animal/adjustToxLoss(damage)
+	if(!ignored_damage_types[TOX])
+		..(damage)
+
+/mob/living/simple_animal/adjustCloneLoss(damage)
+	if(!ignored_damage_types[CLONE])
+		..(damage)
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -495,6 +507,14 @@
 		if (S.occupant || S.occupant2)
 			return 0
 	return 1
+
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
+	if(damage <= force_threshold || ignored_damage_types[damagetype])
+		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
+	else
+		adjustBruteLoss(damage)
+		updatehealth()
+
 
 /mob/living/simple_animal/update_fire()
 	return
@@ -555,3 +575,27 @@
 		verb = pick(speak_emote)
 
 	return verb
+
+/mob/living/simple_animal/update_canmove()
+	if(paralysis || stunned || weakened || stat || resting)
+		drop_r_hand()
+		drop_l_hand()
+		canmove = 0
+	else if(buckled)
+		canmove = 0
+	else
+		canmove = 1
+	update_transform()
+	return canmove
+
+/mob/living/simple_animal/update_transform()
+	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
