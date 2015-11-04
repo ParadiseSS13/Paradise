@@ -325,6 +325,11 @@ Class Procs:
 /obj/machinery/CouldNotUseTopic(var/mob/user)
 	usr.unset_machine()
 
+/obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/attack_ai(var/mob/user as mob)
