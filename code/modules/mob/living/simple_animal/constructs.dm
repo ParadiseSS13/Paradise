@@ -36,7 +36,7 @@
 		AddSpell(new spell(src))
 	updateglow()
 
-/mob/living/simple_animal/construct/Die()
+/mob/living/simple_animal/construct/death()
 	..()
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
 	for(var/mob/M in viewers(src, null))

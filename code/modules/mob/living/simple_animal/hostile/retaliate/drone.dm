@@ -156,7 +156,7 @@
 	hostile_drone = 0
 	walk(src,0)
 
-/mob/living/simple_animal/hostile/retaliate/malf_drone/Die()
+/mob/living/simple_animal/hostile/retaliate/malf_drone/death()
 	src.visible_message("\blue \icon[src] [src] suddenly breaks apart.")
 	..()
 	qdel(src)

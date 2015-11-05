@@ -83,7 +83,7 @@
 	else
 		speed = 0
 
-/mob/living/simple_animal/slaughter/Die()
+/mob/living/simple_animal/slaughter/death()
 	..()
 	var/obj/effect/decal/cleanable/blood/innards = new (get_turf(src))
 	innards.icon = 'icons/obj/surgery.dmi'

@@ -32,20 +32,21 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/Life()
-	. = ..()
-	if(.)
-		if(fire)
-			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
-			else									fire.icon_state = "fire0"
-		if(oxygen)
-			if(oxygen_alert)						oxygen.icon_state = "oxy1"
-			else									oxygen.icon_state = "oxy0"
-		if(toxin)
-			if(toxins_alert)							toxin.icon_state = "tox1"
-			else									toxin.icon_state = "tox0"
+/mob/living/simple_animal/pet/corgi/handle_hud_icons()
+	..()
+	if(fire)
+		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+		else									fire.icon_state = "fire0"
+	if(oxygen)
+		if(oxygen_alert)						oxygen.icon_state = "oxy1"
+		else									oxygen.icon_state = "oxy0"
+	if(toxin)
+		if(toxins_alert)							toxin.icon_state = "tox1"
+		else									toxin.icon_state = "tox0"
 
-	if (healths)
+/mob/living/simple_animal/pet/corgi/handle_hud_icons_health()
+	..()
+	if(healths)
 		switch(health)
 			if(30 to INFINITY)		healths.icon_state = "health0"
 			if(26 to 29)			healths.icon_state = "health1"
@@ -55,9 +56,12 @@
 			if(6 to 10)				healths.icon_state = "health5"
 			if(1 to 5)				healths.icon_state = "health6"
 			if(0)					healths.icon_state = "health7"
+
+/mob/living/simple_animal/pet/corgi/Life()
+	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/Die()
+/mob/living/simple_animal/pet/corgi/death()
 	..()
 	regenerate_icons()
 
@@ -638,7 +642,7 @@
 			M.show_message("\red [src] makes an odd whining noise.")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
-	Die()
+	death()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/shootAt(var/atom/movable/target)
 	var/turf/T = get_turf(src)
@@ -669,7 +673,7 @@
 		s.set_up(3, 1, src)
 		s.start()
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/Die()
+/mob/living/simple_animal/pet/corgi/Ian/borgi/death()
 	..()
 	visible_message("<b>[src]</b> blows apart!")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)

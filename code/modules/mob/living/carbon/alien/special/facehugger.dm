@@ -57,17 +57,17 @@ var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger/attackby(var/obj/item/O,var/mob/m, params)
 	if(O.force)
-		Die()
+		death()
 	return
 
 /obj/item/clothing/mask/facehugger/bullet_act(var/obj/item/projectile/P)
 	if(P.damage)
-		Die()
+		death()
 	return
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		Die()
+		death()
 	return
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
@@ -125,7 +125,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		var/mob/living/carbon/human/H = L
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
 			H.visible_message("<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
-			Die()
+			death()
 			return 0
 
 	if(iscarbon(M))
@@ -177,7 +177,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
 								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
 
-		Die()
+		death()
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		if(!(target.status_flags & XENO_HOST))
@@ -221,7 +221,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		GoActive()
 	return
 
-/obj/item/clothing/mask/facehugger/proc/Die()
+/obj/item/clothing/mask/facehugger/proc/death()
 	if(stat == DEAD)
 		return
 

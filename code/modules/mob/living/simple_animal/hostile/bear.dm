@@ -57,7 +57,7 @@
 			icon_state = "bearfloor"
 
 /mob/living/simple_animal/hostile/bear/Life()
-	. =..()
+	. = ..()
 	if(!.)
 		return
 

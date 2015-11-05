@@ -23,10 +23,9 @@
 	var/obj/item/inventory_mask
 	can_hide = 1
 
-/mob/living/simple_animal/crab/Life()
-	..()
+/mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
-	if(!ckey && !stat)
+	if(!stat)
 		if(isturf(src.loc) && !resting && !buckled)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
@@ -34,6 +33,9 @@
 				if(Process_Spacemove(east_vs_west))
 					Move(get_step(src, east_vs_west), east_vs_west)
 					turns_since_move = 0
+
+/mob/living/simple_animal/crab/Life()
+	. = ..()
 	regenerate_icons()
 
 //COFFEE! SQUEEEEEEEEE!
@@ -51,7 +53,7 @@
 		if(prob(50))
 			user << "\red \b This kills the crab."
 			health -= 20
-			Die()
+			death()
 		else
 			GetMad()
 			get

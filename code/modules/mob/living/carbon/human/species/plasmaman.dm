@@ -216,4 +216,10 @@
 			if(heat_level_3 to INFINITY)
 				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
+
+	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		H << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
+		H.adjust_fire_stacks(0.5)
+		H.IgniteMob()
+
 	return 1

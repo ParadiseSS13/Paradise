@@ -111,7 +111,7 @@
 		if(3.0)
 			adjustBruteLoss(110)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/Die()
+/mob/living/simple_animal/hostile/asteroid/basilisk/death()
 	if(stat != DEAD)
 		var/counter
 		for(counter=0, counter<2, counter++)
@@ -210,7 +210,7 @@
 	visible_message("<span class='danger'>The [P.name] was repelled by [src.name]'s girth!</span>")
 	return
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/Die()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/death()
 	alerted = 0
 	Reward()
 	..()
@@ -261,7 +261,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
 	OpenFire()
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/Die()
+/mob/living/simple_animal/hostile/asteroid/hivelord/death()
 	if(stat != DEAD)
 		new /obj/item/asteroid/hivelord_core(src.loc)
 	..()
@@ -328,7 +328,7 @@
 	spawn(100)
 		qdel(src)
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/Die()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/death()
 	qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goliath
@@ -378,7 +378,7 @@
 	anchored = 1
 	..()
 
-/mob/living/simple_animal/hostile/asteroid/goliath/Die()
+/mob/living/simple_animal/hostile/asteroid/goliath/death()
 	anchored = 0
 	if(stat != DEAD)
 		var/obj/item/asteroid/goliath_hide/G = new /obj/item/asteroid/goliath_hide(src.loc)

@@ -43,7 +43,7 @@
 	if(.)
 		custom_emote(1, "growls at [.]")
 
-/mob/living/simple_animal/hostile/mimic/Die()
+/mob/living/simple_animal/hostile/mimic/death()
 	..()
 	visible_message("\red <b>[src]</b> stops moving!")
 	ghostize()
@@ -53,7 +53,7 @@
 	if(is_electronic)
 		switch(severity)
 			if(1)
-				Die()
+				death()
 			if(2)
 				adjustBruteLoss(50)
 	..(severity)
@@ -117,7 +117,7 @@
 	..()
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/Die()
+/mob/living/simple_animal/hostile/mimic/crate/death()
 
 	var/obj/structure/closet/crate/C = new(get_turf(src))
 	// Put loot in crate
@@ -154,9 +154,9 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
-		Die()
+		death()
 
-/mob/living/simple_animal/hostile/mimic/copy/Die()
+/mob/living/simple_animal/hostile/mimic/copy/death()
 
 	for(var/atom/movable/M in src)
 		M.loc = get_turf(src)

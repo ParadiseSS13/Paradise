@@ -554,7 +554,6 @@
 /mob/living/carbon/slime/restrained()
 	return 0
 
-mob/living/carbon/slime/var/co2overloadtime = null
 mob/living/carbon/slime/var/temperature_resistance = T0C+75
 
 /mob/living/carbon/slime/show_inv(mob/user)

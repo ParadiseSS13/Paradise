@@ -51,7 +51,7 @@
 		weapon1 = /obj/item/weapon/gun/projectile/shotgun/boltaction
 		casingtype = /obj/item/ammo_casing/a762
 
-/mob/living/simple_animal/hostile/russian/Die()
+/mob/living/simple_animal/hostile/russian/death()
 	..()
 	if(corpse)
 		new corpse (src.loc)
