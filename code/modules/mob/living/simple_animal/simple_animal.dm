@@ -94,7 +94,6 @@
 /mob/living/simple_animal/Life()
 
 	if(..())
-		world << "Animal [src] Life() passed ..()"
 		if(!ckey)
 			handle_automated_movement()
 			handle_automated_action()
