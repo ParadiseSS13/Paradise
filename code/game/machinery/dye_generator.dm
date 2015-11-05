@@ -54,6 +54,7 @@
 		user.visible_message("<span class='notice'>[user] fills the [W] up with some dye.</span>","<span class='notice'>You fill the [W] up with some hair dye.</span>")
 		var/obj/item/hair_dye_bottle/HD = W
 		HD.dye_color = dye_color
+		HD.update_dye_overlay()
 	else
 		..()
 
@@ -62,14 +63,24 @@
 /obj/item/hair_dye_bottle
 	name = "Hair Dye Bottle"
 	desc = "A refillable bottle used for holding hair dyes of all sorts of colors."
-	icon = 'icons/obj/drinks.dmi' //placeholder
-	icon_state = "water" //placeholder
+	icon = 'icons/obj/items.dmi'
+	icon_state = "hairdyebottle"
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 7
 	force = 0
 	w_class = 1.0
 	var/dye_color = "#000000"
+
+/obj/item/hair_dye_bottle/New()
+	..()
+	update_dye_overlay()
+
+/obj/item/hair_dye_bottle/proc/update_dye_overlay()
+	overlays.Cut()
+	var/image/I = new('icons/obj/items.dmi', "hairdyebottle-overlay")
+	I.color = dye_color
+	overlays += I
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != "help")
