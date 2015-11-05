@@ -379,4 +379,5 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/barber(H.back), slot_in_backpack)
 		return 1
