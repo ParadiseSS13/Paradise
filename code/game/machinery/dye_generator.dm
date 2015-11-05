@@ -8,20 +8,25 @@
 	idle_power_usage = 40
 	var/dye_color = "#000000"
 
+	light_color = "#000000"
+
 /obj/machinery/dye_generator/initialize()
 	power_change()
 
 /obj/machinery/dye_generator/power_change()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
+		set_light(0)
 	else
 		if(powered())
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
+			set_light(2)
 		else
 			spawn(rand(0, 15))
 				src.icon_state = "[initial(icon_state)]-off"
 				stat |= NOPOWER
+				set_light(0)
 
 /obj/machinery/dye_generator/ex_act(severity)
 	switch(severity)
@@ -44,6 +49,8 @@
 		return
 	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
 	dye_color = temp
+	light_color = temp
+	power_change()
 
 /obj/machinery/dye_generator/attackby(obj/item/weapon/W, mob/user, params)
 
