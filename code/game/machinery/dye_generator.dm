@@ -1,7 +1,7 @@
 /obj/machinery/dye_generator
 	name = "Dye Generator"
-	icon = 'icons/obj/vending.dmi' //placeholder
-	icon_state = "generic" //placeholder
+	icon = 'icons/obj/vending.dmi'
+	icon_state = "barbervend"
 	density = 1
 	anchored = 1
 	use_power = 1
@@ -12,17 +12,36 @@
 	power_change()
 
 /obj/machinery/dye_generator/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
 	else
-		set_light(0)
+		if(powered())
+			icon_state = initial(icon_state)
+			stat &= ~NOPOWER
+		else
+			spawn(rand(0, 15))
+				src.icon_state = "[initial(icon_state)]-off"
+				stat |= NOPOWER
+
+/obj/machinery/dye_generator/ex_act(severity)
+	switch(severity)
+		if(1.0)
+			qdel(src)
+			return
+		if(2.0)
+			if (prob(50))
+				qdel(src)
+				return
+		if(3.0)
+			if(prob(25))
+				stat |= BROKEN
+				icon_state = "[initial(icon_state)]-broken"
 
 /obj/machinery/dye_generator/attack_hand(mob/user as mob)
 	..()
-
 	src.add_fingerprint(user)
-
+	if(stat & (BROKEN|NOPOWER))
+		return
 	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
 	dye_color = temp
 
