@@ -6,9 +6,7 @@
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 40
-	var/dye_color = "#000000"
-
-	light_color = "#000000"
+	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/initialize()
 	power_change()
@@ -21,7 +19,7 @@
 		if(powered())
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
-			set_light(2)
+			set_light(2, l_color = dye_color)
 		else
 			spawn(rand(0, 15))
 				src.icon_state = "[initial(icon_state)]-off"
@@ -49,8 +47,7 @@
 		return
 	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
 	dye_color = temp
-	light_color = temp
-	power_change()
+	set_light(2, l_color = temp)
 
 /obj/machinery/dye_generator/attackby(obj/item/weapon/W, mob/user, params)
 
@@ -77,7 +74,7 @@
 	throw_range = 7
 	force = 0
 	w_class = 1.0
-	var/dye_color = "#000000"
+	var/dye_color = "#FFFFFF"
 
 /obj/item/hair_dye_bottle/New()
 	..()
