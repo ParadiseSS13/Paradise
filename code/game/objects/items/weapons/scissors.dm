@@ -49,7 +49,7 @@
 		else
 			species_hair = hair_styles_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
-		user.visible_message("[user] starts cutting [M]'s hair!", "You start cutting [M]'s hair!", "You hear the sound of scissors.") //arguments for this are: 1. what others see 2. what the user sees 3. what blind people hear. --Fixed grammar, (TGameCo)
+		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
 		spawn(5)
 			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
@@ -57,7 +57,7 @@
 			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
 		if(do_after(user, 50, target = H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
-				user.visible_message("[user] stops cutting [M]'s hair.", "You stop cutting [M]'s hair.", "The sounds of scissors stop")
+				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")
 				return
 			if(f_new_style)
 				H.f_style = f_new_style
@@ -65,13 +65,13 @@
 				H.h_style = h_new_style
 
 		H.update_hair()
-		user.visible_message("[user] finishes cutting [M]'s hair!")
+		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
 /obj/item/weapon/scissors/safety //Totally safe, I assure you.
 	name = "safety scissors"
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
-	var/is_cutting = 0 //to prevent spam clicking this for rapid oxyloss.
+	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
 
 /obj/item/weapon/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != "help")
@@ -85,7 +85,7 @@
 
 		if(!is_cutting)
 			is_cutting = 1
-			user.visible_message("[user] starts cutting [M]'s hair!", "You start cutting [M]'s hair!", "You hear the sound of scissors.")
+			user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>")
 			playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
 			spawn(5)
 				playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
@@ -93,12 +93,12 @@
 				playsound(loc, "sound/items/Wirecutter.ogg", 50, 1, -1)
 			if(do_after(user, 50, target = H))
 				playsound(loc, "sound/weapons/bladeslice.ogg", 50, 1, -1)
-				user.visible_message("[user] abruptly stops cutting [M]'s hair. and slices their throat!", "You stop cutting [M]'s hair and slice their throat!", "The sounds of scissors stop as blood sprays everywhere.")
+				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices their throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice their throat!</span>")
 				H.losebreath += 10 //30 Oxy damage over time
 				H.apply_damage(18, BRUTE, "head", sharp =1, edge =1, used_weapon = "scissors")
 				var/turf/location = get_turf(H)
 				if (istype(location, /turf/simulated))
-					location.add_blood()
+					location.add_blood(H)
 				H.bloody_hands(H)
 				H.bloody_body(H)
 				var/mob/living/carbon/human/U = user

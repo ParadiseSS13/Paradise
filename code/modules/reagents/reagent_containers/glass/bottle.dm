@@ -284,7 +284,7 @@
 		reagents.add_reagent("hairgrownium", 50)
 
 /obj/item/weapon/reagent_containers/glass/bottle/reagent/hair_dye
-	name = "Hair Dye Bottle"
+	name = "Quantum Hair Dye Bottle"
 	desc = "A bottle of the ever-changing quantum hair dye."
 	New()
 		..()
