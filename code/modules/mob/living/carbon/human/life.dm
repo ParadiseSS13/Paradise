@@ -339,8 +339,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return 0
 
 	if(!breath || (breath.total_moles() == 0) || suiciding)
-		if(reagents.has_reagent("epinephrine"))
-			return
 		var/oxyloss = 0
 		if(suiciding)
 			oxyloss = 2
