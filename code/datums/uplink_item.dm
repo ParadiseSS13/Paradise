@@ -205,7 +205,7 @@ var/list/uplink_items = list()
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	reference = "CTS"
 	item = /obj/item/weapon/scissors/safety
-	cost = 10
+	cost = 5
 	job = list("Barber")
 
 //Engineer
