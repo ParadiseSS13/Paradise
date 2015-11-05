@@ -362,6 +362,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
+	alt_titles = list("Hair Stylist","Beautician")
 	access = list(access_maint_tunnels)
 	minimal_access = list(access_maint_tunnels)
 
