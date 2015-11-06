@@ -137,6 +137,11 @@ proc/isembryo(A)
 		return 1
 	return 0
 
+/proc/isswarmer(A)
+	if(istype(A, /mob/living/simple_animal/hostile/swarmer))
+		return 1
+	return 0
+
 proc/isobserver(A)
 	if(istype(A, /mob/dead/observer))
 		return 1

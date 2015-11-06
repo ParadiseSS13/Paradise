@@ -77,7 +77,7 @@
 
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
-	desc = "A warning sign which reads 'SECURE AREA'."
+	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
 
 /obj/structure/sign/biohazard
@@ -142,7 +142,7 @@
 
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
-	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\""
+	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child appears to be retarded. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
@@ -197,27 +197,27 @@
 
 /obj/structure/sign/chinese
 	name = "\improper chinese restaurant sign"
-	desc = "A glowing dragon invites you in"
+	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
 /obj/structure/sign/directions/science
 	name = "\improper Science department"
-	desc = "A direction sign, pointing out which way Science department is."
+	desc = "A direction sign, pointing out which way the Science department is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
 	name = "\improper Engineering department"
-	desc = "A direction sign, pointing out which way Engineering department is."
+	desc = "A direction sign, pointing out which way the Engineering department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
 	name = "\improper Security department"
-	desc = "A direction sign, pointing out which way Security department is."
+	desc = "A direction sign, pointing out which way the Security department is."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
 	name = "\improper Medical Bay"
-	desc = "A direction sign, pointing out which way Meducal Bay is."
+	desc = "A direction sign, pointing out which way Medical Bay is."
 	icon_state = "direction_med"
 
 /obj/structure/sign/directions/evac

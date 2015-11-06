@@ -38,7 +38,7 @@
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode)
+	if(client && client.buildmode)
 		build_click(src, client.buildmode, params, A)
 		return
 
@@ -411,7 +411,7 @@
 /*	if(buckled && buckled.movable)
 		buckled.dir = direction
 		buckled.handle_rotation()*/
-		
+
 /obj/screen/click_catcher
 	icon = 'icons/mob/screen1_full.dmi'
 	icon_state = "passage0"

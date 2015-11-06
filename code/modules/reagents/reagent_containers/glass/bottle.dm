@@ -275,6 +275,21 @@
 		..()
 		reagents.add_reagent("insulin", 50)
 
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/hairgrownium
+	name = "Hair Grow Gel"
+	desc = "A bottle full of a stimulative hair growth formula"
+	New()
+		..()
+		reagents.add_reagent("hairgrownium", 50)
+
+/obj/item/weapon/reagent_containers/glass/bottle/reagent/hair_dye
+	name = "Quantum Hair Dye Bottle"
+	desc = "A bottle of the ever-changing quantum hair dye."
+	New()
+		..()
+		reagents.add_reagent("hair_dye", 50)
+
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
 /obj/item/weapon/reagent_containers/glass/bottle/traitor

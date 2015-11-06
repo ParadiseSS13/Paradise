@@ -139,5 +139,5 @@
 	req_tech = list("materials" = 5, "magnets" = 5, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 250, MAT_GLASS = 300, MAT_PLASMA = 250, MAT_URANIUM = 1000)
-	build_path = /obj/item/clothing/glasses/science
+	build_path = /obj/item/clothing/glasses/science/night
 	category = list("Equipment")

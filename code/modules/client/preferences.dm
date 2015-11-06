@@ -905,7 +905,6 @@ datum/preferences
 	proc/process_link(mob/user, list/href_list)
 		if(!user)	return
 
-		if(!istype(user, /mob/new_player))	return
 		if(href_list["preference"] == "job")
 			switch(href_list["task"])
 				if("close")
