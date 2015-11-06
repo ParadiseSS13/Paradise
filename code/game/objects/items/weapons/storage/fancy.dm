@@ -168,13 +168,14 @@
 	icon_type = "cigarette"
 	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
 	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
+	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
 	flags |= NOREACT
 	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
 	for(var/i = 1 to storage_slots)
-		var/obj/item/clothing/mask/cigarette/C = new /obj/item/clothing/mask/cigarette(src)
+		var/obj/item/clothing/mask/cigarette/C = new cigarette_type(src)
 		unlaced_cigarettes += C
 		for(var/R in default_reagents)
 			reagents.add_reagent(R, default_reagents[R])
@@ -280,6 +281,13 @@
 		"ammonia" = 2,
 		"atrazine" = 1,
 		"toxin" = 1.5)
+
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_random
+	name ="\improper Embellished Enigma packet"
+	desc = "For the true connoisseur of exotic flavors."
+	icon_state = "shadyjimpacket"
+	item_state = "cigpacket"
+	cigarette_type  = /obj/item/clothing/mask/cigarette/random
 
 /*
  * Vial Box
