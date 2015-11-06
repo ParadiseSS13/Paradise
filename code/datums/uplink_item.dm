@@ -147,6 +147,16 @@ var/list/uplink_items = list()
 	cost = 2
 	job = list("Chef")
 
+//Chaplain
+
+/datum/uplink_item/jobspecific/voodoo
+	name = "Voodoo Doll"
+	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
+	reference = "VD"
+	item = /obj/item/voodoo
+	cost = 13
+	job = list("Chaplain")
+
 //Janitor
 
 /datum/uplink_item/jobspecific/cautionsign

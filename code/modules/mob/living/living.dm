@@ -69,7 +69,7 @@
 		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss() - halloss
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually

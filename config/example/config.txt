@@ -312,3 +312,6 @@ PLAYER_REROUTE_CAP 0
 
 ## Uncomment this if you want to disable the lobby music
 #DISABLE_LOBBY_MUSIC
+
+## Uncomment this if you want to disable the popup alert for people on the same CID
+#DISABLE_CID_WARN_POPUP
