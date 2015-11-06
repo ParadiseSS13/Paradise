@@ -259,22 +259,27 @@
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (HULK in user.mutations)
-		if (prob(40) || rotting)
-			user << text("\blue You smash through the wall.")
+		if (prob(hardness) || rotting)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+			user << text("<span class='notice'>You smash through the wall.</span>")
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 			dismantle_wall(1)
 			return
 		else
-			usr << text("\blue You punch the wall.")
-			take_damage(rand(25, 75))
+			playsound(src, 'sound/effects/bang.ogg', 50, 1)
+			user << text("<span class='notice'>You punch the wall.</span>")
 			return
 
 	if(rotting)
-		user << "\blue The wall crumbles under your touch."
-		dismantle_wall()
-		return
+		if(hardness <= 10)
+			user << "<span class='notice'>This wall feels rather unstable.</span>"
+			return
+		else
+			user << "<span class='notice'>The wall crumbles under your touch.</span>"
+			dismantle_wall()
+			return
 
-	user << "\blue You push the wall but nothing happens!"
+	user << "<span class='notice'>You push the wall but nothing happens!</span>"
 	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
 	src.add_fingerprint(user)
 	..()

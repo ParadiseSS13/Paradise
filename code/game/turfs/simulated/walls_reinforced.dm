@@ -7,33 +7,10 @@
 	explosion_block = 2
 	damage_cap = 200
 	max_temperature = 6000
-
+	hardness = 10
 	walltype = "rwall"
 
 	var/d_state = 0
-
-/turf/simulated/wall/r_wall/attack_hand(mob/user as mob)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if (HULK in user.mutations)
-		if (prob(10) || rotting)
-			usr << text("\blue You smash through the wall.")
-			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-			dismantle_wall(1)
-			return
-		else
-			usr << text("\blue You punch the wall.")
-			return
-
-	if(rotting)
-		user << "\blue This wall feels rather unstable."
-		return
-
-	user << "\blue You push the wall but nothing happens!"
-	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
-	src.add_fingerprint(user)
-	..()
-	return
-
 
 /turf/simulated/wall/r_wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
