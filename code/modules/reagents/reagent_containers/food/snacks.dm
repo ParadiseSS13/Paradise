@@ -1989,6 +1989,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
+		reagents.add_reagent("synaptizine", 5)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/spesslaw
@@ -2000,6 +2001,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
+		reagents.add_reagent("synaptizine", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/poppypretzel
