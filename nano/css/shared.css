@@ -237,6 +237,7 @@ div.notice {
     width: 100%;
     margin: 4px 0 0 0;
     clear: both;
+	overflow: auto;
 }
 
 .itemContentNarrow, .itemContent {

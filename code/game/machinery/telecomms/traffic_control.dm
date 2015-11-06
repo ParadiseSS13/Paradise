@@ -32,7 +32,7 @@
 		editingcode = user
 		lasteditor = user
 
-	var/dat = {"<head><meta http-equiv="X-UA-Compatible" content="IE=edge"/> </head>"}
+	var/dat = ""
 
 	dat +=  "<center><b>Telecommunications Traffic Control</b></center>"
 
