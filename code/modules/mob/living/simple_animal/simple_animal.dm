@@ -87,9 +87,11 @@
 	..()
 
 /mob/living/simple_animal/updatehealth()
-	return
+	..()
+	health = Clamp(health, 0, maxHealth)
 
 /mob/living/simple_animal/Life()
+	updatehealth()
 
 	update_gravity(mob_has_gravity())
 	update_canmove()
@@ -106,9 +108,6 @@
 
 	if(health < 1)
 		Die()
-
-	if(health > maxHealth)
-		health = maxHealth
 
 	if(resting && icon_resting && stat != DEAD)
 		icon_state = icon_resting
