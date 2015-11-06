@@ -13,6 +13,7 @@
 	Newton Cradle
 	PAI cable
 	Red Phone
+	Shoe Silencer
 */
 
 /obj/item/weapon/balltoy

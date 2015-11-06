@@ -29,6 +29,8 @@
 
 	var/image/obscured	//camerachunks
 
+	var/list/footstep_sounds = list()
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM in src)
