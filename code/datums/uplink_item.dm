@@ -207,6 +207,17 @@ var/list/uplink_items = list()
 	cost = 6
 	job = list("Bartender")
 
+
+//Barber
+
+/datum/uplink_item/jobspecific/safety_scissors  //Hue
+	name = "Safety Scissors"
+	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
+	reference = "CTS"
+	item = /obj/item/weapon/scissors/safety
+	cost = 5
+	job = list("Barber")
+
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
