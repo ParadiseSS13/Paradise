@@ -36,6 +36,7 @@ var/global/datum/controller/gameticker/ticker
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
+	'sound/music/megalovania',\
 	'sound/music/THUNDERDOME.ogg',\
 	'sound/music/space.ogg',\
 	'sound/music/Title1.ogg',\
