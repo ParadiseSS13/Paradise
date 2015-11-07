@@ -53,7 +53,7 @@ if (typeof doT == 'undefined') {
 (function() {
 	var _alert = window.alert;
 	window.alert = function(str) {
-		window.location = "byond://?nano_err=" + str;
+		window.location = "byond://?nano_err=" + encodeURIComponent(str);
 		_alert(str);
 	};
 })();

@@ -179,9 +179,11 @@ nanoui is used to open and update nano browser uis
   * @return /list config data
   */
 /datum/nanoui/proc/get_config_data()
+	var/name = "[src_object]"
+	name = sanitize(name) //jQuery's parseJSON fails with byond formatting characters in the JSON
 	var/list/config_data = list(
 			"title" = title,
-			"srcObject" = list("name" = "[src_object]"),
+			"srcObject" = list("name" = name),
 			"stateKey" = state_key,
 			"status" = status,
 			"autoUpdateLayout" = auto_update_layout,
@@ -371,6 +373,10 @@ nanoui is used to open and update nano browser uis
 				{
 					NanoStateManager.receiveUpdateData(jsonString);
 				}
+				else
+				{
+					alert('browser.recieveUpdateData failed due to jQuery or NanoStateManager being unavailiable.');
+				}
 			}
 		</script>
 		[head_content]
@@ -447,7 +453,7 @@ nanoui is used to open and update nano browser uis
 
 	var/list/send_data = get_send_data(data)
 
-	//user << list2json(data) // used for debugging
+	//user << list2json_usecache(send_data) // used for debugging //NANO DEBUG HOOK
 	user << output(list2params(list(list2json_usecache(send_data))),"[window_id].browser:receiveUpdateData")
 
  /**
