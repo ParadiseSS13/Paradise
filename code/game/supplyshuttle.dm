@@ -365,8 +365,7 @@ var/list/mechtoys = list(
 	return attack_hand(user)
 
 /obj/machinery/computer/ordercomp/attack_hand(var/mob/user as mob)
-	ui_interact(usr)
-	return
+	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// data to send to ui
@@ -424,7 +423,7 @@ var/list/mechtoys = list(
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
 	if(!ui)
-		ui = new(user, src, ui_key, "order_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
+		ui = new(user, src, ui_key, "order_console.tmpl", name, COMP_SCREEN_WIDTH+10, COMP_SCREEN_HEIGHT) //plus 10 because the default is *just* small enough to cause ugly wrapping effects
 		ui.set_initial_data(data)
 		ui.open()
 
@@ -596,7 +595,7 @@ var/list/mechtoys = list(
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
 	if(!ui)
-		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH, COMP_SCREEN_HEIGHT)
+		ui = new(user, src, ui_key, "supply_console.tmpl", name, COMP_SCREEN_WIDTH+10, COMP_SCREEN_HEIGHT) //plus 10 because the default is *just* small enough to cause ugly wrapping effects
 		ui.set_initial_data(data)
 		ui.open()
 
