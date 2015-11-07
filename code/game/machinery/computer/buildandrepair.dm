@@ -197,6 +197,12 @@
 /obj/item/weapon/circuitboard/splicer
 	name = "Circuit board (Disease Splicer)"
 	build_path = /obj/machinery/computer/diseasesplicer
+/obj/item/weapon/circuitboard/labor_shuttle
+	name = "circuit Board (Labor Shuttle)"
+	build_path = /obj/machinery/computer/labor_shuttle
+/obj/item/weapon/circuitboard/labor_shuttle/one_way
+	name = "circuit Board (Prisoner Shuttle Console)"
+	build_path = /obj/machinery/computer/labor_shuttle/one_way
 /obj/item/weapon/circuitboard/mining_shuttle
 	name = "Circuit board (Mining Shuttle)"
 	build_path = /obj/machinery/computer/shuttle_control/mining

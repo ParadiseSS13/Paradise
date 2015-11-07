@@ -7,7 +7,7 @@ var/global/list/minor_air_alarms = list()
 /obj/machinery/computer/atmos_alert
 	name = "Atmospheric Alert Computer"
 	desc = "Used to access the station's atmospheric sensors."
-	circuit = "/obj/item/weapon/circuitboard/atmos_alert"
+	circuit = /obj/item/weapon/circuitboard/atmos_alert
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
@@ -80,6 +80,6 @@ var/datum/topic_state/air_alarm_topic/air_alarm_topic = new()
 	extra_href["remote_access"] = 1
 
 	return extra_href
-	
+
 /datum/topic_state/air_alarm_topic/can_use_topic(var/src_object, var/mob/user)
 	return STATUS_INTERACTIVE

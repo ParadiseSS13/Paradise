@@ -7,7 +7,7 @@
 	icon_screen = "honkcomms"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_clown)
-	circuit = "/obj/item/weapon/circuitboard/HONKputer"
+	circuit = /obj/item/weapon/circuitboard/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT

@@ -15,7 +15,7 @@ datum/genesequence
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
-	circuit = "/obj/item/weapon/circuitboard/reconstitutor"
+	circuit = /obj/item/weapon/circuitboard/reconstitutor
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/clonepod/pod1 = 1 //Linked cloning pod.
 	var/temp = ""
@@ -42,7 +42,7 @@ datum/genesequence
 	name = "Fauna reconstitution console"
 	accepted_fossil_types = list(/obj/item/weapon/fossil/bone,/obj/item/weapon/fossil/shell,/obj/item/weapon/fossil/skull)
 	pod1 = null
-	circuit = "/obj/item/weapon/circuitboard/reconstitutor/animal"
+	circuit = /obj/item/weapon/circuitboard/reconstitutor/animal
 
 /obj/machinery/computer/reconstitutor/animal/initialize()
 	undiscovered_genesequences = master_controller.all_animal_genesequences.Copy()
