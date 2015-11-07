@@ -48,6 +48,7 @@
 	vision_flags = SEE_MOBS
 	see_darkness = 0
 	HUDType = MEDHUD
+	strip_delay = 130
 
 /obj/item/clothing/suit/space/deathsquad
 	name = "deathsquad suit"
@@ -59,6 +60,7 @@
 	slowdown = 1
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
+	strip_delay = 130
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
@@ -103,6 +105,8 @@
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
 	siemens_coefficient = 0.9
+	strip_delay = 40
+	put_on_delay = 20
 
 /obj/item/clothing/suit/space/pirate
 	name = "pirate coat"
@@ -114,7 +118,8 @@
 	slowdown = 0
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.9
-
+	strip_delay = 40
+	put_on_delay = 20
 
 //Paramedic EVA suit
 /obj/item/clothing/head/helmet/space/eva/paramedic
@@ -174,7 +179,7 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
-	
+
 /obj/item/clothing/head/helmet/space/freedom
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
@@ -183,6 +188,7 @@
 	armor = list(melee = 40, bullet = 40, laser = 30, energy = 25, bomb = 100, bio = 100, rad = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
+	strip_delay = 130
 
 /obj/item/clothing/suit/space/freedom
 	name = "eagle suit"
@@ -194,3 +200,4 @@
 	slowdown = 1
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
+	strip_delay = 130

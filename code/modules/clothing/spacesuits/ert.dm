@@ -8,6 +8,7 @@
 	siemens_coefficient = 0.6
 	rig_restrict_helmet = 0 // ERT helmets can be taken on and off at will.
 	var/obj/machinery/camera/camera
+	strip_delay = 130
 
 /obj/item/clothing/head/helmet/space/rig/ert/attack_self(mob/user)
 	if(camera)
@@ -37,6 +38,7 @@
 	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse_rifle, \
 	/obj/item/weapon/gun/energy/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
 	siemens_coefficient = 0.6
+	strip_delay = 130
 
 //Commander
 /obj/item/clothing/head/helmet/space/rig/ert/commander

@@ -11,7 +11,7 @@
 	icon_state = "blue_pyjamas"
 	item_color = "blue_pyjamas"
 	item_state = "w_suit"
-	
+
 /obj/item/clothing/under/patriotsuit
 	name = "Patriotic Suit"
 	desc = "Motorcycle not included."
@@ -466,6 +466,7 @@
 	icon_state = "roman"
 	item_color = "roman"
 	item_state = "armor"
+	strip_delay = 100
 
 /obj/item/clothing/under/maid
 	name = "maid costume"

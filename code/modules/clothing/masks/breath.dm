@@ -25,6 +25,7 @@
 	icon_state = "medical"
 	item_state = "medical"
 	permeability_coefficient = 0.01
+	put_on_delay = 10
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/breath/vox
