@@ -23,16 +23,20 @@
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
-	var/timing = 1    		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
-
+	var/obj/item/device/radio/Radio
 	maptext_height = 26
 	maptext_width = 32
 
 /obj/machinery/door_timer/New()
 	..()
+
+	Radio = new /obj/item/device/radio(src)
+	Radio.listening = 0
+	Radio.config(list("Security" = 0))
 
 	pixel_x = ((src.dir & 3)? (0) : (src.dir == 4 ? 32 : -32))
 	pixel_y = ((src.dir & 3)? (src.dir ==1 ? 24 : -32) : (0))
@@ -63,7 +67,7 @@
 /obj/machinery/door_timer/process()
 
 	if(stat & (NOPOWER|BROKEN))	return
-	if(src.timing)
+	if(timing)
 
 		// poorly done midnight rollover
 		// (no seriously there's gotta be a better way to do this)
@@ -73,8 +77,9 @@
 
 
 		if(world.timeofday > src.releasetime)
-			src.timer_end() // open doors, reset timer, clear status screen
-			src.timing = 0
+			Radio.autosay("Timer has expired. Releasing prisoner.", src.name, "Security", list(src.z))
+			timer_end() // open doors, reset timer, clear status screen
+			timing = 0
 
 		src.updateUsrDialog()
 		src.update_icon()
