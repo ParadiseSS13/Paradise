@@ -18,7 +18,7 @@
 	var/network = "NULL"		// the network to probe
 
 	var/temp = ""				// temporary feedback messages
-	circuit = "/obj/item/weapon/circuitboard/comm_monitor"
+	circuit = /obj/item/weapon/circuitboard/comm_monitor
 
 	light_color = LIGHT_COLOR_DARKGREEN
 

@@ -14,7 +14,7 @@ var/time_last_changed_position = 0
 	var/obj/item/weapon/card/id/modify = null
 	var/mode = 0.0
 	var/printing = null
-	
+
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
@@ -36,7 +36,7 @@ var/time_last_changed_position = 0
 		/datum/job/brigdoc,
 		/datum/job/mechanic,
 		/datum/job/barber,
-		/datum/job/chaplain,	
+		/datum/job/chaplain,
 		/datum/job/civilian
 	)
 
@@ -69,7 +69,7 @@ var/time_last_changed_position = 0
 			"job" = job)))
 
 	return formatted
-	
+
 /obj/machinery/computer/card/proc/format_job_slots()
 	var/list/formatted = list()
 	for(var/datum/job/job in job_master.occupations)
@@ -83,7 +83,7 @@ var/time_last_changed_position = 0
 			"can_close" = can_close_job(job))))
 
 	return formatted
-		
+
 /obj/machinery/computer/card/proc/format_card_skins(list/card_skins)
 	var/list/formatted = list()
 	for(var/skin in card_skins)
@@ -131,7 +131,7 @@ var/time_last_changed_position = 0
 
 	nanomanager.update_uis(src)
 	attack_hand(user)
-	
+
 //Check if you can't open a new position for a certain job
 /obj/machinery/computer/card/proc/job_blacklisted(datum/job/job)
 	return (job.type in blacklisted)
@@ -164,11 +164,11 @@ var/time_last_changed_position = 0
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
-	if(..()) 
+	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN)) 
+	if(stat & (NOPOWER|BROKEN))
 		return
-		
+
 	ui_interact(user)
 
 /obj/machinery/computer/card/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -200,15 +200,15 @@ var/time_last_changed_position = 0
 	data["special_jobs"] = format_jobs(whitelisted_positions)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
 	data["card_skins"] = format_card_skins(get_station_card_skins())
-	
+
 	data["job_slots"] = format_job_slots()
-	
+
 	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - time_last_changed_position), 1)
 	var/mins = round(time_to_wait / 60)
 	var/seconds = time_to_wait - (60*mins)
 	data["cooldown_mins"] = mins
 	data["cooldown_secs"] = (seconds < 10) ? "0[seconds]" : seconds
-					
+
 	if(modify)
 		data["current_skin"] = modify.icon_state
 
@@ -222,7 +222,7 @@ var/time_last_changed_position = 0
 
 		data["all_centcom_access"] = all_centcom_access
 		data["all_centcom_skins"] = format_card_skins(get_centcom_card_skins())
-				
+
 	else if (modify)
 		var/list/regions = list()
 		for(var/i = 1; i <= 7; i++)
@@ -296,7 +296,7 @@ var/time_last_changed_position = 0
 						modify.access -= access_type
 						if(!access_allowed)
 							modify.access += access_type
-							
+
 		if("skin")
 			var/skin = href_list["skin_target"]
 			if(is_authenticated(usr) && modify && ((skin in get_station_card_skins()) || ((skin in get_centcom_card_skins()) && is_centcom())))
@@ -390,7 +390,7 @@ var/time_last_changed_position = 0
 				modify.access = list()
 
 				callHook("terminate_employee", list(modify))
-				
+
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
@@ -429,5 +429,5 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/centcom
 	name = "CentCom Identification Computer"
-	circuit = "/obj/item/weapon/circuitboard/card/centcom"
+	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)

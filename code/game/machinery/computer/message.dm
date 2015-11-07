@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "tcboss"
 	var/normal_icon = "comm_logs"
-	circuit = "/obj/item/weapon/circuitboard/message_monitor"
+	circuit = /obj/item/weapon/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Sparks effect - For emag
@@ -65,7 +65,7 @@
 			// Will help make emagging the console not so easy to get away with.
 			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
 			update_icon()
-			spawn(100*length(src.linkedServer.decryptkey)) 
+			spawn(100*length(src.linkedServer.decryptkey))
 				UnmagConsole()
 				update_icon()
 			message = rebootmsg
@@ -77,7 +77,7 @@
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
-		
+
 	..()
 
 /obj/machinery/computer/message_monitor/initialize()
@@ -89,9 +89,9 @@
 	return
 
 /obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
-	if(..()) 
+	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN)) 
+	if(stat & (NOPOWER|BROKEN))
 		return
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)

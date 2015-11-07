@@ -2,7 +2,7 @@
 	name = "medical ship control console"
 	req_access = list()
 	shuttle_tag = "White Ship"
-	circuit = "/obj/item/weapon/circuitboard/white_ship"
+	circuit = /obj/item/weapon/circuitboard/white_ship
 	light_color = LIGHT_COLOR_DARKRED
 
 /obj/machinery/computer/shuttle_control/multi/whiteship/attack_ai(user as mob)
