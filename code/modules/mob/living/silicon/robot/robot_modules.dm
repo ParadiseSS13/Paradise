@@ -471,6 +471,7 @@
 	src.modules += new /obj/item/weapon/matter_decompiler(src)
 	src.modules += new /obj/item/weapon/reagent_containers/spray/cleaner/drone(src)
 	src.modules += new /obj/item/weapon/soap(src)
+	src.modules += new /obj/item/device/t_scanner(src)
 
 	src.emag = new /obj/item/weapon/pickaxe/drill/cyborg/diamond(src)
 
