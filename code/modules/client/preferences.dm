@@ -528,12 +528,12 @@ datum/preferences
 
 			if(rank == "Civilian")//Civilian is special
 				if(job_support_low & CIVILIAN)
-					HTML += " <font color=green>\[Yes]</font>"
+					HTML += " <font color=green>\[Yes]</font></a>"
 				else
-					HTML += " <font color=red>\[No]</font>"
+					HTML += " <font color=red>\[No]</font></a>"
 				if(job.alt_titles)
 					HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
-				HTML += "</a></td></tr>"
+				HTML += "</td></tr>"
 				continue
 /*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -545,13 +545,13 @@ datum/preferences
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
-			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font>"
+			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 
 			if(job.alt_titles)
 				HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 
 
-			HTML += "</a></td></tr>"
+			HTML += "</td></tr>"
 
 		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
 			HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
