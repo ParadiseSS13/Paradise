@@ -64,16 +64,19 @@ Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
 				<b>Volume:&nbsp;{{:data.beakerCurrentVolume}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}</b><br>
 				{{for data.beakerContents}}
 					<div style="min-height: 22px;">
-						<span class="floatRight">
+						<div class="floatLeft">
+							<span class="highlight">
+								{{:value.volume}} units of {{:value.name}}
+							</span>
+						</div>
+						<div class="floatRight">
 							{{:helper.link('1', null, {'remove' : value.id, 'removeamount' : 1})}}
 							{{:helper.link('5', null, {'remove' : value.id, 'removeamount' : 5})}}
 							{{:helper.link('10', null, {'remove' : value.id, 'removeamount' : 10})}}
 							{{:helper.link('ALL', null, {'remove' : value.id, 'removeamount' : value.volume})}}
-						</span>
-						<span class="highlight">
-							{{:value.volume}} units of {{:value.name}}
-						</span>
+						</div>
 					</div>
+					<div style="height:2px"></div> <!-- This is necessary to prevent the link margins from hitting each other and causing weird things to happen. It's essentialy a smaller <br> tag. -->
 				{{empty}}
 					<span class="bad">
 						{{if data.glass}}
