@@ -6,7 +6,7 @@
 	anchored = 1.0
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
-	circuit = "/obj/item/weapon/circuitboard/operating"
+	circuit = /obj/item/weapon/circuitboard/operating
 	var/mob/living/carbon/human/victim = null
 	var/obj/machinery/optable/table = null
 
@@ -31,11 +31,11 @@
 	if(..(user))
 		return
 
-	if(stat & (NOPOWER|BROKEN)) 
-		return	
-		
-		
-	add_fingerprint(user)	
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+
+	add_fingerprint(user)
 	interact(user)
 
 

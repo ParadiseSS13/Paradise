@@ -5,7 +5,7 @@
 	desc = "Used to upload laws to the AI."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
-	circuit = "/obj/item/weapon/circuitboard/aiupload"
+	circuit = /obj/item/weapon/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
@@ -63,7 +63,7 @@
 	desc = "Used to upload laws to Cyborgs."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
-	circuit = "/obj/item/weapon/circuitboard/borgupload"
+	circuit = /obj/item/weapon/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
 
