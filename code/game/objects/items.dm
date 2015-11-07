@@ -498,9 +498,6 @@
 		if(A.type == type && !A.blood_overlay)
 			A.blood_overlay = image(I)
 
-/obj/item/singularity_pull()
-	return
-
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
 
