@@ -4,7 +4,7 @@
 	var/mob/virus_target = null
 	var/datum/disease2/disease/curr_virus = null
 
-/datum/nano_module/virus2/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/virus2/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = admin_state)
 	var/data[0]
 
 	data["virus_target"] = virus_target
