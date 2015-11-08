@@ -45,16 +45,16 @@
 
 	//update_bees()
 
-/mob/living/simple_animal/hostile/poison/bees/Die()
+/mob/living/simple_animal/hostile/poison/bees/death()
 	..()
 	ghostize()
 	qdel(src)
 	return
 
-/mob/living/simple_animal/hostile/poison/bees/Life()
+/*/mob/living/simple_animal/hostile/poison/bees/Life()
 	..()
 
-/*	update_bees()
+	update_bees()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/update_bees()
 	while(overlays.len != health-1) //how many bees do we have in the swarm?

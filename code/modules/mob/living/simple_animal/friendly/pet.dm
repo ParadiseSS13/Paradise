@@ -37,7 +37,7 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/Die()
+/mob/living/simple_animal/pet/death()
 	..()
 	regenerate_icons()
 

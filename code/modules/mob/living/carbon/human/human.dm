@@ -517,8 +517,6 @@
 	return 0
 
 
-
-/mob/living/carbon/human/var/co2overloadtime = null
 /mob/living/carbon/human/var/temperature_resistance = T0C+75
 
 

@@ -94,7 +94,7 @@
 	if(statpanel("Status"))
 		stat("Resources:",resources)
 
-/mob/living/simple_animal/hostile/swarmer/Die()
+/mob/living/simple_animal/hostile/swarmer/death()
 	..()
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	ghostize()
@@ -105,7 +105,7 @@
 		health = 1
 		return
 	else
-		Die()
+		death()
 
 /mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other

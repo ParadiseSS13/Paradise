@@ -194,7 +194,7 @@
 		return 1
 	return 0
 
-/mob/living/simple_animal/revenant/Die()
+/mob/living/simple_animal/revenant/death()
 	..()
 	src << "<span class='userdanger'><b>NO! No... it's too late, you can feel yourself fading...</b></span>"
 	notransform = 1

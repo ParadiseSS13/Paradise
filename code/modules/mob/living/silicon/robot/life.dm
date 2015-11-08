@@ -1,34 +1,20 @@
 /mob/living/silicon/robot/Life()
 	set invisibility = 0
-	//set background = 1
+	set background = BACKGROUND_ENABLED
 
 	if (src.notransform)
 		return
 
-	src.blinded = null
-
 	//Status updates, death etc.
 	clamp_values()
-	handle_regular_status_updates()
 
-	handle_actions()
-
-	if(client)
-		handle_regular_hud_updates()
-		update_items()
-	if (src.stat != DEAD) //still using power
+	if(..())
 		use_power()
 		process_locks()
 		process_queued_alarms()
 
-	update_canmove()
-
-	update_gravity(mob_has_gravity())
-
-	handle_fire()
 
 /mob/living/silicon/robot/proc/clamp_values()
-
 	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
 	SetWeakened(min(weakened, 20))
@@ -80,7 +66,7 @@
 		update_headlamp(1)
 		Paralyse(3)
 
-/mob/living/silicon/robot/proc/handle_regular_status_updates()
+/mob/living/silicon/robot/handle_regular_status_updates()
 
 	if(src.camera && !scrambledcodes)
 		if(src.stat == 2 || wires.IsCameraCut())
@@ -170,7 +156,7 @@
 
 	return 1
 
-/mob/living/silicon/robot/proc/handle_regular_hud_updates()
+/mob/living/silicon/robot/update_sight()
 
 	if (src.stat == 2 || src.sight_mode & BORGXRAY)
 		src.sight |= SEE_TURFS
@@ -199,123 +185,91 @@
 		if(see_override)
 			see_invisible = see_override
 
+/mob/living/silicon/robot/handle_hud_icons()
+	update_items()
+	update_cell()
+	..()
+
+/mob/living/silicon/robot/handle_hud_icons_health()
+	if(healths)
+		if(stat != DEAD)
+			if(health >= maxHealth)
+				healths.icon_state = "health0"
+			else if(health > maxHealth*0.5)
+				healths.icon_state = "health2"
+			else if(health > 0)
+				healths.icon_state = "health3"
+			else if(health > -maxHealth*0.5)
+				healths.icon_state = "health4"
+			else if(health > -maxHealth)
+				healths.icon_state = "health5"
+			else
+				healths.icon_state = "health6"
+		else
+			healths.icon_state = "health7"
+
+	if(bodytemp)
+		switch(bodytemperature) //310.055 optimal body temp
+			if(335 to INFINITY)
+				bodytemp.icon_state = "temp2"
+			if(320 to 335)
+				bodytemp.icon_state = "temp1"
+			if(300 to 320)
+				bodytemp.icon_state = "temp0"
+			if(260 to 300)
+				bodytemp.icon_state = "temp-1"
+			else
+				bodytemp.icon_state = "temp-2"
+
+/mob/living/silicon/robot/proc/update_cell()
+	if(cells)
+		if(cell)
+			var/cellcharge = cell.charge/cell.maxcharge
+			switch(cellcharge)
+				if(0.75 to INFINITY)
+					cells.icon_state = "charge4"
+				if(0.5 to 0.75)
+					cells.icon_state = "charge3"
+				if(0.25 to 0.5)
+					cells.icon_state = "charge2"
+				if(0 to 0.25)
+					cells.icon_state = "charge1"
+				else
+					cells.icon_state = "charge0"
+		else
+			cells.icon_state = "charge-empty"
+
+
+/mob/living/silicon/robot/handle_regular_hud_updates()
+	if(!client)
+		return
+
 	regular_hud_updates()
 
-	switch(src.sensor_mode)
-		if (SEC_HUD)
+	switch(sensor_mode)
+		if(SEC_HUD)
 			process_sec_hud(src,1)
-		if (MED_HUD)
+		if(MED_HUD)
 			process_med_hud(src,1)
 
-	if (src.healths)
-		if (src.stat != 2)
-			if(istype(src,/mob/living/silicon/robot/drone))
-				switch(health)
-					if(35 to INFINITY)
-						src.healths.icon_state = "health0"
-					if(25 to 34)
-						src.healths.icon_state = "health1"
-					if(15 to 24)
-						src.healths.icon_state = "health2"
-					if(5 to 14)
-						src.healths.icon_state = "health3"
-					if(0 to 4)
-						src.healths.icon_state = "health4"
-					if(-35 to 0)
-						src.healths.icon_state = "health5"
-					else
-						src.healths.icon_state = "health6"
-			else
-				switch(health)
-					if(100 to INFINITY)
-						src.healths.icon_state = "health0"
-					if(50 to 100)
-						src.healths.icon_state = "health2"
-					if(0 to 50)
-						src.healths.icon_state = "health3"
-					if(-50 to 0)
-						src.healths.icon_state = "health4"
-					if(config.health_threshold_dead to -50)
-						src.healths.icon_state = "health5"
-					else
-						src.healths.icon_state = "health6"
-		else
-			src.healths.icon_state = "health7"
-
-	if (src.syndicate && src.client)
+	if(syndicate)
 		if(ticker.mode.name == "traitor")
 			for(var/datum/mind/tra in ticker.mode.traitors)
 				if(tra.current)
 					var/I = image('icons/mob/mob.dmi', loc = tra.current, icon_state = "traitor")
 					src.client.images += I
-		if(src.connected_ai)
-			src.connected_ai.connected_robots -= src
-			src.connected_ai = null
-		if(src.mind)
-			if(!src.mind.special_role)
-				src.mind.special_role = "traitor"
+		if(connected_ai)
+			connected_ai.connected_robots -= src
+			connected_ai = null
+		if(mind)
+			if(!mind.special_role)
+				mind.special_role = "traitor"
 				ticker.mode.traitors += src.mind
 
-	if (src.cells)
-		if (src.cell)
-			var/cellcharge = src.cell.charge/src.cell.maxcharge
-			switch(cellcharge)
-				if(0.75 to INFINITY)
-					src.cells.icon_state = "charge4"
-				if(0.5 to 0.75)
-					src.cells.icon_state = "charge3"
-				if(0.25 to 0.5)
-					src.cells.icon_state = "charge2"
-				if(0 to 0.25)
-					src.cells.icon_state = "charge1"
-				else
-					src.cells.icon_state = "charge0"
-		else
-			src.cells.icon_state = "charge-empty"
-
-	if(bodytemp)
-		switch(src.bodytemperature) //310.055 optimal body temp
-			if(335 to INFINITY)
-				src.bodytemp.icon_state = "temp2"
-			if(320 to 335)
-				src.bodytemp.icon_state = "temp1"
-			if(300 to 320)
-				src.bodytemp.icon_state = "temp0"
-			if(260 to 300)
-				src.bodytemp.icon_state = "temp-1"
-			else
-				src.bodytemp.icon_state = "temp-2"
-
-
-//Oxygen and fire does nothing yet!!
-//	if (src.oxygen) src.oxygen.icon_state = "oxy[src.oxygen_alert ? 1 : 0]"
-//	if (src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
-
-	client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
-
-	if ((src.blind && src.stat != 2))
-		if(src.blinded)
-			src.blind.layer = 18
-		else
-			src.blind.layer = 0
-			if (src.disabilities & NEARSIGHTED)
-				src.client.screen += global_hud.vimpaired
-
-			if (src.eye_blurry)
-				src.client.screen += global_hud.blurry
-
-			if (src.druggy)
-				src.client.screen += global_hud.druggy
-
-	if (src.stat != 2)
-		if (src.machine)
-			if (!( src.machine.check_eye(src) ))
-				src.reset_view(null)
-		else
-			if(client && !client.adminobs)
-				reset_view(null)
-
+	..()
 	return 1
+
+
 
 /mob/living/silicon/robot/proc/update_items()
 	if (src.client)
@@ -342,8 +296,11 @@
 			weaponlock_time = 120
 
 /mob/living/silicon/robot/update_canmove()
-	if(paralysis || stunned || weakened || buckled || lockcharge) canmove = 0
-	else canmove = 1
+	if(paralysis || stunned || weakened || buckled || lockcharge)
+		canmove = 0
+	else
+		canmove = 1
+	update_transform()
 	return canmove
 
 //Robots on fire

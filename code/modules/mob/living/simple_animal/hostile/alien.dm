@@ -139,7 +139,7 @@
 	damage = 30
 	icon_state = "toxin"
 
-/mob/living/simple_animal/hostile/alien/Die()
+/mob/living/simple_animal/hostile/alien/death()
 	..()
 	if(dead == 0)
 		dead = 1

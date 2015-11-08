@@ -27,36 +27,36 @@
 	stop_automated_movement_when_pulled = 1
 	var/milk_content = 0
 
-/mob/living/simple_animal/hostile/retaliate/goat/New()
+/mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	..()
+	if(!pulledby)
+		for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
+			var/step = get_step(src, direction)
+			if(step)
+				if(locate(/obj/effect/plant) in step)
+					Move(step, get_dir(src, step))
+
+/mob/living/simple_animal/hostile/retaliate/goat/handle_automated_action()
+	//chance to go crazy and start wacking stuff
+	if(!enemies.len && prob(1))
+		Retaliate()
+
+	if(enemies.len && prob(10))
+		enemies = list()
+		LoseTarget()
+		src.visible_message("\blue [src] calms down.")
+
+	if(locate(/obj/effect/plant) in loc)
+		var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
+		qdel(SV)
+		if(prob(10))
+			say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life()
 	. = ..()
-	if(.)
-		//chance to go crazy and start wacking stuff
-		if(!enemies.len && prob(1))
-			Retaliate()
+	if(stat == CONSCIOUS && prob(5))
+		milk_content = min(50, milk_content+rand(5, 10))
 
-		if(enemies.len && prob(10))
-			enemies = list()
-			LoseTarget()
-			src.visible_message("\blue [src] calms down.")
-
-		if(stat == CONSCIOUS && prob(5))
-			milk_content = min(50, milk_content+rand(5, 10))
-
-		if(locate(/obj/effect/plant) in loc)
-			var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
-			qdel(SV)
-			if(prob(10))
-				say("Nom")
-
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/effect/plant) in step)
-						Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -186,9 +186,7 @@
 
 /mob/living/simple_animal/chick/Life()
 	. =..()
-	if(!.)
-		return
-	if(!stat)
+	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			new /mob/living/simple_animal/chicken(src.loc)
@@ -234,7 +232,7 @@ var/global/chicken_count = 0
 	pixel_y = rand(0, 10)
 	chicken_count += 1
 
-/mob/living/simple_animal/chicken/Die()
+/mob/living/simple_animal/chicken/death()
 	..()
 	chicken_count -= 1
 
@@ -256,10 +254,8 @@ var/global/chicken_count = 0
 		..()
 
 /mob/living/simple_animal/chicken/Life()
-	. =..()
-	if(!.)
-		return
-	if(!stat && prob(3) && eggsleft > 0)
+	. = ..()
+	if(. && prob(3) && eggsleft > 0)
 		visible_message("[src] [pick("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")]")
 		eggsleft--
 		var/obj/item/weapon/reagent_containers/food/snacks/egg/E = new(get_turf(src))
