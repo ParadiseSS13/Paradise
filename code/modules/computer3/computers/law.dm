@@ -4,7 +4,6 @@
 	name = "AI Upload"
 	desc = "Used to upload laws to the AI."
 	icon_state = "frame-rnd"
-	circuit = "/obj/item/part/board/circuit/aiupload"
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
@@ -56,7 +55,6 @@
 	name = "Cyborg Upload"
 	desc = "Used to upload laws to Cyborgs."
 	icon_state = "frame-rnd"
-	circuit = "/obj/item/part/board/circuit/borgupload"
 	var/mob/living/silicon/robot/current = null
 
 

@@ -96,7 +96,7 @@
 		if(istype(A, /mob/living))
 			var/mob/living/L = A
 			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
-			L.Weaken(5)
+			apply_effect(5, WEAKEN, run_armor_check("chest", "melee"))
 			sleep(2)//Runtime prevention (infinite bump() calls on hulks)
 			step_towards(src,L)
 

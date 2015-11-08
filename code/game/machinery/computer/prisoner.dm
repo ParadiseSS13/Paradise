@@ -6,7 +6,7 @@
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(access_armory)
-	circuit = "/obj/item/weapon/circuitboard/prisoner"
+	circuit = /obj/item/weapon/circuitboard/prisoner
 	var/id = 0.0
 	var/temp = null
 	var/status = 0
@@ -82,7 +82,7 @@
 /obj/machinery/computer/prisoner/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	usr.set_machine(src)
 
 	if(href_list["id"])
