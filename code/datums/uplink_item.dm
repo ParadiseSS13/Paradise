@@ -147,6 +147,16 @@ var/list/uplink_items = list()
 	cost = 2
 	job = list("Chef")
 
+//Chaplain
+
+/datum/uplink_item/jobspecific/voodoo
+	name = "Voodoo Doll"
+	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
+	reference = "VD"
+	item = /obj/item/voodoo
+	cost = 13
+	job = list("Chaplain")
+
 //Janitor
 
 /datum/uplink_item/jobspecific/cautionsign
@@ -196,6 +206,17 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/box/syndie_kit/boolets
 	cost = 6
 	job = list("Bartender")
+
+
+//Barber
+
+/datum/uplink_item/jobspecific/safety_scissors  //Hue
+	name = "Safety Scissors"
+	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
+	reference = "CTS"
+	item = /obj/item/weapon/scissors/safety
+	cost = 5
+	job = list("Barber")
 
 //Engineer
 

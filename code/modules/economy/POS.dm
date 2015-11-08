@@ -521,7 +521,7 @@ var/const/POS_HEADER = {"<html>
 			flick(src,"pos-error")
 			return
 		var/obj/item/weapon/spacecash/C=A
-		credits_held += C.worth*C.amount
+		credits_held += C.get_total()
 		if(credits_held >= credits_needed)
 			visible_message("\blue The machine beeps, and begins printing a receipt","You hear a beep and the sound of paper being shredded.")
 			PrintReceipt()

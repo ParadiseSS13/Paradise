@@ -1401,6 +1401,14 @@ mob/proc/yank_out_object()
 		location.add_poop_floor()
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 
+
+
+/mob/proc/adjustEarDamage()
+	return
+
+/mob/proc/setEarDamage()
+	return
+
 /mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
 	spell_list += spell
 	if(!spell.action)

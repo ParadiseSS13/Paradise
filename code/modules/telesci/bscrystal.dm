@@ -20,6 +20,10 @@
 	qdel(src)
 
 /obj/item/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+	if(L.z in config.admin_levels)
+		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
+		qdel(src)
+		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
 /obj/item/bluespace_crystal/throw_impact(atom/hit_atom)
@@ -33,4 +37,4 @@
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=2"
-	blink_range = 4 // Not as good as the organic stuff!	
+	blink_range = 4 // Not as good as the organic stuff!

@@ -107,13 +107,14 @@ mob/living
 			return
 	return
 
-/mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
+/mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
+
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
 		return 0
 	shock_damage *= siemens_coeff
-	if (shock_damage<1)
+	if(shock_damage<1 && !override)
 		return 0
 
 	src.apply_damage(shock_damage, BURN, def_zone, used_weapon="Electrocution")
@@ -127,6 +128,8 @@ mob/living
 			"\red You feel a mild shock course through your body.", \
 			"\red You hear a light zapping." \
 		)
+		jitteriness += (rand(2,4))//mostly for the swarmer trap
+		do_jitter_animation(jitteriness)
 	if (shock_damage > 10)
 		if (shock_damage < 200)
 			src.visible_message(
@@ -150,7 +153,10 @@ mob/living
 		)
 		playsound(loc, "sound/effects/eleczap.ogg", 50, 1, -1)
 		explosion(src.loc,-1,0,2,2)
-	return shock_damage
+	if(override)
+		return override
+	else
+		return shock_damage
 
 
 /mob/living/carbon/proc/swap_hand()
@@ -527,36 +533,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else if(I == legcuffed)
 		legcuffed = null
 		update_inv_legcuffed()
-
-/mob/living/carbon/proc/get_temperature(var/datum/gas_mixture/environment)
-	var/loc_temp = T0C
-	if(istype(loc, /obj/mecha))
-		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
-
-	else if(istype(loc, /obj/spacepod))
-		var/obj/spacepod/S = loc
-		loc_temp = S.return_temperature()
-
-	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
-
-	else if(istype(get_turf(src), /turf/space))
-		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
-
-	else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-
-		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
-		else
-			loc_temp = C.air_contents.temperature
-
-	else
-		loc_temp = environment.temperature
-
-	return loc_temp
 
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)

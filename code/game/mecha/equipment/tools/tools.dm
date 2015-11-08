@@ -21,9 +21,6 @@
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
 		if(istype(target, /obj/structure/stool)) return
-		for(var/M in target.contents)
-			if(istype(M, /mob/living))
-				return
 
 		if(istype(target,/obj))
 			var/obj/O = target

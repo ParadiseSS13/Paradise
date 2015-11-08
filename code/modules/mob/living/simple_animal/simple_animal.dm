@@ -57,6 +57,8 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
+	var/list/ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 1, OXY = 0) //Set 0 to receive that damage type, 1 to ignore
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -85,47 +87,36 @@
 	..()
 
 /mob/living/simple_animal/updatehealth()
-	return
+	..()
+	health = Clamp(health, 0, maxHealth)
+
 
 /mob/living/simple_animal/Life()
 
-	update_gravity(mob_has_gravity())
-	update_canmove()
-
-	//Health
-	if(stat == DEAD)
-		if(health > 0)
-			icon_state = icon_living
-			dead_mob_list -= src
-			living_mob_list += src
-			stat = CONSCIOUS
-			density = 1
-		return 0
-
-	if(health < 1)
-		Die()
-
-	if(health > maxHealth)
-		health = maxHealth
+	if(..())
+		if(!ckey)
+			handle_automated_movement()
+			handle_automated_action()
+			handle_automated_speech()
+		. = 1
 
 	if(resting && icon_resting && stat != DEAD)
 		icon_state = icon_resting
-	else if(icon_resting && stat != DEAD)
+	else if(stat != DEAD)
 		icon_state = icon_living
 
-	if(sleeping)
-		sleeping = max(sleeping-1, 0)
-	if(ear_deaf)
-		ear_deaf = max(ear_deaf-1, 0)
+/mob/living/simple_animal/handle_regular_status_updates()
+	if(..()) //alive
+		if(health < 1)
+			death()
+			return 0
+		return 1
 
-	handle_stunned()
-	handle_weakened()
-	handle_paralysed()
+/mob/living/simple_animal/proc/handle_automated_action()
+	return
 
-	handle_actions()
-
-	//Movement
-	if(!client && !stop_automated_movement && wander && (ckey == null))
+/mob/living/simple_animal/proc/handle_automated_movement()
+	if(!stop_automated_movement && wander)
 		if(isturf(src.loc) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
@@ -134,9 +125,10 @@
 					if(Process_Spacemove(anydir))
 						Move(get_step(src,anydir), anydir)
 						turns_since_move = 0
+			return
 
-	//Speaking
-	if(!client && speak_chance && (ckey == null))
+/mob/living/simple_animal/proc/handle_automated_speech()
+	if(speak_chance)
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
 				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
@@ -170,67 +162,69 @@
 						custom_emote(2,pick(emote_hear))
 
 
-	//Atmos
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atmos_suitable = 1
 
 	var/atom/A = src.loc
-
-	if(istype(A,/turf))
+	if(isturf(A))
 		var/turf/T = A
+		var/areatemp = get_temperature(environment)
 
-		var/datum/gas_mixture/Environment = T.return_air()
+		if( abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
+			var/diff = areatemp - bodytemperature
+			diff = diff / 5
+			bodytemperature += diff
 
-		if(Environment)
+		if(istype(T, /turf/simulated))
+			var/turf/simulated/ST = T
+			if(ST.air)
+				var/tox = ST.air.toxins
+				var/oxy = ST.air.oxygen
+				var/n2 = ST.air.nitrogen
+				var/co2 = ST.air.carbon_dioxide
 
-			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & NO_BREATHE))
-				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
-
-			if(min_oxy)
-				if(Environment.oxygen < min_oxy)
+				if(min_oxy && oxy < min_oxy)
+					atmos_suitable = 0
+					oxygen_alert = 1
+				else if(max_oxy && oxy > max_oxy)
 					atmos_suitable = 0
 					oxygen_alert = 1
 				else
 					oxygen_alert = 0
-			if(max_oxy)
-				if(Environment.oxygen > max_oxy)
+
+				if(min_tox && tox < min_tox)
 					atmos_suitable = 0
-			if(min_tox)
-				if(Environment.toxins < min_tox)
-					atmos_suitable = 0
-			if(max_tox)
-				if(Environment.toxins > max_tox)
+					toxins_alert = 1
+				else if(max_tox && tox > max_tox)
 					atmos_suitable = 0
 					toxins_alert = 1
 				else
 					toxins_alert = 0
-			if(min_n2)
-				if(Environment.nitrogen < min_n2)
-					atmos_suitable = 0
-			if(max_n2)
-				if(Environment.nitrogen > max_n2)
-					atmos_suitable = 0
-			if(min_co2)
-				if(Environment.carbon_dioxide < min_co2)
-					atmos_suitable = 0
-			if(max_co2)
-				if(Environment.carbon_dioxide > max_co2)
-					atmos_suitable = 0
-			if(flags & NO_BREATHE)
-				atmos_suitable = 1
 
-	//Atmos effect
+				if(min_n2 && n2 < min_n2)
+					atmos_suitable = 0
+				else if(max_n2 && n2 > max_n2)
+					atmos_suitable = 0
+
+				if(min_co2 && co2 < min_co2)
+					atmos_suitable = 0
+				else if(max_co2 && co2 > max_co2)
+					atmos_suitable = 0
+
+				if(!atmos_suitable)
+					adjustBruteLoss(unsuitable_atmos_damage)
+
+		else
+			if(min_oxy || min_tox || min_n2 || min_co2)
+				adjustBruteLoss(unsuitable_atmos_damage)
+
+	handle_temperature_damage()
+
+/mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		fire_alert = 2
-		adjustBruteLoss(cold_damage_per_tick)
+		adjustBruteLoss(2)
 	else if(bodytemperature > maxbodytemp)
-		fire_alert = 1
-		adjustBruteLoss(heat_damage_per_tick)
-	else
-		fire_alert = 0
-
-	if(!atmos_suitable)
-		adjustBruteLoss(unsuitable_atmos_damage)
-	return 1
+		adjustBruteLoss(3)
 
 /mob/living/simple_animal/Bumped(AM as mob|obj)
 	if(!AM) return
@@ -280,7 +274,7 @@
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage,M.melee_damage_type)
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
@@ -321,7 +315,7 @@
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
-			adjustBruteLoss(harm_intent_damage)
+			attack_threshold_check(harm_intent_damage)
 
 	return
 
@@ -341,7 +335,7 @@
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			adjustBruteLoss(damage)
+			attack_threshold_check(damage)
 
 	return
 
@@ -361,7 +355,7 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
+				attack_threshold_check(damage)
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
@@ -383,7 +377,7 @@
 		else
 			damage = rand(5, 35)
 
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage)
 
 
 	return
@@ -449,15 +443,14 @@
 	statpanel("Status")
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/proc/Die()
-	living_mob_list -= src
-	dead_mob_list += src
-	if(key)
-		respawnable_list += src
+/mob/living/simple_animal/death(gibbed)
+	health = 0
 	icon_state = icon_dead
 	stat = DEAD
 	density = 0
-	return
+	if(!gibbed)
+		visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	..()
 
 /mob/living/simple_animal/ex_act(severity)
 	..()
@@ -474,9 +467,20 @@
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/adjustBruteLoss(damage)
-	health = Clamp(health - damage, 0, maxHealth)
-	if(health < 1)
-		Die()
+	if(!ignored_damage_types[BRUTE])
+		..()
+
+/mob/living/simple_animal/adjustFireLoss(damage)
+	if(!ignored_damage_types[BURN])
+		..(damage)
+
+/mob/living/simple_animal/adjustToxLoss(damage)
+	if(!ignored_damage_types[TOX])
+		..(damage)
+
+/mob/living/simple_animal/adjustCloneLoss(damage)
+	if(!ignored_damage_types[CLONE])
+		..(damage)
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -494,6 +498,14 @@
 		if (S.occupant || S.occupant2)
 			return 0
 	return 1
+
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
+	if(damage <= force_threshold || ignored_damage_types[damagetype])
+		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
+	else
+		adjustBruteLoss(damage)
+		updatehealth()
+
 
 /mob/living/simple_animal/update_fire()
 	return

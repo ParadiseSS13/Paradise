@@ -13,7 +13,7 @@
 	action_button_name = "Toggle Helmet Light"
 
 	//Species-specific stuff.
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Diona","Vox","Wryn")
+	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -55,7 +55,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
 
-	species_restricted = list("exclude","Unathi","Tajaran","Skrell","Diona","Vox","Wryn")
+	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',

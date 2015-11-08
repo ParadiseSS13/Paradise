@@ -266,9 +266,9 @@
 			L.Weaken(5)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-		var/turf/location = src.loc
+		var/turf/simulated/location = src.loc
 		if(istype(location, /turf/simulated)) //add_blood doesn't work for borgs/xenos, but add_blood_floor does.
-			location.add_blood(L)
+			location.add_blood_floor(L)
 
 /obj/machinery/door/proc/requiresID()
 	return 1

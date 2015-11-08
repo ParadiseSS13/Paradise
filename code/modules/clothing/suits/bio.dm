@@ -24,7 +24,8 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	siemens_coefficient = 0.9
-
+	strip_delay = 70
+	put_on_delay = 70
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general
@@ -80,3 +81,5 @@
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
 	item_state = "bio_suit"
+	strip_delay = 40
+	put_on_delay = 20

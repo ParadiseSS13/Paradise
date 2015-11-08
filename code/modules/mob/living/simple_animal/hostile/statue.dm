@@ -180,7 +180,7 @@
 	dust(animation)
 
 
-/mob/living/simple_animal/hostile/statue/Die()
+/mob/living/simple_animal/hostile/statue/death()
 	living_mob_list -= src
 	dead_mob_list += src
 	if(key)

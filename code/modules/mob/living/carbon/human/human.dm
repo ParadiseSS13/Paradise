@@ -422,7 +422,7 @@
 		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
 		if(affected)
 			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		apply_damage(damage, BRUTE, affecting, armor, M.name)
+		apply_damage(damage,M.melee_damage_type, affecting, armor, M.name)
 		updatehealth()
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
@@ -526,8 +526,6 @@
 	return 0
 
 
-
-/mob/living/carbon/human/var/co2overloadtime = null
 /mob/living/carbon/human/var/temperature_resistance = T0C+75
 
 
@@ -734,7 +732,8 @@
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
+/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
+
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
@@ -746,7 +745,7 @@
 	var/obj/item/organ/external/affected_organ = get_organ(check_zone(def_zone))
 	var/siemens_coeff = base_siemens_coeff * get_siemens_coefficient_organ(affected_organ)
 
-	return ..(shock_damage, source, siemens_coeff, def_zone)
+	return ..(shock_damage, source, siemens_coeff, def_zone,override)
 
 
 /mob/living/carbon/human/Topic(href, href_list)

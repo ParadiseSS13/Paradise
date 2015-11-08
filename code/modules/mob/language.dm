@@ -508,6 +508,17 @@
 	drone_only = 1
 	follow = 1
 
+/datum/language/swarmer
+	name = "Swarmer"
+	desc = "A heavily encoded alien binary pattern."
+	speech_verb = "tones"
+	ask_verb = "tones"
+	exclaim_verb = "tones"
+	colour = "say_quote"
+	key = "z"//Zwarmer...Or Zerg!
+	flags = RESTRICTED || HIVEMIND
+	follow = 1
+
 // Language handling.
 /mob/proc/add_language(var/language)
 

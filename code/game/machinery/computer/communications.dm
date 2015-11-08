@@ -39,7 +39,7 @@ var/shuttle_call/shuttle_calls[0]
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(access_heads)
-	circuit = "/obj/item/weapon/circuitboard/communications"
+	circuit = /obj/item/weapon/circuitboard/communications
 	var/prints_intercept = 1
 	var/authenticated = 0
 	var/list/messagetitle = list()
@@ -64,7 +64,7 @@ var/shuttle_call/shuttle_calls[0]
 /obj/machinery/computer/communications/New()
 	..()
 	crew_announcement.newscast = 1
-	
+
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == 2)
 		return 2
@@ -84,10 +84,10 @@ var/shuttle_call/shuttle_calls[0]
 	if ((!(src.z in config.station_levels) && !(src.z in config.admin_levels)))
 		usr << "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>"
 		return 1
-		
+
 	if(href_list["login"])
 		if(!ishuman(usr))
-			usr << "<span class='warning'>Access denied.</span>" 
+			usr << "<span class='warning'>Access denied.</span>"
 			return
 		var/mob/living/carbon/human/M = usr
 		var/obj/item/card = M.get_active_hand()
@@ -103,11 +103,11 @@ var/shuttle_call/shuttle_calls[0]
 				crew_announcement.announcer = GetNameAndAssignmentFromId(I)
 		nanomanager.update_uis(src)
 		return
-				
+
 	if(href_list["logout"])
 		authenticated = 0
 		crew_announcement.announcer = ""
-		setMenuState(usr,COMM_SCREEN_MAIN)	
+		setMenuState(usr,COMM_SCREEN_MAIN)
 		nanomanager.update_uis(src)
 		return
 
@@ -117,12 +117,12 @@ var/shuttle_call/shuttle_calls[0]
 	switch(href_list["operation"])
 		if("main")
 			setMenuState(usr,COMM_SCREEN_MAIN)
-		
+
 		if("changeseclevel")
 			setMenuState(usr,COMM_SCREEN_SECLEVEL)
 
 		if("newalertlevel")
-			if(isAI(usr) || isrobot(usr)) 
+			if(isAI(usr) || isrobot(usr))
 				usr << "<span class='warning'>Firewalls prevent you from changing the alert level.</span>"
 				nanomanager.update_uis(src)
 				return 1
@@ -177,14 +177,14 @@ var/shuttle_call/shuttle_calls[0]
 			if(!input || ..() || !is_authenticated(usr))
 				nanomanager.update_uis(src)
 				return
-				
+
 			call_shuttle_proc(usr, input)
 			if(emergency_shuttle.online())
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
-			
+
 		if("cancelshuttle")
-			if(isAI(usr) || isrobot(usr)) 
+			if(isAI(usr) || isrobot(usr))
 				usr << "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>"
 				nanomanager.update_uis(src)
 				return 1
@@ -194,13 +194,13 @@ var/shuttle_call/shuttle_calls[0]
 				if(emergency_shuttle.online())
 					post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
-			
+
 		if("messagelist")
 			src.currmsg = 0
 			if(href_list["msgid"])
 				setCurrentMessage(usr, text2num(href_list["msgid"]))
 			setMenuState(usr,COMM_SCREEN_MESSAGES)
-			
+
 		if("delmessage")
 			if(href_list["msgid"])
 				src.currmsg = text2num(href_list["msgid"])
@@ -234,7 +234,7 @@ var/shuttle_call/shuttle_calls[0]
 		if("setmsg1")
 			stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
-			
+
 		if("setmsg2")
 			stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
 			setMenuState(usr,COMM_SCREEN_STAT)
@@ -256,8 +256,8 @@ var/shuttle_call/shuttle_calls[0]
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					centcomm_message_cooldown = 0
-			setMenuState(usr,COMM_SCREEN_MAIN)			
-			
+			setMenuState(usr,COMM_SCREEN_MAIN)
+
 		if("MessageCentcomm")
 			if(is_authenticated(usr) == 2)
 				if(centcomm_message_cooldown)
@@ -300,7 +300,7 @@ var/shuttle_call/shuttle_calls[0]
 			src.emagged = 0
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
-	nanomanager.update_uis(src)		
+	nanomanager.update_uis(src)
 	return 1
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -316,13 +316,13 @@ var/shuttle_call/shuttle_calls[0]
 	if(..(user))
 		return
 
-	if(stat & (NOPOWER|BROKEN)) 
-		return	
-		
+	if(stat & (NOPOWER|BROKEN))
+		return
+
 	if (!(src.z in list(ZLEVEL_STATION, ZLEVEL_CENTCOMM)))
 		user << "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>"
 		return
-		
+
 	ui_interact(user)
 
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)

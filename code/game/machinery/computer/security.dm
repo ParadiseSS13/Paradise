@@ -6,7 +6,7 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	req_one_access = list(access_security, access_forensics_lockers)
-	circuit = "/obj/item/weapon/circuitboard/secure_data"
+	circuit = /obj/item/weapon/circuitboard/secure_data
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
