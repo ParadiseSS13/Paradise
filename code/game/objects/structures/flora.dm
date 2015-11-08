@@ -200,12 +200,14 @@
 
 /obj/structure/flora/kirbyplants/New()
 	..()
-	icon_state = "plant-[rand(1,25)]"
+	icon_state = "plant-[rand(1,35)]"
+	if(prob(1))
+		icon_state = "plant-36"
 
 /obj/structure/flora/kirbyplants/dead
 	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
-	icon_state = "plant-25"
+	icon_state = "plant-dead"
 
 //a rock is flora according to where the icon file is
 //and now these defines
