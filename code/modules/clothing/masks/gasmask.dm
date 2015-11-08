@@ -92,6 +92,7 @@
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
 	siemens_coefficient = 0.7
+	strip_delay = 60
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -219,7 +220,7 @@
 	icon_state = "officermask"
 	aggressiveness = 3
 	ignore_maskadjust = 1
-	
+
 /obj/item/clothing/mask/gas/sechailer/blue
 	name = "\improper blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."

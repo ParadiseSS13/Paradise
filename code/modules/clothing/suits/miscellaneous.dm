@@ -241,6 +241,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = ONESIZEFITSALL
+	strip_delay = 60
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"

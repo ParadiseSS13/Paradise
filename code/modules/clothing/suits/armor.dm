@@ -7,6 +7,8 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.6
+	strip_delay = 60
+	put_on_delay = 40
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -38,13 +40,13 @@
 	desc = "An armored vest that protects against some damage. This one has Nanotrasen corporate badge."
 	icon_state = "armorsec"
 	item_state = "armor"
-	
+
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon_state = "blueshield"
 	item_state = "blueshield"
-	
+
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
 	desc = "A vest drenched in the blood of Greytide. It has seen better days."
@@ -62,6 +64,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	siemens_coefficient = 0.6
+	strip_delay = 80
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
@@ -103,6 +106,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
+	strip_delay = 70
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -129,7 +133,8 @@
 	armor = list(melee = 80, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 	siemens_coefficient = 0.5
-
+	strip_delay = 80
+	put_on_delay = 60
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -139,6 +144,8 @@
 	blood_overlay_type = "armor"
 	armor = list(melee = 25, bullet = 80, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
 	siemens_coefficient = 0.7
+	strip_delay = 70
+	put_on_delay = 50
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"

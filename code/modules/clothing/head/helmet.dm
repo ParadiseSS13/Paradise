@@ -10,6 +10,7 @@
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
+	strip_delay = 60
 	siemens_coefficient = 0.7
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -65,6 +66,7 @@
 	armor = list(melee = 82, bullet = 15, laser = 5,energy = 5, bomb = 5, bio = 2, rad = 0)
 	flags_inv = HIDEEARS
 	siemens_coefficient = 0.7
+	strip_delay = 80
 
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"
@@ -79,6 +81,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.5
+	strip_delay = 80
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi'
@@ -102,6 +105,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	siemens_coefficient = 1
+	strip_delay = 80
 
 /obj/item/clothing/head/helmet/roman
 	name = "roman helmet"
@@ -110,6 +114,7 @@
 	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
 	icon_state = "roman"
 	item_state = "roman"
+	strip_delay = 100
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "roman legionaire helmet"

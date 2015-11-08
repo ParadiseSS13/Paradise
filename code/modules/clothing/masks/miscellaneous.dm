@@ -6,6 +6,7 @@
 	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
+	put_on_delay = 20
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
