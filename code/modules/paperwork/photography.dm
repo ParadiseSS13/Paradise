@@ -166,16 +166,6 @@
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = 1
-/////spooky helpers!/////
-/obj/effect/spookyghost
-	name = "Spooky Ghost"
-	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "ghost"
-	layer = 4
-	density = 0
-	anchored = 1	//  don't get pushed around
-	invisibility = INVISIBILITY_OBSERVER
 
 /obj/item/device/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -225,20 +215,17 @@
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
-			var/obj/effect/spookyghost/SPOOK
 			if(A.invisibility )
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
-					if(O.following) //so you dont see ghosts following people like antags, etc.
+					if(O.following)
 						continue
-					else
-						SPOOK = new(A.loc)
-						A = SPOOK
-				else
+					atoms.Add(image('icons/mob/mob.dmi', O, "ghost", 4, SOUTH))
+				else//its not a ghost
 					continue
-			atoms.Add(A)
-			if(SPOOK)
-				qdel(SPOOK)
+			else//not invisable, not a spookyghost add it.
+				atoms.Add(A)
+
 
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
@@ -315,6 +302,9 @@
 	user << "<span class='notice'>[pictures_left] photos left.</span>"
 	icon_state = icon_off
 	on = 0
+	if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+		if(prob(24))
+			handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
 		on = 1
@@ -535,3 +525,41 @@
 			talk_into(M, msg)
 		for(var/mob/living/carbon/human/H in watcherslist)
 			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)
+
+
+
+///hauntings, like hallucinations but more spooky
+
+/obj/item/device/camera/proc/handle_haunt(var/mob/living/carbon/H)
+
+	switch(rand(1,2))
+		if(1)//just some spooky sounds....
+			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
+						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
+						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
+						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
+						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+			src << pick(creepyasssounds)
+		if(2)
+			new /obj/effect/hallucination/shadow_scare(H.loc,H)
+
+
+/obj/effect/hallucination/simple/shadowman
+	image_icon = 'icons/mob/mob.dmi'
+	image_state = "shadow"
+
+/obj/effect/hallucination/shadow_scare
+	var/obj/effect/hallucination/simple/shadowman/s = null
+
+/obj/effect/hallucination/shadow_scare/New(loc,var/mob/living/carbon/T)
+	target = T
+	var/turf/start = T.loc
+	var/screen_border = pick(SOUTH,EAST,WEST,NORTH)
+	var/shadow_direction = pick(SOUTH,EAST,WEST,NORTH)
+	for(var/i = 0,i<11,i++)
+		start = get_step(start,screen_border)
+	s = new(start,shadow_direction)
+	for(var/i = 0,i<11,i++)
+		sleep(5)
+		s.loc = get_step(get_turf(s),get_dir(s,shadow_direction))
+	qdel(s)
