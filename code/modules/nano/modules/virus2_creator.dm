@@ -69,6 +69,7 @@
 		var/datum/disease2/disease/new_virus = new()
 		new_virus.makerandom()
 		curr_virus = new_virus
+		new_virus.affected_species = list("Human","Unathi","Skrell","Tajaran","Vox","Kidan","Slime People","Grey","Diona", "Vulpkanin") //restore to default
 		usr << "New virus generated: [new_virus.uniqueID]."
 		return 1
 
