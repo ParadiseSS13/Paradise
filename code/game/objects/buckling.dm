@@ -31,7 +31,7 @@
 
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M)
-	if(!can_buckle || !istype(M) || (M.loc != loc) || M.buckled || buckled_mob || (buckle_requires_restraints && !M.restrained()) || M == src)
+	if(!can_buckle || !istype(M) || (M.loc != loc) || M.buckled || M.buckled_mob || buckled_mob || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return 0
 
 	if (isslime(M) || isAI(M))
