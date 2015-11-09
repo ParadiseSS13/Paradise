@@ -6,7 +6,7 @@
 
 //Food items that aren't eaten normally and leave an empty container behind.
 /obj/item/weapon/reagent_containers/food/condiment
-	name = "Condiment Container"
+	name = "condiment container"
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "emptycondiment"
@@ -14,7 +14,18 @@
 	possible_transfer_amounts = list(1,5,10)
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
-	var/list/possible_states = list("ketchup" = list("ketchup", "Ketchup", "You feel more American already."), "capsaicin" = list("hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), "enzyme" = list("enzyme", "Universal Enzyme", "Used in cooking various dishes"), "soysauce" = list("soysauce", "Soy Sauce", "A salty soy-based flavoring"), "frostoil" = list("coldsauce", "Coldsauce", "Leaves the tongue numb in it's passage"), "sodiumchloride" = list("saltshaker", "Salt Shaker", "Salt. From space oceans, presumably"), "blackpepper" = list("pepermillsmall", "Pepper Mill", "Often used to flavor food or make people sneeze"), "cornoil" = list("oliveoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), "sugar" = list("emptycondiment", "Sugar", "Tasty spacey sugar!"))
+	var/list/possible_states = list(
+	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
+	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
+	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
+	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
+	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
+	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
+	 "blackpepper" = list("pepermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
+	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	 "flour" =list("flour", "flour sack", "A big bag of flour. Good for baking!"),
+	 "rice" =list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 
 
 /obj/item/weapon/reagent_containers/food/condiment/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
@@ -96,7 +107,7 @@
 		user << "\blue You transfer [trans] units of the condiment to [target]."
 
 /obj/item/weapon/reagent_containers/food/condiment/on_reagent_change()
-	if(icon_state == "saltshakersmall" || icon_state == "peppermillsmall")
+	if(!possible_states.len)
 		return
 	if(reagents.reagent_list.len > 0)
 		var/main_reagent = reagents.get_master_reagent_id()
@@ -107,21 +118,22 @@
 			desc = temp_list[3]
 
 		else
-			name = "Misc Condiment Bottle"
+			name = "condiment bottle"
+			main_reagent = reagents.get_master_reagent_name()
 			if (reagents.reagent_list.len==1)
-				desc = "Looks like it is [main_reagent], but you are not sure."
+				desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
 			else
-				desc = "A mixture of various condiments. [main_reagent] is one of them."
+				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
 			icon_state = "mixedcondiments"
 	else
 		icon_state = "emptycondiment"
-		name = "Condiment Bottle"
+		name = "condiment bottle"
 		desc = "An empty condiment bottle."
 		return
 
 
 /obj/item/weapon/reagent_containers/food/condiment/enzyme
-	name = "Universal Enzyme"
+	name = "universal enzyme"
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
 	New()
@@ -129,9 +141,34 @@
 		reagents.add_reagent("enzyme", 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/sugar
+	name = "sugar bottle"
+	desc = "Tasty spacey sugar!"
+
 	New()
 		..()
 		reagents.add_reagent("sugar", 50)
+
+/obj/item/weapon/reagent_containers/food/condiment/flour
+	name = "flour sack"
+	desc = "A big bag of flour. Good for baking!"
+	icon_state = "flour"
+	item_state = "flour"
+	possible_states = list()
+
+	New()
+		..()
+		reagents.add_reagent("flour", 30)
+
+/obj/item/weapon/reagent_containers/food/condiment/rice
+	name = "rice sack"
+	desc = "A big bag of rice. Good for cooking!"
+	icon_state = "rice"
+	item_state = "flour"
+	possible_states = list()
+
+	New()
+		..()
+		reagents.add_reagent("rice", 30)
 
 /obj/item/weapon/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "Salt Shaker"											//	a large one.
@@ -140,6 +177,8 @@
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
+	possible_states = list()
+
 	New()
 		..()
 		reagents.add_reagent("sodiumchloride", 20)
@@ -151,6 +190,8 @@
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
+	possible_states = list()
+
 	New()
 		..()
 		reagents.add_reagent("blackpepper", 20)

@@ -36,8 +36,7 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/caramel
 
 /datum/recipe/candy/toffee
-	reagents = list("sugar" = 5)
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/flour)
+	reagents = list("sugar" = 5, "flour" = 10)
 	result = /obj/item/weapon/reagent_containers/food/snacks/candy/toffee
 
 /datum/recipe/candy/taffy

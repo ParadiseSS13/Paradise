@@ -779,7 +779,7 @@
 		"deathnettle" = list("facid" = 0),
 		"soybeans" = list("soymilk" = 0),
 		"tomato" = list("ketchup" = 0),
-		///obj/item/weapon/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
+		"wheat" = list("flour" = -5),
 		"rice" = list("rice" = -5),
 		"cherries" = list("cherryjelly" = 0),
 	)
