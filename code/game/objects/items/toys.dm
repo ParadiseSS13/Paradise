@@ -18,6 +18,7 @@
  *		Foam armblade
  *		Mini Gibber
  *		Toy xeno
+ *		Toy chainsaws
  */
 
 
@@ -1414,3 +1415,25 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)
+
+/*
+ * Rubber Chainsaw
+ */
+	
+/obj/item/weapon/twohanded/chainsaw/rubber
+	name = "Rubber Chainsaw"
+	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
+	force = 0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
+	force_unwielded = 0
+	force_wielded = 0
+	sharp = 0
+	edge = 0
+	origin_tech = null
+	isrealchainsaw = 0
+
+/obj/item/weapon/twohanded/chainsaw/rubber/wield()
+	..()
+	flags &= ~NODROP
