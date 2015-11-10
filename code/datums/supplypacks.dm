@@ -1382,6 +1382,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/vending/pets
 	name = "Pet Supply Crate"
 	contains = list(/obj/item/weapon/vending_refill/crittercare,
+					/obj/item/weapon/vending_refill/crittercare,
 					/obj/item/weapon/vending_refill/crittercare)
 	cost = 15
 	containername = "pet supply crate"
