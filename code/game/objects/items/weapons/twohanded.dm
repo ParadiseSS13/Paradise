@@ -357,6 +357,7 @@
 	sharp = 1
 	edge = 1
 	no_embed = 1
+	var/isrealchainsaw = 1
 
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
@@ -373,7 +374,8 @@
 		if(!isliving(target))
 			return
 		else
-			target.Weaken(4)
+			if(isrealchainsaw == 1)
+				target.Weaken(4)
 			..()
 		return
 	else
