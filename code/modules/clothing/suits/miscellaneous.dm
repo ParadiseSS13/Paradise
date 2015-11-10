@@ -535,6 +535,12 @@
 	siemens_coefficient = 0
 	var/on = 0
 
+/obj/item/clothing/suit/advanced_protective_suit/Destroy()
+	if(on)
+		on = 0
+		processing_objects.Remove(src)
+	return ..()
+
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
 	if(on)
 		on = 0
