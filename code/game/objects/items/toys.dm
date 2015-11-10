@@ -1432,7 +1432,6 @@ obj/item/toy/cards/deck/syndicate/black
 	sharp = 0
 	edge = 0
 	origin_tech = null
-	isrealchainsaw = 0
 
 /obj/item/weapon/twohanded/chainsaw/rubber/wield()
 	..()
