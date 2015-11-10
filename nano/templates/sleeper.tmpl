@@ -178,8 +178,8 @@ Used In File(s): \code\game\machinery\Sleeper.dm
     </div>
 	
     {{for data.chemicals}}
+	<div class="line"><b>{{:value.title}}</b></div>
 	<div class="line">
-        <b>{{:value.title}}:</b>
 		{{if value.overdosing}}
             {{:helper.displayBar(value.occ_amount, 0, data.maxchem, 'bad')}}
 		{{else value.od_warning}}
@@ -190,7 +190,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
         <div class="statusValue">{{:value.pretty_amount}}/{{:data.maxchem}}</div>
 		<br>
 	</div>
-		<div class="line>
+	<div class="line">
 		<div class="itemContent">
 			{{:helper.link('5', 'gear', {'chemical' : value.id, 'amount' : 5}, (!value.injectable || ((value.occ_amount + 5) > data.maxchem)) ? 'disabled' : null)}}
 			{{:helper.link('10', 'gear', {'chemical' : value.id, 'amount' : 10}, (!value.injectable || ((value.occ_amount + 10) > data.maxchem)) ? 'disabled' : null)}}
