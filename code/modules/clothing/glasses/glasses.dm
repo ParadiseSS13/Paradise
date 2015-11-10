@@ -213,6 +213,17 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/lasers
+	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
+	name = "high-tech sunglasses"
+	flags = GLASSESCOVERSEYES | NODROP
+
+/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
+	if(slot == slot_glasses)
+		user.mutations.Add(LASER)
+		user.regenerate_icons()
+	..(user, slot)
+
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
 	desc = "Protects the eyes from welders, approved by the mad scientist association."
