@@ -1419,20 +1419,29 @@ obj/item/toy/cards/deck/syndicate/black
 /*
  * Rubber Chainsaw
  */
-	
-/obj/item/weapon/twohanded/chainsaw/rubber
-	name = "Rubber Chainsaw"
+/obj/item/weapon/twohanded/toy/chainsaw
+	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
+	icon_state = "chainsaw0"
 	force = 0
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	force_unwielded = 0
-	force_wielded = 0
-	sharp = 0
-	edge = 0
-	origin_tech = null
+	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	
+obj/item/weapon/twohanded/toy/chainsaw/update_icon()
+	if(wielded)
+		icon_state = "chainsaw[wielded]"
+	else
+		icon_state = "chainsaw0"
 
-/obj/item/weapon/twohanded/chainsaw/rubber/wield()
-	..()
-	flags &= ~NODROP
+/obj/item/weapon/twohanded/toy/chainsaw/attack(mob/target as mob, mob/living/user as mob)
+	if(wielded)
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1)
+		..()
+		return
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+		..()
+		return
