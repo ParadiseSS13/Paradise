@@ -1439,8 +1439,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/weapon/twohanded/toy/chainsaw/attack(mob/target as mob, mob/living/user as mob)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1)
-		return
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
 	..()
-		return
+	return
