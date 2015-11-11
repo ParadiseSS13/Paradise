@@ -373,8 +373,7 @@
 		if(!isliving(target))
 			return
 		else
-			if(!istype(src, /obj/item/weapon/twohanded/chainsaw/rubber))
-				target.Weaken(4)
+			target.Weaken(4)
 			..()
 		return
 	else
