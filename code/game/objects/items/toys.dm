@@ -1430,7 +1430,7 @@ obj/item/toy/cards/deck/syndicate/black
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	
-obj/item/weapon/twohanded/toy/chainsaw/update_icon()
+/obj/item/weapon/twohanded/toy/chainsaw/update_icon()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else
