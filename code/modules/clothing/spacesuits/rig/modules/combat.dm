@@ -215,12 +215,12 @@
 	use_power_cost = 15
 	icon_state = "enet"
 
-	engage_string = "Fabricate Star"
+	engage_string = "Fabricate Tile"
 
 	interface_name = "death blossom launcher"
 	interface_desc = "An integrated microfactory that produces floor tiles from thin air and electricity."
 
-	var/fabrication_type = /obj/item/stack/tile
+	var/fabrication_type = /obj/item/stack/tile/plasteel
 	var/fire_force = 30
 	var/fire_distance = 10
 
