@@ -663,7 +663,7 @@
 "mM" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "diagonalWall3"},/area/shuttle/vox/station)
 "mN" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless,/area/shuttle/vox/station)
 "mO" = (/obj/structure/rack,/obj/item/clothing/accessory/storage/black_vest,/obj/item/clothing/suit/space/vox/medic,/obj/item/clothing/head/helmet/space/vox/medic,/obj/item/clothing/mask/breath,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox/station)
-"mP" = (/obj/structure/rack,/obj/item/weapon/gun/launcher/pneumatic,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/tank/nitrogen,/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox/station)
+"mP" = (/obj/structure/rack,/obj/item/weapon/pneumatic_cannon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/harpoon,/obj/item/weapon/tank/nitrogen,/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox/station)
 "mQ" = (/turf/space,/turf/simulated/shuttle/wall{dir = 4; icon_state = "diagonalWall3"},/area/shuttle/vox/station)
 "mR" = (/turf/space/transit/north/shuttlespace_ns7,/area/vox_station/transit)
 "mS" = (/obj/effect/step_trigger/thrower{affect_ghosts = 1; direction = 2; name = "thrower_throwdown"; tiles = 0},/turf/space/transit/north/shuttlespace_ns12,/area/space)

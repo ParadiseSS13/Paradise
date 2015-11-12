@@ -76,9 +76,8 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/sausage
 
 /datum/recipe/grill/fishfingers
+	reagents = list("flour" = 10)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
 		/obj/item/weapon/reagent_containers/food/snacks/egg,
 		/obj/item/weapon/reagent_containers/food/snacks/carpmeat,
 	)
