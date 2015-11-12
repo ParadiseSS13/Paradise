@@ -237,7 +237,9 @@ Used In File(s): /code/modules/clothing/spacesuits/rig/rig.dm
 								<div class='floatLeft' style='clear: left; margin-left: 10px; width: 100%'>
 									{{if value.charges}}
 										<div class='average boldText'>Stored charges</div>
-										<div class='boldText'>Selected:</div> {{:helper.capitalizeFirstLetter(value.chargetype)}}
+										<div/> <!-- Less intrusive line break -->
+										<div class='boldText floatLeft'>Selected:</div>&nbsp;{{:helper.capitalizeFirstLetter(value.chargetype)}}
+										<div/> <!-- Less intrusive line break -->
 										{{for value.charges :itemValue:itemIndex}}
 											<div class='floatLeft' style='padding: 2px 0px'>
 												{{:helper.link(helper.capitalizeFirstLetter(itemValue.caption), null, {'interact_module' : value.index, 'module_mode' : 'select_charge_type', 'charge_type' : itemValue.index}, null)}}

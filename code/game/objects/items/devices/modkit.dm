@@ -11,7 +11,7 @@
 
 	var/list/permitted_types = list(
 		/obj/item/clothing/head/helmet/space/rig,
-		/obj/item/clothing/suit/space/rig,
+		/obj/item/clothing/suit/space/rig
 		)
 
 /obj/item/device/modkit/afterattack(obj/O, mob/user as mob, proximity)
