@@ -773,12 +773,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/food
 	name = "Food Crate"
-	contains = list(/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
+	contains = list(/obj/item/weapon/reagent_containers/food/condiment/flour,
+					/obj/item/weapon/reagent_containers/food/condiment/rice,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/reagent_containers/food/drinks/soymilk,
+					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
+					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
 					/obj/item/weapon/storage/fancy/egg_box,
 					/obj/item/weapon/reagent_containers/food/condiment/enzyme,
 					/obj/item/weapon/reagent_containers/food/condiment/sugar,
