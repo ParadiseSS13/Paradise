@@ -220,7 +220,7 @@
 					var/mob/dead/observer/O = A
 					if(O.following)
 						continue
-					atoms.Add(image('icons/mob/mob.dmi', O, "ghost", 4, SOUTH))
+					atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
 				else//its not a ghost
 					continue
 			else//not invisable, not a spookyghost add it.
@@ -531,7 +531,6 @@
 ///hauntings, like hallucinations but more spooky
 
 /obj/item/device/camera/proc/handle_haunt(var/mob/living/carbon/H)
-
 	switch(rand(1,2))
 		if(1)//just some spooky sounds....
 			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
@@ -542,24 +541,3 @@
 			src << pick(creepyasssounds)
 		if(2)
 			new /obj/effect/hallucination/shadow_scare(H.loc,H)
-
-
-/obj/effect/hallucination/simple/shadowman
-	image_icon = 'icons/mob/mob.dmi'
-	image_state = "shadow"
-
-/obj/effect/hallucination/shadow_scare
-	var/obj/effect/hallucination/simple/shadowman/s = null
-
-/obj/effect/hallucination/shadow_scare/New(loc,var/mob/living/carbon/T)
-	target = T
-	var/turf/start = T.loc
-	var/screen_border = pick(SOUTH,EAST,WEST,NORTH)
-	var/shadow_direction = pick(SOUTH,EAST,WEST,NORTH)
-	for(var/i = 0,i<11,i++)
-		start = get_step(start,screen_border)
-	s = new(start,shadow_direction)
-	for(var/i = 0,i<11,i++)
-		sleep(5)
-		s.loc = get_step(get_turf(s),get_dir(s,shadow_direction))
-	qdel(s)
