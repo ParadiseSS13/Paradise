@@ -262,3 +262,26 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	announcement.announcer = ""
 	if(mainmenu)
 		screen = RCS_MAINMENU
+
+/obj/machinery/requests_console/proc/createMessage(source, title, message, priority)
+	var/linkedSender
+	if(istype(source, /obj/machinery/requests_console))
+		var/obj/machinery/requests_console/sender = source
+		linkedSender = "<a href='?src=\ref[src];write=[ckey(sender.department)]'[sender.department]</a>"
+	else
+		capitalize(source)
+		linkedSender = source
+	capitalize(title)
+	if(src.newmessagepriority < priority)
+		src.newmessagepriority = priority
+		update_icon()
+	if(!src.silent)
+		playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 1)
+		state(title)
+
+	switch(priority)
+		if(2) // High
+			src.message_log += "<span class='bad'>High Priority</span><BR><b>From:</b> [linkedSender]<BR>[message]"
+		else // Normal
+			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
+	set_light(2)
