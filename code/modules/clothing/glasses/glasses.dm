@@ -53,6 +53,7 @@
 	vision_flags = SEE_TURFS
 	prescription_upgradable = 1
 	species_fit = list("Vox")
+	see_darkness = 0 //don't render darkness while wearing mesons
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -63,7 +64,6 @@
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/meson/prescription
