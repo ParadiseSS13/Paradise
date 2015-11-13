@@ -54,7 +54,9 @@
 	update_canmove()
 
 	if(client)
-		handle_regular_hud_updates()
+		regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
+		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
+
 
 /mob/living/proc/handle_breathing()
 	return
