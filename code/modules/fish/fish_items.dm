@@ -199,6 +199,15 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
+/obj/item/weapon/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
+	if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch) || istype(O, /obj/item/weapon/scalpel) || istype(O, /obj/item/weapon/kitchen/utensil/knife))
+		user << "You carefully clean and gut \the [src.name]."
+		new /obj/item/weapon/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+		qdel(src)
+		return
+	..()
+
+
 /obj/item/weapon/bananapeel/clownfish
 	name = "clown fish"
 	desc = "Even underwater, you cannot escape HONKing."
