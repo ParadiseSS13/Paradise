@@ -774,6 +774,12 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 	image_icon = 'icons/mob/mob.dmi'
 	image_state = "shadow"
 
+/obj/effect/hallucination/simple/shadowman/New(loc,var/mob/living/carbon/T)
+	..()
+	name = "Strange Shadow"
+	return
+
+
 /obj/effect/hallucination/shadow_scare
 	var/obj/effect/hallucination/simple/shadowman/s = null
 
@@ -788,4 +794,5 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 	for(var/i = 0,i<11,i++)
 		sleep(5)
 		s.loc = get_step(get_turf(s),get_dir(s,shadow_direction))
+		s.Show()
 	qdel(s)

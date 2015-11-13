@@ -530,14 +530,10 @@
 
 ///hauntings, like hallucinations but more spooky
 
-/obj/item/device/camera/proc/handle_haunt(var/mob/living/carbon/H)
-	switch(rand(1,2))
-		if(1)//just some spooky sounds....
+/obj/item/device/camera/proc/handle_haunt(mob/user as mob)
 			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
 						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
 						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
 						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
-			src << pick(creepyasssounds)
-		if(2)
-			new /obj/effect/hallucination/shadow_scare(H.loc,H)
+			user << pick(creepyasssounds)
