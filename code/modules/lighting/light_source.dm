@@ -195,6 +195,11 @@
 
 	effect_str.Cut()
 	effect_turf.Cut()
+	
+/datum/light_source/proc/forget_turf(turf/T)
+	var/idx = effect_turf.Find(T)
+	effect_turf.Cut(idx, idx + 1)
+	effect_str.Cut(idx, idx + 1)
 
 //Smartly updates the lighting, only removes lum from and adds lum to turfs that actually got changed.
 //This is for lights that need to reconsider due to nearby opacity changes.
