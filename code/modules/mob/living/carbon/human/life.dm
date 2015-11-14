@@ -760,7 +760,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 /mob/living/carbon/human/handle_regular_status_updates()
 
-	if(status_flags & GODMODE)	return 0
+	if(status_flags & GODMODE)
+		return 0
 
 	//SSD check, if a logged player is awake put them back to sleep!
 	if(player_logged && sleeping < 2)
@@ -958,9 +959,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			spawn(10)
 				if(flying)
 					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
-
-		//Other
-		handle_statuses()
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
