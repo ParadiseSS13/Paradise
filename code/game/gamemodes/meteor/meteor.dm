@@ -31,14 +31,13 @@
 
 /datum/game_mode/meteor/proc/sendmeteors()
 	nometeors = 1
-	spawn()
-		var/waveduration = world.time + rand(3000,9000)
-		var/waitduration = rand(3000,9000)
-		while(waveduration - world.time > 0)
-			sleep(20)
-			spawn() spawn_meteors(6, meteors_normal)
-		sleep(waitduration)
-		nometeors = 0
+	var/waveduration = world.time + rand(1500,3000)
+	var/waitduration = rand(3000,9000)
+	while(waveduration - world.time > 0)
+		sleep(20)
+		spawn() spawn_meteors(6, meteors_normal)
+	sleep(waitduration)
+	nometeors = 0
 
 /datum/game_mode/meteor/declare_completion()
 	var/text
