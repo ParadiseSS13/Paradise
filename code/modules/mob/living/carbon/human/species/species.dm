@@ -376,18 +376,25 @@
 	else
 		H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 
+		H.see_in_dark = darksight //set their variables to default, modify them later
+		H.see_invisible = SEE_INVISIBLE_LIVING
+
 		if(H.mind && H.mind.vampire)
 			if(VAMP_VISION in H.mind.vampire.powers && !(VAMP_FULL in H.mind.vampire.powers))
 				H.sight |= SEE_MOBS
+
 			else if(VAMP_FULL in H.mind.vampire.powers)
 				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 				H.see_in_dark = 8
-				if(!H.druggy)		H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
+
 
 		if(XRAY in H.mutations)
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
-			if(!H.druggy)		H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+
+			H.see_invisible = SEE_INVISIBLE_MINIMUM
+
 
 		if(H.seer == 1)
 			var/obj/effect/rune/R = locate() in H.loc
@@ -397,11 +404,7 @@
 				H.see_invisible = SEE_INVISIBLE_LIVING
 				H.seer = 0
 
-		else if(!H.seer)
-			H.see_in_dark = darksight
-			H.see_invisible = SEE_INVISIBLE_LIVING
-
-		//	This checks how much the mob's eyewear impairs their vision
+		//This checks how much the mob's eyewear impairs their vision
 		if(H.tinttotal >= TINT_IMPAIR)
 			if(tinted_weldhelh)
 				if(H.tinttotal >= TINT_BLIND)
@@ -413,7 +416,9 @@
 			if(istype(H.glasses, /obj/item/clothing/glasses))
 				var/obj/item/clothing/glasses/G = H.glasses
 				H.sight |= G.vision_flags
-				H.see_in_dark = G.darkness_view
+
+				if(G.darkness_view)
+					H.see_in_dark = G.darkness_view
 
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
@@ -452,13 +457,10 @@
 							H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
 							if(G.vision_flags)		// MESONS
 								H.sight |= G.vision_flags
-								if(!H.druggy)
-									H.see_invisible = SEE_INVISIBLE_MINIMUM
+
 							if(!G.see_darkness)
 								H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-							/* HUD shit goes here, as long as it doesn't modify sight flags */
-							// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
 							switch(G.HUDType)
 								if(SECHUD)
 									process_sec_hud(H,1)
@@ -466,6 +468,13 @@
 									process_med_hud(H,1)
 								if(ANTAGHUD)
 									process_antag_hud(H)
+
+		if(H.vision_type)
+			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+			H.see_invisible = H.vision_type.see_invisible
+			if(H.vision_type.light_sensitive)
+				H.weakeyes = 1
+			H.sight |= H.vision_type.sight_flags
 
 		if(H.see_override)	//Override all
 			H.see_invisible = H.see_override
