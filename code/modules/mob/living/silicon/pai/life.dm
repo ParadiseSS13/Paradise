@@ -17,9 +17,6 @@
 					M.show_message("\red The data cable rapidly retracts back into its spool.", 3, "\red You hear a click and the sound of wire spooling rapidly.", 2)
 				qdel(src.cable)
 
-		handle_statuses()
-
-
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
@@ -28,4 +25,3 @@
 		health = 100 - getBruteLoss() - getFireLoss()
 	if(health <= 0)
 		death(0)
-
