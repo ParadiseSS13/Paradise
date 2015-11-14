@@ -2688,7 +2688,7 @@
 "aZJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor{icon_state = "L12"},/area/hallway/primary/central/north)
 "aZK" = (/obj/machinery/navbeacon{codes_txt = "patrol;next_patrol=Security"; location = "EVA2"},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor{icon_state = "L10"},/area/hallway/primary/central/north)
 "aZL" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,/turf/simulated/floor{desc = ""; icon_state = "L14"},/area/hallway/primary/central/north)
-"aZM" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11; level = 1},/obj/machinery/requests_console{department = "Mechanic"; departmentType = 3; name = "Mechanic Requests Console"; step_y = 31},/turf/simulated/floor,/area/engine/mechanic_workshop)
+"aZM" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 1; initialize_directions = 11; level = 1},/obj/machinery/requests_console{department = "Mechanic"; departmentType = 3; name = "Mechanic Requests Console"; pixel_y = 30},/turf/simulated/floor,/area/engine/mechanic_workshop)
 "aZN" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor,/area/hallway/primary/central/north)
 "aZO" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/door/firedoor,/turf/simulated/floor,/area/hallway/primary/central/ne)
 "aZP" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor,/area/hallway/primary/central/ne)

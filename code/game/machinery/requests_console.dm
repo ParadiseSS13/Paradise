@@ -62,8 +62,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		if(icon_state != "req_comp_off")
 			icon_state = "req_comp_off"
 	else
-		if(icon_state == "req_comp_off")
-			icon_state = "req_comp[newmessagepriority]"
+		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/New()
 	..()
