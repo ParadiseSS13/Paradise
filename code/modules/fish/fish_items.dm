@@ -165,7 +165,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	icon_state = "catfish"
 
 /obj/item/weapon/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch) || istype(O, /obj/item/weapon/scalpel) || istype(O, /obj/item/weapon/kitchen/utensil/knife))
+	if(is_sharp(O))
 		user << "You carefully clean and gut \the [src.name]."
 		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
@@ -184,7 +184,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	icon_state = "salmon"
 
 /obj/item/weapon/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch) || istype(O, /obj/item/weapon/scalpel) || istype(O, /obj/item/weapon/kitchen/utensil/knife))
+	if(is_sharp(O))
 		user << "You carefully clean and gut \the [src.name]."
 		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
@@ -200,7 +200,7 @@ var/global/list/fish_items_list = list("goldfish" = /obj/item/weapon/fish/goldfi
 	force = 3
 
 /obj/item/weapon/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/kitchenknife) || istype(O, /obj/item/weapon/butch) || istype(O, /obj/item/weapon/scalpel) || istype(O, /obj/item/weapon/kitchen/utensil/knife))
+	if(is_sharp(O))
 		user << "You carefully clean and gut \the [src.name]."
 		new /obj/item/weapon/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
