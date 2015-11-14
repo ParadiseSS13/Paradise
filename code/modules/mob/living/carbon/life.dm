@@ -187,17 +187,20 @@
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
-		if (!contents.Find(internal))
+		if(!contents.Find(internal))
 			internal = null
-		if (!wear_mask || !(wear_mask.flags & MASKINTERNALS) )
-			internal = null
+		if(!wear_mask || !(wear_mask.flags & AIRTIGHT)) //not wearing mask or non-breath mask
+			if(!head || !(head.flags & AIRTIGHT)) //not wearing helmet or non-breath helmet
+				internal = null //turn off internals
+
 		if(internal)
-			if (internals)
+			if(internals)
 				internals.icon_state = "internal1"
 			return internal.remove_air_volume(volume_needed)
 		else
-			if (internals)
+			if(internals)
 				internals.icon_state = "internal0"
+
 	return
 
 //remember to remove the "proc" of the child procs of these.

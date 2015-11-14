@@ -447,6 +447,27 @@
 					if(ANTAGHUD)
 						process_antag_hud(H)
 
+		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+			var/obj/item/weapon/rig/rig = H.back
+			if(rig.visor)
+				if(!rig.helmet || (H.head && rig.helmet == H.head))
+					if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
+						var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
+						if(istype(G))
+							H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+							if(G.vision_flags)		// MESONS
+								H.sight |= G.vision_flags
+
+							if(!G.see_darkness)
+								H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+							switch(G.HUDType)
+								if(SECHUD)
+									process_sec_hud(H,1)
+								if(MEDHUD)
+									process_med_hud(H,1)
+								if(ANTAGHUD)
+									process_antag_hud(H)
 
 		if(H.vision_type)
 			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)

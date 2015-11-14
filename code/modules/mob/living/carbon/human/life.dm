@@ -334,6 +334,32 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	// Health is in deep shit and we're not already dead
 	return health <= 0 && stat != 2
 
+
+/mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
+	var/null_internals = 0
+	if(internal)
+		if(istype(back, /obj/item/weapon/rig))
+			var/obj/item/weapon/rig/rig = back
+			if(rig.offline && (rig.air_supply && internal == rig.air_supply))
+				null_internals = 1
+
+		if(!(wear_mask && (wear_mask.flags & AIRTIGHT))) //not wearing mask
+			if(!(head && (head.flags & AIRTIGHT))) //not wearing helmet
+				null_internals = 1
+
+		if(null_internals)
+			internal = null
+
+		if(internal)
+			if(internals)
+				internals.icon_state = "internal1"
+			return internal.remove_air_volume(volume_needed)
+		else
+			if(internals)
+				internals.icon_state = "internal0"
+
+	return null
+
 /mob/living/carbon/human/check_breath(var/datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return 0
