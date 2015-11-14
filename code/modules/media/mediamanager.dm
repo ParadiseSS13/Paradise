@@ -30,25 +30,12 @@ function SetMusic(url, time, volume) {
 	vlc.playlist.playItem(id);
 
 	vlc.input.time = time*1000; // VLC takes milliseconds.
-	vlc.audio.volume = volume*100; // \[0-200]
+	// for whatever reason, VLC plugin requires a delay between playing and setting volume
+	// also scaling it log-wise so that it's a more useful range
+	setTimeout(function() { vlc.audio.volume = Math.log(volume) / Math.LN10 * 50 }, 100); // volume ranges from 0-200
 }
 	</script>
 "}
-
-/* OLD, DO NOT USE.  CONTROLS.CURRENTPOSITION IS BROKEN.
-var/const/PLAYER_HTML={"
-	<OBJECT id='player' CLASSID='CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6' type='application/x-oleobject'></OBJECT>
-	<script>
-function noErrorMessages () { return true; }
-window.onerror = noErrorMessages;
-function SetMusic(url, time, volume) {
-	var player = document.getElementById('player');
-	player.URL = url;
-	player.Controls.currentPosition = time;
-	player.Settings.volume = volume;
-}
-	</script>"}
-*/
 
 // Hook into the events we desire.
 /hook_handler/soundmanager

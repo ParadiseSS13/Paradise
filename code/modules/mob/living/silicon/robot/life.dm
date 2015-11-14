@@ -244,8 +244,6 @@
 	if(!client)
 		return
 
-	regular_hud_updates()
-
 	switch(sensor_mode)
 		if(SEC_HUD)
 			process_sec_hud(src,1)

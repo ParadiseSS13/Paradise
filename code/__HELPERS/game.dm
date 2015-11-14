@@ -16,6 +16,8 @@
 		return A
 
 /proc/get_area(O)
+	if(isarea(O))
+		return O
 	var/turf/loc = get_turf(O)
 	if(loc)
 		var/area/res = loc.loc

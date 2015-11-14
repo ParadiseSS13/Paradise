@@ -76,8 +76,6 @@
 			silent = 0
 			return 1
 
-		handle_statuses()
-
 		. = 1
 
 /mob/living/carbon/brain/handle_vision()

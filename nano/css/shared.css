@@ -237,6 +237,7 @@ div.notice {
     width: 100%;
     margin: 4px 0 0 0;
     clear: both;
+    overflow: auto;
 }
 
 .itemContentNarrow, .itemContent {
@@ -297,6 +298,7 @@ div.notice {
     border: 1px solid #40628a;
     padding: 4px;
     margin: 3px 0;
+    overflow: hidden;
 }
 
 .statusDisplayRecords {
@@ -429,6 +431,10 @@ div.notice {
 
 .floatRight {
     float: right;
+}
+
+.floatLeft {
+	float: left;
 }
 
 /* PDA styling */
