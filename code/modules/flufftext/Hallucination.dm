@@ -767,32 +767,3 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 					spawn(rand(50,80)) //Only seen for a brief moment.
 						if(client) client.images -= halbody
 						halbody = null
-
-
-//spooky stuff
-/obj/effect/hallucination/simple/shadowman
-	image_icon = 'icons/mob/mob.dmi'
-	image_state = "shadow"
-
-/obj/effect/hallucination/simple/shadowman/New(loc,var/mob/living/carbon/T)
-	..()
-	name = "Strange Shadow"
-	return
-
-
-/obj/effect/hallucination/shadow_scare
-	var/obj/effect/hallucination/simple/shadowman/s = null
-
-/obj/effect/hallucination/shadow_scare/New(loc,var/mob/living/carbon/T)
-	target = T
-	var/turf/start = T.loc
-	var/screen_border = pick(SOUTH,EAST,WEST,NORTH)
-	var/shadow_direction = pick(SOUTH,EAST,WEST,NORTH)
-	for(var/i = 0,i<11,i++)
-		start = get_step(start,screen_border)
-	s = new(start,shadow_direction)
-	for(var/i = 0,i<11,i++)
-		sleep(5)
-		s.loc = get_step(get_turf(s),get_dir(s,shadow_direction))
-		s.Show()
-	qdel(s)
