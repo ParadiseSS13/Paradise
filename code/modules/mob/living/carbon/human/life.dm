@@ -828,7 +828,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			setHalLoss(99)
 
 		if(paralysis)
-			AdjustParalysis(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
 			if(halloss > 0)
