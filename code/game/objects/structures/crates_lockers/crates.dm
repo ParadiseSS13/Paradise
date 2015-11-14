@@ -11,6 +11,8 @@
 //	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
 	var/rigged = 0
 	var/obj/item/weapon/paper/manifest/manifest
+	// A list of beacon names that the crate will announce the arrival of, when delivered.
+	var/list/announce_beacons = list()
 
 /obj/structure/closet/crate/New()
 	..()
@@ -211,6 +213,14 @@
 		src.add_fingerprint(user)
 		src.toggle(user)
 	return
+
+// Called when a crate is delivered by MULE at a location, for notifying purposes
+/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
+	var/msg = "[capitalize(name)] has arrived at [destination]."
+	if(destination in announce_beacons)
+		for(var/obj/machinery/requests_console/D in allConsoles)
+			if(D.department in src.announce_beacons[destination])
+				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."

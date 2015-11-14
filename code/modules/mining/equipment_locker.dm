@@ -72,7 +72,7 @@
 				if(D.department in src.supply_consoles)
 					if(supply_consoles[D.department] == null || (s.name in supply_consoles[D.department]))
 						D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
-				
+
 		var/obj/item/stack/sheet/storage = stack_list[processed_sheet]
 		storage.amount += sheet_per_ore //Stack the sheets
 		O.loc = null //Let the old sheet...
