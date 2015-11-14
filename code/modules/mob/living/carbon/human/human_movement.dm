@@ -58,10 +58,18 @@
 	if(..())
 		return 1
 
-	//Do we have a working jetpack
-	if(istype(back, /obj/item/weapon/tank/jetpack) && isturf(loc)) //Second check is so you can't use a jetpack in a mech
-		var/obj/item/weapon/tank/jetpack/J = back
-		if((movement_dir || J.stabilization_on) && J.allow_thrust(0.01, src))
+	//Do we have a working jetpack?
+	var/obj/item/weapon/tank/jetpack/thrust
+	if(istype(back,/obj/item/weapon/tank/jetpack))
+		thrust = back
+	else if(istype(back,/obj/item/weapon/rig))
+		var/obj/item/weapon/rig/rig = back
+		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
+			thrust = module.jets
+			break
+
+	if(thrust)
+		if((movement_dir || thrust.stabilization_on) && thrust.allow_thrust(0.01, src))
 			return 1
 	return 0
 

@@ -41,7 +41,7 @@
 			density = 1
 		return
 	else if(health < 1)
-		Die()
+		death()
 	else if(health > maxHealth)
 		health = maxHealth
 	for(var/mob/A in viewers(world.view,src))

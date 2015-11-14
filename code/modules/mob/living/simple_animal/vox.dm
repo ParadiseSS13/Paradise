@@ -22,7 +22,7 @@
 	var/amp = null
 	var/quills = 3
 
-/mob/living/simple_animal/vox/armalis/Die()
+/mob/living/simple_animal/vox/armalis/death()
 
 	living_mob_list -= src
 	dead_mob_list += src

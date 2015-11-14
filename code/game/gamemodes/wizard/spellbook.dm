@@ -281,6 +281,12 @@
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
 	return .
 
+/datum/spellbook_entry/item/necrostone
+	name = "A Necromantic Stone"
+	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
+	item_path = /obj/item/device/necromantic_stone
+	log_name = "NS"
+
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."

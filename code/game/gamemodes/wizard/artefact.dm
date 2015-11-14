@@ -597,3 +597,239 @@ var/global/list/multiverse = list()
 	probability_evil = 100
 	duplicate_self = 1
 	sword_type = /obj/item/weapon/multisword/pike
+
+
+/////////////////////////////////////////Necromantic Stone///////////////////
+
+/obj/item/device/necromantic_stone
+	name = "necromantic stone"
+	desc = "A shard capable of resurrecting humans as skeleton thralls."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "necrostone"
+	item_state = "electronic"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = 1
+	var/list/spooky_scaries = list()
+	var/unlimited = 0
+	var/heresy = 0
+
+/obj/item/device/necromantic_stone/unlimited
+	unlimited = 1
+
+/obj/item/device/necromantic_stone/attack(mob/living/carbon/human/M as mob, mob/living/carbon/human/user as mob)
+
+	if(!istype(M))
+		return ..()
+
+	if(!istype(user))
+		return
+
+	if(M.stat != DEAD)
+		user << "<span class='warning'>This artifact can only affect the dead!</span>"
+		return
+
+	if(!M.mind || !M.client)
+		user << "<span class='warning'>There is no soul connected to this body...</span>"
+		return
+
+	check_spooky()//clean out/refresh the list
+
+	if(spooky_scaries.len >= 3 && !unlimited)
+		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
+		return
+	M.makeSkeleton()
+	M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
+	M.revive()
+	spooky_scaries |= M
+	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
+	M << "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>"
+	equip_skeleton(M)
+	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+
+/obj/item/device/necromantic_stone/proc/check_spooky()
+	if(unlimited) //no point, the list isn't used.
+		return
+	for(var/X in spooky_scaries)
+		if(!istype(X, /mob/living/carbon/human))
+			spooky_scaries.Remove(X)
+			continue
+		var/mob/living/carbon/human/H = X
+		if(H.stat == DEAD)
+			spooky_scaries.Remove(X)
+			continue
+	listclearnulls(spooky_scaries)
+
+//Funny gimmick, skeletons always seem to wear roman/ancient armour
+//Voodoo Zombie Pirates added for paradise
+/obj/item/device/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
+	for(var/obj/item/I in H)
+		H.unEquip(I)
+	var/randomSpooky = "roman"//defualt
+	if(heresy)
+		randomSpooky = "yand"
+	else
+		randomSpooky = pick("roman","pirate","yand","clown")
+
+	switch(randomSpooky)
+		if("roman")
+			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
+			H.equip_to_slot_or_del(new hat(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+		if("pirate")
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), slot_glasses)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+		if("yand")//mine is an evil laugh
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
+			H.equip_to_slot_or_del(new /obj/item/weapon/katana(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+		if("clown")
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), slot_head)
+			H.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(H), slot_l_store)
+			H.equip_to_slot_or_del(new /obj/item/weapon/claymore(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+
+
+/obj/item/device/necromantic_stone/nya
+	name = "nya-cromantic stone"
+	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "nyacrostone"
+	item_state = "electronic"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = 1
+	heresy = 1
+	unlimited = 1
+
+/////////////////////////////////////////Voodoo///////////////////
+
+
+/obj/item/voodoo
+	name = "wicker doll"
+	desc = "Something creepy about it."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "voodoo"
+	item_state = "electronic"
+	var/mob/living/carbon/human/target = null
+	var/list/mob/living/carbon/human/possible = list()
+	var/obj/item/link = null
+	var/cooldown_time = 30 //3s
+	var/cooldown = 0
+
+
+
+/obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(target && cooldown < world.time)
+		if(is_hot(I))
+			target << "<span class='userdanger'>You suddenly feel very hot</span>"
+			target.bodytemperature += 50
+			GiveHint(target)
+		else if(can_puncture(I))
+			target << "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_sel.selecting)]!</span>"
+			target.Weaken(2)
+			GiveHint(target)
+		else if(istype(I,/obj/item/weapon/bikehorn))
+			target << "<span class='userdanger'>HONK</span>"
+			target << 'sound/items/AirHorn.ogg'
+			target.ear_damage += rand(0,3)
+			GiveHint(target)
+		cooldown = world.time +cooldown_time
+		return
+	if(!link)
+		if(I.loc == user && istype(I) && I.w_class <= 2)
+			user.drop_item()
+			I.loc = src
+			link = I
+			user << "You attach [I] to the doll."
+			update_targets()
+	..()
+/obj/item/voodoo/check_eye(mob/user as mob)
+	return src.loc == user
+
+/obj/item/voodoo/attack_self(mob/user as mob)
+	if(!target && possible.len)
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
+		return
+	if(user.zone_sel.selecting == "chest")
+		if(link)
+			target = null
+			link.loc = get_turf(src)
+			user << "<span class='notice'>You remove the [link] from the doll.</span>"
+			link = null
+			update_targets()
+			return
+	if(target && cooldown < world.time)
+		switch(user.zone_sel.selecting)
+			if("mouth")
+				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
+				target.say(wgw)
+				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
+			if("eyes")
+				user.set_machine(src)
+				if(user.client)
+					user.client.eye = target
+					user.client.perspective = EYE_PERSPECTIVE
+				spawn(100)
+					user.reset_view()
+					user.unset_machine()
+			if("r_leg","l_leg")
+				user << "<span class='notice'>You move the doll's legs around.</span>"
+				var/turf/T = get_step(target,pick(cardinal))
+				target.Move(T)
+			if("r_arm","l_arm")
+				//use active hand on random nearby mob
+				var/list/nearby_mobs = list()
+				for(var/mob/living/L in range(1,target))
+					if(L!=target)
+						nearby_mobs |= L
+				if(nearby_mobs.len)
+					var/mob/living/T = pick(nearby_mobs)
+					log_game("[user][user.key] made [target][target.key] click on [T] with a voodoo doll.")
+					target.ClickOn(T)
+					GiveHint(target)
+			if("head")
+				user << "<span class='notice'>You smack the doll's head with your hand.</span>"
+				target.Dizzy(10)
+				target << "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>"
+				GiveHint(target,user)
+		cooldown = world.time + cooldown_time
+
+/obj/item/voodoo/proc/update_targets()
+	possible = list()
+	if(!link)
+		return
+	for(var/mob/living/carbon/human/H in living_mob_list)
+		if(md5(H.dna.uni_identity) in link.fingerprints)
+			possible |= H
+
+/obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
+	if(prob(50) || force)
+		var/way = dir2text(get_dir(victim,get_turf(src)))
+		victim << "<span class='notice'>You feel a dark presence from [way]</span>"
+	if(prob(20) || force)
+		var/area/A = get_area(src)
+		victim << "<span class='notice'>You feel a dark presence from [A.name]</span>"
+
+/obj/item/voodoo/fire_act()
+	if(target)
+		target.adjust_fire_stacks(20)
+		target.IgniteMob()
+		GiveHint(target,1)
+	return ..()

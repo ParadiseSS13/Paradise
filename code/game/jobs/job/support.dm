@@ -362,6 +362,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
+	alt_titles = list("Hair Stylist","Beautician")
 	access = list(access_maint_tunnels)
 	minimal_access = list(access_maint_tunnels)
 
@@ -379,4 +380,6 @@
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/barber(H.back), slot_in_backpack)
+		H.equip_or_collect(new /obj/item/weapon/storage/box/lip_stick(H.back), slot_in_backpack)
 		return 1

@@ -368,3 +368,229 @@
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return 0
+
+/datum/species/proc/handle_vision(mob/living/carbon/human/H)
+	if( H.stat == DEAD )
+		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		H.see_in_dark = 8
+		if(!H.druggy)		H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+	else
+		H.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+		H.see_in_dark = darksight //set their variables to default, modify them later
+		H.see_invisible = SEE_INVISIBLE_LIVING
+
+		if(H.mind && H.mind.vampire)
+			if(VAMP_VISION in H.mind.vampire.powers && !(VAMP_FULL in H.mind.vampire.powers))
+				H.sight |= SEE_MOBS
+
+			else if(VAMP_FULL in H.mind.vampire.powers)
+				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+				H.see_in_dark = 8
+				H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+
+		if(XRAY in H.mutations)
+			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+			H.see_in_dark = 8
+
+			H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+
+		if(H.seer == 1)
+			var/obj/effect/rune/R = locate() in H.loc
+			if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
+				H.see_invisible = SEE_INVISIBLE_OBSERVER
+			else
+				H.see_invisible = SEE_INVISIBLE_LIVING
+				H.seer = 0
+
+		//This checks how much the mob's eyewear impairs their vision
+		if(H.tinttotal >= TINT_IMPAIR)
+			if(tinted_weldhelh)
+				if(H.tinttotal >= TINT_BLIND)
+					H.eye_blind = max(H.eye_blind, 1)
+				if(H.client)
+					H.client.screen += global_hud.darkMask
+
+		if(H.glasses)
+			if(istype(H.glasses, /obj/item/clothing/glasses))
+				var/obj/item/clothing/glasses/G = H.glasses
+				H.sight |= G.vision_flags
+
+				if(G.darkness_view)
+					H.see_in_dark = G.darkness_view
+
+				if(!G.see_darkness)
+					H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+				switch(G.HUDType)
+					if(SECHUD)
+						process_sec_hud(H,1)
+					if(MEDHUD)
+						process_med_hud(H,1)
+					if(ANTAGHUD)
+						process_antag_hud(H)
+
+		if(H.head)
+			if(istype(H.head, /obj/item/clothing/head))
+				var/obj/item/clothing/head/hat = H.head
+				H.sight |= hat.vision_flags
+
+				if(!hat.see_darkness)
+					H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+				switch(hat.HUDType)
+					if(SECHUD)
+						process_sec_hud(H,1)
+					if(MEDHUD)
+						process_med_hud(H,1)
+					if(ANTAGHUD)
+						process_antag_hud(H)
+
+		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
+			var/obj/item/weapon/rig/rig = H.back
+			if(rig.visor)
+				if(!rig.helmet || (H.head && rig.helmet == H.head))
+					if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
+						var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
+						if(istype(G))
+							H.see_in_dark = (G.darkness_view ? G.darkness_view : darksight) // Otherwise we keep our darkness view with togglable nightvision.
+							if(G.vision_flags)		// MESONS
+								H.sight |= G.vision_flags
+
+							if(!G.see_darkness)
+								H.see_invisible = SEE_INVISIBLE_MINIMUM
+
+							switch(G.HUDType)
+								if(SECHUD)
+									process_sec_hud(H,1)
+								if(MEDHUD)
+									process_med_hud(H,1)
+								if(ANTAGHUD)
+									process_antag_hud(H)
+
+		if(H.vision_type)
+			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)
+			H.see_invisible = H.vision_type.see_invisible
+			if(H.vision_type.light_sensitive)
+				H.weakeyes = 1
+			H.sight |= H.vision_type.sight_flags
+
+		if(H.see_override)	//Override all
+			H.see_invisible = H.see_override
+
+		if(H.blind)
+			if(H.blinded)		H.blind.layer = 18
+			else				H.blind.layer = 0
+
+		if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
+			if(H.glasses)					//to every /obj/item
+				var/obj/item/clothing/glasses/G = H.glasses
+				if(!G.prescription)
+					H.client.screen += global_hud.vimpaired
+			else
+				H.client.screen += global_hud.vimpaired
+
+		if(H.eye_blurry)			H.client.screen += global_hud.blurry
+		if(H.druggy)				H.client.screen += global_hud.druggy
+
+/datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
+	if(H.healths)
+		if(H.analgesic)
+			H.healths.icon_state = "health_health_numb"
+		else
+			if(H.stat == DEAD)
+				H.healths.icon_state = "health7"
+			else
+				switch(H.hal_screwyhud)
+					if(1)	H.healths.icon_state = "health6"
+					if(2)	H.healths.icon_state = "health7"
+					if(5)	H.healths.icon_state = "health0"
+					else
+						switch(H.health - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
+							if(100 to INFINITY)		H.healths.icon_state = "health0"
+							if(80 to 100)			H.healths.icon_state = "health1"
+							if(60 to 80)			H.healths.icon_state = "health2"
+							if(40 to 60)			H.healths.icon_state = "health3"
+							if(20 to 40)			H.healths.icon_state = "health4"
+							if(0 to 20)				H.healths.icon_state = "health5"
+							else					H.healths.icon_state = "health6"
+
+	if(H.healthdoll)
+		H.healthdoll.overlays.Cut()
+		if(H.stat == DEAD)
+			H.healthdoll.icon_state = "healthdoll_DEAD"
+		else
+			H.healthdoll.icon_state = "healthdoll_OVERLAY"
+			for(var/obj/item/organ/external/O in H.organs)
+				var/damage = O.burn_dam + O.brute_dam
+				var/comparison = (O.max_damage/5)
+				var/icon_num = 0
+				if(damage)
+					icon_num = 1
+				if(damage > (comparison))
+					icon_num = 2
+				if(damage > (comparison*2))
+					icon_num = 3
+				if(damage > (comparison*3))
+					icon_num = 4
+				if(damage > (comparison*4))
+					icon_num = 5
+				if(icon_num)
+					H.healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
+
+	if(H.nutrition_icon)
+		switch(H.nutrition)
+			if(450 to INFINITY)				H.nutrition_icon.icon_state = "nutrition0"
+			if(350 to 450)					H.nutrition_icon.icon_state = "nutrition1"
+			if(250 to 350)					H.nutrition_icon.icon_state = "nutrition2"
+			if(150 to 250)					H.nutrition_icon.icon_state = "nutrition3"
+			else							H.nutrition_icon.icon_state = "nutrition4"
+
+
+	// BAY SHIT
+	if(H.pressure)
+		H.pressure.icon_state = "pressure[H.pressure_alert]"
+
+	if(H.toxin)
+		if(H.hal_screwyhud == 4 || H.toxins_alert)	H.toxin.icon_state = "tox1"
+		else										H.toxin.icon_state = "tox0"
+	if(H.oxygen)
+		if(H.hal_screwyhud == 3 || H.oxygen_alert)	H.oxygen.icon_state = "oxy1"
+		else										H.oxygen.icon_state = "oxy0"
+	if(H.fire)
+		if(H.fire_alert)							H.fire.icon_state = "fire[H.fire_alert]" //fire_alert is either 0 if no alert, 1 for cold and 2 for heat.
+		else										H.fire.icon_state = "fire0"
+
+	if(H.bodytemp)
+		var/temp_step
+		if(H.bodytemperature >= body_temperature)
+			temp_step = (heat_level_1 - body_temperature)/4
+
+			if(H.bodytemperature >= heat_level_1)
+				H.bodytemp.icon_state = "temp4"
+			else if(H.bodytemperature >= body_temperature + temp_step*3)
+				H.bodytemp.icon_state = "temp3"
+			else if(H.bodytemperature >= body_temperature + temp_step*2)
+				H.bodytemp.icon_state = "temp2"
+			else if(H.bodytemperature >= body_temperature + temp_step*1)
+				H.bodytemp.icon_state = "temp1"
+			else
+				H.bodytemp.icon_state = "temp0"
+
+		else if(H.bodytemperature < body_temperature)
+			temp_step = (body_temperature - cold_level_1)/4
+
+			if(H.bodytemperature <= cold_level_1)
+				H.bodytemp.icon_state = "temp-4"
+			else if(H.bodytemperature <= body_temperature - temp_step*3)
+				H.bodytemp.icon_state = "temp-3"
+			else if(H.bodytemperature <= body_temperature - temp_step*2)
+				H.bodytemp.icon_state = "temp-2"
+			else if(H.bodytemperature <= body_temperature - temp_step*1)
+				H.bodytemp.icon_state = "temp-1"
+			else
+				H.bodytemp.icon_state = "temp0"
+
+	return 1

@@ -8,6 +8,8 @@
 	unacidable = 1
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	siemens_coefficient = 0.8
+	strip_delay = 50
+	put_on_delay = 50
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -62,6 +64,8 @@
 	flags_inv = HIDEJUMPSUIT
 	unacidable = 1
 	siemens_coefficient = 0.8
+	strip_delay = 50
+	put_on_delay = 50
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"

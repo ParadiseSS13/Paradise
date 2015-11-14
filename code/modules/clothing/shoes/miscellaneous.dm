@@ -26,6 +26,7 @@
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
 	species_restricted = null //Syndicate tech means even Tajarans can kick ass with these
 	siemens_coefficient = 0.6
+	strip_delay = 70
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
@@ -38,6 +39,8 @@
 	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"
 	icon_state = "wizard"
+	strip_delay = 50
+	put_on_delay = 50
 	species_restricted = null
 
 /obj/item/clothing/shoes/sandal/marisa
@@ -52,6 +55,8 @@
 	permeability_coefficient = 0.05
 	flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN+1
+	strip_delay = 50
+	put_on_delay = 50
 	species_restricted = null
 
 /obj/item/clothing/shoes/clown_shoes
@@ -83,6 +88,8 @@
 	item_state = "jackboots"
 	item_color = "hosred"
 	siemens_coefficient = 0.7
+	strip_delay = 50
+	put_on_delay = 50
 	var/footstep = 1
 
 /obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
@@ -140,12 +147,15 @@
 	name = "laceup shoes"
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
+	put_on_delay = 50
 
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."
 	icon_state = "roman"
 	item_state = "roman"
+	strip_delay = 100
+	put_on_delay = 100
 	species_restricted = null
 
 /obj/item/clothing/shoes/centcom

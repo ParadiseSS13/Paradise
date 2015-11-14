@@ -8,6 +8,8 @@
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	species_restricted = null
+	strip_delay = 40
+	put_on_delay = 20
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
@@ -23,6 +25,7 @@
 	item_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
+	strip_delay = 80
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS

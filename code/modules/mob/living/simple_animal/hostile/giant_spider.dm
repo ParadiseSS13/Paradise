@@ -81,9 +81,8 @@
 	poison_per_bite = 5
 	move_to_delay = 5
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Life()
-	..()
-	if(!stat && !ckey)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
+	if(!stat)
 		if(stance == HOSTILE_STANCE_IDLE)
 			//1% chance to skitter madly away
 			if(!busy && prob(1))
@@ -117,8 +116,7 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Life()
-	..()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
 	if(!stat && !ckey)
 		if(stance == HOSTILE_STANCE_IDLE)
 			var/list/can_see = view(src, 10)

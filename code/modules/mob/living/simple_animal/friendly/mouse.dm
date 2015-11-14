@@ -31,11 +31,14 @@
 	universal_speak = 0
 	can_hide = 1
 
-/mob/living/simple_animal/mouse/Life()
+/mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(!stat && prob(speak_chance))
+	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
+
+/mob/living/simple_animal/mouse/Life()
+	. = ..()
 
 	if(!ckey && stat == CONSCIOUS && prob(0.5))
 		stat = UNCONSCIOUS
@@ -105,7 +108,7 @@
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
-/mob/living/simple_animal/mouse/Die()
+/mob/living/simple_animal/mouse/death()
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time

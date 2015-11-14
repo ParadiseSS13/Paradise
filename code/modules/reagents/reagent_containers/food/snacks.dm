@@ -448,6 +448,14 @@
 			src.name = "frosted donut"
 			reagents.add_reagent("sprinkles", 2)
 
+/obj/item/weapon/reagent_containers/food/snacks/donut/sprinkles
+	name = "frosted donut"
+	icon_state = "donut2"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("sprinkles", 3)
+
 /obj/item/weapon/reagent_containers/food/snacks/donut/chaos
 	name = "Chaos Donut"
 	desc = "Like life, it never quite tastes the same."
@@ -628,14 +636,6 @@
 		..()
 		reagents.add_reagent("nutriment", 2)
 		reagents.add_reagent("egg", 5)
-
-/obj/item/weapon/reagent_containers/food/snacks/flour
-	name = "flour"
-	desc = "A small bag filled with some flour."
-	icon_state = "flour"
-	New()
-		..()
-		reagents.add_reagent("flour", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/organ
 
@@ -1989,6 +1989,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
+		reagents.add_reagent("synaptizine", 5)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/spesslaw
@@ -2000,6 +2001,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 8)
+		reagents.add_reagent("synaptizine", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/poppypretzel
@@ -3173,22 +3175,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-
-// Flour + egg = dough
-/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
-		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
-		user << "You make some dough."
-		qdel(W)
-		qdel(src)
-
-// Egg + flour = dough
-/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/flour))
-		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
-		user << "You make some dough."
-		qdel(W)
-		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/dough
 	name = "dough"

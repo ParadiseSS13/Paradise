@@ -1,6 +1,9 @@
 	////////////
 	//SECURITY//
 	////////////
+//debugging, uncomment for viewing topic calls
+//#define TOPIC_DEBUGGING 1
+
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
 #define MIN_CLIENT_VERSION	0		//Just an ambiguously low version for now, I don't want to suddenly stop people playing.
@@ -23,6 +26,15 @@
 /client/Topic(href, href_list, hsrc)
 	if(!usr || usr != mob)	//stops us calling Topic for somebody else's client. Also helps prevent usr=null
 		return
+
+	#if defined(TOPIC_DEBUGGING)
+	world << "[src]'s Topic: [href] destined for [hsrc]."
+
+	if(href_list["nano_err"]) //nano throwing errors
+		world << "## NanoUI, Subject [src]: " + html_decode(href_list["nano_err"]) //NANO DEBUG HOOK
+
+	#endif
+
 
 	//Reduces spamming of links by dropping calls that happen during the delay period
 	if(next_allowed_topic_time > world.time)
@@ -282,20 +294,20 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	log_client_to_db()
-	
+
 	if (ckey in clientmessages)
 		for (var/message in clientmessages[ckey])
 			src << message
 		clientmessages.Remove(ckey)
 
 	if (config && config.autoconvert_notes)
-		convert_notes_sql(ckey)	
-	
+		convert_notes_sql(ckey)
+
 	send_resources()
-	
+
 	if(!void)
 		void = new()
-	
+
 	screen += void
 
 //////////////

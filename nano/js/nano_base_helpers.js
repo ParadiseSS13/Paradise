@@ -240,6 +240,18 @@ NanoBaseHelpers = function ()
                 html += '</div>';
 
 				return html;
+			},
+			cMirror: function(domID) {
+				if(!domID)
+				{
+				    return "ERR - NO domID provided";
+				}
+				
+			    var html = '<script>var editor = CodeMirror.fromTextArea(document.getElementById("';
+			    html += domID
+				html += '"), {lineNumbers: true,	indentUnit: 4,	indentWithTabs: true,	theme: "lesser-dark"});';
+			    html += '</script>'
+				return html;
 			}
 		};
 		

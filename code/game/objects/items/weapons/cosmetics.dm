@@ -20,6 +20,18 @@
 	name = "black lipstick"
 	colour = "black"
 
+/obj/item/weapon/lipstick/green
+	name = "green lipstick"
+	colour = "green"
+
+/obj/item/weapon/lipstick/blue
+	name = "blue lipstick"
+	colour = "blue"
+
+/obj/item/weapon/lipstick/white
+	name = "white lipstick"
+	colour = "white"
+
 /obj/item/weapon/lipstick/random
 	name = "lipstick"
 

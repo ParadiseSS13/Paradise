@@ -101,11 +101,11 @@
 			inserted_id = I
 			interact(user)
 		return
-		
+
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
 		updateUsrDialog()
 		return
-		
+
 	if(exchange_parts(user, W))
 		return
 
@@ -589,7 +589,7 @@
 	sterile = 1
 	tint = 3 //Makes it feel more authentic when it latches on
 
-/obj/item/clothing/mask/facehugger/toy/Die()
+/obj/item/clothing/mask/facehugger/toy/death()
 	return
 
 
@@ -656,7 +656,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/hostile/mining_drone/Die()
+/mob/living/simple_animal/hostile/mining_drone/death()
 	..()
 	visible_message("<span class='danger'>[src] is destroyed!</span>")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)

@@ -6,7 +6,7 @@
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_one_access = list(access_medical, access_forensics_lockers)
-	circuit = "/obj/item/weapon/circuitboard/med_data"
+	circuit = /obj/item/weapon/circuitboard/med_data
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null

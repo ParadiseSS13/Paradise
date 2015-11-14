@@ -1,3 +1,4 @@
+var/obj/machinery/gateway/centerstation/the_gateway = null
 /obj/machinery/gateway
 	name = "gateway"
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
@@ -10,6 +11,8 @@
 
 
 /obj/machinery/gateway/New()
+	if(!the_gateway)
+		the_gateway = src
 	spawn(25)
 		update_icon()
 		if(dir == 2)
@@ -37,11 +40,18 @@
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/New()
+	if(!the_gateway)
+		the_gateway = src
 	spawn(25)
 		update_icon()
 		wait = world.time + config.gateway_delay	//+ thirty minutes default
 		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 
+
+/obj/machinery/gateway/centerstation/Destroy()
+	if(the_gateway == src)
+		the_gateway = null
+	return ..()
 
 /obj/machinery/gateway/centerstation/update_icon()
 	if(active)
@@ -243,4 +253,3 @@ obj/machinery/gateway/centerstation/process()
 			user << "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target."
 			calibrated = 1
 			return
-			

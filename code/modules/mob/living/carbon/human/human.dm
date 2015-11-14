@@ -7,6 +7,7 @@
 	var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
+	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
 
@@ -255,6 +256,14 @@
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
+
+		if(istype(back, /obj/item/weapon/rig))
+			var/obj/item/weapon/rig/suit = back
+			var/cell_status = "ERROR"
+			if(suit.cell)
+				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
+			stat(null, "Suit charge: [cell_status]")
+
 		if(mind)
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
@@ -413,7 +422,7 @@
 		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
 		if(affected)
 			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		apply_damage(damage, BRUTE, affecting, armor, M.name)
+		apply_damage(damage,M.melee_damage_type, affecting, armor, M.name)
 		updatehealth()
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
@@ -517,8 +526,6 @@
 	return 0
 
 
-
-/mob/living/carbon/human/var/co2overloadtime = null
 /mob/living/carbon/human/var/temperature_resistance = T0C+75
 
 
@@ -725,7 +732,8 @@
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
+/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
+
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
@@ -737,7 +745,7 @@
 	var/obj/item/organ/external/affected_organ = get_organ(check_zone(def_zone))
 	var/siemens_coeff = base_siemens_coeff * get_siemens_coefficient_organ(affected_organ)
 
-	return ..(shock_damage, source, siemens_coeff, def_zone)
+	return ..(shock_damage, source, siemens_coeff, def_zone,override)
 
 
 /mob/living/carbon/human/Topic(href, href_list)
@@ -1109,6 +1117,17 @@
 	if(istype(src.wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
+
+	//god help me
+	if(istype(back, /obj/item/weapon/rig))
+		var/obj/item/weapon/rig/O = back
+		if(O.helmet && O.helmet == head && (O.helmet.body_parts_covered & HEAD))
+			if((O.offline && O.offline_vision_restriction == 1) || (!O.offline && O.vision_restriction == 1))
+				tinted = 2
+			if((O.offline && O.offline_vision_restriction == 2) || (!O.offline && O.vision_restriction == 2))
+				tinted = 3
+	//im so sorry
+
 	return tinted
 
 

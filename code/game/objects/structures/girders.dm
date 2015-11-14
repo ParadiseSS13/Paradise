@@ -184,7 +184,7 @@
 				qdel(src)
 			return
 		if(3.0)
-			if (prob(30))
+			if (prob(40))
 				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 				new remains(loc)
 				qdel(src)

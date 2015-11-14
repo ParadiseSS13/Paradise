@@ -63,9 +63,7 @@ NanoStateClass.prototype.onUpdate = function (data) {
             if (!this.mapInitialised)
             {
                 // Add drag functionality to the map ui
-                $('#uiMap').draggable({
-                    handle : '#uiMapImage'
-                });
+                $('#uiMap').draggable();
 
                 $('#uiMapTooltip')
                     .off('click')
