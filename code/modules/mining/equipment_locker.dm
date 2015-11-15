@@ -20,6 +20,7 @@
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
 	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("bananium" = 30), ("diamond" = 40), ("plasma" = 40))
+	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", ("Engineering" = list("metal", "glass", "plasma")), ("Chief Engineer's Desk" = list("metal", "glass", "plasma")), ("Atmospherics" = list("metal", "glass", "plasma")))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -64,6 +65,14 @@
 			var/obj/item/stack/sheet/s = new processed_sheet(src,0)
 			s.amount = 0
 			stack_list[processed_sheet] = s
+			// Not including tg's ignoring of metal, glass being stocked because if cargo's not telling science when ores are there, they probably won't
+			// help with restocking metal/glass either
+			var/msg = "[capitalize(s.name)] sheets have been stocked in the ore reclaimer."
+			for(var/obj/machinery/requests_console/D in allConsoles)
+				if(D.department in src.supply_consoles)
+					if(supply_consoles[D.department] == null || (s.name in supply_consoles[D.department]))
+						D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
+
 		var/obj/item/stack/sheet/storage = stack_list[processed_sheet]
 		storage.amount += sheet_per_ore //Stack the sheets
 		O.loc = null //Let the old sheet...

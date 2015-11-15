@@ -322,9 +322,14 @@ var/list/mechtoys = list(
 		slip.info +="CONTENTS:<br><ul>"
 
 		//spawn the stuff, finish generating the manifest while you're at it
-		if(SP.access)
-			A:req_access = list()
-			A:req_access += text2num(SP.access)
+		if(istype(A, /obj/structure/closet/crate))
+			var/obj/structure/closet/crate/C = A
+			if(SP.access)
+				C.req_access = list()
+				C.req_access += text2num(SP.access)
+
+			if(SP.announce_beacons)
+				C.announce_beacons = SP.announce_beacons
 
 		var/list/contains
 		if(istype(SP,/datum/supply_packs/misc/randomised))
