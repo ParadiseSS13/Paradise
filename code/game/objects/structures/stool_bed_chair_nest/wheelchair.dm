@@ -25,12 +25,12 @@
 		return
 
 	move_delay = world.time
-	move_delay += 2 //wheelchairs are not infact sport bikes
+	move_delay += 5 //wheelchairs are not infact sport bikes
 
 	if(buckled_mob)
 		if(buckled_mob.incapacitated())
 			return 0
-			
+
 		var/mob/living/thedriver = user
 		var/mob_delay = thedriver.movement_delay()
 		if(mob_delay > 0)
