@@ -586,7 +586,7 @@
 			mob.custom_emote(1,pick("curls his lip!", "gyrates his hips!", "thrusts his hips!"))
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			if(H.species.name == "Human" && !(H.f_style == "Pompadour"))
+			if(H.species.name == "Human" && !(H.h_style == "Pompadour"))
 				spawn(50)
 					H.h_style = "Pompadour"
 					H.update_hair()
@@ -607,6 +607,45 @@
 			flags |= NODROP		//curses!
 		..()
 
+/datum/disease2/effect/bball_virus
+	name = "Globetrotter Syndrome"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		//
+		var/obj/item/clothing/under/virusjersey = new /obj/item/clothing/under/color/red/jersey/virus
+		var/obj/item/weapon/beach_ball/basketball = new /obj/item/weapon/beach_ball/basketball/virus
+		mob.equip_to_slot(virusjersey, slot_w_uniform)
+		mob.drop_l_hand()
+		mob.equip_to_slot_if_possible(basketball, slot_l_hand, 1, 1)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			if(H.species.name == "Human" && !(H.h_style == "Big Afro"))
+				spawn(50)
+					H.h_style = "Big Afro"
+					H.update_hair()
+
+
+/obj/item/clothing/under/color/red/jersey/virus
+
+	dropped(mob/user as mob)
+		flags &= ~NODROP
+		..()
+
+	equipped(var/mob/user, var/slot)
+		if (slot == slot_w_uniform)
+			flags |= NODROP		//curses!
+		..()
+
+/obj/item/weapon/beach_ball/basketball/virus
+
+	dropped(mob/user as mob)
+		flags &= ~NODROP
+		..()
+
+	equipped(var/mob/user, var/slot)
+		if (slot == slot_l_hand || slot == slot_r_hand)
+			flags |= NODROP		//curses!
+		..()
 
 /datum/disease2/effect/pthroat
 	name = "Pierrot's Throat"
