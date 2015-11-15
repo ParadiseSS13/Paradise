@@ -25,7 +25,7 @@
 		return
 
 	var/calculated_move_delay
-	calculated_move_delay += 5 //wheelchairs are not infact sport bikes
+	calculated_move_delay += 2 //wheelchairs are not infact sport bikes
 
 	if(buckled_mob)
 		if(buckled_mob.incapacitated())
