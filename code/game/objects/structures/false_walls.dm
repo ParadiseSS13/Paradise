@@ -120,7 +120,7 @@
 	else
 		user << "<span class='warning'>You can't reach, close it first!</span>"
 
-	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter) || istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill) || istype(W, /obj/item/weapon/melee/energy/blade))
+	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter) || istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill) || istype(W, /obj/item/weapon/pickaxe/drill/jackhammer) || istype(W, /obj/item/weapon/melee/energy/blade))
 		dismantle(user)
 
 /obj/structure/falsewall/proc/dismantle(mob/user)
@@ -221,7 +221,7 @@
 	icon_state = ""
 	mineral = "plasma"
 	walltype = "plasma"
-	
+
 /obj/structure/falsewall/plasma/attackby(obj/item/weapon/W, mob/user, params)
 	if(is_hot(W) > 300)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
