@@ -45,27 +45,6 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/donut/normal
 
-/* what is this
-/datum/recipe/microwave/human
-	//invalid recipe
-	make_food(var/obj/container as obj)
-		var/human_name
-		var/human_job
-		for (var/obj/item/weapon/reagent_containers/food/snacks/meat/human/HM in container)
-			if (!HM.subjectname)
-				continue
-			human_name = HM.subjectname
-			human_job = HM.subjectjob
-			break
-		var/lastname_index = findtext(human_name, " ")
-		if (lastname_index)
-			human_name = copytext(human_name,lastname_index+1)
-
-		var/obj/item/weapon/reagent_containers/food/snacks/human/HB = ..(container)
-		HB.name = human_name+HB.name
-		HB.job = human_job
-		return HB
-*/
 
 /datum/recipe/microwave/human/burger
 	items = list(
@@ -73,15 +52,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/human/burger
-
-/* Duplicated by plainburger
-/datum/recipe/microwave/monkeyburger
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/bun,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/monkey
-	)
-	result = /obj/item/weapon/reagent_containers/food/snacks/monkeyburger
-*/
 
 /datum/recipe/microwave/plainburger
 	items = list(
@@ -143,7 +113,6 @@
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
 		/obj/item/clothing/mask/gas/clown_hat,
-		/* /obj/item/weapon/reagent_containers/food/snacks/grown/banana, */
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/clownburger
 
@@ -184,18 +153,12 @@
 
 /datum/recipe/microwave/soylenviridians
 	fruit = list("soybeans" = 1)
-	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-	)
+	reagents = list("flour" = 10)
 	result = /obj/item/weapon/reagent_containers/food/snacks/soylenviridians
 
 /datum/recipe/microwave/soylentgreen
+	reagents = list("flour" = 10)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
 		/obj/item/weapon/reagent_containers/food/snacks/meat/human,
 		/obj/item/weapon/reagent_containers/food/snacks/meat/human,
 	)
@@ -312,11 +275,10 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/enchiladas
 
 /datum/recipe/microwave/monkeysdelight
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	fruit = list("banana" = 1)
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "flour" = 10)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/monkeycube,
+		/obj/item/weapon/reagent_containers/food/snacks/monkeycube
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/monkeysdelight
 
