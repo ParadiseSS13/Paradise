@@ -709,9 +709,8 @@
 
 	message = capitalize(trim_left(message))
 	if(message_mode)
-		if(message_mode in radiochannels)
-			if(ears && istype(ears,/obj/item/device/radio))
-				ears.talk_into(src, message, message_mode, verb, null)
+		if(ears && istype(ears,/obj/item/device/radio))
+			ears.talk_into(src, message, message_mode, verb, null)
 
 	..(message)
 
