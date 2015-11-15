@@ -162,6 +162,8 @@
 		qdel(C)
 
 
+var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
+
 /obj/item/device/camera/spooky
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
@@ -200,7 +202,7 @@
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(list/turfs, turf/center)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center,mob/user)
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
@@ -220,7 +222,10 @@
 					var/mob/dead/observer/O = A
 					if(O.following)
 						continue
-					atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
+					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(SpookyGhosts), 4, SOUTH))
+					else
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
 				else//its not a ghost
 					continue
 			else//not invisable, not a spookyghost add it.
@@ -340,7 +345,7 @@
 	printpicture(user, P)
 
 /obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
-	var/icon/photoimage = get_icon(turfs, target)
+	var/icon/photoimage = get_icon(turfs, target,user)
 
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
