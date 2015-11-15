@@ -24,17 +24,17 @@
 	if(world.time < move_delay)
 		return
 
-	move_delay = world.time
-	move_delay += 2 //wheelchairs are not infact sport bikes
+	var/calculated_move_delay
+	calculated_move_delay += 5 //wheelchairs are not infact sport bikes
 
 	if(buckled_mob)
 		if(buckled_mob.incapacitated())
 			return 0
-			
+
 		var/mob/living/thedriver = user
 		var/mob_delay = thedriver.movement_delay()
 		if(mob_delay > 0)
-			move_delay += mob_delay
+			calculated_move_delay += mob_delay
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user
@@ -46,11 +46,17 @@
 			for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
 				var/obj/item/organ/external/E = driver.get_organ(organ_name)
 				if(!E || (E.status & ORGAN_DESTROYED))
-					move_delay += 4
+					calculated_move_delay += 4
 				else if(E.status & ORGAN_SPLINTED)
-					move_delay += 0.5
+					calculated_move_delay += 0.5
 				else if(E.status & ORGAN_BROKEN)
-					move_delay += 1.5
+					calculated_move_delay += 1.5
+
+		if(calculated_move_delay < 4)
+			calculated_move_delay = 4 //no racecarts
+
+		move_delay = world.time
+		move_delay += calculated_move_delay
 
 		if(!buckled_mob.Move(get_step(buckled_mob, direction), direction))
 			loc = buckled_mob.loc //we gotta go back
