@@ -36,6 +36,11 @@
 		var/datum/superheroes/S = new T
 		all_superheroes[S.name] = S
 
+	paths = subtypesof(/datum/nations)
+	for(var/T in paths)
+		var/datum/nations/N = new T
+		all_nations[N.name] = N
+
 	//Languages and species.
 	paths = subtypesof(/datum/language)
 	for(var/T in paths)
