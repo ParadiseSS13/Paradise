@@ -10,13 +10,18 @@
 // Converted to VLC for cross-platform and ogg support. - N3X
 var/const/PLAYER_HTML={"
 <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" />
-<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" id="player"></object>
+<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" version="VideoLAN.VLCPlugin.2" id="player"></object>
 	<script>
+var _volume = 50;
+var vlc = document.getElementById('player');
+
 function noErrorMessages () { return true; }
 window.onerror = noErrorMessages;
-function SetMusic(url, time, volume) {
-	var vlc = document.getElementById('player');
 
+function SetMusic(url, time, volume) {
+	// scaling volume log-wise so that it's a more useful range
+	_volume = Math.log(volume) / Math.LN10 * 50; // volume ranges from 0-200
+	
 	// Stop playing
 	vlc.playlist.stop();
 
@@ -30,9 +35,17 @@ function SetMusic(url, time, volume) {
 	vlc.playlist.playItem(id);
 
 	vlc.input.time = time*1000; // VLC takes milliseconds.
-	// for whatever reason, VLC plugin requires a delay between playing and setting volume
-	// also scaling it log-wise so that it's a more useful range
-	setTimeout(function() { vlc.audio.volume = Math.log(volume) / Math.LN10 * 50 }, 100); // volume ranges from 0-200
+}
+
+function UpdateVolume() {
+	vlc.audio.volume = _volume;
+}
+
+// volume must be set after song already playing
+if(vlc.attachEvent) {
+	vlc.attachEvent("MediaPlayerBuffering", UpdateVolume);
+} else {
+	vlc.addEventListener("MediaPlayerBuffering", UpdateVolume, false);
 }
 	</script>
 "}
