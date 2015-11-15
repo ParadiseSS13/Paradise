@@ -54,6 +54,7 @@
 	if(in_contents_of(/obj/mecha))
 		canmove = 1
 		use_me = 1 //If it can move, let it emote
+	if(istype(loc, /obj/item/device/mmi))	canmove = 1 //mmi won't move anyways so whatever
 	else							canmove = 0
 	return canmove
 

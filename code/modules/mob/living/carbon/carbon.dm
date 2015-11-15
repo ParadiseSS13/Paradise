@@ -14,13 +14,6 @@ mob/living
 		qdel(food)
 	return ..()
 
-/mob/living/carbon/Life()
-	..()
-
-	// Increase germ_level regularly
-	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
-		germ_level++
-
 /mob/living/carbon/blob_act()
 	if (stat == DEAD)
 		return
@@ -524,7 +517,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
-		update_inv_wear_mask(0)
+		update_inv_wear_mask()
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
@@ -569,15 +562,31 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(href_list["internal"])
 			var/slot = text2num(href_list["internal"])
 			var/obj/item/ITEM = get_item_by_slot(slot)
-			if(ITEM && istype(ITEM, /obj/item/weapon/tank) && wear_mask && (wear_mask.flags & MASKINTERNALS))
+			if(ITEM && istype(ITEM, /obj/item/weapon/tank))
 				visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
 								"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
+
+				var/no_mask
+				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+					if(!(head && head.flags & AIRTIGHT))
+						no_mask = 1
+				if(no_mask)
+					usr << "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>"
+					return
+
 				if(do_mob(usr, src, POCKET_STRIP_DELAY))
 					if(internal)
 						internal = null
 						if(internals)
 							internals.icon_state = "internal0"
-					else if(ITEM && istype(ITEM, /obj/item/weapon/tank) && wear_mask && (wear_mask.flags & MASKINTERNALS))
+					else
+						var/no_mask2
+						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
+							if(!(head && head.flags & AIRTIGHT))
+								no_mask2 = 1
+						if(no_mask2)
+							usr << "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>"
+							return
 						internal = ITEM
 						if(internals)
 							internals.icon_state = "internal1"

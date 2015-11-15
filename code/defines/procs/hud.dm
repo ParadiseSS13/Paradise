@@ -3,7 +3,7 @@ Use the regular_hud_updates() proc before process_med_hud(mob) or process_sec_hu
 the HUD updates properly! */
 
 //Medical HUD outputs. Called by the Life() proc of the mob using it, usually.
-proc/process_med_hud(var/mob/M, var/local_scanner, var/mob/Alt)
+/proc/process_med_hud(var/mob/M, var/local_scanner, var/mob/Alt)
 	if(!can_process_hud(M))
 		return
 
@@ -25,7 +25,7 @@ proc/process_med_hud(var/mob/M, var/local_scanner, var/mob/Alt)
 			P.Client.images += patient.hud_list[STATUS_HUD]
 
 //Security HUDs. Pass a value for the second argument to enable implant viewing or other special features.
-proc/process_sec_hud(var/mob/M, var/advanced_mode, var/mob/Alt)
+/proc/process_sec_hud(var/mob/M, var/advanced_mode, var/mob/Alt)
 	if(!can_process_hud(M))
 		return
 	var/datum/arranged_hud_process/P = arrange_hud_process(M, Alt, sec_hud_users)
@@ -41,7 +41,7 @@ proc/process_sec_hud(var/mob/M, var/advanced_mode, var/mob/Alt)
 			P.Client.images += perp.hud_list[IMPCHEM_HUD]
 
 
-proc/process_antag_hud(var/mob/M, var/mob/Alt)
+/proc/process_antag_hud(var/mob/M, var/mob/Alt)
 	if(!can_process_hud(M))
 		return
 	var/datum/arranged_hud_process/P = arrange_hud_process(M, Alt, antag_hud_users)
@@ -51,12 +51,12 @@ proc/process_antag_hud(var/mob/M, var/mob/Alt)
 
 		P.Client.images += target.hud_list[SPECIALROLE_HUD]
 
-datum/arranged_hud_process
+/datum/arranged_hud_process
 	var/client/Client
 	var/mob/Mob
 	var/turf/Turf
 
-proc/arrange_hud_process(var/mob/M, var/mob/Alt, var/list/hud_list)
+/proc/arrange_hud_process(var/mob/M, var/mob/Alt, var/list/hud_list)
 	hud_list |= M
 	var/datum/arranged_hud_process/P = new
 	P.Client = M.client
@@ -64,7 +64,7 @@ proc/arrange_hud_process(var/mob/M, var/mob/Alt, var/list/hud_list)
 	P.Turf = get_turf(P.Mob)
 	return P
 
-proc/can_process_hud(var/mob/M)
+/proc/can_process_hud(var/mob/M)
 	if(!M)
 		return 0
 	if(!M.client)
@@ -74,16 +74,16 @@ proc/can_process_hud(var/mob/M)
 	return 1
 
 //Deletes the current HUD images so they can be refreshed with new ones.
-mob/proc/regular_hud_updates() //Used in the life.dm of mobs that can use HUDs.
+/mob/proc/regular_hud_updates() //Used in the life.dm of mobs that can use HUDs.
 	if(client)
 		for(var/image/hud in client.images)
-			if(copytext(hud.icon_state,1,4) == "hud")
+			if(copytext(hud.icon_state,1,4) == "hud") //this makes me weep
 				client.images -= hud
 	med_hud_users -= src
 	sec_hud_users -= src
 	antag_hud_users -= src
 
-mob/proc/in_view(var/turf/T)
+/mob/proc/in_view(var/turf/T)
 	return view(T)
 
 /mob/aiEye/in_view(var/turf/T)

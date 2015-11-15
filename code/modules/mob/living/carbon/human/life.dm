@@ -334,6 +334,32 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	// Health is in deep shit and we're not already dead
 	return health <= 0 && stat != 2
 
+
+/mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
+	var/null_internals = 0
+	if(internal)
+		if(istype(back, /obj/item/weapon/rig))
+			var/obj/item/weapon/rig/rig = back
+			if(rig.offline && (rig.air_supply && internal == rig.air_supply))
+				null_internals = 1
+
+		if(!(wear_mask && (wear_mask.flags & AIRTIGHT))) //not wearing mask
+			if(!(head && (head.flags & AIRTIGHT))) //not wearing helmet
+				null_internals = 1
+
+		if(null_internals)
+			internal = null
+
+		if(internal)
+			if(internals)
+				internals.icon_state = "internal1"
+			return internal.remove_air_volume(volume_needed)
+		else
+			if(internals)
+				internals.icon_state = "internal0"
+
+	return null
+
 /mob/living/carbon/human/check_breath(var/datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return 0
@@ -760,7 +786,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 /mob/living/carbon/human/handle_regular_status_updates()
 
-	if(status_flags & GODMODE)	return 0
+	if(status_flags & GODMODE)
+		return 0
 
 	//SSD check, if a logged player is awake put them back to sleep!
 	if(player_logged && sleeping < 2)
@@ -827,7 +854,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			setHalLoss(99)
 
 		if(paralysis)
-			AdjustParalysis(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
 			if(halloss > 0)
@@ -958,9 +984,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			spawn(10)
 				if(flying)
 					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
-
-		//Other
-		handle_statuses()
 
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))

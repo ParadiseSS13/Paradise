@@ -9,6 +9,11 @@
 	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
 	fire_delay = 15
 
+/obj/item/weapon/gun/energy/taser/mounted
+	name = "mounted taser gun"
+	self_recharge = 1
+	use_external_power = 1
+
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
 	desc = "A small, low capacity gun used for non-lethal takedowns."
@@ -16,35 +21,9 @@
 	fire_sound = 'sound/weapons/Taser.ogg'
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
-	var/charge_tick = 0
-	var/recharge_time = 10 //Time it takes for shots to recharge (in ticks)
 
-/obj/item/weapon/gun/energy/taser/cyborg/New()
-	..()
-	processing_objects.Add(src)
-
-
-/obj/item/weapon/gun/energy/taser/cyborg/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/taser/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
-	if(power_supply.charge == power_supply.maxcharge)
-		return 0
-	charge_tick++
-	if(charge_tick < recharge_time)
-		return 0
-	charge_tick = 0
-
-	if(!power_supply) return 0 //sanity
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell)
-			if(R.cell.use(charge_cost)) 		//Take power from the borg...
-				power_supply.give(charge_cost)	//... to recharge the shot
-
-	update_icon()
-	return 1
+	self_recharge = 1
+	recharge_time = 10 //Time it takes for shots to recharge (in ticks)
 
 /obj/item/weapon/gun/energy/stunrevolver
 	name = "stun revolver"
@@ -69,25 +48,12 @@
 	fire_sound = 'sound/weapons/Genhit.ogg'
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	cell_type = "/obj/item/weapon/stock_parts/cell/crap"
-	var/charge_tick = 0
 
-/obj/item/weapon/gun/energy/crossbow/New()
-	..()
-	processing_objects.Add(src)
+	self_recharge = 1
 
-/obj/item/weapon/gun/energy/crossbow/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/crossbow/process()
-	charge_tick++
-	if(charge_tick < 4)
-		return 0
-	charge_tick = 0
-	if(!power_supply)
-		return 0
-	power_supply.give(1000)
-	return 1
+/obj/item/weapon/gun/energy/crossbow/ninja
+	name = "energy dart thrower"
+	projectile_type = /obj/item/projectile/energy/dart
 
 /obj/item/weapon/gun/energy/crossbow/update_icon()
 	return

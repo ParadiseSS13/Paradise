@@ -67,10 +67,9 @@
 
 	var/allgases = G.carbon_dioxide + G.nitrogen + G.oxygen + G.toxins	//fuck trace gases	-Pete
 	if(allgases >= 0.005)
-		return 1
+		. = 1
 
 	qdel(G)
-	return
 
 /obj/item/weapon/tank/jetpack/ui_action_click()
 	toggle()
@@ -136,3 +135,33 @@
 	if(air_contents.carbon_dioxide < 10)
 		user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
+
+
+/obj/item/weapon/tank/jetpack/rig
+	name = "jetpack"
+	var/obj/item/weapon/rig/holder
+
+/obj/item/weapon/tank/jetpack/rig/examine()
+	usr << "It's a jetpack. If you can see this, report it on the bug tracker."
+	return 0
+
+/obj/item/weapon/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)
+
+	if(!(src.on))
+		return 0
+
+	if(!istype(holder) || !holder.air_supply)
+		return 0
+
+	var/obj/item/weapon/tank/pressure_vessel = holder.air_supply
+
+	if((num < 0.005 || pressure_vessel.air_contents.total_moles() < num))
+		src.ion_trail.stop()
+		return 0
+
+	var/datum/gas_mixture/G = pressure_vessel.air_contents.remove(num)
+
+	var/allgases = G.carbon_dioxide + G.nitrogen + G.oxygen + G.toxins
+	if(allgases >= 0.005)
+		. = 1
+	qdel(G)

@@ -120,8 +120,13 @@
 	data["maskConnected"] = 0
 	if(istype(loc,/mob/living/carbon))
 		var/mob/living/carbon/location = loc
-		if(location.internal == src || (location.wear_mask && (location.wear_mask.flags & MASKINTERNALS)))
-			data["maskConnected"] = 1
+		if(location.internal == src)
+			if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+				data["maskConnected"] = 1
+			else if(ishuman(location))
+				var/mob/living/carbon/human/H = location
+				if(H.head && (H.head.flags & AIRTIGHT))
+					data["maskConnected"] = 1
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -162,7 +167,16 @@
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
-				if(location.wear_mask && (location.wear_mask.flags & MASKINTERNALS))
+
+				var/can_open_valve
+				if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+					can_open_valve = 1
+				else if(istype(location,/mob/living/carbon/human))
+					var/mob/living/carbon/human/H = location
+					if(H.head && (H.head.flags & AIRTIGHT))
+						can_open_valve = 1
+
+				if(can_open_valve)
 					location.internal = src
 					usr << "\blue You open \the [src] valve."
 					if (location.internals)

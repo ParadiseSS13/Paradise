@@ -261,28 +261,40 @@
 						if(C.internals)
 							C.internals.icon_state = "internal0"
 					else
-						if(!istype(C.wear_mask, /obj/item/clothing/mask))
-							C << "<span class='notice'>You are not wearing a mask.</span>"
-							return 1
-						if(C.wear_mask.mask_adjusted)
-							C << "<span class='notice'>Put your mask on first.</span>"
+
+						var/no_mask
+						if(!(C.wear_mask && C.wear_mask.flags & AIRTIGHT))
+							if(ishuman(C))
+								var/mob/living/carbon/human/H = C
+								if(!(H.head && H.head.flags & AIRTIGHT))
+									no_mask = 1
+
+						if(no_mask)
+							C << "<span class='notice'>You are not wearing a suitable mask or helmet.</span>"
 							return 1
 						else
 							var/list/nicename = null
 							var/list/tankcheck = null
 							var/breathes = "oxygen"    //default, we'll check later
 							var/list/contents = list()
+							var/from = "on"
 
 							if(ishuman(C))
 								var/mob/living/carbon/human/H = C
 								breathes = H.species.breath_type
 								nicename = list ("suit", "back", "belt", "right hand", "left hand", "left pocket", "right pocket")
 								tankcheck = list (H.s_store, C.back, H.belt, C.r_hand, C.l_hand, H.l_store, H.r_store)
-
 							else
-
-								nicename = list("Right Hand", "Left Hand", "Back")
+								nicename = list("right hand", "left hand", "back")
 								tankcheck = list(C.r_hand, C.l_hand, C.back)
+
+							// Rigs are a fucking pain since they keep an air tank in nullspace.
+							if(istype(C.back,/obj/item/weapon/rig))
+								var/obj/item/weapon/rig/rig = C.back
+								if(rig.air_supply)
+									from = "in"
+									nicename |= "hardsuit"
+									tankcheck |= rig.air_supply
 
 							for(var/i=1, i<tankcheck.len+1, ++i)
 								if(istype(tankcheck[i], /obj/item/weapon/tank))
@@ -339,7 +351,7 @@
 							//We've determined the best container now we set it as our internals
 
 							if(best)
-								C << "<span class='notice'>You are now running on internals from [tankcheck[best]] on your [nicename[best]].</span>"
+								C << "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>"
 								C.internal = tankcheck[best]
 
 
