@@ -12,6 +12,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 1
+	ventcrawler = 2
 	req_access = list(access_engine, access_robotics)
 	local_transmit = 1
 
