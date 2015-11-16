@@ -34,7 +34,7 @@ var/global/nologevent = 0
 		usr << "You seem to be selecting a mob that doesn't exist anymore."
 		return
 
-	if(!check_rights(R_ADMIN|R_MOD)) 
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
 	var/body = "<html><head><title>Options for [M.key]</title></head>"
@@ -54,14 +54,14 @@ var/global/nologevent = 0
 		body += "<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a> - "
 		body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
 		body += "[admin_jump_link(M, src)]\] </b><br>"
-		
+
 		body += "<b>Mob type:</b> [M.type]<br>"
 		if(M.client)
 			if(M.client.related_accounts_cid.len)
 				body += "<b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
 			if(M.client.related_accounts_ip.len)
 				body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br><br>"
-		
+
 		body += "<A href='?_src_=holder;boot2=\ref[M]'>Kick</A> | "
 		body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
 		body += "<A href='?_src_=holder;newban=\ref[M]'>Ban</A> | "
@@ -212,21 +212,21 @@ var/global/nologevent = 0
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
 	set name = "Player Notes"
-	
+
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-		
+
 	show_note()
 
 /datum/admins/proc/show_player_notes(var/key as text)
 	set category = "Admin"
 	set name = "Show Player Notes"
-	
+
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-		
+
 	show_note(key)
-		
+
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Event"
 	set name = "Access Newscaster Network"
@@ -234,10 +234,10 @@ var/global/nologevent = 0
 
 	if(!check_rights(R_EVENT))
 		return
-	
+
 	if (!istype(src,/datum/admins))
 		src = usr.client.holder
-		
+
 	var/dat
 	dat = text("<HEAD><TITLE>Admin Newscaster</TITLE></HEAD><H3>Admin Newscaster Unit</H3>")
 
@@ -473,7 +473,7 @@ var/global/nologevent = 0
 	onclose(usr, "admincaster_main")
 
 /datum/admins/proc/Jobbans()
-	if(!check_rights(R_BAN))	
+	if(!check_rights(R_BAN))
 		return
 
 	var/dat = "<B>Job Bans!</B><HR><table>"
@@ -486,7 +486,7 @@ var/global/nologevent = 0
 	usr << browse(dat, "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/dat = {"
@@ -495,7 +495,8 @@ var/global/nologevent = 0
 		"}
 	if(master_mode == "secret")
 		dat += "<A href='?src=\ref[src];f_secret=1'>(Force Secret Mode)</A><br>"
-
+	if(ticker)
+		dat += "AI Triumvirate [ticker.triai ? "On" : "Off"]"
 	dat += {"
 		<BR>
 		<A href='?src=\ref[src];create_object=1'>Create Object</A><br>
@@ -515,10 +516,10 @@ var/global/nologevent = 0
 	set category = "Server"
 	set name = "Restart"
 	set desc = "Restarts the world."
-	
-	if(!check_rights(R_SERVER))	
+
+	if(!check_rights(R_SERVER))
 		return
-		
+
 	var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
 	if(isnull(delay))
 		return
@@ -534,8 +535,8 @@ var/global/nologevent = 0
 	set category = "Special Verbs"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
-	
-	if(!check_rights(R_ADMIN))	
+
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/message = input("Global message to send:", "Admin Announce", null, null) as message|null
@@ -609,10 +610,10 @@ var/global/nologevent = 0
 	set category = "Server"
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
-	
+
 	if(!check_rights(R_SERVER))
-		return	
-	
+		return
+
 	if(!ticker)
 		alert("Unable to start the game as it is not set up.")
 		return
@@ -630,10 +631,10 @@ var/global/nologevent = 0
 	set category = "Server"
 	set desc="People can't enter"
 	set name="Toggle Entering"
-	
+
 	if(!check_rights(R_SERVER))
-		return	
-	
+		return
+
 	enter_allowed = !( enter_allowed )
 	if (!( enter_allowed ))
 		world << "<B>New players may no longer enter the game.</B>"
@@ -648,10 +649,10 @@ var/global/nologevent = 0
 	set category = "Event"
 	set desc="People can't be AI"
 	set name="Toggle AI"
-	
+
 	if(!check_rights(R_EVENT))
-		return	
-	
+		return
+
 	config.allow_ai = !( config.allow_ai )
 	if (!( config.allow_ai ))
 		world << "<B>The AI job is no longer chooseable.</B>"
@@ -668,8 +669,8 @@ var/global/nologevent = 0
 	set name="Toggle Respawn"
 
 	if(!check_rights(R_SERVER))
-		return	
-	
+		return
+
 	abandon_allowed = !( abandon_allowed )
 	if (abandon_allowed)
 		world << "<B>You may now respawn.</B>"
@@ -684,10 +685,10 @@ var/global/nologevent = 0
 	set category = "Event"
 	set desc="Toggle alien mobs"
 	set name="Toggle Aliens"
-	
+
 	if(!check_rights(R_EVENT))
-		return		
-	
+		return
+
 	aliens_allowed = !aliens_allowed
 	log_admin("[key_name(usr)] toggled aliens to [aliens_allowed].")
 	message_admins("[key_name_admin(usr)] toggled aliens [aliens_allowed ? "on" : "off"].")
@@ -698,9 +699,9 @@ var/global/nologevent = 0
 	set desc="Delay the game start/end"
 	set name="Delay"
 
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
-		
+
 	if (!ticker || ticker.current_state != GAME_STATE_PREGAME)
 		ticker.delay_end = !ticker.delay_end
 		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
@@ -760,7 +761,7 @@ var/global/nologevent = 0
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
 
-	if(!check_rights(R_SPAWN))	
+	if(!check_rights(R_SPAWN))
 		return
 
 	var/list/types = typesof(/atom)
@@ -794,8 +795,8 @@ var/global/nologevent = 0
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
-	
-	if(!check_rights(R_ADMIN|R_MOD))	
+
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
 	if(!istype(M))
@@ -812,10 +813,10 @@ var/global/nologevent = 0
 	set category = "Server"
 	set desc="Guests can't enter"
 	set name="Toggle Guests"
-	
-	if(!check_rights(R_SERVER))	
-		return	
-	
+
+	if(!check_rights(R_SERVER))
+		return
+
 	guests_allowed = !( guests_allowed )
 	if (!( guests_allowed ))
 		world << "<B>Guests may no longer enter the game.</B>"
@@ -849,7 +850,7 @@ var/global/nologevent = 0
 			S.laws.show_laws(usr)
 	if(!ai_number)
 		usr << "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
-		
+
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
 
@@ -857,8 +858,8 @@ var/global/nologevent = 0
 	set category = "Admin"
 	set name = "Update Mob Sprite"
 	set desc = "Should fix any mob sprite update errors."
-	
-	if(!check_rights(R_ADMIN))	
+
+	if(!check_rights(R_ADMIN))
 		return
 
 	if(istype(H))
@@ -932,8 +933,8 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 				C << message
 			kicked_client_names.Add("[C.ckey]")
 			del(C)
-	return kicked_client_names	
-	
+	return kicked_client_names
+
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
 /datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/mob/living/tomob)
@@ -971,4 +972,3 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	qdel(frommob)
 
 	return 1
-	
