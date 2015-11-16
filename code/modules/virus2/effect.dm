@@ -962,12 +962,12 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 			mob << "<span class='notice'>You feel anxious.</span>"
 		if(prob(15))
 			mob << "<span class='danger'>You feel butterflies in your stomach.</span>"
-		if(prob(10))
+		if(prob(11))
 			mob.visible_message("<span class='danger'>[mob] stumbles around in a panic.</span>", \
 											"<span class='userdanger'>You have a panic attack!</span>")
 			mob.confused += (rand(6,8))
 			mob.jitteriness += (rand(6,8))
-		if(prob(5))
+		if(prob(10))
 			mob.visible_message("<span class='danger'>[mob] coughs up butterflies!</span>", \
 												"<span class='userdanger'>You cough up butterflies!</span>")
 			new /mob/living/simple_animal/butterfly(mob.loc)
@@ -981,9 +981,9 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 			mob << "<span class='notice'>You feel itchy.</span>"
 		if(prob(15))
 			mob << "<span class='danger'>You have the sudden urge for bacon..</span>"
-		if(prob(10))
+		if(prob(11))
 			mob.say(pick("WOOF!", "BARK!", "Bark.", "Woof?", "AUUUUUUUUUUUUU!!"))
-		if(prob(5))
+		if(prob(10))
 			mob.visible_message("<span class='danger'>[mob] coughs up a dog!!</span>", \
 												"<span class='userdanger'>You cough up a DOG!!!</span>")
 			//yes i KNOW foxes technically are not normal dogs...hush....
