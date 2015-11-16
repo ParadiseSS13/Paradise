@@ -136,6 +136,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/y_offset = pixel_y + rand(-1,1)
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
+
 	if (disabilities & NERVOUS)
 		speech_problem_flag = 1
 		if (prob(10))
@@ -143,12 +144,38 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if (getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
-		if (prob(3))
+		if(prob(3))
+			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
+							   "without oxigen blob don't evoluate?",
+							   "CAPTAINS A COMDOM",
+							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
+							   "can u give me [pick("telikesis","halk","eppilapse")]?",
+							   "THe saiyans screwed",
+							   "Bi is THE BEST OF BOTH WORLDS>",
+							   "I WANNA PET TEH monkeyS",
+							   "stop grifing me!!!!",
+							   "SOTP IT#")
+
+			var/list/s2 = list("FUS RO DAH",
+							   "fucking 4rries!",
+							   "stat me",
+							   ">my face",
+							   "roll it easy!",
+							   "waaaaaagh!!!",
+							   "red wonz go fasta",
+							   "FOR TEH EMPRAH",
+							   "lol2cat",
+							   "dem dwarfs man, dem dwarfs",
+							   "SPESS MAHREENS",
+							   "hwee did eet fhor khayosss",
+							   "lifelike texture ;_;",
+							   "luv can bloooom",
+							   "PACKETS!!!")
 			switch(pick(1,2,3))
 				if(1)
-					say(pick("IM A PONY NEEEEEEIIIIIIIIIGH", "without oxigen blob don't evoluate?", "CAPTAINS A COMDOM", "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!", "can u give me [pick("telikesis","halk","eppilapse")]?", "THe saiyans screwed", "Bi is THE BEST OF BOTH WORLDS>", "I WANNA PET TEH monkeyS", "stop grifing me!!!!", "SOTP IT#"))
+					say(pick(s1))
 				if(2)
-					say(pick("FUS RO DAH","fucking 4rries!", "stat me", ">my face", "roll it easy!", "waaaaaagh!!!", "red wonz go fasta", "FOR TEH EMPRAH", "lol2cat", "dem dwarfs man, dem dwarfs", "SPESS MAHREENS", "hwee did eet fhor khayosss", "lifelike texture ;_;", "luv can bloooom", "PACKETS!!!"))
+					say(pick(s2))
 				if(3)
 					emote("drool")
 
