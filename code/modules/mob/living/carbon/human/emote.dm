@@ -743,7 +743,7 @@
 			// Process toxic farts first.
 			if(TOXIC_FARTS in mutations)
 				for(var/mob/M in range(location,aoe_range))
-					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
+					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
 						continue
 					if(!airborne_can_reach(location,M,aoe_range))
 						continue

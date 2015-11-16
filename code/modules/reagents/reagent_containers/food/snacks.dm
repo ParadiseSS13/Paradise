@@ -448,6 +448,14 @@
 			src.name = "frosted donut"
 			reagents.add_reagent("sprinkles", 2)
 
+/obj/item/weapon/reagent_containers/food/snacks/donut/sprinkles
+	name = "frosted donut"
+	icon_state = "donut2"
+	New()
+		..()
+		reagents.add_reagent("nutriment", 3)
+		reagents.add_reagent("sprinkles", 3)
+
 /obj/item/weapon/reagent_containers/food/snacks/donut/chaos
 	name = "Chaos Donut"
 	desc = "Like life, it never quite tastes the same."
@@ -628,14 +636,6 @@
 		..()
 		reagents.add_reagent("nutriment", 2)
 		reagents.add_reagent("egg", 5)
-
-/obj/item/weapon/reagent_containers/food/snacks/flour
-	name = "flour"
-	desc = "A small bag filled with some flour."
-	icon_state = "flour"
-	New()
-		..()
-		reagents.add_reagent("flour", 5)
 
 /obj/item/weapon/reagent_containers/food/snacks/organ
 
@@ -3176,22 +3176,6 @@
 		..()
 		reagents.add_reagent("nutriment", 3)
 
-// Flour + egg = dough
-/obj/item/weapon/reagent_containers/food/snacks/flour/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/egg))
-		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
-		user << "You make some dough."
-		qdel(W)
-		qdel(src)
-
-// Egg + flour = dough
-/obj/item/weapon/reagent_containers/food/snacks/egg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/reagent_containers/food/snacks/flour))
-		new /obj/item/weapon/reagent_containers/food/snacks/dough(src)
-		user << "You make some dough."
-		qdel(W)
-		qdel(src)
-
 /obj/item/weapon/reagent_containers/food/snacks/dough
 	name = "dough"
 	desc = "A piece of dough."
@@ -3332,3 +3316,29 @@
 	New()
 		..()
 		reagents.add_reagent("ectoplasm", 10)
+
+/obj/item/weapon/reagent_containers/food/snacks/liquidfood
+	name = "\improper LiquidFood Ration"
+	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
+	icon_state = "liquidfood"
+	trash = /obj/item/trash/liquidfood
+	filling_color = "#A8A8A8"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 20)
+		reagents.add_reagent("iron", 3)
+		bitesize = 4
+
+
+/obj/item/weapon/reagent_containers/food/snacks/tastybread
+	name = "bread tube"
+	desc = "Bread in a tube. Chewy...and surprisingly tasty."
+	icon_state = "tastybread"
+	trash = /obj/item/trash/tastybread
+	filling_color = "#A66829"
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 6)
+		bitesize = 2

@@ -808,14 +808,32 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_back(var/update_icons=1)
 	if(back)
 		back.screen_loc = ui_back	//TODO
+
+		//determine the icon to use
+		var/icon/overlay_icon
 		if(back.icon_override)
-			overlays_standing[BACK_LAYER] = image("icon" = back.icon_override, "icon_state" = "[back.icon_state]")
+			overlay_icon = back.icon_override
+		else if(istype(back, /obj/item/weapon/rig))
+			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
+			var/obj/item/weapon/rig/rig = back
+			overlay_icon = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[species.name])
-			overlays_standing[BACK_LAYER] = image("icon" = back.sprite_sheets[species.name], "icon_state" = "[back.icon_state]")
+			overlay_icon = back.sprite_sheets[species.name]
 		else
-			overlays_standing[BACK_LAYER] = image("icon" = 'icons/mob/back.dmi', "icon_state" = "[back.icon_state]")
+			overlay_icon = icon('icons/mob/back.dmi', "[back.icon_state]")
+
+		//determine state to use
+		var/overlay_state
+		if(back.item_state)
+			overlay_state = back.item_state
+		else
+			overlay_state = back.icon_state
+
+		//create the image
+		overlays_standing[BACK_LAYER] = image(icon = overlay_icon, icon_state = overlay_state)
 	else
-		overlays_standing[BACK_LAYER]	= null
+		overlays_standing[BACK_LAYER] = null
+
 	if(update_icons)   update_icons()
 
 

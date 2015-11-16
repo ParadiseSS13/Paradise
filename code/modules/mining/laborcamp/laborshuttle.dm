@@ -69,7 +69,7 @@ proc/move_labor_shuttle() //TODO: Security Access only; add moving the shuttle t
 	name = "Labor Shuttle Console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
-	circuit = "/obj/item/weapon/circuitboard/labor_shuttle"
+	circuit = /obj/item/weapon/circuitboard/labor_shuttle
 	var/location = 0 //0 = station, 1 = labor camp
 	req_access = list(access_brig)
 	var/hacked = 0
@@ -114,7 +114,7 @@ proc/move_labor_shuttle() //TODO: Security Access only; add moving the shuttle t
 /obj/machinery/computer/labor_shuttle/one_way
 	name = "Prisoner Shuttle Console"
 	desc = "A one-way shuttle console, used to summon the shuttle to the labor camp."
-	circuit = "/obj/item/weapon/circuitboard/one_way_shuttle"
+	circuit = /obj/item/weapon/circuitboard/labor_shuttle/one_way
 	req_access = list( )
 
 /obj/machinery/computer/labor_shuttle/one_way/attack_hand(user as mob)

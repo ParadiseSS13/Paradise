@@ -17,7 +17,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 	req_access = list(access_tcomsat)
-	circuit = "/obj/item/weapon/circuitboard/comm_traffic"
+	circuit = /obj/item/weapon/circuitboard/comm_traffic
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
 	interact(user)
@@ -32,7 +32,7 @@
 		editingcode = user
 		lasteditor = user
 
-	var/dat = {"<head><meta http-equiv="X-UA-Compatible" content="IE=edge"/> </head>"}
+	var/dat = ""
 
 	dat +=  "<center><b>Telecommunications Traffic Control</b></center>"
 
@@ -90,30 +90,33 @@
 						}
 					</style>
 
-					<form name='code' action='?src=\ref[src]' method='get'>
-						<input type="hidden" name="src" value="\ref[src]">
+					<div class="statusDisplay">
+						<textarea id="fSubmit" name="cMirror">[storedcode]</textarea>
+					</div>
 
-						<textarea id="fSubmit" name="cMirror">
-							[storedcode]
-						</textarea>
-						<script>
-							var editor = CodeMirror.fromTextArea(document.getElementById("fSubmit"),
-							{
+					<script type="text/javascript">
+						var cMirror_fSubmit = CodeMirror.fromTextArea(document.getElementById("fSubmit"),
+						{
 							lineNumbers: true,
 							indentUnit: 4,
 							indentWithTabs: true,
 							mode: "NTSL",
 							theme: "lesser-dark",
 							viewportMargin: Infinity
-							}
-							);
-						</script>
+						}
+						);
 
-						<center>
-						<button type="submit" name="choice">Compile</button>
-						<button type="submit" name="choice">Clear</button>
-						</center>
-					</form>
+						function compileCode() {
+							var codeText = cMirror_fSubmit.getValue();
+							window.location = "byond://?src=\ref[src];choice=Compile;cMirror=" + encodeURIComponent(codeText);
+						}
+
+						function clearCode() {
+							window.location = "byond://?src=\ref[src];choice=Clear;";
+						}
+					</script>
+					<a href="javascript:compileCode()">Compile</a>
+					<a href="javascript:clearCode()">Clear</a>
 
 					<div class="item">
 						[compiling_errors]
@@ -220,6 +223,7 @@
 				Server.memory = list() // clear the memory
 
 				compiling_errors = "<font color='#4266DB'>Server Memory Cleared!</font>"
+				storedcode = null
 				updateUsrDialog()
 
 	if(href_list["viewserver"])

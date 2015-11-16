@@ -52,6 +52,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	var/hidden = 0
 	var/contraband = 0
 	var/group = supply_misc
+	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 
 
 /datum/supply_packs/New()
@@ -142,6 +143,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "weed control crate"
 	access = access_hydroponics
+	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
@@ -173,6 +175,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/gear
 	access = access_security
 	group = supply_security
+	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 
 
 /datum/supply_packs/security/supplies
@@ -242,6 +245,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/secure/weapon
 	access = access_armory
+	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))
 
 ///// Armor: Specialist
 
@@ -384,6 +388,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/engineering
 	name = "HEADER"
 	group = supply_engineer
+	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 
 
 /datum/supply_packs/engineering/fueltank
@@ -397,8 +402,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Toolbox Crate"
 	contains = list(/obj/item/weapon/storage/toolbox/electrical,
 					/obj/item/weapon/storage/toolbox/electrical,
-					/obj/item/weapon/storage/toolbox/mechanical,
 					/obj/item/weapon/storage/toolbox/electrical,
+					/obj/item/weapon/storage/toolbox/mechanical,
 					/obj/item/weapon/storage/toolbox/mechanical,
 					/obj/item/weapon/storage/toolbox/mechanical)
 	cost = 10
@@ -545,6 +550,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure
 	containername = "thermo-electric generator crate"
 	access = access_ce
+	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
@@ -554,6 +560,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
 	group = supply_medical
+	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
 
 
 /datum/supply_packs/medical/supplies
@@ -636,6 +643,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "virus crate"
 	access = access_cmo
+	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
 
 
 /datum/supply_packs/medical/bloodpacks
@@ -686,7 +694,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/science
 	name = "HEADER"
 	group = supply_science
-
+	announce_beacons = list("Research Division" = list("Science", "Research Director's Desk"))
 
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
@@ -701,6 +709,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure
 	containername = "robotics assembly crate"
 	access = access_robotics
+	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
+
 
 /datum/supply_packs/science/robotics/mecha_ripley
 	name = "Circuit Crate (Ripley APLU)"
@@ -710,6 +720,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper APLU \"Ripley\" circuit crate"
+	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 /datum/supply_packs/science/robotics/mecha_odysseus
 	name = "Circuit Crate (Odysseus)"
@@ -718,6 +729,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper \"Odysseus\" circuit crate"
+	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"
@@ -773,12 +785,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/organic/food
 	name = "Food Crate"
-	contains = list(/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
-					/obj/item/weapon/reagent_containers/food/snacks/flour,
+	contains = list(/obj/item/weapon/reagent_containers/food/condiment/flour,
+					/obj/item/weapon/reagent_containers/food/condiment/rice,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/reagent_containers/food/drinks/soymilk,
+					/obj/item/weapon/reagent_containers/food/condiment/saltshaker,
+					/obj/item/weapon/reagent_containers/food/condiment/peppermill,
 					/obj/item/weapon/storage/fancy/egg_box,
 					/obj/item/weapon/reagent_containers/food/condiment/enzyme,
 					/obj/item/weapon/reagent_containers/food/condiment/sugar,
@@ -788,6 +800,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/snacks/grown/banana)
 	cost = 10
 	containername = "food crate"
+	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 /datum/supply_packs/organic/pizza
 	name = "Pizza Crate"
@@ -844,6 +857,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer)
 	cost = 20
 	containername = "party equipment"
+	announce_beacons = list("Bar" = list("Bar"))
 
 //////// livestock
 /datum/supply_packs/organic/cow
@@ -921,6 +935,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "hydroponics crate"
+	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/misc/hydroponics/hydrotank
 	name = "Hydroponics Watertank Crate"
@@ -929,6 +944,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure
 	containername = "hydroponics watertank crate"
 	access = access_hydroponics
+	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
@@ -977,6 +993,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "Beekeeping crate"
 	access = access_hydroponics
+	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/foodcart
 	name = "Food Cart crate"
@@ -984,6 +1001,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containertype = /obj/structure/largecrate
 	containername = "food cart crate"
+	announce_beacons = list("Kitchen" = list("Kitchen"))
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Materials ///////////////////////////////////////
@@ -992,6 +1010,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/materials
 	name = "HEADER"
 	group = supply_materials
+	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
 
 
 /datum/supply_packs/materials/metal50
@@ -1182,6 +1201,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/grenade/chem_grenade/cleaner)
 	cost = 10
 	containername = "janitorial supplies crate"
+	announce_beacons = list("Janitor" = list("Janitorial"))
 
 /datum/supply_packs/misc/janitor/janicart
 	name = "Janitorial Cart and Galoshes Crate"
@@ -1382,6 +1402,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/vending/pets
 	name = "Pet Supply Crate"
 	contains = list(/obj/item/weapon/vending_refill/crittercare,
+					/obj/item/weapon/vending_refill/crittercare,
 					/obj/item/weapon/vending_refill/crittercare)
 	cost = 15
 	containername = "pet supply crate"
@@ -1393,6 +1414,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/vending_refill/boozeomat)
 	cost = 15
 	containername = "bar supply crate"
+	announce_beacons = list("Bar" = list("Bar"))
 
 /datum/supply_packs/vending/coffee
 	name = "Coffee Supply Crate"

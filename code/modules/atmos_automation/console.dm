@@ -2,7 +2,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "area_atmos"
 	icon_keyboard = "atmos_key"
-	circuit = "/obj/item/weapon/circuitboard/atmos_automation"
+	circuit = /obj/item/weapon/circuitboard/atmos_automation
 	req_one_access_txt = "24;10"
 	Mtoollink = 1
 

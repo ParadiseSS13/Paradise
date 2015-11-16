@@ -253,7 +253,7 @@ datum/preferences
 				dat += "Secondary Language:<br><a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 				dat += "Blood Type: <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 				if(species == "Human")
-					dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
+					dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220</a><br>"
 
 		//		dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 				dat += "<br><b>Handicaps</b><br>"
@@ -358,11 +358,11 @@ datum/preferences
 					hairname = "Frame Color"
 				dat += "<br><b>[hairname]</b><br>"
 				dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
-				dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
+				dat += " <br>Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
 				dat += "<br><b>Facial</b><br>"
 				dat += "<a href='?_src_=prefs;preference=facial;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial)]'><tr><td>__</td></tr></table></font> "
-				dat += " Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style]</a><br>"
+				dat += " <br>Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style]</a><br>"
 
 				dat += "<br><b>Eyes</b><br>"
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font><br>"
@@ -528,12 +528,12 @@ datum/preferences
 
 			if(rank == "Civilian")//Civilian is special
 				if(job_support_low & CIVILIAN)
-					HTML += " <font color=green>\[Yes]</font>"
+					HTML += " <font color=green>\[Yes]</font></a>"
 				else
-					HTML += " <font color=red>\[No]</font>"
+					HTML += " <font color=red>\[No]</font></a>"
 				if(job.alt_titles)
 					HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
-				HTML += "</a></td></tr>"
+				HTML += "</td></tr>"
 				continue
 /*
 			if(GetJobDepartment(job, 1) & job.flag)
@@ -545,13 +545,13 @@ datum/preferences
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 				*/
-			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font>"
+			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 
 			if(job.alt_titles)
 				HTML += "<br><b><a class='white' href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
 
 
-			HTML += "</a></td></tr>"
+			HTML += "</td></tr>"
 
 		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
 			HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"

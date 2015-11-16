@@ -18,6 +18,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
+	strip_delay = 50
 
 /obj/item/clothing/under/rank/security
 	name = "security officer's jumpsuit"
@@ -28,6 +29,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
+	strip_delay = 50
 
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
@@ -71,6 +73,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.9
+	strip_delay = 50
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
@@ -88,6 +91,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
 	siemens_coefficient = 0.8
+	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"

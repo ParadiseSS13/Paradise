@@ -112,78 +112,100 @@ Used In File(s): \code\game\machinery\adv_med.dm
 	{{if data.occupant.nearsighted}}
 		<span class="bad">Retinal Misalignment Detected</span>
 	{{/if}}
+
 	<br>
-	<div class="item">
-		<b>Blood</b>
-		<div class="itemLabelWide">
-			Volume
+
+	<div style="width: 70%">
+		<div style="width: 50%; text-align:center;"><b>Blood</b></div>
+		<div class="item">
+			<div class="itemLabelWide">
+				Volume
+			</div>
+			<div class="itemContentMedium">
+				{{:data.occupant.blood.volume}}
+			</div>
 		</div>
-		<div class="itemContentMedium">
-			{{:data.occupant.blood.volume}}
-		</div>
-		<div class="itemLabelWide">
-			Percent
-		</div>
-		<div class="itemContentMedium">
-			{{:data.occupant.blood.percent}}%
+		<div class="item">
+			<div class="itemLabelWide">
+				Percent
+			</div>
+			<div class="itemContentMedium">
+				{{:data.occupant.blood.percent}}%
+			</div>
 		</div>
 	</div>
+
 	<br>
-	<div class="item">
-		<b>Reagents</b>
-		<div class="itemLabelWide">
-			Epinephrine
+
+	<div style="width: 70%;">
+		<div style="width: 50%; text-align:center;"><b>Reagents</b></div>
+		<div class="item">
+			<div class="itemLabelWide">
+				Epinephrine
+			</div>
+			<div class="itemContentMedium">
+				{{:data.occupant.reagents.epinephrine}}
+			</div>
 		</div>
-		<div class="itemContentMedium">
-			{{:data.occupant.reagents.epinephrine}}
+		<div class="item">
+			<div class="itemLabelWide">
+				Ether
+			</div>
+			<div class="itemContentMedium">
+				{{:data.occupant.reagents.ether}}
+			</div>
 		</div>
-		<div class="itemLabelWide">
-			Ether
+		<div class="item">
+			<div class="itemLabelWide">
+				<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
+				Silver Sulfadiazine
+				</span>
+			</div>
+			<div class="itemContentMedium">
+				<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
+				{{:data.occupant.reagents.silver_sulfadiazine}}
+				</span>
+			</div>
 		</div>
-		<div class="itemContentMedium">
-			{{:data.occupant.reagents.ether}}
+		<div class="item">
+			<div class="itemLabelWide">
+				<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
+				Styptic Powder
+				</span>
+			</div>
+			<div class="itemContentMedium">
+				<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
+				{{:data.occupant.reagents.styptic_powder}}
+				</span>
+			</div>
 		</div>
-		<div class="itemLabelWide">
-			<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
-			Silver Sulfadiazine
-			</span>
-		</div>
-		<div class="itemContentMedium">
-			<span class="{{:data.occupant.reagents.silver_sulfadiazine < 30 ? "average" : "bad"}}">
-			{{:data.occupant.reagents.silver_sulfadiazine}}
-			</span>
-		</div>
-		<div class="itemLabelWide">
-			<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
-			Styptic Powder
-			</span>
-		</div>
-		<div class="itemContentMedium">
-			<span class="{{:data.occupant.reagents.styptic_powder < 30 ? "average" : "bad"}}">
-			{{:data.occupant.reagents.styptic_powder}}
-			</span>
-		</div>
-		<div class="itemLabelWide">
-			<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
-			Salbutamol
-			</span>
-		</div>
-		<div class="itemContentMedium">
-			<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
-			{{:data.occupant.reagents.salbutamol}}
-			</span>
+		<div class="item">
+			<div class="itemLabelWide">
+				<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
+				Salbutamol
+				</span>
+			</div>
+			<div class="itemContentMedium">
+				<span class="{{:data.occupant.reagents.salbutamol < 30 ? "average" : "bad"}}">
+				{{:data.occupant.reagents.salbutamol}}
+				</span>
+			</div>
 		</div>
 	</div>
+
 	<br>
+
 	<b>External Organs</b>
 	<div class="itemGroup">
 	{{for data.occupant.extOrgan}}
-		<div class="item">
-			{{if value.status.destroyed}}
+		{{if value.status.destroyed}}
+			<div class="item">
 				<div class="itemLabelWide">
 					<b>{{:value.name}}</b><span class="bad"> - DESTROYED</span>
 				</div>
-			{{else}}
+			</div>
+		{{else}}
+			<div class="item">
 				<div class="itemLabelWide">
 					<b>{{:value.name}}</b>
 				</div>
@@ -196,12 +218,16 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						Robotic
 					{{/if}}
 				</div>
+			</div>
+			<div class="item">
 				<div class="itemLabelWide">
 					&nbsp;Brute/Burn
 				</div>
 				<div class="itemContentNarrow">
 					{{:value.bruteLoss}}/{{:value.fireLoss}}
 				</div>
+			</div>
+			<div class="item">
 				<div class="itemLabelWide">
 					&nbsp;Injuries
 				</div>
@@ -220,7 +246,9 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						{{/if}}
 					{{/if}}
 				</div>
-				{{if value.germ_level > 100}}
+			</div>
+			{{if value.germ_level > 100}}
+				<div class="item">
 					<div class="itemLabelWide">
 						&nbsp;Infection
 					</div>
@@ -241,16 +269,20 @@ Used In File(s): \code\game\machinery\adv_med.dm
 							Septic
 						{{/if}}
 					</div>
-				{{/if}}
-				{{if value.open}}
+				</div>
+			{{/if}}
+			{{if value.open}}
+				<div class="item">
 					<div class="itemLabelWider">
 						&nbsp;Operation Status
 					</div>
 					<div class="itemContentNarrow">
 						Open Incision
 					</div>
-				{{/if}}
-				{{if value.implants_len}}
+				</div>
+			{{/if}}
+			{{if value.implants_len}}
+				<div class="item">
 					<div class="itemLabelWide">
 						&nbsp;Implants
 					</div><br>
@@ -259,9 +291,10 @@ Used In File(s): \code\game\machinery\adv_med.dm
 							&nbsp;&nbsp;{{:impValue.known ? impValue.name : "Unknown"}}
 						</div><br>
 					{{/for}}
-				{{/if}}
+				</div>
 			{{/if}}
-		</div><br>
+		{{/if}}
+	<br>
 	{{/for}}
 	</div>
 	<b>Internal Organs</b>
@@ -274,7 +307,9 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			<div class="itemContentNarrow">
 				{{:value.desc != null ? value.desc : ""}}
 			</div>
-			{{if value.germ_level > 100}}
+		</div>
+		{{if value.germ_level > 100}}
+			<div class="item">
 				<div class="itemLabelWide">
 					&nbsp;Infection
 				</div>
@@ -295,7 +330,9 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						Septic
 					{{/if}}
 				</div>
-			{{/if}}
+			</div>
+		{{/if}}
+		<div class="item">
 			<div class="itemLabelWide">
 				&nbsp;Damage
 			</div>

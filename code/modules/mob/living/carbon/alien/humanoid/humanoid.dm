@@ -315,7 +315,6 @@ In all, this is a lot like the monkey code. /N
 	return 0
 
 
-/mob/living/carbon/alien/humanoid/var/co2overloadtime = null
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
 
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)

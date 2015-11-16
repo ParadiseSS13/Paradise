@@ -8,7 +8,7 @@
 	icon_screen = "medlaptop"
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
-	circuit = "/obj/item/weapon/circuitboard/skills"
+	circuit = /obj/item/weapon/circuitboard/skills
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null

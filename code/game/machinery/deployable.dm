@@ -77,6 +77,15 @@ for reference:
 			else
 				return
 			return
+		else if (istype(W, /obj/item/weapon/crowbar))
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
+			playsound(src, 'sound/items/Crowbar.ogg', 200, 1)
+
+			if(do_after(user, 300, target = src) && src && !src.gcDestroyed)
+				user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
+				dismantle()
+			return
 		else
 			switch(W.damtype)
 				if("fire")
@@ -86,10 +95,7 @@ for reference:
 				else
 			if (src.health <= 0)
 				visible_message("\red <B>The barricade is smashed apart!</B>")
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				qdel(src)
+				dismantle()
 			..()
 
 	ex_act(severity)
@@ -102,10 +108,7 @@ for reference:
 				src.health -= 25
 				if (src.health <= 0)
 					visible_message("\red <B>The barricade is blown apart!</B>")
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					qdel(src)
+					dismantle()
 				return
 
 	blob_act()
@@ -122,6 +125,12 @@ for reference:
 			return 1
 		else
 			return 0
+
+	proc/dismantle()
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		qdel(src)
 
 
 //Actual Deployable machinery stuff

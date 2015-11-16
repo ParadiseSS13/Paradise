@@ -2,7 +2,7 @@
 	//SECURITY//
 	////////////
 //debugging, uncomment for viewing topic calls
-// #define TOPIC_DEBUGGING 1
+//#define TOPIC_DEBUGGING 1
 
 #define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
@@ -29,6 +29,10 @@
 
 	#if defined(TOPIC_DEBUGGING)
 	world << "[src]'s Topic: [href] destined for [hsrc]."
+
+	if(href_list["nano_err"]) //nano throwing errors
+		world << "## NanoUI, Subject [src]: " + html_decode(href_list["nano_err"]) //NANO DEBUG HOOK
+
 	#endif
 
 

@@ -186,11 +186,11 @@
 
 
 //Harder to kill the head, but it can kill off the whole worm
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Die()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/death()
 	..()
 	if(prob(catastrophicDeathProb))
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
-			SW.Die()
+			SW.death()
 
 
 /mob/living/simple_animal/hostile/spaceWorm/Life()
@@ -291,12 +291,12 @@
 		myHead.totalWormSegments -= src
 
 	if(die)
-		newHead.Die()
+		newHead.death()
 
 	qdel(src)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Die()
+/mob/living/simple_animal/hostile/spaceWorm/death()
 	..()
 	if(myHead)
 		myHead.totalWormSegments -= src

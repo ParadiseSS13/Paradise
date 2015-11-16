@@ -44,9 +44,9 @@
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
-	damage = 40
+	damage = 20
 	damage_type = CLONE
-	irradiate = 40
+	irradiate = 10
 
 
 /obj/item/projectile/energy/dart

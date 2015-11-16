@@ -94,7 +94,7 @@
 	if(statpanel("Status"))
 		stat("Resources:",resources)
 
-/mob/living/simple_animal/hostile/swarmer/Die()
+/mob/living/simple_animal/hostile/swarmer/death()
 	..()
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
 	ghostize()
@@ -105,7 +105,7 @@
 		health = 1
 		return
 	else
-		Die()
+		death()
 
 /mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
@@ -227,6 +227,9 @@
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
 	S << "<span class='warning'>This object does not contain enough materials to work with.</span>"
 
+/obj/item/weapon/circuitboard/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>This object does not contain enough materials to work with.</span>"
+
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>"
 
@@ -323,8 +326,7 @@
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
-				var/obj/item/weapon/circuitboard/circuit = text2path(C.circuit)
-				new circuit(get_turf(M))
+				new C.circuit(get_turf(M))
 		qdel(target)
 
 

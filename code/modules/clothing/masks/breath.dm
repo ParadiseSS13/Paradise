@@ -3,7 +3,7 @@
 	name = "breath mask"
 	icon_state = "breath"
 	item_state = "breath"
-	flags = MASKCOVERSMOUTH | MASKINTERNALS
+	flags = MASKCOVERSMOUTH | AIRTIGHT
 	w_class = 2
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
@@ -25,6 +25,7 @@
 	icon_state = "medical"
 	item_state = "medical"
 	permeability_coefficient = 0.01
+	put_on_delay = 10
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/breath/vox

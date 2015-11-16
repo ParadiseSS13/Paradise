@@ -40,25 +40,9 @@
 	projectile_type = "/obj/item/projectile/energy/floramut"
 	origin_tech = "materials=2;biotech=3;powerstorage=3"
 	modifystate = "floramut"
-	var/charge_tick = 0
 	var/mode = 0 //0 = mutate, 1 = yield boost
 
-/obj/item/weapon/gun/energy/floragun/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/weapon/gun/energy/floragun/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/floragun/process()
-	charge_tick++
-	if(charge_tick < 4) return 0
-	charge_tick = 0
-	if(!power_supply) return 0
-	power_supply.give(1000)
-	update_icon()
-	return 1
+	self_recharge = 1
 
 /obj/item/weapon/gun/energy/floragun/attack_self(mob/living/user as mob)
 	switch(mode)
@@ -98,27 +82,9 @@
 	projectile_type = "/obj/item/projectile/meteor"
 	cell_type = "/obj/item/weapon/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	var/charge_tick = 0
-	var/recharge_time = 5 //Time it takes for shots to recharge (in ticks)
 
-	New()
-		..()
-		processing_objects.Add(src)
-
-
-	Destroy()
-		processing_objects.Remove(src)
-		return ..()
-
-	process()
-		charge_tick++
-		if(charge_tick < recharge_time) return 0
-		charge_tick = 0
-		if(!power_supply) return 0
-		power_supply.give(1000)
-
-	update_icon()
-		return
+	self_recharge = 1
+	recharge_time = 5 //Time it takes for shots to recharge (in ticks)
 
 
 /obj/item/weapon/gun/energy/meteorgun/pen
@@ -351,35 +317,11 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 /obj/item/weapon/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
-	var/charge_tick = 0
-	var/recharge_time = 2.5
 
-/obj/item/weapon/gun/energy/disabler/cyborg/New()
-	..()
-	processing_objects.Add(src)
+	self_recharge = 1
+	use_external_power = 1
+	recharge_time = 2.5
 
-
-/obj/item/weapon/gun/energy/disabler/cyborg/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/disabler/cyborg/process() //Every [recharge_time] ticks, recharge a shot for the cyborg
-	if(power_supply.charge == power_supply.maxcharge)
-		return 0
-	charge_tick++
-	if(charge_tick < recharge_time)
-		return 0
-	charge_tick = 0
-
-	if(!power_supply) return 0 //sanity
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell)
-			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
-				power_supply.give(charge_cost)	//... to recharge the shot
-
-	update_icon()
-	return 1
 
 /* 3d printer 'pseudo guns' for borgs */
 
@@ -392,32 +334,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	cell_type = "/obj/item/weapon/stock_parts/cell/secborg"
 	projectile_type = "/obj/item/projectile/bullet/midbullet3"
 	charge_cost = 200 //Yeah, let's NOT give them a 300 round clip that recharges, 20 is more reasonable and will actually hurt the borg's battery for overuse.
-	var/charge_tick = 0
-	var/recharge_time = 5
 
-/obj/item/weapon/gun/energy/printer/update_icon()
-	return
-
-/obj/item/weapon/gun/energy/printer/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/weapon/gun/energy/printer/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/printer/process()
-	if(power_supply.charge == power_supply.maxcharge)
-		return 0
-	charge_tick++
-	if(charge_tick < recharge_time)
-		return 0
-	charge_tick = 0
-
-	if(!power_supply) return 0 //sanity
-	if(isrobot(src.loc))
-		var/mob/living/silicon/robot/R = src.loc
-		if(R && R.cell)
-			if(R.cell.use(charge_cost/10)) 		//Take power from the borg...
-				power_supply.give(charge_cost)	//...to recharge the shot
-	return 1
+	self_recharge = 1
+	use_external_power = 1
+	recharge_time = 5

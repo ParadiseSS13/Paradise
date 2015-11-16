@@ -124,7 +124,8 @@
 	icon_state = "earmuffs"
 	item_state = "earmuffs"
 	flags = EARBANGPROTECT
-
+	strip_delay = 15
+	put_on_delay = 25
 
 //Glasses
 /obj/item/clothing/glasses
@@ -139,7 +140,8 @@
 	var/invisa_view = 0
 	var/flash_protect = 0		//Mal: What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Mal: Sets the item's level of visual impairment tint, normally set to the same as flash_protect
-								//	   but seperated to allow items to protect but not impair vision, like space helmets
+	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
+	put_on_delay = 25
 	species_restricted = list("exclude","Kidan")
 /*
 SEE_SELF  // can see self, no matter what
@@ -165,6 +167,8 @@ BLIND     // can't see anything
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
+	strip_delay = 20
+	put_on_delay = 40
 	species_restricted = list("exclude","Unathi","Tajaran","Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -264,6 +268,8 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	var/flash_protect = 0
 	var/tint = 0
+	strip_delay = 40
+	put_on_delay = 40
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -347,6 +353,8 @@ BLIND     // can't see anything
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 	flash_protect = 2
+	strip_delay = 50
+	put_on_delay = 50
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -366,6 +374,8 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	strip_delay = 80
+	put_on_delay = 80
 	siemens_coefficient = 0.9
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 
