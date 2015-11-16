@@ -8,4 +8,4 @@
 #define IMPTRACK_HUD		7 // tracking implant
 #define SPECIALROLE_HUD 	8 // AntagHUD image
 #define STATUS_HUD_OOC		9 // STATUS_HUD without virus db check for someone being ill.
-#define NATIONS_HUD			10 //Show nations icons during nations gamemode
+#define NATIONS_HUD		10 //Show nations icons during nations gamemode
