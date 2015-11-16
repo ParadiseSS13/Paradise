@@ -1,8 +1,6 @@
 /datum/game_mode/meteor
 	name = "meteor"
 	config_tag = "meteor"
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/const/initialmeteordelay = 3000
 	var/nometeors = 1
 	required_players = 0
@@ -17,8 +15,6 @@
 
 
 /datum/game_mode/meteor/post_setup()
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	spawn(initialmeteordelay)
 		nometeors = 0
 	..()

@@ -10,15 +10,15 @@
 
 
 /proc/is_convertable_to_cult(datum/mind/mind)
-	if(!mind)	
+	if(!mind)
 		return 0
 	if(!mind.current)
 		return 0
-	if(iscultist(mind.current))	
+	if(iscultist(mind.current))
 		return 1 //If they're already in the cult, assume they are convertable
 	if(jobban_isbanned(mind.current, "cultist") || jobban_isbanned(mind.current, "Syndicate"))
 		return 0
-	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))	
+	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))
 		return 0
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
@@ -42,8 +42,6 @@
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 	var/list/startwords = list("blood","join","self","hell")
 
@@ -63,7 +61,7 @@
 
 
 /datum/game_mode/cult/pre_setup()
-	if(prob(50)) 
+	if(prob(50))
 		objectives += "survive"
 		objectives += "sacrifice"
 	else
@@ -105,8 +103,6 @@
 		cult_mind.current << "\blue You are a member of the cult!"
 		memorize_cult_objectives(cult_mind)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
 
 
