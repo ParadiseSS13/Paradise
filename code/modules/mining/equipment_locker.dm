@@ -20,7 +20,7 @@
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
 	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("bananium" = 30), ("diamond" = 40), ("plasma" = 40))
-	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", ("Engineering" = list("metal", "glass", "plasma")), ("Chief Engineer's Desk" = list("metal", "glass", "plasma")), ("Atmospherics" = list("metal", "glass", "plasma")))
+	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
