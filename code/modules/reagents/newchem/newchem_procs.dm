@@ -47,6 +47,8 @@ datum/reagents/proc/metabolize(var/mob/M)
 				R.overdosed = 1
 				M << "<span class = 'userdanger'>You feel like you took too much [R.name]!</span>"
 				R.overdose_start(M)
+			if(R.volume < R.overdose_threshold && R.overdosed)
+				R.overdosed = 0
 			if(R.volume >= R.addiction_threshold && !is_type_in_list(R, addiction_list) && R.addiction_threshold > 0)
 				var/datum/reagent/new_reagent = new R.type()
 				addiction_list.Add(new_reagent)
