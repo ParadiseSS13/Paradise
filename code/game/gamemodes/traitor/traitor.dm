@@ -20,9 +20,6 @@
 	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 20
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 
@@ -71,10 +68,7 @@
 			finalize_traitor(traitor)
 			greet_traitor(traitor)
 	modePlayer += traitors
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return 1
 
 
 /datum/game_mode/proc/forge_traitor_objectives(var/datum/mind/traitor)
