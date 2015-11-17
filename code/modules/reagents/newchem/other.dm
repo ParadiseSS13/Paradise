@@ -352,14 +352,6 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("sodium" = 1, "hydrogen" = 1, "oxygen" = 1)
 	result_amount = 3
 
-/datum/chemical_reaction/lye2
-	name = "lye"
-	id = "lye"
-	result = "lye"
-	required_reagents = list("ash" = 1, "water" = 1)
-	result_amount = 2
-
-
 ///Alchemical Reagents
 
 datum/reagent/eyenewt
