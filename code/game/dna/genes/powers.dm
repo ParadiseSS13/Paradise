@@ -113,16 +113,10 @@
 	activate(var/mob/M, var/connected, var/flags)
 		..(M,connected,flags)
 		M.pass_flags |= PASSTABLE
-		M.resize = 0.8
-		if(TK in M.mutations)
-			M.flying =1
-
 
 	deactivate(var/mob/M, var/connected, var/flags)
 		..()
 		M.pass_flags &= ~PASSTABLE
-		M.resize = 1.25
-		M.flying = 0
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
@@ -144,12 +138,10 @@
 		..()
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
 		M.status_flags &= ~status
-		M.resize = 1.25
 
 	deactivate(var/mob/M, var/connected, var/flags)
 		..()
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
-		M.resize = 0.8
 
 	OnDrawUnderlays(var/mob/M,var/g,var/fat)
 		if(HULK in M.mutations)
@@ -193,13 +185,3 @@
 
 	OnDrawUnderlays(var/mob/M,var/g,var/fat)
 		return "telekinesishead[fat]_s"
-
-	activate(var/mob/M, var/connected, var/flags)
-		..(M,connected,flags)
-		if(DWARF in M.mutations)
-			M.flying =1
-
-
-	deactivate(var/mob/M, var/connected, var/flags)
-		..()
-		M.flying = 0
