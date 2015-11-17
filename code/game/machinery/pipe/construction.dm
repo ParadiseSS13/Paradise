@@ -262,9 +262,15 @@
 	if(istype(triP) && triP.flipped)
 		icon_state = "m_[icon_state]"
 
-//called when a turf is attacked with a pipe item
-// place the pipe on the turf, setting pipe level to 1 (underfloor) if the turf is not intact
-
+// called by turf to know if should treat as bent or not on placement
+/obj/item/pipe/proc/is_bent_pipe()
+	return pipe_type in list( \
+		PIPE_SIMPLE_BENT, \
+		PIPE_HE_BENT, \
+		PIPE_INSULATED_BENT, \
+		PIPE_SUPPLY_BENT, \
+		PIPE_SCRUBBERS_BENT)
+		
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
@@ -305,7 +311,7 @@
 
 /obj/item/pipe/Move()
 	..()
-	if ((pipe_type in list (PIPE_SIMPLE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT, PIPE_HE_BENT, PIPE_INSULATED_BENT)) \
+	if (is_bent_pipe() \
 		&& (src.dir in cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
 	else if (pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
