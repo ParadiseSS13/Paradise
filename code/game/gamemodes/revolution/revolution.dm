@@ -85,8 +85,8 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
-	if(emergency_shuttle)
-		emergency_shuttle.no_escape = 1
+	if(shuttle_master)
+		shuttle_master.emergencyNoEscape = 1
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	..()
@@ -209,13 +209,8 @@
 /datum/game_mode/revolution/check_finished()
 	if(config.continous_rounds)
 		if(finished != 0)
-			if(emergency_shuttle)
-				if(emergency_shuttle.auto_recall)
-					emergency_shuttle.auto_recall = 0
-				else if(emergency_shuttle.is_stranded())
-					emergency_shuttle.no_escape = 0
-					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
-					emergency_shuttle.shuttle_arrived()
+			if(shuttle_master && shuttle_master.emergencyNoEscape)
+				shuttle_master.emergencyNoEscape = 0
 		return ..()
 	if(finished != 0)
 		return 1

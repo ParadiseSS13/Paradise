@@ -19,8 +19,8 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/data[0]
+/obj/machinery/computer/shuttle_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1);
+/*	var/data[0]
 	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
@@ -64,10 +64,10 @@
 		ui = new(user, src, ui_key, "shuttle_control_console.tmpl", "[shuttle_tag] Shuttle Control", 470, 310)
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
+		ui.set_auto_update(1)*/
 
-/obj/machinery/computer/shuttle_control/Topic(href, href_list)
-	if(..())
+/obj/machinery/computer/shuttle_control/Topic(href, href_list);
+/*	if(..())
 		return
 
 	usr.set_machine(src)
@@ -78,25 +78,25 @@
 	if(href_list["force"])
 		force_launch(usr)
 	else if(href_list["cancel"])
-		cancel_launch(usr)
+		cancel_launch(usr)*/
 
-/obj/machinery/computer/shuttle_control/proc/launch(var/mob/user)
-	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
+/obj/machinery/computer/shuttle_control/proc/launch(var/mob/user);
+/*	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.launch(user)
+	shuttle.launch(user)*/
 
-/obj/machinery/computer/shuttle_control/proc/force_launch(var/mob/user)
-	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
+/obj/machinery/computer/shuttle_control/proc/force_launch(var/mob/user);
+/*	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.force_launch(user)
+	shuttle.force_launch(user)*/
 
-/obj/machinery/computer/shuttle_control/proc/cancel_launch(var/mob/user)
-	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
+/obj/machinery/computer/shuttle_control/proc/cancel_launch(var/mob/user);
+/*	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(shuttle))
 		return
-	shuttle.cancel_launch(user)
+	shuttle.cancel_launch(user)*/
 
 /obj/machinery/computer/shuttle_control/emag_act(user as mob)
 	src.req_access = list()

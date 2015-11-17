@@ -19,7 +19,7 @@
 
 /datum/shuttle/multi_shuttle/New()
 	..()
-	if(origin) 
+	if(origin)
 		last_departed = origin
 
 /datum/shuttle/multi_shuttle/move(var/area/origin, var/area/destination)
@@ -45,7 +45,7 @@
 	icon_keyboard = "med_key"
 	var/is_syndicate = 0
 	var/warn_on_return = 0
-	
+
 /obj/machinery/computer/shuttle_control/multi/New()
 	..()
 	if(is_syndicate)
@@ -55,15 +55,15 @@
 /obj/machinery/computer/shuttle_control/multi/attack_hand(user as mob)
 	if(..(user))
 		return 1
-	
+
 	if(!allowed(user) && !isobserver(user))
 		user << "<span class='warning'>Access Denied.</span>"
-		return 1	
-	
+		return 1
+
 	ui_interact(user)
-	
-/obj/machinery/computer/shuttle_control/multi/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/data[0]
+
+/obj/machinery/computer/shuttle_control/multi/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1);
+/*	var/data[0]
 	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
@@ -83,7 +83,7 @@
 		shuttle_status = "Standing-by at base."
 	else
 		var/area/areacheck = get_area(src)
-		shuttle_status = "Standing-by at [sanitize(areacheck.name)]."		
+		shuttle_status = "Standing-by at [sanitize(areacheck.name)]."
 
 	data = list(
 		"shuttle_status" = shuttle_status,
@@ -101,42 +101,42 @@
 		ui = new(user, src, ui_key, "shuttle_control_multi_console.tmpl", "[shuttle_tag] Ship Control", 470, 310)
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
+		ui.set_auto_update(1)*/
 
-/obj/machinery/computer/shuttle_control/multi/proc/can_launch()
-	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+/obj/machinery/computer/shuttle_control/multi/proc/can_launch();
+/*	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
-	
+
 	if (MS.moving_status != SHUTTLE_IDLE)
 		return 0
 
 	if((MS.last_move + MS.cooldown * 10) > world.time)
 		return 0
-	
-	return 1
-	
-/obj/machinery/computer/shuttle_control/multi/proc/can_return_to_base()
-	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+
+	return 1*/
+
+/obj/machinery/computer/shuttle_control/multi/proc/can_return_to_base();
+/*	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
-	
+
 	if(MS.moving_status != SHUTTLE_IDLE)
 		return 0
 
 	if((MS.last_move + MS.cooldown * 10) > world.time)
 		return 0
-	
+
 	if(MS.at_origin)
 		return 0
-	
-	return 1
-	
-/obj/machinery/computer/shuttle_control/multi/proc/return_to_base()
-	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+
+	return 1*/
+
+/obj/machinery/computer/shuttle_control/multi/proc/return_to_base();
+/*	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
-	
+
 	if(!can_return_to_base())
 		return
 
@@ -147,20 +147,20 @@
 
 	MS.long_jump(MS.last_departed,MS.origin,MS.interim,MS.move_time)
 	MS.last_departed = MS.origin
-	MS.at_origin = 1
-	
-/obj/machinery/computer/shuttle_control/multi/proc/toggle_cloak()
-	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+	MS.at_origin = 1*/
+
+/obj/machinery/computer/shuttle_control/multi/proc/toggle_cloak();
+/*	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
-	
+
 	MS.cloaked = !MS.cloaked
-	
-/obj/machinery/computer/shuttle_control/multi/proc/launch_multi()
-	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
+*/
+/obj/machinery/computer/shuttle_control/multi/proc/launch_multi();
+/*	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
 	if (!istype(MS))
 		return
-	
+
 	if(MS.moving_status != SHUTTLE_IDLE)
 		return 0
 
@@ -168,7 +168,7 @@
 		return 0
 
 	var/choice = input("Select a destination.") as null|anything in MS.destinations
-	if(!choice) 
+	if(!choice)
 		return
 
 	if(MS.at_origin)
@@ -184,11 +184,11 @@
 
 	MS.short_jump(MS.last_departed, MS.destinations[choice])
 	MS.last_departed = MS.destinations[choice]
-	
-/obj/machinery/computer/shuttle_control/multi/Topic(href, href_list)
-	if(..())
+	*/
+/obj/machinery/computer/shuttle_control/multi/Topic(href, href_list);
+/*	if(..())
 		return 1
-	
+
 	if(!allowed(usr))
 		return 1
 
@@ -196,7 +196,7 @@
 	src.add_fingerprint(usr)
 
 	var/datum/shuttle/multi_shuttle/MS = shuttle_controller.shuttles[shuttle_tag]
-	if(!istype(MS)) 
+	if(!istype(MS))
 		return
 
 	if(href_list["start"])
@@ -207,3 +207,4 @@
 
 	if(href_list["move_multi"])
 		launch_multi()
+*/

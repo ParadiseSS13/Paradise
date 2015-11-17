@@ -27,9 +27,7 @@ var/global/sent_strike_team = 0
 
 	sent_strike_team = 1
 
-	if (emergency_shuttle.can_recall())
-		emergency_shuttle.recall()
-
+	shuttle_master.cancelEvac()
 	var/commando_number = commandos_possible //for selecting a leader
 	var/leader_selected = 0 //when the leader is chosen. The last person spawned.
 

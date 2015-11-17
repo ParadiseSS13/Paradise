@@ -16,14 +16,14 @@
 /datum/shuttle/ferry/escape_pod/can_cancel()
 	return 0
 
-	
+
 //This controller goes on the escape pod itself
 /obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod
 	name = "escape pod controller"
 	var/datum/shuttle/ferry/escape_pod/pod
 
-/obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/data[0]
+/obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1);
+/*	var/data[0]
 
 	data = list(
 		"docking_status" = docking_program.get_docking_status(),
@@ -40,12 +40,12 @@
 		ui = new(user, src, ui_key, "escape_pod_console.tmpl", name, 470, 290)
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
+		ui.set_auto_update(1)*/
 
 /obj/machinery/embedded_controller/radio/simple_docking_controller/escape_pod/Topic(href, href_list)
 	if(..())	//I hate this "return 1 to indicate they are not allowed to use the controller" crap, but not sure how else to do it without being able to call machinery/Topic() directly.
 		return 1
-	
+/*
 	if("manual_arm")
 		pod.arming_controller.arm()
 	if("force_launch")
@@ -55,7 +55,7 @@
 			pod.launch(src)
 
 	return 0
-
+*/
 
 
 //This controller is for the escape pod berth (station side)
@@ -74,7 +74,7 @@
 	if (istype(docking_program, /datum/computer/file/embedded_program/docking/simple/escape_pod))
 		var/datum/computer/file/embedded_program/docking/simple/escape_pod/P = docking_program
 		armed = P.armed
-	
+
 	data = list(
 		"docking_status" = docking_program.get_docking_status(),
 		"override_enabled" = docking_program.override_enabled,

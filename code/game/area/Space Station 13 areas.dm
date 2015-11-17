@@ -235,11 +235,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/mining/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/transport1/centcom
-	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
-
-/area/shuttle/transport1/station
+/area/shuttle/transport1
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
 
@@ -281,11 +277,6 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/siberia/outpost
 	icon_state = "shuttle"
-
-/area/shuttle/transport1/centcom
-	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
-
 
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
@@ -2489,7 +2480,7 @@ var/list/centcom_areas = list (
 	/area/shuttle/escape_pod2/centcom,
 	/area/shuttle/escape_pod3/centcom,
 	/area/shuttle/escape_pod5/centcom,
-	/area/shuttle/transport1/centcom,
+	/area/shuttle/transport1,
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
 )
@@ -2503,8 +2494,6 @@ var/list/the_station_areas = list (
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
 	/area/shuttle/mining/station,
-	/area/shuttle/transport1/station,
-	// /area/shuttle/transport2/station,
 	/area/shuttle/prison/station,
 	/area/shuttle/administration/station,
 	/area/shuttle/specops/station,

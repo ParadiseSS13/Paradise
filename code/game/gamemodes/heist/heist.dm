@@ -85,7 +85,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
-		
+
 	return ..()
 
 /datum/game_mode/proc/create_vox(var/datum/mind/newraider)
@@ -276,12 +276,14 @@ datum/game_mode/proc/auto_declare_completion_heist()
 			text += ")"
 
 		world << text
-		
+
 	return 1
 
 /datum/game_mode/heist/check_finished()
-	var/datum/shuttle/multi_shuttle/skipjack = shuttle_controller.shuttles["Vox Skipjack"]
-	if (!(is_raider_crew_alive()) || (skipjack && skipjack.returned_home))
+	var/obj/docking_port/mobile/skipjack = shuttle_master.getShuttle("skipjack")
+	if(!skipjack)
+		return 1 //no shuttle means it's over
+	if (!(is_raider_crew_alive()) || (skipjack && skipjack.getDockedId() == "skipjack_home"))
 		return 1
 	return ..()
 

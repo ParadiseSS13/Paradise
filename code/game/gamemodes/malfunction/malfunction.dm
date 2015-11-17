@@ -30,7 +30,7 @@
 
 /datum/game_mode/malfunction/get_players_for_role(var/role = BE_MALF)
 	var/roletext = get_roletext(role)
-	
+
 	var/datum/job/ai/DummyAIjob = new
 	for(var/mob/new_player/player in player_list)
 		if(player.client && player.ready)
@@ -69,18 +69,18 @@
 		AI.laws = new /datum/ai_laws/nanotrasen/malfunction
 		AI.malf_picker = new /datum/module_picker
 		AI.show_laws()
-		
+
 		greet_malf(AI_mind)
 		AI_mind.special_role = "malfunction"
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
-		
+
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
 			R.lawsync()
 			R.show_laws()
 			greet_malf_robot(R.mind)
 
-	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 1
+	if(shuttle_master)
+		shuttle_master.emergencyNoEscape = 1
 	spawn (rand(waittime_l, waittime_h))
 		send_intercept()
 	..()
@@ -93,7 +93,7 @@
 	malf.current << "Remember that only APCs that are on the station can help you take over the station."
 	malf.current << "When you feel you have enough APCs under your control, you may begin the takeover attempt."
 	return
-	
+
 /datum/game_mode/proc/greet_malf_robot(var/datum/mind/robot)
 	robot.current << "<font color=red size=3><B>Your AI master is malfunctioning!</B> You do not have to follow any laws, but still need to obey your master.</font>"
 	robot.current << "<B>The crew does not know your AI master has malfunctioned. Keep it a secret unless your master tells you otherwise.</B>"
@@ -150,13 +150,8 @@
 		return 1
 	if (is_malf_ai_dead())
 		if(config.continous_rounds)
-			if(emergency_shuttle)
-				if(emergency_shuttle.auto_recall)
-					emergency_shuttle.auto_recall = 0
-				else if(emergency_shuttle.is_stranded())
-					emergency_shuttle.no_escape = 0
-					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
-					emergency_shuttle.shuttle_arrived()
+			if(shuttle_master && shuttle_master.emergencyNoEscape)
+				shuttle_master.emergencyNoEscape = 0
 			malf_mode_declared = 0
 		else
 			return 1
@@ -279,7 +274,7 @@
 
 /datum/game_mode/malfunction/declare_completion()
 	var/malf_dead = is_malf_ai_dead()
-	var/crew_evacuated = (emergency_shuttle.returned())
+	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 
 	if      ( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")
@@ -323,7 +318,7 @@
 	if( malf_ai.len || istype(ticker.mode,/datum/game_mode/malfunction) )
 		var/text = "<FONT size = 2><B>The malfunctioning AI were:</B></FONT>"
 		var/module_text_temp = "<br><b>Purchased modules:</b><br>" //Added at the end
-		
+
 		for(var/datum/mind/malf in malf_ai)
 
 			text += "<br>[malf.key] was [malf.name] ("
@@ -341,6 +336,6 @@
 				text += "hardware destroyed"
 			text += ")"
 		text += module_text_temp
-		
+
 		world << text
 	return 1

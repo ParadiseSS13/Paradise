@@ -39,7 +39,7 @@
 		callshuttle = 0
 
 	if(callshuttle == 3) //if all three conditions are met
-		emergency_shuttle.call_evac()
+		shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")
 		log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 		message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 

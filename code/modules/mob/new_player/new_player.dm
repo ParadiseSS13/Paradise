@@ -379,14 +379,10 @@
 		var/dat = "<html><body><center>"
 		dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
-		if(emergency_shuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
-			if(emergency_shuttle.going_to_centcom()) //Shuttle is going to centcomm, not recalled
-				dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-			if(emergency_shuttle.online())
-				if (emergency_shuttle.evac)	// Emergency shuttle is past the point of no recall
-					dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
-				else						// Crew transfer initiated
-					dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
+		if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+			dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
+		else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
+			dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
 		dat += "Choose from the following open positions:<br>"
 		for(var/datum/job/job in job_master.occupations)

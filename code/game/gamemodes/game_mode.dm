@@ -148,7 +148,7 @@
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if(emergency_shuttle.returned() || station_was_nuked)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || station_was_nuked)
 		return 1
 	return 0
 
@@ -558,7 +558,7 @@ proc/get_nt_opposed()
 		if(BE_MUTINEER)		roletext="mutineer"
 		if(BE_BLOB)			roletext="blob"
 	return roletext
-	
+
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
 	for(var/obj/machinery/nuclearbomb/bomb in world)

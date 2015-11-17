@@ -192,7 +192,7 @@
 	<b>Ore Mined:</b> [score_oremined] ([score_oremined * 2] Points)<br>
 	<b>Refreshments Prepared:</b> [score_meals] ([score_meals * 5] Points)<br>
 	<b>Research Completed:</b> [score_researchdone] ([score_researchdone * 30] Points)<br>"}
-	if (!emergency_shuttle.location()) dat += "<b>Shuttle Escapees:</b> [score_escapees] ([score_escapees * 25] Points)<br>"
+	if (shuttle_master.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [score_escapees] ([score_escapees * 25] Points)<br>"
 	dat += {"<b>Random Events Endured:</b> [score_eventsendured] ([score_eventsendured * 50] Points)<br>
 	<b>Whole Station Powered:</b> [score_powerbonus ? "Yes" : "No"] ([score_powerbonus * 2500] Points)<br>
 	<b>Ultra-Clean Station:</b> [score_mess ? "No" : "Yes"] ([score_messbonus * 3000] Points)<br><br>
@@ -212,7 +212,7 @@
 		dat += {"<b>Richest Escapee:</b> [score_richestname], [score_richestjob]: $[num2text(score_richestcash,50)] ([score_richestkey])<br>
 		<b>Most Battered Escapee:</b> [score_dmgestname], [score_dmgestjob]: [score_dmgestdamage] damage ([score_dmgestkey])<br>"}
 	else
-		if(emergency_shuttle.location())
+		if(shuttle_master.emergency.mode <= SHUTTLE_STRANDED)
 			dat += "The station wasn't evacuated!<br>"
 		else
 			dat += "No-one escaped!<br>"

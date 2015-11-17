@@ -326,7 +326,6 @@
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
 	/area/shuttle/mining/station,
-	/area/shuttle/transport1/station,
 	/area/shuttle/specops/station,
 	/area/shuttle/prison/station,
 	/area/shuttle/administration/station
@@ -361,7 +360,7 @@
 		if(P.client)
 			players++
 	return players
-	
+
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
 // Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.

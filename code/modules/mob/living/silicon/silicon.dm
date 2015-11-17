@@ -140,10 +140,10 @@
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/living/silicon/proc/show_emergency_shuttle_eta()
-	if(emergency_shuttle)
-		var/eta_status = emergency_shuttle.get_status_panel_eta()
-		if(eta_status)
-			stat(null, eta_status)
+	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
+		var/timeleft = shuttle_master.emergency.timeLeft()
+		if(timeleft > 0)
+			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
 

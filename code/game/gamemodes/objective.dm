@@ -333,7 +333,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return 0
 		if(issilicon(owner.current))
 			return 0
@@ -353,7 +353,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current)
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return 0
 
 		var/area/A = locate(/area/shuttle/escape/centcom)
@@ -383,7 +383,7 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return 0
 		if(!owner.current)
 			return 0
@@ -401,7 +401,7 @@ datum/objective/silence
 	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
 
 	check_completion()
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return 0
 
 		for(var/mob/living/player in player_list)
@@ -435,7 +435,7 @@ datum/objective/escape
 			return 0
 		if(isbrain(owner.current))
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return 0
 		if(!owner.current || owner.current.stat == DEAD)
 			return 0
