@@ -178,3 +178,18 @@
 				/obj/item/stack/packageWrap = 5,)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 200
+
+/datum/table_recipe/spooky_camera
+	name = "Camera Obscura"
+	result = /obj/item/device/camera/spooky
+	time = 15
+	reqs = list(/obj/item/device/camera = 1,
+				/datum/reagent/holywater = 10)
+	parts = list(/obj/item/device/camera = 1)
+
+/datum/table_recipe/notreallysoap
+	name = "Homemade Soap"
+	result = /obj/item/weapon/soap/ducttape
+	time = 100
+	reqs = list(/obj/item/stack/tape_roll = 1,
+				/datum/reagent/liquidgibs = 10)
