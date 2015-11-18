@@ -78,15 +78,12 @@
 
 	aiCamera = new/obj/item/device/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = ";"
-
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/SetName(pickedName as text)
 	// Would prefer to call the grandparent proc but this isn't possible, so..
 	real_name = pickedName
 	name = real_name
-
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/updatename()
 	real_name = "maintenance drone ([rand(100,999)])"
@@ -289,7 +286,6 @@
 	src << "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>"
 	src << "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>"
 	src << "<b>Make sure crew members do not notice you.</b>."
-
 /*
 	sprite["Default"] = "repairbot"
 	sprite["Mk2 Mousedrone"] = "mk2"
@@ -298,11 +294,8 @@
 	icontype = input(player,"Pick an icon") in sprite
 	icon_state = sprite[icontype]
 	updateicon()
-
 	choose_icon(6,sprite)
 */
-
-
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM as mob|obj, yes)
 	if (!yes || ( \
 	 !istype(AM,/obj/machinery/door) && \
@@ -313,12 +306,9 @@
 	)) return
 	..()
 	return
-
 /mob/living/silicon/robot/drone/Bumped(AM as mob|obj)
 	return
-
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
-
 	if(istype(AM,/obj/item/pipe) || istype(AM,/obj/structure/disposalconstruct))
 		..()
 	else if(istype(AM,/obj/item))
@@ -331,13 +321,10 @@
 	else
 		src << "<span class='warning'>You are too small to pull that.</span>"
 		return
-
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
-
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
-
 /mob/living/silicon/robot/drone/update_canmove()
 	. = ..()
 	density = 0 //this is reset every canmove update otherwise
