@@ -67,7 +67,7 @@
 			stack_list[processed_sheet] = s
 			// Not including tg's ignoring of metal, glass being stocked because if cargo's not telling science when ores are there, they probably won't
 			// help with restocking metal/glass either
-			var/msg = "[capitalize(s.name)] sheets have been stocked in the ore reclaimer."
+			var/msg = "\[[worldtime2text()]\]: [capitalize(s.name)] sheets have been stocked in the ore reclaimer."
 			for(var/obj/machinery/requests_console/D in allConsoles)
 				if(D.department in src.supply_consoles)
 					if(supply_consoles[D.department] == null || (s.name in supply_consoles[D.department]))
