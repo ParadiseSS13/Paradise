@@ -224,13 +224,36 @@
 
 /obj/machinery/photocopier/proc/copyass()
 	var/icon/temp_img
-	if(ishuman(ass) && (ass.get_item_by_slot(slot_w_uniform) || ass.get_item_by_slot(slot_wear_suit)))
-		usr << "<span class='notice'>You feel kind of silly copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "their"] clothes on.</span>"
-		return
 	if(check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
 		if(ishuman(ass)) //Suit checks are in check_ass
 			var/mob/living/carbon/human/H = ass
-			temp_img = icon('icons/obj/butts.dmi', "[H.species.butt]")
+			switch(H.get_species())
+				if("Human")
+					temp_img = icon('icons/obj/butts.dmi', "human")
+				if("Tajaran")
+					temp_img = icon('icons/obj/butts.dmi', "tajaran")
+				if("Unathi")
+					temp_img = icon('icons/obj/butts.dmi', "unathi")
+				if("Skrell")
+					temp_img = icon('icons/obj/butts.dmi', "skrell")
+				if("Vox")
+					temp_img = icon('icons/obj/butts.dmi', "vox")
+				if("Kidan")
+					temp_img = icon('icons/obj/butts.dmi', "kidan")
+				if("Grey")
+					temp_img = icon('icons/obj/butts.dmi', "grey")
+				if("Diona")
+					temp_img = icon('icons/obj/butts.dmi', "diona")
+				if("Slime People")
+					temp_img = icon('icons/obj/butts.dmi', "slime")
+				if("Vulpkanin")
+					temp_img = icon('icons/obj/butts.dmi', "vulp")
+				if("Machine")
+					temp_img = icon('icons/obj/butts.dmi', "machine")
+				if("Plasmaman")
+					temp_img = icon('icons/obj/butts.dmi', "plasma")
+				else
+					temp_img = icon('icons/obj/butts.dmi', "human")
 		else if(istype(ass,/mob/living/silicon/robot/drone))
 			temp_img = icon('icons/obj/butts.dmi', "drone")
 		else if(istype(ass,/mob/living/simple_animal/diona))
@@ -307,11 +330,6 @@
 		ass = null
 		updateUsrDialog()
 		return 0
-	else if(istype(ass,/mob/living/carbon/human))
-		if(!ass.get_item_by_slot(slot_w_uniform) && !ass.get_item_by_slot(slot_wear_suit))
-			return 1
-		else
-			return 0
 	else
 		return 1
 

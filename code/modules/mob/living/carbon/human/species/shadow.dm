@@ -12,7 +12,6 @@
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
-	butt = "plasma"
 	has_organ = list(
 		"brain" = /obj/item/organ/brain
 		)

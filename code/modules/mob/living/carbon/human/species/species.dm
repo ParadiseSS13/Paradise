@@ -78,7 +78,6 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
-	var/butt = "human"//Determines which image to use for copier
 	var/is_small
 	var/show_ssd = 1
 	var/virus_immune
