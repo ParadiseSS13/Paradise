@@ -2,15 +2,13 @@ datum/game_mode/nations
 	name = "nations"
 	config_tag = "nations"
 	required_players_secret = 25
-	var/const/waittime_l = 1200 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 3000 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
 
 
 /datum/game_mode/nations/post_setup()
-	spawn (rand(waittime_l, waittime_h))
+	spawn (rand(1200, 3000))
 		kickoff=1
 		send_intercept()
 		split_teams()
@@ -19,7 +17,7 @@ datum/game_mode/nations
 				M << sound('sound/effects/purge_siren.ogg')
 	return ..()
 
-/datum/game_mode/nations/send_intercept()
+/datum/game_mode/nations/proc/send_intercept()
 	command_announcement.Announce("Due to recent and COMPLETELY UNFOUNDED allegations of massive fraud and insider trading \
 					affecting trillions of investors, the Nanotrasen Corporation has decided to liquidate all \
 					assets of the Centcom Division in order to pay the massive legal fees that will be incurred \

@@ -16,8 +16,6 @@ proc/issyndicate(mob/living/M as mob)
 	uplink_uses = 120
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
@@ -160,8 +158,6 @@ proc/issyndicate(mob/living/M as mob)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	return ..()
 
 /datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human

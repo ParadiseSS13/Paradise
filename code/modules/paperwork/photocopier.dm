@@ -13,6 +13,7 @@
 	var/copies = 1	//how many copies to print!
 	var/toner = 30 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
+	var/mob/living/ass = null
 
 /obj/machinery/photocopier/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -21,7 +22,7 @@
 	user.set_machine(src)
 
 	var/dat = "Photocopier<BR><BR>"
-	if(copyitem)
+	if(copyitem || (ass && (ass.loc == src.loc)))
 		dat += "<a href='byond://?src=\ref[src];remove=1'>Remove Item</a><BR>"
 		if(toner)
 			dat += "<a href='byond://?src=\ref[src];copy=1'>Copy</a><BR>"
@@ -57,6 +58,9 @@
 			else if (istype(copyitem, /obj/item/weapon/paper_bundle))
 				var/obj/item/weapon/paper_bundle/B = bundlecopy(copyitem)
 				sleep(15*B.amount)
+			else if (ass && ass.loc == src.loc)
+				copyass()
+				sleep(15)
 			else
 				usr << "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>"
 				break
@@ -69,6 +73,9 @@
 			usr.put_in_hands(copyitem)
 			usr << "<span class='notice'>You take \the [copyitem] out of \the [src].</span>"
 			copyitem = null
+			updateUsrDialog()
+		else if(check_ass())
+			ass << "<span class='notice'>You feel a slight pressure on your ass.</span>"
 			updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
@@ -127,6 +134,17 @@
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
 		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+	else if(istype(O, /obj/item/weapon/grab)) //For ass-copying.
+		var/obj/item/weapon/grab/G = O
+		if(ismob(G.affecting) && G.affecting != ass)
+			var/mob/GM = G.affecting
+			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
+			GM.loc = get_turf(src)
+			ass = GM
+			if(copyitem)
+				copyitem.loc = src.loc
+				copyitem = null
+		updateUsrDialog()
 	return
 
 /obj/machinery/photocopier/ex_act(severity)
@@ -203,6 +221,64 @@
 		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 	return p
 
+
+/obj/machinery/photocopier/proc/copyass()
+	var/icon/temp_img
+	if(check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
+		if(ishuman(ass)) //Suit checks are in check_ass
+			var/mob/living/carbon/human/H = ass
+			switch(H.get_species())
+				if("Human")
+					temp_img = icon('icons/obj/butts.dmi', "human")
+				if("Tajaran")
+					temp_img = icon('icons/obj/butts.dmi', "tajaran")
+				if("Unathi")
+					temp_img = icon('icons/obj/butts.dmi', "unathi")
+				if("Skrell")
+					temp_img = icon('icons/obj/butts.dmi', "skrell")
+				if("Vox")
+					temp_img = icon('icons/obj/butts.dmi', "vox")
+				if("Kidan")
+					temp_img = icon('icons/obj/butts.dmi', "kidan")
+				if("Grey")
+					temp_img = icon('icons/obj/butts.dmi', "grey")
+				if("Diona")
+					temp_img = icon('icons/obj/butts.dmi', "diona")
+				if("Slime People")
+					temp_img = icon('icons/obj/butts.dmi', "slime")
+				if("Vulpkanin")
+					temp_img = icon('icons/obj/butts.dmi', "vulp")
+				if("Machine")
+					temp_img = icon('icons/obj/butts.dmi', "machine")
+				if("Plasmaman")
+					temp_img = icon('icons/obj/butts.dmi', "plasma")
+				else
+					temp_img = icon('icons/obj/butts.dmi', "human")
+		else if(istype(ass,/mob/living/silicon/robot/drone))
+			temp_img = icon('icons/obj/butts.dmi', "drone")
+		else if(istype(ass,/mob/living/simple_animal/diona))
+			temp_img = icon('icons/obj/butts.dmi', "nymph")
+		else if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+			temp_img = icon('icons/obj/butts.dmi', "xeno")
+		else return
+	else
+		return
+	var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (loc)
+	p.desc = "You see [ass]'s ass on the photo."
+	p.pixel_x = rand(-10, 10)
+	p.pixel_y = rand(-10, 10)
+	p.img = temp_img
+	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
+	var/icon/ic = icon('icons/obj/items.dmi',"photo")
+	small_img.Scale(8, 8)
+	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
+	p.icon = ic
+	toner -= 5
+	if(toner < 0)
+		toner = 0
+		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
+	return p
+
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
 /obj/machinery/photocopier/proc/bundlecopy(var/obj/item/weapon/paper_bundle/bundle, var/need_toner=1)
 	var/obj/item/weapon/paper_bundle/p = new /obj/item/weapon/paper_bundle (src)
@@ -226,6 +302,36 @@
 	p.pixel_y = rand(-8, 8)
 	p.pixel_x = rand(-9, 9)
 	return p
+
+
+/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
+	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
+	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
+		return
+	src.add_fingerprint(user)
+	if(target == user && !user.incapacitated())
+		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
+	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+		if(target.anchored) return
+		if(!ishuman(user)) return
+		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
+	target.loc = get_turf(src)
+	ass = target
+	if(copyitem)
+		copyitem.loc = src.loc
+		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [ass]!</span>")
+		copyitem = null
+	updateUsrDialog()
+
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
+	if(!ass)
+		return 0
+	if(ass.loc != src.loc)
+		ass = null
+		updateUsrDialog()
+		return 0
+	else
+		return 1
 
 /obj/item/device/toner
 	name = "toner cartridge"
