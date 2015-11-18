@@ -506,7 +506,7 @@
 					if(2)	H.healths.icon_state = "health7"
 					if(5)	H.healths.icon_state = "health0"
 					else
-						switch(H.health - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
+						switch(100 - ((flags & NO_PAIN) ? 0 : H.traumatic_shock) - H.staminaloss)
 							if(100 to INFINITY)		H.healths.icon_state = "health0"
 							if(80 to 100)			H.healths.icon_state = "health1"
 							if(60 to 80)			H.healths.icon_state = "health2"
