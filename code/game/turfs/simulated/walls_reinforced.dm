@@ -209,7 +209,7 @@
 		user << "<span class='notice'>You begin to disintegrate the wall.</span>"
 
 		if(do_after(user, 100, target = src))
-			user << "<span class='notice'>Your sonic jackhammer disintegrate the reinforced plating.</span>"
+			user << "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>"
 			dismantle_wall()
 
 	//REPAIRING

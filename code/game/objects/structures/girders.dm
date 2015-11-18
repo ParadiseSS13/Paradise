@@ -37,9 +37,9 @@
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
 		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
-		user << "\blue You disintegrate the girder!"
+		user << <span class='notice'>You Disintegrate the girder!</span>
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
 

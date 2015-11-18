@@ -387,7 +387,7 @@
 
 	else if (istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
 
-		user << "<span class='notice'>You begin to disintegrate the wall.</span>"
+		user << "<span class='notice'>You begin to disintegrates the wall.</span>"
 
 		if(do_after(user, mineral == "diamond" ? 60 : 30, target = src))
 			user << "<span class='notice'>Your jackhammer disintegrate the reinforced plating.</span>"
