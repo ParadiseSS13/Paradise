@@ -1,7 +1,7 @@
 /datum/species/shadow
 	name = "Shadow"
 	name_plural = "Shadows"
-	
+
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'
 
@@ -12,7 +12,7 @@
 
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
-
+	butt = "plasma"
 	has_organ = list(
 		"brain" = /obj/item/organ/brain
 		)

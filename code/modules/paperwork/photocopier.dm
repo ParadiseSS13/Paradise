@@ -13,7 +13,7 @@
 	var/copies = 1	//how many copies to print!
 	var/toner = 30 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
-	var/mob/living/carbon/ass = null
+	var/mob/living/ass = null
 
 /obj/machinery/photocopier/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -228,15 +228,16 @@
 		usr << "<span class='notice'>You feel kind of silly copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "their"] clothes on.</span>"
 		return
 	if(check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
-		if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
-			temp_img = icon("icons/ass/assalien.png")
-		else if(ishuman(ass)) //Suit checks are in check_ass
-			if(ass.gender == MALE)
-				temp_img = icon("icons/ass/assmale.png")
-			else if(ass.gender == FEMALE)
-				temp_img = icon("icons/ass/assfemale.png")
-			else                   //In case anyone ever makes the generic ass. For now I'll be using male asses.
-				temp_img = icon("icons/ass/assmale.png")
+		if(ishuman(ass)) //Suit checks are in check_ass
+			var/mob/living/carbon/human/H = ass
+			temp_img = icon('icons/obj/butts.dmi', "[H.species.butt]")
+		else if(istype(ass,/mob/living/silicon/robot/drone))
+			temp_img = icon('icons/obj/butts.dmi', "drone")
+		else if(istype(ass,/mob/living/simple_animal/diona))
+			temp_img = icon('icons/obj/butts.dmi', "nymph")
+		else if(isalien(ass) || istype(ass,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+			temp_img = icon('icons/obj/butts.dmi', "xeno")
+		else return
 	else
 		return
 	var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (loc)
@@ -285,7 +286,7 @@
 	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
 	src.add_fingerprint(user)
-	if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 		if(target.anchored) return
