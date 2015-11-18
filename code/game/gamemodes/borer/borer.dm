@@ -15,9 +15,6 @@
 	var/var/list/datum/mind/first_hosts = list()
 	var/var/list/assigned_hosts = list()
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/list/found_vents = list()
 
 /datum/game_mode/borer/announce()
@@ -98,10 +95,7 @@
 
 	log_admin("Created [borers.len] borers.")
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
 	if (you_are)

@@ -59,21 +59,23 @@
 	initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
 	color = "#404040"
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/initialize()
-	normalize_dir()
-	var/N = 2
-	for(var/D in cardinal)
-		if(D & initialize_directions_he)
-			N--
-			for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src, D))
-				if(target.initialize_directions_he & get_dir(target,src))
-					if(!node1 && N == 1)
-						node1 = target
-						break
-					if(!node2 && N == 0)
-						node2 = target
-						break
-	update_icon()
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/initialize(initPipe = 1)
+	..(0)
+	if(initPipe)
+		normalize_dir()
+		var/N = 2
+		for(var/D in cardinal)
+			if(D & initialize_directions_he)
+				N--
+				for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src, D))
+					if(target.initialize_directions_he & get_dir(target,src))
+						if(!node1 && N == 1)
+							node1 = target
+							break
+						if(!node2 && N == 0)
+							node2 = target
+							break
+		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
@@ -107,6 +109,7 @@
 			initialize_directions_he = WEST
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/initialize()
+	..(0)
 	for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
 		if(target.initialize_directions & get_dir(target,src))
 			node1 = target
@@ -115,10 +118,6 @@
 		if(target.initialize_directions_he & get_dir(target,src))
 			node2 = target
 			break
-
-	if(!node1 && !node2)
-		qdel(src)
-		return
 
 	update_icon()
 	return

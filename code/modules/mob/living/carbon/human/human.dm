@@ -4,20 +4,21 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
+
+	//why are these here and not in human_defines.dm
 	var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna=0)
-
+/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
 	if(!species)
 		if(new_species)
-			set_species(new_species,1)
+			set_species(new_species, 1)
 		else
 			set_species()
 
@@ -44,7 +45,7 @@
 	make_blood()
 
 	var/mob/M = src
-	faction |= "\ref[M]"
+	faction |= "\ref[M]" //what
 
 	// Set up DNA.
 	if(!delay_ready_dna && dna)
@@ -146,30 +147,37 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
-/mob/living/carbon/human/Bump(atom/movable/AM as mob|obj, yes)
-	if ((!( yes ) || now_pushing || buckled))
-		return
+/mob/living/carbon/human/Bump(atom/movable/AM, yes)
+	if(!(yes) || now_pushing || buckled)
+		return 0
 	now_pushing = 1
-	if (ismob(AM))
+	if(ismob(AM))
 		var/mob/tmob = AM
 
-		if( istype(tmob, /mob/living/carbon) && prob(10) )
-			src.spread_disease_to(AM, "Contact")
-//BubbleWrap - Should stop you pushing a restrained person out of the way
+		if(iscarbon(tmob) && prob(10))
+			spread_disease_to(tmob, "Contact")
 
-		if(istype(tmob, /mob/living/carbon/human))
-
+		//BubbleWrap - Should stop you pushing a restrained person out of the way
+		//i still don't get it, is this supposed to be 'bubblewrapping' or was it made by a guy named 'BubbleWrap'
+		if(ishuman(tmob))
 			for(var/mob/M in range(tmob, 1))
-				if(tmob.pinned.len ||  ((M.pulling == tmob && ( tmob.restrained() && !( M.restrained() ) && M.stat == 0)) || locate(/obj/item/weapon/grab, tmob.grabbed_by.len)) )
-					if ( !(world.time % 5) )
-						src << "\red [tmob] is restrained, you cannot push past"
+
+				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained()) && M.stat == CONSCIOUS))
+					if(!(world.time % 5)) //tmob is pinned to wall, or is restrained and pulled by a concious unrestrained human
+						src << "<span class='danger'>[tmob] is restrained, you cannot push past.</span>"
 					now_pushing = 0
-					return
-				if( tmob.pulling == M && ( M.restrained() && !( tmob.restrained() ) && tmob.stat == 0) )
-					if ( !(world.time % 5) )
-						src << "\red [tmob] is restraining [M], you cannot push past"
+					return 0
+
+				//I have to fucking document this somewhere- the above if(tmob.pinned.len || etc) check above had
+				//locate(/obj/item/weapon/grab, tmob.grabbed_by.len)) at the end of it
+				//FIRST OF ALL, THAT IS NOT HOW YOU FUCKING USE LOCATE()
+				//SECOND OF ALL, OH GOD, WHY WOULD YOU EVER WANT GRABBED MOBS TO BE UNABLE TO BE PUSHED PAST GOD
+
+				if(tmob.pulling == M && (M.restrained() && !tmob.restrained()) && tmob.stat == CONSCIOUS)
+					if(!(world.time % 5))
+						src << "<span class='danger'>[tmob] is restraining [M], you cannot push past.</span>"
 					now_pushing = 0
-					return
+					return 0
 
 		//Leaping mobs just land on the tile, no pushing, no anything.
 		if(status_flags & LEAPING)
@@ -178,35 +186,35 @@
 			now_pushing = 0
 			return
 
-		if(istype(tmob,/mob/living/silicon/robot/drone)) //I have no idea why the hell this isn't already happening. How do mice do it?
-			loc = tmob.loc
-			now_pushing = 0
-			return
-
 		//BubbleWrap: people in handcuffs are always switched around as if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()) && tmob.canmove && canmove && !tmob.buckled && !tmob.buckled_mob) // mutual brohugs all around!
-			var/turf/oldloc = loc
-			loc = tmob.loc
-			tmob.loc = oldloc
-			now_pushing = 0
-			for(var/mob/living/carbon/slime/slime in view(1,tmob))
-				if(slime.Victim == tmob)
-					slime.UpdateFeed()
-			return
+		//it might be 'bubblewrapping' given that this rhymes with 'hugboxing'
+		if((tmob.a_intent == I_HELP || tmob.restrained()) && (a_intent == I_HELP || restrained()))
+			if((canmove && tmob.canmove) && (!tmob.buckled && !tmob.buckled_mob))
+				var/turf/oldloc = loc
+				loc = tmob.loc
+				tmob.loc = oldloc
+				now_pushing = 0
+				for(var/mob/living/carbon/slime/slime in view(1,tmob))
+					if(slime.Victim == tmob)
+						slime.UpdateFeed()
+				return
 
-		if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
+		if(ishuman(tmob) && (FAT in tmob.mutations))
 			if(prob(40) && !(FAT in src.mutations))
-				src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
+				src << "<span class='danger'>You fail to push [tmob]'s fat ass out of the way.</span>"
 				now_pushing = 0
 				return
+
 		if(tmob.r_hand && istype(tmob.r_hand, /obj/item/weapon/shield/riot))
 			if(prob(99))
 				now_pushing = 0
 				return
+
 		if(tmob.l_hand && istype(tmob.l_hand, /obj/item/weapon/shield/riot))
 			if(prob(99))
 				now_pushing = 0
 				return
+
 		if(!(tmob.status_flags & CANPUSH))
 			now_pushing = 0
 			return
@@ -216,21 +224,19 @@
 	now_pushing = 0
 	spawn(0)
 		..()
-		if (!istype(AM, /atom/movable))
+		if(!istype(AM, /atom/movable))
 			return
-		if (!now_pushing)
+		if(!now_pushing)
 			now_pushing = 1
 
-			if (!AM.anchored)
+			if(!AM.anchored)
 				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
+				if(istype(AM, /obj/structure/window/full))
+					for(var/obj/structure/window/win in get_step(AM, t))
 						now_pushing = 0
 						return
 				step(AM, t)
 			now_pushing = 0
-		return
-	return
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -246,11 +252,11 @@
 		if(eta_status)
 			stat(null, eta_status)
 
-	if (client.statpanel == "Status")
+	if(client.statpanel == "Status")
 		if(locate(/obj/item/device/assembly/health) in src)
 			stat(null, "Health: [health]")
-		if (internal)
-			if (!internal.air_contents)
+		if(internal)
+			if(!internal.air_contents)
 				qdel(internal)
 			else
 				stat("Internal Atmosphere Info", internal.name)
@@ -279,12 +285,13 @@
 	var/shielded = 0
 	var/b_loss = null
 	var/f_loss = null
-	switch (severity)
-		if (1.0)
+
+	switch(severity)
+		if(1)
 			b_loss += 500
-			if (!prob(getarmor(null, "bomb")))
+			if(!prob(getarmor(null, "bomb")))
 				gib()
-				return
+				return 0
 			else
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
@@ -301,13 +308,8 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-
-			//return
-//				var/atom/target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
-				//user.throw_at(target, 200, 4)
-
-		if (2.0)
-			if (!shielded)
+		if(2)
+			if(!shielded) //literally nothing could change shielded before this so wth
 				b_loss += 60
 
 			f_loss += 60
@@ -316,7 +318,7 @@
 			var/obj/item/organ/external/processing_dismember
 			var/list/valid_limbs = organs.Copy()
 
-			if (prob(getarmor(null, "bomb")))
+			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/1.5
 				f_loss = f_loss/1.5
 
@@ -332,15 +334,15 @@
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
-			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 30
 				ear_deaf += 120
-			if (prob(70) && !shielded)
+			if(prob(70) && !shielded)
 				Paralyse(10)
 
-		if(3.0)
+		if(3)
 			b_loss += 30
-			if (prob(getarmor(null, "bomb")))
+			if(prob(getarmor(null, "bomb")))
 				b_loss = b_loss/2
 
 			else
@@ -357,10 +359,10 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-			if (!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				ear_damage += 15
 				ear_deaf += 60
-			if (prob(50) && !shielded)
+			if(prob(50) && !shielded)
 				Paralyse(10)
 
 	var/update = 0
@@ -368,19 +370,19 @@
 	for(var/obj/item/organ/external/temp in organs)
 		switch(temp.limb_name)
 			if("head")
-				update |= temp.take_damage(b_loss * 0.2, f_loss * 0.2, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.2,   f_loss * 0.2,   used_weapon = weapon_message)
 			if("chest")
-				update |= temp.take_damage(b_loss * 0.4, f_loss * 0.4, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.4,   f_loss * 0.4,   used_weapon = weapon_message)
 			if("groin")
-				update |= temp.take_damage(b_loss * 0.1, f_loss * 0.1, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.1,   f_loss * 0.1,   used_weapon = weapon_message)
 			if("l_arm")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
 			if("r_arm")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
 			if("l_leg")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
 			if("r_leg")
-				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05, used_weapon = weapon_message)
+				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
 			if("r_foot")
 				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
 			if("l_foot")
@@ -394,12 +396,12 @@
 	..()
 
 /mob/living/carbon/human/blob_act()
-	if(stat == DEAD)	return
+	if(stat == DEAD)
+		return
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
-	return
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
