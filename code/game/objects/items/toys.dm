@@ -1442,4 +1442,3 @@ obj/item/toy/cards/deck/syndicate/black
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
 	..()
-	return
