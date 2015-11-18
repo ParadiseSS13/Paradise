@@ -51,7 +51,7 @@
 	if(status_flags & GOTTAGOREALLYFAST)
 		tally -= 2
 
-	return (tally+config.human_delay)
+	return (tally + config.human_delay)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 

@@ -60,6 +60,9 @@
 		name = "chewed gum"
 		desc = "NOT free candy."
 		icon_state = "gum"
+	tastybread
+		name = "bread tube"
+		icon_state = "tastybread"
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return

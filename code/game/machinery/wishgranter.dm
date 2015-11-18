@@ -9,6 +9,7 @@
 	density = 1
 	var/datum/mind/target
 	var/list/types = list()
+	var/inuse = 0
 
 /obj/machinery/wish_granter/New()
 	for(var/supname in all_superheroes)
@@ -22,33 +23,40 @@
 		user << "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's."
 		return
 
-	else if(is_special_character(user))
+	if(is_special_character(user))
 		user << "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away."
+		return
 
+	if(inuse)
+		user << "Someone is already communing with the Wish Granter."
+		return
+
+	user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
+
+	inuse = 1
+	var/wish
+	if(types.len == 1)
+		wish = pick(types)
 	else
-		user << "The power of the Wish Granter have turned you into the superhero the station deserves. You are a masked vigilante, and answer to no man. Will you use your newfound strength to protect the innocent, or will you hunt the guilty?"
+		wish = input("You want to become...","Wish") as null|anything in types
+	if(!wish)
+		inuse=0
+		return
+	types -= wish
+	var/mob/living/carbon/human/M = user
+	var/datum/superheroes/S = all_superheroes[wish]
+	if(S)
+		S.create(M)
+	inuse=0
 
-
-		var/wish
-		if(types.len == 1)
-			wish = pick(types)
-		else
-			wish = input("You want to become...","Wish") as null|anything in types
-		if(!wish) return
-		types -= wish
-		var/mob/living/carbon/human/M = user
-		var/datum/superheroes/S = all_superheroes[wish]
-		if(S)
-			S.create(M)
-
-		//Remove the wishgranter or teleport it randomly on the station
-		if(!types.len)
-			user << "The wishgranter slowly fades into mist..."
-			qdel(src)
-			return
-		else
-			var/impact_area = findEventArea()
-			var/turf/T = pick(get_area_turfs(impact_area))
-			if(T)
-				src.loc = T
+	//Remove the wishgranter or teleport it randomly on the station
+	if(!types.len)
+		user << "The wishgranter slowly fades into mist..."
+		qdel(src)
+		return
+	else
+		var/impact_area = findEventArea()
+		var/turf/T = pick(get_area_turfs(impact_area))
+		if(T)
+			src.loc = T
 	return

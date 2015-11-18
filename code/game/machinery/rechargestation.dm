@@ -8,7 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 1000
 	var/mob/occupant = null
-	var/circuitboard = "/obj/item/weapon/circuitboard/cyborgrecharger"
+	var/circuitboard = /obj/item/weapon/circuitboard/cyborgrecharger
 	var/recharge_speed
 	var/recharge_speed_nutrition
 	var/repairs
@@ -44,7 +44,9 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/weapon/stock_parts/cell/C in component_parts)
-		recharge_speed *= C.maxcharge / 10000
+		var/multiplier = C.maxcharge / 10000
+		recharge_speed *= multiplier
+		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
 	if(!(NOPOWER|BROKEN))
@@ -116,8 +118,7 @@
 			if(!isnull(H.internal_organs_by_name["cell"]) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
-					H.adjustBruteLoss(-(repairs))
-					H.adjustFireLoss(-(repairs))
+					H.heal_overall_damage(repairs, repairs, 0, 1)
 					H.updatehealth()
 
 /obj/machinery/recharge_station/proc/go_out()
