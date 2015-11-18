@@ -11,7 +11,7 @@
 	pass_flags = PASSTABLE
 	braintype = "Robot"
 	lawupdate = 0
-	density = 1
+	density = 0
 	ventcrawler = 2
 	req_access = list(access_engine, access_robotics)
 	local_transmit = 1
@@ -337,3 +337,7 @@
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
+
+/mob/living/silicon/robot/drone/update_canmove()
+	. = ..()
+	density = 0 //this is reset every canmove update otherwise
