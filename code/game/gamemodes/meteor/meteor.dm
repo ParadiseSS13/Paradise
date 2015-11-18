@@ -24,10 +24,10 @@
 
 
 /datum/game_mode/meteor/proc/sendmeteors()
-	var/waveduration = world.time + rand(0,2000) + text2num("[wave]000")
+	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000")
 	var/waitduration = rand(3000,9000)
 	while(waveduration - world.time > 0)
-		sleep(20)
+		sleep(50 - text2num("[wave]0") / 2)
 		spawn() spawn_meteors(6, meteors_normal)
 	wave++
 	sleep(waitduration)
