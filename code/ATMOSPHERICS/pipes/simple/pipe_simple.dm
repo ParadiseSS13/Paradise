@@ -43,31 +43,32 @@
 		if(SOUTHWEST)
 			initialize_directions = SOUTH|WEST
 		
-/obj/machinery/atmospherics/pipe/simple/initialize()
+/obj/machinery/atmospherics/pipe/simple/initialize(initPipe = 1)
 	..()
-	normalize_dir()
-	var/N = 2
-	for(var/D in cardinal)
-		if(D & initialize_directions)
-			N--
-			for(var/obj/machinery/atmospherics/target in get_step(src, D))
-				if(target.initialize_directions & get_dir(target,src))
-					var/c = check_connect_types(target,src)
-					if(!c)
-						continue
-					if(!node1 && N == 1)
-						target.connected_to = c
-						connected_to = c
-						node1 = target
-						break
-					if(!node2 && N == 0)
-						target.connected_to = c
-						connected_to = c
-						node2 = target
-						break
-	var/turf/T = loc			// hide if turf is not intact
-	hide(T.intact)
-	update_icon()
+	if(initPipe)
+		normalize_dir()
+		var/N = 2
+		for(var/D in cardinal)
+			if(D & initialize_directions)
+				N--
+				for(var/obj/machinery/atmospherics/target in get_step(src, D))
+					if(target.initialize_directions & get_dir(target,src))
+						var/c = check_connect_types(target,src)
+						if(!c)
+							continue
+						if(!node1 && N == 1)
+							target.connected_to = c
+							connected_to = c
+							node1 = target
+							break
+						if(!node2 && N == 0)
+							target.connected_to = c
+							connected_to = c
+							node2 = target
+							break
+		var/turf/T = loc			// hide if turf is not intact
+		hide(T.intact)
+		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
 	var/datum/gas_mixture/environment = loc.return_air()
