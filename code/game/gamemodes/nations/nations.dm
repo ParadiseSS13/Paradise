@@ -12,6 +12,7 @@ datum/game_mode/nations
 		kickoff=1
 		send_intercept()
 		split_teams()
+		set_ai()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
