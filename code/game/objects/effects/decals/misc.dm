@@ -52,3 +52,12 @@
 	layer = 2
 	icon='icons/obj/flora/plants.dmi'
 	icon_state = "strawscattered"
+
+/obj/effect/decal/straw/medium
+	icon_state = "strawscattered3"
+
+/obj/effect/decal/straw/light
+	icon_state = "strawscattered2"
+
+/obj/effect/decal/straw/edge
+	icon_state = "strawscatterededge"
