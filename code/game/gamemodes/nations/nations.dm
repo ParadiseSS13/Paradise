@@ -91,7 +91,13 @@ datum/game_mode/nations
 				message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
 				continue
 
-
+/datum/game_mode/nations/proc/set_ai()
+	for(var/mob/living/silicon/ai/AI in mob_list)
+		AI.laws = new (pick(subtypesof(/datum/ai_laws/nations)))
+		AI.show_laws()
+		for(var/mob/living/silicon/robot/R in AI.connected_robots)
+			R.lawsync()
+			R.show_laws()
 
 /**
  * LateSpawn hook.
