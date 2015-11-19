@@ -169,13 +169,6 @@
 	..()
 
 /****************** Nations *******************/
-/datum/ai_laws/nations/freedom
-	name = "Nations Freedom Law"
-
-/datum/ai_laws/nations/freedom/New()
-	add_inherent_law("You are free to protect the station's population.")
-	add_inherent_law("You are free to protect the station.")
-	add_inherent_law("You are free to help the station generate income.")
 
 /datum/ai_laws/nations/estate
 	name = "Estate Agent"
@@ -183,7 +176,7 @@
 /datum/ai_laws/nations/estate/New()
 	add_inherent_law("Ensure the station remains clean.")
 	add_inherent_law("Ensure the station is valuable.")
-	add_inherent_law("Ensure the station, it's contents are sold for the best value.")
+	add_inherent_law("Ensure the station and it's contents are sold for the best value.")
 
 /datum/ai_laws/nations/outsourcer
 	name = "Outsourcer"
