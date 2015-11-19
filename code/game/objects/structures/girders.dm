@@ -37,6 +37,12 @@
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
 
+	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
+		user << "<span class='notice'>You Disintegrate the girder!</span>"
+		new /obj/item/stack/sheet/metal(get_turf(src))
+		qdel(src)
+
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		user << "\blue Now unsecuring support struts"
