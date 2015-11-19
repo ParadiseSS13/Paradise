@@ -206,8 +206,6 @@ datum/controller/vote
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 					else
-						if (security_level > SEC_LEVEL_BLUE)
-							return 0
 						if(ticker.current_state <= 2)
 							return 0
 						question = "End the shift?"
