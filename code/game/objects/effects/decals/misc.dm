@@ -36,3 +36,19 @@
 
 /obj/effect/decal/snow/sand/surround
 	icon_state="gravsnow_surround"
+
+/obj/effect/decal/leaves
+	name="fall leaves"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "fallleaves"
+
+/obj/effect/decal/straw
+	name="scattered straw"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "strawscattered"
