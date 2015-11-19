@@ -578,16 +578,14 @@ var/list/wood_icons = list("wood","wood-broken")
 					user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 
 	if(istype(C,/obj/item/pipe))
-		var/obj/item/pipe/V = C
-		if(V.pipe_type != -1) // ANY PIPE
-			var/obj/item/pipe/P = C
-
+		var/obj/item/pipe/P = C
+		if(P.pipe_type != -1) // ANY PIPE
 			user.visible_message( \
 				"[user] starts sliding [P] along \the [src].", \
 				"<span class='notice'>You slide [P] along \the [src].</span>", \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
-			if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+			if (P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 				P.dir = 5
 				if (user.dir == 1)
 					P.dir = 6
@@ -595,8 +593,6 @@ var/list/wood_icons = list("wood","wood-broken")
 					P.dir = 9
 				if (user.dir == 4)
 					P.dir = 10
-				if (user.dir == 5)
-					P.dir = 8
 			else
 				P.dir = user.dir
 			P.x = src.x

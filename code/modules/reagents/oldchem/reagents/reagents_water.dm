@@ -326,6 +326,30 @@
 			qdel(R)
 	T.Bless()
 
+
+/datum/reagent/liquidgibs
+	name = "Liquid gibs"
+	id = "liquidgibs"
+	color = "#FF9966"
+	description = "You don't even want to think about what's in here."
+	reagent_state = LIQUID
+
+/datum/reagent/liquidgibs/reaction_turf(var/turf/T, var/volume) //yes i took it from synthflesh...
+	src = null
+	if(volume >= 5)
+		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
+		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		return
+
+
+
+/datum/reagent/lye
+	name = "Lye"
+	id = "lye"
+	description = "Also known as sodium hydroxide."
+	reagent_state = LIQUID
+	color = "#FFFFD6" // very very light yellow
+
 /*
 /datum/reagent/vaccine
 	//data must contain virus type

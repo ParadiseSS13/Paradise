@@ -20,7 +20,7 @@
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
 	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("bananium" = 30), ("diamond" = 40), ("plasma" = 40))
-	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", ("Engineering" = list("metal", "glass", "plasma")), ("Chief Engineer's Desk" = list("metal", "glass", "plasma")), ("Atmospherics" = list("metal", "glass", "plasma")))
+	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -67,7 +67,7 @@
 			stack_list[processed_sheet] = s
 			// Not including tg's ignoring of metal, glass being stocked because if cargo's not telling science when ores are there, they probably won't
 			// help with restocking metal/glass either
-			var/msg = "[capitalize(s.name)] sheets have been stocked in the ore reclaimer."
+			var/msg = "\[[worldtime2text()]\]: [capitalize(s.name)] sheets have been stocked in the ore reclaimer."
 			for(var/obj/machinery/requests_console/D in allConsoles)
 				if(D.department in src.supply_consoles)
 					if(supply_consoles[D.department] == null || (s.name in supply_consoles[D.department]))

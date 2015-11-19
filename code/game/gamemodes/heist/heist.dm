@@ -18,9 +18,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	recommended_enemies = 5
 	votable = 0
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/announce()
@@ -83,9 +80,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		if(raid_objectives)
 			raider.objectives = raid_objectives
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
-		
 	return ..()
 
 /datum/game_mode/proc/create_vox(var/datum/mind/newraider)
@@ -276,7 +270,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 			text += ")"
 
 		world << text
-		
+
 	return 1
 
 /datum/game_mode/heist/check_finished()
