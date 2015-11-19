@@ -202,7 +202,14 @@
 		user << "<span class='notice'>You begin to drill though the wall.</span>"
 
 		if(do_after(user, 200, target = src))
-			user << "<span class='notice'>Your drill tears though the last of the reinforced plating.</span>"
+			user << "<span class='notice'>Your drill tears through the last of the reinforced plating.</span>"
+			dismantle_wall()
+
+	if(istype(W,/obj/item/weapon/pickaxe/drill/jackhammer))
+		user << "<span class='notice'>You begin to disintegrate the wall.</span>"
+
+		if(do_after(user, 100, target = src))
+			user << "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>"
 			dismantle_wall()
 
 	//REPAIRING
