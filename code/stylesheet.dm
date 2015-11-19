@@ -91,6 +91,7 @@ h1.alert, h2.alert		{color: #000000;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.grey					{font-family:Wingdings", cursive, sans-serif;}
 .cultspeech				{color: #7F0000; font-style: italic;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
