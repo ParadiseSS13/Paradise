@@ -39,7 +39,7 @@
 				M.install(src)
 			else
 				if(mode.kickoff)
-					user << "\red <b>You have been locked out from modifying the AI's laws!"
+					user << "<span class='warning'>You have been locked out from modifying the AI's laws!</span>"
 		else
 			..()
 
@@ -79,7 +79,7 @@
 				module.install(src)
 			else
 				if(mode.kickoff)
-					user << "\red <b>You have been locked out from modifying the AI's laws!"
+					user << "<span class='warning'>You have been locked out from modifying the borg's laws!</span>"
 		else
 			return ..()
 
