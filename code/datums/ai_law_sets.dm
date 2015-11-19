@@ -190,6 +190,6 @@
 	name = "Peacekeeper"
 
 /datum/ai_laws/nations/peacekeeper/New()
-	add_inherent_law("Uphold the Space Geneva Conventions.")
+	add_inherent_law("Uphold the Space Geneva Convention: Weapons of Mass Destruction and Biological Weapons are illegal.")
 	add_inherent_law("Seek to mediate all conflicts between the various nations.")
-	add_inherent_law("Attempt to uphold peace in any way possible, as long as it does not conflict with the first two laws.")
+	add_inherent_law("Attempt to uphold peace non-lethally, as long as it does not conflict with the first two laws.")
