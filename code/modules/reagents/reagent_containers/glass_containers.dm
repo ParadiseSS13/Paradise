@@ -161,7 +161,8 @@
 				user << "\blue You set the label to \"[tmp_label]\"."
 				src.label_text = tmp_label
 				src.update_name_label()
-
+		if(istype(I,/obj/item/weapon/storage/bag))
+			..()
 
 	proc/update_name_label()
 		if(src.label_text == "")

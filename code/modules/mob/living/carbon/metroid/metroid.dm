@@ -602,6 +602,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			Uses = 3
 			enhanced = 1
 			qdel(O)
+		if(istype(O,/obj/item/weapon/storage/bag))
+			..()
 
 /obj/item/slime_extract/New()
 		..()

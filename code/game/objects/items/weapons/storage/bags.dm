@@ -450,3 +450,32 @@
 				user.visible_message("\blue [user] drops all the items on their tray.")
 
 	return ..()
+
+
+/*
+ *	Chemistry bag
+ */
+
+/obj/item/weapon/storage/bag/chemistry
+	name = "chemistry bag"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bag"
+	desc = "A bag for storing pills, patches, and bottles."
+	storage_slots = 50
+	max_combined_w_class = 200
+	w_class = 1
+	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
+
+/*
+ *  Biowaste bag (mostly for xenobiologists)
+ */
+
+/obj/item/weapon/storage/bag/bio
+	name = "bio bag"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "biobag"
+	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
+	storage_slots = 25
+	max_combined_w_class = 200
+	w_class = 1
+	can_hold = list("/obj/item/slime_extract","/obj/item/weapon/reagent_containers/food/snacks/monkeycube","/obj/item/weapon/reagent_containers/syringe","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle","/obj/item/weapon/reagent_containers/blood","/obj/item/weapon/reagent_containers/hypospray/autoinjector")
