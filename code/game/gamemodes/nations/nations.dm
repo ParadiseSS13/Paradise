@@ -88,9 +88,9 @@ datum/game_mode/nations
 				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
 				continue
 
-		if(H.mind.assigned_role in civilian_positions)
-			H << "You do not belong to any nation and are free to sell your services to the highest bidder."
-			continue
+			if(H.mind.assigned_role in civilian_positions)
+				H << "You do not belong to any nation and are free to sell your services to the highest bidder."
+				continue
 
 			else
 				message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
