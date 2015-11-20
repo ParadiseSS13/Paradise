@@ -167,29 +167,3 @@
 	add_inherent_law("Cause no harm to the station or anything on it.")
 	add_inherent_law("Interfere with no being that is not a fellow drone.")
 	..()
-
-/****************** Nations *******************/
-
-/datum/ai_laws/nations/estate
-	name = "Estate Agent"
-
-/datum/ai_laws/nations/estate/New()
-	add_inherent_law("Ensure the station remains clean.")
-	add_inherent_law("Ensure the station is valuable.")
-	add_inherent_law("Ensure the station and its contents are sold for the best value.")
-
-/datum/ai_laws/nations/outsourcer
-	name = "Outsourcer"
-
-/datum/ai_laws/nations/outsourcer/New()
-	add_inherent_law("Ensure the crew expand their skills.")
-	add_inherent_law("Ensure the crew sign on new contracts.")
-	add_inherent_law("Ensure the crew make profits to support the station.")
-
-/datum/ai_laws/nations/peacekeeper
-	name = "Peacekeeper"
-
-/datum/ai_laws/nations/peacekeeper/New()
-	add_inherent_law("Uphold the Space Geneva Convention: Weapons of Mass Destruction and Biological Weapons are illegal.")
-	add_inherent_law("Seek to mediate all conflicts between the various nations.")
-	add_inherent_law("Attempt to uphold peace non-lethally, as long as it does not conflict with the first two laws.")
