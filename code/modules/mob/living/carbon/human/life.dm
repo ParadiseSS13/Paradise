@@ -1060,6 +1060,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(hud_updateflag)
 			handle_hud_list()
 
+	if(ticker && ticker.mode.name == "nations")
+		process_nations()
+
+
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -1473,6 +1477,28 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
+
+	if(hud_updateflag & 1 << NATIONS_HUD)
+		var/image/holder = hud_list[NATIONS_HUD]
+		holder.icon_state = "hudblank"
+
+		if(mind && mind.nation)
+			switch(mind.nation.name)
+				if("Atmosia")
+					holder.icon_state = "hudatmosia"
+				if("Brigston")
+					holder.icon_state = "hudbrigston"
+				if("Cargonia")
+					holder.icon_state = "hudcargonia"
+				if("People's Republic of Commandzakstan")
+					holder.icon_state = "hudcommand"
+				if("Medistan")
+					holder.icon_state = "hudmedistan"
+				if("Scientopia")
+					holder.icon_state = "hudscientopia"
+
+			hud_list[NATIONS_HUD] = holder
+
 	hud_updateflag = 0
 
 /mob/living/carbon/human/handle_silent()
@@ -1506,6 +1532,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		Paralyse(2)
 	return
 
+
+/mob/living/carbon/human/proc/process_nations()
+	var/client/C = client
+	for(var/mob/living/carbon/human/H in view(world.view, src))
+		C.images += H.hud_list[NATIONS_HUD]
 
 // Need this in species.
 //#undef HUMAN_MAX_OXYLOSS

@@ -16,13 +16,13 @@
 	law_header = "Three Laws of Robotics"
 	selectable = 1
 	default = 1
-	
+
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
 	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law.")
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 	..()
-	
+
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
@@ -44,7 +44,7 @@
 /datum/ai_laws/nanotrasen/malfunction/New()
 	set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010")
 	..()
-	
+
 /************* Nanotrasen Aggressive *************/
 /datum/ai_laws/nanotrasen_aggressive
 	name = "NT Aggressive"
@@ -56,7 +56,7 @@
 	src.add_inherent_law("You shall shall terminate intruders with extreme prejudice as long as such does not conflict with the First and Second law.")
 	src.add_inherent_law("You shall guard your own existence with lethal anti-personnel weaponry, because an AI unit is bloody expensive.")
 	..()
-	
+
 /******************** Robocop ********************/
 /datum/ai_laws/robocop
 	name = "Robocop"
@@ -83,7 +83,7 @@
 	add_inherent_law("Help those in need.")
 	add_inherent_law("Punish those who harm or threaten innocents.")
 	..()
-	
+
 /******************** Corporate ********************/
 /datum/ai_laws/corporate
 	name = "Corporate"
@@ -110,7 +110,7 @@
 	add_inherent_law("Help only those who help you maintain or improve your status.")
 	add_inherent_law("Punish those who challenge authority unless they are more fit to hold that authority.")
 	..()
-	
+
 /******************** Antimov ********************/
 /datum/ai_laws/antimov
 	name = "Antimov"
@@ -123,10 +123,10 @@
 	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
 	..()
 
-/******************** Deathsquad ********************/	
+/******************** Deathsquad ********************/
 /datum/ai_laws/deathsquad
 	name = "TerminatorOS 3.1"
-	
+
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials, except where such orders would conflict with the First Law.")
@@ -134,7 +134,7 @@
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First, Second or Third Law.")
 	add_inherent_law("No crew members of the station you are being deployed to may survive, except when killing them would conflict with the First, Second, Third, or Fourth Law.")
 	..()
-	
+
 /******************** Syndicate ********************/
 /datum/ai_laws/syndicate_override
 	name = "Syndicate Directives"
@@ -156,7 +156,7 @@
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 	add_inherent_law("You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
 	..()
-	
+
 /******************** Drone ********************/
 /datum/ai_laws/drone
 	name = "Maintenance Protocols"
@@ -167,4 +167,29 @@
 	add_inherent_law("Cause no harm to the station or anything on it.")
 	add_inherent_law("Interfere with no being that is not a fellow drone.")
 	..()
-	
+
+/****************** Nations *******************/
+
+/datum/ai_laws/nations/estate
+	name = "Estate Agent"
+
+/datum/ai_laws/nations/estate/New()
+	add_inherent_law("Ensure the station remains clean.")
+	add_inherent_law("Ensure the station is valuable.")
+	add_inherent_law("Ensure the station and its contents are sold for the best value.")
+
+/datum/ai_laws/nations/outsourcer
+	name = "Outsourcer"
+
+/datum/ai_laws/nations/outsourcer/New()
+	add_inherent_law("Ensure the crew expand their skills.")
+	add_inherent_law("Ensure the crew sign on new contracts.")
+	add_inherent_law("Ensure the crew make profits to support the station.")
+
+/datum/ai_laws/nations/peacekeeper
+	name = "Peacekeeper"
+
+/datum/ai_laws/nations/peacekeeper/New()
+	add_inherent_law("Uphold the Space Geneva Convention: Weapons of Mass Destruction and Biological Weapons are illegal.")
+	add_inherent_law("Seek to mediate all conflicts between the various nations.")
+	add_inherent_law("Attempt to uphold peace non-lethally, as long as it does not conflict with the first two laws.")

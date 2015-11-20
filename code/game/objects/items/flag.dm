@@ -184,8 +184,8 @@
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Command flag"
-	desc = "The flag of the independent, sovereign nation of Command."
+	name = "Commandzikstan flag"
+	desc = "The flag of the independent, sovereign nation of Commandzikstan."
 	icon_state = "ntflag"
 
 //Antags
