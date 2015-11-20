@@ -14,6 +14,10 @@
 
 
 	var/health_deficiency = (100 - health + staminaloss)
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				health_deficiency -= R.shock_reduction
 	if(health_deficiency >= 40)
 		tally += (health_deficiency / 25)
 
