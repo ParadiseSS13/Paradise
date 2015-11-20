@@ -154,6 +154,9 @@
 		if (MED_HUD)
 			process_med_hud(src, 1, eyeobj)
 
+	if(ticker && ticker.mode.name == "nations")
+		process_nations()
+
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100
@@ -172,3 +175,8 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
+
+/mob/living/silicon/ai/proc/process_nations()
+	var/client/C = client
+	for(var/mob/living/carbon/human/H in view(world.view, src))
+		C.images += H.hud_list[NATIONS_HUD]
