@@ -208,6 +208,10 @@
 						E.teleporting = 0
 						return
 					E.teleporting = 0
+					if(user in contents)
+						user << "<span class='warning'>Error: User located in container--aborting for safety.</span>"
+						playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+						return
 					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
@@ -226,6 +230,10 @@
 					E.teleporting = 0
 					return
 				E.teleporting = 0
+				if(user in contents)
+					user << "<span class='warning'>Error: User located in container--aborting for safety.</span>"
+					playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+					return
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
