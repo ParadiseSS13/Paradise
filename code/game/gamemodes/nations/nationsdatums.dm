@@ -18,3 +18,6 @@
 
 /datum/nations/scientopia
 	name = "Scientopia"
+
+/datum/nations/service
+	name = "Servicion"

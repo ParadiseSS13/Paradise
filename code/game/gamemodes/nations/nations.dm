@@ -5,6 +5,7 @@ datum/game_mode/nations
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
+	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist")
 
 
 /datum/game_mode/nations/post_setup()
@@ -72,6 +73,14 @@ datum/game_mode/nations
 				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
 				continue
 
+			if(H.mind.assigned_role in servicion)
+				H.mind.nation = all_nations["Servicion"]
+				H.hud_updateflag |= 1 << NATIONS_HUD
+				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
+				H.client.images += I
+				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				continue
+
 			if(H.mind.assigned_role in support_positions)
 				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
 				H.hud_updateflag |= 1 << NATIONS_HUD
@@ -116,6 +125,7 @@ datum/game_mode/nations
 	if(!mode.kickoff) return 1
 
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
+	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist")
 	if(H.mind)
 		if(H.mind.assigned_role in engineering_positions)
 			H.mind.nation = all_nations["Atmosia"]
@@ -153,6 +163,14 @@ datum/game_mode/nations
 			H.mind.nation = all_nations["Cargonia"]
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcargonia")
+			H.client.images += I
+			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			return 1
+
+		if(H.mind.assigned_role in servicion)
+			H.mind.nation = all_nations["Servicion"]
+			H.hud_updateflag |= 1 << NATIONS_HUD
+			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
 			H.client.images += I
 			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
 			return 1
