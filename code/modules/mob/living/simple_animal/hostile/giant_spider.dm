@@ -256,6 +256,7 @@
 				E = locate() in get_turf(src)
 				if(!E)
 					var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(src.loc)
+					C.faction = faction
 					if(ckey)
 						C.player_spiders = 1
 					fed--
