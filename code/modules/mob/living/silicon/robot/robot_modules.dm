@@ -412,8 +412,9 @@
 
 /obj/item/weapon/robot_module/combat/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
-	src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
 	src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
