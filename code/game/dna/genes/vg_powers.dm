@@ -209,7 +209,7 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts at any range!"
-	charge_max = 100
+	charge_max = 0
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -243,7 +243,7 @@ Obviously, requires DNA2.
 	var/say = strip_html(input("What do you wish to say"))
 
 	for(var/mob/living/target in targets)
-		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")	
+		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
 		else
@@ -277,21 +277,21 @@ Obviously, requires DNA2.
 
 	action_icon_state = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)	
+/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = living_mob_list
 	var/list/validtargets = new /list()
 	for(var/mob/M in targets)
 		if(M && M.mind)
 			if(M.z != user.z || isNonCrewAntag(M))
 				continue
-				
+
 			validtargets += M
-			
+
 	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
 		start_recharge()
 		return
-		
+
 	targets += input("Choose the target to spy on.", "Targeting") as mob in validtargets
 
 	perform(targets)
