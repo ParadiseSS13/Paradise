@@ -46,7 +46,8 @@
 
 
 	attackby(obj/item/I as obj, mob/user as mob, params)
-
+		if(istype(I,/obj/item/weapon/storage/bag))
+			..()
 		return
 
 	afterattack(obj/target, mob/user, proximity)
