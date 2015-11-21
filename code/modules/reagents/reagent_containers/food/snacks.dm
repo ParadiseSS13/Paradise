@@ -799,6 +799,7 @@
 	New()
 		..()
 		reagents.add_reagent("protein", 6)
+		reagents.add_reagent("porktonium", 10)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/donkpocket
@@ -3113,6 +3114,41 @@
 		reagents.add_reagent("sodiumchloride", 1)
 		reagents.add_reagent("toxin", 3)
 		bitesize = 4
+
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/turkey
+	name = "Turkey"
+	desc = "A traditional turkey served with stuffing."
+	icon_state = "turkey"
+	slice_path = /obj/item/weapon/reagent_containers/food/snacks/turkeyslice
+	slices_num = 6
+	New()
+		..()
+		reagents.add_reagent("protein", 24)
+		reagents.add_reagent("nutriment", 18)
+		bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/turkeyslice
+	name = "turkey serving"
+	desc = "A serving of some tender and delicious turkey."
+	icon_state = "turkeyslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#B97A57"
+	bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/mashed_potatoes //mashed taters
+	name = "mashed potatoes"
+	desc = "Some sot creamy, and irresistible mashed potatoes."
+	icon_state = "mashedtaters"
+	trash = /obj/item/trash/plate
+	filling_color = "#D6D9C1"
+	bitesize = 2
+
+	New()
+		..()
+		reagents.add_reagent("nutriment", 5)
+		reagents.add_reagent("gravy", 5)
+		reagents.add_reagent("mashedpotatoes", 10)
+		bitesize = 2
 
 ////////////////////////////////ICE CREAM///////////////////////////////////
 /obj/item/weapon/reagent_containers/food/snacks/icecream

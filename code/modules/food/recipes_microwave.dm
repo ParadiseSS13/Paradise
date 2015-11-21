@@ -648,6 +648,10 @@ datum/recipe/microwave/slimesandwich
 	)
 	result = /obj/item/weapon/ruinedvirusdish
 
+/datum/recipe/microwave/mashedtaters
+	fruit = list("potato" = 1)
+	reagents = list("gravy" = 5)
+	result = /obj/item/weapon/reagent_containers/food/snacks/mashed_potatoes
 
 //////////////////////////////////////////
 // bs12 food port stuff
