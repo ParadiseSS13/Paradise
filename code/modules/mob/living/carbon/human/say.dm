@@ -142,6 +142,12 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
+	if(COMIC in mutations)
+		message = "<span class='sans'>[message]</span>"
+
+	else if(species && species.accent)
+		message = "<span class='[species.accent]'>[message]</span>"
+
 	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag
