@@ -8131,7 +8131,7 @@
 "das" = (/obj/structure/disposalpipe/segment,/obj/effect/landmark{name = "xeno_spawn"; pixel_x = -1},/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "dat" = (/obj/structure/closet/toolcloset,/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "dau" = (/obj/machinery/door/airlock/maintenance,/turf/simulated/floor/plating,/area/maintenance/asmaint2)
-"dav" = (/obj/machinery/atmospherics/binary/pump,/obj/structure/lattice,/turf/space,/area/space)
+"dav" = (/obj/structure/lattice,/obj/machinery/atmospherics/binary/pump/on,/turf/space,/area/maintenance/turbine)
 "daw" = (/obj/machinery/atmospherics/binary/pump{on = 1},/obj/machinery/access_button{command = "cycle_exterior"; layer = 3.1; master_tag = "turbine_control"; name = "Gas Turbine Airlock Control"; pixel_x = 5; pixel_y = -23},/obj/machinery/light/small{dir = 8},/obj/structure/sign/fire{pixel_x = -32},/turf/simulated/floor/engine,/area/maintenance/turbine)
 "dax" = (/obj/machinery/atmospherics/binary/pump{dir = 1; on = 1},/obj/machinery/access_button{command = "cycle_interior"; master_tag = "turbine_control"; name = "Gas Turbine Airlock Control"; pixel_x = -8; pixel_y = 24},/obj/machinery/light/small{dir = 4},/obj/structure/sign/fire{pixel_x = 32},/turf/simulated/floor/engine,/area/maintenance/turbine)
 "day" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/engine,/area/maintenance/turbine)
