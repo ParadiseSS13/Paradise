@@ -222,14 +222,14 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in living_mob_list)
+	for(var/mob/M in view(user.client.view, user))
 		if(M && M.mind)
-			if(M.z != user.z || isNonCrewAntag(M))
+			if(M == user)
 				continue
 
 			validtargets += M
 
-	if(!validtargets.len || validtargets.len == 1)
+	if(!validtargets.len)
 		usr << "<span class='warning'>There are no valid targets!</span>"
 		start_recharge()
 		return
