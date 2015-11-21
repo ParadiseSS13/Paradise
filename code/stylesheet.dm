@@ -82,7 +82,7 @@ h1.alert, h2.alert		{color: #000000;}
 .changeling				{color: #800080;}
 .vox					{font-family: "Scratch Kit", sans-serif;}
 .diona					{font-family: "leaf1", sans-serif;}
-.trinary				{color: #727272;}
+.trinary				{font-family: "Pixelogist", sans-serif;}
 .kidan					{font-family: "Robot Killer", sans-serif;}
 .slime					{font-family: "DrippyWatercolor", sans-serif;}
 .clown					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}

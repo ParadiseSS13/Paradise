@@ -32,5 +32,6 @@ var/global/list/loadedfonts = list(
 		'fonts/dinojp.ttf', // unathi accent font
 		'fonts/Robot Killer.ttf', // kidan accent font
 		'fonts/ArabDances.ttf', // tajaran accent font
-		'fonts/Plain Germanica.ttf' // vulpa accent font
+		'fonts/Plain Germanica.ttf', // vulpa accent font
+		'fonts/Pixelogist.ttf' //machine accent font
 		)
