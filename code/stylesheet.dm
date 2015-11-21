@@ -76,7 +76,7 @@ h1.alert, h2.alert		{color: #000000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .tajaran				{color: #803B56;}
 .tajaran_signlang		{color: #941C1C;}
-.skrell					{color: #00CED1;}
+.skrell					{font-family: "SexyRexy", sans-serif;}
 .soghun					{color: #145314;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
@@ -84,7 +84,7 @@ h1.alert, h2.alert		{color: #000000;}
 .diona					{color: #007200;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
-.slime					{color: #0077AA;}
+.slime					{font-family: "DrippyWatercolor", sans-serif;}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
@@ -108,7 +108,5 @@ BIG IMG.icon 			{width: 32px; height: 32px;}
 
 .sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .greyaccent				{font-family: "Crystal Bearers Script", sans-serif;}
-.slimeaccent			{font-family: "DrippyWatercolor", sans-serif;}
-.skrellaccent			{font-family: "SexyRexy", sans-serif;}
 
 </style>"}

@@ -147,7 +147,6 @@
 	path = /mob/living/carbon/human/skrell
 	default_language = "Galactic Common"
 	language = "Skrellian"
-	accent = "skrellaccent"
 	primitive_form = "Neara"
 	unarmed_type = /datum/unarmed_attack/punch
 
@@ -313,7 +312,6 @@
 	name_plural = "Slime People"
 	default_language = "Galactic Common"
 	language = "Bubblish"
-	accent = "slimeaccent"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
