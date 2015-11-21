@@ -80,7 +80,7 @@ h1.alert, h2.alert		{color: #000000;}
 .soghun					{color: #145314;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
-.vox					{color: #AA00AA;}
+.vox					{font-family: "Scratch Kit", sans-serif;}
 .diona					{color: #007200;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
