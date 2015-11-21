@@ -119,7 +119,7 @@
 		return
 	var/data[0]
 	data["menu"] = src.menu
-	data["scanner"] = src.scanner
+	data["scanner"] = sanitize("[src.scanner]")
 
 	var/canpodautoprocess = 0
 	if(pods.len)
@@ -130,7 +130,7 @@
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
 
-			tempods.Add(list(list("pod" = "\ref[pod]", "name" = capitalize(pod.name), "biomass" = pod.biomass)))
+			tempods.Add(list(list("pod" = "\ref[pod]", "name" = sanitize(capitalize(pod.name)), "biomass" = pod.biomass)))
 			data["pods"] = tempods
 
 	data["loading"] = loading
@@ -150,7 +150,7 @@
 	var/list/temprecords[0]
 	for(var/datum/dna2/record/R in records)
 		var tempRealName = R.dna.real_name
-		temprecords.Add(list(list("record" = "\ref[R]", "realname" = tempRealName)))
+		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 
 	if(src.menu == 3)
@@ -162,7 +162,7 @@
 
 			if ((H) && (istype(H)))
 				data["health"] = H.sensehealth()
-			data["realname"] = src.active_record.dna.real_name
+			data["realname"] = sanitize(src.active_record.dna.real_name)
 			data["unidentity"] = src.active_record.dna.uni_identity
 			data["strucenzymes"] = src.active_record.dna.struc_enzymes
 		if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
