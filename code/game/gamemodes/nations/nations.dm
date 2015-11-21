@@ -5,7 +5,7 @@ datum/game_mode/nations
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
-	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist")
+	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist", "Librarian", "Chaplain")
 
 
 /datum/game_mode/nations/post_setup()
