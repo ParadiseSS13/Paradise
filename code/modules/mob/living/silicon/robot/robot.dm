@@ -1435,8 +1435,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/peacekeeper/New()
 	..()
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
-	module = new /obj/item/weapon/robot_module/combat(src)
-	module_sprites["Combat Android"] = "droidpeace"
+	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+	module_sprites["Peacekeeper Android"] = "droidpeace"
 	//languages
 	module.add_languages(src)
 	//subsystems

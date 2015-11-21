@@ -68,12 +68,12 @@
 
 	 //Combat shielding absorbs a percentage of damage directly into the cell.
 	var/obj/item/borg/combat/shield/shield
-	if((module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
+	if(module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
 		shield = module_state_1
 	else if(module_state_2 && istype(module_state_2,/obj/item/borg/combat/shield))
-		shield = module_state 2
-	else if(module_state 3 && istype(module_state_3,/obj/item/borg/combat/shield))
-		shield = module_state 3
+		shield = module_state_2
+	else if(module_state_3 && istype(module_state_3,/obj/item/borg/combat/shield))
+		shield = module_state_3
 	if(shield)
 		//Shields absorb a certain percentage of damage based on their power setting.
 		var/absorb_brute = brute*shield.shield_level
@@ -119,12 +119,12 @@
 
 	 //Combat shielding absorbs a percentage of damage directly into the cell.
 	var/obj/item/borg/combat/shield/shield
-	if((module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
+	if(module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
 		shield = module_state_1
 	else if(module_state_2 && istype(module_state_2,/obj/item/borg/combat/shield))
-		shield = module_state 2
-	else if(module_state 3 && istype(module_state_3,/obj/item/borg/combat/shield))
-		shield = module_state 3
+		shield = module_state_2
+	else if(module_state_3 && istype(module_state_3,/obj/item/borg/combat/shield))
+		shield = module_state_3
 	if(shield)
 		//Shields absorb a certain percentage of damage based on their power setting.
 		var/absorb_brute = brute*shield.shield_level
