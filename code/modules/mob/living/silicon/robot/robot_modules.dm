@@ -418,13 +418,12 @@
 	src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
-	src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
 
 /obj/item/weapon/robot_module/peacekeeper
-	name = "peacekeepert robot module"
+	name = "peacekeeper robot module"
 
 /obj/item/weapon/robot_module/peacekeeper/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
@@ -433,7 +432,6 @@
 	src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
-	src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
