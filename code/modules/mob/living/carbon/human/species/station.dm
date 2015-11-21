@@ -147,6 +147,7 @@
 	path = /mob/living/carbon/human/skrell
 	default_language = "Galactic Common"
 	language = "Skrellian"
+	accent = "skrellaccent"
 	primitive_form = "Neara"
 	unarmed_type = /datum/unarmed_attack/punch
 
@@ -312,6 +313,7 @@
 	name_plural = "Slime People"
 	default_language = "Galactic Common"
 	language = "Bubblish"
+	accent = "slimeaccent"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
@@ -335,6 +337,7 @@
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
+	accent = "greyaccent"
 	//language = "Grey" // Perhaps if they ever get a hivemind
 	unarmed_type = /datum/unarmed_attack/punch
 	darksight = 5 // BOOSTED from 2
@@ -360,7 +363,6 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	C.mutations.Add(GREY)
 	C.update_mutations()
 	..()
 

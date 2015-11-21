@@ -27,7 +27,6 @@
 
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
-#define GREY			10	//Wingdings for Greys -- Not activatable or researchable
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)

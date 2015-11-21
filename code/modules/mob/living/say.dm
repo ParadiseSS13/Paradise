@@ -85,11 +85,13 @@ proc/get_radio_key_from_channel(var/channel)
 		verb = "stammers"
 		speech_problem_flag = 1
 
-	if(GREY in mutations)
-		message = "<span class='grey'>[message]</span>"
-
-	else if(COMIC in mutations)
+	if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
+
+	else if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.species.accent)
+			message = "<span class='[H.species.accent]'>[message]</span>"
 
 
 	returns[1] = message

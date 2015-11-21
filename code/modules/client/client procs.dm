@@ -412,7 +412,10 @@
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
-		'html/panels.css' // Used for styling certain panels, such as in the new player panel
+		'html/panels.css', // Used for styling certain panels, such as in the new player panel
+		'fonts/crystal_bearers.ttf', // grey accent font
+		'fonts/DrippyWatercolor.ttf', //slime accent font
+		'fonts/SexyRexy.ttf' // skrell accent font
 	)
 
 	// Send NanoUI resources to this client
