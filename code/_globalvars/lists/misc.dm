@@ -28,6 +28,9 @@ var/global/list/loadedfonts = list(
 		'fonts/DrippyWatercolor.ttf', //slime accent font
 		'fonts/SexyRexy.ttf', // skrell accent font
 		'fonts/Scratch Kit.ttf', // vox accent font
-		'font/leaf1.ttf', // diona accent font
-		'font/dinojp.ttf' // unathi accent font
+		'fonts/leaf1.ttf', // diona accent font
+		'fonts/dinojp.ttf', // unathi accent font
+		'fonts/Robot Killer.ttf', // kidan accent font
+		'fonts/ArabDances.ttf', // tajaran accent font
+		'fonts/Plain Germanica.ttf' // vulpa accent font
 		)

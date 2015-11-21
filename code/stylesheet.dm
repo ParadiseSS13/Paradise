@@ -74,7 +74,7 @@ h1.alert, h2.alert		{color: #000000;}
 .alien					{color: #543354;}
 .noticealien			{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
-.tajaran				{color: #803B56;}
+.tajaran				{font-family: "ArabDances", sans-serif;}
 .tajaran_signlang		{color: #941C1C;}
 .skrell					{font-family: "SexyRexy", sans-serif;}
 .soghun					{font-family: "Dinosaur Junior", sans-serif;}
@@ -83,11 +83,11 @@ h1.alert, h2.alert		{color: #000000;}
 .vox					{font-family: "Scratch Kit", sans-serif;}
 .diona					{font-family: "leaf1", sans-serif;}
 .trinary				{color: #727272;}
-.kidan					{color: #664205;}
+.kidan					{font-family: "Robot Killer", sans-serif;}
 .slime					{font-family: "DrippyWatercolor", sans-serif;}
 .clown					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .shadowling				{color: #3b2769;}
-.vulpkanin				{color: #B97A57;}
+.vulpkanin				{font-family: "PlainGermanica", sans-serif;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .cultspeech				{color: #7F0000; font-style: italic;}
