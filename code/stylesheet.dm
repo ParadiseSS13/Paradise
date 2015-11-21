@@ -81,7 +81,7 @@ h1.alert, h2.alert		{color: #000000;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
 .vox					{font-family: "Scratch Kit", sans-serif;}
-.diona					{color: #007200;}
+.diona					{font-family: "leaf1", sans-serif;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{font-family: "DrippyWatercolor", sans-serif;}
