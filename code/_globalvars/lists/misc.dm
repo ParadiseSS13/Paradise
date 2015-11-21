@@ -28,5 +28,6 @@ var/global/list/loadedfonts = list(
 		'fonts/DrippyWatercolor.ttf', //slime accent font
 		'fonts/SexyRexy.ttf', // skrell accent font
 		'fonts/Scratch Kit.ttf', // vox accent font
-		'font/leaf1.ttf' // diona accent font
+		'font/leaf1.ttf', // diona accent font
+		'font/dinojp.ttf' // unathi accent font
 		)

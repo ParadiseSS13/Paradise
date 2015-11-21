@@ -77,7 +77,7 @@ h1.alert, h2.alert		{color: #000000;}
 .tajaran				{color: #803B56;}
 .tajaran_signlang		{color: #941C1C;}
 .skrell					{font-family: "SexyRexy", sans-serif;}
-.soghun					{color: #145314;}
+.soghun					{font-family: "Dinosaur Junior", sans-serif;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
 .vox					{font-family: "Scratch Kit", sans-serif;}
@@ -85,7 +85,7 @@ h1.alert, h2.alert		{color: #000000;}
 .trinary				{color: #727272;}
 .kidan					{color: #664205;}
 .slime					{font-family: "DrippyWatercolor", sans-serif;}
-.clown					{color: #ff0000;}
+.clown					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
