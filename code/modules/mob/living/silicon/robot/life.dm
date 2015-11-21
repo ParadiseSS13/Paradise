@@ -326,8 +326,3 @@
 		IgniteMob()
 
 //Robots on fire
-
-/mob/living/silicon/robot/proc/process_nations()
-	var/client/C = client
-	for(var/mob/living/carbon/human/H in view(world.view, src))
-		C.images += H.hud_list[NATIONS_HUD]
