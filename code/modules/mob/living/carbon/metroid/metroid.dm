@@ -814,6 +814,53 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	icon_state = "bottle17"
 
 
+/obj/item/weapon/slimespeed
+	name = "slime speed potion"
+	desc = "A potent chemical mix that will remove the slowdown from any item."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle3"
+
+/obj/item/weapon/slimespeed/afterattack(obj/item/C, mob/user)
+	..()
+	if(!istype(C))
+		user << "<span class='warning'>The potion can only be used on items!</span>"
+		return
+	if(C.slowdown <= 0)
+		user << "<span class='warning'>The [C] can't be made any faster!</span>"
+		return..()
+	user <<"<span class='notice'>You slather the red gunk over the [C], making it faster.</span>"
+	C.color = "#FF0000"
+	C.slowdown = 0
+	qdel(src)
+
+/obj/item/weapon/slimefireproof
+	name = "slime chill potion"
+	desc = "A potent chemical mix that will fireproof any article of clothing. Has three uses."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle17"
+	var/uses = 3
+
+/obj/item/weapon/slimefireproof/afterattack(obj/item/clothing/C, mob/user)
+	..()
+	if(!uses)
+		qdel(src)
+		return
+	if(!istype(C))
+		user << "<span class='warning'>The potion can only be used on clothing!</span>"
+		return
+	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+		user << "<span class='warning'>The [C] is already fireproof!</span>"
+		return..()
+	user <<"<span class='notice'>You slather the blue gunk over the [C], fireproofing it.</span>"
+	C.name = "fireproofed [C.name]"
+	C.color = "#000080"
+	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	C.heat_protection = C.body_parts_covered
+	uses --
+	if(!uses)
+		qdel(src)
+
+
 /obj/effect/goleRUNe
 	anchored = 1
 	desc = "a strange rune used to create golems. It glows when spirits are nearby."
