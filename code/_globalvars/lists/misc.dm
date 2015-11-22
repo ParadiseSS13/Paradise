@@ -26,12 +26,12 @@ var/list/restricted_camera_networks = list( //Those networks can only be accesse
 var/global/list/loadedfonts = list(
 		'fonts/crystal_bearers.ttf', // grey accent font
 		'fonts/DrippyWatercolor.ttf', //slime accent font
-		'fonts/SexyRexy.ttf', // skrell accent font
+		'fonts/Because I am Happy Regular.ttf', // skrell accent font
 		'fonts/Scratch Kit.ttf', // vox accent font
 		'fonts/leaf1.ttf', // diona accent font
 		'fonts/dinojp.ttf', // unathi accent font
 		'fonts/Robot Killer.ttf', // kidan accent font
 		'fonts/ArabDances.ttf', // tajaran accent font
-		'fonts/Plain Germanica.ttf', // vulpa accent font
+		'fonts/diagoth.ttf', // vulpa accent font
 		'fonts/Pixelogist.ttf' //machine accent font
 		)

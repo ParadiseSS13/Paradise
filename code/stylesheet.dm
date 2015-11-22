@@ -76,8 +76,8 @@ h1.alert, h2.alert		{color: #000000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .tajaran				{font-family: "ArabDances", sans-serif;}
 .tajaran_signlang		{color: #941C1C;}
-.skrell					{font-family: "SexyRexy", sans-serif;}
-.soghun					{font-family: "Dinosaur Junior", sans-serif;}
+.skrell					{font-family: "Because I am Happy", sans-serif;}
+.soghun					{font-family: "Dinosaur Jr", sans-serif;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
 .vox					{font-family: "Scratch Kit", sans-serif;}
@@ -87,7 +87,7 @@ h1.alert, h2.alert		{color: #000000;}
 .slime					{font-family: "DrippyWatercolor", sans-serif;}
 .clown					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .shadowling				{color: #3b2769;}
-.vulpkanin				{font-family: "PlainGermanica", sans-serif;}
+.vulpkanin				{font-family: "Diamond Gothic", sans-serif;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .cultspeech				{color: #7F0000; font-style: italic;}
