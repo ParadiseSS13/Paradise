@@ -74,24 +74,22 @@ h1.alert, h2.alert		{color: #000000;}
 .alien					{color: #543354;}
 .noticealien			{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
-.tajaran				{color: #803B56;}
+.tajaran				{font-family: "ArabDances", sans-serif;}
 .tajaran_signlang		{color: #941C1C;}
-.skrell					{color: #00CED1;}
-.soghun					{color: #145314;}
+.skrell					{font-family: "Because I am Happy", sans-serif;}
+.soghun					{font-family: "Dinosaur Jr", sans-serif;}
 .solcom					{color: #22228B;}
 .changeling				{color: #800080;}
-.vox					{color: #AA00AA;}
-.diona					{color: #007200;}
-.trinary				{color: #727272;}
-.kidan					{color: #664205;}
-.slime					{color: #0077AA;}
-.clown					{color: #ff0000;}
+.vox					{font-family: "Scratch Kit", sans-serif;}
+.diona					{font-family: "leaf1", sans-serif;}
+.trinary				{font-family: "Pixelogist", sans-serif;}
+.kidan					{font-family: "Robot Killer", sans-serif;}
+.slime					{font-family: "DrippyWatercolor", sans-serif;}
+.clown					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .shadowling				{color: #3b2769;}
-.vulpkanin				{color: #B97A57;}
+.vulpkanin				{font-family: "Diamond Gothic", sans-serif;}
 .rough					{color: #7092BE; font-family: "Trebuchet MS", cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
-.sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
-.grey					{font-family: "Wingdings", cursive, sans-serif;}
 .cultspeech				{color: #7F0000; font-style: italic;}
 
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
@@ -107,5 +105,8 @@ h1.alert, h2.alert		{color: #000000;}
 .memoedit				{text-align: center;	font-size: 2;}
 
 BIG IMG.icon 			{width: 32px; height: 32px;}
+
+.sans					{font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.greyaccent				{font-family: "Crystal Bearers Script", sans-serif;}
 
 </style>"}
