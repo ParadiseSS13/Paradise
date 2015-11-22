@@ -418,6 +418,7 @@
 	src.modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
+	src.modules += new /obj/item/weapon/wrench(src)
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()
@@ -432,6 +433,7 @@
 	src.modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
+	src.modules += new /obj/item/weapon/wrench(src)
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()

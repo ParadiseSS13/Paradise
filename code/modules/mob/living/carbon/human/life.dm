@@ -1492,6 +1492,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudcargonia"
 				if("People's Republic of Commandzakstan")
 					holder.icon_state = "hudcommand"
+				if("Servicion")
+					holder.icon_state = "hudservice"
 				if("Medistan")
 					holder.icon_state = "hudmedistan"
 				if("Scientopia")
