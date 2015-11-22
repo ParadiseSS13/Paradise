@@ -9,20 +9,25 @@
 	var/temp = null
 
 	light_color = LIGHT_COLOR_PURPLE
-	
+
 	var/safety = 1
 
 /obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/computer/robotics/attack_hand(var/mob/user as mob)
-	if(..()) 
+	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN)) 
+	if(stat & (NOPOWER|BROKEN))
 		return
-		
-	ui_interact(user)
-	
+	var/datum/game_mode/nations/mode = get_nations_mode()
+	if(!mode)
+		ui_interact(user)
+	else
+		if(mode.kickoff)
+			user << "<span class='warning'>You have been locked out from this console!</span>"
+
+
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
 	if(isobserver(user) && check_rights(R_ADMIN, 0, user))
 		return 1
@@ -51,7 +56,7 @@
 /obj/machinery/computer/robotics/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	var/mob/user = usr
 	if(!is_authenticated(user))
 		user << "<span class='warning'>Access denied.</span>"
@@ -127,7 +132,7 @@
 		if(!istype(user, /mob/living/silicon/ai) || !(user.mind.special_role && user.mind.original == user))
 			user << "<span class='warning'>Access Denied.</span>"
 			return
-			
+
 		if(target.connected_ai != user)
 			user << "<span class='warning'>Access Denied. This robot is not linked to you.</span>"
 			return
@@ -167,8 +172,8 @@
 			return
 
 		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
-		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")			
-		
+		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
+
 		for(var/mob/living/silicon/robot/R in mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
@@ -179,7 +184,7 @@
 			if(R.connected_ai)
 				R.connected_ai << "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>"
 			spawn(10)
-				R.self_destruct()	
+				R.self_destruct()
 
 // Proc: get_cyborgs()
 // Parameters: 1 (operator - mob which is operating the console.)
