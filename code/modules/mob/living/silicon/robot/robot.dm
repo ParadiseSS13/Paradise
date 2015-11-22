@@ -220,6 +220,8 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
+	if(get_nations_mode())
+		modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
@@ -296,6 +298,11 @@ var/list/robot_verbs_default = list(
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Combat Android"] = "droidcombat"
+
+		if("Peacekeeper")
+			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			module.channels = list()
+			module_sprites["Peacekeeper Android"] = "droidpeace"
 
 		if("Hunter")
 			updatename(module)
@@ -1001,16 +1008,16 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "ov-openpanel -c"
 
-	if(activated(/obj/item/borg/combat/shield))
-		overlays += "[icon_state]-shield"
-
-	if(modtype == "Combat")
+	if(modtype == ("Combat" || "Peacekeeper"))
 		if (base_icon == "")
 			base_icon = icon_state
 		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
+
+	if(activated(/obj/item/borg/combat/shield))
+		overlays += "[icon_state]-shield"
 
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
@@ -1413,10 +1420,11 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/combat/New()
 	..()
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	module = new /obj/item/weapon/robot_module/combat(src)
 	module.channels = list("Security" = 1)
-	module_sprites["Combat Android"] = "droidcombat"
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Combat"
 	//languages
 	module.add_languages(src)
 	//subsystems
@@ -1427,16 +1435,16 @@ var/list/robot_verbs_default = list(
 
 	status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
 	radio.config(module.channels)
 	notify_ai(2)
 
 
 /mob/living/silicon/robot/peacekeeper/New()
 	..()
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	module = new /obj/item/weapon/robot_module/peacekeeper(src)
-	module_sprites["Peacekeeper Android"] = "droidpeace"
+	base_icon = "droidpeace"
+	icon_state = "droidpeace"
+	modtype = "Peacekeeper"
 	//languages
 	module.add_languages(src)
 	//subsystems
@@ -1447,5 +1455,4 @@ var/list/robot_verbs_default = list(
 
 	status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
 	notify_ai(2)
