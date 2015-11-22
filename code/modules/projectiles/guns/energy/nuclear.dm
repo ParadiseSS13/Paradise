@@ -52,8 +52,6 @@
 			return 1
 	return 0
 
-/obj/item/weapon/gun/energy/laser/cyborg/emp_act()
-	return
 
 /obj/item/weapon/gun/energy/gun/mounted
 	name = "mounted energy gun"
