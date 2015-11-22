@@ -233,7 +233,7 @@
 		return
 
 	if(pai)
-		if(!in_range(src, U) || pai.canmove || pai.resting)
+		if(!in_range(src, U))
 			U << browse(null, "window=paicard")
 			usr.unset_machine()
 			return

@@ -360,6 +360,7 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+	C.mutations.Add(GREY)
 	C.update_mutations()
 	..()
 

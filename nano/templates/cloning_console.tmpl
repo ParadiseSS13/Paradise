@@ -65,17 +65,21 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 	{{if data.numberofpods}}
 		<h2>Pods</h2>
 		{{for data.pods}}
-			<div class="item">
-				<b>{{:value.name}}</b>
+			<b>{{:value.name}}</b></br>
+			<div class="item">				
 				<div class="itemLabelNarrow">Biomass</div>
 				<div class="itemContentWide{{if value.biomass > 0}} good{{else}} bad{{/if}}">
 					{{:value.biomass}}
 				</div>
+			</div>
+
+			<div class="item">
 				<div class="itemLabelNarrow">Select</div>
 				<div class="itemContentWide">
 					{{:helper.link('Select', 'check', {'selectpod' : value.pod}, value.pod == data.selected_pod ? 'selected' : '')}}
 				</div>
 			</div>
+
 		{{/for}}
 	{{/if}}
 {{/if}}
@@ -108,7 +112,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 		<div class="item">
 			<b>UI:</b> {{:data.unidentity}}<br />
-			<b>SE:</b> {{:data.strucenzymes}}
+			<b>SE:</b> <div style="word-wrap: break-word;">{{:data.strucenzymes}}</div>
 		</div>
 		{{if data.disk}}
 			<div class="item">

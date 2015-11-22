@@ -431,8 +431,6 @@
 			"water",
 			"potassium",
 			"plasticide",
-			"mutationtoxin",
-			"amutationtoxin",
 			"epinephrine",
 			"space_drugs",
 			"salglu_solution",
