@@ -35,6 +35,8 @@
 	var/essence_min = 1 //The minimum amount of essence a revenant can have; by default, it never drops below one
 	var/essence_accumulated = 0 //How much essence the revenant has stolen
 	var/revealed = 0 //If the revenant can take damage from normal sources.
+	var/unreveal_time = 0 //How long the revenant is revealed for, is about 2 seconds times this var.
+	var/unstun_time = 0 //How long the revenant is stunned for, is about 2 seconds times this var.
 	var/inhibited = 0 //If the revenant's abilities are blocked by a chaplain's power.
 	var/essence_drained = 0 //How much essence the revenant has drained.
 	var/draining = 0 //If the revenant is draining someone.
@@ -49,8 +51,18 @@
 		if(essence > essence_regen_cap)
 			essence = essence_regen_cap
 	maxHealth = essence * 3
+	if(unreveal_time && world.time >= unreveal_time)
+		unreveal_time = 0
+		revealed = 0
+		invisibility = INVISIBILITY_OBSERVER
+		src << "<span class='revenboldnotice'>You are once more concealed.</span>"
+	if(unstun_time && world.time >= unstun_time)
+		unstun_time = 0
+		notransform = 0
+		src << "<span class='revenboldnotice'>You can move again!</span>"
 	if(!revealed)
 		health = maxHealth //Heals to full when not revealed
+	update_spooky_icon()
 
 /mob/living/simple_animal/revenant/ex_act(severity)
 	return 1 //Immune to the effects of explosions.
@@ -263,11 +275,12 @@
 		return
 	revealed = 1
 	invisibility = 0
-	src << "<span class='warning'>You have been revealed.</span>"
-	spawn(time)
-		revealed = 0
-		invisibility = INVISIBILITY_OBSERVER
-		src << "<span class='notice'>You are once more concealed.</span>"
+	if(!unreveal_time)
+		src << "<span class='revennotice'>You have been revealed!</span>"
+		unreveal_time = world.time + time
+	else
+		src << "<span class='revenboldnotice'>You have been revealed!</span>"
+		unreveal_time = unreveal_time + time
 
 /mob/living/simple_animal/revenant/proc/stun(time)
 	if(!src)
@@ -275,10 +288,25 @@
 	if(time <= 0)
 		return
 	notransform = 1
-	src << "<span class='warning'>You cannot move!</span>"
-	spawn(time)
-		notransform = 0
-		src << "<span class='notice'>You can move again!</span>"
+	if(!unstun_time)
+		src << "<span class='revennotice'>You cannot move!</span>"
+		unstun_time = world.time + time
+	else
+		src << "<span class='revenboldnotice'>You cannot move!</span>"
+		unstun_time = unstun_time + time
+	update_spooky_icon()
+
+/mob/living/simple_animal/revenant/proc/update_spooky_icon()
+	if(unreveal_time)
+		if(draining)
+			icon_state = "revenant_draining"
+			return
+		if(unstun_time)
+			icon_state = "revenant_stun"
+			return
+		icon_state = "revenant_revealed"
+		return
+	icon_state = "revenant_idle"
 
 /datum/objective/revenant
 	var/targetAmount = 100
