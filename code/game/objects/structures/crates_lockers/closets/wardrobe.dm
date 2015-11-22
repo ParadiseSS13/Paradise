@@ -373,6 +373,10 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
+	new /obj/item/weapon/storage/backpack/satchel_chem(src)
+	new /obj/item/weapon/storage/backpack/satchel_chem(src)
+	new /obj/item/weapon/storage/bag/chemistry(src)
+	new /obj/item/weapon/storage/bag/chemistry(src)
 	return
 
 

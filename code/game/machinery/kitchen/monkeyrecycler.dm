@@ -80,7 +80,7 @@
 		playsound(src.loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
-			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped(src.loc)
+			new /obj/item/weapon/reagent_containers/food/snacks/monkeycube(src.loc)
 		user << "<span class='notice'>The machine's display flashes that it has [grinded] monkey\s worth of material left.</span>"
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
 		user << "<span class='warning'>The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded].</span>"

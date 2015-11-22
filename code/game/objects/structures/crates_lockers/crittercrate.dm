@@ -57,6 +57,10 @@
 	name = "goat crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
 
+/obj/structure/closet/critter/turkey
+	name = "turkey crate"
+	content_mob = /mob/living/simple_animal/turkey
+
 /obj/structure/closet/critter/chick
 	name = "chicken crate"
 	content_mob = /mob/living/simple_animal/chick

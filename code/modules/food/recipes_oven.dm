@@ -393,3 +393,13 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/flatbread
 
+/datum/recipe/oven/turkey  // Magic
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/stuffing,
+		/obj/item/weapon/reagent_containers/food/snacks/stuffing
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/turkey
