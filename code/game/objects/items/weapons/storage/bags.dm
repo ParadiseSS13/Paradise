@@ -165,23 +165,44 @@
 	w_class = 1
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/grown","/obj/item/seeds","/obj/item/weapon/grown", "/obj/item/stack/tile/grass")
 
-/*
+
 /obj/item/weapon/storage/bag/plants/portaseeder
-	name = "Portable Seed Extractor"
+	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
-	origin_tech = "materials=2;biotech=2"
 
-	verb/dissolve_contents()
-		set name = "Activate Seed Extraction"
-		set category = "Object"
-		set desc = "Activate to convert your plants into plantable seeds."
-		for(var/obj/item/O in contents)
-			seedify(O, 1)
-		for(var/mob/M in range(1))
-			if (M.s_active == src)
-				src.close(M)
-*/
+/obj/item/weapon/storage/bag/plants/portaseeder/verb/dissolve_contents()
+	set name = "Activate Seed Extraction"
+	set category = "Object"
+	set desc = "Activate to convert your plants into plantable seeds."
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+	for(var/obj/item/O in contents)
+		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown) || istype(O, /obj/item/weapon/grown))
+
+			var/datum/seed/new_seed_type
+			if(istype(O, /obj/item/weapon/grown))
+				var/obj/item/weapon/grown/F = O
+				new_seed_type = plant_controller.seeds[F.plantname]
+			else
+				var/obj/item/weapon/reagent_containers/food/snacks/grown/F = O
+				new_seed_type = plant_controller.seeds[F.plantname]
+
+			if(new_seed_type)
+				var/obj/item/seeds/seeds = new(O.loc, O)
+				seeds.seed_type = new_seed_type.name
+				seeds.update_seed()
+			qdel(O)
+
+		if(istype(O, /obj/item/stack/tile/grass))
+			var/obj/item/stack/tile/grass/S = O
+			S.use(1)
+			new /obj/item/seeds/grassseed(O.loc, O)
+
+	for(var/mob/M in range(1))
+		if (M.s_active == src)
+			src.close(M)
+
 
 // -----------------------------
 //        Sheet Snatcher
