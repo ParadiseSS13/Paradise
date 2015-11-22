@@ -85,6 +85,7 @@
 				M.dna.SetSEValue(block,src.GetValue())
 			domutcheck(M, null, block!=null)
 			uses--
+			M.update_icons()
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		if (user)
