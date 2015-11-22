@@ -154,6 +154,9 @@
 		if (MED_HUD)
 			process_med_hud(src, 1, eyeobj)
 
+	if(ticker && ticker.mode.name == "nations")
+		process_nations()
+
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
 		health = 100

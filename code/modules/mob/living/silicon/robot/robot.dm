@@ -1001,7 +1001,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "ov-openpanel -c"
 
-	if(module_active && istype(module_active,/obj/item/borg/combat/shield))
+	if(activated(/obj/item/borg/combat/shield))
 		overlays += "[icon_state]-shield"
 
 	if(modtype == "Combat")
@@ -1409,3 +1409,43 @@ var/list/robot_verbs_default = list(
 		connected_ai.connected_robots |= src
 		notify_ai(1)
 		sync()
+
+
+/mob/living/silicon/robot/combat/New()
+	..()
+	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
+	module = new /obj/item/weapon/robot_module/combat(src)
+	module.channels = list("Security" = 1)
+	module_sprites["Combat Android"] = "droidcombat"
+	//languages
+	module.add_languages(src)
+	//subsystems
+	module.add_subsystems(src)
+
+	hands.icon_state = lowertext("Combat")
+	updatename()
+
+	status_flags &= ~CANPUSH
+
+	choose_icon(6,module_sprites)
+	radio.config(module.channels)
+	notify_ai(2)
+
+
+/mob/living/silicon/robot/peacekeeper/New()
+	..()
+	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
+	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+	module_sprites["Peacekeeper Android"] = "droidpeace"
+	//languages
+	module.add_languages(src)
+	//subsystems
+	module.add_subsystems(src)
+
+	hands.icon_state = lowertext("Combat")
+	updatename()
+
+	status_flags &= ~CANPUSH
+
+	choose_icon(6,module_sprites)
+	notify_ai(2)
