@@ -14,7 +14,7 @@ datum/game_mode/nations
 		send_intercept()
 		split_teams()
 		set_ai()
-		remove_access()
+//		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
@@ -126,7 +126,7 @@ datum/game_mode/nations
 
 /datum/game_mode/nations/proc/remove_access()
 	for(var/obj/machinery/door/airlock/W in machines)
-		if((W.z in config.station_levels)
+		if(W.z in config.station_levels)
 			W.req_access = list()
 
 /**
