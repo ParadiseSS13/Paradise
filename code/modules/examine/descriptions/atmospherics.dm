@@ -81,11 +81,11 @@
 	description_info = "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 
 //T-shaped valves
-/obj/machinery/atmospherics/tvalve
+/obj/machinery/atmospherics/trinary/tvalve
 	description_info = "Click this to toggle the mode.  The direction with the green light is where the gas will flow."
 
 //Normal valves
-/obj/machinery/atmospherics/valve
+/obj/machinery/atmospherics/binary/valve
 	description_info = "Click this to turn the valve.  If red, the pipes on each end are seperated.  Otherwise, they are connected."
 
 //TEG ports
@@ -106,13 +106,13 @@
 	description_info = "This pumps the contents of the attached pipe out into the atmosphere, if needed.  It can be controlled from an Air Alarm."
 
 //Freezers
-/obj/machinery/atmospherics/unary/freezer
+/obj/machinery/atmospherics/unary/cold_sink/freezer
 	description_info = "Cools down the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
 	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
 	screwdriver, and then using a crowbar."
 
 //Heaters
-/obj/machinery/atmospherics/unary/heater
+/obj/machinery/atmospherics/unary/heat_reservoir/heater
 	description_info = "Heats up the gas of the pipe it is connected to.  It uses massive amounts of electricity while on. \
 	It can be upgraded by replacing the capacitors, manipulators, and matter bins.  It can be deconstructed by screwing the maintenance panel open with a \
 	screwdriver, and then using a crowbar."
@@ -145,13 +145,13 @@
 	description_antag = "Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open."
 
 //Portable pumps
-/obj/machinery/portable_atmospherics/powered/pump
+/obj/machinery/portable_atmospherics/pump
 	description_info = "Invaluable for filling air in a room rapidly after a breach repair.  The internal gas container can be filled by \
 	connecting it to a connector port.  The pump can pump the air in (sucking) or out (blowing), at a specific target pressure.  The powercell inside can be \
 	replaced by using a screwdriver, and then adding a new cell.  A tank of gas can also be attached to the air pump."
 
 //Portable scrubbers
-/obj/machinery/portable_atmospherics/powered/scrubber
+/obj/machinery/portable_atmospherics/scrubber
 	description_info = "Filters the air, placing harmful gases into the internal gas container.  The container can be emptied by \
 	connecting it to a connector port.  The pump can pump the air in (sucking) or out (blowing), at a specific target pressure.  The powercell inside can be \
 	replaced by using a screwdriver, and then adding a new cell.  A tank of gas can also be attached to the scrubber. "
