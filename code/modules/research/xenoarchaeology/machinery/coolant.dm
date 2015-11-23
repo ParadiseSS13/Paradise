@@ -37,7 +37,7 @@ datum/chemical_reaction/coolant
 	explode()
 
 /obj/structure/reagent_dispensers/coolanttank/proc/explode()
-	var/datum/effect/effect/system/harmless_smoke_spread/S = new /datum/effect/effect/system/harmless_smoke_spread
+	var/datum/effect/system/harmless_smoke_spread/S = new /datum/effect/system/harmless_smoke_spread
 	//S.attach(src)
 	S.set_up(5, 0, src.loc)
 

@@ -189,11 +189,11 @@
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
-	new/obj/effects/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
+	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
 
 	return
 
-/obj/effects/self_deleting
+/obj/effect/self_deleting
 	density = 0
 	opacity = 0
 	anchored = 1
@@ -262,7 +262,7 @@
 	var/list/own_blacklist = list(
 		/obj/item/organ,
 		/obj/item/weapon/implant
-	) 
+	)
 
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
@@ -276,8 +276,8 @@
 				continue
 			affecting.heal_damage(4, 0)
 		H.UpdateDamageIcon()
-		H.updatehealth()		
-		
+		H.updatehealth()
+
 /obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()

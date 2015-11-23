@@ -3,7 +3,7 @@ obj/item/weapon/firework
 	icon = 'icons/obj/fireworks.dmi'
 	icon_state = "rocket_0"
 	var/litzor = 0
-	var/datum/effects/system/sparkel_spread/S
+	var/datum/effect/system/sparkle_spread/S
 obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
 	if(litzor)
 		return
@@ -25,7 +25,7 @@ obj/item/weapon/sparkler
 	icon = 'icons/obj/fireworks.dmi'
 	icon_state = "sparkler_0"
 	var/litzor = 0
-	var/datum/effect/effect/system/spark_spread/S
+	var/datum/effect/system/spark_spread/S
 obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
 	if(litzor)
 		return
