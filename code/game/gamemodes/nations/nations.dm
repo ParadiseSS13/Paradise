@@ -117,9 +117,11 @@ datum/game_mode/nations
 		AI.add_inherent_law("Remain available to mediate all conflicts between the various nations when asked to.")
 		AI.show_laws()
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
+			var/obj/item/device/mmi/oldmmi = R.mmi
 			R.change_mob_type(/mob/living/silicon/robot/peacekeeper, null, null, 1, 1 )
 			R.lawsync()
 			R.show_laws()
+			qdel(oldmmi)
 
 /**
  * LateSpawn hook.
@@ -201,6 +203,10 @@ datum/game_mode/nations
 
 		if(H.mind.assigned_role in civilian_positions)
 			H << "You do not belong to any nation and are free to sell your services to the highest bidder."
+			return 1
+
+		if(H.mind.assigned_role == "AI")
+			mode.set_ai()
 			return 1
 
 		else

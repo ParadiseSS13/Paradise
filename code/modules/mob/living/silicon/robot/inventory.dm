@@ -13,11 +13,11 @@
 	if(!O)
 		return 0
 
-	O.mouse_opacity = 2	
+	O.mouse_opacity = 2
 	if(istype(O,/obj/item/borg/sight))
 		var/obj/item/borg/sight/S = O
 		sight_mode &= ~S.sight_mode
-		
+
 	if(client)
 		client.screen -= O
 	contents -= O
@@ -71,6 +71,7 @@
 			sight_mode |= module_state_3:sight_mode
 	else
 		src << "You need to disable a module first!"
+	src.update_icons()
 
 /mob/living/silicon/robot/proc/uneq_active()
 	uneq_module(module_active)
