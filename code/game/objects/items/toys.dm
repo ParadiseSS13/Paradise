@@ -1457,6 +1457,7 @@ obj/item/toy/cards/deck/syndicate/black
 	var/toysay = "What the fuck did you do?"
 
 /obj/item/toy/figure/New()
+	..()
 	desc = "A \"Space Life\" brand [name]"
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
