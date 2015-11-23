@@ -417,54 +417,37 @@
 
 	chems = list()
 	if(prob(80))
-		chems["nutriment"] = list(rand(1,10),rand(10,20))
+		var/nutrient_type = rand(1,7)
+		switch(nutrient_type)
+			if(1)
+				chems["plantmatter"] = list(rand(1,10),rand(10,20))
+			if(2)
+				chems["nutriment"] = list(rand(1,10),rand(10,20))
+			if(3)
+				chems["protein"] = list(rand(1,10),rand(10,20))
+			if(4)
+				chems["plantmatter"] = list(rand(1,5),rand(10,20))
+				chems["nutriment"] = list(rand(1,5),rand(10,20))
+			if(5)
+				chems["plantmatter"] = list(rand(1,5),rand(10,20))
+				chems["protein"] = list(rand(1,5),rand(10,20))
+			if(6)
+				chems["protein"] = list(rand(1,5),rand(10,20))
+				chems["nutriment"] = list(rand(1,5),rand(10,20))
+			if(7)
+				chems["plantmatter"] = list(rand(1,3),rand(10,20))
+				chems["nutriment"] = list(rand(1,4),rand(10,20))
+				chems["protein"] = list(rand(1,3),rand(10,20))
 
 	var/additional_chems = rand(0,5)
 
 	if(additional_chems)
-		var/list/possible_chems = list(
-			"woodpulp",
-			"styptic_powder",
-			"methamphetamine",
-			"cryoxadone",
-			"blood",
-			"water",
-			"potassium",
-			"plasticide",
-			"epinephrine",
-			"space_drugs",
-			"salglu_solution",
-			"mercury",
-			"sugar",
-			"radium",
-			"mutadone",
-			"mannitol",
-			"thermite",
-			"sal_acid",
-			"atropine",
-			"omnizine",
-			"salbutamol",
-			"plasma",
-			"synaptizine",
-			"haloperidol",
-			"potass_iodide",
-			"mitocholide",
-			"toxin",
-			"rezadone",
-			"antihol",
-			"slimejelly",
-			"cyanide",
-			"lsd",
-			"morphine",
-			"ether"
-			)
-
 		for(var/x=1;x<=additional_chems;x++)
-			if(!possible_chems.len)
-				break
-			var/new_chem = pick(possible_chems)
-			possible_chems -= new_chem
-			chems[new_chem] = list(rand(1,10),rand(10,20))
+			var/new_chem = get_random_chemical(1)
+			if(chems.Find(new_chem))
+				chems[new_chem] = list(rand(2,20),rand(5,15)) //DOUBLE UP
+			else
+				chems[new_chem] = list(rand(1,10),rand(10,20))
 
 	if(prob(90))
 		set_trait(TRAIT_REQUIRES_NUTRIENTS,1)

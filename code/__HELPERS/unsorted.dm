@@ -1594,6 +1594,15 @@ atom/proc/GetTypeInAllContents(typepath)
 			colour += temp_col
 	return colour
 
+/proc/get_random_chemical(var/is_plant = 0)
+	var/list/blocked = blocked_chems		//blocked_chems list is found in code/_globalvars/lists/reagents.dm
+	if(is_plant)
+		blocked.Add(plant_blocked_chems)	//plant_blocked_chems list is found in code/_globalvars/lists/reagents.dm
+	var/picked_chem = pick(chemical_reagents_list)
+	if(blocked.Find(picked_chem))
+		return get_random_chemical(is_plant)
+	return picked_chem
+
 /proc/get_distant_turf(var/turf/T,var/direction,var/distance)
 	if(!T || !direction || !distance)	return
 
@@ -1679,7 +1688,7 @@ var/mob/dview/dview_mob = new
 	if(orbiting)
 		loc = get_turf(orbiting)
 		orbiting = null
-		
+
 //Centers an image.
 //Requires:
 //The Image
@@ -1720,7 +1729,7 @@ var/mob/dview/dview_mob = new
 		if(A.simulated)
 			return 0
 	return 1
-	
+
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = text2list(scr_loc, ",")
 	var/tY = text2list(tX[2], ":")
@@ -1732,4 +1741,3 @@ var/mob/dview/dview_mob = new
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
 
-	
