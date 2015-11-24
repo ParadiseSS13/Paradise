@@ -1008,16 +1008,16 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "ov-openpanel -c"
 
-	if(modtype == ("Combat" || "Peacekeeper"))
+	var/combat = list("Combat","Peacekeeper")
+	if(modtype in combat)
 		if (base_icon == "")
 			base_icon = icon_state
 		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
-
-	if(activated(/obj/item/borg/combat/shield))
-		overlays += "[icon_state]-shield"
+		if(activated(/obj/item/borg/combat/shield))
+			overlays += "[base_icon]-shield"
 
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"

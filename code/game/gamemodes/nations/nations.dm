@@ -5,7 +5,7 @@ datum/game_mode/nations
 	var/kickoff = 0
 	var/victory = 0
 	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
-	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist", "Librarian", "Chaplain")
+	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist", "Librarian", "Chaplain", "Barber")
 
 
 /datum/game_mode/nations/post_setup()
@@ -14,6 +14,7 @@ datum/game_mode/nations
 		send_intercept()
 		split_teams()
 		set_ai()
+//		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
@@ -117,9 +118,16 @@ datum/game_mode/nations
 		AI.add_inherent_law("Remain available to mediate all conflicts between the various nations when asked to.")
 		AI.show_laws()
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
+			var/obj/item/device/mmi/oldmmi = R.mmi
 			R.change_mob_type(/mob/living/silicon/robot/peacekeeper, null, null, 1, 1 )
 			R.lawsync()
 			R.show_laws()
+			qdel(oldmmi)
+
+/datum/game_mode/nations/proc/remove_access()
+	for(var/obj/machinery/door/airlock/W in machines)
+		if(W.z in config.station_levels)
+			W.req_access = list()
 
 /**
  * LateSpawn hook.
@@ -201,6 +209,10 @@ datum/game_mode/nations
 
 		if(H.mind.assigned_role in civilian_positions)
 			H << "You do not belong to any nation and are free to sell your services to the highest bidder."
+			return 1
+
+		if(H.mind.assigned_role == "AI")
+			mode.set_ai()
 			return 1
 
 		else
