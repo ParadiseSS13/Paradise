@@ -86,12 +86,12 @@
 
 //Normal valves
 /obj/machinery/atmospherics/valve
-	description_info = "Click this to turn the valve.  If red, the pipes on each end are seperated.  Otherwise, they are connected."
+	description_info = "Click this to turn the valve.  If red, the pipes on each end are separated.  Otherwise, they are connected."
 
 //TEG ports
 /obj/machinery/atmospherics/binary/circulator
 	description_info = "This generates electricity, depending on the difference in temperature between each side of the machine.  The meter in \
-	the center of the machine gives an indicator of how much elecrtricity is being generated."
+	the center of the machine gives an indicator of how much electricity is being generated."
 
 //Passive gates
 /obj/machinery/atmospherics/binary/passive_gate
@@ -119,7 +119,7 @@
 
 //Gas injectors
 /obj/machinery/atmospherics/unary/outlet_injector
-	description_info = "Outputs the pipe's gas into the atmosphere, similar to an airvent.  It can be controlled by a nearby atmospherics computer. \
+	description_info = "Outputs the pipe's gas into the atmosphere, similar to an air vent.  It can be controlled by a nearby atmospherics computer. \
 	A green light on it means it is on."
 
 //Scrubbers

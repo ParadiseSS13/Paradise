@@ -1,7 +1,7 @@
 /obj/structure/girder
 	description_info = "Use metal sheets on this to build a normal wall.  Adding plasteel instead will make a reinforced wall.<br>\
 	A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
-	You can dismantle the grider with a wrench."
+	You can dismantle the girder with a wrench."
 
 /obj/structure/girder/reinforced
 	description_info = "Add another sheet of plasteel to finish."
