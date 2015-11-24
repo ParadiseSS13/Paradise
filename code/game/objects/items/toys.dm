@@ -19,6 +19,7 @@
  *		Mini Gibber
  *		Toy xeno
  *		Toy chainsaws
+ *		Action Figures
  */
 
 
@@ -1429,7 +1430,7 @@ obj/item/toy/cards/deck/syndicate/black
 	throw_range = 20
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
-	
+
 /obj/item/weapon/twohanded/toy/chainsaw/update_icon()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
@@ -1442,3 +1443,217 @@ obj/item/toy/cards/deck/syndicate/black
 	else
 		playsound(loc, "swing_hit", 50, 1, -1)
 	..()
+
+/*
+ * Action Figures
+ */
+
+
+/obj/random/figure
+	name = "Random Action Figure"
+	desc = "This is a random toy action figure"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "nuketoy"
+
+/obj/random/figure/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/figure))
+
+
+/obj/item/toy/figure
+	name = "Non-Specific Action Figure action figure"
+	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "nuketoy"
+	var/cooldown = 0
+	var/toysay = "What the fuck did you do?"
+
+/obj/item/toy/figure/New()
+	..()
+	desc = "A \"Space Life\" brand [name]"
+
+/obj/item/toy/figure/attack_self(mob/user as mob)
+	if(cooldown < world.time)
+		cooldown = (world.time + 30) //3 second cooldown
+		user << "<span class='notice'>The [src] says \"[toysay]\".</span>"
+		playsound(user, 'sound/machines/click.ogg', 20, 1)
+
+/obj/item/toy/figure/cmo
+	name = "Chief Medical Officer action figure"
+	icon_state = "cmo"
+	toysay = "Suit sensors!"
+
+/obj/item/toy/figure/assistant
+	name = "Assistant action figure"
+	icon_state = "assistant"
+	toysay = "Grey tide station wide!"
+
+/obj/item/toy/figure/atmos
+	name = "Atmospheric Technician action figure"
+	icon_state = "atmos"
+	toysay = "Glory to Atmosia!"
+
+/obj/item/toy/figure/bartender
+	name = "Bartender action figure"
+	icon_state = "bartender"
+	toysay = "Wheres my monkey?"
+
+/obj/item/toy/figure/borg
+	name = "Cyborg action figure"
+	icon_state = "borg"
+	toysay = "I. LIVE. AGAIN."
+
+/obj/item/toy/figure/botanist
+	name = "Botanist action figure"
+	icon_state = "botanist"
+	toysay = "Dude, I see colors..."
+
+/obj/item/toy/figure/captain
+	name = "Captain action figure"
+	icon_state = "captain"
+	toysay = "Crew, the Nuke Disk is safely up my ass."
+
+/obj/item/toy/figure/cargotech
+	name = "Cargo Technician action figure"
+	icon_state = "cargotech"
+	toysay = "For Cargonia!"
+
+/obj/item/toy/figure/ce
+	name = "Chief Engineer action figure"
+	icon_state = "ce"
+	toysay = "Wire the solars!"
+
+/obj/item/toy/figure/chaplain
+	name = "Chaplain action figure"
+	icon_state = "chaplain"
+	toysay = "Gods make me a killing machine please!"
+
+/obj/item/toy/figure/chef
+	name = "Chef action figure"
+	icon_state = "chef"
+	toysay = "I swear it's not human meat."
+
+/obj/item/toy/figure/chemist
+	name = "Chemist action figure"
+	icon_state = "chemist"
+	toysay = "Get your pills!"
+
+/obj/item/toy/figure/clown
+	name = "Clown action figure"
+	icon_state = "clown"
+	toysay = "Honk!"
+
+/obj/item/toy/figure/ian
+	name = "Ian action figure"
+	icon_state = "ian"
+	toysay = "Arf!"
+
+/obj/item/toy/figure/detective
+	name = "Detective action figure"
+	icon_state = "detective"
+	toysay = "This airlock has grey jumpsuit and insulated glove fibers on it."
+
+/obj/item/toy/figure/dsquad
+	name = "Death Squad Officer action figure"
+	icon_state = "dsquad"
+	toysay = "Eliminate all threats!"
+
+/obj/item/toy/figure/engineer
+	name = "Engineer action figure"
+	icon_state = "engineer"
+	toysay = "Oh god, the singularity is loose!"
+
+/obj/item/toy/figure/geneticist
+	name = "Geneticist action figure"
+	icon_state = "geneticist"
+	toysay = "I'm not qualified for this job."
+
+/obj/item/toy/figure/hop
+	name = "Head of Persomnel action figure"
+	icon_state = "hop"
+	toysay = "Giving out all access!"
+
+/obj/item/toy/figure/hos
+	name = "Head of Security action figure"
+	icon_state = "hos"
+	toysay = "I'm here to win, anything else is secondary."
+
+/obj/item/toy/figure/qm
+	name = "Quartermaster action figure"
+	icon_state = "qm"
+	toysay = "Hail Cargonia!"
+
+/obj/item/toy/figure/janitor
+	name = "Janitor action figure"
+	icon_state = "janitor"
+	toysay = "Look at the signs, you idiot."
+
+/obj/item/toy/figure/lawyer
+	name = "Lawyer action figure"
+	icon_state = "lawyer"
+	toysay = "My client is a dirty traitor!"
+
+/obj/item/toy/figure/librarian
+	name = "Librarian action figure"
+	icon_state = "librarian"
+	toysay = "One day while..."
+
+/obj/item/toy/figure/md
+	name = "Medical Doctor action figure"
+	icon_state = "md"
+	toysay = "The patient is already dead!"
+
+/obj/item/toy/figure/mime
+	name = "Mime action figure"
+	desc = "A \"Space Life\" brand Mime action figure."
+	icon_state = "mime"
+	toysay = "..."
+
+/obj/item/toy/figure/miner
+	name = "Shaft Miner action figure"
+	icon_state = "miner"
+	toysay = "Oh god it's eating my intestines!"
+
+/obj/item/toy/figure/ninja
+	name = "Ninja action figure"
+	icon_state = "ninja"
+	toysay = "Oh god! Stop shooting, I'm friendly!"
+
+/obj/item/toy/figure/wizard
+	name = "Wizard action figure"
+	icon_state = "wizard"
+	toysay = "Ei Nath!"
+
+/obj/item/toy/figure/rd
+	name = "Research Director action figure"
+	icon_state = "rd"
+	toysay = "Blowing all of the borgs!"
+
+/obj/item/toy/figure/roboticist
+	name = "Roboticist action figure"
+	icon_state = "roboticist"
+	toysay = "He asked to be borged!"
+
+/obj/item/toy/figure/scientist
+	name = "Scientist action figure"
+	icon_state = "scientist"
+	toysay = "Someone else must have made those bombs!"
+
+/obj/item/toy/figure/syndie
+	name = "Nuclear Operative action figure"
+	icon_state = "syndie"
+	toysay = "Get that fucking disk!"
+
+/obj/item/toy/figure/secofficer
+	name = "Security Officer action figure"
+	icon_state = "secofficer"
+	toysay = "I am the law!"
+
+/obj/item/toy/figure/virologist
+	name = "Virologist action figure"
+	icon_state = "virologist"
+	toysay = "The cure is potassium!"
+
+/obj/item/toy/figure/warden
+	name = "Warden action figure"
+	icon_state = "warden"
+	toysay = "Execute him for breaking in!"
