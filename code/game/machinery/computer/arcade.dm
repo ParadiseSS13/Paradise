@@ -47,6 +47,7 @@
 							/obj/item/toy/flash								= 2,
 							/obj/item/toy/minigibber						= 2,
 							/obj/item/toy/toy_xeno                          = 2,
+							/obj/random/figure								= 16
 							)
 
 /obj/machinery/computer/arcade/power_change()

@@ -1448,6 +1448,17 @@ obj/item/toy/cards/deck/syndicate/black
  * Action Figures
  */
 
+
+/obj/random/figure
+	name = "Random Action Figure"
+	desc = "This is a random toy action figure"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "nuketoy"
+
+/obj/random/figure/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/figure))
+
+
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
