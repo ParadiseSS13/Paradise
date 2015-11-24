@@ -111,7 +111,7 @@ Works together with spawning an observer, noted above.
 	if(!loc) return
 	if(!client) return 0
 
-
+	regular_hud_updates()
 	if(client.images.len)
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud")
