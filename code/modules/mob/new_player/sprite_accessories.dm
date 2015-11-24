@@ -115,21 +115,33 @@
 		icon_state = "hair_halfbang_alt"
 
 	ponytail1
-		name = "Ponytail 1"
-		icon_state = "hair_ponytail"
+		name = "Ponytail male"
+		icon_state = "hair_ponytailm"
+		gender = MALE
 
 	ponytail2
-		name = "Ponytail 2"
-		icon_state = "hair_pa"
+		name = "Ponytail female"
+		icon_state = "hair_ponytailf"
 		gender = FEMALE
 
 	ponytail3
-		name = "Ponytail 3"
+		name = "Ponytail alt"
 		icon_state = "hair_ponytail3"
 
 	sideponytail
 		name = "Side Ponytail"
 		icon_state = "hair_stail"
+		gender = FEMALE
+
+	highponytail
+		name = "High Ponytail"
+		icon_state = "hair_highponytail"
+		gender = FEMALE
+
+
+	wisp
+		name = "Wisp"
+		icon_state = "hair_wisp"
 		gender = FEMALE
 
 	parted
@@ -316,6 +328,7 @@
 		name = "Balding Hair"
 		icon_state = "hair_e"
 		gender = MALE // turnoff!
+
 //////////////////////////////
 //////START VG HAIRSTYLES/////
 //////////////////////////////
