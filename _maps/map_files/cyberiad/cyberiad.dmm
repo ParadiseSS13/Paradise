@@ -6976,7 +6976,7 @@
 "cEj" = (/turf/simulated/wall/r_wall,/area/medical/patient_b)
 "cEk" = (/obj/structure/closet/l3closet/scientist,/obj/machinery/light{dir = 8},/turf/simulated/floor{dir = 4; icon_state = "warning"},/area/toxins/xenobiology)
 "cEl" = (/obj/structure/table,/obj/item/weapon/storage/box/monkeycubes,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/item/weapon/storage/box/monkeycubes,/obj/item/weapon/storage/box/monkeycubes,/obj/item/weapon/storage/box/monkeycubes,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
-"cEm" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/item/stack/sheet/mineral/plasma{amount = 5; layer = 2.9},/obj/machinery/media/receiver/boombox,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
+"cEm" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/item/stack/sheet/mineral/plasma{amount = 8; layer = 2.9},/obj/machinery/media/receiver/boombox,/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "cEn" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 6},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "cEo" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
 "cEp" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 11; pixel_y = 0},/obj/structure/extinguisher_cabinet{pixel_x = 27; pixel_y = 0},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor{icon_state = "white"},/area/toxins/xenobiology)
