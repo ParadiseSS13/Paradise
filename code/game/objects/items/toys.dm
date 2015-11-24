@@ -527,8 +527,9 @@
 	desc = "This is a random prize"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
-	item_to_spawn()
-		return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
+
+/obj/random/prize/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
 
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
@@ -1109,8 +1110,9 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "This is a random plushie"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	item_to_spawn()
-		return pick(typesof(/obj/item/toy/carpplushie)) //can pick any carp plushie, even the original.
+
+/obj/random/carp_plushie/item_to_spawn()
+	return pick(typesof(/obj/item/toy/carpplushie)) //can pick any carp plushie, even the original.
 
 /obj/item/toy/carpplushie/ice
 	icon_state = "icecarp"
@@ -1169,8 +1171,9 @@ obj/item/toy/cards/deck/syndicate/black
 	desc = "This is a random plushie"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
-	item_to_spawn()
-		return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
+
+/obj/random/plushie/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
