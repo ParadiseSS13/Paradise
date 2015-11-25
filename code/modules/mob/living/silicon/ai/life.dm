@@ -154,7 +154,7 @@
 		if (MED_HUD)
 			process_med_hud(src, 1, eyeobj)
 
-	if(ticker && ticker.mode.name == "nations")
+	if(get_nations_mode())
 		process_nations()
 
 /mob/living/silicon/ai/updatehealth()

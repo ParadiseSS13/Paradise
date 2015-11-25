@@ -153,9 +153,6 @@
 	if(!is_component_functioning("actuator"))
 		src.Paralyse(3)
 
-	if(ticker && ticker.mode.name == "nations")
-		process_nations()
-
 	return 1
 
 /mob/living/silicon/robot/update_sight()
@@ -265,6 +262,9 @@
 			if(!mind.special_role)
 				mind.special_role = "traitor"
 				ticker.mode.traitors += src.mind
+
+	if(get_nations_mode())
+		process_nations()
 
 	..()
 	return 1

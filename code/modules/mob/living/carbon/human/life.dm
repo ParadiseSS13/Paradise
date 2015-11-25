@@ -1070,7 +1070,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(hud_updateflag)
 			handle_hud_list()
 
-	if(ticker && ticker.mode.name == "nations")
+	if(get_nations_mode())
 		process_nations()
 
 
