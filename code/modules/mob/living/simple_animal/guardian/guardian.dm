@@ -40,6 +40,7 @@
 	var/magic_fluff_string = " You draw the Coder, symbolizing bugs and errors. This shouldn't happen! Submit a bug report!"
 	var/tech_fluff_string = "BOOT SEQUENCE COMPLETE. ERROR MODULE LOADED. THIS SHOULDN'T HAPPEN. Submit a bug report!"
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
+	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
@@ -108,6 +109,9 @@
 		summoner.gib()
 	ghostize()
 	qdel(src)
+
+/mob/living/simple_animal/hostile/guardian/start_pulling(var/atom/movable/AM)
+	return //no pulling things fo you!
 
 //Manifest, Recall, Communicate
 
@@ -553,6 +557,7 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive")
 	var/random = TRUE
+	var/adminSeal = FALSE
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
@@ -582,6 +587,8 @@
 	var/gaurdiantype = "Standard"
 	if(random)
 		gaurdiantype = pick(possible_guardians)
+	if(adminSeal)
+		gaurdiantype = pick("Standard","Support")
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -635,6 +642,16 @@
 			G.icon_state = "headcrab"
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
+		if("seal")
+			user << "[G.admin_fluff_string]."
+			G.name = "[mob_name]"
+			G.color = picked_color
+			G.real_name = "[mob_name]"
+			G.icon = 'icons/mob/animal.dmi'
+			G.icon_living = "seal"
+			G.icon_state = "seal"
+			G.attacktext = "slaps"
+			G.speak_emote = list("barks")
 
 /obj/item/weapon/guardiancreator/choose
 	random = FALSE
@@ -669,9 +686,21 @@
 	random = FALSE
 
 
+/obj/item/weapon/guardiancreator/adminbus
+	name = "Avatar deck"
+	desc = "A mystical deck..oddly all the cards have a form of Bus on them."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "deck_syndicate_full"
+	theme = "seal"
+	mob_name = "Avatar"
+	use_message = "URK!"
+	used_message = "arf?"
+	failure_message = "<B>...</B>"
+	adminSeal = TRUE
+
 /obj/item/weapon/paper/guardian
 	name = "Holoparasite Guide"
-	icon_state = "alienpaper_words"
+	icon_state = "paper"
 	info = {"<b>A list of Holoparasite Types</b><br>
 
  <br>
