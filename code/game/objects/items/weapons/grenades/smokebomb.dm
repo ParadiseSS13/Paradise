@@ -6,11 +6,11 @@
 	det_time = 20
 	item_state = "flashbang"
 	slot_flags = SLOT_BELT
-	var/datum/effect/effect/system/bad_smoke_spread/smoke
+	var/datum/effect/system/bad_smoke_spread/smoke
 
 	New()
 		..()
-		src.smoke = new /datum/effect/effect/system/bad_smoke_spread
+		src.smoke = new /datum/effect/system/bad_smoke_spread
 		src.smoke.attach(src)
 
 	Destroy()

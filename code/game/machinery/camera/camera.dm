@@ -232,7 +232,7 @@
 			src.bug.bugged_cameras[src.c_tag] = src
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))//Putting it here last since it's a special case. I wonder if there is a better way to do these than type casting.
 		deactivate(user,2)//Here so that you can disconnect anyone viewing the camera, regardless if it's on or off.
-		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 		spark_system.start()
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)

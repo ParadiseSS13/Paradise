@@ -30,7 +30,7 @@ They can only use one tool at a time, they can't choose modules, and they have 1
 	return 1
 
 /mob/living/silicon/robot/mommi/New(loc)
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 

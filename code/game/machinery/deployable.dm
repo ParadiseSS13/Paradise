@@ -172,7 +172,7 @@ for reference:
 						user << "Barrier lock toggled off."
 						return
 				else
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(2, 1, src)
 					s.start()
 					visible_message("\red BZZzZZzZZzZT")
@@ -207,14 +207,14 @@ for reference:
 			emagged = 1
 			req_access = null
 			user << "You break the ID authentication lock on the [src]."
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("\red BZZzZZzZZzZT")
 		else if (src.emagged == 1)
 			src.emagged = 2
 			user << "You short out the anchoring mechanism on the [src]."
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("\red BZZzZZzZZzZT")
@@ -259,7 +259,7 @@ for reference:
 	/*	var/obj/item/stack/rods/ =*/
 		new /obj/item/stack/rods(Tsec)
 
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 

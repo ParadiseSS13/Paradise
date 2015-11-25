@@ -15,7 +15,7 @@
 	equip_cooldown = 5
 	energy_drain = 50
 	var/wait = 0
-	var/datum/effect/effect/system/ion_trail_follow/ion_trail
+	var/datum/effect/system/ion_trail_follow/ion_trail
 
 
 	can_attach(obj/mecha/M as obj)

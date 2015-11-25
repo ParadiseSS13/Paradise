@@ -157,7 +157,7 @@
 /obj/item/weapon/rcs/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
 		user << "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>"

@@ -515,7 +515,7 @@
 						if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 							M.visible_message("[M.name] slipped and got soaked!", "You slipped and got soaked!")
 							if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-								var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+								var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 								s.set_up(3, 1, src)
 								s.start()
 						else								//No water or didn't slip, get that fish!

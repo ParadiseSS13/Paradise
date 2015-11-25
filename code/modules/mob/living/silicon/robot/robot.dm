@@ -59,8 +59,8 @@ var/list/robot_verbs_default = list(
 	var/modtype = "Default"
 	var/lower_mod = 0
 	var/jetpack = 0
-	var/datum/effect/effect/system/ion_trail_follow/ion_trail = null
-	var/datum/effect/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect/system/ion_trail_follow/ion_trail = null
+	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/has_power = 1
 	var/weapon_lock = 0
@@ -87,7 +87,7 @@ var/list/robot_verbs_default = list(
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
