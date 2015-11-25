@@ -71,7 +71,7 @@
 						return
 					L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</span>")
 					sleep(10)
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(4, 1, L)
 					s.start()
 					sleep(10)
@@ -80,7 +80,7 @@
 							return
 						M.Beam(L,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
 						M.electrocute_act(25, "[L.name]")
-						var/datum/effect/effect/system/spark_spread/z = new /datum/effect/effect/system/spark_spread
+						var/datum/effect/system/spark_spread/z = new /datum/effect/system/spark_spread
 						z.set_up(4, 1, M)
 						z.start()
 						playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -131,7 +131,7 @@
 				light.flicker() //spooky
 	user.reveal(reveal)
 	user.stun(stun)
-	
+
 //Malfunction: Makes bad stuff happen to robots and machines.
 /obj/effect/proc_holder/spell/aoe_turf/revenant_malf
 	name = "Malfunction (50E)"
@@ -169,7 +169,7 @@
 			for(var/obj/machinery/mach in T.contents)
 				if(prob(10))
 					mach.emag_act(null)
-					
+
 	empulse(user.loc, 3, 5)
 	user.reveal(reveal)
 	user.stun(stun)

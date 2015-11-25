@@ -669,7 +669,7 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
@@ -677,7 +677,7 @@
 	..()
 	visible_message("<b>[src]</b> blows apart!")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	respawnable_list += src

@@ -37,6 +37,7 @@
 							/obj/item/toy/flash								= 2,
 							/obj/item/toy/minigibber						= 2,
 							/obj/item/toy/toy_xeno                          = 2,
+							/obj/random/figure								= 16,
 							/obj/random/plushie                          	= 7,
 							)
 

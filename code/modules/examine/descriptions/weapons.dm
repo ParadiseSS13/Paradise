@@ -21,7 +21,7 @@
 	description_antag = "This is a stealthy weapon which fires poisoned bolts at your target.  When it hits someone, they will suffer a stun effect, in \
 	addition to toxins.  The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
-/obj/item/weapon/gun/energy
+/obj/item/weapon/gun/energy/gun
 	description_info = "This is an energy weapon.  To fire the weapon, have your gun mode set to 'fire', \
 	then click where you want to fire.  Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  To recharge this weapon, use a weapon recharger."
@@ -51,7 +51,7 @@
 
 /obj/item/weapon/gun/projectile
 	description_info = "This is a ballistic weapon.  To fire the weapon, have your gun mode set to 'fire', \
-	then click where you want to fire.  To reload, click the weapon in your hand to unload (if needed), then add the appropiate ammo.  The description \
+	then click where you want to fire.  To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."
 
 /obj/item/weapon/gun/projectile/shotgun/pump
@@ -79,4 +79,4 @@
 	it can be concealed in your pocket or bag."
 
 /obj/item/weapon/melee/cultblade
-	description_antag = "This sword is a powerful weapon, capable of severing limbs easily, if they are targeted.  Nonbelivers are unable to use this weapon."
+	description_antag = "This sword is a powerful weapon, capable of severing limbs easily, if they are targeted.  Nonbelievers are unable to use this weapon."

@@ -10,7 +10,7 @@
 		mix_message = "The mixture explodes!"
 
 		on_reaction(var/datum/reagents/holder, var/created_volume)
-			var/datum/effect/effect/system/reagents_explosion/e = new()
+			var/datum/effect/system/reagents_explosion/e = new()
 			e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
 			e.start()
 			holder.clear_reagents()
@@ -60,7 +60,7 @@
 		required_reagents = list("glycerol" = 1, "facid" = 1, "sacid" = 1)
 		result_amount = 2
 		on_reaction(var/datum/reagents/holder, var/created_volume)
-			var/datum/effect/effect/system/reagents_explosion/e = new()
+			var/datum/effect/system/reagents_explosion/e = new()
 			e.set_up(round (created_volume/2, 1), holder.my_atom, 0, 0)
 			e.start()
 
