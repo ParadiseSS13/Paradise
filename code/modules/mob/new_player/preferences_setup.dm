@@ -257,19 +257,19 @@ datum/preferences
 		if(underwear && current_species.clothing_flags & HAS_UNDERWEAR)
 			var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
 			if(U)
-				underwear_s = new/icon(U.icon, "[U.icon_state]_s", ICON_OVERLAY)
+				underwear_s = new/icon(U.icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/undershirt_s = null
 		if(undershirt && current_species.clothing_flags & HAS_UNDERSHIRT)
 			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 			if(U2)
-				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
+				undershirt_s = new/icon(U2.icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/socks_s = null
 		if(socks && current_species.clothing_flags & HAS_SOCKS)
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
-				socks_s = new/icon(U3.icon, "[U3.icon_state]_s", ICON_OVERLAY)
+				socks_s = new/icon(U3.icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/clothes_s = null
 		var/uniform_dmi='icons/mob/uniform.dmi'
