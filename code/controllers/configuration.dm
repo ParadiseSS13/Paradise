@@ -49,6 +49,7 @@
 	var/list/modes = list()				// allowed modes
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
+	var/triaichance = 5
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
@@ -387,6 +388,9 @@
 							diary << "Unknown game mode probability configuration definition: [prob_name]."
 					else
 						diary << "Incorrect probability configuration definition: [prob_name]  [prob_value]."
+
+				if ("triaichance")
+					config.triaichance = text2num(value)
 
 				if("allow_random_events")
 					config.allow_random_events = 1

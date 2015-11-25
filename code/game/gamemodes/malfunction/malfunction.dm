@@ -39,6 +39,8 @@
 	return antag_candidates
 
 /datum/game_mode/malfunction/pre_setup()
+	if(ticker && ticker.triai)
+		ticker.triai = 0
 	get_players_for_role(BE_MALF)
 
 	var/datum/mind/chosen_ai

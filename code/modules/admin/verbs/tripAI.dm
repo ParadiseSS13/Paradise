@@ -1,6 +1,6 @@
 /client/proc/triple_ai()
 	set category = "Event"
-	set name = "Create AI Triumvirate"
+	set name = "Toggle AI Triumvirate"
 
 	if(ticker.current_state > GAME_STATE_PREGAME)
 		usr << "This option is currently only usable during pregame. This may change at a later date."
