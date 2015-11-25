@@ -22,6 +22,8 @@ var/const/INGEST = 2
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
 			chemical_reagents_list[D.id] = D
+			if(!D.can_grow_in_plants)
+				plant_blocked_chems.Add(D.id)
 	if(!chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
