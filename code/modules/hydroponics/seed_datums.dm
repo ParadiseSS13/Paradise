@@ -1244,15 +1244,15 @@
 	set_trait(TRAIT_PLANT_COLOUR,"#66804B")
 	set_trait(TRAIT_PLANT_ICON,"alien4")
 
-/datum/seed/shand
-	name = "shand"
-	seed_name = "S'randar's hand"
-	display_name = "S'randar's hand leaves"
+/datum/seed/comfrey
+	name = "comfrey"
+	seed_name = "comfrey"
+	display_name = "Comfrey"
 	chems = list("styptic_powder" = list(0,10))
-	kitchen_tag = "shand"
+	kitchen_tag = "comfrey"
 	modular_icon = 1
 
-/datum/seed/shand/New()
+/datum/seed/comfrey/New()
 	..()
 	set_trait(TRAIT_MATURATION,3)
 	set_trait(TRAIT_PRODUCTION,5)
@@ -1263,21 +1263,21 @@
 	set_trait(TRAIT_PLANT_COLOUR,"#378C61")
 	set_trait(TRAIT_PLANT_ICON,"tree5")
 
-/datum/seed/mtear
-	name = "mtear"
-	seed_name = "Messa's tear"
-	display_name = "Messa's tear leaves"
-	chems = list("honey" = list(1,10), "silver_sulfadiazine" = list(3,5))
-	kitchen_tag = "mtear"
+/datum/seed/aloe
+	name = "aloe"
+	seed_name = "aloe"
+	display_name = "Aloe Vera"
+	chems = list("silver_sulfadiazine" = list(3,5))
+	kitchen_tag = "aloe"
 	modular_icon = 1
 
-/datum/seed/mtear/New()
+/datum/seed/aloe/New()
 	..()
 	set_trait(TRAIT_MATURATION,3)
 	set_trait(TRAIT_PRODUCTION,5)
 	set_trait(TRAIT_YIELD,4)
 	set_trait(TRAIT_POTENCY,10)
-	set_trait(TRAIT_PRODUCT_ICON,"alien4")
+	set_trait(TRAIT_PRODUCT_ICON,"ambrosia")
 	set_trait(TRAIT_PRODUCT_COLOUR,"#4CC5C7")
 	set_trait(TRAIT_PLANT_COLOUR,"#4CC789")
 	set_trait(TRAIT_PLANT_ICON,"bush7")

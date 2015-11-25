@@ -388,22 +388,22 @@
 		qdel(src)
 		return
 
-	/*
+
 	if(seed.kitchen_tag)
 		switch(seed.kitchen_tag)
-			if("shand")
-				var/obj/item/stack/medical/bruise_pack/tajaran/poultice = new /obj/item/stack/medical/bruise_pack/tajaran(user.loc)
+			if("comfrey")
+				var/obj/item/stack/medical/bruise_pack/comfrey/poultice = new /obj/item/stack/medical/bruise_pack/comfrey(user.loc)
 				poultice.heal_brute = potency
 				user << "<span class='notice'>You mash the leaves into a poultice.</span>"
 				qdel(src)
 				return
-			if("mtear")
-				var/obj/item/stack/medical/ointment/tajaran/poultice = new /obj/item/stack/medical/ointment/tajaran(user.loc)
+			if("aloe")
+				var/obj/item/stack/medical/ointment/aloe/poultice = new /obj/item/stack/medical/ointment/aloe(user.loc)
 				poultice.heal_burn = potency
 				user << "<span class='notice'>You mash the petals into a poultice.</span>"
 				qdel(src)
 				return
-	*/
+
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/pickup(mob/user)
 	..()
