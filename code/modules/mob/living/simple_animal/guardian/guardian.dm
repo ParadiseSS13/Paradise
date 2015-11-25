@@ -10,7 +10,7 @@
 	icon_state = "stand"
 	icon_living = "stand"
 	speed = 0
-	a_intent = "harm"
+	a_intent = I_HARM
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -180,7 +180,7 @@
 //Fire. Low damage, low resistance, sets mobs on fire when bumping
 
 /mob/living/simple_animal/hostile/guardian/fire
-	a_intent = "help"
+	a_intent = I_HELP
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attack_sound = 'sound/items/Welder.ogg'
@@ -242,6 +242,16 @@
 	bio_fluff_string = "Your scarab swarm stirs to life, ready to tear apart your enemies."
 	var/battlecry = "AT"
 
+
+/mob/living/simple_animal/hostile/guardian/punch/sealpunch
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	melee_damage_type = STAMINA
+	damage_transfer = 0.2
+	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
+	environment_smash = 2
+	battlecry = "URK"
+
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
 	set name = "Set Battlecry"
 	set category = "Guardian"
@@ -268,7 +278,7 @@
 //Healer
 
 /mob/living/simple_animal/hostile/guardian/healer
-	a_intent = "harm"
+	a_intent = I_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 15
@@ -280,6 +290,15 @@
 	var/turf/simulated/floor/beacon
 	var/beacon_cooldown = 0
 	var/toggle = FALSE
+
+/mob/living/simple_animal/hostile/guardian/healer/sealhealer
+	a_intent = I_HARM
+	friendly = "heals"
+	speed = 0
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	melee_damage_type = STAMINA
+
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
@@ -305,7 +324,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(src.loc == summoner)
 		if(toggle)
-			a_intent = "harm"
+			a_intent = I_HARM
 			speed = 0
 			damage_transfer = 0.7
 			melee_damage_lower = 15
@@ -313,7 +332,7 @@
 			src << "<span class='danger'><B>You switch to combat mode.</span></B>"
 			toggle = FALSE
 		else
-			a_intent = "help"
+			a_intent = I_HELP
 			speed = 1
 			damage_transfer = 1
 			melee_damage_lower = 0
@@ -391,7 +410,7 @@
 	armour_penetration = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
-	a_intent = "help"
+	a_intent = I_HELP
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
@@ -588,7 +607,7 @@
 	if(random)
 		gaurdiantype = pick(possible_guardians)
 	if(adminSeal)
-		gaurdiantype = pick("Standard","Support")
+		gaurdiantype = pick("StandardSeal","SupportSeal")
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -601,11 +620,17 @@
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 
+		if("StandardSeal")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/punch/sealpunch
+
 		if("Ranged")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/ranged
 
 		if("Support")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/healer
+
+		if("SupportSeal")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/healer/sealhealer
 
 		if("Explosive")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/bomb
