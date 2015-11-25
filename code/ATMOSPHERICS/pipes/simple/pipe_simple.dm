@@ -42,7 +42,7 @@
 			initialize_directions = SOUTH|EAST
 		if(SOUTHWEST)
 			initialize_directions = SOUTH|WEST
-		
+
 /obj/machinery/atmospherics/pipe/simple/initialize(initPipe = 1)
 	..()
 	if(initPipe)
@@ -88,7 +88,7 @@
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>");
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-	var/datum/effect/effect/system/harmless_smoke_spread/smoke = new
+	var/datum/effect/system/harmless_smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
 	smoke.start()
 	qdel(src)
@@ -98,7 +98,7 @@
 		dir = 1
 	else if(dir==12)
 		dir = 4
-	
+
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	if(node1)
 		var/obj/machinery/atmospherics/A = node1
@@ -112,7 +112,7 @@
 		A.build_network()
 	releaseAirToTurf()
 	return ..()
-	
+
 /obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
@@ -158,7 +158,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return
-	
+
 /obj/machinery/atmospherics/pipe/simple/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0

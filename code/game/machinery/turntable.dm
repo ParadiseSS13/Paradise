@@ -160,7 +160,7 @@
 	anchored = 1
 	var/mirrored = 0
 
-/obj/effects/laser
+/obj/effect/turntable_laser
 	name = "laser"
 	desc = "A laser..."
 	icon = 'icons/effects/lasers2.dmi'
@@ -180,7 +180,7 @@
 	if(mirrored == 0)
 		while(wall == 0)
 			if(cycle == 1)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y+Y
 				F.z = src.z
@@ -195,7 +195,7 @@
 					cycle = 1
 				X++
 			if(cycle == 2)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y+Y
 				F.z = src.z
@@ -210,7 +210,7 @@
 					cycle = 1
 				Y++
 			if(cycle == 3)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y+Y
 				F.z = src.z
@@ -227,7 +227,7 @@
 	if(mirrored == 1)
 		while(wall == 0)
 			if(cycle == 1)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y-Y
 				F.z = src.z
@@ -242,7 +242,7 @@
 					cycle = 1
 				Y++
 			if(cycle == 2)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y-Y
 				F.z = src.z
@@ -257,7 +257,7 @@
 					cycle = 1
 				X++
 			if(cycle == 3)
-				var/obj/effects/laser/F = new/obj/effects/laser(src)
+				var/obj/effect/turntable_laser/F = new(src)
 				F.x = src.x+X
 				F.y = src.y-Y
 				F.z = src.z
@@ -276,5 +276,5 @@
 
 /obj/machinery/party/lasermachine/proc/turnoff()
 	var/area/A = src.loc.loc
-	for(var/obj/effects/laser/F in A)
+	for(var/obj/effect/turntable_laser/F in A)
 		qdel(F)

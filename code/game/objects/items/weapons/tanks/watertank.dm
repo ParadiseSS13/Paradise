@@ -338,7 +338,7 @@
 		delete()
 	amount = amt
 	if(amount)
-		var/datum/effect/effect/system/freezing_smoke_spread/F = new /datum/effect/effect/system/freezing_smoke_spread
+		var/datum/effect/system/freezing_smoke_spread/F = new /datum/effect/system/freezing_smoke_spread
 		F.set_up(amount, 0, src.loc)
 		F.start()
 	if(blast)
@@ -367,16 +367,16 @@
 			L.ExtinguishMob()
 	return
 
-/datum/effect/effect/system/freezing_smoke_spread
+/datum/effect/system/freezing_smoke_spread
 
-/datum/effect/effect/system/freezing_smoke_spread/set_up(n = 6, c = 0, loca)
+/datum/effect/system/freezing_smoke_spread/set_up(n = 6, c = 0, loca)
 	number = n
 	if(istype(loca, /turf/))
 		location = loca
 	else
 		location = get_turf(loca)
 
-/datum/effect/effect/system/freezing_smoke_spread/start()
+/datum/effect/system/freezing_smoke_spread/start()
 	var/i = 0
 	for(i=0, i<number, i++)
 		spawn(0)

@@ -30,7 +30,7 @@
 		return 0
 	if(checking)
 		user << "<span class='warning'>[src] is already checking for possible borgs.</span>"
-		return		
+		return
 	borg_to_spawn = input("What type of borg would you like to teleport?", "Cyborg Type", type) as null|anything in possible_types
 	if(!borg_to_spawn || checking || used)
 		return
@@ -52,7 +52,7 @@
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
 		used = 0
 		return
-	var/datum/effect/effect/system/spark_spread/S = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/S = new /datum/effect/system/spark_spread
 	S.set_up(4, 1, src)
 	S.start()
 	var/mob/living/silicon/robot/R
@@ -60,7 +60,7 @@
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
 		else
-			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default	
+			R = new /mob/living/silicon/robot/syndicate(T) //Assault borg by default
 	R.key = C.key
 	ticker.mode.syndicates += R.mind
 	ticker.mode.update_synd_icons_added(R.mind)

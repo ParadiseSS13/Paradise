@@ -31,7 +31,7 @@
 		var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
 		if(sparks)
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, location)
 			s.start()
 

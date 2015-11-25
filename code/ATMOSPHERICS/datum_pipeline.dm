@@ -219,11 +219,13 @@ var/pipenetwarnings = 10
 				PL |= V.parent2
 		for(var/obj/machinery/atmospherics/trinary/tvalve/T in P.other_atmosmch)
 			if(!T.state)
-				PL |= T.parent1
-				PL |= T.parent3
+				if(src != T.parent2) // otherwise dc'd side connects to both other sides!
+					PL |= T.parent1
+					PL |= T.parent3
 			else
-				PL |= T.parent1
-				PL |= T.parent2
+				if(src != T.parent3)
+					PL |= T.parent1
+					PL |= T.parent2
 		for(var/obj/machinery/atmospherics/unary/portables_connector/C in P.other_atmosmch)
 			if(C.connected_device)
 				GL += C.portableConnectorReturnAir()

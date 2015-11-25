@@ -360,7 +360,7 @@
 	src.updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	var/datum/effect/effect/system/spark_spread/s = new
+	var/datum/effect/system/spark_spread/s = new
 	s.set_up(2, 1, src)
 	s.start()
 	src.icon_state = broken_icon // Make it look all busted up and shit

@@ -22,7 +22,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		cameranet.updateVisibility(src)
 	return ..()
 
-/datum/effect/effect/proc/fadeOut(var/atom/A, var/frames = 16)
+/datum/effect/proc/fadeOut(var/atom/A, var/frames = 16)
 	if(A.alpha == 0) //Handle already transparent case
 		return
 	if(frames == 0)
@@ -83,7 +83,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	return ..()
 
 
-/datum/effect/effect/system
+/datum/effect/system
 	var/number = 3
 	var/cardinals = 0
 	var/turf/location
@@ -130,7 +130,7 @@ steam.start() -- spawns the effect
 	icon_state = "extinguish"
 	density = 0
 
-/datum/effect/effect/system/steam_spread
+/datum/effect/system/steam_spread
 
 	set_up(n = 3, c = 0, turf/loc)
 		if(n > 10)
@@ -195,7 +195,7 @@ steam.start() -- spawns the effect
 		T.hotspot_expose(1000,100)
 	return
 
-/datum/effect/effect/system/spark_spread
+/datum/effect/system/spark_spread
 	var/total_sparks = 0 // To stop it being spammed and lagging!
 
 	set_up(n = 3, c = 0, loca)
@@ -259,7 +259,7 @@ steam.start() -- spawns the effect
 	..()
 	return
 
-/datum/effect/effect/system/harmless_smoke_spread
+/datum/effect/system/harmless_smoke_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 
@@ -360,7 +360,7 @@ steam.start() -- spawns the effect
 					M.coughedtime = 0
 	return
 
-/datum/effect/effect/system/bad_smoke_spread
+/datum/effect/system/bad_smoke_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 
@@ -428,10 +428,10 @@ steam.start() -- spawns the effect
 	return
 
 // Spores
-/datum/effect/effect/system/chem_smoke_spread/spores
+/datum/effect/system/chem_smoke_spread/spores
 	var/datum/seed/seed
 
-/datum/effect/effect/system/chem_smoke_spread/spores/New(seed_name)
+/datum/effect/system/chem_smoke_spread/spores/New(seed_name)
 	if(seed_name && plant_controller)
 		seed = plant_controller.seeds[seed_name]
 	if(!seed)
@@ -440,7 +440,7 @@ steam.start() -- spawns the effect
 
 
 
-/datum/effect/effect/system/chem_smoke_spread/New()
+/datum/effect/system/chem_smoke_spread/New()
 	..()
 	chemholder = new/obj()
 	var/datum/reagents/R = new/datum/reagents(500)
@@ -449,7 +449,7 @@ steam.start() -- spawns the effect
 
 
 
-/datum/effect/effect/system/chem_smoke_spread
+/datum/effect/system/chem_smoke_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 	var/obj/chemholder
@@ -609,7 +609,7 @@ steam.start() -- spawns the effect
 						M.coughedtime = 0
 	return
 
-/datum/effect/effect/system/sleep_smoke_spread
+/datum/effect/system/sleep_smoke_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 
@@ -696,7 +696,7 @@ steam.start() -- spawns the effect
 		R.updatehealth()
 	return
 
-/datum/effect/effect/system/mustard_gas_spread
+/datum/effect/system/mustard_gas_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
 
@@ -748,19 +748,19 @@ steam.start() -- spawns the effect
 	icon_state = "ion_trails"
 	anchored = 1.0
 
-/datum/effect/effect/system/ion_trail_follow
+/datum/effect/system/ion_trail_follow
 	var/turf/oldposition
 	var/processing = 1
 	var/on = 1
 
-/datum/effect/effect/system/ion_trail_follow/Destroy()
+/datum/effect/system/ion_trail_follow/Destroy()
 	oldposition = null
 	return ..()
 
-/datum/effect/effect/system/ion_trail_follow/set_up(atom/atom)
+/datum/effect/system/ion_trail_follow/set_up(atom/atom)
 	attach(atom)
 
-/datum/effect/effect/system/ion_trail_follow/start() //Whoever is responsible for this abomination of code should become an hero
+/datum/effect/system/ion_trail_follow/start() //Whoever is responsible for this abomination of code should become an hero
 	if(!src.on)
 		src.on = 1
 		src.processing = 1
@@ -782,21 +782,21 @@ steam.start() -- spawns the effect
 				src.processing = 1
 				src.start()
 
-/datum/effect/effect/system/ion_trail_follow/proc/stop()
+/datum/effect/system/ion_trail_follow/proc/stop()
 	src.processing = 0
 	src.on = 0
 	oldposition = null
 
-/datum/effect/effect/system/ion_trail_follow/space_trail
+/datum/effect/system/ion_trail_follow/space_trail
 	var/turf/oldloc // secondary ion trail loc
 	var/turf/currloc
 
-/datum/effect/effect/system/ion_trail_follow/space_trail/Destroy()
+/datum/effect/system/ion_trail_follow/space_trail/Destroy()
 	oldloc = null
 	currloc = null
 	return ..()
 
-/datum/effect/effect/system/ion_trail_follow/space_trail/start()
+/datum/effect/system/ion_trail_follow/space_trail/start()
 	if(!src.on)
 		src.on = 1
 		src.processing = 1
@@ -851,7 +851,7 @@ steam.start() -- spawns the effect
 // even if it's carried of thrown.
 /////////////////////////////////////////////
 
-/datum/effect/effect/system/steam_trail_follow
+/datum/effect/system/steam_trail_follow
 	var/turf/oldposition
 	var/processing = 1
 	var/on = 1
@@ -997,7 +997,7 @@ steam.start() -- spawns the effect
 		M.Weaken(2)
 
 
-/datum/effect/effect/system/foam_spread
+/datum/effect/system/foam_spread
 	var/amount = 5				// the size of the foam spread.
 	var/list/carried_reagents	// the IDs of reagents present when the foam was mixed
 	var/metal = 0				// 0=foam, 1=metalfoam, 2=ironfoam
@@ -1129,7 +1129,7 @@ steam.start() -- spawns the effect
 	CanAtmosPass()
 		return !density
 
-/datum/effect/effect/system/reagents_explosion
+/datum/effect/system/reagents_explosion
 	var/amount 						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
@@ -1148,7 +1148,7 @@ steam.start() -- spawns the effect
 
 	start()
 		if (amount <= 2)
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, location)
 			s.start()
 
@@ -1198,17 +1198,17 @@ steam.start() -- spawns the effect
 
 
 //////////////////////////////////
-//////SPARKELS FIREWORKS
+//////SPARKLE FIREWORKS
 /////////////////////////////////
 ////////////////////////////
-/obj/effects/sparkels
-	name = "sparkel"
+/obj/effect/sparkles
+	name = "sparkle"
 	icon = 'icons/obj/fireworks.dmi'//findback
 	icon_state = "sparkel"
 	var/amount = 6.0
 	anchored = 1.0
 	mouse_opacity = 0
-/obj/effects/sparkels/New()
+/obj/effect/sparkles/New()
 	..()
 	var/icon/I = new(src.icon,src.icon_state)
 	var/r = rand(0,255)
@@ -1225,13 +1225,13 @@ steam.start() -- spawns the effect
 		qdel(src)
 	return
 
-/obj/effects/sparkels/Destroy()
+/obj/effect/sparkles/Destroy()
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(3000,100)
 	return ..()
 
-/obj/effects/sparkels/Move()
+/obj/effect/sparkles/Move()
 	..()
 	var/turf/T = src.loc
 	if (istype(T, /turf))
@@ -1239,14 +1239,10 @@ steam.start() -- spawns the effect
 	return
 
 
-/datum/effects/system/sparkel_spread
-	var/number = 3
-	var/cardinals = 0
-	var/turf/location
-	var/atom/holder
+/datum/effect/system/sparkle_spread
 	var/total_sparks = 0 // To stop it being spammed and lagging!
 
-/datum/effects/system/sparkel_spread/proc/set_up(n = 3, c = 0, loca)
+/datum/effect/system/sparkle_spread/set_up(n = 3, c = 0, loca)
 	if(n > 10)
 		n = 10
 	number = n
@@ -1256,10 +1252,7 @@ steam.start() -- spawns the effect
 	else
 		location = get_turf(loca)
 
-/datum/effects/system/sparkel_spread/proc/attach(atom/atom)
-	holder = atom
-
-/datum/effects/system/sparkel_spread/proc/start()
+/datum/effect/system/sparkle_spread/start()
 	var/i = 0
 	for(i=0, i<src.number, i++)
 		if(src.total_sparks > 20)
@@ -1267,7 +1260,7 @@ steam.start() -- spawns the effect
 		spawn(0)
 			if(holder)
 				src.location = get_turf(holder)
-			var/obj/effects/sparkels/sparks = new(src.location)
+			var/obj/effect/sparkles/sparks = new(src.location)
 			src.total_sparks++
 			var/direction
 			if(src.cardinals)
