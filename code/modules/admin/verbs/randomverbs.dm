@@ -541,7 +541,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/type = input(usr, "Pick a type of report to send", "Report Type", "") in list("Centcom Report","Enemy Commnunications")
+	var/type = input(usr, "Pick a type of report to send", "Report Type", "") in list("Centcom Report","Enemy Commsunications")
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
@@ -589,7 +589,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				C.messagetitle.Add("[command_name()] Update")
 				C.messagetext.Add(P.info)
 
-	world << sound('sound/AI/commandreport.ogg')
+	//world << sound('sound/AI/commandreport.ogg')
 	log_admin("[key_name(src)] has created a communications report: [input]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
