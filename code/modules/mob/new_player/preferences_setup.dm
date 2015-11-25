@@ -223,7 +223,18 @@ datum/preferences
 
 		//Tail
 		if(current_species && (current_species.bodyflags & HAS_TAIL))
-			var/icon/temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[current_species.tail]_s")
+			var/tail_icon
+			var/tail_icon_state
+
+			if(body_accessory)
+				var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+				tail_icon = accessory.icon
+				tail_icon_state = accessory.icon_state
+			else
+				tail_icon = "icons/effects/species.dmi"
+				tail_icon_state = "[current_species.tail]_s"
+
+			var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 			preview_icon.Blend(temp, ICON_OVERLAY)
 
 		// Skin color
