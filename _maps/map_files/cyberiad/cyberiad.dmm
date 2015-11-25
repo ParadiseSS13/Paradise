@@ -2525,7 +2525,7 @@
 "aWC" = (/obj/machinery/portable_atmospherics/hydroponics/soil,/turf/simulated/floor/grass,/area/hydroponics)
 "aWD" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{level = 1},/obj/machinery/portable_atmospherics/hydroponics/soil,/obj/machinery/firealarm{dir = 2; pixel_y = 24},/turf/simulated/floor/grass,/area/hydroponics)
 "aWE" = (/obj/item/device/radio/intercom{pixel_y = 25},/obj/machinery/portable_atmospherics/hydroponics/soil,/turf/simulated/floor/grass,/area/hydroponics)
-"aWF" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/screwdriver,/obj/item/weapon/shovel/spade,/obj/item/weapon/wrench,/obj/item/weapon/wrench,/obj/item/weapon/reagent_containers/glass/bucket,/obj/item/weapon/storage/box/botanydisk,/obj/item/weapon/storage/box/beakers,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor{icon_state = "hydrofloor"},/area/hydroponics)
+"aWF" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/closet/crate/hydroponics/prespawned,/turf/simulated/floor{icon_state = "hydrofloor"},/area/hydroponics)
 "aWG" = (/obj/structure/table,/obj/item/weapon/watertank,/turf/simulated/floor{icon_state = "hydrofloor"},/area/hydroponics)
 "aWH" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/supply{level = 1},/turf/simulated/floor{icon_state = "hydrofloor"},/area/hydroponics)
 "aWI" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/structure/closet/secure_closet/hydroponics,/turf/simulated/floor{icon_state = "hydrofloor"},/area/hydroponics)
