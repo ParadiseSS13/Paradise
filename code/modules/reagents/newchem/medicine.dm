@@ -278,7 +278,7 @@ datum/reagent/sal_acid
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B3B3B3"
-	shock_reduction = 40
+	shock_reduction = 25
 	overdose_threshold = 25
 
 datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
@@ -444,7 +444,7 @@ datum/reagent/morphine
 	color = "#C8A5DC"
 	overdose_threshold = 30
 	addiction_threshold = 25
-	shock_reduction = 60
+	shock_reduction = 50
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

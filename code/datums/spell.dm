@@ -131,8 +131,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	..()
 
 	charge_counter = charge_max
-	
-/obj/effect/proc_holder/spell/Destroy()	
+
+/obj/effect/proc_holder/spell/Destroy()
 	qdel(action)
 	action = null
 	return ..()
@@ -189,20 +189,20 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if(istype(target,/mob/living) && message)
 			target << text("[message]")
 		if(sparks_spread)
-			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
+			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread()
 			sparks.set_up(sparks_amt, 0, location) //no idea what the 0 is
 			sparks.start()
 		if(smoke_spread)
 			if(smoke_spread == 1)
-				var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
+				var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
 			else if(smoke_spread == 2)
-				var/datum/effect/effect/system/bad_smoke_spread/smoke = new /datum/effect/effect/system/bad_smoke_spread()
+				var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
 				smoke.start()
 			else if(smoke_spread == 3)
-				var/datum/effect/effect/system/sleep_smoke_spread/smoke = new /datum/effect/effect/system/sleep_smoke_spread()
+				var/datum/effect/system/sleep_smoke_spread/smoke = new /datum/effect/system/sleep_smoke_spread()
 				smoke.set_up(smoke_amt, 0, location) // same here
 				smoke.start()
 

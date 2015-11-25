@@ -14,6 +14,10 @@
 
 
 	var/health_deficiency = (100 - health + staminaloss)
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				health_deficiency -= R.shock_reduction
 	if(health_deficiency >= 40)
 		tally += (health_deficiency / 25)
 
@@ -43,6 +47,8 @@
 
 	if(RUN in mutations)
 		tally = -1
+	if(HULK in mutations)
+		tally += 1
 	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = -1
 

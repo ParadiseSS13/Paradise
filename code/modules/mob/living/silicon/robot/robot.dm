@@ -59,8 +59,8 @@ var/list/robot_verbs_default = list(
 	var/modtype = "Default"
 	var/lower_mod = 0
 	var/jetpack = 0
-	var/datum/effect/effect/system/ion_trail_follow/ion_trail = null
-	var/datum/effect/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect/system/ion_trail_follow/ion_trail = null
+	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/has_power = 1
 	var/weapon_lock = 0
@@ -87,7 +87,7 @@ var/list/robot_verbs_default = list(
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -149,6 +149,7 @@ var/list/robot_verbs_default = list(
 	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
@@ -219,6 +220,8 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
+	if(get_nations_mode())
+		modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
@@ -295,6 +298,11 @@ var/list/robot_verbs_default = list(
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Combat Android"] = "droidcombat"
+
+		if("Peacekeeper")
+			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			module.channels = list()
+			module_sprites["Peacekeeper Android"] = "droidpeace"
 
 		if("Hunter")
 			updatename(module)
@@ -1000,16 +1008,16 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "ov-openpanel -c"
 
-	if(module_active && istype(module_active,/obj/item/borg/combat/shield))
-		overlays += "[icon_state]-shield"
-
-	if(modtype == "Combat")
+	var/combat = list("Combat","Peacekeeper")
+	if(modtype in combat)
 		if (base_icon == "")
 			base_icon = icon_state
 		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
+		if(activated(/obj/item/borg/combat/shield))
+			overlays += "[base_icon]-shield"
 
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
@@ -1408,3 +1416,43 @@ var/list/robot_verbs_default = list(
 		connected_ai.connected_robots |= src
 		notify_ai(1)
 		sync()
+
+
+/mob/living/silicon/robot/combat/New()
+	..()
+	module = new /obj/item/weapon/robot_module/combat(src)
+	module.channels = list("Security" = 1)
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Combat"
+	//languages
+	module.add_languages(src)
+	//subsystems
+	module.add_subsystems(src)
+
+	hands.icon_state = lowertext("Combat")
+	updatename()
+
+	status_flags &= ~CANPUSH
+
+	radio.config(module.channels)
+	notify_ai(2)
+
+
+/mob/living/silicon/robot/peacekeeper/New()
+	..()
+	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+	base_icon = "droidpeace"
+	icon_state = "droidpeace"
+	modtype = "Peacekeeper"
+	//languages
+	module.add_languages(src)
+	//subsystems
+	module.add_subsystems(src)
+
+	hands.icon_state = lowertext("Combat")
+	updatename()
+
+	status_flags &= ~CANPUSH
+
+	notify_ai(2)

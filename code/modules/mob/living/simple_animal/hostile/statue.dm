@@ -77,12 +77,16 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/statue/Life()
-	..()
-	if(!client && target) // If we have a target and we're AI controlled
+	if(..())
+		if(!ckey)
+			spawn() //for saftey
+				checkTargets()
+		. = 1
+
+/mob/living/simple_animal/hostile/statue/proc/checkTargets()
+	if(target)
 		var/mob/watching = can_be_seen()
-		// If they're not our target
 		if(watching && watching != target)
-			// This one is closer.
 			if(get_dist(watching, src) > get_dist(target, src))
 				LoseTarget()
 				GiveTarget(watching)
@@ -112,73 +116,67 @@
 /mob/living/simple_animal/hostile/statue/proc/can_be_seen(var/turf/destination)
 	// Check for darkness
 	var/turf/T = get_turf(loc)
+
 	var/light_amount
 	var/DLlight_amount
-	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-	if(L)
-		light_amount = L.lum_r + L.lum_g + L.lum_b
+
+	if(T.dynamic_lighting)
+		light_amount = T.get_lumcount()
 	else
-		light_amount =  5
-	var/atom/movable/lighting_overlay/DL = locate(/atom/movable/lighting_overlay) in destination
-	if(DL)
-		DLlight_amount = DL.lum_r + DL.lum_g + DL.lum_b
+		light_amount = 5
+
+	if(destination && destination.dynamic_lighting)
+		DLlight_amount = destination.get_lumcount()
 	else
-		DLlight_amount =  5
+		DLlight_amount = 5
+
 	if(T && destination)
-		// Don't check it twice if our destination is the tile we are on or we can't even get to our destination
+		//Don't check it twice if our destination is the tile we are on or we can't even get to our destination
 		if(T == destination)
 			destination = null
 		else if(light_amount < 0.1 && DLlight_amount < 0.1) // No one can see us in the darkness, right?
 			return null
 
-	// We aren't in darkness, loop for viewers.
+	//We aren't in darkness, loop for viewers.
 	var/list/check_list = list(src)
 	if(destination)
 		check_list += destination
 
-	// This loop will, at most, loop twice.
+	//This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
 		for(var/mob/living/M in viewers(world.view + 1, check) - src)
 			if(M.client && CanAttack(M))
-				if(M.blinded || (sdisabilities & BLIND))
+				if(M.blinded || (M.sdisabilities & BLIND))
 					return null
+
+				//calculates if any mobs are actually facing the statue
 				var/xdif = M.x - src.x
 				var/ydif = M.y - src.y
-				if(abs(xdif) <  abs(ydif))
-					//mob is either above or below src
-					if(ydif < 0 && M.dir == NORTH)
-						//mob is below src and looking up
+
+				if(abs(xdif) < abs(ydif)) //mob is either above or below src
+					if(ydif < 0 && M.dir == NORTH) //mob is below src and looking up
 						return M
-					else if(ydif > 0 && M.dir == SOUTH)
-						//mob is above src and looking down
+					if(ydif > 0 && M.dir == SOUTH) //mob is above src and looking down
 						return M
-				else if(abs(xdif) >  abs(ydif))
-					//mob is either left or right of src
-					if(xdif < 0 && M.dir == EAST)
-						//mob is to the left of src and looking right
+
+				else if(abs(xdif) > abs(ydif)) //mob is either left or right of src
+					if(xdif < 0 && M.dir == EAST) //mob is to the left of src and looking right
 						return M
-					else if(xdif > 0 && M.dir == WEST)
-						//mob is to the right of src and looking left
+					if(xdif > 0 && M.dir == WEST) //mob is to the right of src and looking left
 						return M
-				else if (xdif == 0 && ydif == 0)
-					//mob is on the same tile as src
+
+				else if(xdif == 0 && ydif == 0) //mob is on the same tile as src
 					return M
-	return null
 
 
 
-
-
-// Cannot talk
-
+//Cannot talk
 /mob/living/simple_animal/hostile/statue/say()
 	return 0
 
-// Turn to dust when gibbed
-
+//Turn to dust when gibbed
 /mob/living/simple_animal/hostile/statue/gib(var/animation = 0)
 	dust(animation)
-
 
 /mob/living/simple_animal/hostile/statue/death()
 	living_mob_list -= src
@@ -187,7 +185,7 @@
 		respawnable_list += src
 	gib()
 
-// Stop attacking clientless mobs
+//Stop attacking clientless mobs
 
 /mob/living/simple_animal/hostile/statue/CanAttack(var/atom/the_target)
 	if(mind && mind.key && !ckey)

@@ -153,6 +153,8 @@
 	if(!is_component_functioning("actuator"))
 		src.Paralyse(3)
 
+	if(ticker && ticker.mode.name == "nations")
+		process_nations()
 
 	return 1
 

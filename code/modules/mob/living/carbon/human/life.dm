@@ -363,27 +363,37 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
-	var/null_internals = 0
+
 	if(internal)
-		if(istype(back, /obj/item/weapon/rig))
-			var/obj/item/weapon/rig/rig = back
-			if(rig.offline && (rig.air_supply && internal == rig.air_supply))
-				null_internals = 1
+		var/null_internals = 0      //internals are invalid, therefore turn them off
+		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
 
-		if(!(wear_mask && (wear_mask.flags & AIRTIGHT))) //not wearing mask
-			if(!(head && (head.flags & AIRTIGHT))) //not wearing helmet
-				null_internals = 1
+		if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
+			if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
+				null_internals = 1 //not wearing a mask or suitable helmet
 
-		if(null_internals)
-			internal = null
+		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
+			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
+			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
+				null_internals = 1 //offline suits do not breath
 
-		if(internal)
-			if(internals)
-				internals.icon_state = "internal1"
-			return internal.remove_air_volume(volume_needed)
-		else
-			if(internals)
-				internals.icon_state = "internal0"
+			else if(rig.air_supply && internal == rig.air_supply) //if rig HAS air_supply AND internal IS rig air_supply
+				skip_contents_check = 1 //skip contents.Find() check, the oxygen is valid even being outside of the mob
+
+		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
+			null_internals = 1 //not a rigsuit and your oxygen is gone
+
+		if(null_internals) //something wants internals gone
+			internal = null //so do it
+
+
+	if(internal) //check for hud updates every time this is called
+		if(internals)
+			internals.icon_state = "internal1"
+		return internal.remove_air_volume(volume_needed) //returns the valid air
+	else
+		if(internals)
+			internals.icon_state = "internal0"
 
 	return null
 
@@ -1060,6 +1070,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(hud_updateflag)
 			handle_hud_list()
 
+	if(ticker && ticker.mode.name == "nations")
+		process_nations()
+
+
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -1473,6 +1487,30 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudshadowlingthrall"
 
 			hud_list[SPECIALROLE_HUD] = holder
+
+	if(hud_updateflag & 1 << NATIONS_HUD)
+		var/image/holder = hud_list[NATIONS_HUD]
+		holder.icon_state = "hudblank"
+
+		if(mind && mind.nation)
+			switch(mind.nation.name)
+				if("Atmosia")
+					holder.icon_state = "hudatmosia"
+				if("Brigston")
+					holder.icon_state = "hudbrigston"
+				if("Cargonia")
+					holder.icon_state = "hudcargonia"
+				if("People's Republic of Commandzakstan")
+					holder.icon_state = "hudcommand"
+				if("Servicion")
+					holder.icon_state = "hudservice"
+				if("Medistan")
+					holder.icon_state = "hudmedistan"
+				if("Scientopia")
+					holder.icon_state = "hudscientopia"
+
+			hud_list[NATIONS_HUD] = holder
+
 	hud_updateflag = 0
 
 /mob/living/carbon/human/handle_silent()
@@ -1505,6 +1543,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustBrainLoss(rand(4,10))
 		Paralyse(2)
 	return
+
 
 
 // Need this in species.

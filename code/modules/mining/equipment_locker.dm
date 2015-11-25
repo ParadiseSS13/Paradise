@@ -67,7 +67,7 @@
 			stack_list[processed_sheet] = s
 			// Not including tg's ignoring of metal, glass being stocked because if cargo's not telling science when ores are there, they probably won't
 			// help with restocking metal/glass either
-			var/msg = "[capitalize(s.name)] sheets have been stocked in the ore reclaimer."
+			var/msg = "\[[worldtime2text()]\]: [capitalize(s.name)] sheets have been stocked in the ore reclaimer."
 			for(var/obj/machinery/requests_console/D in allConsoles)
 				if(D.department in src.supply_consoles)
 					if(supply_consoles[D.department] == null || (s.name in supply_consoles[D.department]))
@@ -242,7 +242,7 @@
 	return
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(severity == 1)
@@ -410,7 +410,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if(prob(50 / severity) && severity < 3)

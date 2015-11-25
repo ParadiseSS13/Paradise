@@ -33,7 +33,7 @@
 			//for(var/datum/reagent/R in holder.reagent_list)
 			//	world << "[R.name] = [R.volume]"
 
-			var/datum/effect/effect/system/foam_spread/s = new()
+			var/datum/effect/system/foam_spread/s = new()
 			s.set_up(created_volume, location, holder, 0)
 			s.start()
 			holder.clear_reagents()
@@ -54,7 +54,7 @@
 			for(var/mob/M in viewers(5, location))
 				M << "\red The solution spews out a metalic foam!"
 
-			var/datum/effect/effect/system/foam_spread/s = new()
+			var/datum/effect/system/foam_spread/s = new()
 			s.set_up(created_volume, location, holder, 1)
 			s.start()
 			return
@@ -74,7 +74,7 @@
 			for(var/mob/M in viewers(5, location))
 				M << "\red The solution spews out a metalic foam!"
 
-			var/datum/effect/effect/system/foam_spread/s = new()
+			var/datum/effect/system/foam_spread/s = new()
 			s.set_up(created_volume, location, holder, 2)
 			s.start()
 			return

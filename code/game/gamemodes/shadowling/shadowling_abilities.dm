@@ -419,7 +419,7 @@
 		B.reagents.clear_reagents() //Just in case!
 		B.icon_state = null //Invisible
 		B.reagents.add_reagent("blindness_smoke", 10)
-		var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
+		var/datum/effect/system/chem_smoke_spread/S = new /datum/effect/system/chem_smoke_spread
 		S.attach(B)
 		if(S)
 			S.set_up(B.reagents, 10, 0, B.loc)
@@ -483,7 +483,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>"
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-				var/datum/effect/effect/system/spark_spread/sp = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/sp = new /datum/effect/system/spark_spread
 				sp.set_up(5, 1, S)
 				sp.start()
 				S.Weaken(6)

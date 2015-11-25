@@ -33,8 +33,13 @@
 			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 			return
 		if(istype(O, /obj/item/weapon/aiModule))
-			var/obj/item/weapon/aiModule/M = O
-			M.install(src)
+			var/datum/game_mode/nations/mode = get_nations_mode()
+			if(!mode)
+				var/obj/item/weapon/aiModule/M = O
+				M.install(src)
+			else
+				if(mode.kickoff)
+					user << "<span class='warning'>You have been locked out from modifying the AI's laws!</span>"
 		else
 			..()
 
@@ -69,7 +74,12 @@
 
 	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
 		if(istype(module, /obj/item/weapon/aiModule))
-			module.install(src)
+			var/datum/game_mode/nations/mode = get_nations_mode()
+			if(!mode)
+				module.install(src)
+			else
+				if(mode.kickoff)
+					user << "<span class='warning'>You have been locked out from modifying the borg's laws!</span>"
 		else
 			return ..()
 

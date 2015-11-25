@@ -170,7 +170,7 @@
 			if(!T || T.z != src.z)
 				continue
 			var/dist = get_dist(M.loc, src.loc)
-			if(prob(25))
+			if(prob(50))
 				shake_camera(M, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, meteorsound, 50, 1, get_rand_frequency(), 10)
 
