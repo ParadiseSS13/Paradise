@@ -300,6 +300,9 @@
 		// TODO: refactor all food paths to be less horrible and difficult to work with in this respect. ~Z
 		if(!istype(M) || (can_operate(M) && do_surgery(M,user,src))) return 0
 
+		if(!def_zone)
+			def_zone = check_zone(user.zone_sel.selecting)
+
 		user.lastattacked = M
 		M.lastattacker = user
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [key_name(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
