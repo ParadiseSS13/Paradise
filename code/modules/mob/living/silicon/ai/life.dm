@@ -55,7 +55,6 @@
 			aiRestorePowerRoutine = 0
 			blind.layer = 0
 
-		return
 
 	else
 
@@ -154,8 +153,8 @@
 		if (MED_HUD)
 			process_med_hud(src, 1, eyeobj)
 
-	if(get_nations_mode())
-		process_nations()
+	if(ticker && ticker.mode.name == "nations")
+		process_nations_ai()
 
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
@@ -175,3 +174,9 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
+
+/mob/living/silicon/ai/proc/process_nations_ai()
+	if(client)
+		var/client/C = client
+		for(var/mob/living/carbon/human/H in view(eyeobj, 14))
+			C.images += H.hud_list[NATIONS_HUD]

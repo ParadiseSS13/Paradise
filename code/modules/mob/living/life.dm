@@ -307,5 +307,5 @@
 /mob/living/proc/process_nations()
 	if(client)
 		var/client/C = client
-		for(var/mob/living/carbon/human/H in view())
+		for(var/mob/living/carbon/human/H in view(src, 14))
 			C.images += H.hud_list[NATIONS_HUD]

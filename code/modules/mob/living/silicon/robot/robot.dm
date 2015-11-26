@@ -1431,14 +1431,12 @@ var/list/robot_verbs_default = list(
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH
 
 	radio.config(module.channels)
 	notify_ai(2)
-
 
 /mob/living/silicon/robot/peacekeeper/New()
 	..()
@@ -1451,7 +1449,6 @@ var/list/robot_verbs_default = list(
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH
