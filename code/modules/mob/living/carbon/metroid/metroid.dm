@@ -741,13 +741,13 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			pet.icon_living = "[M.colour] adult slime"
 			pet.icon_dead = "[M.colour] baby slime dead"
 			pet.colour = "[M.colour]"
+			qdel(M)
 			var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 			if (!newname)
 				newname = "pet slime"
 			pet.name = newname
 			pet.real_name = newname
-			qdel(M)
 			qdel(src)
 		else
 			var/mob/living/simple_animal/slime/pet = new /mob/living/simple_animal/slime(M.loc)
@@ -755,13 +755,13 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 			pet.icon_living = "[M.colour] baby slime"
 			pet.icon_dead = "[M.colour] baby slime dead"
 			pet.colour = "[M.colour]"
+			qdel(M)
 			var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 			if (!newname)
 				newname = "pet slime"
 			pet.name = newname
 			pet.real_name = newname
-			qdel(M)
 			qdel(src)
 		user <<"You feed the slime the potion, removing it's powers and calming it."
 
