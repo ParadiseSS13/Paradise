@@ -38,3 +38,9 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiadeus
 	plantname = "ambrosiadeus"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/aloe
+	plantname = "aloe"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/comfrey
+	plantname = "comfrey"
