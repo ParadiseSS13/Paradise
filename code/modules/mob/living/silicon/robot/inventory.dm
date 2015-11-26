@@ -45,6 +45,13 @@
 	if(activated(O))
 		src << "Already activated"
 		return
+	if (is_component_functioning("power cell") && cell)
+		if(istype(O, /obj/item/borg))
+			var/obj/item/borg/B = O
+			if(B.powerneeded)
+				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
+					src << "Not enough power to activate [B.name]!"
+					return
 	if(!module_state_1)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O

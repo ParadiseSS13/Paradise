@@ -223,7 +223,18 @@ datum/preferences
 
 		//Tail
 		if(current_species && (current_species.bodyflags & HAS_TAIL))
-			var/icon/temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[current_species.tail]_s")
+			var/tail_icon
+			var/tail_icon_state
+
+			if(body_accessory)
+				var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+				tail_icon = accessory.icon
+				tail_icon_state = accessory.icon_state
+			else
+				tail_icon = "icons/effects/species.dmi"
+				tail_icon_state = "[current_species.tail]_s"
+
+			var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 			preview_icon.Blend(temp, ICON_OVERLAY)
 
 		// Skin color
@@ -257,19 +268,19 @@ datum/preferences
 		if(underwear && current_species.clothing_flags & HAS_UNDERWEAR)
 			var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
 			if(U)
-				underwear_s = new/icon(U.icon, "[U.icon_state]_s", ICON_OVERLAY)
+				underwear_s = new/icon(U.icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/undershirt_s = null
 		if(undershirt && current_species.clothing_flags & HAS_UNDERSHIRT)
 			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 			if(U2)
-				undershirt_s = new/icon(U2.icon, "[U2.icon_state]_s", ICON_OVERLAY)
+				undershirt_s = new/icon(U2.icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/socks_s = null
 		if(socks && current_species.clothing_flags & HAS_SOCKS)
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
-				socks_s = new/icon(U3.icon, "[U3.icon_state]_s", ICON_OVERLAY)
+				socks_s = new/icon(U3.icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/clothes_s = null
 		var/uniform_dmi='icons/mob/uniform.dmi'

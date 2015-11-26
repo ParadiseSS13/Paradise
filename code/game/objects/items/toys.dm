@@ -523,6 +523,15 @@
 			return
 	..()
 
+/obj/random/prize
+	name = "Random Mech Prize"
+	desc = "This is a random prize"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ripleytoy"
+
+/obj/random/prize/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
+
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 1/11."
@@ -1095,6 +1104,167 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/carpplushie/attack_self(mob/user as mob)
 	playsound(src.loc, bitesound, 20, 1)
 	return ..()
+
+
+/obj/random/carp_plushie
+	name = "Random Carp Plushie"
+	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "carpplushie"
+
+/obj/random/carp_plushie/item_to_spawn()
+	return pick(typesof(/obj/item/toy/carpplushie)) //can pick any carp plushie, even the original.
+
+/obj/item/toy/carpplushie/ice
+	icon_state = "icecarp"
+
+/obj/item/toy/carpplushie/silent
+	icon_state = "silentcarp"
+
+/obj/item/toy/carpplushie/electric
+	icon_state = "electriccarp"
+
+/obj/item/toy/carpplushie/gold
+	icon_state = "goldcarp"
+
+/obj/item/toy/carpplushie/toxin
+	icon_state = "toxincarp"
+
+/obj/item/toy/carpplushie/dragon
+	icon_state = "dragoncarp"
+
+/obj/item/toy/carpplushie/pink
+	icon_state = "pinkcarp"
+
+/obj/item/toy/carpplushie/candy
+	icon_state = "candycarp"
+
+/obj/item/toy/carpplushie/nebula
+	icon_state = "nebulacarp"
+
+/obj/item/toy/carpplushie/void
+	icon_state = "voidcarp"
+
+/*
+ * Plushie
+ */
+
+
+/obj/item/toy/plushie
+	name = "plushie"
+	desc = "An adorable, soft, and cuddly plushie."
+	icon = 'icons/obj/toy.dmi'
+	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
+	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+
+/obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
+	return ..()
+
+/obj/item/toy/plushie/attack_self(mob/user as mob)
+	var/cuddle_verb = pick("hugs","cuddles","snugs")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	playsound(get_turf(src), poof_sound, 50, 1, -1)
+	return ..()
+
+/obj/random/plushie
+	name = "Random Plushie"
+	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "redfox"
+
+/obj/random/plushie/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
+
+/obj/item/toy/plushie/corgi
+	name = "corgi plushie"
+	icon_state = "corgi"
+
+/obj/item/toy/plushie/girly_corgi
+	name = "corgi plushie"
+	icon_state = "girlycorgi"
+
+/obj/item/toy/plushie/robo_corgi
+	name = "borgi plushie"
+	icon_state = "robotcorgi"
+
+/obj/item/toy/plushie/octopus
+	name = "octopus plushie"
+	icon_state = "loveable"
+
+/obj/item/toy/plushie/face_hugger
+	name = "facehugger plushie"
+	icon_state = "huggable"
+
+//foxes are basically the best
+
+/obj/item/toy/plushie/red_fox
+	name = "red fox plushie"
+	icon_state = "redfox"
+
+/obj/item/toy/plushie/black_fox
+	name = "black fox plushie"
+	icon_state = "blackfox"
+
+/obj/item/toy/plushie/marble_fox
+	name = "marble fox plushie"
+	icon_state = "marblefox"
+
+/obj/item/toy/plushie/blue_fox
+	name = "blue fox plushie"
+	icon_state = "bluefox"
+
+/obj/item/toy/plushie/orange_fox
+	name = "orange fox plushie"
+	icon_state = "orangefox"
+
+/obj/item/toy/plushie/coffee_fox
+	name = "coffee fox plushie"
+	icon_state = "coffeefox"
+
+/obj/item/toy/plushie/pink_fox
+	name = "pink fox plushie"
+	icon_state = "pinkfox"
+
+/obj/item/toy/plushie/purple_fox
+	name = "purple fox plushie"
+	icon_state = "purplefox"
+
+/obj/item/toy/plushie/crimson_fox
+	name = "crimson fox plushie"
+	icon_state = "crimsonfox"
+
+/obj/item/toy/plushie/deer
+	name = "deer plushie"
+	icon_state = "deer"
+
+/obj/item/toy/plushie/black_cat
+	name = "black cat plushie"
+	icon_state = "blackcat"
+
+/obj/item/toy/plushie/grey_cat
+	name = "grey cat plushie"
+	icon_state = "greycat"
+
+/obj/item/toy/plushie/white_cat
+	name = "white cat plushie"
+	icon_state = "whitecat"
+
+/obj/item/toy/plushie/orange_cat
+	name = "orange cat plushie"
+	icon_state = "orangecat"
+
+/obj/item/toy/plushie/siamese_cat
+	name = "siamese cat plushie"
+	icon_state = "siamesecat"
+
+/obj/item/toy/plushie/tabby_cat
+	name = "tabby cat plushie"
+	icon_state = "tabbycat"
+
+/obj/item/toy/plushie/tuxedo_cat
+	name = "tuxedo cat plushie"
+	icon_state = "tuxedocat"
 
 /*
  * Foam Armblade

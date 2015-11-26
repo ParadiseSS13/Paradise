@@ -42,8 +42,8 @@
 		name = "Soy Sauce"
 		id = "soysauce"
 		result = "soysauce"
-		required_reagents = list("soymilk" = 2, "flour" = 1, "sodiumchloride" = 1, "water" = 3)
-		result_amount = 7
+		required_reagents = list("soymilk" = 1,"sodiumchloride" = 1, "water" = 8)
+		result_amount = 10
 
 	cheesewheel
 		name = "Cheesewheel"

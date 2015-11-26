@@ -386,6 +386,14 @@
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/large
 	category = list("initial", "Medical")
 
+/datum/design/healthanalyzer
+	name = "Health Analyzer"
+	id = "healthanalyzer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
+	build_path = /obj/item/device/healthanalyzer
+	category = list("initial", "Medical")
+
 /datum/design/retractor
 	name = "Retractor"
 	id = "retractor"
@@ -408,6 +416,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000)
 	build_path = /obj/item/weapon/surgicaldrill
+	category = list("initial", "Medical")
+
+/datum/design/bonesetter
+	name = "Bone Setter"
+	id = "bonesetter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/weapon/bonesetter
 	category = list("initial", "Medical")
 
 /datum/design/syringe

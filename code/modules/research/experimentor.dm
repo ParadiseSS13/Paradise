@@ -623,10 +623,12 @@
 	var/realProc
 	var/cooldownMax = 60
 	var/cooldown
+	var/floof
 
 /obj/item/weapon/relic/New()
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","illegal tech","weapon")]"
+	floof = pick(/mob/living/simple_animal/pet/corgi, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/fox, /mob/living/simple_animal/mouse, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/lizard, /mob/living/simple_animal/diona, /mob/living/simple_animal/butterfly, /mob/living/carbon/human/monkey)
 
 
 /obj/item/weapon/relic/proc/reveal()
@@ -635,7 +637,7 @@
 	revealed = TRUE
 	name = realName
 	cooldownMax = rand(60,300)
-	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","corgicannon")
+	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","floofcannon")
 
 /obj/item/weapon/relic/attack_self(mob/user)
 	if(revealed)
@@ -657,12 +659,12 @@
 	smoke.set_up(1,0, where, 0)
 	smoke.start()
 
-/obj/item/weapon/relic/proc/corgicannon(mob/user)
+/obj/item/weapon/relic/proc/floofcannon(mob/user)
 	playsound(src.loc, "sparks", rand(25,50), 1)
-	var/mob/living/simple_animal/pet/corgi/C = new/mob/living/simple_animal/pet/corgi(get_turf(user))
+	var/mob/living/C = new floof(get_turf(user))
 	C.throw_at(pick(oview(10,user)),10,rand(3,8))
 	throwSmoke(get_turf(C))
-	warn_admins(user, "Corgi Cannon", 0)
+	warn_admins(user, "Floof Cannon", 0)
 
 /obj/item/weapon/relic/proc/clean(mob/user)
 	playsound(src.loc, "sparks", rand(25,50), 1)

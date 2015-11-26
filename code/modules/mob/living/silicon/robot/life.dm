@@ -13,7 +13,6 @@
 		process_locks()
 		process_queued_alarms()
 
-
 /mob/living/silicon/robot/proc/clamp_values()
 	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
@@ -27,6 +26,11 @@
 
 /mob/living/silicon/robot/proc/use_power()
 	if (is_component_functioning("power cell") && cell)
+		for(var/obj/item/borg/B in module.modules)
+			if(B.powerneeded)
+				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
+					src << "Deactivating [B.name] due to lack of power!"
+					unEquip(B)
 		if(src.cell.charge <= 0)
 			uneq_all()
 			update_headlamp(1)
@@ -153,9 +157,6 @@
 	if(!is_component_functioning("actuator"))
 		src.Paralyse(3)
 
-	if(ticker && ticker.mode.name == "nations")
-		process_nations()
-
 	return 1
 
 /mob/living/silicon/robot/update_sight()
@@ -265,6 +266,7 @@
 			if(!mind.special_role)
 				mind.special_role = "traitor"
 				ticker.mode.traitors += src.mind
+
 
 	..()
 	return 1

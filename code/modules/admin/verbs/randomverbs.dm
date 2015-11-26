@@ -1,7 +1,7 @@
 /client/proc/cmd_admin_drop_everything(mob/M as mob in mob_list)
 	set category = null
 	set name = "Drop Everything"
-	
+
 	if(!check_rights(R_DEBUG|R_ADMIN))
 		return
 
@@ -19,10 +19,10 @@
 /client/proc/cmd_admin_prison(mob/M as mob in mob_list)
 	set category = "Admin"
 	set name = "Prison"
-	
+
 	if(!check_rights(R_ADMIN))
 		return
-	
+
 	if (ismob(M))
 		if(istype(M, /mob/living/silicon/ai))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
@@ -48,10 +48,10 @@
 	set category = "Event"
 	set name = "Subtle Message"
 
-	if(!ismob(M))	
+	if(!ismob(M))
 		return
 
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
 	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
@@ -70,7 +70,7 @@
 /client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
 	set category = "Admin"
 	set name = "Check new Players"
-	
+
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
 		return
 
@@ -103,7 +103,7 @@
 	set category = "Event"
 	set name = "Global Narrate"
 
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
 	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
@@ -119,7 +119,7 @@
 	set category = "Event"
 	set name = "Direct Narrate"
 
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
 	if(!M)
@@ -141,10 +141,10 @@
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
 	set category = "Special Verbs"
 	set name = "Godmode"
-	
+
 	if(!check_rights(R_ADMIN))
 		return
-	
+
 	M.status_flags ^= GODMODE
 	usr << "\blue Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"
 
@@ -155,7 +155,7 @@
 
 proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	if(automute)
-		if(!config.automute_on)	
+		if(!config.automute_on)
 			return
 	else
 		if(!usr || !usr.client)
@@ -165,7 +165,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 			return
 		if(!M.client)
 			usr << "<font color='red'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</font>"
-	if(!M.client)		
+	if(!M.client)
 		return
 
 	var/muteunmute
@@ -204,10 +204,10 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 /client/proc/cmd_admin_add_random_ai_law()
 	set category = "Event"
 	set name = "Add Random AI Law"
-	
+
 	if(!check_rights(R_EVENT))
 		return
-	
+
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 	log_admin("[key_name(src)] has added a random AI law.")
@@ -226,7 +226,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 
 	if(!check_rights(R_SERVER))
 		return
-	
+
 	var/action=""
 	if(config.antag_hud_allowed)
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -256,10 +256,10 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 	set category = "Server"
 	set name = "Toggle antagHUD Restrictions"
 	set desc = "Restricts players that have used antagHUD from being able to join this round."
-	
+
 	if(!check_rights(R_SERVER))
 		return
-	
+
 	var/action=""
 	if(config.antag_hud_restricted)
 		for(var/mob/dead/observer/g in get_ghosts())
@@ -289,10 +289,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
-	
+
 	if(!check_rights(R_SPAWN))
 		return
-		
+
 	var/input = ckey(input(src, "Please specify which key will be respawned.", "Key", ""))
 	if(!input)
 		return
@@ -469,7 +469,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	new_xeno.ckey = ckey
 	message_admins("\blue [key_name_admin(usr)] has spawned [ckey] as a filthy xeno [alien_caste].", 1)
 	return 1
-	
+
 
 /client/proc/get_ghosts(var/notify = 0,var/what = 2)
 	// what = 1, return ghosts ass list.
@@ -493,15 +493,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(what==1)
 		return ghosts
 	else
-		return mobs	
-	
+		return mobs
+
 /client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Event"
 	set name = "Add Custom AI law"
-	
+
 	if(!check_rights(R_EVENT))
 		return
-	
+
 	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
 	if(!input)
 		return
@@ -519,10 +519,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
 	set category = "Special Verbs"
 	set name = "Rejuvenate"
-	
+
 	if(!check_rights(R_REJUVINATE))
 		return
-	
+
 	if(!mob)
 		return
 	if(!istype(M))
@@ -536,36 +536,64 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Event"
-	set name = "Create Command Report"
+	set name = "Create Communications Report"
 
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
+	var/type = input(usr, "Pick a type of report to send", "Report Type", "") in list("Centcom Report","Enemy Communications")
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
 		return
-	if(!customname)
-		customname = "Nanotrasen Update"
-	for (var/obj/machinery/computer/communications/C in machines)
-		if(! (C.stat & (BROKEN|NOPOWER) ) )
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-			P.name = "'[command_name()] Update.'"
-			P.info = input
-			P.update_icon()
-			C.messagetitle.Add("[command_name()] Update")
-			C.messagetext.Add(P.info)
 
-	switch(alert("Should this be announced to the general population?",,"Yes","No"))
-		if("Yes")
-			command_announcement.Announce(input, customname);
-		if("No")
-			world << "\red New Nanotrasen Update available at all communication consoles."
+	if(type == "Enemy Communications")
+		if(!customname)
+			customname = type
 
-	world << sound('sound/AI/commandreport.ogg')
-	log_admin("[key_name(src)] has created a command report: [input]")
-	message_admins("[key_name_admin(src)] has created a command report", 1)
+		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
+		if(!from)
+			from = "Syndicate Communique"
+		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+			if("Yes")
+				communications_announcement.Announce(input, customname, , , , from);
+			if("No")
+				world << "\red [from] available at all communications consoles."
+
+		for (var/obj/machinery/computer/communications/C in machines)
+			if(! (C.stat & (BROKEN|NOPOWER) ) )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				P.name = "[from]"
+				P.info = input
+				P.update_icon()
+				C.messagetitle.Add("[from]")
+				C.messagetext.Add(P.info)
+
+
+	if(type == "Centcom Report")
+		if(!customname)
+			customname = "Nanotrasen Update"
+
+		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+			if("Yes")
+				command_announcement.Announce(input, customname);
+			if("No")
+				world << "\red New Nanotrasen Update available at all communication consoles."
+
+		for (var/obj/machinery/computer/communications/C in machines)
+			if(! (C.stat & (BROKEN|NOPOWER) ) )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				P.name = "'[command_name()] Update.'"
+				P.info = input
+				P.update_icon()
+				C.messagetitle.Add("[command_name()] Update")
+				C.messagetext.Add(P.info)
+
+	//world << sound('sound/AI/commandreport.ogg')
+	log_admin("[key_name(src)] has created a communications report: [input]")
+	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in view())
 	set category = "Admin"
@@ -590,7 +618,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!check_rights(R_ADMIN))
 		return
-	
+
 	if(job_master)
 		for(var/datum/job/job in job_master.occupations)
 			src << "[job.title]: [job.total_positions]"
@@ -600,7 +628,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Event"
 	set name = "Explosion"
 
-	if(!check_rights(R_DEBUG|R_EVENT))	
+	if(!check_rights(R_DEBUG|R_EVENT))
 		return
 
 	var/devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
@@ -631,7 +659,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "EM Pulse"
 
-	if(!check_rights(R_DEBUG|R_EVENT))	
+	if(!check_rights(R_DEBUG|R_EVENT))
 		return
 
 	var/heavy = input("Range of heavy pulse.", text("Input"))  as num|null
@@ -654,7 +682,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "Gib"
 
-	if(!check_rights(R_ADMIN|R_EVENT))	
+	if(!check_rights(R_ADMIN|R_EVENT))
 		return
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
@@ -677,8 +705,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Event"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
-		return	
-	
+		return
+
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
 		if (istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
@@ -693,7 +721,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
 	set category = "Special Verbs"
 	set name = "Check Contents"
-	
+
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -706,7 +734,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
-	
+
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -727,7 +755,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if ((!( ticker ) || !emergency_shuttle.location()))
 		return
 
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
@@ -743,8 +771,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		choice = input("The shuttle will not be able to leave if you call it. Call anyway?") in list("Confirm", "Cancel")
 		if(choice != "Confirm")
 			return
-			
-	
+
+
 
 	choice = input("Is this an emergency evacuation or a crew transfer?") in list("Emergency", "Crew Transfer")
 	if (choice == "Emergency")
@@ -763,7 +791,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Cancel Shuttle"
 
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN))
 		return
 
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
@@ -785,7 +813,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if (!ticker)
 		return
 
-	if(!check_rights(R_ADMIN))	
+	if(!check_rights(R_ADMIN))
 		return
 
 	emergency_shuttle.deny_shuttle = !emergency_shuttle.deny_shuttle
@@ -798,8 +826,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Attack Log"
 
 	if(!check_rights(R_ADMIN))
-		return	
-	
+		return
+
 	usr << text("\red <b>Attack Log for []</b>", mob)
 	for(var/t in M.attack_log)
 		usr << t
@@ -811,7 +839,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
 
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
 	if (ticker && ticker.mode)
@@ -845,7 +873,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Toggle random events on/off"
 
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
-	if(!check_rights(R_SERVER|R_EVENT))	
+	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
 	if(!config.allow_random_events)
@@ -863,7 +891,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Toggle ERT"
 
 	set desc = "Toggle the station's ability to call a response team."
-	if(!check_rights(R_EVENT)) 
+	if(!check_rights(R_EVENT))
 		return
 
 	if(ticker.mode.ert_disabled)
