@@ -1016,8 +1016,9 @@ var/list/robot_verbs_default = list(
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
-		if(activated(/obj/item/borg/combat/shield))
-			overlays += "[base_icon]-shield"
+		for(var/obj/item/borg/combat/shield/S in module.modules)
+			if(activated(S))
+				overlays += "[base_icon]-shield"
 
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
@@ -1430,14 +1431,12 @@ var/list/robot_verbs_default = list(
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH
 
 	radio.config(module.channels)
 	notify_ai(2)
-
 
 /mob/living/silicon/robot/peacekeeper/New()
 	..()
@@ -1450,7 +1449,6 @@ var/list/robot_verbs_default = list(
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH

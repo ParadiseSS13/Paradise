@@ -13,6 +13,8 @@
 		process_locks()
 		process_queued_alarms()
 
+	if(get_nations_mode())
+		process_nations()
 
 /mob/living/silicon/robot/proc/clamp_values()
 	SetStunned(min(stunned, 30))
@@ -153,9 +155,6 @@
 	if(!is_component_functioning("actuator"))
 		src.Paralyse(3)
 
-	if(ticker && ticker.mode.name == "nations")
-		process_nations()
-
 	return 1
 
 /mob/living/silicon/robot/update_sight()
@@ -265,6 +264,7 @@
 			if(!mind.special_role)
 				mind.special_role = "traitor"
 				ticker.mode.traitors += src.mind
+
 
 	..()
 	return 1
