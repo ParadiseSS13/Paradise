@@ -90,7 +90,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
-	if(ticker && ticker.mode.name == "nations")
+	if(get_nations_mode())
 		process_nations()
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
