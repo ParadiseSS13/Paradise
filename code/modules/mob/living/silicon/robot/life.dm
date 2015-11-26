@@ -13,9 +13,6 @@
 		process_locks()
 		process_queued_alarms()
 
-	if(get_nations_mode())
-		process_nations()
-
 /mob/living/silicon/robot/proc/clamp_values()
 	SetStunned(min(stunned, 30))
 	SetParalysis(min(paralysis, 30))
