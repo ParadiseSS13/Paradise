@@ -1190,7 +1190,7 @@ datum/preferences
 
 						var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 						if(new_body_accessory)
-							body_accessory = new_body_accessory
+							body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 					if("facial")
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as color|null
