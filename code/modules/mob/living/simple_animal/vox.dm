@@ -22,15 +22,14 @@
 	var/amp = null
 	var/quills = 3
 
-/mob/living/simple_animal/vox/armalis/death()
-
-	living_mob_list -= src
-	dead_mob_list += src
-	stat = DEAD
-	visible_message("\red <B>[src] shudders violently and explodes!</B>","\red <B>You feel your body rupture!</B>")
-	explosion(get_turf(loc), -1, -1, 3, 5)
-	src.gib()
-	return
+/mob/living/simple_animal/vox/armalis/death(gibbed)
+	if(!gibbed)
+		stat = DEAD
+		explosion(get_turf(loc), -1, -1, 3, 5)
+		gib()
+		visible_message("<span class='danger'>[src] shudders violently and explodes!</B>","\red <B>You feel your body rupture!</span>")
+		return
+	return ..()
 
 /mob/living/simple_animal/vox/armalis/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
