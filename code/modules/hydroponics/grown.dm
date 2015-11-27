@@ -300,6 +300,9 @@
 		// TODO: refactor all food paths to be less horrible and difficult to work with in this respect. ~Z
 		if(!istype(M) || (can_operate(M) && do_surgery(M,user,src))) return 0
 
+		if(!def_zone)
+			def_zone = check_zone(user.zone_sel.selecting)
+
 		user.lastattacked = M
 		M.lastattacker = user
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [key_name(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
@@ -311,7 +314,7 @@
 			var/hit = H.attacked_by(src, user, def_zone)
 			if(hit && hitsound)
 				playsound(loc, hitsound, 50, 1, -1)
-			return hit
+			//return hit
 		else
 			if(attack_verb.len)
 				user.visible_message("<span class='danger'>[M] has been [pick(attack_verb)] with [src] by [user]!</span>")
@@ -331,15 +334,23 @@
 						M.take_organ_damage(0, force)
 			M.updatehealth()
 
-		if(seed && seed.get_trait(TRAIT_STINGS))
+		if(seed && seed.get_trait(TRAIT_CARNIVOROUS))
+			seed.do_thorns(M, src, def_zone)
+
+		if(ishuman(M) && seed && seed.get_trait(TRAIT_STINGS))
 			if(!reagents || reagents.total_volume <= 0)
 				return
-			reagents.remove_any(rand(1,3))
-			seed.thrown_at(src,M)
+			seed.do_sting(M, src, def_zone)
+			reagents.remove_any(rand(1,3))		//use up some of the reagents at random
 			sleep(-1)
 			if(!src)
 				return
-			if(prob(35))
+			if(reagents && reagents.total_volume <= 0)		//used-up fruit will be destroyed
+				if(user)
+					user << "<span class='danger'>\The [src] has dried out and crumbles to dust.</span>"
+					//user.drop_from_inventory(src)
+				qdel(src)
+			else if(prob(35))		//fruit that still has reagents has a chance of breaking each time it stings on hit
 				if(user)
 					user << "<span class='danger'>\The [src] has fallen to bits.</span>"
 					//user.drop_from_inventory(src)

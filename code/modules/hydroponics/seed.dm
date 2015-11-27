@@ -140,19 +140,47 @@
 	target.updatehealth()
 
 // Adds reagents to a target.
-/datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit)
+/datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit, var/target_limb)
 	if(!get_trait(TRAIT_STINGS))
 		return
+	if(!target_limb)		//if we weren't given a target_limb, pick a random one to try stinging
+		target_limb = pick("l_foot","r_foot","l_leg","r_leg","l_hand","r_hand","l_arm", "r_arm","head","chest","groin")
 	if(chems && chems.len)
 
-		var/body_coverage = HEAD|HEADCOVERSMOUTH|HEADCOVERSEYES|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+		if(!target.can_inject(target, 0, target_limb))		//if a syringe can't get through, neither can the sting
+			return
+
+		var/protection_needed
+		switch(target_limb)
+			if("head")
+				protection_needed = HEAD | HEADCOVERSMOUTH | HEADCOVERSEYES
+			if("chest")
+				protection_needed = UPPER_TORSO
+			if("groin")
+				protection_needed = LOWER_TORSO
+			if("l_arm","r_arm")
+				protection_needed = ARMS
+			if("l_hand","r_hand")
+				protection_needed = HANDS
+			if("l_leg","r_leg")
+				protection_needed = LEGS
+			if("l_foot","r_foot")
+				protection_needed = FEET
 
 		for(var/obj/item/clothing/clothes in target)
+
 			if(target.l_hand == clothes|| target.r_hand == clothes)
 				continue
-			body_coverage &= ~(clothes.body_parts_covered)
+			protection_needed &= ~(clothes.body_parts_covered)
+			if((clothes.slot_flags & SLOT_HEAD) || (clothes.slot_flags & SLOT_MASK))
+				if(clothes.flags & HEADCOVERSEYES)
+					protection_needed &= ~(HEADCOVERSEYES)
+				if(clothes.flags & HEADCOVERSMOUTH)
+					protection_needed &= ~(HEADCOVERSMOUTH)
+			if(!protection_needed)	//already got the needed protection, save some time and skip the rest of the loop
+				break
 
-		if(!body_coverage)
+		if(!protection_needed)		//properly protected, good job!
 			return
 
 		target << "<span class='danger'>You are stung by \the [fruit]!</span>"
