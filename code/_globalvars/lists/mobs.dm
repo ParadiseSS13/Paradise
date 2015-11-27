@@ -52,7 +52,8 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal,
 			/mob/living/simple_animal/ascendant_shadowling,
 			/mob/living/simple_animal/slaughter,
 			/mob/living/simple_animal/hostile/retaliate/araneus,
-			/mob/living/simple_animal/hostile/syndicate/ranged/orion
+			/mob/living/simple_animal/hostile/syndicate/ranged/orion,
+			/mob/living/simple_animal/hostile/statue
 			)
 
 var/global/list/med_hud_users = list()
