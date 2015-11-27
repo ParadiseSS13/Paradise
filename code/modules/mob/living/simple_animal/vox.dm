@@ -25,9 +25,9 @@
 /mob/living/simple_animal/vox/armalis/death(gibbed)
 	if(!gibbed)
 		stat = DEAD
+		visible_message("<span class='danger'>[src] shudders violently and explodes!</B>","\red <B>You feel your body rupture!</span>")
 		explosion(get_turf(loc), -1, -1, 3, 5)
 		gib()
-		visible_message("<span class='danger'>[src] shudders violently and explodes!</B>","\red <B>You feel your body rupture!</span>")
 		return
 	return ..()
 

@@ -99,6 +99,14 @@
 			if(F.on)
 				G.toggle_gunlight()
 				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")
+	else if(istype(I, /obj/item/clothing/head/hardhat)) //There really needs to be a better way to handle this.
+		var/obj/item/clothing/head/hardhat/hhat = I
+		if(hhat.on)
+			hhat.on = 0
+			hhat.set_light(0)
+			hhat.icon_state = "hardhat0_[hhat.item_color]"
+			hhat.item_state = "hardhat0_[hhat.item_color]"
+			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
 	return I.light_range
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)
