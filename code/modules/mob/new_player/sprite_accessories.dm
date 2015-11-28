@@ -128,21 +128,16 @@
 		name = "Ponytail alt"
 		icon_state = "hair_ponytail3"
 
-
-	ponytail4
-		name = "Ponytail old"
-		icon_state = "hair_ponytail_alt"
-
 	sideponytail
 		name = "Side Ponytail"
 		icon_state = "hair_stail"
 		gender = FEMALE
 
-
 	highponytail
 		name = "High Ponytail"
 		icon_state = "hair_highponytail"
 		gender = FEMALE
+
 
 	wisp
 		name = "Wisp"
