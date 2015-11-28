@@ -166,6 +166,33 @@
 	src << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
 	log_say("[src.real_name]/[src.key] : [text]")
 
+/mob/living/proc/guardian_recall()
+	set name = "Recall Guardian"
+	set category = "Guardian"
+	set desc = "Forcibly recall your guardian."
+	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
+		if(G.summoner == src)
+			G.Recall()
+
+/mob/living/proc/guardian_reset()
+	set name = "Reset Guardian Player (One Use)"
+	set category = "Guardian"
+	set desc = "Re-rolls which ghost will control your Guardian. One use."
+	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
+		if(G.summoner == src)
+			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", "pAI", null, FALSE, 100)
+			var/mob/dead/observer/new_stand = null
+			if(candidates.len)
+				new_stand = pick(candidates)
+				G << "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."
+				src << "Your guardian has been successfully reset."
+				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
+				G.ghostize()
+				G.key = new_stand.key
+				src.verbs -= /mob/living/proc/guardian_reset
+			else
+				src << "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now."
+
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!luminosity)
@@ -575,7 +602,7 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive")
 	var/random = TRUE
-	var/adminSeal = FALSE
+	var/adminseal = FALSE
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
@@ -605,7 +632,7 @@
 	var/gaurdiantype = "Standard"
 	if(random)
 		gaurdiantype = pick(possible_guardians)
-	if(adminSeal)
+	if(adminseal)
 		gaurdiantype = pick("StandardSeal","SupportSeal")
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
@@ -642,6 +669,9 @@
 	G << "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself."
 	G << "[G.playstyle_string]"
 	user.verbs += /mob/living/proc/guardian_comm
+	if(!adminseal)
+		user.verbs += /mob/living/proc/guardian_recall
+		user.verbs += /mob/living/proc/guardian_reset
 	switch (theme)
 		if("magic")
 			G.name = "[mob_name]"
@@ -720,7 +750,23 @@
 	use_message = "URK!"
 	used_message = "arf?"
 	failure_message = "<B>...</B>"
-	adminSeal = TRUE
+	adminseal = TRUE
+
+
+/obj/item/weapon/guardiancreator/adminbus/attack_self(mob/living/user)
+
+	var/list/targets = list()
+	var/target = null
+	targets += getmobs() //Fill list, prompt user with list
+	target = input("Select a Player to guard!", "Player list", null, null) as null|anything in targets
+
+	if(!target) return
+	var/mob/living/carbon/human/H = target
+	if(H.mind )
+		spawn_guardian(H,user.key)
+	else
+		user << "Target has no mind. Aborting."
+
 
 /obj/item/weapon/paper/guardian
 	name = "Holoparasite Guide"
@@ -837,7 +883,6 @@
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
 		G.Communicate()
-
 
 /obj/screen/guardian/ToggleLight
 	icon_state = "light"
