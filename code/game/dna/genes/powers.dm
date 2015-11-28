@@ -113,10 +113,12 @@
 	activate(var/mob/M, var/connected, var/flags)
 		..(M,connected,flags)
 		M.pass_flags |= PASSTABLE
+		M.resize = 0.8
 
 	deactivate(var/mob/M, var/connected, var/flags)
 		..()
 		M.pass_flags &= ~PASSTABLE
+		M.resize = 1.25
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
