@@ -113,7 +113,7 @@
 			descriptors |= "hallucinogenic"
 		if(reagents.has_reagent("styptic_powder"))
 			descriptors |= "medicinal"
-		if(reagents.has_reagent("gold"))
+		if(reagents.has_reagent("gold") || reagents.has_reagent("silver"))
 			descriptors |= "shiny"
 		if(reagents.has_reagent("lube"))
 			descriptors |= "slippery"
@@ -377,22 +377,7 @@
 		if(src) qdel(src)
 		return
 
-	if(seed.kitchen_tag == "grass")
-		user.show_message("<span class='notice'>You make a grass tile out of \the [src]!</span>", 1)
-		for(var/i=0,i<2,i++)
-			var/obj/item/stack/tile/grass/G = new (user.loc)
-			G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-			for (var/obj/item/stack/tile/grass/NG in user.loc)
-				if(G==NG)
-					continue
-				if(NG.amount>=NG.max_amount)
-					continue
-				NG.attackby(G, user)
-			user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
-		qdel(src)
-		return
-
-	if(seed.get_trait(TRAIT_SPREAD) > 0)
+	if(user.a_intent == I_DISARM && seed.get_trait(TRAIT_SPREAD) > 0)		//Using disarm so we can tell if you want to plant or convert non-final plants
 		user << "<span class='notice'>You plant the [src.name].</span>"
 		new /obj/machinery/portable_atmospherics/hydroponics/soil/invisible(get_turf(user),src.seed)
 		new /obj/effect/plant(get_turf(user), src.seed)
@@ -400,7 +385,7 @@
 		return
 
 
-	if(seed.kitchen_tag)
+	if(!seed.final_form)	//This isn't even my final form! (sorry, it had to be done)
 		switch(seed.kitchen_tag)
 			if("comfrey")
 				var/obj/item/stack/medical/bruise_pack/comfrey/poultice = new /obj/item/stack/medical/bruise_pack/comfrey(user.loc)
@@ -414,7 +399,70 @@
 				user << "<span class='notice'>You mash the petals into a poultice.</span>"
 				qdel(src)
 				return
+			if("grass")
+				user.show_message("<span class='notice'>You make a grass tile out of \the [src]!</span>", 1)
+				for(var/i=0,i<2,i++)
+					var/obj/item/stack/tile/grass/G = new (user.loc)
+					G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
+					for (var/obj/item/stack/tile/grass/NG in user.loc)
+						if(G==NG)
+							continue
+						if(NG.amount>=NG.max_amount)
+							continue
+						NG.attackby(G, user)
+					user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
+				qdel(src)
+				return
+			if("sunflower")
+				var/obj/item/weapon/grown/sunflower/SF = new /obj/item/weapon/grown/sunflower(user.loc)
+				user.unEquip(src)
+				user.put_in_hands(SF)
+				qdel(src)
+				return
+			if("novaflower")
+				var/obj/item/weapon/grown/novaflower/NF = new /obj/item/weapon/grown/novaflower(user.loc)
+				user.say("PRAISE THE SUN!")
+				user.unEquip(src)
+				user.put_in_hands(NF)
+				qdel(src)
+				return
+			if("cashpod")
+				user << "You crack open the cash pod..."
+				var/value = round(seed.get_trait(TRAIT_POTENCY))
+				var/dosh
+				user.unEquip(src)
+				switch(value)
+					if(0)
+						user << "It's empty! What a waste..."
+					if(1 to 10)
+						user << "It's got a space dollar inside. Woo."
+						dosh = new /obj/item/weapon/spacecash(user.loc)
+					if(11 to 20)
+						user << "It's got 10 space dollars inside!"
+						dosh = new /obj/item/weapon/spacecash/c10(user.loc)
+					if(21 to 30)
+						user << "It's got 20 space dollars inside! Cool!"
+						dosh = new /obj/item/weapon/spacecash/c20(user.loc)
+					if(31 to 40)
+						user << "It's got 50 space dollars inside! Nice!"
+						dosh = new /obj/item/weapon/spacecash/c50(user.loc)
+					if(41 to 50)
+						user << "It's got 100 space dollars inside! Sweet!"
+						dosh = new /obj/item/weapon/spacecash/c100(user.loc)
+					if(51 to 60)
+						user << "It's got 200 space dollars inside! Awesome!"
+						dosh = new /obj/item/weapon/spacecash/c200(user.loc)
+					if(61 to 80)
+						user << "It's got 500 space dollars inside! CHA-CHING!"
+						dosh = new /obj/item/weapon/spacecash/c500(user.loc)
+					else
+						user << "It's got 1000 space dollars inside! JACKPOT!"
+						dosh = new /obj/item/weapon/spacecash/c1000(user.loc)
 
+				if(dosh)
+					user.put_in_hands(dosh)
+				qdel(src)
+				return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/pickup(mob/user)
 	..()
