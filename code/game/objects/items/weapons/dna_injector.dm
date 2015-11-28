@@ -94,6 +94,9 @@
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
+	if(!M.dna) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
+		return 0
+
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
 		if(H.species.flags & NO_DNA_RAD)
