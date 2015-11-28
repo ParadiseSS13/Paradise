@@ -421,7 +421,10 @@
 				return
 			if("novaflower")
 				var/obj/item/weapon/grown/novaflower/NF = new /obj/item/weapon/grown/novaflower(user.loc)
-				user.say("PRAISE THE SUN!")
+				if(prob(10))
+					user.say("PRAISE THE SUN!")
+				else
+					user << "PRAISE THE SUN!"
 				user.unEquip(src)
 				user.put_in_hands(NF)
 				qdel(src)
@@ -435,28 +438,28 @@
 					if(0)
 						user << "It's empty! What a waste..."
 					if(1 to 10)
-						user << "It's got a space dollar inside. Woo."
+						user << "It has a space dollar inside. Woo."
 						dosh = new /obj/item/weapon/spacecash(user.loc)
 					if(11 to 20)
-						user << "It's got 10 space dollars inside!"
+						user << "It has 10 space dollars inside!"
 						dosh = new /obj/item/weapon/spacecash/c10(user.loc)
 					if(21 to 30)
-						user << "It's got 20 space dollars inside! Cool!"
+						user << "It has 20 space dollars inside! Cool!"
 						dosh = new /obj/item/weapon/spacecash/c20(user.loc)
 					if(31 to 40)
-						user << "It's got 50 space dollars inside! Nice!"
+						user << "It has 50 space dollars inside! Nice!"
 						dosh = new /obj/item/weapon/spacecash/c50(user.loc)
 					if(41 to 50)
-						user << "It's got 100 space dollars inside! Sweet!"
+						user << "It has 100 space dollars inside! Sweet!"
 						dosh = new /obj/item/weapon/spacecash/c100(user.loc)
 					if(51 to 60)
-						user << "It's got 200 space dollars inside! Awesome!"
+						user << "It has 200 space dollars inside! Awesome!"
 						dosh = new /obj/item/weapon/spacecash/c200(user.loc)
 					if(61 to 80)
-						user << "It's got 500 space dollars inside! CHA-CHING!"
+						user << "It has 500 space dollars inside! CHA-CHING!"
 						dosh = new /obj/item/weapon/spacecash/c500(user.loc)
 					else
-						user << "It's got 1000 space dollars inside! JACKPOT!"
+						user << "It has 1000 space dollars inside! JACKPOT!"
 						dosh = new /obj/item/weapon/spacecash/c1000(user.loc)
 
 				if(dosh)
