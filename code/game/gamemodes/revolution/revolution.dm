@@ -34,7 +34,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	world << "<B>The current game mode is - Revolution!</B>"
-	world << "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>"
+	world << "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -171,23 +171,10 @@
 			mob << "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 			mob.mutations.Remove(CLUMSY)
 
+	var/obj/effect/proc_holder/spell/S = /obj/effect/proc_holder/spell/targeted/recruitrev
+	if(!S) return
+	mob.AddSpell(new S)
 
-	var/obj/item/device/flash/T = new(mob)
-
-	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
-	)
-	var/where = mob.equip_in_one_of_slots(T, slots)
-	if (!where)
-		mob << "The Syndicate were unfortunately unable to get you a flash."
-	else
-		mob << "The flash in your [where] will help you to persuade the crew to join your cause."
-		mob.update_icons()
-		return 1
 
 //////////////////////////////////////
 //Checks if the revs have won or not//
@@ -555,3 +542,69 @@
 	dat += "<HR>"
 
 	return dat
+
+
+
+/obj/effect/proc_holder/spell/targeted/recruitrev
+	name = "Recruit Revolutionary"
+	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic non-loyal human to be part of the revolution."
+	charge_max = 450
+	clothes_req = 0
+	range = 1 //Adjacent to user
+	action_icon_state = "spell_greytide"
+	var/recruiting = 0
+
+/obj/effect/proc_holder/spell/targeted/recruit/cast(list/targets)
+	for(var/mob/living/carbon/human/target in targets)
+		if(!in_range(usr, target))
+			usr << "<span class='warning'>You need to be closer to recruit [target].</span>"
+			charge_counter = charge_max
+			return
+		if(!target.ckey)
+			usr << "<span class='warning'>The target has no mind.</span>"
+			charge_counter = charge_max
+			return
+		if(target.stat)
+			usr << "<span class='warning'>The target must be conscious.</span>"
+			charge_counter = charge_max
+			return
+		if(!ishuman(target))
+			usr << "<span class='warning'>You can only recruit humans.</span>"
+			charge_counter = charge_max
+			return
+		if(recruiting)
+			usr << "<span class='danger'>You are already recruiting!</span>"
+			charge_counter = charge_max
+			return
+		recruiting = 1
+		usr << "<span class='danger'>This target is valid. You begin the recruiting process.</span>"
+		target << "<span class='userdanger'>[usr] focuses in concentration. Your head begins to ache.</span>"
+
+		for(var/progress = 0, progress <= 3, progress++)
+			switch(progress)
+				if(1)
+					usr << "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>"
+					usr.visible_message("<span class='danger'>[usr]'s introduces himself and explains his plans.</span>")
+				if(2)
+					usr << "<span class='notice'>You begin the recruitment of [target].</span>"
+					usr.visible_message("<span class='danger'>[usr] leans over towards [target], whispering excitedly as he gives a speech.</span>")
+					target << "<span class='danger'>You feel yourself agreeing with [usr], and a surge of loyalty begins building.</span>"
+					sleep(20)
+					if(isloyal(target))
+						usr << "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>"
+						usr.visible_message("<span class='danger'>[usr] stops talking for a moment, then moves back away from [target].</span>")
+						target << "<span class='danger'>Your loyalty implant activates and a sharp pain reminds you of your loyalties to Nanotrasen.</span>"
+						return
+				if(3)
+					usr << "<span class='notice'>You begin filling out the application form with [target].</span>"
+					usr.visible_message("<span class='danger'>[usr] pulls out a pen and paper and begins filling an application form with [target].</span>")
+					target << "<span class='danger'>You are being convinced by [usr] to fill out an application form to become a revolutionary.</span>" //Ow the edge
+			if(!do_mob(usr, target, 100)) //around 30 seconds total for enthralling
+				usr << "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>"
+				target << "<span class='warning'>You move away and are no longer under the charm of [usr]. The application form is null and void.</span>"
+				recruiting = 0
+				return
+
+		recruiting = 0
+		if(ticker.mode.add_revolutionary(target.mind))
+			usr << "<span class='notice'>You have recruited <b>[target]</b> as a revolutionary!</span>"
