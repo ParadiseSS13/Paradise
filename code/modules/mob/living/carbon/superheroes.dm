@@ -154,7 +154,7 @@
 		if(ticker.mode.greyshirts.len >= 3)
 			usr << "<span class='warning'>You have already recruited the maximum number of henchmen.</span>"
 		if(!in_range(usr, target))
-			usr << "<span class='warning'>You need to be closer to enthrall [target].</span>"
+			usr << "<span class='warning'>You need to be closer to recruit [target].</span>"
 			charge_counter = charge_max
 			return
 		if(!target.ckey)
@@ -171,6 +171,7 @@
 			return
 		if(target.mind.assigned_role != "Civilian")
 			usr << "<span class='warning'>You can only recruit Civilians.</span>"
+			return
 		if(recruiting)
 			usr << "<span class='danger'>You are already recruiting!</span>"
 			charge_counter = charge_max
@@ -188,7 +189,6 @@
 					usr << "<span class='notice'>You begin the recruitment of [target].</span>"
 					usr.visible_message("<span class='danger'>[usr] leans over towards [target], whispering excitedly as he gives a speech.</span>")
 					target << "<span class='danger'>You feel yourself agreeing with [usr], and a surge of loyalty begins building.</span>"
-					target.Weaken(12)
 					sleep(20)
 					if(isloyal(target))
 						usr << "<span class='notice'>They are enslaved by Nanotrasen. You feel their interest in your cause wane and disappear.</span>"
