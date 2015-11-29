@@ -20,7 +20,7 @@
 
 /obj/item/device/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
-		flash_carbon(user, user, 15, 0)
+		flash_carbon(user, user, 15)
 		return 0
 	return 1
 
@@ -75,7 +75,7 @@
 	return 1
 
 
-/obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, convert = 1)
+/obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5)
 	add_logs(M, user, "flashed", object="[src.name]")
 	if(M.weakeyes)
 		M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
@@ -83,8 +83,7 @@
 	if(safety <= 0)
 		M.confused += power
 		flick("e_flash", M.flash)
-		if(user && convert)
-			terrible_conversion_proc(M, user)
+		if(user)
 			M.Stun(1)
 			user.visible_message("<span class='disarm'>[user] blinds [M] with the [src.name]!</span>")
 			if(M.weakeyes)
@@ -101,7 +100,7 @@
 		return 0
 
 	if(iscarbon(M))
-		flash_carbon(M, user, 5, 1)
+		flash_carbon(M, user, 5)
 		if(overcharged)
 			M.adjust_fire_stacks(6)
 			M.IgniteMob()
@@ -129,38 +128,16 @@
 		return 0
 	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
-		flash_carbon(M, user, 3, 0)
+		flash_carbon(M, user, 3)
 
 
 /obj/item/device/flash/emp_act(severity)
 	if(!try_use_flash())
 		return 0
 	for(var/mob/living/carbon/M in viewers(3, null))
-		flash_carbon(M, null, 10, 0)
+		flash_carbon(M, null, 10)
 	burn_out()
 	..()
-
-
-/obj/item/device/flash/proc/terrible_conversion_proc(var/mob/M, var/mob/user)
-	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in ticker.mode.head_revolutionaries))
-			if(M.client)
-				if(M.stat == CONSCIOUS)
-					M.mind_initialize() //give them a mind datum if they don't have one.
-					var/resisted
-					if(!isloyal(M))
-						if(user.mind in ticker.mode.head_revolutionaries)
-							if(!ticker.mode.add_revolutionary(M.mind))
-								resisted = 1
-					else
-						resisted = 1
-
-					if(resisted)
-						user << "<span class='warning'>This mind seems resistant to the [src.name]!</span>"
-				else
-					user << "<span class='warning'>They must be conscious before you can convert them!</span>"
-			else
-				user << "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>"
 
 
 /obj/item/device/flash/cyborg
