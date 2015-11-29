@@ -84,3 +84,47 @@
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
+
+
+// Sunflower
+
+/obj/item/weapon/grown/sunflower
+	name = "sunflower"
+	desc = "A large, fresh-grown sunflower. How cheery!"
+	icon = 'icons/obj/harvest.dmi'
+	icon_state = "sunflower"
+	item_state = "sunflower"
+	w_class = 2.0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
+
+/obj/item/weapon/grown/sunflower/attack(mob/M as mob, mob/user as mob)
+	M << "<font color='green'><b> [user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER<b></font>"
+	user << "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>"
+
+
+// Novaflower
+
+/obj/item/weapon/grown/novaflower
+	name = "novaflower"
+	desc = "A large, fresh-grown novaflower. It seems to radiate heat."
+	icon = 'icons/obj/harvest.dmi'
+	icon_state = "novaflower"
+	item_state = "sunflower"
+	w_class = 2.0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
+
+/obj/item/weapon/grown/novaflower/attack(mob/living/carbon/M as mob, mob/user as mob)
+	M << "<font color='green'>[user] smacks you with a [name]!</font><font color='yellow'><b>FLOWER POWER</b></font>"
+	user << "<font color='green'> Your [name]'s </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>"
+	if(istype(M, /mob/living))
+		M << "<span class='warning'>You are heated by the warmth of the of the [name]!</span>"
+		M.bodytemperature += potency/2 * TEMPERATURE_DAMAGE_COEFFICIENT
+
+/obj/item/weapon/grown/novaflower/pickup(mob/living/carbon/human/user as mob)
+	if(!user.gloves)
+		user << "<span class='warning'>The [name] burns your bare hand!</span>"
+		user.adjustFireLoss(rand(1,5))

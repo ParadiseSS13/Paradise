@@ -21,7 +21,8 @@
 	var/kitchen_tag					// Used by the reagent grinder.
 	var/trash_type					// Garbage item produced when eaten.
 	var/splat_type = /obj/effect/decal/cleanable/fruit_smudge // Graffiti decal.
-	var/has_mob_product
+	var/preset_product
+	var/final_form = 1
 	var/modular_icon = 0			// Dictates if the product uses a modular sprite. 0 = preset, 1 = modular
 	var/preset_icon = "undef"		// Name of the iconstate in icon/obj/harvest.dmi to use for preset sprite
 									//		Make sure to set this to the correct icon if not using a modular sprite
@@ -650,8 +651,8 @@
 			consume_gasses |= new_gasses
 			gene.values["[TRAIT_CONSUME_GASSES]"] = null
 		if(GENE_METABOLISM)
-			has_mob_product = gene.values["mob_product"]
-			gene.values["mob_product"] = null
+			preset_product = gene.values["alt_product"]
+			gene.values["alt_product"] = null
 
 	for(var/trait in gene.values)
 		set_trait(trait,gene.values["[trait]"])
@@ -680,7 +681,7 @@
 		if(GENE_HARDINESS)
 			traits_to_copy = list(TRAIT_TOXINS_TOLERANCE,TRAIT_PEST_TOLERANCE,TRAIT_WEED_TOLERANCE,TRAIT_ENDURANCE)
 		if(GENE_METABOLISM)
-			P.values["mob_product"] = has_mob_product
+			P.values["alt_product"] = preset_product
 			traits_to_copy = list(TRAIT_REQUIRES_NUTRIENTS,TRAIT_REQUIRES_WATER,TRAIT_ALTER_TEMP)
 		if(GENE_VIGOUR)
 			traits_to_copy = list(TRAIT_PRODUCTION,TRAIT_MATURATION,TRAIT_YIELD,TRAIT_SPREAD)
@@ -740,14 +741,13 @@
 		currently_querying = list()
 		for(var/i = 0;i<total_yield;i++)
 			var/obj/item/product
-			if(has_mob_product)
-				product = new has_mob_product(get_turf(user),name)
+			if(preset_product)
+				product = new preset_product(get_turf(user),name)
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
 				if(modular_icon == 1)
-					if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/simple_animal/diona))
-						product.color = get_trait(TRAIT_PRODUCT_COLOUR)
+					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
 					food.filling_color = get_trait(TRAIT_PRODUCT_COLOUR)
@@ -782,7 +782,8 @@
 	new_seed.can_self_harvest = can_self_harvest
 	new_seed.kitchen_tag =      kitchen_tag
 	new_seed.trash_type =       trash_type
-	new_seed.has_mob_product =  has_mob_product
+	new_seed.preset_product =  preset_product
+	new_seed.final_form = final_form
 	//Copy over everything else.
 	if(mutants)        new_seed.mutants = mutants.Copy()
 	if(chems)          new_seed.chems = chems.Copy()
