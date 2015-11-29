@@ -4,7 +4,7 @@
 
 	var/obj/screen/using
 
-	using = new /obj/screen()
+	using = new /obj/screen/act_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_alien.dmi'
@@ -14,7 +14,7 @@
 	src.adding += using
 	action_intent = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/mov_intent()
 	using.name = "mov_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_alien.dmi'
@@ -50,7 +50,7 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_alien_health
 
-	nightvisionicon = new /obj/screen()
+	nightvisionicon = new /obj/screen/alien/nightvision()
 	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
 	nightvisionicon.icon_state = "nightvision1"
 	nightvisionicon.name = "night vision"
