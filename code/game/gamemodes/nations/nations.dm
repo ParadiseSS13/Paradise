@@ -13,9 +13,9 @@ datum/game_mode/nations
 		kickoff=1
 		send_intercept()
 		split_teams()
+		assign_leaders()
 		set_ai()
 //		remove_access()
-		assign_leaders()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
@@ -178,6 +178,8 @@ datum/game_mode/nations
 		if(!N.current_leader)
 			N.current_leader = pick(N.membership)
 			N.current_leader << "You have been chosen to lead the nation of [N.current_name]!"
+		var/mob/living/carbon/human/H = N.current_leader
+		H.verbs += /mob/living/carbon/human/proc/set_nation_name
 
 /**
  * LateSpawn hook.
