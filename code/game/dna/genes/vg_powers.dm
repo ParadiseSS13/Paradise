@@ -240,7 +240,10 @@ Obviously, requires DNA2.
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
-	var/say = strip_html(input("What do you wish to say"))
+	var/say = input("What do you wish to say") as text|null
+	if(say == null || length(say) == 0)
+		return
+	say = strip_html(say)
 
 	for(var/mob/living/target in targets)
 		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
