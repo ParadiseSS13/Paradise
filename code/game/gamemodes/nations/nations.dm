@@ -179,7 +179,8 @@ datum/game_mode/nations
 			N.current_leader = pick(N.membership)
 			N.current_leader << "You have been chosen to lead the nation of [N.current_name]!"
 		var/mob/living/carbon/human/H = N.current_leader
-		H.verbs += /mob/living/carbon/human/proc/set_nation_name
+		H.verbs += /datum/game_mode/nations/proc/set_nation_name
+		H.verbs += /datum/game_mode/nations/proc/set_ranks
 
 /**
  * LateSpawn hook.

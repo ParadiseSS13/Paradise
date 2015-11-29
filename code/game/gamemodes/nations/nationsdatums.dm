@@ -4,6 +4,8 @@
 	var/default_leader
 	var/current_leader
 	var/list/membership = list()
+	var/leader_rank
+	var/member_rank
 
 /datum/nations/atmosia
 	default_name = "Atmosia"
