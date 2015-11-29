@@ -12,6 +12,7 @@
 
 			if(input)
 				H.mind.nation.current_name = input
+				H.mind.nation.update_nation_id()
 				H << "You rename your nation to [input]."
 				H.verbs -= /datum/game_mode/nations/proc/set_nation_name
 				return 1
@@ -32,15 +33,23 @@
 			if(input)
 				if(type == "Leader")
 					H.mind.nation.leader_rank = input
-					for(var/obj/item/weapon/card/id/I in H)
-						if(I.registered_name == H.real_name)
-							I.update_label(I.registered_name, input)
+					H.mind.nation.update_nation_id()
+
 				if(type == "Member")
 					H.mind.nation.member_rank = input
-					for(var/mob/living/carbon/human/M in H.mind.nation.membership)
-						if(M == H) continue
-						for(var/obj/item/weapon/card/id/I in M)
-							if(I.registered_name == M.real_name)
-								I.update_label(I.registered_name, input)
+					H.mind.nation.update_nation_id()
 				H << "You changed the [type] rank of your nation to [input]."
 				return 1
+
+
+/datum/nations/proc/update_nation_id()
+	for(var/mob/living/carbon/human/M in membership)
+		for(var/obj/item/weapon/card/id/I in M.contents)
+			if(I.registered_name == M.real_name)
+				if(M == current_leader)
+					I.name = "[I.registered_name]'s ID Card ([current_name] [leader_rank])"
+					I.assignment = "[current_name] [leader_rank]"
+				else
+					I.name = "[I.registered_name]'s ID Card ([current_name] [member_rank])"
+					I.assignment = "[current_name] [member_rank]"
+

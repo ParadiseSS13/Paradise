@@ -181,6 +181,7 @@ datum/game_mode/nations
 		var/mob/living/carbon/human/H = N.current_leader
 		H.verbs += /datum/game_mode/nations/proc/set_nation_name
 		H.verbs += /datum/game_mode/nations/proc/set_ranks
+		N.update_nation_id()
 
 /**
  * LateSpawn hook.
