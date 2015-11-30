@@ -217,7 +217,7 @@
 		else
 			dat += "No-one escaped!<br>"
 
-	dat += ticker.mode.declare_job_completion()
+	dat += ticker.mode.declare_job_completion(src)
 
 	dat += {"
 	<hr><br>
