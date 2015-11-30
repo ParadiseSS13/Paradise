@@ -39,7 +39,7 @@
 		'nano/js/nano_state_default.js',
 		'nano/js/nano_state_manager.js',
 		'nano/js/nano_template.js',
-		'nano/js/nano_utility.js
+		'nano/js/nano_utility.js'
 		)
 
 
