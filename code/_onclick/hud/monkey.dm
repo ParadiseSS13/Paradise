@@ -20,7 +20,7 @@
 	action_intent = using
 
 //intent small hud objects
-	var/icon/ico
+/*	var/icon/ico
 
 	ico = new(ui_style, "black")
 	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
@@ -69,7 +69,7 @@
 	using.layer = 21
 	src.adding += using
 	hurt_intent = using
-
+*/
 //end intent small hud objects
 
 	using = new /obj/screen/mov_intent()

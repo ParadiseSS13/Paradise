@@ -68,19 +68,22 @@
 	icon_state = "help"
 
 /obj/screen/act_intent/Click(location, control, params)
-	usr.a_intent_change("right")
-	if("help")
-		usr.a_intent = I_HELP
-		usr.hud_used.action_intent.icon_state = "intent_help"
-	if("harm")
-		usr.a_intent = I_HARM
-		usr.hud_used.action_intent.icon_state = "intent_harm"
-	if("grab")
-		usr.a_intent = I_GRAB
-		usr.hud_used.action_intent.icon_state = "intent_grab"
-	if("disarm")
-		usr.a_intent = I_DISARM
-		usr.hud_used.action_intent.icon_state = "intent_disarm"
+	if(ishuman(usr))
+		var/_x = text2num(params2list(params)["icon-x"])
+		var/_y = text2num(params2list(params)["icon-y"])
+
+		if(_x<=16 && _y<=16)
+			usr.a_intent_change(I_HARM)
+		else if(_x<=16 && _y>=17)
+			usr.a_intent_change(I_HELP)
+		else if(_x>=17 && _y<=16)
+			usr.a_intent_change(I_GRAB)
+
+		else if(_x>=17 && _y>=17)
+			usr.a_intent_change(I_DISARM)
+
+	else
+		usr.a_intent_change("right")
 
 /obj/screen/internals
 	name = "toggle internals"
@@ -196,7 +199,6 @@
 					else
 						C << "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>"
 
-
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon = 'icons/mob/screen1_midnight.dmi'
@@ -219,6 +221,8 @@
 				usr.hud_used.move_intent.icon_state = "running"
 		if(istype(usr,/mob/living/carbon/alien/humanoid))
 			usr.update_icons()
+
+
 
 /obj/screen/pull
 	name = "stop pulling"
@@ -349,26 +353,27 @@
 	master = null
 	dir = 2
 
-	/*move
-		name = "Allow Walking"
-		icon_state = "no_walk0"
-		screen_loc = ui_gun2
+/obj/screen/gun/mode
+		name = "Toggle Gun Mode"
+		icon_state = "gun0"
+		screen_loc = ui_gun_select
 
-	run
-		name = "Allow Running"
-		icon_state = "no_run0"
-		screen_loc = ui_gun3*/
+/obj/screen/gun/mode/Click()
+	usr.client.ToggleGunMode()
 
-	item
+/obj/screen/gun/item
 		name = "Allow Item Use"
 		icon_state = "no_item0"
 		screen_loc = ui_gun1
 
-	mode
-		name = "Toggle Gun Mode"
-		icon_state = "gun0"
-		screen_loc = ui_gun_select
-		//dir = 1
+/obj/screen/gun/item/Click()
+	if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
+		return
+		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
+			usr << "You need your gun in your active hand to do that!"
+			return
+		usr.client.AllowTargetClick()
+		gun_click_time = world.time
 
 
 /obj/screen/inventory/Click()
