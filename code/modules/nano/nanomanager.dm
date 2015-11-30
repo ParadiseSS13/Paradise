@@ -40,7 +40,7 @@
 		'nano/js/nano_state_manager.js',
 		'nano/js/nano_template.js',
 		'nano/js/nano_utility.js
-		}
+		)
 
 
  /**
@@ -51,7 +51,6 @@
   */
 /datum/nanomanager/New()
 	var/list/nano_asset_dirs = list(\
-		"nano/js/",\
 		"nano/templates/"\
 	)
 
