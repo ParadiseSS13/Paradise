@@ -280,8 +280,9 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
 			if(mind.nation)
-				stat("Nation Name", mind.nation.current_name)
-				stat("Nation Leader", mind.nation.current_leader)
+				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "mind.nation.default_name"]")
+				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
+				stat("Nation Heir", "[mind.nation.heir ? "[mind.nation.heir]" : "None"]")
 
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!

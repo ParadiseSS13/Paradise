@@ -6,6 +6,7 @@
 	var/list/membership = list()
 	var/leader_rank = "Leader"
 	var/member_rank = "Member"
+	var/heir
 
 /datum/nations/atmosia
 	default_name = "Atmosia"
