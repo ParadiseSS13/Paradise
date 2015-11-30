@@ -224,7 +224,9 @@ var/list/robot_verbs_default = list(
 		modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
-	modtype = input("Please, select a module!", "Robot", null, null) in modules
+	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	if(!modtype)
+		return
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
