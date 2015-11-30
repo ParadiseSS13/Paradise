@@ -37,7 +37,7 @@
 		block=RADBLOCK
 
 	OnMobLife(var/mob/living/owner)
-		owner.apply_effect(max(owner.radiation, 5), IRRADIATE)
+		owner.apply_effect(5, IRRADIATE)
 		for(var/mob/living/L in range(1, owner))
 			if(L == owner)
 				continue
