@@ -537,11 +537,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Event"
 	set name = "Create Communications Report"
-
+	var/list/MsgType = list("Centcom Report","Enemy Communications")
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/type = input(usr, "Pick a type of report to send", "Report Type", "") in list("Centcom Report","Enemy Communications")
+	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as null|anything in MsgType
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
