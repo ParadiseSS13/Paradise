@@ -43,7 +43,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -56,7 +56,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -69,7 +69,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -82,7 +82,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -95,7 +95,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -108,7 +108,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -121,7 +121,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
@@ -134,7 +134,7 @@ datum/game_mode/nations
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
-					H << "You have been chosent to lead the nation of [H.mind.nation.default_name]!"
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
