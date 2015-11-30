@@ -254,11 +254,10 @@ proc/get_radio_key_from_channel(var/channel)
 		M.hear_say(message, verb, speaking, alt_name, italics, src, speech_sound, sound_vol)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
-	if(istype(src.loc, /obj/mecha))
-		spawn(0)
+	spawn(0)
+		if(istype(src.loc, /obj/mecha))
 			flick_overlay(image('icons/mob/talk.dmi', src.loc, "hR[speech_bubble_test]",MOB_LAYER+1), speech_bubble_recipients, 30)
-	else
-		spawn(0)
+		else
 			flick_overlay(image('icons/mob/talk.dmi', src, "h[speech_bubble_test]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
 	for(var/obj/O in listening_obj)
