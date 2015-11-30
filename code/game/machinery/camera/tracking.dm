@@ -157,7 +157,7 @@
 	src.track = TB
 	return targets
 
-/mob/living/silicon/ai/proc/ai_camera_track(var/target_name in trackable_mobs())
+/mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
 	set category = "AI Commands"
 	set name = "Track With Camera"
 	set desc = "Select who you would like to track."
@@ -187,7 +187,7 @@
 	U.cameraFollow = target
 	U << "Now tracking [target.name] on camera."
 	target.tracking_initiated()
-	
+
 	spawn (0)
 		while (U.cameraFollow == target)
 			if (U.cameraFollow == null)
@@ -229,7 +229,7 @@
 				return 0
 	if(istype(M.loc,/obj/effect/dummy))
 		return 0
-		
+
 	if((T && (T.z in config.contact_levels)) && ((hassensorlevel(M, SUIT_SENSOR_TRACKING) || M in aibots)))
 		return 1
 
@@ -259,4 +259,3 @@
 	tracking_entities--
 	if(!tracking_entities && has_zeroth_law())
 		src << "<span class='notice'>Internal camera is no longer being accessed.</span>"
-	
