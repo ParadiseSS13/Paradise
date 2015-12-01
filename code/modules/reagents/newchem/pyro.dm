@@ -428,7 +428,7 @@ datum/reagent/blackpowder/reaction_turf(var/turf/T, var/volume) //oh shit
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	for(var/turf/simulated/turf in range(created_volume/10,T))
+	for(var/turf/simulated/turf in range(min(created_volume/10,4),T))
 		new /obj/effect/hotspot(turf)
 	return
 
