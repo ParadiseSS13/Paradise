@@ -21,7 +21,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
 
 	//clean the input msg
-	if(msg == null || length(msg) == 0)
+	if(!msg)
 		return
 
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))

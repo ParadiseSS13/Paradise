@@ -128,25 +128,25 @@ Obviously, requires DNA2.
 		return
 	var/mob/living/carbon/human/M=usr
 
-	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(M.r_facial,M.g_facial,M.b_facial)) as color
+	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(M.r_facial,M.g_facial,M.b_facial)) as null|color
 	if(new_facial)
 		M.r_facial = hex2num(copytext(new_facial, 2, 4))
 		M.g_facial = hex2num(copytext(new_facial, 4, 6))
 		M.b_facial = hex2num(copytext(new_facial, 6, 8))
 
-	var/new_hair = input("Please select hair color.", "Character Generation",rgb(M.r_hair,M.g_hair,M.b_hair)) as color
+	var/new_hair = input("Please select hair color.", "Character Generation",rgb(M.r_hair,M.g_hair,M.b_hair)) as null|color
 	if(new_facial)
 		M.r_hair = hex2num(copytext(new_hair, 2, 4))
 		M.g_hair = hex2num(copytext(new_hair, 4, 6))
 		M.b_hair = hex2num(copytext(new_hair, 6, 8))
 
-	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as color
+	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
 	if(new_eyes)
 		M.r_eyes = hex2num(copytext(new_eyes, 2, 4))
 		M.g_eyes = hex2num(copytext(new_eyes, 4, 6))
 		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
-	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-M.s_tone]")  as text
+	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-M.s_tone]") as null|text
 
 	if (!new_tone)
 		new_tone = 35
@@ -234,14 +234,18 @@ Obviously, requires DNA2.
 		start_recharge()
 		return
 
-	targets += input("Choose the target to talk to.", "Targeting") as mob in validtargets
+	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
 	var/say = input("What do you wish to say") as text|null
-	if(say == null || length(say) == 0)
+	if(!say)
 		return
 	say = strip_html(say)
 
@@ -295,7 +299,11 @@ Obviously, requires DNA2.
 		start_recharge()
 		return
 
-	targets += input("Choose the target to spy on.", "Targeting") as mob in validtargets
+	targets += input("Choose the target to spy on.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[targets.len]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 

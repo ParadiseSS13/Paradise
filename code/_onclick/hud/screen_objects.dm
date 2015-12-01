@@ -496,7 +496,8 @@
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
 				var/target_name = input(AI) as null|anything in AI.trackable_mobs()
-				AI.ai_camera_track(target_name)
+				if(target_name)
+					AI.ai_camera_track(target_name)
 
 		if("Toggle Camera Light")
 			if(isAI(usr))

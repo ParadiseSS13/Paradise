@@ -134,7 +134,7 @@
 				var/attempt_code = text2num(input("Re-enter the current EFTPOS access code", "Confirm EFTPOS code"))
 				if(attempt_code == access_code)
 					var name = input("Enter a new terminal ID for this device", "Enter new EFTPOS ID") as text|null
-					if(name && length(name) > 0)
+					if(name)
 						eftpos_name = name + " EFTPOS scanner"
 						print_reference()
 				else
@@ -150,7 +150,7 @@
 					usr << "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>"
 			if("trans_purpose")
 				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
-				if(purpose && length(purpose) > 0)
+				if(purpose)
 					transaction_purpose = purpose
 			if("trans_value")
 				var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount") as num
