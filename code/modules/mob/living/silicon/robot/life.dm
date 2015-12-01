@@ -19,10 +19,7 @@
 	SetWeakened(min(weakened, 20))
 	sleeping = 0
 	ear_deaf = 0
-	adjustBruteLoss(0)
-	adjustToxLoss(0)
-	adjustOxyLoss(0)
-	adjustFireLoss(0)
+
 
 /mob/living/silicon/robot/proc/use_power()
 	if (is_component_functioning("power cell") && cell)
@@ -32,26 +29,26 @@
 					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
 						src << "Deactivating [B.name] due to lack of power!"
 						unEquip(B)
-		if(src.cell.charge <= 0)
+		if(cell.charge <= 0)
 			uneq_all()
 			update_headlamp(1)
-			src.stat = UNCONSCIOUS
+			stat = UNCONSCIOUS
 			has_power = 0
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
 				if(C.name == "actuator") // Let drained robots move, disable the rest
 					continue
 				C.consume_power()
-		else if (src.cell.charge <= 100)
+		else if(cell.charge <= 100)
 			uneq_all()
-			src.cell.use(1)
+			cell.use(1)
 		else
-			if(src.module_state_1)
-				src.cell.use(4)
-			if(src.module_state_2)
-				src.cell.use(4)
-			if(src.module_state_3)
-				src.cell.use(4)
+			if(module_state_1)
+				cell.use(4)
+			if(module_state_2)
+				cell.use(4)
+			if(module_state_3)
+				cell.use(4)
 
 			for(var/V in components)
 				var/datum/robot_component/C = components[V]
@@ -62,130 +59,116 @@
 
 			if(!is_component_functioning("actuator"))
 				Paralyse(3)
-			src.eye_blind = 0
-			src.stat = 0
+			eye_blind = 0
+			stat = 0
 			has_power = 1
 	else
 		uneq_all()
-		src.stat = UNCONSCIOUS
+		stat = UNCONSCIOUS
 		update_headlamp(1)
 		Paralyse(3)
 
-/mob/living/silicon/robot/handle_regular_status_updates()
-
-	if(src.camera && !scrambledcodes)
-		if(src.stat == 2 || wires.IsCameraCut())
-			src.camera.status = 0
-		else
-			src.camera.status = 1
-
+/mob/living/silicon/robot/updatehealth()
+	if(status_flags & GODMODE)
+		health = maxHealth
+		stat = CONSCIOUS
+		return
 	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
 
-	if(getOxyLoss() > 50) Paralyse(3)
+/mob/living/silicon/robot/handle_regular_status_updates()
 
-	if(src.sleeping)
+	. = ..()
+
+	if(camera && !scrambledcodes)
+		if(stat == DEAD || wires.IsCameraCut())
+			camera.status = 0
+		else
+			camera.status = 1
+
+	if(getOxyLoss() > 50)
 		Paralyse(3)
-		src.sleeping--
 
-	if(src.resting)
+	if(sleeping)
+		Paralyse(3)
+		sleeping--
+
+	if(resting)
 		Weaken(5)
 
-	if(health <= config.health_threshold_dead && src.stat != 2) //die only once
-		death()
+	if(.) //alive
+		if(health <= config.health_threshold_dead)
+			death()
+			return
 
-	if (src.stat != 2) //Alive.
-		if(!istype(src,/mob/living/silicon/robot/drone))
+		if(!istype(src, /mob/living/silicon/robot/drone))
 			if(health < 50) //Gradual break down of modules as more damage is sustained
 				if(uneq_module(module_state_3))
 					src << "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>"
+
 				if(health < 0)
 					if(uneq_module(module_state_2))
 						src << "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>"
+
 					if(health < -50)
 						if(uneq_module(module_state_1))
 							src << "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>"
 
-		if (src.paralysis || src.stunned || src.weakened) //Stunned etc.
-			src.stat = 1
-			if (src.stunned > 0)
-				AdjustStunned(-1)
-			if (src.weakened > 0)
-				AdjustWeakened(-1)
-			if (src.paralysis > 0)
-				AdjustParalysis(-1)
-				src.eye_blind = max(eye_blind, 1)
-			else
-				src.eye_blind = 0
+		if(paralysis || stunned || weakened)
+			stat = UNCONSCIOUS
 
-		else	//Not stunned.
-			src.stat = 0
+			if(!paralysis > 0)
+				eye_blind = 0
 
-	else //Dead.
-		src.eye_blind = 1
+		else
+			stat = CONSCIOUS
 
-	if (src.stuttering) src.stuttering--
-
-	if (src.eye_blind)
-		src.eye_blind--
-
-	src.density = !( src.lying )
-
-	if (src.disabilities & BLIND)
-		src.eye_blind = max(1, eye_blind)
-
-	if (src.eye_blurry > 0)
-		src.eye_blurry--
-		src.eye_blurry = max(0, src.eye_blurry)
-
-	if (src.druggy > 0)
-		src.druggy--
-		src.druggy = max(0, src.druggy)
+	else //dead
+		eye_blind = 1
 
 	//update the state of modules and components here
-	if (src.stat != 0)
+	if(stat != CONSCIOUS)
 		uneq_all()
 
-	if(!is_component_functioning("radio") || src.stat == 1)
+	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
 		radio.on = 0
 	else
 		radio.on = 1
 
-	if(is_component_functioning("camera") && src.stat == 0)
-		src.blinded = 0
+	if(is_component_functioning("camera") && stat == CONSCIOUS)
+		blinded = 0
 	else
-		src.blinded = 1
+		blinded = 1
 
 	if(!is_component_functioning("actuator"))
-		src.Paralyse(3)
+		Paralyse(3)
 
 	return 1
 
 /mob/living/silicon/robot/update_sight()
-
-	if (src.stat == 2 || src.sight_mode & BORGXRAY)
-		src.sight |= SEE_TURFS
-		src.sight |= SEE_MOBS
-		src.sight |= SEE_OBJS
-		src.see_in_dark = 8
-		src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+	if(stat == DEAD || sight_mode & BORGXRAY)
+		sight |= SEE_TURFS
+		sight |= SEE_MOBS
+		sight |= SEE_OBJS
+		see_in_dark = 8
+		see_invisible = SEE_INVISIBLE_LEVEL_TWO
 	else
-		src.see_in_dark = 8
-		if (src.sight_mode & BORGMESON && src.sight_mode & BORGTHERM)
-			src.sight |= SEE_TURFS
-			src.sight |= SEE_MOBS
-			src.see_invisible = SEE_INVISIBLE_MINIMUM
-		else if (src.sight_mode & BORGMESON)
-			src.sight |= SEE_TURFS
-			src.see_invisible = SEE_INVISIBLE_MINIMUM
-			src.see_in_dark = 1
-		else if (src.sight_mode & BORGTHERM)
-			src.sight |= SEE_MOBS
-			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		else if (src.stat != 2)
-			src.sight &= ~SEE_MOBS
-			src.sight &= ~SEE_TURFS
-			src.sight &= ~SEE_OBJS
-			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		see_in_dark = 8
+		if(sight_mode & BORGMESON && sight_mode & BORGTHERM)
+			sight |= SEE_TURFS
+			sight |= SEE_MOBS
+			see_invisible = SEE_INVISIBLE_MINIMUM
+		else if(sight_mode & BORGMESON)
+			sight |= SEE_TURFS
+			see_invisible = SEE_INVISIBLE_MINIMUM
+			see_in_dark = 1
+		else if(sight_mode & BORGTHERM)
+			sight |= SEE_MOBS
+			see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		else if(stat != DEAD)
+			sight &= ~SEE_MOBS
+			sight &= ~SEE_TURFS
+			sight &= ~SEE_OBJS
+			see_invisible = SEE_INVISIBLE_LEVEL_TWO
 		if(see_override)
 			see_invisible = see_override
 
@@ -199,11 +182,11 @@
 		if(stat != DEAD)
 			if(health >= maxHealth)
 				healths.icon_state = "health0"
-			else if(health > maxHealth*0.5)
+			else if(health > maxHealth * 0.5)
 				healths.icon_state = "health2"
 			else if(health > 0)
 				healths.icon_state = "health3"
-			else if(health > -maxHealth*0.5)
+			else if(health > -maxHealth * 0.5)
 				healths.icon_state = "health4"
 			else if(health > -maxHealth)
 				healths.icon_state = "health5"

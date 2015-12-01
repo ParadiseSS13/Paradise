@@ -1,0 +1,104 @@
+/datum/game_mode/nations/proc/set_nation_name()
+	set name = "Rename Nation"
+	set category = "Nations"
+	set desc = "Click to rename your nation. You are only able to do this once."
+
+	if(!kickoff) return 1
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
+			var/input = stripped_input(H,"What do you want to name your nation?", ,"", MAX_NAME_LEN)
+
+			if(input)
+				H.mind.nation.current_name = input
+				H.mind.nation.update_nation_id()
+				H << "You rename your nation to [input]."
+				H.verbs -= /datum/game_mode/nations/proc/set_nation_name
+				return 1
+
+
+/datum/game_mode/nations/proc/set_ranks()
+	set name = "Set Ranks"
+	set category = "Nations"
+	set desc = "Click to set a rank for Leaders and Members."
+
+	if(!kickoff) return 1
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
+			var/type = input(H, "What rank do you want to change?", "Rename Rank", "") in list("Leader","Member")
+			var/input = stripped_input(H,"What rank do you want?", ,"", MAX_NAME_LEN)
+			if(input)
+				if(type == "Leader")
+					H.mind.nation.leader_rank = input
+					H.mind.nation.update_nation_id()
+
+				if(type == "Member")
+					H.mind.nation.member_rank = input
+					H.mind.nation.update_nation_id()
+				H << "You changed the [type] rank of your nation to [input]."
+				return 1
+
+/datum/game_mode/nations/proc/choose_heir()
+	set name = "Choose Heir"
+	set category = "Nations"
+	set desc = "Click to pick a Heir. Note that the Heir has the ability to take over your role at ANY TIME. Choose carefully."
+
+	if(!kickoff) return 1
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
+			var/heir = input(H, "Who do you wish to make your heir?", "Choose Heir", "") as null|anything in H.mind.nation.membership
+			if(heir)
+				if(H.mind.nation.heir)
+					var/mob/living/carbon/human/oldheir = H.mind.nation.heir
+					oldheir << "You are no longer the heir to your nation!"
+					oldheir.verbs -= /datum/game_mode/nations/proc/takeover
+				var/mob/living/carbon/human/newheir = heir
+				H.mind.nation.heir = newheir
+				newheir.verbs += /datum/game_mode/nations/proc/takeover
+				newheir << "You have been selected to be the heir to your nation's leadership!"
+				H << "You have selected [heir] to be your heir!"
+
+
+/datum/game_mode/nations/proc/takeover()
+	set name = "Become Leader"
+	set category = "Nations"
+	set desc = "Click to replace your current nation's leader with yourself."
+
+	if(!kickoff) return 1
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		if(H.mind && H.mind.nation && H.mind.nation.heir == H)
+			var/confirmation = input(H, "Are you sure you want to take over leadership?", "Become Leader", "") as null|anything in list("Yes", "No")
+			if(confirmation == "Yes")
+				var/mob/living/carbon/human/oldleader = H.mind.nation.current_leader
+				oldleader << "You have been replaced by [H.name] as the leader of [H.mind.nation.current_name]!"
+				oldleader.verbs -= /datum/game_mode/nations/proc/set_nation_name
+				oldleader.verbs -= /datum/game_mode/nations/proc/set_ranks
+				oldleader.verbs -= /datum/game_mode/nations/proc/choose_heir
+				H.mind.nation.current_leader = H
+				H.mind.nation.heir = null
+				H.verbs -= /datum/game_mode/nations/proc/takeover
+				H.verbs += /datum/game_mode/nations/proc/set_nation_name
+				H.verbs += /datum/game_mode/nations/proc/set_ranks
+				H.verbs += /datum/game_mode/nations/proc/choose_heir
+				H << "You have replaced [oldleader.name] as the leader of [H.mind.nation.current_name]!"
+				H.mind.nation.update_nation_id()
+
+
+/datum/nations/proc/update_nation_id()
+	for(var/mob/living/carbon/human/M in membership)
+		for(var/obj/item/weapon/card/id/I in M.contents)
+			if(I.registered_name == M.real_name)
+				if(M == current_leader)
+					I.name = "[I.registered_name]'s ID Card ([current_name] [leader_rank])"
+					I.assignment = "[current_name] [leader_rank]"
+				else
+					I.name = "[I.registered_name]'s ID Card ([current_name] [member_rank])"
+					I.assignment = "[current_name] [member_rank]"
+

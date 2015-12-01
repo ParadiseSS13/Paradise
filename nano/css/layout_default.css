@@ -87,7 +87,7 @@ body {
 
 #uiMapContent {
     position: absolute;
-    bottom: 0px;
+    bottom: -13.5px;
     left: 0px;
     width: 256px;
     height: 256px;
