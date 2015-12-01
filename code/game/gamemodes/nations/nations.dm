@@ -173,7 +173,6 @@ datum/game_mode/nations
 
 
 /datum/game_mode/nations/proc/assign_leaders()
-	world << "assign_leaders() called, all_nations.len = [all_nations.len]"
 	for(var/name in all_nations)
 		var/datum/nations/N = all_nations[name]
 		if(!N.current_name)
