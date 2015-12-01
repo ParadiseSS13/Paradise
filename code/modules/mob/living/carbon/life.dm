@@ -296,8 +296,8 @@
 	if(sleeping)
 		handle_dreams()
 		adjustStaminaLoss(-10)
-		sleeping = max(sleeping-1, 0)
-		if( prob(10) && health && !hal_crit )
+		sleeping = max(sleeping - 1, 0)
+		if(prob(10) && health && !hal_crit)
 			spawn(0)
 				emote("snore")
 
