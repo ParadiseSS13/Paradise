@@ -13,12 +13,13 @@ datum/game_mode/nations
 		kickoff=1
 		send_intercept()
 		split_teams()
-		assign_leaders()
 		set_ai()
+		assign_leaders()
 //		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
+
 	return ..()
 
 /datum/game_mode/nations/proc/send_intercept()
@@ -172,16 +173,19 @@ datum/game_mode/nations
 
 
 /datum/game_mode/nations/proc/assign_leaders()
-	for(var/datum/nations/N in all_nations)
+	world << "assign_leaders() called, all_nations.len = [all_nations.len]"
+	for(var/name in all_nations)
+		var/datum/nations/N = all_nations[name]
 		if(!N.current_name)
 			N.current_name = N.default_name
-		if(!N.current_leader)
+		if(!N.current_leader && N.membership.len)
 			N.current_leader = pick(N.membership)
 			N.current_leader << "You have been chosen to lead the nation of [N.current_name]!"
-		var/mob/living/carbon/human/H = N.current_leader
-		H.verbs += /datum/game_mode/nations/proc/set_nation_name
-		H.verbs += /datum/game_mode/nations/proc/set_ranks
-		H.verbs += /datum/game_mode/nations/proc/choose_heir
+		if(N.current_leader)
+			var/mob/living/carbon/human/H = N.current_leader
+			H.verbs += /mob/living/carbon/human/proc/set_nation_name
+			H.verbs += /mob/living/carbon/human/proc/set_ranks
+			H.verbs += /mob/living/carbon/human/proc/choose_heir
 		N.update_nation_id()
 
 /**
