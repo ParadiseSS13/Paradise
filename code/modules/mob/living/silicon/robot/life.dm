@@ -22,12 +22,13 @@
 
 
 /mob/living/silicon/robot/proc/use_power()
-	if(is_component_functioning("power cell") && cell)
-		for(var/obj/item/borg/B in module.modules)
-			if(B.powerneeded)
-				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-					src << "Deactivating [B.name] due to lack of power!"
-					unEquip(B)
+	if (is_component_functioning("power cell") && cell)
+		if(module)
+			for(var/obj/item/borg/B in module.modules)
+				if(B.powerneeded)
+					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
+						src << "Deactivating [B.name] due to lack of power!"
+						unEquip(B)
 		if(cell.charge <= 0)
 			uneq_all()
 			update_headlamp(1)

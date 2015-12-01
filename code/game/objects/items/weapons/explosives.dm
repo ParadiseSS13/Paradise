@@ -62,7 +62,9 @@
 		..()
 
 /obj/item/weapon/c4/attack_self(mob/user as mob)
-	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
+	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num|null
+	if(newtime == null)
+		return
 	if(newtime < 10)
 		newtime = 10
 	if(newtime > 60000)
