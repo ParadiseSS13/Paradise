@@ -794,7 +794,16 @@
 		else if(state==3)
 			state=2
 			user << "You close the hatch to the power unit"
+		else if(state==4 && pilot_is_mmi())
+			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
+			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+			occupant << "<span class='warning'>[user] is prying you out of the exosuit!</span>"
+			if(do_after(user,80,target=src))
+				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+				go_out()
 		return
+
+			
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
@@ -1264,6 +1273,18 @@
 		return 1
 	else
 		return 0
+
+/obj/mecha/proc/pilot_is_mmi()
+	var/atom/movable/mob_container
+	if(istype(occupant, /mob/living/carbon/brain))
+		var/mob/living/carbon/brain/brain = occupant
+		mob_container = brain.container
+	if(istype(mob_container, /obj/item/device/mmi))
+		return 1
+	return 0
+
+/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
+	return
 
 /obj/mecha/verb/view_stats()
 	set name = "View Stats"
