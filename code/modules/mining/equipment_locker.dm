@@ -244,21 +244,21 @@
 		else
 			usr << "<span class='warning'>Required access not found.</span>"
 	if(href_list["plasglass"])
-		if(check_access(inserted_i) || allowed(usr))
+		if(check_access(inserted_id) || allowed(usr))
 			if(!(/obj/item/stack/sheet/glass in stack_list)) return
 			if(!(/obj/item/stack/sheet/mineral/plasma in stack_list)) return
 			var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
-			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/plasma]
+			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
 			
 			var/desired = input("How much?", "How much would you like to smelt?", 1) as num
 			var/obj/item/stack/sheet/plasmaglass/plasglassout = new
 			plasglassout.amount = min(desired, 50, glassstack.amount, plasmastack.amount)
 			if(plasglassout.amount >= 1)
 				glassstack.amount -= plasglassout.amount
-				plasmastack.amount -= plasglass.amount
+				plasmastack.amount -= plasglassout.amount
 				unload_mineral(plasglassout)
 		else
-			use << "<span class='warning'>Required access not found.</span>"
+			usr << "<span class='warning'>Required access not found.</span>"
 	updateUsrDialog()
 	return
 
