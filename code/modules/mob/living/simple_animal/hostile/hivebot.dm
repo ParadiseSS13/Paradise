@@ -94,11 +94,14 @@
 			bot_amt--
 			switch(bot_type)
 				if("norm")
-					new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/H = new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
+					H.faction = faction
 				if("range")
-					new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/range/R = new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
+					R.faction = faction
 				if("rapid")
-					new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/rapid/F = new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
+					F.faction = faction
 		spawn(100)
 			qdel(src)
 		return

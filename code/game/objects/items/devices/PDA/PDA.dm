@@ -849,7 +849,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P)
 
-	var/t = input(U, "Please enter message", name, null) as text
+	var/t = input(U, "Please enter message", name, null) as text|null
+	if(!t)
+		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
 	if (!t || !istype(P))

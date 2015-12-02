@@ -14,10 +14,12 @@ datum/game_mode/nations
 		send_intercept()
 		split_teams()
 		set_ai()
+		assign_leaders()
 //		remove_access()
 		for(var/mob/M in player_list)
 			if(!istype(M,/mob/new_player))
 				M << sound('sound/effects/purge_siren.ogg')
+
 	return ..()
 
 /datum/game_mode/nations/proc/send_intercept()
@@ -39,7 +41,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudatmosia")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in medical_positions)
@@ -47,7 +54,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudmedistan")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in science_positions)
@@ -55,7 +67,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudscientopia")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in security_positions)
@@ -63,7 +80,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudbrigston")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in cargonians)
@@ -71,7 +93,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcargonia")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in servicion)
@@ -79,7 +106,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in support_positions)
@@ -87,7 +119,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in command_positions)
@@ -95,7 +132,12 @@ datum/game_mode/nations
 				H.hud_updateflag |= 1 << NATIONS_HUD
 				var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
 				H.client.images += I
-				H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+				H.mind.nation.membership += H.mind.current
+				if(H.mind.assigned_role == H.mind.nation.default_leader)
+					H.mind.nation.current_leader = H.mind.current
+					H << "You have been chosen to lead the nation of [H.mind.nation.default_name]!"
+					continue
+				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
 			if(H.mind.assigned_role in civilian_positions)
@@ -129,6 +171,22 @@ datum/game_mode/nations
 		if(W.z in config.station_levels)
 			W.req_access = list()
 
+
+/datum/game_mode/nations/proc/assign_leaders()
+	for(var/name in all_nations)
+		var/datum/nations/N = all_nations[name]
+		if(!N.current_name)
+			N.current_name = N.default_name
+		if(!N.current_leader && N.membership.len)
+			N.current_leader = pick(N.membership)
+			N.current_leader << "You have been chosen to lead the nation of [N.current_name]!"
+		if(N.current_leader)
+			var/mob/living/carbon/human/H = N.current_leader
+			H.verbs += /mob/living/carbon/human/proc/set_nation_name
+			H.verbs += /mob/living/carbon/human/proc/set_ranks
+			H.verbs += /mob/living/carbon/human/proc/choose_heir
+		N.update_nation_id()
+
 /**
  * LateSpawn hook.
  * Called in newplayer.dm when a humanoid character joins the round after it started.
@@ -148,7 +206,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudatmosia")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in medical_positions)
@@ -156,7 +215,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudmedistan")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in science_positions)
@@ -164,7 +224,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudscientopia")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in security_positions)
@@ -172,7 +233,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudbrigston")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in cargonians)
@@ -180,7 +242,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcargonia")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in servicion)
@@ -188,7 +251,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in support_positions)
@@ -196,7 +260,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in command_positions)
@@ -204,7 +269,8 @@ datum/game_mode/nations
 			H.hud_updateflag |= 1 << NATIONS_HUD
 			var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
 			H.client.images += I
-			H << "You are now part of the great sovereign nation of [H.mind.nation.name]!"
+			H.mind.nation.membership += H.mind.current
+			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in civilian_positions)

@@ -18,20 +18,10 @@
 							/obj/item/weapon/storage/fancy/crayons			= 2,
 							/obj/item/toy/spinningtoy						= 2,
 							/obj/item/toy/crossbow/tommygun					= 2,
-							/obj/item/toy/prize/ripley						= 1,
-							/obj/item/toy/prize/fireripley					= 1,
-							/obj/item/toy/prize/deathripley					= 1,
-							/obj/item/toy/prize/gygax						= 1,
-							/obj/item/toy/prize/durand						= 1,
-							/obj/item/toy/prize/honk						= 1,
-							/obj/item/toy/prize/marauder					= 1,
-							/obj/item/toy/prize/seraph						= 1,
-							/obj/item/toy/prize/mauler						= 1,
-							/obj/item/toy/prize/odysseus					= 1,
-							/obj/item/toy/prize/phazon						= 1,
+							/obj/random/prize								= 5,
 							/obj/item/toy/nuke								= 2,
 							/obj/item/toy/cards/deck						= 2,
-							/obj/item/toy/carpplushie						= 2,
+							/obj/random/carp_plushie						= 2,
 							/obj/item/toy/minimeteor						= 2,
 							/obj/item/toy/redbutton							= 2,
 							/obj/item/toy/owl								= 2,
@@ -47,7 +37,8 @@
 							/obj/item/toy/flash								= 2,
 							/obj/item/toy/minigibber						= 2,
 							/obj/item/toy/toy_xeno                          = 2,
-							/obj/random/figure								= 16
+							/obj/random/figure								= 16,
+							/obj/random/plushie                          	= 7,
 							)
 
 /obj/machinery/computer/arcade/power_change()

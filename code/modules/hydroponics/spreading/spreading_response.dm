@@ -17,14 +17,16 @@
 	// Todo, cause damage.
 	user_unbuckle_mob(user, user)
 
-/obj/effect/plant/proc/trodden_on(var/mob/living/victim)
+/obj/effect/plant/Crossed(var/mob/living/victim)
 	if(!is_mature())
 		return
-	var/mob/living/carbon/human/H = victim
-	if(istype(H) && H.shoes)
-		return
-	seed.do_thorns(victim,src)
-	seed.do_sting(victim,src,pick("r_foot","l_foot","r_leg","l_leg"))
+	var/target_limb = pick("r_foot","l_foot","r_leg","l_leg")
+	if(ishuman(victim))
+		var/mob/living/carbon/human/H = victim
+		if(H.shoes && prob(50))		//shoes will reduce chances of being stuck/stung by plants, but not always avoid it
+			return
+	seed.do_thorns(victim,src,target_limb)
+	seed.do_sting(victim,src,target_limb)
 
 
 /obj/effect/plant/proc/entangle(var/mob/living/victim)

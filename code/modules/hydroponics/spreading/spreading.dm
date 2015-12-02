@@ -125,8 +125,13 @@
 		max_growth-- //Ensure some variation in final sprite, makes the carpet of crap look less wonky.
 
 	mature_time = world.time + seed.get_trait(TRAIT_MATURATION) + 15 //prevent vines from maturing until at least a few seconds after they've been created.
-	spread_chance = seed.get_trait(TRAIT_POTENCY) * 3
-	spread_distance = ((growth_type>0) ? round(spread_chance*0.6) : round(spread_chance*0.3))
+	spread_chance = seed.get_trait(TRAIT_POTENCY)
+	if(growth_type == 0)							//These don't spread far at all (glowshroom, glowberries, brown mold)
+		spread_distance = round(spread_chance*0.1)
+	else if(growth_type == 2 || growth_type == 3)	//Vines and biomass can go further than worms and mold
+		spread_distance = round(spread_chance*0.6)
+	else											//Worms and mold go a moderate distance
+		spread_distance = round(spread_chance*0.3)
 	update_icon()
 
 	spawn(1) // Plants will sometimes be spawned in the turf adjacent to the one they need to end up in, for the sake of correct dir/etc being set.

@@ -569,12 +569,19 @@
 		else if (href_list["createpill"] || href_list["createpill_multiple"])
 			if(!condi)
 				var/count = 1
-				if (href_list["createpill_multiple"]) count = isgoodnumber(input("Select the number of pills to make.", 10, pillamount) as num)
+				if (href_list["createpill_multiple"])
+					count = input("Select the number of pills to make.", 10, pillamount) as num|null
+					if(count == null)
+						return
+					count = isgoodnumber(count)
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of pills easily. Maybe move the number to defines?
 				if (count <= 0) return
 				var/amount_per_pill = reagents.total_volume/count
 				if (amount_per_pill > 50) amount_per_pill = 50
-				var/name = reject_bad_text(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)"))
+				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)") as text|null
+				if(!name)
+					return
+				name = reject_bad_text(name)
 				while (count--)
 					var/obj/item/weapon/reagent_containers/pill/P = new/obj/item/weapon/reagent_containers/pill(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
@@ -588,7 +595,10 @@
 							P.forceMove(loaded_pill_bottle)
 							src.updateUsrDialog()
 			else
-				var/name = reject_bad_text(input(usr,"Name:","Name your bag!",reagents.get_master_reagent_name()))
+				var/name = input(usr,"Name:","Name your bag!",reagents.get_master_reagent_name()) as text|null
+				if(!name)
+					return
+				name = reject_bad_text(name)
 				var/obj/item/weapon/reagent_containers/food/condiment/pack/P = new/obj/item/weapon/reagent_containers/food/condiment/pack(src.loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.originalname = name
@@ -598,13 +608,20 @@
 		else if (href_list["createpatch"] || href_list["createpatch_multiple"])
 			if(!condi)
 				var/count = 1
-				if (href_list["createpatch_multiple"]) count = isgoodnumber(input("Select the number of patches to make.", 10, patchamount) as num)
+				if (href_list["createpatch_multiple"])
+					count = input("Select the number of patches to make.", 10, patchamount) as num|null
+					if(count == null)
+						return
+					count = isgoodnumber(count)
 				if(!count || count <= 0)
 					return
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
 				if (amount_per_patch > 40) amount_per_patch = 40
-				var/name = reject_bad_text(input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch] units)"))
+				var/name = input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch] units)") as text|null
+				if(!name)
+					return
+				name = reject_bad_text(name)
 				while (count--)
 					var/obj/item/weapon/reagent_containers/pill/patch/P = new/obj/item/weapon/reagent_containers/pill/patch(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
@@ -614,7 +631,10 @@
 					reagents.trans_to(P,amount_per_patch)
 		else if (href_list["createbottle"])
 			if(!condi)
-				var/name = reject_bad_text(input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()))
+				var/name = input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()) as text|null
+				if(!name)
+					return
+				name = reject_bad_text(name)
 				var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.name = "[name] bottle"

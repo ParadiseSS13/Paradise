@@ -343,7 +343,7 @@
 			//Search for item to steal
 			parrot_interest = search_for_item()
 			if(parrot_interest)
-				custom_emote(1,"looks in [parrot_interest]'s direction and takes flight")
+				custom_emote(1,"looks in [parrot_interest]'s direction and takes flight.")
 				parrot_state = PARROT_SWOOP | PARROT_STEAL
 				icon_state = "parrot_fly"
 			return

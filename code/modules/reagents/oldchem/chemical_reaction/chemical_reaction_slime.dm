@@ -433,7 +433,7 @@
 		required_reagents = list("plasma" = 5)
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
-			var/obj/item/weapon/slimepotion2/P = new /obj/item/weapon/slimepotion2
+			var/obj/item/weapon/sentience_potion/P = new /obj/item/weapon/sentience_potion
 			P.loc = get_turf(holder.my_atom)
 //Adamantine
 	slimegolem

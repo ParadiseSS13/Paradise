@@ -174,16 +174,11 @@
 /mob/living/simple_animal/hostile/statue/say()
 	return 0
 
-//Turn to dust when gibbed
-/mob/living/simple_animal/hostile/statue/gib(var/animation = 0)
-	dust(animation)
-
-/mob/living/simple_animal/hostile/statue/death()
-	living_mob_list -= src
-	dead_mob_list += src
-	if(key)
-		respawnable_list += src
-	gib()
+/mob/living/simple_animal/hostile/statue/death(gibbed)
+	if(!gibbed) //The looping ends here.
+		dust()
+		return
+	return ..()
 
 //Stop attacking clientless mobs
 

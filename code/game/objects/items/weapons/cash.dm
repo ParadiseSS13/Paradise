@@ -1,7 +1,10 @@
 var/global/list/moneytypes=list(
 	/obj/item/weapon/spacecash/c1000 = 1000,
-	/obj/item/weapon/spacecash/c500  = 500, // Might get rid of this.
+	/obj/item/weapon/spacecash/c500  = 500,
+	/obj/item/weapon/spacecash/c200  = 200,
 	/obj/item/weapon/spacecash/c100  = 100,
+	/obj/item/weapon/spacecash/c50   = 50,
+	/obj/item/weapon/spacecash/c20   = 20,
 	/obj/item/weapon/spacecash/c10   = 10,
 	/obj/item/weapon/spacecash       = 1,
 )
@@ -42,19 +45,36 @@ var/global/list/moneytypes=list(
 /obj/item/weapon/spacecash/update_icon()
 	icon_state = "cash[worth]"
 	// Up to 100 items per stack.
-	overlays = 0
-	var/stacksize=round(amount/25)
 	pixel_x=rand(-7,7)
 	pixel_y=rand(-14,14)
-	if(stacksize)
-		// 0 = single
-		// 1 = 1/4 stack
-		// 2 = 1/2 stack
-		// 3 = 3/4 stack
-		// 4 = full stack
-		var/image/stack = image(icon,icon_state="cashstack[stacksize]")
-		stack.color=stack_color
-		overlays += stack
+
+/obj/item/weapon/spacecash/proc/collect_from(var/obj/item/weapon/spacecash/cash)
+	if(cash.worth == src.worth)
+		var/taking = min(100-src.amount,cash.amount)
+		cash.amount -= taking
+		src.amount += taking
+		if(cash.amount <= 0)
+			qdel(cash)
+		return taking
+	return 0
+
+/obj/item/weapon/spacecash/afterattack(atom/A as mob|obj, mob/user as mob)
+	if(istype(A, /turf) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack))
+		var/turf/T = get_turf(A)
+		var/collected = 0
+		for(var/obj/item/weapon/spacecash/cash in T)
+			if(cash.worth == src.worth)
+				collected += collect_from(cash)
+		if(collected)
+			update_icon()
+			user << "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>"
+	else if(istype(A,/obj/item/weapon/spacecash))
+		var/obj/item/weapon/spacecash/cash = A
+		var/collected = src.collect_from(cash)
+		if(collected)
+			update_icon()
+			user << "<span class='notice'>You add [collected] credit [amount > 1 ? "chips":"chip"] to your stack of cash.</span>"
+
 
 /obj/item/weapon/spacecash/proc/get_total()
 	return worth * amount
@@ -62,37 +82,30 @@ var/global/list/moneytypes=list(
 /obj/item/weapon/spacecash/c10
 	icon_state = "cash10"
 	worth = 10
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c20
 	icon_state = "cash10"
 	worth = 20
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c50
 	icon_state = "cash10"
 	worth = 50
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c100
 	icon_state = "cash100"
 	worth = 100
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c200
 	icon_state = "cash200"
 	worth = 200
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c500
 	icon_state = "cash500"
 	worth = 500
-	stack_color = "#663200"
 
 /obj/item/weapon/spacecash/c1000
 	icon_state = "cash1000"
 	worth = 1000
-	stack_color = "#333333"
 
 /proc/dispense_cash(var/amount, var/loc)
 	for(var/cashtype in moneytypes)
