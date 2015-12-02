@@ -28,11 +28,11 @@
 		L[D.name] = D
 
 		switch(D.gender)
-			if(MALE)	male += D.name
-			if(FEMALE)	female += D.name
+			if(MALE)	male[D.name] = D
+			if(FEMALE)	female[D.name] = D
 			else
-				male += D.name
-				female += D.name
+				male[D.name] = D
+				female[D.name] = D
 	return L
 
 /datum/sprite_accessory
@@ -1019,7 +1019,7 @@
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
 
 	nude
 		name = "Nude"
@@ -1092,7 +1092,7 @@
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -1331,6 +1331,7 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -1343,111 +1344,95 @@
 	name = "Normal White"
 	icon_state = "white_norm"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/black_norm
 	name = "Normal Black"
 	icon_state = "black_norm"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/white_short
 	name = "Short White"
 	icon_state = "white_short"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/black_short
 	name = "Short Black"
 	icon_state = "black_short"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/white_knee
 	name = "Knee-high White"
 	icon_state = "white_knee"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/black_knee
 	name = "Knee-high Black"
 	icon_state = "black_knee"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
 	gender = FEMALE
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/striped_knee
 	name = "Knee-high Striped"
 	icon_state = "striped_knee"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/rainbow_knee
 	name = "Knee-high Rainbow"
 	icon_state = "rainbow_knee"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/white_thigh
 	name = "Thigh-high White"
 	icon_state = "white_thigh"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 /datum/sprite_accessory/socks/black_thigh
 	name = "Thigh-high Black"
 	icon_state = "black_thigh"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
 	gender = FEMALE
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
 	icon_state = "striped_thigh"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/rainbow_thigh
 	name = "Thigh-high Rainbow"
 	icon_state = "rainbow_thigh"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
 	gender = FEMALE
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"
 	icon_state = "black_fishnet"
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
 
 /datum/sprite_accessory/socks/vox_white
 	name = "Vox White"
