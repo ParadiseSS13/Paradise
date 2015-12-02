@@ -285,12 +285,8 @@ var/list/uplink_items = list()
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/c20r
 	cost = 14
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 	surplus = 40
-
-/datum/uplink_item/dangerous/smg/unrestricted
-	item = /obj/item/weapon/gun/projectile/automatic/c20r/unrestricted
-	gamemodes = list("gang")
 
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
@@ -298,12 +294,8 @@ var/list/uplink_items = list()
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 	surplus = 50
-
-/datum/uplink_item/dangerous/carbine/unrestricted
-	item = /obj/item/weapon/gun/projectile/automatic/m90/unrestricted
-	gamemodes = list("gang")
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"

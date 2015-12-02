@@ -659,7 +659,7 @@ client/proc/one_click_antag()
 				if(applicant.mind)
 					if(!applicant.mind.special_role)
 						if(!jobban_isbanned(applicant, BE_GANG) && !jobban_isbanned(applicant, "Syndicate"))
-							if(temp.age_check(applicant.client))
+							if(player_old_enough_antag(applicant.client,BE_GANG))
 								if(!(applicant.job in temp.restricted_jobs))
 									candidates += applicant
 

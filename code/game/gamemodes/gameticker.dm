@@ -33,6 +33,7 @@ var/global/datum/controller/gameticker/ticker
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
 
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
+	var/mode_finished = 0 // allows admins to force a finish
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
@@ -389,7 +390,6 @@ var/global/datum/controller/gameticker/ticker
 		//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
 		var/game_finished = 0
-		var/mode_finished = 0
 		if (config.continous_rounds)
 			game_finished = (emergency_shuttle.returned() || mode.station_was_nuked)
 			mode_finished = (!post_game && mode.check_finished())
@@ -401,7 +401,7 @@ var/global/datum/controller/gameticker/ticker
 			current_state = GAME_STATE_FINISHED
 			auto_toggle_ooc(1) // Turn it on
 			spawn
-				declare_completion()
+				declare_completion(force_ending)
 
 			spawn(50)
 				callHook("roundend")

@@ -51,10 +51,10 @@
 /datum/gang/proc/add_gang_hud(datum/mind/recruit_mind)
 	ganghud.join_hud(recruit_mind.current)
 	if(recruit_mind in bosses)
-		var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "gang_boss")
+		var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gang_boss")
 		recruit_mind.current.client.images += I
 	else
-		var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "gangster")
+		var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gangster")
 		recruit_mind.current.client.images += I
 
 /datum/gang/proc/remove_gang_hud(datum/mind/defector_mind)

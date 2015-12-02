@@ -238,3 +238,10 @@
 	*/
 	src.text += "These lifeforms are assosciated with the [orgname1] [orgname2] and may be attempting to acquire sensitive materials on their behalf.  "
 	src.text += "Please take care not to alarm the crew, as [cname] may take advantage of a panic situation. Remember, they can be anybody, suspect everybody!"
+
+
+/datum/intercept_text/proc/build_gang(datum/mind/correct_person)
+	src.text += "<BR><BR>We have reports of criminal activity in close proximity to our operations within your sector."
+	src.text += "Ensure law and order is maintained on the station and be on the lookout for territorial aggression within the crew."
+	src.text += "In the event of a full-scale criminal takeover threat, sensitive research items are to be secured and the station evacuated ASAP."
+	src.text += "<BR><HR>"

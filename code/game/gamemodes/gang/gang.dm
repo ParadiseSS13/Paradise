@@ -114,7 +114,7 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 	var/obj/item/device/gangtool/gangtool = new(mob)
 	var/obj/item/weapon/pen/gang/T = new(mob)
 	var/obj/item/toy/crayon/spraycan/gang/SC = new(mob,gang)
-	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob,gang)
+	var/obj/item/clothing/glasses/hud/security/C = new(mob,gang)
 
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
@@ -173,7 +173,6 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 		if(iscarbon(gangster_mind.current))
 			var/mob/living/carbon/carbon_mob = gangster_mind.current
 			carbon_mob.silent = max(carbon_mob.silent, 5)
-			carbon_mob.flash_eyes(1, 1)
 		gangster_mind.current.Stun(5)
 	gangster_mind.current << "<FONT size=3 color=red><B>You are now a member of the [G.name] Gang!</B></FONT>"
 	gangster_mind.current << "<font color='red'>Help your bosses take over the station by claiming territory with <b>special spraycans</b> only they can provide. Simply spray on any unclaimed area of the station.</font>"
@@ -182,8 +181,6 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 	gangster_mind.current.attack_log += "\[[time_stamp()]\] <font color='red'>Has been converted to the [G.name] Gang!</font>"
 	gangster_mind.special_role = "[G.name] Gangster"
 	G.add_gang_hud(gangster_mind)
-	if(jobban_isbanned(gangster_mind.current, BE_GANG))
-		replace_jobbaned_player(gangster_mind.current, BE_GANG, BE_GANG)
 	return 2
 ////////////////////////////////////////////////////////////////////
 //Deals with players reverting to neutral (Not a gangster anymore)//
@@ -309,4 +306,4 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 			ticker.mode.explosion_in_progress = 1
 			ticker.station_explosion_cinematic(1)
 			ticker.mode.explosion_in_progress = 0
-			ticker.force_ending = pick(winners)
+			ticker.mode_finished = pick(winners)
