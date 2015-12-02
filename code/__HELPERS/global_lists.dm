@@ -20,7 +20,7 @@
 
 	init_datum_subtypes(/datum/job, joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, all_superheroes, null, "name")
-	init_datum_subtypes(/datum/nations, all_nations, null, "name")
+	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
 	init_datum_subtypes(/datum/language, all_languages, null, "name")
 
 	for (var/language_name in all_languages)
