@@ -21,7 +21,7 @@
 // What does the implant do upon injection?
 // return 0 if the implant fails (ex. Revhead and loyalty implant.)
 // return 1 if the implant succeeds (ex. Nonrevhead and loyalty implant.)
-/obj/item/weapon/implant/proc/implanted(var/mob/source)		
+/obj/item/weapon/implant/proc/implanted(var/mob/source)
 	return 1
 
 /obj/item/weapon/implant/proc/get_data()
@@ -55,11 +55,11 @@
 	desc = "Track with this."
 	origin_tech = "materials=2;magnets=2;programming=2;biotech=2"
 	var/id = 1.0
-	
+
 /obj/item/weapon/implant/tracking/New()
 	..()
 	tracking_implants += src
-	
+
 /obj/item/weapon/implant/tracking/Destroy()
 	tracking_implants -= src
 	return ..()
@@ -287,7 +287,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	reagents = R
 	R.my_atom = src
 	tracking_implants += src
-	
+
 /obj/item/weapon/implant/chem/Destroy()
 	tracking_implants -= src
 	return ..()
@@ -346,9 +346,11 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/loyalty/implanted(mob/M)
 	if(!istype(M, /mob/living/carbon/human))	return 0
 	var/mob/living/carbon/human/H = M
-	if(H.mind in ticker.mode.head_revolutionaries)
+	if(H.mind in (ticker.mode.head_revolutionaries || ticker.mode.get_gang_bosses()))
 		H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		return 0
+	else if(H.mind in ticker.mode.get_gangsters())
+		ticker.mode.remove_gangster(H.mind)
 	else if(H.mind in ticker.mode:revolutionaries)
 		ticker.mode:remove_revolutionary(H.mind)
 	H << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"
@@ -414,7 +416,7 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	ticker.mode.update_traitor_icons_added(user.mind)
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 	return 1
-	
+
 /obj/item/weapon/implant/traitor/islegal()
 	return 0
 

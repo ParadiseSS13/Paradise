@@ -495,7 +495,7 @@ proc/get_nt_opposed()
 		if(BE_MALF)			roletext="malf AI"
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
+		if(BE_GANG)			roletext="gangster"
 		if(BE_RAIDER)		roletext="raider"
 		if(BE_VAMPIRE)		roletext="vampire"
 		if(BE_ALIEN)		roletext="alien"

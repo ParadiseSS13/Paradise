@@ -21,6 +21,7 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Vampires</a><br>
 		<a href='?src=\ref[src];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=12'>Make Gangsters</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -641,3 +642,37 @@ client/proc/one_click_antag()
 	else
 		return 0
 	return 1
+
+
+/datum/admins/proc/makeGangsters()
+
+	var/datum/game_mode/gang/temp = new
+	if(config.protect_roles_from_antagonist)
+		temp.restricted_jobs += temp.protected_jobs
+
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	for(var/mob/living/carbon/human/applicant in player_list)
+		if(BE_GANG in applicant.client.prefs.be_special)
+			if(!applicant.stat)
+				if(applicant.mind)
+					if(!applicant.mind.special_role)
+						if(!jobban_isbanned(applicant, BE_GANG) && !jobban_isbanned(applicant, "Syndicate"))
+							if(temp.age_check(applicant.client))
+								if(!(applicant.job in temp.restricted_jobs))
+									candidates += applicant
+
+	if(candidates.len >= 2)
+		for(var/needs_assigned=2,needs_assigned>0,needs_assigned--)
+			H = pick(candidates)
+			if(gang_colors_pool.len)
+				var/datum/gang/newgang = new()
+				ticker.mode.gangs += newgang
+				H.mind.make_Gang(newgang)
+				candidates.Remove(H)
+			else if(needs_assigned == 2)
+				return 0
+		return 1
+
+	return 0

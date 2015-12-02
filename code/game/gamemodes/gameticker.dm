@@ -290,6 +290,10 @@ var/global/datum/controller/gameticker/ticker
 						world << sound('sound/effects/explosionfar.ogg')
 						flick("station_intact_fade_red",cinematic)
 						cinematic.icon_state = "summary_nukefail"
+					if("gang war") //Gang Domination (just show the override screen)
+						cinematic.icon_state = "intro_malf_still"
+						flick("intro_malf",cinematic)
+						sleep(70)
 					else
 						flick("intro_nuke",cinematic)
 						sleep(35)

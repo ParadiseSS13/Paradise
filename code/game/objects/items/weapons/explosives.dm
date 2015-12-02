@@ -44,6 +44,10 @@
 				message_say = "FOR THE REVOLOUTION!"
 			else if(role == "death commando" || role == "emergency response team")
 				message_say = "FOR NANOTRASEN!"
+			else if(user.mind.gang_datum)
+				message_say = "[uppertext(user.mind.gang_datum.name)] RULES!"
+			else if(user.mind.nation)
+				message_say = "[uppertext(user.mind.nation.current_name)] RULES!"
 
 	user.say(message_say)
 	target = user

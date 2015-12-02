@@ -288,6 +288,10 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency")
 	surplus = 40
 
+/datum/uplink_item/dangerous/smg/unrestricted
+	item = /obj/item/weapon/gun/projectile/automatic/c20r/unrestricted
+	gamemodes = list("gang")
+
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
 	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
@@ -296,6 +300,10 @@ var/list/uplink_items = list()
 	cost = 18
 	gamemodes = list("nuclear emergency")
 	surplus = 50
+
+/datum/uplink_item/dangerous/carbine/unrestricted
+	item = /obj/item/weapon/gun/projectile/automatic/m90/unrestricted
+	gamemodes = list("gang")
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
@@ -312,7 +320,7 @@ var/list/uplink_items = list()
 	reference = "EC"
 	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
-	excludefrom = list("nuclear emergency")
+	excludefrom = list("nuclear emergency","gang")
 	surplus = 50
 
 /datum/uplink_item/dangerous/flamethrower
@@ -321,7 +329,7 @@ var/list/uplink_items = list()
 	reference = "FT"
 	item = /obj/item/weapon/flamethrower/full/tank
 	cost = 11
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
@@ -353,7 +361,7 @@ var/list/uplink_items = list()
 	reference = "BTS"
 	item = /obj/item/weapon/storage/box/syndie_kit/bioterror
 	cost = 6
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 
 /datum/uplink_item/dangerous/tabungrenades
 	name = "Tabun Gas Grenades"
@@ -438,7 +446,7 @@ var/list/uplink_items = list()
 	reference = "45"
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 
 /datum/uplink_item/ammo/ammobag
 	name = "Ammo Duffelbag - Shotgun Ammo Grab Bag"
@@ -486,7 +494,7 @@ var/list/uplink_items = list()
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 
 /datum/uplink_item/ammo/a40mm
 	name = "Ammo Box - 40mm grenades"
@@ -523,7 +531,7 @@ var/list/uplink_items = list()
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
-	excludefrom = list("nuclear emergency")
+	excludefrom = list("nuclear emergency","gang")
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -627,6 +635,7 @@ var/list/uplink_items = list()
 	reference = "CP"
 	item = /obj/item/device/chameleon
 	cost = 7
+	excludefrom = list("gang")
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
@@ -663,6 +672,7 @@ var/list/uplink_items = list()
 	reference = "EMAG"
 	item = /obj/item/weapon/card/emag
 	cost = 6
+	excludefrom = list("gang")
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
@@ -693,7 +703,7 @@ var/list/uplink_items = list()
 	reference = "SCMK"
 	item = /obj/item/weapon/storage/firstaid/tactical
 	cost = 9
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 
 /datum/uplink_item/device_tools/space_suit
 	name = "Space Suit"
@@ -701,6 +711,7 @@ var/list/uplink_items = list()
 	reference = "SS"
 	item = /obj/item/weapon/storage/box/syndie_kit/space
 	cost = 4
+	excludefrom = list("gang")
 
 /datum/uplink_item/device_tools/hardsuit
 	name = "Blood-red Hardsuit"
@@ -710,6 +721,7 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+	excludefrom = list("gang")
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
@@ -770,6 +782,7 @@ var/list/uplink_items = list()
 	reference = "SNGB"
 	item = /obj/item/device/radio/beacon/syndicate
 	cost = 14
+	excludefrom = list("gang")
 
 /datum/uplink_item/device_tools/syndicate_bomb
 	name = "Syndicate Bomb"
@@ -817,7 +830,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/shield/energy
 	reference = "ESD"
 	cost = 16
-	gamemodes = list("nuclear emergency")
+	gamemodes = list("nuclear emergency","gang")
 	surplus = 20
 
 // IMPLANTS
@@ -887,7 +900,7 @@ var/list/uplink_items = list()
 	reference = "SYB"
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 20
-	excludefrom = list("nuclear emergency")
+	excludefrom = list("nuclear emergency","gang")
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"

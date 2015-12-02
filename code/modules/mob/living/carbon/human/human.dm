@@ -248,9 +248,13 @@
 
 	stat(null, "Station Time: [worldtime2text()]")
 
-	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
-		if(ticker.mode:malf_mode_declared)
-			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
+	if(ticker && ticker.mode)
+		if(ticker.mode.name == "AI malfunction")
+			if(ticker.mode:malf_mode_declared)
+				stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
+		for(var/datum/gang/G in ticker.mode.gangs)
+			if(isnum(G.dom_timer))
+				stat(null, "[G.name] Gang Takeover: [max(G.dom_timer, 0)]")
 	if(emergency_shuttle)
 		var/eta_status = emergency_shuttle.get_status_panel_eta()
 		if(eta_status)

@@ -85,6 +85,10 @@
 			src.text = ""
 			src.build_changeling(correct_person)
 			return src.text
+		if("gang")
+			src.text = ""
+			src.build_gang(correct_person)
+			return src.text
 		else
 			return null
 
