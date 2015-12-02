@@ -7,6 +7,41 @@
 	var/list/processing_uis = list()
 	// a list of asset filenames which are to be sent to the client on user logon
 	var/list/asset_files = list()
+	// a list of asset files that get added to the RSC directly so as not to lag client joins.
+	var/list/rsc_files = list(
+		'nano/css/codemirror.css',
+		'nano/css/icons.css',
+		'nano/css/layout_basic.css',
+		'nano/css/layout_default.css',
+		'nano/css/lesser-dark.css',
+		'nano/css/shared.css',
+		'nano/images/nanomap_z1.png',
+		'nano/images/nanomapBackground.png',
+		'nano/images/uiBackground.png',
+		'nano/images/uiBackground-Syndicate.png',
+		'nano/images/uiBasicBackground.png',
+		'nano/images/uiIcons16.png',
+		'nano/images/uiIcons16Green.png',
+		'nano/images/uiIcons16Orange.png',
+		'nano/images/uiIcons16Red.png',
+		'nano/images/uiIcons24.png',
+		'nano/images/uiLinkPendingIcon.gif',
+		'nano/images/uiMaskBackground.png',
+		'nano/images/uiNoticeBackground.jpg',
+		'nano/images/uiTitleFluff.png',
+		'nano/images/uiTitleFluff-Syndicate.png',
+		'nano/js/codemirror-compressed.js',
+		'nano/js/libraries.min.js',
+		'nano/js/libraries-old.min.js',
+		'nano/js/nano_base_callbacks.js',
+		'nano/js/nano_base_helpers.js',
+		'nano/js/nano_state.js',
+		'nano/js/nano_state_default.js',
+		'nano/js/nano_state_manager.js',
+		'nano/js/nano_template.js',
+		'nano/js/nano_utility.js'
+		)
+
 
  /**
   * Create a new nanomanager instance.
@@ -16,9 +51,6 @@
   */
 /datum/nanomanager/New()
 	var/list/nano_asset_dirs = list(\
-		"nano/css/",\
-		"nano/images/",\
-		"nano/js/",\
 		"nano/templates/"\
 	)
 
@@ -122,8 +154,8 @@
 			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
 				ui.close()
 				close_count++
-	return close_count	
-	
+	return close_count
+
  /**
   * Update /nanoui uis belonging to user
   *
