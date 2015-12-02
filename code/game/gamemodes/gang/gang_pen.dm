@@ -66,7 +66,6 @@
 /obj/item/weapon/implant/gang
 	name = "gang implant"
 	desc = "Makes you a gangster or such."
-	activated = 0
 	origin_tech = "materials=2;biotech=4;programming=4;syndicate=4"
 	var/datum/gang/gang
 
@@ -86,7 +85,7 @@
 				<b>Integrity:</b> Implant's EMP function will destroy itself in the process."}
 	return dat
 
-/obj/item/weapon/implant/gang/implant(mob/target)
+/obj/item/weapon/implant/gang/implanted(mob/target)
 	if(..())
 		for(var/obj/item/weapon/implant/I in target)
 			if(I != src)

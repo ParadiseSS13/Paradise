@@ -156,6 +156,7 @@
 	A.power_light = 0
 	A.power_environ = 0
 	A.always_unpowered = 0
+	A.valid_territory = 0
 	move_turfs_to_area(turfs, A)
 
 	interact()

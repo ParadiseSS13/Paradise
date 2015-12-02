@@ -26,6 +26,7 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 	required_players = 20
 	required_enemies = 2
 	recommended_enemies = 2
+	var/list/antag_candidates
 
 ///////////////////////////
 //Announces the game type//
@@ -41,6 +42,8 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 /datum/game_mode/gang/pre_setup()
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
+
+	antag_candidates = get_players_for_role(BE_GANG)
 
 	//Spawn more bosses depending on server population
 	var/gangs_to_create = 2
@@ -280,7 +283,7 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 
 /datum/gang_points/New()
 	next_point_time = world.time + next_point_interval
-	SSobj.processing += src
+	processing_objects.Add(src)
 
 /datum/gang_points/process(seconds)
 	var/list/winners = list() //stores the winners if there are any

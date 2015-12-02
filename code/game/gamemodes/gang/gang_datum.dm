@@ -50,11 +50,18 @@
 
 /datum/gang/proc/add_gang_hud(datum/mind/recruit_mind)
 	ganghud.join_hud(recruit_mind.current)
-	ticker.mode.set_antag_hud(recruit_mind.current, ((recruit_mind in bosses) ? "gang_boss" : "gangster"))
+	if(recruit_mind in bosses)
+		var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "gang_boss")
+		recruit_mind.current.client.images += I
+	else
+		var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "gangster")
+		recruit_mind.current.client.images += I
 
 /datum/gang/proc/remove_gang_hud(datum/mind/defector_mind)
 	ganghud.leave_hud(defector_mind.current)
-	ticker.mode.set_antag_hud(defector_mind.current, null)
+	for(var/image/I in defector_mind.current.client.images)
+		if(I.icon_state == "gangster" || I.icon_state == "gang_boss")
+			qdel(I)
 
 /datum/gang/proc/domination(modifier=1)
 	dom_timer = get_domination_time(src) * modifier

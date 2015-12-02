@@ -1507,6 +1507,15 @@
 		spell.action.Grant(new_character)
 	return
 
+/datum/mind/proc/make_Gang(datum/gang/G)
+	special_role = "[G.name] Gang Boss"
+	G.bosses += src
+	gang_datum = G
+	G.add_gang_hud(src)
+	ticker.mode.forge_gang_objectives(src)
+	ticker.mode.greet_gang(src)
+	ticker.mode.equip_gang(current,G)
+
 //Initialisation procs
 /mob/proc/mind_initialize()
 	if(mind)

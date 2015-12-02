@@ -6,16 +6,13 @@
 	density = 1
 	anchored = 1
 	layer = 3.6
+	luminosity = 2
 	var/maxhealth = 200
 	var/health = 200
 	var/datum/gang/gang
 	var/operating = 0	//-1=broken, 0=standby, 1=takeover
 	var/warned = 0	//if this device has set off the warning at <3 minutes yet
 
-/obj/machinery/dominator/New()
-	..()
-	SetLuminosity(2)
-	poi_list |= src
 
 /obj/machinery/dominator/examine(mob/user)
 	..()
@@ -47,15 +44,15 @@
 					if(G != gang)
 						G.message_gangtools("WARNING: [gang.name] Gang takeover imminent. Their dominator at [initial(domloc.name)] must be destroyed!",1,1)
 		else
-			SSmachine.processing -= src
+			processing_objects.Add(src)
 
 /obj/machinery/dominator/proc/healthcheck(damage)
 	var/iconname = "dominator"
 	if(gang)
 		iconname += "-[gang.color]"
-		SetLuminosity(3)
+		luminosity = 3
 
-	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+	var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
 
 	health -= damage
 
@@ -101,11 +98,11 @@
 
 		gang.message_gangtools("Hostile takeover cancelled: Dominator is no longer operational.[gang.dom_attempts ? " You have [gang.dom_attempts] attempt remaining." : " The station network will have likely blocked any more attempts by us."]",1,1)
 
-	SetLuminosity(0)
+	luminosity = 0
 	icon_state = "dominator-broken"
 	overlays.Cut()
 	operating = -1
-	SSmachine.processing -= src
+	processing_objects.Remove(src)
 
 /obj/machinery/dominator/Destroy()
 	if(operating != -1)
@@ -183,7 +180,7 @@
 		src.name = "[gang.name] Gang [src.name]"
 		healthcheck(0)
 		operating = 1
-		SSmachine.processing += src
+		processing_objects.Add(src)
 
 		gang.message_gangtools("Hostile takeover in progress: Estimated [time] minutes until victory.[gang.dom_attempts ? "" : " This is your final attempt."]")
 		for(var/datum/gang/G in ticker.mode.gangs)
@@ -213,13 +210,6 @@
 		visible_message("<span class='danger'>[M.name] has hit [src].</span>")
 		healthcheck(M.force)
 	return
-
-/obj/machinery/dominator/attack_hulk(mob/user)
-	playsound(src, 'sound/effects/bang.ogg', 50, 1)
-	user.visible_message("<span class='danger'>[user] smashes [src].</span>",\
-	"<span class='danger'>You punch [src].</span>",\
-	"<span class='italics'>You hear metal being slammed.</span>")
-	healthcheck(5)
 
 /obj/machinery/dominator/attackby(obj/item/weapon/I, mob/living/user, params)
 	if(istype(I, /obj/item/weapon))
