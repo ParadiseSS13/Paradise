@@ -25,8 +25,8 @@
 	min_n2  = 0
 	max_n2  = INFINITY
 	attacktext = "punches"
-	maxHealth = 100000 //The spirit itself is invincible
-	health = 100000
+	maxHealth = INFINITY //The spirit itself is invincible
+	health = INFINITY
 	environment_smash = 0
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -46,16 +46,6 @@
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD)
-		//	src << "<span class='danger'>Your summoner has died!</span>"
-		//	visible_message("<span class='danger'><B>The [src] dies along with its user!</B></span>")
-		//	summoner.visible_message("<span class='danger'><B>[summoner]'s body is completely consumed by the strain of sustaining [src]!</B></span>")
-		//	for(var/obj/item/W in summoner)
-			//	if(!summoner.unEquip(W))
-			//		qdel(W)
-			//summoner.dust()
-			//ghostize()
-			//qdel(src)
-	//else
 			src << "<span class='danger'>Your summoner has died!</span>"
 			visible_message("<span class='danger'><B>The [src] dies along with its user!</B></span>")
 			ghostize()
@@ -106,12 +96,9 @@
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
 		summoner << "<span class='danger'><B>Your [src] was blown up!</span></B>"
-		summoner.gib()
+		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
-
-/mob/living/simple_animal/hostile/guardian/start_pulling(var/atom/movable/AM)
-	return //no pulling things fo you!
 
 //Manifest, Recall, Communicate
 
@@ -672,8 +659,8 @@
 	G << "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself."
 	G << "[G.playstyle_string]"
 	user.verbs += /mob/living/proc/guardian_comm
+	user.verbs += /mob/living/proc/guardian_recall
 	if(!adminseal)
-		user.verbs += /mob/living/proc/guardian_recall
 		user.verbs += /mob/living/proc/guardian_reset
 	switch (theme)
 		if("magic")
