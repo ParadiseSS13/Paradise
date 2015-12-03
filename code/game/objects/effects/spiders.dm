@@ -78,6 +78,7 @@
 	var/amount_grown = 0
 	var/player_spiders = 0
 	var/faction = list()
+	var/master_commander = null
 
 /obj/effect/spider/eggcluster/New()
 	pixel_x = rand(3,-3)
@@ -91,6 +92,7 @@
 		for(var/i=0, i<num, i++)
 			var/obj/effect/spider/spiderling/S = new /obj/effect/spider/spiderling(src.loc)
 			S.faction = faction
+			S.master_commander = master_commander
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -108,6 +110,7 @@
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
 	var/faction = list()
+	var/master_commander = null
 
 /obj/effect/spider/spiderling/New()
 	pixel_x = rand(6,-6)
@@ -193,6 +196,7 @@
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction
+			S.master_commander = master_commander
 			if(player_spiders)
 				var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
 				var/client/C = null
@@ -200,6 +204,8 @@
 				if(candidates.len)
 					C = pick(candidates)
 					S.key = C.key
+					if(master_commander)
+						S << "<span class='userdanger'>You are a spider who is loyal to [master_commander], obey [master_commander]'s every order and assist them in completing their goals at any cost.</span>"
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains
