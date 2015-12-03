@@ -53,7 +53,6 @@
 	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
-
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 
@@ -98,7 +97,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
-
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
@@ -134,7 +132,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
-
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#BE8264"
@@ -163,7 +160,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB
-
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
@@ -179,7 +175,6 @@
 	language = "Vox-pidgin"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
-
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
 	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
@@ -309,7 +304,6 @@
 	clothing_flags = HAS_SOCKS
 	bodyflags = FEET_CLAWS
 	dietflags = DIET_HERB
-
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 
@@ -328,7 +322,6 @@
 	bodyflags = HAS_SKIN_COLOR
 	bloodflags = BLOOD_SLIME
 	dietflags = DIET_CARN
-
 	reagent_tag = PROCESS_ORG
 	//ventcrawler = 1 //ventcrawling commented out
 
@@ -355,7 +348,6 @@
 	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB
-
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
@@ -368,6 +360,7 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+	C.mutations.Add(GREY)
 	C.update_mutations()
 	..()
 
@@ -408,7 +401,6 @@
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
-
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 
@@ -499,7 +491,7 @@
 
 	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA_RAD
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA_RAD | NO_POISON
 	clothing_flags = HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = 0		//IPCs can't eat, so no diet

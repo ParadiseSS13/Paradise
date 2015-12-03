@@ -14,9 +14,6 @@
 
 	var/finished = 0
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 /datum/game_mode/wizard/announce()
 	world << "<B>The current game mode is - Wizard!</B>"
 	world << "<B>There is a \red SPACE WIZARD\black on the station. You can't let him achieve his objective!</B>"
@@ -56,10 +53,7 @@
 		name_wizard(wizard.current)
 		greet_wizard(wizard)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
@@ -69,7 +63,7 @@
 			kill_objective.owner = wizard
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
-			
+
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = wizard
 			steal_objective.find_target()
@@ -111,7 +105,7 @@
 			steal_objective.owner = wizard
 			steal_objective.find_target()
 			wizard.objectives += steal_objective
-			
+
 			if (!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
@@ -184,7 +178,7 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
 
 	wizard_mob.faction = list("wizard")
-	
+
 	wizard_mob.species.equip(wizard_mob)
 
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."

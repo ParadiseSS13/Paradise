@@ -96,7 +96,7 @@ datum/reagent/synthflesh/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vo
 datum/reagent/synthflesh/reaction_turf(var/turf/T, var/volume) //let's make a mess!
 	src = null
 	if(volume >= 5)
-		new /obj/effect/decal/cleanable/blood/gibs(T)
+		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 		return
 
@@ -278,7 +278,7 @@ datum/reagent/sal_acid
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B3B3B3"
-	shock_reduction = 40
+	shock_reduction = 25
 	overdose_threshold = 25
 
 datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
@@ -444,7 +444,7 @@ datum/reagent/morphine
 	color = "#C8A5DC"
 	overdose_threshold = 30
 	addiction_threshold = 25
-	shock_reduction = 60
+	shock_reduction = 50
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -987,7 +987,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 //		Synth-Meds			//
 //////////////////////////////
 
-//Degreaser: Anti-toxin / Lube Remover
+//Degreaser: Mild Purgative / Lube Remover
 /datum/reagent/degreaser
 	name = "Degreaser"
 	id = "degreaser"
@@ -1016,7 +1016,11 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 
 /datum/reagent/degreaser/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(-1.5*REM)
+	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+		M.confused -= 5
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")

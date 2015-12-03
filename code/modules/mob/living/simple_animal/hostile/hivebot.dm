@@ -52,7 +52,7 @@
 	..()
 	visible_message("<b>[src]</b> blows apart!")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	ghostize()
@@ -81,7 +81,7 @@
 
 	New()
 		..()
-		var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
+		var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
 		smoke.set_up(5, 0, src.loc)
 		smoke.start()
 		visible_message("\red <B>The [src] warps in!</B>")
@@ -94,11 +94,14 @@
 			bot_amt--
 			switch(bot_type)
 				if("norm")
-					new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/H = new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
+					H.faction = faction
 				if("range")
-					new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/range/R = new /mob/living/simple_animal/hostile/hivebot/range(get_turf(src))
+					R.faction = faction
 				if("rapid")
-					new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
+					var/mob/living/simple_animal/hostile/hivebot/rapid/F = new /mob/living/simple_animal/hostile/hivebot/rapid(get_turf(src))
+					F.faction = faction
 		spawn(100)
 			qdel(src)
 		return

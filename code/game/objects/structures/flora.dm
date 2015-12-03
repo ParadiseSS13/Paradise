@@ -230,3 +230,29 @@
 /obj/structure/flora/rock/pile/New()
 	..()
 	icon_state = "rockpile[rand(1,5)]"
+
+/obj/structure/flora/corn_stalk
+	name = "corn stalk"
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "cornstalk1"
+	anchored = 0
+	layer = 5
+
+/obj/structure/flora/corn_stalk/alt_1
+	icon_state = "cornstalk2"
+
+/obj/structure/flora/corn_stalk/alt_2
+	icon_state = "cornstalk3"
+
+/obj/structure/flora/straw_bail
+	name = "straw bail"
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "strawbail1"
+	density = 1
+	climbable = 1 // you can climb all over them.
+
+/obj/structure/flora/straw_bail/alt_1
+	icon_state = "strawbail2"
+
+/obj/structure/flora/straw_bail/alt_2
+	icon_state = "strawbail3"

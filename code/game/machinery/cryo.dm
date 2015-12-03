@@ -277,12 +277,12 @@
 		if(beaker)
 			user << "\red A beaker is already loaded into the machine."
 			return
-
-		beaker =  G
 		if(!user.drop_item())
 			user << "The [G] is stuck to you!"
 			return
 		G.forceMove(src)
+		beaker =  G
+
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if (istype(G, /obj/item/weapon/screwdriver))

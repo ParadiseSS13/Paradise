@@ -99,6 +99,14 @@
 			if(F.on)
 				G.toggle_gunlight()
 				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")
+	else if(istype(I, /obj/item/clothing/head/hardhat)) //There really needs to be a better way to handle this.
+		var/obj/item/clothing/head/hardhat/hhat = I
+		if(hhat.on)
+			hhat.on = 0
+			hhat.set_light(0)
+			hhat.icon_state = "hardhat0_[hhat.item_color]"
+			hhat.item_state = "hardhat0_[hhat.item_color]"
+			hhat.visible_message("<span class='danger'>[hhat]'s light fades and turns off.</span>")
 	return I.light_range
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishMob(var/mob/living/H)
@@ -419,7 +427,7 @@
 		B.reagents.clear_reagents() //Just in case!
 		B.icon_state = null //Invisible
 		B.reagents.add_reagent("blindness_smoke", 10)
-		var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
+		var/datum/effect/system/chem_smoke_spread/S = new /datum/effect/system/chem_smoke_spread
 		S.attach(B)
 		if(S)
 			S.set_up(B.reagents, 10, 0, B.loc)
@@ -483,7 +491,7 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 				S << "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>"
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-				var/datum/effect/effect/system/spark_spread/sp = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/sp = new /datum/effect/system/spark_spread
 				sp.set_up(5, 1, S)
 				sp.start()
 				S.Weaken(6)

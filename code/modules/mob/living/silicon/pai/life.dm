@@ -16,6 +16,7 @@
 				for (var/mob/M in viewers(T))
 					M.show_message("\red The data cable rapidly retracts back into its spool.", 3, "\red You hear a click and the sound of wire spooling rapidly.", 2)
 				qdel(src.cable)
+				cable = null
 
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)

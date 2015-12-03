@@ -128,25 +128,25 @@ Obviously, requires DNA2.
 		return
 	var/mob/living/carbon/human/M=usr
 
-	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(M.r_facial,M.g_facial,M.b_facial)) as color
+	var/new_facial = input("Please select facial hair color.", "Character Generation",rgb(M.r_facial,M.g_facial,M.b_facial)) as null|color
 	if(new_facial)
 		M.r_facial = hex2num(copytext(new_facial, 2, 4))
 		M.g_facial = hex2num(copytext(new_facial, 4, 6))
 		M.b_facial = hex2num(copytext(new_facial, 6, 8))
 
-	var/new_hair = input("Please select hair color.", "Character Generation",rgb(M.r_hair,M.g_hair,M.b_hair)) as color
+	var/new_hair = input("Please select hair color.", "Character Generation",rgb(M.r_hair,M.g_hair,M.b_hair)) as null|color
 	if(new_facial)
 		M.r_hair = hex2num(copytext(new_hair, 2, 4))
 		M.g_hair = hex2num(copytext(new_hair, 4, 6))
 		M.b_hair = hex2num(copytext(new_hair, 6, 8))
 
-	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as color
+	var/new_eyes = input("Please select eye color.", "Character Generation",rgb(M.r_eyes,M.g_eyes,M.b_eyes)) as null|color
 	if(new_eyes)
 		M.r_eyes = hex2num(copytext(new_eyes, 2, 4))
 		M.g_eyes = hex2num(copytext(new_eyes, 4, 6))
 		M.b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
-	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-M.s_tone]")  as text
+	var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", "[35-M.s_tone]") as null|text
 
 	if (!new_tone)
 		new_tone = 35
@@ -209,7 +209,7 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/targeted/remotetalk
 	name = "Project Mind"
 	desc = "Make people understand your thoughts at any range!"
-	charge_max = 100
+	charge_max = 0
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -222,28 +222,35 @@ Obviously, requires DNA2.
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
-	for(var/mob/M in living_mob_list)
+	for(var/mob/M in view(user.client.view, user))
 		if(M && M.mind)
-			if(M.z != user.z || isNonCrewAntag(M))
+			if(M == user)
 				continue
 
 			validtargets += M
 
-	if(!validtargets.len || validtargets.len == 1)
+	if(!validtargets.len)
 		usr << "<span class='warning'>There are no valid targets!</span>"
 		start_recharge()
 		return
 
-	targets += input("Choose the target to talk to.", "Targeting") as mob in validtargets
+	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets)
 	if(!ishuman(usr))	return
-	var/say = strip_html(input("What do you wish to say"))
+	var/say = input("What do you wish to say") as text|null
+	if(!say)
+		return
+	say = strip_html(say)
 
 	for(var/mob/living/target in targets)
-		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")	
+		log_say("Project Mind: [key_name(usr)]->[key_name(target)]: [say]")
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("\blue You hear [usr.real_name]'s voice: [say]")
 		else
@@ -277,22 +284,26 @@ Obviously, requires DNA2.
 
 	action_icon_state = "genetic_view"
 
-/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)	
+/obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = living_mob_list
 	var/list/validtargets = new /list()
 	for(var/mob/M in targets)
 		if(M && M.mind)
 			if(M.z != user.z || isNonCrewAntag(M))
 				continue
-				
+
 			validtargets += M
-			
+
 	if(!validtargets.len || validtargets.len == 1)
 		usr << "<span class='warning'>No valid targets with remote view were found!</span>"
 		start_recharge()
 		return
-		
-	targets += input("Choose the target to spy on.", "Targeting") as mob in validtargets
+
+	targets += input("Choose the target to spy on.", "Targeting") as null|mob in validtargets
+
+	if(!targets.len || !targets[targets.len]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 

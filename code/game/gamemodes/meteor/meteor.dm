@@ -1,10 +1,8 @@
 /datum/game_mode/meteor
 	name = "meteor"
 	config_tag = "meteor"
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/const/initialmeteordelay = 6000
-	var/nometeors = 1
+	var/wave = 1
 	required_players = 0
 
 	uplink_welcome = "EVIL METEOR Uplink Console:"
@@ -17,27 +15,23 @@
 
 
 /datum/game_mode/meteor/post_setup()
-	spawn (rand(waittime_l, waittime_h))
+	spawn(rand(waittime_l, waittime_h))
 		command_announcement.Announce("The station is on the path of an incoming wave of meteors. Reinforce the hull and prepare damage control parties.", "Incoming Meteors", 'sound/effects/siren.ogg')
 	spawn(initialmeteordelay)
-		nometeors = 0
+		sendmeteors()
 	..()
 
 
-/datum/game_mode/meteor/process()
-	if(nometeors) return
-	sendmeteors()
-
 
 /datum/game_mode/meteor/proc/sendmeteors()
-	nometeors = 1
-	var/waveduration = world.time + rand(1500,3000)
-	var/waitduration = rand(3000,9000)
+	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
+	var/waitduration = rand(3000,6000)
 	while(waveduration - world.time > 0)
-		sleep(20)
+		sleep(max(65 - text2num("[wave]0") / 2, 40))
 		spawn() spawn_meteors(6, meteors_normal)
+	wave++
 	sleep(waitduration)
-	nometeors = 0
+	sendmeteors()
 
 /datum/game_mode/meteor/declare_completion()
 	var/text

@@ -50,7 +50,7 @@
 		if(C_target.brain_op_stage != 4) // Their brain is already taken out
 			B = new(C_target.loc)
 			B.transfer_identity(C_target)
-	var/datum/effect/effect/system/spark_spread/sparks = new
+	var/datum/effect/system/spark_spread/sparks = new
 	sparks.set_up(4, 0, M.loc) //no idea what the 0 is
 	sparks.start()
 	M.gib()

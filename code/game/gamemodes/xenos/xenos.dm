@@ -15,9 +15,6 @@
 	var/xenos_list = list()
 	var/gammacalled = 0
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
@@ -96,9 +93,6 @@
 			xeno_mind.name = O.name
 			//qdel(xeno_mind)
 		spawnpos++
-
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 
 	return ..()
 

@@ -412,12 +412,28 @@
 
 /obj/item/weapon/robot_module/combat/New()
 	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
 	src.modules += new /obj/item/borg/sight/thermal(src)
-	src.modules += new /obj/item/weapon/gun/energy/laser/cyborg(src)
-	src.modules += new /obj/item/weapon/gun/energy/plasmacutter(src)
+	src.modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
+	src.modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
 	src.modules += new /obj/item/borg/combat/shield(src)
 	src.modules += new /obj/item/borg/combat/mobility(src)
-	src.modules += new /obj/item/weapon/wrench(src) //Is a combat android really going to be stopped by a chair?
+	src.modules += new /obj/item/weapon/wrench(src)
+	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
+
+	fix_modules()
+
+/obj/item/weapon/robot_module/peacekeeper
+	name = "peacekeeper robot module"
+
+/obj/item/weapon/robot_module/peacekeeper/New()
+	src.modules += new /obj/item/device/flash/cyborg(src)
+	src.modules += new /obj/item/weapon/restraints/handcuffs/cable/zipties/cyborg(src)
+	src.modules += new /obj/item/weapon/gun/energy/gun/cyborg(src)
+	src.modules += new /obj/item/weapon/pickaxe/drill/jackhammer(src)
+	src.modules += new /obj/item/borg/combat/shield(src)
+	src.modules += new /obj/item/borg/combat/mobility(src)
+	src.modules += new /obj/item/weapon/wrench(src)
 	src.emag = new /obj/item/weapon/gun/energy/lasercannon/cyborg(src)
 
 	fix_modules()

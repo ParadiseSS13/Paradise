@@ -56,7 +56,8 @@
 	if(client)
 		regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
 		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
-
+	if(get_nations_mode())
+		process_nations()
 
 /mob/living/proc/handle_breathing()
 	return
@@ -302,3 +303,10 @@
 			hud_used.hide_actions_toggle.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number+1)
 			//hud_used.SetButtonCoords(hud_used.hide_actions_toggle,button_number+1)
 		client.screen += hud_used.hide_actions_toggle
+
+
+/mob/living/proc/process_nations()
+	if(client)
+		var/client/C = client
+		for(var/mob/living/carbon/human/H in view(src, world.view))
+			C.images += H.hud_list[NATIONS_HUD]

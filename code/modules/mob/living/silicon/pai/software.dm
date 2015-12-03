@@ -92,8 +92,8 @@ var/global/list/default_pai_software = list()
 		ui.set_auto_update(1)
 
 /mob/living/silicon/pai/Topic(href, href_list)
-	. = ..()
-	if(.) return
+	if(..())
+		return 1
 
 	if(href_list["software"])
 		var/soft = href_list["software"]

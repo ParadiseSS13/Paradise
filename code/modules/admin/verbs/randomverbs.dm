@@ -536,36 +536,64 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Event"
-	set name = "Create Command Report"
-
+	set name = "Create Communications Report"
+	var/list/MsgType = list("Centcom Report","Enemy Communications")
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
+	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
 		return
-	if(!customname)
-		customname = "Nanotrasen Update"
-	for (var/obj/machinery/computer/communications/C in machines)
-		if(! (C.stat & (BROKEN|NOPOWER) ) )
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-			P.name = "'[command_name()] Update.'"
-			P.info = input
-			P.update_icon()
-			C.messagetitle.Add("[command_name()] Update")
-			C.messagetext.Add(P.info)
 
-	switch(alert("Should this be announced to the general population?",,"Yes","No"))
-		if("Yes")
-			command_announcement.Announce(input, customname);
-		if("No")
-			world << "\red New Nanotrasen Update available at all communication consoles."
+	if(type == "Enemy Communications")
+		if(!customname)
+			customname = type
 
-	world << sound('sound/AI/commandreport.ogg')
-	log_admin("[key_name(src)] has created a command report: [input]")
-	message_admins("[key_name_admin(src)] has created a command report", 1)
+		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
+		if(!from)
+			from = "Syndicate Communique"
+		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+			if("Yes")
+				communications_announcement.Announce(input, customname, , , , from);
+			if("No")
+				world << "\red [from] available at all communications consoles."
+
+		for (var/obj/machinery/computer/communications/C in machines)
+			if(! (C.stat & (BROKEN|NOPOWER) ) )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				P.name = "[from]"
+				P.info = input
+				P.update_icon()
+				C.messagetitle.Add("[from]")
+				C.messagetext.Add(P.info)
+
+
+	if(type == "Centcom Report")
+		if(!customname)
+			customname = "Nanotrasen Update"
+
+		switch(alert("Should this be announced to the general population?",,"Yes","No"))
+			if("Yes")
+				command_announcement.Announce(input, customname);
+			if("No")
+				world << "\red New Nanotrasen Update available at all communication consoles."
+
+		for (var/obj/machinery/computer/communications/C in machines)
+			if(! (C.stat & (BROKEN|NOPOWER) ) )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				P.name = "'[command_name()] Update.'"
+				P.info = input
+				P.update_icon()
+				C.messagetitle.Add("[command_name()] Update")
+				C.messagetext.Add(P.info)
+
+	//world << sound('sound/AI/commandreport.ogg')
+	log_admin("[key_name(src)] has created a communications report: [input]")
+	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in view())
 	set category = "Admin"
@@ -729,13 +757,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(!check_rights(R_ADMIN))
-		src << "Only administrators may use this command."
 		return
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 
 	shuttle_master.emergency.request()
+
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
@@ -744,7 +772,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/admin_cancel_shuttle()
 	set category = "Admin"
 	set name = "Cancel Shuttle"
-	if(!check_rights(R_ADMIN))	return
+
+	if(!check_rights(R_ADMIN))
+		return
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
 
 	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
@@ -759,6 +789,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/admin_deny_shuttle()
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
+
+	if (!ticker)
+		return
 
 	if(!check_rights(R_ADMIN))
 		return

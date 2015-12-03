@@ -13,6 +13,11 @@
 var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	new/datum/stack_recipe("stool", /obj/structure/stool, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("chair", /obj/structure/stool/bed/chair, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("sofa (middle)", /obj/structure/stool/bed/chair/sofa, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("sofa (left)", /obj/structure/stool/bed/chair/sofa/left, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("sofa (right)", /obj/structure/stool/bed/chair/sofa/right, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("sofa (corner)", /obj/structure/stool/bed/chair/sofa/corner, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("barber chair", /obj/structure/stool/bed/chair/barber, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wheelchair", /obj/structure/stool/bed/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bed", /obj/structure/stool/bed, 2, one_per_turf = 1, on_floor = 1), \
 	null, \

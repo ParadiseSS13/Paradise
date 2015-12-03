@@ -298,6 +298,27 @@ var/global/chicken_count = 0
 	attacktext = "kicks"
 	health = 50
 
+/mob/living/simple_animal/turkey
+	name = "turkey"
+	desc = "Benjamin Franklin would be proud."
+	icon_state = "turkey"
+	icon_living = "turkey"
+	icon_dead = "turkey_dead"
+	icon_resting = "turkey_rest"
+	speak = list("gobble?","gobble","GOBBLE")
+	speak_emote = list("gobble")
+	emote_see = list("struts around")
+	speak_chance = 1
+	turns_per_move = 5
+	see_in_dark = 6
+	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat //enough to make one turkey
+	meat_amount = 4
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
+	attacktext = "pecks"
+	health = 50
+
 /mob/living/simple_animal/goose
 	name = "goose"
 	desc = "A pretty goose. Would make a nice comforter."

@@ -154,6 +154,7 @@
 	icon_state = "duffel-med"
 	desc = "A kit for surgery in the field."
 	max_w_class = 4
+	max_combined_w_class = 21
 	storage_slots = 10
 	can_hold = list("/obj/item/roller","/obj/item/weapon/bonesetter","/obj/item/weapon/bonegel", "/obj/item/weapon/scalpel", "/obj/item/weapon/hemostat",
 		"/obj/item/weapon/cautery", "/obj/item/weapon/retractor", "/obj/item/weapon/FixOVein", "/obj/item/weapon/surgicaldrill", "/obj/item/weapon/circular_saw")

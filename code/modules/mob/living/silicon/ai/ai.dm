@@ -183,6 +183,7 @@ var/list/ai_verbs_default = list(
 	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
 	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 
 	ai_list += src
 	..()

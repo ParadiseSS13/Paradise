@@ -15,3 +15,4 @@ data/
 /_maps/map_files/**/backup/*
 /_maps/map_files/**/*.dmm.backup
 /nano/debug.html
+*.db

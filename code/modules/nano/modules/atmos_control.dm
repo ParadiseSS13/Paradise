@@ -3,7 +3,7 @@
 	var/obj/access = new()
 	var/emagged = 0
 	var/ui_ref
-	var/list/monitored_alarms = list()
+	var/list/monitored_alarms = null
 
 /datum/nano_module/atmos_control/New(atmos_computer, req_access, req_one_access, monitored_alarm_ids)
 	..()
@@ -23,7 +23,7 @@
 
 	if(href_list["alarm"])
 		if(ui_ref)
-			var/obj/machinery/alarm/alarm = locate(href_list["alarm"]) in (monitored_alarms.len ? monitored_alarms : machines)
+			var/obj/machinery/alarm/alarm = locate(href_list["alarm"]) in (monitored_alarms ? monitored_alarms : machines)
 			if(alarm)
 				var/datum/topic_state/TS = generate_state(alarm)
 				alarm.ui_interact(usr, master_ui = ui_ref, state = TS)

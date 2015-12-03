@@ -72,6 +72,8 @@
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
 
+	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+
 
 /mob/living/simple_animal/New()
 	..()

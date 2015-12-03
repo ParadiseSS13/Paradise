@@ -35,9 +35,6 @@
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/vampire_amount = 4
 
 
@@ -73,10 +70,7 @@
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
 	if(vampires.len)

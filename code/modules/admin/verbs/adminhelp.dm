@@ -18,10 +18,11 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/type = list("Question","Player Complaint")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
-		msg = input("Please enter your message.", "Admin Help", null, null) as text
+		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
 
 	//clean the input msg
-	if(!msg)	return
+	if(!msg)
+		return
 
 	if(src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return

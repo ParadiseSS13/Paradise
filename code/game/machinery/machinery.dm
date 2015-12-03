@@ -149,15 +149,7 @@ Class Procs:
 	if(use_power && stat == 0)
 		use_power(7500/severity)
 
-		var/obj/effect/overlay/pulse2 = new/obj/effect/overlay ( src.loc )
-		pulse2.icon = 'icons/effects/effects.dmi'
-		pulse2.icon_state = "empdisable"
-		pulse2.name = "emp sparks"
-		pulse2.anchored = 1
-		pulse2.dir = pick(cardinal)
-
-		spawn(10)
-			pulse2.delete()
+	new/obj/effect/overlay/temp/emp(src.loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -552,7 +544,7 @@ Class Procs:
 		return 0
 	if(!prob(prb))
 		return 0
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(5, 1, src)
 	s.start()
 	if (electrocute_mob(user, get_area(src), src, 0.7))

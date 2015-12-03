@@ -385,6 +385,15 @@
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
+	else if (istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+
+		user << "<span class='notice'>You begin to disintegrates the wall.</span>"
+
+		if(do_after(user, mineral == "diamond" ? 60 : 30, target = src))
+			user << "<span class='notice'>Your jackhammer disintegrate the reinforced plating.</span>"
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] disintegrates \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
+
 	else if(istype(W, /obj/item/weapon/melee/energy/blade))
 		var/obj/item/weapon/melee/energy/blade/EB = W
 

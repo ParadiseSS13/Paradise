@@ -953,3 +953,41 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class = 'notice'> You feel optimistic!</span>"
+
+/datum/disease2/effect/anxiety
+	name = "Severe Anxiety"
+	stage = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(prob(20))
+			mob << "<span class='notice'>You feel anxious.</span>"
+		if(prob(15))
+			mob << "<span class='danger'>You feel butterflies in your stomach.</span>"
+		if(prob(11))
+			mob.visible_message("<span class='danger'>[mob] stumbles around in a panic.</span>", \
+											"<span class='userdanger'>You have a panic attack!</span>")
+			mob.confused += (rand(6,8))
+			mob.jitteriness += (rand(6,8))
+		if(prob(10))
+			mob.visible_message("<span class='danger'>[mob] coughs up butterflies!</span>", \
+												"<span class='userdanger'>You cough up butterflies!</span>")
+			new /mob/living/simple_animal/butterfly(mob.loc)
+			new /mob/living/simple_animal/butterfly(mob.loc)
+
+/datum/disease2/effect/lycan
+	name = "Lycancoughy"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(prob(20))
+			mob << "<span class='notice'>You feel itchy.</span>"
+		if(prob(15))
+			mob << "<span class='danger'>You have the sudden urge for bacon..</span>"
+		if(prob(11))
+			mob.say(pick("WOOF!", "BARK!", "Bark.", "Woof?", "AUUUUUUUUUUUUU!!"))
+		if(prob(10))
+			mob.visible_message("<span class='danger'>[mob] coughs up a dog!!</span>", \
+												"<span class='userdanger'>You cough up a DOG!!!</span>")
+			//yes i KNOW foxes technically are not normal dogs...hush....
+			var/randompup = pick(/mob/living/simple_animal/pet/corgi/puppy,/mob/living/simple_animal/pet/pug,/mob/living/simple_animal/pet/fox)
+
+			new randompup(mob.loc)
+			mob.adjustBruteLoss(rand(1,5))//you just coughed up a CANINIE, you are taking brute loss...

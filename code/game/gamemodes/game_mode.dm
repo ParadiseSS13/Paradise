@@ -34,6 +34,9 @@
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
 
+	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
+	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	world << "<B>Notice</B>: [src] did not define announce()"
 
@@ -227,65 +230,6 @@
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
-
-
-/datum/game_mode/proc/send_intercept() //Disabled.
-	return
-/*	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
-	intercepttext += "<B> In case you have misplaced your copy, attached is a list of personnel whom reliable sources&trade; suspect may be affiliated with the Syndicate:</B><br>"
-
-
-	var/list/suspects = list()
-	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
-		// NT relation option
-		if(isNonCrewAntag(man))
-			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
-		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
-		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
-			suspects += man
-		// Antags
-		else if(special_role == "traitor" && prob(40) || \
-		   special_role == "Changeling" && prob(50) || \
-		   special_role == "Vampire" && prob(40) || \
-		   special_role == "Cultist" && prob(30) || \
-		   special_role == "Head Revolutionary" && prob(30) || \
-		   special_role == "Shadowling" && prob(15))
-			suspects += man
-
-			// If they're a traitor or likewise, give them extra TC in exchange.
-			var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
-			if(suplink)
-				var/extra = 0 //was 4; with the TC rebalance, this isn't really needed, anymore
-				suplink.uses += extra
-				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We recommend adjusting your plans and equipment accordingly."
-			else
-				// Give them a warning!
-				man << "\red They are on to you!"
-
-		// Some poor people who were just in the wrong place at the wrong time..
-		else if(prob(10))
-			suspects += man
-	for(var/mob/M in suspects)
-		switch(rand(1, 100))
-			if(1 to 50)
-				intercepttext += "Someone with the job of <b>[M.mind.assigned_role]</b> <br>"
-			else
-				intercepttext += "<b>[M.name]</b>, the <b>[M.mind.assigned_role]</b> <br>"
-
-	for (var/obj/machinery/computer/communications/comm in machines)
-		if (!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
-			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
-			intercept.name = "paper- 'Cent. Com. Status Summary'"
-			intercept.info = intercepttext
-
-			comm.messagetitle.Add("Cent. Com. Status Summary")
-			comm.messagetext.Add(intercepttext)
-/*	world << sound('sound/AI/commandreport.ogg') */
-
-	command_announcement.Announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercepted. Security Level Elevated.", new_sound = 'sound/AI/intercept.ogg')
-	if(security_level < SEC_LEVEL_BLUE)
-		set_security_level(SEC_LEVEL_BLUE)*/
-
 
 /datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()

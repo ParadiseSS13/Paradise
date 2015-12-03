@@ -111,7 +111,7 @@ Works together with spawning an observer, noted above.
 	if(!loc) return
 	if(!client) return 0
 
-
+	regular_hud_updates()
 	if(client.images.len)
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud")
@@ -119,7 +119,7 @@ Works together with spawning an observer, noted above.
 	if(antagHUD)
 		var/list/target_list = list()
 		for(var/mob/living/target in oview(src, 14))
-			if(target.mind && (target.mind.special_role || issilicon(target)))
+			if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
 				target_list += target
 		if(target_list.len)
 			assess_targets(target_list, src)
@@ -146,8 +146,10 @@ Works together with spawning an observer, noted above.
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
+		C.images += target.hud_list[NATIONS_HUD]
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
+		C.images += target.hud_list[NATIONS_HUD]
 
 	return 1
 

@@ -42,32 +42,33 @@
 			initialize_directions = SOUTH|EAST
 		if(SOUTHWEST)
 			initialize_directions = SOUTH|WEST
-		
-/obj/machinery/atmospherics/pipe/simple/initialize()
+
+/obj/machinery/atmospherics/pipe/simple/initialize(initPipe = 1)
 	..()
-	normalize_dir()
-	var/N = 2
-	for(var/D in cardinal)
-		if(D & initialize_directions)
-			N--
-			for(var/obj/machinery/atmospherics/target in get_step(src, D))
-				if(target.initialize_directions & get_dir(target,src))
-					var/c = check_connect_types(target,src)
-					if(!c)
-						continue
-					if(!node1 && N == 1)
-						target.connected_to = c
-						connected_to = c
-						node1 = target
-						break
-					if(!node2 && N == 0)
-						target.connected_to = c
-						connected_to = c
-						node2 = target
-						break
-	var/turf/T = loc			// hide if turf is not intact
-	hide(T.intact)
-	update_icon()
+	if(initPipe)
+		normalize_dir()
+		var/N = 2
+		for(var/D in cardinal)
+			if(D & initialize_directions)
+				N--
+				for(var/obj/machinery/atmospherics/target in get_step(src, D))
+					if(target.initialize_directions & get_dir(target,src))
+						var/c = check_connect_types(target,src)
+						if(!c)
+							continue
+						if(!node1 && N == 1)
+							target.connected_to = c
+							connected_to = c
+							node1 = target
+							break
+						if(!node2 && N == 0)
+							target.connected_to = c
+							connected_to = c
+							node2 = target
+							break
+		var/turf/T = loc			// hide if turf is not intact
+		hide(T.intact)
+		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
 	var/datum/gas_mixture/environment = loc.return_air()
@@ -87,7 +88,7 @@
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>");
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-	var/datum/effect/effect/system/harmless_smoke_spread/smoke = new
+	var/datum/effect/system/harmless_smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
 	smoke.start()
 	qdel(src)
@@ -97,7 +98,7 @@
 		dir = 1
 	else if(dir==12)
 		dir = 4
-	
+
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	if(node1)
 		var/obj/machinery/atmospherics/A = node1
@@ -111,7 +112,7 @@
 		A.build_network()
 	releaseAirToTurf()
 	return ..()
-	
+
 /obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
@@ -157,7 +158,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return
-	
+
 /obj/machinery/atmospherics/pipe/simple/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0

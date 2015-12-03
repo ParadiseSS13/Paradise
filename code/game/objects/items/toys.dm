@@ -18,6 +18,8 @@
  *		Foam armblade
  *		Mini Gibber
  *		Toy xeno
+ *		Toy chainsaws
+ *		Action Figures
  */
 
 
@@ -447,7 +449,7 @@
 
 	throw_impact(atom/hit_atom)
 		..()
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		new /obj/effect/decal/cleanable/ash(src.loc)
@@ -473,7 +475,7 @@
 
 	throw_impact(atom/hit_atom)
 		..()
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		new /obj/effect/decal/cleanable/ash(src.loc)
@@ -487,7 +489,7 @@
 		if(M.m_intent == "run")
 			M << "\red You step on the snap pop!"
 
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 0, src)
 			s.start()
 			new /obj/effect/decal/cleanable/ash(src.loc)
@@ -520,6 +522,15 @@
 			cooldown = world.time
 			return
 	..()
+
+/obj/random/prize
+	name = "Random Mech Prize"
+	desc = "This is a random prize"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ripleytoy"
+
+/obj/random/prize/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
 
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
@@ -1094,6 +1105,167 @@ obj/item/toy/cards/deck/syndicate/black
 	playsound(src.loc, bitesound, 20, 1)
 	return ..()
 
+
+/obj/random/carp_plushie
+	name = "Random Carp Plushie"
+	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "carpplushie"
+
+/obj/random/carp_plushie/item_to_spawn()
+	return pick(typesof(/obj/item/toy/carpplushie)) //can pick any carp plushie, even the original.
+
+/obj/item/toy/carpplushie/ice
+	icon_state = "icecarp"
+
+/obj/item/toy/carpplushie/silent
+	icon_state = "silentcarp"
+
+/obj/item/toy/carpplushie/electric
+	icon_state = "electriccarp"
+
+/obj/item/toy/carpplushie/gold
+	icon_state = "goldcarp"
+
+/obj/item/toy/carpplushie/toxin
+	icon_state = "toxincarp"
+
+/obj/item/toy/carpplushie/dragon
+	icon_state = "dragoncarp"
+
+/obj/item/toy/carpplushie/pink
+	icon_state = "pinkcarp"
+
+/obj/item/toy/carpplushie/candy
+	icon_state = "candycarp"
+
+/obj/item/toy/carpplushie/nebula
+	icon_state = "nebulacarp"
+
+/obj/item/toy/carpplushie/void
+	icon_state = "voidcarp"
+
+/*
+ * Plushie
+ */
+
+
+/obj/item/toy/plushie
+	name = "plushie"
+	desc = "An adorable, soft, and cuddly plushie."
+	icon = 'icons/obj/toy.dmi'
+	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
+	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+
+/obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
+	return ..()
+
+/obj/item/toy/plushie/attack_self(mob/user as mob)
+	var/cuddle_verb = pick("hugs","cuddles","snugs")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	playsound(get_turf(src), poof_sound, 50, 1, -1)
+	return ..()
+
+/obj/random/plushie
+	name = "Random Plushie"
+	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "redfox"
+
+/obj/random/plushie/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
+
+/obj/item/toy/plushie/corgi
+	name = "corgi plushie"
+	icon_state = "corgi"
+
+/obj/item/toy/plushie/girly_corgi
+	name = "corgi plushie"
+	icon_state = "girlycorgi"
+
+/obj/item/toy/plushie/robo_corgi
+	name = "borgi plushie"
+	icon_state = "robotcorgi"
+
+/obj/item/toy/plushie/octopus
+	name = "octopus plushie"
+	icon_state = "loveable"
+
+/obj/item/toy/plushie/face_hugger
+	name = "facehugger plushie"
+	icon_state = "huggable"
+
+//foxes are basically the best
+
+/obj/item/toy/plushie/red_fox
+	name = "red fox plushie"
+	icon_state = "redfox"
+
+/obj/item/toy/plushie/black_fox
+	name = "black fox plushie"
+	icon_state = "blackfox"
+
+/obj/item/toy/plushie/marble_fox
+	name = "marble fox plushie"
+	icon_state = "marblefox"
+
+/obj/item/toy/plushie/blue_fox
+	name = "blue fox plushie"
+	icon_state = "bluefox"
+
+/obj/item/toy/plushie/orange_fox
+	name = "orange fox plushie"
+	icon_state = "orangefox"
+
+/obj/item/toy/plushie/coffee_fox
+	name = "coffee fox plushie"
+	icon_state = "coffeefox"
+
+/obj/item/toy/plushie/pink_fox
+	name = "pink fox plushie"
+	icon_state = "pinkfox"
+
+/obj/item/toy/plushie/purple_fox
+	name = "purple fox plushie"
+	icon_state = "purplefox"
+
+/obj/item/toy/plushie/crimson_fox
+	name = "crimson fox plushie"
+	icon_state = "crimsonfox"
+
+/obj/item/toy/plushie/deer
+	name = "deer plushie"
+	icon_state = "deer"
+
+/obj/item/toy/plushie/black_cat
+	name = "black cat plushie"
+	icon_state = "blackcat"
+
+/obj/item/toy/plushie/grey_cat
+	name = "grey cat plushie"
+	icon_state = "greycat"
+
+/obj/item/toy/plushie/white_cat
+	name = "white cat plushie"
+	icon_state = "whitecat"
+
+/obj/item/toy/plushie/orange_cat
+	name = "orange cat plushie"
+	icon_state = "orangecat"
+
+/obj/item/toy/plushie/siamese_cat
+	name = "siamese cat plushie"
+	icon_state = "siamesecat"
+
+/obj/item/toy/plushie/tabby_cat
+	name = "tabby cat plushie"
+	icon_state = "tabbycat"
+
+/obj/item/toy/plushie/tuxedo_cat
+	name = "tuxedo cat plushie"
+	icon_state = "tuxedocat"
+
 /*
  * Foam Armblade
  */
@@ -1414,3 +1586,244 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)
+
+/*
+ * Rubber Chainsaw
+ */
+/obj/item/weapon/twohanded/toy/chainsaw
+	name = "Toy Chainsaw"
+	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
+	icon_state = "chainsaw0"
+	force = 0
+	throwforce = 0
+	throw_speed = 4
+	throw_range = 20
+	wieldsound = 'sound/weapons/chainsawstart.ogg'
+	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+
+/obj/item/weapon/twohanded/toy/chainsaw/update_icon()
+	if(wielded)
+		icon_state = "chainsaw[wielded]"
+	else
+		icon_state = "chainsaw0"
+
+/obj/item/weapon/twohanded/toy/chainsaw/attack(mob/target as mob, mob/living/user as mob)
+	if(wielded)
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1)
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+	..()
+
+/*
+ * Action Figures
+ */
+
+
+/obj/random/figure
+	name = "Random Action Figure"
+	desc = "This is a random toy action figure"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "nuketoy"
+
+/obj/random/figure/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/figure))
+
+
+/obj/item/toy/figure
+	name = "Non-Specific Action Figure action figure"
+	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "nuketoy"
+	var/cooldown = 0
+	var/toysay = "What the fuck did you do?"
+
+/obj/item/toy/figure/New()
+	..()
+	desc = "A \"Space Life\" brand [name]"
+
+/obj/item/toy/figure/attack_self(mob/user as mob)
+	if(cooldown < world.time)
+		cooldown = (world.time + 30) //3 second cooldown
+		user << "<span class='notice'>The [src] says \"[toysay]\".</span>"
+		playsound(user, 'sound/machines/click.ogg', 20, 1)
+
+/obj/item/toy/figure/cmo
+	name = "Chief Medical Officer action figure"
+	icon_state = "cmo"
+	toysay = "Suit sensors!"
+
+/obj/item/toy/figure/assistant
+	name = "Assistant action figure"
+	icon_state = "assistant"
+	toysay = "Grey tide station wide!"
+
+/obj/item/toy/figure/atmos
+	name = "Atmospheric Technician action figure"
+	icon_state = "atmos"
+	toysay = "Glory to Atmosia!"
+
+/obj/item/toy/figure/bartender
+	name = "Bartender action figure"
+	icon_state = "bartender"
+	toysay = "Wheres my monkey?"
+
+/obj/item/toy/figure/borg
+	name = "Cyborg action figure"
+	icon_state = "borg"
+	toysay = "I. LIVE. AGAIN."
+
+/obj/item/toy/figure/botanist
+	name = "Botanist action figure"
+	icon_state = "botanist"
+	toysay = "Dude, I see colors..."
+
+/obj/item/toy/figure/captain
+	name = "Captain action figure"
+	icon_state = "captain"
+	toysay = "Crew, the Nuke Disk is safely up my ass."
+
+/obj/item/toy/figure/cargotech
+	name = "Cargo Technician action figure"
+	icon_state = "cargotech"
+	toysay = "For Cargonia!"
+
+/obj/item/toy/figure/ce
+	name = "Chief Engineer action figure"
+	icon_state = "ce"
+	toysay = "Wire the solars!"
+
+/obj/item/toy/figure/chaplain
+	name = "Chaplain action figure"
+	icon_state = "chaplain"
+	toysay = "Gods make me a killing machine please!"
+
+/obj/item/toy/figure/chef
+	name = "Chef action figure"
+	icon_state = "chef"
+	toysay = "I swear it's not human meat."
+
+/obj/item/toy/figure/chemist
+	name = "Chemist action figure"
+	icon_state = "chemist"
+	toysay = "Get your pills!"
+
+/obj/item/toy/figure/clown
+	name = "Clown action figure"
+	icon_state = "clown"
+	toysay = "Honk!"
+
+/obj/item/toy/figure/ian
+	name = "Ian action figure"
+	icon_state = "ian"
+	toysay = "Arf!"
+
+/obj/item/toy/figure/detective
+	name = "Detective action figure"
+	icon_state = "detective"
+	toysay = "This airlock has grey jumpsuit and insulated glove fibers on it."
+
+/obj/item/toy/figure/dsquad
+	name = "Death Squad Officer action figure"
+	icon_state = "dsquad"
+	toysay = "Eliminate all threats!"
+
+/obj/item/toy/figure/engineer
+	name = "Engineer action figure"
+	icon_state = "engineer"
+	toysay = "Oh god, the singularity is loose!"
+
+/obj/item/toy/figure/geneticist
+	name = "Geneticist action figure"
+	icon_state = "geneticist"
+	toysay = "I'm not qualified for this job."
+
+/obj/item/toy/figure/hop
+	name = "Head of Persomnel action figure"
+	icon_state = "hop"
+	toysay = "Giving out all access!"
+
+/obj/item/toy/figure/hos
+	name = "Head of Security action figure"
+	icon_state = "hos"
+	toysay = "I'm here to win, anything else is secondary."
+
+/obj/item/toy/figure/qm
+	name = "Quartermaster action figure"
+	icon_state = "qm"
+	toysay = "Hail Cargonia!"
+
+/obj/item/toy/figure/janitor
+	name = "Janitor action figure"
+	icon_state = "janitor"
+	toysay = "Look at the signs, you idiot."
+
+/obj/item/toy/figure/lawyer
+	name = "Lawyer action figure"
+	icon_state = "lawyer"
+	toysay = "My client is a dirty traitor!"
+
+/obj/item/toy/figure/librarian
+	name = "Librarian action figure"
+	icon_state = "librarian"
+	toysay = "One day while..."
+
+/obj/item/toy/figure/md
+	name = "Medical Doctor action figure"
+	icon_state = "md"
+	toysay = "The patient is already dead!"
+
+/obj/item/toy/figure/mime
+	name = "Mime action figure"
+	desc = "A \"Space Life\" brand Mime action figure."
+	icon_state = "mime"
+	toysay = "..."
+
+/obj/item/toy/figure/miner
+	name = "Shaft Miner action figure"
+	icon_state = "miner"
+	toysay = "Oh god it's eating my intestines!"
+
+/obj/item/toy/figure/ninja
+	name = "Ninja action figure"
+	icon_state = "ninja"
+	toysay = "Oh god! Stop shooting, I'm friendly!"
+
+/obj/item/toy/figure/wizard
+	name = "Wizard action figure"
+	icon_state = "wizard"
+	toysay = "Ei Nath!"
+
+/obj/item/toy/figure/rd
+	name = "Research Director action figure"
+	icon_state = "rd"
+	toysay = "Blowing all of the borgs!"
+
+/obj/item/toy/figure/roboticist
+	name = "Roboticist action figure"
+	icon_state = "roboticist"
+	toysay = "He asked to be borged!"
+
+/obj/item/toy/figure/scientist
+	name = "Scientist action figure"
+	icon_state = "scientist"
+	toysay = "Someone else must have made those bombs!"
+
+/obj/item/toy/figure/syndie
+	name = "Nuclear Operative action figure"
+	icon_state = "syndie"
+	toysay = "Get that fucking disk!"
+
+/obj/item/toy/figure/secofficer
+	name = "Security Officer action figure"
+	icon_state = "secofficer"
+	toysay = "I am the law!"
+
+/obj/item/toy/figure/virologist
+	name = "Virologist action figure"
+	icon_state = "virologist"
+	toysay = "The cure is potassium!"
+
+/obj/item/toy/figure/warden
+	name = "Warden action figure"
+	icon_state = "warden"
+	toysay = "Execute him for breaking in!"
