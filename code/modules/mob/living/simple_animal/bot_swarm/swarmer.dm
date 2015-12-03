@@ -315,21 +315,25 @@
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	if(do_mob(src, target, 100))
-		src << "<span class='info'>Dismantling complete.</span>"
-		var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
-		M.amount = 5
-		if(target.component_parts && target.component_parts.len)
-			for(var/obj/item/I in target.component_parts)
-				I.forceMove(M.loc)
-		var/obj/effect/swarmer/disintegration/N = new /obj/effect/swarmer/disintegration(get_turf(target))
-		N.pixel_x = target.pixel_x
-		N.pixel_y = target.pixel_y
-		target.dropContents()
-		if(istype(target, /obj/machinery/computer))
-			var/obj/machinery/computer/C = target
-			if(C.circuit)
-				new C.circuit(get_turf(M))
-		qdel(target)
+		if(!src.Adjacent(target))
+			src << "<span class='info'>Error:Dismantleing aborted.</span>"
+		else
+			src << "<span class='info'>Dismantling complete.</span>"
+			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(target.loc)
+			M.amount = 5
+			if(target.component_parts && target.component_parts.len)
+				for(var/obj/item/I in target.component_parts)
+					I.forceMove(M.loc)
+			var/obj/effect/swarmer/disintegration/N = new /obj/effect/swarmer/disintegration(get_turf(target))
+			N.pixel_x = target.pixel_x
+			N.pixel_y = target.pixel_y
+			target.dropContents()
+			if(istype(target, /obj/machinery/computer))
+				var/obj/machinery/computer/C = target
+				if(C.circuit)
+					new C.circuit(get_turf(M))
+			qdel(target)
+
 
 
 /obj/effect/swarmer //Default swarmer effect object visual feedback
