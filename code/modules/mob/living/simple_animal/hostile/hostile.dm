@@ -220,6 +220,7 @@
 		return 1
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
+	world << "[target]"
 	target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/proc/Aggro()
