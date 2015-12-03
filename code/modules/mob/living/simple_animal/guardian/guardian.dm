@@ -118,6 +118,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
 	if(cooldown > world.time)
 		return
+	if(!summoner) return
 	if(loc == summoner)
 		loc = get_turf(summoner)
 		src.client.eye = loc
@@ -131,6 +132,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Recall()
 	if(cooldown > world.time)
 		return
+	if(!summoner) return
 	loc = summoner
 	buckled = null
 	cooldown = world.time + 30
@@ -633,6 +635,7 @@
 	if(random)
 		gaurdiantype = pick(possible_guardians)
 	if(adminseal)
+		world << "[user] [key]"
 		gaurdiantype = pick("StandardSeal","SupportSeal")
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
@@ -755,17 +758,20 @@
 
 /obj/item/weapon/guardiancreator/adminbus/attack_self(mob/living/user)
 
-	var/list/targets = list()
+	//var/list/targets = list()
 	var/target = null
-	targets += getmobs() //Fill list, prompt user with list
-	target = input("Select a Player to guard!", "Player list", null, null) as null|anything in targets
+	//targets += living_mob_list //Fill list, prompt user with list
+	target = input("Select a Player to guard!", "Player list", null, null) as null|anything in living_mob_list
 
-	if(!target) return
-	var/mob/living/carbon/human/H = target
-	if(H.mind )
+	if(target)
+		//user.ghostize()
+		var/mob/living/carbon/human/H = target
+	//if(H.mind )
 		spawn_guardian(H,user.key)
+	//else
+	//	user << "Target has no mind. Aborting."
 	else
-		user << "Target has no mind. Aborting."
+		return
 
 
 /obj/item/weapon/paper/guardian
