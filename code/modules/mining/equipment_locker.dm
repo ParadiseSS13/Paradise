@@ -169,6 +169,11 @@
 		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
 		if(min(metalstack.amount, plasmastack.amount))
 			dat += text("Plasteel Alloy (Metal + Plasma): <A href='?src=\ref[src];plasteel=1'>Smelt</A><BR>")
+	if((/obj/item/stack/sheet/glass in stack_list) && (/obj/item/stack/sheet/mineral/plasma in stack_list))
+		var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
+		var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
+		if(min(glassstack.amount, plasmastack.amount))
+			dat += "Plasma Glass (Glass + Plasma): <A href='?src=\ref[src];plasglass=1'>Smelt</A><BR>"
 
 	dat += text("<br><div class='statusDisplay'><b>Mineral Value List:</b><BR>[get_ore_values()]</div>")
 
@@ -236,6 +241,22 @@
 				metalstack.amount -= plasteelout.amount
 				plasmastack.amount -= plasteelout.amount
 				unload_mineral(plasteelout)
+		else
+			usr << "<span class='warning'>Required access not found.</span>"
+	if(href_list["plasglass"])
+		if(check_access(inserted_id) || allowed(usr))
+			if(!(/obj/item/stack/sheet/glass in stack_list)) return
+			if(!(/obj/item/stack/sheet/mineral/plasma in stack_list)) return
+			var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
+			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
+			
+			var/desired = input("How much?", "How much would you like to smelt?", 1) as num
+			var/obj/item/stack/sheet/plasmaglass/plasglassout = new
+			plasglassout.amount = min(desired, 50, glassstack.amount, plasmastack.amount)
+			if(plasglassout.amount >= 1)
+				glassstack.amount -= plasglassout.amount
+				plasmastack.amount -= plasglassout.amount
+				unload_mineral(plasglassout)
 		else
 			usr << "<span class='warning'>Required access not found.</span>"
 	updateUsrDialog()
