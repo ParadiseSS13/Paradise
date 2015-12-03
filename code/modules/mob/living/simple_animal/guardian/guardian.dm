@@ -118,6 +118,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
 	if(cooldown > world.time)
 		return
+	if(!summoner) return
 	if(loc == summoner)
 		loc = get_turf(summoner)
 		src.client.eye = loc
@@ -131,6 +132,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Recall()
 	if(cooldown > world.time)
 		return
+	if(!summoner) return
 	loc = summoner
 	buckled = null
 	cooldown = world.time + 30
