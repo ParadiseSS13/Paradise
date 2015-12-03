@@ -716,7 +716,7 @@
 "nN" = (/turf/unsimulated/floor{icon_state = "green"; dir = 6},/area/centcom/evac)
 "nO" = (/obj/structure/table,/obj/item/weapon/storage/fancy/donut_box,/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
 "nP" = (/obj/structure/table,/obj/item/weapon/cigbutt/cigarbutt,/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
-"nQ" = (/obj/machinery/computer/shuttle_control/emergency,/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
+"nQ" = (/obj/machinery/computer{name = "EMERGENCY SHUTTLE COMPUTER"},/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
 "nR" = (/obj/machinery/computer/communications,/obj/machinery/status_display{pixel_y = -32},/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
 "nS" = (/obj/machinery/computer/atmos_alert,/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
 "nT" = (/obj/structure/table,/obj/item/weapon/folder/blue,/obj/item/weapon/folder/blue,/turf/simulated/shuttle/floor,/area/shuttle/escape/centcom)
