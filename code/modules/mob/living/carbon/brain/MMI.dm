@@ -12,8 +12,9 @@
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
-	var/mob/living/silicon/robot = null//Appears unused.
-	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
+	var/mob/living/silicon/robot/robot = null//Appears unused.
+	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
+// I'm using this for mechs giving MMIs HUDs now
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 		if(istype(O, /obj/item/organ/brain/crystal ))

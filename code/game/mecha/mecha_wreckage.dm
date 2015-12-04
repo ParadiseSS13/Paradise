@@ -34,9 +34,17 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)
-			user << "You don't see anything that can be cut with [W]."
+			user.visible_message("[user] begins to slice apart the now completely stripped [src].", "You begin to slice apart the [src].", "You hear the sound of a welder nearby.")
+			if(do_after(user,80,target=src))
+				user.visible_message("The now-dilapidated [src] falls apart in a clatter.", "As you slice apart the final support structures, the [src] falls apart in a heap.", "You hear metal clanking to the floor.")
+				new /obj/item/stack/sheet/metal(src.loc)
+				var/obj/item/stack/rods/rods = new /obj/item/stack/rods(src.loc)
+				rods.amount = 2
+				qdel(src)
 			return
-		if (!isemptylist(welder_salvage) && WT.remove_fuel(0,user))
+		if (isemptylist(welder_salvage))
+			user << "<span class='warning'>What's left on the [src] cannot be removed with a welder, besides the frame itself</span>"
+		else if(WT.remove_fuel(0,user))
 			var/type = prob(70)?pick(welder_salvage):null
 			if(type)
 				var/N = new type(get_turf(user))
