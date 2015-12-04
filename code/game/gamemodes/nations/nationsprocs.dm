@@ -9,6 +9,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
 		var/input = stripped_input(H,"What do you want to name your nation?", ,"", MAX_NAME_LEN)
 
@@ -31,17 +32,18 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
-		var/type = input(H, "What rank do you want to change?", "Rename Rank", "") in list("Leader","Member")
+		var/type = input(H, "What rank do you want to change?", "Rename Rank", "") in list("Leader", "Heir", "Member")
 		var/input = stripped_input(H,"What rank do you want?", ,"", MAX_NAME_LEN)
 		if(input)
 			if(type == "Leader")
 				H.mind.nation.leader_rank = input
-				H.mind.nation.update_nation_id()
-
+			if(type == "Heir")
+				H.mind.nation.heir_rank = input
 			if(type == "Member")
 				H.mind.nation.member_rank = input
-				H.mind.nation.update_nation_id()
+			H.mind.nation.update_nation_id()
 			H << "You changed the [type] rank of your nation to [input]."
 			return 1
 
@@ -56,6 +58,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
 		var/heir = input(H, "Who do you wish to make your heir?", "Choose Heir", "") as null|anything in H.mind.nation.membership
 		if(heir)
@@ -68,6 +71,7 @@
 			newheir.verbs += /mob/living/carbon/human/proc/takeover
 			newheir << "You have been selected to be the heir to your nation's leadership!"
 			H << "You have selected [heir] to be your heir!"
+			H.mind.nation.update_nation_id()
 
 
 /mob/living/carbon/human/proc/takeover()
@@ -81,6 +85,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.heir == H)
 		var/confirmation = input(H, "Are you sure you want to take over leadership?", "Become Leader", "") as null|anything in list("Yes", "No")
 		if(confirmation == "Yes")
@@ -106,6 +111,9 @@
 				if(M == current_leader)
 					I.name = "[I.registered_name]'s ID Card ([current_name] [leader_rank])"
 					I.assignment = "[current_name] [leader_rank]"
+				else if(M == heir)
+					I.name = "[I.registered_name]'s ID Card ([current_name] [heir_rank])"
+					I.assignment = "[current_name] [heir_rank]"
 				else
 					I.name = "[I.registered_name]'s ID Card ([current_name] [member_rank])"
 					I.assignment = "[current_name] [member_rank]"
