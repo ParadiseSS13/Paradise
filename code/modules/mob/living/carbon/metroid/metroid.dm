@@ -828,6 +828,9 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		M << "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>"
 		M << "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>"
 		user << "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>"
+		if(isanimal(M))
+			var/mob/living/simple_animal/S = M
+			S.master_commander = user
 		qdel(src)
 	else
 		user << "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>"
