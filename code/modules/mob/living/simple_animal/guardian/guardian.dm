@@ -41,6 +41,7 @@
 	var/tech_fluff_string = "BOOT SEQUENCE COMPLETE. ERROR MODULE LOADED. THIS SHOULDN'T HAPPEN. Submit a bug report!"
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
+	var/adminseal = FALSE
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
@@ -260,13 +261,21 @@
 
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
+	name = "Seal Sprit"
+	real_name = "Seal Sprit"
+	icon = 'icons/mob/animal.dmi'
+	icon_living = "seal"
+	icon_state = "seal"
+	attacktext = "slaps"
+	speak_emote = list("barks")
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
-	damage_transfer = 0.2
+	damage_transfer = 0
 	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
 	environment_smash = 2
 	battlecry = "URK"
+	adminseal = TRUE
 
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
 	set name = "Set Battlecry"
@@ -307,12 +316,20 @@
 	var/toggle = FALSE
 
 /mob/living/simple_animal/hostile/guardian/healer/sealhealer
+	name = "Seal Sprit"
+	real_name = "Seal Sprit"
+	icon = 'icons/mob/animal.dmi'
+	icon_living = "seal"
+	icon_state = "seal"
+	attacktext = "slaps"
+	speak_emote = list("barks")
 	a_intent = I_HARM
 	friendly = "heals"
 	speed = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
+	adminseal = TRUE
 
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
@@ -342,6 +359,8 @@
 			a_intent = I_HARM
 			speed = 0
 			damage_transfer = 0.7
+			if(src.adminseal)
+				damage_transfer = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
 			src << "<span class='danger'><B>You switch to combat mode.</span></B>"
@@ -350,6 +369,8 @@
 			a_intent = I_HELP
 			speed = 1
 			damage_transfer = 1
+			if(src.adminseal)
+				damage_transfer = 0
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			src << "<span class='danger'><B>You switch to healing mode.</span></B>"
@@ -591,7 +612,6 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive")
 	var/random = TRUE
-	var/adminseal = FALSE
 
 /obj/item/weapon/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
@@ -621,9 +641,6 @@
 	var/gaurdiantype = "Standard"
 	if(random)
 		gaurdiantype = pick(possible_guardians)
-	if(adminseal)
-		world << "[user] [key]"
-		gaurdiantype = pick("StandardSeal","SupportSeal")
 	else
 		gaurdiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -636,17 +653,11 @@
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 
-		if("StandardSeal")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/punch/sealpunch
-
 		if("Ranged")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/ranged
 
 		if("Support")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/healer
-
-		if("SupportSeal")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/healer/sealhealer
 
 		if("Explosive")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/bomb
@@ -660,8 +671,7 @@
 	G << "[G.playstyle_string]"
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
-	if(!adminseal)
-		user.verbs += /mob/living/proc/guardian_reset
+	user.verbs += /mob/living/proc/guardian_reset
 	switch (theme)
 		if("magic")
 			G.name = "[mob_name]"
@@ -686,16 +696,6 @@
 			G.icon_state = "headcrab"
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
-		if("seal")
-			user << "[G.admin_fluff_string]."
-			G.name = "[mob_name]"
-			G.color = picked_color
-			G.real_name = "[mob_name]"
-			G.icon = 'icons/mob/animal.dmi'
-			G.icon_living = "seal"
-			G.icon_state = "seal"
-			G.attacktext = "slaps"
-			G.speak_emote = list("barks")
 
 /obj/item/weapon/guardiancreator/choose
 	random = FALSE
@@ -728,37 +728,6 @@
 
 /obj/item/weapon/guardiancreator/biological/choose
 	random = FALSE
-
-
-/obj/item/weapon/guardiancreator/adminbus
-	name = "Avatar deck"
-	desc = "A mystical deck..oddly all the cards have a form of Bus on them."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "deck_syndicate_full"
-	theme = "seal"
-	mob_name = "Avatar"
-	use_message = "URK!"
-	used_message = "arf?"
-	failure_message = "<B>...</B>"
-	adminseal = TRUE
-
-
-/obj/item/weapon/guardiancreator/adminbus/attack_self(mob/living/user)
-
-	//var/list/targets = list()
-	var/target = null
-	//targets += living_mob_list //Fill list, prompt user with list
-	target = input("Select a Player to guard!", "Player list", null, null) as null|anything in living_mob_list
-
-	if(target)
-		//user.ghostize()
-		var/mob/living/carbon/human/H = target
-	//if(H.mind )
-		spawn_guardian(H,user.key)
-	//else
-	//	user << "Target has no mind. Aborting."
-	else
-		return
 
 
 /obj/item/weapon/paper/guardian
