@@ -8,6 +8,17 @@
 	embed = 1
 	sharp = 1
 
+/obj/item/projectile/bullet/cap
+	name = "cap"
+	damage = 0
+	nodamage = 1
+	embed = 0
+	sharp = 0
+
+/obj/item/projectile/bullet/cap/process()
+	loc = null
+	qdel(src)
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	damage = 5
 	stamina = 80

@@ -12,6 +12,13 @@
 	max_ammo = 6
 	multiple_sprites = 1
 
+/obj/item/ammo_box/caps
+	name = "speed loader (caps)"
+	icon_state = "357"
+	ammo_type = /obj/item/ammo_casing/cap
+	max_ammo = 7
+	multiple_sprites = 1
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
