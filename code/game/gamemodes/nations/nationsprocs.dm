@@ -9,7 +9,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
-	if(H.stat==2) return
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
 		var/input = stripped_input(H,"What do you want to name your nation?", ,"", MAX_NAME_LEN)
 
@@ -32,7 +32,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
-	if(H.stat==2) return
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
 		var/type = input(H, "What rank do you want to change?", "Rename Rank", "") in list("Leader", "Heir", "Member")
 		var/input = stripped_input(H,"What rank do you want?", ,"", MAX_NAME_LEN)
@@ -58,7 +58,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
-	if(H.stat==2) return
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.current_leader == H)
 		var/heir = input(H, "Who do you wish to make your heir?", "Choose Heir", "") as null|anything in H.mind.nation.membership
 		if(heir)
@@ -85,7 +85,7 @@
 	if(!mode.kickoff) return 1
 
 	var/mob/living/carbon/human/H = src
-	if(H.stat==2) return
+	if(H.stat==DEAD) return
 	if(H.mind && H.mind.nation && H.mind.nation.heir == H)
 		var/confirmation = input(H, "Are you sure you want to take over leadership?", "Become Leader", "") as null|anything in list("Yes", "No")
 		if(confirmation == "Yes")
