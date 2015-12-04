@@ -64,10 +64,34 @@
 /mob/living/carbon/brain/blob_act()
 	return
 
-
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
 	if(container)
 		container.loc = newloc
 	else //something went very wrong.
 		CRASH("Brainmob without container.")
 	loc = container
+
+/*
+This will return true if the brain has a container that leaves it less helpless than a naked brain
+
+I'm using this for Stat to give it a more nifty interface to work with
+*/
+/mob/living/carbon/brain/proc/has_synthetic_assistance()
+	return (container && istype(container, /obj/item/device/mmi)) || in_contents_of(/obj/mecha)
+
+/mob/living/carbon/brain/Stat()
+	..()
+	if(has_synthetic_assistance())
+		statpanel("Status")
+		stat(null, "Station Time: [worldtime2text()]")
+
+		if(emergency_shuttle)
+			var/eta_status = emergency_shuttle.get_status_panel_eta()
+			if(eta_status)
+				stat(null, eta_status)
+		if(client.statpanel == "Status")
+			//Knowing how well-off your mech is doing is really important as an MMI
+			if(istype(src.loc, /obj/mecha))
+				var/obj/mecha/M = src.loc
+				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
+				stat("Exosuit Integrity", "[!M.health ? "0" : "[(M.health / initial(M.health)) * 100]"]%")

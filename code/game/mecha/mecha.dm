@@ -323,6 +323,7 @@
 		move_result = mechstep(direction)
 	if(move_result)
 		can_move = 0
+		use_power(step_energy_drain)
 		if(mecha_do_after(step_in))
 			can_move = 1
 		return 1
@@ -803,7 +804,7 @@
 				go_out()
 		return
 
-			
+
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
@@ -1250,7 +1251,7 @@
 			return 0
 		if(!user.unEquip(mmi_as_oc))
 			user << "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>"
-			return
+			return 0
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
 	/*
