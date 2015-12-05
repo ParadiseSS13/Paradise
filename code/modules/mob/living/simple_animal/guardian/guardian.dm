@@ -130,10 +130,12 @@
 	if(!input) return
 
 	for(var/mob/M in mob_list)
-		if(M == summoner || (M in dead_mob_list))
-			M << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	src << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	log_say("[src.real_name]/[src.key] : [input]")
+		if(M == summoner)
+			M << "<span class='changeling'><i>[src]:</i> [input]</span>"
+		else if (M in dead_mob_list)
+			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+	log_say("Guardian Communication: [src.real_name]/[src.key] : [input]")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	src << "<span class='danger'><B>You dont have another mode!</span></B>"
@@ -150,11 +152,11 @@
 		if(istype (M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
-				G << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
+				G << "<span class='changeling'><i>[src]:</i> [input]</span>"
 		else if (M in dead_mob_list)
-			M << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	src << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	log_say("[src.real_name]/[src.key] : [text]")
+			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+	log_say("Guardian Communication: [src.real_name]/[src.key] : [text]")
 
 /mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
@@ -452,11 +454,10 @@
 	melee_damage_upper = 10
 	damage_transfer = 0.9
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_cap = 0
+	ranged_cooldown_cap = 1
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13
-	ranged_cooldown_cap = 1
 	playstyle_string = "As a ranged type, you have only light damage resistance, but are capable of spraying shards of crystal at incredibly high speed. You can also deploy surveillance snares to monitor enemy movement. Finally, you can switch to scout mode, in which you can't attack, but can move without limit."
 	magic_fluff_string = "..And draw the Sentinel, an alien master of ranged combat."
 	tech_fluff_string = "Boot sequence complete. Ranged combat modules active. Holoparasite swarm online."
