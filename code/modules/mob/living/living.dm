@@ -515,6 +515,10 @@
 	if(loc && (istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		resist_tray(L)
 
+	// The doctor left the odysseus unlocked again
+	if(src.loc && (istype(loc, /obj/item/mecha_parts/mecha_equipment/tool/sleeper)))
+		resist_mecha()
+
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
 		resist_buckle(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
@@ -620,6 +624,17 @@
 	if(resisting)
 		for(var/mob/O in viewers(usr, null))
 			O.show_message(text("\red <B>[] resists!</B>", L), 1)
+
+/*
+resist_mecha allows a mob to attempt to escape an exosuit's equipment
+if the doctor let a graytide get in the odysseus, for example
+*/
+/mob/living/proc/resist_mecha()
+	// I don't like anything so special-case as this, but I'll try to leave it as extensible as I can
+	// --Crazylemon
+	if(istype(src.loc, /obj/item/mecha_parts/mecha_equipment/tool/sleeper))
+		var/obj/item/mecha_parts/mecha_equipment/tool/sleeper/prison = src.loc
+		prison.on_resist(src)
 
 /* resist_buckle allows a mob that is bucklecuffed to break free of the chair/bed/whatever
 */////

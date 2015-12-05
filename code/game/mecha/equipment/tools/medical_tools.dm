@@ -198,6 +198,9 @@
 			update_equip_info()
 		return
 
+	proc/on_resist(var/mob/living/L)
+		go_out()
+
 	update_equip_info()
 		if(..())
 			send_byjax(chassis.occupant,"msleeper.browser","lossinfo",get_occupant_dam())
