@@ -34,22 +34,29 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(salvage_num <= 0)
-			user << "You don't see anything that can be cut with [W]."
-			return
-		if (!isemptylist(welder_salvage) && WT.remove_fuel(0,user))
-			var/type = prob(70)?pick(welder_salvage):null
-			if(type)
-				var/N = new type(get_turf(user))
-				user.visible_message("[user] cuts [N] from [src]", "You cut [N] from [src]", "You hear a sound of welder nearby")
-				if(istype(N, /obj/item/mecha_parts/part))
-					welder_salvage -= type
-				salvage_num--
-			else
-				user << "You failed to salvage anything valuable from [src]."
+			user.visible_message("[user] begins to slice apart the now completely stripped [src].", "You begin to slice apart the [src].", "You hear the sound of a welder nearby.")
+			if(WT.remove_fuel(0,user) && do_after(user,80,target=src))
+				user.visible_message("The now-dilapidated [src] falls apart in a clatter.", "As you slice apart the final support structures, the [src] falls apart in a heap.", "You hear metal clanking to the floor.")
+				new /obj/item/stack/sheet/metal(src.loc)
+				var/obj/item/stack/rods/rods = new /obj/item/stack/rods(src.loc)
+				rods.amount = 2
+				qdel(src)
 		else
-			user << "\blue You need more welding fuel to complete this task."
-			return
-	if(istype(W, /obj/item/weapon/wirecutters))
+			if (isemptylist(welder_salvage))
+				user << "<span class='warning'>What's left on the [src] cannot be removed with a welder, besides the frame itself</span>"
+			else if(WT.remove_fuel(0,user))
+				var/type = prob(70)?pick(welder_salvage):null
+				if(type)
+					var/N = new type(get_turf(user))
+					user.visible_message("[user] cuts [N] from [src]", "You cut [N] from [src]", "You hear a sound of welder nearby")
+					if(istype(N, /obj/item/mecha_parts/part))
+						welder_salvage -= type
+					salvage_num--
+				else
+					user << "You failed to salvage anything valuable from [src]."
+			else
+				user << "\blue You need more welding fuel to complete this task."
+	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(salvage_num <= 0)
 			user << "You don't see anything that can be cut with [W]."
 			return
@@ -61,14 +68,13 @@
 				salvage_num--
 			else
 				user << "You failed to salvage anything valuable from [src]."
-	if(istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/weapon/crowbar))
 		if(!isemptylist(crowbar_salvage))
 			var/obj/S = pick(crowbar_salvage)
 			if(S)
 				S.loc = get_turf(user)
 				crowbar_salvage -= S
 				user.visible_message("[user] pries [S] from [src].", "You pry [S] from [src].")
-			return
 		else
 			user << "You don't see anything that can be pried with [W]."
 	else
