@@ -5,6 +5,7 @@
 	var/current_leader
 	var/list/membership = list()
 	var/leader_rank = "Leader"
+	var/heir_rank = "Heir"
 	var/member_rank = "Member"
 	var/heir
 
