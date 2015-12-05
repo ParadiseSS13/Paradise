@@ -14,19 +14,13 @@
 	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
+/obj/docking_port/mobile/emergency/register()
+	if(!..())
+		return 0 //shuttle master not initialized
 
-/obj/docking_port/mobile/emergency/New()
-	..()
-	spawn(0)
-		if(!shuttle_master)
-			sleep(50)
-			if(!shuttle_master)
-				sleep(50)
-				if(!shuttle_master)
-					throw EXCEPTION("docking port [src] could not initialize")
-					return 0 //give up
-
-		shuttle_master.emergency = src
+	shuttle_master.emergency = src
+	log_to_dd("EMERGENCY FUCKING DOCKING PORT CREATED GOD FUCKING DAMNIT")
+	return 1
 
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
 	if(divisor <= 0)

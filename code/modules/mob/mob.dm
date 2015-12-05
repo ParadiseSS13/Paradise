@@ -1379,6 +1379,10 @@ mob/proc/yank_out_object()
 		spell.action.Grant(src)
 	return
 
+//override to avoid rotating pixel_xy on mobs
+/mob/shuttleRotate(rotation)
+	dir = angle2dir(rotation+dir2angle(dir))
+
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl
 

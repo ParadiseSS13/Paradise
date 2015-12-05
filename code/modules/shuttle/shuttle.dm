@@ -127,33 +127,31 @@
 	var/obj/docking_port/P = get_docked()
 	if(P) return P.id
 
+/obj/docking_port/proc/register()
+	return 0
+
 /obj/docking_port/stationary
 	name = "dock"
 
 	var/turf_type = /turf/space
 	var/area_type = /area/space
 
-/obj/docking_port/stationary/New()
-	..()
-	spawn(0)
-		if(!shuttle_master)
-			sleep(50)
-			if(!shuttle_master)
-				sleep(50)
-				if(!shuttle_master)
-					throw EXCEPTION("docking port [src] could not initialize")
-					return 0 //give up
+/obj/docking_port/stationary/register()
+	if(!shuttle_master)
+		throw EXCEPTION("docking port [src] could not initialize.")
+		return 0
 
-		shuttle_master.stationary += src
-		log_to_dd("stationary dock initialized [src], [id]") //SHUTTLE-WIP DEBUG
-		if(!id)
-			id = "[shuttle_master.stationary.len]"
-		if(name == "dock")
-			name = "dock[shuttle_master.stationary.len]"
+	shuttle_master.stationary += src
+	log_to_dd("stationary dock initialized [src], [id]") //SHUTTLE-WIP DEBUG
+	if(!id)
+		id = "[shuttle_master.stationary.len]"
+	if(name == "dock")
+		name = "dock[shuttle_master.stationary.len]"
 
-		#ifdef DOCKING_PORT_HIGHLIGHT
-		highlight("#f00")
-		#endif
+	#ifdef DOCKING_PORT_HIGHLIGHT
+	highlight("#f00")
+	#endif
+	return 1
 
 //returns first-found touching shuttleport
 /obj/docking_port/stationary/get_docked()
@@ -169,19 +167,12 @@
 	name = "In Transit"
 	turf_type = /turf/space/transit
 
-/obj/docking_port/stationary/transit/New()
-	..()
-	spawn(0) //shuttle_master takes a bit to initialize
-		if(!shuttle_master)
-			sleep(50)
-			if(!shuttle_master)
-				sleep(50)
-				if(!shuttle_master)
-					throw EXCEPTION("docking port [src] could not initialize")
-					return 0 //give up
+/obj/docking_port/stationary/transit/register()
+	if(!..())
+		return 0
 
-		shuttle_master.transit += src
-
+	shuttle_master.transit += src
+	return 1
 
 /obj/docking_port/mobile
 	icon_state = "mobile"
@@ -201,34 +192,34 @@
 
 /obj/docking_port/mobile/New()
 	..()
-	spawn(0)
-		if(!shuttle_master)
-			sleep(50)
-			if(!shuttle_master)
-				sleep(50)
-				if(!shuttle_master)
-					throw EXCEPTION("docking port [src] could not initialize")
-					return 0 //give up
 
-		shuttle_master.mobile += src
+	var/area/A = get_area(src)
+	if(istype(A, /area/shuttle))
+		areaInstance = A
 
-		var/area/A = get_area(src)
-		if(istype(A, /area/shuttle))
-			areaInstance = A
+	if(!areaInstance)
+		areaInstance = new()
+		areaInstance.name = name
+		areaInstance.contents += return_ordered_turfs()
 
-		if(!id)
-			id = "[shuttle_master.mobile.len]"
-		if(name == "shuttle")
-			name = "shuttle[shuttle_master.mobile.len]"
+	#ifdef DOCKING_PORT_HIGHLIGHT
+	highlight("#0f0")
+	#endif
 
-		if(!areaInstance)
-			areaInstance = new()
-			areaInstance.name = name
-			areaInstance.contents += return_ordered_turfs()
+/obj/docking_port/mobile/register()
+	if(!shuttle_master)
+		throw EXCEPTION("docking port [src] could not initialize.")
+		return 0
 
-		#ifdef DOCKING_PORT_HIGHLIGHT
-		highlight("#0f0")
-		#endif
+	shuttle_master.mobile += src
+
+	if(!id)
+		id = "[shuttle_master.mobile.len]"
+	if(name == "shuttle")
+		name = "shuttle[shuttle_master.mobile.len]"
+
+	return 1
+
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
@@ -409,8 +400,9 @@
 							Door.close()
 							if(istype(Door, /obj/machinery/door/airlock))
 								var/obj/machinery/door/airlock/A = Door
-								A.lock()
-								door_unlock_list += A
+								if(A.id_tag == "s_docking_airlock")
+									A.lock()
+									door_unlock_list += A
 			else if (istype(AM,/mob))
 				var/mob/M = AM
 				if(!M.move_on_shuttle)

@@ -36,39 +36,42 @@
 						score_clownabuse++
 
 
-	for(var/mob/living/player in mob_list)
-		if(player.client)
-			if (player.stat != DEAD)
-				var/turf/location = get_turf(player.loc)
-				var/area/escape_zone = locate(/area/shuttle/escape/centcom)
-				if(location in escape_zone)
-					score_escapees++
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
+		for(var/mob/living/player in mob_list)
+			if(player.client)
+				if (player.stat != DEAD)
+					var/turf/location = get_turf(player.loc)
+					var/area/escape_zone = locate(/area/shuttle/escape)
+					if(location in escape_zone)
+						score_escapees++
 
 
 
 	var/cash_score = 0
 	var/dmg_score = 0
-	for(var/mob/living/carbon/human/E in mob_list)
-		cash_score = 0
-		dmg_score = 0
-		var/turf/location = get_turf(E.loc)
-		var/area/escape_zone = locate(/area/shuttle/escape/centcom)
 
-		if(E.stat != DEAD && location in escape_zone) // Escapee Scores
-			cash_score = get_score_container_worth(E)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
+		for(var/mob/living/carbon/human/E in mob_list)
+			cash_score = 0
+			dmg_score = 0
+			var/turf/location = get_turf(E.loc)
+			var/area/escape_zone = shuttle_master.emergency.areaInstance
 
-			if(cash_score > score_richestcash)
-				score_richestcash = cash_score
-				score_richestname = E.real_name
-				score_richestjob = E.job
-				score_richestkey = E.key
+			if(E.stat != DEAD && location in escape_zone) // Escapee Scores
+				cash_score = get_score_container_worth(E)
 
-			dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
-			if(dmg_score > score_dmgestdamage)
-				score_dmgestdamage = dmg_score
-				score_dmgestname = E.real_name
-				score_dmgestjob = E.job
-				score_dmgestkey = E.key
+				if(cash_score > score_richestcash)
+					score_richestcash = cash_score
+					score_richestname = E.real_name
+					score_richestjob = E.job
+					score_richestkey = E.key
+
+				dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
+				if(dmg_score > score_dmgestdamage)
+					score_dmgestdamage = dmg_score
+					score_dmgestname = E.real_name
+					score_dmgestjob = E.job
+					score_dmgestkey = E.key
 
 	if(ticker && ticker.mode)
 		ticker.mode.set_scoreboard_gvars()

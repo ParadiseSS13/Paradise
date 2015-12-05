@@ -74,6 +74,28 @@
 		shuttle_master.emergency.setTimer(100)
 		emagged = 1
 
+/obj/machinery/computer/supplycomp
+	name = "supply shuttle console"
+	desc = "Used to order supplies."
+	icon_screen = "supply"
+	req_access = list(access_cargo)
+	circuit = /obj/item/weapon/circuitboard/supplycomp
+	var/temp = null
+	var/reqtime = 0 //Cooldown for requisitions - Quarxink
+	var/hacked = 0
+	var/can_order_contraband = 0
+	var/last_viewed_group = "categories"
+
+
+/obj/machinery/computer/ordercomp
+	name = "supply ordering console"
+	desc = "Used to order supplies from cargo staff."
+	icon_screen = "request"
+	circuit = /obj/item/weapon/circuitboard/ordercomp
+	var/temp = null
+	var/reqtime = 0 //Cooldown for requisitions - Quarxink
+	var/last_viewed_group = "categories"
+
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."

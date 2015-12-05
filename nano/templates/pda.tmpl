@@ -840,10 +840,12 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			<div class="itemContent">
 				<span class="average">
 					{{if data.records.supply.shuttle_moving}}
-					    Moving to station ({{:data.records.supply.shuttle_eta}})
+					    Moving to {{:data.records.supply.shuttle_loc}}
 					{{else}}
 					    Shuttle at {{:data.records.supply.shuttle_loc}}
 					{{/if}}
+                    <br>
+                    {{:data.records.supply.shuttle_time}}
 				</span>
 			</div>
 		</div>

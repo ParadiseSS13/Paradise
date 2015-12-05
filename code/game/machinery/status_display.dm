@@ -174,16 +174,10 @@
 	return "00:00"
 
 /obj/machinery/status_display/proc/get_supply_shuttle_timer()
-	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	if (!shuttle)
-		return "Error"
-
-	if(shuttle.has_arrive_time())
-		var/timeleft = round((shuttle.arrive_time - world.time) / 10,1)
-		if(timeleft < 0)
-			return "Late"
+	var/timeleft = shuttle_master.supply.timeLeft()
+	if(timeleft > 0)
 		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return ""
+	return "00:00"
 
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)
