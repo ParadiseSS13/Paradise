@@ -369,11 +369,11 @@
 /obj/screen/gun/item/Click()
 	if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
 		return
-		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
-			usr << "You need your gun in your active hand to do that!"
-			return
-		usr.client.AllowTargetClick()
-		gun_click_time = world.time
+	if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
+		usr << "You need your gun in your active hand to do that!"
+		return
+	usr.client.AllowTargetClick()
+	gun_click_time = world.time
 
 
 /obj/screen/inventory/Click()

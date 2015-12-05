@@ -232,15 +232,16 @@
 
 	//Handle the gun settings buttons
 	mymob.gun_setting_icon = new /obj/screen/gun/mode(null)
-	if (mymob.client)
-		if (mymob.client.gun_mode) // If in aim mode, correct the sprite
-			mymob.gun_setting_icon.dir = 2
-	for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
-		if (G.target)
-			mymob.item_use_icon = new /obj/screen/gun/item(null)
-			if (mymob.client.target_can_click)
-				mymob.item_use_icon.dir = 1
-			src.adding += mymob.item_use_icon
+	mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//if (mymob.client)
+	//	if (mymob.client.gun_mode) // If in aim mode, correct the sprite
+	//		mymob.gun_setting_icon.dir = 2
+	//for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
+	//	if (G.target)
+	//		mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//		if (mymob.client.target_can_click)
+	//			mymob.item_use_icon.dir = 1
+			//src.adding += mymob.item_use_icon
 			/*mymob.gun_move_icon = new /obj/screen/gun/move(null)
 			if (mymob.client.target_can_move)
 				mymob.gun_move_icon.dir = 1
