@@ -150,3 +150,14 @@
 	var/list/all_bits = internal_organs|organs
 	for(var/obj/item/organ/O in all_bits)
 		O.set_dna(dna)
+
+/*
+Given the name of an organ, returns the external organ it's contained in
+I use this to standardize shadowling dethrall code
+-- Crazylemon
+*/
+/mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
+	if (!(organ_name in internal_organs_by_name))
+		return null
+	var/obj/item/organ/O = internal_organs_by_name[organ_name]
+	return O.parent_organ

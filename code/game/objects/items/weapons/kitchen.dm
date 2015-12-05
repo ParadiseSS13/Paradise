@@ -63,6 +63,9 @@
 		overlays.Cut()
 		return
 
+	if (can_operate(M))
+		do_surgery(M, user, src)
+
 /obj/item/weapon/kitchen/utensil/fork
 	name = "fork"
 	desc = "It's a fork. Sure is pointy."
