@@ -19,14 +19,8 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	vessel = new/datum/reagents(600)
 	vessel.my_atom = src
 
-	if(species && species.flags & NO_BLOOD) //In case of transformation to IPC
-		if(vessel.has_reagent("water") || vessel.has_reagent("blood"))
-			var/water = vessel.get_reagent_amount("water")
-			var/blood = vessel.get_reagent_amount("blood")
-			vessel.remove_reagent("water",water)
-			vessel.remove_reagent("blood",blood)
-	if(species.bloodflags & BLOOD_SLIME)
-		vessel.add_reagent("water",560)
+	if(species && species.exotic_blood)
+		vessel.add_reagent(species.exotic_blood,560)
 	else
 		vessel.add_reagent("blood",560)
 	spawn(1)
@@ -46,8 +40,8 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	if(species && species.flags & NO_BLOOD)
 		return
 	if(stat != DEAD && bodytemperature >= 170)	//Dead or cryosleep people do not pump the blood.
-		if(species.bloodflags &BLOOD_SLIME)
-			blood_volume = round(vessel.get_reagent_amount("water"))
+		if(species.exotic_blood)
+			blood_volume = round(vessel.get_reagent_amount(species.exotic_blood))
 			if(blood_volume < 560 && blood_volume)
 				var/datum/reagent/water/W = locate() in vessel.reagent_list //Grab some blood
 				if(W) // Make sure there's some blood at all
@@ -180,8 +174,8 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	var/amm = 0.1 * amt
 	var/turf/T = get_turf(src)
 
-	if(src.species.bloodflags &BLOOD_SLIME)
-		vessel.remove_reagent("water",amm)
+	if(src.species.exotic_blood)
+		vessel.remove_reagent(species.exotic_blood,amm)
 		vessel.reaction(T, TOUCH, amm)
 		return
 
@@ -227,10 +221,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 //For humans, blood does not appear from blue, it comes from vessels.
 /mob/living/carbon/human/take_blood(obj/item/weapon/reagent_containers/container, var/amount)
-	if(src.species.bloodflags &BLOOD_SLIME)
-		if(vessel.get_reagent_amount("water") < amount)
+	if(src.species.exotic_blood)
+		if(vessel.get_reagent_amount(src.species.exotic_blood) < amount)
 			return null
-		var/datum/reagent/W = new /datum/reagent/water
+		var/datum/reagent/W = new /datum/reagent
 		W.holder = container
 		W.volume += amount
 		var/list/temp_chem = list()
@@ -238,7 +232,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 			temp_chem += R.id
 			temp_chem[R.id] = R.volume
 		W.data["trace_chem"] = list2params(temp_chem)
-		vessel.remove_reagent("water",amount) // Removes blood if human
+		vessel.remove_reagent(src.species.exotic_blood,amount) // Removes blood if human
 		return W
 	if(species && species.flags & NO_BLOOD)
 		return null
