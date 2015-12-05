@@ -72,9 +72,7 @@
 
 /obj/item/device/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
 	src.searching = 0
-	src.brainmob.mind = candidate.mind
-	//src.brainmob.key = candidate.key
-	src.brainmob.ckey = candidate.ckey
+	src.brainmob.key = candidate.key
 	src.name = "positronic brain ([src.brainmob.name])"
 
 	src.brainmob << "<b>You are a positronic brain, brought into existence on [station_name()].</b>"
