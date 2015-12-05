@@ -174,10 +174,6 @@
 	if(occupant)
 		user << "\blue <B>The DNA Scanner is already occupied!</B>"
 		return
-/*	if(isrobot(user))
-		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
-			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -193,7 +189,7 @@
 	visible_message("[user] puts [L.name] into the DNA Scanner.")
 	put_in(L)
 	if(user.pulling == L)
-		user.pulling = null
+		user.stop_pulling()
 
 /obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob, params)
 	if(istype(item, /obj/item/weapon/screwdriver))
