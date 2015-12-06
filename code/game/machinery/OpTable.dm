@@ -98,6 +98,8 @@
 		C.client.eye = src
 	C.resting = 1
 	C.loc = src.loc
+	if (user.pulling == C)
+		user.stop_pulling()
 	for(var/obj/O in src)
 		O.loc = src.loc
 	src.add_fingerprint(user)
