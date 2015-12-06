@@ -349,6 +349,7 @@
 			src << "<span class='danger'><B>You must be manifested to heal!</span></B>"
 			return
 		if(iscarbon(target))
+			src.changeNext_move(CLICK_CD_MELEE)
 			var/mob/living/carbon/C = target
 			C.adjustBruteLoss(-5)
 			C.adjustFireLoss(-5)
