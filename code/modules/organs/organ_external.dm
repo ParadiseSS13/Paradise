@@ -139,6 +139,9 @@
 	//robot limbs take reduced damage
 	brute_mod = 0.66
 	burn_mod = 0.66
+	// Robot parts also lack bones
+	// This is so surgery isn't kaput, let's see how this does
+	encased = null
 
 /****************************************************
 			   DAMAGE PROCS
@@ -819,6 +822,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/mob/living/H = W.loc
 		H.drop_item()
 	W.loc = owner
+
+/obj/item/organ/external/proc/open_enough_for_surgery()
+	return (encased ? (open == 3) : (open == 2))
 
 /obj/item/organ/external/removed(var/mob/living/user, var/ignore_children)
 
