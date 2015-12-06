@@ -4,7 +4,14 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - (getBruteLoss() + getFireLoss())
+	if (stat == DEAD && health > 0)
+		update_revive()
+		var/mob/dead/observer/ghost = get_ghost()
+		if(ghost)
+			ghost << "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)"
+			ghost << sound('sound/effects/genetics.ogg')
 	return
+
 
 /mob/living/silicon/robot/getBruteLoss()
 	var/amount = 0
