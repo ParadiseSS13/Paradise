@@ -1,5 +1,5 @@
 /obj/machinery/computer/diseasesplicer
-	name = "Disease Splicer"
+	name = "disease splicer"
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "crew"
 	icon_keyboard = "med_key"

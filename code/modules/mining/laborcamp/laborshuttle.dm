@@ -66,7 +66,7 @@ proc/move_labor_shuttle() //TODO: Security Access only; add moving the shuttle t
 	return
 
 /obj/machinery/computer/labor_shuttle
-	name = "Labor Shuttle Console"
+	name = "labor shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
 	circuit = /obj/item/weapon/circuitboard/labor_shuttle
@@ -112,7 +112,7 @@ proc/move_labor_shuttle() //TODO: Security Access only; add moving the shuttle t
 
 
 /obj/machinery/computer/labor_shuttle/one_way
-	name = "Prisoner Shuttle Console"
+	name = "prisoner shuttle console"
 	desc = "A one-way shuttle console, used to summon the shuttle to the labor camp."
 	circuit = /obj/item/weapon/circuitboard/labor_shuttle/one_way
 	req_access = list( )

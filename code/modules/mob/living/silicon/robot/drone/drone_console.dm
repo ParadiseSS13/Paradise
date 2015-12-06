@@ -1,5 +1,5 @@
 /obj/machinery/computer/drone_control
-	name = "Maintenance Drone Control"
+	name = "maintenance drone control"
 	desc = "Used to monitor the station's drone population and the assembler that services them."
 	icon_screen = "power"
 	icon_keyboard = "power_key"

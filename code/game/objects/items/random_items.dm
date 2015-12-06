@@ -80,7 +80,7 @@
 		name = "unlabelled bottle"
 		pixel_x = rand(-10,10)
 		pixel_y = rand(-10,10)
-		
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
@@ -96,7 +96,7 @@
 		icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
-		
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 	icon = 'icons/obj/drinks.dmi'
@@ -146,7 +146,7 @@
 // -------------------------------------
 
 /obj/structure/closet/crate/secure/unknownchemicals
-	name = "Grey-market Chemicals Grab Pack"
+	name = "grey-market chemicals grab pack"
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
 	req_one_access = list(access_chemistry,access_research,access_qm) // the qm knows a guy, you see.
 
@@ -172,7 +172,7 @@
 		return
 
 /obj/structure/closet/crate/secure/chemicals
-	name		= "Chemical Supply Kit"
+	name		= "chemical supply kit"
 	desc		= "Full of basic chemistry supplies."
 	req_one_access	= list(access_chemistry,access_research)
 

@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/pod
-	name = "Mass Drivers and Pod Doors Control"
-	desc = "A controll for launching pods. Some people prefer firing Mechas."
+	name = "mass drivers and pod doors control"
+	desc = "A control for launching pods. Some people prefer firing Mechas."
 	icon_screen = "mass_driver"
 	light_color = "#555555"
 	circuit = /obj/item/weapon/circuitboard/pod
@@ -315,7 +315,7 @@
 			P.failchance = 0//So it has no fail chance when teleporting.
 			P.target = pick(spawn_marauder)//Where the marauder will arrive.
 			spawn_marauder.Remove(P.target)
-				
+
 	for(var/obj/machinery/door/poddoor/M in world)
 		if(M.z != src.z)	continue
 		if(M.id_tag == ident_tag)

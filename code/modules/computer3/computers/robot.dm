@@ -4,7 +4,7 @@
 	icon_state = "frame-rnd"
 
 /datum/file/program/borg_control
-	name = "Cyborg Control"
+	name = "cyborg control console"
 	desc = "Used to remotely lockdown or detonate linked Cyborgs."
 	active_state = "robot"
 	var/id = 0.0

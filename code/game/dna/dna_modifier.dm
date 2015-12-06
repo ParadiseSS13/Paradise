@@ -335,7 +335,7 @@
 	return 0
 
 /obj/machinery/computer/scan_consolenew
-	name = "DNA Modifier Access Console"
+	name = "\improper DNA Modifier access console"
 	desc = "Allows you to scan and modify DNA."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "dna"

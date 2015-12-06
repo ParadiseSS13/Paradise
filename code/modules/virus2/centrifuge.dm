@@ -1,5 +1,5 @@
 /obj/machinery/computer/centrifuge
-	name = "Isolation Centrifuge"
+	name = "isolation centrifuge"
 	desc = "Used to separate things with different weight. Spin 'em round, round, right round."
 	icon = 'icons/obj/virology.dmi'
 	icon_state = "centrifuge"

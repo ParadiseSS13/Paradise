@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/medical1
-	name = "Medicine Closet"
+	name = "medicine closet"
 	desc = "Filled with medical junk."
 	icon_state = "medical1"
 	icon_closed = "medical"
@@ -28,7 +28,7 @@
 
 
 /obj/structure/closet/secure_closet/medical2
-	name = "Anesthetic"
+	name = "anesthetic closet"
 	desc = "Used to knock people out."
 	icon_state = "medical1"
 	icon_closed = "medical"
@@ -53,7 +53,7 @@
 
 
 /obj/structure/closet/secure_closet/medical3
-	name = "Medical Doctor's Locker"
+	name = "medical doctor's locker"
 	req_access = list(access_surgery)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
@@ -82,7 +82,7 @@
 
 //Exam Room
 /obj/structure/closet/secure_closet/exam
-	name = "Exam Room Closet"
+	name = "exam room closet"
 	desc = "Filled with exam room materials."
 	icon_state = "medical1"
 	icon_closed = "medical"
@@ -126,7 +126,7 @@
 	new /obj/item/weapon/reagent_containers/pill/methamphetamine(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
-	name = "Psychiatrist's Locker"
+	name = "psychiatrist's locker"
 	req_access = list(access_psychiatrist)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
@@ -146,7 +146,7 @@
 		return
 
 /obj/structure/closet/secure_closet/CMO
-	name = "Chief Medical Officer's Locker"
+	name = "chief medical officer's locker"
 	req_access = list(access_cmo)
 	icon_state = "cmosecure1"
 	icon_closed = "cmosecure"
@@ -190,7 +190,7 @@
 
 
 /obj/structure/closet/secure_closet/animal
-	name = "Animal Control"
+	name = "animal control"
 	req_access = list(access_surgery)
 
 
@@ -206,7 +206,7 @@
 
 
 /obj/structure/closet/secure_closet/chemical
-	name = "Chemical Closet"
+	name = "chemical closet"
 	desc = "Store dangerous chemicals in here."
 	icon_state = "medical1"
 	icon_closed = "medical"
@@ -225,7 +225,7 @@
 		return
 
 /obj/structure/closet/secure_closet/medical_wall
-	name = "First Aid Closet"
+	name = "first aid closet"
 	desc = "It's a secure wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall_locked"
 	icon_closed = "medical_wall_unlocked"
@@ -251,7 +251,7 @@
 			icon_state = icon_opened
 
 /obj/structure/closet/secure_closet/paramedic
-	name = "Paramedic EVA gear"
+	name = "paramedic EVA gear locker"
 	desc = "A locker with a Paramedic EVA suit."
 	icon_state = "medical1"
 	icon_closed = "medical"
@@ -272,7 +272,7 @@
 		return
 
 /obj/structure/closet/secure_closet/reagents
-	name = "Chemical Storage Closet"
+	name = "chemical storage closet"
 	desc = "Store dangerous chemicals in here."
 	icon_state = "chemical1"
 	icon_closed = "chemical"
