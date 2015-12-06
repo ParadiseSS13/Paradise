@@ -109,10 +109,17 @@
 		return 1
 
 	else if(issilicon(M))
-		M.Weaken(rand(5,10))
-		add_logs(M, user, "flashed", object="[src.name]")
-		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
-		return 1
+		if(isrobot(M))
+			var/mob/living/silicon/robot/R = M
+			if(R.activated(/obj/item/borg/combat/shield))
+				add_logs(M, user, "flashed", object="[src.name]")
+				user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
+				return 1
+		else
+			M.Weaken(rand(5,10))
+			add_logs(M, user, "flashed", object="[src.name]")
+			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
+			return 1
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
 
