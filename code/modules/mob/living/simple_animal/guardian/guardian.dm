@@ -331,6 +331,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
+	var/heal_cooldown = 0
 	adminseal = TRUE
 
 
@@ -350,11 +351,13 @@
 			return
 		if(iscarbon(target))
 			src.changeNext_move(CLICK_CD_MELEE)
-			var/mob/living/carbon/C = target
-			C.adjustBruteLoss(-5)
-			C.adjustFireLoss(-5)
-			C.adjustOxyLoss(-5)
-			C.adjustToxLoss(-5)
+			if(heal_cooldown <= world.time && !stat)
+				var/mob/living/carbon/C = target
+				C.adjustBruteLoss(-5)
+				C.adjustFireLoss(-5)
+				C.adjustOxyLoss(-5)
+				C.adjustToxLoss(-5)
+				heal_cooldown = world.time + 20
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(src.loc == summoner)
