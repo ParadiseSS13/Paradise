@@ -239,7 +239,7 @@
 	qdel(G)
 	return
 
-/obj/machinery/sleeper/relaymove(mob/user as mob)
+/obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.incapacitated())
 		return 0 //maybe they should be able to get out with cuffs, but whatever
 	go_out()
