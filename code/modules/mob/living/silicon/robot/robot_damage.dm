@@ -1,9 +1,9 @@
-/mob/living/silicon/robot/updatehealth()
+mob/living/silicon/robot/updatehealth()
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = maxHealth - (getBruteLoss() + getFireLoss())
+	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
 	if (stat == DEAD && health > 0)
 		update_revive()
 		var/mob/dead/observer/ghost = get_ghost()
