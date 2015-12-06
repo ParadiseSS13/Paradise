@@ -198,7 +198,7 @@
 			update_equip_info()
 		return
 
-	proc/on_resist(var/mob/living/L)
+	container_resist(var/mob/living/L)
 		go_out()
 
 	update_equip_info()

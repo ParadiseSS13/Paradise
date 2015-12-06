@@ -499,10 +499,6 @@
 
 	var/mob/living/L = usr
 
-	//Getting out of someone's inventory.
-	if(istype(src.loc,/obj/item/weapon/holder))
-		resist_holder()
-
 	//Resisting control by an alien mind.
 	if(istype(src.loc,/mob/living/simple_animal/borer))
 		resist_borer()
@@ -511,21 +507,15 @@
 	if ((!(L.stat) && !(L.restrained())))
 		resist_grab(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
 
-	// Sliding out of a morgue/crematorium
-	if(loc && (istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
-		resist_tray(L)
-
-	// The doctor left the odysseus unlocked again
-	if(src.loc && (istype(loc, /obj/item/mecha_parts/mecha_equipment/tool/sleeper)))
-		resist_mecha()
-
 	//unbuckling yourself
 	if(L.buckled && (L.last_special <= world.time) )
 		resist_buckle(L) //this passes L because the proc requires a typecasted mob/living instead of just 'src'
 
-	//Breaking out of a locker?
-	else if(src.loc && (istype(src.loc, /obj/structure/closet)))
-		resist_closet()
+	//Breaking out of an object?
+	else if(src.loc && istype(src.loc, /obj) && (!isturf(src.loc)))
+		if(stat == CONSCIOUS && !stunned && !weakened && !paralysis)
+			var/obj/C = loc
+			C.container_resist(L)
 
 	//breaking out of handcuffs
 	else if(iscarbon(L))
@@ -543,28 +533,6 @@
 /*////////////////////
 	RESIST SUBPROCS
 */////////////////////
-
-/* resist_holder allows small mobs that can be picked up to get out of their holder, so they aren't stuck forever.
-*/////
-/mob/living/proc/resist_holder()
-	var/obj/item/weapon/holder/H = src.loc //Get our item holder.
-	var/mob/M = H.loc                      //Get our mob holder (if any).
-
-	if(istype(M))
-		M.unEquip(H)
-		M << "[H] wriggles out of your grip!"
-		src << "You wriggle out of [M]'s grip!"
-	else if(istype(H.loc,/obj/item))
-		src << "You struggle free of [H.loc]."
-		H.forceMove(get_turf(H))
-
-	if(istype(M))
-		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
-				return
-		M.status_flags &= ~PASSEMOTES
-
-	return
 
 /* resist_borer allows a mob to regain control of their body after a borer has assumed control.
 */////
@@ -625,17 +593,6 @@
 		for(var/mob/O in viewers(usr, null))
 			O.show_message(text("\red <B>[] resists!</B>", L), 1)
 
-/*
-resist_mecha allows a mob to attempt to escape an exosuit's equipment
-if the doctor let a graytide get in the odysseus, for example
-*/
-/mob/living/proc/resist_mecha()
-	// I don't like anything so special-case as this, but I'll try to leave it as extensible as I can
-	// --Crazylemon
-	if(istype(src.loc, /obj/item/mecha_parts/mecha_equipment/tool/sleeper))
-		var/obj/item/mecha_parts/mecha_equipment/tool/sleeper/prison = src.loc
-		prison.on_resist(src)
-
 /* resist_buckle allows a mob that is bucklecuffed to break free of the chair/bed/whatever
 */////
 /mob/living/proc/resist_buckle(var/mob/living/L)
@@ -661,87 +618,6 @@ if the doctor let a graytide get in the odysseus, for example
 
 	else
 		L.buckled.user_unbuckle_mob(L,L)
-
-/* resist_closet() allows a mob to break out of a welded/locked closet
-*/////
-/mob/living/proc/resist_closet()
-	var/breakout_time = 2 //2 minutes by default
-	var/mob/living/L = src
-	var/obj/structure/closet/C = L.loc
-	if(C.opened)
-		return //Door's open... wait, why are you in it's contents then?
-	if(istype(L.loc, /obj/structure/closet/secure_closet))
-		var/obj/structure/closet/secure_closet/SC = L.loc
-		if(!SC.locked && !SC.welded)
-			return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
-	else
-		if(!C.welded)
-			return //closed but not welded...
-	//	else Meh, lets just keep it at 2 minutes for now
-	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
-
-	//okay, so the closet is either welded or locked... resist!!!
-	L.changeNext_move(CLICK_CD_BREAKOUT)
-	L.last_special = world.time + CLICK_CD_BREAKOUT
-	L << "\red You lean on the back of \the [C] and start pushing the door open. (this will take about [breakout_time] minutes)"
-	for(var/mob/O in viewers(usr.loc))
-		O.show_message("\red <B>The [L.loc] begins to shake violently!</B>", 1)
-
-
-	spawn(0)
-		if(do_after(usr,(breakout_time*60*10), target = C)) //minutes * 60seconds * 10deciseconds
-			if(!C || !L || L.stat != CONSCIOUS || L.loc != C || C.opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-				return
-
-			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
-			if(istype(L.loc, /obj/structure/closet/secure_closet))
-				var/obj/structure/closet/secure_closet/SC = L.loc
-				if(!SC.locked && !SC.welded)
-					return
-			else
-				if(!C.welded)
-					return
-
-			//Well then break it!
-			if(istype(usr.loc, /obj/structure/closet/secure_closet))
-				var/obj/structure/closet/secure_closet/SC = L.loc
-				SC.desc = "It appears to be broken."
-				SC.icon_state = SC.icon_off
-				flick(SC.icon_broken, SC)
-				sleep(10)
-				flick(SC.icon_broken, SC)
-				sleep(10)
-				SC.broken = 1
-				SC.locked = 0
-				SC.update_icon()
-				usr << "\red You successfully break out!"
-				for(var/mob/O in viewers(L.loc))
-					O.show_message("\red <B>\the [usr] successfully broke out of \the [SC]!</B>", 1)
-				if(istype(SC.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
-					var/obj/structure/bigDelivery/BD = SC.loc
-					BD.attack_hand(usr)
-				SC.open()
-			else
-				C.welded = 0
-				C.update_icon()
-				usr << "\red You successfully break out!"
-				for(var/mob/O in viewers(L.loc))
-					O.show_message("\red <B>\the [usr] successfully broke out of \the [C]!</B>", 1)
-				if(istype(C.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
-					var/obj/structure/bigDelivery/BD = C.loc
-					BD.attack_hand(usr)
-				C.open()
-
-// resist_tray allows a mob to slide themselves out of a morgue or crematorium
-/mob/living/proc/resist_tray(var/mob/living/carbon/CM)
-	if(!istype(CM))
-		return
-	if (usr.stat || usr.restrained())
-		return
-
-	usr << "<span class='alert'>You attempt to slide yourself out of \the [loc]...</span>"
-	var/obj/structure/S = loc
-	S.attack_hand(src)
 
 /* resist_stop_drop_roll allows a mob to stop, drop, and roll in order to put out a fire burning on them.
 */////
