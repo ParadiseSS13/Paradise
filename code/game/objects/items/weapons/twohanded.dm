@@ -4,6 +4,11 @@
  *		Fireaxe
  *		Double-Bladed Energy Swords
  *		Spears
+ *		Kidan spear
+ *		Chainsaw
+ *		Singularity hammer
+ * 		Mjolnnir
+ *		Knighthammer
  */
 
 /*##################################################################
@@ -34,6 +39,9 @@
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
 	if(isrobot(user))
 		user << "<span class='notice'>You free up your module.</span>"
 	else
@@ -59,6 +67,9 @@
 	force = force_wielded
 	name = "[name] (Wielded)"
 	update_icon()
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
 	if(isrobot(user))
 		user << "<span class='notice'>You dedicate your module to [name].</span>"
 	else
