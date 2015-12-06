@@ -51,7 +51,7 @@
 		if(prob(50))
 			user.visible_message("<span class='warning'>[user] slips and rips the tumor out from [target]'s [braincase]!</span>", \
 								 "<span class='warning'><b>You fumble and tear out [target]'s tumor!</span>")
-			target.adjustBrainLoss(150) // This is so you can't just defib'n go
+			target.adjustBrainLoss(110) // This is so you can't just defib'n go
 			ticker.mode.remove_thrall(target.mind,1)
 		else
 			user.visible_message("<span class='warning'>[user]'s hand slips and fumbles! Luckily, they didn't damage anything!</span>")
