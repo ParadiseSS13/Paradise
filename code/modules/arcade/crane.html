@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<title>Crane game</title>
+	<link rel="stylesheet" type="text/css" href="page.css" />
+  	<script src="./jquery.js"></script>
+	<script src="./Crane.js"></script>
+	<script src="./Prize.js"></script>
+	<script src="./main.js"></script>	
+	</head>
+	<body>
+	
+		<div id='game' style='position: relative;'>
+			<div id="background"></div>
+			
+			<div id="crane">
+				<div id="crane-handle-top"></div>
+				<div id="crane-handle-bottom"></div>
+				
+				<div id="crane-claw"></div>
+				<div id="crane-center"></div>
+			</div>
+			
+			<div id="grayorbs-chute"></div>
+			
+			<div id="foreground"></div>				
+			
+		</div>
+		
+		<div style='position: absolute; top: 550px'>
+			<br><button onclick="gameStartUp()">Play Now!</button>
+			<br>
+			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
+			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
+			<button onmouseover="joystickControlOn('right')" onmouseout="joystickControlOff('right')">==\<br>==/</button>
+		</div>
+	</body>
+</html>
