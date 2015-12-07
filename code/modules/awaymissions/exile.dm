@@ -23,7 +23,7 @@
 		return dat
 
 /obj/item/weapon/implantcase/exile
-	name = "Glass Case- 'Exile'"
+	name = "/improper Glass Case- 'Exile'"
 	desc = "A case containing an exile implant."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implantcase-r"
@@ -36,7 +36,7 @@
 
 
 /obj/structure/closet/secure_closet/exile
-	name = "Exile Implants"
+	name = "exile implants"
 	req_access = list(access_hos)
 
 	New()

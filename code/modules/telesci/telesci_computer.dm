@@ -1,5 +1,5 @@
 /obj/machinery/computer/telescience
-	name = "\improper Telepad Control Console"
+	name = "telepad control console"
 	desc = "Used to teleport objects to and from the telescience telepad."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"

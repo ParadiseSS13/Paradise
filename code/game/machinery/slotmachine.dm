@@ -1,6 +1,6 @@
 var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 /obj/machinery/slot_machine
-	name = "Slot Machine"
+	name = "slot machine"
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "slots-off"

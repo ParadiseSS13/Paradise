@@ -36,7 +36,7 @@
 	P.info = "Do you people think the anomaly suits are cheap to come by? I'm about a hair trigger away from instituting a log book for the damn things. Only wear them if you're going out for a dig, and for god's sake don't go tramping around in them unless you're field testing something, R"
 	P.stamp(stamp)
 	src.contents += P
-	
+
 	qdel(stamp)
 
 //---- Bookcase
@@ -57,7 +57,7 @@
 //---- Lockers and closets
 
 /obj/structure/closet/secure_closet/xenoarchaeologist
-	name = "Xenoarchaeologist Locker"
+	name = "xenoarchaeologist locker"
 	req_access = list(access_tox_storage)
 	icon_state = "secureres1"
 	icon_closed = "secureres"
@@ -79,7 +79,7 @@
 		return
 
 /obj/structure/closet/excavation
-	name = "Excavation tools"
+	name = "excavation tools closet"
 	icon_state = "toolcloset"
 	icon_closed = "toolcloset"
 	icon_opened = "toolclosetopen"

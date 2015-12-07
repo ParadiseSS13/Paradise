@@ -101,7 +101,7 @@ var/list/mechtoys = list(
 		return 0
 
 /obj/machinery/computer/supplycomp
-	name = "Supply Shuttle Console"
+	name = "supply shuttle console"
 	desc = "Used to order supplies."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "supply"
@@ -115,7 +115,7 @@ var/list/mechtoys = list(
 	var/datum/supply_packs/content_pack
 
 /obj/machinery/computer/ordercomp
-	name = "Supply Ordering Console"
+	name = "supply ordering console"
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"

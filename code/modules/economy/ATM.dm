@@ -14,7 +14,7 @@ log transactions
 #define PRINT_DELAY 100
 
 /obj/machinery/atm
-	name = "Nanotrasen Automatic Teller Machine"
+	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"

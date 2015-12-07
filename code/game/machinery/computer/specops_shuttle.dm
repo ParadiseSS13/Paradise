@@ -12,7 +12,7 @@ var/specops_shuttle_time = 0
 var/specops_shuttle_timeleft = 0
 
 /obj/machinery/computer/specops_shuttle
-	name = "Spec. Ops. Shuttle Console"
+	name = "\improper Spec. Ops. shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "syndishuttle"
