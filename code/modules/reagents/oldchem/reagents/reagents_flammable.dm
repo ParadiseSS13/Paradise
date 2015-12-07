@@ -13,6 +13,11 @@
 		return
 	..()
 
+/datum/reagent/fuel/reaction_turf(var/turf/T, var/volume)
+	new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
+	..()
+	return
+
 /datum/reagent/fuel/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss(1)
