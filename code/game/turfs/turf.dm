@@ -108,7 +108,7 @@
 //		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
-	for(var/atom/A in range(1))
+	for(var/atom/movable/A in range(1))
 		if(loopsanity == 0)
 			break
 		loopsanity--

@@ -166,7 +166,7 @@
 
 
 /obj/effect/beam/i_beam/process()
-	if((loc.density || !(master)))
+	if((loc && loc.density || !(master)))
 		qdel(src)
 		return
 	if(left > 0)

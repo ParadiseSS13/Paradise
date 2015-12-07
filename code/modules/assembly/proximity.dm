@@ -42,6 +42,9 @@
 
 
 	HasProximity(atom/movable/AM as mob|obj)
+		if(!istype(AM))
+			log_debug("DEBUG: HasProximity called with [AM] on [src] ([usr]).")
+			return
 		if (istype(AM, /obj/effect/beam))	return
 		if (AM.move_speed < 12)	sense()
 		return
