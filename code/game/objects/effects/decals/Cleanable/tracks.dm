@@ -163,3 +163,11 @@ var/global/list/image/fluidtrack_cache=list()
 	gender = PLURAL
 	random_icon_states = null
 	amount = 0
+
+
+/obj/effect/decal/cleanable/blood/tracks/reveal_blood()
+	if(!fluorescent)
+		if(stack && stack.len)
+			for(var/datum/fluidtrack/track in stack)
+				track.basecolor = COLOR_LUMINOL
+		..()

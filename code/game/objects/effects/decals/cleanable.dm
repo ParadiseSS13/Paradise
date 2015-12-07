@@ -10,6 +10,9 @@
 	create_reagents(100)
 	..()
 
+/obj/effect/decal/cleanable/clean_blood()
+	qdel(src)
+
 /obj/effect/decal/cleanable/attackby(obj/item/weapon/W as obj, mob/user as mob,)
 	if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents && !noscoop)

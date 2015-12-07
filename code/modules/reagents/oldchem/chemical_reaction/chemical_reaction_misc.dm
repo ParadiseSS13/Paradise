@@ -105,6 +105,13 @@
 		result_amount = 3
 		mix_message = "Ick, this stuff really stinks. Sure does make the container sparkle though!"
 
+	luminol
+		name = "Luminol"
+		id = "luminol"
+		result = "luminol"
+		required_reagents = list("hydrogen" = 2, "carbon" = 2, "ammonia" = 2)
+		result_amount = 6
+
 	sulfuric_acid
 		name = "Sulfuric Acid"
 		id = "sacid"
