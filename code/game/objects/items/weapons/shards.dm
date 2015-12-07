@@ -53,6 +53,8 @@
 /obj/item/weapon/shard/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
+		if (M.incorporeal_move || M.flying)//you are incorporal or flying..no shard stepping!
+			return
 		M << "\red <B>You step on \the [src]!</B>"
 		playsound(src.loc, 'sound/effects/glass_step.ogg', 50, 1) // not sure how to handle metal shards with sounds
 		if(ishuman(M))

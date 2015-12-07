@@ -174,10 +174,6 @@
 	if(occupant)
 		user << "\blue <B>The DNA Scanner is already occupied!</B>"
 		return
-/*	if(isrobot(user))
-		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
-			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -193,7 +189,7 @@
 	visible_message("[user] puts [L.name] into the DNA Scanner.")
 	put_in(L)
 	if(user.pulling == L)
-		user.pulling = null
+		user.stop_pulling()
 
 /obj/machinery/dna_scannernew/attackby(var/obj/item/weapon/item as obj, var/mob/user as mob, params)
 	if(istype(item, /obj/item/weapon/screwdriver))
@@ -242,6 +238,11 @@
 	src.add_fingerprint(user)
 	qdel(G)
 	return
+
+/obj/machinery/dna_scannernew/relaymove(mob/user as mob)
+	if(user.incapacitated())
+		return 0 //maybe they should be able to get out with cuffs, but whatever
+	go_out()
 
 /obj/machinery/dna_scannernew/proc/put_in(var/mob/M)
 	if(M.client)

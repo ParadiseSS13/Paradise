@@ -13,7 +13,7 @@
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
 						"<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"))
 	return (BRUTELOSS|FIRELOSS)
-	
+
 /obj/item/weapon/melee/energy/attack_self(mob/living/carbon/user)
 	if(user.disabilities & CLUMSY && prob(50))
 		user << "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>"
@@ -84,7 +84,7 @@
 	edge = 1
 	var/hacked = 0
 	var/blade_color
-	
+
 /obj/item/weapon/melee/energy/sword/New()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
@@ -106,7 +106,7 @@
 			return
 		..()
 	return
-	
+
 /obj/item/weapon/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
@@ -129,7 +129,7 @@
 
 /obj/item/weapon/melee/energy/sword/cyborg/saw/IsShield()
 	return 0
-	
+
 /obj/item/weapon/melee/energy/sword/saber
 
 /obj/item/weapon/melee/energy/sword/saber/blue
@@ -185,7 +185,7 @@
 	desc = "Arrrr matey."
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
-	
+
 /obj/item/weapon/melee/energy/sword/pirate/New()
 	return
 
@@ -202,11 +202,11 @@
 	w_class = 4//So you can't hide it in your pocket or some such.
 	flags = NOSHIELD
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	var/datum/effect/effect/system/spark_spread/spark_system
+	var/datum/effect/system/spark_spread/spark_system
 
 //Most of the other special functions are handled in their own files. aka special snowflake code so kewl
 /obj/item/weapon/melee/energy/blade/New()
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -214,4 +214,4 @@
 	qdel(src)
 
 /obj/item/weapon/melee/energy/blade/attack_self(mob/user)
-	return	
+	return

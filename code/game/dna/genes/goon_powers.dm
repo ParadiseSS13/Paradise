@@ -189,11 +189,11 @@
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
-	new/obj/effects/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
+	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
 
 	return
 
-/obj/effects/self_deleting
+/obj/effect/self_deleting
 	density = 0
 	opacity = 0
 	anchored = 1
@@ -262,7 +262,7 @@
 	var/list/own_blacklist = list(
 		/obj/item/organ,
 		/obj/item/weapon/implant
-	) 
+	)
 
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
@@ -276,8 +276,8 @@
 				continue
 			affecting.heal_damage(4, 0)
 		H.UpdateDamageIcon()
-		H.updatehealth()		
-		
+		H.updatehealth()
+
 /obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
 	var/list/possible_targets = new /list()
@@ -288,9 +288,9 @@
 		if(is_type_in_list(O,types_allowed))
 			possible_targets += O
 
-	targets += input("Choose the target of your hunger.", "Targeting") as anything in possible_targets
+	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
 
-	if(!targets.len) //doesn't waste the spell
+	if(!targets.len || !targets[1]) //doesn't waste the spell
 		revert_cast(user)
 		return
 
@@ -529,7 +529,11 @@
 
 /obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
+	targets += input("Choose the target to spy on.", "Targeting") as null|mob in range(7,usr)
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 

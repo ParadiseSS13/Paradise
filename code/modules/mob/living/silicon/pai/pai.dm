@@ -6,7 +6,7 @@
 	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	small = 1
-	pass_flags = 1
+	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/weapon/holder/pai
 	var/network = "SS13"
@@ -511,6 +511,10 @@
 	if(istype(AM,/obj/item))
 		src << "<span class='warning'>You are far too small to pull anything!</span>"
 	return
+
+/mob/living/silicon/pai/update_canmove()
+	. = ..()
+	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	..(user)

@@ -87,7 +87,7 @@
 				if(M)
 					M.moved_recently = 0
 		M << "<span class='danger'>You feel a sharp shock!</span>"
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, M)
 		s.start()
 

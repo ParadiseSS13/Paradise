@@ -45,42 +45,20 @@
 
 //Returns the hex value of a number given a value assumed to be a base-ten value
 /proc/num2hex(num, placeholder)
+	if(!isnum(num)) return
+	if(placeholder == null) placeholder = 2
 
-	if (placeholder == null)
-		placeholder = 2
-	if (!( isnum(num) ))
-		return
-	if (!( num ))
-		return "0"
 	var/hex = ""
-	var/i = 0
-	while(16 ** i < num)
-		i++
-	var/power = null
-	power = i - 1
-	while(power >= 0)
-		var/val = round(num / 16 ** power)
-		num -= val * 16 ** power
-		switch(val)
-			if(9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0)
-				hex += text("[]", val)
-			if(10.0)
-				hex += "A"
-			if(11.0)
-				hex += "B"
-			if(12.0)
-				hex += "C"
-			if(13.0)
-				hex += "D"
-			if(14.0)
-				hex += "E"
-			if(15.0)
-				hex += "F"
-			else
-		power--
+	while(num)
+		var/val = num % 16
+		num = round(num / 16)
+
+		if(val > 9)
+			val = ascii2text(55 + val) // 65 - 70 correspond to "A" - "F"
+		hex = "[val][hex]"
 	while(length(hex) < placeholder)
-		hex = text("0[]", hex)
-	return hex
+		hex = "0[hex]"
+	return hex || "0"
 
 // Concatenates a list of strings into a single string.  A seperator may optionally be provided.
 /proc/list2text(list/ls, sep)
@@ -355,7 +333,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	switch(ui_style)
 		if("Midnight")  return 'icons/mob/screen1_Midnight.dmi'
 		else      return 'icons/mob/screen1_White.dmi'
-		
+
 //colour formats
 /proc/rgb2hsl(red, green, blue)
 	red /= 255;green /= 255;blue /= 255;

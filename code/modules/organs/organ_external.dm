@@ -139,6 +139,9 @@
 	//robot limbs take reduced damage
 	brute_mod = 0.66
 	burn_mod = 0.66
+	// Robot parts also lack bones
+	// This is so surgery isn't kaput, let's see how this does
+	encased = null
 
 /****************************************************
 			   DAMAGE PROCS
@@ -820,6 +823,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 		H.drop_item()
 	W.loc = owner
 
+/obj/item/organ/external/proc/open_enough_for_surgery()
+	return (encased ? (open == 3) : (open == 2))
+
 /obj/item/organ/external/removed(var/mob/living/user, var/ignore_children)
 
 	if(!owner)
@@ -858,7 +864,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
 		explosion(get_turf(owner),-1,-1,2,3)
-		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 		spark_system.set_up(5, 0, victim)
 		spark_system.attach(owner)
 		spark_system.start()

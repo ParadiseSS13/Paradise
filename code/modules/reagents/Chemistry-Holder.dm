@@ -22,6 +22,8 @@ var/const/INGEST = 2
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
 			chemical_reagents_list[D.id] = D
+			if(!D.can_grow_in_plants)
+				plant_blocked_chems.Add(D.id)
 	if(!chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
@@ -369,6 +371,9 @@ var/const/INGEST = 2
 			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
 			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
 				can_process = 1
+		if(H.species && H.species.exotic_blood)
+			if(R.id == H.species.exotic_blood)
+				can_process = 0
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else
 		if(R.process_flags != SYNTHETIC)

@@ -40,7 +40,7 @@
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				return 2
@@ -109,7 +109,7 @@
 						E.teleporting = 0
 						return
 					E.teleporting = 0
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -127,7 +127,7 @@
 					E.teleporting = 0
 					return
 				E.teleporting = 0
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
@@ -206,7 +206,7 @@
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					return
@@ -561,11 +561,19 @@
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/minihoe(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
+		new /obj/item/weapon/reagent_containers/glass/bucket(src)
+		new /obj/item/weapon/reagent_containers/glass/bucket(src)
+		new /obj/item/weapon/screwdriver(src)
+		new /obj/item/weapon/screwdriver(src)
+		new /obj/item/weapon/wrench(src)
+		new /obj/item/weapon/wrench(src)
+		new /obj/item/weapon/wirecutters(src)
+		new /obj/item/weapon/wirecutters(src)
+		new /obj/item/weapon/shovel/spade(src)
+		new /obj/item/weapon/shovel/spade(src)
+		new /obj/item/weapon/storage/box/botanydisk(src)
+		new /obj/item/weapon/storage/box/botanydisk(src)
+		new /obj/item/weapon/storage/box/beakers(src)
+		new /obj/item/weapon/storage/box/beakers(src)
+		new /obj/item/weapon/hand_labeler(src)
+		new /obj/item/weapon/hand_labeler(src)

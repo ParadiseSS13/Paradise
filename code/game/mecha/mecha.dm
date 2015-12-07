@@ -37,7 +37,7 @@
 	var/maint_access = 1
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
-	var/datum/effect/effect/system/spark_spread/spark_system = new
+	var/datum/effect/system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = 0
@@ -323,6 +323,7 @@
 		move_result = mechstep(direction)
 	if(move_result)
 		can_move = 0
+		use_power(step_energy_drain)
 		if(mecha_do_after(step_in))
 			can_move = 1
 		return 1
@@ -794,7 +795,16 @@
 		else if(state==3)
 			state=2
 			user << "You close the hatch to the power unit"
+		else if(state==4 && pilot_is_mmi())
+			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
+			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+			occupant << "<span class='warning'>[user] is prying you out of the exosuit!</span>"
+			if(do_after(user,80,target=src))
+				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+				go_out()
 		return
+
+
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
@@ -1241,7 +1251,7 @@
 			return 0
 		if(!user.unEquip(mmi_as_oc))
 			user << "<span class='notice'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]</span>"
-			return
+			return 0
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
 	/*
@@ -1264,6 +1274,18 @@
 		return 1
 	else
 		return 0
+
+/obj/mecha/proc/pilot_is_mmi()
+	var/atom/movable/mob_container
+	if(istype(occupant, /mob/living/carbon/brain))
+		var/mob/living/carbon/brain/brain = occupant
+		mob_container = brain.container
+	if(istype(mob_container, /obj/item/device/mmi))
+		return 1
+	return 0
+
+/obj/mecha/proc/pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
+	return
 
 /obj/mecha/verb/view_stats()
 	set name = "View Stats"
@@ -1943,3 +1965,7 @@
 	//src.check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 	return
 */
+
+
+/obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
+	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)

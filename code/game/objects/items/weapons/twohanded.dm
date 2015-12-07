@@ -4,6 +4,11 @@
  *		Fireaxe
  *		Double-Bladed Energy Swords
  *		Spears
+ *		Kidan spear
+ *		Chainsaw
+ *		Singularity hammer
+ * 		Mjolnnir
+ *		Knighthammer
  */
 
 /*##################################################################
@@ -34,6 +39,9 @@
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
 	if(isrobot(user))
 		user << "<span class='notice'>You free up your module.</span>"
 	else
@@ -59,6 +67,9 @@
 	force = force_wielded
 	name = "[name] (Wielded)"
 	update_icon()
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
 	if(isrobot(user))
 		user << "<span class='notice'>You dedicate your module to [name].</span>"
 	else
@@ -471,7 +482,7 @@
 	origin_tech = "combat=5;powerstorage=5"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread()
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
 	target.take_organ_damage(0,30)

@@ -28,7 +28,7 @@
 	var/datum/global_iterator/pr_int_temp_processor //normalizes internal air mixture temperature
 	var/datum/global_iterator/pr_give_air //moves air from tank to cabin
 
-	var/datum/effect/effect/system/ion_trail_follow/space_trail/ion_trail
+	var/datum/effect/system/ion_trail_follow/space_trail/ion_trail
 
 	var/hatch_open = 0
 
@@ -61,7 +61,7 @@
 	battery = new battery_type(src)
 	add_cabin()
 	add_airtank()
-	src.ion_trail = new /datum/effect/effect/system/ion_trail_follow/space_trail()
+	src.ion_trail = new /datum/effect/system/ion_trail_follow/space_trail()
 	src.ion_trail.set_up(src)
 	src.ion_trail.start()
 	src.use_internal_tank = 1

@@ -118,13 +118,16 @@
 	data["valveOpen"] = using_internal ? 1 : 0
 
 	data["maskConnected"] = 0
-	if(istype(loc,/mob/living/carbon))
-		var/mob/living/carbon/location = loc
-		if(location.internal == src)
-			if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(C.internal == src)
+			data["maskConnected"] = 1
+		else
+			if(C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
 				data["maskConnected"] = 1
-			else if(ishuman(location))
-				var/mob/living/carbon/human/H = location
+			else if(ishuman(C))
+				var/mob/living/carbon/human/H = C
 				if(H.head && (H.head.flags & AIRTIGHT))
 					data["maskConnected"] = 1
 

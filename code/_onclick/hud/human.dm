@@ -1,3 +1,30 @@
+/obj/screen/human
+	icon = 'icons/mob/screen1_midnight.dmi'
+
+/obj/screen/human/toggle
+	name = "toggle"
+	icon_state = "toggle"
+
+/obj/screen/human/toggle/Click()
+	if(usr.hud_used.inventory_shown)
+		usr.hud_used.inventory_shown = 0
+		usr.client.screen -= usr.hud_used.other
+	else
+		usr.hud_used.inventory_shown = 1
+		usr.client.screen += usr.hud_used.other
+
+	usr.hud_used.hidden_inventory_update()
+
+/obj/screen/human/equip
+	name = "equip"
+	icon_state = "act_equip"
+
+/obj/screen/human/equip/Click()
+	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		return 1
+	var/mob/living/carbon/human/H = usr
+	H.quick_equip()
+
 /datum/hud/proc/human_hud(var/ui_style='icons/mob/screen1_White.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 
 	src.adding = list()
@@ -7,7 +34,7 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
-	using = new /obj/screen()
+	using = new /obj/screen/act_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style
@@ -19,60 +46,9 @@
 	src.adding += using
 	action_intent = using
 
-//intent small hud objects
-	var/icon/ico
 
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,ico.Height()/2,ico.Width()/2,ico.Height())
-	using = new /obj/screen( src )
-	using.name = "help"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	help_intent = using
 
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,ico.Height()/2,ico.Width(),ico.Height())
-	using = new /obj/screen( src )
-	using.name = "disarm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	disarm_intent = using
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),ico.Width()/2,1,ico.Width(),ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "grab"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	grab_intent = using
-
-	ico = new(ui_style, "black")
-	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
-	ico.DrawBox(rgb(255,255,255,1),1,1,ico.Width()/2,ico.Height()/2)
-	using = new /obj/screen( src )
-	using.name = "harm"
-	using.icon = ico
-	using.screen_loc = ui_acti
-	using.alpha = ui_alpha
-	using.layer = 21
-	src.adding += using
-	hurt_intent = using
-
-//end intent small hud objects
-
-	using = new /obj/screen()
+	using = new /obj/screen/mov_intent()
 	using.name = "mov_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style
@@ -84,7 +60,7 @@
 	src.adding += using
 	move_intent = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/drop()
 	using.name = "drop"
 	using.icon = ui_style
 	using.icon_state = "act_drop"
@@ -252,7 +228,7 @@
 	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
-	using = new /obj/screen()
+	using = new /obj/screen/resist()
 	using.name = "resist"
 	using.icon = ui_style
 	using.icon_state = "act_resist"
@@ -262,7 +238,7 @@
 	using.alpha = ui_alpha
 	src.hotkeybuttons += using
 
-	using = new /obj/screen()
+	using = new /obj/screen/human/toggle()
 	using.name = "toggle"
 	using.icon = ui_style
 	using.icon_state = "other"
@@ -272,7 +248,7 @@
 	using.alpha = ui_alpha
 	src.adding += using
 
-	using = new /obj/screen()
+	using = new /obj/screen/human/equip()
 	using.name = "equip"
 	using.icon = ui_style
 	using.icon_state = "act_equip"
@@ -359,7 +335,7 @@
 	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
-	mymob.throw_icon = new /obj/screen()
+	mymob.throw_icon = new /obj/screen/throw_catch()
 	mymob.throw_icon.icon = ui_style
 	mymob.throw_icon.icon_state = "act_throw_off"
 	mymob.throw_icon.name = "throw"
@@ -386,7 +362,7 @@
 	mymob.toxin.name = "toxin"
 	mymob.toxin.screen_loc = ui_toxin
 
-	mymob.internals = new /obj/screen()
+	mymob.internals = new /obj/screen/internals()
 	mymob.internals.icon = ui_style
 	mymob.internals.icon_state = "internal0"
 	mymob.internals.name = "internal"

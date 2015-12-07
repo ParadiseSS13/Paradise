@@ -257,6 +257,7 @@
 				if(!E)
 					var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(src.loc)
 					C.faction = faction
+					C.master_commander = master_commander
 					if(ckey)
 						C.player_spiders = 1
 					fed--

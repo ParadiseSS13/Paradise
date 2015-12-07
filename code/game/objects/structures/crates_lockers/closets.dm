@@ -212,7 +212,7 @@
 						user << "<span class='warning'>Error: User located in container--aborting for safety.</span>"
 						playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 						return
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -234,7 +234,7 @@
 					user << "<span class='warning'>Error: User located in container--aborting for safety.</span>"
 					playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 					return
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
@@ -365,3 +365,42 @@
 	open()
 	if(AM.loc == src) return 0
 	return 1
+
+/obj/structure/closet/container_resist(var/mob/living/L)
+	var/breakout_time = 2 //2 minutes by default
+	if(opened)
+		if (L.loc == src)
+			L.forceMove(get_turf(src)) // Let's just be safe here
+		return //Door's open... wait, why are you in it's contents then?
+	if(!welded)
+		return //closed but not welded...
+	//	else Meh, lets just keep it at 2 minutes for now
+	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
+
+	//okay, so the closet is either welded or locked... resist!!!
+	L.changeNext_move(CLICK_CD_BREAKOUT)
+	L.last_special = world.time + CLICK_CD_BREAKOUT
+	L << "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>"
+	for(var/mob/O in viewers(usr.loc))
+		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+
+
+	spawn(0)
+		if(do_after(L,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+				return
+
+			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
+			if(!welded)
+				return
+
+			//Well then break it!
+			welded = 0
+			update_icon()
+			usr << "<span class='warning'>You successfully break out!</span>"
+			for(var/mob/O in viewers(L.loc))
+				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+			if(istype(src.loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
+				var/obj/structure/bigDelivery/BD = src.loc
+				BD.attack_hand(usr)
+			open()

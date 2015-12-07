@@ -83,7 +83,9 @@
 /obj/structure/stool/bed/chair/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		new /obj/item/stack/sheet/wood(src.loc)
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
 		qdel(src)
 	else
 		..()

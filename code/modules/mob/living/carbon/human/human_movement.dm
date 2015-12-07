@@ -47,6 +47,8 @@
 
 	if(RUN in mutations)
 		tally = -1
+	if(HULK in mutations)
+		tally += 1
 	if(status_flags & IGNORESLOWDOWN) // make sure this is always at the end so we don't have ignore slowdown getting ignored itself
 		tally = -1
 

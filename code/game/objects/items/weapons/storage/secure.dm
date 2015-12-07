@@ -73,7 +73,7 @@
 			overlays += image('icons/obj/storage.dmi', icon_locking)
 			locked = 0
 			if(istype(weapon, /obj/item/weapon/melee/energy/blade))
-				var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+				var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 				spark_system.set_up(5, 0, src.loc)
 				spark_system.start()
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)

@@ -59,8 +59,8 @@ var/list/robot_verbs_default = list(
 	var/modtype = "Default"
 	var/lower_mod = 0
 	var/jetpack = 0
-	var/datum/effect/effect/system/ion_trail_follow/ion_trail = null
-	var/datum/effect/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect/system/ion_trail_follow/ion_trail = null
+	var/datum/effect/system/spark_spread/spark_system//So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/has_power = 1
 	var/weapon_lock = 0
@@ -87,7 +87,7 @@ var/list/robot_verbs_default = list(
 	var/obj/item/borg/sight/hud/med/healthhud = null
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
@@ -220,9 +220,15 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
+	if(ticker && ticker.mode && ticker.mode.name == "nations")
+		var/datum/game_mode/nations/N = ticker.mode
+		if(N.kickoff)
+			modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
-	modtype = input("Please, select a module!", "Robot", null, null) in modules
+	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	if(!modtype)
+		return
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
@@ -295,7 +301,13 @@ var/list/robot_verbs_default = list(
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Combat Android"] = "droidcombat"
+			icon_state =  "droidcombat"
+
+		if("Peacekeeper")
+			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			icon_state = "droidpeace"
+			module.channels = list()
+			icon_state = "droidpeace"
 
 		if("Hunter")
 			updatename(module)
@@ -305,6 +317,7 @@ var/list/robot_verbs_default = list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
+
 
 	//languages
 	module.add_languages(src)
@@ -319,7 +332,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	updatename()
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -1001,16 +1014,17 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "ov-openpanel -c"
 
-	if(activated(/obj/item/borg/combat/shield))
-		overlays += "[icon_state]-shield"
-
-	if(modtype == "Combat")
+	var/combat = list("Combat","Peacekeeper")
+	if(modtype in combat)
 		if (base_icon == "")
 			base_icon = icon_state
 		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
+		for(var/obj/item/borg/combat/shield/S in module.modules)
+			if(activated(S))
+				overlays += "[base_icon]-shield"
 
 	if(jetpackoverlay)
 		overlays += "minerjetpack-[icon_state]"
@@ -1413,39 +1427,36 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/combat/New()
 	..()
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	module = new /obj/item/weapon/robot_module/combat(src)
 	module.channels = list("Security" = 1)
-	module_sprites["Combat Android"] = "droidcombat"
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Combat"
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
 	radio.config(module.channels)
 	notify_ai(2)
 
-
 /mob/living/silicon/robot/peacekeeper/New()
 	..()
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 	module = new /obj/item/weapon/robot_module/peacekeeper(src)
-	module_sprites["Peacekeeper Android"] = "droidpeace"
+	base_icon = "droidpeace"
+	icon_state = "droidpeace"
+	modtype = "Peacekeeper"
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems(src)
 
-	hands.icon_state = lowertext("Combat")
 	updatename()
 
 	status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
 	notify_ai(2)

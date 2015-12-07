@@ -1,3 +1,23 @@
+/obj/screen/alien
+	icon = 'icons/mob/screen_alien.dmi'
+
+/obj/screen/alien/leap
+	name = "toggle leap"
+	icon_state = "leap_off"
+
+/obj/screen/alien/leap/Click()
+	if(istype(usr, /mob/living/carbon/alien/humanoid))
+		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
+		AH.toggle_leap()
+
+/obj/screen/alien/nightvision
+	name = "toggle night-vision"
+	icon_state = "nightvision1"
+
+/obj/screen/alien/nightvision/Click()
+	var/mob/living/carbon/alien/humanoid/A = usr
+	A.nightvisiontoggle()
+
 /datum/hud/proc/embryo_hud()
 	return
 
@@ -8,7 +28,7 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
-	using = new /obj/screen()
+	using = new /obj/screen/act_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_alien.dmi'
@@ -18,7 +38,7 @@
 	src.adding += using
 	action_intent = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/mov_intent()
 	using.name = "mov_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_alien.dmi'
@@ -29,7 +49,7 @@
 	move_intent = using
 
 	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
-		mymob.leap_icon = new /obj/screen()
+		mymob.leap_icon = new /obj/screen/alien/leap()
 		mymob.leap_icon.icon = 'icons/mob/screen1_alien.dmi'
 		mymob.leap_icon.name = "toggle leap"
 		mymob.leap_icon.icon_state = "leap_off"
@@ -83,7 +103,7 @@
 
 //end of equippable shit
 
-	using = new /obj/screen()
+	using = new /obj/screen/resist()
 	using.name = "resist"
 	using.icon = 'icons/mob/screen1_alien.dmi'
 	using.icon_state = "act_resist"
@@ -91,7 +111,7 @@
 	using.layer = 19
 	src.adding += using
 
-	using = new /obj/screen()
+	using = new /obj/screen/drop()
 	using.name = "drop"
 	using.icon = 'icons/mob/screen1_alien.dmi'
 	using.icon_state = "act_drop"
@@ -99,7 +119,7 @@
 	using.layer = 19
 	src.adding += using
 
-	mymob.throw_icon = new /obj/screen()
+	mymob.throw_icon = new /obj/screen/throw_catch()
 	mymob.throw_icon.icon = 'icons/mob/screen1_alien.dmi'
 	mymob.throw_icon.icon_state = "act_throw_off"
 	mymob.throw_icon.name = "throw"
@@ -129,7 +149,7 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_alien_health
 
-	nightvisionicon = new /obj/screen()
+	nightvisionicon = new /obj/screen/alien/nightvision()
 	nightvisionicon.icon = 'icons/mob/screen1_alien.dmi'
 	nightvisionicon.icon_state = "nightvision1"
 	nightvisionicon.name = "night vision"

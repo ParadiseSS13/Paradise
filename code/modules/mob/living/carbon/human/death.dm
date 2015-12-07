@@ -32,7 +32,7 @@
 		hgibs(loc, viruses, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 

@@ -52,7 +52,16 @@ var/global/list/blocked_mobs = list(/mob/living/simple_animal,
 			/mob/living/simple_animal/ascendant_shadowling,
 			/mob/living/simple_animal/slaughter,
 			/mob/living/simple_animal/hostile/retaliate/araneus,
-			/mob/living/simple_animal/hostile/syndicate/ranged/orion
+			/mob/living/simple_animal/hostile/syndicate/ranged/orion,
+			/mob/living/simple_animal/hostile/statue,
+			/mob/living/simple_animal/hostile/guardian,
+			/mob/living/simple_animal/hostile/guardian/fire,
+			/mob/living/simple_animal/hostile/guardian/healer,
+			/mob/living/simple_animal/hostile/guardian/punch,
+			/mob/living/simple_animal/hostile/guardian/punch/sealpunch,
+			/mob/living/simple_animal/hostile/guardian/healer/sealhealer,
+			/mob/living/simple_animal/hostile/guardian/ranged,
+			/mob/living/simple_animal/hostile/guardian/bomb
 			)
 
 var/global/list/med_hud_users = list()

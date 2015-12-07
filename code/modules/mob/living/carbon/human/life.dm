@@ -90,7 +90,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
-
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
@@ -363,27 +362,37 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 /mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
-	var/null_internals = 0
+
 	if(internal)
-		if(istype(back, /obj/item/weapon/rig))
-			var/obj/item/weapon/rig/rig = back
-			if(rig.offline && (rig.air_supply && internal == rig.air_supply))
-				null_internals = 1
+		var/null_internals = 0      //internals are invalid, therefore turn them off
+		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
 
-		if(!(wear_mask && (wear_mask.flags & AIRTIGHT))) //not wearing mask
-			if(!(head && (head.flags & AIRTIGHT))) //not wearing helmet
-				null_internals = 1
+		if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
+			if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
+				null_internals = 1 //not wearing a mask or suitable helmet
 
-		if(null_internals)
-			internal = null
+		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
+			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
+			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
+				null_internals = 1 //offline suits do not breath
 
-		if(internal)
-			if(internals)
-				internals.icon_state = "internal1"
-			return internal.remove_air_volume(volume_needed)
-		else
-			if(internals)
-				internals.icon_state = "internal0"
+			else if(rig.air_supply && internal == rig.air_supply) //if rig HAS air_supply AND internal IS rig air_supply
+				skip_contents_check = 1 //skip contents.Find() check, the oxygen is valid even being outside of the mob
+
+		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
+			null_internals = 1 //not a rigsuit and your oxygen is gone
+
+		if(null_internals) //something wants internals gone
+			internal = null //so do it
+
+
+	if(internal) //check for hud updates every time this is called
+		if(internals)
+			internals.icon_state = "internal1"
+		return internal.remove_air_volume(volume_needed) //returns the valid air
+	else
+		if(internals)
+			internals.icon_state = "internal0"
 
 	return null
 
@@ -812,112 +821,67 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	return //TODO: DEFERRED
 
 /mob/living/carbon/human/handle_regular_status_updates()
-
 	if(status_flags & GODMODE)
 		return 0
+
+	. = ..()
 
 	//SSD check, if a logged player is awake put them back to sleep!
 	if(player_logged && sleeping < 2)
 		sleeping = 2
 
-	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
-		blinded = 1
-		silent = 0
-	else				//ALIVE. LIGHTS ARE ON
-
+	if(.) //alive
 		if(REGEN in mutations)
 			if(nutrition)
 				if(prob(10))
-					var/randumb = rand(1,5)
+					var/randumb = rand(1, 5)
 					nutrition -= randumb
-					heal_overall_damage(randumb,randumb)
+					heal_overall_damage(randumb, randumb)
 				if(nutrition < 0)
 					nutrition = 0
 
-		// Sobering multiplier.
-		// Sober block grants quadruple the alcohol metabolism.
-//			var/sober_str=!(SOBER in mutations)?1:4
-
-		updatehealth()	//TODO
 		if(!in_stasis)
-			handle_organs()	//Optimized.
+			handle_organs()
 			handle_blood()
 
-		if(health <= config.health_threshold_dead || brain_op_stage == 4.0)
-			death()
-			blinded = 1
-			silent = 0
-			return 1
-
-		// the analgesic effect wears off slowly
+		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
 
-		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 50) || (config.health_threshold_crit >= health) )
-			Paralyse(3)
-
-			/* Done by handle_breath()
-			if( health <= 20 && prob(1) )
-				spawn(0)
-					emote("gasp")
-			if(!reagents.has_reagent("epinephrine"))
-				adjustOxyLoss(1)*/
-
 		if(hallucination && !(species.flags & NO_DNA_RAD))
-			spawn handle_hallucinations()
+			spawn()
+				handle_hallucinations()
 
-			if(hallucination<=2)
+			if(hallucination <= 2)
 				hallucination = 0
 				halloss = 0
 			else
 				hallucination -= 2
 
-
-		if(halloss > 100)
-			src << "<span class='notice'>You're in too much pain to keep going...</span>"
-			for(var/mob/O in oviewers(src, null))
-				O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
-			Paralyse(10)
-			setHalLoss(99)
-
 		if(paralysis)
 			blinded = 1
 			stat = UNCONSCIOUS
-			if(halloss > 0)
-				adjustHalLoss(-3)
+
 		else if(sleeping)
 			speech_problem_flag = 1
-			handle_dreams()
-			adjustStaminaLoss(-10)
-			adjustHalLoss(-3)
-			if (mind)
+
+			if(mind)
 				//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of ether or similar.
 				if(player_logged)
-					sleeping = max(sleeping-1, 2)
-				else
-					sleeping = max(sleeping-1, 0)
+					sleeping = max(sleeping - 1, 2)
+
 			blinded = 1
 			stat = UNCONSCIOUS
-			if( prob(2) && health && !hal_crit )
-				spawn(0)
-					emote("snore")
+
 			if(mind)
 				if(mind.vampire)
 					if(istype(loc, /obj/structure/closet/coffin))
 						adjustBruteLoss(-1)
 						adjustFireLoss(-1)
 						adjustToxLoss(-1)
+
 		else if(status_flags & FAKEDEATH)
 			blinded = 1
 			stat = UNCONSCIOUS
-		else if(resting)
-			if(halloss > 0)
-				adjustHalLoss(-3)
-		//CONSCIOUS
-		else
-			stat = CONSCIOUS
-			if(halloss > 0)
-				adjustHalLoss(-1)
 
 		if(embedded_flag && !(mob_master.current_cycle % 10))
 			var/list/E
@@ -925,7 +889,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			if(!E.len)
 				embedded_flag = 0
 
-		//Vision
+
+		//Vision //god knows why this is here
 		var/obj/item/organ/vision
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
@@ -934,17 +899,21 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			eye_blind =  0
 			blinded =    0
 			eye_blurry = 0
+
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
 			eye_blind =  1
 			blinded =    1
 			eye_blurry = 1
+
 		else
 			//blindness
 			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
 				blinded =    1
+
 			else if(eye_blind)		       // Blindness, heals slowly over time
 				eye_blind =  max(eye_blind-1,0)
 				blinded =    1
+
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				eye_blurry = max(eye_blurry-3, 0)
 				blinded =    1
@@ -952,59 +921,26 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
 				eye_blurry = 1
+
 			if(eye_blurry)	           // Blurry eyes heal slowly
 				eye_blurry = max(eye_blurry-1, 0)
+
 
 		//Ears
 		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
 			ear_deaf = max(ear_deaf, 1)
+
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf-1, 0)
+			ear_deaf = max(ear_deaf - 1, 0)
+
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			ear_damage = max(ear_damage-0.15, 0)
+			ear_damage = max(ear_damage - 0.15, 0)
 			ear_deaf = max(ear_deaf, 1)
+
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			ear_damage = max(ear_damage-0.05, 0)
+			ear_damage = max(ear_damage - 0.05, 0)
 
-		//Dizziness
-		if(dizziness)
-			var/client/C = client
-			var/pixel_x_diff = 0
-			var/pixel_y_diff = 0
-			var/temp
-			var/saved_dizz = dizziness
-			dizziness = max(dizziness-1, 0)
-			if(C)
-				var/oldsrc = src
-				var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
-				src = null
-				spawn(0)
-					if(C)
-						temp = amplitude * sin(0.008 * saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(0.008 * saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-						sleep(3)
-						if(C)
-							temp = amplitude * sin(0.008 * saved_dizz * world.time)
-							pixel_x_diff += temp
-							C.pixel_x += temp
-							temp = amplitude * cos(0.008 * saved_dizz * world.time)
-							pixel_y_diff += temp
-							C.pixel_y += temp
-						sleep(3)
-						if(C)
-							C.pixel_x -= pixel_x_diff
-							C.pixel_y -= pixel_y_diff
-				src = oldsrc
 
-		//Jitteryness
-		if(jitteriness)
-			do_jitter_animation(jitteriness)
-
-		//Flying
 		if(flying)
 			spawn()
 				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -1016,9 +952,11 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
 
-		CheckStamina()
 
-	return 1
+	else //dead
+		blinded = 1
+		silent = 0
+
 
 /mob/living/carbon/human/handle_vision()
 	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
@@ -1059,10 +997,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(..())
 		if(hud_updateflag)
 			handle_hud_list()
-
-	if(ticker && ticker.mode.name == "nations")
-		process_nations()
-
 
 
 /mob/living/carbon/human/handle_random_events()
@@ -1483,7 +1417,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		holder.icon_state = "hudblank"
 
 		if(mind && mind.nation)
-			switch(mind.nation.name)
+			switch(mind.nation.default_name)
 				if("Atmosia")
 					holder.icon_state = "hudatmosia"
 				if("Brigston")
@@ -1492,6 +1426,8 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					holder.icon_state = "hudcargonia"
 				if("People's Republic of Commandzakstan")
 					holder.icon_state = "hudcommand"
+				if("Servicion")
+					holder.icon_state = "hudservice"
 				if("Medistan")
 					holder.icon_state = "hudmedistan"
 				if("Scientopia")

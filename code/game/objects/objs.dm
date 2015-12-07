@@ -256,3 +256,6 @@ a {
 			anchored = 0
 			step_towards(src,S)
 	else step_towards(src,S)
+
+/obj/proc/container_resist(var/mob/living)
+	return

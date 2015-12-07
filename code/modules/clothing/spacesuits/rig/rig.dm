@@ -79,7 +79,7 @@
 
 	// Wiring! How exciting.
 	var/datum/wires/rig/wires
-	var/datum/effect/effect/system/spark_spread/spark_system
+	var/datum/effect/system/spark_spread/spark_system
 
 /obj/item/weapon/rig/examine()
 	usr << "This is \icon[src][src.name]."
@@ -890,7 +890,10 @@
 	return src
 
 /mob/living/carbon/human/get_rig()
-	return back
+	if(istype(back,/obj/item/weapon/rig))
+		return back
+	else
+		return null
 
 #undef ONLY_DEPLOY
 #undef ONLY_RETRACT

@@ -35,8 +35,12 @@
 		user << "<span class='notice'>You put the [W] into \the [src].</span>"
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text, 1, MAX_NAME_LEN))
-		if((loc == usr && usr.stat == 0))
+		var/n_name = input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text|null
+		if(!n_name)
+			return
+		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
+		
+		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
 

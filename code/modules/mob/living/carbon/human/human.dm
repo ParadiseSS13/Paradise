@@ -245,6 +245,9 @@
 
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
+
+	stat(null, "Station Time: [worldtime2text()]")
+
 	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
 		if(ticker.mode:malf_mode_declared)
 			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
@@ -275,7 +278,12 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
-		stat(null, "Station Time: [worldtime2text()]")
+
+			if(mind.nation)
+				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
+				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
+				stat("Nation Heir", "[mind.nation.heir ? "[mind.nation.heir]" : "None"]")
+
 
 	if(istype(loc, /obj/spacepod)) // Spacdpods!
 		var/obj/spacepod/S = loc
@@ -508,7 +516,7 @@
 					stuttering = power
 				Stun(power)
 
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 

@@ -113,7 +113,7 @@
 			descriptors |= "hallucinogenic"
 		if(reagents.has_reagent("styptic_powder"))
 			descriptors |= "medicinal"
-		if(reagents.has_reagent("gold"))
+		if(reagents.has_reagent("gold") || reagents.has_reagent("silver"))
 			descriptors |= "shiny"
 		if(reagents.has_reagent("lube"))
 			descriptors |= "slippery"
@@ -300,6 +300,9 @@
 		// TODO: refactor all food paths to be less horrible and difficult to work with in this respect. ~Z
 		if(!istype(M) || (can_operate(M) && do_surgery(M,user,src))) return 0
 
+		if(!def_zone)
+			def_zone = check_zone(user.zone_sel.selecting)
+
 		user.lastattacked = M
 		M.lastattacker = user
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Attacked [key_name(M)] with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])</font>"
@@ -311,7 +314,7 @@
 			var/hit = H.attacked_by(src, user, def_zone)
 			if(hit && hitsound)
 				playsound(loc, hitsound, 50, 1, -1)
-			return hit
+			//return hit
 		else
 			if(attack_verb.len)
 				user.visible_message("<span class='danger'>[M] has been [pick(attack_verb)] with [src] by [user]!</span>")
@@ -331,15 +334,23 @@
 						M.take_organ_damage(0, force)
 			M.updatehealth()
 
-		if(seed && seed.get_trait(TRAIT_STINGS))
+		if(seed && seed.get_trait(TRAIT_CARNIVOROUS))
+			seed.do_thorns(M, src, def_zone)
+
+		if(ishuman(M) && seed && seed.get_trait(TRAIT_STINGS))
 			if(!reagents || reagents.total_volume <= 0)
 				return
-			reagents.remove_any(rand(1,3))
-			seed.thrown_at(src,M)
+			seed.do_sting(M, src, def_zone)
+			reagents.remove_any(rand(1,3))		//use up some of the reagents at random
 			sleep(-1)
 			if(!src)
 				return
-			if(prob(35))
+			if(reagents && reagents.total_volume <= 0)		//used-up fruit will be destroyed
+				if(user)
+					user << "<span class='danger'>\The [src] has dried out and crumbles to dust.</span>"
+					//user.drop_from_inventory(src)
+				qdel(src)
+			else if(prob(35))		//fruit that still has reagents has a chance of breaking each time it stings on hit
 				if(user)
 					user << "<span class='danger'>\The [src] has fallen to bits.</span>"
 					//user.drop_from_inventory(src)
@@ -366,44 +377,91 @@
 		if(src) qdel(src)
 		return
 
-	if(seed.kitchen_tag == "grass")
-		user.show_message("<span class='notice'>You make a grass tile out of \the [src]!</span>", 1)
-		for(var/i=0,i<2,i++)
-			var/obj/item/stack/tile/grass/G = new (user.loc)
-			G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
-			for (var/obj/item/stack/tile/grass/NG in user.loc)
-				if(G==NG)
-					continue
-				if(NG.amount>=NG.max_amount)
-					continue
-				NG.attackby(G, user)
-			user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
-		qdel(src)
-		return
-
-	if(seed.get_trait(TRAIT_SPREAD) > 0)
+	if(user.a_intent == I_DISARM && seed.get_trait(TRAIT_SPREAD) > 0)		//Using disarm so we can tell if you want to plant or convert non-final plants
 		user << "<span class='notice'>You plant the [src.name].</span>"
 		new /obj/machinery/portable_atmospherics/hydroponics/soil/invisible(get_turf(user),src.seed)
 		new /obj/effect/plant(get_turf(user), src.seed)
 		qdel(src)
 		return
 
-	/*
-	if(seed.kitchen_tag)
+
+	if(!seed.final_form)	//This isn't even my final form! (sorry, it had to be done)
 		switch(seed.kitchen_tag)
-			if("shand")
-				var/obj/item/stack/medical/bruise_pack/tajaran/poultice = new /obj/item/stack/medical/bruise_pack/tajaran(user.loc)
+			if("comfrey")
+				var/obj/item/stack/medical/bruise_pack/comfrey/poultice = new /obj/item/stack/medical/bruise_pack/comfrey(user.loc)
 				poultice.heal_brute = potency
 				user << "<span class='notice'>You mash the leaves into a poultice.</span>"
 				qdel(src)
 				return
-			if("mtear")
-				var/obj/item/stack/medical/ointment/tajaran/poultice = new /obj/item/stack/medical/ointment/tajaran(user.loc)
+			if("aloe")
+				var/obj/item/stack/medical/ointment/aloe/poultice = new /obj/item/stack/medical/ointment/aloe(user.loc)
 				poultice.heal_burn = potency
 				user << "<span class='notice'>You mash the petals into a poultice.</span>"
 				qdel(src)
 				return
-	*/
+			if("grass")
+				user.show_message("<span class='notice'>You make a grass tile out of \the [src]!</span>", 1)
+				for(var/i=0,i<2,i++)
+					var/obj/item/stack/tile/grass/G = new (user.loc)
+					G.color = seed.get_trait(TRAIT_PRODUCT_COLOUR)
+					for (var/obj/item/stack/tile/grass/NG in user.loc)
+						if(G==NG)
+							continue
+						if(NG.amount>=NG.max_amount)
+							continue
+						NG.attackby(G, user)
+					user << "You add the newly-formed grass to the stack. It now contains [G.amount] tiles."
+				qdel(src)
+				return
+			if("sunflower")
+				var/obj/item/weapon/grown/sunflower/SF = new /obj/item/weapon/grown/sunflower(user.loc)
+				user.unEquip(src)
+				user.put_in_hands(SF)
+				qdel(src)
+				return
+			if("novaflower")
+				var/obj/item/weapon/grown/novaflower/NF = new /obj/item/weapon/grown/novaflower(user.loc)
+				if(prob(10))
+					user.say("PRAISE THE SUN!")
+				else
+					user << "PRAISE THE SUN!"
+				user.unEquip(src)
+				user.put_in_hands(NF)
+				qdel(src)
+				return
+			if("cashpod")
+				user << "You crack open the cash pod..."
+				var/value = round(seed.get_trait(TRAIT_POTENCY))
+				user.unEquip(src)
+				switch(value)
+					if(0)
+						user << "It's empty! What a waste..."
+					if(1 to 10)
+						user << "It has a space dollar inside. Woo."
+						new /obj/item/weapon/spacecash(get_turf(user))
+					if(11 to 20)
+						user << "It has 10 space dollars inside!"
+						new /obj/item/weapon/spacecash/c10(get_turf(user))
+					if(21 to 30)
+						user << "It has 20 space dollars inside! Cool!"
+						new /obj/item/weapon/spacecash/c20(get_turf(user))
+					if(31 to 40)
+						user << "It has 50 space dollars inside! Nice!"
+						new /obj/item/weapon/spacecash/c50(get_turf(user))
+					if(41 to 50)
+						user << "It has 100 space dollars inside! Sweet!"
+						new /obj/item/weapon/spacecash/c100(get_turf(user))
+					if(51 to 60)
+						user << "It has 200 space dollars inside! Awesome!"
+						new /obj/item/weapon/spacecash/c200(get_turf(user))
+					if(61 to 80)
+						user << "It has 500 space dollars inside! CHA-CHING!"
+						new /obj/item/weapon/spacecash/c500(get_turf(user))
+					else
+						user << "It has 1000 space dollars inside! JACKPOT!"
+						new /obj/item/weapon/spacecash/c1000(get_turf(user))
+				qdel(src)
+				return
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/pickup(mob/user)
 	..()
