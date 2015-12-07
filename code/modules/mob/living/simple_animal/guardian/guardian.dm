@@ -130,10 +130,12 @@
 	if(!input) return
 
 	for(var/mob/M in mob_list)
-		if(M == summoner || (M in dead_mob_list))
-			M << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	src << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	log_say("[src.real_name]/[src.key] : [input]")
+		if(M == summoner)
+			M << "<span class='changeling'><i>[src]:</i> [input]</span>"
+		else if (M in dead_mob_list)
+			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+	log_say("Guardian Communication: [src.real_name]/[src.key] : [input]")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	src << "<span class='danger'><B>You dont have another mode!</span></B>"
@@ -150,11 +152,11 @@
 		if(istype (M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
-				G << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
+				G << "<span class='changeling'><i>[src]:</i> [input]</span>"
 		else if (M in dead_mob_list)
-			M << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	src << "<span class='boldannounce'><i>[src]:</i> [input]</span>"
-	log_say("[src.real_name]/[src.key] : [text]")
+			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
+	log_say("Guardian Communication: [src.real_name]/[src.key] : [text]")
 
 /mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
@@ -314,6 +316,7 @@
 	var/turf/simulated/floor/beacon
 	var/beacon_cooldown = 0
 	var/toggle = FALSE
+	var/heal_cooldown = 0
 
 /mob/living/simple_animal/hostile/guardian/healer/sealhealer
 	name = "Seal Sprit"
@@ -347,11 +350,14 @@
 			src << "<span class='danger'><B>You must be manifested to heal!</span></B>"
 			return
 		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			C.adjustBruteLoss(-5)
-			C.adjustFireLoss(-5)
-			C.adjustOxyLoss(-5)
-			C.adjustToxLoss(-5)
+			src.changeNext_move(CLICK_CD_MELEE)
+			if(heal_cooldown <= world.time && !stat)
+				var/mob/living/carbon/C = target
+				C.adjustBruteLoss(-5)
+				C.adjustFireLoss(-5)
+				C.adjustOxyLoss(-5)
+				C.adjustToxLoss(-5)
+				heal_cooldown = world.time + 20
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(src.loc == summoner)
@@ -452,7 +458,7 @@
 	melee_damage_upper = 10
 	damage_transfer = 0.9
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_cap = 0
+	ranged_cooldown_cap = 1
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13
