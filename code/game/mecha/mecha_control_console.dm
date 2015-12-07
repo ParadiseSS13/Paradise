@@ -1,5 +1,5 @@
 /obj/machinery/computer/mecha
-	name = "Exosuit Control"
+	name = "exosuit control"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"

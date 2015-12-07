@@ -5,14 +5,14 @@
 	req_one_access_txt = "24;10"
 
 	name = "air scrubber"
-	desc = "Has a valve and pump attached to it"
+	desc = "It has a valve and pump attached to it."
 
 	use_power = 1
 	idle_power_usage = 10
 	active_power_usage = 60
 
 	can_unwrench = 1
-	
+
 	var/area/initial_loc
 	var/id_tag = null
 	var/frequency = 1439
@@ -364,7 +364,7 @@
 		return MT_UPDATE
 
 	return ..()
-	
+
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
 

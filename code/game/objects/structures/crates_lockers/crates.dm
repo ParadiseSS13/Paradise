@@ -347,14 +347,14 @@
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
-	name = "Internals crate"
+	name = "internals crate"
 	icon_state = "o2crate"
 	icon_opened = "o2crateopen"
 	icon_closed = "o2crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
-	name = "Trash Cart"
+	name = "trash cart"
 	icon_state = "trashcart"
 	icon_opened = "trashcartopen"
 	icon_closed = "trashcart"
@@ -377,14 +377,14 @@
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
-	name = "Medical crate"
+	name = "medical crate"
 	icon_state = "medicalcrate"
 	icon_opened = "medicalcrateopen"
 	icon_closed = "medicalcrate"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
-	name = "RCD crate"
+	name = "\improper RCD crate"
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"
@@ -398,7 +398,7 @@
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
-	name = "Freezer"
+	name = "freezer"
 	icon_state = "freezer"
 	icon_opened = "freezeropen"
 	icon_closed = "freezer"
@@ -426,7 +426,7 @@
 
 /obj/structure/closet/crate/bin
 	desc = "A large bin."
-	name = "Large bin"
+	name = "large bin"
 	icon_state = "largebin"
 	icon_opened = "largebinopen"
 	icon_closed = "largebin"
@@ -550,7 +550,7 @@
 	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
-	name = "Hydroponics crate"
+	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."
 	icon_state = "hydrocrate"
 	icon_opened = "hydrocrateopen"

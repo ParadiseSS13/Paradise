@@ -120,7 +120,7 @@
 //Paramedic
 
 /obj/structure/closet/paramedic
-	name = "Paramedic Wardrobe"
+	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "blue"
 	icon_closed = "blue"

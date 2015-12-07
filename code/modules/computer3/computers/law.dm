@@ -1,7 +1,7 @@
 
 
 /obj/machinery/computer3/aiupload
-	name = "AI Upload"
+	name = "\improper AI upload"
 	desc = "Used to upload laws to the AI."
 	icon_state = "frame-rnd"
 	var/mob/living/silicon/ai/current = null
@@ -52,7 +52,7 @@
 
 
 /obj/machinery/computer3/borgupload
-	name = "Cyborg Upload"
+	name = "cyborg upload"
 	desc = "Used to upload laws to Cyborgs."
 	icon_state = "frame-rnd"
 	var/mob/living/silicon/robot/current = null
