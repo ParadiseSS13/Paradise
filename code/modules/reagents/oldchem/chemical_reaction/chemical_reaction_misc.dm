@@ -109,8 +109,9 @@
 		name = "Luminol"
 		id = "luminol"
 		result = "luminol"
-		required_reagents = list("hydrogen" = 2, "carbon" = 2, "ammonia" = 2)
-		result_amount = 6
+		required_reagents = list("fuel" = 1, "ammonia" = 1, "space cleaner" = 1, "sodium" = 1, "sulfur" = 1)
+		result_amount = 5
+		mix_message = "The mixture settles into a lightly oily transparant liquid."
 
 	sulfuric_acid
 		name = "Sulfuric Acid"
