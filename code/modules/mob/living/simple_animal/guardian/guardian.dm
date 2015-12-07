@@ -316,6 +316,7 @@
 	var/turf/simulated/floor/beacon
 	var/beacon_cooldown = 0
 	var/toggle = FALSE
+	var/heal_cooldown = 0
 
 /mob/living/simple_animal/hostile/guardian/healer/sealhealer
 	name = "Seal Sprit"
@@ -331,7 +332,6 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
-	var/heal_cooldown = 0
 	adminseal = TRUE
 
 
