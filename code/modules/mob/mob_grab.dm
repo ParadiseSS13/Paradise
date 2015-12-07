@@ -37,6 +37,8 @@
 	loc = user
 	assailant = user
 	affecting = victim
+	if(user.pulling)
+		user.stop_pulling()
 
 	if(affecting.anchored)
 		qdel(src)
