@@ -440,9 +440,10 @@
 			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 			return
 
-	shuttle_master.requestEvac(user, "Automatic Crew Transfer")
-	log_game("[key_name(user)] has called the shuttle.")
-	message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
+	shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+	if(user)
+		log_game("[key_name(user)] has called the shuttle.")
+		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
 

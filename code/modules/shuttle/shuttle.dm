@@ -659,11 +659,33 @@
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
+
 /obj/machinery/computer/shuttle/ert
 	name = "ert shuttle console"
 	//circuit = /obj/item/weapon/circuitboard/ert
 	shuttleId = "ert"
 	possible_destinations = "ert_home;ert_away"
+
+
+/obj/machinery/computer/shuttle/white_ship
+	name = "White Ship Console"
+	desc = "Used to control the White Ship."
+	circuit = /obj/item/weapon/circuitboard/white_ship
+	shuttleId = "whiteship"
+	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
+
+
+/obj/machinery/computer/shuttle/syndicate
+	name = "syndicate shuttle terminal"
+	icon_screen = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	req_access = list(access_syndicate)
+	shuttleId = "syndicate"
+	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_z4;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
+
+/obj/machinery/computer/shuttle/syndicate/recall
+	name = "syndicate shuttle recall terminal"
+	possible_destinations = "syndicate_away"
 
 
 #undef DOCKING_PORT_HIGHLIGHT

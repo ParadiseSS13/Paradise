@@ -163,6 +163,27 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle2"
 
 
+/area/shuttle/pod_1
+	name = "\improper Escape Pod One"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+/area/shuttle/pod_2
+	name = "\improper Escape Pod Two"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+/area/shuttle/pod_3
+	name = "\improper Escape Pod Three"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+/area/shuttle/pod_4
+	name = "\improper Escape Pod Four"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
 	music = "music/escape.ogg"
