@@ -234,6 +234,9 @@
 	if(grown_seed.get_trait(TRAIT_PRODUCES_POWER))
 		dat += "<br>The fruit will function as a battery if prepared appropriately."
 
+	if(grown_seed.get_trait(TRAIT_BATTERY_RECHARGE))
+		dat += "<br>The fruit hums with an odd electrical energy."
+
 	if(grown_seed.get_trait(TRAIT_STINGS))
 		dat += "<br>The fruit is covered in stinging spines."
 

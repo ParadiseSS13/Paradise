@@ -655,7 +655,7 @@
 	name = "glowshroom"
 	seed_name = "glowshroom"
 	display_name = "glowshrooms"
-	mutants = null
+	mutants = list("glowcap")
 	chems = list("radium" = list(1,20))
 	preset_icon = "glowshroom"
 
@@ -672,6 +672,20 @@
 	set_trait(TRAIT_PLANT_COLOUR,"#EFFF8A")
 	set_trait(TRAIT_PLANT_ICON,"mushroom7")
 	set_trait(TRAIT_RARITY,20)
+
+/datum/seed/mushroom/glowshroom/glowcap
+	name = "glowcap"
+	seed_name = "glowcap"
+	display_name = "glowcaps"
+	mutants = null
+	preset_icon = "glowcap"
+
+/datum/seed/mushroom/glowshroom/glowcap/New()
+	..()
+	set_trait(TRAIT_BIOLUM_COLOUR,"#8E0300")
+	set_trait(TRAIT_PRODUCT_COLOUR,"#C65680")
+	set_trait(TRAIT_PLANT_COLOUR,"#B72D68")
+	set_trait(TRAIT_BATTERY_RECHARGE,1)
 
 /datum/seed/mushroom/plastic
 	name = "plastic"
