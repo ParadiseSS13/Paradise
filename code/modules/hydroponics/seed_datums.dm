@@ -132,6 +132,7 @@
 	chems = list("plantmatter" = list(1,50), "sacid" = list(0,1))
 	kitchen_tag = "nettle"
 	preset_icon = "nettle"
+	final_form = 0
 
 /datum/seed/nettle/New()
 	..()

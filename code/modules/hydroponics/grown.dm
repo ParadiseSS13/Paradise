@@ -429,6 +429,22 @@
 				user.put_in_hands(NF)
 				qdel(src)
 				return
+			if("nettle")
+				var/obj/item/weapon/grown/nettle/nettle = new /obj/item/weapon/grown/nettle(user.loc)
+				nettle.force = round((5 + potency / 5), 1)
+				user << "You straighten up the plant."
+				user.unEquip(src)
+				user.put_in_hands(nettle)
+				qdel(src)
+				return
+			if("deathnettle")
+				var/obj/item/weapon/grown/nettle/death/DN = new /obj/item/weapon/grown/nettle/death(user.loc)
+				DN.force = round((5 + potency / 2.5), 1)
+				user << "You straighten up the plant."
+				user.unEquip(src)
+				user.put_in_hands(DN)
+				qdel(src)
+				return
 			if("cashpod")
 				user << "You crack open the cash pod..."
 				var/value = round(seed.get_trait(TRAIT_POTENCY))
