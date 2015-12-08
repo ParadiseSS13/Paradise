@@ -196,9 +196,10 @@
 
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)
-		var/desired = input("How much?", "How much would you like to grab from the stack?", 1) as null|num
+		var/desired = input("How much would you like to grab from the stack?", "How much?", 1) as null|num
 		if(!desired)
 			return
+		desired = round(desired)
 		desired = max(1,min(desired,src.max_amount,src.amount))
 		var/obj/item/stack/F = new src.type( user, desired)
 		F.copy_evidences(src)
@@ -221,9 +222,10 @@
 			return 1
 		var/to_transfer as num
 		if (user.get_inactive_hand()==src)
-			var/desired = input("How much?", "How much would you like to grab from the stack?", 1) as null|num
+			var/desired = input("How much would you like to grab from the stack?", "How much?", 1) as null|num
 			if(!desired)
 				return
+			desired = round(desired)
 			to_transfer = max(1,min(desired,S.max_amount-S.amount,src.amount))
 		else
 			to_transfer = min(src.amount, S.max_amount-S.amount)

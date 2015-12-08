@@ -510,10 +510,11 @@ proc/CallMaterialName(ID)
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets
 		if (href_list["lathe_ejectsheet_amt"] == "custom")
-			desired_num_sheets = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
 			if (!desired_num_sheets)
 				return
+			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
 			desired_num_sheets = text2num(href_list["lathe_ejectsheet_amt"])
 		var/MAT
@@ -539,10 +540,11 @@ proc/CallMaterialName(ID)
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
 		if (href_list["imprinter_ejectsheet_amt"] == "custom")
-			desired_num_sheets = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
 			if (!desired_num_sheets)
 				return
+			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
 			desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
 		var/res_amount, type

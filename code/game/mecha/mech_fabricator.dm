@@ -460,10 +460,11 @@
 		var/amount = text2num(href_list["remove_mat"])
 		var/material = href_list["material"]
 		if(href_list["custom_eject"])
-			amount = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
 			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
 			if (!amount)
 				return
+			amount = round(amount)
 		if(amount < 0 || amount > resources[material]) //href protection, except that resources[] is 2000 per sheet
 			return
 
