@@ -5,9 +5,9 @@ datum/preferences
 			gender = gender_override
 		else
 			gender = pick(MALE, FEMALE)
-		underwear = random_underwear(gender, species)
-		undershirt = random_undershirt(gender, species)
-		socks = random_socks(gender, species)
+		underwear = random_underwear(gender)
+		undershirt = random_undershirt(gender)
+		socks = random_socks(gender)
 		if(species == "Human")
 			s_tone = random_skin_tone()
 		h_style = random_hair_style(gender, species)
