@@ -20,6 +20,20 @@
 	new choice(loc)
 	qdel(src)
 
+/obj/machinery/arcade/examine(mob/user)
+	..(user)
+	if(freeplay)
+		user << "Someone enabled freeplay on this machine!"
+	else
+		if(token_price)
+			user << "\The [src.name] costs [token_price] credits per play."
+		if(!tokens)
+			user << "\The [src.name] has no available play credits. Better feed the machine!"
+		else if(tokens == 1)
+			user << "\The [src.name] has only 1 play credit left!"
+		else
+			user << "\The [src.name] has [tokens] play credits!"
+
 /obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)

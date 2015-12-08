@@ -1,14 +1,266 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Crane game</title>
 	<link rel="stylesheet" type="text/css" href="page.css" />
-  	<script src="./jquery.js"></script>
-	<script src="./Crane.js"></script>
-	<script src="./Prize.js"></script>
-	<script src="./main.js"></script>	
+	<script src="libraries.min.js"></script>
+	<!-- Prize.js --><script>
+	function Prize(id,css, crane) {
+		var top = css['top'];  
+		var left = css['left'];
+		var original_left = css['left'];
+		hspd = 15;
+		vspd = 5;
+		var state = 'falling';
+		var error;
+
+		var rand = Math.floor(Math.random()*10);
+		css['background'] = 'url(prize_inside.png) no-repeat center';
+		var pic = $('<div></div>').attr({'id':'prize'+id,class:'prize-ball'}).css(css);
+		var ball = $('<div></div>').css({height: 60,'background':'url(prizeorbs.png) no-repeat -4px -'+62*rand+'px'});
+		$(pic).append(ball);
+		$('#game').append(pic);
+
+		//console.log(crane);
+		this.GetState = function() {return state};
+		
+		var CheckBoundaries = function () {
+			
+			if(left < 52)
+				left = 52;
+			else if(left > 812)
+				left = 812;	
+			
+			if(top < 30)
+				top = 30;
+			else if(top > 347 && state !='won' && state !='hidden') {
+				top = 347;	
+				state = 'resting';
+			} else if(top > 500 && state =='won') {
+				top=500;
+			}
+		};
+		
+		var CheckGrabbed = function() {
+			 
+			var tmp = Math.floor(Math.random()*100);
+			if(tmp>error) {
+				setTimeout(function(){
+					state='falling';
+					$('#debug-streak').html(0); //reset streak
+					document.getElementById("lose_btn").click();
+				},4*error+300);
+			 } 
+			 
+			state = 'is grabbed';
+		};
+		
+		var IsGrabbed = function() {
+			top = crane.GetTop()+65;
+			
+			if(top > 347) 
+				top = 347;	
+				
+			left = crane.GetLeft()+23;
+			if(left <= 60) {
+				left = 60;
+				state = 'won';
+			} 
+		};
+		
+		this.GetError = function(offset) {
+			return Math.floor(160/(.1*offset+1)-60);
+		};
+		
+		this.Update = function () {
+		
+			if(crane.GetState() == 'down' && state=='resting') {
+				var offset = Math.abs(left - crane.GetLeft()-23);
+				error = this.GetError(offset);
+				if(error > 0) {				
+					state = 'being grabbed';
+					$('#debug-errorpx').html(Math.abs(offset)+'px');
+					$('#debug-errordrop').html(error+'%');//debugging
+				}
+			}
+			
+			if(crane.GetState() == 'up' && state=='being grabbed')
+				CheckGrabbed();
+			
+			if((crane.GetState() == 'drop' || crane.GetState() == 'up') && state=='is grabbed')
+				IsGrabbed();
+			
+			if(state=='falling'||state=='won')
+				top += vspd;
+			
+			if(state=='won' && top > 460) {
+				$('#prize'+id).remove();//css({visibility:'hidden'});
+				state='hidden';
+				
+				prizeWon = true;
+				document.getElementById("win_btn").click();
+				
+				//$('#debug-streak').html(parseInt($('#debug-streak').html())+1); //inc streak
+				
+				//spawn new prize
+				/*
+				setTimeout(function(){
+					prizes[prizes.length] = new Prize(prizes.length,{top: Math.ceil(Math.random()*100),left: original_left},crane);}
+					,1000);	
+				*/
+			}
+			
+			CheckBoundaries();
+		};
+		
+		this.Repaint = function () {
+			$('#prize'+id).css({'top':top, 'left':left});
+			//$('#'+id+' #crane-handle-top').css({height: handleHeight});
+		};
+		
+	}</script>
+	<!-- Crane.js --><script>
+	function Crane(id) {
+		//console.log("crane created");
+		var top = 131; //private
+		var left = 100;
+		var hspd = 6;
+		var vspd = 4;
+		var state = false;
+		var handleHeight = 83;
+		var frames = {
+			normal: {'background-position': '-36px -34px',left:11},
+			half: {'background-position': '-36px -148px',left:6},
+			open: {'background-position': '-28px -270px',left:-2}
+		};
+		
+		this.GetState = function() {return state};
+		this.GetLeft = function() {return left};
+		this.GetTop = function() {return top};
+		
+		var Grab = function () {
+			top += (state == 'down')?vspd:-vspd; 
+			handleHeight += (state == 'down')?vspd:-vspd;
+
+			if(top > 300 && state == 'down') { //when going down
+				top = 300;
+				//handleHeight = ;
+				state = 'up';
+				$('#'+id+' #crane-claw').css(frames['half']); 
+			} else if(top < 131 && state == 'up') { //when going up
+				top = 131;
+				handleHeight = 83;
+				state = 'drop';
+				
+			} else if(state == 'drop') { //when up and dropping
+				left -= hspd;
+				top = 131;
+				handleHeight = 83;
+				if(left < 30) {
+					left = 30;
+					$('#'+id+' #crane-claw').css(frames['open']);
+					setTimeout(function(){$('#'+id+' #crane-claw').css(frames['normal']);state = false;},500);
+					
+				}
+			}
+		};
+		
+		var CheckBoundaries = function () {
+			
+			if(left < 30)
+				left = 30;
+			else if(left > 788)
+				left = 788;	
+		};
+		
+		this.Update = function () {
+			//console.log(left);
+			if(keys["left"] && !state) //left
+				left -= hspd;
+				
+			if(keys["right"] && !state) //right
+				left += hspd;
+				
+			if(keys["down"] && !state) { //space
+				state = 'down';
+				
+				$('#'+id+' #crane-claw').css(frames['open']);
+			}
+			
+			if(state) {
+				Grab();
+			}
+				
+			CheckBoundaries();
+		};
+		
+		this.Repaint = function () {
+			$('#'+id).css({'top':top, 'left':left});
+			$('#'+id+' #crane-handle-top').css({height: handleHeight});
+		};
+	}</script>
+	<!-- main.js --><script>
+	var crane = new Crane('crane');
+	var keys = [];
+	var prizes = [];
+	var prizeWon = false;
+
+	window.requestAnimFrame = (function(callback){
+		return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback){
+			window.setTimeout(callback, 1000 / 30);
+		};
+	})();
+
+	function animate(){
+		//console.log("animate called");
+		crane.Update();
+		
+		for(var i = 0; i< prizes.length; i++)
+			prizes[i].Update();
+		
+		for(var i = 0; i< prizes.length; i++)
+			prizes[i].Repaint();
+			
+		crane.Repaint();
+		
+		requestAnimFrame(function(){
+			animate();
+		});
+	}
+
+	function joystickControlOn(direction){
+		//console.log(direction);
+		keys[direction] = true;
+	}
+
+	function joystickControlOff(direction){
+		//console.log(direction);
+		keys[direction] = false;
+	}
+
+	function gameStartUp(){ //main function
+		//console.log("game start!");
+		document.getElementById("play_btn").disabled = true;	//to prevent button-mashing the start button.
+		for(var i = 0; i< 5; i++)
+			prizes[i] = new Prize(i,{top: Math.ceil(Math.random()*100),left: 400+i*100-Math.ceil(Math.random()*50)},crane);
+			//console.log("prize made");
+		
+		//crane.Repaint();
+		animate();
+	}
+	
+	function gameShutDown(){
+		if(prizeWon != true)
+			document.getElementById("lose_btn").click();
+	}</script>
 	</head>
-	<body>
+	<body onunload="gameShutDown()">
 	
 		<div id='game' style='position: relative;'>
 			<div id="background"></div>
@@ -28,7 +280,7 @@
 		</div>
 		
 		<div style='position: absolute; top: 550px'>
-			<br><button onclick="gameStartUp()">Play Now!</button>
+			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button><a id="win_btn" href='byond://?src=\ref[src];prizeWon=1' hidden="true"></a><a id="lose_btn" href='byond://?src=\ref[src];prizeWon=0' hidden="true"></a>
 			<br>
 			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
 			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>

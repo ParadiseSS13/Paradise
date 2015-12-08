@@ -7,6 +7,14 @@
 	token_price = 15
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
 
+	//This is to make sure the images are available
+	var/list/img_resources = list('icons/obj/arcade_images/backgroundsprite.png',
+								'icons/obj/arcade_images/clawpieces.png',
+								'icons/obj/arcade_images/crane_bot.png',
+								'icons/obj/arcade_images/crane_top.png',
+								'icons/obj/arcade_images/prize_inside.png',
+								'icons/obj/arcade_images/prizeorbs.png')
+
 /obj/machinery/arcade/claw/New()
 	component_parts = list()
 	//component_parts += new /obj/item/weapon/circuitboard/clawgame(null)
@@ -35,6 +43,7 @@
 
 /obj/machinery/arcade/claw/proc/win()
 	icon_state = "clawmachine_win"
+	usr << "YOU WIN!"
 	//if(prob(bonus_prize_chance))
 		//double prize mania!
 	//	new /obj/item/toy/prizeball(get_turf(src))
@@ -48,51 +57,27 @@
 /obj/machinery/arcade/claw/interact(mob/user as mob)
 	if(stat & BROKEN || panel_open)
 		return
-	if(!tokens)
+	if(!tokens && !freeplay)
 		user << "The game doesn't have enough credits to play! Pay first!"
 		return
 	if(!playing && tokens)
 		user.set_machine(src)
 		playing = 1
-		tokens -= 1
+		if(!freeplay)
+			tokens -= 1
 	if(playing && (src != user.machine))
 		user << "Someone else is already playing, please wait your turn!"
 		return
+
+	user << browse_rsc('page.css')
+	for(var/i=1, i<=img_resources.len, i++)
+		user << browse_rsc(img_resources[i])
 	user << browse('crane.html', "window=Claw Game;size=600x600")
-	/*
-	var/dat
-	var/datum/browser/clawgame = new(user, "clawgame", name, 600, 600)
-	clawgame.add_stylesheet("claw", 'code/modules/arcade/page.css')
-	clawgame.add_script("crane", 'code/modules/arcade/Crane.js')
-	clawgame.add_script("prize", 'code/modules/arcade/Prize.js')
-	clawgame.add_script("main", 'code/modules/arcade/main.js')
-
-	dat += "<div id='game' style='position: relative;'>"
-	dat += "<div id='background'></div>"
-
-	dat += "<div id='crane'>"
-	dat += "<div id='crane-handle-top'></div>"
-	dat += "<div id='crane-handle-bottom'></div>"
-
-	dat += "<div id='crane-claw'></div>"
-	dat += "<div id='crane-center'></div>"
-	dat += "</div>"
-
-	dat += "<div id='grayorbs-chute'></div>"
-
-	dat += "<div id='foreground'></div>"
-
-	dat += "</div>"
-
-	dat += "<div style='position: absolute; top: 550px'>"
-	dat += "<br><button onclick='gameStartUp()'>Play Now!</button>"
-	dat += "<br>"
-	dat += "<button onmouseover='joystickControlOn('left')' onmouseout='joystickControlOff('left')'>MOVE<br>LEFT</button>"
-	dat += "<button onmousedown='joystickControlOn('down')' onmouseup='joystickControlOff('down')'>DROP<br>CLAW</button>"
-	dat += "<button onmouseover='joystickControlOn('right')' onmouseout='joystickControlOff('right')'>MOVE<br>RIGHT</button>"
-	dat += "</div>"
-
-	clawgame.set_content(dat)
-	clawgame.open()
-	*/
 	return
+
+/obj/machinery/arcade/claw/Topic(href, list/href_list)
+	if(..())
+		return
+	if(href_list["prizeWon"])
+		usr << browse(null, "window=Claw Game")	//just in case
+		win()
