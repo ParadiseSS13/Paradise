@@ -3,7 +3,6 @@
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
-	slowdown = 1
 	armor = list(melee = 60, bullet = 30/*bullet through the visor*/, laser = 60, energy = 60, bomb = 30, bio = 90, rad = 90)
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -23,7 +22,6 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	action_button_name = "Toggle Chronosuit"
-	slowdown = 2
 	armor = list(melee = 60, bullet = 60, laser = 60, energy = 60, bomb = 30, bio = 90, rad = 90)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null

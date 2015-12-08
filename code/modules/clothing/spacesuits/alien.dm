@@ -62,7 +62,6 @@
 	desc = "A cheap NT knock-off of a Unathi battle-rig. Looks like a fish, moves like a fish, steers like a cow."
 	icon_state = "rig-unathi-cheap"
 	item_state = "rig-unathi-cheap"
-	slowdown = 3
 
 /obj/item/clothing/head/helmet/space/unathi/breacher
 	name = "breacher helm"
@@ -77,14 +76,12 @@
 	icon_state = "unathi_breacher"
 	item_state = "unathi_breacher"
 	item_color = "unathi_breacher"
-	slowdown = 1
 
 // Vox space gear (vaccuum suit, low pressure armour)
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = 3
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
-	slowdown = 2
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.6
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS

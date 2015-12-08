@@ -25,7 +25,6 @@
 	item_state = "capspacesuit"
 	w_class = 4
 	allowed = list(/obj/item/weapon/tank, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
-	slowdown = 1
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
 	siemens_coefficient = 0.7
 	species_restricted = list("exclude", "Diona", "Wryn")
@@ -57,7 +56,6 @@
 	item_state = "swat_suit"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	armor = list(melee = 80, bullet = 80, laser = 50,energy = 50, bomb = 100, bio = 100, rad = 100)
-	slowdown = 1
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
@@ -139,7 +137,6 @@
 	icon_state = "spacenew"
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
-	slowdown = 1
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 
 /obj/item/clothing/head/helmet/space/eva
@@ -197,7 +194,6 @@
 	item_state = "freedom"
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	armor = list(melee = 40, bullet = 40, laser = 30,energy = 25, bomb = 100, bio = 100, rad = 100)
-	slowdown = 1
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
