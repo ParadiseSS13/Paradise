@@ -211,12 +211,12 @@
 //Drones killed by damage will gib.
 /mob/living/silicon/robot/drone/handle_regular_status_updates()
 
-	if(health <= -35 && src.stat != 2)
+	if(health <= -35 && src.stat != DEAD)
 		timeofdeath = world.time
 		death() //Possibly redundant, having trouble making death() cooperate.
 		gib()
 		return
-	..()
+	return ..() // If you don't return anything here, you won't update status effects, like weakening
 
 /mob/living/silicon/robot/drone/death(gibbed)
 
