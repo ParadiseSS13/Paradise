@@ -196,12 +196,16 @@
 
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)
-		var/obj/item/stack/F = new src.type( user, 1)
+		var/desired = input("How much?", "How much would you like to grab from the stack?", 1) as null|num
+		if(!desired)
+			return
+		desired = max(1,min(desired,src.max_amount,src.amount))
+		var/obj/item/stack/F = new src.type( user, desired)
 		F.copy_evidences(src)
 		user.put_in_hands(F)
 		src.add_fingerprint(user)
 		F.add_fingerprint(user)
-		use(1)
+		use(desired)
 		if (src && usr.machine==src)
 			spawn(0) src.interact(usr)
 	else
@@ -217,7 +221,10 @@
 			return 1
 		var/to_transfer as num
 		if (user.get_inactive_hand()==src)
-			to_transfer = 1
+			var/desired = input("How much?", "How much would you like to grab from the stack?", 1) as null|num
+			if(!desired)
+				return
+			to_transfer = max(1,min(desired,S.max_amount-S.amount,src.amount))
 		else
 			to_transfer = min(src.amount, S.max_amount-S.amount)
 		S.amount+=to_transfer

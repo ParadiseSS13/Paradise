@@ -508,7 +508,14 @@ proc/CallMaterialName(ID)
 		linked_lathe.reagents.clear_reagents()
 
 	else if(href_list["lathe_ejectsheet"] && linked_lathe) //Causes the protolathe to eject a sheet of material
-		var/desired_num_sheets = text2num(href_list["lathe_ejectsheet_amt"])
+		var/desired_num_sheets
+		if (href_list["lathe_ejectsheet_amt"] == "custom")
+			desired_num_sheets = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
+			if (!desired_num_sheets)
+				return
+		else
+			desired_num_sheets = text2num(href_list["lathe_ejectsheet_amt"])
 		var/MAT
 		switch(href_list["lathe_ejectsheet"])
 			if("metal")
@@ -531,6 +538,13 @@ proc/CallMaterialName(ID)
 
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
 		var/desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
+		if (href_list["imprinter_ejectsheet_amt"] == "custom")
+			desired_num_sheets = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
+			if (!desired_num_sheets)
+				return
+		else
+			desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
 		var/res_amount, type
 		switch(href_list["imprinter_ejectsheet"])
 			if("glass")
@@ -921,57 +935,73 @@ proc/CallMaterialName(ID)
 			dat += "<h3>Material Storage:</h3><BR><HR>"
 			//Metal
 			var/m_amount = linked_lathe.materials.amount(MAT_METAL)
-			dat += "* [m_amount] of Metal: "
-			if(m_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=metal;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [m_amount] of Metal, [round(m_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(m_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=metal;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=metal;lathe_ejectsheet_amt=custom'>C</A> "
 			if(m_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=metal;lathe_ejectsheet_amt=5'>5x</A> "
 			if(m_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=metal;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Glass
 			var/g_amount = linked_lathe.materials.amount(MAT_GLASS)
-			dat += "* [g_amount] of Glass: "
-			if(g_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=glass;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [g_amount] of Glass, [round(g_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(g_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=glass;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=glass;lathe_ejectsheet_amt=custom'>C</A> "
 			if(g_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=glass;lathe_ejectsheet_amt=5'>5x</A> "
 			if(g_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=glass;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Gold
 			var/gold_amount = linked_lathe.materials.amount(MAT_GOLD)
-			dat += "* [gold_amount] of Gold: "
-			if(gold_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=gold;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [gold_amount] of Gold, [round(gold_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(gold_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=gold;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=gold;lathe_ejectsheet_amt=custom'>C</A> "
 			if(gold_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=gold;lathe_ejectsheet_amt=5'>5x</A> "
 			if(gold_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=gold;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Silver
 			var/silver_amount = linked_lathe.materials.amount(MAT_SILVER)
-			dat += "* [silver_amount] of Silver: "
-			if(silver_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=silver;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [silver_amount] of Silver, [round(silver_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(silver_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=silver;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=silver;lathe_ejectsheet_amt=custom'>C</A> "
 			if(silver_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=silver;lathe_ejectsheet_amt=5'>5x</A> "
 			if(silver_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=silver;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Plasma
 			var/plasma_amount = linked_lathe.materials.amount(MAT_PLASMA)
-			dat += "* [plasma_amount] of Solid Plasma: "
-			if(plasma_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=plasma;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [plasma_amount] of Solid Plasma, [round(plasma_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(plasma_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=plasma;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=plasma;lathe_ejectsheet_amt=custom'>C</A> "
 			if(plasma_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=plasma;lathe_ejectsheet_amt=5'>5x</A> "
 			if(plasma_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=plasmalathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Uranium
 			var/uranium_amount = linked_lathe.materials.amount(MAT_URANIUM)
-			dat += "* [uranium_amount] of Uranium: "
-			if(uranium_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=uranium;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [uranium_amount] of Uranium, [round(uranium_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(uranium_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=uranium;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=uranium;lathe_ejectsheet_amt=custom'>C</A> "
 			if(uranium_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=uranium;lathe_ejectsheet_amt=5'>5x</A> "
 			if(uranium_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=uranium;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Diamond
 			var/diamond_amount = linked_lathe.materials.amount(MAT_DIAMOND)
-			dat += "* [diamond_amount] of Diamond: "
-			if(diamond_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=diamond;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [diamond_amount] of Diamond, [round(diamond_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(diamond_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=diamond;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=diamond;lathe_ejectsheet_amt=custom'>C</A> "
 			if(diamond_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=diamond;lathe_ejectsheet_amt=5'>5x</A> "
 			if(diamond_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=diamond;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Bananium
 			var/bananium_amount = linked_lathe.materials.amount(MAT_BANANIUM)
-			dat += "* [bananium_amount] of Bananium: "
-			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [bananium_amount] of Bananium, [round(bananium_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=custom'>C</A> "
 			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=5'>5x</A> "
 			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "</div>"
@@ -1074,20 +1104,26 @@ proc/CallMaterialName(ID)
 			dat += "<A href='?src=\ref[src];menu=4.1'>Circuit Imprinter Menu</A><div class='statusDisplay'>"
 			dat += "<h3>Material Storage:</h3><BR><HR>"
 			//Glass
-			dat += "* [linked_imprinter.g_amount]  glass: "
-			if(linked_imprinter.g_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=glass;imprinter_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [linked_imprinter.g_amount]  glass, [round(linked_imprinter.g_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(linked_imprinter.g_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=glass;imprinter_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=glass;imprinter_ejectsheet_amt=custom'>C</A> "
 			if(linked_imprinter.g_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=glass;imprinter_ejectsheet_amt=5'>5x</A> "
 			if(linked_imprinter.g_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=glass;imprinter_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Gold
-			dat += "* [linked_imprinter.gold_amount] gold: "
-			if(linked_imprinter.gold_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=gold;imprinter_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [linked_imprinter.gold_amount] gold, [round(linked_imprinter.gold_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(linked_imprinter.gold_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=gold;imprinter_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=gold;imprinter_ejectsheet_amt=custom'>C</A> "
 			if(linked_imprinter.gold_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=gold;imprinter_ejectsheet_amt=5'>5x</A> "
 			if(linked_imprinter.gold_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=gold;imprinter_ejectsheet_amt=50'>All</A>"
 			dat += "<BR>"
 			//Diamond
-			dat += "* [linked_imprinter.diamond_amount] diamond: "
-			if(linked_imprinter.diamond_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=diamond;imprinter_ejectsheet_amt=1'>Eject</A> "
+			dat += "* [linked_imprinter.diamond_amount] diamond, [round(linked_imprinter.diamond_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(linked_imprinter.diamond_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=diamond;imprinter_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];imprinter_ejectsheet=diamond;imprinter_ejectsheet_amt=custom'>C</A> "
 			if(linked_imprinter.diamond_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=diamond;imprinter_ejectsheet_amt=5'>5x</A> "
 			if(linked_imprinter.diamond_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];imprinter_ejectsheet=diamond;imprinter_ejectsheet_amt=50'>All</A>"
 			dat += "</div>"

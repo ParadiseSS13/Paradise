@@ -149,9 +149,9 @@
 	var/output
 	for(var/resource in resources)
 		var/amount = min(res_max_amount, resources[resource])
-		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;"
+		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;, [round(resources[resource] / MINERAL_MATERIAL_AMOUNT,0.1)] sheets"
 		if(amount>0)
-			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
+			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=1;material=[resource];custom_eject=1'>Custom</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
 		output += "<br/>"
 	return output
 
@@ -319,8 +319,12 @@
 	interact(user)
 
 /obj/machinery/mecha_part_fabricator/attack_hand(mob/user)
-	if(!(..()))
-		return interact(user)
+	if(..())
+		return 1
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access denied.</span>"
+		return 1
+	return interact(user)
 
 /obj/machinery/mecha_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
@@ -455,7 +459,12 @@
 	if(href_list["remove_mat"] && href_list["material"])
 		var/amount = text2num(href_list["remove_mat"])
 		var/material = href_list["material"]
-		if(amount < 0 || amount > resources[material]) //href protection
+		if(href_list["custom_eject"])
+			amount = input("How much?", "How many sheets would you like to eject from the machine?", 1) as null|num
+			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
+			if (!amount)
+				return
+		if(amount < 0 || amount > resources[material]) //href protection, except that resources[] is 2000 per sheet
 			return
 
 		var/removed = remove_material(material,amount)
