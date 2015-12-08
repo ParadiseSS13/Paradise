@@ -219,10 +219,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/handroll
 	name = "hand-rolled cigarette"
 	desc = "A roll of tobacco and nicotine, freshly rolled by hand."
-	icon_state = "hr_cigoff"
-	item_state = "hr_cigoff"
-	icon_on = "hr_cigon"  //Note - these are in masks.dmi not in cigarette.dmi
-	icon_off = "hr_cigoff"
 	type_butt = /obj/item/weapon/cigbutt
 	chem_volume = 50
 
