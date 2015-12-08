@@ -29,7 +29,7 @@
 
 /obj/item/weapon/bee_net/verb/empty_bees()
 	set src in usr
-	set name = "Empty bee net"
+	set name = "empty bee net"
 	set category = "Object"
 	var/mob/living/carbon/M
 	if(iscarbon(usr))

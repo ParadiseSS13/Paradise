@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/operating
-	name = "Operating Computer"
+	name = "operating computer"
 	density = 1
 	anchored = 1.0
 	icon_keyboard = "med_key"

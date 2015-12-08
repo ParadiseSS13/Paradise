@@ -10,7 +10,7 @@
 
 
 /datum/file/program/holodeck
-	name = "Holodeck Control Console"
+	name = "holodeck control console"
 	desc = "Used to control a nearby holodeck."
 	active_state = "holocontrol"
 	var/area/linkedholodeck = null

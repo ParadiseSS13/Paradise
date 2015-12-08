@@ -171,7 +171,7 @@
 		reagents.add_reagent("rice", 30)
 
 /obj/item/weapon/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
-	name = "Salt Shaker"											//	a large one.
+	name = "salt shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
@@ -184,7 +184,7 @@
 		reagents.add_reagent("sodiumchloride", 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/peppermill
-	name = "Pepper Mill"
+	name = "pepper mill"
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
@@ -197,7 +197,7 @@
 		reagents.add_reagent("blackpepper", 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
-	name = "Chef Excellence's Special Sauce"
+	name = "/improper Chef Excellence's Special Sauce"
 	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
 	amount_per_transfer_from_this = 5
 	volume = 50

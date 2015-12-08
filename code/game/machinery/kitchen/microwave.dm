@@ -1,6 +1,6 @@
 
 /obj/machinery/kitchen_machine/microwave
-	name = "Microwave"
+	name = "microwave"
 	desc = "A microwave, perfect for reheating things with radiation."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"

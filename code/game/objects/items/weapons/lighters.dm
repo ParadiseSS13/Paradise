@@ -17,7 +17,7 @@
 	var/lit = 0
 
 /obj/item/weapon/lighter/zippo
-	name = "Zippo lighter"
+	name = "zippo lighter"
 	desc = "The zippo."
 	icon_state = "zippo"
 	item_state = "zippo"
@@ -101,7 +101,7 @@
 	icon_state = "zippo_nt_off"
 	icon_on = "zippo_nt_on"
 	icon_off = "zippo_nt_off"
-	
+
 /obj/item/weapon/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
@@ -109,20 +109,20 @@
 	icon_on = "bluezippoon"
 	icon_off = "bluezippo"
 
-/obj/item/weapon/lighter/zippo/black 
+/obj/item/weapon/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
 	icon_state = "blackzippo"
 	icon_on = "blackzippoon"
 	icon_off = "blackzippo"
 
-/obj/item/weapon/lighter/zippo/engraved 
+/obj/item/weapon/lighter/zippo/engraved
 	name = "engraved zippo lighter"
 	desc = "A intricately engraved zippo lighter."
 	icon_state = "engravedzippo"
 	icon_on = "engravedzippoon"
 	icon_off = "engravedzippo"
-	
+
 /obj/item/weapon/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."

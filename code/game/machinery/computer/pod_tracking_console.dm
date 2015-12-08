@@ -1,5 +1,5 @@
 /obj/machinery/computer/podtracker
-	name = "Pod Tracking Console"
+	name = "pod tracking console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "rdcomp"
@@ -9,10 +9,10 @@
 
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/computer/podtracker/attack_hand(user as mob)
 	ui_interact(user)
-	
+
 /obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	var/list/pods[0]
@@ -28,7 +28,7 @@
 			if(myPod.occupant2)
 				occupant2 = myPod.occupant2.name
 			pods.Add(list(list("pod" = "\ref[myPod]", "name" = podname, "occupant" = occupant, "occupant2" = occupant2, "x" = myPod.x, "y" = myPod.y, "z" = myPod.z)))
-			
+
 	data["pods"] = pods
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -42,6 +42,6 @@
 /obj/machinery/computer/podtracker/Topic(href, href_list)
 	if(..())
 		return 1
-	
+
 	if(href_list["refresh"])
 		nanomanager.update_uis(src)

@@ -1,5 +1,5 @@
 /obj/machinery/computer/cloning
-	name = "Cloning Console"
+	name = "cloning console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"

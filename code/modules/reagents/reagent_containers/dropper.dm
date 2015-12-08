@@ -2,7 +2,7 @@
 /// Droppers.
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/weapon/reagent_containers/dropper
-	name = "Dropper"
+	name = "dropper"
 	desc = "A dropper. Transfers 5 units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dropper"
@@ -121,7 +121,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /obj/item/weapon/reagent_containers/dropper/precision
-	name = "Pipette"
+	name = "pipette"
 	desc = "A high precision pippette. Holds 1 unit."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pipette"

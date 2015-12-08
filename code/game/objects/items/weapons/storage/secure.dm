@@ -197,7 +197,7 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	force = 8.0
-	w_class = 8.0
+	w_class = 5.0
 	max_w_class = 8
 	anchored = 1.0
 	density = 0
