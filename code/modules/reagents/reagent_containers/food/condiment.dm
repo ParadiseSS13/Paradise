@@ -197,7 +197,7 @@
 		reagents.add_reagent("blackpepper", 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/syndisauce
-	name = "/improper Chef Excellence's Special Sauce"
+	name = "\improper Chef Excellence's Special Sauce"
 	desc = "A potent sauce extracted from the potent amanita mushrooms. Death never tasted quite so delicious."
 	amount_per_transfer_from_this = 5
 	volume = 50

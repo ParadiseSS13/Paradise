@@ -23,7 +23,7 @@
 		return dat
 
 /obj/item/weapon/implantcase/exile
-	name = "/improper Glass Case- 'Exile'"
+	name = "\improper Glass Case- 'Exile'"
 	desc = "A case containing an exile implant."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implantcase-r"
