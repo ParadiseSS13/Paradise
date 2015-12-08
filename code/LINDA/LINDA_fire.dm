@@ -26,9 +26,10 @@
 	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.toxins > 0.5)
 		igniting = 1
 
-	var/obj/effect/decal/cleanable/liquid_fuel/liquid = locate() in src
-	if(liquid)
+	var/liquid
+	for(var/obj/effect/decal/cleanable/liquid_fuel/L in src)
 		igniting = 1
+		liquid = 1
 		if(exposed_temperature < 700)
 			exposed_temperature = 700
 		if(exposed_volume < 500)
