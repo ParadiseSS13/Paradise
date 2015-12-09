@@ -16,7 +16,8 @@
 	for(var/obj/effect/decal/cleanable/liquid_fuel/other in newLoc)
 		if(other != src)
 			other.amount += src.amount
-			spawn other.Spread()
+			spawn(0)
+				other.Spread()
 			qdel(src)
 
 	Spread()
@@ -24,11 +25,13 @@
 
 /obj/effect/decal/cleanable/liquid_fuel/proc/Spread()
 	//Allows liquid fuels to sometimes flow into other tiles.
-	if(amount < 0.5) return
+	if(amount < 0.5)
+		return
 	var/turf/simulated/S = loc
-	if(!istype(S)) return
+	if(!istype(S))
+		return
 	for(var/d in cardinal)
-		if(rand(25))
+		if(prob(25))
 			var/turf/simulated/target = get_step(src,d)
 			var/turf/simulated/origin = get_turf(src)
 			if(origin.CanPass(null, target, 0, 0) && target.CanPass(null, origin, 0, 0))
@@ -39,8 +42,7 @@
 /obj/effect/decal/cleanable/liquid_fuel/fire_act(null, temperature, volume)
 	if(processing)
 		return
-	processing_objects.Add(src)
-	process()
+	processing_objects |= (src)
 	processing = 1
 
 /obj/effect/decal/cleanable/liquid_fuel/process()
@@ -52,7 +54,7 @@
 		location.hotspot_expose(700, amount * 50)
 		amount--
 		if(amount <= 0)
-			processing_objects.Remove(src)
+			processing_objects -= src
 			qdel(src)
 			for(var/obj/effect/hotspot/H in location)
 				qdel(H)
