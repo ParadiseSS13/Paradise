@@ -47,10 +47,12 @@
 	var/archived_cycle = 0
 	var/current_cycle = 0
 	var/icy = 0
-
+	var/icyoverlay
 	var/obj/effect/hotspot/active_hotspot
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
+
+	var/atmos_overlay_type = "" //current active overlay
 
 /turf/simulated/New()
 	..()
@@ -238,14 +240,24 @@
 	archived_cycle = air_master.current_cycle
 
 /turf/simulated/proc/update_visuals()
-	overlays.Cut()
-	if(icy)
-		overlays += icemaster
+	if(icy && !icyoverlay)
+		overlays |= icemaster
+		icyoverlay = icemaster
+	else if(icyoverlay && !icy)
+		icyoverlay = null
+		overlays -= icemaster
 
 	var/new_overlay_type = tile_graphic()
-	var/atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
+	if (new_overlay_type == atmos_overlay_type)
+		return
+	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
+	if (atmos_overlay)
+		overlays -= atmos_overlay
+
+	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if (atmos_overlay)
 		overlays += atmos_overlay
+	atmos_overlay_type = new_overlay_type
 
 /turf/simulated/proc/get_atmos_overlay_by_name(var/name)
 	switch(name)
