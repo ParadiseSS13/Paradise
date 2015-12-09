@@ -238,7 +238,7 @@
 	archived_cycle = air_master.current_cycle
 
 /turf/simulated/proc/update_visuals()
-	overlays = list()
+	overlays.Cut()
 	if(icy)
 		overlays += icemaster
 
