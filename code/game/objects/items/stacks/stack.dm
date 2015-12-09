@@ -217,7 +217,7 @@
 			return 1
 		var/to_transfer as num
 		if (user.get_inactive_hand()==src)
-			var/desired = input("How much would you like to traansfer from this stack?", "How much?", 1) as null|num
+			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
 			if(!desired)
 				return
 			desired = round(desired)
