@@ -96,7 +96,7 @@
 			if("Leather Jackets")
 				outfit_path = /obj/item/clothing/suit/jacket/leather
 			if("Leather Overcoats")
-				outfit_path = /obj/item/clothing/suit/jacket/leather/overcoat
+				outfit_path = /obj/item/clothing/suit/leathercoat
 			if("Military Jackets")
 				outfit_path = /obj/item/clothing/suit/jacket/miljacket
 			if("Soviet Uniforms")
