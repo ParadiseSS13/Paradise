@@ -310,6 +310,7 @@ BLIND     // can't see anything
 	body_parts_covered = FEET
 	slot_flags = SLOT_FEET
 
+	var/silence_steps = 0
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN

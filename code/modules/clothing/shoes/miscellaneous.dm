@@ -11,6 +11,7 @@
 	var/list/clothing_choices = list()
 	siemens_coefficient = 0.8
 	species_restricted = null
+	silence_steps = 1
 
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
@@ -175,3 +176,25 @@
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
 	item_state = "noble_boot"
+
+
+/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/shoe_silencer))
+		silence_steps = 1
+		user.unEquip(I)
+		qdel(I)
+	else . = ..()
+
+/obj/item/shoe_silencer
+	name = "shoe rags"
+	desc = "Looks sneaky."
+	icon_state = "sheet-cloth"
+
+/datum/table_recipe/shoe_rags
+	name = "Shoe Rags"
+
+	result = /obj/item/shoe_silencer
+	reqs = list(/obj/item/stack/tape_roll = 10)
+	tools = list(/obj/item/weapon/wirecutters)
+
+	time = 40

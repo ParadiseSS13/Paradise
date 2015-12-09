@@ -31,6 +31,11 @@
 	icon_state = "wood"
 	floor_tile = new/obj/item/stack/tile/wood
 
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
+		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
+	)
+
 /turf/simulated/floor/vault
 	icon_state = "rockvault"
 
@@ -130,6 +135,11 @@
 	icon_state = "plating"
 	floor_tile = null
 	intact = 0
+
+	footstep_sounds = list(
+	"human" = list('sound/effects/footstep/plating_human.ogg'),
+	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
+	)
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
@@ -245,6 +255,11 @@
 	name = "carpet"
 	icon_state = "carpet"
 	floor_tile = new/obj/item/stack/tile/carpet
+
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/carpet_human.ogg'),
+		"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
+	)
 
 	New()
 		floor_tile.New() //I guess New() isn't ran on objects spawned without the definition of a turf to house them, ah well.
