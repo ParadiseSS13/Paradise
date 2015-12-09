@@ -57,3 +57,4 @@
 #define TRAIT_BIOLUM_COLOUR        37
 #define TRAIT_IMMUTABLE            38
 #define TRAIT_RARITY               39
+#define TRAIT_BATTERY_RECHARGE     40
