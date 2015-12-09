@@ -8,7 +8,6 @@
 	use_power = 1
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(access_robotics)
 	var/time_coeff = 1
 	var/resource_coeff = 1
 	var/time_coeff_tech = 1
@@ -91,36 +90,6 @@
 		T += Ml.rating
 	time_coeff = round(initial(time_coeff) - (initial(time_coeff)*(T))/5,0.01)
 
-
-/obj/machinery/mecha_part_fabricator/check_access(obj/item/weapon/card/id/I)
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
-		I = pda.id
-	if(!istype(I) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
-	return 1
-
-/obj/machinery/mecha_part_fabricator/proc/emag()
-	switch(emagged)
-		if(0)
-			emagged = 0.5
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB error \[Code 0x00F1\]\"")
-			sleep(10)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"Attempting auto-repair\"")
-			sleep(15)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB corrupted \[Code 0x00FA\]. Truncating data structure...\"")
-			sleep(30)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB truncated. Please contact your Nanotrasen system operator for future assistance.\"")
-			req_access = null
-			emagged = 1
-		if(0.5)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB not responding \[Code 0x0003\]...\"")
-		if(1)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"No records in User DB\"")
-	return
 
 /obj/machinery/mecha_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
@@ -578,9 +547,6 @@
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
-
-/obj/machinery/mecha_part_fabricator/emag_act(user as mob)
-	emag()
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)
