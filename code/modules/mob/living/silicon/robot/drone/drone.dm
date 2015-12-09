@@ -14,6 +14,7 @@
 	density = 0
 	req_access = list(access_engine, access_robotics)
 	local_transmit = 1
+	ventcrawler = 2
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
