@@ -111,11 +111,13 @@
 	else if(issilicon(M))
 		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
-			for(var/obj/item/borg/combat/shield/S in R.module.modules)
-				if(R.activated(S))
-					add_logs(M, user, "flashed", object="[src.name]")
-					user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
-					return 1
+
+			if (R.module) // Perhaps they didn't choose a module yet
+				for(var/obj/item/borg/combat/shield/S in R.module.modules)
+					if(R.activated(S))
+						add_logs(M, user, "flashed", object="[src.name]")
+						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
+						return 1
 		M.Weaken(rand(5,10))
 		add_logs(M, user, "flashed", object="[src.name]")
 		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
