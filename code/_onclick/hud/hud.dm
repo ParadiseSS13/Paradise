@@ -201,6 +201,8 @@ datum/hud/New(mob/owner)
 		human_hud('icons/mob/screen1_Vampire.dmi')
 	else if(isswarmer(mymob))
 		swarmer_hud()
+	else if(isguardian(mymob))
+		guardian_hud()
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)

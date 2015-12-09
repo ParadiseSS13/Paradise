@@ -50,16 +50,14 @@
 
 	var/hex = ""
 	while(num)
-		var/val = num & 15
-		num >>= 4
+		var/val = num % 16
+		num = round(num / 16)
 
 		if(val > 9)
 			val = ascii2text(55 + val) // 65 - 70 correspond to "A" - "F"
 		hex = "[val][hex]"
-
 	while(length(hex) < placeholder)
 		hex = "0[hex]"
-
 	return hex || "0"
 
 // Concatenates a list of strings into a single string.  A seperator may optionally be provided.

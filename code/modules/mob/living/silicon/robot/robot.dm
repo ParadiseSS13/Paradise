@@ -220,11 +220,15 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
-	if(get_nations_mode())
-		modules = list("Peacekeeper")
+	if(ticker && ticker.mode && ticker.mode.name == "nations")
+		var/datum/game_mode/nations/N = ticker.mode
+		if(N.kickoff)
+			modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
-	modtype = input("Please, select a module!", "Robot", null, null) in modules
+	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+	if(!modtype)
+		return
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
@@ -297,12 +301,13 @@ var/list/robot_verbs_default = list(
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Combat Android"] = "droidcombat"
+			icon_state =  "droidcombat"
 
 		if("Peacekeeper")
 			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			icon_state = "droidpeace"
 			module.channels = list()
-			module_sprites["Peacekeeper Android"] = "droidpeace"
+			icon_state = "droidpeace"
 
 		if("Hunter")
 			updatename(module)
@@ -312,6 +317,7 @@ var/list/robot_verbs_default = list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
+
 
 	//languages
 	module.add_languages(src)
@@ -326,7 +332,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	updatename()
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)

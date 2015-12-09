@@ -288,9 +288,9 @@
 		if(is_type_in_list(O,types_allowed))
 			possible_targets += O
 
-	targets += input("Choose the target of your hunger.", "Targeting") as anything in possible_targets
+	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
 
-	if(!targets.len) //doesn't waste the spell
+	if(!targets.len || !targets[1]) //doesn't waste the spell
 		revert_cast(user)
 		return
 
@@ -529,7 +529,11 @@
 
 /obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
+	targets += input("Choose the target to spy on.", "Targeting") as null|mob in range(7,usr)
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 

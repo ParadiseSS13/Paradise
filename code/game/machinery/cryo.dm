@@ -97,10 +97,6 @@
 	if(occupant)
 		user << "\blue <B>The cryo cell is already occupied!</B>"
 		return
-/*	if(isrobot(user))
-		if(!istype(user:module, /obj/item/weapon/robot_module/medical))
-			user << "<span class='warning'>You do not have the means to do this!</span>"
-			return*/
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
@@ -117,7 +113,7 @@
 		else
 			visible_message("[user] puts [L.name] into the cryo cell.")
 			if(user.pulling == L)
-				user.pulling = null
+				user.stop_pulling()
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
@@ -277,12 +273,12 @@
 		if(beaker)
 			user << "\red A beaker is already loaded into the machine."
 			return
-
-		beaker =  G
 		if(!user.drop_item())
 			user << "The [G] is stuck to you!"
 			return
 		G.forceMove(src)
+		beaker =  G
+
 		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if (istype(G, /obj/item/weapon/screwdriver))

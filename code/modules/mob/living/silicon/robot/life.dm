@@ -22,12 +22,15 @@
 
 
 /mob/living/silicon/robot/proc/use_power()
-	if(is_component_functioning("power cell") && cell)
-		for(var/obj/item/borg/B in module.modules)
-			if(B.powerneeded)
-				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-					src << "Deactivating [B.name] due to lack of power!"
-					unEquip(B)
+	if (stat == DEAD)
+		return
+	else if (is_component_functioning("power cell") && cell)
+		if(module)
+			for(var/obj/item/borg/B in module.modules)
+				if(B.powerneeded)
+					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
+						src << "Deactivating [B.name] due to lack of power!"
+						unEquip(B)
 		if(cell.charge <= 0)
 			uneq_all()
 			update_headlamp(1)
@@ -59,20 +62,15 @@
 			if(!is_component_functioning("actuator"))
 				Paralyse(3)
 			eye_blind = 0
-			stat = 0
+			// Please, PLEASE be careful with statements like this - make sure they're not
+			// dead beforehand, for example -- Crazylemon
+			stat = CONSCIOUS
 			has_power = 1
 	else
 		uneq_all()
 		stat = UNCONSCIOUS
 		update_headlamp(1)
 		Paralyse(3)
-
-/mob/living/silicon/robot/updatehealth()
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
 
 /mob/living/silicon/robot/handle_regular_status_updates()
 

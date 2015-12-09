@@ -120,6 +120,36 @@
 	icon_state = "engiepack"
 	item_state = "engiepack"
 
+/obj/item/weapon/storage/backpack/botany
+	name = "botany backpack"
+	desc = "It's a backpack made of all-natural fibers."
+	icon_state = "botpack"
+	item_state = "botpack"
+
+/obj/item/weapon/storage/backpack/chemistry
+	name = "chemistry backpack"
+	desc = "A backpack specially designed to repel stains and hazardous liquids."
+	icon_state = "chempack"
+	item_state = "chempack"
+
+/obj/item/weapon/storage/backpack/genetics
+	name = "genetics backpack"
+	desc = "A bag designed to be super tough, just in case someone hulks out on you."
+	icon_state = "genepack"
+	item_state = "genepack"
+
+/obj/item/weapon/storage/backpack/science
+	name = "science backpack"
+	desc = "A specially designed backpack. It's fire resistant and smells vaguely of plasma."
+	icon_state = "toxpack"
+	item_state = "toxpack"
+
+/obj/item/weapon/storage/backpack/virology
+	name = "virology backpack"
+	desc = "A backpack made of hypo-allergenic fibers. It's designed to help prevent the spread of disease. Smells like monkey."
+	icon_state = "viropack"
+	item_state = "viropack"
+
 /*
  * Satchel Types
  */
@@ -149,13 +179,11 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
-	item_state = "engiepack"
 
 /obj/item/weapon/storage/backpack/satchel_med
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
-	item_state = "medicalpack"
 
 /obj/item/weapon/storage/backpack/satchel_vir
 	name = "virologist satchel"
@@ -181,18 +209,16 @@
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
-	item_state = "securitypack"
 
 /obj/item/weapon/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
-	icon_state = "satchel_hyd"
+	icon_state = "satchel-hyd"
 
 /obj/item/weapon/storage/backpack/satchel_cap
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
-	item_state = "captainpack"
 
 /obj/item/weapon/storage/backpack/satchel_flat
 	name = "smuggler's satchel"

@@ -35,7 +35,7 @@
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	return 0
-		
+
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
@@ -75,15 +75,15 @@
 		user.visible_message("<span class='danger'>[user] tears at [src]!</span>")
 
 /obj/structure/inflatable/attack_alien(mob/user as mob)
-	if(islarva(user)) 
+	if(islarva(user))
 		return
 	attack_generic(user, 15)
 
 /obj/structure/inflatable/attack_animal(mob/user as mob)
-	if(!isanimal(user)) 
+	if(!isanimal(user))
 		return
 	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0) 
+	if(M.melee_damage_upper <= 0)
 		return
 	attack_generic(M, M.melee_damage_upper)
 
@@ -94,7 +94,7 @@
 	attack_generic(user, rand(10, 15))
 
 /obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(!istype(W)) 
+	if(!istype(W))
 		return
 	if (can_puncture(W))
 		visible_message("\red <b>[user] pierces [src] with [W]!</b>")
@@ -119,7 +119,6 @@
 		src.transfer_fingerprints_to(R)
 		qdel(src)
 	else
-		//user << "\blue You slowly deflate the inflatable wall."
 		visible_message("[src] slowly deflates.")
 		spawn(50)
 			var/obj/item/inflatable/R = new /obj/item/inflatable(loc)
@@ -178,16 +177,16 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
-	
+
 /obj/structure/inflatable/door/CanAtmosPass(turf/T)
 	return !density
 
 /obj/structure/inflatable/door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates) 
+	if(isSwitchingStates)
 		return
 	if(ismob(user))
 		var/mob/M = user
-		if(world.time - user.last_bumped <= 60) 
+		if(world.time - user.last_bumped <= 60)
 			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
@@ -240,14 +239,14 @@
 		visible_message("[src] rapidly deflates!")
 		var/obj/item/inflatable/door/torn/R = new /obj/item/inflatable/door/torn(loc)
 		src.transfer_fingerprints_to(R)
+		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
 			var/obj/item/inflatable/door/R = new /obj/item/inflatable/door(loc)
 			src.transfer_fingerprints_to(R)
-	
+			qdel(src)
 	air_update_turf(1)
-	qdel(src)
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"

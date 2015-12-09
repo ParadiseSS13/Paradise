@@ -432,38 +432,34 @@
 			if("cashpod")
 				user << "You crack open the cash pod..."
 				var/value = round(seed.get_trait(TRAIT_POTENCY))
-				var/dosh
 				user.unEquip(src)
 				switch(value)
 					if(0)
 						user << "It's empty! What a waste..."
 					if(1 to 10)
 						user << "It has a space dollar inside. Woo."
-						dosh = new /obj/item/weapon/spacecash(user.loc)
+						new /obj/item/weapon/spacecash(get_turf(user))
 					if(11 to 20)
 						user << "It has 10 space dollars inside!"
-						dosh = new /obj/item/weapon/spacecash/c10(user.loc)
+						new /obj/item/weapon/spacecash/c10(get_turf(user))
 					if(21 to 30)
 						user << "It has 20 space dollars inside! Cool!"
-						dosh = new /obj/item/weapon/spacecash/c20(user.loc)
+						new /obj/item/weapon/spacecash/c20(get_turf(user))
 					if(31 to 40)
 						user << "It has 50 space dollars inside! Nice!"
-						dosh = new /obj/item/weapon/spacecash/c50(user.loc)
+						new /obj/item/weapon/spacecash/c50(get_turf(user))
 					if(41 to 50)
 						user << "It has 100 space dollars inside! Sweet!"
-						dosh = new /obj/item/weapon/spacecash/c100(user.loc)
+						new /obj/item/weapon/spacecash/c100(get_turf(user))
 					if(51 to 60)
 						user << "It has 200 space dollars inside! Awesome!"
-						dosh = new /obj/item/weapon/spacecash/c200(user.loc)
+						new /obj/item/weapon/spacecash/c200(get_turf(user))
 					if(61 to 80)
 						user << "It has 500 space dollars inside! CHA-CHING!"
-						dosh = new /obj/item/weapon/spacecash/c500(user.loc)
+						new /obj/item/weapon/spacecash/c500(get_turf(user))
 					else
 						user << "It has 1000 space dollars inside! JACKPOT!"
-						dosh = new /obj/item/weapon/spacecash/c1000(user.loc)
-
-				if(dosh)
-					user.put_in_hands(dosh)
+						new /obj/item/weapon/spacecash/c1000(get_turf(user))
 				qdel(src)
 				return
 

@@ -319,10 +319,10 @@
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR
-	bloodflags = BLOOD_SLIME
+	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
+	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 
 	has_organ = list(

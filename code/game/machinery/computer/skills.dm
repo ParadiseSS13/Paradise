@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/skills//TODO:SANITY
-	name = "Employment Records"
+	name = "employment records console"
 	desc = "Used to view personnel's employment records"
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"

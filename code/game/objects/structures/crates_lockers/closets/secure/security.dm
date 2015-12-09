@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/captains
-	name = "Captain's Locker"
+	name = "captain's locker"
 	req_access = list(access_captain)
 	icon_state = "capsecure1"
 	icon_closed = "capsecure"
@@ -32,7 +32,7 @@
 
 
 /obj/structure/closet/secure_closet/hop
-	name = "Head of Personnel's Locker"
+	name = "head of personnel's locker"
 	req_access = list(access_hop)
 	icon_state = "hopsecure1"
 	icon_closed = "hopsecure"
@@ -58,7 +58,7 @@
 		return
 
 /obj/structure/closet/secure_closet/hop2
-	name = "Head of Personnel's Attire"
+	name = "head of personnel's attire"
 	req_access = list(access_hop)
 	icon_state = "hopsecure1"
 	icon_closed = "hopsecure"
@@ -87,7 +87,7 @@
 
 
 /obj/structure/closet/secure_closet/hos
-	name = "Head of Security's Locker"
+	name = "head of security's locker"
 	req_access = list(access_hos)
 	icon_state = "hossecure1"
 	icon_closed = "hossecure"
@@ -126,7 +126,7 @@
 
 
 /obj/structure/closet/secure_closet/warden
-	name = "Warden's Locker"
+	name = "warden's locker"
 	req_access = list(access_armory)
 	icon_state = "wardensecure1"
 	icon_closed = "wardensecure"
@@ -166,7 +166,7 @@
 
 
 /obj/structure/closet/secure_closet/security
-	name = "Security Officer's Locker"
+	name = "security officer's locker"
 	req_access = list(access_security)
 	icon_state = "sec1"
 	icon_closed = "sec"
@@ -197,7 +197,7 @@
 		return
 
 /obj/structure/closet/secure_closet/brigdoc
-	name = "Brig Physician's Locker"
+	name = "brig physician's locker"
 	req_access = list(access_security)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
@@ -227,7 +227,7 @@
 		return
 
 /obj/structure/closet/secure_closet/blueshield
-	name = "Blueshield's Locker"
+	name = "blueshield's locker"
 	req_access = list(access_blueshield)
 	icon_state = "bssecure1"
 	icon_closed = "bssecure"
@@ -258,7 +258,7 @@
 		return
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "Nanotrasen Representative's Locker"
+	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(access_ntrep)
 	icon_state = "ntsecure1"
 	icon_closed = "ntsecure"
@@ -317,7 +317,7 @@
 
 
 /obj/structure/closet/secure_closet/detective
-	name = "Detective's Cabinet"
+	name = "detective's cabinet"
 	req_access = list(access_forensics_lockers)
 	icon_state = "cabinetdetective_locked"
 	icon_closed = "cabinetdetective"
@@ -361,7 +361,7 @@
 			icon_state = icon_opened
 
 /obj/structure/closet/secure_closet/injection
-	name = "Lethal Injections"
+	name = "lethal injections locker"
 	req_access = list(access_captain)
 
 
@@ -375,7 +375,7 @@
 
 
 /obj/structure/closet/secure_closet/brig
-	name = "Brig Locker"
+	name = "brig locker"
 	req_access = list(access_brig)
 	anchored = 1
 	var/id = null
@@ -388,7 +388,7 @@
 
 
 /obj/structure/closet/secure_closet/courtroom
-	name = "Courtroom Locker"
+	name = "courtroom locker"
 	req_access = list(access_court)
 
 	New()

@@ -23,6 +23,9 @@
 	size = 5.0
 	var/list/fields = list(  )
 
+/datum/data/record/Destroy()
+	..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /datum/data/text
 	name = "text"

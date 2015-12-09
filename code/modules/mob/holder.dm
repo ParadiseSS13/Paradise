@@ -34,6 +34,25 @@
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
+/obj/item/weapon/holder/container_resist(var/mob/living/L)
+	var/mob/M = src.loc                      //Get our mob holder (if any).
+
+	if(istype(M))
+		M.unEquip(src)
+		M << "[src] wriggles out of your grip!"
+		src << "You wriggle out of [M]'s grip!"
+	else if(istype(src.loc,/obj/item))
+		src << "You struggle free of [src.loc]."
+		src.forceMove(get_turf(src))
+
+	if(istype(M))
+		for(var/atom/A in M.contents)
+			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+				return
+		M.status_flags &= ~PASSEMOTES
+
+	return
+
 //Mob procs and vars for scooping up
 /mob/living/var/holder_type
 

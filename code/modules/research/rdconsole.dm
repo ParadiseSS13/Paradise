@@ -32,7 +32,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 */
 
 /obj/machinery/computer/rdconsole
-	name = "R&D Console"
+	name = "\improper R&D console"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -1117,23 +1117,23 @@ proc/CallMaterialName(ID)
 	return dat
 
 /obj/machinery/computer/rdconsole/core
-	name = "Core R&D Console"
+	name = "core R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 1
 
 /obj/machinery/computer/rdconsole/robotics
-	name = "Robotics R&D Console"
+	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 2
 	req_access = list(access_robotics)
 
 /obj/machinery/computer/rdconsole/experiment
-	name = "E.X.P.E.R.I-MENTOR R&D Console"
+	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
 
 /obj/machinery/computer/rdconsole/mechanics
-	name = "Mechanics R&D Console"
+	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(access_mechanic)

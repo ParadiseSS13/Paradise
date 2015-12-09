@@ -5,8 +5,8 @@
 
 
 /obj/machinery/computer/message_monitor
-	name = "Message Monitor Console"
-	desc = "Used to Monitor the crew's messages, that are sent via PDA. Can also be used to view Request Console messages."
+	name = "message monitoring console"
+	desc = "Used to monitor the crew's messages that are sent via PDA. It can also be used to view Request Console messages."
 	icon_screen = "comm_logs"
 	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "tcboss"

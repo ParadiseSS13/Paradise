@@ -10,7 +10,7 @@
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
 	use_power = 1
-	
+
 	can_unwrench = 1
 
 	var/area/initial_loc
@@ -68,7 +68,7 @@
 	..()
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
-	name = "Large Air Vent"
+	name = "large air vent"
 	power_channel = EQUIP
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume/New()
@@ -184,7 +184,7 @@
 	if(frequency != 1439)
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
-		name = "Vent Pump"
+		name = "vent pump"
 	else
 		broadcast_status()
 
@@ -399,4 +399,3 @@
 		initial_loc.air_vent_info -= id_tag
 		initial_loc.air_vent_names -= id_tag
 	return ..()
-	
