@@ -79,9 +79,8 @@
 	//	Removing revolutionary uplinks.	-Pete
 		equip_revolutionary(rev_mind.current)
 		update_rev_icons_added(rev_mind)
-
-	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
+
 	modePlayer += head_revolutionaries
 	if(emergency_shuttle)
 		emergency_shuttle.no_escape = 1

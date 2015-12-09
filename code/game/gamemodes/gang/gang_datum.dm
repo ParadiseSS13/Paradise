@@ -16,7 +16,6 @@
 	var/dom_timer = "OFFLINE"
 	var/dom_attempts = 2
 	var/points = 15
-	var/datum/atom_hud/antag/ganghud
 
 /datum/gang/New(loc,gangname)
 	if(!gang_colors_pool.len)
@@ -45,23 +44,52 @@
 	if(name == "Sleeping Carp")
 		fighting_style = "martial"
 
-	ganghud = new()
 	log_game("The [name] Gang has been created. Their gang color is [color].")
 
 /datum/gang/proc/add_gang_hud(datum/mind/recruit_mind)
-	ganghud.join_hud(recruit_mind.current)
-	if(recruit_mind in bosses)
-		var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gang_boss")
-		recruit_mind.current.client.images += I
-	else
-		var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gangster")
-		recruit_mind.current.client.images += I
+	spawn(0)
+		for(var/datum/mind/boss_mind in bosses)
+			if(boss_mind.current)
+				if(boss_mind.current.client)
+					var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gangster")
+					boss_mind.current.client.images += I
+			if(recruit_mind.current)
+				if(recruit_mind.current.client)
+					var/J = image('icons/mob/mob.dmi', loc = boss_mind.current, icon_state = "gang_boss")
+					recruit_mind.current.client.images += J
+
+		for(var/datum/mind/recruit_mind_1 in gangsters)
+			if(recruit_mind_1.current)
+				if(recruit_mind_1.current.client)
+					var/I = image('icons/mob/mob.dmi', loc = recruit_mind.current, icon_state = "gangster")
+					recruit_mind_1.current.client.images += I
+			if(recruit_mind.current)
+				if(recruit_mind.current.client)
+					var/J = image('icons/mob/mob.dmi', loc = recruit_mind_1.current, icon_state = "gangster")
+					recruit_mind.current.client.images += J
+
 
 /datum/gang/proc/remove_gang_hud(datum/mind/defector_mind)
-	ganghud.leave_hud(defector_mind.current)
-	for(var/image/I in defector_mind.current.client.images)
-		if(I.icon_state == "gangster" || I.icon_state == "gang_boss")
-			qdel(I)
+	spawn(0)
+		for(var/datum/mind/boss_mind in bosses)
+			if(boss_mind.current)
+				if(boss_mind.current.client)
+					for(var/image/I in boss_mind.current.client.images)
+						if((I.icon_state == "gangster" || I.icon_state == "gang_boss") && I.loc == defector_mind.current)
+							qdel(I)
+
+		for(var/datum/mind/gangster_mind in gangsters)
+			if(gangster_mind.current)
+				if(gangster_mind.current.client)
+					for(var/image/I in gangster_mind.current.client.images)
+						if((I.icon_state == "gangster" || I.icon_state == "gang_boss") && I.loc == defector_mind.current)
+							qdel(I)
+
+		if(defector_mind.current)
+			if(defector_mind.current.client)
+				for(var/image/I in defector_mind.current.client.images)
+					if(I.icon_state == "gangster" || I.icon_state == "gang_boss")
+						qdel(I)
 
 /datum/gang/proc/domination(modifier=1)
 	dom_timer = get_domination_time(src) * modifier
