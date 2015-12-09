@@ -34,6 +34,23 @@
 		else
 			user << "\The [src.name] has [tokens] play credits!"
 
+/obj/machinery/arcade/interact(mob/user as mob)
+	if(stat & BROKEN || panel_open)
+		return 0
+	if(!tokens && !freeplay)
+		user << "\The [src.name] doesn't have enough credits to play! Pay first!"
+		return 0
+	if(!playing && (tokens || freeplay))
+		user.set_machine(src)
+		playing = 1
+		if(!freeplay)
+			tokens -= 1
+		return 1
+	if(playing && (src != user.machine))
+		user << "Someone else is already playing this machine, please wait your turn!"
+		return 0
+	return 1
+
 /obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)

@@ -49,7 +49,7 @@
 				setTimeout(function(){
 					state='falling';
 					$('#debug-streak').html(0); //reset streak
-					document.getElementById("lose_btn").click();
+					setTimeout(gameShutDown(),500);	//end game because you dropped it
 				},4*error+300);
 			 } 
 			 
@@ -99,16 +99,7 @@
 				state='hidden';
 				
 				prizeWon = true;
-				document.getElementById("win_btn").click();
-				
-				//$('#debug-streak').html(parseInt($('#debug-streak').html())+1); //inc streak
-				
-				//spawn new prize
-				/*
-				setTimeout(function(){
-					prizes[prizes.length] = new Prize(prizes.length,{top: Math.ceil(Math.random()*100),left: original_left},crane);}
-					,1000);	
-				*/
+				gameShutDown();
 			}
 			
 			CheckBoundaries();
@@ -182,7 +173,7 @@
 			if(keys["right"] && !state) //right
 				left += hspd;
 				
-			if(keys["down"] && !state) { //space
+			if(keys["down"] && !state) { //drop
 				state = 'down';
 				
 				$('#'+id+' #crane-claw').css(frames['open']);
@@ -256,11 +247,13 @@
 	}
 	
 	function gameShutDown(){
-		if(prizeWon != true)
-			document.getElementById("lose_btn").click();
+		var close_game_link = '<h2>TRY AGAIN!<a href="byond://?src=/* ref src */;prizeWon=0">\[Close Game\]</a>'
+		if(prizeWon)
+			close_game_link = '<h2>YOU WON!</h2><br><a href="byond://?src=/* ref src */;prizeWon=1">\[Close Game\]</a>'
+		document.getElementById('game').innerHTML = '<center><h1> GAME OVER!</h1><br>'+close_game_link+'</center>'
 	}</script>
 	</head>
-	<body onunload="gameShutDown()">
+	<body>
 	
 		<div id='game' style='position: relative;'>
 			<div id="background"></div>
@@ -279,8 +272,8 @@
 			
 		</div>
 		
-		<div style='position: absolute; top: 550px'>
-			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button><a id="win_btn" href='byond://?src=\ref[src];prizeWon=1' hidden="true"></a><a id="lose_btn" href='byond://?src=\ref[src];prizeWon=0' hidden="true"></a>
+		<div id='controls' style='position: absolute; top: 550px'>
+			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button> <button id="close_btn" onclick="gameShutDown()">Close Game.</button>
 			<br>
 			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
 			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
