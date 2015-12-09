@@ -11,6 +11,7 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/weapon/storage/backpack/science(src)
 		new /obj/item/weapon/storage/backpack/satchel_tox(src)
 		new /obj/item/clothing/under/rank/scientist(src)
 		//new /obj/item/clothing/suit/labcoat/science(src)

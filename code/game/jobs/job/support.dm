@@ -90,7 +90,7 @@
 		if(!H)	return 0
 		switch(H.backbag)
 			if(1) H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
-			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack(H), slot_back)
+			if(2) H.equip_or_collect(new /obj/item/weapon/storage/backpack/botany(H), slot_back)
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_hyd(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/device/radio/headset/headset_service(H), slot_l_ear)
