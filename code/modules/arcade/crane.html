@@ -247,7 +247,8 @@
 	}
 	
 	function gameShutDown(){
-		var close_game_link = '<h2>TRY AGAIN!<a href="byond://?src=/* ref src */;prizeWon=0">\[Close Game\]</a>'
+		document.getElementById("play_btn").disabled = true;
+		var close_game_link = '<h2>TRY AGAIN!</h2><br><a href="byond://?src=/* ref src */;prizeWon=0">\[Close Game\]</a>'
 		if(prizeWon)
 			close_game_link = '<h2>YOU WON!</h2><br><a href="byond://?src=/* ref src */;prizeWon=1">\[Close Game\]</a>'
 		document.getElementById('game').innerHTML = '<center><h1> GAME OVER!</h1><br>'+close_game_link+'</center>'
