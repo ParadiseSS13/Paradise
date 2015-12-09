@@ -1,5 +1,5 @@
 /obj/machinery/computer/area_atmos
-	name = "Area Air Control"
+	name = "area air control"
 	desc = "A computer used to control the stationary scrubbers and pumps in the area."
 	icon_screen = "area_atmos"
 	icon_keyboard = "atmos_key"

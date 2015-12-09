@@ -31,6 +31,11 @@
 	icon_state = "wood"
 	floor_tile = new/obj/item/stack/tile/wood
 
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
+		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
+	)
+
 /turf/simulated/floor/vault
 	icon_state = "rockvault"
 
@@ -131,6 +136,11 @@
 	floor_tile = null
 	intact = 0
 
+	footstep_sounds = list(
+	"human" = list('sound/effects/footstep/plating_human.ogg'),
+	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
+	)
+
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
@@ -226,7 +236,7 @@
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
-	name = "Brig floor"        // Also added it into the 2x3 brig area of the shuttle.
+	name = "brig floor"        // Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
 
 /turf/simulated/shuttle/floor4/vox	//Vox skipjack floors
@@ -235,20 +245,20 @@
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
 /turf/simulated/floor/beach
-	name = "Beach"
+	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
 /turf/simulated/floor/beach/sand
-	name = "Sand"
+	name = "sand"
 	icon_state = "sand"
 
 /turf/simulated/floor/beach/coastline
-	name = "Coastline"
+	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
 /turf/simulated/floor/beach/water
-	name = "Water"
+	name = "water"
 	icon_state = "water"
 
 /turf/simulated/floor/beach/water/New()
@@ -256,7 +266,7 @@
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
 
 /turf/simulated/floor/grass
-	name = "Grass patch"
+	name = "grass patch"
 	icon_state = "grass1"
 	floor_tile = new/obj/item/stack/tile/grass
 
@@ -273,9 +283,14 @@
 						FF.update_icon() //so siding get updated properly
 
 /turf/simulated/floor/carpet
-	name = "Carpet"
+	name = "carpet"
 	icon_state = "carpet"
 	floor_tile = new/obj/item/stack/tile/carpet
+
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/carpet_human.ogg'),
+		"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
+	)
 
 	New()
 		floor_tile.New() //I guess New() isn't ran on objects spawned without the definition of a turf to house them, ah well.

@@ -1,5 +1,5 @@
 /obj/machinery/computer/telecomms/traffic
-	name = "Telecommunications Traffic Control"
+	name = "telecommunications traffic control"
 
 	var/screen = 0				// the screen number:
 	var/list/servers = list()	// the servers located by the computer

@@ -1583,7 +1583,7 @@
 			src << "<span class='warning'>You ran out of blood to write with!</span>"
 
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
-
+		W.message = message
 		W.add_fingerprint(src)
 
 // Allows IPC's to change their monitor display

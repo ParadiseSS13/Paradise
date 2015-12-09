@@ -1,5 +1,5 @@
 /obj/machinery/computer/HONKputer
-	name = "HONKputer Mark I"
+	name = "\improper HONKputer Mark I"
 	desc = "A yellow computer used in case of critically low levels of HONK."
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "honkputer"

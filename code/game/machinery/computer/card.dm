@@ -3,7 +3,7 @@
 var/time_last_changed_position = 0
 
 /obj/machinery/computer/card
-	name = "Identification Computer"
+	name = "identification computer"
 	desc = "Terminal for programming Nanotrasen employee ID cards to access parts of the station."
 	icon_keyboard = "id_key"
 	icon_screen = "id"
@@ -428,6 +428,6 @@ var/time_last_changed_position = 0
 	return 1
 
 /obj/machinery/computer/card/centcom
-	name = "CentCom Identification Computer"
+	name = "\improper CentCom identification computer"
 	circuit = /obj/item/weapon/circuitboard/card/centcom
 	req_access = list(access_cent_commander)

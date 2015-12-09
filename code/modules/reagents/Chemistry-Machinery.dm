@@ -378,7 +378,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /obj/machinery/chem_master
-	name = "ChemMaster 3000"
+	name = "\improper ChemMaster 3000"
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
@@ -756,12 +756,12 @@
 
 
 /obj/machinery/chem_master/condimaster
-	name = "CondiMaster 3000"
+	name = "\improper CondiMaster 3000"
 	condi = 1
 
 /obj/machinery/reagentgrinder
 
-	name = "All-In-One Grinder"
+	name = "\improper All-In-One Grinder"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9

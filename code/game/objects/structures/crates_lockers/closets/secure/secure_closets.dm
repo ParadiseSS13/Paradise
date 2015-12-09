@@ -128,3 +128,48 @@
 			overlays += "welded"
 	else
 		icon_state = icon_opened
+
+/obj/structure/closet/secure_closet/container_resist(var/mob/living/L)
+	var/breakout_time = 2 //2 minutes by default
+	if(opened)
+		if (L.loc == src)
+			L.forceMove(get_turf(src)) // Let's just be safe here
+		return //Door's open... wait, why are you in it's contents then?
+	if(!locked && !welded)
+		return //It's a secure closet, but isn't locked. Easily escapable from, no need to 'resist'
+
+	//okay, so the closet is either welded or locked... resist!!!
+	L.changeNext_move(CLICK_CD_BREAKOUT)
+	L.last_special = world.time + CLICK_CD_BREAKOUT
+	L << "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>"
+	for(var/mob/O in viewers(src))
+		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+
+
+	spawn(0)
+		if(do_after(usr,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
+				return
+
+			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
+			if(!locked && !welded)
+				return
+
+			//Well then break it!
+			desc = "It appears to be broken."
+			icon_state = icon_off
+			flick(icon_broken, src)
+			sleep(10)
+			flick(icon_broken, src)
+			sleep(10)
+			broken = 1
+			locked = 0
+			welded = 0
+			update_icon()
+			usr << "\red You successfully break out!"
+			for(var/mob/O in viewers(L.loc))
+				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+			if(istype(src.loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
+				var/obj/structure/bigDelivery/BD = src.loc
+				BD.attack_hand(usr)
+			open()

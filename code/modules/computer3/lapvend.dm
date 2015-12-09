@@ -1,5 +1,5 @@
 /obj/machinery/lapvend
-	name = "Laptop Vendor"
+	name = "laptop vendor"
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "robotics"

@@ -1,5 +1,5 @@
 /obj/machinery/computer/shuttle
-	name = "Shuttle"
+	name = "shuttle control conse"
 	desc = "For shuttle control."
 	icon_keyboard = "tech_key"
 	icon_screen = "shuttle"

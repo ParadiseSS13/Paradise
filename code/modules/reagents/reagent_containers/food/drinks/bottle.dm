@@ -120,7 +120,7 @@
 //Keeping this here for now, I'll ask if I should keep it here.
 /obj/item/weapon/broken_bottle
 
-	name = "Broken Bottle"
+	name = "broken bottle"
 	desc = "A bottle with a sharp broken bottom."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "broken_bottle"
@@ -136,7 +136,7 @@
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin
-	name = "Griffeater Gin"
+	name = "\improper Griffeater Gin"
 	desc = "A bottle of high quality gin, produced in the New London Space Station."
 	icon_state = "ginbottle"
 	New()
@@ -144,7 +144,7 @@
 		reagents.add_reagent("gin", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey
-	name = "Uncle Git's Special Reserve"
+	name = "\improper Uncle Git's Special Reserve"
 	desc = "A premium single-malt whiskey, gently matured inside the tunnels of a nuclear shelter. TUNNEL WHISKEY RULES."
 	icon_state = "whiskeybottle"
 	New()
@@ -152,7 +152,7 @@
 		reagents.add_reagent("whiskey", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka
-	name = "Tunguska Triple Distilled"
+	name = "\improper Tunguska Triple Distilled"
 	desc = "Aah, vodka. Prime choice of drink AND fuel by Russians worldwide."
 	icon_state = "vodkabottle"
 	New()
@@ -160,7 +160,7 @@
 		reagents.add_reagent("vodka", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla
-	name = "Caccavo Guaranteed Quality Tequilla"
+	name = "\improper Caccavo Guaranteed Quality Tequilla"
 	desc = "Made from premium petroleum distillates, pure thalidomide and other fine quality ingredients!"
 	icon_state = "tequillabottle"
 	New()
@@ -168,7 +168,7 @@
 		reagents.add_reagent("tequilla", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing
-	name = "Bottle of Nothing"
+	name = "\improper Bottle of Nothing"
 	desc = "A bottle filled with nothing"
 	icon_state = "bottleofnothing"
 	New()
@@ -176,7 +176,7 @@
 		reagents.add_reagent("nothing", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/patron
-	name = "Wrapp Artiste Patron"
+	name = "\improper Wrapp Artiste Patron"
 	desc = "Silver laced tequilla, served in space night clubs across the galaxy."
 	icon_state = "patronbottle"
 	New()
@@ -184,7 +184,7 @@
 		reagents.add_reagent("patron", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/rum
-	name = "Captain Pete's Cuban Spiced Rum"
+	name = "\improper Captain Pete's Cuban Spiced Rum"
 	desc = "This isn't just rum, oh no. It's practically GRIFF in a bottle."
 	icon_state = "rumbottle"
 	New()
@@ -192,7 +192,7 @@
 		reagents.add_reagent("rum", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater
-	name = "Flask of Holy Water"
+	name = "\improper Flask of Holy Water"
 	desc = "A flask of the chaplain's holy water."
 	icon_state = "holyflask"
 	New()
@@ -200,7 +200,7 @@
 		reagents.add_reagent("holywater", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth
-	name = "Goldeneye Vermouth"
+	name = "\improper Goldeneye Vermouth"
 	desc = "Sweet, sweet dryness~"
 	icon_state = "vermouthbottle"
 	New()
@@ -208,7 +208,7 @@
 		reagents.add_reagent("vermouth", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua
-	name = "Robert Robust's Coffee Liqueur"
+	name = "\improper Robert Robust's Coffee Liqueur"
 	desc = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936, HONK"
 	icon_state = "kahluabottle"
 	New()
@@ -216,7 +216,7 @@
 		reagents.add_reagent("kahlua", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/goldschlager
-	name = "College Girl Goldschlager"
+	name = "\improper College Girl Goldschlager"
 	desc = "Because they are the only ones who will drink 100 proof cinnamon schnapps."
 	icon_state = "goldschlagerbottle"
 	New()
@@ -224,7 +224,7 @@
 		reagents.add_reagent("goldschlager", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/cognac
-	name = "Chateau De Baton Premium Cognac"
+	name = "\improper Chateau De Baton Premium Cognac"
 	desc = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. You might as well not scream 'SHITCURITY' this time."
 	icon_state = "cognacbottle"
 	New()
@@ -232,7 +232,7 @@
 		reagents.add_reagent("cognac", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/wine
-	name = "Doublebeard Bearded Special Wine"
+	name = "\improper Doublebeard Bearded Special Wine"
 	desc = "A faint aura of unease and asspainery surrounds the bottle."
 	icon_state = "winebottle"
 	New()
@@ -240,7 +240,7 @@
 		reagents.add_reagent("wine", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe
-	name = "Jailbreaker Verte"
+	name = "\improper Jailbreaker Verte"
 	desc = "One sip of this and you just know you're gonna have a good time."
 	icon_state = "absinthebottle"
 	New()
@@ -250,7 +250,7 @@
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice
-	name = "Orange Juice"
+	name = "orange juice"
 	desc = "Full of vitamins and deliciousness!"
 	icon_state = "orangejuice"
 	item_state = "carton"
@@ -260,7 +260,7 @@
 		reagents.add_reagent("orangejuice", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/cream
-	name = "Milk Cream"
+	name = "milk cream"
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
 	icon_state = "cream"
 	item_state = "carton"
@@ -270,7 +270,7 @@
 		reagents.add_reagent("cream", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice
-	name = "Tomato Juice"
+	name = "tomato juice"
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
 	icon_state = "tomatojuice"
 	item_state = "carton"
@@ -280,7 +280,7 @@
 		reagents.add_reagent("tomatojuice", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice
-	name = "Lime Juice"
+	name = "lime juice"
 	desc = "Sweet-sour goodness."
 	icon_state = "limejuice"
 	item_state = "carton"
