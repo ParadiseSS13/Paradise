@@ -780,3 +780,14 @@ obj/item/weapon/circuitboard/rdserver
 	req_components = list(
 							/obj/item/weapon/stock_parts/console_screen = 1,
 							/obj/item/weapon/stock_parts/matter_bin = 3)
+
+/obj/item/weapon/circuitboard/clawgame
+	name = "circuit board (Claw Game)"
+	build_path = /obj/machinery/arcade/claw
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/weapon/stock_parts.matter_bin = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 1)

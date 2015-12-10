@@ -463,11 +463,21 @@
 	category = list ("Misc. Machinery")
 
 /datum/design/mining_equipment_vendor
-	name = "Machine Design (Mining Rewards Vender Board)"
-	desc = "The circuit board for a Mining Rewards Vender."
+	name = "Machine Design (Mining Rewards Vendor Board)"
+	desc = "The circuit board for a Mining Rewards Vendor."
 	id = "mining_equipment_vendor"
 	req_tech = list("programming" = 1, "engineering" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/mining_equipment_vendor
+	category = list ("Misc. Machinery")
+
+/datum/design/clawgame
+	name = "Machine Design (Claw Game Board)"
+	desc = "The circuit board for a Claw Game."
+	id = "clawgame"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/clawgame
 	category = list ("Misc. Machinery")

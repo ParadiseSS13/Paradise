@@ -4,7 +4,7 @@
 	icon_state = "laser"
 	item_state = "laser"
 	fire_sound = 'sound/weapons/Laser.ogg'
-	charge_cost = 830
+	charge_cost = 760
 	w_class = 3.0
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=3;magnets=2"

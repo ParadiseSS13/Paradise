@@ -301,6 +301,8 @@ Made by Xhuis
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 
+	silent_steps = 1
+
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
 	shadow_hud.join_hud(shadow_mind.current)

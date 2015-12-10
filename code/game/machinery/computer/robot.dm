@@ -217,6 +217,15 @@
 		else
 			robot["cell"] = 0
 
+		var/turf/pos = get_turf(R)
+		var/area/bot_area = get_area(R)
+		robot["xpos"] = pos.x
+		robot["ypos"] = pos.y
+		robot["zpos"] = pos.z
+		robot["area"] = format_text(bot_area.name)
+
+		robot["health"] = round(R.health * 100 / R.maxHealth,0.1)
+
 		robot["module"] = R.module ? R.module.name : "None"
 		robot["master_ai"] = R.connected_ai ? R.connected_ai.name : "None"
 		robot["hackable"] = 0
