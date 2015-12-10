@@ -109,8 +109,10 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
+	var/image/holder2 = hud_list[STATUS_HUD_OOC]
 	if(stat == 2)
 		holder.icon_state = "huddead"
+		holder2.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
@@ -121,8 +123,10 @@
 			holder.icon_state = "hudbrainworm"
 		else
 			holder.icon_state = "hudhealthy"
+			holder2.icon_state = "hudhealthy"
 	else
 		holder.icon_state = "hudhealthy"
+		holder2.icon_state = "hudhealthy"
 
 
 
@@ -158,6 +162,7 @@
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
 
+
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
 	var/perpname = get_face_name(get_id_name(""))
@@ -169,13 +174,13 @@
 					holder.icon_state = "hudwanted"
 					return
 				if("Incarcerated")
-					holder.icon_state = "hudincarcerated"
+					holder.icon_state = "hudprisoner"
 					return
 				if("Parolled")
 					holder.icon_state = "hudparolled"
 					return
-				if("Discharged")
-					holder.icon_state = "huddischarged"
+				if("Released")
+					holder.icon_state = "hudreleased"
 					return
 	holder.icon_state = null
 
