@@ -6,7 +6,7 @@
 	icon_state = "body_m_s"
 
 	//why are these here and not in human_defines.dm
-	var/list/hud_list[10]
+	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
@@ -29,16 +29,16 @@
 	reagents = R
 	R.my_atom = src
 
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
+	//hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
+	//hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
+	////hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
+	//hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
+	//hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 
 	..()
 
@@ -48,12 +48,23 @@
 	var/mob/M = src
 	faction |= "\ref[M]" //what
 
+	prepare_data_huds()
 	// Set up DNA.
 	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
 	UpdateAppearance()
+
+/mob/living/carbon/human/prepare_data_huds()
+	//Update med hud images...
+	..()
+	//...sec hud images...
+	sec_hud_set_ID()
+	sec_hud_set_implants()
+	sec_hud_set_security_status()
+	//...and display them.
+	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
 	for(var/atom/movable/organelle in organs)
@@ -858,13 +869,13 @@
 										modified = 1
 
 										spawn()
-											hud_updateflag |= 1 << WANTED_HUD
+											//hud_updateflag |= 1 << WANTED_HUD
 											if(istype(usr,/mob/living/carbon/human))
-												var/mob/living/carbon/human/U = usr
-												U.handle_regular_hud_updates()
+												//var/mob/living/carbon/human/U = usr
+												sec_hud_set_security_status()
 											if(istype(usr,/mob/living/silicon/robot))
-												var/mob/living/silicon/robot/U = usr
-												U.handle_regular_hud_updates()
+												//var/mob/living/silicon/robot/U = usr
+												sec_hud_set_security_status()
 
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."
@@ -990,11 +1001,11 @@
 
 									spawn()
 										if(istype(usr,/mob/living/carbon/human))
-											var/mob/living/carbon/human/U = usr
-											U.handle_regular_hud_updates()
+											//var/mob/living/carbon/human/U = usr
+											sec_hud_set_security_status()
 										if(istype(usr,/mob/living/silicon/robot))
-											var/mob/living/silicon/robot/U = usr
-											U.handle_regular_hud_updates()
+											//var/mob/living/silicon/robot/U = usr
+											sec_hud_set_security_status()
 
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."

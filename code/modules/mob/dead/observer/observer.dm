@@ -23,12 +23,11 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-	var/medHUD = 0
-	var/secHUD = 0
 	var/anonsay = 0
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
+	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -111,7 +110,7 @@ Works together with spawning an observer, noted above.
 	if(!loc) return
 	if(!client) return 0
 
-	regular_hud_updates()
+	//regular_hud_updates()
 	if(client.images.len)
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud")
@@ -123,12 +122,12 @@ Works together with spawning an observer, noted above.
 				target_list += target
 		if(target_list.len)
 			assess_targets(target_list, src)
-	if(medHUD)
-		process_medHUD(src)
-	if(secHUD)
-		process_secHUD(src)
+	//if(medHUD)
+	///	process_medHUD(src)
+	//if(secHUD)
+	//	process_secHUD(src)
 
-
+/*
 /mob/dead/proc/process_medHUD(var/mob/M)
 	var/client/C = M.client
 	for(var/mob/living/carbon/human/patient in oview(M, 14))
@@ -141,6 +140,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[IMPTRACK_HUD]
 		C.images += target.hud_list[IMPLOYAL_HUD]
 		C.images += target.hud_list[IMPCHEM_HUD]
+*/
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
@@ -270,18 +270,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return 1
 
+/mob/dead/observer/proc/show_me_the_hud(hud_index)
+	var/datum/atom_hud/H = huds[hud_index]
+	H.add_hud_to(src)
+	data_hud_seen = hud_index
+
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
 	set name = "Toggle MedicHUD"
 	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
-	if(medHUD)
-		medHUD = 0
-		src << "\blue <B>Medical HUD Disabled</B>"
-	else
-		medHUD = 1
-		src << "\blue <B>Medical HUD Enabled</B>"
+
+	if(data_hud_seen) //remove old huds
+		var/datum/atom_hud/H = huds[data_hud_seen]
+		H.remove_hud_from(src)
+	show_me_the_hud(DATA_HUD_SECURITY_BASIC)
 
 /mob/dead/observer/verb/toggle_antagHUD()
 	set category = "Ghost"

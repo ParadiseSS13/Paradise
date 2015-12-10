@@ -38,6 +38,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		H.sec_hud_set_implants()
 		captain_announcement.Announce("All hands, captain [H.real_name] on deck!")
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
@@ -136,6 +137,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
@@ -183,6 +185,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
@@ -226,6 +229,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
@@ -268,6 +272,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
+		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected

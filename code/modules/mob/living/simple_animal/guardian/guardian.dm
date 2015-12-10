@@ -340,8 +340,8 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Life()
 	..()
-	regular_hud_updates()
-	process_med_hud(src, 1)
+	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
+	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	..()

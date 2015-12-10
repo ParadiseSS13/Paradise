@@ -422,13 +422,13 @@
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				switch(G.HUDType)
-					if(SECHUD)
-						process_sec_hud(H,1)
-					if(MEDHUD)
-						process_med_hud(H,1)
-					if(ANTAGHUD)
-						process_antag_hud(H)
+				//switch(G.HUDType)
+				//	if(SECHUD)
+				//		process_sec_hud(H,1)
+				//	if(MEDHUD)
+				//		process_med_hud(H,1)
+				//	if(ANTAGHUD)
+				//		process_antag_hud(H)
 
 		if(H.head)
 			if(istype(H.head, /obj/item/clothing/head))
@@ -438,13 +438,13 @@
 				if(!hat.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				switch(hat.HUDType)
-					if(SECHUD)
-						process_sec_hud(H,1)
-					if(MEDHUD)
-						process_med_hud(H,1)
-					if(ANTAGHUD)
-						process_antag_hud(H)
+				//switch(hat.HUDType)
+				//	if(SECHUD)
+				//		process_sec_hud(H,1)
+				//	if(MEDHUD)
+				//		process_med_hud(H,1)
+				//	if(ANTAGHUD)
+				//		process_antag_hud(H)
 
 		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
 			var/obj/item/weapon/rig/rig = H.back
@@ -460,13 +460,13 @@
 							if(!G.see_darkness)
 								H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-							switch(G.HUDType)
-								if(SECHUD)
-									process_sec_hud(H,1)
-								if(MEDHUD)
-									process_med_hud(H,1)
-								if(ANTAGHUD)
-									process_antag_hud(H)
+							//switch(G.HUDType)
+							//	if(SECHUD)
+							//		process_sec_hud(H,1)
+							//	if(MEDHUD)
+							//		process_med_hud(H,1)
+							//	if(ANTAGHUD)
+							//		process_antag_hud(H)
 
 		if(H.vision_type)
 			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)

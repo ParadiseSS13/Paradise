@@ -137,7 +137,7 @@
 				newtraitor << "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate..."
 				newtraitor << "<B>You are now a traitor.</B>"
 				newtraitor.mind.special_role = "traitor"
-				newtraitor.hud_updateflag |= 1 << SPECIALROLE_HUD
+
 				var/obj_count = 1
 				newtraitor << "\blue Your current objectives:"
 				for(var/datum/objective/objective in newtraitor.mind.objectives)

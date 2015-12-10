@@ -51,8 +51,9 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			loc_as_cryobag.used++
 			in_stasis = 1
 
-	if(mob_master.current_cycle % 30 == 15)
-		hud_updateflag = 1022
+	//if(mob_master.current_cycle % 30 == 15)
+		//hud_updateflag = 1022
+		//HudRefactor:WTF do i put here....
 
 	voice = GetVoice()
 
@@ -990,13 +991,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/handle_hud_icons()
 	species.handle_hud_icons(src)
 
-/mob/living/carbon/human/handle_regular_hud_updates()
-	if(hud_updateflag)
-		handle_hud_list()
+///mob/living/carbon/human/handle_regular_hud_updates()
+//	if(hud_updateflag)
+//		handle_hud_list()
 
-	if(..())
-		if(hud_updateflag)
-			handle_hud_list()
+//	if(..())
+//		if(hud_updateflag)
+//			handle_hud_list()
 
 
 /mob/living/carbon/human/handle_random_events()
@@ -1260,92 +1261,92 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 */
 
 
-/mob/living/carbon/human/proc/handle_hud_list()
+///mob/living/carbon/human/proc/handle_hud_list()
+//
+//	if(hud_updateflag & 1 << HEALTH_HUD)
+//		var/image/holder = hud_list[HEALTH_HUD]
+//		if(stat == 2)
+//			holder.icon_state = "hudhealth-100" 	// X_X
+//		else
+//			holder.icon_state = "hud[RoundHealth(health)]"
+//
+//		hud_list[HEALTH_HUD] = holder
+//
+//
+//	if(hud_updateflag & 1 << STATUS_HUD)
+//		var/foundVirus = 0
+//		for (var/ID in virus2)
+//			if (ID in virusDB)
+//				foundVirus = 1
+//				break
 
-	if(hud_updateflag & 1 << HEALTH_HUD)
-		var/image/holder = hud_list[HEALTH_HUD]
-		if(stat == 2)
-			holder.icon_state = "hudhealth-100" 	// X_X
-		else
-			holder.icon_state = "hud[RoundHealth(health)]"
+//		var/image/holder = hud_list[STATUS_HUD]
+//		var/image/holder2 = hud_list[STATUS_HUD_OOC]
+//		if(stat == 2)
+//			holder.icon_state = "huddead"
+//			holder2.icon_state = "huddead"
+//		else if(status_flags & XENO_HOST)
+//			holder.icon_state = "hudxeno"
+//			holder2.icon_state = "hudxeno"
+//		else if(foundVirus)
+//			holder.icon_state = "hudill"
+//		else if(has_brain_worms())
+//			var/mob/living/simple_animal/borer/B = has_brain_worms()
+//			if(B.controlling)
+//				holder.icon_state = "hudbrainworm"
+//			else
+//				holder.icon_state = "hudhealthy"
+//			holder2.icon_state = "hudbrainworm"
+//		else
+//			holder.icon_state = "hudhealthy"
+//			if(virus2.len)
+//				holder2.icon_state = "hudill"
+//			else
+//				holder2.icon_state = "hudhealthy"
 
-		hud_list[HEALTH_HUD] = holder
+//		hud_list[STATUS_HUD] = holder
+//		hud_list[STATUS_HUD_OOC] = holder2
+//
 
-
-	if(hud_updateflag & 1 << STATUS_HUD)
-		var/foundVirus = 0
-		for (var/ID in virus2)
-			if (ID in virusDB)
-				foundVirus = 1
-				break
-
-		var/image/holder = hud_list[STATUS_HUD]
-		var/image/holder2 = hud_list[STATUS_HUD_OOC]
-		if(stat == 2)
-			holder.icon_state = "huddead"
-			holder2.icon_state = "huddead"
-		else if(status_flags & XENO_HOST)
-			holder.icon_state = "hudxeno"
-			holder2.icon_state = "hudxeno"
-		else if(foundVirus)
-			holder.icon_state = "hudill"
-		else if(has_brain_worms())
-			var/mob/living/simple_animal/borer/B = has_brain_worms()
-			if(B.controlling)
-				holder.icon_state = "hudbrainworm"
-			else
-				holder.icon_state = "hudhealthy"
-			holder2.icon_state = "hudbrainworm"
-		else
-			holder.icon_state = "hudhealthy"
-			if(virus2.len)
-				holder2.icon_state = "hudill"
-			else
-				holder2.icon_state = "hudhealthy"
-
-		hud_list[STATUS_HUD] = holder
-		hud_list[STATUS_HUD_OOC] = holder2
-
-
-	if(hud_updateflag & 1 << ID_HUD)
-		var/image/holder = hud_list[ID_HUD]
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				holder.icon_state = "hud[ckey(I.GetJobName())]"
-			else
-				holder.icon_state = "hudunknown"
-		else
-			holder.icon_state = "hudunknown"
-
-
-		hud_list[ID_HUD] = holder
-
-
-	if(hud_updateflag & 1 << WANTED_HUD)
-		var/image/holder = hud_list[WANTED_HUD]
-		holder.icon_state = "hudblank"
-		var/perpname = name
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
-		for(var/datum/data/record/E in data_core.general)
-			if(E.fields["name"] == perpname)
-				for (var/datum/data/record/R in data_core.security)
-					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
-						holder.icon_state = "hudwanted"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Incarcerated"))
-						holder.icon_state = "hudprisoner"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Parolled"))
-						holder.icon_state = "hudparolled"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Released"))
-						holder.icon_state = "hudreleased"
-						break
-		hud_list[WANTED_HUD] = holder
+//	if(hud_updateflag & 1 << ID_HUD)
+//		var/image/holder = hud_list[ID_HUD]
+//		if(wear_id)
+//			var/obj/item/weapon/card/id/I = wear_id.GetID()
+//			if(I)
+//				holder.icon_state = "hud[ckey(I.GetJobName())]"
+//			else
+//				holder.icon_state = "hudunknown"
+//		else
+//			holder.icon_state = "hudunknown"
+//
+//
+//		hud_list[ID_HUD] = holder
+//
+//
+//	if(hud_updateflag & 1 << WANTED_HUD)
+//		var/image/holder = hud_list[WANTED_HUD]
+//		holder.icon_state = "hudblank"
+//		var/perpname = name
+//		if(wear_id)
+//			var/obj/item/weapon/card/id/I = wear_id.GetID()
+//			if(I)
+//				perpname = I.registered_name
+//		for(var/datum/data/record/E in data_core.general)
+//			if(E.fields["name"] == perpname)
+//				for (var/datum/data/record/R in data_core.security)
+//					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
+//						holder.icon_state = "hudwanted"
+//						break
+//					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Incarcerated"))
+//						holder.icon_state = "hudprisoner"
+//						break
+//					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Parolled"))
+//						holder.icon_state = "hudparolled"
+//						break
+//					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Released"))
+//						holder.icon_state = "hudreleased"
+//						break
+/*		hud_list[WANTED_HUD] = holder
 
 
 	if(hud_updateflag & 1 << IMPLOYAL_HUD || hud_updateflag & 1 << IMPCHEM_HUD || hud_updateflag & 1 << IMPTRACK_HUD)
@@ -1436,6 +1437,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			hud_list[NATIONS_HUD] = holder
 
 	hud_updateflag = 0
+*/
 
 /mob/living/carbon/human/handle_silent()
 	if(..())

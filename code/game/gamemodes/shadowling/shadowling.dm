@@ -136,7 +136,7 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
 			S.mutations.Remove(CLUMSY)
-		shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -302,44 +302,12 @@ Made by Xhuis
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
-	spawn(0)
-		for(var/datum/mind/shadowling in shadows)
-			if(shadowling.current && shadowling != shadow_mind)
-				if(shadowling.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
-					shadowling.current.client.images += I
-			if(shadow_mind.current)
-				if(shadow_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = shadowling.current, icon_state = "shadowling")
-					shadow_mind.current.client.images += J
-		for(var/datum/mind/thrall in shadowling_thralls)
-			if(thrall.current)
-				if(thrall.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
-					thrall.current.client.images += I
-			if(shadow_mind.current)
-				if(shadow_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = thrall.current, icon_state = "thrall")
-					shadow_mind.current.client.images += J
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
+	shadow_hud.join_hud(shadow_mind.current)
+	set_antag_hud(shadow_mind.current, ((shadow_mind in shadows) ? "hudshadowling" : "hudshadowlingthrall"))
 
-/datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind)
-	spawn(0)
-		for(var/datum/mind/shadowling in shadows)
-			if(shadowling.current)
-				if(shadowling.current.client)
-					for(var/image/I in shadowling.current.client.images)
-						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
-							qdel(I)
 
-		for(var/datum/mind/thrall in shadowling_thralls)
-			if(thrall.current)
-				if(thrall.current.client)
-					for(var/image/I in thrall.current.client.images)
-						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
-							qdel(I)
-
-		if(shadow_mind.current)
-			if(shadow_mind.current.client)
-				for(var/image/I in shadow_mind.current.client.images)
-					if(I.icon_state == "thrall" || I.icon_state == "shadowling")
-						qdel(I)
+/datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind) //This should never actually occur, but it's here anyway.
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
+	shadow_hud.leave_hud(shadow_mind.current)
+	set_antag_hud(shadow_mind.current, null)

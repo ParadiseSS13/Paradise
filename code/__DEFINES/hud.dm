@@ -1,11 +1,35 @@
-// for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list of humans.
-#define HEALTH_HUD		1 // a simple line rounding the mob's number health
-#define STATUS_HUD		2 // alive, dead, diseased, etc.
-#define ID_HUD			3 // the job asigned to your ID
-#define WANTED_HUD		4 // wanted, released, parroled, security status
-#define IMPLOYAL_HUD		5 // loyality implant
-#define IMPCHEM_HUD		6 // chemical implant
-#define IMPTRACK_HUD		7 // tracking implant
-#define SPECIALROLE_HUD 	8 // AntagHUD image
-#define STATUS_HUD_OOC		9 // STATUS_HUD without virus db check for someone being ill.
-#define NATIONS_HUD		10 //Show nations icons during nations gamemode
+// for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list
+// note: if you add more HUDs, even for non-human atoms, make sure to use unique numbers for the defines!
+// /datum/hud expects these to be unique
+#define HEALTH_HUD		"1" // a simple line rounding the mob's number health
+#define STATUS_HUD		"2" // alive, dead, diseased, etc.
+#define ID_HUD			"3" // the job asigned to your ID
+#define WANTED_HUD		"4" // wanted, released, parroled, security status
+#define IMPLOYAL_HUD		"5" // loyality implant
+#define IMPCHEM_HUD		"6" // chemical implant
+#define IMPTRACK_HUD		"7" // tracking implant
+#define SPECIALROLE_HUD 	"8" // AntagHUD image
+#define STATUS_HUD_OOC		"9" // STATUS_HUD without virus db check for someone being ill.
+#define NATIONS_HUD		"10" //Show nations icons during nations gamemode
+#define DIAG_STAT_HUD	"11" // Silicon/Mech Status
+#define DIAG_HUD		"12" // Silicon health bar
+#define DIAG_BATT_HUD	"13"// Borg/Mech power meter
+#define DIAG_MECH_HUD	"14"// Mech health bar
+
+//data HUD (medhud, sechud) defines
+//Don't forget to update human/New() if you change these!
+#define DATA_HUD_SECURITY_BASIC		1
+#define DATA_HUD_SECURITY_ADVANCED	2
+#define DATA_HUD_MEDICAL_BASIC		3
+#define DATA_HUD_MEDICAL_ADVANCED	4
+#define DATA_HUD_DIAGNOSTIC			5
+//antag HUD defines
+#define ANTAG_HUD_CULT		6
+#define ANTAG_HUD_REV		7
+#define ANTAG_HUD_OPS		8
+#define ANTAG_HUD_WIZ		9
+#define ANTAG_HUD_SHADOW    10
+#define ANTAG_HUD_VAMPIRE	11
+
+//NATIONS
+#define DATA_HUD_NATIONS	12

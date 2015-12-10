@@ -244,13 +244,13 @@
 	callHook("clone", list(H))
 
 	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_all_rev_icons() //So the icon actually appears
+		ticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_all_synd_icons()
+		ticker.mode.update_synd_icons_added()
 	if (H.mind in ticker.mode.cult)
 		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(src.occupant.mind)
-		ticker.mode.update_all_cult_icons() //So the icon actually appears
+		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))

@@ -58,6 +58,9 @@
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
 
+	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
+	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+
 	var/rev_cooldown = 0
 
 	// the world.time since the mob has been brigged, or -1 if not at all
@@ -79,6 +82,8 @@
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
+	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
+	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
@@ -1054,7 +1059,7 @@
 				log_admin("[key_name(usr)] has thralled [current].")
 
 	else if (href_list["silicon"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["silicon"])
 			if("unmalf")
 				if(src in ticker.mode.malf_ai)

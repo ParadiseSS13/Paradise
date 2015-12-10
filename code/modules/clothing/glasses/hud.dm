@@ -3,23 +3,38 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
-	HUDType = SECHUD
+	HUDType =  DATA_HUD_SECURITY_BASIC
 	prescription_upgradable = 1
 	var/list/icon/current = list() //the current hud icons
 
+
+/obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
+	if(slot == slot_glasses)
+		var/datum/atom_hud/H = huds[HUDType]
+		H.add_hud_to(user)
+
+/obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
+	if(user.glasses == src)
+		var/datum/atom_hud/H = huds[HUDType]
+		H.remove_hud_from(user)
+
+/obj/item/clothing/glasses/hud/emp_act(severity)
+	if(emagged == 0)
+		emagged = 1
+		desc = desc + " The display flickers slightly."
 
 /obj/item/clothing/glasses/hud/health
 	name = "/improper Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
-	HUDType = MEDHUD
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/health_advanced
 	name = "/improper Advanced Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
 	icon_state = "advmedhud"
 	flash_protect = 1
-	HUDType = MEDHUD
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/health/night
 	name = "/improper Night Vision Health Scanner HUD"
@@ -30,6 +45,11 @@
 	see_darkness = 0
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/hud/diagnostic
+	name = "Diagnostic HUD"
+	desc = "A heads-up display that scans silicons"
+	icon_state = "healthhud"
+	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/glasses/hud/security
 	name = "/improper Security HUD"
@@ -37,6 +57,7 @@
 	icon_state = "securityhud"
 	var/global/list/jobs[0]
 	flash_protect = 1
+	HUDType = DATA_HUD_SECURITY_ADVANCED
 
 /obj/item/clothing/glasses/hud/security/jensenshades
 	name = "augmented shades"

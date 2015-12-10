@@ -213,14 +213,14 @@
 				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
 
 
-/datum/game_mode/proc/update_all_cult_icons()
-	spawn(0)
-		// reset the cult
-		for(var/datum/mind/cultist in cult)
-			reset_cult_icons_for_cultist(cultist)
-		// reset the spirits
-		for(var/mob/spirit/currentSpirit in spirits)
-			reset_cult_icons_for_spirit(currentSpirit)
+///datum/game_mode/proc/update_all_cult_icons()
+//	spawn(0)
+//		// reset the cult
+//		for(var/datum/mind/cultist in cult)
+//			reset_cult_icons_for_cultist(cultist)
+//		// reset the spirits
+//		for(var/mob/spirit/currentSpirit in spirits)
+//			reset_cult_icons_for_spirit(currentSpirit)
 
 
 /datum/game_mode/proc/reset_cult_icons_for_cultist(var/datum/mind/target)
@@ -315,19 +315,26 @@
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	spawn(0)
-		for(var/datum/mind/cultist in cult)
-			cult_icon_pair_link(cultist,cult_mind)
-		for(var/mob/spirit/currentSpirit in spirits)
-			add_cult_icon_to_spirit(currentSpirit,cult_mind)
+	//spawn(0)
+	//	for(var/datum/mind/cultist in cult)
+	//		cult_icon_pair_link(cultist,cult_mind)
+	//	for(var/mob/spirit/currentSpirit in spirits)
+	//		add_cult_icon_to_spirit(currentSpirit,cult_mind)
+
+	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	culthud.join_hud(cult_mind.current)
+	set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-	spawn(0)
-		for(var/datum/mind/cultist in cult)
-			cult_icon_pair_unlink(cultist,cult_mind)
-		for(var/mob/spirit/currentSpirit in spirits)
-			remove_cult_icon_from_spirit(currentSpirit,cult_mind)
+	//spawn(0)
+	//	for(var/datum/mind/cultist in cult)
+	//		cult_icon_pair_unlink(cultist,cult_mind)
+	//	for(var/mob/spirit/currentSpirit in spirits)
+	//		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
+	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	culthud.leave_hud(cult_mind.current)
+	set_antag_hud(cult_mind.current, null)
 
 
 /datum/game_mode/cult/proc/get_unconvertables()
