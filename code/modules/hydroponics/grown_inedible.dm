@@ -92,8 +92,7 @@
 			user.Paralyse(5)
 			user << "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>"
 
-/obj/item/weapon/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	if(!..()) return
+/obj/item/weapon/grown/nettle/death/afterattack(mob/living/carbon/M, mob/user)
 	if(istype(M, /mob/living))
 		M << "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>"
 		add_logs(M, user, "attacked", src)
@@ -103,6 +102,7 @@
 			M.Paralyse(force / 6)
 			M.Weaken(force / 15)
 		M.drop_item()
+	..()
 
 /obj/item/weapon/corncob
 	name = "corn cob"
