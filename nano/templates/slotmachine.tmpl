@@ -11,10 +11,10 @@ Used In File(s): /code/game/machinery/slotmachine.dm
 		{{:helper.string("<div class='statusValue {0}'>{1}</div>", data.money >= 5 ? "" : "bad", data.money)}}
 	</div>
 	<div class="item">
-		<div class="itemLabel">
+		<div class="statusLabel">
 			Five credits to play!
 		</div>
-		<div class="itemContent">
+		<div class="statusValue">
 			{{:helper.link('SPIN!', 'arrowrefresh-1-s', {'ops' : 1}, data.money >= 5 && !data.working ? null : 'disabled')}}
 		</div>
 	</div>
