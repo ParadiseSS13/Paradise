@@ -6,7 +6,7 @@ world/IsBanned(key,address,computer_id)
 
 	if (computer_id == 2147483647) //this cid causes stickybans to go haywire
 		log_access("Failed Login (invalid cid): [key] [address]-[computer_id]")
-		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.)")
+		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.")
 	var/admin = 0
 	var/ckey = ckey(key)
 	if((ckey in admin_datums) || (ckey in deadmins))
