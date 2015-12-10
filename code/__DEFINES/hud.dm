@@ -1,20 +1,23 @@
+
 // for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list
 // note: if you add more HUDs, even for non-human atoms, make sure to use unique numbers for the defines!
-// /datum/hud expects these to be unique
-#define HEALTH_HUD		"1" // a simple line rounding the mob's number health
-#define STATUS_HUD		"2" // alive, dead, diseased, etc.
+// /datum/atom_hud expects these to be unique
+// these need to be strings in order to make them associative lists
+#define HEALTH_HUD		"1" // dead, alive, sick, health status
+#define STATUS_HUD		"2" // a simple line rounding the mob's number health
 #define ID_HUD			"3" // the job asigned to your ID
 #define WANTED_HUD		"4" // wanted, released, parroled, security status
-#define IMPLOYAL_HUD		"5" // loyality implant
+#define IMPLOYAL_HUD	"5" // loyality implant
 #define IMPCHEM_HUD		"6" // chemical implant
-#define IMPTRACK_HUD		"7" // tracking implant
-#define SPECIALROLE_HUD 	"8" // AntagHUD image
-#define STATUS_HUD_OOC		"9" // STATUS_HUD without virus db check for someone being ill.
-#define NATIONS_HUD		"10" //Show nations icons during nations gamemode
-#define DIAG_STAT_HUD	"11" // Silicon/Mech Status
-#define DIAG_HUD		"12" // Silicon health bar
-#define DIAG_BATT_HUD	"13"// Borg/Mech power meter
-#define DIAG_MECH_HUD	"14"// Mech health bar
+#define IMPTRACK_HUD	"7" // tracking implant
+#define DIAG_STAT_HUD	"8" // Silicon/Mech Status
+#define DIAG_HUD		"9" // Silicon health bar
+#define DIAG_BATT_HUD	"10"// Borg/Mech power meter
+#define DIAG_MECH_HUD	"11"// Mech health bar
+#define STATUS_HUD_OOC		"12" // STATUS_HUD without virus db check for someone being ill.
+//for antag huds. these are used at the /mob level
+#define SPECIALROLE_HUD 		"12"
+#define NATIONS_HUD		"13" //Show nations icons during nations gamemode
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!

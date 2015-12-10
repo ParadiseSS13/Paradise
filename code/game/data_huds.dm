@@ -47,8 +47,8 @@
 	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
 
 
-/datum/atom_hud/data/human/nations
-	hud_icons = list(NATIONS_HUD)
+///datum/atom_hud/data/human/nations
+//	hud_icons = list(NATIONS_HUD)
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -254,10 +254,10 @@
 
 
 ////NATIONS/////
-/mob/living/carbon/human/proc/nation_hud_set_ID()
-	var/image/holder = hud_list[NATIONS_HUD]
-	holder.icon_state = "hudunknown"
-	if(mind && mind.nation)
-		holder.icon_state = "hud[mind.nation.default_name]"
+///mob/living/carbon/human/proc/nation_hud_set_ID()
+//	var/image/holder = hud_list[NATIONS_HUD]
+//	holder.icon_state = "hudunknown"
+//	if(mind && mind.nation)
+//		holder.icon_state = "hud[mind.nation.default_name]"
 
 

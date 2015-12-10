@@ -139,7 +139,7 @@ datum/game_mode/nations
 					continue
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
-			H.nation_hud_set_ID()
+			//H.nation_hud_set_ID()
 			if(H.mind.assigned_role in civilian_positions)
 				H << "You do not belong to any nation and are free to sell your services to the highest bidder."
 				continue
@@ -272,7 +272,7 @@ datum/game_mode/nations
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
-		H.nation_hud_set_ID()
+		//H.nation_hud_set_ID()
 		if(H.mind.assigned_role in civilian_positions)
 			H << "You do not belong to any nation and are free to sell your services to the highest bidder."
 			return 1
