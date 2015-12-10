@@ -6,6 +6,7 @@
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_1_on"
 	token_price = 15
+	window_name = "Claw Game"
 	var/machine_image = "_1"
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
 
@@ -18,8 +19,11 @@
 								'icons/obj/arcade_images/prizeorbs.png')
 
 /obj/machinery/arcade/claw/New()
+	src.addAtProcessing()
+
 	machine_image = pick("_1", "_2")
 	update_icon()
+
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/clawgame(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
@@ -27,6 +31,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
+
 	if(!claw_game_html)
 		claw_game_html = file2text('code/modules/arcade/crane.html')
 		claw_game_html = replacetext(claw_game_html, "/* ref src */", "\ref[src]")
@@ -48,7 +53,7 @@
 		icon_state = "clawmachine[machine_image]_on"
 	return
 
-/obj/machinery/arcade/claw/proc/win()
+/obj/machinery/arcade/claw/win()
 	icon_state = "clawmachine[machine_image]_win"
 	visible_message("<span class='game say'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
 	if(prob(bonus_prize_chance))
@@ -59,17 +64,12 @@
 	spawn(10)
 		update_icon()
 
-/obj/machinery/arcade/claw/attack_hand(mob/user as mob)
-	interact(user)
-
-/obj/machinery/arcade/claw/interact(mob/user as mob)
-	if(!..())
-		return
+/obj/machinery/arcade/claw/start_play(mob/user as mob)
+	..()
 	user << browse_rsc('page.css')
 	for(var/i=1, i<=img_resources.len, i++)
 		user << browse_rsc(img_resources[i])
-	user << browse(claw_game_html, "window=arcade;size=700x600;can_close=0")
-	return
+	user << browse(claw_game_html, "window=[window_name];size=700x600")
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)
 	if(..())
@@ -77,8 +77,6 @@
 	var/prize_won = null
 	prize_won = href_list["prizeWon"]
 	if(!isnull(prize_won))
-		usr.unset_machine()
-		playing = 0
-		usr << browse(null, "window=arcade")	//just in case
+		close_game()
 		if(prize_won == "1")
 			win()
