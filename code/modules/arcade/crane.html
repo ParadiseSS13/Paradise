@@ -49,7 +49,7 @@
 				setTimeout(function(){
 					state='falling';
 					$('#debug-streak').html(0); //reset streak
-					setTimeout(gameShutDown(),500);	//end game because you dropped it
+					setTimeout(gameShutDown,500);	//end game because you dropped it
 				},4*error+300);
 			 } 
 			 
@@ -252,9 +252,14 @@
 		if(prizeWon)
 			close_game_link = '<h2>YOU WON!</h2><br><a href="byond://?src=/* ref src */;prizeWon=1">\[Close Game\]</a>'
 		document.getElementById('game').innerHTML = '<center><h1> GAME OVER!</h1><br>'+close_game_link+'</center>'
-	}</script>
+	}
+	
+	function emergencyShutDown(){
+		document.getElementById("close_nao").click();
+	}
+	</script>
 	</head>
-	<body>
+	<body onunload="emergencyShutDown()">
 	
 		<div id='game' style='position: relative;'>
 			<div id="background"></div>
@@ -274,7 +279,7 @@
 		</div>
 		
 		<div id='controls' style='position: absolute; top: 550px'>
-			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button> <button id="close_btn" onclick="gameShutDown()">Close Game.</button>
+			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button> <button id="close_btn" onclick="gameShutDown()">Close Game.</button><a id="close_nao" hidden="true" href="byond://?src=/* ref src */;prizeWon=0"></a>
 			<br>
 			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
 			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>

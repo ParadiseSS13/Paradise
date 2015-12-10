@@ -11,8 +11,8 @@
 	var/tokens = 0
 	var/freeplay = 0				//for debugging and admin kindness
 	var/token_price = 0
-	var/playing = 0					//only has one set of controls, so only one person can play at once
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
+	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
 /obj/machinery/arcade/New()
 	..()
@@ -34,22 +34,29 @@
 		else
 			user << "\The [src.name] has [tokens] play credits!"
 
+/obj/machinery/arcade/attack_hand(mob/user as mob)
+	if(..())
+		if(in_use && src == user.machine)	//this one checks if they fell down/died and closes the game
+			src.close_game()
+		return
+	if(in_use && src == user.machine)		//this one just checks if they are playing so it doesn't eat tokens
+		return
+	interact(user)
+
 /obj/machinery/arcade/interact(mob/user as mob)
 	if(stat & BROKEN || panel_open)
-		return 0
+		return
 	if(!tokens && !freeplay)
 		user << "\The [src.name] doesn't have enough credits to play! Pay first!"
-		return 0
-	if(!playing && (tokens || freeplay))
-		user.set_machine(src)
-		playing = 1
-		if(!freeplay)
-			tokens -= 1
-		return 1
-	if(playing && (src != user.machine))
-		user << "Someone else is already playing this machine, please wait your turn!"
-		return 0
-	return 1
+		return
+	if(!in_use && (tokens || freeplay))
+		in_use = 1
+		start_play(user)
+		return
+	if(in_use)
+		if(src != user.machine)
+			user << "Someone else is already playing this machine, please wait your turn!"
+		return
 
 /obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
@@ -130,3 +137,29 @@
 		T.time = worldtime2text()
 		customer_account.transaction_log.Add(T)
 		return 1
+
+/obj/machinery/arcade/proc/start_play(mob/user as mob)
+	user.set_machine(src)
+	if(!freeplay)
+		tokens -= 1
+
+/obj/machinery/arcade/proc/close_game()
+	in_use = 0
+	for(var/mob/user in viewers(world.view, src))			// I don't know who you are.
+		if(user.client && user.machine == src)				// I will look for you,
+			user.unset_machine()							// I will find you,
+			user << browse(null, "window=[window_name]")	// And I will kill you.
+	return
+
+/obj/machinery/arcade/proc/win()
+	return
+
+/obj/machinery/arcade/process()
+	if(in_use)
+		src.updateUsrDialog()
+		if(!in_use)
+			src.close_game()
+
+/obj/machinery/arcade/Destroy()
+	src.close_game()
+	return ..()
