@@ -138,7 +138,7 @@
 		var/mob/living/silicon/ai/AI = usr
 		AI.sensor_mode()
 	else if(isrobot(usr))
-	 	var/mob/living/silicon/robot/borg = usr
+		var/mob/living/silicon/robot/borg = usr
 		borg.sensor_mode()
 
 
