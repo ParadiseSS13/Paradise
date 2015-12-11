@@ -26,8 +26,8 @@
 				med_hud_set_status()
 	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
-		med_hud_set_health()
-		med_hud_set_status()
+	med_hud_set_health()
+	med_hud_set_status()
 
 /mob/living/carbon/human/adjustBrainLoss(var/amount)
 	if(status_flags & GODMODE)
