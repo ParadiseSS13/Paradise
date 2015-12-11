@@ -285,7 +285,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(data_hud_seen) //remove old huds
 		var/datum/atom_hud/H = huds[data_hud_seen]
 		H.remove_hud_from(src)
-	show_me_the_hud(DATA_HUD_SECURITY_BASIC)
+	show_me_the_hud(DATA_HUD_MEDICAL_BASIC)
 
 /mob/dead/observer/verb/toggle_antagHUD()
 	set category = "Ghost"
