@@ -58,12 +58,11 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			spawn(30)
 				if (roll == 1)
-					playsound(src.loc, 'sound/effects/engine_alert2.ogg', 50, 0)
 					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won two hundred and fifty thousand credits!'")
 					slotmachine_announcement.Announce("Congratulations to [usr.name] on winning the jackpot of two hundred and fifty thousand credits!", "Jackpot Winner")
 					result = "JACKPOT! You win two hundred and fifty thousand credits!"
 					resultlvl = "highlight"
-					win_money(250000, 0)
+					win_money(250000, 'sound/effects/engine_alert2.ogg')
 				else if (roll > 1 && roll <= 10)
 					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won five thousand credits!'")
 					result = "Big Winner! You win five thousand credits!"
@@ -84,9 +83,9 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 				working = 0
 				icon_state = "slots-off"
 
-/obj/machinery/slot_machine/proc/win_money(amt, playsnd=1)
-	if(playsnd)
-		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+/obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
+	if(sound)
+		playsound(loc, sound, 50)
 
 	if(!account)
 		return
