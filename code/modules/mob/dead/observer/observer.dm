@@ -111,36 +111,18 @@ Works together with spawning an observer, noted above.
 	if(!client) return 0
 
 	//regular_hud_updates()
-	if(client.images.len)
-		for(var/image/hud in client.images)
-			if(copytext(hud.icon_state,1,4) == "hud")
-				client.images.Remove(hud)
-	if(antagHUD)
-		var/list/target_list = list()
-		for(var/mob/living/target in oview(src, 14))
-			if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
-				target_list += target
-		if(target_list.len)
-			assess_targets(target_list, src)
-	//if(medHUD)
-	///	process_medHUD(src)
-	//if(secHUD)
-	//	process_secHUD(src)
+	//if(client.images.len)
+	//	for(var/image/hud in client.images)
+	//		if(copytext(hud.icon_state,1,4) == "hud")
+	//			client.images.Remove(hud)
+	//if(antagHUD)
+	//	var/list/target_list = list()
+	//	for(var/mob/living/target in oview(src, 14))
+	//		if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
+	//			target_list += target
+	//	if(target_list.len)
+	//		assess_targets(target_list, src)
 
-/*
-/mob/dead/proc/process_medHUD(var/mob/M)
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/patient in oview(M, 14))
-		C.images += patient.hud_list[HEALTH_HUD]
-		C.images += patient.hud_list[STATUS_HUD_OOC]
-
-/mob/dead/proc/process_secHUD(var/mob/M)
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/target in oview(M, 14))
-		C.images += target.hud_list[IMPTRACK_HUD]
-		C.images += target.hud_list[IMPLOYAL_HUD]
-		C.images += target.hud_list[IMPCHEM_HUD]
-*/
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
@@ -311,9 +293,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(M.antagHUD)
 		M.antagHUD = 0
 		src << "\blue <B>AntagHUD Disabled</B>"
+		for(var/datum/atom_hud/H in huds)
+			if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
+				H.add_hud_to(usr)
 	else
 		M.antagHUD = 1
 		src << "\blue <B>AntagHUD Enabled</B>"
+		for(var/datum/atom_hud/H in huds)
+			if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
+				H.remove_hud_from(usr)
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"

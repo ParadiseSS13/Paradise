@@ -24,7 +24,7 @@
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD,NATIONS_HUD)
 
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use

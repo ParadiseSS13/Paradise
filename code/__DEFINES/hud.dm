@@ -26,13 +26,12 @@
 #define DATA_HUD_MEDICAL_BASIC		3
 #define DATA_HUD_MEDICAL_ADVANCED	4
 #define DATA_HUD_DIAGNOSTIC			5
-//antag HUD defines
-#define ANTAG_HUD_CULT		6
-#define ANTAG_HUD_REV		7
-#define ANTAG_HUD_OPS		8
-#define ANTAG_HUD_WIZ		9
-#define ANTAG_HUD_SHADOW    10
-#define ANTAG_HUD_VAMPIRE	11
-
 //NATIONS
-#define DATA_HUD_NATIONS	12
+#define DATA_HUD_NATIONS	6
+//antag HUD defines
+#define ANTAG_HUD_CULT		7
+#define ANTAG_HUD_REV		8
+#define ANTAG_HUD_OPS		9
+#define ANTAG_HUD_WIZ		10
+#define ANTAG_HUD_SHADOW    11
+#define ANTAG_HUD_VAMPIRE	12
