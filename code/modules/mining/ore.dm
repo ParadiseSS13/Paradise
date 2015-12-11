@@ -9,7 +9,7 @@
 /obj/item/weapon/ore/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = I
-		if(W.remove_fuel(15))
+		if(W.remove_fuel(15) && refined_type)
 			new refined_type(get_turf(src.loc))
 			qdel(src)
 		else if(W.isOn())
@@ -20,7 +20,7 @@
 	name = "uranium ore"
 	icon_state = "Uranium ore"
 	origin_tech = "materials=5"
-	points = 18
+	points = 30
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
@@ -63,7 +63,7 @@
 	name = "plasma ore"
 	icon_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
-	points = 36
+	points = 15
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
@@ -79,7 +79,7 @@
 	name = "silver ore"
 	icon_state = "Silver ore"
 	origin_tech = "materials=3"
-	points = 18
+	points = 16
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
@@ -95,7 +95,7 @@
 	name = "diamond ore"
 	icon_state = "Diamond ore"
 	origin_tech = "materials=6"
-	points = 36
+	points = 50
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
@@ -103,7 +103,7 @@
 	name = "bananium ore"
 	icon_state = "Clown ore"
 	origin_tech = "materials=4"
-	points = 27
+	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
