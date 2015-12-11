@@ -88,6 +88,8 @@
 /turf/space/transit/Entered(atom/movable/AM, atom/OldLoc)
 	if(!AM)
 		return
+	if(istype(AM, /obj/docking_port) || !AM.simulated)
+		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 

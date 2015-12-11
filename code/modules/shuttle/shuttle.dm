@@ -171,6 +171,8 @@
 	if(!..())
 		return 0
 
+	name = "In Transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
+
 	shuttle_master.transit += src
 	return 1
 

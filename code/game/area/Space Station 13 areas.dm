@@ -282,11 +282,6 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/siberia
 	name = "\improper Labor Camp Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/siberia/station
-	icon_state = "shuttle"
-
-/area/shuttle/siberia/outpost
 	icon_state = "shuttle"
 
 /area/shuttle/specops/centcom
