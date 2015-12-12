@@ -186,8 +186,8 @@ var/list/ai_verbs_default = list(
 	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 
 	ai_list += src
+	shuttle_caller_list += src
 	..()
-	return
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
@@ -229,6 +229,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	qdel(eyeobj) // No AI, no Eye
 	return ..()
 

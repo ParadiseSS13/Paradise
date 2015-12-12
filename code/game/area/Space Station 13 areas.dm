@@ -413,6 +413,10 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle3"
 	requires_power = 0
 
+/area/shuttle/abandoned
+	name = "Abandoned Ship"
+	icon_state = "shuttle"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261

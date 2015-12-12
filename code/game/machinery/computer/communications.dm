@@ -34,6 +34,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
+	shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 1
 
@@ -480,26 +481,8 @@
 
 
 /obj/machinery/computer/communications/Destroy()
-
-	for(var/obj/machinery/computer/communications/commconsole in world)
-		if(istype(commconsole.loc,/turf) && commconsole != src)
-			return ..()
-
-	for(var/obj/item/weapon/circuitboard/communications/commboard in world)
-		if(istype(commboard.loc,/turf) || istype(commboard.loc,/obj/item/weapon/storage))
-			return ..()
-
-	for(var/mob/living/silicon/ai/shuttlecaller in player_list)
-		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
-			return ..()
-
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
-		return ..()
-
-	shuttle_master.requestEvac(null, "All communication consoles, boards, and AI's have been destroyed.")
-	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
-	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
-
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	return ..()
 
 /obj/item/weapon/circuitboard/communications/Destroy()
