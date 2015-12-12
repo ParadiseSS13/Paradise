@@ -482,9 +482,9 @@ var/global/datum/controller/occupations/job_master
 					G.name = "prescription [G.name]"
 		H.regenerate_icons()
 
-		H.hud_updateflag |= (1 << ID_HUD)
-		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
-		H.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		H.sec_hud_set_ID()
+		H.sec_hud_set_implants()
+		//H.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return H
 
 

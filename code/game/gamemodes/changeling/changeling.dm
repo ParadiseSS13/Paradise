@@ -136,7 +136,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>\red You are a changeling!</B>"
 	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>"
 	changeling.current << "<B>You must complete the following tasks:</B>"
-
+	set_antag_hud(changeling, "hudchangeling")
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."

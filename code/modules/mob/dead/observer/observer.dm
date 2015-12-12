@@ -28,6 +28,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
+	var/medhud = 0
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -256,6 +257,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/datum/atom_hud/H = huds[hud_index]
 	H.add_hud_to(src)
 	data_hud_seen = hud_index
+	//src << "Datahud"//debug print
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
@@ -267,7 +269,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(data_hud_seen) //remove old huds
 		var/datum/atom_hud/H = huds[data_hud_seen]
 		H.remove_hud_from(src)
-	show_me_the_hud(DATA_HUD_MEDICAL_BASIC)
+	if(medhud==0)//TOGGLE!
+		medhud = 1
+		show_me_the_hud(DATA_HUD_MEDICAL_BASIC)
+	else
+		medhud = 0
+
 
 /mob/dead/observer/verb/toggle_antagHUD()
 	set category = "Ghost"
@@ -290,18 +297,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			respawnable_list -= M
 	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		M.has_enabled_antagHUD = 1
+
 	if(M.antagHUD)
 		M.antagHUD = 0
-		src << "\blue <B>AntagHUD Disabled</B>"
 		for(var/datum/atom_hud/H in huds)
-			if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
-				H.add_hud_to(usr)
+			if(istype(H, /datum/atom_hud/antag))
+				H.remove_hud_from(usr)
+		usr << "You toggled your antag HUD Off."
 	else
 		M.antagHUD = 1
-		src << "\blue <B>AntagHUD Enabled</B>"
 		for(var/datum/atom_hud/H in huds)
-			if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
-				H.remove_hud_from(usr)
+			if(istype(H, /datum/atom_hud/antag))
+				H.add_hud_to(usr)
+		usr << "You toggled your antag HUD On."
+
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"

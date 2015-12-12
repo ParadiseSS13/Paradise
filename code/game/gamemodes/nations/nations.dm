@@ -146,7 +146,7 @@ datum/game_mode/nations
 			else
 				message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
 				continue
-			H.nation_hud_set_ID()
+			update_nations_icons_added(H)
 
 
 /datum/game_mode/nations/proc/set_ai()
@@ -284,7 +284,7 @@ datum/game_mode/nations
 		else
 			message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
 			return 1
-		H.nation_hud_set_ID()
+		mode.update_nations_icons_added(H)
 	message_admins("[H.name] latejoined with no mind.")
 	return 1
 
@@ -293,3 +293,16 @@ datum/game_mode/nations
 		return null
 
 	return ticker.mode
+
+
+//prepare for copypaste
+//While not an Antag i AM using the set_antag hud on this to make this easier.
+/datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind)
+	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
+	nations_hud.join_hud(nations_mind)
+	set_antag_hud(nations_mind.current,"hud[lowertext(nations_mind.nation.default_name)]")
+
+/datum/game_mode/proc/update_nations_icons_removed(datum/mind/nations_mind)
+	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
+	nations_hud.leave_hud(nations_mind)
+	set_antag_hud(nations_mind.current, null)

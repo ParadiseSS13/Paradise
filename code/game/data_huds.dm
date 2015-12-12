@@ -44,11 +44,7 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
-
-
-/datum/atom_hud/data/human/nations
-	hud_icons = list(NATIONS_HUD)
+	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD,, DIAG_BOT_HUD)
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -110,10 +106,10 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	var/image/holder2 = hud_list[STATUS_HUD_OOC]
+	//var/image/holder2 = hud_list[STATUS_HUD_OOC]
 	if(stat == 2)
 		holder.icon_state = "huddead"
-		holder2.icon_state = "huddead"
+		//holder2.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
@@ -124,10 +120,10 @@
 			holder.icon_state = "hudbrainworm"
 		else
 			holder.icon_state = "hudhealthy"
-			holder2.icon_state = "hudhealthy"
+			//holder2.icon_state = "hudhealthy"
 	else
 		holder.icon_state = "hudhealthy"
-		holder2.icon_state = "hudhealthy"
+		//holder2.icon_state = "hudhealthy"
 
 
 
@@ -167,6 +163,7 @@
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
 	var/perpname = get_face_name(get_id_name(""))
+	if(!ticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R)
@@ -257,13 +254,3 @@
 	holder.icon_state = null
 	if(internal_damage)
 		holder.icon_state = "hudwarn"
-
-
-//NATIONS/////
-/mob/living/carbon/human/proc/nation_hud_set_ID()
-	var/image/holder = hud_list[NATIONS_HUD]
-	holder.icon_state = "hudunknown"
-	if(mind && mind.nation)
-		holder.icon_state = "hud[mind.nation.default_name]"
-
-

@@ -15,6 +15,7 @@
 #define DIAG_BATT_HUD	"10"// Borg/Mech power meter
 #define DIAG_MECH_HUD	"11"// Mech health bar
 #define STATUS_HUD_OOC		"12" // STATUS_HUD without virus db check for someone being ill.
+
 //for antag huds. these are used at the /mob level
 #define SPECIALROLE_HUD 		"12"
 #define NATIONS_HUD		"13" //Show nations icons during nations gamemode
@@ -27,7 +28,7 @@
 #define DATA_HUD_MEDICAL_ADVANCED	4
 #define DATA_HUD_DIAGNOSTIC			5
 //NATIONS
-#define DATA_HUD_NATIONS	6
+#define GAME_HUD_NATIONS	6
 //antag HUD defines
 #define ANTAG_HUD_CULT		7
 #define ANTAG_HUD_REV		8

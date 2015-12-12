@@ -137,6 +137,7 @@
 				newtraitor << "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate..."
 				newtraitor << "<B>You are now a traitor.</B>"
 				newtraitor.mind.special_role = "traitor"
+				set_antag_hud(src, "hudsyndicate")
 
 				var/obj_count = 1
 				newtraitor << "\blue Your current objectives:"

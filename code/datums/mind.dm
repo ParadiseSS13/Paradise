@@ -615,7 +615,7 @@
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
 
-		H.hud_updateflag |= (1 << IMPLOYAL_HUD)   // updates that players HUD images so secHUD's pick up they are implanted or not.
+		//H.hud_updateflag |= (1 << IMPLOYAL_HUD)   // updates that players HUD images so secHUD's pick up they are implanted or not.
 
 		switch(href_list["implant"])
 			if("remove")
@@ -630,6 +630,7 @@
 				var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 				L.imp_in = H
 				L.implanted = 1
+				H.sec_hud_set_implants()
 				var/obj/item/organ/external/affected = H.organs_by_name["head"]
 				affected.implants += L
 				L.part = affected
@@ -662,7 +663,7 @@
 					log_admin("[key_name_admin(usr)] has de-traitor'ed [current].")
 
 	else if (href_list["revolution"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["revolution"])
 			if("clear")
@@ -766,7 +767,7 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a revolutionary")
 
 	else if (href_list["cult"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["cult"])
 			if("clear")
 				if(src in ticker.mode.cult)
@@ -809,7 +810,7 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
 
 	else if (href_list["wizard"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["wizard"])
 			if("clear")
@@ -818,6 +819,7 @@
 					special_role = null
 					current.spellremove(current)
 					current.faction = list("Station")
+					ticker.mode.update_wiz_icons_removed(src)
 					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT>"
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
@@ -826,6 +828,7 @@
 					ticker.mode.wizards += src
 					special_role = "Wizard"
 					//ticker.mode.learn_basic_spells(current)
+					ticker.mode.update_wiz_icons_added(src)
 					current << "<B>\red You are the Space Wizard!</B>"
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -850,7 +853,7 @@
 
 
 	else if (href_list["changeling"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["changeling"])
 			if("clear")
 				if(src in ticker.mode.changelings)
@@ -894,6 +897,7 @@
 					ticker.mode.vampires -= src
 					special_role = null
 					current.remove_vampire_powers()
+					ticker.mode.update_vampire_icons_removed(current)
 					if(vampire)  qdel(vampire)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
@@ -902,6 +906,7 @@
 				if(!(src in ticker.mode.vampires))
 					ticker.mode.vampires += src
 					ticker.mode.grant_vampire_powers(current)
+					ticker.mode.update_vampire_icons_added(current)
 					special_role = "Vampire"
 					current << "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>"
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
@@ -917,7 +922,7 @@
 	else if (href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
 
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["nuclear"])
 			if("clear")
@@ -982,7 +987,7 @@
 					usr << "\red No valid nuke found!"
 
 	else if (href_list["traitor"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["traitor"])
 			if("clear")
 				if(src in ticker.mode.traitors)
@@ -1078,7 +1083,6 @@
 					qdel(A.malf_picker)
 					A.show_laws()
 					A.icon_state = "ai"
-
 					A << "\red <FONT size = 3><B>You have been patched! You are no longer malfunctioning!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-malf'ed [A].")
 					log_admin("[key_name(usr)] has de-malf'd [key_name(current)]")
