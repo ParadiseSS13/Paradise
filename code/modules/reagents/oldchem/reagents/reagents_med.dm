@@ -9,6 +9,10 @@
 
 /datum/reagent/hydrocodone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
 	..()
 	return
 

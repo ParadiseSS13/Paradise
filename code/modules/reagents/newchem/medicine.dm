@@ -285,6 +285,10 @@ datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(55))
 		M.adjustBruteLoss(-2*REM)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
 	..()
 	return
 
@@ -458,6 +462,10 @@ datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 		if(36 to INFINITY)
 			M.Paralyse(10)
 			M.drowsyness = max(M.drowsyness, 15)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
 	..()
 	return
 
