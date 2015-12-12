@@ -323,8 +323,8 @@
 		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/device/laser_pointer, 				                   300),
 		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
 		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
-		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/weapon/hivelordstabilizer			 ,                     400),
-		new /datum/data/mining_equipment("Mining Drone",        /mob/living/simple_animal/hostile/mining_drone,                    500),
+		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/weapon/hivelordstabilizer,                               400),
+		new /datum/data/mining_equipment("Mining Drone",        /obj/item/weapon/mining_drone_cube,                                500),
 		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/weapon/storage/firstaid/brute,						   600),
 		new /datum/data/mining_equipment("Jaunter",             /obj/item/device/wormhole_jaunter,                                 600),
@@ -457,8 +457,7 @@
 		if("Resonator")
 			new /obj/item/weapon/resonator(src.loc)
 		if("Mining Drone")
-			new /mob/living/simple_animal/hostile/mining_drone(src.loc)
-			new /obj/item/weapon/weldingtool/hugetank(src.loc)
+			new /obj/item/weapon/storage/box/drone_kit(src.loc)
 		if("Advanced Scanner")
 			new /obj/item/device/t_scanner/adv_mining_scanner(src.loc)
 	qdel(voucher)
@@ -663,6 +662,22 @@
 	return
 
 
+/**********************Mining drone cube**********************/
+
+/obj/item/weapon/mining_drone_cube
+	name = "mining drone cube"
+	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
+	w_class = 2.0
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "minedronecube"
+	item_state = "electronic"
+
+/obj/item/weapon/mining_drone_cube/attack_self(mob/user)
+	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
+	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
+	qdel(src)
+
 /**********************Mining drone**********************/
 
 /mob/living/simple_animal/hostile/mining_drone
@@ -796,6 +811,22 @@
 	if(search_objects)
 		SetOffenseBehavior()
 	..()
+
+
+/**********************Mining drone kit**********************/
+
+/obj/item/weapon/storage/box/drone_kit
+	name = "Drone Kit"
+	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
+	icon_state = "implant"
+	max_w_class = 3
+	storage_slots = 2
+	can_hold = list("/obj/item/weapon/mining_drone_cube","/obj/item/weapon/weldingtool/hugetank")
+
+/obj/item/weapon/storage/box/drone_kit/New()
+	..()
+	new /obj/item/weapon/mining_drone_cube(src)
+	new /obj/item/weapon/weldingtool/hugetank(src)
 
 /**********************Lazarus Injector**********************/
 
