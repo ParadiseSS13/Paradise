@@ -584,7 +584,7 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "programming=3;engineering=5;bluespace=5;materials=4"
 	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
 	req_components = list(
-							/obj/item/bluespace_crystal = 3,
+							/obj/item/weapon/ore/bluespace_crystal = 3,
 							/obj/item/weapon/stock_parts/matter_bin = 1)
 
 /obj/item/weapon/circuitboard/teleporter_station
@@ -594,7 +594,7 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "programming=4;engineering=4;bluespace=4"
 	frame_desc = "Requires 2 Bluespace Crystals, 2 Capacitors and 1 Console Screen."
 	req_components = list(
-							/obj/item/bluespace_crystal = 2,
+							/obj/item/weapon/ore/bluespace_crystal = 2,
 							/obj/item/weapon/stock_parts/capacitor = 2,
 							/obj/item/weapon/stock_parts/console_screen = 1)
 
@@ -605,7 +605,7 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "programming=4;engineering=3;materials=3;bluespace=4"
 	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
 	req_components = list(
-							/obj/item/bluespace_crystal = 2,
+							/obj/item/weapon/ore/bluespace_crystal = 2,
 							/obj/item/weapon/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/weapon/stock_parts/console_screen = 1)

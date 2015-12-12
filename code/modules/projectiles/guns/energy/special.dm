@@ -207,6 +207,24 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	var/overheat_time = 16
 	var/recent_reload = 1
 
+/obj/item/weapon/gun/energy/kinetic_accelerator/super
+	name = "super-kinetic accelerator"
+	desc = "An upgraded, superior version of the proto-kinetic accelerator."
+	icon_state = "kineticgun_u"
+	projectile_type = "/obj/item/projectile/kinetic/super"
+	overheat_time = 15
+	fire_delay = 15
+	origin_tech = "combat=3;powerstorage=2"
+
+/obj/item/weapon/gun/energy/kinetic_accelerator/hyper
+	name = "hyper-kinetic accelerator"
+	desc = "An upgraded, even more superior version of the proto-kinetic accelerator."
+	icon_state = "kineticgun_h"
+	projectile_type = "/obj/item/projectile/kinetic/hyper"
+	overheat_time = 13
+	fire_delay = 13
+	origin_tech = "combat=4;powerstorage=3"
+
 /obj/item/weapon/gun/energy/kinetic_accelerator/cyborg
 	flags = NODROP
 
