@@ -34,7 +34,6 @@
 
 	if(!claw_game_html)
 		claw_game_html = file2text('code/modules/arcade/crane.html')
-		claw_game_html = replacetext(claw_game_html, "/* ref src */", "\ref[src]")
 
 /obj/machinery/arcade/claw/RefreshParts()
 	var/bin_upgrades = 0
@@ -69,7 +68,8 @@
 	user << browse_rsc('page.css')
 	for(var/i=1, i<=img_resources.len, i++)
 		user << browse_rsc(img_resources[i])
-	user << browse(claw_game_html, "window=[window_name];size=700x600")
+	var/my_game_html = replacetext(claw_game_html, "/* ref src */", "\ref[src]")
+	user << browse(my_game_html, "window=[window_name];size=700x600")
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)
 	if(..())
