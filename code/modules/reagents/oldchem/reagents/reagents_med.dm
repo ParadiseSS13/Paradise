@@ -131,6 +131,7 @@
 	description = "An all-purpose antibiotic agent extracted from space fungus."
 	reagent_state = LIQUID
 	color = "#0AB478"
+	metabolization_rate = 0.2
 
 /datum/reagent/spaceacillin/on_mob_life(var/mob/living/M as mob)
 	..()
