@@ -327,23 +327,6 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/sunglasses/sechud
-	name = "HUDSunglasses"
-	desc = "Sunglasses with a HUD."
-	icon_state = "sunhud"
-	darkness_view = 1
-	flash_protect = 1
-	tint = 1
-	HUDType = DATA_HUD_SECURITY_BASIC
-	prescription_upgradable = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/sunglasses/sechud/prescription
-	prescription = 1
-
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"
 	desc = "Thermals in the shape of glasses."

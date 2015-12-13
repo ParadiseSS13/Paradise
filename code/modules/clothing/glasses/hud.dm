@@ -83,3 +83,20 @@
 	darkness_view = 8
 	see_darkness = 0
 	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/hud/secsunglasses
+	name = "HUDSunglasses"
+	desc = "Sunglasses with a HUD."
+	icon_state = "sunhud"
+	darkness_view = 1
+	flash_protect = 1
+	tint = 1
+	HUDType = DATA_HUD_SECURITY_ADVANCED
+	prescription_upgradable = 1
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		)
+
+/obj/item/clothing/glasses/hud/secsunglasses/prescription
+	prescription = 1

@@ -136,7 +136,6 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
 			S.mutations.Remove(CLUMSY)
-		//shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -157,7 +156,6 @@ Made by Xhuis
 		new_thrall_mind.current << "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>"
 
-		new_thrall_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)

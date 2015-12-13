@@ -145,13 +145,6 @@
 						theAPC = null
 
 	process_queued_alarms()
-	//regular_hud_updates()
-
-	//switch(sensor_mode)
-	///	if (SEC_HUD)
-	//		process_sec_hud(src, 1, eyeobj)
-	//	if (MED_HUD)
-	//		process_med_hud(src, 1, eyeobj)
 
 	if(get_nations_mode())
 		process_nations_ai()

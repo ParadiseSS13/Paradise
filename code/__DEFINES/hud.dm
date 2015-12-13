@@ -17,8 +17,8 @@
 #define STATUS_HUD_OOC		"12" // STATUS_HUD without virus db check for someone being ill.
 
 //for antag huds. these are used at the /mob level
-#define SPECIALROLE_HUD 		"12"
-#define NATIONS_HUD		"13" //Show nations icons during nations gamemode
+#define SPECIALROLE_HUD 		"13"
+#define NATIONS_HUD		"14" //Show nations icons during nations gamemode
 
 //data HUD (medhud, sechud) defines
 //Don't forget to update human/New() if you change these!

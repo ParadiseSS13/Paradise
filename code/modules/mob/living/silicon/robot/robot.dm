@@ -143,15 +143,6 @@ var/list/robot_verbs_default = list(
 		cell_component.wrapped = cell
 		cell_component.installed = 1
 
-	//hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	//hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	//hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 	diag_hud_set_borgcell()
 	scanner.Grant(src)
 

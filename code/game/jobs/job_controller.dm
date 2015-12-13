@@ -484,7 +484,6 @@ var/global/datum/controller/occupations/job_master
 
 		H.sec_hud_set_ID()
 		H.sec_hud_set_implants()
-		//H.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return H
 
 

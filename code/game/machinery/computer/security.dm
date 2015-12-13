@@ -511,8 +511,6 @@ What a mess.*/
 
 					if ("Change Criminal Status")
 						if (active2)
-							//for(var/mob/living/carbon/human/H in player_list)
-								//H.hud_updateflag |= 1 << WANTED_HUD
 							switch(href_list["criminal2"])
 								if("none")
 									active2.fields["criminal"] = "None"

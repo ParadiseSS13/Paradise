@@ -64,8 +64,6 @@
 	user << "<span class='notice'>We have regenerated.</span>"
 
 	user.regenerate_icons()
-	//user.hud_updateflag |= 1 << HEALTH_HUD
-	//user.hud_updateflag |= 1 << STATUS_HUD
 
 	user.status_flags &= ~(FAKEDEATH)
 	user.update_canmove()

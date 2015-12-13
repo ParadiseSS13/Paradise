@@ -265,13 +265,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
-
-	if(data_hud_seen) //remove old huds
-		var/datum/atom_hud/H = huds[data_hud_seen]
-		H.remove_hud_from(src)
+	var/datum/atom_hud/H = huds[DATA_HUD_MEDICAL_BASIC]
+	H.remove_hud_from(src)//out with the old..
 	if(medhud==0)//TOGGLE!
 		medhud = 1
-		show_me_the_hud(DATA_HUD_MEDICAL_BASIC)
+		H.add_hud_to(src)
 	else
 		medhud = 0
 

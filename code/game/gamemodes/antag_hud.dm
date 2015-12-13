@@ -1,5 +1,5 @@
 /datum/atom_hud/antag
-	hud_icons = list(SPECIALROLE_HUD)
+	hud_icons = list(SPECIALROLE_HUD,NATIONS_HUD)
 
 /datum/atom_hud/antag/proc/join_hud(mob/M)
 	if(!istype(M))
@@ -25,6 +25,16 @@
 	if(!istype(M))
 		CRASH("set_antag_hud(): [M] ([M.type]) is not a mob!")
 	var/image/holder = M.hud_list[SPECIALROLE_HUD]
+	if(holder)
+		holder.icon_state = new_icon_state
+	if(M.mind || new_icon_state) //in mindless mobs, only null is acceptable, otherwise we're antagging a mindless mob, meaning we should runtime
+		M.mind.antag_hud_icon_state = new_icon_state
+
+//Nations Icons
+/datum/game_mode/proc/set_nations_hud(mob/M, new_icon_state)
+	if(!istype(M))
+		CRASH("set_antag_hud(): [M] ([M.type]) is not a mob!")
+	var/image/holder = M.hud_list[NATIONS_HUD]
 	if(holder)
 		holder.icon_state = new_icon_state
 	if(M.mind || new_icon_state) //in mindless mobs, only null is acceptable, otherwise we're antagging a mindless mob, meaning we should runtime

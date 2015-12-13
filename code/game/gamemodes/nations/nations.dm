@@ -38,9 +38,7 @@ datum/game_mode/nations
 		if(H.mind)
 			if(H.mind.assigned_role in engineering_positions)
 				H.mind.nation = all_nations["Atmosia"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudatmosia")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudatmosia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -51,9 +49,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in medical_positions)
 				H.mind.nation = all_nations["Medistan"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudmedistan")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudmedistan")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -64,9 +60,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in science_positions)
 				H.mind.nation = all_nations["Scientopia"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudscientopia")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudscientopia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -77,9 +71,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in security_positions)
 				H.mind.nation = all_nations["Brigston"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudbrigston")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudbrigston")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -90,9 +82,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in cargonians)
 				H.mind.nation = all_nations["Cargonia"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcargonia")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudcargonia")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -103,9 +93,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in servicion)
 				H.mind.nation = all_nations["Servicion"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudservice")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -116,9 +104,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in support_positions)
 				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-				//H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
-				//H.client.images += I
+				update_nations_icons_added(H,"hudcommand")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -129,9 +115,7 @@ datum/game_mode/nations
 
 			if(H.mind.assigned_role in command_positions)
 				H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-			//	H.hud_updateflag |= 1 << NATIONS_HUD
-				//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
-			//	H.client.images += I
+				update_nations_icons_added(H,"hudcommand")
 				H.mind.nation.membership += H.mind.current
 				if(H.mind.assigned_role == H.mind.nation.default_leader)
 					H.mind.nation.current_leader = H.mind.current
@@ -146,7 +130,6 @@ datum/game_mode/nations
 			else
 				message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
 				continue
-			update_nations_icons_added(H)
 
 
 /datum/game_mode/nations/proc/set_ai()
@@ -204,72 +187,56 @@ datum/game_mode/nations
 	if(H.mind)
 		if(H.mind.assigned_role in engineering_positions)
 			H.mind.nation = all_nations["Atmosia"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-			//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudatmosia")
-			//H.client.images += I
+			mode.update_nations_icons_added(H,"atmosia")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in medical_positions)
 			H.mind.nation = all_nations["Medistan"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-			//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudmedistan")
-			//H.client.images += I
+			mode.update_nations_icons_added(H,"hudmedistan")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in science_positions)
 			H.mind.nation = all_nations["Scientopia"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-			//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudscientopia")
-			//H.client.images += I
+			mode.update_nations_icons_added(H,"hudscientopia")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in security_positions)
 			H.mind.nation = all_nations["Brigston"]
-		//	H.hud_updateflag |= 1 << NATIONS_HUD
-		//	var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudbrigston")
-		//	H.client.images += I
+			mode.update_nations_icons_added(H,"hudbrigston")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in cargonians)
 			H.mind.nation = all_nations["Cargonia"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-			//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcargonia")
-		//	H.client.images += I
+			mode.update_nations_icons_added(H,"hudcargonia")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in servicion)
 			H.mind.nation = all_nations["Servicion"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-		//	var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudservice")
-		//	H.client.images += I
+			mode.update_nations_icons_added(H,"hudservice")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in support_positions)
 			H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-			//H.hud_updateflag |= 1 << NATIONS_HUD
-			//var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
-		//	H.client.images += I
+			mode.update_nations_icons_added(H,"hudcommand")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
 		if(H.mind.assigned_role in command_positions)
 			H.mind.nation = all_nations["People's Republic of Commandzakstan"]
-		//	H.hud_updateflag |= 1 << NATIONS_HUD
-		//	var/I = image('icons/mob/hud.dmi', loc = H.mind.current, icon_state = "hudcommand")
-		//	H.client.images += I
+			mode.update_nations_icons_added(H,"hudcommand")
 			H.mind.nation.membership += H.mind.current
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
@@ -284,7 +251,6 @@ datum/game_mode/nations
 		else
 			message_admins("[H.name] with [H.mind.assigned_role] could not find any nation to assign!")
 			return 1
-		mode.update_nations_icons_added(H)
 	message_admins("[H.name] latejoined with no mind.")
 	return 1
 
@@ -297,12 +263,12 @@ datum/game_mode/nations
 
 //prepare for copypaste
 //While not an Antag i AM using the set_antag hud on this to make this easier.
-/datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind)
+/datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind,var/naticon)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.join_hud(nations_mind)
-	set_antag_hud(nations_mind.current,"hud[lowertext(nations_mind.nation.default_name)]")
+	set_nations_hud(nations_mind,naticon)
 
 /datum/game_mode/proc/update_nations_icons_removed(datum/mind/nations_mind)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.leave_hud(nations_mind)
-	set_antag_hud(nations_mind.current, null)
+	set_nations_hud(nations_mind, null)

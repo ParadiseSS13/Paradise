@@ -27,6 +27,8 @@
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
+	if(istype(M,/mob/dead/observer))
+		return 1
 	if(check_sensors(H))
 		..()
 

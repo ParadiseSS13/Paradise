@@ -201,8 +201,6 @@
 		cult_mind.current << "\red <FONT size = 3><B>An unfamiliar white light flashes through your mind, cleansing the taint of the dark-one and the memories of your time as his servant with it.</B></FONT>"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
-		cult_mind.current.hud_updateflag |= 1 << SPECIALROLE_HUD
-
 		// remove the cult viewpoint object
 		var/obj/viewpoint = getCultViewpoint(cult_mind.current)
 		qdel(viewpoint)
@@ -213,14 +211,7 @@
 				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
 
 
-///datum/game_mode/proc/update_all_cult_icons()
-//	spawn(0)
-//		// reset the cult
-//		for(var/datum/mind/cultist in cult)
-//			reset_cult_icons_for_cultist(cultist)
-//		// reset the spirits
-//		for(var/mob/spirit/currentSpirit in spirits)
-//			reset_cult_icons_for_spirit(currentSpirit)
+		//reset_cult_icons_for_spirit(currentSpirit)
 
 
 /datum/game_mode/proc/reset_cult_icons_for_cultist(var/datum/mind/target)
@@ -323,7 +314,7 @@
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, "hudcultist")
+	set_antag_hud(cult_mind, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
@@ -334,7 +325,7 @@
 	//		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, null)
+	set_antag_hud(cult_mind, null)
 
 
 /datum/game_mode/cult/proc/get_unconvertables()

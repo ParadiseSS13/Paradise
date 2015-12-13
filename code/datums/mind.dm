@@ -615,8 +615,6 @@
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
 
-		//H.hud_updateflag |= (1 << IMPLOYAL_HUD)   // updates that players HUD images so secHUD's pick up they are implanted or not.
-
 		switch(href_list["implant"])
 			if("remove")
 				for(var/obj/item/weapon/implant/loyalty/I in H.contents)
@@ -663,7 +661,6 @@
 					log_admin("[key_name_admin(usr)] has de-traitor'ed [current].")
 
 	else if (href_list["revolution"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["revolution"])
 			if("clear")
@@ -767,7 +764,6 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a revolutionary")
 
 	else if (href_list["cult"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["cult"])
 			if("clear")
 				if(src in ticker.mode.cult)
@@ -810,7 +806,6 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
 
 	else if (href_list["wizard"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["wizard"])
 			if("clear")
@@ -853,7 +848,6 @@
 
 
 	else if (href_list["changeling"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["changeling"])
 			if("clear")
 				if(src in ticker.mode.changelings)
@@ -922,8 +916,6 @@
 	else if (href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
 
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
-
 		switch(href_list["nuclear"])
 			if("clear")
 				if(src in ticker.mode.syndicates)
@@ -987,7 +979,6 @@
 					usr << "\red No valid nuke found!"
 
 	else if (href_list["traitor"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["traitor"])
 			if("clear")
 				if(src in ticker.mode.traitors)
@@ -1064,7 +1055,6 @@
 				log_admin("[key_name(usr)] has thralled [current].")
 
 	else if (href_list["silicon"])
-		//current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["silicon"])
 			if("unmalf")
 				if(src in ticker.mode.malf_ai)
