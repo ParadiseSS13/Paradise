@@ -59,10 +59,8 @@
 		user << "<span class='notice'>You have to go closer if you want to read it.</span>"
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
-	set src in oview(1)
-	if(user.client) // Send the paper images to the client
-		var/datum/asset/simple/S = new/datum/asset/simple/paper()
-		send_asset_list(user.client, S.assets)
+	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
+	assets.send(user)
 
 	var/data
 	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
