@@ -370,11 +370,14 @@
 	var/high_message = pick("You feel like you're made of steel!", "You feel invigorated!", "You feel really buff!", "You feel on top of the world!", "You feel full of energy!")
 	if(prob(5))
 		M << "<span class='notice'>[high_message]</span>"
-	M.adjustStaminaLoss(-35)
-	M.adjustToxLoss(1)
-	if(prob(3))
-		M.losebreath += 2
-		M.Stun(2)
+	M.adjustStaminaLoss(-40)
+	if(prob(90))
+		M.adjustToxLoss(1)
+	if(prob(5))
+		M << "<span class = 'danger'>You cannot breathe!</span>"
+		M.losebreath += 1
+		M.adjustOxyLoss(15)
+		M.Stun(1)
 	..()
 	return
 
