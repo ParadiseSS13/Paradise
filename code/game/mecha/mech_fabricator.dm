@@ -8,7 +8,6 @@
 	use_power = 1
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(access_robotics)
 	var/time_coeff = 1
 	var/resource_coeff = 1
 	var/time_coeff_tech = 1
@@ -92,36 +91,6 @@
 	time_coeff = round(initial(time_coeff) - (initial(time_coeff)*(T))/5,0.01)
 
 
-/obj/machinery/mecha_part_fabricator/check_access(obj/item/weapon/card/id/I)
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
-		I = pda.id
-	if(!istype(I) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
-	return 1
-
-/obj/machinery/mecha_part_fabricator/proc/emag()
-	switch(emagged)
-		if(0)
-			emagged = 0.5
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB error \[Code 0x00F1\]\"")
-			sleep(10)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"Attempting auto-repair\"")
-			sleep(15)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB corrupted \[Code 0x00FA\]. Truncating data structure...\"")
-			sleep(30)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB truncated. Please contact your Nanotrasen system operator for future assistance.\"")
-			req_access = null
-			emagged = 1
-		if(0.5)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB not responding \[Code 0x0003\]...\"")
-		if(1)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"No records in User DB\"")
-	return
-
 /obj/machinery/mecha_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
 	for(var/datum/design/D in files.known_designs)
@@ -149,9 +118,9 @@
 	var/output
 	for(var/resource in resources)
 		var/amount = min(res_max_amount, resources[resource])
-		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;"
+		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;, [round(resources[resource] / MINERAL_MATERIAL_AMOUNT,0.1)] sheets"
 		if(amount>0)
-			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
+			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=1;material=[resource];custom_eject=1'>Custom</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
 		output += "<br/>"
 	return output
 
@@ -319,8 +288,12 @@
 	interact(user)
 
 /obj/machinery/mecha_part_fabricator/attack_hand(mob/user)
-	if(!(..()))
-		return interact(user)
+	if(..())
+		return 1
+	if(!allowed(user) && !isobserver(user))
+		user << "<span class='warning'>Access denied.</span>"
+		return 1
+	return interact(user)
 
 /obj/machinery/mecha_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
@@ -455,7 +428,13 @@
 	if(href_list["remove_mat"] && href_list["material"])
 		var/amount = text2num(href_list["remove_mat"])
 		var/material = href_list["material"]
-		if(amount < 0 || amount > resources[material]) //href protection
+		if(href_list["custom_eject"])
+			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
+			if (!amount)
+				return
+			amount = round(amount)
+		if(amount < 0 || amount > resources[material]) //href protection, except that resources[] is 2000 per sheet
 			return
 
 		var/removed = remove_material(material,amount)
@@ -568,9 +547,6 @@
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
-
-/obj/machinery/mecha_part_fabricator/emag_act(user as mob)
-	emag()
 
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)

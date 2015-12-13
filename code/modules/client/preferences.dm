@@ -433,11 +433,11 @@ datum/preferences
 		dat += "</center></body></html>"
 
 //		user << browse(dat, "window=preferences;size=560x580")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 640, 750)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 640, 810)
 		popup.set_content(dat)
 		popup.open(0)
 
-	proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 755, height = 780)
+	proc/SetChoices(mob/user, limit = 12, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
 		if(!job_master)
 			return
 
@@ -1040,7 +1040,7 @@ datum/preferences
 			if("input")
 				switch(href_list["preference"])
 					if("name")
-						var/raw_name = input(user, "Choose your character's name:", "Character Preference")  as text|null
+						var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
 						if (!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 							var/new_name = reject_bad_name(raw_name)
 							if(new_name)
@@ -1108,6 +1108,19 @@ datum/preferences
 								//this shouldn't happen
 								f_style = facial_hair_styles_list["Shaved"]
 
+							// Don't wear another species' underwear!
+							var/datum/sprite_accessory/S = underwear_list[underwear]
+							if(!(species in S.species_allowed))
+								underwear = random_underwear(gender, species)
+
+							S = undershirt_list[undershirt]
+							if(!(species in S.species_allowed))
+								undershirt = random_undershirt(gender, species)
+
+							S = socks_list[socks]
+							if(!(species in S.species_allowed))
+								socks = random_socks(gender, species)
+
 							//reset hair colour and skin colour
 							r_hair = 0//hex2num(copytext(new_hair, 2, 4))
 							g_hair = 0//hex2num(copytext(new_hair, 4, 6))
@@ -1156,7 +1169,7 @@ datum/preferences
 							var/input = "Choose your character's hair colour:"
 							if(species == "Machine")
 								input = "Choose your character's frame colour:"
-							var/new_hair = input(user, input, "Character Preference") as color|null
+							var/new_hair = input(user, input, "Character Preference", rgb(r_hair, g_hair, b_hair)) as color|null
 							if(new_hair)
 								r_hair = hex2num(copytext(new_hair, 2, 4))
 								g_hair = hex2num(copytext(new_hair, 4, 6))
@@ -1193,7 +1206,7 @@ datum/preferences
 							body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 					if("facial")
-						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as color|null
+						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", rgb(r_facial, g_facial, b_facial)) as color|null
 						if(new_facial)
 							r_facial = hex2num(copytext(new_facial, 2, 4))
 							g_facial = hex2num(copytext(new_facial, 4, 6))
@@ -1255,7 +1268,7 @@ datum/preferences
 							socks = new_socks
 
 					if("eyes")
-						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
+						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference", rgb(r_eyes, g_eyes, b_eyes)) as color|null
 						if(new_eyes)
 							r_eyes = hex2num(copytext(new_eyes, 2, 4))
 							g_eyes = hex2num(copytext(new_eyes, 4, 6))
@@ -1270,7 +1283,7 @@ datum/preferences
 
 					if("skin")
 						if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
-							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference") as color|null
+							var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", rgb(r_skin, g_skin, b_skin)) as color|null
 							if(new_skin)
 								r_skin = hex2num(copytext(new_skin, 2, 4))
 								g_skin = hex2num(copytext(new_skin, 4, 6))
@@ -1278,7 +1291,7 @@ datum/preferences
 
 
 					if("ooccolor")
-						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
+						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
 						if(new_ooccolor)
 							ooccolor = new_ooccolor
 
@@ -1423,7 +1436,7 @@ datum/preferences
 								UI_style = "Midnight"
 
 					if("UIcolor")
-						var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!") as color|null
+						var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 						if(!UI_style_color_new) return
 						UI_style_color = UI_style_color_new
 

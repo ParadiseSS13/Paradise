@@ -278,6 +278,7 @@ datum/reagent/sal_acid
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B3B3B3"
+	metabolization_rate = 0.1
 	shock_reduction = 25
 	overdose_threshold = 25
 
@@ -285,6 +286,10 @@ datum/reagent/sal_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(55))
 		M.adjustBruteLoss(-2*REM)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
 	..()
 	return
 
@@ -458,6 +463,10 @@ datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 		if(36 to INFINITY)
 			M.Paralyse(10)
 			M.drowsyness = max(M.drowsyness, 15)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.traumatic_shock < 100)
+			H.shock_stage = 0
 	..()
 	return
 
@@ -794,7 +803,7 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	M.drowsyness = 0
 	M.slurring = 0
 	M.confused = 0
-	M.reagents.remove_reagent("ethanol", 8)
+	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
 	if(M.health < 25)
 		M.adjustToxLoss(-2.0)
 	..()

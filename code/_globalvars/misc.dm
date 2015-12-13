@@ -1,5 +1,6 @@
 var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
+var/global/obj/effect/overlay/icemaster = null
 
 // nanomanager, the manager for Nano UIs
 var/datum/nanomanager/nanomanager = new()

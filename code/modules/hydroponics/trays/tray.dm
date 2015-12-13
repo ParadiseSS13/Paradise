@@ -92,39 +92,41 @@
 		"adminordrazine" = -5
 		)
 	var/global/list/water_reagents = list(
-		"water" =           1,
-		"adminordrazine" =  1,
-		"milk" =            0.9,
-		"beer" =            0.7,
-		"fluorine" =       -0.5,
-		"chlorine" =       -0.5,
-		"phosphorus" =     -0.5,
-		"water" =           1,
-		"sodawater" =       1,
-		"fishwater" =		1,
+		"water" =           list(1,    0),
+		"adminordrazine" =  list(1,    0),
+		"milk" =            list(0.9,  0),
+		"beer" =            list(0.7,  0),
+		"fluorine" =        list(-0.5, 0),
+		"chlorine" =        list(-0.5, 0),
+		"phosphorus" =      list(-0.5, 0),
+		"water" =           list(1,	   0),
+		"sodawater" =       list(1,    0),
+		"fishwater" =		list(1,    0),
+		"holywater" =		list(1,    0.1),
 		)
 
 	// Beneficial reagents also have values for modifying yield_mod and mut_mod (in that order).
 	var/global/list/beneficial_reagents = list(
-	//	"reagent" =			list(health, yield_Mod, mut_mod),
-		"beer" =			list( -0.05,	0,		0  ),
-		"fluorine" =		list( -2,		0,		0  ),
-		"chlorine" =		list( -1,		0,		0  ),
-		"phosphorus" =		list( -0.75,	0,		0  ),
-		"sodawater" =		list(  0.1,		0,		0  ),
-		"sacid" =			list( -1,		0,		0  ),
-		"facid" =			list( -2,		0,		0  ),
-		"atrazine" =		list( -2,		0,		0.2),
-		"cryoxadone" =		list(  3,		0,		0  ),
-		"ammonia" =			list(  0.5,		0,		0  ),
-		"diethylamine" =	list(  1,		0,		0  ),
-		"nutriment" =		list(  0.25,	0.15,	0  ),
-		"protein" =			list(  0.25,	0.15,	0  ),
-		"plantmatter" =		list(  0.25,	0.15,	0  ),
-		"radium" =			list( -1.5,		0,		0.2),
-		"adminordrazine" =	list(  1,		1,		1  ),
-		"robustharvest" =	list(  0,		0.2,	0  ),
-		"left4zed" =		list(  0,		0,		0.2)
+	//	"reagent" =			list(health, yield_Mod, mut_mod, production, potency),
+		"beer" =			list( -0.05,	0,		0,		  0,		0),
+		"fluorine" =		list( -2,		0,		0,		  0,		0),
+		"chlorine" =		list( -1,		0,		0,		  0,		0),
+		"phosphorus" =		list( -0.75,	0,		0,		  0,		0),
+		"sodawater" =		list(  0.1,		0,		0,		  0,		0),
+		"sacid" =			list( -1,		0,		0,		  0,		0),
+		"facid" =			list( -2,		0,		0,		  0,		0),
+		"atrazine" =		list( -2,		0,		0.2,	  0,		0),
+		"cryoxadone" =		list(  3,		0,		0,		  0,		0),
+		"ammonia" =			list(  0.5,		0,		0,	  	  0,		0),
+		"diethylamine" =	list(  1,		0,		0,	      0,		0),
+		"nutriment" =		list(  0.25,	0.15,	0,	      0,		0),
+		"protein" =			list(  0.25,	0.15,	0,		  0,		0),
+		"plantmatter" =		list(  0.25,	0.15,	0,		  0,		0),
+		"radium" =			list( -1.5,		0,		0.2,      0,		0),
+		"adminordrazine" =	list(  1,		1,		1,		  0,		0),
+		"robustharvest" =	list(  0,		0.2,	0,		  0,		0),
+		"left4zed" =		list(  0,		0,		0.2,	  0,		0),
+		"saltpetre" =		list(  0.25,	0,		0,	  	 -0.02,		0.01),
 		)
 
 	//--FalseIncarnate
@@ -274,6 +276,9 @@
 				health += beneficial_reagents[R.id][1] * reagent_total
 				yield_mod = min(100, yield_mod + (beneficial_reagents[R.id][2] * reagent_total))
 				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
+				if(seed.get_trait(TRAIT_PRODUCTION) > 1)
+					seed.set_trait(TRAIT_PRODUCTION, max(2, seed.get_trait(TRAIT_PRODUCTION) + beneficial_reagents[R.id][4] * reagent_total))
+				seed.set_trait(TRAIT_POTENCY, min(100, seed.get_trait(TRAIT_POTENCY) + beneficial_reagents[R.id][5] * reagent_total))
 
 			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
 
@@ -303,9 +308,10 @@
 		// Handle water and water refilling.
 		var/water_added = 0
 		if(water_reagents[R.id])
-			var/water_input = water_reagents[R.id] * reagent_total
+			var/water_input = water_reagents[R.id][1] * reagent_total
 			water_added += water_input
 			waterlevel += water_input
+			health += water_reagents[R.id][2] * reagent_total
 
 		// Water dilutes toxin level.
 		if(water_added > 0)

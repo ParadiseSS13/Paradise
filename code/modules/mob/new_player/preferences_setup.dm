@@ -5,9 +5,9 @@ datum/preferences
 			gender = gender_override
 		else
 			gender = pick(MALE, FEMALE)
-		underwear = random_underwear(gender)
-		undershirt = random_undershirt(gender)
-		socks = random_socks(gender)
+		underwear = random_underwear(gender, species)
+		undershirt = random_undershirt(gender, species)
+		socks = random_socks(gender, species)
 		if(species == "Human")
 			s_tone = random_skin_tone()
 		h_style = random_hair_style(gender, species)
@@ -804,7 +804,7 @@ datum/preferences
 			else if(backbag == 3 || backbag == 4)
 				clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-		if(!current_species.bodyflags & NO_EYES)
+		if(!(current_species.bodyflags & NO_EYES))
 			preview_icon.Blend(eyes_s, ICON_OVERLAY)
 		if(underwear_s)
 			preview_icon.Blend(underwear_s, ICON_OVERLAY)
