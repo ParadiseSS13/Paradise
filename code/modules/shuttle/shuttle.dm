@@ -689,6 +689,11 @@
 	name = "syndicate shuttle recall terminal"
 	possible_destinations = "syndicate_away"
 
+/obj/machinery/computer/shuttle/vox
+	name = "skipjack control console"
+	req_access = list(access_vox)
+	shuttleId = "skipjack"
+	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
 
 #undef DOCKING_PORT_HIGHLIGHT
 

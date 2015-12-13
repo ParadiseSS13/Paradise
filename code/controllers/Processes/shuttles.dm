@@ -44,7 +44,8 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	var/watch = start_watch()
 	log_startup_progress("Initializing shuttle docks...")
 	initialize_docks()
-	log_startup_progress("  Docks initalized in [stop_watch(watch)]s.")
+	var/count = mobile.len + stationary.len + transit.len
+	log_startup_progress(" Initialized [count] docks in [stop_watch(watch)]s.")
 
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
