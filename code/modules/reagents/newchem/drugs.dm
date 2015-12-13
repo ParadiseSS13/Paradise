@@ -374,7 +374,7 @@
 	if(prob(90))
 		M.adjustToxLoss(1)
 	if(prob(5))
-		M << "<span class = 'danger'>You cannot breathe!</span>"
+		M << "<span class='danger'>You cannot breathe!</span>"
 		M.losebreath += 1
 		M.adjustOxyLoss(15)
 		M.Stun(1)
