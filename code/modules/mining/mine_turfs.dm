@@ -89,6 +89,7 @@ var/global/list/rockTurfEdgeCache
 
 /turf/simulated/mineral/proc/HideRock()
 	if(hidden)
+		name = "rock"
 		icon_state = "rock"
 	return
 
@@ -135,6 +136,7 @@ var/global/list/rockTurfEdgeCache
 				if("BScrystal")
 					M = new/turf/simulated/mineral/bscrystal(src)
 			if(M)
+				M.mineralAmt = rand(1, 5)
 				src = M
 				M.levelupdate()
 	return
@@ -240,7 +242,7 @@ var/global/list/rockTurfEdgeCache
 /turf/simulated/mineral/bscrystal
 	name = "bluespace crystal deposit"
 	icon_state = "rock_BScrystal"
-	mineralType = /obj/item/bluespace_crystal
+	mineralType = /obj/item/weapon/ore/bluespace_crystal
 	mineralName = "Bluespace crystal"
 	mineralAmt = 1
 	spreadChance = 0

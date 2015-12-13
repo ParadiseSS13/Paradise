@@ -31,6 +31,8 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
 		var/obj/item/weapon/card/id/I=H.get_idcard()
+		if(!I || !istype(I))
+			return null
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
 		if(require_pin && user)

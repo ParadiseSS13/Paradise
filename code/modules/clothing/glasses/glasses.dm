@@ -69,6 +69,19 @@
 /obj/item/clothing/glasses/meson/prescription
 	prescription = 1
 
+/obj/item/clothing/glasses/meson/gar
+	name = "gar mesons"
+	icon_state = "garm"
+	item_state = "garm"
+	desc = "Do the impossible, see the invisible!"
+	force = 10
+	throwforce = 10
+	throw_speed = 4
+	attack_verb = list("sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = 1
+	edge = 1
+
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
 	desc = "An implanted replacement for a left eye with meson vision capabilities."
