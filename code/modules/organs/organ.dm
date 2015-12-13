@@ -4,7 +4,7 @@ var/list/organ_cache = list()
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
 	var/dead_icon
-	var/mob/living/carbon/human/owner = null
+	var/mob/living/carbon/owner = null // Xenos have guts too!
 	var/status = 0
 	var/vital //Lose a vital limb, die immediately.
 	var/damage = 0 // amount of damage to the organ
@@ -255,7 +255,7 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
-/obj/item/organ/proc/removed(var/mob/living/user)
+/obj/item/organ/proc/removed(var/mob/living/user, var/swapout = 0)
 
 	if(!istype(owner))
 		return
@@ -275,7 +275,7 @@ var/list/organ_cache = list()
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 
-	if(owner && vital)
+	if(owner && vital && !(swapout))
 		if(user)
 			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>"
 			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
