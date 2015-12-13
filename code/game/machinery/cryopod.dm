@@ -463,6 +463,10 @@
 			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
 
+				if(src.occupant)
+					user << "<span class='notice'><B>\The [src] is in use.</B></span>"
+					return
+
 				M.loc = src
 
 				if(M.client)
@@ -554,6 +558,9 @@
 		if(do_after(user, 20, target = L))
 			if(!L) return
 
+			if(src.occupant)
+				user << "<span class='notice'><B>\The [src] is in use.</B></span>"
+				return
 			L.loc = src
 
 			if(L.client)
