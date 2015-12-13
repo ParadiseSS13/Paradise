@@ -3,7 +3,51 @@
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/
+// What's in your guts should probably be of a different type than what goes on your body
+// Limbs don't have an organ they're INSIDE, while internal ones do
+// If you can't tell I'm aping this off of -tg-code while keeping things relatively similar to how they are now
+// Maybe I'll shatter 50 planets as I try this. Oops. -- Crazylemon
+/obj/item/organ/internal
+	force = 1
+	var/slot
+	w_class  = 2 // What better to keep close to your heart, than another heart? Take this as literally as you please
+	// I think parent_organ should handle organ containment
+	var/organ_action_name = null // Hmm, I get a bad feeling about this one
 
+/obj/item/organ/internal/New(var/mob/living/carbon/holder)
+	,.(holder)
+	if(istype(holder)) // We can't just do species and human checks, or xenos get left out of the fun
+
+
+// Use 0 if, for some cruel reason, you want to kill someone while giving them a cool new heart
+/obj/item/organ/internal/proc/Insert(var/mob/living/carbon/M, var/mob/living/user = null, var/swapout = 1)
+	if(!iscarbon(M) || owner == M)
+		return
+	removed(user) // now admins can insert someone's heart into someone else and have !!FUN!! results
+
+	var/obj/item/organ/internal/replaced = M.getorganslot(slot)
+	if(replaced)
+		replaced.removed(user, swapout)
+
+	owner = M
+	M.internal_organs |= src
+	loc = owner // Maybe I should stick this in the parent_organ, I'll find out with other's insight
+	if (organ_action_name)
+		action_button_name = organ_action_name
+
+/obj/item/organ/internal/removed(var/mob/living/user, var/swapout = 0)
+	if(!owner)
+		return
+
+	owner.internal_organs_by_name[organ_tag] = null
+	owner.internal_organs_by_name -= organ_tag
+	owner.internal_organs_by_name -= null
+	owner.internal_organs -= src
+
+	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
+	if(affected) affected.internal_organs -= src
+
+	owner = null
 
 // Brain is defined in brain_item.dm.
 /obj/item/organ/heart
