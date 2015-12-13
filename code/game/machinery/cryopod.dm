@@ -464,7 +464,7 @@
 				if(!M || !G || !G:affecting) return
 
 				if(src.occupant)
-					user << "<span class='notice'><B>\The [src] is in use.</B></span>"
+					user << "<span class='boldnotice'>\The [src] is in use.</span>"
 					return
 
 				M.loc = src
@@ -483,7 +483,7 @@
 				icon_state = occupied_icon_state
 
 			M << "<span class='notice'>[on_enter_occupant_message]</span>"
-			M << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+			M << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 
 			occupant = M
 			time_entered = world.time
@@ -559,7 +559,7 @@
 			if(!L) return
 
 			if(src.occupant)
-				user << "<span class='notice'><B>\The [src] is in use.</B></span>"
+				user << "<span class='boldnotice'>\The [src] is in use.</span>"
 				return
 			L.loc = src
 
@@ -576,7 +576,7 @@
 			icon_state = occupied_icon_state
 
 		L << "<span class='notice'>[on_enter_occupant_message]</span>"
-		L << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		L << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 		occupant = L
 		time_entered = world.time
 
@@ -636,7 +636,7 @@
 		return
 
 	if(src.occupant)
-		usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+		usr << "<span class='boldnotice'>\The [src] is in use.</span>"
 		return
 
 	for(var/mob/living/carbon/slime/M in range(1,usr))
@@ -652,7 +652,7 @@
 			return
 
 		if(src.occupant)
-			usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+			usr << "<span class='boldnotice'>\The [src] is in use.</span>"
 			return
 
 		usr.stop_pulling()
@@ -667,7 +667,7 @@
 			icon_state = occupied_icon_state
 
 		usr << "<span class='notice'>[on_enter_occupant_message]</span>"
-		usr << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		usr << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 		occupant = usr
 		time_entered = world.time
 
