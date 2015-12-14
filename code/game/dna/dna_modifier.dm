@@ -184,8 +184,6 @@
 		if(M.Victim == L)
 			usr << "[L.name] will not fit into the DNA Scanner because they have a slime latched onto their head."
 			return
-	if(L == user)
-		return
 	visible_message("[user] puts [L.name] into the DNA Scanner.")
 	put_in(L)
 	if(user.pulling == L)
