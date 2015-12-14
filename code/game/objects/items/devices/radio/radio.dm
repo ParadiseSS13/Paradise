@@ -478,11 +478,6 @@ var/global/list/default_medbay_channels = list(
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg,null,verb,speaking)
 
-/obj/item/device/radio/hear_message(mob/M as mob, msg)
-	if (broadcasting)
-		if(get_dist(src, M) <= canhear_range)
-			talk_into(M, msg, speaking = new /datum/language/noise)
-			
 
 /*
 /obj/item/device/radio/proc/accept_rad(obj/item/device/radio/R as obj, message)
