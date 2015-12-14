@@ -526,13 +526,13 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	if (camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in world)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
 			if(T.current == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
 
 /obj/item/device/videocam/hear_message(mob/M as mob, msg)
 	if (camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in world)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
 			if(T.current == camera)
 				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
 
