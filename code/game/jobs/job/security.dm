@@ -31,7 +31,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/heads/hos(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/hos(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/head/HoS(H), slot_head)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/secsunglasses(H), slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
@@ -77,7 +77,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/warden(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/pda/warden(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/secsunglasses(H), slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 //		H.equip_or_collect(new /obj/item/clothing/mask/gas(H), slot_wear_mask) //Grab one from the armory you donk
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)

@@ -3,18 +3,18 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
-	HUDType =  DATA_HUD_SECURITY_BASIC
+	HUDType = null //Hudtype is defined on glasses.dm
 	prescription_upgradable = 1
 	var/list/icon/current = list() //the current hud icons
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
-	if(slot == slot_glasses)
+	if(HUDType && slot == slot_glasses)
 		var/datum/atom_hud/H = huds[HUDType]
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
-	if(user.glasses == src)
+	if(HUDType && istype(user) && user.glasses == src)
 		var/datum/atom_hud/H = huds[HUDType]
 		H.remove_hud_from(user)
 
@@ -84,7 +84,7 @@
 	see_darkness = 0
 	prescription_upgradable = 0
 
-/obj/item/clothing/glasses/hud/secsunglasses
+/obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
@@ -98,5 +98,5 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/secsunglasses/prescription
+/obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = 1
