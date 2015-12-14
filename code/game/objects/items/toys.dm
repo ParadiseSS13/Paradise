@@ -1738,7 +1738,7 @@ obj/item/toy/cards/deck/syndicate/black
 	toysay = "I'm not qualified for this job."
 
 /obj/item/toy/figure/hop
-	name = "Head of Persomnel action figure"
+	name = "Head of Personnel action figure"
 	icon_state = "hop"
 	toysay = "Giving out all access!"
 
