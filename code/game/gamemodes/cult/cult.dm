@@ -211,9 +211,6 @@
 				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
 
 
-		//reset_cult_icons_for_spirit(currentSpirit)
-
-
 /datum/game_mode/proc/reset_cult_icons_for_cultist(var/datum/mind/target)
 	if(target.current)
 		if(target.current.client)
@@ -314,7 +311,7 @@
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
-	set_antag_hud(cult_mind, "hudcultist")
+	set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
@@ -325,7 +322,7 @@
 	//		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
-	set_antag_hud(cult_mind, null)
+	set_antag_hud(cult_mind.current, null)
 
 
 /datum/game_mode/cult/proc/get_unconvertables()

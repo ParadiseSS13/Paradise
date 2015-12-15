@@ -43,10 +43,10 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 
@@ -90,10 +90,10 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 
@@ -146,10 +146,10 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 
 		H.dna.SetSEState(SOBERBLOCK,1)
 		H.mutations += SOBER
@@ -194,10 +194,10 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 /datum/job/brigdoc
@@ -221,7 +221,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/security/brigphys(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/fr_jacket(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
@@ -233,10 +233,10 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 /datum/job/pilot
@@ -274,8 +274,8 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		H.sec_hud_set_implants()
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1

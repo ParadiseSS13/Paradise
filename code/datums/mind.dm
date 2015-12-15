@@ -628,10 +628,10 @@
 				var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 				L.imp_in = H
 				L.implanted = 1
-				H.sec_hud_set_implants()
 				var/obj/item/organ/external/affected = H.organs_by_name["head"]
 				affected.implants += L
 				L.part = affected
+				H.sec_hud_set_implants()
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a loyalty implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a loyalty implant")
@@ -891,7 +891,7 @@
 					ticker.mode.vampires -= src
 					special_role = null
 					current.remove_vampire_powers()
-					ticker.mode.update_vampire_icons_removed(current)
+					ticker.mode.update_vampire_icons_removed(src)
 					if(vampire)  qdel(vampire)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
@@ -900,7 +900,7 @@
 				if(!(src in ticker.mode.vampires))
 					ticker.mode.vampires += src
 					ticker.mode.grant_vampire_powers(current)
-					ticker.mode.update_vampire_icons_added(current)
+					ticker.mode.update_vampire_icons_added(src)
 					special_role = "Vampire"
 					current << "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>"
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
@@ -991,6 +991,7 @@
 						var/mob/living/silicon/ai/A = current
 						A.set_zeroth_law("")
 						A.show_laws()
+					ticker.mode.update_traitor_icons_removed(src)
 
 
 			if("traitor")
@@ -1004,6 +1005,7 @@
 						var/mob/living/silicon/A = current
 						call(/datum/game_mode/proc/add_law_zero)(A)
 						A.show_laws()
+					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
 				ticker.mode.forge_traitor_objectives(src)

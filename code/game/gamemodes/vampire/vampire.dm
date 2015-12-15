@@ -381,12 +381,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
 //	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_VAMPIRE]
 //	vamp_hud.join_hud(vampire_mind)
-	set_antag_hud(vampire_mind, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
+	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
 //	var/datum/atom_hud/antag/vampire_hud = huds[ANTAG_HUD_VAMPIRE]
 //	vampire_hud.leave_hud(vampire_mind)
-	set_antag_hud(vampire_mind, null)
+	set_antag_hud(vampire_mind.current, null)
 
 /datum/game_mode/proc/remove_vampire_mind(datum/mind/vampire_mind, datum/mind/head)
 	//var/list/removal

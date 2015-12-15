@@ -22,8 +22,6 @@
 		if(B)
 			if((health >= (config.health_threshold_dead / 100 * 75)) && stat == DEAD)
 				update_revive()
-				med_hud_set_health()
-				med_hud_set_status()
 	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
 	med_hud_set_health()

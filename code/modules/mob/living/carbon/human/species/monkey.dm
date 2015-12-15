@@ -33,14 +33,6 @@
 
 	flags = IS_RESTRICTED
 
-
-/mob/living/carbon/human/monkey/prepare_data_huds()
-	//Prepare our med HUD...
-	..()
-	//...and display it.
-	for(var/datum/atom_hud/data/human/medical/hud in huds)
-		hud.add_to_hud(src)
-
 /datum/species/monkey/handle_npc(var/mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return

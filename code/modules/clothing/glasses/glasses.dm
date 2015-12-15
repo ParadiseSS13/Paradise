@@ -10,7 +10,6 @@
 	var/prescription = 0
 	var/prescription_upgradable = 0
 	var/see_darkness = 1
-	var/HUDType = null
 
 /obj/item/clothing/glasses/New()
 	. = ..()
@@ -235,7 +234,7 @@
 	darkness_view = 1
 	flash_protect = 1
 	tint = 1
-	HUDType = DATA_HUD_SECURITY_BASIC
+	//HUDType = DATA_HUD_SECURITY_BASIC
 	prescription_upgradable = 1
 	species_fit = list("Vox")
 	sprite_sheets = list(

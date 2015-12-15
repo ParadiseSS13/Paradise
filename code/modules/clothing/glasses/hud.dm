@@ -3,7 +3,7 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
-	HUDType = null //Hudtype is defined on glasses.dm
+	var/HUDType = null //Hudtype is defined on glasses.dm
 	prescription_upgradable = 1
 	var/list/icon/current = list() //the current hud icons
 
@@ -29,7 +29,17 @@
 	icon_state = "healthhud"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
+///DELETE ME AFTER MAP FREEZE!!!!!!!!///
 /obj/item/clothing/glasses/hud/health_advanced
+	name = "\improper Advanced Health Scanner HUD"
+
+/obj/item/clothing/glasses/hud/health_advanced/New()
+    new /obj/item/clothing/glasses/hud/health/health_advanced (loc)
+    qdel(src)
+
+/////!!!!!1111!!!!!!!!/////////////////
+
+/obj/item/clothing/glasses/hud/health/health_advanced
 	name = "\improper Advanced Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
 	icon_state = "advmedhud"

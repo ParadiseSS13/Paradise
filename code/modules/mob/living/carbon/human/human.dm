@@ -37,7 +37,6 @@
 	var/mob/M = src
 	faction |= "\ref[M]" //what
 
-	prepare_data_huds()
 	// Set up DNA.
 	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
