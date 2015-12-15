@@ -1644,7 +1644,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user << "<span class='notice'>The [src] says \"[toysay]\".</span>"
+		user.visible_message("<span class='notice'>\icon[src] The [src] says \"[toysay]\".</span>")
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 
 /obj/item/toy/figure/cmo
@@ -1758,9 +1758,9 @@ obj/item/toy/cards/deck/syndicate/black
 	toysay = "Look at the signs, you idiot."
 
 /obj/item/toy/figure/lawyer
-	name = "Lawyer action figure"
+	name = "Internal Affairs Agent action figure"
 	icon_state = "lawyer"
-	toysay = "My client is a dirty traitor!"
+	toysay = "Standard Operating Procedure says they're guilty! Hacking is proof they're an Enemy of the Corporation!"
 
 /obj/item/toy/figure/librarian
 	name = "Librarian action figure"
