@@ -41,14 +41,18 @@
 			user << "\red The Bluespace generator isn't working."
 			return
 		if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
-			investigate_log("has become a singularity. Caused by [user.key]","singulo")
-			user << "\red The Bluespace interfaces of the two devices catastrophically malfunction!"
-			qdel(W)
-			var/obj/singularity/singulo = new /obj/singularity (get_turf(src))
-			singulo.energy = 300 //should make it a bit bigger~
-			message_admins("[key_name_admin(user)] detonated a bag of holding")
-			log_game("[key_name(user)] detonated a bag of holding")
-			qdel(src)
+			user.visible_message("<span class='warning'>[user] grins as he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
+			spawn(20)
+				investigate_log("has become a singularity. Caused by [user.key]","singulo")
+				user.visible_message("<span class='warning'>[user] erupts in evil laughter as he puts the Bag of Holding into another Bag of Holding</span>", "<span class='warning'>You can't help yourself from laughing as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you</span>")
+				qdel(W)
+				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
+				singulo.energy = 300 //To give it a small boost
+				spawn(30) //Just enough to do some damage, but not kill everything
+					qdel(singulo)
+				message_admins("[key_name_admin(user)] detonated a bag of holding")
+				log_game("[key_name(user)] detonated a bag of holding")
+				qdel(src)
 			return
 
 		..()
