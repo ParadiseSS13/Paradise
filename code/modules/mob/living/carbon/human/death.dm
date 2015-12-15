@@ -15,7 +15,7 @@
 
 	for(var/obj/item/organ/I in internal_organs)
 		if(istype(loc,/turf))
-			I.removed(src)
+			I.removed()
 			spawn()
 				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
