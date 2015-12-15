@@ -85,6 +85,9 @@
 	if(bombassembly)
 		bombassembly.hear_talk(M, msg)
 
+/obj/item/device/onetankbomb/hear_message(mob/living/M as mob, msg)
+	if(bombassembly)
+		bombassembly.hear_message(M, msg)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 

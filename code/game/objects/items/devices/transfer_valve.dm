@@ -68,6 +68,11 @@
 	for(var/obj/O in contents)
 		O.hear_talk(M, msg)
 
+/obj/item/device/transfer_valve/hear_message(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_message(M, msg)
+
 /obj/item/device/transfer_valve/attack_self(mob/user as mob)
 	ui_interact(user)
 

@@ -33,6 +33,10 @@
 	pockets.hear_talk(M, msg)
 	..()
 
+/obj/item/clothing/suit/storage/hear_message(mob/M, var/msg)
+	pockets.hear_message(M, msg)
+	..()
+
 /obj/item/clothing/suit/storage/proc/return_inv()
 
 	var/list/L = list(  )
