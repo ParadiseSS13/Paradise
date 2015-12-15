@@ -1644,7 +1644,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		src.loc.visible_message("<span class='notice'>\icon[src] The [src] says \"[toysay]\".</span>")
+		user.visible_message("<span class='notice'>\icon[src] The [src] says \"[toysay]\".</span>")
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 
 /obj/item/toy/figure/cmo
