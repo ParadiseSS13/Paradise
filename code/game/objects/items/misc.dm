@@ -22,3 +22,10 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
+
+/obj/item/weapon/beach_ball/basketball
+	icon = 'icons/obj/basketball.dmi'
+	icon_state = "basketball"
+	item_state = "basketball"
+	name = "basket ball"
+	desc = "It's a regulation basketball."
