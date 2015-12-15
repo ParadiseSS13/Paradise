@@ -135,13 +135,13 @@
 	if(usr.restrained() || usr.stat || usr.weakened || usr.stunned || usr.paralysis || usr.resting) //are you cuffed, dying, lying, stunned or other
 		return
 	if (!ishuman(usr)) //Make sure they're a mob that has dna
-		usr << "\blue Try as you might, you can not climb up into the scanner."
+		usr << "<span class='notice'>Try as you might, you can not climb up into the [src].</span>"
 		return
 	if (src.occupant)
-		usr << "\blue <B>The scanner is already occupied!</B>"
+		usr << "<span class='boldnotice'>The [src] is already occupied!</span>"
 		return
 	if (usr.abiotic())
-		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
+		usr << "<span class='boldnotice'>Subject cannot have abiotic items on.</span>"
 		return
 	usr.stop_pulling()
 	usr.client.perspective = EYE_PERSPECTIVE
@@ -172,19 +172,22 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "\blue <B>The DNA Scanner is already occupied!</B>"
+		user << "<span class='boldnotice'>The [src] is already occupied!</span>"
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "\red <B>Subject cannot have abiotic items on.</B>"
+		user << "<span class='danger'>Subject cannot have abiotic items on.</span>"
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			usr << "[L.name] will not fit into the DNA Scanner because they have a slime latched onto their head."
+			usr << "[L.name] will not fit into the [src] because they have a slime latched onto their head."
 			return
-	visible_message("[user] puts [L.name] into the DNA Scanner.")
+	if (L == user)
+		visible_message("[user] climbs into the [src].")
+	else
+		visible_message("[user] puts [L.name] into the [src].")
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
@@ -207,7 +210,7 @@
 		return
 	else if(istype(item, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "\red A beaker is already loaded into the machine."
+			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
 			return
 
 		if(!user.drop_item())
@@ -224,13 +227,13 @@
 	if (!ismob(G.affecting))
 		return
 	if (src.occupant)
-		user << "\blue <b>The scanner is already occupied!</b>"
+		user << "<span class='boldnotice'>The scanner is already occupied!</span>"
 		return
 	if (G.affecting.abiotic())
-		user << "\blue <b>Subject cannot have abiotic items on.</b>"
+		user << "<span class='boldnotice'>Subject cannot have abiotic items on.</span>"
 		return
 	if(panel_open)
-		usr << "\blue <b>Close the maintenance panel first.</b>"
+		usr << "<span class='boldnotice'>Close the maintenance panel first.</span>"
 		return
 	put_in(G.affecting)
 	src.add_fingerprint(user)
@@ -264,11 +267,11 @@
 
 /obj/machinery/dna_scannernew/proc/go_out()
 	if (!src.occupant)
-		usr << "<span class=\"warning\">The scanner is empty!</span>"
+		usr << "<span class='warning'>The scanner is empty!</span>"
 		return
 
 	if (src.locked)
-		usr << "<span class=\"warning\">The scanner is locked!</span>"
+		usr << "<span class='warning'>The scanner is locked!</span>"
 		return
 
 	if (src.occupant.client)
