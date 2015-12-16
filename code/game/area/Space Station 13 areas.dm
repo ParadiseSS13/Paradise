@@ -239,11 +239,6 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/mining
 	name = "\improper Mining Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/mining/station
-	icon_state = "shuttle2"
-
-/area/shuttle/mining/outpost
 	icon_state = "shuttle"
 
 /area/shuttle/transport1
@@ -339,6 +334,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/research
 	name = "\improper Research Shuttle"
 	music = "music/escape.ogg"
+	icon_state = "shuttle"
 
 /area/shuttle/research/station
 	icon_state = "shuttle2"
@@ -2517,7 +2513,6 @@ var/list/the_station_areas = list (
 	/area/shuttle/escape_pod2/station,
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
-	/area/shuttle/mining/station,
 	/area/shuttle/prison/station,
 	/area/shuttle/administration/station,
 	/area/shuttle/specops/station,

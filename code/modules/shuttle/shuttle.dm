@@ -695,6 +695,18 @@
 	shuttleId = "skipjack"
 	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5"
 
+/obj/machinery/computer/shuttle/engineering
+	name = "Engineering Shuttle Console"
+	desc = "Used to call and send the engineering shuttle."
+	shuttleId = "engineering"
+	possible_destinations = "engineering_home;engineering_away"
+
+/obj/machinery/computer/shuttle/science
+	name = "Science Shuttle Console"
+	desc = "Used to call and send the science shuttle."
+	shuttleId = "science"
+	possible_destinations = "science_home;science_away"
+
 #undef DOCKING_PORT_HIGHLIGHT
 
 
