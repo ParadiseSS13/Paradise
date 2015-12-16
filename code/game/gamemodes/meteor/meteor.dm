@@ -3,7 +3,8 @@
 	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
-	required_players = 0
+	required_players = 35
+	required_players_secret = 35
 
 	uplink_welcome = "EVIL METEOR Uplink Console:"
 	uplink_uses = 10
