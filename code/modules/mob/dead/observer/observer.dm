@@ -253,11 +253,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return 1
 
-/mob/dead/observer/proc/show_me_the_hud(hud_index)
-	var/datum/atom_hud/H = huds[hud_index]
-	H.add_hud_to(src)
-	data_hud_seen = hud_index
-	//src << "Datahud"//debug print
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
@@ -296,6 +291,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		M.has_enabled_antagHUD = 1
 
+
+	var/datum/atom_hud/A = huds[SPECIALROLE_HUD]
+	if(M.has_enabled_antagHUD || check_rights(R_ADMIN|R_MOD))
+		for(var/datum/atom_hud/H in huds)
+			if(istype(H, /datum/atom_hud/antag))
+				(usr in A.hudusers) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+/*
 	if(M.antagHUD)
 		M.antagHUD = 0
 		for(var/datum/atom_hud/H in huds)
@@ -308,7 +310,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(istype(H, /datum/atom_hud/antag))
 				H.add_hud_to(usr)
 		usr << "You toggled your antag HUD On."
-
+*/
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"

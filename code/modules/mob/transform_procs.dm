@@ -97,6 +97,7 @@
 
 	if (should_gib)
 		spawn(0)
+			ticker.mode.update_cult_icons_removed(src.mind.current)
 			src.gib() // gib the body
 	else
 		spawn(0)//To prevent the proc from returning null.
@@ -104,6 +105,7 @@
 				"[src] disappears into the shadows, never to be seen again.", \
 				"You disappear into the shadows, never to be seen again.", \
 				"You hear strange noise, you can't quite place it.")
+			ticker.mode.update_cult_icons_removed(src.mind.current)
 			qdel(src)
 
 	new_spirit << "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>"
@@ -113,7 +115,7 @@
 
 	// let spirits identify cultists
 	if(ticker.mode)
-		ticker.mode.reset_cult_icons_for_spirit(new_spirit)
+		ticker.mode.update_cult_icons_added(new_spirit.mind.current)
 
 	// highlander test
 	there_can_be_only_one_mask(new_spirit)
@@ -320,7 +322,7 @@
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
-		return 0	
+		return 0
 
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
@@ -347,7 +349,7 @@
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-		
+
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
