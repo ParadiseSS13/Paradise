@@ -346,7 +346,7 @@
 
 /obj/item/weapon/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
-	desc = "It's a starter kit box for an acquarium."
+	desc = "It's a starter kit box for an aquarium."
 	icon_state = "AquaticKit"
 	throw_speed = 2
 	throw_range = 8
