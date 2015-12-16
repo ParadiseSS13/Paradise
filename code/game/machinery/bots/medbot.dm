@@ -559,7 +559,12 @@
 		A.skin = "tox"
 	else if(istype(src,/obj/item/weapon/storage/firstaid/o2))
 		A.skin = "o2"
-
+	else if(istype(src,/obj/item/weapon/storage/firstaid/brute))
+		A.skin = "brute"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/adv))
+		A.skin = "adv"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/aquatic_kit))
+		A.skin = "fish"
 	qdel(S)
 	user.put_in_hands(A)
 	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"

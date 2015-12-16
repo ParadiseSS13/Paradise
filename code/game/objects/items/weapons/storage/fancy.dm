@@ -344,17 +344,17 @@
 
 ///Aquatic Starter Kit
 
-/obj/item/weapon/storage/aquatic_kit
+/obj/item/weapon/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "It's a starter kit box for an acquarium."
 	icon_state = "AquaticKit"
 	throw_speed = 2
 	throw_range = 8
 
-/obj/item/weapon/storage/aquatic_kit/full
+/obj/item/weapon/storage/firstaid/aquatic_kit/full
 	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
 
-/obj/item/weapon/storage/aquatic_kit/full/New()
+/obj/item/weapon/storage/firstaid/aquatic_kit/full/New()
 	..()
 	new /obj/item/weapon/egg_scoop(src)
 	new /obj/item/weapon/fish_net(src)

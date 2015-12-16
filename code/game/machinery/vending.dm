@@ -1260,12 +1260,12 @@
 	product_ads = "House-training costs extra!;Now with 1000% more cat hair!;Allergies are a sign of weakness!;Dogs are man's best friend. Remember that Vulpkanin!; Heat lamps for Unathi!; Vox-y want a cracker?"
 	vend_delay = 15
 	icon_state = "crittercare"
-	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/weapon/storage/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
+	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/weapon/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
 					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/weapon/storage/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
+	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/weapon/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/fish_eggs/feederfish = 5,
 					/obj/item/fish_eggs/salmon = 10, /obj/item/fish_eggs/catfish = 10, /obj/item/fish_eggs/glofish = 10,
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
