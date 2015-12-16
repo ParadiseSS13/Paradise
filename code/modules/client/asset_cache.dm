@@ -208,8 +208,8 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	var/list/common = list()
 
 	var/list/common_dirs = list(
+		"nano/assets",
 		"nano/css/",
-		"nano/js/",
 		"nano/images/",
 		"nano/layouts/"
 	)
