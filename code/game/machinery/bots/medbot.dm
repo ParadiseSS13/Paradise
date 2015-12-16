@@ -612,6 +612,7 @@
 	A.treatment_brute = treatment_brute
 	A.treatment_fire = treatment_fire
 	A.treatment_tox = treatment_tox
+	A.treatment_virus = treatment_virus
 	qdel(S)
 	user.put_in_hands(A)
 	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"
