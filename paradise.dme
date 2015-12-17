@@ -10,7 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "_maps\cyberiad.dm"
+#include "_maps\metastation.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\stylesheet.dm"
@@ -1836,14 +1836,6 @@
 #include "code\modules\shieldgen\shield_gen.dm"
 #include "code\modules\shieldgen\shield_gen_external.dm"
 #include "code\modules\shuttle\shuttle.dm"
-#include "code\modules\shuttles\antagonist.dm"
-#include "code\modules\shuttles\escape_pods.dm"
-#include "code\modules\shuttles\shuttle.dm"
-#include "code\modules\shuttles\shuttle_console.dm"
-#include "code\modules\shuttles\shuttle_ferry.dm"
-#include "code\modules\shuttles\shuttle_specops.dm"
-#include "code\modules\shuttles\shuttles_multi.dm"
-#include "code\modules\shuttles\whiteship.dm"
 #include "code\modules\space_transition\space_transition.dm"
 #include "code\modules\store\items.dm"
 #include "code\modules\store\store.dm"
