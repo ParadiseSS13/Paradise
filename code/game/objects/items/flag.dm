@@ -148,7 +148,7 @@
 
 /obj/item/flag/species/taj
 	name = "Tajaran flag"
-	desc = "A flag proudly proclaiming the superior heritage of Tajara."
+	desc = "A flag proudly proclaiming the superior heritage of Tajaran."
 	icon_state = "tajflag"
 
 /obj/item/flag/species/unathi
