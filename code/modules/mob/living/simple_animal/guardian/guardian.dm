@@ -129,13 +129,14 @@
 	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	if(!input) return
 
+
 	for(var/mob/M in mob_list)
 		if(M == summoner)
 			M << "<span class='changeling'><i>[src]:</i> [input]</span>"
+			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
 		else if (M in dead_mob_list)
 			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
 	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
-	log_say("Guardian Communication: [src.real_name]/[src.key] : [input]")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	src << "<span class='danger'><B>You dont have another mode!</span></B>"
@@ -153,10 +154,11 @@
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				G << "<span class='changeling'><i>[src]:</i> [input]</span>"
+				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
+
 		else if (M in dead_mob_list)
 			M << "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
 	src << "<span class='changeling'><i>[src]:</i> [input]</span>"
-	log_say("Guardian Communication: [src.real_name]/[src.key] : [text]")
 
 /mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
