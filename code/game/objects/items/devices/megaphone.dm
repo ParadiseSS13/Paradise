@@ -25,27 +25,33 @@
 	if(spamcheck)
 		user << "\red \The [src] needs to recharge!"
 		return
-
-	var/message = sanitize(copytext(input(user, "Shout a message?", "Megaphone", null) as text,1,MAX_MESSAGE_LEN))
+	
+	var/message = input(user, "Shout a message:", "Megaphone") as text|null
+	if(!message)
+		return
+	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
 	message = capitalize(message)
 	if ((src.loc == user && usr.stat == 0))
 		if(emagged)
 			if(insults)
-				for(var/mob/O in (viewers(user)))
-					O.show_message("<B>[user]</B> broadcasts, <FONT size=3>\"[pick(insultmsg)]\"</FONT>",2) // 2 stands for hearable message
+				saymsg(user, pick(insultmsg))
 				insults--
 			else
 				user << "\red *BZZZZzzzzzt*"
 		else
-			for(var/mob/O in (viewers(user)))
-				O.show_message("<B>[user]</B> broadcasts, <FONT size=3>\"[message]\"</FONT>",2) // 2 stands for hearable message
+			saymsg(user, message)
 
 		spamcheck = 1
 		spawn(20)
 			spamcheck = 0
 		return
+
+/obj/item/device/megaphone/proc/saymsg(mob/living/user as mob, message)
+	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <FONT size=3>\"[message]\"</FONT></span>", hearing_distance = 14)
+	for(var/obj/O in oview(14, get_turf(src)))
+		O.hear_talk(user, "<FONT size=3>[message]</FONT>")
 
 /obj/item/device/megaphone/emag_act(user as mob)
 	if(!emagged)

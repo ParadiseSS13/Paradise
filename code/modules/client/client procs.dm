@@ -306,6 +306,7 @@
 	if (config && config.autoconvert_notes)
 		convert_notes_sql(ckey)
 
+
 	send_resources()
 
 	if(!void)
@@ -315,6 +316,7 @@
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		src << "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>"
+
 
 //////////////
 //DISCONNECT//
@@ -420,8 +422,9 @@
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
-
-	getFilesSlow(src, asset_cache, register_asset = FALSE)
+	spawn (10)
+		//Precache the client with all other assets slowly, so as to not block other browse() calls
+		getFilesSlow(src, asset_cache, register_asset = FALSE)
 
 //For debugging purposes
 /client/proc/list_all_languages()
