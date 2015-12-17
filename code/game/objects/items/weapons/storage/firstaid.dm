@@ -15,6 +15,12 @@
 	throw_speed = 2
 	throw_range = 8
 	var/empty = 0
+	req_one_access =list(access_medical, access_robotics) //Access and treatment are utilized for medbots.
+	var/treatment_brute = "salglu_solution"
+	var/treatment_oxy = "salbutamol"
+	var/treatment_fire = "salglu_solution"
+	var/treatment_tox = "charcoal"
+	var/treatment_virus = "spaceacillin"
 
 
 /obj/item/weapon/storage/firstaid/fire
@@ -38,6 +44,8 @@
 		new /obj/item/weapon/reagent_containers/pill/salicylic( src )
 		return
 
+/obj/item/weapon/storage/firstaid/fire/empty
+	empty = 1
 
 /obj/item/weapon/storage/firstaid/regular
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
@@ -76,6 +84,9 @@
 		new /obj/item/device/healthanalyzer( src )
 		return
 
+/obj/item/weapon/storage/firstaid/toxin/empty
+	empty = 1
+
 /obj/item/weapon/storage/firstaid/o2
 	name = "oxygen deprivation first aid kit"
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
@@ -91,6 +102,9 @@
 		new /obj/item/weapon/reagent_containers/pill/salbutamol( src )
 		new /obj/item/device/healthanalyzer( src )
 		return
+
+/obj/item/weapon/storage/firstaid/o2/empty
+	empty = 1
 
 /obj/item/weapon/storage/firstaid/brute
 	name = "brute trauma treatment kit"
@@ -113,6 +127,9 @@
 		new /obj/item/stack/medical/bruise_pack(src)
 		return
 
+/obj/item/weapon/storage/firstaid/brute/empty
+	empty = 1
+
 /obj/item/weapon/storage/firstaid/adv
 	name = "advanced first-aid kit"
 	desc = "Contains advanced medical treatments."
@@ -131,11 +148,19 @@
 	new /obj/item/stack/medical/splint(src)
 	return
 
+/obj/item/weapon/storage/firstaid/adv/empty
+	empty = 1
+
 /obj/item/weapon/storage/firstaid/tactical
 	name = "first-aid kit"
 	icon_state = "bezerk"
 	desc = "I hope you've got insurance."
 	max_w_class = 3
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "styptic_powder"
+	treatment_fire = "silver_sulfadiazine"
+	treatment_tox = "charcoal"
+	req_one_access =list(access_syndicate)
 
 /obj/item/weapon/storage/firstaid/tactical/New()
 	..()
@@ -148,6 +173,9 @@
 	new /obj/item/weapon/reagent_containers/ld50_syringe/lethal(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
+
+/obj/item/weapon/storage/firstaid/tactical/empty
+	empty =1
 
 /obj/item/weapon/storage/firstaid/surgery
 	name = "field surgery kit"
