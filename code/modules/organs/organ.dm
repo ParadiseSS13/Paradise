@@ -265,6 +265,10 @@ var/list/organ_cache = list()
 		owner.internal_organs_by_name[organ_tag] = null
 		owner.internal_organs_by_name -= organ_tag
 		owner.internal_organs_by_name -= null
+	else if(istype(src,/obj/item/organ/external)) // Limbs being a subtype of internal organs is dumb
+		var/obj/item/organ/external/E = src
+		if(owner.organs_by_name[E.limb_name] != src)
+			primary_organ = 0
 	else
 		primary_organ = 0
 
