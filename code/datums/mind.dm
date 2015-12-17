@@ -854,6 +854,7 @@
 					ticker.mode.changelings -= src
 					special_role = null
 					current.remove_changeling_powers()
+					ticker.mode.update_change_icons_removed(src)
 					if(changeling)	qdel(changeling)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
@@ -862,6 +863,7 @@
 				if(!(src in ticker.mode.changelings))
 					ticker.mode.changelings += src
 					ticker.mode.grant_changeling_powers(current)
+					ticker.mode.update_change_icons_added(src)
 					special_role = "Changeling"
 					current << "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>"
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")

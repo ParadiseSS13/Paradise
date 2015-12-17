@@ -337,36 +337,15 @@
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/ref = "\ref[traitor_mind]"
-	if(ref in implanter)
-		if(traitor_mind.current)
-			set_antag_hud(traitor_mind.current, "hudsyndicate")
-	for(var/headref in implanter)
-		for(var/datum/mind/t_mind in implanter[headref])
-			var/datum/mind/head = locate(headref)
-			if(head)
-				if(head.current)
-					if(head.current.client)
-						set_antag_hud(head.current, "hudsyndicate")
-				if(t_mind.current)
-					if(t_mind.current.client)
-						set_antag_hud(t_mind.current, "hudsyndicate")
+	//var/ref = "\ref[traitor_mind]"
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	tatorhud.join_solo_hud(traitor_mind.current)
+	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
 /datum/game_mode/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	for(var/headref in implanter)
-		var/datum/mind/head = locate(headref)
-		for(var/datum/mind/t_mind in implanter[headref])
-			if(t_mind.current)
-				if(t_mind.current.client)
-					set_antag_hud(t_mind.current, null)
-
-		if(head)
-			//log_to_dd("found [head.name]")
-			if(head.current)
-				if(head.current.client)
-					set_antag_hud(head.current, null)
-		if(traitor_mind.current.client)
-			set_antag_hud(traitor_mind.current, null)
+	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
+	tatorhud.leave_hud(traitor_mind.current)
+	set_antag_hud(traitor_mind.current, null)
 
 /datum/game_mode/proc/remove_traitor_mind(datum/mind/traitor_mind, datum/mind/head)
 	//var/list/removal

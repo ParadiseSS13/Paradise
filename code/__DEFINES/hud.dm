@@ -35,4 +35,5 @@
 #define ANTAG_HUD_OPS		9
 #define ANTAG_HUD_WIZ		10
 #define ANTAG_HUD_SHADOW    11
-#define ANTAG_HUD_VAMPIRE	12
+#define ANTAG_HUD_SOLO	12
+

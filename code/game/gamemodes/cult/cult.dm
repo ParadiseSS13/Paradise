@@ -211,12 +211,27 @@
 				M << "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>"
 
 
+/datum/game_mode/proc/add_cult_icon_to_spirit(mob/spirit/currentSpirit)
+	if(!istype(currentSpirit))
+		return FALSE
+	if (currentSpirit.client)
+		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
+		maskhud.join_hud(currentSpirit)
+		set_antag_hud(currentSpirit,"hudcultist")
+
+
+/datum/game_mode/proc/remove_cult_icon_from_spirit(mob/spirit/currentSpirit)
+	if(!istype(currentSpirit))
+		return FALSE
+	if (currentSpirit.client)
+		var/datum/atom_hud/antag/maskhud = huds[ANTAG_HUD_CULT]
+		maskhud.leave_hud(currentSpirit)
+		set_antag_hud(currentSpirit, null)
+
+
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	//spawn(0)
-	//	for(var/datum/mind/cultist in cult)
-	//		cult_icon_pair_link(cultist,cult_mind)
-	//	for(var/mob/spirit/currentSpirit in spirits)
-	//		add_cult_icon_to_spirit(currentSpirit,cult_mind)
+	for(var/mob/spirit/currentSpirit in spirits)
+		add_cult_icon_to_spirit(currentSpirit,cult_mind)
 
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
@@ -224,11 +239,10 @@
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-	//spawn(0)
-	//	for(var/datum/mind/cultist in cult)
-	//		cult_icon_pair_unlink(cultist,cult_mind)
-	//	for(var/mob/spirit/currentSpirit in spirits)
-	//		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
+
+	for(var/mob/spirit/currentSpirit in spirits)
+		remove_cult_icon_from_spirit(currentSpirit,cult_mind)
+
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, null)

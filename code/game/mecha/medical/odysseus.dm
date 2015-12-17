@@ -24,7 +24,7 @@
 		else
 			return 0
 
-	pilot_mmi_hud(var/mob/living/carbon/brain/pilot)
+	mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc,var/mob/living/carbon/brain/pilot)
 		//pilot.regular_hud_updates()
 		//process_med_hud(pilot, 1)
 		var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -33,7 +33,7 @@
 		return ..()
 
 	go_out()
-		if(ishuman(occupant) && builtin_hud_user)
+		if((ishuman(occupant) || pilot_is_mmi()) && builtin_hud_user)
 			var/mob/living/carbon/human/H = occupant
 			var/datum/atom_hud/data/human/medical/advanced/A = huds[DATA_HUD_MEDICAL_ADVANCED]
 			A.remove_hud_from(H)

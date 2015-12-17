@@ -6,8 +6,17 @@
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
 	if(M.mind.antag_hud) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
 		M.mind.antag_hud.leave_hud(M)
-	add_to_hud(M)
+	if(!ismask(M))//FUCK YOU MASK OF NARNAR!
+		add_to_hud(M)
 	add_hud_to(M)
+	M.mind.antag_hud = src
+
+/datum/atom_hud/antag/proc/join_solo_hud(mob/M)//for non team antags and for observer huds
+	if(!istype(M))
+		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
+	if(M.mind.antag_hud) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
+		M.mind.antag_hud.leave_hud(M)
+	add_to_hud(M)
 	M.mind.antag_hud = src
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)

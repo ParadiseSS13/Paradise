@@ -97,7 +97,6 @@
 
 	if (should_gib)
 		spawn(0)
-			ticker.mode.update_cult_icons_removed(src.mind.current)
 			src.gib() // gib the body
 	else
 		spawn(0)//To prevent the proc from returning null.
@@ -105,7 +104,6 @@
 				"[src] disappears into the shadows, never to be seen again.", \
 				"You disappear into the shadows, never to be seen again.", \
 				"You hear strange noise, you can't quite place it.")
-			ticker.mode.update_cult_icons_removed(src.mind.current)
 			qdel(src)
 
 	new_spirit << "<font color=\"purple\"><b><i>You are a Mask of Nar'sie now. You are a tiny fragment of the unknowable entity that is the god.</b></i></font>"
@@ -115,7 +113,7 @@
 
 	// let spirits identify cultists
 	if(ticker.mode)
-		ticker.mode.update_cult_icons_added(new_spirit.mind.current)
+		ticker.mode.add_cult_icon_to_spirit(new_spirit)
 
 	// highlander test
 	there_can_be_only_one_mask(new_spirit)
