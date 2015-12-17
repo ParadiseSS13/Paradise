@@ -131,7 +131,7 @@
 
 /datum/storeitem/flag/diona
 	name = "Diona flag"
-	desc = "A flag proudly proclaiming the superior heritage of Diona."
+	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	typepath = /obj/item/flag/species/diona
 	cost = 1000
 
@@ -155,7 +155,7 @@
 
 /datum/storeitem/flag/taj
 	name = "Tajaran flag"
-	desc = "A flag proudly proclaiming the superior heritage of Tajaran."
+	desc = "A flag proudly proclaiming the superior heritage of Tajara."
 	typepath = /obj/item/flag/species/taj
 	cost = 1000
 
@@ -163,6 +163,12 @@
 	name = "Unathi flag"
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	typepath = /obj/item/flag/species/unathi
+	cost = 1000
+
+/datum/storeitem/flag/vulp
+	name = "Vulpkanin flag"
+	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
+	typepath = /obj/item/flag/species/vulp
 	cost = 1000
 
 /datum/storeitem/flag/ian

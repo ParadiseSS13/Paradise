@@ -128,7 +128,7 @@
 
 /obj/item/flag/species/diona
 	name = "Diona flag"
-	desc = "A flag proudly proclaiming the superior heritage of Diona."
+	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	icon_state = "dionaflag"
 
 /obj/item/flag/species/human
@@ -148,13 +148,18 @@
 
 /obj/item/flag/species/taj
 	name = "Tajaran flag"
-	desc = "A flag proudly proclaiming the superior heritage of Tajaran."
+	desc = "A flag proudly proclaiming the superior heritage of Tajara."
 	icon_state = "tajflag"
 
 /obj/item/flag/species/unathi
 	name = "Unathi flag"
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	icon_state = "unathiflag"
+
+/obj/item/flag/species/vulp
+	name = "Vulpkanin flag"
+	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
+	icon_state = "vulpflag"
 
 //Department Flags
 
