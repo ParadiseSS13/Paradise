@@ -48,7 +48,7 @@
 		sleep(3)
 		return NANOMAP_TERMINALERR
 
-	var/icon/Tile = icon(file("nano/mapbase1024.png"))
+	var/icon/Tile = icon(file("html/mapbase1024.png"))
 	if (Tile.Width() != NANOMAP_MAX_ICON_DIMENSION || Tile.Height() != NANOMAP_MAX_ICON_DIMENSION)
 		log_to_dd("NanoMapGen: <B>ERROR: BASE IMAGE DIMENSIONS ARE NOT [NANOMAP_MAX_ICON_DIMENSION]x[NANOMAP_MAX_ICON_DIMENSION]</B>")
 		sleep(3)
