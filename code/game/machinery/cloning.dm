@@ -187,7 +187,7 @@
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(var/datum/dna2/record/R)
-	if(mess || attempting || panel_open)
+	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
 		return 0
 	var/datum/mind/clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
