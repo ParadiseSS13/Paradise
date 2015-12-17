@@ -257,12 +257,17 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/removed(var/mob/living/user)
 
+	var/primary_organ = 1
 	if(!istype(owner))
 		return
 
-	owner.internal_organs_by_name[organ_tag] = null
-	owner.internal_organs_by_name -= organ_tag
-	owner.internal_organs_by_name -= null
+	if(owner.internal_organs_by_name[organ_tag] == src)
+		owner.internal_organs_by_name[organ_tag] = null
+		owner.internal_organs_by_name -= organ_tag
+		owner.internal_organs_by_name -= null
+	else
+		primary_organ = 0
+
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
@@ -275,7 +280,7 @@ var/list/organ_cache = list()
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 
-	if(owner && vital)
+	if(owner && vital && primary_organ) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)
 			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>"
 			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
@@ -291,7 +296,8 @@ var/list/organ_cache = list()
 	processing_objects -= src
 	target.internal_organs |= src
 	affected.internal_organs |= src
-	target.internal_organs_by_name[organ_tag] = src
+	if (!(organ_tag in target.internal_organs_by_name))
+		target.internal_organs_by_name[organ_tag] = src // In case multiple of the same type are inserted, only the first one is the primary organ
 	src.loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT

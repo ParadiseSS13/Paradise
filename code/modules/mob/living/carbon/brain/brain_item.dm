@@ -69,23 +69,35 @@
 	owner.brain_op_stage = 4.0
 
 	var/obj/item/organ/brain/B = src
-	if(istype(B) && istype(owner))
+	if(istype(B) && istype(owner) && owner.internal_organs_by_name[organ_tag] == src)
 		B.transfer_identity(owner)
 
 	..()
 
 /obj/item/organ/brain/replaced(var/mob/living/target)
 
-	if(target.key)
-		target.ghostize()
-	var/mob/living/carbon/C = target
-	if(istype(C))
-		C.brain_op_stage = 1.0
+	var/brain_already_exists = 0
+	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
+		var/mob/living/carbon/human/H = target
+		if(organ_tag in H.internal_organs_by_name)
+			brain_already_exists = 1
+
+	if(!brain_already_exists)
+		if(target.key)
+			target.ghostize()
+		var/mob/living/carbon/C = target
+		if(istype(C))
+			C.brain_op_stage = 1.0
+		if(brainmob)
+			if(brainmob.mind)
+				brainmob.mind.transfer_to(target)
+			else
+				target.key = brainmob.key
+	..()
+
+/obj/item/organ/brain/die()
 	if(brainmob)
-		if(brainmob.mind)
-			brainmob.mind.transfer_to(target)
-		else
-			target.key = brainmob.key
+		brainmob.death(0)
 	..()
 
 /obj/item/organ/brain/slime
