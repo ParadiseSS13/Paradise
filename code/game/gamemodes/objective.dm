@@ -339,7 +339,7 @@ datum/objective/hijack
 			return 0
 		var/area/shuttle = locate(/area/shuttle/escape/centcom)
 		for(var/mob/living/player in player_list)
-			if(istype(player, /mob/living/silicon) || istype(player, /mob/living/simple_animal) || player.mind.special_role && !player.mind.special_role == "Response Team")
+			if(istype(player, /mob/living/silicon) || istype(player, /mob/living/simple_animal) || player.mind.special_role)
 				continue
 			if (player.mind && (player.mind != owner))
 				if(player.stat != DEAD)			//they're not dead!
