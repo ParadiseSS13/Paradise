@@ -4,7 +4,7 @@
 			radiation -= 3
 			adjustToxLoss(3)
 			updatehealth()
-			if(!container) // The brains are containers - Theory: Everyone on the station is secretly a highly-advanced cyborg, wearing meat shells
+			if(!container)
 				src << "<span class='danger'>You feel weak.</span>"
 			else
 				src << "<span class='danger'>STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED.</span>"
