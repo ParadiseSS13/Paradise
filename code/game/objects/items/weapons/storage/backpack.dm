@@ -41,21 +41,25 @@
 			user << "\red The Bluespace generator isn't working."
 			return
 		if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
-			user.visible_message("<span class='warning'>[user] grins as he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
-			if(do_after(user,20,target=src))
-				investigate_log("has become a singularity. Caused by [user.key]","singulo")
-				user.visible_message("<span class='warning'>[user] erupts in evil laughter as he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help yourself from laughing as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
-				qdel(W)
-				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
-				singulo.energy = 300 //To give it a small boost
-				spawn(30) //Just enough to do some damage, but not kill everything
-					qdel(singulo)
-				message_admins("[key_name_admin(user)] detonated a bag of holding")
-				log_game("[key_name(user)] detonated a bag of holding")
-				qdel(src)
+			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
+			if(response == "Yes")
+				user.visible_message("<span class='warning'>[user] grins as he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
+				if(do_after(user,30,target=src))
+					investigate_log("has become a singularity. Caused by [user.key]","singulo")
+					user.visible_message("<span class='warning'>[user] erupts in evil laughter as he puts the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help yourself from laughing as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
+					qdel(W)
+					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
+					singulo.energy = 300 //To give it a small boost
+					spawn(35) //Just enough to do some damage, but not kill everything
+						qdel(singulo)
+					message_admins("[key_name_admin(user)] detonated a bag of holding")
+					log_game("[key_name(user)] detonated a bag of holding")
+					qdel(src)
+				else
+					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome","You come to the realization that this might not be the greatest idea")
+				return
 			else
-				user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome","You come to the realization that this might not be the greatest idea")
-			return
+				return
 
 		..()
 
