@@ -418,6 +418,10 @@ var/list/ghostteleportlocs = list()
 	name = "Abandoned Ship"
 	icon_state = "shuttle"
 
+/area/shuttle/syndicate
+	name = "Syndicate Infiltrator"
+	icon_state = "shuttle"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261

@@ -9,3 +9,8 @@
 /turf/unsimulated/floor/grass/New()
 	..()
 	icon_state = "grass[rand(1,4)]"
+
+/turf/unsimulated/floor/snow
+	name = "snow"
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"

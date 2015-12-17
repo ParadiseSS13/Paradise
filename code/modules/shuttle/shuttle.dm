@@ -629,6 +629,7 @@
 			if(0)	usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
 			if(1)	usr << "<span class='warning'>Invalid shuttle requested.</span>"
 			else	usr << "<span class='notice'>Unable to comply.</span>"
+		updateUsrDialog()
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
@@ -683,7 +684,7 @@
 	icon_keyboard = "syndie_key"
 	req_access = list(access_syndicate)
 	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_z4;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
+	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
 
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
