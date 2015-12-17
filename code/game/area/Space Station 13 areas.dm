@@ -241,6 +241,10 @@ var/list/ghostteleportlocs = list()
 	music = "music/escape.ogg"
 	icon_state = "shuttle"
 
+/area/shuttle/transport
+	icon_state = "shuttle"
+	name = "\improper Transport Shuttle"
+
 /area/shuttle/transport1
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
@@ -279,6 +283,10 @@ var/list/ghostteleportlocs = list()
 	music = "music/escape.ogg"
 	icon_state = "shuttle"
 
+/area/shuttle/specops
+	name = "\improper Special Ops Shuttle"
+	icon_state = "shuttlered"
+
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
 	icon_state = "shuttlered"
@@ -294,6 +302,10 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/syndicate_elite/station
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered2"
+
+/area/shuttle/administration
+	name = "\improper Administration Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/administration/centcom
 	name = "\improper Administration Shuttle Centcom"

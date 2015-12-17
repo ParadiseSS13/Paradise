@@ -664,10 +664,10 @@
 
 
 /obj/machinery/computer/shuttle/ert
-	name = "ert shuttle console"
+	name = "specops shuttle console"
 	//circuit = /obj/item/weapon/circuitboard/ert
-	shuttleId = "ert"
-	possible_destinations = "ert_home;ert_away"
+	shuttleId = "specops"
+	possible_destinations = "specops_home;specops_away"
 
 
 /obj/machinery/computer/shuttle/white_ship
@@ -707,6 +707,12 @@
 	desc = "Used to call and send the science shuttle."
 	shuttleId = "science"
 	possible_destinations = "science_home;science_away"
+
+/obj/machinery/computer/shuttle/admin
+	name = "Administration Shuttle Console"
+	desc = "Used to call and send the administration shuttle."
+	shuttleId = "admin"
+	possible_destinations = "admin_home;admin_away"
 
 #undef DOCKING_PORT_HIGHLIGHT
 
