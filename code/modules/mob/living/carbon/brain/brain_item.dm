@@ -59,7 +59,6 @@
 /obj/item/organ/brain/removed(var/mob/living/user)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
-	name = "[owner.real_name]'s brain"
 
 	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
@@ -96,8 +95,9 @@
 	..()
 
 /obj/item/organ/brain/die()
-	if(brainmob)
-		brainmob.death(0)
+	// Brains dying kills the internal consciousness
+//	if(brainmob)
+//		qdel(brainmob) I'll leave this in for my next PR, and so people can yell at me about it
 	..()
 
 /obj/item/organ/brain/slime
