@@ -115,8 +115,9 @@
 	if(ishuman(target))
 		var/var/mob/living/carbon/human/H = target
 		for(var/obj/item/organ/external/E in H.organs)
-			if(E.mend_fracture())
-				E.perma_injury = 0
+			if(prob(10))
+				if(E.mend_fracture())
+					E.perma_injury = 0
 	return
 
 /obj/item/weapon/gun/medbeam/proc/on_beam_relase(var/mob/living/target)
