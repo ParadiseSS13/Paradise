@@ -10,7 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "_maps\metastation.dm"
+#include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\stylesheet.dm"
@@ -500,7 +500,7 @@
 #include "code\game\machinery\computer\robot.dm"
 #include "code\game\machinery\computer\salvage_ship.dm"
 #include "code\game\machinery\computer\security.dm"
-#include "code\game\machinery\computer\shuttle_tg.dm"
+#include "code\game\machinery\computer\shuttle.dm"
 #include "code\game\machinery\computer\skills.dm"
 #include "code\game\machinery\computer\specops_shuttle.dm"
 #include "code\game\machinery\computer\station_alert.dm"

@@ -1,5 +1,5 @@
 //use this define to highlight docking port bounding boxes (ONLY FOR DEBUG USE)
-#define DOCKING_PORT_HIGHLIGHT
+//#define DOCKING_PORT_HIGHLIGHT
 
 //NORTH default dir
 /obj/docking_port
@@ -142,7 +142,6 @@
 		return 0
 
 	shuttle_master.stationary += src
-	log_to_dd("stationary dock initialized [src], [id]") //SHUTTLE-WIP DEBUG
 	if(!id)
 		id = "[shuttle_master.stationary.len]"
 	if(name == "dock")

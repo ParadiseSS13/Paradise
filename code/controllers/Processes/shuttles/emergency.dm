@@ -19,7 +19,6 @@
 		return 0 //shuttle master not initialized
 
 	shuttle_master.emergency = src
-	log_to_dd("EMERGENCY FUCKING DOCKING PORT CREATED GOD FUCKING DAMNIT")
 	return 1
 
 /obj/docking_port/mobile/emergency/timeLeft(divisor)
