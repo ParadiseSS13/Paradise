@@ -241,7 +241,7 @@
 "eG" = (/obj/machinery/light_switch{pixel_x = -28; pixel_y = 0},/turf/simulated/floor,/area/engiestation)
 "eH" = (/obj/machinery/status_display{layer = 4; pixel_x = 32; pixel_y = 0},/turf/simulated/floor{icon_state = "delivery"},/area/engiestation)
 "eI" = (/obj/docking_port/stationary{dir = 8; dwidth = 10; height = 35; id = "whiteship_z4"; name = "east of engistation"; width = 21},/turf/space,/area/space)
-"eJ" = (/obj/machinery/door/airlock/external{id_tag = "engineering_away"; name = "Engineering Dock Airlock"; req_access_txt = "13"},/turf/simulated/floor/plating,/area/engiestation)
+"eJ" = (/obj/machinery/door/airlock/external{id_tag = "engineering_away"; name = "Engineering Dock Airlock"; req_access_txt = "0"; req_one_access_txt = "10;24"},/turf/simulated/floor/plating,/area/engiestation)
 "eK" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating,/area/engiestation)
 "eL" = (/obj/docking_port/stationary{dir = 2; dwidth = 3; height = 5; id = "engineering_away"; name = "engineering outpost dock"; width = 7},/turf/space,/area/space)
 "fe" = (/turf/simulated/floor/airless{icon_state = "white"},/area/constructionsite/medical)
