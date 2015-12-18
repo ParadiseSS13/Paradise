@@ -23,6 +23,8 @@ var/list/organ_cache = list()
 	germ_level = 0
 	var/datum/dna/dna
 	var/datum/species/species
+	var/needs_preservation_update = 1
+	var/is_in_freezer = 0
 
 /obj/item/organ/Destroy()
 	if(!owner)
@@ -106,7 +108,6 @@ var/list/organ_cache = list()
 	if(status & ORGAN_DEAD)
 		return
 
-	// Don't process if we're in a freezer, an MMI or a stasis bag. //TODO: ambient temperature?
 	if(is_preserved())
 		return
 
@@ -121,8 +122,11 @@ var/list/organ_cache = list()
 			if(B && prob(40))
 				reagents.remove_reagent("blood",0.1)
 				blood_splatter(src,B,1)
-
-		germ_level += rand(2,6)
+		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
+		// Another mercy for surgeons preparing transplant organs
+		germ_level++
+		if(germ_level >= INFECTION_LEVEL_ONE)
+			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_THREE)
@@ -141,20 +145,27 @@ var/list/organ_cache = list()
 		die()
 
 /obj/item/organ/proc/is_preserved()
-	if(istype(loc,/obj/item/organ))
-		var/obj/item/organ/O = loc
-		return O.is_preserved()
-	if(istype(loc,/obj/item/device/mmi)) 	// Brain items are qdel'd when put in an MMI, and recreated in perfection when removed.
-		return 1							// This is all silly, but I can use this when I have MMIs actually store the brain -- Crazylemon
-	if(istype(loc,/obj/item/bodybag/cryobag))
+	if(istype(loc,/obj/item/device/mmi))
+		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
-	if(istype(loc,/obj/structure/closet/crate/freezer))
+	if(is_found_within(/obj/item/bodybag/cryobag))
+		return 1
+	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1
 	if(istype(loc,/turf))
-		for(var/obj/structure/closet/crate/freezer/F in loc.contents)
-			if(F.opened)
-				return 1
-				break
+		if(needs_preservation_update)
+			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
+			// if the virologist releases gibbingtons again or something
+			// There's probably a much less silly way of doing this, but BYOND native algorithms are stupidly naive
+			is_in_freezer = 0
+			for(var/obj/structure/closet/crate/freezer/F in loc.contents)
+				if(F.opened)
+					is_in_freezer = 1 // on the same tile, close enough, should keep organs much fresher on avg
+					break
+			needs_preservation_update = 0
+			spawn(100) // (100 / 10) once every 10 seconds
+				needs_preservation_update = 1
+		return is_in_freezer // I'd like static varibles, please
 
 	// You can do your cool location temperature organ preserving effects here!
 	return 0
@@ -194,6 +205,7 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
+	germ_level = 0
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
