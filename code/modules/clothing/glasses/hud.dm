@@ -29,16 +29,6 @@
 	icon_state = "healthhud"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
-///DELETE ME AFTER MAP FREEZE!!!!!!!!///
-/obj/item/clothing/glasses/hud/health_advanced
-	name = "\improper Advanced Health Scanner HUD"
-
-/obj/item/clothing/glasses/hud/health_advanced/New()
-    new /obj/item/clothing/glasses/hud/health/health_advanced (loc)
-    qdel(src)
-
-/////!!!!!1111!!!!!!!!/////////////////
-
 /obj/item/clothing/glasses/hud/health/health_advanced
 	name = "\improper Advanced Health Scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
