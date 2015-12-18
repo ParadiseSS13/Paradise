@@ -220,15 +220,16 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/handle_antibiotics()
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 
-	if (!germ_level || antibiotics < 5)
+	if (!germ_level || antibiotics <= 0.4)
 		return
 
 	if (germ_level < INFECTION_LEVEL_ONE)
 		germ_level = 0	//cure instantly
 	else if (germ_level < INFECTION_LEVEL_TWO)
-		germ_level -= 6	//at germ_level == 500, this should cure the infection in a minute
+		germ_level -= 24	//at germ_level == 500, this should cure the infection in 15 seconds
 	else
-		germ_level -= 2 //at germ_level == 1000, this will cure the infection in 5 minutes
+		germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
+						// Let's not drag this on, medbay has only so much antibiotics
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(var/used_weapon, var/damage)
