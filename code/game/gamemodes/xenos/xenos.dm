@@ -111,7 +111,7 @@
 	var/playeralienratio = 0
 	if(playersalive)
 		playeralienratio = xenosalive / playersalive
-	if(emergency_shuttle && emergency_shuttle.returned())
+	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return ..()
 	if(!xenosalive)
 		result = 1
@@ -137,7 +137,7 @@
 	if(config.continous_rounds)
 		if(result)
 			return ..()
-	if(emergency_shuttle && emergency_shuttle.returned())
+	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return ..()
 	if(result || station_was_nuked)
 		return 1
@@ -156,7 +156,7 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
-		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || emergency_shuttle.departed && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
+		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len

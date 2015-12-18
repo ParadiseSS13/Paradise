@@ -4,34 +4,6 @@
 #define COMM_SCREEN_MESSAGES	3
 #define COMM_SCREEN_SECLEVEL	4
 
-var/shuttle_call/shuttle_calls[0]
-
-#define SHUTTLE_RECALL  -1
-#define SHUTTLE_CALL     1
-#define SHUTTLE_TRANSFER 2
-
-/shuttle_call
-	var/direction=0
-	var/who=""
-	var/ckey=""
-	var/turf/from=null
-	var/where=""
-	var/when
-	var/eta=null
-
-/shuttle_call/New(var/mob/user,var/obj/machinery/computer/communications/computer,var/dir)
-	direction=dir
-	if(user)
-		who="[user]"
-		ckey="[user.key]"
-	if(computer)
-		where="[computer]"
-		from=get_turf(computer)
-	when=worldtime2text()
-	if(dir==SHUTTLE_RECALL)
-		var/timeleft=emergency_shuttle.estimate_arrival_time()
-		eta="[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
-
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -62,6 +34,7 @@ var/shuttle_call/shuttle_calls[0]
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
+	shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 1
 
@@ -179,7 +152,7 @@ var/shuttle_call/shuttle_calls[0]
 				return
 
 			call_shuttle_proc(usr, input)
-			if(emergency_shuttle.online())
+			if(shuttle_master.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -191,7 +164,7 @@ var/shuttle_call/shuttle_calls[0]
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 			if(response == "Yes")
 				cancel_call_proc(usr)
-				if(emergency_shuttle.online())
+				if(shuttle_master.emergency.timer)
 					post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -328,54 +301,62 @@ var/shuttle_call/shuttle_calls[0]
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// this is the data which will be sent to the ui
 	var/data[0]
-	data["is_ai"] = isAI(user)||isrobot(user)
-	data["menu_state"] = data["is_ai"] ? ai_menu_state : menu_state
-	data["emagged"] = emagged
+	data["is_ai"]         = isAI(user)||isrobot(user)
+	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
+	data["emagged"]       = emagged
 	data["authenticated"] = is_authenticated(user, 0)
-	data["screen"] = getMenuState(usr)
+	data["screen"]        = getMenuState(usr)
 
-	data["stat_display"] = list(
-		"type"=display_type,
-		"line_1"=(stat_msg1 ? stat_msg1 : "-----"),
-		"line_2"=(stat_msg2 ? stat_msg2 : "-----"),
-		"presets"=list(
-			list("name"="blank",    "label"="Clear",       "desc"="Blank slate"),
-			list("name"="shuttle",  "label"="Shuttle ETA", "desc"="Display how much time is left."),
-			list("name"="message",  "label"="Message",     "desc"="A custom message.")
+	data["stat_display"] =  list(
+		"type"   = display_type,
+		"line_1" = (stat_msg1 ? stat_msg1 : "-----"),
+		"line_2" = (stat_msg2 ? stat_msg2 : "-----"),
+
+		"presets" = list(
+			list("name" = "blank",    "label" = "Clear",       "desc" = "Blank slate"),
+			list("name" = "shuttle",  "label" = "Shuttle ETA", "desc" = "Display how much time is left."),
+			list("name" = "message",  "label" = "Message",     "desc" = "A custom message.")
 		),
+
 		"alerts"=list(
-			list("alert"="default",   "label"="Nanotrasen",  "desc"="Oh god."),
-			list("alert"="redalert",  "label"="Red Alert",   "desc"="Nothing to do with communists."),
-			list("alert"="lockdown",  "label"="Lockdown",    "desc"="Let everyone know they're on lockdown."),
-			list("alert"="biohazard", "label"="Biohazard",   "desc"="Great for virus outbreaks and parties."),
+			list("alert" = "default",   "label" = "Nanotrasen",  "desc" = "Oh god."),
+			list("alert" = "redalert",  "label" = "Red Alert",   "desc" = "Nothing to do with communists."),
+			list("alert" = "lockdown",  "label" = "Lockdown",    "desc" = "Let everyone know they're on lockdown."),
+			list("alert" = "biohazard", "label" = "Biohazard",   "desc" = "Great for virus outbreaks and parties."),
 		)
 	)
-	data["security_level"] = security_level
+
+	data["security_level"] =     security_level
 	data["str_security_level"] = capitalize(get_security_level())
 	data["levels"] = list(
-		list("id"=SEC_LEVEL_GREEN, "name"="Green"),
-		list("id"=SEC_LEVEL_BLUE,  "name"="Blue"),
+		list("id" = SEC_LEVEL_GREEN, "name" = "Green"),
+		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue"),
 		//SEC_LEVEL_RED = list("name"="Red"),
 	)
 
 	var/msg_data[0]
-	for(var/i=1;i<=src.messagetext.len;i++)
+	for(var/i = 1; i <= src.messagetext.len; i++)
 		var/cur_msg[0]
-		cur_msg["title"]=messagetitle[i]
-		cur_msg["body"]=messagetext[i]
-		msg_data += list(cur_msg)
-	data["messages"] = msg_data
+		cur_msg["title"] = messagetitle[i]
+		cur_msg["body"]  = messagetext[i]
+		msg_data        += list(cur_msg)
+
+	data["messages"]        = msg_data
 	data["current_message"] = data["is_ai"] ? aicurrmsg : currmsg
 
-	var/shuttle[0]
-	shuttle["on"]=emergency_shuttle.online()
-	if (emergency_shuttle.online() && emergency_shuttle.location())
-		var/timeleft=emergency_shuttle.estimate_arrival_time()
-		shuttle["eta"]="[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
-	shuttle["pos"] = !emergency_shuttle.location()
-	shuttle["can_recall"]=!(recall_time_limit && world.time >= recall_time_limit)
+	data["lastCallLoc"]     = shuttle_master.emergencyLastCallLoc ? format_text(shuttle_master.emergencyLastCallLoc.name) : null
 
-	data["shuttle"]=shuttle
+	var/shuttle[0]
+	switch(shuttle_master.emergency.mode)
+		if(SHUTTLE_IDLE, SHUTTLE_RECALL)
+			shuttle["callStatus"] = 2 //#define
+		else
+			shuttle["callStatus"] = 1
+	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+		var/timeleft = shuttle_master.emergency.timeLeft()
+		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
+
+	data["shuttle"] = shuttle
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
@@ -412,19 +393,14 @@ var/shuttle_call/shuttle_calls[0]
 	else
 		return menu_state
 
-/proc/enable_prison_shuttle(var/mob/user)
-	for(var/obj/machinery/computer/prison_shuttle/PS in world)
-		PS.allowedtocall = !(PS.allowedtocall)
+/proc/enable_prison_shuttle(var/mob/user);
 
 /proc/call_shuttle_proc(var/mob/user, var/reason)
-	if ((!( ticker ) || !emergency_shuttle.location()))
-		return
-
 	if(sent_strike_team == 1)
 		user << "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>"
 		return
 
-	if(emergency_shuttle.deny_shuttle)
+	if(shuttle_master.emergencyNoEscape)
 		user << "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>"
 		return
 
@@ -432,39 +408,24 @@ var/shuttle_call/shuttle_calls[0]
 		user << "<span class='warning'>The emergency shuttle is refueling. Please wait another [round((6000-world.time)/600)] minutes before trying again.</span>"
 		return
 
-	if(emergency_shuttle.going_to_centcom())
+	if(shuttle_master.emergency.mode > SHUTTLE_ESCAPE)
 		user << "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>"
-		return
-
-	if(emergency_shuttle.online())
-		user << "<span class='warning'>The emergency shuttle is already on its way.</span>"
 		return
 
 	if(ticker.mode.name == "blob")
 		user << "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>"
 		return
 
-	emergency_shuttle.call_evac(reason)
+	shuttle_master.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
 	return
 
 /proc/init_shift_change(var/mob/user, var/force = 0)
-	if ((!( ticker ) || !emergency_shuttle.location()))
-		return
-
-	if(emergency_shuttle.going_to_centcom())
-		user << "The shuttle may not be called while returning to Central Command."
-		return
-
-	if(emergency_shuttle.online())
-		user << "The shuttle is already on its way."
-		return
-
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
-		if(emergency_shuttle.deny_shuttle)
+		if(shuttle_master.emergencyNoEscape)
 			user << "Central Command does not currently have a shuttle available in your sector. Please try again later."
 			return
 
@@ -480,22 +441,20 @@ var/shuttle_call/shuttle_calls[0]
 			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 			return
 
-	emergency_shuttle.call_transfer()
-	log_game("[key_name(user)] has called the shuttle.")
-	message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
+	shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+	if(user)
+		log_game("[key_name(user)] has called the shuttle.")
+		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
 
 /proc/cancel_call_proc(var/mob/user)
-	if (!( ticker ) || !emergency_shuttle.can_recall())
-		return
 	if(ticker.mode.name == "meteor")
 		return
 
-	if(!emergency_shuttle.going_to_centcom()) //check that shuttle isn't already heading to centcomm
-		emergency_shuttle.recall()
-		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
+	shuttle_master.cancelEvac(user)
+	log_game("[key_name(user)] has recalled the shuttle.")
+	message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
 	return
 
 /obj/machinery/computer/communications/proc/post_status(var/command, var/data1, var/data2)
@@ -522,26 +481,8 @@ var/shuttle_call/shuttle_calls[0]
 
 
 /obj/machinery/computer/communications/Destroy()
-
-	for(var/obj/machinery/computer/communications/commconsole in world)
-		if(istype(commconsole.loc,/turf) && commconsole != src)
-			return ..()
-
-	for(var/obj/item/weapon/circuitboard/communications/commboard in world)
-		if(istype(commboard.loc,/turf) || istype(commboard.loc,/obj/item/weapon/storage))
-			return ..()
-
-	for(var/mob/living/silicon/ai/shuttlecaller in player_list)
-		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
-			return ..()
-
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
-		return ..()
-
-	emergency_shuttle.call_evac()
-	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
-	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
-
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	return ..()
 
 /obj/item/weapon/circuitboard/communications/Destroy()
@@ -561,7 +502,7 @@ var/shuttle_call/shuttle_calls[0]
 	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || sent_strike_team)
 		return ..()
 
-	emergency_shuttle.call_evac()
+	shuttle_master.emergency.request(null, 0.3, null, "All communication consoles, boards, and AI's have been destroyed.")
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 

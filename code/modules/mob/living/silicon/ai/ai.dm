@@ -186,8 +186,8 @@ var/list/ai_verbs_default = list(
 	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
 
 	ai_list += src
+	shuttle_caller_list += src
 	..()
-	return
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
@@ -229,6 +229,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	qdel(eyeobj) // No AI, no Eye
 	return ..()
 
@@ -374,11 +376,6 @@ var/list/ai_verbs_default = list(
 
 	call_shuttle_proc(src, input)
 
-	// hack to display shuttle timer
-	if(emergency_shuttle.online())
-		var/obj/machinery/computer/communications/C = locate() in machines
-		if(C)
-			C.post_status("shuttle")
 	return
 
 /mob/living/silicon/ai/proc/ai_cancel_call()

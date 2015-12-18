@@ -41,13 +41,16 @@
 		if(player.stat != DEAD)
 			var/turf/location = get_turf(player.loc)
 			if(!location)	continue
-			switch(location.loc.type)
-				if( /area/shuttle/escape/centcom )
-					text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
-				if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-					text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
-				else
-					text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+
+			if(location.loc.type == shuttle_master.emergency.areaInstance.type) //didn't work in the switch for some reason
+				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+
+			else
+				switch(location.loc.type)
+					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
+						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+					else
+						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
 			survivors++
 
 	if(survivors)

@@ -119,6 +119,11 @@
 					<BR>
 					<A href='?src=\ref[src];secretsfun=rolldice'>Roll the Dice</A><BR>
 					<BR>
+					<BR>
+					<A href='?src=\ref[src];secretsfun=moveferry'>Move Ferry</A><BR>
+					<A href='?src=\ref[src];secretsfun=moveminingshuttle'>Move Mining Shuttle</A><BR>
+					<A href='?src=\ref[src];secretsfun=movelaborshuttle'>Move Labor Shuttle</A><BR>
+					<BR>
 					</center>"}
 	dat += "</center></body></html>"
 	var/datum/browser/popup = new(usr, "secrets", "<div align='center'>Admin Secrets</div>", 630, 670)
