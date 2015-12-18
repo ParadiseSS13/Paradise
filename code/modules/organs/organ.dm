@@ -107,7 +107,7 @@ var/list/organ_cache = list()
 		return
 
 	// Don't process if we're in a freezer, an MMI or a stasis bag. //TODO: ambient temperature?
-	if(istype(loc,/obj/item/device/mmi) || istype(loc,/obj/item/bodybag/cryobag) || istype(loc,/obj/structure/closet/crate/freezer))
+	if(is_preserved())
 		return
 
 	//Process infections
@@ -139,6 +139,25 @@ var/list/organ_cache = list()
 	//check if we've hit max_damage
 	if(damage >= max_damage)
 		die()
+
+/obj/item/organ/proc/is_preserved()
+	if(istype(loc,/obj/item/organ))
+		var/obj/item/organ/O = loc
+		return O.is_preserved()
+	if(istype(loc,/obj/item/device/mmi)) 	// Brain items are qdel'd when put in an MMI, and recreated in perfection when removed.
+		return 1							// This is all silly, but I can use this when I have MMIs actually store the brain -- Crazylemon
+	if(istype(loc,/obj/item/bodybag/cryobag))
+		return 1
+	if(istype(loc,/obj/structure/closet/crate/freezer))
+		return 1
+	if(istype(loc,/turf))
+		for(var/obj/structure/closet/crate/freezer/F in loc.contents)
+			if(F.opened)
+				return 1
+				break
+
+	// You can do your cool location temperature organ preserving effects here!
+	return 0
 
 /obj/item/organ/examine(mob/user)
 	..(user)
