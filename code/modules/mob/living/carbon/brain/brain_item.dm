@@ -37,11 +37,15 @@
 			brainmob.client.screen.len = null //clear the hud
 
 /obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
-	name = "\the [H]'s [initial(src.name)]"
 	brainmob = new(src)
-	brainmob.name = H.real_name
-	brainmob.real_name = H.real_name
-	brainmob.dna = H.dna.Clone()
+	if(isnull(dna)) // someone didn't set this right...
+		log_to_dd("[src] at [loc] did not contain a dna datum at time of removed.")
+		dna = H.dna.Clone()
+	name = "\the [dna.real_name]'s [initial(src.name)]"
+	brainmob.dna = dna.Clone() // Silly baycode, what you do
+//	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
+	brainmob.name = dna.real_name
+	brainmob.real_name = dna.real_name
 	brainmob.timeofhostdeath = H.timeofdeath
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
@@ -60,15 +64,14 @@
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
-	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-
-	if(borer)
-		borer.detatch() //Should remove borer if the brain is removed - RR
-
-	owner.brain_op_stage = 4.0
-
 	var/obj/item/organ/brain/B = src
-	if(istype(B) && istype(owner) && owner.internal_organs_by_name[organ_tag] == src)
+	if(istype(B) && istype(owner) && is_primary_organ())
+		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
+
+		if(borer)
+			borer.detatch() //Should remove borer if the brain is removed - RR
+
+		owner.brain_op_stage = 4.0
 		B.transfer_identity(owner)
 
 	..()
@@ -92,12 +95,6 @@
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
-	..()
-
-/obj/item/organ/brain/die()
-	// Brains dying kills the internal consciousness
-//	if(brainmob)
-//		qdel(brainmob) I'll leave this in for my next PR, and so people can yell at me about it
 	..()
 
 /obj/item/organ/brain/slime
