@@ -35,6 +35,11 @@
 
 	#endif
 
+	if(href_list["asset_cache_confirm_arrival"])
+		//src << "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED."
+		var/job = text2num(href_list["asset_cache_confirm_arrival"])
+		completed_asset_jobs += job
+		return
 
 	//Reduces spamming of links by dropping calls that happen during the delay period
 	if(next_allowed_topic_time > world.time)
@@ -232,8 +237,6 @@
 	///////////
 /client/New(TopicData)
 	TopicData = null							//Prevent calls to client.Topic from connect
-	client_cache += src
-	client_cache[src] = list()
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
@@ -303,12 +306,17 @@
 	if (config && config.autoconvert_notes)
 		convert_notes_sql(ckey)
 
+
 	send_resources()
 
 	if(!void)
 		void = new()
 
 	screen += void
+
+	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
+		src << "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>"
+
 
 //////////////
 //DISCONNECT//
@@ -414,9 +422,9 @@
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
-
-	// Send NanoUI resources to this client
-	spawn nanomanager.send_resources(src)
+	spawn (10)
+		//Precache the client with all other assets slowly, so as to not block other browse() calls
+		getFilesSlow(src, asset_cache, register_asset = FALSE)
 
 //For debugging purposes
 /client/proc/list_all_languages()

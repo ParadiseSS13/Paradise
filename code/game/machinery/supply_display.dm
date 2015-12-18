@@ -4,27 +4,19 @@
 
 /obj/machinery/status_display/supply_display/update()
 	if(!..() && mode == STATUS_DISPLAY_CUSTOM)
-		message1 = "SUPPLY"
-		message2 = ""
-
-		var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-		if (!shuttle)
-			message2 = "Error"
-		else if(shuttle.has_arrive_time())
-			message2 = get_supply_shuttle_timer()
-			if(lentext(message2) > CHARS_PER_LINE)
-				message2 = "Error"
-		else if (shuttle.is_launching())
-			if (shuttle.at_station())
-				message2 = "Launch"
-			else
-				message2 = "ETA"
+		var/line1
+		var/line2
+		if(shuttle_master.supply.mode == SHUTTLE_IDLE)
+			if(shuttle_master.supply.z == ZLEVEL_STATION)
+				line1 = "CARGO"
+				line2 = "Docked"
 		else
-			if(shuttle.at_station())
-				message2 = "Docked"
-			else
-				message1 = ""
-		update_display(message1, message2)
+			line1 = "CARGO"
+			line2 = get_supply_shuttle_timer()
+			if(lentext(line2) > CHARS_PER_LINE)
+				line2 = "Error"
+
+		update_display(line1, line2)
 		return 1
 	return 0
 

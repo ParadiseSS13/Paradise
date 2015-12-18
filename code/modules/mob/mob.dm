@@ -111,7 +111,21 @@
 	for(var/mob/M in get_mobs_in_view(range, src))
 		if(self_message && M==src)
 			msg = self_message
-		M.show_message( msg, 2, deaf_message, 1)
+		M.show_message(msg, 2, deaf_message, 1)
+	
+	// based on say code
+	var/omsg = replacetext(message, "<B>[src]</B> ", "")
+	var/list/listening_obj = new
+	for(var/atom/movable/A in view(range, src))
+		if(istype(A, /mob))
+			var/mob/M = A
+			for(var/obj/O in M.contents)
+				listening_obj |= O
+		else if(istype(A, /obj))
+			var/obj/O = A
+			listening_obj |= O
+	for(var/obj/O in listening_obj)
+		O.hear_message(src, omsg)
 
 // Show a message to all mobs in earshot of this atom
 // Use for objects performing audible actions
@@ -1383,6 +1397,10 @@ mob/proc/yank_out_object()
 	if(isliving(src))
 		spell.action.Grant(src)
 	return
+
+//override to avoid rotating pixel_xy on mobs
+/mob/shuttleRotate(rotation)
+	dir = angle2dir(rotation+dir2angle(dir))
 
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl
