@@ -118,6 +118,7 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
+	var/cyborg_type = "Cyborg"
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -593,3 +594,12 @@
 				H.bodytemp.icon_state = "temp0"
 
 	return 1
+
+/*
+Returns the path corresponding to the corresponding organ
+It'll return null if the organ doesn't correspond, so include null checks when using this!
+*/
+/datum/species/proc/return_organ(var/organ_slot)
+	if(!(organ_slot in has_organ))
+		return null
+	return has_organ[organ_slot]

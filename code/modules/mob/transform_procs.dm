@@ -161,7 +161,7 @@
 	O.job = "Cyborg"
 	O.notify_ai(1)
 
-	if(O.mind.assigned_role == "Cyborg")
+	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")
 			O.mmi = new /obj/item/device/mmi/posibrain(O)
 		else if(O.mind.role_alt_title == "Robot")
@@ -320,7 +320,7 @@
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
-		return 0	
+		return 0
 
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
@@ -347,7 +347,7 @@
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-		
+
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 
