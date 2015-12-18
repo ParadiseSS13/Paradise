@@ -52,7 +52,7 @@
 					singulo.energy = 300 //To give it a small boost
 					spawn(35) //Just enough to do some damage, but not kill everything
 						qdel(singulo)
-					message_admins("[key_name_admin(user)] detonated a bag of holding")
+					message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_game("[key_name(user)] detonated a bag of holding")
 					qdel(src)
 				else
