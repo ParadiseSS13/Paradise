@@ -349,7 +349,7 @@ datum/objective/hijack
 						continue
 					if(isanimal(player)) //Poly does not own the shuttle
 						continue
-					if(player.mind.special_role && !player.mind.special_role == "Response Team") //Is antag, and not ERT
+					if(player.mind.special_role && !(player.mind.special_role == "Response Team")) //Is antag, and not ERT
 						continue
 
 					if(get_area(player) == A)
