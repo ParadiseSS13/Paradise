@@ -40,7 +40,7 @@
 		if(crit_fail)
 			user << "\red The Bluespace generator isn't working."
 			return
-		if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
+		else if(istype(W, /obj/item/weapon/storage/backpack/holding) && !W.crit_fail)
 			var/response = alert(user, "Are you sure you want to put the bag of holding inside another bag of holding?","Are you sure you want to die?","Yes","No")
 			if(response == "Yes")
 				user.visible_message("<span class='warning'>[user] grins as he begins to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
@@ -57,11 +57,8 @@
 					qdel(src)
 				else
 					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome","You come to the realization that this might not be the greatest idea")
-				return
-			else
-				return
-
-		..()
+		else
+			. = ..()
 
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
