@@ -115,7 +115,7 @@
 "ck" = (/turf/space/transit,/area/space)
 "cl" = (/obj/docking_port/stationary/transit{dir = 4; dwidth = 11; height = 13; id = "emergency_transit"; name = "emergency in transit"; width = 24},/turf/space/transit,/area/space)
 "cm" = (/obj/docking_port/stationary/transit{dir = 8; dwidth = 5; height = 7; id = "supply_transit"; name = "supply in transit"; width = 12},/turf/space/transit,/area/space)
-"cn" = (/obj/machinery/door/airlock/external{aiControlDisabled = 1; frequency = 1379; hackProof = 1; icon_state = "door_locked"; id_tag = "emergency_away"; locked = 1; name = "Arrival Airlock"; req_access = null; req_access_txt = "106"},/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
+"cn" = (/obj/machinery/door/airlock/external{aiControlDisabled = 1; frequency = 1379; hackProof = 1; icon_state = "door_locked"; id_tag = "emergency_away"; locked = 1; name = "Arrival Airlock"; req_access = null; req_access_txt = "0"},/turf/unsimulated/floor{name = "plating"},/area/centcom/evac)
 "co" = (/turf/unsimulated/wall,/area/prison/solitary)
 "cp" = (/turf/unsimulated/floor{name = "plating"},/area/centcom/ferry)
 "cq" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 1},/area/centcom/ferry)
