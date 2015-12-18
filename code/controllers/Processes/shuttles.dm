@@ -246,8 +246,6 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	if(!object)
 		return
 
-	world << "Supply order [src] creating object [object] at atom [_loc]."
-
 		//create the crate
 	var/atom/Crate = new object.containertype(_loc)
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"

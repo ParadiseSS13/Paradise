@@ -3,7 +3,7 @@
 - [Shuttle system](#shuttle-system)
 	- [Introduction](#introduction)
 	- [Docking ports](#docking-ports)
-		- [/obj/docking_port](#objdockingport)
+		- [/obj/docking_port](#obj-docking_port)
 			- [Variables](#variables)
 		- [/obj/docking_port/mobile](#objdockingportmobile)
 		- [/obj/docking_port/mobile](#objdockingportmobile)
@@ -29,7 +29,7 @@ Shuttles are used for many purposes, including the end of rounds, so it's import
 understand them.
 
 ## Docking ports
-### /obj/docking_port
+### obj docking_port
 The `/obj/docking_port` type is the primary component of the shuttle system. Almost all of
 the shuttle system is controlled by the docking ports, the only thing that isn't, really,
 is the shuttle manager, which manages, you guessed it, the docking ports.

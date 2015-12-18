@@ -69,14 +69,10 @@
 
 		emptyTurfs += T
 
-	world << "Supply shuttle buying items. emptyTurfs.len = [emptyTurfs.len]"
-
 	for(var/datum/supply_order/SO in shuttle_master.shoppinglist)
 		if(!SO.object)
 			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
 			continue
-
-		world << "Supply shuttle buying [SO], [SO.object]."
 
 		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in
 		if(!T)
