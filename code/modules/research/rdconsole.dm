@@ -1164,14 +1164,17 @@ proc/CallMaterialName(ID)
 	desc = "A console used to interface with R&D tools."
 	id = 2
 	req_access = list(access_robotics)
+	circuit = /obj/item/weapon/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
+	circuit = /obj/item/weapon/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(access_mechanic)
+	circuit = /obj/item/weapon/circuitboard/rdconsole/mechanics
