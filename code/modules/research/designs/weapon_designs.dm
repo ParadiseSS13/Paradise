@@ -60,6 +60,16 @@
 	locked = 1
 	category = list("Weapons")
 
+/datum/design/wormhole_projector
+	name = "Bluespace Wormhole Projector"
+	desc = "A projector that emits high density quantum-coupled bluespace beams."
+	id = "wormholeprojector"
+	req_tech = list("combat" = 6, "materials" = 6, "bluespace" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 1000, MAT_METAL = 5000, MAT_DIAMOND = 3000)
+	build_path = /obj/item/weapon/gun/energy/wormhole_projector
+	category = list("Weapons")
+
 /datum/design/large_grenade
 	name = "Large Grenade"
 	desc = "A grenade that affects a larger area and use larger containers."
@@ -133,7 +143,7 @@
 	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/smgm9mm
 	category = list("Weapons")
-	
+
 /datum/design/mag_smg/ap_mag
 	name = "Saber Submachine Gun Magazine (9mmAP)"
 	desc = "A 30-round armour piercing magazine for the Saber submachine gun. Deals slightly less damage but bypasses most armor."

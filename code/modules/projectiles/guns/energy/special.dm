@@ -356,3 +356,61 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	self_recharge = 1
 	use_external_power = 1
 	recharge_time = 5
+
+/obj/item/weapon/gun/energy/wormhole_projector
+	name = "bluespace wormhole projector"
+	desc = "A projector that emits high density quantum-coupled bluespace beams."
+	projectile_type = "/obj/item/projectile/beam/wormhole"
+	charge_cost = 0
+	fire_sound = "sound/weapons/pulse3.ogg"
+	item_state = null
+	icon_state = "wormhole_projector100"
+	modifystate = "wormhole_projector"
+	var/obj/effect/portal/blue
+	var/obj/effect/portal/orange
+
+	var/mode = 0 //0 = blue 1 = orange
+
+
+/obj/item/weapon/gun/energy/wormhole_projector/attack_self(mob/living/user as mob)
+	switch(mode)
+		if(0)
+			mode = 1
+			user << "<span class='warning'>[name] is now set to orange.</span>"
+			projectile_type = "/obj/item/projectile/beam/wormhole/orange"
+			modifystate = "wormhole_projector_orange"
+		if(1)
+			mode = 0
+			user << "<span class='warning'>[name] is now set to blue.</span>"
+			projectile_type = "/obj/item/projectile/beam/wormhole"
+			modifystate = "wormhole_projector"
+	update_icon()
+	if(user.l_hand == src)
+		user.update_inv_l_hand()
+	else
+		user.update_inv_r_hand()
+
+/obj/item/weapon/gun/energy/wormhole_projector/proc/portal_destroyed(obj/effect/portal/P)
+	if(P.icon_state == "portal")
+		blue = null
+		if(orange)
+			orange.target = null
+	else
+		orange = null
+		if(blue)
+			blue.target = null
+
+/obj/item/weapon/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
+	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
+	P.precision = 0
+	P.failchance = 0
+	if(W.name == "bluespace beam")
+		qdel(blue)
+		blue = P
+	else
+		qdel(orange)
+		P.icon_state = "portal1"
+		orange = P
+	if(orange && blue)
+		blue.target = get_turf(orange)
+		orange.target = get_turf(blue)
