@@ -166,13 +166,13 @@ var/global/list/body_accessory_by_species = list("None" = null)
 /datum/body_accessory/tail/unathi_7
 	name = "Unathi Alt 6 (Light Tiger)"
 
-	icon_state = "liztail5"
-	animated_icon_state = "liztail5_a"
+	icon_state = "liztail7"
+	animated_icon_state = "liztail7_a"
 	allowed_species = list("Unathi")
 
 /datum/body_accessory/tail/unathi_8
 	name = "Unathi Alt 7 (Aquatic)"
 
-	icon_state = "liztail7"
-	animated_icon_state = "liztail7_a"
+	icon_state = "liztail8"
+	animated_icon_state = "liztail8_a"
 	allowed_species = list("Unathi")
