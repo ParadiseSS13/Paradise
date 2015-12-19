@@ -126,3 +126,53 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon_state = "vulptail5"
 	animated_icon_state = "vulptail5_a"
 	allowed_species = list("Vulpkanin")
+
+//Unathi
+/datum/body_accessory/tail/unathi_2
+	name = "Unathi Alt 1 (Smooth)"
+
+	icon_state = "liztail2"
+	animated_icon_state = "liztail2_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_3
+	name = "Unathi Alt 2 (Light)"
+
+	icon_state = "liztail3"
+	animated_icon_state = "liztail3_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_4
+	name = "Unathi Alt 3 (Dark Stripe)"
+
+	icon_state = "liztail4"
+	animated_icon_state = "liztail4_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_5
+	name = "Unathi Alt 4 (Light Stripe)"
+
+	icon_state = "liztail5"
+	animated_icon_state = "liztail5_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_6
+	name = "Unathi Alt 5 (Dark Tiger)"
+
+	icon_state = "liztail6"
+	animated_icon_state = "liztail6_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_7
+	name = "Unathi Alt 6 (Light Tiger)"
+
+	icon_state = "liztail5"
+	animated_icon_state = "liztail5_a"
+	allowed_species = list("Unathi")
+
+/datum/body_accessory/tail/unathi_8
+	name = "Unathi Alt 7 (Aquatic)"
+
+	icon_state = "liztail7"
+	animated_icon_state = "liztail7_a"
+	allowed_species = list("Unathi")
