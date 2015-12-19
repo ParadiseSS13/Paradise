@@ -7,13 +7,33 @@
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
 	density = 0
-	anchored = 1
+	anchored = 0
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
 
-//spawns endless (3 sets) amounts of breathmask, emergency oxy tank and crowbar
+/obj/structure/closet/walllocker/north
+	pixel_y = 32
+	dir = SOUTH
 
-/obj/structure/closet/walllocker/emerglocker
+/obj/structure/closet/walllocker/south
+	pixel_y = -32
+	dir = NORTH
+
+/obj/structure/closet/walllocker/west
+	pixel_x = -32
+	dir = WEST
+
+/obj/structure/closet/walllocker/east
+	pixel_x = 32
+	dir = EAST
+
+/obj/structure/closet/walllocker/attackby(obj/item/weapon/G as obj, mob/user as mob, params)
+	if(istype(G, /obj/item/weapon/wrench))
+		anchored = !anchored
+		user << "You [anchored ? "attached" : "detached"] the wall locker."
+		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+
+/obj/structure/closet/walllocker/emerglocker //spawns endless (3 sets) amounts of breathmask, emergency oxy tank and crowbar
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies"
 	var/list/spawnitems = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/clothing/mask/breath,/obj/item/weapon/crowbar)
