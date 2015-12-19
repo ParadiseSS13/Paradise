@@ -71,6 +71,7 @@
 		stat = UNCONSCIOUS
 		update_headlamp(1)
 		Paralyse(3)
+	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/handle_regular_status_updates()
 
@@ -95,6 +96,7 @@
 	if(.) //alive
 		if(health <= config.health_threshold_dead)
 			death()
+			diag_hud_set_status()
 			return
 
 		if(!istype(src, /mob/living/silicon/robot/drone))
@@ -119,6 +121,8 @@
 		else
 			stat = CONSCIOUS
 
+		diag_hud_set_health()
+		diag_hud_set_status()
 	else //dead
 		eye_blind = 1
 
@@ -224,15 +228,15 @@
 			cells.icon_state = "charge-empty"
 
 
-/mob/living/silicon/robot/handle_regular_hud_updates()
-	if(!client)
-		return
-
-	switch(sensor_mode)
-		if(SEC_HUD)
-			process_sec_hud(src,1)
-		if(MED_HUD)
-			process_med_hud(src,1)
+/*/mob/living/silicon/robot/handle_regular_hud_updates()
+//	if(!client)
+//		return
+//
+//	switch(sensor_mode)
+//		if(SEC_HUD)
+//			process_sec_hud(src,1)
+//		if(MED_HUD)
+//			process_med_hud(src,1)
 
 	if(syndicate)
 		if(ticker.mode.name == "traitor")
@@ -251,6 +255,7 @@
 
 	..()
 	return 1
+	*/
 
 
 

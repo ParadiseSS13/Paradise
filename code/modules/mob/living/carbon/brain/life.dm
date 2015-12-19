@@ -93,10 +93,4 @@
 		sight &= ~SEE_OBJS
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
-	if (container && istype(container, /obj/item/device/mmi))
-		var/obj/item/device/mmi/mmi = container
-		if (mmi.mecha)
-			var/obj/mecha/piloted = mmi.mecha
-			piloted.pilot_mmi_hud(src)
-
 	handle_hud_icons_health()

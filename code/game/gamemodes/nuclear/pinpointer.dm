@@ -26,7 +26,7 @@
 		active = 0
 		icon_state = "pinoff"
 		usr << "<span class='notice'>You deactivate the pinpointer.</span>"
-		
+
 /obj/item/weapon/pinpointer/proc/scandisk()
 	if(!the_disk)
 		the_disk = locate()
@@ -63,7 +63,7 @@
 	point_at(the_disk, 0)
 	spawn(5)
 		.()
-		
+
 /obj/item/weapon/pinpointer/examine(mob/user)
 	..(user)
 	for(var/obj/machinery/nuclearbomb/bomb in machines)
@@ -91,7 +91,7 @@
 		active = 0
 		icon_state = "pinoff"
 		usr << "<span class='notice'>You deactivate the pinpointer.</span>"
-		
+
 /obj/item/weapon/pinpointer/advpinpointer/workdisk()
 	if(mode == 0)
 		scandisk()
@@ -173,7 +173,7 @@
 ///////////////////////
 /obj/item/weapon/pinpointer/nukeop
 	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
-	var/obj/machinery/computer/shuttle_control/multi/syndicate/home = null
+	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_PDA | SLOT_BELT
 
 /obj/item/weapon/pinpointer/nukeop/attack_self(mob/user as mob)
@@ -231,7 +231,7 @@
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
 		return
 	if(!home)
-		home = locate()
+		home = shuttle_master.getShuttle("syndicate")
 		if(!home)
 			icon_state = "pinonnull"
 			return

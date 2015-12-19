@@ -75,6 +75,8 @@
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
+
 /obj/mecha/New()
 	..()
 	events = new
@@ -92,6 +94,12 @@
 	log_message("[src.name] created.")
 	loc.Entered(src)
 	mechas_list += src //global mech list
+	prepare_huds()
+	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_to_hud(src)
+	diag_hud_set_mechhealth()
+	diag_hud_set_mechcell()
+	diag_hud_set_mechstat()
 	return
 
 ////////////////////////
@@ -451,6 +459,7 @@
 	pr_internal_damage.start()
 	log_append_to_last("Internal damage of type [int_dam_flag].",1)
 	occupant << sound('sound/machines/warning-buzzer.ogg',wait=0)
+	diag_hud_set_mechstat()
 	return
 
 /obj/mecha/proc/clearInternalDamage(int_dam_flag)
@@ -463,6 +472,7 @@
 			occupant_message("<font color='blue'><b>Internal fire extinquished.</b></font>")
 		if(MECHA_INT_TANK_BREACH)
 			occupant_message("<font color='blue'><b>Damaged internal tank has been sealed.</b></font>")
+	diag_hud_set_mechstat()
 	return
 
 
@@ -1830,12 +1840,20 @@
 	if(get_charge())
 		cell.use(amount)
 		return 1
+	//Diagnostic HUD updates
+	diag_hud_set_mechhealth()
+	diag_hud_set_mechcell()
+	diag_hud_set_mechstat()
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		return 1
+	//Diagnostic HUD updates
+	diag_hud_set_mechhealth()
+	diag_hud_set_mechcell()
+	diag_hud_set_mechstat()
 	return 0
 
 /obj/mecha/proc/reset_icon()

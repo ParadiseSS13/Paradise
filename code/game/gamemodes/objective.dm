@@ -333,17 +333,26 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(issilicon(owner.current))
 			return 0
-		var/area/shuttle = locate(/area/shuttle/escape/centcom)
+
+		var/area/A = get_area(owner.current)
+		if(shuttle_master.emergency.areaInstance != A)
+			return 0
+
 		for(var/mob/living/player in player_list)
-			if(istype(player, /mob/living/silicon) || istype(player, /mob/living/simple_animal) || player.mind.special_role && !player.mind.special_role == "Response Team")
-				continue
-			if (player.mind && (player.mind != owner))
-				if(player.stat != DEAD)			//they're not dead!
-					if(get_turf(player) in shuttle)
+			if(player.mind && player.mind != owner)
+				if(player.stat != DEAD)
+					if(issilicon(player)) //Borgs are technically dead anyways
+						continue
+					if(isanimal(player)) //Poly does not own the shuttle
+						continue
+					if(player.mind.special_role && !(player.mind.special_role == "Response Team")) //Is antag, and not ERT
+						continue
+
+					if(get_area(player) == A)
 						return 0
 		return 1
 
@@ -353,10 +362,10 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current)
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 
-		var/area/A = locate(/area/shuttle/escape/centcom)
+		var/area/A = shuttle_master.emergency.areaInstance
 
 		for(var/mob/living/player in player_list) //Make sure nobody else is onboard
 			if(player.mind && player.mind != owner)
@@ -383,43 +392,29 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(!owner.current)
 			return 0
-		var/area/shuttle = locate(/area/shuttle/escape/centcom)
-		var/protected_mobs[] = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
-		for(var/mob/living/player in player_list)
-			if(player.type in protected_mobs)	continue
-			if (player.mind)
-				if (player.stat != DEAD)
-					if (get_turf(player) in shuttle)
-						return 0
-		return 1
 
-datum/objective/silence
-	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
-
-	check_completion()
-		if(!emergency_shuttle.returned())
-			return 0
+		var/area/A = shuttle_master.emergency.areaInstance
+		var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 		for(var/mob/living/player in player_list)
-			if(player == owner.current)
+			if(player.type in protected_mobs)
 				continue
-			if(player.mind)
-				if(player.stat != DEAD)
-					var/turf/T = get_turf(player)
-					if(!T)	continue
-					switch(T.loc.type)
-						if(/area/shuttle/escape/centcom, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
-							return 0
+
+			if(player.mind && player.stat != DEAD)
+				if(get_area(player) == A)
+					return 0
+
 		return 1
+
 
 
 datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
-	var/escape_areas = list(/area/shuttle/escape/centcom,
+	var/escape_areas = list(/area/shuttle/escape,
 		/area/shuttle/escape_pod1/centcom,
 		/area/shuttle/escape_pod1/transit,
 		/area/shuttle/escape_pod2/centcom,
@@ -435,21 +430,22 @@ datum/objective/escape
 			return 0
 		if(isbrain(owner.current))
 			return 0
-		if(!emergency_shuttle.returned())
-			return 0
 		if(!owner.current || owner.current.stat == DEAD)
 			return 0
-		if(owner.current.restrained())
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
-		var/turf/location = get_turf(owner.current.loc)
+		var/turf/location = get_turf(owner.current)
 		if(!location)
 			return 0
 
-		var/area/check_area = get_area(location)
-		if(check_area && check_area.type in escape_areas)
-			return 1
-		else
+		if(istype(location, /turf/simulated/shuttle/floor4)) // Fails traitors if they are in the shuttle brig -- Polymorph
 			return 0
+
+		if(location.onCentcom() || location.onSyndieBase())
+			return 1
+
+		return 0
+
 
 datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round

@@ -80,6 +80,8 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
+
 	var/jetpackoverlay = 0
 	var/magpulse = 0
 
@@ -141,15 +143,7 @@ var/list/robot_verbs_default = list(
 		cell_component.wrapped = cell
 		cell_component.installed = 1
 
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	diag_hud_set_borgcell()
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
@@ -719,6 +713,7 @@ var/list/robot_verbs_default = list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			diag_hud_set_borgcell()
 
 	else if (istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool))
 		if (wiresexposed)
@@ -959,6 +954,7 @@ var/list/robot_verbs_default = list(
 			user << "You remove \the [cell]."
 			cell = null
 			update_icons()
+			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
 		if (user.a_intent == I_HELP)
