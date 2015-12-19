@@ -389,7 +389,7 @@
 
 	sleep(rand(100,300))
 
-	if(SSshuttle.emergency.mode != SHUTTLE_CALL) //Shuttle can only be recalled when it's moving to the station
+	if(shuttle_master.emergency.mode != SHUTTLE_CALL) //Shuttle can only be recalled when it's moving to the station
 		user << "<span class='warning'>\icon[src]Emergency shuttle cannot be recalled at this time.</span>"
 		recalling = 0
 		return 0
@@ -422,7 +422,7 @@
 	message_admins("[key_name_admin(user)] has tried to recall the shuttle with a gangtool.", 1)
 	userturf = get_turf(user)
 	if(userturf.z == 1) //Check one more time that they are on station.
-		if(SSshuttle.cancelEvac(user))
+		if(shuttle_master.cancelEvac(user))
 			return 1
 
 	loc << "<span class='info'>\icon[src]No response recieved. Emergency shuttle cannot be recalled at this time.</span>"

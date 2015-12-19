@@ -401,7 +401,7 @@ var/global/datum/controller/gameticker/ticker
 			current_state = GAME_STATE_FINISHED
 			auto_toggle_ooc(1) // Turn it on
 			spawn
-				declare_completion(force_ending)
+				declare_completion()
 
 			spawn(50)
 				callHook("roundend")

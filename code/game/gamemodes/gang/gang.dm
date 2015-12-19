@@ -282,7 +282,7 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 	next_point_time = world.time + next_point_interval
 	processing_objects.Add(src)
 
-/datum/gang_points/process(seconds)
+/datum/gang_points/proc/process()
 	var/list/winners = list() //stores the winners if there are any
 
 	for(var/datum/gang/G in ticker.mode.gangs)
@@ -290,7 +290,7 @@ var/list/gang_colors_pool = list("red","orange","yellow","green","blue","purple"
 			G.income()
 
 		if(isnum(G.dom_timer))
-			G.dom_timer -= seconds/10
+			G.dom_timer -= 2
 			if(G.dom_timer < 0)
 				winners += G
 

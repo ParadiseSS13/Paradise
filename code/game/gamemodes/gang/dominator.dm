@@ -85,10 +85,10 @@
 				takeover_in_progress = 1
 				break
 		if(!takeover_in_progress)
-			SSshuttle.emergencyNoEscape = 0
-			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-				SSshuttle.emergency.mode = SHUTTLE_DOCKED
-				SSshuttle.emergency.timer = world.time
+			shuttle_master.emergencyNoEscape = 0
+			if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
+				shuttle_master.emergency.mode = SHUTTLE_DOCKED
+				shuttle_master.emergency.timer = world.time
 				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg', "Priority")
 			else
 				command_announcement.Announce("All hostile activity within station systems have ceased.","Network Alert")
