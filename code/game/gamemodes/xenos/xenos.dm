@@ -50,6 +50,7 @@
 	for(var/datum/mind/xeno in xenos)
 		xeno.assigned_role = "MODE"
 		xeno.special_role = "Alien"
+		set_antag_hud(xeno, "hudalien")//like this is needed...
 	return 1
 
 /datum/game_mode/xenos/pre_setup()
