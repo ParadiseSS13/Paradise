@@ -46,7 +46,8 @@
 	var/datum/gas_mixture/air
 	var/archived_cycle = 0
 	var/current_cycle = 0
-
+	var/icy = 0
+	var/icyoverlay
 	var/obj/effect/hotspot/active_hotspot
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
@@ -66,6 +67,8 @@
 		air.toxins = toxins
 
 		air.temperature = temperature
+
+		update_visuals()
 
 /turf/simulated/Destroy()
 	visibilityChanged()
@@ -209,8 +212,6 @@
 
 	air.react()
 
-	update_visuals()
-
 	if(air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		hotspot_expose(air.temperature, CELL_VOLUME)
 		for(var/atom/movable/item in src)
@@ -220,6 +221,13 @@
 		if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
 			if(consider_superconductivity(starting = 1))
 				remove = 0
+
+	if(air.temperature < T0C && air.return_pressure() > 10)
+		icy = 1
+	else
+		icy = 0
+
+	update_visuals()
 
 	if(!excited_group && remove == 1)
 		air_master.remove_from_active(src)
@@ -232,6 +240,13 @@
 	archived_cycle = air_master.current_cycle
 
 /turf/simulated/proc/update_visuals()
+	if(icy && !icyoverlay)
+		overlays |= icemaster
+		icyoverlay = icemaster
+	else if(icyoverlay && !icy)
+		icyoverlay = null
+		overlays -= icemaster
+
 	var/new_overlay_type = tile_graphic()
 	if (new_overlay_type == atmos_overlay_type)
 		return

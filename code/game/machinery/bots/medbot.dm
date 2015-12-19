@@ -43,6 +43,24 @@
 	bot_type_name = "Medbot"
 	bot_filter = RADIO_MEDBOT
 
+/obj/machinery/bot/medbot/tox
+	skin = "tox"
+
+/obj/machinery/bot/medbot/o2
+	skin = "o2"
+
+/obj/machinery/bot/medbot/brute
+	skin = "brute"
+
+/obj/machinery/bot/medbot/fire
+	skin = "ointment"
+
+/obj/machinery/bot/medbot/adv
+	skin = "adv"
+
+/obj/machinery/bot/medbot/fish
+	skin = "fish"
+
 /obj/machinery/bot/medbot/syndicate
 	name = "Suspicious Medibot"
 	desc = "You'd better have insurance!"
@@ -71,6 +89,12 @@
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
 	w_class = 3.0
+	var/treatment_brute = "salglu_solution"
+	var/treatment_oxy = "salbutamol"
+	var/treatment_fire = "salglu_solution"
+	var/treatment_tox = "charcoal"
+	var/treatment_virus = "spaceacillin"
+	req_one_access = list(access_medical, access_robotics)
 
 	/obj/item/weapon/firstaid_arm_assembly/New()
 		..()
@@ -507,7 +531,23 @@
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
-	new /obj/item/weapon/storage/firstaid(Tsec)
+	switch(skin)
+		if("ointment")
+			new /obj/item/weapon/storage/firstaid/fire/empty(Tsec)
+		if("tox")
+			new /obj/item/weapon/storage/firstaid/toxin/empty(Tsec)
+		if("o2")
+			new /obj/item/weapon/storage/firstaid/o2/empty(Tsec)
+		if("brute")
+			new /obj/item/weapon/storage/firstaid/brute/empty(Tsec)
+		if("adv")
+			new /obj/item/weapon/storage/firstaid/adv/empty(Tsec)
+		if("bezerk")
+			new /obj/item/weapon/storage/firstaid/tactical/empty(Tsec)
+		if("fish")
+			new /obj/item/weapon/storage/firstaid/aquatic_kit(Tsec)
+		else
+			new /obj/item/weapon/storage/firstaid(Tsec)
 
 	new /obj/item/device/assembly/prox_sensor(Tsec)
 
@@ -559,7 +599,20 @@
 		A.skin = "tox"
 	else if(istype(src,/obj/item/weapon/storage/firstaid/o2))
 		A.skin = "o2"
-
+	else if(istype(src,/obj/item/weapon/storage/firstaid/brute))
+		A.skin = "brute"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/adv))
+		A.skin = "adv"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/tactical))
+		A.skin = "bezerk"
+	else if(istype(src,/obj/item/weapon/storage/firstaid/aquatic_kit))
+		A.skin = "fish"
+	A.req_one_access = req_one_access
+	A.treatment_oxy = treatment_oxy
+	A.treatment_brute = treatment_brute
+	A.treatment_fire = treatment_fire
+	A.treatment_tox = treatment_tox
+	A.treatment_virus = treatment_virus
 	qdel(S)
 	user.put_in_hands(A)
 	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"
@@ -596,5 +649,11 @@
 					var/obj/machinery/bot/medbot/S = new /obj/machinery/bot/medbot(T)
 					S.skin = skin
 					S.name = created_name
+					S.treatment_oxy = treatment_oxy
+					S.treatment_brute = treatment_brute
+					S.treatment_fire = treatment_fire
+					S.treatment_tox = treatment_tox
+					S.treatment_virus = treatment_virus
+					S.req_one_access = req_one_access
 					user.unEquip(src, 1)
 					qdel(src)

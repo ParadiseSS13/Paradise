@@ -174,9 +174,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.loc = A
 				sleep(50)
 				if(!ticker.mode.shadowling_ascended)
-					if(emergency_shuttle && emergency_shuttle.can_call())
-						emergency_shuttle.call_evac()
-						emergency_shuttle.launch_time = 0	// Cannot recall
+					shuttle_master.emergency.request(null, 0.3)
 				ticker.mode.shadowling_ascended = 1
 				A.mind.remove_spell(src)
 				qdel(H)

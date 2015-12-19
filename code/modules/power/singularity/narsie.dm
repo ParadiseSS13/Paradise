@@ -34,10 +34,7 @@
 	narsie_spawn_animation()
 
 	sleep(70)
-	if(emergency_shuttle && emergency_shuttle.can_call())
-		emergency_shuttle.call_evac()
-		emergency_shuttle.launch_time = 0	// Cannot recall
-
+	shuttle_master.emergency.request(null, 0.3) // Cannot recall
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	if(!(src in view()))

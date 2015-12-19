@@ -832,6 +832,15 @@ var/list/uplink_items = list()
 	gamemodes = list("nuclear emergency","gang")
 	surplus = 20
 
+/datum/uplink_item/device_tools/medgun
+	name = "Medbeam Gun"
+	desc = "Medical Beam Gun, useful in prolonged firefights."
+	item = /obj/item/weapon/gun/medbeam
+	reference = "MBG"
+	cost = 15
+	gamemodes = list("nuclear emergency")
+
+
 // IMPLANTS
 
 /datum/uplink_item/implants

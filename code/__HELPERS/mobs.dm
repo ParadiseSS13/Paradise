@@ -1,20 +1,38 @@
-/proc/random_underwear(var/gender)
+proc/random_underwear(gender, species = "Human")
+	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	return pick(underwear_m)
-		if(FEMALE)	return pick(underwear_f)
-		else		return pick(underwear_list)
+		if(MALE)	pick_list = underwear_m
+		if(FEMALE)	pick_list = underwear_f
+		else		pick_list = underwear_list
+	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_undershirt(var/gender)
+proc/random_undershirt(gender, species = "Human")
+	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	return pick(undershirt_m)
-		if(FEMALE)	return pick(undershirt_f)
-		else		return pick(undershirt_list)
+		if(MALE)	pick_list = undershirt_m
+		if(FEMALE)	pick_list = undershirt_f
+		else		pick_list = undershirt_list
+	return pick_species_allowed_underwear(pick_list, species)
 
-/proc/random_socks(gender)
+proc/random_socks(gender, species = "Human")
+	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	return pick(socks_m)
-		if(FEMALE)	return pick(socks_f)
-		else		return pick(socks_list)
+		if(MALE)	pick_list = socks_m
+		if(FEMALE)	pick_list = socks_f
+		else		pick_list = socks_list
+	return pick_species_allowed_underwear(pick_list, species)
+
+proc/pick_species_allowed_underwear(list/all_picks, species)
+	var/list/valid_picks = list()
+	for(var/test in all_picks)
+		var/datum/sprite_accessory/S = all_picks[test]
+		if(!(species in S.species_allowed))
+			continue
+		valid_picks += test
+
+	if(!valid_picks.len) valid_picks += "Nude"
+
+	return pick(valid_picks)
 
 proc/random_hair_style(var/gender, species = "Human")
 	var/h_style = "Bald"
@@ -35,7 +53,7 @@ proc/random_hair_style(var/gender, species = "Human")
 
 	return h_style
 
-/proc/GetOppositeDir(var/dir)
+proc/GetOppositeDir(var/dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -115,28 +133,6 @@ proc/age2agedescription(age)
 		if(60 to 70)		return "aging"
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
-
-proc/RoundHealth(health)
-	switch(health)
-		if(100 to INFINITY)
-			return "health100"
-		if(70 to 100)
-			return "health80"
-		if(50 to 70)
-			return "health60"
-		if(30 to 50)
-			return "health40"
-		if(18 to 30)
-			return "health25"
-		if(5 to 18)
-			return "health10"
-		if(1 to 5)
-			return "health1"
-		if(-99 to 0)
-			return "health0"
-		else
-			return "health-100"
-	return "0"
 
 
 /*

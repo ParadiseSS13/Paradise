@@ -44,3 +44,6 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/comfrey
 	plantname = "comfrey"
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/glowcap
+	plantname = "glowcap"

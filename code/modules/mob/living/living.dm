@@ -314,8 +314,6 @@
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
 			C.reagents.addiction_list.Cut()
-	hud_updateflag |= 1 << HEALTH_HUD
-	hud_updateflag |= 1 << STATUS_HUD
 
 /mob/living/proc/update_revive() // handles revival through other means than cloning or adminbus (defib, IPC repair)
 	stat = CONSCIOUS
@@ -381,8 +379,6 @@
 	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
-	hud_updateflag |= 1 << HEALTH_HUD
-	hud_updateflag |= 1 << STATUS_HUD
 	return
 
 /mob/living/proc/UpdateDamageIcon()
@@ -891,6 +887,10 @@
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
+
+	else if(istype(loc, /obj/spacepod))
+		var/obj/spacepod/S = loc
+		loc_temp = S.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature

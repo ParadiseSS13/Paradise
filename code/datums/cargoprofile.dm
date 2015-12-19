@@ -258,7 +258,7 @@
 	whitelist = list(/obj/item/weapon/banhammer,/obj/item/weapon/sord,/obj/item/weapon/butch,/obj/item/weapon/claymore,/obj/item/weapon/holo/esword,
 					/obj/item/weapon/flamethrower,/obj/item/weapon/grenade,/obj/item/weapon/gun,/obj/item/weapon/hatchet,/obj/item/weapon/katana,
 					/obj/item/weapon/kitchenknife,/obj/item/weapon/melee,/obj/item/weapon/nullrod,/obj/item/weapon/pickaxe,/obj/item/weapon/twohanded,
-					/obj/item/weapon/c4,/obj/item/weapon/scalpel,/obj/item/weapon/shield,/obj/item/weapon/grown/deathnettle)
+					/obj/item/weapon/c4,/obj/item/weapon/scalpel,/obj/item/weapon/shield,/obj/item/weapon/grown/nettle/death)
 
 /datum/cargoprofile/tools
 	name = "Devices & Tools"

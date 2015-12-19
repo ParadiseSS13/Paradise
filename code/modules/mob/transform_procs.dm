@@ -113,7 +113,7 @@
 
 	// let spirits identify cultists
 	if(ticker.mode)
-		ticker.mode.reset_cult_icons_for_spirit(new_spirit)
+		ticker.mode.add_cult_icon_to_spirit(new_spirit)
 
 	// highlander test
 	there_can_be_only_one_mask(new_spirit)
@@ -320,7 +320,7 @@
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)
-		return 0	
+		return 0
 
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
@@ -347,7 +347,7 @@
 
 	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, "alien") && !jobban_isbanned(src, "Syndicate"))
 		return 1
-		
+
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, "Dionaea"))
 		return 1
 

@@ -148,8 +148,8 @@ var/list/blob_nodes = list()
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
 
-	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 1
+	if(shuttle_master)
+		shuttle_master.emergencyNoEscape = 1
 
 	spawn(0)
 

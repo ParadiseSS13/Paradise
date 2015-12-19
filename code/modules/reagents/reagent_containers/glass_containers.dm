@@ -266,6 +266,10 @@
 	if(assembly)
 		assembly.hear_talk(M, msg)
 
+/obj/item/weapon/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
+	if(assembly)
+		assembly.hear_message(M, msg)
+
 /obj/item/weapon/reagent_containers/glass/beaker/large
 	name = "large beaker"
 	desc = "A large beaker. Can hold up to 100 units."

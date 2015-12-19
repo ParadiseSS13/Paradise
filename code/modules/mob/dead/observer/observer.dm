@@ -23,12 +23,12 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-	var/medHUD = 0
-	var/secHUD = 0
 	var/anonsay = 0
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
+	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
+	var/medhud = 0
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -111,45 +111,28 @@ Works together with spawning an observer, noted above.
 	if(!loc) return
 	if(!client) return 0
 
-	regular_hud_updates()
-	if(client.images.len)
-		for(var/image/hud in client.images)
-			if(copytext(hud.icon_state,1,4) == "hud")
-				client.images.Remove(hud)
-	if(antagHUD)
-		var/list/target_list = list()
-		for(var/mob/living/target in oview(src, 14))
-			if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
-				target_list += target
-		if(target_list.len)
-			assess_targets(target_list, src)
-	if(medHUD)
-		process_medHUD(src)
-	if(secHUD)
-		process_secHUD(src)
+	//regular_hud_updates()
+	//if(client.images.len)
+	//	for(var/image/hud in client.images)
+	//		if(copytext(hud.icon_state,1,4) == "hud")
+	//			client.images.Remove(hud)
+	//if(antagHUD)
+	//	var/list/target_list = list()
+	//	for(var/mob/living/target in oview(src, 14))
+	//		if(target.mind && (target.mind.special_role || issilicon(target) || target.mind.nation))
+	//			target_list += target
+	//	if(target_list.len)
+	//		assess_targets(target_list, src)
 
-
-/mob/dead/proc/process_medHUD(var/mob/M)
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/patient in oview(M, 14))
-		C.images += patient.hud_list[HEALTH_HUD]
-		C.images += patient.hud_list[STATUS_HUD_OOC]
-
-/mob/dead/proc/process_secHUD(var/mob/M)
-	var/client/C = M.client
-	for(var/mob/living/carbon/human/target in oview(M, 14))
-		C.images += target.hud_list[IMPTRACK_HUD]
-		C.images += target.hud_list[IMPLOYAL_HUD]
-		C.images += target.hud_list[IMPCHEM_HUD]
 
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		C.images += target.hud_list[NATIONS_HUD]
+		//C.images += target.hud_list[NATIONS_HUD]
 	for(var/mob/living/silicon/target in target_list)
 		C.images += target.hud_list[SPECIALROLE_HUD]
-		C.images += target.hud_list[NATIONS_HUD]
+		//C.images += target.hud_list[NATIONS_HUD]
 
 	return 1
 
@@ -239,10 +222,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				for(var/datum/gang/G in ticker.mode.gangs)
 					if(isnum(G.dom_timer))
 						stat(null, "[G.name] Gang Takeover: [max(G.dom_timer, 0)]")
-		if(emergency_shuttle)
-			var/eta_status = emergency_shuttle.get_status_panel_eta()
-			if(eta_status)
-				stat(null, eta_status)
+		if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
+			var/timeleft = shuttle_master.emergency.timeLeft()
+			if(timeleft > 0)
+				stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -273,18 +256,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return 1
 
+
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
 	set name = "Toggle MedicHUD"
 	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
-	if(medHUD)
-		medHUD = 0
-		src << "\blue <B>Medical HUD Disabled</B>"
+	var/datum/atom_hud/H = huds[DATA_HUD_MEDICAL_BASIC]
+	H.remove_hud_from(src)//out with the old..
+	if(medhud==0)//TOGGLE!
+		medhud = 1
+		H.add_hud_to(src)
 	else
-		medHUD = 1
-		src << "\blue <B>Medical HUD Enabled</B>"
+		medhud = 0
+
 
 /mob/dead/observer/verb/toggle_antagHUD()
 	set category = "Ghost"
@@ -307,12 +293,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			respawnable_list -= M
 	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		M.has_enabled_antagHUD = 1
-	if(M.antagHUD)
-		M.antagHUD = 0
-		src << "\blue <B>AntagHUD Disabled</B>"
-	else
-		M.antagHUD = 1
-		src << "\blue <B>AntagHUD Enabled</B>"
+
+	var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
+	var/adding_hud = (usr in A.hudusers) ? 0 : 1
+	for(var/datum/atom_hud/H in huds)
+		if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
+			(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"

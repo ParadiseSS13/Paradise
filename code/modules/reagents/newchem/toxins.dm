@@ -454,6 +454,7 @@ datum/reagent/lipolicide
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
 	reagent_state = SOLID
 	color = "#D1DED1"
+	metabolization_rate = 0.2
 
 /datum/chemical_reaction/lipolicide
 	name = "lipolicide"
@@ -465,7 +466,8 @@ datum/reagent/lipolicide
 datum/reagent/lipolicide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(!holder.has_reagent("nutriment"))
-		M.adjustToxLoss(1)
+		if(prob(30))
+			M.adjustToxLoss(1)
 	M.nutrition -= 10 * REAGENTS_METABOLISM
 	M.overeatduration = 0
 	if(M.nutrition < 0)//Prevent from going into negatives.

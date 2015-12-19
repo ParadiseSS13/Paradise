@@ -100,6 +100,12 @@
 			a_left.hear_talk(M, msg)
 		if(a_right)
 			a_right.hear_talk(M, msg)
+	
+	hear_message(mob/living/M as mob, msg)
+		if(a_left)
+			a_left.hear_message(M, msg)
+		if(a_right)
+			a_right.hear_message(M, msg)
 
 	proc/process_movement() // infrared beams and prox sensors
 		if(a_left && a_right)

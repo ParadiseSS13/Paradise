@@ -163,18 +163,29 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/escape
 	name = "\improper Emergency Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/escape/station
-	name = "\improper Emergency Shuttle Station"
 	icon_state = "shuttle2"
 
-/area/shuttle/escape/centcom
-	name = "\improper Emergency Shuttle Centcom"
+
+/area/shuttle/pod_1
+	name = "\improper Escape Pod One"
+	music = "music/escape.ogg"
 	icon_state = "shuttle"
 
-/area/shuttle/escape/transit // the area to pass through for 3 minute transit
-	name = "\improper Emergency Shuttle Transit"
+/area/shuttle/pod_2
+	name = "\improper Escape Pod Two"
+	music = "music/escape.ogg"
 	icon_state = "shuttle"
+
+/area/shuttle/pod_3
+	name = "\improper Escape Pod Three"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+/area/shuttle/pod_4
+	name = "\improper Escape Pod Four"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
 
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
@@ -231,18 +242,13 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/mining
 	name = "\improper Mining Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/mining/station
-	icon_state = "shuttle2"
-
-/area/shuttle/mining/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/transport1/centcom
+/area/shuttle/transport
 	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
+	name = "\improper Transport Shuttle"
 
-/area/shuttle/transport1/station
+/area/shuttle/transport1
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
 
@@ -278,17 +284,11 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/siberia
 	name = "\improper Labor Camp Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/siberia/station
 	icon_state = "shuttle"
 
-/area/shuttle/siberia/outpost
-	icon_state = "shuttle"
-
-/area/shuttle/transport1/centcom
-	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
-
+/area/shuttle/specops
+	name = "\improper Special Ops Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
@@ -305,6 +305,10 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/syndicate_elite/station
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered2"
+
+/area/shuttle/administration
+	name = "\improper Administration Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/administration/centcom
 	name = "\improper Administration Shuttle Centcom"
@@ -345,12 +349,18 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/research
 	name = "\improper Research Shuttle"
 	music = "music/escape.ogg"
+	icon_state = "shuttle"
 
 /area/shuttle/research/station
 	icon_state = "shuttle2"
 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
+
+/area/shuttle/vox
+	name = "\improper Vox Skipjack"
+	icon_state = "shuttle"
+	requires_power = 0
 
 /area/shuttle/vox/station
 	name = "\improper Vox Skipjack"
@@ -412,6 +422,19 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/salvage/transit
 	name = "\improper hyperspace"
+	icon_state = "shuttle"
+
+/area/shuttle/supply
+	name = "Supply Shuttle"
+	icon_state = "shuttle3"
+	requires_power = 0
+
+/area/shuttle/abandoned
+	name = "Abandoned Ship"
+	icon_state = "shuttle"
+
+/area/shuttle/syndicate
+	name = "Syndicate Infiltrator"
 	icon_state = "shuttle"
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
@@ -611,6 +634,11 @@ var/list/ghostteleportlocs = list()
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
 
+/area/vox_station
+	name = "\improper Vox Base"
+	icon_state = "yellow"
+	requires_power = 0
+	lighting_use_dynamic = 0
 
 /area/vox_station/transit
 	name = "\improper Hyperspace"
@@ -2491,12 +2519,11 @@ area/security/podbay
 // CENTCOM
 var/list/centcom_areas = list (
 	/area/centcom,
-	/area/shuttle/escape/centcom,
 	/area/shuttle/escape_pod1/centcom,
 	/area/shuttle/escape_pod2/centcom,
 	/area/shuttle/escape_pod3/centcom,
 	/area/shuttle/escape_pod5/centcom,
-	/area/shuttle/transport1/centcom,
+	/area/shuttle/transport1,
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
 )
@@ -2504,14 +2531,11 @@ var/list/centcom_areas = list (
 //SPACE STATION 13
 var/list/the_station_areas = list (
 	/area/shuttle/arrival,
-	/area/shuttle/escape/station,
+	/area/shuttle/escape,
 	/area/shuttle/escape_pod1/station,
 	/area/shuttle/escape_pod2/station,
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
-	/area/shuttle/mining/station,
-	/area/shuttle/transport1/station,
-	// /area/shuttle/transport2/station,
 	/area/shuttle/prison/station,
 	/area/shuttle/administration/station,
 	/area/shuttle/specops/station,

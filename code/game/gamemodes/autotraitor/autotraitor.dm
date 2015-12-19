@@ -69,7 +69,7 @@
 
 /datum/game_mode/traitor/autotraitor/proc/traitorcheckloop()
 	spawn(9000)
-		if(emergency_shuttle.departed)
+		if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return
 		//message_admins("Performing AutoTraitor Check")
 		var/playercount = 0
@@ -137,7 +137,10 @@
 				newtraitor << "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate..."
 				newtraitor << "<B>You are now a traitor.</B>"
 				newtraitor.mind.special_role = "traitor"
-				newtraitor.hud_updateflag |= 1 << SPECIALROLE_HUD
+				var/datum/atom_hud/antag/tatorhud = huds[SPECIALROLE_HUD]
+				tatorhud.join_solo_hud(newtraitor)
+				set_antag_hud(src, "hudsyndicate")
+
 				var/obj_count = 1
 				newtraitor << "\blue Your current objectives:"
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
@@ -154,7 +157,7 @@
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()
-	if(emergency_shuttle.departed)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
 	if((character.client && character.client.prefs.be_special & BE_TRAITOR) && !jobban_isbanned(character, "traitor") && !jobban_isbanned(character, "Syndicate"))

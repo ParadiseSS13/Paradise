@@ -105,7 +105,6 @@
 	rev_mind.current << "\red <FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill, capture or convert the heads to win the revolution!</FONT>"
 	rev_mind.special_role = "Revolutionary"
 	update_rev_icons_added(rev_mind)
-	H.hud_updateflag |= 1 << SPECIALROLE_HUD
 	return 1
 
 /////////////////////////////

@@ -136,6 +136,7 @@
 	flags = GLASSESCOVERSEYES
 	slot_flags = SLOT_EYES
 	materials = list(MAT_GLASS = 250)
+	var/emagged = 0
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
 	var/invisa_view = 0
@@ -224,6 +225,11 @@ BLIND     // can't see anything
 				user << "Your suit will now report your vital lifesigns."
 			if(3)
 				user << "Your suit will now report your vital lifesigns as well as your coordinate position."
+		if(istype(user,/mob/living/carbon/human))
+			var/mob/living/carbon/human/H = user
+			if(H.w_uniform == src)
+				H.update_suit_sensors()
+
 	else if (istype(src.loc, /mob))
 		switch(sensor_mode)
 			if(0)
@@ -238,6 +244,10 @@ BLIND     // can't see anything
 			if(3)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
+		if(istype(src,/mob/living/carbon/human))
+			var/mob/living/carbon/human/H = src
+			if(H.w_uniform == src)
+				H.update_suit_sensors()
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Toggle Suit Sensors"
@@ -254,7 +264,7 @@ BLIND     // can't see anything
 	var/blockTracking // Do we block AI tracking?
 	var/flash_protect = 0
 	var/tint = 0
-	var/HUDType = 0
+	var/HUDType = null
 	var/vision_flags = 0
 	var/see_darkness = 1
 

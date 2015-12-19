@@ -59,6 +59,9 @@
 	var/datum/nations/nation			//nation holder
 	var/datum/gang/gang_datum //Which gang this mind belongs to, if any
 
+	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
+	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+
 	var/rev_cooldown = 0
 
 	// the world.time since the mob has been brigged, or -1 if not at all
@@ -80,9 +83,11 @@
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
-
+	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
+	leave_all_huds()									//leave all the huds in the old body, so it won't get huds if somebody else enters it
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 
 	if(active)
@@ -647,8 +652,6 @@
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
 
-		H.hud_updateflag |= (1 << IMPLOYAL_HUD)   // updates that players HUD images so secHUD's pick up they are implanted or not.
-
 		switch(href_list["implant"])
 			if("remove")
 				for(var/obj/item/weapon/implant/loyalty/I in H.contents)
@@ -665,6 +668,7 @@
 				var/obj/item/organ/external/affected = H.organs_by_name["head"]
 				affected.implants += L
 				L.part = affected
+				H.sec_hud_set_implants()
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a loyalty implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a loyalty implant")
@@ -694,7 +698,6 @@
 					log_admin("[key_name_admin(usr)] has de-traitor'ed [current].")
 
 	else if (href_list["revolution"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["revolution"])
 			if("clear")
@@ -864,7 +867,6 @@
 /////////////////////////////////
 
 	else if (href_list["cult"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["cult"])
 			if("clear")
 				if(src in ticker.mode.cult)
@@ -907,7 +909,6 @@
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
 
 	else if (href_list["wizard"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["wizard"])
 			if("clear")
@@ -916,6 +917,7 @@
 					special_role = null
 					current.spellremove(current)
 					current.faction = list("Station")
+					ticker.mode.update_wiz_icons_removed(src)
 					current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT>"
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
@@ -924,6 +926,7 @@
 					ticker.mode.wizards += src
 					special_role = "Wizard"
 					//ticker.mode.learn_basic_spells(current)
+					ticker.mode.update_wiz_icons_added(src)
 					current << "<B>\red You are the Space Wizard!</B>"
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
@@ -948,13 +951,13 @@
 
 
 	else if (href_list["changeling"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["changeling"])
 			if("clear")
 				if(src in ticker.mode.changelings)
 					ticker.mode.changelings -= src
 					special_role = null
 					current.remove_changeling_powers()
+					ticker.mode.update_change_icons_removed(src)
 					if(changeling)	qdel(changeling)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-changelinged [key_name(current)]")
@@ -963,6 +966,7 @@
 				if(!(src in ticker.mode.changelings))
 					ticker.mode.changelings += src
 					ticker.mode.grant_changeling_powers(current)
+					ticker.mode.update_change_icons_added(src)
 					special_role = "Changeling"
 					current << "<B><font color='red'>Your powers are awoken. A flash of memory returns to us...we are a changeling!</font></B>"
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
@@ -992,6 +996,7 @@
 					ticker.mode.vampires -= src
 					special_role = null
 					current.remove_vampire_powers()
+					ticker.mode.update_vampire_icons_removed(src)
 					if(vampire)  qdel(vampire)
 					current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
 					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
@@ -1000,6 +1005,7 @@
 				if(!(src in ticker.mode.vampires))
 					ticker.mode.vampires += src
 					ticker.mode.grant_vampire_powers(current)
+					ticker.mode.update_vampire_icons_added(src)
 					special_role = "Vampire"
 					current << "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>"
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
@@ -1014,8 +1020,6 @@
 
 	else if (href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
-
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 		switch(href_list["nuclear"])
 			if("clear")
@@ -1080,7 +1084,6 @@
 					usr << "\red No valid nuke found!"
 
 	else if (href_list["traitor"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["traitor"])
 			if("clear")
 				if(src in ticker.mode.traitors)
@@ -1093,6 +1096,7 @@
 						var/mob/living/silicon/ai/A = current
 						A.set_zeroth_law("")
 						A.show_laws()
+					ticker.mode.update_traitor_icons_removed(src)
 
 
 			if("traitor")
@@ -1106,6 +1110,7 @@
 						var/mob/living/silicon/A = current
 						call(/datum/game_mode/proc/add_law_zero)(A)
 						A.show_laws()
+					ticker.mode.update_traitor_icons_added(src)
 
 			if("autoobjectives")
 				ticker.mode.forge_traitor_objectives(src)
@@ -1157,7 +1162,6 @@
 				log_admin("[key_name(usr)] has thralled [current].")
 
 	else if (href_list["silicon"])
-		current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		switch(href_list["silicon"])
 			if("unmalf")
 				if(src in ticker.mode.malf_ai)
@@ -1176,7 +1180,6 @@
 					qdel(A.malf_picker)
 					A.show_laws()
 					A.icon_state = "ai"
-
 					A << "\red <FONT size = 3><B>You have been patched! You are no longer malfunctioning!</B></FONT>"
 					message_admins("[key_name_admin(usr)] has de-malf'ed [A].")
 					log_admin("[key_name(usr)] has de-malf'd [key_name(current)]")
