@@ -64,7 +64,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
-	if(making_mage || emergency_shuttle.departed)
+	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return 0
 	if(mages_made >= max_mages)
 		return 0

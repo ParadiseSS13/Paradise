@@ -87,7 +87,8 @@
 			else  //No light, set the turf's luminosity to 0 to remove it from view()
 				T.luminosity = 0
 	else
-		warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : ""]) in update_overlay() and got qdel'ed!")
+		//warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!") //fucking bullshit bugs means this spams when shuttles move, feel free to fix
+		log_debug("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!")
 		qdel(src)
 
 /atom/movable/lighting_overlay/singularity_act()

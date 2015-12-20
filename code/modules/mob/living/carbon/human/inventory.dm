@@ -164,9 +164,11 @@
 			if(internals)
 				internals.icon_state = "internal0"
 			internal = null
+		sec_hud_set_ID()
 		update_inv_wear_mask()
 	else if(I == wear_id)
 		wear_id = null
+		sec_hud_set_ID()
 		update_inv_wear_id()
 	else if(I == wear_pda)
 		wear_pda = null
@@ -220,6 +222,7 @@
 			wear_mask = W
 			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
+			sec_hud_set_ID()
 			update_inv_wear_mask(redraw_mob)
 		if(slot_handcuffed)
 			handcuffed = W
@@ -238,6 +241,7 @@
 			update_inv_belt(redraw_mob)
 		if(slot_wear_id)
 			wear_id = W
+			sec_hud_set_ID()
 			update_inv_wear_id(redraw_mob)
 		if(slot_wear_pda)
 			wear_pda = W

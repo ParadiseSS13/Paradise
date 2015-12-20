@@ -82,10 +82,12 @@ var/list/ai_verbs_default = list(
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
 
-	var/obj/item/borg/sight/hud/sec/sechud = null
-	var/obj/item/borg/sight/hud/med/healthhud = null
+	//var/obj/item/borg/sight/hud/sec/sechud = null
+	//var/obj/item/borg/sight/hud/med/healthhud = null
 
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
+	med_hud = DATA_HUD_MEDICAL_BASIC
+	sec_hud = DATA_HUD_SECURITY_BASIC
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	src.verbs |= ai_verbs_default
@@ -175,19 +177,9 @@ var/list/ai_verbs_default = list(
 		new /obj/machinery/ai_powersupply(src)
 
 
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-
 	ai_list += src
+	shuttle_caller_list += src
 	..()
-	return
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	src << "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>"
@@ -229,6 +221,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
+	shuttle_caller_list -= src
+	shuttle_master.autoEvac()
 	qdel(eyeobj) // No AI, no Eye
 	return ..()
 
@@ -374,11 +368,6 @@ var/list/ai_verbs_default = list(
 
 	call_shuttle_proc(src, input)
 
-	// hack to display shuttle timer
-	if(emergency_shuttle.online())
-		var/obj/machinery/computer/communications/C = locate() in machines
-		if(C)
-			C.post_status("shuttle")
 	return
 
 /mob/living/silicon/ai/proc/ai_cancel_call()

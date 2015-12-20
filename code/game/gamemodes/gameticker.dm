@@ -130,7 +130,7 @@ var/global/datum/controller/gameticker/ticker
 	//here to initialize the random events nicely at round start
 	setup_economy()
 
-	shuttle_controller.setup_shuttle_docks()
+	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
 		mode.post_setup()
@@ -387,10 +387,10 @@ var/global/datum/controller/gameticker/ticker
 		var/game_finished = 0
 		var/mode_finished = 0
 		if (config.continous_rounds)
-			game_finished = (emergency_shuttle.returned() || mode.station_was_nuked)
+			game_finished = (mode.station_was_nuked)
 			mode_finished = (!post_game && mode.check_finished())
 		else
-			game_finished = (mode.check_finished() || (emergency_shuttle.returned() && emergency_shuttle.evac == 1))
+			game_finished = (mode.check_finished())
 			mode_finished = game_finished
 
 		if(!mode.explosion_in_progress && game_finished && (mode_finished || post_game))
