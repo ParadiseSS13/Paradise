@@ -6,7 +6,7 @@
 	icon_state = "body_m_s"
 
 	//why are these here and not in human_defines.dm
-	var/list/hud_list[10]
+	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/embedded_flag	  //To check if we've need to roll for damage on movement while an item is imbedded in us.
 	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
@@ -29,17 +29,6 @@
 	reagents = R
 	R.my_atom = src
 
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudunknown")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD_OOC]  = image('icons/mob/hud.dmi', src, "hudhealthy")
-	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-
 	..()
 
 	prev_gender = gender // Debug for plural genders
@@ -54,6 +43,16 @@
 		dna.real_name = real_name
 		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
 	UpdateAppearance()
+
+/mob/living/carbon/human/prepare_data_huds()
+	//Update med hud images...
+	..()
+	//...sec hud images...
+	sec_hud_set_ID()
+	sec_hud_set_implants()
+	sec_hud_set_security_status()
+	//...and display them.
+	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
 	for(var/atom/movable/organelle in organs)
@@ -251,10 +250,10 @@
 	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
 		if(ticker.mode:malf_mode_declared)
 			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-	if(emergency_shuttle)
-		var/eta_status = emergency_shuttle.get_status_panel_eta()
-		if(eta_status)
-			stat(null, eta_status)
+	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
+		var/timeleft = shuttle_master.emergency.timeLeft()
+		if(timeleft > 0)
+			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
 
 	if(client.statpanel == "Status")
 		if(locate(/obj/item/device/assembly/health) in src)
@@ -858,13 +857,12 @@
 										modified = 1
 
 										spawn()
-											hud_updateflag |= 1 << WANTED_HUD
 											if(istype(usr,/mob/living/carbon/human))
-												var/mob/living/carbon/human/U = usr
-												U.handle_regular_hud_updates()
+												//var/mob/living/carbon/human/U = usr
+												sec_hud_set_security_status()
 											if(istype(usr,/mob/living/silicon/robot))
-												var/mob/living/silicon/robot/U = usr
-												U.handle_regular_hud_updates()
+												//var/mob/living/silicon/robot/U = usr
+												sec_hud_set_security_status()
 
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."
@@ -990,11 +988,11 @@
 
 									spawn()
 										if(istype(usr,/mob/living/carbon/human))
-											var/mob/living/carbon/human/U = usr
-											U.handle_regular_hud_updates()
+											//var/mob/living/carbon/human/U = usr
+											sec_hud_set_security_status()
 										if(istype(usr,/mob/living/silicon/robot))
-											var/mob/living/silicon/robot/U = usr
-											U.handle_regular_hud_updates()
+											//var/mob/living/silicon/robot/U = usr
+											sec_hud_set_security_status()
 
 			if(!modified)
 				usr << "\red Unable to locate a data core entry for this person."
@@ -1583,7 +1581,7 @@
 			src << "<span class='warning'>You ran out of blood to write with!</span>"
 
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
-
+		W.message = message
 		W.add_fingerprint(src)
 
 // Allows IPC's to change their monitor display

@@ -198,7 +198,7 @@
 	return
 
 /obj/machinery/computer/mech_bay_power_console
-	name = "Mech Bay Power Control Console"
+	name = "mech bay power control console"
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/computer.dmi'

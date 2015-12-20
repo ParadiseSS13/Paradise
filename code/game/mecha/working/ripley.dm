@@ -20,6 +20,10 @@
 	return
 */
 
+/obj/mecha/working/ripley/Move()
+	. = ..()
+	update_pressure()
+
 /obj/mecha/working/ripley/Destroy()
 	while(src.damage_absorption.["brute"] < 0.6)
 		new /obj/item/asteroid/goliath_hide(src.loc)
@@ -166,3 +170,17 @@
 			T.Entered(A)
 		step_rand(A)
 	return ..()
+
+/obj/mecha/working/ripley/proc/update_pressure()
+	var/turf/T = get_turf(loc)
+	var/datum/gas_mixture/environment = T.return_air()
+	var/pressure = environment.return_pressure()
+
+	if(pressure < 20)
+		step_in = 3
+		for(var/obj/item/mecha_parts/mecha_equipment/tool/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)/2
+	else
+		step_in = 5
+		for(var/obj/item/mecha_parts/mecha_equipment/tool/drill/drill in equipment)
+			drill.equip_cooldown = initial(drill.equip_cooldown)

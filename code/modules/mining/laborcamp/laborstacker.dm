@@ -77,7 +77,6 @@
 
 
 /obj/machinery/mineral/labor_claim_console/Topic(href, href_list)
-	var/datum/shuttle/ferry/shuttle = shuttle_controller.shuttles["Labor"]
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["choice"])
@@ -102,20 +101,22 @@
 				if(!alone_in_area(get_area(src), usr))
 					usr << "<span class='warning'>Prisoners are only allowed to be released while alone.</span>"
 				else
-					if(shuttle.location == 1)
-						if (shuttle.moving_status == SHUTTLE_IDLE)
+					switch(shuttle_master.moveShuttle("laborcamp","laborcamp_home"))
+						if(1)
+							usr << "<span class='notice'>Shuttle not found</span>"
+						if(2)
+							usr << "<span class='notice'>Shuttle already at station</span>"
+						if(3)
+							usr << "<span class='notice'>No permission to dock could be granted.</span>"
+						else
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
 							usr << "<span class='notice'>Shuttle received message and will be sent shortly.</span>"
-							shuttle.launch()
-						else
-							usr << "<span class='notice'>Shuttle is already moving.</span>"
-					else
-						usr << "<span class='notice'>Shuttle is already on-station.</span>"
 
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
-					if(shuttle.location == 1)
+					var/obj/docking_port/stationary/S = shuttle_master.getDock("laborcamp_home")
+					if(S && S.get_docked())
 						if(release_door && release_door.density)
 							release_door.open()
 					else

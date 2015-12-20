@@ -890,7 +890,10 @@
 	return src
 
 /mob/living/carbon/human/get_rig()
-	return back
+	if(istype(back,/obj/item/weapon/rig))
+		return back
+	else
+		return null
 
 #undef ONLY_DEPLOY
 #undef ONLY_RETRACT

@@ -54,8 +54,6 @@
 #define HAS_UNDERSHIRT 	2
 #define HAS_SOCKS		4
 
-//Species Blood Flags
-#define BLOOD_SLIME		1
 //Species Body Flags
 #define FEET_CLAWS		1
 #define FEET_PADDED		2
@@ -64,6 +62,7 @@
 #define HAS_SKIN_TONE 	16
 #define HAS_SKIN_COLOR	32
 #define TAIL_WAGGING    64
+#define NO_EYES			128
 
 //Species Diet Flags
 #define DIET_CARN		1

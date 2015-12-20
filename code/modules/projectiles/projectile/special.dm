@@ -218,6 +218,16 @@
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
+	var/splash = 0
+
+/obj/item/projectile/kinetic/super
+	damage = 11
+	range = 4
+
+/obj/item/projectile/kinetic/hyper
+	damage = 12
+	range = 5
+	splash = 1
 
 obj/item/projectile/kinetic/New()
 	var/turf/proj_turf = get_turf(src)
@@ -243,6 +253,11 @@ obj/item/projectile/kinetic/New()
 		var/turf/simulated/mineral/M = target_turf
 		M.gets_drilled(firer)
 	new /obj/item/effect/kinetic_blast(target_turf)
+	if(src.splash)
+		for(var/turf/T in range(splash, target_turf))
+			if(istype(T, /turf/simulated/mineral))
+				var/turf/simulated/mineral/M = T
+				M.gets_drilled(firer)
 
 /obj/item/effect/kinetic_blast
 	name = "kinetic explosion"
@@ -316,3 +331,27 @@ obj/item/projectile/kinetic/New()
 /obj/item/projectile/plasma/adv/mech
 	damage = 10
 	range = 6
+
+/obj/item/projectile/beam/wormhole
+	name = "bluespace beam"
+	icon_state = "spark"
+	hitsound = "sparks"
+	damage = 3
+	var/obj/item/weapon/gun/energy/wormhole_projector/gun = null
+	color = "#33CCFF"
+
+/obj/item/projectile/beam/wormhole/orange
+	name = "orange bluespace beam"
+	color = "#FF6600"
+
+/obj/item/projectile/beam/wormhole/OnFired()
+	gun = shot_from
+
+/obj/item/projectile/beam/wormhole/on_hit(atom/target)
+	if(ismob(target))
+		var/turf/portal_destination = pick(orange(6, src))
+		do_teleport(target, portal_destination)
+		return ..()
+	if(!gun)
+		qdel(src)
+	gun.create_portal(src)

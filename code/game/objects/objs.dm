@@ -149,7 +149,6 @@
 
 
 /obj/proc/hear_talk(mob/M as mob, text)
-
 	if(talking_atom)
 		talking_atom.catchMessage(text, M)
 
@@ -159,8 +158,8 @@
 		var/rendered = "<span class='game say'><span class='name'>[M.name]: </span> <span class='message'>[text]</span></span>"
 		mo.show_message(rendered, 2)
 */
-	return
 
+/obj/proc/hear_message(mob/M as mob, text)
 
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
@@ -256,3 +255,6 @@ a {
 			anchored = 0
 			step_towards(src,S)
 	else step_towards(src,S)
+
+/obj/proc/container_resist(var/mob/living)
+	return

@@ -141,3 +141,9 @@ var/global/datum/controller/process/air_system/air_master
 	slmaster.icon_state = "sleeping_agent"
 	slmaster.layer = FLY_LAYER
 	slmaster.mouse_opacity = 0
+
+	icemaster = new /obj/effect/overlay()
+	icemaster.icon = 'icons/turf/overlays.dmi'
+	icemaster.icon_state = "snowfloor"
+	icemaster.layer = TURF_LAYER+0.1
+	icemaster.mouse_opacity = 0

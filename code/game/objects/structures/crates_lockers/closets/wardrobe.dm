@@ -346,6 +346,8 @@
 /obj/structure/closet/wardrobe/robotics_black/New()
 	..()
 	sleep(2)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
@@ -373,6 +375,8 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
+	new /obj/item/weapon/storage/backpack/chemistry(src)
+	new /obj/item/weapon/storage/backpack/chemistry(src)
 	new /obj/item/weapon/storage/backpack/satchel_chem(src)
 	new /obj/item/weapon/storage/backpack/satchel_chem(src)
 	new /obj/item/weapon/storage/bag/chemistry(src)
@@ -394,6 +398,10 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/suit/storage/labcoat/genetics(src)
 	new /obj/item/clothing/suit/storage/labcoat/genetics(src)
+	new /obj/item/weapon/storage/backpack/genetics(src)
+	new /obj/item/weapon/storage/backpack/genetics(src)
+	new /obj/item/weapon/storage/backpack/satchel_gen(src)
+	new /obj/item/weapon/storage/backpack/satchel_gen(src)
 	return
 
 
@@ -413,6 +421,10 @@
 	new /obj/item/clothing/suit/storage/labcoat/virologist(src)
 	new /obj/item/clothing/mask/surgical(src)
 	new /obj/item/clothing/mask/surgical(src)
+	new /obj/item/weapon/storage/backpack/virology(src)
+	new /obj/item/weapon/storage/backpack/virology(src)
+	new /obj/item/weapon/storage/backpack/satchel_vir(src)
+	new /obj/item/weapon/storage/backpack/satchel_vir(src)
 	return
 
 

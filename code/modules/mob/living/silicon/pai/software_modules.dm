@@ -460,7 +460,9 @@
 
 	toggle(mob/living/silicon/pai/user)
 		user.secHUD = !user.secHUD
-
+		user.remove_med_sec_hud()
+		if(user.secHUD)
+			user.add_sec_hud()
 	is_active(mob/living/silicon/pai/user)
 		return user.secHUD
 
@@ -471,6 +473,9 @@
 
 	toggle(mob/living/silicon/pai/user)
 		user.medHUD = !user.medHUD
+		user.remove_med_sec_hud()
+		if(user.medHUD)
+			user.add_med_hud()
 
 	is_active(mob/living/silicon/pai/user)
 		return user.medHUD

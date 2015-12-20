@@ -10,7 +10,6 @@
 	var/prescription = 0
 	var/prescription_upgradable = 0
 	var/see_darkness = 1
-	var/HUDType = 0
 
 /obj/item/clothing/glasses/New()
 	. = ..()
@@ -68,6 +67,19 @@
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = 1
+
+/obj/item/clothing/glasses/meson/gar
+	name = "gar mesons"
+	icon_state = "garm"
+	item_state = "garm"
+	desc = "Do the impossible, see the invisible!"
+	force = 10
+	throwforce = 10
+	throw_speed = 4
+	attack_verb = list("sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = 1
+	edge = 1
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -313,23 +325,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/sunglasses/sechud
-	name = "HUDSunglasses"
-	desc = "Sunglasses with a HUD."
-	icon_state = "sunhud"
-	darkness_view = 1
-	flash_protect = 1
-	tint = 1
-	HUDType = SECHUD
-	prescription_upgradable = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/sunglasses/sechud/prescription
-	prescription = 1
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"

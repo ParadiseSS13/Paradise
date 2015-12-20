@@ -217,7 +217,11 @@
 			return 1
 		var/to_transfer as num
 		if (user.get_inactive_hand()==src)
-			to_transfer = 1
+			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
+			if(!desired)
+				return
+			desired = round(desired)
+			to_transfer = max(1,min(desired,S.max_amount-S.amount,src.amount))
 		else
 			to_transfer = min(src.amount, S.max_amount-S.amount)
 		S.amount+=to_transfer

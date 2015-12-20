@@ -22,7 +22,9 @@
 
 
 /mob/living/silicon/robot/proc/use_power()
-	if (is_component_functioning("power cell") && cell)
+	if (stat == DEAD)
+		return
+	else if (is_component_functioning("power cell") && cell)
 		if(module)
 			for(var/obj/item/borg/B in module.modules)
 				if(B.powerneeded)
@@ -60,20 +62,16 @@
 			if(!is_component_functioning("actuator"))
 				Paralyse(3)
 			eye_blind = 0
-			stat = 0
+			// Please, PLEASE be careful with statements like this - make sure they're not
+			// dead beforehand, for example -- Crazylemon
+			stat = CONSCIOUS
 			has_power = 1
 	else
 		uneq_all()
 		stat = UNCONSCIOUS
 		update_headlamp(1)
 		Paralyse(3)
-
-/mob/living/silicon/robot/updatehealth()
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
+	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/handle_regular_status_updates()
 
@@ -98,6 +96,7 @@
 	if(.) //alive
 		if(health <= config.health_threshold_dead)
 			death()
+			diag_hud_set_status()
 			return
 
 		if(!istype(src, /mob/living/silicon/robot/drone))
@@ -122,6 +121,8 @@
 		else
 			stat = CONSCIOUS
 
+		diag_hud_set_health()
+		diag_hud_set_status()
 	else //dead
 		eye_blind = 1
 
@@ -227,15 +228,15 @@
 			cells.icon_state = "charge-empty"
 
 
-/mob/living/silicon/robot/handle_regular_hud_updates()
-	if(!client)
-		return
-
-	switch(sensor_mode)
-		if(SEC_HUD)
-			process_sec_hud(src,1)
-		if(MED_HUD)
-			process_med_hud(src,1)
+/*/mob/living/silicon/robot/handle_regular_hud_updates()
+//	if(!client)
+//		return
+//
+//	switch(sensor_mode)
+//		if(SEC_HUD)
+//			process_sec_hud(src,1)
+//		if(MED_HUD)
+//			process_med_hud(src,1)
 
 	if(syndicate)
 		if(ticker.mode.name == "traitor")
@@ -254,6 +255,7 @@
 
 	..()
 	return 1
+	*/
 
 
 

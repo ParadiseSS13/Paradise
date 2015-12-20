@@ -12,8 +12,8 @@
 	var/datum/nano_module/atmos_control/atmos_control
 
 /obj/machinery/computer/atmoscontrol/laptop
-	name = "Atmospherics Laptop"
-	desc = "Cheap Nanotrasen Laptop."
+	name = "atmospherics laptop"
+	desc = "Cheap Nanotrasen laptop."
 	icon_state = "medlaptop"
 	density = 0
 

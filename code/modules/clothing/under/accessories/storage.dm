@@ -40,6 +40,10 @@
 	hold.hear_talk(M, msg, verb, speaking)
 	..()
 
+/obj/item/clothing/accessory/storage/hear_message(mob/M, var/msg, verb, datum/language/speaking)
+	hold.hear_message(M, msg)
+	..()
+
 /obj/item/clothing/accessory/storage/proc/return_inv()
 
 	var/list/L = list(  )

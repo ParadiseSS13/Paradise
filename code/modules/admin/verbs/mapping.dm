@@ -138,7 +138,8 @@ var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/print_jobban_old,
 	/client/proc/print_jobban_old_filter,
 	/client/proc/forceEvent,
-	/client/proc/nanomapgen_DumpImage
+	/client/proc/nanomapgen_DumpImage,
+	/client/proc/reload_nanoui_resources
 )
 
 /client/proc/enable_debug_verbs()

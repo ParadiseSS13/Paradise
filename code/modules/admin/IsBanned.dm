@@ -3,6 +3,10 @@ world/IsBanned(key,address,computer_id)
 	if (!key || !address || !computer_id)
 		log_access("Failed Login (invalid data): [key] [address]-[computer_id]")
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
+
+	if (computer_id == 2147483647) //this cid causes stickybans to go haywire
+		log_access("Failed Login (invalid cid): [key] [address]-[computer_id]")
+		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.")
 	var/admin = 0
 	var/ckey = ckey(key)
 	if((ckey in admin_datums) || (ckey in deadmins))
@@ -20,7 +24,7 @@ world/IsBanned(key,address,computer_id)
 		message_admins("<span class='adminnotice'>Failed Login: [key] - Banned: Tor</span>")
 		//ban their computer_id and ckey for posterity
 		AddBan(ckey(key), computer_id, "Use of Tor", "Automated Ban", 0, 0)
-		var/mistakemessage = "" 
+		var/mistakemessage = ""
 		if(config.banappeals)
 			mistakemessage = "\nIf you believe this is a mistake, please request help at [config.banappeals]."
 		return list("reason"="using Tor", "desc"="\nReason: The network you are using to connect has been banned.[mistakemessage]")

@@ -143,6 +143,16 @@
 		connected = null
 	return ..()
 
+/obj/structure/morgue/container_resist(var/mob/living/L)
+	var/mob/living/carbon/CM = L
+	if(!istype(CM))
+		return
+	if (CM.stat || CM.restrained())
+		return
+
+	CM << "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>"
+	src.attack_hand(CM)
+
 
 /*
  * Morgue tray
@@ -314,12 +324,12 @@
 
 	if(contents.len <= 0)
 		for (var/mob/M in viewers(src))
-			M.show_message("\red You hear a hollow crackle.", 1)
+			M.show_message("<span class='warning'>You hear a hollow crackle.</span>", 1)
 			return
 
 	else
 		for (var/mob/M in viewers(src))
-			M.show_message("\red You hear a roar as the crematorium activates.", 1)
+			M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", 1)
 
 		cremating = 1
 		locked = 1
@@ -355,6 +365,15 @@
 		connected = null
 	return ..()
 
+/obj/structure/crematorium/container_resist(var/mob/living/L)
+	var/mob/living/carbon/CM = L
+	if(!istype(CM))
+		return
+	if (CM.stat || CM.restrained())
+		return
+
+	CM << "<span class='alert'>You attempt to slide yourself out of \the [src]...</span>"
+	src.attack_hand(CM)
 
 /*
  * Crematorium tray

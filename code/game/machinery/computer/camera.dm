@@ -280,7 +280,7 @@
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
-	name = "Telescreen"
+	name = "\improper Telescreen"
 	desc = "Used for watching camera networks."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "telescreen"
@@ -295,7 +295,7 @@
 	return
 
 /obj/machinery/computer/security/telescreen/entertainment
-	name = "Entertainment Monitor"
+	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "entertainment"
@@ -305,7 +305,7 @@
 	luminosity = 0
 
 /obj/machinery/computer/security/wooden_tv
-	name = "Security Camera Monitor"
+	name = "security camera monitor"
 	desc = "An old TV hooked into the stations camera network."
 	icon_state = "television"
 	icon_keyboard = null
@@ -315,7 +315,7 @@
 	network = list("SS13")
 
 /obj/machinery/computer/security/mining
-	name = "Outpost Camera Monitor"
+	name = "outpost camera monitor"
 	desc = "Used to access the various cameras on the outpost."
 	icon_keyboard = "mining_key"
 	icon_screen = "mining"
@@ -323,7 +323,7 @@
 	network = list("Mining Outpost")
 
 /obj/machinery/computer/security/engineering
-	name = "Engineering Camera Monitor"
+	name = "engineering camera monitor"
 	desc = "Used to monitor fires and breaches."
 	icon_keyboard = "power_key"
 	icon_screen = "engie_cams"

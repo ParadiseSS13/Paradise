@@ -93,5 +93,4 @@
 		sight &= ~SEE_OBJS
 		see_in_dark = 2
 		see_invisible = SEE_INVISIBLE_LIVING
-
 	handle_hud_icons_health()

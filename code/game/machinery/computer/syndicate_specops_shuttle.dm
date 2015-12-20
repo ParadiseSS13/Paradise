@@ -11,7 +11,7 @@ var/syndicate_elite_shuttle_time = 0
 var/syndicate_elite_shuttle_timeleft = 0
 
 /obj/machinery/computer/syndicate_elite_shuttle
-	name = "Elite Syndicate Squad Shuttle Console"
+	name = "\improper Elite Syndicate Squad shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"

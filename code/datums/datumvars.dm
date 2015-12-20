@@ -592,7 +592,7 @@ client
 		if(!istype(H))
 			usr << "This can only be used on instances of type /mob/living/carbon/human"
 			return
-			
+
 		var/confirm = alert("Are you sure you want to turn this mob into a skeleton?","Confirm Skeleton Transformation","Yes","No")
 		if(confirm != "Yes")
 			return
@@ -601,7 +601,7 @@ client
 		message_admins("[key_name(usr)] has turned [key_name(H)] into a skeleton")
 		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
-			
+
 	else if(href_list["offer_control"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -751,7 +751,7 @@ client
 		switch(href_list["rotatedir"])
 			if("right")	A.dir = turn(A.dir, -45)
 			if("left")	A.dir = turn(A.dir, 45)
-			
+
 		message_admins("[key_name_admin(usr)] has rotated \the [A]")
 		log_admin("[key_name(usr)] has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
@@ -1031,7 +1031,7 @@ client
 			usr << "This can only be done on mobs with clients"
 			return
 
-		nanomanager.send_resources(H.client)
+		H.client.reload_nanoui_resources()
 
 		usr << "Resource files sent"
 		H << "Your NanoUI Resource files have been refreshed"

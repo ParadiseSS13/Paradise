@@ -68,6 +68,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		grant_changeling_powers(changeling.current)
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
+		update_change_icons_added(changeling)
 
 	..()
 
@@ -136,7 +137,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>\red You are a changeling!</B>"
 	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>"
 	changeling.current << "<B>You must complete the following tasks:</B>"
-
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
@@ -147,6 +147,17 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
+
+/datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.join_solo_hud(changeling.current)
+	set_antag_hud(changeling.current, "hudchangeling")
+
+/datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.leave_hud(changeling.current)
+	set_antag_hud(changeling.current, null)
+
 
 /*/datum/game_mode/changeling/check_finished()
 	var/changelings_alive = 0

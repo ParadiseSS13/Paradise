@@ -19,7 +19,7 @@
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
-	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("bananium" = 30), ("diamond" = 40), ("plasma" = 40))
+	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bananium" = 60))
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"))
 
 /obj/machinery/mineral/ore_redemption/New()
@@ -79,28 +79,33 @@
 		qdel(O) //... garbage collect
 
 /obj/machinery/mineral/ore_redemption/process()
-	if(!panel_open) //If the machine is partially dissassembled, it should not process minerals
-		var/turf/T = get_turf(get_step(src, input_dir))
-		var/i
+	if(!panel_open && powered()) //If the machine is partially disassembled and/or depowered, it should not process minerals
+		var/turf/T = get_step(src, input_dir)
+		var/i = 0
 		if(T)
-			if(locate(/obj/item/weapon/ore) in T)
-				for (i = 0; i < ore_pickup_rate; i++)
-					var/obj/item/weapon/ore/O = locate() in T
-					if(O)
-						process_sheet(O)
-					else
+			for(var/obj/item/weapon/ore/O in T)
+				if (i >= ore_pickup_rate)
+					break
+				else if (!O || !O.refined_type)
+					continue
+				else
+					process_sheet(O)
+					i++
+		else
+			var/obj/structure/ore_box/B = locate() in T
+			if(B)
+				for(var/obj/item/weapon/ore/O in B.contents)
+					if (i >= ore_pickup_rate)
 						break
-			else
-				var/obj/structure/ore_box/B = locate() in T
-				if(B)
-					for (i = 0; i < ore_pickup_rate; i++)
-						var/obj/item/weapon/ore/O = locate() in B.contents
-						if(O)
-							process_sheet(O)
-						else
-							break
+					else if (!O || !O.refined_type)
+						continue
+					else
+						process_sheet(O)
+						i++
 
 /obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
+	if (!powered())
+		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = usr.get_active_hand()
 		if(istype(I) && !istype(inserted_id))
@@ -249,7 +254,7 @@
 			if(!(/obj/item/stack/sheet/mineral/plasma in stack_list)) return
 			var/obj/item/stack/sheet/glassstack = stack_list[/obj/item/stack/sheet/glass]
 			var/obj/item/stack/sheet/plasmastack = stack_list[/obj/item/stack/sheet/mineral/plasma]
-			
+
 			var/desired = input("How much?", "How much would you like to smelt?", 1) as num
 			var/obj/item/stack/sheet/plasmaglass/plasglassout = new
 			plasglassout.amount = min(desired, 50, glassstack.amount, plasmastack.amount)
@@ -287,6 +292,17 @@
 		s.forceMove(loc)
 		s.layer = initial(s.layer)
 
+/obj/machinery/mineral/ore_redemption/power_change()
+	..()
+	update_icon()
+
+/obj/machinery/mineral/ore_redemption/update_icon()
+	if(powered())
+		icon_state = initial(icon_state)
+	else
+		icon_state = "[initial(icon_state)]-off"
+	return
+
 /**********************Mining Equipment Locker**************************/
 
 /obj/machinery/mineral/equipment_vendor
@@ -304,17 +320,23 @@
 		new /datum/data/mining_equipment("Whiskey",             /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey,    100),
 		new /datum/data/mining_equipment("Cigar",               /obj/item/clothing/mask/cigarette/cigar/havana,                    150),
 		new /datum/data/mining_equipment("Soap",                /obj/item/weapon/soap/nanotrasen, 						           200),
-		new /datum/data/mining_equipment("Jaunter",             /obj/item/device/wormhole_jaunter,                                 250),
 		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/device/laser_pointer, 				                   300),
 		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
 		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
-		new /datum/data/mining_equipment("Mining Drone",        /mob/living/simple_animal/hostile/mining_drone,                    500),
+		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/weapon/hivelordstabilizer,                               400),
+		new /datum/data/mining_equipment("Mining Drone",        /obj/item/weapon/mining_drone_cube,                                500),
+		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
+		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/weapon/storage/firstaid/brute,						   600),
+		new /datum/data/mining_equipment("Jaunter",             /obj/item/device/wormhole_jaunter,                                 600),
 		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/weapon/gun/energy/kinetic_accelerator,               	   750),
 		new /datum/data/mining_equipment("Resonator",           /obj/item/weapon/resonator,                                    	   800),
 		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/weapon/lazarus_injector,                                1000),
-		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  1200),
-		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               1500),
+		new /datum/data/mining_equipment("Silver Pickaxe",		/obj/item/weapon/pickaxe/silver,				                  1000),
+		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               2000),
 		new /datum/data/mining_equipment("Space Cash",    		/obj/item/weapon/spacecash/c1000,                    			  2000),
+		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  2000),
+		new /datum/data/mining_equipment("Super Resonator",     /obj/item/weapon/resonator/upgraded,                              2500),
+		new /datum/data/mining_equipment("Super Accelerator",	/obj/item/weapon/gun/energy/kinetic_accelerator/super,			  3000),
 		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/weapon/card/mining_point_card,               			   500),
 		)
 
@@ -338,6 +360,17 @@
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
+
+/obj/machinery/mineral/equipment_vendor/power_change()
+	..()
+	update_icon()
+
+/obj/machinery/mineral/equipment_vendor/update_icon()
+	if(powered())
+		icon_state = initial(icon_state)
+	else
+		icon_state = "[initial(icon_state)]-off"
+	return
 
 /obj/machinery/mineral/equipment_vendor/attack_hand(user as mob)
 	if(..())
@@ -424,8 +457,7 @@
 		if("Resonator")
 			new /obj/item/weapon/resonator(src.loc)
 		if("Mining Drone")
-			new /mob/living/simple_animal/hostile/mining_drone(src.loc)
-			new /obj/item/weapon/weldingtool/hugetank(src.loc)
+			new /obj/item/weapon/storage/box/drone_kit(src.loc)
 		if("Advanced Scanner")
 			new /obj/item/device/t_scanner/adv_mining_scanner(src.loc)
 	qdel(voucher)
@@ -502,7 +534,6 @@
 			return
 		var/chosen_beacon = pick(L)
 		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon)
-		J.target = chosen_beacon
 		try_move_adjacent(J)
 		playsound(src,'sound/effects/sparks4.ogg',50,1)
 		qdel(src)
@@ -547,6 +578,13 @@
 	var/fieldsactive = 0
 	var/burst_time = 50
 	var/fieldlimit = 3
+
+/obj/item/weapon/resonator/upgraded
+	name = "upgraded resonator"
+	desc = "An upgraded version of the resonator that can produce more fields at once."
+	icon_state = "resonator_u"
+	origin_tech = "magnets=3;combat=3"
+	fieldlimit = 5
 
 /obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
 	var/turf/T = get_turf(target)
@@ -622,6 +660,22 @@
 /obj/item/clothing/mask/facehugger/toy/death()
 	return
 
+
+/**********************Mining drone cube**********************/
+
+/obj/item/weapon/mining_drone_cube
+	name = "mining drone cube"
+	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
+	w_class = 2.0
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "minedronecube"
+	item_state = "electronic"
+
+/obj/item/weapon/mining_drone_cube/attack_self(mob/user)
+	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
+	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
+	qdel(src)
 
 /**********************Mining drone**********************/
 
@@ -756,6 +810,22 @@
 	if(search_objects)
 		SetOffenseBehavior()
 	..()
+
+
+/**********************Mining drone kit**********************/
+
+/obj/item/weapon/storage/box/drone_kit
+	name = "Drone Kit"
+	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
+	icon_state = "implant"
+	max_w_class = 3
+	storage_slots = 2
+	can_hold = list("/obj/item/weapon/mining_drone_cube","/obj/item/weapon/weldingtool/hugetank")
+
+/obj/item/weapon/storage/box/drone_kit/New()
+	..()
+	new /obj/item/weapon/mining_drone_cube(src)
+	new /obj/item/weapon/weldingtool/hugetank(src)
 
 /**********************Lazarus Injector**********************/
 
@@ -904,3 +974,22 @@
 	volume = 40
 	throw_range = 7
 	w_class = 3 //same as syndie harness
+
+/*********************Hivelord stabilizer****************/
+
+/obj/item/weapon/hivelordstabilizer
+	name = "hivelord stabilizer"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle19"
+	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
+	w_class = 1
+	origin_tech = "biotech=1"
+
+/obj/item/weapon/hivelordstabilizer/afterattack(obj/item/M, mob/user)
+	var/obj/item/asteroid/hivelord_core/C = M
+	if(!istype(C, /obj/item/asteroid/hivelord_core))
+		user << "<span class='warning'>The stabilizer only works on hivelord cores.</span>"
+		return ..()
+	C.preserved = 1
+	user << "<span class='notice'>You inject the hivelord core with the stabilizer. It will no longer go inert.</span>"
+	qdel(src)

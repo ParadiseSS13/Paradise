@@ -192,7 +192,7 @@
 
 
 /obj/structure/flora/kirbyplants
-	name = "Potted plant"
+	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	anchored = 0
@@ -205,7 +205,7 @@
 		icon_state = "plant-36"
 
 /obj/structure/flora/kirbyplants/dead
-	name = "RD's potted plant"
+	name = "\improper RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
 

@@ -115,6 +115,12 @@ var/list/wood_icons = list("wood","wood-broken")
 	else if(is_plating())
 		if(!broken && !burnt)
 			icon_state = icon_plating //Because asteroids are 'platings' too.
+
+			footstep_sounds = list(
+				"human" = list('sound/effects/footstep/plating_human.ogg'),
+				"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
+			)
+
 	else if(is_light_floor())
 		var/obj/item/stack/tile/light/T = floor_tile
 		if(T.on)
@@ -193,11 +199,20 @@ var/list/wood_icons = list("wood","wood-broken")
 
 				icon_state = "carpet[connectdir]-[diagonalconnect]"
 
+				footstep_sounds = list(
+					"human" = list('sound/effects/footstep/carpet_human.ogg'),
+					"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
+				)
+
 	else if(is_wood_floor())
 		if(!broken && !burnt)
 			if( !(icon_state in wood_icons) )
 				icon_state = "wood"
-				//world << "[icon_state]y's got [icon_state]"
+
+				footstep_sounds = list(
+					"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
+					"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
+				)
 
 
 /turf/simulated/floor/return_siding_icon_state()

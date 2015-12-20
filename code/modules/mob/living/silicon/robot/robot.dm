@@ -80,6 +80,8 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD,NATIONS_HUD)
+
 	var/jetpackoverlay = 0
 	var/magpulse = 0
 
@@ -141,15 +143,7 @@ var/list/robot_verbs_default = list(
 		cell_component.wrapped = cell
 		cell_component.installed = 1
 
-	hud_list[HEALTH_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[STATUS_HUD]      = image('icons/mob/hud.dmi', src, "hudhealth100")
-	hud_list[ID_HUD]          = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[WANTED_HUD]      = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPLOYAL_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPCHEM_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[IMPTRACK_HUD]    = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[SPECIALROLE_HUD] = image('icons/mob/hud.dmi', src, "hudblank")
-	hud_list[NATIONS_HUD]     = image('icons/mob/hud.dmi', src, "hudblank")
+	diag_hud_set_borgcell()
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
@@ -220,8 +214,10 @@ var/list/robot_verbs_default = list(
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"
-	if(get_nations_mode())
-		modules = list("Peacekeeper")
+	if(ticker && ticker.mode && ticker.mode.name == "nations")
+		var/datum/game_mode/nations/N = ticker.mode
+		if(N.kickoff)
+			modules = list("Peacekeeper")
 	if(mmi != null && mmi.alien)
 		modules = "Hunter"
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -299,12 +295,13 @@ var/list/robot_verbs_default = list(
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
 			module.channels = list("Security" = 1)
-			module_sprites["Combat Android"] = "droidcombat"
+			icon_state =  "droidcombat"
 
 		if("Peacekeeper")
 			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			icon_state = "droidpeace"
 			module.channels = list()
-			module_sprites["Peacekeeper Android"] = "droidpeace"
+			icon_state = "droidpeace"
 
 		if("Hunter")
 			updatename(module)
@@ -314,6 +311,7 @@ var/list/robot_verbs_default = list(
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
+
 
 	//languages
 	module.add_languages(src)
@@ -328,7 +326,7 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	updatename()
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
@@ -715,6 +713,7 @@ var/list/robot_verbs_default = list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+			diag_hud_set_borgcell()
 
 	else if (istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool))
 		if (wiresexposed)
@@ -955,6 +954,7 @@ var/list/robot_verbs_default = list(
 			user << "You remove \the [cell]."
 			cell = null
 			update_icons()
+			diag_hud_set_borgcell()
 
 	if(!opened && (!istype(user, /mob/living/silicon)))
 		if (user.a_intent == I_HELP)
