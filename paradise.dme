@@ -831,6 +831,7 @@
 #include "code\game\objects\structures\crates_lockers\crittercrate.dm"
 #include "code\game\objects\structures\crates_lockers\largecrate.dm"
 #include "code\game\objects\structures\crates_lockers\walllocker.dm"
+#include "code\game\objects\structures\crates_lockers\closets\cardboardbox.dm"
 #include "code\game\objects\structures\crates_lockers\closets\coffin.dm"
 #include "code\game\objects\structures\crates_lockers\closets\crittercrate.dm"
 #include "code\game\objects\structures\crates_lockers\closets\fireaxe.dm"
