@@ -331,3 +331,27 @@ obj/item/projectile/kinetic/New()
 /obj/item/projectile/plasma/adv/mech
 	damage = 10
 	range = 6
+
+/obj/item/projectile/beam/wormhole
+	name = "bluespace beam"
+	icon_state = "spark"
+	hitsound = "sparks"
+	damage = 3
+	var/obj/item/weapon/gun/energy/wormhole_projector/gun = null
+	color = "#33CCFF"
+
+/obj/item/projectile/beam/wormhole/orange
+	name = "orange bluespace beam"
+	color = "#FF6600"
+
+/obj/item/projectile/beam/wormhole/OnFired()
+	gun = shot_from
+
+/obj/item/projectile/beam/wormhole/on_hit(atom/target)
+	if(ismob(target))
+		var/turf/portal_destination = pick(orange(6, src))
+		do_teleport(target, portal_destination)
+		return ..()
+	if(!gun)
+		qdel(src)
+	gun.create_portal(src)
