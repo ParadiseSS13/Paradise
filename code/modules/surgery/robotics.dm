@@ -156,6 +156,10 @@
 		user.visible_message("\blue [user] finishes patching damage to [target]'s [affected.name] with \the [tool].", \
 		"\blue You finish patching damage to [target]'s [affected.name] with \the [tool].")
 		affected.heal_damage(rand(30,50),0,1,1)
+		if(affected.disfigured)
+			affected.disfigured = 0
+			affected.update_icon()
+			target.regenerate_icons()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
