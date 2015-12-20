@@ -93,7 +93,7 @@
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/_z = rand(1,MAX_Z)	//select a random space zlevel
+	var/_z = rand(ZLEVEL_CENTCOMM+1,MAX_Z)	//select a random space zlevel
 
 	//now select coordinates for a border turf
 	var/_x
