@@ -15,6 +15,7 @@
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
 	..()
 
 /mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()

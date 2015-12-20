@@ -279,13 +279,13 @@
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"lungs" =    /obj/item/organ/lungs,
-		"liver" =    /obj/item/organ/liver,
-		"kidneys" =  /obj/item/organ/kidneys,
-		"brain" =    /obj/item/organ/brain,
-		"eyes" =     /obj/item/organ/eyes,
-		"stack" =    /obj/item/organ/stack/vox
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"stack" =    /obj/item/organ/internal/stack/vox
 		)
 
 /datum/species/kidan
@@ -326,7 +326,7 @@
 	//ventcrawler = 1 //ventcrawling commented out
 
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/slime
+		"brain" = /obj/item/organ/internal/brain/slime
 		)
 
 /datum/species/grey
@@ -407,12 +407,12 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/diona/nutrients,
-		"neural strata" =      /obj/item/organ/diona/strata,
-		"response node" =      /obj/item/organ/diona/node,
-		"gas bladder" =        /obj/item/organ/diona/bladder,
-		"polyp segment" =      /obj/item/organ/diona/polyp,
-		"anchoring ligament" = /obj/item/organ/diona/ligament
+		"nutrient channel" =   /obj/item/organ/internal/diona/nutrients,
+		"neural strata" =      /obj/item/organ/internal/diona/strata,
+		"response node" =      /obj/item/organ/internal/diona/node,
+		"gas bladder" =        /obj/item/organ/internal/diona/bladder,
+		"polyp segment" =      /obj/item/organ/internal/diona/polyp,
+		"anchoring ligament" = /obj/item/organ/internal/diona/ligament
 		)
 
 	has_limbs = list(
@@ -502,9 +502,9 @@
 	reagent_tag = PROCESS_SYN
 
 	has_organ = list(
-		"brain" = /obj/item/organ/mmi_holder/posibrain,
-		"cell" = /obj/item/organ/cell,
-		"optics" = /obj/item/organ/optical_sensor
+		"brain" = /obj/item/organ/internal/mmi_holder/posibrain,
+		"cell" = /obj/item/organ/internal/cell,
+		"optics" = /obj/item/organ/internal/optical_sensor
 		)
 
 	vision_organ = "optics"

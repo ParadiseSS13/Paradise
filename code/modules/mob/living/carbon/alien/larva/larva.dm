@@ -25,6 +25,8 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
+
 	..()
 
 //This is fine, works the same as a human

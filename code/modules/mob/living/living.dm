@@ -924,3 +924,29 @@
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0
+
+/mob/living/proc/handle_actions()
+	//Pretty bad, i'd use picked/dropped instead but the parent calls in these are nonexistent
+	for(var/datum/action/A in actions)
+		if(A.CheckRemoval(src))
+			A.Remove(src)
+	for(var/obj/item/I in src)
+		give_action_button(I, 1)
+	return
+
+/mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
+	if(I.action_button_name)
+		if(!I.action)
+			if(istype(I, /obj/item/organ/internal))
+				I.action = new/datum/action/item_action/organ_action
+			else if(I.action_button_is_hands_free)
+				I.action = new/datum/action/item_action/hands_free
+			else
+				I.action = new/datum/action/item_action
+			I.action.name = I.action_button_name
+			I.action.target = I
+		I.action.Grant(src)
+
+	if(recursive)
+		for(var/obj/item/T in I)
+			give_action_button(I, recursive - 1)

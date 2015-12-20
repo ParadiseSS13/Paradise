@@ -988,7 +988,7 @@
 
 /obj/item/weapon/hivelordstabilizer/afterattack(obj/item/M, mob/user)
 	var/obj/item/asteroid/hivelord_core/C = M
-	if(!istype(C, /obj/item/asteroid/hivelord_core))
+	if(!istype(C, /obj/item/organ/internal/hivelord_core))
 		user << "<span class='warning'>The stabilizer only works on hivelord cores.</span>"
 		return ..()
 	C.preserved = 1

@@ -34,7 +34,10 @@
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/carbon/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
-	internal_organs += new /obj/item/organ/brain/xeno
+	internal_organs += new /obj/item/organ/internal/brain/xeno
+	internal_organs += new /obj/item/organ/internal/xenos/hivenode
+	for(var/obj/item/organ/internal/I in internal_organs)
+		I.Insert(src)
 	..()
 
 /mob/living/carbon/alien/get_default_language()
@@ -258,9 +261,11 @@ Des: Gives the client of the alien an image on each infected mob.
 	if (client)
 		for (var/mob/living/C in mob_list)
 			if(C.status_flags & XENO_HOST)
-				var/obj/item/alien_embryo/A = locate() in C
-				var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
-				client.images += I
+				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+				var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
+				if(A)
+					var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
+					client.images += I
 	return
 
 

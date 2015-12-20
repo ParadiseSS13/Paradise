@@ -24,8 +24,12 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
-	..()
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/lqueen
+ 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+ 	internal_organs += new /obj/item/organ/internal/xenos/acid
+ 	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+ 	internal_organs += new /obj/item/organ/internal/xenos/eggsac
+//	..()
 
 
 /mob/living/carbon/alien/humanoid/queen

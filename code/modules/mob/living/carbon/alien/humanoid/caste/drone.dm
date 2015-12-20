@@ -13,8 +13,12 @@
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
 	src.real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/resin,/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
-	..()
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/large
+ 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+ 	internal_organs += new /obj/item/organ/internal/xenos/acid
+	//verbs.Add(/mob/living/carbon/alien/humanoid/proc/resin,/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
+	//..()
+
 //Drones use the same base as generic humanoids.
 //Drone verbs
 

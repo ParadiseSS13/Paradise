@@ -16,7 +16,7 @@
 	if(buckled_mob && buckled_mob.buckled == src)
 		var/mob/living/M = buckled_mob
 
-		if(isalien(user))
+		if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 			unbuckle_mob()
 			add_fingerprint(user)
 			return
@@ -50,9 +50,9 @@
 	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.restrained() || usr.stat || M.buckled || istype(user, /mob/living/silicon/pai) )
 		return
 
-	if(isalien(M))
+	if(M.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
-	if(!isalien(user))
+	if(!user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
 
 	unbuckle_mob()

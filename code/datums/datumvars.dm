@@ -1006,7 +1006,7 @@ client
 			usr << "This can only be done to instances of type /mob/living/carbon"
 			return
 
-		var/obj/item/organ/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
+		var/obj/item/organ/internal/rem_organ = input("Please choose an organ to remove.","Organ",null) as null|anything in M.internal_organs
 
 		if(!M)
 			usr << "Mob doesn't exist anymore"
@@ -1017,7 +1017,7 @@ client
 			return
 
 		usr << "Removed [rem_organ] from [M]."
-		rem_organ.removed()
+		rem_organ.Remove(M)
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)

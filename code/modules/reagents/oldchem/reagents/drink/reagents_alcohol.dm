@@ -63,7 +63,7 @@
 		M:drowsyness  = max(M:drowsyness, 30/sober_str)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
+			var/obj/item/organ/internal/liver/L = H.internal_organs_by_name["liver"]
 			if (istype(L))
 				L.take_damage(0.1, 1)
 			H.adjustToxLoss(0.1)

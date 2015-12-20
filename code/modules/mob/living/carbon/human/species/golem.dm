@@ -15,7 +15,7 @@
 
 
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/golem
+		"brain" = /obj/item/organ/internal/brain/golem
 		)
 
 /datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)

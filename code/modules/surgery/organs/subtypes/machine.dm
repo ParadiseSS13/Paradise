@@ -53,48 +53,51 @@
 	robotize("Morpheus Cyberkinetics")
 	..()
 
-/obj/item/organ/cell
+/obj/item/organ/internal/cell
 	name = "microbattery"
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "scell"
 	organ_tag = "cell"
 	parent_organ = "chest"
+	slot = "heart"
 	vital = 1
 
-/obj/item/organ/cell/New()
+/obj/item/organ/internal/cell/New()
 	robotize()
 	..()
 
-/obj/item/organ/cell/replaced()
+/obj/item/organ/internal/cell/Insert()
 	..()
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	if(owner && owner.stat == DEAD)
 		owner.stat = CONSCIOUS
 		owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
-/obj/item/organ/optical_sensor
+/obj/item/organ/internal/optical_sensor
 	name = "optical sensor"
 	organ_tag = "optics"
 	parent_organ = "head"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
-	dead_icon = "camera_broken"
+	slot = "eyes"
+//	dead_icon = "camera_broken"
 
-/obj/item/organ/optical_sensor/New()
+/obj/item/organ/internal/optical_sensor/New()
 	robotize()
 	..()
 
 // Used for an MMI or posibrain being installed into a human.
-/obj/item/organ/mmi_holder
+/obj/item/organ/internal/mmi_holder
 	name = "brain"
 	organ_tag = "brain"
 	parent_organ = "chest"
 	vital = 1
 	max_damage = 200
+	slot = "brain"
 	var/obj/item/device/mmi/stored_mmi
 
-/obj/item/organ/mmi_holder/proc/update_from_mmi()
+/obj/item/organ/internal/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
 		return
 	name = stored_mmi.name
@@ -102,7 +105,7 @@
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
 
-/obj/item/organ/mmi_holder/removed(var/mob/living/user)
+/obj/item/organ/internal/mmi_holder/Remove(var/mob/living/user)
 	if(stored_mmi)
 		stored_mmi.loc = get_turf(src)
 		if(owner.mind)
@@ -114,7 +117,7 @@
 		holder_mob.unEquip(src)
 	qdel(src)
 
-/obj/item/organ/mmi_holder/New()
+/obj/item/organ/internal/mmi_holder/New()
 	..()
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	spawn(1)
@@ -122,7 +125,7 @@
 			owner.stat = CONSCIOUS
 			owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
-/obj/item/organ/mmi_holder/posibrain/New()
+/obj/item/organ/internal/mmi_holder/posibrain/New()
 	robotize()
 	stored_mmi = new /obj/item/device/mmi/posibrain(src)
 	..()

@@ -250,7 +250,7 @@
 	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
-	if(species.show_ssd && (!species.has_organ["brain"] || brain_op_stage != 4) && stat != DEAD)
+	if(species.show_ssd && (!species.has_organ["brain"] || species.get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
 		if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 		else if(!client)

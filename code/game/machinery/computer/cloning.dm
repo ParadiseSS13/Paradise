@@ -349,7 +349,7 @@
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
-	if (subject.brain_op_stage == 4.0)
+	if (!subject.get_int_organ(/obj/item/organ/internal/brain))
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
 		return

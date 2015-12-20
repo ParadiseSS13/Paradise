@@ -130,6 +130,7 @@
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
 			user.drop_item()
 			affected.hidden = tool
+			target.internal_organs += tool
 			tool.loc = target
 			affected.cavity = 0
 

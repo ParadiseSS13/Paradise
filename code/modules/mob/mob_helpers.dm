@@ -167,7 +167,7 @@ proc/isovermind(A)
 		return 1
 	return 0
 
-proc/isorgan(A)
+/proc/isorgan(A)
 	if(istype(A, /obj/item/organ/external))
 		return 1
 	return 0

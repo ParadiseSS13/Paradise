@@ -245,7 +245,7 @@
 			user << "<span class='notice'>Internal prosthetics:</span>"
 			organ_found = null
 			if(H.internal_organs.len)
-				for(var/obj/item/organ/O in H.internal_organs)
+				for(var/obj/item/organ/internal/O in H.internal_organs)
 					if(!(O.status & ORGAN_ROBOT))
 						continue
 					organ_found = 1

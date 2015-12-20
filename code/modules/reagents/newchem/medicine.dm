@@ -525,7 +525,7 @@ datum/reagent/oculine/on_mob_life(var/mob/living/M as mob)
 	if(prob(80))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+			var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
 			if(istype(E))
 				E.damage = max(E.damage-1, 0)
 		M.eye_blurry = max(M.eye_blurry-1 , 0)

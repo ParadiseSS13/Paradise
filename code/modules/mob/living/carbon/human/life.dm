@@ -892,7 +892,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 
 		//Vision //god knows why this is here
-		var/obj/item/organ/vision
+		var/obj/item/organ/internal/vision
 		if(species.vision_organ)
 			vision = internal_organs_by_name[species.vision_organ]
 
@@ -1207,7 +1207,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/handle_heartbeat()
 	var/client/C = src.client
 	if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-		var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+		var/obj/item/organ/internal/heart/H = internal_organs_by_name["heart"]
 
 		if(!H) //H.status will runtime if there is no H (obviously)
 			return

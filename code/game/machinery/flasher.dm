@@ -84,7 +84,7 @@
 			O.visible_message("<span class='disarm'><b>[O]</b> gasps and shields their eyes!</span>")
 		if (istype(O, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = O
-			var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+			var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name["eyes"]
 			if (E && (E.damage > E.min_bruised_damage && prob(E.damage + 50)))
 				flick("e_flash", O:flash)
 				E.damage += rand(1, 2)

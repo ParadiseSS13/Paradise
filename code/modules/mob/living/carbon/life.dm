@@ -9,6 +9,8 @@
 
 	if(..())
 		. = 1
+		for(var/obj/item/organ/internal/O in internal_organs)
+			O.on_life()
 		handle_changeling()
 
 	handle_wetness()
@@ -477,6 +479,13 @@
 
 		if(see_override)
 			see_invisible = see_override
+
+
+/mob/living/carbon/handle_actions()
+	..()
+	for(var/obj/item/I in internal_organs)
+		give_action_button(I, 1)
+
 
 /mob/living/carbon/handle_hud_icons()
 	return

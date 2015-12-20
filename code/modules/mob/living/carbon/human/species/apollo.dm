@@ -28,11 +28,11 @@
 	body_temperature = 286
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"brain" =    /obj/item/organ/brain,
-		"eyes" =     /obj/item/organ/eyes,
-		"appendix" = /obj/item/organ/appendix,
-		"antennae" =    /obj/item/organ/wryn/hivenode
+		"heart" =    /obj/item/organ/internal/heart,
+		"brain" =    /obj/item/organ/internal/brain,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
 	flags = IS_WHITELISTED | HAS_LIPS | NO_BREATHE | HAS_SKIN_COLOR | NO_SCAN | NO_SCAN | HIVEMIND
@@ -47,7 +47,7 @@
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
-		if(locate(/obj/item/organ/wryn/hivenode) in C.internal_organs)
+		if(locate(/obj/item/organ/internal/wryn/hivenode) in C.internal_organs)
 			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
 			C << "<span class='danger'>It feels like part of you has died.</span>"
 
@@ -64,7 +64,7 @@
 			if(p_loc == M.loc && p_loc_m == H.loc)
 				qdel(H.internal_organs_by_name["antennae"])
 				H.remove_language("Wryn Hivemind")
-				new /obj/item/organ/wryn/hivenode(M.loc)
+				new /obj/item/organ/internal/wryn/hivenode(M.loc)
 				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
 				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
 				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"
@@ -96,11 +96,11 @@
 
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"crystalized brain" =    /obj/item/organ/brain/crystal,
-		"eyes" =     /obj/item/organ/eyes/luminescent_crystal,
-		"strange crystal" = /obj/item/organ/nucleation/strange_crystal,
-		"resonant crystal" = /obj/item/organ/nucleation/resonant_crystal
+		"heart" =    /obj/item/organ/internal/heart,
+		"crystalized brain" =    /obj/item/organ/internal/brain/crystal,
+		"eyes" =     /obj/item/organ/internal/eyes/luminescent_crystal,
+		"strange crystal" = /obj/item/organ/internal/nucleation/strange_crystal,
+		"resonant crystal" = /obj/item/organ/internal/nucleation/resonant_crystal
 		)
 
 /datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)

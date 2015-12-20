@@ -1,4 +1,4 @@
-/obj/item/organ/brain
+/obj/item/organ/internal/brain
 	name = "brain"
 	health = 400 //They need to live awhile longer than other organs.
 	max_damage = 200
@@ -15,28 +15,27 @@
 	parent_organ = "head"
 	vital = 1
 
-/obj/item/organ/brain/attack_self(mob/user as mob)
+/obj/item/organ/internal/brain/attack_self(mob/user as mob)
 	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
 
-/obj/item/organ/brain/surgeryize()
+/obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
 		return
 	owner.ear_damage = 0 //Yeah, didn't you...hear? The ears are totally inside the brain.
 	owner.ear_deaf = 0
 
-/obj/item/organ/brain/xeno
+/obj/item/organ/internal/brain/xeno
 	name = "thinkpan"
 	desc = "It looks kind of like an enormous wad of purple bubblegum."
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "chitin"
+	icon_state = "brain-x-d"
 
-/obj/item/organ/brain/New()
+/obj/item/organ/internal/brain/New()
 	..()
 	spawn(5)
 		if(brainmob && brainmob.client)
 			brainmob.client.screen.len = null //clear the hud
 
-/obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	name = "\the [H]'s [initial(src.name)]"
 	brainmob = new(src)
 	brainmob.name = H.real_name
@@ -49,14 +48,14 @@
 	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
 	callHook("debrain", list(brainmob))
 
-/obj/item/organ/brain/examine(mob/user) // -- TLE
+/obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	..(user)
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
 		user << "You can feel the small spark of life still left in this one."
 	else
 		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/brain/removed(var/mob/living/user)
+/obj/item/organ/internal/brain/Remove(var/mob/living/user)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 	name = "[owner.real_name]'s brain"
@@ -68,13 +67,13 @@
 
 	owner.brain_op_stage = 4.0
 
-	var/obj/item/organ/brain/B = src
+	var/obj/item/organ/internal/brain/B = src
 	if(istype(B) && istype(owner))
 		B.transfer_identity(owner)
 
 	..()
 
-/obj/item/organ/brain/replaced(var/mob/living/target)
+/obj/item/organ/internal/brain/Insert(var/mob/living/target)
 
 	if(target.key)
 		target.ghostize()
@@ -88,19 +87,22 @@
 			target.key = brainmob.key
 	..()
 
-/obj/item/organ/brain/slime
+/obj/item/organ/internal/brain/prepare_eat()
+	return // Too important to eat.
+
+/obj/item/organ/internal/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 
-/obj/item/organ/brain/golem
+/obj/item/organ/internal/brain/golem
 	name = "chem"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 
-/obj/item/organ/brain/Destroy() //copypasted from MMIs.
+/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
 		qdel(brainmob)
 		brainmob = null

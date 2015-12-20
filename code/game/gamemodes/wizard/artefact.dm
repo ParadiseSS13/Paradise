@@ -461,7 +461,7 @@ var/global/list/multiverse = list()
 
 			if("cyborg")
 				if(M.get_species() != "Machine")
-					for(var/obj/item/organ/O in M.organs)
+					for(var/obj/item/organ/internal/O in M.organs)
 						O.robotize()
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
 				M.equip_to_slot_or_del(sword, slot_r_hand)

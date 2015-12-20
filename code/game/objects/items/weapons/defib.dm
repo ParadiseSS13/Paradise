@@ -383,7 +383,7 @@
 							defib.deductcharge(revivecost)
 							add_logs(M, user, "revived", object="defibrillator")
 						else
-							if(tplus > tlimit)
+							if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 							else if(total_burn >= 180 || total_brute >= 180)
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")

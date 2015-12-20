@@ -1,5 +1,5 @@
 /mob/living/carbon/human/proc/update_eyes()
-	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
+	var/obj/item/organ/internal/eyes/eyes = internal_organs_by_name["eyes"]
 	if(eyes)
 		eyes.update_colour()
 		regenerate_icons()
@@ -24,7 +24,7 @@
 			bad_external_organs |= Ex
 
 	//processing internal organs is pretty cheap, do that first.
-	for(var/obj/item/organ/I in internal_organs)
+	for(var/obj/item/organ/internal/I in internal_organs)
 		I.process()
 
 	//handle_stance()
@@ -47,7 +47,7 @@
 			if (!lying && world.time - l_move_time < 15)
 			//Moving around with fractured ribs won't do you any good
 				if (E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
-					var/obj/item/organ/I = pick(E.internal_organs)
+					var/obj/item/organ/internal/I = pick(E.internal_organs)
 					custom_pain("You feel broken bones moving in your [E.name]!", 1)
 					I.take_damage(rand(3,5))
 
@@ -143,12 +143,12 @@
 /mob/living/carbon/human/proc/handle_trace_chems()
 	//New are added for reagents to random organs.
 	for(var/datum/reagent/A in reagents.reagent_list)
-		var/obj/item/organ/O = pick(organs)
+		var/obj/item/organ/internal/O = pick(organs)
 		O.trace_chemicals[A.name] = 100
 
 /mob/living/carbon/human/proc/sync_organ_dna()
 	var/list/all_bits = internal_organs|organs
-	for(var/obj/item/organ/O in all_bits)
+	for(var/obj/item/organ/internal/O in all_bits)
 		O.set_dna(dna)
 
 /*

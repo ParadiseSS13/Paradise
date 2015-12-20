@@ -70,7 +70,7 @@
 			qdel(C)
 
 	if(internal_organs)
-		for(var/obj/item/organ/O in internal_organs)
+		for(var/obj/item/organ/internal/O in internal_organs)
 			qdel(O)
 
 	return ..()
@@ -161,7 +161,7 @@
 	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= 5) || brute >= 10) && prob(5))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
-			var/obj/item/organ/I = pick(internal_organs)
+			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.take_damage(brute / 2)
 			brute -= brute / 2
 
@@ -280,7 +280,7 @@ This function completely restores a damaged organ to perfect condition.
 	burn_dam = 0
 
 	// handle internal organs
-	for(var/obj/item/organ/current_organ in internal_organs)
+	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
 
@@ -448,8 +448,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
-		var/obj/item/organ/target_organ = null	//make internal organs become infected one at a time instead of all at once
-		for (var/obj/item/organ/I in internal_organs)
+		var/obj/item/organ/internal/target_organ = null	//make internal organs become infected one at a time instead of all at once
+		for (var/obj/item/organ/internal/I in internal_organs)
 			if (I.germ_level > 0 && I.germ_level < min(germ_level, INFECTION_LEVEL_TWO))	//once the organ reaches whatever we can give it, or level two, switch to a different one
 				if (!target_organ || I.germ_level > target_organ.germ_level)	//choose the organ with the highest germ_level
 					target_organ = I
@@ -457,7 +457,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!target_organ)
 			//figure out which organs we can spread germs to and pick one at random
 			var/list/candidate_organs = list()
-			for (var/obj/item/organ/I in internal_organs)
+			for (var/obj/item/organ/internal/I in internal_organs)
 				if (I.germ_level < germ_level)
 					candidate_organs |= I
 			if (candidate_organs.len)
