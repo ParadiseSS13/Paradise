@@ -8,7 +8,7 @@
 	var/list/stating_laws = list()// Channels laws are currently being stated on
 	var/list/alarms_to_show = list()
 	var/list/alarms_to_clear = list()
-	var/list/hud_list[10]
+	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/list/alarm_handlers = list() // List of alarm handlers this silicon is registered to
 	var/designation = ""
@@ -19,19 +19,28 @@
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
 
-	var/sensor_mode = 0 //Determines the current HUD.
+	//var/sensor_mode = 0 //Determines the current HUD.
 
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
 
-	#define SEC_HUD 1 //Security HUD mode
-	#define MED_HUD 2 //Medical HUD mode
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD,NATIONS_HUD)
+
+
+	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
+	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
+	var/d_hud = DATA_HUD_DIAGNOSTIC //There is only one kind of diag hud
+
 	var/local_transmit //If set, can only speak to others of the same type within a short range.
 	var/obj/item/device/radio/common_radio
 
 /mob/living/silicon/New()
 	silicon_mob_list |= src
 	..()
+	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_to_hud(src)
+	diag_hud_set_status()
+	diag_hud_set_health()
 	add_language("Galactic Common")
 	init_subsystems()
 
@@ -252,17 +261,41 @@
 /mob/living/silicon/binarycheck()
 	return 1
 
+/mob/living/silicon/proc/remove_med_sec_hud()
+	var/datum/atom_hud/secsensor = huds[sec_hud]
+	var/datum/atom_hud/medsensor = huds[med_hud]
+	var/datum/atom_hud/diagsensor = huds[d_hud]
+	secsensor.remove_hud_from(src)
+	medsensor.remove_hud_from(src)
+	diagsensor.remove_hud_from(src)
+
+/mob/living/silicon/proc/add_sec_hud()
+	var/datum/atom_hud/secsensor = huds[sec_hud]
+	secsensor.add_hud_to(src)
+
+/mob/living/silicon/proc/add_med_hud()
+	var/datum/atom_hud/medsensor = huds[med_hud]
+	medsensor.add_hud_to(src)
+
+/mob/living/silicon/proc/add_diag_hud()
+	var/datum/atom_hud/diagsensor = huds[d_hud]
+	diagsensor.add_hud_to(src)
+
+
 /mob/living/silicon/proc/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Disable")
+	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Disable")
+	remove_med_sec_hud()
 	switch(sensor_type)
 		if ("Security")
-			sensor_mode = SEC_HUD
+			add_sec_hud()
 			src << "<span class='notice'>Security records overlay enabled.</span>"
 		if ("Medical")
-			sensor_mode = MED_HUD
+			add_med_hud()
 			src << "<span class='notice'>Life signs monitor overlay enabled.</span>"
+		if ("Diagnostic")
+			add_diag_hud()
+			src << "<span class='notice'>Robotics diagnostic overlay enabled.</span>"
 		if ("Disable")
-			sensor_mode = 0
 			src << "Sensor augmentations disabled."
 
 /mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)

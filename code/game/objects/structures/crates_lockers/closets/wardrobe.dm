@@ -346,6 +346,8 @@
 /obj/structure/closet/wardrobe/robotics_black/New()
 	..()
 	sleep(2)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
