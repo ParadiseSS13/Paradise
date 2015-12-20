@@ -17,7 +17,7 @@
 
 /obj/item/projectile/bullet/cap/process()
 	loc = null
-	qdel(src)
+	del(src)
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	damage = 5
