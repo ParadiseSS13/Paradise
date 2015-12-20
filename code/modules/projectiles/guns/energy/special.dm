@@ -373,6 +373,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 
 /obj/item/weapon/gun/energy/wormhole_projector/attack_self(mob/living/user as mob)
+	switch_modes()
+
+/obj/item/weapon/gun/energy/wormhole_projector/proc/switch_modes(mob/living/user as mob)
 	switch(mode)
 		if(0)
 			mode = 1
@@ -385,10 +388,14 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 			projectile_type = "/obj/item/projectile/beam/wormhole"
 			modifystate = "wormhole_projector"
 	update_icon()
-	if(user.l_hand == src)
+	if(user.hand)
 		user.update_inv_l_hand()
 	else
 		user.update_inv_r_hand()
+
+/obj/item/weapon/gun/energy/wormhole_projector/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)
+	..()
+	switch_modes(user)
 
 /obj/item/weapon/gun/energy/wormhole_projector/proc/portal_destroyed(obj/effect/portal/P)
 	if(P.icon_state == "portal")
