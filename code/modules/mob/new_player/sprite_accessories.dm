@@ -443,6 +443,22 @@
 		icon_state = "ipc_yellow"
 		species_allowed = list("Machine")
 
+	ipc_screen_scrolling
+		name = "scanline IPC screen"
+		icon_state = "ipc_scroll"
+		species_allowed = list("Machine")
+
+	ipc_screen_console
+		name = "console IPC screen"
+		icon_state = "ipc_console"
+		species_allowed = list("Machine")
+
+	ipc_screen_rgb
+		name = "rgb IPC screen"
+		icon_state = "ipc_rgb"
+		species_allowed = list("Machine")
+
+
 /*
 ///////////////////////////////////
 /  =---------------------------=  /
