@@ -336,6 +336,15 @@
 		traitor_mob << "We have received credible reports that [M.real_name] might be willing to help our cause. If you need assistance, consider contacting them."
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
+/datum/game_mode/proc/remove_vampire(datum/mind/vampire_mind)
+	if(vampire_mind in vampires)
+		vampires -= vampire_mind
+		vampire_mind.current.remove_vampire_powers()
+		vampire_mind.current << "<FONT color='red' size = 3><B>You lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>"
+		vampire_mind.memory = ""
+		vampire_mind.special_role = null
+		update_vampire_icons_removed(vampire_mind)
+
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	//var/ref = "\ref[traitor_mind]"
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
