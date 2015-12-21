@@ -206,18 +206,20 @@
 			return 0
 
 		target.op_stage.current_organ = null
+		target.op_stage.organ_ref = null
 
 		var/list/attached_organs = list()
-		for(var/organ in target.internal_organs_by_name)
-			var/obj/item/organ/I = target.internal_organs_by_name[organ]
+		for(var/organ in affected.internal_organs)
+			var/obj/item/organ/I = organ
 			if(I && !(I.status & ORGAN_CUT_AWAY) && I.parent_organ == target_zone)
-				attached_organs |= organ
+				attached_organs[I.organ_tag] = I
 
 		var/organ_to_remove = input(user, "Which organ do you want to prepare for removal?") as null|anything in attached_organs
 		if(!organ_to_remove)
 			return 0
 
 		target.op_stage.current_organ = organ_to_remove
+		target.op_stage.organ_ref = attached_organs[organ_to_remove]
 
 		return ..() && organ_to_remove
 
@@ -234,7 +236,7 @@
 		user.visible_message("\blue [user] has separated [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have separated [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/I = target.op_stage.organ_ref
 		if(I && istype(I))
 			I.status |= ORGAN_CUT_AWAY
 
@@ -259,20 +261,26 @@
 
 		if (!..())
 			return 0
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+		if(!istype(affected))
+			return 0
 
 		target.op_stage.current_organ = null
+		target.op_stage.organ_ref = null
 
 		var/list/removable_organs = list()
-		for(var/organ in target.internal_organs_by_name)
-			var/obj/item/organ/I = target.internal_organs_by_name[organ]
-			if((I.status & ORGAN_CUT_AWAY) && I.parent_organ == target_zone)
-				removable_organs |= organ
+		for(var/organ in affected.internal_organs)
+			var/obj/item/organ/I = organ
+			if(istype(I) && (I.status & ORGAN_CUT_AWAY) && I.parent_organ == target_zone)
+				removable_organs[I.organ_tag] = I
 
 		var/organ_to_remove = input(user, "Which organ do you want to remove?") as null|anything in removable_organs
 		if(!organ_to_remove)
 			return 0
 
 		target.op_stage.current_organ = organ_to_remove
+		target.op_stage.organ_ref = removable_organs[organ_to_remove]
 		return ..()
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -287,10 +295,9 @@
 
 		// Extract the organ!
 		if(target.op_stage.current_organ)
-			var/obj/item/organ/O = target.internal_organs_by_name[target.op_stage.current_organ]
+			var/obj/item/organ/O = target.op_stage.organ_ref
 			if(O && istype(O))
 				O.removed(user)
-			target.op_stage.current_organ = null
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -391,19 +398,26 @@
 		if (!..())
 			return 0
 
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+		if(!istype(affected))
+			return 0
+
 		target.op_stage.current_organ = null
+		target.op_stage.organ_ref = null
 
 		var/list/removable_organs = list()
-		for(var/organ in target.internal_organs_by_name)
-			var/obj/item/organ/I = target.internal_organs_by_name[organ]
-			if(I && (I.status & ORGAN_CUT_AWAY) && !(I.status & ORGAN_ROBOT) && I.parent_organ == target_zone)
-				removable_organs |= organ
+		for(var/organ in affected.internal_organs)
+			var/obj/item/organ/I = organ
+			if(I && istype(I) && (I.status & ORGAN_CUT_AWAY) && !(I.status & ORGAN_ROBOT) && I.parent_organ == target_zone)
+				removable_organs[I.organ_tag] = I
 
 		var/organ_to_replace = input(user, "Which organ do you want to reattach?") as null|anything in removable_organs
 		if(!organ_to_replace)
 			return 0
 
 		target.op_stage.current_organ = organ_to_replace
+		target.op_stage.organ_ref = removable_organs[organ_to_replace]
 		return ..()
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -416,7 +430,7 @@
 		user.visible_message("\blue [user] has reattached [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have reattached [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/I = target.op_stage.organ_ref
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
 
