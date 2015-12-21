@@ -27,13 +27,21 @@ Used In File(s): \code\game\supplyshuttle.dm
 </div>
 <div class="item">
 	<div class="itemLabel">
+		Central Command messages:
+	</div>
+	<div class="itemContent">
+		{{:data.message}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
 		Shuttle Status:
 	</div>
 	<div class="itemContent">
 		{{if !data.moving && !data.at_station}}
-			{{:data.docked}} off-station. 
+			Docked off-station. 
 		{{else !data.moving && data.at_station}}
-			{{:data.docked}} at the station. 
+			Docked at the station. 
 		{{else data.moving}}
 			<div class="line">Shuttle is en route (ETA: {{:data.timeleft}} minute{{if data.timeleft != 1}}s{{/if}}).</div>
 		{{/if}}
@@ -46,9 +54,6 @@ Used In File(s): \code\game\supplyshuttle.dm
 	<div class="itemContent">	
 		{{:helper.link('Call Shuttle', 'circle-triangle-e', data.send, data.moving || data.at_station || !data.can_launch ? 'disabled' : '')}}
 		{{:helper.link('Return Shuttle', 'circle-triangle-w', data.send, data.moving || !data.at_station || !data.can_launch ? 'disabled' : '')}}
-		<br clear="both">
-		{{:helper.link('Force Shuttle', 'alert', {'force_send' : 1}, !data.can_force ? 'disabled' : '')}}
-		{{:helper.link('Cancel Shuttle', 'cancel', {'cancel_send' : 1}, !data.can_force ? 'disabled' : '')}}
 	</div>
 </div>
 <div style="float: right; width: 70%;">
@@ -57,7 +62,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 	</div>
 	<div class="itemContentWide" style="width: 100%;">
 		<div class="statusDisplay">
-			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 184px">
+			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 200px">
 				{{if !data.contents}}
 					{{for data.supply_packs}}
 						<div class="line">
@@ -79,7 +84,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 		</div>
 	</div>
 </div>
-<div style="float: left; width: 30%;">
+<div style="float: left; width: 30%; margin-bottom: 10px;">
 	<div class="itemLabel">
 		Categories
 	</div>
@@ -109,7 +114,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 				{{empty}}
 					No active requests.
 				{{/for}}
-				<br>
+				<br clear="both">
 				<u><b>Orders</b></u>
 				<br>
 				{{for data.orders}}
