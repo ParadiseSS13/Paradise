@@ -154,7 +154,7 @@
 							else
 								pointsEarned = round(shuttle_master.points_per_crate - slip.points)
 								shuttle_master.points += pointsEarned
-								msg += "<span class='nad'>[pointsEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
+								msg += "<span class='bad'>[pointsEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
 						find_slip = 0
 					continue
 
