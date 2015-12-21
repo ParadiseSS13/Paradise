@@ -169,6 +169,8 @@ proc/CallMaterialName(ID)
 			return
 		D.loc = src
 		user << "<span class='notice'>You add the disk to the machine!</span>"
+	if(istype(D, /obj/item/weapon/screwdriver) && islocked())
+		user << "<span class='warning'>This console is locked; Unlock it first</span>"
 	else
 		..()
 	src.updateUsrDialog()
@@ -1153,6 +1155,11 @@ proc/CallMaterialName(ID)
 
 	dat += "</tr></table></div>"
 	return dat
+
+// This check here is silly but the reason I made it a proc is so that if a better criterion is made
+// you can just change it here and you'll be good to go
+/obj/machinery/computer/rdconsole/proc/islocked()
+	return screen == 0.2
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
