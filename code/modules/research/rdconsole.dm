@@ -169,7 +169,7 @@ proc/CallMaterialName(ID)
 			return
 		D.loc = src
 		user << "<span class='notice'>You add the disk to the machine!</span>"
-	if(istype(D, /obj/item/weapon/screwdriver) && islocked())
+	if(istype(D, /obj/item/weapon/screwdriver) && islocked() && !(stat & BROKEN))
 		user << "<span class='warning'>This console is locked; Unlock it first</span>"
 	else
 		..()
