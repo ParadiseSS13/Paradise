@@ -136,6 +136,7 @@
 		for(var/obj/item/organ/I in affected.internal_organs)
 			if(I && I.damage > 0)
 				if(I.robotic < 2)
+					spread_germs_to_organ(I, user)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
@@ -238,6 +239,7 @@
 
 		var/obj/item/organ/I = target.op_stage.organ_ref
 		if(I && istype(I))
+			spread_germs_to_organ(I, user)
 			I.status |= ORGAN_CUT_AWAY
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -297,6 +299,7 @@
 		if(target.op_stage.current_organ)
 			var/obj/item/organ/O = target.op_stage.organ_ref
 			if(O && istype(O))
+				spread_germs_to_organ(O, user)
 				O.removed(user)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -376,6 +379,7 @@
 		var/obj/item/organ/O = tool
 		if(istype(O))
 			O.replaced(target,affected)
+			spread_germs_to_organ(O, user)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("\red [user]'s hand slips, damaging \the [tool]!", \
@@ -433,6 +437,7 @@
 		var/obj/item/organ/I = target.op_stage.organ_ref
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
+			spread_germs_to_organ(I, user)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)

@@ -79,24 +79,28 @@
 	switch(stage)
 		if(0)
 			if(istype(W,/obj/item/weapon/scalpel))
+				spread_germs_to_organ(src,user)
 				user.visible_message("<span class='danger'><b>[user]</b> cuts [src] open with [W]!")
 				stage++
 				return
 		if(1)
 			if(istype(W,/obj/item/weapon/retractor))
+				spread_germs_to_organ(src,user)
 				user.visible_message("<span class='danger'><b>[user]</b> cracks [src] open like an egg with [W]!")
 				stage++
 				return
 		if(2)
 			if(istype(W,/obj/item/weapon/hemostat))
+				spread_germs_to_organ(src,user)
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					removing.loc = get_turf(user.loc)
 					var/obj/item/organ/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
+						spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
 						O.removed(user)
-					else if(!(user.l_hand && user.r_hand))
+					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
 				else

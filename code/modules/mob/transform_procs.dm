@@ -161,7 +161,7 @@
 	O.job = "Cyborg"
 	O.notify_ai(1)
 
-	if(O.mind.assigned_role == "Cyborg")
+	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")
 			O.mmi = new /obj/item/device/mmi/posibrain(O)
 		else if(O.mind.role_alt_title == "Robot")
