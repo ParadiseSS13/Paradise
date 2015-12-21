@@ -258,6 +258,13 @@
 	log_name = "BB"
 	limit = 3
 
+/datum/spellbook_entry/item/tarotdeck
+	name = "Tarot Deck"
+	desc = "A deck of tarot cards that can be used to summon a spirit companion for the wizard."
+	item_path = /obj/item/weapon/guardiancreator
+	log_name = "TD"
+	limit = 1
+
 /datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	if(..())
 		if (!(XRAY in user.mutations))

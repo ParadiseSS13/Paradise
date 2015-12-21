@@ -142,7 +142,12 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-proc/isobserver(A)
+/proc/isguardian(A)
+	if(istype(A, /mob/living/simple_animal/hostile/guardian))
+		return 1
+	return 0
+
+/proc/isobserver(A)
 	if(istype(A, /mob/dead/observer))
 		return 1
 	return 0

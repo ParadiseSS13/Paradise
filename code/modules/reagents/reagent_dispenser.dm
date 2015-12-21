@@ -176,6 +176,10 @@
 	if(rig)
 		rig.hear_talk(M, msg)
 
+/obj/structure/reagent_dispensers/fueltank/hear_message(mob/living/M, msg)
+	if(rig)
+		rig.hear_message(M, msg)
+
 /obj/structure/reagent_dispensers/fueltank/Bump()
 	..()
 	if(rig)

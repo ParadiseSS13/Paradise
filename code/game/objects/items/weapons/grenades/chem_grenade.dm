@@ -235,6 +235,10 @@
 	if(nadeassembly)
 		nadeassembly.hear_talk(M, msg)
 
+/obj/item/weapon/grenade/chem_grenade/hear_message(mob/living/M, msg)
+	if(nadeassembly)
+		nadeassembly.hear_message(M, msg)
+
 /obj/item/weapon/grenade/chem_grenade/Bump()
 	..()
 	if(nadeassembly)

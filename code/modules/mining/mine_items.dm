@@ -37,6 +37,14 @@
 	new /obj/item/weapon/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
 
+/**********************Shuttle Computer**************************/
+
+/obj/machinery/computer/shuttle/mining
+	name = "Mining Shuttle Console"
+	desc = "Used to call and send the mining shuttle."
+	circuit = /obj/item/weapon/circuitboard/mining_shuttle
+	shuttleId = "mining"
+	possible_destinations = "mining_home;mining_away"
 
 /******************************Lantern*******************************/
 
@@ -70,6 +78,14 @@
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
 		playsound(src, pick(digsound),20,1)
+
+/obj/item/weapon/pickaxe/silver
+	name = "silver-plated pickaxe"
+	icon_state = "spickaxe"
+	item_state = "spickaxe"
+	digspeed = 30 //mines faster than a normal pickaxe, bought from mining vendor
+	origin_tech = "materials=3;engineering=2"
+	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 
 /obj/item/weapon/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
@@ -169,7 +185,7 @@
 
 /obj/structure/closet/crate/miningcar
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
-	name = "Mining car (not for rails)"
+	name = "mining car (not for rails)"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "miningcar"
 	density = 1

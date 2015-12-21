@@ -429,9 +429,7 @@
 			return
 		chassis.use_power(energy_drain)
 		set_ready_state(0)
-		var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target))
-		P.target = target_turf
-		P.creator = null
+		var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target), target_turf)
 		P.icon = 'icons/obj/objects.dmi'
 		P.failchance = 0
 		P.icon_state = "anom"
@@ -1090,7 +1088,9 @@
 			return
 		var/list/occupant = list()
 		occupant |= mecha.occupant
+		mecha.occupant.sight |= SEE_TURFS
 		scanning = 1
 		mineral_scan_pulse(occupant,get_turf(loc))
 		spawn(equip_cooldown)
 			scanning = 0
+			mecha.occupant.sight -= SEE_TURFS

@@ -7,7 +7,7 @@
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
 
-	using = new /obj/screen()
+	using = new /obj/screen/act_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style
@@ -20,7 +20,7 @@
 	action_intent = using
 
 //intent small hud objects
-	var/icon/ico
+/*	var/icon/ico
 
 	ico = new(ui_style, "black")
 	ico.MapColors(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, -1,-1,-1,-1)
@@ -69,10 +69,10 @@
 	using.layer = 21
 	src.adding += using
 	hurt_intent = using
-
+*/
 //end intent small hud objects
 
-	using = new /obj/screen()
+	using = new /obj/screen/mov_intent()
 	using.name = "mov_intent"
 	using.dir = SOUTHWEST
 	using.icon = ui_style
@@ -84,7 +84,7 @@
 	src.adding += using
 	move_intent = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/drop()
 	using.name = "drop"
 	using.icon = ui_style
 	using.icon_state = "act_drop"
@@ -170,7 +170,7 @@
 	inv_box.alpha = ui_alpha
 	src.adding += inv_box
 
-	mymob.throw_icon = new /obj/screen()
+	mymob.throw_icon = new /obj/screen/throw_catch()
 	mymob.throw_icon.icon = ui_style
 	mymob.throw_icon.icon_state = "act_throw_off"
 	mymob.throw_icon.name = "throw"
@@ -197,7 +197,7 @@
 	mymob.toxin.name = "toxin"
 	mymob.toxin.screen_loc = ui_toxin
 
-	mymob.internals = new /obj/screen()
+	mymob.internals = new /obj/screen/internals()
 	mymob.internals.icon = ui_style
 	mymob.internals.icon_state = "internal0"
 	mymob.internals.name = "internal"

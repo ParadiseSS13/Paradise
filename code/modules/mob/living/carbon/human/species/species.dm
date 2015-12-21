@@ -23,6 +23,7 @@
 	var/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
+	var/silent_steps = 0          // Stops step noises
 
 	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
 	var/poison_type = "plasma"   // Poisonous air.
@@ -62,7 +63,7 @@
 
 	var/flags = 0       // Various specific features.
 	var/clothing_flags = 0 // Underwear and socks.
-	var/bloodflags = 0
+	var/exotic_blood
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
@@ -422,13 +423,13 @@
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				switch(G.HUDType)
-					if(SECHUD)
-						process_sec_hud(H,1)
-					if(MEDHUD)
-						process_med_hud(H,1)
-					if(ANTAGHUD)
-						process_antag_hud(H)
+				//switch(G.HUDType)
+				//	if(SECHUD)
+				//		process_sec_hud(H,1)
+				//	if(MEDHUD)
+				//		process_med_hud(H,1)
+				//	if(ANTAGHUD)
+				//		process_antag_hud(H)
 
 		if(H.head)
 			if(istype(H.head, /obj/item/clothing/head))
@@ -438,13 +439,13 @@
 				if(!hat.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				switch(hat.HUDType)
-					if(SECHUD)
-						process_sec_hud(H,1)
-					if(MEDHUD)
-						process_med_hud(H,1)
-					if(ANTAGHUD)
-						process_antag_hud(H)
+				//switch(hat.HUDType)
+				//	if(SECHUD)
+				//		process_sec_hud(H,1)
+				//	if(MEDHUD)
+				//		process_med_hud(H,1)
+				//	if(ANTAGHUD)
+				//		process_antag_hud(H)
 
 		if(istype(H.back, /obj/item/weapon/rig)) ///ahhhg so snowflakey
 			var/obj/item/weapon/rig/rig = H.back
@@ -460,13 +461,13 @@
 							if(!G.see_darkness)
 								H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-							switch(G.HUDType)
-								if(SECHUD)
-									process_sec_hud(H,1)
-								if(MEDHUD)
-									process_med_hud(H,1)
-								if(ANTAGHUD)
-									process_antag_hud(H)
+							//switch(G.HUDType)
+							//	if(SECHUD)
+							//		process_sec_hud(H,1)
+							//	if(MEDHUD)
+							//		process_med_hud(H,1)
+							//	if(ANTAGHUD)
+							//		process_antag_hud(H)
 
 		if(H.vision_type)
 			H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, darksight)

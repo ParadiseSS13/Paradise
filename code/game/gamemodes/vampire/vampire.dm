@@ -379,52 +379,14 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 					//no verb
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
-	var/ref = "\ref[vampire_mind]"
-	if(ref in vampire_thralls)
-		if(vampire_mind.current)
-			if(vampire_mind.current.client)
-				var/I = image('icons/mob/mob.dmi', loc = vampire_mind.current, icon_state = "vampire")
-				vampire_mind.current.client.images += I
-	for(var/headref in vampire_thralls)
-		for(var/datum/mind/t_mind in vampire_thralls[headref])
-			var/datum/mind/head = locate(headref)
-			if(head)
-				if(head.current)
-					if(head.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = t_mind.current, icon_state = "vampthrall")
-						head.current.client.images += I
-				if(t_mind.current)
-					if(t_mind.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = head.current, icon_state = "vampire")
-						t_mind.current.client.images += I
-				if(t_mind.current)
-					if(t_mind.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = t_mind.current, icon_state = "vampthrall")
-						t_mind.current.client.images += I
+	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_SOLO]
+	vamp_hud.join_solo_hud(vampire_mind.current)
+	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	for(var/headref in vampire_thralls)
-		var/datum/mind/head = locate(headref)
-		for(var/datum/mind/t_mind in vampire_thralls[headref])
-			if(t_mind.current)
-				if(t_mind.current.client)
-					for(var/image/I in t_mind.current.client.images)
-						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//log_to_dd("deleting [vampire_mind] overlay")
-							qdel(I)
-		if(head)
-			//log_to_dd("found [head.name]")
-			if(head.current)
-				if(head.current.client)
-					for(var/image/I in head.current.client.images)
-						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//log_to_dd("deleting [vampire_mind] overlay")
-							qdel(I)
-	if(vampire_mind.current)
-		if(vampire_mind.current.client)
-			for(var/image/I in vampire_mind.current.client.images)
-				if(I.icon_state == "vampthrall" || I.icon_state == "vampire")
-					qdel(I)
+	var/datum/atom_hud/antag/vampire_hud = huds[ANTAG_HUD_SOLO]
+	vampire_hud.leave_hud(vampire_mind.current)
+	set_antag_hud(vampire_mind.current, null)
 
 /datum/game_mode/proc/remove_vampire_mind(datum/mind/vampire_mind, datum/mind/head)
 	//var/list/removal

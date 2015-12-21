@@ -136,7 +136,6 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == "Clown")
 			S << "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>"
 			S.mutations.Remove(CLUMSY)
-		shadow_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -157,7 +156,6 @@ Made by Xhuis
 		new_thrall_mind.current << "<span class='shadowling'>Though not nearly as powerful as your masters, you possess some weak powers. These can be found in the Thrall Abilities tab.</span>"
 		new_thrall_mind.current << "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>"
 
-		new_thrall_mind.current.hud_updateflag |= (1 << SPECIALROLE_HUD)
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
@@ -237,11 +235,11 @@ Made by Xhuis
 
 
 /datum/game_mode/shadowling/declare_completion()
-	if(check_shadow_victory() && emergency_shuttle.returned()) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+	if(check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		world << "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>"
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		world << "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>"
-	else if(!check_shadow_victory() && emergency_shuttle.returned())
+	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		world << "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>"
 	..()
 	return 1
@@ -301,45 +299,15 @@ Made by Xhuis
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN | NO_INTORGANS
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 
+	silent_steps = 1
+
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
-	spawn(0)
-		for(var/datum/mind/shadowling in shadows)
-			if(shadowling.current && shadowling != shadow_mind)
-				if(shadowling.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
-					shadowling.current.client.images += I
-			if(shadow_mind.current)
-				if(shadow_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = shadowling.current, icon_state = "shadowling")
-					shadow_mind.current.client.images += J
-		for(var/datum/mind/thrall in shadowling_thralls)
-			if(thrall.current)
-				if(thrall.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = shadow_mind.current, icon_state = "thrall")
-					thrall.current.client.images += I
-			if(shadow_mind.current)
-				if(shadow_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = thrall.current, icon_state = "thrall")
-					shadow_mind.current.client.images += J
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
+	shadow_hud.join_hud(shadow_mind.current)
+	set_antag_hud(shadow_mind.current, ((shadow_mind in shadows) ? "hudshadowling" : "hudshadowlingthrall"))
 
-/datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind)
-	spawn(0)
-		for(var/datum/mind/shadowling in shadows)
-			if(shadowling.current)
-				if(shadowling.current.client)
-					for(var/image/I in shadowling.current.client.images)
-						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
-							qdel(I)
 
-		for(var/datum/mind/thrall in shadowling_thralls)
-			if(thrall.current)
-				if(thrall.current.client)
-					for(var/image/I in thrall.current.client.images)
-						if((I.icon_state == "thrall" || I.icon_state == "shadowling") && I.loc == shadow_mind.current)
-							qdel(I)
-
-		if(shadow_mind.current)
-			if(shadow_mind.current.client)
-				for(var/image/I in shadow_mind.current.client.images)
-					if(I.icon_state == "thrall" || I.icon_state == "shadowling")
-						qdel(I)
+/datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind) //This should never actually occur, but it's here anyway.
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
+	shadow_hud.leave_hud(shadow_mind.current)
+	set_antag_hud(shadow_mind.current, null)

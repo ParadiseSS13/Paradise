@@ -12,8 +12,9 @@
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
-	var/mob/living/silicon/robot = null//Appears unused.
-	var/obj/mecha = null//This does not appear to be used outside of reference in mecha.dm.
+	var/mob/living/silicon/robot/robot = null//Appears unused.
+	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
+// I'm using this for mechs giving MMIs HUDs now
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 		if(istype(O, /obj/item/organ/brain/crystal ))
@@ -54,6 +55,7 @@
 
 		if(brainmob)
 			O.attack(brainmob, user)//Oh noooeeeee
+			// Brainmobs can take damage, but they can't actually die. Maybe should fix.
 			return
 		..()
 
@@ -110,18 +112,6 @@
 		radio.broadcasting = 1//So it's broadcasting from the start.
 
 	verb//Allows the brain to toggle the radio functions.
-		Toggle_Broadcasting()
-			set name = "Toggle Broadcasting"
-			set desc = "Toggle broadcasting channel on or off."
-			set category = "MMI"
-			set src = usr.loc//In user location, or in MMI in this case.
-			set popup_menu = 0//Will not appear when right clicking.
-
-			if(brainmob.stat)//Only the brainmob will trigger these so no further check is necessary.
-				brainmob << "Can't do that while incapacitated or dead."
-
-			radio.broadcasting = radio.broadcasting==1 ? 0 : 1
-			brainmob << "\blue Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting."
 
 		Toggle_Listening()
 			set name = "Toggle Listening"

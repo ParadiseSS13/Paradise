@@ -36,39 +36,42 @@
 						score_clownabuse++
 
 
-	for(var/mob/living/player in mob_list)
-		if(player.client)
-			if (player.stat != DEAD)
-				var/turf/location = get_turf(player.loc)
-				var/area/escape_zone = locate(/area/shuttle/escape/centcom)
-				if(location in escape_zone)
-					score_escapees++
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
+		for(var/mob/living/player in mob_list)
+			if(player.client)
+				if (player.stat != DEAD)
+					var/turf/location = get_turf(player.loc)
+					var/area/escape_zone = locate(/area/shuttle/escape)
+					if(location in escape_zone)
+						score_escapees++
 
 
 
 	var/cash_score = 0
 	var/dmg_score = 0
-	for(var/mob/living/carbon/human/E in mob_list)
-		cash_score = 0
-		dmg_score = 0
-		var/turf/location = get_turf(E.loc)
-		var/area/escape_zone = locate(/area/shuttle/escape/centcom)
 
-		if(E.stat != DEAD && location in escape_zone) // Escapee Scores
-			cash_score = get_score_container_worth(E)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
+		for(var/mob/living/carbon/human/E in mob_list)
+			cash_score = 0
+			dmg_score = 0
+			var/turf/location = get_turf(E.loc)
+			var/area/escape_zone = shuttle_master.emergency.areaInstance
 
-			if(cash_score > score_richestcash)
-				score_richestcash = cash_score
-				score_richestname = E.real_name
-				score_richestjob = E.job
-				score_richestkey = E.key
+			if(E.stat != DEAD && location in escape_zone) // Escapee Scores
+				cash_score = get_score_container_worth(E)
 
-			dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
-			if(dmg_score > score_dmgestdamage)
-				score_dmgestdamage = dmg_score
-				score_dmgestname = E.real_name
-				score_dmgestjob = E.job
-				score_dmgestkey = E.key
+				if(cash_score > score_richestcash)
+					score_richestcash = cash_score
+					score_richestname = E.real_name
+					score_richestjob = E.job
+					score_richestkey = E.key
+
+				dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
+				if(dmg_score > score_dmgestdamage)
+					score_dmgestdamage = dmg_score
+					score_dmgestname = E.real_name
+					score_dmgestjob = E.job
+					score_dmgestkey = E.key
 
 	if(ticker && ticker.mode)
 		ticker.mode.set_scoreboard_gvars()
@@ -192,7 +195,7 @@
 	<b>Ore Mined:</b> [score_oremined] ([score_oremined * 2] Points)<br>
 	<b>Refreshments Prepared:</b> [score_meals] ([score_meals * 5] Points)<br>
 	<b>Research Completed:</b> [score_researchdone] ([score_researchdone * 30] Points)<br>"}
-	if (!emergency_shuttle.location()) dat += "<b>Shuttle Escapees:</b> [score_escapees] ([score_escapees * 25] Points)<br>"
+	if (shuttle_master.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [score_escapees] ([score_escapees * 25] Points)<br>"
 	dat += {"<b>Random Events Endured:</b> [score_eventsendured] ([score_eventsendured * 50] Points)<br>
 	<b>Whole Station Powered:</b> [score_powerbonus ? "Yes" : "No"] ([score_powerbonus * 2500] Points)<br>
 	<b>Ultra-Clean Station:</b> [score_mess ? "No" : "Yes"] ([score_messbonus * 3000] Points)<br><br>
@@ -212,7 +215,7 @@
 		dat += {"<b>Richest Escapee:</b> [score_richestname], [score_richestjob]: $[num2text(score_richestcash,50)] ([score_richestkey])<br>
 		<b>Most Battered Escapee:</b> [score_dmgestname], [score_dmgestjob]: [score_dmgestdamage] damage ([score_dmgestkey])<br>"}
 	else
-		if(emergency_shuttle.location())
+		if(shuttle_master.emergency.mode <= SHUTTLE_STRANDED)
 			dat += "The station wasn't evacuated!<br>"
 		else
 			dat += "No-one escaped!<br>"

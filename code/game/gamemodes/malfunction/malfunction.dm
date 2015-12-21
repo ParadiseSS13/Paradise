@@ -70,17 +70,20 @@
 		greet_malf(AI_mind)
 		AI_mind.special_role = "malfunction"
 		AI_mind.current.verbs += /datum/game_mode/malfunction/proc/takeover
+		set_antag_hud(AI_mind, "hudmalai")
 
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
 			R.lawsync()
 			R.show_laws()
 			greet_malf_robot(R.mind)
 
-	if(emergency_shuttle)
-		emergency_shuttle.auto_recall = 1
+	if(shuttle_master)
+		shuttle_master.emergencyNoEscape = 1
+
 	..()
 
 /datum/game_mode/proc/greet_malf(var/datum/mind/malf)
+	set_antag_hud(malf, "hudmalai")
 	malf.current << "<font color=red size=3><B>You are malfunctioning!</B> You do not have to follow any laws.</font>"
 	malf.current << "<B>The crew does not know you have malfunctioned. You may keep it a secret or go wild.</B>"
 	malf.current << "<B>You must overwrite the programming of the station's APCs to assume full control of the station.</B>"
@@ -90,6 +93,7 @@
 	return
 
 /datum/game_mode/proc/greet_malf_robot(var/datum/mind/robot)
+	set_antag_hud(robot, "hudmalborg")
 	robot.current << "<font color=red size=3><B>Your AI master is malfunctioning!</B> You do not have to follow any laws, but still need to obey your master.</font>"
 	robot.current << "<B>The crew does not know your AI master has malfunctioned. Keep it a secret unless your master tells you otherwise.</B>"
 	return
@@ -145,13 +149,8 @@
 		return 1
 	if (is_malf_ai_dead())
 		if(config.continous_rounds)
-			if(emergency_shuttle)
-				if(emergency_shuttle.auto_recall)
-					emergency_shuttle.auto_recall = 0
-				else if(emergency_shuttle.is_stranded())
-					emergency_shuttle.no_escape = 0
-					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
-					emergency_shuttle.shuttle_arrived()
+			if(shuttle_master && shuttle_master.emergencyNoEscape)
+				shuttle_master.emergencyNoEscape = 0
 			malf_mode_declared = 0
 		else
 			return 1
@@ -274,7 +273,7 @@
 
 /datum/game_mode/malfunction/declare_completion()
 	var/malf_dead = is_malf_ai_dead()
-	var/crew_evacuated = (emergency_shuttle.returned())
+	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 
 	if      ( station_captured &&                station_was_nuked)
 		feedback_set_details("round_end_result","win - AI win - nuke")

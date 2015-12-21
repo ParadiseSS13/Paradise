@@ -6,6 +6,7 @@
 	origin_tech = "magnets=1"
 	var/listening = 0
 	var/recorded = null	//the activation message
+	var/recorded_type = 0 // 0 for say, 1 for emote
 
 	bomb_name = "voice-activated bomb"
 
@@ -16,15 +17,22 @@
 			return "[src] is deactivated."
 
 	hear_talk(mob/living/M as mob, msg)
+		hear_input(M, msg, 0)
+	
+	hear_message(mob/living/M as mob, msg)
+		hear_input(M, msg, 1)
+		
+	proc/hear_input(mob/living/M as mob, msg, type)
 		if(!istype(M,/mob/living))
 			return
 		if(listening)
 			recorded = msg
+			recorded_type = type
 			listening = 0
 			var/turf/T = get_turf(src)	//otherwise it won't work in hand
-			T.visible_message("\icon[src] beeps, \"Activation message is '[recorded]'.\"")
+			T.visible_message("\icon[src] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 		else
-			if(findtext(msg, recorded))
+			if(findtext(msg, recorded) && type == recorded_type)
 				pulse(0)
 				var/turf/T = get_turf(src)  //otherwise it won't work in hand
 				T.visible_message("\icon[src] \red beeps!")

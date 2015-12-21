@@ -3,6 +3,7 @@
 	name = "bees"
 	icon = 'icons/obj/apiary_bees_etc.dmi'
 	icon_state = "bees1"
+	icon_living = "bees1"
 	icon_dead = "bees1"
 	var/strength = 1
 	var/feral = 0
@@ -79,8 +80,8 @@
 				B.strength = rand(1,5)
 				src.strength -= B.strength
 				if(src.strength <= 5)
-					src.icon_state = "bees[src.strength]"
-				B.icon_state = "bees[B.strength]"
+					src.icon_living = "bees[src.strength]"
+				B.icon_living = "bees[B.strength]"
 				if(src.parent)
 					B.parent = src.parent
 					src.parent.owned_bee_swarms.Add(B)
@@ -117,9 +118,9 @@
 			if(feral > 0)
 				src.strength += B.strength
 				qdel(B)
-				src.icon_state = "bees[src.strength]"
+				src.icon_living = "bees[src.strength]"
 				if(strength > 5)
-					icon_state = "bees_swarm"
+					icon_living = "bees_swarm"
 			else if(prob(10))
 				//make the other swarm of bees stronger, then move away
 				var/total_bees = B.strength + src.strength
@@ -127,11 +128,11 @@
 					B.strength = min(5, total_bees)
 					src.strength = total_bees - B.strength
 
-					B.icon_state = "bees[B.strength]"
+					B.icon_living = "bees[B.strength]"
 					if(src.strength <= 0)
 						qdel(src)
 						return
-					src.icon_state = "bees[B.strength]"
+					src.icon_living = "bees[B.strength]"
 					var/turf/simulated/floor/T = get_turf(get_step(src, pick(1,2,4,8)))
 					density = 1
 					if(T.Enter(src, get_turf(src)))
@@ -180,9 +181,9 @@
 		if(strength <= 0)
 			qdel(src)
 		else if(strength <= 5)
-			icon_state = "bees[strength]"
+			icon_living = "bees[strength]"
 
 	//debugging
-	/*icon_state = "[strength]"
+	/*icon_living = "[strength]"
 	if(strength > 5)
-		icon_state = "unknown"*/
+		icon_living = "unknown"*/

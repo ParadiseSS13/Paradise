@@ -2,7 +2,7 @@
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
 
-/client/proc/restart_controller(controller in list("Master","Failsafe","Supply"))
+/client/proc/restart_controller(controller in list("Master","Failsafe"))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
@@ -14,14 +14,11 @@
 		if("Failsafe")
 			new /datum/controller/failsafe()
 			feedback_add_details("admin_verb","RFailsafe")
-		if("Supply")
-			supply_controller.process()
-			feedback_add_details("admin_verb","RSupply")
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano"))
+/client/proc/debug_controller(controller in list("Master","failsafe","Ticker","Air","Lighting","Jobs","Sun","Radio","Configuration","pAI", "Cameras","Garbage", "Transfer Controller","Event","Alarm","Scheduler","Nano"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -52,15 +49,6 @@
 		if("Radio")
 			debug_variables(radio_controller)
 			feedback_add_details("admin_verb","DRadio")
-		if("Supply")
-			debug_variables(supply_controller)
-			feedback_add_details("admin_verb","DSupply")
-		if("Shuttles")
-			debug_variables(shuttle_controller)
-			feedback_add_details("admin_verb","DShuttles")
-		if("Emergency Shuttle")
-			debug_variables(emergency_shuttle)
-			feedback_add_details("admin_verb","DEmergency")
 		if("Configuration")
 			debug_variables(config)
 			feedback_add_details("admin_verb","DConf")

@@ -1,5 +1,5 @@
 /obj/machinery/computer/merch
-	name = "Merch Computer"
+	name = "merch computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "comm_logs"
 	circuit = /obj/item/weapon/circuitboard/merch

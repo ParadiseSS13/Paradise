@@ -181,10 +181,10 @@
 	if (client.statpanel == "Status")
 		stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
-	if(emergency_shuttle)
-		var/eta_status = emergency_shuttle.get_status_panel_eta()
-		if(eta_status)
-			stat(null, eta_status)
+	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
+		var/timeleft = shuttle_master.emergency.timeLeft()
+		if(timeleft > 0)
+			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/living/carbon/alien/Stun(amount)
 	if(status_flags & CANSTUN)
@@ -291,3 +291,30 @@ Des: Removes all infected images from the alien.
 #undef HEAT_DAMAGE_LEVEL_1
 #undef HEAT_DAMAGE_LEVEL_2
 #undef HEAT_DAMAGE_LEVEL_3
+
+/mob/living/carbon/alien/handle_footstep(turf/T)
+	if(..())
+		if(T.footstep_sounds["xeno"])
+			var/S = pick(T.footstep_sounds["xeno"])
+			if(S)
+				if(m_intent == "run")
+					if(!(step_count % 2)) //every other turf makes a sound
+						return 0
+
+				var/range = -(world.view - 2)
+				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
+				var/volume = 5
+
+				if(m_intent == "walk")
+					return 0 //silent when walking
+
+				if(buckled || lying || throwing)
+					return 0 //people flying, lying down or sitting do not step
+
+				if(!has_gravity(src))
+					if(step_count % 3) //this basically says, every three moves make a noise
+						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
+
+				playsound(T, S, volume, 1, range)
+				return 1
+	return 0

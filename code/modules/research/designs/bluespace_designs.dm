@@ -9,7 +9,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
 	reliability = 100
-	build_path = /obj/item/bluespace_crystal/artificial
+	build_path = /obj/item/weapon/ore/bluespace_crystal/artificial
 	category = list("Bluespace")
 
 /datum/design/bag_holding

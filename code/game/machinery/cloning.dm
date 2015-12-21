@@ -187,7 +187,7 @@
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(var/datum/dna2/record/R)
-	if(mess || attempting || panel_open)
+	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
 		return 0
 	var/datum/mind/clonemind = locate(R.mind)
 	if(!istype(clonemind))	//not a mind
@@ -244,13 +244,13 @@
 	callHook("clone", list(H))
 
 	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_all_rev_icons() //So the icon actually appears
+		ticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_all_synd_icons()
+		ticker.mode.update_synd_icons_added()
 	if (H.mind in ticker.mode.cult)
 		ticker.mode.add_cult_viewpoint(H)
 		ticker.mode.add_cultist(src.occupant.mind)
-		ticker.mode.update_all_cult_icons() //So the icon actually appears
+		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(("\ref[H.mind]" in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
@@ -451,7 +451,7 @@
 	if (src.occupant.client)
 		src.occupant.client.eye = src.occupant.client.mob
 		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	src.occupant.forceMove(get_turf(src))
 	src.eject_wait = 0 //If it's still set somehow.
 	domutcheck(src.occupant) //Waiting until they're out before possible notransform.
 	src.occupant = null

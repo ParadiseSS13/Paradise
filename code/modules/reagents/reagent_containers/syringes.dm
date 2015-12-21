@@ -97,7 +97,7 @@
 						var/time = 30 //Injecting through a hardsuit takes longer due to needing to find a port.
 						if(istype(target,/mob/living/carbon/human))
 							var/mob/living/carbon/human/H = T
-							if((H.species.bloodflags & BLOOD_SLIME) || (H.species.flags & NO_BLOOD))
+							if(H.species.flags & NO_BLOOD)
 								usr << "<span class='warning'>You are unable to locate any blood.</span>"
 								return
 							if(H.wear_suit && istype(H.wear_suit,/obj/item/clothing/suit/space))
@@ -118,7 +118,7 @@
 						var/datum/reagent/B
 						if(istype(T,/mob/living/carbon/human))
 							var/mob/living/carbon/human/H = T
-							if(H.species && H.species.flags & NO_BLOOD)
+							if(H.species && H.species.exotic_blood && H.reagents.total_volume)
 								H.reagents.trans_to(src,amount)
 							else
 								B = T.take_blood(src,amount)

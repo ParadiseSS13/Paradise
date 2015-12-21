@@ -9,7 +9,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3.0
+	w_class = 2
 	var/charge = 0	// note %age conveted to actual charge in New
 	var/maxcharge = 10000
 	rating = 1
@@ -24,7 +24,7 @@
 /obj/item/weapon/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
-	origin_tech = "powerstorage=0"
+	origin_tech = null
 	maxcharge = 5000
 	rating = 2
 	materials = list(MAT_GLASS=40)
@@ -35,7 +35,7 @@
 
 /obj/item/weapon/stock_parts/cell/secborg
 	name = "\improper Security borg rechargable D battery"
-	origin_tech = "powerstorage=0"
+	origin_tech = null
 	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
 	rating = 2.5
 	materials = list(MAT_GLASS=40)
@@ -160,4 +160,4 @@
 	name = "temperature gun cell"
 	desc = "A specially designed power cell for heating and cooling projectiles"
 	icon_state = "icell"
-	maxcharge = 900	
+	maxcharge = 900

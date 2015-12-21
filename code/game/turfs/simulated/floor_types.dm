@@ -31,6 +31,11 @@
 	icon_state = "wood"
 	floor_tile = new/obj/item/stack/tile/wood
 
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
+		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
+	)
+
 /turf/simulated/floor/vault
 	icon_state = "rockvault"
 
@@ -131,6 +136,11 @@
 	floor_tile = null
 	intact = 0
 
+	footstep_sounds = list(
+	"human" = list('sound/effects/footstep/plating_human.ogg'),
+	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
+	)
+
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
@@ -181,6 +191,37 @@
 	density = 1
 	blocks_air = 1
 
+
+//sub-type to be used for interior shuttle walls
+//won't get an underlay of the destination turf on shuttle move
+/turf/simulated/shuttle/wall/interior/copyTurf(turf/T)
+	if(T.type != type)
+		T.ChangeTurf(type)
+		if(underlays.len)
+			T.underlays = underlays
+	if(T.icon_state != icon_state)
+		T.icon_state = icon_state
+	if(T.icon != icon)
+		T.icon = icon
+	if(T.color != color)
+		T.color = color
+	if(T.dir != dir)
+		T.dir = dir
+	T.transform = transform
+	return T
+
+/turf/simulated/shuttle/wall/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform
+
+//why don't shuttle walls habe smoothwall? now i gotta do rotation the dirty way
+/turf/simulated/shuttle/wall/shuttleRotate(rotation)
+	var/matrix/M = transform
+	M.Turn(rotation)
+	transform = M
+
+
+
 /turf/simulated/shuttle/floor
 	name = "floor"
 	icon_state = "floor"
@@ -195,7 +236,7 @@
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
 /turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
-	name = "Brig floor"        // Also added it into the 2x3 brig area of the shuttle.
+	name = "brig floor"        // Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
 
 /turf/simulated/shuttle/floor4/vox	//Vox skipjack floors
@@ -204,20 +245,20 @@
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
 /turf/simulated/floor/beach
-	name = "Beach"
+	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
 /turf/simulated/floor/beach/sand
-	name = "Sand"
+	name = "sand"
 	icon_state = "sand"
 
 /turf/simulated/floor/beach/coastline
-	name = "Coastline"
+	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
 /turf/simulated/floor/beach/water
-	name = "Water"
+	name = "water"
 	icon_state = "water"
 
 /turf/simulated/floor/beach/water/New()
@@ -225,7 +266,7 @@
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
 
 /turf/simulated/floor/grass
-	name = "Grass patch"
+	name = "grass patch"
 	icon_state = "grass1"
 	floor_tile = new/obj/item/stack/tile/grass
 
@@ -242,9 +283,14 @@
 						FF.update_icon() //so siding get updated properly
 
 /turf/simulated/floor/carpet
-	name = "Carpet"
+	name = "carpet"
 	icon_state = "carpet"
 	floor_tile = new/obj/item/stack/tile/carpet
+
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/carpet_human.ogg'),
+		"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
+	)
 
 	New()
 		floor_tile.New() //I guess New() isn't ran on objects spawned without the definition of a turf to house them, ah well.

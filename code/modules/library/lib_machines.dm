@@ -114,7 +114,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 // TODO: Make this an actual /obj/machinery/computer that can be crafted from circuit boards and such
 // It is August 22nd, 2012... This TODO has already been here for months.. I wonder how long it'll last before someone does something about it.
 /obj/machinery/librarycomp
-	name = "Check-In/Out Computer"
+	name = "check-in/out computer"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
 	anchored = 1
@@ -473,7 +473,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		qdel(O)
 	else
 		..()
-		
+
 /client/proc/delbook()
 	set name = "Delete Book"
 	set desc = "Permamently deletes a book from the database."
@@ -485,7 +485,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 	var/isbn = input("ISBN number?", "Delete Book") as num | null
 	if(!isbn)
 		return
-		
+
 	var/DBQuery/query_delbook = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[isbn]")
 	if(!query_delbook.Execute())
 		var/err = query_delbook.ErrorMsg()

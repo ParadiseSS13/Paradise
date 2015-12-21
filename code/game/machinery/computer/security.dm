@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/secure_data//TODO:SANITY
-	name = "Security Records"
-	desc = "Used to view and edit personnel's security records"
+	name = "security records"
+	desc = "Used to view and edit personnel's security records."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	req_one_access = list(access_security, access_forensics_lockers)
@@ -511,8 +511,6 @@ What a mess.*/
 
 					if ("Change Criminal Status")
 						if (active2)
-							for(var/mob/living/carbon/human/H in player_list)
-								H.hud_updateflag |= 1 << WANTED_HUD
 							switch(href_list["criminal2"])
 								if("none")
 									active2.fields["criminal"] = "None"
@@ -524,6 +522,9 @@ What a mess.*/
 									active2.fields["criminal"] = "Parolled"
 								if("released")
 									active2.fields["criminal"] = "Released"
+
+							for(var/mob/living/carbon/human/H in mob_list)
+								H.sec_hud_set_security_status()
 
 					if ("Delete Record (Security) Execute")
 						if (active2)

@@ -15,7 +15,7 @@
     {{for data.contents}}
       <div class='item'>
         <span class='highlight'>{{:value.display_name}} ({{:value.quantity}} available)</span>
-        <div style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'circle-arrow-s', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
+        <div class='line' style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'circle-arrow-s', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
 		{{if value.quantity >= 5}}
 			{{:helper.link('x5', 'circle-arrow-s', { "vend" : value.vend, "amount" : 5 }, null, 'statusValue')}}
 		{{/if}}

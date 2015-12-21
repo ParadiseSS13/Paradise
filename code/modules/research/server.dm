@@ -187,7 +187,7 @@
 
 
 /obj/machinery/computer/rdservercontrol
-	name = "R&D Server Controller"
+	name = "\improper R&D server controller"
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
@@ -335,7 +335,7 @@
 		emagged = 1
 		user << "\blue You you disable the security protocols"
 	src.updateUsrDialog()
-	
+
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"
 	id_with_upload_string = "1;3"

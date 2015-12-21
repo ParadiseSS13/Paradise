@@ -92,5 +92,5 @@
 	amount = 50
 
 /obj/structure/closet/critter/deer
-	name = "Deer crate"
+	name = "deer crate"
 	content_mob = /mob/living/simple_animal/deer

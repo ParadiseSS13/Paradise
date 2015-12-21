@@ -312,7 +312,7 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		else
 			clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-	if(!H.species.bloodflags & BLOOD_SLIME)
+	if(!H.species.bodyflags & NO_EYES)
 		preview_icon.Blend(eyes_s, ICON_OVERLAY)
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)

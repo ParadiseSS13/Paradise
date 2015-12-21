@@ -11,7 +11,7 @@ var/prison_shuttle_time = 0
 var/prison_shuttle_timeleft = 0
 
 /obj/machinery/computer/prison_shuttle
-	name = "Prison Shuttle Console"
+	name = "prison shuttle console"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "syndishuttle"
