@@ -141,10 +141,8 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 
 /datum/reagent/chocolate/reaction_turf(var/turf/T, var/volume)
 	src = null
-	var/volume_left = volume
-	while(volume_left >= 5)
+	if(volume >= 5)
 		new /obj/item/weapon/reagent_containers/food/snacks/cocoa_pile(T)
-		volume_left -= 5
 	return
 
 /datum/reagent/mugwort
