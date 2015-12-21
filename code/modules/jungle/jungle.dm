@@ -215,16 +215,6 @@
 		path_nodes.Add(new /obj/effect/landmark/path_waypoint(J))
 		num_spawned++
 
-	//put a native tribe somewhere
-	num_spawned = 0
-	while(num_spawned < 1)
-		var/turf/unsimulated/jungle/J = locate(rand(RANDOM_LOWER_X, RANDOM_UPPER_X), rand(RANDOM_LOWER_Y, RANDOM_UPPER_Y), src.z)
-		if(!J || !J.bushes_spawn)
-			continue
-		new /obj/effect/jungle_tribe_spawn(J)
-		path_nodes.Add(new /obj/effect/landmark/path_waypoint(J))
-		num_spawned++
-
 	//place some random path waypoints to confuse players
 	max = rand(1,3)
 	num_spawned = 0

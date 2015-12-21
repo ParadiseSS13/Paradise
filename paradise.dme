@@ -1233,7 +1233,6 @@
 #include "code\modules\jungle\jungle_animals.dm"
 #include "code\modules\jungle\jungle_plants.dm"
 #include "code\modules\jungle\jungle_temple.dm"
-#include "code\modules\jungle\jungle_tribe.dm"
 #include "code\modules\jungle\jungle_turfs.dm"
 #include "code\modules\jungle\misc_helpers.dm"
 #include "code\modules\karma\karma.dm"
