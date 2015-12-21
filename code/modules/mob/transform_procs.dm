@@ -113,7 +113,7 @@
 
 	// let spirits identify cultists
 	if(ticker.mode)
-		ticker.mode.reset_cult_icons_for_spirit(new_spirit)
+		ticker.mode.add_cult_icon_to_spirit(new_spirit)
 
 	// highlander test
 	there_can_be_only_one_mask(new_spirit)

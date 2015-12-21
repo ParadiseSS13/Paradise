@@ -3,11 +3,11 @@ proc/get_infection_chance(var/mob/living/carbon/M, var/vector = "Airborne")
 	var/score = 0
 	if (!istype(M))
 		return 0
-	
+
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && H.species.virus_immune)
-		return 0	
-	
+		return 0
+
 	if(istype(M, /mob/living/carbon/human))
 		if (vector == "Airborne")
 			if(M.internal)  //not breathing infected air helps greatly
@@ -89,7 +89,6 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 		var/datum/disease2/disease/D = disease.getcopy()
 		D.minormutate()
 		M.virus2["[D.uniqueID]"] = D
-		M.hud_updateflag |= 1 << STATUS_HUD
 
 //Infects mob M with random lesser disease, if he doesn't have one
 /proc/infect_mob_random_lesser(var/mob/living/carbon/M)
@@ -97,14 +96,12 @@ proc/airborne_can_reach(turf/source, turf/target, var/radius=5)
 	D.makerandom()
 	D.infectionchance = 1
 	M.virus2["[D.uniqueID]"] = D
-	M.hud_updateflag |= 1 << STATUS_HUD
 
 //Infects mob M with random greated disease, if he doesn't have one
 /proc/infect_mob_random_greater(var/mob/living/carbon/M)
 	var/datum/disease2/disease/D = new /datum/disease2/disease
 	D.makerandom(1)
 	M.virus2["[D.uniqueID]"] = D
-	M.hud_updateflag |= 1 << STATUS_HUD
 
 //Fancy prob() function.
 /proc/dprob(var/p)

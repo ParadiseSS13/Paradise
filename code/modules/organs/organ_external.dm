@@ -859,7 +859,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	release_restraints(victim)
 	victim.organs -= src
-	victim.organs_by_name[limb_name] = null // Remove from owner's vars.
+	if(is_primary_organ(victim))
+		victim.organs_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic && sabotaged)
@@ -889,3 +890,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\red <b>Your [name] melts away!</b>",	\
 			"\red You hear a sickening sizzle.")
 	disfigured = 1
+
+/obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)
+	if (isnull(O))
+		O = owner
+	if (!istype(O)) // You're not the primary organ of ANYTHING, bucko
+		return 0
+	return src == O.organs_by_name[limb_name]

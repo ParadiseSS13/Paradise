@@ -30,6 +30,12 @@
 		var/obj/O = new path()
 		req_component_names[tname] = O.name
 
+/obj/machinery/constructable_frame/proc/get_req_components_amt()
+	var/amt = 0
+	for(var/path in req_components)
+		amt += req_components[path]
+	return amt
+
 // update description of required components remaining
 /obj/machinery/constructable_frame/proc/update_req_desc()
 	if(!req_components || !req_component_names)
@@ -150,6 +156,32 @@
 					new_machine.RefreshParts()
 					qdel(src)
 					return
+
+			if(istype(P, /obj/item/weapon/storage/part_replacer) && P.contents.len && get_req_components_amt())
+				var/obj/item/weapon/storage/part_replacer/replacer = P
+				var/list/added_components = list()
+				var/list/part_list = list()
+
+				//Assemble a list of current parts, then sort them by their rating!
+				for(var/obj/item/weapon/stock_parts/co in replacer)
+					part_list += co
+
+				for(var/path in req_components)
+					while(req_components[path] > 0 && (locate(path) in part_list))
+						var/obj/item/part = (locate(path) in part_list)
+						if(!part.crit_fail)
+							added_components[part] = path
+							replacer.remove_from_storage(part, src)
+							req_components[path]--
+							part_list -= part
+
+				for(var/obj/item/weapon/stock_parts/part in added_components)
+					components += part
+					user << "<span class='notice'>[part.name] applied.</span>"
+				replacer.play_rped_sound()
+
+				update_req_desc()
+				return
 
 			if(istype(P, /obj/item))
 				var/success

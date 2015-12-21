@@ -28,7 +28,7 @@
 	return ..()
 
 /obj/machinery/computer/cloning/process()
-	if(!scanner || !pods.len || !autoprocess)
+	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
 		return
 
 	if(scanner.occupant && (scanner.scan_level > 2))
@@ -341,6 +341,10 @@
 	return
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
+	if (stat & NOPOWER)
+		return
+	if (scanner.stat & (NOPOWER|BROKEN))
+		return
 	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)

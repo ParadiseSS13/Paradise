@@ -131,4 +131,5 @@
 	var/ribcage =	0
 	var/head_reattach = 0
 	var/current_organ = "organ"
+	var/obj/item/organ/organ_ref = null
 	var/list/in_progress = list()

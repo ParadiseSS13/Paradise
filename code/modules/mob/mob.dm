@@ -18,7 +18,12 @@
 		dead_mob_list += src
 	else
 		living_mob_list += src
+	prepare_huds()
 	..()
+
+/atom/proc/prepare_huds()
+	for(var/hud in hud_possible)
+		hud_list[hud] = image('icons/mob/hud.dmi', src, "")
 
 /mob/proc/generate_name()
 	return name
@@ -1392,6 +1397,10 @@ mob/proc/yank_out_object()
 	if(isliving(src))
 		spell.action.Grant(src)
 	return
+
+//override to avoid rotating pixel_xy on mobs
+/mob/shuttleRotate(rotation)
+	dir = angle2dir(rotation+dir2angle(dir))
 
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl

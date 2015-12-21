@@ -423,17 +423,23 @@
 
 	if(mode==47)
 		var/supplyData[0]
-		var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-		if (shuttle)
-			supplyData["shuttle_moving"] = shuttle.has_arrive_time()
-			supplyData["shuttle_eta"] = shuttle.eta_minutes()
-			supplyData["shuttle_loc"] = shuttle.at_station() ? "Station" : "Dock"
+
+		if(shuttle_master.supply.mode == SHUTTLE_CALL)
+			supplyData["shuttle_moving"] = 1
+
+		if(shuttle_master.supply.z != ZLEVEL_STATION)
+			supplyData["shuttle_loc"] = "station"
+		else
+			supplyData["shuttle_loc"] = "centcom"
+
+		supplyData["shuttle_time"] = "([shuttle_master.supply.timeLeft(600)] Mins)"
+
 		var/supplyOrderCount = 0
 		var/supplyOrderData[0]
-		for(var/S in supply_controller.shoppinglist)
+		for(var/S in shuttle_master.shoppinglist)
 			var/datum/supply_order/SO = S
-
 			supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+
 		if(!supplyOrderData.len)
 			supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
 
@@ -442,10 +448,11 @@
 
 		var/requestCount = 0
 		var/requestData[0]
-		for(var/S in supply_controller.requestlist)
+		for(var/S in shuttle_master.requestlist)
 			var/datum/supply_order/SO = S
 			requestCount++
 			requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+
 		if(!requestData.len)
 			requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
 

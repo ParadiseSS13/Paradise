@@ -165,10 +165,9 @@ var/specops_shuttle_timeleft = 0
 				spawn_marauder.Add(L.loc)
 		for(var/obj/effect/landmark/L in world)
 			if(L.name == "Marauder Exit")
-				var/obj/effect/portal/P = new(L.loc)
+				var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
 				//P.invisibility = 101//So it is not seen by anyone.
 				P.failchance = 0//So it has no fail chance when teleporting.
-				P.target = pick(spawn_marauder)//Where the marauder will arrive.
 				spawn_marauder.Remove(P.target)
 
 		sleep(10)

@@ -37,6 +37,14 @@
 	new /obj/item/weapon/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
 
+/**********************Shuttle Computer**************************/
+
+/obj/machinery/computer/shuttle/mining
+	name = "Mining Shuttle Console"
+	desc = "Used to call and send the mining shuttle."
+	circuit = /obj/item/weapon/circuitboard/mining_shuttle
+	shuttleId = "mining"
+	possible_destinations = "mining_home;mining_away"
 
 /******************************Lantern*******************************/
 

@@ -31,7 +31,7 @@
 			if ("groin")
 				return "abdominal"
 		return ""
-		
+
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!", \
@@ -177,7 +177,7 @@
 				"\blue You take [obj] out of [target]'s [affected.name]s with \the [tool]." )
 				affected.implants -= obj
 
-				target.hud_updateflag |= 1 << IMPLOYAL_HUD
+				target.sec_hud_set_implants()
 
 				//Handle possessive brain borers.
 				if(istype(obj,/mob/living/simple_animal/borer))

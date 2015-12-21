@@ -64,11 +64,11 @@
 	user << "<span class='notice'>We have regenerated.</span>"
 
 	user.regenerate_icons()
-	user.hud_updateflag |= 1 << HEALTH_HUD
-	user.hud_updateflag |= 1 << STATUS_HUD
 
 	user.status_flags &= ~(FAKEDEATH)
 	user.update_canmove()
 	user.mind.changeling.purchasedpowers -= src
+	user.med_hud_set_status()
+	user.med_hud_set_health()
 	feedback_add_details("changeling_powers","CR")
 	return 1

@@ -3,7 +3,8 @@
 	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
-	required_players = 0
+	required_players = 35
+	required_players_secret = 35
 
 	uplink_welcome = "EVIL METEOR Uplink Console:"
 	uplink_uses = 10
@@ -40,13 +41,16 @@
 		if(player.stat != DEAD)
 			var/turf/location = get_turf(player.loc)
 			if(!location)	continue
-			switch(location.loc.type)
-				if( /area/shuttle/escape/centcom )
-					text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
-				if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-					text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
-				else
-					text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+
+			if(location.loc.type == shuttle_master.emergency.areaInstance.type) //didn't work in the switch for some reason
+				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+
+			else
+				switch(location.loc.type)
+					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
+						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+					else
+						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
 			survivors++
 
 	if(survivors)

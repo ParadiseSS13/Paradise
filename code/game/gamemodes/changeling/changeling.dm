@@ -68,6 +68,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		grant_changeling_powers(changeling.current)
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
+		update_change_icons_added(changeling)
 
 	..()
 
@@ -136,7 +137,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>\red You are a changeling!</B>"
 	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>"
 	changeling.current << "<B>You must complete the following tasks:</B>"
-
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
@@ -147,6 +147,32 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
+
+
+
+/datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
+	if(changeling_mind in changelings)
+		changelings -= changeling_mind
+		changeling_mind.current.remove_changeling_powers()
+		changeling_mind.memory = ""
+		changeling_mind.special_role = null
+		if(issilicon(changeling_mind))
+			changeling_mind.current << "<span class='userdanger'>You have been robotized!</span>"
+			changeling_mind.current << "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>"
+		else
+			changeling_mind.current << "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
+		update_change_icons_removed(changeling_mind)
+
+/datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.join_solo_hud(changeling.current)
+	set_antag_hud(changeling.current, "hudchangeling")
+
+/datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.leave_hud(changeling.current)
+	set_antag_hud(changeling.current, null)
+
 
 /*/datum/game_mode/changeling/check_finished()
 	var/changelings_alive = 0

@@ -131,6 +131,8 @@
 
 	var/datum/hud/hud_used = null
 
+	hud_possible = list(SPECIALROLE_HUD)
+
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 	var/datum/action/scan_mode/scanner = new
 
