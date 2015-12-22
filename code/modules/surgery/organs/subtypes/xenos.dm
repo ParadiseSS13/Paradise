@@ -30,7 +30,7 @@
 //XENOMORPH ORGANS
 
 /obj/item/organ/internal/xenos/plasmavessel
-	name = "plasma vessel"
+	name = "xeno plasma vessel"
 	icon_state = "plasma"
 	origin_tech = "biotech=5;plasmatech=2"
 	w_class = 3
@@ -50,7 +50,7 @@
 	return S
 
 /obj/item/organ/internal/xenos/plasmavessel/queen
-	name = "bloated plasma vessel"
+	name = "bloated xeno plasma vessel"
 	icon_state = "plasma_large"
 	origin_tech = "biotech=6;plasma=3"
 	stored_plasma = 200
@@ -58,7 +58,7 @@
 	plasma_rate = 25
 
 /obj/item/organ/internal/xenos/plasmavessel/drone
-	name = "large plasma vessel"
+	name = "large xeno plasma vessel"
 	icon_state = "plasma_large"
 	stored_plasma = 200
 	max_plasma = 500
@@ -68,14 +68,14 @@
 	max_plasma = 250
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
-	name = "small plasma vessel"
+	name = "small xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	stored_plasma = 100
 	max_plasma = 150
 	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/plant)
 
 /obj/item/organ/internal/xenos/plasmavessel/larva
-	name = "tiny plasma vessel"
+	name = "tiny xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	max_plasma = 100
 
@@ -109,7 +109,7 @@
 
 
 /obj/item/organ/internal/xenos/acidgland
-	name = "acid gland"
+	name = "xeno acid gland"
 	parent_organ = "head"
 	slot = "acidgland"
 	origin_tech = "biotech=5;materials=2;combat=2"
@@ -117,7 +117,7 @@
 
 
 /obj/item/organ/internal/xenos/hivenode
-	name = "hive node"
+	name = "xeno hive node"
 	parent_organ = "head"
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
@@ -133,7 +133,7 @@
 	..()
 
 /obj/item/organ/internal/xenos/neurotoxin
-	name = "neurotoxin gland"
+	name = "xeno neurotoxin gland"
 	icon_state = "neurotox"
 	parent_organ = "head"
 	slot = "neurotoxingland"
@@ -141,7 +141,7 @@
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
 
 /obj/item/organ/internal/xenos/resinspinner
-	name = "resin spinner"
+	name = "xeno resin organ"//...there tiger....
 	parent_organ = "head"
 	icon_state = "stomach-x"
 	slot = "resinspinner"
@@ -149,7 +149,7 @@
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
 
 /obj/item/organ/internal/xenos/eggsac
-	name = "egg sac"
+	name = "xeno egg sac"
 	icon_state = "eggsac"
 	parent_organ = "groin"
 	slot = "eggsac"

@@ -1837,6 +1837,8 @@
 #include "code\modules\surgery\slime.dm"
 #include "code\modules\surgery\surgery.dm"
 #include "code\modules\surgery\tools.dm"
+#include "code\modules\surgery\organs\augments_eyes.dm"
+#include "code\modules\surgery\organs\augments_internal.dm"
 #include "code\modules\surgery\organs\blood.dm"
 #include "code\modules\surgery\organs\body_egg.dm"
 #include "code\modules\surgery\organs\helpers.dm"

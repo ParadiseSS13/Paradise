@@ -159,7 +159,10 @@
 	for(var/organ in has_organ)
 		var/organ_type = has_organ[organ]
 		H.internal_organs_by_name[organ] = new organ_type(H,1)
-		internal_organs += new organ
+		internal_organs += new has_organ[organ]
+
+	for(var/obj/item/organ/internal/I in internal_organs)
+ 		I.Insert(src)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]

@@ -4,18 +4,79 @@
 /obj/effect/proc_holder/changeling/augmented_eyesight
 	name = "Augmented Eyesight"
 	desc = "Creates heat receptors in our eyes and dramatically increases light sensing ability."
-	helptext = "Grants us night vision and thermal vision. It may be toggled on or off."
+	helptext = "Grants us thermal vision or flash protection. We will become a lot more vulnerable to flash-based devices while thermal vision is active."
 	chemical_cost = 0
 	dna_cost = 2 //Would be 1 without thermal vision
+	var/active = 0 //Whether or not vision is enhanced
 
-/obj/effect/proc_holder/changeling/augmented_eyesight/sting_action(var/mob/user)
-	if(!user.vision_type)
-		user << "<span class='notice'>We feel a minute twitch in our eyes, and darkness creeps away.</span>"
-		user.vision_type = new /datum/vision_override/nightvision/thermals/ling_augmented_eyesight
+/obj/effect/proc_holder/changeling/augmented_eyesight/sting_action(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+	if(user.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/thermals/ling))
+		user << "<span class='notice'>Our eyes are protected from flashes.</span>"
+		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/shield/ling()
+		O.Insert(user)
+
 	else
-		user << "<span class='notice'>Our vision dulls. Shadows gather.</span>"
-		user.vision_type = null
+		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling()
+		O.Insert(user)
+
 	return 1
 
+
 /obj/effect/proc_holder/changeling/augmented_eyesight/on_refund(mob/user)
-	user.vision_type = null
+	var/obj/item/organ/internal/cyberimp/eyes/O = user.get_organ_slot("eye_ling")
+	if(O)
+		O.Remove(user)
+		qdel(O)
+
+
+
+
+
+/obj/item/organ/internal/cyberimp/eyes/shield/ling
+	name = "protective membranes"
+	desc = "These variable transparency organic membranes will protect you from welders and flashes and heal your eye damage."
+	icon_state = "ling_eyeshield"
+	eye_color = null
+	implant_overlay = null
+	origin_tech = "biotech=4"
+	slot = "eye_ling"
+	status = ORGAN_ORGANIC
+
+/obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
+	..()
+	if(owner.eye_blind || owner.eye_stat || owner.eye_blurry || (owner.disabilities & BLIND) || (owner.disabilities & NEARSIGHT))
+		owner.reagents.add_reagent("oculine", 1)
+
+/obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
+	var/obj/S = ..()
+	S.reagents.add.reagent("oculine", 15)
+	return S
+
+
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling
+	name = "heat receptors"
+	desc = "These heat receptors dramatically increases eyes light sensing ability."
+	icon_state = "ling_thermal"
+	eye_color = null
+	implant_overlay = null
+	origin_tech = "biotech=5;magnets=5"
+	slot = "eye_ling"
+	status = ORGAN_ORGANIC
+	aug_message = "You feel a minute twitch in our eyes, and darkness creeps away."
+
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling/emp_act(severity)
+	return
+
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling/Insert(mob/living/carbon/M, special = 0)
+	..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.weakeyes = 1
+
+/obj/item/organ/internal/cyberimp/eyes/thermals/ling/Remove(mob/living/carbon/M, special = 0)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.weakeyes = 0
+	..()

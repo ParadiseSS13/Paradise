@@ -13,10 +13,8 @@
 	var/mob/living/carbon/brain/brainmob = null
 	organ_tag = "brain"
 	parent_organ = "head"
+	slot = "brain"
 	vital = 1
-
-/obj/item/organ/internal/brain/attack_self(mob/user as mob)
-	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
 
 /obj/item/organ/internal/brain/surgeryize()
 	if(!owner)
