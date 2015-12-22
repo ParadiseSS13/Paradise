@@ -134,6 +134,7 @@
 	S["skin_red"]			>> r_skin
 	S["skin_green"]			>> g_skin
 	S["skin_blue"]			>> b_skin
+	S["horn_style_name"]	>> horns
 	S["hair_style_name"]	>> h_style
 	S["facial_style_name"]	>> f_style
 	S["eyes_red"]			>> r_eyes
@@ -197,6 +198,7 @@
 	r_skin			= sanitize_integer(r_skin, 0, 255, initial(r_skin))
 	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
 	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
+	horns			= sanitize_inlist(horns, horn_styles_list, initial(horns))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))

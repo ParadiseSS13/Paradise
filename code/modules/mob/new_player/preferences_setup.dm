@@ -263,6 +263,13 @@ datum/preferences
 			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
 			eyes_s.Blend(facial_s, ICON_OVERLAY)
 
+		//Horns
+		if(current_species && current_species.name == "Unathi")
+			var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
+			if(horn_style)
+				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
+				horns_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+				eyes_s.Blend(horns_s, ICON_OVERLAY)
 
 		var/icon/underwear_s = null
 		if(underwear && current_species.clothing_flags & HAS_UNDERWEAR)

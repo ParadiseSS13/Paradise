@@ -1,4 +1,6 @@
 //Preferences stuff
+	//Hornstyles
+var/global/list/horn_styles_list = list() //stores /datum/sprite_accessory/horns indexed by name
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
 var/global/list/hair_styles_male_list = list()

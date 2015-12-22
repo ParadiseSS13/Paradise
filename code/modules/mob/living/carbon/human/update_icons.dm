@@ -120,16 +120,17 @@ Please contact me on #coderbus IRC. ~Carn x
 #define SUIT_STORE_LAYER		13
 #define BACK_LAYER				14
 #define HAIR_LAYER				15		//TODO: make part of head layer?
-#define FACEMASK_LAYER			16
-#define HEAD_LAYER				17
-#define COLLAR_LAYER			18
-#define HANDCUFF_LAYER			19
-#define LEGCUFF_LAYER			20
-#define L_HAND_LAYER			21
-#define R_HAND_LAYER			22
-#define TARGETED_LAYER			23		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				24    //If you're on fire
-#define TOTAL_LAYERS			24
+#define HORN_LAYER				16
+#define FACEMASK_LAYER			17
+#define HEAD_LAYER				18
+#define COLLAR_LAYER			19
+#define HANDCUFF_LAYER			20
+#define LEGCUFF_LAYER			21
+#define L_HAND_LAYER			22
+#define R_HAND_LAYER			23
+#define TARGETED_LAYER			24		//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				25    //If you're on fire
+#define TOTAL_LAYERS			25
 
 
 
@@ -350,6 +351,42 @@ var/global/list/damage_icon_parts = list()
 
 	//tail
 	update_tail_layer(0)
+	//horns
+	update_horns(0)
+
+
+//HORN OVERLAY
+/mob/living/carbon/human/proc/update_horns(var/update_icons=1)
+	//Reset our horns
+	overlays_standing[HORN_LAYER]	= null
+
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+		if(update_icons)   update_icons()
+		return
+
+	//masks and helmets can obscure our horns, unless we're a synthetic
+	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+		if(update_icons)   update_icons()
+		return
+
+	//base icons
+	var/icon/horns_standing	= new /icon('icons/mob/body_accessory.dmi',"horns_none_s")
+
+	if(horns && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.name == "Unathi")))
+		var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
+		if(horn_style && horn_style.species_allowed)
+			if(src.species.name in horn_style.species_allowed)
+				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
+				if(horn_style.do_colouration)
+					horns_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+				horns_standing.Blend(horns_s, ICON_OVERLAY)
+		else
+			//warning("Invalid horns for [species.name]: [horns]")
+
+	overlays_standing[HORN_LAYER]	= image(horns_standing)
+
+	if(update_icons)   update_icons()
 
 
 //HAIR OVERLAY
@@ -1032,6 +1069,7 @@ var/global/list/damage_icon_parts = list()
 #undef BACK_LAYER
 #undef HAIR_LAYER
 #undef HEAD_LAYER
+#undef HORN_LAYER
 #undef COLLAR_LAYER
 #undef HANDCUFF_LAYER
 #undef LEGCUFF_LAYER

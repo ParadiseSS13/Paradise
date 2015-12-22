@@ -1499,3 +1499,53 @@
 	icon_state = "vox_fishnet"
 	gender = NEUTER
 	species_allowed = list("Vox")
+
+/* HORNS */
+
+/datum/sprite_accessory/horns
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi")
+	icon_state = null
+
+/datum/sprite_accessory/horns/none
+	name = "None"
+	icon_state = "horns_none"
+
+/datum/sprite_accessory/horns/simple
+	name = "Simple"
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/horns/short
+	name = "Short"
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/horns/curled
+	name = "Curled"
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/horns/ram
+	name = "Ram"
+	icon_state = "horns_ram"
+
+/* FRILLS */
+
+/datum/sprite_accessory/frills
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi")
+	icon_state = null
+
+/datum/sprite_accessory/frills/none
+	name = "None"
+	icon_state = null
+
+/datum/sprite_accessory/frills/simple
+	name = "Simple"
+	icon_state = "simple"
+
+/datum/sprite_accessory/frills/short
+	name = "Short"
+	icon_state = "short"
+
+/datum/sprite_accessory/frills/aquatic
+	name = "Aquatic"
+	icon_state = "aqua"

@@ -111,6 +111,7 @@ datum/preferences
 	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
 	var/h_style = "Bald"				//Hair type
+	var/horns = "None"					//Horn style
 	var/r_hair = 0						//Hair color
 	var/g_hair = 0						//Hair color
 	var/b_hair = 0						//Hair color
@@ -352,6 +353,10 @@ datum/preferences
 				else
 					dat += "[TextPreview(flavor_text)]...<br>"
 				dat += "<br>"
+
+				if(species == "Unathi")
+					dat += "<br><b>Horns</b><br>"
+					dat += "Style: <a href='?_src_=prefs;preference=horns;task=input'>[horns]</a><br>"
 
 				var/hairname = "Hair"
 				if(species == "Machine")
@@ -1188,6 +1193,19 @@ datum/preferences
 						if(new_h_style)
 							h_style = new_h_style
 
+					if("horns")
+						var/list/valid_hornstyles = list()
+						for(var/hornstyle in horn_styles_list)
+							var/datum/sprite_accessory/H = horn_styles_list[hornstyle]
+							if( !(species in H.species_allowed))
+								continue
+
+							valid_hornstyles[hornstyle] = horn_styles_list[hornstyle]
+
+						var/new_horn_style = input(user, "Choose your character's horn style:", "Character Preference") as null|anything in valid_hornstyles
+						if(new_horn_style)
+							horns = new_horn_style
+
 					if("body_accessory")
 						var/list/possible_body_accessories = list()
 						if(check_rights(R_ADMIN, 1, user))
@@ -1607,6 +1625,8 @@ datum/preferences
 		character.undershirt = undershirt
 		character.socks = socks
 
+		if(character.species.name == "Unathi")
+			character.horns = horns
 		if(body_accessory)
 			character.body_accessory = body_accessory_by_name["[body_accessory]"]
 
