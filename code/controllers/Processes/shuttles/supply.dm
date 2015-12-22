@@ -606,6 +606,7 @@
 			orders_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment)))
 	data["orders"] = orders_list
 
+	data["canapprove"] = (shuttle_master.supply.getDockedId() == "supply_away") && !(shuttle_master.supply.mode != SHUTTLE_IDLE)
 	data["points"] = round(shuttle_master.points)
 	data["send"] = list("send" = 1)
 	data["message"] = shuttle_master.centcom_message ? shuttle_master.centcom_message : "Remember to stamp and send back the supply manifests."
@@ -693,7 +694,8 @@
 				O.generateRequisition(loc)
 
 	else if(href_list["confirmorder"])
-		//Find the correct supply_order datum
+		if(shuttle_master.supply.getDockedId() != "supply_away" || shuttle_master.supply.mode != SHUTTLE_IDLE)
+			return 1
 		var/ordernum = text2num(href_list["confirmorder"])
 		var/datum/supply_order/O
 		var/datum/supply_packs/P
