@@ -1,49 +1,3 @@
-
-//spawns one of the specified animal type
-/obj/effect/landmark/animal_spawner
-	icon_state = "x3"
-	var/spawn_type
-	var/mob/living/spawned_animal
-	invisibility = 101
-
-/obj/effect/landmark/animal_spawner/New()
-	if(!spawn_type)
-		var/new_type = pick(subtypesof(/obj/effect/landmark/animal_spawner))
-		new new_type(get_turf(src))
-		qdel(src)
-
-	processing_objects.Add(src)
-	spawned_animal = new spawn_type(get_turf(src))
-
-/obj/effect/landmark/animal_spawner/process()
-	//if any of our animals are killed, spawn new ones
-	if(!spawned_animal || spawned_animal.stat == DEAD)
-		spawned_animal = new spawn_type(src)
-		//after a random timeout, and in a random position (6-30 seconds)
-		spawn(rand(1200,2400))
-			spawned_animal.loc = locate(src.x + rand(-12,12), src.y + rand(-12,12), src.z)
-
-/obj/effect/landmark/animal_spawner/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/effect/landmark/animal_spawner/panther
-	name = "panther spawner"
-	spawn_type = /mob/living/simple_animal/hostile/panther
-
-/obj/effect/landmark/animal_spawner/parrot
-	name = "parrot spawner"
-	spawn_type = /mob/living/simple_animal/parrot
-
-/obj/effect/landmark/animal_spawner/monkey
-	name = "monkey spawner"
-	spawn_type = /mob/living/carbon/human/monkey
-
-/obj/effect/landmark/animal_spawner/snake
-	name = "snake spawner"
-	spawn_type = /mob/living/simple_animal/hostile/snake
-
-
 //*********//
 // Panther //
 //*********//
@@ -112,7 +66,6 @@
 /mob/living/simple_animal/hostile/snake
 	name = "snake"
 	desc = "A sinuously coiled, venomous looking reptile."
-	icon = 'code/modules/jungle/jungle.dmi'
 	icon_state = "snake"
 	icon_living = "snake"
 	icon_dead = "snake_dead"
