@@ -169,8 +169,6 @@ proc/CallMaterialName(ID)
 			return
 		D.loc = src
 		user << "<span class='notice'>You add the disk to the machine!</span>"
-	if(istype(D, /obj/item/weapon/screwdriver) && islocked() && !(stat & BROKEN))
-		user << "<span class='warning'>This console is locked; Unlock it first</span>"
 	else
 		..()
 	src.updateUsrDialog()
@@ -325,12 +323,6 @@ proc/CallMaterialName(ID)
 									linked_destroy.icon_state = "d_analyzer"
 						use_power(250)
 						updateUsrDialog()
-
-	else if(href_list["lock"]) //Lock the console from use by anyone without access.
-		if(src.allowed(usr))
-			screen = text2num(href_list["lock"])
-		else
-			usr << "Unauthorized Access."
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		screen = 0.0
@@ -658,10 +650,6 @@ proc/CallMaterialName(ID)
 
 		if(0.1) dat += "<div class='statusDisplay'>Processing and Updating Database...</div>"
 
-		if(0.2)
-			dat += "<div class='statusDisplay'>SYSTEM LOCKED</div>"
-			dat += "<A href='?src=\ref[src];lock=1.6'>Unlock</A>"
-
 		if(0.3)
 			dat += "<div class='statusDisplay'>Constructing Prototype. Please Wait...</div>"
 
@@ -774,7 +762,6 @@ proc/CallMaterialName(ID)
 				dat += "<A href='?src=\ref[src];togglesync=1'>Connect to Research Network</A><BR>"
 				dat += "<span class='linkOn'>Disconnect from Research Network</span><BR>"
 			dat += "<A href='?src=\ref[src];menu=1.7'>Device Linkage Menu</A><BR>"
-			dat += "<A href='?src=\ref[src];lock=0.2'>Lock Console</A><BR>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<A href='?src=\ref[src];maxresearch=1'>\[ADMIN\] Maximize Research Levels</A><BR>"
 			dat += "<A href='?src=\ref[src];reset=1'>Reset R&D Database</A></div>"
@@ -1155,11 +1142,6 @@ proc/CallMaterialName(ID)
 
 	dat += "</tr></table></div>"
 	return dat
-
-// This check here is silly but the reason I made it a proc is so that if a better criterion is made
-// you can just change it here and you'll be good to go
-/obj/machinery/computer/rdconsole/proc/islocked()
-	return screen == 0.2
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
