@@ -9,7 +9,6 @@
 	flags = NOSLIP
 	origin_tech = "syndicate=3"
 	var/list/clothing_choices = list()
-	siemens_coefficient = 0.8
 	species_restricted = null
 	silence_steps = 1
 
@@ -25,7 +24,6 @@
 	item_state = "jackboots"
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 10, rad = 0)
 	species_restricted = null //Syndicate tech means even Tajarans can kick ass with these
-	siemens_coefficient = 0.6
 	strip_delay = 70
 
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
@@ -87,7 +85,6 @@
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	item_color = "hosred"
-	siemens_coefficient = 0.7
 	strip_delay = 50
 	put_on_delay = 50
 	var/footstep = 1
@@ -117,7 +114,6 @@
 	icon_state = "cult"
 	item_state = "cult"
 	item_color = "cult"
-	siemens_coefficient = 0.7
 
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT

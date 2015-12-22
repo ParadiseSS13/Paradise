@@ -6,7 +6,6 @@
 	icon_state = "chef"
 	item_state = "chef"
 	desc = "The commander in chef's head wear."
-	siemens_coefficient = 0.9
 	strip_delay = 10
 	put_on_delay = 10
 
@@ -16,7 +15,6 @@
 	icon_state = "captain"
 	desc = "It's good being the king."
 	item_state = "caphat"
-	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
 
@@ -31,7 +29,6 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 //Nanotrasen Representative
@@ -47,7 +44,6 @@
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	siemens_coefficient = 0.9
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
@@ -55,7 +51,6 @@
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -63,14 +58,12 @@
 	icon_state = "detective"
 	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy_corn, /obj/item/weapon/pen)
 	armor = list(melee = 50, bullet = 5, laser = 25,energy = 10, bomb = 0, bio = 0, rad = 0)
-	siemens_coefficient = 0.9
 
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
-	siemens_coefficient = 0.9
 
 //Security
 /obj/item/clothing/head/HoS

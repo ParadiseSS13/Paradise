@@ -162,7 +162,6 @@
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	slowdown = -10
-	siemens_coefficient = 0
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"

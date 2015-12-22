@@ -1671,34 +1671,50 @@ var/mob/dview/dview_mob = new
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
 
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = 1, angle_increment = 15)
+/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE)
 	if(!istype(A))
 		return
+
+	if(orbiting)
+		stop_orbit()
+
 	orbiting = A
-	var/angle = 0
 	var/matrix/initial_transform = matrix(transform)
-	spawn
-		while(orbiting)
-			loc = orbiting.loc
+	var/lastloc = loc
 
-			angle += angle_increment
+	//Head first!
+	if(pre_rotation)
+		var/matrix/M = matrix(transform)
+		var/pre_rot = 90
+		if(!clockwise)
+			pre_rot = -90
+		M.Turn(pre_rot)
+		transform = M
 
-			var/matrix/shift = matrix(initial_transform)
-			shift.Translate(radius,0)
-			if(clockwise)
-				shift.Turn(angle)
-			else
-				shift.Turn(-angle)
-			animate(src,transform = shift,2)
+	var/matrix/shift = matrix(transform)
+	shift.Translate(0,radius)
+	transform = shift
 
-			sleep(0.6) //the effect breaks above 0.6 delay
-		animate(src,transform = initial_transform,2)
+	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
+
+	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
+	transform = initial_transform
+	while(orbiting && orbiting == A && A.loc)
+		var/targetloc = get_turf(A)
+		if(!lockinorbit && loc != lastloc && loc != targetloc)
+			break
+		loc = targetloc
+		lastloc = loc
+		sleep(0.6)
+
+	if (orbiting == A) //make sure we haven't started orbiting something else.
+		orbiting = null
+		SpinAnimation(0,0)
+
 
 
 /atom/movable/proc/stop_orbit()
-	if(orbiting)
-		loc = get_turf(orbiting)
-		orbiting = null
+	orbiting = null
 
 //Centers an image.
 //Requires:
