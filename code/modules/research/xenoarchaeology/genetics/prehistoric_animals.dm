@@ -63,7 +63,6 @@
 	icon_state = "yithian"
 	icon_living = "yithian"
 	icon_dead = "yithian_dead"
-	icon = 'code/modules/jungle/jungle.dmi'
 
 /mob/living/simple_animal/tindalos
 	name = "tindalos"
