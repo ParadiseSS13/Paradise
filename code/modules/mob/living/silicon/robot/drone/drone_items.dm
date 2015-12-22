@@ -48,7 +48,7 @@
 	if(wrapped)
 		wrapped.attack_self(user)
 
-/obj/item/weapon/gripper/verb/drop_item()
+/obj/item/weapon/gripper/verb/drop_item(var/silent = 0)
 
 	set name = "Drop Item"
 	set desc = "Release an item from your magnetic gripper."
@@ -64,7 +64,8 @@
 		wrapped = null
 		return
 
-	src.loc << "\red You drop \the [wrapped]."
+	if(!silent)
+		src.loc << "\red You drop \the [wrapped]."
 	wrapped.loc = get_turf(src)
 	wrapped = null
 	//update_icon()

@@ -109,6 +109,13 @@
 	else
 		return 0
 
+/mob/living/silicon/robot/drop_item()
+	var/obj/item/I = get_active_hand()
+	if(istype(I, /obj/item/weapon/gripper))
+		var/obj/item/weapon/gripper/G = I
+		G.drop_item(silent = 1)
+	return
+
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.
 
