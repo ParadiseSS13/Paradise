@@ -28,7 +28,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
-	var/medhud = 0
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -254,19 +253,34 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 
+/mob/dead/observer/proc/show_me_the_hud(hud_index)
+	var/datum/atom_hud/H = huds[hud_index]
+	H.add_hud_to(src)
+	data_hud_seen = hud_index
+
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle MedicHUD"
+	set name = "Toggle Medic/Sec/DiagHUD"
 	set desc = "Toggles the medical HUD."
 	if(!client)
 		return
-	var/datum/atom_hud/H = huds[DATA_HUD_MEDICAL_BASIC]
-	H.remove_hud_from(src)//out with the old..
-	if(medhud==0)//TOGGLE!
-		medhud = 1
-		H.add_hud_to(src)
-	else
-		medhud = 0
+	if(data_hud_seen) //remove old huds
+		var/datum/atom_hud/H = huds[data_hud_seen]
+		H.remove_hud_from(src)
+
+	switch(data_hud_seen) //give new huds
+		if(0)
+			show_me_the_hud(DATA_HUD_SECURITY_BASIC)
+			src << "<span class='notice'>Security HUD set.</span>"
+		if(DATA_HUD_SECURITY_BASIC)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			src << "<span class='notice'>Medical HUD set.</span>"
+		if(DATA_HUD_MEDICAL_ADVANCED)
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+			src << "<span class='notice'>Diagnostic HUD set.</span>"
+		if(DATA_HUD_DIAGNOSTIC)
+			data_hud_seen = 0
+			src << "<span class='notice'>HUDs disabled.</span>"
 
 
 /mob/dead/observer/verb/toggle_antagHUD()
@@ -291,13 +305,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!M.has_enabled_antagHUD && !check_rights(R_ADMIN|R_MOD,0))
 		M.has_enabled_antagHUD = 1
 
-	var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
-	var/adding_hud = (usr in A.hudusers) ? 0 : 1
+	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
+	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
 	for(var/datum/atom_hud/H in huds)
-		if(istype(H, /datum/atom_hud/antag) || istype(H, /datum/atom_hud/data/human/security/advanced))
-			(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
-	usr << "AntagHud Toggled [adding_hud ? "ON" : "OFF"]"
-
+		if(istype(H, /datum/atom_hud/antag))// || istype(H, /datum/atom_hud/data/human/security/advanced))
+			if(!M.antagHUD)
+			//(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+				H.add_hud_to(usr)
+			else
+				H.remove_hud_from(usr)
+	if(!M.antagHUD)
+		usr << "AntagHud Toggled ON"
+		M.antagHUD = 1
+	else
+		usr << "AntagHud Toggled OFF"
+		M.antagHUD = 0
 
 /mob/dead/observer/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"
