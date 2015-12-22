@@ -437,6 +437,11 @@ proc/CallMaterialName(ID)
 									new_item.loc = L
 									L.name += " ([new_item.name])"
 									L.origin_tech = new_item.origin_tech
+									L.req_access = being_built.access_requirement
+									var/lockbox_access = null
+									for(var/A in L.req_access)
+										lockbox_access = get_access_desc(A)
+									L.desc = "A locked box. It is locked to [lockbox_access] access."
 								else
 									new_item.loc = linked_lathe.loc
 						linked_lathe.busy = 0
