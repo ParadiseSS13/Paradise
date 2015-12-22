@@ -23,7 +23,10 @@ var/list/organ_cache = list()
 	germ_level = 0
 	var/datum/dna/dna
 	var/datum/species/species
-	var/needs_preservation_update = 1
+
+	// Stuff for tracking if this is on a tile with an open freezer or not
+	var/last_freezer_update_time = 0
+	var/freezer_update_period = 100
 	var/is_in_freezer = 0
 
 /obj/item/organ/Destroy()
@@ -153,7 +156,7 @@ var/list/organ_cache = list()
 	if(is_found_within(/obj/structure/closet/crate/freezer))
 		return 1
 	if(istype(loc,/turf))
-		if(needs_preservation_update)
+		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
 			// if the virologist releases gibbingtons again or something
 			// There's probably a much less silly way of doing this, but BYOND native algorithms are stupidly naive
@@ -162,9 +165,7 @@ var/list/organ_cache = list()
 				if(F.opened)
 					is_in_freezer = 1 // on the same tile, close enough, should keep organs much fresher on avg
 					break
-			needs_preservation_update = 0
-			spawn(100) // (100 / 10) once every 10 seconds
-				needs_preservation_update = 1
+			last_freezer_update_time = world.time
 		return is_in_freezer // I'd like static varibles, please
 
 	// You can do your cool location temperature organ preserving effects here!
