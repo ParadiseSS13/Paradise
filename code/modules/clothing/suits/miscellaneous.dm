@@ -16,7 +16,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/bluetag)
-	siemens_coefficient = 3.0
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
@@ -26,7 +25,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list (/obj/item/weapon/gun/energy/laser/redtag)
-	siemens_coefficient = 3.0
 
 /*
  * Costume
@@ -146,7 +144,6 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/suit/corgisuit
 	name = "Corgi Suit"
@@ -155,7 +152,6 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	siemens_coefficient = 2.0
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/en
@@ -184,7 +180,6 @@
 	item_state = "monkeysuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	siemens_coefficient = 2.0
 
 
 /obj/item/clothing/suit/holidaypriest
@@ -336,35 +331,30 @@
 	desc = "A rather skimpy pink swimsuit."
 	icon_state = "stripper_p_under"
 	item_color = "stripper_p"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/stripper/stripper_green
 	name = "green swimsuit"
 	desc = "A rather skimpy green swimsuit."
 	icon_state = "stripper_g_under"
 	item_color = "stripper_g"
-	siemens_coefficient = 1
 
 /obj/item/clothing/suit/stripper/stripper_pink
 	name = "pink skimpy dress"
 	desc = "A rather skimpy pink dress."
 	icon_state = "stripper_p_over"
 	item_state = "stripper_p"
-	siemens_coefficient = 1
 
 /obj/item/clothing/suit/stripper/stripper_green
 	name = "green skimpy dress"
 	desc = "A rather skimpy green dress."
 	icon_state = "stripper_g_over"
 	item_state = "stripper_g"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/stripper/mankini
 	name = "the mankini"
 	desc = "No honest man would wear this abomination"
 	icon_state = "mankini"
 	item_color = "mankini"
-	siemens_coefficient = 1
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "military jacket"
@@ -381,45 +371,40 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 2.0
+
 //swimsuit
 /obj/item/clothing/under/swimsuit/
-	siemens_coefficient = 1
+
 
 /obj/item/clothing/under/swimsuit/black
 	name = "black swimsuit"
 	desc = "An oldfashioned black swimsuit."
 	icon_state = "swim_black"
 	item_color = "swim_black"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/swimsuit/blue
 	name = "blue swimsuit"
 	desc = "An oldfashioned blue swimsuit."
 	icon_state = "swim_blue"
 	item_color = "swim_blue"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/swimsuit/purple
 	name = "purple swimsuit"
 	desc = "An oldfashioned purple swimsuit."
 	icon_state = "swim_purp"
 	item_color = "swim_purp"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/swimsuit/green
 	name = "green swimsuit"
 	desc = "An oldfashioned green swimsuit."
 	icon_state = "swim_green"
 	item_color = "swim_green"
-	siemens_coefficient = 1
 
 /obj/item/clothing/under/swimsuit/red
 	name = "red swimsuit"
 	desc = "An oldfashioned red swimsuit."
 	icon_state = "swim_red"
 	item_color = "swim_red"
-	siemens_coefficient = 1
 
 /obj/item/clothing/suit/storage/mercy_hoodie
 	name = "Mercy Robe"
@@ -434,7 +419,6 @@
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/pen,/obj/item/device/flashlight/pen)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/mercy_hood
 	name = "Mercy Hood"
@@ -445,7 +429,6 @@
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 20)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
@@ -532,7 +515,6 @@
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	slowdown = -10
-	siemens_coefficient = 0
 	var/on = 0
 
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()

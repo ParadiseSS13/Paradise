@@ -64,14 +64,14 @@ obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 		Reset(user)
 		return
 
-	user.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
+	user.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
 
 	var/energy = min(world.time - start_time,100)
 	Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
 	Reset(user)
 
 /obj/effect/proc_holder/spell/targeted/lightning/proc/Bolt(mob/origin, mob/target, bolt_energy, bounces, mob/user = usr)
-	origin.Beam(target,icon_state="lightning",icon='icons/effects/effects.dmi',time=5)
+	origin.Beam(target,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
 	var/mob/living/carbon/current = target
 	if(bounces < 1)
 		current.electrocute_act(bolt_energy,"Lightning Bolt", def_zone = "chest")

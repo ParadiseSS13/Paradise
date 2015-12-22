@@ -11,7 +11,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
-	siemens_coefficient = 0.7
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
@@ -65,7 +64,6 @@
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | HEADBANGPROTECT
 	armor = list(melee = 82, bullet = 15, laser = 5,energy = 5, bomb = 5, bio = 2, rad = 0)
 	flags_inv = HIDEEARS
-	siemens_coefficient = 0.7
 	strip_delay = 80
 
 /obj/item/clothing/head/helmet/swat
@@ -80,7 +78,6 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	siemens_coefficient = 0.5
 	strip_delay = 80
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -104,7 +101,6 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	siemens_coefficient = 1
 	strip_delay = 80
 
 /obj/item/clothing/head/helmet/roman
@@ -129,7 +125,6 @@
 	flags = HEADCOVERSEYES | BLOCKHAIR
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
-	siemens_coefficient = 1
 
 obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
