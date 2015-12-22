@@ -152,7 +152,7 @@
 	desc = "Swipe a Research Director level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(access_rd) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
-	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics")
+	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
 	id = 1
 /obj/item/weapon/circuitboard/rdconsole/robotics
 	name = "Circuit Board (RD Console - Robotics)"
@@ -166,6 +166,10 @@
 	name = "Circuit Board (RD Console - Mechanics)"
 	build_path = /obj/machinery/computer/rdconsole/mechanics
 	id = 4
+/obj/item/weapon/circuitboard/rdconsole/public
+	name = "Circuit Board (RD Console - Public)"
+	build_path = /obj/machinery/computer/rdconsole/public
+	id = 5
 
 
 /obj/item/weapon/circuitboard/mecha_control
@@ -309,7 +313,7 @@
 	if(istype(I,/obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
 		if(allowed(user))
 			user.visible_message("<span class='notice'>\the [user] waves their ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
-			var/console_choice = input(user, "What do you want to configure the access to?", "Configuration Modification", "R&D Core") as null|anything in access_types
+			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
 			if(console_choice == null)
 				return
 			switch(console_choice)
@@ -329,6 +333,10 @@
 					name = "Circuit Board (RD Console - Mechanics)"
 					build_path = /obj/machinery/computer/rdconsole/mechanics
 					id = 4
+				if("Public")
+					name = "Circuit Board (RD Console - Public)"
+					build_path = /obj/machinery/computer/rdconsole/public
+					id = 5
 
 			user << "<span class='notice'>Access protocols set to [console_choice].</span>"
 		else
