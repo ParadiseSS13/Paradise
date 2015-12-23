@@ -427,23 +427,21 @@
 				"[user] starts drilling a hole in \the [src].", \
 				"\blue You start drilling a hole in \the [src].", \
 				"You hear ratchet.")
-			if (do_after(user, 80, target = src))
+			if(do_after(user, 80, target = src))
 				user.visible_message( \
 					"[user] drills a hole in \the [src] and pushes \a [P] into the void", \
 					"\blue You have finished drilling in \the [src] and push the [P] into the void.", \
 					"You hear ratchet.")
 
 				user.drop_item()
-				if (P.pipe_type in list (1,3,12))  // bent pipe rotation fix see construction.dm
+				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 					P.dir = 5
-					if (user.dir == 1)
+					if(user.dir == 1)
 						P.dir = 6
-					if (user.dir == 2)
+					else if(user.dir == 2)
 						P.dir = 9
-					if (user.dir == 4)
+					else if(user.dir == 4)
 						P.dir = 10
-					if (user.dir == 5)
-						P.dir = 8
 				else
 					P.dir = user.dir
 				P.x = src.x
