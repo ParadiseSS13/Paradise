@@ -179,7 +179,7 @@
 "dw" = (/obj/item/weapon/disk/data/demo,/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
 "dx" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/airless{icon_state = "damaged2"},/area/derelict/singularity_engine)
 "dy" = (/obj/machinery/power/emitter{dir = 1; icon_state = "emitter"},/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
-"dz" = (/obj/machinery/field_generator,/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
+"dz" = (/obj/machinery/field/generator,/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
 "dA" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/window/reinforced,/turf/simulated/floor,/area/derelict/bridge/access)
 "dB" = (/obj/structure/window/reinforced{dir = 5; health = 1e+007},/turf/simulated/floor,/area/derelict/bridge/access)
 "dC" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor,/area/derelict/bridge)
