@@ -102,7 +102,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
-/obj/item/clothing/mask/facehugger/proc/Attach(M as mob)
+/obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M as mob)
 	if(!isliving(M))
 		return 0
 	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
@@ -185,7 +185,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		if(!(target.status_flags & XENO_HOST))
-			new /obj/item/alien_embryo(target)
+			new /obj/item/organ/internal/body_egg/alien_embryo(target)
 
 
 		if(iscorgi(target))

@@ -24,7 +24,7 @@
 
 	owner = M
 	M.internal_organs |= src
-	M.internal_organs_by_name[organ_tag] = src
+	//M.internal_organs_by_name[organ_tag] = src
 	loc = null
 	if(organ_action_name)
 		action_button_name = organ_action_name
@@ -32,23 +32,12 @@
 /obj/item/organ/internal/proc/Remove(mob/living/carbon/M, special = 0)
 	owner = null
 	if(M)
-		M.internal_organs_by_name[organ_tag] = null
-		M.internal_organs_by_name -= organ_tag
-		M.internal_organs_by_name -= null
+	//	M.internal_organs_by_name[organ_tag] = null
+	//	M.internal_organs_by_name -= organ_tag
+	//	M.internal_organs_by_name -= null
 		M.internal_organs -= src
 
-		loc = get_turf(M)
-		processing_objects |= src
-		var/datum/reagent/blood/organ_blood
-		if(reagents) organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
-		if(!organ_blood || !organ_blood.data["blood_DNA"])
-			M.vessel.trans_to(src, 5, 1, 1)
-
 		if(vital && !special)
-			//if(user)
-			//	user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(M)] (INTENT: [uppertext(user.a_intent)])</font>"
-			//	M.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
-			//	msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(M)]")
 			M.death()
 
 
@@ -97,14 +86,14 @@
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/weapon/reagent_containers/food/snacks/S = prepare_eat()
-			if(S)
-				H.unEquip()
-				H.put_in_active_hand(S)
-				if(fingerprints) S.fingerprints = fingerprints.Copy()
-				if(fingerprintshidden) S.fingerprintshidden = fingerprintshidden.Copy()
-				if(fingerprintslast) S.fingerprintslast = fingerprintslast
-				S.attack(H, H)
-				qdel(src)
+		if(S)
+			H.unEquip()
+			H.put_in_active_hand(S)
+			if(fingerprints) S.fingerprints = fingerprints.Copy()
+			if(fingerprintshidden) S.fingerprintshidden = fingerprintshidden.Copy()
+			if(fingerprintslast) S.fingerprintslast = fingerprintslast
+			S.attack(H, H)
+			qdel(src)
 	else
 		..()
 
@@ -213,20 +202,23 @@
 /obj/item/organ/internal/eyes/proc/update_colour()
 	if(!owner)
 		return
-	eye_colour = list(
-		owner.r_eyes ? owner.r_eyes : 0,
-		owner.g_eyes ? owner.g_eyes : 0,
-		owner.b_eyes ? owner.b_eyes : 0
-		)
+	if(istype(owner,/mob/living/carbon/human))
+		var/mob/living/carbon/human/eyes = owner
+		eye_colour = list(
+			eyes.r_eyes ? owner.r_eyes : 0,
+			eyes.g_eyes ? owner.g_eyes : 0,
+			eyes.b_eyes ? owner.b_eyes : 0
+			)
 
 /obj/item/organ/internal/eyes/Insert(mob/living/carbon/M, special = 0)
 	..()
 	// Apply our eye colour to the target.
-	if(istype(M) && eye_colour)
-		M.r_eyes = eye_colour[1]
-		M.g_eyes = eye_colour[2]
-		M.b_eyes = eye_colour[3]
-		M.update_eyes()
+	if(istype(M,/mob/living/carbon/human) && eye_colour)
+		var/mob/living/carbon/human/eyes = M
+		eyes.r_eyes = eye_colour[1]
+		eyes.g_eyes = eye_colour[2]
+		eyes.b_eyes = eye_colour[3]
+		eyes.update_eyes()
 
 
 /obj/item/organ/internal/eyes/surgeryize()
@@ -335,10 +327,10 @@
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
-	processing_object.Add(src)
+	processing_objects.Add(src)
 
 /obj/item/organ/internal/shadowtumor/Destroy()
-	processing_object.Remove(src)
+	processing_objects.Remove(src)
 	..()
 
 /obj/item/organ/internal/shadowtumor/process()

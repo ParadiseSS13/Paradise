@@ -15,8 +15,8 @@
 	if(egg)
 		egg.Remove(user)
 		if(iscarbon(user))
-			var/mob/living/carbon/C = user
-			C.vomit(0)
+			var/mob/living/carbon/human/C = user
+			C.vomit()
 		egg.loc = get_turf(user)
 
 	user.reagents.add_reagent("mutadone", 10)

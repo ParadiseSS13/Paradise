@@ -71,7 +71,7 @@
 		..(amount)
 	return
 
-/mob/living/carbon/alien/proc/getPlasma()
+/mob/living/carbon/alien/getPlasma()
 	return storedPlasma
 
 /mob/living/carbon/alien/eyecheck()
@@ -262,9 +262,8 @@ Des: Gives the client of the alien an image on each infected mob.
 		for (var/mob/living/C in mob_list)
 			if(C.status_flags & XENO_HOST)
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-				var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
 				if(A)
-					var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
+					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
 					client.images += I
 	return
 
@@ -285,7 +284,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[storedPlasma]</font></div>"
+		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='magenta'>[getPlasma()]</font></div>"
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return

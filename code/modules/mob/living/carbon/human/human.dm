@@ -1110,6 +1110,9 @@
 	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = src.wear_mask
 		number += MFP.flash_protect
+	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in src.internal_organs)
+		number += EFP.flash_protect
+
 	return number
 
 ///tintcheck()

@@ -16,7 +16,7 @@
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
 		verbs += P
 
-/obj/item/organ/internal/alien/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/Remove(mob/living/carbon/M, special = 0)
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
 		verbs -= P
 

@@ -24,8 +24,8 @@ var/datum/atom_hud/huds = list( \
 /datum/atom_hud/proc/remove_hud_from(mob/M)
 	if(!M)
 		return
-	//if(src in M.permanent_huds)//I will deal with you later -Fethas
-	//	return
+	if(src in M.permanent_huds)//I will deal with you later -Fethas
+		return
 	for(var/atom/A in hudatoms)
 		remove_from_single_hud(M, A)
 	hudusers -= M

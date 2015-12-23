@@ -22,7 +22,7 @@
 			returnorg = get_organs_zone("groin")
 
 	for(var/obj/item/organ/internal/O in internal_organs)
-		if(parent_organ == O.parent_organ)
+		if(zone == O.parent_organ)
 			returnorg += O
 	return returnorg
 

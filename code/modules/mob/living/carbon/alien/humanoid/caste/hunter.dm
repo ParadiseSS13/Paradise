@@ -44,7 +44,7 @@
 	if(m_intent == "run" || resting)
 		..()
 	else
-		adjustToxLoss(-heal_rate)
+		adjustPlasma(-heal_rate)
 
 
 //Hunter verbs

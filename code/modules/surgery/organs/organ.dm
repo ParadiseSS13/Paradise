@@ -4,7 +4,7 @@ var/list/organ_cache = list()
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
 	var/dead_icon
-	var/mob/living/carbon/owner = null
+	var/mob/living/carbon/human/owner = null
 	var/status = 0
 	var/vital //Lose a vital limb, die immediately.
 	var/damage = 0 // amount of damage to the organ

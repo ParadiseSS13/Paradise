@@ -119,7 +119,7 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 Proc: RefreshInfectionImage()
 Des: Removes the current icons located in the infected mob adds the current stage
 ----------------------------------------*/
-/obj/item/organ/internal/body_egg/proc/RefreshInfectionImage()
+/obj/item/organ/internal/body_egg/alien_embryo/RefreshInfectionImage()
 	RemoveInfectionImages()
 	AddInfectionImages()
 
@@ -127,7 +127,7 @@ Des: Removes the current icons located in the infected mob adds the current stag
 Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
-/obj/item/organ/internal/body_egg/proc/AddInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
 	for(var/mob/living/carbon/alien/alien in player_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = affected_mob, icon_state = "infected[stage]")
@@ -137,7 +137,7 @@ Des: Adds the infection image to all aliens for this embryo
 Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
-/obj/item/organ/internal/body_egg/proc/RemoveInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
 	for(var/mob/living/carbon/alien/alien in player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)

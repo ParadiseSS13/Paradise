@@ -13,12 +13,11 @@
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
 	src.real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/large
- 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
- 	internal_organs += new /obj/item/organ/internal/xenos/acid
-	//verbs.Add(/mob/living/carbon/alien/humanoid/proc/resin,/mob/living/carbon/alien/humanoid/proc/corrosive_acid)
-	//..()
-
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+	..()
+//
 //Drones use the same base as generic humanoids.
 //Drone verbs
 
@@ -31,7 +30,7 @@
 		// Queen check
 		var/no_queen = 1
 		for(var/mob/living/carbon/alien/humanoid/queen/Q in living_mob_list)
-			if(!Q.key && Q.brain_op_stage != 4)
+			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))//Q.brain_op_stage != 4)
 				continue
 			no_queen = 0
 
@@ -39,7 +38,7 @@
 			src << "<span class='warning'>We cannot perform this ability at the present time!</span>"
 			return
 		if(no_queen)
-			adjustToxLoss(-500)
+			adjustPlasma(-500)
 			src << "<span class='noticealien'>You begin to evolve!</span>"
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)

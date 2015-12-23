@@ -241,3 +241,5 @@
 	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
+
+	var/list/permanent_huds = list()

@@ -28,7 +28,7 @@ Doesn't work on other aliens/AI.*/
 		return
 
 	if(powerc(50,1))
-		adjustToxLoss(-50)
+		adjustPlasma(-50)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
 		new /obj/structure/alien/weeds/node(loc)
@@ -40,7 +40,7 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc(10))
-		adjustToxLoss(-10)
+		adjustPlasma(-10)
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
 			log_say("Alien Whisper: [key_name(src)]->[key_name(M)]: [msg]")
@@ -61,8 +61,8 @@ Doesn't work on other aliens/AI.*/
 			amount = abs(round(amount))
 			if(powerc(amount))
 				if (get_dist(src,M) <= 1)
-					M.adjustToxLoss(amount)
-					adjustToxLoss(-amount)
+					M.adjustPlasma(amount)
+					adjustPlasma(-amount)
 					M << "<span class='noticealien'>[src] has transfered [amount] plasma to you.</span>"
 					src << {"<span class='noticealien'>You have trasferred [amount] plasma to [M]</span>"}
 				else
@@ -97,7 +97,7 @@ Doesn't work on other aliens/AI.*/
 			else// Not a type we can acid.
 				return
 
-			adjustToxLoss(-200)
+			adjustPlasma(-200)
 			new /obj/effect/acid(get_turf(O), O)
 			visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		else
@@ -110,7 +110,7 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc(50))
-		adjustToxLoss(-50)
+		adjustPlasma(-50)
 		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
 
 		var/turf/T = loc
@@ -136,7 +136,7 @@ Doesn't work on other aliens/AI.*/
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
 		if(!choice || !powerc(55))	return
-		adjustToxLoss(-55)
+		adjustPlasma(-55)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
 		switch(choice)
@@ -162,3 +162,27 @@ Doesn't work on other aliens/AI.*/
 					//Paralyse(10)
 			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of their stomach!</span>")
 	return
+
+/mob/living/carbon/proc/getPlasma()
+ 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	if(!vessel) return 0
+ 	return vessel.stored_plasma
+
+
+/mob/living/carbon/proc/adjustPlasma(amount)
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	if(!get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)) return 0
+ 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
+ 	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
+ 	return 1
+
+/mob/living/carbon/alien/adjustPlasma(amount)
+	. = ..()
+	updatePlasmaDisplay()
+
+/mob/living/carbon/proc/usePlasma(amount)
+	if(getPlasma() >= amount)
+		adjustPlasma(-amount)
+		return 1
+
+ 	return 0

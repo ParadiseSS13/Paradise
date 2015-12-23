@@ -46,8 +46,8 @@
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel
- 	internal_organs += new /obj/item/organ/internal/xenos/acid
- 	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	//..()
 
 /mob/living/carbon/alien/humanoid/sentinel/handle_regular_hud_updates()
