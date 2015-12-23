@@ -68,6 +68,8 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 1000, MAT_METAL = 5000, MAT_DIAMOND = 3000)
 	build_path = /obj/item/weapon/gun/energy/wormhole_projector
+	locked = 1
+	access_requirement = list(access_rd) //screw you, HoS, this aint yours; this is only for a man of science---and trouble.
 	category = list("Weapons")
 
 /datum/design/large_grenade
