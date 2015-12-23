@@ -51,7 +51,7 @@
 /obj/effect/overlay/temp/emp/pulse
 	name = "emp pulse"
 	icon_state = "emp pulse"
-	duration = 20
+	duration = 8
 	randomdir = 0
 
 /obj/effect/overlay/palmtree_r
