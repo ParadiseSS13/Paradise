@@ -8513,7 +8513,7 @@ var rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g;
 var rvalidescape = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g;
 var rvalidtokens = /"[^"\\\r\n]*"|true|false|null|-?(?:\d+\.|)\d+(?:[eE][+-]?\d+|)/g;
 
-jQuery.parseJSON: function( data ) {
+jQuery.parseJSON = function( data ) {
 		// Attempt to parse using the native JSON parser first
 		if ( window.JSON && window.JSON.parse ) {
 			return window.JSON.parse( data );
