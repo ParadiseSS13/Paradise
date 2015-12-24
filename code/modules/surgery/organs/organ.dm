@@ -24,10 +24,15 @@ var/list/organ_cache = list()
 	var/datum/dna/dna
 	var/datum/species/species
 
+	// Stuff for tracking if this is on a tile with an open freezer or not
+	var/last_freezer_update_time = 0
+	var/freezer_update_period = 100
+	var/is_in_freezer = 0
+
 /obj/item/organ/Destroy()
 	if(!owner)
 		return ..()
-/*
+
 	if(istype(owner, /mob/living/carbon))
 		if((owner.internal_organs) && (src in owner.internal_organs))
 			owner.internal_organs -= src
@@ -38,12 +43,17 @@ var/list/organ_cache = list()
 				owner.organs -= src
 			if((owner.organs_by_name) && (src in owner.organs_by_name))
 				owner.organs_by_name -= src
-*/
 	if(src in owner.contents)
 		owner.contents -= src
 
 	return ..()
 
+/obj/item/organ/attack_self(mob/user as mob)
+
+	// Convert it to an edible form, yum yum.
+	if(!robotic && user.a_intent == I_HARM)
+		bitten(user)
+		return
 
 /obj/item/organ/proc/update_health()
 	return
@@ -101,8 +111,7 @@ var/list/organ_cache = list()
 	if(status & ORGAN_DEAD)
 		return
 
-	// Don't process if we're in a freezer, an MMI or a stasis bag. //TODO: ambient temperature?
-	if(istype(loc,/obj/item/device/mmi) || istype(loc,/obj/item/bodybag/cryobag) || istype(loc,/obj/structure/closet/crate/freezer))
+	if(is_preserved())
 		return
 
 	//Process infections
@@ -116,8 +125,11 @@ var/list/organ_cache = list()
 			if(B && prob(40))
 				reagents.remove_reagent("blood",0.1)
 				blood_splatter(src,B,1)
-
-		germ_level += rand(2,6)
+		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
+		// Another mercy for surgeons preparing transplant organs
+		germ_level++
+		if(germ_level >= INFECTION_LEVEL_ONE)
+			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
 		if(germ_level >= INFECTION_LEVEL_THREE)
@@ -134,6 +146,30 @@ var/list/organ_cache = list()
 	//check if we've hit max_damage
 	if(damage >= max_damage)
 		die()
+
+/obj/item/organ/proc/is_preserved()
+	if(istype(loc,/obj/item/device/mmi))
+		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
+		return 1
+	if(is_found_within(/obj/item/bodybag/cryobag))
+		return 1
+	if(is_found_within(/obj/structure/closet/crate/freezer))
+		return 1
+	if(istype(loc,/turf))
+		if(world.time - last_freezer_update_time > freezer_update_period)
+			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
+			// if the virologist releases gibbingtons again or something
+			// There's probably a much less silly way of doing this, but BYOND native algorithms are stupidly naive
+			is_in_freezer = 0
+			for(var/obj/structure/closet/crate/freezer/F in loc.contents)
+				if(F.opened)
+					is_in_freezer = 1 // on the same tile, close enough, should keep organs much fresher on avg
+					break
+			last_freezer_update_time = world.time
+		return is_in_freezer // I'd like static varibles, please
+
+	// You can do your cool location temperature organ preserving effects here!
+	return 0
 
 /obj/item/organ/examine(mob/user)
 	..(user)
@@ -170,6 +206,7 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
+	germ_level = 0
 
 /obj/item/organ/proc/is_damaged()
 	return damage > 0
@@ -184,15 +221,16 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/handle_antibiotics()
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 
-	if (!germ_level || antibiotics < 5)
+	if (!germ_level || antibiotics <= 0.4)
 		return
 
 	if (germ_level < INFECTION_LEVEL_ONE)
 		germ_level = 0	//cure instantly
 	else if (germ_level < INFECTION_LEVEL_TWO)
-		germ_level -= 6	//at germ_level == 500, this should cure the infection in a minute
+		germ_level -= 24	//at germ_level == 500, this should cure the infection in 15 seconds
 	else
-		germ_level -= 2 //at germ_level == 1000, this will cure the infection in 5 minutes
+		germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
+						// Let's not drag this on, medbay has only so much antibiotics
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(var/used_weapon, var/damage)
@@ -251,9 +289,15 @@ var/list/organ_cache = list()
 			take_damage(0,3)
 
 /obj/item/organ/proc/removed(var/mob/living/user)
-
 	if(!istype(owner))
 		return
+
+	if(is_primary_organ())
+		owner.internal_organs_by_name[organ_tag] = null
+		owner.internal_organs_by_name -= organ_tag
+		owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
+
+	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
@@ -265,7 +309,7 @@ var/list/organ_cache = list()
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 
-	if(owner && vital)
+	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)
 			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>"
 			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
@@ -279,12 +323,54 @@ var/list/organ_cache = list()
 
 	owner = target
 	processing_objects -= src
-	//target.internal_organs |= src
+	target.internal_organs |= src
 	affected.internal_organs |= src
-	//target.internal_organs_by_name[organ_tag] = src
+	if (!(organ_tag in target.internal_organs_by_name))
+		target.internal_organs_by_name[organ_tag] = src // In case multiple of the same type are inserted, only the first one is the primary organ
 	src.loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
 
+/obj/item/organ/eyes/replaced(var/mob/living/carbon/human/target)
+
+	// Apply our eye colour to the target.
+	if(istype(target) && eye_colour)
+		target.r_eyes = eye_colour[1]
+		target.g_eyes = eye_colour[2]
+		target.b_eyes = eye_colour[3]
+		target.update_eyes()
+	..()
+
+/obj/item/organ/proc/bitten(mob/user)
+
+	if(robotic)
+		return
+
+	user << "\blue You take a bite out of \the [src]."
+
+	user.unEquip(src)
+	var/obj/item/weapon/reagent_containers/food/snacks/organ/O = new(get_turf(src))
+	O.name = name
+	O.icon_state = dead_icon ? dead_icon : icon_state
+
+	if(fingerprints) O.fingerprints = fingerprints.Copy()
+	if(fingerprintshidden) O.fingerprintshidden = fingerprintshidden.Copy()
+	if(fingerprintslast) O.fingerprintslast = fingerprintslast
+
+	user.put_in_active_hand(O)
+	qdel(src)
+
 /obj/item/organ/proc/surgeryize()
 	return
+
+/*
+Returns 1 if this is the organ that is handling all the functionalities of that particular organ slot
+Returns 0 if it isn't
+I use this so that this can be made better once the organ overhaul rolls out -- Crazylemon
+*/
+/obj/item/organ/proc/is_primary_organ(var/mob/living/carbon/human/O = null)
+	if (isnull(O))
+		O = owner
+	if (!istype(owner)) // You're not the primary organ of ANYTHING, bucko
+		return 0
+	return src == O.internal_organs_by_name[organ_tag]

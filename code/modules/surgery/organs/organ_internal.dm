@@ -3,148 +3,26 @@
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/
-/obj/item/organ/internal
-	origin_tech = "biotech=2"
-	force = 1
-	w_class = 2
-	throwforce = 0
-	organ_tag = "guts"
-	parent_organ = "chest" //aka the zone
-	var/slot
-	vital = 0
-	var/organ_action_name = null
 
-/obj/item/organ/internal/proc/Insert(mob/living/carbon/M, special = 0)//insert the thing into the slot
-	if(!iscarbon(M) || owner == M)
-		return
-
-	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
-	if(replaced)
-		replaced.Remove(M, special = 1)
-
-	owner = M
-	M.internal_organs |= src
-	//M.internal_organs_by_name[organ_tag] = src
-	loc = null
-	if(organ_action_name)
-		action_button_name = organ_action_name
-
-/obj/item/organ/internal/proc/Remove(mob/living/carbon/M, special = 0)
-	owner = null
-	if(M)
-	//	M.internal_organs_by_name[organ_tag] = null
-	//	M.internal_organs_by_name -= organ_tag
-	//	M.internal_organs_by_name -= null
-		M.internal_organs -= src
-
-		if(vital && !special)
-			M.death()
-
-
-	if(organ_action_name)
-		action_button_name = null
-
-/obj/item/organ/internal/proc/on_find(mob/living/finder)
-	return
-
-/obj/item/organ/internal/proc/on_life()
-	return
-
-
-/obj/item/organ/internal/proc/prepare_eat()
-	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
-	S.name = name
-	S.desc = desc
-	S.icon = icon
-	S.icon_state = icon_state
-	S.origin_tech = origin_tech
-	S.w_class = w_class
-
-	return S
-
-/obj/item/weapon/reagent_containers/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/weapon/reagent_containers/food/snacks/organ/New()
-
-	..()
-
-	reagents.add_reagent("nutriment",5)
-
-
-/obj/item/organ/internal/Destroy()
-	if(owner)
-		Remove(owner, 1)
-	return
-
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
-	if(robotic)
-		return
-
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/weapon/reagent_containers/food/snacks/S = prepare_eat()
-		if(S)
-			H.unEquip()
-			H.put_in_active_hand(S)
-			if(fingerprints) S.fingerprints = fingerprints.Copy()
-			if(fingerprintshidden) S.fingerprintshidden = fingerprintshidden.Copy()
-			if(fingerprintslast) S.fingerprintslast = fingerprintslast
-			S.attack(H, H)
-			qdel(src)
-	else
-		..()
-
-
-///THE ORGANS
 
 // Brain is defined in brain_item.dm.
-/obj/item/organ/internal/heart
+/obj/item/organ/heart
 	name = "heart"
 	icon_state = "heart-on"
 	organ_tag = "heart"
 	parent_organ = "chest"
-	slot = "heart"
-	origin_tech = "biotech=3"
+	dead_icon = "heart-off"
 	vital = 1
-	var/beating
 
-/obj/item/organ/internal/heart/update_icon()
-	if(beating)
-		icon_state = "heart-on"
-	else
-		icon_state = "heart-off"
-
-/obj/item/organ/internal/heart/Insert(mob/living/carbon/M, special = 0)
-	..()
-	beating = 1
-	update_icon()
-
-/obj/item/organ/internal/heart/Remove(mob/living/carbon/M, special = 0)
-	..()
-	spawn(120)
-		beating = 0
-		update_icon()
-
-/obj/item/organ/internal/heart/prepare_eat()
-	var/obj/S = ..()
-	S.icon_state = "heart-off"
-	return S
-
-/obj/item/organ/internal/lungs
+/obj/item/organ/lungs
 	name = "lungs"
 	icon_state = "lungs"
 	gender = PLURAL
 	organ_tag = "lungs"
 	parent_organ = "chest"
-	slot = "lungs"
-	origin_tech = "biotech=2"
 
-/obj/item/organ/internal/lungs/process()///Fethas note, Should this be organ on life?
+/obj/item/organ/lungs/process()
 	..()
-//to_do per fethas: Could we handle some of the species breathing in here?
 
 	if(!owner)
 		return
@@ -161,17 +39,14 @@
 			spawn owner.custom_emote(1, "gasps for air!")
 			owner.losebreath += 5
 
-/obj/item/organ/internal/kidneys
+/obj/item/organ/kidneys
 	name = "kidneys"
 	icon_state = "kidneys"
 	gender = PLURAL
 	organ_tag = "kidneys"
 	parent_organ = "groin"
-	slot = "kidneys"
-	origin_tech = "biotech=2"
 
-
-/obj/item/organ/internal/kidneys/process()
+/obj/item/organ/kidneys/process()
 
 	..()
 
@@ -189,39 +64,24 @@
 			owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
 
 
-/obj/item/organ/internal/eyes
+/obj/item/organ/eyes
 	name = "eyeballs"
 	icon_state = "eyes"
 	gender = PLURAL
 	organ_tag = "eyes"
 	parent_organ = "head"
-	slot = "eyes"
-	origin_tech = "biotech=2"
 	var/list/eye_colour = list(0,0,0)
 
-/obj/item/organ/internal/eyes/proc/update_colour()
+/obj/item/organ/eyes/proc/update_colour()
 	if(!owner)
 		return
-	if(istype(owner,/mob/living/carbon/human))
-		var/mob/living/carbon/human/eyes = owner
-		eye_colour = list(
-			eyes.r_eyes ? owner.r_eyes : 0,
-			eyes.g_eyes ? owner.g_eyes : 0,
-			eyes.b_eyes ? owner.b_eyes : 0
-			)
+	eye_colour = list(
+		owner.r_eyes ? owner.r_eyes : 0,
+		owner.g_eyes ? owner.g_eyes : 0,
+		owner.b_eyes ? owner.b_eyes : 0
+		)
 
-/obj/item/organ/internal/eyes/Insert(mob/living/carbon/M, special = 0)
-	..()
-	// Apply our eye colour to the target.
-	if(istype(M,/mob/living/carbon/human) && eye_colour)
-		var/mob/living/carbon/human/eyes = M
-		eyes.r_eyes = eye_colour[1]
-		eyes.g_eyes = eye_colour[2]
-		eyes.b_eyes = eye_colour[3]
-		eyes.update_eyes()
-
-
-/obj/item/organ/internal/eyes/surgeryize()
+/obj/item/organ/eyes/surgeryize()
 	if(!owner)
 		return
 	owner.disabilities &= ~NEARSIGHTED
@@ -229,15 +89,13 @@
 	owner.eye_blurry = 0
 	owner.eye_blind = 0
 
-/obj/item/organ/internal/liver
+/obj/item/organ/liver
 	name = "liver"
 	icon_state = "liver"
 	organ_tag = "liver"
 	parent_organ = "groin"
-	slot = "liver"
-	origin_tech = "biotech=1"
 
-/obj/item/organ/internal/liver/process()
+/obj/item/organ/liver/process()
 
 	..()
 
@@ -290,13 +148,12 @@
 				if(owner.reagents.has_reagent(toxin))
 					owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
 
-/obj/item/organ/internal/appendix
+/obj/item/organ/appendix
 	name = "appendix"
 	icon_state = "appendix"
 	organ_tag = "appendix"
 	parent_organ = "groin"
-	slot = "appendix"
-	origin_tech = "biotech=1"
+
 
 /*
 /obj/item/organ/appendix/removed()
@@ -312,35 +169,3 @@
 			name = "inflamed appendix"
 	..()
 */
-
-//shadowling brain tumor
-/obj/item/organ/internal/shadowtumor
-	name = "black tumor"
-	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
-	icon_state = "blacktumor"
-	origin_tech = "biotech=4"
-	w_class = 1
-	organ_tag = "blacktumor"
-	parent_organ = "head"
-	slot = "brain_tumor"
-	health = 3
-
-/obj/item/organ/internal/shadowtumor/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/organ/internal/shadowtumor/Destroy()
-	processing_objects.Remove(src)
-	..()
-
-/obj/item/organ/internal/shadowtumor/process()
-	if(isturf(loc))
-		var/turf/T = loc
-		var/light_count = T.get_lumcount()
-		if(light_count > 4 && health > 0) //Die in the light
-			health--
-		else if(light_count < 2 && health < 3) //Heal in the dark
-			health++
-		if(health <= 0)
-			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
-			qdel(src)
