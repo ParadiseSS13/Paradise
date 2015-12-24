@@ -13,10 +13,11 @@
 /obj/machinery/the_singularitygen/process()
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
-		message_admins("A singularity has been created at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-		investigate_log("A singularity has been created at [x], [y], [z]","singulo")
+		message_admins("A [creation_type.name] has been created at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		investigate_log("A [creation_type.name] has been created at [x], [y], [z]","singulo")
 
-		new creation_type(T, 50)
+ 		var/obj/singularity/S = new creation_type(T, 50)
+		transfer_fingerprints_to(S)
 		if(src) qdel(src)
 
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
