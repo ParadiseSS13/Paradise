@@ -9,6 +9,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "stand"
 	icon_living = "stand"
+	icon_dead = "stand"
 	speed = 0
 	a_intent = I_HARM
 	stop_automated_movement = 1
@@ -69,6 +70,10 @@
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
 
+/mob/living/simple_animal/hostile/guardian/death()
+	..()
+	summoner << "<span class='danger'><B>Your [name] died somehow!</span></B>"
+	summoner.death()
 
 /mob/living/simple_animal/hostile/guardian/adjustBruteLoss(amount) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -172,6 +177,8 @@
 	set name = "Reset Guardian Player (One Use)"
 	set category = "Guardian"
 	set desc = "Re-rolls which ghost will control your Guardian. One use."
+
+	src.verbs -= /mob/living/proc/guardian_reset
 	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
 		if(G.summoner == src)
 			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", "pAI", null, FALSE, 100)
@@ -181,11 +188,11 @@
 				G << "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance."
 				src << "Your guardian has been successfully reset."
 				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
-				G.ghostize()
+				G.ghostize(0)
 				G.key = new_stand.key
-				src.verbs -= /mob/living/proc/guardian_reset
 			else
 				src << "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now."
+				verbs += /mob/living/proc/guardian_reset
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
@@ -677,6 +684,7 @@
 	G << "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there."
 	G << "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself."
 	G << "[G.playstyle_string]"
+	G.faction = user.faction
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
@@ -692,6 +700,7 @@
 			G.real_name = "[mob_name] [capitalize(colour)]"
 			G.icon_living = "parasite[colour]"
 			G.icon_state = "parasite[colour]"
+			G.icon_dead = "parasite[colour]"
 			G.animated_manifest = TRUE
 			user << "[G.tech_fluff_string]."
 			G.speak_emote = list("states")

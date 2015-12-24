@@ -31,35 +31,24 @@
 	if(active)
 		qdel(current_beam)
 		active = 0
-		on_beam_relase(current_target)
+		on_beam_release(current_target)
 	current_target = null
 
 /obj/item/weapon/gun/medbeam/Fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params)
 	add_fingerprint(user)
 
-	if(!isliving(target))
-		return
 	if(current_target)
 		LoseTarget()
+	if(!isliving(target))
+		return
 
 	current_target = target
 	active = 1
-	current_beam = new(user,current_target,time=6000)
+	current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
 	spawn(0)
 		current_beam.Start()
 
 	feedback_add_details("gun_fired","[src.type]")
-
-/obj/item/weapon/gun/medbeam/afterattack(obj/target, mob/user, proximity)
-	if(target.loc == loc || target == user)
-		return
-
-	if(!current_target && isliving(target))
-		current_target = target
-		active = 1
-		current_beam = new(user,current_target,time=6000)
-		spawn(0)
-			current_beam.Start()
 
 /obj/item/weapon/gun/medbeam/process()
 	var/mob/living/carbon/human/H = loc
@@ -120,7 +109,7 @@
 					E.perma_injury = 0
 	return
 
-/obj/item/weapon/gun/medbeam/proc/on_beam_relase(var/mob/living/target)
+/obj/item/weapon/gun/medbeam/proc/on_beam_release(var/mob/living/target)
 	return
 
 /obj/effect/ebeam/medical
