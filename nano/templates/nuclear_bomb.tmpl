@@ -39,11 +39,14 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 		</div>
 		<div class="item">
 			<div class="itemLabel">
-				Set Time: {{:data.time}}
+				Set Time
 			</div>
 			<div class="itemContent">
 			{{:helper.link('--', '', {'time' : -10}, data.time <= 120 ? 'disabled' : '')}}
 			{{:helper.link('-', '', {'time' : -1}, data.time <= 120 ? 'disabled' : '')}}
+			<div class="link redButton">
+			{{:data.time}} 
+			</div>
 			{{:helper.link('+', '', {'time' : 1})}}
 			{{:helper.link('++', '', {'time' : 10})}}
 			</div>
@@ -62,11 +65,14 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 		</div>
 		<div class="item">
 			<div class="itemLabel">
-				Set Time: {{:data.time}}
+				Set Time
 			</div>
 			<div class="itemContent">
 			{{:helper.link('--', '', null, 'disabled')}}
-			{{:helper.link('-', '', null, 'disabled')}} 
+			{{:helper.link('-', '', null, 'disabled')}}
+			<div class="link redButton">
+			{{:data.time}} 
+			</div>
 			{{:helper.link('+', '', null, 'disabled')}}
 			{{:helper.link('++', '', null, 'disabled')}}
 			</div>
