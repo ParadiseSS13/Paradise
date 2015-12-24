@@ -94,7 +94,6 @@
 	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
-	siemens_coefficient = 0
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -104,7 +103,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	siemens_coefficient = 0.9
 
 
 /obj/item/clothing/mask/horsehead
@@ -115,7 +113,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	siemens_coefficient = 0.9
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""

@@ -16,6 +16,9 @@
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
+
+	var/being_shocked = 0
+
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
@@ -258,3 +261,10 @@ a {
 
 /obj/proc/container_resist(var/mob/living)
 	return
+
+/obj/proc/tesla_act(var/power)
+	being_shocked = 1
+	var/power_bounced = power / 2
+	tesla_zap(src, 5, power_bounced)
+	spawn(10)
+		being_shocked = 0

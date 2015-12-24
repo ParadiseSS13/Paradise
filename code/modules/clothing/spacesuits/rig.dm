@@ -54,6 +54,7 @@
 	slowdown = 2
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/t_scanner, /obj/item/weapon/rcd)
+	siemens_coefficient = 0
 
 	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
@@ -372,7 +373,6 @@
 	item_color = "wiz"
 	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
-	siemens_coefficient = 0.7
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
@@ -391,7 +391,6 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
-	siemens_coefficient = 0.7
 	sprite_sheets = null
 
 //Medical Rig
@@ -423,7 +422,6 @@
 	item_state = "sec_helm"
 	item_color = "sec"
 	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 100, rad = 50)
-	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/space/rig/security
 	icon_state = "rig-sec"
@@ -432,7 +430,6 @@
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/restraints/handcuffs)
-	siemens_coefficient = 0.7
 
 
 //Atmospherics Rig (BS12)

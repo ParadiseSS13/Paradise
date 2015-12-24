@@ -298,11 +298,9 @@
 	icon_state = "plasmaman_Nukeops"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs)
-	siemens_coefficient = 0.6
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
 	name = "blood red plasmaman helmet"
 	icon_state = "plasmaman_Nukeops_helmet0"
 	base_state = "plasmaman_Nukeops_helmet"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	siemens_coefficient = 0.6

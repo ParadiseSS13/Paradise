@@ -6,7 +6,6 @@
 	desc = "It's good to be emperor."
 	item_state = "centhat"
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	siemens_coefficient = 0.9
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -31,7 +30,6 @@
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"
 	item_state = "that"
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
@@ -48,7 +46,6 @@
 	desc = "These were once used by Plague doctors. They're pretty much useless."
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
@@ -60,7 +57,6 @@
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
@@ -69,7 +65,6 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
@@ -135,7 +130,6 @@
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
 	item_state = "detective"
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
@@ -203,7 +197,6 @@
 	icon_state = "witch"
 	item_state = "witch"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -211,7 +204,6 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
@@ -219,7 +211,6 @@
 	icon_state = "corgihead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR | NODROP
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/corgi/en
 	name = "E-N suit head"
@@ -231,7 +222,6 @@
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
@@ -240,7 +230,6 @@
 	desc = "A helmet made out of chitinous alien hide."
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/crown
 	name = "bananium crown"

@@ -65,7 +65,7 @@
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 	return P.on_hit(src, armor, def_zone)
 
-/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
+/mob/living/proc/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null, tesla_shock = 0)
 	  return 0 //only carbon liveforms have this proc
 
 /mob/living/emp_act(severity)
