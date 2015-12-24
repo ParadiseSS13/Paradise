@@ -389,7 +389,7 @@
 
 			if (istype(AM,/obj))
 				var/obj/O = AM
-				if(O.invisibility >= 101)
+				if(istype(O, /obj/docking_port/stationary))
 					continue
 				O.loc = T1
 

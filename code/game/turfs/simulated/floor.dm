@@ -600,13 +600,13 @@ var/list/wood_icons = list("wood","wood-broken")
 				"<span class='notice'>You slide [P] along \the [src].</span>", \
 				"You hear the scrape of metal against something.")
 			user.drop_item()
-			if (P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
+			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
 				P.dir = 5
-				if (user.dir == 1)
+				if(user.dir == 1)
 					P.dir = 6
-				if (user.dir == 2)
+				else if(user.dir == 2)
 					P.dir = 9
-				if (user.dir == 4)
+				else if(user.dir == 4)
 					P.dir = 10
 			else
 				P.dir = user.dir

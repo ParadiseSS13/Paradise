@@ -144,9 +144,34 @@
 /obj/item/weapon/circuitboard/prisoner
 	name = "Circuit board (Prisoner Management)"
 	build_path = /obj/machinery/computer/prisoner
+
+
+// RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
 /obj/item/weapon/circuitboard/rdconsole
 	name = "Circuit Board (RD Console)"
+	desc = "Swipe a Research Director level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
+	req_access = list(access_rd) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
+	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
+	id = 1
+/obj/item/weapon/circuitboard/rdconsole/robotics
+	name = "Circuit Board (RD Console - Robotics)"
+	build_path = /obj/machinery/computer/rdconsole/robotics
+	id = 2
+/obj/item/weapon/circuitboard/rdconsole/experiment
+	name = "Circuit Board (RD Console - E.X.P.E.R.I-MENTOR)"
+	build_path = /obj/machinery/computer/rdconsole/experiment
+	id = 3
+/obj/item/weapon/circuitboard/rdconsole/mechanics
+	name = "Circuit Board (RD Console - Mechanics)"
+	build_path = /obj/machinery/computer/rdconsole/mechanics
+	id = 4
+/obj/item/weapon/circuitboard/rdconsole/public
+	name = "Circuit Board (RD Console - Public)"
+	build_path = /obj/machinery/computer/rdconsole/public
+	id = 5
+
+
 /obj/item/weapon/circuitboard/mecha_control
 	name = "Circuit Board (Exosuit Control Console)"
 	build_path = /obj/machinery/computer/mecha
@@ -285,16 +310,37 @@
 	return
 
 /obj/item/weapon/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/weapon/screwdriver))
-		user.visible_message("\blue \the [user] adjusts the jumper on the [src]'s access protocol pins.", "\blue You adjust the jumper on the access protocol pins.")
-		if(src.build_path == "/obj/machinery/computer/rdconsole/core")
-			src.name = "Circuit Board (RD Console - Robotics)"
-			src.build_path = /obj/machinery/computer/rdconsole/robotics
-			user << "\blue Access protocols set to robotics."
+	if(istype(I,/obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
+		if(allowed(user))
+			user.visible_message("<span class='notice'>\the [user] waves their ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
+			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
+			if(console_choice == null)
+				return
+			switch(console_choice)
+				if("R&D Core")
+					name = "Circuit Board (RD Console)"
+					build_path = /obj/machinery/computer/rdconsole/core
+					id = 1
+				if("Robotics")
+					name = "Circuit Board (RD Console - Robotics)"
+					build_path = /obj/machinery/computer/rdconsole/robotics
+					id = 2
+				if("E.X.P.E.R.I-MENTOR")
+					name = "Circuit Board (RD Console - E.X.P.E.R.I-MENTOR)"
+					build_path = /obj/machinery/computer/rdconsole/experiment
+					id = 3
+				if("Mechanics")
+					name = "Circuit Board (RD Console - Mechanics)"
+					build_path = /obj/machinery/computer/rdconsole/mechanics
+					id = 4
+				if("Public")
+					name = "Circuit Board (RD Console - Public)"
+					build_path = /obj/machinery/computer/rdconsole/public
+					id = 5
+
+			user << "<span class='notice'>Access protocols set to [console_choice].</span>"
 		else
-			src.name = "Circuit Board (RD Console)"
-			src.build_path = /obj/machinery/computer/rdconsole/core
-			user << "\blue Access protocols set to default."
+			user << "<span class='warning'>Access Denied</span>"
 	return
 
 /obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)

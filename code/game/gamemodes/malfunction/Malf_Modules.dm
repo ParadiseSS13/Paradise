@@ -217,7 +217,7 @@ rcd light flash thingy on matter drain
 		return
 
 	if (istype(M, /obj/machinery))
-		if(istype(M,/obj/machinery/field_generator))
+		if(istype(M,/obj/machinery/field/generator))
 			src << "This machine can not be overloaded due to a firewall."
 			return
 		for(var/datum/AI_Module/small/overload_machine/overload in current_modules)
@@ -249,7 +249,7 @@ rcd light flash thingy on matter drain
 		return
 
 	if (istype(M, /obj/machinery))
-		if(istype(M,/obj/machinery/field_generator))
+		if(istype(M,/obj/machinery/field/generator))
 			src << "This machine can not be overloaded due to a firewall."
 			return
 		for(var/datum/AI_Module/small/override_machine/override in current_modules)

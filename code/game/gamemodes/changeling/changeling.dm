@@ -148,6 +148,21 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		obj_count++
 	return
 
+
+
+/datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
+	if(changeling_mind in changelings)
+		changelings -= changeling_mind
+		changeling_mind.current.remove_changeling_powers()
+		changeling_mind.memory = ""
+		changeling_mind.special_role = null
+		if(issilicon(changeling_mind))
+			changeling_mind.current << "<span class='userdanger'>You have been robotized!</span>"
+			changeling_mind.current << "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>"
+		else
+			changeling_mind.current << "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
+		update_change_icons_removed(changeling_mind)
+
 /datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
 	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
 	linghud.join_solo_hud(changeling.current)

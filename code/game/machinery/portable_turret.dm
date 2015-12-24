@@ -477,9 +477,9 @@ var/list/turret_icons
 			emagged = 1
 
 		enabled=0
-		sleep(rand(60,600))
-		if(!enabled)
-			enabled=1
+		spawn(rand(60,600))
+			if(!enabled)
+				enabled=1
 
 	..()
 

@@ -10,6 +10,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/candy/
 	name = "generic candy"
 	desc = "It's placeholder flavored. This shouldn't be seen."
+	icon = 'icons/obj/food/candy.dmi'
 	icon_state = "candy"
 	New()
 		..()

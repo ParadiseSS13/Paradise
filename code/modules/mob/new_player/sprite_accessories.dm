@@ -368,79 +368,99 @@
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
-	icp_screen_pink
+	ipc_screen_pink
 		name = "pink IPC screen"
 		icon_state = "ipc_pink"
 		species_allowed = list("Machine")
 
-	icp_screen_red
+	ipc_screen_red
 		name = "red IPC screen"
 		icon_state = "ipc_red"
 		species_allowed = list("Machine")
 
-	icp_screen_green
+	ipc_screen_green
 		name = "green IPC screen"
 		icon_state = "ipc_green"
 		species_allowed = list("Machine")
 
-	icp_screen_blue
+	ipc_screen_blue
 		name = "blue IPC screen"
 		icon_state = "ipc_blue"
 		species_allowed = list("Machine")
 
-	icp_screen_breakout
+	ipc_screen_breakout
 		name = "breakout IPC screen"
 		icon_state = "ipc_breakout"
 		species_allowed = list("Machine")
 
-	icp_screen_eight
+	ipc_screen_eight
 		name = "eight IPC screen"
 		icon_state = "ipc_eight"
 		species_allowed = list("Machine")
 
-	icp_screen_goggles
+	ipc_screen_goggles
 		name = "goggles IPC screen"
 		icon_state = "ipc_goggles"
 		species_allowed = list("Machine")
 
-	icp_screen_heart
+	ipc_screen_heart
 		name = "heart IPC screen"
 		icon_state = "ipc_heart"
 		species_allowed = list("Machine")
 
-	icp_screen_monoeye
+	ipc_screen_monoeye
 		name = "monoeye IPC screen"
 		icon_state = "ipc_monoeye"
 		species_allowed = list("Machine")
 
-	icp_screen_nature
+	ipc_screen_nature
 		name = "nature IPC screen"
 		icon_state = "ipc_nature"
 		species_allowed = list("Machine")
 
-	icp_screen_orange
+	ipc_screen_orange
 		name = "orange IPC screen"
 		icon_state = "ipc_orange"
 		species_allowed = list("Machine")
 
-	icp_screen_purple
+	ipc_screen_purple
 		name = "purple IPC screen"
 		icon_state = "ipc_purple"
 		species_allowed = list("Machine")
 
-	icp_screen_shower
+	ipc_screen_shower
 		name = "shower IPC screen"
 		icon_state = "ipc_shower"
 		species_allowed = list("Machine")
 
-	icp_screen_static
+	ipc_screen_static
 		name = "static IPC screen"
 		icon_state = "ipc_static"
 		species_allowed = list("Machine")
 
-	icp_screen_yellow
+	ipc_screen_yellow
 		name = "yellow IPC screen"
 		icon_state = "ipc_yellow"
+		species_allowed = list("Machine")
+
+	ipc_screen_scrolling
+		name = "scanline IPC screen"
+		icon_state = "ipc_scroll"
+		species_allowed = list("Machine")
+
+	ipc_screen_console
+		name = "console IPC screen"
+		icon_state = "ipc_console"
+		species_allowed = list("Machine")
+
+	ipc_screen_rgb
+		name = "rgb IPC screen"
+		icon_state = "ipc_rgb"
+		species_allowed = list("Machine")
+
+	ipc_screen_glider
+		name = "glider IPC screen"
+		icon_state = "ipc_gol_glider"
 		species_allowed = list("Machine")
 
 /*

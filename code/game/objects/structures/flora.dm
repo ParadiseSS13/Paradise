@@ -256,3 +256,54 @@
 
 /obj/structure/flora/straw_bail/alt_2
 	icon_state = "strawbail3"
+
+/obj/structure/bush
+	name = "foliage"
+	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "bush1"
+	density = 1
+	anchored = 1
+	layer = 3.2
+	var/indestructable = 0
+	var/stump = 0
+
+/obj/structure/bush/New()
+	if(prob(20))
+		opacity = 1
+
+/*
+/obj/structure/bush/Bumped(M as mob)
+	if (istype(M, /mob/living/simple_animal))
+		var/mob/living/simple_animal/A = M
+		A.loc = get_turf(src)
+	else if (istype(M, /mob/living/carbon/monkey))
+		var/mob/living/carbon/monkey/A = M
+		A.loc = get_turf(src)
+*/
+
+/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
+	//hatchets can clear away undergrowth
+	if(istype(I, /obj/item/weapon/hatchet) && !stump)
+		if(indestructable)
+			//this bush marks the edge of the map, you can't destroy it
+			user << "\red You flail away at the undergrowth, but it's too thick here."
+		else
+			user.visible_message("\red <b>[user] begins clearing away [src].</b>","\red <b>You begin clearing away [src].</b>")
+			spawn(rand(15,30))
+				if(get_dist(user,src) < 2)
+					user << "\blue You clear away [src]."
+					var/obj/item/stack/sheet/wood/W = new(src.loc)
+					W.amount = rand(3,15)
+					if(prob(50))
+						icon_state = "stump[rand(1,2)]"
+						name = "cleared foliage"
+						desc = "There used to be dense undergrowth here."
+						density = 0
+						stump = 1
+						pixel_x = rand(-6,6)
+						pixel_y = rand(-6,6)
+					else
+						qdel(src)
+	else
+		return ..()

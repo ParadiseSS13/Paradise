@@ -377,6 +377,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				if(VAMP_FULL)
 					src << "\blue You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
 					//no verb
+
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
 	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_SOLO]

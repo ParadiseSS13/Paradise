@@ -534,7 +534,6 @@
 			return
 		var/chosen_beacon = pick(L)
 		var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon)
-		J.target = chosen_beacon
 		try_move_adjacent(J)
 		playsound(src,'sound/effects/sparks4.ogg',50,1)
 		qdel(src)

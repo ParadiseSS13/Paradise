@@ -31,9 +31,9 @@ Used In File(s): \code\game\supplyshuttle.dm
 	</div>
 	<div class="itemContent">
 		{{if !data.moving && !data.at_station}}
-			{{:data.docked}} off-station.
+			Docked off-station.
 		{{else !data.moving && data.at_station}}
-			{{:data.docked}} at the station.
+			Docked at the station.
 		{{else data.moving}}
 			Shuttle is en route (ETA: {{:data.timeleft}} minute{{if data.timeleft != 1}}s{{/if}}).
 		{{/if}}
@@ -45,7 +45,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 	</div>
 	<div class="itemContentWide" style="width: 95%;">
 		<div class="statusDisplay">
-			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 184px">
+			<div class="line" style="overflow-y: auto; overflow-x: hidden; scrollbar-base-color: #336699; scrollbar-arrow-color: #ffffff; height: 200px">
 				{{if !data.contents}}
 					{{for data.supply_packs}}
 						<div class="line">
@@ -66,7 +66,7 @@ Used In File(s): \code\game\supplyshuttle.dm
 		</div>
 	</div>
 </div>
-<div style="float: left; width: 30%;">
+<div style="float: left; width: 30%; margin-bottom: 10px;">
 	<div class="itemLabel">
 		Categories
 	</div>
