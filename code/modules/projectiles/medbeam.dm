@@ -2,6 +2,7 @@
 	name = "Medical Beamgun"
 	desc = "Delivers medical nanites in a focused beam."
 	icon = 'icons/obj/chronos.dmi'
+	origin_tech = "combat=6;materials=6;powerstorage=6;biotech6"
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = 3.0

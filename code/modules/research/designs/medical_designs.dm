@@ -198,6 +198,18 @@
 	build_path = /obj/item/weapon/scalpel/manager
 	category = list("Medical")
 
+/datum/design/medibeam
+	name = "Medical Beamgun"
+	desc = "Delivers medical nanites in a focused beam."
+	id = "medi_beam"
+	req_tech = list("combat" = 6, "materials" = 6, "powerstorage" = 6, "biotech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 4000, MAT_URANIUM = 8000, MAT_DIAMOND = 2000)
+	reliability = 100
+	build_path = /obj/item/weapon/gun/medbeam
+	locked = 1
+	category = list("Medical")
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
