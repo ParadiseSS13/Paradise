@@ -1,7 +1,12 @@
 # NanoUI
 
 NanoUI is a user interface library, used for over 100 different interfaces, and rising.
-It is
+It is more complicated than the other two UI systems in use, the `/datum/browser` and
+`browse()` systems, but offers pre-made libraries, JavaScript, and a modified doT
+template engine.
+
+This README is not yet complete, but gives a basic rundown of how the folder structure
+works. I'll get around to finishing it one day.
 
 ## Folder Rundown
 
