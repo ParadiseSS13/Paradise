@@ -34,6 +34,7 @@
 		handle_environment(environment)
 
 	handle_fire()
+	empulse(get_turf(src), 2, 4, 1)
 
 	//stuff in the stomach
 	handle_stomach()

@@ -281,12 +281,15 @@ var/list/organ_cache = list()
 	switch (severity)
 		if (1.0)
 			take_damage(0,20)
+			rejuvenate()
 			return
 		if (2.0)
 			take_damage(0,7)
+			rejuvenate()
 			return
 		if(3.0)
 			take_damage(0,3)
+			rejuvenate()
 
 /obj/item/organ/proc/removed(var/mob/living/user)
 	if(!istype(owner))
