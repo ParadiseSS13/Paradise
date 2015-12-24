@@ -37,12 +37,12 @@ gulp.task "clean", ->
 gulp.task "scripts", ["clean"], ->
   lib = gulp.src glob input.scripts.lib
     .pipe g.concat(output.scripts.lib)
-    .pipe g.uglify().on('error', util.log)
+    .pipe g.if(s.min, g.uglify().on('error', util.log))
     .pipe gulp.dest output.dir
 
   main = gulp.src glob input.scripts.main
     .pipe g.concat(output.scripts.main)
-    .pipe g.uglify().on('error', util.log)
+    .pipe g.if(s.min, g.uglify().on('error', util.log))
     .pipe gulp.dest output.dir
 
   merge lib, main
