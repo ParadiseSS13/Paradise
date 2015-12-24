@@ -205,7 +205,6 @@
 	req_tech = list("combat" = 6, "materials" = 7, "powerstorage" = 8, "programming" = 7, "biotech" = 6)//This is literally the highest you can get it in a normal round
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 4000, MAT_URANIUM = 8000, MAT_DIAMOND = 2000)
-	reliability = 100
 	build_path = /obj/item/weapon/gun/medbeam
 	locked = 1
 	access_requirement = list(access_cmo)//haha, no powercreep for the scientist on this one!
