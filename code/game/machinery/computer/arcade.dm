@@ -154,7 +154,7 @@
 			src.blocked = 1
 			var/attackamt = rand(2,6)
 			src.temp = "You attack for [attackamt] damage!"
-			playsound(src.loc, 'sound/arcade/Hit.ogg', 50, 1, extrarange = -3, falloff = 10)
+			playsound(src.loc, 'sound/arcade/Hit.ogg', 50, 1, extrarange = -6, falloff = 10)
 			src.updateUsrDialog()
 			if(turtle > 0)
 				turtle--
@@ -168,7 +168,7 @@
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
 			src.temp = "You use [pointamt] magic to heal for [healamt] damage!"
-			playsound(src.loc, 'sound/arcade/Heal.ogg', 50, 1, extrarange = -3, falloff = 10)
+			playsound(src.loc, 'sound/arcade/Heal.ogg', 50, 1, extrarange = -6, falloff = 10)
 			src.updateUsrDialog()
 			turtle++
 
@@ -183,7 +183,7 @@
 			src.blocked = 1
 			var/chargeamt = rand(4,7)
 			src.temp = "You regain [chargeamt] points"
-			playsound(src.loc, 'sound/arcade/Mana.ogg', 50, 1, extrarange = -3, falloff = 10)
+			playsound(src.loc, 'sound/arcade/Mana.ogg', 50, 1, extrarange = -6, falloff = 10)
 			src.player_mp += chargeamt
 			if(turtle > 0)
 				turtle--
@@ -218,7 +218,7 @@
 		if(!gameover)
 			src.gameover = 1
 			src.temp = "[src.enemy_name] has fallen! Rejoice!"
-			playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -3, falloff = 10)
+			playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -6, falloff = 10)
 
 			if(emagged)
 				feedback_inc("arcade_win_emagged")
@@ -235,13 +235,13 @@
 	else if (emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		src.temp = "[src.enemy_name] throws a bomb, exploding you for [boomamt] damage!"
-		playsound(src.loc, 'sound/arcade/Boom.ogg', 50, 1, extrarange = -3, falloff = 10)
+		playsound(src.loc, 'sound/arcade/Boom.ogg', 50, 1, extrarange = -6, falloff = 10)
 		src.player_hp -= boomamt
 
 	else if ((src.enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
 		src.temp = "[src.enemy_name] steals [stealamt] of your power!"
-		playsound(src.loc, 'sound/arcade/Steal.ogg', 50, 1, extrarange = -3, falloff = 10)
+		playsound(src.loc, 'sound/arcade/Steal.ogg', 50, 1, extrarange = -6, falloff = 10)
 		src.player_mp -= stealamt
 		src.updateUsrDialog()
 
@@ -249,7 +249,7 @@
 			src.gameover = 1
 			sleep(10)
 			src.temp = "You have been drained! GAME OVER"
-			playsound(src.loc, 'sound/arcade/Lose.ogg', 50, 1, extrarange = -3, falloff = 10)
+			playsound(src.loc, 'sound/arcade/Lose.ogg', 50, 1, extrarange = -6, falloff = 10)
 			if(emagged)
 				feedback_inc("arcade_loss_mana_emagged")
 				usr.gib()
@@ -258,20 +258,20 @@
 
 	else if ((src.enemy_hp <= 10) && (src.enemy_mp > 4))
 		src.temp = "[src.enemy_name] heals for 4 health!"
-		playsound(src.loc, 'sound/arcade/Heal.ogg', 50, 1, extrarange = -3, falloff = 10)
+		playsound(src.loc, 'sound/arcade/Heal.ogg', 50, 1, extrarange = -6, falloff = 10)
 		src.enemy_hp += 4
 		src.enemy_mp -= 4
 
 	else
 		var/attackamt = rand(3,6)
 		src.temp = "[src.enemy_name] attacks for [attackamt] damage!"
-		playsound(src.loc, 'sound/arcade/Hit.ogg', 50, 1, extrarange = -3, falloff = 10)
+		playsound(src.loc, 'sound/arcade/Hit.ogg', 50, 1, extrarange = -6, falloff = 10)
 		src.player_hp -= attackamt
 
 	if ((src.player_mp <= 0) || (src.player_hp <= 0))
 		src.gameover = 1
 		src.temp = "You have been crushed! GAME OVER"
-		playsound(src.loc, 'sound/arcade/Lose.ogg', 50, 1, extrarange = -3, falloff = 10)
+		playsound(src.loc, 'sound/arcade/Lose.ogg', 50, 1, extrarange = -6, falloff = 10)
 		if(emagged)
 			feedback_inc("arcade_loss_hp_emagged")
 			usr.gib()
