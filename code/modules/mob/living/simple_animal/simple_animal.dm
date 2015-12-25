@@ -224,9 +224,9 @@
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(2)
+		adjustBruteLoss(cold_damage_per_tick)
 	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(3)
+		adjustBruteLoss(heat_damage_per_tick)
 
 /mob/living/simple_animal/Bumped(AM as mob|obj)
 	if(!AM) return
