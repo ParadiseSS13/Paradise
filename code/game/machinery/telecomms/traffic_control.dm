@@ -116,7 +116,8 @@
 
 						function compileCode() {
 							var codeText = cMirror_fSubmit.getValue();
-							window.location = "byond://?src=\ref[src];choice=Compile;cMirror=" + encodeURIComponent(codeText);
+							document.getElementById("cMirrorPost").value = codeText;
+							document.getElementById("theform").submit();
 						}
 
 						function clearCode() {
@@ -129,6 +130,12 @@
 					<div class="item">
 						[compiling_errors]
 					</div>
+
+					<form action="byond://" method="POST" id="theform">
+						<input type="hidden" name="choice" value="Compile">
+						<input type="hidden" name="src" value="\ref[src]">
+						<input type="hidden" id="cMirrorPost" name="cMirror" value="">
+					</form>
 					"}
 		else
 			dat += {"<br>[temp]<br>
