@@ -161,9 +161,9 @@
 		user <<"<span class='warning'>...and you don't feel any different.</span>"
 
 	user.drop_item()
-	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
+	src.insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/internal/heart/demonheart/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demonheart/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(M.mind)
 		M.bloodcrawl = 0

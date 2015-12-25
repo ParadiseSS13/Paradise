@@ -11,7 +11,7 @@
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	if(iscarbon(M))
-		src.Insert(M)
+		src.insert(M)
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)
 		overlay.color = implant_color
@@ -115,7 +115,7 @@
 	if(!r_hand_ignore && r_hand_obj in owner.contents)
 		r_hand_obj.flags ^= NODROP
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
 	..()
 	if(active)
 		ui_action_click()

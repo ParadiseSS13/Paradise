@@ -1017,7 +1017,7 @@ client
 			return
 
 		usr << "Removed [rem_organ] from [M]."
-		rem_organ.Remove(M)
+		rem_organ.remove(M)
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)

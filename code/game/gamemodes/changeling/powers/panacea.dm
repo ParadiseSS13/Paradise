@@ -13,7 +13,7 @@
 
 	var/obj/item/organ/internal/body_egg/egg = user.get_int_organ(/obj/item/organ/internal/body_egg)
 	if(egg)
-		egg.Remove(user)
+		egg.remove(user)
 		if(iscarbon(user))
 			var/mob/living/carbon/human/C = user
 			C.vomit()

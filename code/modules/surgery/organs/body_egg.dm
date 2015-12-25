@@ -12,10 +12,10 @@
 
 /obj/item/organ/internal/body_egg/New(loc)
 	if(iscarbon(loc))
-		src.Insert(loc)
+		src.insert(loc)
 	return ..()
 
-/obj/item/organ/internal/body_egg/Insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
 	..()
 	owner.status_flags |= XENO_HOST
 	processing_objects.Add(src)
@@ -23,7 +23,7 @@
 	spawn(0)
 		AddInfectionImages(owner)
 
-/obj/item/organ/internal/body_egg/Remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/body_egg/remove(var/mob/living/carbon/M, special = 0)
 	processing_objects.Remove(src)
 	if(owner)
 		owner.status_flags &= ~(XENO_HOST)
@@ -35,7 +35,7 @@
 /obj/item/organ/internal/body_egg/process()
 	if(!owner)	return
 	if(!(src in owner.internal_organs))
-		Remove(owner)
+		remove(owner)
 		return
 	egg_process()
 

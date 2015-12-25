@@ -30,7 +30,7 @@
 			goo.basecolor = "#412464"
 			goo.update_icon()
 
-/obj/item/organ/internal/borer/Remove(var/mob/living/user)
+/obj/item/organ/internal/borer/remove(var/mob/living/user)
 
 	..()
 

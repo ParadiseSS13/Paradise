@@ -37,7 +37,7 @@
 	internal_organs += new /obj/item/organ/internal/brain/xeno
 	internal_organs += new /obj/item/organ/internal/xenos/hivenode
 	for(var/obj/item/organ/internal/I in internal_organs)
-		I.Insert(src)
+		I.insert(src)
 	..()
 
 /mob/living/carbon/alien/get_default_language()

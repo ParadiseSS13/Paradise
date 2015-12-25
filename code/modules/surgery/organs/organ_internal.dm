@@ -10,13 +10,13 @@
 	vital = 0
 	var/organ_action_name = null
 
-/obj/item/organ/internal/proc/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
 		return
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
-		replaced.Remove(M, special = 1)
+		replaced.remove(M, special = 1)
 
 	owner = M
 	M.internal_organs |= src
@@ -25,7 +25,7 @@
 		action_button_name = organ_action_name
 
 
-/obj/item/organ/internal/proc/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/proc/remove(mob/living/carbon/M, special = 0)
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -65,7 +65,7 @@
 
 /obj/item/organ/internal/Destroy()
 	if(owner)
-		Remove(owner, 1)
+		remove(owner, 1)
 	return ..()
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
@@ -101,12 +101,12 @@
 	else
 		icon_state = "heart-off"
 
-/obj/item/organ/internal/heart/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/insert(mob/living/carbon/M, special = 0)
 	..()
 	beating = 1
 	update_icon()
 
-/obj/item/organ/internal/heart/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/remove(mob/living/carbon/M, special = 0)
 	..()
 	spawn(120)
 		beating = 0
@@ -126,7 +126,7 @@
 	slot = "lungs"
 
 //Insert something neat here.
-///obj/item/organ/internal/heart/Remove(mob/living/carbon/M, special = 0)
+///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
 //	..()
 
 

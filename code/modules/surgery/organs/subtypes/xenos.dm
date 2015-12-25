@@ -11,12 +11,12 @@
 	..()
 
 ///can be changed if xenos get an update..
-/obj/item/organ/internal/xenos/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
 		verbs += P
 
-/obj/item/organ/internal/xenos/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
 		verbs -= P
 
@@ -95,13 +95,13 @@
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
 
-/obj/item/organ/internal/xenos/plasmavessel/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(isalien(M))
 		var/mob/living/carbon/alien/A = M
 		A.updatePlasmaDisplay()
 
-/obj/item/organ/internal/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/alien/plasmavessel/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(isalien(M))
 		var/mob/living/carbon/alien/A = M
@@ -124,11 +124,11 @@
 	w_class = 1
 	alien_powers = list(/mob/living/carbon/alien/humanoid/verb/whisp)
 
-/obj/item/organ/internal/xenos/hivenode/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.faction |= "alien"
 
-/obj/item/organ/internal/xenos/hivenode/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/xenos/hivenode/remove(mob/living/carbon/M, special = 0)
 	M.faction -= "alien"
 	..()
 

@@ -57,7 +57,7 @@
 	else
 		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/Remove(var/mob/living/user)
+/obj/item/organ/internal/brain/remove(var/mob/living/user)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
@@ -73,7 +73,7 @@
 
 	..()
 
-/obj/item/organ/internal/brain/Insert(var/mob/living/target)
+/obj/item/organ/internal/brain/insert(var/mob/living/target)
 
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans

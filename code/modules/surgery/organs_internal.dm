@@ -103,7 +103,7 @@
 				if(prob(10))
 					A.AttemptGrow()
 
-		A.Remove(target)
+		A.remove(target)
 		A.loc = get_turf(target)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -328,7 +328,7 @@
 			if(O && istype(O))
 
 				spread_germs_to_organ(O, user)
-				O.Remove(user)
+				O.remove(target)
 				O.loc = get_turf(target)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -407,7 +407,7 @@
 		user.drop_item(tool)
 		var/obj/item/organ/internal/O = tool
 		if(istype(O))
-			O.Insert(target)
+			O.insert(target)
 			spread_germs_to_organ(O, user)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

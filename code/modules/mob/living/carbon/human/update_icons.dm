@@ -394,7 +394,7 @@ var/global/list/damage_icon_parts = list()
 			//warning("Invalid h_style for [species.name]: [h_style]")
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		face_standing += icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s", "layer" = -HAIR_LAYER)
+		face_standing += icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	overlays_standing[HAIR_LAYER]	= image(face_standing)
 

@@ -67,7 +67,7 @@
 	robotize()
 	..()
 
-/obj/item/organ/internal/cell/Insert()
+/obj/item/organ/internal/cell/insert()
 	..()
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	if(owner && owner.stat == DEAD)
@@ -105,7 +105,7 @@
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
 
-/obj/item/organ/internal/mmi_holder/Remove(var/mob/living/user)
+/obj/item/organ/internal/mmi_holder/remove(var/mob/living/user)
 	if(stored_mmi)
 		stored_mmi.loc = get_turf(src)
 		if(owner.mind)
