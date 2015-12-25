@@ -574,6 +574,9 @@
 //////END VG HAIRSTYLES///////
 //////////////////////////////
 
+	stubble
+		name = "Stubble"
+		icon_state = "facial_stubble"
 
 /*
 ///////////////////////////////////
