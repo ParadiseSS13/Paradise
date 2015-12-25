@@ -159,8 +159,9 @@
 
 	for(var/organ in has_organ)
 		var/organ_type = has_organ[organ]
+		world << "[organ_type]"//debug print
 		H.internal_organs_by_name[organ] = new organ_type(H,1)
-		H.internal_organs += new has_organ[organ]
+		H.internal_organs += new organ_type
 
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		I.Insert(src)

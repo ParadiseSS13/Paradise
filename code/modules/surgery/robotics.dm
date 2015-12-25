@@ -224,7 +224,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(!affected) return
 		var/is_organ_damaged = 0
-		for(var/obj/item/organ/I in affected.internal_organs)
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I.damage > 0 && I.robotic >= 2)
 				is_organ_damaged = 1
 				break
@@ -236,7 +236,7 @@
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		for(var/obj/item/organ/I in affected.internal_organs)
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
 				if(I.robotic >= 2)
 					user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
@@ -251,7 +251,7 @@
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		for(var/obj/item/organ/I in affected.internal_organs)
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
 
 			if(I && I.damage > 0)
 				if(I.robotic >= 2)
@@ -271,7 +271,7 @@
 		target.adjustToxLoss(5)
 		affected.createwound(CUT, 5)
 
-		for(var/obj/item/organ/I in affected.internal_organs)
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				I.take_damage(rand(3,5),0)
 
@@ -297,7 +297,7 @@
 
 		var/list/attached_organs = list()
 		for(var/organ in affected.internal_organs)
-			var/obj/item/organ/I = organ
+			var/obj/item/organ/internal/I = organ
 			if(I && istype(I) && !(I.status & ORGAN_CUT_AWAY) && I.parent_organ == target_zone)
 				attached_organs[I.organ_tag] = I
 
@@ -319,7 +319,7 @@
 		user.visible_message("\blue [user] has decoupled [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have decoupled [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/internal/I = target.internal_organs_by_name[target.op_stage.current_organ]
 		if(I && istype(I))
 			I.status |= ORGAN_CUT_AWAY
 
@@ -348,7 +348,7 @@
 
 		var/list/removable_organs = list()
 		for(var/organ in affected.internal_organs)
-			var/obj/item/organ/I = organ
+			var/obj/item/organ/internal/I = organ
 			if(I && istype(I) && (I.status & ORGAN_CUT_AWAY) && (I.status & ORGAN_ROBOT) && I.parent_organ == target_zone)
 				removable_organs[I.organ_tag] = I
 
@@ -369,7 +369,7 @@
 		user.visible_message("\blue [user] has reattached [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have reattached [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/internal/I = target.internal_organs_by_name[target.op_stage.current_organ]
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
 
@@ -432,7 +432,7 @@
 		"\blue You have installed \the [tool] into [target]'s [affected.name].")
 
 		var/obj/item/device/mmi/M = tool
-		var/obj/item/organ/mmi_holder/holder = new(target, 1)
+		var/obj/item/organ/internal/mmi_holder/holder = new(target, 1)
 		if (istype(M, /obj/item/device/mmi/posibrain))
 			holder.robotize()
 

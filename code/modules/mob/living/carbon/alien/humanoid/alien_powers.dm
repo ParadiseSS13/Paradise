@@ -170,8 +170,8 @@ Doesn't work on other aliens/AI.*/
 
 
 /mob/living/carbon/proc/adjustPlasma(amount)
-	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)) return 0
+ 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	if(!vessel) return
  	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
  	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
  	return 1

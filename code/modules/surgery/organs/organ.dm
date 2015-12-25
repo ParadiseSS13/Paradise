@@ -32,6 +32,7 @@ var/list/organ_cache = list()
 /obj/item/organ/Destroy()
 	if(!owner)
 		return ..()
+/*
 
 	if(istype(owner, /mob/living/carbon))
 		if((owner.internal_organs) && (src in owner.internal_organs))
@@ -43,17 +44,13 @@ var/list/organ_cache = list()
 				owner.organs -= src
 			if((owner.organs_by_name) && (src in owner.organs_by_name))
 				owner.organs_by_name -= src
+*/
 	if(src in owner.contents)
 		owner.contents -= src
 
 	return ..()
 
-/obj/item/organ/attack_self(mob/user as mob)
 
-	// Convert it to an edible form, yum yum.
-	if(!robotic && user.a_intent == I_HARM)
-		bitten(user)
-		return
 
 /obj/item/organ/proc/update_health()
 	return
@@ -331,34 +328,6 @@ var/list/organ_cache = list()
 	if(robotic)
 		status |= ORGAN_ROBOT
 
-/obj/item/organ/eyes/replaced(var/mob/living/carbon/human/target)
-
-	// Apply our eye colour to the target.
-	if(istype(target) && eye_colour)
-		target.r_eyes = eye_colour[1]
-		target.g_eyes = eye_colour[2]
-		target.b_eyes = eye_colour[3]
-		target.update_eyes()
-	..()
-
-/obj/item/organ/proc/bitten(mob/user)
-
-	if(robotic)
-		return
-
-	user << "\blue You take a bite out of \the [src]."
-
-	user.unEquip(src)
-	var/obj/item/weapon/reagent_containers/food/snacks/organ/O = new(get_turf(src))
-	O.name = name
-	O.icon_state = dead_icon ? dead_icon : icon_state
-
-	if(fingerprints) O.fingerprints = fingerprints.Copy()
-	if(fingerprintshidden) O.fingerprintshidden = fingerprintshidden.Copy()
-	if(fingerprintslast) O.fingerprintslast = fingerprintslast
-
-	user.put_in_active_hand(O)
-	qdel(src)
 
 /obj/item/organ/proc/surgeryize()
 	return

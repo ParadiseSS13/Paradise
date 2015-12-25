@@ -12,17 +12,17 @@
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
-	var/obj/item/organ/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
+	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
 	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 // I'm using this for mechs giving MMIs HUDs now
 
 /obj/item/device/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/organ/brain/crystal ))
+	if(istype(O, /obj/item/organ/internal/brain/crystal ))
 		user << "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>"
 		return
-	if(istype(O,/obj/item/organ/brain) && !brainmob) //Time to stick a brain in it --NEO
-		var/obj/item/organ/brain/B = O
+	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
+		var/obj/item/organ/internal/brain/B = O
 		if(!B.brainmob)
 			user << "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>"
 			return
@@ -47,7 +47,7 @@
 		user.drop_item()
 		B.forceMove(src)
 		held_brain = B
-		if(istype(O,/obj/item/organ/brain/xeno)) // I'm not sure how well this will work now, since I don't think you can actually get xeno brains
+		if(istype(O,/obj/item/organ/internal/brain/xeno)) // I'm not sure how well this will work now, since I don't think you can actually get xeno brains
 			name = "Man-Machine Interface: Alien - [brainmob.real_name]"
 			icon = 'icons/mob/alien.dmi'
 			icon_state = "AlienMMI"
@@ -89,8 +89,8 @@
 		held_brain = new(src)
 	else // We have a species, and it has a brain
 		var/brain_path = H.species.return_organ("brain")
-		if(!ispath(brain_path, /obj/item/organ/brain))
-			brain_path = /obj/item/organ/brain
+		if(!ispath(brain_path, /obj/item/organ/internal/brain))
+			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
