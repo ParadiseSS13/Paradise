@@ -26,13 +26,24 @@
 	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.toxins > 0.5)
 		igniting = 1
 
+	var/liquid
+	for(var/obj/effect/decal/cleanable/liquid_fuel/L in src)
+		igniting = 1
+		liquid = 1
+		if(exposed_temperature < 700)
+			exposed_temperature = 700
+		if(exposed_volume < 500)
+			exposed_volume = 500
+
 	if(igniting)
-		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
+		if(air_contents.oxygen < 0.5)
 			return 0
 
 		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
+		if(liquid)
+			active_hotspot.liquid = 1
 
 		active_hotspot.just_spawned = (current_cycle < air_master.current_cycle)
 			//remove just_spawned protection if no longer processing this cell
@@ -54,6 +65,7 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/just_spawned = 1
 	var/bypassing = 0
+	var/liquid = 0
 
 /obj/effect/hotspot/New()
 	..()
@@ -111,7 +123,7 @@
 		qdel(src)
 		return
 
-	if(!(location.air) || location.air.toxins < 0.5 || location.air.oxygen < 0.5)
+	if(!(location.air) || location.air.oxygen < 0.5 || (location.air.toxins < 0.5 && !liquid))
 		qdel(src)
 		return
 
@@ -131,7 +143,7 @@
 				if(!(location.atmos_adjacent_turfs & direction))
 					continue
 				var/turf/simulated/T = get_step(src, direction)
-				if(istype(T) && T.active_hotspot)
+				if(istype(T) && !T.active_hotspot)
 					T.hotspot_expose(radiated_temperature, CELL_VOLUME/4)
 
 	else

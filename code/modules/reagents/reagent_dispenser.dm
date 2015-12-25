@@ -92,6 +92,7 @@
 	icon_state = "weldtank"
 	amount_per_transfer_from_this = 10
 	var/obj/item/device/assembly_holder/rig = null
+	var/modded = 0
 
 /obj/structure/reagent_dispensers/fueltank/New()
 	..()
@@ -113,26 +114,34 @@
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
 	if(!..(user, 2))
 		return
+	if (modded)
+		usr << "<span class='warning'> Fuel faucet is wrenched open, leaking the fuel!</span>"
 	if(rig)
-		usr << "<span class='notice'>There is some kind of device rigged to the tank."
+		usr << "<span class='notice'>There is some kind of device rigged to the tank.</span>"
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if (rig)
 		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
 		if(do_after(usr, 20, target = src))
-			usr.visible_message("\blue [usr] detaches [rig] from \the [src].", "\blue  You detach [rig] from \the [src]")
+			usr.visible_message("<span class='notice'> [usr] detaches [rig] from \the [src].</span>", "<span class='notice'>  You detach [rig] from \the [src]</span>")
 			rig.loc = get_turf(usr)
 			rig = null
 			overlays = new/list()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	if (istype(W,/obj/item/weapon/wrench))
+		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
+			"You wrench [src]'s faucet [modded ? "closed" : "open"]")
+		modded = modded ? 0 : 1
+		if (modded)
+			leak_fuel(amount_per_transfer_from_this)
 	if (istype(W,/obj/item/device/assembly_holder))
 		if (rig)
-			user << "\red There is another device in the way."
+			user << "<span class='warning'> There is another device in the way.</span>"
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20, target = src))
-			user.visible_message("\blue [user] rigs [W] to \the [src].", "\blue  You rig [W] to \the [src]")
+			user.visible_message("<span class='notice'> [user] rigs [W] to \the [src].</span>", "<span class='notice'>  You rig [W] to \the [src]</span>")
 
 			var/obj/item/device/assembly_holder/H = W
 			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))
@@ -151,9 +160,15 @@
 		return ..()
 
 /obj/structure/reagent_dispensers/fueltank/proc/explode()
-	explosion(src.loc,-1,0,2, flame_range = 2)
+	if (reagents.total_volume > 500)
+		explosion(src.loc,-1,0,2, flame_range = 2)
+	else if (reagents.total_volume > 100)
+		explosion(src.loc,-1,0,1, flame_range = 1)
+	else
+		explosion(src.loc,-1,0,0)
 	if(src)
 		qdel(src)
+
 
 /obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, temperature, volume)
 	blob_act() //saving a few lines of copypasta
@@ -161,8 +176,18 @@
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()
+	if(modded)
+		leak_fuel(amount_per_transfer_from_this)
 	if(rig)
 		rig.process_movement()
+
+/obj/structure/reagent_dispensers/fueltank/proc/leak_fuel(amount)
+	if (reagents.total_volume == 0)
+		return
+
+	amount = min(amount, reagents.total_volume)
+	reagents.remove_reagent("fuel",amount)
+	new /obj/effect/decal/cleanable/liquid_fuel(src.loc, amount)
 
 /obj/structure/reagent_dispensers/fueltank/HasProximity(atom/movable/AM)
 	if(rig)
