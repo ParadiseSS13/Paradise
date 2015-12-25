@@ -27,7 +27,6 @@
 	allowed = list(/obj/item/weapon/tank, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
 	slowdown = 1
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
-	siemens_coefficient = 0.7
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -42,7 +41,6 @@
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
-	siemens_coefficient = 0.2
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 	vision_flags = SEE_MOBS
@@ -67,7 +65,6 @@
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_badge"
 	armor = list(melee = 65, bullet = 55, laser = 35,energy = 20, bomb = 30, bio = 30, rad = 30)
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
@@ -104,7 +101,6 @@
 	item_state = "pirate"
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	flags = HEADCOVERSEYES | BLOCKHAIR | STOPSPRESSUREDMAGE
-	siemens_coefficient = 0.9
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -117,7 +113,6 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
 	slowdown = 0
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
-	siemens_coefficient = 0.9
 	strip_delay = 40
 	put_on_delay = 20
 

@@ -8,7 +8,6 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
@@ -68,7 +67,6 @@
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
 
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -84,14 +82,12 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
-	siemens_coefficient = 0.7
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
-	siemens_coefficient = 0.7
 	strip_delay = 60
 	species_fit = list("Vox")
 
@@ -165,7 +161,6 @@
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
-	siemens_coefficient = 0.2
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/cyborg
