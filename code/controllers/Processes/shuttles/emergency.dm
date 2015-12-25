@@ -102,14 +102,14 @@
 				send2irc("Server", "The Emergency Shuttle has docked with the station.")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
-/*
+
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
 				for(var/datum/gang/G in ticker.mode.gangs)
 					if(isnum(G.dom_timer))
 						G.dom_attempts = 0
 					else
 						G.dom_attempts = min(1,G.dom_attempts)
-*/
+
 		if(SHUTTLE_DOCKED)
 			if(time_left <= 0 && shuttle_master.emergencyNoEscape)
 				priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")

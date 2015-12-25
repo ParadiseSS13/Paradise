@@ -13,7 +13,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"alien" = 1,										// 62 / 7
 	"pAI" = 1,											// 128	/ 8
 	"cultist" = IS_MODE_COMPILED("cult"),				// 256 / 9
-	"ninja" = 1,										// 512 / 10
+	"gang" = IS_MODE_COMPILED("gang")					,// 512 / 10
 	"raider" = IS_MODE_COMPILED("heist"),				// 1024 / 11
 	"vampire" = IS_MODE_COMPILED("vampire"),			// 2048 / 12
 	"mutineer" = IS_MODE_COMPILED("mutiny"),			// 4096 / 13
@@ -35,7 +35,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	num2text(BE_CULTIST) = 21,
 	num2text(BE_RAIDER) = 21,
 	num2text(BE_ALIEN) = 21,
-	num2text(BE_NINJA) = 21,
+	num2text(BE_GANG) = 21,
 	num2text(BE_MUTINEER) = 21,
 	num2text(BE_MALF) = 30,
 )

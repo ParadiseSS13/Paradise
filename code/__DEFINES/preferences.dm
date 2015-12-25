@@ -36,7 +36,7 @@
 #define BE_ALIEN		64
 #define BE_PAI			128
 #define BE_CULTIST		256
-#define BE_NINJA		512
+#define BE_GANG			512
 #define BE_RAIDER		1024
 #define BE_VAMPIRE		2048
 #define BE_MUTINEER		4096

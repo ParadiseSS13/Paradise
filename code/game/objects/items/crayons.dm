@@ -18,6 +18,7 @@
 	var/colourName = "red" //for updateIcon purposes
 	var/dat
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/gang = 0 //For marking territory
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [src.name] up \his nose and into \his brain. It looks like \he's trying to commit suicide.</span>")
@@ -84,9 +85,43 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
+
+		////////////////////////// GANG FUNCTIONS
+		var/area/territory
+		var/gangID
+		if(gang)
+			//Determine gang affiliation
+			gangID = user.mind.gang_datum
+			//Check area validity. Reject space, player-created areas, and non-station z-levels.
+			if(gangID)
+				territory = get_area(target)
+				if(territory && (territory.z == ZLEVEL_STATION) && territory.valid_territory)
+					//Check if this area is already tagged by a gang
+					if(!(locate(/obj/effect/decal/cleanable/crayon/gang) in target)) //Ignore the check if the tile being sprayed has a gang tag
+						if(territory_claimed(territory, user))
+							return
+					if(locate(/obj/machinery/power/apc) in (user.loc.contents | target.contents))
+						user << "<span class='warning'>You cannot tag here.</span>"
+						return
+				else
+					user << "<span class='warning'>[territory] is unsuitable for tagging.</span>"
+					return
+		/////////////////////////////////////////
+
 		user << "You start drawing a [temp] on the [target.name]."
 		if(instant || do_after(user, 50, target = target))
-			new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
+			//Gang functions
+			if(gangID)
+				//Delete any old markings on this tile, including other gang tags
+				if(!(locate(/obj/effect/decal/cleanable/crayon/gang) in target)) //Ignore the check if the tile being sprayed has a gang tag
+					if(territory_claimed(territory, user))
+						return
+				for(var/obj/effect/decal/cleanable/crayon/old_marking in target)
+					qdel(old_marking)
+				new /obj/effect/decal/cleanable/crayon/gang(target,gangID,"graffiti")
+				user << "<span class='notice'>You tagged [territory] for your gang!</span>"
+			else
+				new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			user << "You finish drawing [temp]."
 			if(uses)
 				uses--
@@ -108,6 +143,16 @@
 	else
 		..()
 
+/obj/item/toy/crayon/proc/territory_claimed(area/territory,mob/user)
+	var/occupying_gang
+	for(var/datum/gang/G in ticker.mode.gangs)
+		if(territory.type in (G.territory|G.territory_new))
+			occupying_gang = G.name
+			break
+	if(occupying_gang)
+		user << "<span class='danger'>[territory] has already been tagged by the [occupying_gang] gang! You must get rid of or spray over the old tag first!</span>"
+		return 1
+	return 0
 
 /obj/item/toy/crayon/red
 	icon_state = "crayonred"
@@ -251,3 +296,14 @@
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	overlays += I
+
+/obj/item/toy/crayon/spraycan/gang
+	desc = "A modified container containing suspicious paint."
+	gang = 1
+	uses = 20
+	instant = -1
+/obj/item/toy/crayon/spraycan/gang/New(loc, datum/gang/G)
+	..()
+	if(G)
+		colour = G.color_hex
+		update_icon()

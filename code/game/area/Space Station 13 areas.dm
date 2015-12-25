@@ -31,6 +31,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	luminosity = 0
 	mouse_opacity = 0
 	var/lightswitch = 1
+	var/valid_territory = 1 //If it's a valid territory for gangs to claim
 
 	var/eject = null
 
@@ -121,6 +122,7 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
+	valid_territory = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
 /area/space/atmosalert()
@@ -147,6 +149,7 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle
 	requires_power = 0
+	valid_territory = 0
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -521,6 +524,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Asteroid"
 	icon_state = "asteroid"
 	requires_power = 0
+	valid_territory = 0
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"
@@ -829,6 +833,7 @@ var/list/ghostteleportlocs = list()
 //Maintenance
 /area/maintenance
 	ambientsounds = list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg', 'sound/ambience/ambimaint5.ogg')
+	valid_territory = 0
 
 /area/maintenance/atmos_control
 	name = "Atmospherics Maintenance"
@@ -1312,6 +1317,7 @@ var/list/ghostteleportlocs = list()
 /area/solar
 	requires_power = 0
 	lighting_use_dynamic = 0
+	valid_territory = 0
 
 	auxport
 		name = "\improper Fore Port Solar Array"
@@ -1796,6 +1802,7 @@ area/security/podbay
 /area/toxins/test_area
 	name = "\improper Toxins Test Area"
 	icon_state = "toxtest"
+	valid_territory = 0
 
 /area/toxins/mixing
 	name = "\improper Toxins Mixing Room"

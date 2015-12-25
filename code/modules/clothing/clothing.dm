@@ -3,6 +3,7 @@
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/rig_restrict_helmet = 0 // Stops the user from equipping a rig helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	var/gang //Is this a gang outfit?
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.

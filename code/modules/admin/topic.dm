@@ -63,6 +63,13 @@
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!src.makeVoxRaiders())
 					usr << "\red Unfortunately there weren't enough candidates available."
+			if("12")
+				if(src.makeGangsters())
+					message_admins("[key_name(usr)] created gangs.")
+					log_admin("[key_name(usr)] created gangs.")
+				else
+					message_admins("[key_name(usr)] tried to create gangs. Unfortunately, there were not enough candidates available.")
+					log_admin("[key_name(usr)] failed create gangs.")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -700,11 +707,11 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
 
-		//Ninja
-		if(jobban_isbanned(M, "ninja") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'><font color=red>[replacetext("Ninja", " ", "&nbsp")]</font></a></td>"
+		//Gang
+		if(jobban_isbanned(M, "gangster") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=gangster;jobban4=\ref[M]'><font color=red>[replacetext("Gangster", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=ninja;jobban4=\ref[M]'>[replacetext("Ninja", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=gangster;jobban4=\ref[M]'>[replacetext("Gangster", " ", "&nbsp")]</a></td>"
 
 		//Raider
 		if(jobban_isbanned(M, "raider") || isbanned_dept)
@@ -1516,6 +1523,16 @@
 			return
 
 		usr.client.cmd_admin_animalize(M)
+
+	else if(href_list["gangpoints"])
+		var/datum/gang/G = locate(href_list["gangpoints"]) in ticker.mode.gangs
+		if(G)
+			var/newpoints = input("Set [G.name ] Gang's influence.","Set Influence",G.points) as null|num
+			if(newpoints)
+				message_admins("[key_name_admin(usr)] changed the [G.name] Gang's influence from [G.points] to [newpoints]</span>")
+				log_admin("[key_name(usr)] changed the [G.name] Gang's influence from [G.points] to [newpoints]</span>")
+				G.points = newpoints
+				G.message_gangtools("Your gang now has [G.points] influence.")
 
 	else if(href_list["togmutate"])
 		if(!check_rights(R_SPAWN))	return

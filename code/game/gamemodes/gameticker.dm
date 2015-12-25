@@ -33,6 +33,7 @@ var/global/datum/controller/gameticker/ticker
 	var/initialtpass = 0 //holder for inital autotransfer vote timer
 
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
+	var/mode_finished = 0 // allows admins to force a finish
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
@@ -290,6 +291,10 @@ var/global/datum/controller/gameticker/ticker
 						world << sound('sound/effects/explosionfar.ogg')
 						flick("station_intact_fade_red",cinematic)
 						cinematic.icon_state = "summary_nukefail"
+					if("gang war") //Gang Domination (just show the override screen)
+						cinematic.icon_state = "intro_malf_still"
+						flick("intro_malf",cinematic)
+						sleep(70)
 					else
 						flick("intro_nuke",cinematic)
 						sleep(35)
@@ -385,7 +390,6 @@ var/global/datum/controller/gameticker/ticker
 		//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
 		var/game_finished = 0
-		var/mode_finished = 0
 		if (config.continous_rounds)
 			game_finished = (mode.station_was_nuked)
 			mode_finished = (!post_game && mode.check_finished())

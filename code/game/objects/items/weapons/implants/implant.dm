@@ -349,9 +349,11 @@ the implant may become unstable and either pre-maturely inject the subject or si
 /obj/item/weapon/implant/loyalty/implanted(mob/M)
 	if(!istype(M, /mob/living/carbon/human))	return 0
 	var/mob/living/carbon/human/H = M
-	if(H.mind in ticker.mode.head_revolutionaries)
+	if(H.mind in (ticker.mode.head_revolutionaries || ticker.mode.get_gang_bosses()))
 		H.visible_message("<span class='warning'>[H] seems to resist the implant!</span>", "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		return 0
+	else if(H.mind in ticker.mode.get_gangsters())
+		ticker.mode.remove_gangster(H.mind)
 	else if(H.mind in ticker.mode:revolutionaries)
 		ticker.mode:remove_revolutionary(H.mind)
 	H << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"

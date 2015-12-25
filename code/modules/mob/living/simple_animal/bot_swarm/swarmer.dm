@@ -184,6 +184,12 @@
 /obj/machinery/nuclearbomb/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>This device's destruction would result in the extermination of everything in the area. Aborting.</span>"
 
+/obj/machinery/dominator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>This device is attempting to corrupt our entire network; attempting to interact with it is too risky. Aborting.</span>"
+
+/obj/effect/decal/cleanable/crayon/gang/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Searching... sensor malfunction! Target lost. Aborting.</span>"
+
 /obj/effect/rune/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>Searching... sensor malfunction! Target lost. Aborting.</span>"
 

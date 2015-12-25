@@ -498,7 +498,7 @@ proc/get_nt_opposed()
 		if(BE_MALF)			roletext="malf AI"
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
+		if(BE_GANG)			roletext="gangster"
 		if(BE_RAIDER)		roletext="raider"
 		if(BE_VAMPIRE)		roletext="vampire"
 		if(BE_ALIEN)		roletext="alien"
@@ -512,3 +512,18 @@ proc/get_nt_opposed()
 		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
 			nukecode = bomb.r_code
 	return nukecode
+
+/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
+	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+	if(ply.current)
+		if(ply.current.stat == DEAD)
+			text += " <span class='boldannounce'>died</span>"
+		else
+			text += " <span class='greenannounce'>survived</span>"
+		if(fleecheck && ply.current.z > ZLEVEL_STATION)
+			text += " while <span class='boldannounce'>fleeing the station</span>"
+		if(ply.current.real_name != ply.name)
+			text += " as <b>[ply.current.real_name]</b>"
+	else
+		text += " <span class='boldannounce'>had their body destroyed</span>"
+	return text
