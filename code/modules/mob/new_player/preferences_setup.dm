@@ -248,8 +248,18 @@ datum/preferences
 			else
 				preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
+		//Body Markings
+		if(current_species && (current_species.bodyflags & HAS_MARKINGS))
+			var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
+			if(marking_style)
+				var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
+				preview_icon.Blend(markings_s, ICON_OVERLAY)
+
+
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
 		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+
 
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style)
@@ -264,7 +274,7 @@ datum/preferences
 			eyes_s.Blend(facial_s, ICON_OVERLAY)
 
 		//Horns
-		if(current_species && current_species.name == "Unathi")
+		if(current_species && (current_species.bodyflags & HAS_HORNS))
 			var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
 			if(horn_style)
 				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
@@ -272,19 +282,19 @@ datum/preferences
 				eyes_s.Blend(horns_s, ICON_OVERLAY)
 
 		var/icon/underwear_s = null
-		if(underwear && current_species.clothing_flags & HAS_UNDERWEAR)
+		if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
 			var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
 			if(U)
 				underwear_s = new/icon(U.icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/undershirt_s = null
-		if(undershirt && current_species.clothing_flags & HAS_UNDERSHIRT)
+		if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
 			var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 			if(U2)
 				undershirt_s = new/icon(U2.icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
 
 		var/icon/socks_s = null
-		if(socks && current_species.clothing_flags & HAS_SOCKS)
+		if(socks && (current_species.clothing_flags & HAS_SOCKS))
 			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
 				socks_s = new/icon(U3.icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)

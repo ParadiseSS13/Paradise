@@ -110,8 +110,12 @@ datum/preferences
 	var/undershirt = "Nude"					//undershirt type
 	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
-	var/h_style = "Bald"				//Hair type
 	var/horns = "None"					//Horn style
+	var/m_style = "None"				//Marking style
+	var/r_markings = 0					//Marking colour
+	var/g_markings = 0					//Marking colour
+	var/b_markings = 0					//Marking colour
+	var/h_style = "Bald"				//Hair type
 	var/r_hair = 0						//Hair color
 	var/g_hair = 0						//Hair color
 	var/b_hair = 0						//Hair color
@@ -354,9 +358,13 @@ datum/preferences
 					dat += "[TextPreview(flavor_text)]...<br>"
 				dat += "<br>"
 
-				if(species == "Unathi")
+				if(species == "Unathi") //Species that have horns.
 					dat += "<br><b>Horns</b><br>"
 					dat += "Style: <a href='?_src_=prefs;preference=horns;task=input'>[horns]</a><br>"
+
+					dat += "<br><b>Body Markings</b><br>"
+					dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
+					dat += "<br>Style: <a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a><br>"
 
 				var/hairname = "Hair"
 				if(species == "Machine")
@@ -374,7 +382,7 @@ datum/preferences
 
 				if((species in list("Unathi", "Tajaran", "Skrell", "Slime People", "Vulpkanin", "Machine")) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 					dat += "<br><b>Body Color</b><br>"
-					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font>"
+					dat += "<a href='?_src_=prefs;preference=skin;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_skin, 2)][num2hex(g_skin, 2)][num2hex(b_skin)]'><tr><td>__</td></tr></table></font><br>"
 
 				if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 					dat += "<br><b>Body Accessory</b><br>"
@@ -1206,6 +1214,28 @@ datum/preferences
 						if(new_horn_style)
 							horns = new_horn_style
 
+					if("markings")
+						if(species == "Unathi")
+							var/input = "Choose the colour of your your character's body markings:"
+							var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
+							if(new_markings)
+								r_markings = hex2num(copytext(new_markings, 2, 4))
+								g_markings = hex2num(copytext(new_markings, 4, 6))
+								b_markings = hex2num(copytext(new_markings, 6, 8))
+
+					if("m_style")
+						var/list/valid_markings = list()
+						for(var/markingstyle in marking_styles_list)
+							var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
+							if( !(species in M.species_allowed))
+								continue
+
+							valid_markings[markingstyle] = marking_styles_list[markingstyle]
+
+						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference") as null|anything in valid_markings
+						if(new_marking_style)
+							m_style = new_marking_style
+
 					if("body_accessory")
 						var/list/possible_body_accessories = list()
 						if(check_rights(R_ADMIN, 1, user))
@@ -1625,8 +1655,13 @@ datum/preferences
 		character.undershirt = undershirt
 		character.socks = socks
 
-		if(character.species.name == "Unathi")
+		if(character.species.bodyflags & HAS_HORNS)
 			character.horns = horns
+		if(character.species.bodyflags & HAS_MARKINGS)
+			character.r_markings = r_markings
+			character.g_markings = g_markings
+			character.b_markings = b_markings
+			character.m_style = m_style
 		if(body_accessory)
 			character.body_accessory = body_accessory_by_name["[body_accessory]"]
 

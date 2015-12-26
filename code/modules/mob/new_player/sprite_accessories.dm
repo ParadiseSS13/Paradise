@@ -564,25 +564,6 @@
 */
 
 /datum/sprite_accessory/hair
-	una_spines_long
-		name = "Long Unathi Spines"
-		icon_state = "soghun_longspines"
-		species_allowed = list("Unathi")
-
-	una_spines_short
-		name = "Short Unathi Spines"
-		icon_state = "soghun_shortspines"
-		species_allowed = list("Unathi")
-
-	una_frills_long
-		name = "Long Unathi Frills"
-		icon_state = "soghun_longfrills"
-		species_allowed = list("Unathi")
-
-	una_frills_short
-		name = "Short Unathi Frills"
-		icon_state = "soghun_shortfrills"
-		species_allowed = list("Unathi")
 
 	una_horns
 		name = "Unathi Horns"
@@ -872,6 +853,8 @@
 
 /datum/sprite_accessory/facial_hair
 
+//Tajara
+
 	taj_sideburns
 		name = "Tajara Sideburns"
 		icon_state = "facial_sideburns"
@@ -901,6 +884,8 @@
 		name = "Tajara Smallstache"
 		icon_state = "facial_smallstache"
 		species_allowed = list("Tajaran")
+
+//Vox
 
 	vox_colonel
 		name = "Vox Colonel Beard"
@@ -972,6 +957,51 @@
 		icon_state = "vulp_facial_swift"
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
+
+//Unathi
+
+	una_spines_long
+		name = "Long Unathi Spines"
+		icon_state = "soghun_longspines"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_spines_short
+		name = "Short Unathi Spines"
+		icon_state = "soghun_shortspines"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_long
+		name = "Long Unathi Frills"
+		icon_state = "soghun_longfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_short
+		name = "Short Unathi Frills"
+		icon_state = "soghun_shortfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_simple
+		name = "Simple"
+		icon_state = "soghun_longwebbed_frills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_short
+		name = "Short"
+		icon_state = "soghun_shortwebbed_frills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_aquatic
+		name = "Aquatic"
+		icon_state = "soghun_aquafrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
@@ -1509,7 +1539,7 @@
 
 /datum/sprite_accessory/horns/none
 	name = "None"
-	icon_state = "horns_none"
+	icon_state = "accessory_none"
 
 /datum/sprite_accessory/horns/simple
 	name = "Simple"
@@ -1527,25 +1557,37 @@
 	name = "Ram"
 	icon_state = "horns_ram"
 
-/* FRILLS */
+/* BODY MARKINGS */
 
-/datum/sprite_accessory/frills
+/datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
 	species_allowed = list("Unathi")
 	icon_state = null
 
-/datum/sprite_accessory/frills/none
+/datum/sprite_accessory/body_markings/none
 	name = "None"
-	icon_state = null
+	icon_state = "accessory_none"
 
-/datum/sprite_accessory/frills/simple
-	name = "Simple"
-	icon_state = "simple"
+/datum/sprite_accessory/body_markings/dstripe
+	name = "Dark Stripe"
+	icon_state = "markings_dstripe"
 
-/datum/sprite_accessory/frills/short
-	name = "Short"
-	icon_state = "short"
+/datum/sprite_accessory/body_markings/lstripe
+	name = "Light Stripe"
+	icon_state = "markings_lstripe"
 
-/datum/sprite_accessory/frills/aquatic
-	name = "Aquatic"
-	icon_state = "aqua"
+/datum/sprite_accessory/body_markings/dtiger
+	name = "Dark Tiger Body"
+	icon_state = "markings_dtiger"
+
+/datum/sprite_accessory/body_markings/dtigerhead
+	name = "Dark Tiger Body + Head"
+	icon_state = "markings_dtigerhead"
+
+/datum/sprite_accessory/body_markings/ltiger
+	name = "Light Tiger Body"
+	icon_state = "markings_ltiger"
+
+/datum/sprite_accessory/body_markings/ltigerhead
+	name = "Light Tiger Body + Head"
+	icon_state = "markings_ltigerhead"

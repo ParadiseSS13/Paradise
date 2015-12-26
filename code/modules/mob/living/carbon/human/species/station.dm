@@ -40,7 +40,7 @@
 
 	flags = HAS_LIPS
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HORNS | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better

@@ -2,6 +2,12 @@
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
 
+	//Marking colour and style
+	var/r_markings = 0
+	var/g_markings = 0
+	var/b_markings = 0
+	var/m_style = "None"
+
 	//Hair colour and style
 	var/r_hair = 0
 	var/g_hair = 0

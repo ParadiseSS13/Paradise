@@ -180,12 +180,20 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		eyes_s.Blend(facial_s, ICON_OVERLAY)
 
 	//Horns
-	if(H.species && H.species.name == "Unathi")
+	if(H.species.bodyflags & HAS_HORNS)
 		var/datum/sprite_accessory/horns = horn_styles_list[H.horns]
 		if(horns)
 			var/icon/horns_s = new/icon("icon" = horns.icon, "icon_state" = "[horns.icon_state]_s")
 			horns_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 			eyes_s.Blend(horns_s, ICON_OVERLAY)
+
+	//Horns
+	if(H.species.bodyflags & HAS_MARKINGS)
+		var/datum/sprite_accessory/marking_style = marking_styles_list[H.m_style]
+		if(marking_style)
+			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+			markings_s.Blend(rgb(H.r_markings, H.g_markings, H.b_markings), ICON_ADD)
+			eyes_s.Blend(markings_s, ICON_OVERLAY)
 
 	preview_icon.Blend(eyes_s, ICON_OVERLAY)
 

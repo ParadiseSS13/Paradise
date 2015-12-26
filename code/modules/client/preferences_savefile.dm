@@ -124,6 +124,9 @@
 	S["spawnpoint"]			>> spawnpoint
 
 	//colors to be consolidated into hex strings (requires some work with dna code)
+	S["markings_red"]			>> r_markings
+	S["markings_green"]			>> g_markings
+	S["markings_blue"]			>> b_markings
 	S["hair_red"]			>> r_hair
 	S["hair_green"]			>> g_hair
 	S["hair_blue"]			>> b_hair
@@ -135,6 +138,7 @@
 	S["skin_green"]			>> g_skin
 	S["skin_blue"]			>> b_skin
 	S["horn_style_name"]	>> horns
+	S["marking_style_name"]	>> m_style
 	S["hair_style_name"]	>> h_style
 	S["facial_style_name"]	>> f_style
 	S["eyes_red"]			>> r_eyes
@@ -188,6 +192,9 @@
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
+	r_markings		= sanitize_integer(r_markings, 0, 255, initial(r_markings))
+	g_markings		= sanitize_integer(g_markings, 0, 255, initial(g_markings))
+	b_markings		= sanitize_integer(b_markings, 0, 255, initial(b_markings))
 	r_hair			= sanitize_integer(r_hair, 0, 255, initial(r_hair))
 	g_hair			= sanitize_integer(g_hair, 0, 255, initial(g_hair))
 	b_hair			= sanitize_integer(b_hair, 0, 255, initial(b_hair))
@@ -199,6 +206,7 @@
 	g_skin			= sanitize_integer(g_skin, 0, 255, initial(g_skin))
 	b_skin			= sanitize_integer(b_skin, 0, 255, initial(b_skin))
 	horns			= sanitize_inlist(horns, horn_styles_list, initial(horns))
+	m_style			= sanitize_inlist(m_style, marking_styles_list, initial(m_style))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))

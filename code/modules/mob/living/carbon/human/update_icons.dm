@@ -106,31 +106,32 @@ Please contact me on #coderbus IRC. ~Carn x
 
 //Human Overlays Indexes/////////
 #define MUTANTRACE_LAYER		1
-#define MUTATIONS_LAYER			2
-#define DAMAGE_LAYER			3
-#define UNIFORM_LAYER			4
-#define ID_LAYER				5
-#define SHOES_LAYER				6
-#define GLOVES_LAYER			7
-#define EARS_LAYER				8
-#define SUIT_LAYER				9
-#define GLASSES_LAYER			10
-#define BELT_LAYER				11		//Possible make this an overlay of somethign required to wear a belt?
-#define TAIL_LAYER				12		//bs12 specific. this hack is probably gonna come back to haunt me
-#define SUIT_STORE_LAYER		13
-#define BACK_LAYER				14
-#define HAIR_LAYER				15		//TODO: make part of head layer?
-#define HORN_LAYER				16
-#define FACEMASK_LAYER			17
-#define HEAD_LAYER				18
-#define COLLAR_LAYER			19
-#define HANDCUFF_LAYER			20
-#define LEGCUFF_LAYER			21
-#define L_HAND_LAYER			22
-#define R_HAND_LAYER			23
-#define TARGETED_LAYER			24		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				25    //If you're on fire
-#define TOTAL_LAYERS			25
+#define MARKINGS_LAYER			2
+#define MUTATIONS_LAYER			3
+#define DAMAGE_LAYER			4
+#define UNIFORM_LAYER			5
+#define ID_LAYER				6
+#define SHOES_LAYER				7
+#define GLOVES_LAYER			8
+#define EARS_LAYER				9
+#define SUIT_LAYER				10
+#define GLASSES_LAYER			11
+#define BELT_LAYER				12		//Possible make this an overlay of somethign required to wear a belt?
+#define TAIL_LAYER				13		//bs12 specific. this hack is probably gonna come back to haunt me
+#define SUIT_STORE_LAYER		14
+#define BACK_LAYER				15
+#define HAIR_LAYER				16		//TODO: make part of head layer?
+#define HORN_LAYER				17
+#define FACEMASK_LAYER			18
+#define HEAD_LAYER				19
+#define COLLAR_LAYER			20
+#define HANDCUFF_LAYER			21
+#define LEGCUFF_LAYER			22
+#define L_HAND_LAYER			23
+#define R_HAND_LAYER			24
+#define TARGETED_LAYER			25		//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				26    //If you're on fire
+#define TOTAL_LAYERS			26
 
 
 
@@ -353,7 +354,38 @@ var/global/list/damage_icon_parts = list()
 	update_tail_layer(0)
 	//horns
 	update_horns(0)
+	//markings
+	update_markings(0)
 
+
+//MARKINGS OVERLAY
+/mob/living/carbon/human/proc/update_markings(var/update_icons=1)
+	world << "\red PROC CALLED"
+	//Reset our markings
+	overlays_standing[MARKINGS_LAYER]	= null
+
+	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
+	if(!chest_organ || chest_organ.is_stump() || (chest_organ.status & ORGAN_DESTROYED) )
+		if(update_icons)   update_icons()
+		return
+
+	//base icons
+	var/icon/markings_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
+
+	if(m_style && (src.species.bodyflags & HAS_MARKINGS))
+		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
+		if(marking_style && marking_style.species_allowed)
+			if(src.species.name in marking_style.species_allowed)
+				var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+				if(marking_style.do_colouration)
+					markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
+				markings_standing.Blend(markings_s, ICON_OVERLAY)
+		else
+			//warning("Invalid markings for [species.name]: [horns]")
+
+	overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
+
+	if(update_icons)   update_icons()
 
 //HORN OVERLAY
 /mob/living/carbon/human/proc/update_horns(var/update_icons=1)
@@ -365,15 +397,15 @@ var/global/list/damage_icon_parts = list()
 		if(update_icons)   update_icons()
 		return
 
-	//masks and helmets can obscure our horns, unless we're a synthetic
+	//masks and helmets can obscure our horns
 	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
 	//base icons
-	var/icon/horns_standing	= new /icon('icons/mob/body_accessory.dmi',"horns_none_s")
+	var/icon/horns_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(horns && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.name == "Unathi")))
+	if(horns && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HORNS)))
 		var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
 		if(horn_style && horn_style.species_allowed)
 			if(src.species.name in horn_style.species_allowed)
@@ -1053,6 +1085,7 @@ var/global/list/damage_icon_parts = list()
 
 //Human Overlays Indexes/////////
 #undef MUTANTRACE_LAYER
+#undef MARKINGS_LAYER
 #undef MUTATIONS_LAYER
 #undef DAMAGE_LAYER
 #undef UNIFORM_LAYER
