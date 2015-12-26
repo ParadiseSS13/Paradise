@@ -76,13 +76,13 @@
 		var/traitorcount = 0
 		var/possible_traitors[0]
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != 2)
+			if (player.client && player.stat != DEAD)
 				playercount += 1
-			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
+			if (player.client && player.mind && player.mind.special_role && player.stat != DEAD)
 				traitorcount += 1
-			if (player.client && player.mind && !player.mind.special_role && player.stat != 2)
+			if (player.client && player.mind && !player.mind.special_role && player.stat != DEAD)
 				if (ishuman(player) || isrobot(player) || isAI(player))
-					if (player.client && player.client.prefs.be_special & BE_TRAITOR && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
+					if (player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)

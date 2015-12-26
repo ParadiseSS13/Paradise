@@ -35,6 +35,7 @@
 #include "code\__DEFINES\preferences.dm"
 #include "code\__DEFINES\process_scheduler.dm"
 #include "code\__DEFINES\qdel.dm"
+#include "code\__DEFINES\role_preferences.dm"
 #include "code\__DEFINES\sight.dm"
 #include "code\__DEFINES\stat.dm"
 #include "code\__HELPERS\_string_lists.dm"

@@ -31,7 +31,7 @@
 	var/datum/job/ai/DummyAIjob = new
 	for(var/mob/new_player/player in player_list)
 		if(player.client && player.ready)
-			if(player.client.prefs.be_special & BE_MALF)
+			if(ROLE_MALF in player.client.prefs.be_special)
 				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, "AI") && !jobban_isbanned(player, roletext) && DummyAIjob.player_old_enough(player.client))
 					if(player_old_enough_antag(player.client,role))
 						antag_candidates += player.mind
