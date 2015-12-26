@@ -319,7 +319,7 @@
 		user.visible_message("\blue [user] has decoupled [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have decoupled [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/internal/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/internal/I = target.get_int_organ(target.op_stage.current_organ)
 		if(I && istype(I))
 			I.status |= ORGAN_CUT_AWAY
 
@@ -369,7 +369,7 @@
 		user.visible_message("\blue [user] has reattached [target]'s [target.op_stage.current_organ] with \the [tool]." , \
 		"\blue You have reattached [target]'s [target.op_stage.current_organ] with \the [tool].")
 
-		var/obj/item/organ/internal/I = target.internal_organs_by_name[target.op_stage.current_organ]
+		var/obj/item/organ/internal/I = target.get_int_organ(target.op_stage.current_organ)
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
 
@@ -414,7 +414,7 @@
 			user << "<span class='danger'>You're pretty sure [target.species.name_plural] don't normally have a brain.</span>"
 			return 2
 
-		if(!isnull(target.internal_organs["brain"]))
+		if(target.get_int_organ(/obj/item/organ/internal/brain/))
 			user << "<span class='danger'>Your subject already has a brain.</span>"
 			return 2
 
@@ -432,11 +432,11 @@
 		"\blue You have installed \the [tool] into [target]'s [affected.name].")
 
 		var/obj/item/device/mmi/M = tool
-		var/obj/item/organ/internal/mmi_holder/holder = new(target, 1)
+		var/obj/item/organ/internal/brain/mmi_holder/holder = new()
 		if (istype(M, /obj/item/device/mmi/posibrain))
 			holder.robotize()
 
-		target.internal_organs_by_name["brain"] = holder
+		holder.insert(target)
 		user.unEquip(tool)
 		tool.forceMove(holder)
 		holder.stored_mmi = tool

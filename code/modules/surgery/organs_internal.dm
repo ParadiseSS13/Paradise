@@ -163,7 +163,8 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
 				if(I.robotic < 2)
-					spread_germs_to_organ(I, user)
+					if(!I.sterile)
+						spread_germs_to_organ(I, user)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
@@ -370,13 +371,13 @@
 
 		if(O.organ_tag == "limb")
 			return 0
-		else if(target.species.has_organ[O.organ_tag])
+		else if(target.species.has_organ[O.organ_tag])//need to change this around for cybernetic implants
 
 			if(O.damage > (O.max_damage * 0.75))
 				user << "\red \The [O.organ_tag] [o_is] in no state to be transplanted."
 				return 2
 
-			if(!target.internal_organs_by_name[O.organ_tag])
+			if(!target.get_int_organ(O))
 				organ_missing = 1
 			else
 				user << "\red \The [target] already has [o_a][O.organ_tag]."

@@ -502,7 +502,7 @@
 	reagent_tag = PROCESS_SYN
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/mmi_holder/posibrain,
+		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/optical_sensor
 		)

@@ -2,6 +2,7 @@
 	gender = MALE
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 	var/list/stomach_contents = list()
+	var/list/internal_organs	= list()
 	var/brain_op_stage = 0.0
 	var/list/datum/disease2/disease/virus2 = list()
 	var/antibodies = 0

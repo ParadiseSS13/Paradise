@@ -1575,9 +1575,9 @@ datum/preferences
 					else
 						O.robotize()
 			else
-				var/obj/item/organ/internal/I = character.internal_organs_by_name[name]
+				var/obj/item/organ/internal/I = character.get_int_organ(name)
 				if(I)
-					if(status == "assisted")
+					if(status == "assisted")//add an actual organ for this?
 						I.mechassist()
 					else if(status == "mechanical")
 						I.robotize()

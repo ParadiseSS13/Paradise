@@ -42,7 +42,7 @@
 	implant_overlay = null
 	origin_tech = "biotech=4"
 	slot = "eye_ling"
-	//status = ORGAN_ORGANIC
+	status = ORGAN_ORGANIC
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	..()
@@ -63,8 +63,8 @@
 	implant_overlay = null
 	origin_tech = "biotech=5;magnets=5"
 	slot = "eye_ling"
-	//status = ORGAN_ORGANIC
-	aug_message = "You feel a minute twitch in our eyes, and darkness creeps away."
+	status = ORGAN_ORGANIC
+	aug_message = "We feel a minute twitch in our eyes, and darkness creeps away."
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/emp_act(severity)
 	return

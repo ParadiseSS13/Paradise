@@ -32,19 +32,20 @@ var/list/organ_cache = list()
 /obj/item/organ/Destroy()
 	if(!owner)
 		return ..()
-/*
+
 
 	if(istype(owner, /mob/living/carbon))
 		if((owner.internal_organs) && (src in owner.internal_organs))
-			owner.internal_organs -= src
+			var/obj/item/organ/internal/O = src
+			O.remove(owner)
 		if(istype(owner, /mob/living/carbon/human))
-			if((owner.internal_organs_by_name) && (src in owner.internal_organs_by_name))
-				owner.internal_organs_by_name -= src
-			if((owner.organs) && (src in owner.organs))
-				owner.organs -= src
-			if((owner.organs_by_name) && (src in owner.organs_by_name))
-				owner.organs_by_name -= src
-*/
+			var/obj/item/organ/internal/O = src
+			O.remove(owner)
+		if((owner.organs) && (src in owner.organs))
+			owner.organs -= src
+		if((owner.organs_by_name) && (src in owner.organs_by_name))
+			owner.organs_by_name -= src
+
 	if(src in owner.contents)
 		owner.contents -= src
 
@@ -101,8 +102,8 @@ var/list/organ_cache = list()
 		owner.death()
 
 /obj/item/organ/process()
-	if(loc != owner)
-		owner = null
+	//if(loc != owner)
+	//	owner = null
 
 	//dead already, no need for more processing
 	if(status & ORGAN_DEAD)
@@ -289,10 +290,10 @@ var/list/organ_cache = list()
 	if(!istype(owner))
 		return
 
-	if(is_primary_organ())
-		owner.internal_organs_by_name[organ_tag] = null
-		owner.internal_organs_by_name -= organ_tag
-		owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
+	//if(is_primary_organ())//Toddo from fethas:Do i need to move ths?
+	//	owner.internal_organs_by_name[organ_tag] = null
+	//	owner.internal_organs_by_name -= organ_tag
+	//	owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
 
 	owner.internal_organs -= src
 
@@ -320,10 +321,9 @@ var/list/organ_cache = list()
 
 	owner = target
 	processing_objects -= src
-	target.internal_organs |= src
 	affected.internal_organs |= src
-	if (!(organ_tag in target.internal_organs_by_name))
-		target.internal_organs_by_name[organ_tag] = src // In case multiple of the same type are inserted, only the first one is the primary organ
+	if (!target.get_int_organ(src))
+		target.internal_organs |= src
 	src.loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
@@ -342,4 +342,4 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		O = owner
 	if (!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
-	return src == O.internal_organs_by_name[organ_tag]
+	return src == O.get_int_organ(organ_tag)

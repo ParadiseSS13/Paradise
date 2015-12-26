@@ -8,6 +8,8 @@
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
+	tough = 1 //not easyly broken by combat damage
+	sterile = 1 //not very germy
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	if(iscarbon(M))

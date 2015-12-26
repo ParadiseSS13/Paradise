@@ -47,14 +47,14 @@
 
 /datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
-		if(locate(/obj/item/organ/internal/wryn/hivenode) in C.internal_organs)
+		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 			C << "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>"
 			C << "<span class='danger'>It feels like part of you has died.</span>"
 
 /datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
 	if(M.a_intent == I_HARM)
 		if(H.handcuffed)
-			if(!(locate(H.internal_organs_by_name["antennae"]) in H.internal_organs))	return
+			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
 			var/turf/p_loc = M.loc
 			var/turf/p_loc_m = H.loc
 
@@ -62,9 +62,10 @@
 			H << "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>"
 			do_after(H, 250, target = src)
 			if(p_loc == M.loc && p_loc_m == H.loc)
-				qdel(H.internal_organs_by_name["antennae"])
+				var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
 				H.remove_language("Wryn Hivemind")
-				new /obj/item/organ/internal/wryn/hivenode(M.loc)
+				node.remove(H)
+				node.loc = M.loc
 				M << "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>"
 				H << "<span class='danger'><B>You hear a loud crunch as your antennae is ripped off your head by [M].</span></B>"
 				H << "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>"

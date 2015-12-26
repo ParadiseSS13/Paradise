@@ -27,6 +27,7 @@
 #define ORGAN_DEAD       1024
 #define ORGAN_MUTATED    2048
 #define ORGAN_ASSISTED   4096
+#define ORGAN_ORGANIC	8192
 
 #define DROPLIMB_EDGE 0
 #define DROPLIMB_BLUNT 1

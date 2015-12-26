@@ -427,7 +427,7 @@
 			"\red You stab yourself in the eyes with [src]!" \
 		)
 	if(istype(H))
-		var/obj/item/organ/internal/eyes/eyes = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes)
 			return
 		eyes.take_damage(rand(3,4), 1)

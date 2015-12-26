@@ -137,19 +137,17 @@
 		if((organ in H.organs))
 			qdel(organ)
 
-	for(var/obj/item/organ/internal/organ in H.contents)
-		if((organ in H.internal_organs))
-			qdel(organ)
+	//for(var/obj/item/organ/internal/organ in H.contents)
+	//	if((organ in H.internal_organs))
+	//		qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
-	if(H.internal_organs)         H.internal_organs.Cut()
+	//if(H.internal_organs)         H.internal_organs.Cut()
 	if(H.organs_by_name)          H.organs_by_name.Cut()
-	if(H.internal_organs_by_name) H.internal_organs_by_name.Cut()
 
 	H.organs = list()
 	H.internal_organs = list()
 	H.organs_by_name = list()
-	H.internal_organs_by_name = list()
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -157,15 +155,12 @@
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
-	for(var/organ in has_organ)
-		var/organ_type = has_organ[organ]
-		//world << "[organ_type]"//debug print
-		H.internal_organs_by_name[organ] = new organ_type(H,1)
-		H.internal_organs += new organ_type
+	for(var/index in has_organ)
+		var/organ = has_organ[index]
+		H.internal_organs += new organ(null)
 
 	for(var/obj/item/organ/internal/I in H.internal_organs)
-		if(!H.get_int_organ(I))
-			I.insert(src)
+		I.insert(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
@@ -609,6 +604,7 @@
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
+//Fethas Todo:Do i need to redo this?
 /datum/species/proc/return_organ(var/organ_slot)
 	if(!(organ_slot in has_organ))
 		return null

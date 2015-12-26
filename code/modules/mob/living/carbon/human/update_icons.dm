@@ -245,7 +245,7 @@ var/global/list/damage_icon_parts = list()
 		qdel(stand_icon)
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
 	var/icon_key = ""
-	var/obj/item/organ/internal/eyes/eyes = internal_organs_by_name["eyes"]
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 
 	if(eyes)
 		icon_key += "[rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3])]"

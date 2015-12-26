@@ -2,6 +2,8 @@
 	origin_tech = "biotech=5"
 	icon_state = "xgibmid2"
 	var/list/alien_powers = list()
+	tough = 1
+	sterile = 1
 
 /obj/item/organ/internal/xenos/New()
 	for(var/A in alien_powers)

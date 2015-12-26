@@ -9,6 +9,8 @@
 	var/slot
 	vital = 0
 	var/organ_action_name = null
+	var/sterile = 0 //can the organ be infected by germs?
+	var/tough = 0 //can organ be easily damaged?
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
@@ -19,7 +21,9 @@
 		replaced.remove(M, special = 1)
 
 	owner = M
+
 	M.internal_organs |= src
+	//M.internal_organs_by_name[src] |= src(H,1)
 	loc = null
 	if(organ_action_name)
 		action_button_name = organ_action_name
@@ -29,6 +33,7 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
+		//M.internal_organs_by_name[src] -= src
 		if(vital && !special)
 			M.death()
 
@@ -192,6 +197,16 @@
 		owner.b_eyes ? owner.b_eyes : 0
 		)
 
+/obj/item/organ/internal/eyes/insert(mob/living/carbon/M, special = 0)
+// Apply our eye colour to the target.
+	if(istype(M) && eye_colour)
+		var/mob/living/carbon/human/eyes = M
+		eyes.r_eyes = eye_colour[1]
+		eyes.g_eyes = eye_colour[2]
+		eyes.b_eyes = eye_colour[3]
+		eyes.update_eyes()
+	..()
+
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
@@ -199,6 +214,7 @@
 	owner.sdisabilities &= ~BLIND
 	owner.eye_blurry = 0
 	owner.eye_blind = 0
+
 
 /obj/item/organ/internal/liver
 	name = "liver"
@@ -282,7 +298,7 @@
 			name = "inflamed appendix"
 	..()
 */
-
+//shadowling tumor
 /obj/item/organ/internal/shadowtumor
 	name = "black tumor"
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
@@ -305,6 +321,7 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		var/light_count = T.get_lumcount()
+		world << "[light_count]"
 		if(light_count > 4 && health > 0) //Die in the light
 			health--
 		else if(light_count < 2 && health < 3) //Heal in the dark
@@ -312,3 +329,26 @@
 		if(health <= 0)
 			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
 			qdel(src)
+
+//debug and adminbus....
+
+/obj/item/organ/internal/honktumor
+	name = "banana tumor"
+	desc = "A tiny yellow mass shaped like..a banana?"
+	icon_state = "honktumor"
+	origin_tech = "biotech=1"
+	w_class = 1
+	parent_organ = "head"
+	slot = "brain_tumor"
+	health = 3
+
+/obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
+
+		M.mutations.Add(CLUMSY)
+		M.dna.SetSEState(COMICBLOCK,1,1)
+		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
+
+/obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
+		M.mutations.Remove(CLUMSY)
+		M.mutations.Remove(COMICBLOCK)
+		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)

@@ -39,7 +39,7 @@
 		target.blinded += 1.5
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		var/obj/item/organ/internal/eyes/eyes = target.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = target.get_int_organ(/obj/item/organ/internal/eyes)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("\red [user]'s hand slips, slicing [target]'s eyes wth \the [tool]!" , \
 		"\red Your hand slips, slicing [target]'s eyes wth \the [tool]!" )

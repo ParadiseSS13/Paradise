@@ -7,12 +7,11 @@
 	parent_organ = "eyes"
 	w_class = 1
 
-	var/sight_flags = 0
+	var/vision_flags = 0
 	var/list/eye_colour = list(0,0,0)
 	var/list/old_eye_colour = list(0,0,0)
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
-
 
 /obj/item/organ/internal/cyberimp/eyes/proc/update_colour()
 	if(!owner)
@@ -38,11 +37,12 @@
 		HMN.update_eyes()
 	if(aug_message && !special)
 		owner << "<span class='notice'>[aug_message]</span>"
-	M.sight |= sight_flags
+	M.sight |= vision_flags
+	world << "[M.sight]"
 
 /obj/item/organ/internal/cyberimp/eyes/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
-	M.sight ^= sight_flags
+	M.sight ^= vision_flags
 	if(istype(owner,/mob/living/carbon/human) && eye_colour)
 		var/mob/living/carbon/human/HMN = owner
 		HMN.r_eyes = old_eye_colour[1]
@@ -52,7 +52,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/on_life()
 	..()
-	owner.sight |= sight_flags
+	owner.sight |= vision_flags
 
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
 	if(!owner)
@@ -77,14 +77,14 @@
 	eye_colour = rgb(0, 0, 0)
 	implant_color = "#000000"
 	origin_tech = "materials=6;programming=4;biotech=6;magnets=5"
-	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
 /obj/item/organ/internal/cyberimp/eyes/thermals
 	name = "Thermals implant"
 	desc = "These cybernetic eye implants will give you Thermal vision. Vertical slit pupil included."
 	eye_colour = rgb(255, 204, 0)
 	implant_color = "#FFCC00"
-	sight_flags = SEE_MOBS
+	vision_flags = SEE_MOBS
 	flash_protect = -1
 	origin_tech = "materials=6;programming=4;biotech=5;magnets=5;syndicate=4"
 	aug_message = "You see prey everywhere you look..."
@@ -137,5 +137,6 @@
 	implant_color = "#101010"
 	flash_protect = 2
 	// Welding with thermals will still hurt your eyes a bit.
+
 /obj/item/organ/internal/cyberimp/eyes/shield/emp_act(severity)
 	return

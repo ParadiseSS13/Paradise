@@ -88,7 +88,7 @@
 	..()
 
 // Used for an MMI or posibrain being installed into a human.
-/obj/item/organ/internal/mmi_holder
+/obj/item/organ/internal/brain/mmi_holder
 	name = "brain"
 	organ_tag = "brain"
 	parent_organ = "chest"
@@ -97,7 +97,7 @@
 	slot = "brain"
 	var/obj/item/device/mmi/stored_mmi
 
-/obj/item/organ/internal/mmi_holder/proc/update_from_mmi()
+/obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
 		return
 	name = stored_mmi.name
@@ -105,7 +105,7 @@
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
 
-/obj/item/organ/internal/mmi_holder/remove(var/mob/living/user)
+/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user)
 	if(stored_mmi)
 		stored_mmi.loc = get_turf(src)
 		if(owner.mind)
@@ -117,7 +117,7 @@
 		holder_mob.unEquip(src)
 	qdel(src)
 
-/obj/item/organ/internal/mmi_holder/New()
+/obj/item/organ/internal/brain/mmi_holder/New()
 	..()
 	// This is very ghetto way of rebooting an IPC. TODO better way.
 	spawn(1)
@@ -125,7 +125,7 @@
 			owner.stat = CONSCIOUS
 			owner.visible_message("<span class='danger'>\The [owner] twitches visibly!</span>")
 
-/obj/item/organ/internal/mmi_holder/posibrain/New()
+/obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	robotize()
 	stored_mmi = new /obj/item/device/mmi/posibrain(src)
 	..()

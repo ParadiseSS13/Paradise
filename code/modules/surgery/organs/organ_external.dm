@@ -71,7 +71,9 @@
 
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
-			qdel(O)
+			internal_organs -= O
+			O.remove(owner)
+			//qdel(O)
 
 	return ..()
 
@@ -95,11 +97,12 @@
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					removing.loc = get_turf(user.loc)
-					var/obj/item/organ/O = removing
+					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
-						spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.removed(user)
+						if(!O.sterile)
+							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
+						O.remove(src)
 					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
@@ -166,7 +169,8 @@
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
-			I.take_damage(brute / 2)
+			if(!I.tough)//mostly for cybernetic organs
+				I.take_damage(brute / 2)
 			brute -= brute / 2
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
