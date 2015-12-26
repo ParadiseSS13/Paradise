@@ -315,6 +315,7 @@
 			occupantData["name"] = H.name
 			occupantData["stat"] = H.stat
 			occupantData["health"] = H.health
+			occupantData["maxHealth"] = H.maxHealth
 
 			occupantData["hasVirus"] = H.virus2.len
 
@@ -338,7 +339,9 @@
 				var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
 				bloodData["volume"] = blood_volume
 				bloodData["percent"] = round(((blood_volume / 560)*100))
-
+				bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
+				bloodData["bloodLevel"] = round(H.vessel.get_reagent_amount("blood"))
+				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
 
 			var/reagentData[0]
@@ -426,6 +429,9 @@
 /obj/machinery/body_scanconsole/Topic(href, href_list)
 	if(..())
 		return 1
+
+	if (href_list["ejectify"])
+		src.connected.eject()
 
 	if (href_list["print_p"])
 		generate_printing_text()
