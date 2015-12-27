@@ -111,7 +111,6 @@
 	gender = NEUTER
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bolas"
-	siemens_coefficient = 1
 	slot_flags = SLOT_BELT
 	throwforce = 2
 	w_class = 2

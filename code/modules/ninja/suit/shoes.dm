@@ -6,7 +6,6 @@
 	permeability_coefficient = 0.01
 	flags = NOSLIP
 	armor = list(melee = 60, bullet = 60, laser = 45,energy = 15, bomb = 30, bio = 30, rad = 30)
-	siemens_coefficient = 0.2
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET

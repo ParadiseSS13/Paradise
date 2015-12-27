@@ -17,7 +17,6 @@
 	item_color = "warden"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.9
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security
@@ -28,7 +27,6 @@
 	item_color = "secred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.9
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/dispatch
@@ -39,7 +37,6 @@
 	item_color = "dispatch"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.9
 
 /obj/item/clothing/under/rank/security2
 	name = "security officer's uniform"
@@ -49,8 +46,6 @@
 	item_color = "redshirt2"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.9
-
 /obj/item/clothing/under/rank/security/corp
 	icon_state = "sec_corporate"
 	item_state = "sec_corporate"
@@ -72,7 +67,6 @@
 	item_color = "detective"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.9
 	strip_delay = 50
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -90,7 +84,6 @@
 	item_color = "hosred"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = ONESIZEFITSALL
-	siemens_coefficient = 0.8
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/corp
@@ -105,7 +98,6 @@
 	icon_state = "jensen"
 	item_state = "jensen"
 	item_color = "jensen"
-	siemens_coefficient = 0.6
 	flags = ONESIZEFITSALL
 
 //Paradise Station

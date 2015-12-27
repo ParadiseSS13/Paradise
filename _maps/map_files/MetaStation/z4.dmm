@@ -262,7 +262,7 @@
 "fb" = (/turf/simulated/wall,/area/derelict/gravity_generator)
 "fc" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating/airless{icon_state = "damaged2"},/area/derelict/singularity_engine)
 "fd" = (/obj/machinery/power/emitter{dir = 1; icon_state = "emitter"},/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
-"fe" = (/obj/machinery/field_generator,/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
+"fe" = (/obj/machinery/field/generator,/turf/simulated/floor/plating/airless,/area/derelict/singularity_engine)
 "ff" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/window/reinforced,/turf/simulated/floor,/area/derelict/bridge/access)
 "fg" = (/obj/structure/window/reinforced{dir = 5},/turf/simulated/floor,/area/derelict/bridge/access)
 "fh" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 0; scrub_Toxins = 0},/turf/simulated/floor/plating,/area/derelict/bridge)

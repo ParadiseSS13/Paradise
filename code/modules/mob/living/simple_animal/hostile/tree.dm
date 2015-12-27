@@ -35,7 +35,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = list("hostile")
+	faction = list("hostile", "winter")
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()

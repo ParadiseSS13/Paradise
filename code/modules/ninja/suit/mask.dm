@@ -12,4 +12,3 @@ Contents:
 	icon_state = "s-ninja(norm)"
 	item_state = "s-ninja_mask"
 	unacidable = 1
-	siemens_coefficient = 0.2

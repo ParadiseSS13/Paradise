@@ -5,7 +5,6 @@
 	icon_state = "rig0-ert_commander"
 	item_state = "helm-command"
 	armor = list(melee = 50, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 100, rad = 60)
-	siemens_coefficient = 0.6
 	rig_restrict_helmet = 0 // ERT helmets can be taken on and off at will.
 	var/obj/machinery/camera/camera
 	strip_delay = 130
@@ -37,7 +36,6 @@
 	/obj/item/weapon/screwdriver, /obj/item/weapon/weldingtool, /obj/item/weapon/wirecutters, /obj/item/weapon/wrench, /obj/item/device/multitool, \
 	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse_rifle, \
 	/obj/item/weapon/gun/energy/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
-	siemens_coefficient = 0.6
 	strip_delay = 130
 
 //Commander

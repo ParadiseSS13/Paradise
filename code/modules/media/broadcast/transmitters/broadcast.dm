@@ -88,22 +88,6 @@
 	return screen
 */
 
-
-/obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
-	updateicon()
-
-/obj/machinery/light_switch/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
-		..(severity)
-		return
-	power_change()
-	..(severity)
-
 /obj/machinery/media/transmitter/broadcast/update_icon()
 	overlays = 0
 	if(stat & (NOPOWER|BROKEN))

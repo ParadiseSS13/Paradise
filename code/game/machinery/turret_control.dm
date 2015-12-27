@@ -73,7 +73,7 @@
 		return 1
 
 	return 0
-	
+
 /obj/machinery/turretid/CanUseTopic(mob/user)
 	if(isLocked(user))
 		return STATUS_CLOSE
@@ -107,7 +107,7 @@
 		return
 
 	ui_interact(user)
-	
+
 /obj/machinery/turretid/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
@@ -224,9 +224,9 @@
 		enabled=0
 		updateTurrets()
 
-		sleep(rand(60,600))
-		if(!enabled)
-			enabled=1
-			updateTurrets()
+		spawn(rand(60,600))
+			if(!enabled)
+				enabled=1
+				updateTurrets()
 
 	..()
