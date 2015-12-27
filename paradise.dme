@@ -13,7 +13,6 @@
 #include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
-#include "code\stylesheet.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_readme.dm"
 #include "code\__DEFINES\admin.dm"
@@ -1882,5 +1881,6 @@
 #include "code\modules\virus2\isolator.dm"
 #include "code\modules\virus2\items_devices.dm"
 #include "interface\interface.dm"
+#include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
