@@ -2,7 +2,6 @@
  *Contains:
  * Creeping Widow martial art datum
  * Creeping Widow MMB override datum
- * grant_ninja_martial_art proc
  * Creeping Widow injector
  */
 
@@ -22,11 +21,11 @@
 	if(!used)
 		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
 			  "<span class='warning'>[user] sticks the [src]'s needle \his arm and presses the button.")
-		grant_ninja_martial_art(user)
-		user << "<span class='info'>The nanomachines in the [src] flow through your bloodstream. You have been taugh the ways of the <i>Creeping Widow</i>.<br>\
-				Your stikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
-				Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
-				Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
+		user << "<span class='info'>The nanomachines in the [src] flow through your bloodstream."
+
+		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
+		N.teach(user)
+
 		used = 1
 		icon_state = "injector-used"
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
@@ -35,12 +34,6 @@
 		user << "<span class='warning'>The [src] has been used already!</span>"
 		return 1
 
-// grant_ninja_martial_art proc - It is imperitive to ALWAYS use this when giving someone the Ninja martial art so that they have the middle mouse override as well.
-
-/proc/grant_ninja_martial_art(var/mob/living/carbon/human/target)
-	target.martial_art = new /datum/martial_art/ninja_martial_art()
-	target.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
-
 // Ninja martial art datum
 
 /datum/martial_art/ninja_martial_art
@@ -48,6 +41,14 @@
 	var/list/attack_names = list("dragon", "eagle", "mantis", "tiger", "spider", "monkey", "snake", "crane", "xeno") // Fluff attack texts, used later in attack message generation.
 	var/has_choke_hold = 0 	// Are we current choking a bitch?
 	var/has_focus = 1		//Can we user our special moves?
+
+/datum/martial_art/ninja_martial_art/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
+	..()
+	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
+	H << 	"You have been taugh the ways of the <i>Creeping Widow</i>.<br>\
+			Your stikes on harm intent will deal more damage.<br>Using middle mouse button on a nearby person while on harm intent will send them flying backwards.<br>\
+			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
+			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
 /datum/martial_art/ninja_martial_art/proc/wrist_wrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
@@ -155,7 +156,7 @@
 /datum/middleClickOverride/ninja_martial_art
 
 /datum/middleClickOverride/ninja_martial_art/onClick(var/atom/A, var/mob/living/carbon/human/user)
-	if(!user.martial_art || user.martial_art.name != "Creeping Widow Style") // Checking based on name because I'm fairly certain that checking against a user's specific ninja martial arts datum versus a generic one won't work.
+	if(!istype(user.martial_art, /datum/martial_art/ninja_martial_art))
 		user.pointed(A) // If they don't have the required martial art just point at the target.
 
 	if(!istype(A, /mob/living/carbon/human)) // Special moves only work on humans.
