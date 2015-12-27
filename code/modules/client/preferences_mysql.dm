@@ -5,7 +5,7 @@
 					UI_style,
 					UI_style_color,
 					UI_style_alpha,
-					be_special,
+					be_role,
 					default_slot,
 					toggles,
 					sound,
@@ -28,7 +28,7 @@
 		UI_style = query.item[2]
 		UI_style_color = query.item[3]
 		UI_style_alpha = text2num(query.item[4])
-		be_special = text2num(query.item[5])
+		be_special = params2list(query.item[5])
 		default_slot = text2num(query.item[6])
 		toggles = text2num(query.item[7])
 		sound = text2num(query.item[8])
@@ -39,7 +39,6 @@
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 //	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
-	be_special		= sanitize_integer(be_special, 0, 65535, initial(be_special))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
@@ -57,7 +56,7 @@
 					UI_style='[UI_style]',
 					UI_style_color='[UI_style_color]',
 					UI_style_alpha='[UI_style_alpha]',
-					be_special='[be_special]',
+					be_role='[sql_sanitize_text(list2params(be_special))]',
 					default_slot='[default_slot]',
 					toggles='[toggles]',
 					sound='[sound]',
@@ -152,7 +151,7 @@
 		//socks
 		socks = query.item[54]
 		body_accessory = query.item[55]
-		
+
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)

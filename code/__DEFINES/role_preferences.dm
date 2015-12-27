@@ -26,6 +26,7 @@
 #define ROLE_HOG_CULTIST		"hand of god: cultist"
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_VAMPIRE			"vampire"
+#define ROLE_MUTINEER			"mutineer"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -47,8 +48,9 @@ var/global/list/special_roles = list(
 	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_SHADOWLING = /datum/game_mode/shadowling,
 	ROLE_ABDUCTOR = /datum/game_mode/abduction,
-	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
-	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
+//	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
+//	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 	ROLE_RAIDER = /datum/game_mode/heist,
 	ROLE_VAMPIRE = /datum/game_mode/vampire,
+	ROLE_MUTINEER = /datum/game_mode/mutiny,
 )

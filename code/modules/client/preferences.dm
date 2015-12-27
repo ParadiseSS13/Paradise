@@ -2,42 +2,23 @@
 
 var/list/preferences_datums = list()
 
-var/global/list/special_roles = list( //keep synced with the defines BE_* in setup.dm. THE ORDER MATTERS
-//some autodetection here.
-	"traitor" = IS_MODE_COMPILED("traitor"),			// 1 / 1
-	"operative" = IS_MODE_COMPILED("nuclear"),			// 2 / 2
-	"changeling" = IS_MODE_COMPILED("changeling"),		// 4 / 3
-	"wizard" = IS_MODE_COMPILED("wizard"),				// 8 / 4
-	"malf AI" = IS_MODE_COMPILED("malfunction"),		// 16 / 5
-	"revolutionary" = IS_MODE_COMPILED("revolution"),	// 32 / 6
-	"alien" = 1,										// 62 / 7
-	"pAI" = 1,											// 128	/ 8
-	"cultist" = IS_MODE_COMPILED("cult"),				// 256 / 9
-	"ninja" = 1,										// 512 / 10
-	"raider" = IS_MODE_COMPILED("heist"),				// 1024 / 11
-	"vampire" = IS_MODE_COMPILED("vampire"),			// 2048 / 12
-	"mutineer" = IS_MODE_COMPILED("mutiny"),			// 4096 / 13
-	"blob" = IS_MODE_COMPILED("blob"),					// 8192 / 14
-	"shadowling" = IS_MODE_COMPILED("shadowling"),		//16384 / 15
-	"revenant" =  1										//32768 / 16
-)
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(BE_PAI) = 0,
-	num2text(BE_TRAITOR) = 7,
-	num2text(BE_CHANGELING) = 14,
-	num2text(BE_SHADOWLING) = 14,
-	num2text(BE_WIZARD) = 14,
-	num2text(BE_REV) = 14,
-	num2text(BE_VAMPIRE) = 14,
-	num2text(BE_BLOB) = 14,
-	num2text(BE_REVENANT) = 14,
-	num2text(BE_OPERATIVE) = 21,
-	num2text(BE_CULTIST) = 21,
-	num2text(BE_RAIDER) = 21,
-	num2text(BE_ALIEN) = 21,
-	num2text(BE_NINJA) = 21,
-	num2text(BE_MUTINEER) = 21,
-	num2text(BE_MALF) = 30,
+	num2text(ROLE_PAI) = 0,
+	num2text(ROLE_TRAITOR) = 7,
+	num2text(ROLE_CHANGELING) = 14,
+	num2text(ROLE_SHADOWLING) = 14,
+	num2text(ROLE_WIZARD) = 14,
+	num2text(ROLE_REV) = 14,
+	num2text(ROLE_VAMPIRE) = 14,
+	num2text(ROLE_BLOB) = 14,
+	num2text(ROLE_REVENANT) = 14,
+	num2text(ROLE_OPERATIVE) = 21,
+	num2text(ROLE_CULTIST) = 21,
+	num2text(ROLE_RAIDER) = 21,
+	num2text(ROLE_ALIEN) = 21,
+	num2text(ROLE_NINJA) = 21,
+	num2text(ROLE_MUTINEER) = 21,
+	num2text(ROLE_MALF) = 30,
 )
 
 /proc/player_old_enough_antag(client/C, role)
@@ -91,7 +72,8 @@ datum/preferences
 	//game-preferences
 //	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
-	var/be_special = 0					//Special role selection
+	var/be_special = list()				//Special role selection
+	var/old_be_special = 0 				//For converting from the old format
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
@@ -209,8 +191,9 @@ datum/preferences
 		save_preferences(C)
 	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
 
-/datum/preferences
-	proc/ShowChoices(mob/user)
+
+// Hello I am a proc full of snowflake species checks how are you
+/datum/preferences/proc/ShowChoices(mob/user)
 		if(!user || !user.client)	return
 		update_preview_icon()
 		user << browse_rsc(preview_icon_front, "previewicon.png")
@@ -409,20 +392,16 @@ datum/preferences
 //				dat += "<br><br>"
 				if(jobban_isbanned(user, "Syndicate"))
 					dat += "<b>You are banned from special roles.</b>"
-					src.be_special = 0
+					src.be_special = list()
 				else
-					var/n = 0
 					for (var/i in special_roles)
-						if(special_roles[i]) //if mode is available on the server
-							var/special_role_flag = be_special_flags[i]
-							if(jobban_isbanned(user, i))
-								dat += "<b>Be [i]:</b> <font color=red><b> \[BANNED]</b></font><br>"
-							else if(!player_old_enough_antag(user.client,special_role_flag))
-								var/available_in_days_antag = available_in_days_antag(user.client,special_role_flag)
-								dat += "<b>Be [i]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
-							else
-								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'><b>[src.be_special&(1<<n) ? "Yes" : "No"]</b></a><br>"
-						n++
+						if(jobban_isbanned(user, i))
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
+						else if(!player_old_enough_antag(user.client,i))
+							var/available_in_days_antag = available_in_days_antag(user.client,i)
+							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[IN [(available_in_days_antag)] DAYS]</b></font><br>"
+						else
+							dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;role=[i]'><b>[(i in src.be_special) ? "Yes" : "No"]</b></a><br>"
 				dat += "</td></tr></table><hr><center>"
 
 		if(!IsGuestKey(user.key))
@@ -1446,8 +1425,12 @@ datum/preferences
 						UI_style_alpha = UI_style_alpha_new
 
 					if("be_special")
-						var/num = text2num(href_list["num"])
-						be_special ^= (1<<num)
+						var/r = href_list["role"]
+						if(!(r in special_roles))
+							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
+							user << "<span class='userdanger'>Nice try.</span>"
+						else
+							be_special ^= r
 
 					if("name")
 						be_random_name = !be_random_name

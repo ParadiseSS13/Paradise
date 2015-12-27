@@ -23,7 +23,7 @@
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
 	if(!..())
 		return 0
-	var/list/datum/mind/possible_wizards = get_players_for_role(BE_WIZARD)
+	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(possible_wizards.len==0)
 		return 0
 	var/datum/mind/wizard = pick(possible_wizards)
@@ -211,7 +211,7 @@
 	for(var/datum/mind/wizard in wizards)
 		if(!istype(wizard.current,/mob/living/carbon))
 			continue
-		if(wizard.current.stat==2)
+		if(wizard.current.stat==DEAD)
 			continue
 		wizards_alive++
 
@@ -219,7 +219,7 @@
 		for(var/datum/mind/traitor in traitors)
 			if(!istype(traitor.current,/mob/living/carbon))
 				continue
-			if(traitor.current.stat==2)
+			if(traitor.current.stat==DEAD)
 				continue
 			traitors_alive++
 
@@ -269,7 +269,7 @@
 					wizardwin = 0
 				count++
 
-			if(wizard.current && wizard.current.stat!=2 && wizardwin)
+			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				feedback_add_details("wizard_success","SUCCESS")
 			else
