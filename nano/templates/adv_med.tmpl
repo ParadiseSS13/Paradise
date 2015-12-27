@@ -144,7 +144,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 		<tbody class="striped">
 			{{for data.occupant.extOrgan}}
 				<tr>
-					<td>{{:value.name}} </td>
+					<td> {{:value.name}} </td>
 					<td> {{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.bruteLoss}} </span> </td>
 					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.fireLoss}} </span> 	</td>
 					<td>
@@ -197,7 +197,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 		<tbody class="striped">
 			{{for data.occupant.intOrgan}}
 				<tr>
-					<td> {{:value.name}} <br> {{:value.desc != null ? value.desc : ""}} </td>
+					<td> {{:value.name}} <br> </td>
 					<td> {{if value.damage > 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.damage}} </span> </td>
 					<td>
 						{{if value.germ_level > 100}}
