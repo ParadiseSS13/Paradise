@@ -344,16 +344,6 @@
 				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
 
-			var/reagentData[0]
-			if(H.reagents)
-				reagentData["epinephrine"] = H.reagents.get_reagent_amount("Epinephrine")
-				reagentData["ether"] = H.reagents.get_reagent_amount("ether")
-				reagentData["silver_sulfadiazine"] = H.reagents.get_reagent_amount("silver_sulfadiazine")
-				reagentData["styptic_powder"] = H.reagents.get_reagent_amount("styptic_powder")
-				reagentData["salbutamol"] = H.reagents.get_reagent_amount("salbutamol")
-
-			occupantData["reagents"] = reagentData
-
 			var/extOrganData[0]
 			for(var/obj/item/organ/external/E in H.organs)
 				var/organData[0]
