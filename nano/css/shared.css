@@ -371,6 +371,11 @@ div.notice {
     background: #4f7529;
 }
 
+.displayBarFill.notgood {
+    color: #ffffff;
+    background: #ffb400;
+}
+
 .displayBarFill.average {
     color: #ffffff;
     background: #cd6500;

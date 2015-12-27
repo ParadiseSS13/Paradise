@@ -354,6 +354,10 @@
 				organData["germ_level"] = E.germ_level
 				organData["bruteLoss"] = E.brute_dam
 				organData["fireLoss"] = E.burn_dam
+				organData["totalLoss"] = E.brute_dam + E.burn_dam
+				organData["maxHealth"] = E.max_damage
+				organData["bruised"] = E.min_bruised_damage
+				organData["broken"] = E.min_broken_damage
 
 				var/implantData[0]
 				for(var/obj/I in E.implants)
@@ -400,6 +404,9 @@
 				organData["desc"] = I.desc
 				organData["germ_level"] = I.germ_level
 				organData["damage"] = I.damage
+				organData["maxHealth"] = I.max_damage
+				organData["bruised"] = I.min_broken_damage
+				organData["broken"] = I.min_bruised_damage
 
 				intOrganData.Add(list(organData))
 
