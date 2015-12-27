@@ -485,7 +485,7 @@
 			var/mob/living/carbon/M = usr //for some vars
 			switch(event)
 				if(ORION_TRAIL_RAIDERS)
-					if(prob(20))
+					if(prob(50))
 						usr << "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>"
 						M.hallucination += 30
 					else
@@ -504,8 +504,8 @@
 						M.Stun(5)
 						sleep(30)
 						atom_say("[M] violently throws up!")
-						playsound(loc, 'sound/effects/splat.ogg', 20, 1)
-						M.nutrition -= 20 //lose a lot of food
+						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+						M.nutrition -= 50 //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(src, 1)
@@ -597,7 +597,7 @@
 				usr.Stun(10) //you can't run :^)
 				var/S = new /obj/singularity/academy(usr.loc)
 				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
-				sleep(20)
+				sleep(50)
 				atom_say("[S] winks out, just as suddenly as it appeared.")
 				qdel(S)
 		else
@@ -720,7 +720,7 @@
 	switch(event)
 		if(ORION_TRAIL_RAIDERS)
 			eventdat += "Raiders have come aboard your ship!"
-			if(prob(20))
+			if(prob(50))
 				var/sfood = rand(1,10)
 				var/sfuel = rand(1,10)
 				food -= sfood
@@ -826,7 +826,7 @@
 
 				var/chance2attack = alive*20
 				if(prob(chance2attack))
-					var/chancetokill = 30*lings_aboard-(5*alive) //eg: 30*2-(10) = 20%, 2 lings, 2 crew is 20% chance
+					var/chancetokill = 30*lings_aboard-(5*alive) //eg: 30*2-(10) = 50%, 2 lings, 2 crew is 50% chance
 					if(prob(chancetokill))
 						var/deadguy = remove_crewmember()
 						eventdat += "<br>The Changeling[ling2 ? "s":""] run[ling2 ? "":"s"] up to [deadguy] and capitulates them!"
@@ -949,7 +949,7 @@
 	if(specific)
 		newcrew = specific
 	else
-		if(prob(20))
+		if(prob(50))
 			newcrew = pick(first_names_male)
 		else
 			newcrew = pick(first_names_female)
@@ -994,7 +994,7 @@
 
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
-		user << "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 20)]: Realism Mode.</span>"
+		user << "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>"
 		name = "The Orion Trail: Realism Edition"
 		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 		newgame()
