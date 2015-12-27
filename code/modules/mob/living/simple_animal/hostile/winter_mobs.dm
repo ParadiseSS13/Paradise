@@ -43,6 +43,8 @@
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death()
+	if(weapon1 && prob(50))		//50% chance to drop weapon on death, if it has one to drop
+		new weapon1(get_turf(src))
 	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
 		new /obj/structure/snowman(get_turf(src))
 		visible_message("<span class='notice'>The [src.name] shimmers as its animating magic fades away!</span>")
@@ -121,12 +123,12 @@
 /mob/living/simple_animal/hostile/winter/santa/stage_4		//stage 4: fast spinebreaker
 	name = "Final Form Santa"
 	desc = "WHAT THE HELL IS HE!?! WHY WON'T HE STAY DEAD!?!"
-	ranged = 0
-	rapid = 0
+	maxHealth = 200
+	health = 200
 	speed = 0	//he's lost some weight from the fighting
 
 	environment_smash = 2		//naughty walls must be punished too
-	melee_damage_lower = 10
+	melee_damage_lower = 15
 	melee_damage_upper = 25		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death()
