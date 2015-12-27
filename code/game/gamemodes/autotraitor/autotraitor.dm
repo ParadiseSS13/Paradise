@@ -160,7 +160,7 @@
 	if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
-	if((character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !jobban_isbanned(character, "traitor") && !jobban_isbanned(character, "Syndicate"))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !jobban_isbanned(character, "traitor") && !jobban_isbanned(character, "Syndicate"))
 		//message_admins("Late Joiner has Be Syndicate")
 		//message_admins("Checking number of players")
 		var/playercount = 0
