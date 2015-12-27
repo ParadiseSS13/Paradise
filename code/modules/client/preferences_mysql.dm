@@ -422,7 +422,7 @@
 	var/B_shadowling = 16384
 	var/B_revenant = 32768
 
-	var/list/archived = list(B_traitor,B_operative,B_changeling,B_wizard,B_malf,B_rev,B_alien,B_pai,B_cultist,B_ninja,B_raider,B_vampire,B_mutineer,B_blob,B_revenant)
+	var/list/archived = list(B_traitor,B_operative,B_changeling,B_wizard,B_malf,B_rev,B_alien,B_pai,B_cultist,B_ninja,B_raider,B_vampire,B_mutineer,B_blob,B_shadowling,B_revenant)
 
 	// meow meow I am the copy cat
 	for(var/flag in archived)
