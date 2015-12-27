@@ -56,7 +56,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 10 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 10 // Save slots for BYOND members
 
-datum/preferences
+/datum/preferences
 	//doohickeys for savefiles
 //	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
@@ -73,7 +73,6 @@ datum/preferences
 //	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
-	var/old_be_special = 0 				//For converting from the old format
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
@@ -1427,8 +1426,10 @@ datum/preferences
 				if("be_special")
 					var/r = href_list["role"]
 					if(!(r in special_roles))
-						message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-						user << "<span class='userdanger'>Nice try.</span>"
+						var/cleaned_r = sql_sanitize_text(r)
+						if(r != cleaned_r) // hold it right there criminal scum
+							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
+							user << "<span class='userdanger'>Hold it right there, criminal scum</span>"
 					else
 						be_special ^= r
 
