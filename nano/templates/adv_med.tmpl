@@ -105,31 +105,34 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			</tr>
 		</tbody>
 	</table>
-	<br>
-	<b>Blood:</b>
-	<div class="line">
-		<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.blood.pulse}} bpm</div>
-	</div>
 
-	<div class="line">
-		<div class="statusLabel">Blood Level:</div>
-		{{if data.occupant.blood.percent <= 60}}
-			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'bad')}}
-		<div class="statusValue">
-			{{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl
+	{{if data.occupant.blood.hasBlood}}
+		<br>
+		<b>Blood:</b>
+		<div class="line">
+			<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.blood.pulse}} bpm</div>
 		</div>
-		{{else data.occupant.blood.percent <= 90}}
-			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'average')}}
-		<div class="statusValue">
-			{{:data.occupant.blood.percent}}%, {{:data.occupant.bloodLevel}}cl
+
+		<div class="line">
+			<div class="statusLabel">Blood Level:</div>
+			{{if data.occupant.blood.percent <= 60}}
+				{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'bad')}}
+			<div class="statusValue">
+				{{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl
+			</div>
+			{{else data.occupant.blood.percent <= 90}}
+				{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'average')}}
+			<div class="statusValue">
+				{{:data.occupant.blood.percent}}%, {{:data.occupant.bloodLevel}}cl
+			</div>
+			{{else}}
+				{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'good')}}
+			<div class="statusValue">
+				{{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl
+			</div>
+			{{/if}}
 		</div>
-		{{else}}
-			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, 'good')}}
-		<div class="statusValue">
-			{{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl
-		</div>
-		{{/if}}
-	</div>
+	{{/if}}
 	<br> <br>
 
 	<b>External Organs</b>

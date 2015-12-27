@@ -93,7 +93,7 @@
 		qdel(G)
 
 
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/O, mob/user as mob)
+/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/O, mob/user as mob)
 	if(!istype(O))
 		return 0 //not a mob
 	if(user.incapacitated())
@@ -310,7 +310,7 @@
 		data["occupied"] = connected.occupant ? 1 : 0
 
 		var/occupantData[0]
-		if(connected.occupant && ishuman(connected.occupant))
+		if(connected.occupant)
 			var/mob/living/carbon/human/H = connected.occupant
 			occupantData["name"] = H.name
 			occupantData["stat"] = H.stat
@@ -335,8 +335,10 @@
 			occupantData["hasBorer"] = H.has_brain_worms()
 
 			var/bloodData[0]
-			if(H.vessel)
+			bloodData["hasBlood"] = 0
+			if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
 				var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
+				bloodData["hasBlood"] = 1
 				bloodData["volume"] = blood_volume
 				bloodData["percent"] = round(((blood_volume / 560)*100))
 				bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
