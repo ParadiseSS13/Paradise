@@ -70,73 +70,41 @@ Used In File(s): \code\game\machinery\adv_med.dm
 	<br> <br>
 
 	<b>Damage: </b>
-	<table>
-		<tbody>
+	<table> <tbody>
 			<tr>
-				<td>
-					Brute Damage:
-				</td>
-				<td>
-					Brain Damage:
-				</td>
+				<td> Brute Damage: </td>
+				<td> Brain Damage: </td>
 			</tr>
 			<tr>
-				<td>
-					{{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.bruteLoss) }}
-				</td>
-				<td>
-					{{:helper.displayBar(data.occupant.brainLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.brainLoss)}}
-				</td>
+				<td> {{:helper.displayBar(data.occupant.bruteLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.bruteLoss) }} </td>
+				<td> {{:helper.displayBar(data.occupant.brainLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.brainLoss)}}  </td>
 			</tr>
 			<tr>
-				<td>
-					Resp. Damage:
-				</td>
-				<td>
-					Radiation Level:
-				</td>
+				<td> Resp. Damage: </td>
+				<td> Radiation Level: </td>
 			</tr>
 			<tr>
-				<td>
-					{{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.oxyLoss)}}
-				</td>
-				<td>
-					{{:helper.displayBar(data.occupant.radLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.radLoss)}}
-				</td>
+				<td> {{:helper.displayBar(data.occupant.oxyLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.oxyLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.radLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.radLoss)}}  </td>
 			</tr>
 			<tr>
-				<td>
-					Toxin Damage:
-				</td>
-				<td>
-					Genetic Damage:
-				</td>
+				<td> Toxin Damage: </td>
+				<td> Genetic Damage: </td>
 			</tr>
 			<tr>
-				<td>
-					{{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.toxLoss)}}
-				</td>
-				<td>
-					{{:helper.displayBar(data.occupant.cloneLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.cloneLoss)}}
-				</td>
+				<td> {{:helper.displayBar(data.occupant.toxLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.toxLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.cloneLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.cloneLoss)}} </td>
 			</tr>
 			<tr>
-				<td>
-					Burn Severity:
-				</td>
-				<td>
-					Paralysis %: ({{:data.occupant.paralysisSeconds}} seconds left)
-				</td>
+				<td> Burn Severity: </td>
+				<td> Paralysis %: ({{:data.occupant.paralysisSeconds}} seconds left) </td>
 			</tr>
 			<tr>
-				<td>
-					{{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.fireLoss)}}
-				</td>
-				<td>
-					{{:helper.displayBar(data.occupant.paralysis, 0, data.occupant.maxHealth, 'bad', data.occupant.paralysis)}}
-				</td>
+				<td> {{:helper.displayBar(data.occupant.fireLoss, 0, data.occupant.maxHealth, 'bad', data.occupant.fireLoss)}} </td>
+				<td> {{:helper.displayBar(data.occupant.paralysis, 0, data.occupant.maxHealth, 'bad', data.occupant.paralysis)}} </td>
 			</tr>
-		</table>
+		</tbody>
+	</table>
 	<br>
 	<b>Blood:</b>
 	<div class="line">
@@ -217,8 +185,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 	<br>
 
 	<b>External Organs</b>
-	<table>
-		<thead>
+	<table> <thead>
 			<tr>
 				<th style="width: 20%"> Name </th>
 				<th style="width: 20%"> Brute damage </th>
@@ -230,14 +197,8 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			{{for data.occupant.extOrgan}}
 				<tr>
 					<td>{{:value.name}} </td>
-					<td>
-						{{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}}
-						{{:value.bruteLoss}} </span>
-					</td>
-					<td>
-						{{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}}
-						{{:value.fireLoss}} </span>
-					</td>
+					<td> {{if value.bruteLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.bruteLoss}} </span> </td>
+					<td> {{if value.fireLoss> 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.fireLoss}} </span> 	</td>
 					<td>
 						<span class='average'>
 						{{if value.status.destroyed}} DESTROYED <br> {{/if}}
@@ -278,8 +239,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 	</table>
 	<br>
 	<b>Internal Organs</b>
-	<table>
-		<thead>
+	<table>	<thead>
 			<tr>
 				<th width=25%> Name </th>
 				<th width=25%> Brute damage </th>
@@ -290,10 +250,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			{{for data.occupant.intOrgan}}
 				<tr>
 					<td> {{:value.name}} <br> {{:value.desc != null ? value.desc : ""}} </td>
-					<td>
-						{{if value.damage > 0}} <span class='average'> {{else}} <span> {{/if}}
-						{{:value.damage}} </td>
-						</span>
+					<td> {{if value.damage > 0}} <span class='average'> {{else}} <span> {{/if}} {{:value.damage}} </span> </td>
 					<td>
 						{{if value.germ_level > 100}}
 							{{if value.germ_level < 300}}
