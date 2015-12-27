@@ -16,7 +16,7 @@
 		if (!message)
 			return
 		log_say("[key_name(src)] : [message]")
-		if (stat == 2)
+		if (stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		src << "You whisper silently, \"[message]\""
@@ -302,7 +302,7 @@
 		detatch()
 		leave_host()
 
-mob/living/simple_animal/borer/proc/detatch()
+/mob/living/simple_animal/borer/proc/detatch()
 
 	if(!host) return
 
@@ -416,7 +416,7 @@ mob/living/simple_animal/borer/proc/detatch()
 		src << "You cannot infest a target in your current state."
 		return
 
-	if(M.stat == 2)
+	if(M.stat == DEAD)
 		src << "That is not an appropriate target."
 		return
 
@@ -457,15 +457,15 @@ mob/living/simple_animal/borer/proc/detatch()
 	return
 
 //Procs for grabbing players.
-mob/living/simple_animal/borer/proc/request_player()
+/mob/living/simple_animal/borer/proc/request_player()
 	for(var/mob/O in respawnable_list)
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if((BE_ALIEN in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
+			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
 				question(O.client)
 
-mob/living/simple_animal/borer/proc/question(var/client/C)
+/mob/living/simple_animal/borer/proc/question(var/client/C)
 	spawn(0)
 		if(!C)	return
 		var/response = alert(C, "A cortical borer needs a player. Are you interested?", "Cortical borer request", "Yes", "No", "Never for this round")
@@ -474,9 +474,9 @@ mob/living/simple_animal/borer/proc/question(var/client/C)
 		if(response == "Yes")
 			transfer_personality(C)
 		else if (response == "Never for this round")
-			C.prefs.be_special ^= BE_ALIEN
+			C.prefs.be_special -= ROLE_BORER
 
-mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
+/mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
 
 	if(!candidate)
 		return

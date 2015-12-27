@@ -83,7 +83,7 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 				AttemptGrow()
 
 /obj/item/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
-	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET,1)
+	var/list/candidates = get_candidates(ROLE_ALIEN,ALIEN_AFK_BRACKET,1)
 	var/client/C = null
 
 	// To stop clientless larva, we will check that our host has a client

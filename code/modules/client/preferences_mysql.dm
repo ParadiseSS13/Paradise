@@ -197,7 +197,6 @@
 	job_karma_med = sanitize_integer(job_karma_med, 0, 65535, initial(job_karma_med))
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
-	be_special = sanitize_integer(be_special, 0, 65535, initial(be_special))
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
@@ -268,7 +267,6 @@
 												sec_record='[sql_sanitize_text(html_decode(sec_record))]',
 												gen_record='[sql_sanitize_text(html_decode(gen_record))]',
 												player_alt_titles='[playertitlelist]',
-												be_special='[be_special]',
 												disabilities='[disabilities]',
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
@@ -302,7 +300,7 @@
 											job_engsec_high, job_engsec_med, job_engsec_low,
 											job_karma_high, job_karma_med, job_karma_low,
 											flavor_text, med_record, sec_record, gen_record,
-											player_alt_titles, be_special,
+											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory)
 
@@ -321,7 +319,7 @@
 											'[job_engsec_high]', '[job_engsec_med]', '[job_engsec_low]',
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
 											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
-											'[playertitlelist]', '[be_special]',
+											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]')
 

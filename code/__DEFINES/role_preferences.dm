@@ -27,6 +27,12 @@
 #define ROLE_RAIDER				"vox raider"
 #define ROLE_VAMPIRE			"vampire"
 #define ROLE_MUTINEER			"mutineer"
+// Role tags for EVERYONE!
+#define ROLE_BORER				"cortical borer"
+#define ROLE_DEMON				"slaughter demon"
+#define ROLE_SENTIENT			"sentient animal"
+#define ROLE_POSIBRAIN			"positronic brain"
+#define ROLE_GUARDIAN			"guardian"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -44,13 +50,17 @@ var/global/list/special_roles = list(
 	ROLE_CULTIST = /datum/game_mode/cult,
 	ROLE_BLOB = /datum/game_mode/blob,
 	ROLE_NINJA,
-	ROLE_MONKEY = /datum/game_mode/monkey,
-	ROLE_GANG = /datum/game_mode/gang,
+//	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
+//	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_SHADOWLING = /datum/game_mode/shadowling,
-	ROLE_ABDUCTOR = /datum/game_mode/abduction,
+//	ROLE_ABDUCTOR = /datum/game_mode/abduction,
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 	ROLE_RAIDER = /datum/game_mode/heist,
 	ROLE_VAMPIRE = /datum/game_mode/vampire,
 	ROLE_MUTINEER = /datum/game_mode/mutiny,
+	ROLE_BORER,
+	ROLE_DEMON,
+	ROLE_SENTIENT,
+	ROLE_POSIBRAIN,
 )

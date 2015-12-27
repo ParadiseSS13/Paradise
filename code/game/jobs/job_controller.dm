@@ -94,7 +94,7 @@ var/global/datum/controller/occupations/job_master
 			if(!job.player_old_enough(player.client))
 				Debug("FOC player not old enough, Player: [player]")
 				continue
-			if(flag && (!(flag in player.client.prefs.be_special))
+			if(flag && !(flag in player.client.prefs.be_special))
 				Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 				continue
 			if(player.mind && job.title in player.mind.restricted_roles)

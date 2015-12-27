@@ -4,7 +4,7 @@
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	key_of_slaughter = null
 	if(!key_of_slaughter)
-		var/list/candidates = get_candidates(BE_ALIEN)
+		var/list/candidates = get_candidates(ROLE_DEMON)
 		if(!candidates.len)
 			if(end_if_fail)
 				return 0
@@ -55,4 +55,3 @@
 			return 0
 		message_admins("Unfortunately, no candidates were available for becoming a Slaugter Demon. Shutting down.")
 	kill()
-	
