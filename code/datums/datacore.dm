@@ -173,12 +173,6 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 		hair_s.Blend(rgb(H.r_hair, H.g_hair, H.b_hair), ICON_ADD)
 		eyes_s.Blend(hair_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]
-	if(facial_hair_style)
-		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
-		eyes_s.Blend(facial_s, ICON_OVERLAY)
-
 	//Horns
 	if(H.species.bodyflags & HAS_HORNS)
 		var/datum/sprite_accessory/horns = horn_styles_list[H.horns]
@@ -187,7 +181,13 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 			horns_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
 			eyes_s.Blend(horns_s, ICON_OVERLAY)
 
-	//Horns
+	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]
+	if(facial_hair_style)
+		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
+		facial_s.Blend(rgb(H.r_facial, H.g_facial, H.b_facial), ICON_ADD)
+		eyes_s.Blend(facial_s, ICON_OVERLAY)
+
+	//Markings
 	if(H.species.bodyflags & HAS_MARKINGS)
 		var/datum/sprite_accessory/marking_style = marking_styles_list[H.m_style]
 		if(marking_style)

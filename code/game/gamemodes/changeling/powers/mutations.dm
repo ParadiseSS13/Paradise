@@ -70,6 +70,7 @@
 		H.update_inv_wear_suit()
 		H.update_inv_head()
 		H.update_hair()
+		H.update_fhair()
 
 		if(blood_on_castoff)
 			var/turf/simulated/T = get_turf(H)

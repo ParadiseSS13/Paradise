@@ -145,6 +145,7 @@
 		owner.unEquip(owner.wear_mask)
 		spawn(1)
 			owner.update_hair()
+			owner.update_fhair()
 	..()
 
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())

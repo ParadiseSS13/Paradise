@@ -168,6 +168,7 @@
 		H.force_update_limbs()
 		H.update_eyes()
 		H.update_hair()
+		H.update_fhair()
 
 		return 1
 	else

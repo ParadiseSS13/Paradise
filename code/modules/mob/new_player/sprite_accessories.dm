@@ -981,44 +981,44 @@
 //Unathi
 
 	una_spines_long
-		name = "Long Unathi Spines"
+		name = "Long Spines"
 		icon_state = "soghun_longspines"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
 	una_spines_short
-		name = "Short Unathi Spines"
+		name = "Short Spines"
 		icon_state = "soghun_shortspines"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
 	una_frills_long
-		name = "Long Unathi Frills"
+		name = "Long Frills"
 		icon_state = "soghun_longfrills"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
 	una_frills_short
-		name = "Short Unathi Frills"
+		name = "Short Frills"
 		icon_state = "soghun_shortfrills"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
-	una_simple
-		name = "Simple"
-		icon_state = "soghun_longwebbed_frills"
+	una_frills_webbed_long
+		name = "Long Webbed Frills"
+		icon_state = "soghun_longfrills_webbed"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
-	una_short
-		name = "Short"
-		icon_state = "soghun_shortwebbed_frills"
+	una_frills_webbed_short
+		name = "Short Webbed Frills"
+		icon_state = "soghun_shortfrills_webbed"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
-	una_aquatic
-		name = "Aquatic"
-		icon_state = "soghun_aquafrills"
+	una_frills_webbed_aquatic
+		name = "Aquatic Frills"
+		icon_state = "soghun_aquaticfrills_webbed"
 		species_allowed = list("Unathi")
 		gender = NEUTER
 
@@ -1588,26 +1588,14 @@
 	name = "None"
 	icon_state = "accessory_none"
 
-/datum/sprite_accessory/body_markings/dstripe
-	name = "Dark Stripe"
-	icon_state = "markings_dstripe"
+/datum/sprite_accessory/body_markings/stripe
+	name = "Stripe"
+	icon_state = "markings_stripe"
 
-/datum/sprite_accessory/body_markings/lstripe
-	name = "Light Stripe"
-	icon_state = "markings_lstripe"
+/datum/sprite_accessory/body_markings/tiger
+	name = "Tiger Body"
+	icon_state = "markings_tiger"
 
-/datum/sprite_accessory/body_markings/dtiger
-	name = "Dark Tiger Body"
-	icon_state = "markings_dtiger"
-
-/datum/sprite_accessory/body_markings/dtigerhead
-	name = "Dark Tiger Body + Head"
-	icon_state = "markings_dtigerhead"
-
-/datum/sprite_accessory/body_markings/ltiger
-	name = "Light Tiger Body"
-	icon_state = "markings_ltiger"
-
-/datum/sprite_accessory/body_markings/ltigerhead
-	name = "Light Tiger Body + Head"
-	icon_state = "markings_ltigerhead"
+/datum/sprite_accessory/body_markings/tigerhead
+	name = "Tiger Body + Head"
+	icon_state = "markings_tigerhead"

@@ -122,16 +122,17 @@ Please contact me on #coderbus IRC. ~Carn x
 #define BACK_LAYER				15
 #define HAIR_LAYER				16		//TODO: make part of head layer?
 #define HORN_LAYER				17
-#define FACEMASK_LAYER			18
-#define HEAD_LAYER				19
-#define COLLAR_LAYER			20
-#define HANDCUFF_LAYER			21
-#define LEGCUFF_LAYER			22
-#define L_HAND_LAYER			23
-#define R_HAND_LAYER			24
-#define TARGETED_LAYER			25		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				26    //If you're on fire
-#define TOTAL_LAYERS			26
+#define FHAIR_LAYER				18
+#define FACEMASK_LAYER			19
+#define HEAD_LAYER				20
+#define COLLAR_LAYER			21
+#define HANDCUFF_LAYER			22
+#define LEGCUFF_LAYER			23
+#define L_HAND_LAYER			24
+#define R_HAND_LAYER			25
+#define TARGETED_LAYER			26		//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				27    //If you're on fire
+#define TOTAL_LAYERS			27
 
 
 
@@ -356,11 +357,13 @@ var/global/list/damage_icon_parts = list()
 	update_horns(0)
 	//markings
 	update_markings(0)
+	//hair
+	update_hair(0)
+	update_fhair(0)
 
 
 //MARKINGS OVERLAY
 /mob/living/carbon/human/proc/update_markings(var/update_icons=1)
-	world << "\red PROC CALLED"
 	//Reset our markings
 	overlays_standing[MARKINGS_LAYER]	= null
 
@@ -437,6 +440,41 @@ var/global/list/damage_icon_parts = list()
 		return
 
 	//base icons
+	var/icon/hair_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
+
+	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
+		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		if(hair_style && hair_style.species_allowed)
+			if(src.species.name in hair_style.species_allowed)
+				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+				if(hair_style.do_colouration)
+					hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+
+				hair_standing.Blend(hair_s, ICON_OVERLAY)
+		else
+			//warning("Invalid h_style for [species.name]: [h_style]")
+
+	overlays_standing[HAIR_LAYER]	= image(hair_standing)
+
+	if(update_icons)   update_icons()
+
+
+//FACIAL HAIR OVERLAY
+/mob/living/carbon/human/proc/update_fhair(var/update_icons=1)
+	//Reset our facial hair
+	overlays_standing[FHAIR_LAYER]	= null
+
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
+		if(update_icons)   update_icons()
+		return
+
+	//masks and helmets can obscure our facial hair, unless we're a synthetic
+	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
+		if(update_icons)   update_icons()
+		return
+
+	//base icons
 	var/icon/face_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
 
 	if(f_style)
@@ -450,19 +488,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
-	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
-		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
-		if(hair_style && hair_style.species_allowed)
-			if(src.species.name in hair_style.species_allowed)
-				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-				if(hair_style.do_colouration)
-					hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
-
-				face_standing.Blend(hair_s, ICON_OVERLAY)
-		else
-			//warning("Invalid h_style for [species.name]: [h_style]")
-
-	overlays_standing[HAIR_LAYER]	= image(face_standing)
+	overlays_standing[FHAIR_LAYER]	= image(face_standing)
 
 	if(update_icons)   update_icons()
 
@@ -526,6 +552,7 @@ var/global/list/damage_icon_parts = list()
 		skeleton = null
 
 	update_hair(0)
+	update_fhair(0)
 	if(update_icons)   update_icons()
 
 //Call when target overlay should be added/removed
@@ -554,6 +581,8 @@ var/global/list/damage_icon_parts = list()
 	update_mutations(0)
 	update_body(0)
 	update_hair(0)
+	update_horns(0)
+	update_fhair(0)
 	update_mutantrace(0)
 	update_inv_w_uniform(0,0)
 	update_inv_wear_id(0)
@@ -1103,6 +1132,7 @@ var/global/list/damage_icon_parts = list()
 #undef HAIR_LAYER
 #undef HEAD_LAYER
 #undef HORN_LAYER
+#undef FHAIR_LAYER
 #undef COLLAR_LAYER
 #undef HANDCUFF_LAYER
 #undef LEGCUFF_LAYER

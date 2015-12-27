@@ -112,7 +112,7 @@
 		if(self_message && M==src)
 			msg = self_message
 		M.show_message(msg, 2, deaf_message, 1)
-	
+
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
@@ -177,6 +177,7 @@
 
 	if(ishuman(src) && W == src:head)
 		src:update_hair()
+		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1, redraw_mob = 1)
 	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning, redraw_mob))
