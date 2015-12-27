@@ -63,7 +63,6 @@
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
-	siemens_coefficient = 0
 	strip_delay = 70
 	put_on_delay = 70
 
@@ -84,7 +83,6 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	siemens_coefficient = 0
 	strip_delay = 70
 	put_on_delay = 70
 

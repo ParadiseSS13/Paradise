@@ -114,12 +114,13 @@
 			return
 	return
 
-/mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
+/mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null,var/override = 0, tesla_shock = 0)
 
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
 		return 0
+
 	shock_damage *= siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0
@@ -147,11 +148,13 @@
 		jitteriness += 1000 //High numbers for violent convulsions
 		do_jitter_animation(jitteriness)
 		stuttering += 2
-		Stun(2)
+		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+			Stun(2)
 		spawn(20)
-			jitteriness -= 990 //Still jittery, but vastly less
-			Stun(3)
-			Weaken(3)
+			jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
+			if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+				Stun(3)
+				Weaken(3)
 	if (shock_damage > 200)
 		src.visible_message(
 			"\red [src] was arc flashed by the [source]!", \
@@ -164,6 +167,7 @@
 		return override
 	else
 		return shock_damage
+
 
 
 /mob/living/carbon/proc/swap_hand()

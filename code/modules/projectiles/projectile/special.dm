@@ -355,3 +355,35 @@ obj/item/projectile/kinetic/New()
 	if(!gun)
 		qdel(src)
 	gun.create_portal(src)
+
+/obj/item/projectile/snowball
+	name = "snowball"
+	icon_state = "snowball"
+	hitsound = 'sound/items/dodgeball.ogg'
+	damage = 3
+	damage_type = BURN
+
+/obj/item/projectile/snowball/on_hit(atom/target)	//chilling
+	if(istype(target, /mob/living))
+		var/mob/living/M = target
+		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
+		M.ExtinguishMob()	//bright side, they counter being on fire!
+
+/obj/item/projectile/ornament
+	name = "ornament"
+	icon_state = "ornament-1"
+	hitsound = 'sound/effects/Glasshit.ogg'
+	damage = 5
+	damage_type = BRUTE
+
+/obj/item/projectile/ornament/New()
+	icon_state = pick("ornament-1", "ornament-2")
+	..()
+
+/obj/item/projectile/ornament/on_hit(atom/target)	//knockback
+	if(istype(target, /turf))
+		return 0
+	var/obj/T = target
+	var/throwdir = get_dir(firer,target)
+	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
+	return 1

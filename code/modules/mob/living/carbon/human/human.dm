@@ -742,7 +742,7 @@
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
-/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,var/override = 0)
+/mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null,var/override = 0, tesla_shock = 0)
 
 	if(status_flags & GODMODE)	//godmode
 		return 0
@@ -755,7 +755,19 @@
 	var/obj/item/organ/external/affected_organ = get_organ(check_zone(def_zone))
 	var/siemens_coeff = base_siemens_coeff * get_siemens_coefficient_organ(affected_organ)
 
-	return ..(shock_damage, source, siemens_coeff, def_zone,override)
+	if(tesla_shock)
+		var/total_coeff = 1
+		if(gloves)
+			var/obj/item/clothing/gloves/G = gloves
+			if(G.siemens_coefficient <= 0)
+				total_coeff -= 0.5
+		if(wear_suit)
+			var/obj/item/clothing/suit/S = wear_suit
+			if(S.siemens_coefficient <= 0)
+				total_coeff -= 0.95
+		siemens_coeff = total_coeff
+
+	return ..(shock_damage, source, siemens_coeff, def_zone, override, tesla_shock)
 
 
 /mob/living/carbon/human/Topic(href, href_list)
