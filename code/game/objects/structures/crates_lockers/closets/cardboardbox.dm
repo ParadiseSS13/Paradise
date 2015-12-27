@@ -5,6 +5,7 @@
 	icon_opened = "cardboard_open"
 	icon_closed = "cardboard"
 	health = 10
+	sound = 'sound/effects/rustle2.ogg'
 	var/move_delay = 0
 	var/egged = 0
 
