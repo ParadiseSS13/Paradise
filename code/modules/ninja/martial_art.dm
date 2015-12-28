@@ -107,7 +107,7 @@
 
 		A << "<span class='warning'>You feel [D] go limp in your grip.</span>"
 		D << "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>"
-		D.sleeping += 20
+		D.AdjustParalysis(20)
 
 		has_choke_hold = 0
 
