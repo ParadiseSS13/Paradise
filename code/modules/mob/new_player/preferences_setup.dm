@@ -272,7 +272,7 @@ datum/preferences
 			var/datum/sprite_accessory/horn_style = horn_styles_list[hn_style]
 			if(horn_style)
 				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
-				horns_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+				horns_s.Blend(rgb(r_horns, g_horns, b_horns), ICON_ADD)
 				eyes_s.Blend(horns_s, ICON_OVERLAY)
 
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
