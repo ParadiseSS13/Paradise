@@ -13,9 +13,9 @@ var/list/uplink_items = list()
 			var/datum/uplink_item/I = new item()
 			if(!I.item)
 				continue
-			if(I.gamemodes.len && ticker && !(ticker.mode.name in I.gamemodes))
+			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
 				continue
-			if(I.excludefrom.len && ticker && (ticker.mode.name in I.excludefrom))
+			if(I.excludefrom.len && ticker && (ticker.mode.type in I.excludefrom))
 				continue
 			if(I.last)
 				last += I
@@ -285,7 +285,7 @@ var/list/uplink_items = list()
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/weapon/gun/projectile/automatic/c20r
 	cost = 14
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/dangerous/carbine
@@ -294,7 +294,7 @@ var/list/uplink_items = list()
 	reference = "AR"
 	item = /obj/item/weapon/gun/projectile/automatic/m90
 	cost = 18
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 50
 
 /datum/uplink_item/dangerous/machinegun
@@ -303,7 +303,7 @@ var/list/uplink_items = list()
 	reference = "LMG"
 	item = /obj/item/weapon/gun/projectile/automatic/l6_saw
 	cost = 40
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/crossbow
@@ -312,7 +312,7 @@ var/list/uplink_items = list()
 	reference = "EC"
 	item = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 50
 
 /datum/uplink_item/dangerous/flamethrower
@@ -321,7 +321,7 @@ var/list/uplink_items = list()
 	reference = "FT"
 	item = /obj/item/weapon/flamethrower/full/tank
 	cost = 11
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
@@ -344,7 +344,7 @@ var/list/uplink_items = list()
 	reference = "VDG"
 	item = /obj/item/weapon/grenade/spawnergrenade/manhacks
 	cost = 8
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 35
 
 /datum/uplink_item/ammo/bioterror
@@ -353,7 +353,7 @@ var/list/uplink_items = list()
 	reference = "BTS"
 	item = /obj/item/weapon/storage/box/syndie_kit/bioterror
 	cost = 6
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/tabungrenades
 	name = "Tabun Gas Grenades"
@@ -361,7 +361,7 @@ var/list/uplink_items = list()
 	reference = "TGG"
 	item = /obj/item/weapon/storage/box/syndie_kit/tabun
 	cost = 15
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/emp
@@ -385,7 +385,7 @@ var/list/uplink_items = list()
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
 	cost = 90
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/mauler
@@ -394,7 +394,7 @@ var/list/uplink_items = list()
 	reference = "ME"
 	item = /obj/mecha/combat/marauder/mauler/loaded
 	cost = 140
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/dangerous/syndieborg
@@ -403,7 +403,7 @@ var/list/uplink_items = list()
 	reference = "SC"
 	item = /obj/item/weapon/antag_spawner/borg_tele
 	cost = 50
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 //for refunding the syndieborg teleporter
@@ -416,7 +416,7 @@ var/list/uplink_items = list()
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
 	item = /obj/item/weapon/storage/box/syndie_kit/guardian
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	cost = 12
 
 // Ammunition
@@ -445,7 +445,7 @@ var/list/uplink_items = list()
 	reference = "45"
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/ammobag
 	name = "Ammo Duffelbag - Shotgun Ammo Grab Bag"
@@ -453,7 +453,7 @@ var/list/uplink_items = list()
 	reference = "SAGL"
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/ammo/loaded
 	cost = 10 //bulk buyer's discount. Very useful if you're buying a mech and dont have TC left to buy people non-shotgun guns
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullslug
 	name = "Drum Magazine - 12g Slugs"
@@ -461,7 +461,7 @@ var/list/uplink_items = list()
 	reference = "12BSG"
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullbuck
 	name = "Drum Magazine - 12g buckshot"
@@ -469,7 +469,7 @@ var/list/uplink_items = list()
 	reference = "12BS"
 	item = /obj/item/ammo_box/magazine/m12g/buckshot
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bullstun
 	name = "Drum Magazine - 12g Stun Slug"
@@ -477,7 +477,7 @@ var/list/uplink_items = list()
 	reference = "12SS"
 	item = /obj/item/ammo_box/magazine/m12g/stun
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/bulldragon
 	name = "Drum Magazine - 12g Dragon's Breath"
@@ -485,7 +485,7 @@ var/list/uplink_items = list()
 	reference = "12DB"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/carbine
 	name = "Toploader Magazine - 5.56"
@@ -493,7 +493,7 @@ var/list/uplink_items = list()
 	reference = "556"
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 2
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/a40mm
 	name = "Ammo Box - 40mm grenades"
@@ -501,7 +501,7 @@ var/list/uplink_items = list()
 	reference = "40MM"
 	item = /obj/item/ammo_box/a40mm
 	cost = 4
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/machinegun
 	name = "Box Magazine - 7.62x51mm"
@@ -509,7 +509,7 @@ var/list/uplink_items = list()
 	reference = "762"
 	item = /obj/item/ammo_box/magazine/m762
 	cost = 12
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 // STEALTHY WEAPONS
@@ -530,7 +530,7 @@ var/list/uplink_items = list()
 	reference = "SP"
 	item = /obj/item/weapon/pen/sleepy
 	cost = 8
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -605,14 +605,14 @@ var/list/uplink_items = list()
 	reference = "NSSS"
 	item = /obj/item/clothing/shoes/syndigaloshes
 	cost = 2
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	name = "Tactical No-Slip Brown Shoes"
 	desc = "These allow you to run on wet floors. They do not work on lubricated surfaces, and the maker swears they're better than normal ones, somehow."
 	reference = "NNSSS"
 	cost = 4 //but they aren't
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -691,7 +691,7 @@ var/list/uplink_items = list()
 	reference = "SBM"
 	item = /obj/item/weapon/storage/belt/military
 	cost = 3
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
@@ -700,7 +700,7 @@ var/list/uplink_items = list()
 	reference = "SCMK"
 	item = /obj/item/weapon/storage/firstaid/tactical
 	cost = 9
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/space_suit
 	name = "Space Suit"
@@ -717,6 +717,17 @@ var/list/uplink_items = list()
 	reference = "BRHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/hardsuit
 	cost = 8
+
+/datum/uplink_item/device_tools/elite_hardsuit
+	name = "Elite Syndicate Hardsuit"
+	desc = "The elite Syndicate hardsuit is worn by only the best nuclear agents. Features much better armoring and complete fireproofing, as well as a built in jetpack. \
+	When the built in helmet is deployed your identity will be protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit into combat mode \
+	will allow you all the mobility of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
+	Nanotrasen crewmembers are trained to report red space suit sightings; these suits in particular are known to drive employees into a panic."
+	reference = "ESHS"
+	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
+	cost = 8
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/thermal
 	name = "Thermal Imaging Glasses"
@@ -755,7 +766,7 @@ var/list/uplink_items = list()
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/plastic_explosives
 	name = "Composition C-4"
@@ -793,7 +804,7 @@ var/list/uplink_items = list()
 	reference = "SD"
 	item = /obj/item/device/syndicatedetonator
 	cost = 3
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -815,7 +826,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/circuitboard/teleporter
 	reference = "TP"
 	cost = 40
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
 /datum/uplink_item/device_tools/shield
@@ -824,7 +835,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/shield/energy
 	reference = "ESD"
 	cost = 16
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 20
 
 /datum/uplink_item/device_tools/medgun
@@ -833,7 +844,7 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/gun/medbeam
 	reference = "MBG"
 	cost = 15
-	gamemodes = list("nuclear emergency")
+	gamemodes = list(/datum/game_mode/nuclear)
 
 
 // IMPLANTS
@@ -903,7 +914,7 @@ var/list/uplink_items = list()
 	reference = "SYB"
 	item = /obj/item/weapon/storage/box/syndicate
 	cost = 20
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -912,7 +923,7 @@ var/list/uplink_items = list()
 	reference = "SPC"
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 	surplus = 40
 
 /datum/uplink_item/badass/syndiecash
@@ -962,7 +973,7 @@ var/list/uplink_items = list()
 	reference = "SYSC"
 	cost = 20
 	item = /obj/item/weapon/storage/box/syndicate
-	excludefrom = list("nuclear emergency")
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/device/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
