@@ -15,7 +15,10 @@
 	var/h_style = "Bald"
 
 	//Horns
-	var/horns = "None"
+	var/r_horns = 0
+	var/g_horns = 0
+	var/b_horns = 0
+	var/hn_style = "None"
 
 	//Facial hair colour and style
 	var/r_facial = 0

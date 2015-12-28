@@ -110,7 +110,10 @@ datum/preferences
 	var/undershirt = "Nude"					//undershirt type
 	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
-	var/horns = "None"					//Horn style
+	var/hn_style = "None"				//Horn style
+	var/r_horns = 0						//Horn colour
+	var/g_horns = 0						//Horn colour
+	var/b_horns = 0						//Horn colour
 	var/m_style = "None"				//Marking style
 	var/r_markings = 0					//Marking colour
 	var/g_markings = 0					//Marking colour
@@ -360,7 +363,8 @@ datum/preferences
 
 				if(species == "Unathi") //Species that have horns.
 					dat += "<br><b>Horns</b><br>"
-					dat += "Style: <a href='?_src_=prefs;preference=horns;task=input'>[horns]</a><br>"
+					dat += "<a href='?_src_=prefs;preference=horns;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_horns, 2)][num2hex(g_horns, 2)][num2hex(b_horns, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_horns, 2)][num2hex(g_horns, 2)][num2hex(b_horns)]'><tr><td>__</td></tr></table></font> "
+					dat += "Style: <a href='?_src_=prefs;preference=hn_style;task=input'>[hn_style]</a><br>"
 
 					dat += "<br><b>Body Markings</b><br>"
 					dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
@@ -1201,21 +1205,32 @@ datum/preferences
 						if(new_h_style)
 							h_style = new_h_style
 
+
 					if("horns")
-						var/list/valid_hornstyles = list()
-						for(var/hornstyle in horn_styles_list)
-							var/datum/sprite_accessory/H = horn_styles_list[hornstyle]
-							if( !(species in H.species_allowed))
-								continue
+						if(species == "Unathi") // Species with horns
+							var/input = "Choose the colour of your your character's horns:"
+							var/new_horns = input(user, input, "Character Preference", rgb(r_horns, g_horns, b_horns)) as color|null
+							if(new_horns)
+								r_horns = hex2num(copytext(new_horns, 2, 4))
+								g_horns = hex2num(copytext(new_horns, 4, 6))
+								b_horns = hex2num(copytext(new_horns, 6, 8))
 
-							valid_hornstyles[hornstyle] = horn_styles_list[hornstyle]
+					if("hn_style")
+						if(species == "Unathi") // Species with horns
+							var/list/valid_hornstyles = list()
+							for(var/hornstyle in horn_styles_list)
+								var/datum/sprite_accessory/H = horn_styles_list[hornstyle]
+								if( !(species in H.species_allowed))
+									continue
 
-						var/new_horn_style = input(user, "Choose your character's horn style:", "Character Preference") as null|anything in valid_hornstyles
-						if(new_horn_style)
-							horns = new_horn_style
+								valid_hornstyles[hornstyle] = horn_styles_list[hornstyle]
+
+							var/new_horn_style = input(user, "Choose your character's horn style:", "Character Preference") as null|anything in valid_hornstyles
+							if(new_horn_style)
+								hn_style = new_horn_style
 
 					if("markings")
-						if(species == "Unathi")
+						if(species == "Unathi") // Species with markings
 							var/input = "Choose the colour of your your character's body markings:"
 							var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
 							if(new_markings)
@@ -1224,17 +1239,18 @@ datum/preferences
 								b_markings = hex2num(copytext(new_markings, 6, 8))
 
 					if("m_style")
-						var/list/valid_markings = list()
-						for(var/markingstyle in marking_styles_list)
-							var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
-							if( !(species in M.species_allowed))
-								continue
+						if(species == "Unathi") // Species with markings
+							var/list/valid_markings = list()
+							for(var/markingstyle in marking_styles_list)
+								var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
+								if( !(species in M.species_allowed))
+									continue
 
-							valid_markings[markingstyle] = marking_styles_list[markingstyle]
+								valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference") as null|anything in valid_markings
-						if(new_marking_style)
-							m_style = new_marking_style
+							var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference") as null|anything in valid_markings
+							if(new_marking_style)
+								m_style = new_marking_style
 
 					if("body_accessory")
 						var/list/possible_body_accessories = list()
@@ -1656,7 +1672,10 @@ datum/preferences
 		character.socks = socks
 
 		if(character.species.bodyflags & HAS_HORNS)
-			character.horns = horns
+			character.r_horns = r_horns
+			character.g_horns = g_horns
+			character.b_horns = b_horns
+			character.hn_style = hn_style
 		if(character.species.bodyflags & HAS_MARKINGS)
 			character.r_markings = r_markings
 			character.g_markings = g_markings

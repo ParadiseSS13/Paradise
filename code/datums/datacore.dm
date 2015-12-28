@@ -175,10 +175,10 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 
 	//Horns
 	if(H.species.bodyflags & HAS_HORNS)
-		var/datum/sprite_accessory/horns = horn_styles_list[H.horns]
-		if(horns)
-			var/icon/horns_s = new/icon("icon" = horns.icon, "icon_state" = "[horns.icon_state]_s")
-			horns_s.Blend(rgb(H.r_skin, H.g_skin, H.b_skin), ICON_ADD)
+		var/datum/sprite_accessory/horn_style = horn_styles_list[H.hn_style]
+		if(horn_style)
+			var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
+			horns_s.Blend(rgb(H.r_horns, H.g_horns, H.b_horns), ICON_ADD)
 			eyes_s.Blend(horns_s, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[H.f_style]

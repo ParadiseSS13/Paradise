@@ -408,13 +408,13 @@ var/global/list/damage_icon_parts = list()
 	//base icons
 	var/icon/horns_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(horns && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HORNS)))
-		var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
+	if(hn_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HORNS)))
+		var/datum/sprite_accessory/horn_style = horn_styles_list[hn_style]
 		if(horn_style && horn_style.species_allowed)
 			if(src.species.name in horn_style.species_allowed)
 				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
 				if(horn_style.do_colouration)
-					horns_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
+					horns_s.Blend(rgb(r_horns, g_horns, b_horns), ICON_ADD)
 				horns_standing.Blend(horns_s, ICON_OVERLAY)
 		else
 			//warning("Invalid horns for [species.name]: [horns]")

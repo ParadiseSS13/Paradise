@@ -269,7 +269,7 @@ datum/preferences
 
 		//Horns
 		if(current_species && (current_species.bodyflags & HAS_HORNS))
-			var/datum/sprite_accessory/horn_style = horn_styles_list[horns]
+			var/datum/sprite_accessory/horn_style = horn_styles_list[hn_style]
 			if(horn_style)
 				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
 				horns_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
