@@ -471,6 +471,18 @@
 					be_special |= ROLE_SHADOWLING
 				if(32768)
 					be_special |= ROLE_REVENANT
+
+	var/DBQuery/query2 = dbcon.NewQuery({"UPDATE [format_table_name("player")]
+				SET
+					be_role='[list2params(sql_sanitize_text_list(be_special))]'
+					WHERE ckey='[C.ckey]'"}
+					)
+
+	if(!query2.Execute())
+		var/err = query2.ErrorMsg()
+		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
+		return
 	return 1
 
 /*
