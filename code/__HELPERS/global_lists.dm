@@ -6,8 +6,8 @@
 /proc/makeDatumRefLists()
 	//markings
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, marking_styles_list)
-	//horns
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/horns, horn_styles_list)
+	//head accessory
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
 	//facial hair

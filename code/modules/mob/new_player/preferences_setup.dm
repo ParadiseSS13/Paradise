@@ -251,7 +251,7 @@ datum/preferences
 		//Body Markings
 		if(current_species && (current_species.bodyflags & HAS_MARKINGS))
 			var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
-			if(marking_style)
+			if(marking_style && marking_style.species_allowed)
 				var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
 				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
 				preview_icon.Blend(markings_s, ICON_OVERLAY)
@@ -267,16 +267,16 @@ datum/preferences
 			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 			eyes_s.Blend(hair_s, ICON_OVERLAY)
 
-		//Horns
-		if(current_species && (current_species.bodyflags & HAS_HORNS))
-			var/datum/sprite_accessory/horn_style = horn_styles_list[hn_style]
-			if(horn_style)
-				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
-				horns_s.Blend(rgb(r_horns, g_horns, b_horns), ICON_ADD)
-				eyes_s.Blend(horns_s, ICON_OVERLAY)
+		//Head Accessory
+		if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
+			var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
+			if(head_accessory_style && head_accessory_style.species_allowed)
+				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
+				head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
+				eyes_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-		if(facial_hair_style)
+		if(facial_hair_style && facial_hair_style.species_allowed)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
 			eyes_s.Blend(facial_s, ICON_OVERLAY)

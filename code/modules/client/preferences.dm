@@ -110,10 +110,10 @@ datum/preferences
 	var/undershirt = "Nude"					//undershirt type
 	var/socks = "Nude"					//socks type
 	var/backbag = 2						//backpack type
-	var/hn_style = "None"				//Horn style
-	var/r_horns = 0						//Horn colour
-	var/g_horns = 0						//Horn colour
-	var/b_horns = 0						//Horn colour
+	var/ha_style = "None"				//Head accessory style
+	var/r_headacc = 0					//Head accessory colour
+	var/g_headacc = 0					//Head accessory colour
+	var/b_headacc = 0					//Head accessory colour
 	var/m_style = "None"				//Marking style
 	var/r_markings = 0					//Marking colour
 	var/g_markings = 0					//Marking colour
@@ -361,10 +361,13 @@ datum/preferences
 					dat += "[TextPreview(flavor_text)]...<br>"
 				dat += "<br>"
 
-				if(species == "Unathi") //Species that have horns.
-					dat += "<br><b>Horns</b><br>"
-					dat += "<a href='?_src_=prefs;preference=horns;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_horns, 2)][num2hex(g_horns, 2)][num2hex(b_horns, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_horns, 2)][num2hex(g_horns, 2)][num2hex(b_horns)]'><tr><td>__</td></tr></table></font> "
-					dat += "Style: <a href='?_src_=prefs;preference=hn_style;task=input'>[hn_style]</a><br>"
+				if((species in list("Unathi", "Vulpkanin", "Tajaran"))) //Species that have head accessories.
+					var/headaccessoryname = "Head Accessory"
+					if(species == "Unathi")
+						headaccessoryname = "Horns"
+					dat += "<br><b>[headaccessoryname]</b><br>"
+					dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc)]'><tr><td>__</td></tr></table></font> "
+					dat += "Style: <a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a><br>"
 
 					dat += "<br><b>Body Markings</b><br>"
 					dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
@@ -1145,6 +1148,8 @@ datum/preferences
 
 							s_tone = 0
 
+							ha_style = "None" // No Vulp ears on Unathi
+							m_style = "None" // No Unathi markings on Tajara
 							body_accessory = null //no vulpatail on humans damnit
 					if("speciesprefs")//oldvox code
 						speciesprefs = !speciesprefs
@@ -1206,31 +1211,31 @@ datum/preferences
 							h_style = new_h_style
 
 
-					if("horns")
-						if(species == "Unathi") // Species with horns
-							var/input = "Choose the colour of your your character's horns:"
-							var/new_horns = input(user, input, "Character Preference", rgb(r_horns, g_horns, b_horns)) as color|null
-							if(new_horns)
-								r_horns = hex2num(copytext(new_horns, 2, 4))
-								g_horns = hex2num(copytext(new_horns, 4, 6))
-								b_horns = hex2num(copytext(new_horns, 6, 8))
+					if("headaccessory")
+						if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with head accessories
+							var/input = "Choose the colour of your your character's head accessory:"
+							var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
+							if(new_head_accessory)
+								r_headacc = hex2num(copytext(new_head_accessory, 2, 4))
+								g_headacc = hex2num(copytext(new_head_accessory, 4, 6))
+								b_headacc = hex2num(copytext(new_head_accessory, 6, 8))
 
-					if("hn_style")
-						if(species == "Unathi") // Species with horns
-							var/list/valid_hornstyles = list()
-							for(var/hornstyle in horn_styles_list)
-								var/datum/sprite_accessory/H = horn_styles_list[hornstyle]
+					if("ha_style")
+						if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with head accessories
+							var/list/valid_head_accessory_styles = list()
+							for(var/head_accessory_style in head_accessory_styles_list)
+								var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]
 								if( !(species in H.species_allowed))
 									continue
 
-								valid_hornstyles[hornstyle] = horn_styles_list[hornstyle]
+								valid_head_accessory_styles[head_accessory_style] = head_accessory_styles_list[head_accessory_style]
 
-							var/new_horn_style = input(user, "Choose your character's horn style:", "Character Preference") as null|anything in valid_hornstyles
-							if(new_horn_style)
-								hn_style = new_horn_style
+							var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
+							if(new_head_accessory_style)
+								ha_style = new_head_accessory_style
 
 					if("markings")
-						if(species == "Unathi") // Species with markings
+						if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with markings
 							var/input = "Choose the colour of your your character's body markings:"
 							var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
 							if(new_markings)
@@ -1239,7 +1244,7 @@ datum/preferences
 								b_markings = hex2num(copytext(new_markings, 6, 8))
 
 					if("m_style")
-						if(species == "Unathi") // Species with markings
+						if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with markings
 							var/list/valid_markings = list()
 							for(var/markingstyle in marking_styles_list)
 								var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
@@ -1671,11 +1676,11 @@ datum/preferences
 		character.undershirt = undershirt
 		character.socks = socks
 
-		if(character.species.bodyflags & HAS_HORNS)
-			character.r_horns = r_horns
-			character.g_horns = g_horns
-			character.b_horns = b_horns
-			character.hn_style = hn_style
+		if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
+			character.r_headacc = r_headacc
+			character.g_headacc = g_headacc
+			character.b_headacc = b_headacc
+			character.ha_style = ha_style
 		if(character.species.bodyflags & HAS_MARKINGS)
 			character.r_markings = r_markings
 			character.g_markings = g_markings

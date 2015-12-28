@@ -121,7 +121,7 @@ Please contact me on #coderbus IRC. ~Carn x
 #define SUIT_STORE_LAYER		14
 #define BACK_LAYER				15
 #define HAIR_LAYER				16		//TODO: make part of head layer?
-#define HORN_LAYER				17
+#define HEAD_ACCESSORY_LAYER	17
 #define FHAIR_LAYER				18
 #define FACEMASK_LAYER			19
 #define HEAD_LAYER				20
@@ -353,8 +353,8 @@ var/global/list/damage_icon_parts = list()
 
 	//tail
 	update_tail_layer(0)
-	//horns
-	update_horns(0)
+	//head accessory
+	update_head_accessory(0)
 	//markings
 	update_markings(0)
 	//hair
@@ -384,42 +384,42 @@ var/global/list/damage_icon_parts = list()
 					markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
 				markings_standing.Blend(markings_s, ICON_OVERLAY)
 		else
-			//warning("Invalid markings for [species.name]: [horns]")
+			//warning("Invalid m_style for [species.name]: [m_style]")
 
 	overlays_standing[MARKINGS_LAYER]	= image(markings_standing)
 
 	if(update_icons)   update_icons()
 
-//HORN OVERLAY
-/mob/living/carbon/human/proc/update_horns(var/update_icons=1)
-	//Reset our horns
-	overlays_standing[HORN_LAYER]	= null
+//HEAD ACCESSORY OVERLAY
+/mob/living/carbon/human/proc/update_head_accessory(var/update_icons=1)
+	//Reset our head accessory
+	overlays_standing[HEAD_ACCESSORY_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(!head_organ || head_organ.is_stump() || (head_organ.status & ORGAN_DESTROYED) )
 		if(update_icons)   update_icons()
 		return
 
-	//masks and helmets can obscure our horns
+	//masks and helmets can obscure our head accessory
 	if( (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)))
 		if(update_icons)   update_icons()
 		return
 
 	//base icons
-	var/icon/horns_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
+	var/icon/head_accessory_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(hn_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HORNS)))
-		var/datum/sprite_accessory/horn_style = horn_styles_list[hn_style]
-		if(horn_style && horn_style.species_allowed)
-			if(src.species.name in horn_style.species_allowed)
-				var/icon/horns_s = new/icon("icon" = horn_style.icon, "icon_state" = "[horn_style.icon_state]_s")
-				if(horn_style.do_colouration)
-					horns_s.Blend(rgb(r_horns, g_horns, b_horns), ICON_ADD)
-				horns_standing.Blend(horns_s, ICON_OVERLAY)
+	if(ha_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic()) && (src.species.bodyflags & HAS_HEAD_ACCESSORY)))
+		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
+		if(head_accessory_style && head_accessory_style.species_allowed)
+			if(src.species.name in head_accessory_style.species_allowed)
+				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
+				if(head_accessory_style.do_colouration)
+					head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
+				head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
 		else
-			//warning("Invalid horns for [species.name]: [horns]")
+			//warning("Invalid ha_style for [species.name]: [ha_style]")
 
-	overlays_standing[HORN_LAYER]	= image(horns_standing)
+	overlays_standing[HEAD_ACCESSORY_LAYER]	= image(head_accessory_standing)
 
 	if(update_icons)   update_icons()
 
@@ -581,7 +581,7 @@ var/global/list/damage_icon_parts = list()
 	update_mutations(0)
 	update_body(0)
 	update_hair(0)
-	update_horns(0)
+	update_head_accessory(0)
 	update_fhair(0)
 	update_mutantrace(0)
 	update_inv_w_uniform(0,0)
@@ -1131,7 +1131,7 @@ var/global/list/damage_icon_parts = list()
 #undef BACK_LAYER
 #undef HAIR_LAYER
 #undef HEAD_LAYER
-#undef HORN_LAYER
+#undef HEAD_ACCESSORY_LAYER
 #undef FHAIR_LAYER
 #undef COLLAR_LAYER
 #undef HANDCUFF_LAYER

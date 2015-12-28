@@ -113,13 +113,13 @@
 		r_markings = text2num(query.item[21])
 		g_markings = text2num(query.item[22])
 		b_markings = text2num(query.item[23])
-		r_horns = text2num(query.item[24])
-		g_horns = text2num(query.item[25])
-		b_horns = text2num(query.item[26])
+		r_headacc = text2num(query.item[24])
+		g_headacc = text2num(query.item[25])
+		b_headacc = text2num(query.item[26])
 		h_style = query.item[27]
 		f_style = query.item[28]
 		m_style = query.item[29]
-		hn_style = query.item[30]
+		ha_style = query.item[30]
 		r_eyes = text2num(query.item[31])
 		g_eyes = text2num(query.item[32])
 		b_eyes = text2num(query.item[33])
@@ -185,13 +185,13 @@
 	r_markings		= sanitize_integer(r_markings, 0, 255, initial(r_markings))
 	g_markings		= sanitize_integer(g_markings, 0, 255, initial(g_markings))
 	b_markings		= sanitize_integer(b_markings, 0, 255, initial(b_markings))
-	r_horns			= sanitize_integer(r_horns, 0, 255, initial(r_horns))
-	g_horns			= sanitize_integer(g_horns, 0, 255, initial(g_horns))
-	b_horns			= sanitize_integer(b_horns, 0, 255, initial(b_horns))
+	r_headacc		= sanitize_integer(r_headacc, 0, 255, initial(r_headacc))
+	g_headacc		= sanitize_integer(g_headacc, 0, 255, initial(g_headacc))
+	b_headacc		= sanitize_integer(b_headacc, 0, 255, initial(b_headacc))
 	h_style			= sanitize_inlist(h_style, hair_styles_list, initial(h_style))
 	f_style			= sanitize_inlist(f_style, facial_hair_styles_list, initial(f_style))
 	m_style			= sanitize_inlist(m_style, marking_styles_list, initial(m_style))
-	hn_style		= sanitize_inlist(hn_style, horn_styles_list, initial(hn_style))
+	ha_style		= sanitize_inlist(ha_style, head_accessory_styles_list, initial(ha_style))
 	r_eyes			= sanitize_integer(r_eyes, 0, 255, initial(r_eyes))
 	g_eyes			= sanitize_integer(g_eyes, 0, 255, initial(g_eyes))
 	b_eyes			= sanitize_integer(b_eyes, 0, 255, initial(b_eyes))
@@ -261,13 +261,13 @@
 												markings_red='[r_markings]',
 												markings_green='[g_markings]',
 												markings_blue='[b_markings]',
-												horns_red='[r_horns]',
-												horns_green='[g_horns]',
-												horns_blue='[b_horns]',
+												head_accessory_red='[r_headacc]',
+												head_accessory_green='[g_headacc]',
+												head_accessory_blue='[b_headacc]',
 												hair_style_name='[sql_sanitize_text(h_style)]',
 												facial_style_name='[sql_sanitize_text(f_style)]',
 												marking_style_name='[sql_sanitize_text(m_style)]',
-												horn_style_name='[sql_sanitize_text(hn_style)]',
+												head_accessory_style_name='[sql_sanitize_text(ha_style)]',
 												eyes_red='[r_eyes]',
 												eyes_green='[g_eyes]',
 												eyes_blue='[b_eyes]',
@@ -319,8 +319,8 @@
 											facial_red, facial_green, facial_blue,
 											skin_tone, skin_red, skin_green, skin_blue,
 											markings_red, markings_green, markings_blue,
-											horns_red, horns_green, horns_blue,
-											hair_style_name, facial_style_name, marking_style_name, horn_style_name,
+											head_accessory_red, head_accessory_green, head_accessory_blue,
+											hair_style_name, facial_style_name, marking_style_name, head_accessory_style_name,
 											eyes_red, eyes_green, eyes_blue,
 											underwear, undershirt,
 											backbag, b_type, alternate_option,
@@ -340,8 +340,8 @@
 											'[r_facial]', '[g_facial]', '[b_facial]',
 											'[s_tone]', '[r_skin]', '[g_skin]', '[b_skin]',
 											'[r_markings]', '[g_markings]', '[b_markings]',
-											'[r_horns]', '[g_horns]', '[b_horns]',
-											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[sql_sanitize_text(m_style)]', '[sql_sanitize_text(hn_style)]',
+											'[r_headacc]', '[g_headacc]', '[b_headacc]',
+											'[sql_sanitize_text(h_style)]', '[sql_sanitize_text(f_style)]', '[sql_sanitize_text(m_style)]', '[sql_sanitize_text(ha_style)]',
 											'[r_eyes]', '[g_eyes]', '[b_eyes]',
 											'[underwear]', '[undershirt]',
 											'[backbag]', '[b_type]', '[alternate_option]',

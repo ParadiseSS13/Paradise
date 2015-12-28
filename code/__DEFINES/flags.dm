@@ -55,16 +55,16 @@
 #define HAS_SOCKS		4
 
 //Species Body Flags
-#define FEET_CLAWS		1
-#define FEET_PADDED		2
-#define FEET_NOSLIP		4
-#define HAS_HORNS		8
-#define HAS_TAIL 		16
-#define HAS_SKIN_TONE 	32
-#define HAS_SKIN_COLOR	64
-#define HAS_MARKINGS	128
-#define TAIL_WAGGING    256
-#define NO_EYES			512
+#define FEET_CLAWS			1
+#define FEET_PADDED			2
+#define FEET_NOSLIP			4
+#define HAS_HEAD_ACCESSORY	8
+#define HAS_TAIL 			16
+#define HAS_SKIN_TONE 		32
+#define HAS_SKIN_COLOR		64
+#define HAS_MARKINGS		128
+#define TAIL_WAGGING    	256
+#define NO_EYES				512
 
 //Species Diet Flags
 #define DIET_CARN		1

@@ -14,11 +14,11 @@
 	var/b_hair = 0
 	var/h_style = "Bald"
 
-	//Horns
-	var/r_horns = 0
-	var/g_horns = 0
-	var/b_horns = 0
-	var/hn_style = "None"
+	//Head accessory colour and style
+	var/r_headacc = 0
+	var/g_headacc = 0
+	var/b_headacc = 0
+	var/ha_style = "None"
 
 	//Facial hair colour and style
 	var/r_facial = 0
