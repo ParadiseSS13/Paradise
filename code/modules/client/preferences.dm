@@ -3,22 +3,28 @@
 var/list/preferences_datums = list()
 
 var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
-	num2text(ROLE_PAI) = 0,
-	num2text(ROLE_TRAITOR) = 7,
-	num2text(ROLE_CHANGELING) = 14,
-	num2text(ROLE_SHADOWLING) = 14,
-	num2text(ROLE_WIZARD) = 14,
-	num2text(ROLE_REV) = 14,
-	num2text(ROLE_VAMPIRE) = 14,
-	num2text(ROLE_BLOB) = 14,
-	num2text(ROLE_REVENANT) = 14,
-	num2text(ROLE_OPERATIVE) = 21,
-	num2text(ROLE_CULTIST) = 21,
-	num2text(ROLE_RAIDER) = 21,
-	num2text(ROLE_ALIEN) = 21,
-	num2text(ROLE_NINJA) = 21,
-	num2text(ROLE_MUTINEER) = 21,
-	num2text(ROLE_MALF) = 30,
+	ROLE_PAI = 0,
+	ROLE_POSIBRAIN = 0,
+	ROLE_GUARDIAN = 0,
+	ROLE_TRAITOR = 7,
+	ROLE_CHANGELING = 14,
+	ROLE_SHADOWLING = 14,
+	ROLE_WIZARD = 14,
+	ROLE_REV = 14,
+	ROLE_VAMPIRE = 14,
+	ROLE_BLOB = 14,
+	ROLE_REVENANT = 14,
+	ROLE_OPERATIVE = 21,
+	ROLE_CULTIST = 21,
+	ROLE_RAIDER = 21,
+	ROLE_ALIEN = 21,
+	ROLE_DEMON = 21,
+	ROLE_SENTIENT = 21,
+// 	ROLE_GANG = 21,
+	ROLE_BORER = 21,
+	ROLE_NINJA = 21,
+	ROLE_MUTINEER = 21,
+	ROLE_MALF = 30,
 )
 
 /proc/player_old_enough_antag(client/C, role)
@@ -1429,7 +1435,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/cleaned_r = sql_sanitize_text(r)
 						if(r != cleaned_r) // up to no good
 							message_admins("[user] attempted an href exploit! (This could have possibly lead to a \"Bobby Tables\" exploit, so they're probably up to no good). String: [r] ID: [last_id] IP: [last_ip]")
-							user << "<span class='userdanger'>Please don't break the server.</span>"
+							user << "<span class='userdanger'>Stop right there, criminal scum</span>"
 					else
 						be_special ^= r
 

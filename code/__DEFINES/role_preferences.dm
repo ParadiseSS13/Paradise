@@ -6,6 +6,8 @@
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
+// If you're adding a new role, remember to update modules/admin/topic.dm, so admins can dish out
+// justice if someone's abusing your role
 #define ROLE_TRAITOR			"traitor"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"

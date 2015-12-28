@@ -55,6 +55,7 @@
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for (var/role in be_special)
 		if(!(role in special_roles))
+			log_to_dd("[C.key] had a malformed role entry: '[role]'. Removing!")
 			be_special -= role
 
 	var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("player")]
@@ -392,19 +393,23 @@
 		return
 	return 1
 
-// If you see this proc lying around and don't know why it's there, expunge it, as this is for a short-term DB update
+// If you see this proc lying around and don't know why it's there, expunge it, as this is for a short-term DB update, starting 27/12/2015
 // 0 on failed update, 1 on success
 /datum/preferences/proc/old_roles_to_new(var/client/C)
 	var/DBQuery/query = dbcon.NewQuery({"
 		SELECT be_special
-		FROM [format_table_name("players")]
+		FROM [format_table_name("player")]
 		WHERE ckey='[C.ckey]'"})
 	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL NOTICE: be_special has been purged from the database, bug the coders. Error : \[[err]\]\n")
-		message_admins("SQL NOTICE: be_special has been purged from the database, bug the coders. Error : \[[err]\]\n")
 		return 0
-	var/old_be_special = query.item[1]
+	var/old_be_special
+	while(query.NextRow())
+		old_be_special = text2num(query.item[1])
+	if(isnull(old_be_special))
+		message_admins("SQL NOTICE: be_special has been purged from the database, bug the coders.\n")
+		return 0
+
+	old_be_special = sanitize_integer(old_be_special, 0, 65535)
 	var/B_traitor = 1
 	var/B_operative = 2
 	var/B_changeling = 4
@@ -445,6 +450,7 @@
 					be_special |= ROLE_ALIEN
 					be_special |= ROLE_SENTIENT
 					be_special |= ROLE_DEMON
+					be_special |= ROLE_BORER
 				if(128)
 					be_special |= ROLE_PAI
 					be_special |= ROLE_POSIBRAIN
@@ -453,7 +459,6 @@
 					be_special |= ROLE_CULTIST
 				if(512)
 					be_special |= ROLE_NINJA
-//					be_special |= ROLE_GANG since they will occupy the same ID and all
 				if(1024)
 					be_special |= ROLE_RAIDER
 				if(2048)

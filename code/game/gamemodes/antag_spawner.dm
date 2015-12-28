@@ -74,7 +74,7 @@
 	icon_state = "vial"
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
-	var/list/demon_candidates = get_candidates(ROLE_ALIEN)
+	var/list/demon_candidates = get_candidates(ROLE_DEMON)
 	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
 		user << "<span class='notice'>You should probably wait until you reach the station.</span>"
 		return
