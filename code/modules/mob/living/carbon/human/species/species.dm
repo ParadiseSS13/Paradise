@@ -413,6 +413,7 @@
 				if(H.client)
 					H.client.screen += global_hud.darkMask
 
+		var/minimum_darkness_view = INFINITY
 		if(H.glasses)
 			if(istype(H.glasses, /obj/item/clothing/glasses))
 				var/obj/item/clothing/glasses/G = H.glasses
@@ -420,6 +421,7 @@
 
 				if(G.darkness_view)
 					H.see_in_dark = G.darkness_view
+					minimum_darkness_view = G.darkness_view
 
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
@@ -436,6 +438,9 @@
 			if(istype(H.head, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = H.head
 				H.sight |= hat.vision_flags
+
+				if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
+					H.see_in_dark = hat.darkness_view
 
 				if(!hat.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
