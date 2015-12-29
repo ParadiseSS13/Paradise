@@ -354,6 +354,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<br><b>[headaccessoryname]</b><br>"
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc)]'><tr><td>__</td></tr></table></font> "
 				dat += "Style: <a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a><br>"
+
 				dat += "<br><b>Body Markings</b><br>"
 				dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
 				dat += "<br>Style: <a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a><br>"
@@ -411,7 +412,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
-//				dat += "<br><br>"
+//			dat += "<br><br>"
 			if(jobban_isbanned(user, "Syndicate"))
 				dat += "<b>You are banned from special roles.</b>"
 				src.be_special = list()
@@ -433,7 +434,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center></body></html>"
 
-//		user << browse(dat, "window=preferences;size=560x580")
+//	user << browse(dat, "window=preferences;size=560x580")
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 640, 810)
 	popup.set_content(dat)
 	popup.open(0)
@@ -1686,7 +1687,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			character.gender = MALE
 
 /datum/preferences/proc/open_load_dialog(mob/user)
-
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
 
 	var/dat = "<body>"
