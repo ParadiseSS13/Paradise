@@ -252,10 +252,10 @@
 				return 1
 
 	return 0
-	
+
 /********************
     SUPPLY ORDER
- ********************/	
+ ********************/
 /datum/supply_order
 	var/ordernum
 	var/datum/supply_packs/object = null
@@ -263,14 +263,14 @@
 	var/orderedbyRank
 	var/comment = null
 	var/crates
-	
+
 /datum/controller/process/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
 	var/datum/supply_packs/P = supply_packs["[packId]"]
 	if(!P)
 		return
-	
+
 	var/datum/supply_order/O = new()
 	O.ordernum = ordernum++
 	O.object = P
@@ -278,15 +278,15 @@
 	O.orderedbyRank = _orderedbyRank
 	O.comment = _comment
 	O.crates = _crates
-			
+
 	requestlist += O
 
-	return O	
-	
+	return O
+
 /datum/supply_order/proc/generateRequisition(atom/_loc)
 	if(!object)
 		return
-	
+
 	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
@@ -301,11 +301,11 @@
 	reqform.info += object.manifest
 	reqform.info += "<hr>"
 	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
-	
+
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
 	return reqform
-	
+
 /datum/supply_order/proc/createObject(atom/_loc, errors=0)
 	if(!object)
 		return
@@ -334,7 +334,7 @@
 	slip.info +="Reason: [comment]<br>"
 	slip.info +="Supply Crate Type: [object.name]<br>"
 	slip.info +="Access Restriction: [object.access ? get_access_desc(object.access) : "None"]<br>"
-	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"	
+	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
 	slip.info +="CONTENTS:<br><ul>"
 
 	//we now create the actual contents
@@ -385,7 +385,7 @@
 		LC.update_icon()
 
 	return Crate
-	
+
 /***************************
     ORDER/REQUESTS CONSOLE
  **************************/
@@ -511,7 +511,7 @@
 			idrank = H.get_assignment()
 		else if(issilicon(usr))
 			idname = usr.real_name
-		
+
 		reqtime = (world.time + 5) % 1e5
 
 		//make our supply_order datums
@@ -613,7 +613,7 @@
 
 	data["moving"] = shuttle_master.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = shuttle_master.supply.getDockedId() == "supply_home"
-	data["timeleft"] = shuttle_master.supply.timeLeft(600)	
+	data["timeleft"] = shuttle_master.supply.timeLeft(600)
 	data["can_launch"] = !shuttle_master.supply.canMove()
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data)
@@ -784,6 +784,11 @@
 	if (istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
 		return 0
 
+	if (istype(A, /obj/structure/closet/cardboard))
+		var/obj/structure/closet/cardboard/C = A
+		if(C.move_delay)
+			return 0
+
 	if(istype(A, /obj/vehicle))	//no vehicles
 		return 0
 
@@ -830,5 +835,5 @@
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT
-#undef SUPPLY_SCREEN_WIDTH  
-#undef SUPPLY_SCREEN_HEIGHT 
+#undef SUPPLY_SCREEN_WIDTH
+#undef SUPPLY_SCREEN_HEIGHT

@@ -93,7 +93,7 @@
 		qdel(G)
 
 
-/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/O, mob/user as mob)
+/obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/O, mob/user as mob)
 	if(!istype(O))
 		return 0 //not a mob
 	if(user.incapacitated())
@@ -310,11 +310,12 @@
 		data["occupied"] = connected.occupant ? 1 : 0
 
 		var/occupantData[0]
-		if(connected.occupant && ishuman(connected.occupant))
+		if(connected.occupant)
 			var/mob/living/carbon/human/H = connected.occupant
 			occupantData["name"] = H.name
 			occupantData["stat"] = H.stat
 			occupantData["health"] = H.health
+			occupantData["maxHealth"] = H.maxHealth
 
 			occupantData["hasVirus"] = H.virus2.len
 
@@ -334,22 +335,16 @@
 			occupantData["hasBorer"] = H.has_brain_worms()
 
 			var/bloodData[0]
-			if(H.vessel)
+			bloodData["hasBlood"] = 0
+			if(ishuman(H) && H.vessel && !(H.species && H.species.flags & NO_BLOOD))
 				var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
+				bloodData["hasBlood"] = 1
 				bloodData["volume"] = blood_volume
 				bloodData["percent"] = round(((blood_volume / 560)*100))
-
+				bloodData["pulse"] = H.get_pulse(GETPULSE_TOOL)
+				bloodData["bloodLevel"] = round(H.vessel.get_reagent_amount("blood"))
+				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
-
-			var/reagentData[0]
-			if(H.reagents)
-				reagentData["epinephrine"] = H.reagents.get_reagent_amount("Epinephrine")
-				reagentData["ether"] = H.reagents.get_reagent_amount("ether")
-				reagentData["silver_sulfadiazine"] = H.reagents.get_reagent_amount("silver_sulfadiazine")
-				reagentData["styptic_powder"] = H.reagents.get_reagent_amount("styptic_powder")
-				reagentData["salbutamol"] = H.reagents.get_reagent_amount("salbutamol")
-
-			occupantData["reagents"] = reagentData
 
 			var/extOrganData[0]
 			for(var/obj/item/organ/external/E in H.organs)
@@ -359,6 +354,10 @@
 				organData["germ_level"] = E.germ_level
 				organData["bruteLoss"] = E.brute_dam
 				organData["fireLoss"] = E.burn_dam
+				organData["totalLoss"] = E.brute_dam + E.burn_dam
+				organData["maxHealth"] = E.max_damage
+				organData["bruised"] = E.min_bruised_damage
+				organData["broken"] = E.min_broken_damage
 
 				var/implantData[0]
 				for(var/obj/I in E.implants)
@@ -405,6 +404,9 @@
 				organData["desc"] = I.desc
 				organData["germ_level"] = I.germ_level
 				organData["damage"] = I.damage
+				organData["maxHealth"] = I.max_damage
+				organData["bruised"] = I.min_broken_damage
+				organData["broken"] = I.min_bruised_damage
 
 				intOrganData.Add(list(organData))
 
@@ -426,6 +428,9 @@
 /obj/machinery/body_scanconsole/Topic(href, href_list)
 	if(..())
 		return 1
+
+	if (href_list["ejectify"])
+		src.connected.eject()
 
 	if (href_list["print_p"])
 		generate_printing_text()

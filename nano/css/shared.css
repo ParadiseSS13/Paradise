@@ -371,6 +371,11 @@ div.notice {
     background: #4f7529;
 }
 
+.displayBarFill.notgood {
+    color: #ffffff;
+    background: #ffb400;
+}
+
 .displayBarFill.average {
     color: #ffffff;
     background: #cd6500;
@@ -558,6 +563,11 @@ th.misc {
     background: #666666;
     font-weight: bold;
     color: #ffffff;
+}
+
+/* Table styling for Med Scanner */
+.striped tr:nth-child(even) {
+    background-color: #404040
 }
 
 /* Damage colors for crew monitoring computer */
