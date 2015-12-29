@@ -626,11 +626,6 @@
 		species_allowed = list("Skrell")
 		gender = FEMALE
 
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
-
 	taj_ears_clean
 		name = "Tajara Clean"
 		icon_state = "hair_clean"
@@ -929,13 +924,6 @@
 
 
 //Vulpkanin
-
-	vulp_earfluff
-		name = "Vulpkanin Earfluff"
-		icon_state = "vulp_facial_earfluff"
-		species_allowed = list("Vulpkanin")
-		gender = NEUTER
-
 
 	vulp_blaze
 		name = "Blaze"
