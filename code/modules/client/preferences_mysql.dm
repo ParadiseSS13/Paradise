@@ -5,7 +5,7 @@
 					UI_style,
 					UI_style_color,
 					UI_style_alpha,
-					be_special,
+					be_role,
 					default_slot,
 					toggles,
 					sound,
@@ -28,7 +28,7 @@
 		UI_style = query.item[2]
 		UI_style_color = query.item[3]
 		UI_style_alpha = text2num(query.item[4])
-		be_special = text2num(query.item[5])
+		be_special = params2list(query.item[5])
 		default_slot = text2num(query.item[6])
 		toggles = text2num(query.item[7])
 		sound = text2num(query.item[8])
@@ -39,7 +39,6 @@
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 //	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
-	be_special		= sanitize_integer(be_special, 0, 65535, initial(be_special))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
@@ -51,13 +50,19 @@
 
 /datum/preferences/proc/save_preferences(client/C)
 
+	// Might as well scrub out any malformed be_special list entries while we're here
+	for (var/role in be_special)
+		if(!(role in special_roles))
+			log_to_dd("[C.key] had a malformed role entry: '[role]'. Removing!")
+			be_special -= role
+
 	var/DBQuery/query = dbcon.NewQuery({"UPDATE [format_table_name("player")]
 				SET
 					ooccolor='[ooccolor]',
 					UI_style='[UI_style]',
 					UI_style_color='[UI_style_color]',
 					UI_style_alpha='[UI_style_alpha]',
-					be_special='[be_special]',
+					be_role='[list2params(sql_sanitize_text_list(be_special))]',
 					default_slot='[default_slot]',
 					toggles='[toggles]',
 					sound='[sound]',
@@ -82,7 +87,68 @@
 		var/DBQuery/firstquery = dbcon.NewQuery("UPDATE [format_table_name("player")] SET default_slot=[slot] WHERE ckey='[C.ckey]'")
 		firstquery.Execute()
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'")
+	// Let's not have this explode if you sneeze on the DB
+	var/DBQuery/query = dbcon.NewQuery({"SELECT
+		OOC_Notes,
+		real_name,
+		name_is_always_random,
+		gender,
+		age,
+		species,
+		language,
+		hair_red,
+		hair_green,
+		hair_blue,
+		facial_red,
+		facial_green,
+		facial_blue,
+		skin_tone,
+		skin_red,
+		skin_green,
+		skin_blue,
+		markings_red,
+		markings_green,
+		markings_blue,
+		head_accessory_red,
+		head_accessory_green,
+		head_accessory_blue,
+		hair_style_name,
+		facial_style_name,
+		marking_style_name,
+		head_accessory_style_name,
+		eyes_red,
+		eyes_green,
+		eyes_blue,
+		underwear,
+		undershirt,
+		backbag,
+		b_type,
+		alternate_option,
+		job_support_high,
+		job_support_med,
+		job_support_low,
+		job_medsci_high,
+		job_medsci_med,
+		job_medsci_low,
+		job_engsec_high,
+		job_engsec_med,
+		job_engsec_low,
+		job_karma_high,
+		job_karma_med,
+		job_karma_low,
+		flavor_text,
+		med_record,
+		sec_record,
+		gen_record,
+		disabilities,
+		player_alt_titles,
+		organ_data,
+		rlimb_data,
+		nanotrasen_relation,
+		speciesprefs,
+		socks,
+		body_accessory
+	 FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
@@ -91,75 +157,74 @@
 
 	while(query.NextRow())
 		//Character
-		metadata = query.item[4]
-		real_name = query.item[5]
-		be_random_name = text2num(query.item[6])
-		gender = query.item[7]
-		age = text2num(query.item[8])
-		species = query.item[9]
-		language = query.item[10]
+		metadata = query.item[1]
+		real_name = query.item[2]
+		be_random_name = text2num(query.item[3])
+		gender = query.item[4]
+		age = text2num(query.item[5])
+		species = query.item[6]
+		language = query.item[7]
 
 		//colors to be consolidated into hex strings (requires some work with dna code)
-		r_hair = text2num(query.item[11])
-		g_hair = text2num(query.item[12])
-		b_hair = text2num(query.item[13])
-		r_facial = text2num(query.item[14])
-		g_facial = text2num(query.item[15])
-		b_facial = text2num(query.item[16])
-		s_tone = text2num(query.item[17])
-		r_skin = text2num(query.item[18])
-		g_skin = text2num(query.item[19])
-		b_skin = text2num(query.item[20])
-		r_markings = text2num(query.item[21])
-		g_markings = text2num(query.item[22])
-		b_markings = text2num(query.item[23])
-		r_headacc = text2num(query.item[24])
-		g_headacc = text2num(query.item[25])
-		b_headacc = text2num(query.item[26])
-		h_style = query.item[27]
-		f_style = query.item[28]
-		m_style = query.item[29]
-		ha_style = query.item[30]
-		r_eyes = text2num(query.item[31])
-		g_eyes = text2num(query.item[32])
-		b_eyes = text2num(query.item[33])
-		underwear = query.item[34]
-		undershirt = query.item[35]
-		backbag = text2num(query.item[36])
-		b_type = query.item[37]
+		r_hair = text2num(query.item[8])
+		g_hair = text2num(query.item[9])
+		b_hair = text2num(query.item[10])
+		r_facial = text2num(query.item[11])
+		g_facial = text2num(query.item[12])
+		b_facial = text2num(query.item[13])
+		s_tone = text2num(query.item[14])
+		r_skin = text2num(query.item[15])
+		g_skin = text2num(query.item[16])
+		b_skin = text2num(query.item[17])
+		r_markings = text2num(query.item[18])
+		g_markings = text2num(query.item[19])
+		b_markings = text2num(query.item[20])
+		r_headacc = text2num(query.item[21])
+		g_headacc = text2num(query.item[22])
+		b_headacc = text2num(query.item[23])
+		h_style = query.item[24]
+		f_style = query.item[25]
+		m_style = query.item[26]
+		ha_style = query.item[27]
+		r_eyes = text2num(query.item[28])
+		g_eyes = text2num(query.item[29])
+		b_eyes = text2num(query.item[30])
+		underwear = query.item[31]
+		undershirt = query.item[32]
+		backbag = text2num(query.item[33])
+		b_type = query.item[34]
 
 
 		//Jobs
-		alternate_option = text2num(query.item[38])
-		job_support_high = text2num(query.item[39])
-		job_support_med = text2num(query.item[40])
-		job_support_low = text2num(query.item[41])
-		job_medsci_high = text2num(query.item[42])
-		job_medsci_med = text2num(query.item[43])
-		job_medsci_low = text2num(query.item[44])
-		job_engsec_high = text2num(query.item[45])
-		job_engsec_med = text2num(query.item[46])
-		job_engsec_low = text2num(query.item[47])
-		job_karma_high = text2num(query.item[48])
-		job_karma_med = text2num(query.item[49])
-		job_karma_low = text2num(query.item[50])
+		alternate_option = text2num(query.item[35])
+		job_support_high = text2num(query.item[36])
+		job_support_med = text2num(query.item[37])
+		job_support_low = text2num(query.item[38])
+		job_medsci_high = text2num(query.item[39])
+		job_medsci_med = text2num(query.item[40])
+		job_medsci_low = text2num(query.item[41])
+		job_engsec_high = text2num(query.item[42])
+		job_engsec_med = text2num(query.item[43])
+		job_engsec_low = text2num(query.item[44])
+		job_karma_high = text2num(query.item[45])
+		job_karma_med = text2num(query.item[46])
+		job_karma_low = text2num(query.item[47])
 
 		//Miscellaneous
-		flavor_text = query.item[51]
-		med_record = query.item[52]
-		sec_record = query.item[53]
-		gen_record = query.item[54]
-		be_special = text2num(query.item[55])
-		disabilities = text2num(query.item[56])
-		player_alt_titles = params2list(query.item[57])
-		organ_data = params2list(query.item[58])
-		rlimb_data = params2list(query.item[59])
-		nanotrasen_relation = query.item[60]
-		speciesprefs = text2num(query.item[61])
+		flavor_text = query.item[48]
+		med_record = query.item[49]
+		sec_record = query.item[50]
+		gen_record = query.item[51]
+		disabilities = text2num(query.item[52])
+		player_alt_titles = params2list(query.item[53])
+		organ_data = params2list(query.item[54])
+		rlimb_data = params2list(query.item[55])
+		nanotrasen_relation = query.item[56]
+		speciesprefs = text2num(query.item[57])
 
 		//socks
-		socks = query.item[62]
-		body_accessory = query.item[63]
+		socks = query.item[58]
+		body_accessory = query.item[59]
 
 	//Sanitize
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -214,7 +279,6 @@
 	job_karma_med = sanitize_integer(job_karma_med, 0, 65535, initial(job_karma_med))
 	job_karma_low = sanitize_integer(job_karma_low, 0, 65535, initial(job_karma_low))
 	disabilities = sanitize_integer(disabilities, 0, 65535, initial(disabilities))
-	be_special = sanitize_integer(be_special, 0, 65535, initial(be_special))
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
@@ -293,7 +357,6 @@
 												sec_record='[sql_sanitize_text(html_decode(sec_record))]',
 												gen_record='[sql_sanitize_text(html_decode(gen_record))]',
 												player_alt_titles='[playertitlelist]',
-												be_special='[be_special]',
 												disabilities='[disabilities]',
 												organ_data='[organlist]',
 												rlimb_data='[rlimblist]',
@@ -329,7 +392,7 @@
 											job_engsec_high, job_engsec_med, job_engsec_low,
 											job_karma_high, job_karma_med, job_karma_low,
 											flavor_text, med_record, sec_record, gen_record,
-											player_alt_titles, be_special,
+											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory)
 
@@ -350,7 +413,7 @@
 											'[job_engsec_high]', '[job_engsec_med]', '[job_engsec_low]',
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
 											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
-											'[playertitlelist]', '[be_special]',
+											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]')
 
@@ -363,6 +426,100 @@
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		return
 	return 1
+
+
+// If you see this proc lying around and don't know why it's there, expunge it, as this is for a short-term DB update, starting 27/12/2015
+// 0 on failed update, 1 on success
+/datum/preferences/proc/old_roles_to_new(var/client/C)
+	var/DBQuery/query = dbcon.NewQuery({"
+		SELECT be_special
+		FROM [format_table_name("player")]
+		WHERE ckey='[C.ckey]'"})
+	if(!query.Execute())
+		return 0
+	var/old_be_special
+	while(query.NextRow())
+		old_be_special = text2num(query.item[1])
+	if(isnull(old_be_special))
+		message_admins("SQL NOTICE: be_special has been purged from the database, bug the coders.\n")
+		return 0
+
+	old_be_special = sanitize_integer(old_be_special, 0, 65535)
+	var/B_traitor = 1
+	var/B_operative = 2
+	var/B_changeling = 4
+	var/B_wizard = 8
+	var/B_malf = 16
+	var/B_rev = 32
+	var/B_alien = 64
+	var/B_pai = 128
+	var/B_cultist = 256
+	var/B_ninja = 512
+	var/B_raider = 1024
+	var/B_vampire = 2048
+	var/B_mutineer = 4096
+	var/B_blob = 8192
+	var/B_shadowling = 16384
+	var/B_revenant = 32768
+
+	var/list/archived = list(B_traitor,B_operative,B_changeling,B_wizard,B_malf,B_rev,B_alien,B_pai,B_cultist,B_ninja,B_raider,B_vampire,B_mutineer,B_blob,B_shadowling,B_revenant)
+
+	// meow meow I am the copy cat
+	for(var/flag in archived)
+		if(old_be_special & flag)
+			switch(flag)
+				// hello i am byond i think constant variables r dumm
+				if(1)
+					be_special |= ROLE_TRAITOR
+				if(2)
+					be_special |= ROLE_OPERATIVE
+				if(4)
+					be_special |= ROLE_CHANGELING
+				if(8)
+					be_special |= ROLE_WIZARD
+				if(16)
+					be_special |= ROLE_MALF
+				if(32)
+					be_special |= ROLE_REV
+				if(64)
+					be_special |= ROLE_ALIEN
+					be_special |= ROLE_SENTIENT
+					be_special |= ROLE_DEMON
+					be_special |= ROLE_BORER
+				if(128)
+					be_special |= ROLE_PAI
+					be_special |= ROLE_POSIBRAIN
+					be_special |= ROLE_GUARDIAN
+				if(256)
+					be_special |= ROLE_CULTIST
+				if(512)
+					be_special |= ROLE_NINJA
+				if(1024)
+					be_special |= ROLE_RAIDER
+				if(2048)
+					be_special |= ROLE_VAMPIRE
+				if(4096)
+					be_special |= ROLE_MUTINEER
+				if(8192)
+					be_special |= ROLE_BLOB
+				if(16384)
+					be_special |= ROLE_SHADOWLING
+				if(32768)
+					be_special |= ROLE_REVENANT
+
+	var/DBQuery/query2 = dbcon.NewQuery({"UPDATE [format_table_name("player")]
+				SET
+					be_role='[list2params(sql_sanitize_text_list(be_special))]'
+					WHERE ckey='[C.ckey]'"}
+					)
+
+	if(!query2.Execute())
+		var/err = query2.ErrorMsg()
+		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
+		return
+	return 1
+
 /*
 /datum/preferences/proc/random_character(client/C)
 	var/DBQuery/query = dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
