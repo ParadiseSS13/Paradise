@@ -43,7 +43,7 @@
 		T += M.rating
 	min_temperature = max(0,T0C - (170 + (T*15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
-	
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/construction()
 	..(dir,dir)
 
@@ -62,8 +62,10 @@
 		if(!panel_open)
 			user << "<span class='notice'>Open the maintenance panel first.</span>"
 			return
+		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+		dir = choices[selected]
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
@@ -84,7 +86,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ai(mob/user as mob)
 	attack_hand(user)
-	
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attack_ghost(mob/user as mob)
 	attack_hand(user)
 
@@ -92,7 +94,7 @@
 	if(panel_open)
 		user << "<span class='notice'>Close the maintenance panel first.</span>"
 		return
-		
+
 	src.ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -193,8 +195,8 @@
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/construction()
-	..(dir,dir)	
-	
+	..(dir,dir)
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
 	var/H
 	var/T
@@ -220,8 +222,10 @@
 		if(!panel_open)
 			user << "<span class='notice'>Open the maintenance panel first.</span>"
 			return
+		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+		dir = choices[selected]
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		dir = pick(WEST,EAST,SOUTH,NORTH)
 		var/node_connect = dir
 		initialize_directions = dir
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
@@ -242,9 +246,9 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ai(mob/user as mob)
 	attack_hand(user)
-	
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_ghost(mob/user as mob)
-	src.attack_hand(user)	
+	src.attack_hand(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attack_hand(mob/user as mob)
 	if(panel_open)
