@@ -45,7 +45,6 @@ datum/reagents/proc/metabolize(var/mob/M)
 		if(M && R)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
 				R.overdosed = 1
-				M << "<span class = 'userdanger'>You feel like you took too much [R.name]!</span>"
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = 0
