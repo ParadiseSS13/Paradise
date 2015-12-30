@@ -365,3 +365,6 @@
 	if(lighting_overlay)
 		return lighting_overlay.get_clamped_lum()
 	return 1
+
+/turf/proc/update_blood_overlays()
+	return

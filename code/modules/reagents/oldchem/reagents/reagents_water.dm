@@ -113,10 +113,7 @@
 	if(O && !istype(O, /atom/movable/lighting_overlay))
 		O.color = initial(O.color)
 	if(istype(O,/obj/effect/decal/cleanable))
-		qdel(O)
-	else
-		if(O)
-			O.clean_blood()
+		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(var/turf/T, var/volume)
 	if(volume >= 1)
@@ -166,6 +163,19 @@
 		..()
 		return
 
+/datum/reagent/luminol
+	name = "Luminol"
+	id = "luminol"
+	description = "A compound that interacts with blood on the molecular level."
+	reagent_state = LIQUID
+	color = "#F2F3F4"
+
+/datum/reagent/luminol/reaction_obj(var/obj/O, var/volume)
+	O.reveal_blood()
+
+/datum/reagent/luminol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+	if(method==TOUCH)
+		M.reveal_blood()
 
 /datum/reagent/blood
 	data = new/list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"= "#A10808","resistances"=null,"trace_chem"=null, "antibodies" = null)

@@ -346,6 +346,8 @@
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/clothing/accessory/holster/armpit(src)
+		new /obj/item/device/uv_light(src)
+		new /obj/item/weapon/reagent_containers/spray/luminol(src)
 		return
 
 /obj/structure/closet/secure_closet/detective/update_icon()

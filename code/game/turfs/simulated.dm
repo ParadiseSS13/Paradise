@@ -15,6 +15,11 @@
 	..()
 	levelupdate()
 
+/turf/simulated/clean_blood()
+	for(var/obj/effect/decal/cleanable/blood/B in contents)
+		B.fluorescent = 0
+		B.invisibility = 100
+
 /turf/simulated/proc/burn_tile()
 
 /turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube

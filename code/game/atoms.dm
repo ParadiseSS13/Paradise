@@ -6,6 +6,7 @@
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
 	var/list/blood_DNA
+	var/was_bloodied
 	var/blood_color
 	var/last_bumped = 0
 	var/pass_flags = 0
@@ -13,6 +14,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/fluorescent // Shows up under a UV light.
 
 	///Chemistry.
 	var/datum/reagents/reagents = null
@@ -74,6 +76,9 @@
 	return ..()
 
 /atom/proc/CheckParts()
+	return
+
+/atom/proc/reveal_blood()
 	return
 
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -352,6 +357,7 @@
 	if(!blood_DNA || !istype(blood_DNA, /list))	//if our list of DNA doesn't exist yet (or isn't a list) initialise it.
 		blood_DNA = list()
 
+	was_bloodied = 1
 	blood_color = "#A10808"
 	if(istype(M))
 		if (!istype(M.dna, /datum/dna))
@@ -365,6 +371,7 @@
 
 
 /atom/proc/clean_blood()
+	fluorescent = 0
 	src.germ_level = 0
 	if(istype(blood_DNA, /list))
 		qdel(blood_DNA)

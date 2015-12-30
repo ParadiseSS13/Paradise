@@ -118,6 +118,14 @@
 	..()
 	reagents.add_reagent("cleaner", src.volume)
 
+/obj/item/weapon/reagent_containers/spray/sterilizine
+	name = "sterilizine"
+	desc = "Great for hiding incriminating bloodstains and sterilizing scalpels."
+
+/obj/item/weapon/reagent_containers/spray/sterilizine/New()
+	..()
+	reagents.add_reagent("sterilizine", volume)
+
 //pepperspray
 /obj/item/weapon/reagent_containers/spray/pepper
 	name = "pepperspray"

@@ -461,6 +461,12 @@
 		var/obj/item/clothing/gloves/G = src
 		G.transfer_blood = 0
 
+/obj/item/reveal_blood()
+	if(was_bloodied && !fluorescent)
+		fluorescent = 1
+		blood_color = COLOR_LUMINOL
+		blood_overlay.color = COLOR_LUMINOL
+		update_icon()
 
 /obj/item/add_blood(mob/living/carbon/human/M as mob)
 	if (!..())
