@@ -49,7 +49,7 @@
 			if (used)
 				H << "You already used this contract!"
 				return
-			var/list/candidates = get_candidates(BE_WIZARD)
+			var/list/candidates = get_candidates(ROLE_WIZARD)
 			if(candidates.len)
 				src.used = 1
 				var/client/C = pick(candidates)
@@ -294,7 +294,7 @@ var/global/list/multiverse = list()
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
 		else
-			var/list/candidates = get_candidates(BE_WIZARD)
+			var/list/candidates = get_candidates(ROLE_WIZARD)
 			if(candidates.len)
 				var/client/C = pick(candidates)
 				spawn_copy(C, get_turf(user.loc), user)

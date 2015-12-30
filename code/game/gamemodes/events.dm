@@ -6,7 +6,7 @@
 			if(temp_vent.parent.other_atmosmch.len > 50) // Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(BE_ALIEN,ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates(ROLE_ALIEN,ALIEN_AFK_BRACKET)
 
 	if(prob(40)) spawncount++ //sometimes, have two larvae spawn instead of one
 	while((spawncount >= 1) && vents.len && candidates.len)
@@ -25,7 +25,7 @@
 		command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/aliens.ogg')
-			
+
 /proc/lightsout(isEvent = 0, lightsoutAmount = 1,lightsoutRange = 25) //leave lightsoutAmount as 0 to break ALL lights
 	if(isEvent)
 		command_announcement.Announce("An Electrical storm has been detected in your area, please repair potential electronic overloads.","Electrical Storm Alert")

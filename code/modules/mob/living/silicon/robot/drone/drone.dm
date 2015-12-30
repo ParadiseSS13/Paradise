@@ -259,7 +259,7 @@
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
 			continue
 		if(O.client)
-			if(O.client.prefs.be_special & BE_PAI)
+			if(ROLE_PAI in O.client.prefs.be_special)
 				question(O.client,O)
 
 /mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)

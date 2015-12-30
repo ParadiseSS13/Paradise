@@ -31,25 +31,6 @@ var/MAX_EX_LIGHT_RANGE = 14
 var/MAX_EX_FLASH_RANGE = 14
 var/MAX_EX_FLAME_RANGE = 14
 
-var/list/be_special_flags = list(
-	"traitor" = BE_TRAITOR,
-	"operative" = BE_OPERATIVE,
-	"changeling" = BE_CHANGELING,
-	"wizard" = BE_WIZARD,
-	"malf AI" = BE_MALF,
-	"revolutionary" = BE_REV,
-	"alien" = BE_ALIEN,
-	"pAI" = BE_PAI,
-	"cultist" = BE_CULTIST,
-	"ninja" = BE_NINJA,
-	"raider" = BE_RAIDER,
-	"vampire" = BE_VAMPIRE,
-	"mutineer" = BE_MUTINEER,
-	"blob" = BE_BLOB,
-	"shadowling" = BE_SHADOWLING,
-	"revenant" = BE_REVENANT
-)
-
 //Random event stuff, apparently used
 var/eventchance = 10 //% per 5 mins
 var/event = 0
