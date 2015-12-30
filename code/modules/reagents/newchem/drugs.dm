@@ -15,7 +15,7 @@
 
 /datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/smoke_message = pick("You can just feel your lungs dying!", "You feel relaxed.", "You feel calmed.", "You feel the lung cancer forming.", "You feel the money you wasted.", "You feel like a space cowboy.", "You feel rugged.")
+	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
 		M << "<span class='notice'>[smoke_message]</span>"
 	if(prob(50))
@@ -27,8 +27,6 @@
 	return
 
 /datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
-	if(prob(20))
-		M << "You feel like you smoked too much."
 	M.adjustToxLoss(1*REM)
 	M.adjustOxyLoss(1*REM)
 	..()

@@ -25,7 +25,7 @@
 	if(!..())
 		return 0
 
-	var/list/candidates = get_players_for_role(BE_ALIEN)
+	var/list/candidates = get_players_for_role(ROLE_ALIEN)
 	var/playersready = 0
 	var/xenos_num
 	for(var/mob/new_player/player in player_list)

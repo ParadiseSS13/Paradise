@@ -18,7 +18,7 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
+	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
 	for(var/mob/new_player/player in player_list)
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))

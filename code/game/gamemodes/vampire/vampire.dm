@@ -47,7 +47,7 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_vampires = get_players_for_role(BE_VAMPIRE)
+	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	vampire_amount = 1 + round(num_players() / 10)
 

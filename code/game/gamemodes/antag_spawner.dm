@@ -36,7 +36,7 @@
 		return
 	checking = 1
 	user << "<span class='notice'>The device is now checking for possible borgs.</span>"
-	var/list/mob/dead/observer/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", "operative", 1, BE_OPERATIVE, 300)
+	var/list/mob/dead/observer/borg_candidates = pollCandidates("Do you want to play as a Syndicate [borg_to_spawn] borg?", "operative", 1, ROLE_OPERATIVE, 300)
 	if(borg_candidates.len > 0 && !used)
 		checking = 0
 		used = 1
@@ -74,7 +74,7 @@
 	icon_state = "vial"
 
 /obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
-	var/list/demon_candidates = get_candidates(BE_ALIEN)
+	var/list/demon_candidates = get_candidates(ROLE_DEMON)
 	if(user.z == ZLEVEL_CENTCOMM)//this is to make sure the wizard does NOT summon a demon from the Den..
 		user << "<span class='notice'>You should probably wait until you reach the station.</span>"
 		return

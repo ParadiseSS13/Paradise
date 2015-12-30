@@ -364,6 +364,27 @@
 	user.update_inv_wear_suit()
 	user.update_inv_w_uniform()
 
+//Elite Syndie suit
+/obj/item/clothing/head/helmet/space/rig/syndi/elite
+	name = "elite syndicate hardsuit helmet"
+	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
+	icon_state = "hardsuit0-syndielite"
+	item_color = "syndielite"
+	armor = list(melee = 80, bullet = 70, laser = 50, energy = 25, bomb = 55, bio = 100, rad = 70)
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	sprite_sheets = null
+
+/obj/item/clothing/suit/space/rig/syndi/elite
+	name = "elite syndicate hardsuit"
+	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
+	icon_state = "hardsuit0-syndielite"
+	item_color = "syndielite"
+	armor = list(melee = 80, bullet = 70, laser = 50, energy = 25, bomb = 55, bio = 100, rad = 70)
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	sprite_sheets = null
+
 //Wizard Rig
 /obj/item/clothing/head/helmet/space/rig/wizard
 	name = "gem-encrusted hardsuit helmet"

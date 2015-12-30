@@ -150,6 +150,17 @@
 	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
 	return
 
+/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
+	name = "Boxed Elite Syndicate Hardsuit and Helmet"
+	can_hold = list("/obj/item/clothing/suit/space/rig/syndi/elite", "/obj/item/clothing/head/helmet/space/rig/syndi/elite")
+	max_w_class = 3
+
+/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
+	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
+	return
+
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 

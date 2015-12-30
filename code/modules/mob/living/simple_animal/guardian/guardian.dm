@@ -641,7 +641,7 @@
 		return
 	used = TRUE
 	user << "[use_message]"
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?",BE_PAI, null, FALSE, 100)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?",ROLE_GUARDIAN, null, FALSE, 100)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)

@@ -36,7 +36,7 @@
 		volume = text2num(query.item[10])
 
 	old_roles_to_new(C)
-	
+
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 //	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
@@ -118,6 +118,8 @@
 					facial_style_name,
 					marking_style_name,
 					head_accessory_style_name,
+					hair_style_name,
+					facial_style_name,
 					eyes_red,
 					eyes_green,
 					eyes_blue,
@@ -150,7 +152,7 @@
 					speciesprefs,
 					socks,
 					body_accessory
-	 				FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
+				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during character slot loading. Error : \[[err]\]\n")
@@ -428,7 +430,6 @@
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		return
 	return 1
-
 
 // If you see this proc lying around and don't know why it's there, expunge it, as this is for a short-term DB update, starting 27/12/2015
 // 0 on failed update, 1 on success

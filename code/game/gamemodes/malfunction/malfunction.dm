@@ -25,13 +25,13 @@
 		<B>The AI on the satellite has malfunctioned and must be destroyed.</B><br />
 		The AI satellite is deep in space and can only be accessed with the use of a teleporter! You have [AI_win_timeleft/60] minutes to disable it."}
 
-/datum/game_mode/malfunction/get_players_for_role(var/role = BE_MALF)
+/datum/game_mode/malfunction/get_players_for_role(var/role = ROLE_MALF)
 	var/roletext = get_roletext(role)
 
 	var/datum/job/ai/DummyAIjob = new
 	for(var/mob/new_player/player in player_list)
 		if(player.client && player.ready)
-			if(player.client.prefs.be_special & BE_MALF)
+			if(ROLE_MALF in player.client.prefs.be_special)
 				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, "AI") && !jobban_isbanned(player, roletext) && DummyAIjob.player_old_enough(player.client))
 					if(player_old_enough_antag(player.client,role))
 						antag_candidates += player.mind
@@ -39,7 +39,7 @@
 	return antag_candidates
 
 /datum/game_mode/malfunction/pre_setup()
-	get_players_for_role(BE_MALF)
+	get_players_for_role(ROLE_MALF)
 
 	var/datum/mind/chosen_ai
 	if(!antag_candidates.len)

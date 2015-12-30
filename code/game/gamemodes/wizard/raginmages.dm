@@ -17,7 +17,7 @@
 	..()
 	if(!max_mages)
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != 2)
+			if (player.client && player.stat != DEAD)
 				playercount += 1
 			max_mages = round(playercount / 5)
 
@@ -40,12 +40,12 @@
 			continue
 		if(istype(wizard.current,/mob/living/carbon/brain))
 			continue
-		if(wizard.current.stat==2)
+		if(wizard.current.stat==DEAD)
 			continue
-		if(wizard.current.stat==1)
+		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
 				wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
-				wizard.current.stat = 2
+				wizard.current.death()
 			continue
 		wizards_alive++
 
@@ -73,7 +73,7 @@
 	var/mob/dead/observer/theghost = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		candidates = get_candidates(BE_WIZARD)
+		candidates = get_candidates(ROLE_WIZARD)
 		if(!candidates.len)
 			message_admins("No applicable ghosts for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time

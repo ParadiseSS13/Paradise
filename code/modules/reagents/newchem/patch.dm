@@ -37,3 +37,10 @@
 	New()
 		..()
 		reagents.add_reagent("synthflesh", 20)
+
+/obj/item/weapon/reagent_containers/pill/patch/nicotine
+	name = "nicotine patch"
+	desc = "Helps temporarily curb the cravings of nicotine dependency."
+	New()
+		..()
+		reagents.add_reagent("nicotine", 20)

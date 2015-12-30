@@ -198,7 +198,7 @@
 			S.faction = faction
 			S.master_commander = master_commander
 			if(player_spiders)
-				var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+				var/list/candidates = get_candidates(ROLE_ALIEN, ALIEN_AFK_BRACKET)
 				var/client/C = null
 
 				if(candidates.len)
