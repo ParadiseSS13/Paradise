@@ -264,6 +264,7 @@ BLIND     // can't see anything
 	var/flash_protect = 0
 	var/tint = 0
 	var/HUDType = null
+	var/darkness_view = 0
 	var/vision_flags = 0
 	var/see_darkness = 1
 
