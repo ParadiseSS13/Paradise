@@ -49,6 +49,12 @@
 /datum/atom_hud/data/diagnostic
 	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD)
 
+/mob/proc/hud_detection_check(image/holder)
+    if(invisibility > 25 || alpha < 127)
+        holder.icon_state = null
+        return 0
+    return 1
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -97,13 +103,11 @@
 	var/datum/atom_hud/data/human/medical/basic/B = huds[DATA_HUD_MEDICAL_BASIC]
 	B.update_suit_sensors(src)
 
-
 //called when a carbon changes health
 /mob/living/carbon/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	if(stat == 2)
@@ -117,8 +121,7 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	//var/image/holder2 = hud_list[STATUS_HUD_OOC]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	if(stat == 2)
@@ -150,10 +153,6 @@
 /mob/living/carbon/human/proc/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
-		return 0
-
 	holder.icon_state = "hudunknown"
 	if(wear_id)
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
@@ -164,8 +163,7 @@
 /mob/living/carbon/human/proc/sec_hud_set_implants()
 	var/image/holder
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
@@ -187,8 +185,7 @@
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	var/perpname = get_face_name(get_id_name(""))
@@ -238,8 +235,7 @@
 /mob/living/silicon/proc/diag_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	if(stat == DEAD)
@@ -261,8 +257,7 @@
 /mob/living/silicon/robot/proc/diag_hud_set_borgcell()
 	var/image/holder = hud_list[DIAG_BATT_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
+	if(!hud_detection_check(holder)) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
 		return 0
 
 	if (cell)
@@ -287,10 +282,6 @@
 /obj/mecha/proc/diag_hud_set_mechcell()
 	var/image/holder = hud_list[DIAG_BATT_HUD]
 
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
-		return 0
-
 	if (cell)
 		var/chargelvl = cell.charge/cell.maxcharge
 		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
@@ -300,10 +291,6 @@
 
 /obj/mecha/proc/diag_hud_set_mechstat()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
-
-	if(invisibility > HUD_INVIS_LIMIT || alpha < HUD_ALPHA_LIMIT) // If the person is above the normal invisibility level the HUD cannot detect them. Or if their alpha is below half of fully visible.
-		holder.icon_state = null
-		return 0
 
 	holder.icon_state = null
 	if(internal_damage)
