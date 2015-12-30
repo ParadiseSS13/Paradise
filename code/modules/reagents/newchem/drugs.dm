@@ -15,7 +15,7 @@
 
 /datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel like a space cowboy.", "You feel rugged.")
+	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
 	if(prob(5))
 		M << "<span class='notice'>[smoke_message]</span>"
 	if(prob(50))
