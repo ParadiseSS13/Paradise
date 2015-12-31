@@ -913,6 +913,15 @@ proc/CallMaterialName(ID)
 						temp_material += " [D.materials[M]/coeff] [CallMaterialName(M)]"
 					c = min(c,t)
 
+				for(var/R in D.reagents)
+					t = linked_lathe.check_mat(D, R)
+					temp_material += " | "
+					if (t < 1)
+						temp_material += "<span class='bad'>[D.reagents[R]/coeff] [CallMaterialName(R)]</span>"
+					else
+						temp_material += " [D.reagents[R]/coeff] [CallMaterialName(R)]"
+					c = min(c,t)
+
 				if (c >= 1)
 					dat += "<A href='?src=\ref[src];build=[D.id];amount=1'>[D.name]</A>"
 					if(c >= 5)
