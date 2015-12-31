@@ -772,7 +772,7 @@
 			heart_attack = 0
 			if(stat == CONSCIOUS)
 				src << "<span class='notice'>You feel your heart beating again!</span>"
-	. = ..(shock_damage,source,siemens_coeff,safety,override,tesla_shock)
+	. = ..()
 
 
 /mob/living/carbon/human/Topic(href, href_list)
