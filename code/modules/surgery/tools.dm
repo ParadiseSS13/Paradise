@@ -133,6 +133,10 @@
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
 
+/obj/item/weapon/scalpel/attack(mob/living/M, mob/user)
+	if(!attempt_initiate_surgery(src, M, user))
+		..()
+
 //misc, formerly from code/defines/weapons.dm
 /obj/item/weapon/bonegel
 	name = "bone gel"

@@ -296,7 +296,7 @@
 		var/mob/living/carbon/human/H = owner
 		var/datum/reagent/blood/B = locate() in H.vessel.reagent_list //Grab some blood
 		var/blood_volume = round(H.vessel.get_reagent_amount("blood"))
-		if(B && blood_volume < 560 && blood_volume)
+		if(B && blood_volume < H.max_blood && blood_volume)
 			B.volume += 2 // Fast blood regen
 
 /obj/item/organ/internal/hivelord_core/attack(mob/living/M as mob, mob/living/user as mob)

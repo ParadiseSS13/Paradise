@@ -257,7 +257,7 @@
 			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
 	if(!src.get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that thier brain is missing...</span>\n"
+		msg += "<span class='deadsay'>It appears that their brain is missing...</span>\n"
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()

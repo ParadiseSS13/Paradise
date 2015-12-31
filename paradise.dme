@@ -1828,6 +1828,7 @@
 #include "code\modules\surgery\encased.dm"
 #include "code\modules\surgery\face.dm"
 #include "code\modules\surgery\generic.dm"
+#include "code\modules\surgery\helpers.dm"
 #include "code\modules\surgery\implant.dm"
 #include "code\modules\surgery\limb_reattach.dm"
 #include "code\modules\surgery\organs_internal.dm"

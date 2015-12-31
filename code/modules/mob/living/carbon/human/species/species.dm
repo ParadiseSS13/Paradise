@@ -133,6 +133,9 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
+	if(!ticker) return //FUCKING MONKIES!
+
+
 	for(var/obj/item/organ/organ in H.contents)
 		if((organ in H.organs))
 			qdel(organ)
@@ -157,7 +160,7 @@
 
 	for(var/index in has_organ)
 		var/organ = has_organ[index]
-		H.internal_organs += new organ(null)
+		H.internal_organs += new organ(H)
 
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		I.insert(H)
