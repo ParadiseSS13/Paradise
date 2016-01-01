@@ -5,6 +5,11 @@
 	layer = TURF_LAYER + 0.9
 	var/state = 0
 	var/health = 200
+	var/metalUsed = 2 //used to determine amount returned in deconstruction
+
+/obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
+	for(var/i=0;i < metalAmount;i++)
+		new /obj/item/stack/sheet/metal(get_turf(src))
 
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
@@ -14,7 +19,7 @@
 			if(do_after(user,40, target = src))
 				if(!src) return
 				user << "\blue You dissasembled the girder!"
-				new /obj/item/stack/sheet/metal(get_turf(src))
+				refundMetal(metalUsed)
 				qdel(src)
 		else if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
@@ -29,18 +34,18 @@
 		if(do_after(user,30, target = src))
 			if(!src) return
 			user << "\blue You slice apart the girder!"
-			new /obj/item/stack/sheet/metal(get_turf(src))
+			refundMetal(metalUsed)
 			qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
 		user << "\blue You drill through the girder!"
-		new /obj/item/stack/sheet/metal(get_turf(src))
+		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
 		playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 100, 1)
 		user << "<span class='notice'>You Disintegrate the girder!</span>"
-		new /obj/item/stack/sheet/metal(get_turf(src))
+		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 && istype(src,/obj/structure/girder/reinforced))

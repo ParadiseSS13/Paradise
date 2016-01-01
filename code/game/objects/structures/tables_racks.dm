@@ -566,7 +566,8 @@
 /obj/structure/table/woodentable/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if (istype(I, /obj/item/stack/tile/grass))
-		qdel(I)
+		var/obj/item/stack/tile/grass/gr = I
+		gr.use(1)
 		new /obj/structure/table/woodentable/poker( src.loc )
 		qdel(src)
 		visible_message("<span class='notice'>[user] adds the grass to the wooden table</span>")
@@ -610,7 +611,7 @@
 		qdel(src)
 		return
 
-	if(!(I.flags & ABSTRACT))
+	if(!(I.flags & ABSTRACT) && !(istype(I, /obj/item/stack/tile/grass)))
 		if(user.drop_item())
 			I.Move(loc)
 			var/list/click_params = params2list(params)
@@ -620,6 +621,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+
 
 	return 1
 
