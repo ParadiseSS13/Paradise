@@ -114,8 +114,7 @@ mob/living
 			return
 	return
 
-/mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null,var/override = 0, tesla_shock = 0)
-
+/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
 		return 0
 	if(NO_SHOCK in mutations) //shockproof
@@ -124,42 +123,32 @@ mob/living
 	shock_damage *= siemens_coeff
 	if(shock_damage<1 && !override)
 		return 0
-
-	src.apply_damage(shock_damage, BURN, def_zone, used_weapon="Electrocution")
-
-	if(heart_attack && prob(25))
-		heart_attack = 0
-	playsound(loc, "sparks", 50, 1, -1)
-	if (shock_damage < 10)
-		src.visible_message(
-			"\red [src] was mildly shocked by the [source].", \
-			"\red You feel a mild shock course through your body.", \
-			"\red You hear a light zapping." \
-		)
-		jitteriness += (rand(2,4))//mostly for the swarmer trap
-		do_jitter_animation(jitteriness)
-	if (shock_damage > 10)
-		if (shock_damage < 200)
-			src.visible_message(
-				"\red [src] was shocked by the [source]!", \
-				"\red <B>You feel a powerful shock course through your body!</B>", \
-				"\red You hear a heavy electrical crack." \
-			)
-		jitteriness += 1000 //High numbers for violent convulsions
-		do_jitter_animation(jitteriness)
-		stuttering += 2
+	if(reagents.has_reagent("teslium"))
+		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
+	take_overall_damage(0,shock_damage)
+	//src.burn_skin(shock_damage)
+	//src.adjustFireLoss(shock_damage) //burn_skin will do this for us
+	//src.updatehealth()
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='italics'>You hear a heavy electrical crack.</span>" \
+	)
+	jitteriness += 1000 //High numbers for violent convulsions
+	do_jitter_animation(jitteriness)
+	stuttering += 2
+	if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
+		Stun(2)
+	spawn(20)
+		jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
 		if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
-			Stun(2)
-		spawn(20)
-			jitteriness = max(jitteriness - 990, 10) //Still jittery, but vastly less
-			if(!tesla_shock || (tesla_shock && siemens_coeff > 0.5))
-				Stun(3)
-				Weaken(3)
+			Stun(3)
+			Weaken(3)
 	if (shock_damage > 200)
 		src.visible_message(
-			"\red [src] was arc flashed by the [source]!", \
-			"\red <B>The [source] arc flashes and electrocutes you!</B>", \
-			"\red You hear a lightning-like crack!" \
+			"<span class='danger'>[src] was arc flashed by the [source]!</span>", \
+			"<span class='userdanger'>The [source] arc flashes and electrocutes you!</span>", \
+			"<span class='italics'>You hear a lightning-like crack!</span>" \
 		)
 		playsound(loc, "sound/effects/eleczap.ogg", 50, 1, -1)
 		explosion(src.loc,-1,0,2,2)

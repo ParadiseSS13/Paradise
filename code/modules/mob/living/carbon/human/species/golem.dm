@@ -12,7 +12,7 @@
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
-
+	siemens_coeff = 0
 
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/golem

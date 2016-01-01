@@ -453,8 +453,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.Stun(1) //i am doing this here instead of electrocute act
-			L.electrocute_act(0, src, 1, "l_foot", 1)
+			L.electrocute_act(0, src, 1, 1)
 			if(isrobot(L) || L.isSynthetic())
 				L.Weaken(5)
 			qdel(src)

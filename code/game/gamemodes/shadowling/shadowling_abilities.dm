@@ -706,8 +706,9 @@ datum/reagent/shadowling_blindness_smoke/on_mob_life(var/mob/living/M as mob)
 			if(is_shadow_or_thrall(target))
 				continue
 			target << "<span class='userdanger'>You are struck by a bolt of lightning!</span>"
-			playsound(target, 'sound/effects/eleczap.ogg', 50, 1)
-			target.electrocute_act(80, "lightning bolt", def_zone = "chest")
+			playsound(target, 'sound/magic/LightningShock.ogg', 50, 1)
+			target.Weaken(8)
+			target.take_organ_damage(0,50)
 			usr.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
 
 /obj/effect/proc_holder/spell/targeted/shadowlingAscendantTransmit
