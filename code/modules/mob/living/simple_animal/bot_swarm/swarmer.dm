@@ -69,7 +69,7 @@
 	pass_flags = PASSTABLE
 	ventcrawler = 2
 	ranged = 1
-	ranged_cooldown_cap = 2
+	ranged_cooldown_cap = 1
 	universal_speak = 0
 	universal_understand = 0
 	projectilesound = 'sound/weapons/taser2.ogg'
@@ -163,8 +163,27 @@
 	S.DisIntegrate(src)
 	deactivate(S, 0)
 
-/obj/machinery/particle_accelerator/control_box/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	S.DisIntegrate(src)
+/obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/fuel_chamber/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/particle_emitter/center/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/particle_emitter/left/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/particle_emitter/right/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/particle_emitter/end_cap/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
+/obj/structure/particle_accelerator/particle_emitter/power_box/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>"
+
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
