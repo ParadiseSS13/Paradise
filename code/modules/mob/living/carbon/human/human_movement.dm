@@ -90,7 +90,7 @@
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
-	if(shoes)
+	if(shoes && .) // did we actually move?
 		if(!lying && !buckled)
 			if(!has_gravity(loc))
 				return
