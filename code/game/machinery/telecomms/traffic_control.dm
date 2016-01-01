@@ -164,9 +164,9 @@
 
 	var/datum/browser/popup = new(user, "traffic_control", "Telecommunication Traffic Control", 700, 500)
 	//codemirror
-	popup.add_script("codemirror-compressed", 'nano/js/codemirror-compressed.js') // A custom compressed JS file of codemirror, with CSS highlighting
-	popup.add_stylesheet("codemirror", 'nano/css/codemirror.css') // this CSS sheet is common to all UIs, so all UIs can use codemirror
-	popup.add_stylesheet("lesser-dark", 'nano/css/lesser-dark.css') //CSS styling for codemirror, dark theme
+	popup.add_script("codemirror-compressed", 'nano/codemirror/codemirror-compressed.js') // A custom minified JavaScript file of CodeMirror, with the following plugins: CSS Mode, NTSL Mode, CSS-hint addon, Search addon, Sublime Keymap.
+	popup.add_stylesheet("codemirror", 'nano/codemirror/codemirror.css')                  // A CSS sheet containing the basic stylings and formatting information for CodeMirror.
+	popup.add_stylesheet("lesser-dark", 'nano/codemirror/lesser-dark.css')                // A theme for CodeMirror to use, which closely resembles the rest of the NanoUI style.
 
 	popup.set_content(dat)
 	popup.open()
