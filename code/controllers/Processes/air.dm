@@ -120,7 +120,7 @@ var/global/datum/controller/process/air_system/air_master
 /datum/controller/process/air_system/proc/process_excited_groups()
 	last_excited = excited_groups.len
 	for(var/datum/excited_group/EG in excited_groups)
-		EG.breakdown_cooldown ++
+		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
 			SCHECK
