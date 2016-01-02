@@ -172,6 +172,7 @@
 		cell = null
 	if(terminal)
 		disconnect_terminal()
+	area.apc -= src
 	return ..()
 
 /obj/machinery/power/apc/proc/make_terminal()

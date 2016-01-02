@@ -317,6 +317,8 @@
 	return power_station
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
+	if(z == ZLEVEL_CENTCOMM)
+		M << "You can't use this here."
 	if(power_station && power_station.engaged && !panel_open)
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity

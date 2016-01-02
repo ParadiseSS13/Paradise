@@ -498,6 +498,7 @@
 /obj/mecha/proc/update_health()
 	if(src.health > 0)
 		src.spark_system.start()
+		diag_hud_set_mechhealth()
 	else
 		qdel(src)
 	return
@@ -921,6 +922,9 @@
 			src.take_damage(W.force,W.damtype)
 			src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 */
+	diag_hud_set_mechhealth()
+	diag_hud_set_mechcell()
+	diag_hud_set_mechstat()
 	return
 
 /obj/mecha/emag_act(user as mob)
@@ -1831,6 +1835,7 @@
 
 /obj/mecha/proc/dyngetcharge()//returns null if no powercell, else returns cell.charge
 	if(!src.cell) return
+	diag_hud_set_mechcell()
 	return max(0, src.cell.charge)
 
 /obj/mecha/proc/use_power(amount)

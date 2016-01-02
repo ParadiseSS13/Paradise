@@ -150,7 +150,7 @@
 				var/obj/item/weapon/weldingtool/welder = tool
 				if(!welder.isOn() || !welder.remove_fuel(1,user))
 					return 0
-			return affected && affected.open == 2 && affected.brute_dam > 0 && target_zone != "mouth"
+			return affected && affected.open == 2 && (affected.brute_dam > 0 || affected.disfigured)&& target_zone != "mouth"
 
 	begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)

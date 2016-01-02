@@ -789,7 +789,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	user << "<span class='notice'>You offer the sentience potion to [M]...</span>"
 	being_used = 1
 
-	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates(ROLE_SENTIENT, ALIEN_AFK_BRACKET)
 
 	shuffle(candidates)
 

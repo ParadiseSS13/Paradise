@@ -245,6 +245,9 @@
 		else
 			msg += "[t_He] [t_is] quite chubby.\n"
 
+	if(reagents.has_reagent("teslium"))
+		msg += "[t_He] is emitting a gentle blue glow!\n"
+
 	msg += "</span>"
 
 	if(getBrainLoss() >= 60)

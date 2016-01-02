@@ -254,7 +254,7 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(player.client.prefs.be_special & role && !(player.client.prefs.species in protected_species))
+		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
 			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
 			candidates += player.mind
 			players -= player
@@ -276,57 +276,6 @@
 				if(player.assigned_role == job)
 					candidates -= player
 
-	/*if(candidates.len < recommended_enemies)
-		for(var/mob/new_player/player in players)
-			if(player.client && player.ready)
-				if(!(player.client.prefs.be_special & role)) // We don't have enough people who want to be antagonist, make a seperate list of people who don't want to be one
-					if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-						drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-				drafted.Remove(applicant)
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
-	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
-		for(var/mob/new_player/player in players)
-			if (player.client && player.ready)
-				if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-				log_debug("[applicant.key] was force-drafted as [roletext], because there aren't enough candidates.")
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-	*/
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
@@ -336,7 +285,7 @@
 /datum/game_mode/proc/latespawn(var/mob)
 
 /*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/new_player/player)
+/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
 	if(player.preferences.be_special & role)
 		return 1
 	return 0
@@ -489,22 +438,7 @@ proc/get_nt_opposed()
 		obj_count++
 
 /proc/get_roletext(var/role)
-	var/roletext
-	switch(role)
-		if(BE_CHANGELING)	roletext="changeling"
-		if(BE_TRAITOR)		roletext="traitor"
-		if(BE_OPERATIVE)	roletext="operative"
-		if(BE_WIZARD)		roletext="wizard"
-		if(BE_MALF)			roletext="malf AI"
-		if(BE_REV)			roletext="revolutionary"
-		if(BE_CULTIST)		roletext="cultist"
-		if(BE_NINJA)		roletext="ninja"
-		if(BE_RAIDER)		roletext="raider"
-		if(BE_VAMPIRE)		roletext="vampire"
-		if(BE_ALIEN)		roletext="alien"
-		if(BE_MUTINEER)		roletext="mutineer"
-		if(BE_BLOB)			roletext="blob"
-	return roletext
+	return role
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"

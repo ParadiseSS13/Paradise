@@ -144,13 +144,16 @@
 	confused_start = 100
 
 //copy paste from LSD... shoot me
-/datum/reagent/ethanol/absinthe/on_mob_life(var/mob/M)
+/datum/reagent/ethanol/absinthe/on_mob_life(var/mob/living/M)
 	if(!M) M = holder.my_atom
 	if(!data) data = 1
 	data++
-	M:hallucination += 5
-	if(volume > overdose_threshold)
-		M:adjustToxLoss(1)
+	M.hallucination += 5
+	..()
+	return
+
+/datum/reagent/ethanol/absinthe/overdose_process(mob/living/M)
+	M.adjustToxLoss(1)
 	..()
 	return
 
@@ -164,8 +167,11 @@
 /datum/reagent/ethanol/rum/on_mob_life(var/mob/living/M as mob)
 	..()
 	M.dizziness +=5
-	if(volume > overdose_threshold)
-		M:adjustToxLoss(1)
+	return
+
+/datum/reagent/ethanol/rum/overdose_process(mob/living/M)
+	M.adjustToxLoss(1)
+	..()
 	return
 
 /datum/reagent/ethanol/mojito

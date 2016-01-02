@@ -42,6 +42,8 @@
 	var/passive_temp_gain = 0			//IS_SYNTHETIC species will gain this much temperature every second
 	var/reagent_tag                 //Used for metabolizing reagents.
 
+	var/siemens_coeff = 1 //base electrocution coefficient
+
 	var/darksight = 2
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
@@ -421,6 +423,7 @@
 				if(H.client)
 					H.client.screen += global_hud.darkMask
 
+		var/minimum_darkness_view = INFINITY
 		if(H.glasses)
 			if(istype(H.glasses, /obj/item/clothing/glasses))
 				var/obj/item/clothing/glasses/G = H.glasses
@@ -428,6 +431,7 @@
 
 				if(G.darkness_view)
 					H.see_in_dark = G.darkness_view
+					minimum_darkness_view = G.darkness_view
 
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
@@ -444,6 +448,9 @@
 			if(istype(H.head, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = H.head
 				H.sight |= hat.vision_flags
+
+				if(hat.darkness_view && hat.darkness_view < minimum_darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
+					H.see_in_dark = hat.darkness_view
 
 				if(!hat.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
