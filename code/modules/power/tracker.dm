@@ -82,3 +82,4 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
 	w_class = 2.0
+	materials = list(MAT_METAL=50, MAT_GLASS=50)
