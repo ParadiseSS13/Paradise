@@ -1577,6 +1577,48 @@
 	icon_state = "vulp_facial_earfluff"
 	species_allowed = list("Vulpkanin")
 
+/datum/sprite_accessory/head_accessory/vulp_blaze
+	icon = 'icons/mob/human_face.dmi'
+	name = "Blaze"
+	icon_state = "vulp_facial_blaze"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_vulpine
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine"
+	icon_state = "vulp_facial_vulpine"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_mask
+	icon = 'icons/mob/human_face.dmi'
+	name = "Mask"
+	icon_state = "vulp_facial_mask"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_patch
+	icon = 'icons/mob/human_face.dmi'
+	name = "Patch"
+	icon_state = "vulp_facial_patch"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_ruff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Ruff"
+	icon_state = "vulp_facial_ruff"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_kita
+	icon = 'icons/mob/human_face.dmi'
+	name = "Kita"
+	icon_state = "vulp_facial_kita"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_swift
+	icon = 'icons/mob/human_face.dmi'
+	name = "Swift"
+	icon_state = "vulp_facial_swift"
+	species_allowed = list("Vulpkanin")
+
 /datum/sprite_accessory/head_accessory/taj_ears
 	icon = 'icons/mob/human_face.dmi'
 	name = "Tajaran Ears"
