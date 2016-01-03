@@ -15,16 +15,29 @@
 
 /client/verb/changes()
 	set name = "Changelog"
-	set desc = "Visit our repository to check out the changes."
+	set desc = "View the changelog."
 	set hidden = 1
-	
-	if(config.repositoryurl)
-		if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link("[config.repositoryurl]/pulls?q=is%3Apr+is%3Aclosed")
-	else
-		src << "<span class='danger'>The Repository URL is not set in the server configuration.</span>"
-	return
+
+	getFiles(
+		'html/88x31.png',
+		'html/bug-minus.png',
+		'html/cross-circle.png',
+		'html/hard-hat-exclamation.png',
+		'html/image-minus.png',
+		'html/image-plus.png',
+		'html/music-minus.png',
+		'html/music-plus.png',
+		'html/tick-circle.png',
+		'html/wrench-screwdriver.png',
+		'html/spell-check.png',
+		'html/burn-exclamation.png',
+		'html/chevron.png',
+		'html/chevron-expand.png',
+		'html/changelog.css',
+		'html/changelog.js',
+		'html/changelog.html'
+		)
+	src << browse('html/changelog.html', "window=changes;size=675x650")
 
 /client/verb/forum()
 	set name = "forum"
@@ -79,7 +92,7 @@ Admin:
 
 	if(check_rights(R_MOD|R_ADMIN,0))
 		src << adminhotkeys
-		
+
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
 Hotkey-Mode: (hotkey-mode must be on)

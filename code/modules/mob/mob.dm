@@ -112,7 +112,7 @@
 		if(self_message && M==src)
 			msg = self_message
 		M.show_message(msg, 2, deaf_message, 1)
-	
+
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
