@@ -395,27 +395,30 @@
 		step(O, get_dir(O, src))
 	return
 
+/obj/structure/table/proc/tablepush(obj/item/I, mob/user)
+	if(get_dist(src, user) < 2)
+		var/obj/item/weapon/grab/G = I
+		if(G.affecting.buckled)
+			user << "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
+			return 0
+		if(G.state < GRAB_AGGRESSIVE)
+			user << "<span class='warning'>You need a better grip to do that!</span>"
+			return 0
+		if(!G.confirm())
+			return 0
+		G.affecting.forceMove(get_turf(src))
+		G.affecting.Weaken(5)
+		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
+									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
+		add_logs(G.affecting, G.assailant, "pushed onto a table")
+		qdel(I)
+		return 1
+	qdel(I)
 
 /obj/structure/table/attackby(obj/item/W as obj, mob/user as mob, params)
-	if (istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
-		var/obj/item/weapon/grab/G = W
-		if (istype(G.affecting, /mob/living))
-			var/mob/living/M = G.affecting
-			if (G.state < 2)
-				if(user.a_intent == I_HARM)
-					if (prob(15))	M.Weaken(5)
-					M.apply_damage(8,def_zone = "head")
-					visible_message("\red [G.assailant] slams [G.affecting]'s face against \the [src]!")
-					playsound(src.loc, 'sound/weapons/tablehit1.ogg', 50, 1)
-				else
-					user << "\red You need a better grip to do that!"
-					return
-			else
-				G.affecting.loc = src.loc
-				G.affecting.Weaken(5)
-				visible_message("\red [G.assailant] puts [G.affecting] on \the [src].")
-			qdel(W)
-			return
+	if (istype(W, /obj/item/weapon/grab))
+		tablepush(W, user)
+		return
 
 	if (istype(W, /obj/item/weapon/wrench))
 		user << "\blue Now disassembling table"
@@ -574,20 +577,9 @@
 
 
 	if (istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
-		if(G.affecting.buckled)
-			user << "<span class='notice'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
-			return
-		if(G.state < GRAB_AGGRESSIVE)
-			user << "<span class='notice'>You need a better grip to do that!</span>"
-			return
-		if(!G.confirm())
-			return
-		G.affecting.loc = src.loc
-		G.affecting.Weaken(5)
-		visible_message("\red [G.assailant] puts [G.affecting] on the table.")
-		qdel(I)
+		tablepush(I, user)
 		return
+
 	if (istype(I, /obj/item/weapon/wrench))
 		user << "\blue Now disassembling the wooden table"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -634,20 +626,9 @@
 /obj/structure/table/woodentable/poker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 
 	if (istype(W, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = W
-		if(G.affecting.buckled)
-			user << "<span class='notice'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
-			return
-		if(G.state < GRAB_AGGRESSIVE)
-			user << "<span class='notice'>You need a better grip to do that!</span>"
-			return
-		if(!G.confirm())
-			return
-		G.affecting.loc = src.loc
-		G.affecting.Weaken(5)
-		visible_message("\red [G.assailant] puts [G.affecting] on the table.")
-		qdel(W)
+		tablepush(W, user)
 		return
+
 	if (istype(W, /obj/item/weapon/wrench))
 		user << "\blue Now disassembling the wooden table"
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -730,29 +711,19 @@
 
 /obj/structure/table/glass/proc/collapse() //glass table collapse is called twice in this code, more efficent to just have a proc
 	src.visible_message("<span class='warning'>\The [src] shatters, and the frame collapses!</span>", "<span class='warning'>You hear metal collapsing and glass shattering.</span>")
+	playsound(src.loc, "shatter", 50, 1)
 	new /obj/item/weapon/table_parts/glass(loc)
 	new /obj/item/weapon/shard(loc)
-	if(prob(50)) //50% chance to spawn two shards
-		new /obj/item/weapon/shard(loc)
 	qdel(src)
+
+/obj/structure/table/glass/tablepush(obj/item/I, mob/user)
+	if(..())
+		collapse()
 
 /obj/structure/table/glass/attackby(obj/item/I as obj, mob/user as mob, params)
 
 	if (istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
-		if(G.affecting.buckled)
-			user << "<span class='notice'>[G.affecting] is buckled to [G.affecting.buckled]!</span>"
-			return
-		if(G.state < GRAB_AGGRESSIVE)
-			user << "<span class='notice'>You need a better grip to do that!</span>"
-			return
-		if(!G.confirm())
-			return
-		G.affecting.loc = src.loc
-		G.affecting.Weaken(7)
-		visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] onto \the [src]!</span>")
-		qdel(I)
-		src.collapse()
+		tablepush(I, user)
 		return
 
 	if (istype(I, /obj/item/weapon/wrench))
