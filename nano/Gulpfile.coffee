@@ -8,12 +8,14 @@ input =
   scripts:
     lib: "scripts/libraries"
     main: "scripts/nano"
+  styles: "styles"
 
 output =
   dir: "assets"
   scripts:
     lib: "libraries.min.js"
     main: "nano.js"
+  css: "nanoui.css"
 
 ### Pacakages ###
 del           = require "del"
@@ -22,6 +24,13 @@ merge         = require "merge-stream"
 
 ### Plugins ###
 g = require("gulp-load-plugins")({replaceString: /^gulp(-|\.)|-/g})
+p =
+  autoprefixer: require "autoprefixer"
+  gradient:     require "postcss-filter-gradient"
+  opacity:      require "postcss-opacity"
+  rgba:         require "postcss-color-rgba-fallback"
+  plsfilters:   require "pleeease-filters"
+
 
 ### Helpers ###
 
@@ -29,7 +38,7 @@ glob = (path) ->
   "#{path}/*"
 
 ### Tasks ###
-gulp.task "default", ["scripts"]
+gulp.task "default", ["scripts", "styles"]
 
 gulp.task "clean", ->
   del glob output.dir
@@ -46,3 +55,17 @@ gulp.task "scripts", ["clean"], ->
     .pipe gulp.dest output.dir
 
   merge lib, main
+
+gulp.task "styles", ["clean"], ->
+  gulp.src glob input.styles
+    .pipe g.filter(["*.less", "!_*.less"])
+    .pipe g.less()
+    .pipe g.postcss([
+      p.autoprefixer({browsers: ["last 2 versions", "ie >= 8"]}),
+      p.gradient,
+      p.opacity,
+      p.rgba({oldie: true}),
+      p.plsfilters({oldIE: true})
+      ])
+    .pipe g.concat(output.css)
+    .pipe gulp.dest output.dir
