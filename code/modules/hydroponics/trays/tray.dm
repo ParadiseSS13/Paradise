@@ -33,6 +33,7 @@
 	// Mechanical concerns.
 	var/health = 0             // Plant health.
 	var/lastproduce = 0        // Last time tray was harvested
+	var/current_cycle = 0	   // Used for tracking number of cycles for aging
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
@@ -350,6 +351,7 @@
 		seed = null
 		dead = 0
 		age = 0
+		lastproduce = 0
 		sampled = 0
 		mutation_mod = 0
 
@@ -369,6 +371,7 @@
 
 	sampled = 0
 	age = 0
+	lastproduce = 0
 	yield_mod = 0
 	mutation_mod = 0
 
@@ -389,6 +392,7 @@
 	health = seed.get_trait(TRAIT_ENDURANCE)
 	lastcycle = world.time
 	harvest = 0
+	lastproduce = 0
 	weedlevel = 0
 	pestlevel = 0
 	sampled = 0
@@ -544,6 +548,7 @@
 	age = 0
 	health = seed.get_trait(TRAIT_ENDURANCE)
 	lastcycle = world.time
+	lastproduce = 0
 	harvest = 0
 	weedlevel = 0
 
@@ -705,6 +710,7 @@
 			seed = S.seed //Grab the seed datum.
 			dead = 0
 			age = 1
+			lastproduce = 0
 			//Snowflakey, maybe move this to the seed datum
 			health = (istype(S, /obj/item/seeds/cutting) ? round(seed.get_trait(TRAIT_ENDURANCE)/rand(2,5)) : seed.get_trait(TRAIT_ENDURANCE))
 			lastcycle = world.time
