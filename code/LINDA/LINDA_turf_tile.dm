@@ -56,7 +56,9 @@
 
 /turf/simulated/New()
 	..()
-
+	levelupdate()
+	if(smooth)
+		smooth_icon(src)
 	visibilityChanged()
 	if(!blocks_air)
 		air = new
