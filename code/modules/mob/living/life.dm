@@ -110,6 +110,7 @@
 	handle_drugged()
 	handle_slurring()
 	handle_paralysed()
+	handle_sleeping()
 
 
 /mob/living/proc/handle_stunned()
@@ -150,6 +151,12 @@
 	if(paralysis)
 		AdjustParalysis(-1)
 	return paralysis
+
+/mob/living/proc/handle_sleeping()
+	if(sleeping)
+		handle_dreams()
+		sleeping = max(sleeping - 1, 0)
+	return sleeping
 
 
 
