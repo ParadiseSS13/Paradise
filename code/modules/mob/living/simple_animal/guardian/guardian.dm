@@ -32,6 +32,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
+	var/summoned = FALSE
 	var/animated_manifest = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -59,6 +60,10 @@
 			src << "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]"
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
+	if(summoned && !summoner)
+		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
+		ghostize()
+		qdel()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -679,6 +684,7 @@
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user)
 	G.summoner = user
+	G.summoned = TRUE
 	G.key = key
 	G << "You are a [mob_name] bound to serve [user.real_name]."
 	G << "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there."
