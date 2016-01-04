@@ -307,7 +307,7 @@
 					F.ReplaceWithLattice()
 				visible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
 				spawn(50)
-					amount ++
+					amount++
 					anchored = 0
 					mode = BOT_IDLE
 					target = null

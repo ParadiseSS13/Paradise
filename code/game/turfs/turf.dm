@@ -214,7 +214,7 @@
 					aco += S.air.carbon_dioxide
 					atox += S.air.toxins
 					atemp += S.air.temperature
-				turf_count ++
+				turf_count++
 		air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
 		air.nitrogen = (anitro/max(turf_count,1))
 		air.carbon_dioxide = (aco/max(turf_count,1))
