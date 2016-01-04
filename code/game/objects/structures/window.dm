@@ -276,30 +276,37 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+
 	if(anchored)
-		usr << "It is fastened to the floor therefore you can't rotate it!"
+		usr << "<span class='warning'>It is fastened to the floor therefore you can't rotate it!</span>"
 		return 0
 
 	dir = turn(dir, 90)
 //	updateSilicate()
 	air_update_turf(1)
 	ini_dir = dir
+	add_fingerprint(usr)
 	return
-
 
 /obj/structure/window/verb/revrotate()
 	set name = "Rotate Window Clockwise"
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+
 	if(anchored)
-		usr << "It is fastened to the floor therefore you can't rotate it!"
+		usr << "<span class='warning'>It is fastened to the floor therefore you can't rotate it!</span>"
 		return 0
 
 	dir = turn(dir, 270)
 //	updateSilicate()
 	air_update_turf(1)
 	ini_dir = dir
+	add_fingerprint(usr)
 	return
 
 
