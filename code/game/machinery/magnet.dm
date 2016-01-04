@@ -315,7 +315,7 @@
 		if(href_list["operation"])
 			switch(href_list["operation"])
 				if("plusspeed")
-					speed ++
+					speed++
 					if(speed > 10)
 						speed = 10
 				if("minusspeed")

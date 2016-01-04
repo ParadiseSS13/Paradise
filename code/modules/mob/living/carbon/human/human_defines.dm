@@ -1,11 +1,24 @@
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPLOYAL_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,NATIONS_HUD)
+
+	//Marking colour and style
+	var/r_markings = 0
+	var/g_markings = 0
+	var/b_markings = 0
+	var/m_style = "None"
+
 	//Hair colour and style
 	var/r_hair = 0
 	var/g_hair = 0
 	var/b_hair = 0
 	var/h_style = "Bald"
+
+	//Head accessory colour and style
+	var/r_headacc = 0
+	var/g_headacc = 0
+	var/b_headacc = 0
+	var/ha_style = "None"
 
 	//Facial hair colour and style
 	var/r_facial = 0

@@ -35,7 +35,10 @@
 		return
 
 	// Advance plant age.
-	if(prob(30)) age += 1 * HYDRO_SPEED_MULTIPLIER
+	current_cycle++
+	if(current_cycle == 3)
+		age += 1 * HYDRO_SPEED_MULTIPLIER
+		current_cycle = 0
 
 	//Highly mutable plants have a chance of mutating every tick.
 	if(seed.get_trait(TRAIT_IMMUTABLE) == -1)
