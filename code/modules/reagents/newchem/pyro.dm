@@ -608,3 +608,21 @@ datum/reagent/firefighting_foam/reaction_obj(var/obj/O, var/volume)
 	var/location = get_turf(holder.my_atom)
 	explosion(location,0,0,3)
 	return
+
+/datum/chemical_reaction/shock_explosion
+	name = "shock_explosion"
+	id = "shock_explosion"
+	result = null
+	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
+	result_amount = 1
+	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_sound = 'sound/magic/lightningbolt.ogg'
+
+/datum/chemical_reaction/shock_explosion/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/turf/T = get_turf(holder.my_atom)
+	for(var/mob/living/carbon/C in view(6, T))
+		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+		C.electrocute_act(1, "electrical blast")
+	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
+	holder.del_reagent("uranium")
+	return

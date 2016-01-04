@@ -1,4 +1,5 @@
 var/global/datum/controller/gameticker/ticker
+var/round_start_time = 0
 
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
@@ -214,6 +215,7 @@ var/global/datum/controller/gameticker/ticker
 	if(admins_number == 0)
 		send2adminirc("Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
+	round_start_time = world.time
 
 	/* DONE THROUGH PROCESS SCHEDULER
 	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE

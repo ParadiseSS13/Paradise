@@ -106,14 +106,13 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/add_common_assets()
 	add_script("libraries.min.js") // A JS file comprising of jQuery, doT.js and jQuery Timer libraries (compressed together)
-	add_script("nano.js") // A JS file of the NanoUI JavaScript concatenated into one file.
-	add_stylesheet("shared.css") // this CSS sheet is common to all UIs
-	add_stylesheet("icons.css") // this CSS sheet is common to all UIs
+	add_script("nano.js")          // A JS file of the NanoUI JavaScript compressed into one file.
+	add_stylesheet("nanoui.css")   // Concatenated CSS sheet common to all UIs, contains all of the standard NanoUI styling.
 
-	//codemirror
-	add_script("codemirror-compressed.js") // A custom compressed JS file of codemirror, with CSS highlighting
-	add_stylesheet("codemirror.css") // this CSS sheet is common to all UIs, so all UIs can use codemirror
-	add_stylesheet("cm_lesser-dark.css") //CSS styling for codemirror, dark theme
+	// CodeMirror
+	add_script("codemirror-compressed.js") // A custom minified JavaScript file of CodeMirror, with the following plugins: CSS Mode, NTSL Mode, CSS-hint addon, Search addon, Sublime Keymap.
+	add_stylesheet("codemirror.css")       // A CSS sheet containing the basic stylings and formatting information for CodeMirror.
+	add_stylesheet("cm_lesser-dark.css")   // A theme for CodeMirror to use, which closely resembles the rest of the NanoUI style.
 
  /**
   * Set the current status (also known as visibility) of this ui.

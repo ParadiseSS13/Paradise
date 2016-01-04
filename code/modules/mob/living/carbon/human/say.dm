@@ -150,8 +150,9 @@
 /mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
 	switch(message_mode)
 		if("intercom")
-			for(var/obj/item/device/radio/intercom/I in view(1, null))
-				I.talk_into(src, message, verb, speaking)
+			for(var/obj/item/device/radio/intercom/I in view(1, src))
+				spawn(0)
+					I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
 
 		if("headset")

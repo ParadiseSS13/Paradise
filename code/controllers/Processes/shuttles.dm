@@ -91,6 +91,9 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 		throw EXCEPTION("requestEvac(): There is no emergency shuttle! The game will be unresolvable. This is likely due to a mapping error")
 		return
 
+	if(world.time - round_start_time < config.shuttle_refuel_delay)
+		user << "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again."
+		return
 
 	switch(emergency.mode)
 		if(SHUTTLE_RECALL)

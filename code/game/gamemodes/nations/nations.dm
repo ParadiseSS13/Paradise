@@ -266,9 +266,9 @@ datum/game_mode/nations
 /datum/game_mode/proc/update_nations_icons_added(datum/mind/nations_mind,var/naticon)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.join_hud(nations_mind)
-	set_nations_hud(nations_mind.current,naticon)
+	set_nations_hud(nations_mind,naticon)
 
 /datum/game_mode/proc/update_nations_icons_removed(datum/mind/nations_mind)
 	var/datum/atom_hud/antag/nations_hud = huds[GAME_HUD_NATIONS]
 	nations_hud.leave_hud(nations_mind)
-	set_nations_hud(nations_mind.current, null)
+	set_nations_hud(nations_mind, null)

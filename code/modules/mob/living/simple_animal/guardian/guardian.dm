@@ -688,16 +688,18 @@
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
+	var/magic_suite = pick("Wands","Cups","Swords","Pentacles")
+	var/picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 	switch (theme)
 		if("magic")
-			G.name = "[mob_name]"
+			G.name = "[mob_name] of [magic_suite]"
 			G.color = picked_color
-			G.real_name = "[mob_name]"
+			G.real_name = "[mob_name] of [magic_suite]"
 			user << "[G.magic_fluff_string]."
 		if("tech")
 			var/colour = pick("orange", "neon", "pink", "red", "blue", "green")
-			G.name = "[mob_name] [capitalize(colour)]"
-			G.real_name = "[mob_name] [capitalize(colour)]"
+			G.name = "[picked_name] [capitalize(colour)]"
+			G.real_name = "[picked_name] [capitalize(colour)]"
 			G.icon_living = "parasite[colour]"
 			G.icon_state = "parasite[colour]"
 			G.icon_dead = "parasite[colour]"
@@ -706,9 +708,9 @@
 			G.speak_emote = list("states")
 		if("bio")
 			user << "[G.bio_fluff_string]."
-			G.name = "[mob_name]"
+			G.name = "[mob_name] [picked_name]"
 			G.color = picked_color
-			G.real_name = "[mob_name]"
+			G.real_name = "[mob_name] [picked_name]"
 			G.icon_living = "headcrab"
 			G.icon_state = "headcrab"
 			G.attacktext = "swarms"

@@ -65,5 +65,6 @@ var/global/list/special_roles = list(
 	ROLE_DEMON,
 	ROLE_SENTIENT,
 	ROLE_POSIBRAIN,
+	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 )

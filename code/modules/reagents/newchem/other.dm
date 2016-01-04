@@ -27,7 +27,7 @@ datum/reagent/carpet
 	color = "#701345"
 
 /datum/reagent/carpet/reaction_turf(var/turf/simulated/T, var/volume)
-	if(T.is_plating() || T.is_plasteel_floor())
+	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()

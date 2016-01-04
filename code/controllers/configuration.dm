@@ -106,6 +106,8 @@
 
 	var/auto_toggle_ooc_during_round = 0
 
+	var/shuttle_refuel_delay = 12000
+
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
 	var/run_speed = 0
@@ -599,6 +601,8 @@
 					config.bones_can_break = value
 				if("limbs_can_break")
 					config.limbs_can_break = value
+				if("shuttle_refuel_delay")
+					config.shuttle_refuel_delay     = text2num(value)
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")
