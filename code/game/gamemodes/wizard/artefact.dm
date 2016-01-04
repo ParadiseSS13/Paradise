@@ -334,6 +334,7 @@ var/global/list/multiverse = list()
 		domutcheck(M, null)
 	M.update_body()
 	M.update_hair()
+	M.update_fhair()
 
 	equip_copy(M)
 

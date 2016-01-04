@@ -150,6 +150,7 @@
 		f_style = "Shaved"
 	if(h_style)
 		h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(SKELETON)
@@ -166,6 +167,7 @@
 		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 	if(h_style)
 		h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(HUSK)

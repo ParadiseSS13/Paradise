@@ -593,7 +593,7 @@
 			if(H.species.name == "Human" && !(H.f_style == "Elvis Sideburns"))
 				spawn(50)
 					H.f_style = "Elvis Sideburns"
-					H.update_hair()
+					H.update_fhair()
 
 
 /obj/item/clothing/glasses/virussunglasses
@@ -805,7 +805,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 				H << "<span class='warning'>Your chin and neck itch!.</span>"
 				spawn(50)
 					H.f_style = "Full Beard"
-					H.update_hair()
+					H.update_fhair()
 
 /datum/disease2/effect/bloodynose
 	name = "Intranasal Hemorrhage"

@@ -17,23 +17,32 @@
 #define DNA_HARD_BOUNDS    list(1,3490,3500,4095)
 
 // UI Indices (can change to mutblock style, if desired)
-#define DNA_UI_HAIR_R      1
-#define DNA_UI_HAIR_G      2
-#define DNA_UI_HAIR_B      3
-#define DNA_UI_BEARD_R     4
-#define DNA_UI_BEARD_G     5
-#define DNA_UI_BEARD_B     6
-#define DNA_UI_SKIN_TONE   7
-#define DNA_UI_SKIN_R      8
-#define DNA_UI_SKIN_G      9
-#define DNA_UI_SKIN_B      10
-#define DNA_UI_EYES_R      11
-#define DNA_UI_EYES_G      12
-#define DNA_UI_EYES_B      13
-#define DNA_UI_GENDER      14
-#define DNA_UI_BEARD_STYLE 15
-#define DNA_UI_HAIR_STYLE  16
-#define DNA_UI_LENGTH      16 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HAIR_R		1
+#define DNA_UI_HAIR_G		2
+#define DNA_UI_HAIR_B		3
+#define DNA_UI_BEARD_R		4
+#define DNA_UI_BEARD_G		5
+#define DNA_UI_BEARD_B		6
+#define DNA_UI_SKIN_TONE	7
+#define DNA_UI_SKIN_R		8
+#define DNA_UI_SKIN_G		9
+#define DNA_UI_SKIN_B		10
+#define DNA_UI_HACC_R		11
+#define DNA_UI_HACC_G		12
+#define DNA_UI_HACC_B		13
+#define DNA_UI_MARK_R		14
+#define DNA_UI_MARK_G		15
+#define DNA_UI_MARK_B		16
+#define DNA_UI_EYES_R		17
+#define DNA_UI_EYES_G		18
+#define DNA_UI_EYES_B		19
+#define DNA_UI_GENDER		20
+#define DNA_UI_BEARD_STYLE	21
+#define DNA_UI_HAIR_STYLE	22
+/*#define DNA_UI_BACC_STYLE	23*/
+#define DNA_UI_HACC_STYLE	23
+#define DNA_UI_MARK_STYLE	24
+#define DNA_UI_LENGTH		24 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
@@ -133,28 +142,55 @@ var/global/list/bad_blocks[0]
 		character.f_style = "Shaved"
 	var/beard	= facial_hair_styles_list.Find(character.f_style)
 
-	SetUIValueRange(DNA_UI_HAIR_R,    character.r_hair,    255,    1)
-	SetUIValueRange(DNA_UI_HAIR_G,    character.g_hair,    255,    1)
-	SetUIValueRange(DNA_UI_HAIR_B,    character.b_hair,    255,    1)
+	// Head Accessory
+	if(!character.ha_style)
+		character.ha_style = "None"
+	var/headacc	= head_accessory_styles_list.Find(character.ha_style)
 
-	SetUIValueRange(DNA_UI_BEARD_R,   character.r_facial,  255,    1)
-	SetUIValueRange(DNA_UI_BEARD_G,   character.g_facial,  255,    1)
-	SetUIValueRange(DNA_UI_BEARD_B,   character.b_facial,  255,    1)
+	/*// Body Accessory
+	if(!character.body_accessory)
+		character.body_accessory = null
+	var/bodyacc	= character.body_accessory*/
 
-	SetUIValueRange(DNA_UI_EYES_R,    character.r_eyes,    255,    1)
-	SetUIValueRange(DNA_UI_EYES_G,    character.g_eyes,    255,    1)
-	SetUIValueRange(DNA_UI_EYES_B,    character.b_eyes,    255,    1)
+	// Markings
+	if(!character.m_style)
+		character.m_style = "None"
+	var/marks	= marking_styles_list.Find(character.m_style)
 
-	SetUIValueRange(DNA_UI_SKIN_R,    character.r_skin,    255,    1)
-	SetUIValueRange(DNA_UI_SKIN_G,    character.g_skin,    255,    1)
-	SetUIValueRange(DNA_UI_SKIN_B,    character.b_skin,    255,    1)
+	SetUIValueRange(DNA_UI_HAIR_R,	character.r_hair,		255,	1)
+	SetUIValueRange(DNA_UI_HAIR_G,	character.g_hair,		255,	1)
+	SetUIValueRange(DNA_UI_HAIR_B,	character.b_hair,		255,	1)
 
-	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone, 220,    1) // Value can be negative.
+	SetUIValueRange(DNA_UI_BEARD_R,	character.r_facial,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD_G,	character.g_facial,		255,	1)
+	SetUIValueRange(DNA_UI_BEARD_B,	character.b_facial,		255,	1)
 
-	SetUIState(DNA_UI_GENDER,         character.gender!=MALE,        1)
+	SetUIValueRange(DNA_UI_EYES_R,	character.r_eyes,		255,	1)
+	SetUIValueRange(DNA_UI_EYES_G,	character.g_eyes,		255,	1)
+	SetUIValueRange(DNA_UI_EYES_B,	character.b_eyes,		255,	1)
 
-	SetUIValueRange(DNA_UI_HAIR_STYLE,  hair,  hair_styles_list.len,       1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE, beard, facial_hair_styles_list.len,1)
+	SetUIValueRange(DNA_UI_SKIN_R,	character.r_skin,		255,	1)
+	SetUIValueRange(DNA_UI_SKIN_G,	character.g_skin,		255,	1)
+	SetUIValueRange(DNA_UI_SKIN_B,	character.b_skin,		255,	1)
+
+	SetUIValueRange(DNA_UI_HACC_R,	character.r_headacc,	255,	1)
+	SetUIValueRange(DNA_UI_HACC_G,	character.g_headacc,	255,	1)
+	SetUIValueRange(DNA_UI_HACC_B,	character.b_headacc,	255,	1)
+
+	SetUIValueRange(DNA_UI_MARK_R,	character.r_markings,	255,	1)
+	SetUIValueRange(DNA_UI_MARK_G,	character.g_markings,	255,	1)
+	SetUIValueRange(DNA_UI_MARK_B,	character.b_markings,	255,	1)
+
+	SetUIValueRange(DNA_UI_SKIN_TONE, 35-character.s_tone,	220,	1) // Value can be negative.
+
+	SetUIState(DNA_UI_GENDER,		character.gender!=MALE,		1)
+
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		hair_styles_list.len,			1)
+	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		facial_hair_styles_list.len,	1)
+	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	facial_hair_styles_list.len,	1)*/
+	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	head_accessory_styles_list.len,	1)
+	SetUIValueRange(DNA_UI_MARK_STYLE,	marks,		marking_styles_list.len,		1)
+
 
 	UpdateUI()
 
