@@ -74,12 +74,6 @@
 	if (chambered)
 		user << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
-// COMBAT SHOTGUN //
-
-/obj/item/weapon/gun/projectile/shotgun/combat/New() //freaking map freezes
-	new /obj/item/weapon/gun/projectile/shotgun/automatic/combat(get_turf(src))
-	qdel(src)
-
 // RIOT SHOTGUN //
 
 /obj/item/weapon/gun/projectile/shotgun/riot //for spawn in the armory
