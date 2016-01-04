@@ -240,7 +240,7 @@ CREATE TABLE `SS13_player` (
   `UI_style` varchar(10) DEFAULT 'Midnight',
   `UI_style_color` varchar(7) DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` mediumtext NOT NULL,
+  `be_special` mediumtext NOT NULL,
   `default_slot` smallint(4) DEFAULT '1',
   `toggles` mediumint(8) DEFAULT '383',
   `sound` mediumint(8) DEFAULT '31',
