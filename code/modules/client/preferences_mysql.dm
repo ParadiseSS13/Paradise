@@ -118,8 +118,6 @@
 					facial_style_name,
 					marking_style_name,
 					head_accessory_style_name,
-					hair_style_name,
-					facial_style_name,
 					eyes_red,
 					eyes_green,
 					eyes_blue,
