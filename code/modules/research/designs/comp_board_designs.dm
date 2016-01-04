@@ -386,5 +386,5 @@ datum/design/AAC
 	id = "shield_cap"
 	req_tech = list("magnets" = 3, "powerstorage" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000, "sacid" = 20, MAT_DIAMOND = 10000, MAT_SILVER = 10000)
+	materials = list(MAT_GLASS = 2000, "sacid" = 20, MAT_DIAMOND = 10000, MAT_GOLD = 10000)
 	build_path = /obj/item/weapon/circuitboard/shield_cap
