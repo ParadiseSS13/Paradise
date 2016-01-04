@@ -172,7 +172,7 @@
 	return
 
 /obj/item/weapon/weldingtool/examine(mob/user)
-	if(!..(user, 0))
+	if(..(user, 0))
 		user << "It contains [get_fuel()] unit\s of fuel out of [max_fuel]."
 
 /obj/item/weapon/weldingtool/suicide_act(mob/user)
