@@ -3,11 +3,13 @@
 	var/name = "surgery"
 	var/status = 1
 	var/list/steps = list()
+	/*
 	var/eyes	=	0
 	var/face	=	0
 	var/appendix =	0
 	var/ribcage =	0
 	var/head_reattach = 0									//Steps in a surgery
+	*/
 
 	var/can_cancel = 1
 	var/step_in_progress = 0
@@ -17,7 +19,7 @@
 	var/list/possible_locs = list() 							//Multiple locations -- c0
 	var/obj/item/organ/organ_ref									//Operable body part
 	var/current_organ = "organ"
-	var/list/allowed_species = null
+	var/list/allowed_species = list(/mob/living/carbon/human)
 	var/list/disallowed_species = null
 
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
@@ -31,7 +33,7 @@
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.begin_step(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
+		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
 			return 1
 	return 0
 
@@ -51,13 +53,15 @@
 
 	// type path referencing tools that can be used for this step, and how well are they suited for it
 	var/list/allowed_tools = null
-	// type paths referencing mutantraces that this step applies to.
+	var/implement_type = null
 
 	// duration of the step
 	var/min_duration = 0
 	var/max_duration = 0
 
 	var/name
+	var/accept_hand = 0				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+	var/accept_any_item = 0
 
 	// evil infection stuff that will make everyone hate me
 	var/can_infect = 0
@@ -67,15 +71,42 @@
 	var/list/allowed_species = null
 	var/list/disallowed_species = null
 
+/datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/success = 0
+	if(accept_hand)
+		if(!tool)
+			success = 1
+	if(accept_any_item)
+		if(tool && tool_quality(tool))
+			success = 1
+	else
+		for(var/path in allowed_tools)
+			if(istype(tool, path))
+				implement_type = path
+				if(tool_quality(tool))
+					success = 1
+
+	if(success)
+		if(target_zone == surgery.location)
+			initiate(user, target, target_zone, tool, surgery)
+			return 1//returns 1 so we don't stab the guy in the dick or wherever.
+	if(isrobot(user) && user.a_intent != I_HARM) //to save asimov borgs a LOT of heartache
+		return 1
+	return 0
+
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	surgery.step_in_progress = 1
+
+	if(begin_step(user, target, target_zone, tool, surgery) == -1)
+		surgery.step_in_progress = 0
+		return
 
 	if(do_after(user, max_duration, target = target))
 		var/advance = 0
 		var/prob_chance = 100
 
-		if(tool)	//this means it isn't a require nd or any item step.
-			prob_chance = allowed_tools[tool]
+		if(implement_type)	//this means it isn't a require nd or any item step.
+			prob_chance = allowed_tools[implement_type]
 		prob_chance *= get_location_modifier(target)
 
 		if(prob(prob_chance) || isrobot(user))
@@ -176,7 +207,7 @@
 					S.fail_step(user, M, zone, tool)		//malpractice~
 				else // This failing silently was a pain.
 					user << "<span class='warning'>You must remain close to your patient to conduct surgery.</span>"
-				surgery.step_in_progress -= zone 									// Clear the in-progress flag.
+				surgery.step_in_progress = 0									// Clear the in-progress flag.
 				return	1	  												//don't want to do weapony things after surgery
 
 	if (user.a_intent == I_HELP)

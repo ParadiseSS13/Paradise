@@ -2,7 +2,7 @@
 // It functions almost identically (see code/datums/diseases/alien_embryo.dm)
 var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 
-/obj/item/alien_embryo
+/obj/item/organ/internal/body_egg/alien_embryo
 	name = "alien embryo"
 	desc = "All slimy and yuck."
 	icon = 'icons/mob/alien.dmi'
@@ -10,30 +10,49 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 	var/mob/living/affected_mob
 	var/stage = 0
 
-/obj/item/alien_embryo/New()
-	if(istype(loc, /mob/living))
-		affected_mob = loc
-		affected_mob.status_flags |= XENO_HOST
-		if(istype(affected_mob,/mob/living/carbon))
-			var/mob/living/carbon/H = affected_mob
-			H.med_hud_set_status()
-		processing_objects.Add(src)
-		spawn(0)
-			AddInfectionImages(affected_mob)
+/obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
+	..()
+	if(stage < 4)
+		finder << "It's small and weak, barely the size of a foetus."
 	else
-		qdel(src)
+		finder << "It's grown quite large, and writhes slightly as you look at it."
+		if(prob(10))
+			AttemptGrow(0)
 
-/obj/item/alien_embryo/Destroy()
-	if(affected_mob)
-		affected_mob.status_flags &= ~(XENO_HOST)
-		if(istype(affected_mob,/mob/living/carbon))
-			var/mob/living/carbon/H = affected_mob
-			H.med_hud_set_status()
-		spawn(0)
-			RemoveInfectionImages(affected_mob)
-	return ..()
+/obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
+	var/obj/S = ..()
+	S.reagents.add_reagent("sacid", 10)
+	return S
 
-/obj/item/alien_embryo/process()
+/obj/item/organ/internal/body_egg/alien_embryo/on_life()
+	switch(stage)
+		if(2, 3)
+			if(prob(2))
+				owner.emote("sneeze")
+			if(prob(2))
+				owner.emote("cough")
+			if(prob(2))
+				owner << "<span class='danger'>Your throat feels sore.</span>"
+			if(prob(2))
+				owner << "<span class='danger'>Mucous runs down the back of your throat.</span>"
+		if(4)
+			if(prob(2))
+				owner.emote("sneeze")
+			if(prob(2))
+				owner.emote("cough")
+			if(prob(4))
+				owner << "<span class='danger'>Your muscles ache.</span>"
+				if(prob(20))
+					owner.take_organ_damage(1)
+			if(prob(4))
+				owner << "<span class='danger'>Your stomach hurts.</span>"
+				if(prob(20))
+					owner.adjustToxLoss(1)
+		if(5)
+			owner << "<span class='danger'>You feel something tearing its way out of your stomach...</span>"
+			owner.adjustToxLoss(10)
+
+/obj/item/organ/internal/body_egg/alien_embryo/egg_process()
 	if(!affected_mob)	return
 	if(loc != affected_mob)
 		affected_mob.status_flags &= ~(XENO_HOST)
@@ -51,38 +70,15 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 		spawn(0)
 			RefreshInfectionImage()
 
-	switch(stage)
-		if(2, 3)
-			if(prob(1))
-				affected_mob.emote("sneeze")
-			if(prob(1))
-				affected_mob.emote("cough")
-			if(prob(1))
-				affected_mob << "<span class='danger'>Your throat feels sore.</span>"
-			if(prob(1))
-				affected_mob << "<span class='danger'>Mucous runs down the back of your throat.</span>"
-		if(4)
-			if(prob(1))
-				affected_mob.emote("sneeze")
-			if(prob(1))
-				affected_mob.emote("cough")
-			if(prob(2))
-				affected_mob << "<span class='danger'>Your muscles ache.</span>"
-				if(prob(20))
-					affected_mob.take_organ_damage(1)
-			if(prob(2))
-				affected_mob << "<span class='danger'>Your stomach hurts.</span>"
-				if(prob(20))
-					affected_mob.adjustToxLoss(1)
-					affected_mob.updatehealth()
-		if(5)
-			affected_mob << "<span class='danger'>You feel something tearing its way out of your stomach...</span>"
-			affected_mob.adjustToxLoss(10)
-			affected_mob.updatehealth()
-			if(prob(50))
-				AttemptGrow()
 
-/obj/item/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+	if(stage == 5 && prob(50))
+		//for(var/datum/surgery/S in owner.surgeries)
+		//	if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
+		//		AttemptGrow(0)
+		//		return
+		AttemptGrow()
+
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
 	var/list/candidates = get_candidates(ROLE_ALIEN,ALIEN_AFK_BRACKET,1)
 	var/client/C = null
 
@@ -123,7 +119,7 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 Proc: RefreshInfectionImage()
 Des: Removes the current icons located in the infected mob adds the current stage
 ----------------------------------------*/
-/obj/item/alien_embryo/proc/RefreshInfectionImage()
+/obj/item/organ/internal/body_egg/alien_embryo/RefreshInfectionImage()
 	RemoveInfectionImages()
 	AddInfectionImages()
 
@@ -131,7 +127,7 @@ Des: Removes the current icons located in the infected mob adds the current stag
 Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
-/obj/item/alien_embryo/proc/AddInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
 	for(var/mob/living/carbon/alien/alien in player_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = affected_mob, icon_state = "infected[stage]")
@@ -141,7 +137,7 @@ Des: Adds the infection image to all aliens for this embryo
 Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
-/obj/item/alien_embryo/proc/RemoveInfectionImages()
+/obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
 	for(var/mob/living/carbon/alien/alien in player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)

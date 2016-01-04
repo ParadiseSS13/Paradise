@@ -381,6 +381,9 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid f_style for [species.name]: [f_style]")
 
+	if(!get_int_organ(/obj/item/organ/internal/brain))
+		face_standing += icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
+
 	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style && hair_style.species_allowed)
@@ -392,9 +395,6 @@ var/global/list/damage_icon_parts = list()
 				face_standing.Blend(hair_s, ICON_OVERLAY)
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
-
-	if(!get_int_organ(/obj/item/organ/internal/brain))
-		face_standing += icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	overlays_standing[HAIR_LAYER]	= image(face_standing)
 

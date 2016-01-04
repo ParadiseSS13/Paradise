@@ -27,9 +27,9 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
-		if(can_operate(H))
-			if (do_surgery(H,user,src))
-				return
+		//if(can_operate(H))
+		//	if (do_surgery(H,user,src))
+		//		return
 
 		if (S && (S.status & ORGAN_ROBOT))
 			if(S.get_damage())

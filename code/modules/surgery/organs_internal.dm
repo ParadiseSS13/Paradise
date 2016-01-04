@@ -125,12 +125,8 @@
 		var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 		if(A)
 			user << "<span class='notice'>You found an unknown alien organism in [target]'s chest!</span>"
-			if(A.stage < 4)
-				user << "It's small and weak, barely the size of a foetus."
-			else
-				user << "It's grown quite large, and writhes slightly as you look at it."
-				if(prob(10))
-					A.AttemptGrow()
+			if(prob(10))
+				A.AttemptGrow()
 
 		A.remove(target)
 		A.loc = get_turf(target)
@@ -154,7 +150,7 @@
 
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/crowbar = 55)
-	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack= 100,/obj/item/stack/medical/bruise_pack = 20
+	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack= 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20
 	)
 	var/current_type
 	var/obj/item/organ/internal/I = null
@@ -222,14 +218,19 @@
 			tool_name = "regenerative membrane"
 		else if (istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		else if (istype(tool, /obj/item/stack/nanopaste))
+			tool_name = "\the [tool]" //what else do you call nanopaste medically?
 
 		if (!hasorgans(target))
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
-				if(I.robotic < 2)
+				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
 					if(!I.sterile)
 						spread_germs_to_organ(I, user)
+					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+					"You start treating damage to [target]'s [I.name] with [tool_name]." )
+				else if(I.robotic > 2 && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 		target.custom_pain("The pain in your [affected.name] is living hell!",1)
@@ -253,7 +254,11 @@
 			if(I)
 				I.surgeryize()
 			if(I && I.damage > 0)
-				if(I.robotic < 2)
+				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
+					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
+					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
+					I.damage = 0
+				else if(I.robotic > 2 && istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
 					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
 					I.damage = 0
@@ -282,7 +287,7 @@
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
 	return 0
-	..()
+
 
 //////////////////////////////////////////////////////////////////
 //				CHEST INTERNAL ORGAN SURGERY					//

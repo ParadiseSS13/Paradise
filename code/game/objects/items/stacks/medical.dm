@@ -112,11 +112,11 @@
 				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 				use(1)
 		else
-			if (can_operate(H))        //Checks if mob is lying down on table for surgery
-				if (do_surgery(H,user,src))
-					return
-			else
-				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>"
+			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
+			//	if (do_surgery(H,user,src))
+				//	return
+			//else
+			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>"
 
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
@@ -177,11 +177,11 @@
 					affecting.heal_damage(heal_brute,0)
 				use(1)
 		else
-			if (can_operate(H))        //Checks if mob is lying down on table for surgery
-				if (do_surgery(H,user,src))
-					return
-			else
-				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
+			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
+			//	if (do_surgery(H,user,src))
+			//		return
+			//else
+			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/advanced/ointment
 	name = "advanced burn kit"
@@ -210,11 +210,11 @@
 				affecting.heal_damage(0,heal_burn)
 				use(1)
 		else
-			if (can_operate(H))        //Checks if mob is lying down on table for surgery
-				if (do_surgery(H,user,src))
-					return
-			else
-				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
+			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
+			//	if (do_surgery(H,user,src))
+			//		return
+			//else
+			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/splint
 	name = "medical splints"

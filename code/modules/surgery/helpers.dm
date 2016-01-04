@@ -1,46 +1,61 @@
 /proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user)
+	world << "[istype(M)]"
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
 		var/selected_zone = user.zone_sel.selecting
-
+		world << "line 8"
 		if(istype(M, /mob/living/carbon/human))
 			H = M
+			world <<"line 10"
 			affecting = H.get_organ(check_zone(selected_zone))
 
-		if(can_operate(M))	//if they're prone or a slime
+		if(can_operate(H))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
+			world << "line 15"
 
 			for(var/datum/surgery/S in M.surgeries)
 				if(S.location == selected_zone)
 					current_surgery = S
+					world << "[S]"
 
 			if(!current_surgery)
 				var/list/all_surgeries = surgeries_list.Copy()
 				var/list/available_surgeries = list()
+				world << "line 24"
 
 				for(var/datum/surgery/S in all_surgeries)
 					if(!S.possible_locs.Find(selected_zone))
+						world << "line 29"
+						world << "[selected_zone]"
 						continue
 					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
+						world << "line 30"
 						continue
 					if(!S.can_start(user, M))
+						world << "line 31"
 						continue
 
 					for(var/path in S.allowed_species)
+						world << "[path]"
+						world << "[M]"
 						if(istype(M, path))
+							world << "line 32"
+							world << "[path]"
 							available_surgeries[S.name] = S
 							break
 
 				var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
 				if(P && user && user.Adjacent(M) && (I in user))
+					world << "line 40"
 					var/datum/surgery/S = available_surgeries[P]
 					var/datum/surgery/procedure = new S.type
 					if(procedure)
 						procedure.location = selected_zone
 						M.surgeries += procedure
 						procedure.organ_ref = affecting
-						//just use the scalpel cut message
+						user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
+						"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
 
 			else if(!current_surgery.step_in_progress)
 				if(current_surgery.status == 1)
