@@ -273,7 +273,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(anchored)
@@ -289,7 +289,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/verb/revrotate()
 	set name = "Rotate Window Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
 	if(anchored)
