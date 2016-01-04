@@ -14,7 +14,7 @@
 	var/energy = 100
 	var/max_energy = 100
 	var/amount = 30
-	var/beaker = null
+	var/obj/item/weapon/reagent_containers/beaker = null
 	var/recharged = 0
 	var/hackedcheck = 0
 	var/list/dispensable_reagents = list("hydrogen","lithium","carbon","nitrogen","oxygen","fluorine",
@@ -123,15 +123,15 @@
 
 	var beakerContents[0]
 	var beakerCurrentVolume = 0
-	if(beaker && beaker:reagents && beaker:reagents.reagent_list.len)
-		for(var/datum/reagent/R in beaker:reagents.reagent_list)
+	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
+		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
 	if (beaker)
 		data["beakerCurrentVolume"] = beakerCurrentVolume
-		data["beakerMaxVolume"] = beaker:volume
+		data["beakerMaxVolume"] = beaker.volume
 	else
 		data["beakerCurrentVolume"] = null
 		data["beakerMaxVolume"] = null
@@ -385,7 +385,7 @@
 	icon_state = "mixer0"
 	use_power = 1
 	idle_power_usage = 20
-	var/beaker = null
+	var/obj/item/weapon/reagent_containers/beaker = null
 	var/obj/item/weapon/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
 	var/condi = 0
@@ -483,7 +483,7 @@
 			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
 			if(href_list["name"] == "Blood")
-				var/datum/reagents/R = beaker:reagents
+				var/datum/reagents/R = beaker.reagents
 				var/datum/reagent/blood/G
 				for(var/datum/reagent/F in R.reagent_list)
 					if(F.name == href_list["name"])
@@ -499,7 +499,7 @@
 			src.printing = null
 
 	if(beaker)
-		var/datum/reagents/R = beaker:reagents
+		var/datum/reagents/R = beaker.reagents
 		if (href_list["analyze"])
 			var/dat = ""
 			if(!condi)
@@ -562,7 +562,7 @@
 			return
 		else if (href_list["eject"])
 			if(beaker)
-				beaker:loc = src.loc
+				beaker.forceMove(get_turf(src))
 				beaker = null
 				reagents.clear_reagents()
 				icon_state = "mixer0"
@@ -695,7 +695,7 @@
 			dat += "No pill bottle inserted.<BR><BR>"
 		dat += "<A href='?src=\ref[src];close=1'>Close</A>"
 	else
-		var/datum/reagents/R = beaker:reagents
+		var/datum/reagents/R = beaker.reagents
 		dat += "<A href='?src=\ref[src];eject=1'>Eject beaker and Clear Buffer</A><BR>"
 		if(src.loaded_pill_bottle)
 			dat += "<A href='?src=\ref[src];ejectp=1'>Eject Pill Bottle \[[loaded_pill_bottle.contents.len]/[loaded_pill_bottle.storage_slots]\]</A><BR><BR>"
@@ -758,6 +758,72 @@
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
 	condi = 1
+
+/obj/machinery/chem_master/constructable
+	name = "ChemMaster 2999"
+	desc = "Used to seperate chemicals and distribute them in a variety of forms."
+
+/obj/machinery/chem_master/constructable/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/chem_master(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+
+/obj/machinery/chem_master/constructable/attackby(obj/item/B, mob/user, params)
+
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", B))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return
+
+	if(exchange_parts(user, B))
+		return
+
+	if(panel_open)
+		if(istype(B, /obj/item/weapon/crowbar))
+			default_deconstruction_crowbar(B)
+			return 1
+		else
+			user << "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>"
+			return 1
+
+	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
+
+		if(beaker)
+			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
+			return
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			return
+		beaker = B
+		B.forceMove(src)
+		user << "<span class='notice'>You add the beaker to the machine!</span>"
+		src.updateUsrDialog()
+		icon_state = "mixer1"
+
+	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
+
+		if(loaded_pill_bottle)
+			user << "<span class='warning'>A pill bottle is already loaded into the machine.</span>"
+			return
+
+		if(!user.drop_item())
+			user << "<span class='warning'>\The [B] is stuck to you!</span>"
+			return
+		loaded_pill_bottle = B
+		B.forceMove(src)
+		user << "<span class='notice'>You add the pill bottle into the dispenser slot!</span>"
+		src.updateUsrDialog()
+
+	return
 
 /obj/machinery/reagentgrinder
 
