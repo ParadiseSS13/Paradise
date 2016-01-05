@@ -928,7 +928,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"
-	desc = "Through a series of micro-teleports these tiles let people move at incredible speeds"
+	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
 	icon_state = "tile-bluespace"
 	w_class = 3
 	force = 6
@@ -944,14 +944,14 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /turf/simulated/floor/bluespace
 	slowdown = -1
 	icon_state = "bluespace"
-	desc = "Through a series of micro-teleports these tiles let people move at incredible speeds"
+	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
 	floor_tile = /obj/item/stack/tile/bluespace
 
 
 /obj/item/stack/tile/sepia
 	name = "sepia floor tile"
 	singular_name = "floor tile"
-	desc = "Time seems to flow very slowly around these tiles"
+	desc = "Time seems to flow very slowly around these tiles."
 	icon_state = "tile-sepia"
 	w_class = 3
 	force = 6
@@ -967,7 +967,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /turf/simulated/floor/sepia
 	slowdown = 2
 	icon_state = "sepia"
-	desc = "Time seems to flow very slowly around these tiles"
+	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
 
 /obj/effect/goleRUNe
