@@ -5,6 +5,7 @@ s =
 
 # Project Paths
 input =
+  fonts: "**/*.{eot,woff2}"
   scripts:
     lib: "scripts/libraries"
     main: "scripts/nano"
@@ -18,6 +19,7 @@ output =
   css: "nanoui.css"
 
 ### Pacakages ###
+bower         = require "main-bower-files"
 del           = require "del"
 gulp          = require "gulp"
 merge         = require "merge-stream"
@@ -38,10 +40,14 @@ glob = (path) ->
   "#{path}/*"
 
 ### Tasks ###
-gulp.task "default", ["scripts", "styles"]
+gulp.task "default", ["fonts", "scripts", "styles"]
 
 gulp.task "clean", ->
   del glob output.dir
+
+gulp.task "fonts", ["clean"], ->
+  gulp.src bower input.fonts
+    .pipe gulp.dest output.dir
 
 gulp.task "scripts", ["clean"], ->
   lib = gulp.src glob input.scripts.lib
@@ -57,7 +63,10 @@ gulp.task "scripts", ["clean"], ->
   merge lib, main
 
 gulp.task "styles", ["clean"], ->
-  gulp.src glob input.styles
+  lib = gulp.src bower "**/*.css"
+    .pipe g.replace("../fonts/", "")
+
+  main = gulp.src glob input.styles
     .pipe g.filter(["*.less", "!_*.less"])
     .pipe g.less()
     .pipe g.postcss([
@@ -67,5 +76,9 @@ gulp.task "styles", ["clean"], ->
       p.rgba({oldie: true}),
       p.plsfilters({oldIE: true})
       ])
+
+  combined = merge lib, main
+  combined
+    .pipe g.if(s.min, g.cssnano({discardComments: {removeAll: true}}), g.csscomb())
     .pipe g.concat(output.css)
     .pipe gulp.dest output.dir

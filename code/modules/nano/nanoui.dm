@@ -382,9 +382,9 @@ nanoui is used to open and update nano browser uis
 		</div>
 		<noscript>
 			<div id='uiNoScript'>
-				<h2>JAVASCRIPT REQUIRED</h2>
-				<p>Your Internet Explorer's Javascript is disabled (or broken).<br/>
-				Enable Javascript and then open this UI again.</p>
+				<h1>Javascript Required</h1>
+				<p>Javascript is required in order to use this NanoUI interface.</p>
+				<p>Please enable Javascript in Internet Explorer, and restart your game.</p>
 			</div>
 		</noscript>
 	</body>
