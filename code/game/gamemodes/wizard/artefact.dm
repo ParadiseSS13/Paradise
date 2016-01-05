@@ -639,13 +639,16 @@ var/global/list/multiverse = list()
 	if(spooky_scaries.len >= 3 && !unlimited)
 		user << "<span class='warning'>This artifact can only affect three undead at a time!</span>"
 		return
-	M.makeSkeleton()
-	M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
-	M.revive()
+	if(heresy)
+		spawnheresy(M)//oh god why
+	else
+		M.makeSkeleton()
+		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
+		M.revive()
+		equip_skeleton(M)
 	spooky_scaries |= M
 	M << "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>"
 	M << "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>"
-	equip_skeleton(M)
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/device/necromantic_stone/proc/check_spooky()
@@ -667,10 +670,7 @@ var/global/list/multiverse = list()
 	for(var/obj/item/I in H)
 		H.unEquip(I)
 	var/randomSpooky = "roman"//defualt
-	if(heresy)
-		randomSpooky = "yand"
-	else
-		randomSpooky = pick("roman","pirate","yand","clown")
+	randomSpooky = pick("roman","pirate","yand","clown")
 
 	switch(randomSpooky)
 		if("roman")
@@ -708,6 +708,32 @@ var/global/list/multiverse = list()
 			H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
 
+/obj/item/device/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
+	H.set_species("Human")
+	if (H.gender == MALE)
+		H.gender = FEMALE
+	H.h_style = random_hair_style(H.gender, H.species)
+
+	if(prob(50))
+		H.change_hair_color(216, 192, 120)
+	else
+		H.change_hair_color(140, 170, 74)
+
+	H.update_dna()
+	H.update_body()
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/weapon/katana(H), slot_r_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
+	if(!H.real_name || H.real_name == "Unknown" || H.name == "Uknownwn")
+		H.real_name = "Neko-chan"
+	else
+		H.real_name = "[H.name]-chan"
+	H.say("NYA!~")
 
 /obj/item/device/necromantic_stone/nya
 	name = "nya-cromantic stone"
