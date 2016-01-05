@@ -25,6 +25,9 @@
 	flags_inv = HIDEFACE
 	w_class = 2
 	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/luchador/tecnicos
 	name = "Tecnicos Mask"

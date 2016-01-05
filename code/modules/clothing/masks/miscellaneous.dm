@@ -50,6 +50,9 @@
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
 	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/fakemoustache/verb/pontificate()
 	set name = "Pontificate Evilly"
@@ -173,6 +176,9 @@
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
 	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 	action_button_name = "Adjust Bandana"
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
