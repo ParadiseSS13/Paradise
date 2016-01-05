@@ -794,36 +794,8 @@
 		else
 			user << "<span class='warning'>You can't use the [src.name] while it's panel is opened!</span>"
 			return 1
-
-	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
-
-		if(beaker)
-			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
-			return
-		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
-			return
-		beaker = B
-		B.forceMove(src)
-		user << "<span class='notice'>You add the beaker to the machine!</span>"
-		src.updateUsrDialog()
-		icon_state = "mixer1"
-
-	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
-
-		if(loaded_pill_bottle)
-			user << "<span class='warning'>A pill bottle is already loaded into the machine.</span>"
-			return
-
-		if(!user.drop_item())
-			user << "<span class='warning'>\The [B] is stuck to you!</span>"
-			return
-		loaded_pill_bottle = B
-		B.forceMove(src)
-		user << "<span class='notice'>You add the pill bottle into the dispenser slot!</span>"
-		src.updateUsrDialog()
-
-	return
+	else
+		..()
 
 /obj/machinery/reagentgrinder
 
