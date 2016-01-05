@@ -1,6 +1,5 @@
 /datum/atom_hud/antag
 	hud_icons = list(SPECIALROLE_HUD,NATIONS_HUD)
-	var/solohud = 0
 
 /datum/atom_hud/antag/proc/join_hud(mob/M)
 	if(!istype(M))
@@ -11,7 +10,6 @@
 		add_to_hud(M)
 	add_hud_to(M)
 	M.mind.antag_hud = src
-	solohud = 0
 
 /datum/atom_hud/antag/proc/join_solo_hud(mob/M)//for non team antags and for observer huds
 	if(!istype(M))
@@ -20,7 +18,6 @@
 		M.mind.antag_hud.leave_hud(M)
 	add_to_hud(M)
 	M.mind.antag_hud = src
-	solohud = 1
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
 	if(!istype(M))
@@ -29,7 +26,6 @@
 	remove_hud_from(M)
 	if(M.mind)
 		M.mind.antag_hud = null
-	solohud = 0
 
 
 //GAME_MODE PROCS
