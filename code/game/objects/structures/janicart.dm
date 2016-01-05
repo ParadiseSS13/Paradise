@@ -80,7 +80,7 @@
 		handle_rotation()
 		if(istype(src.loc, /turf/simulated))
 			var/turf/simulated/T = src.loc
-			if(T.wet == 2)	//Lube! Fall off!
+			if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
 				playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 				buckled_mob.Stun(7)
 				buckled_mob.Weaken(7)

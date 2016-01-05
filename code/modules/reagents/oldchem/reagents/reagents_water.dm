@@ -31,21 +31,7 @@
 	if (!istype(T)) return
 	src = null
 	if(volume >= 3)
-		if(T.wet >= 1) return
-		T.wet = 1
-		if(T.wet_overlay)
-			T.overlays -= T.wet_overlay
-			T.wet_overlay = null
-		T.wet_overlay = image('icons/effects/water.dmi',T,"wet_floor")
-		T.overlays += T.wet_overlay
-
-		spawn(800)
-			if (!istype(T)) return
-			if(T.wet >= 2) return
-			T.wet = 0
-			if(T.wet_overlay)
-				T.overlays -= T.wet_overlay
-				T.wet_overlay = null
+		T.MakeSlippery()
 
 	for(var/mob/living/carbon/slime/M in T)
 		M.apply_water()
@@ -91,15 +77,7 @@
 	if (!istype(T)) return
 	src = null
 	if(volume >= 1)
-		if(T.wet >= 2) return
-		T.wet = 2
-		spawn(800)
-			if (!istype(T)) return
-			T.wet = 0
-			if(T.wet_overlay)
-				T.overlays -= T.wet_overlay
-				T.wet_overlay = null
-			return
+		T.MakeSlippery(TURF_WET_LUBE)
 
 
 /datum/reagent/space_cleaner
@@ -349,6 +327,23 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
+
+/datum/reagent/drying_agent
+	name = "Drying agent"
+	id = "drying_agent"
+	description = "Can be used to dry things."
+	reagent_state = LIQUID
+	color = "#A70FFF"
+
+/datum/reagent/drying_agent/reaction_turf(turf/simulated/T, reac_volume)
+	if(istype(T) && T.wet)
+		T.MakeDry(TURF_WET_WATER)
+
+/datum/reagent/drying_agent/reaction_obj(obj/O, reac_volume)
+	if(istype(O, /obj/item/clothing/shoes/galoshes))
+		var/t_loc = get_turf(O)
+		qdel(O)
+		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
 /*
 /datum/reagent/vaccine

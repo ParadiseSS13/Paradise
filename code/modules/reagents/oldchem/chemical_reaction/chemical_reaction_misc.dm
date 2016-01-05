@@ -197,3 +197,10 @@
 		required_reagents = list("diethylamine" = 1, "fungus" = 1)
 		result_amount = 3
 		mix_message = "The mixture turns a rather unassuming color and settles."
+
+	drying_agent
+		name = "Drying agent"
+		id = "drying_agent"
+		result = "drying_agent"
+		required_reagents = list("plasma" = 2, "ethanol" = 1, "sodium" = 1)
+		result_amount = 3
