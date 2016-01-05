@@ -35,8 +35,6 @@
 		randomslot = text2num(query.item[9])
 		volume = text2num(query.item[10])
 
-	old_roles_to_new(C)
-
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 //	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
@@ -426,98 +424,6 @@
 		var/err = query.ErrorMsg()
 		log_game("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
-		return
-	return 1
-
-// If you see this proc lying around and don't know why it's there, expunge it, as this is for a short-term DB update, starting 27/12/2015
-// 0 on failed update, 1 on success
-/datum/preferences/proc/old_roles_to_new(var/client/C)
-	var/DBQuery/query = dbcon.NewQuery({"
-		SELECT be_special
-		FROM [format_table_name("player")]
-		WHERE ckey='[C.ckey]'"})
-	if(!query.Execute())
-		return 0
-	var/old_be_special
-	while(query.NextRow())
-		old_be_special = text2num(query.item[1])
-	if(isnull(old_be_special))
-		message_admins("SQL NOTICE: be_special has been purged from the database, bug the coders.\n")
-		return 0
-
-	old_be_special = sanitize_integer(old_be_special, 0, 65535)
-	var/B_traitor = 1
-	var/B_operative = 2
-	var/B_changeling = 4
-	var/B_wizard = 8
-	var/B_malf = 16
-	var/B_rev = 32
-	var/B_alien = 64
-	var/B_pai = 128
-	var/B_cultist = 256
-	var/B_ninja = 512
-	var/B_raider = 1024
-	var/B_vampire = 2048
-	var/B_mutineer = 4096
-	var/B_blob = 8192
-	var/B_shadowling = 16384
-	var/B_revenant = 32768
-
-	var/list/archived = list(B_traitor,B_operative,B_changeling,B_wizard,B_malf,B_rev,B_alien,B_pai,B_cultist,B_ninja,B_raider,B_vampire,B_mutineer,B_blob,B_shadowling,B_revenant)
-
-	// meow meow I am the copy cat
-	for(var/flag in archived)
-		if(old_be_special & flag)
-			switch(flag)
-				// hello i am byond i think constant variables r dumm
-				if(1)
-					be_special |= ROLE_TRAITOR
-				if(2)
-					be_special |= ROLE_OPERATIVE
-				if(4)
-					be_special |= ROLE_CHANGELING
-				if(8)
-					be_special |= ROLE_WIZARD
-				if(16)
-					be_special |= ROLE_MALF
-				if(32)
-					be_special |= ROLE_REV
-				if(64)
-					be_special |= ROLE_ALIEN
-					be_special |= ROLE_SENTIENT
-					be_special |= ROLE_DEMON
-					be_special |= ROLE_BORER
-				if(128)
-					be_special |= ROLE_PAI
-					be_special |= ROLE_POSIBRAIN
-					be_special |= ROLE_GUARDIAN
-				if(256)
-					be_special |= ROLE_CULTIST
-				if(512)
-					be_special |= ROLE_NINJA
-				if(1024)
-					be_special |= ROLE_RAIDER
-				if(2048)
-					be_special |= ROLE_VAMPIRE
-				if(4096)
-					be_special |= ROLE_MUTINEER
-				if(8192)
-					be_special |= ROLE_BLOB
-				if(16384)
-					be_special |= ROLE_SHADOWLING
-				if(32768)
-					be_special |= ROLE_REVENANT
-
-	var/DBQuery/query2 = dbcon.NewQuery({"UPDATE [format_table_name("player")]
-				SET
-					be_role='[list2params(sql_sanitize_text_list(be_special))]'
-					WHERE ckey='[C.ckey]'"}
-					)
-
-	if(!query2.Execute())
-		var/err = query2.ErrorMsg()
-		log_game("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during saving player preferences. Error : \[[err]\]\n")
 		return
 	return 1
 
