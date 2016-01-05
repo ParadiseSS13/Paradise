@@ -49,6 +49,11 @@
 	if(M.mind || new_icon_state) //in mindless mobs, only null is acceptable, otherwise we're antagging a mindless mob, meaning we should runtime
 		M.mind.antag_hud_icon_state = new_icon_state
 
+/datum/atom_hud/antag/proc/is_solo_antag(mob/M)
+	if(M.mind.special_role == "traitor" || M.mind.special_role == "vampire" || M.mind.special_role == "Changeling")
+		return 1
+	return 0
+
 
 //MIND PROCS
 //these are called by mind.transfer_to()
@@ -56,7 +61,10 @@
 	leave_all_huds()
 	ticker.mode.set_antag_hud(current, antag_hud_icon_state)
 	if(newhud)
-		newhud.join_hud(current)
+		if(newhud.is_solo_antag(current))
+			newhud.join_solo_hud(current)
+		else
+			newhud.join_hud(current)
 
 /datum/mind/proc/leave_all_huds()
 	for(var/datum/atom_hud/antag/hud in huds)
