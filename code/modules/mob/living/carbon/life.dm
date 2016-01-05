@@ -366,6 +366,7 @@
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
+		handle_dreams()
 		adjustStaminaLoss(-10)
 		if(prob(10) && health && !hal_crit)
 			spawn(0)

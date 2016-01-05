@@ -154,7 +154,6 @@
 
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
-		handle_dreams()
 		sleeping = max(sleeping - 1, 0)
 	return sleeping
 
