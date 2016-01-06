@@ -69,7 +69,15 @@ th.misc {
     color: #ffffff;
 }
 
-/* Table styling for Med Scanner */
-.striped tr:nth-child(even) {
-    background-color: #404040
+/* Striped lines for tables and divs */
+.striped {
+    .striped-base() {
+        background-color: #404040;
+    }
+    tr:nth-child(even) {
+        .striped-base;
+    }
+    &:not(table) > :nth-child(even) {
+        .striped-base;
+    }
 }
