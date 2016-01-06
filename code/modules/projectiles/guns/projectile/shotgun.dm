@@ -74,16 +74,6 @@
 	if (chambered)
 		user << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
-// COMBAT SHOTGUN //
-
-/obj/item/weapon/gun/projectile/shotgun/combat
-	name = "combat shotgun"
-	desc = "A traditional shotgun with tactical furniture and an eight-shell capacity underneath."
-	icon_state = "cshotgun"
-	origin_tech = "combat=5;materials=2"
-	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
-	w_class = 5
-
 // RIOT SHOTGUN //
 
 /obj/item/weapon/gun/projectile/shotgun/riot //for spawn in the armory
@@ -237,7 +227,7 @@
 		return
 	else
 		sawn_state = SAWN_INTACT
-	
+
 /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper 'Bulldog' Shotgun"
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
@@ -273,3 +263,17 @@
 	..()
 	empty_alarm()
 	return
+
+/obj/item/weapon/gun/projectile/shotgun/automatic/Fire(mob/living/user as mob|obj)
+	..()
+	pump(user)
+
+// COMBAT SHOTGUN //
+
+/obj/item/weapon/gun/projectile/shotgun/automatic/combat
+	name = "combat shotgun"
+	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
+	icon_state = "cshotgun"
+	origin_tech = "combat=5;materials=2"
+	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
+	w_class = 5
