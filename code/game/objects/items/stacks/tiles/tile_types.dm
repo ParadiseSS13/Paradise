@@ -3,6 +3,11 @@
  *		Grass
  *		Wood
  *		Carpet
+ *		Plasteel
+ *		Light
+ *		Fakespace
+ *		High-traction
+ \\ If you don't update the contains list, I'm going to shank you
  */
 /obj/item/stack/tile
 	name = "broken tile"
@@ -72,6 +77,23 @@
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 
+/*
+ * Light
+ */
+/obj/item/stack/tile/light
+	name = "light tiles"
+	gender = PLURAL
+	singular_name = "light floor tile"
+	desc = "A floor tile, made out off glass. Use a multitool on it to change its color."
+	icon_state = "tile_light blue"
+	force = 3
+	throwforce = 5
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	turf_type = /turf/simulated/floor/light
+
+/*
+ * Fakespace
+ */
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
 	singular_name = "astral carpet"
@@ -93,3 +115,4 @@
 
 /obj/item/stack/tile/noslip/loaded
 	amount = 20
+
