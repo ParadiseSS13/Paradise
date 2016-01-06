@@ -937,6 +937,12 @@
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
 
+	vulp_vulpine_fluff
+		name = "Vulpine and Earfluff"
+		icon_state = "vulp_facial_vulpine_fluff"
+		species_allowed = list("Vulpkanin")
+		gender = NEUTER
+
 	vulp_mask
 		name = "Mask"
 		icon_state = "vulp_facial_mask"
@@ -1587,6 +1593,12 @@
 	icon = 'icons/mob/human_face.dmi'
 	name = "Vulpine"
 	icon_state = "vulp_facial_vulpine"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_vulpine_fluff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine and Earfluff"
+	icon_state = "vulp_facial_vulpine_fluff"
 	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/head_accessory/vulp_mask
