@@ -556,19 +556,8 @@
 
 			if(istype(mob.loc,/turf/simulated))
 				var/turf/simulated/T = mob.loc
-				if(T.wet < 1)
-					T.wet = 1
-					if(T.wet_overlay)
-						T.overlays -= T.wet_overlay
-						T.wet_overlay = null
-					T.wet_overlay = image('icons/effects/water.dmi',T,"wet_floor")
-					T.overlays += T.wet_overlay
-					spawn(800)
-						if (istype(T) && T.wet < 2)
-							T.wet = 0
-							if(T.wet_overlay)
-								T.overlays -= T.wet_overlay
-								T.wet_overlay = null
+				if(T.wet < TURF_WET_WATER)
+					T.MakeSlippery()
 
 
 

@@ -1016,12 +1016,8 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	if (!istype(T)) return
 	src = null
 	if(volume >= 1)
-		if(T.wet >= 2)			//Clears lube! Fight back against the slipping, and WIN!
-			T.wet = 0
-			if(T.wet_overlay)
-				T.overlays -= T.wet_overlay
-				T.wet_overlay = null
-			return
+		if(istype(T) && T.wet)
+			T.MakeDry(TURF_WET_LUBE)
 
 /datum/reagent/degreaser/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
