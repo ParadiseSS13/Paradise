@@ -10,4 +10,4 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscadd: "Due to Archmage Steve leaving the nya-cromantic stone near the microwave, the true power of the stone has been unleashed. Subjects of the stone are not only ressurected..but ressurected as catgirls..We fired steve."
+  - rscadd: "Due to Archmage Steve leaving the nya-cromantic stone near the microwave, the true power of the stone has been unleashed. Subjects of the stone are not only ressurected ... but resurrected as catgirls ... We fired steve."

@@ -711,16 +711,21 @@ var/global/list/multiverse = list()
 /obj/item/device/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
 	H.set_species("Human")
 	if (H.gender == MALE)
-		H.gender = FEMALE
-	H.h_style = random_hair_style(H.gender, H.species)
+		H.change_gender(FEMALE)
 
-	if(prob(50))
-		H.change_hair_color(216, 192, 120)
-	else
-		H.change_hair_color(140, 170, 74)
+	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
+	H.change_hair(pick(anime_hair))
+
+	var/list/anime_hair_colours = list(list(216, 192, 120),
+	list(140,170,74),list(0,0,0))
+
+	var/list/chosen_colour = pick(anime_hair_colours)
+	H.change_hair_color(chosen_colour[1], chosen_colour[2], chosen_colour[3])
 
 	H.update_dna()
 	H.update_body()
+
+	H.revive()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
@@ -729,7 +734,7 @@ var/global/list/multiverse = list()
 	H.equip_to_slot_or_del(new /obj/item/weapon/katana(H), slot_r_hand)
 	H.equip_to_slot_or_del(new /obj/item/weapon/shield/riot/roman(H), slot_l_hand)
 	H.equip_to_slot_or_del(new /obj/item/weapon/twohanded/spear(H), slot_back)
-	if(!H.real_name || H.real_name == "Unknown" || H.name == "Uknownwn")
+	if(!H.real_name || H.real_name == "unknown")
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
