@@ -188,7 +188,8 @@ Used In File(s): \code\game\machinery\adv_med.dm
 				<tr>
 					<td> {{:value.name}} <br> </td>
 					<td> {{:helper.displayBar(value.damage, 0, value.maxHealth, (value.damage < value.bruised) ? 'notgood' : (value.damage < value.broken) ? 'average' : 'bad', value.damage) }} </td>
-					<td class="average">
+					<td>
+						<span class="average">
 							{{if value.germ_level > 100}}
 								{{if value.germ_level < 300}}
 									mild infection <br>
@@ -204,8 +205,11 @@ Used In File(s): \code\game\machinery\adv_med.dm
 									acute Infection++ <br>
 								{{else value.germ_level >= 900}}
 									septic <br>
+								{{/if}}
 							{{/if}}
-						{{/if}}
+						</span>
+						{{if value.robotic == 1}} robotic <br> {{/if}}
+						{{if value.robotic == 2}} assisted <br> {{/if}}
 					</td>
 				</tr>
 			{{/for}}

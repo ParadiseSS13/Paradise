@@ -407,6 +407,7 @@
 				organData["maxHealth"] = I.max_damage
 				organData["bruised"] = I.min_broken_damage
 				organData["broken"] = I.min_bruised_damage
+				organData["robotic"] = I.robotic
 
 				intOrganData.Add(list(organData))
 
