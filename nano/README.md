@@ -63,9 +63,10 @@ environment.
 You will first need to install the primary prerequisite of NanoUI, [Node.js](https://nodejs.org).
 
 Node.js is used to obtain all of the remaining prerequisites to compile NanoUI. This is
-done by running the following two commands.
- - `npm install -g gulp`
+done by running the following commands.
+ - `npm install -g gulp bower`
  - `npm install`
+ - `bower install`
 
 ### Running Gulp
 NanoUI is built using the `gulp` task automation system. This system uses the contents

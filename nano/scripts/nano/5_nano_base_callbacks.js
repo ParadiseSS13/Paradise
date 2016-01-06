@@ -1,39 +1,42 @@
 // NanoBaseCallbacks is where the base callbacks (common to all templates) are stored
 NanoBaseCallbacks = function ()
 {
-	// _canClick is used to disable clicks for a short period after each click (to avoid mis-clicks)
-	var _canClick = true;
-	
-	var _baseBeforeUpdateCallbacks = {}
-	
-	var _baseAfterUpdateCallbacks = {
-		// this callback is triggered after new data is processed
-		// it updates the status/visibility icon and adds click event handling to buttons/links		
-		status: function (updateData) {
-			var uiStatusClass;
-			if (updateData['config']['status'] == 2)
-			{
-				uiStatusClass = 'icon24 uiStatusGood';
-				$('.linkActive').removeClass('inactive');
-			}
-			else if (updateData['config']['status'] == 1)
-			{
-				uiStatusClass = 'icon24 uiStatusAverage';
-				$('.linkActive').addClass('inactive');
-			}
-			else
-			{
-				uiStatusClass = 'icon24 uiStatusBad'
-				$('.linkActive').addClass('inactive');
-			}
-			$('#uiStatusIcon').attr('class', uiStatusClass);
+    // _canClick is used to disable clicks for a short period after each click (to avoid mis-clicks)
+    var _canClick = true;
+    
+    var _baseBeforeUpdateCallbacks = {}
+    
+    var _baseAfterUpdateCallbacks = {
+        // this callback is triggered after new data is processed
+        // it updates the status/visibility icon and adds click event handling to buttons/links     
+        status: function (updateData) {
+            var uiStatusClass;
+            if (updateData['config']['status'] == 2)
+            {
+                uiStatusClass = 'good';
+                $('.linkActive').removeClass('inactive');
+            }
+            else if (updateData['config']['status'] == 1)
+            {
+                uiStatusClass = 'average';
+                $('.linkActive').addClass('inactive');
+            }
+            else
+            {
+                uiStatusClass = 'bad'
+                $('.linkActive').addClass('inactive');
+            }
+            $('.statusicon').each( function(i, obj) {
+                obj.className = obj.className.replace(/good|bad|average/g, "");
+                obj.classList.add(uiStatusClass);
+            });
 
-			$('.linkActive').stopTime('linkPending');
-			$('.linkActive').removeClass('linkPending');
+            $('.linkActive').stopTime('linkPending');
+            $('.linkActive').removeClass('linkPending');
 
-			$('.linkActive')
+            $('.linkActive')
                 .off('click')
-			    .on('click', function (event) {
+                .on('click', function (event) {
                     event.preventDefault();
                     var href = $(this).data('href');
                     if (href != null && _canClick)
@@ -53,7 +56,7 @@ NanoBaseCallbacks = function ()
                 });
 
             return updateData;
-		},
+        },
         nanomap: function (updateData) {
             $('.mapIcon')
                 .off('mouseenter mouseleave')
@@ -92,21 +95,21 @@ NanoBaseCallbacks = function ()
 
             return updateData;
         }
-	};
+    };
 
-	return {
-		addCallbacks: function () {
-			NanoStateManager.addBeforeUpdateCallbacks(_baseBeforeUpdateCallbacks);
-			NanoStateManager.addAfterUpdateCallbacks(_baseAfterUpdateCallbacks);
-		},
-		removeCallbacks: function () {
-			for (var callbackKey in _baseBeforeUpdateCallbacks)
-			{
-				if (_baseBeforeUpdateCallbacks.hasOwnProperty(callbackKey))
-				{
-					NanoStateManager.removeBeforeUpdateCallback(callbackKey);
-				}
-			}
+    return {
+        addCallbacks: function () {
+            NanoStateManager.addBeforeUpdateCallbacks(_baseBeforeUpdateCallbacks);
+            NanoStateManager.addAfterUpdateCallbacks(_baseAfterUpdateCallbacks);
+        },
+        removeCallbacks: function () {
+            for (var callbackKey in _baseBeforeUpdateCallbacks)
+            {
+                if (_baseBeforeUpdateCallbacks.hasOwnProperty(callbackKey))
+                {
+                    NanoStateManager.removeBeforeUpdateCallback(callbackKey);
+                }
+            }
             for (var callbackKey in _baseAfterUpdateCallbacks)
             {
                 if (_baseAfterUpdateCallbacks.hasOwnProperty(callbackKey))
@@ -115,7 +118,7 @@ NanoBaseCallbacks = function ()
                 }
             }
         }
-	};
+    };
 } ();
  
 
