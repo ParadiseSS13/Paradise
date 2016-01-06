@@ -205,7 +205,7 @@
 /obj/item/weapon/sentience_potion/afterattack(mob/living/M, mob/user)
 	if(being_used || !ismob(M))
 		return
-	if(!isslime(M) && !isanimal(M) || M.ckey) //only works on animals that aren't player controlled
+	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
 		user << "<span class='warning'>[M] is already too intelligent for this to work!</span>"
 		return ..()
 	if(M.stat)

@@ -1,8 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - rscadd: "Implements the timestop spell."
-  - rscadd: "Implements new sepia slime reaction which halts time in an AoE."
