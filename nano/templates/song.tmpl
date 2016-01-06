@@ -32,17 +32,19 @@ Used In File(s): \code\game\objects\structures\musician.dm
 </div>
 
 <h3>Editor</h3>
-{{for data.lines}}
-	<div class="line" style="padding:4px;{{if index % 2 == 1}}background-color: #444{{/if}}">
-		<div class="floatLeft highlight">{{:index + 1}}:&nbsp;</div>
-		<div class="floatRight">
-			{{:helper.link('Edit', 'pencil', {'modifyline': index+1}, data.playing ? 'disabled' : null)}}
-			{{:helper.link('Insert', 'arrowreturn-1-n', {'insertline': index+1}, data.playing ? 'disabled' : null)}}
-			{{:helper.link('Delete', 'trash', {'deleteline': index+1}, data.playing ? 'disabled' : null)}}
+<div class="striped">
+	{{for data.lines}}
+		<div class="line" style="padding:4px">
+			<div class="floatLeft highlight">{{:index + 1}}:&nbsp;</div>
+			<div class="floatRight">
+				{{:helper.link('Edit', 'pencil', {'modifyline': index+1}, data.playing ? 'disabled' : null)}}
+				{{:helper.link('Insert', 'arrowreturn-1-n', {'insertline': index+1}, data.playing ? 'disabled' : null)}}
+				{{:helper.link('Delete', 'trash', {'deleteline': index+1}, data.playing ? 'disabled' : null)}}
+			</div>
+			<div>{{:value}}</div>
 		</div>
-		<div>{{:value}}</div>
-	</div>
-{{/for}}
+	{{/for}}
+</div>
 <div class="floatRight">
 	{{:helper.link('Add Line', 'arrowreturn-1-s', {'insertline': data.lines.length + 1}, data.playing ? 'disabled' : null)}}
 </div>
