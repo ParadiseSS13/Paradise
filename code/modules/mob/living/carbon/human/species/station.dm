@@ -111,7 +111,7 @@
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
-	name_plural = "Vulpakanin"
+	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	path = /mob/living/carbon/human/vulpkanin
