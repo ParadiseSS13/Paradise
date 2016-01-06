@@ -1135,7 +1135,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						ha_style = "None" // No Vulp ears on Unathi
 						m_style = "None" // No Unathi markings on Tajara
 
-						body_accessory = null //no vulpatail on humans damnit
+						body_accessory = null //no vulptail on humans damnit
 				if("speciesprefs")//oldvox code
 					speciesprefs = !speciesprefs
 

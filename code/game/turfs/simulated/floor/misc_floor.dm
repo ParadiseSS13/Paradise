@@ -55,3 +55,14 @@
 /turf/simulated/floor/beach/water/New()
 	..()
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
+
+/turf/simulated/floor/noslip
+	name = "high-traction floor"
+	icon_state = "noslip"
+	floor_tile = /obj/item/stack/tile/noslip
+	broken_states = list("noslip-damaged1","noslip-damaged2","noslip-damaged3")
+	burnt_states = list("noslip-scorched1","noslip-scorched2")
+	slowdown = -0.3
+
+/turf/simulated/floor/noslip/MakeSlippery()
+	return

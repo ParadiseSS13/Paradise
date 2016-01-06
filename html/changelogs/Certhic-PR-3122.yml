@@ -1,0 +1,6 @@
+author: Certhic
+
+delete-after: True
+
+changes:
+  - bugfix: "Corrected some air alarms so that atmos computer can access them"

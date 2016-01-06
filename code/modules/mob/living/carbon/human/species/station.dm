@@ -111,7 +111,7 @@
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
-	name_plural = "Vulpakanin"
+	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	path = /mob/living/carbon/human/vulpkanin
@@ -173,6 +173,7 @@
 
 	default_language = "Galactic Common"
 	language = "Vox-pidgin"
+	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
@@ -199,11 +200,15 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
+	bodyflags = HAS_TAIL | TAIL_WAGGING
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
+
+/datum/species/vox/handle_death(var/mob/living/carbon/human/H)
+	H.stop_tail_wagging(1)
 
 /datum/species/vox/makeName(var/gender,var/mob/living/carbon/human/H=null)
 	var/sounds = rand(2,8)

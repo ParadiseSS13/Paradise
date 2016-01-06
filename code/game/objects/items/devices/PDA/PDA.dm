@@ -955,7 +955,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(!silent) O.show_message(text("\icon[src] *[ttone]*"))
 
 /obj/item/device/pda/verb/verb_remove_id()
-	set category = null
+	set category = "Object"
 	set name = "Remove id"
 	set src in usr
 
@@ -972,7 +972,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 
 /obj/item/device/pda/verb/verb_remove_pen()
-	set category = null
+	set category = "Object"
 	set name = "Remove pen"
 	set src in usr
 
