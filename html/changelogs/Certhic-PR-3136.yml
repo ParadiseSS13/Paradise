@@ -1,6 +1,0 @@
-author: Certhic
-
-delete-after: True
-
-changes:
-  - bugfix: "Bodyscanner now sees mechanical parts in internal organs"
