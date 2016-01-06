@@ -100,7 +100,6 @@
 	if(volume >= 1)
 		if(T)
 			T.color = initial(T.color)
-		T.overlays.Cut()
 		T.clean_blood()
 		for(var/obj/effect/decal/cleanable/C in src)
 			qdel(C)
