@@ -100,7 +100,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return 0
 
 
-//vulpakin
+//Vulpkanin
 /datum/body_accessory/tail/vulpkanin_2
 	name = "Vulpkanin Alt 1 (Bushy)"
 
