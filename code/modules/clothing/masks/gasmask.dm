@@ -25,6 +25,7 @@
 	flash_protect = 2
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	species_fit = list("Vox")
 	origin_tech = "materials=2;engineering=2"
 	action_button_name = "Toggle Welding Helmet"
 
@@ -206,7 +207,7 @@
 	var/aggressiveness = 2
 	var/safety = 1
 	ignore_maskadjust = 0
-	species_fit = list()
+	species_fit = list("Vox")
 	action_button_name = "HALT!"
 
 /obj/item/clothing/mask/gas/sechailer/swat
