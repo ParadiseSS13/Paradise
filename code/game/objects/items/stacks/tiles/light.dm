@@ -17,6 +17,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	var/on = 1
 	var/state = LIGHTFLOOR_ON
+	turf_type = /turf/simulated/floor/light
 
 /obj/item/stack/tile/light/proc/color_desc()
 	switch(state)
