@@ -758,6 +758,9 @@ th.misc {
 .striped tr:nth-child(even) {
   background-color: #404040;
 }
+.striped:not(table) > :nth-child(even) {
+  background-color: #404040;
+}
 .itemGroup {
   border: 1px solid #e9c183;
   background: #2c2c2c;
