@@ -116,6 +116,7 @@
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/weapon/storage/box/fakesyndiesuit,
 		/obj/item/toy/crossbow/tommygun,
+		/obj/item/stack/tile/fakespace/loaded,
 		)
 
 	if(!ispath(gift_type,/obj/item))	return

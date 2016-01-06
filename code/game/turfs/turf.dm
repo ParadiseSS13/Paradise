@@ -4,6 +4,7 @@
 	luminosity = 1
 
 	var/intact = 1
+	var/slowdown = 0 //negative for faster, positive for slower
 
 	//Properties for open tiles (/floor)
 	var/oxygen = 0

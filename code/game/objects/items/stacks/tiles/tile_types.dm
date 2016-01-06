@@ -71,3 +71,25 @@
 	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
+
+/obj/item/stack/tile/fakespace
+	name = "astral carpet"
+	singular_name = "astral carpet"
+	desc = "A piece of carpet with a convincing star pattern."
+	icon_state = "tile_space"
+	turf_type = /turf/simulated/floor/fakespace
+
+/obj/item/stack/tile/fakespace/loaded
+	amount = 30
+
+//High-traction
+/obj/item/stack/tile/noslip
+	name = "high-traction floor tile"
+	singular_name = "high-traction floor tile"
+	desc = "A high-traction floor tile. It feels rubbery in your hand."
+	icon_state = "tile_noslip"
+	turf_type = /turf/simulated/floor/noslip
+	origin_tech = "materials=3"
+
+/obj/item/stack/tile/noslip/loaded
+	amount = 20
