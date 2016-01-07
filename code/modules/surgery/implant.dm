@@ -73,6 +73,8 @@
 	user.visible_message("\blue [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].", \
 	"\blue You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]." )
 
+	return 1
+
 /datum/surgery_step/cavity/close_space
 	priority = 2
 	allowed_tools = list(
@@ -102,6 +104,9 @@
 	user.visible_message("\blue [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].", \
 	"\blue You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool]." )
 
+	return 1
+
+
 /datum/surgery_step/cavity/place_item
 	priority = 0
 	allowed_tools = list(/obj/item = 100)
@@ -129,6 +134,7 @@
 
 	if(istype(tool, /obj/item/weapon/disk/nuclear))
 		user << "Central command would kill you if you implanted the disk into someone."
+		return 0//fail
 	else
 		user.visible_message("\blue [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"\blue You put \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
@@ -142,6 +148,8 @@
 		target.internal_organs += tool
 		tool.loc = target
 		affected.cavity = 0
+
+		return 1
 
 //////////////////////////////////////////////////////////////////
 //					IMPLANT/ITEM REMOVAL SURGERY						//
@@ -208,9 +216,12 @@
 				var/obj/item/weapon/implant/imp = obj
 				imp.imp_in = null
 				imp.implanted = 0
+
+			return 1
 		else
 			user.visible_message("\blue [user] removes \the [tool] from [target]'s [affected.name].", \
 			"\blue There's something inside [target]'s [affected.name], but you just missed it this time." )
+			return -1 //or maybe 0....
 	else if (affected.hidden)
 		user.visible_message("\blue [user] takes something out of incision on [target]'s [affected.name] with \the [tool].", \
 		"\blue You take something out of incision on [target]'s [affected.name]s with \the [tool]." )
@@ -220,10 +231,12 @@
 		affected.hidden.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
 		affected.hidden.update_icon()
 		affected.hidden = null
+		return 1
 
 	else
 		user.visible_message("\blue [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.", \
 		"\blue You could not find anything inside [target]'s [affected.name]." )
+		return -1
 
 /datum/surgery_step/cavity/implant_removal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	..()
@@ -237,4 +250,5 @@
 			playsound(imp.loc, 'sound/items/countdown.ogg', 75, 1, -3)
 			spawn(25)
 				imp.activate()
+	return 0
 

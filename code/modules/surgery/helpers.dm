@@ -4,10 +4,8 @@
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
 		var/selected_zone = user.zone_sel.selecting
-		world << "line 8"
 		if(istype(M, /mob/living/carbon/human))
 			H = M
-			world <<"line 10"
 			affecting = H.get_organ(check_zone(selected_zone))
 
 		if(can_operate(H))	//if they're prone or a slime
@@ -17,37 +15,26 @@
 			for(var/datum/surgery/S in M.surgeries)
 				if(S.location == selected_zone)
 					current_surgery = S
-					world << "[S]"
 
 			if(!current_surgery)
 				var/list/all_surgeries = surgeries_list.Copy()
 				var/list/available_surgeries = list()
-				world << "line 24"
 
 				for(var/datum/surgery/S in all_surgeries)
 					if(!S.possible_locs.Find(selected_zone))
-						world << "line 29"
-						world << "[selected_zone]"
 						continue
 					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
-						world << "line 30"
 						continue
 					if(!S.can_start(user, M))
-						world << "line 31"
 						continue
 
 					for(var/path in S.allowed_species)
-						world << "[path]"
-						world << "[M]"
 						if(istype(M, path))
-							world << "line 32"
-							world << "[path]"
 							available_surgeries[S.name] = S
 							break
 
 				var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
 				if(P && user && user.Adjacent(M) && (I in user))
-					world << "line 40"
 					var/datum/surgery/S = available_surgeries[P]
 					var/datum/surgery/procedure = new S.type
 					if(procedure)
@@ -89,5 +76,7 @@ proc/get_location_modifier(mob/M)
 	else
 		return 0.5
 
+
+//just until i update maps....
 /obj/item/organ/brain/New()
 	new /obj/item/organ/internal/brain(src.loc)

@@ -8,12 +8,16 @@
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/external/repair_brute,/datum/surgery_step/robotics/external/repair_burn,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	requires_organic_bodypart = 0
+	allowed_species = list(/mob/living/carbon/human/machine)
+	disallowed_species = list(/mob/living/carbon/human)
 
 /datum/surgery/cybernetic_repair
-	name = "Cybernetic Mainpulation"
+	name = "Internal Cybernetic Mainpulation"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
 	possible_locs = list("chest","head","groin")
 	requires_organic_bodypart = 0
+	allowed_species = list(/mob/living/carbon/human/machine)
+	disallowed_species = list(/mob/living/carbon/human)
 
 
 //to do, moar surgerys or condense down ala mainpulate organs.

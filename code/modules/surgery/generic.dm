@@ -56,6 +56,7 @@
 	affected.createwound(CUT, 1)
 	affected.clamp()
 	spread_germs_to_organ(affected, user)
+	return 1
 
 /datum/surgery_step/generic/cut_with_laser/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -63,6 +64,7 @@
 	"\red Your hand slips as the blade sputters, searing a long gash in [target]'s [affected.name] with \the [tool]!")
 	affected.createwound(CUT, 7.5)
 	affected.createwound(BURN, 12.5)
+	return 0
 
 /datum/surgery_step/generic/incision_manager
 	allowed_tools = list(
@@ -97,12 +99,16 @@
 	affected.clamp()
 	affected.open = 2
 
+	return 1
+
 /datum/surgery_step/generic/incision_manager/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\red [user]'s hand jolts as the system sparks, ripping a gruesome hole in [target]'s [affected.name] with \the [tool]!", \
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("\red [user]'s hand jolts as the system sparks, ripping a gruesome hole in [target]'s [affected.name] with \the [tool]!", \
 		"\red Your hand jolts as the system sparks, ripping a gruesome hole in [target]'s [affected.name] with \the [tool]!")
-		affected.createwound(CUT, 20)
-		affected.createwound(BURN, 15)
+	affected.createwound(CUT, 20)
+	affected.createwound(BURN, 15)
+
+	return 2
 
 /datum/surgery_step/generic/cut_open
 	allowed_tools = list(
@@ -115,8 +121,6 @@
 	max_duration = 110
 
 /datum/surgery_step/generic/cut_open/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if (!ishuman(target) || !isalien(target))
-		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	return ..() && affected.open == 0 && target_zone != "mouth"
 
@@ -128,20 +132,22 @@
 		..()
 
 /datum/surgery_step/generic/cut_open/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] has made an incision on [target]'s [affected.name] with \the [tool].", \
-		"\blue You have made an incision on [target]'s [affected.name] with \the [tool].",)
-		affected.open = 1
-		affected.status |= ORGAN_BLEEDING
-		affected.createwound(CUT, 1)
-		//if (target_zone == "head")
-		//	target.brain_op_stage = 1
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("\blue [user] has made an incision on [target]'s [affected.name] with \the [tool].", \
+	"\blue You have made an incision on [target]'s [affected.name] with \the [tool].",)
+	affected.open = 1
+	affected.status |= ORGAN_BLEEDING
+	affected.createwound(CUT, 1)
+	//if (target_zone == "head")
+	//	target.brain_op_stage = 1
+	return 1
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\red [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!", \
-		"\red Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!")
-		affected.createwound(CUT, 10)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("\red [user]'s hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!", \
+	"\red Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!")
+	affected.createwound(CUT, 10)
+	return 0
 
 /datum/surgery_step/generic/clamp_bleeders
 	allowed_tools = list(
@@ -167,17 +173,19 @@
 		..()
 
 /datum/surgery_step/generic/clamp_bleeders/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\blue [user] clamps bleeders in [target]'s [affected.name] with \the [tool].",	\
-		"\blue You clamp bleeders in [target]'s [affected.name] with \the [tool].")
-		affected.clamp()
-		spread_germs_to_organ(affected, user)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("\blue [user] clamps bleeders in [target]'s [affected.name] with \the [tool].",	\
+	"\blue You clamp bleeders in [target]'s [affected.name] with \the [tool].")
+	affected.clamp()
+	spread_germs_to_organ(affected, user)
+	return 1
 
 /datum/surgery_step/generic/clamp_bleeders/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("\red [user]'s hand slips, tearing blood vessals and causing massive bleeding in [target]'s [affected.name] with \the [tool]!",	\
-		"\red Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!",)
-		affected.createwound(CUT, 10)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("\red [user]'s hand slips, tearing blood vessals and causing massive bleeding in [target]'s [affected.name] with \the [tool]!",	\
+	"\red Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!",)
+	affected.createwound(CUT, 10)
+	return 0
 
 /datum/surgery_step/generic/retract_skin
 	allowed_tools = list(
@@ -219,6 +227,7 @@
 		self_msg = "\blue You keep the incision open on [target]'s lower abdomen with \the [tool]."
 	user.visible_message(msg, self_msg)
 	affected.open = 2
+	return 1
 
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -232,6 +241,7 @@
 		self_msg = "\red Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!"
 	user.visible_message(msg, self_msg)
 	target.apply_damage(12, BRUTE, affected, sharp=1)
+	return 0
 
 /datum/surgery_step/generic/cauterize
 	allowed_tools = list(
@@ -262,12 +272,14 @@
 	affected.open = 0
 	affected.germ_level = 0
 	affected.status &= ~ORGAN_BLEEDING
+	return 1
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("\red [user]'s hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!", \
 	"\red Your hand slips, leaving a small burn on [target]'s [affected.name] with \the [tool]!")
 	target.apply_damage(3, BURN, affected)
+	return 0
 
 
 /datum/surgery_step/generic/amputate
@@ -305,6 +317,7 @@
 	user.visible_message("\blue [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].", \
 	"\blue You amputate [target]'s [affected.name] with \the [tool].")
 	affected.droplimb(1,DROPLIMB_EDGE)
+	return 1
 
 /datum/surgery_step/generic/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -312,3 +325,4 @@
 	"\red Your hand slips, sawwing through the bone in [target]'s [affected.name] with \the [tool]!")
 	affected.createwound(CUT, 30)
 	affected.fracture()
+	return 0

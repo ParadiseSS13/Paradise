@@ -70,6 +70,8 @@
 	ticker.mode.remove_thrall(target.mind,0)
 	new /obj/item/organ/internal/shadowtumor(get_turf(target))
 
+	return 1
+
 /datum/surgery_step/internal/dethrall/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
 	if(prob(50))
@@ -77,8 +79,11 @@
 							 "<span class='warning'><b>You fumble and tear out [target]'s tumor!</span>")
 		target.adjustBrainLoss(110) // This is so you can't just defib'n go
 		ticker.mode.remove_thrall(target.mind,1)
+
+		return 0
 	else
 		user.visible_message("<span class='warning'>[user]'s hand slips and fumbles! Luckily, they didn't damage anything!</span>")
+		return 0
 
 //////////////////////////////////////////////////////////////////
 //					ALIEN EMBRYO SURGERY						//
@@ -88,7 +93,7 @@
 	possible_locs = list("chest")
 
 
-/datum/surgery_step/internal/remove_embryo
+/datum/surgery_step/internal/remove_embryo//might can just do this in organ mainpulation..but this is TARGETED for..
 	allowed_tools = list(
 	/obj/item/weapon/hemostat = 100,	\
 	/obj/item/weapon/wirecutters = 75,	\
@@ -99,51 +104,55 @@
 	min_duration = 80
 	max_duration = 100
 
-	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/embryo = 0
-		var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-		if(A)
-			embryo = 1
-			//break
+/datum/surgery_step/internal/remove_embryo/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/embryo = 0
+	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+	if(A)
+		embryo = 1
+		//break
 
-		if (!hasorgans(target))
-			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return ..() && affected && embryo && affected.open_enough_for_surgery() && target_zone == "chest"
+	if (!hasorgans(target))
+		return
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	return ..() && affected && embryo && affected.open_enough_for_surgery() && target_zone == "chest"
 
-	begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/internal/remove_embryo/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		var/msg = "[user] starts to pull something out from [target]'s ribcage with \the [tool]."
 		var/self_msg = "You start to pull something out from [target]'s ribcage with \the [tool]."
 		user.visible_message(msg, self_msg)
 		target.custom_pain("Something hurts horribly in your chest!",1)
 		..()
 
-	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		user.visible_message("\red [user] rips the larva out of [target]'s ribcage!",
-							 "You rip the larva out of [target]'s ribcage!")
+/datum/surgery_step/internal/remove_embryo/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	user.visible_message("\red [user] rips the larva out of [target]'s ribcage!",
+						 "You rip the larva out of [target]'s ribcage!")
 
-		var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-		if(A)
-			user << "<span class='notice'>You found an unknown alien organism in [target]'s chest!</span>"
-			if(prob(10))
-				A.AttemptGrow()
+	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+	if(A)
+		user << "<span class='notice'>You found an unknown alien organism in [target]'s chest!</span>"
+		if(prob(10))
+			A.AttemptGrow()
 
-		A.remove(target)
-		A.loc = get_turf(target)
+	A.remove(target)
+	A.loc = get_turf(target)
 
-	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	return 1
 
-		if (!hasorgans(target))
-			return
+/datum/surgery_step/internal/remove_embryo/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
-		var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-		if(A)
-			if(prob(50))
-				A.AttemptGrow(0)
-				user.visible_message("<span class='warning'>[user] accidentally pokes the xenomorph in [target]!</span>", "<span class='warning'>You accidentally poke the xenomorph in [target]!</span>")
-			else
-				target.adjustOxyLoss(30)
-				user.visible_message("<span class='warning'>[user] accidentally pokes [target] in the lungs!</span>", "<span class='warning'>You accidentally poke [target] in the lungs!</span>")
+	if (!hasorgans(target))
+		return
+
+	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+	if(A)
+		if(prob(50))
+			A.AttemptGrow(0)
+			user.visible_message("<span class='warning'>[user] accidentally pokes the xenomorph in [target]!</span>", "<span class='warning'>You accidentally poke the xenomorph in [target]!</span>")
+		else
+			target.adjustOxyLoss(30)
+			user.visible_message("<span class='warning'>[user] accidentally pokes [target] in the lungs!</span>", "<span class='warning'>You accidentally poke [target] in the lungs!</span>")
+
+	return 0
 
 
 /datum/surgery_step/internal/manipulate_organs
@@ -192,7 +201,7 @@
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!organs.len)
-			user << "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>"
+			user << "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>"
 			return -1
 		else
 			for(var/obj/item/organ/internal/O in organs)
