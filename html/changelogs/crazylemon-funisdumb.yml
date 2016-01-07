@@ -1,0 +1,7 @@
+author: Crazylemon
+
+delete-after: True
+
+changes: 
+  - rscadd: "Fully enables a system to allow species to have unique procs and verbs that come and go with the species."
+  - rscdel: "IPCs lose their change monitor verb when changing species now. Gone are the days of recalling a past IPC life to perform self-barbery! Oh, woe is me!"
