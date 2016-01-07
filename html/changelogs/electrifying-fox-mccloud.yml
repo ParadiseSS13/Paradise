@@ -1,0 +1,8 @@
+
+author: Fox McCloud
+
+delete-after: True
+
+changes: 
+  - rscadd: "Adds in overloading APCs, causing them to arc electricity to mobs in range."
+  - tweak: "Makes Engineering related APCs overload proof."
