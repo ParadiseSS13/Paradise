@@ -234,6 +234,29 @@
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),10)]"
 
+/obj/item/ammo_box/magazine/m762/buckshot
+	name = "box magazine (buckshot)"
+	icon_state = "b762"
+	caliber = "shotgun"
+	ammo_type ="/obj/item/ammo_casing/shotgun/buckshot"
+	max_ammo = 300 // Bluespace!
+
+/obj/item/ammo_box/magazine/m762/buckshot/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),60)]"
+
+/obj/item/ammo_box/magazine/m762/he // I am not a good person.
+	name = "box magazine (40mm high explosive)"
+	icon_state = "g762"
+	caliber = "40mm"
+	ammo_type ="/obj/item/ammo_casing/a40mm"
+	max_ammo = 25
+
+/obj/item/ammo_box/magazine/m762/he/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),5)]"
+
+
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	icon_state = "m12gb"

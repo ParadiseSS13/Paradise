@@ -148,6 +148,8 @@
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/update_icon()
+	if(magizine && magazine.caliber != "a762")
+		icon_state = "l6[cover_open ? "open" : "closed"]0"
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? round(magazine.ammo_count() * 2, 25) : "-empty"]"
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
@@ -178,6 +180,15 @@
 		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
 		return
 	..()
+
+/obj/item/weapon/gun/projectile/automatic/l6_saw/devastator
+	name = "\improper 'Devastator' LMG"
+	desc = "A heavily modified L6 SAW designed to chamber wide rounds. Commonly used by elite Syndicate boarding teams "
+	mag_type = "/obj/item/ammo_box/magazine/m762/buckshot"
+
+/obj/item/weapon/gun/projectile/automatic/l6_saw/devastator/New()
+	..()
+	mag_type = "/obj/item/ammo_box/magazine/m762" // Workaround so it spawns with a shotgun mag loaded, but can still load regular LMG mags.
 
 /obj/item/weapon/gun/projectile/automatic/m90
 	name = "\improper M-90gl Carbine"
