@@ -42,10 +42,9 @@
 		if(wizard.current.stat==DEAD)
 			if(istype(wizard.current.get_area(), /area/wizard_station)) // We don't want people camping other wizards
 				var/old_wiz = wizard.current
-				wizard.current.ghostize()
-				message_admins("[old_wiz] died in the wizard lair, another wizard is likely camping")
 				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
-				qdel(old_wiz)
+				message_admins("[old_wiz] died in the wizard lair, another wizard is likely camping")
+				end_squabble(old_wiz.get_area())
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0 && !istype(wizard.current.get_area(), /area/wizard_station))
@@ -57,7 +56,7 @@
 			wizard.current.gib() // Let's keep the round moving
 			continue
 		if(!wizard.current.client)
-			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it
+			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
 	if (wizards_alive)
@@ -72,6 +71,21 @@
 		else
 			make_more_mages()
 	return ..()
+
+// To silence all struggles within the wizard's lair
+/datum/game_mode/wizard/raginmages/proc/end_squabble(var/area/wizard_station/A)
+	if(!istype(A)) return // You could probably do mean things with this otherwise
+	for(var/mob/living/carbon/human/H in A)
+		if(H.client)
+			for(var/datum/mind/M in wizards)
+				if(istype(M) && M.current == H)
+					mages_made -= 1
+					wizards -= M // No, you don't get to occupy a slot
+			H << "<span class='userdanger'>STOP FIGHTING.</span>"
+			H.gib()
+	for(var/obj/item/weapon/spellbook/B in A)
+		// No goodies for you
+		qdel(B)
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
