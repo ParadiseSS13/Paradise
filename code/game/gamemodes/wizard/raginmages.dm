@@ -3,23 +3,22 @@
 	config_tag = "raginmages"
 	required_players = 1
 	required_players_secret = 15
+	use_huds = 1
 	var/max_mages = 0
 	var/making_mage = 0
 	var/mages_made = 1
 	var/time_checked = 0
+	var/players_per_mage = 5 // If the admin wants to tweak things or something
 
-/datum/game_mode/wizard/announce()
+/datum/game_mode/wizard/raginmages/announce()
 	world << "<B>The current game mode is - Ragin' Mages!</B>"
 	world << "<B>The \red Space Wizard Federation\black is pissed, help defeat all the space wizards!</B>"
 
-/datum/game_mode/wizard/raginmages/post_setup()
-	var/playercount = 0
-	..()
+/datum/game_mode/wizard/raginmages/pre_setup()
+	. = ..()
 	if(!max_mages)
-		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != DEAD)
-				playercount += 1
-			max_mages = round(playercount / 5)
+		max_mages = round(num_players() / players_per_mage)
+
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if (you_are)
@@ -45,7 +44,7 @@
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
 				wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
-				wizard.current.death()
+				wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
 		wizards_alive++
 
@@ -101,12 +100,12 @@
 				theghost = i
 				break
 
-		if(theghost)
-			var/mob/living/carbon/human/new_character= makeBody(theghost)
-			new_character.mind.make_Wizard()
 			making_mage = 0
-			mages_made++
-			return 1
+			if(theghost)
+				var/mob/living/carbon/human/new_character= makeBody(theghost)
+				new_character.mind.make_Wizard()
+				mages_made++
+				return 1
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
