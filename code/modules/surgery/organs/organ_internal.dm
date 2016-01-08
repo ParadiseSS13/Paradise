@@ -65,7 +65,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/organ/New()
 	..()
 
-	reagents.add_reagent("nutriment" = 5)
+	reagents.add_reagent("nutriment", 5)
 
 
 /obj/item/organ/internal/Destroy()

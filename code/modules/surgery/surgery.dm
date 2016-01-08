@@ -182,38 +182,6 @@
 	if(!(E.status & ORGAN_ROBOT)) //Germs on robotic limbs bad
 		E.germ_level = max(germ_level,E.germ_level) //as funny as scrubbing microbes out with clean gloves is - no.
 
-/proc/do_surgery(mob/living/carbon/M, mob/living/user, obj/item/tool,datum/surgery/surgery)
-	if(!istype(M))
-		return 0
-	if (user.a_intent == I_HARM)	//check for Hippocratic Oath
-		return 0
-	var/zone = user.zone_sel.selecting
-	if(zone in surgery.step_in_progress) //Can't operate on someone repeatedly.
-		user << "\red You can't operate on this area while surgery is already in progress."
-		return 1
-	for(var/datum/surgery_step/S in surgery_steps)
-		//check if tool is right or close enough and if this step is possible
-		if(S.tool_quality(tool))
-			var/step_is_valid = S.can_use(user, M, zone, tool)
-			if(step_is_valid && S.is_valid_target(M))
-				if(step_is_valid == 2) // This is a failure that already has a message for failing.
-					return 1
-				surgery.step_in_progress += zone
-				S.begin_step(user, M, zone, tool)		//start on it
-				//We had proper tools! (or RNG smiled.) and user did not move or change hands.
-				if(prob(S.tool_quality(tool)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
-					S.end_step(user, M, zone, tool)		//finish successfully
-				else if ((tool in user.contents) && user.Adjacent(M))			//or
-					S.fail_step(user, M, zone, tool)		//malpractice~
-				else // This failing silently was a pain.
-					user << "<span class='warning'>You must remain close to your patient to conduct surgery.</span>"
-				surgery.step_in_progress = 0									// Clear the in-progress flag.
-				return	1	  												//don't want to do weapony things after surgery
-
-	if (user.a_intent == I_HELP)
-		user << "<span class='warning'>You can't see any useful way to use [tool] on [M].</span>"
-		return 1
-	return 0
 
 /proc/sort_surgeries()
 	var/gap = surgery_steps.len

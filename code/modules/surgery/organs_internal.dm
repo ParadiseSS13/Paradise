@@ -179,6 +179,7 @@
 	I = null
 	affected = target.get_organ(target_zone)
 	if(isorgan(tool))
+		world << "Insert"
 		current_type = "insert"
 		I = tool
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -197,7 +198,7 @@
 		"You start transplanting \the [tool] into [target]'s [affected.name].")
 		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
 
-	else if(tool in implements_extract)
+	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!organs.len)
@@ -219,7 +220,7 @@
 			else
 				return -1
 
-	else if(tool in implements_mend)
+	else if(implement_type in implements_mend)
 		//todo Change message, make it heal the organs...
 		current_type = "mend"
 		var/tool_name = "\the [tool]"

@@ -249,7 +249,7 @@
 
 	I = null
 	affected = target.get_organ(target_zone)
-	if(tool in implements_insert)
+	if(implement_type in implements_insert)
 		current_type = "insert"
 		//I = tool
 		var/off_tool = user.get_inactive_hand()
@@ -312,7 +312,7 @@
 		user.visible_message("[user] starts installing \the [tool] into [target]'s [affected.name].", \
 		"You start installing \the [tool] into [target]'s [affected.name].")
 
-	else if(tool in implements_extract)
+	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
 		if(!(affected && (affected.status & ORGAN_ROBOT)))
@@ -339,7 +339,7 @@
 			else
 				return -1
 
-	else if(tool in implements_mend)
+	else if(implement_type in implements_mend)
 		current_type = "mend"
 		if (!hasorgans(target))
 			return

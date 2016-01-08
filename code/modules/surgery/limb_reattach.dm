@@ -3,6 +3,54 @@
 //						LIMB SURGERY							//
 //////////////////////////////////////////////////////////////////
 
+/datum/surgery/amputation
+	name = "amputation"
+	steps = list(/datum/surgery_step/generic/amputate)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
+
+/datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(affected.cannot_amputate)
+			return 0
+		if(affected.status && ORGAN_DESTROYED)
+			return 0
+
+	return 1
+
+
+/datum/surgery/reattach
+	name = "limb attachment"
+	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
+/datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(affected.status && ~ORGAN_DESTROYED)
+			return 0
+
+	return 1
+
+cannot_amputate
+/datum/surgery/robo_attach
+	name = "robotic limb attachment"
+	steps = list(/datum/surgery_step/limb/mechanize)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
+/datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+
+		if(affected.status && ~ORGAN_DESTROYED)
+			return 0
+
+	return 1
 
 /datum/surgery_step/limb/
 	priority = 3 // Must be higher than /datum/surgery_step/internal

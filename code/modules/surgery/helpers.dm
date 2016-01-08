@@ -1,4 +1,4 @@
-/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user)
+/proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
 	world << "[istype(M)]"
 	if(istype(M))
 		var/mob/living/carbon/human/H
@@ -33,16 +33,37 @@
 							available_surgeries[S.name] = S
 							break
 
-				var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
-				if(P && user && user.Adjacent(M) && (I in user))
-					var/datum/surgery/S = available_surgeries[P]
-					var/datum/surgery/procedure = new S.type
-					if(procedure)
-						procedure.location = selected_zone
-						M.surgeries += procedure
-						procedure.organ_ref = affecting
-						user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
-						"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
+				if(override)
+					if(I == /obj/item/weapon/circular_saw)
+						var/datum/surgery/S = available_surgeries["amputation"]
+						if(S)//we might be targetting a zone without the named procedure.
+							var/datum/surgery/procedure = new S.type
+							if(procedure)
+								procedure.location = selected_zone
+								M.surgeries += procedure
+								procedure.organ_ref = affecting
+								procedure.next_step(user, M)
+					else if(I == /obj/item/robot_parts)
+						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
+						if(S)//we might be targetting a zone without the named procedure.
+							var/datum/surgery/procedure = new S.type
+							if(procedure)
+								procedure.location = selected_zone
+								M.surgeries += procedure
+								procedure.organ_ref = affecting
+								procedure.next_step(user, M)
+
+				else
+					var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in available_surgeries
+					if(P && user && user.Adjacent(M) && (I in user))
+						var/datum/surgery/S = available_surgeries[P]
+						var/datum/surgery/procedure = new S.type
+						if(procedure)
+							procedure.location = selected_zone
+							M.surgeries += procedure
+							procedure.organ_ref = affecting
+							user.visible_message("[user] prepares to operate on [M]'s [parse_zone(selected_zone)].", \
+							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
 
 			else if(!current_surgery.step_in_progress)
 				if(current_surgery.status == 1)
