@@ -4,6 +4,6 @@ author: Dave The Headcrab
 delete-after: True
 
 changes: 
-  - rscadd: "Adds the asset protection energy gun, toggles between taser and laser modes."
-  - rscdel: "Removes the revolver from the blueshield's locker."
-  - tweak: "Changes the taser the blueshield starts with into an asset protection energy gun."
+  - rscadd: "Adds the advanced energy revolver, toggles between taser and laser modes."
+  - rscdel: "Removes the detective's revolver from the blueshield's locker."
+  - tweak: "Changes the taser the blueshield starts with into an advanced energy revolver."
