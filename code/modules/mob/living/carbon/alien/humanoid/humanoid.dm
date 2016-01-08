@@ -207,7 +207,7 @@
 			var/damage = rand(1, 9)
 			if (prob(90))
 				if (HULK in M.mutations)//HULK SMASH
-					damage += 14
+					damage = 15
 					spawn(0)
 						Paralyse(1)
 						step_away(src,M,15)
