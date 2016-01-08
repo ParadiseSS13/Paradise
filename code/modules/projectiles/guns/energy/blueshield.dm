@@ -1,11 +1,11 @@
 /obj/item/weapon/gun/energy/blueshield
-	name = "asset protection energy gun"
-	desc = "A sidearm designed for use by Blueshields after failed attempts at a less-lethal ballistic option. Can be toggled between stun and kill."
+	name = "advanced stun revolver"
+	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
 	icon_state = "bsgun_stun"
 	item_state = "gun"
 	modifystate = "bsgun_stun"
 	force = 7
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/gunshot.ogg'
 	charge_cost = 2000
 	projectile_type = "/obj/item/projectile/energy/electrode"
 	fire_delay = 15
@@ -29,7 +29,7 @@
 		fire_delay = 15
 
 		projectile_type = "/obj/item/projectile/energy/electrode"
-		fire_sound = 'sound/weapons/Taser.ogg'
+		fire_sound = 'sound/weapons/gunshot.ogg'
 		modifystate = "bsgun_stun"
 
 		user << "<span class = 'info'>You adjust [src.name] to the stun setting.</span>"
