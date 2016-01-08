@@ -40,12 +40,24 @@
 		if(istype(wizard.current,/mob/living/carbon/brain))
 			continue
 		if(wizard.current.stat==DEAD)
+			if(istype(wizard.current.get_area(), /area/wizard_station)) // We don't want people camping other wizards
+				var/old_wiz = wizard.current
+				wizard.current.ghostize()
+				message_admins("[old_wiz] died in the wizard lair, another wizard is likely camping")
+				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
+				qdel(old_wiz)
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
-			if(wizard.current.health < 0)
+			if(wizard.current.health < 0 && !istype(wizard.current.get_area(), /area/wizard_station))
 				wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
 				wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
+		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10)
+			wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
+			wizard.current.gib() // Let's keep the round moving
+			continue
+		if(!wizard.current.client)
+			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it
 		wizards_alive++
 
 	if (wizards_alive)
