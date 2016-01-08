@@ -140,13 +140,13 @@ proc/get_id_photo(var/mob/living/carbon/human/H)
 	temp = new /icon(icobase, "head_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
-	for(var/obj/item/organ/external/E in H.organs)
-		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
-
 	//Tail
 	if(H.species.tail && H.species.flags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.species.tail]_s")
 		preview_icon.Blend(temp, ICON_OVERLAY)
+
+	for(var/obj/item/organ/external/E in H.organs)
+		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
 
 	// Skin tone
 	if(H.species.bodyflags & HAS_SKIN_TONE)
