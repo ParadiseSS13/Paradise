@@ -49,6 +49,10 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/fakemoustache/verb/pontificate()
 	set name = "Pontificate Evilly"
@@ -171,6 +175,10 @@
 	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 	action_button_name = "Adjust Bandana"
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
@@ -179,30 +187,37 @@
 obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "bandbotany"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
 	desc = "It's a black bandana with a skull pattern."
 	icon_state = "bandskull"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	desc = "It's a black bandana."
 	icon_state = "bandblack"
+	species_fit = list("Vox")
