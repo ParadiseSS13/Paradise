@@ -527,11 +527,9 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
 
+	abilities = list(/mob/living/carbon/human/proc/change_monitor,)
+
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.h_style = ""
 	spawn(100)
 		if(H) H.update_hair()
-
-/datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
-	..()
-	H.verbs += /mob/living/carbon/human/proc/change_monitor
