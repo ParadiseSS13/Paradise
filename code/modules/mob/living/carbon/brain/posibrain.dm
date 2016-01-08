@@ -1,6 +1,6 @@
 /obj/item/device/mmi/posibrain
 	name = "positronic brain"
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
 	w_class = 3
@@ -33,9 +33,15 @@
 		if(silenced)
 			silenced = 0
 			user << "<span class='notice'>You toggle the speaker to 'on', on the [src].</span>"
+			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
+			if(brainmob && brainmob.key)
+				brainmob << "<span class='warning'>Your internal speaker has been toggled to 'on'.</span>"
 		else
 			silenced = 1
 			user << "<span class='notice'>You toggle the speaker to 'off', on the [src].</span>"
+			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
+			if(brainmob && brainmob.key)
+				brainmob << "<span class='warning'>Your internal speaker has been toggled to 'off'.</span>"
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
@@ -193,4 +199,5 @@
 			M.show_message("\blue The positronic brain pings softly.")
 
 /obj/item/device/mmi/posibrain/ipc
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
 	silenced = 1
