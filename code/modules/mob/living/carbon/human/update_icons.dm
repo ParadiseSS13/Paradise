@@ -106,7 +106,7 @@ Please contact me on #coderbus IRC. ~Carn x
 
 //Human Overlays Indexes/////////
 #define MUTANTRACE_LAYER		1
-#define TAIL_LAYER				2		//bs12 specific. this hack is probably gonna come back to haunt me
+#define TAIL_UNDERLIMBS_LAYER	2		//bs12 specific. this hack is probably gonna come back to haunt me
 #define LIMBS_LAYER				3
 #define MARKINGS_LAYER			4 //2
 #define MUTATIONS_LAYER			5 //3
@@ -119,22 +119,22 @@ Please contact me on #coderbus IRC. ~Carn x
 #define SUIT_LAYER				12 //10
 #define GLASSES_LAYER			13 //11
 #define BELT_LAYER				14 //12		//Possible make this an overlay of somethign required to wear a belt?
-//#define TAIL_LAYER				13		//bs12 specific. this hack is probably gonna come back to haunt me
-#define SUIT_STORE_LAYER		15 //14
-#define BACK_LAYER				16 //15
-#define HAIR_LAYER				17 //16		//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	18 //17
-#define FHAIR_LAYER				19 //18
-#define FACEMASK_LAYER			20 //19
-#define HEAD_LAYER				21 //20
-#define COLLAR_LAYER			22 //21
-#define HANDCUFF_LAYER			23 //22
-#define LEGCUFF_LAYER			24 //23
-#define L_HAND_LAYER			25 //24
-#define R_HAND_LAYER			26 //25
-#define TARGETED_LAYER			27 //26		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				28 //27    //If you're on fire
-#define TOTAL_LAYERS			28 //27
+#define TAIL_LAYER				15 //13		//bs12 specific. this hack is probably gonna come back to haunt me
+#define SUIT_STORE_LAYER		16 //14
+#define BACK_LAYER				17 //15
+#define HAIR_LAYER				18 //16		//TODO: make part of head layer?
+#define HEAD_ACCESSORY_LAYER	19 //17
+#define FHAIR_LAYER				20 //18
+#define FACEMASK_LAYER			21 //19
+#define HEAD_LAYER				22 //20
+#define COLLAR_LAYER			23 //21
+#define HANDCUFF_LAYER			24 //22
+#define LEGCUFF_LAYER			25 //23
+#define L_HAND_LAYER			26 //24
+#define R_HAND_LAYER			27 //25
+#define TARGETED_LAYER			28 //26		//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				29 //27    //If you're on fire
+#define TOTAL_LAYERS			29 //27
 
 
 
@@ -1012,6 +1012,7 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
+	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null
 	overlays_standing[TAIL_LAYER] = null
 
 	if(body_accessory)
@@ -1019,7 +1020,14 @@ var/global/list/damage_icon_parts = list()
 			var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
 			accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 
-			overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+
+			for(var/obj/item/organ/external/part in organs)
+				var/icon/temp = accessory_s
+				if(part.icon_position&(NORTH))
+					var/icon/temp2 = new('icons/mob/human.dmi',"blank")
+					temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
+					overlays_standing[TAIL_LAYER]	= image(temp2, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 
 	else if(species.tail && species.bodyflags & HAS_TAIL) //no tailless tajaran
@@ -1027,26 +1035,48 @@ var/global/list/damage_icon_parts = list()
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
 			tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
-			overlays_standing[TAIL_LAYER]	= image(tail_s)
+			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(tail_s)
+
+			for(var/obj/item/organ/external/part in organs)
+				var/icon/temp = tail_s
+				if(part.icon_position&(NORTH))
+					var/icon/temp2 = new('icons/mob/human.dmi',"blank")
+					temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
+					overlays_standing[TAIL_LAYER]	= image(temp2)
 
 	if(update_icons)
 		update_icons()
 
 
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
+	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null
 	overlays_standing[TAIL_LAYER] = null
 
 	if(body_accessory)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 
-		overlays_standing[TAIL_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+		overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
+
+		for(var/obj/item/organ/external/part in organs)
+			var/icon/temp = accessory_s
+			if(part.icon_position&(NORTH))
+				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
+				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
+				overlays_standing[TAIL_LAYER]	= image(temp2, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
 	else if(species.tail && species.bodyflags & HAS_TAIL)
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
 		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
-		overlays_standing[TAIL_LAYER]	= image(tailw_s)
+		overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(tailw_s)
+
+		for(var/obj/item/organ/external/part in organs)
+			var/icon/temp = tailw_s
+			if(part.icon_position&(NORTH))
+				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
+				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
+				overlays_standing[TAIL_LAYER]	= image(temp2)
 
 	if(update_icons)
 		update_icons()
@@ -1117,13 +1147,13 @@ var/global/list/damage_icon_parts = list()
 
 //Human Overlays Indexes/////////
 #undef MUTANTRACE_LAYER
-#undef TAIL_LAYER
+#undef TAIL_UNDERLIMBS_LAYER
 #undef LIMBS_LAYER
 #undef MARKINGS_LAYER
 #undef MUTATIONS_LAYER
 #undef DAMAGE_LAYER
 #undef UNIFORM_LAYER
-//#undef TAIL_LAYER
+#undef TAIL_LAYER
 #undef ID_LAYER
 #undef SHOES_LAYER
 #undef GLOVES_LAYER
