@@ -1,0 +1,9 @@
+author: Dave The Headcrab
+
+delete-after: True
+
+changes: 
+  - rscadd: "Adds a 300 round capacity buckshot magizine that fits into the L6 Saw."
+  - rscadd: "Adds a 25 round capacity 40mm HE magizine that fits into the L6 Saw."
+  - rscadd: "Adds the 'Devastator' L6 SAW, starts off loaded with the buckshot magizine."
+  - rscadd: "Gives the SST the 'Devastator' L6 Saw, and one of each mag type in their bag."
