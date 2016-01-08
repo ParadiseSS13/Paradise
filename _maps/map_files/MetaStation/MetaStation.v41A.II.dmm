@@ -7557,7 +7557,7 @@
 "cPq" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 1; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/medical/virology)
 "cPr" = (/obj/structure/stool/bed,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/item/weapon/bedsheet/medical,/turf/simulated/floor/plasteel{icon_state = "freezerfloor"},/area/medical/virology)
 "cPs" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/disposalpipe/segment,/turf/simulated/wall,/area/medical/virology)
-"cPt" = (/obj/machinery/door/firedoor,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/airlock/medical{name = "Break Romm"; req_access_txt = "39"},/turf/simulated/floor/plasteel{icon_state = "whitegreenfull"},/area/medical/virology)
+"cPt" = (/obj/machinery/door/firedoor,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/door/airlock/medical{name = "Break Room"; req_access_txt = "39"},/turf/simulated/floor/plasteel{icon_state = "whitegreenfull"},/area/medical/virology)
 "cPu" = (/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/maintenance/aft{name = "Aft Maintenance"})
 "cPv" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/floor/plating{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/maintenance/aft{name = "Aft Maintenance"})
 "cPw" = (/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating,/area/maintenance/aft{name = "Aft Maintenance"})
