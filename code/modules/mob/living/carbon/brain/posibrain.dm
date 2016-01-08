@@ -12,6 +12,7 @@
 	var/list/ghost_volunteers[0]
 	req_access = list(access_robotics)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
+	var/silenced = 0 //if set to 1, they can't talk.
 
 
 /obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
@@ -28,6 +29,13 @@
 				if(check_observer(O))
 					transfer_personality(O)
 			reset_search()
+	else
+		if(silenced)
+			silenced = 0
+			user << "<span class='notice'>You toggle the speaker to 'on', on the [src].</span>"
+		else
+			silenced = 1
+			user << "<span class='notice'>You toggle the speaker to 'off', on the [src].</span>"
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
@@ -184,3 +192,6 @@
 		var/turf/T = get_turf_or_move(src.loc)
 		for (var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")
+
+/obj/item/device/mmi/posibrain/ipc
+	silenced = 1
