@@ -1640,6 +1640,7 @@
 #include "code\modules\projectiles\guns\projectile.dm"
 #include "code\modules\projectiles\guns\syringe_gun.dm"
 #include "code\modules\projectiles\guns\energy\advtaser.dm"
+#include "code\modules\projectiles\guns\energy\blueshield.dm"
 #include "code\modules\projectiles\guns\energy\hos.dm"
 #include "code\modules\projectiles\guns\energy\laser.dm"
 #include "code\modules\projectiles\guns\energy\nuclear.dm"
