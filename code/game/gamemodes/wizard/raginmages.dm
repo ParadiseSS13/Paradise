@@ -44,7 +44,7 @@
 				var/old_wiz = wizard.current
 				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
 				message_admins("[old_wiz] died in the wizard lair, another wizard is likely camping")
-				end_squabble(old_wiz.get_area())
+				end_squabble(get_area(old_wiz))
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0 && !istype(wizard.current.get_area(), /area/wizard_station))
@@ -82,7 +82,8 @@
 					mages_made -= 1
 					wizards -= M // No, you don't get to occupy a slot
 			H << "<span class='userdanger'>STOP FIGHTING.</span>"
-			H.gib()
+			H.ghostize()
+			H.qdel()
 	for(var/obj/item/weapon/spellbook/B in A)
 		// No goodies for you
 		qdel(B)
