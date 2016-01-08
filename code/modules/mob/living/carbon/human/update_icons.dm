@@ -106,35 +106,35 @@ Please contact me on #coderbus IRC. ~Carn x
 
 //Human Overlays Indexes/////////
 #define MUTANTRACE_LAYER		1
-#define TAIL_UNDERLIMBS_LAYER	2		//bs12 specific. this hack is probably gonna come back to haunt me
+#define TAIL_UNDERLIMBS_LAYER	2
 #define LIMBS_LAYER				3
-#define MARKINGS_LAYER			4 //2
-#define MUTATIONS_LAYER			5 //3
-#define DAMAGE_LAYER			6 //4
-#define UNIFORM_LAYER			7 //5
-#define ID_LAYER				8 //6
-#define SHOES_LAYER				9 //7
-#define GLOVES_LAYER			10 //8
-#define EARS_LAYER				11 //9
-#define SUIT_LAYER				12 //10
-#define GLASSES_LAYER			13 //11
-#define BELT_LAYER				14 //12		//Possible make this an overlay of somethign required to wear a belt?
-#define TAIL_LAYER				15 //13		//bs12 specific. this hack is probably gonna come back to haunt me
-#define SUIT_STORE_LAYER		16 //14
-#define BACK_LAYER				17 //15
-#define HAIR_LAYER				18 //16		//TODO: make part of head layer?
-#define HEAD_ACCESSORY_LAYER	19 //17
-#define FHAIR_LAYER				20 //18
-#define FACEMASK_LAYER			21 //19
-#define HEAD_LAYER				22 //20
-#define COLLAR_LAYER			23 //21
-#define HANDCUFF_LAYER			24 //22
-#define LEGCUFF_LAYER			25 //23
-#define L_HAND_LAYER			26 //24
-#define R_HAND_LAYER			27 //25
-#define TARGETED_LAYER			28 //26		//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				29 //27    //If you're on fire
-#define TOTAL_LAYERS			29 //27
+#define MARKINGS_LAYER			4
+#define MUTATIONS_LAYER			5
+#define DAMAGE_LAYER			6
+#define UNIFORM_LAYER			7
+#define ID_LAYER				8
+#define SHOES_LAYER				9
+#define GLOVES_LAYER			10
+#define EARS_LAYER				11
+#define SUIT_LAYER				12
+#define GLASSES_LAYER			13
+#define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
+#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
+#define SUIT_STORE_LAYER		16
+#define BACK_LAYER				17
+#define HAIR_LAYER				18	//TODO: make part of head layer?
+#define HEAD_ACCESSORY_LAYER	19
+#define FHAIR_LAYER				20
+#define FACEMASK_LAYER			21
+#define HEAD_LAYER				22
+#define COLLAR_LAYER			23
+#define HANDCUFF_LAYER			24
+#define LEGCUFF_LAYER			25
+#define L_HAND_LAYER			26
+#define R_HAND_LAYER			27
+#define TARGETED_LAYER			28	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				29	//If you're on fire
+#define TOTAL_LAYERS			29
 
 
 
@@ -298,7 +298,7 @@ var/global/list/damage_icon_parts = list()
 				if(!(part.icon_position & RIGHT))
 					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
 				base_icon.Blend(temp2, ICON_OVERLAY)
-				overlays_standing[LIMBS_LAYER]	= image(base_icon)
+				overlays_standing[LIMBS_LAYER]	= image(base_icon) // Diverts limbs to their own layer so they can overlay things (i.e. tails).
 				if(part.icon_position & LEFT)
 					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
 				if(part.icon_position & RIGHT)
@@ -1012,16 +1012,20 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
-	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null
-	overlays_standing[TAIL_LAYER] = null
+	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null // NSEW direction icons, overlayed by LIMBS_LAYER
+	overlays_standing[TAIL_LAYER] = null // Only N direction icon so tails can still appear on the outside of uniforms and such.
 
 	if(body_accessory)
 		if(body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
 			accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 
+			// Gives the underlimbs layer NSEW direction icons since it's overlayed by limbs and just about everything else anyway.
+			// No special treatment.
 			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
+			// Creates a blank icon, and copies accessory_s' north direction sprite into it
+			// before passing that to the tail layer that overlays uniforms and such.
 			for(var/obj/item/organ/external/part in organs)
 				var/icon/temp = accessory_s
 				if(part.icon_position&(NORTH))
@@ -1035,8 +1039,12 @@ var/global/list/damage_icon_parts = list()
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]_s")
 			tail_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
+			// Gives the underlimbs layer NSEW direction icons since it's overlayed by limbs and just about everything else anyway.
+			// No special treatment.
 			overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(tail_s)
 
+			// Creates a blank icon, and copies accessory_s' north direction sprite into it
+			// before passing that to the tail layer that overlays uniforms and such.
 			for(var/obj/item/organ/external/part in organs)
 				var/icon/temp = tail_s
 				if(part.icon_position&(NORTH))
@@ -1049,15 +1057,19 @@ var/global/list/damage_icon_parts = list()
 
 
 /mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
-	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null
-	overlays_standing[TAIL_LAYER] = null
+	overlays_standing[TAIL_UNDERLIMBS_LAYER] = null // NSEW direction icons, overlayed by LIMBS_LAYER
+	overlays_standing[TAIL_LAYER] = null // Only N direction icon so tails can still appear on the outside of uniforms and such.
 
 	if(body_accessory)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		accessory_s.Blend(rgb(r_skin, g_skin, b_skin), body_accessory.blend_mode)
 
+		// Gives the underlimbs layer NSEW direction icons since it's overlayed by limbs and just about everything else anyway.
+		// No special treatment.
 		overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(accessory_s, "pixel_x" = body_accessory.pixel_x_offset, "pixel_y" = body_accessory.pixel_y_offset)
 
+		// Creates a blank icon, and copies accessory_s' north direction sprite into it
+		// before passing that to the tail layer that overlays uniforms and such.
 		for(var/obj/item/organ/external/part in organs)
 			var/icon/temp = accessory_s
 			if(part.icon_position&(NORTH))
@@ -1069,8 +1081,13 @@ var/global/list/damage_icon_parts = list()
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[species.tail]w_s")
 		tailw_s.Blend(rgb(r_skin, g_skin, b_skin), ICON_ADD)
 
+
+		// Gives the underlimbs layer NSEW direction icons since it's overlayed by limbs and just about everything else anyway.
+		// No special treatment.
 		overlays_standing[TAIL_UNDERLIMBS_LAYER]	= image(tailw_s)
 
+		// Creates a blank icon, and copies accessory_s' north direction sprite into it
+		// before passing that to the tail layer that overlays uniforms and such.
 		for(var/obj/item/organ/external/part in organs)
 			var/icon/temp = tailw_s
 			if(part.icon_position&(NORTH))
