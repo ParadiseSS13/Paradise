@@ -1,68 +1,56 @@
 // NanoUtility is the place to store utility functions
-var NanoUtility = function () 
-{
+var NanoUtility = function () {
     var _urlParameters = {}; // This is populated with the base url parameters (used by all links), which is probaby just the "src" parameter
 
-	return {
-        init: function () 
-		{
-			var body = $('body'); // We store data in the body tag, it's as good a place as any
-
-			_urlParameters = body.data('urlParameters');
+    return {
+        init: function () {
+            var body = $('body'); // We store data in the body tag, it's as good a place as any
+            _urlParameters = body.data('urlParameters');
         },
-		// generate a Byond href, combines _urlParameters with parameters
-		generateHref: function (parameters)
-		{
-			var queryString = '?';
+        // generate a Byond href, combines _urlParameters with parameters
+        generateHref: function (parameters) {
+            var queryString = '?';
 
-			for (var key in _urlParameters)
-			{
-				if (_urlParameters.hasOwnProperty(key))
-				{
-					if (queryString !== '?')
-					{
-						queryString += ';';
-					}
-					queryString += key + '=' + _urlParameters[key];
-				}
-			}
+            for (var key in _urlParameters) {
+                if (_urlParameters.hasOwnProperty(key)) {
+                    if (queryString !== '?') {
+                        queryString += ';';
+                    }
+                    queryString += key + '=' + _urlParameters[key];
+                }
+            }
 
-			for (var key in parameters)
-			{
-				if (parameters.hasOwnProperty(key))
-				{
-					if (queryString !== '?')
-					{
-						queryString += ';';
-					}
-					queryString += key + '=' + parameters[key];
-				}
-			}
-			return queryString;
-		}
+            for (var key in parameters)
+            {
+                if (parameters.hasOwnProperty(key)) {
+                    if (queryString !== '?') {
+                        queryString += ';';
+                    }
+                    queryString += key + '=' + parameters[key];
+                }
+            }
+            return queryString;
+        }
     }
-} (); 
+} ();
 
 if (typeof jQuery == 'undefined') {  
-	alert('ERROR: Javascript library failed to load!');
+    reportError('ERROR: Javascript library failed to load!');
 }
 if (typeof doT == 'undefined') {  
-	alert('ERROR: Template engine failed to load!');
-}	
+    reportError('ERROR: Template engine failed to load!');
+}
 
-(function() {
-	var _alert = window.alert;
-	window.alert = function(str) {
-		window.location = "byond://?nano_err=" + encodeURIComponent(str);
-		_alert(str);
-	};
-})();
+var reportError = function (str) {
+    window.location = "byond://?nano_err=" + encodeURIComponent(str);
+    alert(str);
+}
 
 // All scripts are initialised here, this allows control of init order
 $(document).ready(function () {
-	NanoUtility.init();
-	NanoStateManager.init();
-	NanoTemplate.init();
+    NanoUtility.init();
+    NanoStateManager.init();
+    NanoTemplate.init();
 });
 
 if (!Array.prototype.indexOf)
