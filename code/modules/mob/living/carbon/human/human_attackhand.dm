@@ -151,8 +151,7 @@
 				var/armor_block = run_armor_check(affecting, "melee")
 
 				if(HULK in M.mutations)
-					damage += 5
-					Weaken(4)
+					adjustBruteLoss(15)
 
 				playsound(loc, attack.attack_sound, 25, 1, -1)
 
