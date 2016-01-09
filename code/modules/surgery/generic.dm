@@ -25,7 +25,8 @@
 	/obj/item/weapon/scalpel/laser3 = 95, \
 	/obj/item/weapon/scalpel/laser2 = 85, \
 	/obj/item/weapon/scalpel/laser1 = 75, \
-	/obj/item/weapon/melee/energy/sword/saber = 5
+	/obj/item/weapon/melee/energy/ = 5, \
+	/obj/item/weapon/pen/edagger = 5,  \
 	)
 
 	min_duration = 90
@@ -115,6 +116,9 @@
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchenknife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
+	/obj/item/weapon/scissors = 10,		\
+	/obj/item/weapon/twohanded/chainsaw = 1, \
+	/obj/item/weapon/claymore = 5, \
 	)
 
 	min_duration = 90
@@ -316,6 +320,9 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("\blue [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].", \
 	"\blue You amputate [target]'s [affected.name] with \the [tool].")
+
+	add_logs(target,user, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+
 	affected.droplimb(1,DROPLIMB_EDGE)
 	return 1
 

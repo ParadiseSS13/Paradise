@@ -1,9 +1,15 @@
 /datum/surgery/organ_manipulation
 	name = "organ manipulation"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs)
-	possible_locs = list("chest", "head")
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone)
+	possible_locs = list("chest")
 	requires_organic_bodypart = 0
+
+/datum/surgery/organ_manipulation/head //for adding a mendskull step...
+	name = "organ manipulation"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/mend_skull ,/datum/surgery_step/finish_bone)
+	possible_locs = list("head")
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
@@ -35,7 +41,7 @@
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
-	name = "dethralling"
+	name = "clense contaminations"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall)
 	possible_locs = list("head")
 
@@ -159,7 +165,7 @@
 
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/crowbar = 55)
-	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack= 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20
+	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack = 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20
 	)
 	var/current_type
 	var/obj/item/organ/internal/I = null
@@ -178,8 +184,9 @@
 
 	I = null
 	affected = target.get_organ(target_zone)
-	if(isorgan(tool))
-		world << "Insert"
+	world << "[implement_type]"
+	world << "[is_int_organ(implement_type)]"
+	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -231,7 +238,8 @@
 		else if (istype(tool, /obj/item/stack/nanopaste))
 			tool_name = "\the [tool]" //what else do you call nanopaste medically?
 
-		if (!hasorgans(target))
+		if(!hasorgans(target))
+			user << "They do not have organs to mend!"
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
@@ -243,6 +251,9 @@
 				else if(I.robotic > 2 && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
+
+			user << "No organs appear to be damaged."
+			return
 		target.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
@@ -288,7 +299,7 @@
 			user.visible_message("\blue [user] has separated and extracts [target]'s [I] with \the [tool]." , \
 			"\blue You have separated and extracted [target]'s [I] with \the [tool].")
 
-			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_logs(target,user, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
 			I.status |= ORGAN_CUT_AWAY
 			I.remove(target)

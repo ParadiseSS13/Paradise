@@ -18,7 +18,7 @@
 		if(affected.status && ORGAN_DESTROYED)
 			return 0
 
-	return 1
+		return 1
 
 
 /datum/surgery/reattach
@@ -31,10 +31,10 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 
-		if(affected.status && ~ORGAN_DESTROYED)
-			return 0
+		if(affected.status && ORGAN_DESTROYED)
+			return 1
 
-	return 1
+		return 0
 
 cannot_amputate
 /datum/surgery/robo_attach
@@ -47,10 +47,10 @@ cannot_amputate
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 
-		if(affected.status && ~ORGAN_DESTROYED)
-			return 0
+		if(affected.status && ORGAN_DESTROYED)
+			return 1
 
-	return 1
+		return 0
 
 /datum/surgery_step/limb/
 	priority = 3 // Must be higher than /datum/surgery_step/internal

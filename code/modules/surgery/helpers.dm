@@ -34,16 +34,7 @@
 							break
 
 				if(override)
-					if(I == /obj/item/weapon/circular_saw)
-						var/datum/surgery/S = available_surgeries["amputation"]
-						if(S)//we might be targetting a zone without the named procedure.
-							var/datum/surgery/procedure = new S.type
-							if(procedure)
-								procedure.location = selected_zone
-								M.surgeries += procedure
-								procedure.organ_ref = affecting
-								procedure.next_step(user, M)
-					else if(I == /obj/item/robot_parts)
+					if(I == /obj/item/robot_parts)
 						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
 						if(S)//we might be targetting a zone without the named procedure.
 							var/datum/surgery/procedure = new S.type
@@ -76,6 +67,9 @@
 					M.surgeries -= current_surgery
 					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
 						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")
+					affecting.open = 0
+					affecting.germ_level = 0
+					affecting.status &= ~ORGAN_BLEEDING
 					qdel(current_surgery)
 				else if(current_surgery.can_cancel)
 					user << "<span class='warning'>You need to hold a cautery in inactive hand to stop [M]'s surgery!</span>"
