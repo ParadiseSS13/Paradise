@@ -820,6 +820,13 @@ var/list/uplink_items = list()
 	item = /obj/item/device/multitool/ai_detect
 	cost = 1
 
+/datum/uplink_item/device_tools/telecrystal
+	name = "Raw Telecrystal"
+	desc = "Telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTC"
+	item = /obj/item/stack/telecrystal
+	cost = 1
+
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
