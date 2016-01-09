@@ -1909,6 +1909,7 @@
 	var/datum/mind/M = new/datum/mind(C.key)
 	M.active = 0
 	M.original = new_character
+	M.current = new_character
 	M.transfer_to(new_character)					//won't transfer key since the mind is not active
 
 	new_character.name = C.prefs.real_name

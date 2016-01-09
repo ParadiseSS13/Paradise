@@ -4,7 +4,7 @@
 	required_players = 1
 	required_players_secret = 15
 	use_huds = 1
-	var/max_mages = 10
+	var/max_mages = 0
 	var/making_mage = 0
 	var/mages_made = 1
 	var/time_checked = 0
