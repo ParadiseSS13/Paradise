@@ -1,7 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - bugfix: "fixes a bug relating to some brute/burn damage being dealt to human mobs."

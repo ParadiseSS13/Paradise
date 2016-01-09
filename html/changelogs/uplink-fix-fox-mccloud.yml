@@ -1,9 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - bugfix: "Fixes Syndicate Cyborg's LMG being invisible."
-  - bugfix: "Fixes the uplink kit having implanters that were both nameless and looked as if they had been used."
-

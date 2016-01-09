@@ -1,9 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - tweak: "Removes Hulk instant stun."
-  - tweak: "Hulk damage increased."
-  - tweak: "Hulk wears off at a lower health threshold."
