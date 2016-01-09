@@ -1870,3 +1870,86 @@
 	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return 1
+
+// ugh this is so hackish
+// but why don't we have a proc for this already
+/proc/create_human_for_client_from_prefs(var/client/C)
+
+	var/turf/start = pick(latejoin)
+
+	var/mob/living/carbon/human/new_character
+
+	var/datum/species/chosen_species
+	if(C.prefs.species)
+		chosen_species = all_species[C.prefs.species]
+	if(chosen_species)
+		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
+		if(is_alien_whitelisted(C, chosen_species) || check_rights_for(C, R_ADMIN))
+
+			new_character = new(start, C.prefs.species)
+
+	if(!new_character)
+		new_character = new(start)
+
+	new_character.lastarea = get_area(start)
+
+	var/datum/language/chosen_language
+	if(C.prefs.language)
+		chosen_language = all_languages[C.prefs.language]
+	if(chosen_language)
+		if(is_alien_whitelisted(C, C.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))
+			new_character.add_language(C.prefs.language)
+	if(ticker.random_players || appearance_isbanned(new_character))
+		C.prefs.random_character()
+		C.prefs.real_name = random_name(new_character.gender)
+	C.prefs.copy_to(new_character)
+
+	src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
+
+	var/datum/mind/M = new/datum/mind(C.key)
+	M.active = 0
+	M.original = new_character
+	M.transfer_to(new_character)					//won't transfer key since the mind is not active
+
+	new_character.name = C.prefs.real_name
+	new_character.dna.ready_dna(new_character)
+	new_character.dna.b_type = C.prefs.b_type
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		new_character.dna.SetSEState(GLASSESBLOCK,1,1)
+		new_character.disabilities |= NEARSIGHTED
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_FAT)
+		new_character.mutations += FAT
+		new_character.overeatduration = 600 // Max overeat
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_EPILEPTIC)
+		new_character.dna.SetSEState(EPILEPSYBLOCK,1,1)
+		new_character.disabilities |= EPILEPSY
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_DEAF)
+		new_character.dna.SetSEState(DEAFBLOCK,1,1)
+		new_character.sdisabilities |= DEAF
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_BLIND)
+		new_character.dna.SetSEState(BLINDBLOCK,1,1)
+		new_character.sdisabilities |= BLIND
+
+	if(C.prefs.disabilities & DISABILITY_FLAG_MUTE)
+		new_character.dna.SetSEState(MUTEBLOCK,1,1)
+		new_character.sdisabilities |= MUTE
+
+	chosen_species.handle_dna(new_character)
+
+	domutcheck(new_character)
+	new_character.dna.UpdateSE()
+	new_character.sync_organ_dna() //just fucking incase I guess
+
+	// Do the initial caching of the player's body icons.
+	new_character.force_update_limbs()
+	new_character.update_eyes()
+	new_character.regenerate_icons()
+
+	new_character.key = C.key		//Manually transfer the key to log them in
+
+	return new_character
