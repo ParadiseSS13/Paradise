@@ -760,12 +760,11 @@ proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reac
 
 /datum/reagent/mutadone/on_mob_life(var/mob/living/carbon/human/M as mob)
 	M.jitteriness = 0
-	var/needs_update = 1 //M.mutations.len > 0
+	var/needs_update = M.mutations.len > 0
 
 	for(var/block=1;block<=DNA_SE_LENGTH;block++)
 		M.dna.SetSEState(block,0)
 		genemutcheck(M,block,null,MUTCHK_FORCED)
-		M.update_mutations()
 
 	M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
