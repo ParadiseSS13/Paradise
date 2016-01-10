@@ -317,4 +317,4 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_CID_WARN_POPUP
 
 ## Uncomment to use the iterative explosions (explosions that progress over time instead of instantly, less lag and near infinite explosion size support at lower lag)
-#use_iterative_explosions
+#USE_ITERATIVE_EXPLOSIONS

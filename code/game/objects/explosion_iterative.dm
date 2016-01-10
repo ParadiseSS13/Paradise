@@ -54,17 +54,6 @@ proc/explosion_iter(turf/epicenter, devastation_range, heavy_impact_range, light
 //Code-wise, a safe value for power is something up to ~25 or ~30.. This does quite a bit of damage to the station.
 //direction is the direction that the spread took to come to this tile. So it is pointing in the main blast direction - meaning where this tile should spread most of it's force.
 
-/proc/dirtoangle(direction) //convert to angle starting from north
-{
-	if (direction == NORTH)
-		return 0
-	if (direction == SOUTH)
-		return 180
-	if (direction == EAST)
-		return 90
-	if (direction == WEST)
-		return 270
-}
 /proc/highPrioritySleep(time, debugname) //just a placeholder until i reimplement my process tracking system
 	sleep(time)
 
@@ -98,7 +87,6 @@ datum/line_explosion_controller //used to manage the explosion itself
 	var/midpower = 0
 	var/lowpower = 0
 	proc/startExplosion(turf/m_epicenter, devastation_range, heavy_impact_range, light_impact_range)
-	{
 		devastation_boost_count = devastation_range * 3
 		heavy_impact_boost_count = heavy_impact_range * 3
 		light_impact_boost_count = light_impact_range * 3
@@ -117,11 +105,10 @@ datum/line_explosion_controller //used to manage the explosion itself
 		calculateExplosionSpread() //first we need to build up a list of turf to damage and determine how much power
 		applyExplosion() //then we apply the data we just generated
 		message_admins("Explosion with power:[power] size:([devastation_range], [heavy_impact_range], [light_impact_range]) in area [m_epicenter.loc.name] ([m_epicenter.x],[m_epicenter.y],[m_epicenter.z]) is completed")
-	}
 
 
 	proc/applyExplosion()
-	{
+
 		var/count=0
 		var/effectivepower = 0
 		var/severity = 4
@@ -211,9 +198,9 @@ datum/line_explosion_controller //used to manage the explosion itself
 					highPrioritySleep(0)
 				else
 					highPrioritySleep(delayBetweenWave*2)
-	}
+
 	proc/calculateExplosionSpread()
-	{
+
 		//world << "calculateExplosionSpread  -  Start"
 		var/totalresist = 0
 		var/devastdist = devastation_boost_count
@@ -269,24 +256,21 @@ datum/line_explosion_controller //used to manage the explosion itself
 			executeCalculations() //can async that part
 			calculating = 0
 		//world << "calculateExplosionSpread  -  Done"
-	}
+
 	proc/executeCalculations()
-	{
 		var/iterationcount = 0
 		var/totalcount = 0
 		while (queue_explosion_lines.len > 0)
-		{
+
 			while (queue_explosion_lines.len > 0)
 				for (var/datum/line_explosion/line in queue_explosion_lines)
-				{
-					//we process all explosion lines
+				//we process all explosion lines
 					var/result = line.iterate()
 					if (result == 1) //it return 1 once the line is done
 						queue_explosion_lines -= line
 					totalcount++
 					if (totalcount >= 4*destructionperWave)
 						calculating = 2
-				}
 				iterationcount++
 				if (iterationcount > iterationperWave)
 					highPrioritySleep(delayBetweenWave)
@@ -311,16 +295,12 @@ datum/line_explosion_controller //used to manage the explosion itself
 						var/datum/line_explosion/linedef = new(T.side_explosion_data.power, T, T.side_explosion_data.direction, src, 0, devastation_boost_count, heavy_impact_boost_count, light_impact_boost_count)
 						queue_explosion_lines.Add(linedef)
 						queue_explosion_sides -= T
-		}
-	}
 datum/side_explosion
 	var/direction=0 //direction were headed
 	var/power=0
 	New(startpower, startDirection)
-	{
 		power = startpower
 		direction = startDirection
-	}
 
 datum/line_explosion
 	var/direction=0 //direction were headed
@@ -328,21 +308,17 @@ datum/line_explosion
 	var/turf/nextTurf=0 //turf on which we explode next
 	var/datum/line_explosion_controller/controller = 0 //our controller
 	New(startpower, turf/startTurf, startDirection, datum/line_explosion_controller/ourController, newIsSide)
-	{
 		power = startpower
 		nextTurf = startTurf
 		direction = startDirection
 		controller = ourController
 
 //		world.log << "Created a line"
-	}
 	proc/iterate() //explode the next tile
-	{
 //		world.log << "Iterate a line"
 		if (nextTurf == null)
 			return 1
 		return nextTurf.explosion_line(power, direction, controller, src)
-	}
 
 
 
