@@ -75,9 +75,6 @@ var/global/datum/controller/process/air_system/air_master
 	for(var/turf/simulated/T in active_turfs)
 		T.process_cell()
 		SCHECK
-	for(var/turf/simulated/T in active_turfs)
-		if (T.sharedairwith.len > 0)
-			T.smooth_cell()
 
 /datum/controller/process/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))

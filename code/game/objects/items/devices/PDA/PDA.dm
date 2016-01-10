@@ -369,25 +369,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return attack_self(M)
 	return
 
-var/obj/item/device/pda/extraproc=0
+
 /obj/item/device/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui_tick++
 	var/datum/nanoui/old_ui = nanomanager.get_open_ui(user, src, "main")
 	var/auto_update = 1
 	if(mode in no_auto_update)
 		auto_update = 0
-
-	if (mode == 3 && cartridge.access_atmos == 1)
-		//atmo cartdrive do a ui update every second, but the process tick for nano ui is every 2 second, so add an extra one here
-		//not as clean as creating a special nanoui processor for high refresh rate (read only) panels but is simpler to patch this way and since atmo techs are in very small quantity, will not represent any kind of extra load either way
-		if (ui_tick % 2 && old_ui && extraproc == 0)
-			extraproc = 1
-			spawn(10)
-				old_ui.process()
-				extraproc = 0
-	else
-		if(old_ui && (mode == lastmode && ui_tick % 5 && mode in update_every_five))
-			return
+	if(old_ui && (mode == lastmode && ui_tick % 5 && mode in update_every_five))
+		return
 
 	lastmode = mode
 
