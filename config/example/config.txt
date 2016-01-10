@@ -316,5 +316,5 @@ PLAYER_REROUTE_CAP 0
 ## Uncomment this if you want to disable the popup alert for people on the same CID
 #DISABLE_CID_WARN_POPUP
 
-## use the iterative explosions (explosions that progress over time instead of instantly, less lag and near infinite explosion size support at lower lag)
+## Uncomment to use the iterative explosions (explosions that progress over time instead of instantly, less lag and near infinite explosion size support at lower lag)
 #use_iterative_explosions
