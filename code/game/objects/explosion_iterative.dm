@@ -2,7 +2,7 @@
 /client/proc/kaboom()
 	var/power = input(src, "power?", "power?") as num
 	var/turf/T = get_turf(src.mob)
-	explosion_rec(T, power)
+	explosion_iter(T, power)
 
 /atom/var/explosion_resistance = 0.01 //everything soaks a tiny bit of damage at least
 
