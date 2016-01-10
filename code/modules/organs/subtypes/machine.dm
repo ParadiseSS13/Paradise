@@ -124,7 +124,7 @@
 
 /obj/item/organ/mmi_holder/posibrain/New()
 	robotize()
-	stored_mmi = new /obj/item/device/mmi/posibrain(src)
+	stored_mmi = new /obj/item/device/mmi/posibrain/ipc(src)
 	..()
 	spawn(1)
 		if(owner)

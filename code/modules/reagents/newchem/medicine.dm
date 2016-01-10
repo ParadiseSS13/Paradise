@@ -650,8 +650,7 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 	if(istype(M, /mob/living/simple_animal))
 		if(method == TOUCH)
 			if(M.stat == DEAD)
-				M.health = M.maxHealth
-				M.update_revive()
+				M.revive()
 				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)

@@ -21,7 +21,7 @@
 #################################
 
 # Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
-author: FalseIncarnate
+author: KasparoVy
 
 # Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
 delete-after: True
@@ -32,6 +32,11 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscadd: "Plants will now begin to die over time if their age exceeds 5 times their TRAIT_MATURATION value."
-  - tweak: "Weed growth chance per process in trays has been slightly increased (Previously: 5% chance if no seed, 1% otherwise;Now: 6% / 3%)."
-  - tweak: "Pest growth in trays has been slightly buffed. (Previously: 3% chance to increase by 0.1; Now: 5% chance to increase by 0.5)"
+  - bugfix: "Fixes tails overlapping arms/limbs + gloves, etc. when facing EAST or WEST."
+  - bugfix: "Ensures tails will overlap stuff as normal only when facing NORTH so as to avoid unwanted interference with the base sprite."
+  - bugfix: "Tails now appear in ID cards, overlays things correctly."
+  - bugfix: "Tails now overlay and are overlayed by things correctly in preview icons."
+  - tweak: "Modifies the positioning of tail icon generation in the ID card preview icon generation file."
+  - tweak: "Modifies the positioning of tail icon generation in the player preferences preview icon generation file."
+  - tweak: "Breaks limb generation into its own layer, breaks tail generation into a second layer that can be overlayed by limbs."
+  - tweak: "TAIL_LAYER will now overlay the NORTH direction sprite of a tail now, while TAIL_UNDERLIMBS_LAYER gets all directions."

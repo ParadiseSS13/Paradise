@@ -189,7 +189,7 @@
 
 		if ("choke")
 			if(miming)
-				message = "<B>[src]</B> clutches his throat desperately!"
+				message = "<B>[src]</B> clutches \his throat desperately!"
 				m_type = 1
 			else
 				if (!muzzled)
@@ -218,7 +218,7 @@
 					m_type = 1
 		if ("flap")
 			if (!src.restrained())
-				message = "<B>[src]</B> flaps his wings."
+				message = "<B>[src]</B> flaps \his wings."
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -250,7 +250,7 @@
 
 		if ("aflap")
 			if (!src.restrained())
-				message = "<B>[src]</B> flaps his wings ANGRILY!"
+				message = "<B>[src]</B> flaps \his wings ANGRILY!"
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -485,7 +485,7 @@
 					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
 					m_type = 1
 				else
-					message = "<B>[src]</B> says, \"[M], please. He had a family.\" [src.name] takes a drag from a cigarette and blows his name out in smoke."
+					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [src.name] takes a drag from a cigarette and blows their name out in smoke."
 					m_type = 2
 
 		if ("point")
