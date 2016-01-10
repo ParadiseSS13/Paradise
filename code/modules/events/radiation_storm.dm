@@ -72,5 +72,3 @@ var/is_radstorm = 0
 		if(is_radstorm)
 			revoke_maint_all_access()
 			is_radstorm = 0
-		else
-			return
