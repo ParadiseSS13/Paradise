@@ -36,6 +36,8 @@
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	for(var/datum/mind/wizard in wizards)
+		if(isnull(wizard.current))
+			continue
 		if(!istype(wizard.current,/mob/living/carbon))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
