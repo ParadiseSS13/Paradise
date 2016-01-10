@@ -826,6 +826,7 @@ var/list/uplink_items = list()
 	reference = "RTC"
 	item = /obj/item/stack/telecrystal
 	cost = 1
+	surplus = 0
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
