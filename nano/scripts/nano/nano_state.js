@@ -1,16 +1,6 @@
 // This is the base state class, it is not to be used directly
 
-function NanoStateClass() {
-	/*if (typeof this.key != 'string' || !this.key.length)
-	{
-		alert('ERROR: Tried to create a state with an invalid state key: ' + this.key);
-		return;
-	}
-	
-    this.key = this.key.toLowerCase();
-	
-	NanoStateManager.addState(this);*/
-}
+function NanoStateClass() {}
 
 NanoStateClass.prototype.key = null;
 NanoStateClass.prototype.layoutRendered = false;
@@ -99,7 +89,7 @@ NanoStateClass.prototype.onUpdate = function (data) {
     }
     catch(error)
     {
-        alert('ERROR: An error occurred while rendering the UI: ' + error.message);
+        reportError('ERROR: An error occurred while rendering the UI: ' + error.message);
         return;
     }
 };
@@ -115,5 +105,3 @@ NanoStateClass.prototype.alertText = function (text) {
 
     alert(text);
 };
-
-

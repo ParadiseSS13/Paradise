@@ -51,11 +51,17 @@ gulp.task "fonts", ["clean"], ->
 
 gulp.task "scripts", ["clean"], ->
   lib = gulp.src glob input.scripts.lib
+    .pipe g.order(["jquery.js",
+                   "jquery*.js",
+                   "*.js"])
     .pipe g.concat(output.scripts.lib)
     .pipe g.if(s.min, g.uglify().on('error', util.log))
     .pipe gulp.dest output.dir
 
   main = gulp.src glob input.scripts.main
+    .pipe g.order(["nano_utility.js",
+                   "nano_state_manager.js"
+                   "*.js"])
     .pipe g.concat(output.scripts.main)
     .pipe g.if(s.min, g.uglify().on('error', util.log))
     .pipe gulp.dest output.dir
