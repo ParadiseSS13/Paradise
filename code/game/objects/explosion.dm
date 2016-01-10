@@ -1,5 +1,56 @@
 //TODO: Flash range does nothing currently
 
+
+
+/datum/refpass/var/value = 0 //just a way to pass value by reference instead of copy
+//quicksort from libsort library http://www.byond.com/developer/Kuraudo/ListSort
+proc/ls_quicksort_cmp(list/L, cmp, start=1, end=L.len, var/datum/refpass/count = new())
+	count.value++
+	if (count.value > 2000) //this is to avoid it causing large lag when theres too many turfs to sort
+		sleep(2)
+		count.value = 0
+	if(start < end)
+		var/q = ls_partition_cmp(L, cmp, start, end,count)
+		ls_quicksort_cmp(L, cmp, start, q-1, count)
+		ls_quicksort_cmp(L, cmp, q+1, end, count)
+
+proc/ls_partition_cmp(list/L, cmp, p, r)
+	var/pivot
+	var/m = (p + r) * 0.5
+	if(call(cmp)(L[p],L[m]) > 0)
+		L.Swap(p, m)
+	if(call(cmp)(L[p],L[r]) > 0)
+		L.Swap(p, r)
+	if(call(cmp)(L[m],L[r]) > 0)
+		L.Swap(m, r)
+	pivot = r-1
+	if(r-p > 2)
+		r--
+		L.Swap(m, pivot)
+		for()
+			while(call(cmp)(L[++p],L[pivot]) < 0);
+			while(call(cmp)(L[--r],L[pivot]) > 0);
+			if(p < r)
+				L.Swap(p, r)
+			else
+				break
+		L.Swap(p, pivot)
+		return p
+	else return m
+
+/datum/turfexplosioncontainer/var/turf/T = 0
+/datum/turfexplosioncontainer/var/turf/dist = -1
+/datum/turfexplosioncontainer/New(var/turf/_T, var/_dist)
+	T = _T
+	dist = _dist
+/proc/compareturfexplosiondist(var/datum/turfexplosioncontainer/T1, var/datum/turfexplosioncontainer/T2)
+	if(T1.dist < T2.dist)
+		return -1
+	else if(T1.dist == T2.dist)
+		return 0
+	else return 1
+
+
 /proc/trange(var/Dist=0,var/turf/Center=null)//alternative to range (ONLY processes turfs and thus less intensive)
 	if(Center==null) return
 
@@ -36,7 +87,6 @@
 			explosion_iter(epicenter, devastation_range, heavy_impact_range, light_impact_range)
 		return
 	spawn(0)
-
 		var/start = TimeOfHour
 		if(!epicenter) return
 
@@ -57,6 +107,32 @@
 		far_dist += heavy_impact_range * 5
 		far_dist += devastation_range * 20
 
+		var/x0 = epicenter.x
+		var/y0 = epicenter.y
+		var/z0 = epicenter.z
+		var/list/turfinrange = trange(max_range, epicenter)
+		if(config.reactionary_explosions)
+			// Cache the explosion block rating of every turf in the explosion area so
+			//  exploded turfs don't leave the explosion lopsided
+			var/count = 0 //just to sleep when theres too much iterations, allow players to get a frame instead of being a huge lag spike
+			for(var/turf/T in turfinrange)
+				if (count > 64)
+					count = 0
+					sleep(2)
+				cached_exp_block[T] = 0
+				if(T.density && T.explosion_block)
+					cached_exp_block[T] += T.explosion_block
+
+				for(var/obj/machinery/door/D in T)
+					if(D.density && D.explosion_block)
+						cached_exp_block[T] += D.explosion_block
+
+		var/list/explodingturfs[0]
+		for(var/turf/T in turfinrange)
+			explodingturfs.Add(new/datum/turfexplosioncontainer(T,cheap_hypotenuse(T.x, T.y, x0, y0)))
+		ls_quicksort_cmp(explodingturfs, /proc/compareturfexplosiondist)
+		var/lastdist = -1
+		var/count = 0
 		if(!silent)
 			var/frequency = get_rand_frequency()
 			for(var/mob/M in player_list)
@@ -80,32 +156,20 @@
 				// check if the mob can hear
 				if(M.ear_deaf <= 0 || !M.ear_deaf) if(!istype(M.loc,/turf/space))
 					M << 'sound/effects/explosionfar.ogg'
-
 		if(heavy_impact_range > 1)
 			var/datum/effect/system/explosion/E = new/datum/effect/system/explosion()
 			E.set_up(epicenter)
 			E.start()
 
-		var/x0 = epicenter.x
-		var/y0 = epicenter.y
-		var/z0 = epicenter.z
+		for(var/datum/turfexplosioncontainer/Tcontainer in explodingturfs)
 
-		if(config.reactionary_explosions)
-			// Cache the explosion block rating of every turf in the explosion area so
-			//  exploded turfs don't leave the explosion lopsided
-			for(var/turf/T in trange(max_range, epicenter))
-				cached_exp_block[T] = 0
-				if(T.density && T.explosion_block)
-					cached_exp_block[T] += T.explosion_block
-
-				for(var/obj/machinery/door/D in T)
-					if(D.density && D.explosion_block)
-						cached_exp_block[T] += D.explosion_block
-
-		for(var/turf/T in trange(max_range, epicenter))
-
-			var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
-
+			var/turf/T = Tcontainer.T
+			var/dist = Tcontainer.dist
+			if (dist - lastdist >= 1 || count >= 40)
+				sleep(count/10) //once count reach 40, most of our cycles will be pretty large, so give .4sec for the deletes to catch up
+				lastdist = dist
+				count = 0
+			count++
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
 				while(Trajectory != epicenter)
@@ -157,7 +221,6 @@
 			var/obj/machinery/doppler_array/Array = doppler_arrays[i]
 			if(Array)
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
-
 	return 1
 
 
