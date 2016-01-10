@@ -51,14 +51,13 @@ var/icon/midplosion = 0
 	spawn (10)
 		qdel(src)
 	return
-/datum/effect/system/explosion/
-	var/particles = 10
-	var/smoke = 5
-	var/smokedur = 75
-	var/size = 1
-	var/smokerng = 1
-	var/pixoff = -32
-	var/iconused = 'icons/effects/96x96.dmi'
+/datum/effect/system/explosion/var/particles = 10
+/datum/effect/system/explosion/var/smoke = 5
+/datum/effect/system/explosion/var/smokedur = 75
+/datum/effect/system/explosion/var/size = 1
+/datum/effect/system/explosion/var/smokerng = 1
+/datum/effect/system/explosion/var/pixoff = -32
+/datum/effect/system/explosion/var/iconused = 'icons/effects/96x96.dmi'
 /datum/effect/system/explosion/set_up(turf/loc)
 	..(loc=loc)
 /datum/effect/system/explosion/proc/setsize(var/newsize)

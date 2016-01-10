@@ -82,10 +82,11 @@ proc/ls_partition_cmp(list/L, cmp, p, r)
 		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
 
-	if(config.use_iterative_explosions)
+	//uncomment if including explosion_iterative.dm
+	/*if(config.use_iterative_explosions)
 		spawn (1)
 			explosion_iter(epicenter, devastation_range, heavy_impact_range, light_impact_range)
-		return
+		return*/
 	spawn(0)
 		var/start = TimeOfHour
 		if(!epicenter) return
