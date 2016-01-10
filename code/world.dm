@@ -52,7 +52,7 @@ var/global/datum/global_init/init = new ()
 
 	. = ..()
 
-	sleep_offline = 1
+	sleep_offline = 0
 
 	plant_controller = new()
 	// Create robolimbs for chargen.
@@ -62,12 +62,13 @@ var/global/datum/global_init/init = new ()
 
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
-	spawn(1)
-		processScheduler.deferSetupFor(/datum/controller/process/ticker)
-		processScheduler.setup()
 
-		master_controller.setup()
+	processScheduler.deferSetupFor(/datum/controller/process/ticker)
+	processScheduler.setup()
 
+	master_controller.setup()
+	spawn(60)
+		sleep_offline = 1
 	#ifdef MAP_NAME
 	map_name = "[MAP_NAME]"
 	#else

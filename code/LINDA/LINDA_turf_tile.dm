@@ -140,9 +140,76 @@
 
 
 
+/turf/simulated/var/sharedairwith[0]
+#define SMOOTH_CELL_PRESSURE_DELTA_LIMIT		6
+#define SMOOTH_CELL_TEMP_DELTA_LIMIT		2
+//equalise the air between all tiles that were connected by an share_air call and have less than SMOOTH_CELL_PRESSURE_DELTA_LIMIT pressure difference.
+//this allow for air to quickly stabilise over a room, instead of ending in a near infinite cycle of air current pushing stuff around
+//this is far from perfect, but perfection come with a rather large cpu load cost.
+//This was designed to improve LINDA ability to stabilise gas in a room. Without it, the air can end up in a cycle where a little bit of air get moved every tick,
+//and since the tick are slow, it result in a lot of annoyance and air propagation speed that feels unnatural
+var/lastdebugprint = 0
+/turf/simulated/proc/smooth_cell()
 
-
-
+	if (sharedairwith.len == 0)
+		return
+	var/debugprint = 0
+	if (world.timeofday - lastdebugprint > 10 || lastdebugprint == world.timeofday)
+		if (world.timeofday - lastdebugprint > 10)
+			lastdebugprint = world.timeofday
+		debugprint = 1
+		world.log << "Debugging smooth_cell"
+	//remove ourself from the list. so we dont count twice
+	sharedairwith -= src
+	var/totalOxy = src.air.oxygen
+	var/totalNitro = src.air.nitrogen
+	var/totalCarbon = src.air.carbon_dioxide
+	var/totalTox = src.air.toxins
+	var/totalTemperature = src.air.temperature
+	if (debugprint == 1)
+		var/pressdebug = air.return_pressure()
+		world.log << "src oxy moles:[totalOxy] pressure:[pressdebug]"
+	//add up all the gas in the connections
+	var/count = 1
+	for (var/turf/simulated/T in sharedairwith)
+		if (abs(T.air.return_pressure() - air.return_pressure()) >= SMOOTH_CELL_PRESSURE_DELTA_LIMIT)
+			continue
+		if (abs(T.air.return_temperature() - air.return_temperature()) >= SMOOTH_CELL_TEMP_DELTA_LIMIT)
+			continue
+		count++
+		totalOxy += T.air.oxygen
+		totalNitro += T.air.nitrogen
+		totalCarbon += T.air.carbon_dioxide
+		totalTox += T.air.toxins
+		totalTemperature += T.air.temperature
+		T.sharedairwith = new /list(0) //its faster to dereference the old list and let the gc delete it in time, than to empty the memory
+	if (debugprint == 1)
+		world.log << "Total oxy moles:[totalOxy] spread in:[count] totalshared:[sharedairwith.len]"
+	//split up the moles of gas between each affected tiles
+	var/oxyperturf = totalOxy / count
+	var/nitroperturf = totalNitro / count
+	var/carbonperturf = totalCarbon / count
+	var/toxperturf = totalTox / count
+	var/tempperturf = totalTemperature / count
+	for (var/turf/simulated/T in sharedairwith)
+		if (abs(T.air.return_pressure() - air.return_pressure()) >= SMOOTH_CELL_PRESSURE_DELTA_LIMIT)
+			continue
+		if (abs(T.air.return_temperature() - air.return_temperature()) >= SMOOTH_CELL_TEMP_DELTA_LIMIT)
+			continue
+		T.air.oxygen = oxyperturf
+		T.air.nitrogen = nitroperturf
+		T.air.carbon_dioxide = carbonperturf
+		T.air.toxins = toxperturf
+		T.air.temperature = tempperturf
+	src.air.oxygen = oxyperturf
+	src.air.nitrogen = nitroperturf
+	src.air.carbon_dioxide = carbonperturf
+	src.air.toxins = toxperturf
+	src.air.temperature = tempperturf
+	//finally clear our own list
+	sharedairwith = new /list(0)
+	if (debugprint == 1)
+		world.log << "----------"
 
 /turf/simulated/proc/process_cell()
 
@@ -281,6 +348,10 @@
 /turf/simulated/proc/share_air(var/turf/simulated/T)
 	if(T.current_cycle < current_cycle)
 		var/difference
+		sharedairwith |= T
+		sharedairwith |= T.sharedairwith
+		T.sharedairwith |= src
+		T.sharedairwith |= src.sharedairwith
 		difference = air.share(T.air, atmos_adjacent_turfs_amount)
 		if(difference)
 			if(difference > 0)
@@ -340,13 +411,13 @@
 		air_master.excited_groups -= E
 		for(var/turf/simulated/T in E.turf_list)
 			T.excited_group = src
-			turf_list += T
+			turf_list |= T
 			reset_cooldowns()
 	else
 		air_master.excited_groups -= src
 		for(var/turf/simulated/T in turf_list)
 			T.excited_group = E
-			E.turf_list += T
+			E.turf_list |= T
 			E.reset_cooldowns()
 
 /datum/excited_group/proc/reset_cooldowns()

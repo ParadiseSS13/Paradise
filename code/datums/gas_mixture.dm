@@ -621,42 +621,42 @@ What are the archived variables for?
 			sharer.temperature += heat/sharer.heat_capacity
 
 /datum/gas_mixture/compare(datum/gas_mixture/sample)
-	if((abs(oxygen-sample.oxygen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((oxygen < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.oxygen) || (oxygen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.oxygen)))
+	if((abs(oxygen-sample.oxygen) > MINIMUM_AIR_TO_GROUP) && \
+		((oxygen < (1-AIR_RATIO_TO_GROUP)*sample.oxygen) || (oxygen > (1+AIR_RATIO_TO_GROUP)*sample.oxygen)))
 		return 0
-	if((abs(nitrogen-sample.nitrogen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((nitrogen < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.nitrogen) || (nitrogen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.nitrogen)))
+	if((abs(nitrogen-sample.nitrogen) > MINIMUM_AIR_TO_GROUP) && \
+		((nitrogen < (1-AIR_RATIO_TO_GROUP)*sample.nitrogen) || (nitrogen > (1+AIR_RATIO_TO_GROUP)*sample.nitrogen)))
 		return 0
-	if((abs(carbon_dioxide-sample.carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && \
-		((carbon_dioxide < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.carbon_dioxide) || (oxygen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.carbon_dioxide)))
+	if((abs(carbon_dioxide-sample.carbon_dioxide) > MINIMUM_AIR_TO_GROUP) && \
+		((carbon_dioxide < (1-AIR_RATIO_TO_GROUP)*sample.carbon_dioxide) || (oxygen > (1+AIR_RATIO_TO_GROUP)*sample.carbon_dioxide)))
 		return 0
-	if((abs(toxins-sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
-		((toxins < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins) || (toxins > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins)))
+	if((abs(toxins-sample.toxins) > MINIMUM_AIR_TO_GROUP) && \
+		((toxins < (1-AIR_RATIO_TO_GROUP)*sample.toxins) || (toxins > (1+AIR_RATIO_TO_GROUP)*sample.toxins)))
 		return 0
 
-	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
-		if((abs(temperature-sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND) && \
-			((temperature < (1-MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND)*sample.temperature) || (temperature > (1+MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND)*sample.temperature)))
+	if(total_moles() > MINIMUM_AIR_TO_GROUP)
+		if((abs(temperature-sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_GROUP) && \
+			((temperature < (1-TEMPERATURE_RATIO_TO_GROUP)*sample.temperature) || (temperature > (1+TEMPERATURE_RATIO_TO_GROUP)*sample.temperature)))
 			return 0
 
 	for(var/gas in sample.trace_gases)
 		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles_archived > MINIMUM_AIR_TO_SUSPEND)
+		if(trace_gas.moles_archived > MINIMUM_AIR_TO_GROUP)
 			var/datum/gas/corresponding = locate(trace_gas.type) in trace_gases
 			if(corresponding)
-				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_SUSPEND) && \
-					((corresponding.moles < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*trace_gas.moles) || (corresponding.moles > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*trace_gas.moles)))
+				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_GROUP) && \
+					((corresponding.moles < (1-AIR_RATIO_TO_GROUP)*trace_gas.moles) || (corresponding.moles > (1+AIR_RATIO_TO_GROUP)*trace_gas.moles)))
 					return 0
 			else
 				return 0
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles > MINIMUM_AIR_TO_SUSPEND)
+		if(trace_gas.moles > MINIMUM_AIR_TO_GROUP)
 			var/datum/gas/corresponding = locate(trace_gas.type) in sample.trace_gases
 			if(corresponding)
-				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_SUSPEND) && \
-					((trace_gas.moles < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*corresponding.moles) || (trace_gas.moles > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*corresponding.moles)))
+				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_GROUP) && \
+					((trace_gas.moles < (1-AIR_RATIO_TO_GROUP)*corresponding.moles) || (trace_gas.moles > (1+AIR_RATIO_TO_GROUP)*corresponding.moles)))
 					return 0
 			else
 				return 0

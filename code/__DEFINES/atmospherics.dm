@@ -16,6 +16,10 @@
 
 //stuff you should probably leave well alone!
 //ATMOS
+#define AIR_RATIO_TO_GROUP					0.1     //The bigger this number, the more atmospheric turf simulation will be merged together. Essentially accelerate stabilisation rate
+#define MINIMUM_AIR_TO_GROUP				(MOLES_CELLSTANDARD*0.0005)	//Minimum amount of delta gas required to be grouped
+#define TEMPERATURE_RATIO_TO_GROUP		    0.2
+#define MINIMUM_TEMPERATURE_DELTA_TO_GROUP	0.05		//Minimum temperature difference before group processing is suspended
 #define CELL_VOLUME							2500	//liters in a cell
 #define BREATH_VOLUME						0.5		//liters in a normal breath
 #define BREATH_MOLES 						(ONE_ATMOSPHERE * BREATH_VOLUME /(T20C*R_IDEAL_GAS_EQUATION))
