@@ -30,7 +30,13 @@
 		flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
 		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
+
+	if(config.use_iterative_explosions)
+		spawn (1)
+			explosion_iter(epicenter, devastation_range, heavy_impact_range, light_impact_range)
+		return
 	spawn(0)
+
 		var/start = TimeOfHour
 		if(!epicenter) return
 

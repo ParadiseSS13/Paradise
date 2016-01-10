@@ -249,6 +249,7 @@ steam.start() -- spawns the effect
 	pixel_x = -32
 	pixel_y = -32
 
+
 /obj/effect/effect/harmless_smoke/New()
 	..()
 	spawn (100)
@@ -262,7 +263,7 @@ steam.start() -- spawns the effect
 /datum/effect/system/harmless_smoke_spread
 	var/total_smoke = 0 // To stop it being spammed and lagging!
 	var/direction
-
+	var/duration = 75
 	set_up(n = 5, c = 0, loca, direct)
 		if(n > 10)
 			n = 10
@@ -295,7 +296,7 @@ steam.start() -- spawns the effect
 				for(i=0, i<pick(0,1,1,1,2,2,2,3), i++)
 					sleep(10)
 					step(smoke,direction)
-				spawn(75+rand(10,30))
+				spawn(duration+rand(10,30))
 					smoke.delete()
 					src.total_smoke--
 
