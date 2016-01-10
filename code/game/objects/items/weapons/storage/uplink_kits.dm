@@ -51,17 +51,11 @@
 				return
 
 			if("implant")
-				var/obj/item/weapon/implanter/O = new /obj/item/weapon/implanter(src)
-				O.imp = new /obj/item/weapon/implant/freedom(O)
-				var/obj/item/weapon/implanter/U = new /obj/item/weapon/implanter(src)
-				U.imp = new /obj/item/weapon/implant/uplink(U)
-				var/obj/item/weapon/implanter/C = new /obj/item/weapon/implanter(src)
-				C.imp = new /obj/item/weapon/implant/emp(C)
-				var/obj/item/weapon/implanter/K = new /obj/item/weapon/implanter(src)
-				K.imp = new /obj/item/weapon/implant/adrenalin(K)
-				var/obj/item/weapon/implanter/S = new /obj/item/weapon/implanter(src)
-				S.imp = new /obj/item/weapon/implant/explosive(S)
-				S.name += " (explosive)"
+				new /obj/item/weapon/implanter/freedom(src)
+				new /obj/item/weapon/implanter/uplink(src)
+				new /obj/item/weapon/implanter/emp(src)
+				new /obj/item/weapon/implanter/adrenalin(src)
+				new /obj/item/weapon/implanter/explosive(src)
 				return
 
 			if("hacker")

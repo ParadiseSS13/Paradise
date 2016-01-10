@@ -371,6 +371,10 @@
 		if(prob(10) && health && !hal_crit)
 			spawn(0)
 				emote("snore")
+	// Keep SSD people asleep
+	if(player_logged && sleeping < 2)
+		sleeping = 2
+	return sleeping
 
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()

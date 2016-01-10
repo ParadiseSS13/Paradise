@@ -57,14 +57,14 @@
 	return
 
 /obj/machinery/sleep_console/proc/findsleeper()
-	spawn( 5 )
-		var/obj/machinery/sleeper/sleepernew = null
-		// Loop through every direction
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			// Try to find a scanner in that direction
-			sleepernew = locate(/obj/machinery/sleeper, get_step(src, dir))
-		src.connected = sleepernew
-		return
+	var/obj/machinery/sleeper/sleepernew = null
+	// Loop through every direction
+	for(dir in list(NORTH,EAST,SOUTH,WEST))
+		// Try to find a scanner in that direction
+		var/temp = locate(/obj/machinery/sleeper, get_step(src, dir))
+		if(!isnull(temp))
+			sleepernew = temp
+	src.connected = sleepernew
 	return
 
 /obj/machinery/sleeper/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise

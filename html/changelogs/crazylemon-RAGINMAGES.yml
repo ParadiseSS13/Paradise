@@ -21,7 +21,7 @@
 #################################
 
 # Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
-author: Tigercat2000
+author: Crazylemon
 
 # Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
 delete-after: True
@@ -32,4 +32,4 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscadd: "Added 96x96 (3x) res option to icons menu"
+  - rscadd: "Brought RAGIN' MAGES back up to function."

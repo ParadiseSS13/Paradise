@@ -1,0 +1,9 @@
+
+author: Fox McCloud
+
+delete-after: True
+
+changes: 
+  - tweak: "Positronic brains can no longer speak binary."
+  - tweak: "Positronic brains can be prevented from speaking (or allowed) by toggling their speaker on/off."
+  - tweak: "IPC's positronic brains start off toggled off."

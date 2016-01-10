@@ -250,14 +250,14 @@
 		qdel(src)
 
 /obj/machinery/body_scanconsole/proc/findscanner()
-	spawn( 5 )
-		var/obj/machinery/bodyscanner/bodyscannernew = null
-		// Loop through every direction
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			// Try to find a scanner in that direction
-			bodyscannernew = locate(/obj/machinery/bodyscanner, get_step(src, dir))
-		src.connected = bodyscannernew
-		return
+	var/obj/machinery/bodyscanner/bodyscannernew = null
+	// Loop through every direction
+	for(dir in list(NORTH,EAST,SOUTH,WEST))
+		// Try to find a scanner in that direction
+		var/temp = locate(/obj/machinery/bodyscanner, get_step(src, dir))
+		if(!isnull(temp))
+			bodyscannernew = temp
+	src.connected = bodyscannernew
 	return
 
 
