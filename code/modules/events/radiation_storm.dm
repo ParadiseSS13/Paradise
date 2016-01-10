@@ -1,3 +1,4 @@
+var/is_radstorm = 0
 /datum/event/radiation_storm
 	announceWhen	= 1
 	var/safe_zones = list(
@@ -29,6 +30,7 @@
 			A.radiation_alert()
 
 		make_maint_all_access()
+		is_radstorm = 1
 
 		sleep(600)
 
@@ -67,4 +69,8 @@
 
 		sleep(600) // Want to give them time to get out of maintenance.
 
-		revoke_maint_all_access()
+		if(is_radstorm)
+			revoke_maint_all_access()
+			is_radstorm = 0
+		else
+			return

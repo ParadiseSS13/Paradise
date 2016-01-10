@@ -146,11 +146,17 @@
 			set_security_level(SEC_LEVEL_RED)
 			feedback_inc("alert_keycard_auth_red",1)
 		if("Grant Emergency Maintenance Access")
-			make_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintGrant",1)
+			if(!is_radstorm)
+				make_maint_all_access()
+				feedback_inc("alert_keycard_auth_maintGrant",1)
+			else
+				usr << "<span class='notice'>There is an ongoing emergency which needs emergency maintenance access. It is already enabled."
 		if("Revoke Emergency Maintenance Access")
-			revoke_maint_all_access()
-			feedback_inc("alert_keycard_auth_maintRevoke",1)
+			if(!is_radstorm)
+				revoke_maint_all_access()
+				feedback_inc("alert_keycard_auth_maintRevoke",1)
+			else
+				usr << "<span class='notice'>There is an ongoing emergency which needs emergency maintenance access. You cannot revoke it during this time."
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				usr << "\red All Emergency Response Teams are dispatched and can not be called at this time."
