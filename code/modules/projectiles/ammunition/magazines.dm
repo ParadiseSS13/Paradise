@@ -36,6 +36,13 @@
 	caliber = "38"
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/cylinder/cap
+	name = "cap gun revolver cylinder"
+	desc = "Oh god, this shouldn't be here"
+	ammo_type = "/obj/item/ammo_casing/cap"
+	caliber = "cap"
+	max_ammo = 7
+
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
 	desc = "Oh god, this shouldn't be here"
