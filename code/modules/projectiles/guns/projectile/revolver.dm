@@ -64,7 +64,7 @@
 	..(user)
 	user << "[get_ammo(0,0)] of those are live rounds."
 
-/obj/item/weapon/gun/projectile/revolver/proc/Spin()
+/obj/item/weapon/gun/projectile/revolver/verb/Spin()
 	set name = "Spin cylinder"
 	set desc = "Fun when you're bored out of your skull."
 	set category = "Object"
@@ -85,7 +85,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
-	name = "revolver"
+	name = "\improper .38 Mars Special"
 	icon_state = "detective"
 	origin_tech = "combat=2;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/rev38"
