@@ -48,7 +48,7 @@
 	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
 	var/global/obj/screen/click_catcher/void
-	
+
 	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
@@ -77,3 +77,5 @@
 	)
 
 	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.
+
+	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier

@@ -748,7 +748,7 @@
 "tp" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/centcom/holding)
 "tq" = (/obj/structure/rack,/obj/item/device/camera,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
 "tr" = (/obj/structure/rack,/obj/item/toy/sword,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
-"ts" = (/obj/structure/rack,/obj/item/toy/gun,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
+"ts" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/revolver/capgun,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
 "tt" = (/turf/unsimulated/floor{icon_state = "cafeteria"},/area/centcom/holding)
 "tu" = (/turf/unsimulated/beach/sand,/area/centcom/holding)
 "tv" = (/obj/effect/overlay/palmtree_r,/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/centcom/holding)

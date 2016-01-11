@@ -7,7 +7,7 @@
 							/obj/item/toy/blink								= 2,
 							/obj/item/clothing/under/syndicate/tacticool	= 2,
 							/obj/item/toy/sword								= 2,
-							/obj/item/toy/gun								= 2,
+							/obj/item/weapon/gun/projectile/revolver/capgun								= 2,
 							/obj/item/toy/crossbow							= 2,
 							/obj/item/clothing/suit/syndicatefake			= 2,
 							/obj/item/weapon/storage/fancy/crayons			= 2,
@@ -28,8 +28,8 @@
 		if(computer && !computer.stat)
 			var/prizeselect = pickweight(prizes)
 			new prizeselect(computer.loc)
-			if(istype(prizeselect, /obj/item/toy/gun)) //Ammo comes with the gun
-				new /obj/item/toy/ammo/gun(computer.loc)
+			if(istype(prizeselect, /obj/item/weapon/gun/projectile/revolver/capgun)) //Ammo comes with the gun
+				new /obj/item/ammo_box/caps(computer.loc)
 			else if(istype(prizeselect, /obj/item/clothing/suit/syndicatefake)) //Helmet is part of the suit
 				new	/obj/item/clothing/head/syndicatefake(computer.loc)
 			feedback_inc("arcade_win_normal")

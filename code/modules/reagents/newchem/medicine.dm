@@ -760,19 +760,20 @@ proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reac
 
 /datum/reagent/mutadone/on_mob_life(var/mob/living/carbon/human/M as mob)
 	M.jitteriness = 0
-	var/needs_update = 1 //M.mutations.len > 0
+	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
 
-	for(var/block=1;block<=DNA_SE_LENGTH;block++)
-		M.dna.SetSEState(block,0)
-		genemutcheck(M,block,null,MUTCHK_FORCED)
-		M.update_mutations()
+	if(needs_update)
+		for(var/block=1;block<=DNA_SE_LENGTH;block++)
+			M.dna.SetSEState(block,0, 1)
+			genemutcheck(M,block,null,MUTCHK_FORCED)
+		M.dna.UpdateSE()
 
-	M.dna.struc_enzymes = M.dna.struc_enzymes_original
+		M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
-	// Might need to update appearance for hulk etc.
-	if(needs_update && ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.update_mutations()
+		// Might need to update appearance for hulk etc.
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.update_mutations()
 	..()
 	return
 
