@@ -308,14 +308,6 @@
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	handle_dna(C)
-	for (var/foo in abilities)
-		C.verbs |= foo
-	return
-
-// Used so that species lose their abilities before
-/datum/species/proc/handle_pre_loss(var/mob/living/carbon/C)
-	for (var/foo in abilities)
-		C.verbs -= foo
 	return
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init.
