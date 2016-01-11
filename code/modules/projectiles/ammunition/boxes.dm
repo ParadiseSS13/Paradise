@@ -53,8 +53,8 @@
 	icon_state = "9mmbox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	max_ammo = 8
-	materials = list(MAT_METAL=32000)
+	max_ammo = 7
+	materials = list(MAT_METAL=28000)
 
 /obj/item/ammo_box/shotgun/buck
 	name = "Ammunition Box (buckshot)"
@@ -63,15 +63,20 @@
 /obj/item/ammo_box/shotgun/stun
 	name = "Ammunition Box (stun shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
-	materials = list(MAT_METAL=2000)
+	materials = list(MAT_METAL=1750)
 
 /obj/item/ammo_box/shotgun/beanbag
 	name = "Ammunition Box (beanbag shells)"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
-	materials = list(MAT_METAL=2000)
+	materials = list(MAT_METAL=1750)
+
+/obj/item/ammo_box/shotgun/rubbershot
+	name = "Ammunition Box (rubbershot shells)"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	materials = list(MAT_METAL=28000)
 
 /obj/item/ammo_box/shotgun/tranquilizer
 	name = "Ammunition Box (tranquilizer darts)"
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
-	materials = list(MAT_METAL=2000)
+	materials = list(MAT_METAL=1750)
