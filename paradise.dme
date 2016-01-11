@@ -684,6 +684,7 @@
 #include "code\game\objects\items\stacks\nanopaste.dm"
 #include "code\game\objects\items\stacks\rods.dm"
 #include "code\game\objects\items\stacks\stack.dm"
+#include "code\game\objects\items\stacks\telecrystal.dm"
 #include "code\game\objects\items\stacks\sheets\glass.dm"
 #include "code\game\objects\items\stacks\sheets\leather.dm"
 #include "code\game\objects\items\stacks\sheets\light.dm"
