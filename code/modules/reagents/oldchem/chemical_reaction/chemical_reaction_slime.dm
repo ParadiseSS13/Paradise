@@ -491,11 +491,28 @@
 			var/obj/item/weapon/slimesteroid2/P = new /obj/item/weapon/slimesteroid2
 			P.loc = get_turf(holder.my_atom)
 //Sepia
+	slimestop
+		name = "Slime Stop"
+		id = "m_stop"
+		result = null
+		required_reagents = list("plasma" = 1)
+		result_amount = 1
+		required_container = /obj/item/slime_extract/sepia
+		required_other = 1
+		on_reaction(datum/reagents/holder)
+			feedback_add_details("slime_cores_used","[type]")
+			spawn(0) //otherwise the reagent won't be used up until after the full timstop is gone through.
+				var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
+				var/obj/effect/timestop/T = new (get_turf(holder.my_atom))
+				T.immune += mob
+				T.timestop()
+
+
 	slimecamera
 		name = "Slime Camera"
 		id = "m_camera"
 		result = null
-		required_reagents = list("plasma" = 1)
+		required_reagents = list("water" = 1)
 		result_amount = 1
 		required_container = /obj/item/slime_extract/sepia
 		required_other = 1

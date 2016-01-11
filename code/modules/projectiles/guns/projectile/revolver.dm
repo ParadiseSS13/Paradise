@@ -64,10 +64,28 @@
 	..(user)
 	user << "[get_ammo(0,0)] of those are live rounds."
 
+/obj/item/weapon/gun/projectile/revolver/verb/Spin()
+	set name = "Spin cylinder"
+	set desc = "Fun when you're bored out of your skull."
+	set category = "Object"
+
+	usr.visible_message("<span class='warning'>[usr] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
+	playsound(src.loc, 'sound/weapons/revolver_spin.ogg', 100, 1)
+	chambered = null
+	var/random = rand(1, magazine.max_ammo)
+	if(random <= get_ammo(0,0))
+		chamber_round()
+	update_icon()
+
+/obj/item/weapon/gun/projectile/revolver/capgun
+	name = "cap gun"
+	desc = "Looks almost like the real thing! Ages 8 and up."
+	origin_tech = "combat=1;materials=1"
+	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/cap"
+
 /obj/item/weapon/gun/projectile/revolver/detective
-	name = "\improper .38 Mars Special"
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
-	name = "revolver"
+	name = "\improper .38 Mars Special"
 	icon_state = "detective"
 	origin_tech = "combat=2;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/rev38"
@@ -168,43 +186,11 @@
 	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
 	origin_tech = "combat=2;materials=2"
 	mag_type = "/obj/item/ammo_box/magazine/internal/cylinder/rus357"
-	var/spun = 0
+
 
 /obj/item/weapon/gun/projectile/revolver/russian/New()
 	..()
 	Spin()
-	update_icon()
-
-/obj/item/weapon/gun/projectile/revolver/russian/proc/Spin()
-	chambered = null
-	var/random = rand(1, magazine.max_ammo)
-	if(random <= get_ammo(0,0))
-		chamber_round()
-	spun = 1
-
-/obj/item/weapon/gun/projectile/revolver/russian/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	..()
-	user.visible_message("<span class='warning'>[user] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
-	if(get_ammo() > 0)
-		Spin()
-	update_icon()
-	A.update_icon()
-	return
-
-/obj/item/weapon/gun/projectile/revolver/russian/attack_self(mob/user as mob)
-	if(!spun && get_ammo(0,0))
-		user.visible_message("<span class='warning'>[user] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
-		Spin()
-	else
-		..()
-
-
-/obj/item/weapon/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
-	if (!spun)
-		Spin()
-		return
-	..()
-	spun = 0
 
 /obj/item/weapon/gun/projectile/revolver/russian/attack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj)
 
@@ -229,6 +215,5 @@
 					user.apply_damage(300, BRUTE, affecting, sharp=1) // You are dead, dead, dead.
 				return
 
-	spun = 0
 	..()
 

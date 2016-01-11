@@ -29,11 +29,12 @@
 
 	#if defined(TOPIC_DEBUGGING)
 	world << "[src]'s Topic: [href] destined for [hsrc]."
+	#endif
 
 	if(href_list["nano_err"]) //nano throwing errors
-		world << "## NanoUI, Subject [src]: " + html_decode(href_list["nano_err"]) //NANO DEBUG HOOK
+		if(topic_debugging)
+			src << "## NanoUI: " + html_decode(href_list["nano_err"]) //NANO DEBUG HOOK
 
-	#endif
 
 	if(href_list["asset_cache_confirm_arrival"])
 		//src << "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED."

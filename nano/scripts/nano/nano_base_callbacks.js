@@ -3,9 +3,7 @@ NanoBaseCallbacks = function ()
 {
     // _canClick is used to disable clicks for a short period after each click (to avoid mis-clicks)
     var _canClick = true;
-    
-    var _baseBeforeUpdateCallbacks = {}
-    
+    var _baseBeforeUpdateCallbacks = {};
     var _baseAfterUpdateCallbacks = {
         // this callback is triggered after new data is processed
         // it updates the status/visibility icon and adds click event handling to buttons/links     
@@ -23,7 +21,7 @@ NanoBaseCallbacks = function ()
             }
             else
             {
-                uiStatusClass = 'bad'
+                uiStatusClass = 'bad';
                 $('.linkActive').addClass('inactive');
             }
             $('.statusicon').each( function(i, obj) {
@@ -103,27 +101,16 @@ NanoBaseCallbacks = function ()
             NanoStateManager.addAfterUpdateCallbacks(_baseAfterUpdateCallbacks);
         },
         removeCallbacks: function () {
-            for (var callbackKey in _baseBeforeUpdateCallbacks)
-            {
-                if (_baseBeforeUpdateCallbacks.hasOwnProperty(callbackKey))
-                {
+            for (var callbackKey in _baseBeforeUpdateCallbacks) {
+                if (_baseBeforeUpdateCallbacks.hasOwnProperty(callbackKey)) {
                     NanoStateManager.removeBeforeUpdateCallback(callbackKey);
                 }
             }
-            for (var callbackKey in _baseAfterUpdateCallbacks)
-            {
-                if (_baseAfterUpdateCallbacks.hasOwnProperty(callbackKey))
-                {
+            for (var callbackKey in _baseAfterUpdateCallbacks) {
+                if (_baseAfterUpdateCallbacks.hasOwnProperty(callbackKey)) {
                     NanoStateManager.removeAfterUpdateCallback(callbackKey);
                 }
             }
         }
     };
-} ();
- 
-
-
-
-
-
-
+}();

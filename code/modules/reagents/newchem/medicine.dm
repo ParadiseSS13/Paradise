@@ -650,8 +650,7 @@ datum/reagent/strange_reagent/reaction_mob(var/mob/living/M as mob, var/method=T
 	if(istype(M, /mob/living/simple_animal))
 		if(method == TOUCH)
 			if(M.stat == DEAD)
-				M.health = M.maxHealth
-				M.update_revive()
+				M.revive()
 				M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 	if(istype(M, /mob/living/carbon))
 		if(method == INGEST)
@@ -761,19 +760,20 @@ proc/chemical_mob_spawn(var/datum/reagents/holder, var/amount_to_spawn, var/reac
 
 /datum/reagent/mutadone/on_mob_life(var/mob/living/carbon/human/M as mob)
 	M.jitteriness = 0
-	var/needs_update = 1 //M.mutations.len > 0
+	var/needs_update = M.mutations.len > 0 || M.disabilities > 0 || M.sdisabilities > 0
 
-	for(var/block=1;block<=DNA_SE_LENGTH;block++)
-		M.dna.SetSEState(block,0)
-		genemutcheck(M,block,null,MUTCHK_FORCED)
-		M.update_mutations()
+	if(needs_update)
+		for(var/block=1;block<=DNA_SE_LENGTH;block++)
+			M.dna.SetSEState(block,0, 1)
+			genemutcheck(M,block,null,MUTCHK_FORCED)
+		M.dna.UpdateSE()
 
-	M.dna.struc_enzymes = M.dna.struc_enzymes_original
+		M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
-	// Might need to update appearance for hulk etc.
-	if(needs_update && ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.update_mutations()
+		// Might need to update appearance for hulk etc.
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.update_mutations()
 	..()
 	return
 

@@ -357,6 +357,9 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	use_external_power = 1
 	recharge_time = 5
 
+/obj/item/weapon/gun/energy/printer/update_icon()
+	return
+
 /obj/item/weapon/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."

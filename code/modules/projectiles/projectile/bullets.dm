@@ -8,6 +8,17 @@
 	embed = 1
 	sharp = 1
 
+/obj/item/projectile/bullet/cap
+	name = "cap"
+	damage = 0
+	nodamage = 1
+	embed = 0
+	sharp = 0
+
+/obj/item/projectile/bullet/cap/process()
+	loc = null
+	del(src)
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	damage = 5
 	stamina = 80
@@ -17,9 +28,9 @@
 	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
-	damage = 15
+	damage = 5
 	weaken = 3
-	stamina = 50
+	stamina = 60
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
 	embed = 0
