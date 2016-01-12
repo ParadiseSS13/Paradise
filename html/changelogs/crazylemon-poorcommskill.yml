@@ -1,0 +1,7 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - rscadd: "Bomb guardians now automatically notify their master when they've set something to boom, so there's less accidental friendly fire"
+  - bugfix: "Bomb guardians are only notified that their trap failed, if it ACTUALLY FAILED."
+  - rscadd: "Bomb guardians now are more aware of what is primed to explode."
+  - rscadd: "Bomb guardian summoners can now defuse their guardian's bombs without harm."
