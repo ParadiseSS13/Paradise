@@ -35,7 +35,7 @@
 		if(!epicenter) return
 
 		var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
-		var/list/cached_exp_block = new
+		var/list/cached_exp_block = list()
 
 		if(adminlog)
 			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] ([epicenter.x],[epicenter.y],[epicenter.z]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[epicenter.x];Y=[epicenter.y];Z=[epicenter.z]'>JMP</a>)")
@@ -84,10 +84,10 @@
 		var/y0 = epicenter.y
 		var/z0 = epicenter.z
 
+		var/list/affected_turfs = trange(max_range, epicenter)
+
 		if(config.reactionary_explosions)
-			// Cache the explosion block rating of every turf in the explosion area so
-			//  exploded turfs don't leave the explosion lopsided
-			for(var/turf/T in trange(max_range, epicenter))
+			for(var/turf/T in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
 				cached_exp_block[T] = 0
 				if(T.density && T.explosion_block)
 					cached_exp_block[T] += T.explosion_block
@@ -96,7 +96,7 @@
 					if(D.density && D.explosion_block)
 						cached_exp_block[T] += D.explosion_block
 
-		for(var/turf/T in trange(max_range, epicenter))
+		for(var/turf/T in affected_turfs)
 
 			var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
@@ -123,9 +123,23 @@
 				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
-					for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
-						var/atom/movable/AM = atom_movable
-						if(AM && AM.simulated)	AM.ex_act(dist)
+					if(istype(T, /turf/simulated))
+						var/turf/simulated/S = T
+						var/affecting_level
+						if(dist == 1)
+							affecting_level = 1
+						else
+							affecting_level = S.is_shielded() ? 2 : (S.intact ? 2 : 1)
+						for(var/atom_movable in S.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
+							var/atom/movable/AM = atom_movable
+							if(AM && AM.simulated)
+								if(AM.level >= affecting_level)
+									AM.ex_act(dist)
+					else
+						for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
+							var/atom/movable/AM = atom_movable
+							if(AM && AM.simulated)
+								AM.ex_act(dist)
 					T.ex_act(dist)
 
 			//--- THROW ITEMS AROUND ---

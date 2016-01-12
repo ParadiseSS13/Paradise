@@ -1,0 +1,7 @@
+
+author: Fox McCloud
+
+delete-after: True
+
+changes: 
+  - tweak: "Explosions will no longer destroy things underneath turfs until the turf is exposed." 

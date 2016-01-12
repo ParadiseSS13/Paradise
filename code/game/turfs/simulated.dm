@@ -168,3 +168,5 @@
 /turf/simulated/ChangeTurf(var/path)
 	. = ..()
 	smooth_icon_neighbors(src)
+
+/turf/simulated/proc/is_shielded()
