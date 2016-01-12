@@ -270,6 +270,8 @@
 	return null
 
 /turf/simulated/proc/tile_graphic()
+	if (air == null)
+		return null
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
@@ -290,6 +292,7 @@
 		last_share_check()
 
 /turf/proc/consider_pressure_difference(var/turf/simulated/T, var/difference)
+	return //temporarily disabled
 	air_master.high_pressure_delta |= src
 	if(difference > pressure_difference)
 		pressure_direction = get_dir(src, T)
