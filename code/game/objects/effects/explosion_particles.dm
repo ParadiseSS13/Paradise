@@ -33,7 +33,8 @@
 			for(i=0, i<pick(1;25,2;50,3,4;200), i++)
 				sleep(1)
 				step(expl,direct)
-
+var/icon/smallplosion = 0
+var/icon/midplosion = 0
 /obj/effect/explosion
 	name = "explosive particles"
 	icon = 'icons/effects/96x96.dmi'
@@ -46,19 +47,66 @@
 
 /obj/effect/explosion/New()
 	..()
+
 	spawn (10)
 		qdel(src)
 	return
-
+/datum/effect/system/explosion/var/particles = 10
+/datum/effect/system/explosion/var/smoke = 5
+/datum/effect/system/explosion/var/smokedur = 75
+/datum/effect/system/explosion/var/size = 1
+/datum/effect/system/explosion/var/smokerng = 1
+/datum/effect/system/explosion/var/pixoff = -32
+/datum/effect/system/explosion/var/iconused = 'icons/effects/96x96.dmi'
 /datum/effect/system/explosion/set_up(turf/loc)
 	..(loc=loc)
-
+/datum/effect/system/explosion/proc/setsize(var/newsize)
+	if (size == newsize)
+		return
+	if (smallplosion == 0)
+		smallplosion = new('icons/effects/96x96.dmi')
+		smallplosion = smallplosion.Scale(32,32)
+	if (midplosion == 0)
+		midplosion = new('icons/effects/96x96.dmi')
+		midplosion = midplosion.Scale(64,64)
+	size = newsize
+	switch (newsize)
+		if (1)
+			iconused = 'icons/effects/96x96.dmi'
+			particles = 10
+			smoke = 2
+			smokedur = 30
+			pixoff = -32
+			smokerng = 1
+			return
+		if (2)
+			iconused = midplosion
+			particles = 6
+			smoke = 1
+			smokedur = 5
+			pixoff = -16
+			smokerng = 1
+			return
+		if (3)
+			iconused = smallplosion
+			particles = 2
+			smoke = 0
+			pixoff = 0
+			smokerng = 1
+			return
 /datum/effect/system/explosion/start()
-	new/obj/effect/explosion( location )
+	var/obj/effect/explosion/exptmp = new(location) //, icon = iconused, pixel_y = pixoff, pixel_x = pixoff
+	exptmp.icon = iconused
+	exptmp.pixel_y = pixoff
+	exptmp.pixel_x = pixoff
+	exptmp = null
 	var/datum/effect/system/expl_particles/P = new/datum/effect/system/expl_particles()
-	P.set_up(10,location)
+	P.set_up(particles,location)
 	P.start()
-	spawn(5)
-		var/datum/effect/system/harmless_smoke_spread/S = new/datum/effect/system/harmless_smoke_spread()
-		S.set_up(5,0,location,null)
-		S.start()
+	if (smoke > 0)
+		if (smokerng == 0 || prob(33))
+			spawn(-1)
+				var/datum/effect/system/harmless_smoke_spread/S = new/datum/effect/system/harmless_smoke_spread()
+				S.set_up(smoke,0,location,null)
+				S.duration = smokedur
+				S.start()

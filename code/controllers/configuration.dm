@@ -177,6 +177,7 @@
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
+	var/use_iterative_explosions = 0 //Defines whether the server uses recursive or circular explosions.
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for (var/T in L)
@@ -239,6 +240,9 @@
 
 				if ("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
+
+				if ("use_iterative_explosions")
+					use_iterative_explosions = 1
 
 				if ("log_ooc")
 					config.log_ooc = 1
