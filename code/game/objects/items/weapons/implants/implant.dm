@@ -413,7 +413,14 @@ the implant may become unstable and either pre-maturely inject the subject or si
 	H.mind.objectives += p
 	for(var/datum/objective/objective in H.mind.objectives)
 		H << "<B>Objective #1</B>: [objective.explanation_text]"
-	ticker.mode.update_traitor_icons_added(H.mind)
+
+	var/datum/mindslaves/slaved = new(null,user)
+	slaved.masters = user
+	slaved.serv = H
+	slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
+	slaved.add_serv_hud(H.mind,"mindslave")
+
+	ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
 	ticker.mode.update_traitor_icons_added(user.mind)
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 	return 1

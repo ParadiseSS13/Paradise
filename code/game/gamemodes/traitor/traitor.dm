@@ -338,43 +338,14 @@
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
-	var/ref = "\ref[traitor_mind]"
- 	if(ref in implanter)
- 		if(traitor_mind.current)
- 			tatorhud.join_solo_hud(traitor_mind.current)
-			set_antag_hud(traitor_mind.current, "hudsyndicate")
- 	for(var/headref in implanter)
- 		for(var/datum/mind/t_mind in implanter[headref])
- 			var/datum/mind/head = locate(headref)
- 			if(head)
- 				if(head.current)
- 					if(head.current.client)
- 						tatorhud.join_solo_hud(head.current)
-						set_antag_hud(head.current, "hudsyndicate")
- 				if(t_mind.current)
- 					if(t_mind.current.client)
- 						tatorhud.join_solo_hud(t_mind.current)
-						set_antag_hud(t_mind.current, "hudsyndicate")
+	//var/ref = "\ref[traitor_mind]"
+ 	tatorhud.join_solo_hud(traitor_mind.current)
+	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
 /datum/game_mode/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
-	for(var/headref in implanter)
-		var/datum/mind/head = locate(headref)
-		for(var/datum/mind/t_mind in implanter[headref])
-			if(t_mind.current)
-				if(t_mind.current.client)
-					tatorhud.leave_hud(t_mind.current)
-					set_antag_hud(t_mind.current, null)
-
-		if(head)
-		//log_to_dd("found [head.name]")
-			if(head.current)
-				if(head.current.client)
-					tatorhud.leave_hud(head.current)
-					set_antag_hud(head.current, null)
-		if(traitor_mind.current.client)
-			tatorhud.leave_hud(traitor_mind.current)
-			set_antag_hud(traitor_mind.current, null)
+	tatorhud.leave_hud(traitor_mind.current)
+	set_antag_hud(traitor_mind.current, null)
 
 
 /datum/game_mode/proc/remove_traitor_mind(datum/mind/traitor_mind, datum/mind/head)
@@ -385,6 +356,11 @@
 	implanted -= traitor_mind
 	traitors -= traitor_mind
 	traitor_mind.special_role = null
+
+	for(var/image/I in traitor_mind.current.client.images)
+		if(I.icon_state == "hudsyndicate")
+			qdel(I)
+
 	update_traitor_icons_removed(traitor_mind)
 	//world << "Removed [traitor_mind.current.name] from traitor shit"
 	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"

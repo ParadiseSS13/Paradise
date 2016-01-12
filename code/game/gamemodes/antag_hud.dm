@@ -74,3 +74,30 @@
 	for(var/datum/atom_hud/data/hud in huds)
 		if(current in hud.hudusers)
 			hud.remove_hud_from(current)
+
+
+///Master Servent Datum Sytems,Based on TG Gang system//
+
+/datum/mindslaves
+	var/name = "ERROR"
+	var/list/datum/mind/masters = list()
+	var/list/datum/mind/serv = list()
+	var/datum/atom_hud/antag/thrallhud
+	var/icontype
+
+/datum/mindslaves/New(loc,mastername)
+
+	name = mastername
+	thrallhud = new()
+
+/datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind,var/icon)
+	thrallhud.join_hud(serv_mind.current)
+	icontype = icon
+	if(serv_mind in masters)
+		world << "Master Added"
+		var/I = image('icons/mob/hud.dmi', loc = serv_mind.current, icon_state = "hud[icontype]")
+		serv_mind.current.client.images += I
+	else
+		var/I = image('icons/mob/hud.dmi', loc = serv_mind.current, icon_state = "hud[icontype]")
+		serv_mind.current.client.images += I
+

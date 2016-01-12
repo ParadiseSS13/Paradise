@@ -325,6 +325,13 @@
 		ticker.mode.vampire_thralls[ref] = list(H.mind)
 	else
 		ticker.mode.vampire_thralls[ref] += H.mind
+
+	var/datum/mindslaves/slaved = new(null,src)
+	slaved.masters = src
+	slaved.serv = H
+	slaved.add_serv_hud(src.mind,"vampire")//handles master servent icons
+	slaved.add_serv_hud(H.mind,"vampthrall")
+
 	ticker.mode.vampire_enthralled.Add(H.mind)
 	ticker.mode.vampire_enthralled[H.mind] = src.mind
 	H.mind.special_role = "VampThrall"
