@@ -113,6 +113,7 @@
 
 /datum/reagent/rezadone/on_mob_life(mob/living/M)
 	M.setCloneLoss(0) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
+	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
 	M.heal_organ_damage(1,1)
 	M.status_flags &= ~DISFIGURED
 	..()
