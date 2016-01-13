@@ -7,7 +7,7 @@
 	severity = rand(1, 3)
 
 /datum/event/viral_infection/announce()
-	command_announcement.Announce("Confirmed outbreak of level five VIRAL biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak5.ogg')
+	command_announcement.Announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 
 /datum/event/viral_infection/start()
 	var/list/candidates = list()	//list of candidate keys
