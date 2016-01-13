@@ -18,7 +18,8 @@
 #define AIR_CURRENTS_SPACESIPHON_MULT 4 //if the source of the air current is next to a turf open to space, the current will "consume" AIR_CURRENTS_SPACESIPHON_MULT times the air the src used in its balance. This allow for accounting of the fact most of the air you add in the turf connected to space, end up continuing into space
 var/global/datum/controller/process/aircurrents/air_currents_master
 /datum/controller/process/aircurrents/var/list/active_air_currents[0] //our list of active air currents
-
+/datum/controller/process/aircurrents/var/current_cycle = 0
+/datum/controller/process/aircurrents/var/sub_cycle = 0
 //uncomments to have a visual debug ingame of how the air currents act. Be warned this add a sizeable performance overhead
 //#define AIRCURRENTDEBUG 1
 #ifdef AIRCURRENTDEBUG
@@ -34,7 +35,7 @@ var/obj/effect/overlay/debug6p
 #endif
 /datum/controller/process/aircurrents/setup()
 	name = "air_currents"
-	schedule_interval = 20
+	schedule_interval = 5
 	start_delay = 4
 	air_currents_master = src
 #ifdef AIRCURRENTDEBUG
@@ -92,15 +93,29 @@ var/obj/effect/overlay/debug6p
 
 
 /datum/controller/process/aircurrents/doWork()
+	if (sub_cycle >= 4)
+		current_cycle++
+		sub_cycle = 0
+	sub_cycle++
 	process_allcurrents()
 	return 1
 
+/turf/var/currentsmastercycle = 0
 /datum/controller/process/aircurrents/proc/process_allcurrents()
+	var/size = active_air_currents.len
+	var/count = 0
 	for (var/turf/simulated/T in active_air_currents)
 		if (T == null)
 			active_air_currents -= T
-		else
-			T.process_aircurrents()
+			continue
+		if (T.currentsmastercycle == current_cycle)
+			continue
+		if (count > size/4 && sub_cycle < 4) //do at most 1/4 every subcycle, unless its the last one, then do whatever is left (to cover those added etc)
+			break
+		count++
+
+		T.currentsmastercycle = current_cycle
+		T.process_aircurrents()
 		SCHECK
 
 /datum/controller/process/aircurrents/proc/removeTurf(var/turf/simulated/T)

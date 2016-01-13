@@ -1,16 +1,19 @@
 var/kill_air = 0
 
 var/global/datum/controller/process/air_system/air_master
-
+/turf/var/activeturf_airmastercycle = 0
+/turf/var/excitedturf_airmastercycle = 0
 /datum/controller/process/air_system
 	var/list/excited_groups = list()
 	var/list/active_turfs = list()
 	var/list/hotspots = list()
 
+
 	//Special functions lists
 	var/list/turf/simulated/active_super_conductivity = list()
 	var/list/turf/simulated/high_pressure_delta = list()
 
+	var/sub_cycle = 0
 	var/current_cycle = 0
 	var/failed_ticks = 0
 	var/tick_progress = 0
@@ -24,7 +27,7 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/setup()
 	name = "air"
-	schedule_interval = 20 // every 2 seconds
+	schedule_interval = 5 // every 2 seconds
 	start_delay = 4
 	air_master = src
 
@@ -37,7 +40,10 @@ var/global/datum/controller/process/air_system/air_master
 /datum/controller/process/air_system/doWork()
 	if(kill_air)
 		return 1
-	current_cycle++
+	if (sub_cycle >= 4)
+		current_cycle++
+		sub_cycle = 0
+	sub_cycle++
 	process_active_turfs()
 	process_excited_groups()
 	process_high_pressure_delta()
@@ -52,13 +58,13 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/proc/process_hotspots()
 	last_hotspots = hotspots.len
-	for(var/obj/effect/hotspot/H in hotspots)
+	for(var/obj/effect/hotspot/H in hotspots) //we could split it as well, but at the same time it never represented much load in any profile i saw, so maybe we could just let it be faster
 		H.process()
 		SCHECK
 
 /datum/controller/process/air_system/proc/process_super_conductivity()
 	last_asc = active_super_conductivity.len
-	for(var/turf/simulated/T in active_super_conductivity)
+	for(var/turf/simulated/T in active_super_conductivity) //we could split it as well, but at the same time it never represented much load in any profile i saw, so maybe we could just let it be faster
 		T.super_conduct()
 		SCHECK
 
@@ -72,8 +78,15 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/proc/process_active_turfs()
 	last_active = active_turfs.len
+	var/count = 0
 	for(var/turf/simulated/T in active_turfs)
+		if (T.activeturf_airmastercycle == current_cycle)
+			continue
+		if (count > last_active/4 && sub_cycle < 4) //do at most 1/4 every subcycle, unless its the last one, then do whatever is left (to cover those added etc)
+			break
+		count++
 		T.process_cell()
+		T.activeturf_airmastercycle = current_cycle
 		SCHECK
 
 /datum/controller/process/air_system/proc/remove_from_active(var/turf/simulated/T)
@@ -99,6 +112,7 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/proc/setup_allturfs(var/turfs_in = world)
 	for(var/turf/simulated/T in turfs_in)
+		T.excitedturf_airmastercycle = current_cycle
 		T.CalculateAdjacentTurfs()
 		if(!T.blocks_air)
 			T.update_visuals()
@@ -119,7 +133,13 @@ var/global/datum/controller/process/air_system/air_master
 
 /datum/controller/process/air_system/proc/process_excited_groups()
 	last_excited = excited_groups.len
+	var/count = 0
 	for(var/datum/excited_group/EG in excited_groups)
+		if (T.activeturf_airmastercycle == current_cycle)
+			continue
+		if (count > last_excited/4 && sub_cycle < 4) //do at most 1/4 every subcycle, unless its the last one, then do whatever is left (to cover those added etc)
+			break
+		count++
 		EG.breakdown_cooldown++
 		if(EG.breakdown_cooldown == 10)
 			EG.self_breakdown()
