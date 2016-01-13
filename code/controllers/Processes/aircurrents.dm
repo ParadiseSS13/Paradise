@@ -113,7 +113,6 @@ var/obj/effect/overlay/debug6p
 		if (count > size/4 && sub_cycle < 4) //do at most 1/4 every subcycle, unless its the last one, then do whatever is left (to cover those added etc)
 			break
 		count++
-
 		T.currentsmastercycle = current_cycle
 		T.process_aircurrents()
 		SCHECK
