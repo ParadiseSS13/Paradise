@@ -416,8 +416,8 @@
 		B.update_icon()
 
 	else if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		var/obj/item/weapon/pen/robopen/RP = P
-		if(istype(P, /obj/item/weapon/pen/robopen) && RP.mode == 2)
+		var/obj/item/weapon/pen/multi/robopen/RP = P
+		if(istype(P, /obj/item/weapon/pen/multi/robopen) && RP.mode == 2)
 			RP.RenamePaper(user,src)
 		else
 			show_content(user, infolinks = 1)
