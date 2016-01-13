@@ -92,14 +92,16 @@ var/obj/effect/overlay/debug6p
 
 
 /datum/controller/process/aircurrents/doWork()
+	process_allcurrents()
+	return 1
+
+/datum/controller/process/aircurrents/proc/process_allcurrents()
 	for (var/turf/simulated/T in active_air_currents)
 		if (T == null)
 			active_air_currents -= T
 		else
 			T.process_aircurrents()
-	return 1
-
-
+		SCHECK
 
 /datum/controller/process/aircurrents/proc/removeTurf(var/turf/simulated/T)
 
