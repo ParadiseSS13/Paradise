@@ -1,0 +1,9 @@
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: Kyep
+
+# Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
+delete-after: True
+
+changes:
+  - rscadd: "Blob, vine and virus outbreaks are now more clearly labeled as such, to avoid people confusing them with each other"
