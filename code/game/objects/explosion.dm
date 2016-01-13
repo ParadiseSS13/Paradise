@@ -132,14 +132,14 @@
 							affecting_level = 1
 						else
 							affecting_level = S.is_shielded() ? 2 : (S.intact ? 2 : 1)
-						for(var/atom_movable in S.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
-							var/atom/movable/AM = atom_movable
+						for(var/atom in S.contents)	//bypass type checking since only atom can be contained by turfs anyway
+							var/atom/AM = atom
 							if(AM && AM.simulated)
 								if(AM.level >= affecting_level)
 									AM.ex_act(dist)
 					else
-						for(var/atom_movable in T.contents)	//bypass type checking since only atom/movable can be contained by turfs anyway
-							var/atom/movable/AM = atom_movable
+						for(var/atom in T.contents)	//see above
+							var/atom/AM = atom
 							if(AM && AM.simulated)
 								AM.ex_act(dist)
 					T.ex_act(dist)
