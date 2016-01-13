@@ -92,12 +92,6 @@
 
 /datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind,var/icon)
 	thrallhud.join_hud(serv_mind.current)
-	icontype = icon
-	if(serv_mind in masters)
-		world << "Master Added"
-		var/I = image('icons/mob/hud.dmi', loc = serv_mind.current, icon_state = "hud[icontype]")
-		serv_mind.current.client.images += I
-	else
-		var/I = image('icons/mob/hud.dmi', loc = serv_mind.current, icon_state = "hud[icontype]")
-		serv_mind.current.client.images += I
+	icontype = "hud[icon]"
+	ticker.mode.set_antag_hud(serv_mind.current,icontype)
 

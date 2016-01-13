@@ -308,7 +308,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
 	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
 	for(var/datum/atom_hud/H in huds)
-		if(istype(H, /datum/atom_hud/antag))// || istype(H, /datum/atom_hud/data/human/security/advanced))
+		if(istype(H, /datum/atom_hud/antag)|| istype(H,/datum/mindslaves))// || istype(H, /datum/atom_hud/data/human/security/advanced))
 			if(!M.antagHUD)
 			//(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
 				H.add_hud_to(usr)

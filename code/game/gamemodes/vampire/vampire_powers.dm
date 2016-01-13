@@ -337,8 +337,8 @@
 	H.mind.special_role = "VampThrall"
 	H << "<b>\red You have been Enthralled by [name]. Follow their every command.</b>"
 	src << "\red You have successfully Enthralled [H.name]. <i>If they refuse to do as you say just adminhelp.</i>"
-	ticker.mode.update_vampire_icons_added(H.mind)
-	ticker.mode.update_vampire_icons_added(src.mind)
+	//ticker.mode.update_vampire_icons_added(H.mind)
+	//ticker.mode.update_vampire_icons_added(src.mind)
 	log_admin("[ckey(src.key)] has mind-slaved [ckey(H.key)].")
 
 /client/vampire/proc/vampire_bats()
