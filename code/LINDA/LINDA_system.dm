@@ -128,6 +128,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
 		CalculateAdjacentTurfs()
 	if(air_master)
 		air_master.add_to_active(src,command)
+	InvalidateAtmoPassCache()
 
 /atom/movable/proc/move_update_air(var/turf/T)
     if(istype(T,/turf))

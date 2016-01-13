@@ -281,6 +281,7 @@
 /turf/simulated/proc/share_air(var/turf/simulated/T)
 	if(T.current_cycle < current_cycle)
 		var/difference
+		air_currents_master.onGasExchange(src, air.return_pressure(),T.air.return_pressure())
 		difference = air.share(T.air, atmos_adjacent_turfs_amount)
 		if(difference)
 			if(difference > 0)

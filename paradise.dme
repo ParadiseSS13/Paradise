@@ -153,6 +153,7 @@
 #include "code\controllers\verbs.dm"
 #include "code\controllers\voting.dm"
 #include "code\controllers\Processes\air.dm"
+#include "code\controllers\Processes\aircurrents.dm"
 #include "code\controllers\Processes\alarm.dm"
 #include "code\controllers\Processes\bot.dm"
 #include "code\controllers\Processes\event.dm"
