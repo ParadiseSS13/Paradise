@@ -21,9 +21,6 @@
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
 		if(istype(target, /obj/structure/stool)) return
-		for(var/M in target.contents)
-			if(istype(M, /mob/living))
-				return
 
 		if(istype(target,/obj))
 			var/obj/O = target
@@ -53,7 +50,7 @@
 		else if(istype(target,/mob/living))
 			var/mob/living/M = target
 			if(M.stat>1) return
-			if(chassis.occupant.a_intent == "harm")
+			if(chassis.occupant.a_intent == I_HARM)
 				M.take_overall_damage(dam_force)
 				M.adjustOxyLoss(round(dam_force/2))
 				M.updatehealth()
@@ -94,7 +91,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -105,7 +102,7 @@
 				else if(istype(target, /turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.gets_dug()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -138,7 +135,6 @@
 	desc = "This is an upgraded version of the drill that'll pierce the heavens! (Can be attached to: Combat and Engineering Exosuits)"
 	icon_state = "mecha_diamond_drill"
 	origin_tech = "materials=4;engineering=3"
-	construction_cost = list("metal"=10000,"diamond"=6500)
 	equip_cooldown = 20
 	force = 15
 
@@ -162,7 +158,7 @@
 				else if(istype(target, /turf/simulated/mineral))
 					for(var/turf/simulated/mineral/M in range(chassis,1))
 						if(get_dir(chassis,M)&chassis.dir)
-							M.GetDrilled()
+							M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -172,7 +168,7 @@
 									ore.Move(ore_box)
 				else if(istype(target,/turf/simulated/floor/plating/airless/asteroid))
 					for(var/turf/simulated/floor/plating/airless/asteroid/M in range(target,1))
-						M.gets_dug()
+						M.gets_drilled()
 					log_message("Drilled through [target]")
 					if(locate(/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp) in chassis.equipment)
 						var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
@@ -279,20 +275,23 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
-	construction_time = 1200
-	construction_cost = list("metal"=30000,"plasma"=25000,"silver"=20000,"gold"=20000)
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
-	var/disabled = 0 //malf
 	var/canRwall = 0
 
+	New()
+		rcd_list += src
+		..()
+
+	Destroy()
+		rcd_list -= src
+		return ..()
+
 	action(atom/target)
-		if(istype(target,/area/shuttle)||istype(target, /turf/space/transit))//>implying these are ever made -Sieve
-			disabled = 1
-		else
-			disabled = 0
+		if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
+			return
 		if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
 			target = get_turf(target)
-		if(!action_checks(target) || disabled || get_dist(chassis, target)>3) return
+		if(!action_checks(target) || get_dist(chassis, target)>3) return
 		playsound(chassis, 'sound/machines/click.ogg', 50, 1)
 		//meh
 		switch(mode)
@@ -303,7 +302,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -312,7 +310,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						target:ChangeTurf(/turf/space)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -321,7 +318,6 @@
 					occupant_message("Deconstructing [target]...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						qdel(target)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -331,7 +327,6 @@
 					occupant_message("Building Floor...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						target:ChangeTurf(/turf/simulated/floor/plating)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.spark_system.start()
@@ -340,7 +335,6 @@
 					occupant_message("Building Wall...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						target:ChangeTurf(/turf/simulated/wall)
 						playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 						chassis.spark_system.start()
@@ -350,7 +344,6 @@
 					occupant_message("Building Airlock...")
 					set_ready_state(0)
 					if(do_after_cooldown(target))
-						if(disabled) return
 						chassis.spark_system.start()
 						var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
 						T.autoclose = 1
@@ -436,13 +429,13 @@
 			return
 		chassis.use_power(energy_drain)
 		set_ready_state(0)
-		var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target))
-		P.target = target_turf
-		P.creator = null
+		var/obj/effect/portal/P = new /obj/effect/portal(get_turf(target), target_turf)
 		P.icon = 'icons/obj/objects.dmi'
 		P.failchance = 0
 		P.icon_state = "anom"
 		P.name = "wormhole"
+		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
+		log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([T.x],[T.y],[T.z])")
 		do_after_cooldown()
 		src = null
 		spawn(rand(150,300))
@@ -523,7 +516,6 @@
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
-	construction_cost = list("metal"=20000,"silver"=5000)
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
 
@@ -574,7 +566,6 @@
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
-	construction_cost = list("metal"=20000,"gold"=5000)
 	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.8
 
@@ -646,7 +637,6 @@
 	equip_cooldown = 20
 	energy_drain = 100
 	range = 0
-	construction_cost = list("metal"=10000,"gold"=1000,"silver"=2000,"glass"=5000)
 	var/health_boost = 2
 	var/datum/global_iterator/pr_repair_droid
 	var/icon/droid_overlay
@@ -664,10 +654,9 @@
 		M.overlays += droid_overlay
 		return
 
-	destroy()
+	Destroy()
 		chassis.overlays -= droid_overlay
-		..()
-		return
+		return ..()
 
 	detach()
 		chassis.overlays -= droid_overlay
@@ -736,7 +725,6 @@
 	equip_cooldown = 10
 	energy_drain = 0
 	range = 0
-	construction_cost = list("metal"=10000,"gold"=2000,"silver"=3000,"glass"=2000)
 	var/datum/global_iterator/pr_energy_relay
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
@@ -848,7 +836,6 @@
 	equip_cooldown = 10
 	energy_drain = 0
 	range = MELEE
-	construction_cost = list("metal"=10000,"silver"=500,"glass"=1000)
 	var/datum/global_iterator/pr_mech_generator
 	var/coeff = 100
 	var/obj/item/stack/sheet/fuel
@@ -940,7 +927,7 @@
 			GM.toxins += 100
 			GM.temperature = 1500+T0C //should be enough to start a fire
 			T.visible_message("The [src] suddenly disgorges a cloud of heated plasma.")
-			destroy()
+			qdel(src)
 		else
 			GM.toxins += 5
 			GM.temperature = istype(T) ? T.air.temperature : T20C
@@ -985,7 +972,6 @@
 	desc = "Generates power using uranium. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "powerstorage=3;engineering=3"
-	construction_cost = list("metal"=10000,"silver"=500,"glass"=1000)
 	max_fuel = 50000
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
@@ -1008,10 +994,7 @@
 	process(var/obj/item/mecha_parts/mecha_equipment/generator/nuclear/EG)
 		if(..())
 			for(var/mob/living/carbon/M in view(EG.chassis))
-				if(istype(M,/mob/living/carbon/human))
-					M.apply_effect((EG.rad_per_cycle*3),IRRADIATE,0)
-				else
-					M.radiation += EG.rad_per_cycle
+				M.apply_effect((EG.rad_per_cycle*3),IRRADIATE,0)
 		return 1
 
 
@@ -1067,10 +1050,10 @@
 		else if(istype(target,/mob/living))
 			var/mob/living/M = target
 			if(M.stat>1) return
-			if(chassis.occupant.a_intent == "harm")
+			if(chassis.occupant.a_intent == I_HARM)
 				chassis.occupant_message("\red You obliterate [target] with [src.name], leaving blood and guts everywhere.")
 				chassis.visible_message("\red [chassis] destroys [target] in an unholy fury.")
-			if(chassis.occupant.a_intent == "disarm")
+			if(chassis.occupant.a_intent == I_DISARM)
 				chassis.occupant_message("\red You tear [target]'s limbs off with [src.name].")
 				chassis.visible_message("\red [chassis] rips [target]'s arms off.")
 			else
@@ -1081,3 +1064,33 @@
 			chassis.use_power(energy_drain)
 			do_after_cooldown()
 		return 1
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner
+	name = "exosuit mining scanner"
+	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
+	icon_state = "mecha_analyzer"
+	origin_tech = "materials=3;engineering=2"
+	equip_cooldown = 30
+	var/scanning = 0
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner/New()
+	processing_objects.Add(src)
+
+/obj/item/mecha_parts/mecha_equipment/tool/mining_scanner/process()
+	if(!loc)
+		processing_objects.Remove(src)
+		qdel(src)
+	if(scanning)
+		return
+	if(istype(loc,/obj/mecha/working))
+		var/obj/mecha/working/mecha = loc
+		if(!mecha.occupant)
+			return
+		var/list/occupant = list()
+		occupant |= mecha.occupant
+		mecha.occupant.sight |= SEE_TURFS
+		scanning = 1
+		mineral_scan_pulse(occupant,get_turf(loc))
+		spawn(equip_cooldown)
+			scanning = 0
+			mecha.occupant.sight -= SEE_TURFS

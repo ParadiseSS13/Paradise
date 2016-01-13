@@ -52,14 +52,14 @@ DEBUG
 			log_admin("appearance_keylist was empty")
 	else
 		if(!establish_db_connection())
-			world.log << "Database connection failed. Reverting to the legacy ban system."
+			log_to_dd("Database connection failed. Reverting to the legacy ban system.")
 			diary << "Database connection failed. Reverting to the legacy ban system."
 			config.ban_legacy_system = 1
 			appearance_loadbanfile()
 			return
 
 		//appearance bans
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM erro_ban WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
 		query.Execute()
 
 		while(query.NextRow())
@@ -101,7 +101,7 @@ proc/DB_ban_isappearancebanned(var/playerckey)
 
 	var/sqlplayerckey = sql_sanitize_text(ckey(playerckey))
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM erro_ban WHERE CKEY = '[sqlplayerckey]' AND ((bantype = 'APPEARANCE_BAN') OR (bantype = 'APPEARANCE_TEMPBAN' AND expiration_time > Now())) AND unbanned != 1")
+	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("ban")] WHERE CKEY = '[sqlplayerckey]' AND ((bantype = 'APPEARANCE_BAN') OR (bantype = 'APPEARANCE_TEMPBAN' AND expiration_time > Now())) AND unbanned != 1")
 	query.Execute()
 	while(query.NextRow())
 		return 1

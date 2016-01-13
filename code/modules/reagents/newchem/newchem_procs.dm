@@ -17,6 +17,8 @@ datum/reagents/proc/metabolize(var/mob/M)
 		handle_reactions()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
+		if(!istype(R))
+			continue
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
@@ -43,8 +45,9 @@ datum/reagents/proc/metabolize(var/mob/M)
 		if(M && R)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
 				R.overdosed = 1
-				M << "<span class = 'userdanger'>You feel like you took too much [R.name]!</span>"
 				R.overdose_start(M)
+			if(R.volume < R.overdose_threshold && R.overdosed)
+				R.overdosed = 0
 			if(R.volume >= R.addiction_threshold && !is_type_in_list(R, addiction_list) && R.addiction_threshold > 0)
 				var/datum/reagent/new_reagent = new R.type()
 				addiction_list.Add(new_reagent)
@@ -80,6 +83,14 @@ datum/reagents/proc/metabolize(var/mob/M)
 	addiction_tick++
 	update_total()
 
+/datum/reagents/proc/overdose_list()
+	var/od_chems[0]
+	for(var/datum/reagent/R in reagent_list)
+		if(R.overdosed)
+			od_chems.Add(R.id)
+	return od_chems
+
+
 datum/reagents/proc/reagent_on_tick()
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
@@ -94,7 +105,7 @@ datum/reagents/proc/check_ignoreslow(var/mob/M)
 
 datum/reagents/proc/check_gofast(var/mob/M)
 	if(istype(M, /mob))
-		if(M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola"))
+		if(M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola")||M.reagents.has_reagent("stimulative_agent"))
 			return 1
 		else
 			M.status_flags &= ~GOTTAGOFAST

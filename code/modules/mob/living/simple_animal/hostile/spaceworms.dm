@@ -30,7 +30,7 @@
 	max_co2 = 0
 	max_tox = 0
 
-	a_intent = "harm" //so they don't get pushed around
+	a_intent = I_HARM //so they don't get pushed around
 
 	environment_smash = 1
 
@@ -165,7 +165,7 @@
 
 	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 
-	if(do_after(src, nomDelay,5,0))
+	if(do_after(src, nomDelay,5,0, target = noms))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
 			if(W)
 				W.ChangeTurf(/turf/simulated/floor/plating)
@@ -186,11 +186,11 @@
 
 
 //Harder to kill the head, but it can kill off the whole worm
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Die()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/death()
 	..()
 	if(prob(catastrophicDeathProb))
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
-			SW.Die()
+			SW.death()
 
 
 /mob/living/simple_animal/hostile/spaceWorm/Life()
@@ -291,12 +291,12 @@
 		myHead.totalWormSegments -= src
 
 	if(die)
-		newHead.Die()
+		newHead.death()
 
 	qdel(src)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Die()
+/mob/living/simple_animal/hostile/spaceWorm/death()
 	..()
 	if(myHead)
 		myHead.totalWormSegments -= src

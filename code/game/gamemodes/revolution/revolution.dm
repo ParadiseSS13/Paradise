@@ -29,8 +29,6 @@
 	var/finished = 0
 	var/checkwin_counter = 0
 	var/max_headrevs = 3
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 ///////////////////////////
 //Announces the game type//
 ///////////////////////////
@@ -47,7 +45,7 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_headrevs = get_players_for_role(BE_REV)
+	var/list/datum/mind/possible_headrevs = get_players_for_role(ROLE_REV)
 
 	for (var/i=1 to max_headrevs)
 		if(possible_headrevs.len==0)
@@ -85,10 +83,8 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
-	if(emergency_shuttle)
-		emergency_shuttle.no_escape = 1
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
+	if(shuttle_master)
+		shuttle_master.emergencyNoEscape = 1
 	..()
 
 
@@ -209,13 +205,8 @@
 /datum/game_mode/revolution/check_finished()
 	if(config.continous_rounds)
 		if(finished != 0)
-			if(emergency_shuttle)
-				if(emergency_shuttle.auto_recall)
-					emergency_shuttle.auto_recall = 0
-				else if(emergency_shuttle.is_stranded())
-					emergency_shuttle.no_escape = 0
-					emergency_shuttle.shuttle.moving_status = SHUTTLE_IDLE
-					emergency_shuttle.shuttle_arrived()
+			if(shuttle_master && shuttle_master.emergencyNoEscape)
+				shuttle_master.emergencyNoEscape = 0
 		return ..()
 	if(finished != 0)
 		return 1
@@ -246,11 +237,10 @@
 	if(rev_mind in revolutionaries)
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
-		rev_mind.current.hud_updateflag |= 1 << SPECIALROLE_HUD
 
 		if(beingborged)
 			rev_mind.current << "\red <FONT size = 3><B>The frame's firmware detects and deletes your neural reprogramming!  You remember nothing from the moment you were flashed until now.</B></FONT>"
-
+			message_admins("[key_name_admin(rev_mind.current)] has been borged while being a member of the revolution.")
 		else
 			rev_mind.current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>"
 
@@ -263,104 +253,21 @@
 				M << "[rev_mind.current] looks like they just remembered their real allegiance!"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
-//Keeps track of players having the correct icons////////////////////////////////////////////////
-//CURRENTLY CONTAINS BUGS:///////////////////////////////////////////////////////////////////////
-//-PLAYERS THAT HAVE BEEN REVS FOR AWHILE OBTAIN THE BLUE ICON WHILE STILL NOT BEING A REV HEAD//
-// -Possibly caused by cloning of a standard rev/////////////////////////////////////////////////
-//-UNCONFIRMED: DECONVERTED REVS NOT LOSING THEIR ICON PROPERLY//////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/proc/update_all_rev_icons()
-	spawn(0)
-		for(var/datum/mind/head_rev_mind in head_revolutionaries)
-			if(head_rev_mind.current)
-				if(head_rev_mind.current.client)
-					for(var/image/I in head_rev_mind.current.client.images)
-						if(I.icon_state == "rev" || I.icon_state == "rev_head")
-							qdel(I)
-
-		for(var/datum/mind/rev_mind in revolutionaries)
-			if(rev_mind.current)
-				if(rev_mind.current.client)
-					for(var/image/I in rev_mind.current.client.images)
-						if(I.icon_state == "rev" || I.icon_state == "rev_head")
-							qdel(I)
-
-		for(var/datum/mind/head_rev in head_revolutionaries)
-			if(head_rev.current)
-				if(head_rev.current.client)
-					for(var/datum/mind/rev in revolutionaries)
-						if(rev.current)
-							var/I = image('icons/mob/mob.dmi', loc = rev.current, icon_state = "rev")
-							head_rev.current.client.images += I
-					for(var/datum/mind/head_rev_1 in head_revolutionaries)
-						if(head_rev_1.current)
-							var/I = image('icons/mob/mob.dmi', loc = head_rev_1.current, icon_state = "rev_head")
-							head_rev.current.client.images += I
-
-		for(var/datum/mind/rev in revolutionaries)
-			if(rev.current)
-				if(rev.current.client)
-					for(var/datum/mind/head_rev in head_revolutionaries)
-						if(head_rev.current)
-							var/I = image('icons/mob/mob.dmi', loc = head_rev.current, icon_state = "rev_head")
-							rev.current.client.images += I
-					for(var/datum/mind/rev_1 in revolutionaries)
-						if(rev_1.current)
-							var/I = image('icons/mob/mob.dmi', loc = rev_1.current, icon_state = "rev")
-							rev.current.client.images += I
-
-////////////////////////////////////////////////////
-//Keeps track of converted revs icons///////////////
-//Refer to above bugs. They may apply here as well//
-////////////////////////////////////////////////////
+/////////////////////////////////////
+//Adds the rev hud to a new convert//
+/////////////////////////////////////
 /datum/game_mode/proc/update_rev_icons_added(datum/mind/rev_mind)
-	spawn(0)
-		for(var/datum/mind/head_rev_mind in head_revolutionaries)
-			if(head_rev_mind.current)
-				if(head_rev_mind.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "rev")
-					head_rev_mind.current.client.images += I
-			if(rev_mind.current)
-				if(rev_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = head_rev_mind.current, icon_state = "rev_head")
-					rev_mind.current.client.images += J
+	var/datum/atom_hud/antag/revhud = huds[ANTAG_HUD_REV]
+	revhud.join_hud(rev_mind.current)
+	set_antag_hud(rev_mind.current, ((rev_mind in head_revolutionaries) ? "hudheadrevolutionary" : "hudrevolutionary"))
 
-		for(var/datum/mind/rev_mind_1 in revolutionaries)
-			if(rev_mind_1.current)
-				if(rev_mind_1.current.client)
-					var/I = image('icons/mob/mob.dmi', loc = rev_mind.current, icon_state = "rev")
-					rev_mind_1.current.client.images += I
-			if(rev_mind.current)
-				if(rev_mind.current.client)
-					var/image/J = image('icons/mob/mob.dmi', loc = rev_mind_1.current, icon_state = "rev")
-					rev_mind.current.client.images += J
-
-///////////////////////////////////
-//Keeps track of deconverted revs//
-///////////////////////////////////
+/////////////////////////////////////////
+//Removes the hud from deconverted revs//
+/////////////////////////////////////////
 /datum/game_mode/proc/update_rev_icons_removed(datum/mind/rev_mind)
-	spawn(0)
-		for(var/datum/mind/head_rev_mind in head_revolutionaries)
-			if(head_rev_mind.current)
-				if(head_rev_mind.current.client)
-					for(var/image/I in head_rev_mind.current.client.images)
-						if((I.icon_state == "rev" || I.icon_state == "rev_head") && I.loc == rev_mind.current)
-							qdel(I)
-
-		for(var/datum/mind/rev_mind_1 in revolutionaries)
-			if(rev_mind_1.current)
-				if(rev_mind_1.current.client)
-					for(var/image/I in rev_mind_1.current.client.images)
-						if((I.icon_state == "rev" || I.icon_state == "rev_head") && I.loc == rev_mind.current)
-							qdel(I)
-
-		if(rev_mind.current)
-			if(rev_mind.current.client)
-				for(var/image/I in rev_mind.current.client.images)
-					if(I.icon_state == "rev" || I.icon_state == "rev_head")
-						qdel(I)
-
+	var/datum/atom_hud/antag/revhud = huds[ANTAG_HUD_REV]
+	revhud.leave_hud(rev_mind.current)
+	set_antag_hud(rev_mind.current, null)
 //////////////////////////
 //Checks for rev victory//
 //////////////////////////
@@ -476,3 +383,86 @@
 		istype(mind.current, /mob/living/carbon/human) && \
 		!(mind.assigned_role in command_positions) && \
 		!(mind.assigned_role in list("Security Officer", "Detective", "Warden", "Nanotrasen Representative"))
+
+
+
+/datum/game_mode/revolution/set_scoreboard_gvars()
+	var/foecount = 0
+	for(var/datum/mind/M in ticker.mode.head_revolutionaries)
+		foecount++
+		if(!M || !M.current)
+			score_opkilled++
+			continue
+
+		if(M.current.stat == DEAD)
+			score_opkilled++
+
+		else if(M.current.restrained())
+			score_arrested++
+
+	if(foecount == score_arrested)
+		score_allarrested = 1
+
+	for(var/mob/living/carbon/human/player in world)
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				if(player.stat == DEAD)
+					score_deadcommand++
+
+
+	var/arrestpoints = score_arrested * 1000
+	var/killpoints = score_opkilled * 500
+	var/comdeadpts = score_deadcommand * 500
+	if(score_traitorswon)
+		score_crewscore -= 10000
+
+	score_crewscore += arrestpoints
+	score_crewscore += killpoints
+	score_crewscore -= comdeadpts
+
+
+/datum/game_mode/revolution/get_scoreboard_stats()
+	var/foecount = 0
+	var/comcount = 0
+	var/revcount = 0
+	var/loycount = 0
+	for(var/datum/mind/M in ticker.mode:head_revolutionaries)
+		if (M.current && M.current.stat != DEAD)
+			foecount++
+	for(var/datum/mind/M in ticker.mode:revolutionaries)
+		if (M.current && M.current.stat != DEAD)
+			revcount++
+	for(var/mob/living/carbon/human/player in world)
+		if(player.mind)
+			var/role = player.mind.assigned_role
+			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+				if(player.stat != DEAD)
+					comcount++
+			else
+				if(player.mind in ticker.mode.revolutionaries) continue
+				loycount++
+
+	for(var/mob/living/silicon/X in world)
+		if(X.stat != DEAD)
+			loycount++
+
+
+	var/dat = ""
+
+	dat += "<b><u>Mode Statistics</u></b><br>"
+	dat += "<b>Number of Surviving Revolution Heads:</b> [foecount]<br>"
+	dat += "<b>Number of Surviving Command Staff:</b> [comcount]<br>"
+	dat += "<b>Number of Surviving Revolutionaries:</b> [revcount]<br>"
+	dat += "<b>Number of Surviving Loyal Crew:</b> [loycount]<br>"
+
+	dat += "<br>"
+	dat += "<b>Revolution Heads Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
+	dat += "<b>All Revolution Heads Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+
+	dat += "<b>Revolution Heads Slain:</b> [score_opkilled] ([score_opkilled * 500] Points)<br>"
+	dat += "<b>Command Staff Slain:</b> [score_deadcommand] (-[score_deadcommand * 500] Points)<br>"
+	dat += "<b>Revolution Successful:</b> [score_traitorswon ? "Yes" : "No"] (-[score_traitorswon * 10000] Points)<br>"
+	dat += "<HR>"
+
+	return dat

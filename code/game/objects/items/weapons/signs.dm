@@ -1,7 +1,6 @@
 /obj/item/weapon/picket_sign
 	icon_state = "picket"
 	item_state = "picket"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	name = "blank picket sign"
 	desc = "It's blank"
 	force = 5

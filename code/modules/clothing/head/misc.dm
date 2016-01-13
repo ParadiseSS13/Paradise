@@ -6,7 +6,7 @@
 	desc = "It's good to be emperor."
 	item_state = "centhat"
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	siemens_coefficient = 0.9
+	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"
@@ -18,56 +18,45 @@
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 	item_state = "that"
-	loose = 0 // centcom
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."
 	icon_state = "pwig"
 	item_state = "pwig"
-	loose = 90 // fucking whigs
 
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"
 	item_state = "that"
-	siemens_coefficient = 0.9
-	loose = 70
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
 	desc = "<i>'I guess it's a redhead.'</i>"
-	loose = 45
 
 /obj/item/clothing/head/mailman
 	name = "mailman's hat"
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
-	loose = 65
 
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by Plague doctors. They're pretty much useless."
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
-	loose = 30
 
 /obj/item/clothing/head/hasturhood
 	name = "hastur's hood"
 	desc = "It's unspeakably stylish"
 	icon_state = "hasturhood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	loose = 1
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
-	siemens_coefficient = 0.9
-	loose = 80 // allowing for awkward come-ons when he/she drops his/her hat and you get it for him/her.
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
@@ -76,8 +65,6 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	siemens_coefficient = 2.0
-	loose = 15 // not a very good replica
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
@@ -86,7 +73,6 @@
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
 	item_state="cueball"
 	flags_inv = 0
-	loose = 0
 
 /obj/item/clothing/head/that
 	name = "sturdy top-hat"
@@ -94,7 +80,6 @@
 	icon_state = "tophat"
 	item_state = "that"
 	flags_inv = 0
-	loose = 70
 
 
 /obj/item/clothing/head/greenbandana
@@ -103,7 +88,6 @@
 	icon_state = "greenbandana"
 	item_state = "greenbandana"
 	flags_inv = 0
-	loose = 1
 
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
@@ -112,7 +96,6 @@
 	item_state = "cardborg_h"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	loose = 20
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
@@ -120,7 +103,6 @@
 	icon_state = "justicered"
 	item_state = "justicered"
 	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | BLOCKHAIR
-	loose = 0
 
 /obj/item/clothing/head/justice/blue
 	icon_state = "justiceblue"
@@ -142,36 +124,30 @@
 	name = "rabbit ears"
 	desc = "Wearing these makes you looks useless, and only good for your sex appeal."
 	icon_state = "bunny"
-	loose = 4
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
 	item_state = "detective"
-	siemens_coefficient = 0.9
-	loose = 1
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	loose = 18
 
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
 	desc = "Yarr."
 	icon_state = "hgpiratecap"
 	item_state = "hgpiratecap"
-	loose = 36
 
 /obj/item/clothing/head/bandana
 	name = "pirate bandana"
 	desc = "Yarr."
 	icon_state = "bandana"
 	item_state = "bandana"
-	loose = 0
 
 //stylish bs12 hats
 
@@ -221,8 +197,6 @@
 	icon_state = "witch"
 	item_state = "witch"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
-	loose = 1
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -230,7 +204,6 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/corgi
 	name = "corgi suit head"
@@ -238,7 +211,6 @@
 	icon_state = "corgihead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR | NODROP
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/corgi/en
 	name = "E-N suit head"
@@ -250,8 +222,6 @@
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
 	flags = BLOCKHAIR
-	siemens_coefficient = 2.0
-	loose = 0 // grrrr
 
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
@@ -260,7 +230,6 @@
 	desc = "A helmet made out of chitinous alien hide."
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/crown
 	name = "bananium crown"
@@ -281,7 +250,6 @@
 /obj/item/clothing/head/fedora/brownfedora
 	name = "brown fedora"
 	icon_state = "bfedora"
-	loose = 35
 
 /obj/item/clothing/head/stalhelm
 	name = "Clown Stalhelm"

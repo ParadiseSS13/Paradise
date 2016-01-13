@@ -1,3 +1,83 @@
+/obj/screen/robot
+	icon = 'icons/mob/screen1_robot.dmi'
+
+/obj/screen/robot/module
+	name = "cyborg module"
+	icon_state = "nomod"
+
+/obj/screen/robot/module/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		if(R.module)
+			R.hud_used.toggle_show_robot_modules()
+			return 1
+		R.pick_module()
+
+/obj/screen/robot/module1
+	name = "module1"
+	icon_state = "inv1"
+
+/obj/screen/robot/module1/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.toggle_module(1)
+
+/obj/screen/robot/module2
+	name = "module2"
+	icon_state = "inv2"
+
+/obj/screen/robot/module2/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.toggle_module(2)
+
+/obj/screen/robot/module3
+	name = "module3"
+	icon_state = "inv3"
+
+/obj/screen/robot/module3/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.toggle_module(3)
+
+
+/obj/screen/robot/radio
+	name = "radio"
+	icon_state = "radio"
+
+/obj/screen/robot/radio/Click()
+	if(issilicon(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.radio_menu()
+
+/obj/screen/robot/store
+	name = "store"
+	icon_state = "store"
+
+/obj/screen/robot/store/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.uneq_active()
+		R.hud_used.update_robot_modules_display()
+
+/obj/screen/robot/lamp
+	name = "headlamp"
+	icon_state = "lamp0"
+
+/obj/screen/robot/lamp/Click()
+	if(isrobot(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.control_headlamp()
+
+/obj/screen/robot/panel
+	name = "installed modules"
+	icon_state = "panel"
+
+/obj/screen/robot/panel/Click()
+	if(issilicon(usr))
+		var/mob/living/silicon/robot/R = usr
+		R.installed_modules()
+
 /datum/hud/proc/robot_hud()
 
 	src.adding = list()
@@ -7,7 +87,7 @@
 
 
 //Radio
-	using = new /obj/screen()
+	using = new /obj/screen/robot/radio()
 	using.name = "radio"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_robot.dmi'
@@ -18,7 +98,7 @@
 
 //Module select
 
-	using = new /obj/screen()
+	using = new /obj/screen/robot/module1()
 	using.name = "module1"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_robot.dmi'
@@ -28,7 +108,7 @@
 	src.adding += using
 	mymob:inv1 = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/robot/module2()
 	using.name = "module2"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_robot.dmi'
@@ -38,7 +118,7 @@
 	src.adding += using
 	mymob:inv2 = using
 
-	using = new /obj/screen()
+	using = new /obj/screen/robot/module3()
 	using.name = "module3"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_robot.dmi'
@@ -51,7 +131,7 @@
 //End of module select
 
 //Sec/Med HUDs
-	using = new /obj/screen()
+	using = new /obj/screen/ai/sensors()
 	using.name = "Toggle Sensor Augmentation"
 	using.icon = 'icons/mob/screen_ai.dmi'
 	using.icon_state = "ai_sensor"
@@ -60,7 +140,7 @@
 	adding += using
 
 //Intent
-	using = new /obj/screen()
+	using = new /obj/screen/act_intent()
 	using.name = "act_intent"
 	using.dir = SOUTHWEST
 	using.icon = 'icons/mob/screen1_robot.dmi'
@@ -85,7 +165,7 @@
 	mymob.healths.screen_loc = ui_borg_health
 
 //Installed Module
-	mymob.hands = new /obj/screen()
+	mymob.hands = new /obj/screen/robot/module()
 	mymob.hands.icon = 'icons/mob/screen1_robot.dmi'
 	mymob.hands.icon_state = "nomod"
 	mymob.hands.name = "module"
@@ -93,11 +173,18 @@
 
 
 //Store
-	mymob.throw_icon = new /obj/screen()
+	mymob.throw_icon = new /obj/screen/robot/store()
 	mymob.throw_icon.icon = 'icons/mob/screen1_robot.dmi'
 	mymob.throw_icon.icon_state = "store"
 	mymob.throw_icon.name = "store"
 	mymob.throw_icon.screen_loc = ui_borg_store
+
+//Headlamp
+	mymob:lamp_button = new /obj/screen/robot/lamp()
+	mymob:lamp_button.icon = 'icons/mob/screen1_robot.dmi'
+	mymob:lamp_button.icon_state = "lamp0"
+	mymob:lamp_button.name = "Toggle Headlamp"
+	mymob:lamp_button.screen_loc = ui_borg_lamp
 
 //Temp
 	mymob.bodytemp = new /obj/screen()
@@ -118,18 +205,18 @@
 	mymob.fire.name = "fire"
 	mymob.fire.screen_loc = ui_fire
 
-	mymob.pullin = new /obj/screen()
+	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen1_robot.dmi'
-	mymob.pullin.icon_state = "pull0"
-	mymob.pullin.name = "pull"
+	mymob.pullin.update_icon(mymob)
 	mymob.pullin.screen_loc = ui_borg_pull
 
 	mymob.blind = new /obj/screen()
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-8,CENTER-8"
+	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
 	mymob.blind.layer = 0
+	mymob.blind.mouse_opacity = 0
 
 	mymob.flash = new /obj/screen()
 	mymob.flash.icon = 'icons/mob/screen1_robot.dmi'
@@ -145,15 +232,16 @@
 
 	//Handle the gun settings buttons
 	mymob.gun_setting_icon = new /obj/screen/gun/mode(null)
-	if (mymob.client)
-		if (mymob.client.gun_mode) // If in aim mode, correct the sprite
-			mymob.gun_setting_icon.dir = 2
-	for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
-		if (G.target)
-			mymob.item_use_icon = new /obj/screen/gun/item(null)
-			if (mymob.client.target_can_click)
-				mymob.item_use_icon.dir = 1
-			src.adding += mymob.item_use_icon
+	mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//if (mymob.client)
+	//	if (mymob.client.gun_mode) // If in aim mode, correct the sprite
+	//		mymob.gun_setting_icon.dir = 2
+	//for(var/obj/item/weapon/gun/G in mymob) // If targeting someone, display other buttons
+	//	if (G.target)
+	//		mymob.item_use_icon = new /obj/screen/gun/item(null)
+	//		if (mymob.client.target_can_click)
+	//			mymob.item_use_icon.dir = 1
+			//src.adding += mymob.item_use_icon
 			/*mymob.gun_move_icon = new /obj/screen/gun/move(null)
 			if (mymob.client.target_can_move)
 				mymob.gun_move_icon.dir = 1
@@ -163,11 +251,11 @@
 				src.adding += mymob.gun_run_icon
 			src.adding += mymob.gun_move_icon*/
 
-	mymob.client.screen = null
+	mymob.client.screen = list()
 
-	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin, mymob.blind, mymob.flash, mymob.gun_setting_icon) //, mymob.rest, mymob.sleep, mymob.mach )
+	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin, mymob.blind, mymob.flash, mymob.gun_setting_icon, mymob:lamp_button) //, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += src.adding + src.other
-
+	mymob.client.screen += mymob.client.void
 	return
 
 
@@ -183,6 +271,8 @@
 	if(!isrobot(mymob)) return
 
 	var/mob/living/silicon/robot/r = mymob
+
+	if(!r.client) return
 
 	if(r.shown_robot_modules)
 		//Modules display is shown

@@ -18,7 +18,7 @@
 	desc = "HOLY SHEET! That is a lot of glass."
 	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
-	g_amt = MINERAL_MATERIAL_AMOUNT
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=1"
 	var/created_window = /obj/structure/window/basic
 	var/full_window = /obj/structure/window/full/basic
@@ -28,7 +28,7 @@
 	desc = "HOLY SHEET! That is a lot of glass."
 	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
-	g_amt = 0
+	materials = list()
 	created_window = /obj/structure/window/basic
 
 /obj/item/stack/sheet/glass/attack_self(mob/user as mob)
@@ -153,8 +153,7 @@
 	desc = "Glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
-	g_amt = MINERAL_MATERIAL_AMOUNT
-	m_amt = MINERAL_MATERIAL_AMOUNT / 2
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "materials=2"
 	var/created_window = /obj/structure/window/reinforced
 	var/full_window = /obj/structure/window/full/reinforced
@@ -164,8 +163,7 @@
 	desc = "Glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
-	g_amt = 0
-	m_amt = 0
+	materials = list()
 
 /obj/item/stack/sheet/rglass/attack_self(mob/user as mob)
 	construct_window(user)
@@ -272,7 +270,7 @@
 	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
-	g_amt = MINERAL_MATERIAL_AMOUNT * 2
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "materials=3;plasma=2"
 	var/created_window = /obj/structure/window/plasmabasic
 	var/full_window = /obj/structure/window/full/plasmabasic
@@ -361,8 +359,7 @@
 	desc = "Plasma glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
-	g_amt = MINERAL_MATERIAL_AMOUNT * 2
-	m_amt = MINERAL_MATERIAL_AMOUNT / 2
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "materials=3;plasma=2"
 	var/created_window = /obj/structure/window/plasmareinforced
 	var/full_window = /obj/structure/window/full/plasmareinforced

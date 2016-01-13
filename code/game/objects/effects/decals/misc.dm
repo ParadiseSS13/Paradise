@@ -5,11 +5,7 @@
 	icon_state = "arrow"
 	layer = 16.0
 	anchored = 1
-
-/obj/effect/decal/point/point()
-	set src in oview()
-	set hidden = 1
-	return
+	mouse_opacity = 0
 
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
@@ -40,3 +36,28 @@
 
 /obj/effect/decal/snow/sand/surround
 	icon_state="gravsnow_surround"
+
+/obj/effect/decal/leaves
+	name="fall leaves"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "fallleaves"
+
+/obj/effect/decal/straw
+	name="scattered straw"
+	density = 0
+	anchored = 1
+	layer = 2
+	icon='icons/obj/flora/plants.dmi'
+	icon_state = "strawscattered"
+
+/obj/effect/decal/straw/medium
+	icon_state = "strawscattered3"
+
+/obj/effect/decal/straw/light
+	icon_state = "strawscattered2"
+
+/obj/effect/decal/straw/edge
+	icon_state = "strawscatterededge"

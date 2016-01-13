@@ -33,10 +33,10 @@
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.emote("me", 1, "coughs up blood!")
+			spawn owner.custom_emote(1, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
-			spawn owner.emote("me", 1, "gasps for air!")
+			spawn owner.custom_emote(1, "gasps for air!")
 			owner.losebreath += 5
 
 /obj/item/organ/kidneys
@@ -81,16 +81,13 @@
 		owner.b_eyes ? owner.b_eyes : 0
 		)
 
-
-/obj/item/organ/eyes/process() //Eye damage replaces the old eye_stat var.
-	..()
+/obj/item/organ/eyes/surgeryize()
 	if(!owner)
 		return
-	if(is_bruised())
-		owner.eye_blurry = 20
-	if(is_broken())
-		owner.eye_blind = 20
-
+	owner.disabilities &= ~NEARSIGHTED
+	owner.sdisabilities &= ~BLIND
+	owner.eye_blurry = 0
+	owner.eye_blind = 0
 
 /obj/item/organ/liver
 	name = "liver"

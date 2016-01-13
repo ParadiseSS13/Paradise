@@ -78,8 +78,8 @@ mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
 	if(species && species.flags & NO_PAIN)
-		//While IPCs don't feel pain, they will notice their gears gunking up with residue (toxins)
-		if(species && species.flags & IS_SYNTHETIC)
+		//While synthetics don't feel pain, they will notice their gears gunking up with residue (toxins)
+		if(isSynthetic())
 			var/toxDamageMessage = null
 			var/toxMessageProb = 1
 			switch(getToxLoss())
@@ -119,6 +119,8 @@ mob/living/carbon/human/proc/handle_pain()
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/I in internal_organs)
+		if(istype(I, /obj/item/organ/brain)) //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
+			continue
 		if(I.damage > 2) if(prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
 			src.custom_pain("You feel a sharp pain in your [parent.name]", 1)

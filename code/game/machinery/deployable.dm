@@ -69,13 +69,22 @@ for reference:
 		if (istype(W, /obj/item/stack/sheet/wood))
 			if (src.health < src.maxhealth)
 				visible_message("\red [user] begins to repair the [src]!")
-				if(do_after(user,20))
+				if(do_after(user,20, target = src))
 					src.health = src.maxhealth
 					W:use(1)
 					visible_message("\red [user] repairs the [src]!")
 					return
 			else
 				return
+			return
+		else if (istype(W, /obj/item/weapon/crowbar))
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
+			playsound(src, 'sound/items/Crowbar.ogg', 200, 1)
+
+			if(do_after(user, 300, target = src) && src && !src.gcDestroyed)
+				user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
+				dismantle()
 			return
 		else
 			switch(W.damtype)
@@ -86,10 +95,7 @@ for reference:
 				else
 			if (src.health <= 0)
 				visible_message("\red <B>The barricade is smashed apart!</B>")
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				new /obj/item/stack/sheet/wood(get_turf(src))
-				qdel(src)
+				dismantle()
 			..()
 
 	ex_act(severity)
@@ -102,10 +108,7 @@ for reference:
 				src.health -= 25
 				if (src.health <= 0)
 					visible_message("\red <B>The barricade is blown apart!</B>")
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					new /obj/item/stack/sheet/wood(get_turf(src))
-					qdel(src)
+					dismantle()
 				return
 
 	blob_act()
@@ -122,6 +125,12 @@ for reference:
 			return 1
 		else
 			return 0
+
+	proc/dismantle()
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		qdel(src)
 
 
 //Actual Deployable machinery stuff
@@ -163,7 +172,7 @@ for reference:
 						user << "Barrier lock toggled off."
 						return
 				else
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(2, 1, src)
 					s.start()
 					visible_message("\red BZZzZZzZZzZT")
@@ -198,14 +207,14 @@ for reference:
 			emagged = 1
 			req_access = null
 			user << "You break the ID authentication lock on the [src]."
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("\red BZZzZZzZZzZT")
 		else if (src.emagged == 1)
 			src.emagged = 2
 			user << "You short out the anchoring mechanism on the [src]."
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("\red BZZzZZzZZzZT")
@@ -250,7 +259,7 @@ for reference:
 	/*	var/obj/item/stack/rods/ =*/
 		new /obj/item/stack/rods(Tsec)
 
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 

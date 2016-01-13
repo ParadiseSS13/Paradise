@@ -13,7 +13,7 @@
 	var/list/datum/material/storage[0]
 
 /datum/materials/New()
-	for(var/matdata in typesof(/datum/material) - /datum/material)
+	for(var/matdata in subtypesof(/datum/material))
 		var/datum/material/mat = new matdata
 		storage[mat.id]=mat
 

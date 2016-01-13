@@ -214,8 +214,8 @@ var/global/list/breach_burn_descriptors = list(
 
 	..()
 
-/obj/item/clothing/suit/space/examine()
-	..()
+/obj/item/clothing/suit/space/examine(mob/user)
+	..(user)
 	if(can_breach && breaches && breaches.len)
 		for(var/datum/breach/B in breaches)
-			usr << "\red <B>It has \a [B.descriptor].</B>"
+			user << "\red <B>It has \a [B.descriptor].</B>"

@@ -18,16 +18,22 @@
 	qdel(song)
 	song = null
 	return ..()
+	
+/obj/item/device/violin/initialize()
+	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
+	..()
 
 /obj/item/device/violin/attack_self(mob/user as mob)
-	interact(user)
+	ui_interact(user)
 
-/obj/item/device/violin/interact(mob/user as mob)
+/obj/item/device/violin/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!user)
 		return
 
 	if(!isliving(user) || user.stat || user.restrained() || user.lying)
 		return
 
-	user.set_machine(src)
-	song.interact(user)
+	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/device/violin/Topic(href, href_list)
+	song.Topic(href, href_list)

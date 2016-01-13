@@ -44,7 +44,7 @@
 			if(!user.unEquip(O))
 				user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
 				return 0
-			O.loc = src
+			O.forceMove(src)
 			beaker = O
 			src.verbs += /obj/machinery/juicer/verb/detach
 			update_icon()
@@ -56,7 +56,7 @@
 	if(!user.unEquip(O))
 		user << "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>"
 		return 0
-	O.loc = src
+	O.forceMove(src)
 	src.updateUsrDialog()
 	return 0
 
@@ -129,7 +129,7 @@
 	if (!beaker)
 		return
 	src.verbs -= /obj/machinery/juicer/verb/detach
-	beaker.loc = src.loc
+	beaker.forceMove(src.loc)
 	beaker = null
 	update_icon()
 
@@ -181,4 +181,3 @@
 		new/obj/item/weapon/reagent_containers/food/snacks/grown/carrot(src)
 		new/obj/item/weapon/reagent_containers/food/snacks/grown/berries(src)
 		new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src)
-

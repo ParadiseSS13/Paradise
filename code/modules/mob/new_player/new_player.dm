@@ -31,7 +31,7 @@
 			else	output += "<p><b>You are ready</b> (<a href='byond://?src=\ref[src];ready=2'>Cancel</A>)</p>"
 
 		else
-			output += "<a href='byond://?src=\ref[src];manifest=1'>View the Crew Manifest</A><br><br>"
+			output += "<p><a href='byond://?src=\ref[src];manifest=1'>View the Crew Manifest</A></p>"
 			output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
 
 		output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
@@ -43,7 +43,7 @@
 				var/isadmin = 0
 				if(src.client && src.client.holder)
 					isadmin = 1
-				var/DBQuery/query = dbcon.NewQuery("SELECT id FROM erro_poll_question WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM erro_poll_vote WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM erro_poll_textreply WHERE ckey = \"[ckey]\")")
+				var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
 				query.Execute()
 				var/newpoll = 0
 				while(query.NextRow())
@@ -113,7 +113,7 @@
 
 		if(href_list["observe"])
 
-			if(alert(src,"Are you sure you wish to observe? You will have to wait 30 minutes before being able to respawn!","Player Setup","Yes","No") == "Yes")
+			if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 				if(!client)	return 1
 				var/mob/dead/observer/observer = new()
 				src << browse(null, "window=playersetup")
@@ -170,44 +170,6 @@
 
 			AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 			return
-
-		if(href_list["privacy_poll"])
-			establish_db_connection()
-			if(!dbcon.IsConnected())
-				return
-			var/voted = 0
-
-			//First check if the person has not voted yet.
-			var/DBQuery/query = dbcon.NewQuery("SELECT * FROM erro_privacy WHERE ckey='[src.ckey]'")
-			query.Execute()
-			while(query.NextRow())
-				voted = 1
-				break
-
-			//This is a safety switch, so only valid options pass through
-			var/option = "UNKNOWN"
-			switch(href_list["privacy_poll"])
-				if("signed")
-					option = "SIGNED"
-				if("anonymous")
-					option = "ANONYMOUS"
-				if("nostats")
-					option = "NOSTATS"
-				if("later")
-					usr << browse(null,"window=privacypoll")
-					return
-				if("abstain")
-					option = "ABSTAIN"
-
-			if(option == "UNKNOWN")
-				return
-
-			if(!voted)
-				var/sql = "INSERT INTO erro_privacy VALUES (null, Now(), '[src.ckey]', '[option]')"
-				var/DBQuery/query_insert = dbcon.NewQuery(sql)
-				query_insert.Execute()
-				usr << "<b>Thank you for your vote!</b>"
-				usr << browse(null,"window=privacypoll")
 
 		if(!ready && href_list["preference"])
 			if(client)
@@ -307,7 +269,6 @@
 		job_master.AssignRole(src, rank, 1)
 
 		var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-		EquipRacialItems(character)
 		character = job_master.EquipRank(character, rank, 1)					//equips the human
 		EquipCustomItems(character)
 
@@ -381,6 +342,9 @@
 						var/arrivalmessage = announcer.arrivalmsg
 						arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 						arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+						arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+						arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
+						arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 						announcer.say(";[arrivalmessage]")
 			else
 				if(character.mind)
@@ -415,14 +379,10 @@
 		var/dat = "<html><body><center>"
 		dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
-		if(emergency_shuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
-			if(emergency_shuttle.going_to_centcom()) //Shuttle is going to centcomm, not recalled
-				dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-			if(emergency_shuttle.online())
-				if (emergency_shuttle.evac)	// Emergency shuttle is past the point of no recall
-					dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
-				else						// Crew transfer initiated
-					dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
+		if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+			dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
+		else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
+			dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
 		dat += "Choose from the following open positions:<br>"
 		for(var/datum/job/job in job_master.occupations)
@@ -468,11 +428,9 @@
 			if(is_alien_whitelisted(src, client.prefs.language) || !config.usealienwhitelist || !(chosen_language.flags & WHITELISTED))
 				new_character.add_language(client.prefs.language)
 		if(ticker.random_players || appearance_isbanned(new_character))
-			new_character.gender = pick(MALE, FEMALE)
+			client.prefs.random_character()
 			client.prefs.real_name = random_name(new_character.gender)
-			client.prefs.randomize_appearance_for(new_character)
-		else
-			client.prefs.copy_to(new_character)
+		client.prefs.copy_to(new_character)
 
 		src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS cant last forever yo
 
@@ -507,10 +465,19 @@
 			new_character.dna.SetSEState(DEAFBLOCK,1,1)
 			new_character.sdisabilities |= DEAF
 
+		if(client.prefs.disabilities & DISABILITY_FLAG_BLIND)
+			new_character.dna.SetSEState(BLINDBLOCK,1,1)
+			new_character.sdisabilities |= BLIND
+
+		if(client.prefs.disabilities & DISABILITY_FLAG_MUTE)
+			new_character.dna.SetSEState(MUTEBLOCK,1,1)
+			new_character.sdisabilities |= MUTE
+
 		chosen_species.handle_dna(new_character)
 
 		domutcheck(new_character)
 		new_character.dna.UpdateSE()
+		new_character.sync_organ_dna() //just fucking incase I guess
 
 		// Do the initial caching of the player's body icons.
 		new_character.force_update_limbs()
@@ -542,7 +509,7 @@
 
 
 	proc/has_admin_rights()
-		return client.holder.rights & R_ADMIN
+		return check_rights(R_ADMIN, 0, src)
 
 	proc/is_species_whitelisted(datum/species/S)
 		if(!S) return 1

@@ -31,6 +31,7 @@
 				else
 					src.icon_state = src.icon_closed
 					user << "\red You unlock the [src.name]!"
+					origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 					return
 			else
 				user << "\red Access Denied"
@@ -58,7 +59,15 @@
 		desc = "It appears to be broken."
 		icon_state = src.icon_broken
 		user << "<span class='notice'>You unlock \the [src].</span>"
+		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
+
+/obj/item/weapon/storage/lockbox/large
+	name = "Large lockbox"
+	desc = "A large lockbox"
+	max_w_class = 4
+	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
+	storage_slots = 1
 
 /obj/item/weapon/storage/lockbox/loyalty
 	name = "Lockbox (Loyalty Implants)"
@@ -79,7 +88,7 @@
 
 	New()
 		..()
-		new /obj/item/weapon/grenade/flashbang/clusterbang(src)
+		new /obj/item/weapon/grenade/clusterbuster(src)
 
 
 /obj/item/weapon/storage/lockbox/medal
@@ -89,7 +98,7 @@
 	item_state = "syringe_kit"
 	w_class = 3
 	max_w_class = 2
-	max_combined_w_class = 20 
+	max_combined_w_class = 20
 	storage_slots = 12
 	req_access = list(access_captain)
 	icon_locked = "medalbox+l"

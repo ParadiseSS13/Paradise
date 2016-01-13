@@ -43,13 +43,12 @@
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/weapon/storage/box/teargas(src)
 	new /obj/item/weapon/storage/box/flashbangs(src)
-	new /obj/item/weapon/storage/backpack/duffel/syndimed(src)
-	new /obj/item/weapon/storage/backpack/duffel/syndiammo(src)
-	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/bulldog(src)
+	new /obj/item/weapon/storage/backpack/duffel/syndie/med(src)
+	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
@@ -129,7 +128,7 @@
 		/obj/item/stack/sheet/mineral/plasma,
 		/obj/item/stack/sheet/mineral/uranium,
 		/obj/item/stack/sheet/mineral/diamond,
-		/obj/item/stack/sheet/mineral/clown,
+		/obj/item/stack/sheet/mineral/bananium,
 		/obj/item/stack/sheet/plasteel,
 		/obj/item/stack/rods
 		)

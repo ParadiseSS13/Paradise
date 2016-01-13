@@ -70,7 +70,7 @@
 	overlays += "aslime-:33"
 
 
-/mob/living/simple_animal/slime/adult/Die()
+/mob/living/simple_animal/slime/adult/death()
 	var/mob/living/simple_animal/slime/S1 = new /mob/living/simple_animal/slime (src.loc)
 	S1.icon_state = "[src.colour] baby slime"
 	S1.icon_living = "[src.colour] baby slime"

@@ -17,10 +17,11 @@
 	var/log_adminchat = 0				// log admin chat messages
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
+	var/log_world_output = 0			// log world.log << messages
 	var/log_runtimes = 0                // Logs all runtimes.
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/log_runtime = 0					// logs world.log to a file
-	var/sql_enabled = 1					// for sql switching
+	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
@@ -77,10 +78,13 @@
 
 	var/server
 	var/banappeals
-	var/wikiurl = "http://baystation12.net/wiki"
-	var/forumurl = "http://baystation12.net/forums/"
+	var/wikiurl = "http://example.org"
+	var/forumurl = "http://example.org"
+	var/rulesurl = "http://example.org"
+	var/donationsurl = "http://example.org"
+	var/repositoryurl = "http://example.org"
 
-	var/media_base_url = "http://nanotrasen.se/media" // http://ss13.nexisonline.net/media
+	var/media_base_url = "http://example.org"
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
 
@@ -100,8 +104,9 @@
 	var/revival_cloning = 1
 	var/revival_brain_life = -1
 
-
 	var/auto_toggle_ooc_during_round = 0
+
+	var/shuttle_refuel_delay = 12000
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
@@ -160,8 +165,20 @@
 	var/player_overflow_cap = 0 //number of players before the server starts rerouting
 	var/list/overflow_whitelist = list() //whitelist for overflow
 
+	var/disable_away_missions = 0 // disable away missions
+
+	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
+
+	var/ooc_allowed = 1
+	var/looc_allowed = 1
+	var/dooc_allowed = 1
+	var/dsay_allowed = 1
+
+	var/disable_lobby_music = 0 // Disables the lobby music
+	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
+
 /datum/configuration/New()
-	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
+	var/list/L = subtypesof(/datum/game_mode)
 	for (var/T in L)
 		// I wish I didn't have to instance the game modes in order to look up
 		// their information, but it is the only way (at least that I know of).
@@ -229,9 +246,6 @@
 				if ("log_access")
 					config.log_access = 1
 
-				if ("sql_enabled")
-					config.sql_enabled = text2num(value)
-
 				if ("log_say")
 					config.log_say = 1
 
@@ -264,6 +278,9 @@
 
 				if ("log_pda")
 					config.log_pda = 1
+
+				if ("log_world_output")
+					config.log_world_output = 1
 
 				if ("log_hrefs")
 					config.log_hrefs = 1
@@ -327,6 +344,15 @@
 
 				if ("forumurl")
 					config.forumurl = value
+
+				if ("rulesurl")
+					config.rulesurl = value
+
+				if ("donationsurl")
+					config.donationsurl = value
+
+				if ("repositoryurl")
+					config.repositoryurl = value
 
 				if ("guest_jobban")
 					config.guest_jobban = 1
@@ -517,6 +543,18 @@
 				if("overflow_server_url")
 					config.overflow_server_url = value
 
+				if("disable_away_missions")
+					config.disable_away_missions = 1
+
+				if("autoconvert_notes")
+					config.autoconvert_notes = 1
+
+				if("disable_lobby_music")
+					config.disable_lobby_music = 1
+
+				if("disable_cid_warn_popup")
+					config.disable_cid_warn_popup = 1
+
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -563,6 +601,8 @@
 					config.bones_can_break = value
 				if("limbs_can_break")
 					config.limbs_can_break = value
+				if("shuttle_refuel_delay")
+					config.shuttle_refuel_delay     = text2num(value)
 				if("reactionary_explosions")
 					config.reactionary_explosions	= 1
 				if("bombcap")
@@ -609,66 +649,20 @@
 			continue
 
 		switch (name)
+			if("sql_enabled")
+				config.sql_enabled = 1
 			if ("address")
 				sqladdress = value
 			if ("port")
 				sqlport = value
-			if ("database")
-				sqldb = value
-			if ("login")
-				sqllogin = value
-			if ("password")
-				sqlpass = value
 			if ("feedback_database")
 				sqlfdbkdb = value
 			if ("feedback_login")
 				sqlfdbklogin = value
 			if ("feedback_password")
 				sqlfdbkpass = value
-			if ("enable_stat_tracking")
-				sqllogging = 1
-			else
-				diary << "Unknown setting in configuration: '[name]'"
-
-/datum/configuration/proc/loadforumsql(filename)  // -- TLE
-	var/list/Lines = file2list(filename)
-	for(var/t in Lines)
-		if(!t)	continue
-
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if (!name)
-			continue
-
-		switch (name)
-			if ("address")
-				forumsqladdress = value
-			if ("port")
-				forumsqlport = value
-			if ("database")
-				forumsqldb = value
-			if ("login")
-				forumsqllogin = value
-			if ("password")
-				forumsqlpass = value
-			if ("activatedgroup")
-				forum_activated_group = value
-			if ("authenticatedgroup")
-				forum_authenticated_group = value
+			if("feedback_tableprefix")
+				sqlfdbktableprefix = value
 			else
 				diary << "Unknown setting in configuration: '[name]'"
 
@@ -688,23 +682,23 @@
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
-	for (var/T in (typesof(/datum/game_mode) - /datum/game_mode))
+	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
 		if (M.config_tag && M.config_tag == mode_name)
 			return M
-		del(M)
+		qdel(M)
 	return new /datum/game_mode/extended()
 
 /datum/configuration/proc/get_runnable_modes()
 	var/list/datum/game_mode/runnable_modes = new
-	for (var/T in (typesof(/datum/game_mode) - /datum/game_mode))
+	for (var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = new T()
 		//world << "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]"
 		if (!(M.config_tag in modes))
-			del(M)
+			qdel(M)
 			continue
 		if (probabilities[M.config_tag]<=0)
-			del(M)
+			qdel(M)
 			continue
 		if (M.can_start())
 			runnable_modes[M] = probabilities[M.config_tag]

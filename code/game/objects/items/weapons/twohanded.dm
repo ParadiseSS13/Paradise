@@ -4,6 +4,11 @@
  *		Fireaxe
  *		Double-Bladed Energy Swords
  *		Spears
+ *		Kidan spear
+ *		Chainsaw
+ *		Singularity hammer
+ * 		Mjolnnir
+ *		Knighthammer
  */
 
 /*##################################################################
@@ -24,88 +29,83 @@
 	var/wieldsound = null
 	var/unwieldsound = null
 
-/obj/item/weapon/twohanded/proc/unwield()
+/obj/item/weapon/twohanded/proc/unwield(mob/living/carbon/user)
+	if(!wielded || !user) return
 	wielded = 0
 	force = force_unwielded
-	name = "[initial(name)]"
+	var/sf = findtext(name," (Wielded)")
+	if(sf)
+		name = copytext(name,1,sf)
+	else //something wrong
+		name = "[initial(name)]"
 	update_icon()
-
-/obj/item/weapon/twohanded/proc/wield()
-	wielded = 1
-	force = force_wielded
-	name = "[initial(name)] (Wielded)"
-	update_icon()
-
-/obj/item/weapon/twohanded/mob_can_equip(M as mob, slot)
-	//Cannot equip wielded items.
-	if(wielded)
-		M << "<span class='warning'>Unwield the [initial(name)] first!</span>"
-		return 0
-
-	return ..()
-
-/obj/item/weapon/twohanded/dropped(mob/user as mob)
-	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(user)
-		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
-		if(istype(O))
-			O.unwield()
-	return	unwield()
-
-/obj/item/weapon/twohanded/update_icon()
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
+	if(isrobot(user))
+		user << "<span class='notice'>You free up your module.</span>"
+	else
+		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
+	if(unwieldsound)
+		playsound(loc, unwieldsound, 50, 1)
+	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
+	if(O && istype(O))
+		O.unwield()
 	return
 
-/obj/item/weapon/twohanded/pickup(mob/user)
-	unwield()
-
-/obj/item/weapon/twohanded/attack_self(mob/user as mob)
-	..()
-
-	if(istype(user, /mob/living/carbon/human))
+/obj/item/weapon/twohanded/proc/wield(mob/living/carbon/user)
+	if(wielded) return
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.species.is_small)
 			user << "<span class='warning'>It's too heavy for you to wield fully.</span>"
 			return
+	if(user.get_inactive_hand())
+		user << "<span class='warning'>You need your other hand to be empty!</span>"
+		return
+	wielded = 1
+	force = force_wielded
+	name = "[name] (Wielded)"
+	update_icon()
+	if(user)
+		user.update_inv_r_hand()
+		user.update_inv_l_hand()
+	if(isrobot(user))
+		user << "<span class='notice'>You dedicate your module to [name].</span>"
 	else
-		return
+		user << "<span class='notice'>You grab the [name] with both hands.</span>"
+	if (wieldsound)
+		playsound(loc, wieldsound, 50, 1)
+	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
+	O.name = "[name] - offhand"
+	O.desc = "Your second grip on the [name]"
+	user.put_in_inactive_hand(O)
+	return
 
+/obj/item/weapon/twohanded/mob_can_equip(mob/M, slot)
+	//Cannot equip wielded items.
+	if(wielded)
+		M << "<span class='warning'>Unwield the [name] first!</span>"
+		return 0
+	return ..()
+
+/obj/item/weapon/twohanded/dropped(mob/user)
+	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
+	if(user)
+		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
+		if(istype(O))
+			O.unwield(user)
+	return	unwield(user)
+
+/obj/item/weapon/twohanded/update_icon()
+	return
+
+/obj/item/weapon/twohanded/attack_self(mob/user)
+	..()
 	if(wielded) //Trying to unwield it
-		unwield()
-		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
-		if (src.unwieldsound)
-			playsound(src.loc, unwieldsound, 50, 1)
-
-		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
-		if(O && istype(O))
-			O.unwield()
-
-		if(istype(user,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = user
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
-			add_fingerprint(user)
-		return
-
+		unwield(user)
 	else //Trying to wield it
-		if(user.get_inactive_hand())
-			user << "<span class='warning'>You need your other hand to be empty</span>"
-			return
-		wield()
-		user << "<span class='notice'>You grab the [initial(name)] with both hands.</span>"
-		if (src.wieldsound)
-			playsound(src.loc, wieldsound, 50, 1)
-
-		var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
-		O.name = "[initial(name)] - offhand"
-		O.desc = "Your second grip on the [initial(name)]"
-		user.put_in_inactive_hand(O)
-
-		if(istype(user,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = user
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
-			add_fingerprint(user)
-		return
+		wield(user)
 
 ///////////OFFHAND///////////////
 /obj/item/weapon/twohanded/offhand
@@ -144,6 +144,8 @@
 
 /obj/item/weapon/twohanded/required/attack_hand(mob/user)//Can't even pick it up without both hands empty
 	var/obj/item/weapon/twohanded/required/H = user.get_inactive_hand()
+	if(get_dist(src,user) > 1)
+		return 0
 	if(H != null)
 		user.visible_message("<span class='notice'>[src.name] is too cumbersome to carry in one hand!</span>")
 		return
@@ -151,9 +153,6 @@
 	user.put_in_inactive_hand(O)
 	..()
 	wielded = 1
-
-
-obj/item/weapon/twohanded/
 
 /*
  * Fireaxe
@@ -183,15 +182,10 @@ obj/item/weapon/twohanded/
 	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
 
 		if(istype(A,/obj/structure/window))
-		/*	var/pdiff=performWallPressureCheck(A.loc)
-			if(pdiff>0)
-				message_admins("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([formatPlayerPanel(user,user.ckey)]) at [formatJumpTo(A.loc)]!")
-				log_admin("[A] with pdiff [pdiff] fire-axed by [user.real_name] ([user.ckey]) at [A.loc]!")*///TODO: Figure out how the hell to remake this proc
 			var/obj/structure/window/W = A
 			W.destroy()
 		else
 			qdel(A)
-
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -199,7 +193,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/dualsaber
 	var/hacked = 0
 	var/blade_color
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
@@ -246,21 +239,17 @@ obj/item/weapon/twohanded/
 	else
 		return 0
 
-/obj/item/weapon/twohanded/dualsaber/green
-	New()
-		blade_color = "green"
+/obj/item/weapon/twohanded/dualsaber/green/New()
+	blade_color = "green"
 
-/obj/item/weapon/twohanded/dualsaber/red
-	New()
-		blade_color = "red"
+/obj/item/weapon/twohanded/dualsaber/red/New()
+	blade_color = "red"
 
-/obj/item/weapon/twohanded/dualsaber/purple
-	New()
-		blade_color = "purple"
+/obj/item/weapon/twohanded/dualsaber/purple/New()
+	blade_color = "purple"
 
-/obj/item/weapon/twohanded/dualsaber/blue
-	New()
-		blade_color = "blue"
+/obj/item/weapon/twohanded/dualsaber/blue/New()
+	blade_color = "blue"
 
 /obj/item/weapon/twohanded/dualsaber/unwield()
 	..()
@@ -284,7 +273,6 @@ obj/item/weapon/twohanded/
 			update_icon()
 		else
 			user << "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>"
-
 
 //spears
 /obj/item/weapon/twohanded/spear
@@ -348,7 +336,6 @@ obj/item/weapon/twohanded/
 	density = 0
 	anchored = 1
 
-
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
 	new /obj/item/weapon/twohanded/spear(user.loc)
@@ -361,11 +348,8 @@ obj/item/weapon/twohanded/
 	name = "Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
-
 ///CHAINSAW///
-
 /obj/item/weapon/twohanded/chainsaw
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
@@ -385,13 +369,11 @@ obj/item/weapon/twohanded/
 	edge = 1
 	no_embed = 1
 
-
 /obj/item/weapon/twohanded/chainsaw/update_icon()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
-
 
 /obj/item/weapon/twohanded/chainsaw/attack(mob/target as mob, mob/living/user as mob)
 	if(wielded)
@@ -417,14 +399,10 @@ obj/item/weapon/twohanded/
 	..()
 	flags &= ~NODROP
 
-
 // SINGULOHAMMER
-
 /obj/item/weapon/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -438,17 +416,13 @@ obj/item/weapon/twohanded/
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
-
-
 /obj/item/weapon/twohanded/singularityhammer/New()
 	..()
 	processing_objects.Add(src)
 
-
 /obj/item/weapon/twohanded/singularityhammer/Destroy()
 	processing_objects.Remove(src)
 	return ..()
-
 
 /obj/item/weapon/twohanded/singularityhammer/process()
 	if(charged < 5)
@@ -458,7 +432,6 @@ obj/item/weapon/twohanded/
 /obj/item/weapon/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
 	return
-
 
 /obj/item/weapon/twohanded/singularityhammer/proc/vortex(var/turf/pull as turf, mob/wielder as mob)
 	for(var/atom/X in orange(5,pull))
@@ -480,8 +453,6 @@ obj/item/weapon/twohanded/
 				step_towards(H,pull)
 	return
 
-
-
 /obj/item/weapon/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(!proximity) return
 	if(wielded)
@@ -494,11 +465,9 @@ obj/item/weapon/twohanded/
 			var/turf/target = get_turf(A)
 			vortex(target,user)
 
-
 /obj/item/weapon/twohanded/mjollnir
 	name = "Mjollnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	icon_state = "mjollnir0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
@@ -513,7 +482,7 @@ obj/item/weapon/twohanded/
 	origin_tech = "combat=5;powerstorage=5"
 
 /obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread()
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
 	target.take_organ_damage(0,30)
@@ -523,7 +492,6 @@ obj/item/weapon/twohanded/
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
 	return
-
 
 /obj/item/weapon/twohanded/mjollnir/attack(mob/M as mob, mob/user as mob)
 	..()
@@ -536,19 +504,14 @@ obj/item/weapon/twohanded/
 			M.Stun(10)
 			shock(M)
 
-
 /obj/item/weapon/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
 	return
 
-
-
 /obj/item/weapon/twohanded/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
-
-	icon_override = 'icons/mob/in-hand/swords.dmi'
-	icon_state = "adrhammer0"
+	icon_state = "knighthammer0"
 	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	no_embed = 1
@@ -561,17 +524,13 @@ obj/item/weapon/twohanded/
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
-
-
 /obj/item/weapon/twohanded/knighthammer/New()
 	..()
 	processing_objects.Add(src)
 
-
 /obj/item/weapon/twohanded/knighthammer/Destroy()
 	processing_objects.Remove(src)
 	return ..()
-
 
 /obj/item/weapon/twohanded/knighthammer/process()
 	if(charged < 5)
@@ -579,9 +538,8 @@ obj/item/weapon/twohanded/
 	return
 
 /obj/item/weapon/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "adrhammer[wielded]"
+	icon_state = "knighthammer[wielded]"
 	return
-
 
 /obj/item/weapon/twohanded/knighthammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(!proximity) return

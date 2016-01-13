@@ -4,9 +4,9 @@
 	icon_state = "laser"
 	item_state = "laser"
 	fire_sound = 'sound/weapons/Laser.ogg'
-	charge_cost = 830
+	charge_cost = 760
 	w_class = 3.0
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=3;magnets=2"
 	projectile_type = "/obj/item/projectile/beam"
 
@@ -17,39 +17,20 @@
 	clumsy_check = 0
 
 obj/item/weapon/gun/energy/laser/retro
-	name ="retro laser"
+	name ="retro laser gun"
 	icon_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 
 
 /obj/item/weapon/gun/energy/laser/captain
+	name = "captain's antique laser gun"
 	icon_state = "caplaser"
 	item_state = "caplaser"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
 	force = 10
 	origin_tech = null
-	var/charge_tick = 0
 
-
-/obj/item/weapon/gun/energy/laser/captain/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/item/weapon/gun/energy/laser/captain/Destroy()
-	processing_objects.Remove(src)
-	return ..()
-
-/obj/item/weapon/gun/energy/laser/captain/process()
-	charge_tick++
-	if(charge_tick < 4)
-		return 0
-	charge_tick = 0
-	if(!power_supply)
-		return 0
-	power_supply.give(1000)
-	update_icon()
-	return 1
+	self_recharge = 1
 
 
 /obj/item/weapon/gun/energy/laser/cyborg
@@ -89,6 +70,13 @@ obj/item/weapon/gun/energy/laser/retro
 	isHandgun()
 		return 0
 
+/obj/item/weapon/gun/energy/lasercannon/mounted
+	name = "mounted laser cannon"
+	self_recharge = 1
+	use_external_power = 1
+	recharge_time = 10
+
+
 /obj/item/weapon/gun/energy/lasercannon/cyborg/process_chambered()
 	if(in_chamber)
 		return 1
@@ -119,35 +107,15 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/blue"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
-	var/charge_tick = 0
 
-	special_check(var/mob/living/carbon/human/M)
-		if(ishuman(M))
-			if(istype(M.wear_suit, /obj/item/clothing/suit/bluetag))
-				return 1
-			M << "\red You need to be wearing your laser tag vest!"
-		return 0
+	self_recharge = 1
 
-	New()
-		..()
-		processing_objects.Add(src)
-
-
-	Destroy()
-		processing_objects.Remove(src)
-		return ..()
-
-
-	process()
-		charge_tick++
-		if(charge_tick < 4) return 0
-		charge_tick = 0
-		if(!power_supply) return 0
-		power_supply.give(1000)
-		update_icon()
-		return 1
-
-
+/obj/item/weapon/gun/energy/laser/bluetag/special_check(var/mob/living/carbon/human/M)
+	if(ishuman(M))
+		if(istype(M.wear_suit, /obj/item/clothing/suit/bluetag))
+			return 1
+		M << "\red You need to be wearing your laser tag vest!"
+	return 0
 
 /obj/item/weapon/gun/energy/laser/redtag
 	name = "laser tag gun"
@@ -156,30 +124,12 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/red"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
-	var/charge_tick = 0
 
-	special_check(var/mob/living/carbon/human/M)
-		if(ishuman(M))
-			if(istype(M.wear_suit, /obj/item/clothing/suit/redtag))
-				return 1
-			M << "\red You need to be wearing your laser tag vest!"
-		return 0
+	self_recharge = 1
 
-	New()
-		..()
-		processing_objects.Add(src)
-
-
-	Destroy()
-		processing_objects.Remove(src)
-		return ..()
-
-
-	process()
-		charge_tick++
-		if(charge_tick < 4) return 0
-		charge_tick = 0
-		if(!power_supply) return 0
-		power_supply.give(1000)
-		update_icon()
-		return 1
+/obj/item/weapon/gun/energy/laser/redtag/special_check(var/mob/living/carbon/human/M)
+	if(ishuman(M))
+		if(istype(M.wear_suit, /obj/item/clothing/suit/redtag))
+			return 1
+		M << "\red You need to be wearing your laser tag vest!"
+	return 0

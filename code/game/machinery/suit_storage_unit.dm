@@ -35,6 +35,40 @@
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space/eva
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/captain
+	SUIT_TYPE = /obj/item/clothing/suit/space/captain
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/capspace
+	MASK_TYPE = /obj/item/clothing/mask/gas
+
+/obj/machinery/suit_storage_unit/engine
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/engineering
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/engineering
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/ce
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/elite
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/elite
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/security
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/security
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/security
+	MASK_TYPE = /obj/item/clothing/mask/gas/sechailer
+
+/obj/machinery/suit_storage_unit/atmos
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/atmos
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/atmos
+	MASK_TYPE = /obj/item/clothing/mask/gas
+
+/obj/machinery/suit_storage_unit/mining
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/mining
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/mining
+	MASK_TYPE = /obj/item/clothing/mask/breath
+
+/obj/machinery/suit_storage_unit/cmo
+	SUIT_TYPE = /obj/item/clothing/suit/space/rig/medical
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
+	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/New()
 	src.update_icon()
@@ -355,7 +389,7 @@
 					src.SUIT = null
 				if(src.MASK)
 					src.MASK = null
-				visible_message("<font color='red'>With a loud whining noise, the Suit Storage Unit's door grinds open. Puffs of ashen smoke come out of its chamber.</font>", 3)
+				visible_message("<font color='red'>With a loud whining noise, the Suit Storage Unit's door grinds open. Puffs of ashen smoke come out of its chamber.</font>")
 				src.isbroken = 1
 				src.isopen = 1
 				src.islocked = 0
@@ -450,8 +484,8 @@
 	if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) )
 		usr << "<font color='red'>It's too cluttered inside for you to fit in!</font>"
 		return
-	visible_message("[usr] starts squeezing into the suit storage unit!", 3)
-	if(do_after(usr, 10))
+	visible_message("[usr] starts squeezing into the suit storage unit!")
+	if(do_after(usr, 10, target = usr))
 		usr.stop_pulling()
 		usr.client.perspective = EYE_PERSPECTIVE
 		usr.client.eye = src
@@ -462,7 +496,7 @@
 		src.update_icon()
 
 //		for(var/obj/O in src)
-//			del(O)
+//			qdel(O)
 
 		src.add_fingerprint(usr)
 		src.updateUsrDialog()
@@ -494,8 +528,8 @@
 		if ( (src.OCCUPANT) || (src.HELMET) || (src.SUIT) ) //Unit needs to be absolutely empty
 			user << "<font color='red'>The unit's storage area is too cluttered.</font>"
 			return
-		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.", 3)
-		if(do_after(user, 20))
+		visible_message("[user] starts putting [G.affecting.name] into the Suit Storage Unit.")
+		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return //derpcheck
 			var/mob/M = G.affecting
 			if (M.client)
@@ -651,9 +685,9 @@
 			user << "\red There is no room inside the cycler for [G.affecting.name]."
 			return
 
-		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.", 3)
+		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
 
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = G:affecting))
 			if(!G || !G.affecting) return
 			var/mob/M = G.affecting
 			if (M.client)
@@ -1016,18 +1050,6 @@
 		if (WIRE_SCANID)
 			locked = !locked
 */
-/obj/machinery/suit_cycler/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
-		return 0
-	if(!prob(prb))
-		return 0
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7))
-		return 1
-	else
-		return 0
 
 //There HAS to be a less bloated way to do this. TODO: some kind of table/icon name coding? ~Z
 /obj/machinery/suit_cycler/proc/apply_paintjob()
@@ -1045,7 +1067,7 @@
 				helmet.name = "engineering hardsuit helmet"
 				helmet.icon_state = "rig0-engineering"
 				helmet.item_state = "eng_helm"
-				helmet._color = "engineering"
+				helmet.item_color = "engineering"
 			if(suit)
 				suit.name = "engineering hardsuit"
 				suit.icon_state = "rig-engineering"
@@ -1055,7 +1077,7 @@
 				helmet.name = "mining hardsuit helmet"
 				helmet.icon_state = "rig0-mining"
 				helmet.item_state = "mining_helm"
-				helmet._color = "mining"
+				helmet.item_color = "mining"
 			if(suit)
 				suit.name = "mining hardsuit"
 				suit.icon_state = "rig-mining"
@@ -1065,7 +1087,7 @@
 				helmet.name = "medical hardsuit helmet"
 				helmet.icon_state = "rig0-medical"
 				helmet.item_state = "medical_helm"
-				helmet._color = "medical"
+				helmet.item_color = "medical"
 			if(suit)
 				suit.name = "medical hardsuit"
 				suit.icon_state = "rig-medical"
@@ -1075,7 +1097,7 @@
 				helmet.name = "security hardsuit helmet"
 				helmet.icon_state = "rig0-sec"
 				helmet.item_state = "sec_helm"
-				helmet._color = "sec"
+				helmet.item_color = "sec"
 			if(suit)
 				suit.name = "security hardsuit"
 				suit.icon_state = "rig-sec"
@@ -1085,7 +1107,7 @@
 				helmet.name = "atmospherics hardsuit helmet"
 				helmet.icon_state = "rig0-atmos"
 				helmet.item_state = "atmos_helm"
-				helmet._color = "atmos"
+				helmet.item_color = "atmos"
 			if(suit)
 				suit.name = "atmospherics hardsuit"
 				suit.icon_state = "rig-atmos"
@@ -1095,7 +1117,7 @@
 				helmet.name = "blood-red hardsuit helmet"
 				helmet.icon_state = "rig0-syndie"
 				helmet.item_state = "syndie_helm"
-				helmet._color = "syndie"
+				helmet.item_color = "syndie"
 			if(suit)
 				suit.name = "blood-red hardsuit"
 				suit.item_state = "syndie_hardsuit"

@@ -5,7 +5,7 @@
 	id = "spacepod_main"
 	req_tech = list("materials" = 1) //All parts required to build a basic pod have materials 1, so the mechanic can do his damn job.
 	build_type = PODFAB
-	materials = list("$metal"=5000)
+	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/weapon/circuitboard/mecha/pod
 	category = list("Pod_Parts")
 
@@ -21,7 +21,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/pod_frame/fore_port
 	category = list("Pod_Frame")
-	materials = list("$metal"=15000,"$glass"=5000)
+	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_ap
 	construction_time = 200
@@ -32,7 +32,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/pod_frame/aft_port
 	category = list("Pod_Frame")
-	materials = list("$metal"=15000,"$glass"=5000)
+	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_fs
 	construction_time = 200
@@ -43,7 +43,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/pod_frame/fore_starboard
 	category = list("Pod_Frame")
-	materials = list("$metal"=15000,"$glass"=5000)
+	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_as
 	construction_time = 200
@@ -54,7 +54,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/pod_frame/aft_starboard
 	category = list("Pod_Frame")
-	materials = list("$metal"=15000,"$glass"=5000)
+	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 //////////////////////////
 ////////POD CORE////////
@@ -69,7 +69,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/core
 	category = list("Pod_Parts")
-	materials = list("$metal"=5000,"$uranium"=1000,"$plasma"=5000)
+	materials = list(MAT_METAL=5000,MAT_URANIUM=1000,MAT_PLASMA=5000)
 
 //////////////////////////////////////////
 ////////SPACEPOD ARMOR////////////////////
@@ -84,7 +84,7 @@
 	req_tech = list("materials" = 1)
 	build_path = /obj/item/pod_parts/armor
 	category = list("Pod_Armor")
-	materials = list("$metal"=15000,"$glass"=5000,"$plasma"=10000)
+	materials = list(MAT_METAL=15000,MAT_GLASS=5000,MAT_PLASMA=10000)
 
 //////////////////////////////////////////
 //////SPACEPOD GUNS///////////////////////
@@ -98,7 +98,7 @@
 	req_tech = list("materials" = 2, "combat" = 2)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/taser
 	category = list("Pod_Weaponry")
-	materials = list("$metal" = 15000)
+	materials = list(MAT_METAL = 15000)
 	locked = 1
 
 /datum/design/pod_gun_btaser
@@ -110,7 +110,7 @@
 	req_tech = list("materials" = 3, "combat" = 3)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/burst_taser
 	category = list("Pod_Weaponry")
-	materials = list("$metal" = 15000,"$plasma"=2000)
+	materials = list(MAT_METAL = 15000,MAT_PLASMA=2000)
 	locked = 1
 
 /datum/design/pod_gun_laser
@@ -122,7 +122,7 @@
 	req_tech = list("materials" = 3, "combat" = 3, "plasma" = 2)
 	build_path = /obj/item/device/spacepod_equipment/weaponry/laser
 	category = list("Pod_Weaponry")
-	materials = list("$metal"=10000,"$glass"=5000,"$gold"=1000,"$silver"=2000)
+	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////
@@ -135,6 +135,6 @@
 	id = "podmisc_tracker"
 	req_tech = list("materials" = 2) //Materials 2: easy to get, no trackers with 0 science progress
 	build_type = PODFAB
-	materials = list("$metal"=5000)
+	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/device/spacepod_equipment/misc/tracker
 	category = list("Pod_Parts")

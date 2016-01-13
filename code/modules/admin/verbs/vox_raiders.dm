@@ -52,10 +52,8 @@ var/global/vox_tick = 1
 	equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_r_store)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(src)
+	var/obj/item/weapon/card/id/syndicate/vox/W = new(src)
 	W.name = "[real_name]'s Legitimate Human ID Card"
-	W.icon_state = "id"
-	W.access = list(access_vox)
 	W.assignment = "Trader"
 	W.registered_name = real_name
 	W.registered_user = src

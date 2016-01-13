@@ -19,6 +19,7 @@
 	var/list/syllables               // Used when scrambling text for a non-speaker.
 	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
 	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/list/scramble_cache = list()
 
 /datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len)
@@ -37,9 +38,6 @@
 		full_name += " [capitalize(lowertext(new_name))]"
 
 	return "[trim(full_name)]"
-
-/datum/language
-	var/list/scramble_cache = list()
 
 /datum/language/proc/scramble(var/input)
 
@@ -97,7 +95,7 @@
 	return (copytext(message, length(message)) == "!") ? 2 : 1
 
 /datum/language/proc/broadcast(var/mob/living/speaker,var/message,var/speaker_mask)
-	log_say("[key_name(speaker)] : ([name]) [message]")
+	log_say("[key_name(speaker)]: ([name]) [message]")
 
 	if(!speaker_mask) speaker_mask = speaker.name
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
@@ -127,7 +125,7 @@
 	name = "Noise"
 	desc = "Noises"
 	key = ""
-	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG
+	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER
 
 /datum/language/noise/format_message(message, verb)
 	return "<span class='message'><span class='[colour]'>[message]</span></span>"
@@ -247,6 +245,14 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
 
+/datum/language/trinary/get_random_name()
+	var/new_name
+	if(prob(70))
+		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
+	else
+		new_name = pick(ai_names)
+	return new_name
+
 /datum/language/kidan
 	name = "Chittin"
 	desc = "The noise made by rubbing its antennae together is actually a complex form of communication for Kidan."
@@ -326,6 +332,8 @@
 	name = "Gutter"
 	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
 	speech_verb = "growls"
+	ask_verb = "gnarls"
+	exclaim_verb = "snarls"
 	colour = "rough"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh", "gra")
@@ -468,7 +476,7 @@
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(istype(S , /mob/living/silicon/ai))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[speaker];trackname=[html_encode(speaker.name)]'><span class='name'>[speaker.name]</span></a>"
+			message_start = "<i><span class='game say'>[name], <a href='byond://?src=\ref[S];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
 		else if (!S.binarycheck())
 			continue
 
@@ -498,6 +506,17 @@
 	key = "d"
 	flags = RESTRICTED | HIVEMIND
 	drone_only = 1
+	follow = 1
+
+/datum/language/swarmer
+	name = "Swarmer"
+	desc = "A heavily encoded alien binary pattern."
+	speech_verb = "tones"
+	ask_verb = "tones"
+	exclaim_verb = "tones"
+	colour = "say_quote"
+	key = "z"//Zwarmer...Or Zerg!
+	flags = RESTRICTED || HIVEMIND
 	follow = 1
 
 // Language handling.

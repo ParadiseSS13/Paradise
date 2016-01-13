@@ -1,8 +1,11 @@
 // channel numbers for power
-#define EQUIP	1
-#define LIGHT	2
-#define ENVIRON	3
-#define TOTAL	4	//for total power used only
+#define EQUIP           1
+#define LIGHT           2
+#define ENVIRON         3
+#define TOTAL           4	//for total power used only
+#define STATIC_EQUIP    5
+#define STATIC_LIGHT    6
+#define STATIC_ENVIRON  7
 
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
@@ -23,8 +26,6 @@
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 #define HYDRO_SPEED_MULTIPLIER 1
-
-#define NANO_IGNORE_DISTANCE 1
 
 // multitool_topic() shit
 #define MT_ERROR  -1

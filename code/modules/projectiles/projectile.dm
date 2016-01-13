@@ -31,6 +31,7 @@
 	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
 	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
+	var/paused = FALSE //for suspending the projectile midair
 
 	var/p_x = 16
 	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
@@ -80,13 +81,16 @@
 
 	proc/on_range() //if we want there to be effects when they reach the end of their range
 		proj_hit = 1
-		qdel(src)
+		del(src)
 
 	proc/on_hit(var/atom/target, var/blocked = 0, var/hit_zone)
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
 		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
+
+	proc/OnFired()	//if assigned, allows for code when the projectile gets fired
+		return 1
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
@@ -97,7 +101,7 @@
 		in_chamber.pass_flags = pass_flags //And the pass flags to that of the real projectile...
 		in_chamber.firer = user
 		var/output = in_chamber.process() //Test it!
-		qdel(in_chamber) //No need for it anymore
+		del(in_chamber) //No need for it anymore
 		return output //Send it back to the gun!
 
 	Bump(atom/A as mob|obj|turf|area)
@@ -130,6 +134,11 @@
 				forcedodge = -1
 			else
 			*/
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
+				if(isnull(organ))
+					return
 			if(silenced)
 				playsound(loc, hitsound, 5, 1, -1)
 				M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
@@ -137,18 +146,18 @@
 				playsound(loc, hitsound, 20, 1, -1)
 				visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 			if(istype(firer, /mob))
-				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
-				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
+				M.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
+				firer.attack_log += "\[[time_stamp()]\] <b>[key_name(firer)]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>[reagent_note]"
 				if(M.ckey && chatlog_attacks)
-					msg_admin_attack("[firer] ([firer.ckey])[isAntag(firer) ? "(ANTAG)" : ""] shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					msg_admin_attack("[key_name_admin(firer)] shot [key_name_admin(M)] with a [src][reagent_note]") //BS12 EDIT ALG
 				if(!iscarbon(firer))
 					M.LAssailant = null
 				else
 					M.LAssailant = firer
 			else
-				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>[reagent_note]"
+				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name(M)]</b> with a <b>[src]</b>[reagent_note]"
 				if(M.ckey  && chatlog_attacks)
-					msg_admin_attack("UNKNOWN shot [M] ([M.ckey]) with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
+					msg_admin_attack("UNKNOWN shot [key_name_admin(M)] with a [src][reagent_note] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[firer.x];Y=[firer.y];Z=[firer.z]'>JMP</a>)") //BS12 EDIT ALG
 
 		spawn(0)
 		if(A)
@@ -168,7 +177,7 @@
 			if(!istype(src, /obj/item/projectile/beam/lightning))
 				density = 0
 				invisibility = 101
-			qdel(src)
+			del(src)
 		return 1
 
 
@@ -181,102 +190,109 @@
 			return 1
 
 
+	Process_Spacemove(var/movement_dir = 0)
+		return 1 //Bullets don't drift in space
+
+
+
 	process(var/setAngle)
 		if(setAngle) Angle = setAngle
 		if(!legacy)
 			spawn() //New projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
-					kill_count--
-					if((!( current ) || loc == current))
-						current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
+					if(!paused)
+						kill_count--
+						if((!( current ) || loc == current))
+							current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
 
-					if(!Angle)
-						Angle=round(Get_Angle(src,current))
-					//world << "[Angle] angle"
-					//overlays.Cut()
-					//var/icon/I=new(initial(icon),icon_state) //using initial(icon) makes sure that the angle for that is reset as well
-					//I.Turn(Angle)
-					//I.DrawBox(rgb(255,0,0,50),1,1,32,32)
-					//icon = I
-					if(spread) //Chaotic spread
-						Angle += (rand() - 0.5) * spread
-					var/matrix/M = new//matrix(transform)
-					M.Turn(Angle)
-					transform = M
+						if(!Angle)
+							Angle=round(Get_Angle(src,current))
+						//world << "[Angle] angle"
+						//overlays.Cut()
+						//var/icon/I=new(initial(icon),icon_state) //using initial(icon) makes sure that the angle for that is reset as well
+						//I.Turn(Angle)
+						//I.DrawBox(rgb(255,0,0,50),1,1,32,32)
+						//icon = I
+						if(spread) //Chaotic spread
+							Angle += (rand() - 0.5) * spread
+						var/matrix/M = new//matrix(transform)
+						M.Turn(Angle)
+						transform = M
 
-					var/Pixel_x=round(sin(Angle)+16*sin(Angle)*2)
-					var/Pixel_y=round(cos(Angle)+16*cos(Angle)*2)
-					var/pixel_x_offset = pixel_x + Pixel_x
-					var/pixel_y_offset = pixel_y + Pixel_y
-					var/new_x = x
-					var/new_y = y
-					//Not sure if using whiles for this is good
-					while(pixel_x_offset > 16)
-						//world << "Pre-adjust coords (x++): xy [pixel_x] xy offset [pixel_x_offset]"
-						pixel_x_offset -= 32
-						pixel_x -= 32
-						new_x++// x++
-					while(pixel_x_offset < -16)
-						//world << "Pre-adjust coords (x--): xy [pixel_x] xy offset [pixel_x_offset]"
-						pixel_x_offset += 32
-						pixel_x += 32
-						new_x--
+						var/Pixel_x=round(sin(Angle)+16*sin(Angle)*2)
+						var/Pixel_y=round(cos(Angle)+16*cos(Angle)*2)
+						var/pixel_x_offset = pixel_x + Pixel_x
+						var/pixel_y_offset = pixel_y + Pixel_y
+						var/new_x = x
+						var/new_y = y
+						//Not sure if using whiles for this is good
+						while(pixel_x_offset > 16)
+							//world << "Pre-adjust coords (x++): xy [pixel_x] xy offset [pixel_x_offset]"
+							pixel_x_offset -= 32
+							pixel_x -= 32
+							new_x++// x++
+						while(pixel_x_offset < -16)
+							//world << "Pre-adjust coords (x--): xy [pixel_x] xy offset [pixel_x_offset]"
+							pixel_x_offset += 32
+							pixel_x += 32
+							new_x--
 
-					while(pixel_y_offset > 16)
-						//world << "Pre-adjust coords (y++): py [pixel_y] py offset [pixel_y_offset]"
-						pixel_y_offset -= 32
-						pixel_y -= 32
-						new_y++
-					while(pixel_y_offset < -16)
-						//world << "Pre-adjust coords (y--): py [pixel_y] py offset [pixel_y_offset]"
-						pixel_y_offset += 32
-						pixel_y += 32
-						new_y--
+						while(pixel_y_offset > 16)
+							//world << "Pre-adjust coords (y++): py [pixel_y] py offset [pixel_y_offset]"
+							pixel_y_offset -= 32
+							pixel_y -= 32
+							new_y++
+						while(pixel_y_offset < -16)
+							//world << "Pre-adjust coords (y--): py [pixel_y] py offset [pixel_y_offset]"
+							pixel_y_offset += 32
+							pixel_y += 32
+							new_y--
 
-					speed = round(speed) //Just in case.
-					step_towards(src, locate(new_x, new_y, z)) //Original projectiles stepped towards 'current'
-					if(speed <= 1) //We should really only animate at speed 2
-						pixel_x = pixel_x_offset
-						pixel_y = pixel_y_offset
-					else
-						animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
+						speed = round(speed) //Just in case.
+						step_towards(src, locate(new_x, new_y, z)) //Original projectiles stepped towards 'current'
+						if(speed <= 1) //We should really only animate at speed 2
+							pixel_x = pixel_x_offset
+							pixel_y = pixel_y_offset
+						else
+							animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
 
-/*
-					var/turf/T = get_turf(src)
-					if(T)
-						T.color = "#6666FF"
-						spawn(10)
-							T.color = initial(T.color)
-*/
+	/*
+						var/turf/T = get_turf(src)
+						if(T)
+							T.color = "#6666FF"
+							spawn(10)
+								T.color = initial(T.color)
+	*/
 
-					if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
-						if(loc == get_turf(original))
-							if(!(original in permutated))
-								Bump(original)
+						if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
+							if(loc == get_turf(original))
+								if(!(original in permutated))
+									Bump(original)
 					Range()
 					sleep(max(1, speed))
 		else
 			spawn() //Old projectile system
 				while(loc)
 					if(kill_count < 1)
-						qdel(src)
+						del(src)
 						return
-					kill_count--
-					if((!( current ) || loc == current))
-						current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-					if(!Angle)
-						Angle=round(Get_Angle(src,current))
-					var/matrix/M = new//matrix(transform)
-					M.Turn(Angle)
-					transform = M //So there's no need to give icons directions again
-					step_towards(src, current)
-					if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
-						if(loc == get_turf(original))
-							if(!(original in permutated))
-								Bump(original)
+					if(!paused)
+						kill_count--
+						if((!( current ) || loc == current))
+							current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
+						if(!Angle)
+							Angle=round(Get_Angle(src,current))
+						var/matrix/M = new//matrix(transform)
+						M.Turn(Angle)
+						transform = M //So there's no need to give icons directions again
+						step_towards(src, current)
+						if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
+							if(loc == get_turf(original))
+								if(!(original in permutated))
+									Bump(original)
 					Range()
 					sleep(1)
 
@@ -297,7 +313,7 @@
 			return //cannot shoot yourself
 		if(istype(A, /obj/item/projectile))
 			return
-		if(istype(A, /mob/living))
+		if(istype(A, /mob/living) || istype(A, /obj/mecha) || istype(A, /obj/spacepod) || istype(A, /obj/vehicle))
 			result = 2 //We hit someone, return 1!
 			return
 		result = 1
@@ -324,3 +340,15 @@
 				M = locate() in get_step(src,target)
 				if(istype(M))
 					return 1
+
+/proc/check_trajectory(atom/target as mob|obj, atom/firer as mob|obj, var/pass_flags=PASSTABLE|PASSGLASS|PASSGRILLE, flags=null)  //Checks if you can hit them or not.
+	if(!istype(target) || !istype(firer))
+		return 0
+	var/obj/item/projectile/test/trace = new /obj/item/projectile/test(get_turf(firer)) //Making the test....
+	trace.target = target
+	if(!isnull(flags))
+		trace.flags = flags //Set the flags...
+	trace.pass_flags = pass_flags //And the pass flags to that of the real projectile...
+	var/output = trace.process() //Test it!
+	qdel(trace) //No need for it anymore
+	return output //Send it back to the gun!

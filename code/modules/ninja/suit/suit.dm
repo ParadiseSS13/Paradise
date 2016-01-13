@@ -16,7 +16,6 @@ Contents:
 	slowdown = 0
 	unacidable = 1
 	armor = list(melee = 60, bullet = 60, laser = 45,energy = 15, bomb = 30, bio = 30, rad = 30)
-	siemens_coefficient = 0.2
 
 	var/suitActive = 0
 	var/suitBusy = 0

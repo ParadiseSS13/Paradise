@@ -19,6 +19,8 @@
 #define BANTYPE_JOB_TEMP	4
 #define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
 #define BANTYPE_APPEARANCE  6
+#define BANTYPE_ADMIN_PERMA	7
+#define BANTYPE_ADMIN_TEMP	8
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
@@ -37,7 +39,8 @@
 #define R_SPAWN			4096
 #define R_MOD			8192
 #define R_MENTOR		16384
+#define R_PROCCALL		32768
 
-#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 32768 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535

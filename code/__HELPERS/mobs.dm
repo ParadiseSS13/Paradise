@@ -1,4 +1,40 @@
-proc/random_hair_style(gender, species = "Human")
+proc/random_underwear(gender, species = "Human")
+	var/list/pick_list = list()
+	switch(gender)
+		if(MALE)	pick_list = underwear_m
+		if(FEMALE)	pick_list = underwear_f
+		else		pick_list = underwear_list
+	return pick_species_allowed_underwear(pick_list, species)
+
+proc/random_undershirt(gender, species = "Human")
+	var/list/pick_list = list()
+	switch(gender)
+		if(MALE)	pick_list = undershirt_m
+		if(FEMALE)	pick_list = undershirt_f
+		else		pick_list = undershirt_list
+	return pick_species_allowed_underwear(pick_list, species)
+
+proc/random_socks(gender, species = "Human")
+	var/list/pick_list = list()
+	switch(gender)
+		if(MALE)	pick_list = socks_m
+		if(FEMALE)	pick_list = socks_f
+		else		pick_list = socks_list
+	return pick_species_allowed_underwear(pick_list, species)
+
+proc/pick_species_allowed_underwear(list/all_picks, species)
+	var/list/valid_picks = list()
+	for(var/test in all_picks)
+		var/datum/sprite_accessory/S = all_picks[test]
+		if(!(species in S.species_allowed))
+			continue
+		valid_picks += test
+
+	if(!valid_picks.len) valid_picks += "Nude"
+
+	return pick(valid_picks)
+
+proc/random_hair_style(var/gender, species = "Human")
 	var/h_style = "Bald"
 
 	var/list/valid_hairstyles = list()
@@ -17,7 +53,7 @@ proc/random_hair_style(gender, species = "Human")
 
 	return h_style
 
-/proc/GetOppositeDir(var/dir)
+proc/GetOppositeDir(var/dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -29,7 +65,7 @@ proc/random_hair_style(gender, species = "Human")
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-proc/random_facial_hair_style(gender, species = "Human")
+proc/random_facial_hair_style(var/gender, species = "Human")
 	var/f_style = "Shaved"
 
 	var/list/valid_facialhairstyles = list()
@@ -98,28 +134,6 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-proc/RoundHealth(health)
-	switch(health)
-		if(100 to INFINITY)
-			return "health100"
-		if(70 to 100)
-			return "health80"
-		if(50 to 70)
-			return "health60"
-		if(30 to 50)
-			return "health40"
-		if(18 to 30)
-			return "health25"
-		if(5 to 18)
-			return "health10"
-		if(1 to 5)
-			return "health1"
-		if(-99 to 0)
-			return "health0"
-		else
-			return "health-100"
-	return "0"
-
 
 /*
 Proc for attack log creation, because really why not
@@ -136,14 +150,14 @@ proc/add_logs(mob/target, mob/user, what_done, var/object=null, var/addition=nul
 	if(!user)
 		return
 	if(ismob(user))
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(ismob(target))
-		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [user.name][ismob(user) ? "([user.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		target.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
 	if(admin)
-		log_attack("<font color='red'>[user.name][ismob(user) ? "([user.ckey])" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition]</font>")
+		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
 	if(target.client)
 		if(what_done in ignore) return
 		if(target == user)return
 		if(!admin) return
-		msg_admin_attack("[user.name][ismob(user) ? "([user.ckey])" : ""][isAntag(user) ? "(ANTAG)" : ""] [what_done] [target.name][ismob(target) ? "([target.ckey])" : ""][object ? " with [object]" : " "][addition](<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 

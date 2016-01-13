@@ -8,6 +8,11 @@
 	pockets.max_w_class = 2		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
 
+/obj/item/clothing/suit/storage/Destroy()
+	qdel(pockets)
+	pockets = null
+	return ..()
+
 /obj/item/clothing/suit/storage/attack_hand(mob/user as mob)
 	if (pockets.handle_attack_hand(user))
 		..(user)
@@ -26,6 +31,10 @@
 
 /obj/item/clothing/suit/storage/hear_talk(mob/M, var/msg)
 	pockets.hear_talk(M, msg)
+	..()
+
+/obj/item/clothing/suit/storage/hear_message(mob/M, var/msg)
+	pockets.hear_message(M, msg)
 	..()
 
 /obj/item/clothing/suit/storage/proc/return_inv()

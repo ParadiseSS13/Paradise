@@ -2,30 +2,72 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = 3.0
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
 		)
+
+// **** Welding gas mask ****
+
+/obj/item/clothing/mask/gas/welding
+	name = "welding mask"
+	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
+	icon_state = "weldingmask"
+	item_state = "weldingmask"
+	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
+	var/up = 0
+	flash_protect = 2
+	tint = 2
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	species_fit = list("Vox")
+	origin_tech = "materials=2;engineering=2"
+	action_button_name = "Toggle Welding Helmet"
+
+/obj/item/clothing/mask/gas/welding/attack_self()
+	toggle()
+
+
+/obj/item/clothing/mask/gas/welding/verb/toggle()
+	set category = "Object"
+	set name = "Adjust welding mask"
+	set src in usr
+
+	if(usr.canmove && !usr.stat && !usr.restrained())
+		if(src.up)
+			src.up = !src.up
+			src.flags |= (MASKCOVERSEYES)
+			flags_inv |= (HIDEEYES)
+			icon_state = initial(icon_state)
+			usr << "You flip the [src] down to protect your eyes."
+			flash_protect = 2
+			tint = 2
+		else
+			src.up = !src.up
+			src.flags &= ~(MASKCOVERSEYES)
+			flags_inv &= ~(HIDEEYES)
+			icon_state = "[initial(icon_state)]up"
+			usr << "You push the [src] up out of your face."
+			flash_protect = 0
+			tint = 0
+		usr.update_inv_wear_mask()	//so our mob-overlays update
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	w_class = 3.0
 	item_state = "bane_mask"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	siemens_coefficient = 0.9
 
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
@@ -41,14 +83,13 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
-	siemens_coefficient = 0.7
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
-	siemens_coefficient = 0.7
+	strip_delay = 60
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -57,7 +98,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	species_fit = list("Vox")
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -80,7 +121,7 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 /obj/item/clothing/mask/gas/virusclown_hat
 	name = "clown wig and mask"
@@ -121,7 +162,6 @@
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
-	siemens_coefficient = 0.2
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/cyborg
@@ -135,7 +175,7 @@
 	desc = "Twoooo!"
 	icon_state = "owl"
 	species_fit = list("Vox")
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | NODROP
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
 	var/cooldown = 0
 	action_button_name = "Hoot"
 
@@ -168,13 +208,21 @@
 	var/safety = 1
 	ignore_maskadjust = 0
 	species_fit = list()
+	species_fit = list("Vox")
 	action_button_name = "HALT!"
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
-	action_button_name = "HALT!"
 	icon_state = "officermask"
+	aggressiveness = 3
+	ignore_maskadjust = 1
+
+/obj/item/clothing/mask/gas/sechailer/blue
+	name = "\improper blue SWAT mask"
+	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
+	icon_state = "blue_sechailer"
+	item_state = "blue_sechailer"
 	aggressiveness = 3
 	ignore_maskadjust = 1
 

@@ -17,6 +17,12 @@
 	wires = new(src)
 	..()
 
+/obj/item/weapon/c4/Destroy()
+	qdel(wires)
+	wires = null
+	target = null
+	return ..()
+
 /obj/item/weapon/c4/suicide_act(var/mob/user)
 	. = (BRUTELOSS)
 	viewers(user) << "<span class='suicide'>[user] activates the C4 and holds it above his head! It looks like \he's going out with a bang!</span>"
@@ -41,6 +47,8 @@
 
 	user.say(message_say)
 	target = user
+	message_admins("[key_name_admin(user)] suicided with [src.name] at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+	message_admins("[key_name(user)] suicided with [src.name] at ([x],[y],[z])")
 	explode(get_turf(user))
 	return .
 
@@ -54,7 +62,9 @@
 		..()
 
 /obj/item/weapon/c4/attack_self(mob/user as mob)
-	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
+	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num|null
+	if(newtime == null)
+		return
 	if(newtime < 10)
 		newtime = 10
 	if(newtime > 60000)
@@ -70,7 +80,7 @@
 		return
 	user << "Planting explosives..."
 
-	if(do_after(user, 50) && in_range(user, target))
+	if(do_after(user, 50, target = target) && in_range(user, target))
 		user.drop_item()
 		src.target = target
 		loc = null
@@ -78,12 +88,12 @@
 		if (ismob(target))
 			add_logs(target, user, "planted [name] on")
 			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
-			message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) planted C4 on [key_name(target)](<A HREF='?_src_=holder;adminmoreinfo=\ref[target]'>?</A>) with [timer] second fuse",0,1)
-			log_game("[key_name(user)] planted C4 on [key_name(target)] with [timer] second fuse")
+			message_admins("[key_name_admin(user)] planted [src.name] on [key_name_admin(target)] with [timer] second fuse",0,1)
+			log_game("[key_name(user)] planted [src.name] on [key_name(target)] with [timer] second fuse")
 
 		else
-			message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) planted C4 on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [timer] second fuse",0,1)
-			log_game("[key_name(user)] planted C4 on [target.name] at ([target.x],[target.y],[target.z]) with [timer] second fuse")
+			message_admins("[key_name_admin(user)] planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [timer] second fuse",0,1)
+			log_game("[key_name(user)] planted [src.name] on [target.name] at ([target.x],[target.y],[target.z]) with [timer] second fuse")
 
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		user << "Bomb has been planted. Timer counting down from [timer]."

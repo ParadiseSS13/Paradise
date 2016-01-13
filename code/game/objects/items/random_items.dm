@@ -5,7 +5,7 @@
 	name = "Random Toy"
 	New()
 		..()
-		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + typesof(/obj/item/toy/prize) - /obj/item/toy/prize
+		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 		var/T = pick(types)
 		new T(loc)
 		spawn(1)
@@ -19,7 +19,7 @@
 	name = "Random Mess"
 	New()
 		..()
-		var/list/list = typesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable,/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
+		var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
 		var/T = pick(list)
 		new T(loc)
 		spawn(0)
@@ -27,7 +27,7 @@
 
 
 /obj/item/stack/sheet/animalhide/random
-	name = "Random animal hide"
+	name = "random animal hide"
 	New()
 		..()
 		spawn(1)
@@ -47,8 +47,7 @@
 	New()
 		..()
 		var/datum/reagent/R = pick(chemical_reagents_list)
-		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
-		if(rare_chems.Find(R))
+		if(rare_chemicals.Find(R))
 			reagents.add_reagent(R,10)
 		else
 			reagents.add_reagent(R,rand(2,3)*10)
@@ -61,11 +60,9 @@
 //	identify_probability = 0
 	New()
 		..()
-		var/global/list/chems_only = list("slimejelly","blood","water","lube","charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","oxygen","copper","nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine","fluorine","sodium","phosphorus","lithium","sugar","sacid","facid","glycerol","radium","mutadone","thermite","mutagen","virusfood","iron","gold","silver","uranium","aluminum","silicon","fuel","cleaner","atrazine","plasma","teporone","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","cryoxadone","spaceacillin","carpotoxin","mindbreaker","fluorosurfactant","fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","enzyme","nothing","salglu_solution","antifreeze","neurotoxin")
-		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
 
-		var/datum/reagent/R = pick(chems_only + rare_chems)
-		if(rare_chems.Find(R))
+		var/datum/reagent/R = pick(standard_chemicals + rare_chemicals)
+		if(rare_chemicals.Find(R))
 			reagents.add_reagent(R,10)
 		else
 			reagents.add_reagent(R,rand(2,3)*10)
@@ -78,35 +75,35 @@
 //	identify_probability = 0
 	New()
 		..()
-		var/global/list/base_chems = list("water","oxygen","nitrogen","hydrogen","potassium","mercury","carbon","chlorine","fluorine","phosphorus","lithium","sulfur","sacid","radium","iron","aluminum","silicon","sugar","ethanol")
-		var/datum/reagent/R = pick(base_chems)
+		var/datum/reagent/R = pick(base_chemicals)
 		reagents.add_reagent(R,rand(2,6)*5)
 		name = "unlabelled bottle"
 		pixel_x = rand(-10,10)
 		pixel_y = rand(-10,10)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
 	New()
 		..()
-		var/list/drinks_only = list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice","berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana","nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee","icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb","space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater","tequilla","vermouth","wine","tonic","kahlua","cognac","hooch","ale","sodawater","ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic","cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail","booger","bloodymary","gargleblaster","bravebull","tequillasunrise","toxinsspecial","beepskysmash","salglu_solution","irishcream","manlydorf","longislandicedtea","moonshine","b52","irishcoffee","margarita","blackrussian","manhattan","manhattan_proj","whiskeysoda","antifreeze","barefoot","snowwhite","demonsblood","vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead","mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte","cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk","silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini")
+		var/list/additional_drinks = list()
 		if(prob(50))
-			drinks_only += list("pancuronium","adminordrazine","mindbreaker","omnizine","blood")
+			additional_drinks += list("pancuronium","adminordrazine","lsd","omnizine","blood")
 
-		var/datum/reagent/R = pick(drinks_only)
+		var/datum/reagent/R = pick(drinks + additional_drinks)
 		reagents.add_reagent(R,volume)
 		name = "unlabelled bottle"
 		icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 	icon = 'icons/obj/drinks.dmi'
 	New()
 		..()
 		var/datum/reagent/R = pick(chemical_reagents_list)
-		var/global/list/rare_chems = list("minttoxin","nanites","xenomicrobes","adminordrazine")
-		if(rare_chems.Find(R))
+		if(rare_chemicals.Find(R))
 			reagents.add_reagent(R,10)
 		else
 			reagents.add_reagent(R,rand(3,10)*10)
@@ -123,20 +120,17 @@
 
 	New()
 		..()
-		var/global/list/meds_only = list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs","serotrotium","mutadone","mutagen","teporone","lexorin","silver_sulfadiazine","salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol","potass_iodide","pen_acid","mannitol","oculine","styptic_powder","methamphetamine","spaceacillin","carpotoxin","mindbreaker","ethanol","ammonia","diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin")
-		var/global/list/rare_meds = list("nanites","xenomicrobes","minttoxin","adminordrazine","blood")
-
 		var/i = 1
 		while(i < storage_slots)
 
 			var/datum/reagent/R
 			if(prob(50))
-				R = pick(meds_only + rare_meds)
+				R = pick(standard_medicines + rare_medicines)
 			else
-				R = pick(meds_only)
+				R = pick(standard_medicines)
 			var/obj/item/weapon/reagent_containers/pill/P = new(src)
 
-			if(rare_meds.Find(R))
+			if(rare_medicines.Find(R))
 				P.reagents.add_reagent(R,10)
 			else
 				P.reagents.add_reagent(R,rand(2,5)*10)
@@ -152,7 +146,7 @@
 // -------------------------------------
 
 /obj/structure/closet/crate/secure/unknownchemicals
-	name = "Grey-market Chemicals Grab Pack"
+	name = "grey-market chemicals grab pack"
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
 	req_one_access = list(access_chemistry,access_research,access_qm) // the qm knows a guy, you see.
 
@@ -178,15 +172,14 @@
 		return
 
 /obj/structure/closet/crate/secure/chemicals
-	name		= "Chemical Supply Kit"
+	name		= "chemical supply kit"
 	desc		= "Full of basic chemistry supplies."
 	req_one_access	= list(access_chemistry,access_research)
 
 	New()
 		..()
 		sleep(2)
-		var/global/list/base_chems = list("water","oxygen","nitrogen","hydrogen","potassium","mercury","carbon","chlorine","fluorine","phosphorus","lithium","sulfur","sacid","radium","iron","aluminum","silicon","sugar","ethanol")
-		for(var/chem in base_chems)
+		for(var/chem in standard_chemicals)
 			var/obj/item/weapon/reagent_containers/glass/bottle/B = new(src)
 			B.reagents.add_reagent(chem,B.volume)
 			if(prob(85))
@@ -236,7 +229,7 @@
 */
 
 /obj/structure/closet/secure_closet/random_drinks
-	name = "Unlabelled Booze"
+	name = "unlabelled booze closet"
 	req_access = list(access_bar)
 	icon_state = "cabinetdetective_locked"
 	icon_closed = "cabinetdetective"
@@ -276,7 +269,7 @@
 									/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
 			visible_message("\red Something falls out of the [src]!")
-			var/obj/item/weapon/grenade/flashbang/clusterbang/C = new(src.loc)
+			var/obj/item/weapon/grenade/clusterbuster/C = new(src.loc)
 			C.prime()
 			spawn(10)
 				new menace(src.loc)

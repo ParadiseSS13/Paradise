@@ -1,14 +1,14 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/skills//TODO:SANITY
-	name = "Employment Records"
+	name = "employment records console"
 	desc = "Used to view personnel's employment records"
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
-	circuit = "/obj/item/weapon/circuitboard/skills"
+	circuit = /obj/item/weapon/circuitboard/skills
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null

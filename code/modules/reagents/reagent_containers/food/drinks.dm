@@ -30,23 +30,23 @@
 
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "\red You have a monitor for a head, where do you think you're going to put that?"
+				if(!H.check_has_mouth())
+					user << "Where do you intend to put \the [src]? You don't have a mouth!"
 					return
 
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(0)
-					reagents.trans_to_ingest(M, gulp_size)
+					reagents.trans_to(M, gulp_size)
 
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				user << "\red They have a monitor for a head, where do you think you're going to put that?"
+			if(!H.check_has_mouth())
+				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
 			for(var/mob/O in viewers(world.view, user))
@@ -55,9 +55,9 @@
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] feeds [M] [src].", 1)
 
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-			log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [key_name(user)] Reagents: [reagentlist(src)]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [key_name(M)] Reagents: [reagentlist(src)]</font>")
+			log_attack("[key_name_admin(user)] fed [key_name_admin(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -66,14 +66,15 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(0)
-					reagents.trans_to_ingest(M, gulp_size)
+					reagents.trans_to(M, gulp_size)
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/bro = user
-				bro.cell.use(30)
+				var/mob/living/silicon/robot/borg = user
+				borg.cell.use(30)
 				var/refill = R.get_master_reagent_id()
-				spawn(600)
-					R.add_reagent(refill, fillevel)
+				if(refill in drinks) // Only synthesize drinks
+					spawn(600)
+						R.add_reagent(refill, fillevel)
 
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 			return 1
@@ -125,15 +126,16 @@
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				user << "Now synthesizing [trans] units of [refillName]..."
+				if(refill in drinks) // Only synthesize drinks
+					var/mob/living/silicon/robot/bro = user
+					var/chargeAmount = max(30,4*trans)
+					bro.cell.use(chargeAmount)
+					user << "Now synthesizing [trans] units of [refillName]..."
 
 
-				spawn(300)
-					reagents.add_reagent(refill, trans)
-					user << "Cyborg [src] refilled."
+					spawn(300)
+						reagents.add_reagent(refill, trans)
+						user << "Cyborg [src] refilled."
 
 		return
 
@@ -146,20 +148,19 @@
 				user << "<span class='notice'>You heat [src] with [I].</span>"
 				src.reagents.handle_reactions()
 
-	examine()
-		set src in view()
-		..()
-		if (!(usr in range(0)) && usr!=src.loc) return
+	examine(mob/user)
+		if(!..(user, 1))
+			return
 		if(!reagents || reagents.total_volume==0)
-			usr << "\blue \The [src] is empty!"
+			user << "\blue \The [src] is empty!"
 		else if (reagents.total_volume<=src.volume/4)
-			usr << "\blue \The [src] is almost empty!"
+			user << "\blue \The [src] is almost empty!"
 		else if (reagents.total_volume<=src.volume*0.66)
-			usr << "\blue \The [src] is half full!"
+			user << "\blue \The [src] is half empty!" // Pessimism is the real order of the day.
 		else if (reagents.total_volume<=src.volume*0.90)
-			usr << "\blue \The [src] is almost full!"
+			user << "\blue \The [src] is almost full!"
 		else
-			usr << "\blue \The [src] is full!"
+			user << "\blue \The [src] is full!"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -170,11 +171,12 @@
 	desc = "A golden cup"
 	name = "golden cup"
 	icon_state = "golden_cup"
-	item_state = "" //nope :(
+	item_state = "golden_cup" //yup :)
 	w_class = 4
 	force = 14
 	throwforce = 10
 	amount_per_transfer_from_this = 20
+	materials = list(MAT_GOLD=1000)
 	possible_transfer_amounts = null
 	volume = 150
 	flags = CONDUCT | OPENCONTAINER
@@ -189,7 +191,7 @@
 //	Formatting is the same as food.
 
 /obj/item/weapon/reagent_containers/food/drinks/milk
-	name = "Space Milk"
+	name = "\improper Space Milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
 	item_state = "carton"
@@ -203,7 +205,7 @@
 /obj/item/weapon/reagent_containers/food/drinks/flour
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "flour"
 	item_state = "flour"
 	New()
@@ -214,7 +216,7 @@
 */
 
 /obj/item/weapon/reagent_containers/food/drinks/soymilk
-	name = "SoyMilk"
+	name = "\improper SoyMilk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
 	item_state = "carton"
@@ -225,7 +227,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/coffee
-	name = "Robust Coffee"
+	name = "\improper Robust Coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	New()
@@ -235,7 +237,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/tea
-	name = "Duke Purple Tea"
+	name = "\improper Duke Purple Tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	icon_state = "teacup"
 	item_state = "coffee"
@@ -248,7 +250,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/mugwort
-	name = "Mugwort Tea"
+	name = "\improper Mugwort Tea"
 	desc = "A bitter herbal tea."
 	icon_state = "manlydorfglass"
 	item_state = "coffee"
@@ -259,7 +261,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/ice
-	name = "Ice Cup"
+	name = "\improper Ice Cup"
 	desc = "Careful, cold ice, do not chew."
 	icon_state = "coffee"
 	New()
@@ -269,7 +271,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/h_chocolate
-	name = "Dutch Hot Coco"
+	name = "\improper Dutch Hot Coco"
 	desc = "Made in Space South America."
 	icon_state = "hot_coco"
 	item_state = "coffee"
@@ -280,7 +282,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/chocolate
-	name = "Hot Chocolate"
+	name = "\improper Hot Chocolate"
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
@@ -291,7 +293,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/weightloss
-	name = "Weight-Loss Shake"
+	name = "\improper Weight-Loss Shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "coffee"
 	item_state = "coffee"
@@ -304,7 +306,7 @@
 
 
 /obj/item/weapon/reagent_containers/food/drinks/dry_ramen
-	name = "Cup Ramen"
+	name = "\improper Cup Ramen"
 	desc = "Just add 10ml water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
 	New()
@@ -316,7 +318,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/chicken_soup
-	name = "Cup Chicken Soup"
+	name = "\improper Cup Chicken Soup"
 	desc = "A delicious and soothing cup of chicken noodle soup; just like spessmom used to make it."
 	icon_state = "ramen"
 	New()
@@ -326,7 +328,7 @@
 		src.pixel_y = rand(-10.0, 10)
 
 /obj/item/weapon/reagent_containers/food/drinks/sillycup
-	name = "Paper Cup"
+	name = "paper cup"
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	possible_transfer_amounts = null
@@ -347,7 +349,7 @@
 //	icon states.
 
 /obj/item/weapon/reagent_containers/food/drinks/shaker
-	name = "Shaker"
+	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
 	amount_per_transfer_from_this = 10
@@ -357,12 +359,14 @@
 	name = "Captain's Flask"
 	desc = "A metal flask belonging to the captain"
 	icon_state = "flask"
+	materials = list(MAT_SILVER=500)
 	volume = 60
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/detflask
 	name = "Detective's Flask"
 	desc = "A metal flask with a leather band and golden badge belonging to the detective."
 	icon_state = "detflask"
+	materials = list(MAT_METAL=250)
 	volume = 60
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/barflask
@@ -386,14 +390,12 @@
 /obj/item/weapon/reagent_containers/food/drinks/flask/thermos
 	name = "vintage thermos"
 	desc = "An older thermos with a faint shine."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "johann_erzatz_1"
+	icon_state = "thermos"
 	volume = 50
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/shiny
 	name = "shiny flask"
 	desc = "A shiny metal flask. It appears to have a Greek symbol inscribed on it."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shinyflask"
 	volume = 50
 

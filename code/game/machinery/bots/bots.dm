@@ -45,7 +45,7 @@
 	var/turf/nearest_beacon_loc	// the nearest beacon's location
 
 	var/beacon_freq = 1445		// navigation beacon frequency
-	var/control_freq = 1447		// bot control frequency
+	var/control_freq = BOT_FREQ		// bot control frequency
 
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 
@@ -106,6 +106,14 @@
 	Radio.follow_target = src
 
 
+/obj/machinery/bot/Destroy()
+	aibots -= src
+	qdel(Radio)
+	Radio = null
+	qdel(botcard)
+	botcard = null
+	return ..()
+
 /obj/machinery/bot/proc/add_to_beacons(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
 	spawn(20)
 		if(radio_controller)
@@ -114,7 +122,6 @@
 				radio_controller.add_object(src, control_freq, bot_filter)
 
 /obj/machinery/bot/proc/explode()
-	aibots -= src
 	qdel(src)
 
 /obj/machinery/bot/proc/healthcheck()
@@ -136,7 +143,7 @@
 		user << "<span class='notice'>You need to open maintenance panel first.</span>"
 
 /obj/machinery/bot/examine(mob/user)
-	..()
+	..(user)
 	if (health < maxhealth)
 		if (health > maxhealth/3)
 			user << "<span class='danger'>[src]'s parts look loose.</span>"
@@ -241,7 +248,7 @@
 		else
 			user << "<span class='warning'>Maintenance panel is locked.</span>"
 	else
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm")
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM)
 			if(health >= maxhealth)
 				user << "<span class='warning'>[src] does not need a repair.</span>"
 				return
@@ -256,7 +263,7 @@
 				user << "<span class='warning'>The welder must be on for this task.</span>"
 		else
 			if(W.force) //if force is non-zero
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				switch(W.damtype)
 					if("fire")
@@ -276,7 +283,7 @@
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		health -= Proj.damage
 		if(prob(75) && Proj.damage > 0)
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(5, 1, src)
 			s.start()
 		..()
@@ -443,7 +450,7 @@ obj/machinery/bot/proc/bot_step(var/dest)
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
-	path = AStar(src, waypoint, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 200, id=all_access)
+	path = get_path_to(src, waypoint, src, /turf/proc/Distance_cardinal, 0, 200, id=all_access)
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
@@ -736,13 +743,13 @@ obj/machinery/bot/proc/bot_summon()
 // given an optional turf to avoid
 /obj/machinery/bot/proc/calc_path(var/turf/avoid)
 	check_bot_access()
-	path = AStar(loc, patrol_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 120, id=botcard, exclude=avoid)
+	path = get_path_to(loc, patrol_target, src, /turf/proc/Distance_cardinal, 0, 120, id=botcard, exclude=avoid)
 	if(!path)
 		path = list()
 
 /obj/machinery/bot/proc/calc_summon_path(var/turf/avoid)
 	check_bot_access()
-	path = AStar(loc, summon_target, /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
+	path = get_path_to(loc, summon_target, src, /turf/proc/Distance_cardinal, 0, 150, id=botcard, exclude=avoid)
 	if(!path || tries >= 5) //Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.", radio_name)
 		bot_reset()

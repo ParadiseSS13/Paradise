@@ -7,13 +7,17 @@
 	idle_power_usage = 250
 	active_power_usage = 500
 	light_color = LIGHT_COLOR_DARKBLUE
-	circuit = "/obj/item/weapon/circuitboard/crew"
-	var/obj/nano_module/crew_monitor/crew_monitor
+	circuit = /obj/item/weapon/circuitboard/crew
+	var/datum/nano_module/crew_monitor/crew_monitor
 
 /obj/machinery/computer/crew/New()
 	crew_monitor = new(src)
 	..()
 
+/obj/machinery/computer/crew/Destroy()
+	qdel(crew_monitor)
+	crew_monitor = null
+	return ..()
 
 /obj/machinery/computer/crew/attack_ai(mob/user)
 	attack_hand(user)

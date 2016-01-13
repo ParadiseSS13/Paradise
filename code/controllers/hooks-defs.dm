@@ -92,3 +92,10 @@
  * Parameters: var/obj/structure/closet/crate/sold, var/area/shuttle
  */
 /hook/sell_crate
+
+/**
+ * Captain spawned hook.
+ * Called in supervisor.dm when a captain spawns
+ * Parameters: var/mob/living/carbon/human/captain
+ */
+/hook/captain_spawned

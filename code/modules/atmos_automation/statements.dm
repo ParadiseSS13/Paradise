@@ -1,4 +1,4 @@
-var/global/automation_types=typesof(/datum/automation) - /datum/automation
+var/global/automation_types = subtypesof(/datum/automation)
 
 #define AUTOM_RT_NULL    0
 #define AUTOM_RT_NUM     1

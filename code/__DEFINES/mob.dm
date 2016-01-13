@@ -78,3 +78,31 @@
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
 #define SYNTHETIC 2
+
+// Appearance change flags
+#define APPEARANCE_UPDATE_DNA 1
+#define APPEARANCE_RACE	2|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_GENDER 4|APPEARANCE_UPDATE_DNA
+#define APPEARANCE_SKIN 8
+#define APPEARANCE_HAIR 16
+#define APPEARANCE_HAIR_COLOR 32
+#define APPEARANCE_FACIAL_HAIR 64
+#define APPEARANCE_FACIAL_HAIR_COLOR 128
+#define APPEARANCE_EYE_COLOR 256
+#define APPEARANCE_ALL_HAIR APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR
+#define APPEARANCE_ALL 511
+
+// Intents
+#define I_HELP		"help"
+#define I_DISARM	"disarm"
+#define I_GRAB		"grab"
+#define I_HARM		"harm"
+
+// AI wire/radio settings
+#define AI_CHECK_WIRELESS 1
+#define AI_CHECK_RADIO 2
+
+#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+
+#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody

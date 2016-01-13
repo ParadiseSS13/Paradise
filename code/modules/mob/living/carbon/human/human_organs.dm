@@ -72,11 +72,9 @@
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = organs_by_name[limb_tag]
-		if(!E)
-			stance_damage += 2
-		else if (E.status & ORGAN_DESTROYED)
-			stance_damage += 2 // let it fail even if just foot&leg
-		else if (E.is_malfunctioning() || (E.is_broken() && !(E.status & ORGAN_SPLINTED)) || !E.is_usable())
+		if(!E || (E.status & (ORGAN_DESTROYED|ORGAN_DEAD)) || E.is_malfunctioning())
+			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
+		else if (E.is_broken() || !E.is_usable())
 			stance_damage += 1
 
 	// Canes and crutches help you stand (if the latter is ever added)
@@ -91,7 +89,7 @@
 		stance_damage = 0
 
 	// standing is poor
-	if(stance_damage >= 4)
+	if(stance_damage >= 8)
 		if(!(lying || resting))
 			if(species && !(species.flags & NO_PAIN))
 				emote("scream")
@@ -119,7 +117,7 @@
 				unEquip(r_hand)
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			emote("me", 1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
+			custom_emote(1, "[(species.flags & NO_PAIN) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -132,9 +130,9 @@
 					continue
 				unEquip(r_hand)
 
-			emote("me", 1, "drops what they were holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
 
-			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src)
 			spark_system.attach(src)
 			spark_system.start()
@@ -147,3 +145,19 @@
 	for(var/datum/reagent/A in reagents.reagent_list)
 		var/obj/item/organ/O = pick(organs)
 		O.trace_chemicals[A.name] = 100
+
+/mob/living/carbon/human/proc/sync_organ_dna()
+	var/list/all_bits = internal_organs|organs
+	for(var/obj/item/organ/O in all_bits)
+		O.set_dna(dna)
+
+/*
+Given the name of an organ, returns the external organ it's contained in
+I use this to standardize shadowling dethrall code
+-- Crazylemon
+*/
+/mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
+	if (!(organ_name in internal_organs_by_name))
+		return null
+	var/obj/item/organ/O = internal_organs_by_name[organ_name]
+	return O.parent_organ

@@ -8,6 +8,7 @@
 
 	var/icon_living = ""
 	var/icon_dead = ""
+	var/icon_resting = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 
 	var/oxygen_alert = 0
@@ -50,12 +51,14 @@
 	var/max_co2 = 5
 	var/min_n2 = 0
 	var/max_n2 = 0
-	var/unsuitable_atoms_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
+	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
+	var/list/ignored_damage_types = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 1, OXY = 0) //Set 0 to receive that damage type, 1 to ignore
 	var/attacktext = "attacks"
 	var/attack_sound = null
 	var/friendly = "nuzzles" //If the mob does no damage with it's attack
@@ -69,6 +72,8 @@
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
 
+	var/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
+
 
 /mob/living/simple_animal/New()
 	..()
@@ -79,53 +84,53 @@
 
 /mob/living/simple_animal/Login()
 	if(src && src.client)
-		src.client.screen = null
+		src.client.screen = list()
+		client.screen += client.void
 	..()
 
 /mob/living/simple_animal/updatehealth()
-	return
+	..()
+	health = Clamp(health, 0, maxHealth)
+
 
 /mob/living/simple_animal/Life()
 
-	//Health
-	if(stat == DEAD)
-		if(health > 0)
-			icon_state = icon_living
-			dead_mob_list -= src
-			living_mob_list += src
-			stat = CONSCIOUS
-			density = 1
-		return 0
+	if(..())
+		if(!ckey)
+			handle_automated_movement()
+			handle_automated_action()
+			handle_automated_speech()
+		. = 1
 
+	if(resting && icon_resting && stat != DEAD)
+		icon_state = icon_resting
+	else if(stat != DEAD)
+		icon_state = icon_living
 
-	if(health < 1)
-		Die()
+/mob/living/simple_animal/handle_regular_status_updates()
+	if(..()) //alive
+		if(health < 1)
+			death()
+			return 0
+		return 1
 
-	if(health > maxHealth)
-		health = maxHealth
+/mob/living/simple_animal/proc/handle_automated_action()
+	return
 
-	if(sleeping)
-		sleeping = max(sleeping-1, 0)
-	if(ear_deaf)
-		ear_deaf = max(ear_deaf-1, 0)
-
-	handle_stunned()
-	handle_weakened()
-	handle_paralysed()
-
-	handle_actions()
-
-	//Movement
-	if(!client && !stop_automated_movement && wander && (ckey == null))
+/mob/living/simple_animal/proc/handle_automated_movement()
+	if(!stop_automated_movement && wander)
 		if(isturf(src.loc) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					Move(get_step(src,pick(cardinal)))
-					turns_since_move = 0
+					var/anydir = pick(cardinal)
+					if(Process_Spacemove(anydir))
+						Move(get_step(src,anydir), anydir)
+						turns_since_move = 0
+			return
 
-	//Speaking
-	if(!client && speak_chance && (ckey == null))
+/mob/living/simple_animal/proc/handle_automated_speech()
+	if(speak_chance)
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
 				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
@@ -140,86 +145,88 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							emote(pick(emote_see),1)
+							custom_emote(1, pick(emote_see))
 						else
-							emote(pick(emote_hear),2)
+							custom_emote(2, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					emote(pick(emote_see),1)
+					custom_emote(1, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					emote(pick(emote_hear),2)
+					custom_emote(2, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						emote(pick(emote_see),1)
+						custom_emote(1, pick(emote_see))
 					else
-						emote(pick(emote_hear),2)
+						custom_emote(2,pick(emote_hear))
 
 
-	//Atmos
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atmos_suitable = 1
 
 	var/atom/A = src.loc
-
-	if(istype(A,/turf))
+	if(isturf(A))
 		var/turf/T = A
+		var/areatemp = get_temperature(environment)
 
-		var/datum/gas_mixture/Environment = T.return_air()
+		if( abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
+			var/diff = areatemp - bodytemperature
+			diff = diff / 5
+			bodytemperature += diff
 
-		if(Environment)
+		if(istype(T, /turf/simulated))
+			var/turf/simulated/ST = T
+			if(ST.air)
+				var/tox = ST.air.toxins
+				var/oxy = ST.air.oxygen
+				var/n2 = ST.air.nitrogen
+				var/co2 = ST.air.carbon_dioxide
 
-			if( abs(Environment.temperature - bodytemperature) > 40 && !(flags & IS_SYNTHETIC))
-				bodytemperature += ((Environment.temperature - bodytemperature) / 5)
-
-			if(min_oxy)
-				if(Environment.oxygen < min_oxy)
+				if(min_oxy && oxy < min_oxy)
+					atmos_suitable = 0
+					oxygen_alert = 1
+				else if(max_oxy && oxy > max_oxy)
 					atmos_suitable = 0
 					oxygen_alert = 1
 				else
 					oxygen_alert = 0
-			if(max_oxy)
-				if(Environment.oxygen > max_oxy)
+
+				if(min_tox && tox < min_tox)
 					atmos_suitable = 0
-			if(min_tox)
-				if(Environment.toxins < min_tox)
-					atmos_suitable = 0
-			if(max_tox)
-				if(Environment.toxins > max_tox)
+					toxins_alert = 1
+				else if(max_tox && tox > max_tox)
 					atmos_suitable = 0
 					toxins_alert = 1
 				else
 					toxins_alert = 0
-			if(min_n2)
-				if(Environment.nitrogen < min_n2)
-					atmos_suitable = 0
-			if(max_n2)
-				if(Environment.nitrogen > max_n2)
-					atmos_suitable = 0
-			if(min_co2)
-				if(Environment.carbon_dioxide < min_co2)
-					atmos_suitable = 0
-			if(max_co2)
-				if(Environment.carbon_dioxide > max_co2)
-					atmos_suitable = 0
-			if(flags & NO_BREATHE || flags & IS_SYNTHETIC)
-				atmos_suitable = 1
 
-	//Atmos effect
+				if(min_n2 && n2 < min_n2)
+					atmos_suitable = 0
+				else if(max_n2 && n2 > max_n2)
+					atmos_suitable = 0
+
+				if(min_co2 && co2 < min_co2)
+					atmos_suitable = 0
+				else if(max_co2 && co2 > max_co2)
+					atmos_suitable = 0
+
+				if(!atmos_suitable)
+					adjustBruteLoss(unsuitable_atmos_damage)
+
+		else
+			if(min_oxy || min_tox || min_n2 || min_co2)
+				adjustBruteLoss(unsuitable_atmos_damage)
+
+	handle_temperature_damage()
+
+/mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		fire_alert = 2
 		adjustBruteLoss(cold_damage_per_tick)
 	else if(bodytemperature > maxbodytemp)
-		fire_alert = 1
 		adjustBruteLoss(heat_damage_per_tick)
-	else
-		fire_alert = 0
-
-	if(!atmos_suitable)
-		adjustBruteLoss(unsuitable_atoms_damage)
-	return 1
 
 /mob/living/simple_animal/Bumped(AM as mob|obj)
 	if(!AM) return
@@ -248,18 +255,19 @@
 	adjustBruteLoss(20)
 	return
 
-/mob/living/simple_animal/emote(var/act,var/m_type=1,var/message = null)
-	if(stat)
-		return
-	switch(act)
+/mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
+	if(stat)	return
+
+	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
 		if("scream")
-			message = "<B>The [src.name]</B> whimpers."
+			message = "<B>\The [src]</B> whimpers."
 			m_type = 2
-	..()
+
+	..(act, m_type, message)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("me", 1, "[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -268,7 +276,7 @@
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
 		add_logs(M, src, "attacked", admin=0)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage,M.melee_damage_type)
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
@@ -283,12 +291,12 @@
 
 	switch(M.a_intent)
 
-		if("help")
+		if(I_HELP)
 			if (health > 0)
 				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-		if("grab")
+		if(I_GRAB)
 			if (M == src || anchored)
 				return
 			if (!(status_flags & CANPUSH))
@@ -305,11 +313,11 @@
 			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-		if("harm", "disarm")
+		if(I_HARM, I_DISARM)
 			M.do_attack_animation(src)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
-			adjustBruteLoss(harm_intent_damage)
+			attack_threshold_check(harm_intent_damage)
 
 	return
 
@@ -317,39 +325,26 @@
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 
 			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-		if ("grab")
-			if(M == src || anchored)
-				return
-			if(!(status_flags & CANPUSH))
-				return
+		if (I_GRAB)
+			grabbedby(M)
 
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-			LAssailant = M
-
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
-
-		if("harm", "disarm")
+		if(I_HARM, I_DISARM)
 			M.do_attack_animation(src)
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			adjustBruteLoss(damage)
+			attack_threshold_check(damage)
 
 	return
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if("help")
+		if(I_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -362,7 +357,7 @@
 
 			if(stat != DEAD)
 				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
+				attack_threshold_check(damage)
 
 
 /mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
@@ -384,7 +379,7 @@
 		else
 			damage = rand(5, 35)
 
-		adjustBruteLoss(damage)
+		attack_threshold_check(damage)
 
 
 	return
@@ -450,15 +445,14 @@
 	statpanel("Status")
 	stat(null, "Health: [round((health / maxHealth) * 100)]%")
 
-/mob/living/simple_animal/proc/Die()
-	living_mob_list -= src
-	dead_mob_list += src
-	if(key)
-		respawnable_list += src
+/mob/living/simple_animal/death(gibbed)
+	health = 0
 	icon_state = icon_dead
 	stat = DEAD
 	density = 0
-	return
+	if(!gibbed)
+		visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	..()
 
 /mob/living/simple_animal/ex_act(severity)
 	..()
@@ -475,9 +469,20 @@
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/adjustBruteLoss(damage)
-	health = Clamp(health - damage, 0, maxHealth)
-	if(health < 1)
-		Die()
+	if(!ignored_damage_types[BRUTE])
+		..()
+
+/mob/living/simple_animal/adjustFireLoss(damage)
+	if(!ignored_damage_types[BURN])
+		..(damage)
+
+/mob/living/simple_animal/adjustToxLoss(damage)
+	if(!ignored_damage_types[TOX])
+		..(damage)
+
+/mob/living/simple_animal/adjustCloneLoss(damage)
+	if(!ignored_damage_types[CLONE])
+		..(damage)
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -490,7 +495,19 @@
 		var/obj/mecha/M = the_target
 		if (M.occupant)
 			return 0
+	if (istype(the_target,/obj/spacepod))
+		var/obj/spacepod/S = the_target
+		if (S.occupant || S.occupant2)
+			return 0
 	return 1
+
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
+	if(damage <= force_threshold || ignored_damage_types[damagetype])
+		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
+	else
+		adjustBruteLoss(damage)
+		updatehealth()
+
 
 /mob/living/simple_animal/update_fire()
 	return
@@ -544,21 +561,34 @@
 	gib()
 	return
 
-/mob/living/simple_animal/say(var/message)
-	if(stat)
-		return
-
-	if(copytext(message,1,2) == "*")
-		return emote(copytext(message,2))
-
-	if(stat)
-		return
-
+/mob/living/simple_animal/say_quote(var/message)
 	var/verb = "says"
 
 	if(speak_emote.len)
 		verb = pick(speak_emote)
 
-	message = capitalize(trim_left(message))
+	return verb
 
-	..(message, null, verb)
+/mob/living/simple_animal/update_canmove()
+	if(paralysis || stunned || weakened || stat || resting)
+		drop_r_hand()
+		drop_l_hand()
+		canmove = 0
+	else if(buckled)
+		canmove = 0
+	else
+		canmove = 1
+	update_transform()
+	return canmove
+
+/mob/living/simple_animal/update_transform()
+	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)

@@ -22,10 +22,10 @@ var/global/datum/store/centcomm_store=new
 	var/list/datum/storeitem/items=list()
 	var/list/datum/storeorder/orders=list()
 
-	var/obj/machinery/account_database/linked_db
+	var/obj/machinery/computer/account_database/linked_db
 
 /datum/store/New()
-	for(var/itempath in typesof(/datum/storeitem) - /datum/storeitem/)
+	for(var/itempath in subtypesof(/datum/storeitem))
 		items += new itempath()
 
 /datum/store/proc/charge(var/datum/mind/mind,var/amount,var/datum/storeitem/item)
@@ -47,7 +47,7 @@ var/global/datum/store/centcomm_store=new
 	return 1
 
 /datum/store/proc/reconnect_database()
-	for(var/obj/machinery/account_database/DB in world)
+	for(var/obj/machinery/computer/account_database/DB in world)
 		if((DB.z in config.station_levels))
 			linked_db = DB
 			break

@@ -24,7 +24,6 @@
 
 /obj/machinery/atmospherics/pipe/simple/New()
 	..()
-
 	// Pipe colors and icon states are handled by an image cache - so color and icon should
 	//  be null. For mapping purposes color is defined in the object definitions.
 	icon = null
@@ -44,16 +43,32 @@
 		if(SOUTHWEST)
 			initialize_directions = SOUTH|WEST
 
-/obj/machinery/atmospherics/pipe/simple/hide(var/i)
-	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
-	update_icon()
-
-/obj/machinery/atmospherics/pipe/simple/process()
-	if(!parent) //This should cut back on the overhead calling build_network thousands of times per cycle
-		..()
-	else
-		. = PROCESS_KILL
+/obj/machinery/atmospherics/pipe/simple/initialize(initPipe = 1)
+	..()
+	if(initPipe)
+		normalize_dir()
+		var/N = 2
+		for(var/D in cardinal)
+			if(D & initialize_directions)
+				N--
+				for(var/obj/machinery/atmospherics/target in get_step(src, D))
+					if(target.initialize_directions & get_dir(target,src))
+						var/c = check_connect_types(target,src)
+						if(!c)
+							continue
+						if(!node1 && N == 1)
+							target.connected_to = c
+							connected_to = c
+							node1 = target
+							break
+						if(!node2 && N == 0)
+							target.connected_to = c
+							connected_to = c
+							node2 = target
+							break
+		var/turf/T = loc			// hide if turf is not intact
+		hide(T.intact)
+		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
 	var/datum/gas_mixture/environment = loc.return_air()
@@ -73,7 +88,7 @@
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>");
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-	var/datum/effect/effect/system/harmless_smoke_spread/smoke = new
+	var/datum/effect/system/harmless_smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
 	smoke.start()
 	qdel(src)
@@ -86,11 +101,28 @@
 
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	if(node1)
+		var/obj/machinery/atmospherics/A = node1
 		node1.disconnect(src)
+		node1 = null
+		A.build_network()
 	if(node2)
+		var/obj/machinery/atmospherics/A = node2
 		node2.disconnect(src)
-
+		node2 = null
+		A.build_network()
+	releaseAirToTurf()
 	return ..()
+
+/obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
+	if(reference == node1)
+		if(istype(node1, /obj/machinery/atmospherics/pipe))
+			qdel(parent)
+		node1 = null
+	if(reference == node2)
+		if(istype(node2, /obj/machinery/atmospherics/pipe))
+			qdel(parent)
+		node2 = null
+	update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/pipeline_expansion()
 	return list(node1, node2)
@@ -127,55 +159,7 @@
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return
 
-/obj/machinery/atmospherics/pipe/simple/initialize()
-	normalize_dir()
-	var/node1_dir
-	var/node2_dir
-
-	for(var/direction in cardinal)
-		if(direction&initialize_directions)
-			if (!node1_dir)
-				node1_dir = direction
-			else if (!node2_dir)
-				node2_dir = direction
-
-	for(var/obj/machinery/atmospherics/target in get_step(src,node1_dir))
-		if(target.initialize_directions & get_dir(target,src))
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node1 = target
-				break
-	for(var/obj/machinery/atmospherics/target in get_step(src,node2_dir))
-		if(target.initialize_directions & get_dir(target,src))
-			var/c = check_connect_types(target,src)
-			if (c)
-				target.connected_to = c
-				src.connected_to = c
-				node2 = target
-				break
-
-	if(!node1 && !node2)
-		qdel(src)
-		return
-
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		hide(T.intact)
+/obj/machinery/atmospherics/pipe/simple/hide(var/i)
+	if(level == 1 && istype(loc, /turf/simulated))
+		invisibility = i ? 101 : 0
 	update_icon()
-
-/obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
-	if(reference == node1)
-		if(istype(node1, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
-		node1 = null
-
-	if(reference == node2)
-		if(istype(node2, /obj/machinery/atmospherics/pipe))
-			qdel(parent)
-		node2 = null
-
-	update_icon()
-
-	return null

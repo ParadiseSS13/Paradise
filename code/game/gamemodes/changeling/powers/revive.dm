@@ -5,12 +5,10 @@
 
 //Revive from regenerative stasis
 /obj/effect/proc_holder/changeling/revive/sting_action(var/mob/living/carbon/user)
-
 	if(user.stat == DEAD)
 		dead_mob_list -= user
-		living_mob_list += user
+		living_mob_list |= user
 	user.stat = CONSCIOUS
-	user.tod = null
 	user.setToxLoss(0)
 	user.setOxyLoss(0)
 	user.setCloneLoss(0)
@@ -28,6 +26,7 @@
 	user.germ_level = 0
 	user.next_pain_time = 0
 	user.traumatic_shock = 0
+	user.timeofdeath = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
@@ -65,11 +64,11 @@
 	user << "<span class='notice'>We have regenerated.</span>"
 
 	user.regenerate_icons()
-	user.hud_updateflag |= 1 << HEALTH_HUD
-	user.hud_updateflag |= 1 << STATUS_HUD
 
 	user.status_flags &= ~(FAKEDEATH)
 	user.update_canmove()
 	user.mind.changeling.purchasedpowers -= src
+	user.med_hud_set_status()
+	user.med_hud_set_health()
 	feedback_add_details("changeling_powers","CR")
 	return 1

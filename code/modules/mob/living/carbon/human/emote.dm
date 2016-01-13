@@ -1,6 +1,9 @@
-/mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null)
-	var/param = null
+/mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
+	if (stat == DEAD)
+		return // No screaming bodies
+
+	var/param = null
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
@@ -17,9 +20,6 @@
 	for (var/obj/item/weapon/implant/I in src)
 		if (I.implanted)
 			I.trigger(act, src)
-
-	if(src.stat == 2.0 && (act != "deathgasp"))
-		return
 
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
@@ -44,9 +44,12 @@
 
 	if(on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
-	//--FalseIncarnate
 
 	switch(act)
+		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
+			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
+													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
+
 		if("ping")
 			var/M = null
 			if(param)
@@ -116,7 +119,12 @@
 			m_type = 1
 
 		if("wag")
-			if(species.bodyflags & TAIL_WAGGING)
+			if(body_accessory)
+				if(body_accessory.try_restrictions(src))
+					message = "<B>[src]</B> starts wagging \his tail."
+					start_tail_wagging(1)
+
+			else if(species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 					message = "<B>[src]</B> starts wagging \his tail."
 					src.start_tail_wagging(1)
@@ -126,7 +134,7 @@
 				return
 
 		if("swag")
-			if(species.bodyflags & TAIL_WAGGING)
+			if(species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging \his tail."
 				src.stop_tail_wagging(1)
 			else
@@ -162,37 +170,6 @@
 					message = "<B>[src]</B> bows."
 			m_type = 1
 
-		if ("custom")
-			var/input = sanitize(copytext(input("Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
-			if (!input)
-				return
-			var/input2 = input("Is this a visible or hearable emote?") in list("Visible","Hearable")
-			if (input2 == "Visible")
-				m_type = 1
-			else if (input2 == "Hearable")
-				if (src.miming)
-					return
-				m_type = 2
-			else
-				alert("Unable to use this emote, must be either hearable or visible.")
-				return
-			return custom_emote(m_type, message)
-
-		if ("me")
-			if(silent)
-				return
-			if (src.client)
-				if (client.prefs.muted & MUTE_IC)
-					src << "\red You cannot send IC messages (muted)."
-					return
-				if (src.client.handle_spam_prevention(message,MUTE_IC))
-					return
-			if (stat)
-				return
-			if(!(message))
-				return
-			return custom_emote(m_type, message)
-
 		if ("salute")
 			if (!src.buckled)
 				var/M = null
@@ -212,7 +189,7 @@
 
 		if ("choke")
 			if(miming)
-				message = "<B>[src]</B> clutches his throat desperately!"
+				message = "<B>[src]</B> clutches \his throat desperately!"
 				m_type = 1
 			else
 				if (!muzzled)
@@ -241,7 +218,7 @@
 					m_type = 1
 		if ("flap")
 			if (!src.restrained())
-				message = "<B>[src]</B> flaps his wings."
+				message = "<B>[src]</B> flaps \his wings."
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -273,7 +250,7 @@
 
 		if ("aflap")
 			if (!src.restrained())
-				message = "<B>[src]</B> flaps his wings ANGRILY!"
+				message = "<B>[src]</B> flaps \his wings ANGRILY!"
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -358,7 +335,7 @@
 					m_type = 2
 
 		if ("deathgasp")
-			message = "<B>[src]</B> seizes up and falls limp, \his eyes dead and lifeless..."
+			message = "<B>[src]</B> [species.death_message]"
 			m_type = 1
 
 		if ("giggle")
@@ -508,14 +485,14 @@
 					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
 					m_type = 1
 				else
-					message = "<B>[src]</B> says, \"[M], please. He had a family.\" [src.name] takes a drag from a cigarette and blows his name out in smoke."
+					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [src.name] takes a drag from a cigarette and blows their name out in smoke."
 					m_type = 2
 
 		if ("point")
 			if (!src.restrained())
-				var/mob/M = null
+				var/atom/M = null
 				if (param)
-					for (var/atom/A as mob|obj|turf|area in view(null, null))
+					for (var/atom/A as mob|obj|turf in view())
 						if (param == A.name)
 							M = A
 							break
@@ -523,11 +500,7 @@
 				if (!M)
 					message = "<B>[src]</B> points."
 				else
-					M.point()
-
-				if (M)
-					message = "<B>[src]</B> points to [M]."
-				else
+					pointed(M)
 			m_type = 1
 
 		if ("raise")
@@ -752,7 +725,7 @@
 			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
 				viewers(src) << "<span class='warning'><b>[src] farts on the Bible!</b></span>"
 				viewers(src) << "<span class='notice'><b>A mysterious force smites [src]!</b></span>"
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)
 				s.start()
 				src.gib()
@@ -770,7 +743,7 @@
 			// Process toxic farts first.
 			if(TOXIC_FARTS in mutations)
 				for(var/mob/M in range(location,aoe_range))
-					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & MASKINTERNALS))
+					if (M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
 						continue
 					if(!airborne_can_reach(location,M,aoe_range))
 						continue
@@ -787,7 +760,7 @@
 
 			if(SUPER_FART in mutations)
 				visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
-				if(do_after(usr,30))
+				if(do_after(usr,30, target = src))
 					visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")
 					//playsound(L.loc, 'superfart.ogg', 50, 0)
 					for(var/mob/living/V in range(location,aoe_range))
@@ -815,7 +788,7 @@
 
 
 
-	if (message)
+	if(message) //Humans are special fucking snowflakes and have 735 lines of emotes, they get to handle their own emotes, not call the parent
 		log_emote("[name]/[key] : [message]")
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
@@ -827,25 +800,22 @@
 			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
 
-
-		if (m_type & 1)
-			for (var/mob/O in get_mobs_in_view(world.view,src))
-				O.show_message(message, m_type)
-		else if (m_type & 2)
-			for (var/mob/O in (hearers(src.loc, null) | get_mobs_in_view(world.view,src)))
-				O.show_message(message, m_type)
-
+		switch(m_type)
+			if(1)
+				visible_message(message)
+			if(2)
+				audible_message(message)
 
 /mob/living/carbon/human/verb/pose()
 	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 
-	flavor_text =  sanitize(copytext(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text, 1))
+	flavor_text = TextPreview(input(usr, "Please enter your new flavour text.", "Flavour text", null) as text)

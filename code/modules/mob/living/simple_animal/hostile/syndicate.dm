@@ -18,7 +18,7 @@
 	melee_damage_upper = 10
 	attacktext = "punches"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = "harm"
+	a_intent = I_HARM
 	var/corpse = /obj/effect/landmark/mobcorpse/syndicatesoldier
 	var/weapon1
 	var/weapon2
@@ -30,11 +30,11 @@
 	max_co2 = 5
 	min_n2 = 0
 	max_n2 = 0
-	unsuitable_atoms_damage = 15
+	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
 	status_flags = CANPUSH
 
-/mob/living/simple_animal/hostile/syndicate/Die()
+/mob/living/simple_animal/hostile/syndicate/death()
 	..()
 	if(corpse)
 		new corpse (src.loc)
@@ -52,7 +52,7 @@
 	melee_damage_upper = 25
 	icon_state = "syndicatemelee"
 	icon_living = "syndicatemelee"
-	weapon1 = /obj/item/weapon/melee/energy/sword/red
+	weapon1 = /obj/item/weapon/melee/energy/sword/saber/red
 	weapon2 = /obj/item/weapon/shield/energy
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -100,7 +100,7 @@
 	corpse = /obj/effect/landmark/mobcorpse/syndicatecommando
 	speed = 1
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -132,7 +132,7 @@
 	corpse = /obj/effect/landmark/mobcorpse/syndicatecommando
 	speed = 1
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
 	return
 
 
@@ -162,7 +162,7 @@
 	minbodytemp = 0
 	flying = 1
 
-/mob/living/simple_animal/hostile/viscerator/Die()
+/mob/living/simple_animal/hostile/viscerator/death()
 	..()
 	visible_message("\red <b>[src]</b> is smashed into pieces!")
 	qdel(src)

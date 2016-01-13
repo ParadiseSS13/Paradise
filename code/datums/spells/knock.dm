@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/aoe_turf/knock
+/obj/effect/proc_holder/spell/aoe_turf/knock
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
@@ -12,7 +12,7 @@
 
 	action_icon_state = "knock"
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/knock/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
 			spawn(1)

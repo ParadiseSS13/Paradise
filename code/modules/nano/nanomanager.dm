@@ -5,32 +5,6 @@
 	var/open_uis[0]
 	// a list of current open /nanoui UIs, not grouped, for use in processing
 	var/list/processing_uis = list()
-	// a list of asset filenames which are to be sent to the client on user logon
-	var/list/asset_files = list()
-
- /**
-  * Create a new nanomanager instance.
-  * This proc generates a list of assets which are to be sent to each client on connect
-  *
-  * @return /nanomanager new nanomanager object
-  */
-/datum/nanomanager/New()
-	var/list/nano_asset_dirs = list(\
-		"nano/css/",\
-		"nano/images/",\
-		"nano/js/",\
-		"nano/templates/"\
-	)
-
-	var/list/filenames = null
-	for (var/path in nano_asset_dirs)
-		filenames = flist(path)
-		for(var/filename in filenames)
-			if(copytext(filename, length(filename)) != "/") // filenames which end in "/" are actually directories, which we want to ignore
-				if(fexists(path + filename))
-					asset_files.Add(fcopy_rsc(path + filename)) // add this file to asset_files for sending to clients when they connect
-
-	return
 
  /**
   * Get an open /nanoui ui for the current user, src_object and ui_key and try to update it with data
@@ -103,6 +77,26 @@
 				ui.process(1)
 				update_count++
 	return update_count
+
+ /**
+  * Close all /nanoui uis attached to src_object
+  *
+  * @param src_object /obj|/mob The obj or mob which the uis are attached to
+  *
+  * @return int The number of uis close
+  */
+/datum/nanomanager/proc/close_uis(src_object)
+	var/src_object_key = "\ref[src_object]"
+	if (isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+		return 0
+
+	var/close_count = 0
+	for (var/ui_key in open_uis[src_object_key])
+		for (var/datum/nanoui/ui in open_uis[src_object_key][ui_key])
+			if(ui && ui.src_object && ui.user && ui.src_object.nano_host())
+				ui.close()
+				close_count++
+	return close_count
 
  /**
   * Update /nanoui uis belonging to user
@@ -234,17 +228,3 @@
 	oldMob.open_uis.Cut()
 
 	return 1 // success
-
- /**
-  * Sends all nano assets to the client
-  * This is called on user login
-  *
-  * @param client /client The user's client
-  *
-  * @return nothing
-  */
-
-/datum/nanomanager/proc/send_resources(client)
-	for(var/file in asset_files)
-		client << browse_rsc(file)	// send the file to the client
-

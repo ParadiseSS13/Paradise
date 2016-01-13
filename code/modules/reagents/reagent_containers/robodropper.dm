@@ -33,8 +33,8 @@
 							badshit += reagents_to_log[bad_reagent]
 					if(badshit.len)
 						var/hl="\red <b>([english_list(badshit)])</b> \black"
-						message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-						log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
+						message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
+						log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			else if(ismob(target))
 				if(istype(target , /mob/living/carbon/human))
@@ -78,10 +78,10 @@
 				for(var/datum/reagent/R in src.reagents.reagent_list)
 					injected += R.name
 				var/contained = english_list(injected)
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
-				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to squirt [M.name] ([M.key]). Reagents: [contained]</font>")
+				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been squirted with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
+				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to squirt [key_name(M)]. Reagents: [contained]</font>")
 				if(M.ckey)
-					msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] squirted [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+					msg_admin_attack("[key_name_admin(user)] squirted [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
 				if(!iscarbon(user))
 					M.LAssailant = null
 				else

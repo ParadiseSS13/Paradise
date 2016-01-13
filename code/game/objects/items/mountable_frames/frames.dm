@@ -8,7 +8,7 @@
 	..()
 	if (istype(W, /obj/item/weapon/wrench) && sheets_refunded)
 		//new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
-		var/obj/item/stack/sheet/metal/M = PoolOrNew(/obj/item/stack/sheet/metal, get_turf(src))
+		var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(get_turf(src))
 		M.amount = sheets_refunded
 		qdel(src)
 

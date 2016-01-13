@@ -16,6 +16,8 @@
 		return A
 
 /proc/get_area(O)
+	if(isarea(O))
+		return O
 	var/turf/loc = get_turf(O)
 	if(loc)
 		var/area/res = loc.loc
@@ -44,6 +46,11 @@
 	source.luminosity = lum
 
 	return heard
+
+//We used to use linear regression to approximate the answer, but Mloc realized this was actually faster.
+//And lo and behold, it is, and it's more accurate to boot.
+/proc/cheap_hypotenuse(Ax,Ay,Bx,By)
+	return sqrt(abs(Ax - Bx)**2 + abs(Ay - By)**2) //A squared + B squared = C squared
 
 /proc/circlerange(center=usr,radius=3)
 
@@ -132,7 +139,7 @@
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
-			//world.log << "[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])"
+			//log_to_dd("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
 		else if(include_radio && istype(A, /obj/item/device/radio))
 			if(sight_check && !isInSight(A, O))
@@ -162,7 +169,7 @@
 			var/mob/M = A
 			if(M.client)
 				hear += M
-			//world.log << "Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])"
+			//log_to_dd("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 		else if(istype(A, /obj/item/device/radio))
 			hear += A
 
@@ -283,17 +290,17 @@ proc/isInSight(var/atom/A, var/atom/B)
 			return M
 	return null
 
-/proc/get_candidates(be_special_flag=0, afk_bracket=3000, override_age=0, override_jobban=0)
-	var/roletext = get_roletext(be_special_flag)
+/proc/get_candidates(be_special_type, afk_bracket=3000, override_age=0, override_jobban=0)
+	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					if(!G.client.is_afk(afk_bracket) && (G.client.prefs.be_special & be_special_flag))
+					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
 						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
-							if(override_age || player_old_enough_antag(G.client,be_special_flag))
+							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
 
@@ -320,9 +327,9 @@ proc/isInSight(var/atom/A, var/atom/B)
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	sleep(duration)
-	for(var/client/C in show_to)
-		C.images -= I
+	spawn(duration)
+		for(var/client/C in show_to)
+			C.images -= I
 
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
@@ -422,3 +429,45 @@ proc/isInSight(var/atom/A, var/atom/B)
 
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
+
+proc/pollCandidates(var/Question, var/jobbanType, var/antag_age_check = 0, var/be_special_flag = 0, var/poll_time = 300)
+	var/list/mob/dead/observer/candidates = list()
+	var/time_passed = world.time
+	if (!Question)
+		Question = "Would you like to be a special role?"
+
+	for(var/mob/dead/observer/G in player_list)
+		if(!G.key || !G.client)
+			continue
+		if(be_special_flag)
+			if(!(G.client.prefs.be_special & be_special_flag))
+				continue
+		if (antag_age_check && be_special_flag)
+			if(!player_old_enough_antag(G.client,be_special_flag))
+				continue
+		if (jobbanType)
+			if(jobban_isbanned(G, jobbanType) || jobban_isbanned(G, "Syndicate"))
+				continue
+		spawn(0)
+			G << 'sound/misc/notice2.ogg' //Alerting them to their consideration
+			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))
+				if("Yes")
+					G << "<span class='notice'>Choice registered: Yes.</span>"
+					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
+						G << "<span class='danger'>Sorry, you were too late for the consideration!</span>"
+						G << 'sound/machines/buzz-sigh.ogg'
+						return
+					candidates += G
+				if("No")
+					G << "<span class='danger'>Choice registered: No.</span>"
+					return
+				else
+					return
+	sleep(poll_time)
+
+	//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
+	for(var/mob/dead/observer/G in candidates)
+		if(!G.key || !G.client)
+			candidates.Remove(G)
+
+	return candidates

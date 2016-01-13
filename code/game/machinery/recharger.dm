@@ -16,7 +16,7 @@
 /obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob, params)
 	if(istype(user,/mob/living/silicon))
 		return
-	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop))
+	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop) || istype(G, /obj/item/weapon/rcs))
 		if(charging)
 			return
 
@@ -29,14 +29,18 @@
 			user << "\red The [name] blinks red as you try to insert the item!"
 			return
 
-		if (istype(G, /obj/item/weapon/gun/energy/gun/nuclear))
-			user << "<span class='notice'>Your gun's recharge port was removed to make room for a miniaturized reactor.</span>"
-			return
+		if (istype(G, /obj/item/weapon/gun/energy))
+			var/obj/item/weapon/gun/energy/E = G
+			if(!E.can_charge)
+				user << "<span class='notice'>Your gun has no external power connector.</span>"
+				return
+
 		if(istype(G, /obj/item/device/laptop))
 			var/obj/item/device/laptop/L = G
 			if(!L.stored_computer.battery)
 				user << "There's no battery in it!"
 				return
+
 		user.drop_item()
 		G.loc = src
 		charging = G
@@ -89,6 +93,14 @@
 				L.stored_computer.battery.give(1000)
 				icon_state = icon_state_charging
 				use_power(2500)
+			else
+				icon_state = icon_state_charged
+		if(istype(charging, /obj/item/weapon/rcs))
+			var/obj/item/weapon/rcs/R = charging
+			if(R.rcell && R.rcell.charge < R.rcell.maxcharge)
+				R.rcell.charge += 1750
+				icon_state = icon_state_charging
+				use_power(2000)
 			else
 				icon_state = icon_state_charged
 			return

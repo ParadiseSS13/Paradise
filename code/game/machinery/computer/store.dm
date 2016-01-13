@@ -1,8 +1,8 @@
 /obj/machinery/computer/merch
-	name = "Merch Computer"
+	name = "merch computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "comm_logs"
-	circuit = "/obj/item/weapon/circuitboard/merch"
+	circuit = /obj/item/weapon/circuitboard/merch
 
 	light_color = LIGHT_COLOR_GREEN
 

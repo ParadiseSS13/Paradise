@@ -1,10 +1,5 @@
 var/global/datum/controller/gameticker/ticker
-
-#define GAME_STATE_PREGAME		1
-#define GAME_STATE_SETTING_UP	2
-#define GAME_STATE_PLAYING		3
-#define GAME_STATE_FINISHED		4
-
+var/round_start_time = 0
 
 /datum/controller/gameticker
 	var/const/restart_timeout = 600
@@ -109,7 +104,7 @@ var/global/datum/controller/gameticker/ticker
 	can_continue = src.mode.pre_setup()//Setup special modes
 	job_master.DivideOccupations() //Distribute jobs
 	if(!can_continue)
-		del(mode)
+		qdel(mode)
 		current_state = GAME_STATE_PREGAME
 		world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
 		job_master.ResetOccupations()
@@ -136,7 +131,7 @@ var/global/datum/controller/gameticker/ticker
 	//here to initialize the random events nicely at round start
 	setup_economy()
 
-	shuttle_controller.setup_shuttle_docks()
+	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
 		mode.post_setup()
@@ -144,7 +139,7 @@ var/global/datum/controller/gameticker/ticker
 		for(var/obj/effect/landmark/start/S in landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
 			if (S.name != "AI")
-				del(S)
+				qdel(S)
 
 		// take care of random spesspod spawning
 		var/list/obj/effect/landmark/spacepod/random/L = list()
@@ -155,7 +150,7 @@ var/global/datum/controller/gameticker/ticker
 			var/obj/effect/landmark/spacepod/random/S = pick(L)
 			new /obj/spacepod/random(S.loc)
 			for(var/obj/effect/landmark/spacepod/random/R in L)
-				del(R)
+				qdel(R)
 
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
@@ -166,8 +161,8 @@ var/global/datum/controller/gameticker/ticker
 				world << "<h4>[holiday.greet()]</h4>"
 
 	spawn(0) // Forking dynamic room selection
-		var/list/area/dynamic/source/available_source_candidates = typesof(/area/dynamic/source) - /area/dynamic/source
-		var/list/area/dynamic/destination/available_destination_candidates = typesof(/area/dynamic/destination) - /area/dynamic/destination
+		var/list/area/dynamic/source/available_source_candidates = subtypesof(/area/dynamic/source)
+		var/list/area/dynamic/destination/available_destination_candidates = subtypesof(/area/dynamic/destination)
 
 		for (var/area/dynamic/destination/current_destination_candidate in available_destination_candidates)
 			var/area/dynamic/destination/current_destination = locate(current_destination_candidate)
@@ -220,6 +215,7 @@ var/global/datum/controller/gameticker/ticker
 	if(admins_number == 0)
 		send2adminirc("Round has started with no admins online.")
 	auto_toggle_ooc(0) // Turn it off
+	round_start_time = world.time
 
 	/* DONE THROUGH PROCESS SCHEDULER
 	supply_controller.process() 		//Start the supply shuttle regenerating points -- TLE
@@ -231,7 +227,7 @@ var/global/datum/controller/gameticker/ticker
 
 	if(config.sql_enabled)
 		spawn(3000)
-		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
+			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 
 	votetimer()
 
@@ -350,7 +346,7 @@ var/global/datum/controller/gameticker/ticker
 	proc/create_characters()
 		for(var/mob/new_player/player in player_list)
 			if(player.ready && player.mind)
-				if(player.mind.assigned_role=="AI")
+				if(player.mind.assigned_role == "AI" || player.mind.special_role == "malfunctioning AI")
 					player.close_spawn_windows()
 					player.AIize()
 				else if(!player.mind.assigned_role)
@@ -373,7 +369,6 @@ var/global/datum/controller/gameticker/ticker
 				if(player.mind.assigned_role == "Captain")
 					captainless=0
 				if(player.mind.assigned_role != "MODE")
-					EquipRacialItems(player)
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
 					EquipCustomItems(player)
 		if(captainless)
@@ -394,10 +389,10 @@ var/global/datum/controller/gameticker/ticker
 		var/game_finished = 0
 		var/mode_finished = 0
 		if (config.continous_rounds)
-			game_finished = (emergency_shuttle.returned() || mode.station_was_nuked)
+			game_finished = (mode.station_was_nuked)
 			mode_finished = (!post_game && mode.check_finished())
 		else
-			game_finished = (mode.check_finished() || (emergency_shuttle.returned() && emergency_shuttle.evac == 1))
+			game_finished = (mode.check_finished())
 			mode_finished = game_finished
 
 		if(!mode.explosion_in_progress && game_finished && (mode_finished || post_game))
@@ -410,26 +405,9 @@ var/global/datum/controller/gameticker/ticker
 				callHook("roundend")
 
 				if (mode.station_was_nuked)
-					feedback_set_details("end_proper","nuke")
-					if(!delay_end)
-						world << "\blue <B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>"
+					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
-					feedback_set_details("end_proper","proper completion")
-					if(!delay_end)
-						world << "\blue <B>Restarting in [restart_timeout/10] seconds</B>"
-
-
-				if(blackbox)
-					blackbox.save_all_data_to_sql()
-
-				if(!delay_end)
-					sleep(restart_timeout)
-					if(!delay_end)
-						world.Reboot()
-					else
-						world << "\blue <B>An admin has delayed the round end</B>"
-				else
-					world << "\blue <B>An admin has delayed the round end</B>"
+					world.Reboot("Round ended.", "end_proper", "proper completion")
 
 		else if (mode_finished)
 			post_game = 1
@@ -465,6 +443,17 @@ var/global/datum/controller/gameticker/ticker
 
 /datum/controller/gameticker/proc/declare_completion()
 
+	nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	//Round statistics report
+	var/datum/station_state/end_state = new /datum/station_state()
+	end_state.count()
+	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
+
+	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero("[world.time / 600 % 60]", 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
+	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
+	world << "<BR>"
+
+	//Silicon laws report
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
 		if (aiPlayer.stat != 2)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>"
@@ -500,7 +489,10 @@ var/global/datum/controller/gameticker/ticker
 
 	mode.declare_completion()//To declare normal completion.
 
-	mode.declare_job_completion()
+	//calls auto_declare_completion_* for all modes
+	for(var/handler in typesof(/datum/game_mode/proc))
+		if (findtext("[handler]","auto_declare_completion_"))
+			call(mode, handler)()
 
 	scoreboard()
 	karmareminder()

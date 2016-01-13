@@ -178,7 +178,7 @@
 	fish_count = 0
 	for(var/fish in fish_list)
 		if(fish)
-			fish_count ++
+			fish_count++
 
 	//Check if the water level can support the current number of fish
 	if((fish_count * 50) > water_level)
@@ -196,7 +196,7 @@
 	if(fish_count >=2 && egg_count < max_fish)		//Need at least 2 fish to breed, but won't breed if there are as many eggs as max_fish
 		if(food_level > 2 && filth_level <=5)		//Breeding is going to use extra food, and the filth_level shouldn't be too high
 			if(prob(((fish_count - 2) * 5)+10))		//Chances increase with each additional fish, 10% base + 5% per additional fish
-				egg_count ++						//A new set of eggs were laid, increase egg_count
+				egg_count++						//A new set of eggs were laid, increase egg_count
 				egg_list.Add(select_egg_type())		//Add the new egg to the egg_list for storage
 				food_level -= 2						//Remove extra food for the breeding process
 
@@ -212,8 +212,11 @@
 	check_food_level()
 
 	if(water_level > 0)								//Don't dirty the tank if it has no water
-		if(filth_level < 10 && prob(25))			//Chance for the tank to get dirtier if the filth_level isn't 10
-			if(ate_food && prob(30))				//If they ate this cycle, there is an additional chance they make a bigger mess
+		if(fish_count == 0)							//If the tank has no fish, algae growth can occur
+			if(filth_level < 7.5 && prob(15))		//Algae growth is a low chance and cannot exceed filth_level of 7.5
+				filth_level += 0.05					//Algae growth is slower than fish filth build-up
+		else if(filth_level < 10 && prob(10))		//Chance for the tank to get dirtier if the filth_level isn't 10
+			if(ate_food && prob(25))				//If they ate this cycle, there is an additional chance they make a bigger mess
 				filth_level += fish_count * 0.1
 			else									//If they didn't make the big mess, make a little one
 				filth_level += 0.1
@@ -235,17 +238,22 @@
 //////////////////////////////
 
 /obj/machinery/fishtank/proc/handle_special_interactions()
+	var/glo_light = 0
 	for(var/fish in fish_list)
 		switch(fish)
 			if("catfish")							//Catfish have a small chance of cleaning some filth since they are a bottom-feeder
-				if((filth_level > 0) && prob(25))
+				if((filth_level > 0) && prob(30))
 					filth_level -= 0.1
 			if("feederfish")						//Feeder fish have a small chance of sacrificing themselves to produce some food
 				if(fish_count < 2)					//Don't sacrifice the last fish, there's nothing to eat it
 					continue
-				if(food_level <= 7.5 && prob(25))
+				if(food_level <= 5 && prob(25))
 					kill_fish("feederfish")			//Kill the fish to reflect it's sacrifice, but don't increase the filth_level
 					food_level += 1					//The corpse became food for the other fish, ecology at it's finest
+			if("glofish")
+				glo_light++
+	if(!light_switch && (glo_light > 0))
+		set_light(2,glo_light,"#99FF66")
 	check_food_level()
 	check_filth_level()
 	check_water_level()
@@ -297,7 +305,7 @@
 	//Check if we were passed a fish type
 	if(type)
 		fish_list.Add("[type]")						//Add a fish of the specified type
-		fish_count ++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
+		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
 		src.visible_message("A new [type] has hatched in \the [src]!")
 	//Null type fish are dud eggs, give a message to inform the player
@@ -330,6 +338,22 @@
 
 	egg_list.Cut()									//Destroy any excess eggs, clearing the egg_list
 
+/obj/machinery/fishtank/proc/harvest_fish(var/mob/user)
+	if(!fish_count)									//Can't catch non-existant fish!
+		usr << "There are no fish in \the [src] to catch!"
+		return
+
+	var/caught_fish
+	caught_fish = input("Select a fish to catch.", "Fishing", caught_fish) in fish_list		//Select a fish from the tank
+	if(caught_fish)
+		var/dead_fish = null
+		dead_fish = fish_items_list[caught_fish]	//Locate the appropriate fish_item for the caught fish
+		if(!dead_fish)								//No fish_item found, possibly due to typo or not being listed. Do nothing.
+			return
+		kill_fish(caught_fish)						//Kill the caught fish from the tank
+		user.visible_message("[user.name] harvests \a [caught_fish] from \the [src].", "You scoop \a [caught_fish] out of \the [src].")
+		new dead_fish(get_turf(user))				//Spawn the appropriate fish_item at the user's feet.
+
 /obj/machinery/fishtank/proc/destroy(var/deconstruct = 0)
 	var/turf/T = get_turf(src)										//Store the tank's turf for atmos updating after deletion of tank
 	if(!deconstruct)												//Check if we are deconstructing or breaking the tank
@@ -342,7 +366,7 @@
 	else															//We are deconstructing, make glass sheets instead of shards
 		var/sheets = shard_count + 1								//Deconstructing it salvages all the glass used to build the tank
 		new /obj/item/stack/sheet/glass(get_turf(src), sheets)		//Produce the appropriate number of glass sheets, in a single stack
-	qdel(src)														//QDel the tank and it's contents
+	qdel(src)														//qdel the tank and it's contents
 	T.air_update_turf(1)											//Update the air for the turf, to avoid permanent atmos sealing with wall tanks
 
 /obj/machinery/fishtank/proc/spill_water()
@@ -372,10 +396,13 @@
 //		EXAMINE PROC		//			This proc is massive, messy, and probably could be handled better.
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
 
-/obj/machinery/fishtank/examine()
-	..()
+/obj/machinery/fishtank/examine(mob/user)
+	..(user)
 	var/examine_message = ""
 	//Approximate water level
+
+	examine_message += "Water level: "
+
 	if(water_level == 0)
 		examine_message += "\The [src] is empty! "
 	else if(water_level < water_capacity * 0.1)
@@ -391,6 +418,8 @@
 	else if (water_level == water_capacity)
 		examine_message += "\The [src] is full! "
 
+	examine_message += "<br>Cleanliness level: "
+
 	//Approximate filth level
 	if(filth_level == 0)
 		examine_message += "[src] is spotless! "
@@ -404,6 +433,8 @@
 		examine_message += "[src] is getting hard to see into! Someone should clean it soon! "
 	else if(filth_level == 10)
 		examine_message += "[src] is absolutely disgusting! Someone should clean it NOW! "
+
+	examine_message += "<br>Food level: "
 
 	//Approximate food level
 	if(!fish_count)								//Check if there are fish in the tank
@@ -421,7 +452,9 @@
 
 	//Report the number of harvestable eggs
 	if(egg_count)								//Don't bother if there isn't any eggs
-		examine_message += "There are [egg_count] eggs able to be harvested! "
+		examine_message += "<br>There are [egg_count] eggs able to be harvested! "
+
+	examine_message += "<br>"
 
 	//Report the number and types of live fish if there is water in the tank
 	if(fish_count == 0)
@@ -441,6 +474,8 @@
 		//Display the number of fish and previously constructed message
 		examine_message += "\The [src] contains [fish_count] live fish. [message] "
 
+	examine_message += "<br>"
+
 	//Report lid state for tanks and wall-tanks
 	if(has_lid)									//Only report if the tank actually has a lid
 		//Report lid state
@@ -448,6 +483,8 @@
 			examine_message += "The lid is closed. "
 		else
 			examine_message += "The lid is open. "
+
+	examine_message += "<br>"
 
 	//Report if the tank is leaking/cracked
 	if(water_level > 0)							//Tank has water, so it's actually leaking
@@ -459,7 +496,8 @@
 
 
 	//Finally, report the full examine_message constructed from the above reports
-	usr << "[examine_message]"
+	user << "[examine_message]"
+	return examine_message
 
 //////////////////////////////
 //		ATACK PROCS			//
@@ -467,7 +505,7 @@
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/pet/cat))
-		if(M.a_intent == "help")							//Cats can try to fish in open tanks on help intent
+		if(M.a_intent == I_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] stares at into \the [src] while sitting perfectly still.", "The lid is closed, so you stare into \the [src] intently.")
 			else
@@ -477,7 +515,7 @@
 						if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 							M.visible_message("[M.name] slipped and got soaked!", "You slipped and got soaked!")
 							if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-								var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+								var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 								s.set_up(3, 1, src)
 								s.start()
 						else								//No water or didn't slip, get that fish!
@@ -489,7 +527,7 @@
 		else
 			attack_generic(M, M.harm_intent_damage)
 	else if(istype(M, /mob/living/simple_animal/hostile/bear))
-		if(M.a_intent == "help")							//Bears can try to fish in open tanks on help intent
+		if(M.a_intent == I_HELP)							//Bears can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("[M.name] scrapes it's claws along \the [src]'s lid.", "The lid is closed, so you scrape your claws against \the [src]'s lid.")
 			else
@@ -509,7 +547,7 @@
 	else
 		if(M.melee_damage_upper > 0)						//If the simple_animal has a melee_damage_upper defined, use that for the damage
 			attack_generic(M, M.melee_damage_upper)
-		else if(M.a_intent == "harm")						//Let any simple_animal try to break tanks when on harm intent
+		else if(M.a_intent == I_HARM)						//Let any simple_animal try to break tanks when on harm intent
 			if(M.harm_intent_damage <= 0) return			//If it doesn't do damage, don't bother with the attack
 			attack_generic(M, M.harm_intent_damage)
 	check_health()
@@ -529,7 +567,7 @@
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if (usr.a_intent == "harm")
+	else if (usr.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \
@@ -565,7 +603,7 @@
 	//Welders repair damaged tanks on help intent, damage on all others
 	if(istype(O, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/W = O
-		if(user.a_intent == "help")
+		if(user.a_intent == I_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
 					usr << "You repair some of the cracks on \the [src]."
@@ -635,7 +673,7 @@
 		if(water_level == 0)
 			usr << "<span class='notice'>Now disassembling [src].</span>"
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			if(do_after(user,50))
+			if(do_after(user,50, target = src))
 				destroy(1)
 		else
 			usr << "[src] must be empty before you disassemble it!"
@@ -680,13 +718,7 @@
 		return
 	//Fish net
 	if(istype(O, /obj/item/weapon/fish_net))
-		if(fish_count > 0)
-			var/caught_fish = pick(fish_list)
-			usr << "You catch and remove a [caught_fish] from \the [src]."
-			kill_fish(caught_fish)
-			//TODO: Fish object spawning, need to get sprites before I can code the fish objects
-		else
-			usr << "There are no fish in \the [src] to catch!"
+		harvest_fish(user)
 		return
 	//Tank brush
 	if(istype(O, /obj/item/weapon/tank_brush))

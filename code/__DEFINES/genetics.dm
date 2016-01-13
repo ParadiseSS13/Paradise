@@ -7,6 +7,8 @@
 #define DISABILITY_FLAG_FAT         2
 #define DISABILITY_FLAG_EPILEPTIC   4
 #define DISABILITY_FLAG_DEAF        8
+#define DISABILITY_FLAG_BLIND       16
+#define DISABILITY_FLAG_MUTE        32
 
 ///////////////////////////////////////
 // MUTATIONS
@@ -25,6 +27,7 @@
 
 // Extra powers:
 #define LASER			9 	// harm intent - click anywhere to shoot lasers from eyes
+#define GREY			10	//Wingdings for Greys -- Not activatable or researchable
 //#define HEAL			10 	// (Not implemented) healing people with hands
 //#define SHADOW		11 	// (Not implemented) shadow teleportation (create in/out portals anywhere) (25%)
 //#define SCREAM		12 	// (Not implemented) supersonic screaming (25%)

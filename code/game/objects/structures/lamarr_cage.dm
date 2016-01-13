@@ -13,7 +13,7 @@
 /obj/structure/lamarr/ex_act(severity)
 	switch(severity)
 		if (1)
-			PoolOrNew(/obj/item/weapon/shard, loc)
+			new /obj/item/weapon/shard(loc)
 			Break()
 			qdel(src)
 		if (2)
@@ -35,7 +35,7 @@
 
 /obj/structure/lamarr/blob_act()
 	if (prob(75))
-		PoolOrNew(/obj/item/weapon/shard, loc)
+		new /obj/item/weapon/shard(loc)
 		Break()
 		qdel(src)
 
@@ -44,7 +44,7 @@
 		if (!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			PoolOrNew(/obj/item/weapon/shard, loc)
+			new /obj/item/weapon/shard(loc)
 			playsound(src, "shatter", 70, 1)
 			Break()
 	else

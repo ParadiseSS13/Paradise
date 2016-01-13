@@ -3,8 +3,7 @@
 	desc = "Used to build newscasters, just secure to the wall."
 	icon_state = "newscaster"
 	item_state = "syringe_kit"
-	m_amt = 14000
-	g_amt = 8000
+	materials = list(MAT_METAL=14000, MAT_GLASS=8000)
 	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/newscaster_frame/try_build(turf/on_wall, mob/user)

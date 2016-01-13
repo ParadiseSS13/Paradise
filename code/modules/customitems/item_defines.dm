@@ -2,80 +2,15 @@
 // Remember to change 'icon = 'custom_items.dmi'' for items not using /obj/item/fluff as a base
 // Clothing item_state doesn't use custom_items.dmi. Just add them to the normal clothing files.
 
-/obj/item/fluff // so that they don't spam up the object tree
-	icon = 'icons/obj/custom_items.dmi'
-	w_class = 1.0
-
-
-
 ///////////////////////////////////////////////////////////////////////
-/////////////////////PARADISE STATION CUSTOM ITEMS////////////////////
-//////////////////////////////////////////////////////////////////////
-
-/obj/item/clothing/head/fluff/heather_winceworth // regens: Heather Winceworth
-	name= "Heather's rose"
-	desc= "A beautiful purple rose for your hair."
-	icon= 'icons/obj/clothing/hats.dmi'
-	icon_state = "hairflowerp"
-	item_state = "hairflowerp"
-
-/obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
-	name = "Worn Combat Turtleneck"
-	desc = "A worn out turtleneck with 'J.C. NSS Regnare' stitched on the inside of the collar. The tag reveals it to be 99% NanoCotton."
-	icon= 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "syndicate"
-	item_state = "bl_suit"
-	_color = "syndicate"
-	has_sensor = 1 // Jumpsuit has no sensor by default
-	displays_id = 0 // Purely astetic, the ID does not show up on the player sprite when equipped. Examining still reveals it.
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Security jumpsuit stats
-	siemens_coefficient = 0.
-
-/obj/item/clothing/under/fluff/blackschoolGirl // Black schoolgirl uniform
-	name = "Black Schoolgirl Uniform"
-	desc = "A Japanese style school uniform for girls"
-	icon= 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "schoolgirl_black"
-	_color = "schoolgirl_black"
-	item_state = "schoolgirl_black"
-	has_sensor = 1 // Just to make sure it has a sensor
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standar Jumpsuit stats
-
-/obj/item/clothing/head/fluff/sparkyninja_beret //Sparkyninja: Neil Wilkinson
-	name = "royal marines commando beret"
-	desc = "Dark Green beret with an old insignia on it."
-	icon_state = "sparkyninja_beret"
-
-/obj/item/weapon/book/manual/security_space_law/black
-	name = "Space Law - Limited Edition"
-	desc = "A leather-bound, immaculately-written copy of JUSTICE."
-	icon_state = "bookSpaceLawblack"
-	title = "Space Law - Limited Edition"
+/////////////////////PARADISE STATION CUSTOM ITEMS/////////////////////
+///////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////
 ////////// Usable Items //////////
 //////////////////////////////////
 
-/obj/item/weapon/pen/fluff/fountainpen //paththegreat: Eli Stevens
-	name = "Engraved Fountain Pen"
-	desc = "An expensive looking pen with the initials E.S. engraved into the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fountainpen"
-
-/obj/item/weapon/card/id/fluff/lifetime	//fastler: Fastler Greay; it seemed like something multiple people would have
-	name = "Lifetime ID Card"
-	desc = "A modified ID card given only to those people who have devoted their lives to the better interests of Nanotrasen. It sparkles blue."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "lifetimeid"
-
-/obj/item/weapon/crowbar/fluff/zelda_creedy_1 //daaneesh: Zelda Creedy
-	name = "Zelda's Crowbar"
-	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "zeldacrowbar"
-	item_state = "crowbar"
-
-/obj/item/weapon/claymore/fluff //MrBarrelrolll: Maximus Greenwood
+/obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
@@ -85,37 +20,90 @@
 /obj/item/weapon/claymore/fluff/IsShield()
 	return 0
 
-//////////////////////////////////
-//////////// Clothing ////////////
-//////////////////////////////////
+/obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
+	name = "Zelda's Crowbar"
+	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "zeldacrowbar"
+	item_state = "crowbar"
 
-//////////// Gloves ////////////
-//////////// Eye Wear ////////////
-
-/obj/item/clothing/glasses/meson/fluff/book_berner_1 //asanadas: Book Berner
+/obj/item/clothing/glasses/meson/fluff/book_berner_1 // Adrkiller59: Adam Cooper
 	name = "bespectacled mesonic surveyors"
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
+/obj/item/weapon/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
+	name = "purple engraved zippo"
+	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "purple_zippo_off"
+	icon_on = "purple_zippo_on"
+	icon_off = "purple_zippo_off"
+
+/obj/item/weapon/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
+	name = "engraved lighter"
+	desc = "A golden lighter, engraved with some ornaments and a G."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "guessip"
+	icon_on = "guessipon"
+	icon_off = "guessip"
+
+/obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
+	name = "Sax's whistle"
+	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "dogwhistle"
+	item_state = "dogwhistle"
+	force = 2
+
+/obj/item/weapon/fluff/dogwhistle/attack_self(mob/user)
+	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>", "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	spawn(20)
+		var/mob/living/simple_animal/pet/corgi/C = new /mob/living/simple_animal/pet/corgi(get_turf(user))
+		var/obj/item/clothing/head/det_hat/D = new /obj/item/clothing/head/det_hat(C)
+		D.flags |= NODROP
+		C.inventory_head = D
+		C.regenerate_icons()
+		C.name = "Detective Sax"
+		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
+		user << "<span class='danger'>[src] crumbles to dust in your hands!</span>"
+		qdel(src)
+
+/obj/item/weapon/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
+	name = "lunchpail"
+	desc = "A simple black lunchpail."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "lunch_box"
+	item_state = "lunch_box"
+	force = 5
+	throwforce = 5
+	w_class = 3
+	max_combined_w_class = 9
+	storage_slots = 3
+
+/obj/item/weapon/storage/toolbox/fluff/lunchbox/New()
+	..()
+	new /obj/item/weapon/reagent_containers/food/snacks/sandwich(src)
+	new /obj/item/weapon/reagent_containers/food/snacks/chips(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
+
+
+//////////////////////////////////
+//////////// Clothing ////////////
+//////////////////////////////////
+
+//////////// Gloves ////////////
+
+//////////// Eye Wear ////////////
+
 //////////// Hats ////////////
-/obj/item/clothing/head/welding/fluff/alice_mccrea_1 //madmalicemccrea: Alice McCrea
-	name = "flame decal welding helmet"
-	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility. \"Fly the Friendly Skies\" is clearly visible, written above the visor, for some reason."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "alice_mccrea_1"
-
-/obj/item/clothing/head/welding/fluff/yuki_matsuda_1 //searif: Yuki Matsuda
-	name = "white decal welding helmet"
-	desc = "A white welding helmet with a character written across it."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "yuki_matsuda_1"
-
-/obj/item/clothing/head/welding/fluff/norah_briggs_1 //bountylord13: Norah Briggs
-	name = "blue flame decal welding helmet"
-	desc = "A welding helmet with blue flame decals on it."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "norah_briggs_1"
+/obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
+	name= "Heather's rose"
+	desc= "A beautiful purple rose for your hair."
+	icon= 'icons/obj/clothing/hats.dmi'
+	icon_state = "hairflowerp"
+	item_state = "hairflowerp"
 
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
@@ -124,151 +112,157 @@
 	icon_state = "polarbearpelt"
 	item_state = "polarbearpelt"
 
-//////////// Suits ////////////
+/obj/item/clothing/head/fluff/sparkyninja_beret // Sparkyninja: Neil Wilkinson
+	name = "royal marines commando beret"
+	desc = "Dark Green beret with an old insignia on it."
+	icon_state = "sparkyninja_beret"
 
-/obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Robotics Labcoat - Aeneas Rinil [APPR]
+/obj/item/clothing/head/beret/fluff/sigholt //sigholtstarsong: Sigholt Starsong
+	name = "Lieutenant Starsong's beret"
+	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
+	icon_state = "hosberet"
+	item_state = "hosberet"
+
+//////////// Suits ////////////
+/obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
 	name = "Robotics labcoat"
 	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "aeneasrinil_open"
 
-/obj/item/clothing/suit/armor/vest/fluff/deus_blueshield //deusdactyl
-	name = "blueshield security armor"
-	desc = "An armored vest with the badge of a Blueshield Lieutenant."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "deus_blueshield"
-	item_state = "deus_blueshield"
-
-/obj/item/clothing/suit/jacket/fluff/kidosvest //Anxipal: Kido Qasteth
+/obj/item/clothing/suit/jacket/fluff/kidosvest // Anxipal: Kido Qasteth
 	name = "Kido's Vest"
 	desc = "A rugged leather vest with a tag labelled \"Men of Mayhem.\""
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
 
-//////////// Uniforms ////////////
-/obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
-	name = "Isaca's suit"
-	desc = "Black, comfortable and nicely fitting suit. Made not to hinder the wearer in any way. Made of some exotic fabric. And some strange glowing jewel at the waist. Name labels says; Property of Isaca Sirius; The Seeder."
+/obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
+	name = "Nano Fibre Jacket"
+	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
+	icon_state = "Kluysfluff1"
+	item_state = "Kluysfluff1"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
 
-
-/////// NT-SID Suit //Zuhayr: Jane Doe
-
-/obj/item/clothing/under/fluff/jane_sidsuit
-	name = "NT-SID jumpsuit"
-	desc = "A Nanotrasen Synthetic Intelligence Division jumpsuit, issued to 'volunteers'. On other people it looks fine, but right here a scientist has noted: on you it looks stupid."
-
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "jane_sid_suit"
-	item_state = "jane_sid_suit"
-	_color = "jane_sid_suit"
-	has_sensor = 2
-	sensor_mode = 3
-
-//Suit roll-down toggle.
-/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
+/obj/item/clothing/suit/fluff/kluys/verb/toggle()
+	set name = "Toggle Nanofibre Mode"
 	set category = "Object"
 	set src in usr
 
-	if(!usr.canmove || usr.stat || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return 0
 
-	if(src.icon_state == "jane_sid_suit_down")
-		src._color = "jane_sid_suit"
-		usr << "You zip up the [src]."
-	else
-		src._color = "jane_sid_suit_down"
-		usr << "You unzip and roll down the [src]."
+	switch(icon_state)
+		if("Kluysfluff1")
+			src.icon_state = "Kluysfluff2"
+			usr << "The fibre unfolds into a jacket."
+		else if("Kluysfluff2")
+			src.icon_state = "Kluysfluff3"
+			usr << "The fibre unfolds into a coat."
+		else if("Kluysfluff3")
+			src.icon_state = "Kluysfluff1"
+			usr << "The fibre gets sucked back into its holder."
+		else
+			usr << "You attempt to hit the button but can't."
+			return
+	usr.update_inv_wear_suit()
 
-	src.icon_state = "[_color]"
-	src.item_state = "[_color]"
-	usr.update_inv_w_uniform()
-
-//////////// Masks ////////////
-//////////// Shoes ////////////
-//////////// Sets ////////////
-
-////// Short Sleeve Medical Outfit //erthilo: Farah Lants
-
-/obj/item/clothing/under/rank/medical/fluff/short
-	name = "short sleeve medical jumpsuit"
-	desc = "Made of a special fiber that gives special protection against biohazards. Has a cross on the chest denoting that the wearer is trained medical personnel and short sleeves."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "medical_short"
-	_color = "medical_short"
-
-/obj/item/clothing/suit/storage/labcoat/fluff/red
+/obj/item/clothing/suit/storage/labcoat/fluff/red // Sweetjealousy: Sophie Faust-Noms
 	name = "red labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
 
-////// Blue and Bloody Set //deimosvezzati: Hiro Mezu
+/obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
+	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
+	desc = "A greatcoat with Nanotrasen colors."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "stobarico_jacket"
 
-/obj/item/clothing/under/fluff/customblue // Personal jumpsuit (blue tie / belt buckle)
-	name = "custom-fitted blue jumpsuit"
-	desc = "A custom blue uniform made for a trapped soul. It has the initials H.M. on the tag."
+//////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
+	name = "Worn Combat Turtleneck"
+	desc = "A worn out turtleneck with 'J.C. NSS Regnare' stitched on the inside of the collar. The tag reveals it to be 99% NanoCotton."
 	icon= 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "hm_suit"
-	_color = "hm_suit"
-	item_state = "hm_suit"
-	has_sensor = 1 // Just to make sure it has a sensor
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+	icon_state = "syndicate"
+	item_state = "bl_suit"
+	item_color = "syndicate"
+	has_sensor = 1 // Jumpsuit has no sensor by default
+	displays_id = 0 // Purely astetic, the ID does not show up on the player sprite when equipped. Examining still reveals it.
+	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Security jumpsuit stats
 
-/obj/item/clothing/suit/armor/vest/fluff/bloody //Bloody armor vest
-	name = "bloodied security armor"
-	desc = "A vest drenched in the blood of Greytide. It has seen better days. It has the initials H.M. scratched into the inside."
+/obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
+	name = "Castile formal outfit"
+	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "hm_armorvest"
-	item_state = "hm_armorvest"
+	icon_state = "castile_dress"
+	item_state = "castile_dress"
+	item_color = "castile_dress"
 
-/obj/item/clothing/mask/gas/sechailer/fluff/bluemask //Blue security mask
-	name = "custom SWAT mask"
-	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild. It has the initials H.M. on the side."
-	action_button_name = "HALT!"
+/obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
+	name = "Isaca's suit"
+	desc = "Black, comfortable and nicely fitting suit. Made not to hinder the wearer in any way. Made of some exotic fabric. And some strange glowing jewel at the waist. Name labels says; Property of Isaca Sirius; The Seeder."
+
+/obj/item/clothing/under/fluff/jane_sidsuit // SyndiGirl: Zoey Scyth
+	name = "NT-SID jumpsuit"
+	desc = "A Nanotrasen Synthetic Intelligence Division jumpsuit, issued to 'volunteers'. On other people it looks fine, but right here a scientist has noted: on you it looks stupid."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "hm_sec_mask"
-	item_state = "hm_sec_mask"
-	aggressiveness = 3
-	ignore_maskadjust = 1
+	icon_state = "jane_sid_suit"
+	item_state = "jane_sid_suit"
+	item_color = "jane_sid_suit"
+	has_sensor = 2
+	sensor_mode = 3
 
-///// Noble's Clothes Set //theoricus: Baron Robot VII
+/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
+	set name = "Toggle Jumpsuit Zipper"
+	set category = "Object"
+	set src in usr
 
-/obj/item/clothing/under/fluff/noble_clothes // Custom jumpsuit
-	name = "noble clothes"
-	desc = "They fall just short of majestic."
-	icon = 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "noble_clothes"
-	_color = "noble_clothes"
-	item_state = "noble_clothes"
-	has_sensor = 1 // Just to make sure it has a sensor
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Jumpsuit stats
+	if(usr.stat || usr.restrained())
+		return 0
 
-/obj/item/clothing/suit/fluff/noble_coat // A nauseatingly colored coat
-	name = "noble coat"
-	desc = "The livid blues, purples and greens are awesome enough to evoke a visceral response in you; it is not dissimilar to indigestion."
+	if(src.icon_state == "jane_sid_suit_down")
+		src.item_color = "jane_sid_suit"
+		usr << "You zip up \the [src]."
+	else
+		src.item_color = "jane_sid_suit_down"
+		usr << "You unzip and roll down \the [src]."
+
+	src.icon_state = "[item_color]"
+	src.item_state = "[item_color]"
+	usr.update_inv_w_uniform()
+
+//////////// Masks ////////////
+
+//////////// Shoes ////////////
+
+//////////// Sets ////////////
+// Fox P McCloud: Fox McCloud
+/obj/item/clothing/suit/jacket/fluff/fox
+	name = "Aeronautics Jacket"
+	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "noble_coat"
-	item_state = "noble_coat"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	icon_state = "fox_jacket"
+	item_state = "fox_jacket"
 
-/obj/item/clothing/shoes/fluff/noble_boot
-	name = "noble boots"
-	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
+/obj/item/clothing/under/fluff/fox
+	name = "Aeronautics Jumpsuit"
+	desc = "A jumpsuit tailor made for spacefaring fighter pilots; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "noble_boot"
-	_color = "noble_boot"
-	item_state = "noble_boot"
+	icon_state = "fox_suit"
+	item_state = "g_suit"
+	item_color = "fox_suit"
+	displays_id = 0 //still appears on examine; this is pure fluff.
 
-/////Arachno-Man Costume set //the flagbearer: Willow Walker
-/obj/item/clothing/under/fluff/arachno_suit // Custom Jumpsuit
+// TheFlagbearer: Willow Walker
+/obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
 	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
-	_color = "superior_suit"
+	item_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 
@@ -282,25 +276,32 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
-
-///Aeronuatical Jumpsuit and Jacket //Fox P McCloud: Fox McCloud
-
-//Huge thanks to Nienhaus for these sprites!
-
-/obj/item/clothing/under/fluff/fox
-	name = "Aeronuatics Jumpsuit"
-	desc = "A jumpsuit tailor made for spacefaring fighter pilots; this one seems very old."
+/obj/item/clothing/under/fluff/tactical_suit //chronx100: Hughe O'Splash
+	name = "Hughe O'Splash's tactical suit"
+	desc = "A very comfortable suit that covers your entire body; it makes you feel very stealthy."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_suit"
-	item_state = "g_suit"
-	_color = "fox_suit"
-	displays_id = 0 //still appears on examine; this is pure fluff.
+	icon_state = "chronx_suit"
+	item_state = "chronx_suit"
+	item_color = "chronxsuit"
 
-/obj/item/clothing/suit/jacket/fluff/fox
-	name = "Aeronautics Jacket"
-	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
+/obj/item/clothing/mask/fluff/tactical_balaclava //chronx100: Hughe O'Splash
+	name = "Hughe O'Splash's tactical balaclava"
+	desc = "Keeps your face warm and tactical during those cold space winter months, sadly it's not so effective against the cold void of space itself."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_jacket"
-	item_state = "fox_jacket"
+	icon_state = "chronx_balaclava"
+	item_state = "chronx_balaclava"
+	flags = BLOCKHAIR
+	w_class = 2
 
-//////////// Weapons ////////////
+/obj/item/clothing/suit/armor/vest/fluff/tactical //m3hillus: Medusa Schlofield
+	name = "tactical armor vest"
+	desc = "A tactical vest with armored plate inserts."
+	icon = 'icons/obj/clothing/ties.dmi'
+	icon_state = "vest_black"
+	item_state = "vest_black"
+
+/obj/item/clothing/under/pants/fluff/combat
+	name = "combat pants"
+	desc = "Medium style tactical pants, for the fashion aware combat units out there."
+	icon_state = "chaps"
+	item_color = "combat_pants"

@@ -74,9 +74,6 @@ var/global/list/image/splatter_cache=list()
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
-	else if (perp.buckled && istype(perp.buckled, /obj/structure/stool/bed/chair/wheelchair))
-		var/obj/structure/stool/bed/chair/wheelchair/W = perp.buckled
-		W.bloodiness = 4
 
 	perp.update_inv_shoes(1)
 	amount--
@@ -155,6 +152,7 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	var/fleshcolor = "#FFFFFF"
+	noclear = 1
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
 
@@ -185,6 +183,17 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
+
+/obj/effect/decal/cleanable/blood/gibs/New()
+	..()
+	reagents.add_reagent("liquidgibs", 5)
+
+
+/obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
+
+/obj/effect/decal/cleanable/blood/gibs/cleangibs/New() //no reagent!
+	..()
+	reagents.remove_reagent("liquidgibs",5)
 
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)

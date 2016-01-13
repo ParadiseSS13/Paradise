@@ -73,6 +73,9 @@
 	relativewall_neighbours()
 
 /turf/simulated/wall/Destroy()
+	for(var/obj/effect/E in src)
+		if(E.name == "Wallrot")
+			qdel(E)
 
 	if(!del_suppress_resmoothing)
 		spawn(10)

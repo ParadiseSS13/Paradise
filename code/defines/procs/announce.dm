@@ -1,5 +1,8 @@
+/var/datum/announcement/minor/minor_announcement = new()
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
 /var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 1)
+/var/datum/announcement/priority/enemy/communications_announcement = new(do_log = 0, do_newscast = 1)
+
 
 /datum/announcement
 	var/title = "Attention"
@@ -16,6 +19,11 @@
 	log = do_log
 	newscast = do_newscast
 
+/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+	..(do_log, new_sound, do_newscast)
+	title = "Attention"
+	announcement_type = "Minor Announcement"
+
 /datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Priority Announcement"
@@ -26,21 +34,27 @@
 	title = "[command_name()] Update"
 	announcement_type = "[command_name()] Update"
 
+/datum/announcement/priority/enemy/New(var/do_log = 1, var/new_sound = sound('sound/AI/intercept2.ogg'), var/do_newscast = 0)
+	..(do_log, new_sound, do_newscast)
+	title = "[command_name()] Update"
+	announcement_type = "Enemy Communications"
+
 /datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
 
-/datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast)
+/datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from)
 	if(!message)
 		return
 	var/tmp/message_title = new_title ? new_title : title
 	var/tmp/message_sound = new_sound ? sound(new_sound) : sound
 
-	message = trim_strip_html_properly(message)
+	if(!msg_sanitized)
+		message = trim_strip_html_properly(message)
 	message_title = html_encode(message_title)
 
-	Message(message, message_title)
+	Message(message, message_title, from)
 	if(do_newscast)
 		NewsCast(message, message_title)
 	Sound(message_sound)
@@ -54,8 +68,9 @@ datum/announcement/proc/Message(message as text, message_title as text)
 			if (announcer)
 				M << "<span class='alert'> -[html_encode(announcer)]</span>"
 
-datum/announcement/minor/Message(message as text, message_title as text)
-	world << "<b>[message]</b>"
+/datum/announcement/minor/Message(message as text, message_title as text)
+	world << "<b><font size=3><font color=red>[message_title]</font color></font></b>"
+	world << "<b><font size=3>[message]</font size></font></b>"
 
 datum/announcement/priority/Message(message as text, message_title as text)
 	world << "<h1 class='alert'>[message_title]</h1>"
@@ -67,6 +82,18 @@ datum/announcement/priority/Message(message as text, message_title as text)
 datum/announcement/priority/command/Message(message as text, message_title as text)
 	var/command
 	command += "<h1 class='alert'>[command_name()] Update</h1>"
+	if (message_title)
+		command += "<br><h2 class='alert'>[message_title]</h2>"
+
+	command += "<br><span class='alert'>[message]</span><br>"
+	command += "<br>"
+	for(var/mob/M in player_list)
+		if(!istype(M,/mob/new_player) && !isdeaf(M))
+			M << command
+
+datum/announcement/priority/enemy/Message(message as text, message_title as text, from as text)
+	var/command
+	command += "<h1 class='alert'>[from]</h1>"
 	if (message_title)
 		command += "<br><h2 class='alert'>[message_title]</h2>"
 

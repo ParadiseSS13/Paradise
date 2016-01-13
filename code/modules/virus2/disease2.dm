@@ -10,8 +10,8 @@
 	var/list/datum/disease2/effectholder/effects = list()
 	var/antigen = 0 // 16 bits describing the antigens, when one bit is set, a cure with that bit can dock here
 	var/max_stage = 4
-	var/list/affected_species = list("Human","Unathi","Skrell","Tajaran","Vox","Kidan","Slime People","Grey","Diona", "Vulpkanin")
-
+	var/list/affected_species = list("Human","Unathi","Skrell","Tajaran","Vox","Kidan","Slime People","Grey","Diona", "Vulpkanin") //if this is changed, also change modules/nano/modules/virus2_creator.dm
+                                                                                                                                   //as you cannot use initial() with lists
 /datum/disease2/disease/New()
 	uniqueID = rand(0,10000)
 	..()
@@ -40,7 +40,7 @@
 	var/list/res = list()
 	for (var/specie in all_species)
 		var/datum/species/S = all_species[specie]
-		if(!(S.flags & IS_SYNTHETIC))
+		if(!(S.virus_immune))
 			meat += S.name
 	if(meat.len)
 		var/num = rand(1,meat.len)
@@ -58,10 +58,11 @@
 	if(mob.stat == 2)
 		return
 
-	var/mob/living/carbon/human/MS = mob
-	if(istype(MS))
-		if(MS.species.flags & IS_SYNTHETIC)
-			return
+	// Some species are flat out immune to organic viruses.
+	var/mob/living/carbon/human/H = mob
+	if(istype(H) && H.species.virus_immune)
+		cure(mob)
+		return
 
 	if(stage <= 1 && clicks == 0) 	// with a certain chance, the mob may become immune to the disease before it starts properly
 		if(prob(5))
@@ -109,7 +110,6 @@
 	for(var/datum/disease2/effectholder/e in effects)
 		e.effect.deactivate(mob)
 	mob.virus2.Remove("[uniqueID]")
-	mob.hud_updateflag |= 1 << STATUS_HUD
 
 /datum/disease2/disease/proc/minormutate()
 	//uniqueID = rand(0,10000)

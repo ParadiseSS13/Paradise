@@ -11,6 +11,7 @@
 	volume = 50
 	var/apply_type = INGEST
 	var/apply_method = "swallow"
+	var/transfer_efficiency = 1.0
 
 	New()
 		..()
@@ -23,8 +24,8 @@
 		if(M == user)
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				if(H.species.flags & IS_SYNTHETIC)
-					H << "<span class='warning'>You have a monitor for a head, where do you think you're going to put that?</span>"
+				if(!H.check_has_mouth())
+					user << "Where do you intend to put \the [src]? You don't have a mouth!"
 					return
 
 			M << "<span class='notify'>You [apply_method] [src].</span>"
@@ -32,7 +33,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
 				spawn(0)
-					reagents.trans_to_ingest(M, reagents.total_volume)
+					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
 					qdel(src)
 			else
 				qdel(src)
@@ -41,8 +42,8 @@
 		else if(istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(H.species.flags & IS_SYNTHETIC)
-				user << "<span class='warning'>They have a monitor for a head, where do you think you're going to put that?</span>"
+			if(!H.check_has_mouth())
+				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
 			for(var/mob/O in viewers(world.view, user))
@@ -54,10 +55,10 @@
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("<span class='warning'>[user] forces [M] to [apply_method] [src].</span>", 1)
 
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [key_name(user)] Reagents: [reagentlist(src)]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] to [key_name(M)]) Reagents: [reagentlist(src)]</font>")
 			if(M.ckey)
-				msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(user)] fed [key_name_admin(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
 			if(!iscarbon(user))
 				M.LAssailant = null
 			else
@@ -66,7 +67,7 @@
 			if(reagents.total_volume)
 				reagents.reaction(M, apply_type)
 				spawn(0)
-					reagents.trans_to_ingest(M, reagents.total_volume)
+					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
 					qdel(src)
 			else
 				qdel(src)
@@ -176,7 +177,7 @@
 		reagents.add_reagent("methamphetamine", 5)
 
 /obj/item/weapon/reagent_containers/pill/charcoal
-	name = "Chacoal pill"
+	name = "Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
 	New()

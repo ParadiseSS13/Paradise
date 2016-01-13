@@ -4,9 +4,9 @@
 
 /mob/spirit/mask/New()
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman(src))
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech(src))
-	AddSpell(new /obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blood_speech(src))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/shatter_lights(src))
 
 
 /mob/spirit/mask/verb/go_to_follower()
@@ -114,7 +114,7 @@
 		target.flicker()
 
 // SPELLS
-/obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech
+/obj/effect/proc_holder/spell/aoe_turf/blood_speech
 	name = "Speak to your Acolytes"
 	desc = "This spell allows you to speak to your flock."
 	school = "unknown evil"
@@ -125,7 +125,7 @@
 	invocation_type = "none"
 	range = 0
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/blood_speech/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/blood_speech/cast(list/targets)
 	var/input = stripped_input(usr, "Please choose a message to tell your acolytes.", "Voice of Blood", "")
 	if(!input)
 		revert_cast(usr)
@@ -138,7 +138,7 @@
 		spirit << "<span class='cultspeech'><font size=3><span class='name'>[usr.name]: </span><span class='message'>[input]</span></font></span>"
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights
+/obj/effect/proc_holder/spell/aoe_turf/shatter_lights
 	name = "Spread Shadows"
 	desc = "This spell breaks lights near the mask."
 	school = "unknown evil"
@@ -149,7 +149,7 @@
 	invocation_type = "none"
 	range = 0
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/shatter_lights/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/shatter_lights/cast(list/targets)
 	cult_log("[key_name_admin(usr)] used Spread Shadows.")
 	flicker_mask(usr)
 	spawn(0)
@@ -162,7 +162,7 @@
 				F.on = 0
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman
+/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman
 	name = "Create Talisman"
 	desc = "This spell conjures a talisman"
 
@@ -189,7 +189,7 @@
 								"Construct"="construct")
 
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/create_talisman/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/conjure/create_talisman/cast(list/targets)
 
 	var/talisman = input("Pick a talisman type", "Talisman", null, null) as null|anything in talismans
 	var/imbue_value = talismans[talisman]

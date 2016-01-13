@@ -46,23 +46,24 @@
 
 	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
+	user.newtonian_move(get_dir(A, user))
 
 	if(reagents.has_reagent("sacid"))
-		message_admins("[key_name_admin(user)] fired sulphuric acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src].")
 		log_game("[key_name(user)] fired sulphuric acid from \a [src].")
 	if(reagents.has_reagent("facid"))
-		message_admins("[key_name_admin(user)] fired Fluorosulfuric Acid from \a [src].")
-		log_game("[key_name(user)] fired Fluorosulfuric Acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src].")
+		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src].")
 	if(reagents.has_reagent("lube"))
-		message_admins("[key_name_admin(user)] fired Space lube from \a [src].")
-		log_game("[key_name(user)] fired Space lube from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src].")
+		log_game("[key_name(user)] fired space lube from \a [src].")
 	return
 
 
 /obj/item/weapon/reagent_containers/spray/proc/spray(var/atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this)
+	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 	spawn(0)
 		for(var/i=0, i<spray_currentrange, i++)
@@ -83,7 +84,6 @@
 /obj/item/weapon/reagent_containers/spray/examine(mob/user)
 	if(..(user, 0) && user==src.loc)
 		user << "[round(src.reagents.total_volume)] units left."
-	return
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()
 

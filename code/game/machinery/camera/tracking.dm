@@ -129,8 +129,9 @@
 		if(istype(M, /mob/living/carbon/human))
 			human = 1
 			var/mob/living/carbon/human/H = M
-			//Cameras can't track people wearing an agent card or a ninja hood.
-			if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+			//Cameras can't track people wearing an untrackable card
+			var/obj/item/weapon/card/id/id = H.wear_id
+			if(istype(id) && id.is_untrackable())
 				continue
 			if(istype(H.head, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = H.head
@@ -156,7 +157,7 @@
 	src.track = TB
 	return targets
 
-/mob/living/silicon/ai/proc/ai_camera_track(var/target_name in trackable_mobs())
+/mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
 	set category = "AI Commands"
 	set name = "Track With Camera"
 	set desc = "Select who you would like to track."
@@ -176,6 +177,7 @@
 		return
 
 	src << "Follow camera mode [forced ? "terminated" : "ended"]."
+	cameraFollow.tracking_cancelled()
 	cameraFollow = null
 
 /mob/living/silicon/ai/proc/ai_actual_track(atom/movable/target as mob|obj)
@@ -184,30 +186,15 @@
 
 	U.cameraFollow = target
 	U << "Now tracking [target.name] on camera."
+	target.tracking_initiated()
 
 	spawn (0)
 		while (U.cameraFollow == target)
 			if (U.cameraFollow == null)
 				return
-			if (istype(target, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = target
-				if(H.wear_id && istype(H.wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
-					U.ai_cancel_tracking(1)
-					return
-				if(H.digitalcamo)
-					U.ai_cancel_tracking(1)
-					return
-				if(istype(H.head, /obj/item/clothing/head))
-					var/obj/item/clothing/head/hat = H.head
-					if (hat.blockTracking)
-						U.ai_cancel_tracking(1)
-						return
-			if(istype(target.loc,/obj/effect/dummy))
-				U.ai_cancel_tracking()
-				return
 
 			if (!trackable(target))
-				U << "Target is not near any active cameras."
+				U << "<span class='warning'>Target is not on or near any active cameras on the station.</span>"
 				sleep(100)
 				continue
 
@@ -229,7 +216,21 @@
 
 /proc/trackable(atom/movable/M)
 	var/turf/T = get_turf(M)
-	if(T && (T.z in config.contact_levels) && (hassensorlevel(M, SUIT_SENSOR_TRACKING) || M in aibots))
+	if (istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/weapon/card/id/id = H.wear_id
+		if(istype(id) && id.is_untrackable())
+			return 0
+		if(H.digitalcamo)
+			return 0
+		if(istype(H.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = H.head
+			if (hat.blockTracking)
+				return 0
+	if(istype(M.loc,/obj/effect/dummy))
+		return 0
+
+	if((T && (T.z in config.contact_levels)) && ((hassensorlevel(M, SUIT_SENSOR_TRACKING) || M in aibots)))
 		return 1
 
 	return near_camera(M)
@@ -244,3 +245,17 @@
 
 /mob/living/silicon/ai/attack_ai(var/mob/user as mob)
 	ai_camera_list()
+
+/atom/movable/proc/tracking_initiated()
+
+/mob/living/silicon/robot/tracking_initiated()
+	tracking_entities++
+	if(tracking_entities == 1 && has_zeroth_law())
+		src << "<span class='warning'>Internal camera is currently being accessed.</span>"
+
+/atom/movable/proc/tracking_cancelled()
+
+/mob/living/silicon/robot/tracking_initiated()
+	tracking_entities--
+	if(!tracking_entities && has_zeroth_law())
+		src << "<span class='notice'>Internal camera is no longer being accessed.</span>"

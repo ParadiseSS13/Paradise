@@ -11,13 +11,16 @@
 	var/lum_g
 	var/lum_b
 
-	var/list/effect_r
-	var/list/effect_g
-	var/list/effect_b
+	var/tmp/applied_lum_r
+	var/tmp/applied_lum_g
+	var/tmp/applied_lum_b
+
+	var/list/effect_str
 	var/list/effect_turf
 
 	var/applied
 
+	var/vis_update		//Whetever we should smartly recalculate visibility. and then only update tiles that became (in) visible to us
 	var/needs_update
 	var/destroyed
 	var/force_update
@@ -38,9 +41,7 @@
 
 	parse_light_color()
 
-	effect_r = list()
-	effect_g = list()
-	effect_b = list()
+	effect_str = list()
 	effect_turf = list()
 
 	update()
@@ -71,6 +72,13 @@
 		needs_update = 1
 		lighting_update_lights += src
 
+/datum/light_source/proc/vis_update()
+	if(!needs_update)
+		needs_update = 1
+		lighting_update_lights += src
+
+	vis_update = 1
+
 /datum/light_source/proc/check()
 	if(!source_atom || !light_range || !light_power)
 		destroy()
@@ -96,12 +104,12 @@
 		light_range = source_atom.light_range
 		. = 1
 
+	if(light_range && light_power && !applied)
+		. = 1
+
 	if(source_atom.light_color != light_color)
 		light_color = source_atom.light_color
 		parse_light_color()
-		. = 1
-
-	if(light_range && light_power && !applied)
 		. = 1
 
 /datum/light_source/proc/parse_light_color()
@@ -114,98 +122,136 @@
 		lum_g = 1
 		lum_b = 1
 
-/datum/light_source/proc/falloff(atom/movable/lighting_overlay/O)
-  #if LIGHTING_FALLOFF == 1 // circular
-   #if LIGHTING_RESOLUTION == 1
-	. = (O.x - source_turf.x)**2 + (O.y - source_turf.y)**2 + LIGHTING_HEIGHT
-   #else
-	. = (O.x - source_turf.x + O.xoffset)**2 + (O.y - source_turf.y + O.yoffset)**2 + LIGHTING_HEIGHT
-   #endif
-
-   #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(sqrt(.) / max(1,light_range))) * (1 / (sqrt(. + 1))))
-   #else
-	. = 1 - CLAMP01(sqrt(.) / max(1,light_range))
-   #endif
-
-  #elif LIGHTING_FALLOFF == 2 // square
-   #if LIGHTING_RESOLUTION == 1
-	. = abs(O.x - source_turf.x) + abs(O.y - source_turf.y) + LIGHTING_HEIGHT
-   #else
-	. = abs(O.x - source_turf.x + O.xoffset) + abs(O.y - source_turf.y + O.yoffset) + LIGHTING_HEIGHT
-   #endif
-
-   #if LIGHTING_LAMBERTIAN == 1
-	. = CLAMP01((1 - CLAMP01(. / max(1,light_range))) * (1 / (sqrt(.)**2 + )))
-   #else
-	. = 1 - CLAMP01(. / max(1,light_range))
-   #endif
+#if LIGHTING_FALLOFF == 1 //circular
+  #define LUM_DISTANCE(swapvar, O, T) swapvar = (O.x - T.x)**2 + (O.y - T.y)**2 + LIGHTING_HEIGHT
+  #if LIGHTING_LAMBERTIAN == 1
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(sqrt(swapvar) / max(1,light_range))) * (1 / sqrt(swapvar + 1)))
+  #else
+    #define LUM_ATTENUATION(swapvar) swapvar = 1 - CLAMP01(sqrt(swapvar) / max(1,light_range))
   #endif
+#elif LIGHTING_FALLOFF == 2 //square
+  #define LUM_DISTANCE(swapvar, O, T) swapvar = abs(O.x - T.x) + abs(O.y - T.y) + LIGHTING_HEIGHT
+  #if LIGHTING_LAMBERTIAN == 1
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01((1 - CLAMP01(swapvar / max(1,light_range))) * (1 / sqrt(swapvar**2 + 1)))
+  #else
+    #define LUM_ATTENUATION(swapvar) swapvar = CLAMP01(swapvar / max(1,light_range))
+  #endif
+#endif
+
+#define LUM_FALLOFF(swapvar, O, T) \
+  LUM_DISTANCE(swapvar, O, T); \
+  LUM_ATTENUATION(swapvar);
 
 /datum/light_source/proc/apply_lum()
 	applied = 1
+
+	// Cache the applied lum counts.
+	applied_lum_r = lum_r
+	applied_lum_g = lum_g
+	applied_lum_b = lum_b
+
 	if(istype(source_turf))
-		#if LIGHTING_RESOLUTION == 1
-		for(var/turf/T in dview(light_range, source_turf, INVISIBILITY_LIGHTING))
+		FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
 			if(T.lighting_overlay)
-				var/strength = light_power * falloff(T.lighting_overlay)
+				var/strength
+				LUM_FALLOFF(strength, T, source_turf)
+				strength *= light_power
+
 				if(!strength) //Don't add turfs that aren't affected to the affected turfs.
 					continue
 
-				effect_r[T.lighting_overlay] = round(lum_r * strength, LIGHTING_ROUND_VALUE)
-				effect_g[T.lighting_overlay] = round(lum_g * strength, LIGHTING_ROUND_VALUE)
-				effect_b[T.lighting_overlay] = round(lum_b * strength, LIGHTING_ROUND_VALUE)
+				strength = round(strength, LIGHTING_ROUND_VALUE)	//Screw sinking points.
+
+				effect_str += strength
 
 				T.lighting_overlay.update_lumcount(
-					round(lum_r * strength, LIGHTING_ROUND_VALUE),
-					round(lum_g * strength, LIGHTING_ROUND_VALUE),
-					round(lum_b * strength, LIGHTING_ROUND_VALUE)
+					lum_r * strength,
+					lum_g * strength,
+					lum_b * strength
 				)
+
+			else
+				effect_str += 0
 
 			if(!T.affecting_lights)
 				T.affecting_lights = list()
 
 			T.affecting_lights += src
 			effect_turf += T
-
-		#else
-		for(var/turf/T in dview(light_range, source_turf, INVISIBILITY_LIGHTING))
-			for(var/atom/movable/lighting_overlay/L in T.lighting_overlays)
-				var/strength = light_power * falloff(L)
-
-				effect_r[L] = round(lum_r * strength, LIGHTING_ROUND_VALUE)
-				effect_g[L] = round(lum_g * strength, LIGHTING_ROUND_VALUE)
-				effect_b[L] = round(lum_b * strength, LIGHTING_ROUND_VALUE)
-
-				L.update_lumcount(
-					round(lum_r * strength, LIGHTING_ROUND_VALUE),
-					round(lum_g * strength, LIGHTING_ROUND_VALUE),
-					round(lum_b * strength, LIGHTING_ROUND_VALUE)
-				)
-
-			if(!T.affecting_lights)
-				T.affecting_lights = list()
-
-			T.affecting_lights += src
-			effect_turf += T
-		#endif
+		END_FOR_DVIEW
 
 /datum/light_source/proc/remove_lum()
 	applied = 0
+	var/i = 1
 	for(var/turf/T in effect_turf)
 		if(T.affecting_lights)
 			T.affecting_lights -= src
 
-		#if LIGHTING_RESOLUTION == 1
 		if(T.lighting_overlay)
-			T.lighting_overlay.update_lumcount(-effect_r[T.lighting_overlay], -effect_g[T.lighting_overlay], -effect_b[T.lighting_overlay])
-		#else
-		for(var/atom/movable/lighting_overlay/L in T.lighting_overlays)
-			L.lighting_overlay.update_lumcount(-effect_r[L], -effect_g[L], -effect_b[L])
-		#endif
+			var/str = effect_str[i]
+			T.lighting_overlay.update_lumcount(-str * applied_lum_r, -str * applied_lum_g, -str * applied_lum_b)
 
+		i++
 
-	effect_r.Cut()
-	effect_g.Cut()
-	effect_b.Cut()
+	effect_str.Cut()
 	effect_turf.Cut()
+	
+/datum/light_source/proc/forget_turf(turf/T)
+	var/idx = effect_turf.Find(T)
+	effect_turf.Cut(idx, idx + 1)
+	effect_str.Cut(idx, idx + 1)
+
+//Smartly updates the lighting, only removes lum from and adds lum to turfs that actually got changed.
+//This is for lights that need to reconsider due to nearby opacity changes.
+//Stupid dumb copy pasta because BYOND and speed.
+/datum/light_source/proc/smart_vis_update()
+	var/list/view[0]
+	FOR_DVIEW(var/turf/T, light_range, source_turf, INVISIBILITY_LIGHTING)
+		view += T	//Filter out turfs.
+	END_FOR_DVIEW
+	//This is the part where we calculate new turfs (if any)
+	var/list/new_turfs = view - effect_turf //This will result with all the tiles that are added.
+	for(var/turf/T in new_turfs)
+		if(T.lighting_overlay)
+			LUM_FALLOFF(., T, source_turf)
+			. *= light_power
+
+			if(!.) //Don't add turfs that aren't affected to the affected turfs.
+				continue
+
+			. = round(., LIGHTING_ROUND_VALUE)
+
+			effect_str += .
+
+			T.lighting_overlay.update_lumcount(
+				lum_r * .,
+				lum_g * .,
+				lum_b * .
+			)
+
+		else
+			effect_str += 0
+
+		if(!T.affecting_lights)
+			T.affecting_lights = list()
+
+		T.affecting_lights += src
+		effect_turf += T
+
+	var/list/old_turfs = effect_turf - view
+	for(var/turf/T in old_turfs)
+		//Insert not-so-huge copy paste from remove_lum().
+		var/idx = effect_turf.Find(T) //Get the index, luckily Find() is cheap in small lists like this. (with small I mean under a couple thousand len)
+		if(T.affecting_lights)
+			T.affecting_lights -= src
+
+		if(T.lighting_overlay)
+			var/str = effect_str[idx]
+			T.lighting_overlay.update_lumcount(-str * lum_r, -str * lum_g, -str * lum_b)
+
+		effect_turf.Cut(idx, idx + 1)
+		effect_str.Cut(idx, idx + 1)
+
+#undef LUM_FALLOFF
+#undef LUM_DISTANCE
+#undef LUM_ATTENUATION

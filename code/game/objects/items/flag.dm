@@ -57,8 +57,8 @@
 		if(M.lit)
 			light("<span class='notice'>[user] lights the [name] with their [W].</span>")
 
-	else if(istype(W, /obj/item/weapon/melee/energy/sword))
-		var/obj/item/weapon/melee/energy/sword/S = W
+	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
+		var/obj/item/weapon/melee/energy/sword/saber/S = W
 		if(S.active)
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light the [name] in the process.</span>")
 
@@ -128,7 +128,7 @@
 
 /obj/item/flag/species/diona
 	name = "Diona flag"
-	desc = "A flag proudly proclaiming the superior heritage of Diona."
+	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	icon_state = "dionaflag"
 
 /obj/item/flag/species/human
@@ -156,7 +156,12 @@
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	icon_state = "unathiflag"
 
-//Nation Flags (Able to spawn outside Nations gamemode)
+/obj/item/flag/species/vulp
+	name = "Vulpkanin flag"
+	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
+	icon_state = "vulpflag"
+
+//Department Flags
 
 /obj/item/flag/cargo
 	name = "Cargonia flag"
@@ -184,8 +189,8 @@
 	icon_state = "atmosflag"
 
 /obj/item/flag/command
-	name = "Command flag"
-	desc = "The flag of the independent, sovereign nation of Command."
+	name = "Commandzikstan flag"
+	desc = "The flag of the independent, sovereign nation of Commandzikstan."
 	icon_state = "ntflag"
 
 //Antags

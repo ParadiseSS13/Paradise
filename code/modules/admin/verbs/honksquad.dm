@@ -79,13 +79,13 @@ var/global/sent_honksquad = 0
 	var/honksquad_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/honksquad_name = pick(clown_names)
 
-	new_honksquad.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_honksquad)
-
-	new_honksquad.real_name = "[!honk_leader_selected ? honksquad_rank : honksquad_leader_rank] [honksquad_name]"
-	new_honksquad.age = !honk_leader_selected ? rand(23,35) : rand(35,45)
+	if(honk_leader_selected)
+		A.age = rand(35,45)
+		A.real_name = "[honksquad_leader_rank] [honksquad_name]"
+	else
+		A.real_name = "[honksquad_rank] [honksquad_name]"
+	A.copy_to(new_honksquad)
 
 	new_honksquad.dna.ready_dna(new_honksquad)//Creates DNA.
 

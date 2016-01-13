@@ -20,7 +20,7 @@
 	if(manifest)
 		user << "<span class='notice'>You tear the manifest off of the crate.</span>"
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.loc = loc
+		manifest.forceMove(loc)
 		if(ishuman(user))
 			user.put_in_hands(manifest)
 		manifest = null
@@ -33,13 +33,13 @@
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/crowbar))
 		if(manifest)
-			manifest.loc = loc
+			manifest.forceMove(loc)
 			manifest = null
 			update_icon()
 		new /obj/item/stack/sheet/wood(src)
 		var/turf/T = get_turf(src)
 		for(var/obj/O in contents)
-			O.loc = T
+			O.forceMove(T)
 		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
 							 "<span class='notice'>You pry open \the [src].</span>", \
 							 "<span class='notice'>You hear splitting wood.</span>")

@@ -17,6 +17,7 @@
 /obj/structure/alien/resin
 	name = "resin"
 	desc = "Looks like some kind of thick resin."
+	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
 	density = 1
 	opacity = 1
@@ -24,51 +25,46 @@
 	canSmoothWith = list(/obj/structure/alien/resin)
 	var/health = 200
 	var/resintype = null
+	smooth = SMOOTH_TRUE
 
 /obj/structure/alien/resin/New(location)
-	relativewall_neighbours()
 	..()
 	air_update_turf(1)
 	return
-
-/obj/structure/alien/resin/Destroy()
-	var/turf/T = loc
-	loc = null
-	T.relativewall_neighbours()
-	return ..()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
 	..()
 	move_update_air(T)
 
+/obj/structure/alien/resin/CanAtmosPass()
+	return !density
+
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon_state = "wall0"	//same as resin, but consistency ho!
+	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
+	icon_state = "resin"	//same as resin, but consistency ho!
 	resintype = "wall"
+	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/wall/New()
-	..()
-	relativewall_neighbours()
+/obj/structure/alien/resin/wall/BlockSuperconductivity()
+	return 1
 
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
 	health = INFINITY
-	icon_state = "wall0"
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
-	icon_state = "membrane0"
+	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
+	icon_state = "membrane"
 	opacity = 0
 	health = 120
 	resintype = "membrane"
-
-/obj/structure/alien/resin/membrane/New()
-	relativewall_neighbours()
-	..()
+	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 /obj/structure/alien/resin/proc/healthcheck()
 	if(health <=0)
@@ -191,21 +187,14 @@
 		qdel(src)
 		return
 
-	direction_loop:
-		for(var/dirn in cardinal)
-			var/turf/T = get_step(src, dirn)
+	if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
+		return
 
-			if (!istype(T) || T.density || locate(/obj/structure/alien/weeds) in T || istype(T, /turf/space))
-				continue
+	for(var/turf/T in U.GetAtmosAdjacentTurfs())
+		if(locate(/obj/structure/alien/weeds) in T || istype(T, /turf/space))
+			continue
 
-			if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
-				return
-
-			for(var/obj/O in T)
-				if(O.density)
-					continue direction_loop
-
-			new /obj/structure/alien/weeds(T, linked_node)
+		new /obj/structure/alien/weeds(T, linked_node)
 
 
 /obj/structure/alien/weeds/ex_act(severity)
@@ -352,7 +341,7 @@
 			if(child)
 				child.loc = get_turf(src)
 				if(kill && istype(child))
-					child.Die()
+					child.death()
 				else
 					for(var/mob/M in range(1,src))
 						if(CanHug(M))

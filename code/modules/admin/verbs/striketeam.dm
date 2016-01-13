@@ -7,9 +7,6 @@ var/global/sent_strike_team = 0
 	if(!ticker)
 		usr << "<font color='red'>The game hasn't started yet!</font>"
 		return
-	if(world.time < 6000)
-		usr << "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>"
-		return
 	if(sent_strike_team == 1)
 		usr << "<font color='red'>CentCom is already sending a team.</font>"
 		return
@@ -30,9 +27,7 @@ var/global/sent_strike_team = 0
 
 	sent_strike_team = 1
 
-	if (emergency_shuttle.can_recall())
-		emergency_shuttle.recall()
-
+	shuttle_master.cancelEvac()
 	var/commando_number = commandos_possible //for selecting a leader
 	var/leader_selected = 0 //when the leader is chosen. The last person spawned.
 
@@ -88,11 +83,14 @@ var/global/sent_strike_team = 0
 			P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br>You are fully equipped and stocked for your mission--before departing on the Spec. Ops. Shuttle due South, make sure that all operatives are ready. Actual mission objective will be relayed to you by Central Command through your headsets.<br>If deemed appropriate, Central Command will also allow members of your team to equip assault power-armor for the mission. You will find the armor storage due West of your position. Once you are ready to leave, utilize the Special Operations shuttle console and toggle the hull doors via the other console.</p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk and a pin-pointer for this reason. You may easily recognize them by their rank: Lieutenant, Captain, or Major. The nuclear device itself will be present somewhere on your destination.</p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Type numeric code into keypad ([nuke_code]).<br>Note: If you make a mistake press R to reset the device.<br>#5 Press the E button to log onto the device.<br>You now have activated the device. To deactivate the buttons at anytime, for example when you have already prepped the bomb for detonation, remove the authentication disk OR press the R on the keypad. Now the bomb CAN ONLY be detonated using the timer. A manual detonation is not an option.<br>Note: Toggle off the <b>SAFETY</b>.<br>Use the - - and + + to set a detonation time between 5 seconds and 10 minutes. Then press the timer toggle button to start the countdown. Now remove the authentication disk so that the buttons deactivate.<br>Note: <b>THE BOMB IS STILL SET AND WILL DETONATE</b><br>Now before you remove the disk if you need to move the bomb you can: Toggle off the anchor, move it, and re-anchor.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
 			P.name = "Spec. Ops Manual"
 			P.icon = "pamphlet-ds"
+			var/obj/item/weapon/stamp/centcom/stamp = new
+			P.stamp(stamp)
+			qdel(stamp)
 
 	for (var/obj/effect/landmark/L in landmarks_list)
 		if (L.name == "Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
-			del(L)
+			qdel(L)
 
 	message_admins("\blue [key_name_admin(usr)] has spawned a CentCom strike squad.", 1)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
@@ -104,13 +102,13 @@ var/global/sent_strike_team = 0
 	var/commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/commando_name = pick(last_names)
 
-	new_commando.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_commando)
-
-	new_commando.real_name = "[!leader_selected ? commando_rank : commando_leader_rank] [commando_name]"
-	new_commando.age = !leader_selected ? rand(23,35) : rand(35,45)
+	if(leader_selected)
+		A.age = rand(35,45)
+		A.real_name = "[commando_leader_rank] [commando_name]"
+	else
+		A.real_name = "[commando_rank] [commando_name]"
+	A.copy_to(new_commando)
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
 
@@ -151,7 +149,7 @@ var/global/sent_strike_team = 0
 		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/weapon/disk/nuclear(src), slot_in_backpack)
 
-	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword(src), slot_l_store)
+	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/weapon/shield/energy(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/revolver/mateba(src), slot_belt)
@@ -167,7 +165,7 @@ var/global/sent_strike_team = 0
 
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
-	W.icon_state = "centcom"
+	W.icon_state = "deathsquad"
 	W.assignment = "Death Commando"
 	W.access = get_centcom_access(W.assignment)
 	W.registered_name = real_name

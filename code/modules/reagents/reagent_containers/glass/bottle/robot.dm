@@ -14,11 +14,10 @@
 	icon_state = "bottle16"
 	reagent = "epinephrine"
 
-	New()
-		..()
-		reagents.add_reagent("epinephrine", 60)
-		return
-
+/obj/item/weapon/reagent_containers/glass/bottle/robot/epinephrine/New()
+	..()
+	reagents.add_reagent("epinephrine", 60)
+	return
 
 /obj/item/weapon/reagent_containers/glass/bottle/robot/charcoal
 	name = "internal charcoal bottle"
@@ -27,7 +26,7 @@
 	icon_state = "bottle17"
 	reagent = "charcoal"
 
-	New()
-		..()
-		reagents.add_reagent("charcoal", 60)
-		return
+/obj/item/weapon/reagent_containers/glass/bottle/robot/charcoal/New()
+	..()
+	reagents.add_reagent("charcoal", 60)
+	return

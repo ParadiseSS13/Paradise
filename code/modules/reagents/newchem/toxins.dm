@@ -15,7 +15,7 @@ datum/reagent/polonium
 
 datum/reagent/polonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.radiation += 8
+	M.apply_effect(8, IRRADIATE, negate_armor = 1)
 	..()
 	return
 
@@ -94,8 +94,11 @@ datum/reagent/venom
 
 datum/reagent/venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss((0.1*volume)*REM)
-	M.adjustBruteLoss((0.1*volume)*REM)
+	M.adjustToxLoss(1*REM)
+	M.adjustBruteLoss(1*REM)
+	if(volume >= 20)
+		M.adjustToxLoss(1*REM)
+		M.adjustBruteLoss(1*REM)
 	if(prob(25))
 		M.reagents.add_reagent("histamine",rand(5,10))
 	..()
@@ -122,7 +125,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 	if(current_cycle >= 5)
 		if(prob(5))
 			M.emote("drool")
-		if(M.brainloss < 60)
+		if(M.getBrainLoss() < 60)
 			M.adjustBrainLoss(1*REM)
 		M.adjustToxLoss(1*REM)
 	if(current_cycle >= 9)
@@ -240,7 +243,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 
 			if(volume >=5 && volume <=10)
 				if(!H.unacidable)
-					M.take_organ_damage(max(volume-5,2)*4,0)
+					M.take_organ_damage(0,max(volume-5,2)*4)
 					M.emote("scream")
 
 
@@ -267,7 +270,7 @@ datum/reagent/facid/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 
 				if(!H.unacidable)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(75, 0)
+					affecting.take_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
 					H.status_flags |= DISFIGURED
@@ -301,19 +304,19 @@ datum/reagent/initropidril
 datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(33))
-		M.adjustToxLoss(rand(5,25))
-	if(prob(rand(5,10)))
-		var/picked_option = rand(1,3)
-		switch(picked_option)
+		switch(pick(1,2))
 			if(1)
 				M << "<span class = 'danger'>You feel horrendously weak!</span>"
 				M.Stun(2)
-				M.losebreath += 1
 			if(2)
+				M.adjustToxLoss(rand(5,25))
+	if(prob(10))
+		switch(pick(1,2))
+			if(1)
 				M << "<span class = 'danger'>You cannot breathe!</span>"
 				M.losebreath += 5
 				M.adjustOxyLoss(10)
-			if(3)
+			if(2)
 				var/mob/living/carbon/human/H = M
 				if(!H.heart_attack)
 					H.heart_attack = 1 // rip in pepperoni
@@ -347,8 +350,10 @@ datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(current_cycle >= 10)
 		M.Weaken(3)
-	if(prob(7))
-		M.losebreath += rand(3,5)
+		if(prob(10))
+			M.losebreath += 1
+		if(prob(7))
+			M.losebreath += 3
 	..()
 	return
 
@@ -449,6 +454,7 @@ datum/reagent/lipolicide
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
 	reagent_state = SOLID
 	color = "#D1DED1"
+	metabolization_rate = 0.2
 
 /datum/chemical_reaction/lipolicide
 	name = "lipolicide"
@@ -460,7 +466,8 @@ datum/reagent/lipolicide
 datum/reagent/lipolicide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(!holder.has_reagent("nutriment"))
-		M.adjustToxLoss(1)
+		if(prob(30))
+			M.adjustToxLoss(1)
 	M.nutrition -= 10 * REAGENTS_METABOLISM
 	M.overeatduration = 0
 	if(M.nutrition < 0)//Prevent from going into negatives.
@@ -605,8 +612,8 @@ datum/reagent/atrazine/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volu
 					H.adjustToxLoss(50)
 					..()
 					return
-		else if(istype(M,/mob/living/carbon/primitive/diona)) //plantmen monkeys (diona) take EVEN MORE damage
-			var/mob/living/carbon/primitive/diona/D = M
+		else if(istype(M,/mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+			var/mob/living/simple_animal/diona/D = M
 			D.adjustToxLoss(100)
 			..()
 			return
@@ -707,7 +714,7 @@ datum/reagent/glowing_slurry/reaction_mob(var/mob/M, var/method=TOUCH, var/volum
 
 datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(2*REM,IRRADIATE,0)
+	M.apply_effect(2*REM, IRRADIATE, 0, negate_armor = 1)
 	if(prob(15))
 		randmutb(M)
 	if(prob(5))
@@ -737,4 +744,38 @@ datum/reagent/ants/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustBruteLoss(2)
 	..()
+	return
+
+/datum/reagent/teslium //Teslium. Causes periodic shocks, and makes shocks against the target much more effective.
+	name = "Teslium"
+	id = "teslium"
+	description = "An unstable, electrically-charged metallic slurry. Increases the conductance of living things."
+	reagent_state = LIQUID
+	color = "#20324D" //RGB: 32, 50, 77
+	metabolization_rate = 0.2
+	var/shock_timer = 0
+
+/datum/reagent/teslium/on_mob_life(mob/living/M)
+	shock_timer++
+	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
+		shock_timer = 0
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		playsound(M, "sparks", 50, 1)
+	..()
+
+/datum/chemical_reaction/teslium
+	name = "Teslium"
+	id = "teslium"
+	result = "teslium"
+	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
+	result_amount = 3
+	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
+	min_temp = 400
+	mix_sound = null
+
+/datum/chemical_reaction/teslium/on_reaction(var/datum/reagents/holder, var/created_volume)
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	s.set_up(6, 1, location)
+	s.start()
 	return

@@ -14,9 +14,10 @@
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole"
-	circuit = "/obj/item/weapon/circuitboard/cryopodcontrol"
+	circuit = /obj/item/weapon/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
+	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -32,7 +33,7 @@
 	desc = "An interface between crew and the robotic storage systems"
 	icon = 'icons/obj/robot_storage.dmi'
 	icon_state = "console"
-	circuit = "/obj/item/weapon/circuitboard/robotstoragecontrol"
+	circuit = /obj/item/weapon/circuitboard/robotstoragecontrol
 
 	storage_type = "cyborgs"
 	storage_name = "Robotic Storage Control"
@@ -92,6 +93,9 @@
 		user << browse(dat, "window=cryoitems")
 
 	else if(href_list["item"])
+		if(!allowed(user))
+			user << "<span class='warning'>Access Denied.</span>"
+			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
@@ -106,19 +110,22 @@
 			user << "<span class='notice'>\The [I] is no longer in storage.</span>"
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>", 3)
+		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>")
 
 		I.loc = get_turf(src)
 		frozen_items -= I
 
 	else if(href_list["allitems"])
+		if(!allowed(user))
+			user << "<span class='warning'>Access Denied.</span>"
+			return
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
 			user << "<span class='notice'>There is nothing to recover from storage.</span>"
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>", 3)
+		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>")
 
 		for(var/obj/item/I in frozen_items)
 			I.loc = get_turf(src)
@@ -201,6 +208,10 @@
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/weapon/storage/internal
 	)
+	// These items will NOT be preserved
+	var/list/do_not_preserve_items = list (
+		/obj/item/device/mmi/posibrain
+	)
 
 /obj/machinery/cryopod/right
 	orient_right = 1
@@ -239,7 +250,9 @@
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	control_computer = locate(/obj/machinery/computer/cryopod) in src.loc.loc
+	for(var/obj/machinery/computer/cryopod/C in areaMaster.contents) //locate() is shit, this actually works, and there's a decent chance it's faster than locate()
+		control_computer = C
+		break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
 	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
@@ -306,7 +319,7 @@
 		occupant.unEquip(W)
 		W.loc = src
 
-		if(W.contents.len) //Make sure we catch anything not handled by del() on the items.
+		if(W.contents.len) //Make sure we catch anything not handled by qdel() on the items.
 			var/preserve = null
 			for(var/T in preserve_items)
 				if(istype(W,T))
@@ -328,7 +341,7 @@
 
 		var/preserve = null
 		for(var/T in preserve_items)
-			if(istype(W,T))
+			if(istype(W,T) && !(W in do_not_preserve_items))
 				preserve = 1
 				break
 
@@ -359,19 +372,19 @@
 						all_objectives -= O
 						O.owner.objectives -= O
 						qdel(O)
+	if(occupant.mind && occupant.mind.assigned_role)
+		//Handle job slot/tater cleanup.
+		var/job = occupant.mind.assigned_role
 
-	//Handle job slot/tater cleanup.
-	var/job = occupant.mind.assigned_role
+		job_master.FreeRole(job)
 
-	job_master.FreeRole(job)
-
-	if(occupant.mind.objectives.len)
-		qdel(occupant.mind.objectives)
-		occupant.mind.special_role = null
-	else
-		if(ticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
-			current_mode.possible_traitors.Remove(occupant)
+		if(occupant.mind.objectives.len)
+			qdel(occupant.mind.objectives)
+			occupant.mind.special_role = null
+		else
+			if(ticker.mode.name == "AutoTraitor")
+				var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
+				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.
 
@@ -409,7 +422,7 @@
 	else
 		announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
 
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
+	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Delete the mob.
 	qdel(occupant)
@@ -447,10 +460,14 @@
 
 		if(willing)
 
-			visible_message("[user] starts putting [G:affecting:name] into \the [src].", 3)
+			visible_message("[user] starts putting [G:affecting:name] into \the [src].")
 
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = G:affecting))
 				if(!M || !G || !G:affecting) return
+
+				if(src.occupant)
+					user << "<span class='boldnotice'>\The [src] is in use.</span>"
+					return
 
 				M.loc = src
 
@@ -468,7 +485,7 @@
 				icon_state = occupied_icon_state
 
 			M << "<span class='notice'>[on_enter_occupant_message]</span>"
-			M << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+			M << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 
 			occupant = M
 			time_entered = world.time
@@ -481,9 +498,8 @@
 							Gh << "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>"
 
 			// Book keeping!
-			var/turf/location = get_turf(src)
-			log_admin("[key_name_admin(M)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[location.x];Y=[location.y];Z=[location.z]'>JMP</a>)")
-			message_admins("<span class='notice'>[key_name_admin(M)] has entered a stasis pod.</span>")
+			log_admin("<span class='notice'>[key_name(M)] has entered a stasis pod.</span>")
+			message_admins("[key_name_admin(user)] has entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 			//Despawning occurs when process() is called with an occupant without a client.
 			src.add_fingerprint(M)
@@ -537,13 +553,16 @@
 
 	if(willing)
 		if(L == user)
-			visible_message("[user] starts climbing into the cryo pod.", 3)
+			visible_message("[user] starts climbing into the cryo pod.")
 		else
-			visible_message("[user] starts putting [L] into the cryo pod.", 3)
+			visible_message("[user] starts putting [L] into the cryo pod.")
 
-		if(do_after(user, 20))
+		if(do_after(user, 20, target = L))
 			if(!L) return
 
+			if(src.occupant)
+				user << "<span class='boldnotice'>\The [src] is in use.</span>"
+				return
 			L.loc = src
 
 			if(L.client)
@@ -559,7 +578,7 @@
 			icon_state = occupied_icon_state
 
 		L << "<span class='notice'>[on_enter_occupant_message]</span>"
-		L << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		L << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 		occupant = L
 		time_entered = world.time
 
@@ -619,7 +638,7 @@
 		return
 
 	if(src.occupant)
-		usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+		usr << "<span class='boldnotice'>\The [src] is in use.</span>"
 		return
 
 	for(var/mob/living/carbon/slime/M in range(1,usr))
@@ -627,15 +646,15 @@
 			usr << "You're too busy getting your life sucked out of you."
 			return
 
-	visible_message("[usr] starts climbing into \the [src].", 3)
+	visible_message("[usr] starts climbing into \the [src].")
 
-	if(do_after(usr, 20))
+	if(do_after(usr, 20, target = usr))
 
 		if(!usr || !usr.client)
 			return
 
 		if(src.occupant)
-			usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+			usr << "<span class='boldnotice'>\The [src] is in use.</span>"
 			return
 
 		usr.stop_pulling()
@@ -650,7 +669,7 @@
 			icon_state = occupied_icon_state
 
 		usr << "<span class='notice'>[on_enter_occupant_message]</span>"
-		usr << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		usr << "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>"
 		occupant = usr
 		time_entered = world.time
 

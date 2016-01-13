@@ -1,5 +1,6 @@
 /datum/species/plasmaman // /vg/
 	name = "Plasmaman"
+	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
 	//language = "Clatter"
@@ -23,12 +24,10 @@
 	return message
 
 /datum/species/plasmaman/equip(var/mob/living/carbon/human/H)
-	H.fire_sprite = "Plasmaman"
-
 	// Unequip existing suits and hats.
 	H.unEquip(H.wear_suit)
 	H.unEquip(H.head)
-	if(H.mind.assigned_role!="Clown")
+	if(H.mind.assigned_role != "Clown")
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
@@ -107,7 +106,7 @@
 	H.equip_or_collect(new suit(H), slot_wear_suit)
 	H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new/obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
-	H << "\blue You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable."
+	H << "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name].  You must breathe plasma in order to survive, and are extremely flammable.</span>"
 	H.internal = H.get_item_by_slot(tank_slot)
 	if (H.internals)
 		H.internals.icon_state = "internal1"
@@ -215,4 +214,10 @@
 			if(heat_level_3 to INFINITY)
 				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
+
+	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
+		H << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
+		H.adjust_fire_stacks(0.5)
+		H.IgniteMob()
+
 	return 1

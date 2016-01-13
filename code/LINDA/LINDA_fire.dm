@@ -30,7 +30,7 @@
 		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
 			return 0
 
-		active_hotspot = PoolOrNew(/obj/effect/hotspot, src)
+		active_hotspot = new /obj/effect/hotspot(src)
 		active_hotspot.temperature = exposed_temperature
 		active_hotspot.volume = exposed_volume
 
@@ -61,6 +61,8 @@
 	set_light(3, 1, color)
 	air_master.hotspots += src
 	perform_exposure()
+	dir = pick(cardinal)
+	air_update_turf()
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
@@ -81,11 +83,13 @@
 		volume = affected.fuel_burnt*FIRE_GROWTH_RATE
 		location.assume_air(affected)
 
-	for(var/atom/item in loc)
+	for(var/A in loc)
+		var/atom/item = A
 		if(item && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
-	animate(src, color = heat2color(temperature), 5)
+//	animate(src, color = heat2color(temperature), 5)
+	color = heat2color(temperature)
 	set_light(l_color = color)
 
 	return 0
@@ -114,7 +118,7 @@
 
 	perform_exposure()
 
-	if(location.wet) location.wet = 0
+	if(location.wet) location.wet = TURF_DRY
 
 	if(bypassing)
 		icon_state = "3"
@@ -159,8 +163,7 @@
 		var/turf/simulated/T = loc
 		if(T.active_hotspot == src)
 			T.active_hotspot = null
-	..()
-	return QDEL_HINT_PUTINPOOL
+	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
 
@@ -177,12 +180,6 @@
 			else
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
-
-/obj/effect/hotspot/New()
-	..()
-	dir = pick(cardinal)
-	air_update_turf()
-	return
 
 /obj/effect/hotspot/Crossed(mob/living/L)
 	..()

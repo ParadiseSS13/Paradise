@@ -85,7 +85,7 @@
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
 		user << "You start drawing a [temp] on the [target.name]."
-		if(instant || do_after(user, 50))
+		if(instant || do_after(user, 50, target = target))
 			new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			user << "You finish drawing [temp]."
 			if(uses)

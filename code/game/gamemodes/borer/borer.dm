@@ -15,9 +15,6 @@
 	var/var/list/datum/mind/first_hosts = list()
 	var/var/list/assigned_hosts = list()
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/list/found_vents = list()
 
 /datum/game_mode/borer/announce()
@@ -32,7 +29,7 @@
 	// also make sure that there's at least one borer and one host
 	recommended_enemies = max(src.num_players() / 20 * 2, 2)
 
-	var/list/datum/mind/possible_borers = get_players_for_role(BE_ALIEN)
+	var/list/datum/mind/possible_borers = get_players_for_role(ROLE_BORER)
 
 	if(possible_borers.len < 2)
 		log_admin("MODE FAILURE: BORER. NOT ENOUGH BORER CANDIDATES.")
@@ -94,14 +91,11 @@
 		M.perform_infestation(first_host.current)
 		forge_borer_objectives(borer, first_host)
 
-		del(original)
+		qdel(original)
 
 	log_admin("Created [borers.len] borers.")
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 /datum/game_mode/proc/greet_borer(var/datum/mind/borer, var/you_are=1)
 	if (you_are)

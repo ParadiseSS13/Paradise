@@ -19,11 +19,11 @@
 			icon_state = "d_[initial(icon_state)]"
 		else
 			icon_state = initial(icon_state)
-	examine()
-		..()
-		usr << "This one is made of [material]."
+	examine(mob/user)
+		..(user)
+		user << "This one is made of [material]."
 		if(stud)
-			usr << "It is adorned with a single gem."
+			user << "It is adorned with a single gem."
 
 /obj/item/clothing/gloves/ring/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))

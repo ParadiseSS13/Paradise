@@ -9,16 +9,13 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
-	w_class = 3.0
+	w_class = 2
 	var/charge = 0	// note %age conveted to actual charge in New
 	var/maxcharge = 10000
 	rating = 1
-	m_amt = 700
-	g_amt = 50
+	materials = list(MAT_METAL=700, MAT_GLASS=50)
 	var/rigged = 0		// true if rigged to explode
 	var/minor_fault = 0 //If not 100% reliable, it will build up faults.
-	var/construction_cost = list("metal"=750,"glass"=75)
-	var/construction_time=100
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>"
@@ -27,10 +24,10 @@
 /obj/item/weapon/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
-	origin_tech = "powerstorage=0"
+	origin_tech = null
 	maxcharge = 5000
 	rating = 2
-	g_amt = 40
+	materials = list(MAT_GLASS=40)
 
 /obj/item/weapon/stock_parts/cell/crap/empty/New()
 	..()
@@ -38,10 +35,10 @@
 
 /obj/item/weapon/stock_parts/cell/secborg
 	name = "\improper Security borg rechargable D battery"
-	origin_tech = "powerstorage=0"
+	origin_tech = null
 	maxcharge = 6000	//6000 max charge / 1000 charge per shot = six shots
 	rating = 2.5
-	g_amt = 40
+	materials = list(MAT_GLASS=40)
 
 /obj/item/weapon/stock_parts/cell/secborg/empty/New()
 	..()
@@ -53,7 +50,7 @@
 	icon_state = "hcell"
 	maxcharge = 15000
 	rating = 3
-	g_amt = 60
+	materials = list(MAT_GLASS=60)
 
 /obj/item/weapon/stock_parts/cell/high/empty/New()
 	..()
@@ -64,9 +61,8 @@
 	origin_tech = "powerstorage=5"
 	icon_state = "scell"
 	maxcharge = 20000
-	g_amt = 70
+	materials = list(MAT_GLASS=70)
 	rating = 4
-	construction_cost = list("metal"=750,"glass"=100)
 
 /obj/item/weapon/stock_parts/cell/super/empty/New()
 	..()
@@ -78,10 +74,21 @@
 	icon_state = "hpcell"
 	maxcharge = 30000
 	rating = 5
-	g_amt = 80
-	construction_cost = list("metal"=500,"glass"=150,"gold"=200,"silver"=200)
+	materials = list(MAT_GLASS=80)
 
 /obj/item/weapon/stock_parts/cell/hyper/empty/New()
+	..()
+	charge = 0
+
+/obj/item/weapon/stock_parts/cell/bluespace
+	name = "bluespace power cell"
+	origin_tech = "powerstorage=7"
+	icon_state = "bscell"
+	maxcharge = 40000
+	materials = list(MAT_GLASS=80)
+	rating = 6
+
+/obj/item/weapon/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
 
@@ -91,7 +98,7 @@
 	origin_tech =  null
 	maxcharge = 30000
 	rating = 6
-	g_amt = 80
+	materials = list(MAT_GLASS=80)
 	use()
 		return 1
 
@@ -104,8 +111,7 @@
 	charge = 100
 	maxcharge = 3000
 	rating = 1
-	m_amt = 0
-	g_amt = 0
+	materials = list()
 	minor_fault = 1
 
 
@@ -117,8 +123,7 @@
 	icon_state = "yellow slime extract" //"potato_battery"
 	maxcharge = 10000
 	rating = 3
-	m_amt = 0
-	g_amt = 0
+	materials = list()
 
 /obj/item/weapon/stock_parts/cell/pulse/carbine
 	name = "pulse carbine power cell"
@@ -133,7 +138,7 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	rating = 3
-	g_amt = 60
+	materials = list(MAT_GLASS=60)
 
 /obj/item/weapon/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
@@ -150,3 +155,9 @@
 
 /obj/item/weapon/stock_parts/cell/emproof/corrupt()
 	return
+
+/obj/item/weapon/stock_parts/cell/temperaturegun
+	name = "temperature gun cell"
+	desc = "A specially designed power cell for heating and cooling projectiles"
+	icon_state = "icell"
+	maxcharge = 900

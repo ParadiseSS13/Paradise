@@ -31,7 +31,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/tnote[0]  //Current Texts
 	var/last_text //No text spamming
 	var/last_honk //Also no honk spamming that's bad too
+
 	var/ttone = "beep" //The ringtone!
+	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"slip" = 'sound/misc/slip.ogg',
+								"honk" = 'sound/items/bikehorn.ogg',
+								"SKREE" = 'sound/voice/shriek1.ogg',
+								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg')
+
 	var/lock_code = "" // Lockcode to unlock uplink
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
@@ -53,6 +62,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/device/paicard/pai = null	// A slot for a personal AI device
+	var/retro_mode = 0
 
 /obj/item/device/pda/medical
 	default_cartridge = /obj/item/weapon/cartridge/medical
@@ -275,7 +285,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(usr.stat == 2)
 		usr << "You can't do that because you are dead!"
 		return
-	JFLOG("AI Showed Message Log")
 	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in tnote)
 		if(index["sent"])
@@ -292,7 +301,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(usr.stat == 2)
 		usr << "You can't do that because you are dead!"
 		return
-	JFLOG("AI Toggled Receiver")
 	toff = !toff
 	usr << "<span class='notice'>PDA sender/receiver toggled [(toff ? "Off" : "On")]!</span>"
 
@@ -305,7 +313,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "You can't do that because you are dead!"
 		return
 	silent=!silent
-	JFLOG("AI toggled the silent option")
 	usr << "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>"
 
 /obj/item/device/pda/ai/can_use()
@@ -316,7 +323,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if ((honkamt > 0) && (prob(60)))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
-		JFLOG("[user] PDA honked")
 	return
 
 
@@ -396,6 +402,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	data["idInserted"] = (id ? 1 : 0)
 	data["idLink"] = (id ? text("[id.registered_name], [id.assignment]") : "--------")
 
+	data["useRetro"] = retro_mode
+
 	data["cart_loaded"] = cartridge ? 1:0
 	if(cartridge)
 		var/cartdata[0]
@@ -467,7 +475,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				data["convo_job"] = sanitize(c["job"])
 				break
 	if(mode==41)
-		data["manifest"] = data_core.get_manifest_json()
+		data_core.get_manifest_json()
 
 
 	if(mode==3)
@@ -499,12 +507,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			data["aircontents"] = list("reading" = 0)
 
 
+	data["manifest"] = list("__json_cache" = ManifestJSON)
+
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600)
+		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = inventory_state)
+
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -516,15 +527,11 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/attack_self(mob/user as mob)
 	user.set_machine(src)
 	if(active_uplink_check(user))
-		JFLOG("[user] activated a syndicate uplink in their PDA")
 		return
-	JFLOG("[user] activated PDA")
 	ui_interact(user) //NanoUI requires this proc
 	return
 
 /obj/item/device/pda/Topic(href, href_list)
-	if (href_list["choice"]!="Return") // We really don't need to see ten thousand return actions.
-		JFLOG("UI Action >>> HREF|[href] >>> HREF_LIST|[list2json(href_list)]")
 	if(href_list["cartmenu"] && !isnull(cartridge))
 		cartridge.Topic(href, href_list)
 		return 1
@@ -570,6 +577,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					mode = 0
 				else if(mode >= 40 && mode <= 49)//Fix for cartridges. Redirects to refresh the menu.
 					cartridge.mode = mode
+		if("Retro")
+			retro_mode = !retro_mode
+			ui_interact(user)
 		if ("Authenticate")//Checks for ID
 			id_check(U, 1)
 		if("UpdateInfo")
@@ -812,6 +822,21 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	return 1 // return 1 tells it to refresh the UI in NanoUI
 
+/obj/item/device/pda/verb/verb_reset_pda()
+	set category = "Object"
+	set name = "Reset PDA"
+	set src in usr
+
+	if(issilicon(usr))
+		return
+
+	if(can_use(usr))
+		mode = 0
+		nanomanager.update_uis(src)
+		usr << "<span class='notice'>You press the reset button on \the [src].</span>"
+	else
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+
 /obj/item/device/pda/proc/remove_id()
 	if (id)
 		if (ismob(loc))
@@ -824,7 +849,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P)
 
-	var/t = input(U, "Please enter message", name, null) as text
+	var/t = input(U, "Please enter message", name, null) as text|null
+	if(!t)
+		return
 	t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 	t = readd_quotes(t)
 	if (!t || !istype(P))
@@ -894,10 +921,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					ai.show_message("<i>Intercepted message from <b>[who]</b>: [t]</i>")
 */
 
-		if (!P.silent)
-			playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-		for (var/mob/O in hearers(3, P.loc))
-			if(!P.silent) O.show_message(text("\icon[P] *[P.ttone]*"))
+		P.play_ringtone()
 		//Search for holder of the PDA.
 		var/mob/living/L = null
 		if(P.loc && isliving(P.loc))
@@ -920,9 +944,18 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		U << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
 
+/obj/item/device/pda/proc/play_ringtone()
+	if (!silent)
+		var/sound/S = sound('sound/machines/twobeep.ogg')
+
+		if(ttone in ttone_sound)
+			S = ttone_sound[ttone]
+		playsound(loc, S, 50, 1)
+	for (var/mob/O in hearers(3, loc))
+		if(!silent) O.show_message(text("\icon[src] *[ttone]*"))
 
 /obj/item/device/pda/verb/verb_remove_id()
-	set category = null
+	set category = "Object"
 	set name = "Remove id"
 	set src in usr
 
@@ -931,7 +964,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 	if ( can_use(usr) )
 		if(id)
-			JFLOG("[usr] removed ID:[id]")
 			remove_id()
 		else
 			usr << "<span class='notice'>This PDA does not have an ID in it.</span>"
@@ -940,7 +972,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 
 /obj/item/device/pda/verb/verb_remove_pen()
-	set category = null
+	set category = "Object"
 	set name = "Remove pen"
 	set src in usr
 
@@ -948,7 +980,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return
 
 	if ( can_use(usr) )
-		JFLOG("[usr] removed pen")
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
 			if (istype(loc, /mob))
@@ -988,7 +1019,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
 	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
-		JFLOG("[user] inserted Cartridge[cartridge]")
 		cartridge = C
 		user.drop_item()
 		cartridge.loc = src
@@ -1000,7 +1030,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else if(istype(C, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/idcard = C
 		if(!idcard.registered_name)
-			JFLOG("[user] tried to insert ID:[idcard] but it was rejected.")
 			user << "<span class='notice'>\The [src] rejects the ID.</span>"
 			return
 		if(!owner)
@@ -1009,14 +1038,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			user << "<span class='notice'>Card scanned.</span>"
-			JFLOG("[user] tried to insert ID:[idcard] and it was used to initialize this PDA.")
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					user << "<span class='notice'>You put the ID into \the [src]'s slot.</span>"
-					JFLOG("[user] inserted ID:[idcard].")
 					updateSelfDialog()//Update self dialog on success.
 			return	//Return in case of failed check or when successful.
 		updateSelfDialog()//For the non-input related code.
@@ -1025,7 +1052,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		C.loc = src
 		pai = C
 		user << "<span class='notice'>You slot \the [C] into [src].</span>"
-		JFLOG("[user] inserted PAI:[pai]")
 		nanomanager.update_uis(src) // update all UIs attached to src
 	else if(istype(C, /obj/item/weapon/pen))
 		var/obj/item/weapon/pen/O = locate() in src
@@ -1034,7 +1060,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		else
 			user.drop_item()
 			C.loc = src
-			JFLOG("[user] inserted PEN:[C]")
 			user << "<span class='notice'>You slide \the [C] into \the [src].</span>"
 	return
 
@@ -1042,7 +1067,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if (istype(C, /mob/living/carbon))
 		switch(scanmode)
 			if(1)
-				JFLOG("[user] used the medical scanner on [C]")
 				for (var/mob/O in viewers(C, null))
 					O.show_message("\red [user] has analyzed [C]'s vitals!", 1)
 
@@ -1051,8 +1075,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				user.show_message("\blue \t Damage Specifics: [C.getOxyLoss() > 50 ? "\red" : "\blue"][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "\red" : "\blue"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "\red" : "\blue"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "\red" : "\blue"][C.getBruteLoss()]", 1)
 				user.show_message("\blue \t Key: Suffocation/Toxin/Burns/Brute", 1)
 				user.show_message("\blue \t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)", 1)
-				if(C.tod && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-					user.show_message("\blue \t Time of Death: [C.tod]")
+				if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
+					user.show_message("\blue \t Time of Death: [C.timeofdeath]")
 				if(istype(C, /mob/living/carbon/human))
 					var/mob/living/carbon/human/H = C
 					var/list/damaged = H.get_damaged_organs(1,1)
@@ -1064,7 +1088,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						user.show_message("\blue \t Limbs are OK.",1)
 
 			if(2)
-				JFLOG("[user] used the fingerprint scanner on [C]")
 				if (!istype(C:dna, /datum/dna))
 					user << "\blue No fingerprints found on [C]"
 				else
@@ -1080,7 +1103,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							user << "\blue Blood type: [C:blood_DNA[blood]]\nDNA: [blood]"
 
 			if(4)
-				JFLOG("[user] used the radiation scanner on [C]")
 				for (var/mob/O in viewers(C, null))
 					O.show_message("\red [user] has analyzed [C]'s radiation levels!", 1)
 
@@ -1095,22 +1117,18 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	switch(scanmode)
 
 		if(3)
-			JFLOG("[user] used the reagent scanner on [A]")
-			if(!isobj(A))
-				return
 			if(!isnull(A.reagents))
 				if(A.reagents.reagent_list.len > 0)
 					var/reagents_length = A.reagents.reagent_list.len
-					user << "\blue [reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found."
+					user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
 					for (var/re in A.reagents.reagent_list)
-						user << "\blue \t [re]"
+						user << "<span class='notice'>\t [re]</span>"
 				else
-					user << "\blue No active chemical agents found in [A]."
+					user << "<span class='notice'>No active chemical agents found in [A].</span>"
 			else
-				user << "\blue No significant chemical agents found in [A]."
+				user << "<span class='notice'>No significant chemical agents found in [A].</span>"
 
 		if(5)
-			JFLOG("[user] used the air analysis scanner on [A]")
 			if (istype(A, /obj/item/weapon/tank))
 				var/obj/item/weapon/tank/T = A
 				atmosanalyzer_scan(T.air_contents, user, T)
@@ -1126,58 +1144,50 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			else if (istype(A, /obj/item/weapon/flamethrower))
 				var/obj/item/weapon/flamethrower/T = A
 				if(T.ptank) atmosanalyzer_scan(T.ptank.air_contents, user, T)
+			else if (istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
+				var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
+				atmosanalyzer_scan(T.air_contents, user, T)
+			else if (istype(A, /obj/machinery/atmospherics/unary/tank))
+				var/obj/machinery/atmospherics/unary/tank/T = A
+				atmosanalyzer_scan(T.air_contents, user, T)
 
 	if (!scanmode && istype(A, /obj/item/weapon/paper) && owner)
-		JFLOG("[user] used the document scanner on [A]")
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
 		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
 		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)
 		var/raw_scan = (A:info)
 		var/formatted_scan = ""
 		// Scrub out the tags (replacing a few formatting ones along the way)
-
 		// Find the beginning and end of the first tag.
 		var/tag_start = findtext(raw_scan,"<")
 		var/tag_stop = findtext(raw_scan,">")
-
 		// Until we run out of complete tags...
 		while(tag_start&&tag_stop)
 			var/pre = copytext(raw_scan,1,tag_start) // Get the stuff that comes before the tag
 			var/tag = lowertext(copytext(raw_scan,tag_start+1,tag_stop)) // Get the tag so we can do intellegent replacement
 			var/tagend = findtext(tag," ") // Find the first space in the tag if there is one.
-
 			// Anything that's before the tag can just be added as is.
 			formatted_scan = formatted_scan+pre
-
 			// If we have a space after the tag (and presumably attributes) just crop that off.
 			if (tagend)
 				tag=copytext(tag,1,tagend)
-
 			if (tag=="p"||tag=="/p"||tag=="br") // Check if it's I vertical space tag.
 				formatted_scan=formatted_scan+"<br>" // If so, add some padding in.
-
 			raw_scan = copytext(raw_scan,tag_stop+1) // continue on with the stuff after the tag
-
 			// Look for the next tag in what's left
 			tag_start = findtext(raw_scan,"<")
 			tag_stop = findtext(raw_scan,">")
-
 		// Anything that is left in the page. just tack it on to the end as is
 		formatted_scan=formatted_scan+raw_scan
-
     	// If there is something in there already, pad it out.
 		if (length(note)>0)
 			note = note + "<br><br>"
-
     	// Store the scanned document to the notes
 		note = "Scanned Document. Edit to restore previous notes/delete scan.<br>----------<br>" + formatted_scan + "<br>"
 		// notehtml ISN'T set to allow user to get their old notes back. A better implementation would add a "scanned documents"
 		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
-
 		// Inform the user
 		user << "\blue Paper scanned and OCRed to notekeeper." //concept of scanning paper copyright brainoblivion 2009
-
-
 
 /obj/item/device/pda/proc/explode() //This needs tuning.
 	if(!src.detonate) return
@@ -1191,12 +1201,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		T.hotspot_expose(700,125)
 
 		explosion(T, -1, -1, 2, 3)
-	JFLOG("Exploded")
 	qdel(src)
 	return
 
 /obj/item/device/pda/Destroy()
-	JFLOG("Destroyed")
 	PDAs -= src
 	if (src.id)
 		src.id.loc = get_turf(src.loc)
@@ -1216,7 +1224,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 		M.stop_pulling()
 		M << "\blue You slipped on the PDA!"
-		JFLOG("Clown PDA Slipped [M]")
 		playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 		M.Stun(8)
 		M.Weaken(5)
@@ -1277,28 +1284,3 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/emp_act(severity)
 	for(var/atom/A in src)
 		A.emp_act(severity)
-
-/**
-*
-*	JFLOG
-*
-*	These functions as well as all the log statements are being used to gather user data for how
-*	people are using the PDA files with the intent of revising them based on this data.
-*
-*	They are being added on 28/03/2015 and the intent is to remove them in two weeks. If you're
-*	reading this and it's substantially past that point, you should remove anything marked with
-*	'JFLOG'.
-*
-*	All changes should be contained to PDA.dm except the creation function which is contained in
-*	job_controller.dm.
-*
-*																				- Jack Fractal
-**/
-
-
-/obj/item/device/pda/proc/JFLOG_DescribeSelf()
-	return "([src]|[cartridge ? cartridge.name : "None"])"
-
-/obj/item/device/pda/proc/JFLOG(message as text)
-	if (config)
-		log_pda("[JFLOG_DescribeSelf()] >>> [message]")

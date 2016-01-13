@@ -5,6 +5,7 @@
 	icon_state = "fox"
 	icon_living = "fox"
 	icon_dead = "fox_dead"
+	icon_resting = "fox_rest"
 	speak = list("Ack-Ack","Ack-Ack-Ack-Ackawoooo","Geckers","Awoo","Tchoff")
 	speak_emote = list("geckers", "barks")
 	emote_hear = list("howls","barks")
@@ -30,5 +31,6 @@
 	icon_state = "Syndifox"
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
-	flags = IS_SYNTHETIC|NO_BREATHE
+	icon_resting = "Syndifox_rest"
+	flags = NO_BREATHE
 	faction = list("syndicate")

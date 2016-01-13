@@ -14,7 +14,7 @@
  */
 
 /obj/item/weapon/storage/fancy/
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
 	var/icon_type = "donut"
@@ -24,17 +24,16 @@
 	src.icon_state = "[src.icon_type]box[total_contents]"
 	return
 
-/obj/item/weapon/storage/fancy/examine()
-	set src in oview(1)
+/obj/item/weapon/storage/fancy/examine(mob/user)
+	if(!..(user, 1))
+		return
 
 	if(contents.len <= 0)
-		usr << "There are no [src.icon_type]s left in the box."
+		user << "There are no [src.icon_type]s left in the box."
 	else if(contents.len == 1)
-		usr << "There is one [src.icon_type] left in the box."
+		user << "There is one [src.icon_type] left in the box."
 	else
-		usr << "There are [src.contents.len] [src.icon_type]s in the box."
-
-	return
+		user << "There are [src.contents.len] [src.icon_type]s in the box."
 
 
 
@@ -43,7 +42,7 @@
  */
 
 /obj/item/weapon/storage/fancy/donut_box
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	icon_type = "donut"
 	name = "donut box"
@@ -62,7 +61,7 @@
  */
 
 /obj/item/weapon/storage/fancy/egg_box
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "eggbox"
 	icon_type = "egg"
 	name = "egg box"
@@ -169,13 +168,14 @@
 	icon_type = "cigarette"
 	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
 	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
+	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
 	..()
 	flags |= NOREACT
 	create_reagents(30 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
 	for(var/i = 1 to storage_slots)
-		var/obj/item/clothing/mask/cigarette/C = new /obj/item/clothing/mask/cigarette(src)
+		var/obj/item/clothing/mask/cigarette/C = new cigarette_type(src)
 		unlaced_cigarettes += C
 		for(var/R in default_reagents)
 			reagents.add_reagent(R, default_reagents[R])
@@ -282,6 +282,13 @@
 		"atrazine" = 1,
 		"toxin" = 1.5)
 
+/obj/item/weapon/storage/fancy/cigarettes/cigpack_random
+	name ="\improper Embellished Enigma packet"
+	desc = "For the true connoisseur of exotic flavors."
+	icon_state = "shadyjimpacket"
+	item_state = "cigpacket"
+	cigarette_type  = /obj/item/clothing/mask/cigarette/random
+
 /*
  * Vial Box
  */
@@ -333,3 +340,23 @@
 	..()
 	update_icon()
 
+
+
+///Aquatic Starter Kit
+
+/obj/item/weapon/storage/firstaid/aquatic_kit
+	name = "aquatic starter kit"
+	desc = "It's a starter kit box for an aquarium."
+	icon_state = "AquaticKit"
+	throw_speed = 2
+	throw_range = 8
+
+/obj/item/weapon/storage/firstaid/aquatic_kit/full
+	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."
+
+/obj/item/weapon/storage/firstaid/aquatic_kit/full/New()
+	..()
+	new /obj/item/weapon/egg_scoop(src)
+	new /obj/item/weapon/fish_net(src)
+	new /obj/item/weapon/tank_brush(src)
+	new /obj/item/weapon/fishfood(src)

@@ -33,7 +33,7 @@
 	var/photo_size = 3
 
 /obj/item/weapon/photo/attack_self(mob/user as mob)
-	src.examine(user)
+	user.examinate(src)
 
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob, params)
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
@@ -70,10 +70,10 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/photo/examine(mob/user)
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		show(usr)
+	if(..(user, 1) || isobserver(user))
+		show(user)
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
+		user << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
 	usr << browse_rsc(img, "tmp_photo.png")
@@ -150,6 +150,24 @@
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 	var/size = 3
+	var/see_ghosts = 0 //for the spoop of it
+
+
+/obj/item/device/camera/spooky/CheckParts()
+	var/obj/item/device/camera/C = locate(/obj/item/device/camera) in contents
+	if(C)
+		pictures_max = C.pictures_max
+		pictures_left = C.pictures_left
+		visible_message("[C] has been imbued with godlike power!")
+		qdel(C)
+
+
+var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
+
+/obj/item/device/camera/spooky
+	name = "camera obscura"
+	desc = "A polaroid camera, some say it can see ghosts!"
+	see_ghosts = 1
 
 /obj/item/device/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -184,7 +202,7 @@
 	..()
 
 
-/obj/item/device/camera/proc/get_icon(list/turfs, turf/center)
+/obj/item/device/camera/proc/get_icon(list/turfs, turf/center,mob/user)
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
 	//i.e. pretty much all wall-mounted machinery
@@ -199,8 +217,20 @@
 		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
-			if(A.invisibility) continue
-			atoms.Add(A)
+			if(A.invisibility )
+				if(see_ghosts && istype(A,/mob/dead/observer))
+					var/mob/dead/observer/O = A
+					if(O.following)
+						continue
+					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(SpookyGhosts), 4, SOUTH))
+					else
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
+				else//its not a ghost
+					continue
+			else//not invisable, not a spookyghost add it.
+				atoms.Add(A)
+
 
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms_by_layer(atoms)
@@ -235,21 +265,35 @@
 
 /obj/item/device/camera/proc/get_mobs(turf/the_turf as turf)
 	var/mob_detail
-	for(var/mob/living/carbon/A in the_turf)
-		if(A.invisibility) continue
-		var/holding = null
-		if(A.l_hand || A.r_hand)
-			if(A.l_hand) holding = "They are holding \a [A.l_hand]"
-			if(A.r_hand)
-				if(holding)
-					holding += " and \a [A.r_hand]"
+	for(var/mob/M in the_turf)
+		if(M.invisibility)
+			if(see_ghosts && istype(M,/mob/dead/observer))
+				var/mob/dead/observer/O = M
+				if(O.following)
+					continue
+				if(!mob_detail)
+					mob_detail = "You can see a g-g-g-g-ghooooost! "
 				else
-					holding = "They are holding \a [A.r_hand]"
+					mob_detail += "You can also see a g-g-g-g-ghooooost!"
+			else
+				continue
 
-		if(!mob_detail)
-			mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
-		else
-			mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
+		var/holding = null
+
+		if(istype(M, /mob/living/carbon))
+			var/mob/living/carbon/A = M
+			if(A.l_hand || A.r_hand)
+				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
+				if(A.r_hand)
+					if(holding)
+						holding += " and \a [A.r_hand]"
+					else
+						holding = "They are holding \a [A.r_hand]"
+
+			if(!mob_detail)
+				mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
+			else
+				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/device/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
@@ -263,6 +307,9 @@
 	user << "<span class='notice'>[pictures_left] photos left.</span>"
 	icon_state = icon_off
 	on = 0
+	if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+		if(prob(24))
+			handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
 		on = 1
@@ -298,7 +345,7 @@
 	printpicture(user, P)
 
 /obj/item/device/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
-	var/icon/photoimage = get_icon(turfs, target)
+	var/icon/photoimage = get_icon(turfs, target,user)
 
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
@@ -444,13 +491,12 @@
 	item_state = "videocam"
 	w_class = 2.0
 	slot_flags = SLOT_BELT
-	m_amt = 2000
+	materials = list(MAT_METAL=2000)
 	var/on = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
-	var/watcherslist = list()
 
 /obj/item/device/videocam/attack_self(mob/user)
 	on = !on
@@ -472,15 +518,31 @@
 		camera.c_tag = user.name
 	user << "You switch the camera [on ? "on" : "off"]."
 
-/obj/item/device/videocam/examine()
-	..()
-	if(get_dist(usr,src) <= 1)
-		usr << "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
-
+/obj/item/device/videocam/examine(mob/user)
+	if(..(user, 1))
+		user << "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
 
 /obj/item/device/videocam/hear_talk(mob/M as mob, msg)
 	if (camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/mob/living/carbon/human/H in watcherslist)
-			H.show_message(text("\blue (Newscaster) [] says, '[]'",M,msg), 1)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
+			if(T.current == camera)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
+
+/obj/item/device/videocam/hear_message(mob/M as mob, msg)
+	if (camera && on)
+		for(var/obj/machinery/computer/security/telescreen/T in machines)
+			if(T.current == camera)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
+
+
+///hauntings, like hallucinations but more spooky
+
+/obj/item/device/camera/proc/handle_haunt(mob/user as mob)
+			var/list/creepyasssounds = list('sound/effects/ghost.ogg', 'sound/effects/ghost2.ogg', 'sound/effects/Heart Beat.ogg', 'sound/effects/screech.ogg',\
+						'sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/behind_you2.ogg', 'sound/hallucinations/far_noise.ogg', 'sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg',\
+						'sound/hallucinations/growl3.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg', 'sound/hallucinations/i_see_you1.ogg', 'sound/hallucinations/i_see_you2.ogg',\
+						'sound/hallucinations/look_up1.ogg', 'sound/hallucinations/look_up2.ogg', 'sound/hallucinations/over_here1.ogg', 'sound/hallucinations/over_here2.ogg', 'sound/hallucinations/over_here3.ogg',\
+						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+			user << pick(creepyasssounds)

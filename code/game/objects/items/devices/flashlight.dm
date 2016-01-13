@@ -7,8 +7,7 @@
 	w_class = 2
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	m_amt = 50
-	g_amt = 20
+	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	action_button_name = "Flashlight"
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
@@ -96,7 +95,6 @@
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
 	item_state = "seclite"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -119,8 +117,7 @@
 	brightness_on = 5
 	w_class = 4
 	flags = CONDUCT
-	m_amt = 0
-	g_amt = 0
+	materials = list()
 	on = 1
 
 
@@ -187,6 +184,13 @@ obj/item/device/flashlight/lamp/bananalamp
 	else
 		update_brightness(null)
 
+/obj/item/device/flashlight/flare/update_brightness(var/mob/user = null)
+	..()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 /obj/item/device/flashlight/flare/attack_self(mob/user)
 
 	// Usual checks
@@ -204,6 +208,15 @@ obj/item/device/flashlight/lamp/bananalamp
 		src.damtype = "fire"
 		processing_objects += src
 
+/obj/item/device/flashlight/flare/torch
+	name = "torch"
+	desc = "A torch fashioned from some leaves and a log."
+	w_class = 4
+	brightness_on = 7
+	icon_state = "torch"
+	item_state = "torch"
+	on_damage = 10
+
 /obj/item/device/flashlight/slime
 	gender = PLURAL
 	name = "glowing slime extract"
@@ -214,6 +227,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	w_class = 1
 	brightness_on = 6
 	light_color = "#FFBF00"
+	materials = list()
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/New()

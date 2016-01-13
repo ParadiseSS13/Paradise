@@ -114,11 +114,11 @@
 	var/losebreath = 0.0//Carbon
 	var/intent = null//Living
 	var/shakecamera = 0
-	var/a_intent = "help"//Living
+	var/a_intent = I_HELP//Living
 	var/m_int = null//Living
 	var/m_intent = "run"//Living
 	var/lastKnownIP = null
-	var/obj/structure/stool/bed/buckled = null//Living
+	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
 	var/obj/item/weapon/back = null//Human/Monkey
@@ -131,6 +131,11 @@
 
 	var/datum/hud/hud_used = null
 
+	hud_possible = list(SPECIALROLE_HUD)
+
+	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
+	var/datum/action/scan_mode/scanner = new
+
 	var/list/grabbed_by = list(  )
 	var/list/requests = list(  )
 
@@ -141,8 +146,6 @@
 	var/coughedtime = null
 
 	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
-
-	var/inertia_dir = 0
 
 	var/music_lastplayed = "null"
 
@@ -184,7 +187,7 @@
 	var/mob/living/carbon/LAssailant = null
 
 //Wizard mode, but can be used in other modes thanks to the brand new "Give Spell" badmin button
-	var/obj/effect/proc_holder/spell/wizard/list/spell_list = list()
+	var/obj/effect/proc_holder/spell/list/spell_list = list()
 
 //Changlings, but can be used in other modes
 //	var/obj/effect/proc_holder/changpower/list/power_list = list()
@@ -203,6 +206,7 @@
 	var/area/lastarea = null
 
 	var/digitalcamo = 0 // Can they be tracked by the AI?
+	var/weakeyes //Are they vulnerable to flashes?
 
 	var/list/radar_blips = list() // list of screen objects, radar blips
 	var/radar_open = 0 	// nonzero is radar is open
@@ -235,3 +239,5 @@
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
 	var/resize = 1 //Badminnery resize
+
+	var/datum/vision_override/vision_type = null //Vision override datum.

@@ -2,7 +2,7 @@
 	name = "train"
 	dir = 4
 
-	move_delay = 1
+	move_delay = 2
 
 	health = 100
 	maxhealth = 100
@@ -36,6 +36,15 @@
 			unattach()
 		return 0
 
+/obj/vehicle/train/can_move()
+	if(!is_train_head())
+		return 1 //towed objects do not need power to Move()
+
+	if(!..())
+		return 0
+	return 1
+
+
 /obj/vehicle/train/Bump(atom/Obstacle)
 	if(!istype(Obstacle, /atom/movable))
 		return
@@ -55,7 +64,7 @@
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
 				D << "\red You hit [M]!"
-				msg_admin_attack("[D.name] ([D.ckey])[isAntag(D) ? "(ANTAG)" : ""] hit [M.name] ([M.ckey]) with [src]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(D)] hit [key_name_admin(M)] with [src].")
 
 
 //-------------------------------------------

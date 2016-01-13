@@ -452,7 +452,7 @@
 						result += temp
 					scanner.occupant.dna.uni_identity = setblock(ui, ui_block, result,3)
 					updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-					scanner.occupant.radiation += (radstrength+radduration)
+					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 				if("ui-f")
 					if	(prob(20+radstrength))
 						randmutb(scanner.occupant)
@@ -460,7 +460,7 @@
 					else
 						randmuti(scanner.occupant)
 						updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-					scanner.occupant.radiation += ((radstrength*2)+radduration)
+					scanner.occupant.apply_effect((radstrength*2)+radduration, IRRADIATE)
 
 				if("se")
 					var/se = scanner.occupant.dna.struc_enzymes
@@ -482,7 +482,7 @@
 
 					scanner.occupant.dna.struc_enzymes = setblock(se, se_block, result,3)
 					domutcheck(scanner.occupant,scanner)
-					scanner.occupant.radiation += (radstrength+radduration)
+					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 				if("se-f")
 					if	(prob(80-radduration))
 						randmutb(scanner.occupant)
@@ -490,7 +490,7 @@
 					else
 						randmuti(scanner.occupant)
 						updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-					scanner.occupant.radiation += ((radstrength*2)+radduration)
+					scanner.occupant.apply_effect((radstrength*2)+radduration, IRRADIATE)
 
 				if(null)
 					if (prob(95))
@@ -503,7 +503,7 @@
 							randmutg(scanner.occupant)
 						else
 							randmuti(scanner.occupant)
-					scanner.occupant.radiation += ((radstrength*3)+radduration*3)
+					scanner.occupant.apply_effect((radstrength*3)+radduration*3, IRRADIATE)
 
 
 			scanner.locked = lock_state
@@ -587,7 +587,7 @@
 					randmutg(scanner.occupant)
 				else
 					randmuti(scanner.occupant)
-			scanner.occupant.radiation += ((radstrength*3)+radduration*3)
+			scanner.occupant.apply_effect((radstrength*3)+radduration*3, IRRADIATE)
 			scanner.locked = lock_state
 			temp_html = null
 			dopage(src,"screen=radsetmenu")
@@ -716,7 +716,7 @@
 				tstructure2 = setblock(scanner.occupant.dna.uni_identity, ui_block, newblock,3)
 				scanner.occupant.dna.uni_identity = tstructure2
 				updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-				scanner.occupant.radiation += (radstrength+radduration)
+				scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 			else
 				if	(prob(20+radstrength))
 					randmutb(scanner.occupant)
@@ -724,7 +724,7 @@
 				else
 					randmuti(scanner.occupant)
 					updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-				scanner.occupant.radiation += ((radstrength*2)+radduration)
+				scanner.occupant.apply_effect((radstrength*2)+radduration, IRRADIATE)
 			scanner.locked = lock_state
 		dopage(src,"screen=unimenu")
 
@@ -810,7 +810,7 @@
 					tstructure2 = setblock(scanner.occupant.dna.struc_enzymes, se_block, newblock,3)
 					scanner.occupant.dna.struc_enzymes = tstructure2
 					domutcheck(scanner.occupant,scanner)
-					scanner.occupant.radiation += (radstrength+radduration)
+					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 					se_block = oldblock
 				else
 				//
@@ -822,7 +822,7 @@
 					tstructure2 = setblock(scanner.occupant.dna.struc_enzymes, se_block, newblock,3)
 					scanner.occupant.dna.struc_enzymes = tstructure2
 					domutcheck(scanner.occupant,scanner)
-					scanner.occupant.radiation += (radstrength+radduration)
+					scanner.occupant.apply_effect(radstrength+radduration, IRRADIATE)
 			else
 				if	(prob(80-radduration))
 					randmutb(scanner.occupant)
@@ -830,7 +830,7 @@
 				else
 					randmuti(scanner.occupant)
 					updateappearance(scanner.occupant,scanner.occupant.dna.uni_identity)
-				scanner.occupant.radiation += ((radstrength*2)+radduration)
+				scanner.occupant.apply_effect((radstrength*2)+radduration, IRRADIATE)
 		scanner.locked = lock_state
 		///
 		dopage(src,"screen=strucmenu")
@@ -975,7 +975,7 @@
 			scanner.occupant.dna.struc_enzymes = buffer1
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
-		scanner.occupant.radiation += rand(20,50)
+		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
 	if (href_list["b2transfer"])
 		if (!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
@@ -990,7 +990,7 @@
 			scanner.occupant.dna.struc_enzymes = buffer2
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
-		scanner.occupant.radiation += rand(20,50)
+		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
 	if (href_list["b3transfer"])
 		if (!scanner.occupant || (NOCLONE in scanner.occupant.mutations) || !scanner.occupant.dna)
@@ -1005,7 +1005,7 @@
 			scanner.occupant.dna.struc_enzymes = buffer3
 			domutcheck(scanner.occupant,scanner)
 		temp_html = "Transfered."
-		scanner.occupant.radiation += rand(20,50)
+		scanner.occupant.apply_effect(rand(20,50), IRRADIATE)
 
 	if (href_list["b1injector"])
 		if (injectorready)

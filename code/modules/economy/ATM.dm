@@ -13,17 +13,15 @@ log transactions
 #define VIEW_TRANSACTION_LOGS 3
 #define PRINT_DELAY 100
 
-/obj/item/weapon/card/id/var/money = 2000
-
 /obj/machinery/atm
-	name = "Nanotrasen Automatic Teller Machine"
+	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 10
-	var/obj/machinery/account_database/linked_db
+	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/authenticated_account
 	var/number_incorrect_tries = 0
 	var/previous_account_number = 0
@@ -80,7 +78,7 @@ log transactions
 				authenticated_account.charge(-amount,null,"Credit deposit",terminal_id=machine_id,dest_name = "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
+	for(var/obj/machinery/computer/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
 		if( DB.z == src.z && !(DB.stat & NOPOWER) && DB.activated )
 			linked_db = DB
 			break
@@ -97,7 +95,8 @@ log transactions
 	else if(authenticated_account)
 		if(istype(I,/obj/item/weapon/spacecash))
 			//consume the money
-			authenticated_account.money += I:worth * I:amount
+			var/obj/item/weapon/spacecash/C = I
+			authenticated_account.money += C.get_total()
 			if(prob(50))
 				playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 			else
@@ -107,13 +106,13 @@ log transactions
 			var/datum/transaction/T = new()
 			T.target_name = authenticated_account.owner_name
 			T.purpose = "Credit deposit"
-			T.amount = I:worth
+			T.amount = C.get_total()
 			T.source_terminal = machine_id
 			T.date = current_date_string
 			T.time = worldtime2text()
 			authenticated_account.transaction_log.Add(T)
 
-			user << "<span class='info'>You insert [I] into [src].</span>"
+			user << "<span class='info'>You insert [C] into [src].</span>"
 			src.attack_hand(user)
 			qdel(I)
 	else

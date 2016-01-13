@@ -11,7 +11,6 @@
 	layer = TURF_LAYER
 	var/obj/machinery/power/master = null
 	anchored = 1
-	directwired = 0		// must have a cable on same turf connecting to terminal
 	layer = 2.6 // a bit above wires
 
 
@@ -20,6 +19,11 @@
 	var/turf/T = src.loc
 	if(level==1) hide(T.intact)
 	return
+	
+/obj/machinery/power/terminal/Destroy()
+	if(master)
+		master.disconnect_terminal()
+	return ..()
 
 
 /obj/machinery/power/terminal/hide(var/i)

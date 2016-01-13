@@ -179,55 +179,18 @@
 		src << sound(null, repeat = 0, wait = 0, volume = 0, channel = 2)
 	feedback_add_details("admin_verb","Thb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-//be special
-/client/verb/toggle_be_special(role in be_special_flags)
-	set name = "Toggle Special Role Candidacy"
+// This needs a toggle because you people are awful and spammed terrible music
+/client/verb/toggle_instruments()
+	set name = "Hear/Silence Instruments"
 	set category = "Preferences"
-	set desc = "Toggles which special roles you would like to be a candidate for, during events."
-	var/role_flag = be_special_flags[role]
-	if(!role_flag)	return
-	if(!player_old_enough_antag(src,be_special_flags[role]))
-		var/available_in_days_antag = available_in_days_antag(src,be_special_flags[role])
-		src << "<span class='warning'>This role is not yet available to you. You need to wait another [available_in_days_antag] days.</span>"
-		return
-	prefs.be_special ^= role_flag
+	set desc = "Toggles hearing musical instruments like the violin and piano"
+	prefs.toggles ^= SOUND_INSTRUMENTS
 	prefs.save_preferences(src)
-	src << "You will [(prefs.be_special & role_flag) ? "now" : "no longer"] be considered for [role] events (where possible)."
-	feedback_add_details("admin_verb","TBeSpecial") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/change_ui()
-	set name = "Change UI"
-	set category = "Preferences"
-	set desc = "Configure your user interface"
-
-	if(!ishuman(usr))
-		usr << "This only for human"
-		return
-
-	var/UI_style_new = input(usr, "Select a style, we recommend White for customization") in list("White", "Midnight", "Orange", "old")
-	if(!UI_style_new) return
-
-	var/UI_style_alpha_new = input(usr, "Select a new alpha (transparency) parameter for UI, between 50 and 255") as num
-	if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
-
-	var/UI_style_color_new = input(usr, "Choose your UI color. Dark colors are not recommended!") as color|null
-	if(!UI_style_color_new) return
-
-	//update UI
-	var/list/icons = usr.hud_used.adding + usr.hud_used.other +usr.hud_used.hotkeybuttons
-	icons.Add(usr.zone_sel)
-
-	for(var/obj/screen/I in icons)
-		I.icon = ui_style2icon(UI_style_new)
-		I.color = UI_style_color_new
-		I.alpha = UI_style_alpha_new
-
-	if(alert("Like it? Save changes?",,"Yes", "No") == "Yes")
-		prefs.UI_style = UI_style_new
-		prefs.UI_style_alpha = UI_style_alpha_new
-		prefs.UI_style_color = UI_style_color_new
-		prefs.save_preferences(src)
-		usr << "UI was saved"
+	if(prefs.toggles & SOUND_INSTRUMENTS)
+		src << "You will now hear people playing musical instruments."
+	else
+		src << "You will no longer hear musical instruments."
+	feedback_add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_media()
 	set name = "Hear/Silence Streaming"
@@ -237,7 +200,15 @@
 	prefs.sound ^= SOUND_STREAMING
 	prefs.save_preferences(src)
 	usr << "You will [(prefs.sound & SOUND_STREAMING) ? "now" : "no longer"] hear streamed media."
-	// Restart.
-	if(media)
-		media.stop_music()
+	if(!media) return
+	if(prefs.toggles & SOUND_STREAMING)
 		media.update_music()
+	else
+		media.stop_music()
+
+/client/verb/setup_character()
+	set name = "Game Preferences"
+	set category = "Preferences"
+	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
+	prefs.current_tab = 1
+	prefs.ShowChoices(usr)

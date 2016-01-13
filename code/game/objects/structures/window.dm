@@ -53,7 +53,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 // This should result in the same materials used to make the window.
 /obj/structure/window/proc/destroy()
 	for(var/i=0;i<sheets;i++)
-		PoolOrNew(shardtype, loc)
+		new shardtype(loc)
 
 		if(reinf)
 			new /obj/item/stack/rods(loc)
@@ -119,7 +119,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
 		destroy()
-	else if (usr.a_intent == "harm")
+	else if (usr.a_intent == I_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("\red [usr.name] bangs against the [src.name]!", \
@@ -153,7 +153,8 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/attack_animal(mob/living/user as mob)
 	if(!isanimal(user)) return
 	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0) return
+	if(M.melee_damage_upper <= 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
+		return
 	attack_generic(M, M.melee_damage_upper)
 
 
@@ -219,7 +220,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else if(istype(W, /obj/item/weapon/wrench) && !anchored && health > 7) //Disassemble deconstructed window into parts
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		for(var/i=0;i<sheets;i++)
-			var/obj/item/stack/sheet/glass/NG = PoolOrNew(glasstype, src.loc)
+			var/obj/item/stack/sheet/glass/NG = new glasstype(src.loc)
 			for (var/obj/item/stack/sheet/glass/G in src.loc) //Stack em up
 				if(G==NG)
 					continue
@@ -272,33 +273,40 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+
 	if(anchored)
-		usr << "It is fastened to the floor therefore you can't rotate it!"
+		usr << "<span class='warning'>It is fastened to the floor therefore you can't rotate it!</span>"
 		return 0
 
 	dir = turn(dir, 90)
 //	updateSilicate()
 	air_update_turf(1)
 	ini_dir = dir
+	add_fingerprint(usr)
 	return
-
 
 /obj/structure/window/verb/revrotate()
 	set name = "Rotate Window Clockwise"
-	set category = null
+	set category = "Object"
 	set src in oview(1)
 
+	if(usr.stat || !usr.canmove || usr.restrained())
+		return
+
 	if(anchored)
-		usr << "It is fastened to the floor therefore you can't rotate it!"
+		usr << "<span class='warning'>It is fastened to the floor therefore you can't rotate it!</span>"
 		return 0
 
 	dir = turn(dir, 270)
 //	updateSilicate()
 	air_update_turf(1)
 	ini_dir = dir
+	add_fingerprint(usr)
 	return
 
 

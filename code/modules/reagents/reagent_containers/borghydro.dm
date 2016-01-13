@@ -12,6 +12,7 @@
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
+	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal")
@@ -22,6 +23,15 @@
 
 /obj/item/weapon/reagent_containers/borghypo/crisis
 	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
+	
+/obj/item/weapon/reagent_containers/borghypo/syndicate
+	name = "syndicate cyborg hypospray"
+	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
+	icon_state = "borghypo_s"
+	charge_cost = 20
+	recharge_time = 2
+	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
+	bypass_protection = 1
 
 /obj/item/weapon/reagent_containers/borghypo/New()
 	..()
@@ -29,7 +39,6 @@
 		add_reagent(R)
 
 	processing_objects.Add(src)
-
 
 /obj/item/weapon/reagent_containers/borghypo/Destroy()
 	processing_objects.Remove(src)
@@ -50,13 +59,6 @@
 	//update_icon()
 	return 1
 
-// Purely for testing purposes I swear~
-/*
-/obj/item/weapon/reagent_containers/borghypo/verb/add_cyanide()
-	set src in world
-	add_reagent("cyanide")
-*/
-
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/weapon/reagent_containers/borghypo/proc/add_reagent(var/reagent)
 	reagent_ids |= reagent
@@ -70,18 +72,26 @@
 /obj/item/weapon/reagent_containers/borghypo/attack(mob/living/M as mob, mob/user as mob)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
-		user << "\red The injector is empty."
+		user << "<span class='warning'>The injector is empty.</span>"
 		return
-	if (!(istype(M)))
+	if (!istype(M))
 		return
-	if (R.total_volume && M.can_inject(user,1))
-		user << "\blue You inject [M] with the injector."
-		M << "\red You feel a tiny prick!"
+	if (R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+		user << "<span class='notice'>You inject [M] with the injector.</span>"
+		M << "<span class='notice'>You feel a tiny prick!</span>"
 
 		R.add_reagent(M)
 		if(M.reagents)
+			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
+			var/contained = injected.name
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [key_name(user)]. Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [key_name(M)]. Reagents: [contained]</font>")
+			if(M.ckey)
+				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+			M.LAssailant = user
+
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
-			user << "\blue [trans] units injected.  [R.total_volume] units remaining."
+			user << "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>"
 	return
 
 /obj/item/weapon/reagent_containers/borghypo/attack_self(mob/user as mob)
@@ -92,21 +102,20 @@
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
-	user << "\blue Synthesizer is now producing '[R.name]'."
+	user << "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>"
 	return
 
-/obj/item/weapon/reagent_containers/borghypo/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2)) && usr!=src.loc) return
+/obj/item/weapon/reagent_containers/borghypo/examine(mob/user)
+	if(!..(user, 2))
+		return
 
 	var/empty = 1
 
 	for(var/datum/reagents/RS in reagent_list)
 		var/datum/reagent/R = locate() in RS.reagent_list
 		if(R)
-			usr << "\blue It currently has [R.volume] units of [R.name] stored."
+			user << "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
 			empty = 0
 
 	if(empty)
-		usr << "\blue It is currently empty. Allow some time for the internal syntheszier to produce more."
+		user << "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

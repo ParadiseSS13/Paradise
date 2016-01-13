@@ -13,15 +13,14 @@
 
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Tau Ceti Daily"
+	newMsg.author = "Nyx Daily"
 	newMsg.is_admin_message = 1
 
 	//see if our location has custom event info for this event
 	newMsg.body = affected_dest.get_custom_eventstring()
 	if(!newMsg.body)
-		newMsg.body = "[affected_dest.name] doesn't have custom events.  Bug a coder."
-		// Too many goddamn strings, Bay. - N3X
-		/*
+		newMsg.body = ""
+
 		switch(event_type)
 			if(RESEARCH_BREAKTHROUGH)
 				newMsg.body = "A major breakthough in the field of [pick("plasma research","super-compressed materials","nano-augmentation","bluespace research","volatile power manipulation")] \
@@ -96,7 +95,7 @@
 				if(prob(33))
 					newMsg.body += "were surprised when an unusual species experts have since identified as \
 					[pick("a subclass of mammal","a divergent abhuman species","an intelligent species of lemur","organic/cyborg hybrids")] turned up. Believed to have been brought in by \
-					[pick("alien smugglers","early colonists","syndicate raiders","unwitting tourists")], this is the first such specimen discovered in the wild."
+					[pick("alien smugglers","early colonists","Syndicate raiders","unwitting tourists")], this is the first such specimen discovered in the wild."
 				else if(prob(50))
 					newMsg.body += "were attacked by a vicious [pick("nas'r","diyaab","samak","predator which has not yet been identified")]\
 					. Officials urge caution, and locals are advised to stock up on armaments."
@@ -118,24 +117,21 @@
 					newMsg.body += "announced their [pick("split","break up","marriage","engagement")] with [pick("TV host","webcast personality","superstar","model","actor","singer")] \
 					[random_name(pick(MALE,FEMALE))] at [pick("a society ball","a new opening","a launch","a club")] on [affected_dest.name] yesterday, pundits are shocked."
 				else
-
-					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Economy_Events_Mundane.dm:119: newMsg.body += "is recovering from plastic surgery in a clinic on [affected_dest.name] for the [pick("second","third","fourth")] time, reportedly having made the decision in response to "
-					newMsg.body += {"is recovering from plastic surgery in a clinic on [affected_dest.name] for the [pick("second","third","fourth")] time, reportedly having made the decision in response to
-						[pick("unkind comments by an ex","rumours started by jealous friends","the decision to be dropped by a major sponsor","a disasterous interview on Tau Ceti Tonight")]."}
-					// END AUTOFIX
+					newMsg.body += "is recovering from plastic surgery in a clinic on [affected_dest.name] for the [pick("second","third","fourth")] time, reportedly having made the decision in response to "
+					newMsg.body += "[pick("unkind comments by an ex","rumours started by jealous friends",\
+					"the decision to be dropped by a major sponsor","a disasterous interview on Nyx Tonight")]."
 			if(TOURISM)
 				newMsg.body += "Tourists are flocking to [affected_dest.name] after the surprise announcement of [pick("major shopping bargains by a wily retailer",\
 				"a huge new ARG by a popular entertainment company","a secret tour by popular artiste [random_name(pick(MALE,FEMALE))]")]. \
-				Tau Ceti Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."
-	*/
+				Nyx Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."
+
 
 	for(var/datum/feed_channel/FC in news_network.network_channels)
-		if(FC.channel_name == "Tau Ceti Daily")
+		if(FC.channel_name == "Nyx Daily")
 			FC.messages += newMsg
 			break
 	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)
-		NEWSCASTER.newsAlert("Tau Ceti Daily")
+		NEWSCASTER.newsAlert("Nyx Daily")
 
 /datum/event/trivial_news
 	endWhen = 10

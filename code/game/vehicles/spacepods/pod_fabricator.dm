@@ -8,20 +8,19 @@
 	use_power = 1
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(access_robotics)
 	var/time_coeff = 1
 	var/resource_coeff = 1
 	var/time_coeff_tech = 1
 	var/resource_coeff_tech = 1
 	var/list/resources = list(
-								"$metal"=0,
-								"$glass"=0,
-								"$bananium"=0,
-								"$diamond"=0,
-								"$gold"=0,
-								"$plasma"=0,
-								"$silver"=0,
-								"$uranium"=0
+								MAT_METAL=0,
+								MAT_GLASS=0,
+								MAT_BANANIUM=0,
+								MAT_DIAMOND=0,
+								MAT_GOLD=0,
+								MAT_PLASMA=0,
+								MAT_SILVER=0,
+								MAT_URANIUM=0
 								)
 	var/res_max_amount = 200000
 	var/datum/research/files
@@ -55,6 +54,7 @@
 	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
+
 	files = new /datum/research(src) //Setup the research data holder.
 	for(var/direction in cardinal)
 		exit = get_step(src,direction)
@@ -96,37 +96,6 @@
 		T += Ml.rating
 	time_coeff = round(initial(time_coeff) - (initial(time_coeff)*(T))/5,0.01)
 
-
-/obj/machinery/spod_part_fabricator/check_access(obj/item/weapon/card/id/I)
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
-		I = pda.id
-	if(!istype(I) || !I.access) //not ID or no access
-		return 0
-	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
-	return 1
-
-/obj/machinery/spod_part_fabricator/proc/emag()
-	switch(emagged)
-		if(0)
-			emagged = 0.5
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB error \[Code 0x00F1\]\"")
-			sleep(10)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"Attempting auto-repair\"")
-			sleep(15)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB corrupted \[Code 0x00FA\]. Truncating data structure...\"")
-			sleep(30)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"User DB truncated. Please contact your Nanotrasen system operator for future assistance.\"")
-			req_access = null
-			emagged = 1
-		if(0.5)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"DB not responding \[Code 0x0003\]...\"")
-		if(1)
-			visible_message("\icon[src] <b>\The [src]</b> beeps: \"No records in User DB\"")
-	return
-
 /obj/machinery/spod_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
 	for(var/datum/design/D in files.known_designs)
@@ -154,9 +123,9 @@
 	var/output
 	for(var/resource in resources)
 		var/amount = min(res_max_amount, resources[resource])
-		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;"
+		output += "<span class=\"res_name\">[material2name(resource)]: </span>[amount] cm&sup3;, [round(resources[resource] / MINERAL_MATERIAL_AMOUNT,0.1)] sheets"
 		if(amount>0)
-			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
+			output += "<span style='font-size:80%;'> - Remove \[<a href='?src=\ref[src];remove_mat=1;material=[resource]'>1</a>\] | \[<a href='?src=\ref[src];remove_mat=10;material=[resource]'>10</a>\] | \[<a href='?src=\ref[src];remove_mat=1;material=[resource];custom_eject=1'>Custom</a>\] | \[<a href='?src=\ref[src];remove_mat=[resources[resource] / MINERAL_MATERIAL_AMOUNT];material=[resource]'>All</a>\]</span>"
 		output += "<br/>"
 	return output
 
@@ -194,8 +163,8 @@
 		L.name += " ([I.name])"
 	else
 		I.loc = exit
-	I.m_amt = get_resource_cost_w_coeff(D,"$metal")
-	I.g_amt = get_resource_cost_w_coeff(D,"$glass")
+	I.materials[MAT_METAL] = get_resource_cost_w_coeff(D,MAT_METAL)
+	I.materials[MAT_GLASS] = get_resource_cost_w_coeff(D,MAT_GLASS)
 	visible_message("\icon[src] <b>\The [src]</b> beeps, \"\The [I] is complete.\"")
 	being_built = null
 
@@ -321,8 +290,9 @@
 	return round(initial(D.construction_time)*time_coeff*time_coeff_tech, roundto)
 
 /obj/machinery/spod_part_fabricator/attack_hand(mob/user)
-	if(!(..()))
-		return interact(user)
+	if(..())
+		return 1
+	return interact(user)
 
 /obj/machinery/spod_part_fabricator/interact(mob/user as mob)
 	var/dat, left_part
@@ -456,6 +426,12 @@
 	if(href_list["remove_mat"] && href_list["material"])
 		var/amount = text2num(href_list["remove_mat"])
 		var/material = href_list["material"]
+		if(href_list["custom_eject"])
+			amount = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+			amount = max(0,min(round(resources[material]/MINERAL_MATERIAL_AMOUNT),amount)) // Rounding errors aren't scary, as the mineral eject proc is smart
+			if (!amount)
+				return
+			amount = round(amount)
 		if(amount < 0 || amount > resources[material]) //href protection
 			return
 
@@ -474,22 +450,22 @@
 		return -1
 	var/type
 	switch(mat_string)
-		if("$metal")
+		if(MAT_METAL)
 			type = /obj/item/stack/sheet/metal
-		if("$glass")
+		if(MAT_GLASS)
 			type = /obj/item/stack/sheet/glass
-		if("$gold")
+		if(MAT_GOLD)
 			type = /obj/item/stack/sheet/mineral/gold
-		if("$silver")
+		if(MAT_SILVER)
 			type = /obj/item/stack/sheet/mineral/silver
-		if("$diamond")
+		if(MAT_DIAMOND)
 			type = /obj/item/stack/sheet/mineral/diamond
-		if("$plasma")
+		if(MAT_PLASMA)
 			type = /obj/item/stack/sheet/mineral/plasma
-		if("$uranium")
+		if(MAT_URANIUM)
 			type = /obj/item/stack/sheet/mineral/uranium
-		if("$bananium")
-			type = /obj/item/stack/sheet/mineral/clown
+		if(MAT_BANANIUM)
+			type = /obj/item/stack/sheet/mineral/bananium
 		else
 			return 0
 	var/result = 0
@@ -530,21 +506,21 @@
 		var/material
 		switch(W.type)
 			if(/obj/item/stack/sheet/mineral/gold)
-				material = "$gold"
+				material = MAT_GOLD
 			if(/obj/item/stack/sheet/mineral/silver)
-				material = "$silver"
+				material = MAT_SILVER
 			if(/obj/item/stack/sheet/mineral/diamond)
-				material = "$diamond"
+				material = MAT_DIAMOND
 			if(/obj/item/stack/sheet/mineral/plasma)
-				material = "$plasma"
+				material = MAT_PLASMA
 			if(/obj/item/stack/sheet/metal)
-				material = "$metal"
+				material = MAT_METAL
 			if(/obj/item/stack/sheet/glass)
-				material = "$glass"
-			if(/obj/item/stack/sheet/mineral/clown)
-				material = "$bananium"
+				material = MAT_GLASS
+			if(/obj/item/stack/sheet/mineral/bananium)
+				material = MAT_BANANIUM
 			if(/obj/item/stack/sheet/mineral/uranium)
-				material = "$uranium"
+				material = MAT_URANIUM
 			else
 				return ..()
 
@@ -569,9 +545,6 @@
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
-
-/obj/machinery/spod_part_fabricator/emag_act(user as mob)
-	emag()
 
 /obj/machinery/spod_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)

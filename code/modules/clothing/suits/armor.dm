@@ -6,8 +6,8 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	siemens_coefficient = 0.6
-
+	strip_delay = 60
+	put_on_delay = 40
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -40,6 +40,18 @@
 	icon_state = "armorsec"
 	item_state = "armor"
 
+/obj/item/clothing/suit/armor/vest/blueshield
+	name = "blueshield security armor"
+	desc = "An armored vest with the badge of a Blueshield Lieutenant."
+	icon_state = "blueshield"
+	item_state = "blueshield"
+
+/obj/item/clothing/suit/armor/vest/bloody
+	name = "bloodied security armor"
+	desc = "A vest drenched in the blood of Greytide. It has seen better days."
+	icon_state = "bloody_armor"
+	item_state = "bloody_armor"
+
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
 	desc = "A trench coat enhanced with a special alloy for some protection and style."
@@ -50,7 +62,7 @@
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	siemens_coefficient = 0.6
+	strip_delay = 80
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
@@ -82,7 +94,6 @@
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
 	flags_inv = 0
-	siemens_coefficient = 0.6
 
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's armored jacket"
@@ -92,6 +103,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
+	strip_delay = 70
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -117,8 +129,8 @@
 	slowdown = 1
 	armor = list(melee = 80, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
-	siemens_coefficient = 0.5
-
+	strip_delay = 80
+	put_on_delay = 60
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -127,7 +139,8 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	armor = list(melee = 25, bullet = 80, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
-	siemens_coefficient = 0.7
+	strip_delay = 70
+	put_on_delay = 50
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -137,7 +150,6 @@
 	blood_overlay_type = "armor"
 	var/hit_reflect_chance = 40
 	armor = list(melee = 10, bullet = 10, laser = 80, energy = 50, bomb = 0, bio = 0, rad = 0)
-	siemens_coefficient = 0
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(var/def_zone)
 	if(!(def_zone in list("chest", "groin"))) //If not shot where ablative is covering you, you don't get the reflection bonus!
@@ -207,7 +219,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	siemens_coefficient = 0
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -221,7 +232,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	siemens_coefficient = 0
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(melee = 65, bullet = 30, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
@@ -236,14 +246,12 @@
 	desc = "Armor worn by the red Thunderodome team"
 	icon_state = "tdred"
 	item_state = "tdred"
-	siemens_coefficient = 1
 
 /obj/item/clothing/suit/armor/tdome/green
 	name = "Green Thunderdome Armor"
 	desc = "Armor worn by the green Thunderodome team"
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
-	siemens_coefficient = 1
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert

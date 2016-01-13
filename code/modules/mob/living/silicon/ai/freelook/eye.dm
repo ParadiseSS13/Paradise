@@ -29,6 +29,7 @@
 		qdel(ghostimage)
 		ghostimage = null;
 		updateallghostimages()
+	ai = null
 	return ..()
 
 // Movement code. Returns 0 to stop air movement from moving it.
@@ -36,20 +37,11 @@
 	return 0
 
 // Hide popout menu verbs
-/mob/aiEye/examine(atom/A as mob|obj|turf in view())
+/mob/aiEye/examinate(atom/A as mob|obj|turf in view())
 	set popup_menu = 0
 	set src = usr.contents
 	return 0
 
-/mob/aiEye/pull()
-	set popup_menu = 0
-	set src = usr.contents
-	return 0
-
-/mob/aiEye/point()
-	set popup_menu = 0
-	set src = usr.contents
-	return 0
 
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
@@ -99,11 +91,6 @@
 	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
 	spawn(5)
 		eyeobj.loc = src.loc
-
-/mob/living/silicon/ai/Destroy()
-	eyeobj.ai = null
-	qdel(eyeobj) // No AI, no Eye
-	return ..()
 
 /atom/proc/move_camera_by_click()
 	if(istype(usr, /mob/living/silicon/ai))

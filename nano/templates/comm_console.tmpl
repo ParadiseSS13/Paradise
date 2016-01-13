@@ -9,12 +9,16 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 #define COMM_SCREEN_SECLEVEL	4
 -->
 {{if !data.authenticated}}
-<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'operation':'login'},null,'fixed')}}</div>
+<div class="notice">Please swipe your ID card. {{:helper.link('Log In','unlocked',{'login':1},null,'fixed')}}</div>
 {{else}}
 	{{if !data.is_ai}}
-	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'operation':'logout'},null,'fixed')}}</div>
+	<div class="notice">Please remember to {{:helper.link('Log Out','locked',{'logout':1},null,'fixed')}}</div>
 	{{/if}}
-	
+	{{if data.lastCallLoc}}
+	<div class="line">Most recent shuttle call/recall traced to: <b>{{:data.lastCallLoc}}</b></div>
+	{{else}}
+	<div class="line">Unable to trace most recent shuttle call/recall signal.</div>
+	{{/if}}
 	<div class="item">
 		<h3>Emergency Shuttle:</h3>
 		{{if data.shuttle.eta}}
@@ -25,12 +29,10 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		{{/if}}<!-- SHUTTLE ETA -->
 		<div class="itemLabel">Options:</div>
 		<div class="itemContents">
-			{{if data.shuttle.pos == 0}}
-				{{if data.shuttle.on && !data.is_ai}}
-					{{:helper.link('Cancel Shuttle','arrowreturnthick-1-w',{'operation':'cancelshuttle'})}}
-				{{else !data.shuttle.on}}
-					{{:helper.link('Call Shuttle','arrowthickstop-1-s',{'operation':'callshuttle'})}}
-				{{/if}}
+			{{if data.shuttle.callStatus == 1 && !data.is_ai}}
+				{{:helper.link('Cancel Shuttle','arrowreturnthick-1-w',{'operation':'cancelshuttle'})}}
+			{{else data.shuttle.callStatus == 2}}
+				{{:helper.link('Call Shuttle','arrowthickstop-1-s',{'operation':'callshuttle'})}}
 			{{/if}}
 		</div>
 	</div>
@@ -41,18 +43,21 @@ Used In File(s): /code/game/machinery/computers/communications.dm
 		<div class="item">
 			{{if data.authenticated==2}}
 				<div class="line">
-					{{:helper.link('Make an Announcement','alert',{'operation':'announce'})}}
+					{{:helper.link('Make an Announcement','info',{'operation':'announce'})}}
 				</div>
 				<div class="line">
 				{{if data.emagged}}
 					{{:helper.link('Message [UNKNOWN]','mail-closed',{'operation':'MessageSyndicate'})}}
 					</div>
 					<div class="line">
-					{{:helper.link('Reset Relays','refresh',{'operation':'MessageCentcomm'})}}
+					{{:helper.link('Reset Relays','refresh',{'operation':'RestoreBackup'})}}
 				{{else}}
 					{{:helper.link('Message CentComm','mail-closed',{'operation':'MessageCentcomm'})}}
 				{{/if}}
 				</div>
+				<div class="line">
+					{{:helper.link('Request Nuclear Authentication Codes','alert',{'operation':'nukerequest'})}}
+				</div>		
 			{{/if}}
 			<div class="line">
 				{{:helper.link('Change Alert Level','signal-diag',{'operation':'changeseclevel'})}}

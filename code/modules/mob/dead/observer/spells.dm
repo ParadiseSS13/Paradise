@@ -11,7 +11,7 @@ var/global/list/boo_phrases=list(
 	"It feels like someone's standing behind you.",
 )
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/boo
+/obj/effect/proc_holder/spell/aoe_turf/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
 
@@ -24,7 +24,7 @@ var/global/list/boo_phrases=list(
 	invocation_type = "none"
 	range = 1 // Or maybe 3?
 
-/obj/effect/proc_holder/spell/wizard/aoe_turf/boo/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets)
 	for(var/turf/T in targets)
 		for(var/atom/A in T.contents)
 

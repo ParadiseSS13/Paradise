@@ -33,6 +33,7 @@
 	// Mechanical concerns.
 	var/health = 0             // Plant health.
 	var/lastproduce = 0        // Last time tray was harvested
+	var/current_cycle = 0	   // Used for tracking number of cycles for aging
 	var/lastcycle = 0          // Cycle timing/tracking var.
 	var/cycledelay = 150       // Delay per cycle.
 	var/closed_system          // If set, the tray will attempt to take atmos from a pipe.
@@ -68,6 +69,8 @@
 		"ammonia" =         1,
 		"diethylamine" =    2,
 		"nutriment" =       1,
+		"protein" =       	1.75,
+		"plantmatter" =     1.25,
 		"adminordrazine" =  1,
 		"eznutrient" =      1,
 		"robustharvest" =   1,
@@ -90,37 +93,41 @@
 		"adminordrazine" = -5
 		)
 	var/global/list/water_reagents = list(
-		"water" =           1,
-		"adminordrazine" =  1,
-		"milk" =            0.9,
-		"beer" =            0.7,
-		"fluorine" =       -0.5,
-		"chlorine" =       -0.5,
-		"phosphorus" =     -0.5,
-		"water" =           1,
-		"sodawater" =       1,
-		"fishwater" =		1,
+		"water" =           list(1,    0),
+		"adminordrazine" =  list(1,    0),
+		"milk" =            list(0.9,  0),
+		"beer" =            list(0.7,  0),
+		"fluorine" =        list(-0.5, 0),
+		"chlorine" =        list(-0.5, 0),
+		"phosphorus" =      list(-0.5, 0),
+		"water" =           list(1,	   0),
+		"sodawater" =       list(1,    0),
+		"fishwater" =		list(1,    0),
+		"holywater" =		list(1,    0.1),
 		)
 
 	// Beneficial reagents also have values for modifying yield_mod and mut_mod (in that order).
 	var/global/list/beneficial_reagents = list(
-	//	"reagent" =			list(health, yield_Mod, mut_mod),
-		"beer" =			list( -0.05,	0,		0  ),
-		"fluorine" =		list( -2,		0,		0  ),
-		"chlorine" =		list( -1,		0,		0  ),
-		"phosphorus" =		list( -0.75,	0,		0  ),
-		"sodawater" =		list(  0.1,		0,		0  ),
-		"sacid" =			list( -1,		0,		0  ),
-		"facid" =			list( -2,		0,		0  ),
-		"atrazine" =		list( -2,		0,		0.2),
-		"cryoxadone" =		list(  3,		0,		0  ),
-		"ammonia" =			list(  0.5,		0,		0  ),
-		"diethylamine" =	list(  1,		0,		0  ),
-		"nutriment" =		list(  0.25,	0.15,	0  ),
-		"radium" =			list( -1.5,		0,		0.2),
-		"adminordrazine" =	list(  1,		1,		1  ),
-		"robustharvest" =	list(  0,		0.2,	0  ),
-		"left4zed" =		list(  0,		0,		0.2)
+	//	"reagent" =			list(health, yield_Mod, mut_mod, production, potency),
+		"beer" =			list( -0.05,	0,		0,		  0,		0),
+		"fluorine" =		list( -2,		0,		0,		  0,		0),
+		"chlorine" =		list( -1,		0,		0,		  0,		0),
+		"phosphorus" =		list( -0.75,	0,		0,		  0,		0),
+		"sodawater" =		list(  0.1,		0,		0,		  0,		0),
+		"sacid" =			list( -1,		0,		0,		  0,		0),
+		"facid" =			list( -2,		0,		0,		  0,		0),
+		"atrazine" =		list( -2,		0,		0.2,	  0,		0),
+		"cryoxadone" =		list(  3,		0,		0,		  0,		0),
+		"ammonia" =			list(  0.5,		0,		0,	  	  0,		0),
+		"diethylamine" =	list(  1,		0,		0,	      0,		0),
+		"nutriment" =		list(  0.25,	0.15,	0,	      0,		0),
+		"protein" =			list(  0.25,	0.15,	0,		  0,		0),
+		"plantmatter" =		list(  0.25,	0.15,	0,		  0,		0),
+		"radium" =			list( -1.5,		0,		0.2,      0,		0),
+		"adminordrazine" =	list(  1,		1,		1,		  0,		0),
+		"robustharvest" =	list(  0,		0.2,	0,		  0,		0),
+		"left4zed" =		list(  0,		0,		0.2,	  0,		0),
+		"saltpetre" =		list(  0.25,	0,		0,	  	 -0.02,		0.01),
 		)
 
 	//--FalseIncarnate
@@ -133,6 +140,8 @@
 		)
 	//--FalseIncarnate
 
+	var/last_plant_ikey		//This is for debugging reference, and is otherwise useless. --FalseIncarnate
+
 /obj/machinery/portable_atmospherics/hydroponics/AltClick()
 	if(mechanical && !usr.stat && !usr.lying && Adjacent(usr))
 		close_lid(usr)
@@ -140,8 +149,8 @@
 	return ..()
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/attack_generic(var/mob/user)
-	if(istype(user,/mob/living/carbon/primitive/diona))
-		var/mob/living/carbon/primitive/diona/nymph = user
+	if(istype(user,/mob/living/simple_animal/diona))
+		var/mob/living/simple_animal/diona/nymph = user
 
 		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
 			return
@@ -162,10 +171,10 @@
 	..()
 
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/hydroponics(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/circuitboard/hydroponics(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
 	temp_chem_holder = new()
@@ -268,6 +277,9 @@
 				health += beneficial_reagents[R.id][1] * reagent_total
 				yield_mod = min(100, yield_mod + (beneficial_reagents[R.id][2] * reagent_total))
 				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
+				if(seed.get_trait(TRAIT_PRODUCTION) > 1)
+					seed.set_trait(TRAIT_PRODUCTION, max(2, seed.get_trait(TRAIT_PRODUCTION) + beneficial_reagents[R.id][4] * reagent_total))
+				seed.set_trait(TRAIT_POTENCY, min(100, seed.get_trait(TRAIT_POTENCY) + beneficial_reagents[R.id][5] * reagent_total))
 
 			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
 
@@ -297,9 +309,10 @@
 		// Handle water and water refilling.
 		var/water_added = 0
 		if(water_reagents[R.id])
-			var/water_input = water_reagents[R.id] * reagent_total
+			var/water_input = water_reagents[R.id][1] * reagent_total
 			water_added += water_input
 			waterlevel += water_input
+			health += water_reagents[R.id][2] * reagent_total
 
 		// Water dilutes toxin level.
 		if(water_added > 0)
@@ -324,6 +337,10 @@
 		seed.harvest(user,yield_mod)
 	else
 		seed.harvest(get_turf(src),yield_mod)
+	//Increases harvest count for round-end score
+	//Currently per-plant (not per-item) harvested
+	// --FalseIncarnate
+	score_stuffharvested++
 
 	// Reset values.
 	harvest = 0
@@ -334,6 +351,7 @@
 		seed = null
 		dead = 0
 		age = 0
+		lastproduce = 0
 		sampled = 0
 		mutation_mod = 0
 
@@ -353,6 +371,7 @@
 
 	sampled = 0
 	age = 0
+	lastproduce = 0
 	yield_mod = 0
 	mutation_mod = 0
 
@@ -373,6 +392,7 @@
 	health = seed.get_trait(TRAIT_ENDURANCE)
 	lastcycle = world.time
 	harvest = 0
+	lastproduce = 0
 	weedlevel = 0
 	pestlevel = 0
 	sampled = 0
@@ -508,8 +528,8 @@
 		health = 0
 		dead = 0
 
-	nutrilevel =     max(0,min(nutrilevel,10))
-	waterlevel =     max(0,min(waterlevel,100))
+	nutrilevel =     max(0,min(nutrilevel,maxnutri))
+	waterlevel =     max(0,min(waterlevel,maxwater))
 	pestlevel =      max(0,min(pestlevel,10))
 	weedlevel =      max(0,min(weedlevel,10))
 	toxins =         max(0,min(toxins,10))
@@ -528,6 +548,7 @@
 	age = 0
 	health = seed.get_trait(TRAIT_ENDURANCE)
 	lastcycle = world.time
+	lastproduce = 0
 	harvest = 0
 	weedlevel = 0
 
@@ -689,6 +710,7 @@
 			seed = S.seed //Grab the seed datum.
 			dead = 0
 			age = 1
+			lastproduce = 0
 			//Snowflakey, maybe move this to the seed datum
 			health = (istype(S, /obj/item/seeds/cutting) ? round(seed.get_trait(TRAIT_ENDURANCE)/rand(2,5)) : seed.get_trait(TRAIT_ENDURANCE))
 			lastcycle = world.time
@@ -722,7 +744,7 @@
 	else if(mechanical && istype(O, /obj/item/weapon/wrench))
 
 		//If there's a connector here, the portable_atmospherics setup can handle it.
-		if(locate(/obj/machinery/atmospherics/portables_connector/) in loc)
+		if(locate(/obj/machinery/atmospherics/unary/portables_connector) in loc)
 			return ..()
 
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -775,31 +797,30 @@
 	else if(dead)
 		remove_dead(user)
 
-/obj/machinery/portable_atmospherics/hydroponics/examine()
-
-	..()
+/obj/machinery/portable_atmospherics/hydroponics/examine(mob/user)
+	..(user)
 
 	if(!seed)
-		usr << "[src] is empty."
+		user << "[src] is empty."
 		return
 
-	usr << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
+	user << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
 
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 
-	usr << "Water: [round(waterlevel,0.1)]/100"
-	usr << "Nutrient: [round(nutrilevel,0.1)]/10"
+	user << "Water: [round(waterlevel,0.1)]/[maxwater]"
+	user << "Nutrient: [round(nutrilevel,0.1)]/[maxnutri]"
 
 	if(weedlevel >= 5)
-		usr << "\The [src] is <span class='danger'>infested with weeds</span>!"
+		user << "\The [src] is <span class='danger'>infested with weeds</span>!"
 	if(pestlevel >= 5)
-		usr << "\The [src] is <span class='danger'>infested with tiny worms</span>!"
+		user << "\The [src] is <span class='danger'>infested with tiny worms</span>!"
 
 	if(dead)
-		usr << "<span class='danger'>The plant is dead.</span>"
+		user << "<span class='danger'>The plant is dead.</span>"
 	else if(health <= (seed.get_trait(TRAIT_ENDURANCE)/ 2))
-		usr << "The plant looks <span class='danger'>unhealthy</span>."
+		user << "The plant looks <span class='danger'>unhealthy</span>."
 
 	if(mechanical)
 		var/turf/T = loc
@@ -827,7 +848,7 @@
 				light_available =  5
 			light_string = "a light level of [light_available] lumens"
 
-		usr << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
+		user << "The tray's sensor suite is reporting [light_string] and a temperature of [environment.temperature]K."
 
 /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb()
 	set name = "Toggle Tray Lid"

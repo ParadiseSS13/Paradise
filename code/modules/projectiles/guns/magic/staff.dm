@@ -28,7 +28,6 @@ obj/item/weapon/gun/magic/staff/chaos
 	projectile_type = "/obj/item/projectile/magic"
 	icon_state = "staffofchaos"
 	item_state = "staffofchaos"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
 
@@ -47,7 +46,6 @@ obj/item/weapon/gun/magic/staff/door
 	projectile_type = "/obj/item/projectile/magic/door"
 	icon_state = "staffofdoor"
 	item_state = "staffofdoor"
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 	max_charges = 10
 	recharge_rate = 2
 

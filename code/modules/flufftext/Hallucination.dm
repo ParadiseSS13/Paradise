@@ -107,6 +107,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/Destroy()
 	if(target.client) target.client.images.Remove(current_image)
 	active = 0
+	return ..()
 
 #define FAKE_FLOOD_EXPAND_TIME 30
 #define FAKE_FLOOD_MAX_RADIUS 7
@@ -156,11 +157,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/fake_flood/Destroy()
 	processing_objects -= src
-	del(flood_turfs)
+	qdel(flood_turfs)
 	if(target.client) target.client.images.Remove(flood_images)
 	target = null
-	del(flood_images)
-	return
+	qdel(flood_images)
+	return ..()
 
 /obj/effect/hallucination/simple/xeno
 	image_icon = 'icons/mob/alien.dmi'
@@ -441,18 +442,18 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 
 /obj/effect/fake_attacker/proc/updateimage()
-//	del src.currentimage
+//	qdel(src.currentimage)
 	if(src.dir == NORTH)
-		del(src.currentimage)
+		qdel(src.currentimage)
 		src.currentimage = new /image(up,src)
 	else if(src.dir == SOUTH)
-		del(src.currentimage)
+		qdel(src.currentimage)
 		src.currentimage = new /image(down,src)
 	else if(src.dir == EAST)
-		del(src.currentimage)
+		qdel(src.currentimage)
 		src.currentimage = new /image(right,src)
 	else if(src.dir == WEST)
-		del(src.currentimage)
+		qdel(src.currentimage)
 		src.currentimage = new /image(left,src)
 	my_target << currentimage
 

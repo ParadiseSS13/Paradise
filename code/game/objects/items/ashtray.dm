@@ -81,8 +81,7 @@
 	icon_broken  = "ashtray_bork_bl"
 	max_butts = 14
 	health = 24.0
-	g_amt = 30
-	m_amt = 30
+	materials = list(MAT_METAL=30, MAT_GLASS=30)
 	empty_desc = "Cheap plastic ashtray."
 	throwforce = 3.0
 	die()
@@ -102,7 +101,7 @@
 	icon_broken  = "ashtray_bork_br"
 	max_butts = 10
 	health = 72.0
-	m_amt = 80
+	materials = list(MAT_METAL=80)
 	empty_desc = "Massive bronze ashtray."
 	throwforce = 10.0
 
@@ -123,7 +122,7 @@
 	icon_broken  = "ashtray_bork_gl"
 	max_butts = 12
 	health = 12.0
-	g_amt = 60
+	materials = list(MAT_GLASS=60)
 	empty_desc = "Glass ashtray. Looks fragile."
 	throwforce = 6.0
 

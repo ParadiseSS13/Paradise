@@ -9,6 +9,7 @@
 /obj/item/projectile/energy/electrode
 	name = "electrode"
 	icon_state = "spark"
+	color = "#FFFF00"
 	nodamage = 1
 	stun = 5
 	weaken = 5
@@ -21,7 +22,7 @@
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
 	if(!proj_hit)
 		if(!ismob(target) || blocked >= 2) //Fully blocked by mob or collided with dense object - burst into sparks!
-			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
 			proj_hit = 1
@@ -35,7 +36,7 @@
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	if(!proj_hit)
-		var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
 		sparks.set_up(1, 1, src)
 		sparks.start()
 		proj_hit = 1
@@ -44,9 +45,9 @@
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
-	damage = 40
+	damage = 20
 	damage_type = CLONE
-	irradiate = 40
+	irradiate = 10
 
 
 /obj/item/projectile/energy/dart

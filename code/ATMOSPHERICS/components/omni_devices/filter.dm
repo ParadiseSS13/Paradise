@@ -99,16 +99,13 @@
 					filtered_out = null
 
 			P.air.merge(filtered_out)
-			if(P.network)
-				P.network.update = 1
+			P.parent.update = 1
 
 		output_air.merge(removed)
-		if(output.network)
-			output.network.update = 1
+		output.parent.update = 1
 
 		input.transfer_moles = 0
-		if(input.network)
-			input.network.update = 1
+		input.parent.update = 1
 
 	return
 
@@ -124,7 +121,6 @@
 	if (!ui)
 		ui = new(user, src, ui_key, "omni_filter.tmpl", "Omni Filter Control", 330, 330)
 		ui.set_initial_data(data)
-
 		ui.open()
 
 /obj/machinery/atmospherics/omni/filter/proc/build_uidata()
@@ -181,7 +177,8 @@
 			return null
 
 /obj/machinery/atmospherics/omni/filter/Topic(href, href_list)
-	if(..()) return
+	if(..()) 
+		return 1
 	switch(href_list["command"])
 		if("power")
 			if(!configuring)
@@ -280,3 +277,4 @@
 			initialize_directions |= P.dir
 			P.connect()
 	P.update = 1
+	

@@ -13,14 +13,7 @@
 
 	var/car_limit = 3		//how many cars an engine can pull before performance degrades
 	active_engines = 1
-	var/obj/item/weapon/key/ambulance_train/key
-
-/obj/item/weapon/key/ambulance_train
-	name = "ambulance key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it."
-	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "keydoc"
-	w_class = 1
+	var/obj/item/key/ambulance/key
 
 /obj/vehicle/train/ambulance/trolley
 	name = "ambulance train trolley"
@@ -40,23 +33,12 @@
 /obj/vehicle/train/ambulance/engine/New()
 	..()
 	cell = new /obj/item/weapon/stock_parts/cell/high
-	verbs -= /atom/movable/verb/pull
 	key = new()
 
 /obj/vehicle/train/ambulance/engine/Move()
-	if(on && cell.charge < charge_use)
-		turn_off()
-		update_stats()
-		if(load && is_train_head())
-			load << "The drive motor briefly whines, then drones to a stop."
-
-	if(is_train_head() && !on)
-		return 0
-
+	. = ..()
 	handle_rotation()
 	update_mob()
-
-	return ..()
 
 /obj/vehicle/train/ambulance/trolley/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(open && istype(W, /obj/item/weapon/wirecutters))
@@ -66,7 +48,7 @@
 		..()
 
 /obj/vehicle/train/ambulance/engine/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/key/ambulance_train))
+	if(istype(W, /obj/item/key/ambulance))
 		if(!key)
 			user.drop_item()
 			key = W
@@ -162,10 +144,10 @@
 		var/mob/living/carbon/human/D = load
 		D << "\red \b You ran over [H]!"
 		visible_message("<B>\red \The [src] ran over [H]!</B>")
-		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [H.name] ([H.ckey]), driven by [D.name] ([D.ckey])</font>")
-		msg_admin_attack("[D.name] ([D.ckey])[isAntag(D) ? "(ANTAG)" : ""] ran over [H.name] ([H.ckey]). (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)], driven by [key_name(D)]</font>")
+		msg_admin_attack("[key_name_admin(D)] ran over [key_name_admin(H)]")
 	else
-		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [H.name] ([H.ckey])</font>")
+		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)]</font>")
 
 
 //-------------------------------------------
@@ -176,7 +158,7 @@
 		return 0
 
 	if(is_train_head())
-		if(direction == reverse_direction(dir))
+		if(direction == reverse_direction(dir) && tow) //can reverse with no tow
 			return 0
 		if(Move(get_step(src, direction)))
 			return 1
@@ -184,15 +166,9 @@
 	else
 		return ..()
 
-
-/obj/vehicle/train/ambulance/engine/examine()
-	..()
-
-	if(!istype(usr, /mob/living/carbon/human))
-		return
-
-	if(get_dist(usr,src) <= 1)
-		usr << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
+/obj/vehicle/train/ambulance/engine/examine(mob/user)
+	if(..(user, 1))
+		user << "The power light is [on ? "on" : "off"].\nThere are[key ? "" : " no"] keys in the ignition."
 
 /obj/vehicle/train/ambulance/engine/verb/check_power()
 	set name = "Check power level"
@@ -302,5 +278,5 @@
 	else
 		move_delay = max(0, (-car_limit * active_engines) + train_length - active_engines)	//limits base overweight so you cant overspeed trains
 		move_delay *= (1 / max(1, active_engines)) * 2 										//overweight penalty (scaled by the number of engines)
-		move_delay += config.run_speed 														//base reference speed
+		move_delay += 1+config.run_speed 														//base reference speed
 		move_delay *= 1.05

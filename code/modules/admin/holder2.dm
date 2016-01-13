@@ -16,7 +16,7 @@ var/list/admin_datums = list()
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(!ckey)
 		error("Admin datum created without a ckey argument. Datum has been deleted")
-		del(src)
+		qdel(src)
 		return
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
@@ -28,11 +28,13 @@ var/list/admin_datums = list()
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
+		owner.verbs -= /client/proc/readmin
 		admins |= C
 
 /datum/admins/proc/disassociate()
 	if(owner)
 		admins -= owner
+		owner.remove_admin_verbs()
 		owner.holder = null
 		owner = null
 
@@ -78,11 +80,17 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 		usr << "<font color='red'>Error: Cannot proceed. They have more or equal rights to us.</font>"
 	return 0
 
-
-
 /client/proc/deadmin()
 	admin_datums -= ckey
 	if(holder)
 		holder.disassociate()
 		del(holder)
 	return 1
+
+//This proc checks whether subject has at least ONE of the rights specified in rights_required.
+/proc/check_rights_for(client/subject, rights_required)
+	if(subject && subject.holder)
+		if(rights_required && !(rights_required & subject.holder.rights))
+			return 0
+		return 1
+	return 0

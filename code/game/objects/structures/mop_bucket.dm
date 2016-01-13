@@ -11,15 +11,19 @@
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
+	janitorial_equipment += src
 
 /obj/structure/mopbucket/full/New()
 	..()
 	reagents.add_reagent("water", 100)
 
-/obj/structure/mopbucket/examine()
-	set src in usr
-	usr << text("\icon[] [] contains [] units of water left!", src, src.name, src.reagents.total_volume)
-	..()
+/obj/structure/mopbucket/Destroy()
+	janitorial_equipment -= src
+	return ..()
+
+/obj/structure/mopbucket/examine(mob/user)
+	if(..(user, 1))
+		usr << text("\icon[] [] contains [] units of water left!", src, src.name, src.reagents.total_volume)
 
 /obj/structure/mopbucket/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/mop))

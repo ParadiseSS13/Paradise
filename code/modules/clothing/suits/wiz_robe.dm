@@ -6,22 +6,20 @@
 	permeability_coefficient = 0.01
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20)
 	unacidable = 1
-	loose = 0 // magic
 	//Not given any special protective value since the magic robes are full-body protection --NEO
-	siemens_coefficient = 0.8
+	strip_delay = 50
+	put_on_delay = 50
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
 	desc = "Strange-looking, red, hat-wear that most certainly belongs to a real magic user."
 	icon_state = "redwizard"
-	siemens_coefficient = 0.8
 
 /obj/item/clothing/head/wizard/clown
 	name = "purple wizard hat"
 	desc = "Strange-looking purple hat-wear that most certainly belongs to a real magic user."
 	icon_state = "wizhatclown"
 	item_state = "wizhatclown" // cheating
-	siemens_coefficient = 0.8
 
 /obj/item/clothing/head/wizard/fake
 	name = "wizard hat"
@@ -35,20 +33,17 @@
 	name = "Witch Hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
-	siemens_coefficient = 0.8
 
 /obj/item/clothing/head/wizard/magus
 	name = "Magus Helm"
 	desc = "A mysterious helmet that hums with an unearthly power"
 	icon_state = "magus"
 	item_state = "magus"
-	siemens_coefficient = 0.8
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
 	desc = "A crown-of-thorns psychic amplifier. Kind of looks like a tiara having sex with an industrial robot."
 	icon_state = "amp"
-	siemens_coefficient = 0.8
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
@@ -62,7 +57,8 @@
 	allowed = list(/obj/item/weapon/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	unacidable = 1
-	siemens_coefficient = 0.8
+	strip_delay = 50
+	put_on_delay = 50
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -110,8 +106,6 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
 
-	siemens_coefficient = 1.0
-
 /obj/item/clothing/head/wizard/marisa/fake
 	name = "Witch Hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
@@ -120,8 +114,6 @@
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
-
-	siemens_coefficient = 1.0
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "Witch Robe"
@@ -132,5 +124,3 @@
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
-	siemens_coefficient = 1.0
-

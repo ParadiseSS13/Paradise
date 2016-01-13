@@ -3,7 +3,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
-	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artefacts power."
+	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = 1.0
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=4"
@@ -16,16 +16,20 @@
 		if(!istype(M, /mob/living/carbon/human))//If target is not a human.
 			return ..()
 		if(istype(M, /mob/living/carbon/human/dummy))
-			return..()
+			return ..()
 
 		if(M.has_brain_worms()) //Borer stuff - RR
 			user << "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>"
-			return..()
+			return ..()
+			
+		if(jobban_isbanned(M, "cultist") || jobban_isbanned(M, "Syndicate"))
+			user << "<span class='warning'>A mysterious force prevents you from trapping this being's soul.</span>"
+			return ..()
 
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their soul captured with [src.name] by [user.name] ([user.ckey])</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
+		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
 
-		log_attack("<font color='red'>[user.name] ([user.ckey]) used the [src.name] to capture the soul of [M.name] ([M.ckey])</font>")
+		log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
 
 
 		transfer_soul("VICTIM", M, user)
@@ -221,6 +225,8 @@
 	return
 
 /proc/makeNewConstruct(var/mob/living/simple_animal/construct/ctype, var/mob/target, var/mob/stoner = null, cultoverride = 0)
+	if(jobban_isbanned(target, "cultist") || jobban_isbanned(target, "Syndicate"))
+		return
 	var/mob/living/simple_animal/construct/newstruct = new ctype(get_turf(target))
 	newstruct.faction |= "\ref[stoner]"
 	newstruct.key = target.key

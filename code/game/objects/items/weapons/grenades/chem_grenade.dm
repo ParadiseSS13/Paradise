@@ -7,7 +7,6 @@
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
 	item_state = "flashbang"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	w_class = 2
@@ -18,7 +17,7 @@
 	var/affected_area = 3
 	var/obj/item/device/assembly_holder/nadeassembly = null
 	var/label = null
-
+	var/assemblyattacher
 
 /obj/item/weapon/grenade/chem_grenade/New()
 	create_reagents(1000)
@@ -28,8 +27,9 @@
 
 
 /obj/item/weapon/grenade/chem_grenade/examine(mob/user)
+	..(user)
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
-	..()
+
 
 
 /obj/item/weapon/grenade/chem_grenade/proc/get_trigger()
@@ -90,10 +90,9 @@
 			update_icon()
 		else if(clown_check(user))
 			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>."
-			msg_admin_attack(log_str)
-			log_game(log_str)
-			bombers += "[log_str]"
+			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
+			bombers += "[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])"
 			user << "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>"
 			active = 1
 			update_icon()
@@ -138,9 +137,8 @@
 						contained = "\[[contained]\]"
 				var/turf/bombturf = get_turf(loc)
 				var/area/A = bombturf.loc
-				var/log_str = "[key_name(usr)][isAntag(usr) ? "(ANTAG)" : ""]<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A> has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained]."
-				msg_admin_attack(log_str)
-				log_game(log_str)
+				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z].")
 			else
 				user << "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>"
 		else if(stage == READY && !nadeassembly)
@@ -173,7 +171,7 @@
 		nadeassembly = A
 		A.master = src
 		A.loc = src
-
+		assemblyattacher = user.ckey
 		stage = WIRED
 		user << "<span class='notice'>You add [A] to [src]!</span>"
 		update_icon()
@@ -237,6 +235,10 @@
 	if(nadeassembly)
 		nadeassembly.hear_talk(M, msg)
 
+/obj/item/weapon/grenade/chem_grenade/hear_message(mob/living/M, msg)
+	if(nadeassembly)
+		nadeassembly.hear_message(M, msg)
+
 /obj/item/weapon/grenade/chem_grenade/Bump()
 	..()
 	if(nadeassembly)
@@ -261,6 +263,14 @@
 		playsound(loc, 'sound/items/Screwdriver2.ogg', 50, 1)
 		return
 
+	if(nadeassembly)
+		var/mob/M = get_mob_by_ckey(assemblyattacher)
+		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)]<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>(?)</A> ([admin_jump_link(M, "holder")]) and last touched by [key_name_admin(last)]<A HREF='?_src_=holder;adminmoreinfo=\ref[last]'>(?)</A> ([admin_jump_link(last, "holder")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
+
 	playsound(loc, 'sound/effects/bamf.ogg', 50, 1)
 
 	update_mob()
@@ -273,7 +283,7 @@
 		end_temp += G.reagents.chem_temp
 	reagents.chem_temp = end_temp
 	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
-		var/datum/effect/effect/system/steam_spread/steam = new /datum/effect/effect/system/steam_spread()
+		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 		steam.set_up(10, 0, get_turf(src))
 		steam.attach(src)
 		steam.start()
@@ -353,7 +363,7 @@
 			G.reagents.trans_to(src, G.reagents.total_volume)
 
 	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
-		var/datum/effect/effect/system/steam_spread/steam = new /datum/effect/effect/system/steam_spread()
+		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 		steam.set_up(10, 0, get_turf(src))
 		steam.attach(src)
 		steam.start()
@@ -409,8 +419,7 @@
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
 
-		B1.reagents.add_reagent("aluminum", 25)
-		B1.reagents.add_reagent("incendiaryfuel",25)
+		B1.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("plasma", 25)
 		B2.reagents.add_reagent("sacid", 25)
 
@@ -478,6 +487,26 @@
 		beakers += B1
 		beakers += B2
 		update_icon()
+
+/obj/item/weapon/grenade/chem_grenade/facid
+	name = "acid grenade"
+	desc = "Used for melting armoured opponents."
+	stage = READY
+
+/obj/item/weapon/grenade/chem_grenade/facid/New()
+	..()
+	var/obj/item/weapon/reagent_containers/glass/beaker/bluespace/B1 = new(src)
+	var/obj/item/weapon/reagent_containers/glass/beaker/bluespace/B2 = new(src)
+
+	B1.reagents.add_reagent("facid", 280)
+	B1.reagents.add_reagent("potassium", 20)
+	B2.reagents.add_reagent("phosphorus", 20)
+	B2.reagents.add_reagent("sugar", 20)
+	B2.reagents.add_reagent("facid", 260)
+
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/weapon/grenade/chem_grenade/tabungas
 	payload_name = "tabungas"

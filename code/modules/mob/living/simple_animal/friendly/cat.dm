@@ -5,6 +5,7 @@
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
+	icon_resting = "cat_rest"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
@@ -32,23 +33,26 @@
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 
-/mob/living/simple_animal/pet/cat/Runtime/Life()
+/mob/living/simple_animal/pet/cat/Runtime/handle_automated_action()
+	..()
+
 	//MICE!
-	if((src.loc) && isturf(src.loc))
-		if(!stat && !resting && !buckled)
+	if(loc && isturf(loc))
+		if(!incapacitated())
 			for(var/mob/living/simple_animal/mouse/M in view(1,src))
 				if(!M.stat && Adjacent(M))
-					emote("me", 1, "splats \the [M]!")
+					custom_emote(1, "splats \the [M]!")
 					M.splat()
 					movement_target = null
 					stop_automated_movement = 0
 					break
 
-	..()
-
+	//attempt to mate
 	make_babies()
 
-	if(!stat && !resting && !buckled)
+/mob/living/simple_animal/pet/cat/Runtime/handle_automated_movement()
+	..()
+	if(!incapacitated())
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			walk_to(src,0)
@@ -76,6 +80,7 @@
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
+	icon_resting = null
 	gender = NEUTER
 	density = 0
 	pass_flags = PASSMOB
@@ -86,8 +91,9 @@
 	icon_state = "Syndicat"
 	icon_living = "Syndicat"
 	icon_dead = "Syndicat_dead"
+	icon_resting = "Syndicat_rest"
 	gender = FEMALE
-	flags = IS_SYNTHETIC|NO_BREATHE
+	flags = NO_BREATHE
 	faction = list("syndicate")
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target

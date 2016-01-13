@@ -26,11 +26,10 @@
 		usr << browse(null, "window=stack")
 	return ..()
 
-/obj/item/stack/examine()
-	set src in view(1)
-	..()
-	usr << "There are [src.amount] [src.singular_name]\s in the stack."
-	return
+/obj/item/stack/examine(mob/user)
+	if(..(user, 1))
+		user << "There are [src.amount] [src.singular_name]\s in the stack."
+
 
 /obj/item/stack/attack_self(mob/user as mob)
 	list_recipes(user)
@@ -131,7 +130,7 @@
 			return
 		if (R.time)
 			usr << "\blue Building [R.title] ..."
-			if (!do_after(usr, R.time))
+			if (!do_after(usr, R.time, target = src))
 				return
 		if (src.amount < R.req_amount*multiplier)
 			return
@@ -192,6 +191,9 @@
 /obj/item/stack/proc/get_amount()
 	return amount
 
+/obj/item/stack/proc/get_max_amount()
+	return max_amount
+
 /obj/item/stack/attack_hand(mob/user as mob)
 	if (user.get_inactive_hand() == src)
 		var/obj/item/stack/F = new src.type( user, 1)
@@ -215,7 +217,11 @@
 			return 1
 		var/to_transfer as num
 		if (user.get_inactive_hand()==src)
-			to_transfer = 1
+			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
+			if(!desired)
+				return
+			desired = round(desired)
+			to_transfer = max(1,min(desired,S.max_amount-S.amount,src.amount))
 		else
 			to_transfer = min(src.amount, S.max_amount-S.amount)
 		S.amount+=to_transfer

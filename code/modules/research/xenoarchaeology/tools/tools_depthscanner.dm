@@ -34,7 +34,7 @@
 			D.coords = "[M.x].[rand(0,9)]:[M.y].[rand(0,9)]:[10 * M.z].[rand(0,9)]"
 			D.time = worldtime2text()
 			D.record_index = positive_locations.len + 1
-			D.material = M.mineral ? M.mineral.display_name : "Rock"
+			D.material = M.mineralName ? M.mineralName : "Rock"
 
 			//find the first artifact and store it
 			if(M.finds.len)

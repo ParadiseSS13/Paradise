@@ -27,8 +27,13 @@
 	w_class = 5.0
 
 
-/obj/item/weapon/grab/New(mob/user, mob/victim)
+/obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
 	..()
+
+	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
+	if(!istype(user) || !istype(victim))
+		return
+
 	loc = user
 	assailant = user
 	affecting = victim
@@ -52,7 +57,24 @@
 				G.dancing = 1
 				G.adjust_position()
 				dancing = 1
+
+	clean_grabbed_by(assailant, affecting)
 	adjust_position()
+
+/obj/item/weapon/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
+	if(istype(user))
+
+		for(var/entry in user.grabbed_by)
+			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab)) //the isnull() here is probably redundant- but it might outperform istype, who knows. Better safe than sorry.
+				user.grabbed_by -= entry
+
+	if(istype(victim))
+
+		for(var/entry in victim.grabbed_by)
+			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab))
+				victim.grabbed_by -= entry
+
+	return 1
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/weapon/grab/proc/get_mob_if_throwable()
@@ -73,7 +95,7 @@
 
 
 /obj/item/weapon/grab/process()
-	confirm()
+	if(!confirm())	return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
 	if(assailant.client)
 		if(!hud)	return //this somehow can runtime under the right circumstances
@@ -294,7 +316,7 @@
 			var/mob/living/carbon/human/affected = affecting
 			var/mob/living/carbon/human/attacker = assailant
 			switch(assailant.a_intent)
-				if("help")
+				if(I_HELP)
 					/*if(force_down)
 						assailant << "<span class='warning'>You no longer pin [affecting] to the ground.</span>"
 						force_down = 0
@@ -302,10 +324,10 @@
 								//This specific example would allow you to stop pinning people to the floor without moving away from them.
 					return
 
-				if("grab")
+				if(I_GRAB)
 					return
 
-				if("harm") //This checks that the user is on harm intent.
+				if(I_HARM) //This checks that the user is on harm intent.
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(affecting.lying)
 							return
@@ -345,7 +367,7 @@
 								M << "\red You go blind!"*///This is a demonstration of adding a new damaging type based on intent as well as hitzone.
 															//This specific example would allow you to squish people's eyes with a GRAB_NECK.
 
-				if("disarm") //This checks that the user is on disarm intent.
+				if(I_DISARM) //This checks that the user is on disarm intent.
 				/*	if(state < GRAB_AGGRESSIVE)
 						assailant << "<span class='warning'>You require a better grab to do this.</span>"
 						return
@@ -369,7 +391,7 @@
 			var/mob/living/carbon/attacker = user
 			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
 
-			if(!do_mob(user, affecting) || !do_after(user, checktime(user, affecting))) return
+			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 
@@ -384,7 +406,7 @@
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
-	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/carbon/primitive/diona)) //Kidan eating nymphs
+	if(ishuman(attacker) && attacker.get_species() == "Kidan" && istype(prey,/mob/living/simple_animal/diona)) //Kidan eating nymphs
 		return 1
 
 	if(ishuman(attacker) && attacker.get_species() == "Tajaran"  && istype(prey,/mob/living/simple_animal/mouse)) //Tajaran eating mice. Meow!
@@ -404,6 +426,7 @@
 /obj/item/weapon/grab/dropped()
 	qdel(src)
 
+
 /obj/item/weapon/grab/Destroy()
 	if(affecting)
 		affecting.pixel_x = 0
@@ -412,6 +435,7 @@
 		affecting.grabbed_by -= src
 	qdel(hud)
 	return ..()
+
 
 #undef EAT_TIME_XENO
 #undef EAT_TIME_FAT

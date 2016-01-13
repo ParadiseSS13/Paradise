@@ -37,7 +37,8 @@
 		/obj/item/weapon/gun/energy/laser/redtag,\
 		/obj/item/weapon/gun/energy/laser/practice,\
 		/obj/item/weapon/melee/classic_baton/telescopic,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator)
+		/obj/item/weapon/gun/energy/kinetic_accelerator,\
+		/obj/item/weapon/gun/energy/floragun)
 
 
 /obj/machinery/bot/secbot/beepsky
@@ -191,7 +192,7 @@ Auto Patrol: []"},
 				user << "<span class='danger'> Access denied.</span>"
 	else
 		..()
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != "harm") // Any intent but harm will heal, so we shouldn't get angry.
+		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != I_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 			return
 		if(!istype(W, /obj/item/weapon/screwdriver) && (W.force) && (!target)) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 			threatlevel = user.assess_threat(src)
@@ -398,7 +399,7 @@ Auto Patrol: []"},
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
 
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 

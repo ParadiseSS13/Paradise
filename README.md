@@ -66,7 +66,7 @@ For a basic setup, simply copy every file from config/example to config.
 
 ### SQL Setup
 
-The SQL backend for the library and stats tracking requires a MySQL server.  Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/tgstation_schema.sql.  More detailed setup instructions arecoming soon, for now ask in our IRC channel.
+The SQL backend for the library and stats tracking requires a MySQL server.  Your server details go in /config/dbconfig.txt, and the SQL schema is in /SQL/paradise_schema.sql and /SQL/paradise_schema_prefix.sql depending on if you want table prefixes.  More detailed setup instructions are located on /tg/station's wiki: http://www.tgstation13.org/wiki/Downloading_the_source_code#Setting_up_the_database
 
 ---
 

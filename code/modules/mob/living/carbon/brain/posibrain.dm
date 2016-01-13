@@ -1,20 +1,18 @@
 /obj/item/device/mmi/posibrain
 	name = "positronic brain"
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
 	w_class = 3
-	origin_tech = "engineering=4;materials=4;bluespace=2;programming=4"
+	origin_tech = "biotech=3;programming=2"
 
-	construction_cost = list("metal"=500,"glass"=500,"silver"=200,"gold"=200,"plasma"=100,"diamond"=10)
-	construction_time = 75
 	var/searching = 0
 	var/askDelay = 10 * 60 * 1
 	//var/mob/living/carbon/brain/brainmob = null
 	var/list/ghost_volunteers[0]
 	req_access = list(access_robotics)
-	locked = 0
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
+	var/silenced = 0 //if set to 1, they can't talk.
 
 
 /obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
@@ -28,16 +26,29 @@
 		spawn(600)
 			if(ghost_volunteers.len)
 				var/mob/dead/observer/O = pick(ghost_volunteers)
-				if(istype(O) && O.client && O.key)
+				if(check_observer(O))
 					transfer_personality(O)
 			reset_search()
+	else
+		if(silenced)
+			silenced = 0
+			user << "<span class='notice'>You toggle the speaker to 'on', on the [src].</span>"
+			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'on'."
+			if(brainmob && brainmob.key)
+				brainmob << "<span class='warning'>Your internal speaker has been toggled to 'on'.</span>"
+		else
+			silenced = 1
+			user << "<span class='notice'>You toggle the speaker to 'off', on the [src].</span>"
+			desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
+			if(brainmob && brainmob.key)
+				brainmob << "<span class='warning'>Your internal speaker has been toggled to 'off'.</span>"
 
 /obj/item/device/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(O.client && O.client.prefs.be_special & BE_PAI && !jobban_isbanned(O, "Cyborg") && !jobban_isbanned(O,"nonhumandept"))
-			if(check_observer(O))
-				O << "\blue <b>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)"
-				//question(O.client)
+		if(check_observer(O))
+			O << "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</span>"
+//			if(ROLE_POSIBRAIN in O.client.prefs.be_special) The Guardian implementation looks cleaner
+//				question(O.client)
 
 /obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
@@ -56,29 +67,32 @@
 		if(response == "Yes")
 			transfer_personality(C.mob)
 		else if (response == "Never for this round")
-			C.prefs.be_special ^= BE_PAI
+			C.prefs.be_special -= ROLE_POSIBRAIN
 
+// This should not ever happen, but let's be safe
+/obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
+	log_to_dd("[src] at [loc] attempted to drop brain without a contained brain.")
+	return
 
 /obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
 	name = "positronic brain ([H])"
-	brainmob.name = H.real_name
-	brainmob.real_name = H.real_name
-	brainmob.dna = H.dna
+	if(isnull(brainmob.dna))
+		brainmob.dna = H.dna.Clone()
+	brainmob.name = brainmob.dna.real_name
+	brainmob.real_name = brainmob.name
 	brainmob.timeofhostdeath = H.timeofdeath
-	brainmob.stat = 0
+	brainmob.stat = CONSCIOUS
 	if(brainmob.mind)
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	brainmob << "\blue You feel slightly disoriented. That's normal when you're just a metal cube."
+	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a metal cube.</span>"
 	icon_state = "posibrain-occupied"
 	return
 
 /obj/item/device/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
 	src.searching = 0
-	src.brainmob.mind = candidate.mind
-	//src.brainmob.key = candidate.key
-	src.brainmob.ckey = candidate.ckey
+	src.brainmob.key = candidate.key
 	src.name = "positronic brain ([src.brainmob.name])"
 
 	src.brainmob << "<b>You are a positronic brain, brought into existence on [station_name()].</b>"
@@ -132,12 +146,8 @@
 	ghost_volunteers.Add(O)
 
 
-/obj/item/device/mmi/posibrain/examine()
-	set src in oview()
-
-	if(!usr || !src)	return
-	if( (usr.sdisabilities & BLIND || usr.blinded || usr.stat) && !istype(usr,/mob/dead/observer) )
-		usr << "<span class='notice'>Something is there but you can't see it.</span>"
+/obj/item/device/mmi/posibrain/examine(mob/user)
+	if(!..(user))
 		return
 
 	var/msg = "<span class='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n[desc]\n"
@@ -152,8 +162,7 @@
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	msg += "<span class='info'>*---------*</span>"
-	usr << msg
-	return
+	user << msg
 
 /obj/item/device/mmi/posibrain/emp_act(severity)
 	if(!src.brainmob)
@@ -174,7 +183,6 @@
 	src.brainmob.real_name = src.brainmob.name
 	src.brainmob.loc = src
 	src.brainmob.container = src
-	src.brainmob.robot_talk_understand = 1
 	src.brainmob.stat = 0
 	src.brainmob.silent = 0
 	src.brainmob.brain_op_stage = 4.0
@@ -189,3 +197,7 @@
 		var/turf/T = get_turf_or_move(src.loc)
 		for (var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain pings softly.")
+
+/obj/item/device/mmi/posibrain/ipc
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
+	silenced = 1

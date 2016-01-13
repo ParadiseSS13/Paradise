@@ -15,7 +15,7 @@
 		user << "<span class='danger'>\The [src] cannot be applied to [M]!</span>"
 		return 1
 
-	if (!(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon)))
+	if (!user.IsAdvancedToolUser())
 		user << "<span class='danger'>You don't have the dexterity to do this!</span>"
 		return 1
 
@@ -118,20 +118,22 @@
 			else
 				user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>"
 
-/obj/item/stack/medical/bruise_pack/tajaran
-	name = "\improper S'rendarr's Hand leaf"
-	singular_name = "S'rendarr's Hand leaf"
+/obj/item/stack/medical/bruise_pack/comfrey
+	name = "\improper Comfrey leaf"
+	singular_name = "Comfrey leaf"
 	desc = "A soft leaf that is rubbed on bruises."
-	icon = 'icons/obj/harvest.dmi'
-	icon_state = "shand"
+	icon = 'icons/obj/hydroponics_products.dmi'
+	icon_state = "alien3-product"
+	color = "#378C61"
 	heal_brute = 7
 
-/obj/item/stack/medical/ointment/tajaran
-	name = "\improper Messa's Tear leaf"
-	singular_name = "Messa's Tear leaf"
+/obj/item/stack/medical/ointment/aloe
+	name = "\improper Aloe Vera leaf"
+	singular_name = "Aloe Vera leaf"
 	desc = "A cold leaf that is rubbed on burns."
-	icon = 'icons/obj/harvest.dmi'
-	icon_state = "mtear"
+	icon = 'icons/obj/hydroponics_products.dmi'
+	icon_state = "ambrosia-product"
+	color = "#4CC5C7"
 	heal_burn = 7
 
 /obj/item/stack/medical/advanced/bruise_pack
@@ -229,7 +231,7 @@
 	if(..())
 		return 1
 
-	if (istype(M, /mob/living/carbon/human))
+	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 		var/limb = affecting.name
@@ -238,6 +240,9 @@
 			return
 		if(affecting.status & ORGAN_SPLINTED)
 			user << "\red [M]'s [limb] is already splinted!"
+			if(alert(user, "Would you like to remove the splint from [M]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
+				affecting.status &= ~ORGAN_SPLINTED
+				user << "<span class='notice'>You remove the splint from [M]'s [limb]."
 			return
 		if (M != user)
 			user.visible_message("\red [user] starts to apply \the [src] to [M]'s [limb].", "\red You start to apply \the [src] to [M]'s [limb].", "\red You hear something being wrapped.")
@@ -246,7 +251,7 @@
 				user << "\red You can't apply a splint to the arm you're using!"
 				return
 			user.visible_message("\red [user] starts to apply \the [src] to their [limb].", "\red You start to apply \the [src] to your [limb].", "\red You hear something being wrapped.")
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = M))
 			if (M != user)
 				user.visible_message("\red [user] finishes applying \the [src] to [M]'s [limb].", "\red You finish applying \the [src] to [M]'s [limb].", "\red You hear something being wrapped.")
 			else

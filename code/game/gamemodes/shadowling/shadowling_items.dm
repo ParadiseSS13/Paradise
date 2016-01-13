@@ -4,7 +4,7 @@
 	item_state = "golem"
 	origin_tech = null
 	icon_state = "golem"
-	_color = "golem"
+	item_color = "golem"
 	flags = ABSTRACT | NODROP
 	has_sensor = 0
 	unacidable = 1
@@ -66,17 +66,13 @@
 	flags = ABSTRACT | NODROP
 
 
-/obj/item/clothing/glasses/night/shadowling
+/obj/item/clothing/glasses/shadowling
 	name = "crimson eyes"
 	desc = "A shadowling's eyes. Very light-sensitive and can detect body heat through walls."
 	icon = null
 	icon_state = null
 	item_state = null
 	origin_tech = null
-	vision_flags = SEE_MOBS
-	darkness_view = 8
-	see_darkness = 0
-	invisa_view = 2
 	unacidable = 1
 	flash_protect = -1
 	flags = ABSTRACT | NODROP
@@ -98,7 +94,6 @@
 /obj/structure/shadow_vortex/Crossed(var/td)
 	..()
 	if(ismob(td))
-		td << "<span class='userdanger'><font size=3>You enter the rift. Sickening chimes begin to jangle in your ears. \
-		All around you is endless blackness. After you see something moving, you realize it isn't entirely lifeless.</font></span>" //A bit of spooking before they die
+		td << "<span class='userdanger'>You enter the rift. Deafening chimes jingle in your ears. You are swallowed in darkness.</span>"
 	playsound(loc, 'sound/effects/EMPulse.ogg', 25, 1)
 	qdel(td)

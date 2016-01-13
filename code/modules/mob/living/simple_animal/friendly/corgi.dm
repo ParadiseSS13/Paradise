@@ -32,23 +32,21 @@
 	..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/Life()
-	. = ..()
-	if(.)
-		if(fire)
-			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
-			else									fire.icon_state = "fire0"
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
-		if(oxygen)
-			if(oxygen_alert)						oxygen.icon_state = "oxy1"
-			else									oxygen.icon_state = "oxy0"
-		if(toxin)
-			if(toxins_alert)							toxin.icon_state = "tox1"
-			else									toxin.icon_state = "tox0"
+/mob/living/simple_animal/pet/corgi/handle_hud_icons()
+	..()
+	if(fire)
+		if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for heat and 2 for cold.
+		else									fire.icon_state = "fire0"
+	if(oxygen)
+		if(oxygen_alert)						oxygen.icon_state = "oxy1"
+		else									oxygen.icon_state = "oxy0"
+	if(toxin)
+		if(toxins_alert)							toxin.icon_state = "tox1"
+		else									toxin.icon_state = "tox0"
 
-	if (healths)
+/mob/living/simple_animal/pet/corgi/handle_hud_icons_health()
+	..()
+	if(healths)
 		switch(health)
 			if(30 to INFINITY)		healths.icon_state = "health0"
 			if(26 to 29)			healths.icon_state = "health1"
@@ -58,9 +56,12 @@
 			if(6 to 10)				healths.icon_state = "health5"
 			if(1 to 5)				healths.icon_state = "health6"
 			if(0)					healths.icon_state = "health7"
+
+/mob/living/simple_animal/pet/corgi/Life()
+	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/Die()
+/mob/living/simple_animal/pet/corgi/death()
 	..()
 	regenerate_icons()
 
@@ -97,7 +98,7 @@
 				user << "<span class='warning'>[src] is wearing too much armor! You can't reach \his skin.<span>"
 				visible_message("[user] gently taps [src] with [O].")
 			if(health>0 && prob(15))
-				emote("me", 1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
+				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
 			return
 
 	if (istype(O, /obj/item/weapon/razor))
@@ -105,7 +106,7 @@
 			user << "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>"
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
 			playsound(loc, 'sound/items/Welder2.ogg', 20, 1)
 			shaved = 1
@@ -129,6 +130,9 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
+					if(inventory_head.flags & NODROP)
+						usr << "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>"
+						return
 					name = real_name
 					desc = initial(desc)
 					speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
@@ -145,6 +149,9 @@
 					return
 			if("back")
 				if(inventory_back)
+					if(inventory_back.flags & NODROP)
+						usr << "<span class='warning'>\The [inventory_back] is stuck too hard to [src] for you to remove!</span>"
+						return
 					inventory_back.loc = src.loc
 					inventory_back = null
 					regenerate_icons()
@@ -183,6 +190,7 @@
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
+						/obj/item/clothing/suit/space/rig/engineering,
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -363,6 +371,11 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
+			if(/obj/item/clothing/head/helmet/space/rig/engineering)
+				name = "Space Explorer [real_name]"
+				desc = "That's one small step for a corgi. One giant yap for corgikind."
+				valid = 1
+
 			if(/obj/item/clothing/mask/fakemoustache)
 				name = "Definitely Not [real_name]"
 				desc = "That's Definitely Not [real_name]"
@@ -455,10 +468,10 @@
 							movement_target.attack_animal(src)
 						else if(ishuman(movement_target.loc) )
 							if(prob(20))
-								emote("me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+								custom_emote(1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases its tail!"))
+			custom_emote(1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				if (ckey == null)
 					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
@@ -585,7 +598,7 @@
 	if(!stat && !resting && !buckled)
 		if(prob(1))
 			if (ckey == null)
-				emote("me", 1, pick("dances around.","chases her tail."))
+				custom_emote(1, pick("dances around.","chases her tail."))
 				spawn(0)
 					for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 						dir = i
@@ -595,18 +608,18 @@
 /mob/living/simple_animal/pet/corgi/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	switch(M.a_intent)
-		if("help")	wuv(1,M)
-		if("harm")	wuv(-1,M)
+		if(I_HELP)	wuv(1,M)
+		if(I_HARM)	wuv(-1,M)
 
 /mob/living/simple_animal/pet/corgi/proc/wuv(change, mob/M)
 	if(change)
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
 				flick_overlay(image('icons/mob/animal.dmi',src,"heart-ani2",MOB_LAYER+1), list(M.client), 20)
-				emote("me", 1, "yaps happily!")
+				custom_emote(1, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				emote("me", 1, "growls!")
+				custom_emote(1, "growls!")
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi
 	name = "E-N"
@@ -629,7 +642,7 @@
 			M.show_message("\red [src] makes an odd whining noise.")
 	sleep(10)
 	explosion(get_turf(src), 0, 1, 4, 7)
-	Die()
+	death()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/proc/shootAt(var/atom/movable/target)
 	var/turf/T = get_turf(src)
@@ -656,15 +669,15 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/Die()
+/mob/living/simple_animal/pet/corgi/Ian/borgi/death()
 	..()
 	visible_message("<b>[src]</b> blows apart!")
 	new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	respawnable_list += src

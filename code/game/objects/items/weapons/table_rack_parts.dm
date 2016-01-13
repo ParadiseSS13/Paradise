@@ -12,7 +12,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "table_parts"
-	m_amt = 3750
+	materials = list(MAT_METAL=4000)
 	flags = CONDUCT
 	attack_verb = list("slammed", "bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
@@ -21,7 +21,7 @@
 	desc = "Hard table parts. Well...harder..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "reinf_tableparts"
-	m_amt = 7500
+	materials = list(MAT_METAL=8000)
 	flags = CONDUCT
 
 /obj/item/weapon/table_parts/wood
@@ -42,7 +42,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
-	m_amt = 3750
+	materials = list(MAT_METAL=2000)
 
 /*
  * Table Parts
@@ -50,6 +50,7 @@
 /obj/item/weapon/table_parts/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if (istype(W, /obj/item/weapon/wrench))
+		new /obj/item/stack/sheet/metal( user.loc )
 		new /obj/item/stack/sheet/metal( user.loc )
 		//SN src = null
 		qdel(src)
@@ -89,7 +90,8 @@
  */
 /obj/item/weapon/table_parts/wood/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/wood( user.loc )
+		new /obj/item/stack/sheet/wood(get_turf(src))
+		new /obj/item/stack/sheet/wood(get_turf(src))
 		qdel(src)
 
 /obj/item/weapon/table_parts/wood/attack_self(mob/user as mob)

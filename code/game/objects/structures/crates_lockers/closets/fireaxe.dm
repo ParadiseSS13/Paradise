@@ -1,6 +1,6 @@
 //I still dont think this should be a closet but whatever
 /obj/structure/closet/fireaxecabinet
-	name = "Fire Axe Cabinet"
+	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
 	var/obj/item/weapon/twohanded/fireaxe/fireaxe = new/obj/item/weapon/twohanded/fireaxe
 	icon_state = "fireaxe1000"
@@ -25,7 +25,7 @@
 			if(istype(O, /obj/item/device/multitool))
 				user << "\red Resetting circuitry..."
 				playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					src.locked = 0
 					user << "<span class = 'caution'> You disable the locking modules.</span>"
 					update_icon()
@@ -89,7 +89,7 @@
 					src.locked = 1
 					user << "\blue You re-enable the locking modules."
 					playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-					if(do_after(user,20))
+					if(do_after(user,20, target = src))
 						src.locked = 1
 						user << "<span class = 'caution'> You re-enable the locking modules.</span>"
 					return
@@ -144,7 +144,7 @@
 
 	attack_tk(mob/user as mob)
 		if(localopened && fireaxe)
-			fireaxe.loc = loc
+			fireaxe.forceMove(loc)
 			user << "\blue You telekinetically remove the fire axe."
 			fireaxe = null
 			update_icon()

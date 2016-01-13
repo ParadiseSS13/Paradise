@@ -26,20 +26,15 @@
 	if (fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
-/obj/machinery/light_construct/examine()
-	set src in view()
-	..()
-	if (!(usr in view(2))) return
-	switch(src.stage)
-		if(1)
-			usr << "It's an empty frame."
-			return
-		if(2)
-			usr << "It's wired."
-			return
-		if(3)
-			usr << "The casing is closed."
-			return
+/obj/machinery/light_construct/examine(mob/user)
+	if(..(user, 2))
+		switch(src.stage)
+			if(1)
+				usr << "It's an empty frame."
+			if(2)
+				usr << "It's wired."
+			if(3)
+				usr << "The casing is closed."
 
 /obj/machinery/light_construct/attackby(obj/item/weapon/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
@@ -47,7 +42,7 @@
 		if (src.stage == 1)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 			usr << "You begin deconstructing [src]."
-			if (!do_after(usr, 30))
+			if (!do_after(usr, 30, target = src))
 				return
 			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
 			user.visible_message("[user.name] deconstructs [src].", \
@@ -141,6 +136,7 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = 0					// 1 if on, 0 if off
 	var/on_gs = 0
+	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
 	var/brightness_power = 3
 	var/brightness_color = null
@@ -185,7 +181,6 @@
 // create a new lighting fixture
 /obj/machinery/light/New()
 	..()
-
 	spawn(2)
 		var/area/A = get_area(src)
 		if(A && !A.requires_power)
@@ -238,10 +233,8 @@
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
-
 					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
-
 					explode()
 			else if( prob( min(60, switchcount*switchcount*0.01) ) )
 				if(status == LIGHT_OK && trigger)
@@ -256,10 +249,14 @@
 		use_power = 1
 		set_light(0)
 
-	active_power_usage = brightness_range * 10
+	active_power_usage = (brightness_range * 10)
 	if(on != on_gs)
 		on_gs = on
-
+		if(on)
+			static_power_used = brightness_range * 20 //20W per unit luminosity
+			addStaticPower(static_power_used, STATIC_LIGHT)
+		else
+			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -268,18 +265,17 @@
 	update()
 
 // examine verb
-/obj/machinery/light/examine()
-	set src in oview(1)
-	if(usr && !usr.stat)
+/obj/machinery/light/examine(mob/user)
+	if(..(user, 1))
 		switch(status)
 			if(LIGHT_OK)
-				usr << "[desc] It is turned [on? "on" : "off"]."
+				user << "[desc] It is turned [on? "on" : "off"]."
 			if(LIGHT_EMPTY)
-				usr << "[desc] The [fitting] has been removed."
+				user << "[desc] The [fitting] has been removed."
 			if(LIGHT_BURNED)
-				usr << "[desc] The [fitting] is burnt out."
+				user << "[desc] The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
-				usr << "[desc] The [fitting] has been smashed."
+				user << "[desc] The [fitting] has been smashed."
 
 
 
@@ -375,7 +371,7 @@
 
 		user << "You stick \the [W] into the light socket!"
 		if(has_power() && (W.flags & CONDUCT))
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			//if(!user.mutations & RESIST_COLD)
@@ -525,7 +521,7 @@
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		if(on)
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 	status = LIGHT_BROKEN
@@ -562,19 +558,10 @@
 // timed process
 // use power
 
-#define LIGHTING_POWER_FACTOR 20		//20W per unit luminosity
-
-
-/obj/machinery/light/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
-	if(on)
-		use_power(brightness_range * LIGHTING_POWER_FACTOR, LIGHT)
-
-
 // called when area power state changes
 /obj/machinery/light/power_change()
-	spawn(10)
-		var/area/A = get_area_master(src)
-		if(A) seton(A.lightswitch && A.power_light)
+	var/area/A = get_area_master(src)
+	if(A) seton(A.lightswitch && A.power_light)
 
 // called when on fire
 
@@ -605,7 +592,7 @@
 	var/status = 0		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
 	var/base_state
 	var/switchcount = 0	// number of times switched
-	m_amt = 60
+	materials = list(MAT_METAL=60)
 	var/rigged = 0		// true if rigged to explode
 	var/brightness_range = 2 //how much light it gives off
 	var/brightness_power = 1
@@ -617,7 +604,7 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	item_state = "c_tube"
-	g_amt = 100
+	materials = list(MAT_GLASS=100)
 	brightness_range = 8
 	brightness_power = 3
 
@@ -633,7 +620,7 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	item_state = "contvapour"
-	g_amt = 100
+	materials = list(MAT_GLASS=100)
 	brightness_range = 5
 	brightness_power = 2
 	brightness_color = "#a0a080"
@@ -648,7 +635,7 @@
 	icon_state = "fbulb"
 	base_state = "fbulb"
 	item_state = "egg4"
-	g_amt = 100
+	materials = list(MAT_GLASS=100)
 	brightness_range = 5
 	brightness_power = 2
 
@@ -706,7 +693,7 @@
 	if(!proximity) return
 	if(istype(target, /obj/machinery/light))
 		return
-	if(user.a_intent != "harm")
+	if(user.a_intent != I_HARM)
 		return
 
 	shatter()

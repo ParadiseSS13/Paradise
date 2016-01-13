@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/fake_gib
+/obj/effect/proc_holder/spell/targeted/fake_gib
 	name = "Disintegrate"
 	desc = "This spell instantly kills somebody adjacent to you with the vilest of magick."
 

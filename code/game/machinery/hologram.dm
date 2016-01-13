@@ -40,6 +40,32 @@ var/const/HOLOPAD_MODE = 0
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
 
+/obj/machinery/hologram/holopad/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/holopad(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	RefreshParts()
+
+/obj/machinery/hologram/holopad/RefreshParts()
+	var/holograph_range = 4
+	for(var/obj/item/weapon/stock_parts/capacitor/B in component_parts)
+		holograph_range += 1 * B.rating
+	holo_range = holograph_range
+
+/obj/machinery/hologram/holopad/attackby(obj/item/P as obj, mob/user as mob, params)
+	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", P))
+		return
+
+	if(exchange_parts(user, P))
+		return
+
+	if(default_unfasten_wrench(user, P))
+		return
+
+	default_deconstruction_crowbar(P)
+
+
 /obj/machinery/hologram/holopad/attack_hand(var/mob/living/carbon/human/user) //Carn: Hologram requests.
 	if(!istype(user))
 		return
@@ -97,6 +123,13 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [verb], <span class='message'>\"[text]\"</span></span></i>"
 		master.show_message(rendered, 2)
 	return
+	
+/obj/machinery/hologram/holopad/hear_message(mob/living/M, text)
+	if(M&&hologram&&master)//Master is mostly a safety in case lag hits or something.
+		var/name_used = M.GetVoice()
+		var/rendered = "<i><span class='game say'>Holopad received, <span class='name'>[name_used]</span> [text]</span></i>"
+		master.show_message(rendered, 2)
+	return
 
 /obj/machinery/hologram/holopad/proc/create_holo(mob/living/silicon/ai/A, turf/T = loc)
 	hologram = new(T)//Spawn a blank effect at the location.
@@ -116,6 +149,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/proc/clear_holo()
 //	hologram.set_light(0)//Clear lighting.	//handled by the lighting controller when its ower is deleted
 	qdel(hologram)//Get rid of hologram.
+	hologram = null
 	if(master.holo == src)
 		master.holo = null
 	master = null//Null the master, since no-one is using it now.
@@ -196,9 +230,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	qdel(src)
 	return
 
-/obj/machinery/hologram/Destroy()
+/obj/machinery/hologram/holopad/Destroy()
 	if(hologram)
-		src:clear_holo()
+		clear_holo()
 	return ..()
 
 /*

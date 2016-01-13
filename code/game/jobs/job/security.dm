@@ -6,7 +6,7 @@
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffdddd"
-	idtype = /obj/item/weapon/card/id/silver
+	idtype = /obj/item/weapon/card/id/hos
 	req_admin_notify = 1
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_pilot, access_morgue, access_maint_tunnels, access_all_personal_lockers,
@@ -31,7 +31,7 @@
 		H.equip_or_collect(new /obj/item/device/pda/heads/hos(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black/hos(H), slot_gloves)
 		H.equip_or_collect(new /obj/item/clothing/head/HoS(H), slot_head)
-		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
@@ -46,6 +46,7 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 
@@ -58,6 +59,7 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 21
@@ -75,7 +77,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/warden(H), slot_head)
 		H.equip_or_collect(new /obj/item/device/pda/warden(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
-		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/sechud(H), slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 //		H.equip_or_collect(new /obj/item/clothing/mask/gas(H), slot_wear_mask) //Grab one from the armory you donk
 		H.equip_or_collect(new /obj/item/device/flash(H), slot_l_store)
 		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
@@ -91,6 +93,7 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 
@@ -104,7 +107,7 @@
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
-
+	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	alt_titles = list("Forensic Technician")
@@ -146,6 +149,7 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 
 		H.dna.SetSEState(SOBERBLOCK,1)
 		H.mutations += SOBER
@@ -162,6 +166,7 @@
 	spawn_positions = 5
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
@@ -192,6 +197,7 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 /datum/job/brigdoc
@@ -202,6 +208,7 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	idtype = /obj/item/weapon/card/id/security
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels)
 
@@ -214,7 +221,7 @@
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/security/brigphys(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/storage/fr_jacket(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health_advanced, slot_glasses)
+		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/shoes/white(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/medical(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
@@ -229,6 +236,7 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1
 
 /datum/job/pilot
@@ -239,6 +247,7 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	idtype = /obj/item/weapon/card/id/security
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons, access_pilot, access_external_airlocks)
 	minimal_player_age = 7
@@ -268,4 +277,5 @@
 		var/obj/item/organ/external/affected = H.organs_by_name["head"]
 		affected.implants += L
 		L.part = affected
+		H.sec_hud_set_implants()
 		return 1

@@ -36,18 +36,27 @@
 	faction = list("mimic")
 	move_to_delay = 9
 
+	var/is_electronic = 0
+
 /mob/living/simple_animal/hostile/mimic/FindTarget()
 	. = ..()
 	if(.)
-		emote("growls at [.]")
+		custom_emote(1, "growls at [.]")
 
-/mob/living/simple_animal/hostile/mimic/Die()
+/mob/living/simple_animal/hostile/mimic/death()
 	..()
 	visible_message("\red <b>[src]</b> stops moving!")
 	ghostize()
 	qdel(src)
 
-
+/mob/living/simple_animal/hostile/mimic/emp_act(severity)
+	if(is_electronic)
+		switch(severity)
+			if(1)
+				death()
+			if(2)
+				adjustBruteLoss(50)
+	..(severity)
 
 //
 // Crate Mimic
@@ -108,7 +117,7 @@
 	..()
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/Die()
+/mob/living/simple_animal/hostile/mimic/crate/death()
 
 	var/obj/structure/closet/crate/C = new(get_turf(src))
 	// Put loot in crate
@@ -145,9 +154,9 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
-		Die()
+		death()
 
-/mob/living/simple_animal/hostile/mimic/copy/Die()
+/mob/living/simple_animal/hostile/mimic/copy/death()
 
 	for(var/atom/movable/M in src)
 		M.loc = get_turf(src)
@@ -188,12 +197,16 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 				knockdown_people = 1
 				melee_damage_lower *= 2
 				melee_damage_upper *= 2
+			if(istype(O, /obj/machinery))
+				is_electronic = 1
 		else if(istype(O, /obj/item))
 			var/obj/item/I = O
 			health = 15 * I.w_class
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1
+			if(istype(O, /obj/item/device))
+				is_electronic = 1
 
 		maxHealth = health
 		if(creator)

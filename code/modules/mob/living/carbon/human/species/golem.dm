@@ -1,5 +1,6 @@
 /datum/species/golem
 	name = "Golem"
+	name_plural = "Golems"
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
@@ -11,7 +12,7 @@
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
-
+	siemens_coeff = 0
 
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/golem
@@ -38,7 +39,7 @@
 	desc = "a golem's skin"
 	icon_state = "golem"
 	item_state = "golem"
-	_color = "golem"
+	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
@@ -66,7 +67,7 @@
 	desc = "sturdy adamantine feet"
 	icon_state = "golem"
 	item_state = "golem"
-	flags = NOSLIP | ABSTRACT | MASKINTERNALS | MASKCOVERSMOUTH | NODROP
+	flags = NOSLIP | ABSTRACT | AIRTIGHT | MASKCOVERSMOUTH | NODROP
 	slowdown = SHOES_SLOWDOWN+1
 
 
@@ -92,7 +93,7 @@
 /obj/item/clothing/head/space/golem
 	icon_state = "golem"
 	item_state = "dermal"
-	_color = "dermal"
+	item_color = "dermal"
 	name = "golem's head"
 	desc = "a golem's head"
 	unacidable = 1

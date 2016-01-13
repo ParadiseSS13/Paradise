@@ -72,6 +72,9 @@
 		for(var/obj/mecha/M in mechas_list)
 			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
 				L += M
+		for(var/obj/spacepod/S in spacepods_list)
+			if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+				L += S
 	else
 		var/list/Objects = oview(vision_range, src)
 		L += Objects
@@ -116,6 +119,11 @@
 			var/obj/mecha/M = the_target
 			if(M.occupant)//Just so we don't attack empty mechs
 				if(CanAttack(M.occupant))
+					return 1
+		if(istype(the_target, /obj/spacepod))
+			var/obj/spacepod/S = the_target
+			if(S.occupant || S.occupant2)//Just so we don't attack empty mechs
+				if(CanAttack(S.occupant) || CanAttack(S.occupant2))
 					return 1
 		if(isliving(the_target))
 			var/mob/living/L = the_target
@@ -234,7 +242,7 @@
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
-/mob/living/simple_animal/hostile/Die()
+/mob/living/simple_animal/hostile/death()
 	LoseAggro()
 	mouse_opacity = 1
 	..()
@@ -245,22 +253,21 @@
 	var/target = the_target
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [target]!</span>")
 
-	var/tturf = get_turf(target)
 	if(rapid)
 		spawn(1)
-			Shoot(tturf, src.loc, src)
+			Shoot(target, src.loc, src)
 			if(casingtype)
 				new casingtype(get_turf(src))
 		spawn(4)
-			Shoot(tturf, src.loc, src)
+			Shoot(target, src.loc, src)
 			if(casingtype)
 				new casingtype(get_turf(src))
 		spawn(6)
-			Shoot(tturf, src.loc, src)
+			Shoot(target, src.loc, src)
 			if(casingtype)
 				new casingtype(get_turf(src))
 	else
-		Shoot(tturf, src.loc, src)
+		Shoot(target, src.loc, src)
 		if(casingtype)
 			new casingtype
 	ranged_cooldown = ranged_cooldown_cap
@@ -270,17 +277,17 @@
 	if(target == start)
 		return
 
-	var/obj/item/projectile/A = new projectiletype(user:loc)
+	var/obj/item/projectile/A = new projectiletype(src.loc)
 	playsound(user, projectilesound, 100, 1)
 	if(!A)	return
 
-	if (!istype(target, /turf))
-		qdel(A)
-		return
 	A.current = target
 	A.firer = src
 	A.yo = target:y - start:y
 	A.xo = target:x - start:x
+	if(AIStatus == AI_OFF)//Don't want mindless mobs to have their movement screwed up firing in space
+		newtonian_move(get_dir(target, user))
+	A.original = target
 	spawn( 0 )
 		A.process()
 	return

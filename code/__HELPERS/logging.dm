@@ -8,16 +8,16 @@
 
 
 /proc/error(msg)
-	world.log << "## ERROR: [msg]"
+	log_to_dd("## ERROR: [msg]")
 
 #define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [src] usr: [usr].")
 //print a warning message to world.log
 /proc/warning(msg)
-	world.log << "## WARNING: [msg]"
+	log_to_dd("## WARNING: [msg]")
 
 //print a testing-mode debug message to world.log
 /proc/testing(msg)
-	world.log << "## TESTING: [msg]"
+	log_to_dd("## TESTING: [msg]")
 
 /proc/log_admin(text)
 	admin_log.Add(text)
@@ -30,7 +30,7 @@
 		diary << "\[[time_stamp()]]DEBUG: [text]"
 
 	for(var/client/C in admins)
-		if(C.prefs.toggles & CHAT_DEBUGLOGS)
+		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & CHAT_DEBUGLOGS))
 			C << "DEBUG: [text]"
 
 
@@ -80,3 +80,15 @@
 
 /proc/log_misc(text)
 	diary << "\[[time_stamp()]]MISC: [text][log_end]"
+
+/proc/log_to_dd(text)
+	world.log << text //this comes before the config check because it can't possibly runtime
+	if(config.log_world_output)
+		diary << "\[[time_stamp()]]DD_OUTPUT: [text][log_end]"
+
+/**
+ * Standardized method for tracking startup times.
+ */
+/proc/log_startup_progress(var/message)
+	world << "<span class='danger'>[message]</span>"
+	log_to_dd(message)

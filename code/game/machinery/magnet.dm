@@ -164,7 +164,7 @@
 				if(prob(electricity_level))
 					explosion(loc, 0, 1, 2, 3) // ooo dat shit EXPLODES son
 					spawn(2)
-						del(src)
+						qdel(src)
 		*/
 
 		updateicon()
@@ -315,7 +315,7 @@
 		if(href_list["operation"])
 			switch(href_list["operation"])
 				if("plusspeed")
-					speed ++
+					speed++
 					if(speed > 10)
 						speed = 10
 				if("minusspeed")

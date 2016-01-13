@@ -16,7 +16,7 @@
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
 
-	aSignal.frequency = sanitize_frequency(rand(1441, 1489))
+	aSignal.frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(50))

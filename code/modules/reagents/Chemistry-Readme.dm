@@ -98,6 +98,9 @@ About the Holder:
 			Returns the amount of the matching reagent inside the
 			holder. Returns 0 if the reagent is missing.
 
+		overdose_list()
+			Returns a list of all the chemical IDs in the reagent holder that are overdosing
+
 		Important variables:
 
 			total_volume

@@ -166,7 +166,7 @@
 			M.show_message("\red [src] makes an odd warbling noise, fizzles, and explodes.")
 	explosion(get_turf(loc), -1, -1, 3, 5)
 	eject_brain()
-	Die()
+	death()
 
 /mob/living/simple_animal/spiderbot/proc/update_icon()
 	if(mmi)
@@ -204,7 +204,7 @@
 
 	..()
 
-/mob/living/simple_animal/spiderbot/Die()
+/mob/living/simple_animal/spiderbot/death()
 
 	living_mob_list -= src
 	dead_mob_list += src
@@ -212,8 +212,9 @@
 	if(camera)
 		camera.status = 0
 
-	held_item.loc = src.loc
-	held_item = null
+	if(held_item)
+		held_item.forceMove(src.loc)
+		held_item = null
 
 	robogibs(src.loc, viruses)
 	qdel(src)
@@ -280,7 +281,7 @@
 	src << "\red There is nothing of interest to take."
 	return 0
 
-/mob/living/simple_animal/spiderbot/examine()
-	..()
+/mob/living/simple_animal/spiderbot/examine(mob/user)
+	..(user)
 	if(src.held_item)
-		usr << "It is carrying \a [src.held_item] \icon[src.held_item]."
+		user << "It is carrying \a [src.held_item] \icon[src.held_item]."

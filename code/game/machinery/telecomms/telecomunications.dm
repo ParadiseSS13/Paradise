@@ -28,12 +28,8 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/machinetype = 0 // just a hacky way of preventing alike machines from pairing
 	var/toggled = 1 	// Is it toggled on
 	var/on = 1
-	var/integrity = 100 // basically HP, loses integrity by heat
-	var/heatgen = 20 // how much heat to transfer to the environment
-	var/delay = 10 // how many process() ticks to delay per heat
-	var/heating_power = 40000
 	var/long_range_link = 0	// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
-	var/circuitboard = null // string pointing to a circuitboard type
+	var/circuitboard = null // type pointing to a circuitboard type
 	var/hide = 0				// Is it a hidden machine?
 	var/listening_level = 0	// 0 = auto set in New() - this is the z level that the machine is listening to.
 	Mtoollink = 1
@@ -46,7 +42,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	//world << "[src] ([src.id]) - [signal.debug_print()]"
 	var/send_count = 0
 
-	signal.data["slow"] += rand(0, round((100-integrity))) // apply some lag based on integrity
 
 	// Apply some lag based on traffic rates
 	var/netlag = round(traffic / 50)
@@ -162,6 +157,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/Destroy()
 	telecomms_list -= src
+	for(var/obj/machinery/telecomms/comm in telecomms_list)
+		comm.links -= src
+	links.Cut()
 	return ..()
 
 // Used in auto linking
@@ -183,7 +181,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 /obj/machinery/telecomms/proc/update_power()
 
 	if(toggled)
-		if(stat & (BROKEN|NOPOWER|EMPED) || integrity <= 0) // if powered, on. if not powered, off. if too damaged, off
+		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
 			on = 0
 		else
 			on = 1
@@ -192,9 +190,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/process()
 	update_power()
-
-	// Check heat and generate some
-	checkheat()
 
 	// Update the icon
 	update_icon()
@@ -211,53 +206,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				stat &= ~EMPED
 	..()
 
-/obj/machinery/telecomms/proc/checkheat()
-	// Checks heat from the environment and applies any integrity damage
-	var/datum/gas_mixture/environment = loc.return_air()
-	var/damage_chance = 0                           // Percent based chance of applying 1 integrity damage this tick
-	switch(environment.temperature)
-		if((T0C + 40) to (T0C + 70))                // 40C-70C, minor overheat, 10% chance of taking damage
-			damage_chance = 10
-		if((T0C + 70) to (T0C + 130))				// 70C-130C, major overheat, 25% chance of taking damage
-			damage_chance = 25
-		if((T0C + 130) to (T0C + 200))              // 130C-200C, dangerous overheat, 50% chance of taking damage
-			damage_chance = 50
-		if((T0C + 200) to INFINITY)					// More than 200C, INFERNO. Takes damage every tick.
-			damage_chance = 100
-	if (damage_chance && prob(damage_chance))
-		integrity = between(0, integrity - 1, 100)
-
-
-	if(delay)
-		delay--
-	else
-		// If the machine is on, ready to produce heat, and has positive traffic, genn some heat
-		if(on && traffic > 0)
-			produce_heat(heatgen)
-			delay = initial(delay)
-
-/obj/machinery/telecomms/proc/produce_heat(heat_amt)
-	if(heatgen == 0)
-		return
-
-	if(!(stat & (NOPOWER|BROKEN))) //Blatently stolen from space heater.
-		var/turf/simulated/L = loc
-		if(istype(L))
-			var/datum/gas_mixture/env = L.return_air()
-			if(env.temperature < (heat_amt+T0C))
-
-				var/transfer_moles = 0.25 * env.total_moles()
-
-				var/datum/gas_mixture/removed = env.remove(transfer_moles)
-
-				if(removed)
-
-					var/heat_capacity = removed.heat_capacity()
-					if(heat_capacity == 0 || heat_capacity == null)
-						heat_capacity = 1
-					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
-
-				env.merge(removed)
 /*
 	The receiver idles and receives messages from subspace-compatible radio equipment;
 	primarily headsets. They then just relay this information to all linked devices,
@@ -276,8 +224,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 1
-	heatgen = 0
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/receiver"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
 
@@ -333,8 +280,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 80
 	machinetype = 7
-	heatgen = 40
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/hub"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/hub
 	long_range_link = 1
 	netspeed = 40
 
@@ -368,8 +314,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 8
-	heatgen = 0
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/relay"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/relay
 	netspeed = 5
 	long_range_link = 1
 	var/broadcasting = 1
@@ -420,8 +365,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 50
 	machinetype = 2
-	heatgen = 20
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/bus"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/bus
 	netspeed = 40
 	var/change_frequency = 0
 
@@ -473,9 +417,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 3
-	heatgen = 100
-	delay = 5
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/processor"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 	receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -512,8 +454,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 15
 	machinetype = 4
-	heatgen = 50
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/server"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/server
 	var/list/log_entries = list()
 	var/list/stored_names = list()
 	var/list/TrafficActions = list()
@@ -604,8 +545,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		if(istext(t))
 			rawcode = t
 
-/obj/machinery/telecomms/server/proc/compile()
+/obj/machinery/telecomms/server/proc/compile(mob/user as mob)
 	if(Compiler)
+		admin_log(user)
 		return Compiler.Compile(rawcode)
 
 /obj/machinery/telecomms/server/proc/update_logs()
@@ -627,8 +569,13 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	log_entries.Add(log)
 	update_logs()
 
-
-
+/obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
+	var/msg="[key_name(mob)] has compiled a script to server [src]:"
+	diary << msg
+	diary << rawcode
+	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
+	if(length(rawcode)) // Let's not bother the admins for empty code.
+		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 // Simple log entry datum
 

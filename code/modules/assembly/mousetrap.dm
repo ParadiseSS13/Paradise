@@ -2,16 +2,16 @@
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
-	m_amt = 100
+	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1"
 	var/armed = 0
 
 	bomb_name = "contact mine"
 
-	examine()
-		..()
+	examine(mob/user)
+		..(user)
 		if(armed)
-			usr << "It looks like it's armed."
+			user << "It looks like it's armed."
 
 	activate()
 		if(..())

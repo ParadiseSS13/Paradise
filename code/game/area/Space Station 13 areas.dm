@@ -35,7 +35,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/eject = null
 
 	var/debug = 0
-	var/powerupdate = 10		//We give everything 10 ticks to settle out it's power usage.
 	var/requires_power = 1
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
 
@@ -46,6 +45,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/used_equip = 0
 	var/used_light = 0
 	var/used_environ = 0
+	var/static_equip
+	var/static_light = 0
+	var/static_environ
 
 	var/has_gravity = 1
 	var/list/apc = list()
@@ -59,10 +61,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
-
-/hook/startup/proc/setupTeleportLocs()
+/hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
@@ -76,19 +76,13 @@ var/list/teleportlocs = list()
 	return 1
 
 var/list/ghostteleportlocs = list()
-
-/hook/startup/proc/setupGhostTeleportLocs()
+/hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/tdome))
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			var/turf/picked = pick(turfs)
-			if ((picked.z in config.player_levels))
-				ghostteleportlocs += AR.name
-				ghostteleportlocs[AR.name] = AR
+			ghostteleportlocs += AR.name
+			ghostteleportlocs[AR.name] = AR
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -129,6 +123,24 @@ var/list/ghostteleportlocs = list()
 	power_environ = 0
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
+/area/space/atmosalert()
+	return
+
+/area/space/fire_alert()
+	return
+
+/area/space/fire_reset()
+	return
+
+/area/space/readyalert()
+	return
+
+/area/space/radiation_alert()
+	return
+
+/area/space/partyalert()
+	return
+
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
@@ -148,18 +160,29 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/escape
 	name = "\improper Emergency Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/escape/station
-	name = "\improper Emergency Shuttle Station"
 	icon_state = "shuttle2"
 
-/area/shuttle/escape/centcom
-	name = "\improper Emergency Shuttle Centcom"
+
+/area/shuttle/pod_1
+	name = "\improper Escape Pod One"
+	music = "music/escape.ogg"
 	icon_state = "shuttle"
 
-/area/shuttle/escape/transit // the area to pass through for 3 minute transit
-	name = "\improper Emergency Shuttle Transit"
+/area/shuttle/pod_2
+	name = "\improper Escape Pod Two"
+	music = "music/escape.ogg"
 	icon_state = "shuttle"
+
+/area/shuttle/pod_3
+	name = "\improper Escape Pod Three"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
+/area/shuttle/pod_4
+	name = "\improper Escape Pod Four"
+	music = "music/escape.ogg"
+	icon_state = "shuttle"
+
 
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
@@ -216,18 +239,13 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/mining
 	name = "\improper Mining Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/mining/station
-	icon_state = "shuttle2"
-
-/area/shuttle/mining/outpost
 	icon_state = "shuttle"
 
-/area/shuttle/transport1/centcom
+/area/shuttle/transport
 	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
+	name = "\improper Transport Shuttle"
 
-/area/shuttle/transport1/station
+/area/shuttle/transport1
 	icon_state = "shuttle"
 	name = "\improper Transport Shuttle"
 
@@ -263,17 +281,11 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/siberia
 	name = "\improper Labor Camp Shuttle"
 	music = "music/escape.ogg"
-
-/area/shuttle/siberia/station
 	icon_state = "shuttle"
 
-/area/shuttle/siberia/outpost
-	icon_state = "shuttle"
-
-/area/shuttle/transport1/centcom
-	icon_state = "shuttle"
-	name = "\improper Transport Shuttle Centcom"
-
+/area/shuttle/specops
+	name = "\improper Special Ops Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
@@ -290,6 +302,10 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/syndicate_elite/station
 	name = "\improper Syndicate Elite Shuttle"
 	icon_state = "shuttlered2"
+
+/area/shuttle/administration
+	name = "\improper Administration Shuttle"
+	icon_state = "shuttlered"
 
 /area/shuttle/administration/centcom
 	name = "\improper Administration Shuttle Centcom"
@@ -330,12 +346,18 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/research
 	name = "\improper Research Shuttle"
 	music = "music/escape.ogg"
+	icon_state = "shuttle"
 
 /area/shuttle/research/station
 	icon_state = "shuttle2"
 
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
+
+/area/shuttle/vox
+	name = "\improper Vox Skipjack"
+	icon_state = "shuttle"
+	requires_power = 0
 
 /area/shuttle/vox/station
 	name = "\improper Vox Skipjack"
@@ -399,6 +421,19 @@ var/list/ghostteleportlocs = list()
 	name = "\improper hyperspace"
 	icon_state = "shuttle"
 
+/area/shuttle/supply
+	name = "Supply Shuttle"
+	icon_state = "shuttle3"
+	requires_power = 0
+
+/area/shuttle/abandoned
+	name = "Abandoned Ship"
+	icon_state = "shuttle"
+
+/area/shuttle/syndicate
+	name = "Syndicate Infiltrator"
+	icon_state = "shuttle"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -455,6 +490,9 @@ var/list/ghostteleportlocs = list()
 
 /area/centcom/holding
 	name = "\improper Holding Facility"
+
+/area/centcom/bathroom
+	name = "\improper Centcom Emergency Shuttle Bathrooms"
 
 //SYNDICATES
 
@@ -592,6 +630,11 @@ var/list/ghostteleportlocs = list()
 /area/ninja/holding
 	name = "\improper SpiderClan Holding Facility"
 
+/area/vox_station
+	name = "\improper Vox Base"
+	icon_state = "yellow"
+	requires_power = 0
+	lighting_use_dynamic = 0
 
 /area/vox_station/transit
 	name = "\improper Hyperspace"
@@ -849,6 +892,10 @@ var/list/ghostteleportlocs = list()
 
 /area/maintenance/incinerator
 	name = "\improper Incinerator"
+	icon_state = "disposal"
+
+/area/maintenance/turbine
+	name = "\improper Turbine"
 	icon_state = "disposal"
 
 /area/maintenance/disposal
@@ -1344,13 +1391,13 @@ var/list/ghostteleportlocs = list()
 	music = "signal"
 	ambientsounds = list('sound/ambience/ambimalf.ogg')
 
-/area/toxins/telesci
-	name = "\improper Telescience Lab"
-	icon_state = "telesci"
+/area/toxins/explab
+	name = "\improper E.X.P.E.R.I-MENTOR Lab"
+	icon_state = "toxmisc"
 
-/area/toxins/telescipad
-	name = "\improper Telescience Lab Pad"
-	icon_state = "telescipad"
+/area/toxins/explab_chamber
+	name = "\improper E.X.P.E.R.I-MENTOR Chamber"
+	icon_state = "toxmisc"
 
 //MedBay
 
@@ -1498,6 +1545,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Brig"
 	icon_state = "brig"
 
+/area/security/brig/prison_break()
+	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
+		temp_closet.locked = 0
+		temp_closet.icon_state = temp_closet.icon_closed
+	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_timer.releasetime = 1
+	..()
+
 /area/security/permabrig
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
@@ -1505,6 +1560,14 @@ var/list/ghostteleportlocs = list()
 /area/security/prison
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
+
+/area/security/prison/prison_break()
+	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
+		temp_closet.locked = 0
+		temp_closet.icon_state = temp_closet.icon_closed
+	for(var/obj/machinery/door_timer/temp_timer in src)
+		temp_timer.releasetime = 1
+	..()
 
 /area/security/prison/cell_block
 	name = "\improper Prison Cell Block"
@@ -1910,11 +1973,11 @@ area/security/podbay
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/engipost
-	name = "\improper Abandoned Ship"
+	name = "\improper Engineering Outpost"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
-	name = "\improper Abandoned Ship"
+	name = "\improper North of SS13"
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
@@ -2217,12 +2280,12 @@ area/security/podbay
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
-	name = "\improper Telecommunications Satellite West Wing"
+	name = "\improper Telecoms West Wing"
 	icon_state = "tcomsatwest"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
-	name = "\improper Telecommunications Satellite East Wing"
+	name = "\improper Telecoms East Wing"
 	icon_state = "tcomsateast"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
@@ -2235,10 +2298,12 @@ area/security/podbay
 	icon_state = "tcomsatcham"
 
 /area/tcommsat/lounge
-	name = "\improper Telecommunications Satellite Lounge"
+	name = "\improper Telecoms Lounge"
 	icon_state = "tcomsatlounge"
 
-
+/area/tcommsat/powercontrol
+	name = "\improper Telecoms Power Control"
+	icon_state = "tcomsatwest"
 
 // Away Missions
 /area/awaymission
@@ -2447,12 +2512,11 @@ area/security/podbay
 // CENTCOM
 var/list/centcom_areas = list (
 	/area/centcom,
-	/area/shuttle/escape/centcom,
 	/area/shuttle/escape_pod1/centcom,
 	/area/shuttle/escape_pod2/centcom,
 	/area/shuttle/escape_pod3/centcom,
 	/area/shuttle/escape_pod5/centcom,
-	/area/shuttle/transport1/centcom,
+	/area/shuttle/transport1,
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
 )
@@ -2460,14 +2524,11 @@ var/list/centcom_areas = list (
 //SPACE STATION 13
 var/list/the_station_areas = list (
 	/area/shuttle/arrival,
-	/area/shuttle/escape/station,
+	/area/shuttle/escape,
 	/area/shuttle/escape_pod1/station,
 	/area/shuttle/escape_pod2/station,
 	/area/shuttle/escape_pod3/station,
 	/area/shuttle/escape_pod5/station,
-	/area/shuttle/mining/station,
-	/area/shuttle/transport1/station,
-	// /area/shuttle/transport2/station,
 	/area/shuttle/prison/station,
 	/area/shuttle/administration/station,
 	/area/shuttle/specops/station,

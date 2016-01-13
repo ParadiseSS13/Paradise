@@ -12,11 +12,10 @@
 /proc/GenerateTheft(var/job,var/datum/mind/traitor)
 	var/list/datum/objective/objectives = list()
 
-	for(var/o in typesof(/datum/objective/steal))
-		if(o != /datum/objective/steal)		//Make sure not to get a blank steal objective.
-			var/datum/objective/target = new o(null,job)
-			objectives += target
-			objectives[target] = target.weight
+	for(var/o in subtypesof(/datum/objective/steal))
+		var/datum/objective/target = new o(null,job)
+		objectives += target
+		objectives[target] = target.weight
 	return objectives
 
 /proc/GenerateAssassinate(var/job,var/datum/mind/traitor)
@@ -841,7 +840,7 @@ datum
 					return 2
 
 			diamond_drill
-				steal_target = /obj/item/weapon/pickaxe/diamonddrill
+				steal_target = /obj/item/weapon/pickaxe/drill/diamonddrill
 				explanation_text = "Steal a diamond drill."
 				weight = 20
 
@@ -1204,7 +1203,7 @@ datum
 				check_completion()
 					var/held_credits = 0
 					for(var/obj/item/weapon/spacecash/M in owner.current.get_contents())
-						held_credits += M.worth
+						held_credits += M.get_total()
 					if(held_credits >= steal_amount)
 						return 1
 					return 0
@@ -1282,11 +1281,11 @@ datum
 					if (ticker.current_state == GAME_STATE_SETTING_UP)
 						for(var/mob/new_player/P in world)
 							if(P.client && P.ready && P.mind!=owner)
-								n_p ++
+								n_p++
 					else if (ticker.current_state == GAME_STATE_PLAYING)
 						for(var/mob/living/carbon/human/P in world)
 							if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
-								n_p ++
+								n_p++
 					target_amount = min(target_amount, n_p)
 
 				explanation_text = "Absorb [target_amount] compatible genomes."

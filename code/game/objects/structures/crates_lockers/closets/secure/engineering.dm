@@ -1,5 +1,5 @@
 /obj/structure/closet/secure_closet/engineering_chief
-	name = "Chief Engineer's Locker"
+	name = "chief engineer's locker"
 	req_access = list(access_ce)
 	icon_state = "securece1"
 	icon_closed = "securece"
@@ -35,7 +35,7 @@
 		return
 
 /obj/structure/closet/secure_closet/engineering_electrical
-	name = "Electrical Supplies"
+	name = "electrical supplies locker"
 	req_access = list(access_engine_equip)
 	icon_state = "secureengelec1"
 	icon_closed = "secureengelec"
@@ -53,9 +53,9 @@
 		new /obj/item/weapon/storage/toolbox/electrical(src)
 		new /obj/item/weapon/storage/toolbox/electrical(src)
 		new /obj/item/weapon/storage/toolbox/electrical(src)
-		new /obj/item/weapon/module/power_control(src)
-		new /obj/item/weapon/module/power_control(src)
-		new /obj/item/weapon/module/power_control(src)
+		new /obj/item/weapon/apc_electronics(src)
+		new /obj/item/weapon/apc_electronics(src)
+		new /obj/item/weapon/apc_electronics(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
@@ -65,7 +65,7 @@
 
 
 /obj/structure/closet/secure_closet/engineering_welding
-	name = "Welding Supplies"
+	name = "welding supplies locker"
 	req_access = list(access_engine_equip)
 	icon_state = "secureengweld1"
 	icon_closed = "secureengweld"
@@ -89,7 +89,7 @@
 
 
 /obj/structure/closet/secure_closet/engineering_personal
-	name = "Engineer's Locker"
+	name = "engineer's locker"
 	req_access = list(access_engine_equip)
 	icon_state = "secureeng1"
 	icon_closed = "secureeng"
@@ -119,7 +119,7 @@
 		return
 
 /obj/structure/closet/secure_closet/atmos_personal
-	name = "Technician's Locker"
+	name = "technician's locker"
 	req_access = list(access_atmospherics)
 	icon_state = "secureeng1"
 	icon_closed = "secureeng"

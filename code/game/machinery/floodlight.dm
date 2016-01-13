@@ -31,13 +31,15 @@
 			set_light(0)
 			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
 			return
+			
+/obj/machinery/floodlight/attack_ai(mob/user as mob)
+	return
 
 /obj/machinery/floodlight/attack_hand(mob/user as mob)
 	if(open && cell)
 		if(ishuman(user))
 			if(!user.get_active_hand())
 				user.put_in_hands(cell)
-				cell.loc = user.loc
 		else
 			cell.loc = loc
 

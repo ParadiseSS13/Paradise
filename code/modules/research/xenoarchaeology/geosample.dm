@@ -58,8 +58,8 @@
 
 	age = rand(1,999)
 
-	if(container.mineral)
-		switch(container.mineral.name)
+	if(container.mineralName)
+		switch(container.mineralName)
 			if("Uranium")
 				age_million = rand(1, 704)
 				age_thousand = rand(1,999)
@@ -97,6 +97,12 @@
 				age_thousand = rand(-1,-999)
 				find_presence["plasma"] = rand(1,1000) / 100
 				source_mineral = "plasma"
+			if("Bluespace crystal")
+				age_thousand = rand(1,999)
+				find_presence["plasma"] = rand(1,1000) / 100
+			if("Gibtonite")
+				age_thousand = rand(1, 50)
+				find_presence["plasma"] = rand(1,1000) / 100
 
 	if(prob(75))
 		find_presence["phosphorus"] = rand(1,500) / 100

@@ -1,16 +1,19 @@
-/mob/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
-
-	if(istype(mover) && mover.checkpass(PASSMOB))
+/mob/CanPass(atom/movable/mover, turf/target, height=0)
+	if(height==0)
+		return 1
+	if(istype(mover, /obj/item/projectile) || mover.throwing)
+		return (!density || lying)
+	if(mover.checkpass(PASSMOB))
+		return 1
+	if(buckled == mover)
 		return 1
 	if(ismob(mover))
 		var/mob/moving_mob = mover
 		if ((other_mobs && moving_mob.other_mobs))
 			return 1
-		return (!mover.density || !density || lying)
-	else
-		return (!mover.density || !density || lying)
-	return
+		if (mover == buckled_mob)
+			return 1
+	return (!mover.density || !density || lying)
 
 
 /client/North()
@@ -127,41 +130,6 @@
 	return
 
 
-/atom/movable/Move(NewLoc, direct)
-	if (direct & (direct - 1))
-		if (direct & 1)
-			if (direct & 4)
-				if (step(src, NORTH))
-					step(src, EAST)
-				else
-					if (step(src, EAST))
-						step(src, NORTH)
-			else
-				if (direct & 8)
-					if (step(src, NORTH))
-						step(src, WEST)
-					else
-						if (step(src, WEST))
-							step(src, NORTH)
-		else
-			if (direct & 2)
-				if (direct & 4)
-					if (step(src, SOUTH))
-						step(src, EAST)
-					else
-						if (step(src, EAST))
-							step(src, SOUTH)
-				else
-					if (direct & 8)
-						if (step(src, SOUTH))
-							step(src, WEST)
-						else
-							if (step(src, WEST))
-								step(src, SOUTH)
-	else
-		. = ..()
-	return
-
 
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
@@ -170,7 +138,7 @@
 			if(!mob.control_object)	return
 			mob.control_object.dir = direct
 		else
-			mob.control_object.loc = get_step(mob.control_object,direct)
+			mob.control_object.forceMove(get_step(mob.control_object,direct))
 	return
 
 
@@ -191,8 +159,6 @@
 
 	if(world.time < move_delay)  return
 
-	if(isAI(mob))  return AIMove(n,direct,mob)
-
 	if(!isliving(mob))  return mob.Move(n,direct)
 
 	if(moving)  return 0
@@ -204,16 +170,12 @@
 			if(S.victim == mob)
 				return
 
-	if(mob.stat==2)	return
+	if(mob.stat==DEAD)	return
 
 // handle possible spirit movement
 	if(istype(mob,/mob/spirit))
 		var/mob/spirit/currentSpirit = mob
 		return currentSpirit.Spirit_Move(direct)
-
-	// handle possible AI movement
-	if(isAI(mob))
-		return AIMove(n,direct,mob)
 
 	if(mob.notransform)	return//This is sota the goto stop mobs from moving var
 
@@ -231,9 +193,17 @@
 
 	if(Process_Grab())	return
 
+	if(mob.buckled)							//if we're buckled to something, tell it we moved.
+		return mob.buckled.relaymove(mob, direct)
 
 	if(mob.remote_control)					//we're controlling something, our movement is relayed to it
 		return mob.remote_control.relaymove(mob, direct)
+
+	if(isAI(mob))
+		if(istype(mob.loc, /obj/item/device/aicard))
+			var/obj/O = mob.loc
+			return O.relaymove(mob, direct) //aicards have special relaymove stuff
+		return AIMove(n,direct,mob)
 
 	if(!mob.canmove)
 		return
@@ -244,13 +214,12 @@
 	if(!mob.lastarea)
 		mob.lastarea = get_area(mob.loc)
 
-	if((istype(mob.loc, /turf/space)) || ((mob.lastarea.has_gravity == 0) && (!istype(mob.loc, /obj/spacepod))))		// spacepods shouldn't get affected by changes in gravity
-		if(!mob.Process_Spacemove(0))	return 0
-
-
 	if(isobj(mob.loc) || ismob(mob.loc))//Inside an object, tell it we moved
 		var/atom/O = mob.loc
 		return O.relaymove(mob, direct)
+
+	if(!mob.Process_Spacemove(direct))
+		return 0
 
 	if(isturf(mob.loc))
 
@@ -267,7 +236,10 @@
 			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
 			return 0
 
+		var/turf/T = mob.loc
 		move_delay = world.time//set move delay
+		move_delay += T.slowdown
+		mob.last_movement = world.time
 		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
@@ -283,28 +255,6 @@
 			var/tickcomp = ((1/(world.tick_lag))*1.3)
 			move_delay = move_delay + tickcomp
 
-		if(istype(mob.buckled, /obj/vehicle) || istype(mob.buckled, /obj/structure/stool/bed/chair/cart))
-			return mob.buckled.relaymove(mob,direct)
-
-		if(istype(mob.machine, /obj/machinery))
-			if(mob.machine.relaymove(mob,direct))
-				return
-
-		if(mob.pulledby || mob.buckled) // Wheelchair driving!
-			if(istype(mob.loc, /turf/space))
-				return // No wheelchair driving in space
-			if(istype(mob.pulledby, /obj/structure/stool/bed/chair/wheelchair))
-				return mob.pulledby.relaymove(mob, direct)
-			else if(istype(mob.buckled, /obj/structure/stool/bed/chair/wheelchair))
-				if(ishuman(mob.buckled))
-					var/mob/living/carbon/human/driver = mob.buckled
-					var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
-					var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
-					if((!l_hand || (l_hand.status & ORGAN_DESTROYED)) && (!r_hand || (r_hand.status & ORGAN_DESTROYED)))
-						return // No hands to drive your chair? Tough luck!
-				move_delay += 2
-				return mob.buckled.relaymove(mob,direct)
-
 		//We are now going to move
 		moving = 1
 		//Something with pulling things
@@ -317,7 +267,6 @@
 					var/mob/M = L[1]
 					if(M)
 						if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-							var/turf/T = mob.loc
 							. = ..()
 							if (isturf(M.loc))
 								var/diag = get_dir(mob, M)
@@ -342,10 +291,8 @@
 
 		else if(mob.confused)
 			step(mob, pick(cardinal))
-			mob.last_movement=world.time
 		else
 			. = ..()
-			mob.last_movement=world.time
 
 		for (var/obj/item/weapon/grab/G in mob)
 			if (G.state == GRAB_NECK)
@@ -355,6 +302,8 @@
 			G.adjust_position()
 
 		moving = 0
+		if(mob && .)
+			mob.throwing = 0
 
 		return .
 
@@ -398,7 +347,7 @@
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
 		if(1)
-			L.loc = get_step(L, direct)
+			L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(2)
 			if(prob(50))
@@ -427,7 +376,7 @@
 							return
 					else
 						return
-				L.loc = locate(locx,locy,mobloc.z)
+				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
 					for(var/turf/T in getline(mobloc, L.loc))
@@ -438,7 +387,7 @@
 			else
 				spawn(0)
 					anim(mobloc,mob,'icons/mob/mob.dmi',,"shadow",,L.dir)
-				L.loc = get_step(L, direct)
+				L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(3) //Incorporeal move, but blocked by holy-watered tiles
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
@@ -448,7 +397,7 @@
 				spawn(2)
 					L.notransform = 0
 			else
-				L.loc = get_step(L, direct)
+				L.forceMove(get_step(L, direct))
 				L.dir = direct
 	return 1
 
@@ -457,62 +406,44 @@
 ///Called by /client/Move()
 ///For moving in space
 ///Return 1 for movement 0 for none
-/mob/proc/Process_Spacemove(var/check_drift = 0)
-	//First check to see if we can do things
-	if(restrained())
-		return 0
+/mob/Process_Spacemove(var/movement_dir = 0)
 
-	/*
-	if(istype(src,/mob/living/carbon))
-		if(src.l_hand && src.r_hand)
-			return 0
-	*/
+	if(..())
+		return 1
 
-	var/dense_object = 0
-	for(var/turf/turf in oview(1,src))
-		if(istype(turf,/turf/space))
+	var/atom/movable/dense_object_backup
+	for(var/atom/A in orange(1, get_turf(src)))
+		if(isarea(A))
 			continue
 
-		if(!turf.density && !mob_negates_gravity())
-			continue
+		else if(isturf(A))
+			var/turf/turf = A
+			if(istype(turf,/turf/space))
+				continue
+
+			if(!turf.density && !mob_negates_gravity())
+				continue
+
+			return 1
+
+		else
+			var/atom/movable/AM = A
+			if(AM == buckled) //Kind of unnecessary but let's just be sure
+				continue
+			if(AM.density)
+				if(AM.anchored)
+					return 1
+				if(pulling == AM)
+					continue
+				dense_object_backup = AM
+
+	if(movement_dir && dense_object_backup)
+		if(dense_object_backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
+			src << "<span class='info'>You push off of [dense_object_backup] to propel yourself.</span>"
 
 
-
-		/*
-		if(istype(turf,/turf/simulated/floor) && (src.flags & NOGRAV))
-			continue
-		*/
-
-
-		dense_object++
-		break
-
-	if(!dense_object && (locate(/obj/structure/lattice) in oview(1, src)))
-		dense_object++
-
-	//Lastly attempt to locate any dense objects we could push off of
-	//TODO: If we implement objects drifing in space this needs to really push them
-	//Due to a few issues only anchored and dense objects will now work.
-	if(!dense_object)
-		for(var/obj/O in oview(1, src))
-			if((O) && (O.density) && (O.anchored))
-				dense_object++
-				break
-
-	//Nothing to push off of so end here
-	if(!dense_object)
-		return 0
-
-	//Check to see if we slipped
-	if(prob(Process_Spaceslipping(5)))
-		src << "\blue <B>You slipped!</B>"
-		src.inertia_dir = src.last_move
-		step(src, src.inertia_dir)
-		return 0
-
-	//If not then we can reset inertia and move
-	inertia_dir = 0
-	return 1
+		return 1
+	return 0
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)
@@ -520,14 +451,27 @@
 /mob/proc/mob_negates_gravity()
 	return 0
 
-/mob/proc/Process_Spaceslipping(var/prob_slip = 5)
-	//Setup slipage
-	//If knocked out we might just hit it and stop.  This makes it possible to get dead bodies and such.
-	if(stat)
-		prob_slip = 0  // Changing this to zero to make it line up with the comment.
-
-	prob_slip = round(prob_slip)
-	return(prob_slip)
+/mob/proc/Move_Pulled(atom/A)
+	if (!canmove || restrained() || !pulling)
+		return
+	if (pulling.anchored)
+		return
+	if (!pulling.Adjacent(src))
+		return
+	if (A == loc && pulling.density)
+		return
+	if (!Process_Spacemove(get_dir(pulling.loc, A)))
+		return
+	if (ismob(pulling))
+		var/mob/M = pulling
+		var/atom/movable/t = M.pulling
+		M.stop_pulling()
+		step(pulling, get_dir(pulling.loc, A))
+		if(M)
+			M.start_pulling(t)
+	else
+		step(pulling, get_dir(pulling.loc, A))
+	return
 
 /mob/proc/update_gravity()
 	return

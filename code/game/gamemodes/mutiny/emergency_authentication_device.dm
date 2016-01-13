@@ -38,7 +38,7 @@
 
 	proc/launch_shuttle()
 		spawn(rand(5 SECONDS, 45 SECONDS))
-			if(emergency_shuttle.call_evac())
+			if(shuttle_master.requestEvac(usr, "Directive X"))
 				spawn(20 SECONDS)
 					var/text = "[station_name()], we have confirmed your completion of Directive X. An evacuation shuttle is en route to receive your crew for debriefing."
 					command_announcement.Announce(text, "Emergency Transmission")
@@ -106,7 +106,6 @@
 		return
 	..()
 
-/obj/machinery/emergency_authentication_device/examine()
-	usr << {"
-This is a specialized communications device that is able to instantly send a message to <b>Nanotrasen High Command</b> via quantum entanglement with a sister device at CentCom.
-The EAD's status is [get_status()]."}
+/obj/machinery/emergency_authentication_device/examine(mob/user)
+	user << {"This is a specialized communications device that is able to instantly send a message to <b>Nanotrasen High Command</b> via quantum entanglement with a sister device at CentCom.<br>
+			  The EAD's status is [get_status()]."}

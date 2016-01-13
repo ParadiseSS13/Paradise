@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 7
 	force = 10
-	m_amt = 90
+	materials = list(MAT_METAL=90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	var/max_water = 50
 	var/last_use = 1.0
@@ -31,19 +31,17 @@
 	throwforce = 2
 	w_class = 2.0
 	force = 3.0
-	m_amt = 0
+	materials = list()
 	max_water = 30
 	sprite_name = "miniFE"
 
-/obj/item/weapon/extinguisher/examine()
-	set src in usr
+/obj/item/weapon/extinguisher/examine(mob/user)
+	if(..(user, 0))
+		usr << "\icon[src] [src.name] contains:"
+		if(reagents && reagents.reagent_list.len)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				user << "\blue [R.volume] units of [R.name]"
 
-	usr << "\icon[src] [src.name] contains:"
-	if(reagents && reagents.reagent_list.len)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			usr << "\blue [R.volume] units of [R.name]"
-	..()
-	return
 
 /obj/item/weapon/extinguisher/New()
 	create_reagents(max_water)
@@ -107,27 +105,29 @@
 				var/obj/B = usr.buckled
 				var/movementdirection = turn(direction,180)
 				if(C)	C.propelled = 4
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 3
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(1)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 2
 				sleep(2)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 1
 				sleep(2)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				if(C)	C.propelled = 0
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
 				sleep(3)
-				B.Move(get_step(usr,movementdirection), movementdirection)
+				step(B, movementdirection)
+
+		else user.newtonian_move(turn(direction, 180))
 
 		var/turf/T = get_turf(target)
 		var/turf/T1 = get_step(T,turn(direction, 90))
@@ -163,9 +163,5 @@
 
 					if(W.loc == my_target) break
 					sleep(2)
-
-		if(!has_gravity(user))
-			user.inertia_dir = get_dir(target, user)
-			step(user, user.inertia_dir)
 	else
 		return ..()

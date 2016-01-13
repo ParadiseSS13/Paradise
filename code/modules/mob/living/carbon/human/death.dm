@@ -5,7 +5,7 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
@@ -15,7 +15,7 @@
 
 	for(var/obj/item/organ/I in internal_organs)
 		if(istype(loc,/turf))
-			I.removed(src)
+			I.removed()
 			spawn()
 				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
@@ -25,14 +25,14 @@
 		// Only make the limb drop if it's not too damaged
 		if(prob(100 - E.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(1,pick(DROPLIMB_EDGE,DROPLIMB_BLUNT))
+			E.droplimb(DROPLIMB_EDGE)
 
-	if(!(species.flags & IS_SYNTHETIC))
+	if(!isSynthetic())
 		flick("gibbed-h", animation)
 		hgibs(loc, viruses, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(src.loc)
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
@@ -84,14 +84,12 @@
 	if(stat == DEAD)	return
 	if(healths)		healths.icon_state = "health5"
 
+	if(!gibbed)
+		emote("deathgasp") //let the world KNOW WE ARE DEAD
+
 	stat = DEAD
 	dizziness = 0
 	jitteriness = 0
-
-	hud_updateflag |= 1 << HEALTH_HUD
-	hud_updateflag |= 1 << STATUS_HUD
-
-	handle_hud_list()
 
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
@@ -128,17 +126,21 @@
 			H.mind.kills += "[name] ([ckey])"
 
 	if(!gibbed)
-		emote("deathgasp") //let the world KNOW WE ARE DEAD
-
 		update_canmove()
 		if(client) blind.layer = 0
 
-	tod = worldtime2text()		//weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	timeofdeath = worldtime2text()
+	med_hud_set_health()
+	med_hud_set_status()
+	if(mind)	mind.store_memory("Time of death: [timeofdeath]", 0)
 	if(ticker && ticker.mode)
-//		world.log << "k"
+//		log_to_dd("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
+
+	if(wearing_rig)
+		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
+
 	return ..(gibbed)
 
 /mob/living/carbon/human/proc/makeSkeleton()
@@ -148,6 +150,7 @@
 		f_style = "Shaved"
 	if(h_style)
 		h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(SKELETON)
@@ -164,6 +167,7 @@
 		f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 	if(h_style)
 		h_style = "Bald"
+	update_fhair(0)
 	update_hair(0)
 
 	mutations.Add(HUSK)

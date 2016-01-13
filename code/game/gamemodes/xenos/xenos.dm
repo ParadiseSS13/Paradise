@@ -15,9 +15,6 @@
 	var/xenos_list = list()
 	var/gammacalled = 0
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/gammaratio = 4 //At what alien to human ratio will the Gamma security level be called and the nuke be made available?
 
 /datum/game_mode/xenos/announce()
@@ -28,7 +25,7 @@
 	if(!..())
 		return 0
 
-	var/list/candidates = get_players_for_role(BE_ALIEN)
+	var/list/candidates = get_players_for_role(ROLE_ALIEN)
 	var/playersready = 0
 	var/xenos_num
 	for(var/mob/new_player/player in player_list)
@@ -53,6 +50,7 @@
 	for(var/datum/mind/xeno in xenos)
 		xeno.assigned_role = "MODE"
 		xeno.special_role = "Alien"
+		set_antag_hud(xeno, "hudalien")//like this is needed...
 	return 1
 
 /datum/game_mode/xenos/pre_setup()
@@ -65,7 +63,7 @@
 	for(var/obj/effect/landmark/A in landmarks_list)
 		if(A.name == "Xenos-Spawn")
 			xenos_spawn += get_turf(A)
-			del(A)
+			qdel(A)
 			continue
 
 	var/xenoqueen_selected = 0
@@ -82,7 +80,7 @@
 			else
 				O.key = xeno_mind.current.key
 			xeno_mind.name = O.name
-			//del(xeno_mind)
+			//qdel(xeno_mind)
 			xenoqueen_selected = 1
 			spawnpos++
 			continue
@@ -94,11 +92,8 @@
 			else
 				O.key = xeno_mind.current.key
 			xeno_mind.name = O.name
-			//del(xeno_mind)
+			//qdel(xeno_mind)
 		spawnpos++
-
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 
 	return ..()
 
@@ -117,7 +112,7 @@
 	var/playeralienratio = 0
 	if(playersalive)
 		playeralienratio = xenosalive / playersalive
-	if(emergency_shuttle && emergency_shuttle.returned())
+	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return ..()
 	if(!xenosalive)
 		result = 1
@@ -143,19 +138,12 @@
 	if(config.continous_rounds)
 		if(result)
 			return ..()
-	if(emergency_shuttle && emergency_shuttle.returned())
+	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return ..()
 	if(result || station_was_nuked)
 		return 1
 	else
 		return 0
-
-/datum/game_mode/xenos/proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in world)
-		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
-			nukecode = bomb.r_code
-	return nukecode
 
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()
@@ -169,7 +157,7 @@
 	var/list/livingplayers = list()
 	for(var/mob/M in player_list)
 		var/turf/T = get_turf(M)
-		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || emergency_shuttle.departed && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
+		if((M) && (M.stat != 2) && M.client && T && ((T.z in config.station_levels) || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE && ((T.z in config.station_levels) || (T.z in config.admin_levels))))
 			if(ishuman(M))
 				livingplayers += 1
 	return livingplayers.len

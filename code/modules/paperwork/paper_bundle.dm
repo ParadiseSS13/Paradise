@@ -97,11 +97,10 @@
 				user << "\red You must hold \the [P] steady to burn \the [src]."
 
 /obj/item/weapon/paper_bundle/examine(mob/user)
-	if(in_range(usr, src) || istype(usr, /mob/dead/observer))
-		src.show_content(usr)
+	if(..(user, 1))
+		src.show_content(user)
 	else
-		usr << "<span class='notice'>It is too far away.</span>"
-	return
+		user << "<span class='notice'>It is too far away.</span>"
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat
@@ -121,10 +120,7 @@
 			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
 	if(istype(src[page], /obj/item/weapon/paper))
 		var/obj/item/weapon/paper/P = W
-		if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
-			dat+= "<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[stars(P.info)][P.stamps]</BODY></HTML>"
-		else
-			dat+= "<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info][P.stamps]</BODY></HTML>"
+		dat += P.show_content(usr, view = 0)
 		usr << browse(dat, "window=[name]")
 	else if(istype(src[page], /obj/item/weapon/photo))
 		var/obj/item/weapon/photo/P = W
@@ -181,7 +177,7 @@
 			update_icon()
 	else
 		usr << "<span class='notice'>You need to hold it in your hands to change pages.</span>"
-	if (istype(src.loc, /mob) ||istype(src.loc.loc, /mob))
+	if (istype(src.loc, /mob))
 		src.attack_self(src.loc)
 		updateUsrDialog()
 
@@ -215,9 +211,10 @@
 
 
 /obj/item/weapon/paper_bundle/update_icon()
-	var/obj/item/weapon/paper/P = src[1]
-	icon_state = P.icon_state
-	overlays = P.overlays
+	if(contents.len)
+		var/obj/item/weapon/paper/P = src[1]
+		icon_state = P.icon_state
+		overlays = P.overlays
 	underlays = 0
 	var/i = 0
 	var/photo

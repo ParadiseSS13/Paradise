@@ -2,7 +2,7 @@
 	name = "shoulder holster"
 	desc = "A handgun holster."
 	icon_state = "holster"
-	_color = "holster"
+	item_color = "holster"
 	slot = "utility"
 	var/holster_allow = /obj/item/weapon/gun
 	var/obj/item/weapon/gun/holstered = null
@@ -52,7 +52,7 @@
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
 		user << "<span class='warning'>You need an empty hand to draw the [holstered]!</span>"
 	else
-		if(user.a_intent == "hurt")
+		if(user.a_intent == I_HARM)
 			usr.visible_message("\red [user] draws the [holstered], ready to shoot!</span>", \
 			"<span class='warning'>You draw the [holstered], ready to shoot!</span>")
 		else
@@ -125,11 +125,11 @@
 	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
-	_color = "holster"
+	item_color = "holster"
 	holster_allow = /obj/item/weapon/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
 	icon_state = "holster"
-	_color = "holster_low"
+	item_color = "holster_low"

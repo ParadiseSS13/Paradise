@@ -12,7 +12,8 @@
 		/obj/item/weapon/firealarm_electronics,
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
-		/obj/item/weapon/module/power_control,
+		/obj/item/weapon/intercom_electronics,
+		/obj/item/weapon/apc_electronics,
 		/obj/item/weapon/stock_parts,
 		/obj/item/mounted/frame/light_fixture,
 		/obj/item/mounted/frame/apc_frame,
@@ -53,20 +54,26 @@
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 
+	drop_item_p()
+
+// The "p" stands for proc, since I was having annoying weird stuff happening with this in the verb
+// when trying to have default values for arguments and stuff
+/obj/item/weapon/gripper/proc/drop_item_p(var/silent = 0)
+
 	if(!wrapped)
 		//There's some weirdness with items being lost inside the arm. Trying to fix all cases. ~Z
 		for(var/obj/item/thing in src.contents)
-			thing.loc = get_turf(src)
+			thing.forceMove(get_turf(src))
 		return
 
 	if(wrapped.loc != src)
 		wrapped = null
 		return
 
-	src.loc << "\red You drop \the [wrapped]."
-	wrapped.loc = get_turf(src)
+	if(!silent)
+		src.loc << "<span class='warning'>You drop \the [wrapped].</span>"
+	wrapped.forceMove(get_turf(src))
 	wrapped = null
-	//update_icon()
 
 /obj/item/weapon/gripper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
@@ -85,7 +92,7 @@
 	if(wrapped) //Already have an item.
 
 		//Temporary put wrapped into user so target's attackby() checks pass.
-		wrapped.loc = user
+		wrapped.forceMove(user)
 
 		//Pass the attack on to the target. This might delete/relocate wrapped.
 		if(!target.attackby(wrapped, user, params) && target && wrapped)
@@ -95,7 +102,7 @@
 
 		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
-			wrapped.loc = src
+			wrapped.forceMove(src)
 		else
 			wrapped = null
 			return
@@ -118,11 +125,11 @@
 		//We can grab the item, finally.
 		if(grab)
 			user << "You collect \the [I]."
-			I.loc = src
+			I.forceMove(src)
 			wrapped = I
 			return
 		else
-			user << "\red Your gripper cannot hold \the [target]."
+			user << "<span class='warning'>Your gripper cannot hold \the [target].</span>"
 
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
@@ -133,13 +140,13 @@
 
 				A.cell.add_fingerprint(user)
 				A.cell.updateicon()
-				A.cell.loc = src
+				A.cell.forceMove(src)
 				A.cell = null
 
 				A.charging = 0
 				A.update_icon()
 
-				user.visible_message("\red [user] removes the power cell from [A]!", "You remove the power cell.")
+				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 
 //TODO: Matter decompiler.
 /obj/item/weapon/matter_decompiler
@@ -174,7 +181,7 @@
 
 	for(var/mob/M in T)
 		if(istype(M,/mob/living/simple_animal/lizard) || istype(M,/mob/living/simple_animal/mouse))
-			src.loc.visible_message("\red [src.loc] sucks [M] into its decompiler. There's a horrible crunching noise.","\red It's a bit of a struggle, but you manage to suck [M] into your decompiler. It makes a series of visceral crunching noises.")
+			src.loc.visible_message("<span class='notice'>[src.loc] sucks [M] into its decompiler. There's a horrible crunching noise.</span>","<span class='warning'>It's a bit of a struggle, but you manage to suck [M] into your decompiler. It makes a series of visceral crunching noises.</span>")
 			new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 			qdel(M)
 			stored_comms["wood"]++
@@ -190,15 +197,15 @@
 			if(!istype(D))
 				return
 
-			D << "\red You begin decompiling the other drone."
+			D << "<span class='warning'>You begin decompiling the other drone.</span>"
 
-			if(!do_after(D,50))
-				D << "\red You need to remain still while decompiling such a large object."
+			if(!do_after(D,50, target = target))
+				D << "<span class='warning'>You need to remain still while decompiling such a large object.</span>"
 				return
 
 			if(!M || !D) return
 
-			D << "\red You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself."
+			D << "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>"
 
 			qdel(M)
 			new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
@@ -271,16 +278,16 @@
 		grabbed_something = 1
 
 	if(grabbed_something)
-		user << "\blue You deploy your decompiler and clear out the contents of \the [T]."
+		user << "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].<span>"
 	else
-		user << "\red Nothing on \the [T] is useful to you."
+		user << "<span class='warning'>Nothing on \the [T] is useful to you.</span>"
 	return
 
 //PRETTIER TOOL LIST.
 /mob/living/silicon/robot/drone/installed_modules()
 
 	if(weapon_lock)
-		src << "\red Weapon lock active, unable to use modules! Count:[weaponlock_time]"
+		src << "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>"
 		return
 
 	if(!module)

@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/hologram_comp
-	name = "Hologram Computer"
+	name = "hologram computer"
 	desc = "Rumoured to control holograms."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_keyboard = "tech_key"
@@ -36,7 +36,7 @@
 		I.Blend(rgb(- src.lumens,  -src.lumens,  -src.lumens), ICON_SUBTRACT)
 
 	I.Blend(new /icon('icons/mob/human.dmi', "mouth_m_s"), ICON_OVERLAY)
-	I.Blend(new /icon('icons/mob/human.dmi', "underwear1_m_s"), ICON_OVERLAY)
+	I.Blend(new /icon('icons/mob/underwear.dmi', "Mens White"), ICON_OVERLAY)
 
 	var/icon/U = new /icon('icons/mob/human_face.dmi', "hair_a_s")
 	U.Blend(rgb(src.h_r, src.h_g, src.h_b), ICON_ADD)

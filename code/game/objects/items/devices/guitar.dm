@@ -6,7 +6,6 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "guitar"
 	item_state = "guitar"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	force = 10
 	var/datum/song/handheld/song
 	hitsound = 'sound/effects/guitarsmash.ogg'
@@ -21,17 +20,19 @@
 	return ..()
 
 /obj/item/device/guitar/attack_self(mob/user as mob)
-	interact(user)
+	ui_interact(user)
 
-/obj/item/device/guitar/interact(mob/user as mob)
+/obj/item/device/guitar/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!user)
 		return
 
 	if(!isliving(user) || user.stat || user.restrained() || user.lying)
 		return
 
-	user.set_machine(src)
-	song.interact(user)
+	song.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/device/guitar/Topic(href, href_list)
+	song.Topic(href, href_list)
 
 /datum/table_recipe/guitar
 	name = "Guitar"

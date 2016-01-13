@@ -3,14 +3,14 @@
 /obj/item/weapon/implant/freedom
 	name = "freedom"
 	desc = "Use this to escape from those evil Red Shirts."
-	_color = "r"
+	item_color = "r"
 	var/activation_emote = "chuckle"
-	var/uses = 1.0
+	origin_tech = "materials=2;magnets=3;biotech=3;syndicate=4"
+	var/uses = 4
 
 
 	New()
 		src.activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		src.uses = rand(1, 5)
 		..()
 		return
 
@@ -23,6 +23,8 @@
 			if (source.handcuffed)
 				var/obj/item/weapon/W = source.handcuffed
 				source.handcuffed = null
+				if(source.buckled && source.buckled.buckle_requires_restraints)
+					source.buckled.unbuckle_mob()
 				source.update_inv_handcuffed()
 				if (source.client)
 					source.client.screen -= W

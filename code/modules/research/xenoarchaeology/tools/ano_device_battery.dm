@@ -210,6 +210,6 @@
 	M.lastattacker = user
 
 	if(inserted_battery.battery_effect)
-		user.attack_log += "\[[time_stamp()]\]<font color='red'> Tapped [M.name] ([M.ckey]) with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
-		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Tapped by [user.name] ([user.ckey]) with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
-		msg_admin_attack("[key_name(user)][isAntag(user) ? "(ANTAG)" : ""] tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])" )
+		user.attack_log += "\[[time_stamp()]\]<font color='red'> Tapped [key_name(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
+		M.attack_log += "\[[time_stamp()]\]<font color='orange'> Tapped by [key_name(user)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])</font>"
+		msg_admin_attack("[key_name_admin(user)] tapped [key_name_admin(M)] with [name] (EFFECT: [inserted_battery.battery_effect.effecttype])" )

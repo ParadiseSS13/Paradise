@@ -10,7 +10,6 @@
 	var/prescription = 0
 	var/prescription_upgradable = 0
 	var/see_darkness = 1
-	var/HUDType = 0
 
 /obj/item/clothing/glasses/New()
 	. = ..()
@@ -53,6 +52,7 @@
 	vision_flags = SEE_TURFS
 	prescription_upgradable = 1
 	species_fit = list("Vox")
+	see_darkness = 0 //don't render darkness while wearing mesons
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -63,11 +63,23 @@
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	darkness_view = 8
-	see_darkness = 0
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = 1
+
+/obj/item/clothing/glasses/meson/gar
+	name = "gar mesons"
+	icon_state = "garm"
+	item_state = "garm"
+	desc = "Do the impossible, see the invisible!"
+	force = 10
+	throwforce = 10
+	throw_speed = 4
+	attack_verb = list("sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharp = 1
+	edge = 1
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -78,10 +90,29 @@
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/science
-	name = "Science Goggles"
-	desc = "nothing"
+	name = "science goggles"
+	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
 	item_state = "glasses"
+	prescription_upgradable = 0
+	scan_reagents = 1 //You can see reagents while wearing science goggles
+
+/obj/item/clothing/glasses/science/equipped(mob/user, slot)
+	if(slot == slot_glasses)
+		user.scanner.Grant(user)
+	..(user, slot)
+
+/obj/item/clothing/glasses/science/dropped(mob/user)
+	user.scanner.devices -= 1
+	..(user)
+
+/obj/item/clothing/glasses/science/night
+	name = "Night Vision Science Goggle"
+	desc = "Now you can science in darkness."
+	icon_state = "nvpurple"
+	item_state = "glasses"
+	darkness_view = 8
+	see_darkness = 0
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -176,6 +207,11 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses/reagent
+	name = "sunscanners"
+	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
+	scan_reagents = 1
+
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	name = "sunglasses"
@@ -188,6 +224,17 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/sunglasses/lasers
+	desc = "A peculiar set of sunglasses; they have various chips and other panels attached to the sides of the frames."
+	name = "high-tech sunglasses"
+	flags = GLASSESCOVERSEYES | NODROP
+
+/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
+	if(slot == slot_glasses)
+		user.mutations.Add(LASER)
+		user.regenerate_icons()
+	..(user, slot)
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
@@ -278,23 +325,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/sunglasses/sechud
-	name = "HUDSunglasses"
-	desc = "Sunglasses with a HUD."
-	icon_state = "sunhud"
-	darkness_view = 1
-	flash_protect = 1
-	tint = 1
-	HUDType = SECHUD
-	prescription_upgradable = 1
-	species_fit = list("Vox")
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/sunglasses/sechud/prescription
-	prescription = 1
 
 /obj/item/clothing/glasses/thermal
 	name = "Optical Thermal Scanner"

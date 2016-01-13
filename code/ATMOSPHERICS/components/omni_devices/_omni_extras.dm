@@ -27,7 +27,7 @@
 	var/transfer_moles = 0
 	var/datum/gas_mixture/air
 	var/obj/machinery/atmospherics/node
-	var/datum/pipe_network/network
+	var/datum/pipeline/parent
 
 /datum/omni_port/New(var/obj/machinery/atmospherics/omni/M, var/direction = NORTH)
 	..()
@@ -41,16 +41,16 @@
 	if(node)
 		return
 	master.initialize()
-	master.build_network()
 	if(node)
 		node.initialize()
-		node.build_network()
+		node.addMember(master)
+	master.build_network()
 
 /datum/omni_port/proc/disconnect()
 	if(node)
 		node.disconnect(master)
-		master.disconnect(node)
-
+		node = null
+		master.nullifyPipenet(parent)
 
 //--------------------------------------------
 // Need to find somewhere else for these
@@ -91,3 +91,4 @@
 			return WEST
 		else
 			return 0
+		

@@ -38,7 +38,7 @@
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode)
+	if(client && client.buildmode)
 		build_click(src, client.buildmode, params, A)
 		return
 
@@ -167,10 +167,10 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(var/atom/A, var/params)
-	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/color/yellow/power)) && a_intent == "harm")
+	if(ishuman(src) && (istype(src:gloves, /obj/item/clothing/gloves/color/yellow/power)) && a_intent == I_HARM)
 		PowerGlove(A)
 	if(!mutations.len) return
-	if((LASER in mutations) && a_intent == "harm")
+	if((LASER in mutations) && a_intent == I_HARM)
 		LaserEyes(A) // moved into a proc below
 		return
 	else
@@ -190,15 +190,22 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(var/atom/A)
-	A.point()
+	pointed(A)
 	return
+
+// See click_override.dm
+/mob/living/MiddleClickOn(var/atom/A)
+ if(src.middleClickOverride)
+ 	middleClickOverride.onClick(A, src)
+ else
+ 	..()
 
 /mob/living/carbon/MiddleClickOn(var/atom/A)
 	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
 		next_click = world.time + 5
 		mind.changeling.chosen_sting.try_to_sting(src, A)
 	else
-		A.point()
+		..()
 
 // In case of use break glass
 /*
@@ -216,8 +223,7 @@
 	return
 /atom/proc/ShiftClick(var/mob/user)
 	if(user.client && user.client.eye == user)
-		examine()
-		user.face_atom(src)
+		user.examinate(src)
 	return
 
 /*
@@ -241,6 +247,13 @@
 /mob/proc/AltClickOn(var/atom/A)
 	A.AltClick(src)
 	return
+
+// See click_override.dm
+/mob/living/AltClickOn(var/atom/A)
+ if(src.middleClickOverride)
+ 	middleClickOverride.onClick(A, src)
+ else
+ 	..()
 
 /mob/living/carbon/AltClickOn(var/atom/A)
 	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
@@ -347,7 +360,7 @@
 			time = 200
 		else if(L.damage >= 100)
 			time = 150
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(5, 1, src)
 		s.start()
 	if(L.damage <= 0)
@@ -372,16 +385,16 @@
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(var/atom/A)
 
-	// Snowflake for space vines.
+/*	// Snowflake for space vines. //Are you fucking kidding me?
 	var/is_buckled = 0
 	if(buckled)
 		if(istype(buckled))
 			if(!buckled.movable)
 				is_buckled = 1
 		else
-			is_buckled = 0
+			is_buckled = 0*/
 
-	if( stat || is_buckled || !A || !x || !y || !A.x || !A.y ) return
+	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
 	var/dx = A.x - x
 	var/dy = A.y - y
 	if(!dx && !dy) return
@@ -394,6 +407,24 @@
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
 	usr.dir = direction
-	if(buckled && buckled.movable)
+
+/*	if(buckled && buckled.movable)
 		buckled.dir = direction
-		buckled.handle_rotation()
+		buckled.handle_rotation()*/
+
+/obj/screen/click_catcher
+	icon = 'icons/mob/screen1_full.dmi'
+	icon_state = "passage0"
+	layer = 0
+	mouse_opacity = 2
+	screen_loc = "CENTER-7,CENTER-7"
+
+/obj/screen/click_catcher/Click(location, control, params)
+	var/list/modifiers = params2list(params)
+	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
+		var/mob/living/carbon/C = usr
+		C.swap_hand()
+	else
+		var/turf/T = screen_loc2turf(modifiers["screen-loc"], get_turf(usr))
+		T.Click(location, control, params)
+	return 1

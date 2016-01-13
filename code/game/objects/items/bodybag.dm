@@ -82,12 +82,14 @@
 				qdel(src)
 			return
 
-/obj/structure/closet/bodybag/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened
+/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+	if(user.stat)
+		return
 
+	// Make it possible to escape from bodybags in morgues and crematoriums
+	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
+		if(!open())
+			user << "<span class='notice'>It won't budge!</span>"
 
 /obj/item/bodybag/cryobag
 	name = "stasis bag"

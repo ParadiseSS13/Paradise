@@ -6,7 +6,12 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
+	origin_tech = "materials=1;biotech=3;programming=2"
 	var/obj/item/weapon/implant/imp = null
+
+/obj/item/weapon/implanter/New()
+	..()
+	update()
 
 /obj/item/weapon/implanter/proc/update()
 
@@ -14,8 +19,10 @@
 /obj/item/weapon/implanter/update()
 	if (src.imp)
 		src.icon_state = "implanter1"
+		src.origin_tech = src.imp.origin_tech
 	else
 		src.icon_state = "implanter0"
+		src.origin_tech = initial(src.origin_tech)
 	return
 
 
@@ -27,14 +34,14 @@
 			O.show_message("\red [user] is attemping to implant [M].", 1)
 
 		var/turf/T1 = get_turf(M)
-		if (T1 && ((M == user) || do_after(user, 50)))
+		if (T1 && ((M == user) || do_after(user, 50, target = M)))
 			if(user && M && (get_turf(M) == T1) && src && src.imp)
 				for (var/mob/O in viewers(M, null))
 					O.show_message("\red [M] has been implanted by [user].", 1)
 
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'> Implanted with [src.name] ([src.imp.name])  by [user.name] ([user.ckey])</font>")
-				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] ([src.imp.name]) to implant [M.name] ([M.ckey])</font>")
-				msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				M.attack_log += text("\[[time_stamp()]\] <font color='orange'> Implanted with [src.name] ([src.imp.name]) by [key_name(user)]</font>")
+				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] ([src.imp.name]) to implant [key_name(M)]</font>")
+				msg_admin_attack("[key_name_admin(user)] implanted [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 				user.show_message("\red You implanted the implant into [M].")
 				if(src.imp.implanted(M, user))
@@ -46,7 +53,7 @@
 						var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 						affected.implants += src.imp
 						imp.part = affected
-						H.hud_updateflag |= 1 << IMPLOYAL_HUD
+						H.sec_hud_set_implants()
 				M:implanting = 0
 				src.imp = null
 				update()

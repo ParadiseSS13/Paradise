@@ -23,12 +23,11 @@
 		return
 
 
-	examine()
-		set src in usr
-		..()
-		if(air_contents.oxygen < 10)
-			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+	examine(mob/user)
+		if(..(user, 0))
+			if(air_contents.oxygen < 10)
+				user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+				//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 
 /obj/item/weapon/tank/oxygen/yellow
@@ -69,12 +68,11 @@
 	icon_state = "oxygen"
 
 
-	examine()
-		set src in usr
-		..()
-		if(air_contents.oxygen < 1 && loc==usr)
-			usr << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
-			usr << sound('sound/effects/alert.ogg')
+	examine(mob/user)
+		if(..(user, 0))
+			if(air_contents.oxygen < 1 && loc==usr)
+				user << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/air/New()
 	..()
@@ -122,12 +120,11 @@
 	icon_state = "plasma_fr"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
-/obj/item/weapon/tank/plasma/plasmaman/examine()
-	set src in usr
-	..()
-	if(air_contents.toxins < 0.2 && loc==usr)
-		usr << text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>")
-		usr << sound('sound/effects/alert.ogg')
+/obj/item/weapon/tank/plasma/plasmaman/examine(mob/user)
+	if(..(user, 0))
+		if(air_contents.toxins < 0.2 && loc==usr)
+			user << text("\red <B>The meter on the [src.name] indicates you are almost out of plasma!</B>")
+			user << sound('sound/effects/alert.ogg')
 
 /*
  * Emergency Oxygen
@@ -150,12 +147,11 @@
 		return
 
 
-	examine()
-		set src in usr
-		..()
-		if(air_contents.oxygen < 0.2 && loc==usr)
-			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-			usr << sound('sound/effects/alert.ogg')
+	examine(mob/user)
+		if(..(user, 0))
+			if(air_contents.oxygen < 0.2 && loc==usr)
+				user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+				user << sound('sound/effects/alert.ogg')
 
 /obj/item/weapon/tank/emergency_oxygen/engi
 	name = "extended-capacity emergency oxygen tank"
@@ -192,12 +188,11 @@
 	src.air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
-/obj/item/weapon/tank/nitrogen/examine()
-	set src in usr
-	..()
-	if(air_contents.nitrogen < 10)
-		usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
-		//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+/obj/item/weapon/tank/nitrogen/examine(mob/user)
+	if(..(user, 0))
+		if(air_contents.nitrogen < 10)
+			user << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
+			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
 
 /obj/item/weapon/tank/emergency_oxygen/vox
@@ -205,7 +200,6 @@
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
 	item_state = "emergency_vox"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	volume = 25
 
 

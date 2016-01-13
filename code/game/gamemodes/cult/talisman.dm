@@ -4,12 +4,6 @@
 	var/uses = 0
 	info = "<center><img src='talisman.png'></center><br/><br/>"
 
-	examine()
-		set src in view(2)
-		..()
-		return
-
-
 	attack_self(mob/living/user as mob)
 		if(iscultist(user))
 			var/delete = 1

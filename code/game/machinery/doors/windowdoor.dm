@@ -123,7 +123,7 @@
 	src.density = 0
 //	src.sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		src.operating = 0
@@ -147,7 +147,7 @@
 //	if(src.visible)
 //		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
 	air_update_turf(1)
-	update_freelok_sight()
+	update_freelook_sight()
 	sleep(10)
 
 	src.operating = 0
@@ -219,10 +219,8 @@
 	if(!isanimal(user))
 		return
 	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0)
-		return
-	attack_generic(M, M.melee_damage_upper)
-
+	if(M.melee_damage_upper > 0 && (M.melee_damage_type == BRUTE || M.melee_damage_type == BURN))
+		attack_generic(M, M.melee_damage_upper)
 
 /obj/machinery/door/window/attack_slime(mob/living/carbon/slime/user as mob)
 	if(!user.is_adult)
@@ -240,7 +238,7 @@
 		sleep(6)
 		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
 		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
-			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+			var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
 			playsound(src.loc, "sparks", 50, 1)
@@ -280,7 +278,7 @@
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("<span class='warning'>[user] removes the electronics from the [src.name].</span>", \
 								 "You start to remove electronics from the [src.name].")
-			if(do_after(user,40))
+			if(do_after(user,40, target = src))
 				if(src.p_open && !src.density && !src.operating && src.loc)
 					var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(src.loc)
 					switch(base_state)

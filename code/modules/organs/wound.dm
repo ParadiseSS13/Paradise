@@ -36,9 +36,8 @@
 	var/list/stages
 	// internal wounds can only be fixed through surgery
 	var/internal = 0
-	// maximum stage at which bleeding should still happen, counted from the right rather than the left of the list
-	// 1 means all stages except the last should bleed
-	var/max_bleeding_stage = 1
+	// maximum stage at which bleeding should still happen. Beyond this stage bleeding is prevented.
+	var/max_bleeding_stage = 0
 	// one of CUT, BRUISE, BURN
 	var/damage_type = CUT
 	// whether this wound needs a bandage/salve to heal at all
@@ -63,8 +62,6 @@
 			damage_list += stages[V]
 
 		src.damage = damage
-
-		max_bleeding_stage = src.desc_list.len - max_bleeding_stage
 
 		// initialize with the appropriate stage
 		src.init_stage(damage)
@@ -247,8 +244,9 @@
 
 /** CUTS **/
 /datum/wound/cut/small
-	// link wound descriptions to amounts of damage
-	max_bleeding_stage = 2
+	// Minor cuts have max_bleeding_stage set to the stage that bears the wound type's name.
+	// The major cut types have the max_bleeding_stage set to the clot stage (which is accordingly given the "blood soaked" descriptor).
+	max_bleeding_stage = 3
 	stages = list("ugly ripped cut" = 20, "ripped cut" = 10, "cut" = 5, "healing cut" = 2, "small scab" = 0)
 	damage_type = CUT
 
@@ -263,25 +261,25 @@
 	damage_type = CUT
 
 /datum/wound/cut/gaping
-	max_bleeding_stage = 2
-	stages = list("gaping wound" = 50, "large blood soaked clot" = 25, "large clot" = 15, "small angry scar" = 5, "small straight scar" = 0)
+	max_bleeding_stage = 3
+	stages = list("gaping wound" = 50, "large blood soaked clot" = 25, "blood soaked clot" = 15, "small angry scar" = 5, "small straight scar" = 0)
 	damage_type = CUT
 
 /datum/wound/cut/gaping_big
-	max_bleeding_stage = 2
-	stages = list("big gaping wound" = 60, "healing gaping wound" = 40, "large angry scar" = 10, "large straight scar" = 0)
+	max_bleeding_stage = 3
+	stages = list("big gaping wound" = 60, "healing gaping wound" = 40, "large blood soaked clot" = 25, "large angry scar" = 10, "large straight scar" = 0)
 	damage_type = CUT
 
 datum/wound/cut/massive
-	max_bleeding_stage = 2
-	stages = list("massive wound" = 70, "massive healing wound" = 50, "massive angry scar" = 10,  "massive jagged scar" = 0)
+	max_bleeding_stage = 3
+	stages = list("massive wound" = 70, "massive healing wound" = 50, "massive blood soaked clot" = 25, "massive angry scar" = 10,  "massive jagged scar" = 0)
 	damage_type = CUT
 
 /** BRUISES **/
 /datum/wound/bruise
-	stages = list("monumental bruise" = 80, "huge bruise" = 50, "large bruise" = 30,\
+	stages = list("monumental bruise" = 80, "huge bruise" = 50, "large bruise" = 30,
 				  "moderate bruise" = 20, "small bruise" = 10, "tiny bruise" = 5)
-	max_bleeding_stage = 3
+	max_bleeding_stage = 3 //only large bruise and above can bleed.
 	autoheal_cutoff = 30
 	damage_type = BRUISE
 
@@ -309,18 +307,38 @@ datum/wound/cut/massive
 /** INTERNAL BLEEDING **/
 /datum/wound/internal_bleeding
 	internal = 1
-	stages = list("severed vein" = 30, "cut vein" = 20, "damaged vein" = 10, "bruised vein" = 5)
+	stages = list("severed artery" = 30, "cut artery" = 20, "damaged artery" = 10, "bruised artery" = 5)
 	autoheal_cutoff = 5
-	max_bleeding_stage = 0	//all stages bleed. It's called internal bleeding after all.
+	max_bleeding_stage = 4	//all stages bleed. It's called internal bleeding after all.
+
 
 /** EXTERNAL ORGAN LOSS **/
 /datum/wound/lost_limb
-    damage_type = CUT
-    stages = list("ripped stump" = 65, "bloody stump" = 50, "clotted stump" = 25, "scarred stump" = 0)
-    max_bleeding_stage = 3
 
-    can_merge(var/datum/wound/other)
-        return 0 //cannot be merged
+/datum/wound/lost_limb/New(var/obj/item/organ/external/lost_limb, var/losstype, var/clean)
+	var/damage_amt = lost_limb.max_damage
+	if(clean) damage_amt /= 2
+	
+	switch(losstype)
+		if(DROPLIMB_EDGE, DROPLIMB_BLUNT)
+			damage_type = CUT
+			max_bleeding_stage = 3 //clotted stump and above can bleed.
+			stages = list(
+				"ripped stump" = damage_amt*1.3,
+				"bloody stump" = damage_amt, 
+				"clotted stump" = damage_amt*0.5, 
+				"scarred stump" = 0
+				)
+		if(DROPLIMB_BURN)
+			damage_type = BURN
+			stages = list(
+				"ripped charred stump" = damage_amt*1.3,
+				"charred stump" = damage_amt,
+				"scarred stump" = damage_amt*0.5,
+				"scarred stump" = 0
+				)
+	
+	..(damage_amt)
 
-/datum/wound/lost_limb/small
-    stages = list("ripped hole" = 40, "bloody hole" = 30, "clotted hole" = 15, "scarred hole" = 0)
+/datum/wound/lost_limb/can_merge(var/datum/wound/other)
+	return 0 //cannot be merged

@@ -17,6 +17,10 @@
 	var/mob/living/carbon/human/U = affecting
 	var/display_to = U//Who do we want to display certain messages to?
 
+	if(U.client) // Send the spider OS images to the client
+		var/datum/asset/simple/S = new/datum/asset/simple/spider_os() //no longer exists ;)
+		send_asset_list(U.client, S.assets)
+
 	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"
 	dat += "<a href='byond://?src=\ref[src];choice=Refresh'><img src=sos_7.png> Refresh</a>"
 	if(spideros)
@@ -216,10 +220,17 @@
 				display_to << "<span class='danger'>Error: unable to deliver message.</span>"
 				display_spideros()
 				return
-			P.tnote += "<i><b>&larr; From an unknown source:</b></i><br>[t]<br>"
-			if (!P.silent)
-				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-				P.audible_message("\icon[P] *[P.ttone]*", null, 3)
+			//Search for holder of the PDA.
+			var/mob/living/L = null
+			if(P.loc && isliving(P.loc))
+				L = P.loc
+			//Maybe they are a pAI!
+			else
+				L = get(P, /mob/living/silicon)
+
+			if(L)
+				L << "\icon[P] <b>Message from unknown source: </b>\"[t]\" (Unable to Reply)"
+			P.play_ringtone()
 			P.overlays.Cut()
 			P.overlays += image('icons/obj/pda.dmi', "pda-r")
 

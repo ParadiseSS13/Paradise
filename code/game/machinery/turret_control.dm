@@ -68,11 +68,17 @@
 		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
-	if(locked && !(isrobot(user) || isAI(user)))
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
 		user << "<span class='notice'>Access denied.</span>"
 		return 1
 
 	return 0
+
+/obj/machinery/turretid/CanUseTopic(mob/user)
+	if(isLocked(user))
+		return STATUS_CLOSE
+
+	return ..()
 
 /obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user)
 	if(stat & BROKEN)
@@ -100,6 +106,9 @@
 	if(isLocked(user))
 		return
 
+	ui_interact(user)
+
+/obj/machinery/turretid/attack_ghost(mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/turretid/attack_hand(mob/user as mob)
@@ -189,13 +198,17 @@
 	..()
 	if(stat & NOPOWER)
 		icon_state = "control_off"
+		set_light(0)
 	else if (enabled)
 		if (lethal)
 			icon_state = "control_kill"
+			set_light(1.5, 1,"#990000")
 		else
 			icon_state = "control_stun"
+			set_light(1.5, 1,"#FF9900")
 	else
 		icon_state = "control_standby"
+		set_light(1.5, 1,"#003300")
 
 /obj/machinery/turretid/emp_act(severity)
 	if(enabled)
@@ -211,9 +224,9 @@
 		enabled=0
 		updateTurrets()
 
-		sleep(rand(60,600))
-		if(!enabled)
-			enabled=1
-			updateTurrets()
+		spawn(rand(60,600))
+			if(!enabled)
+				enabled=1
+				updateTurrets()
 
 	..()

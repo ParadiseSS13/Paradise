@@ -38,7 +38,7 @@
 		available_recipes = new
 		acceptable_items = new
 		acceptable_reagents = new
-		for (var/type in (typesof(recipe_type)-recipe_type))
+		for (var/type in subtypesof(recipe_type))
 			var/datum/recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
@@ -83,7 +83,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if (do_after(user,20))
+			if (do_after(user,20, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes part of \the [src].</span>", \
 					"<span class='notice'>You have fixed part of \the [src].</span>" \
@@ -94,7 +94,7 @@
 				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
 				"<span class='notice'>You start to fix part of \the [src].</span>" \
 			)
-			if (do_after(user,20))
+			if (do_after(user,20, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user] fixes \the [src].</span>", \
 					"<span class='notice'>You have fixed \the [src].</span>" \
@@ -112,7 +112,7 @@
 				"<span class='notice'>[user] starts to clean \the [src].</span>", \
 				"<span class='notice'>You start to clean \the [src].</span>" \
 			)
-			if (do_after(user,20))
+			if (do_after(user,20, target = src))
 				user.visible_message( \
 					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
 					"<span class='notice'>You have cleaned \the [src].</span>" \
@@ -135,11 +135,11 @@
 				"<span class='notice'>[user] has added one of [O] to \the [src].</span>", \
 				"<span class='notice'>You add one of [O] to \the [src].</span>")
 		else
-		//	user.unEquip(O)	//This just causes problems so far as I can tell. -Pete
 			if(!user.drop_item())
 				user << "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>"
 				return 0
-			O.loc = src
+
+			O.forceMove(src)
 			user.visible_message( \
 				"<span class='notice'>[user] has added \the [O] to \the [src].</span>", \
 				"<span class='notice'>You add \the [O] to \the [src].</span>")
@@ -296,7 +296,7 @@
 		byproduct = recipe.get_byproduct()
 		stop()
 		if(cooked)
-			cooked.loc = src.loc
+			cooked.forceMove(src.loc)
 		for(var/i=1,i<efficiency,i++)
 			cooked = new cooked.type(loc)
 		if(byproduct)
@@ -339,7 +339,7 @@
 
 /obj/machinery/kitchen_machine/proc/dispose()
 	for (var/obj/O in contents)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 	if (src.reagents.total_volume)
 		src.dirty++
 	src.reagents.clear_reagents()
@@ -360,7 +360,7 @@
 	src.updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	var/datum/effect/effect/system/spark_spread/s = new
+	var/datum/effect/system/spark_spread/s = new
 	s.set_up(2, 1, src)
 	s.start()
 	src.icon_state = broken_icon // Make it look all busted up and shit
@@ -383,7 +383,7 @@
 	src.reagents.clear_reagents()
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
-	ffuu.loc = get_turf(src)
+	ffuu.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/Topic(href, href_list)
 	if(..() || panel_open)

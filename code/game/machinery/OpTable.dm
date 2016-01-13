@@ -12,6 +12,7 @@
 	var/strapped = 0.0
 
 	var/obj/machinery/computer/operating/computer = null
+	buckle_lying = 90
 
 /obj/machinery/optable/New()
 	..()
@@ -91,12 +92,14 @@
 	if (C == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
-		visible_message("\red [C] has been laid on the operating table by [user].", 3)
+		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
 	if (C.client)
 		C.client.perspective = EYE_PERSPECTIVE
 		C.client.eye = src
 	C.resting = 1
 	C.loc = src.loc
+	if (user.pulling == C)
+		user.stop_pulling()
 	for(var/obj/O in src)
 		O.loc = src.loc
 	src.add_fingerprint(user)
@@ -126,12 +129,12 @@
 
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
-	if(src.victim)
-		usr << "\blue <B>The table is already occupied!</B>"
+	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
+		usr << "<span class='notice'>The table is already occupied!</span>"
 		return 0
 
 	if(patient.buckled)
-		usr << "\blue <B>Unbuckle first!</B>"
+		usr << "<span class='notice'>Unbuckle first!</span>"
 		return 0
 
 	return 1

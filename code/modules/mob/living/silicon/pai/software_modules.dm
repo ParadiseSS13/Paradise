@@ -123,7 +123,7 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 
 		var/data[0]
-		data["manifest"] = data_core.get_manifest_json()
+		data["manifest"] = list("__json_cache" = ManifestJSON)
 
 		ui = nanomanager.try_update_ui(user, user, id, ui, data, force_open)
 		if(!ui)
@@ -149,7 +149,7 @@
 
 		var/pdas[0]
 		if(!user.pda.toff)
-			for(var/obj/item/device/pda/P in sortAtom(PDAs))
+			for(var/obj/item/device/pda/P in PDAs)
 				if(!P.owner || P.toff || P == user.pda || P.hidden) continue
 				var/pda[0]
 				pda["name"] = "[P]"
@@ -369,6 +369,8 @@
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/living/silicon/ai/AI in player_list)
+		if(!T || !(T.z in config.contact_levels))
+			break
 		if(T.loc)
 			AI << "<font color = red><b>Network Alert: Brute-force encryption crack in progress in [T.loc].</b></font>"
 		else
@@ -458,7 +460,9 @@
 
 	toggle(mob/living/silicon/pai/user)
 		user.secHUD = !user.secHUD
-
+		user.remove_med_sec_hud()
+		if(user.secHUD)
+			user.add_sec_hud()
 	is_active(mob/living/silicon/pai/user)
 		return user.secHUD
 
@@ -469,6 +473,9 @@
 
 	toggle(mob/living/silicon/pai/user)
 		user.medHUD = !user.medHUD
+		user.remove_med_sec_hud()
+		if(user.medHUD)
+			user.add_med_hud()
 
 	is_active(mob/living/silicon/pai/user)
 		return user.medHUD
@@ -536,7 +543,7 @@
 
 		else if(href_list["freq"])
 			var/new_frequency = (P.sradio.frequency + text2num(href_list["freq"]))
-			if(new_frequency < 1200 || new_frequency > 1600)
+			if(new_frequency < PUBLIC_LOW_FREQ || new_frequency > PUBLIC_HIGH_FREQ)
 				new_frequency = sanitize_frequency(new_frequency)
 			P.sradio.set_frequency(new_frequency)
 			return 1
@@ -547,3 +554,43 @@
 			P.sradio.code = min(100, P.sradio.code)
 			P.sradio.code = max(1, P.sradio.code)
 			return 1
+
+/datum/pai_software/host_scan
+	name = "Host Bioscan"
+	ram_cost = 5
+	id = "bioscan"
+	toggle = 0
+
+
+	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
+
+		var/data[0]
+		var/mob/living/held = user.loc
+		var/count = 0
+
+			// Find the carrier
+		while(!isliving(held))
+			if(!held || !held.loc || count > 6)
+				//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
+				src << "You are not being carried by anyone!"
+				return 0
+			held = held.loc
+			count++
+		if(isliving(held))
+			data["holder"] = held
+			data["health"] = "[held.stat > 1 ? "dead" : "[held.health]% healthy"]"
+			data["brute"] = "[held.getBruteLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getBruteLoss()]</font>"
+			data["oxy"] = "[held.getOxyLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getOxyLoss()]</font>"
+			data["tox"] = "[held.getToxLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getToxLoss()]</font>"
+			data["burn"] = "[held.getFireLoss() > 50 ? "<font color=#FF5555>" : "<font color=#55FF55>"][held.getFireLoss()]</font>"
+			data["temp"] = "[held.bodytemperature-T0C]&deg;C ([held.bodytemperature*1.8-459.67]&deg;F)"
+		else
+			data["holder"] = 0
+
+		ui = nanomanager.try_update_ui(user, user, id, ui,data , force_open)
+		if(!ui)
+			// Don't copy-paste this unless you're making a pAI software module!
+			ui = new(user, user, id, "pai_bioscan.tmpl", "Host Bioscan", 400, 350)
+			ui.set_initial_data(data)
+			ui.open()
+			//.set_auto_update(1)

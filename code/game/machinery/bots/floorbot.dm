@@ -244,7 +244,7 @@
 		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, oldtarget)
-			
+
 		if(!target && fixfloors) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, oldtarget)
@@ -272,9 +272,9 @@
 		if(path.len == 0)
 			if(!istype(target, /turf/))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(loc, TL, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+				path = get_path_to(loc, TL, src, /turf/proc/Distance_cardinal, 0, 30, id=botcard, simulated_only = 0)
 			else
-				path = get_path_to(loc, target, /turf/proc/AdjacentTurfsSpace, /turf/proc/Distance, 0, 30, id=botcard)
+				path = get_path_to(loc, target, src, /turf/proc/Distance_cardinal, 0, 30, id=botcard, simulated_only = 0)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
@@ -287,7 +287,7 @@
 			target = null
 			mode = BOT_IDLE
 			return
-			
+
 		ignore_list = list() // Reset the ignore list
 
 		if(loc == target || loc == target.loc)
@@ -307,7 +307,7 @@
 					F.ReplaceWithLattice()
 				visible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
 				spawn(50)
-					amount ++
+					amount++
 					anchored = 0
 					mode = BOT_IDLE
 					target = null
@@ -472,7 +472,7 @@ obj/machinery/bot/floorbot/process_scan(var/scan_target)
 			T.amount = amount
 			amount = 0
 
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	qdel(src)

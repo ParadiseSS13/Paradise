@@ -41,11 +41,7 @@
 	else
 		M.LAssailant = user
 
-	msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
-	if (!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		user << "\red You don't have the dexterity to do this!"
-		return
+	msg_admin_attack("[key_name_admin(user)] attacked [key_name_admin(M)] with [src.name] (INTENT: [uppertext(user.a_intent)])")
 
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red The rod slips out of your hand and hits your head."
@@ -60,12 +56,6 @@
 					M << "<span class='warning'>The nullrod's power interferes with your own!</span>"
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
-
-
-/obj/item/weapon/nullrod/afterattack(atom/A, mob/user as mob)
-	if (istype(A, /turf/simulated/floor))
-		user << "\blue You hit the floor with the [src]."
-		call(/obj/effect/rune/proc/revealrunes)(src)
 
 /obj/item/weapon/sord
 	name = "\improper SORD"
@@ -162,16 +152,17 @@ obj/item/weapon/wirerod
 	force = 9
 	throwforce = 10
 	w_class = 3
-	m_amt = 1875
+	materials = list(MAT_METAL=1000)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
-
+		
+		if(!remove_item_from_storage(user))
+			user.unEquip(src)
 		user.unEquip(I)
-		user.unEquip(src)
 
 		user.put_in_hands(S)
 		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
@@ -181,8 +172,9 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 	else if(istype(I, /obj/item/weapon/wirecutters))
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
 
+		if(!remove_item_from_storage(user))
+			user.unEquip(src)		
 		user.unEquip(I)
-		user.unEquip(src)
 
 		user.put_in_hands(P)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"

@@ -1,3 +1,4 @@
+var/obj/machinery/gateway/centerstation/the_gateway = null
 /obj/machinery/gateway
 	name = "gateway"
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
@@ -10,6 +11,8 @@
 
 
 /obj/machinery/gateway/New()
+	if(!the_gateway)
+		the_gateway = src
 	spawn(25)
 		update_icon()
 		if(dir == 2)
@@ -37,11 +40,18 @@
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/New()
+	if(!the_gateway)
+		the_gateway = src
 	spawn(25)
 		update_icon()
 		wait = world.time + config.gateway_delay	//+ thirty minutes default
 		awaygate = locate(/obj/machinery/gateway/centeraway) in world
 
+
+/obj/machinery/gateway/centerstation/Destroy()
+	if(the_gateway == src)
+		the_gateway = null
+	return ..()
 
 /obj/machinery/gateway/centerstation/update_icon()
 	if(active)
@@ -125,13 +135,13 @@ obj/machinery/gateway/centerstation/process()
 	if(!awaygate)	return
 
 	if(awaygate.calibrated)
-		M.loc = get_step(awaygate.loc, SOUTH)
+		M.forceMove(get_step(awaygate.loc, SOUTH))
 		M.dir = SOUTH
 		return
 	else
 		var/obj/effect/landmark/dest = pick(awaydestinations)
 		if(dest)
-			M.loc = dest.loc
+			M.forceMove(dest.loc)
 			M.dir = SOUTH
 			use_power(5000)
 		return
@@ -230,7 +240,7 @@ obj/machinery/gateway/centerstation/process()
 			if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 				M << "\black The station gate has detected your exile implant and is blocking your entry."
 				return
-	M.loc = get_step(stationgate.loc, SOUTH)
+	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 
 

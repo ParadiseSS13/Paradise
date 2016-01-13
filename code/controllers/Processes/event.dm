@@ -35,7 +35,7 @@ var/global/datum/controller/holiday/holiday_master //This has to be defined befo
 	var/MM = text2num(time2text(world.timeofday, "MM")) 	// get the current month
 	var/DD = text2num(time2text(world.timeofday, "DD")) 	// get the current day
 
-	for(var/H in typesof(/datum/holiday) - /datum/holiday)
+	for(var/H in subtypesof(/datum/holiday))
 		var/datum/holiday/holiday = new H()
 		if(holiday.shouldCelebrate(DD, MM, YY))
 			holiday.celebrate()

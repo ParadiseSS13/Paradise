@@ -58,40 +58,49 @@
 	species.handle_attack_hand(src,M)
 
 	switch(M.a_intent)
-		if("help")
+		if(I_HELP)
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
 				return 1
-//			if(M.health < -75)	return 0
-
-			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove your mask!</B>"
+			if(!H.check_has_mouth())
+				H << "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if(!check_has_mouth())
+				H << "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>"
+				return
+			if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH) && !M.wear_mask.mask_adjusted))
+				M << "<span class='warning'>Remove your mask!</span>"
 				return 0
-			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-				M << "\blue <B>Remove his mask!</B>"
+			if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+				M << "<span class='warning'>Remove his mask!</span>"
 				return 0
 
-			var/obj/effect/equip_e/human/O = new /obj/effect/equip_e/human()
-			O.source = M
-			O.target = src
-			O.s_loc = M.loc
-			O.t_loc = loc
-			O.place = "CPR"
-			requests += O
-			spawn(0)
-				O.process()
-			add_logs(src, M, "CPRed")
-			return 1
+			M.visible_message("<span class='danger'>\The [M] is trying to perform CPR on \the [src]!</span>", \
+							  "<span class='danger'>You try to perform CPR on \the [src]!</span>")
+			if(do_mob(M, src, 40))
+				if(health > config.health_threshold_dead && health <= config.health_threshold_crit)
+					var/suff = min(getOxyLoss(), 7)
+					adjustOxyLoss(-suff)
+					updatehealth()
+					M.visible_message("<span class='danger'>\The [M] performs CPR on \the [src]!</span>", \
+									  "<span class='notice'>You perform CPR on \the [src].</span>")
 
-		if("grab")
+					src << "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>"
+					M << "<span class='alert'>Repeat at least every 7 seconds."
+					add_logs(src, M, "CPRed")
+					return 1
+			else
+				M << "<span class='danger'>You need to stay still while performing CPR!</span>"
+
+		if(I_GRAB)
 			if(attacker_style && attacker_style.grab_act(H, src))
 				return 1
 			else
 				src.grabbedby(M)
 				return 1
 
-		if("harm")
+		if(I_HARM)
 			if(attacker_style && attacker_style.harm_act(H, src))
 				return 1
 			else
@@ -101,21 +110,24 @@
 				if(M.zone_sel && M.zone_sel.selecting == "head" && src != M)
 					if(M.mind && M.mind.vampire && (M.mind in ticker.mode.vampires) && !M.mind.vampire.draining)
 						if((head && (head.flags & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove their mask!"
+							M << "<span class='warning'>Remove their mask!</span>"
 							return 0
 						if((M.head && (M.head.flags & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags & MASKCOVERSMOUTH)))
-							M << "\red Remove your mask!"
+							M << "<span class='warning'>Remove your mask!</span>"
 							return 0
 						if(mind && mind.vampire && (mind in ticker.mode.vampires))
-							M << "\red Your fangs fail to pierce [src.name]'s cold flesh"
+							M << "<span class='warning'>Your fangs fail to pierce [src.name]'s cold flesh</span>"
 							return 0
 						if(SKELETON in mutations)
-							M << "\red There is no blood in a skeleton!"
+							M << "<span class='warning'>There is no blood in a skeleton!</span>"
+							return 0
+						if(issmall(src) && !ckey) //Monkeyized humans are okay, humanized monkeys are okey, monkeys are not.
+							M << "<span class='warning'>Blood from a monkey is useless!</span>"
 							return 0
 						//we're good to suck the blood, blaah
 						M.handle_bloodsucking(src)
 						add_logs(src, M, "vampirebit")
-						message_admins("[M.name] ([M.ckey]) vampirebit [src.name] ([src.ckey])")
+						msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 						return
 				//end vampire codes
 
@@ -139,8 +151,7 @@
 				var/armor_block = run_armor_check(affecting, "melee")
 
 				if(HULK in M.mutations)
-					damage += 5
-					Weaken(4)
+					adjustBruteLoss(15)
 
 				playsound(loc, attack.attack_sound, 25, 1, -1)
 
@@ -156,7 +167,7 @@
 					forcesay(hit_appends)
 
 
-		if("disarm")
+		if(I_DISARM)
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else
@@ -179,16 +190,6 @@
 
 					log_attack("[M.name] ([M.ckey]) pushed [src.name] ([src.ckey])")
 					return
-
-	/*			if(randn <= 45 && !lying)
-					if(head)
-						var/obj/item/clothing/head/H = head
-						if(!istype(H) || prob(H.loose))
-							if(unEquip(H))
-								if(prob(60))
-									step_away(H,M)
-								visible_message("<span class='warning'>[M] has knocked [src]'s [H] off!</span>",
-												"<span class='warning'>[M] knocked \the [H] clean off your head!</span>") */
 
 				var/talked = 0	// BubbleWrap
 

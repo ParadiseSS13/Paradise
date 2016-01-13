@@ -22,8 +22,8 @@
 
 	var/list/spawn_types_plant = list("/obj/item/seeds/walkingmushroommycelium",\
 	"/obj/item/seeds/killertomatoseed",\
-	"/obj/item/seeds/shandseed",
-	"/obj/item/seeds/mtearseed",
+	"/obj/item/seeds/comfreyseed",
+	"/obj/item/seeds/aloeseed",
 	"/obj/item/seeds/thaadra",\
 	"/obj/item/seeds/telriis",\
 	"/obj/item/seeds/jurlmah",\
@@ -108,7 +108,7 @@ datum/controller/game_controller/proc/SetupXenoarch()
 	if(!genome_prefixes)
 		genome_prefixes = alphabet_uppercase.Copy()
 	if(!genome_prefixes.len)
-		del genome_prefixes
+		qdel(genome_prefixes)
 		genome_prefixes = alphabet_uppercase.Copy()
 
 	//create animal gene sequences

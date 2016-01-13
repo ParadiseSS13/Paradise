@@ -18,17 +18,6 @@
 		src.pixel_y = rand(-10.0, 10)
 		base_name = name
 
-
-	examine()
-		set src in view()
-		..()
-		if (!(usr in view(2)) && usr!=src.loc) return
-		usr << "\blue It contains:"
-		if(reagents && reagents.reagent_list.len)
-			usr << "\blue [src.reagents.total_volume] units of powder."
-		else
-			usr << "\blue Nothing."
-
 	afterattack(obj/target, mob/user, proximity)
 		if(!proximity) return
 
@@ -67,19 +56,19 @@
 						badshit += reagents_to_log[bad_reagent]
 				if(badshit.len)
 					var/hl="\red <b>([english_list(badshit)])</b> \black"
-					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
+					message_admins("[key_name_admin(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl]")
+					log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
 		//Safety for dumping stuff into a ninja suit. It handles everything through attackby() and this is unnecessary.
 
-		else if(istype(target, /obj/machinery/bunsen_burner))
+		/*else if(istype(target, /obj/machinery/bunsen_burner))
 			return
 
 		else if(istype(target, /obj/machinery/radiocarbon_spectrometer))
-			return
+			return*/
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)

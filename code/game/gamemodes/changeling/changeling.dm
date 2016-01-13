@@ -9,7 +9,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent")
-	protected_species = list("Machine", "Slime People")
+	protected_species = list("Machine", "Slime People", "Plasmaman")
 	required_players = 2
 	required_players_secret = 10
 	required_enemies = 1
@@ -35,9 +35,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/changeling_amount = 4
 
 /datum/game_mode/changeling/announce()
@@ -49,7 +46,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(BE_CHANGELING)
+	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
 	changeling_amount = 1 + round(num_players() / 10)
 
@@ -61,6 +58,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 			modePlayer += changelings
+			changeling.special_role = "Changeling"
 		return 1
 	else
 		return 0
@@ -68,14 +66,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 /datum/game_mode/changeling/post_setup()
 	for(var/datum/mind/changeling in changelings)
 		grant_changeling_powers(changeling.current)
-		changeling.special_role = "Changeling"
 		forge_changeling_objectives(changeling)
 		greet_changeling(changeling)
+		update_change_icons_added(changeling)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 
 /datum/game_mode/proc/forge_changeling_objectives(var/datum/mind/changeling)
@@ -142,7 +137,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>\red You are a changeling!</B>"
 	changeling.current << "<b>\red Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</b>"
 	changeling.current << "<B>You must complete the following tasks:</B>"
-
 	if (changeling.current.mind)
 		if (changeling.current.mind.assigned_role == "Clown")
 			changeling.current << "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
@@ -153,6 +147,32 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		changeling.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
+
+
+
+/datum/game_mode/proc/remove_changeling(datum/mind/changeling_mind)
+	if(changeling_mind in changelings)
+		changelings -= changeling_mind
+		changeling_mind.current.remove_changeling_powers()
+		changeling_mind.memory = ""
+		changeling_mind.special_role = null
+		if(issilicon(changeling_mind))
+			changeling_mind.current << "<span class='userdanger'>You have been robotized!</span>"
+			changeling_mind.current << "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>"
+		else
+			changeling_mind.current << "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>"
+		update_change_icons_removed(changeling_mind)
+
+/datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.join_solo_hud(changeling.current)
+	set_antag_hud(changeling.current, "hudchangeling")
+
+/datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
+	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_SOLO]
+	linghud.leave_hud(changeling.current)
+	set_antag_hud(changeling.current, null)
+
 
 /*/datum/game_mode/changeling/check_finished()
 	var/changelings_alive = 0
@@ -296,12 +316,16 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
 		return
 
-	if(T.species.flags & IS_SYNTHETIC)
+	if(T.species.flags & NO_DNA_RAD)
 		user << "<span class='warning'>This creature does not have DNA!</span>"
 		return
 
 	if(T.species.flags & NO_SCAN)
 		user << "<span class='warning'>We do not know how to parse this creature's DNA!</span>"
+		return
+
+	if(T.species.flags & NO_BLOOD)
+		user << "<span class='warning'>We are not able to use the DNA of a creature without a circulatory system.</span>"
 		return
 
 	if(has_dna(target.dna))

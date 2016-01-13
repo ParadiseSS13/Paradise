@@ -97,14 +97,12 @@
 		circ2.air2.merge(air2)
 
 	//Update the gas networks
-	if(circ1.network2)
-		circ1.network2.update = 1
-	if(circ2.network2)
-		circ2.network2.update = 1
+	circ1.parent2.update = 1
+	circ2.parent2.update = 1
 
 	// update icon overlays and power usage only if displayed level has changed
 	if(lastgen > powercap && prob(10))
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		lastgen *= 0.5

@@ -6,8 +6,8 @@
 	icon_state = "chef"
 	item_state = "chef"
 	desc = "The commander in chef's head wear."
-	siemens_coefficient = 0.9
-	loose = 35 // why-a do people always push-a me over
+	strip_delay = 10
+	put_on_delay = 10
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -15,9 +15,8 @@
 	icon_state = "captain"
 	desc = "It's good being the king."
 	item_state = "caphat"
-	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	loose = 43 // not the answer
+	strip_delay = 60
 
 //Captain: no longer space-worthy
 /obj/item/clothing/head/caphat/parade
@@ -30,9 +29,7 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	siemens_coefficient = 0.9
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
-	loose = 43 // not the answer
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
@@ -47,8 +44,6 @@
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	siemens_coefficient = 0.9
-	loose = 2
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
@@ -56,8 +51,6 @@
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
 	flags = HEADCOVERSEYES | BLOCKHAIR
-	siemens_coefficient = 0.9
-	loose = 2
 
 /obj/item/clothing/head/det_hat
 	name = "hat"
@@ -65,15 +58,12 @@
 	icon_state = "detective"
 	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy_corn, /obj/item/weapon/pen)
 	armor = list(melee = 50, bullet = 5, laser = 25,energy = 10, bomb = 0, bio = 0, rad = 0)
-	siemens_coefficient = 0.9
 
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
-	siemens_coefficient = 0.9
-	loose = 16
 
 //Security
 /obj/item/clothing/head/HoS
@@ -81,6 +71,7 @@
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	armor = list(melee = 80, bullet = 60, laser = 50, energy = 10, bomb = 25, bio = 10, rad = 0)
+	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
 	name = "head of security beret"
@@ -92,6 +83,7 @@
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
 	armor = list(melee = 60, bullet = 5, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	strip_delay = 60
 
 /obj/item/clothing/head/customs
 	name = "customs officer's hat"
@@ -105,6 +97,7 @@
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_badge"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
@@ -128,7 +121,6 @@
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
-	loose = 13
 
 /obj/item/clothing/head/surgery/purple
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."

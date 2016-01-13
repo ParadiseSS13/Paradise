@@ -21,7 +21,6 @@ var/global/mulebot_count = 0
 	var/atom/movable/load = null		// the loaded crate (usually)
 	var/list/delivery_beacons = list() //List of beacons that serve as delivery locations.
 	beacon_freq = 1400
-	control_freq = 1447
 	bot_type = MULE_BOT
 	bot_type_name = "MULEbot"
 	bot_filter = RADIO_MULEBOT
@@ -79,7 +78,14 @@ var/global/mulebot_count = 0
 			suffix = "#[mulebot_count]"
 		name = "\improper Mulebot ([suffix])"
 
-
+/obj/machinery/bot/mulebot/Destroy()
+	unload(0)
+	qdel(wires)
+	wires = null
+	if(cell)
+		qdel(cell)
+		cell = null
+	return ..()
 
 // attack by item
 // emag : lock/unlock,
@@ -702,6 +708,9 @@ var/global/mulebot_count = 0
 
 		if(load)		// if loaded, unload at target
 			speak("Destination <b>[destination]</b> reached. Unloading [load].", radio_name)
+			if(istype(load, /obj/structure/closet/crate))
+				var/obj/structure/closet/crate/C = load
+				C.notifyRecipient(destination)
 			unload(loaddir)
 		else
 			// not loaded
@@ -859,10 +868,6 @@ var/global/mulebot_count = 0
 			delivery_beacons = new()
 		delivery_beacons[signal.data["beacon"] ] = signal.source
 
-// send a radio signal with a single data key/value pair
-/obj/machinery/bot/mulebot/post_signal(var/freq, var/key, var/value)
-	post_signal_multiple(freq, list("[key]" = value) )
-
 // send a radio signal with multiple data key/values
 /obj/machinery/bot/mulebot/post_signal_multiple(var/freq, var/list/keyval)
 
@@ -928,7 +933,7 @@ var/global/mulebot_count = 0
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 

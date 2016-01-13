@@ -3,7 +3,7 @@
 //^ Old coder words may be false these days, Not taking the risk for now.
 
 /obj/item/clothing/suit/space/space_ninja/verb/toggle_suit()
-	set category = "Space Ninja - Equiptment"
+	set category = "Space Ninja - Equipment"
 	set name = "Toggle Suit"
 
 	if(usr.mind.special_role == "Ninja")
@@ -68,7 +68,9 @@
 			usr<< "<span style='color: #0000ff;'>VOID-shift device status: <b>ONLINE</b>.\nCLOAK-tech device status:<b>ONLINE</b></span>"
 
 			sleep(5)
-			usr<< "<span style='color: #0000ff;'>Primary system status: <b>ONLINE</b>.\nBackup system status: <b>ONLINE</b>.\nCurrent energy capacity: <b>[suitCell.charge]/[suitCell.maxcharge]</b>.</span>"
+			usr<< "<span style='color: #0000ff;'>Primary system status: <b>ONLINE</b>.\nBackup system status: <b>ONLINE</b>.</span>"
+			if(suitCell)
+				usr<< "<span style='color: #0000ff;'>Current energy capacity: <b>[suitCell.charge]/[suitCell.maxcharge]</b>.</span>"
 
 			sleep(10)
 			usr<< "<span style='color: #0000ff;'>All systems operational. Welcome to <b>SpiderOS</b>, [usr.real_name].</span>"

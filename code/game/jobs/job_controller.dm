@@ -14,29 +14,16 @@ var/global/datum/controller/occupations/job_master
 
 
 	proc/SetupOccupations(var/list/faction = list("Station"))
-		if(no_synthetic)
-			occupations = list()
-			var/list/all_jobs = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
-			if(!all_jobs.len)
-				world << "\red \b Error setting up jobs, no job datums found"
-				return 0
-			for(var/J in all_jobs)
-				var/datum/job/job = new J()
-				if(!job)	continue
-				if(!job.faction in faction)	continue
-				occupations += job
-		else
-			occupations = list()
-			var/list/all_jobs = typesof(/datum/job) -/datum/job
-			if(!all_jobs.len)
-				world << "\red \b Error setting up jobs, no job datums found"
-				return 0
-			for(var/J in all_jobs)
-				var/datum/job/job = new J()
-				if(!job)	continue
-				if(!job.faction in faction)	continue
-				occupations += job
-
+		occupations = list()
+		var/list/all_jobs = subtypesof(/datum/job)
+		if(!all_jobs.len)
+			world << "\red \b Error setting up jobs, no job datums found"
+			return 0
+		for(var/J in all_jobs)
+			var/datum/job/job = new J()
+			if(!job)	continue
+			if(!job.faction in faction)	continue
+			occupations += job
 
 		return 1
 
@@ -107,7 +94,7 @@ var/global/datum/controller/occupations/job_master
 			if(!job.player_old_enough(player.client))
 				Debug("FOC player not old enough, Player: [player]")
 				continue
-			if(flag && (!player.client.prefs.be_special & flag))
+			if(flag && !(flag in player.client.prefs.be_special))
 				Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 				continue
 			if(player.mind && job.title in player.mind.restricted_roles)
@@ -226,24 +213,20 @@ var/global/datum/controller/occupations/job_master
 		if(!job)	return 0
 		if((job.title == "AI") && (config) && (!config.allow_ai))	return 0
 
+		if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
+			for (var/datum/mind/mAI in ticker.mode.malf_ai)
+				AssignRole(mAI.current, "AI")
+				ai_selected++
+			if(ai_selected)	return 1
+			return 0
+
 		for(var/i = job.total_positions, i > 0, i--)
 			for(var/level = 1 to 3)
 				var/list/candidates = list()
-				if(ticker.mode.name == "AI malfunction")//Make sure they want to malf if its malf
-					candidates = FindOccupationCandidates(job, level, BE_MALF)
-				else
-					candidates = FindOccupationCandidates(job, level)
+				candidates = FindOccupationCandidates(job, level)
 				if(candidates.len)
 					var/mob/new_player/candidate = pick(candidates)
 					if(AssignRole(candidate, "AI"))
-						ai_selected++
-						break
-			//Malf NEEDS an AI so force one if we didn't get a player who wanted it
-			if((ticker.mode.name == "AI malfunction")&&(!ai_selected))
-				unassigned = shuffle(unassigned)
-				for(var/mob/new_player/player in unassigned)
-					if(jobban_isbanned(player, "AI"))	continue
-					if(AssignRole(player, "AI"))
 						ai_selected++
 						break
 			if(ai_selected)	return 1
@@ -497,11 +480,10 @@ var/global/datum/controller/occupations/job_master
 				if(istype(G) && !G.prescription)
 					G.prescription = 1
 					G.name = "prescription [G.name]"
-//		H.update_icons()
+		H.regenerate_icons()
 
-		H.hud_updateflag |= (1 << ID_HUD)
-		H.hud_updateflag |= (1 << IMPLOYAL_HUD)
-		H.hud_updateflag |= (1 << SPECIALROLE_HUD)
+		H.sec_hud_set_ID()
+		H.sec_hud_set_implants()
 		return H
 
 
@@ -545,7 +527,6 @@ var/global/datum/controller/occupations/job_master
 			pda.ownjob = C.assignment
 			pda.ownrank = C.rank
 			pda.name = "PDA-[H.real_name] ([pda.ownjob])"
-			pda.JFLOG("Created")
 
 		return 1
 

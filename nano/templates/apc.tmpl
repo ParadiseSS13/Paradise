@@ -167,8 +167,12 @@
 			{{:helper.link('Overload Lighting Circuit', 'lightbulb', {'overload' : 1})}}
 			{{if data.malfStatus == 1}}
 				{{:helper.link('Override Programming', 'script', {'malfhack' : 1})}}
-			{{else data.malfStatus > 1}}
-				<div class='notice'>APC Hacked</div>
+			{{else data.malfStatus == 2}}
+				{{:helper.link('Shunt Core Processes', 'arrowreturn-1-s', {'occupyapc' : 1})}}
+			{{else data.malfStatus == 3}}
+				{{:helper.link('Return to Main Core', 'arrowreturn-1-w', {'deoccupyapc' : 1})}}
+			{{else data.malfStatus == 4}}
+				{{:helper.link('Shunt Core Processes', 'arrowreturn-1-s', {'occupyapc' : 1}, 'linkOff')}}
 			{{/if}}
 		</div>
 	{{/if}}

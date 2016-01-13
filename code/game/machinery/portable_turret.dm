@@ -6,16 +6,13 @@
 /obj/machinery/porta_turret
 	name = "turret"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "grey_target_prism"
+	icon_state = "turretCover"
 	anchored = 1
-	layer = 3
-	invisibility = INVISIBILITY_LEVEL_TWO	//the turret is invisible if it's inside its cover
-	density = 1
+
+	density = 0
 	use_power = 1				//this turret uses and requires power
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
-	req_access = null
-	req_one_access = list(access_security, access_heads)
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
@@ -32,7 +29,6 @@
 	var/iconholder = null	//holder for the icon_state. 1 for orange sprite, null for blue.
 	var/egun = null			//holder to handle certain guns switching bullettypes
 
-	var/obj/machinery/porta_turret_cover/cover = null	//the cover that is covering this turret
 	var/last_fired = 0		//1: if the turret is cooling down from a shot, 0: turret is ready to fire
 	var/shot_delay = 15		//1.5 seconds between each shot
 
@@ -53,29 +49,54 @@
 	var/shot_sound 			//what sound should play when the turret fires
 	var/eshot_sound			//what sound should play when the emagged turret fires
 
-	var/datum/effect/effect/system/spark_spread/spark_system	//the spark system, used for generating... sparks?
+	var/datum/effect/system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = 0
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 
+	var/screen = 0 // Screen 0: main control, screen 1: access levels
+	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
+
+/obj/machinery/porta_turret/centcom
+	enabled = 0
+	ailock = 1
+	check_synth	 = 0
+	check_access = 1
+	check_arrest = 1
+	check_records = 1
+	check_weapons = 1
+	check_anomalies = 1
+
 /obj/machinery/porta_turret/stationary
+	ailock = 1
 	lethal = 1
 	installation = /obj/item/weapon/gun/energy/laser
 
 /obj/machinery/porta_turret/New()
 	..()
-	icon_state = "grey_target_prism"
+	if(req_access && req_access.len)
+		req_access.Cut()
+	req_one_access = list(access_security, access_heads)
+	one_access = 1
+
 	//Sets up a spark system
-	spark_system = new /datum/effect/effect/system/spark_spread
+	spark_system = new /datum/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	if(anchored)
-		create_cover()
-	else
-		invisibility = 0
-		update_icon()
 	setup()
+
+/obj/machinery/porta_turret/Destroy()
+	qdel(spark_system)
+	spark_system = null
+	return ..()
+
+/obj/machinery/porta_turret/centcom/New()
+	..()
+	if(req_one_access && req_one_access.len)
+		req_one_access.Cut()
+	req_access = list(access_cent_specops)
+	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/weapon/gun/energy/E = installation	//All energy-based weapons are applicable
@@ -95,15 +116,8 @@
 			iconholder = 1
 			eprojectile = /obj/item/projectile/beam
 
-//			if(/obj/item/weapon/gun/energy/laser/practice/sc_laser)
-//				iconholder = 1
-//				eprojectile = /obj/item/projectile/beam
-
 		if(/obj/item/weapon/gun/energy/laser/retro)
 			iconholder = 1
-
-//			if(/obj/item/weapon/gun/energy/retro/sc_retro)
-//				iconholder = 1
 
 		if(/obj/item/weapon/gun/energy/laser/captain)
 			iconholder = 1
@@ -134,38 +148,36 @@
 			eshot_sound = 'sound/weapons/Laser.ogg'
 			egun = 1
 
+var/list/turret_icons
 /obj/machinery/porta_turret/update_icon()
-	if(!anchored)
-		icon_state = "turretCover"
-		return
+	if(!turret_icons)
+		turret_icons = list()
+		turret_icons["open"] = image(icon, "openTurretCover")
+
+	underlays.Cut()
+	underlays += turret_icons["open"]
+
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
-	else
-		if(powered())
-			if(enabled)
-				if(iconholder)
-					//lasers have a orange icon
-					icon_state = "orange_target_prism"
-				else
-					//almost everything has a blue icon
-					icon_state = "target_prism"
+	else if(raised || raising)
+		if(powered() && enabled)
+			if(iconholder)
+				//lasers have a orange icon
+				icon_state = "orange_target_prism"
 			else
-				icon_state = "grey_target_prism"
+				//almost everything has a blue icon
+				icon_state = "target_prism"
 		else
 			icon_state = "grey_target_prism"
-
-/obj/machinery/porta_turret/Destroy()
-	//deletes its own cover with it
-	qdel(cover) // qdel
-	cover = null
-	return ..()
+	else
+		icon_state = "turretCover"
 
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))
 		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
 		return 1
 
-	if(locked && !(isrobot(user) || isAI(user)))
+	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
 		user << "<span class='notice'>Access denied.</span>"
 		return 1
 
@@ -177,6 +189,9 @@
 
 	ui_interact(user)
 
+/obj/machinery/porta_turret/attack_ghost(mob/user)
+	ui_interact(user)
+
 /obj/machinery/porta_turret/attack_hand(mob/user)
 	if(isLocked(user))
 		return
@@ -186,6 +201,7 @@
 /obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/data[0]
 	data["access"] = !isLocked(user)
+	data["screen"] = screen
 	data["locked"] = locked
 	data["enabled"] = enabled
 	data["is_lethal"] = 1
@@ -201,9 +217,22 @@
 		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
 
+	data["one_access"] = one_access
+	var/accesses[0]
+	var/list/access_list = get_all_accesses()
+	for (var/access in access_list)
+		var/name = get_access_desc(access)
+		var/active
+		if(one_access)
+			active = (access in req_one_access)
+		else
+			active = (access in req_access)
+		accesses[++accesses.len] = list("name" = name, "active" = active, "number" = access)
+	data["accesses"] = accesses
+
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 320)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -224,7 +253,7 @@
 		usr << "<span class='notice'>\The [src] has to be secured first!</span>"
 		return STATUS_CLOSE
 
-	return STATUS_INTERACTIVE
+	return ..()
 
 /obj/machinery/porta_turret/Topic(href, href_list, var/nowindow = 0)
 	if(..())
@@ -234,6 +263,8 @@
 		var/value = text2num(href_list["value"])
 		if(href_list["command"] == "enable")
 			enabled = value
+		else if(href_list["command"] == "screen")
+			screen = value
 		else if(href_list["command"] == "lethal")
 			lethal = value
 		else if(href_list["command"] == "check_synth")
@@ -249,7 +280,39 @@
 		else if(href_list["command"] == "check_anomalies")
 			check_anomalies = value
 
-		return 1
+	if(href_list["one_access"])
+		toggle_one_access(href_list["one_access"])
+
+	if(href_list["access"])
+		toggle_access(href_list["access"])
+
+	return 1
+
+/obj/machinery/porta_turret/proc/toggle_one_access(var/access)
+	one_access = text2num(access)
+
+	if(one_access == 1)
+		req_one_access = req_access.Copy()
+		req_access.Cut()
+	else if(one_access == 0)
+		req_access = req_one_access.Copy()
+		req_one_access.Cut()
+
+/obj/machinery/porta_turret/proc/toggle_access(var/access)
+	var/required = text2num(access)
+	if(!(required in get_all_accesses()))
+		return
+
+	if(one_access)
+		if((required in req_one_access))
+			req_one_access -= required
+		else
+			req_one_access += required
+	else
+		if((required in req_access))
+			req_access -= required
+		else
+			req_access += required
 
 /obj/machinery/porta_turret/power_change()
 	if(powered())
@@ -267,7 +330,7 @@
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			user << "<span class='notice'>You begin prying the metal coverings off.</span>"
-			if(do_after(user, 20))
+			if(do_after(user, 20, target = src))
 				if(prob(70))
 					user << "<span class='notice'>You remove the turret and salvage some components.</span>"
 					if(installation)
@@ -299,26 +362,21 @@
 			)
 
 		wrenching = 1
-		if(do_after(user, 50))
+		if(do_after(user, 50, target = src))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
 				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
 				anchored = 1
-				invisibility = INVISIBILITY_LEVEL_TWO
 				update_icon()
 				user << "<span class='notice'>You secure the exterior bolts on the turret.</span>"
-				create_cover()
 			else if(anchored)
 				playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
 				anchored = 0
 				user << "<span class='notice'>You unsecure the exterior bolts on the turret.</span>"
-				invisibility = 0
 				update_icon()
-				qdel(cover) //deletes the cover, and the turret instance itself becomes its own cover. - qdel
 		wrenching = 0
 
-	else if(istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
-		//Behavior lock/unlock mangement
+	else if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
 		if(allowed(user))
 			locked = !locked
 			user << "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>"
@@ -340,12 +398,36 @@
 
 		..()
 
+/obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
+		return
+	if(!(stat & BROKEN))
+		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
+		take_damage(M.melee_damage_upper)
+	else
+		M << "<span class='danger'>That object is useless to you.</span>"
+	return
+
+/obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(!(stat & BROKEN))
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
+		take_damage(15)
+	else
+		M << "<span class='noticealien'>That object is useless to you.</span>"
+	return
+
 /obj/machinery/porta_turret/emag_act(user as mob)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
 		//the turret shoot much, much faster.
-		user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
-		visible_message("[src] hums oddly...")
+		if(user)
+			user << "<span class='warning'>You short out [src]'s threat assessment circuits.</span>"
+			visible_message("[src] hums oddly...")
 		emagged = 1
 		iconholder = 1
 		controllock = 1
@@ -354,6 +436,11 @@
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 /obj/machinery/porta_turret/proc/take_damage(var/force)
+	if(!raised && !raising)
+		force = force / 8
+		if(force < 5)
+			return
+
 	health -= force
 	if (force > 5 && prob(45))
 		spark_system.start()
@@ -390,9 +477,9 @@
 			emagged = 1
 
 		enabled=0
-		sleep(rand(60,600))
-		if(!enabled)
-			enabled=1
+		spawn(rand(60,600))
+			if(!enabled)
+				enabled=1
 
 	..()
 
@@ -404,35 +491,20 @@
 			if (prob(25))
 				qdel(src)
 			else
-				take_damage(150) //should instakill most turrets
+				take_damage(initial(health) * 8) //should instakill most turrets
 		if (3)
-			take_damage(50)
+			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
 	health = 0
-	density = 0
 	stat |= BROKEN	//enables the BROKEN bit
-	invisibility = 0
 	spark_system.start()	//creates some sparks because they look cool
-	density = 1
 	update_icon()
-	qdel(cover)	//deletes the cover - no need on keeping it there! - del
-
-/obj/machinery/porta_turret/proc/create_cover()
-	if(cover == null && anchored)
-		cover = new /obj/machinery/porta_turret_cover(loc)	//if the turret has no cover and is anchored, give it a cover
-		cover.Parent_Turret = src	//assign the cover its Parent_Turret, which would be this (src)
 
 /obj/machinery/porta_turret/process()
 	//the main machinery process
 
 	set background = BACKGROUND_ENABLED
-
-	if(cover == null && anchored)	//if it has no cover and is anchored
-		if(stat & BROKEN)	//if the turret is borked
-			qdel(cover)	//delete its cover, assuming it has one. Workaround for a pesky little bug - qdel
-		else
-			create_cover()
 
 	if(stat & (NOPOWER|BROKEN))
 		//if the turret has no power or is broken, make the turret pop down if it hasn't already
@@ -481,19 +553,23 @@
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	// If emagged not even the dead get a rest
-	if(emagged)
-		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
-
-	if(issilicon(L))	// Don't target silica
+	if(!emagged && issilicon(L))	// Don't target silica
 		return TURRET_NOT_TARGET
 
-	if(L.stat)		//if the perp is dead/dying, no need to bother really
+	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	var/dst = get_dist(src, L)	//if it's too far away, why bother?
-	if(dst > 7)
-		return 0
+	if(get_dist(src, L) > 7)	//if it's too far away, why bother?
+		return TURRET_NOT_TARGET
+
+	if(!check_trajectory(L, src))	//check if we have true line of sight
+		return TURRET_NOT_TARGET
+
+	if(emagged)		// If emagged not even the dead get a rest
+		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
+
+	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
+		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
 		if(L.lying)
@@ -505,11 +581,12 @@
 
 	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+
 	if(isalien(L)) // Xenos are dangerous
 		return check_anomalies ? TURRET_PRIORITY_TARGET	: TURRET_NOT_TARGET
 
 	if(ishuman(L))	//if the target is a human, analyze threat level
-		if(assess_perp(L, check_weapons, check_records, check_arrest) < 4)
+		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
 	if(L.lying)		//if the perp is lying down, it's still a target but a less-important target
@@ -534,15 +611,17 @@
 		return
 	if(stat & BROKEN)
 		return
+	set_raised_raising(raised, 1)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	invisibility = 0
-	raising = 1
-	flick("popup", cover)
+	update_icon()
+
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = layer + 0.1
+	flick("popup", flick_holder)
 	sleep(10)
-	raising = 0
-	cover.icon_state = "openTurretCover"
-	raised = 1
-	layer = 4
+	qdel(flick_holder)
+
+	set_raised_raising(1, 0)
 	update_icon()
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
@@ -553,15 +632,17 @@
 		return
 	if(stat & BROKEN)
 		return
+	set_raised_raising(raised, 1)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
-	layer = 3
-	raising = 1
-	flick("popdown", cover)
+	update_icon()
+
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = layer + 0.1
+	flick("popdown", flick_holder)
 	sleep(10)
-	raising = 0
-	cover.icon_state = "turretCover"
-	raised = 0
-	invisibility = INVISIBILITY_LEVEL_TWO
+	qdel(flick_holder)
+
+	set_raised_raising(0, 0)
 	update_icon()
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
@@ -570,6 +651,11 @@
 		return 10
 
 	return ..()
+
+/obj/machinery/porta_turret/proc/set_raised_raising(var/raised, var/raising)
+	src.raised = raised
+	src.raising = raising
+	density = raised || raising
 
 /obj/machinery/porta_turret/proc/target(var/mob/living/target)
 	if(disabled)
@@ -724,7 +810,7 @@
 					return
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, target = src))
 					if(!src || !WT.remove_fuel(5, user)) return
 					build_step = 1
 					user << "You remove the turret's interior metal armor."
@@ -805,7 +891,7 @@
 					user << "<span class='notice'>You need more fuel to complete this task.</span>"
 
 				playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
-				if(do_after(user, 30))
+				if(do_after(user, 30, target = src))
 					if(!src || !WT.remove_fuel(5, user))
 						return
 					build_step = 8
@@ -819,9 +905,6 @@
 					Turret.enabled = 0
 					Turret.setup()
 
-//					Turret.cover=new/obj/machinery/porta_turret_cover(loc)
-//					Turret.cover.Parent_Turret=Turret
-//					Turret.cover.name = finish_name
 					qdel(src) // qdel
 
 			else if(istype(I, /obj/item/weapon/crowbar))
@@ -866,28 +949,5 @@
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
 
-
-/************************
-* PORTABLE TURRET COVER *
-************************/
-
-/obj/machinery/porta_turret_cover
-	name = "turret"
+/atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
-	anchored = 1
-	layer = 3.5
-	density = 0
-	var/obj/machinery/porta_turret/Parent_Turret = null
-
-/obj/machinery/porta_turret_cover/attack_ai(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/porta_turret_cover/attack_hand(mob/user)
-	return Parent_Turret.attack_hand(user)
-
-/obj/machinery/porta_turret_cover/Topic(href, href_list)
-	Parent_Turret.Topic(href, href_list, 1)	// Calling another object's Topic requires that we claim to not have a window, otherwise BYOND's base proc will runtime.
-
-/obj/machinery/porta_turret_cover/attackby(obj/item/I, mob/user)
-	Parent_Turret.attackby(I, user)

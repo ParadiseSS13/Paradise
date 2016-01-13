@@ -59,9 +59,9 @@ datum/controller/vote
 		voting.Cut()
 		current_votes.Cut()
 
-		if(auto_muted && !ooc_allowed)
+		if(auto_muted && !config.ooc_allowed)
 			auto_muted = 0
-			ooc_allowed = !( ooc_allowed )
+			config.ooc_allowed = !( config.ooc_allowed )
 			world << "<b>The OOC channel has been automatically enabled due to vote end.</b>"
 			log_admin("OOC was toggled automatically due to vote end.")
 			message_admins("OOC has been toggled on automatically.")
@@ -167,12 +167,7 @@ datum/controller/vote
 
 
 		if(restart)
-			world << "World restarting due to vote..."
-			feedback_set_details("end_error","restart vote")
-			if(blackbox)	blackbox.save_all_data_to_sql()
-			sleep(50)
-			log_game("Rebooting due to restart vote")
-			world.Reboot()
+			world.Reboot("Restart vote successful.", "end_error", "restart vote")
 
 		return .
 
@@ -205,14 +200,12 @@ datum/controller/vote
 						return 0
 					choices.Add(config.votable_modes)
 				if("crew_transfer")
-					if (check_rights(R_ADMIN) || check_rights(R_MOD))
+					if (check_rights(R_ADMIN|R_MOD))
 						if(ticker.current_state <= 2)
 							return 0
 						question = "End the shift?"
 						choices.Add("Initiate Crew Transfer", "Continue The Round")
 					else
-						if (get_security_level() == "red" || get_security_level() == "delta")
-							return 0
 						if(ticker.current_state <= 2)
 							return 0
 						question = "End the shift?"
@@ -244,21 +237,21 @@ datum/controller/vote
 			if(mode == "gamemode" && going)
 				going = 0
 				world << "<font color='red'><b>Round start has been delayed.</b></font>"
-			if(mode == "crew_transfer" && ooc_allowed)
+			if(mode == "crew_transfer" && config.ooc_allowed)
 				auto_muted = 1
-				ooc_allowed = !( ooc_allowed )
+				config.ooc_allowed = !( config.ooc_allowed )
 				world << "<b>The OOC channel has been automatically disabled due to a crew transfer vote.</b>"
 				log_admin("OOC was toggled automatically due to crew_transfer vote.")
 				message_admins("OOC has been toggled off automatically.")
-			if(mode == "gamemode" && ooc_allowed)
+			if(mode == "gamemode" && config.ooc_allowed)
 				auto_muted = 1
-				ooc_allowed = !( ooc_allowed )
+				config.ooc_allowed = !( config.ooc_allowed )
 				world << "<b>The OOC channel has been automatically disabled due to the gamemode vote.</b>"
 				log_admin("OOC was toggled automatically due to gamemode vote.")
 				message_admins("OOC has been toggled off automatically.")
-			if(mode == "custom" && ooc_allowed)
+			if(mode == "custom" && config.ooc_allowed)
 				auto_muted = 1
-				ooc_allowed = !( ooc_allowed )
+				config.ooc_allowed = !( config.ooc_allowed )
 				world << "<b>The OOC channel has been automatically disabled due to a custom vote.</b>"
 				log_admin("OOC was toggled automatically due to custom vote.")
 				message_admins("OOC has been toggled off automatically.")
@@ -272,12 +265,7 @@ datum/controller/vote
 
 	proc/interface(var/client/C)
 		if(!C)	return
-		var/admin = 0
-		var/trialmin = 0
-		if(C.holder)
-			admin = 1
-			if(C.holder.rights & R_ADMIN)
-				trialmin = 1
+		var/admin = check_rights(R_ADMIN,0)
 		voting |= C
 
 		. = "<html><head><title>Voting Panel</title></head><body>"
@@ -299,29 +287,29 @@ datum/controller/vote
 		else
 			. += "<h2>Start a vote:</h2><hr><ul><li>"
 			//restart
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
 			else
 				. += "<font color='grey'>Restart (Disallowed)</font>"
 			. += "</li><li>"
-			if(trialmin || config.allow_vote_restart)
+			if(admin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=crew_transfer'>Crew Transfer</a>"
 			else
 				. += "<font color='grey'>Crew Transfer (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_restart'>[config.allow_vote_restart?"Allowed":"Disallowed"]</a>)"
 			. += "</li><li>"
 			//gamemode
-			if(trialmin || config.allow_vote_mode)
+			if(admin || config.allow_vote_mode)
 				. += "<a href='?src=\ref[src];vote=gamemode'>GameMode</a>"
 			else
 				. += "<font color='grey'>GameMode (Disallowed)</font>"
-			if(trialmin)
+			if(admin)
 				. += "\t(<a href='?src=\ref[src];vote=toggle_gamemode'>[config.allow_vote_mode?"Allowed":"Disallowed"]</a>)"
 
 			. += "</li>"
 			//custom
-			if(trialmin)
+			if(admin)
 				. += "<li><a href='?src=\ref[src];vote=custom'>Custom</a></li>"
 			. += "</ul><hr>"
 		. += "<a href='?src=\ref[src];vote=close' style='position:absolute;right:50px'>Close</a></body></html>"
@@ -330,31 +318,32 @@ datum/controller/vote
 
 	Topic(href,href_list[],hsrc)
 		if(!usr || !usr.client)	return	//not necessary but meh...just in-case somebody does something stupid
+		var/admin = check_rights(R_ADMIN,0)
 		switch(href_list["vote"])
 			if("close")
 				voting -= usr.client
 				usr << browse(null, "window=vote")
 				return
 			if("cancel")
-				if(usr.client.holder)
+				if(admin)
 					reset()
 			if("toggle_restart")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_restart = !config.allow_vote_restart
 			if("toggle_gamemode")
-				if(usr.client.holder)
+				if(admin)
 					config.allow_vote_mode = !config.allow_vote_mode
 			if("restart")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("restart",usr.key)
 			if("gamemode")
-				if(config.allow_vote_mode || usr.client.holder)
+				if(config.allow_vote_mode || admin)
 					initiate_vote("gamemode",usr.key)
 			if("crew_transfer")
-				if(config.allow_vote_restart || usr.client.holder)
+				if(config.allow_vote_restart || admin)
 					initiate_vote("crew_transfer",usr.key)
 			if("custom")
-				if(usr.client.holder)
+				if(admin)
 					initiate_vote("custom",usr.key)
 			else
 				submit_vote(usr.ckey, round(text2num(href_list["vote"])))

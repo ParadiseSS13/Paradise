@@ -101,11 +101,11 @@ var/global/list/plant_seed_sprites = list()
 /obj/item/seeds/cabbageseed
 	seed_type = "cabbage"
 
-/obj/item/seeds/shandseed
-	seed_type = "shand"
+/obj/item/seeds/comfreyseed
+	seed_type = "comfrey"
 
-/obj/item/seeds/mtearseed
-	seed_type = "mtear"
+/obj/item/seeds/aloeseed
+	seed_type = "aloe"
 
 /obj/item/seeds/berryseed
 	seed_type = "berries"
@@ -178,6 +178,9 @@ var/global/list/plant_seed_sprites = list()
 
 /obj/item/seeds/glowshroom
 	seed_type = "glowshroom"
+
+/obj/item/seeds/glowcap
+	seed_type = "glowcap"
 
 /obj/item/seeds/plumpmycelium
 	seed_type = "plumphelmet"

@@ -3,12 +3,12 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	throwforce = 0
 	w_class = 1
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
+	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
 	origin_tech = "magnets=2;combat=1"
 
 	var/times_used = 0 //Number of times it's been used.
@@ -77,6 +77,8 @@
 
 /obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, convert = 1)
 	add_logs(M, user, "flashed", object="[src.name]")
+	if(M.weakeyes)
+		M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
 	var/safety = M:eyecheck()
 	if(safety <= 0)
 		M.confused += power
@@ -85,6 +87,9 @@
 			terrible_conversion_proc(M, user)
 			M.Stun(1)
 			user.visible_message("<span class='disarm'>[user] blinds [M] with the [src.name]!</span>")
+			if(M.weakeyes)
+				M.Stun(2)
+				M.visible_message("<span class='disarm'><b>[M]</b> gasps and shields their eyes!</span>")
 		return 1
 	else
 		if(user)
@@ -104,6 +109,15 @@
 		return 1
 
 	else if(issilicon(M))
+		if(isrobot(M))
+			var/mob/living/silicon/robot/R = M
+
+			if (R.module) // Perhaps they didn't choose a module yet
+				for(var/obj/item/borg/combat/shield/S in R.module.modules)
+					if(R.activated(S))
+						add_logs(M, user, "flashed", object="[src.name]")
+						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but if blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by his shield!</span>")
+						return 1
 		M.Weaken(rand(5,10))
 		add_logs(M, user, "flashed", object="[src.name]")
 		user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")

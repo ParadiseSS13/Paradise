@@ -8,6 +8,17 @@
 	embed = 1
 	sharp = 1
 
+/obj/item/projectile/bullet/cap
+	name = "cap"
+	damage = 0
+	nodamage = 1
+	embed = 0
+	sharp = 0
+
+/obj/item/projectile/bullet/cap/process()
+	loc = null
+	del(src)
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	damage = 5
 	stamina = 80
@@ -17,9 +28,9 @@
 	sharp = 0
 
 /obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
-	damage = 15
+	damage = 5
 	weaken = 3
-	stamina = 50
+	stamina = 60
 
 /obj/item/projectile/bullet/weakbullet2/rubber //detective's bullets that don't embed
 	embed = 0
@@ -27,6 +38,18 @@
 
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
+
+
+/obj/item/projectile/bullet/toxinbullet
+	damage = 15
+	damage_type = TOX
+
+/obj/item/projectile/bullet/incendiary/firebullet
+	damage = 10
+
+/obj/item/projectile/bullet/armourpiercing
+	damage = 17
+	armour_penetration = 10
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
@@ -55,6 +78,9 @@
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
+/obj/item/projectile/bullet/rpellet
+	damage = 3
+	stamina = 25
 
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -104,7 +130,7 @@
 /obj/item/projectile/bullet/incendiary/shell/Move()
 	..()
 	var/turf/location = get_turf(src)
-	PoolOrNew(/obj/effect/hotspot, location)
+	new /obj/effect/hotspot(location)
 	location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath

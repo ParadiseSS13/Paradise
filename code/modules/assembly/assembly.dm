@@ -5,8 +5,7 @@
 	icon_state = ""
 	flags = CONDUCT
 	w_class = 2.0
-	m_amt = 100
-	g_amt = 0
+	materials = list(MAT_METAL=100)
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 10
@@ -141,15 +140,13 @@
 		return
 
 
-	examine()
-		set src in view()
-		..()
-		if((in_range(src, usr) || loc == usr))
+	examine(mob/user)
+		..(user)
+		if((in_range(src, user) || loc == user))
 			if(secured)
-				usr << "\The [src] is ready!"
+				user << "\The [src] is ready!"
 			else
-				usr << "\The [src] can be attached!"
-		return
+				user << "\The [src] can be attached!"
 
 
 	attack_self(mob/user as mob)

@@ -47,6 +47,11 @@
 	var/const/STATUS_DISPLAY_TIME = 4
 	var/const/STATUS_DISPLAY_CUSTOM = 99
 
+/obj/machinery/status_display/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src,frequency)
+	return ..()
+
 // register for radio system
 /obj/machinery/status_display/initialize()
 	..()
@@ -82,28 +87,26 @@
 			remove_display()
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
-			if(emergency_shuttle.waiting_to_leave())
-				message1 = "-ETD-"
-				if (emergency_shuttle.shuttle.is_launching())
-					message2 = "Launch"
-				else
-					message2 = get_shuttle_timer_departure()
-					if(length(message2) > CHARS_PER_LINE)
-						message2 = "Error"
-				update_display(message1, message2)
-			else if(emergency_shuttle.has_eta())
-				message1 = "-ETA-"
-				message2 = get_shuttle_timer_arrival()
-				if(length(message2) > CHARS_PER_LINE)
-					message2 = "Error"
-				update_display(message1, message2)
-			else if(emergency_shuttle.is_stranded())
-				message1 = "-ERR-"
-				message2 = "??:??"
-				update_display(message1, message2)
+			if(shuttle_master.emergency.timer)
+				var/line1
+				var/line2 = get_shuttle_timer()
+				switch(shuttle_master.emergency.mode)
+					if(SHUTTLE_RECALL)
+						line1 = "-RCL-"
+					if(SHUTTLE_CALL)
+						line1 = "-ETA-"
+					if(SHUTTLE_DOCKED)
+						line1 = "-ETD-"
+					if(SHUTTLE_ESCAPE)
+						line1 = "-ESC-"
+					if(SHUTTLE_STRANDED)
+						line1 = "-ERR-"
+						line2 = "??:??"
+				if(length(line2) > CHARS_PER_LINE)
+					line2 = "Error!"
+				update_display(line1, line2)
 			else
 				remove_display()
-			return 1
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
 			var/line1
 			var/line2
@@ -134,11 +137,10 @@
 			return 1
 	return 0
 
-/obj/machinery/status_display/examine()
-	set src in view()
-	. = ..()
+/obj/machinery/status_display/examine(mob/user)
+	. = ..(user)
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
-		usr << "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]"
+		user << "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]"
 
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
@@ -165,29 +167,17 @@
 	if(maptext != new_text)
 		maptext = new_text
 
-/obj/machinery/status_display/proc/get_shuttle_timer_arrival()
-	var/timeleft = emergency_shuttle.estimate_arrival_time()
-	if(timeleft < 0)
-		return ""
-	return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-
-/obj/machinery/status_display/proc/get_shuttle_timer_departure()
-	var/timeleft = emergency_shuttle.estimate_launch_time()
-	if(timeleft < 0)
-		return ""
-	return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+/obj/machinery/status_display/proc/get_shuttle_timer()
+	var/timeleft = shuttle_master.emergency.timeLeft()
+	if(timeleft > 0)
+		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+	return "00:00"
 
 /obj/machinery/status_display/proc/get_supply_shuttle_timer()
-	var/datum/shuttle/ferry/supply/shuttle = supply_controller.shuttle
-	if (!shuttle)
-		return "Error"
-
-	if(shuttle.has_arrive_time())
-		var/timeleft = round((shuttle.arrive_time - world.time) / 10,1)
-		if(timeleft < 0)
-			return "Late"
+	var/timeleft = shuttle_master.supply.timeLeft()
+	if(timeleft > 0)
 		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-	return ""
+	return "00:00"
 
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)

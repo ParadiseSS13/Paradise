@@ -40,7 +40,7 @@
 	if(!istype(M))
 		return ..()
 
-	if(user.a_intent != "help")
+	if(user.a_intent != I_HELP)
 		if(user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes")
 			if((CLUMSY in user.mutations) && prob(50))
 				M = user
@@ -49,18 +49,22 @@
 			return ..()
 
 	if (reagents.total_volume > 0)
-		reagents.trans_to_ingest(M, reagents.total_volume)
 		if(M == user)
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] eats some [] from \the [].", user, loaded, src), 1)
-				M.reagents.add_reagent("nutriment", 1)
+			M.visible_message("<span class='notice'>\The [user] eats some [loaded] from \the [src].</span>")
+			reagents.trans_to(M, reagents.total_volume)
 		else
-			for(var/mob/O in viewers(M, null))
-				O.show_message(text("\blue [] feeds [] some [] from \the []", user, M, loaded, src), 1)
-				M.reagents.add_reagent("nutriment", 1)
+			M.visible_message("<span class='warning'>\The [user] attempts to feed some [loaded] to \the [M] with \the [src].</span>")
+			if(!do_mob(user, M)) return
+			M.visible_message("<span class='warning'>\The [user] feeds some [loaded] to \the [M] with \the [src].</span>")
+			reagents.trans_to(M, reagents.total_volume)
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been utensil fed by [user.name] ([user.ckey]) with [src.name]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Utensil fed [M.name] ([M.ckey]) with [src.name]</font>")
 		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
 		overlays.Cut()
 		return
+
+	if (can_operate(M))
+		do_surgery(M, user, src)
 
 /obj/item/weapon/kitchen/utensil/fork
 	name = "fork"
@@ -141,7 +145,7 @@
 	throwforce = 6.0
 	throw_speed = 3
 	throw_range = 6
-	m_amt = 12000
+	materials = list(MAT_METAL=12000)
 	origin_tech = "materials=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -155,6 +159,7 @@
 	name = "combat knife"
 	force = 15.0
 	throwforce = 10.0
+	w_class = 2
 	origin_tech = "materials=2;combat=2"
 	desc = "A razor sharp knife, built from advanced alloys, designed for quick, melee killing. Also not half bad as a kitchen knife."
 	slot_flags = SLOT_BELT
@@ -182,7 +187,7 @@
 	throwforce = 8.0
 	throw_speed = 3
 	throw_range = 6
-	m_amt = 12000
+	materials = list(MAT_METAL=12000)
 	origin_tech = "materials=1"
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = 1

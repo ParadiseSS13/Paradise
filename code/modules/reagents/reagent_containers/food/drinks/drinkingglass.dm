@@ -6,13 +6,13 @@
 	icon_state = "glass_empty"
 	amount_per_transfer_from_this = 10
 	volume = 50
-	g_amt = 500
+	materials = list(MAT_GLASS=500)
 
 
 	proc/smash(mob/living/target as mob, mob/living/user as mob)
 		//Creates a shattering noise and replaces the drinking glass with a glass shard
 		user.drop_item()
-		var/obj/item/weapon/shard/S = PoolOrNew(/obj/item/weapon/shard, user.loc)
+		var/obj/item/weapon/shard/S = new /obj/item/weapon/shard(user.loc)
 		user.put_in_active_hand(S)
 
 		playsound(src, "shatter", 70, 1)
@@ -27,7 +27,7 @@
 		if(!target)
 			return
 
-		if(user.a_intent != "harm")
+		if(user.a_intent != I_HARM)
 			return ..()
 
 		force = 5

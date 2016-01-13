@@ -69,20 +69,10 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/weapon/gun/projectile/shotgun/examine()
-	..()
+/obj/item/weapon/gun/projectile/shotgun/examine(mob/user)
+	..(user)
 	if (chambered)
-		usr << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
-
-// COMBAT SHOTGUN //
-
-/obj/item/weapon/gun/projectile/shotgun/combat
-	name = "combat shotgun"
-	desc = "A traditional shotgun with tactical furniture and an eight-shell capacity underneath."
-	icon_state = "cshotgun"
-	origin_tech = "combat=5;materials=2"
-	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
-	w_class = 5
+		user << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 // RIOT SHOTGUN //
 
@@ -95,7 +85,7 @@
 
 /obj/item/weapon/gun/projectile/shotgun/riot/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
 		sawoff(user)
 
 
@@ -104,11 +94,10 @@
 ///////////////////////
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction
-	name = "bolt action rifle"
+	name = "\improper Mosin Nagant"
 	desc = "This piece of junk looks like something that could have been used 700 years ago."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = "/obj/item/ammo_box/magazine/internal/boltaction"
 	var/bolt_open = 0
@@ -130,7 +119,7 @@
 	. = ..()
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction/examine(mob/user)
-	..()
+	..(user)
 	user << "The bolt is [bolt_open ? "open" : "closed"]."
 
 /////////////////////////////
@@ -154,7 +143,7 @@
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
-	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
 		sawoff(user)
 
 /obj/item/weapon/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user as mob)
@@ -197,7 +186,7 @@
 		else
 			user << "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>"
 			return
-			
+
 // Sawing guns related procs //
 
 /obj/item/weapon/gun/projectile/proc/blow_up(mob/user as mob)
@@ -224,7 +213,7 @@
 
 	sawn_state = SAWN_SAWING
 
-	if(do_after(user, 30))
+	if(do_after(user, 30, target = src))
 		user.visible_message("<span class='warning'>[user] shortens \the [src]!</span>", "<span class='warning'>You shorten \the [src]!</span>")
 		name = "sawn-off [src.name]"
 		desc = sawn_desc
@@ -238,4 +227,53 @@
 		return
 	else
 		sawn_state = SAWN_INTACT
-		
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog
+	name = "\improper 'Bulldog' Shotgun"
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	icon_state = "bulldog"
+	item_state = "bulldog"
+	w_class = 3.0
+	origin_tech = "combat=5;materials=4;syndicate=6"
+	mag_type = "/obj/item/ammo_box/magazine/m12g"
+	fire_sound = 'sound/weapons/Gunshot4.ogg'
+	can_suppress = 0
+	burst_size = 1
+	fire_delay = 0
+	action_button_name = null
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/New()
+	..()
+	update_icon()
+	return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/proc/update_magazine()
+	if(magazine)
+		overlays.Cut()
+		overlays += "[magazine.icon_state]"
+		return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/update_icon()
+	overlays.Cut()
+	update_magazine()
+	icon_state = "bulldog[chambered ? "" : "-e"]"
+	return
+
+/obj/item/weapon/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	empty_alarm()
+	return
+
+/obj/item/weapon/gun/projectile/shotgun/automatic/Fire(mob/living/user as mob|obj)
+	..()
+	pump(user)
+
+// COMBAT SHOTGUN //
+
+/obj/item/weapon/gun/projectile/shotgun/automatic/combat
+	name = "combat shotgun"
+	desc = "A semi automatic shotgun with tactical furniture and a six-shell capacity underneath."
+	icon_state = "cshotgun"
+	origin_tech = "combat=5;materials=2"
+	mag_type = "/obj/item/ammo_box/magazine/internal/shotcom"
+	w_class = 5

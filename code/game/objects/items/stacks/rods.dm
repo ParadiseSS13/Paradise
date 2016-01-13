@@ -10,7 +10,7 @@
 	throwforce = 10.0
 	throw_speed = 3
 	throw_range = 7
-	m_amt = 1000
+	materials = list(MAT_METAL=1000)
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
@@ -72,7 +72,7 @@
 			return
 		usr << "\blue Assembling grille..."
 
-		if (!do_after(usr, 10))
+		if (!do_after(usr, 10, target = src))
 			return
 
 		var /obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )

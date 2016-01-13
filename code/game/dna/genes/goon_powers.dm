@@ -87,7 +87,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/dna/gene/basic/grant_spell
-	var/obj/effect/proc_holder/spell/wizard/spelltype
+	var/obj/effect/proc_holder/spell/spelltype
 
 	activate(var/mob/M, var/connected, var/flags)
 		M.AddSpell(new spelltype(M))
@@ -95,7 +95,7 @@
 		return 1
 
 	deactivate(var/mob/M, var/connected, var/flags)
-		for(var/obj/effect/proc_holder/spell/wizard/S in M.spell_list)
+		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 			if(istype(S,spelltype))
 				M.spell_list.Remove(S)
 		..()
@@ -121,13 +121,13 @@
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability=10
 
-	spelltype = /obj/effect/proc_holder/spell/wizard/targeted/cryokinesis
+	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
 
 	New()
 		..()
 		block = CRYOBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/cryokinesis
+/obj/effect/proc_holder/spell/targeted/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
 	panel = "Abilities"
@@ -146,7 +146,7 @@
 
 	action_icon_state = "genetic_cryo"
 
-/obj/effect/proc_holder/spell/wizard/targeted/cryokinesis/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/cryokinesis/cast(list/targets)
 	if(!targets.len)
 		usr << "<span class='notice'>No target found in range.</span>"
 		return
@@ -169,13 +169,13 @@
 				if(H.internal)
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [H]!",
 										"<span class='notice'>[usr] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
-					log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals yes, suit yes")
-					msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 				else
 					H.visible_message("\red [usr] sprays a cloud of fine ice crystals engulfing, [H]!",
 										"<span class='warning'>[usr] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
-					log_admin("[usr.real_name] ([ckey(usr.key)]) has used cryokinesis on [C.real_name] ([ckey(C.key)]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>)")
-					msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+					log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)]")
+					msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -184,16 +184,16 @@
 		C.ExtinguishMob()
 
 		C.visible_message("\red [usr] sprays a cloud of fine ice crystals, engulfing [C]!")
-		log_admin("[ckey(usr.key)] has used cryokinesis on [ckey(C.key)], internals no, suit no")
-		msg_admin_attack("[usr.real_name] ([usr.ckey])[isAntag(usr) ? "(ANTAG)" : ""] has cast cryokinesis on [C.real_name] ([C.ckey]), (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[usr.x];Y=[usr.y];Z=[usr.z]'>JMP</a>)")
+		log_admin("[key_name(usr)] has used cryokinesis on [key_name(C)] without internals or a suit")
+		msg_admin_attack("[key_name_admin(usr)] has cast cryokinesis on [key_name_admin(C)]")
 
 	//playsound(usr.loc, 'bamf.ogg', 50, 0)
 
-	new/obj/effects/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
+	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
 
 	return
 
-/obj/effects/self_deleting
+/obj/effect/self_deleting
 	density = 0
 	opacity = 0
 	anchored = 1
@@ -218,13 +218,13 @@
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability=3
 
-	spelltype=/obj/effect/proc_holder/spell/wizard/targeted/eat
+	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
 	New()
 		..()
 		block = EATBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat
+/obj/effect/proc_holder/spell/targeted/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
 	panel = "Abilities"
@@ -240,27 +240,33 @@
 
 	action_icon_state = "genetic_eat"
 
-	var/list/types_allowed=list(/obj/item,/mob/living/simple_animal, /mob/living/carbon/human)
+	var/list/types_allowed = list(
+		/obj/item,
+		/mob/living/simple_animal/pet,
+		/mob/living/simple_animal/hostile,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/crab,
+		/mob/living/simple_animal/mouse,
+		/mob/living/carbon/human,
+		/mob/living/carbon/slime,
+		/mob/living/carbon/alien/larva,
+		/mob/living/simple_animal/slime,
+		/mob/living/simple_animal/adultslime,
+		/mob/living/simple_animal/tomato,
+		/mob/living/simple_animal/chick,
+		/mob/living/simple_animal/chicken,
+		/mob/living/simple_animal/lizard,
+		/mob/living/simple_animal/cow,
+		/mob/living/simple_animal/spiderbot
+	)
+	var/list/own_blacklist = list(
+		/obj/item/organ,
+		/obj/item/weapon/implant
+	)
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/possible_targets = new /list()
-
-	for(var/atom/movable/O in view_or_range(range, user, selection_type))
-		if(is_type_in_list(O,types_allowed))
-			possible_targets += O
-
-	targets += input("Choose the target of your hunger.", "Targeting") as anything in possible_targets
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast(user)
-		return
-
-	perform(targets)
-
-/obj/effect/proc_holder/spell/wizard/targeted/eat/proc/doHeal(var/mob/user)
+/obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
 	if(ishuman(user))
-		var/mob/living/carbon/human/H=user
+		var/mob/living/carbon/human/H = user
 		for(var/name in H.organs_by_name)
 			var/obj/item/organ/external/affecting = null
 			if(!H.organs[name])
@@ -272,61 +278,75 @@
 		H.UpdateDamageIcon()
 		H.updatehealth()
 
-/obj/effect/proc_holder/spell/wizard/targeted/eat/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/eat/choose_targets(mob/user = usr)
+	var/list/targets = new /list()
+	var/list/possible_targets = new /list()
+
+	for(var/atom/movable/O in view_or_range(range, user, selection_type))
+		if((O in user) && is_type_in_list(O,own_blacklist))
+			continue
+		if(is_type_in_list(O,types_allowed))
+			possible_targets += O
+
+	targets += input("Choose the target of your hunger.", "Targeting") as null|anything in possible_targets
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
+
+	perform(targets)
+
+/obj/effect/proc_holder/spell/targeted/eat/cast(list/targets)
+	var/mob/user = usr
 	if(!targets.len)
-		usr << "<span class='notice'>No target found in range.</span>"
+		user << "<span class='notice'>No target found in range.</span>"
 		return
 
 	var/atom/movable/the_item = targets[1]
 	if(ishuman(the_item))
 		//My gender
-		var/m_his="his"
-		if(usr.gender==FEMALE)
-			m_his="her"
+		var/m_his = "his"
+		if(user.gender == FEMALE)
+			m_his = "her"
 		// Their gender
-		var/t_his="his"
-		if(the_item.gender==FEMALE)
-			t_his="her"
+		var/t_his = "his"
+		if(the_item.gender == FEMALE)
+			t_his = "her"
 		var/mob/living/carbon/human/H = the_item
-		var/obj/item/organ/external/limb = H.get_organ(usr.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
 		if(!istype(limb))
-			usr << "\red You can't eat this part of them!"
+			user << "<span class='warning'>You can't eat this part of them!</span>"
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			usr << "\red You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!"
+			user << "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>"
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			usr << "\red You try to put their [limb] in your mouth, but it's too big to fit!"
+			user << "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>"
 			revert_cast()
 			return 0
-		usr.visible_message("\red <b>[usr] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</b>")
+		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</span>")
 		var/oldloc = H.loc
-		if(!do_mob(usr,H,EAT_MOB_DELAY))
-			usr << "\red You were interrupted before you could eat [the_item]!"
+		if(!do_mob(user,H,EAT_MOB_DELAY))
+			user << "<span class='danger'>You were interrupted before you could eat [the_item]!</span>"
 		else
 			if(!limb || !H)
 				return
-			if(H.loc!=oldloc)
-				usr << "\red \The [limb] moved away from your mouth!"
+			if(H.loc != oldloc)
+				user << "<span class='danger'>\The [limb] moved away from your mouth!</span>"
 				return
-			usr.visible_message("\red [usr] [pick("chomps","bites")] off [the_item]'s [limb]!")
-			playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
-			var/obj/limb_obj=limb.droplimb(0,DROPLIMB_BLUNT)
-			if(limb_obj)
-				var/obj/item/organ/external/chest=usr:get_organ("chest")
-				chest.implants += limb_obj
-				limb_obj.loc=usr
-			doHeal(usr)
+			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
+			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+			limb.droplimb(0, DROPLIMB_EDGE)
+			doHeal(user)
 	else
-		usr.visible_message("\red [usr] eats \the [the_item].")
-		playsound(usr.loc, 'sound/items/eatfood.ogg', 50, 0)
+		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
-		doHeal(usr)
-
+		doHeal(user)
 	return
 
 ////////////////////////////////////////////////////////////////////////
@@ -340,13 +360,13 @@
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability=2
 
-	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/leap
+	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
 	New()
 		..()
 		block = JUMPBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/leap
+/obj/effect/proc_holder/spell/targeted/leap
 	name = "Jump"
 	desc = "Leap great distances!"
 	panel = "Abilities"
@@ -362,7 +382,7 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/wizard/targeted/leap/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets)
 	var/failure = 0
 	if (istype(usr.loc,/mob/) || usr.lying || usr.stunned || usr.buckled || usr.stat)
 		usr << "\red You can't jump right now!"
@@ -435,7 +455,7 @@
 	name = "Polymorphism"
 	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
 
-	spelltype =/obj/effect/proc_holder/spell/wizard/targeted/polymorph
+	spelltype =/obj/effect/proc_holder/spell/targeted/polymorph
 	//cooldown = 1800
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
@@ -445,7 +465,7 @@
 		..()
 		block = POLYMORPHBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/polymorph
+/obj/effect/proc_holder/spell/targeted/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
 	panel = "Abilities"
@@ -459,7 +479,7 @@
 
 	action_icon_state = "genetic_poly"
 
-/obj/effect/proc_holder/spell/wizard/targeted/polymorph/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/polymorph/cast(list/targets)
 	var/mob/living/M=targets[1]
 	if(!ishuman(M))
 		usr << "\red You can only change your appearance to that of another human."
@@ -485,7 +505,7 @@
 	name = "Empathic Thought"
 	desc = "The subject becomes able to read the minds of others for certain information."
 
-	spelltype = /obj/effect/proc_holder/spell/wizard/targeted/empath
+	spelltype = /obj/effect/proc_holder/spell/targeted/empath
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability=1
@@ -495,7 +515,7 @@
 		..()
 		block = EMPATHBLOCK
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath
+/obj/effect/proc_holder/spell/targeted/empath
 	name = "Read Mind"
 	desc = "Read the minds of others for information."
 	charge_max = 180
@@ -507,13 +527,17 @@
 
 	action_icon_state = "genetic_empath"
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath/choose_targets(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/empath/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	targets += input("Choose the target to spy on.", "Targeting") as mob in range(7,usr)
+	targets += input("Choose the target to spy on.", "Targeting") as null|mob in range(7,usr)
+
+	if(!targets.len || !targets[1]) //doesn't waste the spell
+		revert_cast(user)
+		return
 
 	perform(targets)
 
-/obj/effect/proc_holder/spell/wizard/targeted/empath/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/empath/cast(list/targets)
 	if(!ishuman(usr))	return
 
 
@@ -562,13 +586,13 @@
 				thoughts = "haunted by their own mortality"
 
 		switch(M.a_intent)
-			if ("help")
+			if (I_HELP)
 				usr << "\blue <b>Mood</b>: You sense benevolent thoughts from [M.name]."
-			if ("disarm")
+			if (I_DISARM)
 				usr << "\blue <b>Mood</b>: You sense cautious thoughts from [M.name]."
-			if ("grab")
+			if (I_GRAB)
 				usr << "\blue <b>Mood</b>: You sense hostile thoughts from [M.name]."
-			if ("harm")
+			if (I_HARM)
 				usr << "\blue <b>Mood</b>: You sense cruel thoughts from [M.name]."
 				for(var/mob/living/L in view(7,M))
 					if (L == M)

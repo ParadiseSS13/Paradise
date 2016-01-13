@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/pod
-	name = "Mass Drivers and Pod Doors Control"
-	desc = "A controll for launching pods. Some people prefer firing Mechas."
+	name = "mass drivers and pod doors control"
+	desc = "A control for launching pods. Some people prefer firing Mechas."
 	icon_screen = "mass_driver"
 	light_color = "#555555"
 	circuit = /obj/item/weapon/circuitboard/pod
@@ -268,7 +268,7 @@
 
 
 /obj/machinery/computer/pod/old/syndicate
-	name = "External Airlock Controls"
+	name = "external airlock controls"
 	desc = "The Syndicate operate on a tight budget. Operates external airlocks."
 	req_access = list(access_syndicate)
 	circuit = /obj/item/weapon/circuitboard/syndicatedoor
@@ -282,7 +282,7 @@
 		..()
 
 /obj/machinery/computer/pod/old/swf
-	name = "Magix System IV"
+	name = "\improper Magix System IV"
 	desc = "An arcane artifact that holds much magic. Running E-Knock 2.2: Sorceror's Edition"
 	circuit = /obj/item/weapon/circuitboard/swfdoor
 
@@ -304,13 +304,16 @@
 		visible_message("Cannot locate any mass driver of that ID. Cancelling firing sequence!")
 		return
 
-	if(teleporter_dest)
-		for(var/obj/structure/deathsquad_tele/D in world)
-			if(D.z != src.z)	continue
-			if(D.id_tag == ident_tag)
-				D.icon_state = "tele1"
-				D.ztarget = teleporter_dest
-				D.density = 1
+	var/spawn_marauder[] = new()
+	for(var/obj/effect/landmark/L in world)
+		if(L.name == "Marauder Entry")
+			spawn_marauder.Add(L)
+	for(var/obj/effect/landmark/L in world)
+		if(L.name == "Marauder Exit")
+			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
+			P.invisibility = 101//So it is not seen by anyone.
+			P.failchance = 0//So it has no fail chance when teleporting.
+			spawn_marauder.Remove(P.target)
 
 	for(var/obj/machinery/door/poddoor/M in world)
 		if(M.z != src.z)	continue

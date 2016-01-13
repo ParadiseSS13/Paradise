@@ -10,7 +10,7 @@
 
 
 /datum/file/program/holodeck
-	name = "Holodeck Control Console"
+	name = "holodeck control console"
 	desc = "Used to control a nearby holodeck."
 	active_state = "holocontrol"
 	var/area/linkedholodeck = null
@@ -132,7 +132,7 @@
 
 				for(var/turf/T in linkedholodeck)
 					if(prob(30))
-						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+						var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 						s.set_up(2, 1, T)
 						s.start()
 					T.ex_act(3)
@@ -180,7 +180,7 @@
 					if(L.name=="Atmospheric Test Start")
 						spawn(20)
 							var/turf/T = get_turf(L)
-							var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+							var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 							s.set_up(2, 1, T)
 							s.start()
 							if(T)
@@ -229,7 +229,7 @@
 				if(L.name=="Atmospheric Test Start")
 					spawn(20)
 						var/turf/T = get_turf(L)
-						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+						var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 						s.set_up(2, 1, T)
 						s.start()
 						if(T)

@@ -31,9 +31,9 @@
 		last_regen = world.time
 		update_icon()
 
-/obj/item/weapon/gun/launcher/spikethrower/examine()
-	..()
-	usr << "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining."
+/obj/item/weapon/gun/launcher/spikethrower/examine(mob/user)
+	..(user)
+	user << "It has [spikes] [spikes == 1 ? "spike" : "spikes"] remaining."
 
 /obj/item/weapon/gun/launcher/spikethrower/update_icon()
 	icon_state = "spikethrower[spikes]"
@@ -70,7 +70,6 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 
 	icon = 'icons/obj/gun.dmi' //Actual on-sprite is handled by icon_override.
-	icon_override = 'icons/mob/vox.dmi'
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
 	recoil = 1

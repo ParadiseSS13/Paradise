@@ -361,11 +361,6 @@ var/const/POS_HEADER = {"<html>
 	else
 		overlays += "pos-standby"
 
-/obj/machinery/pos/attack_robot(var/mob/user)
-//	if(isMoMMI(user))
-//		return attack_hand(user)
-	return ..()
-
 /obj/machinery/pos/attack_hand(var/mob/user)
 	user.set_machine(src)
 	var/logindata=""
@@ -526,7 +521,7 @@ var/const/POS_HEADER = {"<html>
 			flick(src,"pos-error")
 			return
 		var/obj/item/weapon/spacecash/C=A
-		credits_held += C.worth*C.amount
+		credits_held += C.get_total()
 		if(credits_held >= credits_needed)
 			visible_message("\blue The machine beeps, and begins printing a receipt","You hear a beep and the sound of paper being shredded.")
 			PrintReceipt()

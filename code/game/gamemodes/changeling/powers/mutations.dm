@@ -70,6 +70,7 @@
 		H.update_inv_wear_suit()
 		H.update_inv_head()
 		H.update_hair()
+		H.update_fhair()
 
 		if(blood_on_castoff)
 			var/turf/simulated/T = get_turf(H)
@@ -124,7 +125,6 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
-	icon_override = 'icons/mob/in-hand/changeling.dmi'
 	w_class = 5.0
 	sharp = 1
 	edge = 1
@@ -206,7 +206,6 @@
 	flags = NODROP
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
-	icon_override = 'icons/mob/in-hand/changeling.dmi'
 
 	var/remaining_uses //Set by the changeling ability.
 

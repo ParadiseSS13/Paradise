@@ -80,7 +80,7 @@
 	if (istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
-		if(do_after(user,40))
+		if(do_after(user,40, target = src))
 			user << "\blue \icon[P] [src] has been excavated to a depth of [2*src.excavation_level]cm."
 		return
 
@@ -89,7 +89,7 @@
 
 		user << "\red You start [P.drill_verb] [src]."
 
-		if(!do_after(user,P.digspeed))
+		if(!do_after(user,P.digspeed, target = src))
 			return
 
 		user << "\blue You finish [P.drill_verb] [src]."
@@ -99,7 +99,7 @@
 			//failure
 			user.visible_message("<font color='red'><b>[src] suddenly crumbles away.</b></font>",\
 			"\red [src] has disintegrated under your onslaught, any secrets it was holding are long gone.")
-			del(src)
+			qdel(src)
 			return
 
 		if(prob(excavation_level))
@@ -115,4 +115,4 @@
 			else
 				user.visible_message("<font color='red'><b>[src] suddenly crumbles away.</b></font>",\
 				"\blue [src] has been whittled away under your careful excavation, but there was nothing of interest inside.")
-			del(src)
+			qdel(src)

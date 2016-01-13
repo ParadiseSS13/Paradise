@@ -256,9 +256,8 @@
 
 /datum/recipe/oven/creamcheesebread
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
+		/obj/item/weapon/reagent_containers/food/snacks/dough,
+		/obj/item/weapon/reagent_containers/food/snacks/dough,
 		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge,
 	)
@@ -366,13 +365,10 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/pumpkinpie
 
 /datum/recipe/oven/appletart
-	reagents = list("sugar" = 5, "milk" = 5)
 	fruit = list("goldapple" = 1)
+	reagents = list("sugar" = 5, "milk" = 5, "flour" = 10)
 	items = list(
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/flour,
-		/obj/item/weapon/reagent_containers/food/snacks/egg,
+		/obj/item/weapon/reagent_containers/food/snacks/egg
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/appletart
 
@@ -397,3 +393,13 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/flatbread
 
+/datum/recipe/oven/turkey  // Magic
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/meat,
+		/obj/item/weapon/reagent_containers/food/snacks/stuffing,
+		/obj/item/weapon/reagent_containers/food/snacks/stuffing
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/turkey

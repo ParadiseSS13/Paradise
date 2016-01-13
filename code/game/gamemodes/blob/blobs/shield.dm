@@ -3,18 +3,19 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_idle"
 	desc = "Some blob creature thingy"
-	health = 60
-	brute_resist = 4
+	health = 75
 	fire_resist = 2
 
 
-	update_icon()
-		if(health <= 0)
-			playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-			Delete()
-			return
+/obj/effect/blob/shield/update_icon()
+	if(health <= 0)
+		qdel(src)
 		return
+	return
 
-	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-		if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
-		return 0
+/obj/effect/blob/shield/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	return
+
+/obj/effect/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
+	return 0

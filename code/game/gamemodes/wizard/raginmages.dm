@@ -3,23 +3,23 @@
 	config_tag = "raginmages"
 	required_players = 1
 	required_players_secret = 15
+	use_huds = 1
 	var/max_mages = 0
 	var/making_mage = 0
 	var/mages_made = 1
 	var/time_checked = 0
+	var/players_per_mage = 4 // If the admin wants to tweak things or something
+	but_wait_theres_more = 1
 
-/datum/game_mode/wizard/announce()
+/datum/game_mode/wizard/raginmages/announce()
 	world << "<B>The current game mode is - Ragin' Mages!</B>"
 	world << "<B>The \red Space Wizard Federation\black is pissed, help defeat all the space wizards!</B>"
 
-/datum/game_mode/wizard/raginmages/post_setup()
-	var/playercount = 0
-	..()
+/datum/game_mode/wizard/raginmages/pre_setup()
+	. = ..()
 	if(!max_mages)
-		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != 2)
-				playercount += 1
-			max_mages = round(playercount / 5)
+		max_mages = round(num_players() / players_per_mage)
+
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	if (you_are)
@@ -36,17 +36,42 @@
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	for(var/datum/mind/wizard in wizards)
+		if(isnull(wizard.current))
+			continue
 		if(!istype(wizard.current,/mob/living/carbon))
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
+				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
 			continue
 		if(istype(wizard.current,/mob/living/carbon/brain))
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
+				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat==2)
+		if(wizard.current.stat==DEAD)
+			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+				wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
+				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
+				end_squabble(get_area(wizard.current))
 			continue
-		if(wizard.current.stat==1)
+		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
-				wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
-				wizard.current.stat = 2
+				if(istype(get_area(wizard.current), /area/wizard_station))
+					wizard.current << "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>"
+					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
+					end_squabble(get_area(wizard.current))
+				else
+					wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
+					wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
+		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
+			wizard.current << "\red <font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"
+			wizard.current.gib() // Let's keep the round moving
+			continue
+		if(!wizard.current.client)
+			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		wizards_alive++
 
 	if (wizards_alive)
@@ -62,20 +87,49 @@
 			make_more_mages()
 	return ..()
 
+// To silence all struggles within the wizard's lair
+/datum/game_mode/wizard/raginmages/proc/end_squabble(var/area/wizard_station/A)
+	if(!istype(A)) return // You could probably do mean things with this otherwise
+	var/list/marked_for_death = list()
+	for(var/mob/living/L in A) // To hit non-wizard griefers
+		if(L.mind || L.client)
+			marked_for_death |= L
+	for(var/datum/mind/M in wizards)
+		if(istype(M.current) && istype(get_area(M.current), /area/wizard_station))
+			mages_made -= 1
+			wizards -= M // No, you don't get to occupy a slot
+			marked_for_death |= M.current
+	for(var/mob/living/L in marked_for_death)
+		L << "<span class='userdanger'>STOP FIGHTING.</span>"
+		L.ghostize()
+		if(istype(L, /mob/living/carbon/brain))
+			// diediedie
+			var/mob/living/carbon/brain/B = L
+			if(istype(B.loc, /obj/item))
+				qdel(B.loc)
+			if(B && B.container)
+				qdel(B.container)
+		if(L)
+			qdel(L)
+	for(var/obj/item/weapon/spellbook/B in A)
+		// No goodies for you
+		qdel(B)
+
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
-	if(making_mage || emergency_shuttle.departed)
+	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return 0
 	if(mages_made >= max_mages)
 		return 0
 	making_mage = 1
 	var/list/candidates = list()
-	var/mob/dead/observer/theghost = null
+	var/client/theclient = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
-		candidates = get_candidates(BE_WIZARD)
+		//Protip: This returns clients, not ghosts
+		candidates = get_candidates(ROLE_WIZARD)
 		if(!candidates.len)
-			message_admins("No applicable ghosts for the next ragin' mage, asking ghosts instead.")
+			message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time
 			for(var/mob/dead/observer/G in player_list)
 				if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
@@ -84,10 +138,9 @@
 							if("Yes")
 								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 									continue
-								candidates += G
+								candidates += G.client
 							if("No")
 								continue
-
 			sleep(300)
 		if(!candidates.len)
 			message_admins("This is awkward, sleeping until another mage check...")
@@ -95,18 +148,20 @@
 			return
 		else
 			candidates = shuffle(candidates)
-			for(var/mob/i in candidates)
-				if(!i || !i.client) continue //Dont bother removing them from the list since we only grab one wizard
+			for(var/client/i in candidates)
+				if(!i) continue //Dont bother removing them from the list since we only grab one wizard
 
-				theghost = i
+				theclient = i
 				break
 
-		if(theghost)
-			var/mob/living/carbon/human/new_character= makeBody(theghost)
-			new_character.mind.make_Wizard()
 			making_mage = 0
-			mages_made++
-			return 1
+			if(theclient)
+				var/mob/living/carbon/human/new_character= create_human_for_client_from_prefs(theclient)
+
+
+				new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+				mages_made++
+				return 1
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)

@@ -123,17 +123,13 @@
 		for(var/datum/omni_port/P in inputs)
 			P.transfer_moles *= ratio
 
-
-
 	for(var/datum/omni_port/P in inputs)
 		if(P.transfer_moles > 0)
 			output_air.merge(P.air.remove(P.transfer_moles))
-			if(P.network)
-				P.network.update = 1
+			P.parent.update = 1
 			P.transfer_moles = 0
 
-	if(output.network)
-		output.network.update = 1
+	output.parent.update = 1
 
 	return 1
 
@@ -149,7 +145,6 @@
 	if (!ui)
 		ui = new(user, src, ui_key, "omni_mixer.tmpl", "Omni Mixer Control", 360, 330)
 		ui.set_initial_data(data)
-
 		ui.open()
 
 /obj/machinery/atmospherics/omni/mixer/proc/build_uidata()
@@ -185,7 +180,8 @@
 	return data
 
 /obj/machinery/atmospherics/omni/mixer/Topic(href, href_list)
-	if(..()) return
+	if(..()) 
+		return 1
 
 	switch(href_list["command"])
 		if("power")
@@ -299,3 +295,4 @@
 	for(var/datum/omni_port/P in inputs)
 		if(P.dir == port)
 			P.con_lock = !P.con_lock
+		

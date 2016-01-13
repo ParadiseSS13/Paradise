@@ -45,6 +45,7 @@
 /obj/singularity/Destroy()
 	processing_objects.Remove(src)
 	singularities -= src
+	target = null
 	return ..()
 
 /obj/singularity/Move(atom/newloc, direct)
@@ -59,6 +60,9 @@
 /obj/singularity/attack_hand(mob/user as mob)
 	consume(user)
 	return 1
+
+/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
+	return 0
 
 /obj/singularity/blob_act(severity)
 	return
@@ -112,8 +116,8 @@
 
 /obj/singularity/proc/admin_investigate_setup()
 	last_warning = world.time
-	var/count = locate(/obj/machinery/containment_field) in orange(30, src)
-	if(!count)	message_admins("A singulo has been created without containment fields active ([x],[y],[z])",1)
+	var/count = locate(/obj/machinery/field/containment) in orange(30, src)
+	if(!count)	message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
 /obj/singularity/proc/dissipate()
@@ -322,13 +326,13 @@
 	return 1
 
 
-/obj/singularity/proc/can_move(var/turf/T)
+/obj/singularity/proc/can_move(turf/T)
 	if(!T)
 		return 0
-	if((locate(/obj/machinery/containment_field) in T)||(locate(/obj/machinery/shieldwall) in T))
+	if((locate(/obj/machinery/field/containment) in T)||(locate(/obj/machinery/shieldwall) in T))
 		return 0
-	else if(locate(/obj/machinery/field_generator) in T)
-		var/obj/machinery/field_generator/G = locate(/obj/machinery/field_generator) in T
+	else if(locate(/obj/machinery/field/generator) in T)
+		var/obj/machinery/field/generator/G = locate(/obj/machinery/field/generator) in T
 		if(G && G.active)
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
@@ -336,7 +340,6 @@
 		if(S && S.active)
 			return 0
 	return 1
-
 
 /obj/singularity/proc/event()
 	var/numb = pick(1,2,3,4,5,6)
@@ -358,18 +361,13 @@
 
 /obj/singularity/proc/toxmob()
 	var/toxrange = 10
-	var/toxdamage = 4
 	var/radiation = 15
 	var/radiationmin = 3
-	if (src.energy>200)
-		toxdamage = round(((src.energy-150)/50)*4,1)
-		radiation = round(((src.energy-150)/50)*5,1)
-		radiationmin = round((radiation/5),1)//
+	if (energy>200)
+		radiation += round((energy-150)/10,1)
+		radiationmin = round((radiation/5),1)
 	for(var/mob/living/M in view(toxrange, src.loc))
 		M.apply_effect(rand(radiationmin,radiation), IRRADIATE)
-		toxdamage = (toxdamage - (toxdamage*M.getarmor(null, "rad")))
-		M.apply_effect(toxdamage, TOX)
-	return
 
 
 /obj/singularity/proc/combust_mobs()
@@ -379,6 +377,7 @@
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
+
 
 /obj/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))

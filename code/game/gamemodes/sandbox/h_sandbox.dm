@@ -107,7 +107,7 @@ datum/hSB
 					hsb.loc = usr.loc
 					usr << "<b>Sandbox:  Created an airlock."
 				if("hsbcanister")
-					var/list/hsbcanisters = typesof(/obj/machinery/portable_atmospherics/canister/) - /obj/machinery/portable_atmospherics/canister/
+					var/list/hsbcanisters = subtypesof(/obj/machinery/portable_atmospherics/canister/)
 					var/hsbcanister = input(usr, "Choose a canister to spawn.", "Sandbox:") in hsbcanisters + "Cancel"
 					if(!(hsbcanister == "Cancel"))
 						new hsbcanister(usr.loc)
@@ -142,7 +142,7 @@ datum/hSB
 							continue
 						if(istype(O, /obj/item/weapon/dummy))
 							continue
-						if(istype(O, /obj/item/weapon/melee/energy/sword))
+						if(istype(O, /obj/item/weapon/melee/energy/sword/saber))
 							continue
 						if(istype(O, /obj/structure))
 							continue

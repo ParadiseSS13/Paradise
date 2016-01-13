@@ -3,7 +3,6 @@
 	desc = "A hybrid taser designed to fire both short-range high-power electrodes and long-range disabler beams."
 	icon_state = "advtaser"
 	item_state = null	//so the human update icon uses the icon_state instead.
-	icon_override = 'icons/mob/in-hand/guns.dmi'
 	cell_type = "/obj/item/weapon/stock_parts/cell"
 	origin_tech = null
 	fire_sound = 'sound/weapons/Taser.ogg'

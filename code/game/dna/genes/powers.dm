@@ -96,7 +96,8 @@
 
 /datum/dna/gene/basic/midget
 	name="Midget"
-	activation_messages=list("Your skin feels rubbery.")
+	activation_messages=list("Everything around you seems bigger now...")
+	deactivation_messages = list("Everything around you seems to shrink...")
 	mutation=DWARF
 	instability=1
 
@@ -111,8 +112,13 @@
 
 	activate(var/mob/M, var/connected, var/flags)
 		..(M,connected,flags)
-		M.pass_flags |= 1
+		M.pass_flags |= PASSTABLE
+		M.resize = 0.8
 
+	deactivate(var/mob/M, var/connected, var/flags)
+		..()
+		M.pass_flags &= ~PASSTABLE
+		M.resize = 1.25
 
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
@@ -149,15 +155,13 @@
 
 	OnMobLife(var/mob/living/carbon/human/M)
 		if(!istype(M)) return
-		if ((HULK in M.mutations) && M.health <= 25)
+		if ((HULK in M.mutations) && M.health <= 0)
 			M.mutations.Remove(HULK)
 			M.dna.SetSEState(HULKBLOCK,0)
 			M.update_mutations()		//update our mutation overlays
 			M.update_body()
 			M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
 			M << "<span class='danger'>You suddenly feel very weak.</span>"
-			M.Weaken(3)
-			M.emote("collapse")
 
 /datum/dna/gene/basic/xray
 	name="X-Ray Vision"

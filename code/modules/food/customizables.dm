@@ -41,7 +41,7 @@
 /obj/item/trash/bowl
 	name = "bowl"
 	desc = "An empty bowl. Put some food in it to start making a soup."
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "soup"
 
 /obj/item/trash/bowl/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -382,11 +382,11 @@
 		qdel(O)
 	return ..()
 
-/obj/item/weapon/reagent_containers/food/snacks/customizable/examine()
-	..()
+/obj/item/weapon/reagent_containers/food/snacks/customizable/examine(mob/user)
+	..(user)
 	var/whatsinside = pick(ingredients)
 
-	usr << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+	user << "<span class='notice'> You think you can see [whatsinside] in there.</span>"
 
 /*
 /obj/item/weapon/reagent_containers/food/snacks/customizable/attack(mob/M as mob, mob/user as mob, def_zone) //SNOOOOOOOWFLAAAAAAAAAAAAAAAAAKES

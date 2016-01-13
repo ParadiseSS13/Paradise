@@ -4,24 +4,28 @@
 
 /datum/seed
 	//Tracking.
-	var/uid                        // Unique identifier.
-	var/name                       // Index for global list.
-	var/seed_name                  // Plant name for seed packet.
-	var/seed_noun = "seeds"        // Descriptor for packet.
-	var/display_name               // Prettier name.
-	var/roundstart                 // If set, seed will not display variety number.
-	var/mysterious                 // Only used for the random seed packets.
-	var/can_self_harvest = 0       // Mostly used for living mobs.
-	var/growth_stages = 0          // Number of stages the plant passes through before it is mature.
-	var/list/traits = list()       // Initialized in New()
-	var/list/mutants               // Possible predefined mutant varieties, if any.
-	var/list/chems                 // Chemicals that plant produces in products/injects into victim.
-	var/list/consume_gasses        // The plant will absorb these gasses during its life.
-	var/list/exude_gasses          // The plant will exude these gasses during its life.
-	var/kitchen_tag                // Used by the reagent grinder.
-	var/trash_type                 // Garbage item produced when eaten.
+	var/uid							// Unique identifier.
+	var/name						// Index for global list.
+	var/seed_name					// Plant name for seed packet.
+	var/seed_noun = "seeds"			// Descriptor for packet.
+	var/display_name				// Prettier name.
+	var/roundstart					// If set, seed will not display variety number.
+	var/mysterious					// Only used for the random seed packets.
+	var/can_self_harvest = 0		// Mostly used for living mobs.
+	var/growth_stages = 0			// Number of stages the plant passes through before it is mature.
+	var/list/traits = list()		// Initialized in New()
+	var/list/mutants				// Possible predefined mutant varieties, if any.
+	var/list/chems					// Chemicals that plant produces in products/injects into victim.
+	var/list/consume_gasses			// The plant will absorb these gasses during its life.
+	var/list/exude_gasses			// The plant will exude these gasses during its life.
+	var/kitchen_tag					// Used by the reagent grinder.
+	var/trash_type					// Garbage item produced when eaten.
 	var/splat_type = /obj/effect/decal/cleanable/fruit_smudge // Graffiti decal.
-	var/has_mob_product
+	var/preset_product
+	var/final_form = 1
+	var/modular_icon = 0			// Dictates if the product uses a modular sprite. 0 = preset, 1 = modular
+	var/preset_icon = "undef"		// Name of the iconstate in icon/obj/harvest.dmi to use for preset sprite
+									//		Make sure to set this to the correct icon if not using a modular sprite
 
 /datum/seed/New()
 
@@ -38,12 +42,14 @@
 	set_trait(TRAIT_MATURATION,           0)            // Time taken before the plant is mature.
 	set_trait(TRAIT_PRODUCTION,           0)            // Time before harvesting can be undertaken again.
 	set_trait(TRAIT_TELEPORTING,          0)            // Uses the bluespace tomato effect.
+	set_trait(TRAIT_BATTERY_RECHARGE,     0)            // Used for glowcaps; recharges batteries on a user.
 	set_trait(TRAIT_BIOLUM,               0)            // Plant is bioluminescent.
 	set_trait(TRAIT_ALTER_TEMP,           0)            // If set, the plant will periodically alter local temp by this amount.
 	set_trait(TRAIT_PRODUCT_ICON,         0)            // Icon to use for fruit coming from this plant.
 	set_trait(TRAIT_PLANT_ICON,           0)            // Icon to use for the plant growing in the tray.
 	set_trait(TRAIT_PRODUCT_COLOUR,       0)            // Colour to apply to product icon.
 	set_trait(TRAIT_BIOLUM_COLOUR,        0)            // The colour of the plant's radiance.
+	set_trait(TRAIT_RARITY,               0)            // How rare the plant is. Used for giving points to cargo when shipping off to Centcom.
 	set_trait(TRAIT_POTENCY,              1)            // General purpose plant strength value.
 	set_trait(TRAIT_REQUIRES_NUTRIENTS,   1)            // The plant can starve.
 	set_trait(TRAIT_REQUIRES_WATER,       1)            // The plant can become dehydrated.
@@ -89,7 +95,7 @@
 			var/injecting = min(5,max(1,get_trait(TRAIT_POTENCY)/3))
 			R.add_reagent(rid,injecting)
 
-	var/datum/effect/effect/system/chem_smoke_spread/S = new()
+	var/datum/effect/system/chem_smoke_spread/S = new()
 	S.attach(T)
 	S.set_up(R, round(get_trait(TRAIT_POTENCY)/4), 0, T)
 	S.start()
@@ -136,19 +142,47 @@
 	target.updatehealth()
 
 // Adds reagents to a target.
-/datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit)
+/datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit, var/target_limb)
 	if(!get_trait(TRAIT_STINGS))
 		return
+	if(!target_limb)		//if we weren't given a target_limb, pick a random one to try stinging
+		target_limb = pick("l_foot","r_foot","l_leg","r_leg","l_hand","r_hand","l_arm", "r_arm","head","chest","groin")
 	if(chems && chems.len)
 
-		var/body_coverage = HEAD|HEADCOVERSMOUTH|HEADCOVERSEYES|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+		if(!target.can_inject(target, 0, target_limb))		//if a syringe can't get through, neither can the sting
+			return
+
+		var/protection_needed
+		switch(target_limb)
+			if("head")
+				protection_needed = HEAD | HEADCOVERSMOUTH | HEADCOVERSEYES
+			if("chest")
+				protection_needed = UPPER_TORSO
+			if("groin")
+				protection_needed = LOWER_TORSO
+			if("l_arm","r_arm")
+				protection_needed = ARMS
+			if("l_hand","r_hand")
+				protection_needed = HANDS
+			if("l_leg","r_leg")
+				protection_needed = LEGS
+			if("l_foot","r_foot")
+				protection_needed = FEET
 
 		for(var/obj/item/clothing/clothes in target)
+
 			if(target.l_hand == clothes|| target.r_hand == clothes)
 				continue
-			body_coverage &= ~(clothes.body_parts_covered)
+			protection_needed &= ~(clothes.body_parts_covered)
+			if((clothes.slot_flags & SLOT_HEAD) || (clothes.slot_flags & SLOT_MASK))
+				if(clothes.flags & HEADCOVERSEYES)
+					protection_needed &= ~(HEADCOVERSEYES)
+				if(clothes.flags & HEADCOVERSMOUTH)
+					protection_needed &= ~(HEADCOVERSMOUTH)
+			if(!protection_needed)	//already got the needed protection, save some time and skip the rest of the loop
+				break
 
-		if(!body_coverage)
+		if(!protection_needed)		//properly protected, good job!
 			return
 
 		target << "<span class='danger'>You are stung by \the [fruit]!</span>"
@@ -338,6 +372,8 @@
 
 	// Bluespace tomato code copied over from grown.dm.
 	if(get_trait(TRAIT_TELEPORTING))
+		if(target.z in config.admin_levels)
+			return 1
 
 		//Plant potency determines radius of teleport.
 		var/outer_teleport_radius = get_trait(TRAIT_POTENCY)/5
@@ -351,7 +387,7 @@
 
 		if(turfs.len)
 			// Moves the mob, causes sparks.
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, get_turf(target))
 			s.start()
 			var/turf/picked = get_turf(pick(turfs))                      // Just in case...
@@ -370,6 +406,7 @@
 	display_name = "strange plants" // TODO: name generator.
 	mysterious = 1
 	seed_noun = pick("spores","nodes","cuttings","seeds")
+	modular_icon = 1
 
 	set_trait(TRAIT_POTENCY,rand(5,30),200,0)
 	set_trait(TRAIT_PRODUCT_ICON,pick(plant_controller.plant_product_sprites))
@@ -410,56 +447,37 @@
 
 	chems = list()
 	if(prob(80))
-		chems["nutriment"] = list(rand(1,10),rand(10,20))
+		var/nutrient_type = rand(1,7)
+		switch(nutrient_type)
+			if(1)
+				chems["plantmatter"] = list(rand(1,10),rand(10,20))
+			if(2)
+				chems["nutriment"] = list(rand(1,10),rand(10,20))
+			if(3)
+				chems["protein"] = list(rand(1,10),rand(10,20))
+			if(4)
+				chems["plantmatter"] = list(rand(1,5),rand(10,20))
+				chems["nutriment"] = list(rand(1,5),rand(10,20))
+			if(5)
+				chems["plantmatter"] = list(rand(1,5),rand(10,20))
+				chems["protein"] = list(rand(1,5),rand(10,20))
+			if(6)
+				chems["protein"] = list(rand(1,5),rand(10,20))
+				chems["nutriment"] = list(rand(1,5),rand(10,20))
+			if(7)
+				chems["plantmatter"] = list(rand(1,3),rand(10,20))
+				chems["nutriment"] = list(rand(1,4),rand(10,20))
+				chems["protein"] = list(rand(1,3),rand(10,20))
 
 	var/additional_chems = rand(0,5)
 
 	if(additional_chems)
-		var/list/possible_chems = list(
-			"woodpulp",
-			"styptic_powder",
-			"methamphetamine",
-			"cryoxadone",
-			"blood",
-			"water",
-			"potassium",
-			"plasticide",
-			"mutationtoxin",
-			"amutationtoxin",
-			"epinephrine",
-			"space_drugs",
-			"salglu_solution",
-			"mercury",
-			"sugar",
-			"radium",
-			"mutadone",
-			"mannitol",
-			"thermite",
-			"sal_acid",
-			"atropine",
-			"omnizine",
-			"salbutamol",
-			"plasma",
-			"synaptizine",
-			"haloperidol",
-			"potass_iodide",
-			"mitocholide",
-			"toxin",
-			"rezadone",
-			"antihol",
-			"slimejelly",
-			"cyanide",
-			"lsd",
-			"morphine",
-			"ether"
-			)
-
 		for(var/x=1;x<=additional_chems;x++)
-			if(!possible_chems.len)
-				break
-			var/new_chem = pick(possible_chems)
-			possible_chems -= new_chem
-			chems[new_chem] = list(rand(1,10),rand(10,20))
+			var/new_chem = get_random_chemical(1)
+			if(chems.Find(new_chem))
+				chems[new_chem] = list(rand(2,20),rand(5,15)) //DOUBLE UP
+			else
+				chems[new_chem] = list(rand(1,10),rand(10,20))
 
 	if(prob(90))
 		set_trait(TRAIT_REQUIRES_NUTRIENTS,1)
@@ -634,8 +652,8 @@
 			consume_gasses |= new_gasses
 			gene.values["[TRAIT_CONSUME_GASSES]"] = null
 		if(GENE_METABOLISM)
-			has_mob_product = gene.values["mob_product"]
-			gene.values["mob_product"] = null
+			preset_product = gene.values["alt_product"]
+			gene.values["alt_product"] = null
 
 	for(var/trait in gene.values)
 		set_trait(trait,gene.values["[trait]"])
@@ -658,13 +676,13 @@
 			P.values["[TRAIT_EXUDE_GASSES]"] = exude_gasses
 			traits_to_copy = list(TRAIT_POTENCY)
 		if(GENE_OUTPUT)
-			traits_to_copy = list(TRAIT_PRODUCES_POWER,TRAIT_BIOLUM)
+			traits_to_copy = list(TRAIT_PRODUCES_POWER,TRAIT_BIOLUM,TRAIT_BATTERY_RECHARGE)
 		if(GENE_ATMOSPHERE)
 			traits_to_copy = list(TRAIT_HEAT_TOLERANCE,TRAIT_LOWKPA_TOLERANCE,TRAIT_HIGHKPA_TOLERANCE)
 		if(GENE_HARDINESS)
 			traits_to_copy = list(TRAIT_TOXINS_TOLERANCE,TRAIT_PEST_TOLERANCE,TRAIT_WEED_TOLERANCE,TRAIT_ENDURANCE)
 		if(GENE_METABOLISM)
-			P.values["mob_product"] = has_mob_product
+			P.values["alt_product"] = preset_product
 			traits_to_copy = list(TRAIT_REQUIRES_NUTRIENTS,TRAIT_REQUIRES_WATER,TRAIT_ALTER_TEMP)
 		if(GENE_VIGOUR)
 			traits_to_copy = list(TRAIT_PRODUCTION,TRAIT_MATURATION,TRAIT_YIELD,TRAIT_SPREAD)
@@ -724,12 +742,12 @@
 		currently_querying = list()
 		for(var/i = 0;i<total_yield;i++)
 			var/obj/item/product
-			if(has_mob_product)
-				product = new has_mob_product(get_turf(user),name)
+			if(preset_product)
+				product = new preset_product(get_turf(user),name)
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				if(!has_mob_product || (has_mob_product && has_mob_product != /mob/living/carbon/primitive/diona))
+				if(modular_icon == 1)
 					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 				if(istype(product,/obj/item/weapon/reagent_containers/food))
 					var/obj/item/weapon/reagent_containers/food/food = product
@@ -765,12 +783,15 @@
 	new_seed.can_self_harvest = can_self_harvest
 	new_seed.kitchen_tag =      kitchen_tag
 	new_seed.trash_type =       trash_type
-	new_seed.has_mob_product =  has_mob_product
+	new_seed.preset_product =  preset_product
+	new_seed.final_form = final_form
 	//Copy over everything else.
 	if(mutants)        new_seed.mutants = mutants.Copy()
 	if(chems)          new_seed.chems = chems.Copy()
 	if(consume_gasses) new_seed.consume_gasses = consume_gasses.Copy()
 	if(exude_gasses)   new_seed.exude_gasses = exude_gasses.Copy()
+	new_seed.modular_icon = modular_icon
+	new_seed.preset_icon = preset_icon
 
 	new_seed.seed_name =            "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][seed_name]"
 	new_seed.display_name =         "[(roundstart ? "[(modified ? "modified" : "mutant")] " : "")][display_name]"

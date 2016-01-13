@@ -16,8 +16,6 @@ proc/issyndicate(mob/living/M as mob)
 	uplink_uses = 120
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 
 	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
@@ -33,7 +31,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(!..())
 		return 0
 
-	var/list/possible_syndicates = get_players_for_role(BE_OPERATIVE)
+	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
 
 	if(possible_syndicates.len < 1)
@@ -66,44 +64,16 @@ proc/issyndicate(mob/living/M as mob)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/proc/update_all_synd_icons()
-	spawn(0)
-		for(var/datum/mind/synd_mind in syndicates)
-			if(synd_mind.current)
-				if(synd_mind.current.client)
-					for(var/image/I in synd_mind.current.client.images)
-						if(I.icon_state == "synd")
-							qdel(I)
-
-		for(var/datum/mind/synd_mind in syndicates)
-			if(synd_mind.current)
-				if(synd_mind.current.client)
-					for(var/datum/mind/synd_mind_1 in syndicates)
-						if(synd_mind_1.current)
-							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
-							synd_mind.current.client.images += I
 
 /datum/game_mode/proc/update_synd_icons_added(datum/mind/synd_mind)
-	spawn(0)
-		if(synd_mind.current)
-			if(synd_mind.current.client)
-				var/I = image('icons/mob/mob.dmi', loc = synd_mind.current, icon_state = "synd")
-				synd_mind.current.client.images += I
+	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	opshud.join_hud(synd_mind.current)
+	set_antag_hud(synd_mind.current, "hudoperative")
 
 /datum/game_mode/proc/update_synd_icons_removed(datum/mind/synd_mind)
-	spawn(0)
-		for(var/datum/mind/synd in syndicates)
-			if(synd.current)
-				if(synd.current.client)
-					for(var/image/I in synd.current.client.images)
-						if(I.icon_state == "synd" && I.loc == synd_mind.current)
-							qdel(I)
-
-		if(synd_mind.current)
-			if(synd_mind.current.client)
-				for(var/image/I in synd_mind.current.client.images)
-					if(I.icon_state == "synd")
-						qdel(I)
+	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	opshud.leave_hud(synd_mind.current)
+	set_antag_hud(synd_mind.current, null)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +85,7 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/obj/effect/landmark/A in landmarks_list)
 		if(A.name == "Syndicate-Spawn")
 			synd_spawn += get_turf(A)
-			del(A)
+			qdel(A)
 			continue
 
 	var/obj/effect/landmark/uplinklocker = locate("landmark*Syndicate-Uplink")	//i will be rewriting this shortly
@@ -152,16 +122,14 @@ proc/issyndicate(mob/living/M as mob)
 		spawnpos++
 		update_synd_icons_added(synd_mind)
 
-	update_all_synd_icons()
+	//update_all_synd_icons()
 
 	if(uplinklocker)
 		new /obj/structure/closet/syndicate/nuclear(uplinklocker.loc)
 	if(nuke_spawn && synd_spawn.len > 0)
-		var/obj/machinery/nuclearbomb/the_bomb = new /obj/machinery/nuclearbomb(nuke_spawn.loc)
+		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	return ..()
 
 /datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
@@ -194,6 +162,7 @@ proc/issyndicate(mob/living/M as mob)
 	M.s_tone = skin_tone
 	M.h_style = hair_style
 	M.f_style = facial_hair_style
+	M.body_accessory = null
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
@@ -204,6 +173,10 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	synd_mind.current << "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>"
 	synd_mind.current << "<B>If you feel you are not up to this task, give your ID to another operative.</B>"
+	synd_mind.current << "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>"
+
+	var/obj/item/device/nuclear_challenge/challenge = new /obj/item/device/nuclear_challenge
+	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
 	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/weapon/card/id)
 
@@ -221,6 +194,10 @@ proc/issyndicate(mob/living/M as mob)
 		var/obj/item/weapon/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
+		var/obj/item/weapon/stamp/syndicate/stamp = new
+		P.stamp(stamp)
+		qdel(stamp)
+
 		if (ticker.mode.config_tag=="nuclear")
 			P.loc = synd_mind.current.loc
 		else
@@ -326,7 +303,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(!is_type_in_list(disk_area, centcom_areas))
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (emergency_shuttle.returned())
+	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 	//var/operatives_are_dead = is_operatives_are_dead()
 
 
@@ -442,3 +419,104 @@ proc/issyndicate(mob/living/M as mob)
 				synd_mind.name = "[pick(first_names_female)] [pick(last_names)]"
 		synd_mind.current.real_name = synd_mind.name
 	return
+
+/datum/game_mode/nuclear/set_scoreboard_gvars()
+	var/foecount = 0
+	for(var/datum/mind/M in ticker.mode.syndicates)
+		foecount++
+		if(!M || !M.current)
+			score_opkilled++
+			continue
+
+		if(M.current.stat == DEAD)
+			score_opkilled++
+
+		else if(M.current.restrained())
+			score_arrested++
+
+	if(foecount == score_arrested)
+		score_allarrested = 1
+
+	for(var/obj/machinery/nuclearbomb/nuke in world)
+		if(nuke.r_code == "Nope")	continue
+		var/turf/T = get_turf(nuke)
+		var/area/A = T.loc
+
+		var/list/thousand_penalty = list(/area/syndicate_station, /area/wizard_station, /area/solar, /area)
+		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
+
+		if(is_type_in_list(A, thousand_penalty))
+			score_nuked_penalty = 1000
+
+		else if(is_type_in_list(A, fiftythousand_penalty))
+			score_nuked_penalty = 50000
+
+		else if(istype(A, /area/engine))
+			score_nuked_penalty = 100000
+
+		else
+			score_nuked_penalty = 10000
+
+		break
+
+		var/killpoints = score_opkilled * 250
+		var/arrestpoints = score_arrested * 1000
+		score_crewscore += killpoints
+		score_crewscore += arrestpoints
+		if(score_nuked)
+			score_crewscore -= score_nuked_penalty
+
+
+
+/datum/game_mode/nuclear/get_scoreboard_stats()
+	var/foecount = 0
+	var/crewcount = 0
+
+	var/diskdat = ""
+	var/bombdat = null
+
+	for(var/datum/mind/M in ticker.mode.syndicates)
+		foecount++
+
+	for(var/mob/living/C in world)
+		if(ishuman(C) || isAI(C) || isrobot(C))
+			if(C.stat == 2) continue
+			if(!C.client) continue
+			crewcount++
+
+	var/obj/item/weapon/disk/nuclear/N = locate() in world
+	if(istype(N))
+		var/atom/disk_loc = N.loc
+		while(!isturf(disk_loc))
+			if(ismob(disk_loc))
+				var/mob/M = disk_loc
+				diskdat += "Carried by [M.real_name] "
+			if(isobj(disk_loc))
+				var/obj/O = disk_loc
+				diskdat += "in \a [O]"
+			disk_loc = disk_loc.loc
+		diskdat += "in [disk_loc.loc]"
+
+
+	if(!diskdat)
+		diskdat = "WARNING: Nuked_penalty could not be found, look at [__FILE__], [__LINE__]."
+
+	var/dat = ""
+	dat += "<b><u>Mode Statistics</b></u><br>"
+
+	dat += "<b>Number of Operatives:</b> [foecount]<br>"
+	dat += "<b>Number of Surviving Crew:</b> [crewcount]<br>"
+
+	dat += "<b>Final Location of Nuke:</b> [bombdat]<br>"
+	dat += "<b>Final Location of Disk:</b> [diskdat]<br>"
+
+	dat += "<br>"
+
+	dat += "<b>Operatives Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+
+	dat += "<b>Operatives Killed:</b> [score_opkilled] ([score_opkilled * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [score_nuked ? "Yes" : "No"] (-[score_nuked_penalty] Points)<br>"
+	dat += "<hr>"
+
+	return dat

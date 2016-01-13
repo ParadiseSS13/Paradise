@@ -1,8 +1,8 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 var/global/list/all_objectives = list()
 
-var/list/potential_theft_objectives=typesof(/datum/theft_objective) \
-	- /datum/theft_objective \
+var/list/potential_theft_objectives=subtypesof(/datum/theft_objective) \
+	- /datum/theft_objective/steal \
 	- /datum/theft_objective/special \
 	- /datum/theft_objective/number \
 	- /datum/theft_objective/number/special \
@@ -328,24 +328,63 @@ datum/objective/protect//The opposite of killing a dude.
 
 
 datum/objective/hijack
-	explanation_text = "Hijack the emergency shuttle by escaping alone."
+	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive."
 
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(issilicon(owner.current))
 			return 0
-		var/area/shuttle = locate(/area/shuttle/escape/centcom)
-		var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai)
+
+		var/area/A = get_area(owner.current)
+		if(shuttle_master.emergency.areaInstance != A)
+			return 0
+
 		for(var/mob/living/player in player_list)
-			if(player.type in protected_mobs)	continue
-			if (player.mind && (player.mind != owner))
-				if(player.stat != DEAD)			//they're not dead!
-					if(get_turf(player) in shuttle)
+			if(player.mind && player.mind != owner)
+				if(player.stat != DEAD)
+					if(issilicon(player)) //Borgs are technically dead anyways
+						continue
+					if(isanimal(player)) //Poly does not own the shuttle
+						continue
+					if(player.mind.special_role && !(player.mind.special_role == "Response Team")) //Is antag, and not ERT
+						continue
+
+					if(get_area(player) == A)
 						return 0
 		return 1
+
+/datum/objective/hijackclone
+	explanation_text = "Hijack the emergency shuttle by ensuring only you (or your copies) escape."
+
+	check_completion()
+		if(!owner.current)
+			return 0
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+			return 0
+
+		var/area/A = shuttle_master.emergency.areaInstance
+
+		for(var/mob/living/player in player_list) //Make sure nobody else is onboard
+			if(player.mind && player.mind != owner)
+				if(player.stat != DEAD)
+					if(istype(player, /mob/living/silicon))
+						continue
+					if(get_area(player) == A)
+						if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+							return 0
+
+		for(var/mob/living/player in player_list) //Make sure at least one of you is onboard
+			if(player.mind && player.mind != owner)
+				if(player.stat != DEAD)
+					if(istype(player, /mob/living/silicon))
+						continue
+					if(get_area(player) == A)
+						if(player.real_name == owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
+							return 1
+		return 0
 
 datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
@@ -353,43 +392,29 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(!emergency_shuttle.returned())
+		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(!owner.current)
 			return 0
-		var/area/shuttle = locate(/area/shuttle/escape/centcom)
-		var/protected_mobs[] = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
-		for(var/mob/living/player in player_list)
-			if(player.type in protected_mobs)	continue
-			if (player.mind)
-				if (player.stat != DEAD)
-					if (get_turf(player) in shuttle)
-						return 0
-		return 1
 
-datum/objective/silence
-	explanation_text = "Do not allow anyone to escape the station.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
-
-	check_completion()
-		if(!emergency_shuttle.returned())
-			return 0
+		var/area/A = shuttle_master.emergency.areaInstance
+		var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 		for(var/mob/living/player in player_list)
-			if(player == owner.current)
+			if(player.type in protected_mobs)
 				continue
-			if(player.mind)
-				if(player.stat != DEAD)
-					var/turf/T = get_turf(player)
-					if(!T)	continue
-					switch(T.loc.type)
-						if(/area/shuttle/escape/centcom, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
-							return 0
+
+			if(player.mind && player.stat != DEAD)
+				if(get_area(player) == A)
+					return 0
+
 		return 1
+
 
 
 datum/objective/escape
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
-	var/escape_areas = list(/area/shuttle/escape/centcom,
+	var/escape_areas = list(/area/shuttle/escape,
 		/area/shuttle/escape_pod1/centcom,
 		/area/shuttle/escape_pod1/transit,
 		/area/shuttle/escape_pod2/centcom,
@@ -405,21 +430,22 @@ datum/objective/escape
 			return 0
 		if(isbrain(owner.current))
 			return 0
-		if(!emergency_shuttle.returned())
-			return 0
 		if(!owner.current || owner.current.stat == DEAD)
 			return 0
-		if(owner.current.restrained())
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
-		var/turf/location = get_turf(owner.current.loc)
+		var/turf/location = get_turf(owner.current)
 		if(!location)
 			return 0
 
-		var/area/check_area = get_area(location)
-		if(check_area && check_area.type in escape_areas)
-			return 1
-		else
+		if(istype(location, /turf/simulated/shuttle/floor4)) // Fails traitors if they are in the shuttle brig -- Polymorph
 			return 0
+
+		if(location.onCentcom() || location.onSyndieBase())
+			return 1
+
+		return 0
+
 
 datum/objective/escape/escape_with_identity
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
@@ -437,7 +463,7 @@ datum/objective/escape/escape_with_identity
 			target_real_name = target.current.real_name
 			explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing their identification card."
 		else
-			explanation_text = "Free Objective."
+			explanation_text = "Free Objective"
 
 	check_completion()
 		if(!target_real_name)
@@ -670,13 +696,13 @@ datum/objective/absorb
 					if(P.client && P.ready && P.mind != owner)
 						if(P.client.prefs && (P.client.prefs.species == "Vox" || P.client.prefs.species == "Slime People" || P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 							continue
-						n_p ++
+						n_p++
 			else if (ticker.current_state == GAME_STATE_PLAYING)
 				for(var/mob/living/carbon/human/P in player_list)
 					if(P.species.flags & NO_SCAN)
 						continue
 					if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
-						n_p ++
+						n_p++
 			target_amount = min(target_amount, n_p)
 
 		explanation_text = "Absorb [target_amount] compatible genomes."
@@ -715,14 +741,15 @@ datum/objective/destroy
 			explanation_text = "Summon Nar-Sie via the use of an appropriate rune. It will only work if nine cultists stand on and around it."
 
 			check_completion()
-				if(eldergod) //global var, defined in rune4.dm
+				if(!eldergod) //global var, defined in rune4.dm
 					return 1
 				return 0
 
 		survivecult
 			var/num_cult
+			var/cult_needed = 4 + round((num_players_started() / 10))
 
-			explanation_text = "Our knowledge must live on. Make sure at least 5 acolytes escape on the shuttle to spread their work on an another station."
+			explanation_text = "Our knowledge must live on. Make sure at least [cult_needed] acolytes escape on the shuttle to spread their work on an another station."
 
 			check_completion()
 				if(!emergency_shuttle.returned())
@@ -736,7 +763,7 @@ datum/objective/destroy
 						if(iscultist(H))
 							cultists_escaped++
 
-				if(cultists_escaped>=5)
+				if(cultists_escaped >= cult_needed)
 					return 1
 
 				return 0
@@ -744,20 +771,26 @@ datum/objective/destroy
 		sacrifice //stolen from traitor target objective
 
 			proc/find_target() //I don't know how to make it work with the rune otherwise, so I'll do it via a global var, sacrifice_target, defined in rune15.dm
-				var/list/possible_targets = call(/datum/game_mode/cult/proc/get_unconvertables)()
+				var/datum/game_mode/cult/C = ticker.mode
+				var/list/possible_targets = C.get_unconvertables()
+
+				if(!possible_targets.len)
+					for(var/mob/living/carbon/human/player in player_list)
+						if(player.mind && !(player.mind in cult))
+							possible_targets += player.mind
 
 				if(possible_targets.len > 0)
 					sacrifice_target = pick(possible_targets)
 
 				if(sacrifice_target && sacrifice_target.current)
-					explanation_text = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (Hell join blood) and three acolytes to do so."
+					explanation_text = "Sacrifice [sacrifice_target.current.real_name], the [sacrifice_target.assigned_role]. You will need the sacrifice rune (hell join blood) and three acolytes to do so."
 				else
 					explanation_text = "Free Objective"
 
 				return sacrifice_target
 
 			check_completion() //again, calling on a global list defined in rune15.dm
-				if(sacrifice_target.current in sacrificed)
+				if(sacrifice_target in sacrificed)
 					return 1
 				else
 					return 0

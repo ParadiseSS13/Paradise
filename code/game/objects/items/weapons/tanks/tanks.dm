@@ -39,12 +39,12 @@
 
 	return ..()
 
-/obj/item/weapon/tank/examine()
+/obj/item/weapon/tank/examine(mob/user)
 	var/obj/icon = src
 	if (istype(src.loc, /obj/item/assembly))
 		icon = src.loc
-	if (!in_range(src, usr))
-		if (icon == src) usr << "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer."
+	if (!in_range(src, user))
+		if (icon == src) user << "\blue It's \a \icon[icon][src]! If you want any more information you'll need to get closer."
 		return
 
 	var/celsius_temperature = src.air_contents.temperature-T0C
@@ -63,7 +63,7 @@
 	else
 		descriptive = "furiously hot"
 
-	usr << "\blue \The \icon[icon][src] feels [descriptive]"
+	user << "\blue \The \icon[icon][src] feels [descriptive]"
 
 	return
 
@@ -118,10 +118,18 @@
 	data["valveOpen"] = using_internal ? 1 : 0
 
 	data["maskConnected"] = 0
-	if(istype(loc,/mob/living/carbon))
-		var/mob/living/carbon/location = loc
-		if(location.internal == src || (location.wear_mask && (location.wear_mask.flags & MASKINTERNALS)))
+
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(C.internal == src)
 			data["maskConnected"] = 1
+		else
+			if(C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
+				data["maskConnected"] = 1
+			else if(ishuman(C))
+				var/mob/living/carbon/human/H = C
+				if(H.head && (H.head.flags & AIRTIGHT))
+					data["maskConnected"] = 1
 
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
@@ -162,7 +170,16 @@
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
-				if(location.wear_mask && (location.wear_mask.flags & MASKINTERNALS))
+
+				var/can_open_valve
+				if(location.wear_mask && (location.wear_mask.flags & AIRTIGHT))
+					can_open_valve = 1
+				else if(istype(location,/mob/living/carbon/human))
+					var/mob/living/carbon/human/H = location
+					if(H.head && (H.head.flags & AIRTIGHT))
+						can_open_valve = 1
+
+				if(can_open_valve)
 					location.internal = src
 					usr << "\blue You open \the [src] valve."
 					if (location.internals)
@@ -213,8 +230,8 @@
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
 		if(!istype(src.loc,/obj/item/device/transfer_valve))
-			message_admins("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast].")
-			log_game("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast].")
+			message_admins("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			log_game("Explosive tank rupture! last key to touch the tank was [src.fingerprintslast] at [x], [y], [z]")
 		//world << "\blue[x],[y] tank is exploding: [pressure] kPa"
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()

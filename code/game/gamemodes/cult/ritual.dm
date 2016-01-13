@@ -78,18 +78,15 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 	cult_viewpoints -= src
 	return ..()
 
-/obj/effect/rune/examine()
-	set src in view(2)
-
-	if(!iscultist(usr) && !isSpirit(usr))
-		usr << "A strange collection of symbols drawn in blood."
+/obj/effect/rune/examine(mob/user)
+	..(user)
+	if(!iscultist(user) && !isSpirit(user))
+		user << "A strange collection of symbols drawn in blood."
 		return
 	if(!desc)
-		usr << "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>."
+		user << "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>."
 	else
-		usr << "Explosive Runes inscription in blood. It reads: <i>[desc]</i>."
-
-	return
+		user << "Explosive Runes inscription in blood. It reads: <i>[desc]</i>."
 
 
 /obj/effect/rune/attackby(I as obj, user as mob, params)
@@ -330,9 +327,9 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 
 	attack(mob/living/M as mob, mob/living/user as mob)
 
-		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had the [name] used on him by [user.name] ([user.ckey])</font>")
-		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [name] on [M.name] ([M.ckey])</font>")
-		msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] used [name] on [M.name] ([M.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has had the [name] used on him by [key_name(user)]</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used [name] on [key_name(M)]</font>")
+		msg_admin_attack("[key_name_admin(user)] used [name] on [key_name_admin(M)]")
 		if(!iscarbon(M))
 			M.LAssailant = null
 		else
@@ -349,6 +346,12 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		if(!iscultist(user))
 			return ..()
 		if(iscultist(M))
+			if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
+				user << "<span class='notice'>You remove the taint from [M].</span>"
+				var/holy2unholy = M.reagents.get_reagent_amount("holywater")
+				M.reagents.del_reagent("holywater")
+				M.reagents.add_reagent("unholywater",holy2unholy)
+				add_logs(M, user, "smacked", src, " removing the holy water from them")
 			return
 		M.take_organ_damage(0,rand(5,20)) //really lucky - 5 hits for a crit
 		for(var/mob/O in viewers(M, null))
@@ -469,7 +472,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				V.show_message("\red [user] slices open a finger and begins to chant and paint symbols on the floor.", 3, "\red You hear chanting.", 2)
 			user << "\red You slice open one of your fingers and begin drawing a rune on the floor whilst chanting the ritual that binds your life essence with the dark arcane energies flowing through the surrounding world."
 			user.take_overall_damage((rand(9)+1)/10) // 0.1 to 1.0 damage
-			if(do_after(user, 50))
+			if(do_after(user, 50, target = user))
 				if(usr.get_active_hand() != src)
 					return
 				var/mob/living/carbon/human/H = user
@@ -482,6 +485,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				R.check_icon()
 				R.blood_DNA = list()
 				R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+				R.add_hiddenprint(H)
 			return
 		else
 			user << "The book seems full of illegible scribbles. Is this a joke?"
@@ -502,12 +506,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			user << "You copy the translation notes from your tome."
 
 
-	examine()
-		set src in usr
-		if(!iscultist(usr))
-			usr << "An old, dusty tome with frayed edges and a sinister looking cover."
+	examine(mob/user)
+		if(!iscultist(user))
+			user << "An old, dusty tome with frayed edges and a sinister looking cover."
 		else
-			usr << "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though."
+			user << "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though."
 
 /obj/item/weapon/tome/imbued //admin tome, spawns working runes without waiting
 	w_class = 2.0

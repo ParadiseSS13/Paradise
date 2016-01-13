@@ -59,7 +59,7 @@
 /mob/living/simple_animal/hostile/retaliate/ghost/FindTarget()
 	. = ..()
 	if(.)
-		emote("wails at [.]")
+		custom_emote(1, "wails at [.]")
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life()
 	if(target)
@@ -67,7 +67,7 @@
 	else
 		invisibility = pick(0,60,60,invisibility)
 	..()
-/mob/living/simple_animal/hostile/retaliate/ghost/Die()
+/mob/living/simple_animal/hostile/retaliate/ghost/death()
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(loc)
 	qdel(src)
 	return
@@ -105,7 +105,7 @@
 
 	faction = list("undead")
 
-/mob/living/simple_animal/hostile/retaliate/skeleton/Die()
+/mob/living/simple_animal/hostile/retaliate/skeleton/death()
 	new /obj/effect/decal/remains/human(loc)
 	qdel(src)
 	return
@@ -143,7 +143,7 @@
 
 	faction = list("undead")
 
-/mob/living/simple_animal/hostile/retaliate/zombie/Die()
+/mob/living/simple_animal/hostile/retaliate/zombie/death()
 	new /obj/effect/decal/cleanable/blood/gibs(loc)
 	qdel(src)
 	return

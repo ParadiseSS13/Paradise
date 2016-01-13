@@ -30,7 +30,6 @@
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
-	item_state = "largebox"
 	w_class = 42 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
 	storage_slots = 21
@@ -133,7 +132,7 @@
 /obj/item/weapon/storage/box/gauge
 	name = "box of 12 gauge slugs"
 	desc = "It has a picture of a gun and several warning symbols on the front."
-	m_amt = 50000
+	materials = list(MAT_METAL=28000)
 
 	New()
 		..()
@@ -259,8 +258,8 @@
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
 		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantpad(src)
 
 
 /obj/item/weapon/storage/box/rxglasses
@@ -367,7 +366,7 @@
 /obj/item/weapon/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube")
@@ -378,7 +377,7 @@
 /obj/item/weapon/storage/box/farwacubes
 	name = "farwa cube box"
 	desc = "Drymate brand farwa cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/farwacube")
@@ -390,7 +389,7 @@
 /obj/item/weapon/storage/box/stokcubes
 	name = "stok cube box"
 	desc = "Drymate brand stok cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/stokcube")
@@ -402,7 +401,7 @@
 /obj/item/weapon/storage/box/neaeracubes
 	name = "neaera cube box"
 	desc = "Drymate brand neaera cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/neaeracube")
@@ -415,7 +414,7 @@
 /obj/item/weapon/storage/box/wolpincubes
 	name = "wolpin cube box"
 	desc = "Drymate brand wolpin cubes. Just add water!"
-	icon = 'icons/obj/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
 	storage_slots = 7
 	can_hold = list("/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/wolpincube")
@@ -645,3 +644,33 @@
 		new /obj/item/weapon/light/tube(src)
 	for(var/i = 0; i < 7; i++)
 		new /obj/item/weapon/light/bulb(src)
+
+/obj/item/weapon/storage/box/barber
+	name = "Barber Starter Kit"
+	desc = "For all hairstyling needs."
+	icon_state = "implant"
+
+/obj/item/weapon/storage/box/barber/New()
+	..()
+	new /obj/item/weapon/scissors/barber(src)
+	new /obj/item/hair_dye_bottle(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/hairgrownium(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent/hair_dye(src)
+	new /obj/item/weapon/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/weapon/reagent_containers/dropper(src)
+	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
+
+/obj/item/weapon/storage/box/lip_stick
+	name = "Lipstick Kit"
+	desc = "For all your lip coloring needs."
+	icon_state = "implant"
+
+/obj/item/weapon/storage/box/lip_stick/New()
+	..()
+	new /obj/item/weapon/lipstick(src)
+	new /obj/item/weapon/lipstick/purple(src)
+	new /obj/item/weapon/lipstick/jade(src)
+	new /obj/item/weapon/lipstick/black(src)
+	new /obj/item/weapon/lipstick/green(src)
+	new /obj/item/weapon/lipstick/blue(src)
+	new /obj/item/weapon/lipstick/white(src)

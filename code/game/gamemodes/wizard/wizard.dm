@@ -12,10 +12,9 @@
 	uplink_welcome = "Wizardly Uplink Console:"
 	uplink_uses = 20
 
+	var/use_huds = 0
 	var/finished = 0
-
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+	var/but_wait_theres_more = 0
 
 /datum/game_mode/wizard/announce()
 	world << "<B>The current game mode is - Wizard!</B>"
@@ -25,7 +24,7 @@
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
 	if(!..())
 		return 0
-	var/list/datum/mind/possible_wizards = get_players_for_role(BE_WIZARD)
+	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(possible_wizards.len==0)
 		return 0
 	var/datum/mind/wizard = pick(possible_wizards)
@@ -55,27 +54,30 @@
 		equip_wizard(wizard.current)
 		name_wizard(wizard.current)
 		greet_wizard(wizard)
+		if(use_huds)
+			update_wiz_icons_added(wizard)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
+/datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
+	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
+	wizhud.join_hud(wiz_mind.current)
+	set_antag_hud(wiz_mind.current, ((wiz_mind in wizards) ? "hudwizard" : "apprentice"))
+
+
+/datum/game_mode/proc/update_wiz_icons_removed(datum/mind/wiz_mind)
+	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
+	wizhud.leave_hud(wiz_mind.current)
+	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
 	switch(rand(1,100))
 		if(1 to 30)
-
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
 			wizard.objectives += kill_objective
 
-			if (!(locate(/datum/objective/escape) in wizard.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = wizard
-				wizard.objectives += escape_objective
-		if(31 to 60)
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = wizard
 			steal_objective.find_target()
@@ -85,8 +87,7 @@
 				var/datum/objective/escape/escape_objective = new
 				escape_objective.owner = wizard
 				wizard.objectives += escape_objective
-
-		if(61 to 85)
+		if(31 to 60)
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = wizard
 			kill_objective.find_target()
@@ -102,7 +103,23 @@
 				survive_objective.owner = wizard
 				wizard.objectives += survive_objective
 
+		if(61 to 85)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = wizard
+			kill_objective.find_target()
+			wizard.objectives += kill_objective
+
+			if (!(locate(/datum/objective/hijack) in wizard.objectives))
+				var/datum/objective/hijack/hijack_objective = new
+				hijack_objective.owner = wizard
+				wizard.objectives += hijack_objective
+
 		else
+			var/datum/objective/steal/steal_objective = new
+			steal_objective.owner = wizard
+			steal_objective.find_target()
+			wizard.objectives += steal_objective
+
 			if (!(locate(/datum/objective/hijack) in wizard.objectives))
 				var/datum/objective/hijack/hijack_objective = new
 				hijack_objective.owner = wizard
@@ -147,7 +164,7 @@
 		wizard_mob.verbs += /client/proc/jaunt
 		wizard_mob.mind.special_verbs += /client/proc/jaunt
 	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt(usr)
+		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
 */
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
@@ -176,6 +193,8 @@
 
 	wizard_mob.faction = list("wizard")
 
+	wizard_mob.species.equip(wizard_mob)
+
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
 	wizard_mob << "In your pockets you will find a teleport scroll. Use it as needed."
 	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
@@ -193,7 +212,7 @@
 	for(var/datum/mind/wizard in wizards)
 		if(!istype(wizard.current,/mob/living/carbon))
 			continue
-		if(wizard.current.stat==2)
+		if(wizard.current.stat==DEAD)
 			continue
 		wizards_alive++
 
@@ -201,11 +220,11 @@
 		for(var/datum/mind/traitor in traitors)
 			if(!istype(traitor.current,/mob/living/carbon))
 				continue
-			if(traitor.current.stat==2)
+			if(traitor.current.stat==DEAD)
 				continue
 			traitors_alive++
 
-	if (wizards_alive || traitors_alive)
+	if (wizards_alive || traitors_alive || but_wait_theres_more)
 		return ..()
 	else
 		finished = 1
@@ -251,7 +270,7 @@
 					wizardwin = 0
 				count++
 
-			if(wizard.current && wizard.current.stat!=2 && wizardwin)
+			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
 				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
 				feedback_add_details("wizard_success","SUCCESS")
 			else
@@ -260,7 +279,7 @@
 			if(wizard.spell_list)
 				text += "<br><B>[wizard.name] used the following spells: </B>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/wizard/S in wizard.spell_list)
+				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
 					text += "[S.name]"
 					if(wizard.spell_list.len > i)
 						text += ", "
@@ -274,9 +293,16 @@
 
 //To batch-remove wizard spells. Linked to mind.dm.
 /mob/proc/spellremove(var/mob/M as mob, var/removeallspells=1)
-	for(var/obj/effect/proc_holder/spell/wizard/spell_to_remove in src.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
 		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
 		qdel(spell_to_remove)
+
+/datum/mind/proc/remove_spell(var/obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
+	if(!spell) return
+	for(var/obj/effect/proc_holder/spell/S in spell_list)
+		if(istype(S, spell))
+			qdel(S)
+			spell_list -= S
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/

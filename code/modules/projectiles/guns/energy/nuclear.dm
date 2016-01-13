@@ -35,8 +35,28 @@
 		else
 			user.update_inv_r_hand()
 
+/obj/item/weapon/gun/energy/gun/cyborg
+	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+
+/obj/item/weapon/gun/energy/gun/cyborg/process()
+	return 1
+
+/obj/item/weapon/gun/energy/gun/cyborg/process_chambered()
+	if(in_chamber)
+		return 1
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell && R.cell.charge >= 83)
+			R.cell.use(83)
+			in_chamber = new projectile_type(src)
+			return 1
+	return 0
 
 
+/obj/item/weapon/gun/energy/gun/mounted
+	name = "mounted energy gun"
+	self_recharge = 1
+	use_external_power = 1
 
 /obj/item/weapon/gun/energy/gun/nuclear
 	name = "Advanced Energy Gun"
@@ -44,8 +64,8 @@
 	icon_state = "nucgun"
 	origin_tech = "combat=3;materials=5;powerstorage=3"
 	var/lightfail = 0
-	var/charge_tick = 0
 	can_flashlight = 0
+	can_charge = 0
 
 	New()
 		..()
@@ -122,7 +142,7 @@
 
 	emp_act(severity)
 		..()
-		reliability -= round(15/severity)
+		reliability = max(reliability - round(15/severity), 0) //Do not allow it to go negative!
 
 
 	update_icon()

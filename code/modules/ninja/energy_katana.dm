@@ -3,11 +3,11 @@
 	desc = "A katana infused with a strong energy"
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
-	icon_override = 'icons/mob/in-hand/swords.dmi'
 	force = 40
 	throwforce = 20
+	armour_penetration = 15
 	var/cooldown = 0 // Because spam aint cool, yo.
-	var/datum/effect/effect/system/spark_spread/spark_system
+	var/datum/effect/system/spark_spread/spark_system
 
 
 /obj/item/weapon/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -69,7 +69,7 @@
 
 /obj/item/weapon/katana/energy/New()
 	..()
-	spark_system = new /datum/effect/effect/system/spark_spread()
+	spark_system = new /datum/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 

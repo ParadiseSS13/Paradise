@@ -1,12 +1,12 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/med_data//TODO:SANITY
-	name = "Medical Records"
+	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_one_access = list(access_medical, access_forensics_lockers)
-	circuit = "/obj/item/weapon/circuitboard/med_data"
+	circuit = /obj/item/weapon/circuitboard/med_data
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
@@ -517,8 +517,8 @@
 
 
 /obj/machinery/computer/med_data/laptop
-	name = "Medical Laptop"
-	desc = "Cheap Nanotrasen Laptop."
+	name = "medical laptop"
+	desc = "Cheap Nanotrasen laptop."
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"

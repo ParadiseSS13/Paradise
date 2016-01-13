@@ -6,7 +6,13 @@
 	var/time = 30 //time in deciseconds
 	var/parts[] = list() //type paths of items that will be placed in the result
 	var/chem_catalists[] = list() //like tools but for reagents
+	var/fruit[] = list()	//grown products required by the recipe
 
+/datum/table_recipe/proc/AdjustChems(var/obj/resultobj as obj)
+	//This proc is to replace the make_food proc of recipes from microwaves and such that are being converted to table crafting recipes.
+	//Use it to handle the removal of reagents after the food has been created (like removing toxins from a salad made with ambrosia)
+	//If a recipe does not require it's chems adjusted, don't bother declaring this for the recipe, as it will call this placeholder
+	return
 
 /datum/table_recipe/IED
 	name = "IED"
@@ -172,3 +178,18 @@
 				/obj/item/stack/packageWrap = 5,)
 	tools = list(/obj/item/weapon/screwdriver)
 	time = 200
+
+/datum/table_recipe/spooky_camera
+	name = "Camera Obscura"
+	result = /obj/item/device/camera/spooky
+	time = 15
+	reqs = list(/obj/item/device/camera = 1,
+				/datum/reagent/holywater = 10)
+	parts = list(/obj/item/device/camera = 1)
+
+/datum/table_recipe/notreallysoap
+	name = "Homemade Soap"
+	result = /obj/item/weapon/soap/ducttape
+	time = 100
+	reqs = list(/obj/item/stack/tape_roll = 1,
+				/datum/reagent/liquidgibs = 10)

@@ -19,7 +19,7 @@
 
 	// Weeds like water and nutrients, there's a chance the weed population will increase.
 	// Bonus chance if the tray is unoccupied.
-	if(waterlevel > 10 && nutrilevel > 2 && prob(isnull(seed) ? 5 : 1))
+	if(waterlevel > 10 && nutrilevel > 2 && prob(isnull(seed) ? 6 : 3))
 		weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
 
 	// There's a chance for a weed explosion to happen if the weeds take over.
@@ -35,7 +35,10 @@
 		return
 
 	// Advance plant age.
-	if(prob(30)) age += 1 * HYDRO_SPEED_MULTIPLIER
+	current_cycle++
+	if(current_cycle == 3)
+		age += 1 * HYDRO_SPEED_MULTIPLIER
+		current_cycle = 0
 
 	//Highly mutable plants have a chance of mutating every tick.
 	if(seed.get_trait(TRAIT_IMMUTABLE) == -1)
@@ -79,7 +82,7 @@
 
 	// If we're attached to a pipenet, then we should let the pipenet know we might have modified some gasses
 	if (closed_system && connected_port)
-		update_connected_network()
+		connected_port.parent.update = 1
 
 	// Toxin levels beyond the plant's tolerance cause damage, but
 	// toxins are sucked up each tick and slowly reduce over time.
@@ -107,6 +110,11 @@
 			health -= HYDRO_SPEED_MULTIPLIER
 
 	// Handle life and death.
+	// If the plant gets too old, begin killing it each cycle
+	var/lifespan = 5 * seed.get_trait(TRAIT_MATURATION)
+	if(age > lifespan)
+		health -= rand(5,10) * HYDRO_SPEED_MULTIPLIER
+
 	// When the plant dies, weeds thrive and pests die off.
 	check_health()
 
@@ -117,8 +125,8 @@
 		harvest = 1
 		lastproduce = age
 
-	if(prob(3))  // On each tick, there's a chance the pest population will increase
-		pestlevel += 0.1 * HYDRO_SPEED_MULTIPLIER
+	if(prob(5))  // On each tick, there's a chance the pest population will increase
+		pestlevel += 0.5 * HYDRO_SPEED_MULTIPLIER
 
 	// Some seeds will self-harvest if you don't keep a lid on them.
 	if(seed && seed.can_self_harvest && harvest && !closed_system && prob(5))

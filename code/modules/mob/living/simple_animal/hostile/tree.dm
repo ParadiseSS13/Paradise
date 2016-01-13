@@ -35,12 +35,12 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = list("hostile")
+	faction = list("hostile", "winter")
 
 /mob/living/simple_animal/hostile/tree/FindTarget()
 	. = ..()
 	if(.)
-		emote("growls at [.]")
+		custom_emote(1, "growls at [.]")
 
 /mob/living/simple_animal/hostile/tree/AttackingTarget()
 	. =..()
@@ -50,7 +50,7 @@
 			L.Weaken(3)
 			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
 
-/mob/living/simple_animal/hostile/tree/Die()
+/mob/living/simple_animal/hostile/tree/death()
 	..()
 	visible_message("\red <b>[src]</b> is hacked into pieces!")
 	new /obj/item/stack/sheet/wood(loc)

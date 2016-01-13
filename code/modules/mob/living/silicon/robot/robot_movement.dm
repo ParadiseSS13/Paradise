@@ -1,9 +1,4 @@
-/mob/living/silicon/robot/Process_Spaceslipping(var/prob_slip)
-	if(module && (istype(module,/obj/item/weapon/robot_module/drone)))
-		return 0
-	..(prob_slip)
-
-/mob/living/silicon/robot/Process_Spacemove()
+/mob/living/silicon/robot/Process_Spacemove(var/movement_dir = 0)
 	if(module)
 		for(var/obj/item/weapon/tank/jetpack/J in module.modules)
 			if(J && istype(J, /obj/item/weapon/tank/jetpack))
@@ -24,3 +19,13 @@
 
 /mob/living/silicon/robot/Move()
 	..()
+
+/mob/living/silicon/robot/mob_negates_gravity()
+	return magpulse
+
+/mob/living/silicon/robot/mob_has_gravity()
+	return ..() || mob_negates_gravity()
+
+/mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
+	if(!magpulse)
+		return ..()

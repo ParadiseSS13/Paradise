@@ -1,4 +1,4 @@
-## Server name: This appears at the top of the screen in-game. In this case it will read "tgstation: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'tgstation' with the name of your choice
+## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
 # SERVERNAME spacestation13
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
@@ -54,14 +54,14 @@ LOG_PDA
 ## log world.log and runtime errors to a file
 LOG_RUNTIME
 
+## log world.log messages
+# LOG_WORLD_OUTPUT
+
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
 # LOG_HREFS
 
 ## log admin warning messages
 ##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
-
-## sql switching
-# SQL_ENABLED
 
 ## disconnect players who did nothing during 15 minutes
 KICK_INACTIVE
@@ -86,7 +86,6 @@ PROBABILITY RAGINMAGES 0
 PROBABILITY BORER 0
 PROBABILITY XENOS 2
 PROBABILITY MUTINY 1
-PROBABILITY NATIONS 0
 PROBABILITY METEOR 0
 
 ## Hash out to disable random events during the round.
@@ -159,23 +158,35 @@ GUEST_BAN
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 # SERVER server.net:port
 
-## forum address
+## Forum address
 # FORUMURL http://example.org
 
 ## Wiki address
 # WIKIURL http://example.org
 
-## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
+## Rules address
+# RULESURL http://example.org
+
+## Donations address
+# DONATIONSURL http://example.org
+
+## Repository address
+# REPOSITORYURL http://example.org
+
+## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
+
+## Media base URL - determines where to pull the jukebox playlist from.
+# MEDIA_BASE_URL http://example.org
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 # FEATURE_OBJECT_SPELL_SYSTEM
 
-##Toggle for having jobs load up from the .txt
+## Toggle for having jobs load up from the .txt
 LOAD_JOBS_FROM_TXT
 
-##Remove the # mark infront of this to forbid admins from posssessing the singularity.
+## Remove the # mark infront of this to forbid admins from posssessing the singularity.
 #FORBID_SINGULO_POSSESSION
 
 ## Remove the # to show a popup 'reply to' window to every non-admin that recieves an adminPM. 
@@ -268,8 +279,8 @@ EVENT_DELAY_UPPER 15;45;70
 
 ## The delay until the first time an event of the given severity runs in minutes.
 ## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
-# EVENT_CUSTOM_START_MINOR 10;15
-# EVENT_CUSTOM_START_MODERATE 30;45
+#EVENT_CUSTOM_START_MINOR 10;15
+#EVENT_CUSTOM_START_MODERATE 30;45
 EVENT_CUSTOM_START_MAJOR 80;100
 
 ## Strength of ambient star light. Set to 0 or less to turn off.
@@ -283,3 +294,24 @@ PLAYER_REROUTE_CAP 0
 
 ## Server to reroute to
 #OVERFLOW_SERVER_URL byond://example.org:1111
+
+## Disable the loading of away missions
+#DISABLE_AWAY_MISSIONS
+
+## Uncomment this if you still use the old .sav file based notes system and haven't used the mass conversion proc
+#AUTOCONVERT_NOTES
+
+## Uncomment to disable the OOC/LOOC channel by default.
+#DISABLE_OOC
+
+## Uncomment to disable the dead OOC channel by default.
+#DISABLE_DEAD_OOC
+
+## Uncomment to disable ghost chat by default.
+#DISABLE_DSAY
+
+## Uncomment this if you want to disable the lobby music
+#DISABLE_LOBBY_MUSIC
+
+## Uncomment this if you want to disable the popup alert for people on the same CID
+#DISABLE_CID_WARN_POPUP

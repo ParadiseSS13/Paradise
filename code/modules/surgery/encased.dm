@@ -12,12 +12,13 @@
 			return 0
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected && affected.encased && affected.open >= 2
+		return affected && !(affected.status & ORGAN_ROBOT) && affected.encased && affected.open >= 2
 
 
 /datum/surgery_step/open_encased/saw
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/weapon/hatchet = 75
 	)
 

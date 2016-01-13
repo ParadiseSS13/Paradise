@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt
 	name = "Ethereal Jaunt"
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
 
@@ -17,13 +17,13 @@
 
 	action_icon_state = "jaunt"
 
-/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		spawn(0)
 
 			if(target.buckled)
 				var/obj/structure/stool/bed/buckled_to = target.buckled.
-				buckled_to.unbuckle()
+				buckled_to.unbuckle_mob()
 
 			var/mobloc = get_turf(target.loc)
 			var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt( mobloc )
@@ -37,7 +37,7 @@
 			animation.master = holder
 			target.ExtinguishMob()
 			if(target.buckled)
-				target.buckled.unbuckle()
+				target.buckled.unbuckle_mob()
 			if(phaseshift == 1)
 				animation.dir = target.dir
 				flick("phase_shift",animation)
@@ -65,7 +65,7 @@
 				flick("liquify",animation)
 				target.loc = holder
 				target.client.eye = holder
-				var/datum/effect/effect/system/steam_spread/steam = new /datum/effect/effect/system/steam_spread()
+				var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 				steam.set_up(10, 0, mobloc)
 				steam.start()
 				sleep(jaunt_duration)

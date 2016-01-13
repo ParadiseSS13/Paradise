@@ -17,9 +17,9 @@
 			if(A)
 				O << "\blue <b>Someone has begun playing with a [src.name] in [A.name]!. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a>)</b>"
 
-/obj/structure/spirit_board/examine()
-	desc = "[initial(desc)] The planchette is sitting at \"[planchette]\"."
-	..()
+/obj/structure/spirit_board/examine(mob/user)
+	..(user)
+	user << "[initial(desc)] The planchette is sitting at \"[planchette]\"."
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())

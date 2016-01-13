@@ -88,22 +88,6 @@
 	return screen
 */
 
-
-/obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
-	updateicon()
-
-/obj/machinery/light_switch/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
-		..(severity)
-		return
-	power_change()
-	..(severity)
-
 /obj/machinery/media/transmitter/broadcast/update_icon()
 	overlays = 0
 	if(stat & (NOPOWER|BROKEN))
@@ -164,10 +148,7 @@
 		// Radiation
 		for(var/mob/living/carbon/M in view(src,3))
 			var/rads = RADS_PER_TICK * sqrt( 1 / (get_dist(M, src) + 1) )
-			if(istype(M,/mob/living/carbon/human))
-				M.apply_effect((rads*3),IRRADIATE)
-			else
-				M.radiation += rads
+			M.apply_effect((rads*3),IRRADIATE)
 
 		// Heat output
 		var/turf/simulated/L = loc

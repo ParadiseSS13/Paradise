@@ -1,4 +1,8 @@
 //Preferences stuff
+	//Head accessory styles
+var/global/list/head_accessory_styles_list = list() //stores /datum/sprite_accessory/head_accessory indexed by name
+	//Marking styles
+var/global/list/marking_styles_list = list() //stores /datum/sprite_accessory/horns indexed by name
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
 var/global/list/hair_styles_male_list = list()
@@ -8,12 +12,17 @@ var/global/list/facial_hair_styles_male_list = list()
 var/global/list/facial_hair_styles_female_list = list()
 var/global/list/skin_styles_female_list = list()		//unused
 	//Underwear
-var/global/list/underwear_m = list("White", "Grey", "Green", "Blue", "Black", "Mankini", "None")
-var/global/list/underwear_f = list("Red", "White", "Yellow", "Blue", "Black", "Thong", "None")
-var/global/list/underwear_list = underwear_m + underwear_f
-	//undershirt
-var/global/list/undershirt_t = list("White Shirt", "White Tank top", "Black shirt", "Black Tank top", "Grey Shirt", "Grey tank top", "Lover Shirt", "Blue Ian Shirt", "UK Shirt","I Love NT Shirt", "Peace Shirt", "Band Shirt", "PogoMan Shirt", "Matroska Shirt", "White Short-sleeved shirt", "Purple Short-sleeved shirt", "Blue Short-sleeved shirt", "Green Short-sleeved shirt", "Black Short-Sleeved shirt", "Blue T-Shirt", "Red T-Shirt", "Yellow T-Shirt", "Green T-Shirt", "Blue Polo Shirt", "Red Polo Shirt", "White Polo Shirt", "Gray-Yellow Polo Shirt", "Green Sports Shirt", "Red Sports Shirt", "Blue Sports Shirt", "SS13 Shirt", "Fire Tank Top", "Question Shirt", "Skull Shirt", "Commie Shirt", "Nanotrasen Shirt", "Striped Shirt", "Blue Shirt", "Red Shirt", "Green Shirt", "Meat Shirt", "Tie-Dye Shirt", "Red Jersey", "Blue Jersey", "None")
-var/global/list/undershirt_list = undershirt_t
+var/global/list/underwear_list = list()		//stores /datum/sprite_accessory/underwear indexed by name
+var/global/list/underwear_m = list()	//stores only underwear name
+var/global/list/underwear_f = list()	//stores only underwear name
+	//Undershirts
+var/global/list/undershirt_list = list() 	//stores /datum/sprite_accessory/undershirt indexed by name
+var/global/list/undershirt_m = list()	 //stores only undershirt name
+var/global/list/undershirt_f = list()	 //stores only undershirt name
+	//Socks
+var/global/list/socks_list = list()		//stores /datum/sprite_accessory/socks indexed by name
+var/global/list/socks_m = list()	 //stores only socks name
+var/global/list/socks_f = list()	 //stores only socks name
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt")
 

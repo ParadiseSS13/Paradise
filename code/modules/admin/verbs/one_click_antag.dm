@@ -33,7 +33,7 @@ client/proc/one_click_antag()
 	var/datum/mind/themind = null
 
 	for(var/mob/living/silicon/ai/ai in player_list)
-		if(ai.client && ai.client.prefs.be_special & BE_MALF)
+		if(ai.client && (ROLE_MALF in ai.client.prefs.be_special))
 			AIs += ai
 
 	if(AIs.len)
@@ -57,8 +57,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_TRAITOR)
-			if(player_old_enough_antag(applicant.client,BE_TRAITOR))
+		if(ROLE_TRAITOR in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_TRAITOR))
 				if(!applicant.stat)
 					if(applicant.mind)
 						if (!applicant.mind.special_role)
@@ -91,8 +91,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CHANGELING)
-			if(player_old_enough_antag(applicant.client,BE_CHANGELING))
+		if(ROLE_CHANGELING in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_CHANGELING))
 				if(!applicant.stat)
 					if(applicant.mind)
 						if (!applicant.mind.special_role)
@@ -123,8 +123,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_REV)
-			if(player_old_enough_antag(applicant.client,BE_REV))
+		if(ROLE_REV in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_REV))
 				if(applicant.stat == CONSCIOUS)
 					if(applicant.mind)
 						if(!applicant.mind.special_role)
@@ -150,9 +150,9 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(istype(G) && G.client && G.client.prefs.be_special & BE_WIZARD)
+		if(istype(G) && G.client && (ROLE_WIZARD in G.client.prefs.be_special))
 			if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,BE_WIZARD))
+				if(player_old_enough_antag(G.client,ROLE_WIZARD))
 					spawn(0)
 						switch(G.timed_alert("Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","No",300,"Yes","No"))//alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))
 							if("Yes")
@@ -192,8 +192,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CULTIST)
-			if(player_old_enough_antag(applicant.client,BE_CULTIST))
+		if(ROLE_CULTIST in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_CULTIST))
 				if(applicant.stat == CONSCIOUS)
 					if(applicant.mind)
 						if(!applicant.mind.special_role)
@@ -224,9 +224,9 @@ client/proc/one_click_antag()
 	var/time_passed = world.time
 
 	for(var/mob/G in respawnable_list)
-		if(istype(G) && G.client && G.client.prefs.be_special & BE_OPERATIVE)
+		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
 			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
-				if(player_old_enough_antag(G.client,BE_OPERATIVE))
+				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
 							if("Yes")
@@ -279,12 +279,12 @@ client/proc/one_click_antag()
 		for (var/obj/effect/landmark/A in /area/syndicate_station/start)//Because that's the only place it can BE -Sieve
 			if (A.name == "Syndicate-Gear-Closet")
 				new /obj/structure/closet/syndicate/personal(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
 			if (A.name == "Syndicate-Bomb")
 				new /obj/effect/spawner/newbomb/timer/syndicate(A.loc)
-				del(A)
+				qdel(A)
 				continue
 
 		for(var/datum/mind/synd_mind in ticker.mode.syndicates)
@@ -396,16 +396,8 @@ client/proc/one_click_antag()
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
-	new_character.gender = pick(MALE,FEMALE)
-
 	var/datum/preferences/A = new()
-	A.randomize_appearance_for(new_character)
-	if(new_character.gender == MALE)
-		new_character.real_name = "[pick(first_names_male)] [pick(last_names)]"
-	else
-		new_character.real_name = "[pick(first_names_female)] [pick(last_names)]"
-	new_character.name = new_character.real_name
-	new_character.age = rand(17,45)
+	A.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.key = G_found.key
@@ -418,14 +410,13 @@ client/proc/one_click_antag()
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(last_names)
 
-	new_syndicate_commando.gender = pick(MALE, FEMALE)
-
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	A.randomize_appearance_for(new_syndicate_commando)
-
-	new_syndicate_commando.real_name = "[!syndicate_leader_selected ? syndicate_commando_rank : syndicate_commando_leader_rank] [syndicate_commando_name]"
-	new_syndicate_commando.name = new_syndicate_commando.real_name
-	new_syndicate_commando.age = !syndicate_leader_selected ? rand(23,35) : rand(35,45)
+	if(syndicate_leader_selected)
+		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		A.age = rand(35,45)
+	else
+		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	A.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -451,8 +442,8 @@ client/proc/one_click_antag()
 
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in respawnable_list)
-		if(istype(G) && G.client && G.client.prefs.be_special & BE_RAIDER)
-			if(player_old_enough_antag(G.client,BE_RAIDER))
+		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
+			if(player_old_enough_antag(G.client,ROLE_RAIDER))
 				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
 					spawn(0)
 						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
@@ -552,8 +543,8 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_VAMPIRE)
-			if(player_old_enough_antag(applicant.client,BE_VAMPIRE))
+		if(ROLE_VAMPIRE in applicant.client.prefs.be_special)
+			if(player_old_enough_antag(applicant.client,ROLE_VAMPIRE))
 				if(!applicant.stat)
 					if(applicant.mind)
 						if (!applicant.mind.special_role)
@@ -610,14 +601,7 @@ client/proc/one_click_antag()
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				newMember.gender = pick(MALE,FEMALE)
-				A.randomize_appearance_for(newMember)
-				if(newMember.gender == MALE)
-					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
-				else
-					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
-				newMember.name = newMember.real_name
-				newMember.age = rand(17,45)
+				A.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -639,14 +623,7 @@ client/proc/one_click_antag()
 
 				var/mob/living/carbon/human/newMember = new(L.loc)
 
-				newMember.gender = pick(MALE,FEMALE)
-				A.randomize_appearance_for(newMember)
-				if(newMember.gender == MALE)
-					newMember.real_name = "[pick(first_names_male)] [pick(last_names)]"
-				else
-					newMember.real_name = "[pick(first_names_female)] [pick(last_names)]"
-				newMember.name = newMember.real_name
-				newMember.age = rand(17,45)
+				A.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 

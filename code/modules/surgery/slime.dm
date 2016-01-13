@@ -87,7 +87,6 @@
 		if(target.cores <= 0)
 			target.icon_state = "[target.colour] baby slime dead-nocore"
 
-
 	fail_step(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
 		user.visible_message("\red [user]'s hand slips, causing \him to miss the core!", \
 		"\red Your hand slips, causing you to miss the core!")

@@ -15,7 +15,7 @@
 
 /datum/disease2/effectholder/proc/getrandomeffect(var/badness = 1)
 	var/list/datum/disease2/effect/list = list()
-	for(var/e in (typesof(/datum/disease2/effect) - /datum/disease2/effect))
+	for(var/e in subtypesof(/datum/disease2/effect) - /datum/disease2/effect/organs/vampire)
 		var/datum/disease2/effect/f = new e
 		if (f.badness > badness)	//we don't want such strong effects
 			continue
@@ -103,6 +103,25 @@
 
 
 ////////////////////////STAGE 4/////////////////////////////////
+
+/datum/disease2/effect/borg
+	name = "Borgification Disorder"
+	stage = 4
+	badness = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob << "<span class = 'warning'>You feel like beeping and booping...</span>"
+		mob.adjustBruteLoss(10)
+		mob.updatehealth()
+		if(prob(40))
+			if(mob.client)
+				if(!jobban_isbanned(mob, "Cyborg") && !jobban_isbanned(mob,"nonhumandept"))
+					var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(mob.loc))
+					mob.mind.transfer_to(O)
+			else
+				new/mob/living/silicon/robot(get_turf(mob.loc))
+			var/datum/disease2/disease/D = mob.virus2
+			mob.gib()
+			qdel(D)
 
 /datum/disease2/effect/omnizine
 	name = "Panacea Effect"
@@ -204,7 +223,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(5)
+				B.take_damage(5, 1)
 		else
 			mob.setBrainLoss(50)
 
@@ -218,7 +237,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/organ = pick(list("r_arm","l_arm","r_leg","r_leg"))
 			var/obj/item/organ/external/E = H.organs_by_name[organ]
-			if (!(E.status & ORGAN_DEAD))
+			if (!(E.status & ORGAN_DEAD) && !(E.status & ORGAN_ROBOT))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.name] anymore...</span>"
 				for (var/obj/item/organ/external/C in E.children)
@@ -233,9 +252,10 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.status &= ~ORGAN_DEAD
-				for (var/obj/item/organ/external/C in E.children)
-					C.status &= ~ORGAN_DEAD
+				if(!(E.status & ORGAN_ROBOT))
+					E.status &= ~ORGAN_DEAD
+					for (var/obj/item/organ/external/C in E.children)
+						C.status &= ~ORGAN_DEAD
 
 
 /datum/disease2/effect/immortal
@@ -245,7 +265,7 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				if (E.status & ORGAN_BROKEN && prob(30))
+				if (E.status & ORGAN_BROKEN && prob(30) && !(E.status & ORGAN_ROBOT))
 					E.status ^= ORGAN_BROKEN
 		var/heal_amt = -5*multiplier
 		mob.apply_damages(heal_amt,heal_amt,heal_amt,heal_amt)
@@ -324,14 +344,14 @@
 			if(2)
 				if(ishuman(mob))
 					for (var/obj/item/organ/external/E in H.organs)
-						if(pick(1,0))
-							E.droplimb(0,DROPLIMB_BLUNT)
+						if(pick(1,0) && !(E.status & ORGAN_ROBOT))
+							E.droplimb(0,DROPLIMB_EDGE)
 			if(3)
 				if(ishuman(mob))
 					if(H.species.name != "Skellington")
 						mob << "<span class = 'warning'> Your necrotic skin ruptures!</span>"
 						for (var/obj/item/organ/external/E in H.organs)
-							if(pick(1,0))
+							if(pick(1,0) && !(E.status & ORGAN_ROBOT))
 								E.createwound(CUT, pick(2,4))
 						if(prob(30))
 							if(H.species.name != "Skellington")
@@ -424,7 +444,7 @@
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(1)
+				B.take_damage(1, 1)
 		else
 			mob.setBrainLoss(10)
 
@@ -453,13 +473,15 @@
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.min_broken_damage = max(5, E.min_broken_damage - 30)
+				if(!(E.status & ORGAN_ROBOT))
+					E.min_broken_damage = max(5, E.min_broken_damage - 30)
 
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			for (var/obj/item/organ/external/E in H.organs)
-				E.min_broken_damage = initial(E.min_broken_damage)
+				if(!(E.status & ORGAN_ROBOT))
+					E.min_broken_damage = initial(E.min_broken_damage)
 
 /datum/disease2/effect/shakey
 	name = "World Shaking Syndrome"
@@ -530,23 +552,12 @@
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(prob(30))
-			mob.emote("me",1,"is sweating profusely!")
+			mob.custom_emote(1,"is sweating profusely!")
 
 			if(istype(mob.loc,/turf/simulated))
 				var/turf/simulated/T = mob.loc
-				if(T.wet < 1)
-					T.wet = 1
-					if(T.wet_overlay)
-						T.overlays -= T.wet_overlay
-						T.wet_overlay = null
-					T.wet_overlay = image('icons/effects/water.dmi',T,"wet_floor")
-					T.overlays += T.wet_overlay
-					spawn(800)
-						if (istype(T) && T.wet < 2)
-							T.wet = 0
-							if(T.wet_overlay)
-								T.overlays -= T.wet_overlay
-								T.wet_overlay = null
+				if(T.wet < TURF_WET_WATER)
+					T.MakeSlippery()
 
 
 
@@ -561,7 +572,7 @@
 		if(pick(0,1))
 			mob.say(pick("Uh HUH!", "Thank you, Thank you very much...", "I ain't nothin' but a hound dog!", "Swing low, sweet chariot!"))
 		else
-			mob.emote("me",1,pick("curls his lip!", "gyrates his hips!", "thrusts his hips!"))
+			mob.custom_emote(1,pick("curls his lip!", "gyrates his hips!", "thrusts his hips!"))
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
 			if(H.species.name == "Human" && !(H.f_style == "Pompadour"))
@@ -571,7 +582,7 @@
 			if(H.species.name == "Human" && !(H.f_style == "Elvis Sideburns"))
 				spawn(50)
 					H.f_style = "Elvis Sideburns"
-					H.update_hair()
+					H.update_fhair()
 
 
 /obj/item/clothing/glasses/virussunglasses
@@ -684,7 +695,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 			var/mob/living/carbon/human/H = mob
 			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
 			if (B.damage < B.min_broken_damage)
-				B.take_damage(0.5)
+				B.take_damage(0.5, 1)
 		else
 			mob.setBrainLoss(5)
 
@@ -783,7 +794,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 				H << "<span class='warning'>Your chin and neck itch!.</span>"
 				spawn(50)
 					H.f_style = "Full Beard"
-					H.update_hair()
+					H.update_fhair()
 
 /datum/disease2/effect/bloodynose
 	name = "Intranasal Hemorrhage"
@@ -913,14 +924,17 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 /datum/disease2/effect/eyewater
 	name = "Watery Eyes"
 	stage = 1
-	activate(var/mob/living/carbon/mob,var/multiplier)
+	activate(var/mob/living/carbon/human/mob,var/multiplier)
+		var/obj/item/organ/eyes/E = mob.internal_organs_by_name["eyes"]
+		if(!istype(E) || (E.status & ORGAN_ROBOT)) // No eyes or robotic eyes? No problem!
+			return
 		mob << "<span class='warning'>Your eyes sting and water!</span>"
 
 /datum/disease2/effect/wheeze
 	name = "Wheezing"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob.emote("me",1,"wheezes.")
+		mob.custom_emote(1,"wheezes.")
 
 
 /datum/disease2/effect/optimistic_minor
@@ -928,3 +942,41 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class = 'notice'> You feel optimistic!</span>"
+
+/datum/disease2/effect/anxiety
+	name = "Severe Anxiety"
+	stage = 2
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(prob(20))
+			mob << "<span class='notice'>You feel anxious.</span>"
+		if(prob(15))
+			mob << "<span class='danger'>You feel butterflies in your stomach.</span>"
+		if(prob(11))
+			mob.visible_message("<span class='danger'>[mob] stumbles around in a panic.</span>", \
+											"<span class='userdanger'>You have a panic attack!</span>")
+			mob.confused += (rand(6,8))
+			mob.jitteriness += (rand(6,8))
+		if(prob(10))
+			mob.visible_message("<span class='danger'>[mob] coughs up butterflies!</span>", \
+												"<span class='userdanger'>You cough up butterflies!</span>")
+			new /mob/living/simple_animal/butterfly(mob.loc)
+			new /mob/living/simple_animal/butterfly(mob.loc)
+
+/datum/disease2/effect/lycan
+	name = "Lycancoughy"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(prob(20))
+			mob << "<span class='notice'>You feel itchy.</span>"
+		if(prob(15))
+			mob << "<span class='danger'>You have the sudden urge for bacon..</span>"
+		if(prob(11))
+			mob.say(pick("WOOF!", "BARK!", "Bark.", "Woof?", "AUUUUUUUUUUUUU!!"))
+		if(prob(10))
+			mob.visible_message("<span class='danger'>[mob] coughs up a dog!!</span>", \
+												"<span class='userdanger'>You cough up a DOG!!!</span>")
+			//yes i KNOW foxes technically are not normal dogs...hush....
+			var/randompup = pick(/mob/living/simple_animal/pet/corgi/puppy,/mob/living/simple_animal/pet/pug,/mob/living/simple_animal/pet/fox)
+
+			new randompup(mob.loc)
+			mob.adjustBruteLoss(rand(1,5))//you just coughed up a CANINIE, you are taking brute loss...

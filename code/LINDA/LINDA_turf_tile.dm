@@ -1,17 +1,17 @@
 
 
-turf
+/turf
 	var/pressure_difference = 0
 	var/pressure_direction = 0
 	var/atmos_adjacent_turfs = 0
 	var/atmos_adjacent_turfs_amount = 0
 	var/atmos_supeconductivity = 0
 
-turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
-	del(giver)
+/turf/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
+	qdel(giver)
 	return 0
 
-turf/return_air()
+/turf/return_air()
 	//Create gas mixture to hold data for passing
 	var/datum/gas_mixture/GM = new
 
@@ -24,7 +24,7 @@ turf/return_air()
 
 	return GM
 
-turf/remove_air(amount as num)
+/turf/remove_air(amount as num)
 	var/datum/gas_mixture/GM = new
 
 	var/sum = oxygen + carbon_dioxide + nitrogen + toxins
@@ -39,21 +39,27 @@ turf/remove_air(amount as num)
 	return GM
 
 
-turf/simulated
+/turf/simulated
 	var/datum/excited_group/excited_group
 	var/excited = 0
 	var/recently_active = 0
 	var/datum/gas_mixture/air
 	var/archived_cycle = 0
 	var/current_cycle = 0
-
+	var/icy = 0
+	var/icyoverlay
 	var/obj/effect/hotspot/active_hotspot
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
 
-turf/simulated/New()
-	..()
+	var/atmos_overlay_type = "" //current active overlay
 
+/turf/simulated/New()
+	..()
+	levelupdate()
+	if(smooth)
+		smooth_icon(src)
+	visibilityChanged()
 	if(!blocks_air)
 		air = new
 
@@ -64,55 +70,56 @@ turf/simulated/New()
 
 		air.temperature = temperature
 
-turf/simulated/Del()
+		update_visuals()
+
+/turf/simulated/Destroy()
+	visibilityChanged()
 	if(active_hotspot)
 		qdel(active_hotspot)
-	..()
+	return ..()
 
-turf/simulated/assume_air(datum/gas_mixture/giver)
+/turf/simulated/assume_air(datum/gas_mixture/giver)
 	if(!giver)	return 0
 	var/datum/gas_mixture/receiver = air
 	if(istype(receiver))
 
 		air.merge(giver)
 
-		if(air.check_tile_graphic())
-			update_visuals(air)
+		update_visuals()
 
 		return 1
 
 	else return ..()
 
-turf/simulated/proc/copy_air_with_tile(turf/simulated/T)
+/turf/simulated/proc/copy_air_with_tile(turf/simulated/T)
 	if(istype(T) && T.air && air)
 		air.copy_from(T.air)
 
-turf/simulated/proc/copy_air(datum/gas_mixture/copy)
+/turf/simulated/proc/copy_air(datum/gas_mixture/copy)
 	if(air && copy)
 		air.copy_from(copy)
 
-turf/simulated/return_air()
+/turf/simulated/return_air()
 	if(air)
 		return air
 
 	else
 		return ..()
 
-turf/simulated/remove_air(amount as num)
+/turf/simulated/remove_air(amount as num)
 	if(air)
 		var/datum/gas_mixture/removed = null
 
 		removed = air.remove(amount)
 
-		if(air.check_tile_graphic())
-			update_visuals(air)
+		update_visuals()
 
 		return removed
 
 	else
 		return ..()
 
-turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
+/turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
 	var/delta_temperature = (temperature_archived - model.temperature)
 	if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
 
@@ -120,7 +127,7 @@ turf/simulated/proc/mimic_temperature_solid(turf/model, conduction_coefficient)
 			(heat_capacity*model.heat_capacity/(heat_capacity+model.heat_capacity))
 		temperature -= heat/heat_capacity
 
-turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduction_coefficient)
+/turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduction_coefficient)
 	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER && heat_capacity && sharer.heat_capacity)
 
@@ -195,7 +202,7 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 
 		else
 			if(!air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
-				var/difference = air.mimic(enemy_tile,,atmos_adjacent_turfs_amount)
+				var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
 				if(difference)
 					if(difference > 0)
 						consider_pressure_difference(enemy_tile, difference)
@@ -207,9 +214,6 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 
 	air.react()
 
-	if(air.check_tile_graphic())
-		update_visuals(air)
-
 	if(air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		hotspot_expose(air.temperature, CELL_VOLUME)
 		for(var/atom/movable/item in src)
@@ -219,6 +223,13 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 		if(air.temperature > MINIMUM_TEMPERATURE_START_SUPERCONDUCTION)
 			if(consider_superconductivity(starting = 1))
 				remove = 0
+
+	if(air.temperature < T0C && air.return_pressure() > 10)
+		icy = 1
+	else
+		icy = 0
+
+	update_visuals()
 
 	if(!excited_group && remove == 1)
 		air_master.remove_from_active(src)
@@ -230,16 +241,42 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 	temperature_archived = temperature
 	archived_cycle = air_master.current_cycle
 
-/turf/simulated/proc/update_visuals(datum/gas_mixture/model)
-	overlays.Cut()
-	var/siding_icon_state = return_siding_icon_state()
-	if(siding_icon_state)
-		overlays += image('icons/turf/floors.dmi',siding_icon_state)
-	switch(model.graphic)
+/turf/simulated/proc/update_visuals()
+	if(icy && !icyoverlay)
+		overlays |= icemaster
+		icyoverlay = icemaster
+	else if(icyoverlay && !icy)
+		icyoverlay = null
+		overlays -= icemaster
+
+	var/new_overlay_type = tile_graphic()
+	if (new_overlay_type == atmos_overlay_type)
+		return
+	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
+	if (atmos_overlay)
+		overlays -= atmos_overlay
+
+	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
+	if (atmos_overlay)
+		overlays += atmos_overlay
+	atmos_overlay_type = new_overlay_type
+
+/turf/simulated/proc/get_atmos_overlay_by_name(var/name)
+	switch(name)
 		if("plasma")
-			overlays.Add(plmaster)
+			return plmaster
 		if("sleeping_agent")
-			overlays.Add(slmaster)
+			return slmaster
+	return null
+
+/turf/simulated/proc/tile_graphic()
+	if(air.toxins > MOLES_PLASMA_VISIBLE)
+		return "plasma"
+
+	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
+	if(sleeping_agent && (sleeping_agent.moles > 1))
+		return "sleeping_agent"
+	return null
 
 /turf/simulated/proc/share_air(var/turf/simulated/T)
 	if(T.current_cycle < current_cycle)
@@ -269,13 +306,13 @@ turf/simulated/proc/share_temperature_mutual_solid(turf/simulated/sharer, conduc
 
 
 
-atom/movable/var/pressure_resistance = 5
-atom/movable/var/last_forced_movement = 0
+/atom/movable/var/pressure_resistance = 5
+/atom/movable/var/last_forced_movement = 0
 
-atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
+/atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	if(last_forced_movement >= air_master.current_cycle)
 		return 0
-	else if(!anchored)
+	else if(!anchored && !pulledby)
 		if(pressure_difference > pressure_resistance)
 			last_forced_movement = air_master.current_cycle
 			spawn step(src, direction)
@@ -344,8 +381,7 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 				G.moles = S.moles/turf_list.len
 				T.air.trace_gases += G
 
-		if(T.air.check_tile_graphic())
-			T.update_visuals(T.air)
+		T.update_visuals()
 
 
 /datum/excited_group/proc/dismantle()

@@ -29,10 +29,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
 /mob/living/carbon/human
-	var/oxygen_alert = 0
-	var/toxins_alert = 0
-	var/co2_alert = 0
-	var/fire_alert = 0
+
 	var/pressure_alert = 0
 	var/prev_gender = null // Debug for plural genders
 	var/temperature_alert = 0
@@ -43,86 +40,35 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	var/tinttotal = 0				// Total level of visually impairing items
 
 /mob/living/carbon/human/Life()
-	set invisibility = 0
-	//set background = 1
-
-	if (notransform)	return
-	if(!loc)			return	// Fixing a null error that occurs when the mob isn't found in the world -- TLE
-
-	..()
-
-	//Apparently, the person who wrote this code designed it so that
-	//blinded get reset each cycle and then get activated later in the
-	//code. Very ugly. I dont care. Moving this stuff here so its easy
-	//to find it.
-	blinded = null
 	fire_alert = 0 //Reset this here, because both breathe() and handle_environment() have a chance to set it.
 	tinttotal = tintcheck() //here as both hud updates and status updates call it
-
-	//TODO: seperate this out
-	// update the current life tick, can be used to e.g. only do something every 4 ticks
 	life_tick++
-	var/datum/gas_mixture/environment = loc.return_air()
 
+	in_stasis = 0
 	if(istype(loc, /obj/structure/closet/body_bag/cryobag))
 		var/obj/structure/closet/body_bag/cryobag/loc_as_cryobag = loc
 		if(!loc_as_cryobag.opened)
 			loc_as_cryobag.used++
 			in_stasis = 1
 
-	if(life_tick % 30 == 15)
-		hud_updateflag = 1022
+	//if(mob_master.current_cycle % 30 == 15)
+		//hud_updateflag = 1022
+		//HudRefactor:WTF do i put here....
 
 	voice = GetVoice()
 
-	//No need to update all of these procs if the guy is dead.
-	if(stat != DEAD && !in_stasis)
-		if(mob_master.current_cycle % 4 == 2 || failed_last_breath) 	//First, resolve location and get a breath
-			breathe() 				//Only try to take a breath every 4 ticks, unless suffocating
-
-		else //Still give containing object the chance to interact
-			if(istype(loc, /obj/))
-				var/obj/location_as_object = loc
-				location_as_object.handle_internal_lifeform(src, 0)
+	if(..() && !in_stasis)
 
 		if(check_mutations)
-//			testing("Updating [src.real_name]'s mutations: "+english_list(mutations))
 			domutcheck(src,null)
 			update_mutations()
 			check_mutations=0
 
-		//Updates the number of stored chemicals for powers
-		handle_changeling()
-
-		//Mutations and radiation
-		handle_mutations_and_radiation()
-
-		//Chemicals in the body
-		handle_chemicals_in_body()
-
-		//Disabilities
-		handle_disabilities()
-
-		//Random events (vomiting etc)
-		handle_random_events()
-
 		handle_virus_updates()
 
-		//Check if we're on fire
-		handle_fire()
-
-		//Decrease wetness over time
-		handle_wetness()
-
-		//stuff in the stomach
-		handle_stomach()
-
 		handle_shock()
-
 		handle_pain()
-
 		handle_heartbeat()
-
 		handle_heartattack()
 
 		if(!client)
@@ -136,31 +82,14 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
 		return											//We go ahead and process them 5 times for HUD images and other stuff though.
 
-
-	//Handle temperature/pressure differences between body and environment
-	handle_environment(environment)		//Optimized a good bit.
-
-	//Status updates, death etc.
-	handle_regular_status_updates()		//Optimized a bit
-
-	handle_actions()
-
-	update_canmove()
-
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
-
-	handle_regular_hud_updates()
-
 	pulse = handle_pulse()
-
-	// Grabbing
-	for(var/obj/item/weapon/grab/G in src)
-		G.process()
 
 	if(mind && mind.vampire)
 		handle_vampire()
-
+		if(life_tick == 1)
+			regenerate_icons() // Make sure the inventory updates
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -177,7 +106,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		return ONE_ATMOSPHERE - pressure_difference
 
 
-/mob/living/carbon/human/proc/handle_disabilities()
+/mob/living/carbon/human/handle_disabilities()
 	if (disabilities & EPILEPSY)
 		if ((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
@@ -207,6 +136,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			var/y_offset = pixel_y + rand(-1,1)
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
+
 	if (disabilities & NERVOUS)
 		speech_problem_flag = 1
 		if (prob(10))
@@ -214,12 +144,38 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if (getBrainLoss() >= 60 && stat != 2)
 		speech_problem_flag = 1
-		if (prob(3))
+		if(prob(3))
+			var/list/s1 = list("IM A PONY NEEEEEEIIIIIIIIIGH",
+							   "without oxigen blob don't evoluate?",
+							   "CAPTAINS A COMDOM",
+							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
+							   "can u give me [pick("telikesis","halk","eppilapse")]?",
+							   "THe saiyans screwed",
+							   "Bi is THE BEST OF BOTH WORLDS>",
+							   "I WANNA PET TEH monkeyS",
+							   "stop grifing me!!!!",
+							   "SOTP IT#")
+
+			var/list/s2 = list("FUS RO DAH",
+							   "fucking 4rries!",
+							   "stat me",
+							   ">my face",
+							   "roll it easy!",
+							   "waaaaaagh!!!",
+							   "red wonz go fasta",
+							   "FOR TEH EMPRAH",
+							   "lol2cat",
+							   "dem dwarfs man, dem dwarfs",
+							   "SPESS MAHREENS",
+							   "hwee did eet fhor khayosss",
+							   "lifelike texture ;_;",
+							   "luv can bloooom",
+							   "PACKETS!!!")
 			switch(pick(1,2,3))
 				if(1)
-					say(pick("IM A PONY NEEEEEEIIIIIIIIIGH", "without oxigen blob don't evoluate?", "CAPTAINS A COMDOM", "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!", "can u give me [pick("telikesis","halk","eppilapse")]?", "THe saiyans screwed", "Bi is THE BEST OF BOTH WORLDS>", "I WANNA PET TEH monkeyS", "stop grifing me!!!!", "SOTP IT#"))
+					say(pick(s1))
 				if(2)
-					say(pick("FUS RO DAH","fucking 4rries!", "stat me", ">my face", "roll it easy!", "waaaaaagh!!!", "red wonz go fasta", "FOR TEH EMPRAH", "lol2cat", "dem dwarfs man, dem dwarfs", "SPESS MAHREENS", "hwee did eet fhor khayosss", "lifelike texture ;_;", "luv can bloooom", "PACKETS!!!"))
+					say(pick(s2))
 				if(3)
 					emote("drool")
 
@@ -242,11 +198,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		// as cloneloss
 		adjustCloneLoss(0.1)
 
-/mob/living/carbon/human/proc/handle_mutations_and_radiation()
-
-	if(species.flags & IS_SYNTHETIC) //Robots don't suffer from mutations or radloss.
-		return
-
+/mob/living/carbon/human/handle_mutations_and_radiation()
 	if(getFireLoss())
 		if((RESIST_HEAT in mutations) || (prob(1)))
 			heal_organ_damage(0,1)
@@ -341,87 +293,111 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				var/obj/item/organ/external/O = pick(organs)
 				if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
-/mob/living/carbon/human/proc/breathe()
-	if(reagents.has_reagent("lexorin")) return
-	if(NO_BREATH in mutations) return // No breath mutation means no breathing.
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell)) return
-	if(species && (species.flags & NO_BREATHE)) return
+/mob/living/carbon/human/breathe()
+	if(reagents.has_reagent("lexorin"))
+		return
+	if(NO_BREATH in mutations)
+		return // No breath mutation means no breathing. //DID YOU REALLY NEED TO FUCKING STATE THIS?
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		return
+	if(species && (species.flags & NO_BREATHE))
+		return
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/datum/gas_mixture/environment
+	if(loc)
+		environment = loc.return_air()
+
 	var/datum/gas_mixture/breath
 
-	// HACK NEED CHANGING LATER
 	if(health <= config.health_threshold_crit)
 		losebreath++
 
-	if(losebreath>0) //Suffocating so do not take a breath
+	if(losebreath > 0)
 		losebreath--
-		if (prob(10)) //Gasp per 10 ticks? Sounds about right.
+		if(prob(10))
 			spawn emote("gasp")
 		if(istype(loc, /obj/))
-			var/obj/location_as_object = loc
-			location_as_object.handle_internal_lifeform(src, 0)
-
+			var/obj/loc_as_obj = loc
+			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
-		//First, check for air from internal atmosphere (using an air tank and mask generally)
-		breath = get_breath_from_internal(BREATH_VOLUME) // Super hacky -- TLE
-		//breath = get_breath_from_internal(0.5) // Manually setting to old BREATH_VOLUME amount -- TLE
+		breath = get_breath_from_internal(BREATH_VOLUME)
 
-		//No breath from internal atmosphere so get breath from location
 		if(!breath)
-			if(isobj(loc))
-				var/obj/location_as_object = loc
-				breath = location_as_object.handle_internal_lifeform(src, BREATH_MOLES)
-			else if(isturf(loc))
+			if(isobj(loc)) //Breathe from loc as object
+				var/obj/loc_as_obj = loc
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_MOLES)
+
+			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
-				/*if(environment.return_pressure() > ONE_ATMOSPHERE)
-					// Loads of air around (pressure effect will be handled elsewhere), so lets just take a enough to fill our lungs at normal atmos pressure (using n = Pv/RT)
-					breath_moles = (ONE_ATMOSPHERE*BREATH_VOLUME/R_IDEAL_GAS_EQUATION*environment.temperature)
-				else*/
-					// Not enough air around, take a percentage of what's there to model this properly
-				breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+				if(environment)
+					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
 				breath = loc.remove_air(breath_moles)
 
-				if(!is_lung_ruptured())
-					if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)
-						if(prob(5))
-							rupture_lung()
+				if(!is_lung_ruptured())																					// THIS FUCKING EXCERPT, THIS LITTLE FUCKING EXCERPT, SNOWFLAKED
+					if(!breath || breath.total_moles() < BREATH_MOLES / 5 || breath.total_moles() > BREATH_MOLES * 5)	// RIGHT IN THE CENTER OF THE FUCKING BREATHE PROC
+						if(prob(5))																						// IT IS THE ONLY FUCKING REASONS HUMAN OVERRIDE breathe()
+							rupture_lung()																				// GOD FUCKING DAMNIT
 
-		else //Still give containing object the chance to interact
+		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
-				var/obj/location_as_object = loc
-				location_as_object.handle_internal_lifeform(src, 0)
+				var/obj/loc_as_obj = loc
+				loc_as_obj.handle_internal_lifeform(src,0)
 
-	handle_breath(breath)
-
-	if(species.name=="Plasmaman") //this is stupid as fuck
-		// Check if we're wearing our biosuit and mask.
-		if (!istype(wear_suit,/obj/item/clothing/suit/space/eva/plasmaman) || !istype(head,/obj/item/clothing/head/helmet/space/eva/plasmaman))
-			//testing("Plasmaman [src] leakin'.  coverflags=[cover_flags]")
-			// OH FUCK HE LEAKIN'.
-			// This was OP.
-			//environment.adjust(tx = environment.total_moles()*BREATH_PERCENTAGE) // About one breath's worth. (I know we aren't breathing it out, but this should be about the right amount)
-			src << "<span class='warning'>Your body reacts with the atmosphere and bursts into flame!</span>"
-			adjust_fire_stacks(0.5)
-			IgniteMob()
+	check_breath(breath)
 
 	if(breath)
 		loc.assume_air(breath)
-
-		//spread some viruses while we are at it
-		if (virus2.len > 0)
-			if (prob(10) && get_infection_chance(src))
-//					log_debug("[src] : Exhaling some viruses")
+		//spread virus2
+		if(virus2.len > 0)
+			if(prob(10) && get_infection_chance(src))
 				for(var/mob/living/carbon/M in view(1,src))
 					src.spread_disease_to(M)
+
+
 
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
 	// Health is in deep shit and we're not already dead
 	return health <= 0 && stat != 2
 
-/mob/living/carbon/human/proc/handle_breath(var/datum/gas_mixture/breath)
+
+/mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
+
+	if(internal)
+		var/null_internals = 0      //internals are invalid, therefore turn them off
+		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
+
+		if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
+			if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
+				null_internals = 1 //not wearing a mask or suitable helmet
+
+		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
+			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
+			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
+				null_internals = 1 //offline suits do not breath
+
+			else if(rig.air_supply && internal == rig.air_supply) //if rig HAS air_supply AND internal IS rig air_supply
+				skip_contents_check = 1 //skip contents.Find() check, the oxygen is valid even being outside of the mob
+
+		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
+			null_internals = 1 //not a rigsuit and your oxygen is gone
+
+		if(null_internals) //something wants internals gone
+			internal = null //so do it
+
+
+	if(internal) //check for hud updates every time this is called
+		if(internals)
+			internals.icon_state = "internal1"
+		return internal.remove_air_volume(volume_needed) //returns the valid air
+	else
+		if(internals)
+			internals.icon_state = "internal0"
+
+	return null
+
+/mob/living/carbon/human/check_breath(var/datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return 0
 
@@ -451,7 +427,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	return species.handle_breath(breath, src)
 
-/mob/living/carbon/human/proc/handle_environment(datum/gas_mixture/environment)
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		return
 
@@ -559,11 +535,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		bodytemperature += BODYTEMP_HEATING_MAX
 	return
 //END FIRE CODE
-
-/mob/living/carbon/human/proc/handle_wetness()
-	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
-		wetlevel = max(wetlevel - 1,0)
-	return
 
 	/*
 /mob/living/carbon/human/proc/adjust_body_temperature(current, loc_temp, boost)
@@ -737,22 +708,17 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	return covered
 
-/mob/living/carbon/human/proc/handle_chemicals_in_body()
+/mob/living/carbon/human/handle_chemicals_in_body()
+	..()
 
-	if(reagents)
-		reagents.metabolize(src)
-
-	if(status_flags & GODMODE)	return 0	//godmode
+	if(status_flags & GODMODE)
+		return 0	//godmode
 
 	if(species.flags & REQUIRE_LIGHT)
 		var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 		if(isturf(loc)) //else, there's considered to be no light
 			var/turf/T = loc
-			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-			if(L)
-				light_amount = (L.get_clamped_lum()*10) - 5 //hardcapped so it's not abused by having a ton of flashlights
-			else
-				light_amount =  5
+			light_amount = min(T.get_lumcount()*10, 5)  //hardcapped so it's not abused by having a ton of flashlights
 		nutrition += light_amount
 		traumatic_shock -= light_amount
 
@@ -770,14 +736,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		var/light_amount = 0
 		if(isturf(loc))
 			var/turf/T = loc
-			var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
-			if(L)
-				light_amount = L.get_clamped_lum()*10
-			else
-				light_amount =  10
-		if(light_amount > species.light_dam) //if there's enough light, start dying
+			light_amount = T.get_lumcount()*10
+		if(light_amount > species.light_dam && !incorporeal_move) //if there's enough light, start dying
 			if(species.light_effect_amp)
-				adjustFireLoss(5) //This gets doubled by Shadowling's innate fire weakness, so it ends up being 10.
+				adjustFireLoss(4.7) //This gets multiplied by 1.5 due to Shadowling's innate fire weakness, so it ends up being about 7.
 			else
 				adjustFireLoss(1)
 				adjustBruteLoss(1)
@@ -853,189 +815,124 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	if(species && species.flags & NO_INTORGANS) return
 
-	if(!(species.flags & IS_SYNTHETIC)) handle_trace_chems()
+	handle_trace_chems()
 
 	updatehealth()
 
 	return //TODO: DEFERRED
 
-/mob/living/carbon/human/proc/handle_regular_status_updates()
+/mob/living/carbon/human/handle_regular_status_updates()
+	if(status_flags & GODMODE)
+		return 0
 
-	if(status_flags & GODMODE)	return 0
+	. = ..()
 
-	//SSD check, if a logged player is awake put them back to sleep!
-	if(player_logged && sleeping < 2)
-		sleeping = 2
-
-	if(stat == DEAD)	//DEAD. BROWN BREAD. SWIMMING WITH THE SPESS CARP
-		blinded = 1
-		silent = 0
-	else				//ALIVE. LIGHTS ARE ON
-
+	if(.) //alive
 		if(REGEN in mutations)
 			if(nutrition)
 				if(prob(10))
-					var/randumb = rand(1,5)
+					var/randumb = rand(1, 5)
 					nutrition -= randumb
-					heal_overall_damage(randumb,randumb)
+					heal_overall_damage(randumb, randumb)
 				if(nutrition < 0)
 					nutrition = 0
 
-		// Sobering multiplier.
-		// Sober block grants quadruple the alcohol metabolism.
-//			var/sober_str=!(SOBER in mutations)?1:4
-
-		updatehealth()	//TODO
 		if(!in_stasis)
-			handle_organs()	//Optimized.
+			handle_organs()
 			handle_blood()
 
-		if(health <= config.health_threshold_dead || brain_op_stage == 4.0)
-			death()
-			blinded = 1
-			silent = 0
-			return 1
-
-		// the analgesic effect wears off slowly
+		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
 
-		//UNCONSCIOUS. NO-ONE IS HOME
-		if( (getOxyLoss() > 50) || (config.health_threshold_crit >= health) )
-			Paralyse(3)
+		if(hallucination && !(species.flags & NO_DNA_RAD))
+			spawn()
+				handle_hallucinations()
 
-			/* Done by handle_breath()
-			if( health <= 20 && prob(1) )
-				spawn(0)
-					emote("gasp")
-			if(!reagents.has_reagent("epinephrine"))
-				adjustOxyLoss(1)*/
-
-		if(hallucination && !(species.flags & IS_SYNTHETIC))
-			spawn handle_hallucinations()
-
-			if(hallucination<=2)
+			if(hallucination <= 2)
 				hallucination = 0
 				halloss = 0
 			else
 				hallucination -= 2
 
-
-		if(halloss > 100)
-			src << "<span class='notice'>You're in too much pain to keep going...</span>"
-			for(var/mob/O in oviewers(src, null))
-				O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
-			Paralyse(10)
-			setHalLoss(99)
-
 		if(paralysis)
-			AdjustParalysis(-1)
 			blinded = 1
 			stat = UNCONSCIOUS
-			if(halloss > 0)
-				adjustHalLoss(-3)
+
 		else if(sleeping)
 			speech_problem_flag = 1
-			handle_dreams()
-			adjustStaminaLoss(-10)
-			adjustHalLoss(-3)
-			if (mind)
-				//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of ether or similar.
-				if(player_logged)
-					sleeping = max(sleeping-1, 2)
-				else
-					sleeping = max(sleeping-1, 0)
+
 			blinded = 1
 			stat = UNCONSCIOUS
-			if( prob(2) && health && !hal_crit )
-				spawn(0)
-					emote("snore")
+
 			if(mind)
 				if(mind.vampire)
 					if(istype(loc, /obj/structure/closet/coffin))
 						adjustBruteLoss(-1)
 						adjustFireLoss(-1)
 						adjustToxLoss(-1)
+
 		else if(status_flags & FAKEDEATH)
 			blinded = 1
 			stat = UNCONSCIOUS
-		else if(resting)
-			if(halloss > 0)
-				adjustHalLoss(-3)
-		//CONSCIOUS
-		else
-			stat = CONSCIOUS
-			if(halloss > 0)
-				adjustHalLoss(-1)
 
-		if(embedded_flag && !(life_tick % 10))
+		if(embedded_flag && !(mob_master.current_cycle % 10))
 			var/list/E
 			E = get_visible_implants(0)
 			if(!E.len)
 				embedded_flag = 0
 
 
-		//Eyes
-		if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
-			blinded = 1
-		else if(eye_blind)			//blindness, heals slowly over time
-			eye_blind = max(eye_blind-1,0)
-			blinded = 1
-		else if(tinttotal >= TINT_BLIND)	//covering your eyes heals blurry eyes faster
-			eye_blurry = max(eye_blurry-3, 0)
-		//	blinded = 1						//now handled under /handle_regular_hud_updates()
-		else if(eye_blurry)	//blurry eyes heal slowly
-			eye_blurry = max(eye_blurry-1, 0)
+		//Vision //god knows why this is here
+		var/obj/item/organ/vision
+		if(species.vision_organ)
+			vision = internal_organs_by_name[species.vision_organ]
+
+		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+			eye_blind =  0
+			blinded =    0
+			eye_blurry = 0
+
+		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
+			eye_blind =  1
+			blinded =    1
+			eye_blurry = 1
+
+		else
+			//blindness
+			if(sdisabilities & BLIND) // Disabled-blind, doesn't get better on its own
+				blinded =    1
+
+			else if(eye_blind)		       // Blindness, heals slowly over time
+				eye_blind =  max(eye_blind-1,0)
+				blinded =    1
+
+			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+				eye_blurry = max(eye_blurry-3, 0)
+				blinded =    1
+
+			//blurry sight
+			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
+				eye_blurry = 1
+
+			if(eye_blurry)	           // Blurry eyes heal slowly
+				eye_blurry = max(eye_blurry-1, 0)
+
 
 		//Ears
 		if(sdisabilities & DEAF)	//disabled-deaf, doesn't get better on its own
 			ear_deaf = max(ear_deaf, 1)
+
 		else if(ear_deaf)			//deafness, heals slowly over time
-			ear_deaf = max(ear_deaf-1, 0)
+			ear_deaf = max(ear_deaf - 1, 0)
+
 		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			ear_damage = max(ear_damage-0.15, 0)
+			ear_damage = max(ear_damage - 0.15, 0)
 			ear_deaf = max(ear_deaf, 1)
+
 		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			ear_damage = max(ear_damage-0.05, 0)
+			ear_damage = max(ear_damage - 0.05, 0)
 
-		//Dizziness
-		if(dizziness)
-			var/client/C = client
-			var/pixel_x_diff = 0
-			var/pixel_y_diff = 0
-			var/temp
-			var/saved_dizz = dizziness
-			dizziness = max(dizziness-1, 0)
-			if(C)
-				var/oldsrc = src
-				var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
-				src = null
-				spawn(0)
-					if(C)
-						temp = amplitude * sin(0.008 * saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(0.008 * saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-						sleep(3)
-						if(C)
-							temp = amplitude * sin(0.008 * saved_dizz * world.time)
-							pixel_x_diff += temp
-							C.pixel_x += temp
-							temp = amplitude * cos(0.008 * saved_dizz * world.time)
-							pixel_y_diff += temp
-							C.pixel_y += temp
-						sleep(3)
-						if(C)
-							C.pixel_x -= pixel_x_diff
-							C.pixel_y -= pixel_y_diff
-				src = oldsrc
 
-		//Jitteryness
-		if(jitteriness)
-			do_jitter_animation(jitteriness)
-
-		//Flying
 		if(flying)
 			spawn()
 				animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
@@ -1043,346 +940,49 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 				if(flying)
 					animate(src, pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
 
-		//Other
-		handle_statuses()
-
 		// If you're dirty, your gloves will become dirty, too.
 		if(gloves && germ_level > gloves.germ_level && prob(10))
 			gloves.germ_level += 1
 
-		CheckStamina()
 
-	return 1
+	else //dead
+		blinded = 1
+		silent = 0
 
-/mob/living/carbon/human/proc/handle_regular_hud_updates()
-	if(hud_updateflag)
-		handle_hud_list()
 
-	if(!client)	return 0
-
-	if(hud_updateflag)
-		handle_hud_list()
-
-	update_action_buttons()
-
-	for(var/image/hud in client.images)
-		if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
-			client.images.Remove(hud)
-
-	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask,/* global_hud.nvg*/)
-
-	if(damageoverlay.overlays)
-		damageoverlay.overlays = list()
-
-	if(stat == UNCONSCIOUS)
-		//Critical damage passage overlay
-		if(health <= 0)
-			//var/image/I
-			switch(health)
-				if(-20 to -10)
-					damageoverlay.overlays += unconscious_overlays["1"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage1")
-				if(-30 to -20)
-					damageoverlay.overlays +=  unconscious_overlays["2"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage2")
-				if(-40 to -30)
-					damageoverlay.overlays +=  unconscious_overlays["3"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage3")
-				if(-50 to -40)
-					damageoverlay.overlays +=  unconscious_overlays["4"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage4")
-				if(-60 to -50)
-					damageoverlay.overlays +=  unconscious_overlays["5"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage5")
-				if(-70 to -60)
-					damageoverlay.overlays +=  unconscious_overlays["6"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage6")
-				if(-80 to -70)
-					damageoverlay.overlays +=  unconscious_overlays["7"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage7")
-				if(-90 to -80)
-					damageoverlay.overlays +=  unconscious_overlays["8"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage8")
-				if(-95 to -90)
-					damageoverlay.overlays +=  unconscious_overlays["9"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage9")
-				if(-INFINITY to -95)
-					damageoverlay.overlays +=  unconscious_overlays["10"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "passage10")
-			//damageoverlay.overlays += I
+/mob/living/carbon/human/handle_vision()
+	client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
+	if(machine)
+		if(!machine.check_eye(src))		reset_view(null)
 	else
-		//Oxygen damage overlay
-		if(oxyloss)
-			//var/image/I
-			switch(oxyloss)
-				if(10 to 20)
-					damageoverlay.overlays += oxyloss_overlays["1"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay1")
-				if(20 to 25)
-					damageoverlay.overlays += oxyloss_overlays["2"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay2")
-				if(25 to 30)
-					damageoverlay.overlays += oxyloss_overlays["3"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay3")
-				if(30 to 35)
-					damageoverlay.overlays += oxyloss_overlays["4"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay4")
-				if(35 to 40)
-					damageoverlay.overlays += oxyloss_overlays["5"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay5")
-				if(40 to 45)
-					damageoverlay.overlays += oxyloss_overlays["6"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay6")
-				if(45 to INFINITY)
-					damageoverlay.overlays += oxyloss_overlays["7"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay7")
-			//damageoverlay.overlays += I
+		var/isRemoteObserve = 0
+		if((REMOTE_VIEW in mutations) && remoteview_target)
+			isRemoteObserve = 1
 
-		//Fire and Brute damage overlay (BSSR)
-		var/hurtdamage = src.getBruteLoss() + src.getFireLoss() + damageoverlaytemp
-		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage)
-			//var/image/I
-			switch(hurtdamage)
-				if(10 to 25)
-					damageoverlay.overlays += brutefireloss_overlays["1"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay1")
-				if(25 to 40)
-					damageoverlay.overlays += brutefireloss_overlays["2"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay2")
-				if(40 to 55)
-					damageoverlay.overlays += brutefireloss_overlays["3"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay3")
-				if(55 to 70)
-					damageoverlay.overlays += brutefireloss_overlays["4"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4")
-				if(70 to 85)
-					damageoverlay.overlays += brutefireloss_overlays["5"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5")
-				if(85 to INFINITY)
-					damageoverlay.overlays += brutefireloss_overlays["6"]//image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6")
-			//damageoverlay.overlays += I
+			if(remoteview_target.stat != CONSCIOUS)
+				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				isRemoteObserve = 0
 
-	see_invisible = SEE_INVISIBLE_LIVING
-	if( stat == DEAD )
-		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
-		if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		if(healths)		healths.icon_state = "health7"	//DEAD healthmeter
-	else
-		sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+			if(PSY_RESIST in remoteview_target.mutations)
+				src << "<span class='alert'>Your mind is shut out!</span>"
+				isRemoteObserve = 0
 
-		if(mind && mind.vampire)
-			if((VAMP_VISION in mind.vampire.powers) && !(VAMP_FULL in mind.vampire.powers))
-				sight |= SEE_MOBS
-			if((VAMP_FULL in mind.vampire.powers))
-				sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-				see_in_dark = 8
-				if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-		if(XRAY in mutations)
-			sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			see_in_dark = 8
-			if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
+			// Not on the station or mining?
+			var/turf/temp_turf = get_turf(remoteview_target)
+			if(!temp_turf in config.contact_levels)
+				src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
+				isRemoteObserve = 0
 
-		if(seer==1)
-			var/obj/effect/rune/R = locate() in loc
-			if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
-				see_invisible = SEE_INVISIBLE_OBSERVER
-			else
-				see_invisible = SEE_INVISIBLE_LIVING
-				seer = 0
+		if(!isRemoteObserve && client && !client.adminobs)
+			remoteview_target = null
+			reset_view(null)
 
-		if(glasses || head)
-			if(glasses)
-				var/obj/item/clothing/glasses/G = glasses
-				if(istype(G))
-					see_in_dark = (G.darkness_view ? see_in_dark + G.darkness_view : species.darksight) // Otherwise we keep our darkness view with togglable nightvision.
-					if(G.vision_flags)		// MESONS
-						sight |= G.vision_flags
-						if(!druggy)
-							see_invisible = SEE_INVISIBLE_MINIMUM
-					if(!G.see_darkness)
-						see_invisible = SEE_INVISIBLE_MINIMUM
-	/* HUD shit goes here, as long as it doesn't modify sight flags */
-	// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
+	species.handle_vision(src)
 
-					switch(G.HUDType)
-						if(SECHUD)
-							process_sec_hud(src,1)
-						if(MEDHUD)
-							process_med_hud(src,1)
-						if(ANTAGHUD)
-							process_antag_hud(src)
+/mob/living/carbon/human/handle_hud_icons()
+	species.handle_hud_icons(src)
 
-			if(head)
-				var/obj/item/clothing/head/H = head
-				if(istype(H))
-					if(H.vision_flags)		// MESONS
-						sight |= H.vision_flags
-						if(!druggy)
-							see_invisible = SEE_INVISIBLE_MINIMUM
-					if(!H.see_darkness)
-						see_invisible = SEE_INVISIBLE_MINIMUM
-	/* HUD shit goes here, as long as it doesn't modify sight flags */
-	// The purpose of this is to stop xray and w/e from preventing you from using huds -- Love, Doohl
-
-					switch(H.HUDType)
-						if(SECHUD)
-							process_sec_hud(src,1)
-						if(MEDHUD)
-							process_med_hud(src,1)
-						if(ANTAGHUD)
-							process_antag_hud(src)
-
-
-
-
-		else if(!seer)
-			see_in_dark = species.darksight
-			see_invisible = SEE_INVISIBLE_LIVING
-
-		if(ticker && ticker.mode.name == "nations")
-			process_nations()
-
-		if(healths)
-			if (analgesic)
-				healths.icon_state = "health_health_numb"
-			else
-				switch(hal_screwyhud)
-					if(1)	healths.icon_state = "health6"
-					if(2)	healths.icon_state = "health7"
-					else
-						//switch(health - halloss)
-						switch(100 - ((species && species.flags & NO_PAIN) ? 0 : traumatic_shock) - staminaloss)
-							if(100 to INFINITY)		healths.icon_state = "health0"
-							if(80 to 100)			healths.icon_state = "health1"
-							if(60 to 80)			healths.icon_state = "health2"
-							if(40 to 60)			healths.icon_state = "health3"
-							if(20 to 40)			healths.icon_state = "health4"
-							if(0 to 20)				healths.icon_state = "health5"
-							else					healths.icon_state = "health6"
-
-		if(healthdoll)
-			healthdoll.overlays.Cut()
-			if(stat == DEAD)
-				healthdoll.icon_state = "healthdoll_DEAD"
-			else
-				healthdoll.icon_state = "healthdoll_OVERLAY"
-				for(var/obj/item/organ/external/O in organs)
-					var/damage = O.burn_dam + O.brute_dam
-					var/comparison = (O.max_damage/5)
-					var/icon_num = 0
-					if(damage)
-						icon_num = 1
-					if(damage > (comparison))
-						icon_num = 2
-					if(damage > (comparison*2))
-						icon_num = 3
-					if(damage > (comparison*3))
-						icon_num = 4
-					if(damage > (comparison*4))
-						icon_num = 5
-					if(icon_num)
-						healthdoll.overlays += image('icons/mob/screen_gen.dmi',"[O.limb_name][icon_num]")
-
-		if(nutrition_icon)
-			switch(nutrition)
-				if(450 to INFINITY)				nutrition_icon.icon_state = "nutrition0"
-				if(350 to 450)					nutrition_icon.icon_state = "nutrition1"
-				if(250 to 350)					nutrition_icon.icon_state = "nutrition2"
-				if(150 to 250)					nutrition_icon.icon_state = "nutrition3"
-				else							nutrition_icon.icon_state = "nutrition4"
-
-		if(pressure)
-			pressure.icon_state = "pressure[pressure_alert]"
-
-		if(pullin)
-			if(pulling)								pullin.icon_state = "pull1"
-			else									pullin.icon_state = "pull0"
-//			if(rest)	//Not used with new UI
-//				if(resting || lying || sleeping)		rest.icon_state = "rest1"
-//				else									rest.icon_state = "rest0"
-		if(toxin)
-			if(hal_screwyhud == 4 || toxins_alert)	toxin.icon_state = "tox1"
-			else									toxin.icon_state = "tox0"
-		if(oxygen)
-			if(hal_screwyhud == 3 || oxygen_alert)	oxygen.icon_state = "oxy1"
-			else									oxygen.icon_state = "oxy0"
-		if(fire)
-			if(fire_alert)							fire.icon_state = "fire[fire_alert]" //fire_alert is either 0 if no alert, 1 for cold and 2 for heat.
-			else									fire.icon_state = "fire0"
-
-		if(bodytemp)
-			if (!species)
-				switch(bodytemperature) //310.055 optimal body temp
-					if(370 to INFINITY)		bodytemp.icon_state = "temp4"
-					if(350 to 370)			bodytemp.icon_state = "temp3"
-					if(335 to 350)			bodytemp.icon_state = "temp2"
-					if(320 to 335)			bodytemp.icon_state = "temp1"
-					if(300 to 320)			bodytemp.icon_state = "temp0"
-					if(295 to 300)			bodytemp.icon_state = "temp-1"
-					if(280 to 295)			bodytemp.icon_state = "temp-2"
-					if(260 to 280)			bodytemp.icon_state = "temp-3"
-					else					bodytemp.icon_state = "temp-4"
-			else
-				var/temp_step
-				if (bodytemperature >= species.body_temperature)
-					temp_step = (species.heat_level_1 - species.body_temperature)/4
-
-					if (bodytemperature >= species.heat_level_1)
-						bodytemp.icon_state = "temp4"
-					else if (bodytemperature >= species.body_temperature + temp_step*3)
-						bodytemp.icon_state = "temp3"
-					else if (bodytemperature >= species.body_temperature + temp_step*2)
-						bodytemp.icon_state = "temp2"
-					else if (bodytemperature >= species.body_temperature + temp_step*1)
-						bodytemp.icon_state = "temp1"
-					else
-						bodytemp.icon_state = "temp0"
-
-				else if (bodytemperature < species.body_temperature)
-					temp_step = (species.body_temperature - species.cold_level_1)/4
-
-					if (bodytemperature <= species.cold_level_1)
-						bodytemp.icon_state = "temp-4"
-					else if (bodytemperature <= species.body_temperature - temp_step*3)
-						bodytemp.icon_state = "temp-3"
-					else if (bodytemperature <= species.body_temperature - temp_step*2)
-						bodytemp.icon_state = "temp-2"
-					else if (bodytemperature <= species.body_temperature - temp_step*1)
-						bodytemp.icon_state = "temp-1"
-					else
-						bodytemp.icon_state = "temp0"
-
-//	This checks how much the mob's eyewear impairs their vision
-		if(tinttotal >= TINT_IMPAIR)
-			if(tinted_weldhelh)
-				if(tinttotal >= TINT_BLIND)
-					blinded = 1								// You get the sudden urge to learn to play keyboard
-					client.screen += global_hud.darkMask
-				else
-					client.screen += global_hud.darkMask
-
-		if(blind)
-			if(blinded)		blind.layer = 18
-			else			blind.layer = 0
-
-		if(disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
-			if(glasses)					//to every /obj/item
-				var/obj/item/clothing/glasses/G = glasses
-				if(!G.prescription)
-					client.screen += global_hud.vimpaired
-			else
-				client.screen += global_hud.vimpaired
-
-		if(eye_blurry)			client.screen += global_hud.blurry
-		if(druggy)				client.screen += global_hud.druggy
-
-		if(machine)
-			if(!machine.check_eye(src))		reset_view(null)
-		else
-			var/isRemoteObserve = 0
-			if((REMOTE_VIEW in mutations) && remoteview_target)
-				isRemoteObserve = 1
-				// Is he unconscious or dead?
-				if(remoteview_target.stat!=CONSCIOUS)
-					src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
-					isRemoteObserve = 0
-
-				// Does he have psy resist?
-				if(PSY_RESIST in remoteview_target.mutations)
-					src << "<span class='alert'>Your mind is shut out!</span>"
-					isRemoteObserve = 0
-
-				// Not on the station or mining?
-				var/turf/temp_turf = get_turf(remoteview_target)
-				if((!(temp_turf.z in config.contact_levels)) || remoteview_target.stat!=CONSCIOUS)
-					src << "<span class='alert'>Your psy-connection grows too faint to maintain!</span>"
-					isRemoteObserve = 0
-			if(!isRemoteObserve && client && !client.adminobs)
-				remoteview_target = null
-				reset_view(null)
-	return 1
-
-/mob/living/carbon/human/proc/handle_random_events()
+/mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
 	if(!stat)
 		if (getToxLoss() >= 45 && nutrition > 20)
@@ -1427,7 +1027,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		for (var/ID in virus2)
 			var/datum/disease2/disease/V = virus2[ID]
 			V.cure(src)
-	if(life_tick % 3) //don't spam checks over all objects in view every tick.
+	if(mob_master.current_cycle % 3) //don't spam checks over all objects in view every tick.
 		for(var/obj/effect/decal/cleanable/O in view(1,src))
 			if(istype(O,/obj/effect/decal/cleanable/blood))
 				var/obj/effect/decal/cleanable/blood/B = O
@@ -1458,24 +1058,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			V.dead = 1
 	return
 
-/mob/living/carbon/human/proc/handle_stomach()
-	spawn(0)
-		for(var/mob/living/M in stomach_contents)
-			if(M.loc != src)
-				stomach_contents.Remove(M)
-				continue
-			if(isliving(M) && stat != 2)
-				if(M.stat == 2)
-					M.death(1)
-					stomach_contents.Remove(M)
-					qdel(M)
-					continue
-				if(mob_master.current_cycle%3==1)
-					if(!(M.status_flags & GODMODE))
-						M.adjustBruteLoss(5)
-					nutrition += 10
-
-/mob/living/carbon/human/proc/handle_changeling()
+/mob/living/carbon/human/handle_changeling()
 	if(mind && mind.changeling)
 		mind.changeling.regenerate()
 
@@ -1498,7 +1081,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("It hurts so much!", "You really need some painkillers..", "Dear god, the pain!")
 
 	if(shock_stage >= 30)
-		if(shock_stage == 30) emote("me",1,"is having trouble keeping their eyes open.")
+		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
 		eye_blurry = max(2, eye_blurry)
 		stuttering = max(stuttering, 5)
 
@@ -1506,7 +1089,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 
 	if(shock_stage >=60)
-		if(shock_stage == 60) emote("me",1,"'s body becomes limp.")
+		if(shock_stage == 60) custom_emote(1,"falls limp.")
 		if (prob(2))
 			src << "<font color='red'><b>"+pick("The pain is excrutiating!", "Please, just end the pain!", "Your whole body is going numb!")
 			Weaken(20)
@@ -1522,7 +1105,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 			Paralyse(5)
 
 	if(shock_stage == 150)
-		emote("me",1,"can no longer stand, collapsing!")
+		custom_emote(1,"can no longer stand, collapsing!")
 		Weaken(20)
 
 	if(shock_stage >= 150)
@@ -1531,7 +1114,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 /mob/living/carbon/human/proc/handle_pulse()
 
-	if(life_tick % 5) return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
+	if(mob_master.current_cycle % 5) return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
 	if(species && species.flags & NO_BLOOD) return PULSE_NONE //No blood, no pulse.
 
@@ -1575,7 +1158,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(species.flags & IS_SYNTHETIC)
+	if(isSynthetic())
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
@@ -1660,185 +1243,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 */
 
 
-/mob/living/carbon/human/proc/handle_hud_list()
-
-	if(hud_updateflag & 1 << HEALTH_HUD)
-		var/image/holder = hud_list[HEALTH_HUD]
-		if(stat == 2)
-			holder.icon_state = "hudhealth-100" 	// X_X
-		else
-			holder.icon_state = "hud[RoundHealth(health)]"
-
-		hud_list[HEALTH_HUD] = holder
-
-
-	if(hud_updateflag & 1 << STATUS_HUD)
-		var/foundVirus = 0
-		for (var/ID in virus2)
-			if (ID in virusDB)
-				foundVirus = 1
-				break
-
-		var/image/holder = hud_list[STATUS_HUD]
-		var/image/holder2 = hud_list[STATUS_HUD_OOC]
-		if(stat == 2)
-			holder.icon_state = "huddead"
-			holder2.icon_state = "huddead"
-		else if(status_flags & XENO_HOST)
-			holder.icon_state = "hudxeno"
-			holder2.icon_state = "hudxeno"
-		else if(foundVirus)
-			holder.icon_state = "hudill"
-		else if(has_brain_worms())
-			var/mob/living/simple_animal/borer/B = has_brain_worms()
-			if(B.controlling)
-				holder.icon_state = "hudbrainworm"
-			else
-				holder.icon_state = "hudhealthy"
-			holder2.icon_state = "hudbrainworm"
-		else
-			holder.icon_state = "hudhealthy"
-			if(virus2.len)
-				holder2.icon_state = "hudill"
-			else
-				holder2.icon_state = "hudhealthy"
-
-		hud_list[STATUS_HUD] = holder
-		hud_list[STATUS_HUD_OOC] = holder2
-
-
-	if(hud_updateflag & 1 << ID_HUD)
-		var/image/holder = hud_list[ID_HUD]
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				holder.icon_state = "hud[ckey(I.GetJobName())]"
-			else
-				holder.icon_state = "hudunknown"
-		else
-			holder.icon_state = "hudunknown"
-
-
-		hud_list[ID_HUD] = holder
-
-
-	if(hud_updateflag & 1 << WANTED_HUD)
-		var/image/holder = hud_list[WANTED_HUD]
-		holder.icon_state = "hudblank"
-		var/perpname = name
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
-		for(var/datum/data/record/E in data_core.general)
-			if(E.fields["name"] == perpname)
-				for (var/datum/data/record/R in data_core.security)
-					if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "*Arrest*"))
-						holder.icon_state = "hudwanted"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Incarcerated"))
-						holder.icon_state = "hudprisoner"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Parolled"))
-						holder.icon_state = "hudparolled"
-						break
-					else if((R.fields["id"] == E.fields["id"]) && (R.fields["criminal"] == "Released"))
-						holder.icon_state = "hudreleased"
-						break
-		hud_list[WANTED_HUD] = holder
-
-
-	if(hud_updateflag & 1 << IMPLOYAL_HUD || hud_updateflag & 1 << IMPCHEM_HUD || hud_updateflag & 1 << IMPTRACK_HUD)
-		var/image/holder1 = hud_list[IMPTRACK_HUD]
-		var/image/holder2 = hud_list[IMPLOYAL_HUD]
-		var/image/holder3 = hud_list[IMPCHEM_HUD]
-
-		holder1.icon_state = "hudblank"
-		holder2.icon_state = "hudblank"
-		holder3.icon_state = "hudblank"
-
-		for(var/obj/item/weapon/implant/I in src)
-			if(I.implanted)
-				if(istype(I,/obj/item/weapon/implant/tracking))
-					holder1.icon_state = "hud_imp_tracking"
-				if(istype(I,/obj/item/weapon/implant/loyalty))
-					holder2.icon_state = "hud_imp_loyal"
-				if(istype(I,/obj/item/weapon/implant/chem))
-					holder3.icon_state = "hud_imp_chem"
-
-		hud_list[IMPTRACK_HUD] = holder1
-		hud_list[IMPLOYAL_HUD] = holder2
-		hud_list[IMPCHEM_HUD] = holder3
-
-	if(hud_updateflag & 1 << SPECIALROLE_HUD)
-		var/image/holder = hud_list[SPECIALROLE_HUD]
-		holder.icon_state = "hudblank"
-
-		if(mind)
-
-			switch(mind.special_role)
-				if("traitor","Syndicate")
-					holder.icon_state = "hudsyndicate"
-				if("Revolutionary")
-					holder.icon_state = "hudrevolutionary"
-				if("Head Revolutionary")
-					holder.icon_state = "hudheadrevolutionary"
-				if("Cultist")
-					holder.icon_state = "hudcultist"
-				if("Changeling")
-					holder.icon_state = "hudchangeling"
-				if("Wizard","Fake Wizard")
-					holder.icon_state = "hudwizard"
-				if("Death Commando")
-					holder.icon_state = "huddeathsquad"
-				if("Ninja")
-					holder.icon_state = "hudninja"
-				if("Vampire") // TODO: Check this
-					holder.icon_state = "hudvampire"
-				if("VampThrall")
-					holder.icon_state = "hudvampthrall"
-				if("head_loyalist")
-					holder.icon_state = "loyalist"
-				if("loyalist")
-					holder.icon_state = "loyalist"
-				if("head_mutineer")
-					holder.icon_state = "mutineer"
-				if("mutineer")
-					holder.icon_state = "mutineer"
-				if("Shadowling")
-					holder.icon_state = "hudshadowling"
-				if("Shadowling Thrall")
-					holder.icon_state = "hudshadowlingthrall"
-
-			hud_list[SPECIALROLE_HUD] = holder
-
-	if(hud_updateflag & 1 << NATIONS_HUD)
-		var/image/holder = hud_list[NATIONS_HUD]
-		holder.icon_state = "hudblank"
-
-		if(mind && mind.nation)
-			switch(mind.nation.name)
-				if("Atmosia")
-					holder.icon_state = "hudatmosia"
-				if("Brigston")
-					holder.icon_state = "hudbrigston"
-				if("Cargonia")
-					holder.icon_state = "hudcargonia"
-				if("People's Republic of Commandzakstan")
-					holder.icon_state = "hudcommand"
-				if("Medistan")
-					holder.icon_state = "hudmedistan"
-				if("Scientopia")
-					holder.icon_state = "hudscientopia"
-
-			hud_list[NATIONS_HUD] = holder
-	hud_updateflag = 0
-
-/mob/living/carbon/human/proc/process_nations()
-	var/client/C = client
-	for(var/mob/living/carbon/human/H in view(src, 14))
-		C.images += H.hud_list[NATIONS_HUD]
-
 /mob/living/carbon/human/handle_silent()
 	if(..())
 		speech_problem_flag = 1
@@ -1869,6 +1273,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		adjustBrainLoss(rand(4,10))
 		Paralyse(2)
 	return
+
 
 
 // Need this in species.

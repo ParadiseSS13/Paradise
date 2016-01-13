@@ -2,9 +2,7 @@
 
 /datum/event/spider_infestation
 	announceWhen	= 400
-
 	var/spawncount = 1
-
 
 /datum/event/spider_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
@@ -18,8 +16,8 @@
 
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
-		if((temp_vent.loc.z in config.station_levels) && !temp_vent.welded && temp_vent.network)
-			if(temp_vent.network.normal_members.len > 50)
+		if((temp_vent.loc.z in config.station_levels) && !temp_vent.welded)
+			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 
 	while((spawncount >= 1) && vents.len)

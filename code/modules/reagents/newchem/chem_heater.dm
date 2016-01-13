@@ -14,9 +14,17 @@
 /obj/machinery/chem_heater/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/chem_heater(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/weapon/circuitboard/chem_heater(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	RefreshParts()
+	
+/obj/machinery/chem_heater/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/chem_heater(null)
+	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/chem_heater/RefreshParts()
@@ -45,7 +53,7 @@
 
 /obj/machinery/chem_heater/proc/eject_beaker()
 	if(beaker)
-		beaker.loc = get_turf(src)
+		beaker.forceMove(get_turf(src))
 		beaker.reagents.handle_reactions()
 		beaker = null
 		icon_state = "mixer0b"
@@ -71,7 +79,7 @@
 
 		if(user.drop_item())
 			beaker = I
-			I.loc = src
+			I.forceMove(src)
 			user << "<span class='notice'>You add the beaker to the machine!</span>"
 			icon_state = "mixer1b"
 			nanomanager.update_uis(src)

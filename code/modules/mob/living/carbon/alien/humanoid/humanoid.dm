@@ -2,16 +2,17 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn
-	var/obj/item/clothing/head/head = null			//
 	var/obj/item/weapon/r_store = null
 	var/obj/item/weapon/l_store = null
 	var/caste = ""
+	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
 	update_icon = 1
 	var/leap_on_click = 0
+	var/custom_pixel_x_offset = 0 //for admin fuckery.
+	var/custom_pixel_y_offset = 0
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/New()
@@ -110,21 +111,6 @@
 
 	updatehealth()
 
-/mob/living/carbon/alien/humanoid/blob_act()
-	if (stat == 2)
-		return
-	var/shielded = 0
-	var/damage = null
-	if (stat != 2)
-		damage = rand(30,40)
-
-	if(shielded)
-		damage /= 4
-
-	show_message("<span class='userdanger'>The blob attacks!</span>")
-	adjustFireLoss(damage)
-	return
-
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M as mob)
 	if (!ticker)
 		M << "You cannot attack people before the game has started."
@@ -171,7 +157,7 @@
 					stuttering = power
 				Stun(power)
 
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 
@@ -185,7 +171,7 @@
 
 /mob/living/carbon/alien/humanoid/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
-		M.emote("[M.friendly] [src]")
+		M.custom_emote(1, "[M.friendly] [src]")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -210,18 +196,18 @@
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			help_shake_act(M)
 
-		if ("grab")
+		if (I_GRAB)
 			grabbedby(M)
 
-		if ("harm")
+		if (I_HARM)
 			M.do_attack_animation(src)
 			var/damage = rand(1, 9)
 			if (prob(90))
 				if (HULK in M.mutations)//HULK SMASH
-					damage += 14
+					damage = 15
 					spawn(0)
 						Paralyse(1)
 						step_away(src,M,15)
@@ -241,7 +227,7 @@
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
-		if ("disarm")
+		if (I_DISARM)
 			if (!lying)
 				if (prob(5))//Very small chance to push an alien down.
 					Paralyse(2)
@@ -277,7 +263,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -303,7 +289,7 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/humanoid/attack_larva(mob/living/carbon/alien/larva/L as mob)
 
 	switch(L.a_intent)
-		if("help")
+		if(I_HELP)
 			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
 
 
@@ -329,7 +315,6 @@ In all, this is a lot like the monkey code. /N
 	return 0
 
 
-/mob/living/carbon/alien/humanoid/var/co2overloadtime = null
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
 
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
@@ -352,3 +337,22 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/humanoid/canBeHandcuffed()
 	return 1
+
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+	if(leaping)
+		return -32
+	else if(custom_pixel_y_offset)
+		return custom_pixel_y_offset
+	else
+		return initial(pixel_y)
+
+/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
+	if(leaping)
+		return -32
+	else if(custom_pixel_x_offset)
+		return custom_pixel_x_offset
+	else
+		return initial(pixel_x)
+
+/mob/living/carbon/alien/humanoid/get_permeability_protection()
+	return 0.8

@@ -44,17 +44,59 @@
 
 /obj/item/projectile/temp
 	name = "freeze beam"
-	icon_state = "ice_2"
+	icon_state = "temp_4"
 	damage = 0
 	damage_type = BURN
 	nodamage = 1
 	flag = "energy"
 	var/temperature = 300
+	var/obj/item/weapon/gun/energy/temperature/T = null
+
+	OnFired()
+		T = shot_from
+		temperature = T.temperature
+		switch(temperature)
+			if(501 to INFINITY)
+				name = "searing beam"	//if emagged
+				icon_state = "temp_8"
+			if(400 to 500)
+				name = "burning beam"	//temp at which mobs start taking HEAT_DAMAGE_LEVEL_2
+				icon_state = "temp_7"
+			if(360 to 400)
+				name = "hot beam"		//temp at which mobs start taking HEAT_DAMAGE_LEVEL_1
+				icon_state = "temp_6"
+			if(335 to 360)
+				name = "warm beam"		//temp at which players get notified of their high body temp
+				icon_state = "temp_5"
+			if(295 to 335)
+				name = "ambient beam"
+				icon_state = "temp_4"
+			if(260 to 295)
+				name = "cool beam"		//temp at which players get notified of their low body temp
+				icon_state = "temp_3"
+			if(200 to 260)
+				name = "cold beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_1
+				icon_state = "temp_2"
+			if(120 to 260)
+				name = "ice beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_2
+				icon_state = "temp_1"
+			if(-INFINITY to 120)
+				name = "freeze beam"	//temp at which mobs start taking COLD_DAMAGE_LEVEL_3
+				icon_state = "temp_0"
+			else
+				name = "temperature beam"//failsafe
+				icon_state = "temp_4"
+
 
 	on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
 		if(istype(target, /mob/living))
-			var/mob/M = target
+			var/mob/living/M = target
 			M.bodytemperature = temperature
+			if(temperature > 500)//emagged
+				M.adjust_fire_stacks(0.5)
+				M.on_fire = 1
+				M.update_icon = 1
+				playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
 		return 1
 
 /obj/item/projectile/meteor
@@ -161,7 +203,7 @@
 	icon_state = "snappop"
 
 	Bump(atom/A as mob|obj|turf|area)
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		new /obj/effect/decal/cleanable/ash(src.loc)
@@ -172,10 +214,20 @@
 /obj/item/projectile/kinetic
 	name = "kinetic force"
 	icon_state = null
-	damage = 15
+	damage = 10
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
+	var/splash = 0
+
+/obj/item/projectile/kinetic/super
+	damage = 11
+	range = 4
+
+/obj/item/projectile/kinetic/hyper
+	damage = 12
+	range = 5
+	splash = 1
 
 obj/item/projectile/kinetic/New()
 	var/turf/proj_turf = get_turf(src)
@@ -185,7 +237,7 @@ obj/item/projectile/kinetic/New()
 	var/pressure = environment.return_pressure()
 	if(pressure < 50)
 		name = "full strength kinetic force"
-		damage = 30
+		damage *= 4
 	..()
 
 /obj/item/projectile/kinetic/Range()
@@ -195,12 +247,17 @@ obj/item/projectile/kinetic/New()
 		qdel(src)
 
 /obj/item/projectile/kinetic/on_hit(atom/target)
+	. = ..()
 	var/turf/target_turf= get_turf(target)
 	if(istype(target_turf, /turf/simulated/mineral))
 		var/turf/simulated/mineral/M = target_turf
-		M.GetDrilled()
+		M.gets_drilled(firer)
 	new /obj/item/effect/kinetic_blast(target_turf)
-	..()
+	if(src.splash)
+		for(var/turf/T in range(splash, target_turf))
+			if(istype(T, /turf/simulated/mineral))
+				var/turf/simulated/mineral/M = T
+				M.gets_drilled(firer)
 
 /obj/item/effect/kinetic_blast
 	name = "kinetic explosion"
@@ -227,15 +284,106 @@ obj/item/projectile/kinetic/New()
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
+	var/obj/item/weapon/gun/energy/telegun/T = null
+	var/teleport_target = null
+
+	OnFired()
+		T = shot_from
+		teleport_target = T.teleport_target
 
 /obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
 	if(isliving(target))
-		var/obj/item/device/radio/beacon/teletarget = null
-		for(var/obj/machinery/computer/teleporter/com in machines)
-			if(com.target)
-				teletarget = com.target
-		if(teletarget)
-			do_teleport(target, teletarget, 0)//teleport what's in the tile to the beacon
+		if(teleport_target)
+			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
 
+/obj/item/projectile/plasma
+	name = "plasma blast"
+	icon_state = "plasmacutter"
+	damage_type = BRUTE
+	damage = 5
+	range = 3
+
+/obj/item/projectile/plasma/New()
+	var/turf/proj_turf = get_turf(src)
+	if(!istype(proj_turf, /turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	if(environment)
+		var/pressure = environment.return_pressure()
+		if(pressure < 30)
+			name = "full strength plasma blast"
+			damage *= 3
+	..()
+
+/obj/item/projectile/plasma/on_hit(atom/target)
+	. = ..()
+	if(istype(target, /turf/simulated/mineral))
+		var/turf/simulated/mineral/M = target
+		M.gets_drilled(firer)
+		range = max(range - 1, 1)
+		return -1
+
+/obj/item/projectile/plasma/adv
+	range = 5
+
+/obj/item/projectile/plasma/adv/mech
+	damage = 10
+	range = 6
+
+/obj/item/projectile/beam/wormhole
+	name = "bluespace beam"
+	icon_state = "spark"
+	hitsound = "sparks"
+	damage = 3
+	var/obj/item/weapon/gun/energy/wormhole_projector/gun = null
+	color = "#33CCFF"
+
+/obj/item/projectile/beam/wormhole/orange
+	name = "orange bluespace beam"
+	color = "#FF6600"
+
+/obj/item/projectile/beam/wormhole/OnFired()
+	gun = shot_from
+
+/obj/item/projectile/beam/wormhole/on_hit(atom/target)
+	if(ismob(target))
+		var/turf/portal_destination = pick(orange(6, src))
+		do_teleport(target, portal_destination)
+		return ..()
+	if(!gun)
+		qdel(src)
+	gun.create_portal(src)
+
+/obj/item/projectile/snowball
+	name = "snowball"
+	icon_state = "snowball"
+	hitsound = 'sound/items/dodgeball.ogg'
+	damage = 3
+	damage_type = BURN
+
+/obj/item/projectile/snowball/on_hit(atom/target)	//chilling
+	if(istype(target, /mob/living))
+		var/mob/living/M = target
+		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
+		M.ExtinguishMob()	//bright side, they counter being on fire!
+
+/obj/item/projectile/ornament
+	name = "ornament"
+	icon_state = "ornament-1"
+	hitsound = 'sound/effects/Glasshit.ogg'
+	damage = 5
+	damage_type = BRUTE
+
+/obj/item/projectile/ornament/New()
+	icon_state = pick("ornament-1", "ornament-2")
+	..()
+
+/obj/item/projectile/ornament/on_hit(atom/target)	//knockback
+	if(istype(target, /turf))
+		return 0
+	var/obj/T = target
+	var/throwdir = get_dir(firer,target)
+	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
+	return 1

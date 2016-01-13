@@ -212,7 +212,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/special/diamond_drill
 	name = "diamond drill"
-	typepath = /obj/item/weapon/pickaxe/diamonddrill
+	typepath = /obj/item/weapon/pickaxe/drill/diamonddrill
 
 /datum/theft_objective/special/boh
 	name = "bag of holding"

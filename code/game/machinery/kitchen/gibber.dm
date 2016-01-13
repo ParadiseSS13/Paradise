@@ -40,6 +40,14 @@
 		var/turf/T = get_step(src, acceptdir)
 		if(istype(T))
 			lturf = T
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/gibber(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/gibber/RefreshParts() //If you want to make the machine upgradable, this is where you would change any vars basd on its stock parts.
+	return
 
 /obj/machinery/gibber/autogibber/process()
 	if(!lturf || occupant || locked || dirty || operating)
@@ -131,7 +139,7 @@
 			if(input_obj)
 				if(isturf(input_obj.loc))
 					input_plate = input_obj.loc
-					del(input_obj)
+					qdel(input_obj)
 					break
 
 		if(!input_plate)
@@ -194,17 +202,26 @@
 	else
 		src.startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/weapon/grab/G as obj, mob/user as mob, params)
-	if(!istype(G))
-		return ..()
-
-	if(G.state < 2)
-		user << "<span class='danger'>You need a better grip to do that!</span>"
+/obj/machinery/gibber/attackby(obj/item/P as obj, mob/user as mob, params)
+	if(istype(P, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = P
+		if(G.state < 2)
+			user << "<span class='danger'>You need a better grip to do that!</span>"
+			return
+		move_into_gibber(user,G.affecting)
+		qdel(G)
 		return
 
-	move_into_gibber(user,G.affecting)
+	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
+		return
 
-	qdel(G)
+	if(exchange_parts(user, P))
+		return
+
+	if(default_unfasten_wrench(user, P))
+		return
+
+	default_deconstruction_crowbar(P)
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
 	if(usr.stat || (!ishuman(user)) || user.restrained() || user.weakened || user.stunned || user.paralysis || user.resting)
@@ -239,7 +256,7 @@
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the gibber!</span>")
 	src.add_fingerprint(user)
-	if(do_after(user, 30) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the gibber!</span>")
 
@@ -339,7 +356,7 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[occupant] ([occupant.ckey]) was gibbed by an autogibber (\the [src]) at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)")
 
 	if(src.operating)
 		return
@@ -374,11 +391,11 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		src.occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>[user]/[user.ckey]</b>" //One shall not simply gib a mob unnoticed!
-		user.attack_log += "\[[time_stamp()]\] Gibbed <b>[src.occupant]/[src.occupant.ckey]</b>"
+		src.occupant.attack_log += "\[[time_stamp()]\] Was gibbed by [key_name(user)]" //One shall not simply gib a mob unnoticed!
+		user.attack_log += "\[[time_stamp()]\] Gibbed [key_name(occupant)]"
 
 		if(src.occupant.ckey)
-			msg_admin_attack("[user.name] ([user.ckey])[isAntag(user) ? "(ANTAG)" : ""] gibbed [src.occupant] ([src.occupant.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
 
 		if(!iscarbon(user))
 			src.occupant.LAssailant = null

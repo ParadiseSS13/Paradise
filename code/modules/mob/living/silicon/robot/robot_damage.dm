@@ -3,8 +3,15 @@
 		health = maxHealth
 		stat = CONSCIOUS
 		return
-	health = maxHealth - (getBruteLoss() + getFireLoss())
+	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
+	if (stat == DEAD && health > 0)
+		update_revive()
+		var/mob/dead/observer/ghost = get_ghost()
+		if(ghost)
+			ghost << "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)"
+			ghost << sound('sound/effects/genetics.ogg')
 	return
+
 
 /mob/living/silicon/robot/getBruteLoss()
 	var/amount = 0
@@ -67,8 +74,14 @@
 		return
 
 	 //Combat shielding absorbs a percentage of damage directly into the cell.
-	if(module_active && istype(module_active,/obj/item/borg/combat/shield))
-		var/obj/item/borg/combat/shield/shield = module_active
+	var/obj/item/borg/combat/shield/shield
+	if(module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
+		shield = module_state_1
+	else if(module_state_2 && istype(module_state_2,/obj/item/borg/combat/shield))
+		shield = module_state_2
+	else if(module_state_3 && istype(module_state_3,/obj/item/borg/combat/shield))
+		shield = module_state_3
+	if(shield)
 		//Shields absorb a certain percentage of damage based on their power setting.
 		var/absorb_brute = brute*shield.shield_level
 		var/absorb_burn = burn*shield.shield_level
@@ -112,8 +125,14 @@
 	var/list/datum/robot_component/parts = get_damageable_components()
 
 	 //Combat shielding absorbs a percentage of damage directly into the cell.
-	if(module_active && istype(module_active,/obj/item/borg/combat/shield))
-		var/obj/item/borg/combat/shield/shield = module_active
+	var/obj/item/borg/combat/shield/shield
+	if(module_state_1 && istype(module_state_1,/obj/item/borg/combat/shield))
+		shield = module_state_1
+	else if(module_state_2 && istype(module_state_2,/obj/item/borg/combat/shield))
+		shield = module_state_2
+	else if(module_state_3 && istype(module_state_3,/obj/item/borg/combat/shield))
+		shield = module_state_3
+	if(shield)
 		//Shields absorb a certain percentage of damage based on their power setting.
 		var/absorb_brute = brute*shield.shield_level
 		var/absorb_burn = burn*shield.shield_level

@@ -84,7 +84,7 @@
 	if(src.coffin == 1)
 		var/obj/structure/closet/coffin/sarcophagus/sarc = locate(/obj/structure/closet/coffin/sarcophagus) in loc
 		if(sarc) M.loc = sarc
-	del(src)
+	qdel(src)
 
 
 

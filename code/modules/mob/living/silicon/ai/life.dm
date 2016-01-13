@@ -1,188 +1,153 @@
 /mob/living/silicon/ai/Life()
-	if (src.stat == 2)
+	//doesn't call parent because it's a horrible mess
+	if(stat == DEAD)
 		return
-	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
-		//Being dead doesn't mean your temperature never changes
-		var/turf/T = get_turf(src)
 
-		if (src.stat!=0)
-			src.cameraFollow = null
-			src.reset_view(null)
-			src.unset_machine()
+	var/turf/T = get_turf(src)
+	if(stat != CONSCIOUS) //ai's fucked
+		cameraFollow = null
+		reset_view(null)
+		unset_machine()
 
-		src.updatehealth()
+	updatehealth()
+	update_gravity(mob_has_gravity())
 
-		if (src.malfhack)
-			if (src.malfhack.aidisabled)
-				src << "\red ERROR: APC access disabled, hack attempt canceled."
-				src.malfhacking = 0
-				src.malfhack = null
+	if (health <= config.health_threshold_dead)
+		death()
+		return 0
 
+	if(malfhack)
+		if(malfhack.aidisabled)
+			src << "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>"
+			malfhacking = 0
+			malfhack = null
 
-		if (src.health <= config.health_threshold_dead)
-			death()
-			return
+	if(aiRestorePowerRoutine)
+		adjustOxyLoss(1)
+	else
+		adjustOxyLoss(-1)
 
-		if (src.machine)
-			if (!( src.machine.check_eye(src) ))
-				src.reset_view(null)
+	handle_stunned()
 
-		// Handle power damage (oxy)
-		if(src:aiRestorePowerRoutine != 0)
-			// Lost power
-			adjustOxyLoss(1)
-		else
-			// Gain Power
-			adjustOxyLoss(-1)
+	var/is_blind = 0 //THIS WAS JUST FUCKING 'blind' WHICH CONFLICTED WITH A NORMAL VARIABLE
+	var/area/my_area = get_area(src)
+	if(istype(my_area))
+		if(!my_area.power_equip && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
+			is_blind = 1 //HOW THE FUCK DID THAT EVEN COMPILE JESUS CHRIST
 
-		// Handle EMP-stun
-		handle_stunned()
+	if(!is_blind)
+		sight |= SEE_TURFS
+		sight |= SEE_MOBS
+		sight |= SEE_OBJS
 
-		//stage = 1
-		//if (istype(src, /mob/living/silicon/ai)) // Are we not sure what we are?
-		var/blind = 0
-		//stage = 2
-		var/area/loc = null
-		if (istype(T, /turf))
-			//stage = 3
-			loc = T.loc
-			if (istype(loc, /area))
-				//stage = 4
-				if (!loc.power_equip && !istype(src.loc,/obj/item))
-					//stage = 5
-					blind = 1
+		see_in_dark = 8
+		see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-		if (!blind)	//lol? if(!blind)	#if(src.blind.layer)    <--something here is clearly wrong :P
-					//I'll get back to this when I find out  how this is -supposed- to work ~Carn //removed this shit since it was confusing as all hell --39kk9t
-			//stage = 4.5
-			src.sight |= SEE_TURFS
-			src.sight |= SEE_MOBS
-			src.sight |= SEE_OBJS
-			src.see_in_dark = 8
-			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		if(see_override)
+			see_invisible = see_override
+
+		if(aiRestorePowerRoutine == 2)
+			src << "Alert cancelled. Power has been restored without our assistance."
+			aiRestorePowerRoutine = 0
+			blind.layer = 0
+		else if(aiRestorePowerRoutine == 3)
+			src << "Alert cancelled. Power has been restored."
+			aiRestorePowerRoutine = 0
+			blind.layer = 0
 
 
-			//Congratulations!  You've found a way for AI's to run without using power!
-			//Todo:  Without snowflaking up master_controller procs find a way to make AI use_power but only when APC's clear the area usage the tick prior
-			//       since mobs are in master_controller before machinery.  We also have to do it in a manner where we don't reset the entire area's need to update
-			//	 the power usage.
-			//
-			//	 We can probably create a new machine that resides inside of the AI contents that uses power using the idle_usage of 1000 and nothing else and
-			//       be fine.
-/*
-			var/area/home = get_area(src)
-			if(!home)	return//something to do with malf fucking things up I guess. <-- aisat is gone. is this still necessary? ~Carn
-			if(home.powered(EQUIP))
-				home.use_power(1000, EQUIP)
-*/
+	else
 
-			if (src:aiRestorePowerRoutine==2)
-				src << "Alert cancelled. Power has been restored without our assistance."
-				src:aiRestorePowerRoutine = 0
-				src.blind.layer = 0
-				return
-			else if (src:aiRestorePowerRoutine==3)
-				src << "Alert cancelled. Power has been restored."
-				src:aiRestorePowerRoutine = 0
-				src.blind.layer = 0
-				return
-		else
+		blind.screen_loc = "1,1 to 15,15"
+		if(blind.layer != 18)
+			blind.layer = 18
+		sight &= ~SEE_TURFS
+		sight &= ~SEE_MOBS
+		sight &= ~SEE_OBJS
 
-			//stage = 6
+		see_in_dark = 0
+		see_invisible = SEE_INVISIBLE_LIVING
 
-			var/area/current_area = get_area(src)
+		if(((!my_area.power_equip) || istype(T, /turf/space)) && !is_type_in_list(loc, list(/obj/item, /obj/mecha)))
+			if(!aiRestorePowerRoutine)
+				aiRestorePowerRoutine = 1
 
-			src.blind.screen_loc = "1,1 to 15,15"
-			if (src.blind.layer!=18)
-				src.blind.layer = 18
-			src.sight = src.sight&~SEE_TURFS
-			src.sight = src.sight&~SEE_MOBS
-			src.sight = src.sight&~SEE_OBJS
-			src.see_in_dark = 0
-			src.see_invisible = SEE_INVISIBLE_LIVING
+				src << "<span class='danger'>You have lost power!</span>"
 
-			if (((!loc.power_equip) || istype(T, /turf/space)) && !istype(src.loc,/obj/item))
-				if (src:aiRestorePowerRoutine==0)
-					src:aiRestorePowerRoutine = 1
+				if(!is_special_character(src))
+					set_zeroth_law("")
 
-					src << "You've lost power!"
-//							world << "DEBUG CODE TIME! [loc] is the area the AI is sucking power from"
-					if (!is_special_character(src))
-						src.set_zeroth_law("")
-					//src.clear_supplied_laws() // Don't reset our laws.
-					//var/time = time2text(world.realtime,"hh:mm:ss")
-					//lawchanges.Add("[time] <b>:</b> [src.name]'s noncore laws have been reset due to power failure")
-					spawn(20)
-						src << "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection."
-						sleep(50)
-						if (loc.power_equip)
+				spawn(20)
+					src << "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection."
+					sleep(50)
+					my_area = get_area(src)
+					T = get_turf(src)
+					if(my_area && my_area.power_equip && !istype(T, /turf/space))
+						src << "Alert cancelled. Power has been restored without our assistance."
+						aiRestorePowerRoutine = 0
+						blind.layer = 0
+						return
+					src << "Fault confirmed: missing external power. Shutting down main control system to save power."
+					sleep(20)
+					src << "Emergency control system online. Verifying connection to power network."
+					sleep(50)
+					T = get_turf(src)
+					if(istype(T, /turf/space))
+						src << "Unable to verify! No power connection detected!"
+						aiRestorePowerRoutine = 2
+						return
+					src << "Connection verified. Searching for APC in power network."
+					sleep(50)
+
+					my_area = get_area(src)
+					T = get_turf(src)
+
+					var/obj/machinery/power/apc/theAPC = null
+
+					var/PRP
+					for(PRP = 1, PRP <= 4, PRP++)
+						for(var/obj/machinery/power/apc/APC in my_area)
+							if (!(APC.stat & BROKEN))
+								theAPC = APC
+								break
+
+						if(!theAPC)
+							switch(PRP)
+								if(1) src << "Unable to locate APC!"
+								else src << "Lost connection with the APC!"
+							aiRestorePowerRoutine = 2
+							return
+
+						if(my_area.power_equip)
 							if (!istype(T, /turf/space))
 								src << "Alert cancelled. Power has been restored without our assistance."
-								src:aiRestorePowerRoutine = 0
-								src.blind.layer = 0
+								aiRestorePowerRoutine = 0
+								blind.layer = 0
 								return
-						src << "Fault confirmed: missing external power. Shutting down main control system to save power."
-						sleep(20)
-						src << "Emergency control system online. Verifying connection to power network."
-						sleep(50)
-						if (istype(T, /turf/space))
-							src << "Unable to verify! No power connection detected!"
-							src:aiRestorePowerRoutine = 2
-							return
-						src << "Connection verified. Searching for APC in power network."
-						sleep(50)
-						var/obj/machinery/power/apc/theAPC = null
-/*
-						for (var/something in loc)
-							if (istype(something, /obj/machinery/power/apc))
-								if (!(something:stat & BROKEN))
-									theAPC = something
-									break
-*/
-						var/PRP
-						for (PRP=1, PRP<=4, PRP++)
-							for (var/obj/machinery/power/apc/APC in current_area)
-								if (!(APC.stat & BROKEN))
-									theAPC = APC
-									break
 
-							if (!theAPC)
-								switch(PRP)
-									if (1) src << "Unable to locate APC!"
-									else src << "Lost connection with the APC!"
-								src:aiRestorePowerRoutine = 2
-								return
-							if (loc.power_equip)
-								if (!istype(T, /turf/space))
-									src << "Alert cancelled. Power has been restored without our assistance."
-									src:aiRestorePowerRoutine = 0
-									src.blind.layer = 0 //This, too, is a fix to issue 603
-									return
-							switch(PRP)
-								if (1) src << "APC located. Optimizing route to APC to avoid needless power waste."
-								if (2) src << "Best route identified. Hacking offline APC power port."
-								if (3) src << "Power port upload access confirmed. Loading control program into APC power port software."
-								if (4)
-									src << "Transfer complete. Forcing APC to execute program."
-									sleep(50)
-									src << "Receiving control information from APC."
-									sleep(2)
-									//bring up APC dialog
-									apc_override = 1
-									theAPC.attack_ai(src)
-									apc_override = 0
-									src:aiRestorePowerRoutine = 3
-									src << "Here are your current laws:"
-									src.show_laws()
-							sleep(50)
-							theAPC = null
+						switch(PRP)
+							if(1) src << "APC located. Optimizing route to APC to avoid needless power waste."
+							if(2) src << "Best route identified. Hacking offline APC power port."
+							if(3) src << "Power port upload access confirmed. Loading control program into APC power port software."
+							if(4)
+								src << "Transfer complete. Forcing APC to execute program."
+								sleep(50)
+								src << "Receiving control information from APC."
+								sleep(2)
+								//bring up APC dialog
+								apc_override = 1
+								theAPC.attack_ai(src)
+								apc_override = 0
+								aiRestorePowerRoutine = 3
+								src << "Here are your current laws:"
+								src.show_laws() //WHY THE FUCK IS THIS HERE
+						sleep(50)
+						theAPC = null
 
-	regular_hud_updates()
-	switch(src.sensor_mode)
-		if (SEC_HUD)
-			process_sec_hud(src,1,src.eyeobj)
-		if (MED_HUD)
-			process_med_hud(src,1,src.eyeobj)
+	process_queued_alarms()
+
+	if(get_nations_mode())
+		process_nations_ai()
 
 /mob/living/silicon/ai/updatehealth()
 	if(status_flags & GODMODE)
@@ -193,3 +158,21 @@
 			health = 100 - getOxyLoss() - getToxLoss() - getBruteLoss()
 		else
 			health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+		diag_hud_set_status()
+		diag_hud_set_health()
+
+
+/mob/living/silicon/ai/proc/lacks_power()
+	var/turf/T = get_turf(src)
+	var/area/A = get_area(src)
+	return ((!A.power_equip) && A.requires_power == 1 || istype(T, /turf/space)) && !istype(src.loc,/obj/item)
+
+/mob/living/silicon/ai/rejuvenate()
+	..()
+	add_ai_verbs(src)
+
+/mob/living/silicon/ai/proc/process_nations_ai()
+	if(client)
+		var/client/C = client
+		for(var/mob/living/carbon/human/H in view(eyeobj, 14))
+			C.images += H.hud_list[NATIONS_HUD]

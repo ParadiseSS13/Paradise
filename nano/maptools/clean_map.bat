@@ -1,1 +1,0 @@
-java -jar MapPatcher.jar -clean ../maps/tgstation2.dmm.backup ../maps/tgstation2.dmm ../maps/tgstation2.dmm

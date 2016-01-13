@@ -45,42 +45,20 @@
 
 //Returns the hex value of a number given a value assumed to be a base-ten value
 /proc/num2hex(num, placeholder)
+	if(!isnum(num)) return
+	if(placeholder == null) placeholder = 2
 
-	if (placeholder == null)
-		placeholder = 2
-	if (!( isnum(num) ))
-		return
-	if (!( num ))
-		return "0"
 	var/hex = ""
-	var/i = 0
-	while(16 ** i < num)
-		i++
-	var/power = null
-	power = i - 1
-	while(power >= 0)
-		var/val = round(num / 16 ** power)
-		num -= val * 16 ** power
-		switch(val)
-			if(9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0)
-				hex += text("[]", val)
-			if(10.0)
-				hex += "A"
-			if(11.0)
-				hex += "B"
-			if(12.0)
-				hex += "C"
-			if(13.0)
-				hex += "D"
-			if(14.0)
-				hex += "E"
-			if(15.0)
-				hex += "F"
-			else
-		power--
+	while(num)
+		var/val = num % 16
+		num = round(num / 16)
+
+		if(val > 9)
+			val = ascii2text(55 + val) // 65 - 70 correspond to "A" - "F"
+		hex = "[val][hex]"
 	while(length(hex) < placeholder)
-		hex = text("0[]", hex)
-	return hex
+		hex = "0[hex]"
+	return hex || "0"
 
 // Concatenates a list of strings into a single string.  A seperator may optionally be provided.
 /proc/list2text(list/ls, sep)
@@ -248,7 +226,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			world.log << "UNKNOWN DIRECTION: [direction]"
+			log_to_dd("UNKNOWN DIRECTION: [direction]")
 
 /proc/dir2text(direction)
 	switch(direction)
@@ -346,6 +324,7 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
 	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
 	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
+	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	return .
@@ -354,6 +333,57 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 	switch(ui_style)
 		if("Midnight")  return 'icons/mob/screen1_Midnight.dmi'
 		else      return 'icons/mob/screen1_White.dmi'
+
+//colour formats
+/proc/rgb2hsl(red, green, blue)
+	red /= 255;green /= 255;blue /= 255;
+	var/max = max(red,green,blue)
+	var/min = min(red,green,blue)
+	var/range = max-min
+
+	var/hue=0;var/saturation=0;var/lightness=0;
+	lightness = (max + min)/2
+	if(range != 0)
+		if(lightness < 0.5)	saturation = range/(max+min)
+		else				saturation = range/(2-max-min)
+
+		var/dred = ((max-red)/(6*max)) + 0.5
+		var/dgreen = ((max-green)/(6*max)) + 0.5
+		var/dblue = ((max-blue)/(6*max)) + 0.5
+
+		if(max==red)		hue = dblue - dgreen
+		else if(max==green)	hue = dred - dblue + (1/3)
+		else				hue = dgreen - dred + (2/3)
+		if(hue < 0)			hue++
+		else if(hue > 1)	hue--
+
+	return list(hue, saturation, lightness)
+
+/proc/hsl2rgb(hue, saturation, lightness)
+	var/red;var/green;var/blue;
+	if(saturation == 0)
+		red = lightness * 255
+		green = red
+		blue = red
+	else
+		var/a;var/b;
+		if(lightness < 0.5)	b = lightness*(1+saturation)
+		else				b = (lightness+saturation) - (saturation*lightness)
+		a = 2*lightness - b
+
+		red = round(255 * hue2rgb(a, b, hue+(1/3)))
+		green = round(255 * hue2rgb(a, b, hue))
+		blue = round(255 * hue2rgb(a, b, hue-(1/3)))
+
+	return list(red, green, blue)
+
+/proc/hue2rgb(a, b, hue)
+	if(hue < 0)			hue++
+	else if(hue > 1)	hue--
+	if(6*hue < 1)	return (a+(b-a)*6*hue)
+	if(2*hue < 1)	return b
+	if(3*hue < 2)	return (a+(b-a)*((2/3)-hue)*6)
+	return a
 
 /proc/num2septext(var/theNum, var/sigFig = 7,var/sep=",") // default sigFig (1,000,000)
 	var/finalNum = num2text(theNum, sigFig)

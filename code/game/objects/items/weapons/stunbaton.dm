@@ -53,7 +53,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/weapon/melee/baton/examine(mob/user)
-	..()
+	..(user)
 	if(bcell)
 		user <<"<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>"
 	if(!bcell)
@@ -68,7 +68,8 @@
 			if(C.maxcharge < hitcost)
 				user << "<span class='notice'>[src] requires a higher capacity cell.</span>"
 				return
-			user.drop_item()
+			if(!user.unEquip(W))
+				return
 			W.loc = src
 			bcell = W
 			user << "<span class='notice'>You install a cell in [src].</span>"
@@ -116,7 +117,7 @@
 
 	var/mob/living/L = M
 
-	if(user.a_intent != "harm")
+	if(user.a_intent != I_HARM)
 		if(status)
 			user.do_attack_animation(L)
 			baton_stun(L, user)
@@ -125,9 +126,9 @@
 							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
 			return
 	else
-		..()
 		if(status)
 			baton_stun(L, user)
+		..()
 
 
 /obj/item/weapon/melee/baton/proc/baton_stun(mob/living/L, mob/user)
@@ -184,7 +185,6 @@
 	stunforce = 5
 	hitcost = 3750
 	slot_flags = null
-	w_class = 4
 
 /obj/item/weapon/melee/baton/cattleprod/update_icon()
 	if(status)

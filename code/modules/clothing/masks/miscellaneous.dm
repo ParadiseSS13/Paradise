@@ -6,6 +6,7 @@
 	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
+	put_on_delay = 20
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi'
@@ -48,6 +49,10 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/fakemoustache/verb/pontificate()
 	set name = "Pontificate Evilly"
@@ -93,7 +98,6 @@
 	flags = MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
-	siemens_coefficient = 0
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -103,7 +107,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	siemens_coefficient = 0.9
 
 
 /obj/item/clothing/mask/horsehead
@@ -114,7 +117,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
-	siemens_coefficient = 0.9
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -160,7 +162,7 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 	species_fit = list("Vox")
-	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS | BLOCKHAIR
+	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
@@ -173,6 +175,10 @@
 	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		)
 	action_button_name = "Adjust Bandana"
 
 /obj/item/clothing/mask/bandana/attack_self(var/mob/user)
@@ -181,30 +187,37 @@
 obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
+	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "bandbotany"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
 	desc = "It's a black bandana with a skull pattern."
 	icon_state = "bandskull"
+	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	desc = "It's a black bandana."
 	icon_state = "bandblack"
+	species_fit = list("Vox")

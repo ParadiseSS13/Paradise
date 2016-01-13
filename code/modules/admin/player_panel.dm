@@ -76,14 +76,14 @@
 					body += "</td><td align='center'>";
 
 					body += "<a href='?src=\ref[src];adminplayeropts="+ref+"'>PP</a> - "
-					body += "<a href='?src=\ref[src];notes=show;mob="+ref+"'>N</a> - "
+					body += "<a href='?src=\ref[src];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+ref+"'>VV</a> - "
 					body += "<a href='?src=\ref[src];traitor="+ref+"'>TP</a> - "
 					body += "<a href='?src=\ref[usr];priv_msg=\ref"+ref+"'>PM</a> - "
 					body += "<a href='?src=\ref[src];subtlemessage="+ref+"'>SM</a> - "
-					body += "<a href='?src=\ref[src];adminplayerobservejump="+ref+"'>JMP</a>"
+					body += "<a href='?src=\ref[src];adminplayerobservefollow="+ref+"'>FLW</a>"
 					if(eyeref)
-						body += "|<a href='?src=\ref[src];adminplayerobservejump="+eyeref+"'>EYE</a>"
+						body += "|<a href='?src=\ref[src];adminplayerobservefollow="+eyeref+"'>EYE</a>"
 					body += "<br>"
 					if(antagonist > 0)
 						body += "<font size='2'><a href='?src=\ref[src];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
@@ -197,7 +197,7 @@
 			<tr id='title_tr'>
 				<td align='center'>
 					<font size='5'><b>Player panel</b></font><br>
-					Hover over a line to see more information - [check_rights(R_ADMIN,0) ? "<a href='?src=\ref[src];check_antagonist=1'>Check antagonists</a> | " : "" ]
+					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='?src=\ref[src];check_antagonist=1'>Check antagonists</a> | Kick <a href='?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
 			</tr>
@@ -401,20 +401,15 @@
 		dat += "Current Game Mode: <B>[ticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[round(world.time / 36000)]:[add_zero(num2text(world.time / 600 % 60), 2)]:[add_zero(num2text(world.time / 10 % 60), 2)]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
-		if (!emergency_shuttle.online())
+		if(shuttle_master.emergency.mode < SHUTTLE_CALL)
 			dat += "<a href='?src=\ref[src];call_shuttle=1'>Call Shuttle</a><br>"
 		else
-			if (emergency_shuttle.wait_for_launch)
-				var/timeleft = emergency_shuttle.estimate_launch_time()
-				dat += "ETL: <a href='?src=\ref[src];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
-
-			else if (emergency_shuttle.shuttle.has_arrive_time())
-				var/timeleft = emergency_shuttle.estimate_arrival_time()
-				dat += "ETA: <a href='?src=\ref[src];edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
-				dat += "<a href='?src=\ref[src];call_shuttle=2'>Send Back</a><br>"
-
-			if (emergency_shuttle.shuttle.moving_status == SHUTTLE_WARMUP)
-				dat += "Launching now..."
+			var/timeleft = shuttle_master.emergency.timeLeft()
+			if(shuttle_master.emergency.mode < SHUTTLE_DOCKED)
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
+			else
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=\ref[src];delay_round_end=1'>[ticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		if(ticker.mode.syndicates.len)
@@ -477,20 +472,18 @@
 						dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(ticker.mode.name == "nations")
-			dat += "</table><br><table><tr><td><B>Flags(s)</B></td></tr>"
-			for(var/obj/item/flag/nation/N in world)
-				dat += "<tr><td>[N.name], "
-				var/atom/flag_loc = N.loc
-				while(!istype(flag_loc, /turf))
-					if(istype(flag_loc, /mob))
-						var/mob/M = flag_loc
-						dat += "carried by <a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a> "
-					if(istype(flag_loc, /obj))
-						var/obj/O = flag_loc
-						dat += "in \a [O.name] "
-					flag_loc = flag_loc.loc
-				dat += "in [flag_loc.loc] at ([flag_loc.x], [flag_loc.y], [flag_loc.z])</td></tr>"
+		if(istype(ticker.mode, /datum/game_mode/blob))
+			var/datum/game_mode/blob/mode = ticker.mode
+			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
+			dat += "<tr><td><i>Progress: [blobs.len]/[mode.blobwincount]</i></td></tr>"
+
+			for(var/datum/mind/blob in mode.infected_crew)
+				var/mob/M = blob.current
+				if(M)
+					dat += "<tr><td><a href='?_src_=holder;adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+					dat += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
+				else
+					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
 
 		if(ticker.mode.changelings.len)
@@ -520,8 +513,8 @@
 		if(ticker.mode.vampires.len)
 			dat += check_role_table("Vampires", ticker.mode.vampires, src)
 
-		if(ticker.mode.enthralled.len)
-			dat += check_role_table("Vampire Thralls", ticker.mode.enthralled, src)
+		if(ticker.mode.vampire_enthralled.len)
+			dat += check_role_table("Vampire Thralls", ticker.mode.vampire_enthralled, src)
 
 		if(ticker.mode.xenos.len)
 			dat += check_role_table("Xenos", ticker.mode.xenos, src)

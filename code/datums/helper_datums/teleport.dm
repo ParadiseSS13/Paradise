@@ -9,8 +9,8 @@
 	var/atom/movable/teleatom //atom to teleport
 	var/atom/destination //destination to teleport to
 	var/precision = 0 //teleport precision
-	var/datum/effect/effect/system/effectin //effect to show right before teleportation
-	var/datum/effect/effect/system/effectout //effect to show right after teleportation
+	var/datum/effect/system/effectin //effect to show right before teleportation
+	var/datum/effect/system/effectout //effect to show right after teleportation
 	var/soundin //soundfile to play before teleportation
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
@@ -59,7 +59,7 @@
 
 //custom effects must be properly set up first for instant-type teleports
 //optional
-/datum/teleport/proc/setEffects(datum/effect/effect/system/aeffectin=null,datum/effect/effect/system/aeffectout=null)
+/datum/teleport/proc/setEffects(datum/effect/system/aeffectin=null,datum/effect/system/aeffectout=null)
 	effectin = istype(aeffectin) ? aeffectin : null
 	effectout = istype(aeffectout) ? aeffectout : null
 	return 1
@@ -79,7 +79,7 @@
 /datum/teleport/proc/teleportChecks()
 	return 1
 
-/datum/teleport/proc/playSpecials(atom/location,datum/effect/effect/system/effect,sound)
+/datum/teleport/proc/playSpecials(atom/location,datum/effect/system/effect,sound)
 	if(location)
 		if(effect)
 			spawn(-1)
@@ -124,7 +124,7 @@
 	if(isliving(teleatom))
 		var/mob/living/L = teleatom
 		if(L.buckled)
-			L.buckled.unbuckle()
+			L.buckled.unbuckle_mob()
 
 	destarea.Entered(teleatom)
 
@@ -146,9 +146,9 @@
 
 /datum/teleport/instant/science
 
-/datum/teleport/instant/science/setEffects(datum/effect/effect/system/aeffectin,datum/effect/effect/system/aeffectout)
+/datum/teleport/instant/science/setEffects(datum/effect/system/aeffectin,datum/effect/system/aeffectout)
 	if(aeffectin==null || aeffectout==null)
-		var/datum/effect/effect/system/spark_spread/aeffect = new
+		var/datum/effect/system/spark_spread/aeffect = new
 		aeffect.set_up(5, 1, teleatom)
 		effectin = effectin || aeffect
 		effectout = effectout || aeffect
@@ -167,30 +167,4 @@
 		if(istype(teleatom, /mob/living))
 			var/mob/living/MM = teleatom
 			MM << "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>"
-	return 1
-
-/datum/teleport/instant/science/teleportChecks()
-	if(istype(teleatom, /obj/item/weapon/disk/nuclear)) // Don't let nuke disks get teleported --NeoFite
-		teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
-		return 0
-
-	if(istype(teleatom, /obj/item/flag/nation)) // Don't let nation's flags get teleported either --Fox
-		teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
-		return 0
-
-	if(!isemptylist(teleatom.search_contents_for(/obj/item/weapon/disk/nuclear)))
-		if(istype(teleatom, /mob/living))
-			var/mob/living/MM = teleatom
-			MM.visible_message("<span class='warning'>The portal rejects [MM]!","<span class='warning'>The nuclear disk that you're carrying seems to be unable to pass through the portal. Better drop it if you want to go through.</span>")
-		else
-			teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
-		return 0
-
-	if(!isemptylist(teleatom.search_contents_for(/obj/item/flag/nation)))
-		if(istype(teleatom, /mob/living))
-			var/mob/living/MM = teleatom
-			MM.visible_message("<span class='warning'>The portal rejects [MM]!","<span class='warning'>The flag that you're carrying seems to be unable to pass through the portal. Better drop it if you want to go through.</span>")
-		else
-			teleatom.visible_message("<span class='warning'>The portal rejects [teleatom]!</span>")
-		return 0
 	return 1

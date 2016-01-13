@@ -43,6 +43,8 @@
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)
+		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
+			controlled_mech.click_action(A, src) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -115,7 +117,7 @@
 
 /atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
 	if(user.client)
-		examine()
+		user.examinate(src)
 	return
 
 /atom/proc/AIAltShiftClick()
@@ -127,7 +129,7 @@
 	else
 		Topic(src, list("src"= "\ref[src]", "command"="emergency", "activate" = "0"), 1)
 	return
-	
+
 /atom/proc/AIShiftClick()
 	return
 

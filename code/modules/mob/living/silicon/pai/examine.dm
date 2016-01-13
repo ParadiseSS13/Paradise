@@ -1,8 +1,7 @@
-/mob/living/silicon/pai/examine() //removed as it was pointless...moved to the pai-card instead.
-	/* This is totally pointless because this mob is contained inside a card!
-	set src in oview()
+/mob/living/silicon/pai/examine(mob/user) //removed as it was pointless...moved to the pai-card instead.
+	/*..(user) //This is totally pointless because this mob is contained inside a card!
 
-	var/msg = "<span class='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n"
+	var/msg = ""
 	if (src.stat == DEAD)
 		msg += "<span class='deadsay'>It appears to be offline.</span>\n"
 	else
@@ -22,6 +21,5 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	usr << msg
+	user << msg
 	*/
-	return

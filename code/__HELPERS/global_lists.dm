@@ -4,60 +4,28 @@
 //////////////////////////
 
 /proc/makeDatumRefLists()
-	var/list/paths
+	//markings
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, marking_styles_list)
+	//head accessory
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
+	//hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_list, hair_styles_male_list, hair_styles_female_list)
+	//facial hair
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
+	//underwear
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	//undershirt
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+	//socks
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
 
-	//Hair - Initialise all /datum/sprite_accessory/hair into an list indexed by hair-style name
-	paths = typesof(/datum/sprite_accessory/hair) - /datum/sprite_accessory/hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/hair/H = new path()
-		hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	hair_styles_male_list += H.name
-			if(FEMALE)	hair_styles_female_list += H.name
-			else
-				hair_styles_male_list += H.name
-				hair_styles_female_list += H.name
-
-	//Facial Hair - Initialise all /datum/sprite_accessory/facial_hair into an list indexed by facialhair-style name
-	paths = typesof(/datum/sprite_accessory/facial_hair) - /datum/sprite_accessory/facial_hair
-	for(var/path in paths)
-		var/datum/sprite_accessory/facial_hair/H = new path()
-		facial_hair_styles_list[H.name] = H
-		switch(H.gender)
-			if(MALE)	facial_hair_styles_male_list += H.name
-			if(FEMALE)	facial_hair_styles_female_list += H.name
-			else
-				facial_hair_styles_male_list += H.name
-				facial_hair_styles_female_list += H.name
-
-	//Surgery Steps - Initialize all /datum/surgery_step into a list
-	paths = typesof(/datum/surgery_step)-/datum/surgery_step
-	for(var/T in paths)
-		var/datum/surgery_step/S = new T
-		surgery_steps += S
+	init_subtypes(/datum/surgery_step, surgery_steps)
 	sort_surgeries()
 
-	//List of job. I can't believe this was calculated multiple times per tick!
-	paths = typesof(/datum/job) -list(/datum/job,/datum/job/ai,/datum/job/cyborg)
-	for(var/T in paths)
-		var/datum/job/J = new T
-		joblist[J.title] = J
-
-	paths = typesof(/datum/nations)-/datum/nations
-	for(var/T in paths)
-		var/datum/nations/N = new T
-		all_nations[N.name] = N
-
-	paths = typesof(/datum/superheroes)-/datum/superheroes
-	for(var/T in paths)
-		var/datum/superheroes/S = new T
-		all_superheroes[S.name] = S
-
-	//Languages and species.
-	paths = typesof(/datum/language)-/datum/language
-	for(var/T in paths)
-		var/datum/language/L = new T
-		all_languages[L.name] = L
+	init_datum_subtypes(/datum/job, joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
+	init_datum_subtypes(/datum/superheroes, all_superheroes, null, "name")
+	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
+	init_datum_subtypes(/datum/language, all_languages, null, "name")
 
 	for (var/language_name in all_languages)
 		var/datum/language/L = all_languages[language_name]
@@ -66,19 +34,17 @@
 			language_keys[".[lowertext(L.key)]"] = L
 			language_keys["#[lowertext(L.key)]"] = L
 
+	var/list/paths = subtypesof(/datum/species)
 	var/rkey = 0
-	paths = typesof(/datum/species)-/datum/species
 	for(var/T in paths)
-		rkey++
 		var/datum/species/S = new T
-		S.race_key = rkey //Used in mob icon caching.
+		S.race_key = ++rkey //Used in mob icon caching.
 		all_species[S.name] = S
 
 		if(S.flags & IS_WHITELISTED)
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/table_recipe, table_recipes)
-
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
@@ -97,8 +63,19 @@
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)
-        if(!istype(L))        L = list()
-        for(var/path in typesof(prototype))
-                if(path == prototype)        continue
-                L += new path()
-        return L
+	if(!istype(L))	L = list()
+	for(var/path in subtypesof(prototype))
+		L += new path()
+	return L
+
+/proc/init_datum_subtypes(prototype, list/L, list/pexempt, assocvar)
+	if(!istype(L))	L = list()
+	for(var/path in subtypesof(prototype) - pexempt)
+		var/datum/D = new path()
+		if(istype(D))
+			var/assoc
+			if(D.vars["[assocvar]"]) //has the var
+				assoc = D.vars["[assocvar]"] //access value of var
+			if(assoc) //value gotten
+				L["[assoc]"] = D //put in association
+	return L

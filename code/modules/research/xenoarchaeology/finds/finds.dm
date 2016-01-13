@@ -57,7 +57,7 @@
 				else
 					for(var/mob/M in viewers(world.view, user))
 						M.show_message("<span class='info'>[src] burns away into nothing.</span>",1)
-				del(src)
+				qdel(src)
 				w.remove_fuel(4)
 			else
 				for(var/mob/M in viewers(world.view, user))
@@ -73,7 +73,7 @@
 	..()
 	if(prob(33))
 		src.visible_message("<span class='warning'>[src] crumbles away, leaving some dust and gravel behind.</span>")
-		del(src)
+		qdel(src)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Archaeological finds
@@ -311,9 +311,9 @@
 			apply_material_decorations = 0
 		if(22)
 			if(prob(50))
-				new_item = PoolOrNew(/obj/item/weapon/shard, loc)
+				new_item = new /obj/item/weapon/shard(loc)
 			else
-				new_item = PoolOrNew(/obj/item/weapon/shard/plasma, loc)
+				new_item = new /obj/item/weapon/shard/plasma(loc)
 
 			apply_prefix = 0
 			apply_image_decorations = 0
@@ -324,8 +324,7 @@
 			apply_image_decorations = 0
 			apply_material_decorations = 0
 		if(24)
-			var/list/possible_spawns = typesof(/obj/item/weapon/stock_parts)
-			possible_spawns -= /obj/item/weapon/stock_parts
+			var/list/possible_spawns = subtypesof(/obj/item/weapon/stock_parts)
 			possible_spawns -= /obj/item/weapon/stock_parts/subspace
 
 			var/new_type = pick(possible_spawns)
@@ -548,7 +547,7 @@
 				talking_atom.holder_atom = new_item
 				talking_atom.init()
 
-		del(src)
+		qdel(src)
 
 	else if(talkative)
 		src.talking_atom = new()

@@ -18,7 +18,7 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	possible_traitors = get_players_for_role(BE_TRAITOR)
+	possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	for(var/mob/new_player/P in world)
 		if(P.client && P.ready)
@@ -69,20 +69,20 @@
 
 /datum/game_mode/traitor/autotraitor/proc/traitorcheckloop()
 	spawn(9000)
-		if(emergency_shuttle.departed)
+		if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 			return
 		//message_admins("Performing AutoTraitor Check")
 		var/playercount = 0
 		var/traitorcount = 0
 		var/possible_traitors[0]
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != 2)
+			if (player.client && player.stat != DEAD)
 				playercount += 1
-			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
+			if (player.client && player.mind && player.mind.special_role && player.stat != DEAD)
 				traitorcount += 1
-			if (player.client && player.mind && !player.mind.special_role && player.stat != 2)
+			if (player.client && player.mind && !player.mind.special_role && player.stat != DEAD)
 				if (ishuman(player) || isrobot(player) || isAI(player))
-					if (player.client && player.client.prefs.be_special & BE_TRAITOR && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
+					if (player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, "traitor") && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
@@ -137,7 +137,10 @@
 				newtraitor << "\red <B>ATTENTION:</B> \black It is time to pay your debt to the Syndicate..."
 				newtraitor << "<B>You are now a traitor.</B>"
 				newtraitor.mind.special_role = "traitor"
-				newtraitor.hud_updateflag |= 1 << SPECIALROLE_HUD
+				var/datum/atom_hud/antag/tatorhud = huds[SPECIALROLE_HUD]
+				tatorhud.join_solo_hud(newtraitor)
+				set_antag_hud(src, "hudsyndicate")
+
 				var/obj_count = 1
 				newtraitor << "\blue Your current objectives:"
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
@@ -154,18 +157,18 @@
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()
-	if(emergency_shuttle.departed)
+	if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
-	if((character.client && character.client.prefs.be_special & BE_TRAITOR) && !jobban_isbanned(character, "traitor") && !jobban_isbanned(character, "Syndicate"))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !jobban_isbanned(character, "traitor") && !jobban_isbanned(character, "Syndicate"))
 		//message_admins("Late Joiner has Be Syndicate")
 		//message_admins("Checking number of players")
 		var/playercount = 0
 		var/traitorcount = 0
 		for(var/mob/living/player in mob_list)
-			if (player.client && player.stat != 2)
+			if (player.client && player.stat != DEAD)
 				playercount += 1
-			if (player.client && player.mind && player.mind.special_role && player.stat != 2)
+			if (player.client && player.mind && player.mind.special_role && player.stat != DEAD)
 				traitorcount += 1
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")

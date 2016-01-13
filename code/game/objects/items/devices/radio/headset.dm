@@ -4,7 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	m_amt = 75
+	materials = list(MAT_METAL=75)
 	subspace_transmission = 1
 	canhear_range = 0 // can't hear headsets from very far away
 
@@ -13,24 +13,36 @@
 	var/translate_hive = 0
 	var/obj/item/device/encryptionkey/keyslot1 = null
 	var/obj/item/device/encryptionkey/keyslot2 = null
-	maxf = 1489
 
 	var/ks1type = null
 	var/ks2type = null
 
 /obj/item/device/radio/headset/New()
 	..()
+	internal_channels.Cut()
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 	if(ks2type)
 		keyslot2 = new ks2type(src)
 	recalculateChannels(1)
 
-/obj/item/device/radio/headset/examine(mob/user)
+/obj/item/device/radio/headset/Destroy()
+	if(keyslot1)
+		qdel(keyslot1)
+	if(keyslot2)
+		qdel(keyslot2)
+	keyslot1 = null
+	keyslot2 = null
+	return ..()
+
+/obj/item/device/radio/headset/list_channels(var/mob/user)
+	return list_secure_channels()
+
+/obj/item/device/radio/headset/examine(mob/user, var/distance = -1)
 	if(!(..(user, 1) && radio_desc))
 		return
 
-	user << "The following channels are built-in:"
+	user << "The following channels are available:"
 	user << radio_desc
 
 /obj/item/device/radio/headset/handle_message_mode(mob/living/M as mob, message, channel)
@@ -232,6 +244,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/device/encryptionkey/heads/magistrate
 
+/obj/item/device/radio/headset/heads/magistrate/alt
+	name = "\proper magistrate's bowman headset"
+	desc = "The headset of the Magistrate. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+
 /obj/item/device/radio/headset/heads/blueshield
 	name = "blueshield's headset"
 	desc = "The headset of the Blueshield."
@@ -251,7 +270,6 @@
 	desc = "The headset of the boss's boss."
 	icon_state = "com_headset"
 	item_state = "headset"
-	freerange = 1
 	ks2type = /obj/item/device/encryptionkey/ert
 
 /obj/item/device/radio/headset/ert/alt
@@ -277,7 +295,6 @@
 	return ..(freq, level, 1)
 
 /obj/item/device/radio/headset/attackby(obj/item/weapon/W as obj, mob/user as mob)
-//	..()
 	user.set_machine(src)
 	if (!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
@@ -285,20 +302,15 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(keyslot1 || keyslot2)
 
-
 			for(var/ch_name in channels)
 				radio_controller.remove_object(src, radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
-
 
 			if(keyslot1)
 				var/turf/T = get_turf(user)
 				if(T)
 					keyslot1.loc = T
 					keyslot1 = null
-
-
-
 			if(keyslot2)
 				var/turf/T = get_turf(user)
 				if(T)
@@ -307,7 +319,6 @@
 
 			recalculateChannels()
 			user << "You pop out the encryption keys in the headset!"
-
 		else
 			user << "This headset doesn't have any encryption keys!  How useless..."
 
@@ -320,15 +331,12 @@
 			user.drop_item()
 			W.loc = src
 			keyslot1 = W
-
 		else
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
 
-
 		recalculateChannels()
-
 	return
 
 

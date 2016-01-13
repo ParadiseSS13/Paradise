@@ -98,7 +98,7 @@
 			<div class='average'><b>{{:data.colorContainer.prim.name}}</b></div>
 			{{for data.colorContainer.prim.options}}
 				<div class='itemContentWide'>
-					{{if value.icon == data._color.prim}}
+					{{if value.icon == data.canister_color.prim}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.prim.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', 'selected')}}
 					{{else}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.prim.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', null)}}
@@ -111,7 +111,7 @@
 			{{:helper.link("None", '', {'choice' : data.colorContainer.sec.name, 'icon' : "none"}, data.canLabel ? null : 'disabled', data.colorContainer.sec.anycolor ? null : 'selected')}}
 			{{for data.colorContainer.sec.options}}
 				<div class='itemContentWide'>
-					{{if value.icon == data._color.sec}}
+					{{if value.icon == data.canister_color.sec}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.sec.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', 'selected')}}
 					{{else}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.sec.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', null)}}
@@ -124,7 +124,7 @@
 			{{:helper.link("None", '', {'choice' : data.colorContainer.ter.name, 'icon' : "none"}, data.canLabel ? null : 'disabled', data.colorContainer.ter.anycolor ? null : 'selected')}}
 			{{for data.colorContainer.ter.options}}
 				<div class='itemContentWide'>
-					{{if value.icon == data._color.ter}}
+					{{if value.icon == data.canister_color.ter}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.ter.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', 'selected')}}
 					{{else}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.ter.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', null)}}
@@ -137,7 +137,7 @@
 			{{:helper.link("None", '', {'choice' : data.colorContainer.quart.name, 'icon' : "none"}, data.canLabel ? null : 'disabled', data.colorContainer.quart.anycolor ? null : 'selected')}}
 			{{for data.colorContainer.quart.options}}
 				<div class='itemContentWide'>
-					{{if value.icon == data._color.quart}}
+					{{if value.icon == data.canister_color.quart}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.quart.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', 'selected')}}
 					{{else}}
 						{{:helper.link(value.name, '', {'choice' : data.colorContainer.quart.name, 'icon' : value.icon}, data.canLabel ? null : 'disabled', null)}}

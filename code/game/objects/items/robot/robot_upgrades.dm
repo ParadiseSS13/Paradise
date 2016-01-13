@@ -6,8 +6,6 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
-	var/construction_time = 120
-	var/construction_cost = list("metal"=10000)
 	var/locked = 0
 	var/require_module = 0
 	var/installed = 0
@@ -38,7 +36,11 @@
 	R.languages = list()
 	R.speech_synthesizer_langs = list()
 	R.notify_ai(2)
-	R.updateicon()
+	R.jetpackoverlay = 0
+	R.update_icons()
+	R.update_headlamp()
+	R.magpulse = 0
+	R.add_language("Robot Talk", 1)
 
 	return 1
 
@@ -46,7 +48,6 @@
 	name = "robot reclassification board"
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
-	construction_cost = list("metal"=35000)
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user as mob)
@@ -64,7 +65,6 @@
 /obj/item/borg/upgrade/restart
 	name = "robot emergency restart module"
 	desc = "Used to force a restart of a disabled-but-repaired robot, bringing it back online."
-	construction_cost = list("metal"=60000 , "glass"=5000)
 	icon_state = "cyborg_upgrade1"
 
 
@@ -88,7 +88,6 @@
 /obj/item/borg/upgrade/vtec
 	name = "robotic VTEC Module"
 	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
-	construction_cost = list("metal"=80000 , "glass"=6000 , "gold"= 5000)
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
 
@@ -105,7 +104,6 @@
 /obj/item/borg/upgrade/disablercooler
 	name = "robotic Rapid Disabler Cooling Module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
-	construction_cost = list("metal"=80000 , "glass"=6000 , "gold"= 2000, "diamond" = 500)
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
 
@@ -140,7 +138,6 @@
 /obj/item/borg/upgrade/jetpack
 	name = "mining robot jetpack"
 	desc = "A carbon dioxide jetpack suitable for low-gravity mining operations."
-	construction_cost = list("metal"=10000,"plasma"=15000,"uranium" = 20000)
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
 
@@ -155,14 +152,58 @@
 		R.module.modules += new/obj/item/weapon/tank/jetpack/carbondioxide
 		for(var/obj/item/weapon/tank/jetpack/carbondioxide in R.module.modules)
 			R.internals = src
-		//R.icon_state="Miner+j"
+		R.jetpackoverlay = 1
+		R.update_icons()
 		return 1
 
+/obj/item/borg/upgrade/ddrill
+	name = "mining cyborg diamond drill"
+	desc = "A diamond drill replacement for the mining module's standard drill."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+
+/obj/item/borg/upgrade/ddrill/action(var/mob/living/silicon/robot/R)
+	if(..()) return 0
+
+	if(!istype(R.module, /obj/item/weapon/robot_module/miner))
+		R << "Upgrade mounting error!  No suitable hardpoint detected!"
+		usr << "There's no mounting point for the module!"
+		return 0
+	else
+		for(var/obj/item/weapon/pickaxe/drill/cyborg/D in R.module.modules)
+			R.module.modules -= D
+			qdel(D)
+		for(var/obj/item/weapon/shovel/S in R.module.modules)
+			R.module.modules -= S
+			qdel(S)
+		R.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(R.module)
+		R.module.rebuild()
+		return 1
+
+/obj/item/borg/upgrade/soh
+	name = "mining cyborg satchel of holding"
+	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+
+/obj/item/borg/upgrade/soh/action(var/mob/living/silicon/robot/R)
+	if(..()) return 0
+
+	if(!istype(R.module, /obj/item/weapon/robot_module/miner))
+		R << "Upgrade mounting error!  No suitable hardpoint detected!"
+		usr << "There's no mounting point for the module!"
+		return 0
+	else
+		for(var/obj/item/weapon/storage/bag/ore/cyborg/S in R.module.modules)
+			R.module.modules -= S
+			qdel(S)
+		R.module.modules += new /obj/item/weapon/storage/bag/ore/holding/cyborg(R.module)
+		R.module.rebuild()
+		return 1
 
 /obj/item/borg/upgrade/syndicate/
 	name = "Illegal Equipment Module"
 	desc = "Unlocks the hidden, deadlier functions of a robot"
-	construction_cost = list("metal"=10000,"glass"=15000,"diamond" = 10000)
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
 

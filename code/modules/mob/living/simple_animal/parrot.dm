@@ -77,7 +77,8 @@
 									/obj/machinery/suit_storage_unit,			/obj/machinery/clonepod, \
 									/obj/machinery/dna_scannernew,		/obj/machinery/telecomms, \
 									/obj/machinery/nuclearbomb,			/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge)
+									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
+									/obj/machinery/computer)
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
@@ -342,7 +343,7 @@
 			//Search for item to steal
 			parrot_interest = search_for_item()
 			if(parrot_interest)
-				emote("looks in [parrot_interest]'s direction and takes flight")
+				custom_emote(1,"looks in [parrot_interest]'s direction and takes flight.")
 				parrot_state = PARROT_SWOOP | PARROT_STEAL
 				icon_state = "parrot_fly"
 			return
@@ -364,7 +365,7 @@
 			if(AM)
 				if(istype(AM, /obj/item) || isliving(AM))	//If stealable item
 					parrot_interest = AM
-					emote("turns and flies towards [parrot_interest]")
+					custom_emote(1,"turns and flies towards [parrot_interest]")
 					parrot_state = PARROT_SWOOP | PARROT_STEAL
 					return
 				else	//Else it's a perch
@@ -478,11 +479,11 @@
 				var/obj/item/organ/external/affecting = H.get_organ(ran_zone(pick(parrot_dam_zone)))
 
 				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, "melee"), sharp=1)
-				emote(pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
+				custom_emote(1, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
 
 			else
 				L.adjustBruteLoss(damage)
-				emote(pick("pecks at [L].", "claws [L]."))
+				custom_emote(1, pick("pecks at [L].", "claws [L]."))
 			return
 
 		//Otherwise, fly towards the mob!
@@ -708,9 +709,8 @@
 
 	message = capitalize(trim_left(message))
 	if(message_mode)
-		if(message_mode in radiochannels)
-			if(ears && istype(ears,/obj/item/device/radio))
-				ears.talk_into(src, message, message_mode, verb, null)
+		if(ears && istype(ears,/obj/item/device/radio))
+			ears.talk_into(src, message, message_mode, verb, null)
 
 	..(message)
 

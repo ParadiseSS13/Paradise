@@ -6,6 +6,8 @@
 	var/magpulse = 0
 	var/slowdown_active = 2
 	action_button_name = "Toggle Magboots"
+	strip_delay = 70
+	put_on_delay = 70
 	species_restricted = null
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
@@ -25,7 +27,7 @@
 	return flags & NOSLIP
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
-	..()
+	..(user)
 	user << "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
 
 
@@ -41,6 +43,7 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
+	origin_tech = "magnets=2;syndicate=3"
 
 obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."

@@ -3,16 +3,98 @@
 Title: PDA UI
 Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
  -->
+{{if data.useRetro}}
+	<head>
+		<style type="text/css">
+			html {
+				height: 100%; 
+				overflow: auto;
+			}
+
+			body {
+				background: #6F7961;
+			}
+
+			.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
+				color: #000000;
+				font-weight: bold;
+			}
+
+			.good {
+				color: #76ae3d;
+			}
+			
+			.average {
+				color: #222222;
+			}
+			
+			.pdanote {
+				color: #555555;
+			}
+
+			.link, .linkOn, .linkOff, .selected, .disabled, .yellowButton, .redButton {
+				color: #000000;
+				background: #565D4B;
+			}
+
+			.pdalink {
+				min-width: 15px;
+				height: 16px;
+				text-align: center;
+				color: #000000;
+				text-decoration: none;
+				background: #565D4B;
+				border: 1px solid #161616;
+				padding: 0px 4px 4px 4px;
+				margin: 0 2px 2px 0;
+				cursor: default;
+				white-space: nowrap;
+			}
+			
+			h1, h2, h3, h4, h5, h6 {
+				color: #000000;
+			}
+
+			.fixedLeft, .fixedLeftWide, .fixedLeftWider, .fixedLeftWidest, .floatRight {
+				color: #000000;
+			}
+			
+			.floatRight {
+				min-width: 15px;
+				height: 16px;
+				text-align: center;
+				background: #565D4B;
+				border: 1px solid #161616;
+				padding: 0px 4px 4px 4px;
+				margin: 0 2px 2px 0;
+			}
+			
+			.uiIcon16 {
+				background-image: none;
+				float: left;
+				width: auto;
+				height: auto;
+				margin: 0 0 0 0;
+			}
+			
+			#uiTitleText {
+				color: #000000;
+			}
+			
+		</style>
+	</head>
+{{/if}}
 {{if data.owner}}
 	<div class="item">
 		<div class="itemLabelNarrow">
 			 <b>Functions</b>:
         </div>
         <div class="itemContent">
-			<!--{{:helper.link('Refresh', 'refresh', {'choice' : "Refresh"}, null, 'fixedLeft')}}-->
-			{{:helper.link('Close', 'gear', {'choice' : "Close"}, null, 'fixedLeft')}}
-			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'fixedLeftWide')}} {{/if}}
-			{{if data.mode != 0}} {{:helper.link('Return', 'arrowreturn-1-w', {'choice' : "Return"}, null, 'fixedLeft')}} {{/if}}
+			<!--{{:helper.link('Refresh', 'refresh', {'choice' : "Refresh"}, null, 'pdalink fixedLeft')}}-->
+			{{:helper.link('Close', 'gear', {'choice' : "Close"}, null, 'pdalink fixedLeft')}}
+			{{if data.idInserted}} {{:helper.link('Update PDA Info', 'eject', {'choice' : "UpdateInfo"}, null, 'pdalink fixedLeftWide')}} {{/if}}
+			{{if data.mode != 0}} {{:helper.link('Return', 'arrowreturn-1-w', {'choice' : "Return"}, null, 'pdalink fixedLeft')}} {{/if}}
+			{{:helper.link('Toggle R.E.T.R.O. mode', 'gear', {'choice': "Retro"}, null, 'floatRight')}}
 		</div>
 	</div>
 	<br>
@@ -42,7 +124,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 ID:
             </div>
             <div class="itemContent">
-                {{:helper.link(data.idLink, 'eject', {'choice' : "Authenticate"}, data.idInserted ? null : 'disabled', data.idInserted ? 'fixedLeftWidest' : 'fixedLeft')}}
+                {{:helper.link(data.idLink, 'eject', {'choice' : "Authenticate"}, data.idInserted ? null : 'disabled', data.idInserted ? 'link fixedLeftWidest' : 'link fixedLeft')}}
             </div>
         </div>
         <br>
@@ -66,9 +148,9 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <b>General</b>:
             </div>
             <div class="itemContent">
-                {{:helper.link('Notekeeper', 'note', {'choice' : "1"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Messenger', data.newMessage ? 'mail-closed' : 'mail-open', {'choice' : "2"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Crew Manifest', 'contact', {'choice' : "41"}, null, 'fixedLeftWide')}}
+                {{:helper.link('Notekeeper', 'note', {'choice' : "1"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link('Messenger', data.newMessage ? 'mail-closed' : 'mail-open', {'choice' : "2"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link('Crew Manifest', 'contact', {'choice' : "41"}, null, 'pdalink fixedLeftWide')}}
             </div>
         </div>
         <br>
@@ -79,7 +161,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         <b>Clown</b>:
                     </div>
                     <div class="itemContent">
-                        {{:helper.link('Honk Synthesizer', 'gear', {'choice' : "Honk"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Honk Synthesizer', 'gear', {'choice' : "Honk"}, null, 'pdalink fixedLeftWide')}}
                     </div>
                 </div>
                 <br>
@@ -90,7 +172,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         <b>Engineering</b>:
                     </div>
                     <div class="itemContent">
-                        {{:helper.link('Power Monitor', 'alert', {'choice' : "43"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Power Monitor', 'alert', {'choice' : "43"}, null, 'pdalink fixedLeftWide')}}
                     </div>
                 </div>
                  <br>
@@ -101,8 +183,8 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                             <b>Medical</b>:
                     </div>
                     <div class="itemContent">
-                            {{:helper.link('Medical Records', 'gear', {'choice' : "44"}, null, 'fixedLeftWide')}}
-                            {{:helper.link(data.scanmode == 1 ? 'Disable Med Scanner' : 'Enable Med Scanner', 'gear', {'choice' : "Medical Scan"}, null , 'fixedLeftWide')}}
+                            {{:helper.link('Medical Records', 'gear', {'choice' : "44"}, null, 'pdalink fixedLeftWide')}}
+                            {{:helper.link(data.scanmode == 1 ? 'Disable Med Scanner' : 'Enable Med Scanner', 'gear', {'choice' : "Medical Scan"}, null , 'pdalink fixedLeftWide')}}
                     </div>
                 </div>
                 <br>
@@ -113,8 +195,8 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                             <b>Security</b>:
                     </div>
                     <div class="itemContent">
-                        {{:helper.link('Security Records', 'gear', {'choice' : "45"}, null, 'fixedLeftWide')}}
-                        {{if data.cartridge.radio ==1}} {{:helper.link('Security Bot Access', 'gear', {'choice' : "46"}, null, 'fixedLeftWide')}} {{/if}}
+                        {{:helper.link('Security Records', 'gear', {'choice' : "45"}, null, 'pdalink fixedLeftWide')}}
+                        {{if data.cartridge.radio ==1}} {{:helper.link('Security Bot Access', 'gear', {'choice' : "46"}, null, 'pdalink fixedLeftWide')}} {{/if}}
                         <br>
                     </div>
                 </div>
@@ -126,8 +208,8 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         <b>Quartermaster</b>:
                     </div>
                     <div class="itemContent">
-                        {{:helper.link('Supply Records', 'gear', {'choice' : "47"}, null, 'fixedLeftWide')}}
-                        {{if data.cartridge.radio == 3}} {{:helper.link('Delivery Bot Control', 'gear', {'choice' : "48"}, null, 'fixedLeftWide')}} {{/if}}
+                        {{:helper.link('Supply Records', 'gear', {'choice' : "47"}, null, 'pdalink fixedLeftWide')}}
+                        {{if data.cartridge.radio == 3}} {{:helper.link('Delivery Bot Control', 'gear', {'choice' : "48"}, null, 'pdalink fixedLeftWide')}} {{/if}}
                          <br>
                     </div>
                 </div>
@@ -142,29 +224,29 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
             <div class = "itemContent">
                 {{if data.cartridge}}
                     {{if data.cartridge.access.access_status_display == 1}}
-                        {{:helper.link('Status Display', 'gear', {'choice' : "42"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Status Display', 'gear', {'choice' : "42"}, null, 'pdalink fixedLeftWide')}}
                     {{/if}}
                     {{if data.cartridge.access.access_janitor==1}}
-                        {{:helper.link('Custodial Locator', 'gear', {'choice' : "49"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Custodial Locator', 'gear', {'choice' : "49"}, null, 'pdalink fixedLeftWide')}}
                     {{/if}}
                     {{if data.cartridge.radio == 2}}
-                        {{:helper.link('Signaler System', 'gear', {'choice' : "40"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Signaler System', 'gear', {'choice' : "40"}, null, 'pdalink fixedLeftWide')}}
                     {{/if}}
                     {{if data.cartridge.access.access_reagent_scanner==1}}
-                        {{:helper.link(data.scanmode == 3 ? 'Disable Reagent Scanner' : 'Enable Reagent Scanner', 'gear', {'choice' : "Reagent Scan"}, null, 'fixedLeftWider')}}
+                        {{:helper.link(data.scanmode == 3 ? 'Disable Reagent Scanner' : 'Enable Reagent Scanner', 'gear', {'choice' : "Reagent Scan"}, null, 'pdalink fixedLeftWider')}}
                     {{/if}}
                     {{if data.cartridge.access.access_engine==1}}
-                        {{:helper.link(data.scanmode == 4 ? 'Disable Halogen Counter' : 'Enable Halogen Counter', 'gear', {'choice' : "Halogen Counter"}, null, 'fixedLeftWider')}}
+                        {{:helper.link(data.scanmode == 4 ? 'Disable Halogen Counter' : 'Enable Halogen Counter', 'gear', {'choice' : "Halogen Counter"}, null, 'pdalink fixedLeftWider')}}
                     {{/if}}
                     {{if data.cartridge.access.access_atmos==1}}
-                        {{:helper.link(data.scanmode == 5 ? 'Disable Gas Scanner' : 'Enable Gas Scanner', 'gear', {'choice' : "Gas Scan"}, null, 'fixedLeftWide')}}
+                        {{:helper.link(data.scanmode == 5 ? 'Disable Gas Scanner' : 'Enable Gas Scanner', 'gear', {'choice' : "Gas Scan"}, null, 'pdalink fixedLeftWide')}}
                     {{/if}}
                     {{if data.cartridge.access.access_remote_door==1}}
-                        {{:helper.link('Toggle Door', 'gear', {'choice' : "Toggle Door"}, null, 'fixedLeftWide')}}
+                        {{:helper.link('Toggle Door', 'gear', {'choice' : "Toggle Door"}, null, 'pdalink fixedLeftWide')}}
                     {{/if}}
                 {{/if}}
-                {{:helper.link('Atmospheric Scan', 'gear', {'choice' : "3"}, null, 'fixedLeftWide')}}
-                {{:helper.link(data.fon==1 ? 'Disable Flashlight' : 'Enable Flashlight', 'lightbulb', {'choice' : "Light"}, null,'fixedLeftWide')}}
+                {{:helper.link('Atmospheric Scan', 'gear', {'choice' : "3"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link(data.fon==1 ? 'Disable Flashlight' : 'Enable Flashlight', 'lightbulb', {'choice' : "Light"}, null,'pdalink fixedLeftWide')}}
             </div>
         </div>
         {{if data.pai}}
@@ -173,8 +255,8 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                     <b>PAI Utilities</b>:
                 </div>
                 <div class = "itemContent">
-                    {{:helper.link('Configuration', 'gear', {'choice' : "pai", 'option' : "1"}, null, 'fixedLeft')}}
-                    {{:helper.link('Eject pAI', 'eject', {'choice' : "pai", 'option' : "2"}, null, 'fixedLeft')}}
+                    {{:helper.link('Configuration', 'gear', {'choice' : "pai", 'option' : "1"}, null, 'pdalink fixedLeft')}}
+                    {{:helper.link('Eject pAI', 'eject', {'choice' : "pai", 'option' : "2"}, null, 'pdalink fixedLeft')}}
                 </div>
             </div>
         {{/if}}
@@ -189,13 +271,13 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         <div class="statusDisplayRecords">
             <div class="item">
                 <div class="itemContent" style="width: 100%;">
-                        <span class="average">{{:data.note}}</span>
+                        <span class="pdanote">{{:data.note}}</span>
                 </div>
             </div>
         </div>
         <div class="item">
             <div class="itemLabel">
-                {{:helper.link('Edit Notes', 'gear', {'choice' : "Edit"}, null, 'fixedLeft')}}
+                {{:helper.link('Edit Notes', 'gear', {'choice' : "Edit"}, null, 'pdalink fixedLeft')}}
             </div>
         </div>
 
@@ -207,10 +289,10 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <b>Messenger Functions</b>:
             </div>
             <div class ="itemContent">
-                {{:helper.link(data.silent==1 ? 'Ringer: Off' : 'Ringer: On', data.silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, 'fixedLeftWide')}}
-                {{:helper.link(data.toff==1 ? 'Messenger: Off' : 'Messenger: On',data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Set Ringtone', 'comment', {'choice' : "Ringtone"}, null, 'fixedLeftWide')}}
-                {{:helper.link('Delete all Conversations', 'trash', {'choice' : "Clear", 'option' : "All"}, null, 'fixedLeftWider')}}
+                {{:helper.link(data.silent==1 ? 'Ringer: Off' : 'Ringer: On', data.silent==1 ? 'volume-off' : 'volume-on', {'choice' : "Toggle Ringer"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link(data.toff==1 ? 'Messenger: Off' : 'Messenger: On',data.toff==1 ? 'close':'check', {'choice' : "Toggle Messenger"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link('Set Ringtone', 'comment', {'choice' : "Ringtone"}, null, 'pdalink fixedLeftWide')}}
+                {{:helper.link('Delete all Conversations', 'trash', {'choice' : "Clear", 'option' : "All"}, null, 'pdalink fixedLeftWider')}}
             </div>
         </div>
         {{if data.toff == 0}}
@@ -233,16 +315,16 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Current Conversations</H3>
                 {{for data.convopdas}}
                     <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, value.fixedLeftWider)}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Select Conversation", 'convo' : value.Reference } , null, 'pdalink')}}
                         {{if data.cartridge}}
                             {{if data.cartridge.access.access_detonate_pda && value.Detonate}}
-                                {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}
+                                {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
                             {{/if}}
                             {{if data.cartridge.access.access_clown}}
-                                {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}
+                                {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
                             {{/if}}
                             {{if data.cartridge.access.access_mime}}
-                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}
+                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'pdalink fixedLeft')}}
                             {{/if}}
                         {{/if}}
                     </div>
@@ -250,11 +332,11 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <H3>Other PDAs</H3>
                 {{for data.pdas}}
                     <div class="item">
-                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, value.fixedLeftWider)}}
+                        {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, 'pdalink')}}
                         {{if data.cartridge}}
-                            {{if data.cartridge.access.access_detonate_pda && value.Detonate}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}} {{/if}}
-                            {{if data.cartridge.access.access_clown}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}} {{/if}}
-                            {{if data.cartridge.access.access_mime}} {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}} {{/if}}
+                            {{if data.cartridge.access.access_detonate_pda && value.Detonate}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'pdalink fixedLeft')}} {{/if}}
+                            {{if data.cartridge.access.access_clown}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'pdalink fixedLeft')}} {{/if}}
+                            {{if data.cartridge.access.access_mime}} {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'pdalink fixedLeft')}} {{/if}}
                         {{/if}}
                     </div>
                 {{/for}}
@@ -269,7 +351,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 <b>Messenger Functions</b>:
             </div>
             <div class ="itemContent">
-                {{:helper.link('Delete Conversation', 'trash', {'choice' : "Clear", 'option' : "Convo"}, null, 'fixedLeftWide')}}
+                {{:helper.link('Delete Conversation', 'trash', {'choice' : "Clear", 'option' : "Convo"}, null, 'pdalink fixedLeftWide')}}
             </div>
         </div>
         <br>
@@ -290,7 +372,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                 </div>
             </div>
         </div>
-        {{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, 'fixedLeft')}}
+        {{:helper.link('Reply', 'comment', {'choice' : "Message", 'target': data.active_conversation}, null, 'pdalink fixedLeft')}}
 
 
 	{{else data.mode== 41}} <!-- Manifest -->
@@ -382,38 +464,38 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
             <div class="item">
                 {{if data.aircontents.reading == 1}}
                     <div class="itemLabel">
-                        Pressure:
+                        <span class="pdanote">Pressure:</span>
                     </div>
                     <div class = "itemContent">
 				        {{:helper.string('<span class="{0}">{1} kPa</span>', data.aircontents.pressure < 80 || data.aircontents.pressure > 120 ? 'bad' : data.aircontents.pressure < 95 || data.aircontents.pressure > 110 ? 'average' : 'good' , data.aircontents.pressure)}}
                     </div>
                     <div class="itemLabel">
-                        Temperature:
+                        <span class="pdanote">Temperature:</span>
                     </div>
                     <div class = "itemContent">
 				        {{:helper.string('<span class="{0}">{1} &deg;C</span>', data.aircontents.temp < 5 || data.aircontents.temp > 35 ? 'bad' : data.aircontents.temp < 15 || data.aircontents.temp > 25 ? 'average' : 'good' , data.aircontents.temp)}}
                     </div>
                     <br>
                     <div class="itemLabel">
-                        Oxygen:
+                        <span class="pdanote">Oxygen:</span>
                     </div>
                     <div class = "itemContent">
                         {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.oxygen < 17 ? 'bad' : data.aircontents.oxygen < 19 ? 'average' : 'good' , data.aircontents.oxygen)}}
                     </div>
                     <div class="itemLabel">
-                        Nitrogen:
+                        <span class="pdanote">Nitrogen:</span>
                     </div>
                     <div class = "itemContent">
                         {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.nitrogen > 82 ? 'bad' : data.aircontents.nitrogen > 80 ? 'average' : 'good' , data.aircontents.nitrogen)}}
                     </div>
                     <div class="itemLabel">
-                        Carbon Dioxide:
+                        <span class="pdanote">Carbon Dioxide:</span>
                     </div>
                     <div class = "itemContent">
                         {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.carbon_dioxide > 5 ? 'bad' : 'good' , data.aircontents.carbon_dioxide)}}
                     </div>
                     <div class="itemLabel">
-                        Plasma:
+                        <span class="pdanote">Plasma:</span>
                     </div>
                     <div class = "itemContent">
                         {{:helper.string('<span class="{0}">{1}%</span>', data.aircontents.plasma  > 0 ? 'bad' : 'good' , data.aircontents.plasma)}}
@@ -421,7 +503,7 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                     </div>
                     {{if data.aircontents.other > 0}}
                         <div class="itemLabel">
-                            Unknown:
+                            <span class="pdanote">Unknown:</span>
                         </div>
                         <div class = "itemContent">
                             <span class="bad">{{:data.aircontents.other}}%</span>
@@ -519,9 +601,9 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 
 
 	{{else data.mode == 43}}
-        <H2>Station Powermonitors</H2>
+        <H2>Station Power Monitors</H2>
         <div class="item">
-            Select A power monitor:
+            Select a power monitor:
         </div>
         {{for data.records.powermonitors}}
             <div class="item">
@@ -532,38 +614,49 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 
     {{else data.mode == 433}}
         <H2>Powernet Status</H2>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                <b>Current Load</b>:
-            </div>
-            <div class="itemContent">
-                <span class="average">{{:data.records.powerload}} W</span>
-            </div>
-        </div>
-        <div class="item">
-            <div class="itemLabelNarrow">
-                <b>Total Power</b>:
-            </div>
-            <div class="itemContent">
-                <span class="average">{{:data.records.poweravail}} W</span>
-            </div>
-        </div>
-        <br>
-        <div class="item">
-            <table class="curvedEdges"><tbody>
-                {{for data.records.apcs}}
-                    {{if index % 20 === 0}}
-                        <tr class=><th>&nbsp;Area&nbsp;</th><th>&nbsp;Eqp.&nbsp;</th><th>&nbsp;Lgt.&nbsp;</th><th>&nbsp;Env&nbsp;</th><th>&nbsp;Cell&nbsp;</th></tr>
-                    {{/if}}
-                    <tr class=><td><span class="average">{{:value.Name}}</span></td>
-                        {{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Equipment==1 ? '#4f7529' : '#8f1414')}}
-                        {{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Lights==1 ? '#4f7529' : '#8f1414')}}
-                        {{:helper.string('<td bgcolor="{0}">&nbsp;</td>', value.Environment==1 ? '#4f7529' : '#8f1414')}}
-                        {{:helper.string('<td bgcolor="{0}">{1}</td>', value.CellStatus==1 ? '#4f7529' : '#8f1414', value.CellStatus==-1 ? 'No Cell' : CellPct + '%')}}
-                    </tr>
-                {{/for}}
-            </tbody></table>
-        </div>
+		{{if data.records.powerconnected == 1}}
+			<div class="item">
+				<div class="itemLabelNarrow">
+					<b>Total Power:</b>
+				</div>
+				<div class="itemContent">
+					<span class="average">{{:data.records.poweravail}} W</span>
+				</div>
+			</div>
+			<div class="item">
+				<div class="itemLabelNarrow">
+					<b>Total Load:</b>
+				</div>
+				<div class="itemContent">
+					<span class="average">{{:data.records.powerload}} W</span>
+				</div>
+			</div>
+			<div class="item">
+				<div class="itemLabelNarrow">
+					<b>Total Demand:</b>
+				</div>
+				<div class="itemContent">
+					<span class="average">{{:data.records.powerdemand}} W</span>
+				</div>
+			</div>
+			<div class="item">
+				<table class="curvedEdges" style="text-align: center;"><tbody>
+					<tr><th>Area</th><th>Equip.</th><th>Lighting</th><th>Environ.</th><th>Cell</th><th>Load</th></tr>
+					{{for data.records.apcs}}		
+						<tr><td style="text-align: left; font-weight: bold;">{{:value.Name}}</td>
+							{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Equipment == "On" || value.Equipment == "AOn" ? '#4f7529' : '#8f1414', value.Equipment)}}
+							{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Lights == "On" || value.Lights == "AOn" ? '#4f7529' : '#8f1414', value.Lights)}}
+							{{:helper.string('<td width="55px" bgcolor="{0}">{1}</td>', value.Environment == "On" || value.Environment == "AOn" ? '#4f7529' : '#8f1414', value.Environment)}}
+							{{:helper.string('<td style="text-align: center;" width="65px" bgcolor="{0}">{1}{2}</td>', value.CellStatus == "F" ? '#4f7529' : value.CellStatus == "C" ? '#cd6500' : '#8f1414', value.CellStatus == "M" ? 'No Cell' : value.CellPct + '%', value.CellStatus == "M" ? '' : ' (' + value.CellStatus + ')')}}
+							<td width="55px">{{:value.Load}}W</td>
+						</tr>
+					{{/for}}
+				</tbody></table>
+			</div>
+		{{else}}
+			<b>Power monitor not connected to net.</b>
+		{{/if}}
+
 
 
 	{{else data.mode == 44}}
@@ -747,10 +840,12 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			<div class="itemContent">
 				<span class="average">
 					{{if data.records.supply.shuttle_moving}}
-					    Moving to station ({{:data.records.supply.shuttle_eta}})
+					    Moving to {{:data.records.supply.shuttle_loc}}
 					{{else}}
 					    Shuttle at {{:data.records.supply.shuttle_loc}}
 					{{/if}}
+                    <br>
+                    {{:data.records.supply.shuttle_time}}
 				</span>
 			</div>
 		</div>

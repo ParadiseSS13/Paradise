@@ -34,11 +34,22 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(src)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(src)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(src)
+	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+	RefreshParts()
+	reagents.my_atom = src
+
+/obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
 	reagents.my_atom = src
 
@@ -61,11 +72,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/check_mat(datum/design/being_built, var/M)
 	switch(M)
-		if("$glass")
+		if(MAT_GLASS)
 			return (g_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
-		if("$gold")
+		if(MAT_GOLD)
 			return (gold_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
-		if("$diamond")
+		if(MAT_DIAMOND)
 			return (diamond_amount - (being_built.materials[M]/efficiency_coeff) >= 0)
 		else
 			return (reagents.has_reagent(M, (being_built.materials[M]/efficiency_coeff)) != 0)

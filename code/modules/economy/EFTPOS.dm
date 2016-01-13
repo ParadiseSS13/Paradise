@@ -10,7 +10,7 @@
 	var/transaction_amount = 0
 	var/transaction_purpose = "Default charge"
 	var/access_code = 0
-	var/obj/machinery/account_database/linked_db
+	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/linked_account
 
 /obj/item/device/eftpos/New()
@@ -53,7 +53,7 @@
 	if(!location)
 		return
 
-	for(var/obj/machinery/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
+	for(var/obj/machinery/computer/account_database/DB in world) //Hotfix until someone finds out why it isn't in 'machines'
 		if(DB.z == location.z)
 			linked_db = DB
 			break
@@ -133,8 +133,10 @@
 			if("change_id")
 				var/attempt_code = text2num(input("Re-enter the current EFTPOS access code", "Confirm EFTPOS code"))
 				if(attempt_code == access_code)
-					eftpos_name = input("Enter a new terminal ID for this device", "Enter new EFTPOS ID") + " EFTPOS scanner"
-					print_reference()
+					var name = input("Enter a new terminal ID for this device", "Enter new EFTPOS ID") as text|null
+					if(name)
+						eftpos_name = name + " EFTPOS scanner"
+						print_reference()
 				else
 					usr << "\icon[src]<span class='warning'>Incorrect code entered.</span>"
 			if("link_account")
@@ -147,7 +149,9 @@
 				else
 					usr << "\icon[src]<span class='warning'>Unable to connect to accounts database.</span>"
 			if("trans_purpose")
-				transaction_purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose")
+				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose") as text|null
+				if(purpose)
+					transaction_purpose = purpose
 			if("trans_value")
 				var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount") as num
 				if(try_num < 0)

@@ -67,7 +67,7 @@
 
 /obj/item/device/chameleon/proc/disrupt(var/delete_dummy = 1)
 	if(active_dummy)
-		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread
+		var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread
 		spark_system.set_up(5, 0, src)
 		spark_system.attach(src)
 		spark_system.start()
@@ -115,9 +115,11 @@
 		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/ex_act() //ok now THATS some serious protection against explosions right here
+/obj/effect/dummy/chameleon/ex_act(var/severity) //no longer bomb-proof
 	for(var/mob/M in src)
 		M << "<span class='danger'>Your chameleon-projector deactivates.</span>"
+		spawn()
+			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()

@@ -53,8 +53,8 @@
 				aiCamera.captureimage(A, usr)
 			else
 				src << "<span class='userdanger'>Your camera isn't functional.</span>"
-			return	
-	
+			return
+
 	/*
 	cyborg restrained() currently does nothing
 	if(restrained())
@@ -111,7 +111,7 @@
 	if(istype(src, /mob/living/silicon/robot/drone))
 		// Drones cannot point.
 		return
-	A.point()
+	pointed(A)
 	return
 
 //Give cyborgs hotkey clicks without breaking existing uses of hotkey clicks
@@ -129,19 +129,18 @@
 
 /atom/proc/BorgCtrlShiftClick(var/mob/user) // Examines
 	if(user.client && user.client.eye == user)
-		examine()
-		user.face_atom(src)
+		user.examinate(src)
 	return
 
 /atom/proc/BorgAltShiftClick()
-	return	
-	
+	return
+
 /obj/machinery/door/airlock/BorgAltShiftClick()  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick()
-	
+
 /atom/proc/BorgShiftClick()
-	return		
-	
+	return
+
 /obj/machinery/door/airlock/BorgShiftClick()  // Opens and closes doors! Forwards to AI code.
 	AIShiftClick()
 
@@ -165,8 +164,8 @@
 	AIAltClick()
 
 /obj/machinery/turretid/BorgAltClick() //turret lethal on/off. Forwards to AI code.
-	AIAltClick()	
-	
+	AIAltClick()
+
 /*
 	As with AI, these are not used in click code,
 	because the code for robots is specific, not generic.

@@ -1,10 +1,11 @@
 /var/global/spacevines_spawned = 0
 
+/datum/event/spacevine
+	announceWhen	= 10
+
 /datum/event/spacevine/start()
-	//biomass is basically just a resprited version of space vines
-	if(prob(50))
-		spacevine_infestation()
-	else
-		biomass_infestation()
+	spacevine_infestation()
 	spacevines_spawned = 1
-v
+
+/datum/event/spacevine/announce()
+	command_announcement.Announce("Confirmed outbreak of level 7 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')

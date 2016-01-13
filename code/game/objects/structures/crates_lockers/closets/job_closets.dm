@@ -50,14 +50,18 @@
 	new /obj/item/clothing/under/waiter(src)
 	new /obj/item/device/radio/headset/headset_service(src)
 	new /obj/item/device/radio/headset/headset_service(src)
-	new /obj/item/clothing/suit/wcoat(src)
-	new /obj/item/clothing/suit/wcoat(src)
-	new /obj/item/clothing/head/soft/black(src)
-	new /obj/item/clothing/head/soft/black(src)
+	new /obj/item/clothing/accessory/waistcoat(src)
+	new /obj/item/clothing/accessory/waistcoat(src)
+	new /obj/item/clothing/suit/chef/classic(src)
+	new /obj/item/clothing/suit/chef/classic(src)
+	new /obj/item/clothing/suit/chef/classic(src)
+	new /obj/item/clothing/head/soft/mime(src)
+	new /obj/item/clothing/head/soft/mime(src)
 	new /obj/item/weapon/storage/box/mousetraps(src)
 	new /obj/item/weapon/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
+	new /obj/item/weapon/reagent_containers/glass/rag(src)
 
 /*
  * Janitor
@@ -110,11 +114,13 @@
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
 
 //Paramedic
 
 /obj/structure/closet/paramedic
-	name = "Paramedic Wardrobe"
+	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "blue"
 	icon_closed = "blue"
@@ -129,17 +135,12 @@
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
 	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
-	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
-	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+	new /obj/item/key/ambulance(src)

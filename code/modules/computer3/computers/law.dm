@@ -1,10 +1,9 @@
 
 
 /obj/machinery/computer3/aiupload
-	name = "AI Upload"
+	name = "\improper AI upload console"
 	desc = "Used to upload laws to the AI."
 	icon_state = "frame-rnd"
-	circuit = "/obj/item/part/board/circuit/aiupload"
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
@@ -53,10 +52,9 @@
 
 
 /obj/machinery/computer3/borgupload
-	name = "Cyborg Upload"
+	name = "cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
 	icon_state = "frame-rnd"
-	circuit = "/obj/item/part/board/circuit/borgupload"
 	var/mob/living/silicon/robot/current = null
 
 

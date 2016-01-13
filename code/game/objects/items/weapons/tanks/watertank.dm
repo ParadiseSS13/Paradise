@@ -108,7 +108,6 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
 	item_state = "mister"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	w_class = 4.0
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
@@ -210,7 +209,6 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
-	icon_override = 'icons/mob/in-hand/tools.dmi'
 	safety = 0
 	max_water = 200
 	power = 8
@@ -340,7 +338,7 @@
 		delete()
 	amount = amt
 	if(amount)
-		var/datum/effect/effect/system/freezing_smoke_spread/F = new /datum/effect/effect/system/freezing_smoke_spread
+		var/datum/effect/system/freezing_smoke_spread/F = new /datum/effect/system/freezing_smoke_spread
 		F.set_up(amount, 0, src.loc)
 		F.start()
 	if(blast)
@@ -369,16 +367,16 @@
 			L.ExtinguishMob()
 	return
 
-/datum/effect/effect/system/freezing_smoke_spread
+/datum/effect/system/freezing_smoke_spread
 
-/datum/effect/effect/system/freezing_smoke_spread/set_up(n = 6, c = 0, loca)
+/datum/effect/system/freezing_smoke_spread/set_up(n = 6, c = 0, loca)
 	number = n
 	if(istype(loca, /turf/))
 		location = loca
 	else
 		location = get_turf(loca)
 
-/datum/effect/effect/system/freezing_smoke_spread/start()
+/datum/effect/system/freezing_smoke_spread/start()
 	var/i = 0
 	for(i=0, i<number, i++)
 		spawn(0)

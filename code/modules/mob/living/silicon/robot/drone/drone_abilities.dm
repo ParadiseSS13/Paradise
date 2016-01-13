@@ -45,7 +45,7 @@
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == "help")
+	if(M.a_intent == I_HELP)
 		get_scooped(M)
 
 	..()

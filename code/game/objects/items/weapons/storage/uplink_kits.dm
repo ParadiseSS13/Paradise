@@ -44,24 +44,18 @@
 				return
 
 			if("murder")
-				new /obj/item/weapon/melee/energy/sword(src)
+				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/clothing/glasses/thermal/syndi(src)
 				new /obj/item/weapon/card/emag(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
 				return
 
 			if("implant")
-				var/obj/item/weapon/implanter/O = new /obj/item/weapon/implanter(src)
-				O.imp = new /obj/item/weapon/implant/freedom(O)
-				var/obj/item/weapon/implanter/U = new /obj/item/weapon/implanter(src)
-				U.imp = new /obj/item/weapon/implant/uplink(U)
-				var/obj/item/weapon/implanter/C = new /obj/item/weapon/implanter(src)
-				C.imp = new /obj/item/weapon/implant/emp(C)
-				var/obj/item/weapon/implanter/K = new /obj/item/weapon/implanter(src)
-				K.imp = new /obj/item/weapon/implant/adrenalin(K)
-				var/obj/item/weapon/implanter/S = new /obj/item/weapon/implanter(src)
-				S.imp = new /obj/item/weapon/implant/explosive(S)
-				S.name += " (explosive)"
+				new /obj/item/weapon/implanter/freedom(src)
+				new /obj/item/weapon/implanter/uplink(src)
+				new /obj/item/weapon/implanter/emp(src)
+				new /obj/item/weapon/implanter/adrenalin(src)
+				new /obj/item/weapon/implanter/explosive(src)
 				return
 
 			if("hacker")
@@ -79,8 +73,8 @@
 				return
 
 			if("darklord")
-				new /obj/item/weapon/melee/energy/sword(src)
-				new /obj/item/weapon/melee/energy/sword(src)
+				new /obj/item/weapon/melee/energy/sword/saber(src)
+				new /obj/item/weapon/melee/energy/sword/saber(src)
 				new /obj/item/weapon/dnainjector/telemut/darkbundle(src)
 				new /obj/item/clothing/head/chaplain_hood(src)
 				new /obj/item/clothing/suit/chaplain_hoodie(src)
@@ -150,6 +144,17 @@
 	new /obj/item/clothing/head/helmet/space/rig/syndi(src)
 	return
 
+/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
+	name = "Boxed Elite Syndicate Hardsuit and Helmet"
+	can_hold = list("/obj/item/clothing/suit/space/rig/syndi/elite", "/obj/item/clothing/head/helmet/space/rig/syndi/elite")
+	max_w_class = 3
+
+/obj/item/weapon/storage/box/syndie_kit/elite_hardsuit/New()
+	..()
+	new /obj/item/clothing/suit/space/rig/syndi/elite(src)
+	new /obj/item/clothing/head/helmet/space/rig/syndi/elite(src)
+	return
+
 /obj/item/weapon/storage/box/syndie_kit/conversion
 	name = "box (CK)"
 
@@ -208,3 +213,17 @@
 		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
 		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
 		new /obj/item/weapon/grenade/chem_grenade/tabungas(src)
+
+/obj/item/weapon/storage/box/syndie_kit/bioterror
+	name = "bioterror syringe box"
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		new /obj/item/weapon/reagent_containers/syringe/bioterror(src)
+		return

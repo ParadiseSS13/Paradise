@@ -1,0 +1,30 @@
+<!-- pAI BioScan
+code/modules/mob/living/silicon/pai/software_modules.dm
+-->
+
+{{if data.holder}}
+	<div class="item">
+		<div class="itemLabel">
+			Bioscan Results for {{:data.holder}} :
+		</div>
+		<div class="itemContent">
+			Health Status : 	{{:data.health}}
+		</div>
+
+		<div class="itemContent">
+			Brute Damage : 		{{:data.brute}}
+		<div class="itemContent">
+			Oxygen Content : 	{{:data.oxy}}
+		<div class="itemContent">
+			Toxin Content : 	{{:data.tox}}
+		</div>
+		<div class="itemContent">
+			Burn Status : 		{{:data.burn}}
+		</div>
+		<div class="itemContent">
+			User Temperature :	{{:data.temp}}
+		</div>
+	</div>
+{{else}}
+	<span class="bad">Error: No biological host found!</span>
+{{/if}}

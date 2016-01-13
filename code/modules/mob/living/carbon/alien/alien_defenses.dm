@@ -16,7 +16,7 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 
-		if ("help")
+		if (I_HELP)
 			sleeping = max(0,sleeping-5)
 			resting = 0
 			AdjustParalysis(-3)
@@ -24,7 +24,7 @@ In all, this is a lot like the monkey code. /N
 			AdjustWeakened(-3)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
-		if ("grab")
+		if (I_GRAB)
 			src.grabbedby(M)
 			return 1
 
@@ -35,7 +35,7 @@ In all, this is a lot like the monkey code. /N
 				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(damage)
-				add_logs(M, src, "attacked", admin=0)
+				add_logs(src, M, "attacked", admin=0)
 				updatehealth()
 			else
 				M << "<span class='warning'>[name] is too injured for that.</span>"
@@ -53,11 +53,11 @@ In all, this is a lot like the monkey code. /N
 		return 0 //this is horrible but 100% necessary
 
 	switch(M.a_intent)
-		if("help")
+		if(I_HELP)
 			help_shake_act(M)
-		if("grab")
+		if(I_GRAB)
 			src.grabbedby(M)
-		if ("harm", "disarm")
+		if (I_HARM, I_DISARM)
 			return 1
 	return 0
 
@@ -66,5 +66,17 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M as mob)
 	if(..())
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		adjustBruteLoss(damage)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
 		updatehealth()

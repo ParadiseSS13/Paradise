@@ -55,15 +55,14 @@
 	return power_used
 
 
-/obj/item/weapon/stock_parts/cell/examine()
-	set src in view(1)
-	if(usr /*&& !usr.stat*/)
+/obj/item/weapon/stock_parts/cell/examine(mob/user)
+	if(..(user, 1))
 		if(maxcharge <= 2500)
-			usr << "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
+			user << "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
 		else
-			usr << "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
+			user << "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
 	if(crit_fail)
-		usr << "\red This power cell seems to be faulty."
+		user << "\red This power cell seems to be faulty."
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)

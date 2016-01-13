@@ -43,9 +43,11 @@ Doesn't work on other aliens/AI.*/
 		adjustToxLoss(-10)
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
-			log_say("AlienWhisper: [key_name(src)]->[M.key] : [msg]")
+			log_say("Alien Whisper: [key_name(src)]->[key_name(M)]: [msg]")
 			M << "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]"
-			src << {"<span class='noticealien'>You said: "[msg]" to [M]</span>"}
+			src << "<span class='noticealien'>You said: [msg] to [M]</span>"
+			for(var/mob/dead/observer/G in player_list)
+				G.show_message("<i>Alien message from <b>[src]</b> ([ghost_follow_link(src, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 	return
 
 /mob/living/carbon/alien/humanoid/verb/transfer_plasma(mob/living/carbon/alien/M as mob in oview())

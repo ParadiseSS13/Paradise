@@ -2,8 +2,8 @@
 //They get a traitor objective and a blood sucking objective
 /datum/game_mode
 	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/enthralled = list() //those controlled by a vampire
-	var/list/thralls = list() //vammpires controlling somebody
+	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
+	var/list/vampire_thralls = list() //vammpires controlling somebody
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
@@ -35,9 +35,6 @@
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
-
 	var/vampire_amount = 4
 
 
@@ -50,7 +47,7 @@
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-	var/list/datum/mind/possible_vampires = get_players_for_role(BE_VAMPIRE)
+	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
 	vampire_amount = 1 + round(num_players() / 10)
 
@@ -62,6 +59,7 @@
 			vampires += vampire
 			vampire.restricted_roles = restricted_jobs
 			modePlayer += vampires
+			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
 		return 1
 	else
 		return 0
@@ -69,14 +67,10 @@
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
 		grant_vampire_powers(vampire.current)
-		vampire.special_role = "Vampire"
 		forge_vampire_objectives(vampire)
 		greet_vampire(vampire)
 
-	spawn (rand(waittime_l, waittime_h))
-		send_intercept()
 	..()
-	return
 
 /datum/game_mode/proc/auto_declare_completion_vampire()
 	if(vampires.len)
@@ -124,9 +118,9 @@
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_enthralled()
-	if(enthralled.len)
+	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
-		for(var/datum/mind/Mind in enthralled)
+		for(var/datum/mind/Mind in vampire_enthralled)
 			text += "<br>[Mind.key] was [Mind.name] ("
 			if(Mind.current)
 				if(Mind.current.stat == DEAD)
@@ -383,63 +377,26 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 				if(VAMP_FULL)
 					src << "\blue You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
 					//no verb
+
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
-	var/ref = "\ref[vampire_mind]"
-	if(ref in thralls)
-		if(vampire_mind.current)
-			if(vampire_mind.current.client)
-				var/I = image('icons/mob/mob.dmi', loc = vampire_mind.current, icon_state = "vampire")
-				vampire_mind.current.client.images += I
-	for(var/headref in thralls)
-		for(var/datum/mind/t_mind in thralls[headref])
-			var/datum/mind/head = locate(headref)
-			if(head)
-				if(head.current)
-					if(head.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = t_mind.current, icon_state = "vampthrall")
-						head.current.client.images += I
-				if(t_mind.current)
-					if(t_mind.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = head.current, icon_state = "vampire")
-						t_mind.current.client.images += I
-				if(t_mind.current)
-					if(t_mind.current.client)
-						var/I = image('icons/mob/mob.dmi', loc = t_mind.current, icon_state = "vampthrall")
-						t_mind.current.client.images += I
+	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_SOLO]
+	vamp_hud.join_solo_hud(vampire_mind.current)
+	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	for(var/headref in thralls)
-		var/datum/mind/head = locate(headref)
-		for(var/datum/mind/t_mind in thralls[headref])
-			if(t_mind.current)
-				if(t_mind.current.client)
-					for(var/image/I in t_mind.current.client.images)
-						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//world.log << "deleting [vampire_mind] overlay"
-							qdel(I)
-		if(head)
-			//world.log << "found [head.name]"
-			if(head.current)
-				if(head.current.client)
-					for(var/image/I in head.current.client.images)
-						if((I.icon_state == "vampthrall" || I.icon_state == "vampire") && I.loc == vampire_mind.current)
-							//world.log << "deleting [vampire_mind] overlay"
-							qdel(I)
-	if(vampire_mind.current)
-		if(vampire_mind.current.client)
-			for(var/image/I in vampire_mind.current.client.images)
-				if(I.icon_state == "vampthrall" || I.icon_state == "vampire")
-					qdel(I)
+	var/datum/atom_hud/antag/vampire_hud = huds[ANTAG_HUD_SOLO]
+	vampire_hud.leave_hud(vampire_mind.current)
+	set_antag_hud(vampire_mind.current, null)
 
 /datum/game_mode/proc/remove_vampire_mind(datum/mind/vampire_mind, datum/mind/head)
 	//var/list/removal
 	if(!istype(head))
 		head = vampire_mind //workaround for removing a thrall's control over the enthralled
 	var/ref = "\ref[head]"
-	if(ref in thralls)
-		thralls[ref] -= vampire_mind
-	enthralled -= vampire_mind
+	if(ref in vampire_thralls)
+		vampire_thralls[ref] -= vampire_mind
+	vampire_enthralled -= vampire_mind
 	vampire_mind.special_role = null
 	update_vampire_icons_removed(vampire_mind)
 	//world << "Removed [vampire_mind.current.name] from vampire shit"

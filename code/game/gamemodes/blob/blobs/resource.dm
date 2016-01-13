@@ -7,20 +7,18 @@
 	var/mob/camera/blob/overmind = null
 	var/resource_delay = 0
 
-	update_icon()
-		if(health <= 0)
-			playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-			Delete()
-			return
-		return
+/obj/effect/blob/resource/update_icon()
+	if(health <= 0)
+		qdel(src)
 
-	run_action()
-		if(resource_delay > world.time)
-			return 0
+/obj/effect/blob/resource/run_action()
 
-		resource_delay = world.time + 40 // 4 seconds
+	if(resource_delay > world.time)
+		return 0
 
-		if(overmind)
-			overmind.add_points(1)
-		return 1
+	resource_delay = world.time + 40 // 4 seconds
+
+	if(overmind)
+		overmind.add_points(1)
+	return 0
 

@@ -27,10 +27,9 @@
 	max_w_class = 2
 	max_combined_w_class = 14
 
-	examine()
-		set src in oview(1)
-		..()
-		usr << text("The service panel is [src.open ? "open" : "closed"].")
+	examine(mob/user)
+		if(..(user, 1))
+			user << text("The service panel is [src.open ? "open" : "closed"].")
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if(locked)
@@ -38,14 +37,14 @@
 				emag_act(user, W)
 
 			if (istype(W, /obj/item/weapon/screwdriver))
-				if (do_after(user, 20))
+				if (do_after(user, 20, target = src))
 					src.open =! src.open
 					user.show_message(text("\blue You [] the service panel.", (src.open ? "open" : "close")))
 				return
 			if ((istype(W, /obj/item/device/multitool)) && (src.open == 1)&& (!src.l_hacking))
 				user.show_message(text("\red Now attempting to reset internal memory, please hold."), 1)
 				src.l_hacking = 1
-				if (do_after(usr, 100))
+				if (do_after(usr, 100, target = src))
 					if (prob(40))
 						src.l_setshort = 1
 						src.l_set = 0
@@ -74,7 +73,7 @@
 			overlays += image('icons/obj/storage.dmi', icon_locking)
 			locked = 0
 			if(istype(weapon, /obj/item/weapon/melee/energy/blade))
-				var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
+				var/datum/effect/system/spark_spread/spark_system = new /datum/effect/system/spark_spread()
 				spark_system.set_up(5, 0, src.loc)
 				spark_system.start()
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
@@ -198,7 +197,7 @@
 	icon_locking = "safeb"
 	icon_sparking = "safespark"
 	force = 8.0
-	w_class = 8.0
+	w_class = 5.0
 	max_w_class = 8
 	anchored = 1.0
 	density = 0

@@ -10,7 +10,12 @@
 		src.bitesize = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
+	if( \
+			istype(W, /obj/item/weapon/kitchenknife) || \
+			istype(W, /obj/item/weapon/butch) || \
+			istype(W, /obj/item/weapon/scalpel) || \
+			istype(W, /obj/item/weapon/kitchen/utensil/knife) \
+		)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/weapon/reagent_containers/food/snacks/rawcutlet(src)
@@ -28,6 +33,9 @@
 	var/subjectname = ""
 	var/subjectjob = null
 
+/obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct
+	name = "meat product"
+	desc = "A slab of station reclaimed and chemically processed meat product."
 
 /obj/item/weapon/reagent_containers/food/snacks/meat/monkey
 	//same as plain meat

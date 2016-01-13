@@ -7,7 +7,7 @@ Mineral Sheets
 		- Plasma
 		- Gold
 		- Silver
-		- Clown
+		- Bananium
 		- Enriched Uranium
 		- Platinum
 		- Metallic Hydrogen
@@ -57,15 +57,10 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	new/datum/stack_recipe("sucker mould", /obj/item/weapon/kitchen/mould/loli, 1, on_floor = 1), \
 	)
 
-var/global/list/datum/stack_recipe/clown_recipes = list ( \
+var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
 	)
-
-var/global/list/datum/stack_recipe/iron_recipes = list ( \
-	new/datum/stack_recipe("iron door", /obj/structure/mineral_door/iron, 20, one_per_turf = 1, on_floor = 1), \
-	null, \
-)
 
 /obj/item/stack/sheet/mineral
 	force = 5.0
@@ -79,18 +74,6 @@ var/global/list/datum/stack_recipe/iron_recipes = list ( \
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4
 
-obj/item/stack/sheet/mineral/iron
-	name = "iron"
-	icon_state = "sheet-silver"
-	origin_tech = "materials=1"
-	sheettype = "iron"
-	color = "#333333"
-	perunit = 2000
-
-obj/item/stack/sheet/mineral/iron/New()
-	..()
-	recipes = iron_recipes
-
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
 	desc = "This appears to be a combination of both sand and stone."
@@ -100,6 +83,7 @@ obj/item/stack/sheet/mineral/iron/New()
 	throw_range = 5
 	origin_tech = "materials=1"
 	sheettype = "sandstone"
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/sandstone/New()
 	..()
@@ -109,8 +93,8 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "diamond"
 	icon_state = "sheet-diamond"
 	origin_tech = "materials=6"
-	perunit = 2000
 	sheettype = "diamond"
+	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
 
 /obj/item/stack/sheet/mineral/diamond/New()
@@ -121,8 +105,8 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "uranium"
 	icon_state = "sheet-uranium"
 	origin_tech = "materials=5"
-	perunit = 2000
 	sheettype = "uranium"
+	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
@@ -132,8 +116,8 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
 	origin_tech = "plasmatech=2;materials=2"
-	perunit = 2000
 	sheettype = "plasma"
+	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -143,7 +127,6 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "Plastic"
 	icon_state = "sheet-plastic"
 	origin_tech = "materials=3"
-	perunit = 2000
 
 /obj/item/stack/sheet/mineral/plastic/New()
 	..()
@@ -152,14 +135,13 @@ obj/item/stack/sheet/mineral/iron/New()
 /obj/item/stack/sheet/mineral/plastic/cyborg
 	name = "plastic sheets"
 	icon_state = "sheet-plastic"
-	perunit = 2000
 
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
 	origin_tech = "materials=4"
-	perunit = 2000
 	sheettype = "gold"
+	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
@@ -169,59 +151,26 @@ obj/item/stack/sheet/mineral/iron/New()
 	name = "silver"
 	icon_state = "sheet-silver"
 	origin_tech = "materials=3"
-	perunit = 2000
 	sheettype = "silver"
+	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
 	recipes = silver_recipes
 
-/obj/item/stack/sheet/mineral/clown
+/obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
 	icon_state = "sheet-clown"
 	origin_tech = "materials=4"
-	perunit = 2000
 	sheettype = "clown"
+	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/stack/sheet/mineral/clown/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/mineral/bananium/New(var/loc, var/amount=null)
 	..()
-	recipes = clown_recipes
+	recipes = bananium_recipes
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"
 	icon_state = "sheet-enruranium"
-	origin_tech = "materials=5"
-	perunit = 1000
-
-//Valuable resource, cargo can sell it.
-/obj/item/stack/sheet/mineral/platinum
-	name = "platinum"
-	icon_state = "sheet-adamantine"
-	origin_tech = "materials=2"
-	sheettype = "platinum"
-	perunit = 2000
-
-//Extremely valuable to Research.
-/obj/item/stack/sheet/mineral/mhydrogen
-	name = "metallic hydrogen"
-	icon_state = "sheet-mythril"
-	origin_tech = "materials=6;powerstorage=5;magnets=5"
-	sheettype = "mhydrogen"
-	perunit = 2000
-
-//Fuel for MRSPACMAN generator.
-/obj/item/stack/sheet/mineral/tritium
-	name = "tritium"
-	icon_state = "sheet-silver"
-	sheettype = "tritium"
-	origin_tech = "materials=5"
-	color = "#777777"
-	perunit = 2000
-
-/obj/item/stack/sheet/mineral/osmium
-	name = "osmium"
-	icon_state = "sheet-silver"
-	sheettype = "osmium"
-	origin_tech = "materials=5"
-	color = "#9999FF"
-	perunit = 2000
+	origin_tech = "materials=6"
+	materials = list(MAT_URANIUM=3000)

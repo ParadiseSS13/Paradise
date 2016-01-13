@@ -1,11 +1,13 @@
 /datum/species/human
 	name = "Human"
+	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = "Monkey"
 	path = /mob/living/carbon/human/human
 	language = "Sol Common"
-	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	flags = HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE
 	dietflags = DIET_OMNI
 	unarmed_type = /datum/unarmed_attack/punch
@@ -19,6 +21,7 @@
 
 /datum/species/unathi
 	name = "Unathi"
+	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	path = /mob/living/carbon/human/unathi
@@ -35,8 +38,9 @@
 	else, frequently even their own lives. They prefer warmer temperatures than most species and \
 	their native tongue is a heavy hissing laungage called Sinta'Unathi."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_CLAWS | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_CARN
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -49,16 +53,20 @@
 	heat_level_3_breathe = 1100 //Default 1000
 
 	flesh_color = "#34AF10"
-
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
+
+/datum/species/unathi/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown")
+		H.unEquip(H.shoes)
+		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/tajaran
 	name = "Tajaran"
+	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	path = /mob/living/carbon/human/tajaran
@@ -85,20 +93,25 @@
 
 	primitive_form = "Farwa"
 
-	flags = HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	flags = HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
-
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
+
+/datum/species/tajaran/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown")
+		H.unEquip(H.shoes)
+		H.equip_or_collect(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 
 /datum/species/vulpkanin
 	name = "Vulpkanin"
+	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	path = /mob/living/carbon/human/vulpkanin
@@ -115,20 +128,20 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
-	bodyflags = FEET_PADDED | HAS_TAIL | HAS_SKIN_COLOR | TAIL_WAGGING
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = FEET_PADDED | HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI
-
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#BE8264"
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
-
 	H.stop_tail_wagging(1)
 
 /datum/species/skrell
 	name = "Skrell"
+	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	path = /mob/living/carbon/human/skrell
@@ -143,25 +156,26 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 
-	flags = HAS_LIPS | HAS_UNDERWEAR
+	flags = HAS_LIPS
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB
-
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 
 /datum/species/vox
 	name = "Vox"
+	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/r_vox.dmi'
 	deform = 'icons/mob/human_races/r_def_vox.dmi'
 	path = /mob/living/carbon/human/vox
 
 	default_language = "Galactic Common"
 	language = "Vox-pidgin"
+	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
 	speech_chance = 20
-
 	unarmed_type = /datum/unarmed_attack/claws	//I dont think it will hurt to give vox claws too.
 
 	blurb = "The Vox are the broken remnants of a once-proud race, now reduced to little more than \
@@ -184,35 +198,56 @@
 	poison_type = "oxygen"
 
 	flags = NO_SCAN | IS_WHITELISTED
+	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
+	bodyflags = HAS_TAIL | TAIL_WAGGING
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
 
-	makeName(var/gender,var/mob/living/carbon/human/H=null)
-		var/sounds = rand(2,8)
-		var/i = 0
-		var/newname = ""
+/datum/species/vox/handle_death(var/mob/living/carbon/human/H)
+	H.stop_tail_wagging(1)
 
-		while(i<=sounds)
-			i++
-			newname += pick(vox_name_syllables)
-		return capitalize(newname)
+/datum/species/vox/makeName(var/gender,var/mob/living/carbon/human/H=null)
+	var/sounds = rand(2,8)
+	var/i = 0
+	var/newname = ""
+
+	while(i<=sounds)
+		i++
+		newname += pick(vox_name_syllables)
+	return capitalize(newname)
+
+/datum/species/vox/equip(var/mob/living/carbon/human/H)
+	if(H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+		H.unEquip(H.wear_mask)
+	H.unEquip(H.l_hand)
+
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
+	var/tank_pref = H.client.prefs.speciesprefs
+	if(tank_pref)//Diseasel, here you go
+		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
+	else
+		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
+	H << "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>"
+	H.internal = H.l_hand
+	if (H.internals)
+		H.internals.icon_state = "internal1"
+
 /*
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)
-
 	H.verbs += /mob/living/carbon/human/proc/leap
 	..() */
 
 /datum/species/vox/armalis/handle_post_spawn(var/mob/living/carbon/human/H)
-
 	H.verbs += /mob/living/carbon/human/proc/gut
 	..()
 
 /datum/species/vox/armalis
 	name = "Vox Armalis"
+	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
 	path = /mob/living/carbon/human/voxarmalis
@@ -260,6 +295,7 @@
 
 /datum/species/kidan
 	name = "Kidan"
+	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	path = /mob/living/carbon/human/kidan
@@ -270,14 +306,15 @@
 	brute_mod = 0.8
 
 	flags = IS_WHITELISTED
+	clothing_flags = HAS_SOCKS
 	bodyflags = FEET_CLAWS
 	dietflags = DIET_HERB
-
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 
 /datum/species/slime
 	name = "Slime People"
+	name_plural = "Slime People"
 	default_language = "Galactic Common"
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
@@ -286,11 +323,11 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
-	bodyflags = HAS_SKIN_COLOR
-	bloodflags = BLOOD_SLIME
+	clothing_flags = HAS_SOCKS
+	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
-
 	reagent_tag = PROCESS_ORG
+	exotic_blood = "water"
 	//ventcrawler = 1 //ventcrawling commented out
 
 	has_organ = list(
@@ -299,6 +336,7 @@
 
 /datum/species/grey
 	name = "Grey"
+	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
@@ -312,9 +350,9 @@
 	default_genes = list(REMOTE_TALK)
 
 
-	flags = IS_WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | CAN_BE_FAT
+	flags = IS_WHITELISTED | HAS_LIPS | CAN_BE_FAT
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_HERB
-
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
@@ -327,11 +365,13 @@
 		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
 		C.mutations -= REMOTE_TALK
 		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+	C.mutations.Add(GREY)
 	C.update_mutations()
 	..()
 
 /datum/species/diona
 	name = "Diona"
+	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
 	path = /mob/living/carbon/human/diona
@@ -362,10 +402,10 @@
 	water and other radiation."
 
 	flags = NO_BREATHE | REQUIRE_LIGHT | IS_PLANT | RAD_ABSORB | NO_BLOOD | NO_PAIN
+	clothing_flags = HAS_SOCKS
 	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
 
 	body_temperature = T0C + 15		//make the plant people have a bit lower body temperature, why not
-
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 
@@ -395,7 +435,7 @@
 		)
 
 /datum/species/diona/can_understand(var/mob/other)
-	var/mob/living/carbon/primitive/diona/D = other
+	var/mob/living/simple_animal/diona/D = other
 	if(istype(D))
 		return 1
 	return 0
@@ -408,23 +448,31 @@
 /*        //overpowered and dumb as hell; they get cloning back, though.
 /datum/species/diona/handle_death(var/mob/living/carbon/human/H)
 
-	var/mob/living/carbon/primitive/diona/S = new(get_turf(H))
+	var/mob/living/simple_animal/diona/S = new(get_turf(H))
 
 	if(H.mind)
 		H.mind.transfer_to(S)
 	else
 		S.key = H.key
 
-	for(var/mob/living/carbon/primitive/diona/D in H.contents)
+	for(var/mob/living/simple_animal/diona/D in H.contents)
 		if(D.client)
 			D.loc = H.loc
 		else
-			del(D)
+			qdel(D)
 
-	H.visible_message("\red[H] splits apart with a wet slithering noise!") */
+	H.visible_message("<span class='danger">[H] splits apart with a wet slithering noise!"</span>) */
 
 /datum/species/machine
 	name = "Machine"
+	name_plural = "Machines"
+
+	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
+	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
+	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
+	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
+	inhuman in outlook and perspective."
+
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
 	path = /mob/living/carbon/human/machine
@@ -433,8 +481,9 @@
 	unarmed_type = /datum/unarmed_attack/punch
 
 	eyes = "blank_eyes"
-	brute_mod = 1.5
-	burn_mod = 1.5
+	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
+	burn_mod = 2.5  // So they take 50% extra damage from brute/burn overall.
+	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
 	cold_level_1 = 50
 	cold_level_2 = -1
@@ -445,21 +494,44 @@
 	heat_level_3 = 600
 	heat_level_3_breathe = 600
 
-	synth_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
+	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | IS_SYNTHETIC | NO_INTORGANS
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA_RAD | NO_POISON
+	clothing_flags = HAS_SOCKS
+	bodyflags = HAS_SKIN_COLOR
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+	virus_immune = 1
+	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
 
+	has_organ = list(
+		"brain" = /obj/item/organ/mmi_holder/posibrain,
+		"cell" = /obj/item/organ/cell,
+		"optics" = /obj/item/organ/optical_sensor
+		)
+
+	vision_organ = "optics"
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
+		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
+		"head" =   list("path" = /obj/item/organ/external/head/ipc),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/ipc),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/ipc),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/ipc),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/ipc),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/ipc),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/ipc),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
+		)
+
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
-	H.emote("deathgasp")
-	for(var/organ_name in H.organs_by_name)
-		if (organ_name == "head")			// do the head last as that's when the user will be transfered to the posibrain
-			continue
-		var/obj/item/organ/external/O = H.organs_by_name[organ_name]
-		if(O && (O.body_part != UPPER_TORSO) && (O.body_part != LOWER_TORSO))  // We're making them fall apart, not gibbing them!
-			O.droplimb(1)
-	var/obj/item/organ/external/O = H.organs_by_name["head"]
-	if(O) O.droplimb(1)
+	H.h_style = ""
+	spawn(100)
+		if(H) H.update_hair()
+
+/datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
+	..()
+	H.verbs += /mob/living/carbon/human/proc/change_monitor

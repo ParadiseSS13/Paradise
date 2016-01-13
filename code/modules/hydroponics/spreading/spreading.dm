@@ -7,7 +7,7 @@
 		for(var/areapath in typesof(/area/hallway))
 			var/area/A = locate(areapath)
 			for(var/turf/simulated/floor/F in A.contents)
-				if(!F.contents.len)
+				if(turf_clear(F))
 					turfs += F
 
 		if(turfs.len) //Pick a turf to spawn at if we can
@@ -67,15 +67,17 @@
 	var/last_tick = 0
 	var/obj/machinery/portable_atmospherics/hydroponics/soil/invisible/plant
 
-	var/mob/living/buckled_mob = null
 	var/movable = 0
 
 /obj/effect/plant/Destroy()
+	if(buckled_mob)
+		unbuckle_mob()
 	if(plant_controller)
 		plant_controller.remove_plant(src)
 	for(var/obj/effect/plant/neighbor in range(1,src))
 		plant_controller.add_plant(neighbor)
 	return ..()
+
 /obj/effect/plant/single
 	spread_chance = 0
 
@@ -123,8 +125,13 @@
 		max_growth-- //Ensure some variation in final sprite, makes the carpet of crap look less wonky.
 
 	mature_time = world.time + seed.get_trait(TRAIT_MATURATION) + 15 //prevent vines from maturing until at least a few seconds after they've been created.
-	spread_chance = seed.get_trait(TRAIT_POTENCY) * 3
-	spread_distance = ((growth_type>0) ? round(spread_chance*0.6) : round(spread_chance*0.3))
+	spread_chance = seed.get_trait(TRAIT_POTENCY)
+	if(growth_type == 0)							//These don't spread far at all (glowshroom, glowberries, brown mold)
+		spread_distance = round(spread_chance*0.1)
+	else if(growth_type == 2 || growth_type == 3)	//Vines and biomass can go further than worms and mold
+		spread_distance = round(spread_chance*0.6)
+	else											//Worms and mold go a moderate distance
+		spread_distance = round(spread_chance*0.3)
 	update_icon()
 
 	spawn(1) // Plants will sometimes be spawned in the turf adjacent to the one they need to end up in, for the sake of correct dir/etc being set.

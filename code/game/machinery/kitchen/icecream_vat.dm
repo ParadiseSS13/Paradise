@@ -116,9 +116,11 @@ var/list/ingredients_source = list(
 			if(held_container)
 				user << "<span class='notice'>You must remove [held_container] from [src] first.</span>"
 			else
+				if(!user.drop_item())
+					user << "<span class='warning'>\The [O] is stuck to your hand!</span>"
+					return
+				O.forceMove(src)
 				user << "<span class='info'>You insert [O] into [src].</span>"
-				user.drop_item()
-				O.loc = src
 				held_container = O
 		else
 			var/obj/item/weapon/reagent_containers/R = O
@@ -198,7 +200,7 @@ var/list/ingredients_source = list(
 
 	if(href_list["eject"])
 		if(held_container)
-			held_container.loc = src.loc
+			held_container.forceMove(src.loc)
 			held_container = null
 		updateDialog()
 

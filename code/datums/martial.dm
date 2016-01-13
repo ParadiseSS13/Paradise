@@ -259,7 +259,7 @@
 			A.dir = i
 			playsound(A.loc, 'sound/weapons/punch1.ogg', 15, 1, -1)
 			sleep(1)
-	var/obj/effect/proc_holder/spell/wizard/aoe_turf/repulse/R = new(null)
+	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
 	var/list/turfs = list()
 	for(var/turf/T in range(1,A))
 		turfs.Add(T)
@@ -520,7 +520,6 @@
 	throwforce = 20
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/weapons.dmi'
-	icon_override = 'icons/mob/in-hand/staff.dmi'
 	icon_state = "bostaff0"
 
 

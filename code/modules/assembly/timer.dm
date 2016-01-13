@@ -2,8 +2,7 @@
 	name = "timer"
 	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock."
 	icon_state = "timer"
-	m_amt = 500
-	g_amt = 50
+	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	origin_tech = "magnets=1"
 
 	secured = 0
@@ -53,7 +52,7 @@
 
 	process()
 		if(timing && (time > 0))
-			time--
+			time -= 2 // 2 seconds per process()
 		if(timing && time <= 0)
 			timing = repeat
 			timer_end()
@@ -110,6 +109,10 @@
 
 		if(href_list["time"])
 			timing = !timing
+			if(timing && istype(holder, /obj/item/device/transfer_valve))
+				message_admins("[key_name_admin(usr)] activated [src] attachment on [holder].")
+				bombers += "[key_name(usr)] activated [src] attachment for [loc]"
+				log_game("[key_name(usr)] activated [src] attachment for [loc]")
 			update_icon()
 		if(href_list["reset"])
 			time = set_time
@@ -120,7 +123,7 @@
 		if(href_list["tp"])
 			var/tp = text2num(href_list["tp"])
 			set_time += tp
-			set_time = min(max(round(set_time), 5), 600)
+			set_time = min(max(round(set_time), 6), 600)
 			if(!timing)
 				time = set_time
 

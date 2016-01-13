@@ -1,6 +1,7 @@
 /obj/item/weapon/implant/uplink
 	name = "uplink"
 	desc = "Summon things."
+	origin_tech = "materials=2;magnets=4;programming=4;biotech=4;syndicate=8;bluespace=5"
 	var/activation_emote = "chuckle"
 
 /obj/item/weapon/implant/uplink/New()

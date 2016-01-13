@@ -127,6 +127,9 @@
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
+/obj/effect/meteor/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
+	return istype(mover, /obj/effect/meteor) ? 1 : ..()
+
 /obj/effect/meteor/proc/ram_turf(var/turf/T)
 	//first bust whatever is in the turf
 	for(var/atom/A in T)
@@ -167,7 +170,8 @@
 			if(!T || T.z != src.z)
 				continue
 			var/dist = get_dist(M.loc, src.loc)
-			shake_camera(M, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
+			if(prob(50))
+				shake_camera(M, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, meteorsound, 50, 1, get_rand_frequency(), 10)
 
 ///////////////////////
@@ -195,7 +199,7 @@
 
 //Large-sized
 /obj/effect/meteor/big
-	name = "big meteor"
+	name = "large meteor"
 	icon_state = "large"
 	hits = 6
 	heavy = 1

@@ -66,7 +66,7 @@
 
 /obj/structure/lattice/proc/updateOverlays()
 	//if(!(istype(src.loc, /turf/space)))
-	//	del(src)
+	//	qdel(src)
 	spawn(1)
 		overlays = list()
 

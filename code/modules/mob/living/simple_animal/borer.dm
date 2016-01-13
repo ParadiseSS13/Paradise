@@ -16,7 +16,7 @@
 		if (!message)
 			return
 		log_say("[key_name(src)] : [message]")
-		if (stat == 2)
+		if (stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = src.loc
 		src << "You whisper silently, \"[message]\""
@@ -42,7 +42,7 @@
 	icon_living = "brainslug"
 	icon_dead = "brainslug_dead"
 	speed = 5
-	a_intent = "harm"
+	a_intent = I_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attacktext = "nips"
@@ -67,7 +67,7 @@
 
 	if(host)
 
-		if(!stat && !host.stat)
+		if(!stat && host.stat != DEAD)
 
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
@@ -96,7 +96,7 @@
 				if(prob(5))
 					host.adjustBrainLoss(rand(1,2))
 
-				if(prob(host.brainloss/20))
+				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
@@ -111,10 +111,10 @@
 	..()
 	statpanel("Status")
 
-	if(emergency_shuttle)
-		var/eta_status = emergency_shuttle.get_status_panel_eta()
-		if(eta_status)
-			stat(null, eta_status)
+	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
+		var/timeleft = shuttle_master.emergency.timeLeft()
+		if(timeleft > 0)
+			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
 
 	if (client.statpanel == "Status")
 		stat("Chemicals", chemicals)
@@ -148,7 +148,7 @@
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in view(3,src))
-		if(C.stat != 2)
+		if(C.stat != DEAD)
 			choices += C
 
 	if(world.time - used_dominate < 300)
@@ -188,7 +188,7 @@
 
 	src << "You begin delicately adjusting your connection to the host brain..."
 
-	spawn(300+(host.brainloss*5))
+	spawn(300+(host.getBrainLoss()*5))
 
 		if(!host || !src || controlling)
 			return
@@ -196,8 +196,8 @@
 			src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
 			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
 			var/borer_key = src.key
-			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey])</font>")
-			msg_admin_attack("[src.name] ([src.ckey]) has assumed control of [host.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
+			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
+			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
 			// host -> brain
 			var/h2b_id = host.computer_id
 			var/h2b_ip= host.lastKnownIP
@@ -243,7 +243,7 @@
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Alien"
-	set name = "Secrete Chemicals (50)"
+	set name = "Secrete Chemicals (30)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
 	if(!host)
@@ -257,17 +257,17 @@
 		src << "\blue You are feeling far too docile to do that."
 		return
 
-	if(chemicals < 50)
+	if(chemicals < 30)
 		src << "You don't have enough chemicals!"
 
 	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","styptic_powder","methamphetamine","sal_acid")
 
-	if(!chem || chemicals < 50 || !host || controlling || !src || stat) //Sanity check.
+	if(!chem || chemicals < 30 || !host || controlling || !src || stat) //Sanity check.
 		return
 
 	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
-	host.reagents.add_reagent(chem, 15)
-	chemicals -= 50
+	host.reagents.add_reagent(chem, 9)
+	chemicals -= 30
 
 /mob/living/simple_animal/borer/verb/release_host()
 	set category = "Alien"
@@ -294,7 +294,7 @@
 		if(!host || !src) return
 
 		if(src.stat)
-			src << "You cannot infest a target in your current state."
+			src << "You cannot release a target in your current state."
 			return
 
 		src << "You wiggle out of [host]'s ear and plop to the ground."
@@ -302,7 +302,7 @@
 		detatch()
 		leave_host()
 
-mob/living/simple_animal/borer/proc/detatch()
+/mob/living/simple_animal/borer/proc/detatch()
 
 	if(!host) return
 
@@ -360,7 +360,7 @@ mob/living/simple_animal/borer/proc/detatch()
 
 	if(!host)	return
 
-	src.loc = get_turf(host)
+	src.forceMove(get_turf(host))
 
 	reset_view(null)
 	machine = null
@@ -387,11 +387,14 @@ mob/living/simple_animal/borer/proc/detatch()
 		return
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/C in view(1,src))
-		if(C.stat != 2 && src.Adjacent(C))
-			choices += C
+	for(var/mob/living/carbon/human/H in view(1,src))
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head.status & ORGAN_ROBOT)
+			continue
+		if(H.stat != DEAD && src.Adjacent(H) && !H.has_brain_worms())
+			choices += H
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
 
 	if(!M || !src) return
 
@@ -400,17 +403,10 @@ mob/living/simple_animal/borer/proc/detatch()
 	if(M.has_brain_worms())
 		src << "You cannot infest someone who is already infested!"
 		return
-/*
-	if(istype(M,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		if(H.check_head_coverage())
-			src << "You cannot get through that host's protective gear."
-			return
-*/
 
 	src << "You slither up [M] and begin probing at their ear canal..."
 
-	if(!do_after(src,50))
+	if(!do_after(src,50, target = M))
 		src << "As [M] moves away, you are dislodged and fall to the ground."
 		return
 
@@ -420,7 +416,7 @@ mob/living/simple_animal/borer/proc/detatch()
 		src << "You cannot infest a target in your current state."
 		return
 
-	if(M.stat == 2)
+	if(M.stat == DEAD)
 		src << "That is not an appropriate target."
 		return
 
@@ -430,7 +426,7 @@ mob/living/simple_animal/borer/proc/detatch()
 			M << "Something disgusting and slimy wiggles into your ear!"
 
 		src.host = M
-		src.loc = M
+		src.forceMove(M)
 
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -446,7 +442,7 @@ mob/living/simple_animal/borer/proc/detatch()
 
 /mob/living/simple_animal/borer/proc/perform_infestation(var/mob/living/carbon/M)
 	src.host = M
-	src.loc = M
+	src.forceMove(M)
 
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -461,15 +457,15 @@ mob/living/simple_animal/borer/proc/detatch()
 	return
 
 //Procs for grabbing players.
-mob/living/simple_animal/borer/proc/request_player()
+/mob/living/simple_animal/borer/proc/request_player()
 	for(var/mob/O in respawnable_list)
 		if(jobban_isbanned(O, "Syndicate"))
 			continue
 		if(O.client)
-			if(O.client.prefs.be_special & BE_ALIEN && !jobban_isbanned(O, "alien"))
+			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
 				question(O.client)
 
-mob/living/simple_animal/borer/proc/question(var/client/C)
+/mob/living/simple_animal/borer/proc/question(var/client/C)
 	spawn(0)
 		if(!C)	return
 		var/response = alert(C, "A cortical borer needs a player. Are you interested?", "Cortical borer request", "Yes", "No", "Never for this round")
@@ -478,9 +474,9 @@ mob/living/simple_animal/borer/proc/question(var/client/C)
 		if(response == "Yes")
 			transfer_personality(C)
 		else if (response == "Never for this round")
-			C.prefs.be_special ^= BE_ALIEN
+			C.prefs.be_special -= ROLE_BORER
 
-mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
+/mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
 
 	if(!candidate)
 		return

@@ -97,6 +97,16 @@ proc/isembryo(A)
 		return 1
 	return 0
 
+/mob/proc/isSynthetic()
+	return 0
+
+/mob/living/carbon/human/isSynthetic()
+	// If they are 100% robotic, they count as synthetic.
+	for(var/obj/item/organ/external/E in organs)
+		if(!(E.status & ORGAN_ROBOT))
+			return 0
+	return 1
+
 /proc/isAIEye(A)
 	if(istype(A, /mob/aiEye))
 		return 1
@@ -127,7 +137,17 @@ proc/isembryo(A)
 		return 1
 	return 0
 
-proc/isobserver(A)
+/proc/isswarmer(A)
+	if(istype(A, /mob/living/simple_animal/hostile/swarmer))
+		return 1
+	return 0
+
+/proc/isguardian(A)
+	if(istype(A, /mob/living/simple_animal/hostile/guardian))
+		return 1
+	return 0
+
+/proc/isobserver(A)
 	if(istype(A, /mob/dead/observer))
 		return 1
 	return 0
@@ -165,6 +185,18 @@ proc/isAntag(A)
 			return 1
 	return 0
 
+proc/isNonCrewAntag(A)
+	if(!isAntag(A))
+		return 0
+
+	var/mob/living/carbon/C = A
+	var/special_role = C.mind.special_role
+	var/list/crew_roles = list("traitor", "Changeling", "Vampire", "Cultist", "Head Revolutionary", "Revolutionary", "malfunctioning AI", "Shadowling", "loyalist", "mutineer", "Response Team")
+	if((special_role in crew_roles))
+		return 0
+
+	return 1
+
 proc/isnewplayer(A)
 	if(istype(A, /mob/new_player))
 		return 1
@@ -186,9 +218,6 @@ proc/isdeaf(A)
 		return (M.sdisabilities & DEAF) || M.ear_deaf
 	return 0
 
-/proc/hsl2rgb(h, s, l)
-	return
-
 proc/hassensorlevel(A, var/level)
 	var/mob/living/carbon/human/H = A
 	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
@@ -196,6 +225,15 @@ proc/hassensorlevel(A, var/level)
 		return U.sensor_mode >= level
 	return 0
 
+proc/getsensorlevel(A)
+	var/mob/living/carbon/human/H = A
+	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = H.w_uniform
+		return U.sensor_mode
+	return SUIT_SENSOR_OFF
+
+/proc/is_admin(var/mob/user)
+	return check_rights(R_ADMIN, 0, user) != 0
 
 
 /proc/check_zone(zone)
@@ -366,20 +404,20 @@ proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 fo
 	return 0
 
 //converts intent-strings into numbers and back
-var/list/intents = list("help","disarm","grab","harm")
+var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 /proc/intent_numeric(argument)
 	if(istext(argument))
 		switch(argument)
-			if("help")		return 0
-			if("disarm")	return 1
-			if("grab")		return 2
+			if(I_HELP)		return 0
+			if(I_DISARM)	return 1
+			if(I_GRAB)		return 2
 			else			return 3
 	else
 		switch(argument)
-			if(0)			return "help"
-			if(1)			return "disarm"
-			if(2)			return "grab"
-			else			return "harm"
+			if(0)			return I_HELP
+			if(1)			return I_DISARM
+			if(2)			return I_GRAB
+			else			return I_HARM
 
 //change a mob's act-intent. Input the intent as a string such as "help" or use "right"/"left
 /mob/verb/a_intent_change(input as text)
@@ -388,7 +426,7 @@ var/list/intents = list("help","disarm","grab","harm")
 
 	if(ishuman(src) || isalienadult(src) || isbrain(src))
 		switch(input)
-			if("help","disarm","grab","harm")
+			if(I_HELP,I_DISARM,I_GRAB,I_HARM)
 				a_intent = input
 			if("right")
 				a_intent = intent_numeric((intent_numeric(a_intent)+1) % 4)
@@ -399,14 +437,14 @@ var/list/intents = list("help","disarm","grab","harm")
 
 	else if(isrobot(src) || islarva(src))
 		switch(input)
-			if("help")
-				a_intent = "help"
-			if("harm")
-				a_intent = "harm"
+			if(I_HELP)
+				a_intent = I_HELP
+			if(I_HARM)
+				a_intent = I_HARM
 			if("right","left")
 				a_intent = intent_numeric(intent_numeric(a_intent) - 3)
 		if(hud_used && hud_used.action_intent)
-			if(a_intent == "harm")
+			if(a_intent == I_HARM)
 				hud_used.action_intent.icon_state = "harm"
 			else
 				hud_used.action_intent.icon_state = "help"
@@ -429,6 +467,13 @@ var/list/intents = list("help","disarm","grab","harm")
 
 	resting = !resting
 	src << "\blue You are now [resting ? "resting" : "getting up"]"
+
+/proc/is_blind(A)
+	if(iscarbon(A))
+		var/mob/living/carbon/C = A
+		if(C.sdisabilities & BLIND || C.blinded)
+			return 1
+	return 0
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -470,18 +515,18 @@ var/list/intents = list("help","disarm","grab","harm")
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || (M.client.holder && (M.client.holder.rights & R_MOD))) && (M.client.prefs.toggles & CHAT_DEAD))
+		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && (M.client.prefs.toggles & CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
-				if(M.stat != DEAD && M.client.holder)
+				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject, M.client.holder)]) "
 				var/mob/dead/observer/DM
 				if(istype(subject, /mob/dead/observer))
 					DM = subject
-				if(M.client.holder) 							// What admins see
+				if(check_rights(R_ADMIN|R_MOD,0,M)) 							// What admins see
 					lname = "[keyname][(DM && DM.anonsay) ? "*" : (DM ? "" : "^")] ([name])"
 				else
 					if(DM && DM.anonsay)						// If the person is actually observer they have the option to be anonymous
@@ -499,3 +544,17 @@ var/list/intents = list("help","disarm","grab","harm")
 			O << "<span class='ghostalert'>[message]<span>"
 			if(ghost_sound)
 				O << sound(ghost_sound)
+
+/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
+	if (!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+		return 0
+	check_eye(src)
+	return 1
+
+/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
+	if(!C.can_use() || !is_in_chassis())
+		return 0
+
+	eyeobj.setLoc(get_turf(C))
+	client.eye = eyeobj
+	return 1

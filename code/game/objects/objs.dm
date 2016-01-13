@@ -1,8 +1,5 @@
 /obj
 	//var/datum/module/mod		//not used
-	var/m_amt = 0	// metal
-	var/g_amt = 0	// glass
-	var/w_amt = 0	// waster amounts
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0
@@ -19,19 +16,21 @@
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
+
+	var/being_shocked = 0
+
 	// What reagents should be logged when transferred TO this object?
 	// Reagent ID => friendly name
 	var/list/reagents_to_log=list()
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/custom_state = default_state)
+/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return 1
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	var/obj/host = nano_host()
-	if(host.CanUseTopic(usr, href_list, custom_state) == STATUS_INTERACTIVE)
+	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
 		return 0
 
@@ -48,6 +47,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
+	nanomanager.close_uis(src)
 	return ..()
 
 /obj/item/proc/is_used_on(obj/O, mob/user)
@@ -83,9 +83,6 @@
 		return remove_air(breath_request)
 	else
 		return null
-
-/atom/movable/proc/initialize()
-	return
 
 /obj/proc/updateUsrDialog()
 	if(in_use)
@@ -157,13 +154,15 @@
 /obj/proc/hear_talk(mob/M as mob, text)
 	if(talking_atom)
 		talking_atom.catchMessage(text, M)
+
 /*
 	var/mob/mo = locate(/mob) in src
 	if(mo)
 		var/rendered = "<span class='game say'><span class='name'>[M.name]: </span> <span class='message'>[text]</span></span>"
 		mo.show_message(rendered, 2)
-		*/
-	return
+*/
+
+/obj/proc/hear_message(mob/M as mob, text)
 
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
@@ -259,3 +258,13 @@ a {
 			anchored = 0
 			step_towards(src,S)
 	else step_towards(src,S)
+
+/obj/proc/container_resist(var/mob/living)
+	return
+
+/obj/proc/tesla_act(var/power)
+	being_shocked = 1
+	var/power_bounced = power * 0.5
+	tesla_zap(src, 3, power_bounced)
+	spawn(10)
+		being_shocked = 0

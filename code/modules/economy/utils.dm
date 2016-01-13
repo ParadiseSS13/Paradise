@@ -5,7 +5,7 @@
 ////////////////////////
 
 /proc/get_money_account(var/account_number, var/from_z=-1)
-	for(var/obj/machinery/account_database/DB in world)
+	for(var/obj/machinery/computer/account_database/DB in world)
 		if(from_z > -1 && DB.z != from_z) continue
 		if((DB.stat & NOPOWER) || !DB.activated ) continue
 		var/datum/money_account/acct = DB.get_account(account_number)
@@ -31,6 +31,8 @@
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
 		var/obj/item/weapon/card/id/I=H.get_idcard()
+		if(!I || !istype(I))
+			return null
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
 		if(require_pin && user)

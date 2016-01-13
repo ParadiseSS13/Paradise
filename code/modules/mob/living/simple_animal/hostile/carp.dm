@@ -42,13 +42,13 @@
 	faction = list("carp")
 	flying = 1
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/carp/Process_Spacemove(var/movement_dir = 0)
 	return 1	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/carp/FindTarget()
 	. = ..()
 	if(.)
-		emote("me", 1, "gnashes at [.]!")
+		custom_emote(1, "gnashes at [.]!")
 
 /mob/living/simple_animal/hostile/carp/AttackingTarget()
 	..()
@@ -62,7 +62,7 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 
-/mob/living/simple_animal/hostile/carp/holocarp/Die()
+/mob/living/simple_animal/hostile/carp/holocarp/death()
 	..()
 	ghostize()
 	qdel(src)

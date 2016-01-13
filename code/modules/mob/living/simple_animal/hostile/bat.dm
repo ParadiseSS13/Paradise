@@ -50,10 +50,15 @@
 /mob/living/simple_animal/hostile/scarybat/FindTarget()
 	. = ..()
 	if(.)
-		emote("flutters towards [.]")
+		custom_emote(1, "flutters towards [.]")
 
 /mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)
+		return 0
+	return ..()
+
+/mob/living/simple_animal/hostile/scarybat/CanAttack(var/atom/the_target)//This is here as a potential override to pick a specific target if available
+	if(istype(the_target) && the_target == owner)
 		return 0
 	return ..()
 

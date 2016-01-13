@@ -42,9 +42,9 @@
 	var/status_display_freq = "1435"
 	var/stat_msg1
 	var/stat_msg2
-	
+
 	var/datum/announcement/priority/crew_announcement = new
-	
+
 	New()
 		..()
 		crew_announcement.newscast = 1
@@ -75,7 +75,7 @@
 				if(access_captain in I.GetAccess())
 					authenticated = 2
 					crew_announcement.announcer = GetNameAndAssignmentFromId(I)
-				
+
 		if("logout" in href_list)
 			authenticated = 0
 			crew_announcement.announcer = ""
@@ -129,16 +129,17 @@
 			if(!computer.radio.subspace)
 				return
 			if(authenticated)
-				call_shuttle_proc(usr)
-				if(emergency_shuttle.online())
+				var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+				if(!input || ..(href, href_list) || !authenticated)
+					return
+				call_shuttle_proc(usr, input)
+				if(shuttle_master.emergency.timer)
 					post_status("shuttle")
 			state = STATE_DEFAULT
 		if("cancelshuttle" in href_list)
 			state = STATE_DEFAULT
 			if(authenticated)
 				cancel_call_proc(usr)
-				if(emergency_shuttle.online())
-					post_status("shuttle")
 				state = STATE_CANCELSHUTTLE
 		if("messagelist" in href_list)
 			currmsg = 0
@@ -236,7 +237,10 @@
 		if("ai-callshuttle2" in href_list)
 			if(!computer.radio.subspace)
 				return
-			call_shuttle_proc(usr)
+			var/input = stripped_input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+			if(!input || ..(href, href_list))
+				return
+			call_shuttle_proc(usr, input)
 			aistate = STATE_DEFAULT
 		if("ai-messagelist" in href_list)
 			aicurrmsg = 0
@@ -278,9 +282,9 @@
 	proc/main_menu()
 		var/dat = ""
 		if (computer.radio.subspace)
-			if(emergency_shuttle.online() && emergency_shuttle.location())
-				var/timeleft = emergency_shuttle.estimate_arrival_time()
-				dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]<BR>"
+			if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+				var/timeleft = shuttle_master.emergency.timeLeft()
+				dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 				refresh = 1
 			else
 				refresh = 0

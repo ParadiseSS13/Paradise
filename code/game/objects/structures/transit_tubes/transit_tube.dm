@@ -10,8 +10,8 @@
 	layer = 3.1
 	anchored = 1.0
 	var/list/tube_dirs = null
-	var/exit_delay = 2
-	var/enter_delay = 1
+	var/exit_delay = 1
+	var/enter_delay = 0
 
 	// alldirs in global.dm is the same list of directions, but since
 	//  the specific order matters to get a usable icon_state, it is
@@ -19,6 +19,11 @@
 	//  this continues to work.
 	var/global/list/tube_dir_list = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 
+
+/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && mover.checkpass(PASSGLASS))
+		return 1
+	return !density
 
 // When destroyed by explosions, properly handle contents.
 obj/structure/transit_tube/ex_act(severity)

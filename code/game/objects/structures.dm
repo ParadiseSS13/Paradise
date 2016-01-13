@@ -20,11 +20,6 @@
 		if(3.0)
 			return
 
-/obj/structure/Destroy()
-	if(hascall(src, "unbuckle"))
-		src:unbuckle()
-	return ..()
-
 /obj/structure/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
@@ -34,8 +29,21 @@
 
 /obj/structure/New()
 	..()
+	if(smooth)
+		smooth_icon(src)
+		smooth_icon_neighbors(src)
+		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
+	if(ticker)
+		cameranet.updateVisibility(src)
+
+/obj/structure/Destroy()
+	if(ticker)
+		cameranet.updateVisibility(src)
+	if(smooth)
+		smooth_icon_neighbors(src)
+	return ..()
 
 /obj/structure/proc/climb_on()
 
@@ -47,6 +55,8 @@
 	do_climb(usr)
 
 /obj/structure/MouseDrop_T(var/atom/movable/C, mob/user as mob)
+	if(..())
+		return
 	if(C == user)
 		do_climb(user)
 
@@ -72,7 +82,7 @@
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user,50))
+	if(!do_after(user,50, target = src))
 		climber = null
 		return
 

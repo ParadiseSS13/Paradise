@@ -10,7 +10,7 @@
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
 	speed = 0
-	a_intent = "harm"
+	a_intent = I_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -25,6 +25,7 @@
 	minbodytemp = 0
 	faction = list("cult")
 	flying = 1
+	universal_speak = 1
 	var/list/construct_spells = list()
 
 /mob/living/simple_animal/construct/New()
@@ -33,8 +34,9 @@
 	real_name = name
 	for(var/spell in construct_spells)
 		AddSpell(new spell(src))
+	updateglow()
 
-/mob/living/simple_animal/construct/Die()
+/mob/living/simple_animal/construct/death()
 	..()
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
 	for(var/mob/M in viewers(src, null))
@@ -44,10 +46,10 @@
 	qdel(src)
 	return
 
-/mob/living/simple_animal/construct/examine()
-	set src in oview()
+/mob/living/simple_animal/construct/examine(mob/user)
+	..(user)
 
-	var/msg = "<span cass='info'>*---------*\nThis is \icon[src] \a <EM>[src]</EM>!\n"
+	var/msg = ""
 	if (src.health < src.maxHealth)
 		msg += "<span class='warning'>"
 		if (src.health >= src.maxHealth/2)
@@ -57,50 +59,15 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	usr << msg
-	return
-
-/mob/living/simple_animal/construct/Bump(atom/movable/AM as mob|obj, yes)
-	spawn( 0 )
-		if ((!( yes ) || now_pushing))
-			return
-		now_pushing = 1
-		if(ismob(AM))
-			var/mob/tmob = AM
-			if(istype(tmob, /mob/living/carbon/human) && (FAT in tmob.mutations))
-				if(prob(5))
-					src << "\red <B>You fail to push [tmob]'s fat ass out of the way.</B>"
-					now_pushing = 0
-					return
-			if(!(tmob.status_flags & CANPUSH))
-				now_pushing = 0
-				return
-
-			tmob.LAssailant = src
-		now_pushing = 0
-		..()
-		if (!( istype(AM, /atom/movable) ))
-			return
-		if (!( now_pushing ))
-			now_pushing = 1
-			if (!( AM.anchored ))
-				var/t = get_dir(src, AM)
-				if (istype(AM, /obj/structure/window/full))
-					for(var/obj/structure/window/win in get_step(AM,t))
-						now_pushing = 0
-						return
-				step(AM, t)
-			now_pushing = null
-		return
-	return
+	user << msg
 
 /mob/living/simple_animal/construct/attack_animal(mob/living/simple_animal/M as mob)
 	if(istype(M, /mob/living/simple_animal/construct/builder))
 		health += 5
-		M.emote("mends some of \the <EM>[src]'s</EM> wounds.")
+		M.custom_emote(1,"mends some of \the <EM>[src]'s</EM> wounds.")
 	else
 		if(M.melee_damage_upper <= 0)
-			M.emote("[M.friendly] \the <EM>[src]</EM>")
+			M.custom_emote(1, "[M.friendly] \the <EM>[src]</EM>")
 		else
 			M.do_attack_animation(src)
 			if(M.attack_sound)
@@ -152,7 +119,7 @@
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
 
 /mob/living/simple_animal/construct/armoured/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
@@ -226,7 +193,7 @@
 	attacktext = "slashes"
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 
 
 
@@ -250,11 +217,11 @@
 	attacktext = "rams"
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/wizard/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/wizard/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
 
 
 /////////////////////////////Behemoth/////////////////////////
@@ -321,10 +288,21 @@
 	environment_smash = 1
 	see_in_dark = 7
 	attack_sound = 'sound/weapons/tap.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/wizard/targeted/smoke/disable)
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/smoke/disable)
 
-/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/construct/harvester/Process_Spacemove(var/movement_dir = 0)
 	return 1
+
+
+////////////////Glow////////////////////
+/mob/living/simple_animal/construct/proc/updateglow()
+	overlays = 0
+	var/overlay_layer = LIGHTING_LAYER + 1
+	if(layer != MOB_LAYER)
+		overlay_layer=TURF_LAYER+0.2
+
+	overlays += image(icon,"glow-[icon_state]",overlay_layer)
+	set_light(2, -2, l_color = "#FFFFFF")
 
 ////////////////Powers//////////////////
 

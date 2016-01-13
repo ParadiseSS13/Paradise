@@ -23,7 +23,7 @@
 	density = 0
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	var/_color //brown, gray and white, leave blank for random
+	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
 	min_oxy = 16 //Require atleast 16kPA oxygen
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -31,41 +31,44 @@
 	universal_speak = 0
 	can_hide = 1
 
-/mob/living/simple_animal/mouse/Life()
+/mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(!stat && prob(speak_chance))
+	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
 
+/mob/living/simple_animal/mouse/Life()
+	. = ..()
+
 	if(!ckey && stat == CONSCIOUS && prob(0.5))
 		stat = UNCONSCIOUS
-		icon_state = "mouse_[_color]_sleep"
+		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
 		speak_chance = 0
 		//snuffles
 	else if(stat == UNCONSCIOUS)
 		if(ckey || prob(1))
 			stat = CONSCIOUS
-			icon_state = "mouse_[_color]"
+			icon_state = "mouse_[mouse_color]"
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
 
 /mob/living/simple_animal/mouse/New()
 	..()
-	if(!_color)
-		_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[_color]"
-	icon_living = "mouse_[_color]"
-	icon_dead = "mouse_[_color]_dead"
-	desc = "It's a small [_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
+	if(!mouse_color)
+		mouse_color = pick( list("brown","gray","white") )
+	icon_state = "mouse_[mouse_color]"
+	icon_living = "mouse_[mouse_color]"
+	icon_dead = "mouse_[mouse_color]_dead"
+	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
 	src.stat = DEAD
-	src.icon_dead = "mouse_[_color]_splat"
-	src.icon_state = "mouse_[_color]_splat"
+	src.icon_dead = "mouse_[mouse_color]_splat"
+	src.icon_state = "mouse_[mouse_color]_splat"
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -105,7 +108,7 @@
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 
-/mob/living/simple_animal/mouse/Die()
+/mob/living/simple_animal/mouse/death()
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
@@ -116,15 +119,15 @@
  */
 
 /mob/living/simple_animal/mouse/white
-	_color = "white"
+	mouse_color = "white"
 	icon_state = "mouse_white"
 
 /mob/living/simple_animal/mouse/gray
-	_color = "gray"
+	mouse_color = "gray"
 	icon_state = "mouse_gray"
 
 /mob/living/simple_animal/mouse/brown
-	_color = "brown"
+	mouse_color = "brown"
 	icon_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)

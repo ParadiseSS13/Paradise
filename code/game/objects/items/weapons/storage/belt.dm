@@ -98,8 +98,22 @@
 		"/obj/item/clothing/mask/surgical",
 		"/obj/item/clothing/gloves/color/latex",
         "/obj/item/weapon/reagent_containers/hypospray/autoinjector",
+        "/obj/item/device/rad_laser",
 		"/obj/item/device/sensor_device"
 	)
+
+/obj/item/weapon/storage/belt/medical/response_team
+
+/obj/item/weapon/storage/belt/medical/response_team/New()
+	..()
+	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+
 
 /obj/item/weapon/storage/belt/botany
 	name = "botanist belt"
@@ -189,6 +203,7 @@
 	desc = "Proves to the world that you are the strongest!"
 	icon_state = "championbelt"
 	item_state = "champion"
+	materials = list(MAT_GOLD=400)
 	storage_slots = 1
 	can_hold = list(
 		"/obj/item/clothing/mask/luchador"
@@ -345,8 +360,8 @@
 /obj/item/weapon/storage/belt/bluespace
 	name = "Belt of Holding"
 	desc = "The greatest in pants-supporting technology."
-	icon_state = "medicalbelt"
-	item_state = "medical"
+	icon_state = "holdingbelt"
+	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = 4
 	max_w_class = 2
@@ -442,7 +457,7 @@
 		user.visible_message("\red [user.name] is trying to strap a belt to [target.name]!")
 
 
-	if(do_after(user, 50) && in_range(user, target))
+	if(do_after(user, 50, target = target) && in_range(user, target))
 		user.drop_item()
 		target = target
 		loc = null
@@ -462,9 +477,9 @@
 				else target.ex_act(1)
 				if (isobj(target))
 					if (target)
-						del(target)
+						qdel(target)
 				if (src)
-					del(src)
+					qdel(src)
 */
 
 /obj/item/weapon/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)

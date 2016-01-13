@@ -27,7 +27,7 @@ datum/reagent/carpet
 	color = "#701345"
 
 /datum/reagent/carpet/reaction_turf(var/turf/simulated/T, var/volume)
-	if(T.is_plating() || T.is_plasteel_floor())
+	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
@@ -60,6 +60,12 @@ datum/reagent/acetone
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
+
+/datum/reagent/acetone/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	M.adjustToxLoss(1.5)
+	..()
+	return
 
 /datum/chemical_reaction/acetone
 	name = "acetone"
@@ -198,6 +204,7 @@ datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 		H.g_hair = rand(0,255)
 		H.b_hair = rand(0,255)
 		H.update_hair()
+		H.update_fhair()
 	..()
 	return
 
@@ -223,6 +230,7 @@ datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 		H.h_style = random_hair_style(H.gender, H.species)
 		H.f_style = random_facial_hair_style(H.gender, H.species)
 		H.update_hair()
+		H.update_fhair()
 	..()
 	return
 
@@ -250,6 +258,7 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 		H.h_style = "Very Long Hair"
 		H.f_style = "Very Long Beard"
 		H.update_hair()
+		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
 			if(H.wear_mask)
 				H.unEquip(H.wear_mask)
@@ -284,7 +293,7 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 					M << "<span class = 'danger'>Something isn't right!"
 					M.adjustBruteLoss(1)
 				if(2)
-					M.emote("me",1,"strains, but nothing happens.")
+					M.custom_emote(1,"strains, but nothing happens.")
 					M.adjustBruteLoss(2)
 				if(3)
 					M.emote("scream")
@@ -298,6 +307,53 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 	..()
 	return
 
+
+/datum/chemical_reaction/soapification
+	name = "Soapification"
+	id = "soapification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "lye"  = 10) // requires two scooped gib tiles
+	min_temp = 374
+	result_amount = 1
+
+
+/datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/weapon/soap/homemade(location)
+	return
+
+/datum/chemical_reaction/candlefication
+	name = "Candlefication"
+	id = "candlefication"
+	result = null
+	required_reagents = list("liquidgibs" = 5, "oxygen"  = 5) //
+	min_temp = 374
+	result_amount = 1
+
+/datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/candle(location)
+	return
+
+
+/datum/chemical_reaction/meatification
+	name = "Meatification"
+	id = "meatification"
+	result = null
+	required_reagents = list("liquidgibs" = 10, "nutriment" = 10, "carbon" = 10)
+	result_amount = 1
+
+/datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	new /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct(location)
+	return
+
+/datum/chemical_reaction/lye
+	name = "lye"
+	id = "lye"
+	result = "lye"
+	required_reagents = list("sodium" = 1, "hydrogen" = 1, "oxygen" = 1)
+	result_amount = 3
 
 ///Alchemical Reagents
 
