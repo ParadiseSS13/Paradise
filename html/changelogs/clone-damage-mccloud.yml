@@ -1,8 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - bugfix: "Fixes Rezadone not clearing mutated organs."
-  - tweak: "Clone damage immunity removed from Slime People, Shadowlings, Golems, and Vox" 
