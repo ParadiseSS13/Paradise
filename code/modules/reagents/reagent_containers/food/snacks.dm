@@ -1649,6 +1649,7 @@
 			baconbeacon.digest_delay()
 
 
+var/lastmonkeycubeexpand = 0
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube
 	name = "monkey cube"
 	desc = "Just add water!"
@@ -1656,6 +1657,7 @@
 	bitesize = 12
 	filling_color = "#ADAC7F"
 	var/monkey_type = "Monkey"
+	var/expanding = 0
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/New()
 	..()
@@ -1663,6 +1665,8 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/afterattack(obj/O, mob/user, proximity)
 	if(!proximity) return
+	if (expanding == 1)
+		return ..()
 	if(istype(O,/obj/structure/sink) && !wrapped)
 		user << "<span class='notice'>You place [src] under a stream of water...</span>"
 		user.drop_item()
@@ -1675,14 +1679,22 @@
 		Unwrap(user)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
+	if (expanding == 1)
+		return
 	if(volume >= 5)
 		return Expand()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	visible_message("<span class='notice'>[src] expands!</span>")
-	var/mob/living/carbon/human/H = new (get_turf(src))
-	H.set_species(monkey_type)
-	qdel(src)
+	if (expanding == 1)
+		return
+	expanding = 1
+	spawn(0)
+		while (world.time - lastmonkeycubeexpand < 2) //do at most one monkeycube every 0.2sec
+			sleep(world.time - lastmonkeycubeexpand)
+		lastmonkeycubeexpand = world.time
+		visible_message("<span class='notice'>[src] expands!</span>")
+		new/mob/living/carbon/human(get_turf(src),monkey_type)
+		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Unwrap(mob/user)
 	icon_state = "monkeycube"
