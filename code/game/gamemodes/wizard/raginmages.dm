@@ -10,6 +10,8 @@
 	var/time_checked = 0
 	var/players_per_mage = 4 // If the admin wants to tweak things or something
 	but_wait_theres_more = 1
+	var/delay_per_mage = 4200 // Every 7 minutes by default
+	var/time_till_chaos = 18000 // Half-hour in
 
 /datum/game_mode/wizard/raginmages/announce()
 	world << "<B>The current game mode is - Ragin' Mages!</B>"
@@ -76,7 +78,7 @@
 
 	if (wizards_alive)
 		if(!time_checked) time_checked = world.time
-		if(world.time > time_checked + 3000 && (mages_made < max_mages))
+		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < max_mages))
 			time_checked = world.time
 			make_more_mages()
 	else
@@ -100,7 +102,8 @@
 			wizards -= M // No, you don't get to occupy a slot
 			marked_for_death |= M.current
 	for(var/mob/living/L in marked_for_death)
-		L << "<span class='userdanger'>STOP FIGHTING.</span>"
+		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
+			L << "<span class='userdanger'>STOP FIGHTING.</span>"
 		L.ghostize()
 		if(istype(L, /mob/living/carbon/brain))
 			// diediedie
@@ -123,11 +126,11 @@
 		return 0
 	making_mage = 1
 	var/list/candidates = list()
-	var/client/theclient = null
+	var/mob/dead/observer/harry = null
 	spawn(rand(200, 600))
 		message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 		//Protip: This returns clients, not ghosts
-		candidates = get_candidates(ROLE_WIZARD)
+		candidates = get_candidate_ghosts(ROLE_WIZARD)
 		if(!candidates.len)
 			message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time
@@ -138,7 +141,7 @@
 							if("Yes")
 								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 									continue
-								candidates += G.client
+								candidates += G
 							if("No")
 								continue
 			sleep(300)
@@ -148,20 +151,38 @@
 			return
 		else
 			candidates = shuffle(candidates)
-			for(var/client/i in candidates)
+			for(var/mob/dead/observer/i in candidates)
 				if(!i) continue //Dont bother removing them from the list since we only grab one wizard
 
-				theclient = i
+				// YER A WIZZERD HARRY
+				harry = i
 				break
 
 			making_mage = 0
-			if(theclient)
-				var/mob/living/carbon/human/new_character= create_human_for_client_from_prefs(theclient)
+			if(harry)
+				var/mob/living/carbon/human/new_character= makeBody(harry)
 
 
 				new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
 				mages_made++
 				return 1
+			else
+				log_to_dd("The candidates list for ragin' mages contained non-observer entries!")
+				return 0
+
+// ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
+// This probably wouldn't do half bad as a proc in __HELPERS
+// Lemme know if this causes species to mess up spectacularly or anything
+/datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
+	if(!G || !G.key) return // Let's not steal someone's soul here
+
+	var/mob/living/carbon/human/new_character = new(pick(latejoin))
+
+	G.client.prefs.copy_to(new_character)
+
+	new_character.key = G.key
+
+	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
