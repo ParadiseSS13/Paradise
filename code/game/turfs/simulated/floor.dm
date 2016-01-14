@@ -45,11 +45,6 @@ var/list/wood_icons = list("wood","wood-broken")
 	if(floor_tile)
 		builtin_tile = new floor_tile
 
-	spawn(5)
-		if(istype(src, /turf/simulated)) //you are probably looking at this and thinking "what the fuck", because that's the appropriate response
-			update_visuals()             //however, shityond means that turfs can change src and spawned procs will try to run on it, and only sim turfs have update_visuals()
-
-
 /turf/simulated/floor/Destroy()
 	if(builtin_tile)
 		qdel(builtin_tile)
