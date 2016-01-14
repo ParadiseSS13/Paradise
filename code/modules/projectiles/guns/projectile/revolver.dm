@@ -64,13 +64,16 @@
 	..(user)
 	user << "[get_ammo(0,0)] of those are live rounds."
 
-/obj/item/weapon/gun/projectile/revolver/verb/Spin()
+/obj/item/weapon/gun/projectile/revolver/verb/spin_revolver()
 	set name = "Spin cylinder"
 	set desc = "Fun when you're bored out of your skull."
 	set category = "Object"
 
 	usr.visible_message("<span class='warning'>[usr] spins the chamber of the revolver.</span>", "<span class='warning'>You spin the revolver's chamber.</span>")
 	playsound(src.loc, 'sound/weapons/revolver_spin.ogg', 100, 1)
+	Spin()
+
+/obj/item/weapon/gun/projectile/revolver/proc/Spin()
 	chambered = null
 	var/random = rand(1, magazine.max_ammo)
 	if(random <= get_ammo(0,0))

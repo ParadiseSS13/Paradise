@@ -1,6 +1,7 @@
 /obj/structure/window/full
 	sheets = 2
 	dir=SOUTHWEST
+	level = 3
 
 /obj/structure/window/full/CheckExit(atom/movable/O as mob|obj, target as turf)
 	return 1

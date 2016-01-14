@@ -10,6 +10,7 @@
 	layer = 2.9
 	var/health = 10
 	var/destroyed = 0
+	level = 3
 
 
 /obj/structure/grille/fence/
