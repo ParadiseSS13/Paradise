@@ -95,3 +95,6 @@
 	icontype = "hud[icon]"
 	ticker.mode.set_antag_hud(serv_mind.current,icontype)
 
+/datum/mindslaves/proc/leave_serv_hud(datum/mind/free_mind)
+	thrallhud.leave_hud(free_mind.current)
+	ticker.mode.set_antag_hud(free_mind.current,null)
