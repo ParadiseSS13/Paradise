@@ -333,7 +333,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(issilicon(owner.current))
 			return 0
@@ -362,7 +362,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current)
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 
 		var/area/A = shuttle_master.emergency.areaInstance
@@ -392,7 +392,7 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(!owner.current)
 			return 0
