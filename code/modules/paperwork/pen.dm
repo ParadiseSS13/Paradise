@@ -50,24 +50,59 @@
 	icon_state = "pen"
 	colour = "white"
 
-/obj/item/weapon/pen/multi //spaceman96: Trenna Seber
+/obj/item/weapon/pen/multi
 	name = "multicolor pen"
 	desc = "It's a cool looking pen. Lots of colors!"
+
+	// these values are for the overlay
+	var/list/colour_choices = list(
+		"black" = list(0.25, 0.25, 0.25),
+		"red" = list(1, 0.25, 0.25),
+		"green" = list(0, 1, 0),
+		"blue" = list(0.5, 0.5, 1),
+		"yellow" = list(1, 1, 0))
+	var/pen_color_iconstate = "pencolor"
+	var/pen_color_shift = 3
+
+/obj/item/weapon/pen/multi/New()
+	..()
+	update_icon()
+
+/obj/item/weapon/pen/multi/proc/select_colour(mob/user as mob)
+	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+	if(newcolour)
+		colour = newcolour
+		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
+		update_icon()
+
+/obj/item/weapon/pen/multi/attack_self(mob/living/user as mob)
+	select_colour(user)
+
+/obj/item/weapon/pen/multi/update_icon()
+	overlays.Cut()
+	var/icon/o = new(icon, pen_color_iconstate)
+	var/list/c = colour_choices[colour]
+	o.SetIntensity(c[1], c[2], c[3])
+	if(pen_color_shift)
+		o.Shift(SOUTH, pen_color_shift)
+	overlays += o
 
 /obj/item/weapon/pen/fancy
 	name = "fancy pen"
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon_state = "fancypen"
 
-/obj/item/weapon/pen/gold
+/obj/item/weapon/pen/multi/gold
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	
-/obj/item/weapon/pen/fountain
+	pen_color_shift = 0
+
+/obj/item/weapon/pen/multi/fountain
 	name = "Engraved Fountain Pen"
 	desc = "An expensive looking pen."
-	icon_state = "fountainpen"	
+	icon_state = "fountainpen"
+	pen_color_shift = 0
 
 /obj/item/weapon/pen/attack(mob/living/M, mob/user)
 	if(!istype(M))

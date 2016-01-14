@@ -76,6 +76,7 @@
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	species_restricted = null
+	silence_steps = 1
 
 /obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
 	if(!istype(H))	return 0
@@ -98,6 +99,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	var/footstep = 1
+	silence_steps = 1
 
 /obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
 	if(!istype(H))	return 0

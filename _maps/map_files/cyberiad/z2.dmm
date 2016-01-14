@@ -229,7 +229,7 @@
 "fC" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/obj/item/weapon/storage/box/donkpockets{pixel_x = 3; pixel_y = 3},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/ninja/holding)
 "fD" = (/obj/structure/rack,/obj/item/device/camera,/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
 "fE" = (/obj/structure/rack,/obj/item/toy/sword,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
-"fF" = (/obj/structure/rack,/obj/item/toy/gun,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
+"fF" = (/obj/structure/rack,/obj/item/weapon/gun/projectile/revolver/capgun,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
 "fG" = (/obj/machinery/computer/arcade,/turf/unsimulated/floor{icon_state = "cafeteria"; dir = 2},/area/ninja/holding)
 "fH" = (/turf/unsimulated/beach/sand,/area/ninja/holding)
 "fI" = (/obj/effect/overlay/palmtree_r,/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/ninja/holding)
