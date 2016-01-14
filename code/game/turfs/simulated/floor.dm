@@ -64,7 +64,8 @@ var/list/wood_icons = list("wood","wood-broken")
 //	return ..()
 
 /turf/simulated/floor/ex_act(severity)
-	//set src in oview(1)
+	if(is_shielded())
+		return
 	switch(severity)
 		if(1.0)
 			src.ChangeTurf(/turf/space)
@@ -99,6 +100,11 @@ var/list/wood_icons = list("wood","wood-broken")
 	for(var/obj/structure/window/W in src)
 		if(W.dir == dir_to || W.is_fulltile()) //Same direction or diagonal (full tile)
 			W.fire_act(adj_air, adj_temp, adj_volume)
+
+/turf/simulated/floor/is_shielded()
+	for(var/obj/structure/A in contents)
+		if(A.level == 3)
+			return 1
 
 /turf/simulated/floor/blob_act()
 	return
@@ -217,4 +223,4 @@ var/list/wood_icons = list("wood","wood-broken")
 		ChangeTurf(/turf/simulated/floor/engine/cult)
 
 /turf/simulated/floor/can_have_cabling()
-	return !burnt & !broken
+	return !burnt && !broken

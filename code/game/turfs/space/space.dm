@@ -198,3 +198,6 @@
 
 /turf/space/singularity_act()
 	return
+
+/turf/space/can_have_cabling()
+	return 0

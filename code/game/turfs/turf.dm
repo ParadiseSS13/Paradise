@@ -170,6 +170,10 @@
 
 	W.levelupdate()
 	W.CalculateAdjacentTurfs()
+
+	if(!can_have_cabling())
+		for(var/obj/structure/cable/C in contents)
+			qdel(C)
 	return W
 
 //////Assimilate Air//////
