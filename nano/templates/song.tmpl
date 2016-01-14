@@ -38,7 +38,7 @@ Used In File(s): \code\game\objects\structures\musician.dm
 			<div class="floatLeft highlight">{{:index + 1}}:&nbsp;</div>
 			<div class="floatRight">
 				{{:helper.link('Edit', 'pencil', {'modifyline': index+1}, data.playing ? 'disabled' : null)}}
-				{{:helper.link('Insert', 'arrowreturn-1-n', {'insertline': index+1}, data.playing ? 'disabled' : null)}}
+				{{:helper.link('Insert', 'arrow-up', {'insertline': index+1}, data.playing ? 'disabled' : null)}}
 				{{:helper.link('Delete', 'trash', {'deleteline': index+1}, data.playing ? 'disabled' : null)}}
 			</div>
 			<div>{{:value}}</div>
@@ -46,14 +46,14 @@ Used In File(s): \code\game\objects\structures\musician.dm
 	{{/for}}
 </div>
 <div class="floatRight">
-	{{:helper.link('Add Line', 'arrowreturn-1-s', {'insertline': data.lines.length + 1}, data.playing ? 'disabled' : null)}}
+	{{:helper.link('Add Line', 'arrow-down', {'insertline': data.lines.length + 1}, data.playing ? 'disabled' : null)}}
 </div>
 <div class="clearBoth"></div>
 <hr>
 
 <div class="item">
 	<div class="itemLabelNarrow">
-		{{:helper.link('Help', data.help ? 'close' : 'help', {'help': 1})}}
+		{{:helper.link('Help', data.help ? 'close' : 'question', {'help': 1})}}
 	</div>
 	<div class="itemContent">
 		{{if data.help}}

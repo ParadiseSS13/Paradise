@@ -41,7 +41,7 @@
 		Mask Release Valve:
 	</div>
 	<div class="itemContent">
-		{{:helper.link('Open', 'unlocked', {'stat' : 1}, (!data.maskConnected) ? 'disabled' : (data.valveOpen ? 'selected' : null))}}{{:helper.link('Close', 'locked', {'stat' : 1}, data.valveOpen ? null : 'selected')}}
+		{{:helper.link('Open', 'unlock', {'stat' : 1}, (!data.maskConnected) ? 'disabled' : (data.valveOpen ? 'selected' : null))}}{{:helper.link('Close', 'lock', {'stat' : 1}, data.valveOpen ? null : 'selected')}}
 	</div>
 </div>
 

@@ -6,7 +6,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 <h3>Machine Status</h3>
 <div class="item">
 	<div class="itemContent" style="width: 20%;">
-		{{:helper.link(data.scanning ? 'Halt Scan' : 'Begin Scan', 'signal-diag', {'scanItem' : 1}, null)}}
+		{{:helper.link(data.scanning ? 'Halt Scan' : 'Begin Scan', 'signal', {'scanItem' : 1}, null)}}
 	</div>
 	<div class="itemContent" style="width: 20%;">
 		{{:helper.link('Eject item', 'eject', {'ejectItem' : 1}, (data.scanned_item && !data.scanning) ? null : 'disabled')}}
@@ -127,7 +127,7 @@ Used In File(s): \code\modules\research\xenoarchaeology\machinery\geosample_scan
 		{{:data.radiation}} mSv
 	</div>
 	<div class="itemContent" style="width: 44%;">
-		{{:helper.link(data.rad_shield_on ? 'Disable Radiation Shielding' : 'Enable Radiation Shielding', 'radiation', {'toggle_rad_shield' : 1}, null)}}
+		{{:helper.link(data.rad_shield_on ? 'Disable Radiation Shielding' : 'Enable Radiation Shielding', 'exclamation-circle', {'toggle_rad_shield' : 1}, null)}}
 		{{if data.rad_shield_on}}
 			<span class="notice" style="width: 100%;">Shield blocking scanner.</span>
 		{{/if}}

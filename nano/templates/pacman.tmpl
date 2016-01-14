@@ -15,9 +15,9 @@
 	</div>
 	<div class = "itemContent">
 		{{if data.active}}
-			{{:helper.link('STOP', 'power', {'action' : "disable"})}}
+			{{:helper.link('STOP', 'power-off', {'action' : "disable"})}}
 		{{else}}
-			{{:helper.link('START', 'power', {'action' : "enable"})}}
+			{{:helper.link('START', 'power-off', {'action' : "enable"})}}
 		{{/if}}
 	</div>
 </div>
@@ -55,7 +55,7 @@
 			Control:
 		</div>
 		<div class="itemContent">
-			{{:helper.link('EJECT FUEL', 'arrowupthick-1-s', {'action' : "eject"}, data.active ? 'disabled' : null)}}
+			{{:helper.link('EJECT FUEL', 'arrow-down', {'action' : "eject"}, data.active ? 'disabled' : null)}}
 		</div>
 	{{/if}}
 </div>

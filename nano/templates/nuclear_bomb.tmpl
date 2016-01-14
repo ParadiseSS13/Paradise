@@ -11,7 +11,7 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 	{{if data.auth}}
 		{{:helper.link('++++++++++', 'eject', {'auth' : 1})}}
 	{{else}} 
-		{{:helper.link('----------', 'disk', {'auth' : 1})}}
+		{{:helper.link('----------', 'hdd-o', {'auth' : 1})}}
 	{{/if}}
 	</div>
 </div>	
@@ -88,7 +88,7 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 			</div> 
 			<div class="itemContent">
 			{{:helper.link('Engaged', 'info', {'safety' : 1}, data.safety ? 'selected' : '')}}
-			{{:helper.link('Disengaged', 'alert', {'safety' : 0}, data.safety ? '' : 'selected')}}
+			{{:helper.link('Disengaged', 'exclamation-triangle', {'safety' : 0}, data.safety ? '' : 'selected')}}
 			</div>
 		</div>
 		<div class="item">
@@ -96,8 +96,8 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 				Anchor
 			</div> 
 			<div class="itemContent">
-			{{:helper.link('Engaged', 'locked', {'anchor' : 1}, data.anchored ? 'selected' : '')}}
-			{{:helper.link('Disengaged', 'unlocked', {'anchor' : 0}, data.anchored ? '' : 'selected')}}
+			{{:helper.link('Engaged', 'lock', {'anchor' : 1}, data.anchored ? 'selected' : '')}}
+			{{:helper.link('Disengaged', 'unlock', {'anchor' : 0}, data.anchored ? '' : 'selected')}}
 			</div>
 		</div>
 
@@ -109,7 +109,7 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 			</div> 
 			<div class="itemContent">
 			{{:helper.link('Engaged', 'info', null, 'disabled')}}
-			{{:helper.link('Disengaged', 'alert', null, 'disabled')}}
+			{{:helper.link('Disengaged', 'exclamation-triangle', null, 'disabled')}}
 			</div>
 		</div>
 		<div class="item">
@@ -117,8 +117,8 @@ Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
 				Anchor
 			</div> 
 			<div class="itemContent">
-			{{:helper.link('Engaged', 'locked', null, 'disabled')}}
-			{{:helper.link('Disengaged', 'unlocked', null, 'disabled')}}
+			{{:helper.link('Engaged', 'lock', null, 'disabled')}}
+			{{:helper.link('Disengaged', 'unlock', null, 'disabled')}}
 			</div>
 		</div>	
 	{{/if}}
