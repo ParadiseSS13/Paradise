@@ -103,6 +103,6 @@
       {{/if}}
     </div>
   </div>
-  {{:helper.link('Save To Disk', 'hdd-o', { 'disk' : 1 }, (data.buffer || data.species_buffer) ? null : 'disabled')}}
+  {{:helper.link('Save To Disk', 'floppy-o', { 'disk' : 1 }, (data.buffer || data.species_buffer) ? null : 'disabled')}}
   {{:helper.link('Splice Onto Dish', 'pencil', { 'splice' : 1 }, ((data.buffer || data.species_buffer) && !data.info) ? null : 'disabled')}}
 {{/if}}

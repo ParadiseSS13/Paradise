@@ -63,7 +63,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 <div class="item">
 	{{:helper.link('Modify U.I.', 'link', {'selectMenuKey' : 'ui'}, data.selectedMenuKey == 'ui' ? 'selected' : null)}}
 	{{:helper.link('Modify S.E.', 'link', {'selectMenuKey' : 'se'}, data.selectedMenuKey == 'se' ? 'selected' : null)}}
-	{{:helper.link('Transfer Buffers', 'hdd-o', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
+	{{:helper.link('Transfer Buffers', 'floppy-o', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
 	{{:helper.link('Rejuvenators', 'plus', {'selectMenuKey' : 'rejuvenators'}, data.selectedMenuKey == 'rejuvenators' ? 'selected' : null)}}
 </div>
 
@@ -110,7 +110,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 					{{:helper.link('Subject U.I.', 'link', {'bufferOption' : 'saveUI', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
 					{{:helper.link('Subject U.I. + U.E.', 'link', {'bufferOption' : 'saveUIAndUE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
 					{{:helper.link('Subject S.E.', 'link', {'bufferOption' : 'saveSE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
-					{{:helper.link('From Disk', 'hdd-o', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
+					{{:helper.link('From Disk', 'floppy-o', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
 				</div>
 			</div>
 			{{if value.data}}
@@ -155,7 +155,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 					{{:helper.link('Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1)}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
 					{{:helper.link('Block Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1), 'createBlockInjector' : 1}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
 					{{:helper.link('Transfer', 'exclamation-circle', {'bufferOption' : 'transfer', 'bufferId' : (index + 1)}, (!data.hasOccupant || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Save To Disk', 'hdd-o', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
+					{{:helper.link('Save To Disk', 'floppy-o', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
 				</div>
 			</div>
 		</div>
