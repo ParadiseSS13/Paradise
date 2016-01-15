@@ -1,0 +1,7 @@
+
+author: Fox McCloud
+
+delete-after: True
+
+changes: 
+  - bugfix: "Fixes/cuts down on the lag caused by monkey cubes."
