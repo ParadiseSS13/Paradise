@@ -1122,7 +1122,7 @@
 		gender = MALE
 
 	male_kinky
-		name = "Kinky"
+		name = "Mens Kinky"
 		icon_state = "male_kinky"
 		gender = MALE
 
