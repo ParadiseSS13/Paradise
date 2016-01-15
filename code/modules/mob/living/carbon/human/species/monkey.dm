@@ -98,7 +98,7 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Tajaran"
 	default_language = "Farwa"
 	flesh_color = "#AFA59E"
-	base_color = "#333333"
+	base_color = "#000000"
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
 
@@ -113,7 +113,7 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Vulpkanin"
 	default_language = "Wolpin"
 	flesh_color = "#966464"
-	base_color = "#BE8264"
+	base_color = "#000000"
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
 
@@ -146,7 +146,7 @@ datum/species/monkey/get_random_name(var/gender)
 	greater_form = "Unathi"
 	default_language = "Stok"
 	flesh_color = "#34AF10"
-	base_color = "#066000"
+	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = FEET_CLAWS | HAS_TAIL
