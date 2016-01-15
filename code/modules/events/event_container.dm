@@ -169,7 +169,8 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Flux Anomaly",				/datum/event/anomaly/anomaly_flux,		50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,		200),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Swarmer Spawn", 			/datum/event/spawn_swarmer, 			150, is_one_shot = 1)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Swarmer Spawn", 			/datum/event/spawn_swarmer, 			150, is_one_shot = 1),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				0, is_one_shot = 1)
 	)
 
 /datum/event_container/major

@@ -102,6 +102,9 @@
 			handle_automated_speech()
 		. = 1
 
+	handle_state_icons()
+
+/mob/living/simple_animal/proc/handle_state_icons()
 	if(resting && icon_resting && stat != DEAD)
 		icon_state = icon_resting
 	else if(stat != DEAD)
