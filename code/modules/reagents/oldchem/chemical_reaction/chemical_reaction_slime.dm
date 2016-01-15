@@ -450,11 +450,25 @@
 			Z.loc = get_turf(holder.my_atom)
 			Z.announce_to_ghosts()
 //Bluespace
+	slimefloor2
+		name = "Bluespace Floor"
+		id = "m_floor2"
+		result = null
+		required_reagents = list("blood" = 1)
+		result_amount = 1
+		required_container = /obj/item/slime_extract/bluespace
+		required_other = 1
+		on_reaction(datum/reagents/holder, created_volume)
+			feedback_add_details("slime_cores_used","[type]")
+			var/obj/item/stack/tile/bluespace/P = new /obj/item/stack/tile/bluespace
+			P.amount = 25
+			P.loc = get_turf(holder.my_atom)
+
 	slimecrystal
 		name = "Slime Crystal"
 		id = "m_crystal"
 		result = null
-		required_reagents = list("blood" = 1)
+		required_reagents = list("plasma" = 1)
 		result_amount = 1
 		required_container = /obj/item/slime_extract/bluespace
 		required_other = 1
@@ -477,11 +491,28 @@
 			var/obj/item/weapon/slimesteroid2/P = new /obj/item/weapon/slimesteroid2
 			P.loc = get_turf(holder.my_atom)
 //Sepia
+	slimestop
+		name = "Slime Stop"
+		id = "m_stop"
+		result = null
+		required_reagents = list("plasma" = 1)
+		result_amount = 1
+		required_container = /obj/item/slime_extract/sepia
+		required_other = 1
+		on_reaction(datum/reagents/holder)
+			feedback_add_details("slime_cores_used","[type]")
+			spawn(0) //otherwise the reagent won't be used up until after the full timstop is gone through.
+				var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
+				var/obj/effect/timestop/T = new (get_turf(holder.my_atom))
+				T.immune += mob
+				T.timestop()
+
+
 	slimecamera
 		name = "Slime Camera"
 		id = "m_camera"
 		result = null
-		required_reagents = list("plasma" = 1)
+		required_reagents = list("water" = 1)
 		result_amount = 1
 		required_container = /obj/item/slime_extract/sepia
 		required_other = 1
@@ -489,20 +520,23 @@
 			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
 			var/obj/item/device/camera/P = new /obj/item/device/camera
 			P.loc = get_turf(holder.my_atom)
+			var/obj/item/device/camera_film/Z = new /obj/item/device/camera_film
+			Z.loc = get_turf(holder.my_atom)
 
-
-	slimefilm
-		name = "Slime Film"
-		id = "m_film"
+	slimefloor
+		name = "Sepia Floor"
+		id = "m_floor"
 		result = null
 		required_reagents = list("blood" = 1)
 		result_amount = 1
 		required_container = /obj/item/slime_extract/sepia
 		required_other = 1
-		on_reaction(var/datum/reagents/holder)
-			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
-			var/obj/item/device/camera_film/P = new /obj/item/device/camera_film
+		on_reaction(datum/reagents/holder)
+			feedback_add_details("slime_cores_used","[type]")
+			var/obj/item/stack/tile/sepia/P = new /obj/item/stack/tile/sepia
+			P.amount = 25
 			P.loc = get_turf(holder.my_atom)
+
 //Pyrite
 	slimepaint
 		name = "Slime Paint"

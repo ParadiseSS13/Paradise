@@ -634,81 +634,43 @@ obj/structure/cable/proc/cableColor(var/colorC)
 // Cable laying procedures
 //////////////////////////////////////////////
 
+/obj/item/stack/cable_coil/proc/get_new_cable(location)
+	var/obj/structure/cable/C = new(location)
+	C.cableColor(color)
+
+	return C
+
 // called when cable_coil is clicked on a turf/simulated/floor
-/obj/item/stack/cable_coil/proc/turf_place(turf/simulated/floor/F, mob/user)
+/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user)
 	if(!isturf(user.loc))
 		return
 
+	if(!T.can_have_cabling())
+		user << "<span class='warning'>You can only lay cables on catwalks and plating!</span>"
+		return
+
 	if(get_amount() < 1) // Out of cable
-		user << "There is no cable left."
+		user << "<span class='warning'>There is no cable left!</span>"
 		return
 
-	if(get_dist(F,user) > 1) // Too far
-		user << "You can't lay cable at a place that far away."
-		return
-
-	if(F.intact)		// Ff floor is intact, complain
-		user << "You can't lay cable there unless the floor tiles are removed."
+	if(get_dist(T,user) > 1) // Too far
+		user << "<span class='warning'>You can't lay cable at a place that far away!</span>"
 		return
 
 	else
 		var/dirn
 
-		if(user.loc == F)
+		if(user.loc == T)
 			dirn = user.dir			// if laying on the tile we're on, lay in the direction we're facing
 		else
-			dirn = get_dir(F, user)
+			dirn = get_dir(T, user)
 
-		for(var/obj/structure/cable/LC in F)
-			if((LC.d1 == dirn && LC.d2 == 0 ) || ( LC.d2 == dirn && LC.d1 == 0))
-				user << "<span class='warning'>There's already a cable at that position.</span>"
-				return
-///// Z-Level Stuff
-		// check if the target is open space
-		/* if(istype(F, /turf/simulated/floor/open))
-			for(var/obj/structure/cable/LC in F)
-				if((LC.d1 == dirn && LC.d2 == 11 ) || ( LC.d2 == dirn && LC.d1 == 11))
-					user << "<span class='warning'>There's already a cable at that position.</span>"
-					return
-
-			var/turf/simulated/floor/open/temp = F
-			var/obj/structure/cable/C = new(F)
-			var/obj/structure/cable/D = new(temp.floorbelow)
-
-			C.cableColor(color)
-
-			C.d1 = 11
-			C.d2 = dirn
-			C.add_fingerprint(user)
-			C.updateicon()
-
-			var/datum/powernet/PN = new()
-			PN.add_cable(C)
-
-			C.mergeConnectedNetworks(C.d2)
-			C.mergeConnectedNetworksOnTurf()
-
-			D.cableColor(color)
-
-			D.d1 = 12
-			D.d2 = 0
-			D.add_fingerprint(user)
-			D.updateicon()
-
-			PN.add_cable(D)
-			D.mergeConnectedNetworksOnTurf()
-
-		// do the normal stuff
-		else */
-///// Z-Level Stuff
-		for(var/obj/structure/cable/LC in F)
-			if((LC.d1 == dirn && LC.d2 == 0 ) || ( LC.d2 == dirn && LC.d1 == 0))
-				user << "There's already a cable at that position."
+		for(var/obj/structure/cable/LC in T)
+			if(LC.d2 == dirn && LC.d1 == 0)
+				user << "<span class='warning'>There's already a cable at that position!</span>"
 				return
 
-		var/obj/structure/cable/C = new(F)
-
-		C.cableColor(color)
+		var/obj/structure/cable/C = get_new_cable(T)
 
 		//set up the new cable
 		C.d1 = 0 //it's a O-X node cable
@@ -728,6 +690,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 
 		use(1)
+
 		if (C.shock(user, 50))
 			if (prob(50)) //fail
 				new/obj/item/stack/cable_coil(C.loc, 1, C.color)
@@ -751,7 +714,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 
 	if(U == T) //if clicked on the turf we're standing on, try to put a cable in the direction we're facing
-		turf_place(T,user)
+		place_turf(T,user)
 		return
 
 	var/dirn = get_dir(C, user)

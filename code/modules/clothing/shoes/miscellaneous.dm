@@ -57,6 +57,16 @@
 	put_on_delay = 50
 	species_restricted = null
 
+/obj/item/clothing/shoes/galoshes/dry
+	name = "absorbent galoshes"
+	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
+	icon_state = "galoshes_dry"
+
+/obj/item/clothing/shoes/galoshes/dry/step_action()
+	var/turf/simulated/t_loc = get_turf(src)
+	if(istype(t_loc) && t_loc.wet)
+		t_loc.MakeDry(TURF_WET_WATER)
+
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
 	name = "clown shoes"
@@ -66,6 +76,7 @@
 	item_color = "clown"
 	var/footstep = 1	//used for squeeks whilst walking
 	species_restricted = null
+	silence_steps = 1
 
 /obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
 	if(!istype(H))	return 0
@@ -88,6 +99,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	var/footstep = 1
+	silence_steps = 1
 
 /obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
 	if(!istype(H))	return 0

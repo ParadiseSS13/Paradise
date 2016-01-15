@@ -518,11 +518,7 @@
 			visible_message("<span class='warning'>[src] improves [exp_on], drawing the life essence of those nearby!</span>")
 			for(var/mob/living/m in view(4,src))
 				m << "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>"
-				m.apply_damage(10,"brute","head")
-				m.apply_damage(10,"brute","chest")
-				m.apply_damage(10,"brute","groin")
-				m.apply_damage(10,"brute","r_leg")
-				m.apply_damage(10,"brute","l_leg")
+				m.take_overall_damage(50)
 				investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", "experimentor")
 			var/list/reqs = ConvertReqString2List(exp_on.origin_tech)
 			for(var/T in reqs)

@@ -102,6 +102,8 @@
 
 	var/report_power_alarm = 1
 
+	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
+
 /obj/machinery/power/apc/noalarm
 	report_power_alarm = 0
 
@@ -1251,6 +1253,18 @@
 		else // chargemode off
 			charging = 0
 			chargecount = 0
+
+		if(excess >= 5000000 && !shock_proof) //If there's more than 5,000,000 watts in the grid, start arcing and shocking people.
+			if(prob(5))
+				var/list/shock_mobs = list()
+				for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
+					if(iscarbon(C))
+						shock_mobs +=C
+				if(shock_mobs.len)
+					var/mob/living/carbon/S = pick(shock_mobs)
+					S.electrocute_act(rand(5,25), "electrical arc")
+					playsound(get_turf(S), 'sound/effects/eleczap.ogg', 75, 1)
+					Beam(S,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5)
 
 	else // no cell, switch everything off
 

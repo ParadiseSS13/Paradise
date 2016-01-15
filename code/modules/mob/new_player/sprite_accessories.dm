@@ -584,25 +584,6 @@
 */
 
 /datum/sprite_accessory/hair
-	una_spines_long
-		name = "Long Unathi Spines"
-		icon_state = "soghun_longspines"
-		species_allowed = list("Unathi")
-
-	una_spines_short
-		name = "Short Unathi Spines"
-		icon_state = "soghun_shortspines"
-		species_allowed = list("Unathi")
-
-	una_frills_long
-		name = "Long Unathi Frills"
-		icon_state = "soghun_longfrills"
-		species_allowed = list("Unathi")
-
-	una_frills_short
-		name = "Short Unathi Frills"
-		icon_state = "soghun_shortfrills"
-		species_allowed = list("Unathi")
 
 	una_horns
 		name = "Unathi Horns"
@@ -644,11 +625,6 @@
 		icon_state = "skrell_clothhair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
-
-	taj_ears
-		name = "Tajaran Ears"
-		icon_state = "ears_plain"
-		species_allowed = list("Tajaran")
 
 	taj_ears_clean
 		name = "Tajara Clean"
@@ -892,6 +868,8 @@
 
 /datum/sprite_accessory/facial_hair
 
+//Tajara
+
 	taj_sideburns
 		name = "Tajara Sideburns"
 		icon_state = "facial_sideburns"
@@ -921,6 +899,8 @@
 		name = "Tajara Smallstache"
 		icon_state = "facial_smallstache"
 		species_allowed = list("Tajaran")
+
+//Vox
 
 	vox_colonel
 		name = "Vox Colonel Beard"
@@ -957,9 +937,9 @@
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
 
-	vulp_earfluff
-		name = "Earfluff"
-		icon_state = "vulp_facial_earfluff"
+	vulp_vulpine_fluff
+		name = "Vulpine and Earfluff"
+		icon_state = "vulp_facial_vulpine_fluff"
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
 
@@ -992,6 +972,51 @@
 		icon_state = "vulp_facial_swift"
 		species_allowed = list("Vulpkanin")
 		gender = NEUTER
+
+//Unathi
+
+	una_spines_long
+		name = "Long Spines"
+		icon_state = "soghun_longspines"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_spines_short
+		name = "Short Spines"
+		icon_state = "soghun_shortspines"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_long
+		name = "Long Frills"
+		icon_state = "soghun_longfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_short
+		name = "Short Frills"
+		icon_state = "soghun_shortfrills"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_webbed_long
+		name = "Long Webbed Frills"
+		icon_state = "soghun_longfrills_webbed"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_webbed_short
+		name = "Short Webbed Frills"
+		icon_state = "soghun_shortfrills_webbed"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
+	una_frills_webbed_aquatic
+		name = "Aquatic Frills"
+		icon_state = "soghun_aquaticfrills_webbed"
+		species_allowed = list("Unathi")
+		gender = NEUTER
+
 
 //skin styles - WIP
 //going to have to re-integrate this with surgery
@@ -1519,3 +1544,137 @@
 	icon_state = "vox_fishnet"
 	gender = NEUTER
 	species_allowed = list("Vox")
+
+/* HEAD ACCESSORY */
+
+/datum/sprite_accessory/head_accessory
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi", "Vulpkanin", "Tajaran")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/head_accessory/none
+	name = "None"
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/head_accessory/simple
+	name = "Simple"
+	species_allowed = list("Unathi")
+	icon_state = "horns_simple"
+
+/datum/sprite_accessory/head_accessory/short
+	name = "Short"
+	species_allowed = list("Unathi")
+	icon_state = "horns_short"
+
+/datum/sprite_accessory/head_accessory/curled
+	name = "Curled"
+	species_allowed = list("Unathi")
+	icon_state = "horns_curled"
+
+/datum/sprite_accessory/head_accessory/ram
+	name = "Ram"
+	species_allowed = list("Unathi")
+	icon_state = "horns_ram"
+
+/datum/sprite_accessory/head_accessory/vulp_earfluff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpkanin Earfluff"
+	icon_state = "vulp_facial_earfluff"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_blaze
+	icon = 'icons/mob/human_face.dmi'
+	name = "Blaze"
+	icon_state = "vulp_facial_blaze"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_vulpine
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine"
+	icon_state = "vulp_facial_vulpine"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_vulpine_fluff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Vulpine and Earfluff"
+	icon_state = "vulp_facial_vulpine_fluff"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_mask
+	icon = 'icons/mob/human_face.dmi'
+	name = "Mask"
+	icon_state = "vulp_facial_mask"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_patch
+	icon = 'icons/mob/human_face.dmi'
+	name = "Patch"
+	icon_state = "vulp_facial_patch"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_ruff
+	icon = 'icons/mob/human_face.dmi'
+	name = "Ruff"
+	icon_state = "vulp_facial_ruff"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_kita
+	icon = 'icons/mob/human_face.dmi'
+	name = "Kita"
+	icon_state = "vulp_facial_kita"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/vulp_swift
+	icon = 'icons/mob/human_face.dmi'
+	name = "Swift"
+	icon_state = "vulp_facial_swift"
+	species_allowed = list("Vulpkanin")
+
+/datum/sprite_accessory/head_accessory/taj_ears
+	icon = 'icons/mob/human_face.dmi'
+	name = "Tajaran Ears"
+	icon_state = "ears_plain"
+	species_allowed = list("Tajaran")
+
+/* BODY MARKINGS */
+
+/datum/sprite_accessory/body_markings
+	icon = 'icons/mob/body_accessory.dmi'
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/body_markings/none
+	name = "None"
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/body_markings/stripe
+	name = "Stripe"
+	species_allowed = list("Unathi")
+	icon_state = "markings_stripe"
+
+/datum/sprite_accessory/body_markings/tiger
+	name = "Tiger Body"
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	icon_state = "markings_tiger"
+
+/datum/sprite_accessory/body_markings/tigerhead
+	name = "Tiger Body + Head"
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	icon_state = "markings_tigerhead"
+
+/datum/sprite_accessory/body_markings/tigerheadface_taj
+	name = "Tajaran Tiger Body + Head + Face"
+	species_allowed = list("Tajaran")
+	icon_state = "markings_tigerheadface_taj"
+
+/datum/sprite_accessory/body_markings/tigerheadface_vulp
+	name = "Vulpkanin Tiger Body + Head + Face"
+	species_allowed = list("Vulpkanin")
+	icon_state = "markings_tigerheadface_vulp"
+
+/datum/sprite_accessory/body_markings/tigerheadface_una
+	name = "Unathi Tiger Body + Head + Face"
+	species_allowed = list("Unathi")
+	icon_state = "markings_tigerheadface_una"

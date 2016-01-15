@@ -1455,7 +1455,7 @@ proc/rotate_icon(file, state, step = 1, aa = FALSE)
 	var w, h, w2, h2
 
 	if(aa)
-		aa ++
+		aa++
 		w = base.Width()
 		w2 = w * aa
 		h = base.Height()

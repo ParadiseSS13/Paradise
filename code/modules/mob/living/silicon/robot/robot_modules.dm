@@ -314,7 +314,7 @@
 	New()
 		src.modules += new /obj/item/device/flashlight(src)
 		src.modules += new /obj/item/device/flash/cyborg(src)
-		src.modules += new /obj/item/weapon/pen/robopen(src)
+		src.modules += new /obj/item/weapon/pen/multi/robopen(src)
 		src.modules += new /obj/item/weapon/form_printer(src)
 		src.modules += new /obj/item/device/taperecorder(src)
 		src.modules += new /obj/item/weapon/gripper/paperwork(src)

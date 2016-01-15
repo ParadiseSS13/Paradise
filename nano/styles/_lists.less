@@ -1,0 +1,83 @@
+ul {
+    padding: 4px 0 0 10px;
+    margin: 0;
+    list-style-type: none;
+}
+
+li {
+    padding: 0 0 2px 0;
+}
+
+table.fixed {
+    table-layout:fixed;
+}
+
+table.fixed td {
+    overflow: hidden;
+}
+
+/* Table styling for the power monitor */
+table.pmon {
+    border: 2px solid RoyalBlue;
+}
+
+table.pmon td, table.pmon th {
+    border-bottom: 1px dotted black;
+    padding: 0px 5px 0px 5px;
+}
+
+/* Table styling for the crew manifest */
+th.command {
+    background: #3333FF;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.sec {
+    background: #8e0000;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.med {
+    background: #006600;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.eng {
+    background: #b27300;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.sci {
+    background: #a65ba6;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.civ {
+    background: #a32800;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+th.misc {
+    background: #666666;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Striped lines for tables and divs */
+.striped {
+    .striped-base() {
+        background-color: #404040;
+    }
+    tr:nth-child(even) {
+        .striped-base;
+    }
+    &:not(table) > :nth-child(even) {
+        .striped-base;
+    }
+}

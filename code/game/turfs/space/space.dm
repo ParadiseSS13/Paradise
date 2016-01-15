@@ -32,41 +32,40 @@
 		set_light(0)
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
-
-	if (istype(C, /obj/item/stack/rods))
+	..()
+	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
-			if(R.amount < 2)
-				user << "\red You don't have enough rods to do that."
-				return
-			user << "\blue You begin to build a catwalk."
-			if(do_after(user,30, target = src))
+			if(R.use(1))
+				user << "<span class='notice'>You begin constructing catwalk...</span>"
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-				user << "\blue You build a catwalk!"
-				R.use(2)
-				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
 				qdel(L)
-				return
-
-		user << "\blue Constructing support lattice ..."
-		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-		ReplaceWithLattice()
-		R.use(1)
+				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
+			else
+				user << "<span class='warning'>You need two rods to build a catwalk!</span>"
+			return
+		if(R.use(1))
+			user << "<span class='notice'>Constructing support lattice...</span>"
+			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+			ReplaceWithLattice()
+		else
+			user << "<span class='warning'>You need one rod to build a lattice.</span>"
 		return
 
-	if (istype(C, /obj/item/stack/tile/plasteel))
+	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
-			qdel(L)
-			playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
-			S.build(src)
-			S.use(1)
-			return
+			if(S.use(1))
+				qdel(L)
+				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+				user << "<span class='notice'>You build a floor.</span>"
+				ChangeTurf(/turf/simulated/floor/plating)
+			else
+				user << "<span class='warning'>You need one floor tile to build a floor!</span>"
 		else
-			user << "\red The plating is going to need some support."
-	return
+			user << "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>"
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	..()
@@ -199,3 +198,6 @@
 
 /turf/space/singularity_act()
 	return
+
+/turf/space/can_have_cabling()
+	return 0

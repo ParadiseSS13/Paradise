@@ -301,6 +301,10 @@
 	//rotate our direction
 	dir = angle2dir(rotation+dir2angle(dir))
 
+	//resmooth if need be.
+	if(smooth)
+		smooth_icon(src)
+
 	//rotate the pixel offsets too.
 	if (pixel_x || pixel_y)
 		if (rotation < 0)

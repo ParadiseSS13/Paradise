@@ -126,7 +126,7 @@ var/list/blob_nodes = list()
 					spawn(300)
 						burst_blob(blob, 1)
 				else
-					burst ++
+					burst++
 					log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
 					message_admins("[key_name_admin(C)] was in space when attempting to burst as a blob.")
 					C.gib()
@@ -134,7 +134,7 @@ var/list/blob_nodes = list()
 					check_finished() //Still needed in case we can't make any blobs
 
 			else if(blob_client && location)
-				burst ++
+				burst++
 				C.gib()
 				var/obj/effect/blob/core/core = new(location, 200, blob_client, blob_point_rate)
 				if(core.overmind && core.overmind.mind)

@@ -98,7 +98,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Instability: [stability]%", src)
+				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
@@ -106,11 +106,11 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Instability: [stability]%", src)
+				radio.autosay("[warning_alert] Instability: [stability]%", src.name)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert]", src)
+				radio.autosay("[safe_alert]", src.name)
 				lastwarning = world.timeofday
 
 		if(damage > explosion_point)

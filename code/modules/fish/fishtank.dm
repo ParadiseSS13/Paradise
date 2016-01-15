@@ -178,7 +178,7 @@
 	fish_count = 0
 	for(var/fish in fish_list)
 		if(fish)
-			fish_count ++
+			fish_count++
 
 	//Check if the water level can support the current number of fish
 	if((fish_count * 50) > water_level)
@@ -196,7 +196,7 @@
 	if(fish_count >=2 && egg_count < max_fish)		//Need at least 2 fish to breed, but won't breed if there are as many eggs as max_fish
 		if(food_level > 2 && filth_level <=5)		//Breeding is going to use extra food, and the filth_level shouldn't be too high
 			if(prob(((fish_count - 2) * 5)+10))		//Chances increase with each additional fish, 10% base + 5% per additional fish
-				egg_count ++						//A new set of eggs were laid, increase egg_count
+				egg_count++						//A new set of eggs were laid, increase egg_count
 				egg_list.Add(select_egg_type())		//Add the new egg to the egg_list for storage
 				food_level -= 2						//Remove extra food for the breeding process
 
@@ -305,7 +305,7 @@
 	//Check if we were passed a fish type
 	if(type)
 		fish_list.Add("[type]")						//Add a fish of the specified type
-		fish_count ++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
+		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
 		src.visible_message("A new [type] has hatched in \the [src]!")
 	//Null type fish are dud eggs, give a message to inform the player

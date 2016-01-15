@@ -97,6 +97,7 @@
 // ++++ROCKDTBEN++++ MOB PROCS -- Ask me before touching.
 // Stop! ... Hammertime! ~Carn
 // I touched them without asking... I'm soooo edgy ~Erro (added nodamage checks)
+// no ~Tigerkitty
 
 /mob/living/proc/getBruteLoss()
 	return bruteloss

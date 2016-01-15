@@ -1680,8 +1680,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	visible_message("<span class='notice'>[src] expands!</span>")
-	var/mob/living/carbon/human/H = new (get_turf(src))
-	H.set_species(monkey_type)
+	new/mob/living/carbon/human(get_turf(src),monkey_type)
 	qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Unwrap(mob/user)

@@ -15,17 +15,13 @@ The assets folder is used by the Gulp compiling system, and stores the minified 
 the NanoUI JavaScript Library and prerequisites. Everything within this folder is sent to
 the client as-is.
 
-### /css
-This folder is used for the CSS components of NanoUI. Everything within this folder is
-sent to the client as-is.
+### /codemirror
+This folder contains all of the JavaScript and CSS for CodeMirror. It is sent to the
+client as-is. CodeMirror only has it's own folder due to the fact that it can't be
+directly compiled into the NanoUI files.
 
 ### /images
 This folder is used to store any image files. It is sent to the client as-is.
-
-### /js
-This folder is for JavaScript which cannot be compiled and put in the assets folder.
-Currently, it is only used by the pre-minifed CodeMirror JavaScript. It is sent to the
-client as-is.
 
 ### /layouts
 This folder is used for the central "layout" template files, which is loaded before the
@@ -44,6 +40,16 @@ it contains jQuery, jQuery UI, jQuery timers, and the doT template system.
 #### /scripts/nano
 This folder contains the primary JavaScript for NanoUI.
 
+### /styles
+This folder is used for NanoUI's LESS styles. These are compiled via gulp into the file
+`nanoui.css`. LESS is a system that expands upon CSS in order to make it better, as well
+as less complicated.
+
+Any LESS file that is prefixed with the `_` character will be ignored during compilation.
+These files are still included, however, via `@import`, view the file
+[`nanoui.less`](http://github.com/ParadiseSS13/Paradise/blob/master/nano/styles/nanoui.less) to see how this works.
+
+
 ### /templates
 This folder is used to store the .tmpl files which are later compiled by the NanoUtility
 JavaScript, using a modified version of the doT template engine. It is sent to the client
@@ -57,9 +63,10 @@ environment.
 You will first need to install the primary prerequisite of NanoUI, [Node.js](https://nodejs.org).
 
 Node.js is used to obtain all of the remaining prerequisites to compile NanoUI. This is
-done by running the following two commands.
- - `npm install -g gulp`
+done by running the following commands.
+ - `npm install -g gulp bower`
  - `npm install`
+ - `bower install`
 
 ### Running Gulp
 NanoUI is built using the `gulp` task automation system. This system uses the contents

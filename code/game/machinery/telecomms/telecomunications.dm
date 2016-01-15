@@ -29,7 +29,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/toggled = 1 	// Is it toggled on
 	var/on = 1
 	var/long_range_link = 0	// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
-	var/circuitboard = null // string pointing to a circuitboard type
+	var/circuitboard = null // type pointing to a circuitboard type
 	var/hide = 0				// Is it a hidden machine?
 	var/listening_level = 0	// 0 = auto set in New() - this is the z level that the machine is listening to.
 	Mtoollink = 1
@@ -224,7 +224,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 1
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/receiver"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
 
@@ -280,7 +280,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 80
 	machinetype = 7
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/hub"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/hub
 	long_range_link = 1
 	netspeed = 40
 
@@ -314,7 +314,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 8
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/relay"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/relay
 	netspeed = 5
 	long_range_link = 1
 	var/broadcasting = 1
@@ -365,7 +365,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 50
 	machinetype = 2
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/bus"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/bus
 	netspeed = 40
 	var/change_frequency = 0
 
@@ -417,7 +417,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 30
 	machinetype = 3
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/processor"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 	receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -454,7 +454,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 15
 	machinetype = 4
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/server"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/server
 	var/list/log_entries = list()
 	var/list/stored_names = list()
 	var/list/TrafficActions = list()

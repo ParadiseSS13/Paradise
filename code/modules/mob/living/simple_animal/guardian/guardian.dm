@@ -32,6 +32,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
+	var/summoned = FALSE
 	var/animated_manifest = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -59,6 +60,10 @@
 			src << "You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]"
 			visible_message("<span class='danger'>The [src] jumps back to its user.</span>")
 			Recall()
+	if(summoned && !summoner)
+		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
+		ghostize()
+		qdel()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -559,17 +564,19 @@
 	if(!istype(A))
 		return
 	if(src.loc == summoner)
-		src << "<span class='danger'><B>You must be manifested to create bombs!</span></B>"
+		src << "<span class='danger'><B>You must be manifested to create bombs!</B></span>"
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
-			src << "<span class='danger'><B>Success! Bomb armed!</span></B>"
+			src << "<span class='danger'><B>Success! Bomb on \the [A] armed!</B></span>"
+			if(summoner)
+				summoner << "<span class='warning'>Your guardian has primed \the [A] to explode!</span>"
 			bomb_cooldown = world.time + 200
 			B.spawner = src
 			B.disguise (A)
 		else
-			src << "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</span></B>"
+			src << "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>"
 
 /obj/item/weapon/guardian_bomb
 	name = "bomb"
@@ -585,13 +592,21 @@
 	density = A.density
 	appearance = A.appearance
 	spawn(600)
-		stored_obj.loc = get_turf(src.loc)
-		spawner << "<span class='danger'><B>Failure! Your trap didn't catch anyone this time.</span></B>"
-		qdel(src)
+		if(src)
+			stored_obj.loc = get_turf(src.loc)
+			spawner << "<span class='danger'><B>Failure! Your trap on \the [stored_obj] didn't catch anyone this time.</B></span>"
+			qdel(src)
 
 /obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
-	user << "<span class='danger'><B>The [src] was boobytrapped!</span></B>"
-	spawner << "<span class='danger'><B>Success! Your trap caught [user]</span></B>"
+	user << "<span class='danger'><B>The [src] was boobytrapped!</B></span>"
+	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+		var/mob/living/simple_animal/hostile/guardian/G = spawner
+		if(user == G.summoner)
+			user << "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>"
+			stored_obj.loc = get_turf(src.loc)
+			qdel(src)
+			return
+	spawner << "<span class='danger'><B>Success! Your trap on \the [src] caught [user]!</B></span>"
 	stored_obj.loc = get_turf(src.loc)
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
@@ -679,6 +694,7 @@
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user)
 	G.summoner = user
+	G.summoned = TRUE
 	G.key = key
 	G << "You are a [mob_name] bound to serve [user.real_name]."
 	G << "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there."

@@ -13,6 +13,11 @@
 	caliber = "38"
 	projectile_type = "/obj/item/projectile/bullet/weakbullet2/rubber"
 
+/obj/item/ammo_casing/cap
+	desc = "A cap for children toys."
+	caliber = "caps"
+	projectile_type = "/obj/item/projectile/bullet/cap"
+
 
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
@@ -28,17 +33,37 @@
 /obj/item/ammo_casing/c9mmap
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type =/obj/item/projectile/bullet/armourpiercing
+	projectile_type = "/obj/item/projectile/bullet/armourpiercing"
 
 /obj/item/ammo_casing/c9mmtox
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/toxinbullet
+	projectile_type = "/obj/item/projectile/bullet/toxinbullet"
 
 /obj/item/ammo_casing/c9mminc
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
+	projectile_type = "/obj/item/projectile/bullet/incendiary/firebullet"
+
+/obj/item/ammo_casing/c46x30mm
+	desc = "A 4.6x30mm bullet casing."
+	caliber = "4.6x30mm"
+	projectile_type = "/obj/item/projectile/bullet/weakbullet3"
+
+/obj/item/ammo_casing/c46x30mmap
+	desc = "A 4.6x30mm bullet casing."
+	caliber = "4.6x30mm"
+	projectile_type = "/obj/item/projectile/bullet/armourpiercing"
+
+/obj/item/ammo_casing/c46x30mmtox
+	desc = "A 4.6x30mm bullet casing."
+	caliber = "4.6x30mm"
+	projectile_type = "/obj/item/projectile/bullet/toxinbullet"
+
+/obj/item/ammo_casing/c46x30mminc
+	desc = "A 4.6x30mm bullet casing."
+	caliber = "4.6x30mm"
+	projectile_type = "/obj/item/projectile/bullet/incendiary/firebullet"
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
@@ -60,7 +85,7 @@
 	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
 	projectile_type = "/obj/item/projectile/bullet/pellet"
-	pellets = 5
+	pellets = 6
 	deviation = 30
 
 /obj/item/ammo_casing/shotgun/rubbershot
@@ -68,7 +93,7 @@
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "bshell"
 	projectile_type = "/obj/item/projectile/bullet/rpellet"
-	pellets = 5
+	pellets = 6
 	deviation = 30
 	materials = list(MAT_METAL=4000)
 
@@ -94,7 +119,7 @@
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
 	propellant. It's like playing russian roulette, with a shotgun."
 	icon_state = "improvshell"
-	projectile_type = /obj/item/projectile/bullet/pellet/random
+	projectile_type = "/obj/item/projectile/bullet/pellet/random"
 	materials = list(MAT_METAL=250)
 	pellets = 5
 	deviation = 30
@@ -135,7 +160,7 @@
 	name = "FRAG-12 slug"
 	desc = "A high explosive breaching round for a 12 gauge shotgun."
 	icon_state = "heshell"
-	projectile_type = /obj/item/projectile/bullet/frag12
+	projectile_type = "/obj/item/projectile/bullet/frag12"
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"
@@ -150,7 +175,7 @@
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
 	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
 	icon_state = "ionshell"
-	projectile_type = /obj/item/projectile/ion/weak
+	projectile_type = "/obj/item/projectile/ion/weak"
 	pellets = 4
 	deviation = 30
 
@@ -158,7 +183,7 @@
 	name = "laser slug"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/item/projectile/beam
+	projectile_type = "/obj/item/projectile/beam"
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

@@ -13,7 +13,7 @@
 							/obj/item/toy/blink								= 2,
 							/obj/item/weapon/storage/box/fakesyndiesuit		= 2,
 							/obj/item/toy/sword								= 2,
-							/obj/item/toy/gun								= 2,
+							/obj/item/weapon/gun/projectile/revolver/capgun								= 2,
 							/obj/item/toy/crossbow							= 2,
 							/obj/item/weapon/storage/fancy/crayons			= 2,
 							/obj/item/toy/spinningtoy						= 2,
@@ -39,6 +39,7 @@
 							/obj/item/toy/toy_xeno                          = 2,
 							/obj/random/figure								= 16,
 							/obj/random/plushie                          	= 7,
+							/obj/item/stack/tile/fakespace/loaded			= 2,
 							)
 
 /obj/machinery/computer/arcade/power_change()
@@ -60,8 +61,8 @@
 		var/prizeselect = pickweight(prizes)
 		new prizeselect(src.loc)
 
-		if(istype(prizeselect, /obj/item/toy/gun)) //Ammo comes with the gun
-			new /obj/item/toy/ammo/gun(src.loc)
+		if(istype(prizeselect, /obj/item/weapon/gun/projectile/revolver/capgun)) //Ammo comes with the gun
+			new /obj/item/ammo_box/caps(src.loc)
 
 		else if(istype(prizeselect, /obj/item/clothing/suit/syndicatefake)) //Helmet is part of the suit
 			new	/obj/item/clothing/head/syndicatefake(src.loc)

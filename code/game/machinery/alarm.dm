@@ -119,7 +119,7 @@
 
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
-	
+
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
 
@@ -763,7 +763,8 @@
 	data["name"] = sanitize(name)
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
-	data["area"] = sanitize(get_area(src))
+	var/area/Area = get_area(src)
+	data["area"] = sanitize(Area.name)
 	var/turf/pos = get_turf(src)
 	data["x"] = pos.x
 	data["y"] = pos.y

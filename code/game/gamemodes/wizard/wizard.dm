@@ -14,6 +14,7 @@
 
 	var/use_huds = 0
 	var/finished = 0
+	var/but_wait_theres_more = 0
 
 /datum/game_mode/wizard/announce()
 	world << "<B>The current game mode is - Wizard!</B>"
@@ -223,7 +224,7 @@
 				continue
 			traitors_alive++
 
-	if (wizards_alive || traitors_alive)
+	if (wizards_alive || traitors_alive || but_wait_theres_more)
 		return ..()
 	else
 		finished = 1

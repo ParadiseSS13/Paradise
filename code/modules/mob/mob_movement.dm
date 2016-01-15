@@ -236,7 +236,9 @@
 			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
 			return 0
 
+		var/turf/T = mob.loc
 		move_delay = world.time//set move delay
+		move_delay += T.slowdown
 		mob.last_movement = world.time
 		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
@@ -265,7 +267,6 @@
 					var/mob/M = L[1]
 					if(M)
 						if ((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-							var/turf/T = mob.loc
 							. = ..()
 							if (isturf(M.loc))
 								var/diag = get_dir(mob, M)

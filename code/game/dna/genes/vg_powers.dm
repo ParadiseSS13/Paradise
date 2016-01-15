@@ -42,15 +42,13 @@ Obviously, requires DNA2.
 		if(!istype(M)) return
 		if(HULK in M.mutations)
 			var/timeleft=M.hulk_time - world.time
-			if(M.health <= 25 || timeleft <= 0)
+			if(M.health <= 0 || timeleft <= 0)
 				M.hulk_time=0 // Just to be sure.
 				M.mutations.Remove(HULK)
 				//M.dna.SetSEState(HULKBLOCK,0)
 				M.update_mutations()		//update our mutation overlays
 				M.update_body()
 				M << "\red You suddenly feel very weak."
-				M.Weaken(3)
-				M.emote("collapse")
 
 /obj/effect/proc_holder/spell/targeted/hulk
 	name = "Hulk Out"
