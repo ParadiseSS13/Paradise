@@ -1679,9 +1679,10 @@
 		return Expand()
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	visible_message("<span class='notice'>[src] expands!</span>")
-	new/mob/living/carbon/human(get_turf(src),monkey_type)
-	qdel(src)
+	if(isnull(gcDestroyed))
+		visible_message("<span class='notice'>[src] expands!</span>")
+		new/mob/living/carbon/human(get_turf(src),monkey_type)
+		qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Unwrap(mob/user)
 	icon_state = "monkeycube"
