@@ -101,7 +101,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 		</div>
 		<div class="line">
 			<div class="statusLabel">Thermostat:</div>
-			{{:helper.link(data.target_temp+" C", 'carat-2-n-s', {'temperature': 1})}}
+			{{:helper.link(data.target_temp+" C", 'arrows-v', {'temperature': 1})}}
 		</div>
 	</div>
 {{/if}}
@@ -131,19 +131,19 @@ Used In File(s): /code/game/machinery/alarm.dm
 				<div class="line">
 					<div class="statusLabel">Operating:</div>
 					<div class="statusValue">
-						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
+						{{:helper.link(value.power ? 'On':'Off','power-off',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
 						{{if value.direction=="siphon"}}
-							{{:helper.link('Siphoning','arrowthickstop-1-s',{'id_tag':value.id_tag,'command':'direction','val':'1'})}}
+							{{:helper.link('Siphoning','arrow-circle-down',{'id_tag':value.id_tag,'command':'direction','val':'1'})}}
 						{{else}}
-							{{:helper.link('Blowing','arrowthick-1-n',{'id_tag':value.id_tag,'command':'direction','val':'0'})}}
+							{{:helper.link('Blowing','arrow-up',{'id_tag':value.id_tag,'command':'direction','val':'0'})}}
 						{{/if}}
 					</div>
 				</div>
 				<div class="line">
 					<div class="statusLabel">Pressure checks:</div>
 					<div class="statusValue">
-						{{:helper.link('External','power',{'id_tag':value.id_tag,'command':'checks','val':1},null,(value.checks == 1 ?'linkOn':''))}}
-						{{:helper.link('Internal','power',{'id_tag':value.id_tag,'command':'checks','val':2},null,(value.checks == 2 ?'linkOn':''))}}
+						{{:helper.link('External', 'power-off',{'id_tag':value.id_tag,'command':'checks','val':1},null,(value.checks == 1 ?'linkOn':''))}}
+						{{:helper.link('Internal', 'power-off',{'id_tag':value.id_tag,'command':'checks','val':2},null,(value.checks == 2 ?'linkOn':''))}}
 					</div>
 				</div>
 				<div class="line">
@@ -152,7 +152,7 @@ Used In File(s): /code/game/machinery/alarm.dm
 						{{:helper.precisionRound(value.external,4)}} kPa
 					</div>
 					{{:helper.link('Set','gear',{'id_tag':value.id_tag,'command':'set_external_pressure'})}}
-					{{:helper.link('Reset','arrowrefresh-1-n',{'id_tag':value.id_tag,'command':'set_external_pressure','val':101.325},null,'linkOn')}}
+					{{:helper.link('Reset','refresh',{'id_tag':value.id_tag,'command':'set_external_pressure','val':101.325},null,'linkOn')}}
 				</div>
 			</div>
 		{{empty}}
@@ -169,16 +169,16 @@ Used In File(s): /code/game/machinery/alarm.dm
 				<div class="line">
 					<div class="statusLabel">Operating:</div>
 					<div class="statusValue">
-						{{:helper.link(value.power ? 'On':'Off','power',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
+						{{:helper.link(value.power ? 'On':'Off','power-off',{'id_tag':value.id_tag,'command':'power','val':value.power?0:1},null)}}
 					</div>
 				</div>
 				<div class="line">
 					<div class="statusLabel">Type:</div>
 					<div class="statusValue">
 						{{if value.scrubbing==0}}
-							{{:helper.link('Siphoning','arrowthickstop-1-s',{'id_tag':value.id_tag,'command':'scrubbing','val':1},null,'red')}}
+							{{:helper.link('Siphoning','arrow-circle-down',{'id_tag':value.id_tag,'command':'scrubbing','val':1},null,'red')}}
 						{{else}}
-							{{:helper.link('Scrubbing','transferthick-e-w',{'id_tag':value.id_tag,'command':'scrubbing','val':0},null,'linkOn')}}
+							{{:helper.link('Scrubbing','exchange',{'id_tag':value.id_tag,'command':'scrubbing','val':0},null,'linkOn')}}
 						{{/if}}
 					</div>
 				</div>

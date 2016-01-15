@@ -16,16 +16,16 @@ Used In File(s): \code\modules\security_levels\keycard_authentication.dm
 	<div class="item">
 		{{if data.screen == 1}}
 			<h2>Trigger Event</h2>
-			{{:helper.link('Red Alert', 'alert', { 'triggerevent' : 'Red Alert' })}}
-			{{:helper.link('Emergency Response Team', 'alert', { 'triggerevent' : 'Emergency Response Team' })}}
-			{{:helper.link('Grant Emergency Maintenance Access', 'unlocked', { 'triggerevent' : 'Grant Emergency Maintenance Access' })}}
-			{{:helper.link('Revoke Emergency Maintenance Access', 'locked', { 'triggerevent' : 'Revoke Emergency Maintenance Access' })}}
+			{{:helper.link('Red Alert', 'exclamation-triangle', { 'triggerevent' : 'Red Alert' })}}
+			{{:helper.link('Emergency Response Team', 'exclamation-triangle', { 'triggerevent' : 'Emergency Response Team' })}}
+			{{:helper.link('Grant Emergency Maintenance Access', 'unlock', { 'triggerevent' : 'Grant Emergency Maintenance Access' })}}
+			{{:helper.link('Revoke Emergency Maintenance Access', 'lock', { 'triggerevent' : 'Revoke Emergency Maintenance Access' })}}
 		{{else data.screen == 2}}
 			{{if data.event == 'Emergency Response Team'}}
 				<div class="item">
 					<div class="itemLabel">Reason for ERT Call:</div>
 					<div class="itemContent">
-						{{:helper.link(data.ertreason, 'alert', { 'ert' : 'callreason' })}}
+						{{:helper.link(data.ertreason, 'exclamation-triangle', { 'ert' : 'callreason' })}}
 					</div>
 				</div>
 			{{/if}}

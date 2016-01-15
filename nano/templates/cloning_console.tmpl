@@ -12,16 +12,16 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 	<div class="item">
 		<div class="itemLabelNarrow">Refresh</div>
 		<div class="itemContentWide">
-			{{:helper.link('Refresh', 'arrowrefresh-1-e', {'refresh' : 1})}}
+			{{:helper.link('Refresh', 'refresh', {'refresh' : 1})}}
 		</div>
 	</div>
 	<div class="item">
 		<div class="itemLabelNarrow">Autoprocessing</div>
 		<div class="itemContentWide">
 			{{if data.autoallowed}}
-				{{:helper.link('Enabled', 'check', {'task' : 'autoprocess'}, data.autoprocess ? 'selected' : '')}}{{:helper.link('Disabled', 'closethick', {'task' : 'stopautoprocess'}, !data.autoprocess ? 'selected' : '')}}
+				{{:helper.link('Enabled', 'check', {'task' : 'autoprocess'}, data.autoprocess ? 'selected' : '')}}{{:helper.link('Disabled', 'close', {'task' : 'stopautoprocess'}, !data.autoprocess ? 'selected' : '')}}
 			{{else}}
-				{{:helper.link('Enabled', 'check', null, 'disabled')}}{{:helper.link('Disabled', 'closethick', null, 'selected')}}
+				{{:helper.link('Enabled', 'check', null, 'disabled')}}{{:helper.link('Disabled', 'close', null, 'selected')}}
 			{{/if}}
 		</div>
 	</div>
@@ -59,7 +59,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>		
 		<div class="item">
 			<div class="itemLabelNarrow">Scanner Lock</div>
-			<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'locked', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
+			<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'lock', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'lock', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlock', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
 		</div>	
 	{{/if}}
 	{{if data.numberofpods}}
@@ -91,7 +91,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	{{/if}}
 	{{for data.records}}
-		<div>{{:helper.link(value.realname, 'arrowthickstop-1-s', {'view_rec' : value.record})}}</div>
+		<div>{{:helper.link(value.realname, 'arrow-circle-down', {'view_rec' : value.record})}}</div>
 	{{empty}}
 		No records found!
 	{{/for}}
@@ -117,12 +117,12 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		{{if data.disk}}
 			<div class="item">
 				<div class="itemLabelNarrow">Disk</div>
-				<div class="itemContentWide">{{:helper.link('Load from Disk', 'disk', {'disk' : 'load'})}}{{:helper.link('Save UI + UE', 'arrowthickstop-1-n', {'save_disk' : 'ue'})}}{{:helper.link('Save UI', 'arrowthickstop-1-n', {'save_disk' : 'ui'})}}{{:helper.link('Save SE', 'arrowthickstop-1-n', {'save_disk' : 'se'})}}</div>
+				<div class="itemContentWide">{{:helper.link('Load from Disk', 'floppy-o', {'disk' : 'load'})}}{{:helper.link('Save UI + UE', 'arrow-circle-up', {'save_disk' : 'ue'})}}{{:helper.link('Save UI', 'arrow-circle-up', {'save_disk' : 'ui'})}}{{:helper.link('Save SE', 'arrow-circle-up', {'save_disk' : 'se'})}}</div>
 			</div>		
 		{{/if}}
 		<div class="item">
 			<div class="itemLabelNarrow">Actions</div>
-			<div class="itemContentWide">{{:helper.link('Clone', 'arrowreturnthick-1-e', {'clone' : data.activerecord}, !data.podready ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
+			<div class="itemContentWide">{{:helper.link('Clone', 'arrow-right', {'clone' : data.activerecord}, !data.podready ? 'disabled' : '')}}{{:helper.link('Delete', 'trash', {'del_rec' : 1})}}</div>
 		</div>
 	{{/if}}
 {{/if}}
@@ -134,7 +134,7 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 		</div>
 	{{/if}}
 	<div class="item">
-		{{:helper.link('Scan Card and Confirm', 'trash', {'del_rec' : 1})}}{{:helper.link('Cancel', 'closethick', {'menu' : 3})}}
+		{{:helper.link('Scan Card and Confirm', 'trash', {'del_rec' : 1})}}{{:helper.link('Cancel', 'close', {'menu' : 3})}}
 	</div>
 {{/if}}
 	

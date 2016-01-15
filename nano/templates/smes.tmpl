@@ -49,7 +49,7 @@
 		Output Status:
 	</div>
 	<div class="itemContent">
-		{{:helper.link('Online', 'power', {'online' : 1}, data.outputOnline ? 'selected' : null)}}{{:helper.link('Offline', 'close', {'online' : 1}, data.outputOnline ? null : 'selected')}}
+		{{:helper.link('Online', 'power-off', {'online' : 1}, data.outputOnline ? 'selected' : null)}}{{:helper.link('Offline', 'close', {'online' : 1}, data.outputOnline ? null : 'selected')}}
 		&nbsp;
 		{{if data.outputting == 2}}
 			[<span class='good'>Outputting</span>]
