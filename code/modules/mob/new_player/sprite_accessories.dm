@@ -1441,7 +1441,7 @@
 
 //tanktops
 /datum/sprite_accessory/undershirt/tank_redtop
-	name = "Red Crop-top"
+	name = "Red Crop-Top"
 	icon_state = "tank_redtop"
 	gender = FEMALE
 
