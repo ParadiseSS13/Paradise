@@ -111,6 +111,13 @@
 	if(health <= 0)
 		deflate(1)
 
+/obj/structure/inflatable/AltClick()
+	if(usr.stat || usr.restrained())
+		return
+	if (cheap_hypotenuse(x, y, usr.x, usr.y) >= 2) //allow only 1 dist and diagonals
+		return
+	deflate()
+
 /obj/structure/inflatable/proc/deflate(var/violent=0)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
 	if(violent)
