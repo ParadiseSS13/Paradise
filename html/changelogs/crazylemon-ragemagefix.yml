@@ -1,0 +1,32 @@
+################################
+# Example Changelog File
+#
+# Note: This file, and files beginning with ".", and files that don't end in ".yml" will not be read. If you change this file, you will look really dumb.
+#
+# Your changelog will be merged with a master changelog. (New stuff added only, and only on the date entry for the day it was merged.)
+# When it is, any changes listed below will disappear.
+#
+# Valid Prefixes: 
+#   bugfix
+#   wip (For works in progress)
+#   tweak
+#   soundadd
+#   sounddel
+#   rscadd (general adding of nice things)
+#   rscdel (general deleting of nice things)
+#   imageadd
+#   imagedel
+#   spellcheck (typo fixes)
+#   experiment
+#################################
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: Crazylemon
+delete-after: True
+changes: 
+  - rscadd: "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps."
+  - bugfix: "Wizards now can't teleport to other antag spawn points."
+  - bugfix: "Removes an extruding pixel from the left-facing IPC glider monitor sprite."
+  - tweak: "Ragin' Mages now spawn every 7 minutes, instead of 5. Admins can further adjust this by modifying the 'delay_per_mage' variable."
+  - bugfix: "Ragin' Mages are now made with 100% less in-use souls (Apprentices won't have their consciousness yoinked)."
+  - tweak: "It takes half an hour for the REAL chaos of ragin' mages to start, for at least a semblance of normality."

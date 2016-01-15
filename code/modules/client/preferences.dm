@@ -1566,6 +1566,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
+	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -1641,7 +1642,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else if(status == "mechanical")
 					I.robotize()
 
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
+	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
 		character.mutations += FAT
 		character.mutations += OBESITY
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)

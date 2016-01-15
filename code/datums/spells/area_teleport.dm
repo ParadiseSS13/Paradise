@@ -26,6 +26,10 @@
 
 	var/area/thearea = teleportlocs[A]
 
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+		usr << "A mysterious force disrupts your arcane spell matrix, and you remain where you are."
+		return
+
 	return thearea
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/cast(list/targets,area/thearea)
