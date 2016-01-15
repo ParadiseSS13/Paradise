@@ -114,7 +114,7 @@
 /obj/structure/inflatable/AltClick()
 	if(usr.stat || usr.restrained())
 		return
-	if (cheap_hypotenuse(x, y, usr.x, usr.y) >= 2) //allow only 1 dist and diagonals
+	if(!Adjacent(usr))
 		return
 	deflate()
 
