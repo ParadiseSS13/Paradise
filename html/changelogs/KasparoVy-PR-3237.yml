@@ -34,5 +34,6 @@ delete-after: True
 changes: 
   - rscadd: "Adds some TG underwear."
   - rscadd: "Adds an NV science goggles worn sprite."
+  - rscadd: "Ports Bay/TG berets."
   - tweak: "Adjusts beret sprite, recolours strange orange pixels."
   - tweak: "Adjusts NV science goggles object icon. Removed strange border and centered it."
