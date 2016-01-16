@@ -415,12 +415,15 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		H << "<B>Objective #1</B>: [objective.explanation_text]"
 
 	ticker.mode.update_traitor_icons_added(user.mind)
-	var/datum/mindslaves/slaved = user.mind.som
-	slaved.serv += H
-	slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
-	slaved.add_serv_hud(H.mind,"mindslave")
+	ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
 
-	//ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
+	if(user.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
+		var/datum/mindslaves/slaved = user.mind.som
+		H.mind.som = slaved
+		slaved.serv += H
+		slaved.add_serv_hud(user.mind,"syndicate")//handles master servent icons
+		slaved.add_serv_hud(H.mind,"mindslave")
+
 	log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
 	return 1
 

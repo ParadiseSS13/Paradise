@@ -326,9 +326,10 @@
 	else
 		ticker.mode.vampire_thralls[ref] += H.mind
 
-	//ticker.mode.update_vampire_icons_added(H.mind)
+	ticker.mode.update_vampire_icons_added(H.mind)
 	ticker.mode.update_vampire_icons_added(src.mind)
 	var/datum/mindslaves/slaved = src.mind.som
+	H.mind.som = slaved
 	slaved.serv += H
 	slaved.add_serv_hud(src.mind,"vampire")//handles master servent icons
 	slaved.add_serv_hud(H.mind,"vampthrall")

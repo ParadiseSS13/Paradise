@@ -358,12 +358,13 @@
 		implanter[ref] -= traitor_mind
 	implanted -= traitor_mind
 	traitors -= traitor_mind
-	var/datum/mindslaves/slaved = traitor_mind.som
-	slaved.serv -= traitor_mind
-	traitor_mind.special_role = null
-	traitor_mind.som = null
+	if(traitor_mind.som)
+		var/datum/mindslaves/slaved = traitor_mind.som
+		slaved.serv -= traitor_mind
+		traitor_mind.special_role = null
+		traitor_mind.som = null
+		slaved.leave_serv_hud(traitor_mind)
 
-	slaved.leave_serv_hud(traitor_mind)
 	update_traitor_icons_removed(traitor_mind)
 	//world << "Removed [traitor_mind.current.name] from traitor shit"
 	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"
