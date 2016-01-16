@@ -157,10 +157,10 @@
 		if("Kluysfluff1")
 			src.icon_state = "Kluysfluff2"
 			usr << "The fibre unfolds into a jacket."
-		else if("Kluysfluff2")
+		if("Kluysfluff2")
 			src.icon_state = "Kluysfluff3"
 			usr << "The fibre unfolds into a coat."
-		else if("Kluysfluff3")
+		if("Kluysfluff3")
 			src.icon_state = "Kluysfluff1"
 			usr << "The fibre gets sucked back into its holder."
 		else
