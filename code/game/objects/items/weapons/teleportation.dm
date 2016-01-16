@@ -66,7 +66,7 @@ Frequency:
 						temp += "[W.code]: [TB.x], [TB.y], [TB.z]<BR>"
 
 			temp += "<B>Located Implants:</B><BR>"
-			for (var/obj/item/weapon/implant/tracking/T in tracking_implants)
+			for (var/obj/item/weapon/implant/tracking/T in tracked_implants)
 				if (!T.implanted || !T.imp_in)
 					continue
 
