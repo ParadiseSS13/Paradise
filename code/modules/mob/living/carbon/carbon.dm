@@ -732,3 +732,29 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				legcuffed,
 				back,
 				wear_mask)
+
+/mob/living/carbon/proc/uncuff()
+	if (handcuffed)
+		var/obj/item/weapon/W = handcuffed
+		handcuffed = null
+		if (buckled && buckled.buckle_requires_restraints)
+			buckled.unbuckle_mob()
+		update_inv_handcuffed()
+		if (client)
+			client.screen -= W
+		if (W)
+			W.loc = loc
+			W.dropped(src)
+			if (W)
+				W.layer = initial(W.layer)
+	if (legcuffed)
+		var/obj/item/weapon/W = legcuffed
+		legcuffed = null
+		update_inv_legcuffed()
+		if (client)
+			client.screen -= W
+		if (W)
+			W.loc = loc
+			W.dropped(src)
+			if (W)
+				W.layer = initial(W.layer)

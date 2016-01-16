@@ -164,11 +164,7 @@
 			var/obj/item/obj = affected.implants[1]
 
 			if(istype(obj,/obj/item/weapon/implant))
-				var/obj/item/weapon/implant/imp = obj
-				if (imp.islegal())
-					find_prob +=60
-				else
-					find_prob +=40
+				find_prob +=60
 			else
 				find_prob +=50
 
@@ -190,8 +186,25 @@
 				obj.loc = get_turf(target)
 				if(istype(obj,/obj/item/weapon/implant))
 					var/obj/item/weapon/implant/imp = obj
-					imp.imp_in = null
-					imp.implanted = 0
+					imp.removed(target)
+
+					var/obj/item/weapon/implantcase/case
+
+					if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/weapon/implantcase))
+						case = user.get_item_by_slot(slot_l_hand)
+					else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/weapon/implantcase))
+						case = user.get_item_by_slot(slot_r_hand)
+					else
+						case = locate(/obj/item/weapon/implantcase) in get_turf(target)
+
+					if(case && !case.imp)
+						case.imp = imp
+						imp.loc = case
+						case.update_icon()
+						user.visible_message("[user] places [imp] into [case]!", "<span class='notice'>You place [imp] into [case].</span>")
+					else
+						qdel(imp)
+
 			else
 				user.visible_message("\blue [user] removes \the [tool] from [target]'s [affected.name].", \
 				"\blue There's something inside [target]'s [affected.name], but you just missed it this time." )

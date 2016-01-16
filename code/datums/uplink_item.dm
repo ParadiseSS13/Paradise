@@ -875,18 +875,11 @@ var/list/uplink_items = list()
 	cost = 14
 	surplus = 0
 
-/datum/uplink_item/implants/explosive
-	name = "Explosive Implant"
-	desc = "An implant injected into the body, and later activated using a vocal command to cause a large explosion from the implant."
-	reference = "EI"
-	item = /obj/item/weapon/implanter/explosive
-	cost = 12
-
-/datum/uplink_item/implants/compression
-	name = "Compressed Matter Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to retrieve an item that was earlier compressed."
-	reference = "CI"
-	item = /obj/item/weapon/implanter/compressed
+/datum/uplink_item/implants/storage
+	name = "Storage Implant"
+	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
+	reference = "ESI"
+	item = /obj/item/weapon/implanter/storage
 	cost = 8
 
 /datum/uplink_item/implants/mindslave
@@ -902,6 +895,15 @@ var/list/uplink_items = list()
 	reference = "AI"
 	item = /obj/item/weapon/implanter/adrenalin
 	cost = 8
+
+/datum/uplink_item/implants/microbomb
+	name = "Microbomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
+	This will permanently destroy your body, however."
+	reference = "MBI"
+	item = /obj/item/weapon/implanter/explosive
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
 
 // POINTLESS BADASSERY
 
@@ -948,6 +950,14 @@ var/list/uplink_items = list()
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+
+/datum/uplink_item/implants/macrobomb
+	name = "Macrobomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
+	reference = "HAB"
+	item = /obj/item/weapon/implanter/explosive_macro
+	cost = 20
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /*/datum/uplink_item/badass/random
 	name = "Random Item"
