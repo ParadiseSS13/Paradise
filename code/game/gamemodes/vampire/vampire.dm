@@ -59,6 +59,9 @@
 			vampires += vampire
 			vampire.restricted_roles = restricted_jobs
 			modePlayer += vampires
+			var/datum/mindslaves/slaved = new()
+			slaved.masters += vampire
+			vampire.som = slaved //we MIGT want to mindslave someone
 			vampire.special_role = "Vampire" // Needs to be done in pre-setup to prevent role bugs
 		return 1
 	else
@@ -398,6 +401,10 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		vampire_thralls[ref] -= vampire_mind
 	vampire_enthralled -= vampire_mind
 	vampire_mind.special_role = null
+	var/datum/mindslaves/slaved = vampire_mind.som
+	slaved.serv -= vampire_mind
+	vampire_mind.som = null
+	slaved.leave_serv_hud(vampire_mind)
 	update_vampire_icons_removed(vampire_mind)
 	//world << "Removed [vampire_mind.current.name] from vampire shit"
 	vampire_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>"

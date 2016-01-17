@@ -53,6 +53,9 @@
 		var/datum/mind/traitor = pick(possible_traitors)
 		traitors += traitor
 		traitor.special_role = "traitor"
+		var/datum/mindslaves/slaved = new()
+		slaved.masters += traitor
+		traitor.som = slaved //we MIGT want to mindslave someone
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
@@ -337,15 +340,16 @@
 		traitor_mob.mind.store_memory("<b>Potential Collaborator</b>: [M.real_name]")
 
 /datum/game_mode/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	//var/ref = "\ref[traitor_mind]"
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
-	tatorhud.join_solo_hud(traitor_mind.current)
+	//var/ref = "\ref[traitor_mind]"
+ 	tatorhud.join_solo_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, "hudsyndicate")
 
 /datum/game_mode/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_SOLO]
 	tatorhud.leave_hud(traitor_mind.current)
 	set_antag_hud(traitor_mind.current, null)
+
 
 /datum/game_mode/proc/remove_traitor_mind(datum/mind/traitor_mind, datum/mind/head)
 	//var/list/removal
@@ -354,7 +358,13 @@
 		implanter[ref] -= traitor_mind
 	implanted -= traitor_mind
 	traitors -= traitor_mind
-	traitor_mind.special_role = null
+	if(traitor_mind.som)
+		var/datum/mindslaves/slaved = traitor_mind.som
+		slaved.serv -= traitor_mind
+		traitor_mind.special_role = null
+		traitor_mind.som = null
+		slaved.leave_serv_hud(traitor_mind)
+
 	update_traitor_icons_removed(traitor_mind)
 	//world << "Removed [traitor_mind.current.name] from traitor shit"
 	traitor_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were implanted until now.(You don't remember who implanted you)</B></FONT>"

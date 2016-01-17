@@ -902,6 +902,10 @@ var/list/ghostteleportlocs = list()
 	name = "Waste Disposal"
 	icon_state = "disposal"
 
+/area/maintenance/genetics
+	name = "Genetics Maintenance"
+	icon_state = "asmaint"
+
 
 /area/maintenance/electrical
 	name = "Electrical Maintenance"

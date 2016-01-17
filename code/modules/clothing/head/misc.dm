@@ -277,18 +277,18 @@
 /obj/item/clothing/head/beret/purple
 	name = "Pierson Family Beret"
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
-	icon_state = "purpleberet"
+	icon_state = "beret_purple"
 	item_state = "purpleberet"
 
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
-	icon_state = "centcomofficerberet"
+	icon_state = "beret_centcom_officer"
 
 /obj/item/clothing/head/beret/centcom/captain
 	name = "captains beret"
 	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
-	icon_state = "centcomcaptain"
+	icon_state = "beret_centcom_captain"
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
