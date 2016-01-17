@@ -1,20 +1,20 @@
 /datum/atom_hud/antag
 	hud_icons = list(SPECIALROLE_HUD,NATIONS_HUD)
 
-/datum/atom_hud/antag/proc/join_hud(mob/M)
+/datum/atom_hud/antag/proc/join_hud(mob/M,var/slave)
 	if(!istype(M))
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
-	if(M.mind.antag_hud) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
+	if(M.mind.antag_hud && !slave) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
 		M.mind.antag_hud.leave_hud(M)
 	if(!ismask(M))//FUCK YOU MASK OF NARNAR!
 		add_to_hud(M)
 	add_hud_to(M)
 	M.mind.antag_hud = src
 
-/datum/atom_hud/antag/proc/join_solo_hud(mob/M)//for non team antags and for observer huds
+/datum/atom_hud/antag/proc/join_solo_hud(mob/M,var/slave)//for non team antags and for observer huds
 	if(!istype(M))
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
-	if(M.mind.antag_hud) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
+	if(M.mind.antag_hud && !slave) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
 		M.mind.antag_hud.leave_hud(M)
 	add_to_hud(M)
 	M.mind.antag_hud = src
@@ -74,3 +74,27 @@
 	for(var/datum/atom_hud/data/hud in huds)
 		if(current in hud.hudusers)
 			hud.remove_hud_from(current)
+
+
+///Master Servent Datum Sytems,Based on TG Gang system//
+
+/datum/mindslaves
+	var/name = "ERROR"
+	var/list/datum/mind/masters = list()
+	var/list/datum/mind/serv = list()
+	var/datum/atom_hud/antag/thrallhud
+	var/icontype
+
+/datum/mindslaves/New(loc,mastername)
+
+	name = mastername
+	thrallhud = new()
+
+/datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind,var/icon)
+	thrallhud.join_hud(serv_mind.current,1)
+	icontype = "hud[icon]"
+	ticker.mode.set_antag_hud(serv_mind.current,icontype)
+
+/datum/mindslaves/proc/leave_serv_hud(datum/mind/free_mind)
+	thrallhud.leave_hud(free_mind.current)
+	ticker.mode.set_antag_hud(free_mind.current,null)
