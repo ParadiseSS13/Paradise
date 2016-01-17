@@ -398,6 +398,11 @@
 		icon_state = "ipc_eight"
 		species_allowed = list("Machine")
 
+	ipc_screen_rainbow
+		name = "rainbow IPC screen"
+		icon_state = "ipc_rainbow"
+		species_allowed = list("Machine")
+
 	ipc_screen_goggles
 		name = "goggles IPC screen"
 		icon_state = "ipc_goggles"
