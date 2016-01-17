@@ -273,9 +273,8 @@ proc/issyndicate(mob/living/M as mob)
 				if (synd_mob.internals)
 					synd_mob.internals.icon_state = "internal1"
 
-	var/obj/item/weapon/implant/dexplosive/E = new/obj/item/weapon/implant/dexplosive(synd_mob)
-	E.imp_in = synd_mob
-	E.implanted = 1
+	var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(synd_mob)
+	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
