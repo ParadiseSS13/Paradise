@@ -32,5 +32,4 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscdel: "Removes two minute limite for activate Nuclear Challenge as Nuke Ops Commander, after spawn."
-  - rscadd: "Adds a 7 minute time limit to activate the Nuclear Challenge as Nuke Ops Commander, after spawn."
+  - tweak: "Modifies the effective time limit to activate the Nuclear Challenge as Nukeops from two minutes to seven minutes"
