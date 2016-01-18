@@ -129,20 +129,18 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		return 0
 
 	for(var/obj/stack in cortical_stacks)
-		if (get_area(stack.loc) != locate(/area/shuttle/vox/station))
-			return 0
+		if(get_area(stack) != locate(/area/shuttle/vox) && get_area(stack) != locate(/area/vox_station))
+			return 0 //this is stupid as fuck
 	return 1
 
 /datum/game_mode/proc/is_raider_crew_alive()
-
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(istype(raider.current,/mob/living/carbon/human) && raider.current.stat != 2)
+			if(istype(raider.current,/mob/living/carbon/human) && raider.current.stat != DEAD)
 				return 1
 	return 0
 
 /datum/game_mode/proc/forge_vox_objectives()
-
 	var/i = 1
 	var/max_objectives = pick(2,2,2,2,3,3,3,4)
 	var/list/objs = list()
@@ -179,7 +177,6 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		show_objectives(raider)
 
 /datum/game_mode/heist/declare_completion()
-
 	//No objectives, go straight to the feedback.
 	if(!(raid_objectives.len)) return ..()
 

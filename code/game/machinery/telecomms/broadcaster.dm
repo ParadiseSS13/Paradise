@@ -20,7 +20,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	use_power = 1
 	idle_power_usage = 25
 	machinetype = 5
-	circuitboard = "/obj/item/weapon/circuitboard/telecomms/broadcaster"
+	circuitboard = /obj/item/weapon/circuitboard/telecomms/broadcaster
 
 /obj/machinery/telecomms/broadcaster/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
 	// Don't broadcast rejected signals

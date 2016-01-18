@@ -111,6 +111,13 @@
 	if(health <= 0)
 		deflate(1)
 
+/obj/structure/inflatable/AltClick()
+	if(usr.stat || usr.restrained())
+		return
+	if(!Adjacent(usr))
+		return
+	deflate()
+
 /obj/structure/inflatable/proc/deflate(var/violent=0)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
 	if(violent)

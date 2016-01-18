@@ -105,6 +105,7 @@
 /obj/item/weapon/storage/belt/medical/response_team
 
 /obj/item/weapon/storage/belt/medical/response_team/New()
+	..()
 	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
 	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
 	new /obj/item/weapon/reagent_containers/pill/charcoal(src)

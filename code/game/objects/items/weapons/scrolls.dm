@@ -54,6 +54,10 @@
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return
 
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+		user << "A mysterious force disrupts your arcane spell matrix, and you remain where you are."
+		return
+
 	var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
 	smoke.set_up(5, 0, user.loc)
 	smoke.attach(user)

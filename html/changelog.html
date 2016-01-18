@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Paradise Station Changelog</title>
+  <link rel="stylesheet" type="text/css" href="changelog.css">
+  <base target="_blank" />
+  <script type='text/javascript'>
+  
+	function changeText(tagID, newText, linkTagID){
+		var tag = document.getElementById(tagID);
+		tag.innerHTML = newText;
+		var linkTag = document.getElementById(linkTagID);
+		linkTag.removeAttribute("href");
+		linkTag.removeAttribute("onclick");
+	}
+	
+  </script>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+<table align='center' width='650'><tr><td>
+<table align='center' class="top">
+	<tr>
+		<td valign='top'>
+			<div align='center'><font size='3'><b>Paradise Station</b></font></div>
+			
+			<p><div align='center'><font size='3'><a href="http://nanotrasen.se/phpBB3/index.php">Forum</a> | <a href="http://nanotrasen.se/wiki/index.php/Main_Page">Wiki</a> | <a href="https://github.com/ParadiseSS13/Paradise">Source</a></font></div></p>
+			<font size='2'><b>Visit our IRC channel:</b> #crew on neko.sneeza.me</font>
+			</td>
+	</tr>
+</table>
+
+<table align='center' class="top">
+	<tr>
+		<td valign='top'>
+			<font size='2'><b>Current Project Maintainers:</b> <a href='https://github.com/ParadiseSS13?tab=members'>-Click Here-</a><br></font>
+			<font size='2'><b>Currently Active GitHub contributor list:</b> <a href='https://github.com/ParadiseSS13/Paradise/graphs/contributors'>-Click Here-</a><br></font>
+			<font size='2'><b>Coders:</b> ZomgPonies, DaveTheHeadcrab, tigercat2000, FalseIncarnate, AuroraBlade, Tastyfish, Crazylemon64, KasparoVy<br></font> 
+			<font size='2'><b>Spriters:</b> FullOfSkittles<br></font>
+			<font size='2'><b>Sounds:</b> <br></font>
+			<font size='2'><b>Main Testers:</b> Anyone who has submitted a bug to the issue tracker<br></font>
+			<font size='2'><b>Thanks to:</b> Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original SpaceStation developers and Radithor for the title image.<br> Also a thanks to anybody who has contributed who is not listed here :( Ask to be added here on irc.</font>
+			<font size='2' color='red'><b><br>Have a bug to report?</b> Visit our <a href="https://github.com/ParadiseSS13/Paradise/issues?labels=Bug&state=open">Issue Tracker</a>.<br></font>
+			<font size='2'>Please ensure that the bug has not already been reported and be as descriptive as possible about the circumstances under which the bug occurred</b></a></u>.</font>
+		</td>
+	</tr>
+</table>
+
+		<!--
+		
+		TO ADD AN ENTRY, ADD AND MAINTAIN YOUR OWN changelog/USERNAME.yml FILE. 
+		
+		*** DO NOT FUCK WITH THIS FILE OR YOU WILL CAUSE MERGE CONFLICTS. ***
+		
+		-->
+		<div class="commit sansserif">
+			<h2 class="date">13 January 2016</h2>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes Rezadone not clearing mutated organs.</li>
+				<li class="tweak">Clone damage immunity removed from Slime People, Shadowlings, Golems, and Vox</li>
+				<li class="tweak">Explosions will no longer destroy things underneath turfs until the turf is exposed.</li>
+				<li class="bugfix">fixes a runtime related to revolver spinning.</li>
+				<li class="bugfix">fixes server loading taking an abnormally long time.</li>
+			</ul>
+			<h3 class="author">Kyep updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Blob, vine and virus outbreaks are now more clearly labeled as such, to avoid people confusing them with each other</li>
+			</ul>
+			<h3 class="author">Tastyfish updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">NT Rep fountain pens and magistrate gold pens can now write in 5 different colors. The IAA gets a cheap plastic equivalent.</li>
+			</ul>
+
+			<h2 class="date">11 January 2016</h2>
+			<h3 class="author">CrAzYPiLoT updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes the footsteps sounds to the fullest.</li>
+			</ul>
+			<h3 class="author">Crazylemon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Bomb guardians now automatically notify their master when they've set something to boom, so there's less accidental friendly fire</li>
+				<li class="bugfix">Bomb guardians are only notified that their trap failed, if it ACTUALLY FAILED.</li>
+				<li class="rscadd">Bomb guardians now are more aware of what is primed to explode.</li>
+				<li class="rscadd">Bomb guardian summoners can now defuse their guardian's bombs without harm.</li>
+				<li class="rscadd">Brought RAGIN' MAGES back up to function.</li>
+			</ul>
+			<h3 class="author">Dave The Headcrab updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a new icon for the soy and cafe latte drinks. Icons courtesy of Full Of Skittles, resident overlord of art.</li>
+			</ul>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Re-arranges the armory and changes its contents minorly.</li>
+				<li class="rscadd">Adds in rubbershot ammo boxes.</li>
+				<li class="bugfix">Fixes Mutadone incurring a massive cost on the server.</li>
+				<li class="tweak">Positronic brains can no longer speak binary.</li>
+				<li class="tweak">Positronic brains can be prevented from speaking (or allowed) by toggling their speaker on/off.</li>
+				<li class="tweak">IPC's positronic brains start off toggled off.</li>
+				<li class="bugfix">Fixes the supermatter announcement causing massive amounts of server lag.</li>
+				<li class="rscadd">Adds in tradable telecrystals.</li>
+			</ul>
+
+			<h2 class="date">08 January 2016</h2>
+			<h3 class="author">Crazylemon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Fully enables a system to allow species to have unique procs and verbs that come and go with the species.</li>
+				<li class="rscdel">IPCs lose their change monitor verb when changing species now. Gone are the days of recalling a past IPC life to perform self-barbery! Oh, woe is me!</li>
+				<li class="bugfix">Sleepers and Body Scanners will now reliably work when rotated</li>
+				<li class="bugfix">SSD humans should be asleep more reliably now.</li>
+			</ul>
+			<h3 class="author">Dave The Headcrab updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Nerfs the damage the Detective's revolver does from 15 brute to 5 brute.</li>
+				<li class="rscadd">Adds a 300 round capacity buckshot magizine that fits into the L6 Saw.</li>
+				<li class="rscadd">Adds a 25 round capacity 40mm HE magizine that fits into the L6 Saw.</li>
+				<li class="rscadd">Adds the 'Devastator' L6 SAW, starts off loaded with the buckshot magizine.</li>
+				<li class="rscadd">Gives the SST the 'Devastator' L6 Saw, and one of each mag type in their bag.</li>
+			</ul>
+			<h3 class="author">FalseIncarnate updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Plants will now begin to die over time if their age exceeds 5 times their TRAIT_MATURATION value.</li>
+				<li class="tweak">Weed growth chance per process in trays has been slightly increased (Previously: 5% chance if no seed, 1% otherwise;Now: 6% / 3%).</li>
+				<li class="tweak">Pest growth in trays has been slightly buffed. (Previously: 3% chance to increase by 0.1; Now: 5% chance to increase by 0.5)</li>
+			</ul>
+			<h3 class="author">Fethas updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Due to Archmage Steve leaving the nya-cromantic stone near the microwave, the true power of the stone has been unleashed. Subjects of the stone are not only ressurected ... but resurrected as catgirls ... We fired steve.</li>
+			</ul>
+			<h3 class="author">Fox McCloud updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes a bug relating to some brute/burn damage being dealt to human mobs.</li>
+				<li class="rscadd">Adds in overloading APCs, causing them to arc electricity to mobs in range.</li>
+				<li class="tweak">Makes Engineering related APCs overload proof.</li>
+				<li class="rscadd">Implements the timestop spell.</li>
+				<li class="rscadd">Implements new sepia slime reaction which halts time in an AoE.</li>
+				<li class="tweak">sentience potions no longer can make slimes sentient.</li>
+				<li class="tweak">Removes Hulk instant stun.</li>
+				<li class="tweak">Hulk damage increased.</li>
+				<li class="tweak">Hulk wears off at a lower health threshold.</li>
+				<li class="bugfix">Fixes strange reagent not working on simple animals.</li>
+				<li class="tweak">Reduces the amount shock damage and bounces for the Tesla engine.</li>
+				<li class="bugfix">Fixes Syndicate Cyborg's LMG being invisible.</li>
+				<li class="bugfix">Fixes the uplink kit having implanters that were both nameless and looked as if they had been used.</li>
+			</ul>
+			<h3 class="author">KasparoVy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the security gasmask, sexy mime mask, bandanas, balaclava, welding gas mask and wrestling masks for Vox. Added adjusted-state sprites for the Vox breath, medical, and surgical masks.</li>
+				<li class="rscdel">Removed a duplicate of the human balaclava sprite.</li>
+				<li class="tweak">Modifies the Vox plague-doctor, fake moustache, sterile and medical mask sprites to fit the Vox anatomy and animates the Vox SWAT mask. Corrects the names of some Vox mask adjusted-state sprites.</li>
+			</ul>
+			<h3 class="author">Tastyfish updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">Fixed the pronouns in a few verbs and the door to 'Interrogation Observervtion'.</li>
+			</ul>
+			<h3 class="author">Tigercat2000 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added 96x96 (3x) res option to icons menu</li>
+			</ul>
+
+			<h2 class="date">06 January 2016</h2>
+			<h3 class="author">Certhic updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Corrected some air alarms so that atmos computer can access them</li>
+				<li class="bugfix">Bodyscanner now sees mechanical parts in internal organs</li>
+			</ul>
+			<h3 class="author">Crazylemon64 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Sleeping simple animals should tick down sleeping as normal - deaf simple mobs are no longer a thing</li>
+			</ul>
+			<h3 class="author">Tastyfish updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Instruments now use NanoUI.</li>
+				<li class="spellcheck">Corrected the blueshield mission briefing.</li>
+			</ul>
+
+			<h2 class="date">03 January 2016</h2>
+			<h3 class="author">TheDZD updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Ports over changelog system from /tg/station.</li>
+			</ul>
+		</div>
+
+<b>GoonStation 13 Development Team</b>
+	<div class = "top">
+	<b>Coders:</b> Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob, Justicefries, 0staf, sniperchance, AngriestIBM, BrianOBlivion<br>
+	<b>Spriters:</b> Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange, I Said No<br>
+	</div>
+<br>
+<p class="lic"><a name="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img src="88x31.png" alt="Creative Commons License" /></a><br><i>Except where otherwise noted, Goon Station 13 is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 License</a>.<br>Rights are currently extended to <a href="http://forums.somethingawful.com/">SomethingAwful Goons</a> only.</i></p>
+<p class="lic">Some icons by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>. All rights reserved. Licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</p>
+</td></tr></table>
+</body>
+</html>

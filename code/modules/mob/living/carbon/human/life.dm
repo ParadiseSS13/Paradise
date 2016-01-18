@@ -827,10 +827,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 	. = ..()
 
-	//SSD check, if a logged player is awake put them back to sleep!
-	if(player_logged && sleeping < 2)
-		sleeping = 2
-
 	if(.) //alive
 		if(REGEN in mutations)
 			if(nutrition)
@@ -864,11 +860,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 		else if(sleeping)
 			speech_problem_flag = 1
-
-			if(mind)
-				//Are they SSD? If so we'll keep them asleep but work off some of that sleep var in case of ether or similar.
-				if(player_logged)
-					sleeping = max(sleeping - 1, 2)
 
 			blinded = 1
 			stat = UNCONSCIOUS

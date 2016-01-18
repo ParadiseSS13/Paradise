@@ -45,7 +45,7 @@
 				if("shotgun")
 					new /obj/item/weapon/gun/projectile/shotgun/(get_turf(H))
 				if("combatshotgun")
-					new /obj/item/weapon/gun/projectile/shotgun/combat(get_turf(H))
+					new /obj/item/weapon/gun/projectile/shotgun/automatic/combat(get_turf(H))
 				if("bulldog")
 					new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(get_turf(H))
 				if("arg")

@@ -1,0 +1,16 @@
+{
+  "name": "nanoui",
+  "license": "AGPLv3",
+  "private": true,
+  "dependencies": {
+    "font-awesome": "~4.5.0"
+  },
+  "overrides": {
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "fonts/*"
+      ]
+    }
+  }
+}

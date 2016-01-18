@@ -25,25 +25,25 @@
 			if(istype(P, /obj/item/weapon/screwdriver))
 				user << "You unfasten the bolts."
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				construct_op ++
+				construct_op++
 		if(1)
 			if(istype(P, /obj/item/weapon/screwdriver))
 				user << "You fasten the bolts."
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				construct_op --
+				construct_op--
 			if(istype(P, /obj/item/weapon/wrench))
 				user << "You dislodge the external plating."
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				construct_op ++
+				construct_op++
 		if(2)
 			if(istype(P, /obj/item/weapon/wrench))
 				user << "You secure the external plating."
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-				construct_op --
+				construct_op--
 			if(istype(P, /obj/item/weapon/wirecutters))
 				playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
 				user << "You remove the cables."
-				construct_op ++
+				construct_op++
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( user.loc )
 				A.amount = 5
 				stat |= BROKEN // the machine's been borked!
@@ -56,7 +56,7 @@
 					if(A.amount <= 0)
 						user.drop_item()
 						qdel(A)
-					construct_op --
+					construct_op--
 					stat &= ~BROKEN // the machine's not borked anymore!
 			if(istype(P, /obj/item/weapon/crowbar))
 				user << "You begin prying out the circuit board other components..."
@@ -71,15 +71,12 @@
 								I.crit_fail = 1
 							I.loc = src.loc
 					else
-
 						// If the machine wasn't made during runtime, probably doesn't have components:
 						// manually find the components and drop them!
-						var/newpath = text2path(circuitboard)
-						var/obj/item/weapon/circuitboard/C = new newpath
+						var/obj/item/weapon/circuitboard/C = new circuitboard
 						for(var/I in C.req_components)
 							for(var/i = 1, i <= C.req_components[I], i++)
-								newpath = text2path(I)
-								var/obj/item/s = new newpath
+								var/obj/item/s = new I
 								s.loc = src.loc
 								if(istype(s, /obj/item/stack/cable_coil))
 									var/obj/item/stack/cable_coil/A = s

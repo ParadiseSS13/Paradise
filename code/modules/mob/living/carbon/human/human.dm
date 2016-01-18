@@ -18,9 +18,9 @@
 
 	if(!species)
 		if(new_species)
-			set_species(new_species, 1)
+			set_species(new_species, 1, delay_icon_update = 1)
 		else
-			set_species()
+			set_species(delay_icon_update = 1)
 
 	if(species)
 		name = species.get_random_name(gender)
@@ -69,7 +69,7 @@
 	..(new_loc, "Skrell")
 
 /mob/living/carbon/human/tajaran/New(var/new_loc)
-	h_style = "Tajaran Ears"
+	ha_style = "Tajaran Ears"
 	..(new_loc, "Tajaran")
 
 /mob/living/carbon/human/vulpkanin/New(var/new_loc)
@@ -1464,7 +1464,7 @@
 	else
 		usr << "\blue [self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."
 
-/mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour)
+/mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
 
 	var/datum/species/oldspecies = species
 	if(!dna)
@@ -1535,7 +1535,8 @@
 		regenerate_icons()
 		fixblood()
 
-	UpdateAppearance()
+	if(!delay_icon_update)
+		UpdateAppearance()
 
 	if(species)
 		return 1

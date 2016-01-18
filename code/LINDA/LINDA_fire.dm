@@ -118,7 +118,7 @@
 
 	perform_exposure()
 
-	if(location.wet) location.wet = 0
+	if(location.wet) location.wet = TURF_DRY
 
 	if(bypassing)
 		icon_state = "3"

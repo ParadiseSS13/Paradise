@@ -186,7 +186,7 @@
 		src.last_shot = world.time
 		if(src.shot_number < 3)
 			src.fire_delay = 2
-			src.shot_number ++
+			src.shot_number++
 		else
 			src.fire_delay = rand(minimum_fire_delay,maximum_fire_delay)
 			src.shot_number = 0

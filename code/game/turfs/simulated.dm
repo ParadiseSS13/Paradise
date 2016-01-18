@@ -17,24 +17,32 @@
 
 /turf/simulated/proc/burn_tile()
 
-/turf/simulated/proc/MakeSlippery(var/wet_setting = 1) // 1 = Water, 2 = Lube
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER) // 1 = Water, 2 = Lube, 3 = Ice
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
-	if(wet_setting == 1)
+	if(wet_setting != TURF_DRY)
 		if(wet_overlay)
 			overlays -= wet_overlay
 			wet_overlay = null
-		wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
+		var/turf/simulated/floor/F = src
+		if(istype(F))
+			wet_overlay = image('icons/effects/water.dmi', src, "wet_floor_static")
+		else
+			wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		overlays += wet_overlay
 
 	spawn(rand(790, 820)) // Purely so for visual effect
 		if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
 			return
-		if(wet > wet_setting) return
-		wet = 0
-		if(wet_overlay)
-			overlays -= wet_overlay
+		MakeDry(wet_setting)
+
+/turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
+	if(wet > wet_setting)
+		return
+	wet = TURF_DRY
+	if(wet_overlay)
+		overlays -= wet_overlay
 
 /turf/simulated/proc/AddTracks(var/typepath,var/bloodDNA,var/comingdir,var/goingdir,var/bloodcolor="#A10808")
 	var/obj/effect/decal/cleanable/blood/tracks/tracks = locate(typepath) in src
@@ -94,7 +102,7 @@
 		if (noslip)
 			return // no slipping while sitting in a chair, plz
 		switch (src.wet)
-			if(1)
+			if(TURF_WET_WATER)
 				if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M.shoes.flags&NOSLIP))
 					M.stop_pulling()
 					step(M, M.dir)
@@ -107,7 +115,7 @@
 					return
 
 
-			if(2) //lube                //can cause infinite loops - needs work
+			if(TURF_WET_LUBE) //lube                //can cause infinite loops - needs work
 				if(!M.buckled)
 					M.stop_pulling()
 					step(M, M.dir)
@@ -120,7 +128,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					M.Weaken(7)
 
-			if(3) // Ice
+			if(TURF_WET_ICE) // Ice
 				if ((M.m_intent == "run") && !(istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP) && prob(30))
 					M.stop_pulling()
 					step(M, M.dir)
@@ -157,3 +165,8 @@
 	else if( istype(M, /mob/living/silicon/robot ))
 		new /obj/effect/decal/cleanable/blood/oil(src)
 
+/turf/simulated/ChangeTurf(var/path)
+	. = ..()
+	smooth_icon_neighbors(src)
+
+/turf/simulated/proc/is_shielded()

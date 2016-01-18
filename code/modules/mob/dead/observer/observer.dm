@@ -160,7 +160,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == DEAD)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another 30 minutes! You can't change your mind so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
+		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")	return	//didn't want to ghost after-all
 		resting = 1
 		var/mob/dead/observer/ghost = ghostize(0)            //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
@@ -307,13 +307,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
 	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
-	for(var/datum/atom_hud/H in huds)
-		if(istype(H, /datum/atom_hud/antag))// || istype(H, /datum/atom_hud/data/human/security/advanced))
-			if(!M.antagHUD)
+
+	for(var/datum/atom_hud/antag/H in (huds))
+		//if(istype(H, /datum/atom_hud/antag))// || istype(H, /datum/atom_hud/data/human/security/advanced))
+		if(!M.antagHUD)
 			//(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
-				H.add_hud_to(usr)
-			else
-				H.remove_hud_from(usr)
+			H.add_hud_to(usr)
+		else
+			H.remove_hud_from(usr)
 	if(!M.antagHUD)
 		usr << "AntagHud Toggled ON"
 		M.antagHUD = 1

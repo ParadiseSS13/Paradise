@@ -40,7 +40,7 @@
 			dat += text("<A href='?src=\ref[src];id=0'>Insert Prisoner ID</A><br>")
 		dat += "<HR>Chemical Implants<BR>"
 		var/turf/Tr = null
-		for(var/obj/item/weapon/implant/chem/C in tracking_implants)
+		for(var/obj/item/weapon/implant/chem/C in tracked_implants)
 			Tr = get_turf(C)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!C.implanted) continue
@@ -54,7 +54,7 @@
 				********************************<BR>"}
 			// END AUTOFIX
 		dat += "<HR>Tracking Implants<BR>"
-		for(var/obj/item/weapon/implant/tracking/T in tracking_implants)
+		for(var/obj/item/weapon/implant/tracking/T in tracked_implants)
 			Tr = get_turf(T)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!T.implanted) continue
@@ -63,8 +63,6 @@
 			if((M.z in config.station_levels) && !istype(M.loc, /turf/space))
 				var/turf/mob_loc = get_turf(M)
 				loc_display = mob_loc.loc
-			if(T.malfunction)
-				loc_display = pick(teleportlocs)
 			dat += "ID: [T.id] | Location: [loc_display]<BR>"
 			dat += "<A href='?src=\ref[src];warn=\ref[T]'>(<font color=red><i>Message Holder</i></font>)</A> |<BR>"
 			dat += "********************************<BR>"

@@ -39,12 +39,10 @@ body {
     background: url(uiTitleFluff.png) 50% 50% no-repeat;
 }
 
-#uiStatusIcon {
+.statusicon {
     position: absolute;
     top: 4px;
     left: 12px;
-    width: 24px;
-    height: 24px;
 }
 
 #uiMapWrapper {

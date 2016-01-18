@@ -91,6 +91,8 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon = 'icons/mob/body_accessory.dmi'
 	animated_icon = 'icons/mob/body_accessory.dmi'
 	blend_mode = ICON_ADD
+	icon_state = "null"
+	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(var/mob/living/carbon/human/H)
 	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) && !istype(H.wear_suit, /obj/item/clothing/suit/space))
@@ -98,7 +100,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return 0
 
 
-//vulpakin
+//Vulpkanin
 /datum/body_accessory/tail/vulpkanin_2
 	name = "Vulpkanin Alt 1 (Bushy)"
 

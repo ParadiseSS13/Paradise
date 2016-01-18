@@ -6,11 +6,11 @@
 	can_suppress = 1
 	burst_size = 3
 	fire_delay = 2
-	action_button_name = "Toggle Firemode"	
-	
+	action_button_name = "Toggle Firemode"
+
 /obj/item/weapon/gun/projectile/automatic/isHandgun()
 	return 0
-	
+
 /obj/item/weapon/gun/projectile/automatic/proto
 	name = "\improper Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
@@ -49,10 +49,10 @@
 			A.update_icon()
 			update_icon()
 			return 1
-	
+
 /obj/item/weapon/gun/projectile/automatic/ui_action_click()
 	burst_select()
-	
+
 /obj/item/weapon/gun/projectile/automatic/verb/burst_select()
 	var/mob/living/carbon/human/user = usr
 	select = !select
@@ -102,14 +102,30 @@
 	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"][silenced ? "-suppressed" : ""]"
 	return
 
+/obj/item/weapon/gun/projectile/automatic/wt550
+	name = "security auto rifle"
+	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	icon_state = "wt550"
+	item_state = "arg"
+	mag_type = "/obj/item/ammo_box/magazine/wt550m9"
+	fire_delay = 2
+	can_suppress = 0
+	burst_size = 1
+	action_button_name = null
+
+/obj/item/weapon/gun/projectile/automatic/wt550/update_icon()
+	..()
+	icon_state = "wt550[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""]"
+	return
+
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=5;materials=2;syndicate=8"
 	mag_type = "/obj/item/ammo_box/magazine/uzim9mm"
-	burst_size = 2	
-	
+	burst_size = 2
+
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
 	desc = "A heavily modified 7.62 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the reciever below the designation."
@@ -125,13 +141,15 @@
 	can_suppress = 0
 	burst_size = 5
 	fire_delay = 3
-	
+
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attack_self(mob/user as mob)
 	cover_open = !cover_open
 	user << "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>"
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/update_icon()
+	if(magazine && magazine.caliber != "a762")
+		icon_state = "l6[cover_open ? "open" : "closed"]0"
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? round(magazine.ammo_count() * 2, 25) : "-empty"]"
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
@@ -163,6 +181,15 @@
 		return
 	..()
 
+/obj/item/weapon/gun/projectile/automatic/l6_saw/devastator
+	name = "\improper 'Devastator' LMG"
+	desc = "A heavily modified L6 SAW designed to chamber wide rounds. Commonly used by elite Syndicate boarding teams "
+	mag_type = "/obj/item/ammo_box/magazine/m762/buckshot"
+
+/obj/item/weapon/gun/projectile/automatic/l6_saw/devastator/New()
+	..()
+	mag_type = "/obj/item/ammo_box/magazine/m762" // Workaround so it spawns with a shotgun mag loaded, but can still load regular LMG mags.
+
 /obj/item/weapon/gun/projectile/automatic/m90
 	name = "\improper M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
@@ -190,7 +217,7 @@
 		..()
 		empty_alarm()
 		return
-		
+
 /obj/item/weapon/gun/projectile/automatic/m90/attackby(var/obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
 		if(istype(A, text2path(underbarrel.magazine.ammo_type)))
@@ -258,4 +285,3 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
-	

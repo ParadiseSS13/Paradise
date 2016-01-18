@@ -31,25 +31,25 @@ Used In File(s): \code\game\machinery\poolcontroller.dm
 
 	{{if data.emagged}}
 		<div class="itemContentWide" style="width: 100%;">
-			{{:helper.link('Scalding', 'circle-arrow-n', { 'temp' : 'Scalding' }, data.currentTemp == "scalding" ? 'selected' : null)}}
+			{{:helper.link('Scalding', 'arrow-circle-up', { 'temp' : 'Scalding' }, data.currentTemp == "scalding" ? 'selected' : null)}}
 		</div>
 	{{/if}}
 
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Warm', 'circle-arrow-n', { 'temp' : 'Warm' }, data.currentTemp == "warm" ? 'selected' : null)}}
+		{{:helper.link('Warm', 'arrow-circle-up', { 'temp' : 'Warm' }, data.currentTemp == "warm" ? 'selected' : null)}}
 	</div>
 
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Normal', 'circle-arrow-e', { 'temp' : 'Normal' }, data.currentTemp == "normal" ? 'selected' : null)}}
+		{{:helper.link('Normal', 'arrow-circle-right', { 'temp' : 'Normal' }, data.currentTemp == "normal" ? 'selected' : null)}}
 	</div>
 
 	<div class="itemContentWide" style="width: 100%;">
-		{{:helper.link('Cool', 'circle-arrow-s', { 'temp' : 'Cool' }, data.currentTemp == "cool" ? 'selected' : null)}}
+		{{:helper.link('Cool', 'arrow-circle-down', { 'temp' : 'Cool' }, data.currentTemp == "cool" ? 'selected' : null)}}
 	</div>
 
 	{{if data.emagged}}
 		<div class="itemContentWide" style="width: 100%;">
-			{{:helper.link('Frigid', 'circle-arrow-s', { 'temp' : 'Frigid' }, data.currentTemp == "frigid" ? 'selected' : null)}}
+			{{:helper.link('Frigid', 'arrow-circle-down', { 'temp' : 'Frigid' }, data.currentTemp == "frigid" ? 'selected' : null)}}
 		</div>
 	{{/if}}
 </div>

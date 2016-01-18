@@ -27,7 +27,7 @@ datum/reagent/carpet
 	color = "#701345"
 
 /datum/reagent/carpet/reaction_turf(var/turf/simulated/T, var/volume)
-	if(T.is_plating() || T.is_plasteel_floor())
+	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
@@ -204,6 +204,7 @@ datum/reagent/hair_dye/reaction_mob(var/mob/living/M, var/volume)
 		H.g_hair = rand(0,255)
 		H.b_hair = rand(0,255)
 		H.update_hair()
+		H.update_fhair()
 	..()
 	return
 
@@ -229,6 +230,7 @@ datum/reagent/hairgrownium/reaction_mob(var/mob/living/M, var/volume)
 		H.h_style = random_hair_style(H.gender, H.species)
 		H.f_style = random_facial_hair_style(H.gender, H.species)
 		H.update_hair()
+		H.update_fhair()
 	..()
 	return
 
@@ -256,6 +258,7 @@ datum/reagent/super_hairgrownium/on_mob_life(var/mob/living/M as mob)
 		H.h_style = "Very Long Hair"
 		H.f_style = "Very Long Beard"
 		H.update_hair()
+		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
 			if(H.wear_mask)
 				H.unEquip(H.wear_mask)

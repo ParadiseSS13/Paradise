@@ -1,7 +1,8 @@
 /turf/simulated/wall
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
-	icon = 'icons/turf/walls.dmi'
+	icon = 'icons/turf/walls/wall.dmi'
+	icon_state = "wall"
 	var/mineral = "metal"
 	var/rotting = 0
 
@@ -25,22 +26,20 @@
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/engraving, engraving_quality //engraving on the wall
 
-	var/del_suppress_resmoothing = 0 // Do not resmooth neighbors on Destroy. (smoothwall.dm)
 	canSmoothWith = list(
 	/turf/simulated/wall,
+	/turf/simulated/wall/r_wall,
 	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS.
-	)
+	/obj/structure/falsewall/reinforced,
+	/turf/simulated/wall/rust,
+	/turf/simulated/wall/r_wall/rust)
+	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/ChangeTurf(var/newtype)
 	for(var/obj/effect/E in src)
 		if(E.name == "Wallrot")
 			qdel(E)
-	var/dsr=0
-	if(del_suppress_resmoothing)	dsr=1
-	..(newtype)
-	if(!dsr)
-		relativewall_neighbours(sko=1)
+	. = ..(newtype)
 
 //Appearance
 

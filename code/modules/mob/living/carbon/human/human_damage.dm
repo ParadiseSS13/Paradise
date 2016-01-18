@@ -142,7 +142,7 @@
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
 
-	if(species.flags & (NO_SCAN))
+	if(species.flags & (NO_DNA_RAD))
 		cloneloss = 0
 		return
 
@@ -291,17 +291,22 @@
 	var/update = 0
 	while(parts.len && (brute>0 || burn>0) )
 		var/obj/item/organ/external/picked = pick(parts)
+		var/brute_per_part = brute/parts.len
+		var/burn_per_part = burn/parts.len
 
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 
-		update |= picked.take_damage(brute,burn,sharp,edge,used_weapon)
+
+		update |= picked.take_damage(brute_per_part,burn_per_part,sharp,edge,used_weapon)
+
 		brute	-= (picked.brute_dam - brute_was)
 		burn	-= (picked.burn_dam - burn_was)
 
 		parts -= picked
 
 	updatehealth()
+
 	if(update)
 		UpdateDamageIcon()
 

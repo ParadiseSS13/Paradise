@@ -720,9 +720,9 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/device_tools/elite_hardsuit
 	name = "Elite Syndicate Hardsuit"
-	desc = "The elite Syndicate hardsuit is worn by only the best nuclear agents. Features much better armoring and complete fireproofing, as well as a built in jetpack. \
-	When the built in helmet is deployed your identity will be protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit into combat mode \
-	will allow you all the mobility of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
+	desc = "The elite Syndicate hardsuit is worn by only the best nuclear agents. Features much better armoring and complete fireproofing. \
+	When the built in helmet is deployed your identity will be protected. Toggling the suit into combat mode will allow you all the mobility \
+	of a loose fitting uniform without sacrificing armoring. Additionally the suit is collapsible, small enough to fit within a backpack. \
 	Nanotrasen crewmembers are trained to report red space suit sightings; these suits in particular are known to drive employees into a panic."
 	reference = "ESHS"
 	item = /obj/item/weapon/storage/box/syndie_kit/elite_hardsuit
@@ -820,6 +820,14 @@ var/list/uplink_items = list()
 	item = /obj/item/device/multitool/ai_detect
 	cost = 1
 
+/datum/uplink_item/device_tools/telecrystal
+	name = "Raw Telecrystal"
+	desc = "Telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTC"
+	item = /obj/item/stack/telecrystal
+	cost = 1
+	surplus = 0
+
 /datum/uplink_item/device_tools/teleporter
 	name = "Teleporter Circuit Board"
 	desc = "A printed circuit board that completes the teleporter onboard the mothership. Advise you test fire the teleporter before entering it, as malfunctions can occur."
@@ -867,18 +875,11 @@ var/list/uplink_items = list()
 	cost = 14
 	surplus = 0
 
-/datum/uplink_item/implants/explosive
-	name = "Explosive Implant"
-	desc = "An implant injected into the body, and later activated using a vocal command to cause a large explosion from the implant."
-	reference = "EI"
-	item = /obj/item/weapon/implanter/explosive
-	cost = 12
-
-/datum/uplink_item/implants/compression
-	name = "Compressed Matter Implant"
-	desc = "An implant injected into the body, and later activated using a bodily gesture to retrieve an item that was earlier compressed."
-	reference = "CI"
-	item = /obj/item/weapon/implanter/compressed
+/datum/uplink_item/implants/storage
+	name = "Storage Implant"
+	desc = "An implant injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
+	reference = "ESI"
+	item = /obj/item/weapon/implanter/storage
 	cost = 8
 
 /datum/uplink_item/implants/mindslave
@@ -894,6 +895,15 @@ var/list/uplink_items = list()
 	reference = "AI"
 	item = /obj/item/weapon/implanter/adrenalin
 	cost = 8
+
+/datum/uplink_item/implants/microbomb
+	name = "Microbomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. The more implants inside of you, the higher the explosive power. \
+	This will permanently destroy your body, however."
+	reference = "MBI"
+	item = /obj/item/weapon/implanter/explosive
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
 
 // POINTLESS BADASSERY
 
@@ -940,6 +950,14 @@ var/list/uplink_items = list()
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+
+/datum/uplink_item/implants/macrobomb
+	name = "Macrobomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
+	reference = "HAB"
+	item = /obj/item/weapon/implanter/explosive_macro
+	cost = 20
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /*/datum/uplink_item/badass/random
 	name = "Random Item"

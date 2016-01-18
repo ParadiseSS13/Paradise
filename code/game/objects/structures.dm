@@ -29,6 +29,10 @@
 
 /obj/structure/New()
 	..()
+	if(smooth)
+		smooth_icon(src)
+		smooth_icon_neighbors(src)
+		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(ticker)
@@ -37,6 +41,8 @@
 /obj/structure/Destroy()
 	if(ticker)
 		cameranet.updateVisibility(src)
+	if(smooth)
+		smooth_icon_neighbors(src)
 	return ..()
 
 /obj/structure/proc/climb_on()

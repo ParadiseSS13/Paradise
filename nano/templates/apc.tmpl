@@ -4,7 +4,7 @@
 			Interface Lock:
 		</div>
 		<div class="itemContentFull">
-			{{:helper.link('Engaged', 'locked', {'toggleaccess' : 1}, data.locked ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlocked', {'toggleaccess' : 1}, data.malfStatus >= 2 ? 'linkOff' : (data.locked ? null : 'selected'))}}
+			{{:helper.link('Engaged', 'lock', {'toggleaccess' : 1}, data.locked ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlock', {'toggleaccess' : 1}, data.malfStatus >= 2 ? 'linkOff' : (data.locked ? null : 'selected'))}}
 		</div>
 		<div class="clearBoth"></div>
 	{{else}}
@@ -32,7 +32,7 @@
 					<span class='bad'>Off</span>
 				{{/if}}
 			{{else}}
-				{{:helper.link('On', 'power', {'breaker' : 1}, data.isOperating ? 'selected' : null)}}{{:helper.link('Off', 'close', {'breaker' : 1}, data.isOperating ? null : 'selected')}}
+				{{:helper.link('On', 'power-off', {'breaker' : 1}, data.isOperating ? 'selected' : null)}}{{:helper.link('Off', 'close', {'breaker' : 1}, data.isOperating ? null : 'selected')}}
 			{{/if}}
 		</div>
 	</div>
@@ -125,7 +125,7 @@
 			{{if !data.locked || data.siliconUser}}
 				<div class="itemContentFull">
 					{{:helper.link('Auto', 'refresh', value.topicParams.auto, (value.status == 1 || value.status == 3) ? 'selected' : null)}}
-					{{:helper.link('On', 'power', value.topicParams.on, (value.status == 2) ? 'selected' : null)}}
+					{{:helper.link('On', 'power-off', value.topicParams.on, (value.status == 2) ? 'selected' : null)}}
 					{{:helper.link('Off', 'close', value.topicParams.off, (value.status == 0) ? 'selected' : null)}}
 				</div>
 			{{/if}}
@@ -155,7 +155,7 @@
 					<span class='bad'>Disengaged</span>
 				{{/if}}
 			{{else}}
-				{{:helper.link('Engaged', 'locked', {'lock' : 1}, data.coverLocked ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlocked', {'lock' : 1}, data.coverLocked ? null : 'selected')}}
+				{{:helper.link('Engaged', 'lock', {'lock' : 1}, data.coverLocked ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlock', {'lock' : 1}, data.coverLocked ? null : 'selected')}}
 			{{/if}}
 		</div>
 	</div>
@@ -164,15 +164,15 @@
 		<h3>System Overrides</h3>
 
 		<div class="item">
-			{{:helper.link('Overload Lighting Circuit', 'lightbulb', {'overload' : 1})}}
+			{{:helper.link('Overload Lighting Circuit', 'lightbulb-o', {'overload' : 1})}}
 			{{if data.malfStatus == 1}}
-				{{:helper.link('Override Programming', 'script', {'malfhack' : 1})}}
+				{{:helper.link('Override Programming', 'file-text', {'malfhack' : 1})}}
 			{{else data.malfStatus == 2}}
-				{{:helper.link('Shunt Core Processes', 'arrowreturn-1-s', {'occupyapc' : 1})}}
+				{{:helper.link('Shunt Core Processes', 'arrow-down', {'occupyapc' : 1})}}
 			{{else data.malfStatus == 3}}
-				{{:helper.link('Return to Main Core', 'arrowreturn-1-w', {'deoccupyapc' : 1})}}
+				{{:helper.link('Return to Main Core', 'arrow-left', {'deoccupyapc' : 1})}}
 			{{else data.malfStatus == 4}}
-				{{:helper.link('Shunt Core Processes', 'arrowreturn-1-s', {'occupyapc' : 1}, 'linkOff')}}
+				{{:helper.link('Shunt Core Processes', 'arrow-down', {'occupyapc' : 1}, 'linkOff')}}
 			{{/if}}
 		</div>
 	{{/if}}

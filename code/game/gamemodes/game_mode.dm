@@ -295,13 +295,13 @@
 	. = 0
 	for(var/mob/new_player/P in player_list)
 		if(P.client && P.ready)
-			. ++
+			.++
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.client)
-			. ++
+			.++
 
 ///////////////////////////////////
 //Keeps track of all living heads//

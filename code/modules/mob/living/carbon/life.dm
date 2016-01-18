@@ -293,15 +293,6 @@
 
 	CheckStamina()
 
-	if(sleeping)
-		handle_dreams()
-		adjustStaminaLoss(-10)
-		sleeping = max(sleeping - 1, 0)
-		if(prob(10) && health && !hal_crit)
-			spawn(0)
-				emote("snore")
-
-
 	var/restingpwr = 1 + 4 * resting
 
 	//Dizziness
@@ -372,6 +363,19 @@
 			hallucination = 0
 		else
 			hallucination -= 2
+
+/mob/living/carbon/handle_sleeping()
+	if(..())
+		handle_dreams()
+		adjustStaminaLoss(-10)
+		if(prob(10) && health && !hal_crit)
+			spawn(0)
+				emote("snore")
+	// Keep SSD people asleep
+	if(player_logged && sleeping < 2)
+		sleeping = 2
+	return sleeping
+
 
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/carbon/handle_regular_hud_updates()

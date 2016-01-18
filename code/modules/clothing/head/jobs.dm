@@ -76,7 +76,7 @@
 /obj/item/clothing/head/HoS/beret
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
-	icon_state = "hosberetblack"
+	icon_state = "beret_hos_black"
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -95,25 +95,25 @@
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
-	icon_state = "beret_badge"
+	icon_state = "beret_officer"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
-	icon_state = "wardenberet"
+	icon_state = "beret_warden"
 	armor = list(melee = 60, bullet = 5, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
-	icon_state = "e_beret_badge"
+	icon_state = "beret_engineering"
 
 /obj/item/clothing/head/beret/atmos
 	name = "atmospherics beret"
 	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
-	icon_state = "a_beret_badge"
+	icon_state = "beret_atmospherics"
 
 //Medical
 /obj/item/clothing/head/surgery

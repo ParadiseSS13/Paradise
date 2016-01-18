@@ -29,7 +29,7 @@ Used In File(s): \code\game\machinery\requests_console.dm
 		<tr><td><div class="itemLabel">There are no available departments to request assistance from.</div></td></tr>
 	{{/for}}
 	</table><br>
-	<div class="item">{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 2}}
 	<div class="item"><h3>Request supplies from another department.</h3></div>
 	<table class="block">
@@ -45,7 +45,7 @@ Used In File(s): \code\game\machinery\requests_console.dm
 		<tr><td><div class="itemLabel">There are no available departments to request supplies from.</div></td></tr>
 	{{/for}}
 	</table><br>
-	<div class="item">{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 3}}
 	<div class="item"><h3>Relay info to another department.</h3></div>
 	<table class="block">
@@ -61,13 +61,13 @@ Used In File(s): \code\game\machinery\requests_console.dm
 		<tr><td><div class="itemLabel">There are no available departments to relay information to.</div></td></tr>
 	{{/for}}
 	</table><br>
-	<div class="item">{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 4}}
 	<div class="item"><b>Message sent successfully.</b></div>
-	<div class="item">{{:helper.link('Continue', 'arrowthick-1-e', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Continue', 'arrow-right', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 5}}
 	<div class="item"><b>An Error occured. Message not sent.</b></div>
-	<div class="item">{{:helper.link('Continue', 'arrowthick-1-e', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Continue', 'arrow-right', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 6}}
 	<div class="statusDisplay" style="overflow: auto;">
 		{{for data.message_log}}
@@ -76,7 +76,7 @@ Used In File(s): \code\game\machinery\requests_console.dm
 			<div class="item">No messages have been recieved.</div>
 		{{/for}}
 	</div>
-	<div class="item">{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}</div>
+	<div class="item">{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}</div>
 {{else data.screen == 7}}
 	<div class="item"><h2>Message Authentication</h2></div><br>
 	<div class="statusDisplay" style="overflow: auto;">
@@ -85,8 +85,8 @@ Used In File(s): \code\game\machinery\requests_console.dm
 		<div class="item"><b>Stamped by:</b> {{:data.msgStamped}}</div>
 	</div>
 	<div class="item">
-		{{:helper.link('Send Message', 'arrowthick-1-e', { 'department' : data.recipient })}}
-		{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}
+		{{:helper.link('Send Message', 'arrow-right', { 'department' : data.recipient })}}
+		{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}
 	</div>
 {{else data.screen == 8}}
 	<div class="item"><h2>Station wide announcement</h2></div>
@@ -99,8 +99,8 @@ Used In File(s): \code\game\machinery\requests_console.dm
 	{{/if}}
 	<br>
 	<div class="item">
-		{{:helper.link('Announce', 'signal-diag', { 'sendAnnouncement' : 1 }, (data.announceAuth && data.message) ? null : 'disabled' )}}
-		{{:helper.link('Back', 'arrowreturnthick-1-w', { 'setScreen' : 0 })}}
+		{{:helper.link('Announce', 'signal', { 'sendAnnouncement' : 1 }, (data.announceAuth && data.message) ? null : 'disabled' )}}
+		{{:helper.link('Back', 'arrow-left', { 'setScreen' : 0 })}}
 	</div>
 {{else}}
 	{{if data.newmessagepriority == 1}}
@@ -108,14 +108,14 @@ Used In File(s): \code\game\machinery\requests_console.dm
 	{{else data.newmessagepriority == 2}}
 		<div class="item"><font color='red'><b>NEW PRIORITY MESSAGES</b></font></div>
 	{{/if}}
-	<div class="item">{{:helper.link('View Messages', data.newmessagepriority ? 'mail-closed' : 'mail-open', { 'setScreen' : 6 })}}</div>
+	<div class="item">{{:helper.link('View Messages', data.newmessagepriority ? 'envelope' : 'envelope-o', { 'setScreen' : 6 })}}</div>
 	<br>
 	<div class="item">{{:helper.link('Request Assistance', 'gear', { 'setScreen' : 1 })}}</div>
 	<div class="item">{{:helper.link('Request Supplies', 'gear', { 'setScreen' : 2 })}}</div>
 	<div class="item">{{:helper.link('Relay Anonymous Information', 'gear', { 'setScreen' : 3})}}</div>
 	<br>
 	{{if data.announcementConsole}}
-		<div class="item">{{:helper.link('Send Station-wide Announcement', 'signal-diag', { 'setScreen' : 8})}}</div>
+		<div class="item">{{:helper.link('Send Station-wide Announcement', 'signal', { 'setScreen' : 8})}}</div>
 		<br>
 	{{/if}}
 	<div class="item">{{:helper.link(data.silent ? 'Speaker OFF' : 'Speaker ON', data.silent ? 'volume-off' : 'volume-on', { 'toggleSilent' : 1})}}</div>
