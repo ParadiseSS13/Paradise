@@ -186,7 +186,15 @@ nanoui is used to open and update nano browser uis
 			"autoUpdateContent" = auto_update_content,
 			"showMap" = show_map,
 			"mapZLevel" = map_z_level,
-			"user" = list("name" = user.name)
+			"user" = list(
+				"name" = user.name,
+				"fancy" = user.client.prefs.nanoui_fancy
+			),
+			"window" = list(
+				"width" = width,
+				"height" = height,
+				"ref" = window_id
+			)
 		)
 	return config_data
 
@@ -334,7 +342,6 @@ nanoui is used to open and update nano browser uis
 /datum/nanoui/proc/get_html()
 
 	// before the UI opens, add the layout files based on the layout key
-	add_stylesheet("layout_[layout_key].css")
 	add_template("layout", "layout_[layout_key].tmpl")
 
 	var/head_content = ""

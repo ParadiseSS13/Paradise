@@ -216,6 +216,10 @@ NanoStateManager = function ()
         getCurrentState: function ()
         {
             return _currentState;
+        },
+        getData: function ()
+        {
+            return _data;
         }
     };
 } ();
