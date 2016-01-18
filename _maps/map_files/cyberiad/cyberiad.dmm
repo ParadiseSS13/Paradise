@@ -4982,7 +4982,7 @@
 "bRP" = (/obj/structure/rack{dir = 1},/obj/item/weapon/pickaxe{pixel_x = 5},/obj/item/weapon/shovel{pixel_x = -5},/obj/item/weapon/storage/belt/utility,/turf/simulated/floor/plasteel,/area/quartermaster/miningdock)
 "bRQ" = (/obj/structure/table,/obj/item/weapon/paper_bin{pixel_x = -3; pixel_y = 7},/obj/item/device/megaphone,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/quartermaster/qm)
 "bRR" = (/obj/structure/table,/obj/item/weapon/folder/yellow,/obj/item/weapon/pen{pixel_x = 4; pixel_y = 4},/obj/item/weapon/pen/red{pixel_x = 2; pixel_y = 6},/turf/simulated/floor/plasteel,/area/quartermaster/qm)
-"bRS" = (/obj/structure/table,/obj/item/weapon/clipboard,/obj/item/weapon/stamp/granted{name = "Quartermaster's stamp"; pixel_x = 0; pixel_y = 0},/turf/simulated/floor/plasteel,/area/quartermaster/qm)
+"bRS" = (/obj/structure/table,/obj/item/weapon/clipboard,/obj/item/weapon/stamp/qm,/obj/item/weapon/stamp/granted{pixel_x = -4; pixel_y = 4},/obj/item/weapon/stamp/denied{pixel_x = 4; pixel_y = -4},/turf/simulated/floor/plasteel,/area/quartermaster/qm)
 "bRT" = (/obj/structure/disposalpipe/segment,/obj/machinery/camera{c_tag = "Quartermaster's Office"; dir = 8},/turf/simulated/floor/plasteel,/area/quartermaster/qm)
 "bRU" = (/obj/machinery/navbeacon{codes_txt = "patrol;next_patrol=AIW"; location = "QM"},/turf/simulated/floor/plasteel,/area/hallway/primary/central/sw)
 "bRV" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel,/area/hallway/primary/central/sw)
