@@ -196,7 +196,6 @@
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 	var/delete
 	var/temphtml
 	name = "Body Scanner Console"
@@ -363,8 +362,6 @@
 				for(var/obj/I in E.implants)
 					var/implantSubData[0]
 					implantSubData["name"] = I.name
-					if(is_type_in_list(I, known_implants))
-						implantSubData["known"] = 1
 
 					implantData.Add(list(implantSubData))
 
@@ -571,10 +568,7 @@
 
 				var/unknown_body = 0
 				for(var/I in e.implants)
-					if(is_type_in_list(I,known_implants))
-						imp += "[I] implanted:"
-					else
-						unknown_body++
+					unknown_body++
 
 				if(unknown_body || e.hidden)
 					imp += "Unknown body present:"

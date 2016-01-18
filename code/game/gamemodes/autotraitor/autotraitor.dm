@@ -92,9 +92,8 @@
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
 					for(var/obj/item/weapon/implant/loyalty/I in H.contents)
-						for(var/obj/item/organ/external/organs in H.organs)
-							if(I in organs.implants)
-								possible_traitors -= player
+						if(I && I.implanted)
+							possible_traitors -= player
 
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")

@@ -8,7 +8,6 @@
 	var/activated = 1 //1 for implant types that can be activated, 0 for ones that are "always on" like loyalty implants
 	var/implanted = null
 	var/mob/living/imp_in = null
-	var/obj/item/organ/external/part = null
 	item_color = "b"
 	var/allow_multiple = 0
 	var/uses = -1
@@ -49,10 +48,6 @@
 	implanted = 1
 	if(istype(source, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = source
-		if(user)
-			var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-			affected.implants += src
-			part = affected
 		H.sec_hud_set_implants()
 
 	if(user)
