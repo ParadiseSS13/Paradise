@@ -1,0 +1,10 @@
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: Kyep
+
+# Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
+delete-after: True
+
+changes:
+  - rscadd: "Changing level to gamma/delta/epsilon now displays a special gamma/delta/epsilon sprite on status monitors"
+  - bugfix: "Changing level to green/blue now clears the status monitors, so they no longer show higher alert levels after the level is changed"
