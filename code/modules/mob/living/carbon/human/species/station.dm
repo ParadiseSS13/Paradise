@@ -134,7 +134,7 @@
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
-	base_color = "#BE8264"
+	base_color = "#B43214"
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -200,7 +200,7 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_TAIL | TAIL_WAGGING
+	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"

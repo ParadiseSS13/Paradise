@@ -1,0 +1,47 @@
+################################
+# Example Changelog File
+#
+# Note: This file, and files beginning with ".", and files that don't end in ".yml" will not be read. If you change this file, you will look really dumb.
+#
+# Your changelog will be merged with a master changelog. (New stuff added only, and only on the date entry for the day it was merged.)
+# When it is, any changes listed below will disappear.
+#
+# Valid Prefixes: 
+#   bugfix
+#   wip (For works in progress)
+#   tweak
+#   soundadd
+#   sounddel
+#   rscadd (general adding of nice things)
+#   rscdel (general deleting of nice things)
+#   imageadd
+#   imagedel
+#   spellcheck (typo fixes)
+#   experiment
+#################################
+
+# Your name. Remove the quotation mark and put in your name when copy+pasting the example changelog.
+author: KasparoVy
+
+# Optional: Remove this file after generating master changelog.  Useful for PR changelogs that won't get used again.
+delete-after: True
+
+# Any changes you've made.  See valid prefix list above.
+# INDENT WITH TWO SPACES.  NOT TABS.  SPACES.
+# SCREW THIS UP AND IT WON'T WORK.
+# Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
+# Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
+changes: 
+  - imageadd: "Adds blank icons with standardized timings for species tail wagging, used in icon generation."
+  - bugfix: "Fixes tails overlapping arms/limbs + gloves, etc. when facing EAST or WEST."
+  - bugfix: "Ensures tails will overlap stuff as normal only when facing NORTH so as to avoid unwanted interference with the base sprite."
+  - bugfix: "Tails now appear in ID cards, overlays things correctly."
+  - bugfix: "Tails now overlay and are overlaid by things correctly in preview icons."
+  - tweak: "Modifies the positioning of tail icon generation in the ID card preview icon generation file."
+  - tweak: "Modifies the positioning of tail icon generation in the player preferences preview icon generation file."
+  - tweak: "Breaks limb generation into its own layer, breaks tail generation into a second layer that can be overlaid by limbs."
+  - tweak: "If the user's species is flagged to have a tail that is overlapped, TAIL_LAYER will now overlay the NORTH direction sprite of a tail now, while TAIL_UNDERLIMBS_LAYER gets all remaining directions. Otherwise icons are generated in the traditional manner."
+  - tweak: "Adjusts the Unathi right arm east direction and animated tail sprites, recolouring a random pixel and fixing a floating tail respectively."
+  - tweak: "Adjusts position of tail layer such that tails' north direction sprites will overlay backpacks (more importantly, satchel straps)."
+  - tweak: "Accommodates admin-overrides to the body_accessory species check by setting the default animation template to Vulpkanin."
+  - tweak: "Adjusts north-direction Unathi static tail sprite, now attaches to the body in the correct location."

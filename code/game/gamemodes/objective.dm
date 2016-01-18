@@ -333,7 +333,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current || owner.current.stat)
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(issilicon(owner.current))
 			return 0
@@ -362,7 +362,7 @@ datum/objective/hijack
 	check_completion()
 		if(!owner.current)
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 
 		var/area/A = shuttle_master.emergency.areaInstance
@@ -392,7 +392,7 @@ datum/objective/block
 	check_completion()
 		if(!istype(owner.current, /mob/living/silicon))
 			return 0
-		if(!shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+		if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
 			return 0
 		if(!owner.current)
 			return 0
@@ -852,19 +852,21 @@ datum/objective/heist/kidnap
 	check_completion()
 		if(target && target.current)
 			if (target.current.stat == DEAD)
-				return 0 // They're dead. Fail.
-			//if (!target.current.restrained())
-			//	return 0 // They're loose. Close but no cigar.
+				return 0
 
-			var/area/shuttle/vox/station/A = locate()
+			var/area/shuttle/vox/A = locate() //stupid fucking hardcoding
+			var/area/vox_station/B = locate() //but necessary
+
 			for(var/mob/living/carbon/human/M in A)
 				if(target.current == M)
-					return 1 //They're restrained on the shuttle. Success.
+					return 1
+			for(var/mob/living/carbon/human/M in B)
+				if(target.current == M)
+					return 1
 		else
 			return 0
 
 datum/objective/heist/loot
-
 	choose_target()
 		var/loot = "an object"
 		switch(rand(1,8))
@@ -904,26 +906,38 @@ datum/objective/heist/loot
 		explanation_text = "We are lacking in hardware. Steal or trade [loot]."
 
 	check_completion()
-
 		var/total_amount = 0
 
-		for(var/obj/O in locate(/area/shuttle/vox/station))
-			if(istype(O,target)) total_amount++
+		for(var/obj/O in locate(/area/shuttle/vox))
+			if(istype(O, target))
+				total_amount++
 			for(var/obj/I in O.contents)
-				if(istype(I,target)) total_amount++
-			if(total_amount >= target_amount) return 1
+				if(istype(I, target))
+					total_amount++
+				if(total_amount >= target_amount)
+					return 1
+
+		for(var/obj/O in locate(/area/vox_station))
+			if(istype(O, target))
+				total_amount++
+			for(var/obj/I in O.contents)
+				if(istype(I, target))
+					total_amount++
+				if(total_amount >= target_amount)
+					return 1
 
 		var/datum/game_mode/heist/H = ticker.mode
 		for(var/datum/mind/raider in H.raiders)
 			if(raider.current)
 				for(var/obj/O in raider.current.get_contents())
-					if(istype(O,target)) total_amount++
-					if(total_amount >= target_amount) return 1
+					if(istype(O,target))
+						total_amount++
+					if(total_amount >= target_amount)
+						return 1
 
 		return 0
 
 datum/objective/heist/salvage
-
 	choose_target()
 		switch(rand(1,8))
 			if(1)
@@ -954,16 +968,28 @@ datum/objective/heist/salvage
 		explanation_text = "Ransack or trade with the station and escape with [target_amount] [target]."
 
 	check_completion()
-
 		var/total_amount = 0
 
-		for(var/obj/item/O in locate(/area/shuttle/vox/station))
-
+		for(var/obj/item/O in locate(/area/shuttle/vox))
 			var/obj/item/stack/sheet/S
 			if(istype(O,/obj/item/stack/sheet))
 				if(O.name == target)
 					S = O
 					total_amount += S.get_amount()
+
+			for(var/obj/I in O.contents)
+				if(istype(I,/obj/item/stack/sheet))
+					if(I.name == target)
+						S = I
+						total_amount += S.get_amount()
+
+		for(var/obj/item/O in locate(/area/vox_station))
+			var/obj/item/stack/sheet/S
+			if(istype(O,/obj/item/stack/sheet))
+				if(O.name == target)
+					S = O
+					total_amount += S.get_amount()
+
 			for(var/obj/I in O.contents)
 				if(istype(I,/obj/item/stack/sheet))
 					if(I.name == target)
@@ -988,7 +1014,8 @@ datum/objective/heist/inviolate_crew
 
 	check_completion()
 		var/datum/game_mode/heist/H = ticker.mode
-		if(H.is_raider_crew_safe()) return 1
+		if(H.is_raider_crew_safe())
+			return 1
 		return 0
 
 #define MAX_VOX_KILLS 10 //Number of kills during the round before the Inviolate is broken.

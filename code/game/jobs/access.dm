@@ -177,7 +177,7 @@
 	if(!L)	return 0
 	if(!istype(L, /list))	return 0
 	return has_access(req_access, req_one_access, L)
-	
+
 /proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
 	for(var/req in req_access)
 		if(!(req in accesses)) //doesn't have this access
@@ -254,19 +254,19 @@
 
 /proc/get_all_syndicate_access()
 	return list(access_syndicate, access_syndicate_leader, access_vox)
-	
+
 /proc/get_all_misc_access()
 	return list(access_salvage_captain)
-	
+
 /proc/get_absolutely_all_accesses()
 	return (get_all_accesses() | get_all_centcom_access() | get_all_syndicate_access() | get_all_misc_access())
-		
+
 /proc/get_region_accesses(var/code)
 	switch(code)
 		if(0)
 			return get_all_accesses()
 		if(1) //security
-			return list(access_sec_doors, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
+			return list(access_sec_doors, access_weapons, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_pilot, access_hos)
 		if(2) //medbay
 			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
 		if(3) //research

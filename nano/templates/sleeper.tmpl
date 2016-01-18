@@ -146,7 +146,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 		Sleeper Status:
 	</div>
 	<div class="itemContent" style="width: 26%;">
-		{{:helper.link('Eject Occupant', 'arrowreturnthick-1-s', {'ejectify' : 1}, data.hasOccupant ? null : 'disabled')}}
+		{{:helper.link('Eject Occupant', 'arrow-circle-o-down', {'ejectify' : 1}, data.hasOccupant ? null : 'disabled')}}
 	</div>
 </div>
 <div class="item">&nbsp;</div>
@@ -166,7 +166,7 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 		{{if data.isBeakerLoaded}}
 		<div class="line">
 			<div class="itemContent">
-				{{:helper.link('On', 'power', {'togglefilter' : 1}, data.occupant.hasBlood ? (data.dialysis ? 'selected' : null) : 'disabled')}}{{:helper.link('Off', 'close', {'togglefilter' : 1}, data.dialysis ? null : 'selected')}}
+				{{:helper.link('On', 'power-off', {'togglefilter' : 1}, data.occupant.hasBlood ? (data.dialysis ? 'selected' : null) : 'disabled')}}{{:helper.link('Off', 'close', {'togglefilter' : 1}, data.dialysis ? null : 'selected')}}
 			</div>
 		</div>
 		{{/if}}

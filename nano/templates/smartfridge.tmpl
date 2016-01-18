@@ -15,18 +15,18 @@
     {{for data.contents}}
       <div class='item'>
         <span class='highlight'>{{:value.display_name}} ({{:value.quantity}} available)</span>
-        <div class='line' style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'circle-arrow-s', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
+        <div class='line' style="float: left;">Vend:&nbsp;</div> {{:helper.link('x1', 'arrow-circle-down', { "vend" : value.vend, "amount" : 1 }, null, 'statusValue')}}
 		{{if value.quantity >= 5}}
-			{{:helper.link('x5', 'circle-arrow-s', { "vend" : value.vend, "amount" : 5 }, null, 'statusValue')}}
+			{{:helper.link('x5', 'arrow-circle-down', { "vend" : value.vend, "amount" : 5 }, null, 'statusValue')}}
 		{{/if}}
 		{{if value.quantity >= 10}}
-			{{:helper.link('x10', 'circle-arrow-s', { "vend" : value.vend, "amount" : 10 }, null, 'statusValue')}}
+			{{:helper.link('x10', 'arrow-circle-down', { "vend" : value.vend, "amount" : 10 }, null, 'statusValue')}}
 		{{/if}}
 		{{if value.quantity >= 25}}
-			{{:helper.link('x25', 'circle-arrow-s', { "vend" : value.vend, "amount" : 25 }, null, 'statusValue')}}
+			{{:helper.link('x25', 'arrow-circle-down', { "vend" : value.vend, "amount" : 25 }, null, 'statusValue')}}
 		{{/if}}
 		{{if value.quantity > 1}}
-			{{:helper.link('All', 'circle-arrow-s', { "vend" : value.vend, "amount" : value.quantity }, null, 'statusValue')}}
+			{{:helper.link('All', 'arrow-circle-down', { "vend" : value.vend, "amount" : value.quantity }, null, 'statusValue')}}
 		{{/if}}
       </div>
     {{/for}}

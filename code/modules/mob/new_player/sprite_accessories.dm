@@ -1081,6 +1081,11 @@
 		icon_state = "male_grey"
 		gender = MALE
 
+	male_grey
+		name = "Mens Grey Alt"
+		icon_state = "male_greyalt"
+		gender = MALE
+
 	male_green
 		name = "Mens Green"
 		icon_state = "male_green"
@@ -1091,9 +1096,34 @@
 		icon_state = "male_blue"
 		gender = MALE
 
+	male_red
+		name = "Mens Red"
+		icon_state = "male_red"
+		gender = MALE
+
 	male_black
 		name = "Mens Black"
 		icon_state = "male_black"
+		gender = MALE
+
+	male_black_alt
+		name = "Mens Black Alt"
+		icon_state = "male_blackalt"
+		gender = MALE
+
+	male_striped
+		name = "Mens Striped"
+		icon_state = "male_stripe"
+		gender = MALE
+
+	male_heart
+		name = "Mens Hearts"
+		icon_state = "male_hearts"
+		gender = MALE
+
+	male_kinky
+		name = "Mens Kinky"
+		icon_state = "male_kinky"
 		gender = MALE
 
 	male_mankini
@@ -1106,9 +1136,24 @@
 		icon_state = "female_red"
 		gender = FEMALE
 
+	female_green
+		name = "Ladies Green"
+		icon_state = "female_green"
+		gender = FEMALE
+
 	female_white
 		name = "Ladies White"
 		icon_state = "female_white"
+		gender = FEMALE
+
+	female_whiter
+		name = "Ladies Whiter"
+		icon_state = "female_whiter"
+		gender = FEMALE
+
+	female_whitealt
+		name = "Ladies White Alt"
+		icon_state = "female_whitealt"
 		gender = FEMALE
 
 	female_yellow
@@ -1121,14 +1166,44 @@
 		icon_state = "female_blue"
 		gender = FEMALE
 
+	female_babyblue
+		name = "Ladies Baby Blue"
+		icon_state = "female_babyblue"
+		gender = FEMALE
+
 	female_black
 		name = "Ladies Black"
 		icon_state = "female_black"
 		gender = FEMALE
 
+	female_blacker
+		name = "Ladies Blacker"
+		icon_state = "female_blacker"
+		gender = FEMALE
+
+	female_blackalt
+		name = "Ladies Black Alt"
+		icon_state = "female_blackalt"
+		gender = FEMALE
+
 	female_kinky
 		name = "Ladies Kinky"
 		icon_state = "female_kinky"
+		gender = FEMALE
+
+	female_babydoll
+		name = "Ladies Full Grey"
+		icon_state = "female_babydoll"
+		gender = FEMALE
+
+	female_pink
+		name = "Ladies Pink"
+		icon_state = "female_pink"
+		gender = FEMALE
+
+	female_thong
+		name = "Ladies Thong"
+		icon_state = "female_thong"
 		gender = FEMALE
 
 ////////////////////////////
@@ -1153,6 +1228,11 @@
 /datum/sprite_accessory/undershirt/shirt_black
 	name = "Black Shirt"
 	icon_state = "shirt_black"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_blacker
+	name = "Blacker Shirt"
+	icon_state = "shirt_blacker"
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_grey
@@ -1204,6 +1284,16 @@
 /datum/sprite_accessory/undershirt/shirt_corgi
 	name = "Corgi Shirt"
 	icon_state = "shirt_corgi"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_clown
+	name = "Clown Shirt"
+	icon_state = "shirt_clown"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_alien
+	name = "Alien Shirt"
+	icon_state = "shirt_alien"
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/shirt_jack
@@ -1350,6 +1440,21 @@
 
 
 //tanktops
+/datum/sprite_accessory/undershirt/tank_redtop
+	name = "Red Crop-Top"
+	icon_state = "tank_redtop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/tank_whitetop
+	name = "White Crop-Top"
+	icon_state = "tank_whitetop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/tank_midriff
+	name = "White Mid Tank-Top"
+	icon_state = "tank_midriff"
+	gender = FEMALE
+
 /datum/sprite_accessory/undershirt/tank_white
 	name = "White Tank-Top"
 	icon_state = "tank_white"
@@ -1360,15 +1465,32 @@
 	icon_state = "tank_black"
 	gender = NEUTER
 
+/datum/sprite_accessory/undershirt/tank_blacker
+	name = "Blacker Tank-Top"
+	icon_state = "tank_blacker"
+	gender = NEUTER
+
 /datum/sprite_accessory/undershirt/tank_grey
 	name = "Grey Tank-Top"
 	icon_state = "tank_grey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_red
+	name = "Red Tank-Top"
+	icon_state = "tank_red"
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/tank_fire
 	name = "Fire Tank-Top"
 	icon_state = "tank_fire"
 	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_stripes
+	name = "Striped Tank-Top"
+	icon_state = "tank_stripes"
+	gender = NEUTER
+
+
 //end tanktops
 
 ///////////////////////

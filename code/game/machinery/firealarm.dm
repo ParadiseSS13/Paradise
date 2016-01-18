@@ -23,9 +23,9 @@ FIRE ALARM
 
 /obj/machinery/firealarm/New()
 	var/area/A = get_area_master(src)
-	if (!( istype(A, /area) ))
+	if(!istype(A, /area))
 		return
-	master_area=A
+	master_area = A
 
 /obj/machinery/firealarm/update_icon()
 
@@ -50,10 +50,9 @@ FIRE ALARM
 		icon_state = "fire0"
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if(src.detecting)
+	if(detecting)
 		if(temperature > T0C+200)
-			src.alarm()			// added check of detector status here
-	return
+			alarm()			// added check of detector status here
 
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
@@ -74,7 +73,7 @@ FIRE ALARM
 /obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob, params)
 	src.add_fingerprint(user)
 
-	if (istype(W, /obj/item/weapon/screwdriver) && buildstage == 2)
+	if(istype(W, /obj/item/weapon/screwdriver) && buildstage == 2)
 		wiresexposed = !wiresexposed
 		update_icon()
 		return
@@ -83,8 +82,8 @@ FIRE ALARM
 		switch(buildstage)
 			if(2)
 				if(istype(W, /obj/item/device/multitool))
-					src.detecting = !( src.detecting )
-					if (src.detecting)
+					detecting = !detecting
+					if(detecting)
 						user.visible_message("\red [user] has reconnected [src]'s detecting unit!", "You have reconnected [src]'s detecting unit.")
 					else
 						user.visible_message("\red [user] has disconnected [src]'s detecting unit!", "You have disconnected [src]'s detecting unit.")
@@ -100,13 +99,9 @@ FIRE ALARM
 			if(1)
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/coil = W
-					if(coil.amount < 5)
+					if(!coil.use(5))
 						user << "<span class='warning'>You cut the wires!</span>"
 						return
-
-					coil.amount -= 5
-					if(!coil.amount)
-						qdel(coil)
 
 					buildstage = 2
 					user << "<span class='notice'>You wire \the [src]!</span>"
@@ -134,22 +129,21 @@ FIRE ALARM
 					qdel(src)
 		return
 
-	src.alarm()
-	return
+	alarm()
 
 /obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(src.timing)
-		if(src.time > 0)
-			src.time = src.time - ((world.timeofday - last_process)/10)
+	if(timing)
+		if(time > 0)
+			time = time - ((world.timeofday - last_process)/10)
 		else
-			src.alarm()
-			src.time = 0
-			src.timing = 0
+			alarm()
+			time = 0
+			timing = 0
 			processing_objects.Remove(src)
-		src.updateDialog()
+		updateDialog()
 	last_process = world.timeofday
 
 	if(locate(/obj/effect/hotspot) in loc)
@@ -167,12 +161,15 @@ FIRE ALARM
 			update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user as mob)
-	if((user.stat && !isobserver(user)) || stat & (NOPOWER|BROKEN))
-		return
+	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
+		return 1
 
-	if (buildstage != 2)
-		return
+	if(user.incapacitated())
+		return 1
 
+	ui_interact(user)
+
+/*
 	user.set_machine(src)
 	var/area/A = src.loc
 	var/d1
@@ -207,32 +204,53 @@ FIRE ALARM
 		var/minute = (round(src.time) - second) / 60
 		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>[stars("Fire alarm")]</B> [d1]\n<HR><b>The current alert level is: [stars(get_security_level())]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? text("[]:", minute) : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
 		user << browse(dat, "window=firealarm")
-		onclose(user, "firealarm")
-	return
+		onclose(user, "firealarm")*/
+
+/obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+	var/data[0]
+
+	var/area/A = get_area(src)
+	data["fire"] = A.fire
+	data["timing"] = timing
+
+	data["sec_level"] = get_security_level()
+
+	var/second = round(time) % 60
+	var/minute = (round(time) - second) / 60
+
+	data["time_left"] = "[minute ? minute + ":" : null][second]"
+
+	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
+
+
+
 
 /obj/machinery/firealarm/Topic(href, href_list)
 	if(..())
 		return 1
 
-	if (buildstage != 2)
+	if(buildstage != 2)
 		return 1
 
-	if (href_list["reset"])
-		src.reset()
-	else if (href_list["alarm"])
-		src.alarm()
-	else if (href_list["time"])
-		src.timing = text2num(href_list["time"])
+	add_fingerprint(usr)
+
+	if(href_list["reset"])
+		reset()
+	else if(href_list["alarm"])
+		alarm()
+	else if(href_list["time"])
+		timing = text2num(href_list["time"])
 		last_process = world.timeofday
 		processing_objects.Add(src)
-	else if (href_list["tp"])
+	else if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
-		src.time += tp
-		src.time = min(max(round(src.time), 0), 120)
-
-	src.updateUsrDialog()
-	src.add_fingerprint(usr)
-	return
+		time += tp
+		time = min(max(round(src.time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
 	if (!( src.working ))

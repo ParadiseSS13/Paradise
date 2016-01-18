@@ -88,13 +88,13 @@
 	<div class="item">
 		<div class="itemContent" style="padding-top: 2px; width: 100%">
 		{{if data.docking_status == "docked"}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', null)}}
-			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
-			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, 'disabled', null)}}
+			{{:helper.link('Force exterior door', 'exclamation-triangle', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', null)}}
+			{{:helper.link('Override', 'exclamation-triangle', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : null)}}
+			{{:helper.link('MANUAL EJECT', 'exclamation-triangle', {'command' : 'toggle_override'}, 'disabled', null)}}
 		{{else}}
-			{{:helper.link('Force exterior door', 'alert', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', data.override_enabled ? 'redButton' : null)}}
-			{{:helper.link('Override', 'alert', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : 'yellowButton')}}
-			{{:helper.link('MANUAL EJECT', 'alert', {'command' : 'toggle_override'}, data.can_force ? null : 'disabled', data.can_force ? 'redButton' : null)}}
+			{{:helper.link('Force exterior door', 'exclamation-triangle', {'command' : 'force_door'}, data.override_enabled ? null : 'disabled', data.override_enabled ? 'redButton' : null)}}
+			{{:helper.link('Override', 'exclamation-triangle', {'command' : 'toggle_override'}, null, data.override_enabled ? 'redButton' : 'yellowButton')}}
+			{{:helper.link('MANUAL EJECT', 'exclamation-triangle', {'command' : 'toggle_override'}, data.can_force ? null : 'disabled', data.can_force ? 'redButton' : null)}}
 		{{/if}}
 		</div>
 	</div>

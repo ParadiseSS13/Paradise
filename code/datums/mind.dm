@@ -60,6 +60,7 @@
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	var/datum/mindslaves/som //stands for slave or master...hush..
 
 	var/rev_cooldown = 0
 
@@ -903,6 +904,9 @@
 					ticker.mode.vampires += src
 					ticker.mode.grant_vampire_powers(current)
 					ticker.mode.update_vampire_icons_added(src)
+					var/datum/mindslaves/slaved = new()
+					slaved.masters += src
+					src.som = slaved //we MIGT want to mindslave someone
 					special_role = "Vampire"
 					current << "<B><font color='red'>Your powers are awoken. Your lust for blood grows... You are a Vampire!</font></B>"
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
@@ -999,6 +1003,9 @@
 			if("traitor")
 				if(!(src in ticker.mode.traitors))
 					ticker.mode.traitors += src
+					var/datum/mindslaves/slaved = new()
+					slaved.masters += src
+					src.som = slaved //we MIGT want to mindslave someone
 					special_role = "traitor"
 					current << "<B>\red You are a traitor!</B>"
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")

@@ -176,12 +176,14 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 		H.equip_or_collect(new /obj/item/clothing/glasses/hud/health/health_advanced, slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/blueshield(H), slot_w_uniform)
 		H.equip_or_collect(new /obj/item/clothing/suit/armor/vest/blueshield(H), slot_wear_suit)
-		H.equip_or_collect(new /obj/item/weapon/gun/energy/advtaser(H), slot_s_store)
 		H.equip_or_collect(new /obj/item/device/pda/heads/blueshield(H), slot_wear_pda)
+
 		if(H.backbag == 1)
 			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H), slot_r_hand)
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/blueshield(H), slot_l_hand)
 		else
 			H.equip_or_collect(new /obj/item/weapon/storage/box/deathimp(H.back), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/weapon/gun/energy/blueshield(H.back), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
