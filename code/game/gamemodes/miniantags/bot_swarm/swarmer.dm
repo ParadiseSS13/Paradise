@@ -236,6 +236,9 @@
 /obj/structure/cryofeed/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>"
 
+/obj/machinery/computer/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>"
+
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	for(var/turf/T in range(1, src))
 		if(istype(T, /turf/space) || istype(T.loc, /area/space))
