@@ -31,36 +31,44 @@
 			if(SEC_LEVEL_GREEN)
 				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
 				security_level = SEC_LEVEL_GREEN
-				
+
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "outline")
+
 				for(var/obj/machinery/firealarm/FA in world)
 					if((FA.z in config.contact_levels))
 						FA.overlays = list()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")					
-						
+						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+
 			if(SEC_LEVEL_BLUE)
 				if(security_level < SEC_LEVEL_BLUE)
 					security_announcement_up.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.")
 				else
 					security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.")
 				security_level = SEC_LEVEL_BLUE
-				
+
+				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
+				if(CC)
+					CC.post_status("alert", "outline")
+
 				for(var/obj/machinery/firealarm/FA in world)
 					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
-						
+
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
 					security_announcement_up.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
 				else
 					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
 				security_level = SEC_LEVEL_RED
-				
+
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in world
 				if(R && (R.z in config.station_levels))
 					R.locked = 0
 					R.update_icon()
-					
+
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
 				if(CC)
 					CC.post_status("alert", "redalert")
@@ -69,27 +77,27 @@
 					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
-						
+
 			if(SEC_LEVEL_GAMMA)
 				security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!")
 				security_level = SEC_LEVEL_GAMMA
-				
+
 				move_gamma_ship()
-				
+
 				if(security_level < SEC_LEVEL_RED)
 					for(var/obj/machinery/door/airlock/highsecurity/red/R in world)
 						if((R.z in config.station_levels))
 							R.locked = 0
 							R.update_icon()
-							
+
 				for(var/obj/machinery/door/airlock/hatch/gamma/H in world)
 					if((H.z in config.station_levels))
 						H.locked = 0
 						H.update_icon()
-						
+
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
 				if(CC)
-					CC.post_status("alert", "redalert")
+					CC.post_status("alert", "gammaalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
 					if((FA.z in config.contact_levels))
@@ -100,10 +108,10 @@
 			if(SEC_LEVEL_EPSILON)
 				security_announcement_up.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.","Attention! Epsilon security level activated!")
 				security_level = SEC_LEVEL_EPSILON
-				
+
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
 				if(CC)
-					CC.post_status("alert", "redalert")
+					CC.post_status("alert", "epsilonalert")
 
 				for(var/obj/machinery/firealarm/FA in world)
 					if((FA.z in config.contact_levels))
@@ -113,16 +121,16 @@
 			if(SEC_LEVEL_DELTA)
 				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
 				security_level = SEC_LEVEL_DELTA
-				
+
 				var/obj/machinery/computer/communications/CC = locate(/obj/machinery/computer/communications,world)
 				if(CC)
-					CC.post_status("alert", "redalert")	
-					
+					CC.post_status("alert", "deltaalert")
+
 				for(var/obj/machinery/firealarm/FA in world)
 					if((FA.z in config.contact_levels))
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
-						
+
 	else
 		return
 
