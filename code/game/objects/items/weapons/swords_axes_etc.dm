@@ -97,6 +97,9 @@
 		w_class = 2
 		force = 0 //not so robust now
 		attack_verb = list("hit", "poked")
-
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	add_fingerprint(user)
