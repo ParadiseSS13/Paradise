@@ -42,6 +42,10 @@
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		user << "<span class='notice'>[src] can now be concealed.</span>"
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
 
@@ -173,9 +177,9 @@
 				// Updating overlays, copied from welder code.
 				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
 				if(user.r_hand == src)
-					user.update_inv_r_hand(0)
+					user.update_inv_r_hand()
 				else if(user.l_hand == src)
-					user.update_inv_l_hand(0)
+					user.update_inv_l_hand()
 
 		else
 			user << "<span class='warning'>It's already fabulous!</span>"
