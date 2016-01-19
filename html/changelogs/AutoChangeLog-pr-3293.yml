@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "In the supply ordering & shuttle consoles, one can now cancel an order at either the Reason or Amount input dialogs."
