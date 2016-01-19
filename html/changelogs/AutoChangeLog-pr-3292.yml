@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "The ID computer Access Report printout now separates the access list with commas so it's actually readable."
+  - bugfix: "The ID computer Access Report printout isn't blank if you don't have an authorization card in anymore."
