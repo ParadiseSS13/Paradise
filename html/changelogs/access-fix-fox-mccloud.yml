@@ -1,7 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - bugfix: "Fixes not being able to add/remove Weapon Permit from IDs."
