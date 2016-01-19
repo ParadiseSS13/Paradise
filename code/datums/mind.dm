@@ -621,6 +621,7 @@
 				for(var/obj/item/weapon/implant/loyalty/I in H.contents)
 					if(I && I.implanted)
 						I.removed(H)
+						qdel(I)
 				H << "\blue <Font size =3><B>Your loyalty implant has been deactivated.</B></FONT>"
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s loyalty implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s loyalty implant")
