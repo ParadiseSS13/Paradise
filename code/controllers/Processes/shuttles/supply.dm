@@ -493,13 +493,18 @@
 			return 1
 		var/crates = 1
 		if(multi)
-			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
-			crates = Clamp(round(text2num(num_input)), 1, 20)
+			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
+			if(!num_input)
+				return 1
+			crates = Clamp(round(num_input), 1, 20)
 			if(..())
 				return 1
 
 		var/timeout = world.time + 600
-		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text, 1, MAX_MESSAGE_LEN))
+		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
+		if(!reason)
+			return 1
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 		if(world.time > timeout || !reason || ..())
 			return 1
 
@@ -666,13 +671,18 @@
 			return 1
 		var/crates = 1
 		if(multi)
-			var/num_input = input(usr, "Amount:", "How many crates?", "") as num
-			crates = Clamp(round(text2num(num_input)), 1, 20)
+			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
+			if(!num_input)
+				return 1
+			crates = Clamp(round(num_input), 1, 20)
 			if(!is_authorized(usr) || ..())
 				return 1
 
 		var/timeout = world.time + 600
-		var/reason = sanitize(copytext(input(usr,"Reason:","Why do you require this item?","") as null|text,1,MAX_MESSAGE_LEN))
+		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
+		if(!reason)
+			return 1
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
 			return 1
 
