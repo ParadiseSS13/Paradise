@@ -6,7 +6,7 @@
 	w_class = 2.0
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
-	var/request_cooldown = 60 // one minute
+	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/device/radio/radio
 	var/looking_for_personality = 0
