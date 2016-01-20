@@ -80,6 +80,9 @@
 	item_state = "gun"
 	cell_type = "/obj/item/weapon/stock_parts/cell/pulse/pistol"
 
+/obj/item/weapon/gun/energy/pulse_rifle/pistol/isHandgun()
+	return 1
+
 /obj/item/weapon/gun/energy/pulse_rifle/pistol/m1911
 	name = "\improper M1911-P"
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
