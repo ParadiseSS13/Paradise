@@ -1,0 +1,7 @@
+
+author: Fox McCloud
+
+delete-after: True
+
+changes: 
+  - rscadd: "Raw telecrystal can now be used to charge uplink implants."
