@@ -1,4 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - rscadd: "Adds world.Topic() handling so that users are notified in-game when pull requests are opened, closed, or merged on the Github repo."

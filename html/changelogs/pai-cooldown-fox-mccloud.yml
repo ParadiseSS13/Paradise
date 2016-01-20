@@ -1,7 +1,0 @@
-
-author: Fox McCloud
-
-delete-after: True
-
-changes: 
-  - tweak: "Lowers the pAI cooldown from 60 seconds to 5 seconds."
