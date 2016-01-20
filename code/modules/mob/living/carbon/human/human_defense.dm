@@ -281,7 +281,7 @@ emp_act
 							glasses.add_blood(src)
 							update_inv_glasses(0)
 
-				if("chest")//Easier to score a stun but lasts less time
+				if("upper body")//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message("<span class='danger'>[src] has been knocked down!</span>", \
 										"<span class='userdanger'>[src] has been knocked down!</span>")
