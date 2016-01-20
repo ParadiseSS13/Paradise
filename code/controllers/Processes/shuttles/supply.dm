@@ -446,8 +446,8 @@
 	for(var/set_name in shuttle_master.requestlist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
-			// Check if the usr owns the request, so they can cancel requests
-			var/obj/item/weapon/card/id/I = usr.get_id_card()
+			// Check if the user owns the request, so they can cancel requests
+			var/obj/item/weapon/card/id/I = user.get_id_card()
 			var/owned = 0
 			if(I && SO.orderedby == I.registered_name)
 				owned = 1
@@ -494,19 +494,15 @@
 		var/crates = 1
 		if(multi)
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
-			if(!num_input)
+			if(!num_input || ..())
 				return 1
 			crates = Clamp(round(num_input), 1, 20)
-			if(..())
-				return 1
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		if(!reason)
-			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 		if(world.time > timeout || !reason || ..())
 			return 1
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
@@ -672,19 +668,15 @@
 		var/crates = 1
 		if(multi)
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
-			if(!num_input)
+			if(!num_input || !is_authorized(usr) || ..())
 				return 1
 			crates = Clamp(round(num_input), 1, 20)
-			if(!is_authorized(usr) || ..())
-				return 1
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
-		if(!reason)
-			return 1
-		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 		if(world.time > timeout || !reason || !is_authorized(usr) || ..())
 			return 1
+		reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"
