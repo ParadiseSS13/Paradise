@@ -158,13 +158,17 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
-	w_class = 1
+	w_class = 2
 	throwforce = 2
 	slot_flags = SLOT_BELT
 	storage_slots = 6
-	can_hold = list("/obj/item/clothing/mask/cigarette")
+	max_combined_w_class = 6
+	can_hold = list("/obj/item/clothing/mask/cigarette",
+		"/obj/item/weapon/lighter",
+		"/obj/item/weapon/match")
 	cant_hold = list("/obj/item/clothing/mask/cigarette/cigar",
-		"/obj/item/clothing/mask/cigarette/pipe")
+		"/obj/item/clothing/mask/cigarette/pipe",
+		"/obj/item/weapon/lighter/zippo")
 	icon_type = "cigarette"
 	var/list/unlaced_cigarettes = list() // Cigarettes that haven't received reagents yet
 	var/default_reagents = list("nicotine" = 15) // List of reagents to pre-generate for each cigarette
@@ -206,14 +210,37 @@
 		return
 
 	if(istype(M) && M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
-		var/obj/item/clothing/mask/cigarette/C = contents[contents.len]
-		if(!istype(C)) return
-		lace_cigarette(C)
-		user.equip_to_slot_if_possible(C, slot_wear_mask)
-		user << "<span class='notice'>You take a cigarette out of the pack.</span>"
-		update_icon()
+		var/got_cig = 0
+		for(var/num=1, num <= contents.len, num++)
+			var/obj/item/I = contents[num]
+			if(istype(I, /obj/item/clothing/mask/cigarette))
+				var/obj/item/clothing/mask/cigarette/C = I
+				lace_cigarette(C)
+				user.equip_to_slot_if_possible(C, slot_wear_mask)
+				user << "<span class='notice'>You take \a [C.name] out of the pack.</span>"
+				update_icon()
+				got_cig = 1
+				break
+		if(!got_cig)
+			user << "<span class='warning'>There are no smokables in the pack!</span>"
 	else
 		..()
+
+/obj/item/weapon/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	if(istype(W, /obj/item/weapon/match))
+		var/obj/item/weapon/match/M = W
+		if(M.lit == 1)
+			if(!stop_messages)
+				usr << "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>"
+			return 0
+	if(istype(W, /obj/item/weapon/lighter))
+		var/obj/item/weapon/lighter/L = W
+		if(L.lit == 1)
+			if(!stop_messages)
+				usr << "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>"
+			return 0
+	//if we get this far, handle the insertion checks as normal
+	.=..()
 
 /obj/item/weapon/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
