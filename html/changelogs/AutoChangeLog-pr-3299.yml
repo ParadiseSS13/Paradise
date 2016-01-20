@@ -1,4 +1,0 @@
-author: Tastyfish
-delete-after: True
-changes: 
-  - bugfix: "Table flipping uses correct sprites."

@@ -1,6 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - tweak: "Improved shading on all Vulpkanin hardsuit tails."
-  - tweak: "Vulpkanin hardsuit helmet respriting (colour tweaks)."
-  - rscadd: "Vulpkanin hardsuit helmets with proper flashlight-on sprites."
