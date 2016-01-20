@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes being unable to holster the pulse pistol"
+  - bugfix: "Fixes being able to holster shotguns"
