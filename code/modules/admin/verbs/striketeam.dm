@@ -160,8 +160,7 @@ var/global/sent_strike_team = 0
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(src)//Here you go Deuryn
 	L.imp_in = src
 	L.implanted = 1
-
-
+	sec_hud_set_implants()
 
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"

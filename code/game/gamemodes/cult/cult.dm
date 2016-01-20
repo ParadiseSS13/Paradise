@@ -22,7 +22,7 @@
 		return 0
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
-		if(H.is_loyalty_implanted())
+		if(isloyal(H))
 			return 0
 	return 1
 

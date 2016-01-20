@@ -147,7 +147,7 @@
 	var/mob/living/carbon/human/H = current
 	if (istype(current, /mob/living/carbon/human))
 		/** Impanted**/
-		if(H.is_loyalty_implanted())
+		if(isloyal(H))
 			text = "Loyalty Implant:<a href='?src=\ref[src];implant=remove'>Remove</a>|<b>Implanted</b></br>"
 		else
 			text = "Loyalty Implant:<b>No Implant</b>|<a href='?src=\ref[src];implant=add'>Implant him!</a></br>"
@@ -157,7 +157,7 @@
 		if (ticker.mode.config_tag=="revolution")
 			text += uppertext(text)
 		text = "<i><b>[text]</b></i>: "
-		if (H.is_loyalty_implanted())
+		if (isloyal(H))
 			text += "<b>LOYAL EMPLOYEE</b>|headrev|rev"
 		else if (src in ticker.mode.head_revolutionaries)
 			text = "<a href='?src=\ref[src];revolution=clear'>employee</a>|<b>HEADREV</b>|<a href='?src=\ref[src];revolution=rev'>rev</a>"
@@ -193,7 +193,7 @@
 		if (ticker.mode.config_tag=="cult")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
-		if (H.is_loyalty_implanted())
+		if (isloyal(H))
 			text += "<B>LOYAL EMPLOYEE</B>|cultist"
 		else if (src in ticker.mode.cult)
 			text += "<a href='?src=\ref[src];cult=clear'>employee</a>|<b>CULTIST</b>"
@@ -307,7 +307,7 @@
 		if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan")
 			text = uppertext(text)
 		text = "<i><b>[text]</b></i>: "
-		if (H.is_loyalty_implanted())
+		if (isloyal(H))
 			text +="traitor|<b>LOYAL EMPLOYEE</b>"
 		else
 			if (src in ticker.mode.traitors)
@@ -619,9 +619,9 @@
 		switch(href_list["implant"])
 			if("remove")
 				for(var/obj/item/weapon/implant/loyalty/I in H.contents)
-					for(var/obj/item/organ/external/organs in H.organs)
-						if(I in organs.implants)
-							qdel(I)
+					if(I && I.implanted)
+						I.removed(H)
+						qdel(I)
 				H << "\blue <Font size =3><B>Your loyalty implant has been deactivated.</B></FONT>"
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s loyalty implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s loyalty implant")
@@ -629,9 +629,6 @@
 				var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 				L.imp_in = H
 				L.implanted = 1
-				var/obj/item/organ/external/affected = H.organs_by_name["head"]
-				affected.implants += L
-				L.part = affected
 				H.sec_hud_set_implants()
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a loyalty implant")
@@ -655,11 +652,6 @@
 						cult.memorize_cult_objectives(src)
 					current << "\red <FONT size = 3><B>The nanobots in the loyalty implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT>"
 					memory = ""
-				if(src in ticker.mode.traitors)
-					ticker.mode.traitors -= src
-					special_role = null
-					current << "\red <FONT size = 3><B>The nanobots in the loyalty implant remove all thoughts about being a traitor to Nanotrasen.  Have a nice day!</B></FONT>"
-					log_admin("[key_name_admin(usr)] has de-traitor'ed [current].")
 
 	else if (href_list["revolution"])
 
