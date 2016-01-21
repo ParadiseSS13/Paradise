@@ -1,0 +1,43 @@
+########################################################################################
+# ADMIN RANK DEFINES                                                                   #
+# The format of this is very simple. Rank name goes first.                             #
+# Rank is CASE-SENSITIVE, all punctuation will be stripped so spaces don't matter.     #
+# Each rank is then followed by keywords with the prefix "+".                          #
+# These keywords represent groups of verbs and abilities which are given to that rank. #
+# +@ (or +prev) is a special shorthand which adds all the rights of the rank above it. #
+# Ranks with no keywords will just be given the most basic verbs and abilities  	   #
+########################################################################################
+# KEYWORDS:
+# +ADMIN = General admin tools and verbs.
+# +FUN = Events and other event-orientated actions.
+# +BAN = The ability to ban and jobban.
+# +STEALTH = The ability to stealthmin (make yourself appear with a fake name to everyone but other admins).
+# +POSSESS = The ability to possess objects.
+# +REJUV (or +REJUVINATE) = The ability to heal, respawn, modify damage and use godmode.
+# +BUILD (or +BUILDMODE) = The ability to use buildmode.
+# +SERVER = Higher-risk admin verbs and abilities, such as those which affect the server configuration.
+# +DEBUG = Debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
+# +VAREDIT = Allows you to actually modify variables in the view variables window.
+# +RIGHTS (or +PERMISSIONS) = Allows you to promote and demote people.
+# +SOUND (or +SOUNDS) = Allows you to upload and play sounds.
+# +SPAWN (or +CREATE) = Mob transformations, spawning of most atoms including mobs (high-risk atoms will require the +FUN flag too).
+# +PROCCALL = The ability to call any proc on any entity.
+# +MOD = Low level admin abilities.
+# +MENTOR = The ability to answer questions.
+# +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag.
+
+Admin Observer
+Mentor			+MENTOR
+Moderator		+MOD
+
+Admin Candidate	+ADMIN
+Trial Admin		+@ +SPAWN +REJUV +VAREDIT +BAN
+Badmin			+@ +POSSESS +BUILDMODE +SERVER +FUN
+Game Admin		+@ +STEALTH +SOUNDS +DEBUG +PERMISSIONS
+Game Master		+EVERYTHING
+Head Admin		+EVERYTHING
+Retired Admin	+ADMIN +STEALTH
+
+Host			+EVERYTHING
+
+Developer		+DEBUG +VAREDIT +SERVER +SPAWN +REJUV +POSSESS +BUILDMODE

@@ -1,0 +1,10 @@
+{{:helper.link('Show Tracker Map', 'thumb-tack', {'showMap' : 1})}}
+<h3>Atmospherics Control</h3>
+<div class='item'>
+    {{for data.alarms}}
+		<div class="line">
+			{{:helper.string("<div class='statusValue {0}'>{1}</div>", helper.dangerToClass(value.danger), value.name)}}
+			{{:helper.link("Access", "gear", {"alarm" : value.ref}, null, "floatRight")}}
+		</div>
+    {{/for}}
+</div>

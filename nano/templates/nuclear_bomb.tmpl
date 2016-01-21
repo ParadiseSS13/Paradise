@@ -1,0 +1,145 @@
+<!-- 
+Title: Nuke Control Panel/Nuclear Bomb Defusion
+Used In File(s): \code\game\gamemodes\nuclear\nuclearbomb.dm
+-->
+{{if data.is_syndicate}}
+	{{:helper.syndicateMode()}}
+{{/if}}
+<div class="item">
+	<div class="itemLabel">Authorization Disk:</div>
+	<div class="itemContent">
+	{{if data.auth}}
+		{{:helper.link('++++++++++', 'eject', {'auth' : 1})}}
+	{{else}} 
+		{{:helper.link('----------', 'floppy-o', {'auth' : 1})}}
+	{{/if}}
+	</div>
+</div>	
+<hr>
+<div class="item">
+	<div class="itemLabel">Status:</div>
+	<div class="itemContent"> {{:data.authstatus}} - {{:data.safe}} </div>
+</div>
+
+<div class="item">
+	<div class="itemLabel">Time Left:</div>
+	<div class="itemContent">{{:data.time}}</div>
+</div>
+
+<div class="item">
+	{{if data.auth && data.yescode}}
+		<div class="item">
+			<div class="itemLabel">
+				Timer
+			</div>
+			<div class="itemContent">
+				{{:helper.link('On', 'play', {'timer' : 1}, data.timer ? 'selected' : '')}}
+				{{:helper.link('Off', 'stop', {'timer' : 0}, !data.timer ? 'selected' : '')}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Set Time
+			</div>
+			<div class="itemContent">
+			{{:helper.link('--', '', {'time' : -10}, data.time <= 120 ? 'disabled' : '')}}
+			{{:helper.link('-', '', {'time' : -1}, data.time <= 120 ? 'disabled' : '')}}
+			<div class="link redButton">
+			{{:data.time}} 
+			</div>
+			{{:helper.link('+', '', {'time' : 1})}}
+			{{:helper.link('++', '', {'time' : 10})}}
+			</div>
+		</div>
+
+	{{else}}
+
+		<div class="item">
+			<div class="itemLabel">
+				Timer
+			</div>
+			<div class="itemContent">
+				{{:helper.link('On', 'play', null, 'disabled')}}
+				{{:helper.link('Off', 'pause', null, 'disabled')}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Set Time
+			</div>
+			<div class="itemContent">
+			{{:helper.link('--', '', null, 'disabled')}}
+			{{:helper.link('-', '', null, 'disabled')}}
+			<div class="link redButton">
+			{{:data.time}} 
+			</div>
+			{{:helper.link('+', '', null, 'disabled')}}
+			{{:helper.link('++', '', null, 'disabled')}}
+			</div>
+		</div>
+	{{/if}}
+</div>
+
+<div class="item">
+	{{if data.auth && data.yescode}}
+		<div class="item">
+			<div class="itemLabel">
+				Safety
+			</div> 
+			<div class="itemContent">
+			{{:helper.link('Engaged', 'info', {'safety' : 1}, data.safety ? 'selected' : '')}}
+			{{:helper.link('Disengaged', 'exclamation-triangle', {'safety' : 0}, data.safety ? '' : 'selected')}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Anchor
+			</div> 
+			<div class="itemContent">
+			{{:helper.link('Engaged', 'lock', {'anchor' : 1}, data.anchored ? 'selected' : '')}}
+			{{:helper.link('Disengaged', 'unlock', {'anchor' : 0}, data.anchored ? '' : 'selected')}}
+			</div>
+		</div>
+
+	{{else}}
+
+		<div class="item">
+			<div class="itemLabel">
+				Safety
+			</div> 
+			<div class="itemContent">
+			{{:helper.link('Engaged', 'info', null, 'disabled')}}
+			{{:helper.link('Disengaged', 'exclamation-triangle', null, 'disabled')}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Anchor
+			</div> 
+			<div class="itemContent">
+			{{:helper.link('Engaged', 'lock', null, 'disabled')}}
+			{{:helper.link('Disengaged', 'unlock', null, 'disabled')}}
+			</div>
+		</div>	
+	{{/if}}
+</div>
+<hr>
+<div class="item">
+	<div class="item">
+		>{{if data.message}} {{:data.message}}{{/if}}
+	</div>
+	<div class="item">
+		<div class="item">
+			{{:helper.link('1', '', {'type' : 1})}}{{:helper.link('2', '', {'type' : 2})}}{{:helper.link('3', '', {'type' : 3})}}
+		</div>
+		<div class="item">
+			{{:helper.link('4', '', {'type' : 4})}}{{:helper.link('5', '', {'type' : 5})}}{{:helper.link('6', '', {'type' : 6})}}
+		</div>
+		<div class="item">
+			{{:helper.link('7', '', {'type' : 7})}}{{:helper.link('8', '', {'type' : 8})}}{{:helper.link('9', '', {'type' : 9})}}
+		</div>
+		<div class="item">
+			{{:helper.link('R', '', {'type' : 'R'})}}{{:helper.link('0', '', {'type' : 0})}}{{:helper.link('E', '', {'type' : 'E'})}}
+		</div>
+	</div>
+</div>

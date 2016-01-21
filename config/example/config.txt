@@ -1,0 +1,317 @@
+## Server name: This appears at the top of the screen in-game. In this case it will read "spacestation13: station_name" where station_name is the randomly generated name of the station for the round. Remove the # infront of SERVERNAME and replace 'spacestation13' with the name of your choice
+# SERVERNAME spacestation13
+
+## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
+ADMIN_LEGACY_SYSTEM
+
+## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
+BAN_LEGACY_SYSTEM
+
+## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
+JOBS_HAVE_MINIMAL_ACCESS
+
+## Unhash this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
+## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
+## REQUIRES the database set up to work. Keep it hashed if you don't have a database set up.
+## NOTE: If you have just set-up the database keep this DISABLED, as player age is determined from the first time they connect to the server with the database up. If you just set it up, it means
+## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
+#USE_AGE_RESTRICTION_FOR_JOBS
+
+## Unhash this entry to have certain antagonist roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different antag roles by editing special_role_times in /code/modules/client/preferences.dm.
+## See USE_AGE_RESTRICTION_FOR_JOBS for more information
+#USE_AGE_RESTRICTION_FOR_ANTAGS
+
+## log OOC channel
+LOG_OOC
+
+## log client Say 
+LOG_SAY
+
+## log admin actions
+LOG_ADMIN
+
+## log client access (logon/logoff)
+LOG_ACCESS
+
+## log game actions (start of round, results, etc.)
+LOG_GAME
+
+## log player votes
+LOG_VOTE
+
+## log client Whisper
+LOG_WHISPER
+
+## log emotes
+LOG_EMOTE
+
+## log attack messages
+LOG_ATTACK
+
+## log pda messages
+LOG_PDA
+
+## log world.log and runtime errors to a file
+LOG_RUNTIME
+
+## log world.log messages
+# LOG_WORLD_OUTPUT
+
+## log all Topic() calls (for use by coders in tracking down Topic issues)
+# LOG_HREFS
+
+## log admin warning messages
+##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
+
+## disconnect players who did nothing during 15 minutes
+KICK_INACTIVE
+
+## probablities for game modes chosen in "secret" and "random" modes
+## 
+## default probablity is 1, increase to make that mode more likely to be picked
+## set to 0 to disable that mode
+PROBABILITY EXTENDED 1
+PROBABILITY MALFUNCTION 4
+PROBABILITY NUCLEAR 4
+PROBABILITY CHANGELING 4
+PROBABILITY CULT 4
+PROBABILITY EXTEND-A-TRAITORMONGOUS 6
+PROBABILITY TRAITORCHAN 4
+PROBABILITY BLOB 4
+PROBABILITY REVOLUTION 2
+PROBABILITY HEIST 4
+PROBABILITY WIZARD 2
+PROBABILITY VAMPIRE 4
+PROBABILITY RAGINMAGES 0
+PROBABILITY BORER 0
+PROBABILITY XENOS 2
+PROBABILITY MUTINY 1
+PROBABILITY METEOR 0
+
+## Hash out to disable random events during the round.
+ALLOW_RANDOM_EVENTS
+
+## if amount of traitors scales or not
+TRAITOR_SCALING
+
+## If security is prohibited from being most antagonists
+PROTECT_ROLES_FROM_ANTAGONIST
+
+## Comment this out to stop admins being able to choose their personal ooccolor
+ALLOW_ADMIN_OOCCOLOR
+
+## If metadata is supported
+ALLOW_METADATA
+
+## allow players to initiate a restart vote
+#ALLOW_VOTE_RESTART
+
+## allow players to initate a mode-change start
+#ALLOW_VOTE_MODE
+
+## min delay (deciseconds) between voting sessions (default 10 minutes)
+VOTE_DELAY 18000
+
+## time period (deciseconds) which voting session will last (default 1 minute)
+VOTE_PERIOD 600
+
+## autovote initial delay (deciseconds) before first automatic transfer vote call (default 180 minutes)
+VOTE_AUTOTRANSFER_INITIAL 72000
+
+##autovote delay (deciseconds) before sequential automatic transfer votes are called (default 60 minutes)
+VOTE_AUTOTRANSFER_INTERVAL 18000
+
+## prevents dead players from voting or starting votes
+#NO_DEAD_VOTE
+
+## players' votes default to "No vote" (otherwise,  default to "No change")
+DEFAULT_NO_VOTE
+
+## allow AI job
+ALLOW_AI
+
+## Allow ghosts to see antagonist through AntagHUD
+ALLOW_ANTAG_HUD
+
+## If ghosts use antagHUD they are no longer allowed to join the round.
+ANTAG_HUD_RESTRICTED
+
+## disable abandon mob
+NORESPAWN
+
+## disables calling qdel(src) on newmobs if they logout before spawnin in
+# DONT_DEL_NEWMOB
+
+## set a hosted by name for unix platforms
+# HOSTEDBY Example
+
+## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
+## Set to 1 to jobban them from those positions, set to 0 to allow them.
+GUEST_JOBBAN
+
+## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
+GUEST_BAN
+
+## the whitelist
+#USEWHITELIST
+
+## set a server location for world reboot. Don't include the byond://, just give the address and port.
+# SERVER server.net:port
+
+## Forum address
+# FORUMURL http://example.org
+
+## Wiki address
+# WIKIURL http://example.org
+
+## Rules address
+# RULESURL http://example.org
+
+## Donations address
+# DONATIONSURL http://example.org
+
+## Repository address
+# REPOSITORYURL http://example.org
+
+## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
+# BANAPPEALS http://example.org
+
+## Media base URL - determines where to pull the jukebox playlist from.
+# MEDIA_BASE_URL http://example.org
+
+## In-game features
+## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
+# FEATURE_OBJECT_SPELL_SYSTEM
+
+## Toggle for having jobs load up from the .txt
+LOAD_JOBS_FROM_TXT
+
+## Remove the # mark infront of this to forbid admins from posssessing the singularity.
+#FORBID_SINGULO_POSSESSION
+
+## Remove the # to show a popup 'reply to' window to every non-admin that recieves an adminPM. 
+## The intention is to make adminPMs more visible. (although I fnd popups annoying so this defaults to off)
+#POPUP_ADMIN_PM
+
+## Remove the # to allow special 'Easter-egg' events on special holidays such as seasonal holidays and stuff like 'Talk Like a Pirate Day' :3 YAARRR
+ALLOW_HOLIDAYS
+##Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
+TICKLAG 0.9
+
+## Defines if Tick Compensation is used.  It results in a minor slowdown of movement of all mobs, but attempts to result in a level movement speed across all ticks.  Recommended if tickrate is lowered.
+TICKCOMP 0
+
+## Whether the server will talk to other processes through socket_talk
+SOCKET_TALK 0
+
+## Uncomment this to ban use of ToR
+#TOR_BAN
+
+## Comment this out to disable automuting
+#AUTOMUTE_ON
+
+## How long the delay is before the Away Mission gate opens. Default is half an hour.
+GATEWAY_DELAY 6000
+
+## Remove the # to give assistants maint access.
+ASSISTANT_MAINT
+
+## Remove the # to enable assistant limiting.
+ASSISTANT_LIMIT
+
+## If you enabled assistant limiting set the ratio of assistants to security members default is 2 assistants to 1 officer
+ASSISTANT_RATIO 2
+
+## Remove the # to make rounds which end instantly (Rev, Wizard, Malf) to continue until the shuttle is called or the station is nuked.
+## Malf and Rev will let the shuttle be called when the antags/protags are dead.
+#CONTINUOUS_ROUNDS
+
+## Uncomment to restrict non-admins from using humanoid alien races
+#USEALIENWHITELIST
+
+## Comment this to unrestrict the number of alien players allowed in the round. The number represents the number of alien players for every human player.
+ALIEN_PLAYER_RATIO 0.2
+
+##Remove the # to let ghosts spin chairs
+GHOST_INTERACTION
+
+## Password used for authorizing ircbot and other external tools.
+#COMMS_PASSWORD
+
+## Uncomment to enable sending data to the IRC bot.
+#USE_IRC_BOT
+
+## Host where the IRC bot is hosted.  Port 45678 needs to be open.
+#IRC_BOT_HOST localhost
+
+## IRC channel to send information to.  Leave blank to disable.
+#MAIN_IRC #main
+
+## IRC channel to send adminhelps to.  Leave blank to disable adminhelps-to-irc.
+#ADMIN_IRC #admin
+
+## Path to the python2 executable on the system.  Leave blank for default.
+## Default is "python" on Windows, "/usr/bin/env python2" on UNIX.
+#PYTHON_PATH pythonw
+
+## Defines which Z-levels the station exists on. 
+STATION_LEVELS 1
+
+## Defines which Z-levels are used for admin functionality, such as Central Command and the Syndicate Shuttle
+ADMIN_LEVELS 2
+
+## Defines which Z-levels which, for example, a Code Red announcement may affect
+CONTACT_LEVELS 1;5
+
+## Defines all Z-levels a character can typically reach
+PLAYER_LEVELS 1;3;4;5;6;7
+
+## Expected round length in minutes
+EXPECTED_ROUND_LENGTH 120
+
+## The lower delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_LOWER 10;30;50
+
+## The upper delay between events in minutes.
+## Affect mundane, moderate, and major events respectively
+EVENT_DELAY_UPPER 15;45;70
+
+## The delay until the first time an event of the given severity runs in minutes.
+## Unset setting use the EVENT_DELAY_LOWER and EVENT_DELAY_UPPER values instead.
+#EVENT_CUSTOM_START_MINOR 10;15
+#EVENT_CUSTOM_START_MODERATE 30;45
+EVENT_CUSTOM_START_MAJOR 80;100
+
+## Strength of ambient star light. Set to 0 or less to turn off.
+STARLIGHT 0
+
+## Player rerouting stuff
+## If not 0, players can be rerouted to an overflow server after a certain cap is reached
+
+## Cap before players start being rerouted
+PLAYER_REROUTE_CAP 0
+
+## Server to reroute to
+#OVERFLOW_SERVER_URL byond://example.org:1111
+
+## Disable the loading of away missions
+#DISABLE_AWAY_MISSIONS
+
+## Uncomment this if you still use the old .sav file based notes system and haven't used the mass conversion proc
+#AUTOCONVERT_NOTES
+
+## Uncomment to disable the OOC/LOOC channel by default.
+#DISABLE_OOC
+
+## Uncomment to disable the dead OOC channel by default.
+#DISABLE_DEAD_OOC
+
+## Uncomment to disable ghost chat by default.
+#DISABLE_DSAY
+
+## Uncomment this if you want to disable the lobby music
+#DISABLE_LOBBY_MUSIC
+
+## Uncomment this if you want to disable the popup alert for people on the same CID
+#DISABLE_CID_WARN_POPUP

@@ -1,0 +1,18 @@
+#ignore misc BYOND files
+*.log
+*.int
+*.rsc
+*.dmb
+*.lk
+
+#ignore any files in config/, except those in subdirectories.
+/config/*
+!/config/*/*
+
+#ignore other, specific files and folers
+data/
+/_maps/map_files/backup/*
+/_maps/map_files/**/backup/*
+/_maps/map_files/**/*.dmm.backup
+/nano/debug.html
+*.db
