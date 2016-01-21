@@ -16,10 +16,14 @@
 /obj/effect/proc_holder/changeling/sting/proc/set_sting(var/mob/user)
 	user << "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>"
 	user.mind.changeling.chosen_sting = src
+	user.hud_used.lingstingdisplay.icon_state = sting_icon
+	user.hud_used.lingstingdisplay.invisibility = 0
 
 /obj/effect/proc_holder/changeling/sting/proc/unset_sting(var/mob/user)
 	user << "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>"
 	user.mind.changeling.chosen_sting = null
+	user.hud_used.lingstingdisplay.icon_state = null
+	user.hud_used.lingstingdisplay.invisibility = 101
 
 /mob/living/carbon/proc/unset_sting()
 	if(mind && mind.changeling && mind.changeling.chosen_sting)
