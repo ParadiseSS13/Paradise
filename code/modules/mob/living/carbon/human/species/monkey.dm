@@ -44,6 +44,11 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
+/datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
+	H.real_name = "[lowertext(name)] ([rand(100,999)])"
+	H.name = H.real_name
+	..()
+
 /datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
 	H.dna.SetSEState(MONKEYBLOCK,1)
 
