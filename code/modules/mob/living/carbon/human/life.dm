@@ -1059,13 +1059,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	return
 
 /mob/living/carbon/human/handle_changeling()
-	if(mind && hud_used)
+	if(mind)
 		if(mind.changeling)
 			mind.changeling.regenerate()
-			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+			if(hud_used)
+				hud_used.lingchemdisplay.invisibility = 0
+				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
 		else
-			hud_used.lingchemdisplay.invisibility = 101
+			if(hud_used)
+				hud_used.lingchemdisplay.invisibility = 101
 
 /mob/living/carbon/human/handle_shock()
 	..()
