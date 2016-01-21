@@ -17,8 +17,7 @@
 /obj/screen/ai/camera_list/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/camera = input(AI) in AI.get_camera_list()
-		AI.ai_camera_list(camera)
+		AI.subsystem_camera_monitor()
 
 /obj/screen/ai/camera_track
 	name = "Track With Camera"
