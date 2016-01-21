@@ -1873,6 +1873,7 @@
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
+#include "code\modules\tiger\dildo.dm"
 #include "code\modules\tram\tram.dm"
 #include "code\modules\tram\tram_control_pad.dm"
 #include "code\modules\tram\tram_floor.dm"
