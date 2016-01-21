@@ -41,8 +41,8 @@
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
-datum/species/monkey/get_random_name(var/gender)
-	return
+/datum/species/monkey/get_random_name()
+	return "[lowertext(name)] ([rand(100,999)])"
 
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
