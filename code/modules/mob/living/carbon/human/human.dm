@@ -278,6 +278,10 @@
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 
+			if(mind.vampire)
+				stat("Total Blood", "[mind.vampire.bloodtotal]")
+				stat("Usable Blood", "[mind.vampire.bloodusable]")
+
 			if(mind.nation)
 				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
 				stat("Nation Leader", "[mind.nation.current_leader ? "[mind.nation.current_leader]" : "None"]")
