@@ -23,7 +23,10 @@
 			set_species(delay_icon_update = 1)
 
 	if(species)
-		name = species.get_random_name(gender)
+		real_name = species.get_random_name(gender)
+		name = real_name
+		if(mind)
+			mind.name = real_name
 
 	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
