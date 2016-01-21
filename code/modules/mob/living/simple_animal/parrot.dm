@@ -680,7 +680,7 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
-	speak = list("Poly wanna cracker!", ":e Check the singlo, you chucklefucks!",":e Wire the solars, you lazy bums!",":e WHO TOOK THE DAMN HARDSUITS?",":e OH GOD ITS FREE CALL THE SHUTTLE")
+	speak = list("Poly wanna cracker!", ":e Check the singlo, you chucklefucks!",":e Check the tesla, you shits!",":e STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",":e Wire the solars, you lazy bums!",":e WHO TOOK THE DAMN HARDSUITS?",":e OH GOD ITS FREE CALL THE SHUTTLE")
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/device/radio/headset/headset_eng(src)
