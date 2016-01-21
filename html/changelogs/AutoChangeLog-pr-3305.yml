@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscdel: "Removes Vampire HUD"
+  - tweak: "moves the Vampire blood counter to a more easy to see location"
