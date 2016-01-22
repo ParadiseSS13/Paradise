@@ -253,6 +253,33 @@
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
 
+/obj/item/clothing/suit/armor/riot/knight
+	name = "plate armour"
+	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
+	icon_state = "knight_green"
+	item_state = "knight_green"
+	slowdown = 0
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/armor/riot/knight/yellow
+	icon_state = "knight_yellow"
+	item_state = "knight_yellow"
+
+/obj/item/clothing/suit/armor/riot/knight/blue
+	icon_state = "knight_blue"
+	item_state = "knight_blue"
+
+/obj/item/clothing/suit/armor/riot/knight/red
+	icon_state = "knight_red"
+	item_state = "knight_red"
+
+/obj/item/clothing/suit/armor/riot/knight/templar
+	name = "crusader armour"
+	desc = "God wills it!"
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+
+
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
 	name = "emergency response team armor"
