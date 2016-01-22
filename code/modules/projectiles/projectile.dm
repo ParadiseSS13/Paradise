@@ -327,7 +327,12 @@
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
 		target = targloc
+		var/count = 0
 		while(src) //Loop on through!
+			count++
+			if (count > 100000)
+				message_admins("Infinite loop detected in /obj/item/projectile/test . Killing")
+				return 0
 			if(result)
 				return (result - 1)
 			if((!( target ) || loc == target))
