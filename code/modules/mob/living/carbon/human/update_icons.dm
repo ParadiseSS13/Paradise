@@ -274,6 +274,8 @@ var/global/list/damage_icon_parts = list()
 			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
 			if(part.s_col)
 				icon_key += "[rgb(part.s_col[1], part.s_col[2], part.s_col[3])]"
+			if(part.s_tone)
+				icon_key += "[part.s_tone]"
 
 	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0]"
 
