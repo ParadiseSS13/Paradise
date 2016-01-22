@@ -49,7 +49,7 @@ var NanoUtility = function () {
                 secondVal = second[key];
                 if (secondVal && Object.prototype.toString.call(secondVal) === "[object Object]") {
                     first[key] = first[key] || {};
-                    return util.extend(first[key], secondVal);
+                    return NanoUtility.extend(first[key], secondVal);
                 } else {
                     return first[key] = secondVal;
                 }
@@ -73,7 +73,7 @@ var NanoUtility = function () {
                 command: "nanoclose " + _urlParameters.src
             };
             this.winset("is-visible", "false");
-            return location.href = util.href("winset", params);
+            return location.href = NanoUtility.href("winset", params);
         }
     }
 } ();
