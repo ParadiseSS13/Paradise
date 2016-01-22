@@ -383,7 +383,7 @@
 "ahs" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/pickaxe,/obj/item/weapon/storage/firstaid/toxin,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "aht" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/scalpel,/obj/item/stack/cable_coil,/obj/item/weapon/storage/firstaid/regular,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "ahu" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/circular_saw,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
-"ahv" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
+"ahv" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/internal/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "ahw" = (/obj/machinery/door/poddoor/shutters{density = 0; dir = 4; icon_state = "shutter0"; id_tag = "voxshutters"; name = "Blast Shutters"; opacity = 0},/obj/structure/grille,/obj/structure/shuttle/window{dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; tag = "icon-window5 (EAST)"},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)
 "ahx" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 1},/area/maintenance/auxsolarport)
 "ahy" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plasteel{dir = 2; icon_state = "redcorner"},/area/security/prison)
