@@ -20,7 +20,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = I_HARM
 	var/corpse = /obj/effect/landmark/mobcorpse/russian
-	var/weapon1 = /obj/item/weapon/kitchenknife
+	var/weapon1 = /obj/item/weapon/kitchen/knife
 	min_oxy = 5
 	max_oxy = 0
 	min_tox = 0
