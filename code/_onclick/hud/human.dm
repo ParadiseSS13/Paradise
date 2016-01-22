@@ -25,6 +25,20 @@
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
+/obj/screen/ling
+	invisibility = 101
+
+/obj/screen/ling/sting
+	name = "current sting"
+
+/obj/screen/ling/sting/Click()
+	var/mob/living/carbon/U = usr
+	U.unset_sting()
+
+/obj/screen/ling/chems
+	name = "chemical storage"
+	icon_state = "power_display"
+
 /datum/hud/proc/human_hud(var/ui_style='icons/mob/screen1_White.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
 
 	src.adding = list()
@@ -404,6 +418,12 @@
 	mymob.pullin.screen_loc = ui_pull_resist
 	src.hotkeybuttons += mymob.pullin
 
+	lingchemdisplay = new /obj/screen/ling/chems()
+	lingchemdisplay.screen_loc = ui_lingchemdisplay
+
+	lingstingdisplay = new /obj/screen/ling/sting()
+	lingstingdisplay.screen_loc = ui_lingstingdisplay
+
 	mymob.blind = new /obj/screen()
 	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
@@ -460,7 +480,7 @@
 
 	mymob.client.screen = list()
 
-	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, mymob.gun_setting_icon) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
+	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.healthdoll, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, mymob.gun_setting_icon, lingchemdisplay, lingstingdisplay) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
 	mymob.client.screen += src.adding + src.hotkeybuttons
 	mymob.client.screen += mymob.client.void
 	inventory_shown = 0;

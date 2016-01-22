@@ -19,6 +19,10 @@
 //Lower left, persistant menu
 #define ui_inventory "WEST:6,SOUTH:5"
 
+//Middle left indicators
+#define ui_lingchemdisplay "WEST:6,CENTER-1:15"
+#define ui_lingstingdisplay "WEST:6,CENTER-3:11"
+
 //Lower center, persistant menu
 #define ui_sstore1 "CENTER-5:10,SOUTH:5"
 #define ui_id "CENTER-4:12,SOUTH:5"
