@@ -1,5 +1,4 @@
 /proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user, var/override )
-	world << "[istype(M)]"
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
@@ -28,7 +27,7 @@
 					if(!S.can_start(user, M))
 						continue
 
-					for(var/path in S.allowed_species)
+					for(var/path in S.allowed_mob)
 						if(istype(M, path))
 							available_surgeries[S.name] = S
 							break

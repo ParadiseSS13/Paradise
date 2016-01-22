@@ -259,8 +259,8 @@
 		else if(!client)
 			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
-	if(!src.get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that their brain is missing...</span>\n"
+	if(!src.get_int_organ(/obj/item/organ/internal/brain) && !species.name == "Diona")
+		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()

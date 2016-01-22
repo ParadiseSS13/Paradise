@@ -1,25 +1,27 @@
 /datum/surgery/organ_manipulation
 	name = "organ manipulation"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone)
-	possible_locs = list("chest")
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head")
 	requires_organic_bodypart = 0
-
-/datum/surgery/organ_manipulation/head //for adding a mendskull step...
-	name = "organ manipulation"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/mend_skull ,/datum/surgery_step/finish_bone)
-	possible_locs = list("head")
+	disallowed_mob = (/mob/living/carbon/human/machine)
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs)
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+
+/datum/surgery/organ_manipulation/boneless
+	possible_locs = list("chest","head","groin", "eyes", "mouth")
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	allowed_mob = list(/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
+	disallowed_mob = list(/mob/living/carbon/human)
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
-	allowed_species = list(/mob/living/carbon/alien/humanoid)
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs)
+	allowed_mob = list(/mob/living/carbon/alien/humanoid)
+	disallowed_mob = list(/mob/living/carbon/human)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 
 
 
@@ -94,9 +96,10 @@
 //////////////////////////////////////////////////////////////////
 //					ALIEN EMBRYO SURGERY						//
 //////////////////////////////////////////////////////////////////
-/datum/surgery/remove_xeno_baby
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/remove_embryo)
-	possible_locs = list("chest")
+///datum/surgery/remove_xeno_baby
+//	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/remove_embryo)
+//	possible_locs = list("chest")
+//	disallowed_mob = (/mob/living/carbon/human/machine)
 
 
 /datum/surgery_step/internal/remove_embryo//might can just do this in organ mainpulation..but this is TARGETED for..
@@ -165,8 +168,9 @@
 
 	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
 	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/crowbar = 55)
-	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack = 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20
-	)
+	var/implements_mend = list(/obj/item/stack/medical/advanced/bruise_pack = 100,/obj/item/stack/nanopaste = 100,/obj/item/stack/medical/bruise_pack = 20)
+	//Finish is just so you can close up after you do other things.
+	var/implements_finsh = list(/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 75)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -175,7 +179,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/New()
 	..()
-	allowed_tools = allowed_tools + implements_extract + implements_mend
+	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_finsh
 
 
 
@@ -184,8 +188,6 @@
 
 	I = null
 	affected = target.get_organ(target_zone)
-	world << "[implement_type]"
-	world << "[is_int_organ(implement_type)]"
 	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
@@ -205,6 +207,19 @@
 		"You start transplanting \the [tool] into [target]'s [affected.name].")
 		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
 
+	else if(implement_type in implements_finsh)
+	//same as surgery step /datum/surgery_step/open_encased/close/
+		current_type = "finish"
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if(affected == "head" || affected == "upper body")
+			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with \the [tool]."
+			var/self_msg = "You start bending [target]'s [affected.encased] back into place with \the [tool]."
+			user.visible_message(msg, self_msg)
+		else
+			var/msg = "[user] starts pulling [target]'s skin back into place with \the [tool]."
+			var/self_msg = "You start pulling [target]'s skin back into place with \the [tool]."
+			user.visible_message(msg, self_msg)
+		target.custom_pain("Something hurts horribly in your [affected.name]!",1)
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
@@ -253,7 +268,7 @@
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
 			user << "No organs appear to be damaged."
-			return
+			return -1
 		target.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
@@ -283,7 +298,7 @@
 					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
 					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
 					I.damage = 0
-		return 1
+		//return 1
 	else if(current_type == "insert")
 		I = tool
 		user.drop_item()
@@ -307,7 +322,25 @@
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+	else if(current_type == "finish")
+
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if(target_zone == "head" || target_zone == "upper body")
+			var/msg = "\blue [user] bends [target]'s [affected.encased] back into place with \the [tool]."
+			var/self_msg = "\blue You bend [target]'s [affected.encased] back into place with \the [tool]."
+			user.visible_message(msg, self_msg)
+			affected.open = 2.5
+		else
+			var/msg = "[user] pulls [target]'s skin back into place with \the [tool]."
+			var/self_msg = "You pull [target]'s skin back into place with \the [tool]."
+			user.visible_message(msg, self_msg)
+
+		return 1
+
+
 	return 0
+
+//todo set up fail steps
 
 
 //////////////////////////////////////////////////////////////////

@@ -16,11 +16,11 @@
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
-		verbs += P
+		M.verbs += P //at least until xeno powers are vamped to TG
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
 	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
-		verbs -= P
+		M.verbs -= P
 
 	..()
 
@@ -144,8 +144,8 @@
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....
-	parent_organ = "head"
-	icon_state = "stomach-x"
+	parent_organ = "mouth"
+	icon_state = "liver-x"
 	slot = "resinspinner"
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)

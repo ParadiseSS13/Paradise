@@ -321,7 +321,7 @@
 	user.visible_message("\blue [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].", \
 	"\blue You amputate [target]'s [affected.name] with \the [tool].")
 
-	add_logs(target,user, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+	add_logs(user,target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 
 	affected.droplimb(1,DROPLIMB_EDGE)
 	return 1

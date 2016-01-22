@@ -19,8 +19,8 @@
 	var/list/possible_locs = list() 							//Multiple locations -- c0
 	var/obj/item/organ/organ_ref									//Operable body part
 	var/current_organ = "organ"
-	var/list/allowed_species = list(/mob/living/carbon/human)
-	var/list/disallowed_species = null
+	var/list/allowed_mob = list(/mob/living/carbon/human)
+	var/list/disallowed_mob = null
 
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
 	// if 0 surgery wont show up in list
@@ -69,8 +69,9 @@
 	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
 
-	var/list/allowed_species = null
-	var/list/disallowed_species = null
+	var/list/allowed_mob = list()
+	var/list/disallowed_mob = list()
+
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = 0
@@ -136,13 +137,13 @@
 	if(!hasorgans(target))
 		return 0
 
-	if(allowed_species)
-		for(var/species in allowed_species)
+	if(allowed_mob)//can i just remove this and/or change it?
+		for(var/species in allowed_mob)
 			if(target.species.name == species)
 				return 1
 
-	if(disallowed_species)
-		for(var/species in disallowed_species)
+	if(disallowed_mob)
+		for(var/species in disallowed_mob)
 			if(target.species.name == species)
 				return 0
 

@@ -132,6 +132,8 @@
 
 //Insert something neat here.
 ///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
+//	owner.losebreath += 10
+	//insert oxy damage extream here.
 //	..()
 
 
@@ -140,7 +142,6 @@
 
 	if(!owner)
 		return
-
 	if (germ_level > INFECTION_LEVEL_ONE)
 		if(prob(5))
 			owner.emote("cough")		//respitory tract infection
@@ -320,8 +321,7 @@
 /obj/item/organ/internal/shadowtumor/process()
 	if(isturf(loc))
 		var/turf/T = loc
-		var/light_count = T.get_lumcount()
-		world << "[light_count]"
+		var/light_count = T.get_lumcount()*10
 		if(light_count > 4 && health > 0) //Die in the light
 			health--
 		else if(light_count < 2 && health < 3) //Heal in the dark
@@ -341,6 +341,7 @@
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
+	var/lasthonk = 0
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 
@@ -352,3 +353,32 @@
 		M.mutations.Remove(CLUMSY)
 		M.mutations.Remove(COMICBLOCK)
 		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
+
+/obj/item/organ/internal/honktumor/process()
+
+	if(!owner)
+		return
+
+	if(lasthonk > world.time + 60|| lasthonk == 0)
+		lasthonk = world.time
+		owner << "<font color='red' size='7'>HONK</font>"
+		owner.sleeping = 0
+		owner.stuttering = 20
+		owner.ear_deaf = 30
+		owner.Weaken(3)
+		owner << 'sound/items/AirHorn.ogg'
+		if(prob(30))
+			owner.Stun(10)
+			owner.Paralyse(4)
+		else
+			owner.Jitter(500)
+
+		if(istype(owner, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = owner
+			if(isobj(H.shoes))
+				var/thingy = H.shoes
+				H.unEquip(H.shoes)
+				walk_away(thingy,H,15,2)
+				spawn(20)
+					if(thingy)
+						walk(thingy,0)
