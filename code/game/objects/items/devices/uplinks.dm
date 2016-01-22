@@ -20,13 +20,13 @@ var/list/world_uplinks = list()
 	var/purchase_log = ""
 	var/uplink_owner = null//text-only
 	var/used_TC = 0
-	
+
 	var/job = null
 	var/show_descriptions = 0
 
 /obj/item/device/uplink/nano_host()
-	return loc		
-	
+	return loc
+
 /obj/item/device/uplink/New()
 	..()
 	welcome = ticker.mode.uplink_welcome
@@ -48,7 +48,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/proc/generate_menu(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
-	
+
 	var/dat = "<B>[src.welcome]</B><BR>"
 	dat += "Telecrystals left: [src.uses]<BR>"
 	dat += "<HR>"
@@ -82,7 +82,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink/proc/generate_item_lists(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
-	
+
 	var/list/nano = new
 	var/list/reference = new
 
@@ -92,7 +92,7 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			nano[nano.len]["items"] += list(list("Name" = I.name, "Description" = I.description(),"Cost" = I.cost, "obj_path" = I.reference))
+			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
 			reference[I.reference] = I
 
 	var/datum/nano_item_lists/result = new
@@ -130,7 +130,7 @@ var/list/world_uplinks = list()
 		return
 	UI.buy(src,usr)
 	nanomanager.update_uis(src)
-	
+
 	/* var/list/L = UI.spawn_item(get_turf(usr),src)
 	if(ishuman(usr))
 		var/mob/living/carbon/human/A = usr
@@ -244,7 +244,7 @@ var/list/world_uplinks = list()
 			update_nano_data(href_list["id"])
 		if(href_list["descriptions"])
 			show_descriptions = !show_descriptions
-			update_nano_data()			
+			update_nano_data()
 
 	nanomanager.update_uis(src)
 	return 1
@@ -253,7 +253,7 @@ var/list/world_uplinks = list()
 	if(nanoui_menu == 1)
 		var/permanentData[0]
 		for(var/datum/data/record/L in sortRecord(data_core.general))
-			permanentData[++permanentData.len] = list(Name = L.fields["name"],"id" = L.fields["id"])
+			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)
@@ -283,7 +283,7 @@ var/list/world_uplinks = list()
 			src.hidden_uplink.trigger(user)
 			return 1
 	return 0
-	
+
 //Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)
 /obj/item/device/radio/uplink/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/antag_spawner/borg_tele))
@@ -293,8 +293,8 @@ var/list/world_uplinks = list()
 			qdel(S)
 			user << "<span class='notice'>Teleporter refunded.</span>"
 		else
-			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"		
-			
+			user << "<span class='notice'>This teleporter is already used, or is currently being used.</span>"
+
 // PRESET UPLINKS
 // A collection of preset uplinks.
 //
