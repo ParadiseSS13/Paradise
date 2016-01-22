@@ -211,16 +211,6 @@ datum/preferences
 		preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 		preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
 
-		for(var/name in list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand"))
-			if(organ_data[name] == "amputated") continue
-			if(organ_data[name] == "cyborg")
-				var/datum/robolimb/R
-				if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
-				if(!R) R = basic_robolimb
-				preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
-				continue
-			preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
-
 		//Tail
 		if(current_species && (current_species.bodyflags & HAS_TAIL))
 			var/tail_icon
@@ -236,6 +226,16 @@ datum/preferences
 
 			var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 			preview_icon.Blend(temp, ICON_OVERLAY)
+
+		for(var/name in list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand"))
+			if(organ_data[name] == "amputated") continue
+			if(organ_data[name] == "cyborg")
+				var/datum/robolimb/R
+				if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
+				if(!R) R = basic_robolimb
+				preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
+				continue
+			preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
 
 		// Skin color
 		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))

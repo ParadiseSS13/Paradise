@@ -29,7 +29,7 @@ NanoBaseHelpers = function ()
                 var iconClass = 'noIcon';
                 if (typeof icon != 'undefined' && icon)
                 {
-                    iconHtml = '<div class="uiLinkPendingIcon"></div><div class="uiIcon16 icon-' + icon + '"></div>';
+                    iconHtml = '<div class="uiLinkPendingIcon"></div><i class="fa fa-fw fa-' + icon + '"></i>';
                     iconClass = 'hasIcon';
                 }
 

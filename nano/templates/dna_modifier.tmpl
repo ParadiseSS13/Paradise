@@ -63,8 +63,8 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 <div class="item">
 	{{:helper.link('Modify U.I.', 'link', {'selectMenuKey' : 'ui'}, data.selectedMenuKey == 'ui' ? 'selected' : null)}}
 	{{:helper.link('Modify S.E.', 'link', {'selectMenuKey' : 'se'}, data.selectedMenuKey == 'se' ? 'selected' : null)}}
-	{{:helper.link('Transfer Buffers', 'disk', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
-	{{:helper.link('Rejuvenators', 'plusthick', {'selectMenuKey' : 'rejuvenators'}, data.selectedMenuKey == 'rejuvenators' ? 'selected' : null)}}
+	{{:helper.link('Transfer Buffers', 'floppy-o', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
+	{{:helper.link('Rejuvenators', 'plus', {'selectMenuKey' : 'rejuvenators'}, data.selectedMenuKey == 'rejuvenators' ? 'selected' : null)}}
 </div>
 
 <div class="item">&nbsp;</div>
@@ -85,7 +85,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 	</div>
     <div class="item">
 		<div class="itemContentWide">
-			{{:helper.link('Irradiate Block', 'radiation', {'pulseUIRadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+			{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseUIRadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
 		</div>
 	</div>    
 {{else data.selectedMenuKey == 'se'}}
@@ -94,7 +94,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
     <div class="clearBoth"></div>
     <div class="item">
 		<div class="itemContentWide">
-			{{:helper.link('Irradiate Block', 'radiation', {'pulseSERadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+			{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseSERadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
 		</div>
 	</div> 
 {{else data.selectedMenuKey == 'buffer'}}
@@ -110,7 +110,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 					{{:helper.link('Subject U.I.', 'link', {'bufferOption' : 'saveUI', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
 					{{:helper.link('Subject U.I. + U.E.', 'link', {'bufferOption' : 'saveUIAndUE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
 					{{:helper.link('Subject S.E.', 'link', {'bufferOption' : 'saveSE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
-					{{:helper.link('From Disk', 'disk', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
+					{{:helper.link('From Disk', 'floppy-o', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
 				</div>
 			</div>
 			{{if value.data}}
@@ -119,7 +119,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 						Label:
 					</div>
 					<div class="itemContentWide">
-						{{:helper.link(value.label, 'document-b', {'bufferOption' : 'changeLabel', 'bufferId' : (index + 1)})}}
+						{{:helper.link(value.label, 'file', {'bufferOption' : 'changeLabel', 'bufferId' : (index + 1)})}}
 					</div>
 				</div>
 				<div class="item">			
@@ -152,10 +152,10 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 				</div>
 				<div class="itemContentWide">
 					{{:helper.link('Clear', 'trash', {'bufferOption' : 'clear', 'bufferId' : (index + 1)}, !value.data ? 'disabled' : null)}}
-					{{:helper.link('Injector', data.isInjectorReady ? 'pencil' : 'clock', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1)}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Block Injector', data.isInjectorReady ? 'pencil' : 'clock', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1), 'createBlockInjector' : 1}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Transfer', 'radiation', {'bufferOption' : 'transfer', 'bufferId' : (index + 1)}, (!data.hasOccupant || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Save To Disk', 'disk', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
+					{{:helper.link('Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1)}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
+					{{:helper.link('Block Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1), 'createBlockInjector' : 1}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
+					{{:helper.link('Transfer', 'exclamation-circle', {'bufferOption' : 'transfer', 'bufferId' : (index + 1)}, (!data.hasOccupant || !value.data) ? 'disabled' : null)}}
+					{{:helper.link('Save To Disk', 'floppy-o', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
 				</div>
 			</div>
 		</div>
@@ -280,7 +280,7 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 			&nbsp;
 		</div>
 		<div class="itemContentWide">
-			{{:helper.link('Pulse Radiation', 'radiation', {'pulseRadiation' : 1}, !data.hasOccupant ? 'disabled' : null)}}
+			{{:helper.link('Pulse Radiation', 'exclamation-circle', {'pulseRadiation' : 1}, !data.hasOccupant ? 'disabled' : null)}}
 		</div>
 	</div>
 {{/if}}
@@ -302,8 +302,8 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 		Door Lock:
 	</div>
 	<div class="itemContentWide">
-		{{:helper.link('Engaged', 'locked', {'toggleLock' : 1}, data.locked ? 'selected' : !data.hasOccupant ? 'disabled' : null)}}
-        {{:helper.link('Disengaged', 'unlocked', {'toggleLock' : 1}, !data.locked ? 'selected' : data.irradiating ? 'disabled' : null)}}
+		{{:helper.link('Engaged', 'lock', {'toggleLock' : 1}, data.locked ? 'selected' : !data.hasOccupant ? 'disabled' : null)}}
+        {{:helper.link('Disengaged', 'unlock', {'toggleLock' : 1}, !data.locked ? 'selected' : data.irradiating ? 'disabled' : null)}}
 	</div>
 </div>
 

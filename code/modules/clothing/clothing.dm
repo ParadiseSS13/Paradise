@@ -330,6 +330,21 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
 		)
 
+/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/match) && src.loc == user)
+		var/obj/item/weapon/match/M = I
+		if(M.lit == 0)
+			M.lit = 1
+			M.icon_state = "match_lit"
+			processing_objects.Add(M)
+			M.update_icon()
+			user << "<span class='notice'>You strike the [M] along your [src] to light it.</span>"
+		else if(M.lit == 1)
+			M.dropped()
+			user << "<span class='notice'>You crush the [M] into the bottom of your [src], extinguishing it.</span>"
+		return
+	else
+		..()
 
 /obj/item/proc/negates_gravity()
 	return 0

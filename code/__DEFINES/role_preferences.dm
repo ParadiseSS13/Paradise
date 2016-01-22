@@ -35,6 +35,7 @@
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
+#define ROLE_MORPH				"morph"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -67,4 +68,5 @@ var/global/list/special_roles = list(
 	ROLE_POSIBRAIN,
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
+	ROLE_MORPH,
 )

@@ -19,10 +19,11 @@
 	var/list/syllables               // Used when scrambling text for a non-speaker.
 	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
 	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/english_names = 0			 // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
 
 /datum/language/proc/get_random_name(var/gender, name_count=2, syllable_count=4)
-	if(!syllables || !syllables.len)
+	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
 			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 		else
@@ -283,6 +284,7 @@
 	key = "9"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
+	english_names = 1
 
 //TODO flag certain languages to use the mob-type specific say_quote and then get rid of these.
 /datum/language/common/get_spoken_verb(var/msg_end)
@@ -302,6 +304,7 @@
 	key = "1"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	english_names = 1
 
 /datum/language/human/get_spoken_verb(var/msg_end)
 	switch(msg_end)

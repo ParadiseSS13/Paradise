@@ -210,6 +210,15 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return show_player_info_irc(input["notes"])
 
+	else if (copytext(T,1,9) == "announce")
+		var/input[] = params2list(T)
+		if(config.comms_password)
+			if(input["key"] != config.comms_password)
+				return "Bad Key"
+			else
+				for(var/client/C in clients)
+					C << "<span class='announce'>PR: [input["announce"]]</span>"
+
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if (reason == 1) //special reboot, do none of the normal stuff
 		if(usr)

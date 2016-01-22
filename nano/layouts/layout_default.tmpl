@@ -1,4 +1,10 @@
-<div id='uiTitleWrapper' unselectable="on"><i class="statusicon fa fa-eye fa-2x" unselectable="on"></i><div id='uiTitleText' unselectable="on">{{:config.title}}</div><div id='uiTitleFluff' unselectable="on"></div></div>
+<div id='uiTitleWrapper'>
+    <i class="statusicon fa fa-eye fa-2x" unselectable="on"></i>
+    <div id='uiTitleText' unselectable="on">{{:config.title}}</div>
+    <div id='uiTitleFluff' unselectable="on"></div>
+    <i class='minimize fancy fa fa-minus fa-2x' unselectable='on'></i>
+    &nbsp;&nbsp;<i class='close fancy fa fa-close fa-2x' unselectable='on'></i>
+</div>
 <div id='uiMapWrapper' class="hidden" unselectable="on">
     <div id='uiMapHeader' unselectable="on">
         {{:helper.link('Hide Map', 'close', {'showMap' : 0})}}
@@ -28,3 +34,4 @@
 <div id='uiContent' unselectable="on">
 	<div id='uiLoadingNotice'>Initiating...</div>
 </div>
+<div id='resize' class='resize fancy' unselectable='on'></div>

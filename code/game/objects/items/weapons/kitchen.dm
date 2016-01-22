@@ -25,6 +25,7 @@
 	flags = CONDUCT
 	origin_tech = "materials=1"
 	attack_verb = list("attacked", "stabbed", "poked")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 0
 
 	var/loaded      //Descriptive string for currently loaded food object.
@@ -110,8 +111,8 @@
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You accidentally cut yourself with the [src]."
 		user.take_organ_damage(20)
+		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 		return
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
 /obj/item/weapon/kitchen/utensil/pknife
@@ -120,14 +121,6 @@
 	icon_state = "pknife"
 	force = 10.0
 	throwforce = 10.0
-
-/obj/item/weapon/kitchen/utensil/knife/attack(target as mob, mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red You somehow managed to cut yourself with the [src]."
-		user.take_organ_damage(20)
-		return
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
 
 /*
  * Kitchen knives
@@ -148,6 +141,7 @@
 	materials = list(MAT_METAL=12000)
 	origin_tech = "materials=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	suicide_act(mob/user)
 		viewers(user) << pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
@@ -190,21 +184,18 @@
 	materials = list(MAT_METAL=12000)
 	origin_tech = "materials=1"
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	edge = 1
 
 /obj/item/weapon/butch/meatcleaver
 	name = "Meat Cleaver"
 	icon_state = "mcleaver"
+	item_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	force = 25.0
 	throwforce = 15.0
 	no_embed = 1
-
-/obj/item/weapon/butch/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return ..()
-
 /*
  * Rolling Pins
  */

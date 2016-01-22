@@ -50,7 +50,7 @@
 		Valve Status:
 	</div>
 	<div class="itemContent">
-		{{:helper.link('Open', 'unlocked', {'open' : 1}, (!data.attachmentOne || !data.attachmentTwo) ? 'disabled' : (data.valveOpen ? 'selected' : null))}}{{:helper.link('Close', 'locked', {'open' : 1}, (!data.attachmentOne || !data.attachmentTwo) ? 'disabled' : (data.valveOpen ? null : 'selected'))}}
+		{{:helper.link('Open', 'unlock', {'open' : 1}, (!data.attachmentOne || !data.attachmentTwo) ? 'disabled' : (data.valveOpen ? 'selected' : null))}}{{:helper.link('Close', 'lock', {'open' : 1}, (!data.attachmentOne || !data.attachmentTwo) ? 'disabled' : (data.valveOpen ? null : 'selected'))}}
 	</div>
 </div>
 

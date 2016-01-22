@@ -43,9 +43,6 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -90,9 +87,6 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -146,9 +140,6 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 
 		H.dna.SetSEState(SOBERBLOCK,1)
@@ -194,9 +185,6 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -233,9 +221,6 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1
 
@@ -274,8 +259,5 @@
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
-		var/obj/item/organ/external/affected = H.organs_by_name["head"]
-		affected.implants += L
-		L.part = affected
 		H.sec_hud_set_implants()
 		return 1

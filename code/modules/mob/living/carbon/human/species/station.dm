@@ -200,7 +200,7 @@
 	flags = NO_SCAN | IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	dietflags = DIET_OMNI
-	bodyflags = HAS_TAIL | TAIL_WAGGING
+	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"

@@ -18,7 +18,7 @@ Used In File(s): \code\modules\paperwork\faxmachine.dm
 		Authorize:
 	</div>
 	<div class='itemContent'>
-		{{:helper.link(data.authenticated ? 'Log Out' : 'Log In', data.authenticated ? 'unlocked' : 'locked', {'auth' : 1})}}
+		{{:helper.link(data.authenticated ? 'Log Out' : 'Log In', data.authenticated ? 'unlock' : 'lock', {'auth' : 1})}}
 	</div>
 </div>
 <hr>
@@ -59,9 +59,9 @@ Used In File(s): \code\modules\paperwork\faxmachine.dm
 	</div>
 	<div class="itemContent">
 		{{if data.authenticated}}
-			{{:helper.link(data.cooldown && data.respectcooldown ? "Realigning" : "Send", data.cooldown && data.respectcooldown ? 'clock' : "mail-closed", {'send' : 1}, data.cooldown && data.respectcooldown ? 'disabled' : "")}}
+			{{:helper.link(data.cooldown && data.respectcooldown ? "Realigning" : "Send", data.cooldown && data.respectcooldown ? 'clock-o' : "mail-closed", {'send' : 1}, data.cooldown && data.respectcooldown ? 'disabled' : "")}}
 		{{else}}
-			{{:helper.link(data.cooldown && data.respectcooldown ? "Realigning" : "Send", data.cooldown && data.respectcooldown ? 'clock' : "mail-closed", null, !data.authenticated ? 'disabled' : "")}}
+			{{:helper.link(data.cooldown && data.respectcooldown ? "Realigning" : "Send", data.cooldown && data.respectcooldown ? 'clock-o' : "mail-closed", null, !data.authenticated ? 'disabled' : "")}}
 		{{/if}}
 	</div>
 </div>

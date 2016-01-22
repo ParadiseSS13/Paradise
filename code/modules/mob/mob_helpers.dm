@@ -178,6 +178,12 @@ proc/isovermind(A)
 			return 1
 	return 0
 
+/proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
+	for(var/obj/item/weapon/implant/traitor/T in A)
+		if(T && T.implanted)
+			return 1
+	return 0
+
 proc/isAntag(A)
 	if(istype(A, /mob/living/carbon))
 		var/mob/living/carbon/C = A

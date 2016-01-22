@@ -42,24 +42,28 @@
 
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
+		icon_state = initial(icon_state)
 		smooth_icon(src)
 		smooth_icon_neighbors(src)
 
 	if(flipped)
+		clear_smooth_overlays()
+
 		var/type = 0
-		var/tabledirs = 0
+		var/subtype = null
 		for(var/direction in list(turn(dir,90), turn(dir,-90)) )
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,direction))
 			if (T && T.flipped)
 				type++
-				tabledirs |= direction
+				if(type == 1)
+					subtype = direction == turn(dir,90) ? "-" : "+"
 		var/base = "table"
 		if (istype(src, /obj/structure/table/woodentable))
 			base = "wood"
 		if (istype(src, /obj/structure/table/reinforced))
 			base = "rtable"
 
-		icon_state = "[base]flip[type]"
+		icon_state = "[base]flip[type][type == 1 ? subtype : ""]"
 
 		return 1
 

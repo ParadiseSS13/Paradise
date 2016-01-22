@@ -71,7 +71,13 @@ var/datum/atom_hud/huds = list( \
 	//	for(var/datum/gang/G in ticker.mode.gangs)
 	//		gang_huds += G.ganghud
 
-	for(var/datum/atom_hud/hud in huds)//|gang_huds))
+	var/serv_huds = list()//mindslaves and/or vampire thralls
+	if(ticker.mode)
+		for(var/datum/mindslaves/serv in (ticker.mode.vampires | ticker.mode.traitors))
+			serv_huds += serv.thrallhud
+
+
+	for(var/datum/atom_hud/hud in (huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
 

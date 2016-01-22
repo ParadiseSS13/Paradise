@@ -9,7 +9,7 @@
 	item_state = "lighter-g"
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	w_class = 1
+	w_class = 2
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT

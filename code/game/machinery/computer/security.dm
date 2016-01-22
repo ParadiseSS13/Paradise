@@ -169,17 +169,23 @@
 						var/icon/side = new(active1.fields["photo"], dir = WEST)
 						user << browse_rsc(front, "front.png")
 						user << browse_rsc(side, "side.png")
-						dat += text("<table><tr><td>	\
-						Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR> \
-						ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[active1.fields["id"]]</A><BR>\n	\
-						Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[active1.fields["sex"]]</A><BR>\n	\
-						Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[active1.fields["age"]]</A><BR>\n	\
-						Rank: <A href='?src=\ref[src];choice=Edit Field;field=rank'>[active1.fields["rank"]]</A><BR>\n	\
-						Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
-						Physical Status: [active1.fields["p_stat"]]<BR>\n	\
-						Mental Status: [active1.fields["m_stat"]]<BR></td>	\
-						<td align = center valign = top>Photo:<br><img src=front.png height=80 width=80 border=4>	\
-						<img src=side.png height=80 width=80 border=4></td></tr></table>")
+						dat += {"
+							<table><tr><td>
+								Name: <A href='?src=\ref[src];choice=Edit Field;field=name'>[active1.fields["name"]]</A><BR>
+								ID: <A href='?src=\ref[src];choice=Edit Field;field=id'>[active1.fields["id"]]</A><BR>
+								Sex: <A href='?src=\ref[src];choice=Edit Field;field=sex'>[active1.fields["sex"]]</A><BR>
+								Age: <A href='?src=\ref[src];choice=Edit Field;field=age'>[active1.fields["age"]]</A><BR>
+								Rank: <A href='?src=\ref[src];choice=Edit Field;field=rank'>[active1.fields["rank"]]</A><BR>
+								Fingerprint: <A href='?src=\ref[src];choice=Edit Field;field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>
+								Physical Status: [active1.fields["p_stat"]]<BR>
+								Mental Status: [active1.fields["m_stat"]]<BR>
+							</td>
+							<td align = center valign = top>
+								Photo:<br>
+								<img src=front.png height=80 width=80 border=4>
+								<img src=side.png height=80 width=80 border=4><br>
+								<a href='?src=\ref[src];choice=Print Photo'>Print Photo</a>
+							</td></tr></table>"}
 					else
 						dat += "<B>General Record Lost!</B><BR>"
 					if ((istype(active2, /datum/data/record) && data_core.security.Find(active2)))
@@ -334,6 +340,15 @@ What a mess.*/
 					P.info += "</TT>"
 					P.name = "paper - 'Security Record'"
 					printing = null
+
+			if ("Print Photo")
+				if(!printing)
+					printing = 1
+					sleep(50)
+					if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
+						create_record_photo(active1)
+					printing = null
+
 //RECORD DELETE
 			if ("Delete All Records")
 				temp = ""
@@ -545,6 +560,43 @@ What a mess.*/
 	add_fingerprint(usr)
 	updateUsrDialog()
 	return
+
+/obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
+	// basically copy-pasted from the camera code but different enough that it has to be redone
+	var/icon/photoimage = get_record_photo(R)
+	var/icon/small_img = icon(photoimage)
+	var/icon/tiny_img = icon(photoimage)
+	var/icon/ic = icon('icons/obj/items.dmi',"photo")
+	var/icon/pc = icon('icons/obj/bureaucracy.dmi', "photo")
+	small_img.Scale(8, 8)
+	tiny_img.Scale(4, 4)
+	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
+	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
+
+	var/datum/picture/P = new()
+	P.fields["name"] = "File Photo - [R.fields["name"]]"
+	P.fields["author"] = "Central Command"
+	P.fields["icon"] = ic
+	P.fields["tiny"] = pc
+	P.fields["img"] = photoimage
+	P.fields["desc"] = "You can see [R.fields["name"]] on the photo."
+	P.fields["pixel_x"] = rand(-10, 10)
+	P.fields["pixel_y"] = rand(-10, 10)
+	P.fields["size"] = 2
+
+	var/obj/item/weapon/photo/Photo = new/obj/item/weapon/photo(loc)
+	Photo.construct(P)
+
+/obj/machinery/computer/secure_data/proc/get_record_photo(datum/data/record/R)
+	// similar to the code to make a photo, but of course the actual rendering is completely different
+	var/icon/res = icon('icons/effects/96x96.dmi', "")
+	// will be 2x2 to fit the 2 directions
+	res.Scale(2 * 32, 2 * 32)
+	// transparent background (it's a plastic transparency, you see) with the front and side icons
+	res.Blend(icon(R.fields["photo"], dir = SOUTH), ICON_OVERLAY, 1, 17)
+	res.Blend(icon(R.fields["photo"], dir = WEST), ICON_OVERLAY, 33, 17)
+
+	return res
 
 /obj/machinery/computer/secure_data/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

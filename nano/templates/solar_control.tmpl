@@ -38,11 +38,11 @@ Used In File(s): \code\modules\power\solar.dm
 		</div>
 
 		{{:helper.link('Off', 'close', {'track' : '0'}, (data.tracking_state == 0) ? 'selected' : '')}}
-		{{:helper.link('Timed', 'clock', {'track' : '1'}, (data.tracking_state == 1) ? 'selected' : '')}}
+		{{:helper.link('Timed', 'clock-o', {'track' : '1'}, (data.tracking_state == 1) ? 'selected' : '')}}
 		{{if data.connected_tracker}}
-			{{:helper.link('Auto', 'signal-diag', {'track' : '2'}, (data.tracking_state == 2) ? 'selected' : '')}}
+			{{:helper.link('Auto', 'signal', {'track' : '2'}, (data.tracking_state == 2) ? 'selected' : '')}}
 		{{else}}
-			{{:helper.link('Auto', 'signal-diag', null, 'disabled')}}
+			{{:helper.link('Auto', 'signal', null, 'disabled')}}
 		{{/if}}
 	</div>
 
