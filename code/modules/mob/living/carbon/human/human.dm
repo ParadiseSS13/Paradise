@@ -45,6 +45,10 @@
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
+
+	if(species)
+		species.handle_dna(src)
+
 	UpdateAppearance()
 
 /mob/living/carbon/human/prepare_data_huds()
