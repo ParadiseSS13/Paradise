@@ -62,7 +62,7 @@
 /mining_surprise/human
 	name="Hidden Complex"
 	floortypes = list(
-		/turf/simulated/floor/airless=95,
+		/turf/simulated/floor/plasteel/airless=95,
 		/turf/simulated/floor/plating/airless=5
 	)
 	walltypes = list(

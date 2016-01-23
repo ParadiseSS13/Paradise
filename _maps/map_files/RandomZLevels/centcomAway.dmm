@@ -95,7 +95,7 @@
 "bQ" = (/obj/structure/disposalpipe/segment,/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plating,/area/awaymission/centcomAway/cafe)
 "bR" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "green"},/area/awaymission/centcomAway/cafe)
 "bS" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 6},/area/awaymission/centcomAway/cafe)
-"bT" = (/obj/machinery/power/solar/fake,/turf/simulated/floor/airless{icon_state = "solarpanel"},/area/awaymission/centcomAway/maint)
+"bT" = (/obj/machinery/power/solar/fake,/turf/simulated/floor/plasteel/airless{icon_state = "solarpanel"},/area/awaymission/centcomAway/maint)
 "bU" = (/turf/simulated/shuttle/plating,/area/awaymission/centcomAway/hangar)
 "bV" = (/turf/simulated/shuttle/plating,/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/centcomAway/hangar)
 "bW" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/awaymission/centcomAway/hangar)
