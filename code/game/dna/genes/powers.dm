@@ -158,6 +158,7 @@
 		if ((HULK in M.mutations) && M.health <= 0)
 			M.mutations.Remove(HULK)
 			M.dna.SetSEState(HULKBLOCK,0)
+			genemutcheck(M, HULKBLOCK,null,MUTCHK_FORCED)
 			M.update_mutations()		//update our mutation overlays
 			M.update_body()
 			M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.

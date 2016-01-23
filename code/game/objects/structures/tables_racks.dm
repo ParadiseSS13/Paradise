@@ -314,6 +314,7 @@
 	if(dir != NORTH)
 		layer = 5
 	flipped = 1
+	smooth = SMOOTH_FALSE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
@@ -339,6 +340,7 @@
 
 	layer = initial(layer)
 	flipped = 0
+	smooth = initial(smooth)
 	flags &= ~ON_BORDER
 	for(var/D in list(turn(dir, 90), turn(dir, -90)))
 		if(locate(/obj/structure/table,get_step(src,D)))
