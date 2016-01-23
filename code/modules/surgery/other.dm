@@ -54,7 +54,7 @@
 	priority = 2
 	allowed_tools = list(
 		/obj/item/weapon/scalpel = 100,		\
-		/obj/item/weapon/kitchenknife = 75,	\
+		/obj/item/weapon/kitchen/knife = 75,	\
 		/obj/item/weapon/shard = 50, 		\
 	)
 
