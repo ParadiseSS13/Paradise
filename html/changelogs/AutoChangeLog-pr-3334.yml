@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in knight armor"
+  - rscadd: "Grants the chaplain a set of crusader knight armor"
+  - rscadd: "Adds in cult-resistant ERT paranormal space suit"
+  - rscadd: "Allows the Chaplain to convert his null rod into a holy sword with crusader knight armor"
+  - tweak: "Chaplain's closet is now a secure closet"

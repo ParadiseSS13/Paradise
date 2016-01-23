@@ -2270,7 +2270,7 @@
 "aRH" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/wall,/area/chapel/office)
 "aRI" = (/turf/simulated/wall,/area/chapel/office)
 "aRJ" = (/obj/machinery/door/airlock/maintenance{name = "Crematorium Maintenance"; req_access_txt = "27"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
-"aRK" = (/obj/structure/closet/wardrobe/chaplain_black,/obj/item/device/radio/intercom{pixel_y = 25},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
+"aRK" = (/obj/structure/closet/secure_closet/chaplain,/obj/item/device/radio/intercom{pixel_y = 25},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aRL" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 1; on = 1},/obj/machinery/light/small{dir = 1},/obj/machinery/requests_console{department = "Chapel"; name = "Chapel Requests Console"; departmentType = 2; pixel_y = 30},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aRM" = (/obj/machinery/camera{c_tag = "Chapel Chaplain's Office"; dir = 2; network = list("SS13")},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "aRN" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 1; on = 1; scrub_N2O = 1; scrub_Toxins = 1},/obj/machinery/alarm{pixel_y = 25},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
