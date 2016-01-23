@@ -7838,7 +7838,7 @@
 "cUL" = (/obj/structure/reagent_dispensers/watertank,/obj/item/weapon/reagent_containers/glass/bucket,/turf/simulated/floor/plating,/area/maintenance/aft{name = "Aft Maintenance"})
 "cUM" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/maintenance/starboardsolar)
 "cUN" = (/obj/machinery/alarm{dir = 1; pixel_y = -22},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/chapel/office)
-"cUO" = (/obj/structure/closet/wardrobe/chaplain_black,/obj/machinery/alarm{dir = 4; pixel_x = -23; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
+"cUO" = (/obj/structure/closet/secure_closet/chaplain,/obj/machinery/alarm{dir = 4; pixel_x = -23; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "cUP" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 1},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "cUQ" = (/obj/machinery/power/apc{dir = 2; lighting = 3; name = "Chapel Office APC"; pixel_x = 0; pixel_y = -25},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/unary/vent_pump{dir = 4; on = 1},/obj/structure/cable/yellow,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
 "cUR" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
