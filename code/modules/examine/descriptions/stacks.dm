@@ -9,10 +9,10 @@
 	description_info = "Use in your hand to build a window.  Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets.<br>\
 	As a synthetic, you can acquire more sheets of glass by recharging."
 
-/obj/item/stack/sheet/glass/reinforced
+/obj/item/stack/sheet/rglass
 	description_info = "Use in your hand to build a window.  Reinforced glass is much stronger against damage."
 
-/obj/item/stack/sheet/glass/reinforced/cyborg
+/obj/item/stack/sheet/rglass/cyborg
 	description_info = "Use in your hand to build a window. Reinforced glass is much stronger against damage.<br>\
 	As a synthetic, you can gain more reinforced glass by recharging."
 

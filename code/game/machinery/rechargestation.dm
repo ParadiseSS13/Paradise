@@ -57,8 +57,8 @@
 	return 1
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
-	move_inside(AM)	
-	
+	move_inside(AM)
+
 /obj/machinery/recharge_station/allow_drop()
 	return 0
 
@@ -145,7 +145,7 @@
 				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
 				for(var/obj/O in um)
 					// Engineering
-					if(istype(O,/obj/item/stack/sheet/metal) || istype(O,/obj/item/stack/sheet/rglass) || istype(O,/obj/item/stack/cable_coil))
+					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
 						if(S.amount < 50)
 							S.amount += 1 * coeff
@@ -210,14 +210,14 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-	
+
 	if(!user)
 		return
-	
+
 	if (panel_open)
 		usr << "<span class='warning'>Close the maintenance panel first.</span>"
-		return	
-	
+		return
+
 	var/can_accept_user
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
@@ -232,16 +232,16 @@
 			R << "<span class='warning'>Without a power cell, you can't be recharged.</span>"
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
-		can_accept_user = 1	
-	
+		can_accept_user = 1
+
 	else if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		
+
 		if(H.stat == DEAD)
-			return		
+			return
 		if(occupant)
 			H << "<span class='warning'>The cell is already occupied!</span>"
-			return			
+			return
 		if(isnull(H.internal_organs_by_name["cell"]))
 			return
 		can_accept_user = 1
@@ -261,4 +261,3 @@
 	build_icon()
 	update_use_power(1)
 	return
-	
