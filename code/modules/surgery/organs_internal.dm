@@ -43,7 +43,7 @@
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
-	name = "clense contaminations"
+	name = "clense contaminations"//RENAME MEH
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall)
 	possible_locs = list("head")
 
@@ -211,7 +211,7 @@
 	//same as surgery step /datum/surgery_step/open_encased/close/
 		current_type = "finish"
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(affected == "head" || affected == "upper body")
+		if(affected.encased)
 			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with \the [tool]."
 			var/self_msg = "You start bending [target]'s [affected.encased] back into place with \the [tool]."
 			user.visible_message(msg, self_msg)
@@ -325,14 +325,14 @@
 	else if(current_type == "finish")
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(target_zone == "head" || target_zone == "upper body")
+		if(affected.encased)
 			var/msg = "\blue [user] bends [target]'s [affected.encased] back into place with \the [tool]."
 			var/self_msg = "\blue You bend [target]'s [affected.encased] back into place with \the [tool]."
 			user.visible_message(msg, self_msg)
 			affected.open = 2.5
 		else
-			var/msg = "[user] pulls [target]'s skin back into place with \the [tool]."
-			var/self_msg = "You pull [target]'s skin back into place with \the [tool]."
+			var/msg = "[user] pulls [target]'s flesh back into place with \the [tool]."
+			var/self_msg = "You pull [target]'s flesh back into place with \the [tool]."
 			user.visible_message(msg, self_msg)
 
 		return 1

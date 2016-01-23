@@ -52,27 +52,35 @@
 	if(src.table && (src.table.check_victim()))
 		src.victim = src.table.victim
 		dat += {"
-<B>Patient Information:</B><BR>
-<BR>
-<B>Name:</B> [src.victim.real_name]<BR>
-<B>Age:</B> [src.victim.age]<BR>
-<B>Blood Type:</B> [src.victim.b_type]<BR>
-<BR>
-<B>Health:</B> [src.victim.health]<BR>
-<B>Brute Damage:</B> [src.victim.getBruteLoss()]<BR>
-<B>Toxins Damage:</B> [src.victim.getToxLoss()]<BR>
-<B>Fire Damage:</B> [src.victim.getFireLoss()]<BR>
-<B>Suffocation Damage:</B> [src.victim.getOxyLoss()]<BR>
-<B>Patient Status:</B> [src.victim.stat ? "Non-Responsive" : "Stable"]<BR>
-<B>Heartbeat rate:</B> [victim.get_pulse(GETPULSE_TOOL)]<BR>
-"}
+		<B>Patient Information:</B><BR>
+		<BR>
+		<B>Name:</B> [src.victim.real_name]<BR>
+		<B>Age:</B> [src.victim.age]<BR>
+		<B>Blood Type:</B> [src.victim.b_type]<BR>
+		<BR>
+		<B>Health:</B> [src.victim.health]<BR>
+		<B>Brute Damage:</B> [src.victim.getBruteLoss()]<BR>
+		<B>Toxins Damage:</B> [src.victim.getToxLoss()]<BR>
+		<B>Fire Damage:</B> [src.victim.getFireLoss()]<BR>
+		<B>Suffocation Damage:</B> [src.victim.getOxyLoss()]<BR>
+		<B>Patient Status:</B> [src.victim.stat ? "Non-Responsive" : "Stable"]<BR>
+		<B>Heartbeat rate:</B> [victim.get_pulse(GETPULSE_TOOL)]<BR>
+		"}
+
+		if(victim.surgeries.len)
+			dat += "<BR><BR><B>Initiated Procedures</B><div class='statusDisplay'>"
+			for(var/datum/surgery/procedure in victim.surgeries)
+				dat += "[capitalize(procedure.name)]<BR>"
+				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
+				dat += "Next step: [capitalize(surgery_step.name)]<BR>"
 	else
 		src.victim = null
 		dat += {"
-<B>Patient Information:</B><BR>
-<BR>
-<B>No Patient Detected</B>
-"}
+		<B>Patient Information:</B><BR>
+		<BR>
+		<B>No Patient Detected</B>
+		"}
+
 	user << browse(dat, "window=op")
 	onclose(user, "op")
 

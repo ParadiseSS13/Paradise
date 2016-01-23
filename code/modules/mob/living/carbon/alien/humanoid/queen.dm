@@ -6,7 +6,6 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
-	plasma_rate = 20
 	large = 1
 	ventcrawler = 0
 

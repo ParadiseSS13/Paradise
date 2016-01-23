@@ -35,7 +35,8 @@
 				if(override)
 					if(I == /obj/item/robot_parts)
 						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
-						if(S)//we might be targetting a zone without the named procedure.
+						world << "[S]"
+						if(S)
 							var/datum/surgery/procedure = new S.type
 							if(procedure)
 								procedure.location = selected_zone
@@ -56,11 +57,9 @@
 							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
 
 			else if(!current_surgery.step_in_progress)
-				if(current_surgery.status == 1)
+				if(current_surgery.status == 0 || current_surgery.status == 1 )
 					M.surgeries -= current_surgery
-					//need a new message
-					//user.visible_message("[user] removes the drapes from [M]'s [parse_zone(selected_zone)].", \
-					//	"<span class='notice'>You remove the drapes from [M]'s [parse_zone(selected_zone)].</span>")
+					user << "You stop the surgery."
 					qdel(current_surgery)
 				else if(istype(user.get_inactive_hand(), /obj/item/weapon/cautery) && current_surgery.can_cancel)
 					M.surgeries -= current_surgery

@@ -10,8 +10,6 @@
 	gender = NEUTER
 	dna = null
 
-	var/storedPlasma = 250
-	var/max_plasma = 500
 
 	alien_talk_understand = 1
 
@@ -24,7 +22,7 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-	var/plasma_rate = 5
+	//var/plasma_rate = 5
 
 	var/large = 0
 	var/heat_protection = 0.5
@@ -60,8 +58,7 @@
 
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
-	storedPlasma = min(max(storedPlasma + amount,0),max_plasma) //upper limit of max_plasma, lower limit of 0
-	updatePlasmaDisplay()
+	//moved to xeno organs
 	return
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
@@ -71,8 +68,8 @@
 		..(amount)
 	return
 
-/mob/living/carbon/alien/getPlasma()
-	return storedPlasma
+///mob/living/carbon/alien/getPlasma()
+//	return storedPlasma
 
 /mob/living/carbon/alien/eyecheck()
 	return 2
@@ -87,13 +84,14 @@
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
 	//If there are alien weeds on the ground then heal if needed or give some toxins
-	if(locate(/obj/structure/alien/weeds) in loc)
+	/*if(locate(/obj/structure/alien/weeds) in loc)
 		if(health >= maxHealth - getCloneLoss())
 			adjustToxLoss(plasma_rate)
 		else
 			adjustBruteLoss(-heal_rate)
 			adjustFireLoss(-heal_rate)
 			adjustOxyLoss(-heal_rate)
+		*///moved to organs
 
 	if(!environment)
 		return
@@ -181,8 +179,8 @@
 
 	..()
 
-	if (client.statpanel == "Status")
-		stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
+	//if (client.statpanel == "Status")//ORGANS
+	//	stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
 	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
 		var/timeleft = shuttle_master.emergency.timeLeft()

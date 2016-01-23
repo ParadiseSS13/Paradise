@@ -1628,6 +1628,7 @@
 #include "code\modules\projectiles\guns\alien.dm"
 #include "code\modules\projectiles\guns\energy.dm"
 #include "code\modules\projectiles\guns\magic.dm"
+#include "code\modules\projectiles\guns\mounted.dm"
 #include "code\modules\projectiles\guns\projectile.dm"
 #include "code\modules\projectiles\guns\syringe_gun.dm"
 #include "code\modules\projectiles\guns\energy\advtaser.dm"

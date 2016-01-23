@@ -5,10 +5,7 @@
 	health = 700
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
-	heal_rate = 5
-	plasma_rate = 20
 	move_delay_add = 3
-	max_plasma = 1000
 	large = 1
 	ventcrawler = 0
 
@@ -48,7 +45,7 @@
 			break
 
 	real_name = src.name
-	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	//internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	internal_organs += new /obj/item/organ/internal/xenos/acidgland
 	internal_organs += new /obj/item/organ/internal/xenos/eggsac
 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner

@@ -354,12 +354,12 @@
 		M.mutations.Remove(COMICBLOCK)
 		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
 
-/obj/item/organ/internal/honktumor/process()
+/obj/item/organ/internal/honktumor/on_life()
 
 	if(!owner)
 		return
 
-	if(lasthonk > world.time + 60|| lasthonk == 0)
+	if(lasthonk > world.time + 600|| lasthonk == 0)
 		lasthonk = world.time
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0

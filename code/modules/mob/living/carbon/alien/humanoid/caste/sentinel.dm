@@ -3,10 +3,7 @@
 	caste = "s"
 	maxHealth = 150
 	health = 150
-	storedPlasma = 100
-	max_plasma = 250
 	icon_state = "aliens_s"
-	plasma_rate = 10
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"
