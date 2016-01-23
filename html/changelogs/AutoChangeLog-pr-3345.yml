@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes Hulk not properly being removed when your health drops below a threshold"
