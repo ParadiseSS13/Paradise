@@ -1,0 +1,5 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - bugfix: "Fixes markings overlaying underwear."
+  - rscadd: "Nude icon in underwear.dmi"
