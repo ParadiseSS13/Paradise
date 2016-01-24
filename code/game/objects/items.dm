@@ -420,9 +420,7 @@
 
 	if(istype(H))
 		var/obj/item/organ/eyes/eyes = H.internal_organs_by_name["eyes"]
-		if(!eyes) // should still get stabbed in the head
-			var/obj/item/organ/external/head/head = H.organs_by_name["head"]
-			head.take_damage(rand(2,3), 1) //being stabbed in the head isnt as bad as the eyes
+		if(!eyes)
 			return
 		eyes.take_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
