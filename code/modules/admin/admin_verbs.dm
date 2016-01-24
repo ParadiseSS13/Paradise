@@ -194,21 +194,37 @@ var/list/admin_verbs_proccall = list (
 /client/proc/add_admin_verbs()
 	if(holder)
 		verbs += admin_verbs_default
-		if(holder.rights & R_BUILDMODE)		verbs += /client/proc/togglebuildmodeself
-		if(holder.rights & R_ADMIN)			verbs += admin_verbs_admin
-		if(holder.rights & R_BAN)			verbs += admin_verbs_ban
-		if(holder.rights & R_EVENT)			verbs += admin_verbs_event
-		if(holder.rights & R_SERVER)		verbs += admin_verbs_server
-		if(holder.rights & R_DEBUG)			verbs += admin_verbs_debug
-		if(holder.rights & R_POSSESS)		verbs += admin_verbs_possess
-		if(holder.rights & R_PERMISSIONS)	verbs += admin_verbs_permissions
-		if(holder.rights & R_STEALTH)		verbs += /client/proc/stealth
-		if(holder.rights & R_REJUVINATE)	verbs += admin_verbs_rejuv
-		if(holder.rights & R_SOUNDS)		verbs += admin_verbs_sounds
-		if(holder.rights & R_SPAWN)			verbs += admin_verbs_spawn
-		if(holder.rights & R_MOD)			verbs += admin_verbs_mod
-		if(holder.rights & R_MENTOR)		verbs += admin_verbs_mentor
-		if(holder.rights & R_PROCCALL)		verbs += admin_verbs_proccall
+		if(holder.rights & R_BUILDMODE)
+			verbs += /client/proc/togglebuildmodeself
+		if(holder.rights & R_ADMIN)
+			verbs += admin_verbs_admin
+			control_freak = 0
+		if(holder.rights & R_BAN)
+			verbs += admin_verbs_ban
+		if(holder.rights & R_EVENT)
+			verbs += admin_verbs_event
+		if(holder.rights & R_SERVER)
+			verbs += admin_verbs_server
+		if(holder.rights & R_DEBUG)
+			verbs += admin_verbs_debug
+		if(holder.rights & R_POSSESS)
+			verbs += admin_verbs_possess
+		if(holder.rights & R_PERMISSIONS)
+			verbs += admin_verbs_permissions
+		if(holder.rights & R_STEALTH)
+			verbs += /client/proc/stealth
+		if(holder.rights & R_REJUVINATE)
+			verbs += admin_verbs_rejuv
+		if(holder.rights & R_SOUNDS)
+			verbs += admin_verbs_sounds
+		if(holder.rights & R_SPAWN)
+			verbs += admin_verbs_spawn
+		if(holder.rights & R_MOD)
+			verbs += admin_verbs_mod
+		if(holder.rights & R_MENTOR)
+			verbs += admin_verbs_mentor
+		if(holder.rights & R_PROCCALL)
+			verbs += admin_verbs_proccall
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
