@@ -1,7 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in a Changeling chemical counter display"
-  - rscadd: "Adds in a Changeling sting counter display"
-  - rscadd: "Vampire total blood and usable blood will now appear under status"
-  - tweak: "Changes vampire blood display to be similar to ling chemical counter"
