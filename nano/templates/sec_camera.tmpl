@@ -1,9 +1,24 @@
 <!--
 Title: Security Camera Console (Main content)
 Used In File(s): \code\game\machinery\computer\camera.dm
+				 \code\modules\nano\modules\camera_monitor.dm
  -->
 {{:helper.link('Show Map', 'thumb-tack', {'showMap' : 1})}}
 {{:helper.link('Reset', 'refresh', {'reset' : 1})}}
+{{if data.networks}}
+<div class="item">
+	<h2>Networks</h2>
+	Please select the networks you'd like this console to monitor.
+	{{if data.emagged}}
+		<div class="bad">WARNING: Unauthorized access detected.</div>
+	{{/if}}
+	<div class="item">
+		{{for data.networks}}
+			{{:helper.link(value.name, value.active ? 'minus' : 'plus', { 'activate' : value.name, 'active' : value.active }, '', value.active ? 'linkOn' : '')}}
+		{{/for}}
+	</div>
+</div>
+{{/if}}
 <div class='item'>
 	<div class='itemLabel'>Current Camera: </div>
 	{{if data.current}}
@@ -21,17 +36,3 @@ Used In File(s): \code\game\machinery\computer\camera.dm
 		{{:helper.link(value.name, '', {'switchTo' : value.camera})}}
 	{{/if}}
 {{/for}}
-{{if data.networks}}
-<div class="item">
-	<h2>Networks</h2>
-	Please select the networks you'd like this console to monitor.
-	{{if data.emagged}}
-		<div class="bad">WARNING: Unauthorized access detected.</div>
-	{{/if}}
-	<div class="item">
-		{{for data.networks}}
-			{{:helper.link(value.name, value.active ? 'minus' : 'plus', { 'activate' : value.name, 'active' : value.active }, '', value.active ? 'linkOn' : '')}}
-		{{/for}}
-	</div>
-</div>
-{{/if}}

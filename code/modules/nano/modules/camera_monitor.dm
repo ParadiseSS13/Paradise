@@ -3,32 +3,33 @@
 	var/obj/machinery/camera/current = null
 	var/list/network = list("")
 	var/cache_id = 0
-	var/list/networks[0]
+	var/list/networks = list(
+		"SS13",
+		"Telecomms",
+		"Research Outpost",
+		"Mining Outpost",
+		"Research",
+		"Prison",
+		"Labor",
+		"Interrogation",
+		"Atmosphere Alarms",
+		"Fire Alarms",
+		"Power Alarms",
+		"Supermatter",
+		"MiniSat",
+		"Singularity",
+		"Anomaly Isolation",
+		"Toxins",
+		"Telepad",
+		"TestChamber"
+	)
 	var/list/tempnets[0]
 	var/list/data[0]
-	var/list/access[0]
 	var/camera_cache = null
 	
 /datum/nano_module/camera_monitor/New()
 	..()
-	networks["SS13"] = list(access_hos,access_captain)
-	networks["Telecomms"] = list(access_hos,access_captain)
-	networks["Research Outpost"] = list(access_rd,access_hos,access_captain)
-	networks["Mining Outpost"] = list(access_qm,access_hop,access_hos,access_captain)
-	networks["Research"] = list(access_rd,access_hos,access_captain)
-	networks["Prison"] = list(access_hos,access_captain)
-	networks["Labor"] = list(access_hos,access_captain)
-	networks["Interrogation"] = list(access_hos,access_captain)
-	networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
-	networks["Fire Alarms"] = list(access_ce,access_hos,access_captain)
-	networks["Power Alarms"] = list(access_ce,access_hos,access_captain)
-	networks["Supermatter"] = list(access_ce,access_hos,access_captain)
-	networks["MiniSat"] = list(access_rd,access_hos,access_captain)
-	networks["Singularity"] = list(access_ce,access_hos,access_captain)
-	networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
-	networks["Toxins"] = list(access_rd,access_hos,access_captain)
-	networks["Telepad"] = list(access_rd,access_hos,access_captain)
-	networks["TestChamber"] = list(access_rd,access_hos,access_captain)
+
 	
 /datum/nano_module/camera_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
 	var/data[0]
@@ -50,17 +51,12 @@
 		camera_cache=list2json(cameras)
 
 	tempnets.Cut()
-	access = list(access_captain) // Assume captain level access when AI
 
-	// Loop through the ID's permission, and check which networks the ID has access to.
 	for(var/l in networks) // Loop through networks.
-		for(var/m in networks[l]) // Loop through access levels of the networks.
-			if(m in access)
-				if(l in network) // Checks if the network is currently active.
-					tempnets.Add(list(list("name" = l, "active" = 1)))
-				else
-					tempnets.Add(list(list("name" = l, "active" = 0)))
-				break
+		if(l in network) // Checks if the network is currently active.
+			tempnets.Add(list(list("name" = l, "active" = 1)))
+		else
+			tempnets.Add(list(list("name" = l, "active" = 0)))
 	if(tempnets.len)
 		data["networks"] = tempnets
 
@@ -70,7 +66,7 @@
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
+		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 650, 550)
 
 		// adding a template with the key "mapContent" enables the map ui functionality
 		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
@@ -79,35 +75,29 @@
 
 		ui.set_initial_data(data)
 		ui.open()
-		ui.set_auto_update(1)
+		//ui.set_auto_update(1)
 		
 /datum/nano_module/camera_monitor/Topic(href, href_list)
 	if(..()) 
 		return 1
 
 	if(href_list["switchTo"])
-		if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
 		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
 		if(!C) return
 
 		switch_to_camera(usr, C)
 		return 1
 	else if(href_list["reset"])
-		if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !istype(usr, /mob/living/silicon))) return
 		reset_current()
 		usr.check_eye(current)
 		return 1
 	else if(href_list["activate"]) // Activate: enable or disable networks
 		var/net = href_list["activate"]	// Network to be enabled or disabled.
 		var/active = href_list["active"] // Is the network currently active.
-		for(var/a in networks[net])
-			if(a in access) // Re-check for authorization.
-				if(text2num(active) == 1)
-					src.network -= net
-					break
-				else
-					src.network += net
-					break
+		if(text2num(active) == 1)
+			src.network -= net
+		else
+			src.network += net
 		invalidateCameraCache()
 		nanomanager.update_uis(src)
 
@@ -121,21 +111,13 @@
 
 // Switching to cameras
 /datum/nano_module/camera_monitor/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
-	if ((get_dist(user, src) > 1 || user.machine != src || user.blinded || !( user.canmove ) || !( C.can_use() )) && (!istype(user, /mob/living/silicon/ai)))
-		if(!C.can_use() && !isAI(user))
-			src.current = null
+	var/mob/living/silicon/ai/A = user
+	// Only allow non-carded AIs to view because the interaction with the eye gets all wonky otherwise.
+	if(!A.is_in_chassis())
 		return 0
-	else
-		if(isAI(user))
-			var/mob/living/silicon/ai/A = user
-			// Only allow non-carded AIs to view because the interaction with the eye gets all wonky otherwise.
-			if(!A.is_in_chassis())
-				return 0
-			A.eyeobj.setLoc(get_turf(C))
-			A.client.eye = A.eyeobj
-		else
-			set_current(C)
-		return 1
+	A.eyeobj.setLoc(get_turf(C))
+	A.client.eye = A.eyeobj
+	return 1
 
 /datum/nano_module/camera_monitor/proc/set_current(var/obj/machinery/camera/C)
 	if(current == C)
