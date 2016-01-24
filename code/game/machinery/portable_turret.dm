@@ -547,6 +547,9 @@ var/list/turret_icons
 	if(!istype(L))
 		return TURRET_NOT_TARGET
 
+	if(get_turf(L) == get_turf(src))
+		return TURRET_NOT_TARGET
+
 	if(L.invisibility >= INVISIBILITY_LEVEL_ONE) // Cannot see him. see_invisible is a mob-var
 		return TURRET_NOT_TARGET
 
