@@ -1,4 +1,5 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+#define OP_COMPUTER_COOLDOWN 60
 
 /obj/machinery/computer/operating
 	name = "operating computer"
@@ -16,7 +17,7 @@
 	var/choice = 0 //just for going into and out of the options menu
 	var/healthAnnounce = 1 //healther announcer toggle
 	var/crit = 1 //crit beeping toggle
-
+	var/nextTick = OP_COMPUTER_COOLDOWN
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -128,7 +129,6 @@
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
-
 		if (ishuman(occupant) && occupant.vessel && !(occupant.species && occupant.species.flags & NO_BLOOD))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
@@ -136,12 +136,15 @@
 			occupantData["bloodMax"] = occupant.max_blood
 			occupantData["bloodPercent"] = round(100*(occupant.vessel.get_reagent_amount("blood")/occupant.max_blood), 0.01) //copy pasta ends here
 
+			occupantData["bloodType"]=occupant.b_type
+
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
 	data["oxyAlarm"]=oxyAlarm
 	data["choice"]=choice
 	data["health"]=healthAnnounce
 	data["crit"]=crit
+
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
@@ -183,19 +186,18 @@
 
 /obj/machinery/computer/operating/process()
 
-	if(src.table && src.table.check_victim())
+	if(table && table.check_victim())
 		if(verbose)
-			if(patientName!=src.table.victim.name)
-				patientName=src.table.victim.name
+			if(patientName!=table.victim.name)
+				patientName=table.victim.name
 				atom_say("New patient detected, loading stats")
-				src.victim = src.table.victim
-				sleep(10)
-				atom_say("[src.victim.real_name], [src.victim.b_type] blood, [src.victim.stat ? "Non-Responsive" : "Awake"]")
-				atom_say("[round(src.victim.health)]")
-			if(src.victim.health <= -50 && crit)
-				playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
-			if(src.victim.getOxyLoss()>oxyAlarm)
-				playsound(src.loc, 'sound/machines/defib_saftyOff.ogg', 50, 0)
-			if(healthAnnounce)
-				atom_say("[round(src.victim.health)]")
-			sleep(60)
+				victim = table.victim
+				atom_say("[victim.real_name], [victim.b_type] blood, [victim.stat ? "Non-Responsive" : "Awake"]")
+			if(nextTick < world.time)
+				nextTick=world.time + OP_COMPUTER_COOLDOWN
+				if(victim.health <= -50 && crit)
+					playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
+				if(src.victim.getOxyLoss()>oxyAlarm)
+					playsound(src.loc, 'sound/machines/defib_saftyOff.ogg', 50, 0)
+				if(healthAnnounce)
+					atom_say("[round(victim.health)]")
