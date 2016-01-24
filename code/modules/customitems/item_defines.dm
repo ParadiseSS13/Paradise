@@ -116,12 +116,13 @@
 	name = "royal marines commando beret"
 	desc = "Dark Green beret with an old insignia on it."
 	icon_state = "sparkyninja_beret"
+	item_state = "sparkyninja_beret"
 
 /obj/item/clothing/head/beret/fluff/sigholt //sigholtstarsong: Sigholt Starsong
 	name = "Lieutenant Starsong's beret"
 	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
-	icon_state = "hosberet"
-	item_state = "hosberet"
+	icon_state = "beret_hos"
+	item_state = "beret_hos"
 
 //////////// Suits ////////////
 /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Socialsystem: Lynn Fea
