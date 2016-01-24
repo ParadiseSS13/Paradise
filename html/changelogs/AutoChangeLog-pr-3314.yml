@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes unnecessary toxin damage being dealt on severe bloodloss"
