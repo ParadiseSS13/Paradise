@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - bugfix: "Passively power-consuming borg modules, such as the peacekeeper movement and shield module, won't spam the user infinitely if they're low on power anymore."
