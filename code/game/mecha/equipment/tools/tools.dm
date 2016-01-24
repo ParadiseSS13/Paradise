@@ -1088,9 +1088,7 @@
 			return
 		var/list/occupant = list()
 		occupant |= mecha.occupant
-		mecha.occupant.sight |= SEE_TURFS
 		scanning = 1
 		mineral_scan_pulse(occupant,get_turf(loc))
 		spawn(equip_cooldown)
 			scanning = 0
-			mecha.occupant.sight -= SEE_TURFS
