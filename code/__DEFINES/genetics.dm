@@ -85,19 +85,21 @@
 #define LOUD		208		// CAUSES INTENSE YELLING
 //#define WHISPER	209		// causes quiet whispering
 #define DIZZY		210		// Trippy.
-#define LISP		211
-#define RADIOACTIVE 212
-#define CHAV		213
-#define SWEDISH		214
-#define SCRAMBLED	215
-#define HORNS		216
-#define IMMOLATE	217
-#define CLOAK		218
-#define CHAMELEON	219
-#define CRYO		220
-#define EATER		221
-#define JUMPY		222
-#define POLYMORPH	223
+
+#define LISP		300
+#define RADIOACTIVE 301
+#define CHAV		302
+#define SWEDISH		303
+#define SCRAMBLED	304
+#define HORNS		305
+#define IMMOLATE	306
+#define CLOAK		307
+#define CHAMELEON	308
+#define CRYO		309
+#define EATER		310
+
+#define JUMPY		400
+#define POLYMORPH	401
 
 //disabilities
 #define NEARSIGHTED		1
