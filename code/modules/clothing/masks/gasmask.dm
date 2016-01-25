@@ -138,8 +138,8 @@
 	species_fit = list("Vox")
 
 /obj/item/clothing/mask/gas/ronaldclown
-	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
+	name = "greasy clown wig and mask"
+	desc = "<i>'Ran ran ru!'</i>"
 	icon_state = "ronald"
 	item_state = "ronald"
 	species_fit = list("Vox")

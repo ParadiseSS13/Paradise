@@ -58,8 +58,8 @@
 	flags = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/clown/ronald
-	name = "clown suit"
-	desc = "<i>'Ran ran ru!'</i>"
+	name = "greasy clown suit"
+	desc = "A large sized suit for carrying burgers and fries around in."
 	icon_state = "ronald"
 	item_state = "ronald"
 	item_color = "ronald"
