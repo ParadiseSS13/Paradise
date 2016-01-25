@@ -1,6 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - bugfix: "Fixes Vox robes not using the correct on-mob sprites."
-  - bugfix: "Fixes unreported bug where there was a slim chance during character preview icon generation that a character with Security Officer set to high would get rendered with either the wrong beret sprite or no beret sprite at all."
-  - bugfix: "Fixes an issue where Sigholt's fluff beret wasn't using the correct sprites."
