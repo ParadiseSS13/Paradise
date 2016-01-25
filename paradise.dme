@@ -1236,6 +1236,7 @@
 #include "code\modules\hydroponics\grown.dm"
 #include "code\modules\hydroponics\grown_inedible.dm"
 #include "code\modules\hydroponics\grown_predefined.dm"
+#include "code\modules\hydroponics\hydro_reagents.dm"
 #include "code\modules\hydroponics\seed.dm"
 #include "code\modules\hydroponics\seed_controller.dm"
 #include "code\modules\hydroponics\seed_datums.dm"

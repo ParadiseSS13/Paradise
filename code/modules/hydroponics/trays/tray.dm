@@ -47,100 +47,13 @@
 	// Construction
 	var/unwrenchable = 1
 
-	// Reagent information for process(), consider moving this to a controller along
-	// with cycle information under 'mechanical concerns' at some point.
-	var/global/list/toxic_reagents = list(
-		"charcoal" =       -2,
-		"toxin" =			2,
-		"fluorine" =        2.5,
-		"chlorine" =        1.5,
-		"sacid" =           1.5,
-		"facid" =           3,
-		"atrazine" =     	3,
-		"cryoxadone" =     -3,
-		"radium" =          2
-		)
-	var/global/list/nutrient_reagents = list(
-		"milk" =            0.1,
-		"beer" =            0.25,
-		"phosphorus" =      0.1,
-		"sugar" =           0.1,
-		"sodawater" =       0.1,
-		"ammonia" =         1,
-		"diethylamine" =    2,
-		"nutriment" =       1,
-		"protein" =       	1.75,
-		"plantmatter" =     1.25,
-		"adminordrazine" =  1,
-		"eznutrient" =      1,
-		"robustharvest" =   1,
-		"left4zed" =        1,
-		"fishwater" =		0.75,
-		)
-	var/global/list/weedkiller_reagents = list(
-		"fluorine" =       -4,
-		"chlorine" =       -3,
-		"phosphorus" =     -2,
-		"sugar" =           2,
-		"sacid" =          -2,
-		"facid" =          -4,
-		"atrazine" =       -8,
-		"adminordrazine" = -5
-		)
-	var/global/list/pestkiller_reagents = list(
-		"sugar" =           2,
-		"diethylamine" =   -2,
-		"adminordrazine" = -5
-		)
-	var/global/list/water_reagents = list(
-		"water" =           list(1,    0),
-		"adminordrazine" =  list(1,    0),
-		"milk" =            list(0.9,  0),
-		"beer" =            list(0.7,  0),
-		"fluorine" =        list(-0.5, 0),
-		"chlorine" =        list(-0.5, 0),
-		"phosphorus" =      list(-0.5, 0),
-		"water" =           list(1,	   0),
-		"sodawater" =       list(1,    0),
-		"fishwater" =		list(1,    0),
-		"holywater" =		list(1,    0.1),
-		)
-
-	// Beneficial reagents also have values for modifying yield_mod and mut_mod (in that order).
-	var/global/list/beneficial_reagents = list(
-	//	"reagent" =			list(health, yield_Mod, mut_mod, production, potency),
-		"beer" =			list( -0.05,	0,		0,		  0,		0),
-		"fluorine" =		list( -2,		0,		0,		  0,		0),
-		"chlorine" =		list( -1,		0,		0,		  0,		0),
-		"phosphorus" =		list( -0.75,	0,		0,		  0,		0),
-		"sodawater" =		list(  0.1,		0,		0,		  0,		0),
-		"sacid" =			list( -1,		0,		0,		  0,		0),
-		"facid" =			list( -2,		0,		0,		  0,		0),
-		"atrazine" =		list( -2,		0,		0.2,	  0,		0),
-		"cryoxadone" =		list(  3,		0,		0,		  0,		0),
-		"ammonia" =			list(  0.5,		0,		0,	  	  0,		0),
-		"diethylamine" =	list(  1,		0,		0,	      0,		0),
-		"nutriment" =		list(  0.25,	0.15,	0,	      0,		0),
-		"protein" =			list(  0.25,	0.15,	0,		  0,		0),
-		"plantmatter" =		list(  0.25,	0.15,	0,		  0,		0),
-		"radium" =			list( -1.5,		0,		0.2,      0,		0),
-		"adminordrazine" =	list(  1,		1,		1,		  0,		0),
-		"robustharvest" =	list(  0,		0.2,	0,		  0,		0),
-		"left4zed" =		list(  0,		0,		0.2,	  0,		0),
-		"saltpetre" =		list(  0.25,	0,		0,	  	 -0.02,		0.01),
-		)
-
-	//--FalseIncarnate
-	// Mutagen list specifies reagent_min_value and reagent_step
-	// Reagent_min_value (value 1) is the minimum number of units needed to begin mutations
-	// Reagent_step (value 2) is the number of units between each mutation threshold
-	var/global/list/mutagenic_reagents = list(
-		"radium" =  list(10,10),
-		"mutagen" = list(1,5)
-		)
-	//--FalseIncarnate
-
 	var/last_plant_ikey		//This is for debugging reference, and is otherwise useless. --FalseIncarnate
+
+/*
+*	process() can be found in \code\modules\hydroponics\tray\tray_process.dm
+*	reagent handling can be found in \code\modules\hydroponics\tray\tray_reagents.dm
+*	icon handling can be found in \code\modules\hydroponics\tray\tray_update_icons.dm
+*/
 
 /obj/machinery/portable_atmospherics/hydroponics/AltClick()
 	if(mechanical && !usr.stat && !usr.lying && Adjacent(usr))
@@ -241,86 +154,6 @@
 	harvest = 0
 	weedlevel += 1 * HYDRO_SPEED_MULTIPLIER
 	pestlevel = 0
-
-//Process reagents being input into the tray.
-/obj/machinery/portable_atmospherics/hydroponics/proc/process_reagents()
-
-	if(!reagents) return
-
-	if(reagents.total_volume <= 0)
-		return
-
-/*	I have plans for this at a later date, so it's just being commented out for now --FalseIncarnate
-
-	reagents.trans_to(temp_chem_holder, min(reagents.total_volume,rand(1,3)))
-
-	for(var/datum/reagent/R in temp_chem_holder.reagents.reagent_list)
-
-		var/reagent_total = temp_chem_holder.reagents.get_reagent_amount(R.id)
-*/
-
-	for(var/datum/reagent/R in reagents.reagent_list)
-
-		var/reagent_total = reagents.get_reagent_amount(R.id)
-
-		if(seed && !dead)
-			//Handle some general level adjustments.
-			if(toxic_reagents[R.id])
-				toxins += toxic_reagents[R.id]         * reagent_total
-			if(weedkiller_reagents[R.id])
-				weedlevel -= weedkiller_reagents[R.id] * reagent_total
-			if(pestkiller_reagents[R.id])
-				pestlevel += pestkiller_reagents[R.id] * reagent_total
-
-			// Beneficial reagents have a few impacts along with health buffs.
-			if(beneficial_reagents[R.id])
-				health += beneficial_reagents[R.id][1] * reagent_total
-				yield_mod = min(100, yield_mod + (beneficial_reagents[R.id][2] * reagent_total))
-				mutation_mod += beneficial_reagents[R.id][3] * reagent_total
-				if(seed.get_trait(TRAIT_PRODUCTION) > 1)
-					seed.set_trait(TRAIT_PRODUCTION, max(2, seed.get_trait(TRAIT_PRODUCTION) + beneficial_reagents[R.id][4] * reagent_total))
-				seed.set_trait(TRAIT_POTENCY, min(100, seed.get_trait(TRAIT_POTENCY) + beneficial_reagents[R.id][5] * reagent_total))
-
-			// Mutagen is distinct from the previous types and mostly has a chance of proccing a mutation.
-
-			//--FalseIncarnate
-			// Mutation rework, will now use "thresholds" for proccing types of mutations and their respective chances.
-			// This should make it easier to avoid species shifts when trying to only affect stats like potency.
-			// Additionally, the chance of mutations will vary depending on the amount of mutagenic reagents added.
-			if(mutagenic_reagents[R.id])
-				var/reagent_min_value = mutagenic_reagents[R.id][1]					//10 for radium, 1 for unstable mutagen
-				var/reagent_step =     mutagenic_reagents[R.id][2]					//10 for radium, 5 for unstable mutagen
-
-				if(reagent_total >= reagent_min_value + (3 * reagent_step))			//31+ for radium, 16+ for unstable mutagen
-					mutate(4)
-				else if(reagent_total >= reagent_min_value + (2 * reagent_step))	//21-30 for radium, 11-15 for unstable mutagen
-					mutate(3)
-				else if(reagent_total >= reagent_min_value + reagent_step)			//11-20 for radium, 6-10 for unstable mutagen
-					mutate(2)
-				else if(reagent_total >= reagent_min_value)							//1-10 for radium, 1-5 for unstable mutagen
-					mutate(1)
-
-			//--FalseIncarnate
-
-		// Handle nutrient refilling.
-		if(nutrient_reagents[R.id])
-			nutrilevel += nutrient_reagents[R.id]  * reagent_total
-
-		// Handle water and water refilling.
-		var/water_added = 0
-		if(water_reagents[R.id])
-			var/water_input = water_reagents[R.id][1] * reagent_total
-			water_added += water_input
-			waterlevel += water_input
-			health += water_reagents[R.id][2] * reagent_total
-
-		// Water dilutes toxin level.
-		if(water_added > 0)
-			toxins -= round(water_added/4)
-
-//	temp_chem_holder.reagents.clear_reagents()
-	reagents.clear_reagents()
-	check_health()
 
 //Harvests the product of a plant.
 /obj/machinery/portable_atmospherics/hydroponics/proc/harvest(var/mob/user)
@@ -528,11 +361,12 @@
 		health = 0
 		dead = 0
 
-	nutrilevel =     max(0,min(nutrilevel,maxnutri))
-	waterlevel =     max(0,min(waterlevel,maxwater))
-	pestlevel =      max(0,min(pestlevel,10))
-	weedlevel =      max(0,min(weedlevel,10))
-	toxins =         max(0,min(toxins,10))
+	nutrilevel =	max(0,min(nutrilevel,maxnutri))
+	waterlevel =	max(0,min(waterlevel,maxwater))
+	pestlevel =		max(0,min(pestlevel,10))
+	weedlevel =		max(0,min(weedlevel,10))
+	toxins =		max(0,min(toxins,10))
+	yield_mod =		min(100, yield_mod)
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/mutate_species()
 
