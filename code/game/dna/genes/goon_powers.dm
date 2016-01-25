@@ -48,6 +48,7 @@
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
 	activation_prob=10
+	mutation = CLOAK
 
 	New()
 		block=SHADOWBLOCK
@@ -74,6 +75,7 @@
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly exposed.")
 	activation_prob=10
+	mutation = CHAMELEON
 
 	New()
 		block=CHAMELEONBLOCK
@@ -120,6 +122,7 @@
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability=10
+	mutation = CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
 
@@ -217,6 +220,7 @@
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability=3
+	mutation = EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
@@ -359,6 +363,7 @@
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability=2
+	mutation = JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
@@ -460,6 +465,7 @@
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
 	instability=5
+	mutation = POLYMORPH
 
 	New()
 		..()
