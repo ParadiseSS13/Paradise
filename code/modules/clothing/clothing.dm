@@ -178,19 +178,20 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/wirecutters))
-		if(clipped == 0)
+		if(!clipped)
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-			user.visible_message("\red [user] snips the fingertips off [src].","\red You snip the fingertips off [src].")
+			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
 			clipped = 1
+			name = "mangled [name]"
+			desc = "[desc] They have had the fingertips cut off of them."
 			if("exclude" in species_restricted)
-				name = "mangled [name]"
-				desc = "[desc] They have had the fingertips cut off of them."
 				species_restricted -= "Unathi"
 				species_restricted -= "Tajaran"
-		else if(clipped == 1)
-			user << "<span class='notice'>[src] have already been clipped!</span>"
 			update_icon()
+		else
+			user << "<span class='notice'>[src] have already been clipped!</span>"
 		return
+	else
 		..()
 
 /obj/item/clothing/gloves/proc/Touch()
@@ -317,6 +318,8 @@ BLIND     // can't see anything
 	desc = "Comfortable-looking shoes."
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	var/chained = 0
+	var/can_cut_open = 0
+	var/cut_open = 0
 	body_parts_covered = FEET
 	slot_flags = SLOT_FEET
 
@@ -333,16 +336,36 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weapon/match) && src.loc == user)
 		var/obj/item/weapon/match/M = I
-		if(M.lit == 0)
+		if(!M.lit) // Match isn't lit, but isn't burnt.
 			M.lit = 1
 			M.icon_state = "match_lit"
 			processing_objects.Add(M)
 			M.update_icon()
-			user << "<span class='notice'>You strike the [M] along your [src] to light it.</span>"
-		else if(M.lit == 1)
+			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
+		else if(M.lit == 1) // Match is lit, not extinguished.
 			M.dropped()
-			user << "<span class='notice'>You crush the [M] into the bottom of your [src], extinguishing it.</span>"
+			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src]. extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
+		else // Match has been previously lit and extinguished.
+			user << "<span class='notice'>The [M] has already been extinguished.</span>"
 		return
+
+	if(istype(I, /obj/item/weapon/wirecutters))
+		if(can_cut_open)
+			if(!cut_open)
+				playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
+				cut_open = 1
+				icon_state = "[icon_state]_opentoe"
+				item_state = "[item_state]_opentoe"
+				name = "mangled [name]"
+				desc = "[desc] They have had their toes opened up."
+				if("exclude" in species_restricted)
+					species_restricted -= "Unathi"
+					species_restricted -= "Tajaran"
+				update_icon()
+			else
+				user << "<span class='notice'>[src] have already had their toes cut open!</span>"
+			return
 	else
 		..()
 
