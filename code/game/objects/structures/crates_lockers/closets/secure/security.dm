@@ -248,7 +248,7 @@
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/clothing/glasses/sunglasses(src)
 		new /obj/item/clothing/glasses/hud/health/health_advanced
-		new /obj/item/clothing/head/beret/centcom/officer(src)
+		new /obj/item/clothing/head/beret/centcom/officer/navy(src)
 		new /obj/item/clothing/suit/armor/vest/blueshield(src)
 		new /obj/item/clothing/suit/storage/blueshield(src)
 		new /obj/item/clothing/shoes/centcom(src)
