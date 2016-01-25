@@ -1437,3 +1437,7 @@ mob/proc/yank_out_object()
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	return 0
+
+//Can this mob leave its location without breaking things terrifically?
+/mob/proc/can_safely_leave_loc()
+	return 1 // Yes, you can
