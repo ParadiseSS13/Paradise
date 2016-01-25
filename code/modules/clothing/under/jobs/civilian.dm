@@ -57,6 +57,12 @@
 	item_color = "clown"
 	flags = ONESIZEFITSALL
 
+/obj/item/clothing/under/rank/clown/ronald
+	name = "clown suit"
+	desc = "<i>'Ran ran ru!'</i>"
+	icon_state = "ronald"
+	item_state = "ronald"
+	item_color = "ronald"
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."

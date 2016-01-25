@@ -78,6 +78,13 @@
 	species_restricted = null
 	silence_steps = 1
 
+/obj/item/clothing/shoes/clown_shoes/ronald
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
+	name = "clown shoes"
+	icon_state = "ronald"
+	item_state = "ronald"
+	item_color = "ronald"
+
 /obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
 	if(!istype(H))	return 0
 
