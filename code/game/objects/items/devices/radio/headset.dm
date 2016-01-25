@@ -57,7 +57,9 @@
 
 	return ..()
 
-/obj/item/device/radio/headset/receive_range(freq, level)
+/obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
+	if(aiOverride)
+		return ..(freq, level)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
