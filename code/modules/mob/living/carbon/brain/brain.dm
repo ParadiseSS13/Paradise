@@ -96,3 +96,6 @@ I'm using this for Stat to give it a more nifty interface to work with
 				var/obj/mecha/M = src.loc
 				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
 				stat("Exosuit Integrity", "[!M.health ? "0" : "[(M.health / initial(M.health)) * 100]"]%")
+
+/mob/living/carbon/brain/can_safely_leave_loc()
+	return 0 //You're not supposed to be ethereal jaunting, brains
