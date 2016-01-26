@@ -31,6 +31,7 @@
 	activation_message = "You feel a strange sickness permeate your whole body."
 	deactivation_message = "You no longer feel awful and sick all over."
 	instability=5
+	mutation = RADIOACTIVE
 
 	New()
 		..()
@@ -130,6 +131,7 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
 	activation_message = "Ye feel like a reet prat like, innit?"
 	deactivation_message = "You no longer feel like being rude and sassy."
+	mutation = CHAV
 
 	New()
 		..()
@@ -168,6 +170,7 @@
 	desc = "Forces the language center of the subject's brain to construct sentences in a vaguely norse manner."
 	activation_message = "You feel Swedish, however that works."
 	deactivation_message = "The feeling of Swedishness passes."
+	mutation = SWEDISH
 
 	New()
 		..()
@@ -186,6 +189,7 @@
 	desc = "Heavily corrupts the part of the brain responsible for forming spoken sentences."
 	activation_message = "You can't seem to form any coherent thoughts!"
 	deactivation_message = "Your mind feels more clear."
+	mutation = SCRAMBLED
 
 	New()
 		..()
@@ -252,6 +256,7 @@
 	desc = "Enables the growth of a compacted keratin formation on the subject's head."
 	activation_message = "A pair of horns erupt from your head."
 	deactivation_message = "Your horns crumble away into nothing."
+	mutation = HORNS
 
 	New()
 		..()
@@ -297,6 +302,7 @@
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
 	instability=5
+	mutation = IMMOLATE
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/immolate
 

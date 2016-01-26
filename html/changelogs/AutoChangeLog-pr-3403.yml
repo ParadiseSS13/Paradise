@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "Writing on paper will now add hidden admin fingerprints, so that you can't forge mean notes in someone else's name."

@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Brains are no longer able to escape their brain by being a sorcerer."

@@ -19,6 +19,9 @@
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/cast(list/targets) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
+		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
+			target << "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>"
+			continue
 		spawn(0)
 
 			if(target.buckled)

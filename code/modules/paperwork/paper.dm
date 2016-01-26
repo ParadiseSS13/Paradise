@@ -322,6 +322,7 @@
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		var/iscrayon = 0
+		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 		if(!istype(i, /obj/item/weapon/pen))
 			if(!istype(i, /obj/item/toy/crayon))
 				return
