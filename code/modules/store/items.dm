@@ -105,73 +105,73 @@
 	typepath = /obj/item/weapon/toddler
 	cost = 1000
 
-/datum/storeitem/flag/slime
+/datum/storeitem/flag_slime
 	name = "Slime People flag"
 	desc = "A flag proudly proclaiming the superior heritage of Slime People."
 	typepath = /obj/item/flag/species/slime
 	cost = 1000
 
-/datum/storeitem/flag/skrell
+/datum/storeitem/flag_skrell
 	name = "Skrell flag"
 	desc = "A flag proudly proclaiming the superior heritage of Skrell."
 	typepath = /obj/item/flag/species/skrell
 	cost = 1000
 
-/datum/storeitem/flag/vox
+/datum/storeitem/flag_vox
 	name = "Vox flag"
 	desc = "A flag proudly proclaiming the superior heritage of Vox."
 	typepath = /obj/item/flag/species/vox
 	cost = 1000
 
-/datum/storeitem/flag/machine
+/datum/storeitem/flag_machine
 	name = "Synthetics flag"
 	desc = "A flag proudly proclaiming the superior heritage of Synthetics."
 	typepath = /obj/item/flag/species/machine
 	cost = 1000
 
-/datum/storeitem/flag/diona
+/datum/storeitem/flag_diona
 	name = "Diona flag"
 	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	typepath = /obj/item/flag/species/diona
 	cost = 1000
 
-/datum/storeitem/flag/human
+/datum/storeitem/flag_human
 	name = "Human flag"
 	desc = "A flag proudly proclaiming the superior heritage of Humans."
 	typepath = /obj/item/flag/species/human
 	cost = 1000
 
-/datum/storeitem/flag/greys
+/datum/storeitem/flag_greys
 	name = "Greys flag"
 	desc = "A flag proudly proclaiming the superior heritage of Greys."
 	typepath = /obj/item/flag/species/greys
 	cost = 1000
 
-/datum/storeitem/flag/kidan
+/datum/storeitem/flag_kidan
 	name = "Kidan flag"
 	desc = "A flag proudly proclaiming the superior heritage of Kidan."
 	typepath = /obj/item/flag/species/kidan
 	cost = 1000
 
-/datum/storeitem/flag/taj
+/datum/storeitem/flag_taj
 	name = "Tajaran flag"
 	desc = "A flag proudly proclaiming the superior heritage of Tajara."
 	typepath = /obj/item/flag/species/taj
 	cost = 1000
 
-/datum/storeitem/flag/unathi
+/datum/storeitem/flag_unathi
 	name = "Unathi flag"
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	typepath = /obj/item/flag/species/unathi
 	cost = 1000
 
-/datum/storeitem/flag/vulp
+/datum/storeitem/flag_vulp
 	name = "Vulpkanin flag"
 	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
 	typepath = /obj/item/flag/species/vulp
 	cost = 1000
 
-/datum/storeitem/flag/ian
+/datum/storeitem/flag_ian
 	name = "Ian flag"
 	desc = "The banner of Ian, because SQUEEEEE."
 	typepath = /obj/item/flag/ian
