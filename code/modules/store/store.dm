@@ -26,7 +26,9 @@ var/global/datum/store/centcomm_store=new
 
 /datum/store/New()
 	for(var/itempath in subtypesof(/datum/storeitem))
-		items += new itempath()
+		var/datum/storeitem/s = new itempath
+		if(s.name == "Thing") continue //for some reason this is the only thing that works.
+		items += s
 
 /datum/store/proc/charge(var/datum/mind/mind,var/amount,var/datum/storeitem/item)
 	if(!mind.initial_account)
