@@ -46,7 +46,7 @@
 
 /mob/living/proc/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
 	blocked = (100-blocked)/100
-	if(!effect || (blocked <= 0))	
+	if(!effect || (blocked <= 0))
 		return 0
 	switch(effecttype)
 		if(STUN)
@@ -77,7 +77,7 @@
 	updatehealth()
 	return 1
 
-/mob/living/carbon/human/apply_effect(var/effect = 0, var/effecttype = STUN, var/blocked = 0)
+/mob/living/carbon/human/apply_effect(var/effect = 0, var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
 	if((effecttype == IRRADIATE) && (species.flags & NO_DNA_RAD))
 		return 0
 	return ..()
