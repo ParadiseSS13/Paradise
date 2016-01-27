@@ -1,0 +1,7 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Cutting open the toes of footwear so species with feet-claws can wear them."
+  - rscadd: "Toeless jackboots."
+  - tweak: "Cleans up glovesnipping and lighting a match with a shoe."
+  - tweak: "Lighting a match with a shoe produces a more appropriate message, handled at the same standard as glove-snippingboot-cutting."
