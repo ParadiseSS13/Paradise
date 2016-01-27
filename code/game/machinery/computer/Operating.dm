@@ -18,6 +18,8 @@
 	var/healthAnnounce = 1 //healther announcer toggle
 	var/crit = 1 //crit beeping toggle
 	var/nextTick = OP_COMPUTER_COOLDOWN
+	var/healthAlarm = 50
+	var/oxy = 1 //oxygen beeping toggle
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -144,11 +146,12 @@
 	data["choice"]=choice
 	data["health"]=healthAnnounce
 	data["crit"]=crit
-
+	data["healthAlarm"]=healthAlarm
+	data["oxy"]=oxy
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
-		ui = new(user, src, ui_key, "op_computer.tmpl", "Patient Monitor", 650, 655)
+		ui = new(user, src, ui_key, "op_computer.tmpl", "Patient Monitor", 650, 455)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
@@ -175,12 +178,18 @@
 		crit=1
 	if(href_list["critOff"])
 		crit=0
+	if(href_list["oxyOn"])
+		oxy=1
+	if(href_list["oxyOff"])
+		oxy=0
 	if(href_list["oxy_adj"]!=0)
 		oxyAlarm=oxyAlarm+text2num(href_list["oxy_adj"])
 	if(href_list["choiceOn"])
 		choice=1
 	if(href_list["choiceOff"])
 		choice=0
+	if(href_list["health_adj"]!=0)
+		healthAlarm=healthAlarm+text2num(href_list["health_adj"])
 	return
 
 
@@ -195,9 +204,9 @@
 				atom_say("[victim.real_name], [victim.b_type] blood, [victim.stat ? "Non-Responsive" : "Awake"]")
 			if(nextTick < world.time)
 				nextTick=world.time + OP_COMPUTER_COOLDOWN
-				if(victim.health <= -50 && crit)
+				if(crit && victim.health <= -50 )
 					playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
-				if(src.victim.getOxyLoss()>oxyAlarm)
+				if(oxy && victim.getOxyLoss()>oxyAlarm)
 					playsound(src.loc, 'sound/machines/defib_saftyOff.ogg', 50, 0)
-				if(healthAnnounce)
+				if(healthAnnounce && victim.health <= healthAlarm)
 					atom_say("[round(victim.health)]")
