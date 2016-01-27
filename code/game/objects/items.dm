@@ -419,7 +419,7 @@
 	add_logs(M, user, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
 
 	if(istype(H))
-		var/obj/item/organ/eyes/eyes = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.organs_by_name["head"]
 			head.take_damage(rand(10,14), 1)
