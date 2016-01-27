@@ -196,7 +196,7 @@
 			loading = 0
 			nanomanager.update_uis(src)
 
-	if (href_list["scan_brain"] && scanner && scanner.occupant)
+	if (href_list["scan_brain"] && scanner && scanner.occupant && scanner.scan_level > 3)
 		scantemp = "Scanner ready."
 
 		loading = 1
@@ -390,9 +390,15 @@
 
 	var/datum/dna2/record/R = new /datum/dna2/record()
 	R.ckey = subject.ckey
+	var/extra_info = ""
 	if(scan_brain)
 		var/obj/item/organ/B = subject.internal_organs_by_name["brain"]
+		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
+		var/datum/species/S = all_species[R.dna.species]
+		if(S.flags & NO_SCAN)
+			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
+			R.dna.species = subject.species.name
 		R.id= copytext(md5(B.dna.real_name), 2, 6)
 		R.name=B.dna.real_name
 	else
@@ -416,7 +422,7 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	scantemp = "Subject successfully scanned."
+	scantemp = "Subject successfully scanned. " + extra_info
 	nanomanager.update_uis(src)
 
 //Find a specific record by key.
