@@ -20,109 +20,26 @@
 		return 0
 	return 1
 
-/datum/surgery_step/generic/cut_with_laser
-	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser3 = 95, \
-	/obj/item/weapon/scalpel/laser2 = 85, \
-	/obj/item/weapon/scalpel/laser1 = 75, \
-	/obj/item/weapon/melee/energy/ = 5, \
-	/obj/item/weapon/pen/edagger = 5,  \
-	)
-
-	min_duration = 90
-	max_duration = 110
-
-/datum/surgery_step/generic/cut_with_laser/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(..())
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected.open == 0 && target_zone != "mouth"
-
-/datum/surgery_step/generic/cut_with_laser/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("[user] starts the bloodless incision on [target]'s [affected.name] with \the [tool].", \
-		"You start the bloodless incision on [target]'s [affected.name] with \the [tool].")
-		target.custom_pain("You feel a horrible, searing pain in your [affected.name]!",1)
-		..()
-
-/datum/surgery_step/generic/cut_with_laser/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='info'> [user] has made a bloodless incision on [target]'s [affected.name] with \the [tool].</span>", \
-	"<span class='info'> You have made a bloodless incision on [target]'s [affected.name] with \the [tool].</span>",)
-	//Could be cleaner ...
-	affected.open = 1
-
-	if(istype(target) && !(target.species.flags & NO_BLOOD))
-		affected.status |= ORGAN_BLEEDING
-
-	affected.createwound(CUT, 1)
-	affected.clamp()
-	spread_germs_to_organ(affected, user)
-	return 1
-
-/datum/surgery_step/generic/cut_with_laser/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='danger'> [user]'s hand slips as the blade sputters, searing a long gash in [target]'s [affected.name] with \the [tool]!</span>", \
-	"\red Your hand slips as the blade sputters, searing a long gash in [target]'s [affected.name] with \the [tool]!")
-	affected.createwound(CUT, 7.5)
-	affected.createwound(BURN, 12.5)
-	return 0
-
-/datum/surgery_step/generic/incision_manager
-	allowed_tools = list(
-	/obj/item/weapon/scalpel/manager = 100
-	)
-
-	min_duration = 80
-	max_duration = 120
-
-/datum/surgery_step/generic/incision_manager/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(..())
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		return affected.open == 0 && target_zone != "mouth"
-
-/datum/surgery_step/generic/incision_manager/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		user.visible_message("[user] starts to construct a prepared incision on and within [target]'s [affected.name] with \the [tool].", \
-		"You start to construct a prepared incision on and within [target]'s [affected.name] with \the [tool].")
-		target.custom_pain("You feel a horrible, searing pain in your [affected.name] as it is pushed apart!",1)
-		..()
-
-/datum/surgery_step/generic/incision_manager/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\blue [user] has constructed a prepared incision on and within [target]'s [affected.name] with \the [tool].", \
-	"\blue You have constructed a prepared incision on and within [target]'s [affected.name] with \the [tool].",)
-	affected.open = 1
-
-	if(istype(target) && !(target.species.flags & NO_BLOOD))
-		affected.status |= ORGAN_BLEEDING
-
-	affected.createwound(CUT, 1)
-	affected.clamp()
-	affected.open = 2
-
-	return 1
-
-/datum/surgery_step/generic/incision_manager/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\red [user]'s hand jolts as the system sparks, ripping a gruesome hole in [target]'s [affected.name] with \the [tool]!", \
-		"\red Your hand jolts as the system sparks, ripping a gruesome hole in [target]'s [affected.name] with \the [tool]!")
-	affected.createwound(CUT, 20)
-	affected.createwound(BURN, 15)
-
-	return 2
 
 /datum/surgery_step/generic/cut_open
+	name = "make incision"
+
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/laser3 = 115, \
+	/obj/item/weapon/scalpel/laser2 = 110, \
+	/obj/item/weapon/scalpel/laser1 = 105, \
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchenknife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
 	/obj/item/weapon/scissors = 10,		\
 	/obj/item/weapon/twohanded/chainsaw = 1, \
 	/obj/item/weapon/claymore = 5, \
+	/obj/item/weapon/melee/energy/ = 5, \
+	/obj/item/weapon/pen/edagger = 5,  \
 	)
 
-	min_duration = 90
-	max_duration = 110
+	max_duration = 60
 
 /datum/surgery_step/generic/cut_open/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -154,13 +71,18 @@
 	return 0
 
 /datum/surgery_step/generic/clamp_bleeders
+	name = "clamp bleeders"
+
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/laser3 = 115, \
+	/obj/item/weapon/scalpel/laser2 = 110, \
+	/obj/item/weapon/scalpel/laser1 = 105, \
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 75, 	\
 	/obj/item/device/assembly/mousetrap = 20
 	)
 
-	min_duration = 40
 	max_duration = 60
 
 
@@ -192,13 +114,15 @@
 	return 0
 
 /datum/surgery_step/generic/retract_skin
+	name = "retract skin"
+
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 75,	\
 	/obj/item/weapon/kitchen/utensil/fork = 50
 	)
 
-	min_duration = 30
 	max_duration = 40
 
 /datum/surgery_step/generic/retract_skin/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -248,15 +172,20 @@
 	return 0
 
 /datum/surgery_step/generic/cauterize
+
+	name = "cauterize incision"
+
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/laser3 = 115, \
+	/obj/item/weapon/scalpel/laser2 = 110, \
+	/obj/item/weapon/scalpel/laser1 = 105, \
 	/obj/item/weapon/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 75,	\
 	/obj/item/weapon/lighter = 50,			\
 	/obj/item/weapon/weldingtool = 25
 	)
 
-	min_duration = 70
-	max_duration = 100
+	max_duration = 90
 
 /datum/surgery_step/generic/cauterize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -287,6 +216,8 @@
 
 
 /datum/surgery_step/generic/amputate
+	name = "amputate limb"
+
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
 	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
@@ -294,8 +225,7 @@
 	/obj/item/weapon/melee/arm_blade = 60
 	)
 
-	min_duration = 110
-	max_duration = 160
+	max_duration = 110
 
 /datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (target_zone == "eyes")	//there are specific steps for eye surgery

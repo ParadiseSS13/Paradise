@@ -29,7 +29,11 @@ var/list/organ_cache = list()
 	var/freezer_update_period = 100
 	var/is_in_freezer = 0
 
-/obj/item/organ/Destroy()
+	var/sterile = 0 //can the organ be infected by germs?
+	var/tough = 0 //can organ be easily damaged?
+
+
+/*/obj/item/organ/Destroy()
 	if(!owner)
 		return ..()
 
@@ -49,7 +53,7 @@ var/list/organ_cache = list()
 	if(src in owner.contents)
 		owner.contents -= src
 
-	return ..()
+	return ..()*/
 
 
 
@@ -113,7 +117,7 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if ((status & ORGAN_ROBOT) || (owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if ((status & ORGAN_ROBOT) || (sterile) ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
 
@@ -244,6 +248,8 @@ var/list/organ_cache = list()
 
 //Note: external organs have their own version of this proc
 /obj/item/organ/proc/take_damage(amount, var/silent=0)
+	if(tough)
+		return
 	if(src.status & ORGAN_ROBOT)
 		src.damage = between(0, src.damage + (amount * 0.8), max_damage)
 	else

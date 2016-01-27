@@ -15,12 +15,14 @@
 ///can be changed if xenos get an update..
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)
 	..()
-	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
-		verbs += P //at least until xeno powers are vamped to TG
+	for(var/P in alien_powers)
+		M.verbs |= P
+    	//M.verbs |= alien_powers.Copy()
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/M, special = 0)
-	for(var/mob/living/carbon/alien/humanoid/verb/P in alien_powers)
-		verbs -= P
+	for(var/P in alien_powers)
+		M.verbs -= P
+		//M.verbs -= alien_powers.Copy()
 
 	..()
 

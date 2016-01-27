@@ -55,7 +55,6 @@
 		/obj/item/weapon/kitchen/utensil/knife = 50
 	)
 
-	min_duration = 90
 	max_duration = 110
 
 /datum/surgery_step/robotics/external/unscrew_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -89,7 +88,6 @@
 		/obj/item/weapon/kitchen/utensil/ = 50
 	)
 
-	min_duration = 30
 	max_duration = 40
 
 /datum/surgery_step/robotics/external/open_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -123,7 +121,6 @@
 		/obj/item/weapon/kitchen/utensil = 50
 	)
 
-	min_duration = 70
 	max_duration = 100
 
 /datum/surgery_step/robotics/external/close_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -157,7 +154,6 @@
 		/obj/item/weapon/gun/energy/plasmacutter = 50
 	)
 
-	min_duration = 50
 	max_duration = 60
 
 /datum/surgery_step/robotics/external/repair_brute/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -198,7 +194,6 @@
 		/obj/item/stack/cable_coil = 100
 	)
 
-	min_duration = 50
 	max_duration = 60
 
 /datum/surgery_step/robotics/external/repair_burn/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -242,10 +237,10 @@
 	var/implements_extract = list(/obj/item/device/multitool = 100)
 	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/weapon/bonegel = 30, /obj/item/weapon/screwdriver = 70)
 	var/implements_insert = list(/obj/item/weapon/screwdriver = 100)
+	var/implements_finish =list(/obj/item/weapon/retractor = 100,/obj/item/weapon/crowbar = 100,/obj/item/weapon/kitchen/utensil = 50)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
-	min_duration = 70
 	max_duration = 90
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/New()
@@ -363,6 +358,12 @@
 
 		target.custom_pain("The pain in your [affected.name] is living hell!",1)
 
+	else if(implement_type in implements_finish)
+		current_type = "finish"
+		user.visible_message("[user] begins to close and secure the hatch on [target]'s [affected.name] with \the [tool]." , \
+		"You begin to close and secure the hatch on [target]'s [affected.name] with \the [tool].")
+
+
 	..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -376,13 +377,12 @@
 					user.visible_message("\blue [user] repairs [target]'s [I.name] with [tool].", \
 					"\blue You repair [target]'s [I.name] with [tool]." )
 					I.damage = 0
-		return 1
 	else if(current_type == "insert")
 		var/obj/item/organ/internal/I = target.get_int_organ(surgery.current_organ)
 
 		var/off_tool = user.get_inactive_hand()
 		I = off_tool
-		user.drop_item()
+		//user.drop_item()
 		I.insert(target)
 		user.visible_message("\blue [user] has reattached [target]'s [I] with \the [tool]." , \
 		"\blue You have reattached [target]'s [I] with \the [tool].")
@@ -420,6 +420,13 @@
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+	else if(current_type == "finish")
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		user.visible_message("\blue [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].", \
+		"\blue You close and secure the hatch on [target]'s [affected.name] with \the [tool].")
+		affected.open = 0
+		affected.germ_level = 0
+		return 1
 	return 0
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -450,6 +457,10 @@
 	else if (current_type == "install")
 		user.visible_message("\red [user]'s hand slips!.", \
 		"\red Your hand slips!")
+	else if(current_type == "finish")
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		user.visible_message("\red [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].",
+		"\red Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].")
 	return -1
 
 
@@ -459,7 +470,6 @@
 	/obj/item/device/mmi = 100
 	)
 
-	min_duration = 60
 	max_duration = 80
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

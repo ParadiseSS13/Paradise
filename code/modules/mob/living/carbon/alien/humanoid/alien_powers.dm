@@ -6,7 +6,7 @@ These are general powers. Specific powers are stored under the appropriate alien
 Doesn't work on other aliens/AI.*/
 
 
-/mob/living/carbon/alien/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
+/mob/living/carbon/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
 		src << "<span class='noticealien'>You must be conscious to do this.</span>"
 		return 0

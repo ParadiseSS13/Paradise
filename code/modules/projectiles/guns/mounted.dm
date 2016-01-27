@@ -1,7 +1,9 @@
 /obj/item/weapon/gun/energy/gun/advtaser/mounted
 	name = "mounted taser"
 	desc = "An arm mounted dual-mode weapon that fires electrodes and disabler shots."
-	icon_state = "armcannon"
+	icon_state = "armcannon_stun"
+	item_state = "armcannonstun"
+	modifystate = "armcannon_stun"
 	force = "5"
 	self_recharge = 1
 	flags = NODROP
@@ -17,6 +19,7 @@
 	desc = "An arm mounted cannon that fires lethal lasers. Doesn't come with a charge beam."
 	icon_state = "armcannon"
 	item_state = "armcannonlase"
+	modifystate = "armcannon"
 	force = "5"
 	self_recharge = 1
 	flags = NODROP

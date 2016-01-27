@@ -57,7 +57,6 @@
 	var/implement_type = null
 
 	// duration of the step
-	var/min_duration = 0
 	var/max_duration = 0
 
 	var/name
@@ -103,13 +102,18 @@
 		surgery.step_in_progress = 0
 		return
 
-	if(do_after(user, max_duration, target = target))
-		var/advance = 0
-		var/prob_chance = 100
+	var/advance = 0
+	var/prob_chance = 100
 
-		if(implement_type)	//this means it isn't a require nd or any item step.
-			prob_chance = allowed_tools[implement_type]
-		prob_chance *= get_location_modifier(target)
+	if(implement_type)	//this means it isn't a require nd or any item step.
+		prob_chance = min(allowed_tools[implement_type], 100)
+	prob_chance *= get_location_modifier(target)
+
+	if(prob_chance > 100)//if we are using a super tool
+		max_duration = max_duration - 50 //PLACEHOLDER VALUES
+
+	if(do_after(user, max_duration, target = target))
+
 
 		if(prob(prob_chance) || isrobot(user))
 			if(end_step(user, target, target_zone, tool, surgery))

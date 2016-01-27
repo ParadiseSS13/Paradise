@@ -1,4 +1,3 @@
-
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
 client
@@ -993,8 +992,8 @@ client
 		if(locate(new_organ) in M.internal_organs)
 			usr << "Mob already has that organ."
 			return
-
-		new new_organ(M)
+		var/obj/item/organ/internal/organ = new new_organ
+		organ.insert(M)
 		message_admins("[key_name_admin(usr)] has given [key_name_admin(M)] the organ [new_organ]")
 		log_admin("[key_name(usr)] has given [key_name(M)] the organ [new_organ]")
 

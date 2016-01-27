@@ -9,8 +9,6 @@
 	var/slot
 	vital = 0
 	var/organ_action_name = null
-	var/sterile = 0 //can the organ be infected by germs?
-	var/tough = 0 //can organ be easily damaged?
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
@@ -33,7 +31,6 @@
 	owner = null
 	if(M)
 		M.internal_organs -= src
-		//M.internal_organs_by_name[src] -= src
 		if(vital && !special)
 			M.death()
 
@@ -45,6 +42,11 @@
 
 /obj/item/organ/internal/proc/on_life()
 	return
+
+/obj/item/organ/internal/Destroy()
+	if(owner)
+		remove(owner, 1)
+	return ..()
 
 /obj/item/organ/internal/proc/prepare_eat()
 	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
@@ -129,6 +131,7 @@
 	organ_tag = "lungs"
 	parent_organ = "chest"
 	slot = "lungs"
+	vital = 1
 
 //Insert something neat here.
 ///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
@@ -358,7 +361,8 @@
 
 	if(!owner)
 		return
-
+	if(lasthonk == 0)
+		lasthonk = world.time
 	if(lasthonk > world.time + 600|| lasthonk == 0)
 		lasthonk = world.time
 		owner << "<font color='red' size='7'>HONK</font>"
@@ -382,3 +386,37 @@
 				spawn(20)
 					if(thingy)
 						walk(thingy,0)
+
+
+/obj/item/organ/internal/beard
+	name = "beard organ"
+	desc = "<placeholder>"
+	icon_state = "liver"
+	origin_tech = "biotech=1"
+	w_class = 1
+	parent_organ = "head"
+	slot = "hair_organ"
+
+
+/obj/item/organ/internal/beard/on_life()
+
+	if(!owner)
+		return
+
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = owner
+		if(!(H.h_style == "Very Long Hair" || H.h_style == "Mowhawk"))
+			if(prob(10))
+				H.h_style = "Mohawk"
+			else
+				H.h_style = "Very Long Hair"
+			H.r_hair = 216
+			H.g_hair = 192
+			H.b_hair = 120
+			H.update_hair()
+		if(!(H.f_style == "Very Long Beard"))
+			H.f_style = "Very Long Beard"
+			H.r_facial = 216
+			H.g_facial = 192
+			H.b_facial = 120
+			H.update_fhair()

@@ -21,7 +21,6 @@
 	/obj/item/weapon/shard = 50, 		\
 	)
 
-	min_duration = 30
 	max_duration = 50
 
 /datum/surgery_step/slime/cut_flesh/can_use(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
@@ -50,7 +49,6 @@
 	/obj/item/weapon/shard = 50, 		\
 	)
 
-	min_duration = 30
 	max_duration = 50
 
 /datum/surgery_step/slime/cut_innards/can_use(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
@@ -77,7 +75,6 @@
 	/obj/item/weapon/hatchet = 75
 	)
 
-	min_duration = 50
 	max_duration = 70
 
 /datum/surgery_step/slime/saw_core/can_use(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)

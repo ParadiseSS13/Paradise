@@ -16,6 +16,8 @@
 
 //surgery steps
 /datum/surgery_step/glue_bone
+	name = "mend bone"
+
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
 	/obj/item/weapon/screwdriver = 75
@@ -23,7 +25,6 @@
 	can_infect = 1
 	blood_level = 1
 
-	min_duration = 50
 	max_duration = 60
 
 /datum/surgery_step/glue_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -53,12 +54,13 @@
 		return 0
 
 /datum/surgery_step/set_bone
+	name = "set bone"
+
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
 	/obj/item/weapon/wrench = 75		\
 	)
 
-	min_duration = 60
 	max_duration = 70
 
 /datum/surgery_step/set_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -82,7 +84,7 @@
 	else
 		user.visible_message("\blue [user] sets the bone in [target]'s [affected.name]\red in the WRONG place with \the [tool].", \
 			"\blue You set the bone in [target]'s [affected.name]\red in the WRONG place with \the [tool].")
-		affected.fracture()
+		affected.fracture()//can i remove this please?
 		return 0
 
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -93,12 +95,13 @@
 	return 0
 
 /datum/surgery_step/mend_skull
+	name = "mend skull"
+
 	allowed_tools = list(
 	/obj/item/weapon/bonesetter = 100,	\
 	/obj/item/weapon/wrench = 75		\
 	)
 
-	min_duration = 60
 	max_duration = 70
 
 /datum/surgery_step/mend_skull/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -128,6 +131,8 @@
 	return 0
 
 /datum/surgery_step/finish_bone
+	name = "medicate bones"
+
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
 	/obj/item/weapon/screwdriver = 75
@@ -135,7 +140,6 @@
 	can_infect = 1
 	blood_level = 1
 
-	min_duration = 50
 	max_duration = 60
 
 /datum/surgery_step/finish_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

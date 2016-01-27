@@ -17,13 +17,13 @@
 
 
 /datum/surgery_step/open_encased/saw
+	name = "saw bone"
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
 	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
 	/obj/item/weapon/hatchet = 75
 	)
 
-	min_duration = 50
 	max_duration = 70
 
 /datum/surgery_step/open_encased/saw/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -70,12 +70,13 @@
 
 
 /datum/surgery_step/open_encased/retract
+	name = "retract bone"
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 75
 	)
 
-	min_duration = 30
 	max_duration = 40
 
 /datum/surgery_step/open_encased/retract/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -130,12 +131,13 @@
 	return 0
 
 /datum/surgery_step/open_encased/close
+	name = "unretract bone" //i suck at names okay? give me a new one
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/retractor = 100, 	\
 	/obj/item/weapon/crowbar = 75
 	)
 
-	min_duration = 20
 	max_duration = 40
 
 /datum/surgery_step/open_encased/close/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -187,12 +189,12 @@
 	return 0
 
 /datum/surgery_step/open_encased/mend
+	name = "mend bone"
 	allowed_tools = list(
 	/obj/item/weapon/bonegel = 100,	\
 	/obj/item/weapon/screwdriver = 75
 	)
 
-	min_duration = 20
 	max_duration = 40
 
 /datum/surgery_step/open_encased/mend/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

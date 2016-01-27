@@ -54,13 +54,13 @@
 	affected.createwound(CUT, 20)
 
 /datum/surgery_step/cavity/make_space
+	name = "make cavity space"
 	allowed_tools = list(
 	/obj/item/weapon/surgicaldrill = 100,	\
 	/obj/item/weapon/pen = 75,	\
 	/obj/item/stack/rods = 50
 	)
 
-	min_duration = 60
 	max_duration = 80
 
 /datum/surgery_step/cavity/make_space/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -83,15 +83,18 @@
 	return 1
 
 /datum/surgery_step/cavity/close_space
-	priority = 2
+	name = "close cavity space"
 	allowed_tools = list(
+	/obj/item/weapon/scalpel/laser3 = 115, \
+	/obj/item/weapon/scalpel/laser2 = 110, \
+	/obj/item/weapon/scalpel/laser1 = 105, \
+	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 75,	\
 	/obj/item/weapon/lighter = 50,			\
 	/obj/item/weapon/weldingtool = 25
 	)
 
-	min_duration = 60
 	max_duration = 80
 
 /datum/surgery_step/cavity/close_space/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -115,10 +118,12 @@
 
 
 /datum/surgery_step/cavity/place_item
-	priority = 0
+	name = "implant object"
+	accept_hand = 1
+	accept_any_item = 1
+	var/obj/item/IC = null
 	allowed_tools = list(/obj/item = 100)
 
-	min_duration = 80
 	max_duration = 100
 
 
@@ -131,8 +136,15 @@
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
-	"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
+	for(var/obj/item/I in target.internal_organs)
+		if(!istype(I, /obj/item/organ))
+			IC = I
+			break
+	if(tool)
+		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
+		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
+	else
+		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 	target.custom_pain("The pain in your chest is living hell!",1)
 	..()
 
@@ -142,11 +154,12 @@
 	if(istype(tool, /obj/item/weapon/disk/nuclear))
 		user << "Central command would kill you if you implanted the disk into someone."
 		return 0//fail
-	else
+
+	if(tool)
 		user.visible_message("\blue [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"\blue You put \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
-		if (tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT))
-			user << "\red You tear some vessels trying to fit such big object in this cavity."
+		if (IC || (tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
+			user << "\red You tear some vessels trying to fit the object in the cavity."
 			var/datum/wound/internal_bleeding/I = new ()
 			affected.wounds += I
 			affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
@@ -155,39 +168,50 @@
 		target.internal_organs += tool
 		tool.loc = target
 		affected.cavity = 0
-
 		return 1
+	else
+		if(IC)
+			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
+			user.put_in_hands(IC)
+			target.internal_organs -= IC
+			return 1
+		else
+			user << "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>"
+			return 0
+
 
 //////////////////////////////////////////////////////////////////
 //					IMPLANT/ITEM REMOVAL SURGERY						//
 //////////////////////////////////////////////////////////////////
 
-///Fethas note:I might could condense this down but it would need to take out the part with poking around with a hemostat
 /datum/surgery/cavity_implant_rem
 	name = "implant removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
-	possible_locs = list("chest","head")
+	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
 
 /datum/surgery_step/cavity/implant_removal
+	name = "extract implant"
 	allowed_tools = list(
 	/obj/item/weapon/hemostat = 100,	\
 	/obj/item/weapon/wirecutters = 75,	\
 	/obj/item/weapon/kitchen/utensil/fork = 20
 	)
-
-	min_duration = 80
-	max_duration = 100
+	var/obj/item/weapon/implant/I = null
+	max_duration = 70
 
 /datum/surgery_step/cavity/implant_removal/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
+	I = locate(/obj/item/weapon/implant) in target
+	if(I)
+		user.visible_message("[user] begins to extract [I] from [target]'s [target_zone].", "<span class='notice'>You begin to extract [I] from [target]'s [target_zone]...</span>")
+	else
+		user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
 	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
 	target.custom_pain("The pain in your [affected.name] is living hell!",1)
 	..()
 
 /datum/surgery_step/cavity/implant_removal/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	var/obj/item/weapon/implant/I = locate(/obj/item/weapon/implant) in target
 	if (affected.implants.len)
 
 		var/obj/item/obj = affected.implants[1]
@@ -228,7 +252,7 @@
 			user.visible_message("[user] places [I] into [case]!", "<span class='notice'>You place [I] into [case].</span>")
 		else
 			qdel(I)
-		target.sec_hud_set_implants()
+		//target.sec_hud_set_implants()
 		return 1
 	else if (affected.hidden)
 		user.visible_message("\blue [user] takes something out of incision on [target]'s [affected.name] with \the [tool].", \
