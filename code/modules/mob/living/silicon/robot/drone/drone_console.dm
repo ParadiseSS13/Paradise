@@ -23,6 +23,13 @@
 		user << "\red Access denied."
 		return
 
+	interact(user)
+
+/obj/machinery/computer/drone_control/attack_ghost(mob/user as mob)
+	interact(user)
+
+/obj/machinery/computer/drone_control/interact(mob/user)
+
 	user.set_machine(src)
 	var/dat
 	dat += "<B>Maintenance Units</B><BR>"

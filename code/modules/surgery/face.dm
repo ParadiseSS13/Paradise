@@ -27,7 +27,7 @@
 	/obj/item/weapon/scalpel/laser1 = 105, \
 	/obj/item/weapon/scalpel/manager = 120, \
 	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchenknife = 75,	\
+	/obj/item/weapon/kitchen/knife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
 	)
 

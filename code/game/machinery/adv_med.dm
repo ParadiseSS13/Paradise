@@ -208,6 +208,7 @@
 	active_power_usage = 500
 	var/printing = null
 	var/printing_text = null
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -345,6 +346,15 @@
 				bloodData["bloodMax"] = H.max_blood
 			occupantData["blood"] = bloodData
 
+			var/implantData[0]
+			for(var/obj/item/weapon/implant/I in H)
+				if(I.implanted && is_type_in_list(I, known_implants))
+					var/implantSubData[0]
+					implantSubData["name"] = sanitize(I.name)
+					implantData.Add(list(implantSubData))
+			occupantData["implant"] = implantData
+			occupantData["implant_len"] = implantData.len
+
 			var/extOrganData[0]
 			for(var/obj/item/organ/external/E in H.organs)
 				var/organData[0]
@@ -358,15 +368,15 @@
 				organData["bruised"] = E.min_bruised_damage
 				organData["broken"] = E.min_broken_damage
 
-				var/implantData[0]
+				var/shrapnelData[0]
 				for(var/obj/I in E.implants)
-					var/implantSubData[0]
-					implantSubData["name"] = I.name
+					var/shrapnelSubData[0]
+					shrapnelSubData["name"] = I.name
 
-					implantData.Add(list(implantSubData))
+					shrapnelData.Add(list(shrapnelSubData))
 
-				organData["implants"] = implantData
-				organData["implants_len"] = implantData.len
+				organData["shrapnel"] = shrapnelData
+				organData["shrapnel_len"] = shrapnelData.len
 
 				var/organStatus[0]
 				if(E.status & ORGAN_DESTROYED)

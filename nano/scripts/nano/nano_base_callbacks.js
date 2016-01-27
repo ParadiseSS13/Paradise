@@ -24,11 +24,7 @@ NanoBaseCallbacks = function ()
                 uiStatusClass = 'bad';
                 $('.linkActive').addClass('inactive');
             }
-            $('.statusicon').each( function(i, obj) {
-                obj.className = obj.className.replace(/good|bad|average/g, "");
-                obj.classList.add(uiStatusClass);
-            });
-
+            $('.statusicon').removeClass("good bad average").addClass(uiStatusClass);
             $('.linkActive').stopTime('linkPending');
             $('.linkActive').removeClass('linkPending');
 

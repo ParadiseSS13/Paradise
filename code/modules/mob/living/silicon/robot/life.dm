@@ -26,11 +26,11 @@
 		return
 	else if (is_component_functioning("power cell") && cell)
 		if(module)
-			for(var/obj/item/borg/B in module.modules)
+			for(var/obj/item/borg/B in get_all_slots())
 				if(B.powerneeded)
 					if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
 						src << "Deactivating [B.name] due to lack of power!"
-						unEquip(B)
+						uneq_module(B)
 		if(cell.charge <= 0)
 			uneq_all()
 			update_headlamp(1)

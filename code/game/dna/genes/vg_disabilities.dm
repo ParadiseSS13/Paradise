@@ -4,6 +4,7 @@
 	desc = "Forces the speaking centre of the subjects brain to yell every sentence."
 	activation_message = "YOU FEEL LIKE YELLING!"
 	deactivation_message = "You feel like being quiet.."
+	mutation = LOUD
 
 	New()
 		..()
@@ -43,6 +44,7 @@
 	desc = "Causes the cerebellum to shut down in some places."
 	activation_message = "You feel very dizzy..."
 	deactivation_message = "You regain your balance."
+	mutation = DIZZY
 
 	New()
 		..()

@@ -52,7 +52,7 @@
 	allowed_tools = list(
 		/obj/item/weapon/screwdriver = 100,
 		/obj/item/weapon/coin = 50,
-		/obj/item/weapon/kitchen/utensil/knife = 50
+		/obj/item/weapon/kitchen/knife = 50
 	)
 
 	max_duration = 110

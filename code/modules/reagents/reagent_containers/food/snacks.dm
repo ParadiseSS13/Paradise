@@ -142,45 +142,41 @@
 		..() // -> item/attackby(, params)
 
 	if(istype(W,/obj/item/weapon/kitchen/utensil))
-		//This will allow forks/spoons/plastic cutlery to pick up sliceables, but requires it to be unsliceable for the knife to pick it up
-		if((istype(W, /obj/item/weapon/kitchen/utensil/knife) && !slice_path) || !istype(W, /obj/item/weapon/kitchen/utensil/knife))
 
-			var/obj/item/weapon/kitchen/utensil/U = W
+		var/obj/item/weapon/kitchen/utensil/U = W
 
-			if(!U.reagents)
-				U.create_reagents(5)
+		if(!U.reagents)
+			U.create_reagents(5)
 
-			if (U.reagents.total_volume > 0)
-				user << "\red You already have something on your [U]."
-				return
-
-			user.visible_message( \
-				"[user] scoops up some [src] with \the [U]!", \
-				"\blue You scoop up some [src] with \the [U]!" \
-			)
-
-			src.bitecount++
-			U.overlays.Cut()
-			U.loaded = "[src]"
-			var/image/I = new(U.icon, "loadedfood")
-			I.color = src.filling_color
-			U.overlays += I
-
-			reagents.trans_to(U,min(reagents.total_volume,5))
-
-			if (reagents.total_volume <= 0)
-				qdel(src)
+		if (U.reagents.total_volume > 0)
+			user << "\red You already have something on your [U]."
 			return
+
+		user.visible_message( \
+			"[user] scoops up some [src] with \the [U]!", \
+			"\blue You scoop up some [src] with \the [U]!" \
+		)
+
+		src.bitecount++
+		U.overlays.Cut()
+		U.loaded = "[src]"
+		var/image/I = new(U.icon, "loadedfood")
+		I.color = src.filling_color
+		U.overlays += I
+
+		reagents.trans_to(U,min(reagents.total_volume,5))
+
+		if (reagents.total_volume <= 0)
+			qdel(src)
+		return
 
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return 0
 
 	var/inaccurate = 0
 	if( \
-			istype(W, /obj/item/weapon/kitchenknife) || \
-			istype(W, /obj/item/weapon/butch) || \
-			istype(W, /obj/item/weapon/scalpel) || \
-			istype(W, /obj/item/weapon/kitchen/utensil/knife) \
+			istype(W, /obj/item/weapon/kitchen/knife) || \
+			istype(W, /obj/item/weapon/scalpel) \
 		)
 	else if( \
 			istype(W, /obj/item/weapon/circular_saw) || \
@@ -3328,7 +3324,7 @@
 
 // potato + knife = raw sticks
 /obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/kitchen/utensil/knife))
+	if(istype(W,/obj/item/weapon/kitchen/knife))
 		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
 		user << "You cut the potato."
 		qdel(src)

@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "The supermatter no longer will irradiate everyone, everywhere, when it explodes."

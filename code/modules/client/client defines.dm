@@ -79,3 +79,5 @@
 	var/reset_stretch = 0 //Used by things that fiddle with client's stretch-to-fit.
 
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
+
+	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS

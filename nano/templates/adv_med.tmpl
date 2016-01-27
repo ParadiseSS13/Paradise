@@ -59,7 +59,7 @@ Used In File(s): \code\game\machinery\adv_med.dm
 	{{/if}}
 
 	<br>
-	{{:helper.link('Print', 'document', {'print_p' : 1, 'name' : data.occupant.name})}}
+	{{:helper.link('Print', 'print', {'print_p' : 1, 'name' : data.occupant.name})}}
 	{{:helper.link('Eject Occupant', 'arrow-circle-o-down', {'ejectify' : 1}, data.occupied ? null : 'disabled')}}
 	<br> <br>
 
@@ -99,7 +99,6 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			</tr>
 		</tbody>
 	</table>
-
 	{{if data.occupant.blood.hasBlood}}
 		<br>
 		<b>Blood:</b>
@@ -111,13 +110,24 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			{{:helper.displayBar(data.occupant.blood.bloodLevel, 0, data.occupant.blood.bloodMax, (data.occupant.blood.percent <= 60) ? 'bad' : (data.occupant.blood.percent <= 90) ? 'average' : 'good' )}}
 			<div class="statusValue"> {{:data.occupant.blood.percent}}%, {{:data.occupant.blood.bloodLevel}}cl </div>
 		</div>
-
 	{{/if}}
 	<br>
 	{{if data.occupant.hasVirus}}
 		<span class="bad">
 			Viral pathogen detected in blood stream.
 		</span> <br>
+	{{/if}}
+	{{if data.occupant.implant_len}}
+		<br>
+		<b>Implants</b>
+		<table style="width: 30%">
+		<tbody class="striped">
+			{{for data.occupant.implant}}
+				<tr><td>{{:value.name}}</td></tr>
+			{{/for}}
+		</tbody>
+		</table>
+		<br>
 	{{/if}}
 	<b>External Organs</b>
 	<table> <thead>
@@ -164,9 +174,9 @@ Used In File(s): \code\game\machinery\adv_med.dm
 						</span>
 						{{if value.status.splinted}} splinted <br> {{/if}}
 						{{if value.status.robotic}} robotic <br> {{/if}}
-						{{if value.implants_len}}
-							{{for value.implants : impValue:impindex}}
-								{{:impValue.known ? impValue.name : "unknown object"}} <br>
+						{{if value.shrapnel_len}}
+							{{for value.shrapnel : shrapValue:shrapindex}}
+								{{:shrapValue.known ? shrapValue.name : "unknown object"}} <br>
 							{{/for}}
 						{{/if}}
 					</td>

@@ -144,8 +144,7 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762/buckshot, slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762/he, slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m762, slot_in_backpack)
 
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
@@ -163,7 +162,7 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
 	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m2411(src), slot_belt)
 
-	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw/devastator(src), slot_r_hand)
+	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 
 	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"

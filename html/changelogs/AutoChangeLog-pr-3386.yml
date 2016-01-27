@@ -1,0 +1,6 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Adds TG energy katana back and belt sprite."
+  - rscadd: "Bo staff back sprite."
+  - tweak: "Adjusts energy katana sprites to make the weapon stand out a bit more from the regular katana."

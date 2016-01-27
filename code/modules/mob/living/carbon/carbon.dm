@@ -261,10 +261,11 @@
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
 				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				M.visible_message( \
-					"\blue [M] shakes [src] trying to wake [t_him] up!", \
-					"\blue You shake [src] trying to wake [t_him] up!", \
-					)
+				if(!player_logged)
+					M.visible_message( \
+						"\blue [M] shakes [src] trying to wake [t_him] up!", \
+						"\blue You shake [src] trying to wake [t_him] up!", \
+						)
 			// BEGIN HUGCODE - N3X
 			else
 				if (istype(src,/mob/living/carbon/human) && src:w_uniform)

@@ -70,23 +70,27 @@ KICK_INACTIVE
 ## 
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
-PROBABILITY EXTENDED 1
-PROBABILITY MALFUNCTION 4
-PROBABILITY NUCLEAR 4
-PROBABILITY CHANGELING 4
+PROBABILITY EXTENDED 2
+PROBABILITY MALFUNCTION 2
+PROBABILITY NUCLEAR 3
+PROBABILITY CHANGELING 3
 PROBABILITY CULT 4
-PROBABILITY EXTEND-A-TRAITORMONGOUS 6
+PROBABILITY EXTEND-A-TRAITORMONGOUS 5
 PROBABILITY TRAITORCHAN 4
-PROBABILITY BLOB 4
-PROBABILITY REVOLUTION 2
-PROBABILITY HEIST 4
+PROBABILITY BLOB 2
+PROBABILITY REVOLUTION 0
+PROBABILITY HEIST 1
 PROBABILITY WIZARD 2
-PROBABILITY VAMPIRE 4
+PROBABILITY VAMPIRE 3
 PROBABILITY RAGINMAGES 0
 PROBABILITY BORER 0
-PROBABILITY XENOS 2
-PROBABILITY MUTINY 1
-PROBABILITY METEOR 0
+PROBABILITY XENOS 0
+PROBABILITY MUTINY 0
+PROBABILITY METEOR 1
+PROBABILITY TRAITOR 0
+PROBABILITY SHADOWLING 2
+PROBABILITY NATIONS 1
+PROBABILITY RP-REVOLUTION 0
 
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
@@ -196,10 +200,10 @@ LOAD_JOBS_FROM_TXT
 ## Remove the # to allow special 'Easter-egg' events on special holidays such as seasonal holidays and stuff like 'Talk Like a Pirate Day' :3 YAARRR
 ALLOW_HOLIDAYS
 ##Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
-TICKLAG 0.9
+TICKLAG 0.5
 
 ## Defines if Tick Compensation is used.  It results in a minor slowdown of movement of all mobs, but attempts to result in a level movement speed across all ticks.  Recommended if tickrate is lowered.
-TICKCOMP 0
+TICKCOMP 1
 
 ## Whether the server will talk to other processes through socket_talk
 SOCKET_TALK 0

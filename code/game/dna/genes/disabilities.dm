@@ -142,6 +142,7 @@
 	desc = "I wonder wath thith doeth."
 	activation_message = "Thomething doethn't feel right."
 	deactivation_message = "You now feel able to pronounce consonants."
+	mutation = LISP
 
 	New()
 		..()

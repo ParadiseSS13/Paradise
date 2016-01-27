@@ -45,6 +45,10 @@
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
+
+	if(species)
+		species.handle_dna(src)
+
 	UpdateAppearance()
 
 /mob/living/carbon/human/prepare_data_huds()
@@ -280,6 +284,10 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
+
+			if(mind.vampire)
+				stat("Total Blood", "[mind.vampire.bloodtotal]")
+				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
 			if(mind.nation)
 				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")

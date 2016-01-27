@@ -94,6 +94,8 @@ var/datum/global_hud/global_hud = new()
 	var/hotkey_ui_hidden = 0	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/obj/screen/lingchemdisplay
+	var/obj/screen/lingstingdisplay
+
 	var/obj/screen/blobpwrdisplay
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
@@ -234,6 +236,8 @@ datum/hud/New(mob/owner)
 					src.client.screen -= src.internals
 					src.client.screen  -= src.healthdoll
 					src.client.screen -= src.gun_setting_icon
+					src.client.screen -= src.hud_used.lingstingdisplay
+					src.client.screen -= src.hud_used.lingchemdisplay
 
 				//These ones are not a part of 'adding', 'other' or 'hotkeybuttons' but we want them gone.
 				src.client.screen -= src.zone_sel	//zone_sel is a mob variable for some reason.
@@ -254,6 +258,10 @@ datum/hud/New(mob/owner)
 					src.client.screen |= src.internals
 				if(src.gun_setting_icon)
 					src.client.screen |= src.gun_setting_icon
+				if(src.hud_used.lingstingdisplay)
+					src.client.screen |= src.hud_used.lingstingdisplay
+				if(src.hud_used.lingchemdisplay)
+					src.client.screen |= src.hud_used.lingchemdisplay
 
 				src.hud_used.action_intent.screen_loc = ui_acti //Restore intent selection to the original position
 				src.client.screen += src.zone_sel				//This one is a special snowflake

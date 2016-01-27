@@ -394,12 +394,19 @@
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
+			if(affecting.mind)
+				affecting.attack_log += "\[[time_stamp()]\] <font color='orange'>Has been devoured by [attacker.name] ([attacker.ckey])</font>"
+				attacker.attack_log += "\[[time_stamp()]\] <font color='red'>Devoured [affecting.name] ([affecting.ckey])</font>"
+				msg_admin_attack("[key_name(attacker)] devoured [key_name(affecting)]")
 
 			affecting.loc = user
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 
 /obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
+		return 1
+
 	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
 		return 1
 
