@@ -48,6 +48,7 @@
 #define IS_RESTRICTED 	2048
 #define NO_INTORGANS	4096
 #define NO_POISON		8192
+#define RADIMMUNE		16384
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

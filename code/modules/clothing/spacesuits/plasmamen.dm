@@ -1,5 +1,5 @@
 // PLASMEN SHIT
-// CAN'T WEAR UNLESS YOU'RE A PINK SKELLINGTON
+// CAN'T WEAR UNLESS YOU'RE A PINK SKELETON
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "plasmaman suit"
 	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."

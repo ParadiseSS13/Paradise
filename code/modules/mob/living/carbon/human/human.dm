@@ -95,9 +95,9 @@
 	h_style = "Bald"
 	..(new_loc, "Vox Armalis")
 
-/mob/living/carbon/human/skellington/New(var/new_loc)
+/mob/living/carbon/human/skeleton/New(var/new_loc)
 	h_style = "Bald"
-	..(new_loc, "Skellington")
+	..(new_loc, "Skeleton")
 
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
