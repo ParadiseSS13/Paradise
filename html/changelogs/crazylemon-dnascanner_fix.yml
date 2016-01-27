@@ -1,0 +1,4 @@
+author: Crazylemon
+delete-after: True
+changes: 
+  - bugfix: "The DNA scanner has now undergone a seminar to recognize fake identities; It will now scan the actual person's identity, rather than their disguise (read: wearing a mask with or without someone else's ID)."
