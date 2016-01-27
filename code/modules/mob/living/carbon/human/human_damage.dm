@@ -142,7 +142,7 @@
 /mob/living/carbon/human/adjustCloneLoss(var/amount)
 	..()
 
-	if(species.flags & (NO_DNA_RAD))
+	if(species.flags & (NO_DNA))
 		cloneloss = 0
 		return
 

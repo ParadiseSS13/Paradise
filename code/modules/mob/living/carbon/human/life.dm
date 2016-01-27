@@ -845,7 +845,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		//the analgesic effect wears off slowly
 		analgesic = max(0, analgesic - 1)
 
-		if(hallucination && !(species.flags & NO_DNA_RAD))
+		if(hallucination)
 			spawn()
 				handle_hallucinations()
 
