@@ -102,10 +102,10 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 					<div class="statusValue">
 						{{:data.occupant.bloodPercent}}%, {{:data.occupant.bloodLevel}}cl
 					</div>
+					{{/if}}
 					<div class="line">
 						<div class="statusLabel">Blood Type:</div> <div class="statusValue">{{:data.occupant.bloodType}}</div>
 					</div>
-					{{/if}}
 				</div>
 				<div class="line">
 					<div class="statusLabel">Pulse:</div> <div class="statusValue">{{:data.occupant.pulse}} bpm</div>
@@ -130,7 +130,7 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				{{:helper.link('Off', 'close', {'verboseOff' : 1}, data.verbose ? null : 'selected')}}		
 			</div>
 		</div>
-		
+		<br>
 		<div class="item">
 			<div class="statusLabel">
 				Health Announcer:
@@ -142,15 +142,39 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 		</div>
 		
 		<div class="item">
-			<div class="statusLabel">
-				Critical Alert:
-			</div>
-			<div class="itemContentNarrow" style="float: left">
-				{{:helper.link('On', 'power-off', {'critOn' : 1}, data.crit ? 'selected' : null)}}
-				{{:helper.link('Off', 'close', {'critOff' : 1}, data.crit ? null : 'selected')}}		
+			<div class="line">
+				<div class="statusLabel">Health Announcer Threshold:</div>
+					{{:helper.link('-', null, {'health_adj' : -100}, (data.healthAlarm >= 0) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'health_adj' : -10}, (data.healthAlarm >= -90) ? null : 'disabled')}}
+					{{:helper.link('-', null, {'health_adj' : -1}, (data.healthAlarm > -100) ? null : 'disabled')}}
+					
+					{{if data.healthAlarm >= 100}}
+						{{:helper.displayBar(data.healthAlarm, 0, 100, 'good')}}
+					{{else data.healthAlarm > 0}}
+						{{:helper.displayBar(data.healthAlarm, 0, 100, 'average')}}
+					{{else data.healthAlarm >= -100}}
+						{{:helper.displayBar(data.healthAlarm, 0, -100, 'average alignRight')}}
+					{{else}}
+						{{:helper.displayBar(data.healthAlarm, 0, -100, 'bad alignRight')}}
+					{{/if}}
+										
+					{{:helper.link('+', null, {'health_adj' : 1}, (data.healthAlarm < 100) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'health_adj' : 10}, (data.healthAlarm <= 90) ? null : 'disabled')}}
+					{{:helper.link('+', null, {'health_adj' : 100}, (data.healthAlarm <= 0) ? null : 'disabled')}}
+				<div style="float: left; width: 80px; text-align: center;">&nbsp;{{: data.healthAlarm }} &nbsp;</div>
 			</div>
 		</div>
-		
+		<br>
+		<div class="item">
+			<div class="statusLabel">
+				Oxygen Alarm:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'oxyOn' : 1}, data.oxy ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'oxyOff' : 1}, data.oxy ? null : 'selected')}}		
+			</div>
+		</div>
+
 		<div class="item">
 			<div class="line">
 				<div class="statusLabel">Oxygen Alert Threshold:</div>
@@ -164,7 +188,17 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				<div style="float: left; width: 80px; text-align: center;">&nbsp;{{: data.oxyAlarm }} &nbsp;</div>
 			</div>
 		</div>
-		
+		<br>
+		<div class="item">
+			<div class="statusLabel">
+				Critical Alert:
+			</div>
+			<div class="itemContentNarrow" style="float: left">
+				{{:helper.link('On', 'power-off', {'critOn' : 1}, data.crit ? 'selected' : null)}}
+				{{:helper.link('Off', 'close', {'critOff' : 1}, data.crit ? null : 'selected')}}		
+			</div>
+		</div>
+		<br>
 		<div class="item">
 			<div class="itemLabelWide">
 				{{:helper.link('Return', 'arrow-left', {'choiceOff' : 1})}}
