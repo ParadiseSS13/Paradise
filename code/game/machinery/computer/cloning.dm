@@ -135,6 +135,7 @@
 
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
+	data["can_brainscan"] = (scanner && scanner.scan_level > 3) // You'll need tier 4s for this
 
 	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
@@ -184,13 +185,24 @@
 	if(loading)
 		return
 
-	if ((href_list["scan"]) && (!isnull(src.scanner)))
+	if (href_list["scan"] && scanner && scanner.occupant)
 		scantemp = "Scanner ready."
 
 		loading = 1
 
 		spawn(20)
-			src.scan_mob(src.scanner.occupant)
+			scan_mob(scanner.occupant)
+
+			loading = 0
+			nanomanager.update_uis(src)
+
+	if (href_list["scan_brain"] && scanner && scanner.occupant)
+		scantemp = "Scanner ready."
+
+		loading = 1
+
+		spawn(20)
+			scan_mob(scanner.occupant, scan_brain = 1)
 
 			loading = 0
 			nanomanager.update_uis(src)
@@ -340,7 +352,7 @@
 	nanomanager.update_uis(src)
 	return
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
 	if (stat & NOPOWER)
 		return
 	if (scanner.stat & (NOPOWER|BROKEN))
@@ -365,6 +377,10 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		nanomanager.update_uis(src)
 		return
+	if (scan_brain && !("brain" in subject.internal_organs_by_name))
+		scantemp = "<span class=\"bad\">Error: No brain found.</span>"
+		nanomanager.update_uis(src)
+		return
 	if (!isnull(find_record(subject.ckey)))
 		scantemp = "Subject already in database."
 		nanomanager.update_uis(src)
@@ -373,13 +389,19 @@
 	subject.dna.check_integrity()
 
 	var/datum/dna2/record/R = new /datum/dna2/record()
-	R.dna=subject.dna
 	R.ckey = subject.ckey
-	R.id= copytext(md5(subject.real_name), 2, 6)
-	R.name=R.dna.real_name
+	if(scan_brain)
+		var/obj/item/organ/B = subject.internal_organs_by_name["brain"]
+		R.dna=B.dna.Clone()
+		R.id= copytext(md5(B.dna.real_name), 2, 6)
+		R.name=B.dna.real_name
+	else
+		R.dna=subject.dna.Clone()
+		R.id= copytext(md5(subject.real_name), 2, 6)
+		R.name=R.dna.real_name
+
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages
-
 	//Add an implant if needed
 	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)
 	if (isnull(imp))
