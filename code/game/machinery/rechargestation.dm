@@ -115,7 +115,7 @@
 					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
+			if(!isnull(H.internal_organs_by_name["cell"]) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, 0, 1)
@@ -145,7 +145,7 @@
 				// ^ makes sinle list of active (R.contents) and inactive modules (R.module.modules)
 				for(var/obj/O in um)
 					// Engineering
-					if(istype(O,/obj/item/stack/sheet/metal) || istype(O,/obj/item/stack/sheet/rglass) || istype(O,/obj/item/stack/cable_coil))
+					if(istype(O,/obj/item/stack/sheet))
 						var/obj/item/stack/sheet/S = O
 						if(S.amount < 50)
 							S.amount += 1 * coeff
@@ -242,7 +242,7 @@
 		if(occupant)
 			H << "<span class='warning'>The cell is already occupied!</span>"
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
+		if(isnull(H.internal_organs_by_name["cell"]))
 			return
 		can_accept_user = 1
 
