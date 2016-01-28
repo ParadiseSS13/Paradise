@@ -4,7 +4,7 @@
 /datum/event/mass_hallucination/start()
 	for(var/mob/living/carbon/human/H in living_mob_list)
 		var/armor = H.getarmor(type = "rad")
-		if((H.species.flags & NO_DNA_RAD) || armor >= 75) // Leave DNA-less species/rad armored players completely unaffected
+		if((H.species.flags & RADIMMUNE) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
 			continue
 		H.hallucination += rand(50, 100)
 
