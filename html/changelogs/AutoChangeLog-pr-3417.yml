@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in a Skeleton race"
+  - tweak: "Tweaks the skeletons colors to be more realistic and to blend in less with the floor"
