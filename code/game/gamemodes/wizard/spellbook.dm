@@ -201,6 +201,12 @@
 	log_name = "IS"
 	category = "Utility Spells"
 
+/datum/spellbook_entry/lichdom
+	name = "Bind Soul"
+	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
+	log_name = "LD"
+	category = "Utility Spells"
+
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
