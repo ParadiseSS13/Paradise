@@ -145,6 +145,8 @@
 /datum/seed/proc/do_sting(var/mob/living/carbon/human/target, var/obj/item/fruit, var/target_limb)
 	if(!get_trait(TRAIT_STINGS))
 		return
+	if(!istype(target))
+		return
 	if(!target_limb)		//if we weren't given a target_limb, pick a random one to try stinging
 		target_limb = pick("l_foot","r_foot","l_leg","r_leg","l_hand","r_hand","l_arm", "r_arm","head","chest","groin")
 	if(chems && chems.len)
