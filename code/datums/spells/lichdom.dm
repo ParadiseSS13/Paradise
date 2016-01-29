@@ -98,12 +98,13 @@
 			for(var/obj/item in hand_items)
 				if(ABSTRACT in item.flags || NODROP in item.flags)
 					continue
-				marked_item = 		item
+				marked_item = item
 				M << "<span class='warning'>You begin to focus your very being into the [item.name]...</span>"
 				break
 
 			if(!marked_item)
 				M << "<span class='caution'>You must hold an item you wish to make your phylactery...</span>"
+				return
 
 			spawn(50)
 				if(marked_item.loc != M) //I changed my mind I don't want to put my soul in a cheeseburger!
