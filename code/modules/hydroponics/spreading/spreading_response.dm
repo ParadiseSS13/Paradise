@@ -20,6 +20,8 @@
 /obj/effect/plant/Crossed(var/mob/living/victim)
 	if(!is_mature())
 		return
+	if(!istype(victim))
+		return
 	var/target_limb = pick("r_foot","l_foot","r_leg","l_leg")
 	if(ishuman(victim))
 		var/mob/living/carbon/human/H = victim
