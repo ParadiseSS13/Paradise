@@ -4,7 +4,6 @@ datum/game_mode/nations
 	required_players_secret = 25
 	var/kickoff = 0
 	var/victory = 0
-	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
 	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist", "Librarian", "Chaplain", "Barber")
 
 
@@ -80,7 +79,7 @@ datum/game_mode/nations
 				H << "You are now part of the great sovereign nation of [H.mind.nation.default_name]!"
 				continue
 
-			if(H.mind.assigned_role in cargonians)
+			if(H.mind.assigned_role in supply_positions)
 				H.mind.nation = all_nations["Cargonia"]
 				update_nations_icons_added(H,"hudcargonia")
 				H.mind.nation.membership += H.mind.current
@@ -181,9 +180,8 @@ datum/game_mode/nations
 	if (!mode) return 1
 
 	if(!mode.kickoff) return 1
-
-	var/list/cargonians = list("Quartermaster","Cargo Technician","Shaft Miner")
-	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist")
+	
+	var/list/servicion = list("Clown", "Mime", "Bartender", "Chef", "Botanist", "Librarian", "Chaplain", "Barber")
 	if(H.mind)
 		if(H.mind.assigned_role in engineering_positions)
 			H.mind.nation = all_nations["Atmosia"]
@@ -213,7 +211,7 @@ datum/game_mode/nations
 			H << "You are now part of the great sovereign nation of [H.mind.nation.current_name]!"
 			return 1
 
-		if(H.mind.assigned_role in cargonians)
+		if(H.mind.assigned_role in supply_positions)
 			H.mind.nation = all_nations["Cargonia"]
 			mode.update_nations_icons_added(H,"hudcargonia")
 			H.mind.nation.membership += H.mind.current

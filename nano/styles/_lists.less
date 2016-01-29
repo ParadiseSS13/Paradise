@@ -27,46 +27,46 @@ table.pmon td, table.pmon th {
 }
 
 /* Table styling for the crew manifest */
-th.command {
-    background: #3333FF;
+.manifest-header(@color: #666) {
+	background: @color;
     font-weight: bold;
     color: #ffffff;
+}
+
+th.command {
+	.manifest-header(#3333FF);
 }
 
 th.sec {
-    background: #8e0000;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header(#8e0000);
 }
 
 th.med {
-    background: #006600;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header(#006600);
 }
 
 th.eng {
-    background: #b27300;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header(#b27300);
 }
 
 th.sci {
-    background: #a65ba6;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header(#a65ba6);
+}
+
+th.ser {
+	.manifest-header(#7100AA);
+}
+
+th.sup {
+	.manifest-header(#666621);
 }
 
 th.civ {
-    background: #a32800;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header(#a32800);
 }
 
 th.misc {
-    background: #666666;
-    font-weight: bold;
-    color: #ffffff;
+	.manifest-header;
 }
 
 /* Striped lines for tables and divs */

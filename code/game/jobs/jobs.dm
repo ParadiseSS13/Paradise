@@ -116,6 +116,14 @@ var/list/support_positions = list(
 	"Blueshield"
 )
 
+var/list/supply_positions = list(
+	"Quartermaster",
+	"Cargo Technician",
+	"Shaft Miner"
+)
+
+var/list/service_positions = support_positions - supply_positions
+
 
 var/list/security_positions = list(
 	"Head of Security",
