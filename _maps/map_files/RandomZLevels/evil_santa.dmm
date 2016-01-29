@@ -22,7 +22,7 @@
 "av" = (/mob/living/simple_animal/hostile/winter/reindeer,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aw" = (/obj/machinery/gun_turret/grenade{desc = "Winterized 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."; faction = "winter"; name = "winterized mounted grenade launcher (40mm)"},/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "ax" = (/obj/structure/stool,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"ay" = (/obj/structure/table/woodentable,/obj/structure/safe/floor,/obj/item/weapon/gun/projectile/shotgun/combat,/obj/item/weapon/gun/projectile/automatic/mini_uzi,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"ay" = (/obj/structure/table/woodentable,/obj/structure/safe/floor,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/automatic/mini_uzi,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "az" = (/obj/machinery/recharge_station,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "aA" = (/obj/machinery/mech_bay_recharge_port,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "aB" = (/turf/simulated/floor/mech_bay_recharge_floor,/area/awaymission/challenge/main)
