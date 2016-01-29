@@ -1,25 +1,32 @@
+@good-color: #4f7529;
+@average-color: #cd6500;
+@bad-color: #ee0000;
+
+@highlight-color: #8BA5C4;
+@dark-color: #272727;
+
 .white {
     color: white;
     font-weight: bold;
 }
 
 .good {
-    color: #4f7529;
+    color: @good-color;
     font-weight: bold;
 }
 
 .average {
-    color: #cd6500;
+    color: @average-color;
     font-weight: bold;
 }
 
 .bad {
-    color: #ee0000;
+    color: @bad-color;
     font-weight: bold;
 }
 
 .idle {
-    color: #272727;
+    color: @dark-color;
     font-weight: bold;
 }
 
@@ -32,11 +39,11 @@
 }
 
 .highlight {
-    color: #8BA5C4;
+    color: @highlight-color;
 }
 
 .dark {
-    color: #272727;
+    color: @dark-color;
 }
 
 /* Damage colors for crew monitoring computer */

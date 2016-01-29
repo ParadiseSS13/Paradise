@@ -69,8 +69,10 @@ Copy-pasted from pda.tmpl
             {{if data.manifest.sup}}
                     <tr><th colspan="3" class="sup">Supply</th></tr>
                     {{for data.manifest["sup"]}}
-                        {{if value.rank == "Quartermaster"}}
+                        {{if value.rank == "Head of Personnel"}}
                             <tr><td><span class="good">{{:value.name}}</span></td><td><span class="good">{{:value.rank}}</span></td><td><span class="good">{{:value.active}}</span></td></tr>
+                        {{else value.rank == "Quartermaster"}}
+                            <tr><td><span class="qm-job">{{:value.name}}</span></td><td><span class="qm-job">{{:value.rank}}</span></td><td><span class="qm-job">{{:value.active}}</span></td></tr>
                         {{else}}
                             <tr><td><span class="average">{{:value.name}}</span></td><td><span class="average">{{:value.rank}}</span></td><td><span class="average">{{:value.active}}</span></td></tr>
                         {{/if}}

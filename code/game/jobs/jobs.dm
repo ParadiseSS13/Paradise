@@ -117,12 +117,13 @@ var/list/support_positions = list(
 )
 
 var/list/supply_positions = list(
+	"Head of Personnel",
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner"
 )
 
-var/list/service_positions = support_positions - supply_positions
+var/list/service_positions = support_positions - supply_positions + list("Head of Personnel")
 
 
 var/list/security_positions = list(
