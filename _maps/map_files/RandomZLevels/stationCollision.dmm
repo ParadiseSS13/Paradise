@@ -403,7 +403,7 @@
 "hM" = (/obj/machinery/processor,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hN" = (/obj/structure/table,/obj/item/weapon/book/manual/chef_recipes,/obj/item/weapon/kitchen/rollingpin,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hO" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
-"hP" = (/obj/effect/decal/remains/human,/obj/item/weapon/butch,/obj/item/weapon/kitchenknife,/obj/item/clothing/head/chefhat,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
+"hP" = (/obj/effect/decal/remains/human,/obj/item/weapon/kitchen/knife/butcher,/obj/item/weapon/kitchen/knife,/obj/item/clothing/head/chefhat,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hQ" = (/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hR" = (/obj/effect/decal/remains/human{desc = "This guy seemed to have died in terrible way! Half his remains are dust."; icon_state = "remains"; name = "Syndicate agent remains"},/obj/item/ammo_casing/c10mm,/obj/item/weapon/paper/sc_safehint_paper_caf,/obj/item/clothing/under/syndicate,/obj/effect/decal/cleanable/blood/splatter,/obj/item/weapon/gun/projectile/automatic/c20r/sc_c20r,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "hS" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/midblock)
