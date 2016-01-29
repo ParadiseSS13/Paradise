@@ -104,7 +104,7 @@
 	icon_state = "green slime extract"
 
 /obj/item/organ/brain/golem
-	name = "chem"
+	name = "Runic mind"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"

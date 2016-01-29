@@ -31,3 +31,7 @@
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
 	heat_level_3_breathe = 999999999
+
+	has_organ = list(
+		"brain" = /obj/item/organ/brain/golem,
+	)
