@@ -361,6 +361,14 @@
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		nanomanager.update_uis(src)
 		return
+	if("brain" in subject.internal_organs_by_name)
+		var/obj/item/organ/brain/Brn = subject.internal_organs_by_name["brain"]
+		if(istype(Brn))
+			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
+			if(S.flags & NO_SCAN)
+				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
+				nanomanager.update_uis(src)
+				return
 	if (subject.brain_op_stage == 4.0)
 		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
 		nanomanager.update_uis(src)
