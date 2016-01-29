@@ -105,7 +105,7 @@
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[sci[name]]</td><td>[isactive[name]]</td></tr>"
 			even = !even
 	if(ser.len > 0)
-		dat += "<tr><th colspan=3>Support</th></tr>"
+		dat += "<tr><th colspan=3>Service</th></tr>"
 		for(name in ser)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ser[name]]</td><td>[isactive[name]]</td></tr>"
 			even = !even
