@@ -334,10 +334,6 @@
 		"brain" = /obj/item/organ/brain/slime
 		)
 
-/datum/species/slime/modify_hair_to_body(var/icon/hair)
-
-
-
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"

@@ -609,6 +609,3 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
-
-/datum/species/proc/modify_hair_to_body(var/icon/hair)
-	return hair
