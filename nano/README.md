@@ -8,6 +8,35 @@ template engine.
 This README is not yet complete, but gives a basic rundown of how the folder structure
 works. I'll get around to finishing it one day.
 
+## Contributors
+
+This section is for listing the contributors to NanoUI.
+
+ - -tg-station/Neersighted
+  - Special thanks goes to Neersighted for creating most of the newest and best features
+    of NanoUI. Everything between using the Gulp build system to switching to LESS styles
+    has been directly adapated and/or copied from his original work for -tg-station and
+    their UI system, tgui.
+
+    Systems ported/adapted from -tg-station and Neersighted include, but are not limited
+    to:
+
+    - NanoUI's JavaScript controlling the "fancy" borderless window mode.
+    - The NanoTrasen.svg logo (Licensed under CC 3.0 BY-SA).
+    - The Gulp buildscript concept, as well as a large amount of the actual
+      Gulpfile.coffee.
+    - The packages in bower.json and packages.json files were hand-picked by Neersighted
+      for usage in compiling NanoUI.
+    - A considerable amount of this README is adapated from Neersighted's documentation.
+    - The concepts following: Using FontAwesome instead of icon16, Using LESS to expand
+      NanoUI's CSS style.
+
+NanoUI is licensed under AGPLv3. This applies to it's serverside `DM` code as well as it's
+clientside `JavaScript` and `LESS` code. The file `nano/images/nanotrasen.svg` is licensed
+under CC 3.0 BY-SA, and was created by Neersighted. All other image files in the
+`nano/images/` directory are subject to the standard image license applied to the Paradise
+repository icons.
+
 ## Folder Rundown
 
 ### /assets
