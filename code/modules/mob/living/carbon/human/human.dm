@@ -384,7 +384,7 @@
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
-	take_overall_damage(b_loss,f_loss)
+	take_overall_damage(b_loss,f_loss, used_weapon = "Explosive Blast")
 
 	..()
 
