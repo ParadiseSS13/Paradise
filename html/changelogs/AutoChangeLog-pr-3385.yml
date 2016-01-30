@@ -1,4 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes mutadone not working with some genetic mutations"

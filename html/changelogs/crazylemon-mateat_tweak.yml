@@ -1,5 +1,0 @@
-author: Crazylemon
-delete-after: True
-changes: 
-  - rscadd: "Matter eater now allows you to eat humans as if you were fat."
-  - tweak: "Eating mobs with an aggressive grab now generates attack logs."

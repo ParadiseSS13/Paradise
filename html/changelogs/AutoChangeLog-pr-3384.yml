@@ -1,6 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - rscadd: "Navy blue Centcom Officer's beret for use by the Blueshield."
-  - rscadd: "Adds the new navy blue beret to the Blueshield's locker."
-  - tweak: "Gives the Blueshield's berets (black and navy blue) the exact same strip delay and armour as the Security Officer's beret."

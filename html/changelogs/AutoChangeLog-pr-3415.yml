@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in wooden bucklers"
-  - tweak: "Re-adds roman shield to the costume vendor"
-  - tweak: "Buffs Riot shield damage from 8 to 10"
