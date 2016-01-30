@@ -462,7 +462,9 @@ var/global/list/damage_icon_parts = list()
 		if(hair_style && hair_style.species_allowed)
 			if(src.species.name in hair_style.species_allowed)
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-				if(hair_style.do_colouration)
+				if(species.name in list("Slime People")) // I am el worstos
+					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
+				else if(hair_style.do_colouration)
 					hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 
 				hair_standing.Blend(hair_s, ICON_OVERLAY)

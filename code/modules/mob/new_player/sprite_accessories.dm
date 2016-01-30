@@ -42,7 +42,7 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human")
+	var/list/species_allowed = list("Human", "Slime People")
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1

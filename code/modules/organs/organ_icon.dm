@@ -75,7 +75,9 @@ var/global/list/limb_icon_cache = list()
 		var/datum/sprite_accessory/hair_style = hair_styles_list[owner.h_style]
 		if(hair_style && (species.name in hair_style.species_allowed))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			if(hair_style.do_colouration)
+			if(species.name in list("Slime People")) // I am el worstos
+				hair_s.Blend(rgb(owner.r_skin, owner.g_skin, owner.b_skin, 160), ICON_AND)
+			else if(hair_style.do_colouration)
 				hair_s.Blend(rgb(owner.r_hair, owner.g_hair, owner.b_hair), ICON_ADD)
 			overlays |= hair_s
 
