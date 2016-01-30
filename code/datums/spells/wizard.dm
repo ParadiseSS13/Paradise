@@ -3,12 +3,12 @@
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
 	school = "evocation"
-	charge_max = 150
+	charge_max = 200
 	clothes_req = 1
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 	range = 7
-	cooldown_min = 90 //15 deciseconds reduction per rank
+	cooldown_min = 60 //35 deciseconds reduction per rank
 
 	max_targets = 0
 
@@ -28,7 +28,6 @@
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
-	amt_dam_fire = 10
 
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
@@ -225,7 +224,7 @@
 	amt_eye_blurry = 20
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = 1
+	sdisabilities = BLIND
 	duration = 300
 
 /obj/effect/proc_holder/spell/dumbfire/fireball
@@ -261,6 +260,7 @@
 	ex_severe = -1
 	ex_heavy = -1
 	ex_light = 2
+	ex_flash = 5
 
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"

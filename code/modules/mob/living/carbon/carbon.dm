@@ -26,6 +26,7 @@ mob/living
 		qdel(guts)
 	for(var/atom/movable/food in stomach_contents)
 		qdel(food)
+	remove_from_all_data_huds()
 	return ..()
 
 /mob/living/carbon/blob_act()
