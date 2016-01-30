@@ -271,7 +271,7 @@
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasma=2"
+	origin_tech = "materials=3;plasmatech=2"
 	var/created_window = /obj/structure/window/plasmabasic
 	var/full_window = /obj/structure/window/full/plasmabasic
 
@@ -360,7 +360,7 @@
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
-	origin_tech = "materials=3;plasma=2"
+	origin_tech = "materials=3;plasmatech=2"
 	var/created_window = /obj/structure/window/plasmareinforced
 	var/full_window = /obj/structure/window/full/plasmareinforced
 
