@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Syndicate borgs can now interact with station machinery"
