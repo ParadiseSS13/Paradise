@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "The emergency shuttle status in the Status tab now has ETA/ETD/etc like before."
+  - tweak: "Code Gamma+ now has a 5 minute emergency shuttle call, like Red."
