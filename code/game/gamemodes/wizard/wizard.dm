@@ -203,10 +203,6 @@
 
 
 /datum/game_mode/wizard/check_finished()
-
-	if(config.continous_rounds)
-		return ..()
-
 	var/wizards_alive = 0
 	var/traitors_alive = 0
 	for(var/datum/mind/wizard in wizards)
