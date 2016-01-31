@@ -4,7 +4,7 @@
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head")
 	requires_organic_bodypart = 0
-	disallowed_mob = (/mob/living/carbon/human/machine)
+	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
@@ -24,6 +24,13 @@
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 
 
+/datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(affected.status & ORGAN_ROBOT)
+			return 0
+	return 1
 
 // Internal surgeries.
 /datum/surgery_step/internal
@@ -204,7 +211,7 @@
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
-					if(!I.sterile)
+					if(!(I.sterile))
 						spread_germs_to_organ(I, user)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
@@ -228,6 +235,8 @@
 			tool_name = "regenerative membrane"
 		if (istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		if (istype(tool, /obj/item/stack/nanopaste))
+			tool_name = "\the [tool]" //what else do you call nanopaste medically?
 
 		if (!hasorgans(target))
 			return
@@ -285,7 +294,64 @@
 
 	return 0
 
-//todo set up fail steps
+/datum/surgery_step/internal/manipulate_organs/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(current_type == "mend")
+		if (!hasorgans(target))
+			return
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+		user.visible_message("\red [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!", \
+		"\red Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!")
+		var/dam_amt = 2
+
+		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
+			target.adjustToxLoss(5)
+
+		else if (istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
+			dam_amt = 5
+			target.adjustToxLoss(10)
+			affected.createwound(CUT, 5)
+
+		for(var/obj/item/organ/internal/I in affected.internal_organs)
+			if(I && I.damage > 0 && !(I.tough))
+				I.take_damage(dam_amt,0)
+
+		return 0
+	else if(current_type == "insert")
+
+		user.visible_message("\red [user]'s hand slips, damaging \the [tool]!", \
+		"\red Your hand slips, damaging \the [tool]!")
+		var/obj/item/organ/internal/I = tool
+		if(istype(I) &&!(I.tough))
+			I.take_damage(rand(3,5),0)
+		return 0
+
+
+	else if(current_type == "extract")
+		if(I && I.owner == target)
+			var/obj/item/organ/external/affected = target.get_organ(target_zone)
+			user.visible_message("\red [user]'s hand slips, damaging [target]'s [affected.name] with \the [tool]!", \
+			"\red Your hand slips, damaging [target]'s [affected.name] with \the [tool]!")
+			affected.createwound(BRUISE, 20)
+		else
+			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
+				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+		return 0
+	else if(current_type == "finish")
+		if(affected.encased)
+			var/msg = "\red [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!"
+			var/self_msg = "\red Your hand slips, bending [target]'s [affected.encased] the wrong way!"
+			user.visible_message(msg, self_msg)
+			affected.fracture()
+		else
+			var/msg = "\red [user]'s hand slips, tearing the skin!"
+			var/self_msg = "\red Your hand slips, tearing skin!"
+			user.visible_message(msg, self_msg)
+		affected.createwound(BRUISE, 20)
+		return 0
+
+
+	return 0
 
 //////////////////////////////////////////////////////////////////
 //						HEART SURGERY							//

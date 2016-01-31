@@ -143,7 +143,7 @@
 	if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
-	else
+	else if(IC)
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 	target.custom_pain("The pain in your chest is living hell!",1)
 	..()
@@ -153,6 +153,10 @@
 
 	if(istype(tool, /obj/item/weapon/disk/nuclear))
 		user << "Central command would kill you if you implanted the disk into someone."
+		return 0//fail
+
+	if(istype(tool,/obj/item/organ))
+		user << "This isn't the type of surgery for that!"
 		return 0//fail
 
 	if(tool)

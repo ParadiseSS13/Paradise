@@ -170,9 +170,13 @@
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
 			new_limb.robotize(L.model_info)
+			new_limb.replaced(target)
+			new_limb.status &= ~ORGAN_DESTROYED
+			if(new_limb.children)
+				for(var/obj/item/organ/external/C in new_limb.children)
+					C.status &= ~ORGAN_DESTROYED
 			if(L.sabotaged)
 				new_limb.sabotaged = 1
-
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()

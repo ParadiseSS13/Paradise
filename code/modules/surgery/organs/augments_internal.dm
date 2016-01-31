@@ -166,6 +166,8 @@ datumvars//note i am putting External in robolimbs.
 	origin_tech = "materials=5;programming=3;biotech=4"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
+	if(!owner)
+		return
 	if(synthesizing)
 		return
 	if(owner.stat == DEAD)

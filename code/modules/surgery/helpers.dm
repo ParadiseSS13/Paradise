@@ -6,10 +6,12 @@
 		if(istype(M, /mob/living/carbon/human))
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
+		else if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))
+			H = M
+			affecting = selected_zone
 
 		if(can_operate(H))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
-			world << "line 15"
 
 			for(var/datum/surgery/S in M.surgeries)
 				if(S.location == selected_zone)
@@ -33,9 +35,8 @@
 							break
 
 				if(override)
-					if(I == /obj/item/robot_parts)
+					if(istype(I,/obj/item/robot_parts))
 						var/datum/surgery/S = available_surgeries["robotic limb attachment"]
-						world << "[S]"
 						if(S)
 							var/datum/surgery/procedure = new S.type
 							if(procedure)

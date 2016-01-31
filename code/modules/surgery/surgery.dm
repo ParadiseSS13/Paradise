@@ -1,6 +1,6 @@
 ///Datum Surgery Helpers//
 /datum/surgery
-	var/name = "surgery"
+	var/name
 	var/status = 1
 	var/list/steps = list()
 	/*
@@ -20,7 +20,7 @@
 	var/obj/item/organ/organ_ref									//Operable body part
 	var/current_organ = "organ"
 	var/list/allowed_mob = list(/mob/living/carbon/human)
-	var/list/disallowed_mob = null
+	var/list/disallowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
 	// if 0 surgery wont show up in list
@@ -110,7 +110,7 @@
 	prob_chance *= get_location_modifier(target)
 
 	if(prob_chance > 100)//if we are using a super tool
-		max_duration = max_duration - 50 //PLACEHOLDER VALUES
+		max_duration = max_duration/prob_chance //PLACEHOLDER VALUES
 
 	if(do_after(user, max_duration, target = target))
 

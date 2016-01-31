@@ -19,6 +19,14 @@
 	allowed_mob = list(/mob/living/carbon/human/machine)
 	disallowed_mob = list(/mob/living/carbon/human)
 
+/datum/surgery/cybernetic_repair/can_start(mob/user, mob/living/carbon/target)
+
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(affected.status & ORGAN_ORGANIC)
+			return 0
+	return 1
 
 //to do, moar surgerys or condense down ala mainpulate organs.
 /datum/surgery_step/robotics
@@ -49,6 +57,7 @@
 	return 1
 
 /datum/surgery_step/robotics/external/unscrew_hatch
+	name = "unscrew hatch"
 	allowed_tools = list(
 		/obj/item/weapon/screwdriver = 100,
 		/obj/item/weapon/coin = 50,
@@ -82,6 +91,7 @@
 	return 0
 
 /datum/surgery_step/robotics/external/open_hatch
+	name = "open hatch"
 	allowed_tools = list(
 		/obj/item/weapon/retractor = 100,
 		/obj/item/weapon/crowbar = 100,
@@ -115,6 +125,7 @@
 	return 0
 
 /datum/surgery_step/robotics/external/close_hatch
+	name = "close hatch"
 	allowed_tools = list(
 		/obj/item/weapon/retractor = 100,
 		/obj/item/weapon/crowbar = 100,

@@ -512,7 +512,7 @@
 		"optics" = /obj/item/organ/internal/optical_sensor
 		)
 
-	vision_organ = "optics"
+	vision_organ = /obj/item/organ/internal/optical_sensor
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
 		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),

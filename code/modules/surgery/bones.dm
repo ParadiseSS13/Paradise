@@ -7,12 +7,25 @@
 	name = "bone repair"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
 
 
 /datum/surgery/bone_repair/skull
 	name = "bone repair"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/mend_skull,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("head")
+	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
+
+/datum/surgery/bonerepair/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(affected.status & ORGAN_ROBOT)
+			return 0
+		if(!(affected.encased))
+			return 0
+	return 1
+
 
 //surgery steps
 /datum/surgery_step/glue_bone
@@ -82,10 +95,9 @@
 		affected.stage = 2
 		return 1
 	else
-		user.visible_message("\blue [user] sets the bone in [target]'s [affected.name]\red in the WRONG place with \the [tool].", \
-			"\blue You set the bone in [target]'s [affected.name]\red in the WRONG place with \the [tool].")
-		affected.fracture()//can i remove this please?
-		return 0
+		user.visible_message("\blue [user] sets the bone in [target]'s [affected.name] in place with \the [tool].", \
+			"\blue You set the bone in [target]'s [affected.name] in place with \the [tool].")
+		return 1
 
 /datum/surgery_step/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

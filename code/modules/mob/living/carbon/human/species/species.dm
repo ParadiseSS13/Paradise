@@ -125,7 +125,7 @@
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
-		vision_organ = "eyes"
+		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
 
