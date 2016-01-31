@@ -32,9 +32,19 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 		if("squish")
+			var/found_slime_bodypart = 0
+
 			if(species.name == "Slime People")	//Only Slime People can squish
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
-			else								//Everyone else fails, skip the emote attempt
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				found_slime_bodypart = 1
+			else
+				for(var/obj/item/organ/external/L in organs) // if your limbs are squishy you can squish too!
+					if(L.dna.species in list("Slime People"))
+						on_CD = handle_emote_CD()
+						found_slime_bodypart = 1
+						break
+
+			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
 		if("scream", "fart", "flip", "snap")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
