@@ -203,15 +203,11 @@
 //Checks if the round is over//
 ///////////////////////////////
 /datum/game_mode/revolution/check_finished()
-	if(config.continous_rounds)
+	if(config.continuous_rounds)
 		if(finished != 0)
 			if(shuttle_master && shuttle_master.emergencyNoEscape)
 				shuttle_master.emergencyNoEscape = 0
-		return ..()
-	if(finished != 0)
-		return 1
-	else
-		return 0
+	return finished != 0
 
 ///////////////////////////////////////////////////
 //Deals with converting players to the revolution//
