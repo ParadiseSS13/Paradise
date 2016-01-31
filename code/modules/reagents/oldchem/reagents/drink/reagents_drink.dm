@@ -150,7 +150,7 @@
 		holder.remove_reagent("capsaicin", 2)
 
 	// Sometimes Crazylemon feels very silly
-	if(istype(M, /mob/living/carbon/human))
+	if(istype(M, /mob/living/carbon/human) && id == "milk") // This is only for the purest of milk
 		var/mob/living/carbon/human/H = M
 		if(H.species.name in list("Skeleton"))
 			H.heal_overall_damage(4,4)
