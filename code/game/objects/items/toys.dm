@@ -1754,3 +1754,32 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "Warden action figure"
 	icon_state = "warden"
 	toysay = "Execute him for breaking in!"
+
+//////////////////////////////////////////////////////
+//				Magic 8-Ball / Conch				//
+//////////////////////////////////////////////////////
+
+/obj/item/toy/eight_ball
+	name = "Magic 8-Ball"
+	desc = "Mystical! Magical! Ages 8+!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "eight-ball"
+	var/use_action = "shakes the ball"
+	var/cooldown = 0
+	var/list/possible_answers = list("Definitely", "All signs point to yes.", "Most likely.", "Yes.", "Ask again later.", "Better not tell you now.", "Future Unclear.", "Maybe.", "Doubtful.", "No.", "Don't count on it.", "Never.")
+
+/obj/item/toy/eight_ball/attack_self(mob/user as mob)
+	if(!cooldown)
+		var/answer = pick(possible_answers)
+		user.visible_message("<span class='notice'>[user] focuses on their question and [use_action]...</span>")
+		user.visible_message("<span class='notice'>\icon[src] The [src] says \"[answer]\"</span>")
+		spawn(30)
+			cooldown = 0
+		return
+
+/obj/item/toy/eight_ball/conch
+	name = "Magic Conch Shell"
+	desc = "All hail the Magic Conch!"
+	icon_state = "conch"
+	use_action = "pulls the string"
+	possible_answers = list("Yes.", "No.", "Try asking again.", "Nothing.", "I don't think so.", "Neither.", "Maybe someday.")
