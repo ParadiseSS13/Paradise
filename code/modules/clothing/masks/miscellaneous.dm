@@ -36,10 +36,14 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
 	action_button_name = "Adjust Sterile Mask"
 	ignore_maskadjust = 0
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
+
 
 /obj/item/clothing/mask/surgical/attack_self(var/mob/user)
 	adjustmask(user)
@@ -49,9 +53,12 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
 /obj/item/clothing/mask/fakemoustache/verb/pontificate()
@@ -175,9 +182,12 @@
 	ignore_maskadjust = 0
 	adjusted_flags = SLOT_HEAD
 	icon_state = "bandbotany"
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 	action_button_name = "Adjust Bandana"
 
@@ -187,37 +197,30 @@
 obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
-	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
-	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
-	species_fit = list("Vox")
 
 obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "bandbotany"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
 	desc = "It's a black bandana with a skull pattern."
 	icon_state = "bandskull"
-	species_fit = list("Vox")
 
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	desc = "It's a black bandana."
 	icon_state = "bandblack"
-	species_fit = list("Vox")
