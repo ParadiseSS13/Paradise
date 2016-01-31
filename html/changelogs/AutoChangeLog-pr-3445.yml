@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Updates Summon Guns and Magic to include many of the new guns"
+  - tweak: "Summon Guns/Magic can no longer be used during Ragin' Mages"
