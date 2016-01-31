@@ -36,7 +36,8 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.species && (H.species.name == "Skrell" || H.species.name =="Neara"))	 //Skrell and Neara get very drunk very quickly.
+		var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
+		if(!L || (istype(L) && L.dna.species in list("Skrell", "Neara")))
 			d*=5
 
 	M.dizziness += dizzy_adj.
