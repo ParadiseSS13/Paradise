@@ -1,0 +1,5 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - rscadd: "Adds in the Magic Eight Ball toy, found in Claw Game prize orbs."
+  - rscadd: "Adds in the Magic Conch Shell, an admin-only shell of power."
