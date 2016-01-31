@@ -83,12 +83,8 @@ I'm using this for Stat to give it a more nifty interface to work with
 	..()
 	if(has_synthetic_assistance())
 		statpanel("Status")
-		stat(null, "Station Time: [worldtime2text()]")
-
-		if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-			var/timeleft = shuttle_master.emergency.timeLeft()
-			if(timeleft > 0)
-				stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
+		show_stat_station_time()
+		show_stat_emergency_shuttle_eta()
 
 		if(client.statpanel == "Status")
 			//Knowing how well-off your mech is doing is really important as an MMI

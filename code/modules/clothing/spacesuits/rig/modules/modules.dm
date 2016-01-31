@@ -225,13 +225,6 @@
 /obj/item/rig_module/proc/accepts_item(var/obj/item/input_device)
 	return 0
 
-/mob/living/carbon/human/Stat()
-	. = ..()
-
-	if(. && istype(back,/obj/item/weapon/rig))
-		var/obj/item/weapon/rig/R = back
-		SetupStat(R)
-
 /mob/proc/SetupStat(var/obj/item/weapon/rig/R)
 	if(R && (R.flags & NODROP) && R.installed_modules.len && statpanel("Hardsuit Modules"))
 		var/cell_status = R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "ERROR"

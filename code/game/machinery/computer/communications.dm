@@ -437,7 +437,7 @@
 			user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 			return
 
-	if(seclevel2num(get_security_level()) == SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		shuttle_master.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
 	else
 		shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
