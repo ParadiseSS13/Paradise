@@ -32,9 +32,14 @@ datum/reagents/proc/metabolize(var/mob/M)
 				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
 				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
 					can_process = 1
+
+			//If handle_reagents returns 0, it's doing the reagent removal on its own
+			var/species_handled = !(H.species.handle_reagents(H, R))
+			can_process = can_process && !species_handled
 			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
 			if(can_process == 0)
-				R.holder.remove_reagent(R.id, R.metabolization_rate)
+				if(!species_handled)
+					R.holder.remove_reagent(R.id, R.metabolization_rate)
 				continue
 		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 		else
