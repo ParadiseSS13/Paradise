@@ -157,6 +157,40 @@
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
+/datum/species/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	if(R.id in list("coco", "hot_coco", "chocolate_milk", "chocolate"))
+		// I have no idea if chocolate is THIS bad for dogs, but I guess this should get the point across
+		if(prob(20))
+			H.emote(pick("twitch","drool", "quiver"))
+		if(prob(10))
+			H.emote("scream")
+			H.drop_l_hand()
+			H.drop_r_hand()
+		if(prob(5))
+			H.confused = max(H.confused, 3)
+		if(prob(15))
+			H.fakevomit()
+		if(prob(2))
+			H.visible_message("<span class='danger'>[H] starts having a seizure!</span>", "<span class='danger'>You have a seizure!</span>")
+			H.Paralyse(5)
+			H.jitteriness = 1000
+		if(R.current_cycle >= 5)
+			H.jitteriness += 10
+		if(R.current_cycle >= 20)
+			if(prob(5))
+				H.emote("collapse")
+		switch(R.current_cycle)
+			if(0 to 60)
+				H.adjustBrainLoss(1)
+				H.adjustToxLoss(1)
+			if(61 to INFINITY)
+				H.adjustBrainLoss(2)
+				H.adjustToxLoss(2)
+				H.Paralyse(5)
+				H.losebreath += 5
+		return 1
+	return ..()
+
 /datum/species/skrell
 	name = "Skrell"
 	name_plural = "Skrell"

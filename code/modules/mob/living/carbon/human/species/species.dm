@@ -614,3 +614,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
+
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	return 1
