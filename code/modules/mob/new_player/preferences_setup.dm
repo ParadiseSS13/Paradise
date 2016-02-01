@@ -257,7 +257,7 @@ datum/preferences
 				preview_icon.Blend(markings_s, ICON_OVERLAY)
 
 
-		var/icon/face_s = new/icon()
+		var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 		if(!(current_species.bodyflags & NO_EYES))
 			var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
 			eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
@@ -268,7 +268,7 @@ datum/preferences
 		if(hair_style)
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(current_species.name == "Slime People") // whee I am part of the problem
-				hair_s.Blend(rgb(r_skin, g_skin, b_skin,160), ICON_ADD)
+				hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
 			else
 				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
 			face_s.Blend(hair_s, ICON_OVERLAY)
@@ -285,7 +285,7 @@ datum/preferences
 		if(facial_hair_style && facial_hair_style.species_allowed)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(current_species.name == "Slime People") // whee I am part of the problem
-				facial_s.Blend(rgb(r_skin, g_skin, b_skin,160), ICON_ADD)
+				facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
 			else
 				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
 			face_s.Blend(facial_s, ICON_OVERLAY)
