@@ -402,12 +402,14 @@
 					var/obj/machinery/door/Door = O
 					spawn(-1)
 						if(Door)
-							Door.close()
 							if(istype(Door, /obj/machinery/door/airlock))
 								var/obj/machinery/door/airlock/A = Door
+								A.close(0,1)
 								if(A.id_tag == "s_docking_airlock")
 									A.lock()
 									door_unlock_list += A
+							else
+								Door.close()
 			else if (istype(AM,/mob))
 				var/mob/M = AM
 				if(!M.move_on_shuttle)
