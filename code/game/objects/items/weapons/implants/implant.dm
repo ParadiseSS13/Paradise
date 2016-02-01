@@ -29,6 +29,10 @@
 //return 0 if there is no room for implant
 /obj/item/weapon/implant/proc/implant(var/mob/source, var/mob/user)
 	var/obj/item/weapon/implant/imp_e = locate(src.type) in source
+	if(source.mind in ticker.mode.changelings)
+	spawn(1200)//Changeling chems destroys the implants
+		if(src)
+			qdel(src)
 	if(!allow_multiple && imp_e && imp_e != src)
 		if(imp_e.uses < initial(imp_e.uses)*2)
 			if(uses == -1)
