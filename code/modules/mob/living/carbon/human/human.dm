@@ -1475,9 +1475,9 @@
 
 	maxHealth = species.total_health
 
-	src.toxins_alert = 0
-	src.oxygen_alert = 0
-	src.fire_alert = 0
+	toxins_alert = 0
+	oxygen_alert = 0
+	fire_alert = 0
 
 	if(species.language)
 		add_language(species.language)
