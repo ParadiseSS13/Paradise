@@ -17,6 +17,9 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/golem
 		)
+	suicide_messages = list(
+		"is crumbling into dust!",
+		"is smashing their body apart!")
 
 /datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
 	if(H.mind)
