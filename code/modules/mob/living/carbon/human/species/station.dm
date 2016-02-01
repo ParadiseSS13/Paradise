@@ -139,7 +139,7 @@
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/vulpkanin/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
 	if(R.id in list("coco", "hot_coco", "chocolate_milk", "chocolate"))
 		// I have no idea if chocolate is THIS bad for dogs, but I guess this should get the point across
 		if(prob(20))

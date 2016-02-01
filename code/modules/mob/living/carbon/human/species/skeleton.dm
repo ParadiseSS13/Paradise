@@ -35,3 +35,23 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/golem,
 	)
+
+/datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	// Crazylemon is still silly
+	if(R.id == "milk")
+		H.heal_overall_damage(4,4)
+		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
+			var/list/our_organs = H.organs.Copy()
+			shuffle(our_organs)
+			for(var/obj/item/organ/external/L in our_organs)
+				if(istype(L))
+					if(L.brute_dam < L.min_broken_damage)
+						L.status &= ~ORGAN_BROKEN
+						L.status &= ~ORGAN_SPLINTED
+						L.perma_injury = 0
+					break // We're only checking one limb here, bucko
+		if(prob(3))
+			H.say(pick("Thanks Mr Skeltal", "Thank for strong bones", "Doot doot!"))
+		return 1
+
+	return ..()
