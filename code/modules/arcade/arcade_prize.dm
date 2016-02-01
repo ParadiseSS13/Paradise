@@ -17,7 +17,7 @@
 	playsound(src.loc, 'sound/items/bubblewrap.ogg', 30, 1, extrarange = -4, falloff = 10)
 	icon_state = "prizeconfetti"
 	src.color = pick(random_color_list)
-	var/prize_inside = pick(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure)	//will add ticket bundles later
+	var/prize_inside = pick(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball)	//will add ticket bundles later
 	spawn(10)
 		user.unEquip(src)
 		new prize_inside(user.loc)

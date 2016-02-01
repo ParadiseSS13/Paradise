@@ -20,9 +20,9 @@
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/targeted/lichdom/New()
-	if(!config.continous_rounds)
+	if(!config.continuous_rounds)
 		existence_stops_round_end = 1
-		config.continous_rounds = 1
+		config.continuous_rounds = 1
 	..()
 
 /obj/effect/proc_holder/spell/targeted/lichdom/Destroy()
@@ -31,7 +31,7 @@
 			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
 				return ..()
 	if(existence_stops_round_end)
-		config.continous_rounds = 0
+		config.continuous_rounds = 0
 	return ..()
 
 /obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)

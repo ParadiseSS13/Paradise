@@ -412,6 +412,12 @@
 	cost = 0
 	log_name = "SG"
 
+/datum/spellbook_entry/summon/guns/IsAvailible()
+	if(ticker.mode.name == "ragin' mages")
+		return 0
+	else
+		return 1
+
 /datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	feedback_add_details("wizard_spell_learned",log_name)
 	user.rightandwrong(0)
@@ -426,6 +432,12 @@
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	cost = 0
 	log_name = "SU"
+
+/datum/spellbook_entry/summon/magic/IsAvailible()
+	if(ticker.mode.name == "ragin' mages")
+		return 0
+	else
+		return 1
 
 /datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/weapon/spellbook/book)
 	feedback_add_details("wizard_spell_learned",log_name)

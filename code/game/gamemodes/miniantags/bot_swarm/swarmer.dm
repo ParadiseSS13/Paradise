@@ -262,6 +262,9 @@
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S << "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>"
 
+/obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S << "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>"
+
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
 

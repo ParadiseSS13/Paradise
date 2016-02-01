@@ -882,8 +882,8 @@ About the new airlock wires panel:
 		src.closeOther.close()
 	return ..()
 
-/obj/machinery/door/airlock/close(var/forced=0)
-	if(operating || welded || locked)
+/obj/machinery/door/airlock/close(var/forced=0, var/override = 0)
+	if((operating & !override) || welded || locked)
 		return
 	if(!forced)
 		//despite the name, this wire is for general door control.
@@ -918,11 +918,11 @@ About the new airlock wires panel:
 	operating = 1
 	do_animate("closing")
 	src.layer = 3.1
-	sleep(5)
+	if (!override) sleep(5)
 	src.density = 1
 	if(!safe)
 		crush()
-	sleep(5)
+	if(!override) sleep(5)
 	update_icon()
 	if(visible && !glass)
 		set_opacity(1)
