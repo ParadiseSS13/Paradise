@@ -148,7 +148,7 @@
 	if (station_captured && !to_nuke_or_not_to_nuke)
 		return 1
 	if (is_malf_ai_dead())
-		if(config.continous_rounds)
+		if(config.continuous_rounds)
 			if(shuttle_master && shuttle_master.emergencyNoEscape)
 				shuttle_master.emergencyNoEscape = 0
 			malf_mode_declared = 0

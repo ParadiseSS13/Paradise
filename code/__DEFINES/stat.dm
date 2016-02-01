@@ -27,12 +27,6 @@
 #define SHUTTLE_TRANSIT_DURATION		300	// 5 minutes = 300 seconds - how long it takes for the shuttle to get to the station
 #define SHUTTLE_TRANSIT_DURATION_RETURN 120	// 2 minutes = 120 seconds - for some reason it takes less time to come back, go figure.
 
-//Shuttle moving status
-#define SHUTTLE_IDLE		0
-#define SHUTTLE_WARMUP		1
-#define SHUTTLE_INTRANSIT	2
-#define SHUTTLE_STRANDED	3
-
 //Ferry shuttle processing status
 #define IDLE_STATE		0
 #define WAIT_LAUNCH		1

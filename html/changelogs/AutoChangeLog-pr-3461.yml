@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - bugfix: "Species that don't breathe can kill themselves now!"
+  - rscadd: "Suicide messages are now catered to your species."

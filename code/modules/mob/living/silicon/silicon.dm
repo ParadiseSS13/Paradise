@@ -142,25 +142,11 @@
 	return 0
 
 
-// this function displays the station time in the status panel
-/mob/living/silicon/proc/show_station_time()
-	stat(null, "Station Time: [worldtime2text()]")
-
-
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/living/silicon/proc/show_emergency_shuttle_eta()
-	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
-		if(timeleft > 0)
-			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
-
-
-
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	if(statpanel("Status"))
-		show_station_time()
-		show_emergency_shuttle_eta()
+		show_stat_station_time()
+		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 		show_malf_ai()
 	..()

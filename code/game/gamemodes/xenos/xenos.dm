@@ -135,15 +135,7 @@
 		return ..()
 
 /datum/game_mode/xenos/check_finished()
-	if(config.continous_rounds)
-		if(result)
-			return ..()
-	if(shuttle_master && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
-		return ..()
-	if(result || station_was_nuked)
-		return 1
-	else
-		return 0
+	return result != 0
 
 /datum/game_mode/xenos/proc/xenos_alive()
 	var/list/livingxenos = list()

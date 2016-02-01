@@ -1,4 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "Astral projecting with other runes on the same tile will now no longer prevent you from re-entering"
