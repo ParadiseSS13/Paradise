@@ -24,9 +24,12 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	action_button_name = "flip welding helmet"
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/welding/flamedecal

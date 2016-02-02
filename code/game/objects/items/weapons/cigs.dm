@@ -30,6 +30,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 30
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		)
+
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
