@@ -30,7 +30,7 @@
 /obj/item/weapon/implant/proc/implant(var/mob/source, var/mob/user)
 	var/obj/item/weapon/implant/imp_e = locate(src.type) in source
 	if(source.mind in ticker.mode.changelings)
-	spawn(1200)//Changeling chems destroys the implants
+	spawn(9000)//Changeling chems destroys the implants
 		if(src)
 			qdel(src)
 	if(!allow_multiple && imp_e && imp_e != src)
