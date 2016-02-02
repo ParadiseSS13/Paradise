@@ -109,12 +109,12 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			continue
 
 	switch(selected_type)
-		if("Question")
+		if("Mentorhelp")
 			for(var/client/X in mentorholders + modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
 				X << msg
-		if("Player Complaint")
+		if("Adminhelp")
 			for(var/client/X in modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
@@ -161,4 +161,3 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		else
 			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present
-	

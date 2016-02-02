@@ -67,17 +67,17 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[C]	
+		C = directory[C]
 	else if(istype(whom,/client))
 		C = whom
-		
+
 	if(!C)
-		if(holder)	
+		if(holder)
 			src << "<span class='danger'>Error: Private-Message: Client not found.</span>"
-		else		
+		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
-		
+
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
@@ -90,12 +90,12 @@
 	if(!msg)
 		msg = input(src,"Message:", "Private message to [key_name(C, 0, 0)]") as text|null
 
-		if(!msg)	
+		if(!msg)
 			return
 		if(!C)
-			if(holder)	
+			if(holder)
 				src << "<span class='danger'>Error: Admin-PM: Client not found.</span>"
-			else		
+			else
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
@@ -105,7 +105,7 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
-		if(!msg)	
+		if(!msg)
 			return
 
 	var/recieve_color = "purple"
@@ -162,57 +162,6 @@
 	if(C.prefs.sound & SOUND_ADMINHELP)
 		C << 'sound/effects/adminhelp.ogg'
 
-	/*
-	if(C.holder)
-		if(holder)	//both are admins
-			if(holder.rank == "Moderator") //If moderator
-				C << "<font color='maroon'>Mod PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
-				src << "<font color='blue'>Mod PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-			else
-				C << "<font color='red'>Admin PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
-				src << "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-
-		else		//recipient is an admin but sender is not
-			C << "<font color='red'>Reply PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
-			src << "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
-
-		//play the recieving admin the adminhelp sound (if they have them enabled)
-		if(C.prefs.toggles & SOUND_ADMINHELP)
-			C << 'sound/effects/adminhelp.ogg'
-
-	else
-		if(holder)	//sender is an admin but recipient is not. Do BIG RED TEXT
-			if(holder.rank == "Moderator")
-				C << "<font color='maroon'>Mod PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>"
-				C << "<font color='maroon'><i>Click on the moderators's name to reply.</i></font>"
-				src << "<font color='blue'>Mod PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-			else
-				C << "<font color='red' size='4'><b>-- Administrator private message --</b></font>"
-				C << "<font color='red'>Admin PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>"
-				C << "<font color='red'><i>Click on the administrator's name to reply.</i></font>"
-				src << "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-
-			//always play non-admin recipients the adminhelp sound
-			C << 'sound/effects/adminhelp.ogg'
-
-			//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
-			if(config.popup_admin_pm)
-				spawn()	//so we don't hold the caller proc up
-					var/sender = src
-					var/sendername = key
-					var/reply = input(C, msg,"Admin PM from-[sendername]", "") as text|null		//show message and await a reply
-					if(C && reply)
-						if(sender)
-							C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
-						else
-							adminhelp(reply)													//sender has left, adminhelp instead
-					return
-
-		else		//neither are admins
-			src << "<font color='red'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</font>"
-			return
-	*/
-
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
 	for(var/client/X in admins)
@@ -221,15 +170,15 @@
 			continue
 		if(X.key != key && X.key != C.key)
 			switch(type)
-				if("Question")
+				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>"
-				if("Player Complaint")
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
+				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> \blue [msg]</font>" 
+						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
