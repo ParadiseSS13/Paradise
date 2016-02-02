@@ -21,7 +21,7 @@
 	suicide_messages = list(
 		"is twisting their own neck!",
 		"is letting some O2 in!",
-		"realizes the existential issue of being made out of plasma!",
+		"realizes the existential problem of being made out of plasma!",
 		"shows their true colors, which happens to be the color of plasma!")
 
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
