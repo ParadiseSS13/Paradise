@@ -182,10 +182,7 @@
 	//if (client.statpanel == "Status")//ORGANS
 	//	stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
-		if(timeleft > 0)
-			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
+	show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/Stun(amount)
 	if(status_flags & CANSTUN)

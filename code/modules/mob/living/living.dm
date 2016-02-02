@@ -2,6 +2,13 @@
 /mob/living/Destroy()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
+	
+/mob/living/Stat()
+	. = ..()
+	if(. && get_rig_stats)
+		var/obj/item/weapon/rig/rig = get_rig()
+		if(rig)
+			SetupStat(rig)
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm

@@ -1,4 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - tweak: "Allows plants to be identified as enhanced*. Enhancing plants results from using reagents (like saltpetre) that affect the stats of a seed instead of using mutagens/machines. *May not meet standards for being classified as \"organic produce\". (This was already possible, just renames enhanced plants for easier differentiation)"

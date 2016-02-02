@@ -20,6 +20,11 @@
 	bodyflags = FEET_NOSLIP
 	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is staring into the closest light source!")
 
 /datum/species/shadow/handle_death(var/mob/living/carbon/human/H)
 	H.dust()

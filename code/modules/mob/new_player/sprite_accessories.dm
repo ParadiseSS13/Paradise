@@ -64,7 +64,7 @@
 		name = "Bald"
 		icon_state = "bald"
 		gender = MALE
-		species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skellington")
+		species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skeleton")
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
@@ -1069,7 +1069,7 @@
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton")
 
 	nude
 		name = "Nude"
@@ -1217,7 +1217,7 @@
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skellington")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton")
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -1503,13 +1503,13 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington")
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skeleton")
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
 	gender = NEUTER
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skeleton","Vox")
 
 
 /datum/sprite_accessory/socks/white_norm
@@ -1681,7 +1681,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skeleton","Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/simple
@@ -1773,7 +1773,7 @@
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skellington","Vox")
+	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skeleton","Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/stripe

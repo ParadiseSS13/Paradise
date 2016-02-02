@@ -55,6 +55,12 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
+	
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -100,6 +106,12 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
+	
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 /datum/species/tajaran/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -135,6 +147,12 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
+	
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 /datum/species/vulpkanin/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -206,6 +224,13 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
+	
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!",
+		"is deeply inhaling oxygen!")
 
 /datum/species/vox/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
@@ -292,6 +317,13 @@
 		"eyes" =     /obj/item/organ/internal/eyes,
 		"stack" =    /obj/item/organ/internal/stack/vox
 		)
+	
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!",
+		"is huffing oxygen!")
 
 /datum/species/kidan
 	name = "Kidan"
@@ -311,6 +343,12 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
+	
+	suicide_messages = list(
+		"is attempting to bite their antenna off!",
+		"is jamming their claws into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 /datum/species/slime
 	name = "Slime People"
@@ -333,6 +371,10 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
+		
+	suicide_messages = list(
+		"is melting into a puddle!",
+		"is turning a dull, brown color and melting into a puddle!")
 
 /datum/species/grey
 	name = "Grey"
@@ -433,6 +475,10 @@
 		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
 		)
+		
+	suicide_messages = list(
+		"is losing branches!",
+		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/simple_animal/diona/D = other
@@ -496,7 +542,7 @@
 
 	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
-	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA_RAD | NO_POISON
+	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE
 	clothing_flags = HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = 0		//IPCs can't eat, so no diet
@@ -526,6 +572,12 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
+	
+	suicide_messages = list(
+		"is powering down!",
+		"is smashing their own monitor!",
+		"is twisting their own neck!",
+		"is blocking their ventilation port!")
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.h_style = ""

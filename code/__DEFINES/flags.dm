@@ -36,7 +36,7 @@
 
 #define NO_BLOOD		1
 #define NO_BREATHE 		2
-#define NO_DNA_RAD		4
+#define NO_DNA			4
 #define RAD_ABSORB		8
 #define NO_SCAN 		16
 #define NO_PAIN 		32
@@ -48,6 +48,7 @@
 #define IS_RESTRICTED 	2048
 #define NO_INTORGANS	4096
 #define NO_POISON		8192
+#define RADIMMUNE		16384
 
 //Species clothing flags
 #define HAS_UNDERWEAR 	1

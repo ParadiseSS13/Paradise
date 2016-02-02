@@ -203,10 +203,6 @@
 
 
 /datum/game_mode/wizard/check_finished()
-
-	if(config.continous_rounds)
-		return ..()
-
 	var/wizards_alive = 0
 	var/traitors_alive = 0
 	for(var/datum/mind/wizard in wizards)
@@ -292,10 +288,12 @@
 //OTHER PROCS
 
 //To batch-remove wizard spells. Linked to mind.dm.
-/mob/proc/spellremove(var/mob/M as mob, var/removeallspells=1)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.spell_list)
-		if (spell_to_remove.name == "Artificer" && !removeallspells) continue
+/mob/proc/spellremove(mob/M)
+	if(!mind)
+		return
+	for(var/obj/effect/proc_holder/spell/spell_to_remove in src.mind.spell_list)
 		qdel(spell_to_remove)
+		mind.spell_list -= spell_to_remove
 
 /datum/mind/proc/remove_spell(var/obj/effect/proc_holder/spell/spell) //To remove a specific spell from a mind
 	if(!spell) return

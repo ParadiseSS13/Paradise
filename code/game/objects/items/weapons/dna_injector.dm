@@ -99,7 +99,7 @@
 
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & NO_DNA_RAD)
+		if(H.species.flags & NO_DNA)
 			return 0
 
 	if (!user.IsAdvancedToolUser())

@@ -210,7 +210,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 	statpanel("Status")
 	if (client.statpanel == "Status")
-		stat(null, "Station Time: [worldtime2text()]")
+		show_stat_station_time()
 		if(ticker)
 			if(ticker.mode)
 				//world << "DEBUG: ticker not null"
@@ -218,10 +218,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					//world << "DEBUG: malf mode ticker test"
 					if(ticker.mode:malf_mode_declared)
 						stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-		if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-			var/timeleft = shuttle_master.emergency.timeLeft()
-			if(timeleft > 0)
-				stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
+		show_stat_emergency_shuttle_eta()
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -237,10 +234,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		usr << "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>"
 		return
 	if(mind.current.ajourn && mind.current.stat != DEAD) 	//check if the corpse is astral-journeying (it's client ghosted using a cultist rune).
-		var/obj/effect/rune/R = locate() in mind.current.loc	//whilst corpse is alive, we can only reenter the body if it's on the rune
-		if(!(R && R.word1 == cultwords["hell"] && R.word2 == cultwords["travel"] && R.word3 == cultwords["self"]))	//astral journeying rune
+		var/turf/T = get_turf(mind.current)
+		var/found_astral_rune = 0
+		if(T)
+			for(var/obj/effect/rune/R in T.contents)	//whilst corpse is alive, we can only reenter the body if it's on the rune
+				if(R.word1 == cultwords["hell"] && R.word2 == cultwords["travel"] && R.word3 == cultwords["self"])	//astral journeying rune
+					found_astral_rune = 1
+					break
+		if(!found_astral_rune)
 			usr << "<span class='warning'>The astral cord that ties your body and your spirit has been severed. You are likely to wander the realm beyond until your body is finally dead and thus reunited with you.</span>"
 			return
+
 	mind.current.ajourn=0
 	mind.current.key = key
 

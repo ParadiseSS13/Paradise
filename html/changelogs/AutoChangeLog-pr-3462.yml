@@ -1,0 +1,9 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Vox versions of the Officer SWAT sechailer + HOS SWAT sechailer + Warden SWAT sechailer."
+  - rscadd: "Resprited versions of most Human masks to fit Unathi, Tajara and Vulpkanin."
+  - rscadd: "Warden now gets their own version of the SWAT sechailer in their locker."
+  - tweak: "HOS now gets the appropriate version of the SWAT sechailer in their locker."
+  - tweak: "Repositioned smokeables now available for Vox, Unathi, Tajara and Vulpkanin."
+  - tweak: "Properly shades Vox bandana down-state sprites."

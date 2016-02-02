@@ -88,6 +88,11 @@
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
+	var/list/suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their thumbs into their eye sockets!",
+		"is twisting their own neck!",
+		"is holding their breath!")
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
