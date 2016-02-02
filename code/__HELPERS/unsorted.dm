@@ -760,7 +760,10 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	var/image/progbar
 	for (var/i = 1 to numticks)
 		if(user.client)
-			progbar = make_progress_bar(i, numticks, target)
+			var/bar_target = target
+			if(bar_target == null)
+				bar_target = user
+			progbar = make_progress_bar(i, numticks, bar_target)
 			user.client.images |= progbar
 		sleep(delayfraction)
 		if(!user || user.stat || user.weakened || user.stunned  || !(user.loc == Uloc))

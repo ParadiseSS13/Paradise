@@ -104,9 +104,9 @@
 	icon_state = "green slime extract"
 	parent_organ = "chest"
 
-/obj/item/organ/brain/slime/take_damage(var/amount)
+/obj/item/organ/brain/slime/take_damage(var/amount, var/silent = 1)
 	//Slimes are 50% more vulnerable to brain damage
-	src.damage = between(0, src.damage + (0.5*amount), max_damage) //Since they take the damage twice, this is +50%
+	damage = between(0, src.damage + (0.5*amount), max_damage) //Since they take the damage twice, this is +50%
 	return ..()
 
 

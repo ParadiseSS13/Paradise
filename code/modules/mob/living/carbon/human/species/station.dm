@@ -415,8 +415,8 @@
 			for(var/organname in H.organs_by_name)
 				var/obj/item/organ/external/E = H.organs_by_name[organname]
 				if(E.dna.species == "Slime People")
-					E.sync_colour_to_human(E)
-			H.update_body()
+					E.sync_colour_to_human(H)
+			H.update_icon = 1
 	return ..()
 
 /mob/living/carbon/human/proc/regrow_limbs()
@@ -424,8 +424,8 @@
 	set name = "Regrow Limbs"
 	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
 
-	var/const/hungercost = 200
-	var/const/minhunger = 400
+	var/const/hungercost = 125
+	var/const/minhunger = 300
 
 	if(stat || paralysis || stunned || weakened)
 		src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
@@ -436,23 +436,23 @@
 		return
 
 	var/list/missing_limbs = list()
-	for(var/l in src.organs_by_name)
-		var/obj/item/organ/external/E = src.organs_by_name[l]
+	for(var/l in organs_by_name)
+		var/obj/item/organ/external/E = organs_by_name[l]
 		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
-			var/obj/item/organ/external/limb = src.species.has_limbs[l]
-			world << "[l] is missing!"
-			world << "Checking that [l]'s parent [initial(limb.parent_organ)] is in [src]'s organs!"
-			if(!(initial(limb.parent_organ) in src.organs_by_name))
-				world << "[initial(limb.parent_organ)] is not in [src]'s organs!"
+			var/list/limblist = species.has_limbs[l]
+			var/obj/item/organ/external/limb = limblist["path"]
+			var/parent_organ = initial(limb.parent_organ)
+			var/obj/item/organ/external/parentLimb = organs_by_name[parent_organ]
+			if(!istype(parentLimb,/obj/item/organ/external) || istype(parentLimb,/obj/item/organ/external/stump))
 				continue
-			world << "[initial(limb.parent_organ)] is in [src]'s organs!"
-			missing_limbs |= l
+			missing_limbs[initial(limb.name)] = l
 
-	if(missing_limbs.len == 0)
+	if(!missing_limbs.len)
 		src << "<span class='warning'>You're not missing any limbs!</span>"
 		return
 
-	var/chosen_limb = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	var/chosen_limb = missing_limbs[limb_select]
 
 	if(do_after(src, 200, needhand=0))
 		if(stat || paralysis || stunned || weakened)
@@ -463,23 +463,26 @@
 			src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
 			return
 
-		if(istype(src.organs[chosen_limb], /obj/item/organ/external) && !istype(src.organs[chosen_limb], /obj/item/organ/external/stump))
+		var/O = organs_by_name[chosen_limb]
+
+		if(istype(O, /obj/item/organ/external) && !istype(O, /obj/item/organ/external/stump))
 			src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
 			return
 
-		if(istype(src.organs[chosen_limb], /obj/item/organ/external/stump))
-			qdel(src.organs[chosen_limb])
+		if(istype(O, /obj/item/organ/external/stump))
+			qdel(O)
 
-		var/limb_path = src.species.has_limbs[chosen_limb]
+		var/limb_list = species.has_limbs[chosen_limb]
+		var/limb_path = limb_list["path"]
 		var/obj/item/organ/external/new_limb = new limb_path(src)
 		new_limb.owner = src // This line is probably unneeded but will shut up the compiler
-		src.update_body()
-		src.updatehealth()
-		src.UpdateDamageIcon()
+		update_body()
+		updatehealth()
+		UpdateDamageIcon()
 		nutrition -= hungercost
-		return
 	else
 		src << "<span class='warning'>You need to hold still in order to regrow a limb!</span>"
+	return
 
 /datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
 	..()

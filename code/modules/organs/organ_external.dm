@@ -210,7 +210,7 @@
 				burn = max(0, burn - can_inflict)
 		//If there are still hurties to dispense
 		if (burn || brute)
-			if ((status & ORGAN_ROBOT || fail_at_full_damage) && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 				droplimb(1) //Robot limbs just kinda fail at full damage.
 			else
 				//List organs we can pass it to
@@ -225,6 +225,8 @@
 					//And pass the pain around
 					var/obj/item/organ/external/target = pick(possible_points)
 					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
+				if(fail_at_full_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+					droplimb() // less clean than a robot arm, doesn't buffer damage either
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
