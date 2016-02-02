@@ -4,7 +4,6 @@
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head")
 	requires_organic_bodypart = 0
-	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")

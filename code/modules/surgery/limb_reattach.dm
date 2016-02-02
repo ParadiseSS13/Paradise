@@ -17,6 +17,8 @@
 			return 0
 		if(affected && (affected.status && ORGAN_DESTROYED))
 			return 0
+		if(affected.is_stump())
+			return 0
 
 		return 1
 
@@ -35,6 +37,8 @@
 			return 1
 		if(affected && (affected.status && ORGAN_DESTROYED))
 			return 1
+		if(affected.is_stump())
+			return 1
 
 		return 0
 
@@ -52,6 +56,8 @@
 		if(!affected)
 			return 1
 		if(affected && (affected.status && ORGAN_DESTROYED))
+			return 1
+		if(affected.is_stump())
 			return 1
 
 		return 0

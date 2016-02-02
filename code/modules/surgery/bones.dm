@@ -7,14 +7,12 @@
 	name = "bone repair"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
-	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
 
 
 /datum/surgery/bone_repair/skull
 	name = "bone repair"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/glue_bone, /datum/surgery_step/mend_skull,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("head")
-	disallowed_mob = list(/mob/living/carbon/human/machine,/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
 
 /datum/surgery/bonerepair/can_start(mob/user, mob/living/carbon/target)
 	if(istype(target,/mob/living/carbon/human))

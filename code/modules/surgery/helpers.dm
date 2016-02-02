@@ -3,14 +3,12 @@
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
 		var/selected_zone = user.zone_sel.selecting
+
 		if(istype(M, /mob/living/carbon/human))
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
-		else if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))
-			H = M
-			affecting = selected_zone
 
-		if(can_operate(H))	//if they're prone or a slime
+		if(can_operate(H) || isslime(M) ||isalien(M))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
 
 			for(var/datum/surgery/S in M.surgeries)
