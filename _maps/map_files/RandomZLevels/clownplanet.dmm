@@ -106,7 +106,7 @@
 "cb" = (/obj/item/stack/cable_coil,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
 "cc" = (/obj/machinery/computer/crew,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
 "cd" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/masks,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
-"ce" = (/obj/item/weapon/kitchenknife,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
+"ce" = (/obj/item/weapon/kitchen/knife,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
 "cf" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/autoinjectors,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
 "cg" = (/obj/item/roller,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)
 "ch" = (/obj/item/weapon/wirecutters,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/planet/clown)

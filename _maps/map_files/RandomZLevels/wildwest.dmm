@@ -145,7 +145,7 @@
 "cO" = (/obj/effect/decal/remains/human,/mob/living/simple_animal/hostile/syndicate/ranged/space{name = "Syndicate Commander"},/turf/simulated/floor/plating,/area/awaymission/wwrefine)
 "cP" = (/obj/item/weapon/paper{info = "We've discovered something floating in space. We can't really tell how old it is, but it is scraped and bent to hell. There object is the size of about a room with double doors that we have yet to break into.   It is a lot sturdier than we could have imagined.  We have decided to call it 'The Vault' "; name = "Planer Saul's Journal: Page 1"},/turf/simulated/floor/carpet,/area/awaymission/wwgov)
 "cQ" = (/obj/item/weapon/reagent_containers/food/snacks/monkeysdelight,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
-"cR" = (/obj/item/weapon/butch,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
+"cR" = (/obj/item/weapon/kitchen/knife/butcher,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
 "cS" = (/obj/item/weapon/reagent_containers/food/snacks/stew,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft"; icon_state = "stage_bleft"},/area/awaymission/wwgov)
 "cT" = (/obj/structure/stool/bed/chair/comfy/black{dir = 4},/turf/simulated/floor/wood,/area/awaymission/wwmines)
 "cU" = (/obj/structure/stool/bed/chair/comfy/teal{dir = 8},/turf/simulated/floor/wood,/area/awaymission/wwmines)
