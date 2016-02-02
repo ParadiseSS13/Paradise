@@ -411,12 +411,14 @@
 		H.r_skin = new_color_list[1]
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
-		if(world.time % 200 == 42) // Once every 20 seconds - update_body is expensive
+		world << "[world.time % 200]"
+		if(world.time % 200 > 180) 	// Once every 20 seconds - update_body is expensive
+									// The weird time shenanigans are because reagents update only every 2 seconds
 			for(var/organname in H.organs_by_name)
 				var/obj/item/organ/external/E = H.organs_by_name[organname]
 				if(E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
-			H.update_icon = 1
+			H.regenerate_icons() // Because update_icon didn't work
 	return ..()
 
 /mob/living/carbon/human/proc/regrow_limbs()
