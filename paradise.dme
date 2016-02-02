@@ -1575,6 +1575,7 @@
 #include "code\modules\organs\subtypes\machine.dm"
 #include "code\modules\organs\subtypes\misc.dm"
 #include "code\modules\organs\subtypes\nucleation.dm"
+#include "code\modules\organs\subtypes\slime.dm"
 #include "code\modules\organs\subtypes\standard.dm"
 #include "code\modules\organs\subtypes\unbreakable.dm"
 #include "code\modules\organs\subtypes\wryn.dm"

@@ -70,6 +70,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_pain()
 		handle_heartbeat()
 		handle_heartattack()
+		species.handle_life(src)
 
 		if(!client)
 			species.handle_npc(src)

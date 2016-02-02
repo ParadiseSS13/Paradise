@@ -34,6 +34,7 @@
 	var/list/wounds = list()
 	var/number_wounds = 0 // cache the number of wounds, which is NOT wounds.len!
 	var/perma_injury = 0
+	var/fail_at_full_damage = 0
 
 
 	var/obj/item/organ/external/parent
@@ -146,6 +147,7 @@
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
+	fail_at_full_damage = 1
 
 /****************************************************
 			   DAMAGE PROCS
@@ -208,7 +210,7 @@
 				burn = max(0, burn - can_inflict)
 		//If there are still hurties to dispense
 		if (burn || brute)
-			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+			if ((status & ORGAN_ROBOT || fail_at_full_damage) && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
 				droplimb(1) //Robot limbs just kinda fail at full damage.
 			else
 				//List organs we can pass it to

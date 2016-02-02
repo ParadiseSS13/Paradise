@@ -102,6 +102,13 @@
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
+	parent_organ = "chest"
+
+/obj/item/organ/brain/slime/take_damage(var/amount)
+	//Slimes are 50% more vulnerable to brain damage
+	src.damage = between(0, src.damage + (0.5*amount), max_damage) //Since they take the damage twice, this is +50%
+	return ..()
+
 
 /obj/item/organ/brain/golem
 	name = "chem"

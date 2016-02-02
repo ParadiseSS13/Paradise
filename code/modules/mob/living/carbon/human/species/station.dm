@@ -55,7 +55,7 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -106,7 +106,7 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -147,7 +147,7 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -224,7 +224,7 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -317,7 +317,7 @@
 		"eyes" =     /obj/item/organ/eyes,
 		"stack" =    /obj/item/organ/stack/vox
 		)
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -343,7 +343,7 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
-	
+
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
@@ -360,6 +360,17 @@
 	path = /mob/living/carbon/human/slime
 	unarmed_type = /datum/unarmed_attack/punch
 
+	burn_mod = 1.5 // Slimes don't react well to extreme temperatures
+
+	// More sensitive to the cold
+	cold_level_1 = 280
+	cold_level_2 = 240
+	cold_level_3 = 200
+
+	heat_level_1 = 340
+	heat_level_2 = 360
+	heat_level_3 = 400
+
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
@@ -371,10 +382,112 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/brain/slime
 		)
-		
+
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/slime),
+		"groin" =  list("path" = /obj/item/organ/external/groin/slime),
+		"head" =   list("path" = /obj/item/organ/external/head/slime),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/slime),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/slime),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/slime),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/slime),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/slime),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/slime),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/slime),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/slime)
+		)
+
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is turning a dull, brown color and melting into a puddle!")
+
+/datum/species/slime/handle_life(var/mob/living/carbon/human/H)
+	// Slowly shifting to the color of the reagents
+	if(H.reagents.total_volume > 0.1)
+		var/blood_amount = H.vessel.total_volume
+		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
+		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), blood_amount/(blood_amount+(H.reagents.total_volume)))
+		var/list/new_color_list = ReadRGB(new_body_color)
+		H.r_skin = new_color_list[1]
+		H.g_skin = new_color_list[2]
+		H.b_skin = new_color_list[3]
+		if(world.time % 200 == 42) // Once every 20 seconds - update_body is expensive
+			for(var/organname in H.organs_by_name)
+				var/obj/item/organ/external/E = H.organs_by_name[organname]
+				if(E.dna.species == "Slime People")
+					E.sync_colour_to_human(E)
+			H.update_body()
+	return ..()
+
+/mob/living/carbon/human/proc/regrow_limbs()
+	set category = "IC"
+	set name = "Regrow Limbs"
+	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
+
+	var/const/hungercost = 200
+	var/const/minhunger = 400
+
+	if(stat || paralysis || stunned || weakened)
+		src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
+		return
+
+	if(nutrition < minhunger)
+		src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
+		return
+
+	var/list/missing_limbs = list()
+	for(var/l in src.organs_by_name)
+		var/obj/item/organ/external/E = src.organs_by_name[l]
+		if(!istype(E) || istype(E, /obj/item/organ/external/stump))
+			var/obj/item/organ/external/limb = src.species.has_limbs[l]
+			world << "[l] is missing!"
+			world << "Checking that [l]'s parent [initial(limb.parent_organ)] is in [src]'s organs!"
+			if(!(initial(limb.parent_organ) in src.organs_by_name))
+				world << "[initial(limb.parent_organ)] is not in [src]'s organs!"
+				continue
+			world << "[initial(limb.parent_organ)] is in [src]'s organs!"
+			missing_limbs |= l
+
+	if(missing_limbs.len == 0)
+		src << "<span class='warning'>You're not missing any limbs!</span>"
+		return
+
+	var/chosen_limb = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+
+	if(do_after(src, 200, needhand=0))
+		if(stat || paralysis || stunned || weakened)
+			src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
+			return
+
+		if(nutrition < minhunger)
+			src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
+			return
+
+		if(istype(src.organs[chosen_limb], /obj/item/organ/external) && !istype(src.organs[chosen_limb], /obj/item/organ/external/stump))
+			src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
+			return
+
+		if(istype(src.organs[chosen_limb], /obj/item/organ/external/stump))
+			qdel(src.organs[chosen_limb])
+
+		var/limb_path = src.species.has_limbs[chosen_limb]
+		var/obj/item/organ/external/new_limb = new limb_path(src)
+		new_limb.owner = src // This line is probably unneeded but will shut up the compiler
+		src.update_body()
+		src.updatehealth()
+		src.UpdateDamageIcon()
+		nutrition -= hungercost
+		return
+	else
+		src << "<span class='warning'>You need to hold still in order to regrow a limb!</span>"
+
+/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
+	..()
+	H.verbs += /mob/living/carbon/human/proc/regrow_limbs
+
+/datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/regrow_limbs
 
 /datum/species/grey
 	name = "Grey"
@@ -475,7 +588,7 @@
 		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
 		)
-		
+
 	suicide_messages = list(
 		"is losing branches!",
 		"is pulling themselves apart!")
@@ -572,7 +685,7 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
-	
+
 	suicide_messages = list(
 		"is powering down!",
 		"is smashing their own monitor!",
@@ -587,3 +700,7 @@
 /datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
 	..()
 	H.verbs += /mob/living/carbon/human/proc/change_monitor
+
+/datum/species/machine/handle_pre_change(var/mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/change_monitor
