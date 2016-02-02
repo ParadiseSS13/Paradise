@@ -215,10 +215,10 @@ FIRE ALARM
 
 	data["sec_level"] = get_security_level()
 
-	var/second = round(time) % 60
-	var/minute = (round(time) - second) / 60
+	var/second = round(time % 60)
+	var/minute = round(time / 60)
 
-	data["time_left"] = "[minute ? minute + ":" : null][second]"
+	data["time_left"] = "[minute ? "[minute]:" : ""][add_zero(num2text(second), 2)]"
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
