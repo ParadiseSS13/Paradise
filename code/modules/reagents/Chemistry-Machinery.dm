@@ -578,7 +578,7 @@
 				if (count <= 0) return
 				var/amount_per_pill = reagents.total_volume/count
 				if (amount_per_pill > 50) amount_per_pill = 50
-				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)") as text|null
+				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -618,7 +618,7 @@
 				if (count > 20) count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
 				if (amount_per_patch > 40) amount_per_patch = 40
-				var/name = input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch] units)") as text|null
+				var/name = input(usr,"Name:","Name your patch!","[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
 				if(!name)
 					return
 				name = reject_bad_text(name)
