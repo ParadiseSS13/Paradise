@@ -16,6 +16,9 @@
 	var/loading = 0 // Nice loading text
 	var/autoprocess = 0
 	var/obj/machinery/clonepod/selected_pod
+	// 0: Standard body scan
+	// 1: The "Best" scan available
+	var/scan_mode = 1
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
@@ -31,7 +34,7 @@
 	if(!scanner || !pods.len || !autoprocess || stat & NOPOWER)
 		return
 
-	if(scanner.occupant && (scanner.scan_level > 2))
+	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
 
 	for (var/obj/machinery/clonepod/pod in pods)
@@ -135,7 +138,8 @@
 
 	data["loading"] = loading
 	data["autoprocess"] = autoprocess
-	data["can_brainscan"] = (scanner && scanner.scan_level > 3) // You'll need tier 4s for this
+	data["can_brainscan"] = can_brainscan() // You'll need tier 4s for this
+	data["scan_mode"] = scan_mode
 
 	if(scanner && pods.len && ((scanner.scan_level > 2) || canpodautoprocess))
 		data["autoallowed"] = 1
@@ -191,18 +195,10 @@
 		loading = 1
 
 		spawn(20)
-			scan_mob(scanner.occupant)
-
-			loading = 0
-			nanomanager.update_uis(src)
-
-	if (href_list["scan_brain"] && scanner && scanner.occupant && scanner.scan_level > 3)
-		scantemp = "Scanner ready."
-
-		loading = 1
-
-		spawn(20)
-			scan_mob(scanner.occupant, scan_brain = 1)
+			if(can_brainscan() && scan_mode)
+				scan_mob(scanner.occupant, scan_brain = 1)
+			else
+				scan_mob(scanner.occupant)
 
 			loading = 0
 			nanomanager.update_uis(src)
@@ -347,6 +343,11 @@
 		src.menu = text2num(href_list["menu"])
 		temp = ""
 		scantemp = "Scanner ready."
+	else if (href_list["toggle_mode"])
+		if(can_brainscan())
+			scan_mode = !scan_mode
+		else
+			scan_mode = 0
 
 	src.add_fingerprint(usr)
 	nanomanager.update_uis(src)
@@ -356,6 +357,8 @@
 	if (stat & NOPOWER)
 		return
 	if (scanner.stat & (NOPOWER|BROKEN))
+		return
+	if (scan_brain && !can_brainscan())
 		return
 	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (subject.species.flags & NO_SCAN))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
@@ -441,3 +444,9 @@
 			selected_record = R
 			break
 	return selected_record
+
+/obj/machinery/computer/cloning/proc/can_autoprocess()
+	return (scanner && scanner.scan_level > 2)
+
+/obj/machinery/computer/cloning/proc/can_brainscan()
+	return (scanner && scanner.scan_level > 3)
