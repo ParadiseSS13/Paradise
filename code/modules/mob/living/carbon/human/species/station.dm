@@ -402,8 +402,10 @@
 		"is turning a dull, brown color and melting into a puddle!")
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
+	var/const/color_shift_trigger = 20
+	var/const/icon_update_period = 200
 	// Slowly shifting to the color of the reagents
-	if(H.reagents.total_volume > 0.1)
+	if(H.reagents.total_volume > color_shift_trigger)
 		var/blood_amount = H.vessel.total_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), blood_amount/(blood_amount+(H.reagents.total_volume)))
@@ -411,11 +413,10 @@
 		H.r_skin = new_color_list[1]
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
-		if(world.time % 200 > 180) 	// Once every 20 seconds - update_body is expensive
-									// The weird time shenanigans are because reagents update only every 2 seconds
+		if(world.time % icon_update_period > icon_update_period - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.organs_by_name)
 				var/obj/item/organ/external/E = H.organs_by_name[organname]
-				if(E.dna.species == "Slime People")
+				if(istype(E) && E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
 			H.regenerate_icons() // Because update_icon didn't work
 	return ..()
@@ -468,21 +469,21 @@
 
 		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
 
-		if(istype(O) && !O.is_stump())
-			src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
-			return
-
 		var/stored_brute = 0
 		var/stored_burn = 0
-		if(O.is_stump())
-			src << "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>"
-			var/obj/item/organ/external/doomedStump = O
-			stored_brute = doomedStump.brute_dam
-			stored_burn = doomedStump.burn_dam
-			if(stored_burn)
-				// I'm both lazy and want to give this ability a drawback.
-				src << "<span class='warning'>Moving the burnt tissue aside causes further damage to your membrane!</span>"
-			qdel(O)
+		if(istype(O))
+			if(!O.is_stump())
+				src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
+				return
+			else
+				src << "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>"
+				var/obj/item/organ/external/doomedStump = O
+				stored_brute = doomedStump.brute_dam
+				stored_burn = doomedStump.burn_dam
+				if(stored_burn)
+					// I'm both lazy and want to give this ability a drawback.
+					src << "<span class='warning'>Moving the burnt tissue aside causes further damage to your membrane!</span>"
+				qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/limb_path = limb_list["path"]
