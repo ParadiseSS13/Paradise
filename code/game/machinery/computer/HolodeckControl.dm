@@ -37,6 +37,7 @@
 	dat += "<A href='?src=\ref[src];snowfield=1'>((Snow Field)</font>)</A><BR>"
 	dat += "<A href='?src=\ref[src];theatre=1'>((Theatre)</font>)</A><BR>"
 	dat += "<A href='?src=\ref[src];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<A href='?src=\ref[src];knightarena=1'>((Knight Arena)</font>)</A><BR>"
 //		dat += "<A href='?src=\ref[src];turnoff=1'>((Shutdown System)</font>)</A><BR>"
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
@@ -120,6 +121,11 @@
 		if(target)
 			loadProgram(target)
 
+	else if(href_list["knightarena"])
+		target = locate(/area/holodeck/source_knightarena)
+		if(target)
+			loadProgram(target)
+
 	else if(href_list["turnoff"])
 		target = locate(/area/holodeck/source_plating)
 		if(target)
@@ -142,7 +148,7 @@
 		emagged = !emagged
 		if(emagged)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
-			log_game("[key_name(usr)] overrided the holodeck's safeties")
+			log_game("[key_name(usr)] overrode the holodeck's safeties")
 		else
 			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
 			log_game("[key_name(usr)] restored the holodeck's safeties")
@@ -290,7 +296,7 @@
 	holographic_items = A.copy_contents_to(linkedholodeck , 1)
 
 	if(emagged)
-		for(var/obj/item/weapon/holo/esword/H in linkedholodeck)
+		for(var/obj/item/weapon/holo/H in linkedholodeck)
 			H.damtype = BRUTE
 
 	spawn(30)
@@ -406,6 +412,28 @@
 
 /obj/item/weapon/holo
 	damtype = STAMINA
+
+/obj/item/weapon/holo/claymore
+	name = "claymore"
+	desc = "What are you standing around staring at this for? Get to killing!"
+	icon_state = "claymore"
+	item_state = "claymore"
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	force = 40
+	throwforce = 10
+	w_class = 4
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+/obj/item/weapon/holo/claymore/blue
+	icon_state = "claymoreblue"
+	item_state = "claymoreblue"
+
+/obj/item/weapon/holo/claymore/red
+	icon_state = "claymorered"
+	item_state = "claymorered"
+
+/obj/item/weapon/holo/claymore/IsShield()
+	return 1
 
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta"

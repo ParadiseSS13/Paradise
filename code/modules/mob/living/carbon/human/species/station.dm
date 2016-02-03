@@ -182,6 +182,13 @@
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 
+	suicide_messages = list(
+		"is attempting to bite their tongue off!",
+		"is jamming their thumbs into their eye sockets!",
+		"is twisting their own neck!",
+		"makes like a fish and suffocates!",
+		"is strangling themselves with their own tendrils!")
+
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
@@ -399,7 +406,8 @@
 
 	suicide_messages = list(
 		"is melting into a puddle!",
-		"is turning a dull, brown color and melting into a puddle!")
+		"is turning a dull, brown color and melting into a puddle!",
+		"is ripping out their own core!")
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
@@ -609,7 +617,8 @@
 
 	suicide_messages = list(
 		"is losing branches!",
-		"is pulling themselves apart!")
+		"is pulling themselves apart!",
+		"pulls out a secret stash of herbicide and takes a hearty swig!")
 
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/simple_animal/diona/D = other
@@ -708,7 +717,9 @@
 		"is powering down!",
 		"is smashing their own monitor!",
 		"is twisting their own neck!",
-		"is blocking their ventilation port!")
+		"is blocking their ventilation port!",
+		"is downloading extra RAM!",
+		"is frying their own circuits!")
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.h_style = ""

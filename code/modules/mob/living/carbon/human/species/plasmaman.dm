@@ -18,6 +18,12 @@
 	heat_level_2 = 400  // Heat damage level 2 above this point.
 	heat_level_3 = 500  // Heat damage level 3 above this point.
 
+	suicide_messages = list(
+		"is twisting their own neck!",
+		"is letting some O2 in!",
+		"realizes the existential problem of being made out of plasma!",
+		"shows their true colors, which happens to be the color of plasma!")
+
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", stutter("ss"))
