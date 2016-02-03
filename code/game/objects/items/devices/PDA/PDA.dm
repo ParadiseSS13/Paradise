@@ -1214,19 +1214,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
 	if (istype(AM, /mob/living/carbon))
-		var/mob/M =	AM
-		if ((istype(M, /mob/living/carbon/human) && (istype(M:shoes, /obj/item/clothing/shoes) && M:shoes.flags&NOSLIP)) || M.m_intent == "walk")
-			return
-
-		if ((istype(M, /mob/living/carbon/human) && (M.real_name != src.owner) && (istype(src.cartridge, /obj/item/weapon/cartridge/clown))))
-			if (src.cartridge.charges < 5)
-				src.cartridge.charges++
-
-		M.stop_pulling()
-		M << "\blue You slipped on the PDA!"
-		playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-		M.Stun(8)
-		M.Weaken(5)
+		var/mob/living/carbon/M =	AM
+		M.slip("pda", 8, 5, 0, 1)
 
 /obj/item/device/pda/proc/available_pdas()
 	var/list/names = list()

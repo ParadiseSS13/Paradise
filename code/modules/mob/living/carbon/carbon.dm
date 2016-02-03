@@ -760,3 +760,23 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+
+
+/mob/living/carbon/proc/slip(var/slippery, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+	if (flying || buckled || (walkSafely && m_intent == "walk"))
+		return
+	if (!(slipAny))
+		if (istype(src, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = src
+			if ((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
+				return
+	if (tilesSlipped)
+		for(var/t = 0, t<=tilesSlipped, t++)
+			spawn (t) step(src, src.dir)
+	stop_pulling()
+	src << "<span class='notice'>You slipped on the [slippery]!</span>"
+	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	if (stun)
+		Stun(stun)
+	Weaken(weaken)
+	return 1
