@@ -260,7 +260,7 @@
 		src << "You don't have enough chemicals!"
 
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","salglu_solution","methamphetamine","sal_acid", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
 
 	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat) //Sanity check.
 		return
