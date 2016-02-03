@@ -57,16 +57,18 @@ Used In File(s): \code\game\machinery\computer\cloning.dm
 			<div class="itemLabelNarrow">Scan Occupant</div>
 			<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan' : 1}, !data.occupant ? 'disabled' : '')}}</div>
 		</div>
-		{{if data.can_brainscan}}
-		<div class="item">
-			<div class="itemLabelNarrow">Scan Brain</div>
-			<div class="itemContentWide">{{:helper.link('Scan', 'search', {'scan_brain' : 1}, !data.occupant ? 'disabled' : '')}}</div>
-		</div>
-		{{/if}}
 		<div class="item">
 			<div class="itemLabelNarrow">Scanner Lock</div>
 			<div class="itemContentWide">{{if data.occupant}}{{:helper.link('Engaged', 'lock', {'lock' : 1}, data.locked ? 'selected' : '')}}{{else}} {{:helper.link('Engaged', 'lock', null, 'disabled')}}{{/if}}{{:helper.link('Disengaged', 'unlock', {'lock' : 1}, !data.locked ? 'selected' : '')}}</div>
 		</div>
+		{{if data.can_brainscan}}
+		<div class="item">
+			<div class="itemLabelNarrow">Scan Mode</div>
+			<div class="itemContentWide">
+				{{:helper.link('Brain', null, {'toggle_mode' : 1}, !data.scan_mode ? '' : 'selected')}}{{:helper.link('Body', null, {'toggle_mode' : 1}, data.scan_mode ? '' : 'selected')}}
+			</div>
+		</div>
+		{{/if}}
 	{{/if}}
 	{{if data.numberofpods}}
 		<h2>Pods</h2>
