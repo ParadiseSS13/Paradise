@@ -182,13 +182,6 @@
 	blood_color = "#1D2CBF"
 	reagent_tag = PROCESS_ORG
 
-	suicide_messages = list(
-		"is attempting to bite their tongue off!",
-		"is jamming their thumbs into their eye sockets!",
-		"is twisting their own neck!",
-		"makes like a fish and suffocates!",
-		"is strangling themselves with their own tendrils!")
-
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
@@ -406,8 +399,7 @@
 
 	suicide_messages = list(
 		"is melting into a puddle!",
-		"is turning a dull, brown color and melting into a puddle!",
-		"is ripping out their own core!")
+		"is turning a dull, brown color and melting into a puddle!")
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
@@ -453,7 +445,7 @@
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = organs_by_name[parent_organ]
-			if(!istype(parentLimb,/obj/item/organ/external) || istype(parentLimb,/obj/item/organ/external/stump))
+			if(!istype(parentLimb) || parentLimb.is_stump())
 				continue
 			missing_limbs[initial(limb.name)] = l
 
@@ -476,13 +468,13 @@
 
 		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
 
-		if(istype(O) && !O.isStump())
+		if(istype(O) && !O.is_stump())
 			src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
 			return
 
 		var/stored_brute = 0
 		var/stored_burn = 0
-		if(O.isStump())
+		if(O.is_stump())
 			src << "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>"
 			var/obj/item/organ/external/doomedStump = O
 			stored_brute = doomedStump.brute_dam
@@ -617,8 +609,7 @@
 
 	suicide_messages = list(
 		"is losing branches!",
-		"is pulling themselves apart!",
-		"pulls out a secret stash of herbicide and takes a hearty swig!")
+		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(var/mob/other)
 	var/mob/living/simple_animal/diona/D = other
@@ -717,9 +708,7 @@
 		"is powering down!",
 		"is smashing their own monitor!",
 		"is twisting their own neck!",
-		"is blocking their ventilation port!",
-		"is downloading extra RAM!",
-		"is frying their own circuits!")
+		"is blocking their ventilation port!")
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.h_style = ""
