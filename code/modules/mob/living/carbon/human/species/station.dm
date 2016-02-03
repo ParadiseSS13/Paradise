@@ -402,13 +402,14 @@
 		"is turning a dull, brown color and melting into a puddle!")
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
-	var/const/color_shift_trigger = 20
-	var/const/icon_update_period = 200
+	var/const/color_shift_trigger = 0.1
+	var/const/icon_update_period = 600 // 1 minute
+	var/const/blood_scaling_factor = 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
 	if(H.reagents.total_volume > color_shift_trigger)
 		var/blood_amount = H.vessel.total_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), blood_amount/(blood_amount+(H.reagents.total_volume)))
+		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*blood_scaling_factor)/((blood_amount*blood_scaling_factor)+(H.reagents.total_volume)))
 		var/list/new_color_list = ReadRGB(new_body_color)
 		H.r_skin = new_color_list[1]
 		H.g_skin = new_color_list[2]
