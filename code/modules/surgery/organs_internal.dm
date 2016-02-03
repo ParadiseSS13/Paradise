@@ -12,8 +12,7 @@
 /datum/surgery/organ_manipulation/boneless
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
-	allowed_mob = list(/mob/living/carbon/human/diona,/mob/living/carbon/human/slime)
-	disallowed_mob = list(/mob/living/carbon/human)
+	allowed_mob = list(/mob/living/carbon/human/diona)
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"

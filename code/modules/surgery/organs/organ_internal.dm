@@ -350,17 +350,18 @@
 
 		M.mutations.Add(CLUMSY)
 		M.dna.SetSEState(COMICBLOCK,1,1)
-		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
+		genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 		M.mutations.Remove(CLUMSY)
 		M.mutations.Remove(COMICBLOCK)
-		//genemutcheck(H,COMICBLOCK,null,MUTCHK_FORCED)
+		genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 
 /obj/item/organ/internal/honktumor/on_life()
 
 	if(!owner)
 		return
+	world << "[lasthonk]"
 	if(lasthonk == 0)
 		lasthonk = world.time
 	if(lasthonk > world.time + 600|| lasthonk == 0)

@@ -8,7 +8,7 @@
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
 
-		if(can_operate(H) || isslime(M) ||isalien(M))	//if they're prone or a slime
+		if(isslime(M) ||isalien(M) ||can_operate(H))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
 
 			for(var/datum/surgery/S in M.surgeries)
@@ -56,7 +56,7 @@
 							"<span class='notice'>You prepare to operate on [M]'s [parse_zone(selected_zone)].</span>")
 
 			else if(!current_surgery.step_in_progress)
-				if(current_surgery.status == 0 || current_surgery.status == 1 )
+				if(current_surgery.status == 1 )
 					M.surgeries -= current_surgery
 					user << "You stop the surgery."
 					qdel(current_surgery)
