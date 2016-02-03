@@ -466,19 +466,30 @@
 			src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
 			return
 
-		var/O = organs_by_name[chosen_limb]
+		var/obj/item/organ/external/O = organs_by_name[chosen_limb]
 
-		if(istype(O, /obj/item/organ/external) && !istype(O, /obj/item/organ/external/stump))
+		if(istype(O) && !O.isStump())
 			src << "<span class='warning'>Your limb has already been replaced in some way!</span>"
 			return
 
-		if(istype(O, /obj/item/organ/external/stump))
+		var/stored_brute = 0
+		var/stored_burn = 0
+		if(O.isStump())
+			src << "<span class='warning'>You distribute the damaged tissue around your body, out of the way of your new pseudopod!</span>"
+			var/obj/item/organ/external/doomedStump = O
+			stored_brute = doomedStump.brute_dam
+			stored_burn = doomedStump.burn_dam
+			if(stored_burn)
+				// I'm both lazy and want to give this ability a drawback.
+				src << "<span class='warning'>Moving the burnt tissue aside causes further damage to your membrane!</span>"
 			qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
 		var/limb_path = limb_list["path"]
 		var/obj/item/organ/external/new_limb = new limb_path(src)
 		new_limb.owner = src // This line is probably unneeded but will shut up the compiler
+		adjustBruteLoss(stored_brute)
+		adjustFireLoss(stored_burn)
 		update_body()
 		updatehealth()
 		UpdateDamageIcon()
