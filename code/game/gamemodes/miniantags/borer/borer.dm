@@ -26,6 +26,13 @@
 			if(M.mind && (istype(M, /mob/dead/observer)))
 				M << "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>"
 
+/mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
+	var/mob/living/simple_animal/borer/B = src.loc
+	if(!istype(B))
+		log_to_dd("Trapped mind found without a borer!")
+		return 0
+	return B.host.say_understands(other, speaking)
+
 /mob/living/captive_brain/emote(var/message)
 	return
 
