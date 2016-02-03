@@ -85,8 +85,8 @@
 		..()
 
 /datum/surgery_step/internal/remove_embryo/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	user.visible_message("\red [user] rips the larva out of [target]'s ribcage!",
-						 "You rip the larva out of [target]'s ribcage!")
+	user.visible_message("<span class='warning'> [user] rips the larva out of [target]'s ribcage!</span>",
+						 "You rip the larva out of [target]'s ribcage!</span>")
 
 	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 	if(A)
@@ -151,7 +151,7 @@
 			return -1
 
 		if(target.get_int_organ(I))
-			user << "\red \The [target] already has [I]."
+			user << "<span class='warning'> \The [target] already has [I].</span>"
 			return -1
 
 		user.visible_message("[user] starts transplanting \the [tool] into [target]'s [affected.name].", \
@@ -244,12 +244,12 @@
 				I.surgeryize()
 			if(I && I.damage > 0)
 				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
-					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
+					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
 				else if(I.robotic > 2 && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("\blue [user] treats damage to [target]'s [I.name] with [tool_name].", \
-					"\blue You treat damage to [target]'s [I.name] with [tool_name]." )
+					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
 		//return 1
 	else if(current_type == "insert")
@@ -257,15 +257,15 @@
 		user.drop_item()
 		I.insert(target)
 		spread_germs_to_organ(I, user)
-		user.visible_message("\blue [user] has transplanted \the [tool] into [target]'s [affected.name].", \
-		"\blue You have transplanted \the [tool] into [target]'s [affected.name].")
+		user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [affected.name].</span>", \
+		"<span class='notice'> You have transplanted \the [tool] into [target]'s [affected.name].</span>")
 
 		I.status &= ~ORGAN_CUT_AWAY
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			user.visible_message("\blue [user] has separated and extracts [target]'s [I] with \the [tool]." , \
-			"\blue You have separated and extracted [target]'s [I] with \the [tool].")
+			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with \the [tool].</span>" , \
+			"<span class='notice'> You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
 			add_logs(target,user, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
@@ -279,13 +279,13 @@
 
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(affected.encased)
-			var/msg = "\blue [user] bends [target]'s [affected.encased] back into place with \the [tool]."
-			var/self_msg = "\blue You bend [target]'s [affected.encased] back into place with \the [tool]."
+			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with \the [tool].</span>"
+			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with \the [tool].</span>"
 			user.visible_message(msg, self_msg)
 			affected.open = 2.5
 		else
-			var/msg = "[user] pulls [target]'s flesh back into place with \the [tool]."
-			var/self_msg = "You pull [target]'s flesh back into place with \the [tool]."
+			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with \the [tool].</span>"
+			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with \the [tool].</span>"
 			user.visible_message(msg, self_msg)
 
 		return 1
@@ -299,8 +299,8 @@
 			return
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-		user.visible_message("\red [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!", \
-		"\red Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!")
+		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>", \
+		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>")
 		var/dam_amt = 2
 
 		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
@@ -318,8 +318,8 @@
 		return 0
 	else if(current_type == "insert")
 
-		user.visible_message("\red [user]'s hand slips, damaging \the [tool]!", \
-		"\red Your hand slips, damaging \the [tool]!")
+		user.visible_message("<span class='warning'> [user]'s hand slips, damaging \the [tool]!</span>", \
+		"<span class='warning'> Your hand slips, damaging \the [tool]!</span>")
 		var/obj/item/organ/internal/I = tool
 		if(istype(I) &&!(I.tough))
 			I.take_damage(rand(3,5),0)
@@ -329,8 +329,8 @@
 	else if(current_type == "extract")
 		if(I && I.owner == target)
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
-			user.visible_message("\red [user]'s hand slips, damaging [target]'s [affected.name] with \the [tool]!", \
-			"\red Your hand slips, damaging [target]'s [affected.name] with \the [tool]!")
+			user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with \the [tool]!</span>", \
+			"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with \the [tool]!</span>")
 			affected.createwound(BRUISE, 20)
 		else
 			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
@@ -338,13 +338,13 @@
 		return 0
 	else if(current_type == "finish")
 		if(affected.encased)
-			var/msg = "\red [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!"
-			var/self_msg = "\red Your hand slips, bending [target]'s [affected.encased] the wrong way!"
+			var/msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
+			var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
 			user.visible_message(msg, self_msg)
 			affected.fracture()
 		else
-			var/msg = "\red [user]'s hand slips, tearing the skin!"
-			var/self_msg = "\red Your hand slips, tearing skin!"
+			var/msg = "<span class='warning'> [user]'s hand slips, tearing the skin!</span>"
+			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		affected.createwound(BRUISE, 20)
 		return 0

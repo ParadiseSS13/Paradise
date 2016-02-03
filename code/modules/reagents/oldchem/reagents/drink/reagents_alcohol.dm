@@ -36,7 +36,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
+		var/obj/item/organ/internal/liver/L = H.get_int_organ(/obj/item/organ/internal/liver)
 		if(!L || (istype(L) && L.dna.species in list("Skrell", "Neara")))
 			d*=5
 

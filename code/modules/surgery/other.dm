@@ -35,8 +35,8 @@
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\blue [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].", \
-		"\blue You have patched the damaged vein in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
+		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
 
 	for(var/datum/wound/W in affected.wounds) if(W.internal)
 		affected.wounds -= W
@@ -49,8 +49,8 @@
 
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\red [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!" , \
-	"\red Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!")
+	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
+	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
 	affected.take_damage(5, 0)
 
 	return 0
@@ -88,16 +88,16 @@
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\blue [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].", \
-		"\blue You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
+		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 3
 
 	return 1
 
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("\red [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!", \
-	"\red Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!")
+	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
+	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
 	affected.createwound(CUT, 20, 1)
 
 	return 0
@@ -156,8 +156,8 @@
 		if(container.reagents.has_reagent("mitocholide"))
 			affected.status &= ~ORGAN_DEAD
 
-		user.visible_message("\blue [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]", \
-			"\blue You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].")
+		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
+			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
 
 	return 1
 
@@ -172,8 +172,8 @@
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
-	user.visible_message("\red [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!" , \
-	"\red Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!")
+	user.visible_message("<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>" , \
+	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
 
 	//no damage or anything, just wastes medicine
 
