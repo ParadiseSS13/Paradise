@@ -495,11 +495,14 @@
 				qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
-		var/limb_path = limb_list["path"]
+		var/obj/item/organ/external/limb_path = limb_list["path"]
+		// Parent check
+		var/obj/item/organ/external/potential_parent = organs_by_name[initial(limb_path.parent_organ)]
+		if(!istype(potential_parent) || potential_parent.is_stump())
+			src << "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>"
+			return // No rayman for you
 		var/obj/item/organ/external/new_limb = new limb_path(src)
-		new_limb.owner = src // This line is probably unneeded but will shut up the compiler
-		adjustBruteLoss(stored_brute)
-		adjustFireLoss(stored_burn)
+		new_limb.take_damage(stored_brute, stored_burn, 0, 0)
 		update_body()
 		updatehealth()
 		UpdateDamageIcon()
