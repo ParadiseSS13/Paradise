@@ -695,6 +695,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 					throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
 			return
+		else
+			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
+			return
 
 /****************************************************
 			   HELPERS
