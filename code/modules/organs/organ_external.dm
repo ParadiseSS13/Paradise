@@ -566,7 +566,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		if(!(status & ORGAN_ROBOT) && W.bleeding())
 			W.bleed_timer--
-			status |= ORGAN_BLEEDING
+			if(H && (H.species.flags & NO_BLOOD)) // Bloodless organic races are finicky
+				W.clamped = 1
+				W.bleed_timer = 0
+			else
+				status |= ORGAN_BLEEDING
 
 		clamped |= W.clamped
 
