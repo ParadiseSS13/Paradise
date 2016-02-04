@@ -348,7 +348,7 @@
 	on = !on
 	if(on)
 		user << "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed and armor.</span>"
-		name = "blood-red hardsuit helmet"
+		name = "blood-red hardsuit"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		slowdown = 1
 		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
@@ -356,7 +356,7 @@
 		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	else
 		user << "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>"
-		name = "blood-red hardsuit helmet (combat)"
+		name = "blood-red hardsuit (combat)"
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 		slowdown = 0
 		flags = THICKMATERIAL
@@ -379,6 +379,15 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
 
+/obj/item/clothing/head/helmet/space/rig/syndi/elite/attack_self(mob/user)
+	..()
+	if(on)
+		name = "elite syndicate hardsuit helmet"
+		desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
+	else
+		name = "elite syndicate hardsuit helmet (combat)"
+		desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
+
 /obj/item/clothing/suit/space/rig/syndi/elite
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
@@ -388,6 +397,15 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	sprite_sheets = null
+
+/obj/item/clothing/suit/space/rig/syndi/elite/attack_self(mob/user)
+	..()
+	if(on)
+		name = "elite syndicate hardsuit"
+		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
+	else
+		name = "elite syndicate hardsuit (combat)"
+		desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in combat mode. Property of Gorlex Marauders."
 
 //Wizard Rig
 /obj/item/clothing/head/helmet/space/rig/wizard
