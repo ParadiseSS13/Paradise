@@ -367,7 +367,7 @@
 	path = /mob/living/carbon/human/slime
 	unarmed_type = /datum/unarmed_attack/punch
 
-	burn_mod = 1.5 // Slimes don't react well to extreme temperatures
+	burn_mod = 1.25 // Slimes don't react well to extreme temperatures
 
 	// More sensitive to the cold
 	cold_level_1 = 280
@@ -409,12 +409,14 @@
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
+	var/list/mob/living/carbon/human/recolor_list = list()
+
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 	var/const/color_shift_trigger = 0.1
 	var/const/icon_update_period = 600 // 1 minute
 	var/const/blood_scaling_factor = 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
-	if(H.reagents.total_volume > color_shift_trigger)
+	if((H in recolor_list) && H.reagents.total_volume > color_shift_trigger)
 		var/blood_amount = H.vessel.total_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*blood_scaling_factor)/((blood_amount*blood_scaling_factor)+(H.reagents.total_volume)))
@@ -430,6 +432,30 @@
 			H.regenerate_icons() // Because update_icon didn't work
 	return ..()
 
+/mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
+	var/datum/species/slime/S = all_species[get_species()]
+	if(!istype(S))
+		if(!silent)
+			src << "You're not a slime person!"
+		return
+
+	if(src in S.recolor_list)
+		S.recolor_list -= src
+		if(!silent)
+			src << "You adjust your internal chemistry to filter out pigments from things you consume."
+	else
+		S.recolor_list += src
+		if(!silent)
+			src << "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you."
+
+/mob/living/carbon/human/verb/toggle_recolor_verb()
+	set category = "IC"
+	set name = "Toggle Reagent Recoloring"
+	set desc = "While active, you'll slowly adjust your body's color to that of the reagents inside of you, moderated by how much blood you have."
+
+	toggle_recolor()
+
+
 /mob/living/carbon/human/proc/regrow_limbs()
 	set category = "IC"
 	set name = "Regrow Limbs"
@@ -439,7 +465,7 @@
 	var/const/minhunger = 300
 	var/const/regrowthdelay = 450 // 45 seconds
 
-	if(stat || paralysis || stunned || weakened)
+	if(stat || paralysis || stunned)
 		src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
 		return
 
@@ -515,9 +541,13 @@
 /datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
 	..()
 	H.verbs += /mob/living/carbon/human/proc/regrow_limbs
+	H.verbs += /mob/living/carbon/human/verb/toggle_recolor_verb
 
 /datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
 	..()
+	if(H in recolor_list)
+		H.toggle_recolor(silent = 1)
+	H.verbs -= /mob/living/carbon/human/verb/toggle_recolor_verb
 	H.verbs -= /mob/living/carbon/human/proc/regrow_limbs
 
 /datum/species/grey
