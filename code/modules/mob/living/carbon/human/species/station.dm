@@ -367,16 +367,11 @@
 	path = /mob/living/carbon/human/slime
 	unarmed_type = /datum/unarmed_attack/punch
 
-	burn_mod = 1.25 // Slimes don't react well to extreme temperatures
-
 	// More sensitive to the cold
 	cold_level_1 = 280
 	cold_level_2 = 240
 	cold_level_3 = 200
-
-	heat_level_1 = 340
-	heat_level_2 = 360
-	heat_level_3 = 400
+	cold_env_multiplier = 3
 
 	flags = IS_WHITELISTED | NO_BREATHE | HAS_LIPS | NO_INTORGANS | NO_SCAN
 	clothing_flags = HAS_SOCKS
@@ -390,26 +385,17 @@
 		"brain" = /obj/item/organ/brain/slime
 		)
 
-	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/slime),
-		"groin" =  list("path" = /obj/item/organ/external/groin/slime),
-		"head" =   list("path" = /obj/item/organ/external/head/slime),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/slime),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/slime),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/slime),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/slime),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/slime),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/slime),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/slime),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/slime)
-		)
-
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
 	var/list/mob/living/carbon/human/recolor_list = list()
+
+	species_abilities = list(
+		/mob/living/carbon/human/verb/toggle_recolor_verb,
+		/mob/living/carbon/human/proc/regrow_limbs
+		)
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 	var/const/color_shift_trigger = 0.1
@@ -515,9 +501,6 @@
 				var/obj/item/organ/external/doomedStump = O
 				stored_brute = doomedStump.brute_dam
 				stored_burn = doomedStump.burn_dam
-				if(stored_burn)
-					// I'm both lazy and want to give this ability a drawback.
-					src << "<span class='warning'>Moving the burnt tissue aside causes further damage to your membrane!</span>"
 				qdel(O)
 
 		var/limb_list = species.has_limbs[chosen_limb]
@@ -756,15 +739,11 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	species_abilities = list(
+		/mob/living/carbon/human/proc/change_monitor
+		)
+
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	H.h_style = ""
 	spawn(100)
 		if(H) H.update_hair()
-
-/datum/species/machine/handle_post_spawn(var/mob/living/carbon/human/H)
-	..()
-	H.verbs += /mob/living/carbon/human/proc/change_monitor
-
-/datum/species/machine/handle_pre_change(var/mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/change_monitor

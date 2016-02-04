@@ -32,10 +32,12 @@
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
+	var/cold_env_multiplier = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
+	var/hot_env_multiplier = 1 // Damage multiplier for being in a hot environment
 	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
@@ -126,6 +128,7 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/cyborg_type = "Cyborg"
+	var/list/proc/species_abilities = list()
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -287,32 +290,59 @@
 
 		switch(breath.temperature)
 			if(-INFINITY to cold_level_3)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_3 to cold_level_2)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(cold_level_2 to cold_level_1)
-				H.apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
+				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
 				H.fire_alert = max(H.fire_alert, 1)
 
 			if(heat_level_1 to heat_level_2)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 
 			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
 				H.fire_alert = max(H.fire_alert, 2)
 	return
 
 /datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+	grant_abilities(C)
 	return
+
+/datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
+	for(var/proc/ability in species_abilities)
+		H.verbs += ability
+	return
+
+/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
+	remove_abilities(H)
+	return
+
+/datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
+	for (var/proc/ability in species_abilities)
+		H.verbs -= ability
+	return
+
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+	return 1
+
+// For special snowflake species effects
+// (Slime People changing color based on the reagents they consume)
+/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+	return 1
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
@@ -614,18 +644,3 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
-
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-/datum/species/proc/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
-	return 1
-
-// For special snowflake species effects
-// (Slime People changing color based on the reagents they consume)
-/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
-	return 1
-
-/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	return 0
