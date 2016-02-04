@@ -305,6 +305,11 @@
 					target << "<span class='danger'>Your gaze is forcibly drawn into a blinding red light. You fall to the floor as conscious thought is wiped away.</span>"
 					target.Weaken(12)
 					sleep(20)
+					if(isloyal(target))
+						usr << "<span class='notice'>They are enslaved by Nanotrasen.</span>"
+						usr.visible_message("<span class='boldannounce'>[usr] stops, failing to subvert [target]'s loyalty implant.</span>")
+						target << "<span class='boldannounce'>You feel your loyalties holding true!</span>"
+						return
 				if(3)
 					usr << "<span class='notice'>You begin rearranging [target]'s memories.</span>"
 					usr.visible_message("<span class='danger'>[usr]'s eyes flare brightly.</span>")
