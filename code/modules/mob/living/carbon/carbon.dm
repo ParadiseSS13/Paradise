@@ -272,15 +272,15 @@ mob/living
 				if(M.zone_sel.selecting == "head")
 					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message( \
-					"\blue [M] pats [src] on the head.", \
-					"\blue You pat [src] on the head.", \
+					"<span class='notice'> [M] pats [src] on the head.</span>", \
+					"<span class='notice'> You pat [src] on the head.</span>", \
 					)
 					src << "Getting patted by [M]-senpai fills you with determination"
 				else
 					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message( \
-					"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
-					"\blue You hug [src].", \
+					"<span class='notice'> [M] gives [src] a [pick("hug","warm embrace")].</span>", \
+					"<span class='notice'> You hug [src].</span>", \
 					)
 					if (istype(src,/mob/living/carbon/human) && src:w_uniform)
 						var/mob/living/carbon/human/H = src
