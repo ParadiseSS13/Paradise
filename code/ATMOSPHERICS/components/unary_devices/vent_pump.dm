@@ -12,6 +12,7 @@
 	use_power = 1
 
 	can_unwrench = 1
+	var/open = 0
 
 	var/area/initial_loc
 	var/area_uid
