@@ -413,7 +413,7 @@
 	log_name = "SG"
 
 /datum/spellbook_entry/summon/guns/IsAvailible()
-	if(ticker.mode.name == "ragin' mages")
+	if(ticker && ticker.mode.name == "ragin' mages")
 		return 0
 	else
 		return 1
@@ -434,7 +434,7 @@
 	log_name = "SU"
 
 /datum/spellbook_entry/summon/magic/IsAvailible()
-	if(ticker.mode.name == "ragin' mages")
+	if(ticker && ticker.mode.name == "ragin' mages")
 		return 0
 	else
 		return 1
