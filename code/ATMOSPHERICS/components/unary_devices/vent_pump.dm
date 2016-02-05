@@ -343,12 +343,12 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!welded)
 			if(open)
-				user << "\blue Now closing the vent."
+				user << "<span class='notice'> Now closing the vent.</span>"
 				if (do_after(user, 20, target = src))
 					open = 0
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 			else
-				user << "\blue Now opening the vent."
+				user << "<span class='notice'> Now opening the vent.</span>"
 				if (do_after(user, 20, target = src))
 					open = 1
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
