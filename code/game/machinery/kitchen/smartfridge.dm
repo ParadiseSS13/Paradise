@@ -22,7 +22,6 @@
 	var/scan_id = 1
 	var/is_secure = 0
 	var/datum/wires/smartfridge/wires = null
-	var/list/initial_contents = list()
 
 /obj/machinery/smartfridge/New()
 	..()
@@ -30,13 +29,6 @@
 	component_parts += new /obj/item/weapon/circuitboard/smartfridge(null)
 	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 	RefreshParts()
-	for(var/obj/item/I in initial_contents)
-		var/obj/item/thing = new I(src)
-		thing.forceMove(src)
-		if(item_quants[thing.name])
-			item_quants[thing.name]++
-		else
-			item_quants[thing.name] = 1
 
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
@@ -142,17 +134,6 @@
 	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
 		return 1
 	return 0
-
-/obj/machinery/smartfridge/secure/chemistry/chemcache
-	name = "\improper Smart Chemistry Chem Cache"
-	desc = "A refrigerated storage unit for holding chemical mixtures for later use."
-	initial_contents = list(
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/phenol,
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/ammonia,
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/oil,
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/acetone,
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/acid,
-	/obj/item/weapon/reagent_containers/glass/bottle/reagent/diethylamine)
 
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
