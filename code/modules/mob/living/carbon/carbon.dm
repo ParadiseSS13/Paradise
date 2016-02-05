@@ -281,10 +281,10 @@ mob/living
 					"<span class='notice'> [M] gives [src] a [pick("hug","warm embrace")].</span>", \
 					"<span class='notice'> You hug [src].</span>", \
 					)
-					if (istype(src,/mob/living/carbon/human) && src:w_uniform)
+					if(istype(src,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = src
-						H.w_uniform.add_fingerprint(M)
-
+						if(H.w_uniform)
+							H.w_uniform.add_fingerprint(M)
 
 /mob/living/carbon/proc/eyecheck()
 	return 0
