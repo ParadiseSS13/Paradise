@@ -38,7 +38,7 @@
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 		if(is_sharp(src))
-			if( isslime(M) && !attempt_initiate_surgery(src, M, user))
+			if(isslime(M) && !attempt_initiate_surgery(src, M, user))
 				return 0
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0

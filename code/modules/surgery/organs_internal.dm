@@ -19,7 +19,7 @@
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
 	disallowed_mob = list(/mob/living/carbon/human)
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs)
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
@@ -351,6 +351,124 @@
 
 	return 0
 
+
+//////////////////////////////////////////////////////////////////
+//						SPESHUL AYLIUM STUPS					//
+//////////////////////////////////////////////////////////////////
+
+/datum/surgery_step/saw_carapace
+	name = "saw carapace"
+	allowed_tools = list(
+	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
+	/obj/item/weapon/hatchet = 75
+	)
+
+	max_duration = 70
+
+
+/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("[user] begins to cut through [target]'s [target_zone] with \the [tool].", \
+	"You begin to cut through [target]'s [target_zone] with \the [tool].")
+	..()
+
+/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with \the [tool].</span>",		\
+	"<span class='notice'> You have cut [target]'s [target_zone] open with \the [tool].</span>")
+	return 1
+
+/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with \the [tool]!</span>" , \
+	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with \the [tool]!</span>" )
+	return 0
+
+/datum/surgery_step/cut_carapace
+	name = "cut carapace"
+	allowed_tools = list(
+	/obj/item/weapon/scalpel/laser3 = 115, \
+	/obj/item/weapon/scalpel/laser2 = 110, \
+	/obj/item/weapon/scalpel/laser1 = 105, \
+	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/scalpel = 100,		\
+	/obj/item/weapon/kitchen/knife = 75,	\
+	/obj/item/weapon/shard = 50, 		\
+	/obj/item/weapon/scissors = 10,		\
+	/obj/item/weapon/twohanded/chainsaw = 1, \
+	/obj/item/weapon/claymore = 5, \
+	/obj/item/weapon/melee/energy/ = 5, \
+	/obj/item/weapon/pen/edagger = 5,  \
+	)
+
+	max_duration = 60
+
+/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("[user] starts the incision on [target]'s [target_zone] with \the [tool].", \
+	"You start the incision on [target]'s [target_zone] with \the [tool].")
+	..()
+
+/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with \the [tool].</span>", \
+	"<span class='notice'> You have made an incision on [target]'s [target_zone] with \the [tool].</span>",)
+	return 1
+
+/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with \the [tool]!</span>", \
+	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with \the [tool]!</span>")
+	return 0
+
+/datum/surgery_step/retract_carapace
+	name = "retract carapace"
+
+	allowed_tools = list(
+	/obj/item/weapon/scalpel/manager = 120, \
+	/obj/item/weapon/retractor = 100, 	\
+	/obj/item/weapon/crowbar = 75,	\
+	/obj/item/weapon/kitchen/utensil/fork = 50
+	)
+
+	max_duration = 40
+
+/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with \the [tool]."
+	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with \the [tool]."
+	if (target_zone == "chest")
+		msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with \the [tool]."
+		self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with \the [tool]."
+	if (target_zone == "groin")
+		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with \the [tool]."
+		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with \the [tool]."
+	user.visible_message(msg, self_msg)
+	..()
+
+/datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with \the [tool]</span>."
+	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with \the [tool].</span>"
+	if (target_zone == "chest")
+		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with \the [tool].</span>"
+		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with \the [tool].</span>"
+	if (target_zone == "groin")
+		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with \the [tool].</span>"
+		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with \the [tool].</span>"
+	user.visible_message(msg, self_msg)
+	return 1
+
+/datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with \the [tool]!</span>"
+	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with \the [tool]!</span>"
+	if (target_zone == "chest")
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s torso with \the [tool]!</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with \the [tool]!</span>"
+	if (target_zone == "groin")
+		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with \the [tool]</span>"
+		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
+	user.visible_message(msg, self_msg)
+	return 0
 //////////////////////////////////////////////////////////////////
 //						HEART SURGERY							//
 //////////////////////////////////////////////////////////////////

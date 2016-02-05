@@ -4,7 +4,7 @@
 /datum/surgery/core_removal
 	name = "core removal"
 	steps = list(/datum/surgery_step/slime/cut_flesh, /datum/surgery_step/slime/cut_innards, /datum/surgery_step/slime/saw_core)
-	allowed_mob = list( /mob/living/carbon/slime)
+	allowed_mob = list(/mob/living/carbon/slime)
 
 
 /datum/surgery_step/slime

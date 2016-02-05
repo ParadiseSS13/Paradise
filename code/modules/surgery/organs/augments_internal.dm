@@ -317,7 +317,7 @@ datumvars//note i am putting External in robolimbs.
 	organ_action_name = "Toggle Arm Cannon Taser"
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/tase/New()//when the implant is created...
-	holder = new /obj/item/weapon/gun/energy/gun/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
+	holder = new /obj/item/weapon/gun/energy/advtaser/mounted(src)//assign a brand new item to it. (in this case, a gun)
 
 /obj/item/organ/internal/cyberimp/chest/arm_mod/lase//mounted, self-charging laser!
 	name = "Arm-cannon laser implant"

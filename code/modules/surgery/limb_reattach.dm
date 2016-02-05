@@ -13,8 +13,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(affected && (affected.status && ORGAN_DESTROYED))
-			return 0
+
 		if(affected.is_stump())
 			return 0
 
@@ -32,8 +31,6 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status && ORGAN_DESTROYED))
 			return 1
-		if(affected.is_stump())
-			return 1
 
 		return 0
 
@@ -47,8 +44,6 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status && ORGAN_DESTROYED))
-			return 1
-		if(affected.is_stump())
 			return 1
 
 		return 0
