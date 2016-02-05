@@ -480,7 +480,7 @@
 
 	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(regrowthdelay/10)] seconds)</span>")
 	if(do_after(src, regrowthdelay, needhand=0))
-		if(stat || paralysis || stunned || weakened)
+		if(stat || paralysis || stunned)
 			src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
 			return
 
@@ -511,7 +511,8 @@
 			src << "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>"
 			return // No rayman for you
 		var/obj/item/organ/external/new_limb = new limb_path(src)
-		new_limb.take_damage(stored_brute, stored_burn, 0, 0)
+		adjustBruteLoss(stored_brute)
+		adjustFireLoss(stored_burn)
 		update_body()
 		updatehealth()
 		UpdateDamageIcon()
