@@ -353,7 +353,7 @@
 					open = 1
 					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
 		return
-	if(istype(W, /obj/item/weapon/paper/))
+	if(istype(W, /obj/item/weapon/paper))
 		if(!welded)
 			if(open)
 				user.drop_item(W)
