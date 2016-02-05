@@ -275,7 +275,6 @@ mob/living
 					"<span class='notice'> [M] pats [src] on the head.</span>", \
 					"<span class='notice'> You pat [src] on the head.</span>", \
 					)
-					src << "Getting patted by [M]-senpai fills you with determination"
 				else
 					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message( \
