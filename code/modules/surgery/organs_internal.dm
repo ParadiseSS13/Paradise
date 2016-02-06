@@ -19,7 +19,7 @@
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
 	disallowed_mob = list(/mob/living/carbon/human)
-	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace, /datum/surgery_step/open_encased/saw, /datum/surgery_step/internal/manipulate_organs)
+	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
@@ -134,10 +134,13 @@
 
 
 
-/datum/surgery_step/internal/manipulate_organs/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/internal/manipulate_organs/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	I = null
-	affected = target.get_organ(target_zone)
+	var/mob/living/carbon/human/H
+	if(istype(target,/mob/living/carbon/human))
+		H = target
+		affected = H.get_organ(target_zone)
 	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
@@ -152,15 +155,18 @@
 		if(target.get_int_organ(I))
 			user << "<span class='warning'> \The [target] already has [I].</span>"
 			return -1
-
-		user.visible_message("[user] starts transplanting \the [tool] into [target]'s [affected.name].", \
-		"You start transplanting \the [tool] into [target]'s [affected.name].")
-		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
+		if(affected)
+			user.visible_message("[user] starts transplanting \the [tool] into [target]'s [affected.name].", \
+			"You start transplanting \the [tool] into [target]'s [affected.name].")
+			H.custom_pain("Someone's rooting around in your [affected.name]!",1)
+		else
+			user.visible_message("[user] starts transplanting \the [tool] into [target]'s [parse_zone(target_zone)].", \
+			"You start transplanting \the [tool] into [target]'s [parse_zone(target_zone)].")
 
 	else if(implement_type in implements_finsh)
 	//same as surgery step /datum/surgery_step/open_encased/close/
 		current_type = "finish"
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
 		if(affected.encased)
 			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with \the [tool]."
 			var/self_msg = "You start bending [target]'s [affected.encased] back into place with \the [tool]."
@@ -169,7 +175,8 @@
 			var/msg = "[user] starts pulling [target]'s skin back into place with \the [tool]."
 			var/self_msg = "You start pulling [target]'s skin back into place with \the [tool]."
 			user.visible_message(msg, self_msg)
-		target.custom_pain("Something hurts horribly in your [affected.name]!",1)
+		if(affected)
+			H.custom_pain("Something hurts horribly in your [affected.name]!",1)
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
@@ -188,7 +195,8 @@
 				if(!I) return -1
 				user.visible_message("[user] starts to separate [target]'s [I] with \the [tool].", \
 				"You start to separate [target]'s [I] with \the [tool] for removal." )
-				target.custom_pain("The pain in your [affected.name] is living hell!",1)
+				if(affected)
+					H.custom_pain("The pain in your [affected.name] is living hell!",1)
 			else
 				return -1
 
@@ -219,7 +227,7 @@
 
 			user << "No organs appear to be damaged."
 			return -1
-		target.custom_pain("The pain in your [affected.name] is living hell!",1)
+		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
 		user << "<span class='warning'>[tool] was biten by someone! It's too damaged to use!</span>"
@@ -256,9 +264,12 @@
 		user.drop_item()
 		I.insert(target)
 		spread_germs_to_organ(I, user)
-		user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [affected.name].</span>", \
-		"<span class='notice'> You have transplanted \the [tool] into [target]'s [affected.name].</span>")
-
+		if(affected)
+			user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [affected.name].</span>", \
+			"<span class='notice'> You have transplanted \the [tool] into [target]'s [affected.name].</span>")
+		else
+			user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [affected.name].</span>", \
+			"<span class='notice'> You have transplanted \the [tool] into [target]'s [parse_zone(target_zone)].</span>")
 		I.status &= ~ORGAN_CUT_AWAY
 
 	else if(current_type == "extract")
@@ -276,7 +287,6 @@
 				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
 	else if(current_type == "finish")
 
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(affected.encased)
 			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with \the [tool].</span>"
 			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with \the [tool].</span>"
@@ -296,7 +306,6 @@
 	if(current_type == "mend")
 		if (!hasorgans(target))
 			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>", \
 		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with \the [tool]!</span>")
@@ -327,7 +336,6 @@
 
 	else if(current_type == "extract")
 		if(I && I.owner == target)
-			var/obj/item/organ/external/affected = target.get_organ(target_zone)
 			user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with \the [tool]!</span>", \
 			"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with \the [tool]!</span>")
 			affected.createwound(BRUISE, 20)

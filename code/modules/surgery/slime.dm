@@ -12,7 +12,7 @@
 		return istype(target, /mob/living/carbon/slime/)
 
 	can_use(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
-		return target.stat == 2
+		return target.stat == DEAD
 
 /datum/surgery_step/slime/cut_flesh
 	allowed_tools = list(

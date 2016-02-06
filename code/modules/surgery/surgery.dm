@@ -159,10 +159,11 @@
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if (can_infect && affected)
-		spread_germs_to_organ(affected, user)
-	if (ishuman(user) && prob(60))
+	if(ishuman(target))
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if (can_infect && affected)
+			spread_germs_to_organ(affected, user)
+	if (ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if (blood_level)
 			H.bloody_hands(target,0)

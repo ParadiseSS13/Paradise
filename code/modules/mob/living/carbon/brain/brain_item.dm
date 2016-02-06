@@ -57,7 +57,7 @@
 	else
 		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(var/mob/living/user)
+/obj/item/organ/internal/brain/remove(var/mob/living/user,var/special)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 

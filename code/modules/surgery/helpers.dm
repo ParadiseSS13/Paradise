@@ -8,7 +8,7 @@
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
 
-		if(isslime(M) ||isalien(M) ||can_operate(H))	//if they're prone or a slime
+		if(can_operate(M))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
 
 			for(var/datum/surgery/S in M.surgeries)
@@ -64,9 +64,10 @@
 					M.surgeries -= current_surgery
 					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
 						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")
-					affecting.open = 0
-					affecting.germ_level = 0
-					affecting.status &= ~ORGAN_BLEEDING
+					if(affecting)
+						affecting.open = 0
+						affecting.germ_level = 0
+						affecting.status &= ~ORGAN_BLEEDING
 					qdel(current_surgery)
 				else if(current_surgery.can_cancel)
 					user << "<span class='warning'>You need to hold a cautery in inactive hand to stop [M]'s surgery!</span>"

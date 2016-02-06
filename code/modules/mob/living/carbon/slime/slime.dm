@@ -349,6 +349,12 @@
 				step_away(src,M)
 
 			return
+	else
+		if(stat == DEAD && surgeries.len)
+			if(M.a_intent == I_HELP)
+				for(var/datum/surgery/S in surgeries)
+					if(S.next_step(M, src))
+						return 1
 
 /*
 	if(M.gloves && istype(M.gloves,/obj/item/clothing/gloves))
@@ -482,6 +488,11 @@
 	return
 
 /mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
+	if(stat == DEAD && surgeries.len)
+		if(user.a_intent == I_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return 1
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if (user in Friends)
 			++Friends[user]
