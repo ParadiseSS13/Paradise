@@ -47,7 +47,7 @@
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
 			R.cell.use(charge_cost)
-			in_chamber = new/obj/item/projectile/beam(src)
+			in_chamber = new projectile_type(src)
 			return 1
 	return 0
 
