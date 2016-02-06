@@ -155,6 +155,13 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	var/armed = 0
+	var/obj/item/weapon/grenade/iedcasing/IED = null
+
+/obj/item/weapon/restraints/legcuffs/beartrap/Destroy()
+	if(IED)
+		qdel(IED)
+		IED = null
+	return ..()
 
 /obj/item/weapon/restraints/legcuffs/beartrap/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is sticking \his head in the [src.name]! It looks like \he's trying to commit suicide.</span>")
@@ -168,6 +175,36 @@
 		icon_state = "beartrap[armed]"
 		user << "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>"
 
+/obj/item/weapon/restraints/legcuffs/beartrap/attackby(var/obj/item/I, mob/user as mob) //Let's get explosive.
+	if(istype(I, /obj/item/weapon/grenade/iedcasing))
+		if(IED)
+			user << "<span class='warning'>This beartrap already has an IED hooked up to it!</span>"
+			return
+		IED = I
+		switch(IED.assembled)
+			if(0,1) //if it's not fueled/hooked up
+				user << "<span class='warning'>You haven't prepared this IED yet!</span>"
+				IED = null
+				return
+			if(2,3)
+				user.drop_item(src)
+				I.forceMove(src)
+				message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
+				log_game("[key_name(user)] has rigged a beartrap with an IED.")
+				user << "<span class='notice'>You sneak the [IED] underneath the pressure plate and connect the trigger wire.</span>"
+				desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
+			else
+				user << "<span class='danger'>You shouldn't be reading this message! Contact a coder or someone, something broke!</span>"
+				IED = null
+				return
+	if(istype(I, /obj/item/weapon/screwdriver))
+		if(IED)
+			IED.forceMove(get_turf(src))
+			IED = null
+			user << "<span class='notice'>You remove the IED from the [src].</span>"
+			return
+	..()
+
 /obj/item/weapon/restraints/legcuffs/beartrap/Crossed(AM as mob|obj)
 	if(armed && isturf(src.loc))
 		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
@@ -177,6 +214,16 @@
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 					"<span class='userdanger'>You trigger \the [src]!</span>")
+
+			if(IED && isturf(src.loc))
+				IED.active = 1
+				IED.overlays -= image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_filled")
+				IED.icon_state = initial(icon_state) + "_active"
+				IED.assembled = 3
+				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
+				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+				spawn(IED.det_time)
+					IED.prime()
 
 			if(ishuman(AM))
 				var/mob/living/carbon/H = AM
