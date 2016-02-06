@@ -63,7 +63,7 @@
 			return
 		var/obj/item/weapon/reagent_containers/RG = I
 		if(RG.is_open_container())
-			RG.reagents.add_reagent("water", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+			RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
 			user << "<span class='notice'>You fill [RG] from [src]. Gross.</span>"
 			return
 

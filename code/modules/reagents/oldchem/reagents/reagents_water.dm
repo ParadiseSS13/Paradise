@@ -223,9 +223,18 @@
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
-		..()
+	..()
 	return
 
+/datum/reagent/fishwater/toiletwater
+	name = "Toilet Water"
+	id = "toiletwater"
+	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
+	reagent_state = LIQUID
+	color = "#757547"
+
+/datum/reagent/fishwater/toiletwater/reaction_mob(var/mob/M, var/method=TOUCH, var/volume) //For shennanigans
+	return
 
 /datum/reagent/holywater
 	name = "Water"
