@@ -111,9 +111,9 @@
 		target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/harvest()
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(loc)
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(loc)
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(loc)
+	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
 	gib()
 	return
 
@@ -228,11 +228,11 @@
 		var/turf/T = get_step(src, get_dir(src, entry_vent))
 		for(var/atom/A in T)
 			if(istype(A, /obj/structure/window) || istype(A, /obj/structure/closet) || istype(A, /obj/structure/table) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/rack))
-				sleep(10)
+				sleep(10) // *** FIX THIS - need to not be a sleep()
 				A.attack_animal(src)
 		if (get_dist(src, entry_vent) <= 1)
 			break
-		sleep(10)
+		sleep(10) // *** FIX THIS - need to not be a sleep()
 	if(get_dist(src, entry_vent) <= 2)
 		TSVentCrawlRandom(entry_vent)
 
@@ -258,7 +258,7 @@
 						return
 					if(prob(99))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
-					sleep(travel_time)
+					sleep(travel_time) // *** is this safe?
 					if(!exit_vent || exit_vent.welded)
 						loc = entry_vent
 						entry_vent = null
@@ -668,7 +668,7 @@
 						DoLayTerrorEggs("black spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/black, 2, 1)
 					else
 						DoLayTerrorEggs("green spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/green, 2, 1)
-					//var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(loc)
+					//var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(get_turf(src))
 					//C.faction = faction
 					//C.master_commander = master_commander
 					//if(ckey)
@@ -773,7 +773,7 @@
 						L.reagents.add_reagent("wdsedative", 10)
 						for(var/i=0, i<6, i++)
 							step_away(src, L)
-							//sleep(10)
+							//sleep(10) // *** FIX THIS - need to not be a sleep()
 			else
 				attackstep = 0
 			//L.reagents.remove_reagent("spidertoxin", 15)
@@ -825,7 +825,7 @@
 		if (T)
 		else
 			//var/obj/effect/spider/stickyweb/S2 =
-			new /obj/effect/spider/stickyweb(loc)
+			new /obj/effect/spider/stickyweb(get_turf(src))
 			visible_message("<span class='notice'>\the [src] puts up some spider webs.</span>")
 	else if (neststep >= 1 && prob(33))
 		if (get_dist(src,nest_vent) > 6)
@@ -1129,7 +1129,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/proc/DoLayTerrorEggs(var/lay_name, var/lay_type, var/lay_number, var/lay_crawl)
 	stop_automated_movement = 1
-	var/obj/effect/spider/terror_eggcluster/C = new /obj/effect/spider/terror_eggcluster(loc)
+	var/obj/effect/spider/terror_eggcluster/C = new /obj/effect/spider/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
 	C.spiderling_number = lay_number
 	C.spiderling_ventcrawl = lay_crawl
@@ -1139,8 +1139,8 @@
 	C.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 	if(ckey)
 		C.player_spiders = 1
-	sleep(10)
-	stop_automated_movement = 0
+	spawn(10)
+		stop_automated_movement = 0
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/proc/GiveUp(var/C)
@@ -1176,7 +1176,7 @@
 		var/num = spiderling_number
 		//rand(3,12) // ONLY ONE SPIDERLING PER SPIDER EGG CLUSER
 		for(var/i=0, i<num, i++)
-			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(loc)
+			var/obj/effect/spider/terror_spiderling/S = new /obj/effect/spider/terror_spiderling(get_turf(src))
 			if (spiderling_type)
 				S.grow_as = spiderling_type
 			if (spiderling_ventcrawl)
@@ -1264,7 +1264,7 @@
 						return
 					if(prob(50))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
-					sleep(travel_time)
+					sleep(travel_time) // *** is this safe?
 
 					if(!exit_vent || exit_vent.welded)
 						loc = entry_vent

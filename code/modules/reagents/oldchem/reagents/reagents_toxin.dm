@@ -111,13 +111,13 @@
 	// What would make most sense, I suppose, is surgery... but... surgery is easy...
 	if (wdtreated)
 		if (prob(30))
-			M << "\blue You feel better, as your black flesh begins to heal."
+			M << "<span class='notice'> You feel better, as your black flesh begins to heal.</span>"
 			M.reagents.remove_reagent("wdtoxin", 100)
 	else
 		if (holder.has_reagent("wdantitoxin",1))
 			if (wdstage < 150)
 				wdtreated = 1
-				M << "\green The antivenom burns in your veins!"
+				M << "<span class='notice'> The antivenom burns in your veins!</span>"
 				M.adjustToxLoss(40)
 		else
 			wdstage += 1 // since charcoal, calomel, and dialysis can't purge us... only option left is our unique antidote
@@ -129,43 +129,43 @@
 		volume += 0.1
 	M.reagents.remove_reagent("bwtoxin", 30)
 	if(M.health < -25)
-		M << "\blue You feel a strange, blissful senstation."
+		M << "<span class='notice'> You feel a strange, blissful senstation.</span>"
 		M.adjustBruteLoss(-5)
 		M.adjustFireLoss(-5)
 		M.adjustToxLoss(-5)
 		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
 	if (wdstage == 1) // immediately
-		M << "\red Your spider bite wound hurts horribly!"
+		M << "<span class='danger'> Your spider bite wound hurts horribly! </span>"
 		//M.emote("scream")
 		//M.drop_l_hand()
 		//M.drop_r_hand()
 	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
-		M << "\blue The pain has faded, and stopped bleeding, though the skin around it has turned black."
+		M << "<span class='notice'> The pain has faded, and stopped bleeding, though the skin around it has turned black.</span>"
 		M.adjustBruteLoss(-10)
 		M.adjustToxLoss(-10)
 	if (wdstage == 60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
-		M << "\blue Your bite wound has completely sealed up, though the skin is still black. You feel significantly better."
+		M << "<span class='notice'> Your bite wound has completely sealed up, though the skin is still black. You feel significantly better.</span>"
 		M.adjustBruteLoss(-20)
 		M.adjustToxLoss(-20)
 	if (wdstage == 120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
-		M << "\green The black flesh around your old spider bite wound has started to peel off."
+		M << "<span class='notice'> The black flesh around your old spider bite wound has started to peel off.</span>"
 	if (wdstage == 150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
-		M << "\green The black flesh around your spider bite wound has cracked, and started to split open!"
+		M << "<span class='danger'> The black flesh around your spider bite wound has cracked, and started to split open!</span>"
 	if (wdstage == 165) // 5m 30s
-		M << "\red The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!"
+		M << "<span class='danger'> The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!</span>"
 	if (wdstage == 180) // 6m
-		M << "\red The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, and all over you!"
+		M << "<span class='danger'> The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, and all over you!</span>"
 		M.visible_message("<span class='danger'>[M] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
 		M.Stun(20)
 		M.Weaken(20)
 		// yes, this is a hella long stun - that's intentional. Gotta give the spiderlings time to escape.
-		var/obj/effect/spider/terror_spiderling/S1 = new(M.loc)
+		var/obj/effect/spider/terror_spiderling/S1 = new(get_turf(M))
 		S1.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/red
 		S1.name = "red spiderling"
-		var/obj/effect/spider/terror_spiderling/S2 = new(M.loc)
+		var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(M))
 		S2.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/black
 		S2.name = "black spiderling"
-		var/obj/effect/spider/terror_spiderling/S3 = new(M.loc)
+		var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(M))
 		S3.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/green
 		S3.name = "green spiderling"
 		M.adjustBruteLoss(20)
