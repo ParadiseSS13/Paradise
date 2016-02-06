@@ -183,6 +183,7 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",			/datum/event/blob, 				0,	list(ASSIGNMENT_ENGINEER = 30), 1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",		/datum/event/meteor_wave,		0,	list(ASSIGNMENT_ENGINEER =  3),	1),
 		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 		0,		list(ASSIGNMENT_SECURITY = 30), 1),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_invasion, 		0,	list(ASSIGNMENT_SECURITY = 30), 1)
 	)
 
 

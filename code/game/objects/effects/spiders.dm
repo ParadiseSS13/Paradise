@@ -193,7 +193,8 @@
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
 			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+				// normal spiderlings can never grow into terror spiders.
+				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider) - typesof(/mob/living/simple_animal/hostile/poison/giant_spider/terror))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction
 			S.master_commander = master_commander

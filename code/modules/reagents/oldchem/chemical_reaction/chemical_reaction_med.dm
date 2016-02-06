@@ -89,3 +89,11 @@
 		result = "sterilizine"
 		required_reagents = list("antihol" = 2, "chlorine" = 1)
 		result_amount = 3
+
+
+	wdantitoxin
+		name = "White Spider Antitoxin"
+		id = "wdantitoxin"
+		result = "wdantitoxin"
+		required_reagents = list("wdtoxin" = 5, "mutagen" = 5, "spaceacillin" = 1)
+		result_amount = 5

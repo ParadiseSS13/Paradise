@@ -25,6 +25,166 @@
 		..()
 		return
 
+/datum/reagent/bw_venom
+	name = "Black Widow venom"
+	id = "bwtoxin"
+	description = "An incredibly toxic venom injected by the Black Widow spider."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.1
+
+/datum/reagent/bw_venom/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	//M.eye_blind = max(M.eye_blind, 5)
+	M.eye_blurry = max(M.eye_blurry, 7)
+	//M.confused = max(M.confused, 3)
+
+	if (volume >= 45)
+		// they've been bitten 4 times, so they die 4x as fast. At this level, your body goes into total shock.
+		// total damage: 14, plus certain stun. human health 150 until crit = 11 ticks or 22 seconds for complete fatality.
+		M.adjustBrainLoss(2)
+		M.adjustToxLoss(2)
+		M.Paralyse(5)
+		M.losebreath += 5
+	else if (volume >= 30)
+		// they've been bitten 3 times, so they die 3x as fast. You're going to die in seconds from this level of massive poisoning.
+		// total damage: 8, plus 25% stun, 75% confuse. human health 150 until crit, = 19 ticks, = 28 seconds to death, and you can't run effectively either.
+		M.adjustBrainLoss(4)
+		M.adjustToxLoss(4)
+		if (prob(25))
+			M.Paralyse(1)
+		else
+			M.confused = max(M.confused, 3)
+		M.losebreath += 5
+	else if (volume >= 15)
+		// they've been bitten 2 times, so they die 2x as fast. You will only live through this if you call medical to come get you immediately
+		// total damage: 4, human health 150 until crit, = 36 ticks, = 1m12s to get to medbay.
+		M.adjustBrainLoss(2)
+		M.adjustToxLoss(2)
+		M.confused = max(M.confused, 3)
+	else
+		// they've been bitten once. Make their death slow, by comparison. You can easily reach medbay, and survive, with this level of toxin.
+		// total damage: 2, human health 150 until crit, = 75 ticks, = 2 and a half minutes to make it to medbay for treatment
+		M.adjustBrainLoss(1)
+		M.adjustToxLoss(1)
+	..()
+	return
+
+/datum/reagent/wdsedative
+	name = "White Spider tranquilizer"
+	id = "wdsedative"
+	description = "A venom that incapacitites those who attack the White Death spider."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.1
+
+/datum/reagent/wdsedative/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	// effects are similar to ketamine, aka the sleepy pen
+	if(current_cycle >= 3)
+		M.confused = max(M.confused, 5)
+	if(current_cycle >= 6)
+		M.eye_blurry = max(M.eye_blurry, 5)
+	if(current_cycle >= 10)
+		M.Paralyse(10)
+	..()
+	return
+
+
+/datum/reagent/wdtoxin
+	name = "White Spider venom"
+	id = "wdtoxin"
+	description = "A venom consisting of thousands of tiny spider eggs. When injected under the skin, they feed on living flesh and grow into new spiders."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.1
+	var/wdstage = 0
+	var/wdtreated = 0
+
+/datum/reagent/wdtoxin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	// I want there to be a (difficult, little-known) treatment for this, but nothing fits!
+	//	spaceacillin doesn't work because its an antibiotic not an antiparasite
+	//	charcoal doesn't work because its a toxin scrubber not an antiparasite
+	//	calomel doesn't work because its a purgative not an antiparasite
+	//	...
+	// What would make most sense, I suppose, is surgery... but... surgery is easy...
+	if (wdtreated)
+		if (prob(30))
+			M << "\blue You feel better, as your black flesh begins to heal."
+			M.reagents.remove_reagent("wdtoxin", 100)
+	else
+		if (holder.has_reagent("wdantitoxin",1))
+			if (wdstage < 150)
+				wdtreated = 1
+				M << "\green The antivenom burns in your veins!"
+				M.adjustToxLoss(40)
+		else
+			wdstage += 1 // since charcoal, calomel, and dialysis can't purge us... only option left is our unique antidote
+	if (volume < 30)
+		volume += 10 // this is more than dialysis (-3) calomel (-5) and charcoal -1) combined could pump out in a tick.
+	else if (volume < 50)
+		volume += 1
+	else if (volume < 100)
+		volume += 0.1
+	M.reagents.remove_reagent("bwtoxin", 30)
+	if(M.health < -25)
+		M << "\blue You feel a strange, blissful senstation."
+		M.adjustBruteLoss(-5)
+		M.adjustFireLoss(-5)
+		M.adjustToxLoss(-5)
+		// the spider eggs secrete stimulants/etc to keep their host alive until they hatch
+	if (wdstage == 1) // immediately
+		M << "\red Your spider bite wound hurts horribly!"
+		//M.emote("scream")
+		//M.drop_l_hand()
+		//M.drop_r_hand()
+	if (wdstage == 15) // 30 seconds... enough time for the nerve agent to kick in, the pain to be blocked, and healing to begin
+		M << "\blue The pain has faded, and stopped bleeding, though the skin around it has turned black."
+		M.adjustBruteLoss(-10)
+		M.adjustToxLoss(-10)
+	if (wdstage == 60) // 2 minutes... the point where the venom uses and accellerates the healing process, to feed the eggs
+		M << "\blue Your bite wound has completely sealed up, though the skin is still black. You feel significantly better."
+		M.adjustBruteLoss(-20)
+		M.adjustToxLoss(-20)
+	if (wdstage == 120) // 4 minutes... where the eggs are developing, and the wound is turning into a hatching site, but invisibly
+		M << "\green The black flesh around your old spider bite wound has started to peel off."
+	if (wdstage == 150) // 5 minutes... where the victim realizes something is wrong - this is not a normal wound
+		M << "\green The black flesh around your spider bite wound has cracked, and started to split open!"
+	if (wdstage == 165) // 5m 30s
+		M << "\red The black flesh splits open completely, revealing a cluster of small black oval shapes inside you, shapes that seem to be moving!"
+	if (wdstage == 180) // 6m
+		M << "\red The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, and all over you!"
+		M.visible_message("<span class='danger'>[M] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
+		M.Stun(20)
+		M.Weaken(20)
+		// yes, this is a hella long stun - that's intentional. Gotta give the spiderlings time to escape.
+		var/obj/effect/spider/terror_spiderling/S1 = new(M.loc)
+		S1.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/red
+		S1.name = "red spiderling"
+		var/obj/effect/spider/terror_spiderling/S2 = new(M.loc)
+		S2.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/black
+		S2.name = "black spiderling"
+		var/obj/effect/spider/terror_spiderling/S3 = new(M.loc)
+		S3.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/green
+		S3.name = "green spiderling"
+		M.adjustBruteLoss(20)
+		M.adjustToxLoss(40)
+	if (wdstage == 190) // 6m 30s
+		M << "\red The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting."
+		M.reagents.remove_reagent("wdtoxin", 100)
+	..()
+	return
+
+
+/datum/reagent/wdantitoxin
+	name = "White Spider Antivenom"
+	id = "wdantitoxin"
+	description = "A strange serum that destroys spider eggs."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.1
+
 
 /datum/reagent/plasticide
 	name = "Plasticide"
