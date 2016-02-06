@@ -95,17 +95,17 @@
 		if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
 			// a queen attacking a non-queen after a warning destroys them... never displease your queen!
 			if (istype(target,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
-				visible_message("\blue \icon[src] regards [target] from a distance.")
+				visible_message("<span class='notice'> \icon[src] regards [target] from a distance. </span>")
 				// queens cannot discipline each other.
 			else
 				// queens can discipline their brood freely
 				target.attack_animal(src)
 		else if (istype(target,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
 			// one non-queen attacking a queen produces a respectful bow
-			visible_message("\blue \icon[src] bows in respect for the terrifying presence of [target]")
+			visible_message("<span class='notice'> \icon[src] bows in respect for the terrifying presence of [target] </span>")
 		else
 			// one non-queen attacking another non-queen produces a harmless nuzzle
-			visible_message("\icon[src] harmlessly nuzzles [target].")
+			visible_message("<span class='notice'> \icon[src] harmlessly nuzzles [target]. </span>")
 	else
 		// for most targets, we simply attack
 		target.attack_animal(src)
@@ -119,7 +119,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/bullet_act(var/obj/item/projectile/Proj)
 	if (!target)
-		visible_message("\red \icon[src] [src] looks around, enraged!")
+		visible_message("<span class='danger'> \icon[src] [src] looks around, enraged! </span>")
 	aggressionlevel += 1
 	for(var/mob/living/H in view(src, 10))
 		if(!istype(H,/mob/living/simple_animal/hostile/poison/giant_spider/))
@@ -128,7 +128,7 @@
 	if (istype(Proj, /obj/item/projectile/energy/declone))
 		if (!dna_damaged)
 			dna_damaged = 1
-			visible_message("\red \icon[src] [src] looks staggered by the bioweapon!")
+			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
 			Stun(3)
 	..()
 
@@ -204,7 +204,7 @@
 	else if (health == maxHealth)
 		if (aggressionlevel && prob(10))
 			aggressionlevel = 0
-			visible_message("\blue \icon[src] [src] looks to have calmed down.")
+			visible_message("<span class='notice'> \icon[src] [src] looks to have calmed down. </span>")
 		else
 			if (prob(idle_ventcrawl_chance))
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
@@ -437,7 +437,7 @@
 			else
 				melee_damage_lower = 1
 				melee_damage_upper = 5
-				visible_message("\red \icon[src] [src] buries its long fangs deep into [target]!")
+				visible_message("<span class='danger'> \icon[src] [src] buries its long fangs deep into [target]! </span>")
 				L.attack_animal(src)
 				//L.Weaken(5)
 				melee_damage_lower = 10 // this is only good for the first attack, though....afterwards they get full force.
@@ -451,16 +451,16 @@
 					LoseTarget()
 					for(var/i=0, i<4, i++)
 						step_away(src, L)
-					visible_message("\blue \icon[src] [src] warily eyes [L] from a distance.")
+					visible_message("<span class='notice'> \icon[src] [src] warily eyes [L] from a distance. </span>")
 				// aka, if you come over here I will wreck you.
 		else
 			// code for handling mobs that don't process reagents. Possibly dead bodies? Or simple mobs that have no reagent container?
 			target.attack_animal(src)
-			visible_message("\red \icon[src] [src] bites [target]!")
+			visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 	else
 		// code for handling non-living targets we're attacking. What would even be in this category? Mechs, maybe?
 		target.attack_animal(src)
-		visible_message("\red \icon[src] [src] bites [target]!")
+		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 
 
 // --------------------------------------------------------------------------------
@@ -717,10 +717,10 @@
 		var/mob/living/L = target
 		if(L.reagents)
 			if (attackstep == 0)
-				visible_message("\red \icon[src] [src] crouches down on its powerful hind legs!")
+				visible_message("<span class='danger'> \icon[src] [src] crouches down on its powerful hind legs! </span>")
 				attackstep = 1
 			else if (attackstep == 1)
-				visible_message("\red \icon[src] [src] pounces on [target], grabbing them with its fangs and legs!")
+				visible_message("<span class='danger'> \icon[src] [src] pounces on [target], grabbing them with its fangs and legs! </span>")
 				L.emote("scream")
 				L.drop_l_hand()
 				L.drop_r_hand()
@@ -755,7 +755,7 @@
 				//	// if we took no damage, stick around, otherwise flee.
 				//	return
 				spawn(20)
-					visible_message("\blue \icon[src] [src] lets go of [target], and tries to flee!")
+					visible_message("<span class='notice'> \icon[src] [src] lets go of [target], and tries to flee! </span>")
 					LoseTarget()
 					walk_away(src,L,2,1)
 					spawn(200)
@@ -780,11 +780,11 @@
 		else
 			// code for handling mobs that don't process reagents. Possibly dead bodies? Or simple mobs that have no reagent container?
 			target.attack_animal(src)
-			visible_message("\red \icon[src] [src] bites [target]!")
+			visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 	else
 		// code for handling non-living targets we're attacking. What would even be in this category? Mechs, maybe?
 		target.attack_animal(src)
-		visible_message("\red \icon[src] [src] bites [target]!")
+		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 
 // --------------------------------------------------------------------------------
 // --------------------- NEW SPIDERS: NIGHTMARE CLASS, QUEEN SPIDER ---------------
