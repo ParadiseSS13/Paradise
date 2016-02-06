@@ -12,13 +12,14 @@
 	throw_range = 2
 	materials = list(MAT_METAL=750)
 	origin_tech = "powerstorage=3;syndicate=5"
-	var/drain_rate = 1500000		// amount of power to drain per tick
+	var/drain_rate = 1600000		// amount of power to drain per tick
 	var/apc_drain_rate = 5000 		// Max. amount drained from single APC. In Watts.
 	var/dissipation_rate = 20000	// Passive dissipation of drained power. In Watts.
 	var/power_drained = 0 			// Amount of power drained.
-	var/max_power = 5e9				// Detonation point.
+	var/max_power = 1e10			// Detonation point.
 	var/mode = 0					// 0 = off, 1=clamped (off), 2=operating
 	var/drained_this_tick = 0		// This is unfortunately necessary to ensure we process powersinks BEFORE other machinery such as APCs.
+	var/admins_warned = 0			// stop spam, only warn the admins once that we are about to go boom
 
 	var/datum/powernet/PN			// Our powernet
 	var/obj/structure/cable/attached		// the attached cable
@@ -120,10 +121,13 @@
 /obj/item/device/powersink/process()
 	drained_this_tick = 0
 	power_drained -= min(dissipation_rate, power_drained)
-	if(power_drained > max_power * 0.95)
+	if(power_drained > max_power * 0.98)
+		if(!admins_warned)
+			admins_warned = 1
+			message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is 95% full. Explosion imminent.")
 		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
 	if(power_drained >= max_power)
-		explosion(src.loc, 3,6,9,12)
+		explosion(src.loc, 4,8,16,32)
 		qdel(src)
 		return
 	if(attached && attached.powernet)
