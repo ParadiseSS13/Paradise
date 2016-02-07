@@ -1,0 +1,7 @@
+author: Regen
+delete-after: True
+changes: 
+  - tweak: "Powersink can now drain a lot more power before going boom"
+  - tweak: "Buffed the powersinks drain rate"
+  - tweak: "Buffed explosion from an overloaded powersink, try to find it instead of overloading the grid."
+  - rscadd: "Admin log warning before the powersink explodes"
