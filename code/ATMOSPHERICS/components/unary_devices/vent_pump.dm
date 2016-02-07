@@ -367,7 +367,7 @@
 		if(!welded)
 			if(open)
 				user.drop_item(W)
-				W.loc = src
+				W.forceMove(src)
 			if(!open)
 				user << "You can't shove that down there when it is closed"
 		else
