@@ -1,0 +1,7 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Readds Tajaran bald hairstyle."
+  - rscadd: "Alternate style of non-Human breath mask (incl. surgical/sterile mask) down-state positioning."
+  - tweak: "Corrects all non-Human species' breath mask (incl. surgical/sterile mask) down-state icons to use the right position style."
+  - tweak: "Minor adjustments to Tajaran breath mask up-state sprites."
