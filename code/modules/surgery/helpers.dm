@@ -8,9 +8,8 @@
 			H = M
 			affecting = H.get_organ(check_zone(selected_zone))
 
-		if(can_operate(M))	//if they're prone or a slime
+		if(can_operate(M) || isslime(M))	//if they're prone or a slime
 			var/datum/surgery/current_surgery
-
 			for(var/datum/surgery/S in M.surgeries)
 				if(S.location == selected_zone)
 					current_surgery = S

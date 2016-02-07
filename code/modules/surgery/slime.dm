@@ -5,6 +5,7 @@
 	name = "core removal"
 	steps = list(/datum/surgery_step/slime/cut_flesh, /datum/surgery_step/slime/cut_innards, /datum/surgery_step/slime/saw_core)
 	allowed_mob = list(/mob/living/carbon/slime)
+	possible_locs = list("chest")//urgghhhhhhhhhhhh
 
 
 /datum/surgery_step/slime
