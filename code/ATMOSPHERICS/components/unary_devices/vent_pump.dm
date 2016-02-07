@@ -387,7 +387,7 @@
 	if(!welded)
 		if(open)
 			for(var/obj/item/weapon/W in src)
-				W.loc = src.loc
+				W.forceMove(get_turf(src))
 
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
