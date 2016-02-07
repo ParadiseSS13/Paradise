@@ -541,7 +541,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
-					/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
 	cost = 10
 	containername = "grounding rod crate"
