@@ -1375,7 +1375,7 @@ menu "menu"
 		is-disabled = false
 		saved-params = "is-checked"
 	elem 
-		name = "Reconnect"
+		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
 		is-checked = false
