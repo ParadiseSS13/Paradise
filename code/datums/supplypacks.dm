@@ -524,6 +524,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "singularity generator crate"
 
+/datum/supply_packs/engineering/engine/tesla
+	name = "Energy Ball Generator"
+	contains = list(1 /obj/machinery/the_singularitygen/tesla)
+	cost = 10
+	containername = "energy ball generator"
+
 /datum/supply_packs/engineering/engine/collector
 	name = "Collector Crate"
 	contains = list(/obj/machinery/power/rad_collector,
