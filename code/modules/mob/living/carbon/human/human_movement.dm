@@ -13,7 +13,7 @@
 		handle_embedded_objects() //Moving with objects stuck in you can cause bad times.
 
 
-	var/health_deficiency = (100 - health + staminaloss)
+	var/health_deficiency = (maxHealth - health + staminaloss)
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.shock_reduction)
