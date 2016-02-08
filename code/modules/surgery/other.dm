@@ -2,7 +2,25 @@
 //////////////////////////////////////////////////////////////////
 //					INTERNAL WOUND PATCHING						//
 //////////////////////////////////////////////////////////////////
+/datum/surgery/bleeding
+	name = "internal bleeding"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
+	/datum/surgery_step/open_encased/retract,/datum/surgery_step/fix_vein,/datum/surgery_step/open_encased/close, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head","groin")
 
+/datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target)
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(!affected) return 0
+
+		var/internal_bleeding = 0
+		for(var/datum/wound/W in affected.wounds) if(W.internal)
+			internal_bleeding = 1
+			break
+		if(internal_bleeding)
+			return 1
+		return 0
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"

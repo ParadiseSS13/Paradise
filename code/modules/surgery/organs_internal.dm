@@ -167,7 +167,7 @@
 	//same as surgery step /datum/surgery_step/open_encased/close/
 		current_type = "finish"
 
-		if(affected.encased)
+		if(affected && affected.encased)
 			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with \the [tool]."
 			var/self_msg = "You start bending [target]'s [affected.encased] back into place with \the [tool]."
 			user.visible_message(msg, self_msg)
@@ -375,19 +375,19 @@
 	max_duration = 70
 
 
-/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("[user] begins to cut through [target]'s [target_zone] with \the [tool].", \
 	"You begin to cut through [target]'s [target_zone] with \the [tool].")
 	..()
 
-/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [target_zone] open with \the [tool].</span>")
 	return 1
 
-/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with \the [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with \the [tool]!</span>" )
@@ -412,19 +412,19 @@
 
 	max_duration = 60
 
-/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("[user] starts the incision on [target]'s [target_zone] with \the [tool].", \
 	"You start the incision on [target]'s [target_zone] with \the [tool].")
 	..()
 
-/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with \the [tool].</span>", \
 	"<span class='notice'> You have made an incision on [target]'s [target_zone] with \the [tool].</span>",)
 	return 1
 
-/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with \the [tool]!</span>")
@@ -442,7 +442,7 @@
 
 	max_duration = 40
 
-/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with \the [tool]."
 	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with \the [tool]."
 	if (target_zone == "chest")
@@ -454,7 +454,7 @@
 	user.visible_message(msg, self_msg)
 	..()
 
-/datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with \the [tool]</span>."
 	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with \the [tool].</span>"
 	if (target_zone == "chest")
@@ -466,7 +466,7 @@
 	user.visible_message(msg, self_msg)
 	return 1
 
-/datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with \the [tool]!</span>"
 	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with \the [tool]!</span>"
 	if (target_zone == "chest")

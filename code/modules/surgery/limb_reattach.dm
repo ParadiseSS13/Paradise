@@ -14,7 +14,7 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 
-		if(affected)
+		if(!affected)
 			return 0
 
 		return 1

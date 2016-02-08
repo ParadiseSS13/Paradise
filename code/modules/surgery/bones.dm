@@ -18,7 +18,9 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(affected.status & ORGAN_ROBOT)
+		if((affected.status & ORGAN_ROBOT))
+			return 0
+		if(target.get_species() == "Machine")
 			return 0
 		if(!(affected.encased))
 			return 0

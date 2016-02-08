@@ -50,7 +50,7 @@
 	internal_organs += new /obj/item/organ/internal/xenos/eggsac
 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
 	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
-//	..()
+	..()
 
 /mob/living/carbon/alien/humanoid/empress
 
@@ -85,8 +85,8 @@
 		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
 
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-75)
+	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
+		adjustPlasma(-250)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
 		new /obj/structure/alien/egg(loc)

@@ -24,7 +24,7 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(affected.status & ORGAN_ORGANIC)
+		if(affected)
 			return 0
 	return 1
 
@@ -289,7 +289,7 @@
 		user.visible_message("[user] begins reattaching [target]'s [off_tool] with \the [tool].", \
 		"You start reattaching [target]'s [off_tool] with \the [tool].")
 		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
-	else if(istype(tool,/obj/item/device/mmi/))
+	else if(istype(tool,/obj/item/device/mmi))
 		current_type = "install"
 
 		if(target_zone != "chest")
@@ -400,6 +400,7 @@
 
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
+		qdel(off_tool)
 	else if (current_type == "install")
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
