@@ -524,6 +524,27 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "singularity generator crate"
 
+/datum/supply_packs/engineering/engine/tesla
+	name = "Energy Ball Generator Crate"
+	contains = list(/obj/machinery/the_singularitygen/tesla)
+	cost = 10
+	containername = "energy ball generator crate"
+
+/datum/supply_packs/engineering/engine/coil
+	name = "Tesla Coil Crate"
+	contains = list(/obj/machinery/power/tesla_coil,
+					/obj/machinery/power/tesla_coil,
+					/obj/machinery/power/tesla_coil)
+	cost = 10
+	containername = "tesla coil crate"
+
+/datum/supply_packs/engineering/engine/grounding
+	name = "Grounding Rod Crate"
+	contains = list(/obj/machinery/power/grounding_rod,
+					/obj/machinery/power/grounding_rod)
+	cost = 10
+	containername = "grounding rod crate"
+
 /datum/supply_packs/engineering/engine/collector
 	name = "Collector Crate"
 	contains = list(/obj/machinery/power/rad_collector,
