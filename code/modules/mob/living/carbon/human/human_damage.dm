@@ -20,7 +20,7 @@
 	if(species.can_revive_by_healing)
 		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
 		if(B)
-			if((health >= (config.health_threshold_dead + config.health_threshold_crit) / 2) && stat == DEAD)
+			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD)
 				update_revive()
 	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
