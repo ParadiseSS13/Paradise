@@ -1,0 +1,4 @@
+author: PPI
+delete-after: True
+changes: 
+  - rscadd: "Adds a reconnect button to the File menu in the client."
