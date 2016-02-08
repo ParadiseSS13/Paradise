@@ -203,6 +203,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/list/powers = list() // list of available powers and passives, see defines in setup.dm
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
+	var/upgradedRegen = 0
 /datum/vampire/New(gend = FEMALE)
 	gender = gend
 
@@ -324,8 +325,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			vamp.powers.Add(VAMP_BATS)
 		if(!(VAMP_SCREAM in vamp.powers))
 			vamp.powers.Add(VAMP_SCREAM)
-		// Commented out until we can figured out a way to stop this from spamming.
-		//src << "\blue Your rejuvination abilities have improved and will now heal you over time when used."
+		if(!(vamp.upgradedRegen))	// to prevent spamming
+			src << "<span class='notice'>Your rejuvination abilities have improved and will now heal you over time when used."
+			vamp.upgradedRegen = 1
 
 	// TIER 3.5 (/vg/)
 	if(vamp.bloodtotal >= 250)
