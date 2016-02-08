@@ -8,7 +8,7 @@
 			return									// seems legit.
 
 	// Things you might plausibly want to follow
-	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/singularity))
+	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/singularity) || istype(A,/obj/mecha))
 		ManualFollow(A)
 
 	// Otherwise jump
