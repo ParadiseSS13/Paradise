@@ -264,22 +264,22 @@ mob/living
 				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message(\
-						"<span class='notice'> [M] shakes [src] trying to wake [t_him] up!</span>",\
-						"<span class='notice'> You shake [src] trying to wake [t_him] up!</span>",\
+						"<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>",\
+						"<span class='notice'>You shake [src] trying to wake [t_him] up!</span>",\
 						)
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(M.zone_sel.selecting == "head")
 					M.visible_message(\
-					"<span class='notice'> [M] pats [src] on the head.</span>",\
-					"<span class='notice'> You pat [src] on the head.</span>",\
+					"<span class='notice'>[M] pats [src] on the head.</span>",\
+					"<span class='notice'>You pat [src] on the head.</span>",\
 					)
 				else
 
 					M.visible_message(\
-					"<span class='notice'> [M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'> You hug [src].</span>",\
+					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+					"<span class='notice'>You hug [src].</span>",\
 					)
 					if(istype(src,/mob/living/carbon/human))
 						var/mob/living/carbon/human/H = src
