@@ -387,7 +387,7 @@
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
 		if(H.mind && H.mind.vampire)
-			if(VAMP_VISION in H.mind.vampire.powers && !(VAMP_FULL in H.mind.vampire.powers))
+			if((VAMP_VISION in H.mind.vampire.powers) && (!(VAMP_FULL in H.mind.vampire.powers)))
 				H.sight |= SEE_MOBS
 
 			else if(VAMP_FULL in H.mind.vampire.powers)
