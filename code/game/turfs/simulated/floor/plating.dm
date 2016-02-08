@@ -232,13 +232,12 @@
 				CW.update_icon(0)
 		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)
 
-/turf/simulated/floor/airless
-	icon_state = "floor"
+/turf/simulated/floor/plasteel/airless
 	name = "airless floor"
 	oxygen = 0.01
 	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/airless/New()
+/turf/simulated/floor/plasteel/airless/New()
 	..()
 	name = "floor"

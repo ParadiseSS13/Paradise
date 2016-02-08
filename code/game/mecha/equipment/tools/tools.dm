@@ -434,8 +434,8 @@
 		P.failchance = 0
 		P.icon_state = "anom"
 		P.name = "wormhole"
-		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)",0,1)
-		log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([T.x],[T.y],[T.z])")
+		message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
+		log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])")
 		do_after_cooldown()
 		src = null
 		spawn(rand(150,300))
@@ -1088,9 +1088,7 @@
 			return
 		var/list/occupant = list()
 		occupant |= mecha.occupant
-		mecha.occupant.sight |= SEE_TURFS
 		scanning = 1
 		mineral_scan_pulse(occupant,get_turf(loc))
 		spawn(equip_cooldown)
 			scanning = 0
-			mecha.occupant.sight -= SEE_TURFS

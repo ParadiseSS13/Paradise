@@ -5,7 +5,7 @@
 // flags: See below, bitfield.
 #define MUTCHK_FORCED        1
 /proc/domutcheck(var/mob/living/M, var/connected=null, var/flags=0)
-		
+
 	for(var/datum/dna/gene/gene in dna_genes)
 		if(!M || !M.dna)
 			return
@@ -52,7 +52,7 @@
 /proc/genemutcheck(var/mob/living/M, var/block, var/connected=null, var/flags=0)
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(H.species.flags & NO_DNA_RAD)
+		if(H.species.flags & NO_DNA)
 			return
 	if(!M)
 		return
@@ -76,12 +76,12 @@
 	var/gene_active = (gene.flags & GENE_ALWAYS_ACTIVATE)
 	if(!gene_active)
 		gene_active = M.dna.GetSEState(gene.block)
-		
+
 	var/defaultgenes // Do not mutate inherent species abilities
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		defaultgenes = H.species.default_genes
-		
+
 		if((gene in defaultgenes) && gene_active)
 			return
 

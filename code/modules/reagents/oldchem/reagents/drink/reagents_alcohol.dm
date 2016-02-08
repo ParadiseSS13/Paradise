@@ -36,7 +36,8 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.species && (H.species.name == "Skrell" || H.species.name =="Neara"))	 //Skrell and Neara get very drunk very quickly.
+		var/obj/item/organ/liver/L = H.internal_organs_by_name["liver"]
+		if(!L || (istype(L) && L.dna.species in list("Skrell", "Neara")))
 			d*=5
 
 	M.dizziness += dizzy_adj.
@@ -663,40 +664,6 @@
 	..()
 	return
 
-/datum/reagent/ethanol/bananahonk
-	name = "Banana Mama"
-	id = "bananahonk"
-	description = "A drink from Clown Heaven."
-	nutriment_factor = 1 * FOOD_METABOLISM
-	color = "#664300" // rgb: 102, 67, 0
-
-/datum/reagent/ethanol/bananahonk/on_mob_life(var/mob/living/M as mob)
-	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Clown"))
-		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
-		M.nutrition += nutriment_factor
-		..()
-		return
-	..()
-
-/datum/reagent/ethanol/silencer
-	name = "Silencer"
-	id = "silencer"
-	description = "A drink from Mime Heaven."
-	nutriment_factor = 1 * FOOD_METABOLISM
-	color = "#664300" // rgb: 102, 67, 0
-
-/datum/reagent/ethanol/silencer/on_mob_life(var/mob/living/M as mob)
-	M.nutrition += nutriment_factor
-	if(istype(M, /mob/living/carbon/human) && M.job in list("Mime"))
-		if(!M) M = holder.my_atom
-		M.heal_organ_damage(1,1)
-		M.nutrition += nutriment_factor
-		..()
-		return
-	..()
-
 /datum/reagent/ethanol/changelingsting
 	name = "Changeling Sting"
 	id = "changelingsting"
@@ -753,4 +720,18 @@
 		M.confused = max(M.confused+15,15)
 	..()
 
+	return
+
+/datum/reagent/ethanol/kahlua
+	name = "Kahlua"
+	id = "kahlua"
+	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
+	color = "#664300" // rgb: 102, 67, 0
+
+/datum/reagent/ethanol/kahlua/on_mob_life(var/mob/living/M as mob)
+	M.dizziness = max(0,M.dizziness-5)
+	M.drowsyness = max(0,M.drowsyness-3)
+	M.sleeping = max(0,M.sleeping-2)
+	M.Jitter(5)
+	..()
 	return

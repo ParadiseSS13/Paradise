@@ -232,7 +232,7 @@
 "ex" = (/obj/structure/table/woodentable,/turf/simulated/floor/carpet,/area/awaymission)
 "ey" = (/obj/structure/table,/obj/machinery/computer/security/telescreen{desc = "Not used to spy on hotel rooms."; dir = 1; network = "Hotel"; use_power = 0},/turf/simulated/floor/carpet,/area/awaymission)
 "ez" = (/obj/item/weapon/melee/cultblade,/turf/simulated/floor/engine/cult,/area/awaymission)
-"eA" = (/obj/item/weapon/butch{blood_DNA = 1e+009},/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/engine/cult,/area/awaymission)
+"eA" = (/obj/item/weapon/kitchen/knife/butcher{blood_DNA = 1e+009},/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/engine/cult,/area/awaymission)
 "eB" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/turf/simulated/floor/carpet,/area/awaymission)
 "eC" = (/obj/structure/stool/bed/chair{dir = 8},/obj/effect/decal/remains/human,/turf/simulated/floor/carpet{icon_state = "carpetnoconnect"},/area/awaymission)
 "eD" = (/obj/structure/table/woodentable,/obj/item/weapon/clipboard,/obj/item/weapon/paper,/turf/simulated/floor/carpet,/area/awaymission)

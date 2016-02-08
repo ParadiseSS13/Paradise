@@ -257,15 +257,21 @@ datum/preferences
 				preview_icon.Blend(markings_s, ICON_OVERLAY)
 
 
-		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
-		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+		var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
+		if(!(current_species.bodyflags & NO_EYES))
+			var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
+			eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
+			face_s.Blend(eyes_s, ICON_OVERLAY)
 
 
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
 		if(hair_style)
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
-			eyes_s.Blend(hair_s, ICON_OVERLAY)
+			if(current_species.name == "Slime People") // whee I am part of the problem
+				hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			else
+				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			face_s.Blend(hair_s, ICON_OVERLAY)
 
 		//Head Accessory
 		if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
@@ -273,13 +279,16 @@ datum/preferences
 			if(head_accessory_style && head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				head_accessory_s.Blend(rgb(r_headacc, g_headacc, b_headacc), ICON_ADD)
-				eyes_s.Blend(head_accessory_s, ICON_OVERLAY)
+				face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
-			eyes_s.Blend(facial_s, ICON_OVERLAY)
+			if(current_species.name == "Slime People") // whee I am part of the problem
+				facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_ADD)
+			else
+				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+			face_s.Blend(facial_s, ICON_OVERLAY)
 
 		var/icon/underwear_s = null
 		if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
@@ -627,7 +636,7 @@ datum/preferences
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 					clothes_s.Blend(new /icon('icons/mob/hands.dmi', "bgloves"), ICON_UNDERLAY)
 					if(prob(1))
-						clothes_s.Blend(new /icon('icons/mob/head.dmi', "hosberet"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/head.dmi', "beret_hos"), ICON_OVERLAY)
 					switch(backbag)
 						if(2)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -668,7 +677,7 @@ datum/preferences
 					clothes_s = new /icon(uniform_dmi, "secred_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 					if(prob(1))
-						clothes_s.Blend(new /icon('icons/mob/head.dmi', "officerberet"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/head.dmi', "beret_officer"), ICON_OVERLAY)
 					switch(backbag)
 						if(2)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "securitypack"), ICON_OVERLAY)
@@ -829,12 +838,11 @@ datum/preferences
 			preview_icon.Blend(socks_s, ICON_OVERLAY)
 		if(clothes_s)
 			preview_icon.Blend(clothes_s, ICON_OVERLAY)
-		if(!(current_species.bodyflags & NO_EYES))
-			preview_icon.Blend(eyes_s, ICON_OVERLAY)
+		preview_icon.Blend(face_s, ICON_OVERLAY)
 		preview_icon_front = new(preview_icon, dir = SOUTH)
 		preview_icon_side = new(preview_icon, dir = WEST)
 
-		qdel(eyes_s)
+		qdel(face_s)
 		qdel(underwear_s)
 		qdel(undershirt_s)
 		qdel(socks_s)

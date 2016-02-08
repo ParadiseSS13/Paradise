@@ -135,7 +135,7 @@ var/list/uplink_items = list()
 	name = "Meat Cleaver"
 	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died and the chance to stun when thrown."
 	reference = "MC"
-	item = /obj/item/weapon/butch/meatcleaver
+	item = /obj/item/weapon/kitchen/knife/butcher/meatcleaver
 	cost = 10
 	job = list("Chef")
 

@@ -1,0 +1,6 @@
+author: Glorken
+delete-after: True
+changes: 
+  - rscadd: "Added a Knight Arena for Holodeck."
+  - imageadd: "Added red and blue claymore sprites."
+  - spellcheck: "Changed overrided to overrode when emagging Holodeck computer."

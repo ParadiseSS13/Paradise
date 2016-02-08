@@ -26,6 +26,7 @@
 	throw_range = 4
 	throwforce = 10
 	w_class = 1
+	var/transformed = 0
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"
@@ -56,6 +57,28 @@
 					M << "<span class='warning'>The nullrod's power interferes with your own!</span>"
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
+
+/obj/item/weapon/nullrod/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
+	if(!proximity)
+		return
+	if(istype(I, /obj/item/clothing/suit/armor/riot/knight/templar)) //Only the Chaplain's holy armor is capable fo performing this feat.
+		if(!transformed) // can't turn a sword into a sword.
+			user << "<span class='notice'>You sheath the [src] into the [I]'s scabbard, transforming it into a holy sword.</span>"
+			user.unEquip(src)
+			qdel(src)
+			var/obj/item/weapon/nullrod/sword/S = new /obj/item/weapon/nullrod/sword
+			user.put_in_hands(S)
+
+/obj/item/weapon/nullrod/sword
+	name = "holy sword"
+	desc = "A sword imbued with holy power, its very presence disrupts and dampens the powers of paranormal phenomenae."
+	icon_state = "claymore"
+	item_state = "claymore"
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	w_class = 3 //transforming it is not without its downsides.
+	sharp = 1
+	edge = 1
+	transformed = 1
 
 /obj/item/weapon/sord
 	name = "\improper SORD"
@@ -159,7 +182,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
-		
+
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.unEquip(I)
@@ -173,7 +196,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob, params)
 		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))
-			user.unEquip(src)		
+			user.unEquip(src)
 		user.unEquip(I)
 
 		user.put_in_hands(P)

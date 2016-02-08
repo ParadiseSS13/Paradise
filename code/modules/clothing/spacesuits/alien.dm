@@ -155,6 +155,9 @@
 /obj/item/clothing/under/vox
 	has_sensor = 0
 	species_restricted = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/under/vox/vox_casual
 	name = "alien clothing"

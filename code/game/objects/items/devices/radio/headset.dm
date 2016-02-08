@@ -58,12 +58,15 @@
 	return ..()
 
 /obj/item/device/radio/headset/receive_range(freq, level, aiOverride = 0)
-	if (aiOverride)
+	if(aiOverride)
 		return ..(freq, level)
-	if(ishuman(src.loc))
-		var/mob/living/carbon/human/H = src.loc
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
 		if(H.l_ear == src || H.r_ear == src)
 			return ..(freq, level)
+	else if(isanimal(loc))
+		// frankly, all the ones with inventory are small enough to not warrant snowflaking the slot check somehow
+		return ..(freq, level)
 	return -1
 
 /obj/item/device/radio/headset/alt

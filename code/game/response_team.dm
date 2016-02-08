@@ -605,7 +605,7 @@ var/send_emergency_team
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/weapon/tank/emergency_oxygen/engi( src )
 	new /obj/item/device/flashlight/flare( src )
-	new /obj/item/weapon/kitchenknife/combat( src )
+	new /obj/item/weapon/kitchen/knife/combat( src )
 	new /obj/item/device/radio/centcom( src )
 	new /obj/item/weapon/reagent_containers/pill/salicylic( src )
 	new /obj/item/weapon/reagent_containers/pill/patch/synthflesh( src )

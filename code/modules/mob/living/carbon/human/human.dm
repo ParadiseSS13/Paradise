@@ -23,7 +23,10 @@
 			set_species(delay_icon_update = 1)
 
 	if(species)
-		name = species.get_random_name(gender)
+		real_name = species.get_random_name(gender)
+		name = real_name
+		if(mind)
+			mind.name = real_name
 
 	var/datum/reagents/R = new/datum/reagents(330)
 	reagents = R
@@ -42,6 +45,10 @@
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
+
+	if(species)
+		species.handle_dna(src)
+
 	UpdateAppearance()
 
 /mob/living/carbon/human/prepare_data_huds()
@@ -88,9 +95,9 @@
 	h_style = "Bald"
 	..(new_loc, "Vox Armalis")
 
-/mob/living/carbon/human/skellington/New(var/new_loc)
+/mob/living/carbon/human/skeleton/New(var/new_loc)
 	h_style = "Bald"
-	..(new_loc, "Skellington")
+	..(new_loc, "Skeleton")
 
 /mob/living/carbon/human/kidan/New(var/new_loc)
 	..(new_loc, "Kidan")
@@ -245,15 +252,13 @@
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
-	stat(null, "Station Time: [worldtime2text()]")
+	show_stat_station_time()
 
 	if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
 		if(ticker.mode:malf_mode_declared)
 			stat(null, "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
-	if(shuttle_master.emergency.mode >= SHUTTLE_RECALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
-		if(timeleft > 0)
-			stat(null, "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]")
+
+	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
 		if(locate(/obj/item/device/assembly/health) in src)
@@ -277,6 +282,10 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
+
+			if(mind.vampire)
+				stat("Total Blood", "[mind.vampire.bloodtotal]")
+				stat("Usable Blood", "[mind.vampire.bloodusable]")
 
 			if(mind.nation)
 				stat("Nation Name", "[mind.nation.current_name ? "[mind.nation.current_name]" : "[mind.nation.default_name]"]")
@@ -373,33 +382,7 @@
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
-	var/update = 0
-	var/weapon_message = "Explosive Blast"
-	for(var/obj/item/organ/external/temp in organs)
-		switch(temp.limb_name)
-			if("head")
-				update |= temp.take_damage(b_loss * 0.2,   f_loss * 0.2,   used_weapon = weapon_message)
-			if("chest")
-				update |= temp.take_damage(b_loss * 0.4,   f_loss * 0.4,   used_weapon = weapon_message)
-			if("groin")
-				update |= temp.take_damage(b_loss * 0.1,   f_loss * 0.1,   used_weapon = weapon_message)
-			if("l_arm")
-				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
-			if("r_arm")
-				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
-			if("l_leg")
-				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
-			if("r_leg")
-				update |= temp.take_damage(b_loss * 0.05,  f_loss * 0.05,  used_weapon = weapon_message)
-			if("r_foot")
-				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
-			if("l_foot")
-				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
-			if("r_hand")
-				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
-			if("l_hand")
-				update |= temp.take_damage(b_loss * 0.025, f_loss * 0.025, used_weapon = weapon_message)
-	if(update)	UpdateDamageIcon()
+	take_overall_damage(b_loss,f_loss, used_weapon = "Explosive Blast")
 
 	..()
 
@@ -1489,6 +1472,10 @@
 	make_blood()
 
 	maxHealth = species.total_health
+
+	toxins_alert = 0
+	oxygen_alert = 0
+	fire_alert = 0
 
 	if(species.language)
 		add_language(species.language)

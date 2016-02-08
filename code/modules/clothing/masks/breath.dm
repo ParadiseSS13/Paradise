@@ -7,13 +7,15 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
-	species_fit = list("Vox")
 	action_button_name = "Adjust Breath Mask"
 	ignore_maskadjust = 0
-	species_fit = list("Vox", "Vox Armalis")
+	species_fit = list("Vox", "Vox Armalis", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
 		)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
@@ -26,7 +28,7 @@
 	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
-	species_fit = list("Vox")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 
 /obj/item/clothing/mask/breath/vox
 	desc = "A weirdly-shaped breath mask."

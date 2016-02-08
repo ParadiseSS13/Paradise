@@ -1,0 +1,6 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "People with borers cannot commit suicide - this applies to a controlling borer, too."
+  - tweak: "Borers can no longer overdose their hosts."
+  - tweak: "Borers can now inject Saline-Glucose, Spaceacillin, Hydrocodone, Mitocholide, Salbutamol, Capulettium+, and Charcoal. Styptic was removed, as it's pathetic at healing when directly injected. Salicyclic acid was removed too, as its functionality is duplicated by both hydrocodone and saline-glucose."
