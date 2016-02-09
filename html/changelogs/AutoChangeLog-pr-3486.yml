@@ -1,0 +1,7 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - tweak: "When Ahelping, \"Question\" is now \"Mentorhelp\" and \"Player Complaint\" is now \"Adminhelp.\""
+  - tweak: "Mentorhelps and PM replies from mentors appear in a bold aqua blue color."
+  - tweak: "Adminhelps and PM replies from admins appear in a bold bright red color."
+  - tweak: "PM replies from players appear in a dull/dark purple color."
