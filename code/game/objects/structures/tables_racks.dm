@@ -42,7 +42,6 @@
 
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
-		icon_state = initial(icon_state)
 		smooth_icon(src)
 		smooth_icon_neighbors(src)
 
