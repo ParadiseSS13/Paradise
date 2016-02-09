@@ -4,12 +4,11 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery/bleeding
 	name = "internal bleeding"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract,/datum/surgery_step/fix_vein,/datum/surgery_step/open_encased/close, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin")
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target)
+	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected) return 0
@@ -201,11 +200,22 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
 	name = "clense contaminations"//RENAME MEH
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("head")
+
+/datum/surgery/remove_thrall/synth
+	name = "clense contaminations"//RENAME MEH
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
+	possible_locs = list("chest")
+
+
 
 /datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/target)
 	return is_thrall(target)//would this be too meta?
+
+/datum/surgery/remove_thrall/synth/can_start(mob/user, mob/living/carbon/target)
+	return is_thrall(target) && target.get_species() == "Machine"
+
 
 /datum/surgery_step/dethrall
 	name = "cleanse contamination"

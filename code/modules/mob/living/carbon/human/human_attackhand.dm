@@ -59,14 +59,19 @@
 
 	switch(M.a_intent)
 		if(I_HELP)
+			if(can_operate(M))
+				if(health >= config.health_threshold_crit)
+					for(var/datum/surgery/S in M.surgeries)
+						if(istype(S.get_surgery_step(), /datum/surgery_step/cavity/place_item))
+							return 1
+						else
+							help_shake_act(M)
+							add_logs(src, M, "shaked")
+							return 1
 			if(health >= config.health_threshold_crit)
-				for(var/datum/surgery/S in M.surgeries)
-					if(istype(S.get_surgery_step(), /datum/surgery_step/cavity/place_item))
-						return 1
-					else
-						help_shake_act(M)
-						add_logs(src, M, "shaked")
-						return 1
+				help_shake_act(M)
+				add_logs(src, M, "shaked")
+				return 1
 			if(!H.check_has_mouth())
 				H << "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>"
 				return

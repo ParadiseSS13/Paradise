@@ -76,7 +76,7 @@
 			//qdel(O)
 
 	return ..()
-/*
+
 /obj/item/organ/external/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	switch(stage)
 		if(0)
@@ -110,7 +110,7 @@
 					user.visible_message("<span class='danger'><b>[user]</b> fishes around fruitlessly in [src] with [W].")
 				return
 	..()
-	*/
+
 
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))

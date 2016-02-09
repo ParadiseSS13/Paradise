@@ -34,6 +34,21 @@
 
 		return 0
 
+/datum/surgery/reattach/synth
+	name = "limb attachment"
+	steps = list(/datum/surgery_step/limb/attach)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
+/datum/surgery/reattach/synth/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(!affected && (target.get_species() == "Machine"))
+			return 1
+
+		return 0
+
+
 /datum/surgery/robo_attach
 	name = "robotic limb attachment"
 	steps = list(/datum/surgery_step/limb/mechanize)
@@ -77,6 +92,11 @@
 	user.unEquip(E)
 	E.replaced(target)
 	E.forceMove(target)
+	if(target.get_species() == "Machine")//as this is the only step needed for ipc put togethers
+		E.status &= ~ORGAN_DESTROYED
+		if(E.children)
+			for(var/obj/item/organ/external/C in E.children)
+				C.status &= ~ORGAN_DESTROYED
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -114,6 +134,9 @@
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	E.status &= ~ORGAN_DESTROYED
+	var/obj/item/organ/external/stump = target.get_organ(target_zone)
+	if(stump.is_stump())
+		stump.removed(target)
 	if(E.children)
 		for(var/obj/item/organ/external/C in E.children)
 			C.status &= ~ORGAN_DESTROYED
@@ -159,6 +182,9 @@
 			var/list/organ_data = target.species.has_limbs["[part_name]"]
 			if(!organ_data)
 				continue
+			var/obj/item/organ/external/stump = target.get_organ(target_zone)
+			if(stump.is_stump())
+				stump.removed(target)
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
 			new_limb.robotize(L.model_info)

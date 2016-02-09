@@ -3,7 +3,7 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = 1
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
@@ -26,7 +26,7 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
-		if(affected.status & ORGAN_ROBOT)
+		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
 	return 1
 
@@ -226,7 +226,6 @@
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
 			user << "No organs appear to be damaged."
-			return -1
 		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))

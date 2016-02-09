@@ -18,6 +18,14 @@
 
 	possible_locs = list("groin")
 
+/datum/surgery/cavity_implant/synth
+	name = "cavity implant"
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
+	possible_locs = list("chest","head","groin")
+
+/datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/target)
+	return target.get_species() == "Machine"
+
 /datum/surgery_step/cavity
 	priority = 1
 
@@ -145,7 +153,7 @@
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
 	else if(IC)
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
-	target.custom_pain("The pain in your chest is living hell!",1)
+	target.custom_pain("The pain in your [target_zone] is living hell!",1)
 	..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -192,6 +200,14 @@
 	name = "implant removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
 	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
+
+/datum/surgery/cavity_implant_rem/synth
+	name = "implant removal"
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/robotics/external/close_hatch)
+	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
+
+/datum/surgery/cavity_implant_rem/synth/can_start(mob/user, mob/living/carbon/target)
+	return target.get_species() == "Machine"
 
 /datum/surgery_step/cavity/implant_removal
 	name = "extract implant"
