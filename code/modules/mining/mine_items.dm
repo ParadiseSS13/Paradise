@@ -201,8 +201,14 @@
 	icon_state = "mobcap0"
 	w_class = 1.0
 	throw_range = 20
-	var/mob/living/captured = null
+	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
+
+/obj/item/device/mobcapsule/Destroy()
+  if(captured)
+    qdel(captured)
+    captured = null
+  return ..()
 
 /obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
 	if(!istype(A, /mob/living/simple_animal))
@@ -214,7 +220,6 @@
 	var/mob/living/simple_animal/T = target
 	if(captured)
 		U << "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!"
-		return
 	else
 		if(istype(T) && "neutral" in T.faction)
 			T.forceMove(src)
@@ -233,7 +238,7 @@
 
 /obj/item/device/mobcapsule/proc/dump_contents(mob/user)
 	if(captured)
-		captured.loc = src.loc
+		captured.forceMove(get_turf(src))
 		if(captured.client)
 			captured.client.eye = captured.client.mob
 			captured.client.perspective = MOB_PERSPECTIVE
