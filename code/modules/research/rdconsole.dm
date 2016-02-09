@@ -177,6 +177,7 @@ proc/CallMaterialName(ID)
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		req_access = list()
 		emagged = 1
 		user << "<span class='notice'>You disable the security protocols</span>"
 
