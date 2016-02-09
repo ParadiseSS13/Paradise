@@ -72,26 +72,19 @@
 		var/mob/living/M = hit_atom
 		if(ishuman(M)) //if they're a human species
 			var/mob/living/carbon/human/H = M
-			if(H.m_intent == "run") //if they're set to run (though not necessarily running at that moment)
-				if(prob(trip_prob)) //this probability is up for change and mostly a placeholder - Comic
-					step(H, H.dir)
-					H.visible_message("<span class='warning'>[H] was tripped by the bolas!</span>","<span class='warning'>Your legs have been tangled!</span>");
-					H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
-					H.Weaken(4)
-					H.legcuffed = src //applies legcuff properties inherited through legcuffs
-					src.loc = H
-					H.update_inv_legcuffed()
-					if(!H.legcuffed) //in case it didn't happen, we need a safety net
-						throw_failed()
-			else if(H.legcuffed) //if the target is already legcuffed (has to be walking)
+			if(H.legcuffed) //if the target is already legcuffed (has to be walking)
 				throw_failed()
 				return
-			else //walking, but uncuffed, or the running prob() failed
-				H << "<span class='notice'>You stumble over the thrown bolas</span>"
+			if(prob(trip_prob)) //this probability is up for change and mostly a placeholder - Comic
 				step(H, H.dir)
-				H.Stun(1)
-				throw_failed()
-				return
+				H.visible_message("<span class='warning'>[H] was tripped by the bolas!</span>","<span class='warning'>Your legs have been tangled!</span>");
+				H.Stun(2) //used instead of setting damage in vars to avoid non-human targets being affected
+				H.Weaken(4)
+				H.legcuffed = src //applies legcuff properties inherited through legcuffs
+				src.loc = H
+				H.update_inv_legcuffed()
+				if(!H.legcuffed) //in case it didn't happen, we need a safety net
+					throw_failed()
 		else
 			M.Stun(2) //minor stun damage to anything not human
 			throw_failed()
