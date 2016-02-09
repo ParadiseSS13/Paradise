@@ -1,7 +1,7 @@
 /datum/nano_module/camera_monitor
 	name = "Camera Monitor"
 	var/obj/machinery/camera/current = null
-	var/list/network = list("")
+	var/list/network = list("SS13")
 	var/cache_id = 0
 	var/list/networks = list(
 		"SS13",
@@ -87,10 +87,6 @@
 
 		switch_to_camera(usr, C)
 		return 1
-	else if(href_list["reset"])
-		reset_current()
-		usr.check_eye(current)
-		return 1
 	else if(href_list["activate"]) // Activate: enable or disable networks
 		var/net = href_list["activate"]	// Network to be enabled or disabled.
 		var/active = href_list["active"] // Is the network currently active.
@@ -118,53 +114,3 @@
 	A.eyeobj.setLoc(get_turf(C))
 	A.client.eye = A.eyeobj
 	return 1
-
-/datum/nano_module/camera_monitor/proc/set_current(var/obj/machinery/camera/C)
-	if(current == C)
-		return
-
-	if(current)
-		reset_current()
-
-	src.current = C
-	if(current)
-		var/mob/living/L = current.loc
-		if(istype(L))
-			L.tracking_initiated()
-
-/datum/nano_module/camera_monitor/proc/reset_current()
-	if(current)
-		var/mob/living/L = current.loc
-		if(istype(L))
-			L.tracking_cancelled()
-	current = null
-
-//Camera control: moving.
-/datum/nano_module/camera_monitor/proc/jump_on_click(var/mob/user,var/A)
-	if(user.machine != src)
-		return
-	var/obj/machinery/camera/jump_to
-	if(istype(A,/obj/machinery/camera))
-		jump_to = A
-	else if(ismob(A))
-		if(ishuman(A))
-			jump_to = locate() in A:head
-		else if(isrobot(A))
-			jump_to = A:camera
-	else if(isobj(A))
-		jump_to = locate() in A
-	else if(isturf(A))
-		var/best_dist = INFINITY
-		for(var/obj/machinery/camera/camera in get_area(A))
-			if(!camera.can_use())
-				continue
-			if(!can_access_camera(camera))
-				continue
-			var/dist = get_dist(camera,A)
-			if(dist < best_dist)
-				best_dist = dist
-				jump_to = camera
-	if(isnull(jump_to))
-		return
-	if(can_access_camera(jump_to))
-		switch_to_camera(user,jump_to)
