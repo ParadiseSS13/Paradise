@@ -108,7 +108,7 @@
 		if(!msg)
 			return
 
-	var/recieve_color = "purple"
+	var/recieve_span = "playerreply"
 	var/send_pm_type = " "
 	var/recieve_pm_type = "Player"
 
@@ -118,9 +118,9 @@
 		//PMs sent from admins and mods display their rank
 		if(holder)
 			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
-				recieve_color = "maroon"
+				recieve_span = "adminobserverooc"
 			else
-				recieve_color = "red"
+				recieve_span = "danger"
 			send_pm_type = holder.rank + " "
 			recieve_pm_type = holder.rank
 
@@ -131,7 +131,7 @@
 	var/recieve_message = ""
 
 	if(holder && !C.holder)
-		recieve_message = "<font color='[recieve_color]' size='3'><b>-- Click the [recieve_pm_type]'s name to reply --</b></font>\n"
+		recieve_message = "<span class='[recieve_span]' size='3'>-- Click the [recieve_pm_type]'s name to reply --</span>\n"
 		if(C.adminhelped)
 			C << recieve_message
 			C.adminhelped = 0
@@ -149,7 +149,7 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	recieve_message = "<font color='[recieve_color]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</font>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
 	C << recieve_message
 	src << "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg]</font>"
 
@@ -172,13 +172,13 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
+						X << "<span class='adminobserverooc'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
+						X << "<span class='danger'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<B><font color='blue'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]:</B> [msg]</font>"
+						X << "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
