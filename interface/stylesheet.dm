@@ -23,6 +23,8 @@ em						{font-style: normal;	font-weight: bold;}
 .adminobserver			{color: #996600;	font-weight: bold;}
 .admin					{color: #386aff;	font-weight: bold;}
 
+.playerreply			{color: #8800bb;	font-weight: bold;}
+
 .name					{					font-weight: bold;}
 
 .say					{}
