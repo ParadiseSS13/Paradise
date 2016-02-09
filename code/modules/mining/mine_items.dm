@@ -205,10 +205,10 @@
 	var/colorindex = 0
 
 /obj/item/device/mobcapsule/Destroy()
-  if(captured)
-    qdel(captured)
-    captured = null
-  return ..()
+	if(captured)
+		qdel(captured)
+		captured = null
+	return ..()
 
 /obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
 	if(!istype(A, /mob/living/simple_animal))
