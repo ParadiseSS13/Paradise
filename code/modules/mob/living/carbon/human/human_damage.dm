@@ -1,7 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth()
 	if(status_flags & GODMODE)
-		health = 100
+		health = maxHealth
 		stat = CONSCIOUS
 		return
 
@@ -12,15 +12,15 @@
 		total_brute += O.brute_dam //calculates health based on organ brute and burn
 		total_burn += O.burn_dam
 
-	health = 100 - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
+	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
 	//TODO: fix husking
-	if(((100 - total_burn) < config.health_threshold_dead) && stat == DEAD) //100 is the magic human max health number
-		ChangeToHusk()                                                      //BECAUSE NO ONE THOUGHT TO USE LIVING/VAR/MAXHEALTH I GUESS
+	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
+		ChangeToHusk()
 	if(species.can_revive_by_healing)
 		var/obj/item/organ/brain/B = internal_organs_by_name["brain"]
 		if(B)
-			if((health >= (config.health_threshold_dead / 100 * 75)) && stat == DEAD)
+			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD)
 				update_revive()
 	if(stat == CONSCIOUS && (src in dead_mob_list)) //Defib fix
 		update_revive()
