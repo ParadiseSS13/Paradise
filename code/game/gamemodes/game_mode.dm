@@ -446,3 +446,13 @@ proc/get_nt_opposed()
 		if(bomb && bomb.r_code && bomb.z == ZLEVEL_STATION)
 			nukecode = bomb.r_code
 	return nukecode
+
+/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type, pref)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", "[role_type]", null, pref, 100)
+	var/mob/dead/observer/theghost = null
+	if(candidates.len)
+		theghost = pick(candidates)
+		M << "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
+		M.ghostize()
+		M.key = theghost.key

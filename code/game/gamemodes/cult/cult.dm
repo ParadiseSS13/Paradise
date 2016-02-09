@@ -186,6 +186,10 @@
 		cult += cult_mind
 		add_cult_viewpoint(cult_mind.current)
 		update_cult_icons_added(cult_mind)
+		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
+			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST, ROLE_CULTIST)
+
 		return 1
 
 
