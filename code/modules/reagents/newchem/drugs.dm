@@ -165,6 +165,10 @@
 	addiction_threshold = 10
 	metabolization_rate = 0.6
 
+/datum/reagent/methamphetamine/meth2 //for donk pockets
+	id = "methamphetamine2"
+	addiction_threshold = 20
+
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
