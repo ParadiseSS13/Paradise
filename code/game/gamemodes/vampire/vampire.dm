@@ -326,7 +326,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(!(VAMP_SCREAM in vamp.powers))
 			vamp.powers.Add(VAMP_SCREAM)
 		if(!(vamp.upgradedRegen))	// to prevent spamming
-			src << "<span class='notice'>Your rejuvination abilities have improved and will now heal you over time when used."
+			src << "<span class='notice'>Your rejuvination abilities have improved and will now heal you over time when used.</span>"
 			vamp.upgradedRegen = 1
 
 	// TIER 3.5 (/vg/)
