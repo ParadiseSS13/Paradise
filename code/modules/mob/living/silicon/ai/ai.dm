@@ -71,7 +71,6 @@ var/list/ai_verbs_default = list(
 
 	var/mob/living/silicon/ai/parent = null
 
-	var/apc_override = 0 //hack for letting the AI use its APC even when visionless
 	var/camera_light_on = 0	//Defines if the AI toggled the light on the camera it's looking through.
 	var/datum/trackable/track = null
 	var/last_paper_seen = null
