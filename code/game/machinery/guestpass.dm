@@ -113,9 +113,9 @@
 				if(reas)
 					reason = reas
 			if ("duration")
-				var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num|null
+				var/dur = input("Duration (in minutes) during which pass is valid (up to forever.).", "Duration") as num|null
 				if (dur)
-					if (dur > 0 && dur <= 30)
+					if (dur > 0 && dur <= INFINITY)
 						duration = dur
 					else
 						usr << "<span class='warning'>Invalid duration.</span>"
