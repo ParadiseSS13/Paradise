@@ -1,5 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - tweak: "The cloner now checks for NO_SCAN on the brain when scanning - unclonable species are now truly unclonable. You are still able to revive them with a brain transplant and a defib, however."
-  - rscadd: "A tier-4 DNA scanner linked to a cloning system will now be able to reproduce a body from a brain's DNA, in event of the original corpse being gibbed or similar."

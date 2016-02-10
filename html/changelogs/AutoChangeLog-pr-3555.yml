@@ -1,6 +1,0 @@
-author: TheDZD
-delete-after: True
-changes: 
-  - rscadd: "Adds admin attack log to players being converted to cult."
-  - rscadd: "Adds shadowling thrall jobbans."
-  - rscadd: "Jobbanned players who are converted to shadowling thrall, revolutionary, or cultist will have the control of their body offered up to eligible ghosts."
