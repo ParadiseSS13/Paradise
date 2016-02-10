@@ -342,6 +342,11 @@
 				user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
 				playsound(get_turf(src), 'sound/machines/defib_charge.ogg', 50, 0)
 				var/mob/dead/observer/ghost = H.get_ghost()
+				if(!ghost.client)
+					// In case the ghost's not getting deleted for some reason
+					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
+					qdel(ghost)
+					ghost = null
 				var/tplus = world.time - H.timeofdeath
 				var/tlimit = 6000 //past this much time the patient is unrecoverable (in deciseconds)
 				var/tloss = 3000 //brain damage starts setting in on the patient after some time left rotting
@@ -387,11 +392,12 @@
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 							else if(total_burn >= 180 || total_brute >= 180)
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+							else if(ghost)
+								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive</span>")
+								ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
+								ghost << sound('sound/effects/genetics.ogg')
 							else
 								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed.</span>")
-								if(ghost)
-									ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
-									ghost << sound('sound/effects/genetics.ogg')
 							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 							defib.deductcharge(revivecost)
 						update_icon()
