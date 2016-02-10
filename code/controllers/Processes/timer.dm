@@ -17,7 +17,8 @@ var/global/datum/controller/process/timer/PStimer
 	if(!processing_timers.len)
 		disabled = 1 //nothing to do, lets stop firing.
 		return
-	for(var/datum/timedevent/event in processing_timers)
+	for(last_object in processing_timers)
+		var/datum/timedevent/event = last_object
 		if(!event.thingToCall || qdeleted(event.thingToCall))
 			qdel(event)
 		if(event.timeToRun <= world.time)
