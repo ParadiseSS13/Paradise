@@ -248,6 +248,37 @@
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 	new /obj/item/weapon/grenade/chem_grenade/cleaner(src)
 
+/obj/item/weapon/storage/belt/lazarus
+	name = "trainer's belt"
+	desc = "For the mining master, holds your lazarus capsules."
+	icon_state = "lazarusbelt"
+	item_state = "lazbelt"
+	w_class = 4
+	max_w_class = 1
+	max_combined_w_class = 6
+	storage_slots = 6
+	can_hold = list("/obj/item/device/mobcapsule")
+
+/obj/item/weapon/storage/belt/lazarus/New()
+	..()
+	update_icon()
+
+
+/obj/item/weapon/storage/belt/lazarus/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]_[contents.len]"
+
+/obj/item/weapon/storage/belt/lazarus/attackby(obj/item/W, mob/user)
+	var/amount = contents.len
+	. = ..()
+	if(amount != contents.len)
+		update_icon()
+
+/obj/item/weapon/storage/belt/lazarus/remove_from_storage(obj/item/W as obj, atom/new_location)
+	..()
+	update_icon()
+
+
 /obj/item/weapon/storage/belt/bandolier
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
