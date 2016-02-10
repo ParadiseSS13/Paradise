@@ -16,8 +16,6 @@
 		return 0
 	if(iscultist(mind.current))
 		return 1 //If they're already in the cult, assume they are convertable
-	if(jobban_isbanned(mind.current, "cultist") || jobban_isbanned(mind.current, "Syndicate"))
-		return 0
 	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))
 		return 0
 	if(ishuman(mind.current))
@@ -189,7 +187,6 @@
 		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST, ROLE_CULTIST)
-
 		return 1
 
 
