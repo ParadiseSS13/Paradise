@@ -1,7 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "Species with organic limbs and NO_BLOOD will no longer bleed (though still on hit - write that off as \"bone powder\")"
-  - tweak: "Skeletons now lack internal organs, except for the runic mind which exists in their head - an analogue for the brain"
-  - rscadd: "Skeletons that drink milk will be regenerated at a moderate pace, have a small chance of mending bones, and will praise the great name of mr skeltal"
-  - tweak: "Adds a reagent system for species reacting to specific reagents"
