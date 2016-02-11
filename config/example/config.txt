@@ -245,8 +245,8 @@ GHOST_INTERACTION
 ## Uncomment to enable sending data to the IRC bot.
 #USE_IRC_BOT
 
-## Host where the IRC bot is hosted.  Port 45678 needs to be open.
-#IRC_BOT_HOST localhost
+## Host(s) where the IRC bot is hosted.  Seperate IP's by ;.  Port 45678 needs to be open.
+#IRC_BOT_HOST 127.0.0.1;localhost
 
 ## IRC channel to send information to.  Leave blank to disable.
 #MAIN_IRC #main
