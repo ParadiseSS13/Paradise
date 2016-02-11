@@ -1,4 +1,4 @@
-/obj/item/organ/internal/brain
+/obj/item/organ/brain
 	name = "brain"
 	health = 400 //They need to live awhile longer than other organs.
 	max_damage = 200
@@ -13,30 +13,33 @@
 	var/mob/living/carbon/brain/brainmob = null
 	organ_tag = "brain"
 	parent_organ = "head"
-	slot = "brain"
 	vital = 1
 
-/obj/item/organ/internal/brain/surgeryize()
+/obj/item/organ/brain/attack_self(mob/user as mob)
+	return  //let's not have players taken out of the round as easily as a click, once you have their brain.
+
+/obj/item/organ/brain/surgeryize()
 	if(!owner)
 		return
 	owner.ear_damage = 0 //Yeah, didn't you...hear? The ears are totally inside the brain.
 	owner.ear_deaf = 0
 
-/obj/item/organ/internal/brain/xeno
+/obj/item/organ/brain/xeno
 	name = "thinkpan"
 	desc = "It looks kind of like an enormous wad of purple bubblegum."
-	icon_state = "brain-x-d"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "chitin"
 
-/obj/item/organ/internal/brain/New()
+/obj/item/organ/brain/New()
 	..()
 	spawn(5)
 		if(brainmob && brainmob.client)
 			brainmob.client.screen.len = null //clear the hud
 
-/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
-		log_to_dd("[src] at [loc] did not contain a dna datum at time of removal.")
+		log_to_dd("[src] at [loc] did not contain a dna datum at time of removed.")
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
@@ -50,18 +53,18 @@
 	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
 	callHook("debrain", list(brainmob))
 
-/obj/item/organ/internal/brain/examine(mob/user) // -- TLE
+/obj/item/organ/brain/examine(mob/user) // -- TLE
 	..(user)
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
 		user << "You can feel the small spark of life still left in this one."
 	else
 		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(var/mob/living/user,var/special)
+/obj/item/organ/brain/removed(var/mob/living/user)
 
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
-	var/obj/item/organ/internal/brain/B = src
+	var/obj/item/organ/brain/B = src
 	if(istype(B) && istype(owner) && is_primary_organ())
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
@@ -73,12 +76,12 @@
 
 	..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target)
+/obj/item/organ/brain/replaced(var/mob/living/target)
 
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
-		//var/mob/living/carbon/human/H = target
-		if(target.get_int_organ(/obj/item/organ/internal/brain))
+		var/mob/living/carbon/human/H = target
+		if(organ_tag in H.internal_organs_by_name)
 			brain_already_exists = 1
 
 	if(!brain_already_exists)
@@ -94,22 +97,19 @@
 				target.key = brainmob.key
 	..()
 
-/obj/item/organ/internal/brain/prepare_eat()
-	return // Too important to eat.
-
-/obj/item/organ/internal/brain/slime
+/obj/item/organ/brain/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 
-/obj/item/organ/internal/brain/golem
-	name = "chem"
+/obj/item/organ/brain/golem
+	name = "Runic mind"
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 
-/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
+/obj/item/organ/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
 		qdel(brainmob)
 		brainmob = null
