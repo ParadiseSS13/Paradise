@@ -120,7 +120,7 @@
 			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
 				recieve_span = "mentorhelp"
 			else
-				recieve_span = "danger"
+				recieve_span = "adminhelp"
 			send_pm_type = holder.rank + " "
 			recieve_pm_type = holder.rank
 
@@ -175,7 +175,7 @@
 						X << "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<span class='danger'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
+						X << "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						X << "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
