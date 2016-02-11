@@ -85,8 +85,6 @@
 	emp_heavy = 6
 	emp_light = 10
 
-	action_icon_state = "tech"
-
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
 	desc = "This spell randomly teleports you a short distance."
@@ -144,7 +142,7 @@
 	summon_type = list("/obj/effect/forcefield")
 	summon_lifespan = 300
 
-	action_icon_state = "spell_forcewall"
+	action_icon_state = "shield"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"

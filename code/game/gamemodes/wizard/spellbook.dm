@@ -839,7 +839,7 @@
 
 
 /obj/item/weapon/spellbook/oneuse/fake_gib
-	spell = /obj/effect/proc_holder/spell/targeted/fake_gib
+	spell = /obj/effect/proc_holder/spell/targeted/touch/fake_disintegrate
 	spellname = "disintegrate"
 	icon_state ="bookfireball"
 	desc = "This book feels like it will rip stuff apart."
