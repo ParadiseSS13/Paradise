@@ -29,6 +29,8 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if((target.get_species() == "Machine"))
+			return 0
 		if(!affected)
 			return 1
 
@@ -134,8 +136,8 @@
 	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
 	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	E.status &= ~ORGAN_DESTROYED
-	var/obj/item/organ/external/stump = target.get_organ(target_zone)
-	if(stump.is_stump())
+	var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
+	if(stump)
 		stump.removed(target)
 	if(E.children)
 		for(var/obj/item/organ/external/C in E.children)
@@ -182,8 +184,8 @@
 			var/list/organ_data = target.species.has_limbs["[part_name]"]
 			if(!organ_data)
 				continue
-			var/obj/item/organ/external/stump = target.get_organ(target_zone)
-			if(stump.is_stump())
+			var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
+			if(stump)
 				stump.removed(target)
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)

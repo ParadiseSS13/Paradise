@@ -7,6 +7,19 @@
 	steps = list(/datum/surgery_step/generic/cut_face, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/face/mend_vocal, /datum/surgery_step/face/fix_face,/datum/surgery_step/face/cauterize)
 	possible_locs = list("head")
 
+
+/datum/surgery/plastic_surgery/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(affected && (affected.status & ORGAN_ROBOT))
+			return 0
+		if((target.get_species() == "Machine"))
+			return 0
+		if(!(affected.encased))
+			return 0
+	return 1
+
 /datum/surgery_step/face
 	priority = 2
 	can_infect = 0

@@ -8,11 +8,13 @@
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list("groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	requires_organic_bodypart = 1
 
 /datum/surgery/organ_manipulation/boneless
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	allowed_mob = list(/mob/living/carbon/human/diona)
+	requires_organic_bodypart = 1
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
@@ -27,6 +29,8 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
+			return 0
+		if((target.get_species() == "Machine"))
 			return 0
 	return 1
 
