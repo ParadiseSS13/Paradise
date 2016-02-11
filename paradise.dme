@@ -167,6 +167,7 @@
 #include "code\controllers\Processes\shuttles.dm"
 #include "code\controllers\Processes\sun.dm"
 #include "code\controllers\Processes\ticker.dm"
+#include "code\controllers\Processes\timer.dm"
 #include "code\controllers\Processes\vote.dm"
 #include "code\controllers\Processes\shuttles\emergency.dm"
 #include "code\controllers\Processes\shuttles\supply.dm"
