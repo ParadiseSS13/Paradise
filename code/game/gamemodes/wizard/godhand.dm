@@ -44,12 +44,6 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
-	if(ishuman(M) || issmall(M))
-		var/mob/living/carbon/C_target = M
-		var/obj/item/organ/brain/B
-		if(C_target.brain_op_stage != 4) // Their brain is already taken out
-			B = new(C_target.loc)
-			B.transfer_identity(C_target)
 	var/datum/effect/system/spark_spread/sparks = new
 	sparks.set_up(4, 0, M.loc) //no idea what the 0 is
 	sparks.start()
