@@ -118,7 +118,7 @@
 		//PMs sent from admins and mods display their rank
 		if(holder)
 			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
-				recieve_span = "adminobserverooc"
+				recieve_span = "mentorhelp"
 			else
 				recieve_span = "danger"
 			send_pm_type = holder.rank + " "
@@ -172,7 +172,7 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						X << "<span class='adminobserverooc'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
+						X << "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						X << "<span class='danger'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
