@@ -22,10 +22,13 @@ var/global/datum/controller/process/timer/PStimer
 		if(!event.thingToCall || qdeleted(event.thingToCall))
 			qdel(event)
 		if(event.timeToRun <= world.time)
-			spawn(-1)
-				call(event.thingToCall, event.procToCall)(arglist(event.argList))
+			runevent(event)
 			qdel(event)
 		SCHECK
+
+/datum/controller/process/timer/proc/runevent(datum/timedevent/event)
+	set waitfor = 0
+	call(event.thingToCall, event.procToCall)(arglist(event.argList))
 
 /datum/timedevent
 	var/thingToCall
