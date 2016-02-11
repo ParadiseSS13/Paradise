@@ -295,13 +295,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()
-	if(reagents.has_reagent("lexorin"))
+
+	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+		adjustOxyLoss(-5)
+		oxygen_alert = 0
+		toxins_alert = 0
 		return
-	if(NO_BREATH in mutations)
-		return // No breath mutation means no breathing. //DID YOU REALLY NEED TO FUCKING STATE THIS?
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		return
-	if(species && (species.flags & NO_BREATHE))
 		return
 
 	var/datum/gas_mixture/environment

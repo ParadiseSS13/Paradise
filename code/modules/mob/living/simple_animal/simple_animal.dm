@@ -414,7 +414,7 @@
 	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		if(istype(O, /obj/item/weapon/kitchen/knife))
 			harvest()
-	else
+	else if(istype(O) && istype(user) && !O.attack(src, user))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		var/damage = 0

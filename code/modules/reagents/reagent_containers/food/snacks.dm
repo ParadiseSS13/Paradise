@@ -834,7 +834,7 @@
 		reagents.add_reagent("synaptizine", 15)
 		reagents.add_reagent("salglu_solution", 15)
 		reagents.add_reagent("salbutamol", 15)
-		reagents.add_reagent("methamphetamine", 15)
+		reagents.add_reagent("methamphetamine2", 15)
 
 /obj/item/weapon/reagent_containers/food/snacks/brainburger
 	name = "brainburger"

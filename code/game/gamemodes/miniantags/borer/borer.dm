@@ -26,6 +26,13 @@
 			if(M.mind && (istype(M, /mob/dead/observer)))
 				M << "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>"
 
+/mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
+	var/mob/living/simple_animal/borer/B = src.loc
+	if(!istype(B))
+		log_to_dd("Trapped mind found without a borer!")
+		return 0
+	return B.host.say_understands(other, speaking)
+
 /mob/living/captive_brain/emote(var/message)
 	return
 
@@ -243,6 +250,8 @@
 	set name = "Secrete Chemicals (30)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
+	var/injection_amount = 9
+	var/chem_cost = 30
 	if(!host)
 		src << "You are not inside a host body."
 		return
@@ -254,17 +263,24 @@
 		src << "\blue You are feeling far too docile to do that."
 		return
 
-	if(chemicals < 30)
+	if(chemicals < chem_cost)
 		src << "You don't have enough chemicals!"
 
-	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","styptic_powder","methamphetamine","sal_acid")
 
-	if(!chem || chemicals < 30 || !host || controlling || !src || stat) //Sanity check.
+	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
+
+	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat) //Sanity check.
 		return
 
-	src << "\red <B>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</B>"
-	host.reagents.add_reagent(chem, 9)
-	chemicals -= 30
+	var/chem_amount = host.reagents.get_reagent_amount(chem)
+	var/datum/reagent/R = chemical_reagents_list[chem]
+	if(R.overdose_threshold && chem_amount + injection_amount > R.overdose_threshold)
+		src << "<span class='warning'>Doing so would cause grievous harm to your host, reducing ability to reproduce. Aborting.</span>"
+		return
+
+	src << "<span class='notice'>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</span>"
+	host.reagents.add_reagent(chem, injection_amount)
+	chemicals -= chem_cost
 
 /mob/living/simple_animal/borer/verb/release_host()
 	set category = "Alien"

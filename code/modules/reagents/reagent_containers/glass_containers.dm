@@ -23,6 +23,7 @@
 		/obj/structure/table,
 		/obj/structure/closet,
 		/obj/structure/sink,
+		/obj/structure/toilet,
 		/obj/item/weapon/storage,
 		/obj/machinery/atmospherics/unary/cryo_cell,
 		/obj/machinery/dna_scannernew,
@@ -336,7 +337,7 @@
 	materials = list(MAT_METAL=200)
 	w_class = 3.0
 	amount_per_transfer_from_this = 20
-	possible_transfer_amounts = list(5,10,15,25,30,50,80,100,120)
+	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
 	flags = OPENCONTAINER
 

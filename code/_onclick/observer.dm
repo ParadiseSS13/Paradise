@@ -7,8 +7,8 @@
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
 
-	// Things you might plausibly want to follow
-	if((ismob(A) && A != src) || istype(A,/obj/machinery/bot) || istype(A,/obj/singularity))
+	// Follow !!ALL OF THE THINGS!!
+	if(istype(A, /atom/movable) && A != src)
 		ManualFollow(A)
 
 	// Otherwise jump

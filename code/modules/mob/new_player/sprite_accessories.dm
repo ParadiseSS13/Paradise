@@ -42,7 +42,7 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human")
+	var/list/species_allowed = list("Human", "Slime People")
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -485,7 +485,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin")
+		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin", "Slime People")
 
 
 	watson
@@ -630,6 +630,11 @@
 		icon_state = "skrell_clothhair_f"
 		species_allowed = list("Skrell")
 		gender = FEMALE
+
+	taj_ears
+		name = "Tajaran Ears"
+		icon_state = "ears_plain"
+		species_allowed = list("Tajaran")
 
 	taj_ears_clean
 		name = "Tajara Clean"

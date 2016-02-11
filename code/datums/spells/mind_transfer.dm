@@ -42,6 +42,10 @@ Also, you never added distance checking after target is selected. I've went ahea
 		user << "They appear to be catatonic. Not even magic can affect their vacant mind."
 		return
 
+	if(user.suiciding)
+		user << "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>"
+		return
+
 	if(target.mind.special_role in protected_roles)
 		user << "Their mind is resisting your spell."
 		return

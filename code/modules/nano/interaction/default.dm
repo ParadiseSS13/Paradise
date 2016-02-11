@@ -32,6 +32,9 @@
 
 /mob/living/silicon/ai/default_can_use_topic(var/src_object)
 	. = shared_nano_interaction()
+	// Fix the weird hacking blurb to actually let them restore power
+	if(aiRestorePowerRoutine == 3 && istype(src_object, /obj/machinery/power/apc))
+		return STATUS_INTERACTIVE
 	if(. != STATUS_INTERACTIVE)
 		return
 
