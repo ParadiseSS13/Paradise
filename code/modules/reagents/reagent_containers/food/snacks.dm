@@ -1759,6 +1759,29 @@
 		reagents.add_reagent("capsaicin", 6)
 		bitesize = 4
 
+/obj/item/weapon/reagent_containers/food/snacks/burrito
+	name = "Burrito"
+	desc = "Meat, beans, cheese, and rice wrapped up as an easy-to-hold meal."
+	icon_state = "burrito"
+	trash = /obj/item/trash/plate
+	filling_color = "#A36A1F"
+
+/obj/item/weapon/reagent_containers/food/snacks/burrito/New()
+	..()
+	reagents.add_reagent("nutriment", 5)
+
+/obj/item/weapon/reagent_containers/food/snacks/chimichanga
+	name = "Chimichanga"
+	desc = "Time to eat a chimi-f***ing-changa."
+	icon_state = "chimichanga"
+	trash = /obj/item/trash/plate
+	filling_color = "#A36A1F"
+
+/obj/item/weapon/reagent_containers/food/snacks/chimichanga/New()
+	..()
+	reagents.add_reagent("omnizine", 4)		//Deadpool reference. Deal with it.
+	reagents.add_reagent("cheese", 2)
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's Delight"
 	desc = "Eeee Eee!"
