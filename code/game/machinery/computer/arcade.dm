@@ -18,7 +18,7 @@
 							/obj/item/weapon/storage/fancy/crayons			= 2,
 							/obj/item/toy/spinningtoy						= 2,
 							/obj/item/toy/crossbow/tommygun					= 2,
-							/obj/random/prize								= 5,
+							/obj/random/mech								= 5,
 							/obj/item/toy/nuke								= 2,
 							/obj/item/toy/cards/deck						= 2,
 							/obj/random/carp_plushie						= 2,

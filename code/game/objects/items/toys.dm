@@ -141,89 +141,87 @@
 	attack_verb = list("attacked", "struck", "hit")
 	var/bullets = 5
 
-	examine(mob/user)
-		..(user)
-		if (bullets)
-			user << "\blue It is loaded with [bullets] foam darts!"
+/obj/item/toy/crossbow/examine(mob/user)
+	..(user)
+	if (bullets)
+		user << "\blue It is loaded with [bullets] foam darts!"
 
-	attackby(obj/item/I as obj, mob/user as mob, params)
-		if(istype(I, /obj/item/toy/ammo/crossbow))
-			if(bullets <= 4)
-				user.drop_item()
-				qdel(I)
-				bullets++
-				user << "\blue You load the foam dart into the crossbow."
-			else
-				usr << "\red It's already fully loaded."
+/obj/item/toy/crossbow/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/toy/ammo/crossbow))
+		if(bullets <= 4)
+			user.drop_item()
+			qdel(I)
+			bullets++
+			user << "\blue You load the foam dart into the crossbow."
+		else
+			usr << "\red It's already fully loaded."
 
 
-	afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-		if(!isturf(target.loc) || target == user) return
-		if(flag) return
+/obj/item/toy/crossbow/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!isturf(target.loc) || target == user) return
+	if(flag) return
 
-		if (locate (/obj/structure/table, src.loc))
-			return
-		else if (bullets)
-			var/turf/trg = get_turf(target)
-			var/obj/effect/foam_dart_dummy/D = new/obj/effect/foam_dart_dummy(get_turf(src))
-			bullets--
-			D.icon_state = "foamdart"
-			D.name = "foam dart"
-			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
+	if (locate (/obj/structure/table, src.loc))
+		return
+	else if (bullets)
+		var/turf/trg = get_turf(target)
+		var/obj/effect/foam_dart_dummy/D = new/obj/effect/foam_dart_dummy(get_turf(src))
+		bullets--
+		D.icon_state = "foamdart"
+		D.name = "foam dart"
+		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
 
-			for(var/i=0, i<6, i++)
-				if (D)
-					if(D.loc == trg) break
-					step_towards(D,trg)
+		for(var/i=0, i<6, i++)
+			if (D)
+				if(D.loc == trg) break
+				step_towards(D,trg)
 
-					for(var/mob/living/M in D.loc)
-						if(!istype(M,/mob/living)) continue
-						if(M == user) continue
-						D.visible_message("<span class='danger'>[M] was hit by the foam dart!</span>")
-						new /obj/item/toy/ammo/crossbow(M.loc)
-						qdel(D)
-						return
-
-					for(var/atom/A in D.loc)
-						if(A == user) continue
-						if(A.density)
-							new /obj/item/toy/ammo/crossbow(A.loc)
-							qdel(D)
-
-				sleep(1)
-
-			spawn(10)
-				if(D)
-					new /obj/item/toy/ammo/crossbow(D.loc)
+				for(var/mob/living/M in D.loc)
+					if(!istype(M,/mob/living)) continue
+					if(M == user) continue
+					D.visible_message("<span class='danger'>[M] was hit by the foam dart!</span>")
+					new /obj/item/toy/ammo/crossbow(M.loc)
 					qdel(D)
+					return
 
-			return
-		else if (bullets == 0)
-			user.Weaken(5)
-			user.visible_message("<span class='danger'>[] realized they were out of ammo and starting scrounging for some!</span>")
+				for(var/atom/A in D.loc)
+					if(A == user) continue
+					if(A.density)
+						new /obj/item/toy/ammo/crossbow(A.loc)
+						qdel(D)
 
+			sleep(1)
 
+		spawn(10)
+			if(D)
+				new /obj/item/toy/ammo/crossbow(D.loc)
+				qdel(D)
 
-	attack(mob/M as mob, mob/user as mob)
-		src.add_fingerprint(user)
+		return
+	else if (bullets == 0)
+		user.Weaken(5)
+		user.visible_message("<span class='danger'>[] realized they were out of ammo and started scrounging for some!</span>")
+
+/obj/item/toy/crossbow/attack(mob/M as mob, mob/user as mob)
+	src.add_fingerprint(user)
 
 // ******* Check
 
-		if (src.bullets > 0 && M.lying)
+	if (src.bullets > 0 && M.lying)
 
-			for(var/mob/O in viewers(M, null))
-				if(O.client)
-					O.show_message(text("<span class='danger'><B>[] casually lines up a shot with []'s head and pulls the trigger!</B></span>", user, M), 1, "<span class='danger'>You hear the sound of foam against skull.</span>", 2)
-					O.show_message(text("\red [] was hit in the head by the foam dart!", M), 1)
+		for(var/mob/O in viewers(M, null))
+			if(O.client)
+				O.show_message(text("<span class='danger'><B>[] casually lines up a shot with []'s head and pulls the trigger!</B></span>", user, M), 1, "<span class='danger'>You hear the sound of foam against skull.</span>", 2)
+				O.show_message(text("\red [] was hit in the head by the foam dart!", M), 1)
 
-			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
-			new /obj/item/toy/ammo/crossbow(M.loc)
-			src.bullets--
-		else if (M.lying && src.bullets == 0)
-			for(var/mob/O in viewers(M, null))
-				if (O.client)  O.show_message(text("<span class='danger'><B>[] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</B></span>", user, M), 1, "<span class='danger'>You hear someone fall.</span>", 2)
-			user.Weaken(5)
-		return
+		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
+		new /obj/item/toy/ammo/crossbow(M.loc)
+		src.bullets--
+	else if (M.lying && src.bullets == 0)
+		for(var/mob/O in viewers(M, null))
+			if (O.client)  O.show_message(text("<span class='danger'><B>[] casually lines up a shot with []'s head, pulls the trigger, then realizes they are out of ammo and drops to the floor in search of some!</B></span>", user, M), 1, "<span class='danger'>You hear someone fall.</span>", 2)
+		user.Weaken(5)
+	return
 
 /obj/item/toy/ammo/crossbow
 	name = "foam dart"
@@ -400,15 +398,15 @@
 	icon_state = "snappop"
 	w_class = 1
 
-	throw_impact(atom/hit_atom)
-		..()
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
-		new /obj/effect/decal/cleanable/ash(src.loc)
-		src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
-		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		qdel(src)
+/obj/item/toy/snappop/throw_impact(atom/hit_atom)
+	..()
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	s.set_up(3, 1, src)
+	s.start()
+	new /obj/effect/decal/cleanable/ash(src.loc)
+	src.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+	playsound(src, 'sound/effects/snap.ogg', 50, 1)
+	qdel(src)
 
 /obj/item/toy/snappop/Crossed(H as mob|obj)
 	if((ishuman(H))) //i guess carp and shit shouldn't set them off
@@ -429,13 +427,13 @@
 /*
  * Mech prizes
  */
-/obj/item/toy/prize
+/obj/item/toy/mech
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 	var/cooldown = 0
 
 //all credit to skasi for toy mech fun ideas
-/obj/item/toy/prize/attack_self(mob/user as mob)
+/obj/item/toy/mech/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
 		user << "<span class='notice'>You play with [src].</span>"
 		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
@@ -450,46 +448,46 @@
 			return
 	..()
 
-/obj/random/prize
+/obj/random/mech
 	name = "Random Mech Prize"
 	desc = "This is a random prize"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 
-/obj/random/prize/item_to_spawn()
+/obj/random/mech/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
 
-/obj/item/toy/prize/ripley
+/obj/item/toy/mech/ripley
 	name = "toy ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 1/11."
 
-/obj/item/toy/prize/fireripley
+/obj/item/toy/mech/fireripley
 	name = "toy firefighting ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 2/11."
 	icon_state = "fireripleytoy"
 
-/obj/item/toy/prize/deathripley
+/obj/item/toy/mech/deathripley
 	name = "toy deathsquad ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 3/11."
 	icon_state = "deathripleytoy"
 
-/obj/item/toy/prize/gygax
+/obj/item/toy/mech/gygax
 	name = "toy gygax"
 	desc = "Mini-Mecha action figure! Collect them all! 4/11."
 	icon_state = "gygaxtoy"
 
 
-/obj/item/toy/prize/durand
+/obj/item/toy/mech/durand
 	name = "toy durand"
 	desc = "Mini-Mecha action figure! Collect them all! 5/11."
 	icon_state = "durandprize"
 
-/obj/item/toy/prize/honk
+/obj/item/toy/mech/honk
 	name = "toy H.O.N.K."
 	desc = "Mini-Mecha action figure! Collect them all! 6/11."
 	icon_state = "honkprize"
 
-/obj/item/toy/prize/marauder
+/obj/item/toy/mech/marauder
 	name = "toy marauder"
 	desc = "Mini-Mecha action figure! Collect them all! 7/11."
 	icon_state = "marauderprize"
@@ -499,17 +497,17 @@
 	desc = "Mini-Mecha action figure! Collect them all! 8/11."
 	icon_state = "seraphprize"
 
-/obj/item/toy/prize/mauler
+/obj/item/toy/mech/mauler
 	name = "toy mauler"
 	desc = "Mini-Mecha action figure! Collect them all! 9/11."
 	icon_state = "maulerprize"
 
-/obj/item/toy/prize/odysseus
+/obj/item/toy/mech/odysseus
 	name = "toy odysseus"
 	desc = "Mini-Mecha action figure! Collect them all! 10/11."
 	icon_state = "odysseusprize"
 
-/obj/item/toy/prize/phazon
+/obj/item/toy/mech/phazon
 	name = "toy phazon"
 	desc = "Mini-Mecha action figure! Collect them all! 11/11."
 	icon_state = "phazonprize"
@@ -923,54 +921,47 @@ obj/item/toy/cards/deck/syndicate/black
 		var/timeleft = (cooldown - world.time)
 		user << "<span class='alert'>Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display.</span>"
 
-
-/obj/item/toy/therapy_red
-	name = "red therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is red."
+/obj/item/toy/therapy
+	name = "therapy doll"
+	desc = "A toy for therapeutic and recreational purposes."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "therapyred"
+	item_state = "egg4"	// It's the red egg in items_left/righthand
+	w_class = 1
+	item_color = "red"
+
+/obj/item/toy/therapy/New()
+	..()
+	icon_state = "therapy[item_color]"
+	UpdateDesc()
+
+/obj/item/toy/therapy/proc/UpdateDesc()
+	name = "[item_color] therapy doll"
+	desc += " This one is [item_color]."
+
+/obj/item/toy/therapy/red
+	item_color = "red"
 	item_state = "egg4" // It's the red egg in items_left/righthand
-	w_class = 1
 
-/obj/item/toy/therapy_purple
-	name = "purple therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is purple."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "therapypurple"
+/obj/item/toy/therapy/purple
+	item_color = "purple"
 	item_state = "egg1" // It's the magenta egg in items_left/righthand
-	w_class = 1
 
-/obj/item/toy/therapy_blue
-	name = "blue therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is blue."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "therapyblue"
+/obj/item/toy/therapy/blue
+	item_color = "blue"
 	item_state = "egg2" // It's the blue egg in items_left/righthand
-	w_class = 1
 
-/obj/item/toy/therapy_yellow
-	name = "yellow therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is yellow."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "therapyyellow"
+/obj/item/toy/therapy/yellow
+	item_color = "yellow"
 	item_state = "egg5" // It's the yellow egg in items_left/righthand
-	w_class = 1
 
-/obj/item/toy/therapy_orange
-	name = "orange therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is orange."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "therapyorange"
+/obj/item/toy/therapy/orange
+	item_color = "orange"
 	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
-	w_class = 1
 
-/obj/item/toy/therapy_green
-	name = "green therapy doll"
-	desc = "A toy for therapeutic and recreational purposes. This one is green."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "therapygreen"
+/obj/item/toy/therapy/green
+	item_color = "green"
 	item_state = "egg3" // It's the green egg in items_left/righthand
-	w_class = 1
 
 /obj/item/weapon/toddler
 	icon_state = "toddler"
