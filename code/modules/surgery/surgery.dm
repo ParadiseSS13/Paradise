@@ -20,7 +20,6 @@
 	var/obj/item/organ/organ_ref									//Operable body part
 	var/current_organ = "organ"
 	var/list/allowed_mob = list(/mob/living/carbon/human)
-	var/list/disallowed_mob = null
 
 /datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
 	// if 0 surgery wont show up in list

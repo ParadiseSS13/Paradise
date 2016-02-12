@@ -10,16 +10,17 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
-/datum/surgery/organ_manipulation/boneless
+/datum/surgery/organ_manipulation_boneless
+	name = "organ manipulation"
 	possible_locs = list("chest","head","groin", "eyes", "mouth")
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
+	allowed_mob = list(/mob/living/carbon/human/diona)
 
 /datum/surgery/organ_manipulation/alien
 	name = "alien organ manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
 	allowed_mob = list(/mob/living/carbon/alien/humanoid)
-	disallowed_mob = list(/mob/living/carbon/human)
 	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
 
 
@@ -31,7 +32,9 @@
 			return 0
 		if((target.get_species() == "Machine"))
 			return 0
-	return 1
+		if((target.get_species() == "Diona"))
+			return 0
+		return 1
 
 // Internal surgeries.
 /datum/surgery_step/internal

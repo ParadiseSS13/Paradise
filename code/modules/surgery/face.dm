@@ -6,7 +6,7 @@
 	name = "plastic surgery"
 	steps = list(/datum/surgery_step/generic/cut_face, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/face/mend_vocal, /datum/surgery_step/face/fix_face,/datum/surgery_step/face/cauterize)
 	possible_locs = list("head")
-	disallowed_mob = list(/mob/living/carbon/human/machine)
+
 
 
 /datum/surgery/plastic_surgery/can_start(mob/user, mob/living/carbon/target)
@@ -17,7 +17,7 @@
 			return 0
 		if((target.get_species() == "Machine"))
 			return 0
-	return 1
+		return 1
 
 /datum/surgery_step/face
 	priority = 2

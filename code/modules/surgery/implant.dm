@@ -11,20 +11,24 @@
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 
 	possible_locs = list("chest","head")
-	disallowed_mob = list(/mob/living/carbon/human/machine)
+
 
 /datum/surgery/cavity_implant/soft
 	name = "item implant/removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
 
 	possible_locs = list("groin")
-	disallowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/cavity_implant/synth
-	name = "cavity implant"
+	name = "robotic cavity implant"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
 	allowed_mob = list(/mob/living/carbon/human/machine)
+
+/datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/target)
+	if(target.get_species() == "Machine")
+		return 0
+	return 1
 
 /datum/surgery/cavity_implant/synth/can_start(mob/user, mob/living/carbon/target)
 	return target.get_species() == "Machine"
@@ -203,13 +207,17 @@
 	name = "implant removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
 	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
-	disallowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/cavity_implant_rem/synth
 	name = "implant removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
 	allowed_mob = list(/mob/living/carbon/human/machine)
+
+/datum/surgery/cavity_implant_rem/can_start(mob/user, mob/living/carbon/target)
+	if(target.get_species() == "Machine")
+		return 0
+	return 1
 
 /datum/surgery/cavity_implant_rem/synth/can_start(mob/user, mob/living/carbon/target)
 	return target.get_species() == "Machine"

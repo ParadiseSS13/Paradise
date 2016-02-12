@@ -27,7 +27,7 @@
 						continue
 
 					for(var/path in S.allowed_mob)
-						if(istype(M, path) && (!locate(M) in S.disallowed_mob))
+						if(istype(M, path))
 							available_surgeries[S.name] = S
 							break
 

@@ -6,7 +6,6 @@
 	name = "internal bleeding"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin")
-	disallowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
