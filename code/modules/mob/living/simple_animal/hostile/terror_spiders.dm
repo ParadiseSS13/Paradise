@@ -4,22 +4,6 @@
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
 
-// TODO .......................................
-
-// consider moving away from ListTargets() to some other function, because currently we don't target mechs
-// consider nerfing wdsedative, its very powerful
-// figure out why spiders rubberband around sometimes
-// make spiders more vulnerable to fire
-// test decloner again
-// make all spider types playable
-// consider making gray the T1 stealth and black widow the T2 stealth
-//
-//
-// write updated guide for:
-// --- spider types
-// --- invasion types (normal event, invasion event, queen spawn)
-// --- fighting the spiders
-// --- playing as the spiders
 //
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -69,7 +53,9 @@
 		// Reasons:
 		// - queens can enable/disable player control of most terror spiders depending on whether they want more player spiders or not
 		// - some spider types, however, can never be player-controlled as they are not adequately tested and/or would be OP in player hands
-// hive control variables.
+
+	var/ai_breaks_lights = 1
+	var/ai_breaks_cameras = 0
 
 
 	// Terror spiders ignore atmos. Aside from being SPACE SPIDERS, they're also weaponized.
@@ -100,6 +86,7 @@
 			else
 				// queens can discipline their brood freely
 				target.attack_animal(src)
+				visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 		else if (istype(target,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
 			// one non-queen attacking a queen produces a respectful bow
 			visible_message("<span class='notice'> \icon[src] bows in respect for the terrifying presence of [target] </span>")
@@ -109,11 +96,19 @@
 	else
 		// for most targets, we simply attack
 		target.attack_animal(src)
+		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/harvest()
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
-	new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
+
+	new /obj/item/weapon/terrorspider_fang(get_turf(src))
+
+	var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(get_turf(src))
+	CC.name = "Conductive Spider Silk"
+	CC.color = COLOR_YELLOW
+
 	gib()
 	return
 
@@ -138,9 +133,13 @@
 	if(!istype(user,/mob/living/simple_animal/hostile/poison/giant_spider/))
 		if (!(user in enemies))
 			enemies |= user
+			//	if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
+			//		for (var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T in world)
+			//			if (!(user in T.enemies))
+			//				T.enemies |= user
 		if (!target)
 			target = user
-	..()
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/ListTargets()
 	var/list/targets1 = list()
@@ -148,9 +147,11 @@
 	var/list/targets3 = list()
 	if (ai_type == 0)
 		// default, BE AGGRESSIVE
-		for(var/mob/living/H in view(src, 10))
+		var/list/Mobs = hearers(vision_range, src) - src // this is how ListTargets for /mob/living/simple_animal/hostile/ does it, and I'm trying not to snowflake.
+		//for(var/mob/living/H in view(src, 10))
+		for(var/mob/H in Mobs)
 			if(istype(H,/mob/living/simple_animal/hostile/poison/giant_spider/))
-				// fellow spiders are never valid targets unless they deliberately attack us
+				// fellow spiders are never valid targets unless they deliberately attack us, even then, low priority
 				if (H in enemies)
 					targets3 += H
 			else if(H.reagents)
@@ -180,6 +181,12 @@
 					targets2 += H
 				else
 					targets3 += H
+		for(var/obj/mecha/M in mechas_list)
+			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
+				targets1 += M
+		for(var/obj/spacepod/S in spacepods_list)
+			if(get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+				targets3 += S
 		if (targets1.len)
 			return targets1
 		else if (targets2.len)
@@ -188,9 +195,17 @@
 			return targets3
 	else if (ai_type == 1)
 		// DEFEND SELF ONLY
-		for(var/mob/living/H in view(src, 10))
+		var/list/Mobs = hearers(vision_range, src) - src
+		//for(var/mob/living/H in view(src, 10))
+		for(var/mob/H in Mobs)
 			if (H in enemies)
 				targets1 += H
+		for(var/obj/mecha/M in mechas_list)
+			if(M in enemies && get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
+				targets1 += M
+		for(var/obj/spacepod/S in spacepods_list)
+			if(S in enemies && get_dist(S, src) <= vision_range && can_see(src, S, vision_range))
+				targets3 += S
 		return targets1
 	else if (ai_type == 2)
 		// COMPLETELY PASSIVE
@@ -199,28 +214,45 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/Life()
 	..()
-	if(target && target in ListTargets())
-		// if we're in combat, don't mess it up by trying to do something else.
-	else if (health == maxHealth)
-		if (aggressionlevel && prob(10))
-			aggressionlevel = 0
-			visible_message("<span class='notice'> \icon[src] [src] looks to have calmed down. </span>")
+	if (stat)
+		if(target && target in ListTargets())
+			// if we're in combat, don't mess it up by trying to do something else.
+		else if (health == maxHealth)
+			if (aggressionlevel && prob(10))
+				aggressionlevel = 0
+				visible_message("<span class='notice'> \icon[src] [src] looks to have calmed down. </span>")
+			else
+				if (stat != DEAD && prob(10) && (ai_breaks_lights || ai_breaks_cameras))
+					if (ai_breaks_lights)
+						for(var/obj/machinery/light/L in range(2,src))
+							if (!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
+								step_to(src,L)
+								L.on = 1
+								L.broken()
+								visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
+					if (ai_breaks_cameras)
+						for(var/obj/machinery/camera/C in range(2,src))
+							step_to(src,C)
+							visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
+							//qdel(C) // lets not... lets do what xenos do
+							C.status = 0
+							C.icon_state = "[initial(icon_state)]1"
+							C.deactivate(src,0)
+				if (prob(idle_ventcrawl_chance))
+					for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
+						if(!v.welded)
+							entry_vent = v
+							break
+					if(entry_vent)
+						TSVentCrawlRandom(entry_vent)
 		else
-			if (prob(idle_ventcrawl_chance))
-				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
-					if(!v.welded)
-						entry_vent = v
-						break
-				if(entry_vent)
-					TSVentCrawlRandom(entry_vent)
-	else
-		if (dna_damaged)
-			adjustBruteLoss(1)
-			adjustToxLoss(1)
-			//2 DPS, 60/minute forever if they have dna damage - this WILL kill them eventually
-		else if (prob(regen_chance))
-			adjustBruteLoss(-5)
-			adjustFireLoss(-5)
+			if (dna_damaged)
+				adjustBruteLoss(1)
+				adjustToxLoss(1)
+				//2 DPS, 60/minute forever if they have dna damage - this WILL kill them eventually
+			else if (prob(regen_chance))
+				adjustBruteLoss(-5)
+				adjustFireLoss(-5)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/proc/FleeToVent(entry_vent)
 	for(var/i=0, i<15, i++)
@@ -289,6 +321,9 @@
 		return
 	if (!ai_playercontrol_allowthis)
 		user << "This spider is not player-controllable."
+		return
+	if (jobban_isbanned(user, "Syndicate") || jobban_isbanned(user, "alien"))
+		user << "You are jobbanned from role of syndicate and/or alien lifeform."
 		return
 	var/spider_ask = alert("Become a spider?", "Are you australian?", "Yes", "No")
 	if(spider_ask == "No" || !src || qdeleted(src))
@@ -361,6 +396,7 @@
 	..()
 	name = pick("Red Terror spider","Crimson Terror spider","Bloody Butcher spider")
 
+
 // --------------------------------------------------------------------------------
 // --------------------- NEW SPIDERS: GUARD CLASS, TIER 2, PRAETORIAN -------------
 // --------------------------------------------------------------------------------
@@ -373,13 +409,13 @@
 	icon_dead = "terror_purple_dead"
 	maxHealth = 300
 	health = 300
-	melee_damage_lower = 30
-	melee_damage_upper = 40
+	melee_damage_lower = 10
+	melee_damage_upper = 20
 	move_to_delay = 10
 	poison_per_bite = 0
 	idle_ventcrawl_chance = 0 // exactly like the red terrors - but they don't move.
-	regen_chance = 10 // oh and they regen faster, since they start at little health...
-	environment_smash = 2 // they will smash down steel walls, but not rwalls
+	regen_chance = 10 // oh and they regen fast
+	//environment_smash = 2 // they will smash down steel walls, but not rwalls
 
 	ai_playercontrol_allowtype = 0
 
@@ -397,6 +433,15 @@
 						step_to(src,H,20)
 						break
 	..()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/purple/AttackingTarget()
+	if(isliving(target) && prob(20))
+		var/mob/living/L = target
+		visible_message("<span class='danger'> \icon[src] [src] rams into [L] knocking them to the floor and stunning them! </span>")
+		L.Stun(10)
+	else
+		..()
+		// just do normal attack
 
 // --------------------------------------------------------------------------------
 // --------------------- NEW SPIDERS: STRIKE CLASS, TIER 1, BLACK WIDOW -----------
@@ -534,19 +579,6 @@
 	ventcrawler = 1
 	var/fed = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/green/Life()
-	..()
-	if (prob(10))
-		for(var/obj/machinery/light/L in range(2,src))
-			if (!L.status) // This assumes status == 0 means light is OK, which it does, but ideally we'd use lights' own constants.
-				step_to(src,L)
-				L.on = 1
-				L.broken()
-				visible_message("<span class='danger'>\the [src] smashes the [L.name].</span>")
-		for(var/obj/machinery/camera/C in range(2,src))
-			step_to(src,C)
-			visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
-			qdel(C) // two reasons. First, wasn't able to get deactivate to work right (fixing sprite, etc), second, it makes more sense she can destroy than cut wires.
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/handle_automated_action()
 	if(!stat && !ckey)
@@ -804,8 +836,6 @@
 	ventcrawler = 1
 	var/attackstep = 0
 	var/fed = 0
-	//search_objects = 1
-	//wanted_objects = list ("/obj/machinery/light", "/obj/machinery/camera", "obj/machinery/light/small")
 	var/spawnfrequency = 120
 	var/lastspawn = 0
 	var/nestfrequency = 15
@@ -815,6 +845,8 @@
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 
 	ai_playercontrol_allowtype = 0
+	ai_breaks_lights = 1
+	ai_breaks_cameras = 1
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/Life()
 	..()
@@ -872,7 +904,9 @@
 				//if (L.on)
 				//	islit = 0
 			for(var/obj/machinery/camera/C in range(10,src))
-				qdel(C) // two reasons. First, wasn't able to get deactivate to work right (fixing sprite, etc), second, it makes more sense she can destroy than cut wires.
+				C.status = 0
+				C.icon_state = "[initial(icon_state)]1"
+				C.deactivate(src,0)
 			neststep = 2
 	else if (neststep == 2)
 		if (world.time > (lastnestsetup + nestfrequency))
@@ -1137,6 +1171,7 @@
 	C.faction = faction
 	C.master_commander = master_commander
 	C.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
+	C.enemies = enemies
 	if(ckey)
 		C.player_spiders = 1
 	spawn(10)
@@ -1164,6 +1199,7 @@
 	var/spiderling_number = 1
 	var/spiderling_ventcrawl = 1
 	var/ai_playercontrol_allowingeneral = 1
+	var/list/enemies = list()
 
 /obj/effect/spider/terror_eggcluster/New()
 	pixel_x = rand(3,-3)
@@ -1196,6 +1232,7 @@
 			S.faction = faction
 			S.master_commander = master_commander
 			S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
+			S.enemies = enemies
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -1216,6 +1253,7 @@
 	var/master_commander = null
 	var/use_vents = 1
 	var/ai_playercontrol_allowingeneral = 1
+	var/list/enemies = list()
 
 /obj/effect/spider/terror_spiderling/New()
 	pixel_x = rand(6,-6)
@@ -1299,10 +1337,29 @@
 			S.faction = faction
 			S.master_commander = master_commander
 			S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
+			S.enemies = enemies
 			if(player_spiders)
 				notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=\ref[S];activate=1>(Click to play)</a>", source=S, attack_not_jump = 1)
 				// pulling ghosts without asking is dumb. You get a lot of AFKers. This method ensures only people who actively choose to become spiders.
 			qdel(src)
+
+
+// https://en.wikipedia.org/wiki/Chelicerae
+/obj/item/weapon/terrorspider_fang
+	name = "terror spider fang"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "terror_fang"
+	sharp = 1
+	edge = 1
+	desc = "An enormous fang. Creepy."
+	w_class = 1.0
+	force = 15.0 // quite robust
+	throwforce = 30.0 // extremely nasty, worse than a spear
+	throw_speed = 3
+	throw_range = 5
+	item_state = "shard-glass"
+	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
 
 #undef SPINNING_WEB
 #undef LAYING_EGGS

@@ -35,38 +35,28 @@
 
 /datum/reagent/bw_venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	//M.eye_blind = max(M.eye_blind, 5)
-	M.eye_blurry = max(M.eye_blurry, 7)
-	//M.confused = max(M.confused, 3)
-
 	if (volume >= 45)
-		// they've been bitten 4 times, so they die 4x as fast. At this level, your body goes into total shock.
-		// total damage: 14, plus certain stun. human health 150 until crit = 11 ticks or 22 seconds for complete fatality.
-		M.adjustBrainLoss(2)
-		M.adjustToxLoss(2)
+		// bitten 4 or more times, whole body goes into shock/death
+		// total damage: 12, human health 150 until crit, = 12.5 ticks, = 25s until death
+		M.adjustToxLoss(12)
+		M.eye_blurry = max(M.eye_blurry, 9)
 		M.Paralyse(5)
-		M.losebreath += 5
 	else if (volume >= 30)
-		// they've been bitten 3 times, so they die 3x as fast. You're going to die in seconds from this level of massive poisoning.
-		// total damage: 8, plus 25% stun, 75% confuse. human health 150 until crit, = 19 ticks, = 28 seconds to death, and you can't run effectively either.
-		M.adjustBrainLoss(4)
-		M.adjustToxLoss(4)
-		if (prob(25))
-			M.Paralyse(1)
-		else
-			M.confused = max(M.confused, 3)
-		M.losebreath += 5
+		// bitten thrice, die very quickly, severe muscle cramps make movement very difficult. Even calling for help probably won't save you.
+		// total damage: 8, human health 150 until crit, = 18.75 ticks, = 37s until death
+		M.adjustToxLoss(8) // a bit worse than coiine
+		M.confused = max(M.confused, 6)
+		M.eye_blurry = max(M.eye_blurry, 6)
 	else if (volume >= 15)
-		// they've been bitten 2 times, so they die 2x as fast. You will only live through this if you call medical to come get you immediately
-		// total damage: 4, human health 150 until crit, = 36 ticks, = 1m12s to get to medbay.
-		M.adjustBrainLoss(2)
-		M.adjustToxLoss(2)
+		// bitten twice, die more quickly, muscle cramps make movement difficult. Call medics immediately.
+		// total damage: 4, human health 150 until crit, = 37.5 ticks, = 75s = 1m15s until death
+		M.adjustToxLoss(4)
 		M.confused = max(M.confused, 3)
+		M.eye_blurry = max(M.eye_blurry, 3)
 	else
-		// they've been bitten once. Make their death slow, by comparison. You can easily reach medbay, and survive, with this level of toxin.
-		// total damage: 2, human health 150 until crit, = 75 ticks, = 2 and a half minutes to make it to medbay for treatment
-		M.adjustBrainLoss(1)
-		M.adjustToxLoss(1)
+		// bitten once, die slowly. Easy to survive a single bite - just go to medbay.
+		// total damage: 2/tick, human health 150 until crit, = 75 ticks, = 150 seconds = 2.5 minutes to get to medbay.
+		M.adjustToxLoss(2) // same damage/tick as tabun cycle 0 to 60
 	..()
 	return
 
