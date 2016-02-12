@@ -773,6 +773,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
 	if (flying || buckled || (walkSafely && m_intent == "walk"))
 		return
+	if ((lying) && (!(tilesSlipped)))
+		return
+	if (istype(loc, /obj/structure/closet)) // for getting in a locker
+		return
+	for (var/obj/structure/closet/closet in loc.contents) // for getting out of a locker
+		return
 	if (!(slipAny))
 		if (istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
