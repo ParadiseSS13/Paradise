@@ -642,7 +642,7 @@ var/global/list/multiverse = list()
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.makeSkeleton()
+		M.set_species("Skeleton")
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.revive()
 		equip_skeleton(M)
