@@ -123,7 +123,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 		for(var/A in prog_list)
 			var/datum/data/pda/P = A
-			
+
 			if(P.hidden)
 				continue
 			var/list/cat
@@ -243,7 +243,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(ismob(T))
 					T = T.loc
 				var/obj/item/weapon/cartridge/C = cartridge
-				C.loc = T
+				C.forceMove(T)
 				if(scanmode in C.programs)
 					scanmode = null
 				if(current_app in C.programs)
@@ -292,7 +292,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			M.put_in_hands(id)
 			usr << "<span class='notice'>You remove the ID from the [name].</span>"
 		else
-			id.loc = get_turf(src)
+			id.forceMove(get_turf(src))
 		id = null
 
 /obj/item/device/pda/verb/verb_remove_id()
@@ -329,7 +329,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					M.put_in_hands(O)
 					usr << "<span class='notice'>You remove \the [O] from \the [src].</span>"
 					return
-			O.loc = get_turf(src)
+			O.forceMove(get_turf(src))
 		else
 			usr << "<span class='notice'>This PDA does not have a pen in it.</span>"
 	else
@@ -344,14 +344,14 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			var/obj/item/I = user.get_active_hand()
 			if (istype(I, /obj/item/weapon/card/id))
 				user.drop_item()
-				I.loc = src
+				I.forceMove(src)
 				id = I
 	else
 		var/obj/item/weapon/card/I = user.get_active_hand()
 		if (istype(I, /obj/item/weapon/card/id) && I:registered_name)
 			var/obj/old_id = id
 			user.drop_item()
-			I.loc = src
+			I.forceMove(src)
 			id = I
 			user.put_in_hands(old_id)
 	return
@@ -361,7 +361,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
 		cartridge = C
 		user.drop_item()
-		cartridge.loc = src
+		cartridge.forceMove(src)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		user << "<span class='notice'>You insert [cartridge] into [src].</span>"
@@ -387,7 +387,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					user << "<span class='notice'>You put the ID into \the [src]'s slot.</span>"
 	else if(istype(C, /obj/item/device/paicard) && !src.pai)
 		user.drop_item()
-		C.loc = src
+		C.forceMove(src)
 		pai = C
 		user << "<span class='notice'>You slot \the [C] into [src].</span>"
 	else if(istype(C, /obj/item/weapon/pen))
@@ -396,7 +396,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			user << "<span class='notice'>There is already a pen in \the [src].</span>"
 		else
 			user.drop_item()
-			C.loc = src
+			C.forceMove(src)
 			user << "<span class='notice'>You slide \the [C] into \the [src].</span>"
 
 /obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
@@ -426,13 +426,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	PDAs -= src
 	var/T = get_turf(loc)
 	if (id)
-		id.loc = T
+		id.forceMove(T)
 	if(pai)
-		pai.loc = T
+		pai.forceMove(T)
+	current_app = null
+	scanmode = null
 	for(var/A in programs)
 		qdel(A)
+	programs.Cut()
 	if(cartridge)
-		cartridge.loc = T
+		cartridge.forceMove(T)
 	return ..()
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

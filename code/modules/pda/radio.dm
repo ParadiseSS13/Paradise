@@ -26,6 +26,7 @@
 /obj/item/radio/integrated/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src, control_freq)
+	hostpda = null
 	return ..()
 
 /obj/item/radio/integrated/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
