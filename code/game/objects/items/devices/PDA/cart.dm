@@ -17,11 +17,22 @@
 /obj/item/weapon/cartridge/New()
 	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
 		initialize()
+		
+/obj/item/weapon/cartridge/Destroy()
+	if(radio)
+		qdel(radio)
+	for(var/A in programs)
+		qdel(A)
+	for(var/A in messenger_plugins)
+		qdel(A)
+	return ..()
 
 /obj/item/weapon/cartridge/proc/update_programs(obj/item/device/pda/pda)
-	for(var/datum/data/pda/P in programs)
+	for(var/A in programs)
+		var/datum/data/pda/P = A
 		P.pda = pda
-	for(var/datum/data/pda/messenger_plugin/P in messenger_plugins)
+	for(var/A in messenger_plugins)
+		var/datum/data/pda/messenger_plugin/P = A
 		P.pda = pda
 
 /obj/item/weapon/cartridge/engineering
@@ -116,10 +127,6 @@
 /obj/item/weapon/cartridge/signal/initialize()
 	radio = new /obj/item/radio/integrated/signal(src)
 	..()
-
-/obj/item/weapon/cartridge/signal/Destroy()
-	qdel(radio)
-	return ..()
 
 /obj/item/weapon/cartridge/signal/toxins
 	name = "Signal Ace 2"

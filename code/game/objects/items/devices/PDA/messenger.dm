@@ -32,7 +32,8 @@
 	var/convopdas[0]
 	var/pdas[0]
 	var/count = 0
-	for (var/obj/item/device/pda/P in PDAs)
+	for(var/A in PDAs)
+		var/obj/item/device/pda/P = A
 		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 		if (!P.owner || PM.toff || P == pda || PM.m_hidden)
@@ -60,7 +61,8 @@
 
 	var/list/plugins = list()
 	if(pda.cartridge)
-		for(var/datum/data/pda/messenger_plugin/P in pda.cartridge.messenger_plugins)
+		for(var/A in pda.cartridge.messenger_plugins)
+			var/datum/data/pda/messenger_plugin/P = A
 			plugins += list(list(name = P.name, icon = P.icon, ref = "\ref[P]"))
 	data["plugins"] = plugins
 
@@ -172,7 +174,8 @@
 	//var/telecomms_intact = telecomms_process(P.owner, owner, t)
 	var/obj/machinery/message_server/useMS = null
 	if(message_servers)
-		for (var/obj/machinery/message_server/MS in message_servers)
+		for(var/A in message_servers)
+			var/obj/machinery/message_server/MS = A
 		//PDAs are now dependent on the Message Server.
 			if(MS.active)
 				useMS = MS
@@ -198,27 +201,11 @@
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
 		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "\ref[pda]")))
-/*		for(var/mob/M in player_list)
-			if(M.stat == DEAD && M.client && (M.client.prefs.toggles & CHAT_GHOSTEARS)) // src.client is so that ghosts don't have to listen to mice
-				if(istype(M, /mob/new_player))
-					continue
-				M.show_message("<span class='game say'>PDA Message - <span class='name'>[owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>") */
 		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 		if(!conversations.Find("\ref[P]"))
 			conversations.Add("\ref[P]")
 		if(!PM.conversations.Find("\ref[pda]"))
 			PM.conversations.Add("\ref[pda]")
-
-/*
-		if (prob(15)) //Give the AI a chance of intercepting the message
-			var/who = src.owner
-			if(prob(50))
-				who = P.owner
-			for(var/mob/living/silicon/ai/ai in mob_list)
-				// Allows other AIs to intercept the message but the AI won't intercept their own message.
-				if(ai.aiPDA != P && ai.aiPDA != src)
-					ai.show_message("<i>Intercepted message from <b>[who]</b>: [t]</i>")
-*/
 
 		PM.play_ringtone()
 		//Search for holder of the PDA.
@@ -249,7 +236,7 @@
 		else
 			S = 'sound/machines/twobeep.ogg'
 		playsound(pda.loc, S, 50, 1)
-	for (var/mob/O in hearers(3, pda.loc))
+	for(var/mob/O in hearers(3, pda.loc))
 		if(!silent)
 			O.show_message(text("\icon[pda] *[pda.ttone]*"))
 
@@ -262,7 +249,8 @@
 		usr << "Turn on your receiver in order to send messages."
 		return
 
-	for (var/obj/item/device/pda/P in PDAs)
+	for(var/A in PDAs)
+		var/obj/item/device/pda/P = A
 		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 		if(!P.owner || !PM || PM.hidden || P == pda || PM.toff)

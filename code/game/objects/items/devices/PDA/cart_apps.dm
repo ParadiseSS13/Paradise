@@ -128,7 +128,8 @@
 		records["general"] = general_records.fields
 		return records
 	else
-		for(var/datum/data/record/R in sortRecord(data_core.general))
+		for(var/A in sortRecord(data_core.general))
+			var/datum/data/record/R = A
 			records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
 		data["recordsList"] = records
 		return null
@@ -167,7 +168,8 @@
 
 /datum/data/pda/app/crew_records/medical/load_records(datum/data/record/R)
 	..(R)
-	for (var/datum/data/record/E in data_core.medical)
+	for(var/A in data_core.medical)
+		var/datum/data/record/E = A
 		if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			medical_records = E
 			break
@@ -192,7 +194,8 @@
 
 /datum/data/pda/app/crew_records/security/load_records(datum/data/record/R)
 	..(R)
-	for (var/datum/data/record/E in data_core.security)
+	for(var/A in data_core.security)
+		var/datum/data/record/E = A
 		if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			security_records = E
 			break

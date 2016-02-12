@@ -121,7 +121,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(cartridge)
 			prog_list |= cartridge.programs
 
-		for(var/datum/data/pda/P in prog_list)
+		for(var/A in prog_list)
+			var/datum/data/pda/P = A
+			
 			if(P.hidden)
 				continue
 			var/list/cat
@@ -196,7 +198,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	shortcut_cache.Cut()
 
 /obj/item/device/pda/proc/update_programs()
-	for(var/datum/data/pda/P in programs)
+	for(var/A in programs)
+		var/datum/data/pda/P = A
 		P.pda = src
 
 /obj/item/device/pda/Topic(href, href_list)
@@ -421,10 +424,15 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/Destroy()
 	PDAs -= src
-	if (src.id)
-		src.id.loc = get_turf(src.loc)
-	if(src.pai)
-		src.pai.loc = get_turf(src.loc)
+	var/T = get_turf(loc)
+	if (id)
+		id.loc = T
+	if(pai)
+		pai.loc = T
+	for(var/A in programs)
+		qdel(A)
+	if(cartridge)
+		cartridge.loc = T
 	return ..()
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

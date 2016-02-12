@@ -177,7 +177,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdabox"
 
-	New()
+/obj/item/weapon/storage/box/PDAs/New()
 		..()
 		new /obj/item/device/pda(src)
 		new /obj/item/device/pda(src)

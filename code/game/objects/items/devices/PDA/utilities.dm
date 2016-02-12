@@ -29,7 +29,7 @@
 	var/remote_door_id = ""
 
 /datum/data/pda/utility/toggle_door/start()
-	for(var/obj/machinery/door/poddoor/M in world)
+	for(var/obj/machinery/door/poddoor/M in airlocks)
 		if(M.id_tag == remote_door_id)
 			if(M.density)
 				M.open()
@@ -41,8 +41,7 @@
 	icon = "heart-o"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	for (var/mob/O in viewers(C, null))
-		O.show_message("<span class=warning>[user] has analyzed [C]'s vitals!</span>", 1)
+	C.visible_message("<span class=warning>[user] has analyzed [C]'s vitals!</span>")
 
 	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
 	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health - C.halloss]% healthy"]</span>", 1)
@@ -66,27 +65,34 @@
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	if (!istype(C:dna, /datum/dna))
-		user << "<span class=notice>No fingerprints found on [C]</span>"
+	if(istype(C, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = C
+		if (!istype(H.dna, /datum/dna))
+			user << "<span class=notice>No fingerprints found on [H]</span>"
+		else
+			user << "<span class=notice>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>"
+	scan_blood(C, user)
+
+/datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
+	scan_blood(A, user)
+
+/datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
+	if (!A.blood_DNA)
+		user << "<span class=notice>No blood found on [A]</span>"
+		if(A.blood_DNA)
+			qdel(A.blood_DNA)
 	else
-		user << "<span class=notice>[C]'s Fingerprints: [md5(C:dna.uni_identity)]</span>"
-	if (!C:blood_DNA)
-		user << "<span class=notice>No blood found on [C]</span>"
-		if(C:blood_DNA)
-			qdel(C:blood_DNA)
-	else
-		user << "<span class=notice>Blood found on [C]. Analysing...</span>"
+		user << "<span class=notice>Blood found on [A]. Analysing...</span>"
 		spawn(15)
-			for(var/blood in C:blood_DNA)
-				user << "<span class=notice>Blood type: [C:blood_DNA[blood]]\nDNA: [blood]</span>"
+			for(var/blood in A.blood_DNA)
+				user << "<span class=notice>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>"
 
 /datum/data/pda/utility/scanmode/halogen
 	base_name = "Halogen Counter"
 	icon = "exclamation-circle"
 
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	for (var/mob/O in viewers(C, null))
-		O.show_message("<span class=warning>[user] has analyzed [C]'s radiation levels!</span>", 1)
+	C.visible_message("<span class=warning>[user] has analyzed [C]'s radiation levels!</span>")
 
 	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
 	if(C.radiation)
@@ -103,7 +109,7 @@
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
 			user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
-			for (var/re in A.reagents.reagent_list)
+			for(var/re in A.reagents.reagent_list)
 				user << "<span class='notice'>\t [re]</span>"
 		else
 			user << "<span class='notice'>No active chemical agents found in [A].</span>"
@@ -138,7 +144,7 @@
 	else if (istype(A, /obj/machinery/atmospherics/unary/tank))
 		var/obj/machinery/atmospherics/unary/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-		
+
 /datum/data/pda/utility/scanmode/notes
 	base_name = "Note Scanner"
 	icon = "clipboard"
@@ -151,7 +157,7 @@
 /datum/data/pda/utility/scanmode/notes/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	if(notes && istype(A, /obj/item/weapon/paper))
 		var/obj/item/weapon/paper/P = A
-		
+
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,
 		// as this will clobber the HTML, but at least it lets you scan a document. You can restore the original
 		// notes by editing the note again. (Was going to allow you to edit, but scanned documents are too long.)

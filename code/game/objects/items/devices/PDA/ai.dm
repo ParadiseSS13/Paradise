@@ -18,7 +18,7 @@
 	set name = "Send PDA Message"
 	set src in usr
 	
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		usr << "You can't send PDA messages because you are dead!"
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
@@ -37,7 +37,7 @@
 	set name = "Show Message Log"
 	set src in usr
 	
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
@@ -57,7 +57,7 @@
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 	
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
@@ -70,7 +70,7 @@
 	set name = "Toggle Ringer"
 	set src in usr
 	
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		usr << "You can't do that because you are dead!"
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
