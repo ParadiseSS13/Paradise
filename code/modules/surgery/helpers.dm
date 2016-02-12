@@ -27,7 +27,7 @@
 						continue
 
 					for(var/path in S.allowed_mob)
-						if(istype(M, path))
+						if(istype(M, path) && (!locate(M) in S.disallowed_mob))
 							available_surgeries[S.name] = S
 							break
 
@@ -87,8 +87,3 @@ proc/get_location_modifier(mob/M)
 		return 0.7
 	else
 		return 0.5
-
-
-//just until i update maps....
-/obj/item/organ/brain/New()
-	new /obj/item/organ/internal/brain(src.loc)

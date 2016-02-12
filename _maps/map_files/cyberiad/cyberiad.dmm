@@ -8470,7 +8470,7 @@
 "dha" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/broken_device,/obj/item/robot_parts/chest,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhb" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/scalpel,/obj/item/stack/cable_coil,/obj/item/weapon/storage/firstaid/regular,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhc" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/pickaxe,/obj/item/weapon/storage/firstaid/toxin,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
-"dhd" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
+"dhd" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/internal/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhe" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/circular_saw,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "dhf" = (/obj/machinery/door/poddoor/shutters{density = 0; dir = 4; icon_state = "shutter0"; id_tag = "voxshutters"; name = "Blast Shutters"; opacity = 0},/obj/structure/grille,/obj/structure/shuttle/window{dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; tag = "icon-window5 (EAST)"},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)
 "dhg" = (/obj/item/weapon/storage/toolbox/syndicate,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)

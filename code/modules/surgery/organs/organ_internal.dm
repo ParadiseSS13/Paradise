@@ -361,10 +361,9 @@
 
 	if(!owner)
 		return
-	world << "[lasthonk]"
 	if(lasthonk == 0)
 		lasthonk = world.time
-	if(lasthonk > world.time + 600|| lasthonk == 0)
+	if(lasthonk > world.time + 60|| lasthonk == 0)
 		lasthonk = world.time
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0

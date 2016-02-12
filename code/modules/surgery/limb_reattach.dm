@@ -7,6 +7,7 @@
 	name = "amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	disallowed_mob = list(/mob/living/carbon/human/machine)
 
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -24,6 +25,7 @@
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	disallowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -36,12 +38,13 @@
 
 		return 0
 
-/datum/surgery/reattach/synth
+/datum/surgery/reattach_synth
 	name = "limb attachment"
 	steps = list(/datum/surgery_step/limb/attach)
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	allowed_mob = list(/mob/living/carbon/human/machine)
 
-/datum/surgery/reattach/synth/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
