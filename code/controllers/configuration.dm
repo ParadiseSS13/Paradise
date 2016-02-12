@@ -135,7 +135,7 @@
 	var/comms_password = ""
 
 	var/use_irc_bot = 0
-	var/irc_bot_host = ""
+	var/list/irc_bot_host = list()
 	var/main_irc = ""
 	var/admin_irc = ""
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
@@ -458,7 +458,7 @@
 					config.comms_password = value
 
 				if("irc_bot_host")
-					config.irc_bot_host = value
+					config.irc_bot_host = text2list(value, ";")
 
 				if("main_irc")
 					config.main_irc = value
