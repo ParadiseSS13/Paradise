@@ -38,16 +38,6 @@
 	bot_type_name = "ED-209"
 	bot_filter = RADIO_SECBOT
 
-	//List of weapons that secbots will not arrest for
-	var/safe_weapons = list(\
-		/obj/item/weapon/gun/energy/laser/bluetag,\
-		/obj/item/weapon/gun/energy/laser/redtag,\
-		/obj/item/weapon/gun/energy/laser/practice,\
-		/obj/item/weapon/melee/classic_baton/telescopic,\
-		/obj/item/weapon/gun/energy/kinetic_accelerator,\
-		/obj/item/weapon/gun/energy/floragun)
-
-
 /obj/item/weapon/ed209_assembly
 	name = "\improper ED-209 assembly"
 	desc = "Some sort of bizarre assembly."
@@ -395,9 +385,8 @@ Auto Patrol[]"},
 			continue
 
 /obj/machinery/bot/ed209/proc/check_for_weapons(var/obj/item/slot_item)
-	if(istype(slot_item, /obj/item/weapon/gun) || istype(slot_item, /obj/item/weapon/melee))
-		if(!(slot_item.type in safe_weapons))
-			return 1
+	if(slot_item && slot_item.needs_permit)
+		return 1
 	return 0
 
 /obj/machinery/bot/ed209/explode()

@@ -77,6 +77,7 @@
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = 2
+	needs_permit = 0
 	force = 0
 	on = 0
 
