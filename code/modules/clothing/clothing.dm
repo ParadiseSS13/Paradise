@@ -285,16 +285,32 @@ BLIND     // can't see anything
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
+	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(!ignore_maskadjust)
 		if(!user.canmove || user.stat || user.restrained())
 			return
 		if(src.mask_adjusted == 1)
-			src.icon_state = initial(icon_state)
+			src.icon_state = copytext(src.icon_state, 1, findtext(src.icon_state, "_up")) //Trims the '_up' off the end of the icon state, thus reverting to the most recent previous state
 			gas_transfer_coefficient = initial(gas_transfer_coefficient)
 			permeability_coefficient = initial(permeability_coefficient)
 			user << "You push \the [src] back into place."
 			src.mask_adjusted = 0
 			slot_flags = initial(slot_flags)
+			if(flags_inv != initial(flags_inv)) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
+				flags_inv += HIDEFACE
+			if(H.head == src)
+				if(src.flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+						user.unEquip(src)
+					else
+						src.loc = user
+						H.head = null
+						if(!(H.l_hand) && H.r_hand) //If only the left hand is free, put the bandana there instead.
+							user.put_in_l_hand(src)
+						else if(!(H.r_hand) && H.l_hand) //Otherwise if only the right hand is free, put the bandana there instead.
+							user.put_in_r_hand(src)
+						else if(!(H.l_hand && H.r_hand)) //Otherwise if both hands are free, pick the active one to put the bandana into.
+							user.put_in_active_hand(src)
 		else
 			src.icon_state += "_up"
 			user << "You push \the [src] out of the way."
@@ -304,12 +320,28 @@ BLIND     // can't see anything
 			if(adjusted_flags)
 				slot_flags = adjusted_flags
 			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
 				if(H.internal)
 					if(H.internals)
 						H.internals.icon_state = "internal0"
 					H.internal = null
+			if(user.wear_mask == src)
+				if(src.flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
+						user.unEquip(src)
+					else
+						src.loc = user
+						user.wear_mask = null
+						if(!(H.l_hand) && H.r_hand) //If only the left hand is free, put the bandana there instead.
+							user.put_in_l_hand(src)
+						else if(!(H.r_hand) && H.l_hand) //Otherwise if only the right hand is free, put the bandana there instead.
+							user.put_in_r_hand(src)
+						else if(!(H.l_hand && H.r_hand)) //Otherwise if both hands are free, pick the active one to put the bandana into.
+							user.put_in_active_hand(src)
+					flags_inv -= HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
+											This reveals the user's face since the bandana will now be going on their head.*/
+
 		usr.update_inv_wear_mask()
+		usr.update_inv_head()
 
 //Shoes
 /obj/item/clothing/shoes

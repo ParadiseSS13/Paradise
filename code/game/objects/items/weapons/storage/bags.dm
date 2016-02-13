@@ -89,7 +89,6 @@
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear")
-	var/head = 0
 
 /obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
@@ -101,20 +100,19 @@
 
 /obj/item/weapon/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
-		head = 1
 		storage_slots = 0
 		processing_objects.Add(src)
 	return
 
 /obj/item/weapon/storage/bag/plasticbag/process()
-	if(is_equipped() && head)
+	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.internal)
-				return
-			H.losebreath += 1
+			if(H.get_item_by_slot(slot_head) == src)
+				if(H.internal)
+					return
+				H.losebreath += 1
 	else
-		head = 0
 		storage_slots = 7
 		processing_objects.Remove(src)
 	return

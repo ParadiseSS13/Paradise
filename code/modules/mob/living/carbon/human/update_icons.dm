@@ -956,6 +956,7 @@ var/global/list/damage_icon_parts = list()
 		client.screen |= contents
 		if(hud_used)
 			hud_used.hidden_inventory_update() 	//Updates the screenloc of the items on the 'other' inventory bar
+			update_inv_handcuffed(0) // update handcuff overlay
 
 
 /mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
@@ -964,22 +965,23 @@ var/global/list/damage_icon_parts = list()
 		drop_l_hand()
 		stop_pulling()	//TODO: should be handled elsewhere
 		if(hud_used)	//hud handcuff icons
-			var/obj/screen/inventory/R = hud_used.adding[7]
-			var/obj/screen/inventory/L = hud_used.adding[8]
+			var/obj/screen/inventory/R = hud_used.r_hand_hud_object
+			var/obj/screen/inventory/L = hud_used.l_hand_hud_object
 			R.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="markus")
 			L.overlays += image("icon"='icons/mob/screen_gen.dmi', "icon_state"="gabrielle")
 		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/pinkcuffs))
-			overlays_standing[HANDCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
+			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
 		else
-			overlays_standing[HANDCUFF_LAYER]	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")
+			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")
 	else
-		overlays_standing[HANDCUFF_LAYER]	= null
+		overlays_standing[HANDCUFF_LAYER] = null
 		if(hud_used)
-			var/obj/screen/inventory/R = hud_used.adding[7]
-			var/obj/screen/inventory/L = hud_used.adding[8]
-			R.overlays = null
-			L.overlays = null
-	if(update_icons)   update_icons()
+			var/obj/screen/inventory/R = hud_used.r_hand_hud_object
+			var/obj/screen/inventory/L = hud_used.l_hand_hud_object
+			R.overlays.Cut()
+			L.overlays.Cut()
+	if(update_icons)
+		update_icons()
 
 /mob/living/carbon/human/update_inv_legcuffed(var/update_icons=1)
 	if(legcuffed)

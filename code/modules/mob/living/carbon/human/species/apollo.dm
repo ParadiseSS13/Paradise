@@ -6,6 +6,8 @@
 	language = "Wryn Hivemind"
 	tail = "wryntail"
 	unarmed_type = /datum/unarmed_attack/punch/weak
+	punchdamagelow = 0
+	punchdamagehigh = 1
 	//primitive = /mob/living/carbon/monkey/wryn
 	darksight = 3
 	slowdown = 1

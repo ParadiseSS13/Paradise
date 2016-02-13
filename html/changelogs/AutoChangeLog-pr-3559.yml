@@ -1,0 +1,5 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "Mages are now more ragin"
+  - tweak: "Admins can now adjust the total number of wizards at runtime by tweaking either max_mages, or players_per mage"

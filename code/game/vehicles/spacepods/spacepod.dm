@@ -49,6 +49,9 @@
 
 	var/allow2enter = 1
 
+	var/move_delay = 2
+	var/next_move = 0
+
 /obj/spacepod/New()
 	. = ..()
 	if(!pod_overlays)
@@ -723,43 +726,45 @@
 /datum/global_iterator/pod_tank_give_air
 	delay = 15
 
-	process(var/obj/spacepod/spacepod)
-		if(spacepod && spacepod.internal_tank)
-			var/datum/gas_mixture/tank_air = spacepod.internal_tank.return_air()
-			var/datum/gas_mixture/cabin_air = spacepod.cabin_air
+/datum/global_iterator/pod_tank_give_air/process(var/obj/spacepod/spacepod)
+	if(spacepod && spacepod.internal_tank)
+		var/datum/gas_mixture/tank_air = spacepod.internal_tank.return_air()
+		var/datum/gas_mixture/cabin_air = spacepod.cabin_air
 
-			var/release_pressure = ONE_ATMOSPHERE
-			var/cabin_pressure = cabin_air.return_pressure()
-			var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
-			var/transfer_moles = 0
-			if(pressure_delta > 0) //cabin pressure lower than release pressure
-				if(tank_air.return_temperature() > 0)
-					transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-					var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
-					cabin_air.merge(removed)
-			else if(pressure_delta < 0) //cabin pressure higher than release pressure
-				var/datum/gas_mixture/t_air = spacepod.get_turf_air()
-				pressure_delta = cabin_pressure - release_pressure
+		var/release_pressure = ONE_ATMOSPHERE
+		var/cabin_pressure = cabin_air.return_pressure()
+		var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
+		var/transfer_moles = 0
+		if(pressure_delta > 0) //cabin pressure lower than release pressure
+			if(tank_air.return_temperature() > 0)
+				transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+				var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
+				cabin_air.merge(removed)
+		else if(pressure_delta < 0) //cabin pressure higher than release pressure
+			var/datum/gas_mixture/t_air = spacepod.get_turf_air()
+			pressure_delta = cabin_pressure - release_pressure
+			if(t_air)
+				pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
+			if(pressure_delta > 0) //if location pressure is lower than cabin pressure
+				transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+				var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
 				if(t_air)
-					pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
-				if(pressure_delta > 0) //if location pressure is lower than cabin pressure
-					transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-					var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-					if(t_air)
-						t_air.merge(removed)
-					else //just delete the cabin gas, we're in space or some shit
-						qdel(removed)
-		else
-			return stop()
-		return
+					t_air.merge(removed)
+				else //just delete the cabin gas, we're in space or some shit
+					qdel(removed)
+	else
+		return stop()
+	return
 
 /obj/spacepod/relaymove(mob/user, direction)
 	if(!CheckIfOccupant2(user))
 		handlerelaymove(user, direction)
 
 /obj/spacepod/proc/handlerelaymove(mob/user, direction)
+	if(world.time < next_move)
+		return 0
 	var/moveship = 1
-	if(battery && battery.charge >= 3 && health && empcounter == 0)
+	if(battery && battery.charge >= 1 && health && empcounter == 0)
 		src.dir = direction
 		switch(direction)
 			if(NORTH)
@@ -783,16 +788,17 @@
 	else
 		if(!battery)
 			user << "<span class='warning'>No energy cell detected.</span>"
-		else if(battery.charge < 3)
+		else if(battery.charge < 1)
 			user << "<span class='warning'>Not enough charge left.</span>"
 		else if(!health)
 			user << "<span class='warning'>She's dead, Jim</span>"
 		else if(empcounter != 0)
 			user << "<span class='warning'>The pod control interface isn't responding. The console indicates [empcounter] seconds before reboot.</span>"
 		else
-			user << "<span class='warning'>Unknown error has occurred, yell at pomf.</span>"
+			user << "<span class='warning'>Unknown error has occurred, yell at the coders.</span>"
 		return 0
-	battery.charge = max(0, battery.charge - 3)
+	battery.charge = max(0, battery.charge - 1)
+	next_move = world.time + move_delay
 
 /obj/spacepod/proc/CheckIfOccupant2(mob/user)
 	if(!src.occupant2)
