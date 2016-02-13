@@ -41,6 +41,7 @@
 	origin_tech = "materials=2;biotech=3;powerstorage=3"
 	modifystate = "floramut"
 	var/mode = 0 //0 = mutate, 1 = yield boost
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -202,6 +203,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	needs_permit = 0 // Aparently these are safe to carry? I'm sure Golliaths would disagree.
 	fire_delay = 16 //Because guncode is bad and you can bug the reload for rapid fire otherwise.
 	var/recently_fired = 0
 
