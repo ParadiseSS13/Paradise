@@ -15,14 +15,12 @@
 			switch(my_atom.dir)
 				if(NORTH)
 					firstloc = get_step(my_atom, NORTH)
-					firstloc = get_step(firstloc, NORTH)
 					secondloc = get_step(firstloc,EAST)
 				if(SOUTH)
 					firstloc = get_step(my_atom, SOUTH)
 					secondloc = get_step(firstloc,EAST)
 				if(EAST)
 					firstloc = get_step(my_atom, EAST)
-					firstloc = get_step(firstloc, EAST)
 					secondloc = get_step(firstloc,NORTH)
 				if(WEST)
 					firstloc = get_step(my_atom, WEST)
@@ -72,34 +70,33 @@
 	var/shot_cost = 0
 	var/shots_per = 1
 	var/fire_sound
-	var/fire_delay = 20
+	var/fire_delay = 15
 
 /obj/item/device/spacepod_equipment/weaponry/taser
-	name = "\improper taser system"
-	desc = "A weak taser system for space pods, fires electrodes that shock upon impact."
+	name = "disabler system"
+	desc = "A weak taser system for space pods, fires disabler beams."
 	icon_state = "pod_taser"
 	projectile_type = "/obj/item/projectile/beam/disabler"
-	shot_cost = 250
+	shot_cost = 400
 	fire_sound = "sound/weapons/Taser.ogg"
 
 /obj/item/device/spacepod_equipment/weaponry/burst_taser
-	name = "\improper burst taser system"
+	name = "burst taser system"
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
 	icon_state = "pod_b_taser"
 	projectile_type = "/obj/item/projectile/beam/disabler"
-	shot_cost = 350
+	shot_cost = 1200
 	shots_per = 3
 	fire_sound = "sound/weapons/Taser.ogg"
-	fire_delay = 40
+	fire_delay = 30
 
 /obj/item/device/spacepod_equipment/weaponry/laser
-	name = "\improper laser system"
+	name = "laser system"
 	desc = "A weak laser system for space pods, fires concentrated bursts of energy"
 	icon_state = "pod_w_laser"
 	projectile_type = "/obj/item/projectile/beam"
-	shot_cost = 300
+	shot_cost = 600
 	fire_sound = 'sound/weapons/Laser.ogg'
-	fire_delay = 30
 
 //base item for spacepod misc equipment (tracker)
 /obj/item/device/spacepod_equipment/misc
