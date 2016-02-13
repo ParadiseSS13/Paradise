@@ -68,3 +68,7 @@
 /datum/deepfryer_special/fried_tofu
 	input = /obj/item/weapon/reagent_containers/food/snacks/tofu
 	output = /obj/item/weapon/reagent_containers/food/snacks/fried_tofu
+
+/datum/deepfryer_special/chimichanga
+	input = /obj/item/weapon/reagent_containers/food/snacks/burrito
+	output = /obj/item/weapon/reagent_containers/food/snacks/chimichanga
