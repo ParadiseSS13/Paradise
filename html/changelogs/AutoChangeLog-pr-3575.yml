@@ -1,0 +1,8 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - bugfix: "Fixes spacepods being able to shoot through walls."
+  - tweak: "Lowers spacepod weapons fire delay."
+  - tweak: "Increases spacepod weapons energy costs."
+  - tweak: "Makes spacepods move at speeds not rivaling those of photon beams. They are now a hair bit faster than a person with a jetpack."
+  - tweak: "Reduces battery costs for spacepod movement."
