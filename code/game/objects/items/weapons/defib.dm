@@ -12,6 +12,10 @@
 	w_class = 4
 	origin_tech = "biotech=4"
 	action_button_name = "Toggle Paddles"
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/back.dmi'
+		)
 
 	var/on = 0 //if the paddles are equipped (1) or on the defib (0)
 	var/safety = 1 //if you can zap people with the defibs on harm mode
