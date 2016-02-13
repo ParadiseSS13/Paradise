@@ -17,6 +17,11 @@
 /obj/item/weapon/cartridge/New()
 	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
 		initialize()
+
+/obj/item/weapon/cartridge/initialize()
+	if(radio)
+		radio.initialize()
+	..()
 		
 /obj/item/weapon/cartridge/Destroy()
 	if(radio)
