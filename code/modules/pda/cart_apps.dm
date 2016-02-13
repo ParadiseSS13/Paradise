@@ -95,6 +95,8 @@
 	var/obj/machinery/computer/monitor/powmonitor = null
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
+	update = PDA_APP_UPDATE_SLOW
+	
 	if (powmonitor && !isnull(powmonitor.powernet))
 		data["records"] = list(
 			"powerconnected" = 1,
@@ -114,8 +116,10 @@
 		if("Power Select")
 			var/pref = href_list["target"]
 			powmonitor = locate(pref)
+			update = PDA_APP_UPDATE
 		if("Back")
 			powmonitor = null
+			update = PDA_APP_UPDATE
 
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
@@ -205,14 +209,13 @@
 	icon = "rss"
 	template = "pda_secbot"
 	category = "Security"
-	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
 	var/botsData[0]
 	var/beepskyData[0]
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/beepsky))
 		var/obj/item/radio/integrated/beepsky/SC = pda.cartridge.radio
-		beepskyData["active"] = SC.active ? SC.active.name : null
+		beepskyData["active"] = SC.active ? sanitize(SC.active.name) : null
 		has_back = SC.active ? 1 : 0
 		if(SC.active && !isnull(SC.botstatus))
 			var/area/loca = SC.botstatus["loca"]
@@ -254,7 +257,6 @@
 	icon = "truck"
 	template = "pda_mule"
 	category = "Quartermaster"
-	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
 	var/muleData[0]

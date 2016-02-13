@@ -78,7 +78,6 @@
 
 		if("control")
 			active = locate(href_list["bot"])
-			botstatus = list(mode = -1)
 			spawn(0)
 				post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
@@ -177,7 +176,6 @@
 
 	switch(href_list["op"])
 		if("control")
-			botstatus = list(mode = -1)
 			active = locate(href_list["bot"])
 
 		if("scanbots")		// find all bots

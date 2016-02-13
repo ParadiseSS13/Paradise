@@ -16,6 +16,9 @@
 	power_monitors += src
 	power_monitors = sortAtom(power_monitors)
 	power_monitor = new(src)
+	
+/obj/machinery/computer/monitor/initialize()
+	..()
 	powermonitor_repository.update_cache()
 	powernet = find_powernet()
 
