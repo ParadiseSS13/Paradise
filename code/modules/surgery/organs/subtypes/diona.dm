@@ -149,7 +149,7 @@
 /obj/item/organ/diona/process()
 	return
 
-/obj/item/organ/internal/diona/strata
+/obj/item/organ/internal/heart/diona
 	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
@@ -158,7 +158,7 @@
 	parent_organ = "chest"
 	slot = "heart"
 
-/obj/item/organ/internal/diona/bladder
+/obj/item/organ/internal/brain/diona
 	name = "gas bladder"
 	parent_organ = "head"
 	icon = 'icons/obj/objects.dmi'
@@ -167,7 +167,7 @@
 	origin_tech = "biotech=3"
 	slot = "brain"
 
-/obj/item/organ/internal/diona/polyp
+/obj/item/organ/internal/kidneys/diona
 	name = "polyp segment"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
@@ -176,7 +176,7 @@
 	parent_organ = "groin"
 	slot = "kidneys"
 
-/obj/item/organ/internal/diona/ligament
+/obj/item/organ/internal/appendix/diona
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
@@ -185,7 +185,7 @@
 	parent_organ = "groin"
 	slot = "appendix"
 
-/obj/item/organ/internal/diona/node
+/obj/item/organ/internal/eyes/diona
 	name = "receptor node"
 	organ_tag = "receptor node"
 	icon = 'icons/mob/alien.dmi'
@@ -196,13 +196,13 @@
 
 //TODO:Make absorb rads on insert
 
-/obj/item/organ/internal/diona/nutrients
+/obj/item/organ/internal/liver/diona
 	name = "nutrient vessel"
 	parent_organ = "chest"
 	organ_tag = "nutrient vessel"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-	slot = "nutri_vessel"
+	slot = "liver"
 
 //TODO:Make absorb light on insert.
 

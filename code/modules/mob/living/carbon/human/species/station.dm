@@ -55,7 +55,7 @@
 	flesh_color = "#34AF10"
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -106,7 +106,7 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#AFA59E"
 	base_color = "#333333"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -147,7 +147,7 @@
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
 	base_color = "#B43214"
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -231,7 +231,7 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -324,7 +324,7 @@
 		"eyes" =     /obj/item/organ/internal/eyes,
 		"stack" =    /obj/item/organ/internal/stack/vox
 		)
-	
+
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
 		"is jamming their claws into their eye sockets!",
@@ -350,7 +350,7 @@
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
-	
+
 	suicide_messages = list(
 		"is attempting to bite their antenna off!",
 		"is jamming their claws into their eye sockets!",
@@ -378,7 +378,7 @@
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
-		
+
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is turning a dull, brown color and melting into a puddle!",
@@ -462,12 +462,12 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/internal/diona/nutrients,
-		"neural strata" =      /obj/item/organ/internal/diona/strata,
-		"response node" =      /obj/item/organ/internal/diona/node,
-		"gas bladder" =        /obj/item/organ/internal/diona/bladder,
-		"polyp segment" =      /obj/item/organ/internal/diona/polyp,
-		"anchoring ligament" = /obj/item/organ/internal/diona/ligament
+		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
+		"neural strata" =      /obj/item/organ/internal/heart/diona,
+		"receptor node" =      /obj/item/organ/internal/eyes/diona,
+		"gas bladder" =        /obj/item/organ/internal/brain/diona,
+		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
+		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
 
 	has_limbs = list(
@@ -483,7 +483,7 @@
 		"l_foot" = list("path" = /obj/item/organ/external/diona/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/diona/foot/right)
 		)
-		
+
 	suicide_messages = list(
 		"is losing branches!",
 		"is pulling themselves apart!",
@@ -581,7 +581,7 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
 		)
-	
+
 	suicide_messages = list(
 		"is powering down!",
 		"is smashing their own monitor!",
