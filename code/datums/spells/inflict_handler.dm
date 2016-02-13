@@ -25,15 +25,6 @@
 		switch(destroys)
 			if("gib")
 				target.gib()
-			if("gib_brain")
-				if(ishuman(target))
-					var/mob/living/carbon/C = target
-					var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)//do we has brains?
-					if(B)
-						B.loc = get_turf(C)
-						B.transfer_identity(C)
-						C.internal_organs -= B
-				target.gib()
 			if("disintegrate")
 				target.dust()
 

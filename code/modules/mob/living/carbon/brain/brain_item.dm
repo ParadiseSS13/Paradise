@@ -59,7 +59,7 @@
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,var/special)
 
-	if(!owner) return ..() // Probably a redundant removal; just bail
+	//if(!owner) return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
 	if(istype(B) && istype(owner) && is_primary_organ())
