@@ -1,0 +1,4 @@
+author: FalseIncarnate
+delete-after: True
+changes: 
+  - bugfix: "Fixes accidental removal of plump helmet biscuit recipe."
