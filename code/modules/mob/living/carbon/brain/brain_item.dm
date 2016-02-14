@@ -57,23 +57,22 @@
 	else
 		user << "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(var/mob/living/user,var/special)
+/obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 
-	//if(!owner) return ..() // Probably a redundant removal; just bail
+	if(!owner) return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
-	if(istype(B) && istype(owner) && is_primary_organ())
+	if(!special)
 		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
 
-		owner.brain_op_stage = 4.0
-		B.transfer_identity(owner)
+		B.transfer_identity(user)
 
 	..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target)
+/obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
@@ -84,9 +83,6 @@
 	if(!brain_already_exists)
 		if(target.key)
 			target.ghostize()
-		var/mob/living/carbon/C = target
-		if(istype(C))
-			C.brain_op_stage = 1.0
 		if(brainmob)
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
