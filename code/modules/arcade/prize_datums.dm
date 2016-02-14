@@ -15,7 +15,7 @@ var/global/datum/prizes/global_prizes = new
 	if(!item)
 		return 0
 	if(prize_counter.tickets >= item.cost)
-		item.deliver(prize_counter)
+		new item.typepath(prize_counter.loc)
 		prize_counter.visible_message("<span class='notice'>Enjoy your prize!</span>")
 		return 1
 	else
@@ -23,7 +23,7 @@ var/global/datum/prizes/global_prizes = new
 		return 0
 
 //////////////////////////////////////
-//		/datum/prize_item			//
+//			prize_item datum		//
 //////////////////////////////////////
 
 /datum/prize_item
@@ -32,9 +32,6 @@ var/global/datum/prizes/global_prizes = new
 	var/typepath = /obj/item/toy/prizeball
 	var/cost = 0
 	var/tier_unlocked = 0	//minimum tier needed to unlock the ability to select this prize
-
-/datum/prize_item/proc/deliver(var/obj/machinery/prize_counter/P_C)
-	var/thing = new typepath(P_C.loc)
 
 //////////////////////////////////////
 //			Tier 1 Prizes			//
@@ -54,7 +51,7 @@ var/global/datum/prizes/global_prizes = new
 	cost = 35
 	tier_unlocked = 1
 
-/datum/prize_item/snap-pops
+/datum/prize_item/snappops
 	name = "Snap-Pops"
 	desc = "A box of exploding snap-pop fireworks."
 	typepath = /obj/item/weapon/storage/box/snappops
@@ -85,7 +82,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/cards
 	name = "Deck of cards"
 	desc = "Anyone fancy a game of 52-card Pickup?"
-	typepath = obj/item/toy/cards/deck
+	typepath = /obj/item/toy/cards/deck
 	cost = 25
 	tier_unlocked = 1
 
@@ -134,10 +131,10 @@ var/global/datum/prizes/global_prizes = new
 	desc = "A sticker that can make any ID look like a golden ID."
 	typepath = /obj/item/weapon/id_decal/gold
 
-/datum/prize_item/id_sticker/centcomm
+/datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
 	desc = "A sticker that can make any ID look like a Central Command ID."
-	typepath = /obj/item/weapon/id_decal/centcomm
+	typepath = /obj/item/weapon/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
 	name = "Suspicious ID Sticker"

@@ -6,41 +6,7 @@
 	icon_keyboard = null
 	icon_screen = "invaders"
 	light_color = "#00FF00"
-
-	var/list/prizes = list(	/obj/item/weapon/storage/box/snappops			= 2,
-							/obj/item/toy/AI								= 2,
-							/obj/item/clothing/under/syndicate/tacticool	= 2,
-							/obj/item/toy/blink								= 2,
-							/obj/item/weapon/storage/box/fakesyndiesuit		= 2,
-							/obj/item/toy/sword								= 2,
-							/obj/item/weapon/gun/projectile/revolver/capgun								= 2,
-							/obj/item/toy/crossbow							= 2,
-							/obj/item/weapon/storage/fancy/crayons			= 2,
-							/obj/item/toy/spinningtoy						= 2,
-							/obj/item/toy/crossbow/tommygun					= 2,
-							/obj/random/mech								= 5,
-							/obj/item/toy/nuke								= 2,
-							/obj/item/toy/cards/deck						= 2,
-							/obj/random/carp_plushie						= 2,
-							/obj/item/toy/minimeteor						= 2,
-							/obj/item/toy/redbutton							= 2,
-							/obj/item/toy/owl								= 2,
-							/obj/item/toy/griffin							= 2,
-							/obj/item/clothing/head/blob					= 2,
-							/obj/item/weapon/id_decal/gold					= 2,
-							/obj/item/weapon/id_decal/silver				= 2,
-							/obj/item/weapon/id_decal/prisoner				= 2,
-							/obj/item/weapon/id_decal/centcom				= 2,
-							/obj/item/weapon/id_decal/emag					= 2,
-							/obj/item/weapon/spellbook/oneuse/fake_gib		= 2,
-							/obj/item/toy/foamblade							= 2,
-							/obj/item/toy/flash								= 2,
-							/obj/item/toy/minigibber						= 2,
-							/obj/item/toy/toy_xeno                          = 2,
-							/obj/random/figure								= 16,
-							/obj/random/plushie                          	= 7,
-							/obj/item/stack/tile/fakespace/loaded			= 2,
-							)
+	var/prize = /obj/item/stack/tickets
 
 /obj/machinery/computer/arcade/power_change()
 	..()
@@ -56,28 +22,22 @@
 	qdel(src)
 
 
-/obj/machinery/computer/arcade/proc/prizevend()
+/obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)
-		var/prizeselect = pickweight(prizes)
-		new prizeselect(src.loc)
-
-		if(istype(prizeselect, /obj/item/weapon/gun/projectile/revolver/capgun)) //Ammo comes with the gun
-			new /obj/item/ammo_box/caps(src.loc)
-
-		else if(istype(prizeselect, /obj/item/clothing/suit/syndicatefake)) //Helmet is part of the suit
-			new	/obj/item/clothing/head/syndicatefake(src.loc)
-
+		var/prize_amount
+		if(score)
+			prize_amount = score
+		else
+			prize_amount = rand(1, 10)
+		new prize(src.loc, prize_amount)
 	else
 		var/atom/movable/prize = pick(contents)
 		prize.loc = src.loc
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)
-
 	if(stat & (NOPOWER|BROKEN))
 		return
-
-	var/empprize = null
 	var/num_of_prizes = 0
 	switch(severity)
 		if(1)
@@ -85,8 +45,7 @@
 		if(2)
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
-		empprize = pickweight(prizes)
-		new empprize(src.loc)
+		prizevend()
 	explosion(src.loc, -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
 
 
@@ -231,7 +190,8 @@
 				emagged = 0
 			else
 				feedback_inc("arcade_win_normal")
-				prizevend()
+				var/score = src.player_hp + player_mp + 5
+				prizevend(score)
 
 	else if (emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
@@ -988,7 +948,8 @@
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
-		prizevend()
+		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
+		prizevend(score)
 	emagged = 0
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"

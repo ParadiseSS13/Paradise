@@ -200,7 +200,9 @@
 		return
 	else if (bullets == 0)
 		user.Weaken(5)
-		user.visible_message("<span class='danger'>[] realized they were out of ammo and started scrounging for some!</span>")
+		user.visible_message("<span class='danger'>[] realized they were out of ammo and starting scrounging for some!</span>")
+
+
 
 /obj/item/toy/crossbow/attack(mob/M as mob, mob/user as mob)
 	src.add_fingerprint(user)
@@ -277,27 +279,27 @@
 	flags = NOSHIELD
 	attack_verb = list("attacked", "struck", "hit")
 
-	attack_self(mob/user as mob)
-		src.active = !( src.active )
-		if (src.active)
-			user << "\blue You extend the plastic blade with a quick flick of your wrist."
-			playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-			src.icon_state = "swordblue"
-			src.item_state = "swordblue"
-			src.w_class = 4
-		else
-			user << "\blue You push the plastic blade back down into the handle."
-			playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-			src.icon_state = "sword0"
-			src.item_state = "sword0"
-			src.w_class = 2
+/obj/item/toy/sword/attack_self(mob/user as mob)
+	src.active = !( src.active )
+	if (src.active)
+		user << "\blue You extend the plastic blade with a quick flick of your wrist."
+		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		src.icon_state = "swordblue"
+		src.item_state = "swordblue"
+		src.w_class = 4
+	else
+		user << "\blue You push the plastic blade back down into the handle."
+		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		src.icon_state = "sword0"
+		src.item_state = "sword0"
+		src.w_class = 2
 
-		if(istype(user,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = user
-			H.update_inv_l_hand()
-			H.update_inv_r_hand()
-		src.add_fingerprint(user)
-		return
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	src.add_fingerprint(user)
+	return
 
 // Copied from /obj/item/weapon/melee/energy/sword/attackby
 /obj/item/toy/sword/attackby(obj/item/weapon/W, mob/living/user, params)
@@ -372,21 +374,15 @@
 	w_class = 1
 
 
-	throw_impact(atom/hit_atom)
-		..()
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
-		new /obj/effect/decal/cleanable/ash(src.loc)
-		src.visible_message("\red The [src.name] explodes!","\red You hear a bang!")
-
-
-		playsound(src, 'sound/effects/snap.ogg', 50, 1)
-		qdel(src)
-
-
-
-
+/obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
+	..()
+	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	s.set_up(3, 1, src)
+	s.start()
+	new /obj/effect/decal/cleanable/ash(src.loc)
+	src.visible_message("\red The [src.name] explodes!","\red You hear a bang!")
+	playsound(src, 'sound/effects/snap.ogg', 50, 1)
+	qdel(src)
 
 /*
  * Snap pops
@@ -427,13 +423,13 @@
 /*
  * Mech prizes
  */
-/obj/item/toy/mech
+/obj/item/toy/prize
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 	var/cooldown = 0
 
 //all credit to skasi for toy mech fun ideas
-/obj/item/toy/mech/attack_self(mob/user as mob)
+/obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
 		user << "<span class='notice'>You play with [src].</span>"
 		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
@@ -457,37 +453,37 @@
 /obj/random/mech/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
 
-/obj/item/toy/mech/ripley
+/obj/item/toy/prize/ripley
 	name = "toy ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 1/11."
 
-/obj/item/toy/mech/fireripley
+/obj/item/toy/prize/fireripley
 	name = "toy firefighting ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 2/11."
 	icon_state = "fireripleytoy"
 
-/obj/item/toy/mech/deathripley
+/obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
 	desc = "Mini-Mecha action figure! Collect them all! 3/11."
 	icon_state = "deathripleytoy"
 
-/obj/item/toy/mech/gygax
+/obj/item/toy/prize/gygax
 	name = "toy gygax"
 	desc = "Mini-Mecha action figure! Collect them all! 4/11."
 	icon_state = "gygaxtoy"
 
 
-/obj/item/toy/mech/durand
+/obj/item/toy/prize/durand
 	name = "toy durand"
 	desc = "Mini-Mecha action figure! Collect them all! 5/11."
 	icon_state = "durandprize"
 
-/obj/item/toy/mech/honk
+/obj/item/toy/prize/honk
 	name = "toy H.O.N.K."
 	desc = "Mini-Mecha action figure! Collect them all! 6/11."
 	icon_state = "honkprize"
 
-/obj/item/toy/mech/marauder
+/obj/item/toy/prize/marauder
 	name = "toy marauder"
 	desc = "Mini-Mecha action figure! Collect them all! 7/11."
 	icon_state = "marauderprize"
@@ -497,17 +493,17 @@
 	desc = "Mini-Mecha action figure! Collect them all! 8/11."
 	icon_state = "seraphprize"
 
-/obj/item/toy/mech/mauler
+/obj/item/toy/prize/mauler
 	name = "toy mauler"
 	desc = "Mini-Mecha action figure! Collect them all! 9/11."
 	icon_state = "maulerprize"
 
-/obj/item/toy/mech/odysseus
+/obj/item/toy/prize/odysseus
 	name = "toy odysseus"
 	desc = "Mini-Mecha action figure! Collect them all! 10/11."
 	icon_state = "odysseusprize"
 
-/obj/item/toy/mech/phazon
+/obj/item/toy/prize/phazon
 	name = "toy phazon"
 	desc = "Mini-Mecha action figure! Collect them all! 11/11."
 	icon_state = "phazonprize"
@@ -924,44 +920,55 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/therapy
 	name = "therapy doll"
 	desc = "A toy for therapeutic and recreational purposes."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "therapyred"
-	item_state = "egg4"	// It's the red egg in items_left/righthand
+	item_state = "egg4"
 	w_class = 1
-	item_color = "red"
+	var/cooldown = 0
 
 /obj/item/toy/therapy/New()
-	..()
-	icon_state = "therapy[item_color]"
-	UpdateDesc()
+	if(item_color)
+		name = "[item_color] therapy doll"
+		desc += " This one is [item_color]."
+		icon_state = "therapy[item_color]"
 
-/obj/item/toy/therapy/proc/UpdateDesc()
-	name = "[item_color] therapy doll"
-	desc += " This one is [item_color]."
+/obj/item/toy/therapy/attack_self(mob/user)
+	if(cooldown < world.time - 8)
+		user << "<span class='notice'>You relieve some stress with /the [src].</span>"
+		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
+		cooldown = world.time
+
+/obj/random/therapy
+	name = "Random Therapy Doll"
+	desc = "This is a random therapy doll."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "therapyred"
+
+/obj/random/prize/item_to_spawn()
+	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
 
 /obj/item/toy/therapy/red
-	item_color = "red"
 	item_state = "egg4" // It's the red egg in items_left/righthand
+	item_color = "red"
 
 /obj/item/toy/therapy/purple
-	item_color = "purple"
 	item_state = "egg1" // It's the magenta egg in items_left/righthand
+	item_color = "purple"
 
 /obj/item/toy/therapy/blue
-	item_color = "blue"
 	item_state = "egg2" // It's the blue egg in items_left/righthand
+	item_color = "blue"
 
 /obj/item/toy/therapy/yellow
-	item_color = "yellow"
 	item_state = "egg5" // It's the yellow egg in items_left/righthand
+	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_color = "orange"
 	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
+	item_color = "orange"
 
 /obj/item/toy/therapy/green
-	item_color = "green"
 	item_state = "egg3" // It's the green egg in items_left/righthand
+	item_color = "green"
 
 /obj/item/weapon/toddler
 	icon_state = "toddler"

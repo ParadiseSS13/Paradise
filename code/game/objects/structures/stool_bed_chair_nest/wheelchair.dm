@@ -149,3 +149,10 @@
 
 		else
 			. = 1
+
+/obj/structure/stool/bed/chair/wheelchair/handle_rotation()
+	overlays = null
+	var/image/O = image(icon = 'icons/vehicles/motorcycle.dmi', icon_state = "motorcycle_overlay_4d", layer = FLY_LAYER, dir = src.dir)
+	overlays += O
+	if(buckled_mob)
+		buckled_mob.dir = dir

@@ -25,38 +25,16 @@
 	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
 		prize_tier = B.rating
 
-/obj/machinery/prize_counter/proc/UpdateListings()
-	var/dat = ""
-	for(var/datum/prize_item/item in global_prizes.prizes)
-		var/cost_class="affordable"
-		if(item.cost>tickets)
-			cost_class="toomuch"
-		var/itemID = global_prizes.prizes.Find(item)
-		dat += {"
-			<tr>
-				<th>
-					[itemID]
-				</th>
-				<td>
-					<p><b>[item.name]</b></p>
-					<p>[item.desc]</p>
-				</td>
-		"}
-		if(prize_tier >= item.tier_unlocked)
-			dat += {"
-				<td class="cost [cost_class]">
-					<a href="byond://?src=\ref[src];buy=[itemID]">[item.cost] Tickets</a>
-				</td>
-			</tr>
-		"}
-		else
-			dat += {"
-				<td>
-					LOCKED.
-				</td>
-			</tr>
-		"}
-	return dat
+/obj/machinery/prize_counter/update_icon()
+	if(stat & BROKEN)
+		icon_state = "prize_counter-broken"
+	else if(panel_open)
+		icon_state = "prize_counter-open"
+	else if(stat & NOPOWER)
+		icon_state = "prize_counter-off"
+	else
+		icon_state = "prize_counter-on"
+	return
 
 /obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/stack/tickets))
@@ -74,16 +52,18 @@
 		if(istype(O, /obj/item/weapon/wrench))
 			default_unfasten_wrench(user, O)
 		if(component_parts && istype(O, /obj/item/weapon/crowbar))
+			if(tickets)		//save the tickets!
+				print_tickets()
 			default_deconstruction_crowbar(O)
 
 /obj/machinery/prize_counter/attack_hand(mob/user as mob)
 	if(..())
 		return
+	add_fingerprint(user)
 	interact(user)
 
 /obj/machinery/prize_counter/interact(mob/user as mob)
 	user.set_machine(src)
-	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -152,7 +132,37 @@ td.cost.toomuch {
 		</thead>
 		<tbody>
 	"}
-	dat += UpdateListings()
+
+	for(var/datum/prize_item/item in global_prizes.prizes)
+		var/cost_class="affordable"
+		if(item.cost>tickets)
+			cost_class="toomuch"
+		var/itemID = global_prizes.prizes.Find(item)
+		dat += {"
+			<tr>
+				<th>
+					[itemID]
+				</th>
+				<td>
+					<p><b>[item.name]</b></p>
+					<p>[item.desc]</p>
+				</td>
+		"}
+		if(prize_tier >= item.tier_unlocked)
+			dat += {"
+				<td class="cost [cost_class]">
+					<a href="byond://?src=\ref[src];buy=[itemID]">[item.cost] Tickets</a>
+				</td>
+			</tr>
+		"}
+		else
+			dat += {"
+				<td>
+					LOCKED.
+				</td>
+			</tr>
+		"}
+
 	dat += {"
 		</tbody>
 	</table>
@@ -169,7 +179,7 @@ td.cost.toomuch {
 	src.add_fingerprint(usr)
 
 	if(href_list["eject"])
-		print_tickets
+		print_tickets()
 
 	if (href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
@@ -183,7 +193,7 @@ td.cost.toomuch {
 		else
 			usr << "<span class='notice'>You've successfully purchased the item.</span>"
 
-	src.updateUsrDialog()
+	interact(usr)
 	return
 
 /obj/machinery/prize_counter/proc/print_tickets()
@@ -195,3 +205,4 @@ td.cost.toomuch {
 		print_tickets()
 	else
 		new /obj/item/stack/tickets(src.loc, tickets)
+		tickets = 0

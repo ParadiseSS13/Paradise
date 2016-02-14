@@ -25,7 +25,7 @@
 	var/prize_inside = pick(possible_contents)
 	spawn(10)
 		user.unEquip(src)
-		if(istype(/obj/item/stack))
+		if(istype(prize_inside, /obj/item/stack))
 			var/amount = pick(5, 10, 15, 25, 50)
 			new prize_inside(user.loc, amount)
 		else
@@ -55,7 +55,7 @@
 /obj/item/toy/prizeball/therapy
 	name = "therapy doll capsule"
 	desc = "Contains one squishy therapy doll."
-	possible_contents = subtypesof(/obj/item/toy/therapy)
+	possible_contents = list(/obj/random/therapy)
 
 /obj/item/stack/tickets
 	name = "prize ticket"
@@ -64,7 +64,7 @@
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "tickets_1"
 	force = 1
-	throw_force = 1
+	throwforce = 1
 	throw_speed = 1
 	throw_range = 1
 	w_class = 1.0
