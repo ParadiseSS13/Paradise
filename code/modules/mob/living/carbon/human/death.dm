@@ -17,8 +17,8 @@
 		if(istype(loc,/turf))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			//spawn()
-			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			spawn()
+				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
 
 	for(var/obj/item/organ/external/E in src.organs)
 		if(istype(E, /obj/item/organ/external/chest))
