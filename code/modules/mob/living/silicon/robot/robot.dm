@@ -1456,3 +1456,7 @@ var/list/robot_verbs_default = list(
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)
+
+/mob/living/silicon/robot/adjustOxyLoss(var/amount)
+	if (suiciding)
+		..()

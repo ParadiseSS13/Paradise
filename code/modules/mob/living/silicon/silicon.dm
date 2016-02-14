@@ -344,6 +344,4 @@
 /mob/living/silicon/adjustToxLoss(var/amount)
 	return
 
-/mob/living/silicon/adjustOxyLoss(var/amount)
-	if (suiciding)
-		..()
+
