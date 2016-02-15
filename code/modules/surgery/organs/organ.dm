@@ -296,15 +296,14 @@ var/list/organ_cache = list()
 	if(!istype(owner))
 		return
 
-	//if(is_primary_organ())//Toddo from fethas:Do i need to move ths?
-	//	owner.internal_organs_by_name[organ_tag] = null
-	//	owner.internal_organs_by_name -= organ_tag
-	//	owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
-
-	owner.internal_organs -= src
+	var/obj/item/organ/internal/O = owner.get_int_organ_tag(organ_tag)
+	world << "[O]"
+	if(O)
+		owner.internal_organs -= O
+		//O.forceMove(src)
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
-	if(affected) affected.internal_organs -= src
+	if(affected) affected.internal_organs -= O
 
 	loc = get_turf(owner)
 	processing_objects |= src
@@ -313,7 +312,7 @@ var/list/organ_cache = list()
 	if(!organ_blood || !organ_blood.data["blood_DNA"])
 		owner.vessel.trans_to(src, 5, 1, 1)
 
-	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
+	if(owner && vital) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		if(user)
 			user.attack_log += "\[[time_stamp()]\]<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>"
 			owner.attack_log += "\[[time_stamp()]\]<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>"
@@ -348,4 +347,4 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		O = owner
 	if (!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
-	return src == O.get_int_organ(organ_tag)
+	return src == O.get_int_organ_tag(organ_tag)

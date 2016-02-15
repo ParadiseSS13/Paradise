@@ -7,6 +7,9 @@
 /mob/proc/get_organ_slot(slot) //is it a brain, is it a brain_tumor?
 	return
 
+/mob/proc/get_int_organ_tag(tag) //is it a brain, is it a brain_tumor?
+	return
+
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
@@ -29,6 +32,11 @@
 /mob/living/carbon/get_organ_slot(slot)
 	for(var/obj/item/organ/internal/O in internal_organs)
 		if(slot == O.slot)
+			return O
+
+/mob/living/carbon/get_int_organ_tag(tag)
+	for(var/obj/item/organ/internal/O in internal_organs)
+		if(tag == O.organ_tag)
 			return O
 
 /proc/is_int_organ(atom/A)

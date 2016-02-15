@@ -153,7 +153,7 @@
 	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "special" // Turns into a nymph instantly, no transplanting possible.
+	organ_tag = "heart" // Turns into a nymph instantly, no transplanting possible.
 	origin_tech = "biotech=3"
 	parent_organ = "chest"
 	slot = "heart"
@@ -163,7 +163,7 @@
 	parent_organ = "head"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "special" // Turns into a nymph instantly, no transplanting possible.
+	organ_tag = "brain" // Turns into a nymph instantly, no transplanting possible.
 	origin_tech = "biotech=3"
 	slot = "brain"
 
@@ -171,7 +171,7 @@
 	name = "polyp segment"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "special" // Turns into a nymph instantly, no transplanting possible.
+	organ_tag = "kidneys" // Turns into a nymph instantly, no transplanting possible.
 	origin_tech = "biotech=3"
 	parent_organ = "groin"
 	slot = "kidneys"
@@ -180,14 +180,14 @@
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "special" // Turns into a nymph instantly, no transplanting possible.
+	organ_tag = "appendix" // Turns into a nymph instantly, no transplanting possible.
 	origin_tech = "biotech=3"
 	parent_organ = "groin"
 	slot = "appendix"
 
 /obj/item/organ/internal/eyes/diona
 	name = "receptor node"
-	organ_tag = "receptor node"
+	organ_tag = "eyes"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	origin_tech = "biotech=3"
@@ -199,7 +199,7 @@
 /obj/item/organ/internal/liver/diona
 	name = "nutrient vessel"
 	parent_organ = "chest"
-	organ_tag = "nutrient vessel"
+	organ_tag = "liver"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	slot = "liver"

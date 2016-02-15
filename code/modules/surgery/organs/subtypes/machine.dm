@@ -98,7 +98,7 @@
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "scell"
-	organ_tag = "cell"
+	organ_tag = "heart"
 	parent_organ = "chest"
 	slot = "heart"
 	vital = 1
@@ -117,7 +117,7 @@
 
 /obj/item/organ/internal/optical_sensor
 	name = "optical sensor"
-	organ_tag = "optics"
+	organ_tag = "eyes"
 	parent_organ = "head"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
