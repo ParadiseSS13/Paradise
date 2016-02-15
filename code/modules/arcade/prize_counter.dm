@@ -176,7 +176,7 @@ td.cost.toomuch {
 	if(..())
 		return 1
 
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 	if(href_list["eject"])
 		print_tickets()
@@ -200,9 +200,9 @@ td.cost.toomuch {
 	if(!tickets)
 		return
 	if(tickets >= 9999)
-		new /obj/item/stack/tickets(src.loc, 9999)	//max stack size
+		new /obj/item/stack/tickets(get_turf(src), 9999)	//max stack size
 		tickets -= 9999
 		print_tickets()
 	else
-		new /obj/item/stack/tickets(src.loc, tickets)
+		new /obj/item/stack/tickets(get_turf(src), tickets)
 		tickets = 0
