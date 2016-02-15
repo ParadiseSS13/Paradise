@@ -1,4 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - tweak: "Relaxes the check on what atoms you can follow to any movable atom"

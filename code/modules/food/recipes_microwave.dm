@@ -280,6 +280,16 @@
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/enchiladas
 
+/datum/recipe/microwave/burrito
+	reagents = list("capsaicin" = 5, "rice" = 5)
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/cutlet,
+		/obj/item/weapon/reagent_containers/food/snacks/beans,
+		/obj/item/weapon/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/burrito
+
 /datum/recipe/microwave/monkeysdelight
 	fruit = list("banana" = 1)
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "flour" = 10)

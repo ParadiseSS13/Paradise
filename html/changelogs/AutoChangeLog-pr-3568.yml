@@ -1,4 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - rscadd: "Greys now use re-positioned smokeables. They no longer smoke out the eyes."

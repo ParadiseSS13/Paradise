@@ -21,7 +21,7 @@ var/list/wood_icons = list("wood","wood-broken")
 /turf/simulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "floor"
+	icon_state = "dont_use_this_floor"
 
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
