@@ -683,7 +683,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 			victim.UpdateDamageIcon()
 			victim.regenerate_icons()
 		dir = 2
-	add_logs(target,user ,"removed [src.name] from ", addition="INTENT: [uppertext(user.a_intent)]")
 	switch(disintegrate)
 		if(DROPLIMB_EDGE)
 			compile_icon()
