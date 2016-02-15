@@ -93,7 +93,7 @@
 
 	wdantitoxin
 		name = "White Spider Antitoxin"
-		id = "wdantitoxin"
-		result = "wdantitoxin"
-		required_reagents = list("wdtoxin" = 5, "mutagen" = 5, "spaceacillin" = 1)
+		id = "terror_white_antitoxin"
+		result = "terror_white_antitoxin"
+		required_reagents = list("terror_white_toxin" = 5, "mutagen" = 5, "spaceacillin" = 1)
 		result_amount = 5

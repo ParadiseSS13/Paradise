@@ -25,15 +25,17 @@
 		..()
 		return
 
-/datum/reagent/bw_venom
+// Terror Spider, Black, Deadly Poison
+
+/datum/reagent/terror_black_toxin
 	name = "Black Widow venom"
-	id = "bwtoxin"
+	id = "terror_black_toxin"
 	description = "An incredibly toxic venom injected by the Black Widow spider."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.1
 
-/datum/reagent/bw_venom/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/terror_black_toxin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if (volume >= 45)
 		// bitten 4 or more times, whole body goes into shock/death
@@ -60,15 +62,17 @@
 	..()
 	return
 
-/datum/reagent/wdsedative
+// Terror Spider, White, Tranq
+
+/datum/reagent/terror_white_tranq
 	name = "White Spider tranquilizer"
-	id = "wdsedative"
+	id = "terror_white_tranq"
 	description = "A venom that incapacitites those who attack the White Death spider."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.1
 
-/datum/reagent/wdsedative/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/terror_white_tranq/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	// effects are similar to ketamine, aka the sleepy pen
 	if(current_cycle >= 3)
@@ -80,10 +84,11 @@
 	..()
 	return
 
+// Terror Spider, White, Egg Venom
 
-/datum/reagent/wdtoxin
+/datum/reagent/terror_white_toxin
 	name = "White Spider venom"
-	id = "wdtoxin"
+	id = "terror_white_toxin"
 	description = "A venom consisting of thousands of tiny spider eggs. When injected under the skin, they feed on living flesh and grow into new spiders."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
@@ -91,7 +96,7 @@
 	var/wdstage = 0
 	var/wdtreated = 0
 
-/datum/reagent/wdtoxin/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/terror_white_toxin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	// I want there to be a (difficult, little-known) treatment for this, but nothing fits!
 	//	spaceacillin doesn't work because its an antibiotic not an antiparasite
@@ -102,9 +107,9 @@
 	if (wdtreated)
 		if (prob(30))
 			M << "<span class='notice'> You feel better, as your black flesh begins to heal.</span>"
-			M.reagents.remove_reagent("wdtoxin", 100)
+			M.reagents.remove_reagent("terror_white_toxin", 100)
 	else
-		if (holder.has_reagent("wdantitoxin",1))
+		if (holder.has_reagent("terror_white_antitoxin",1))
 			if (wdstage < 150)
 				wdtreated = 1
 				M << "<span class='notice'> The antivenom burns in your veins!</span>"
@@ -117,7 +122,7 @@
 		volume += 1
 	else if (volume < 100)
 		volume += 0.1
-	M.reagents.remove_reagent("bwtoxin", 30)
+	M.reagents.remove_reagent("terror_black_toxin", 30)
 	if(M.health < -25)
 		M << "<span class='notice'> You feel a strange, blissful senstation.</span>"
 		M.adjustBruteLoss(-5)
@@ -162,18 +167,64 @@
 		M.adjustToxLoss(40)
 	if (wdstage == 190) // 6m 30s
 		M << "\red The spiderlings are gone. Your wound, though, looks worse than ever. Remnants of tiny spider eggs, and dead spiders, inside your flesh. Disgusting."
-		M.reagents.remove_reagent("wdtoxin", 100)
+		M.reagents.remove_reagent("terror_white_toxin", 100)
 	..()
 	return
 
+// Terror Spider, White, Anti Toxin
 
-/datum/reagent/wdantitoxin
-	name = "White Spider Antivenom"
-	id = "wdantitoxin"
+/datum/reagent/terror_white_antitoxin
+	name = "White Spider Antitoxin"
+	id = "terror_white_antitoxin"
 	description = "A strange serum that destroys spider eggs."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.1
+
+
+// Terror Spider, Queen
+
+/datum/reagent/terror_queen_toxin
+	name = "Terror Queen venom"
+	id = "terror_queen_toxin"
+	description = "A royally potent venom."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 2
+
+/datum/reagent/terror_queen_toxin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	// make them hallucinate a lot, like a changeling sting
+	if (M.hallucination < 400)
+		M.hallucination += 50
+	return
+
+
+// Terror Spider, Empress
+
+/datum/reagent/terror_empress_toxin
+	name = "Terror Empress venom"
+	id = "terror_empress_toxin"
+	description = "Distilled evil."
+	reagent_state = LIQUID
+	color = "#CF3600" // rgb: 207, 54, 0
+	metabolization_rate = 0.5 // like ketamine, but lasts longer.
+
+/datum/reagent/terror_empress_toxin/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	// long-lasting paralysis
+	if(current_cycle == 6)
+		M.eye_blurry = max(M.eye_blurry, 5)
+	if(current_cycle >= 10)
+		M.Paralyse(10)
+	return
+
+/datum/reagent/terror_empress_toxin/reagent_deleted(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	//M.reagents.add_reagent("terror_white_toxin", 10)
+	return
+
+// End Spiders.
 
 
 /datum/reagent/plasticide
