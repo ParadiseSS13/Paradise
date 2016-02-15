@@ -269,14 +269,90 @@ mob/living
 						)
 			// BEGIN HUGCODE - N3X
 			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_sel.selecting == "head")
+				if(M.zone_sel.selecting == "r_arm" || M.zone_sel.selecting == "l_arm")
+					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message(\
-					"<span class='notice'>[M] pats [src] on the head.</span>",\
-					"<span class='notice'>You pat [src] on the head.</span>",\
+					"<span class='notice'>[M] pats [src] on their shoulder.</span>",\
+					"<span class='notice'>You pat [src] on their shoulder.</span>",\
 					)
-				else
-
+					
+					
+				if(M.zone_sel.selecting == "head")
+					if (src.get_species() == "Tajaran"||src.get_species() == "Vulpkanin"||src.get_species() == "Farwa"||src.get_species() == "Wolpin")
+						if (prob(80))
+							playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+							M.visible_message(\
+							"<span class='notice'>[M] scratches [src] behind their ears.</span>",\
+							"<span class='notice'>You scratch [src] behind their ears.</span>",\
+							)
+							
+						else
+							playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+							M.visible_message(\
+							"<span class='notice'>[M] pats [src] on their head.</span>",\
+							"<span class='notice'>You pat [src] on their head.</span>",\
+							)
+							
+					else if (src.get_species() == "Machine")
+						playsound(get_turf(src), 'sound/effects/glassknock.ogg', 50, 1, -1)
+						M.visible_message(\
+						"<span class='notice'>[M] knocks on [src]'s screen.</span>",\
+						"<span class='notice'>You knock on [src]'s screen.</span>",\
+						)
+					
+					else
+						playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+						M.visible_message(\
+						"<span class='notice'>[M] pats [src] on their head.</span>",\
+						"<span class='notice'>You pat [src] on their head.</span>",\
+						)
+											
+						
+				if(M.zone_sel.selecting == "r_foot" || M.zone_sel.selecting == "l_foot")
+					if (src.get_species() == "Tajaran"||src.get_species() == "Unathi"||src.get_species() == "Vulpkanin"||src.get_species() == "Farwa"||src.get_species() == "Stok"||src.get_species() == "Wolpin"||src.get_species() == "Monkey")
+						if (prob(60))
+							playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+							M.visible_message(\
+							"<span class='danger'>[M] steps on [src]'s tail. [pick("Ouch!", "That had to hurt!")]</span>",\
+							"<span class='danger'>You step on [src]'s tail. [pick("Ouch!", "That had to hurt!")]</span>",\
+							)
+							
+							if (src.get_species() != "Unathi")	//they're made of armored scales and stuff, a Unathi won't be in as much pain
+								if(prob(50)) //to prevent massive spam
+									src.emote("scream")	
+														
+						else
+							M.visible_message(\
+							"<span class='notice'>[src] lands on the ground after trying to step on [src]'s tail!</span>",\
+							"<span class='notice'>You land on the ground after trying to step on [src]'s tail!</span>",\
+							)
+							M.Weaken(5)//pretty big downside, you can get easily tabled and disposaled if you're spamming with it
+							
+					else if (src.get_species() == "Machine")
+						playsound(get_turf(src), 'sound/weapons/genhit.ogg', 50, 1, -1)
+						M.visible_message(\
+						"<span class='notice'>[M] steps on [src]'s foot. They don't seem bothered.</span>",\
+						"<span class='notice'>You step on [src]'s foot. They don't seem bothered.</span>",\
+						)
+						
+					else
+						playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+						M.visible_message(\
+						"<span class='notice'>[M] steps on [src]'s foot. [pick("Ouch!", "That had to hurt!")]</span>",\
+						"<span class='notice'>You step on [src]'s foot. [pick("Ouch!", "That had to hurt!")]</span>",\
+						)
+						
+						
+				if(M.zone_sel.selecting == "r_leg" || M.zone_sel.selecting == "l_leg")
+					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					M.visible_message(\
+					"<span class='notice'>[M] pokes [src].</span>",\
+					"<span class='notice'>You poke [src].</span>",\
+					)
+					
+					
+				if(M.zone_sel.selecting == "groin" || M.zone_sel.selecting == "chest"||M.zone_sel.selecting == "eyes"||M.zone_sel.selecting == "mouth")
+					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message(\
 					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
 					"<span class='notice'>You hug [src].</span>",\
@@ -285,7 +361,14 @@ mob/living
 						var/mob/living/carbon/human/H = src
 						if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
-
+							
+							
+				if((M.zone_sel.selecting == "r_hand" || M.zone_sel.selecting == "l_hand"))
+					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					M.visible_message(\
+					"<span class='notice'>[M] shakes [src]'s hand.</span>",\
+					"<span class='notice'>You shake [src]'s hand.</span>",\
+					)
 
 /mob/living/carbon/proc/eyecheck()
 	return 0
