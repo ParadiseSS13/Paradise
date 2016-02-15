@@ -63,8 +63,8 @@
 	singular_name = "prize ticket"
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "tickets_1"
-	force = 1
-	throwforce = 1
+	force = 0
+	throwforce = 0
 	throw_speed = 1
 	throw_range = 1
 	w_class = 1.0
