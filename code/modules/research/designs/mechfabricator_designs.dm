@@ -65,6 +65,15 @@
 	construction_time = 200
 	category = list("Cyborg")
 
+/datum/design/ipc_frame
+	name = "IPC Frame"
+	id = "ipc_frame"
+	build_type = MECHFAB
+	build_path = /obj/item/ipc_frame
+	materials = list(MAT_METAL=40000)
+	construction_time = 350
+	category = list("Cyborg")
+
 //Robot repair
 /datum/design/borg_binary_communication
 	name = "Cyborg Binary Communication Device"
