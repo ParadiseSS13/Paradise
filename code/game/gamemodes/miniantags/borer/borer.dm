@@ -62,7 +62,8 @@
 
 	var/talk_inside_host = 0 				// So that borers don't accidentally give themselves away on a botched message
 	var/used_dominate
-	var/chemicals = 10                      // Chemicals used for reproduction and spitting neurotoxin.
+	var/chemicals = 10                      // Chemicals used for reproduction and chemical injection.
+	var/max_chems = 250						// How many chemicals that can be stored in total
 	var/mob/living/carbon/human/host        // Human host for the brain worm.
 	var/truename                            // Name used for brainworm-speak.
 	var/mob/living/captive_brain/host_brain // Used for swapping control of the body back and forth.
@@ -169,11 +170,8 @@
 						src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
 					docile = 0
 
-			if(chemicals < 250)
-				if(docile)
-					chemicals += 3
-				else
-					chemicals++
+			if(chemicals < max_chems)
+				chemicals++
 			if(controlling)
 
 				if(docile)
