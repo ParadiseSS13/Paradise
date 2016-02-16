@@ -139,11 +139,11 @@
 	if(!input) return
 
 	CB << "<span class='changeling'><i>[B.truename] says:</i> [input]</span>"
-	log_say("Borer Communication: [key_name(src)] -> [key_name(B)] : [input]")
+	log_say("Borer Communication: [key_name(B)] -> [key_name(CB)] : [input]")
 
 	for(var/M in dead_mob_list)
 		if(istype(M, /mob/dead/observer))
-			M << "<span class='changeling'><i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+			M << "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
 	src << "<span class='changeling'><i>[B.truename] says:</i> [input]</span>"
 
 /mob/living/simple_animal/borer/Life()
