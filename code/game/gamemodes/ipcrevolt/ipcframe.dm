@@ -79,15 +79,42 @@
 		var/mob/living/carbon/human/O = new /mob/living/carbon/human/machine(src.loc)
 		O.fully_replace_character_name(null,ipcname)
 		O.rename_self("IPC",allow_numbers=1)
-		for(var/obj/item/organ/organ in O.organs)
-			if(!istype(organ,/obj/item/organ/external/chest/ipc) && !istype(organ,/obj/item/organ/external/groin/ipc))
-				organ.removed(null)
-				qdel(organ)
+		O.lying = 1
 		var/obj/item/organ/external/chest/ipc/chest = O.organs_by_name["chest"]
-		for(var/obj/item/organ/organ in chest.internal_organs)
-			if(!istype(organ,/obj/item/organ/external/chest/ipc) && !istype(organ,/obj/item/organ/external/groin/ipc))
-				organ.removed(null)
-				qdel(organ)
+		var/obj/item/organ/organ = O.organs_by_name["l_hand"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["r_hand"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["l_foot"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["r_foot"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["l_leg"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["r_leg"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["l_arm"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["r_arm"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.organs_by_name["head"]
+		organ.removed(null)
+		qdel(organ)
+		organ = O.internal_organs_by_name["brain"]
+		organ.removed(null)
+		qdel(organ)
+		if (!microbattery)
+			organ = O.internal_organs_by_name["cell"]
+			organ.removed(null)
+			qdel(organ)
 
 		if(brain != null)
 			var/obj/item/organ/mmi_holder/holder = new(O, 1)
