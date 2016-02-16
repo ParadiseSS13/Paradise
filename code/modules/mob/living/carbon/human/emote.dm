@@ -26,7 +26,7 @@
 	var/on_CD = 0
 	switch(act)
 		//Cooldown-inducing emotes
-		if("ping","buzz","beep")
+		if("ping","buzz","beep", "yes", "no")
 			if (species.name == "Machine")		//Only Machines can beep, ping, and buzz
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
@@ -126,6 +126,36 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 1
+
+		if("yes")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> emits an affirmative blip."
+			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
+			m_type = 1
+
+		if("no")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> emits a negative blip."
+			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 1
 
 		if("wag")

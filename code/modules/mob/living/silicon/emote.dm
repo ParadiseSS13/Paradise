@@ -13,7 +13,7 @@
 	var/on_CD = 0
 	switch(act)
 		//Cooldown-inducing emotes
-		if("ping","buzz","beep")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
+		if("ping","buzz","beep","yes","no")		//halt is exempt because it's used to stop criminal scum //WHOEVER THOUGHT THAT WAS A GOOD IDEA IS GOING TO GET SHOT.
 			on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -73,6 +73,36 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+			m_type = 1
+
+		if("yes")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> emits an affirmative blip."
+			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
+			m_type = 1
+
+		if("no")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> emits a negative blip."
+			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 1
 
 	..(act, m_type, message)
