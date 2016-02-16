@@ -117,11 +117,11 @@
 	return
 
 
-/obj/item/organ/external/New(var/mob/living/carbon/holder, var/internal)
+/obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
-	if(owner)
-		replaced(owner)
-		sync_colour_to_human(owner)
+	if(istype(holder, /mob/living/carbon/human))
+		replaced(holder)
+		sync_colour_to_human(holder)
 	spawn(1)
 		get_icon()
 
@@ -867,8 +867,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
-	for(var/obj/item/organ/internal/organ in internal_organs)
-		organ.remove(victim)
+	for(var/obj/item/organ/organ in internal_organs)
+		organ.removed()
 		organ.forceMove(src)
 
 	release_restraints(victim)

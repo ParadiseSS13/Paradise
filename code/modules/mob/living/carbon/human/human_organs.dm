@@ -148,7 +148,7 @@
 
 /mob/living/carbon/human/proc/sync_organ_dna()
 	var/list/all_bits = internal_organs|organs
-	for(var/obj/item/organ/internal/O in all_bits)
+	for(var/obj/item/organ/O in all_bits)
 		O.set_dna(dna)
 
 /*
