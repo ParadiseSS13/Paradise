@@ -166,7 +166,7 @@
 
 	for(var/index in has_organ)
 		var/organ = has_organ[index]
-		H.internal_organs += new organ(H)
+		H.internal_organs |= new organ(H)
 
 	for(var/obj/item/organ/internal/I in H.internal_organs)
 		I.insert(H)

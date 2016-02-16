@@ -10,6 +10,11 @@
 	vital = 0
 	var/organ_action_name = null
 
+/obj/item/organ/internal/New(var/mob/living/carbon/holder)
+	if(istype(holder))
+		insert(holder)
+	..()
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -21,6 +26,14 @@
 	owner = M
 
 	M.internal_organs |= src
+	var/obj/item/organ/external/parent
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		parent = H.get_organ(check_zone(parent_organ))
+		if(!istype(parent))
+			log_to_dd("[src] attempted to insert into a [parent], but [parent] wasn't an organ! Area: [get_area(M)]")
+		else
+			parent.internal_organs |= src
 	//M.internal_organs_by_name[src] |= src(H,1)
 	loc = null
 	if(organ_action_name)
@@ -36,6 +49,10 @@
 
 	if(organ_action_name)
 		action_button_name = null
+
+/obj/item/organ/internal/removed(mob/living/carbon/M)
+	remove(owner)
+	..()
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return

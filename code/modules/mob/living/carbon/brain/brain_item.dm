@@ -72,7 +72,7 @@
 
 	..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
+/obj/item/organ/internal/brain/insert(var/mob/living/target)
 
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
