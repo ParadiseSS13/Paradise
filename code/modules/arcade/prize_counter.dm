@@ -21,6 +21,16 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
+/obj/machinery/prize_counter/maxed/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/prize_counter(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	RefreshParts()
+
 /obj/machinery/prize_counter/RefreshParts()
 	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
 		prize_tier = B.rating
