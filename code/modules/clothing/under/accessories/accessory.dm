@@ -34,6 +34,18 @@
 	usr.put_in_hands(src)
 	src.add_fingerprint(user)
 
+/obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
+	// This code lets you put accessories on other people by attacking their sprite with the accessory
+	if(istype(H))
+		var/obj/item/clothing/under/U = H.w_uniform
+		if(istype(U))
+			user.visible_message("<span class='notice'>[user] is putting a [src] on [H]'s [U]!</span>", "<span class='notice'>You begin to put a [src] on [H]'s [U]...</span>")
+			if(do_after(user,40,target=U))
+				user.visible_message("<span class='notice'>[user] puts a [src] on [H]'s [U]!</span>", "<span class='notice'>You finish putting a [src] on [H]'s [U].</span>")
+				U.attackby(src, user)
+			return 1
+	return ..()
+
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
 	..()
