@@ -43,7 +43,7 @@
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
-			if(do_after(user,40,target=H))
+			if(do_after(user,40,target=H) && H.w_uniform == U)
 				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
 				U.attackby(src, user)
 		else
