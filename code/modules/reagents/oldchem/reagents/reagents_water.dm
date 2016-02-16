@@ -106,9 +106,6 @@
 
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(5,10))
-		if(istype(T,/turf/simulated))
-			var/turf/simulated/S = T
-			S.dirt = 0
 
 /datum/reagent/space_cleaner/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(iscarbon(M))

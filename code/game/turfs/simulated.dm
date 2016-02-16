@@ -8,8 +8,6 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
-	var/dirt = 0
-	var/dirtoverlay = null
 
 /turf/simulated/New()
 	..()
@@ -52,18 +50,6 @@
 
 /turf/simulated/Entered(atom/A, atom/OL)
 	..()
-	if(ismob(A)) //only mobs make dirt
-		if(prob(80))
-			dirt++
-
-		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
-		if(dirt >= 100)
-			if(!dirtoverlay)
-				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
-				dirtoverlay.alpha = 10
-			else if(dirt > 100)
-				dirtoverlay.alpha = min(dirtoverlay.alpha + 10, 200)
-
 	if(ishuman(A))
 		var/mob/living/carbon/human/M = A
 		if(M.lying)
