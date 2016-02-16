@@ -363,16 +363,6 @@
 		else
 			user << "The vent is welded."
 		return
-	if(istype(W, /obj/item/weapon/card))
-		if(!welded)
-			if(open)
-				user.drop_item(W)
-				W.forceMove(src)
-			if(!open)
-				user << "You can't shove that down there when it is closed"
-		else
-			user << "The vent is welded."
-		return
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
