@@ -223,7 +223,7 @@
 
 	if(!broken && isscrewdriver(C))
 		user << "<span class='notice'>You unscrew the catwalk's rods.</span>"
-		new /obj/item/stack/rods(src, 2)
+		new /obj/item/stack/rods(src, 1)
 		ReplaceWithLattice()
 		for(var/direction in cardinal)
 			var/turf/T = get_step(src,direction)
