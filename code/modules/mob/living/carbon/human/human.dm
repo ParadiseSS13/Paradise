@@ -1858,3 +1858,6 @@
 	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return 1
+
+/mob/living/carbon/human/can_eat(flags = 255)
+	return species && (species.dietflags & flags)

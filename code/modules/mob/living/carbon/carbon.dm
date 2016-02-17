@@ -794,3 +794,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		Stun(stun)
 	Weaken(weaken)
 	return 1
+
+/mob/living/carbon/proc/can_eat(flags = 255)
+	return 1
