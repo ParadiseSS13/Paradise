@@ -21,6 +21,16 @@
 	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
 	RefreshParts()
 
+/obj/machinery/prize_counter/upgraded/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/prize_counter(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	RefreshParts()
+
 /obj/machinery/prize_counter/RefreshParts()
 	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
 		prize_tier = B.rating
@@ -39,8 +49,11 @@
 /obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
-		tickets += T.amount
-		qdel(T)
+		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+			tickets += T.amount
+			qdel(T)
+		else
+			user << "<span class='warning'>\The [T] seems stuck to your hand!</span>"
 		return
 	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)

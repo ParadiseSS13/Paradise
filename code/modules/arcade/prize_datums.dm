@@ -2,7 +2,7 @@
 var/global/datum/prizes/global_prizes = new
 
 /datum/prizes
-	var/list/datum/prize_item/prizes = list()
+	var/list/prizes = list()
 
 /datum/prizes/New()
 	for(var/itempath in subtypesof(/datum/prize_item))
