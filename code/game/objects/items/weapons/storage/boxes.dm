@@ -674,3 +674,14 @@
 	new /obj/item/weapon/lipstick/green(src)
 	new /obj/item/weapon/lipstick/blue(src)
 	new /obj/item/weapon/lipstick/white(src)
+
+/obj/item/weapon/storage/box/foam_darts
+	name = "Foam Dart Pack"
+	desc = "Extra ammo for foam dart launchers. Contains 10 darts."
+	storage_slots = 10
+	max_combined_w_class = 10
+
+/obj/item/weapon/storage/box/foam_darts/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/toy/ammo/crossbow(src)

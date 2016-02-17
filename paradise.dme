@@ -989,6 +989,8 @@
 #include "code\modules\arcade\arcade_base.dm"
 #include "code\modules\arcade\arcade_prize.dm"
 #include "code\modules\arcade\claw_game.dm"
+#include "code\modules\arcade\prize_counter.dm"
+#include "code\modules\arcade\prize_datums.dm"
 #include "code\modules\assembly\assembly.dm"
 #include "code\modules\assembly\bomb.dm"
 #include "code\modules\assembly\health.dm"
