@@ -323,7 +323,9 @@
  */
 /obj/machinery/vending/proc/pay_with_card(var/obj/item/weapon/card/id/I)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
-	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
+	return pay_with_account(get_card_account(I))
+
+/obj/machinery/vending/proc/pay_with_account(var/datum/money_account/customer_account)
 	if (!customer_account)
 		src.status_message = "Error: Unable to access account. Please contact technical support if problem persists."
 		src.status_error = 1
@@ -338,7 +340,7 @@
 	// empty at high security levels
 	if(customer_account.security_level != 0) //If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		customer_account = attempt_account_access(I.associated_account_number, attempt_pin, 2)
+		customer_account = attempt_account_access(customer_account, attempt_pin, 2)
 
 		if(!customer_account)
 			src.status_message = "Unable to access account: incorrect credentials."
@@ -351,28 +353,18 @@
 		return 0
 	else
 		// Okay to move the money at this point
+		var/paid = customer_account.charge(currently_vending.price,
+			transaction_purpose = "Purchase of [currently_vending.product_name]",
+			terminal_name = name,
+			terminal_id = name,
+			dest_name = vendor_account.owner_name)
 
-		// debit money from the purchaser's account
-		customer_account.money -= currently_vending.price
-
-		// create entry in the purchaser's account log
-		var/datum/transaction/T = new()
-		T.target_name = "[vendor_account.owner_name] (via [src.name])"
-		T.purpose = "Purchase of [currently_vending.product_name]"
-		if(currently_vending.price > 0)
-			T.amount = "([currently_vending.price])"
-		else
-			T.amount = "[currently_vending.price]"
-		T.source_terminal = src.name
-		T.date = current_date_string
-		T.time = worldtime2text()
-		customer_account.transaction_log.Add(T)
-
-		// Give the vendor the money. We use the account owner name, which means
-		// that purchases made with stolen/borrowed card will look like the card
-		// owner made them
-		credit_purchase(customer_account.owner_name)
-		return 1
+		if(paid)
+			// Give the vendor the money. We use the account owner name, which means
+			// that purchases made with stolen/borrowed card will look like the card
+			// owner made them
+			credit_purchase(customer_account.owner_name)
+		return paid
 
 /**
  *  Add money for current purchase to the vendor account.
@@ -471,25 +463,21 @@
 
 	if (href_list["pay"])
 		if(currently_vending && vendor_account && !vendor_account.suspended)
-			if(istype(usr, /mob/living/carbon/human))
-				var/paid = 0
-				var/handled = 0
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/weapon/card/card = null
-				if(istype(H.wear_id,/obj/item/weapon/card))
-					card = H.wear_id
-					paid = pay_with_card(card)
-					handled = 1
-				else if(istype(H.get_active_hand(), /obj/item/weapon/card))
-					card = H.get_active_hand()
-					paid = pay_with_card(card)
-					handled = 1
-				if(paid)
-					src.vend(currently_vending, usr)
-					return
-				else if(handled)
-					nanomanager.update_uis(src)
-					return // don't smack that machine with your 2 credits
+			var/paid = 0
+			var/handled = 0
+			var/datum/money_account/A = usr.get_worn_id_account()
+			if(A)
+				paid = pay_with_account(A)
+				handled = 1
+			else if(istype(usr.get_active_hand(), /obj/item/weapon/card))
+				paid = pay_with_card(usr.get_active_hand())
+				handled = 1
+			if(paid)
+				src.vend(currently_vending, usr)
+				return
+			else if(handled)
+				nanomanager.update_uis(src)
+				return // don't smack that machine with your 2 credits
 
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
 		if ((href_list["vend"]) && (src.vend_ready) && (!currently_vending))
