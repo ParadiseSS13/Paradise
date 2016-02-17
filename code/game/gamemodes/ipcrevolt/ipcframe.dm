@@ -80,7 +80,8 @@
 		O.fully_replace_character_name(null,ipcname)
 		O.rename_self("IPC",allow_numbers=1)
 		O.lying = 1
-		var/obj/item/organ/external/chest/ipc/chest = O.organs_by_name["chest"]
+		O.lying_prev = 0
+		O.update_transform()
 		var/obj/item/organ/organ = O.organs_by_name["l_hand"]
 		organ.removed(null)
 		qdel(organ)
@@ -127,5 +128,7 @@
 			holder.update_from_mmi()
 			if(brain.brainmob && brain.brainmob.mind)
 				brain.brainmob.mind.transfer_to(O)
+		else
+			O.stat = DEAD
 		O.handle_organs()
 		qdel(src)

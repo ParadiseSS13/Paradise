@@ -68,6 +68,7 @@
 /datum/design/ipc_frame
 	name = "IPC Frame"
 	id = "ipc_frame"
+	req_tech = list("programming" = 8,"materials" = 8)
 	build_type = MECHFAB
 	build_path = /obj/item/ipc_frame
 	materials = list(MAT_METAL=40000)
