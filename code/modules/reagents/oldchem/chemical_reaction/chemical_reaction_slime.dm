@@ -148,7 +148,7 @@
 		on_reaction(var/datum/reagents/holder)
 
 			var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/snacks)
-			borks = adminRegentCheck(borks)
+			borks = adminReagentCheck(borks)
 			// BORK BORK BORK
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -176,7 +176,7 @@
 		on_reaction(var/datum/reagents/holder)
 
 			var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/drinks)
-			borks = adminRegentCheck(borks)
+			borks = adminReagentCheck(borks)
 			// BORK BORK BORK
 
 			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)

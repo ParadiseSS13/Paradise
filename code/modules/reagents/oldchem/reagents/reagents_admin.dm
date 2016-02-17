@@ -57,7 +57,7 @@
 
 // For random item spawning. Takes a list of paths, and returns the same list without anything that contains admin only reagents
 
-/proc/adminRegentCheck(var/list/incoming)
+/proc/adminReagentCheck(var/list/incoming)
 	var/list/outgoing[0]
 	for(var/tocheck in incoming)
 		if(ispath(tocheck))
