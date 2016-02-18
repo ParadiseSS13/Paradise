@@ -8,6 +8,7 @@
 	w_class = 2
 	action_button_name = "Adjust Balaclava"
 	ignore_maskadjust = 0
+	adjusted_flags = SLOT_HEAD
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',

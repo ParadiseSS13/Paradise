@@ -289,43 +289,44 @@ BLIND     // can't see anything
 	if(!ignore_maskadjust)
 		if(!user.canmove || user.stat || user.restrained())
 			return
-		if(src.mask_adjusted == 1)
-			src.icon_state = copytext(src.icon_state, 1, findtext(src.icon_state, "_up")) //Trims the '_up' off the end of the icon state, thus reverting to the most recent previous state
+		if(mask_adjusted)
+			icon_state = copytext(icon_state, 1, findtext(icon_state, "_up")) /*Trims the '_up' off the end of the icon state, thus reverting to the most recent previous state.
+																				Had to use this instead of initial() because initial reverted to the wrong state.*/
 			gas_transfer_coefficient = initial(gas_transfer_coefficient)
 			permeability_coefficient = initial(permeability_coefficient)
 			user << "You push \the [src] back into place."
-			src.mask_adjusted = 0
+			mask_adjusted = 0
 			slot_flags = initial(slot_flags)
 			if(flags_inv != initial(flags_inv)) //If the mask is one that hides the face and can be adjusted yet lost that trait when it was adjusted, make it hide the face again.
 				flags_inv += HIDEFACE
 			if(H.head == src)
-				if(src.flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 						user.unEquip(src)
-					else
+					else //Otherwise, put it in an available hand, the active one preferentially.
 						src.loc = user
 						H.head = null
-						if(!(H.l_hand) && H.r_hand) //If only the left hand is free, put the bandana there instead.
-							user.put_in_l_hand(src)
-						else if(!(H.r_hand) && H.l_hand) //Otherwise if only the right hand is free, put the bandana there instead.
-							user.put_in_r_hand(src)
-						else if(!(H.l_hand && H.r_hand)) //Otherwise if both hands are free, pick the active one to put the bandana into.
-							user.put_in_active_hand(src)
+						user.put_in_hands(src)
 		else
-			src.icon_state += "_up"
+			icon_state += "_up"
 			user << "You push \the [src] out of the way."
 			gas_transfer_coefficient = null
 			permeability_coefficient = null
-			src.mask_adjusted = 1
+			mask_adjusted = 1
 			if(adjusted_flags)
 				slot_flags = adjusted_flags
 			if(ishuman(user))
 				if(H.internal)
-					if(H.internals)
-						H.internals.icon_state = "internal0"
-					H.internal = null
+					if(user.wear_mask == src) /*If the user was wearing the mask providing internals on their face at the time it was adjusted, turn off internals.
+												Otherwise, they adjusted it while it was in their hands or some such so we won't be needing to turn off internals.*/
+						if(H.internals)
+							H.internals.icon_state = "internal0"
+						H.internal = null
+			if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				flags_inv -= HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
+										This reveals the user's face since the bandana will now be going on their head.*/
 			if(user.wear_mask == src)
-				if(src.flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
+				if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 						user.unEquip(src)
 					else
@@ -337,8 +338,6 @@ BLIND     // can't see anything
 							user.put_in_r_hand(src)
 						else if(!(H.l_hand && H.r_hand)) //Otherwise if both hands are free, pick the active one to put the bandana into.
 							user.put_in_active_hand(src)
-					flags_inv -= HIDEFACE /*Done after the above to avoid having to do a check for initial(src.flags_inv == HIDEFACE).
-											This reveals the user's face since the bandana will now be going on their head.*/
 
 		usr.update_inv_wear_mask()
 		usr.update_inv_head()
@@ -348,7 +347,7 @@ BLIND     // can't see anything
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
-	gender = PLURAL //Carn: for grammarically correct text-parsing
+	gender = PLURAL //Carn: for grammatically correct text-parsing
 	var/chained = 0
 	var/can_cut_open = 0
 	var/cut_open = 0
@@ -376,7 +375,7 @@ BLIND     // can't see anything
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
 		else if(M.lit == 1) // Match is lit, not extinguished.
 			M.dropped()
-			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src]. extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
+			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
 		else // Match has been previously lit and extinguished.
 			user << "<span class='notice'>The [M] has already been extinguished.</span>"
 		return
