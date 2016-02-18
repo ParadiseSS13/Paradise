@@ -471,10 +471,11 @@ var/global/list/damage_icon_parts = list()
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
 
-	if(!src.get_int_organ(/obj/item/organ/internal/brain) && !src.get_species() == "Machine" )//make it obvious we have NO BRAIN
-		overlays_standing[HAIR_LAYER] = image("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
-	else
-		overlays_standing[HAIR_LAYER]	= image(hair_standing)
+	if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
+		var/icon/debrained_s = new/icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
+		hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
+
+	overlays_standing[HAIR_LAYER]	= image(hair_standing)
 
 	if(update_icons)   update_icons()
 

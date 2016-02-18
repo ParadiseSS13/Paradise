@@ -78,6 +78,7 @@
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
+	name = "brain"
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
 		//var/mob/living/carbon/human/H = target
@@ -88,9 +89,9 @@
 		H.update_hair(0)
 
 	if(!brain_already_exists)
-		if(target.key)
-			target.ghostize()
 		if(brainmob)
+			if(target.key)
+				target.ghostize()
 			if(brainmob.mind)
 				brainmob.mind.transfer_to(target)
 			else

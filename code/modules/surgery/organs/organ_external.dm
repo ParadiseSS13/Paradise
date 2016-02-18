@@ -65,15 +65,15 @@
 	if(parent && parent.children)
 		parent.children -= src
 
-	if(children)
-		for(var/obj/item/organ/external/C in children)
-			qdel(C)
-
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
 			internal_organs -= O
-			O.remove(owner)
+			O.remove(owner,special = 1)
 			//qdel(O)
+
+	if(children)
+		for(var/obj/item/organ/external/C in children)
+			qdel(C)
 
 	return ..()
 

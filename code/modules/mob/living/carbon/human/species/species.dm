@@ -142,13 +142,14 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
+
+	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
+		if((iorgan in H.internal_organs))
+			qdel(iorgan)
+
 	for(var/obj/item/organ/organ in H.contents)
 		if((organ in H.organs))
 			qdel(organ)
-
-	//for(var/obj/item/organ/internal/organ in H.contents)
-	//	if((organ in H.internal_organs))
-	//		qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
 	//if(H.internal_organs)         H.internal_organs.Cut()

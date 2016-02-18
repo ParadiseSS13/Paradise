@@ -150,6 +150,11 @@
 			owner.update_fhair()
 	..()
 
+/obj/item/organ/external/head/replaced()
+	name = limb_name
+
+	..()
+
 /obj/item/organ/external/head/take_damage(brute, burn, sharp, edge, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, edge, used_weapon, forbidden_limbs)
 	if (!disfigured)
