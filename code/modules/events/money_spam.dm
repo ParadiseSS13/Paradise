@@ -27,16 +27,18 @@
 	if(useMS)
 		if(prob(5))
 			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
-			var/obj/item/device/pda/P
 			var/list/viables = list()
 			for(var/obj/item/device/pda/check_pda in PDAs)
-				if (!check_pda.owner||check_pda.toff||check_pda == src||check_pda.hidden)
+				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
+
+				if (!check_m || !check_m.can_receive())
 					continue
 				viables.Add(check_pda)
 
 			if(!viables.len)
 				return
-			P = pick(viables)
+			var/obj/item/device/pda/P = pick(viables)
+			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			var/sender
 			var/message
@@ -104,7 +106,7 @@
 			//Commented out because we don't send messages like this anymore.  Instead it will just popup in their chat window.
 			//P.tnote += "<i><b>&larr; From [sender] (Unknown / spam?):</b></i><br>[message]<br>"
 
-			P.play_ringtone()
+			PM.play_ringtone()
 			//Search for holder of the PDA.
 			var/mob/living/L = null
 			if(P.loc && isliving(P.loc))

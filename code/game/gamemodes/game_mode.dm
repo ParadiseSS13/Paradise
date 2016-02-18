@@ -133,11 +133,11 @@
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						// THIS SHOULD HAVE DONE EVERYTHING FOR ME
 						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
-						// BUT NOPE, NEED TO DO THIS BULLSHIT.
-						P.play_ringtone()
+						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+						if(PM)
+							PM.play_ringtone()
 						//Search for holder of the PDA.
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))

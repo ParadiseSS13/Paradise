@@ -205,8 +205,10 @@
 			info = X.info
 		else
 			P = W
-			itemname = P.name
-			info = P.notehtml
+			var/datum/data/pda/app/notekeeper/N = P.find_program(/datum/data/pda/app/notekeeper)
+			if(N)
+				itemname = P.name
+				info = N.notehtml
 		U << "You hold \the [itemname] up to the camera ..."
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in player_list)

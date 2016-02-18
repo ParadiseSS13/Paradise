@@ -174,7 +174,9 @@ var/list/robot_verbs_default = list(
 		rbPDA = new/obj/item/device/pda/ai(src)
 	rbPDA.set_name_and_job(custom_name,braintype)
 	if(scrambledcodes)
-		rbPDA.hidden = 1
+		var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
+		if(M)
+			M.hidden = 1
 
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))

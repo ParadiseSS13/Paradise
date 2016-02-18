@@ -80,8 +80,9 @@
 			F.update_brightness()
 	else if(istype(I, /obj/item/device/pda))
 		var/obj/item/device/pda/P = I
-		P.fon = 0
-		P.set_light(0)
+		var/datum/data/pda/utility/flashlight/FL = P.find_program(/datum/data/pda/utility/flashlight)
+		if(FL && FL.fon)
+			FL.start()
 	else if(istype(I, /obj/item/clothing/head/helmet/space/rig))
 		var/obj/item/clothing/head/helmet/space/rig/R = I
 		if(R.on)

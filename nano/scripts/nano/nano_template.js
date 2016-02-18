@@ -87,6 +87,9 @@ var NanoTemplate = function () {
         templateExists: function (key) {
             return _templates.hasOwnProperty(key);
         },
+		resetTemplate: function (key) {
+			_compiledTemplates[key] = null;
+		},
         parse: function (templateKey, data) {
             if (!_compiledTemplates.hasOwnProperty(templateKey) || !_compiledTemplates[templateKey]) {
                 if (!_templates.hasOwnProperty(templateKey)) {
