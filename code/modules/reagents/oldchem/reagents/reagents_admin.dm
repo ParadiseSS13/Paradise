@@ -5,7 +5,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
-	adminOnly=1
+	admin_only=1
 
 /datum/reagent/adminordrazine/on_mob_life(var/mob/living/carbon/M as mob)
 	if(!M) M = holder.my_atom ///This can even heal dead people.
@@ -67,7 +67,7 @@
 				var/datum/reagents/reagents = reagentCheck.reagents
 				var/admin = 0
 				for(var/datum/reagent/reagent in reagents.reagent_list)
-					if(reagent.adminOnly)
+					if(reagent.admin_only)
 						admin = 1
 						break
 				if(!(admin))
