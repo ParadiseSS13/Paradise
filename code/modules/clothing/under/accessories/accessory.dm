@@ -34,6 +34,23 @@
 	usr.put_in_hands(src)
 	src.add_fingerprint(user)
 
+/obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
+	// This code lets you put accessories on other people by attacking their sprite with the accessory
+	if(istype(H))
+		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
+			user << "[H]'s body is covered, and you cannot attach \the [src]."
+			return 1
+		var/obj/item/clothing/under/U = H.w_uniform
+		if(istype(U))
+			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
+			if(do_after(user,40,target=H) && H.w_uniform == U)
+				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+				U.attackby(src, user)
+		else
+			user << "[H] is not wearing anything to attach \the [src] to."
+		return 1
+	return ..()
+
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
 	..()
