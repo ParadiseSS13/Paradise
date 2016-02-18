@@ -45,7 +45,16 @@
 	if(M)
 		M.internal_organs -= src
 		if(vital && !special)
-			M.death()
+			if(M.stat != DEAD)//safety check!
+				M.death()
+
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
+		if(!istype(parent))
+			log_to_dd("[src] attempted to remove from a [parent], but [parent] didn't exist! Area: [get_area(M)], Mob: [M]")
+		else
+			parent.internal_organs -= src
 
 	if(organ_action_name)
 		action_button_name = null
@@ -53,6 +62,10 @@
 /obj/item/organ/internal/removed(mob/living/carbon/M)
 	remove(owner)
 	..()
+
+/obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
+    insert(target)
+    ..()
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
 	return
@@ -368,6 +381,7 @@
 		M.mutations.Add(CLUMSY)
 		M.dna.SetSEState(COMICBLOCK,1,1)
 		genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+		lasthonk = world.time
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 		M.mutations.Remove(CLUMSY)
@@ -378,9 +392,8 @@
 
 	if(!owner)
 		return
-	if(lasthonk == 0)
-		lasthonk = world.time
-	if((lasthonk > world.time + 60)|| lasthonk == 0)
+
+	if((lasthonk > world.time + 60))
 		lasthonk = world.time
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0

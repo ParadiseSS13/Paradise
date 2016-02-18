@@ -102,7 +102,7 @@
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
 							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.remove(src)
+						O.forceMove(src)
 					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")

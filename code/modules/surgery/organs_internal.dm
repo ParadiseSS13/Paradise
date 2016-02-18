@@ -36,6 +36,11 @@
 			return 0
 		return 1
 
+/datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
+	if(istype(target,/mob/living/carbon/alien/humanoid))
+		return 1
+	else return 0
+
 // Internal surgeries.
 /datum/surgery_step/internal
 	priority = 2

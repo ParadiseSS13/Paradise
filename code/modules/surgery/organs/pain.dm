@@ -123,7 +123,7 @@ mob/living/carbon/human/proc/handle_pain()
 			continue
 		if(I.damage > 2) if(prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			src.custom_pain("You feel a sharp pain in your [parent.name]", 1)
+			src.custom_pain("You feel a sharp pain in your [parent.limb_name]", 1)
 
 	var/toxDamageMessage = null
 	var/toxMessageProb = 1

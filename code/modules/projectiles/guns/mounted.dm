@@ -4,7 +4,7 @@
 	icon_state = "armcannonstun"
 	item_state = "armcannonstun"
 	modifystate = "armcannonstun"
-	force = "5"
+	force = 5
 	self_recharge = 1
 	flags = NODROP
 	slot_flags = null
@@ -20,7 +20,7 @@
 	icon_state = "armcannon"
 	item_state = "armcannonlase"
 	modifystate = "armcannon"
-	force = "5"
+	force = 5
 	self_recharge = 1
 	flags = NODROP
 	slot_flags = null

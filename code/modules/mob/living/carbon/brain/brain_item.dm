@@ -70,15 +70,22 @@
 
 		B.transfer_identity(user)
 
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_hair(0)
+
 	..()
 
-/obj/item/organ/internal/brain/insert(var/mob/living/target)
+/obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
 		//var/mob/living/carbon/human/H = target
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
 			brain_already_exists = 1
+
+		var/mob/living/carbon/human/H = target
+		H.update_hair(0)
 
 	if(!brain_already_exists)
 		if(target.key)
