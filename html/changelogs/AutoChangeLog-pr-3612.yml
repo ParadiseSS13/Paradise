@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "Attacking someone with an accessory will now let you put things on them without having to strip them."
