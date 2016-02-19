@@ -201,17 +201,17 @@
 	icon_state = "chinese"
 
 /obj/structure/sign/directions/science
-	name = "\improper Science department"
-	desc = "A direction sign, pointing out which way the Science department is."
+	name = "\improper Research Division"
+	desc = "A direction sign, pointing out which way the Research Division is."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering department"
+	name = "\improper Engineering Department"
 	desc = "A direction sign, pointing out which way the Engineering department is."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security department"
+	name = "\improper Security Department"
 	desc = "A direction sign, pointing out which way the Security department is."
 	icon_state = "direction_sec"
 
