@@ -236,13 +236,22 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)	return
 	if(!active)	return
 	if(istype(M, /mob/living/carbon))
-		for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
-			if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-				M << "\black The station gate has detected your exile implant and is blocking your entry."
-				return
+		if (exilecheck(M)) return
+	if(istype(M, /obj))
+		for(var/mob/living/carbon/F in M)
+			if (exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 
+/obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
+	var/found = 0
+	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
+		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
+			if(!(found))
+				M << "\black The station gate has detected your exile implant and is blocking your entry."
+			found = 1
+			return 1
+	return 0
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/device/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/device/multitool))
