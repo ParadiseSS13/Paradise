@@ -66,10 +66,13 @@
 				var/atom/reagentCheck = check
 				var/datum/reagents/reagents = reagentCheck.reagents
 				var/admin = 0
-				for(var/datum/reagent/reagent in reagents.reagent_list)
+				for(var/reag in reagents.reagent_list)
+					var/datum/reagent/reagent = reag
 					if(reagent.admin_only)
 						admin = 1
 						break
 				if(!(admin))
 					outgoing += tocheck
+			else
+				outgoing += tocheck
 	return outgoing
