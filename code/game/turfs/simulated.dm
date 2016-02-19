@@ -97,7 +97,7 @@
 
 		switch (src.wet)
 			if(TURF_WET_WATER)
-				if (!(M.slip("wet floor", 4, 2, 1)))
+				if (!(M.slip("wet floor", 4, 2, 0, 1)))
 					M.inertia_dir = 0
 					return
 

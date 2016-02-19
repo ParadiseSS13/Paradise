@@ -105,13 +105,7 @@
 				B = I
 	if(B)
 		if(!B.ckey && ckey && B.controlling)
-			B.ckey = ckey
-			B.controlling = 0
-		if(B.host_brain.ckey)
-			ckey = B.host_brain.ckey
-			B.host_brain.ckey = null
-			B.host_brain.name = "host brain"
-			B.host_brain.real_name = "host brain"
+			B.detatch()
 
 		verbs -= /mob/living/carbon/proc/release_control
 

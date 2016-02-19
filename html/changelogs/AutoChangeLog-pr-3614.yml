@@ -1,0 +1,9 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Borers will now properly detach upon death of a mob they are controlling"
+  - tweak: "Borers can now see their chemical count while in control of a mob"
+  - rscadd: "Borers can now silently communicate with their host - this is not available to the host until the borer has either begun to communicate, or has taken control at least once - this is to avoid spoiling that the borer exists"
+  - tweak: "Borers won't be able to talk out loud inside of a host, by default - they can remove this safeguard with a verb under their borer tab. Borer hivespeak is unaffected."
+  - tweak: "Borers infesting and hiding are now silent."
+  - tweak: "Made borer's chem lists more nicely formatted"

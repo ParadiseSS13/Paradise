@@ -491,3 +491,12 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/clawgame
 	category = list ("Misc. Machinery")
+
+/datum/design/prize_counter
+	name = "Machine Design (Prize Counter)"
+	desc = "The circuit board for an arcade Prize Counter."
+	req_tech = list("programming" = 2, "materials" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/prize_counter
+	category = list("Misc. Machinery")

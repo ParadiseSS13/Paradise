@@ -50,6 +50,11 @@
 			return ..()
 
 	if (reagents.total_volume > 0)
+		// Mouthless people cannot eat
+		if(!M.can_eat())
+			user << "<span class=warning>[M] cannot eat with a fork!</span>"
+			return
+		
 		if(M == user)
 			M.visible_message("<span class='notice'>\The [user] eats some [loaded] from \the [src].</span>")
 			reagents.trans_to(M, reagents.total_volume)

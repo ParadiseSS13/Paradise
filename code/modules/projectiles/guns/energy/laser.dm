@@ -15,6 +15,7 @@
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
 	projectile_type = "/obj/item/projectile/practice"
 	clumsy_check = 0
+	needs_permit = 0
 
 obj/item/weapon/gun/energy/laser/retro
 	name ="retro laser gun"
@@ -107,6 +108,7 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/blue"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -124,6 +126,7 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/lasertag/red"
 	origin_tech = "combat=1;magnets=2"
 	clumsy_check = 0
+	needs_permit = 0
 
 	self_recharge = 1
 

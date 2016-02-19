@@ -319,16 +319,8 @@
 	LE.current = T
 	LE.yo = U.y - T.y
 	LE.xo = U.x - T.x
-	spawn( 1 )
+	spawn(1)
 		LE.process()
-
-/mob/living/carbon/human/LaserEyes()
-	if(nutrition>0)
-		..()
-		nutrition = max(nutrition - rand(1,5),0)
-		handle_regular_hud_updates()
-	else
-		src << "\red You're out of energy!  You need food!"
 
 /mob/proc/PowerGlove(atom/A)
 	return

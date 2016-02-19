@@ -74,11 +74,63 @@ div.notice {
 .pdalink {
     float: left;
     white-space: nowrap;
+    cursor: default !important;
+	
+	&.disabled {
+		background: none;
+		border: none;
+		color: #999;
+		text-align: left;
+	}
 }
 
 .pdanote {
     color: #cd6500;
     font-weight: bold;
+}
+
+.item.mainmenu {
+	padding-bottom: 0.5em;
+}
+
+div.clock {
+	color: white;
+	font-weight: bold;
+	float: right;
+	padding-right: 2em;
+}
+
+#pdaFooter {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background: @dark-color;
+}
+
+.pdaFooterButton {
+	width: 33%;
+	padding: 0.5em 0;
+	font-size: 200%;
+	border: none;
+	background: none;
+	color: #fff;
+
+	&:hover {
+		background: #507aac;
+	}
+
+	&.disabled {
+		background: none !important;
+		color: #555 !important;
+	}
+	
+	.uiLinkPendingIcon {
+		position: absolute;
+		width: 33%;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
 }
 
 /* DNA Modifier styling */

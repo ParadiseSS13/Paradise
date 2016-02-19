@@ -142,15 +142,24 @@
 	on_ui_interact(mob/living/silicon/pai/user, datum/nanoui/ui=null, force_open=1)
 		var/data[0]
 
-		data["receiver_off"] = user.pda.toff
-		data["ringer_off"] = user.pda.silent
+		if(!user.pda)
+			return
+		var/datum/data/pda/app/messenger/M = user.pda.find_program(/datum/data/pda/app/messenger)
+		if(!M)
+			return
+
+		data["receiver_off"] = M.toff
+		data["ringer_off"] = M.silent
 		data["current_ref"] = null
 		data["current_name"] = user.current_pda_messaging
 
 		var/pdas[0]
-		if(!user.pda.toff)
+		if(!M.toff)
 			for(var/obj/item/device/pda/P in PDAs)
-				if(!P.owner || P.toff || P == user.pda || P.hidden) continue
+				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+
+				if(P == user.pda || !PM || !PM.can_receive())
+					continue
 				var/pda[0]
 				pda["name"] = "[P]"
 				pda["owner"] = "[P.owner]"
@@ -163,7 +172,7 @@
 
 		var/messages[0]
 		if(user.current_pda_messaging)
-			for(var/index in user.pda.tnote)
+			for(var/index in M.tnote)
 				if(index["owner"] != user.current_pda_messaging)
 					continue
 				var/msg[0]
@@ -188,11 +197,15 @@
 		if(!istype(P)) return
 
 		if(!isnull(P.pda))
+			var/datum/data/pda/app/messenger/M = P.pda.find_program(/datum/data/pda/app/messenger)
+			if(!M)
+				return
+
 			if(href_list["toggler"])
-				P.pda.toff = href_list["toggler"] != "1"
+				M.toff = href_list["toggler"] != "1"
 				return 1
 			else if(href_list["ringer"])
-				P.pda.silent = href_list["ringer"] != "1"
+				M.silent = href_list["ringer"] != "1"
 				return 1
 			else if(href_list["select"])
 				var/s = href_list["select"]
@@ -206,7 +219,7 @@
 					return alert("Communications circuits remain uninitialized.")
 
 				var/target = locate(href_list["target"])
-				P.pda.create_message(P, target, 1)
+				M.create_message(P, target, 1)
 				return 1
 
 /datum/pai_software/med_records

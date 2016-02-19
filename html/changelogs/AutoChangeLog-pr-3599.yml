@@ -1,0 +1,5 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - bugfix: "Adjusting masks while they are not on the face will no longer turn off internals."
+  - bugfix: "Adjusting masks while they are not on the face will now cause the mask to hide/reveal the wearer's identity the next time it's worn as intended."
