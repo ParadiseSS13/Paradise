@@ -244,12 +244,9 @@ obj/machinery/gateway/centerstation/process()
 	M.dir = SOUTH
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
-	var/found = 0
 	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-			if(!(found))
-				M << "\black The station gate has detected your exile implant and is blocking your entry."
-			found = 1
+			M << "\black The station gate has detected your exile implant and is blocking your entry."
 			return 1
 	return 0
 
