@@ -502,6 +502,12 @@ var/global/list/rockTurfEdgeCache
 				O.attackby(W,user)
 				return
 
+/turf/simulated/floor/plating/airless/asteroid/gets_drilled()
+	if(!dug)
+		gets_dug()
+	else
+		..()
+
 /turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
 	if(dug)
 		return
