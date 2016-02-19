@@ -49,6 +49,45 @@ actual development.
 #### BYOND Specific Guidelines:
  - Any `type` or `proc` paths **must** use absolute pathing unless the file you are
  working in primarily utilizes relative pathing.
+ - Paths must begin with `/`. It should be `/obj/machinery/fancy_robot`,
+ not `obj/machinery/fancy_robot`.
+ - New bases of datum must begin with `/datum/`. `/datum/arbitrary_datum`,
+ not `/arbitrary_datum`.
+ - Don't use strings in combination with `text2path()` unless the paths are being
+  dynamically created. Variables can contain normal paths just fine.
+ - Don't duplicate code. If you have identical code in two places, it should probably
+  be a  new proc that they both can use.
+ - No magic numbers/strings. If you have a number or text that is important and used in
+  your code, make a `#DEFINE` statement with a name that clearly indicates it's use.
+ - Do not use one-line control statements (if, else, for, while, etc). The space saved
+  is not worth the decreased readability.
+ - Control statements comparing a variable to a constant should be formatted `variable`,
+  `operator`, `constant`. This means `if(count <= 10)` is preferred over
+  `if(10 >= count)`.
+ - **Never** use a colon `:` operator to bypass type safety checks, unless you are doing
+ something where the tiny performance increase is incredibly noticeable (eg, a loop for
+   a huge list). You should properly typecast everything and use the period `.`
+   operator.
+ - Use early returns, and avoid far-indented if blocks. This means that you should not
+  do this:
+  ```
+  /datum/datum1/proc/proc1()
+    if (thing1)
+        if (!thing2)
+            if (thing3 == 30)
+                do stuff
+  ```
+  Instead, you should do this:
+  ```
+  /datum/datum1/proc/proc1()
+    if (!thing1)
+        return
+    if (thing2)
+        return
+    if (thing3 != 30)
+        return
+    do stuff
+  ```
  - Any pull requests that affect map files must use the map-merge tools. Pull requests
  that do not follow this guideline will be automatically declined, unless explicit
  permission was given.
