@@ -96,6 +96,8 @@
 	E.replaced(target)
 	E.forceMove(target)
 	if(target.get_species() == "Machine")//as this is the only step needed for ipc put togethers
+		if(target_zone == "head")
+			target.h_style = ""
 		E.status &= ~ORGAN_DESTROYED
 		if(E.children)
 			for(var/obj/item/organ/external/C in E.children)

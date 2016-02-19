@@ -148,11 +148,12 @@
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state
 
-/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user)
-	if(stored_mmi)
-		stored_mmi.loc = get_turf(src)
-		if(owner.mind)
-			owner.mind.transfer_to(stored_mmi.brainmob)
+/obj/item/organ/internal/brain/mmi_holder/remove(var/mob/living/user,special = 0)
+	if(!special)
+		if(stored_mmi)
+			stored_mmi.forceMove(get_turf(owner))
+			if(owner.mind)
+				owner.mind.transfer_to(stored_mmi.brainmob)
 	..()
 
 	var/mob/living/holder_mob = loc

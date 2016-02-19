@@ -15,7 +15,24 @@
 	possible_locs = list("chest","head","groin")
 	requires_organic_bodypart = 0
 
+/datum/surgery/cybernetic_amputation
+	name = "robotic limb amputation"
+	steps = list(/datum/surgery_step/robotics/external/amputate)
+	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+	requires_organic_bodypart = 0
+
 /datum/surgery/cybernetic_repair/can_start(mob/user, mob/living/carbon/target)
+
+	if(istype(target,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		if(!affected)
+			return 0
+		if(!(affected.status & ORGAN_ROBOT))
+			return 0
+		return 1
+
+/datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
 
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
@@ -158,6 +175,7 @@
 	return 0
 
 /datum/surgery_step/robotics/external/repair_brute
+	name = "Repair brute damage"
 	allowed_tools = list(
 		/obj/item/weapon/weldingtool = 100,
 		/obj/item/weapon/gun/energy/plasmacutter = 50
@@ -199,6 +217,7 @@
 	return 0
 
 /datum/surgery_step/robotics/external/repair_burn
+	name = "repair heat damage"
 	allowed_tools = list(
 		/obj/item/stack/cable_coil = 100
 	)
@@ -242,6 +261,7 @@
 ///////condenseing remove/extract/repair here.	/////////////
 /datum/surgery_step/robotics/manipulate_robotic_organs
 
+	name = "internal part mainpulation"
 	allowed_tools = list(/obj/item/device/mmi = 100)
 	var/implements_extract = list(/obj/item/device/multitool = 100)
 	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/weapon/bonegel = 30, /obj/item/weapon/screwdriver = 70)
@@ -254,7 +274,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/New()
 	..()
-	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_insert
+	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_insert + implements_finish
 
 
 
@@ -545,3 +565,36 @@
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		user.visible_message("<span class='warning'> [user]'s hand slips.</span>", \
 		"<span class='warning'> Your hand slips.</span>")
+
+/datum/surgery_step/robotics/external/amputate
+	name = "remove robotic limb"
+
+	allowed_tools = list(
+	/obj/item/device/multitool = 100)
+
+	max_duration = 110
+
+/datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("[user] starts to decouple [target]'s [affected.name] with \the [tool].", \
+	"You start to decouple [target]'s [affected.name] with \the [tool]." )
+
+	target.custom_pain("Your [affected.amputation_point] is being ripped apart!",1)
+	..()
+
+/datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("<span class='notice'> [user] has decoupled [target]'s [affected.name] with \the [tool].</span>" , \
+	"<span class='notice'> You have decoupled [target]'s [affected.name] with \the [tool].</span>")
+
+
+	add_logs(target,user ,"surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
+
+	affected.droplimb(1,DROPLIMB_EDGE)
+	return 1
+
+/datum/surgery_step/robotics/external/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+
+	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
+	"<span class='warning'> Your hand slips!</span>")
+	return 0
