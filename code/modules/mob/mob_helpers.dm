@@ -557,8 +557,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	check_eye(src)
 	return 1
 
-//This will update a mob's name, real_name, mind.name, data_core records, pda and id
-//Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
 		return 0
@@ -610,8 +608,6 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
 	return 1
 
-//Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-//Last modified by Carn
 /mob/proc/rename_self(var/role, var/allow_numbers=0)
 	spawn(0)
 		var/oldname = real_name
