@@ -49,6 +49,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	qdel(reagents)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/attack(var/mob/living/M, var/mob/living/user, def_zone)
+	if(istype(M) && M.on_fire)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(M)
+		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, they offer the warmest of regards...</span>")
+		return 1
+	else
+		return ..()
+
+
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weapon/weldingtool))
