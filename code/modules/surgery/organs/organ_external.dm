@@ -137,7 +137,7 @@
 				var/obj/item/organ/internal/I = organ
 				if(target.get_organ_slot(I.slot))
 					continue // Just leave it inside its limb, so brains with brainmobs in them don't get voided.
-				organ.replaced(owner,src)
+			organ.replaced(owner,src)
 
 	if(parent_organ)
 		parent = owner.organs_by_name[src.parent_organ]
