@@ -344,7 +344,7 @@
 				var/mob/dead/observer/ghost = H.get_ghost()
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
-					H,key = ghost.key
+					H.key = ghost.key
 					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
 
 					qdel(ghost)
@@ -471,7 +471,7 @@
 				var/mob/dead/observer/ghost = H.get_ghost()
 				if(ghost && !ghost.client)
 					// In case the ghost's not getting deleted for some reason
-					H,key = ghost.key
+					H.key = ghost.key
 					log_to_dd("Ghost of name [ghost.name] is bound to [H.real_name], but lacks a client. Deleting ghost.")
 
 					qdel(ghost)
@@ -499,7 +499,7 @@
 							H.adjustBruteLoss(tobehealed)
 							user.visible_message("<span class='notice'>[user] pings: Resuscitation successful.</span>")
 							playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
-							H.stat = 1
+							H.stat = UNCONSCIOUS
 							H.update_revive()
 							H.emote("gasp")
 							if(tplus > tloss)
@@ -514,7 +514,7 @@
 							else if(total_burn >= 180 || total_brute >= 180)
 								user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 							else if(ghost)
-								user.visible_message("<span class='notice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
+								user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 								ghost << "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)"
 								ghost << sound('sound/effects/genetics.ogg')
 							else
