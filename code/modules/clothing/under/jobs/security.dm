@@ -164,3 +164,4 @@
 	icon_state = "pod_pilot"
 	item_state = "pod_pilot"
 	item_color = "pod_pilot"
+	flags = ONESIZEFITSALL
