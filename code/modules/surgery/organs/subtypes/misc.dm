@@ -48,7 +48,7 @@
 	icon_state = "brain-prosthetic"
 	parent_organ = "head"
 	organ_tag = "stack"
-	slot = "brain"
+	slot = "vox_stack"
 	robotic = 2
 	vital = 1
 	var/backup_time = 0
