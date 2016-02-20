@@ -468,7 +468,6 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		user << "<span class='notice'>You start digging...</span>"
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(20)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -487,7 +486,6 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		user << "<span class='notice'>You start digging...</span>"
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(P.digspeed)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -517,6 +515,7 @@ var/global/list/rockTurfEdgeCache
 	new/obj/item/weapon/ore/glass(src)
 	new/obj/item/weapon/ore/glass(src)
 	dug = 1
+	playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 	icon_plating = "asteroid_dug"
 	icon_state = "asteroid_dug"
 	return
