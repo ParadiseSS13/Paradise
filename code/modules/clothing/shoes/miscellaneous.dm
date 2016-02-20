@@ -207,3 +207,18 @@
 	tools = list(/obj/item/weapon/wirecutters)
 
 	time = 40
+
+/obj/item/clothing/shoes/medsandal
+	name = "White Sandals"
+	desc = "Medical sandals that nerds wear."
+	icon_state = "medsandal"
+	item_color = "medsandal"
+	species_restricted = null
+
+/obj/item/clothing/shoes/fancysandal
+	name = "Fancy Sandals"
+	desc = "FANCY!!."
+	icon_state = "fancysandal"
+	item_color = "fancysandal"
+	species_restricted = null
+
