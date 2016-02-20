@@ -917,16 +917,13 @@
 				qdel(I)
 				return to_load
 		else if(istype(I, /obj/structure/ore_box))
-			var/total_fuel_added = 0
+			var/fuel_added = 0
 			for(var/baz in I.contents) // Istypeless loop
 				var/obj/item/O = baz
 				if(fuel_type in O.materials)
-					var/fuel_added_this_loop = 0
-					fuel_added_this_loop = load_fuel(O)
-					if(fuel_added_this_loop <= 0)
-						break
-					total_fuel_added += fuel_added_this_loop
-			return total_fuel_added
+					fuel_added = load_fuel(O)
+					break
+			return fuel_added
 		return
 
 	attackby(weapon,mob/user, params)
