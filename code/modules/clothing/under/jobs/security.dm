@@ -156,3 +156,12 @@
 	permeability_coefficient = 0.50
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags = ONESIZEFITSALL
+
+//Pod Pilot
+/obj/item/clothing/under/rank/security/podpilot
+	desc = "Suit for your regular pod pilot."
+	name = "pod pilot's jumpsuit"
+	icon_state = "pod_pilot"
+	item_state = "pod_pilot"
+	item_color = "pod_pilot"
+	flags = ONESIZEFITSALL
