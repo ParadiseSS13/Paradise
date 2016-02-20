@@ -261,3 +261,9 @@ proc/n_round(var/num)
 /proc/n_log(var/num)
 	if(isnum(num) && 0 < num)
 		return log(num)
+		
+/proc/n_replacetext(text, r, with)
+	return replacetext(text, r, with)
+
+/proc/n_replacetextEx(text, r, with)
+	return replacetextEx(text, r, with)
