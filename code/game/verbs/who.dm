@@ -24,6 +24,8 @@
 							entry += " - <font color='gray'>Observing</font>"
 						else
 							entry += " - <font color='black'><b>DEAD</b></font>"
+					else if (istype(C.mob, /mob/new_player))
+						entry += " - <font color='green'>New Player</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"
 
