@@ -78,6 +78,7 @@
 		new /obj/item/weapon/defibrillator/loaded(src)
 		new /obj/item/weapon/storage/belt/medical(src)
 		new /obj/item/clothing/glasses/hud/health(src)
+		new /obj/item/clothing/shoes/medsandal(src)
 		return
 
 //Exam Room
