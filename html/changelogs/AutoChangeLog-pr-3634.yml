@@ -1,0 +1,9 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - rscadd: "Geneticist duffelbag on-mob sprite (for all species)."
+  - rscadd: "Vox-fitted backpacks, satchels, ERT backpacks, duffelbags and defib unit."
+  - tweak: "Refactors back-item icon generation."
+  - bugfix: "Typo in the description of Santa's sack."
+  - bugfix: "Missing punctuation and gender macros in the description of the bag of holding."
+  - bugfix: "The tweak to back-icon generation fixes a bug where the wrong sprite name was being used to generate back-item icons."
