@@ -58,6 +58,7 @@
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
+		incorporeal_move = 3
 		invisibility = INVISIBILITY_REVENANT
 		src << "<span class='revenboldnotice'>You are once more concealed.</span>"
 	if(unstun_time && world.time >= unstun_time)
@@ -315,6 +316,7 @@
 		return
 	revealed = 1
 	invisibility = 0
+	incorporeal_move = 0
 	if(!unreveal_time)
 		src << "<span class='revendanger'>You have been revealed!</span>"
 		unreveal_time = world.time + time
