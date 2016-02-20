@@ -72,3 +72,10 @@
 			data += "[R.id]([R.volume] units); " //Using IDs because SOME chemicals(I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 		return data
 	else return "No reagents"
+
+/obj/item/weapon/reagent_containers/wash(mob/user, atom/source)
+	if(is_open_container())
+		reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+		user << "<span class='notice'>You fill [src] from [source].</span>"
+		return
+	..()
