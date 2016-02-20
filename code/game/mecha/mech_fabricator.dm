@@ -548,5 +548,16 @@
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return
 
+	if(istype(W, /obj/item/weapon/rj45))
+		user.visible_message("<span class='warning'>[user] begins to plug \the [W] into \the [src]'s networking port</span>")
+		if(do_after(user,20,target=src))
+			user << "<span class='notice'>You begin to upload designs to \the [src]</span>"
+			if(do_after(user,20,target=src))
+				user << "<span class='notice'>You upload the designs to \the [src]!</span>"
+				for(var/D in files.possible_designs)
+					if(istype(D,/datum/design/ipc_frame))
+						files.AddDesign2Known(D)
+
+
 /obj/machinery/mecha_part_fabricator/proc/material2name(var/ID)
 	return copytext(ID,2)

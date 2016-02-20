@@ -36,4 +36,5 @@
 #define ANTAG_HUD_WIZ		10
 #define ANTAG_HUD_SHADOW    11
 #define ANTAG_HUD_SOLO	12
+#define ANTAG_HUD_IPCREVOLT 13
 

@@ -36,6 +36,7 @@
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
+#define ROLE_REVOLTINGIPC       "revolting IPC"
 
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
@@ -69,4 +70,5 @@ var/global/list/special_roles = list(
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
+	ROLE_REVOLTINGIPC,
 )
