@@ -842,9 +842,9 @@
 	var/max_fuel = 150000
 	var/fuel_name = "plasma" // Our fuel name as a string
 	var/fuel_amount = 0
-	var/fuel_per_cycle_idle = 25
-	var/fuel_per_cycle_active = 200
-	var/power_per_cycle = 20
+	var/fuel_per_cycle_idle = 10
+	var/fuel_per_cycle_active = 100
+	var/power_per_cycle = 30
 	reliability = 1000
 
 	New()
