@@ -50,9 +50,14 @@
 		AH.unregister(src)
 	return ..()
 
-/mob/living/silicon/proc/SetName(pickedName as text)
-	real_name = pickedName
+/mob/living/silicon/rename_character(oldname, newname)
+	// we actually don't want it changing minds and stuff
+	if(!newname)
+		return 0
+
+	real_name = newname
 	name = real_name
+	return 1
 
 /mob/living/silicon/proc/show_laws()
 	return
