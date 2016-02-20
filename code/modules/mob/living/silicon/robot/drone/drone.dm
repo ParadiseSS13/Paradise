@@ -82,18 +82,14 @@
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
 //Redefining some robot procs...
-/mob/living/silicon/robot/drone/SetName(pickedName as text)
-	// Would prefer to call the grandparent proc but this isn't possible, so..
-	real_name = pickedName
-	name = real_name
+/mob/living/silicon/robot/drone/rename_character(oldname, newname)
+	// force it to not actually change most things
+	return ..(newname, newname)
 
-//Redefining some robot procs...
-/mob/living/silicon/robot/drone/updatename()
-	real_name = "maintenance drone ([rand(100,999)])"
-	name = real_name
+/mob/living/silicon/robot/drone/get_default_name()
+	return "maintenance drone ([rand(100,999)])"
 
 /mob/living/silicon/robot/drone/update_icons()
-
 	overlays.Cut()
 	if(stat == 0)
 		overlays += "eyes-[icon_state]"

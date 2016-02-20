@@ -101,7 +101,7 @@ var/list/robot_verbs_default = list(
 	robot_modules_background.icon_state = "block"
 	robot_modules_background.layer = 19	//Objects that appear on screen are on layer 20, UI should be just below it.
 	ident = rand(1, 999)
-	updatename("Default")
+	rename_character(null, get_default_name())
 	update_icons()
 	update_headlamp()
 
@@ -159,9 +159,61 @@ var/list/robot_verbs_default = list(
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
-/mob/living/silicon/robot/SetName(pickedName as text)
-	custom_name = pickedName
-	updatename()
+/mob/living/silicon/robot/rename_character(oldname, newname)
+	if(!..(oldname, newname))
+		return 0
+
+	if(oldname != real_name)
+		notify_ai(3, oldname, newname)
+		custom_name = (newname != get_default_name()) ? newname : null
+		setup_PDA()
+
+		//We also need to update name of internal camera.
+		if (camera)
+			camera.c_tag = newname
+
+		//Check for custom sprite
+		if(!custom_sprite)
+			var/file = file2text("config/custom_sprites.txt")
+			var/lines = text2list(file, "\n")
+
+			for(var/line in lines)
+			// split & clean up
+				var/list/Entry = text2list(line, ";")
+				for(var/i = 1 to Entry.len)
+					Entry[i] = trim(Entry[i])
+
+				if(Entry.len < 2)
+					continue;
+
+				if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
+					custom_sprite = 1
+					icon = 'icons/mob/custom-synthetic.dmi'
+
+	return 1
+
+/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+	if(prefix)
+		modtype = prefix
+	if(mmi)
+		if(istype(mmi, /obj/item/device/mmi/posibrain))
+			braintype = "Android"
+		else
+			braintype = "Cyborg"
+	else
+		braintype = "Robot"
+
+	if(custom_name)
+		return custom_name
+	else
+		return "[modtype] [braintype]-[num2text(ident)]"
+
+/mob/living/silicon/robot/verb/Namepick()
+	set category = "Robot Commands"
+	if(custom_name)
+		return 0
+
+	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/proc/sync()
 	if(lawupdate && connected_ai)
@@ -172,7 +224,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/setup_PDA()
 	if (!rbPDA)
 		rbPDA = new/obj/item/device/pda/ai(src)
-	rbPDA.set_name_and_job(custom_name,braintype)
+	rbPDA.set_name_and_job(real_name, braintype)
 	if(scrambledcodes)
 		var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
 		if(M)
@@ -300,13 +352,12 @@ var/list/robot_verbs_default = list(
 			icon_state =  "droidcombat"
 
 		if("Peacekeeper")
-			module= new /obj/item/weapon/robot_module/peacekeeper(src)
+			module = new /obj/item/weapon/robot_module/peacekeeper(src)
 			icon_state = "droidpeace"
 			module.channels = list()
 			icon_state = "droidpeace"
 
 		if("Hunter")
-			updatename(module)
 			module = new /obj/item/weapon/robot_module/alien/hunter(src)
 			hands.icon_state = "standard"
 			icon = "icons/mob/alien.dmi"
@@ -326,7 +377,7 @@ var/list/robot_verbs_default = list(
 
 	hands.icon_state = lowertext(modtype)
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
-	updatename()
+	rename_character(real_name, get_default_name())
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Peacekeeper")
 		status_flags &= ~CANPUSH
@@ -334,64 +385,6 @@ var/list/robot_verbs_default = list(
 	choose_icon(6,module_sprites)
 	radio.config(module.channels)
 	notify_ai(2)
-
-/mob/living/silicon/robot/proc/updatename(var/prefix as text)
-	if(prefix)
-		modtype = prefix
-	if(mmi)
-		if(istype(mmi, /obj/item/device/mmi/posibrain))
-			braintype = "Android"
-		else
-			braintype = "Cyborg"
-	else
-		braintype = "Robot"
-
-	var/changed_name = ""
-	if(custom_name)
-		changed_name = custom_name
-	else
-		changed_name = "[modtype] [braintype]-[num2text(ident)]"
-	real_name = changed_name
-	name = real_name
-
-	// if we've changed our name, we also need to update the display name for our PDA
-	setup_PDA()
-
-	//We also need to update name of internal camera.
-	if (camera)
-		camera.c_tag = changed_name
-
-	if(!custom_sprite) //Check for custom sprite
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = text2list(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = text2list(line, ";")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2)
-				continue;
-
-			if(Entry[1] == src.ckey && Entry[2] == src.real_name) //They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
-				icon = 'icons/mob/custom-synthetic.dmi'
-
-/mob/living/silicon/robot/verb/Namepick()
-	set category = "Robot Commands"
-	if(custom_name)
-		return 0
-
-	spawn(0)
-		var/newname
-		newname = sanitize(copytext(input(src,"You are a robot. Enter a name, or leave blank for the default name.", "Name change","") as text,1,MAX_NAME_LEN))
-		if (newname != "")
-			notify_ai(3, name, newname)
-			custom_name = newname
-
-		updatename()
-		update_icons()
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -1303,7 +1296,37 @@ var/list/robot_verbs_default = list(
 	else
 		src << "Your icon has been set. You now require a module reset to change it."
 
+/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+	if(!connected_ai)
+		return
+	switch(notifytype)
+		if(1) //New Cyborg
+			connected_ai << "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
+		if(2) //New Module
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
+		if(3) //New Name
+			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
+
+/mob/living/silicon/robot/proc/disconnect_from_ai()
+	if(connected_ai)
+		sync() // One last sync attempt
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+	if(AI && AI != connected_ai)
+		disconnect_from_ai()
+		connected_ai = AI
+		connected_ai.connected_robots |= src
+		notify_ai(1)
+		sync()
+
+/mob/living/silicon/robot/adjustOxyLoss(var/amount)
+	if (suiciding)
+		..()
+
 /mob/living/silicon/robot/deathsquad
+	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
@@ -1350,10 +1373,10 @@ var/list/robot_verbs_default = list(
 		return
 
 /mob/living/silicon/robot/syndicate
+	base_icon = "syndie_bloodhound"
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	modtype = "Synd"
 	faction = list("syndicate")
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
@@ -1384,7 +1407,9 @@ var/list/robot_verbs_default = list(
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/syndicate/medical
+	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
+	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -1397,68 +1422,40 @@ var/list/robot_verbs_default = list(
 	..()
 	module = new /obj/item/weapon/robot_module/syndicate_medical(src)
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
-	if(!connected_ai)
-		return
-	switch(notifytype)
-		if(1) //New Cyborg
-			connected_ai << "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=\ref[connected_ai];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>"
-		if(2) //New Module
-			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>"
-		if(3) //New Name
-			connected_ai << "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>"
-
-/mob/living/silicon/robot/proc/disconnect_from_ai()
-	if(connected_ai)
-		sync() // One last sync attempt
-		connected_ai.connected_robots -= src
-		connected_ai = null
-
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
-	if(AI && AI != connected_ai)
-		disconnect_from_ai()
-		connected_ai = AI
-		connected_ai.connected_robots |= src
-		notify_ai(1)
-		sync()
-
-
-/mob/living/silicon/robot/combat/New()
-	..()
-	module = new /obj/item/weapon/robot_module/combat(src)
-	module.channels = list("Security" = 1)
+/mob/living/silicon/robot/combat
 	base_icon = "droidcombat"
 	icon_state = "droidcombat"
 	modtype = "Combat"
+	designation = "Combat"
+
+/mob/living/silicon/robot/combat/init()
+	..()
+	module = new /obj/item/weapon/robot_module/combat(src)
+	module.channels = list("Security" = 1)
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems(src)
-
-	updatename()
 
 	status_flags &= ~CANPUSH
 
 	radio.config(module.channels)
 	notify_ai(2)
 
-/mob/living/silicon/robot/peacekeeper/New()
-	..()
-	module = new /obj/item/weapon/robot_module/peacekeeper(src)
+/mob/living/silicon/robot/peacekeeper
 	base_icon = "droidpeace"
 	icon_state = "droidpeace"
 	modtype = "Peacekeeper"
+	designation = "Peacekeeper"
+
+/mob/living/silicon/robot/peacekeeper/init()
+	..()
+	module = new /obj/item/weapon/robot_module/peacekeeper(src)
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems(src)
 
-	updatename()
-
 	status_flags &= ~CANPUSH
 
 	notify_ai(2)
-
-/mob/living/silicon/robot/adjustOxyLoss(var/amount)
-	if (suiciding)
-		..()
