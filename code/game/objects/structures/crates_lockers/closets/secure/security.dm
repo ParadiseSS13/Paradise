@@ -224,6 +224,7 @@
 		new /obj/item/clothing/under/rank/security/brigphys(src)
 		new /obj/item/clothing/shoes/white(src)
 		new /obj/item/device/radio/headset/headset_sec/alt(src)
+		new /obj/item/clothing/shoes/medsandal(src)
 		return
 
 /obj/structure/closet/secure_closet/blueshield
@@ -255,6 +256,8 @@
 		new /obj/item/clothing/shoes/centcom(src)
 		new /obj/item/clothing/accessory/holster(src)
 		new /obj/item/clothing/accessory/blue(src)
+		new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+		new /obj/item/clothing/mask/gas/sechailer(src)
 		return
 
 /obj/structure/closet/secure_closet/ntrep
@@ -280,6 +283,7 @@
 		new /obj/item/clothing/under/lawyer/black(src)
 		new /obj/item/clothing/under/lawyer/female(src)
 		new /obj/item/clothing/head/ntrep(src)
+		new /obj/item/clothing/shoes/fancysandal(src)
 		return
 
 
@@ -346,6 +350,7 @@
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/clothing/accessory/holster/armpit(src)
+
 		return
 
 /obj/structure/closet/secure_closet/detective/update_icon()
