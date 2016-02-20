@@ -70,23 +70,9 @@
 	icon_state = "hostrench"
 	item_state = "hostrench"
 	flags_inv = 0
-
-	verb/toggle()
-		set name = "Toggle Trenchcoat Buttons"
-		set category = "Object"
-
-		if(!usr.canmove || usr.stat || usr.restrained())
-			return 0
-		if(icon_state == "hostrench")
-			icon_state = "hostrench_button"
-			item_state = "hostrench_button"
-			usr<< "You button the [src]."
-		else
-			icon_state = "hostrench"
-			item_state = "hostrench"
-			usr<< "You unbutton the [src]."
-
-		usr.update_inv_wear_suit()
+	ignore_suitadjust = 0
+	action_button_name = "Open/Close Trenchcoat"
+	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/armor/hos/jensen
 	name = "armored trenchcoat"
