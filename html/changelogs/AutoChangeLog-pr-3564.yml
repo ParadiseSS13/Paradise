@@ -1,0 +1,5 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "The defib should be more reliable on people who have ghosted"
+  - tweak: "The defib will now give a message if the ghost is still haunting about"
