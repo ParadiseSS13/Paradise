@@ -278,7 +278,7 @@
 			return
 
 		// DNA2 makes things a little simpler.
-		src.diskette.buf=src.active_record
+		src.diskette.buf=src.active_record.copy()
 		src.diskette.buf.types=0
 		switch(href_list["save_disk"]) //Save as Ui/Ui+Ue/Se
 			if("ui")
