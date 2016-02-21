@@ -285,3 +285,13 @@
 	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
+
+/obj/item/weapon/gun/projectile/automatic/lasercarbine
+	name = "Laser carbine"
+	desc = "A highly advanced laser weapon, which uses specialized cartriges instead of internal power cells, and is capable of firing lasers in short bursts"
+	icon_state = "immolator"
+	mag_type = "/obj/item/ammo_box/magazine/laser"
+	fire_sound = 'sound/weapons/laser3.ogg'
+	can_suppress = 0
+	burst_size = 3
+	fire_delay = 1
