@@ -94,7 +94,7 @@
 	result = "alkasine"
 	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
 	result_amount = 3
-	mix_message = "The chemicals mix to create a shiny, blue substance."
+	mix_message = "The chemicals mix to create shiny, blue substance."
 
 /datum/reagent/alkasine/on_mob_life(var/mob/living/M as mob, var/alien)
 	if(!src.data) data = 1
@@ -108,8 +108,8 @@
 
 	M.dizziness += dizzy_adj.
 	if(d >= slur_start)
-		if (!M:slurring) M:slurring = 1
-		M:slurring += slurr_adj
+		if (!M.slurring) M.slurring = 1
+		M.slurring += slurr_adj
 	if(d >= brawl_start && ishuman(M))
 		var/mob/living/carbon/human/H = M
 		F.teach(H,1)
@@ -117,8 +117,8 @@
 			if(H.martial_art == F)
 				F.remove(H)
 	if(d >= confused_start && prob(33))
-		if (!M:confused) M:confused = 1
-		M.confused = max(M:confused+confused_adj,0)
+		if (!M.confused) M.confused = 1
+		M.confused = max(M.confused+confused_adj,0)
 		if (prob(20))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, M)
