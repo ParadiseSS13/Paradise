@@ -104,7 +104,8 @@ obj/item/weapon/gun/energy/laser/retro
 	icon_state = "immolator"
 	fire_sound = 'sound/weapons/laser3.ogg'
 	projectile_type = "/obj/item/projectile/beam/immolator"
-	charge_cost = 1400
+	origin_tech = "combat=4;materials=4;magnets=3;plasma=2"
+	charge_cost = 1520
 
 
 ////////Laser Tag////////////////////
