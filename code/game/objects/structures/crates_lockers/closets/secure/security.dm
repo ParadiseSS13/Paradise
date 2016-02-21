@@ -346,6 +346,9 @@
 		new /obj/item/weapon/gun/projectile/revolver/detective(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/clothing/accessory/holster/armpit(src)
+		new /obj/item/clothing/glasses/sunglasses/noir(src)
+		new /obj/item/clothing/glasses/sunglasses/noir(src)
+		new /obj/item/device/flashlight/seclite(src)
 		return
 
 /obj/structure/closet/secure_closet/detective/update_icon()

@@ -141,6 +141,7 @@
 	var/invisa_view = 0
 	var/flash_protect = 0		//Mal: What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Mal: Sets the item's level of visual impairment tint, normally set to the same as flash_protect
+	var/color_view	//overrides client.color while worn
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
 	species_restricted = list("exclude","Kidan")

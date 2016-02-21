@@ -20,6 +20,7 @@ var/global/list/image/splatter_cache=list()
 	var/basecolor="#A10808" // Color when wet.
 	var/list/datum/disease2/disease/virus2 = list()
 	var/amount = 5
+	appearance_flags = NO_CLIENT_COLOR
 
 /obj/effect/decal/cleanable/blood/New()
 	..()

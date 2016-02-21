@@ -207,6 +207,34 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
+
+/obj/item/clothing/glasses/sunglasses/noir
+	name = "noir sunglasses"
+	desc = "Somehow these seem even more out-of-date than normal sunglasses."
+	color_view = list(0.3,0.3,0.3,0,\
+			 			0.3,0.3,0.3,0,\
+ 						0.3,0.3,0.3,0,\
+ 						0.0,0.0,0.0,1,) //greyscale
+	var/punused = null
+	action_button_name = "YEAH!"
+
+
+/obj/item/clothing/glasses/sunglasses/noir/attack_self()
+	pun()
+
+
+/obj/item/clothing/glasses/sunglasses/noir/verb/pun()
+	set category = "Object"
+	set name = "YEAH!"
+	set src in usr
+	if(usr.mind && (usr.mind.assigned_role == "Detective"))
+		if(!punused)//one per round
+			punused = 1
+			playsound(src.loc, 'sound/misc/yeah.ogg', 50, 1)
+		else
+			usr << "The moment is gone."
+
+
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
