@@ -98,6 +98,14 @@ obj/item/weapon/gun/energy/laser/retro
 	projectile_type = "/obj/item/projectile/beam/xray"
 	charge_cost = 500
 
+/obj/item/weapon/gun/energy/immolator
+	name = "Immolator laser gun"
+	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
+	icon_state = "immolator"
+	fire_sound = 'sound/weapons/laser3.ogg'
+	projectile_type = "/obj/item/projectile/beam/immolator"
+	charge_cost = 1400
+
 
 ////////Laser Tag////////////////////
 
