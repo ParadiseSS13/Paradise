@@ -224,3 +224,11 @@
 	New()
 		..()
 		reagents.add_reagent("sodawater", 50)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/alkasine
+	name = "Beep's Classic Alkasine"
+	desc = "A can of IPC booze, however that works."
+	icon_state = "alkasinecan"
+	New()
+		..()
+		reagents.add_reagent("alkasine", 50)

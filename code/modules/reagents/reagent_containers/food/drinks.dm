@@ -31,10 +31,13 @@
 			if(istype(M,/mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
 				if(!H.check_has_mouth())
-					user << "Where do you intend to put \the [src]? You don't have a mouth!"
-					return
-
-			M << "\blue You swallow a gulp of [src]."
+					if(!H.get_species() == "Machine")
+						user << "Where do you intend to put \the [src]? You don't have a mouth!"
+						return
+					else
+						M << "\blue You pour a bit of liquid from [src] into your connection port."
+				else
+					M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(0)
@@ -45,7 +48,7 @@
 		else if( istype(M, /mob/living/carbon/human) )
 
 			var/mob/living/carbon/human/H = M
-			if(!H.check_has_mouth())
+			if(!H.check_has_mouth() && !H.get_species() == "Machine")
 				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
 				return
 
