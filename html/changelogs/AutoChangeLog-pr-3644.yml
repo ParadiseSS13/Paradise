@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "New players now show up properly under the \"who\" verb when used as an admin"

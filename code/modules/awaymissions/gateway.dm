@@ -236,20 +236,26 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)	return
 	if(!active)	return
 	if(istype(M, /mob/living/carbon))
-		for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
-			if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-				M << "\black The station gate has detected your exile implant and is blocking your entry."
-				return
+		if (exilecheck(M)) return
+	if(istype(M, /obj))
+		for(var/mob/living/carbon/F in M)
+			if (exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
 	M.dir = SOUTH
 
+/obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
+	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
+		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
+			M << "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>"
+			return 1
+	return 0
 
 /obj/machinery/gateway/centeraway/attackby(obj/item/device/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/device/multitool))
 		if(calibrated)
-			user << "\black The gate is already calibrated, there is no work for you to do here."
+			user << "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>"
 			return
 		else
-			user << "<span class='boldnotice'>Recalibration successful!</span>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target."
+			user << "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>"
 			calibrated = 1
 			return

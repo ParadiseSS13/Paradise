@@ -64,7 +64,7 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("ai",1)
+	O.rename_self("AI",1)
 	spawn
 		qdel(src)
 	return O

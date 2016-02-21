@@ -383,7 +383,7 @@
 "in" = (/obj/machinery/vending/snack,/turf/unsimulated/floor{dir = 8; icon_state = "wood"},/area/wizard_station)
 "io" = (/obj/structure/closet{icon_closed = "cabinet_closed"; icon_opened = "cabinet_open"; icon_state = "cabinet_closed"},/obj/item/weapon/storage/backpack/satchel,/turf/unsimulated/floor{dir = 9; icon_state = "carpetside"},/area/wizard_station)
 "ip" = (/obj/structure/mirror{pixel_y = 28},/turf/unsimulated/floor{dir = 1; icon_state = "carpetside"},/area/wizard_station)
-"iq" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/rd,/turf/unsimulated/floor{dir = 5; icon_state = "carpetside"},/area/wizard_station)
+"iq" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/wiz,/turf/unsimulated/floor{dir = 5; icon_state = "carpetside"},/area/wizard_station)
 "ir" = (/turf/space,/turf/simulated/shuttle/wall{dir = 8; icon_state = "diagonalWall3"},/area/syndicate_mothership)
 "is" = (/turf/unsimulated/wall{desc = "Why it no open!"; icon_state = "pdoor1"; name = "Shuttle Bay Blast Door"},/area/syndicate_mothership)
 "it" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/syndicate_mothership)

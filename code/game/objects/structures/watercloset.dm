@@ -424,51 +424,15 @@
 		user << "<span class='warning'>Someone's already washing here!</span>"
 		return
 
-	if(istype(O, /obj/item/weapon/reagent_containers))
-		var/obj/item/weapon/reagent_containers/RG = O
-		if(RG.is_open_container())
-			RG.reagents.add_reagent("water", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
-			user << "<span class='notice'>You fill [RG] from [src].</span>"
-			return
-
-	O.water_act(20,310.15,src)
-
-	if(istype(O, /obj/item/weapon/melee/baton))
-		var/obj/item/weapon/melee/baton/B = O
-		if(B.bcell)
-			if(B.bcell.charge > 0 && B.status == 1)
-				flick("baton_active", src)
-				var/stunforce = B.stunforce
-				user.Stun(stunforce)
-				user.Weaken(stunforce)
-				user.stuttering = stunforce
-				B.deductcharge(B.hitcost)
-				user.visible_message("<span class='warning'>[user] shocks themself while attempting to wash the active [B.name]!</span>", \
-									"<span class='userdanger'>You unwisely attempt to wash [B] while it's still on.</span>")
-				playsound(src, "sparks", 50, 1)
-				return
-
-	if(istype(O, /obj/item/weapon/mop))
-		O.reagents.add_reagent("water", 5)
-		user << "<span class='notice'>You wet [O] in [src].</span>"
-		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-
-	var/obj/item/I = O
-	if(!I || !istype(I))
-		return
-	if(I.flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
+	if(!(istype(O)))
 		return
 
-	user << "<span class='notice'>You start washing [I]...</span>"
 	busy = 1
-	if(!do_after(user, 40, target = src))
-		busy = 0
-		return
+	var/wateract = 0
+	wateract = (O.wash(user, src))
 	busy = 0
-	O.clean_blood()
-	user.visible_message("<span class='notice'>[user] washes [I] using [src].</span>", \
-						"<span class='notice'>You wash [I] using [src].</span>")
-
+	if (wateract)
+		O.water_act(20,310.15,src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"

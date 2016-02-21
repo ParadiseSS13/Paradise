@@ -12,6 +12,7 @@
 	use_power = 1
 
 	can_unwrench = 1
+	var/open = 0
 
 	var/area/initial_loc
 	var/area_uid
@@ -339,6 +340,29 @@
 		else
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return 1
+	if(istype(W, /obj/item/weapon/screwdriver))
+		if(!welded)
+			if(open)
+				user << "<span class='notice'> Now closing the vent.</span>"
+				if (do_after(user, 20, target = src))
+					open = 0
+					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
+			else
+				user << "<span class='notice'> Now opening the vent.</span>"
+				if (do_after(user, 20, target = src))
+					open = 1
+					user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
+		return
+	if(istype(W, /obj/item/weapon/paper))
+		if(!welded)
+			if(open)
+				user.drop_item(W)
+				W.forceMove(src)
+			if(!open)
+				user << "You can't shove that down there when it is closed"
+		else
+			user << "The vent is welded."
+		return
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
@@ -348,6 +372,12 @@
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_pump/attack_hand()
+	if(!welded)
+		if(open)
+			for(var/obj/item/weapon/W in src)
+				W.forceMove(get_turf(src))
 
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
