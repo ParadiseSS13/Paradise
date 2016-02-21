@@ -53,6 +53,8 @@
 	//	M.lastattacker = null
 	/////////////////////////
 
+	if(istype(M, /mob/living/simple_animal))
+		return 0 // No sanic-speed double-attacks for you - simple mobs will handle being attacked on their own
 	var/power = force
 
 	if(!istype(M, /mob/living/carbon/human))

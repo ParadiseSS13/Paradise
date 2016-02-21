@@ -31,7 +31,7 @@
 	qdel(R.module)
 	R.module = null
 	R.camera.network.Remove(list("Engineering","Medical","Mining Outpost"))
-	R.updatename("Default")
+	R.rename_character(R.real_name, R.get_default_name("Default"))
 	R.status_flags |= CANPUSH
 	R.languages = list()
 	R.speech_synthesizer_langs = list()

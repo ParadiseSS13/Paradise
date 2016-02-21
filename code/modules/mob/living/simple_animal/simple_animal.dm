@@ -414,25 +414,26 @@
 	else if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		if(istype(O, /obj/item/weapon/kitchen/knife))
 			harvest()
-	else if(istype(O) && istype(user) && !O.attack(src, user))
+	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/damage = 0
-		if(O.force)
-			if(O.force >= force_threshold)
-				damage = O.force
-				if (O.damtype == STAMINA)
-					damage = 0
-				visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
-								"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
+		if(istype(O) && istype(user) && !O.attack(src, user))
+			var/damage = 0
+			if(O.force)
+				if(O.force >= force_threshold)
+					damage = O.force
+					if (O.damtype == STAMINA)
+						damage = 0
+					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
+									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
+				else
+					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
+									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
+				playsound(loc, O.hitsound, 50, 1, -1)
 			else
-				visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
-								"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
-			playsound(loc, O.hitsound, 50, 1, -1)
-		else
-			user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
-								"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		adjustBruteLoss(damage)
+				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
+									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+			adjustBruteLoss(damage)
 
 
 /mob/living/simple_animal/movement_delay()

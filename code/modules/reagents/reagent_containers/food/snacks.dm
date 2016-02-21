@@ -1674,6 +1674,13 @@
 	if(volume >= 5)
 		return Expand()
 
+/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
+	if(wrapped)
+		..()
+		return
+	if(do_after(user, 40, target = source))
+		return 1
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(isnull(gcDestroyed))
 		visible_message("<span class='notice'>[src] expands!</span>")

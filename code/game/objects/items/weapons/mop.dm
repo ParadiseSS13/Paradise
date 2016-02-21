@@ -65,6 +65,12 @@
 	J.mymop=src
 	J.update_icon()
 
+/obj/item/weapon/mop/wash(mob/user, atom/source)
+	reagents.add_reagent("water", 5)
+	user << "<span class='notice'>You wet [src] in [source].</span>"
+	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+	return 1
+
 /obj/item/weapon/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
 	name = "advanced mop"

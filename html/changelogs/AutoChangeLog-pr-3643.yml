@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "No more superspeed attacking simplemobs"

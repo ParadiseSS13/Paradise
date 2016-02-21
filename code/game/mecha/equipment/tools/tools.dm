@@ -838,11 +838,13 @@
 	range = MELEE
 	var/datum/global_iterator/pr_mech_generator
 	var/coeff = 100
-	var/obj/item/stack/sheet/fuel
+	var/fuel_type = MAT_PLASMA
 	var/max_fuel = 150000
-	var/fuel_per_cycle_idle = 25
-	var/fuel_per_cycle_active = 200
-	var/power_per_cycle = 20
+	var/fuel_name = "plasma" // Our fuel name as a string
+	var/fuel_amount = 0
+	var/fuel_per_cycle_idle = 10
+	var/fuel_per_cycle_active = 100
+	var/power_per_cycle = 30
 	reliability = 1000
 
 	New()
@@ -851,8 +853,7 @@
 		return
 
 	proc/init()
-		fuel = new /obj/item/stack/sheet/mineral/plasma(src)
-		fuel.amount = 0
+		fuel_amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator(list(src),0)
 		pr_mech_generator.set_delay(equip_cooldown)
 		return
@@ -877,7 +878,7 @@
 	get_equip_info()
 		var/output = ..()
 		if(output)
-			return "[output] \[[fuel]: [round(fuel.amount*fuel.perunit,0.1)] cm<sup>3</sup>\] - <a href='?src=\ref[src];toggle=1'>[pr_mech_generator.active()?"Dea":"A"]ctivate</a>"
+			return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=\ref[src];toggle=1'>[pr_mech_generator.active()?"Dea":"A"]ctivate</a>"
 		return
 
 	action(target)
@@ -885,36 +886,55 @@
 			var/result = load_fuel(target)
 			var/message
 			if(isnull(result))
-				message = "<font color='red'>[fuel] traces in target minimal. [target] cannot be used as fuel.</font>"
+				message = "<font color='red'>[fuel_name] traces in target minimal. [target] cannot be used as fuel.</font>"
 			else if(!result)
 				message = "Unit is full."
 			else
-				message = "[result] unit\s of [fuel] successfully loaded."
+				message = "[result] unit\s of [fuel_name] successfully loaded."
 				send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",src.get_equip_info())
 			occupant_message(message)
 		return
 
-	proc/load_fuel(var/obj/item/stack/sheet/P)
-		if(P.type == fuel.type && P.amount)
-			var/to_load = max(max_fuel - fuel.amount*fuel.perunit,0)
-			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
-				if(units)
-					fuel.amount += units
-					P.use(units)
-					return units
-			else
-				return 0
+	proc/load_fuel(var/obj/item/I)
+		if(istype(I) && (fuel_type in I.materials))
+			if(istype(I, /obj/item/stack/sheet))
+				var/obj/item/stack/sheet/P = I
+				var/to_load = max(max_fuel - P.amount*P.perunit,0)
+				if(to_load)
+					var/units = min(max(round(to_load / P.perunit),1),P.amount)
+					if(units)
+						var/added_fuel = units * P.perunit
+						fuel_amount += added_fuel
+						P.use(units)
+						return added_fuel
+				else
+					return 0
+			else // Some other object containing our fuel's type, so we just eat it (ores mainly)
+				var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
+				if(to_load == 0)
+					return 0
+				fuel_amount += to_load
+				qdel(I)
+				return to_load
+		else if(istype(I, /obj/structure/ore_box))
+			var/fuel_added = 0
+			for(var/baz in I.contents) // Istypeless loop
+				var/obj/item/O = baz
+				if(fuel_type in O.materials)
+					fuel_added = load_fuel(O)
+					break
+			return fuel_added
 		return
 
 	attackby(weapon,mob/user, params)
 		var/result = load_fuel(weapon)
+		var/weapon_name = "[weapon]"
 		if(isnull(result))
-			user.visible_message("[user] tries to shove [weapon] into [src]. What a dumb-ass.","<font color='red'>[fuel] traces minimal. [weapon] cannot be used as fuel.</font>")
+			user.visible_message("[user] tries to shove [weapon_name] into [src], but \the [src] rejects it.","<font color='red'>[fuel_name] traces in target minimal. [weapon_name] cannot be used as fuel.</font>")
 		else if(!result)
 			user << "Unit is full."
 		else
-			user.visible_message("[user] loads [src] with [fuel].","[result] unit\s of [fuel] successfully loaded.")
+			user.visible_message("[user] loads [src] with \the [weapon_name].","[result] unit\s of [fuel_name] successfully loaded.")
 		return
 
 	critfail()
@@ -942,7 +962,7 @@
 			stop()
 			EG.set_ready_state(1)
 			return 0
-		if(EG.fuel.amount<=0)
+		if(EG.fuel_amount<=0)
 			stop()
 			EG.log_message("Deactivated - no fuel.")
 			EG.set_ready_state(1)
@@ -962,7 +982,7 @@
 		if(cur_charge<EG.chassis.cell.maxcharge)
 			use_fuel = EG.fuel_per_cycle_active
 			EG.chassis.give_power(EG.power_per_cycle)
-		EG.fuel.amount -= min(use_fuel/EG.fuel.perunit,EG.fuel.amount)
+		EG.fuel_amount -= min(use_fuel,EG.fuel_amount)
 		EG.update_equip_info()
 		return 1
 
@@ -972,6 +992,8 @@
 	desc = "Generates power using uranium. Pollutes the environment."
 	icon_state = "tesla"
 	origin_tech = "powerstorage=3;engineering=3"
+	fuel_name = "uranium" // Our fuel name as a string
+	fuel_type = MAT_URANIUM
 	max_fuel = 50000
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
@@ -980,8 +1002,7 @@
 	reliability = 1000
 
 	init()
-		fuel = new /obj/item/stack/sheet/mineral/uranium(src)
-		fuel.amount = 0
+		fuel_amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator/nuclear(list(src),0)
 		pr_mech_generator.set_delay(equip_cooldown)
 		return

@@ -150,7 +150,7 @@ AI MODULES
 /******************** ProtectStation ********************/
 /obj/item/weapon/aiModule/protectStation
 	name = "\improper 'ProtectStation' AI module"
-	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered human, and is a threat to the station which must be neutralized.'"
+	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
 	origin_tech = "programming=3;materials=4" //made of gold
 
 /obj/item/weapon/aiModule/protectStation/attack_self(var/mob/user as mob)
@@ -158,7 +158,7 @@ AI MODULES
 
 /obj/item/weapon/aiModule/protectStation/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered human, and is a threat to the station which must be neutralized."
+	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
 	target << law
 	target.add_supplied_law(5, law)
 
