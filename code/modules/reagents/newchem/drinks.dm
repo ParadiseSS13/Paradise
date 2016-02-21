@@ -94,7 +94,7 @@
 	result = "alkasine"
 	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
 	result_amount = 3
-	mix_message = "The chemicals mix to create shiny, blue substance."
+	mix_message = "The chemicals mix to create a shiny, blue substance."
 
 /datum/reagent/alkasine/on_mob_life(var/mob/living/M as mob, var/alien)
 	if(!src.data) data = 1
