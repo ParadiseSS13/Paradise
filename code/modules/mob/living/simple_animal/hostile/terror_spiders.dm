@@ -89,6 +89,7 @@
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
+	var/spider_debug = 1
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED VERBS & PROCS ---------------------
@@ -145,6 +146,7 @@
 				src << "Your type of spider is not strong enough to force open a depowered door."
 			else
 				visible_message("<span class='danger'>\the [src] pries open the door!</span>")
+				playsound(src.loc, "sparks", 100, 1)
 				D.open(1)
 	else
 		// for most targets, we simply attack
@@ -314,7 +316,7 @@
 		if(stance == HOSTILE_STANCE_IDLE)
 			if (path_to_vent)
 				if (entry_vent)
-					if (get_dist(src, entry_vent) == 0)
+					if (get_dist(src, entry_vent) <= 1)
 						path_to_vent = 0
 						stop_automated_movement = 1
 						spawn(50)
@@ -330,7 +332,8 @@
 								break
 						if (!attackedsomething)
 							step_to(src,entry_vent)
-							visible_message("<span class='notice'>\the [src] moves towards the vent.</span>")
+							if (spider_debug)
+								visible_message("<span class='notice'>\the [src] moves towards the vent [entry_vent].</span>")
 				else
 					path_to_vent = 0
 			else if ((ai_breaks_lights || ai_breaks_cameras) && prob(idle_breakstuff_chance))
@@ -756,7 +759,7 @@
 			if(!busy && prob(30))
 				//first, check for potential food nearby to cocoon
 				for(var/mob/living/C in can_see)
-					if(C.stat && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider))
+					if(C.stat && C.stat != CONSCIOUS && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider))
 						cocoon_target = C
 						busy = MOVING_TO_TARGET
 						Goto(C, move_to_delay)
@@ -795,14 +798,15 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/verb/Wrap()
 	set name = "Wrap"
 	set category = "Spider"
-	set desc = "Wrap up prey eat (allowing you to lay eggs) and objects (making them inaccessible to humans)."
+	set desc = "Wrap up prey to eat (allowing you to lay eggs) and objects (making them inaccessible to humans)."
 	if(!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in view(1,src))
 			if(L == src)
 				continue
 			if(Adjacent(L))
-				choices += L
+				if (L.stat != CONSCIOUS)
+					choices += L
 		for(var/obj/O in loc)
 			if(Adjacent(O))
 				choices += O
@@ -1001,11 +1005,14 @@
 	ventcrawler = 1
 	var/attackstep = 0
 	var/fed = 0
-	var/spawnfrequency = 120
+	var/spawnfrequency = 1200 // 120 seconds, remember, times are in deciseconds
 	var/lastspawn = 0
-	var/nestfrequency = 15
+	var/nestfrequency = 150 // 15 seconds
 	var/lastnestsetup = 0
 	var/neststep = 0
+
+	var/canlay = 0
+
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 
@@ -1025,7 +1032,15 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/New()
 	..()
-	name = pick("Terror Queen spider","Brood Mother spider")
+	name = pick("Queen of Terror","Brood Mother")
+	notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/Life()
+	if (!canlay)
+		if (world.time > (lastspawn + spawnfrequency))
+			canlay = 1
+			src << "<span class='notice'>You are able to lay eggs again.</span>"
+	..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/handle_automated_action()
 	if(!stat && !ckey && stance == HOSTILE_STANCE_IDLE)
@@ -1142,6 +1157,10 @@
 				for(var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T in world)
 					if (T.z in config.station_levels)
 						if (!istype(T, (/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen)))
+							// We, the queen, do not count.
+						else if (T.health < 0)
+							// its dead, jim
+						else
 							numspiders += 1
 				if (numspiders >= 15) // station overwhelmed!
 					neststep = 6
@@ -1159,6 +1178,8 @@
 						else if (T.idle_ventcrawl_chance != 15)
 							T.idle_ventcrawl_chance = 15
 							T.visible_message("<span class='danger'>\the [src] rises up in fury!</span>")
+						if (T.ai_type != 0)
+							T.ai_type = 0
 				if (numspiders < 15)
 					if (prob(50))
 						DoLayTerrorEggs("black spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/black,2,1)
@@ -1166,7 +1187,8 @@
 						DoLayTerrorEggs("red spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/red,2,1)
 				//neststep = 7
 				// now, they will roam like mad, killing everything they see.
-	..()
+	//..()
+	// might be the source of some bug with the AI getting stuck...
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/Web()
 	set name = "Lay Web"
@@ -1200,25 +1222,25 @@
 				else
 					if (dstance == "Attack Everyone")
 						T.ai_type = 0
-						T.visible_message("<span class='danger'>\the [src] looks around angrily.</span>")
+						T.visible_message("<span class='danger'>\the [T] looks around angrily.</span>")
 					else if (dstance == "Defend Themselves")
 						T.ai_type = 1
-						T.visible_message("<span class='notice'>\the [src] takes a defensive stance.</span>")
+						T.visible_message("<span class='notice'>\the [T] takes a defensive stance.</span>")
 					else if (dstance == "Completely Passive")
 						T.ai_type = 2
-						T.visible_message("<span class='notice'>\the [src] looks passive.</span>")
+						T.visible_message("<span class='notice'>\the [T] looks passive.</span>")
 					if (dai == "Constantly")
 						T.idle_ventcrawl_chance = 15
-						T.visible_message("<span class='danger'>\the [src] seems to move very quickly for a moment.</span>")
+						T.visible_message("<span class='danger'>\the [T] seems to move very quickly for a moment.</span>")
 					else if (dai == "Sometimes")
 						T.idle_ventcrawl_chance = 5
-						T.visible_message("<span class='notice'>\the [src] seems to move quickly for a moment.</span>")
+						T.visible_message("<span class='notice'>\the [T] seems to move quickly for a moment.</span>")
 					else if (dai == "Rarely")
 						T.idle_ventcrawl_chance = 2
-						T.visible_message("<span class='notice'>\the [src] seems slow for a moment.</span>")
+						T.visible_message("<span class='notice'>\the [T] seems slow for a moment.</span>")
 					else if (dai == "Never")
 						T.idle_ventcrawl_chance = 0
-						T.visible_message("<span class='notice'>\the [src] seems still for a moment.</span>")
+						T.visible_message("<span class='notice'>\the [T] seems still for a moment.</span>")
 					if (dpc == "Yes")
 						T.ai_playercontrol_allowingeneral = 1
 					else if (dpc == "No")
@@ -1247,10 +1269,15 @@
 	if (eggtype == null || numlings == null)
 		src << "Cancelled."
 		return
-	else if (world.time <= (lastspawn + spawnfrequency))
-		src << "Too soon to attempt that again. Wait longer."
+	else if (!canlay)
+		var/remainingtime = round(((lastspawn + spawnfrequency) - world.time) / 10,1)
+		if (remainingtime > 0)
+			src << "Too soon to attempt that again. Wait another " + num2text(remainingtime) + " seconds."
+		else
+			src << "Too soon to attempt that again. Wait just a few more seconds..."
 		return
 	lastspawn = world.time
+	canlay = 0
 	if (eggtype == "red - assault")
 		DoLayTerrorEggs("red spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/red,numlings,1)
 	else if (eggtype == "gray - ambush")
@@ -1276,7 +1303,8 @@
 			if(L == src)
 				continue
 			if(Adjacent(L))
-				choices += L
+				if (L.stat != CONSCIOUS)
+					choices += L
 		for(var/obj/O in loc)
 			if(Adjacent(O))
 				choices += O
@@ -1347,7 +1375,7 @@
 	spider_tier = 3
 	spider_opens_doors = 2
 
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/New()
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/mother/New()
 	..()
 	name = pick("Seemingly Harmless spider","Strange spider","Mother spider")
 
@@ -1393,9 +1421,9 @@
 
 	spider_tier = 4
 
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/New()
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/New()
 	..()
-	name = pick("Empress of Terror","Legendary Terror spider","Ruler of the Night","Orchestrator of Nightmares")
+	name = pick("Empress of Terror","Legendary Terror spider","Ruler of the Night")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/verb/LayEggs()
 	set name = "Lay Empress Eggs"
@@ -1676,7 +1704,7 @@
 
 
 /obj/effect/spider/terrorweb
-	name = "web"
+	name = "terror web"
 	desc = "it's stringy and sticky"
 	icon = 'icons/effects/effects.dmi'
 	anchored = 1 // prevents people dragging it
@@ -1692,11 +1720,15 @@
 	if(air_group || (height==0)) return 1
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return 1
+	else if (istype(mover, /obj/item/projectile/terrorqueenspit))
+		return 1
+	else if (istype(mover, /obj/item/projectile/terrorempressspit))
+		return 1
 	else if(istype(mover, /mob/living))
 		if(prob(80)) // from 50% chance to pass, to 80%. 50% = you get through in 1-2 tries. 90% = takes you ~5 tries.
 			mover << "<span class='danger'>You get stuck in \the [src] for a moment.</span>"
 			var/mob/living/M = mover
-			M.Stun(10) // 1 second.
+			M.Stun(1) // 1 second.
 			return 0
 	else if(istype(mover, /obj/item/projectile))
 		return prob(20)
