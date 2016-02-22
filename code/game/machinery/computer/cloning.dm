@@ -262,7 +262,7 @@
 					nanomanager.update_uis(src)
 					return
 
-				src.active_record = src.diskette.buf
+				src.active_record = src.diskette.buf.copy()
 
 				src.temp = "Load successful."
 

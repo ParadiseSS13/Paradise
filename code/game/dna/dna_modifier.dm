@@ -941,7 +941,7 @@
 					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
 					success = setInjectorBlock(I,blk,buf)
 				else
-					I.buf = buf
+					I.buf = buf.copy()
 				waiting_for_user_input=0
 				if(success)
 					I.forceMove(src.loc)
@@ -956,7 +956,7 @@
 				//src.temphtml = "Invalid disk. Please try again."
 				return 0
 
-			src.buffers[bufferId]=src.disk.buf
+			src.buffers[bufferId]=src.disk.buf.copy()
 			//src.temphtml = "Data loaded."
 			return 1
 
