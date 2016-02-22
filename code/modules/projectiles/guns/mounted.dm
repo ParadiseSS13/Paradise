@@ -17,9 +17,9 @@
 /obj/item/weapon/gun/energy/laser/mounted
 	name = "mounted laser"
 	desc = "An arm mounted cannon that fires lethal lasers. Doesn't come with a charge beam."
-	icon_state = "armcannon"
+	icon_state = "armcannonlase"
 	item_state = "armcannonlase"
-	modifystate = "armcannon"
+	modifystate = "armcannonlase"
 	force = 5
 	self_recharge = 1
 	flags = NODROP

@@ -112,7 +112,7 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
-	eye_colour = list(0,0,50)
+	eye_colour = list(0,0,208)
 	implant_color = "#00FFFF"
 	origin_tech = "materials=4;programming=3;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."

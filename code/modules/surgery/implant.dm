@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/cavity_implant
-	name = "item implant/removal"
+	name = "cavity implant/removal"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
 	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
 
@@ -14,7 +14,7 @@
 
 
 /datum/surgery/cavity_implant/soft
-	name = "item implant/removal"
+	name = "cavity implant/removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
 
 	possible_locs = list("groin")
@@ -175,19 +175,23 @@
 		return 0//fail
 
 	if(tool)
-		user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
-		"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
-		if (IC || (tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
-			user << "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>"
-			var/datum/wound/internal_bleeding/I = new ()
-			affected.wounds += I
-			affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
-		user.drop_item()
-		affected.hidden = tool
-		target.internal_organs += tool
-		tool.loc = target
-		affected.cavity = 0
-		return 1
+		if(IC)
+			user << "There seems to be something in there already!"
+			return 1
+		else
+			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
+			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
+			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
+				user << "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>"
+				var/datum/wound/internal_bleeding/I = new ()
+				affected.wounds += I
+				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
+			user.drop_item()
+			affected.hidden = tool
+			target.internal_organs += tool
+			tool.loc = target
+			affected.cavity = 0
+			return 1
 	else
 		if(IC)
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")

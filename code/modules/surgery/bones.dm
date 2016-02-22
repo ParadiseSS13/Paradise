@@ -19,8 +19,8 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(affected && (affected.status & ORGAN_ROBOT))
 			return 0
-		if(affected && !affected.encased)
-			return 0
+		if(affected && (affected.status & ORGAN_BROKEN))
+			return 1
 		if(target.get_species() == "Machine")
 			return 0
 		if(target.get_species() == "Diona")

@@ -70,9 +70,9 @@
 
 		B.transfer_identity(user)
 
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_hair(0)
+	if(istype(owner,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = owner
+		H.update_hair(1)
 
 	..()
 
@@ -86,7 +86,7 @@
 			brain_already_exists = 1
 
 		var/mob/living/carbon/human/H = target
-		H.update_hair(0)
+		H.update_hair(1)
 
 	if(!brain_already_exists)
 		if(brainmob)

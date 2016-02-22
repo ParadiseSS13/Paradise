@@ -84,7 +84,7 @@
 	can_stand = 1
 
 /obj/item/organ/external/foot/removed()
-	if(owner) owner.unEquip(owner.shoes)
+	if(owner.shoes) owner.unEquip(owner.shoes)
 	..()
 
 /obj/item/organ/external/foot/right
@@ -109,7 +109,8 @@
 	can_grasp = 1
 
 /obj/item/organ/external/hand/removed()
-	owner.unEquip(owner.gloves)
+	if(owner.gloves)
+		owner.unEquip(owner.gloves)
 	..()
 
 /obj/item/organ/external/hand/right
@@ -140,14 +141,21 @@
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
-		owner.unEquip(owner.glasses)
-		owner.unEquip(owner.head)
-		owner.unEquip(owner.l_ear)
-		owner.unEquip(owner.r_ear)
-		owner.unEquip(owner.wear_mask)
+		if(owner.glasses)
+			owner.unEquip(owner.glasses)
+		if(owner.head)
+			owner.unEquip(owner.head)
+		if(owner.l_ear)
+			owner.unEquip(owner.l_ear)
+		if(owner.r_ear)
+			owner.unEquip(owner.r_ear)
+		if(owner.wear_mask)
+			owner.unEquip(owner.wear_mask)
 		spawn(1)
-			owner.update_hair()
-			owner.update_fhair()
+			if(owner.h_style)//runtimer no runtiming
+				owner.update_hair()
+			if(owner.f_style)
+				owner.update_fhair()
 	..()
 
 /obj/item/organ/external/head/replaced()
