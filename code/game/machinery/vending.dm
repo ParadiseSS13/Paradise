@@ -704,7 +704,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/beer = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/cans/ale = 6,
-					/obj/item/weapon/reagent_containers/food/drinks/cans/alkasine = 15,
+					/obj/item/weapon/reagent_containers/food/drinks/cans/synthanol = 15,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,
