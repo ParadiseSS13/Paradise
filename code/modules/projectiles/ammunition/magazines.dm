@@ -294,5 +294,6 @@
 
 /obj/item/ammo_box/magazine/laser
 	name = "laser carbine magazine"
-	icon_state = "m12gf"
+	icon_state = "laser"
 	ammo_type = "/obj/item/ammo_casing/laser"
+	max_ammo = 30
