@@ -42,7 +42,7 @@
 
 	// regeneration settings - overridable by child classes
 	var/regen_chance = 10 // by default, they have a 10% chance to regen
-	var/dna_damaged = 0 // if 0, they regen, if 1, they degen... set to 1 by biological demolecularizer shots
+	var/decloner_shots = 0 // if 0, they regen, if 1, they degen... set to 1 by biological demolecularizer shots
 
 	// by default, they have large aggro radius, EXCEPT for gray child class which overrides this when idle
 	idle_vision_range = 10
@@ -55,7 +55,6 @@
 		// 2 = passive, never attack anyone
 	var/ai_playercontrol_allowingeneral = 1 // if 0, no spiders are player controllable. Default set in code, can be changed by queens.
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
-	var/ai_playercontrol_allowthis = 1 // if 0, this specific spider is not player-controllable. Always 1 by default, can be set to 0 if a particular player is a problem
 	// remember, ALL of the above have to be 1 for a spider for it to be controllable!
 
 	var/idle_ventcrawl_chance = 3 // by default, they wander.
@@ -92,127 +91,8 @@
 	var/spider_debug = 1
 
 // --------------------------------------------------------------------------------
-// --------------------- TERROR SPIDERS: SHARED VERBS & PROCS ---------------------
+// --------------------- TERROR SPIDERS: SHARED TARGETING & ATTACK CODE -----------
 // --------------------------------------------------------------------------------
-
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/AttackingTarget()
-	if (istype(target,/mob/living/simple_animal/hostile/poison/giant_spider/terror/))
-		var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T = target
-		if (T.spider_tier > spider_tier)
-			visible_message("<span class='notice'> \icon[src] bows in respect for the terrifying presence of [target] </span>")
-		else if (T.spider_tier == spider_tier)
-			visible_message("<span class='notice'> \icon[src] harmlessly nuzzles [target]. </span>")
-		else if (T.spider_tier < spider_tier && spider_tier >= 3)
-			if (T in enemies)
-				visible_message("<span class='userdanger'> \icon[src] [src] tears [target] apart! </span>")
-				src.do_attack_animation(target)
-				T.death()
-			else
-				visible_message("<span class='userdanger'> \icon[src] glares at [target] in warning.</span>")
-				enemies |= T
-		else
-			visible_message("<span class='notice'> \icon[src] harmlessly nuzzles [target]. </span>")
-	else if (istype(target,/obj/machinery/camera))
-		var/obj/machinery/camera/C = target
-		if (C.status)
-			do_attack_animation(C)
-			C.status = 0
-			visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
-			playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-			C.icon_state = "[initial(C.icon_state)]1"
-			C.add_hiddenprint(src)
-			C.deactivate(src,0)
-		else
-			src << "The camera is already deactivated."
-	else if (istype(target,/obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = target
-		if (F.density)
-			if (F.blocked)
-				src << "The fire door is welded shut."
-			else
-				visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
-				F.open()
-		else
-			src << "Closing fire doors does not help."
-	else if (istype(target,/obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/D = target
-		if (D.density)
-			if (D.locked || D.welded)
-				src << "The door is bolted or welded shut."
-			else if (D.operating)
-			else if (D.arePowerSystemsOn() && (spider_opens_doors != 2))
-				src << "The door's motors resist your efforts to force it."
-			else if (!spider_opens_doors)
-				src << "Your type of spider is not strong enough to force open a depowered door."
-			else
-				visible_message("<span class='danger'>\the [src] pries open the door!</span>")
-				playsound(src.loc, "sparks", 100, 1)
-				D.open(1)
-	else
-		// for most targets, we simply attack
-		target.attack_animal(src)
-		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
-
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/harvest()
-
-	// Notes
-		// red = drops fangs, robust melee weapon [done]
-		// green = drops silk, can be used as cable for wiring, or cuffs [done]
-		// gray = drops nothing, they're weak and
-		// white = drops ? (white spider poison gland?)
-		// purple = drops ?
-		// black = drops ? (black spider poison gland?)
-		// queen = drops a complete set of everything?
-		// mother = drops SPIDERS, handled in other code.
-		// empress = drops huge amounts of meat?
-
-	// spider legs are terrible, don't spawn them
-	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
-	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
-	//new /obj/item/weapon/reagent_containers/food/snacks/spiderleg(get_turf(src))
-
-	var/obj/item/weapon/terrorspider_fang/F = new /obj/item/weapon/terrorspider_fang(get_turf(src))
-	if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/red))
-		// red spiders have way worse fangs than any other type
-		F.force=20
-		F.name="red terror fang"
-		F.desc = "A big, nasty, pointy fang!"
-
-	new /obj/item/clothing/suit/armor/terrorspider_carapace(get_turf(src))
-
-	var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(get_turf(src))
-	CC.name = "Conductive Spider Silk"
-	CC.color = COLOR_YELLOW
-
-	gib()
-	return
-
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/bullet_act(var/obj/item/projectile/Proj)
-	if (!target)
-		visible_message("<span class='danger'> \icon[src] [src] looks around, enraged! </span>")
-	for(var/mob/living/H in view(src, 10))
-		if(!istype(H,/mob/living/simple_animal/hostile/poison/giant_spider/))
-			if (!(H in enemies))
-				enemies |= H
-	if (istype(Proj, /obj/item/projectile/energy/declone))
-		if (!dna_damaged)
-			dna_damaged = 1
-			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
-			Stun(3)
-	..()
-
-
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	..()
-	if(!istype(user,/mob/living/simple_animal/hostile/poison/giant_spider/))
-		if (!(user in enemies))
-			enemies |= user
-			//	if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
-			//		for (var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T in world)------------
-			//			if (!(user in T.enemies))
-			//				T.enemies |= user
-		if (!target)
-			target = user
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/ListTargets()
@@ -285,12 +165,125 @@
 		// COMPLETELY PASSIVE
 		return list()
 
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/LoseTarget()
+	if (target && isliving(target))
+		var/mob/living/T = target
+		if (T.stat > 0)
+			killcount++
+			// This code existed to enable spiders to get better names depending on their total kills.
+			// It is currently commented as I'm not sure I want this mechanic to exist.
+			//if (name_upgrades)
+			//	if (killcount == 1)
+			//		if (name1)
+			//			name = name1
+			//	else if (killcount == 3)
+			//		if (name3)
+			//			name = name3
+	..()
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/AttackingTarget()
+	if (istype(target,/mob/living/simple_animal/hostile/poison/giant_spider/terror/))
+		var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T = target
+		if (T.spider_tier > spider_tier)
+			visible_message("<span class='notice'> \icon[src] bows in respect for the terrifying presence of [target] </span>")
+		else if (T.spider_tier == spider_tier)
+			visible_message("<span class='notice'> \icon[src] harmlessly nuzzles [target]. </span>")
+		else if (T.spider_tier < spider_tier && spider_tier >= 3)
+			if (T in enemies)
+				visible_message("<span class='userdanger'> \icon[src] [src] tears [target] apart! </span>")
+				src.do_attack_animation(target)
+				T.death()
+			else
+				visible_message("<span class='userdanger'> \icon[src] glares at [target] in warning.</span>")
+				enemies |= T
+		else
+			visible_message("<span class='notice'> \icon[src] harmlessly nuzzles [target]. </span>")
+	else if (istype(target,/obj/machinery/camera))
+		var/obj/machinery/camera/C = target
+		if (C.status)
+			do_attack_animation(C)
+			C.status = 0
+			visible_message("<span class='danger'>\the [src] smashes the [C.name].</span>")
+			playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+			C.icon_state = "[initial(C.icon_state)]1"
+			C.add_hiddenprint(src)
+			C.deactivate(src,0)
+		else
+			src << "The camera is already deactivated."
+	else if (istype(target,/obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/F = target
+		if (F.density)
+			if (F.blocked)
+				src << "The fire door is welded shut."
+			else
+				visible_message("<span class='danger'>\the [src] pries open the firedoor!</span>")
+				F.open()
+		else
+			src << "Closing fire doors does not help."
+	else if (istype(target,/obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/D = target
+		if (D.density)
+			if (D.locked || D.welded)
+				src << "The door is bolted or welded shut."
+			else if (D.operating)
+			else if (D.arePowerSystemsOn() && (spider_opens_doors != 2))
+				src << "The door's motors resist your efforts to force it."
+			else if (!spider_opens_doors)
+				src << "Your type of spider is not strong enough to force open a depowered door."
+			else
+				visible_message("<span class='danger'>\the [src] pries open the door!</span>")
+				playsound(src.loc, "sparks", 100, 1)
+				D.open(1)
+	else
+		// for most targets, we simply attack
+		target.attack_animal(src)
+		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	..()
+	if(!istype(user,/mob/living/simple_animal/hostile/poison/giant_spider/))
+		if (!(user in enemies))
+			enemies |= user
+			//	if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen))
+			//		for (var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T in world)------------
+			//			if (!(user in T.enemies))
+			//				T.enemies |= user
+		if (!target)
+			target = user
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/bullet_act(var/obj/item/projectile/Proj)
+	var/donotice = 0
+	for(var/mob/living/H in view(src, 10))
+		if(!istype(H,/mob/living/simple_animal/hostile/poison/giant_spider/))
+			if (!(H in enemies))
+				enemies |= H
+				if (!donotice)
+					donotice = 1
+					visible_message("<span class='danger'> \icon[src] [src] glares at [H], enraged! </span>")
+	if (istype(Proj, /obj/item/projectile/energy/declone))
+		if (!decloner_shots)
+			visible_message("<span class='danger'> \icon[src] [src] looks staggered by the bioweapon! </span>")
+			Stun(3)
+		decloner_shots++
+	..()
+
+
+// --------------------------------------------------------------------------------
+// --------------------- TERROR SPIDERS: SHARED PROCS -----------------------------
+// --------------------------------------------------------------------------------
+
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/Life()
 	if (!stat && (health != maxHealth)) // if we are alive, but not at full health
-		if (dna_damaged)
+		if (decloner_shots > 0)
 			adjustBruteLoss(1)
 			adjustToxLoss(1)
-			//2 DPS, 60/minute forever if they have dna damage - this WILL kill them eventually
+			if (prob(5))
+				decloner_shots--
 		else if (prob(regen_chance))
 			adjustBruteLoss(-5)
 			adjustFireLoss(-5)
@@ -306,13 +299,15 @@
 			visible_message("<span class='userdanger'>\the [src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 			harvest()
 		else
-			harvest()
+			if (prob(3))
+				// 3% chance every cycle to decompose
+				visible_message("<span class='notice'>\the dead body of the [src] breaks apart!</span>")
+				harvest()
 	..()
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/handle_automated_action()
 	if(!stat && !ckey) // if we are not dead, and we're not player controlled
-		//if(target && target in ListTargets())
-		//else
 		if(stance == HOSTILE_STANCE_IDLE)
 			if (path_to_vent)
 				if (entry_vent)
@@ -388,6 +383,32 @@
 							D.open(1)
 	..()
 
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/harvest()
+	// Notes
+		// red = drops fangs, robust melee weapon [done]
+		// green = drops silk, can be used as cable for wiring, or cuffs [done]
+		// gray = drops nothing, they're weak and
+		// white = drops ? (white spider poison gland?)
+		// purple = drops ?
+		// black = drops ? (black spider poison gland?)
+		// queen = drops a complete set of everything?
+		// mother = drops SPIDERS, handled in other code.
+		// empress = drops huge amounts of meat?
+	var/obj/item/weapon/terrorspider_fang/F = new /obj/item/weapon/terrorspider_fang(get_turf(src))
+	if (istype(src,/mob/living/simple_animal/hostile/poison/giant_spider/terror/red))
+		// red spiders have way worse fangs than any other type
+		F.force=20
+		F.name="red terror fang"
+		F.desc = "A big, nasty, pointy fang!"
+	new /obj/item/clothing/suit/armor/terrorspider_carapace(get_turf(src))
+	var/obj/item/stack/cable_coil/CC = new /obj/item/stack/cable_coil(get_turf(src))
+	CC.name = "Conductive Spider Silk"
+	CC.color = COLOR_YELLOW
+	gib()
+	return
+
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/proc/TSVentCrawlRandom(/var/entry_vent)
 	if(entry_vent)
 		if(get_dist(src, entry_vent) <= 2)
@@ -421,31 +442,31 @@
 						if(new_area)
 							new_area.Entered(src)
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/Topic(href, href_list)
 	if(href_list["activate"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			humanize_spider(ghost)
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/attack_ghost(mob/user)
 	humanize_spider(user)
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/proc/humanize_spider(mob/user)
 	if(key)//Someone is in it
 		return
 	if (!ai_playercontrol_allowingeneral)
-		user << "Terror spiders cannot currently be player-controlled. A notice will be posted to ghost chat if this changes."
+		user << "Terror spiders cannot currently be player-controlled."
 		return
 	if (!ai_playercontrol_allowtype)
-		user << "This type of terror spider is not player-controllable."
-		return
-	if (!ai_playercontrol_allowthis)
-		user << "This spider is not player-controllable."
+		user << "This specific type of terror spider is not player-controllable."
 		return
 	if (jobban_isbanned(user, "Syndicate") || jobban_isbanned(user, "alien"))
 		user << "You are jobbanned from role of syndicate and/or alien lifeform."
 		return
-	var/spider_ask = alert("Become a spider?", "Are you australian?", "Yes", "No")
+	var/spider_ask = alert("Take direct control of " + src.name + "?", "Join as Terror Spider?", "Yes", "No")
 	if(spider_ask == "No" || !src || qdeleted(src))
 		return
 	if(key)
@@ -493,21 +514,27 @@
 			src << "Prior to your control, this spider had orders to <span class='danger'> remain completely passive </span> "
 		src << "A Terror Queen, if one is present, can change your orders. You MUST follow any orders given by a queen - failure to do so is punishable by death."
 
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/LoseTarget()
-	if (target && isliving(target))
-		var/mob/living/T = target
-		if (T.stat > 0)
-			killcount++
-			// This code existed to enable spiders to get better names depending on their total kills.
-			// It is currently commented as I'm not sure I want this mechanic to exist.
-			//if (name_upgrades)
-			//	if (killcount == 1)
-			//		if (name1)
-			//			name = name1
-			//	else if (killcount == 3)
-			//		if (name3)
-			//			name = name3
-	..()
+
+// --------------------------------------------------------------------------------
+// --------------------- TERROR SPIDERS: SHARED VERBS -----------------------------
+// --------------------------------------------------------------------------------
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/terror/Web()
+	set name = "Lay Web"
+	set category = "Spider"
+	set desc = "Spread a sticky web to slow down prey."
+	var/T = loc
+	if(busy != SPINNING_WEB)
+		busy = SPINNING_WEB
+		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
+		stop_automated_movement = 1
+		spawn(40)
+			if(busy == SPINNING_WEB && loc == T)
+				new /obj/effect/spider/terrorweb(T)
+			busy = 0
+			stop_automated_movement = 0
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: GUARD CLASS, TIER 1, RED TERROR --------------
@@ -517,6 +544,7 @@
 // -------------: SPECIAL: none
 // -------------: TO FIGHT IT: shoot it from range. Kite it.
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/MightyGlacier
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/red
 	name = "red terror spider"
@@ -532,8 +560,8 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	move_to_delay = 20
-	poison_per_bite = 0
 	spider_opens_doors = 2
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/red/New()
 	..()
@@ -551,6 +579,7 @@
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
 // -------------: CONCEPT:http://tvtropes.org/pmwiki/pmwiki.php/Main/PraetorianGuard
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple
 	name = "praetorian spider"
 	desc = "An ominous-looking purple spider, prone to sudden bursts of speed."
@@ -562,13 +591,11 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	move_to_delay = 6
-	poison_per_bite = 0
-	idle_ventcrawl_chance = 0 // exactly like the red terrors - but they don't move.
-	regen_chance = 10 // oh and they regen fast
-	//environment_smash = 2 // they will smash down steel walls, but not rwalls
-
+	idle_ventcrawl_chance = 0 // stick to the queen!
+	//environment_smash = 2 // bad idea, they just make girdirs that get them killed
 	ai_playercontrol_allowtype = 0
 	spider_tier = 2
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple/handle_automated_action()
 	if(!stat && !ckey && stance == HOSTILE_STANCE_IDLE)
@@ -585,6 +612,7 @@
 						break
 	..()
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple/AttackingTarget()
 	if(isliving(target) && prob(10))
 		var/mob/living/L = target
@@ -593,6 +621,7 @@
 	else
 		..()
 		// just do normal attack
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: STRIKE CLASS, TIER 2, BLACK WIDOW -----------
@@ -613,15 +642,16 @@
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	poison_per_bite = 0 // this is handled in AttackingTarget()
 	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
 	poison_type = "terror_black_toxin"
 	spider_tier = 2
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/black/New()
 	..()
 	name = pick("Black Devil spider","Giant Black Widow spider","Shadow Terror spider")
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/black/AttackingTarget()
 	//..()
@@ -670,6 +700,7 @@
 // -------------: TO FIGHT IT: shoot it through a window, or make it regret ambushing you
 // -------------: CONCEPT:http://tvtropes.org/pmwiki/pmwiki.php/Main/StealthExpert
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/gray
 	name = "gray terror spider"
 	desc = "An ominous-looking gray spider, its color and shape makes it hard to see."
@@ -683,15 +714,17 @@
 	ventcrawler = 1
 	move_to_delay = 15 // slow.
 	stat_attack = 1 // ensures they will target people in crit, too!
-	environment_smash = 0 // this monster is stealthy, it does not smash stuff -- actually yeah it does when going back to a vent. Otherwise it can get stuck behind doors/walls
+	environment_smash = 0 // only smash when retreating
 	stop_automated_movement = 1 // wandering defeats the purpose of stealth
-
-	ai_playercontrol_allowtype = 0
+	ai_playercontrol_allowtype = 0 // because its signature ability is hiding in vents, which is CURRENTLY only supported for AI...
+	//                                HOWEVER ***** we could create a 'stealth' verb that lets you hide for a few seconds after emerging from a vent...
 	idle_vision_range = 4 // very low idle vision range
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/gray/New()
 	..()
 	name = pick("Gray Trap spider","Gray Stalker spider","Ghostly Ambushing spider")
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/gray/handle_automated_action()
 	..()
@@ -721,9 +754,6 @@
 		//else if (!target && invisibility > 0)
 		//	// do nothing. its cool.
 
-// aggro range 3.
-// always stay on vent
-// invisible unless has target?
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: SWARM CLASS, TIER 1, GREEN NURSE -------------
@@ -733,6 +763,7 @@
 // -------------: SPECIAL: can also create webs, coccoon normal objects, etc
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
 // -------------: CONCEPT: http://tvtropes.org/pmwiki/pmwiki.php/Main/EnemySummoner
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green
 	name = "green terror spider"
@@ -747,9 +778,11 @@
 	ventcrawler = 1
 	var/fed = 0
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/New()
 	..()
 	name = pick("Green Terror spider","Insidious Breeding spider","Fast Bloodsucking spider")
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/handle_automated_action()
 	if(!stat && !ckey)
@@ -793,7 +826,6 @@
 			busy = 0
 			stop_automated_movement = 0
 
-// we inherit Web() from class giant_spider/
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/verb/Wrap()
 	set name = "Wrap"
@@ -849,6 +881,7 @@
 			busy = 0
 			stop_automated_movement = 0
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/green/verb/LayEggs()
 	set name = "Lay Terror Eggs"
 	set category = "Spider"
@@ -875,6 +908,7 @@
 					fed--
 			busy = 0
 			stop_automated_movement = 0
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: SWARM CLASS, TIER 2, WHITE DEATH --------
@@ -907,12 +941,13 @@
 	attackstep = 0
 	..()
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/white/New()
 	..()
 	name = pick("White Terror spider","White Death spider","Ghostly Nightmare spider")
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/white/AttackingTarget()
-	//..()
 	// skip all parent attack procs.
 	// parent procs produce undesirable effects, like applying spidertoxin, damage, etc. We usually don't want any of those things to happen.
 	stop_automated_movement = 1
@@ -934,13 +969,12 @@
 				L.adjustBruteLoss(30)
 				if (L.reagents.has_reagent("terror_white_antitoxin"))
 					visible_message("<span class='danger'> \icon[src] [src] sinks its fangs deep into [target] - and recoils in horror as its fangs burn!</span>")
-					//dna_damaged = 1
+					//decloner_shots = 1
 					//health = min(health,maxHealth/4)
 					spawn(50)
 						visible_message("<span class='danger'> \icon[src] [src] is torn apart by a violent chemical reaction inside its body!</span>")
 						death()
-					// this spider is neutralized - it can no longer inject poison, and it will die shortly
-				else if (!L.reagents.has_reagent("terror_white_toxin",5) && !dna_damaged)
+				else if (!L.reagents.has_reagent("terror_white_toxin",5) && decloner_shots == 0)
 					L.reagents.add_reagent("terror_white_toxin", 10)
 					visible_message("<span class='danger'> \icon[src] [src] sinks its fangs deep into [target] - a green froth dribbling from its fangs.</span>")
 				else if (L in enemies)
@@ -972,7 +1006,6 @@
 							step_away(src, L)
 			else
 				attackstep = 0
-			//L.reagents.remove_reagent("spidertoxin", 15)
 		else
 			// code for handling mobs that don't process reagents. Possibly dead bodies? Or simple mobs that have no reagent container?
 			target.attack_animal(src)
@@ -982,6 +1015,7 @@
 		target.attack_animal(src)
 		visible_message("<span class='danger'> \icon[src] [src] bites [target]! </span>")
 
+
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T3 NIGHTMARE CLASS, QUEEN SPIDER ------------
 // --------------------------------------------------------------------------------
@@ -990,6 +1024,7 @@
 // -------------: SPECIAL: spins webs, breaks lights, breaks cameras, coccoons objects, lays eggs, commands other spiders...
 // -------------: TO FIGHT IT: bring an army, and take no prisoners. Decloner guns are a very good idea.
 // -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/HiveQueen
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen
 	name = "queen spider"
@@ -1003,7 +1038,6 @@
 	melee_damage_upper = 20
 	move_to_delay = 15 // yeah, this is very slow, but
 	ventcrawler = 1
-	var/attackstep = 0
 	var/fed = 0
 	var/spawnfrequency = 1200 // 120 seconds, remember, times are in deciseconds
 	var/lastspawn = 0
@@ -1016,12 +1050,11 @@
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 
-	ai_playercontrol_allowtype = 0
+	ai_playercontrol_allowtype = 1
 	ai_breaks_lights = 1
 	ai_breaks_cameras = 1
 
 	ranged = 1
-	//rapid = 1 // we do not want machine gun!
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -1030,10 +1063,13 @@
 	spider_tier = 3
 	spider_opens_doors = 1
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/New()
 	..()
 	name = pick("Queen of Terror","Brood Mother")
-	notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+	if (ai_playercontrol_allowingeneral && ai_playercontrol_allowtype)
+		notify_ghosts("A [src] has appeared in [get_area(src)]. <a href=?src=\ref[src];activate=1>(Click to control)</a>")
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/Life()
 	if (!canlay)
@@ -1041,6 +1077,7 @@
 			canlay = 1
 			src << "<span class='notice'>You are able to lay eggs again.</span>"
 	..()
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/handle_automated_action()
 	if(!stat && !ckey && stance == HOSTILE_STANCE_IDLE)
@@ -1054,7 +1091,7 @@
 				// maybe we want to nest here?
 				var/numhostiles = 0
 				for (var/mob/living/H in oview(10,src))
-					if (!istype(T, /mob/living/simple_animal/hostile/poison/giant_spider))
+					if (!istype(H, /mob/living/simple_animal/hostile/poison/giant_spider))
 						numhostiles += 1
 				var/vdistance = 99
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10,src))
@@ -1077,19 +1114,12 @@
 		else if (neststep == 1)
 			if (world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				// TODO:
-				// 1) destroy lights (otherwise we're super-visible)
-				// 2) destroy cameras (otherwise AI will locate us in seconds)
-				// 3) destroy nearby windows -- ACTUALLY DON'T... loud, very visible, draws attention & atmos alerts... plus spiders hack through them fast anyway if needed
-				// 4) secure doors -- is it OP to emp the doors? unsure.
-				//
-				//prison_break (area proc) is a valid choice: https://github.com/ParadiseSS13/Paradise/blob/c7ae1fef0db8acfe4111036d5ff337507b2538ab/code/game/area/areas.dm
+				// Could use prison break to lock open doors, but not really in character.
+				// prison_break (area proc): https://github.com/ParadiseSS13/Paradise/blob/c7ae1fef0db8acfe4111036d5ff337507b2538ab/code/game/area/areas.dm
 				visible_message("<span class='danger'>\the [src] emits a bone-chilling shriek that shatters nearby glass!</span>")
 				for(var/obj/machinery/light/L in range(7,src))
 					L.on = 1
 					L.broken()
-					//if (L.on)
-					//	islit = 0
 				for(var/obj/machinery/camera/C in range(7,src))
 					if (C.status)
 						C.status = 0
@@ -1100,22 +1130,14 @@
 		else if (neststep == 2)
 			if (world.time > (lastnestsetup + nestfrequency))
 				lastnestsetup = world.time
-				if (world.time > (lastspawn + spawnfrequency))
-					if (prob(10))
-						var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
-						if(N)
-							// already have one
-						else
-							lastspawn = world.time
-							DoLayTerrorEggs("praetorian spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple,2,0)
-							neststep = 3
+				lastspawn = world.time
+				DoLayTerrorEggs("praetorian spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple,2,0)
+				neststep = 3
 		else if (neststep == 3)
 			if (world.time > (lastspawn + spawnfrequency))
 				if (prob(10))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
-					if(N)
-						// already have one
-					else
+					if(!N)
 						lastspawn = world.time
 						DoLayTerrorEggs("nurse spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/green,2,0)
 						neststep = 4
@@ -1123,9 +1145,7 @@
 			if (world.time > (lastspawn + spawnfrequency))
 				if (prob(10))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
-					if(N)
-						// already have one
-					else
+					if(!N)
 						lastspawn = world.time
 						DoLayTerrorEggs("black spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/black,2,1)
 						neststep = 4
@@ -1133,9 +1153,7 @@
 			if (world.time > (lastspawn + spawnfrequency))
 				if (prob(10))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
-					if(N)
-						// already have one
-					else
+					if(!N)
 						lastspawn = world.time
 						DoLayTerrorEggs("red spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/red,2,1)
 						neststep = 5
@@ -1143,23 +1161,21 @@
 			if (world.time > (lastspawn + spawnfrequency))
 				if (prob(10))
 					var/obj/effect/spider/terror_eggcluster/N = locate() in get_turf(src)
-					if(N)
-						// already have one
-					else
+					if(!N)
 						lastspawn = world.time
 						if (prob(33))
 							DoLayTerrorEggs("black spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/black,2,1)
 						else if (prob(50))
 							DoLayTerrorEggs("red spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/red,2,1)
 						else
-							DoLayTerrorEggs("nurse spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/green,2,0)
+							DoLayTerrorEggs("green spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/green,2,0)
 				var/numspiders = 0
 				for(var/mob/living/simple_animal/hostile/poison/giant_spider/terror/T in world)
 					if (T.z in config.station_levels)
 						if (!istype(T, (/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen)))
 							// We, the queen, do not count.
 						else if (T.health < 0)
-							// its dead, jim
+							// dead spiders do not count either
 						else
 							numspiders += 1
 				if (numspiders >= 15) // station overwhelmed!
@@ -1181,29 +1197,14 @@
 						if (T.ai_type != 0)
 							T.ai_type = 0
 				if (numspiders < 15)
-					if (prob(50))
+					if (prob(33))
 						DoLayTerrorEggs("black spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/black,2,1)
-					else
+					else if (prob(50))
 						DoLayTerrorEggs("red spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/red,2,1)
-				//neststep = 7
-				// now, they will roam like mad, killing everything they see.
+					else
+						DoLayTerrorEggs("green spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/green,2,0)
 	//..()
 	// might be the source of some bug with the AI getting stuck...
-
-/mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/Web()
-	set name = "Lay Web"
-	set category = "Spider"
-	set desc = "Spread a sticky web to slow down prey."
-	var/T = loc
-	if(busy != SPINNING_WEB)
-		busy = SPINNING_WEB
-		visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
-		stop_automated_movement = 1
-		spawn(40)
-			if(busy == SPINNING_WEB && loc == T)
-				new /obj/effect/spider/terrorweb(T)
-			busy = 0
-			stop_automated_movement = 0
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/verb/Phermones()
@@ -1259,6 +1260,7 @@
 		src << "That choice was not recognized."
 	src << " spiders obey your command."
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/verb/LayEggs()
 	set name = "Lay Terror Eggs"
 	set category = "Spider"
@@ -1290,7 +1292,6 @@
 		DoLayTerrorEggs("green spider eggs", /mob/living/simple_animal/hostile/poison/giant_spider/terror/purple,numlings,0)
 	else
 		src << "Unrecognized egg type."
-
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/queen/verb/Wrap()
@@ -1356,6 +1357,7 @@
 // -------------: TO FIGHT IT: don't! Just leave it alone! It is harmless by itself... but god help you if you aggro it.
 // -------------: http://tvtropes.org/pmwiki/pmwiki.php/Main/MotherOfAThousandYoung
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/mother
 	name = "mother of terror spider"
 	desc = "An enormous spider. Its back is a crawling mass of spiderlings. All of them look around with beady little eyes. The horror!"
@@ -1375,9 +1377,11 @@
 	spider_tier = 3
 	spider_opens_doors = 2
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/mother/New()
 	..()
 	name = pick("Seemingly Harmless spider","Strange spider","Mother spider")
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: T4 LOVECRAFT CLASS, SPIDER EMPRESS -----------
@@ -1393,11 +1397,15 @@
 	name = "terror empress spider"
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
 
-	icon_state = "terrorempress_s"
-	icon_living = "terrorempress_s"
-	icon_dead = "terrorempress_dead"
-	icon = 'icons/mob/terrorspiderlarge.dmi'
-	pixel_x = -32
+	icon_state = "terror_queen"
+	icon_living = "terror_queen"
+	icon_dead = "terror_queen_dead"
+
+	//icon_state = "terrorempress_s"
+	//icon_living = "terrorempress_s"
+	//icon_dead = "terrorempress_dead"
+	//icon = 'icons/mob/terrorspiderlarge.dmi'
+	//pixel_x = -32
 
 	maxHealth = 700
 	health = 700
@@ -1421,9 +1429,11 @@
 
 	spider_tier = 4
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/New()
 	..()
-	name = pick("Empress of Terror","Legendary Terror spider","Ruler of the Night")
+	name = pick("Empress of Terror")
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/verb/LayEggs()
 	set name = "Lay Empress Eggs"
@@ -1455,11 +1465,13 @@
 	else
 		src << "Unrecognized egg type."
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/verb/EMPShockwave()
 	set name = "EMP Shockwave"
 	set category = "Spider"
 	set desc = "Emit a wide-area emp pulse, frying almost all electronics in a huge radius."
 	empulse(src.loc,5,25)
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/terror/empress/verb/DeathScreech()
 	set name = "Terror Screech"
@@ -1474,6 +1486,7 @@
 			C.icon_state = "[initial(C.icon_state)]1"
 			C.add_hiddenprint(src)
 			C.deactivate(src,0)
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
@@ -1520,10 +1533,12 @@
 	var/ai_playercontrol_allowingeneral = 1
 	var/list/enemies = list()
 
+
 /obj/effect/spider/terror_eggcluster/New()
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	processing_objects.Add(src)
+
 
 /obj/effect/spider/terror_eggcluster/process()
 	amount_grown += rand(0,2)
@@ -1560,6 +1575,7 @@
 			// the idea is that every set of eggs always spawn 5 spiderlings, but most are not going to grow up, just some do.
 		qdel(src)
 
+
 /obj/effect/spider/terror_spiderling
 	name = "spiderling"
 	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
@@ -1578,10 +1594,12 @@
 	var/ai_playercontrol_allowingeneral = 1
 	var/list/enemies = list()
 
+
 /obj/effect/spider/terror_spiderling/New()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	processing_objects.Add(src)
+
 
 /obj/effect/spider/terror_spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -1589,14 +1607,17 @@
 	else
 		..()
 
+
 /obj/effect/spider/terror_spiderling/proc/die()
 	visible_message("<span class='alert'>[src] dies!</span>")
 	new /obj/effect/decal/cleanable/spiderling_remains(loc)
 	qdel(src)
 
+
 /obj/effect/spider/terror_spiderling/healthcheck()
 	if(health <= 0)
 		die()
+
 
 /obj/effect/spider/terror_spiderling/process()
 	if(travelling_in_vent)
@@ -1664,7 +1685,7 @@
 				S.ai_playercontrol_allowingeneral = ai_playercontrol_allowingeneral
 				S.enemies = enemies
 				if (S.ai_playercontrol_allowingeneral)
-					notify_ghosts("Terror Spider [S.name] in [get_area(src)] can be controlled! <a href=?src=\ref[S];activate=1>(Click to play)</a>")
+					notify_ghosts("[S.name] in [get_area(src)] can be controlled! <a href=?src=\ref[S];activate=1>(Click to play)</a>")
 					// pulling ghosts without asking is dumb. This method ensures we get players who aren't AFK.
 				qdel(src)
 
@@ -1672,11 +1693,13 @@
 // ----------------- TERROR SPIDERS: PROJECTILES ----------------------------------
 // --------------------------------------------------------------------------------
 
+
 /obj/item/projectile/terrorqueenspit
 	name = "poisonous spit"
 	damage = 30
 	icon_state = "toxin"
 	damage_type = TOX
+
 
 /obj/item/projectile/terrorqueenspit/on_hit(var/mob/living/carbon/target)
 	if(istype(target,/mob))
@@ -1690,6 +1713,7 @@
 	damage = 30
 	icon_state = "toxin"
 	damage_type = TOX
+
 
 /obj/item/projectile/terrorempressspit/on_hit(var/mob/living/carbon/target)
 	if(istype(target,/mob))
@@ -1712,9 +1736,11 @@
 	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
 
+
 /obj/effect/spider/terrorweb/New()
 	if(prob(50))
 		icon_state = "stickyweb2"
+
 
 /obj/effect/spider/terrorweb/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0)) return 1
@@ -1733,6 +1759,7 @@
 	else if(istype(mover, /obj/item/projectile))
 		return prob(20)
 	return 1
+
 
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: LOOT DROPS -----------------------------------
