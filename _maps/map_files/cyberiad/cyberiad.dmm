@@ -4239,7 +4239,7 @@
 "bDA" = (/turf/space,/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/shuttle/research)
 "bDB" = (/obj/structure/grille,/obj/structure/window/full/shuttle,/turf/simulated/shuttle/plating,/area/shuttle/research)
 "bDC" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/shuttle/engine/heater{icon_state = "heater"; dir = 8},/turf/unsimulated/floor,/area/shuttle/specops)
-"bDD" = (/obj/machinery/camera{c_tag = "CentCom Special Ops. Shuttle"; dir = 2; network = list("ERT","CentCom")},/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/specops)
+"bDD" = (/obj/machinery/camera{c_tag = "CentComm Special Ops. Shuttle"; dir = 2; network = list("ERT","CentComm")},/obj/structure/stool/bed/chair,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/specops)
 "bDE" = (/obj/effect/spawner/window/reinforced,/obj/structure/sign/securearea{desc = "A warning sign which reads 'EXTERNAL AIRLOCK'"; icon_state = "space"; layer = 4; name = "EXTERNAL AIRLOCK"; pixel_x = 0; pixel_y = 0},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/hallway/secondary/entry)
 "bDF" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 1},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/hallway/secondary/entry)
 "bDG" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/machinery/door/firedoor{dir = 2},/turf/simulated/floor/plating,/area/hallway/secondary/entry)
