@@ -1076,3 +1076,49 @@ datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	M.adjustCloneLoss(-3*REM)
 	..()
 	return
+
+datum/chemical_reaction/cyclophosphamide
+	name = "Cyclophosphamide"
+	id = "cyclophosphamide"
+	result = "cyclophosphamide"
+	required_reagents = list("carbon" = 7, "hydrogen" = 15, "chlorine" = 2, "nitrogen" = 2, "oxygen" = 2, "phosphorus" = 1)
+	result_amount = 29
+	min_temp = 580
+	mix_message = "The solution turns turns white."
+
+datum/reagent/medicine/cyclophosphamide
+	name = "Cyclophosphamide"
+	id = "cyclophosphamide"
+	description = "Cyclophosphamide is used to treat cancers, autoimmune disorders, and AL amyloidosis."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+
+datum/reagent/medicine/cyclophosphamide/on_mob_life(mob/living/M)
+	if(!data) data = 1
+	data++
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.f_style = "Shaved"
+		H.h_style = "Bald"
+		M.regenerate_icons()
+	if(prob(50))
+		M << "<span class='danger'>You feel weak.</span>"
+	if(prob(30))
+		M.emote("groan")
+	if(prob(40))
+		M << "<span class='warning'>You feel sick.</span>"
+	if(prob(10))
+		M.adjustToxLoss(4)
+	if(prob(10))
+		M.adjustBruteLoss(4)
+	if(prob(5))
+		M.fakevomit()
+	if(prob(1))
+		M.fakepoop()
+	if((world.time - M.last_movement) >= 0)
+		M.halloss++ //the more you walk, the more pain you are in
+	if(data >= 30 && prob(30))
+		if(is_thrall(M))
+			ticker.mode.remove_thrall(M.mind)
+			holder.remove_reagent(src.id, src.volume)
+			return
