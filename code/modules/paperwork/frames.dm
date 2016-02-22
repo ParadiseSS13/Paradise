@@ -45,7 +45,7 @@
 		P.resulting_poster = null
 	else
 		displayed = D
-	
+
 	name = displayed.name
 	displayed.pixel_x = 0
 	displayed.pixel_y = 0
@@ -112,8 +112,9 @@
 
 	var/px = 0
 	var/py = 0
+	var/newdir = getRelativeDirection(user, T)
 
-	switch(getRelativeDirection(user, T))
+	switch(newdir)
 		if(NORTH)
 			py = 32
 		if(EAST)
@@ -128,6 +129,7 @@
 
 	user.unEquip(src)
 	var/obj/structure/sign/picture_frame/PF = new(user.loc, src)
+	PF.dir = newdir
 	PF.pixel_x = px
 	PF.pixel_y = py
 
@@ -166,7 +168,12 @@
 /obj/structure/sign/picture_frame
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "glass-poster"
+
 	var/obj/item/weapon/picture_frame/frame
+	var/obj/item/weapon/explosive
+
+	var/tilted = 0
+	var/tilt_transform = null
 
 /obj/structure/sign/picture_frame/New(loc, F)
 	..()
@@ -176,6 +183,15 @@
 	frame.forceMove(src)
 	name = frame.name
 	update_icon()
+
+	if(!tilt_transform)
+		tilt_transform = turn(matrix(), -10)
+
+	if(tilted)
+		transform = tilt_transform
+		verbs |= /obj/structure/sign/picture_frame/proc/untilt
+	else
+		verbs |= /obj/structure/sign/picture_frame/proc/tilt
 
 /obj/structure/sign/picture_frame/Destroy()
 	if(frame)
@@ -202,7 +218,30 @@
 			user.visible_message("<span class=warning>[user] unfastens \the [src] from the wall.</span>", "<span class=warning>You unfasten \the [src] from the wall.</span>")
 			frame.forceMove(user.loc)
 			frame = null
+			if(explosive)
+				explosive.forceMove(user.loc)
+				explosive = null
 			qdel(src)
+	if(istype(I, /obj/item/weapon/grenade) || istype(I, /obj/item/weapon/c4))
+		if(explosive)
+			user << "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>"
+			return 1
+		if(!tilted)
+			user << "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>"
+			return 1
+		user.visible_message("<span class=warning>[user] is fiddling around behind \the [src].</span>", "<span class=warning>You begin to secure \the [I] behind \the [src].</span>")
+		if(do_after(user, 150, target = src))
+			if(explosive || !tilted)
+				return
+			playsound(src, 'sound/weapons/handcuffs.ogg', 50, 1)
+			user.unEquip(I)
+			explosive = I
+			I.forceMove(src)
+			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
+
+			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
+			log_game("[key_name_admin(user)] attached [I] to a picture frame.")
+		return 1
 	else
 		..()
 
@@ -217,3 +256,58 @@
 		frame.attack_self(user)
 	else
 		..()
+
+/obj/structure/sign/picture_frame/ex_act(severity)
+	explode()
+	..(severity)
+
+/obj/structure/sign/picture_frame/proc/explode()
+	if(istype(explosive, /obj/item/weapon/grenade))
+		var/obj/item/weapon/grenade/G = explosive
+		explosive = null
+		G.prime()
+	else if(istype(explosive, /obj/item/weapon/c4))
+		var/obj/item/weapon/c4/C = explosive
+		explosive = null
+		C.target = get_step(get_turf(src), dir)
+		C.explode(get_turf(loc))
+
+/obj/structure/sign/picture_frame/proc/toggle_tilt(mob/user)
+	if(!isliving(usr) || usr.stat)
+		return
+
+	tilted = !tilted
+
+	if(tilted)
+		animate(src, transform = tilt_transform, time = 10, easing = BOUNCE_EASING)
+		verbs -= /obj/structure/sign/picture_frame/proc/tilt
+		verbs |= /obj/structure/sign/picture_frame/proc/untilt
+	else
+		animate(src, transform = matrix(), time = 10, easing = CUBIC_EASING | EASE_IN)
+		verbs -= /obj/structure/sign/picture_frame/proc/untilt
+		verbs |= /obj/structure/sign/picture_frame/proc/tilt
+		explode()
+
+/obj/structure/sign/picture_frame/proc/tilt()
+	set name = "Tilt Picture"
+	set category = "Object"
+	set src in oview(1)
+
+	toggle_tilt(usr)
+
+/obj/structure/sign/picture_frame/proc/untilt()
+	set name = "Straighten Picture"
+	set category = "Object"
+	set src in oview(1)
+
+	toggle_tilt(usr)
+
+/obj/structure/sign/picture_frame/hear_talk(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_talk(M, msg)
+
+/obj/structure/sign/picture_frame/hear_message(mob/living/M as mob, msg)
+	..()
+	for(var/obj/O in contents)
+		O.hear_message(M, msg)
