@@ -291,3 +291,9 @@
 	name = "shotgun magazine (12g dragon's breath)"
 	icon_state = "m12gf"
 	ammo_type = "/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath"
+
+/obj/item/ammo_box/magazine/laser
+	name = "laser carbine magazine"
+	icon_state = "laser"
+	ammo_type = "/obj/item/ammo_casing/laser"
+	max_ammo = 30

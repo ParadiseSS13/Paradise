@@ -256,3 +256,9 @@
 	caliber = "40mm"
 	icon_state = "40mmHE"
 	projectile_type = "/obj/item/projectile/bullet/a40mm"
+
+/obj/item/ammo_casing/laser
+	name = "Laser shell"
+	desc = "A small shell casing containing an activator, which when struck will release a large amount of directed energy in the form of a short beam"
+	icon_state = "lasercasing"
+	projectile_type = "/obj/item/projectile/beam"
