@@ -151,6 +151,7 @@
 /obj/item/weapon/picture_frame/glass
 	icon_base = "glass"
 	icon_state = "glass-poster"
+	materials = list(MAT_METAL = 25, MAT_GLASS = 75)
 
 /obj/item/weapon/picture_frame/wooden
 	icon_base = "wood"
