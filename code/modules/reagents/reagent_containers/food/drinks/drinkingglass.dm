@@ -564,9 +564,9 @@
 					icon_state = "patronglass"
 					name = "Jack Rose"
 					desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
-				if("alkasine")
-					icon_state = "alkasineglass"
-					name = "Glass of Alkasine"
+				if("synthanol")
+					icon_state = "synthanolglass"
+					name = "Glass of Synthanol"
 					desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
 				if("robottears")
 					icon_state = "robottearsglass"
