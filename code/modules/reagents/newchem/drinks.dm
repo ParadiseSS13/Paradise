@@ -92,14 +92,8 @@
 	mix_message = "The chemicals mix to create shiny, blue substance."
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
-	if(!src.data) data = 1
-	src.data++
 
-	var/d = data
-
-	// make all the synthanol children work together
-	for(var/datum/reagent/ethanol/synthanol/A in holder.reagent_list)
-		if(isnum(A.data)) d += A.data
+	var/d = data 
 
 	if(d >= collapse_start && prob(10))
 		M.emote("collapse")
