@@ -218,6 +218,20 @@
 	var/punused = null
 	action_button_name = "YEAH!"
 
+/obj/item/clothing/glasses/sunglasses/noir/equipped(mob/user, slot)
+	if(slot == slot_glasses)
+		if(color_view && user.client && !user.client.color)
+			if(user.mind && (user.mind.assigned_role == "Detective"))
+				animate(user.client, color = color_view, time = 10)
+				//H.client.color = G.color_view
+
+	..(user, slot)
+
+/obj/item/clothing/glasses/sunglasses/noir/dropped(mob/user)
+	if(user.client && user.client.color)
+		animate(user.client, color = null, time = 10)
+		//H.client.color = null
+	..(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/attack_self()
 	pun()

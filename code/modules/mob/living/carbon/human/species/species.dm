@@ -432,12 +432,6 @@
 
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
-				if(G.color_view && H.client && !H.client.color)
-					if(H.mind && (H.mind.assigned_role == "Detective"))
-						animate(H.client, color = G.color_view, time = 10)
-				else
-					if(H.client && H.client.color)
-						animate(H.client, color = null, time = 10)
 
 		if(H.head)
 			if(istype(H.head, /obj/item/clothing/head))
