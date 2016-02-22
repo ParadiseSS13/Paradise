@@ -82,18 +82,6 @@
 	damage = 3
 	stamina = 25
 
-/obj/item/projectile/bullet/laser
-	name = "laser"
-	icon_state = "laser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 20
-	damage_type = BURN
-	hitsound = 'sound/weapons/sear.ogg'
-	flag = "laser"
-	eyeblur = 2
-	sharp = 0
-	embed = 0
-
 /obj/item/projectile/bullet/stunshot//taser slugs for shotguns, nothing special
 	name = "stunshot"
 	damage = 5

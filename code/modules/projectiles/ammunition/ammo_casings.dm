@@ -260,5 +260,5 @@
 /obj/item/ammo_casing/laser
 	name = "Laser shell"
 	desc = "A small shell casing containing an activator, which when struck will release a large amount of directed energy in the form of a short beam"
-	icon_state = "40mmHE" //TESTING SPRITE
-	projectile_type = "/obj/item/projectile/bullet/laser"
+	icon_state = "laser"
+	projectile_type = "/obj/item/projectile/beam"
