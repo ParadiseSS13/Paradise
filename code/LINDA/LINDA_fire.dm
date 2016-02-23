@@ -58,7 +58,6 @@
 
 /obj/effect/hotspot/New()
 	..()
-	color = heat2color(temperature)
 	air_master.hotspots += src
 	perform_exposure()
 	dir = pick(cardinal)
@@ -89,6 +88,7 @@
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
+	set_light(l_color = color)
 	return 0
 
 
