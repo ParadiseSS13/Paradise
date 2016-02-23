@@ -73,7 +73,6 @@
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair(1)
-
 	..()
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
