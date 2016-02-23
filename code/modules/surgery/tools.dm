@@ -100,7 +100,7 @@
 
 /obj/item/weapon/scalpel/laser3
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser..  This one looks to be the pinnacle of precision energy cutlery!"
+	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
 	item_state = "scalpel"
 	damtype = "fire"

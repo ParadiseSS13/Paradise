@@ -66,7 +66,7 @@
 	spawn(60 / severity)
 		if(owner)
 			owner.sight |= save_sight
-			owner.disabilities ^= BLIND
+			owner.sdisabilities ^= BLIND
 
 
 

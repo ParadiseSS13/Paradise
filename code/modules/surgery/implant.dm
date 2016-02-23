@@ -322,3 +322,54 @@
 				imp.activate()
 	return 0
 
+
+//////////////////////////////////////////////////////////////////
+//					EMBEDDED ITEM REOMOVAL						//
+//////////////////////////////////////////////////////////////////
+
+/datum/surgery/embedded_removal
+	name = "removal of embedded objects"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/remove_object)
+	possible_locs = list("r_arm","l_arm","r_leg","l_leg","r_hand","r_foot","l_hand","l_foot","groin","chest","head")
+
+
+/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/target)
+	if(target.get_species() == "Machine")
+		return 0
+	return 1
+
+/datum/surgery_step/remove_object
+	name = "remove embedded objects"
+	max_duration = 32
+	accept_hand = 1
+	var/obj/item/organ/external/L = null
+
+
+/datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	L = target.get_organ(target_zone)
+	if(L)
+		user.visible_message("[user] looks for objects embedded in [target]'s [target_zone].", "<span class='notice'>You look for objects embedded in [target]'s [target_zone]...</span>")
+	else
+		user.visible_message("[user] looks for [target]'s [target_zone].", "<span class='notice'>You look for [target]'s [target_zone]...</span>")
+
+
+/datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(L)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			var/objects = 0
+			for(var/obj/item/I in L.implants)
+				if(!istype(I,/obj/item/weapon/implant))
+					objects++
+					I.forceMove(get_turf(H))
+					L.implants -= I
+
+			if(objects > 0)
+				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L.limb_name]!", "<span class='notice'>You sucessfully remove [objects] objects from [H]'s [L.limb_name].</span>")
+			else
+				user << "<span class='warning'>You find no objects embedded in [H]'s [L.limb_name]!</span>"
+
+	else
+		user << "<span class='warning'>You can't find [target]'s [target_zone], let alone any objects embedded in it!</span>"
+
+	return 1

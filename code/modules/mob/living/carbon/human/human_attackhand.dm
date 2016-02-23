@@ -63,7 +63,7 @@
 				if(health >= config.health_threshold_crit)
 					if(src.surgeries.len)
 						for(var/datum/surgery/S in src.surgeries)
-							if(istype(S.get_surgery_step(), /datum/surgery_step/cavity/place_item))
+							if(istype(S.get_surgery_step(), /datum/surgery_step/cavity/place_item) || istype(S.get_surgery_step(),/datum/surgery_step/remove_object))
 								if(S.next_step(M, src))
 									return 1
 							else
