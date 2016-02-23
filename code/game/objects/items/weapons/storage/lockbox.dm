@@ -53,9 +53,9 @@
 		return
 
 /obj/item/weapon/storage/lockbox/can_be_inserted(obj/item/W as obj, stop_messages = 0)
-	if(!(locked))
+	if(!locked)
 		return ..()
-	if(!(stop_messages))
+	if(!stop_messages)
 		usr << "<span class='notice'>[src] is locked!</span>"
 	return 0
 
