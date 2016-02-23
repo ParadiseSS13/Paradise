@@ -1276,11 +1276,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(!heart_attack)
 		return
 	else
-		losebreath += 5
-		adjustOxyLoss(10)
-		adjustBrainLoss(rand(4,10))
-		Paralyse(2)
-	return
+		if(losebreath < 3)
+			losebreath += 2
+		adjustOxyLoss(5)
+		adjustBruteLoss(1)
 
 
 
