@@ -1,6 +1,6 @@
 /obj/item/weapon/picture_frame
 	name = "picture frame"
-	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster sizes."
+	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
 
 	var/icon_base
@@ -33,6 +33,8 @@
 		icon_state = "[icon_base]-photo"
 	else if(istype(displayed, /obj/structure/sign/poster))
 		icon_state = "[icon_base]-[(displayed.icon_state in wide_posters) ? "wposter" : "poster"]"
+	else if(istype(displayed, /obj/item/weapon/canvas))
+		icon_state = "[icon_base]-canvas-[displayed.icon_state]"
 	else
 		icon_state = "[icon_base]-paper"
 
@@ -81,7 +83,7 @@
 				O.forceMove(user.loc)
 		displayed = null
 		qdel(src)
-	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster))
+	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster) || istype(I, /obj/item/weapon/canvas))
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)
