@@ -52,6 +52,13 @@
 			..()
 		return
 
+/obj/item/weapon/storage/lockbox/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	if(!(locked))
+		return ..()
+	if(!(stop_messages))
+		usr << "<span class='notice'>[src] is locked!</span>"
+	return 0
+
 /obj/item/weapon/storage/lockbox/emag_act(user as mob)
 	if(!broken)
 		broken = 1
