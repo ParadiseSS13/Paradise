@@ -10,6 +10,9 @@
 
 	if(check_rights(R_ADMIN,0))
 		for(var/client/C in clients)
+			if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
+				continue
+
 			var/entry = "\t[C.key]"
 			if(C.holder && C.holder.fakekey)
 				entry += " <i>(as [C.holder.fakekey])</i>"
@@ -48,6 +51,9 @@
 			Lines += entry
 	else
 		for(var/client/C in clients)
+			if(C.holder && C.holder.big_brother) // BB doesn't show up at all
+				continue
+
 			if(C.holder && C.holder.fakekey)
 				Lines += C.holder.fakekey
 			else
@@ -72,6 +78,9 @@
 			if(check_rights(R_ADMIN, 0, C.mob))
 
 				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors/Mods can't see stealthmins
+					continue
+				
+				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
 					continue
 
 				msg += "\t[C] is a [C.holder.rank]"
