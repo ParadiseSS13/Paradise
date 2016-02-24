@@ -242,16 +242,14 @@
 /datum/surgery_step/cavity/implant_removal/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/weapon/implant) in target
-	if(I)
-		user.visible_message("[user] begins to extract [I] from [target]'s [target_zone].", "<span class='notice'>You begin to extract [I] from [target]'s [target_zone]...</span>")
-	else
-		user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
+	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
 	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
 	target.custom_pain("The pain in your [affected.name] is living hell!",1)
 	..()
 
 /datum/surgery_step/cavity/implant_removal/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	I = locate(/obj/item/weapon/implant) in target
 	if (affected.implants.len)
 
 		var/obj/item/obj = affected.implants[1]
@@ -270,7 +268,7 @@
 
 		obj.loc = get_turf(target)
 		return 1
-	else if(I && target_zone == "chest") //implant removal only works on the chest.
+	else if(I && (target_zone == "chest")) //implant removal only works on the chest.
 		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
 
