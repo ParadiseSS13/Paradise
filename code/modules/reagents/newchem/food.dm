@@ -131,10 +131,12 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 	id = "chocolate"
 	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
 	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
 	color = "#2E2418"
 
 /datum/reagent/chocolate/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.nutrition += nutriment_factor
 	M.reagents.add_reagent("sugar", 0.8)
 	..()
 	return
@@ -142,7 +144,7 @@ datum/reagent/honey/reaction_turf(var/turf/T, var/volume)
 /datum/reagent/chocolate/reaction_turf(var/turf/T, var/volume)
 	src = null
 	if(volume >= 5)
-		new /obj/item/weapon/reagent_containers/food/snacks/cocoa_pile(T)
+		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
 	return
 
 /datum/reagent/mugwort

@@ -397,13 +397,12 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("chocolate",2)
-		reagents.add_reagent("coco", 2)
+		reagents.add_reagent("chocolate",4)
 		bitesize = 2
 
-/obj/item/weapon/reagent_containers/food/snacks/cocoa_pile //for reagent chocolate being spilled on turfs
-	name = "Pile of Cocoa Powder"
-	desc = "A pile of pure cocoa powder."
+/obj/item/weapon/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
+	name = "Pile of Chocolate"
+	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"
 	filling_color = "#7D5F46"
 
@@ -421,8 +420,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("chocolate",2)
-		reagents.add_reagent("coco", 2)
+		reagents.add_reagent("chocolate",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/donut
@@ -477,7 +475,7 @@
 			if(5)
 				reagents.add_reagent("plasma", 3)
 			if(6)
-				reagents.add_reagent("coco", 3)
+				reagents.add_reagent("chocolate", 3)
 			if(7)
 				reagents.add_reagent("slimejelly", 3)
 			if(8)
