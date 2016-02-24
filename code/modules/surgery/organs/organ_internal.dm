@@ -374,14 +374,13 @@
 	parent_organ = "head"
 	slot = "brain_tumor"
 	health = 3
-	var/lasthonk = 0
+	var/organhonked = 0
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
 	M.dna.SetSEState(COMICBLOCK,1,1)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
-	lasthonk = world.time
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	..()
@@ -395,8 +394,8 @@
 	if(!owner)
 		return
 
-	if(lasthonk > (world.time + 60))
-		lasthonk = world.time
+	if(organhonked < world.time)
+		organhonked = world.time+60
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0
 		owner.stuttering = 20

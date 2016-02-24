@@ -190,7 +190,6 @@
 				affected.wounds += I
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
 			user.drop_item()
-			affected.hidden = tool
 			target.internal_organs += tool
 			tool.loc = target
 			affected.cavity = 0
@@ -213,12 +212,12 @@
 /datum/surgery/cavity_implant_rem
 	name = "implant removal"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
-	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
+	possible_locs = list("chest")//head is for borers..i can put it elsewhere
 
 /datum/surgery/cavity_implant_rem/synth
 	name = "implant removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
+	possible_locs = list("chest")//head is for borers..i can put it elsewhere
 	allowed_mob = list(/mob/living/carbon/human/machine)
 
 /datum/surgery/cavity_implant_rem/can_start(mob/user, mob/living/carbon/target)
@@ -274,15 +273,6 @@
 			qdel(I)
 		//target.sec_hud_set_implants()
 		return 1
-	else if (affected.hidden)
-		user.visible_message("<span class='notice'> [user] takes something out of incision on [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You take something out of incision on [target]'s [affected.name]s with \the [tool].</span>" )
-		affected.hidden.loc = get_turf(target)
-		if(!affected.hidden.blood_DNA)
-			affected.hidden.blood_DNA = list()
-		affected.hidden.blood_DNA[target.dna.unique_enzymes] = target.dna.b_type
-		affected.hidden.update_icon()
-		affected.hidden = null
 	else
 		user.visible_message("<span class='notice'> [user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out.</span>", \
 		"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>")
@@ -345,13 +335,13 @@
 					L.implants -= I
 
 					//Handle possessive brain borers.
-				if(istype(I,/mob/living/simple_animal/borer) && target_zone == "head")
-					var/mob/living/simple_animal/borer/worm = I
-					if(worm.controlling)
-						target.release_control()
-					worm.detatch()
-					worm.leave_host()
-					user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
+			if(H.has_brain_worms() && target_zone == "head")//remove worms outside the loop
+				var/mob/living/simple_animal/borer/worm = H.has_brain_worms()
+				if(worm.controlling)
+					target.release_control()
+				worm.detatch()
+				worm.leave_host()
+				user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
 
 			if(objects > 0)
 				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L.limb_name]!", "<span class='notice'>You sucessfully remove [objects] objects from [H]'s [L.limb_name].</span>")
