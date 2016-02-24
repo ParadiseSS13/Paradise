@@ -48,13 +48,11 @@
 	regex_replaceall(str, exp, fmt)
 		return call(LIBREGEX_LIBRARY, "regex_replaceall")(str, exp, fmt)
 
-#if DM_VERSION < 510
 	replacetextEx(str, exp, fmt)
 		return call(LIBREGEX_LIBRARY, "regEx_replaceallliteral")(str, exp, fmt)
 
 	replacetext(str, exp, fmt)
 		return call(LIBREGEX_LIBRARY, "regex_replaceallliteral")(str, exp, fmt)
-#endif
 
 	regEx_replace(str, exp, fmt)
 		return call(LIBREGEX_LIBRARY, "regEx_replace")(str, exp, fmt)
