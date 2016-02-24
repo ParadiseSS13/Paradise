@@ -58,7 +58,8 @@ if(vlc.attachEvent) {
 		var/client/C = args["client"]
 		C.media = new /datum/media_manager(args["mob"])
 		C.media.open()
-		C.media.update_music()
+		spawn(20)
+			C.media.update_music()
 
 	// Update when moving between areas.
 	proc/OnMobAreaChange(var/list/args)
@@ -90,7 +91,6 @@ if(vlc.attachEvent) {
 /datum/media_manager
 	var/url = ""
 	var/start_time = 0
-	var/volume = 25
 
 	var/client/owner
 	var/mob/mob
@@ -109,10 +109,10 @@ if(vlc.attachEvent) {
 
 	// Tell the player to play something via JS.
 	proc/send_update()
-		if(!(owner.prefs.toggles & SOUND_STREAMING) && url != "")
+		if(!(owner.prefs.sound & SOUND_STREAMING) && url != "")
 			return // Nope.
 		MP_DEBUG("\green Sending update to WMP ([url])...")
-		owner << output(list2params(list(url, (world.time - start_time) / 10, volume)), "[window]:SetMusic")
+		owner << output(list2params(list(url, (world.time - start_time) / 10, get_volume())), "[window]:SetMusic")
 
 	proc/stop_music()
 		url=""
@@ -123,7 +123,6 @@ if(vlc.attachEvent) {
 	proc/update_music()
 		var/targetURL = ""
 		var/targetStartTime = 0
-		//var/targetVolume = volume
 
 		if (!owner)
 			//testing("owner is null")
@@ -145,23 +144,22 @@ if(vlc.attachEvent) {
 		if (url != targetURL || abs(targetStartTime - start_time) > 1)
 			url = targetURL
 			start_time = targetStartTime
-			//volume = targetVolume
 			send_update()
-
-	proc/update_volume(var/value)
-		volume = value
-		send_update()
+			
+	proc/get_volume()
+		return (owner && owner.prefs) ? owner.prefs.volume : 25
 
 /client/verb/change_volume()
 	set name = "Set Volume"
 	set category = "Preferences"
 	set desc = "Set jukebox volume"
+
 	if(!media || !istype(media))
 		usr << "You have no media datum to change, if you're not in the lobby tell an admin."
 		return
-	var/value = input("Choose your Jukebox volume.", "Jukebox volume", media.volume)
+	var/value = input("Choose your Jukebox volume.", "Jukebox volume", media.get_volume())
 	value = round(max(0, min(100, value)))
-	media.update_volume(value)
 	if(prefs)
 		prefs.volume = value
 		prefs.save_preferences(src)
+		media.send_update()
