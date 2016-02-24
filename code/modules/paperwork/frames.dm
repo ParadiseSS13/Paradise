@@ -21,7 +21,7 @@
 		displayed = null
 		for(var/A in contents)
 			qdel(A)
-	..()
+	return ..()
 
 /obj/item/weapon/picture_frame/update_icon()
 	overlays.Cut()
@@ -91,7 +91,7 @@
 		else
 			user << "<span class=notice>\The [src] already contains \a [displayed].</span>"
 	else
-		..()
+		return ..()
 
 /obj/item/weapon/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag && istype(target, /turf/simulated/wall))
@@ -199,7 +199,7 @@
 	if(frame)
 		qdel(frame)
 		frame = null
-	..()
+	return ..()
 
 /obj/structure/sign/picture_frame/update_icon()
 	overlays.Cut()
@@ -245,7 +245,7 @@
 			log_game("[key_name_admin(user)] attached [I] to a picture frame.")
 		return 1
 	else
-		..()
+		return ..()
 
 /obj/structure/sign/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
 	if(frame)
