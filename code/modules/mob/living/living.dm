@@ -807,6 +807,8 @@
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
 			who.unEquip(what)
+			if(silent)
+				put_in_hands(what)
 			add_logs(who, src, "stripped", addition="of [what]")
 
 // The src mob is trying to place an item on someone

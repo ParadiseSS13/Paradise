@@ -765,6 +765,12 @@
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+		var/thief_mode = 0
+		if(ishuman(usr))
+			var/mob/living/carbon/human/H = usr
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(G && G.pickpocket)
+				thief_mode = 1
 
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
@@ -793,6 +799,8 @@
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
 						unEquip(pocket_item)
+						if(thief_mode)
+							usr.put_in_hands(pocket_item)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
@@ -802,8 +810,9 @@
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
 			else
-				// Display a warning if the user mocks up
-				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
+				// Display a warning if the user mocks up if they don't have pickpocket gloves.
+				if(!thief_mode)
+					src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -815,12 +824,14 @@
 				var/obj/item/clothing/under/U = w_uniform
 				if(U.accessories.len)
 					var/obj/item/clothing/accessory/A = U.accessories[1]
-					usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
-										"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
+					if(!thief_mode)
+						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
+											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
 
 					if(do_mob(usr, src, 40) && A && U.accessories.len)
-						usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
-											"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
+						if(!thief_mode)
+							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
+												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
 						A.on_removed(usr)
 						U.accessories -= A
 						update_inv_w_uniform()
