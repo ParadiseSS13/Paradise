@@ -395,7 +395,7 @@
 	if(!owner)
 		return
 
-	if((lasthonk > world.time + 60))
+	if(lasthonk > (world.time + 60))
 		lasthonk = world.time
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0
@@ -418,6 +418,7 @@
 				spawn(20)
 					if(thingy)
 						walk(thingy,0)
+	..()
 
 
 /obj/item/organ/internal/beard

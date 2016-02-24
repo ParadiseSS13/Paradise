@@ -133,7 +133,7 @@
 
 
 /datum/surgery_step/cavity/place_item
-	name = "implant object"
+	name = "implant/extract object"
 	accept_hand = 1
 	accept_any_item = 1
 	var/obj/item/IC = null
@@ -212,7 +212,7 @@
 
 /datum/surgery/cavity_implant_rem
 	name = "implant removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/cavity/implant_removal,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize/)
 	possible_locs = list("chest","head")//head is for borers..i can put it elsewhere
 
 /datum/surgery/cavity_implant_rem/synth
@@ -250,25 +250,7 @@
 /datum/surgery_step/cavity/implant_removal/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/weapon/implant) in target
-	if (affected.implants.len)
-
-		var/obj/item/obj = affected.implants[1]
-
-		user.visible_message("<span class='notice'> [user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You take [obj] out of [target]'s [affected.name]s with \the [tool].</span>" )
-		affected.implants -= obj
-
-		//Handle possessive brain borers.
-		if(istype(obj,/mob/living/simple_animal/borer))
-			var/mob/living/simple_animal/borer/worm = obj
-			if(worm.controlling)
-				target.release_control()
-			worm.detatch()
-			worm.leave_host()
-
-		obj.loc = get_turf(target)
-		return 1
-	else if(I && (target_zone == "chest")) //implant removal only works on the chest.
+	if(I && (target_zone == "chest")) //implant removal only works on the chest.
 		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
 
@@ -362,11 +344,19 @@
 					I.forceMove(get_turf(H))
 					L.implants -= I
 
+					//Handle possessive brain borers.
+				if(istype(I,/mob/living/simple_animal/borer) && target_zone == "head")
+					var/mob/living/simple_animal/borer/worm = I
+					if(worm.controlling)
+						target.release_control()
+					worm.detatch()
+					worm.leave_host()
+					user.visible_message("a slug like creature wiggles out of [H]'s [target_zone]!")
+
 			if(objects > 0)
 				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L.limb_name]!", "<span class='notice'>You sucessfully remove [objects] objects from [H]'s [L.limb_name].</span>")
 			else
 				user << "<span class='warning'>You find no objects embedded in [H]'s [L.limb_name]!</span>"
-
 	else
 		user << "<span class='warning'>You can't find [target]'s [target_zone], let alone any objects embedded in it!</span>"
 
