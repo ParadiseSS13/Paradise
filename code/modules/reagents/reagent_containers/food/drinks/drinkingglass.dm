@@ -564,6 +564,24 @@
 					icon_state = "patronglass"
 					name = "Jack Rose"
 					desc = "Drinking this makes you feel like you belong in a luxury hotel bar during the 1920s."
+				if("synthanol")
+					icon_state = "synthanolglass"
+					name = "Glass of Synthanol"
+					desc = "The equivalent of alcohol for synthetic crewmembers. They'd find it awful if they had tastebuds too."
+				if("robottears")
+					icon_state = "robottearsglass"
+					name = "Glass of Robot Tears"
+					desc = "No robots were hurt in the making of this drink."
+				if("trinary")
+					icon_state = "trinaryglass"
+					name = "Glass of Trinary"
+					desc = "Colorful drink made for synthetic crewmembers. It doesn't seem like it would taste well."
+				if("servo")
+					icon_state = "servoglass"
+					name = "Glass of Servo"
+					desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+
+
 				else
 					icon_state ="glass_brown"
 					name = "Glass of ..what?"
