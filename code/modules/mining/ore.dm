@@ -23,12 +23,10 @@
 		return ..()
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		OB = H.is_in_hands(/obj/item/weapon/storage/bag/ore)
-		if(!OB)
-			if(istype(H.s_store, /obj/item/weapon/storage/bag/ore))
-				OB = H.s_store
-			else if(istype(H.belt, /obj/item/weapon/storage/bag/ore))
-				OB = H.belt
+		for(var/thing in H.get_body_slots())
+			if(istype(thing, /obj/item/weapon/storage/bag/ore))
+				OB = thing
+				break
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		for(var/thing in R.get_all_slots())
