@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "Exosuit tracking beacons now fit in boxes - prior, they were far too large for even a backpack, as they shared the same size as all other mecha equipment"

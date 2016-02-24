@@ -557,10 +557,81 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HARM)
 	check_eye(src)
 	return 1
 
-/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || !is_in_chassis())
+/mob/proc/rename_character(oldname, newname)
+	if(!newname)
 		return 0
+	real_name = newname
+	name = newname
+	if(mind)
+		mind.name = newname
+	if(dna)
+		dna.real_name = real_name
 
-	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
+	if(oldname)
+		//update the datacore records! This is goig to be a bit costly.
+		for(var/list/L in list(data_core.general,data_core.medical,data_core.security,data_core.locked))
+			for(var/datum/data/record/R in L)
+				if(R.fields["name"] == oldname)
+					R.fields["name"] = newname
+					break
+
+		//update our pda and id if we have them on our person
+		var/list/searching = GetAllContents(searchDepth = 3)
+		var/search_id = 1
+		var/search_pda = 1
+
+		for(var/A in searching)
+			if( search_id && istype(A,/obj/item/weapon/card/id) )
+				var/obj/item/weapon/card/id/ID = A
+				if(ID.registered_name == oldname)
+					ID.registered_name = newname
+					ID.name = "[newname]'s ID Card ([ID.assignment])"
+					if(!search_pda)	break
+					search_id = 0
+
+			else if( search_pda && istype(A,/obj/item/device/pda) )
+				var/obj/item/device/pda/PDA = A
+				if(PDA.owner == oldname)
+					PDA.owner = newname
+					PDA.name = "PDA-[newname] ([PDA.ownjob])"
+					if(!search_id)	break
+					search_pda = 0
+
+		//Fixes renames not being reflected in objective text
+		var/list/O = subtypesof(/datum/objective)
+		var/length
+		var/pos
+		for(var/datum/objective/objective in O)
+			if(objective.target != mind) continue
+			length = lentext(oldname)
+			pos = findtextEx(objective.explanation_text, oldname)
+			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
 	return 1
+
+/mob/proc/rename_self(var/role, var/allow_numbers=0)
+	spawn(0)
+		var/oldname = real_name
+
+		var/time_passed = world.time
+		var/newname
+
+		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
+			newname = input(src,"You are a [role]. Would you like to change your name to something else?", "Name change",oldname) as text
+			if((world.time-time_passed)>300)
+				return	//took too long
+			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
+
+			for(var/mob/living/M in player_list)
+				if(M == src)
+					continue
+				if(!newname || M.real_name == newname)
+					newname = null
+					break
+			if(newname)
+				break	//That's a suitable name!
+			src << "Sorry, that [role]-name wasn't appropriate, please try another. It's possibly too long/short, has bad characters or is already taken."
+
+		if(!newname)	//we'll stick with the oldname then
+			return
+
+		rename_character(oldname, newname)

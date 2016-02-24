@@ -234,7 +234,7 @@
 			O.invisibility = 0
 			//Transfer debug settings to new mob
 			O.custom_name = created_name
-			O.updatename("Default")
+			O.rename_character(O.real_name, O.get_default_name())
 			O.locked = panel_locked
 			if(!aisync)
 				lawsync = 0

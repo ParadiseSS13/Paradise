@@ -163,6 +163,21 @@
 			bcell.reliability -= 10 / severity
 	..()
 
+/obj/item/weapon/melee/baton/wash(mob/user, atom/source)
+	if(bcell)
+		if(bcell.charge > 0 && status == 1)
+			flick("baton_active", source)
+			user.Stun(stunforce)
+			user.Weaken(stunforce)
+			user.stuttering = stunforce
+			deductcharge(hitcost)
+			user.visible_message("<span class='warning'>[user] shocks themself while attempting to wash the active [src]!</span>", \
+								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
+			playsound(src, "sparks", 50, 1)
+			return 1
+	..()
+
+
 //secborg stun baton module
 /obj/item/weapon/melee/baton/loaded/robot
 	hitcost = 1000

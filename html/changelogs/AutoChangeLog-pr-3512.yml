@@ -1,0 +1,4 @@
+author: PPI
+delete-after: True
+changes: 
+  - rscadd: "Adds the ability to hide papers in vents. You can now leave a romantic love letter, exchange information in secret, or hide papers infused with the power of nar'sie from sight."

@@ -250,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 		return
 
 	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
-	A.SetName(from)
+	A.rename_character(A.real_name, from)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",

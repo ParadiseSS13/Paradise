@@ -255,6 +255,7 @@ BLIND     // can't see anything
 	set src in usr
 	set_sensors(usr)
 	..()
+
 //Head
 /obj/item/clothing/head
 	name = "head"
@@ -409,9 +410,51 @@ BLIND     // can't see anything
 	name = "suit"
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
+	var/suit_adjusted = 0
+	var/ignore_suitadjust = 1
+	var/adjust_flavour = null
+
+//Proc that opens and closes jackets.
+/obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
+	if(!ignore_suitadjust)
+		if(!user.canmove || user.stat || user.restrained())
+			return
+		if(suit_adjusted)
+			var/flavour = "close"
+			icon_state = initial(icon_state)
+			item_state = initial(item_state)
+			if(adjust_flavour)
+				flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
+			user << "You [flavour] \the [src]."
+			suit_adjusted = 0 //Suit is no longer adjusted.
+		else
+			var/flavour = "close"
+			icon_state += "_open"
+			item_state += "_open"
+			if(adjust_flavour)
+				flavour = "[adjust_flavour]"
+			user << "You [flavour] \the [src]."
+			suit_adjusted = 1 //Suit's adjusted.
+
+		usr.update_inv_wear_suit()
+	else
+		usr << "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>"
+
+/obj/item/clothing/suit/verb/openjacket(var/mob/user)
+	set name = "Open/Close Jacket"
+	set category = "Object"
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+	adjustsuit(user)
+
+/obj/item/clothing/suit/ui_action_click() //This is what happens when you click the HUD action button to adjust your suit.
+	if(!ignore_suitadjust)
+		adjustsuit(usr)
+	else ..() //This is required in order to ensure that the UI buttons for hardsuits (i.e. syndicate and the chronosuit) and the RD's RA vest still work.
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.

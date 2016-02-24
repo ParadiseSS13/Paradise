@@ -10,7 +10,7 @@
  */
 /obj/item/clothing/suit/bluetag
 	name = "blue laser tag armour"
-	desc = "Blue Pride, Station Wide"
+	desc = "Blue Pride, Station Wide."
 	icon_state = "bluetag"
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
@@ -19,7 +19,7 @@
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armour"
-	desc = "Pew pew pew"
+	desc = "Pew pew pew."
 	icon_state = "redtag"
 	item_state = "redtag"
 	blood_overlay_type = "armor"
@@ -62,7 +62,7 @@
 
 /obj/item/clothing/suit/greatcoat
 	name = "great coat"
-	desc = "A Nazi great coat"
+	desc = "A Nazi great coat."
 	icon_state = "nazi"
 	item_state = "nazi"
 
@@ -120,8 +120,8 @@
 
 
 /obj/item/clothing/suit/hastur
-	name = "Hastur's Robes"
-	desc = "Robes not meant to be worn by man"
+	name = "Hastur's robes"
+	desc = "Robes not meant to be worn by man."
 	icon_state = "hastur"
 	item_state = "hastur"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -129,8 +129,8 @@
 
 
 /obj/item/clothing/suit/imperium_monk
-	name = "Imperium monk"
-	desc = "Have YOU killed a xenos today?"
+	name = "imperium monk"
+	desc = "Have YOU killed a xeno today?"
 	icon_state = "imperium_monk"
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -138,7 +138,7 @@
 	allowed = list(/obj/item/weapon/storage/bible, /obj/item/weapon/nullrod, /obj/item/weapon/reagent_containers/food/drinks/bottle/holywater, /obj/item/weapon/storage/fancy/candle_box, /obj/item/candle, /obj/item/weapon/tank/emergency_oxygen)
 
 /obj/item/clothing/suit/chickensuit
-	name = "Chicken Suit"
+	name = "chicken suit"
 	desc = "A suit made long ago by the ancient empire KFC."
 	icon_state = "chickensuit"
 	item_state = "chickensuit"
@@ -146,7 +146,7 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 /obj/item/clothing/suit/corgisuit
-	name = "Corgi Suit"
+	name = "corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC."
 	icon_state = "corgisuit"
 	item_state = "chickensuit"
@@ -155,7 +155,7 @@
 	flags = NODROP
 
 /obj/item/clothing/suit/corgisuit/en
-	name = "E-N Suit"
+	name = "\improper E-N suit"
 	icon_state = "ensuit"
 
 /obj/item/clothing/suit/corgisuit/en/New()
@@ -174,7 +174,7 @@
 			step_towards(M,src)
 
 /obj/item/clothing/suit/monkeysuit
-	name = "Monkey Suit"
+	name = "monkey suit"
 	desc = "A suit that looks like a primate"
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
@@ -183,7 +183,7 @@
 
 
 /obj/item/clothing/suit/holidaypriest
-	name = "Holiday Priest"
+	name = "holiday priest"
 	desc = "This is a nice holiday my son."
 	icon_state = "holidaypriest"
 	item_state = "holidaypriest"
@@ -243,28 +243,6 @@
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
-
-//Blue suit jacket toggle
-/obj/item/clothing/suit/suit/verb/toggle()
-	set name = "Toggle Jacket Buttons"
-	set category = "Object"
-	set src in usr
-
-	if(!usr.canmove || usr.stat || usr.restrained())
-		return 0
-
-	if(src.icon_state == "suitjacket_blue_open")
-		src.icon_state = "suitjacket_blue"
-		src.item_state = "suitjacket_blue"
-		usr << "You button up the suit jacket."
-	else if(src.icon_state == "suitjacket_blue")
-		src.icon_state = "suitjacket_blue_open"
-		src.item_state = "suitjacket_blue_open"
-		usr << "You unbutton the suit jacket."
-	else
-		usr << "You button-up some imaginary buttons on your [src]."
-		return
-	usr.update_inv_wear_suit()
 
 //pyjamas
 //originally intended to be pinstripes >.>
@@ -406,8 +384,8 @@
 	item_color = "swim_red"
 
 /obj/item/clothing/suit/storage/mercy_hoodie
-	name = "Mercy Robe"
-	desc = " A soft white robe made of a synthetic fiber that provides improved protection against biohazards. Possessing multiple overlapping layers, yet light enough to allow complete freedom of movement, it denotes its wearer as a master physician."
+	name = "mercy robe"
+	desc = "A soft white robe made of a synthetic fiber that provides improved protection against biohazards. Possessing multiple overlapping layers, yet light enough to allow complete freedom of movement, it denotes its wearer as a master physician."
 	icon_state = "mercy_hoodie"
 	item_state = "mercy_hoodie"
 	w_class = 4//bulky item
@@ -434,14 +412,36 @@
 	desc = "Aviators not included."
 	icon_state = "bomber"
 	item_state = "bomber"
+	ignore_suitadjust = 0
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	action_button_name = "Zip/Unzip Jacket"
+	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/jacket/pilot
+	name = "security bomber jacket"
+	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
+	icon_state = "bombersec"
+	item_state = "bombersec"
+	ignore_suitadjust = 0
+	//Inherited from Security armour.
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/melee/classic_baton/telescopic,/obj/item/weapon/kitchen/knife/combat)
+	heat_protection = UPPER_TORSO|LOWER_TORSO
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	strip_delay = 60
+	put_on_delay = 40
+	flags = ONESIZEFITSALL
+	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	//End of inheritance from Security armour.
 
 /obj/item/clothing/suit/jacket/leather
 	name = "leather jacket"
 	desc = "Pompadour not included."
 	icon_state = "leatherjacket"
+	ignore_suitadjust = 1
+	adjust_flavour = null
 
 /obj/item/clothing/suit/officercoat
 	name = "Clown Officer's Coat"

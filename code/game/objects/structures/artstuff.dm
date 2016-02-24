@@ -111,14 +111,16 @@ var/global/list/globalBlankCanvases[AMT_OF_CANVASES]
 		if(thePix != theOriginalPix) //colour changed
 			DrawPixelOn(theOriginalPix,pixX,pixY)
 		qdel(masterpiece)
-		return
+		return 1
 
 	//Drawing one pixel with a crayon
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		if(masterpiece.GetPixel(pixX, pixY)) // if the located pixel isn't blank (null))
+		var/pix = masterpiece.GetPixel(pixX, pixY)
+		if(pix && pix != C.colour) // if the located pixel isn't blank (null))
 			DrawPixelOn(C.colour, pixX, pixY)
-		return
+		qdel(masterpiece)
+		return 1
 
 	..()
 

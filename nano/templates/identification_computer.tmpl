@@ -221,7 +221,7 @@
               </tr>
               {{if data.centcom_access}}
                 <tr>
-                  <th style="color: '#A52A2A';">CentCom</th>
+                  <th style="color: '#A52A2A';">CentComm</th>
                   <td>
                     {{for data.centcom_jobs}}
                       {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}

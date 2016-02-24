@@ -1,0 +1,8 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "Mining drones will now automatically collect sand lying around"
+  - bugfix: "RIPLEYs can now drill asteroid turfs for sand"
+  - rscadd: "You can now load exosuit fuel generators with items containing their material - this means you can fuel yourself off of ores, but this will be highly inefficient and cost you mining points later on, as you can't take fuel back out."
+  - rscadd: "You can now load the fuel generators from an ore box."
+  - tweak: "The plasma generator now produces 3x as much power from the same amount of fuel - this lets it even remotely compete with the uranium generator."

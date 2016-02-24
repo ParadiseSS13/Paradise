@@ -94,8 +94,7 @@
 			M.bodytemperature = temperature
 			if(temperature > 500)//emagged
 				M.adjust_fire_stacks(0.5)
-				M.on_fire = 1
-				M.update_icon = 1
+				M.IgniteMob()
 				playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
 		return 1
 
