@@ -435,7 +435,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		qdel(A)
 	programs.Cut()
 	if(cartridge)
-		cartridge.forceMove(T)
+		qdel(cartridge)
+		cartridge = null
 	return ..()
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

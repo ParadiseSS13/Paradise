@@ -31,12 +31,7 @@ NanoStatePDAClass.prototype.onUpdate = function(data) {
 						$("#uiApp").html(NanoTemplate.parse('app', data));
 						state.current_template = template;
 						
-						if(data['config']['status'] == 2) {
-							$('#uiApp .linkActive').addClass('linkPending');
-							$('#uiApp .linkActive').oneTime(400, 'linkPending', function () {
-								$('#uiApp .linkActive').removeClass('linkPending inactive');
-							});
-						}
+						state.onAfterUpdate(data);
 					} catch(error) {
 						reportError('ERROR: An error occurred while loading the PDA App UI: ' + error.message);
 						return;
