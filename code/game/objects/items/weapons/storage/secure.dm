@@ -140,6 +140,14 @@
 				return
 		return
 
+/obj/item/weapon/storage/secure/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+	if(!locked)
+		return ..()
+	if(!stop_messages)
+		usr << "<span class='notice'>[src] is locked!</span>"
+	return 0
+
+
 // -----------------------------
 //        Secure Briefcase
 // -----------------------------
