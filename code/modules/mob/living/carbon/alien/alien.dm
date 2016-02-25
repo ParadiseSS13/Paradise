@@ -58,7 +58,6 @@
 
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
-	//moved to xeno organs
 	return
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
@@ -68,8 +67,6 @@
 		..(amount)
 	return
 
-///mob/living/carbon/alien/getPlasma()
-//	return storedPlasma
 
 /mob/living/carbon/alien/eyecheck()
 	return 2
@@ -82,16 +79,6 @@
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
-
-	//If there are alien weeds on the ground then heal if needed or give some toxins
-	/*if(locate(/obj/structure/alien/weeds) in loc)
-		if(health >= maxHealth - getCloneLoss())
-			adjustToxLoss(plasma_rate)
-		else
-			adjustBruteLoss(-heal_rate)
-			adjustFireLoss(-heal_rate)
-			adjustOxyLoss(-heal_rate)
-		*///moved to organs
 
 	if(!environment)
 		return
@@ -179,8 +166,6 @@
 
 	..()
 
-	//if (client.statpanel == "Status")//ORGANS
-	//	stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
 	show_stat_emergency_shuttle_eta()
 

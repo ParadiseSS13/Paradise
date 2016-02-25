@@ -144,15 +144,14 @@
 
 
 	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
-		if((iorgan in H.internal_organs))
+		if(iorgan in H.internal_organs)
 			qdel(iorgan)
 
 	for(var/obj/item/organ/organ in H.contents)
-		if((organ in H.organs))
+		if(organ in H.organs)
 			qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
-	//if(H.internal_organs)         H.internal_organs.Cut()
 	if(H.organs_by_name)          H.organs_by_name.Cut()
 
 	H.organs = list()

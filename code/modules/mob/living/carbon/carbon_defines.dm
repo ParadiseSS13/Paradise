@@ -19,9 +19,6 @@
 	var/obj/item/head = null
 	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn
 
-	//Surgery info
-	//var/datum/surgery_status/op_stage = new/datum/surgery_status
-
 	//Active emote/pose
 	var/pose = null
 

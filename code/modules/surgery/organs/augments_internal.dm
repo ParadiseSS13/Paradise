@@ -1,5 +1,3 @@
-datumvars//note i am putting External in robolimbs.
-
 #define STUN_SET_AMOUNT	2
 
 /obj/item/organ/internal/cyberimp

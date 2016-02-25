@@ -54,7 +54,7 @@
 		if(!M.can_eat())
 			user << "<span class=warning>[M] cannot eat with a fork!</span>"
 			return
-		
+
 		if(M == user)
 			M.visible_message("<span class='notice'>\The [user] eats some [loaded] from \the [src].</span>")
 			reagents.trans_to(M, reagents.total_volume)
@@ -68,9 +68,6 @@
 		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
 		overlays.Cut()
 		return
-
-	//if (can_operate(M))
-	//	do_surgery(M, user, src)
 
 /obj/item/weapon/kitchen/utensil/fork
 	name = "fork"

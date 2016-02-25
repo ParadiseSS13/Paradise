@@ -253,13 +253,13 @@
 	if(getBrainLoss() >= 60)
 		msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
-	if(species.show_ssd && (!species.has_organ["brain"] || src.get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
+	if(species.show_ssd && (!species.has_organ["brain"] || get_int_organ(/obj/item/organ/internal/brain)) && stat != DEAD)
 		if(!key)
 			msg += "<span class='deadsay'>[t_He] [t_is] fast asleep. It doesn't look like they are waking up anytime soon.</span>\n"
 		else if(!client)
 			msg += "[t_He] [t_has] suddenly fallen asleep.\n"
 
-	if(!src.get_int_organ(/obj/item/organ/internal/brain) && !species.name == "Diona")
+	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [t_his] brain is missing...</span>\n"
 
 	var/list/wound_flavor_text = list()

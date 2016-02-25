@@ -112,10 +112,6 @@
 				affecting.heal_damage(src.heal_brute, src.heal_burn, 0)
 				use(1)
 		else
-			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
-			//	if (do_surgery(H,user,src))
-				//	return
-			//else
 			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than some ointment!</span>"
 
 /obj/item/stack/medical/bruise_pack/comfrey
@@ -177,10 +173,6 @@
 					affecting.heal_damage(heal_brute,0)
 				use(1)
 		else
-			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
-			//	if (do_surgery(H,user,src))
-			//		return
-			//else
 			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/advanced/ointment
@@ -210,10 +202,6 @@
 				affecting.heal_damage(0,heal_burn)
 				use(1)
 		else
-			//if (can_operate(H))        //Checks if mob is lying down on table for surgery
-			//	if (do_surgery(H,user,src))
-			//		return
-			//else
 			user << "<span class='notice'>The [affecting.name] is cut open, you'll need more than a bandage!</span>"
 
 /obj/item/stack/medical/splint

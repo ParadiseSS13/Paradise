@@ -16,7 +16,7 @@
 	internal_organs += new /obj/item/organ/internal/xenos/acidgland
 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
-//
+
 //Drones use the same base as generic humanoids.
 //Drone verbs
 
@@ -29,7 +29,7 @@
 		// Queen check
 		var/no_queen = 1
 		for(var/mob/living/carbon/alien/humanoid/queen/Q in living_mob_list)
-			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))//Q.brain_op_stage != 4)
+			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))
 				continue
 			no_queen = 0
 

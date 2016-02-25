@@ -69,7 +69,6 @@
 		for(var/obj/item/organ/internal/O in internal_organs)
 			internal_organs -= O
 			O.remove(owner,special = 1)
-			//qdel(O)
 
 	if(children)
 		for(var/obj/item/organ/external/C in children)

@@ -27,4 +27,3 @@ var/global/list/power_monitors = list()
 var/global/list/beacons = list()
 var/global/list/shuttle_caller_list = list()  		//list of all communication consoles and AIs, for automatic shuttle calls when there are none.
 var/global/list/tracked_implants = list()			//list of all current implants that are tracked to work out what sort of trek everyone is on. Sadly not on lavaworld not implemented...
-var/global/list/surgeries_list = list()				//list of all surgeries by name, associated with their path.

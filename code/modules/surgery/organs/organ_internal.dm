@@ -389,6 +389,12 @@
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	if(isturf(loc))
+		visible_message("<span class='warning'>[src] honks in on itself!</span>")
+		playsound(src, 'sound/items/AirHorn.ogg', 100, 1)
+		new /obj/item/weapon/bananapeel(get_turf(src.loc))
+		qdel(src)
+
 
 /obj/item/organ/internal/honktumor/on_life()
 
@@ -396,7 +402,7 @@
 		return
 
 	if(organhonked < world.time)
-		organhonked = world.time+600
+		organhonked = world.time+900
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0
 		owner.stuttering = 20

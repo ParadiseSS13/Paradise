@@ -19,7 +19,7 @@
 	//socks
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
 
-	//init_subtypes(/datum/surgery_step, surgery_steps)
+	init_subtypes(/datum/surgery_step, surgery_steps)
 
 	for(var/path in (subtypesof(/datum/surgery)))
 		surgeries_list += new path()

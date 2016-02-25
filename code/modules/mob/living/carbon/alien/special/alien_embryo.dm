@@ -13,7 +13,7 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
 	if(stage < 4)
-		finder << "It's small and weak, barely the size of a foetus."
+		finder << "It's small and weak, barely the size of a fetus."
 	else
 		finder << "It's grown quite large, and writhes slightly as you look at it."
 		if(prob(10))
@@ -72,10 +72,6 @@ var/const/ALIEN_AFK_BRACKET = 450 // 45 seconds
 
 
 	if(stage == 5 && prob(50))
-		//for(var/datum/surgery/S in owner.surgeries)
-		//	if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
-		//		AttemptGrow(0)
-		//		return
 		AttemptGrow()
 
 /obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)

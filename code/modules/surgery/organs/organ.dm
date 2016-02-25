@@ -5,7 +5,7 @@ var/list/organ_cache = list()
 	icon = 'icons/obj/surgery.dmi'
 	var/dead_icon
 	var/mob/living/carbon/human/owner = null
-	var/status = ORGAN_ORGANIC
+	var/status = 0
 	var/vital //Lose a vital limb, die immediately.
 	var/damage = 0 // amount of damage to the organ
 
@@ -31,31 +31,6 @@ var/list/organ_cache = list()
 
 	var/sterile = 0 //can the organ be infected by germs?
 	var/tough = 0 //can organ be easily damaged?
-
-
-/*/obj/item/organ/Destroy()
-	if(!owner)
-		return ..()
-
-
-	if(istype(owner, /mob/living/carbon))
-		if((owner.internal_organs) && (src in owner.internal_organs))
-			var/obj/item/organ/internal/O = src
-			O.remove(owner)
-		if(istype(owner, /mob/living/carbon/human))
-			var/obj/item/organ/internal/O = src
-			O.remove(owner)
-		if((owner.organs) && (src in owner.organs))
-			owner.organs -= src
-		if((owner.organs_by_name) && (src in owner.organs_by_name))
-			owner.organs_by_name -= src
-
-	if(src in owner.contents)
-		owner.contents -= src
-
-	return ..()*/
-
-
 
 /obj/item/organ/proc/update_health()
 	return
@@ -97,8 +72,6 @@ var/list/organ_cache = list()
 		owner.death()
 
 /obj/item/organ/process()
-	//if(loc != owner)
-	//	owner = null
 
 	//dead already, no need for more processing
 	if(status & ORGAN_DEAD)
@@ -287,11 +260,6 @@ var/list/organ_cache = list()
 	if(!istype(owner))
 		return
 
-	//if(is_primary_organ())//Toddo from fethas:Do i need to move ths?
-	//	owner.internal_organs_by_name[organ_tag] = null
-	//	owner.internal_organs_by_name -= organ_tag
-	//	owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
-
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
@@ -320,7 +288,7 @@ var/list/organ_cache = list()
 	processing_objects -= src
 	affected.internal_organs |= src
 	if (!target.get_int_organ(src))
-		target.internal_organs |= src
+		target.internal_organs += src
 	src.loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
