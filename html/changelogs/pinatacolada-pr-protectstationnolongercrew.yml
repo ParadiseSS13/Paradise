@@ -1,9 +1,0 @@
-author: "pinatacolada"
-
-
-delete-after: True
-
-
-changes: 
-  - tweak: "Makes the Protect Station AI law board no longer consider people that damage the station crew, instead of human"
-

@@ -1,4 +1,0 @@
-author: ppi
-delete-after: True
-changes: 
-  - tweak: "When revealed Revenants will not be able to move at the maximum move speed, nor be able to pass through any solid object, like walls, windows, grills, computers and mechs."

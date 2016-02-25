@@ -1,9 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - rscadd: "Adds the ability to open/close bomber jackets."
-  - rscadd: "Adds a security bomber jacket. This jacket inherits the protection and storage capabilities as a standard Security vest with additional bomber jacket benefits."
-  - rscadd: "Adds UI button in top left of screen for jacket adjustment."
-  - tweak: "Replaces the standard bomber jacket in the Pod Pilot bay with the Security version."
-  - tweak: "Centralizes jacket/coat adjustment handling."
-  - tweak: "All jackets start closed by default."
