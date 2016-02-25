@@ -1407,6 +1407,29 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
 
+/datum/supply_packs/misc/foamforce
+	name = "Foam Force Crate"
+	contains = list(/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy,
+					/obj/item/weapon/gun/projectile/shotgun/toy)
+	cost = 10
+	containername = "foam force crate"
+
+/datum/supply_packs/misc/foamforce/bonus
+	name = "Foam Force Pistols Crate"
+	contains = list(/obj/item/weapon/gun/projectile/automatic/toy/pistol,
+					/obj/item/weapon/gun/projectile/automatic/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol,
+					/obj/item/ammo_box/magazine/toy/pistol)
+	cost = 40
+	containername = "foam force pistols crate"
+	contraband = 1
+
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Team Jerseys Crate"
 	// 4 red jerseys, 4 blue jerseys, and 1 beach ball

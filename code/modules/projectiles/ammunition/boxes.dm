@@ -87,3 +87,14 @@
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
 	materials = list(MAT_METAL=1750)
+
+/obj/item/ammo_box/foambox
+	name = "ammo box (Foam Darts)"
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foambox"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
+	max_ammo = 40
+
+/obj/item/ammo_box/foambox/riot
+	icon_state = "foambox_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
