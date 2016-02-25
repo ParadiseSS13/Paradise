@@ -137,6 +137,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
+	ignore_suitadjust = 1
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
@@ -174,6 +175,7 @@
 	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulders and rolled up sleeves."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "labcoat_red_open"
+	ignore_suitadjust = 1
 
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
 	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
@@ -246,6 +248,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
+	ignore_suitadjust = 1
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
