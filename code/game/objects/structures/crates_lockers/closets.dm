@@ -55,10 +55,19 @@
 		I.forceMove(loc)
 
 	for(var/mob/M in src)
-		M.forceMove(loc)
+		moveMob(M, loc)
 		if(M.client)
 			M.client.eye = M.client.mob
 			M.client.perspective = MOB_PERSPECTIVE
+
+/obj/structure/closet/proc/moveMob(var/mob/M, var/atom/destination)
+	loc.Exited(M)
+	M.loc = destination
+	loc.Entered(M, ignoreRest = 1)
+	for (var/atom/movable/AM in loc)
+		if (istype(AM, /obj/item))
+			continue
+		AM.Crossed(M)
 
 /obj/structure/closet/proc/open()
 	if(src.opened)
@@ -112,7 +121,7 @@
 			M.client.perspective = EYE_PERSPECTIVE
 			M.client.eye = src
 
-		M.forceMove(src)
+		moveMob(M, src)
 		itemcount++
 
 	src.icon_state = src.icon_closed

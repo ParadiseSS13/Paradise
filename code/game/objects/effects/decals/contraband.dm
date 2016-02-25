@@ -352,12 +352,12 @@ obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
 	if(!P.resulting_poster)	return
 
 	var/stuff_on_wall = 0
-	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
-		if(istype(O,/obj/structure/sign/poster))
+	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
+		if(istype(O,/obj/structure/sign))
 			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
 			return
 		stuff_on_wall++
-		if(stuff_on_wall == 3)
+		if(stuff_on_wall >= 4)
 			user << "<span class='notice'>The wall is far too cluttered to place a poster!</span>"
 			return
 

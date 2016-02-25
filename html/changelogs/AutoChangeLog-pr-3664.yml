@@ -1,0 +1,5 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - rscadd: "Adds IPC alcohol and a few derivative drinks"
+  - tweak: "IPCs can now drink and be fed from glasses"

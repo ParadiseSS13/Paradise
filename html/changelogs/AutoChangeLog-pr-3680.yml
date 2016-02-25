@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - tweak: "Miners can now collect ore by walking over it with an ore satchel on."

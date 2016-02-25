@@ -36,6 +36,18 @@
 			ser["type"] = "se"
 	return ser
 
+/datum/dna2/record/proc/copy()
+	var/datum/dna2/record/newrecord = new /datum/dna2/record
+	newrecord.dna = dna.Clone()
+	newrecord.types = types
+	newrecord.name = name
+	newrecord.mind = mind
+	newrecord.ckey = ckey
+	newrecord.languages = languages
+	newrecord.implant = implant
+	return newrecord
+
+
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
@@ -929,7 +941,7 @@
 					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
 					success = setInjectorBlock(I,blk,buf)
 				else
-					I.buf = buf
+					I.buf = buf.copy()
 				waiting_for_user_input=0
 				if(success)
 					I.forceMove(src.loc)
@@ -944,7 +956,7 @@
 				//src.temphtml = "Invalid disk. Please try again."
 				return 0
 
-			src.buffers[bufferId]=src.disk.buf
+			src.buffers[bufferId]=src.disk.buf.copy()
 			//src.temphtml = "Data loaded."
 			return 1
 
@@ -955,7 +967,7 @@
 
 			var/datum/dna2/record/buf = src.buffers[bufferId]
 
-			src.disk.buf = buf
+			src.disk.buf = buf.copy()
 			src.disk.name = "data disk - '[buf.dna.real_name]'"
 			//src.temphtml = "Data saved."
 			return 1

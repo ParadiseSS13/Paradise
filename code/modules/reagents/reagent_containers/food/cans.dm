@@ -224,3 +224,11 @@
 	New()
 		..()
 		reagents.add_reagent("sodawater", 50)
+
+/obj/item/weapon/reagent_containers/food/drinks/cans/synthanol
+	name = "Beep's Classic Synthanol"
+	desc = "A can of IPC booze, however that works."
+	icon_state = "synthanolcan"
+	New()
+		..()
+		reagents.add_reagent("synthanol", 50)

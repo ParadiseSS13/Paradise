@@ -62,3 +62,91 @@
 	result = "jackrose"
 	required_reagents = list("applejack" = 4, "lemonjuice" = 1)
 	result_amount = 5
+
+
+// ROBOT ALCOHOL PAST THIS POINT
+// WOOO!
+
+
+/datum/reagent/ethanol/synthanol
+	name = "Synthanol"
+	id = "synthanol"
+	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
+	reagent_state = LIQUID
+	color = "#1BB1FF"
+	process_flags = SYNTHETIC
+	metabolization_rate = 0.4
+	vomit_start = INFINITY		//
+	blur_start = INFINITY		//
+	pass_out = INFINITY			//INFINITY, so that IPCs don't puke and stuff
+	var/collapse_start = 200	//amount absorbed after wich mob starts collapsing
+	var/braindamage_start = 300 //amount absorbed after which mob starts taking small amount of brain damage
+
+
+/datum/chemical_reaction/synthanol
+	name = "Synthanol"
+	id = "synthanol"
+	result = "synthanol"
+	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
+	result_amount = 3
+	mix_message = "The chemicals mix to create shiny, blue substance."
+
+/datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
+
+	var/d = data 
+
+	if(d >= collapse_start && prob(10))
+		M.emote("collapse")
+		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		s.set_up(3, 1, M)
+		s.start()
+	if(d >= braindamage_start && prob(33))
+		M.adjustBrainLoss(1)
+	..()
+
+/datum/reagent/ethanol/synthanol/robottears
+	name = "Robot Tears"
+	id = "robottears"
+	description = "An oily substance that an IPC could technically consider a 'drink'."
+	reagent_state = LIQUID
+	color = "#363636"
+
+/datum/chemical_reaction/synthanol/robottears
+	name = "Robot Tears"
+	id = "robottears"
+	result = "robottears"
+	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
+	result_amount = 3
+	mix_message = "The ingredients combine into a stiff, dark goo."
+
+/datum/reagent/ethanol/synthanol/trinary
+	name = "Trinary"
+	id = "trinary"
+	description = "A fruit drink meant only for synthetics, however that works."
+	reagent_state = LIQUID
+	color = "#adb21f"
+
+/datum/chemical_reaction/synthanol/trinary
+	name = "Trinary"
+	id = "trinary"
+	result = "trinary"
+	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
+	result_amount = 3
+	mix_message = "The ingredients mix into a colorful substance."
+
+/datum/reagent/ethanol/synthanol/servo
+	name = "Servo"
+	id = "servo"
+	description = "A drink containing some organic ingredients, but meant only for synthetics."
+	reagent_state = LIQUID
+	color = "#5b3210"
+
+/datum/chemical_reaction/synthanol/servo
+	name = "Servo"
+	id = "servo"
+	result = "servo"
+	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
+	result_amount = 4
+	mix_message = "The ingredients mix into a dark brown substance."
+
+// ROBOT ALCOHOL ENDS

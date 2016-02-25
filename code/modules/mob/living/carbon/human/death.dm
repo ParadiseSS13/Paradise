@@ -90,6 +90,7 @@
 	stat = DEAD
 	dizziness = 0
 	jitteriness = 0
+	heart_attack = 0
 
 	//Handle species-specific deaths.
 	if(species) species.handle_death(src)
