@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "Pickpocket gloves now put the item you strip into your hands as opposed to the floor"
+  - tweak: "Picketpocket gloves can now silently strip accessories"
+  - tweak: "Pickpocket gloves will no longer give a message for messing up a pickpocket"
