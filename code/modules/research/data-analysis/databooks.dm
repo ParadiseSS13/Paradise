@@ -68,6 +68,8 @@
 	dat = {"<html>
 	</html>"}
 
+// frequent spawning books, randomizing the names would be neat
+
 /obj/item/weapon/book/databook/genericcoordinates
 
 /obj/item/weapon/book/databook/genericfood
