@@ -218,7 +218,7 @@
 
 
 		if(L)
-			L << "\icon[P] <b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=Message;skiprefresh=1;target=\ref[pda]'>Reply</a>)"
+			L << "\icon[P] <b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[PM];choice=Message;target=\ref[pda]'>Reply</a>)"
 			nanomanager.update_user_uis(L, P) // Update the receiving user's PDA UI so that they can see the new message
 
 		nanomanager.update_user_uis(U, P) // Update the sending user's PDA UI so that they can see the new message
