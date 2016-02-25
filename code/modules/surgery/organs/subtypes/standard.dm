@@ -152,9 +152,8 @@
 		if(owner.wear_mask)
 			owner.unEquip(owner.wear_mask)
 		spawn(1)
-			if(owner.h_style)//runtimer no runtiming
+			if(owner)//runtimer no runtiming
 				owner.update_hair()
-			if(owner.f_style)
 				owner.update_fhair()
 	..()
 

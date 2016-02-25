@@ -381,6 +381,7 @@
 	M.mutations.Add(CLUMSY)
 	M.dna.SetSEState(COMICBLOCK,1,1)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	organhonked = world.time
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	..()
@@ -395,7 +396,7 @@
 		return
 
 	if(organhonked < world.time)
-		organhonked = world.time+60
+		organhonked = world.time+600
 		owner << "<font color='red' size='7'>HONK</font>"
 		owner.sleeping = 0
 		owner.stuttering = 20
