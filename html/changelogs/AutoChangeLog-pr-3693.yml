@@ -1,0 +1,4 @@
+author: KasparoVy
+delete-after: True
+changes: 
+  - bugfix: "Jackets that start open are recognized as actually being open already now. This fixes a bug with certain items that don't have an open state, or cases where it ended up giving an item the wrong icon (one that didn't exist)"
