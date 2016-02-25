@@ -38,9 +38,11 @@
 		return
 	next_click = world.time + 1
 
-	if(client && client.buildmode)
-		build_click(src, client.buildmode, params, A)
-		return
+	if(client.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return
+		else
+			log_to_dd("Some twerp set a click_intercept without a viable \"InterceptClickOn\" variable, go yell at them. Mob: [src]")
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])

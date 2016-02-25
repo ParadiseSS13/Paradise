@@ -11,9 +11,9 @@
 		return
 	next_click = world.time + 1
 
-	if(client.buildmode) // comes after object.Click to allow buildmode gui objects to be clicked
-		build_click(src, client.buildmode, params, A)
-		return
+	if(client.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])

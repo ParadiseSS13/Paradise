@@ -896,7 +896,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 
 
-proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
+/proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0, var/atom/newloc = null)
 	if(!original)
 		return null
 
@@ -905,15 +905,23 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 	if(sameloc)
 		O=new original.type(original.loc)
 	else
-		O=new original.type(locate(0,0,0))
+		O=new original.type(newloc)
 
 	if(perfectcopy)
 		if((O) && (original))
-			for(var/V in original.vars)
-				if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key")))
-					O.vars[V] = original.vars[V]
-	return O
+			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group")
 
+			for(var/V in original.vars - forbidden_vars)
+				if(istype(original.vars[V],/list))
+					var/list/L = original.vars[V]
+					O.vars[V] = L.Copy()
+				else if(istype(original.vars[V],/datum))
+					continue	// this would reference the original's object, that will break when it is used or deleted.
+				else
+					O.vars[V] = original.vars[V]
+	if(istype(O))
+		O.update_icon()
+	return O
 
 /area/proc/copy_contents_to(var/area/A , var/platingRequired = 0 )
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
@@ -1019,7 +1027,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 //					var/area/AR = X.loc
@@ -1673,3 +1681,58 @@ var/mob/dview/dview_mob = new
 	tY = max(1, min(world.maxy, origin.y + (text2num(tY) - (world.view + 1))))
 	return locate(tX, tY, tZ)
 
+/proc/pick_closest_path(value)
+	var/list/matches = get_fancy_list_of_types()
+	if (!isnull(value) && value!="")
+		matches = filter_fancy_list(matches, value)
+
+	if(matches.len==0)
+		return
+
+	var/chosen
+	if(matches.len==1)
+		chosen = matches[1]
+	else
+		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
+		if(!chosen)
+			return
+	chosen = matches[chosen]
+	return chosen
+
+
+var/list/TYPES_SHORTCUTS = list(
+	/obj/effect/decal/cleanable = "CLEANABLE",
+	/obj/item/device/radio/headset = "HEADSET",
+	/obj/item/clothing/head/helmet/space = "SPESSHELMET",
+	/obj/item/weapon/book/manual = "MANUAL",
+	/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+	/obj/item/weapon/reagent_containers/food = "FOOD",
+	/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
+	/obj/machinery/atmospherics = "ATMOS",
+	/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+//	/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/missile_rack = "MECHA_MISSILE_RACK",
+	/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
+//	/obj/item/organ/internal = "ORGAN_INT",
+)
+
+var/global/list/g_fancy_list_of_types = null
+/proc/get_fancy_list_of_types()
+	if (isnull(g_fancy_list_of_types)) //init
+		var/list/temp = sortList(subtypesof(/atom) - typesof(/area) - /atom/movable)
+		g_fancy_list_of_types = new(temp.len)
+		for(var/type in temp)
+			var/typename = "[type]"
+			for (var/tn in TYPES_SHORTCUTS)
+				if (copytext(typename,1, length("[tn]/")+1)=="[tn]/" /*findtextEx(typename,"[tn]/",1,2)*/ )
+					typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
+					break
+			g_fancy_list_of_types[typename] = type
+	return g_fancy_list_of_types
+
+/proc/filter_fancy_list(list/L, filter as text)
+	var/list/matches = new
+	for(var/key in L)
+		var/value = L[key]
+		if(findtext("[key]", filter) || findtext("[value]", filter))
+			matches[key] = value
+	return matches
