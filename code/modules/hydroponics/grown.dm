@@ -101,7 +101,7 @@
 			descriptors |= "nutritious"
 		if(reagents.has_reagent("condensedcapsaicin") || reagents.has_reagent("capsaicin"))
 			descriptors |= "spicy"
-		if(reagents.has_reagent("coco"))
+		if(reagents.has_reagent("cocoa"))
 			descriptors |= "bitter"
 		if(reagents.has_reagent("orangejuice") || reagents.has_reagent("lemonjuice") || reagents.has_reagent("limejuice"))
 			descriptors |= "sweet-sour"
