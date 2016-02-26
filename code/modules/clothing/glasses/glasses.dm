@@ -241,12 +241,11 @@
 	set category = "Object"
 	set name = "YEAH!"
 	set src in usr
-	if(usr.mind && (usr.mind.assigned_role == "Detective"))
-		if(!punused)//one per round
-			punused = 1
-			playsound(src.loc, 'sound/misc/yeah.ogg', 100, 1)
-		else
-			usr << "The moment is gone."
+	if(!punused)//one per round
+		punused = 1
+		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 1)
+	else
+		usr << "The moment is gone."
 
 
 /obj/item/clothing/glasses/sunglasses/reagent
