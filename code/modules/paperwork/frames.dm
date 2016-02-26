@@ -83,7 +83,7 @@
 				O.forceMove(user.loc)
 		displayed = null
 		qdel(src)
-	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster) || istype(I, /obj/item/weapon/canvas))
+	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/contraband/poster)/* || istype(I, /obj/item/weapon/canvas)*/)
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)
