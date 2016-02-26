@@ -2,6 +2,7 @@
 var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","damaged4",
 				"damaged5","panelscorched","floorscorched1","floorscorched2","platingdmg1","platingdmg2",
 				"platingdmg3","plating","light_on","light_on_flicker1","light_on_flicker2",
+				"warnplate", "warnplatecorner",
 				"light_on_clicker3","light_on_clicker4","light_on_clicker5","light_broken",
 				"light_on_broken","light_off","wall_thermite","grass1","grass2","grass3","grass4",
 				"asteroid","asteroid_dug",
@@ -11,12 +12,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				"carpetcorner", "carpetside", "carpet", "ironsand1", "ironsand2", "ironsand3", "ironsand4", "ironsand5",
 				"ironsand6", "ironsand7", "ironsand8", "ironsand9", "ironsand10", "ironsand11",
 				"ironsand12", "ironsand13", "ironsand14", "ironsand15")
-
-var/list/plating_icons = list("plating","platingdmg1","platingdmg2","platingdmg3","asteroid","asteroid_dug",
-				"ironsand1", "ironsand2", "ironsand3", "ironsand4", "ironsand5", "ironsand6", "ironsand7",
-				"ironsand8", "ironsand9", "ironsand10", "ironsand11",
-				"ironsand12", "ironsand13", "ironsand14", "ironsand15")
-var/list/wood_icons = list("wood","wood-broken")
 
 /turf/simulated/floor
 	name = "floor"
@@ -138,9 +133,11 @@ var/list/wood_icons = list("wood","wood-broken")
 	if(!istype(src,/turf/simulated/floor)) return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T,/turf/simulated/floor)) return ..()
 	var/old_icon = icon_regular_floor
+	var/old_plating = icon_plating
 	var/old_dir = dir
 	var/turf/simulated/floor/W = ..()
 	W.icon_regular_floor = old_icon
+	W.icon_plating = old_plating
 	W.dir = old_dir
 	W.update_icon()
 	return W
