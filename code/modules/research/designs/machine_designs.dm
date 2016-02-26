@@ -495,6 +495,7 @@
 /datum/design/prize_counter
 	name = "Machine Design (Prize Counter)"
 	desc = "The circuit board for an arcade Prize Counter."
+	id = "prize_counter"
 	req_tech = list("programming" = 2, "materials" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000, "sacid"=20)
