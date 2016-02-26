@@ -61,7 +61,7 @@
 			return
 	var/save_sight = owner.sight
 	owner.sight &= 0
-	owner.disabilities |= BLIND
+	owner.sdisabilities |= BLIND
 	owner << "<span class='warning'>Static obfuscates your vision!</span>"
 	spawn(60 / severity)
 		if(owner)

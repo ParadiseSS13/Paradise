@@ -376,6 +376,10 @@
 	health = 3
 	var/organhonked = 0
 
+/obj/item/organ/internal/honktumor/New()
+	..()
+	processing_objects.Add(src)
+
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
@@ -388,11 +392,15 @@
 
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
-	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+
+/obj/item/organ/internal/honktumor/Destroy()
+	processing_objects.Remove(src)
+	..()
+
+/obj/item/organ/internal/honktumor/process()
 	if(isturf(loc))
 		visible_message("<span class='warning'>[src] honks in on itself!</span>")
-		playsound(src, 'sound/items/AirHorn.ogg', 100, 1)
-		new /obj/item/weapon/bananapeel(get_turf(src.loc))
+		new /obj/item/weapon/bananapeel(get_turf(loc))
 		qdel(src)
 
 
