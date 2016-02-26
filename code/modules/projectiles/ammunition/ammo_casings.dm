@@ -245,15 +245,20 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
+/obj/item/ammo_casing/caseless/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]"
+
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
 	caliber = "75"
+	icon_state = "s-casing-live"
 	projectile_type = "/obj/item/projectile/bullet/gyro"
 
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
 	desc = "Its nerf or nothing! Ages 8 and up."
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
+	projectile_type = "/obj/item/projectile/bullet/reusable/foam_dart"
 	caliber = "foam_force"
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
@@ -274,6 +279,8 @@
 		desc = "Its nerf or nothing! ...Although, this one doesn't look too safe."
 		user << "<span class='notice'>You pop the safety cap off of [src].</span>"
 	else if ((istype(A, /obj/item/weapon/pen)) && modified && !BB.contents.len)
+		if (!user.unEquip(A))
+			return
 		user.drop_item()
 		A.loc = BB
 		BB.damage = 5
@@ -284,7 +291,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/riot
 	name = "riot foam dart"
 	desc = "Who's smart idea was it to use toys as crowd control? Ages 18 and up."
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
+	projectile_type = "/obj/item/projectile/bullet/reusable/foam_dart/riot"
 	icon_state = "foamdart_riot"
 
 /obj/item/ammo_casing/a40mm

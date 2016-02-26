@@ -5,7 +5,7 @@
 	name = "Random Toy"
 	New()
 		..()
-		var/list/types = list(/obj/item/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
+		var/list/types = list(/obj/item/weapon/gun/projectile/shotgun/toy/crossbow,/obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/weapon/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 		var/T = pick(types)
 		new T(loc)
 		spawn(1)
