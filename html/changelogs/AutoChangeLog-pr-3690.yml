@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - tweak: "stamina damage now regenerates slightly faster"
