@@ -349,7 +349,7 @@
 
 /obj/item/organ/internal/shadowtumor/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/organ/internal/shadowtumor/process()
 	if(isturf(loc))
@@ -395,7 +395,7 @@
 
 /obj/item/organ/internal/honktumor/Destroy()
 	processing_objects.Remove(src)
-	..()
+	return ..()
 
 /obj/item/organ/internal/honktumor/process()
 	if(isturf(loc))
