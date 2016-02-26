@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Wheelchairs, janicarts, and ambulances can now go through doors according to the user's driver's access."
