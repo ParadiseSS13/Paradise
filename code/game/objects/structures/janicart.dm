@@ -91,6 +91,10 @@
 			move_delay = 0
 	else
 		user << "<span class='notice'>You'll need the keys in one of your hands to drive this [callme].</span>"
+		
+/obj/structure/stool/bed/chair/janicart/Bump(atom/A)
+	if(buckled_mob && istype(A, /obj/machinery/door))
+		A.Bumped(buckled_mob)
 
 /obj/structure/stool/bed/chair/janicart/user_buckle_mob(mob/living/M, mob/user)
 	if(user.incapacitated()) //user can't move the mob on the janicart's turf if incapacitated
