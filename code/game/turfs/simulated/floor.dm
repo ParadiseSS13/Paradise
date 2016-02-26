@@ -159,8 +159,11 @@ var/list/wood_icons = list("wood","wood-broken")
 		else
 			if(istype(src, /turf/simulated/floor/wood))
 				user << "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>"
+			else if(!builtin_tile)
+				user << "<span class='notice'>You are unable to pry up \the [src] with a crowbar.</span>"
+				return 1
 			else
-				user << "<span class='danger'>You remove the floor tile.</span>"
+				user << "<span class='danger'>You remove \the [builtin_tile.singular_name].</span>"
 				builtin_tile.loc = src
 				builtin_tile = null //deassociate tile, it no longer belongs to this turf
 		make_plating()
