@@ -72,6 +72,9 @@
 	..()
 	if(!buckled_mob)	return
 
+	if(istype(A, /obj/machinery/door))
+		A.Bumped(buckled_mob)
+
 	if(propelled)
 		var/mob/living/occupant = buckled_mob
 		unbuckle_mob()
@@ -150,7 +153,7 @@
 		else
 			. = 1
 
-/obj/structure/stool/bed/chair/wheelchair/handle_rotation()
+/obj/structure/stool/bed/chair/wheelchair/bike/handle_rotation()
 	overlays = null
 	var/image/O = image(icon = 'icons/vehicles/motorcycle.dmi', icon_state = "motorcycle_overlay_4d", layer = FLY_LAYER, dir = src.dir)
 	overlays += O
