@@ -132,15 +132,6 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
-///obj/item/weapon/circular_saw/attack(mob/living/M, mob/user)
-
-//	if(!attempt_initiate_surgery(src, M, user,1))
-//		..()
-
-///obj/item/weapon/scalpel/attack(mob/living/M, mob/user)
-//	if(!attempt_initiate_surgery(src, M, user))
-		//..()
-
 //misc, formerly from code/defines/weapons.dm
 /obj/item/weapon/bonegel
 	name = "bone gel"
@@ -179,9 +170,3 @@
 	w_class = 1.0
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")
-
-/*
-/obj/item/weapon/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
-*/
