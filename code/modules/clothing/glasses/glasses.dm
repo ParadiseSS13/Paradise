@@ -243,7 +243,8 @@
 	set src in usr
 	if(!punused)//one per round
 		punused = 1
-		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 1)
+		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
+		usr.visible_message("<span class = 'danger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
 	else
 		usr << "The moment is gone."
 
