@@ -120,6 +120,7 @@
 /*		var/obj/item/clothing/mask/cigarette/CIG = new /obj/item/clothing/mask/cigarette(H)
 		CIG.light("")
 		H.equip_or_collect(CIG, slot_wear_mask)	*/
+		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/noir(H),slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
 		if(H.mind.role_alt_title && H.mind.role_alt_title == "Forensic Technician")
 			H.equip_or_collect(new /obj/item/clothing/suit/storage/forensics/blue(H), slot_wear_suit)
