@@ -16,6 +16,7 @@ var/global/datum/prizes/global_prizes = new
 		return 0
 	if(prize_counter.tickets >= item.cost)
 		new item.typepath(prize_counter.loc)
+		prize_counter.tickets -= item.cost
 		prize_counter.visible_message("<span class='notice'>Enjoy your prize!</span>")
 		return 1
 	else
