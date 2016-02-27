@@ -1,4 +1,4 @@
-var/global/datum/controller/process/timer/PStimer
+var/global/datum/controller/process/timer/timer_controller
 
 /datum/controller/process/timer
 	var/list/processing_timers = list()
@@ -7,7 +7,7 @@ var/global/datum/controller/process/timer/PStimer
 /datum/controller/process/timer/setup()
 	name = "timer"
 	schedule_interval = 5 //every 0.5 seconds
-	PStimer = src
+	timer_controller = src
 
 /datum/controller/process/timer/statProcess()
 	..()
@@ -44,17 +44,17 @@ var/global/datum/controller/process/timer/PStimer
 	nextid++
 
 /datum/timedevent/Destroy()
-	PStimer.processing_timers -= src
-	PStimer.hashes -= hash
+	timer_controller.processing_timers -= src
+	timer_controller.hashes -= hash
 	return QDEL_HINT_IWILLGC
 
 /proc/addtimer(thingToCall, procToCall, wait, unique = FALSE, ...)
-	if(!PStimer) //can't run timers before the mc has been created
+	if(!timer_controller) //can't run timers before the mc has been created
 		return
 	if(!thingToCall || !procToCall || wait <= 0)
 		return
-	if(PStimer.disabled)
-		PStimer.disabled = 0
+	if(timer_controller.disabled)
+		timer_controller.disabled = 0
 
 	var/datum/timedevent/event = new()
 	event.thingToCall = thingToCall
@@ -66,15 +66,15 @@ var/global/datum/controller/process/timer/PStimer
 
 	// Check for dupes if unique = 1.
 	if(unique)
-		if(event.hash in PStimer.hashes)
+		if(event.hash in timer_controller.hashes)
 			return
 	// If we are unique (or we're not checking that), add the timer and return the id.
-	PStimer.processing_timers += event
-	PStimer.hashes += event.hash
+	timer_controller.processing_timers += event
+	timer_controller.hashes += event.hash
 	return event.id
 
 /proc/deltimer(id)
-	for(var/datum/timedevent/event in PStimer.processing_timers)
+	for(var/datum/timedevent/event in timer_controller.processing_timers)
 		if(event.id == id)
 			qdel(event)
 			return 1
