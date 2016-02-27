@@ -1,4 +1,0 @@
-author: Spacemanspark
-delete-after: True
-changes: 
-  - bugfix: "Fixes synthetics from giving off the proper message in the chat box when using the *yes and *no emotes."

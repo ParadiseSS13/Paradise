@@ -1,5 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Adds in whetstones for sharpening objects"
-  - tweak: "Kitchen vendor starts off with 5 salt+pepper shakers"
