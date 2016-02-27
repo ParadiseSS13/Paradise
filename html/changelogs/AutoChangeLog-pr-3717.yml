@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes Capulettium Plus not silencing"
+  - bugfix: "Fixes slurring, stuttering, drugginess, and silences last half of what they should"
