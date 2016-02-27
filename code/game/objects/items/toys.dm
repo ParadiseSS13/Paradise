@@ -223,7 +223,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamdart"
 	w_class = 1.0
-*/
+
 /obj/effect/foam_dart_dummy
 	name = ""
 	desc = ""
@@ -231,7 +231,7 @@
 	icon_state = "null"
 	anchored = 1
 	density = 0
-
+*/
 /*
  * Tommy gun - May it RIP in peace
  */

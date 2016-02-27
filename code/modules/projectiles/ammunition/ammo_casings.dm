@@ -281,7 +281,6 @@
 	else if ((istype(A, /obj/item/weapon/pen)) && modified && !BB.contents.len)
 		if (!user.unEquip(A))
 			return
-		user.drop_item()
 		A.loc = BB
 		BB.damage = 5
 		BB.nodamage = 0
