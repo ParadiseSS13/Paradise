@@ -77,6 +77,7 @@
 "by" = (/obj/effect/waterfall{dir = 1},/turf/unsimulated/beach/coastline{density = 1},/area/awaymission/beach)
 "bz" = (/turf/unsimulated/beach/water,/area/awaymission/beach)
 "bA" = (/turf/unsimulated/beach/water{density = 1},/area/awaymission/beach)
+"bB" = (/obj/structure/table/woodentable,/obj/machinery/chem_dispenser/soda,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 
 (1,1,1) = {"
 aaaaaaabacaaaaaaaaaaaaadacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -93,7 +94,7 @@ avaeaiaaaLaqaqaxaMaNaOaaaaaaaaaaaaaaaaaPaQaQaQaQaQaQaQaQaQaQaRaaaaaSaTaSaTaSaTaS
 aaakaaaeaaaBaqaxaaaaaaaaaaaaaaaaaaaaaaaVaWaXaYaZbabbbcbdbebfaVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqayaHalaeahaa
 ahaaacacaeawaqbgaaaaaaaaaaaaaaaaaaaaaabhbibibibibibibibibibiaVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqaxaaagaeakae
 aeaeaHahaeawaqaraaaaaaaaaaaaaaaaaaaaaabjbibibibibibibibibibiaVaaaaaaaaaaaaaaaaaaahaaaaaaaaaaawaqaUaeaaaeaaaa
-avaaabaaaaawaqaqaxaeaaaaaaaaaaaaaaaaaabkbablbababababababababhaaaaaaahaaaabmaaaaaaaaaaaaaaaaawaqaxaaaeaaaaav
+avaaabaaaaawaqaqaxaeaaaaaaaaaaaaaaaaaabkbBblbababababababababhaaaaaaahaaaabmaaaaaaaaaaaaaaaaawaqaxaaaeaaaaav
 akaaaealaeawaqaqaxaaaaaaaaaaaaaaaaaaaaaabnbnbnbnbnbnbnbnbnbnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqaUakaaaiaeaa
 aaahaeaaaaawaqaqaxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaboaqaxaaabaaagae
 aeaiaaaeaeawaqaqaxaabpaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaawaqaUalaeaiaaaa
@@ -119,3 +120,4 @@ bzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbz
 bzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbz
 bzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbz
 "}
+
