@@ -49,6 +49,7 @@
 	ttone = "silence"
 
 /obj/item/device/pda/mime/New()
+	..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.silent = 1
@@ -113,6 +114,7 @@
 	owner = "John Doe"
 
 /obj/item/device/pda/syndicate/New()
+	..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1
@@ -139,6 +141,7 @@
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
 
 /obj/item/device/pda/librarian/New()
+	..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.silent = 1 //Quiet in the library!

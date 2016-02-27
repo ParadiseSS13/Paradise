@@ -285,7 +285,7 @@
 			Weaken(5)
 			setStaminaLoss(health - 2)
 			return
-		setStaminaLoss(max((staminaloss - 2), 0))
+		setStaminaLoss(max((staminaloss - 3), 0))
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
@@ -343,18 +343,6 @@
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
 		jitteriness = max(jitteriness - restingpwr, 0)
-
-	if(stuttering)
-		stuttering = max(stuttering-1, 0)
-
-	if(slurring)
-		slurring = max(slurring-1,0)
-
-	if(silent)
-		silent = max(silent-1, 0)
-
-	if(druggy)
-		druggy = max(druggy-1, 0)
 
 	if(hallucination)
 		spawn handle_hallucinations()

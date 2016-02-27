@@ -1357,6 +1357,7 @@ obj/item/toy/cards/deck/syndicate/black
 	force = 5
 	throwforce = 5
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
+	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/fred
 	name = "fred"

@@ -185,15 +185,15 @@
 	reagent_state = SOLID
 	// no color (ie, black)
 
-/datum/reagent/coco
-	name = "Coco Powder"
-	id = "coco"
-	description = "A fatty, bitter paste made from coco beans."
+/datum/reagent/cocoa
+	name = "Cocoa Powder"
+	id = "cocoa"
+	description = "A fatty, bitter paste made from cocoa beans."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
-/datum/reagent/coco/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cocoa/on_mob_life(var/mob/living/M as mob)
 	M.nutrition += nutriment_factor
 	..()
 	return
@@ -201,7 +201,7 @@
 /datum/reagent/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
+	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16

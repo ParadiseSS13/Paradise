@@ -192,22 +192,24 @@
 /obj/item/clothing/suit/storage/lawyer/blackjacket
 	name = "black suit jacket"
 	desc = "A snappy dress jacket."
-	icon_state = "suitjacket_black"
-	item_state = "suitjacket_black"
+	icon_state = "suitjacket_black_open"
+	item_state = "suitjacket_black_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/lawyer/bluejacket
 	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
-	icon_state = "suitjacket_blue"
-	item_state = "suitjacket_blue"
+	icon_state = "suitjacket_blue_open"
+	item_state = "suitjacket_blue_open"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
 
@@ -223,11 +225,12 @@
 /obj/item/clothing/suit/storage/internalaffairs
 	name = "\improper Internal Affairs jacket"
 	desc = "A smooth black jacket."
-	icon_state = "ia_jacket"
+	icon_state = "ia_jacket_open"
 	item_state = "ia_jacket"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
 
@@ -246,12 +249,13 @@
 /obj/item/clothing/suit/storage/fr_jacket
 	name = "first responder jacket"
 	desc = "A high-visibility jacket worn by medical first responders."
-	icon_state = "fr_jacket"
+	icon_state = "fr_jacket_open"
 	item_state = "fr_jacket"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/weapon/reagent_containers/dropper, /obj/item/weapon/reagent_containers/hypospray, /obj/item/weapon/reagent_containers/syringe, \
 	/obj/item/device/healthanalyzer, /obj/item/device/antibody_scanner, /obj/item/device/flashlight, /obj/item/device/radio, /obj/item/weapon/tank/emergency_oxygen,/obj/item/device/rad_laser)
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	action_button_name = "Button/Unbutton Jacket"
 	adjust_flavour = "unbutton"
 

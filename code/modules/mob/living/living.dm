@@ -22,7 +22,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(src.stat || !src.canmove || src.restrained())
+	if(incapacitated())
 		return 0
 	if(src.status_flags & FAKEDEATH)
 		return 0
