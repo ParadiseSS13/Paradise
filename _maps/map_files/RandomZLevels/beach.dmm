@@ -10,32 +10,32 @@
 "aj" = (/obj/structure/flora/bush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "ak" = (/obj/structure/flora/ausbushes/reedbush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "al" = (/obj/effect/overlay/palmtree_l,/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"am" = (/obj/effect/decal/snow/sand/edge{name = "sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"an" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{name = "sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ao" = (/obj/effect/decal/snow/sand/edge,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ap" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHEAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aq" = (/turf/unsimulated/floor/chasm,/area/awaymission/beach)
-"ar" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHWEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"as" = (/obj/structure/flora/ausbushes/grassybush,/obj/effect/decal/snow/sand/edge{name = "sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"at" = (/obj/structure/flora/ausbushes/leafybush,/obj/effect/decal/snow/sand/edge{name = "sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"au" = (/obj/structure/flora/ausbushes/reedbush,/obj/effect/decal/snow/sand/edge{name = "sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"am" = (/obj/structure/flora/ausbushes/reedbush,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"an" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ao" = (/obj/structure/flora/rock,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"ap" = (/obj/structure/flora/rock/pile,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aq" = (/obj/structure/stool,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ar" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"as" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHEAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"at" = (/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"au" = (/obj/structure/flora/rock,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
 "av" = (/obj/structure/flora/grass/green,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aw" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ax" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ay" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHWEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"az" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aA" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 1},/obj/structure/sign/terrain,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aB" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHEAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aC" = (/obj/structure/flora/ausbushes/ppflowers,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aw" = (/obj/effect/overlay/palmtree_l,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ax" = (/obj/structure/flora/ausbushes/leafybush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ay" = (/obj/structure/flora/grass/brown,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"az" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/leafybush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"aA" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHEAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aB" = (/obj/structure/flora/ausbushes/leafybush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aC" = (/obj/effect/decal/snow/sand/surround{tag = "icon-gravsnow_surround (NORTH)"; name = "rough sand"; icon_state = "gravsnow_surround"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aD" = (/obj/machinery/gateway{dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aE" = (/obj/machinery/gateway{dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aF" = (/obj/machinery/gateway{dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aG" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 8},/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aG" = (/obj/effect/decal/snow/sand/edge{name = "rough sand"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aH" = (/obj/structure/flora/ausbushes/grassybush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aI" = (/obj/machinery/gateway{dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aJ" = (/obj/machinery/gateway/centeraway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aK" = (/obj/machinery/gateway{dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aL" = (/obj/effect/overlay/palmtree_l,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aL" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aM" = (/obj/machinery/gateway{dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aN" = (/obj/machinery/gateway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aO" = (/obj/machinery/gateway{dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
@@ -44,7 +44,7 @@
 "aR" = (/turf/unsimulated/wall{tag = "icon-sandstone10"; icon_state = "sandstone10"},/area/awaymission/beach)
 "aS" = (/obj/structure/closet/athletic_mixed,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aT" = (/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/structure/closet/crate,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aU" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"aU" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "aV" = (/turf/unsimulated/wall{tag = "icon-sandstone3"; icon_state = "sandstone3"},/area/awaymission/beach)
 "aW" = (/obj/structure/closet/gmcloset{icon_closed = "black"; icon_state = "black"; name = "formal wardrobe"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "aX" = (/obj/structure/closet/secure_closet/bar,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
@@ -56,52 +56,91 @@
 "bd" = (/obj/machinery/vending/cigarette,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "be" = (/obj/machinery/vending/cola,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "bf" = (/obj/machinery/vending/snack,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"bg" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 8},/obj/structure/sign/terrain,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bg" = (/obj/effect/decal/snow/sand/edge{name = "rough sand"},/turf/unsimulated/floor/grass,/area/awaymission/beach)
 "bh" = (/turf/unsimulated/wall{tag = "icon-sandstone1"; icon_state = "sandstone1"},/area/awaymission/beach)
 "bi" = (/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "bj" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "bk" = (/turf/unsimulated/wall{tag = "icon-sandstone0"; icon_state = "sandstone0"},/area/awaymission/beach)
 "bl" = (/obj/structure/table/woodentable,/obj/machinery/chem_dispenser/beer,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
 "bm" = (/obj/item/weapon/beach_ball,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bn" = (/obj/structure/stool,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bo" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 4},/obj/structure/sign/terrain,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bn" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 10},/turf/unsimulated/floor/grass,/area/awaymission/beach)
+"bo" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHEAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 6},/turf/unsimulated/floor/grass,/area/awaymission/beach)
 "bp" = (/mob/living/simple_animal/crab,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "bq" = (/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "br" = (/mob/living/simple_animal/crab/Coffee,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bs" = (/obj/structure/flora/ausbushes/grassybush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bs" = (/obj/effect/decal/snow/sand/surround{name = "rough sand"},/turf/unsimulated/floor/grass,/area/awaymission/beach)
 "bt" = (/obj/structure/stool/bed/chair,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bu" = (/obj/effect/decal/snow/sand/edge{dir = 4; icon_state = "gravsnow_corner"; layer = 3; name = "sand"; tag = "icon-gravsnow_corner (EAST)"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bv" = (/turf/unsimulated/floor/chasm{layer = 2.1},/area/awaymission/beach)
-"bw" = (/obj/effect/decal/snow/sand/edge{dir = 8; icon_state = "gravsnow_corner"; layer = 3; name = "sand"; tag = "icon-gravsnow_corner (WEST)"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bu" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHEAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bv" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/fernybush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"bw" = (/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
 "bx" = (/turf/unsimulated/beach/coastline,/area/awaymission/beach)
-"by" = (/obj/effect/waterfall{dir = 1},/turf/unsimulated/beach/coastline{density = 1},/area/awaymission/beach)
+"by" = (/obj/structure/flora/ausbushes/sunnybush,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
 "bz" = (/turf/unsimulated/beach/water,/area/awaymission/beach)
 "bA" = (/turf/unsimulated/beach/water{density = 1},/area/awaymission/beach)
 "bB" = (/obj/structure/table/woodentable,/obj/machinery/chem_dispenser/soda,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"bC" = (/obj/effect/overlay/palmtree_r,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"bD" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bE" = (/obj/structure/flora/ausbushes/palebush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bF" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bG" = (/obj/structure/flora/ausbushes/genericbush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bH" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (EAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bI" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bJ" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/sunnybush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"bK" = (/obj/effect/overlay/palmtree_l,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bL" = (/obj/structure/flora/ausbushes/sunnybush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bM" = (/obj/effect/overlay/palmtree_r,/obj/effect/overlay/coconut,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTH)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bN" = (/obj/structure/flora/ausbushes/reedbush,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (NORTHEAST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bO" = (/obj/structure/flora/ausbushes/lavendergrass,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"bP" = (/obj/structure/flora/ausbushes/reedbush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"bQ" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/stalkybush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"bR" = (/turf/unsimulated/beach/coastline{density = 1},/area/awaymission/beach)
+"bS" = (/obj/effect/waterfall{dir = 1; water_frequency = 75},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bT" = (/obj/effect/waterfall{dir = 1; water_frequency = 192},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bU" = (/obj/effect/waterfall{dir = 1; water_frequency = 104},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bV" = (/obj/effect/waterfall{dir = 1; water_frequency = 44},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bW" = (/obj/effect/waterfall{dir = 1; water_frequency = 97},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bX" = (/obj/structure/flora/rock/pile,/obj/effect/overlay/palmtree_l,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"bY" = (/obj/effect/waterfall{dir = 1; water_frequency = 94},/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"bZ" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/palebush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"ca" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/genericbush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"cb" = (/obj/structure/flora/ausbushes/palebush,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"cc" = (/obj/structure/flora/rock/pile,/obj/effect/overlay/palmtree_r,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"cd" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/lavendergrass,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"ce" = (/obj/structure/flora/rock/pile,/obj/effect/overlay/palmtree_l,/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"cf" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/sunnybush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"cg" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/leafybush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ch" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/fernybush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"ci" = (/obj/structure/flora/rock,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"cj" = (/turf/unsimulated/beach/sand{density = 1},/area/awaymission/beach)
+"ck" = (/obj/structure/flora/ausbushes/ppflowers,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (WEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"cl" = (/obj/structure/flora/rock/pile,/obj/structure/flora/ausbushes/palebush,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"cm" = (/obj/structure/flora/bush,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
+"cn" = (/obj/effect/overlay/palmtree_r,/obj/effect/decal/snow/sand/edge{tag = "icon-gravsnow_corner (SOUTHWEST)"; name = "rough sand"; icon_state = "gravsnow_corner"; dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"co" = (/obj/structure/flora/grass/green,/turf/unsimulated/beach/sand{density = 1; icon = 'icons/turf/snow.dmi'; icon_state = "gravsnow"; name = "rough sand"},/area/awaymission/beach)
 
 (1,1,1) = {"
-aaaaaaabacaaaaaaaaaaaaadacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaeaaaaafaaaeaeaeaeaaaaaaadaaaeaeaaaaaaaeaeaaaaaeaeaaaeaaaaaeaaaaaeaaabaaaaaeagaaaaaaaeaaaaaeaaaaaaaaaeaaaa
-aeaeahaaaaaiaaaeaeaaajaeaeaiahaaaaajaeaeaaaaaeaaajaaaaaeaeahaaahaaaaaaaeagaiaaaaaaaeaeaaaaaeaaaaaaaeaaakaaaa
-afaeaaaiaeajaeaaahaeaaaeaeafaaahaeaaaaaiahaaahaeaaaeaaalaaaaajaaaaaiaeajaaadaaaeagaaaaaeaeaaaaaeaiaeaaaaaeaa
-akaaaiaaaiaaacafaeaeaiaaaaajaeahaeaaafaaahahalaiaaamaeaaalaeaaaiahagaaaeaaagaeaaaaaeaiaeaaaeaaagajaaaeaaabaa
-aaaeaaalaaaeamamamamamanaoaoaoaoanamamamamamamamapaqaramamamasamamamamamatamamamatamamamauamamamaaagaaaaaaaa
-aeaaaeaiavawaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaqaxagaeakaaaa
-aaaeaeaaaaawaqaqayazazazazazazazazazazazazaAazazazazaBaqaqaqaqayazazazazazazazaAazazazazazaBaqaqaxaaalaaaeaa
-aeaCaaaeaeapaqayaDaEaFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazazazazaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaBaqaGaaaaaaaeaa
-aaaaaaaHawaqaqaxaIaJaKaaaaaaaaalaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqaraeaeaaajaa
-avaeaiaaaLaqaqaxaMaNaOaaaaaaaaaaaaaaaaaPaQaQaQaQaQaQaQaQaQaQaRaaaaaSaTaSaTaSaTaSaTaSaTaSaTaSawaqaqaUabaaaaaa
-aaakaaaeaaaBaqaxaaaaaaaaaaaaaaaaaaaaaaaVaWaXaYaZbabbbcbdbebfaVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqayaHalaeahaa
-ahaaacacaeawaqbgaaaaaaaaaaaaaaaaaaaaaabhbibibibibibibibibibiaVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqaxaaagaeakae
-aeaeaHahaeawaqaraaaaaaaaaaaaaaaaaaaaaabjbibibibibibibibibibiaVaaaaaaaaaaaaaaaaaaahaaaaaaaaaaawaqaUaeaaaeaaaa
-avaaabaaaaawaqaqaxaeaaaaaaaaaaaaaaaaaabkbBblbababababababababhaaaaaaahaaaabmaaaaaaaaaaaaaaaaawaqaxaaaeaaaaav
-akaaaealaeawaqaqaxaaaaaaaaaaaaaaaaaaaaaabnbnbnbnbnbnbnbnbnbnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawaqaUakaaaiaeaa
-aaahaeaaaaawaqaqaxaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaboaqaxaaabaaagae
-aeaiaaaeaeawaqaqaxaabpaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaawaqaUalaeaiaaaa
-aaaaaiaaaaawaqayaaaaaaaaaaahbqaaaaaaaaaaaaaaaaaaaaaaaaaaaaahaaaaaaaaaabraaaaaabqaaaaaaaaaaaeawaqaxajavaaaeab
-ahajahaeaabsaqaxaaaabmaaaaaaaaaaaabpaaaabtaabtaabtaabtaabtaabtaaaaaaaaaaaaaaaaaaaabtaabtaaaaawaqaxaaaeaaahaa
-aaaaaaaaaabubvbwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabubvbwaaaaaaaaaa
-bxbxbxbxbxbxbybxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbybxbxbxbxbxbx
+atatauayaxaAatatatatanadaBatauatatataCatanaGaaaaaLatataUaaaLatatatatatbnbgbgboatbsatatanaaaabuatatatbwbuatat
+atbCataUafaLbCbCbCbFaaaaaabGarbDbDaraaarbHbCanaaaebDaraeaaaLbCatatbCauayatatbCbyatatatbIaaaLbCauatatatbCatat
+bCbFbKaaaaaiarbDbDaaajaeaeaiahaaaaajaeaeaaaraeaaajaaaaaeaeaharbKarararbDbLbMarararbDbDaaaabHatatatbFarbNatat
+bObIaaaiaeajaeaaahaeaaaeaeafaaahaeaaaaaiahaaahaeaaaeaaalaaaaajaaaaaiaeajaaadaaaeagaaaaaeaeaaarbDbMaeaaaabDar
+amanaiaaaiaaacafaeaeaiaaaaajaeahaeaaafaaahahalaiaaaaaeaaalaeaaaiahagaaaeaaagaeaaaaaeaiaeaaaeaaagajaaaeaaabaa
+atbIaaalaaaeadaaacaaagaeaaadaaadaeaaaaacaaaaagaaaabXaaagaaaaaHaaadaaacaaacaaadaaacaaaaagakadacaaaaagaaaaaaaa
+bCanaeaiavadbZcabJazaocabJazbZcaaocbbJazbZbJaoazbJaobZcdccaobZcebJbvaoazccbvaobZbJazbvaoceaobZccaaagaeakaGaG
+atbIaeaaaaaaaocfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacgaachcfaaaaaaaaaaaaaaaaaaaaaaaaaaadaechcjciaaalaLbCat
+bCckaaaeaeagazaaaDaEaFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaadazaiaaaaaLbCau
+araaaaaHaaclbJaaaIaJaKaaaaaaaaalaaaaaaaGaGaGaGaGaGaGaGaGaGaGaGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabJadaeaeaLcmat
+avaeaiaaahciaoaaaMaNaOaaaaaaaaaaaaaaaLaPaQaQaQaQaQaQaQaQaQaQaRanaaaSaTaSaTaSaTaSaTaSaTaSaTaSafazciaeabaLatat
+aaakaaaeaaaaazaaaaaaaaaaaaaaaaaaaaaaaLaVaWaXaYaZbabbbcbdbebfaVanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaoagaHalaebKar
+ahaaacacaeagbJaaaaaaaaaaaaaaaaaaaaaaaLbhbibibibibibibibibibiaVanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabvaaaaagaeakae
+cnaeaHahaeaaazaaaaaaaaaaaaaaaaaaaaaaaLbjbibibibibibibibibibiaVanaaaaaaaaaaaaaaaaahaaaaaaaaaaaabJaeaeaaaeaaaG
+coanabaaaaadbvcfaaaeaaaaaaaaaaaaaaaaaLbkbBblbababababababababhanaaaaahaaaabmaaaaaaaaaaaaaaaaaaazadaaaeaaaLco
+amanaealaeadaoapaaaaaaaaaaaaaaaaaaaaaaaraqaqaqaqaqaqaqaqaqaqaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaoaeakaaaiasat
+atawaeaaaaaaazaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabvagaaabaabybC
+bDaiaaaeaebEaoaaaaaabpaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeaaaaaaaaaaaaaaaabJaealaeaiaAau
+aaaaaiaaaaagbJaaaaaaaaaaaaahbqaaaaaaaaaaaaaaaaaaaaaaaaaaaaahaaaaaaaaaabraaaaaabqaaaaaaaaaaaeaaaoaaajavaabHay
+ahajahaeaaaaazaaaaaabmaaaaaaaaaaaabpaaaabtaabtaabtaabtaabtaabtaaaaaaaaaaaaaaaaaaaabtaabtaaaaaaazacaaaeaaahar
+aaaaaaaaaaaabPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabQaaaaaaaaaaaa
+bxbxbxbxbxbxbRbxbSbxbxbxbTbxbUbxbxbxbxbxbxbVbxbxbxbxbWbxbxbxbUbxbxbxbxbxbWbxbxbYbxbxbWbxbTbxbxbRbxbxbxbxbxbx
 bzbzbzbzbzbzbAbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbAbzbzbzbzbzbz
 bzbzbzbzbzbzbAbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbAbzbzbzbzbzbz
 bzbzbzbzbzbzbAbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbzbAbzbzbzbzbzbz

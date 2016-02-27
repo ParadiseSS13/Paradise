@@ -25,13 +25,3 @@
 	spawn(1)
 		W.loc = get_step(W, dir)
 	water_timer = addtimer(src, "drip", water_frequency)
-
-/obj/structure/sign/terrain
-	name = "warning sign"
-	desc = "Watch your step! Unstable terrain."
-	density = 1
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "signpost"
-
-/obj/structure/sign/terrain/attack_hand(mob/user)
-	examine(user)
