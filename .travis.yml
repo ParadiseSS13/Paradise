@@ -9,6 +9,7 @@ env:
     matrix:
     - DM_MAPFILE="cyberiad"
     - DM_MAPFILE="metastation"
+    - DM_MAPFILE="test_away_missions"
 
 cache:
   directories:
