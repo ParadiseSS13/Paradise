@@ -344,18 +344,6 @@
 		do_jitter_animation(jitteriness)
 		jitteriness = max(jitteriness - restingpwr, 0)
 
-	if(stuttering)
-		stuttering = max(stuttering-1, 0)
-
-	if(slurring)
-		slurring = max(slurring-1,0)
-
-	if(silent)
-		silent = max(silent-1, 0)
-
-	if(druggy)
-		druggy = max(druggy-1, 0)
-
 	if(hallucination)
 		spawn handle_hallucinations()
 
