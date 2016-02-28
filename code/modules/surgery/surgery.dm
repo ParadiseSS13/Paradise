@@ -142,12 +142,12 @@
 
 	if(allowed_mob)//can i just remove this and/or change it?
 		for(var/species in allowed_mob)
-			if(target.species.name == species)
+			if(target.get_species() == species)
 				return 1
 
 	if(disallowed_mob)
 		for(var/species in disallowed_mob)
-			if(target.species.name == species)
+			if(target.get_species() == species)
 				return 0
 
 	return 1

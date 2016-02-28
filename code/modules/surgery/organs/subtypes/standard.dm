@@ -83,7 +83,7 @@
 	amputation_point = "left ankle"
 	can_stand = 1
 
-/obj/item/organ/external/foot/removed()
+/obj/item/organ/external/foot/remove()
 	if(owner.shoes) owner.unEquip(owner.shoes)
 	..()
 
@@ -108,7 +108,7 @@
 	amputation_point = "left wrist"
 	can_grasp = 1
 
-/obj/item/organ/external/hand/removed()
+/obj/item/organ/external/hand/remove()
 	if(owner.gloves)
 		owner.unEquip(owner.gloves)
 	..()
@@ -136,7 +136,7 @@
 	encased = "skull"
 	var/can_intake_reagents = 1
 
-/obj/item/organ/external/head/removed()
+/obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()

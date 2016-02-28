@@ -18,7 +18,7 @@
 /obj/item/organ/external/stump/is_stump()
 	return 1
 
-/obj/item/organ/external/stump/removed()
+/obj/item/organ/external/stump/remove()
 	..()
 	qdel(src)
 

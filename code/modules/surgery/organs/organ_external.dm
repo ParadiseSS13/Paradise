@@ -661,7 +661,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"<span class='danger'>You hear the [gore_sound].</span>")
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
-	removed(null, ignore_children)
+	remove(null, ignore_children)
 	victim.traumatic_shock += 30
 
 	wounds.Cut()
@@ -847,7 +847,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))
 
-/obj/item/organ/external/removed(var/mob/living/user, var/ignore_children)
+/obj/item/organ/external/remove(var/mob/living/user, var/ignore_children)
 
 	if(!owner)
 		return
@@ -865,13 +865,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/O in children)
-			O.removed()
+			O.remove()
 			if(O)
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/organ in internal_organs)
-		organ.removed()
+		organ.remove()
 		organ.forceMove(src)
 
 	release_restraints(victim)

@@ -131,7 +131,7 @@
 	parent_organ = "chest"
 	var/can_intake_reagents = 1
 
-/obj/item/organ/external/diona/head/removed()
+/obj/item/organ/external/diona/head/remove()
 	if(owner)
 		owner.unEquip(owner.head)
 		owner.unEquip(owner.l_ear)

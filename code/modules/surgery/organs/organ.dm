@@ -256,7 +256,7 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
-/obj/item/organ/proc/removed(var/mob/living/user)
+/obj/item/organ/proc/remove(var/mob/living/user)
 	if(!istype(owner))
 		return
 

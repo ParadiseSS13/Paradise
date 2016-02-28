@@ -59,9 +59,6 @@
 	if(organ_action_name)
 		action_button_name = null
 
-/obj/item/organ/internal/removed(mob/living/carbon/M)
-	remove(owner)
-	..()
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target,var/obj/item/organ/external/affected)
     insert(target)

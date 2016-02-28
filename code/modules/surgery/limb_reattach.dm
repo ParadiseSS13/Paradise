@@ -141,7 +141,7 @@
 	E.status &= ~ORGAN_DESTROYED
 	var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
 	if(stump)
-		stump.removed(target)
+		stump.remove(target)
 	if(E.children)
 		for(var/obj/item/organ/external/C in E.children)
 			C.status &= ~ORGAN_DESTROYED
@@ -189,7 +189,7 @@
 				continue
 			var/obj/item/organ/external/stump = target.organs_by_name["limb stump"]
 			if(stump)
-				stump.removed(target)
+				stump.remove(target)
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target)
 			new_limb.robotize(L.model_info)
