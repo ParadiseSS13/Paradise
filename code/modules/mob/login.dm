@@ -70,8 +70,6 @@
 
 	CallHook("Login", list("client" = src.client, "mob" = src))
 
-	client.create_parallax()
-
 // Calling update_interface() in /mob/Login() causes the Cyborg to immediately be ghosted; because of winget().
 // Calling it in the overriden Login, such as /mob/living/Login() doesn't cause this.
 /mob/proc/update_interface()
@@ -96,21 +94,3 @@
 		hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
 		client.hotkeyon = 0
 	winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")
-
-/client
-	var/obj/screen/spessbg = null
-
-/client/proc/create_parallax()
-	if (src.spessbg)
-		if (!(src.spessbg in src.screen))
-			src.screen += src.spessbg
-		return
-	src.spessbg = new /obj/screen()
-	src.spessbg.icon = 'icons/mob/screen1_full.dmi'
-	src.spessbg.icon_state = "spess"
-	src.spessbg.name = "spess"
-	src.spessbg.screen_loc = "CENTER-7,CENTER-7"
-	src.spessbg.layer = 1.5
-	src.spessbg.blend_mode = BLEND_MULTIPLY
-	src.spessbg.mouse_opacity = 0
-	src.screen += src.spessbg

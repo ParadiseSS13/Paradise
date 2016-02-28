@@ -205,6 +205,27 @@ datum/hud/New(mob/owner)
 	else if(isguardian(mymob))
 		guardian_hud()
 
+	create_parallax()
+
+
+/client/var/obj/screen/spessbg = null
+
+/datum/hud/proc/create_parallax()
+	var/client/C = mymob.client
+	if (C.spessbg)
+		if (!(C.spessbg in C.screen))
+			C.screen += C.spessbg
+		return
+	C.spessbg = new /obj/screen()
+	C.spessbg.icon = 'icons/mob/screen1_full.dmi'
+	C.spessbg.icon_state = "spess"
+	C.spessbg.name = "spess"
+	C.spessbg.screen_loc = "CENTER-7,CENTER-7"
+	C.spessbg.layer = AREA_LAYER + 0.5
+	C.spessbg.blend_mode = BLEND_MULTIPLY
+	C.spessbg.mouse_opacity = 0
+	C.screen += C.spessbg
+
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
 	set name = "F12"
