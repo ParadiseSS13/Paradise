@@ -40,7 +40,7 @@
 		action_button_name = organ_action_name
 
 
-/obj/item/organ/internal/proc/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	owner = null
 	if(M)
 		M.internal_organs -= src
