@@ -347,4 +347,4 @@
 /obj/item/ammo_box/magazine/toy/tommygunm45
 	name = "little tommy's mag"
 	icon_state = "drum45"
-	max_ammo = 30
+	max_ammo = 50
