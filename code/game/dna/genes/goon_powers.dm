@@ -428,16 +428,16 @@
 		if (FAT in usr.mutations && prob(66))
 			usr.visible_message("\red <b>[usr.name]</b> crashes due to their heavy weight!")
 			//playsound(usr.loc, 'zhit.wav', 50, 1)
-			usr.weakened += 10
-			usr.stunned += 5
+			usr.AdjustWeakened(10)
+			usr.AdjustStunned(5)
 
 		usr.layer = prevLayer
 
 	if (istype(usr.loc,/obj/))
 		var/obj/container = usr.loc
 		usr << "\red You leap and slam your head against the inside of [container]! Ouch!"
-		usr.paralysis += 3
-		usr.weakened += 5
+		usr.AdjustParalysis(3)
+		usr.AdjustWeakened(5)
 		container.visible_message("\red <b>[usr.loc]</b> emits a loud thump and rattles a bit.")
 		playsound(usr.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
