@@ -557,7 +557,7 @@
 		return "[garbletext(copytext(Text,l/2,0))][pick("#","|","/","*",".","."," ","."," "," ")]"
 
 	proc/garble_keeptags(var/Text)
-		var/list/L = text2list(Text,">")
+		var/list/L = splittext(Text,">")
 		var/result = ""
 		for(var/string in L)
 			var/index = findtextEx(string,"<")

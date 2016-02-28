@@ -221,7 +221,7 @@
 		if(type == "config")
 			switch (name)
 				if ("resource_urls")
-					config.resource_urls = text2list(value, " ")
+					config.resource_urls = splittext(value, " ")
 
 				if ("admin_legacy_system")
 					config.admin_legacy_system = 1
@@ -456,7 +456,7 @@
 					config.comms_password = value
 
 				if("irc_bot_host")
-					config.irc_bot_host = text2list(value, ";")
+					config.irc_bot_host = splittext(value, ";")
 
 				if("main_irc")
 					config.main_irc = value

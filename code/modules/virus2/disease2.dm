@@ -212,7 +212,7 @@ var/global/list/virusDB = list()
 	<u>Antigen:</u> [antigens2string(antigen)]<br>
 	<u>Transmitted By:</u> [spreadtype]<br>
 	<u>Rate of Progression:</u> [stageprob * 10]<br>
-	<u>Species Affected:</u> [list2text(affected_species, ", ")]<br>
+	<u>Species Affected:</u> [jointext(affected_species, ", ")]<br>
 "}
 
 	r += "<u>Symptoms:</u><br>"

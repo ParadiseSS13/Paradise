@@ -167,12 +167,12 @@
 proc/string_explode(var/string, var/separator = "")
 	//writepanic("[__FILE__].[__LINE__] \\/proc/string_explode() called tick#: [world.time]")
 	if(istext(string) && (istext(separator) || isnull(separator)))
-		return text2list(string, separator)
+		return splittext(string, separator)
 
 //Converts a list to a string
 /proc/list_implode(var/list/li, var/separator)
 	if(istype(li) && (istext(separator) || isnull(separator)))
-		return list2text(li, separator)
+		return jointext(li, separator)
 
 proc/n_repeat(var/string, var/amount)
 	//writepanic("[__FILE__].[__LINE__] \\/proc/n_repeat() called tick#: [world.time]")
@@ -267,3 +267,9 @@ proc/n_round(var/num)
 
 /proc/n_replacetextEx(text, r, with)
 	return replacetextEx(text, r, with)
+
+/proc/n_jointext(list, glue)
+	return jointext(list, glue)
+
+/proc/n_splittext(text, delim)
+	return splittext(text, delim)

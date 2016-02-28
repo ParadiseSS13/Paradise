@@ -365,7 +365,7 @@
 
 	//Log all the alts
 	if(related_accounts_cid.len)
-		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
+		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
 
 	var/watchreason = check_watchlist(sql_ckey)
 	if(watchreason)

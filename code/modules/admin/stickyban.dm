@@ -126,7 +126,7 @@
 
 			log_admin("[key_name(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has edited [ckey]'s sticky ban reason from [oldreason] to [reason]</span>")
-	
+
 	spawn(10)
 		stickyban_show()
 
@@ -147,7 +147,7 @@
 /datum/admins/proc/stickyban_show()
 	if(!check_rights(R_BAN))
 		return
-		
+
 	var/list/bans = sortList(world.GetConfig("ban"))
 	var/banhtml = ""
 	for(var/key in bans)
@@ -181,23 +181,23 @@
 	if (!ban)
 		return null
 	. = params2list(ban)
-	.["keys"] = text2list(.["keys"], ",")
-	.["type"] = text2list(.["type"], ",")
-	.["IP"] = text2list(.["IP"], ",")
-	.["computer_id"] = text2list(.["computer_id"], ",")
+	.["keys"] = splittext(.["keys"], ",")
+	.["type"] = splittext(.["type"], ",")
+	.["IP"] = splittext(.["IP"], ",")
+	.["computer_id"] = splittext(.["computer_id"], ",")
 
 /proc/list2stickyban(var/list/ban)
 	if (!ban || !islist(ban))
 		return null
 	. = ban.Copy()
 	if (.["keys"])
-		.["keys"] = list2text(.["keys"], ",")
+		.["keys"] = jointext(.["keys"], ",")
 	if (.["type"])
-		.["type"] = list2text(.["type"], ",")
+		.["type"] = jointext(.["type"], ",")
 	if (.["IP"])
-		.["IP"] = list2text(.["IP"], ",")
+		.["IP"] = jointext(.["IP"], ",")
 	if (.["computer_id"])
-		.["computer_id"] = list2text(.["computer_id"], ",")
+		.["computer_id"] = jointext(.["computer_id"], ",")
 	. = list2params(.)
 
 /client/proc/stickybanpanel()
@@ -206,6 +206,5 @@
 
 	if(!check_rights(R_BAN))
 		return
-	
+
 	holder.stickyban_show()
-	
