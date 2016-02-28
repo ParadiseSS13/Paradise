@@ -1023,6 +1023,7 @@
 #include "code\modules\awaymissions\maploader\swapmaps.dm"
 #include "code\modules\awaymissions\maploader\writer.dm"
 #include "code\modules\awaymissions\mission_code\academy.dm"
+#include "code\modules\awaymissions\mission_code\beach.dm"
 #include "code\modules\awaymissions\mission_code\blackmarketpackers.dm"
 #include "code\modules\awaymissions\mission_code\centcomAway.dm"
 #include "code\modules\awaymissions\mission_code\challenge.dm"
