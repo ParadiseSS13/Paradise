@@ -21,17 +21,6 @@
 	else
 		living_mob_list += src
 	prepare_huds()
-
-	// SPESS BACKGROUND
-	src.spessbg = new /obj/screen()
-	src.spessbg.icon = 'icons/mob/screen1_full.dmi'
-	src.spessbg.icon_state = "spess"
-	src.spessbg.name = "spess"
-	src.spessbg.loc = src
-	src.spessbg.screen_loc = "CENTER-7,CENTER-7"
-	src.spessbg.layer = 1.5
-	src.spessbg.blend_mode = BLEND_MULTIPLY
-	src.spessbg.mouse_opacity = 0
 	..()
 
 /atom/proc/prepare_huds()
