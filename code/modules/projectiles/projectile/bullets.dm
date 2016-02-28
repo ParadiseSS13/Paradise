@@ -101,14 +101,14 @@
 		if(..(target, blocked))
 			var/mob/living/M = target
 			M.dizziness += 20
-			M:slurring += 20
+			M.slurring += 20
 			M.confused += 20
 			M.eye_blurry += 20
 			M.drowsyness += 20
 			for(var/datum/reagent/ethanol/A in M.reagents.reagent_list)
-				M.paralysis += 2
+				M.AdjustParalysis(2)
 				M.dizziness += 10
-				M:slurring += 10
+				M.slurring += 10
 				M.confused += 10
 				M.eye_blurry += 10
 				M.drowsyness += 10

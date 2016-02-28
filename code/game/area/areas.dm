@@ -354,18 +354,12 @@
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == "run")).
-		//M.AdjustStunned(5)
-		//M.AdjustWeakened(5)
-
-		if(M.stunned <= 5) M.stunned = 5
-		if(M.weakened <= 5) M.weakened = 5
+		M.Stun(5)
+		M.Weaken(5)
 
 	else if (istype(M,/mob/living/carbon/human/))
-		//M.AdjustStunned(2)
-		//M.AdjustWeakened(2)
-
-		if(M.stunned <= 2) M.stunned = 2
-		if(M.weakened <= 2) M.weakened = 2
+		M.Stun(2)
+		M.Weaken(2)
 
 
 	M << "Gravity!"
