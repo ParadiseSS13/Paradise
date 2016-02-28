@@ -127,12 +127,6 @@
 			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
 
 
-/mob/living/carbon/human/Stun(amount)
-	..()
-
-/mob/living/carbon/human/Weaken(amount)
-	..()
-
 /mob/living/carbon/human/Paralyse(amount)
 	// Notify our AI if they can now control the suit.
 	if(wearing_rig && !stat && paralysis < amount) //We are passing out right this second.

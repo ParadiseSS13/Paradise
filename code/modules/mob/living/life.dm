@@ -122,7 +122,7 @@
 
 /mob/living/proc/handle_weakened()
 	if(weakened)
-		weakened = max(weakened-1,0)	//before you get mad Rockdtben: I done this so update_canmove isn't called multiple times
+		AdjustWeakened(-1)
 		if(!weakened)
 			update_icons()
 	return weakened
@@ -147,14 +147,14 @@
 		slurring = max(slurring-1, 0)
 	return slurring
 
-/mob/living/proc/handle_paralysed() // Currently only used by simple_animal.dm, treated as a special case in other mobs
+/mob/living/proc/handle_paralysed()
 	if(paralysis)
 		AdjustParalysis(-1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
-		sleeping = max(sleeping - 1, 0)
+		AdjustSleeping(-1)
 	return sleeping
 
 
