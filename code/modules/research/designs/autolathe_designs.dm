@@ -273,7 +273,7 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/weapon/canvas/twentythreeXtwentythree
 	category = list("initial", "Miscellaneous")
-	
+
 /datum/design/glass_picture_frame
 	name = "Glass Picture Frame"
 	id = "glass_picture_frame"
@@ -538,6 +538,14 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	build_path = /obj/item/device/radio/electropack
 	category = list("hacked", "Tools")
+
+/datum/design/foam_dart
+	name = "Box of Foam Darts"
+	id = "foam_dart"
+	build_type = AUTOLATHE
+	materials = list("$metal" = 500)
+	build_path = /obj/item/ammo_box/foambox
+	category = list("initial", "Miscellaneous")
 
 /datum/design/flamethrower
 	name = "Flamethrower"

@@ -684,4 +684,4 @@
 /obj/item/weapon/storage/box/foam_darts/New()
 	..()
 	for(var/i=1; i <= storage_slots; i++)
-		new /obj/item/toy/ammo/crossbow(src)
+		new /obj/item/ammo_box/foambox(src)

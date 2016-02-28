@@ -30,7 +30,6 @@
 	desc = "[initial(desc)][BB ? "" : " This one is spent"]"
 
 
-
 /obj/item/ammo_casing/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(BB)
@@ -56,7 +55,24 @@
 		BB = new projectile_type(src)
 	return
 
-
+/obj/item/ammo_casing/attackby(obj/item/ammo_box/box as obj, mob/user as mob, params)
+	if (!istype(box, /obj/item/ammo_box))
+		return
+	if(isturf(src.loc))
+		var/boolets = 0
+		for(var/obj/item/ammo_casing/bullet in src.loc)
+			if (box.stored_ammo.len >= box.max_ammo)
+				break
+			if (bullet.BB)
+				if (box.give_round(bullet, 0))
+					boolets++
+			else
+				continue
+		if (boolets > 0)
+			box.update_icon()
+			user << "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>"
+		else
+			user << "<span class='notice'>You fail to collect anything.</span>"
 
 //Boxes of ammo
 /obj/item/ammo_box

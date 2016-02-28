@@ -3,8 +3,6 @@
  *		Balloons
  *		Fake telebeacon
  *		Fake singularity
- *		Toy crossbow
- *		Toy Tommy Gun
  *		Toy swords
  *		Toy mechs
  *		Snap pops
@@ -132,11 +130,10 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
 
-
 /*
- * Toy crossbow
+ * Toy crossbow - May it RIP in peace
  */
-
+/*
 /obj/item/toy/crossbow
 	name = "foam dart crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
@@ -242,12 +239,11 @@
 	icon_state = "null"
 	anchored = 1
 	density = 0
-
-
+*/
 /*
- * Tommy gun
+ * Tommy gun - May it RIP in peace
  */
-
+/*
 /obj/item/toy/crossbow/tommygun
     name = "tommy gun"
     desc = "Looks almost like the real thing! Great for practicing Drive-bys"
@@ -267,7 +263,7 @@
 			user << "<span class='notice'>You load the foam dart into the tommy gun.</span>"
 		else
 			user << "<span class='danger'>It's already fully loaded.</span>"
-
+*/
 /*
  * Toy swords
  */
