@@ -167,8 +167,6 @@
 
 	var/disable_away_missions = 0 // disable away missions
 
-	var/autoconvert_notes = 0 //if all connecting player's notes should attempt to be converted to the database
-
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
@@ -545,9 +543,6 @@
 
 				if("disable_away_missions")
 					config.disable_away_missions = 1
-
-				if("autoconvert_notes")
-					config.autoconvert_notes = 1
 
 				if("disable_lobby_music")
 					config.disable_lobby_music = 1

@@ -304,9 +304,6 @@
 			src << message
 		clientmessages.Remove(ckey)
 
-	if (config && config.autoconvert_notes)
-		convert_notes_sql(ckey)
-
 
 	send_resources()
 

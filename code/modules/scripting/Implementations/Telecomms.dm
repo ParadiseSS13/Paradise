@@ -138,7 +138,7 @@
 				@param replacestring: 	the string to replace the substring with
 
 	*/
-	interpreter.SetProc("replace",		/proc/replacetext)
+	interpreter.SetProc("replace",		/proc/n_replacetext)
 
 	/*
 		-> Locates an element/substring inside of a list or string
@@ -194,7 +194,7 @@
 	interpreter.SetProc("reverse",		/proc/reverse_text)
 	interpreter.SetProc("tonum",		/proc/n_str2num)
 	interpreter.SetProc("capitalize",	/proc/capitalize)
-	interpreter.SetProc("replacetextEx",/proc/replacetextEx)
+	interpreter.SetProc("replacetextEx",/proc/n_replacetextEx)
 
 	// Numbers
 	interpreter.SetProc("tostring",		/proc/n_num2str)
