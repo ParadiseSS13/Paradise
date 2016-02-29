@@ -389,6 +389,8 @@
 
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
+	M.dna.SetSEState(COMICBLOCK,0)
+	genemutcheck(M, COMICBLOCK,null,MUTCHK_FORCED)
 
 /obj/item/organ/internal/honktumor/Destroy()
 	processing_objects.Remove(src)
@@ -434,7 +436,7 @@
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
-	desc = "<placeholder>"
+	desc = "let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
 	w_class = 1
