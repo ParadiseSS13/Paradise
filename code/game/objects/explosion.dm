@@ -31,7 +31,7 @@
 		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
 
 	spawn(0)
-		var/start = TimeOfHour
+		var/watch = start_watch()
 		if(!epicenter) return
 
 		var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
@@ -157,8 +157,7 @@
 								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
 								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
 */
-		var/timeofhour = TimeOfHour
-		var/took = round((start <= timeofhour) ? ((timeofhour-start)/10) : ((timeofhour-(start-36000))/10), 0.01)
+		var/took = stop_watch(watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
 		if(Debug2)	log_to_dd("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
