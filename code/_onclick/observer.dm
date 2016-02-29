@@ -1,7 +1,6 @@
 /mob/dead/observer/DblClickOn(var/atom/A, var/params)
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
@@ -18,8 +17,7 @@
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 	if(world.time <= next_move)
 		return
 

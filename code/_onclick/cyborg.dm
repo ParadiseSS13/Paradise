@@ -12,8 +12,7 @@
 	next_click = world.time + 1
 
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])

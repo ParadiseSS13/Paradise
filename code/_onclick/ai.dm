@@ -11,8 +11,7 @@
 */
 /mob/living/silicon/ai/DblClickOn(var/atom/A, params)
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 
 	if(control_disabled || stat) return
 
@@ -28,8 +27,7 @@
 	next_click = world.time + 1
 
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 
 	if(control_disabled || stat)
 		return

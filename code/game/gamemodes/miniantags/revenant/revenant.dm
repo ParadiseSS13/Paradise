@@ -87,9 +87,9 @@
 		src << "<span class='revendanger'>You feel your essence fraying!</span>"
 
 /mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.if(client.click_intercept)
+
 	if(client.click_intercept)
-		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
-			return
+		client.click_intercept.InterceptClickOn(src, params, A)
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"])

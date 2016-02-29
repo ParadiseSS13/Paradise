@@ -8,7 +8,7 @@
 
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
-	var/datum/buildmode/bd
+	var/datum/click_intercept/buildmode/bd
 
 /obj/screen/buildmode/New(bld)
 	..()
@@ -88,10 +88,38 @@
 	cl = null
 	qdel(I)
 
-/datum/buildmode
-	var/mode = BASIC_BUILDMODE
+/datum/click_intercept
 	var/client/holder = null
 	var/list/obj/screen/buttons = list()
+
+/datum/click_intercept/New(client/c)
+	create_buttons()
+	holder = c
+	holder.click_intercept = src
+	holder.show_popup_menus = 0
+	holder.screen += buttons
+
+/datum/click_intercept/Destroy()
+	for(var/button in buttons)
+		qdel(button)
+
+
+/datum/click_intercept/proc/create_buttons()
+	return
+
+/datum/click_intercept/proc/InterceptClickOn(user,params,atom/object)
+	return
+
+/datum/click_intercept/proc/quit()
+	holder.screen -= buttons
+	holder.click_intercept = null
+	holder.show_popup_menus = 1
+	qdel(src)
+
+
+
+/datum/click_intercept/buildmode
+	var/mode = BASIC_BUILDMODE
 	var/build_dir = SOUTH
 	var/atom/movable/throw_atom = null
 	var/obj/effect/buildmode_reticule/cornerA = null
@@ -102,37 +130,23 @@
 	var/objholder = /obj/structure/closet
 	var/atom/movable/stored = null
 
-/datum/buildmode/New(client/c)
-	create_buttons()
-	holder = c
-	holder.click_intercept = src
-	holder.show_popup_menus = 0
-	holder.screen += buttons
-
-/datum/buildmode/proc/quit()
-	holder.screen -= buttons
-	holder.click_intercept = null
-	holder.show_popup_menus = 1
-	qdel(src)
-
-/datum/buildmode/Destroy()
+/datum/click_intercept/buildmode/Destroy()
 	stored = null
 	Reset()
-	for(var/button in buttons)
-		qdel(button)
+	..()
 
-/datum/buildmode/proc/create_buttons()
+/datum/click_intercept/buildmode/create_buttons()
 	buttons += new /obj/screen/buildmode/mode(src)
 	buttons += new /obj/screen/buildmode/help(src)
 	buttons += new /obj/screen/buildmode/bdir(src)
 	buttons += new /obj/screen/buildmode/quit(src)
 
-/datum/buildmode/proc/toggle_modes()
+/datum/click_intercept/buildmode/proc/toggle_modes()
 	mode = (mode % NUM_BUILDMODES) +1
 	Reset()
 	return
 
-/datum/buildmode/proc/show_help(mob/user)
+/datum/click_intercept/buildmode/proc/show_help(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
 			user << "<span class='notice'>***********************************************************</span>"
@@ -175,7 +189,7 @@
 			user << "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>"
 			user << "<span class='notice'>***********************************************************</span>"
 
-/datum/buildmode/proc/change_settings(mob/user)
+/datum/click_intercept/buildmode/proc/change_settings(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
 
@@ -221,7 +235,7 @@
 			cornerA = null
 			cornerB = null
 
-/datum/buildmode/proc/change_dir()
+/datum/click_intercept/buildmode/proc/change_dir()
 	switch(build_dir)
 		if(NORTH)
 			build_dir = EAST
@@ -235,32 +249,32 @@
 			build_dir = NORTH
 	return 1
 
-/datum/buildmode/proc/deselect_region()
+/datum/click_intercept/buildmode/proc/deselect_region()
 	qdel(cornerA)
 	cornerA = null
 	qdel(cornerB)
 	cornerB = null
 
-/datum/buildmode/proc/Reset()//Reset temporary variables
+/datum/click_intercept/buildmode/proc/Reset()//Reset temporary variables
 	deselect_region()
 
-/datum/buildmode/proc/select_tile(var/turf/T)
+/datum/click_intercept/buildmode/proc/select_tile(var/turf/T)
 	return new /obj/effect/buildmode_reticule(T, holder)
 
-/proc/togglebuildmode(mob/M in player_list)
+/proc/togglebuildmode(mob/M as mob in player_list)
 	set name = "Toggle Build Mode"
 	set category = "Special Verbs"
 	if(M.client)
-		if(istype(M.client.click_intercept,/datum/buildmode))
-			var/datum/buildmode/B = M.client.click_intercept
+		if(istype(M.client.click_intercept,/datum/click_intercept/buildmode))
+			var/datum/click_intercept/buildmode/B = M.client.click_intercept
 			B.quit()
 			log_admin("[key_name(usr)] has left build mode.")
 		else
-			new/datum/buildmode(M.client)
+			new/datum/click_intercept/buildmode(M.client)
 			message_admins("[key_name(usr)] has entered build mode.")
 			log_admin("[key_name(usr)] has entered build mode.")
 
-/datum/buildmode/proc/InterceptClickOn(user,params,atom/object) //Click Intercept
+/datum/click_intercept/buildmode/InterceptClickOn(user,params,atom/object) //Click Intercept
 	var/list/pa = params2list(params)
 	var/right_click = pa.Find("right")
 	var/left_click = pa.Find("left")

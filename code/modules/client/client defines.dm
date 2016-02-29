@@ -81,4 +81,4 @@
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
-	var/datum/click_intercept = null // To use this, implement "InterceptClickOn" in your datum, then set your desired client's click_intercept to that datum
+	var/datum/click_intercept/click_intercept = null
