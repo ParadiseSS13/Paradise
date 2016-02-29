@@ -86,6 +86,8 @@
 				param = null
 
 			if (param)
+				message = "<B>[src]</B> emits an affirmative blip at [param]."
+			else
 				message = "<B>[src]</B> emits an affirmative blip."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 1
@@ -101,6 +103,8 @@
 				param = null
 
 			if (param)
+				message = "<B>[src]</B> emits a negative blip at [param]."
+			else
 				message = "<B>[src]</B> emits a negative blip."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 1

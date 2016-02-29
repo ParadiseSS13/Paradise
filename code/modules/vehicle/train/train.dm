@@ -54,6 +54,9 @@
 		var/turf/T = get_step(A, dir)
 		if(isturf(T))
 			A.Move(T)	//bump things away when hit
+	
+	if(ismob(load) && istype(Obstacle, /obj/machinery/door))
+		Obstacle.Bumped(load)
 
 	if(emagged)
 		if(istype(A, /mob/living))

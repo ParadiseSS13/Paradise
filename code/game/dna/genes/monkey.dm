@@ -20,8 +20,8 @@
 		H.unEquip(W)
 		
 	H.regenerate_icons()
+	H.SetStunned(1)
 	H.canmove = 0
-	H.stunned = 1
 	H.icon = null
 	H.invisibility = 101
 	
@@ -33,8 +33,7 @@
 	sleep(22)
 	qdel(animation)
 	
-	H.stunned = 0
-	H.update_canmove()
+	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)
 
 	if(!H.species.primitive_form) //If the creature in question has no primitive set, this is going to be messy.
@@ -62,8 +61,8 @@
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()
+	H.SetStunned(1)
 	H.canmove = 0
-	H.stunned = 1
 	H.icon = null
 	H.invisibility = 101
 	
@@ -75,8 +74,7 @@
 	sleep(22)
 	qdel(animation)
 
-	H.stunned = 0
-	H.update_canmove()
+	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)
 
 	if(!H.species.greater_form) //If the creature in question has no primitive set, this is going to be messy.

@@ -1,7 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - rscadd: "Adds prize tickets as a replacement for physical arcade prizes."
-  - rscadd: "Adds a buildable prize counter to exchange tickets for prizes."
-  - rscadd: "Adds a bike. Despite what Prof. Oak might claim, you can ride it indoors."
-  - rscadd: "Adds colorful wallets, for that old school arcade pride."

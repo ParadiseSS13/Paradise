@@ -1,5 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - rscadd: "Temporarily adds a prize counter to the bar (Cyberiad) or dorms (MetaStation), and adds a max upgrade one to the Ninja Holding Area (Cyberiad z2)"
-  - bugfix: "Fixes Metastation. Seriously fixed a lot, just read the PR description for the full list."

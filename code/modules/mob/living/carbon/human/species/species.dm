@@ -433,14 +433,6 @@
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-				//switch(G.HUDType)
-				//	if(SECHUD)
-				//		process_sec_hud(H,1)
-				//	if(MEDHUD)
-				//		process_med_hud(H,1)
-				//	if(ANTAGHUD)
-				//		process_antag_hud(H)
-
 		if(H.head)
 			if(istype(H.head, /obj/item/clothing/head))
 				var/obj/item/clothing/head/hat = H.head

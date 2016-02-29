@@ -97,27 +97,25 @@
 /atom/movable/Crossed(atom/movable/AM)
 	return
 
-/atom/movable/Bump(var/atom/A as mob|obj|turf|area, yes)
+/atom/movable/Bump(var/atom/A as mob|obj|turf|area, sendBump)
 	if(src.throwing)
 		src.throw_impact(A)
 
-	if ((A && yes))
+	if (A && sendBump)
 		A.last_bumped = world.time
 		A.Bumped(src)
-		return
-	..()
-	return
+	else
+		..()
 
 /atom/movable/proc/forceMove(atom/destination)
+	if(loc)
+		loc.Exited(src)
+	loc = destination
 	if(destination)
-		if(loc)
-			loc.Exited(src)
-		loc = destination
 		loc.Entered(src)
 		for(var/atom/movable/AM in loc)
 			AM.Crossed(src)
-		return 1
-	return 0
+	return 1
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)

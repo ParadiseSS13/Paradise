@@ -1,5 +1,0 @@
-author: Tastyfish
-delete-after: True
-changes: 
-  - rscadd: "EngiVend now has 10 camera assemblies."
-  - tweak: "Borgs can now use vending machines."

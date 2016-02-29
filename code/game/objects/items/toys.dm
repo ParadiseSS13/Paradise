@@ -49,15 +49,23 @@
 
 /obj/item/toy/balloon/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-	if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
+	if (istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
 		user << "<span class='notice'>You fill the balloon with the contents of [A].</span>"
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
 		update_icon()
 	return
 
+/obj/item/toy/balloon/wash(mob/user, atom/source)
+	if(reagents.total_volume < 10)
+		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
+		user << "<span class='notice'>You fill the balloon from the [source].</span>"
+		desc = "A translucent balloon with some form of liquid sloshing around in it."
+		update_icon()
+	return
+
 /obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/reagent_containers/glass))
+	if(istype(O, /obj/item/weapon/reagent_containers/glass) || istype(O, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
 				user << "The [O] is empty."
@@ -200,7 +208,7 @@
 		return
 	else if (bullets == 0)
 		user.Weaken(5)
-		user.visible_message("<span class='danger'>[] realized they were out of ammo and starting scrounging for some!</span>")
+		user.visible_message("<span class='danger'>[user] realized they were out of ammo and starting scrounging for some!</span>")
 
 
 
@@ -1361,6 +1369,7 @@ obj/item/toy/cards/deck/syndicate/black
 	force = 5
 	throwforce = 5
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
+	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/fred
 	name = "fred"

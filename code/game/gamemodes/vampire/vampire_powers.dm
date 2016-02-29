@@ -75,9 +75,9 @@
 	var/datum/mind/M = usr.mind
 	if(!M) return
 	if(M.current.vampire_power(0, 1))
-		M.current.weakened = 0
-		M.current.stunned = 0
-		M.current.paralysis = 0
+		M.current.SetWeakened(0)
+		M.current.SetStunned(0)
+		M.current.SetParalysis(0)
 		M.current.adjustStaminaLoss(-75)
 		//M.vampire.bloodusable -= 10
 		M.current << "\blue You flush your system with clean blood and remove any incapacitating effects."

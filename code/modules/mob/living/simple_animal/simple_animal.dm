@@ -170,58 +170,48 @@
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atmos_suitable = 1
 
-	var/atom/A = src.loc
-	if(isturf(A))
-		var/turf/T = A
-		var/areatemp = get_temperature(environment)
+	var/areatemp = get_temperature(environment)
 
-		if( abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
-			var/diff = areatemp - bodytemperature
-			diff = diff / 5
-			bodytemperature += diff
+	if(abs(areatemp - bodytemperature) > 40 && !(flags & NO_BREATHE))
+		var/diff = areatemp - bodytemperature
+		diff = diff / 5
+		bodytemperature += diff
+	
+	var/tox = environment.toxins
+	var/oxy = environment.oxygen
+	var/n2 = environment.nitrogen
+	var/co2 = environment.carbon_dioxide
 
-		if(istype(T, /turf/simulated))
-			var/turf/simulated/ST = T
-			if(ST.air)
-				var/tox = ST.air.toxins
-				var/oxy = ST.air.oxygen
-				var/n2 = ST.air.nitrogen
-				var/co2 = ST.air.carbon_dioxide
+	if(min_oxy && oxy < min_oxy)
+		atmos_suitable = 0
+		oxygen_alert = 1
+	else if(max_oxy && oxy > max_oxy)
+		atmos_suitable = 0
+		oxygen_alert = 1
+	else
+		oxygen_alert = 0
 
-				if(min_oxy && oxy < min_oxy)
-					atmos_suitable = 0
-					oxygen_alert = 1
-				else if(max_oxy && oxy > max_oxy)
-					atmos_suitable = 0
-					oxygen_alert = 1
-				else
-					oxygen_alert = 0
+	if(min_tox && tox < min_tox)
+		atmos_suitable = 0
+		toxins_alert = 1
+	else if(max_tox && tox > max_tox)
+		atmos_suitable = 0
+		toxins_alert = 1
+	else
+		toxins_alert = 0
 
-				if(min_tox && tox < min_tox)
-					atmos_suitable = 0
-					toxins_alert = 1
-				else if(max_tox && tox > max_tox)
-					atmos_suitable = 0
-					toxins_alert = 1
-				else
-					toxins_alert = 0
+	if(min_n2 && n2 < min_n2)
+		atmos_suitable = 0
+	else if(max_n2 && n2 > max_n2)
+		atmos_suitable = 0
 
-				if(min_n2 && n2 < min_n2)
-					atmos_suitable = 0
-				else if(max_n2 && n2 > max_n2)
-					atmos_suitable = 0
+	if(min_co2 && co2 < min_co2)
+		atmos_suitable = 0
+	else if(max_co2 && co2 > max_co2)
+		atmos_suitable = 0
 
-				if(min_co2 && co2 < min_co2)
-					atmos_suitable = 0
-				else if(max_co2 && co2 > max_co2)
-					atmos_suitable = 0
-
-				if(!atmos_suitable)
-					adjustBruteLoss(unsuitable_atmos_damage)
-
-		else
-			if(min_oxy || min_tox || min_n2 || min_co2)
-				adjustBruteLoss(unsuitable_atmos_damage)
+	if(!atmos_suitable)
+		adjustBruteLoss(unsuitable_atmos_damage)
 
 	handle_temperature_damage()
 

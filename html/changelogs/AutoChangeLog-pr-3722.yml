@@ -1,0 +1,5 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - tweak: "Infrared emitters can now be rotated while already in an assembly via the UI popup."
+  - tweak: "The infrared emitter can no longer be hidden inside of boxes and still work."
