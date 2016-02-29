@@ -19,6 +19,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
+	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
@@ -27,6 +28,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/clothes_req = 1 //see if it requires clothes
 	var/stat_allowed = 0 //see if it requires being conscious/alive, need to set to 1 for ghostpells
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
+	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper and shout
 	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
@@ -74,7 +76,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		switch(charge_type)
 			if("recharge")
 				if(charge_counter < charge_max)
-					user << "<span class='notice'>[name] is still recharging.</span>"
+					user << still_recharging_msg
 					return 0
 			if("charges")
 				if(!charge_counter)
@@ -128,10 +130,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				user.whisper(invocation)
 			else
 				user.whisper(replacetext(invocation," ","`"))
+		if("emote")
+			user.visible_message(invocation, invocation_emote_self) //same style as in mob/living/emote.dm
 
 /obj/effect/proc_holder/spell/New()
 	..()
 
+	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/Destroy()
