@@ -11,7 +11,8 @@
 					sound,
 					randomslot,
 					volume,
-					nanoui_fancy
+					nanoui_fancy,
+					space_parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -49,6 +50,7 @@
 	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
 	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
+	space_parallax	= sanitize_integer(space_parallax, 0, 1, initial(space_parallax))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -71,7 +73,8 @@
 					sound='[sound]',
 					randomslot='[randomslot]',
 					volume='[volume]',
-					nanoui_fancy='[nanoui_fancy]'
+					nanoui_fancy='[nanoui_fancy]',
+					space_parallax='[space_parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
 

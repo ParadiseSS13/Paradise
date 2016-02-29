@@ -11,6 +11,8 @@
 								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
 								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
+	var/image/white_overlay
+
 
 /area/New()
 	icon_state = ""
@@ -33,6 +35,7 @@
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
 
+	white_overlay = image(loc=src,icon='icons/turf/space.dmi',icon_state="white",layer=AREA_LAYER+0.1)
 	..()
 
 //	spawn(15)

@@ -216,10 +216,16 @@ datum/hud/New(mob/owner)
 
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
+	for(var/area/imgarea in all_areas)
+		var/image/img = imgarea.white_overlay
+		if (C.prefs.space_parallax)
+			C.images |= img
+		else
+			C.images -= img
 	if (C.spessbg.len)
-		if (!(C.spessbg[0] in C.screen))
-			for(var/obj/screen/spessbg/bgobj in C.spessbg)
-				C.screen += bgobj
+		for(var/obj/screen/spessbg/bgobj in C.spessbg)
+			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
+			C.screen |= bgobj
 		return
 	for(var/i=0;i<4;i++)
 		var/obj/screen/spessbg/bgobj = new /obj/screen/spessbg()
@@ -231,10 +237,10 @@ datum/hud/New(mob/owner)
 		bgobj.icon_state = "spess"
 		bgobj.name = "spess"
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
-		bgobj.layer = AREA_LAYER + 0.5
+		bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
 		bgobj.blend_mode = BLEND_MULTIPLY
 		bgobj.mouse_opacity = 0
-		mymob.client.spessbg += bgobj
+		C.spessbg += bgobj
 		C.screen += bgobj
 	update_parallax()
 /datum/hud/proc/update_parallax()
