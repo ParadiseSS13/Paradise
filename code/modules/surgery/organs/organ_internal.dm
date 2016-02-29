@@ -380,7 +380,10 @@
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
+	M.mutations.Add(COMICBLOCK)
+	M.dna.SetSEState(CLUMSYBLOCK,1,1)
 	M.dna.SetSEState(COMICBLOCK,1,1)
+	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 	organhonked = world.time
 
@@ -389,8 +392,10 @@
 
 	M.mutations.Remove(CLUMSY)
 	M.mutations.Remove(COMICBLOCK)
+	M.dna.SetSEState(CLUMSYBLOCK,0)
 	M.dna.SetSEState(COMICBLOCK,0)
-	genemutcheck(M, COMICBLOCK,null,MUTCHK_FORCED)
+	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
+	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 
 /obj/item/organ/internal/honktumor/Destroy()
 	processing_objects.Remove(src)
