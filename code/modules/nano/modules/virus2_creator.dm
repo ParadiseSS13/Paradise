@@ -25,7 +25,7 @@
 		var/virusstats[0]
 		virusstats["antigen"] = antigens2string(curr_virus.antigen)
 		virusstats["spreadType"] = curr_virus.spreadtype
-		virusstats["affectedSpecies"] = list2text(curr_virus.affected_species, ", ")
+		virusstats["affectedSpecies"] = jointext(curr_virus.affected_species, ", ")
 		virusstats["speed"] = curr_virus.speed
 		data["virusStats"] = virusstats
 

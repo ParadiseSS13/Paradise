@@ -175,11 +175,11 @@ var/list/robot_verbs_default = list(
 		//Check for custom sprite
 		if(!custom_sprite)
 			var/file = file2text("config/custom_sprites.txt")
-			var/lines = text2list(file, "\n")
+			var/lines = splittext(file, "\n")
 
 			for(var/line in lines)
 			// split & clean up
-				var/list/Entry = text2list(line, ";")
+				var/list/Entry = splittext(line, ";")
 				for(var/i = 1 to Entry.len)
 					Entry[i] = trim(Entry[i])
 
@@ -865,7 +865,7 @@ var/list/robot_verbs_default = list(
 				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
 								"<span class='userdanger'>[M] has slashed at [src]!</span>")
 				if(prob(8))
-					flick("noise", flash)
+					flash_eyes(affect_silicon = 1)
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
@@ -894,7 +894,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M as mob)
 	if(..()) //successful slime shock
-		flick("noise", flash)
+		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))

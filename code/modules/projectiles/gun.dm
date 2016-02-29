@@ -226,13 +226,13 @@
 			in_chamber.p_y = text2num(mouse_control["icon-y"])
 		if(mouse_control["screen-loc"])
 			//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-			var/list/screen_loc_params = text2list(mouse_control["screen-loc"], ",")
+			var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
 
 			//Split X+Pixel_X up into list(X, Pixel_X)
-			var/list/screen_loc_X = text2list(screen_loc_params[1],":")
+			var/list/screen_loc_X = splittext(screen_loc_params[1],":")
 
 			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-			var/list/screen_loc_Y = text2list(screen_loc_params[2],":")
+			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
 
 			var/x = text2num(screen_loc_X[1]) * 32 + text2num(screen_loc_X[2]) - 32
 			var/y = text2num(screen_loc_Y[1]) * 32 + text2num(screen_loc_Y[2]) - 32

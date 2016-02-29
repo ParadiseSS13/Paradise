@@ -20,8 +20,6 @@
 		O.show_message("<b>The [name]</b> seizes up and falls limp...", 1) //ded -- Urist
 
 	update_canmove()
-	if(blind)
-		blind.layer = 0
 
 	if(ticker && ticker.mode)
 		ticker.mode.check_win()

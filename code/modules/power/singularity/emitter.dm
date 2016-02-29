@@ -106,8 +106,8 @@
 		active=on
 		var/statestr=on?"on":"off"
 		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
-		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [list2text(signal.data["hiddenprints"])]")
-		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [list2text(signal.data["hiddenprints"])]","singulo")
+		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [jointext(signal.data["hiddenprints"], "")]")
+		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [jointext(signal.data["hiddenprints"], "")]","singulo")
 		update_icon()
 
 /obj/machinery/power/emitter/Destroy()

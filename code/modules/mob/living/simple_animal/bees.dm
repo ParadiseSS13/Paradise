@@ -56,7 +56,6 @@
 					M.apply_damage(min(strength,2)+mut, BRUTE, sharp=1) // Stinging. The more mutated I am, the harder I sting.
 					M.apply_damage((round(feral/10,1)*(max((round(strength/20,1)),1)))+toxic, TOX) // Bee venom based on how angry I am and how many there are of me!
 					M << "\red You have been stung!"
-					M.flash_pain()
 
 		//if we're chasing someone, get a little bit angry
 		if(target_mob && prob(10))

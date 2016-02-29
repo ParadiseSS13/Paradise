@@ -52,7 +52,7 @@
 	if (memorybank)
 		data["buffer"] = list("name" = (analysed ? memorybank.effect.name : "Unknown Symptom"), "stage" = memorybank.stage)
 	if (species_buffer)
-		data["species_buffer"] = analysed ? list2text(species_buffer, ", ") : "Unknown Species"
+		data["species_buffer"] = analysed ? jointext(species_buffer, ", ") : "Unknown Species"
 
 	if (splicing)
 		data["busy"] = "Splicing..."
@@ -65,7 +65,7 @@
 
 		if (dish.virus2)
 			if (dish.virus2.affected_species)
-				data["affected_species"] = dish.analysed ? list2text(dish.virus2.affected_species, ", ") : "Unknown"
+				data["affected_species"] = dish.analysed ? jointext(dish.virus2.affected_species, ", ") : "Unknown"
 
 			if (dish.growth >= 50)
 				var/list/effects[0]
@@ -109,7 +109,7 @@
 					d.name = "[memorybank.effect.name] GNA disk (Stage: [memorybank.effect.stage])"
 					d.effect = memorybank
 				else if (species_buffer)
-					d.name = "[list2text(species_buffer, ", ")] GNA disk"
+					d.name = "[jointext(species_buffer, ", ")] GNA disk"
 					d.species = species_buffer
 			else
 				if (memorybank)
