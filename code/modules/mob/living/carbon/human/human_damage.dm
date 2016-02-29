@@ -407,3 +407,43 @@ This function restores all organs.
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	updatehealth()
 	return 1
+
+// CARBON ORGANS: REMOVE THIS SHIT
+/mob/living/carbon/human/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+	. = ..()
+	var/obj/item/organ/eyes/E = internal_organs_by_name["eyes"]
+	if(!E)
+		return
+
+	var/damage = intensity - check_eye_prot()
+	if(.)
+		if(visual)
+			return
+		switch(damage)
+			if(1)
+				if(prob(40))
+					E.damage += 1
+			if(2)
+				E.damage += rand(2, 4)
+			else
+				E.damage += rand(12, 16)
+
+		if(E.damage > 10)
+			eye_blind += damage
+			eye_blurry += damage * rand(3, 6)
+
+			if(E.damage > 20)
+				if (prob(E.damage - 20))
+					src << "<span class='warning'>Your eyes start to burn badly!</span>"
+					disabilities |= NEARSIGHTED
+				else if(prob(E.damage - 25))
+					src << "<span class='warning'>You can't see anything!</span>"
+					sdisabilities |= BLIND
+			else
+				src << "<span class='warning'>Your eyes are really starting to hurt. This can't be good for you!</span>"
+		return 1
+
+	else if(damage == 0) // just enough protection
+		if(prob(20))
+			src << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
+

@@ -291,9 +291,6 @@
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/proc/getMask()
-	return global_hud.darkMask
-
 /obj/item/clothing/glasses/welding/attack_self()
 	toggle()
 
@@ -335,9 +332,6 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/welding/superior/getMask()
-	return null
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"

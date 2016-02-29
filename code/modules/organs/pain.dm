@@ -1,6 +1,3 @@
-mob/proc/flash_pain()
-	flick("pain",pain)
-
 mob/var/list/pain_stored = list()
 mob/var/last_pain_message = ""
 mob/var/next_pain_time = 0
@@ -30,20 +27,16 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 			if(1 to 10)
 				msg = "\red <b>Your [partname] burns.</b>"
 			if(11 to 90)
-				flash_weak_pain()
 				msg = "\red <b><font size=2>Your [partname] burns badly!</font></b>"
 			if(91 to 10000)
-				flash_pain()
 				msg = "\red <b><font size=3>OH GOD! Your [partname] is on fire!</font></b>"
 	else
 		switch(amount)
 			if(1 to 10)
 				msg = "<b>Your [partname] hurts.</b>"
 			if(11 to 90)
-				flash_weak_pain()
 				msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
 			if(91 to 10000)
-				flash_pain()
 				msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg

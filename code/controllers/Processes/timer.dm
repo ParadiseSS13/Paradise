@@ -60,7 +60,7 @@ var/global/datum/controller/process/timer/PStimer
 	event.thingToCall = thingToCall
 	event.procToCall = procToCall
 	event.timeToRun = world.time + wait
-	event.hash = jointext(args, "")
+	event.hash = jointext(args, null)
 	if(args.len > 4)
 		event.argList = args.Copy(5)
 

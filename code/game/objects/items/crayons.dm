@@ -237,7 +237,7 @@
 				if(C.client)
 					C.eye_blurry = max(C.eye_blurry, 3)
 					C.eye_blind = max(C.eye_blind, 1)
-					if(C.eyecheck() <= 0) // no eye protection? ARGH IT BURNS.
+					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
 						C.confused = max(C.confused, 3)
 						C.Weaken(3)
 				C.lip_style = "spray_face"
