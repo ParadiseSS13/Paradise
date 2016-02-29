@@ -244,13 +244,21 @@ datum/hud/New(mob/owner)
 		C.screen += bgobj
 	update_parallax()
 /datum/hud/proc/update_parallax()
+	var/atom/posobj = mymob
+	while(!istype(posobj,/turf))
+		posobj = posobj.loc
 	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
-		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-mymob.x],CENTER-7:[bgobj.offset_y-mymob.y]"
+		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
 
-/mob/Move()
+/atom/movable/Move()
 	..()
-	if(hud_used)
-		hud_used.update_parallax()
+	if(istype(src,/mob))
+		var/mob/srcmob = src
+		if(srcmob.hud_used)
+			srcmob.hud_used.update_parallax()
+	for(var/mob/themob in contents)
+		if(themob.hud_used)
+			themob.hud_used.update_parallax()
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
