@@ -111,7 +111,7 @@
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 
-	if(silent || (sdisabilities & MUTE) || !IsVocal())
+	if(silent || (sdisabilities & MUTE))
 		message = ""
 		speech_problem_flag = 1
 
