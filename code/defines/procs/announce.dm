@@ -51,7 +51,7 @@
 	var/tmp/message_sound = new_sound ? sound(new_sound) : sound
 
 	if(!msg_sanitized)
-		message = trim_strip_html_properly(message)
+		message = trim_strip_html_properly(message, allow_lines = 1)
 	message_title = html_encode(message_title)
 
 	Message(message, message_title, from)
