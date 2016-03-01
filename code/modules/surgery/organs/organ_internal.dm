@@ -441,7 +441,7 @@
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
-	desc = "let they who is worthy wear the beard of Thorbjorndottir."
+	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
 	origin_tech = "biotech=1"
 	w_class = 1

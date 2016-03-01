@@ -45,7 +45,7 @@
 			break
 
 	real_name = src.name
-	//internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	internal_organs += new /obj/item/organ/internal/xenos/acidgland
 	internal_organs += new /obj/item/organ/internal/xenos/eggsac
 	internal_organs += new /obj/item/organ/internal/xenos/resinspinner

@@ -3,7 +3,7 @@
 //						FACE SURGERY							//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/plastic_surgery
-	name = "plastic surgery"
+	name = "face repair"
 	steps = list(/datum/surgery_step/generic/cut_face, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/face/mend_vocal, /datum/surgery_step/face/fix_face,/datum/surgery_step/face/cauterize)
 	possible_locs = list("head")
 

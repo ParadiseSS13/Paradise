@@ -22,7 +22,6 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-	//var/plasma_rate = 5
 
 	var/large = 0
 	var/heat_protection = 0.5

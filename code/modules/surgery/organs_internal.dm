@@ -56,75 +56,6 @@
 	return affected && affected.open_enough_for_surgery()
 
 
-//////////////////////////////////////////////////////////////////
-//					ALIEN EMBRYO SURGERY						//
-//////////////////////////////////////////////////////////////////
-///datum/surgery/remove_xeno_baby
-//	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/remove_embryo)
-//	possible_locs = list("chest")
-//	disallowed_mob = (/mob/living/carbon/human/machine)
-//this is all handled bia organ mainpulation as an On_find
-
-/datum/surgery_step/internal/remove_embryo//might can just do this in organ mainpulation..but this is TARGETED for..
-	allowed_tools = list(
-	/obj/item/weapon/hemostat = 100,	\
-	/obj/item/weapon/wirecutters = 75,	\
-	/obj/item/weapon/kitchen/utensil/fork = 20
-	)
-	blood_level = 2
-
-	max_duration = 100
-
-/datum/surgery_step/internal/remove_embryo/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/embryo = 0
-	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-	if(A)
-		embryo = 1
-		//break
-
-	if (!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return ..() && affected && embryo && affected.open_enough_for_surgery() && target_zone == "chest"
-
-/datum/surgery_step/internal/remove_embryo/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-		var/msg = "[user] starts to pull something out from [target]'s ribcage with \the [tool]."
-		var/self_msg = "You start to pull something out from [target]'s ribcage with \the [tool]."
-		user.visible_message(msg, self_msg)
-		target.custom_pain("Something hurts horribly in your chest!",1)
-		..()
-
-/datum/surgery_step/internal/remove_embryo/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	user.visible_message("<span class='warning'> [user] rips the larva out of [target]'s ribcage!</span>",
-						 "You rip the larva out of [target]'s ribcage!</span>")
-
-	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-	if(A)
-		user << "<span class='notice'>You found an unknown alien organism in [target]'s chest!</span>"
-		if(prob(10))
-			A.AttemptGrow()
-
-	A.remove(target)
-	A.loc = get_turf(target)
-
-	return 1
-
-/datum/surgery_step/internal/remove_embryo/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	if (!hasorgans(target))
-		return
-
-	var/obj/item/organ/internal/body_egg/alien_embryo/A = target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-	if(A)
-		if(prob(50))
-			A.AttemptGrow(0)
-			user.visible_message("<span class='warning'>[user] accidentally pokes the xenomorph in [target]!</span>", "<span class='warning'>You accidentally poke the xenomorph in [target]!</span>")
-		else
-			target.adjustOxyLoss(30)
-			user.visible_message("<span class='warning'>[user] accidentally pokes [target] in the lungs!</span>", "<span class='warning'>You accidentally poke [target] in the lungs!</span>")
-
-	return 0
-
 
 /datum/surgery_step/internal/manipulate_organs
 	name = "manipulate organs"
@@ -487,19 +418,3 @@
 		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with \the [tool]!</span>"
 	user.visible_message(msg, self_msg)
 	return 0
-//////////////////////////////////////////////////////////////////
-//						HEART SURGERY							//
-//////////////////////////////////////////////////////////////////
-// To be finished after some tests.
-// /datum/surgery_step/ribcage/heart/cut
-//	allowed_tools = list(
-//	/obj/item/weapon/scalpel = 100,		\
-//	/obj/item/weapon/kitchen/knife = 75,	\
-//	/obj/item/weapon/shard = 50, 		\
-//	)
-
-//	min_duration = 30
-//	max_duration = 40
-
-//	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-//		return ..() && target.op_stage.ribcage == 2

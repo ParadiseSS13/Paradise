@@ -80,7 +80,6 @@
 	name = "brain"
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
-		//var/mob/living/carbon/human/H = target
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
 			brain_already_exists = 1
 
