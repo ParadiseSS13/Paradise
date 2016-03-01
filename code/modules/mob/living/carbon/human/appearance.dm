@@ -17,7 +17,7 @@
 	reset_hair()
 	return 1
 
-/mob/living/carbon/human/proc/change_gender(var/gender)
+/mob/living/carbon/human/proc/change_gender(var/gender, var/update_dna = 1)
 	if(src.gender == gender)
 		return
 
@@ -31,7 +31,8 @@
 	if(current_fhair.gender != NEUTER && current_fhair.gender != src.gender)
 		reset_facial_hair()
 
-	update_dna()
+	if(update_dna)
+		update_dna()
 	sync_organ_dna(assimilate = 0)
 	update_body()
 	return 1
