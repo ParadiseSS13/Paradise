@@ -7,12 +7,14 @@
 */
 
 /mob/living/silicon/robot/ClickOn(var/atom/A, var/params)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
+
 	if(world.time <= next_click)
 		return
 	next_click = world.time + 1
 
-	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])

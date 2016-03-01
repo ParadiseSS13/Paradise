@@ -86,10 +86,11 @@
 	if(essence == 0)
 		src << "<span class='revendanger'>You feel your essence fraying!</span>"
 
-/mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.if(client.click_intercept)
+/mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.
 
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
+		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"])
