@@ -41,7 +41,7 @@
 			H.sync_organ_dna(1)
 			H.update_body(0)
 			H.reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover
-			H.dna.ResetUIFrom(character)
+			H.dna.ResetUIFrom(H)
 		target.update_icons()
 
 		log_attack("[key_name(user)] injected [key_name(target)] with the [name]")
