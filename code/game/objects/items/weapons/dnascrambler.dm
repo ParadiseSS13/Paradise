@@ -34,10 +34,13 @@
 				user << "\red You failed to inject [M.name]."
 
 	proc/injected(var/mob/living/carbon/target, var/mob/living/carbon/user)
-		target.generate_name()
-		target.real_name = target.name
-
 		scramble(1, target, 100)
+		target.generate_name()
+		if(istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			H.sync_organ_dna(1)
+			H.update_body(0)
+		target.update_icons()
 
 		log_attack("[key_name(user)] injected [key_name(target)] with the [name]")
 		log_game("[key_name_admin(user)] injected [key_name_admin(target)] with the [name]")

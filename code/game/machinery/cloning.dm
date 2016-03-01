@@ -237,7 +237,6 @@
 	H.updatehealth()
 
 	clonemind.transfer_to(H)
-	H.ckey = R.ckey
 	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
 
 	// -- Mode/mind specific stuff goes here
@@ -263,9 +262,9 @@
 	if(!R.dna)
 		H.dna = new /datum/dna()
 		H.dna.real_name = H.real_name
+		H.dna.ready_dna(H)
 	else
-		H.dna=R.dna
-	H.UpdateAppearance()
+		H.dna = R.dna.Clone()
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
 	if(efficiency > 5 && prob(20))
@@ -275,13 +274,11 @@
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
-/* //let's not make people waste even more time after being cloned.
-	H.f_style = "Shaved"
-	if(R.dna.species == "Human") //no more xenos losing ears/tentacles
-		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3") */
-
 	H.set_species(R.dna.species)
+	H.sync_organ_dna(assimilate=1) // It's literally a fresh body as you can get, so all organs properly belong to it
+	H.UpdateAppearance()
 
+	H.update_body()
 	update_icon()
 
 	for(var/datum/language/L in R.languages)
