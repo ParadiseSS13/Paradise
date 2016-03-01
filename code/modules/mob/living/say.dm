@@ -90,7 +90,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(GREY in mutations)
 		message = "<span class='grey'>[message]</span>"
 
-	if(COMIC in mutations)
+	else if(COMIC in mutations)
 		message = "<span class='sans'>[message]</span>"
 
 	if(!IsVocal())
