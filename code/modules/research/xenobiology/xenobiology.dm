@@ -504,7 +504,7 @@
 			user << "The rune fizzles uselessly. There is no spirit nearby."
 			return
 		var/mob/living/carbon/human/golem/G = new /mob/living/carbon/human/golem
-		if(prob(50))	G.gender = "female"
+		G.change_gender(pick(MALE,FEMALE))
 		G.loc = src.loc
 		G.key = ghost.key
 		G << "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost."

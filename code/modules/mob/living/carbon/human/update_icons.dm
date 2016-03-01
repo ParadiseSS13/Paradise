@@ -177,11 +177,10 @@ Please contact me on #coderbus IRC. ~Carn x
 		if(istype(I))  overlays += I
 	else
 		icon = stand_icon
-		if(overlays.len != overlays_standing.len)
-			overlays.Cut()
+		overlays.Cut()
 
-			for(var/thing in overlays_standing)
-				if(thing)	overlays += thing
+		for(var/thing in overlays_standing)
+			if(thing)	overlays += thing
 
 	update_transform()
 

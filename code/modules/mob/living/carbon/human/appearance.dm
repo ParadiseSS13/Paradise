@@ -22,9 +22,18 @@
 		return
 
 	src.gender = gender
-	reset_hair()
-	update_body()
+
+	var/datum/sprite_accessory/hair/current_hair = hair_styles_list[h_style]
+	if(current_hair.gender != NEUTER && current_hair.gender != src.gender)
+		reset_head_hair()
+
+	var/datum/sprite_accessory/hair/current_fhair = facial_hair_styles_list[f_style]
+	if(current_fhair.gender != NEUTER && current_fhair.gender != src.gender)
+		reset_facial_hair()
+
 	update_dna()
+	sync_organ_dna(assimilate = 0)
+	update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_hair(var/hair_style)
@@ -58,8 +67,11 @@
 	return 1
 
 /mob/living/carbon/human/proc/reset_hair()
+	reset_head_hair()
+	reset_facial_hair()
+
+/mob/living/carbon/human/proc/reset_head_hair()
 	var/list/valid_hairstyles = generate_valid_hairstyles()
-	var/list/valid_facial_hairstyles = generate_valid_facial_hairstyles()
 
 	if(valid_hairstyles.len)
 		h_style = pick(valid_hairstyles)
@@ -67,13 +79,15 @@
 		//this shouldn't happen
 		h_style = "Bald"
 
+	update_hair()
+
+/mob/living/carbon/human/proc/reset_facial_hair()
+	var/list/valid_facial_hairstyles = generate_valid_facial_hairstyles()
 	if(valid_facial_hairstyles.len)
 		f_style = pick(valid_facial_hairstyles)
 	else
 		//this shouldn't happen
 		f_style = "Shaved"
-
-	update_hair()
 	update_fhair()
 
 /mob/living/carbon/human/proc/change_eye_color(var/red, var/green, var/blue)
