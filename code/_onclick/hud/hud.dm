@@ -210,6 +210,8 @@ datum/hud/New(mob/owner)
 
 /client/var/list/obj/screen/spessbg/spessbg = list()
 
+var/list/client/parallax_on_clients = list()
+
 /obj/screen/spessbg
 	var/offset_x = 0
 	var/offset_y = 0
@@ -220,8 +222,10 @@ datum/hud/New(mob/owner)
 		var/image/img = imgarea.white_overlay
 		if (C.prefs.space_parallax)
 			C.images |= img
+			parallax_on_clients |= C
 		else
 			C.images -= img
+			parallax_on_clients -= C
 	if (C.spessbg.len)
 		for(var/obj/screen/spessbg/bgobj in C.spessbg)
 			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
@@ -251,7 +255,7 @@ datum/hud/New(mob/owner)
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
 
 /atom/movable/Move()
-	..()
+	. = ..()
 	if(istype(src,/mob))
 		var/mob/srcmob = src
 		if(srcmob.hud_used)

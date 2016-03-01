@@ -21,6 +21,12 @@
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
+	if(istype(loc,/area))
+		var/area/A = loc
+		if(A.white_overlay)
+			if(!(A.white_overlay in A.contents))
+				A.contents += A.white_overlay
+
 /turf/space/Destroy()
 	return QDEL_HINT_LETMELIVE
 
