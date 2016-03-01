@@ -35,9 +35,6 @@
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
 
-	white_overlay = image(loc=src,icon='icons/turf/space.dmi',icon_state="white",layer=AREA_LAYER+0.1)
-	for(var/client/C in parallax_on_clients)
-		C.images |= white_overlay
 	..()
 
 //	spawn(15)

@@ -212,20 +212,25 @@ datum/hud/New(mob/owner)
 
 var/list/client/parallax_on_clients = list()
 
+var/area/global_space_area = null
+
 /obj/screen/spessbg
 	var/offset_x = 0
 	var/offset_y = 0
-
+/datum/hud/var/showing_parallax
 /datum/hud/proc/create_parallax()
 	var/client/C = mymob.client
-	for(var/area/imgarea in all_areas)
-		var/image/img = imgarea.white_overlay
-		if (C.prefs.space_parallax)
-			C.images |= img
-			parallax_on_clients |= C
-		else
-			C.images -= img
-			parallax_on_clients -= C
+	showing_parallax = C.prefs.space_parallax
+	if (C.prefs.space_parallax)
+		parallax_on_clients |= C
+	else
+		parallax_on_clients -= C
+	for(var/area/A in all_areas)
+		if(A.white_overlay)
+			if (C.prefs.space_parallax)
+				C.images |= A.white_overlay
+			else
+				C.images -= A.white_overlay
 	if (C.spessbg.len)
 		for(var/obj/screen/spessbg/bgobj in C.spessbg)
 			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
@@ -254,7 +259,20 @@ var/list/client/parallax_on_clients = list()
 	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
 
-/atom/movable/Move()
+/*///hook_handler/parallax/proc/OnMobAreaChange(var/list/args)
+	//var/mob/M = args["mob"]
+	// The amount of images per client is capped to 448. In other words, a big FUCK YOU from BYOND.
+	if(mymob.hud_used)
+		if(mymob.hud_used.showing_parallax)
+			var/list/area/areas = list()
+			for(var/turf/T in range(8,mymob))
+				areas |= T.loc
+			for(var/area/A in areas)
+				if(!(A.white_overlay in mymob.client.images))
+					mymob.client.images += A.white_overlay
+				A.contents |= A.white_overlay*/
+
+/atom/movable/Move(NewLock,Dir,step_x,step_y)
 	. = ..()
 	if(istype(src,/mob))
 		var/mob/srcmob = src
