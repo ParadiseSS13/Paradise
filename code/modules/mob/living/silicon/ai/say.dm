@@ -1,5 +1,3 @@
-/mob/living/silicon/ai/proc/IsVocal()
-
 var/announcing_vox = 0 // Stores the time of the last announcement
 var/const/VOX_CHANNEL = 200
 var/const/VOX_DELAY = 100
@@ -30,7 +28,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 /mob/living/silicon/ai/proc/ai_announcement()
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
-		
+
 	if(announcing_vox > world.time)
 		src << "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>"
 		return
@@ -38,7 +36,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	var/message = input(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement) as text|null
 
 	last_announcement = message
-	
+
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 

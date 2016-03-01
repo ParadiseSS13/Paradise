@@ -285,6 +285,9 @@ var/global/list/default_medbay_channels = list(
 	if(wires.IsIndexCut(WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
+	if(!M.IsVocal())
+		return 0
+
 	M.last_target_click = world.time
 
 	/* Quick introduction:
