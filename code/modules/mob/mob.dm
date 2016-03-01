@@ -625,7 +625,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize(msg)
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
 
 	if(mind)
 		mind.store_memory(msg)
