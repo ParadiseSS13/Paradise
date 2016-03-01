@@ -71,7 +71,11 @@
 	var/docile = 0                          // Sugar can stop borers from acting.
 	var/list/borer_injection_chems = list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
 
-/mob/living/simple_animal/borer/verb/Communicate()
+	var/injection_amount = 9
+	var/chem_cost = 30
+	var/static/obj/item/device/healthanalyzer/healthchecker = null
+
+/mob/living/simple_animal/borer/proc/Communicate()
 	set category = "Borer"
 	set name = "Converse with Host"
 	set desc = "Send a silent message to your host."
@@ -93,9 +97,10 @@
 	src << "<span class='changeling'><i>[src.truename] [say_string]:</i> [input]</span>"
 	host.verbs += /mob/living/proc/borer_comm
 
+/*
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
 	set category = "Borer"
+	set name = "Toggle speech inside Host"
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)
@@ -104,7 +109,7 @@
 	else
 		talk_inside_host = 1
 		src << "<span class='notice'>You will now be able to audibly speak from inside of a host.</span>"
-
+*/
 /mob/living/proc/borer_comm()
 	set name = "Converse with Borer"
 	set category = "Borer"
@@ -187,6 +192,9 @@
 
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
+	if(!healthchecker)
+		healthchecker = new /obj/item/device/healthanalyzer(null)
+		healthchecker.upgraded = 1
 	add_language("Cortical Link")
 	updatename()
 
@@ -206,17 +214,10 @@
 
 	if (client.statpanel == "Status")
 		stat("Chemicals", chemicals)
+		if(host)
+			stat(null, "Host's Health: [host.health]")
 
-// VERBS!
-
-/mob/living/simple_animal/borer/proc/borer_speak(var/message)
-	if(!message)
-		return
-
-	for(var/mob/M in mob_list)
-		if(M.mind && (istype(M, /mob/living/simple_animal/borer) || istype(M, /mob/dead/observer)))
-			M << "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>"
-
+// BORER VERBS! (Or verb-like procs!)
 /mob/living/simple_animal/borer/verb/dominate_victim()
 	set category = "Borer"
 	set name = "Dominate Victim"
@@ -257,7 +258,7 @@
 
 	used_dominate = world.time
 
-/mob/living/simple_animal/borer/verb/bond_brain()
+/mob/living/simple_animal/borer/proc/bond_brain()
 	set category = "Borer"
 	set name = "Assume Control"
 	set desc = "Fully connect to the brain of your host."
@@ -277,67 +278,12 @@
 	src << "You begin delicately adjusting your connection to the host brain..."
 
 	spawn(300+(host.getBrainLoss()*5))
+		assume_direct_control()
 
-		if(!host || !src || controlling)
-			return
-		else
-			src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
-			host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
-			var/borer_key = src.key
-			host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
-			msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
-			// host -> brain
-			var/h2b_id = host.computer_id
-			var/h2b_ip= host.lastKnownIP
-			host.computer_id = null
-			host.lastKnownIP = null
-
-			qdel(host_brain)
-			host_brain = new(src)
-
-			host_brain.ckey = host.ckey
-
-			host_brain.name = host.name
-
-			if(!host_brain.computer_id)
-				host_brain.computer_id = h2b_id
-
-			if(!host_brain.lastKnownIP)
-				host_brain.lastKnownIP = h2b_ip
-
-			// self -> host
-			var/s2h_id = src.computer_id
-			var/s2h_ip= src.lastKnownIP
-			src.computer_id = null
-			src.lastKnownIP = null
-
-			host.ckey = src.ckey
-
-			if(!host.computer_id)
-				host.computer_id = s2h_id
-
-			if(!host.lastKnownIP)
-				host.lastKnownIP = s2h_ip
-
-			controlling = 1
-
-			host.verbs += /mob/living/carbon/proc/release_control
-			host.verbs += /mob/living/carbon/proc/punish_host
-			host.verbs += /mob/living/carbon/proc/spawn_larvae
-			host.verbs -= /mob/living/proc/borer_comm
-			host.verbs += /mob/living/proc/trapped_mind_comm
-
-			if(src && !src.key)
-				src.key = "@[borer_key]"
-			return
-
-/mob/living/simple_animal/borer/verb/secrete_chemicals()
+/mob/living/simple_animal/borer/proc/secrete_chemicals()
 	set category = "Borer"
 	set name = "Secrete Chemicals (30)"
 	set desc = "Push some chemicals into your host's bloodstream."
-
-	var/injection_amount = 9
-	var/chem_cost = 30
 	if(!host)
 		src << "You are not inside a host body."
 		return
@@ -351,6 +297,7 @@
 
 	if(chemicals < chem_cost)
 		src << "You don't have enough chemicals!"
+		return
 
 	var/list/nice_name_chem_list = list()
 	for(var/rgnt in borer_injection_chems)
@@ -358,21 +305,10 @@
 		nice_name_chem_list[R2.name] = rgnt
 	var/chem_name = input("Select a chemical to secrete.", "Chemicals") as null|anything in nice_name_chem_list
 	var/chem = nice_name_chem_list[chem_name]
+	inject_chem(chem)
 
-	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat) //Sanity check.
-		return
 
-	var/chem_amount = host.reagents.get_reagent_amount(chem)
-	var/datum/reagent/R = chemical_reagents_list[chem]
-	if(R.overdose_threshold && chem_amount + injection_amount > R.overdose_threshold)
-		src << "<span class='warning'>Doing so would cause grievous harm to your host, reducing ability to reproduce. Aborting.</span>"
-		return
-
-	src << "<span class='notice'>You squirt a measure of [chem_name] from your reservoirs into [host]'s bloodstream.</span>"
-	host.reagents.add_reagent(chem, injection_amount)
-	chemicals -= chem_cost
-
-/mob/living/simple_animal/borer/verb/release_host()
+/mob/living/simple_animal/borer/proc/release_host()
 	set category = "Borer"
 	set name = "Release Host"
 	set desc = "Slither out of your host."
@@ -405,144 +341,6 @@
 		detatch()
 		leave_host()
 
-/mob/living/simple_animal/borer/proc/detatch()
-
-	if(!host) return
-
-	if(istype(host,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = host
-		var/obj/item/organ/external/head = H.get_organ("head")
-		head.implants -= src
-
-	controlling = 0
-
-	reset_view(null)
-	machine = null
-
-	host.verbs -= /mob/living/carbon/proc/release_control
-	host.verbs -= /mob/living/carbon/proc/punish_host
-	host.verbs -= /mob/living/carbon/proc/spawn_larvae
-	host.verbs += /mob/living/proc/borer_comm
-	host.verbs -= /mob/living/proc/trapped_mind_comm
-
-
-	if(host_brain)
-		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
-		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
-		// host -> self
-		var/h2s_id = host.computer_id
-		var/h2s_ip= host.lastKnownIP
-		host.computer_id = null
-		host.lastKnownIP = null
-
-		src.ckey = host.ckey
-
-		if(!src.computer_id)
-			src.computer_id = h2s_id
-
-		if(!host_brain.lastKnownIP)
-			src.lastKnownIP = h2s_ip
-
-		// brain -> host
-		var/b2h_id = host_brain.computer_id
-		var/b2h_ip= host_brain.lastKnownIP
-		host_brain.computer_id = null
-		host_brain.lastKnownIP = null
-
-		host.ckey = host_brain.ckey
-
-		if(!host.computer_id)
-			host.computer_id = b2h_id
-
-		if(!host.lastKnownIP)
-			host.lastKnownIP = b2h_ip
-
-	qdel(host_brain)
-
-	return
-
-
-//Brain slug proc for voluntary removal of control.
-/mob/living/carbon/proc/release_control()
-
-	set category = "Borer"
-	set name = "Release Control"
-	set desc = "Release control of your host's body."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(B && B.host_brain)
-		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
-
-		B.detatch()
-
-	else
-		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
-
-//Brain slug proc for tormenting the host.
-/mob/living/carbon/proc/punish_host()
-	set category = "Borer"
-	set name = "Torment host"
-	set desc = "Punish your host with agony."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.host_brain.ckey)
-		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
-		B.host_brain << "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>"
-
-//Check for brain worms in head.
-/mob/proc/has_brain_worms()
-
-	for(var/I in contents)
-		if(istype(I,/mob/living/simple_animal/borer))
-			return I
-
-	return 0
-
-/mob/living/carbon/proc/spawn_larvae()
-	set category = "Borer"
-	set name = "Reproduce (100)"
-	set desc = "Spawn several young."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.chemicals >= 100)
-		src << "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>"
-		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
-		B.chemicals -= 100
-
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-		new /mob/living/simple_animal/borer(get_turf(src))
-
-	else
-		src << "You do not have enough chemicals stored to reproduce."
-		return
-
-/mob/living/simple_animal/borer/proc/leave_host()
-
-	if(!host)	return
-
-	src.forceMove(get_turf(host))
-
-	reset_view(null)
-	machine = null
-
-	host.reset_view(null)
-	host.machine = null
-
-	var/mob/living/H = host
-	H.verbs -= /mob/living/proc/borer_comm
-	H.status_flags &= ~PASSEMOTES
-	host = null
-	return
 
 /mob/living/simple_animal/borer/verb/infest()
 	set category = "Borer"
@@ -605,6 +403,252 @@
 		src << "They are no longer in range!"
 		return
 
+/mob/living/simple_animal/borer/proc/check_host_health()
+	set category = "Borer"
+	set name = "Analyze Host Health (5)"
+	set desc = "Display a detailed health report of your host's body"
+
+	scan_host()
+
+// HUMANOID VERBS!
+
+/mob/living/carbon/proc/spawn_larvae()
+	set category = "Borer"
+	set name = "Reproduce (100)"
+	set desc = "Spawn several young."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
+
+	if(B.chemicals >= 100)
+		src << "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>"
+		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
+		B.chemicals -= 100
+
+		new /obj/effect/decal/cleanable/vomit(get_turf(src))
+		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		new /mob/living/simple_animal/borer(get_turf(src))
+
+	else
+		src << "You do not have enough chemicals stored to reproduce."
+		return
+
+
+//Brain slug proc for tormenting the host.
+/mob/living/carbon/proc/punish_host()
+	set category = "Borer"
+	set name = "Torment host"
+	set desc = "Punish your host with agony."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
+
+	if(B.host_brain.ckey)
+		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
+		B.host_brain << "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>"
+
+
+//Brain slug proc for voluntary removal of control.
+/mob/living/carbon/proc/release_control()
+
+	set category = "Borer"
+	set name = "Release Control"
+	set desc = "Release control of your host's body."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(B && B.host_brain)
+		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
+
+		B.detatch()
+
+	else
+		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
+
+//Check for brain worms in head.
+/mob/proc/has_brain_worms()
+
+	for(var/I in contents)
+		if(istype(I,/mob/living/simple_animal/borer))
+			return I
+
+	return 0
+
+
+// PROCS!
+
+/mob/living/simple_animal/borer/proc/scan_host()
+	if(!host)
+		return
+	healthchecker.attack(host, src)
+
+/mob/living/simple_animal/borer/proc/inject_chem(var/chem)
+
+
+	var/chem_amount = host.reagents.get_reagent_amount(chem)
+	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat == DEAD) //Sanity check.
+		return
+	var/datum/reagent/R = chemical_reagents_list[chem]
+	if(R.overdose_threshold && chem_amount + injection_amount > R.overdose_threshold)
+		src << "<span class='warning'>Doing so would cause grievous harm to your host, reducing ability to reproduce. Aborting.</span>"
+		return
+
+	src << "<span class='notice'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>"
+	host.reagents.add_reagent(chem, injection_amount)
+	chemicals -= chem_cost
+
+/mob/living/simple_animal/borer/proc/borer_speak(var/message)
+	if(!message)
+		return
+
+	for(var/mob/M in mob_list)
+		if(M.mind && (istype(M, /mob/living/simple_animal/borer) || istype(M, /mob/dead/observer)))
+			M << "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>"
+
+/mob/living/simple_animal/borer/proc/assume_direct_control()
+
+	if(!host || !src || controlling)
+		return
+	else
+		src << "\red <B>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</B>"
+		host << "\red <B>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</B>"
+		var/borer_key = src.key
+		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
+		msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
+		// host -> brain
+		var/h2b_id = host.computer_id
+		var/h2b_ip= host.lastKnownIP
+		host.computer_id = null
+		host.lastKnownIP = null
+
+		qdel(host_brain)
+		host_brain = new(src)
+
+		host_brain.ckey = host.ckey
+
+		host_brain.name = host.name
+
+		if(!host_brain.computer_id)
+			host_brain.computer_id = h2b_id
+
+		if(!host_brain.lastKnownIP)
+			host_brain.lastKnownIP = h2b_ip
+
+		// self -> host
+		var/s2h_id = src.computer_id
+		var/s2h_ip= src.lastKnownIP
+		src.computer_id = null
+		src.lastKnownIP = null
+
+		host.ckey = src.ckey
+
+		if(!host.computer_id)
+			host.computer_id = s2h_id
+
+		if(!host.lastKnownIP)
+			host.lastKnownIP = s2h_ip
+
+		controlling = 1
+
+		host.verbs += /mob/living/carbon/proc/release_control
+		host.verbs += /mob/living/carbon/proc/punish_host
+		host.verbs += /mob/living/carbon/proc/spawn_larvae
+		host.verbs -= /mob/living/proc/borer_comm
+		host.verbs += /mob/living/proc/trapped_mind_comm
+
+		if(src && !src.key)
+			src.key = "@[borer_key]"
+		return
+
+/mob/living/simple_animal/borer/proc/detatch()
+
+	if(!host) return
+
+	if(istype(host,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = host
+		var/obj/item/organ/external/head = H.get_organ("head")
+		head.implants -= src
+
+	controlling = 0
+
+	reset_view(null)
+	machine = null
+
+	host.verbs -= /mob/living/carbon/proc/release_control
+	host.verbs -= /mob/living/carbon/proc/punish_host
+	host.verbs -= /mob/living/carbon/proc/spawn_larvae
+	host.verbs += /mob/living/proc/borer_comm
+	host.verbs -= /mob/living/proc/trapped_mind_comm
+
+
+	if(host_brain)
+		host.attack_log += text("\[[time_stamp()]\] <font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey])</font>")
+		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [src.name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
+		// host -> self
+		var/h2s_id = host.computer_id
+		var/h2s_ip= host.lastKnownIP
+		host.computer_id = null
+		host.lastKnownIP = null
+
+		src.ckey = host.ckey
+
+		if(!src.computer_id)
+			src.computer_id = h2s_id
+
+		if(!host_brain.lastKnownIP)
+			src.lastKnownIP = h2s_ip
+
+		// brain -> host
+		var/b2h_id = host_brain.computer_id
+		var/b2h_ip= host_brain.lastKnownIP
+		host_brain.computer_id = null
+		host_brain.lastKnownIP = null
+
+		host.ckey = host_brain.ckey
+
+		if(!host.computer_id)
+			host.computer_id = b2h_id
+
+		if(!host.lastKnownIP)
+			host.lastKnownIP = b2h_ip
+
+	qdel(host_brain)
+
+	return
+
+
+/mob/living/simple_animal/borer/proc/leave_host()
+
+	if(!host)	return
+
+	src.forceMove(get_turf(host))
+
+	reset_view(null)
+	machine = null
+
+	host.reset_view(null)
+	host.machine = null
+
+	verbs -= /mob/living/simple_animal/borer/proc/release_host
+	verbs -= /mob/living/simple_animal/borer/proc/Communicate
+	verbs -= /mob/living/simple_animal/borer/proc/secrete_chemicals
+	verbs -= /mob/living/simple_animal/borer/proc/check_host_health
+	verbs -= /mob/living/simple_animal/borer/proc/bond_brain
+
+	verbs += /mob/living/simple_animal/borer/verb/dominate_victim
+	verbs += /mob/living/simple_animal/borer/verb/infest
+
+	var/mob/living/H = host
+	H.verbs -= /mob/living/proc/borer_comm
+	H.status_flags &= ~PASSEMOTES
+	host = null
+	return
+
+
 /mob/living/simple_animal/borer/proc/perform_infestation(var/mob/living/carbon/M)
 	src.host = M
 	src.forceMove(M)
@@ -614,6 +658,16 @@
 		var/obj/item/organ/external/head = H.get_organ("head")
 		head.implants += src
 
+	world << "Swapping around verbs!"
+	verbs -= /mob/living/simple_animal/borer/verb/dominate_victim
+	verbs -= /mob/living/simple_animal/borer/verb/infest
+
+	verbs += /mob/living/simple_animal/borer/proc/release_host
+	verbs += /mob/living/simple_animal/borer/proc/Communicate
+	verbs += /mob/living/simple_animal/borer/proc/secrete_chemicals
+	verbs += /mob/living/simple_animal/borer/proc/check_host_health
+	verbs += /mob/living/simple_animal/borer/proc/bond_brain
+
 	host.status_flags |= PASSEMOTES
 
 /mob/living/simple_animal/borer/can_use_vents()
@@ -621,32 +675,38 @@
 
 //Procs for grabbing players.
 /mob/living/simple_animal/borer/proc/request_player()
-	for(var/mob/O in respawnable_list)
-		if(jobban_isbanned(O, "Syndicate"))
-			continue
-		if(O.client)
-			if((ROLE_BORER in O.client.prefs.be_special) && !jobban_isbanned(O, "alien"))
-				question(O.client)
+	notify_ghosts("A mindless borer has been created in [get_area(src)]! <a href=?src=\ref[src];ghostjoin=1>(Click to enter)</a>")
 
-/mob/living/simple_animal/borer/proc/question(var/client/C)
-	spawn(0)
-		if(!C)	return
-		var/response = alert(C, "A cortical borer needs a player. Are you interested?", "Cortical borer request", "Yes", "No", "Never for this round")
-		if(!C || ckey)
-			return
-		if(response == "Yes")
-			transfer_personality(C)
-		else if (response == "Never for this round")
-			C.prefs.be_special -= ROLE_BORER
+/mob/living/simple_animal/borer/attack_ghost(mob/user as mob)
+	if(key || stat == DEAD)
+		return
+	var/be_borer = alert("Become a borer? (This will sever all ties with your old body)", , "Yes", "No")
+	if(be_borer == "No")
+		return
+	if(key)
+		user << "The borer already has someone in control of it."
+		return
+	transfer_personality(user.client)
 
 /mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
 
-	if(!candidate)
+	if(!candidate || key)
 		return
 
 	src.key = candidate.key
 	if(src.mind)
 		src.mind.assigned_role = "Cortical Borer"
+
+/mob/living/simple_animal/borer/Topic(href, href_list)
+	world << "Borer's topic was called"
+	if(..())
+		world << "Some other topic was chosen"
+		return 1
+	if(href_list["ghostjoin"])
+		world << "Ghost join reached"
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			attack_ghost(ghost)
 
 /mob/living/simple_animal/borer/verb/borerhide()
 	set category = "Borer"
