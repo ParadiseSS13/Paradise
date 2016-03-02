@@ -208,9 +208,9 @@ datum/hud/New(mob/owner)
 	create_parallax()
 
 
-/client/var/list/obj/screen/spessbg/spessbg = list()
+/client/var/list/spessbg = list()
 
-var/list/client/parallax_on_clients = list()
+var/list/parallax_on_clients = list()
 
 var/area/global_space_area = null
 
@@ -236,7 +236,7 @@ var/area/global_space_area = null
 			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
 			C.screen |= bgobj
 		return
-	for(var/i=0;i<4;i++)
+	for(var/i in 0 to 3)
 		var/obj/screen/spessbg/bgobj = new /obj/screen/spessbg()
 		if(i & 1)
 			bgobj.offset_x = 480
@@ -253,34 +253,14 @@ var/area/global_space_area = null
 		C.screen += bgobj
 	update_parallax()
 /datum/hud/proc/update_parallax()
-	var/atom/posobj = mymob
-	while(!istype(posobj,/turf))
-		posobj = posobj.loc
+	var/atom/posobj = get_turf(mymob)
 	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
 
-/*///hook_handler/parallax/proc/OnMobAreaChange(var/list/args)
-	//var/mob/M = args["mob"]
-	// The amount of images per client is capped to 448. In other words, a big FUCK YOU from BYOND.
-	if(mymob.hud_used)
-		if(mymob.hud_used.showing_parallax)
-			var/list/area/areas = list()
-			for(var/turf/T in range(8,mymob))
-				areas |= T.loc
-			for(var/area/A in areas)
-				if(!(A.white_overlay in mymob.client.images))
-					mymob.client.images += A.white_overlay
-				A.contents |= A.white_overlay*/
-
-/atom/movable/Move(NewLock,Dir,step_x,step_y)
+/mob/Move(atom/newloc, direct = 0)
 	. = ..()
-	if(istype(src,/mob))
-		var/mob/srcmob = src
-		if(srcmob.hud_used)
-			srcmob.hud_used.update_parallax()
-	for(var/mob/themob in contents)
-		if(themob.hud_used)
-			themob.hud_used.update_parallax()
+	if(hud_used)
+		hud_used.update_parallax()
 
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)

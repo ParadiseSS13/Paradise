@@ -17,13 +17,13 @@
 	. = ..()
 	if(!global_space_area)
 		global_space_area = new /area/space()
-		global_space_area.white_overlay = image(loc=global_space_area,icon='icons/turf/space.dmi',icon_state="white",layer=AREA_LAYER+0.1)
+		global_space_area.white_overlay = image(loc=global_space_area, icon='icons/turf/space.dmi', icon_state="white", layer=AREA_LAYER+0.1)
 	if(istype(loc,/area/space))
 		global_space_area.contents += src
 	else
 		var/area/A = loc
 		if(!A.white_overlay)
-			A.white_overlay = image(loc=A,icon='icons/turf/space.dmi',icon_state="white",layer=AREA_LAYER+0.1)
+			A.white_overlay = image(loc=A, icon='icons/turf/space.dmi', icon_state="white", layer=AREA_LAYER+0.1)
 			for(var/client/C in parallax_on_clients)
 				C.images |= A.white_overlay
 
