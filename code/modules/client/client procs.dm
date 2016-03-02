@@ -33,7 +33,7 @@
 
 	if(href_list["nano_err"]) //nano throwing errors
 		if(topic_debugging)
-			src << "## NanoUI: " + html_decode(href_list["nano_err"]) //NANO DEBUG HOOK
+			src << "## NanoUI: " + lhtml_decode(href_list["nano_err"]) //NANO DEBUG HOOK
 
 
 	if(href_list["asset_cache_confirm_arrival"])
@@ -279,7 +279,7 @@
 	if(custom_event_msg && custom_event_msg != "")
 		src << "<h1 class='alert'>Custom Event</h1>"
 		src << "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
-		src << "<span class='alert'>[html_encode(custom_event_msg)]</span>"
+		src << "<span class='alert'>[lhtml_encode(custom_event_msg)]</span>"
 		src << "<br>"
 
 	if( (world.address == address || !address) && !host )

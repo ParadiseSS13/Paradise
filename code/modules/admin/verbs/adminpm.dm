@@ -197,7 +197,7 @@
 		src << "\blue [msg]"
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	send2adminirc("PlayerPM from [key_name(src)]: [lhtml_decode(msg)]")
 
 	src << "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>"
 

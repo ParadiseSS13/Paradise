@@ -133,7 +133,7 @@
 
 
 
-		user << browse(dat, "window=comm_monitor;size=575x400")
+		user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=comm_monitor;size=575x400")
 		onclose(user, "server_control")
 
 		temp = ""

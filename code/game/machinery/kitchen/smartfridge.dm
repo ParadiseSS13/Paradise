@@ -313,7 +313,7 @@
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
-			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = count)))
+			items.Add(list(list("display_name" = lhtml_encode(capitalize(K)), "vend" = i, "quantity" = count)))
 
 	if(items.len > 0)
 		data["contents"] = items

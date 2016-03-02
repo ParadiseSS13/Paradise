@@ -35,7 +35,7 @@
 		sound = text2num(query.item[8])
 		randomslot = text2num(query.item[9])
 		volume = text2num(query.item[10])
-		nanoui_fancy = text2num(query.item[11])
+//		nanoui_fancy = text2num(query.item[11])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -48,7 +48,7 @@
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
 	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
-	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
+//	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy)) В упор не работает, сука.
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -71,7 +71,6 @@
 					sound='[sound]',
 					randomslot='[randomslot]',
 					volume='[volume]',
-					nanoui_fancy='[nanoui_fancy]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
@@ -356,10 +355,10 @@
 												job_karma_high='[job_karma_high]',
 												job_karma_med='[job_karma_med]',
 												job_karma_low='[job_karma_low]',
-												flavor_text='[sql_sanitize_text(html_decode(flavor_text))]',
-												med_record='[sql_sanitize_text(html_decode(med_record))]',
-												sec_record='[sql_sanitize_text(html_decode(sec_record))]',
-												gen_record='[sql_sanitize_text(html_decode(gen_record))]',
+												flavor_text='[sql_sanitize_text(lhtml_decode(flavor_text))]',
+												med_record='[sql_sanitize_text(lhtml_decode(med_record))]',
+												sec_record='[sql_sanitize_text(lhtml_decode(sec_record))]',
+												gen_record='[sql_sanitize_text(lhtml_decode(gen_record))]',
 												player_alt_titles='[playertitlelist]',
 												disabilities='[disabilities]',
 												organ_data='[organlist]',
@@ -416,7 +415,7 @@
 											'[job_medsci_high]', '[job_medsci_med]', '[job_medsci_low]',
 											'[job_engsec_high]', '[job_engsec_med]', '[job_engsec_low]',
 											'[job_karma_high]', '[job_karma_med]', '[job_karma_low]',
-											'[sql_sanitize_text(html_encode(flavor_text))]', '[sql_sanitize_text(html_encode(med_record))]', '[sql_sanitize_text(html_encode(sec_record))]', '[sql_sanitize_text(html_encode(gen_record))]',
+											'[sql_sanitize_text(lhtml_encode(flavor_text))]', '[sql_sanitize_text(lhtml_encode(med_record))]', '[sql_sanitize_text(lhtml_encode(sec_record))]', '[sql_sanitize_text(lhtml_encode(gen_record))]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]')

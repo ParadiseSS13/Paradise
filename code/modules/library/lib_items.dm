@@ -168,7 +168,7 @@
 			user << "<span class='notice'>The pages of [title] have been cut out!</span>"
 			return
 	if(src.dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
+		user << browse(sanitize_local("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", SANITIZE_BROWSER), "window=book")
 		user.visible_message("[user] opens a book titled \"[src.title]\" and begins reading intently.")
 		onclose(user, "book")
 	else
@@ -204,14 +204,14 @@
 					src.name = newtitle
 					src.title = newtitle
 			if("Contents")
-				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):"),8192) as message|null
+				var/content = sanitize(input("Write your book's contents (HTML NOT allowed):") as message|null, MAX_BOOK_MESSAGE_LEN)
 				if(!content)
 					usr << "The content is invalid."
 					return
 				else
 					src.dat += content
 			if("Author")
-				var/newauthor = stripped_input(usr, "Write the author's name:")
+				var/newauthor = sanitize(input(usr, "Write the author's name:"))
 				if(!newauthor)
 					usr << "The name is invalid."
 					return

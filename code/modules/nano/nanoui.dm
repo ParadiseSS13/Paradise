@@ -86,7 +86,7 @@ nanoui is used to open and update nano browser uis
 	add_template("main", ntemplate_filename)
 
 	if (ntitle)
-		title = sanitize(ntitle)
+		title = sanitize_nano(ntitle)
 	if (nwidth)
 		width = nwidth
 	if (nheight)
@@ -176,7 +176,7 @@ nanoui is used to open and update nano browser uis
   */
 /datum/nanoui/proc/get_config_data()
 	var/name = "[src_object]"
-	name = sanitize(name) //jQuery's parseJSON fails with byond formatting characters in the JSON
+	name = sanitize_nano(name) //jQuery's parseJSON fails with byond formatting characters in the JSON
 	var/list/config_data = list(
 			"title" = title,
 			"srcObject" = list("name" = name),
@@ -188,7 +188,7 @@ nanoui is used to open and update nano browser uis
 			"mapZLevel" = map_z_level,
 			"user" = list(
 				"name" = user.name,
-				"fancy" = user.client.prefs.nanoui_fancy
+				//"fancy" = user.client.prefs.nanoui_fancy
 			),
 			"window" = list(
 				"width" = width,
@@ -413,7 +413,7 @@ nanoui is used to open and update nano browser uis
 	if(status == STATUS_CLOSE)
 		return
 
-	user << browse(get_html(), "window=[window_id];[window_size][window_options]")
+	user << browse(sanitize_local(get_html(), SANITIZE_BROWSER), "window=[window_id];[window_size][window_options]")
 	winset(user, "mapwindow.map", "focus=true") // return keyboard focus to map
 	on_close_winset()
 	//onclose(user, window_id)

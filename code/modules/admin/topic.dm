@@ -1803,7 +1803,7 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=\ref[src];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=[B.name]")
+			usr << browse(sanitize_local(data, SANITIZE_BROWSER), "window=[B.name]")
 		else
 			usr << "\red The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]"
 

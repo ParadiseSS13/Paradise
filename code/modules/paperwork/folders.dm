@@ -39,7 +39,7 @@
 		if(!n_name)
 			return
 		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
-		
+
 		if((loc == usr || Adjacent(usr)) && usr.stat == 0)
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
@@ -55,7 +55,7 @@
 		dat += "<A href='?src=\ref[src];remove=\ref[Pa]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
 		dat += "<A href='?src=\ref[src];remove=\ref[doc]'>Remove</A> - <A href='?src=\ref[src];look=\ref[doc]'>[doc.name]</A><BR>"
-	user << browse(dat, "window=folder")
+	user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
 	return

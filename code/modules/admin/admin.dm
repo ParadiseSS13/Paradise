@@ -465,11 +465,11 @@ var/global/nologevent = 0
 				<BR><A href='?src=\ref[src];ac_setScreen=[0]'>Return</A><BR>
 			"}
 		else
-			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
+			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to ITBlackwood"
 
 	//world << "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]"
 	//world << "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]"
-	usr << browse(dat, "window=admincaster_main;size=400x600")
+	usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
 /datum/admins/proc/Jobbans()
@@ -483,7 +483,7 @@ var/global/nologevent = 0
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
+	usr << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))

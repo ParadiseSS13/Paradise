@@ -625,7 +625,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_simple(lhtml_encode(msg), list("\n" = "<BR>"))
 
 	if(mind)
 		mind.store_memory(msg)
@@ -650,11 +650,11 @@ var/list/slot_equipment_priority = list( \
 	set src in usr
 	if(usr != src)
 		usr << "No."
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. Can also be used for OOC notes about your character.","Flavor Text",html_decode(flavor_text)) as message|null
+	var/msg = input(usr,"Set the flavor text in your 'examine' verb. Can also be used for OOC notes about your character.","Flavor Text",lhtml_decode(flavor_text)) as message|null
 
 	if(msg != null)
 		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-		msg = html_encode(msg)
+		msg = lhtml_encode(msg)
 
 		flavor_text = msg
 
@@ -826,7 +826,7 @@ var/list/slot_equipment_priority = list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
+		usr << browse(sanitize_local(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), SANITIZE_BROWSER), text("window=[];size=500x200", name))
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()

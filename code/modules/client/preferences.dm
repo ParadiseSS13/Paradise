@@ -80,7 +80,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/ooccolor = "#b82e00"
 	var/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
-	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/sound = SOUND_DEFAULT
 	var/UI_style_color = "#ffffff"
@@ -390,7 +389,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
-			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += "<b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'><tr><td>__</td></tr></table><br>"
 			dat += "<b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
@@ -748,7 +746,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += "</center></tt>"
 
 	user << browse(null, "window=preferences")
-	user << browse(HTML, "window=records;size=350x300")
+	user << browse(sanitize_local(HTML, SANITIZE_BROWSER), "window=records;size=350x300")
 	return
 
 /datum/preferences/proc/GetPlayerAltTitle(datum/job/job)
@@ -1490,9 +1488,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						else
 							UI_style = "Midnight"
 
-				if("nanoui")
-					nanoui_fancy = !nanoui_fancy
-
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
@@ -1571,7 +1566,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
-	character.change_species(species) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -1647,7 +1641,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else if(status == "mechanical")
 					I.robotize()
 
-	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)
+	if(disabilities & DISABILITY_FLAG_FAT && character.species.flags & CAN_BE_FAT)//character.species.flags & CAN_BE_FAT)
 		character.mutations += FAT
 		character.mutations += OBESITY
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)

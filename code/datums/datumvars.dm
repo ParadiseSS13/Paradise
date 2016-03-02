@@ -335,7 +335,7 @@ client
 
 		html += "</body></html>"
 
-		usr << browse(html, "window=variables\ref[D];size=475x650")
+		usr << browse(sanitize_local(html, SANITIZE_BROWSER), "window=variables\ref[D];size=475x650")
 
 		return
 

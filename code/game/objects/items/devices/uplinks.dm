@@ -92,7 +92,7 @@ var/list/world_uplinks = list()
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			nano[nano.len]["items"] += list(list("Name" = sanitize(I.name), "Description" = sanitize(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
+			nano[nano.len]["items"] += list(list("Name" = sanitize_nano(I.name), "Description" = sanitize_nano(I.description()),"Cost" = I.cost, "obj_path" = I.reference))
 			reference[I.reference] = I
 
 	var/datum/nano_item_lists/result = new
@@ -253,7 +253,7 @@ var/list/world_uplinks = list()
 	if(nanoui_menu == 1)
 		var/permanentData[0]
 		for(var/datum/data/record/L in sortRecord(data_core.general))
-			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
+			permanentData[++permanentData.len] = list(Name = sanitize_nano(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)
@@ -262,12 +262,12 @@ var/list/world_uplinks = list()
 		for(var/datum/data/record/L in data_core.general)
 			if(L.fields["id"] == id)
 				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
-				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])
-				nanoui_data["exploit"]["sex"] =  html_encode(L.fields["sex"])
-				nanoui_data["exploit"]["age"] =  html_encode(L.fields["age"])
-				nanoui_data["exploit"]["species"] =  html_encode(L.fields["species"])
-				nanoui_data["exploit"]["rank"] =  html_encode(L.fields["rank"])
-				nanoui_data["exploit"]["fingerprint"] =  html_encode(L.fields["fingerprint"])
+				nanoui_data["exploit"]["name"] =  lhtml_encode(L.fields["name"])
+				nanoui_data["exploit"]["sex"] =  lhtml_encode(L.fields["sex"])
+				nanoui_data["exploit"]["age"] =  lhtml_encode(L.fields["age"])
+				nanoui_data["exploit"]["species"] =  lhtml_encode(L.fields["species"])
+				nanoui_data["exploit"]["rank"] =  lhtml_encode(L.fields["rank"])
+				nanoui_data["exploit"]["fingerprint"] =  lhtml_encode(L.fields["fingerprint"])
 
 				nanoui_data["exploit_exists"] = 1
 				break

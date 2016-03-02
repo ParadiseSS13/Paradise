@@ -5,9 +5,9 @@
 
 /datum/data/pda/app/main_menu/update_ui(mob/user as mob, list/data)
 	title = pda.name
-	
+
 	data["app"]["is_home"] = 1
-	
+
 	data["apps"] = pda.shortcut_cache
 	data["categories"] = pda.shortcut_cat_order
 	data["pai"] = !isnull(pda.pai)				// pAI inserted?
@@ -54,7 +54,7 @@
 			var/n = input("Please enter message", name, notehtml) as message
 			if(pda.loc == usr)
 				note = adminscrub(n)
-				notehtml = html_decode(note)
+				notehtml = lhtml_decode(note)
 				note = replacetext(note, "\n", "<br>")
 			else
 				pda.close(usr)

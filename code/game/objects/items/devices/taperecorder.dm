@@ -93,7 +93,7 @@
 			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] exclaims, \"[msg]\""
 			return
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] says, \"[msg]\""
-		
+
 /obj/item/device/taperecorder/hear_message(mob/living/M as mob, msg)
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity
@@ -178,7 +178,7 @@
 		if(mytape.storedinfo.len < i)
 			break
 		var/turf/T = get_turf(src)
-		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [mytape.storedinfo[i]]</font>")
+		T.visible_message("<font color=Maroon><B>Tape Recorder</B>: [sanitize_local(mytape.storedinfo[i])]</font>")
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)

@@ -126,12 +126,12 @@
 			return M.pos + M.len
 
 		report()	//debug tool
-			. = ":: RESULTS ::\n:: str :: [html_encode(str)]\n:: exp :: [html_encode(exp)]\n:: anchors :: [anchors]"
+			. = ":: RESULTS ::\n:: str :: [lhtml_encode(str)]\n:: exp :: [lhtml_encode(exp)]\n:: anchors :: [anchors]"
 			if(error)
 				. += "\n<font color='red'>[error]</font>"
 				return
 			for(var/i=1, i<=matches.len, ++i)
-				. += "\nMatch[i]\n\t[html_encode(str(i))]\n\tpos=[pos(i)] len=[len(i)]"
+				. += "\nMatch[i]\n\t[lhtml_encode(str(i))]\n\tpos=[pos(i)] len=[len(i)]"
 
 /datum/match
 	var/pos

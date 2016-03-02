@@ -9,13 +9,13 @@
 			var/t = input(usr,"Input Expression","title",expression) as text|null
 			if(t != null)
 				expression = t
-				usr << "Expression set to:\t[html_encode(t)]"
+				usr << "Expression set to:\t[lhtml_encode(t)]"
 
 		set_format()
 			var/t = input(usr,"Input Formatter","title",format) as text|null
 			if(t != null)
 				format = t
-				usr << "Format set to:\t[html_encode(t)]"
+				usr << "Format set to:\t[lhtml_encode(t)]"
 
 		compare_casesensitive(t as text)
 			results = regEx_compare(t, expression)
@@ -40,7 +40,7 @@
 			usr << regex_replaceall(t, expression, format)
 
 		replace_casesensitive(t as text)
-			usr << html_encode(regEx_replace(t, expression, format))
+			usr << lhtml_encode(regEx_replace(t, expression, format))
 
 		replace(t as text)
 			usr << regex_replace(t, expression, format)

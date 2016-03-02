@@ -250,7 +250,7 @@
 
 	dat += "</body>"
 	message = defaultmsg
-	user << browse(dat, "window=message;size=700x700")
+	user << browse(sanitize_local(dat, SANITIZE_BROWSER), "window=message;size=700x700")
 	onclose(user, "message")
 	return
 

@@ -329,7 +329,7 @@
 							src.active2.fields["cdi_d"] = t1
 					if("notes")
 						if (istype(src.active2, /datum/data/record))
-							var/t1 = html_encode(trim(copytext(input("Please summarize notes:", "Med. records", html_decode(src.active2.fields["notes"]), null)  as message,1,MAX_MESSAGE_LEN)))
+							var/t1 = lhtml_encode(trim(copytext(input("Please summarize notes:", "Med. records", lhtml_decode(src.active2.fields["notes"]), null)  as message,1,MAX_MESSAGE_LEN)))
 							if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!interactable() && (!istype(usr, /mob/living/silicon))) || src.active2 != a2))
 								return
 							src.active2.fields["notes"] = t1

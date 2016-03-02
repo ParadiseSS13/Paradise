@@ -64,12 +64,12 @@
 
 	var/data
 	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
+		data = sanitize_local("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", SANITIZE_BROWSER)
 		if(view)
 			usr << browse(data, "window=[name]")
 			onclose(usr, "[name]")
 	else
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
+		data = sanitize_local("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>", SANITIZE_BROWSER)
 		if(view)
 			usr << browse(data, "window=[name]")
 			onclose(usr, "[name]")
@@ -322,7 +322,6 @@
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		var/iscrayon = 0
-		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 		if(!istype(i, /obj/item/weapon/pen))
 			if(!istype(i, /obj/item/toy/crayon))
 				return

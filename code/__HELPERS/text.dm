@@ -24,7 +24,27 @@
 /*
  * Text sanitization
  */
+/*
+/proc/sanitize(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	#ifdef DEBUG_CYRILLIC
+	world << "\magenta DEBUG: \red <b>sanitize() entered, text:</b> <i>[input]</i>"
+	world << "\magenta DEBUG: \red <b>ja_mode:</b> [mode]"
+	#endif
+	if(!input)
+		return
 
+	if(max_length)
+		input = copytext(input,1,max_length)
+
+	//code in modules/l10n/localisation.dm
+	input = sanitize_local(input, mode)
+
+	#ifdef DEBUG_CYRILLIC
+	world << "\magenta DEBUG: \blue <b>sanitize() finished, text:</b> <i>[input]</i>"
+	#endif
+
+	return input
+*/
 //Simply removes < and > and limits the length of the message
 /proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
@@ -39,7 +59,7 @@
 //Removes a few problematic characters
 /proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
-		t = replacetext(t, char, repl_chars[char])
+		replacetext(t, char, repl_chars[char])
 	return t
 
 /proc/readd_quotes(var/t)
@@ -52,18 +72,21 @@
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
-/proc/sanitize(var/t,var/list/repl_chars = null)
-	return html_encode(sanitize_simple(t,repl_chars))
+/proc/sanitize(var/t,var/list/repl_chars = null,var/mode = SANITIZE_CHAT)
+ return sanitize_local(lhtml_encode(sanitize_simple(t,repl_chars)),mode)
+
+/proc/sanitize_nano(var/t,var/list/repl_chars = null)
+ return lhtml_encode(sanitize_simple(t,repl_chars))
 
 //Runs sanitize and strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's lhtml_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 //Runs byond's sanitization proc along-side strip_html_simple
-//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
+//I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that lhtml_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
-	return copytext((html_encode(strip_html_simple(t))),1,limit)
+	return copytext((lhtml_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
@@ -210,6 +233,7 @@ proc/checkhtml(var/t)
 /proc/replacetextEx(text, find, replacement)
 	return list2text(text2listEx(text, find), replacement)
 #endif
+
 /proc/replace_characters(var/t,var/list/repl_chars)
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
@@ -323,7 +347,7 @@ proc/checkhtml(var/t)
 //This proc strips html properly, but it's not lazy like the other procs.
 //This means that it doesn't just remove < and > and call it a day.
 //Also limit the size of the input, if specified.
-/proc/strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/proc/strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN)
 	if(!input)
 		return
 	var/opentag = 1 //These store the position of < and > respectively.
@@ -345,10 +369,10 @@ proc/checkhtml(var/t)
 			break
 	if(max_length)
 		input = copytext(input,1,max_length)
-	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
+	return sanitize(input)
 
-/proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-    return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN)
+    return trim(strip_html_properly(input, max_length))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -363,11 +387,11 @@ proc/checkhtml(var/t)
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return html_encode(copytext(html_decode(text), first, last))
+	return lhtml_encode(copytext(lhtml_decode(text), first, last))
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
+//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after lhtml_encode().
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
-	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
+/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1, var/mode = SANITIZE_CHAT)
+	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra, mode)

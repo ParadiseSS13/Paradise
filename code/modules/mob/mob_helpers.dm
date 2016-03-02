@@ -307,7 +307,7 @@ proc/getsensorlevel(A)
 	return t
 
 proc/slur(phrase)
-	phrase = html_decode(phrase)
+	phrase = lhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -330,7 +330,7 @@ proc/slur(phrase)
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = lhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null

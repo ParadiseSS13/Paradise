@@ -325,7 +325,7 @@ var/list/forbidden_varedit_object_types = list(
 		if( istype(O,p) )
 			usr << "<span class='warning'>It is forbidden to edit this object's variables.</span>"
 			return
-			
+
 	if(istype(O, /client) && (param_var_name == "ckey" || param_var_name == "key"))
 		usr << "<span class='warning'>You cannot edit ckeys on client objects.</span>"
 		return
@@ -550,7 +550,7 @@ var/list/forbidden_varedit_object_types = list(
 		if("marked datum")
 			O.vars[variable] = holder.marked_datum
 
-	log_to_dd("### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]")
+	log_to_dd("### VarEdit by [src]: [O.type] [variable]=[lhtml_encode("[O.vars[variable]]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [O.vars[variable]]", 1)
 
