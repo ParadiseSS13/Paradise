@@ -51,7 +51,7 @@
 				var/mob/living/carbon/human/drownee = M //Typecast them as human.
 				handleDrowning(drownee)		//Only human types will drown, to keep things simple for non-human mobs that live in the water
 
-		for(var/obj/effect/decal/cleanable/decal in T)
+		for(var/obj/effect/decal/cleanable/decal in T)		//Cleans up cleanable decals like blood and such
 			animate(decal, alpha = 10, time = 20)
 			spawn(25)
 				qdel(decal)

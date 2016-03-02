@@ -29,9 +29,6 @@
 		update_icon()
 
 /obj/structure/ladder/update_icon()
-	if(istype(src, /obj/structure/ladder/dive_point))
-		return
-
 	if(up && down)
 		icon_state = "ladder11"
 
@@ -100,3 +97,6 @@
 /obj/structure/ladder/dive_point/New()
 	..()
 	set_light(light_range, light_power)		//magical glowing anchor
+
+/obj/structure/ladder/dive_point/update_icon()
+	return
