@@ -68,25 +68,25 @@
 		return 1
 
 	if(href_list["change_zeroth_law"])
-		var/new_law = sanitize_nano(input("Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law))
+		var/new_law = sanitize_local(input("Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law))
 		if(new_law && new_law != zeroth_law && can_still_topic())
 			zeroth_law = new_law
 		return 1
 
 	if(href_list["change_ion_law"])
-		var/new_law = sanitize_nano(input("Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law))
+		var/new_law = sanitize_local(input("Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law))
 		if(new_law && new_law != ion_law && can_still_topic())
 			ion_law = new_law
 		return 1
 
 	if(href_list["change_inherent_law"])
-		var/new_law = sanitize_nano(input("Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law))
+		var/new_law = sanitize_local(input("Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law))
 		if(new_law && new_law != inherent_law && can_still_topic())
 			inherent_law = new_law
 		return 1
 
 	if(href_list["change_supplied_law"])
-		var/new_law = sanitize_nano(input("Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law))
+		var/new_law = sanitize_local(input("Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law))
 		if(new_law && new_law != supplied_law && can_still_topic())
 			supplied_law = new_law
 		return 1
@@ -101,7 +101,7 @@
 		if(is_malf(usr))
 			var/datum/ai_law/AL = locate(href_list["edit_law"]) in owner.laws.all_laws()
 			if(AL)
-				var/new_law = sanitize_nano(input(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law))
+				var/new_law = sanitize_local(input(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law))
 				if(new_law && new_law != AL.law && is_malf(usr) && can_still_topic())
 					log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 					AL.law = new_law

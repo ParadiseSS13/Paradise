@@ -468,7 +468,7 @@ What a mess.*/
 							active2.fields["ma_crim_d"] = t1
 					if("notes")
 						if (istype(active2, /datum/data/record))
-							var/t1 = sanitize(input("Please summarize notes:", "Secure. records", html_decode(sanitize_local(active2.fields["notes"], SANITIZE_TEMP)), null)  as message, extra = 0)
+							var/t1 = sanitize(input("Please summarize notes:", "Secure. records", lhtml_decode(sanitize_local(active2.fields["notes"], SANITIZE_TEMP)), null)  as message, extra = 0)
 							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active2 != a2))
 								return
 							active2.fields["notes"] = t1

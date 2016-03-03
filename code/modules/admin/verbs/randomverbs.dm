@@ -542,8 +542,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
-	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
+	var/input = sanitize_local(input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null)
+	var/customname = sanitize_local(input(usr, "Pick a title for the report.", "Title") as text|null)
 	if(!input)
 		return
 

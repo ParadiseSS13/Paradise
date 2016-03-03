@@ -149,9 +149,9 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [msg]</span>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [sanitize_local(msg)]</span>"
 	C << recieve_message
-	src << "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [msg]</font>"
+	src << "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [sanitize_local(msg)]</font>"
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -172,13 +172,13 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						X << "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
+						X << "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [sanitize_local(msg)]</span>"
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
+						X << "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [sanitize_local(msg)]</span>"
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						X << "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [msg]</span>"
+						X << "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [sanitize_local(msg)]</span>"
 
 /client/proc/cmd_admin_irc_pm()
 	if(prefs.muted & MUTE_ADMINHELP)
@@ -199,11 +199,11 @@
 
 	send2adminirc("PlayerPM from [key_name(src)]: [lhtml_decode(msg)]")
 
-	src << "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>"
+	src << "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [sanitize_local(msg)]</font>"
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
 	for(var/client/X in admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [msg]</font>"
+			X << "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> \blue [sanitize_local(msg)]</font>"

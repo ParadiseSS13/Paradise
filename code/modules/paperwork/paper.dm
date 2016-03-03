@@ -64,14 +64,14 @@
 
 	var/data
 	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
-		data = sanitize_local("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", SANITIZE_BROWSER)
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(sanitize_local(data, "window=[name]"))
 			onclose(usr, "[name]")
 	else
-		data = sanitize_local("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>", SANITIZE_BROWSER)
+		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(sanitize_local(data, "window=[name]"))
 			onclose(usr, "[name]")
 	return data
 
@@ -342,7 +342,7 @@
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
-		t = html_encode(t)
+		t = lhtml_encode(t)
 		t = replacetext(t, "\n", "<BR>")
 		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
 
