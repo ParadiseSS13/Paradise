@@ -66,7 +66,7 @@ proc/sanitize_local(var/text, var/mode = SANITIZE_CHAT)
 
 /proc/lhtml_decode(var/text)
 	text = sanitize_local(text, SANITIZE_TEMP)
-	text = html_decode(text)
+	text = lhtml_decode(text)
 	text = sanitize_local(text)
 	return text
 
