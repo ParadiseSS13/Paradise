@@ -44,8 +44,7 @@
 /obj/machinery/poolcontroller/proc/updatePool()
 	for(var/turf/T in linkedturfs) //Check for pool-turfs linked to the controller.
 		for(var/mob/M in T) //Check for mobs in the linked pool-turfs.
-			if(temperature != "normal")		//don't bother with this if we aren't going to be changing anything anyways
-				handleTemp(M)
+			handleTemp(M)	//handles pool temp effects on the swimmers
 
 			if(ishuman(M)) //Make sure they are human before typecasting.
 				var/mob/living/carbon/human/drownee = M //Typecast them as human.
@@ -57,6 +56,8 @@
 				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+	if(temperature == "normal")		//This setting does nothing, so let's skip the next checks since we won't be doing jack
+		return
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
 
@@ -185,8 +186,7 @@
 /obj/machinery/poolcontroller/seacontroller/updatePool()
 	for(var/turf/T in linked_area)
 		for(var/mob/M in T)
-			if(temperature != "normal")		//don't bother with this if we aren't going to be changing anything anyways
-				handleTemp(M)
+			handleTemp(M)	//handles pool temp effects on the swimmers
 
 			if(ishuman(M)) //Make sure they are human before typecasting.
 				var/mob/living/carbon/human/drownee = M //Typecast them as human.
