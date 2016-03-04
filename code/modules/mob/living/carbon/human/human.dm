@@ -44,7 +44,7 @@
 	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
-		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
+		sync_organ_dna(1)
 
 	if(species)
 		species.handle_dna(src)
@@ -1406,6 +1406,8 @@
 /mob/living/carbon/human/generate_name()
 	name = species.makeName(gender,src)
 	real_name = name
+	if(dna)
+		dna.real_name = name
 	return name
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
