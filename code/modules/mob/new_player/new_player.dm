@@ -477,7 +477,7 @@
 
 		domutcheck(new_character)
 		new_character.dna.UpdateSE()
-		new_character.sync_organ_dna() //just fucking incase I guess
+		new_character.sync_organ_dna(1) //just fucking incase I guess
 
 		// Do the initial caching of the player's body icons.
 		new_character.force_update_limbs()

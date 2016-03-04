@@ -146,10 +146,15 @@
 		var/obj/item/organ/O = pick(organs)
 		O.trace_chemicals[A.name] = 100
 
-/mob/living/carbon/human/proc/sync_organ_dna()
+/*
+When assimilate is 1, organs that have a different UE will still have their DNA overriden by that of the host
+Otherwise, this restricts itself to organs that share the UE of the host.
+*/
+/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1)
 	var/list/all_bits = internal_organs|organs
 	for(var/obj/item/organ/O in all_bits)
-		O.set_dna(dna)
+		if(assimilate || O.dna.unique_enzymes == dna.unique_enzymes)
+			O.set_dna(dna)
 
 /*
 Given the name of an organ, returns the external organ it's contained in

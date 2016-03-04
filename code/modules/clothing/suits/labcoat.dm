@@ -2,7 +2,7 @@
 	name = "labcoat"
 	desc = "A suit that protects against minor chemical spills."
 	icon_state = "labcoat_open"
-	item_state = "labcoat"
+	item_state = "labcoat_open"
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	blood_overlay_type = "coat"
@@ -20,7 +20,7 @@
 	name = "chief medical officer's labcoat"
 	desc = "Bluer than the standard model."
 	icon_state = "labcoat_cmo_open"
-	item_state = "labcoat_cmo"
+	item_state = "labcoat_cmo_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -30,7 +30,7 @@
 	name = "mad scientist's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
 	icon_state = "labcoat_green_open"
-	item_state = "labcoat_green"
+	item_state = "labcoat_green_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -40,6 +40,7 @@
 	name = "geneticist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
 	icon_state = "labcoat_gen_open"
+	item_state = "labcoat_gen_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -49,6 +50,7 @@
 	name = "chemist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
 	icon_state = "labcoat_chem_open"
+	item_state = "labcoat_chem_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -67,6 +69,7 @@
 	name = "scientist labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
+	item_state = "labcoat_tox_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -76,6 +79,7 @@
 	name = "coroner labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
 	icon_state = "labcoat_mort_open"
+	item_state = "labcoat_mort_open"
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
