@@ -1,0 +1,9 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Fixed a problem where the icons of a person would not correctly update when changing gender."
+  - tweak: "One's hairstyle only adjusts on gender change if it's incompatible with your new gender."
+  - bugfix: "Fixed a bug where a person's icon would only be updated if their sprite had a new layer added or removed."
+  - bugfix: "You no longer lose your name when monkeyized and reverted - you'll still look like a monkey while you're a monkey, though."
+  - bugfix: "Your organs will now match your gender when you are cloned."
+  - bugfix: "Skeletons (when a body rots) no longer retain a fleshy torso."
