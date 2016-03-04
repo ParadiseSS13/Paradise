@@ -67,10 +67,11 @@
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
 	desc = "A trenchcoat enchanced with a special lightweight kevlar. The epitome of tactical plainclothes."
-	icon_state = "hostrench"
-	item_state = "hostrench"
+	icon_state = "hostrench_open"
+	item_state = "hostrench_open"
 	flags_inv = 0
 	ignore_suitadjust = 0
+	suit_adjusted = 1
 	action_button_name = "Open/Close Trenchcoat"
 	adjust_flavour = "unbutton"
 

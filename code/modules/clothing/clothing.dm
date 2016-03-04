@@ -289,7 +289,7 @@ BLIND     // can't see anything
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
 	var/mob/living/carbon/human/H = usr //Used to check if the mask is on the head, to check if the hands are full, and to turn off internals if they were on when the mask was pushed out of the way.
 	if(!ignore_maskadjust)
-		if(!user.canmove || user.stat || user.restrained())
+		if(user.incapacitated()) //This check allows you to adjust your masks while you're buckled into chairs or beds.
 			return
 		if(mask_adjusted)
 			icon_state = copytext(icon_state, 1, findtext(icon_state, "_up")) /*Trims the '_up' off the end of the icon state, thus reverting to the most recent previous state.
@@ -331,16 +331,10 @@ BLIND     // can't see anything
 				if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 					if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 						user.unEquip(src)
-					else
+					else //Otherwise, put it in an available hand, the active one preferentially.
 						src.loc = user
 						user.wear_mask = null
-						if(!(H.l_hand) && H.r_hand) //If only the left hand is free, put the bandana there instead.
-							user.put_in_l_hand(src)
-						else if(!(H.r_hand) && H.l_hand) //Otherwise if only the right hand is free, put the bandana there instead.
-							user.put_in_r_hand(src)
-						else if(!(H.l_hand && H.r_hand)) //Otherwise if both hands are free, pick the active one to put the bandana into.
-							user.put_in_active_hand(src)
-
+						user.put_in_hands(src)
 		usr.update_inv_wear_mask()
 		usr.update_inv_head()
 
@@ -421,30 +415,46 @@ BLIND     // can't see anything
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
 	if(!ignore_suitadjust)
-		if(!user.canmove || user.stat || user.restrained())
-			return
-		if(suit_adjusted)
-			var/flavour = "close"
-			icon_state = initial(icon_state)
-			item_state = initial(item_state)
-			if(adjust_flavour)
-				flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
-			user << "You [flavour] \the [src]."
-			suit_adjusted = 0 //Suit is no longer adjusted.
-		else
-			var/flavour = "close"
-			icon_state += "_open"
-			item_state += "_open"
-			if(adjust_flavour)
-				flavour = "[adjust_flavour]"
-			user << "You [flavour] \the [src]."
-			suit_adjusted = 1 //Suit's adjusted.
+		if(!user.incapacitated())
+			if(!(HULK in user.mutations))
+				if(suit_adjusted)
+					var/flavour = "close"
+					icon_state = copytext(icon_state, 1, findtext(icon_state, "_open")) /*Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will
+																							end up with a suffix of _open_open if adjusted twice, since their initial state is _open. */
+					item_state = copytext(item_state, 1, findtext(item_state, "_open"))
+					if(adjust_flavour)
+						flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
+					user << "You [flavour] \the [src]."
+					suit_adjusted = 0 //Suit is no longer adjusted.
+				else
+					var/flavour = "open"
+					icon_state += "_open"
+					item_state += "_open"
+					if(adjust_flavour)
+						flavour = "[adjust_flavour]"
+					user << "You [flavour] \the [src]."
+					suit_adjusted = 1 //Suit's adjusted.
+			else
+				if(user.canUnEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
+					if(contents) //If the suit's got any storage capability...
+						for(var/obj/item/O in contents) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
+							if(istype(O, /obj/item/weapon/storage/internal)) //If it's a pocket...
+								if(O.contents) //Check to see if the pocket's got anything in it.
+									for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
+										user.unEquip(I,1)
 
-		usr.update_inv_wear_suit()
+					user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] their jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+					user.unEquip(src)
+					qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
+					user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
+				else
+					user << "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>" //Yep, that's all they get. Avoids having to snowflake in a cooldown.
+					return
+			user.update_inv_wear_suit()
 	else
-		usr << "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>"
+		user << "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>"
 
-/obj/item/clothing/suit/verb/openjacket(var/mob/user)
+/obj/item/clothing/suit/verb/openjacket(var/mob/user) //The verb you can use to adjust jackets.
 	set name = "Open/Close Jacket"
 	set category = "Object"
 	set src in usr
@@ -455,7 +465,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/ui_action_click() //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
 		adjustsuit(usr)
-	else ..() //This is required in order to ensure that the UI buttons for hardsuits (i.e. syndicate and the chronosuit) and the RD's RA vest still work.
+	else ..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
@@ -491,7 +501,7 @@ BLIND     // can't see anything
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank)
 	slowdown = 2
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 100, rad = 50)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT||HIDETAIL
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
