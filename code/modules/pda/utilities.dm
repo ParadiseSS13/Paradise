@@ -44,7 +44,7 @@
 	C.visible_message("<span class=warning>[user] has analyzed [C]'s vitals!</span>")
 
 	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
-	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health - C.halloss]% healthy"]</span>", 1)
+	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
 	user.show_message("<span class=notice>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class=warning>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getBruteLoss()]</span>", 1)
 	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)

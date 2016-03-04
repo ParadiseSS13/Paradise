@@ -51,7 +51,6 @@
 	var/stutter = 0
 	var/eyeblur = 0
 	var/drowsy = 0
-	var/agony = 0
 	var/stamina = 0
 	var/jitter = 0
 	var/embed = 0 // whether or not the projectile can embed itself in the mob
@@ -87,7 +86,7 @@
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, agony, blocked, stamina, jitter)
+		return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 	proc/OnFired()	//if assigned, allows for code when the projectile gets fired
 		return 1

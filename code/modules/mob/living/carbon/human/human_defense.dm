@@ -244,7 +244,7 @@ emp_act
 	apply_damage(I.force, I.damtype, affecting, armor, sharp=weapon_sharp, edge=weapon_edge, used_weapon=I)
 
 	var/bloody = 0
-	if(((I.damtype == BRUTE) || (I.damtype == HALLOSS)) && prob(25 + (I.force * 2)))
+	if(I.damtype == BRUTE)
 		I.add_blood(src)	//Make the weapon bloody, not the person.
 //		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
 //		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays

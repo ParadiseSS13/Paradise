@@ -851,7 +851,6 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 
 			if(hallucination <= 2)
 				hallucination = 0
-				halloss = 0
 			else
 				hallucination -= 2
 
