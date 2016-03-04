@@ -425,3 +425,22 @@ proc/tg_text2list(text, glue=",", assocglue=";")
 			. = 0
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+
+//Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
+/proc/text2matrix(var/matrixtext)
+	var/list/matrixtext_list = text2list(matrixtext, " ")
+	var/list/matrix_list = list()
+	for(var/item in matrixtext_list)
+		var/entry = text2num(item)
+		if(entry == null)
+			return null
+		matrix_list += entry
+	if(matrix_list.len < 6)
+		return null
+	var/a = matrix_list[1]
+	var/b = matrix_list[2]
+	var/c = matrix_list[3]
+	var/d = matrix_list[4]
+	var/e = matrix_list[5]
+	var/f = matrix_list[6]
+	return matrix(a, b, c, d, e, f)

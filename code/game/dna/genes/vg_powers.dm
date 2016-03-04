@@ -184,9 +184,9 @@ Obviously, requires DNA2.
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
-			M.gender = MALE
+			M.change_gender(MALE)
 		else
-			M.gender = FEMALE
+			M.change_gender(FEMALE)
 	M.regenerate_icons()
 	M.check_dna()
 

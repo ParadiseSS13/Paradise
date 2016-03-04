@@ -161,9 +161,9 @@
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
 		if (dna.GetUIState(DNA_UI_GENDER))
-			H.gender = FEMALE
+			H.change_gender(FEMALE, 0)
 		else
-			H.gender = MALE
+			H.change_gender(MALE, 0)
 
 		//Hair
 		var/hair = dna.GetUIValueRange(DNA_UI_HAIR_STYLE,hair_styles_list.len)
