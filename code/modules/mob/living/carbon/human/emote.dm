@@ -21,6 +21,10 @@
 		if (I.implanted)
 			I.trigger(act, src)
 
+	var/miming = 0
+	if(mind)
+		miming = mind.miming
+
 	//Emote Cooldown System (it's so simple!)
 	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0

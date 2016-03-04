@@ -17,19 +17,19 @@
 /datum/data/vending_product/New(var/path, var/name = null, var/amount = 1, var/price = 0, var/color = null, var/category = CAT_NORMAL)
 	..()
 
-	src.product_path = path
+	product_path = path
 
 	if(!name)
 		var/atom/tmp = new path
-		src.product_name = initial(tmp.name)
+		product_name = initial(tmp.name)
 		qdel(tmp)
 	else
-		src.product_name = name
+		product_name = name
 
-	src.amount = amount
-	src.price = price
-	src.display_color = color
-	src.category = category
+	amount = amount
+	price = price
+	display_color = color
+	category = category
 
 /**
  *  A vending machine
@@ -101,18 +101,18 @@
 	..()
 	wires = new(src)
 	spawn(50)
-		if(src.product_slogans)
-			src.slogan_list += text2list(src.product_slogans, ";")
+		if(product_slogans)
+			slogan_list += text2list(product_slogans, ";")
 
 			// So not all machines speak at the exact same time.
 			// The first time this machine says something will be at slogantime + this random value,
 			// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
-			src.last_slogan = world.time + rand(0, slogan_delay)
+			last_slogan = world.time + rand(0, slogan_delay)
 
-		if(src.product_ads)
-			src.ads_list += text2list(src.product_ads, ";")
+		if(product_ads)
+			ads_list += text2list(product_ads, ";")
 
-		src.build_inventory()
+		build_inventory()
 		power_change()
 
 		return
@@ -128,9 +128,9 @@
  */
 /obj/machinery/vending/proc/build_inventory()
 	var/list/all_products = list(
-		list(src.products, CAT_NORMAL),
-		list(src.contraband, CAT_HIDDEN),
-		list(src.premium, CAT_COIN))
+		list(products, CAT_NORMAL),
+		list(contraband, CAT_HIDDEN),
+		list(premium, CAT_COIN))
 
 	for(var/current_list in all_products)
 		var/category = current_list[2]
@@ -138,12 +138,12 @@
 		for(var/entry in current_list[1])
 			var/datum/data/vending_product/product = new/datum/data/vending_product(entry)
 
-			product.price = (entry in src.prices) ? src.prices[entry] : 0
+			product.price = (entry in prices) ? prices[entry] : 0
 			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
 			product.max_amount = product.amount
 			product.category = category
 
-			src.product_records.Add(product)
+			product_records.Add(product)
 
 /obj/machinery/vending/Destroy()
 	qdel(wires) // qdel
@@ -168,9 +168,8 @@
 
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(component_parts)
-		build_inventory()
 		for(var/obj/item/weapon/vending_refill/VR in component_parts)
-			refill_inventory(VR, product_records)
+			refill_inventory(VR, product_records, usr)
 
 /obj/machinery/vending/blob_act()
 	if(prob(75))
@@ -178,7 +177,7 @@
 	else
 		qdel(src)
 
-/obj/machinery/vending/proc/refill_inventory(obj/item/weapon/vending_refill/refill, datum/data/vending_product/machine, mob/user)
+/obj/machinery/vending/proc/refill_inventory(obj/item/weapon/vending_refill/refill, list/machine, mob/user)
 	var/total = 0
 
 	var/to_restock = 0
@@ -188,7 +187,8 @@
 	if(to_restock <= refill.charges)
 		for(var/datum/data/vending_product/machine_content in machine)
 			if(machine_content.amount != machine_content.max_amount)
-				usr << "<span class='notice'>[machine_content.max_amount - machine_content.amount] of [machine_content.product_name]</span>"
+				if(user)
+					user << "<span class='notice'>[machine_content.max_amount - machine_content.amount] of [machine_content.product_name]</span>"
 				machine_content.amount = machine_content.max_amount
 		refill.charges -= to_restock
 		total = to_restock
@@ -202,7 +202,8 @@
 			refill.charges -= restock
 			total += restock
 			if(restock)
-				usr << "<span class='notice'>[restock] of [machine_content.product_name]</span>"
+				if(user)
+					user << "<span class='notice'>[restock] of [machine_content.product_name]</span>"
 			if(refill.charges == 0) //due to rounding, we ran out of refill charges, exit.
 				break
 	return total
@@ -221,7 +222,7 @@
 			handled = 1
 
 		if(paid)
-			src.vend(currently_vending, usr)
+			vend(currently_vending, usr)
 			return
 		else if(handled)
 			nanomanager.update_uis(src)
@@ -231,7 +232,7 @@
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver) && anchored)
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		panel_open = !panel_open
 		user << "You [panel_open ? "open" : "close"] the maintenance panel."
 		overlays.Cut()
@@ -980,9 +981,9 @@
  */
 /obj/machinery/vending/hydroseeds/build_inventory()
 	var/list/all_products = list(
-		list(src.products, CAT_NORMAL),
-		list(src.contraband, CAT_HIDDEN),
-		list(src.premium, CAT_COIN))
+		list(products, CAT_NORMAL),
+		list(contraband, CAT_HIDDEN),
+		list(premium, CAT_COIN))
 
 	for(var/current_list in all_products)
 		var/category = current_list[2]
@@ -992,12 +993,12 @@
 			var/name = S.name
 			var/datum/data/vending_product/product = new/datum/data/vending_product(entry, name)
 
-			product.price = (entry in src.prices) ? src.prices[entry] : 0
+			product.price = (entry in prices) ? prices[entry] : 0
 			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
 			product.max_amount = product.amount
 			product.category = category
 
-			src.product_records.Add(product)
+			product_records.Add(product)
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
