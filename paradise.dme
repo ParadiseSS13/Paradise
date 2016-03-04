@@ -25,6 +25,7 @@
 #include "code\__DEFINES\genetics.dm"
 #include "code\__DEFINES\hud.dm"
 #include "code\__DEFINES\hydroponics.dm"
+#include "code\__DEFINES\is_helpers.dm"
 #include "code\__DEFINES\language.dm"
 #include "code\__DEFINES\lighting.dm"
 #include "code\__DEFINES\machines.dm"
