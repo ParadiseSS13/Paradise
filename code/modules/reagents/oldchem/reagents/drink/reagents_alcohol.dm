@@ -639,7 +639,7 @@
 
 
 /datum/reagent/ethanol/neurotoxin
-	name = "Neurotoxin"
+	name = "Neuro-toxin"
 	id = "neurotoxin"
 	description = "A strong neurotoxin that puts the subject into a death-like state."
 	reagent_state = LIQUID
