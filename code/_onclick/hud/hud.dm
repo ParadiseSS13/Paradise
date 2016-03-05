@@ -205,6 +205,63 @@ datum/hud/New(mob/owner)
 	else if(isguardian(mymob))
 		guardian_hud()
 
+	create_parallax()
+
+
+/client/var/list/spessbg = list()
+
+var/list/parallax_on_clients = list()
+
+var/area/global_space_area = null
+
+/obj/screen/spessbg
+	var/offset_x = 0
+	var/offset_y = 0
+/datum/hud/var/showing_parallax
+/datum/hud/proc/create_parallax()
+	var/client/C = mymob.client
+	showing_parallax = C.prefs.space_parallax
+	if (C.prefs.space_parallax)
+		parallax_on_clients |= C
+	else
+		parallax_on_clients -= C
+	for(var/area/A in all_areas)
+		if(A.white_overlay)
+			if (C.prefs.space_parallax)
+				C.images |= A.white_overlay
+			else
+				C.images -= A.white_overlay
+	if (C.spessbg.len)
+		for(var/obj/screen/spessbg/bgobj in C.spessbg)
+			bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
+			C.screen |= bgobj
+		return
+	for(var/i in 0 to 3)
+		var/obj/screen/spessbg/bgobj = new /obj/screen/spessbg()
+		if(i & 1)
+			bgobj.offset_x = 480
+		if(i & 2)
+			bgobj.offset_y = 480
+		bgobj.icon = 'icons/mob/screen1_full.dmi'
+		bgobj.icon_state = "spess"
+		bgobj.name = "spess"
+		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
+		bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
+		bgobj.blend_mode = BLEND_MULTIPLY
+		bgobj.mouse_opacity = 0
+		C.spessbg += bgobj
+		C.screen += bgobj
+	update_parallax()
+/datum/hud/proc/update_parallax()
+	var/atom/posobj = get_turf(mymob)
+	for(var/obj/screen/spessbg/bgobj in mymob.client.spessbg)
+		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x-posobj.x],CENTER-7:[bgobj.offset_y-posobj.y]"
+
+/mob/Move(atom/newloc, direct = 0)
+	. = ..()
+	if(hud_used)
+		hud_used.update_parallax()
+
 //Triggered when F12 is pressed (Unless someone changed something in the DMF)
 /mob/verb/button_pressed_F12(var/full = 0 as null)
 	set name = "F12"
