@@ -655,7 +655,7 @@
 	//Synthetic human mob goes here.
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		if(!isnull(H.internal_organs_by_name["cell"]) && H.a_intent == I_GRAB)
+		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.a_intent == I_GRAB)
 			if(emagged || stat & BROKEN)
 				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 				s.set_up(3, 1, src)

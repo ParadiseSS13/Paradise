@@ -202,7 +202,7 @@ REAGENT SCANNER
 //		user.show_message("\blue Bloodstream Analysis located [M.reagents:get_reagent_amount("epinephrine")] units of rejuvenation chemicals.")
 	if (M.has_brain_worms())
 		user.show_message("\red Subject suffering from aberrant brain activity. Recommend further scanning.")
-	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && M:brain_op_stage == 4.0)
+	else if (M.getBrainLoss() >= 100 || istype(M, /mob/living/carbon/human) && !M.get_int_organ(/obj/item/organ/internal/brain))
 		user.show_message("\red Subject is brain dead.")
 	else if (M.getBrainLoss() >= 60)
 		user.show_message("\red Severe brain damage detected. Subject likely to have mental retardation.")
@@ -245,6 +245,14 @@ REAGENT SCANNER
 		if(H.heart_attack)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("\blue Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>")
+		var/implant_detect
+		for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
+			if(CI.status == ORGAN_ROBOT)
+				implant_detect += "[H.name] is modified with a [CI.name].<br>"
+		if(implant_detect)
+			user.show_message("<span class='notice'>Detected cybernetic modifications:</span>")
+			user.show_message("<span class='notice'>[implant_detect]</span>")
+
 	src.add_fingerprint(user)
 	return
 

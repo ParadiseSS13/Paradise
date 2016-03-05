@@ -231,31 +231,25 @@
 		if(A.CheckRemoval(src))
 			A.Remove(src)
 	for(var/obj/item/I in src)
-		if(istype(I,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = I
-			for(var/obj/item/IU in U)
-				if(istype(IU, /obj/item/clothing/accessory))
-					var/obj/item/clothing/accessory/A = IU
-					if(A.action_button_name)
-						if(!A.action)
-							if(A.action_button_is_hands_free)
-								A.action = new/datum/action/item_action/hands_free
-							else
-								A.action = new/datum/action/item_action
-							A.action.name = A.action_button_name
-							A.action.target = A
-						A.action.check_flags &= ~AB_CHECK_INSIDE
-						A.action.Grant(src)
-		if(I.action_button_name)
-			if(!I.action)
-				if(I.action_button_is_hands_free)
-					I.action = new/datum/action/item_action/hands_free
-				else
-					I.action = new/datum/action/item_action
-				I.action.name = I.action_button_name
-				I.action.target = I
-			I.action.Grant(src)
+		give_action_button(I, 1)
 	return
+
+/mob/living/proc/give_action_button(var/obj/item/I, recursive = 0)
+	if(I.action_button_name)
+		if(!I.action)
+			if(istype(I, /obj/item/organ/internal))
+				I.action = new/datum/action/item_action/organ_action
+			else if(I.action_button_is_hands_free)
+				I.action = new/datum/action/item_action/hands_free
+			else
+				I.action = new/datum/action/item_action
+			I.action.name = I.action_button_name
+			I.action.target = I
+		I.action.Grant(src)
+
+	if(recursive)
+		for(var/obj/item/T in I)
+			give_action_button(I, recursive - 1)
 
 /mob/living/update_action_buttons()
 	if(!hud_used) return

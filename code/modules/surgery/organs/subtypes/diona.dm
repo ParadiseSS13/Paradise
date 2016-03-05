@@ -131,7 +131,7 @@
 	parent_organ = "chest"
 	var/can_intake_reagents = 1
 
-/obj/item/organ/external/diona/head/removed()
+/obj/item/organ/external/diona/head/remove()
 	if(owner)
 		owner.unEquip(owner.head)
 		owner.unEquip(owner.l_ear)
@@ -149,35 +149,62 @@
 /obj/item/organ/diona/process()
 	return
 
-/obj/item/organ/diona/strata
+/obj/item/organ/internal/heart/diona
 	name = "neural strata"
-	parent_organ = "chest"
-
-/obj/item/organ/diona/bladder
-	name = "gas bladder"
-	parent_organ = "head"
-
-/obj/item/organ/diona/polyp
-	name = "polyp segment"
-	parent_organ = "groin"
-
-/obj/item/organ/diona/ligament
-	name = "anchoring ligament"
-	parent_organ = "groin"
-
-/obj/item/organ/diona/node
-	name = "receptor node"
-	parent_organ = "head"
-
-/obj/item/organ/diona/nutrients
-	name = "nutrient vessel"
-	parent_organ = "chest"
-
-/obj/item/organ/diona
-	name = "diona nymph"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-	organ_tag = "special" // Turns into a nymph instantly, no transplanting possible.
+	organ_tag = "heart" // Turns into a nymph instantly, no transplanting possible.
+	origin_tech = "biotech=3"
+	parent_organ = "chest"
+	slot = "heart"
+
+/obj/item/organ/internal/brain/diona
+	name = "gas bladder"
+	parent_organ = "head"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "nymph"
+	organ_tag = "brain" // Turns into a nymph instantly, no transplanting possible.
+	origin_tech = "biotech=3"
+	slot = "brain"
+
+/obj/item/organ/internal/kidneys/diona
+	name = "polyp segment"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "nymph"
+	organ_tag = "kidneys" // Turns into a nymph instantly, no transplanting possible.
+	origin_tech = "biotech=3"
+	parent_organ = "groin"
+	slot = "kidneys"
+
+/obj/item/organ/internal/appendix/diona
+	name = "anchoring ligament"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "nymph"
+	organ_tag = "appendix" // Turns into a nymph instantly, no transplanting possible.
+	origin_tech = "biotech=3"
+	parent_organ = "groin"
+	slot = "appendix"
+
+/obj/item/organ/internal/eyes/diona
+	name = "receptor node"
+	organ_tag = "eyes"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "claw"
+	origin_tech = "biotech=3"
+	parent_organ = "head"
+	slot = "eyes"
+
+//TODO:Make absorb rads on insert
+
+/obj/item/organ/internal/liver/diona
+	name = "nutrient vessel"
+	parent_organ = "chest"
+	organ_tag = "liver"
+	icon = 'icons/mob/alien.dmi'
+	icon_state = "claw"
+	slot = "liver"
+
+//TODO:Make absorb light on insert.
 
 /*/obj/item/organ/diona/removed(var/mob/living/user)
 	var/mob/living/carbon/human/H = owner
@@ -186,23 +213,3 @@
 		H.death()
 	if(prob(50) && spawn_diona_nymph_from_organ(src))
 		qdel(src) */
-
-// These are different to the standard diona organs as they have a purpose in other
-// species (absorbing radiation and light respectively)
-/obj/item/organ/diona/nutrients
-	name = "nutrient vessel"
-	organ_tag = "nutrient vessel"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "claw"
-
-/obj/item/organ/diona/nutrients/removed()
-	return
-
-/obj/item/organ/diona/node
-	name = "receptor node"
-	organ_tag = "receptor node"
-	icon = 'icons/mob/alien.dmi'
-	icon_state = "claw"
-
-/obj/item/organ/diona/node/removed()
-	return

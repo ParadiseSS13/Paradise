@@ -38,7 +38,7 @@ proc/isfacehugger(A)
 	return 0
 
 proc/isembryo(A)
-	if(istype(A, /obj/item/alien_embryo))
+	if(istype(A, /obj/item/organ/internal/body_egg/alien_embryo))
 		return 1
 	return 0
 
@@ -167,7 +167,7 @@ proc/isovermind(A)
 		return 1
 	return 0
 
-proc/isorgan(A)
+/proc/isorgan(A)
 	if(istype(A, /obj/item/organ/external))
 		return 1
 	return 0

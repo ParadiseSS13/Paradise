@@ -1,10 +1,14 @@
 //CORTICAL BORER ORGANS.
-/obj/item/organ/borer
+/obj/item/organ/internal/borer
 	name = "cortical borer"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "borer"
 	parent_organ = "head"
+	organ_tag = "brain"
+	slot = "borer"
 	vital = 1
 
-/obj/item/organ/borer/process()
+/obj/item/organ/internal/borer/process()
 
 	// Borer husks regenerate health, feel no pain, and are resistant to stuns and brainloss.
 	for(var/chem in list("saline", "sailcylic", "meth", "mannitol"))
@@ -26,14 +30,7 @@
 			goo.basecolor = "#412464"
 			goo.update_icon()
 
-/obj/item/organ/borer
-	name = "cortical borer"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "borer"
-	organ_tag = "brain"
-	desc = "A disgusting space slug."
-
-/obj/item/organ/borer/removed(var/mob/living/user)
+/obj/item/organ/internal/borer/remove(var/mob/living/user)
 
 	..()
 
@@ -46,22 +43,23 @@
 		qdel(src)
 
 //VOX ORGANS.
-/obj/item/organ/stack
+/obj/item/organ/internal/stack
 	name = "cortical stack"
 	icon_state = "brain-prosthetic"
 	parent_organ = "head"
 	organ_tag = "stack"
+	slot = "vox_stack"
 	robotic = 2
 	vital = 1
 	var/backup_time = 0
 	var/datum/mind/backup
 
-/obj/item/organ/stack/process()
+/obj/item/organ/internal/stack/process()
 	if(owner && owner.stat != 2 && !is_broken())
 		backup_time = world.time
 		if(owner.mind) backup = owner.mind
 
-/obj/item/organ/stack/vox
+/obj/item/organ/internal/stack/vox
 	name = "vox cortical stack"
 
-/obj/item/organ/stack/vox/stack
+/obj/item/organ/internal/stack/vox/stack

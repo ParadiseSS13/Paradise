@@ -25,7 +25,7 @@
 	M.eye_blind = 0
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
 			E.damage = max(E.damage-5 , 0)
 	M.SetWeakened(0)

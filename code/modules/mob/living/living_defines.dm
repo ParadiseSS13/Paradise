@@ -52,3 +52,5 @@
 
 	var/list/datum/action/actions = list()
 	var/step_count = 0
+
+	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.

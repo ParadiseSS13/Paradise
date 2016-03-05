@@ -6,7 +6,6 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	heal_rate = 5
-	plasma_rate = 20
 	large = 1
 	ventcrawler = 0
 
@@ -24,7 +23,11 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/neurotoxin,/mob/living/carbon/alien/humanoid/proc/resin)
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/eggsac
+	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 
@@ -64,7 +67,7 @@
 		return
 
 	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-75)
+		adjustPlasma(-75)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
 		new /obj/structure/alien/egg(loc)

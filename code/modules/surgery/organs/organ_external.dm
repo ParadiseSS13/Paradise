@@ -65,13 +65,14 @@
 	if(parent && parent.children)
 		parent.children -= src
 
+	if(internal_organs)
+		for(var/obj/item/organ/internal/O in internal_organs)
+			internal_organs -= O
+			O.remove(owner,special = 1)
+
 	if(children)
 		for(var/obj/item/organ/external/C in children)
 			qdel(C)
-
-	if(internal_organs)
-		for(var/obj/item/organ/O in internal_organs)
-			qdel(O)
 
 	return ..()
 
@@ -95,11 +96,12 @@
 				if(contents.len)
 					var/obj/item/removing = pick(contents)
 					removing.loc = get_turf(user.loc)
-					var/obj/item/organ/O = removing
+					var/obj/item/organ/internal/O = removing
 					if(istype(O))
 						O.status |= ORGAN_CUT_AWAY
-						spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.removed(user)
+						if(!O.sterile)
+							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
+						O.forceMove(src)
 					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
@@ -108,27 +110,32 @@
 				return
 	..()
 
+
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
 	return
 
 
-/obj/item/organ/external/New(var/mob/living/carbon/holder, var/internal)
+/obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
-	if(owner)
-		replaced(owner)
-		sync_colour_to_human(owner)
+	if(istype(holder, /mob/living/carbon/human))
+		replaced(holder)
+		sync_colour_to_human(holder)
 	spawn(1)
 		get_icon()
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
 	status = status & ~ORGAN_DESTROYED
+	forceMove(owner)
 	if(istype(owner))
 		owner.organs_by_name[limb_name] = src
 		owner.organs |= src
 		for(var/obj/item/organ/organ in src)
-			organ.loc = owner
+			if(istype(src, /obj/item/organ/internal))
+				var/obj/item/organ/internal/I = organ
+				if(target.get_organ_slot(I.slot))
+					continue // Just leave it inside its limb, so brains with brainmobs in them don't get voided.
 			organ.replaced(owner,src)
 
 	if(parent_organ)
@@ -137,6 +144,12 @@
 			if(!parent.children)
 				parent.children = list()
 			parent.children.Add(src)
+			//Remove all stump wounds since limb is not missing anymore
+			for(var/datum/wound/lost_limb/W in parent.wounds)
+				parent.wounds -= W
+				qdel(W)
+				break
+			parent.update_damages()
 
 /obj/item/organ/external/robotize()
 	..()
@@ -165,8 +178,9 @@
 	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= 5) || brute >= 10) && prob(5))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
-			var/obj/item/organ/I = pick(internal_organs)
-			I.take_damage(brute / 2)
+			var/obj/item/organ/internal/I = pick(internal_organs)
+			if(!I.tough)//mostly for cybernetic organs
+				I.take_damage(brute / 2)
 			brute -= brute / 2
 
 	if(status & ORGAN_BROKEN && prob(40) && brute)
@@ -284,7 +298,7 @@ This function completely restores a damaged organ to perfect condition.
 	burn_dam = 0
 
 	// handle internal organs
-	for(var/obj/item/organ/current_organ in internal_organs)
+	for(var/obj/item/organ/internal/current_organ in internal_organs)
 		current_organ.rejuvenate()
 
 
@@ -452,8 +466,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
-		var/obj/item/organ/target_organ = null	//make internal organs become infected one at a time instead of all at once
-		for (var/obj/item/organ/I in internal_organs)
+		var/obj/item/organ/internal/target_organ = null	//make internal organs become infected one at a time instead of all at once
+		for (var/obj/item/organ/internal/I in internal_organs)
 			if (I.germ_level > 0 && I.germ_level < min(germ_level, INFECTION_LEVEL_TWO))	//once the organ reaches whatever we can give it, or level two, switch to a different one
 				if (!target_organ || I.germ_level > target_organ.germ_level)	//choose the organ with the highest germ_level
 					target_organ = I
@@ -461,7 +475,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if (!target_organ)
 			//figure out which organs we can spread germs to and pick one at random
 			var/list/candidate_organs = list()
-			for (var/obj/item/organ/I in internal_organs)
+			for (var/obj/item/organ/internal/I in internal_organs)
 				if (I.germ_level < germ_level)
 					candidate_organs |= I
 			if (candidate_organs.len)
@@ -647,7 +661,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"<span class='danger'>You hear the [gore_sound].</span>")
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
-	removed(null, ignore_children)
+	remove(null, ignore_children)
 	victim.traumatic_shock += 30
 
 	wounds.Cut()
@@ -672,7 +686,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 			victim.UpdateDamageIcon()
 			victim.regenerate_icons()
 		dir = 2
-
 	switch(disintegrate)
 		if(DROPLIMB_EDGE)
 			compile_icon()
@@ -834,7 +847,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/open_enough_for_surgery()
 	return (encased ? (open == 3) : (open == 2))
 
-/obj/item/organ/external/removed(var/mob/living/user, var/ignore_children)
+/obj/item/organ/external/remove(var/mob/living/user, var/ignore_children)
 
 	if(!owner)
 		return
@@ -852,13 +865,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/O in children)
-			O.removed()
+			O.remove()
 			if(O)
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/organ in internal_organs)
-		organ.removed()
+		organ.remove()
 		organ.forceMove(src)
 
 	release_restraints(victim)

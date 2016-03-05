@@ -113,7 +113,7 @@
 					severity -= 1
 				severity = min(max(severity, 0), 4)
 				var/mob/living/carbon/human/H = C
-				var/obj/item/organ/eyes/E = H.internal_organs_by_name["eyes"]
+				var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 
 				switch(severity)
 					if(0)

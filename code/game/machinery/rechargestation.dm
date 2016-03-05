@@ -115,7 +115,7 @@
 					R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
-			if(!isnull(H.internal_organs_by_name["cell"]) && H.nutrition < 450)
+			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, 0, 1)
@@ -242,7 +242,7 @@
 		if(occupant)
 			H << "<span class='warning'>The cell is already occupied!</span>"
 			return
-		if(isnull(H.internal_organs_by_name["cell"]))
+		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
 		can_accept_user = 1
 

@@ -102,7 +102,9 @@ var/const/MAX_ACTIVE_TIME = 400
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
-/obj/item/clothing/mask/facehugger/proc/Attach(M as mob)
+/obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M as mob)
+	if(!isliving(M))
+		return 0
 	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
 		return 0
 	if(attached)
@@ -112,24 +114,26 @@ var/const/MAX_ACTIVE_TIME = 400
 		spawn(MAX_IMPREGNATION_TIME)
 			attached = 0
 
-	var/mob/living/L = M //just so I don't need to use :
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		return 0
+ 	if(M.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+ 		return 0
 
-	if(loc == L) return 0
-	if(stat != CONSCIOUS)	return 0
-	if(locate(/obj/item/alien_embryo) in L) return 0
-	if(!sterile) L.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
+	if(loc == M) return 0
 
-	L.visible_message("<span class='userdanger'>[src] leaps at [L]'s face!</span>")
+	if(!sterile) M.take_organ_damage(strength,0) //done here so that even borgs and humans in helmets take damage
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
+	M.visible_message("<span class='userdanger'>[src] leaps at [M]'s face!</span>")
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
 		if(H.head && H.head.flags & HEADCOVERSMOUTH)
 			H.visible_message("<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
 			death()
 			return 0
 
 	if(iscarbon(M))
-		var/mob/living/carbon/target = L
+		var/mob/living/carbon/target = M
 		if(target.wear_mask)
 			if(prob(20))
 				return 0
@@ -144,7 +148,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		src.loc = target
 		target.equip_to_slot(src, slot_wear_mask,,0)
 
-		if(!sterile) L.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
+		if(!sterile) M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 	else if (iscorgi(M))
 		var/mob/living/simple_animal/pet/corgi/C = M
 		loc = C
@@ -154,7 +158,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	GoIdle() //so it doesn't jump the people that tear it off
 
 	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
-		Impregnate(L)
+		Impregnate(M)
 
 	return 1
 
@@ -181,7 +185,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		if(!(target.status_flags & XENO_HOST))
-			new /obj/item/alien_embryo(target)
+			new /obj/item/organ/internal/body_egg/alien_embryo(target)
 
 
 		if(iscorgi(target))
@@ -234,7 +238,7 @@ var/const/MAX_ACTIVE_TIME = 400
 
 	return
 
-/proc/CanHug(var/mob/M)
+/proc/CanHug(var/mob/living/M)
 	if(!M || !ismob(M))
 		return 0
 
@@ -243,6 +247,9 @@ var/const/MAX_ACTIVE_TIME = 400
 
 	if(iscorgi(M))
 		return 1
+
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		return 0
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C))
