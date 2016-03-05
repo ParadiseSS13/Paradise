@@ -76,7 +76,7 @@
  return sanitize_local(lhtml_encode(sanitize_simple(t,repl_chars)),mode)
 
 /proc/sanitize_nano(var/t,var/list/repl_chars = null)
- return lhtml_encode(sanitize_simple(t,repl_chars))
+ return html_encode(sanitize_simple(t,repl_chars))
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's lhtml_encode()

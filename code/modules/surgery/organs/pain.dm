@@ -118,12 +118,12 @@ mob/living/carbon/human/proc/handle_pain()
 
 
 	// Damage to internal organs hurts a lot.
-	for(var/obj/item/organ/I in internal_organs)
-		if(istype(I, /obj/item/organ/brain)) //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
+	for(var/obj/item/organ/internal/I in internal_organs)
+		if(istype(I, /obj/item/organ/internal/brain)) //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 			continue
 		if(I.damage > 2) if(prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			src.custom_pain("You feel a sharp pain in your [parent.name]", 1)
+			src.custom_pain("You feel a sharp pain in your [parent.limb_name]", 1)
 
 	var/toxDamageMessage = null
 	var/toxMessageProb = 1

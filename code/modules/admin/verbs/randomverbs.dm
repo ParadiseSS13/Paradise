@@ -128,9 +128,9 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text
+	var/msg = sanitize_local(input("Message:", text("Enter the text you wish to appear to your target:")) as text)
 
-	if( !msg )
+	if(!msg)
 		return
 
 	M << msg
@@ -542,8 +542,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
-	var/input = sanitize_local(input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null)
-	var/customname = sanitize_local(input(usr, "Pick a title for the report.", "Title") as text|null)
+	var/input = sanitize(input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null)
+	var/customname = sanitizeSafe(input(usr, "Pick a title for the report.", "Title") as text|null)
 	if(!input)
 		return
 
@@ -551,18 +551,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(!customname)
 			customname = type
 
-		var/from = input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null
+		var/from = sanitize_local(input(usr, "What kind of report? Example: Syndicate Communique", "From") as text|null)
 		if(!from)
 			from = "Syndicate Communique"
 		switch(alert("Should this be announced to the general population?",,"Yes","No"))
 			if("Yes")
-				communications_announcement.Announce(input, customname, , , , from);
+				communications_announcement.Announce(input, customname, , , , from, msg_sanitized = 1);
 			if("No")
 				world << "\red [from] available at all communications consoles."
 
 		for (var/obj/machinery/computer/communications/C in machines)
 			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
 				P.name = "[from]"
 				P.info = input
 				P.update_icon()
@@ -576,13 +576,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		switch(alert("Should this be announced to the general population?",,"Yes","No"))
 			if("Yes")
-				command_announcement.Announce(input, customname);
+				command_announcement.Announce(input, customname, msg_sanitized = 1);
 			if("No")
 				world << "\red New Nanotrasen Update available at all communication consoles."
 
 		for (var/obj/machinery/computer/communications/C in machines)
 			if(! (C.stat & (BROKEN|NOPOWER) ) )
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
 				P.name = "'[command_name()] Update.'"
 				P.info = input
 				P.update_icon()

@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes the Experimentor throwing one item at a time"
+  - tweak: "Experimentor menu now automatically refreshes after use"

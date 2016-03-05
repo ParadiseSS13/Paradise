@@ -356,7 +356,7 @@
 /obj/effect/timestop
 	anchored = 1
 	name = "chronofield"
-	desc = "ZA WARUDO"
+	desc = "TOKI WO TOMARE"
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "time"
 	layer = FLY_LAYER
@@ -378,7 +378,7 @@
 
 
 /obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/TIMEPARADOX2.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/magic/timestop.ogg', 100, 0, -1)
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, src.loc))
 			if(istype(A, /mob/living))

@@ -1,4 +1,4 @@
-mob/living
+/mob/living
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
@@ -667,6 +667,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		return -6
 	else
 		return initial(pixel_y)
+
+/mob/living/carbon/emp_act(severity)
+	for(var/obj/item/organ/internal/O in internal_organs)
+		O.emp_act(severity)
+	..()
+
+/mob/living/carbon/Stat()
+	if(statpanel("Status"))
+		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+		if(vessel)
+			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+	..()
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,

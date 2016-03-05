@@ -82,9 +82,9 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/weapon/scalpel/laser1
+/obj/item/weapon/scalpel/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks basic and could be improved."
+	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
 	icon_state = "scalpel_laser1_on"
 	item_state = "scalpel"
 	damtype = "fire"
@@ -92,7 +92,7 @@
 
 /obj/item/weapon/scalpel/laser2
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks somewhat advanced."
+	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
 	icon_state = "scalpel_laser2_on"
 	item_state = "scalpel"
 	damtype = "fire"
@@ -100,13 +100,13 @@
 
 /obj/item/weapon/scalpel/laser3
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field.  This one looks to be the pinnacle of precision energy cutlery!"
+	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
 	item_state = "scalpel"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/weapon/scalpel/manager
+/obj/item/weapon/scalpel/manager //super tool! Retractor/hemostat
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
@@ -131,7 +131,6 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
-
 
 //misc, formerly from code/defines/weapons.dm
 /obj/item/weapon/bonegel
@@ -171,9 +170,3 @@
 	w_class = 1.0
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")
-
-/*
-/obj/item/weapon/surgical_drapes/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
-*/

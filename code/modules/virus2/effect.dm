@@ -221,7 +221,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/internal/brain/B = H.get_int_organ(/obj/item/organ/internal/brain)
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(5, 1)
 		else
@@ -442,7 +442,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/internal/brain/B = H.get_int_organ(/obj/item/organ/internal/brain)
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(1, 1)
 		else
@@ -693,7 +693,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/obj/item/organ/brain/B = H.internal_organs_by_name["brain"]
+			var/obj/item/organ/internal/brain/B = H.get_int_organ(/obj/item/organ/internal/brain)
 			if (B.damage < B.min_broken_damage)
 				B.take_damage(0.5, 1)
 		else
@@ -925,7 +925,7 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	name = "Watery Eyes"
 	stage = 1
 	activate(var/mob/living/carbon/human/mob,var/multiplier)
-		var/obj/item/organ/eyes/E = mob.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/E = mob.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!istype(E) || (E.status & ORGAN_ROBOT)) // No eyes or robotic eyes? No problem!
 			return
 		mob << "<span class='warning'>Your eyes sting and water!</span>"

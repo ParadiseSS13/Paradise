@@ -298,7 +298,7 @@
 
 		// This is being copypasted here because reagent_containers (WHY DOES FOOD DESCEND FROM THAT) overrides it completely.
 		// TODO: refactor all food paths to be less horrible and difficult to work with in this respect. ~Z
-		if(!istype(M) || (can_operate(M) && do_surgery(M,user,src))) return 0
+		if(!istype(M)) return 0
 
 		if(!def_zone)
 			def_zone = check_zone(user.zone_sel.selecting)
