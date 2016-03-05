@@ -19,9 +19,13 @@ em						{font-style: normal;	font-weight: bold;}
 .looc					{color: #6699CC;}
 .adminobserverooc		{color: #0099cc;	font-weight: bold;}
 .adminooc				{color: #b82e00;	font-weight: bold;}
+.mentorhelp				{color: #0077bb;	font-weight: bold;}
+.adminhelp				{color: #aa0000;	font-weight: bold;}
 
 .adminobserver			{color: #996600;	font-weight: bold;}
 .admin					{color: #386aff;	font-weight: bold;}
+
+.playerreply			{color: #8800bb;	font-weight: bold;}
 
 .name					{					font-weight: bold;}
 
@@ -54,6 +58,7 @@ h1.alert, h2.alert		{color: #000000;}
 .disarm					{color: #990000;}
 .passive				{color: #660000;}
 
+.biggerdanger			{color: #ff0000;	font-weight: bold; font-size: 5;}
 .userdanger				{color: #ff0000;	font-weight: bold; font-size: 3;}
 .danger					{color: #ff0000;	font-weight: bold;}
 .warning				{color: #ff0000;	font-style: italic;}

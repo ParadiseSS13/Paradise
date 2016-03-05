@@ -468,7 +468,6 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		user << "<span class='notice'>You start digging...</span>"
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(20)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -487,7 +486,6 @@ var/global/list/rockTurfEdgeCache
 			return
 
 		user << "<span class='notice'>You start digging...</span>"
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 
 		sleep(P.digspeed)
 		if ((user.loc == T && user.get_active_hand() == W))
@@ -502,6 +500,12 @@ var/global/list/rockTurfEdgeCache
 				O.attackby(W,user)
 				return
 
+/turf/simulated/floor/plating/airless/asteroid/gets_drilled()
+	if(!dug)
+		gets_dug()
+	else
+		..()
+
 /turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
 	if(dug)
 		return
@@ -511,6 +515,7 @@ var/global/list/rockTurfEdgeCache
 	new/obj/item/weapon/ore/glass(src)
 	new/obj/item/weapon/ore/glass(src)
 	dug = 1
+	playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 	icon_plating = "asteroid_dug"
 	icon_state = "asteroid_dug"
 	return
@@ -536,22 +541,6 @@ var/global/list/rockTurfEdgeCache
 /turf/proc/fullUpdateMineralOverlays()
 	for (var/turf/t in range(1,src))
 		t.updateMineralOverlays()
-
-
-
-/turf/simulated/floor/plating/airless/asteroid/Entered(atom/movable/M as mob|obj)
-	..()
-	if(istype(M,/mob/living/silicon/robot))
-		var/mob/living/silicon/robot/R = M
-		if(istype(R.module, /obj/item/weapon/robot_module/miner))
-			if(istype(R.module_state_1,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_1,R)
-			else if(istype(R.module_state_2,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_2,R)
-			else if(istype(R.module_state_3,/obj/item/weapon/storage/bag/ore))
-				attackby(R.module_state_3,R)
-			else
-				return
 
 /turf/simulated/floor/plating/airless/asteroid/cave
 	var/length = 100

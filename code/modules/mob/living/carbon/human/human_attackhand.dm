@@ -59,6 +59,16 @@
 
 	switch(M.a_intent)
 		if(I_HELP)
+			if(can_operate(src))
+				if(health >= config.health_threshold_crit)
+					if(src.surgeries.len)
+						for(var/datum/surgery/S in src.surgeries)
+							if(S.next_step(M, src))
+								return 1
+							else
+								help_shake_act(M)
+								add_logs(src, M, "shaked")
+								return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")
@@ -139,7 +149,7 @@
 				else
 					LAssailant = M
 
-				var/damage = rand(0, M.species.max_hurt_damage)//BS12 EDIT
+				var/damage = rand(M.species.punchdamagelow, M.species.punchdamagehigh)
 				damage += attack.damage
 				if(!damage)
 					playsound(loc, attack.miss_sound, 25, 1, -1)
@@ -158,7 +168,7 @@
 				visible_message("\red <B>[M] [pick(attack.attack_verb)]ed [src]!</B>")
 
 				apply_damage(damage, BRUTE, affecting, armor_block, sharp=attack.sharp, edge=attack.edge) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-				if((stat != DEAD) && damage >= 9)
+				if((stat != DEAD) && damage >= M.species.punchstunthreshold)
 					visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 									"<span class='userdanger'>[M] has weakened [src]!</span>")
 					apply_effect(4, WEAKEN, armor_block)

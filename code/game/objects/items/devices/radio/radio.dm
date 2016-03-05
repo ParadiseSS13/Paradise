@@ -250,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 		return
 
 	var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(src, null, null, 1)
-	A.SetName(from)
+	A.rename_character(A.real_name, from)
 	Broadcast_Message(connection, A,
 						0, "*garbled automated announcement*", src,
 						message, from, "Automated Announcement", from, "synthesized voice",
@@ -283,6 +283,9 @@ var/global/list/default_medbay_channels = list(
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
 	if(wires.IsIndexCut(WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+		return 0
+
+	if(!M.IsVocal())
 		return 0
 
 	M.last_target_click = world.time

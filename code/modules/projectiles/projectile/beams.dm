@@ -38,6 +38,17 @@
 	weaken = 5
 	stutter = 5
 
+
+/obj/item/projectile/beam/immolator
+	name = "immolation beam"
+
+/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+	. = ..()
+	if(istype(target, /mob/living/carbon))
+		var/mob/living/carbon/M = target
+		M.adjust_fire_stacks(1)
+		M.IgniteMob()
+
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"

@@ -14,7 +14,7 @@
 	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
-	action_icon_state = "spell_horse"
+	action_icon_state = "barn"
 
 /obj/effect/proc_holder/spell/targeted/horsemask/cast(list/targets, mob/user = usr)
 	if(!targets.len)

@@ -105,7 +105,9 @@ datum/game_mode/mutiny
 		if (!pda)
 			return 0
 
-		pda.play_ringtone()
+		var/datum/data/pda/app/messenger/pdam = pda.find_program(/datum/data/pda/app/messenger)
+		if(pdam)
+			pdam.play_ringtone()
 
 		head_mutineer.current << fluff.get_pda_body()
 		return 1

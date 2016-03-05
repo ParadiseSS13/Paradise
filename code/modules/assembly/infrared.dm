@@ -11,6 +11,16 @@
 	var/visible = 0
 	var/obj/effect/beam/i_beam/first = null
 	var/obj/effect/beam/i_beam/last = null
+	var/max_nesting_level = 10
+	var/turf/fire_location
+
+/obj/item/device/assembly/infra/Destroy()
+	if(first)
+		qdel(first)
+		first = null
+		last = null
+		fire_location = null
+	return ..()
 
 /obj/item/device/assembly/infra/describe()
 	return "The infrared trigger is [on?"on":"off"]."
@@ -41,10 +51,28 @@
 
 	if(holder)
 		holder.update_icon()
-	return
+
+/obj/item/device/assembly/infra/proc/get_valid_loc(atom/A, atom/prev, level = 0)
+	if(!A)
+		A = loc
+	if(!prev)
+		prev = src
+	if(level > max_nesting_level)
+		return null
+	else if(isturf(A))
+		return A
+	else if(isobj(A))
+		var/obj/O = A
+		if(isassembly(A) || O.IsAssemblyHolder() || istype(A, /obj/item/device/onetankbomb))
+			return .(A.loc, A, level + 1)
+	else if(ismob(A))
+		var/mob/user = A
+		if(user.get_active_hand() == prev || user.get_inactive_hand() == prev)
+			return .(A.loc, A, level + 1)
+	return null
 
 /obj/item/device/assembly/infra/process()
-	if(!on)
+	if(!on || fire_location != get_turf(loc))
 		if(first)
 			qdel(first)
 			return
@@ -53,12 +81,14 @@
 	if(first && last)
 		last.process()
 		return
-	var/turf/T = get_turf(src)
+	var/turf/T = get_valid_loc()
 	if(T)
+		fire_location = T
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
 		I.density = 1
 		I.dir = dir
+		I.update_icon()
 		first = I
 		step(I, I.dir)
 		if(first)
@@ -70,40 +100,47 @@
 /obj/item/device/assembly/infra/attack_hand()
 	qdel(first)
 	..()
-	return
 
 /obj/item/device/assembly/infra/Move()
 	var/t = dir
 	..()
 	dir = t
 	qdel(first)
-	return
 
 /obj/item/device/assembly/infra/holder_movement()
 	if(!holder)	return 0
-//	dir = holder.dir
 	qdel(first)
 	return 1
 
+/obj/item/device/assembly/infra/equipped(var/mob/user, var/slot)
+	qdel(first)
+	return ..()
+
+/obj/item/device/assembly/infra/pickup(mob/user)
+	qdel(first)
+	return ..()
+
 /obj/item/device/assembly/infra/proc/trigger_beam()
-	if((!secured)||(!on)||(cooldown > 0))
+	if(!secured || !on || cooldown > 0)
 		return 0
 	pulse(0)
 	audible_message("\icon[src] *beep* *beep*", null, 3)
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
-	return
 
 /obj/item/device/assembly/infra/interact(mob/user as mob)//TODO: change this this to the wire control panel
 	if(!secured)	return
 	user.set_machine(src)
-	var/dat = text("<TT><B>Infrared Laser</B>\n<B>Status</B>: []<BR>\n<B>Visibility</B>: []<BR>\n</TT>", (on ? text("<A href='?src=\ref[];state=0'>On</A>", src) : text("<A href='?src=\ref[];state=1'>Off</A>", src)), (src.visible ? text("<A href='?src=\ref[];visible=0'>Visible</A>", src) : text("<A href='?src=\ref[];visible=1'>Invisible</A>", src)))
-	dat += "<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>"
-	dat += "<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"
+	var/dat = {"<TT><B>Infrared Laser</B>
+				<B>Status</B>: [on ? "<A href='?src=\ref[src];state=0'>On</A>" : "<A href='?src=\ref[src];state=1'>Off</A>"]<BR>
+				<B>Visibility</B>: [visible ? "<A href='?src=\ref[src];visible=0'>Visible</A>" : "<A href='?src=\ref[src];visible=1'>Invisible</A>"]<BR>
+				<B>Current Direction</B>: <A href='?src=\ref[src];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
+				</TT>
+				<BR><BR><A href='?src=\ref[src];refresh=1'>Refresh</A>
+				<BR><BR><A href='?src=\ref[src];close=1'>Close</A>"}
 	user << browse(dat, "window=infra")
 	onclose(user, "infra")
-	return
 
 /obj/item/device/assembly/infra/Topic(href, href_list)
 	..()
@@ -118,6 +155,8 @@
 		visible = !(visible)
 		if(first)
 			first.vis_spread(visible)
+	if(href_list["rotate"])
+		rotate()
 	if(href_list["close"])
 		usr << browse(null, "window=infra")
 		return
@@ -133,7 +172,9 @@
 		return
 
 	dir = turn(dir, 90)
-	return
+	
+	if(usr.machine == src)
+		interact(usr)
 
 
 
@@ -157,13 +198,14 @@
 	if(master)
 		master.trigger_beam()
 	qdel(src)
-	return
 
 /obj/effect/beam/i_beam/proc/vis_spread(v)
 	visible = v
 	if(next)
 		next.vis_spread(v)
 
+/obj/effect/beam/i_beam/update_icon()
+	transform = turn(matrix(), dir2angle(dir))
 
 /obj/effect/beam/i_beam/process()
 	if((loc.density || !(master)))
@@ -184,6 +226,7 @@
 		I.master = master
 		I.density = 1
 		I.dir = dir
+		I.update_icon()
 		I.previous = src
 		next = I
 		step(I, I.dir)
@@ -196,13 +239,12 @@
 
 /obj/effect/beam/i_beam/Bump()
 	qdel(src)
-	return
 
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)
-	if(istype(AM, /obj/effect/beam))
+	if(istype(AM, /obj/effect/beam) || !AM.density)
 		return
 	hit()
 

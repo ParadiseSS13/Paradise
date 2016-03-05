@@ -1209,9 +1209,9 @@
 
 /datum/seed/cocoa
 	name = "cocoa"
-	seed_name = "cacao"
-	display_name = "cacao tree"
-	chems = list("plantmatter" = list(1,10), "coco" = list(4,5))
+	seed_name = "cocoa"
+	display_name = "cocoa tree"
+	chems = list("plantmatter" = list(1,10), "cocoa" = list(4,5))
 	preset_icon = "cocoapod"
 
 /datum/seed/cocoa/New()

@@ -12,7 +12,7 @@
 
 var/list/ingredients_source = list(
 "berryjuice" = FLAVOUR_STRAWBERRY,\
-"coco" = FLAVOUR_CHOCOLATE,\
+"cocoa" = FLAVOUR_CHOCOLATE,\
 "singulo" = FLAVOUR_BLUE,\
 "milk" = INGR_MILK,\
 "soymilk" = INGR_MILK,\

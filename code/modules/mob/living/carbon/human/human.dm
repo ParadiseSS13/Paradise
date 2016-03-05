@@ -44,7 +44,7 @@
 	if(!delay_ready_dna && dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
-		sync_organ_dna() //this shouldn't be necessaaaarrrryyyyyyyy
+		sync_organ_dna(1)
 
 	if(species)
 		species.handle_dna(src)
@@ -278,6 +278,11 @@
 				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
 			stat(null, "Suit charge: [cell_status]")
 
+		// I REALLY need to split up status panel things into datums
+		var/mob/living/simple_animal/borer/B = has_brain_worms()
+		if(B && B.controlling)
+			stat("Chemicals", B.chemicals)
+
 		if(mind)
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
@@ -394,6 +399,15 @@
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
+/mob/living/carbon/human/bullet_act()
+	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
+		if(!prob(martial_art.deflection_chance))
+			return ..()
+		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
+			visible_message("<span class='danger'>[src] deflects the projectile; they can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			return 0
+	..()
+
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src]")
@@ -441,8 +455,7 @@
 /mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M as mob)
 	if(M.Victim) return // can't attack while eating!
 
-	if (health > -100)
-
+	if(stat != DEAD)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
@@ -752,6 +765,12 @@
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+		var/thief_mode = 0
+		if(ishuman(usr))
+			var/mob/living/carbon/human/H = usr
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(G && G.pickpocket)
+				thief_mode = 1
 
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
@@ -780,6 +799,8 @@
 				if(pocket_item)
 					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
 						unEquip(pocket_item)
+						if(thief_mode)
+							usr.put_in_hands(pocket_item)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
@@ -789,8 +810,9 @@
 				if(usr.machine == src && in_range(src, usr))
 					show_inv(usr)
 			else
-				// Display a warning if the user mocks up
-				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
+				// Display a warning if the user mocks up if they don't have pickpocket gloves.
+				if(!thief_mode)
+					src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -802,12 +824,14 @@
 				var/obj/item/clothing/under/U = w_uniform
 				if(U.accessories.len)
 					var/obj/item/clothing/accessory/A = U.accessories[1]
-					usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
-										"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
+					if(!thief_mode)
+						usr.visible_message("<span class='danger'>\The [usr] starts to take off \the [A] from \the [src]'s [U]!</span>", \
+											"<span class='danger'>You start to take off \the [A] from \the [src]'s [U]!</span>")
 
 					if(do_mob(usr, src, 40) && A && U.accessories.len)
-						usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
-											"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
+						if(!thief_mode)
+							usr.visible_message("<span class='danger'>\The [usr] takes \the [A] off of \the [src]'s [U]!</span>", \
+												"<span class='danger'>You take \the [A] off of \the [src]'s [U]!</span>")
 						A.on_removed(usr)
 						U.accessories -= A
 						update_inv_w_uniform()
@@ -1092,7 +1116,7 @@
 ///eyecheck()
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/eyecheck()
-	var/number = 0
+	var/number = ..()
 	if(istype(src.head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = src.head			//if yes gets the flash protection value from that item
 		number += HFP.flash_protect
@@ -1102,6 +1126,9 @@
 	if(istype(src.wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = src.wear_mask
 		number += MFP.flash_protect
+	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in src.internal_organs)
+		number += EFP.flash_protect
+
 	return number
 
 ///tintcheck()
@@ -1286,7 +1313,7 @@
 	species.create_organs(src)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
-		for (var/obj/item/organ/brain/H in world)
+		for (var/obj/item/organ/internal/brain/H in world)
 			if(H.brainmob)
 				if(H.brainmob.real_name == src.real_name)
 					if(H.brainmob.mind)
@@ -1302,14 +1329,14 @@
 	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
-	var/obj/item/organ/lungs/L = internal_organs_by_name["lungs"]
+	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
 	if(!L)
 		return 0
 
 	return L.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
-	var/obj/item/organ/lungs/L = internal_organs_by_name["lungs"]
+	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
 	if(!L)
 		return 0
 
@@ -1382,6 +1409,8 @@
 /mob/living/carbon/human/generate_name()
 	name = species.makeName(gender,src)
 	real_name = name
+	if(dna)
+		dna.real_name = name
 	return name
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
@@ -1852,3 +1881,6 @@
 	for(var/obj/item/clothing/C in src) //If they have some clothing equipped that lets them see reagents, they can see reagents
 		if(C.scan_reagents)
 			return 1
+
+/mob/living/carbon/human/can_eat(flags = 255)
+	return species && (species.dietflags & flags)

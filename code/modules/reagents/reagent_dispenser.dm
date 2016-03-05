@@ -92,6 +92,7 @@
 	icon_state = "weldtank"
 	amount_per_transfer_from_this = 10
 	var/obj/item/device/assembly_holder/rig = null
+	var/accepts_rig = 1
 
 /obj/structure/reagent_dispensers/fueltank/New()
 	..()
@@ -126,7 +127,7 @@
 			overlays = new/list()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if (istype(W,/obj/item/device/assembly_holder))
+	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if (rig)
 			user << "\red There is another device in the way."
 			return ..()
@@ -254,3 +255,9 @@
 /obj/structure/reagent_dispensers/spacecleanertank/New()
 	..()
 	reagents.add_reagent("cleaner",5000)
+
+/obj/structure/reagent_dispensers/fueltank/chem
+	icon_state = "weldingtank_chem"
+	anchored = 1
+	density = 0
+	accepts_rig = 0

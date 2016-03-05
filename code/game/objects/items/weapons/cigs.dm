@@ -30,12 +30,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 30
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
 
@@ -47,6 +48,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/Destroy()
 	qdel(reagents)
 	return ..()
+
+/obj/item/clothing/mask/cigarette/attack(var/mob/living/M, var/mob/living/user, def_zone)
+	if(istype(M) && M.on_fire)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(M)
+		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, they offer the warmest of regards...</span>")
+		return 1
+	else
+		return ..()
+
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	..()

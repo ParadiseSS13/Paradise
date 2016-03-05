@@ -201,7 +201,7 @@
 	prefs.save_preferences(src)
 	usr << "You will [(prefs.sound & SOUND_STREAMING) ? "now" : "no longer"] hear streamed media."
 	if(!media) return
-	if(prefs.toggles & SOUND_STREAMING)
+	if(prefs.sound & SOUND_STREAMING)
 		media.update_music()
 	else
 		media.stop_music()

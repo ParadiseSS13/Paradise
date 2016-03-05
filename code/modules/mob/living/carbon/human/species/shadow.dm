@@ -13,7 +13,7 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 	has_organ = list(
-		"brain" = /obj/item/organ/brain
+		"brain" = /obj/item/organ/internal/brain
 		)
 
 	flags = NO_BLOOD | NO_BREATHE | NO_SCAN

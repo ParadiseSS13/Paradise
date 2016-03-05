@@ -83,7 +83,7 @@
 		/obj/item/toy/crossbow,
 		/obj/item/weapon/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
-		/obj/random/prize,
+		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
 		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosiadeus,

@@ -631,6 +631,11 @@
 		species_allowed = list("Skrell")
 		gender = FEMALE
 
+	taj_ears
+		name = "Tajaran Ears"
+		icon_state = "ears_plain"
+		species_allowed = list("Tajaran")
+
 	taj_ears_clean
 		name = "Tajara Clean"
 		icon_state = "hair_clean"

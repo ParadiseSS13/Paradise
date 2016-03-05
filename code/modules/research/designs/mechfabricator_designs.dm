@@ -984,7 +984,7 @@
 	name = "IPC Microbattery"
 	id = "ipc_cell"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/cell
+	build_path = /obj/item/organ/internal/cell
 	materials = list(MAT_METAL=2000, MAT_GLASS=750)
 	construction_time = 200
 	category = list("Misc")
@@ -993,7 +993,7 @@
 	name = "IPC Optical Sensor"
 	id = "ipc_optics"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/optical_sensor
+	build_path = /obj/item/organ/internal/optical_sensor
 	materials = list(MAT_METAL=1000, MAT_GLASS=2500)
 	construction_time = 200
 	category = list("Misc")

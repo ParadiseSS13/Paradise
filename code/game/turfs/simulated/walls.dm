@@ -64,8 +64,10 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
+	smooth_icon(src)
 	if(!damage)
-		overlays.Cut()
+		overlays -= damage_overlays[damage_overlay]
+		damage_overlay = 0
 		return
 
 	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
@@ -74,8 +76,7 @@
 
 	if(damage_overlay && overlay == damage_overlay) //No need to update.
 		return
-
-	overlays.Cut()
+	overlays -= damage_overlays[damage_overlay]
 	overlays += damage_overlays[overlay]
 	damage_overlay = overlay
 

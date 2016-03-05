@@ -16,8 +16,6 @@
 		return 0
 	if(iscultist(mind.current))
 		return 1 //If they're already in the cult, assume they are convertable
-	if(jobban_isbanned(mind.current, "cultist") || jobban_isbanned(mind.current, "Syndicate"))
-		return 0
 	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))
 		return 0
 	if(ishuman(mind.current))
@@ -57,7 +55,7 @@
 
 /datum/game_mode/cult/announce()
 	world << "<B>The current game mode is - Cult!</B>"
-	world << "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentCom-allowed faith they had.</B>"
+	world << "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>"
 
 
 /datum/game_mode/cult/pre_setup()
@@ -186,6 +184,9 @@
 		cult += cult_mind
 		add_cult_viewpoint(cult_mind.current)
 		update_cult_icons_added(cult_mind)
+		cult_mind.current.attack_log += "\[[time_stamp()]\] <span class='danger'>Has been converted to the cult!</span>"
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
+			replace_jobbaned_player(cult_mind.current, ROLE_CULTIST, ROLE_CULTIST)
 		return 1
 
 

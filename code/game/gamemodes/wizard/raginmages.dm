@@ -8,7 +8,7 @@
 	var/making_mage = 0
 	var/mages_made = 1
 	var/time_checked = 0
-	var/players_per_mage = 8 // If the admin wants to tweak things or something
+	var/players_per_mage = 6 // If the admin wants to tweak things or something
 	but_wait_theres_more = 1
 	var/delay_per_mage = 4200 // Every 7 minutes by default
 	var/time_till_chaos = 18000 // Half-hour in
@@ -16,11 +16,6 @@
 /datum/game_mode/wizard/raginmages/announce()
 	world << "<B>The current game mode is - Ragin' Mages!</B>"
 	world << "<B>The \red Space Wizard Federation\black is pissed, help defeat all the space wizards!</B>"
-
-/datum/game_mode/wizard/raginmages/pre_setup()
-	. = ..()
-	if(!max_mages)
-		max_mages = round(num_players() / players_per_mage)
 
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
@@ -37,6 +32,8 @@
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
+	// Accidental pun!
+	var/wizard_cap = (max_mages || (num_players() / players_per_mage))
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
@@ -78,11 +75,11 @@
 
 	if (wizards_alive)
 		if(!time_checked) time_checked = world.time
-		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < max_mages))
+		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
 			time_checked = world.time
 			make_more_mages()
 	else
-		if(wizards.len >= max_mages)
+		if(wizards.len >= wizard_cap)
 			finished = 1
 			return 1
 		else

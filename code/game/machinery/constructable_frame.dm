@@ -499,7 +499,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/destructive_analyzer
 	name = "Circuit board (Destructive Analyzer)"
-	build_path = "/obj/machinery/r_n_d/destructive_analyzer"
+	build_path = /obj/machinery/r_n_d/destructive_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, and 1 Micro-Laser."
@@ -510,7 +510,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/autolathe
 	name = "Circuit board (Autolathe)"
-	build_path = "/obj/machinery/autolathe"
+	build_path = /obj/machinery/autolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 3 Matter Bins, 1 Manipulator, and 1 Console Screen."
@@ -521,7 +521,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/protolathe
 	name = "Circuit board (Protolathe)"
-	build_path = "/obj/machinery/r_n_d/protolathe"
+	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 2 Matter Bins, 2 Manipulators, and 2 Beakers."
@@ -533,7 +533,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/circuit_imprinter
 	name = "Circuit board (Circuit Imprinter)"
-	build_path = "/obj/machinery/r_n_d/circuit_imprinter"
+	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, and 2 Beakers."
@@ -544,7 +544,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/pacman
 	name = "Circuit Board (PACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman"
+	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
 	origin_tech = "programming=3:powerstorage=3;plasmatech=3;engineering=3"
 	frame_desc = "Requires 1 Matter Bin, 1 Micro-Laser, 2 Pieces of Cable, and 1 Capacitor."
@@ -556,17 +556,17 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/weapon/circuitboard/pacman/super
 	name = "Circuit Board (SUPERPACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman/super"
+	build_path = /obj/machinery/power/port_gen/pacman/super
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
 
 /obj/item/weapon/circuitboard/pacman/mrs
 	name = "Circuit Board (MRSPACMAN-type Generator)"
-	build_path = "/obj/machinery/power/port_gen/pacman/mrs"
+	build_path = /obj/machinery/power/port_gen/pacman/mrs
 	origin_tech = "programming=3;powerstorage=5;engineering=5"
 
 obj/item/weapon/circuitboard/rdserver
 	name = "Circuit Board (R&D Server)"
-	build_path = "/obj/machinery/r_n_d/server"
+	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
 	origin_tech = "programming=3"
 	frame_desc = "Requires 2 pieces of cable, and 1 Scanning Module."
@@ -576,7 +576,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/mechfab
 	name = "Circuit board (Exosuit Fabricator)"
-	build_path = "/obj/machinery/mecha_part_fabricator"
+	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, 1 Micro-Laser and 1 Console Screen."
@@ -588,7 +588,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/podfab
 	name = "Circuit board (Spacepod Fabricator)"
-	build_path = "/obj/machinery/spod_part_fabricator" //ah fuck my life
+	build_path = /obj/machinery/spod_part_fabricator //ah fuck my life
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	frame_desc = "Requires 3 Matter Bins, 2 Manipulators, 2 Micro-Lasers, and 1 Console Screen."
@@ -601,7 +601,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/clonepod
 	name = "Circuit board (Clone Pod)"
-	build_path = "/obj/machinery/clonepod"
+	build_path = /obj/machinery/clonepod
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=3"
 	frame_desc = "Requires 2 Manipulator, 2 Scanning Module, 2 pieces of cable and 1 Console Screen."
@@ -613,7 +613,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/clonescanner
 	name = "Circuit board (Cloning Scanner)"
-	build_path = "/obj/machinery/dna_scannernew"
+	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, 1 Micro-Laser, 2 pieces of cable and 1 Console Screen."
@@ -844,7 +844,18 @@ obj/item/weapon/circuitboard/rdserver
 	board_type = "machine"
 	origin_tech = "programming=2"
 	req_components = list(
-							/obj/item/weapon/stock_parts.matter_bin = 1,
+							/obj/item/weapon/stock_parts/matter_bin = 1,
 							/obj/item/weapon/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/weapon/circuitboard/prize_counter
+	name = "circuit board (Prize Counter)"
+	build_path = /obj/machinery/prize_counter
+	board_type = "machine"
+	origin_tech = "programming=2;materials=2"
+	req_components = list(
+							/obj/item/weapon/stock_parts/matter_bin = 1,
+							/obj/item/weapon/stock_parts/manipulator = 1,
+							/obj/item/weapon/stock_parts/console_screen = 1,
+							/obj/item/stack/cable_coil = 1)

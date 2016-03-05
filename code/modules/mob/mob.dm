@@ -625,7 +625,7 @@ var/list/slot_equipment_priority = list( \
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize(msg)
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
 
 	if(mind)
 		mind.store_memory(msg)
@@ -1121,94 +1121,72 @@ var/list/slot_equipment_priority = list( \
 
 
 /mob/proc/Jitter(amount)
-	jitteriness = max(jitteriness,amount,0)
+	jitteriness = max(jitteriness, amount, 0)
 
 /mob/proc/Dizzy(amount)
-	dizziness = max(dizziness,amount,0)
+	dizziness = max(dizziness, amount, 0)
 
 /mob/proc/Stun(amount)
-	if(status_flags & CANSTUN)
-		stunned = max(max(stunned,amount),0) //can't go below 0, getting a low amount of stun doesn't lower your current stun
-		update_canmove()
-	return
+	SetStunned(max(stunned, amount))
 
 /mob/proc/SetStunned(amount) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	if(status_flags & CANSTUN)
-		stunned = max(amount,0)
+		stunned = max(amount, 0)
 		update_canmove()
-	return
+	else if(stunned)
+		stunned = 0
+		update_canmove()
 
 /mob/proc/AdjustStunned(amount)
-	if(status_flags & CANSTUN)
-		stunned = max(stunned + amount,0)
-		update_canmove()
-	return
+	SetStunned(stunned + amount)
 
 /mob/proc/Weaken(amount)
-	if(status_flags & CANWEAKEN)
-		weakened = max(max(weakened,amount),0)
-		update_canmove()	//updates lying, canmove and icons
-	return
+	SetWeakened(max(weakened, amount))
 
 /mob/proc/SetWeakened(amount)
 	if(status_flags & CANWEAKEN)
-		weakened = max(amount,0)
+		weakened = max(amount, 0)
 		update_canmove()	//updates lying, canmove and icons
-	return
+	else if(weakened)
+		weakened = 0
+		update_canmove()
 
 /mob/proc/AdjustWeakened(amount)
-	if(status_flags & CANWEAKEN)
-		weakened = max(weakened + amount,0)
-		update_canmove()	//updates lying, canmove and icons
-	return
+	SetWeakened(weakened + amount)
 
 /mob/proc/Paralyse(amount)
-	if(status_flags & CANPARALYSE)
-		paralysis = max(max(paralysis,amount),0)
-		update_canmove()
-	return
+	SetParalysis(max(paralysis, amount))
 
 /mob/proc/SetParalysis(amount)
 	if(status_flags & CANPARALYSE)
-		paralysis = max(amount,0)
+		paralysis = max(amount, 0)
 		update_canmove()
-	return
+	else if(paralysis)
+		paralysis = 0
+		update_canmove()
 
 /mob/proc/AdjustParalysis(amount)
-	if(status_flags & CANPARALYSE)
-		paralysis = max(paralysis + amount,0)
-		update_canmove()
-	return
+	SetParalysis(paralysis + amount)
 
 /mob/proc/Sleeping(amount)
-	sleeping = max(max(sleeping,amount),0)
-	update_canmove()
-	return
+	SetSleeping(max(sleeping, amount))
 
 /mob/proc/SetSleeping(amount)
-	sleeping = max(amount,0)
+	sleeping = max(amount, 0)
 	update_canmove()
-	return
 
 /mob/proc/AdjustSleeping(amount)
-	sleeping = max(sleeping + amount,0)
-	update_canmove()
-	return
+	SetSleeping(sleeping + amount)
 
 /mob/proc/Resting(amount)
-	resting = max(max(resting,amount),0)
-	update_canmove()
-	return
+	SetResting(max(resting, amount))
 
 /mob/proc/SetResting(amount)
-	resting = max(amount,0)
+	resting = max(amount, 0)
 	update_canmove()
-	return
 
 /mob/proc/AdjustResting(amount)
-	resting = max(resting + amount,0)
-	update_canmove()
-	return
+	SetResting(resting + amount)
 
 /mob/proc/get_species()
 	return ""
@@ -1471,3 +1449,6 @@ mob/proc/yank_out_object()
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
 	return 1 // Yes, you can
+
+/mob/proc/IsVocal()
+	return 1

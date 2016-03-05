@@ -120,6 +120,7 @@
 /*		var/obj/item/clothing/mask/cigarette/CIG = new /obj/item/clothing/mask/cigarette(H)
 		CIG.light("")
 		H.equip_or_collect(CIG, slot_wear_mask)	*/
+		H.equip_or_collect(new /obj/item/clothing/glasses/sunglasses/noir(H),slot_glasses)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)
 		if(H.mind.role_alt_title && H.mind.role_alt_title == "Forensic Technician")
 			H.equip_or_collect(new /obj/item/clothing/suit/storage/forensics/blue(H), slot_wear_suit)
@@ -244,7 +245,7 @@
 			if(3) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel_sec(H), slot_back)
 			if(4) H.equip_or_collect(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_or_collect(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
-		H.equip_or_collect(new /obj/item/clothing/suit/jacket(H), slot_wear_suit)
+		H.equip_or_collect(new /obj/item/clothing/suit/jacket/pilot(H), slot_wear_suit)
 		H.equip_or_collect(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 		H.equip_or_collect(new /obj/item/device/pda/security(H), slot_wear_pda)
 		H.equip_or_collect(new /obj/item/clothing/gloves/color/black(H), slot_gloves)

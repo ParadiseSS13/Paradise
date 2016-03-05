@@ -8,9 +8,9 @@ var/global/sent_strike_team = 0
 		usr << "<font color='red'>The game hasn't started yet!</font>"
 		return
 	if(sent_strike_team == 1)
-		usr << "<font color='red'>CentCom is already sending a team.</font>"
+		usr << "<font color='red'>CentComm is already sending a team.</font>"
 		return
-	if(alert("Do you want to send in the CentCom death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
 
@@ -92,7 +92,7 @@ var/global/sent_strike_team = 0
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("\blue [key_name_admin(usr)] has spawned a CentCom strike squad.", 1)
+	message_admins("\blue [key_name_admin(usr)] has spawned a CentComm strike squad.", 1)
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 

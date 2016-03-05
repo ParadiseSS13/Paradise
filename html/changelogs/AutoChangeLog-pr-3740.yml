@@ -1,0 +1,8 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "The buildmode area tool now shows reticules of what you've selected."
+  - bugfix: "Switching mobs while using the buildmode tool no longer screws up your UI."
+  - tweak: "Refactors buildmode so it's no longer a special-case system."
+  - rscadd: "Adds a copy mode to build mode, which lets you duplicate objects."
+  - tweak: "Any mob in buildmode can work at the fastest possible rate."

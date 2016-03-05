@@ -405,7 +405,7 @@
 			occupantData["extOrgan"] = extOrganData
 
 			var/intOrganData[0]
-			for(var/obj/item/organ/I in H.internal_organs)
+			for(var/obj/item/organ/internal/I in H.internal_organs)
 				var/organData[0]
 				organData["name"] = I.name
 				organData["desc"] = I.desc
@@ -589,7 +589,7 @@
 				else
 					dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
 				dat += "</tr>"
-			for(var/obj/item/organ/i in occupant.internal_organs)
+			for(var/obj/item/organ/internal/i in occupant.internal_organs)
 				var/mech = i.desc
 				var/infection = "None"
 				switch (i.germ_level)

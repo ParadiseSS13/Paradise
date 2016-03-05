@@ -9,6 +9,8 @@
 
 	if(..())
 		. = 1
+		for(var/obj/item/organ/internal/O in internal_organs)
+			O.on_life()
 		handle_changeling()
 
 	handle_wetness()
@@ -285,7 +287,7 @@
 			Weaken(5)
 			setStaminaLoss(health - 2)
 			return
-		setStaminaLoss(max((staminaloss - 2), 0))
+		setStaminaLoss(max((staminaloss - 3), 0))
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
@@ -343,18 +345,6 @@
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
 		jitteriness = max(jitteriness - restingpwr, 0)
-
-	if(stuttering)
-		stuttering = max(stuttering-1, 0)
-
-	if(slurring)
-		slurring = max(slurring-1,0)
-
-	if(silent)
-		silent = max(silent-1, 0)
-
-	if(druggy)
-		druggy = max(druggy-1, 0)
 
 	if(hallucination)
 		spawn handle_hallucinations()
@@ -481,6 +471,13 @@
 
 		if(see_override)
 			see_invisible = see_override
+
+
+/mob/living/carbon/handle_actions()
+	..()
+	for(var/obj/item/I in internal_organs)
+		give_action_button(I, 1)
+
 
 /mob/living/carbon/handle_hud_icons()
 	return

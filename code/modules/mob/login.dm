@@ -34,6 +34,8 @@
 	if(hud_used)
 		qdel(hud_used)		//remove the hud objects
 		hud_used = null
+	if(client.click_intercept)
+		client.click_intercept.quit() // Let's not keep any old click_intercepts
 	hud_used = new /datum/hud(src)
 
 	next_move = 1

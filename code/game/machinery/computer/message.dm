@@ -408,7 +408,10 @@
 						//Get out list of viable PDAs
 						var/list/obj/item/device/pda/sendPDAs = list()
 						for(var/obj/item/device/pda/P in PDAs)
-							if(!P.owner || P.toff || P.hidden) continue
+							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+
+							if(!PM || !PM.can_receive())
+								continue
 							sendPDAs += P
 						if(PDAs && PDAs.len > 0)
 							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sortAtom(sendPDAs)
@@ -426,7 +429,6 @@
 
 					//Send message
 					if("Send")
-
 						if(isnull(customsender) || customsender == "")
 							customsender = "UNKNOWN"
 
@@ -438,36 +440,44 @@
 							message = "<span class='notice'>NOTICE: No message entered!</span>"
 							return src.attack_hand(usr)
 
+						var/datum/data/pda/app/messenger/recipient_messenger = customrecepient.find_program(/datum/data/pda/app/messenger)
+
+						if(!recipient_messenger)
+							message = "<span class='warning'>ERROR: Message could not be transmitted!</span>"
+							return src.attack_hand(usr)
+
 						var/obj/item/device/pda/PDARec = null
 						for (var/obj/item/device/pda/P in PDAs)
-							if (!P.owner || P.toff || P.hidden)	continue
+							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+
+							if (!PM || !PM.can_receive())
+								continue
 							if(P.owner == customsender)
 								PDARec = P
+								break
 						//Sender isn't faking as someone who exists
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
-							customrecepient.play_ringtone()
+							recipient_messenger.play_ringtone()
 							if( customrecepient.loc && ishuman(customrecepient.loc) )
 								var/mob/living/carbon/human/H = customrecepient.loc
-								H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;skiprefresh=1;target=\ref[src]'>Reply</a>)"
+								H << "\icon[customrecepient] <b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[src];choice=Message;target=\ref[src]'>Reply</a>)"
 							log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
-							customrecepient.overlays.Cut()
-							customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							recipient_messenger.set_new(1)
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
-							customrecepient.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" ="\ref[PDARec]")))
+							recipient_messenger.tnote.Add(list(list("sent" = 0, "owner" = "[PDARec.owner]", "job" = "[customjob]", "message" = "[custommessage]", "target" ="\ref[PDARec]")))
 
-							if(!customrecepient.conversations.Find("\ref[PDARec]"))
-								customrecepient.conversations.Add("\ref[PDARec]")
+							if(!recipient_messenger.conversations.Find("\ref[PDARec]"))
+								recipient_messenger.conversations.Add("\ref[PDARec]")
 
-							customrecepient.play_ringtone()
+							recipient_messenger.play_ringtone()
 							if( customrecepient.loc && ishuman(customrecepient.loc) )
 								var/mob/living/carbon/human/H = customrecepient.loc
-								H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[customrecepient];choice=Message;skiprefresh=1;target=\ref[PDARec]'>Reply</a>)"
+								H << "\icon[customrecepient] <b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=\ref[recipient_messenger];choice=Message;target=\ref[PDARec]'>Reply</a>)"
 							log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
-							customrecepient.overlays.Cut()
-							customrecepient.overlays += image('icons/obj/pda.dmi', "pda-r")
+							recipient_messenger.set_new(1)
 						//Finally..
 						ResetMessage()
 

@@ -41,6 +41,7 @@
 	origin_tech = "materials=2;biotech=3;powerstorage=3"
 	modifystate = "floramut"
 	var/mode = 0 //0 = mutate, 1 = yield boost
+	needs_permit = 0
 
 	self_recharge = 1
 
@@ -202,17 +203,15 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 	charge_cost = 5000
 	cell_type = "/obj/item/weapon/stock_parts/cell/emproof"
+	needs_permit = 0 // Aparently these are safe to carry? I'm sure Golliaths would disagree.
 	fire_delay = 16 //Because guncode is bad and you can bug the reload for rapid fire otherwise.
-	var/overheat = 0
-	var/overheat_time = 16
-	var/recent_reload = 1
+	var/recently_fired = 0
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/super
 	name = "super-kinetic accelerator"
 	desc = "An upgraded, superior version of the proto-kinetic accelerator."
 	icon_state = "kineticgun_u"
 	projectile_type = "/obj/item/projectile/kinetic/super"
-	overheat_time = 15
 	fire_delay = 15
 	origin_tech = "combat=3;powerstorage=2"
 
@@ -221,7 +220,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	desc = "An upgraded, even more superior version of the proto-kinetic accelerator."
 	icon_state = "kineticgun_h"
 	projectile_type = "/obj/item/projectile/kinetic/hyper"
-	overheat_time = 13
 	fire_delay = 13
 	origin_tech = "combat=4;powerstorage=3"
 
@@ -229,26 +227,23 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	flags = NODROP
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/Fire()
-	overheat = 1
-	spawn(overheat_time)
-		overheat = 0
-		recent_reload = 0
+	if(!recently_fired)
+		recently_fired = 1
+		spawn(fire_delay)
+			reload(usr)
 	..()
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
 
-/obj/item/weapon/gun/energy/kinetic_accelerator/attack_self(var/mob/living/user/L)
-	if(overheat || recent_reload)
-		return
+/obj/item/weapon/gun/energy/kinetic_accelerator/proc/reload(mob/living/user)
 	power_supply.give(5000)
 	if(!silenced)
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	else
+	else if(user)
 		usr << "<span class='warning'>You silently charge [src].<span>"
-	recent_reload = 1
+	recently_fired = 0
 	update_icon()
-	return
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
@@ -261,7 +256,6 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 	silenced = 1
 	projectile_type = "/obj/item/projectile/energy/bolt"
 	fire_sound = 'sound/weapons/Genhit.ogg'
-	overheat_time = 20
 	fire_delay = 20
 
 /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large

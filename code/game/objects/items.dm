@@ -49,6 +49,8 @@
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/device/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
+	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
+
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 
@@ -419,7 +421,7 @@
 	add_logs(M, user, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
 
 	if(istype(H))
-		var/obj/item/organ/eyes/eyes = H.internal_organs_by_name["eyes"]
+		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.organs_by_name["head"]
 			head.take_damage(rand(10,14), 1)
@@ -510,3 +512,14 @@
 		return 1
 	return 0
 
+
+/obj/item/proc/wash(mob/user, atom/source)
+	if(flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
+		return
+	user << "<span class='notice'>You start washing [src]...</span>"
+	if(!do_after(user, 40, target = source))
+		return
+	clean_blood()
+	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
+						"<span class='notice'>You wash [src] using [source].</span>")
+	return 1

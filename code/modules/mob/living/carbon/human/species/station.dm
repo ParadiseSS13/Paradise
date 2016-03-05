@@ -316,13 +316,13 @@
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/heart,
-		"lungs" =    /obj/item/organ/lungs,
-		"liver" =    /obj/item/organ/liver,
-		"kidneys" =  /obj/item/organ/kidneys,
-		"brain" =    /obj/item/organ/brain,
-		"eyes" =     /obj/item/organ/eyes,
-		"stack" =    /obj/item/organ/stack/vox
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"eyes" =     /obj/item/organ/internal/eyes,
+		"stack" =    /obj/item/organ/internal/stack/vox
 		)
 
 	suicide_messages = list(
@@ -382,7 +382,7 @@
 	//ventcrawler = 1 //ventcrawling commented out
 
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/slime
+		"brain" = /obj/item/organ/internal/brain/slime
 		)
 
 	suicide_messages = list(
@@ -612,12 +612,12 @@
 	reagent_tag = PROCESS_ORG
 
 	has_organ = list(
-		"nutrient channel" =   /obj/item/organ/diona/nutrients,
-		"neural strata" =      /obj/item/organ/diona/strata,
-		"response node" =      /obj/item/organ/diona/node,
-		"gas bladder" =        /obj/item/organ/diona/bladder,
-		"polyp segment" =      /obj/item/organ/diona/polyp,
-		"anchoring ligament" = /obj/item/organ/diona/ligament
+		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
+		"neural strata" =      /obj/item/organ/internal/heart/diona,
+		"receptor node" =      /obj/item/organ/internal/eyes/diona,
+		"gas bladder" =        /obj/item/organ/internal/brain/diona,
+		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
+		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
 
 	has_limbs = list(
@@ -712,12 +712,12 @@
 	reagent_tag = PROCESS_SYN
 
 	has_organ = list(
-		"brain" = /obj/item/organ/mmi_holder/posibrain,
-		"cell" = /obj/item/organ/cell,
-		"optics" = /obj/item/organ/optical_sensor
+		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		"cell" = /obj/item/organ/internal/cell,
+		"optics" = /obj/item/organ/internal/optical_sensor
 		)
 
-	vision_organ = "optics"
+	vision_organ = /obj/item/organ/internal/optical_sensor
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
 		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),

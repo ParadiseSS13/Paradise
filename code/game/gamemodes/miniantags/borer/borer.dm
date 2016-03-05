@@ -26,6 +26,13 @@
 			if(M.mind && (istype(M, /mob/dead/observer)))
 				M << "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>"
 
+/mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
+	var/mob/living/simple_animal/borer/B = src.loc
+	if(!istype(B))
+		log_to_dd("Trapped mind found without a borer!")
+		return 0
+	return B.host.say_understands(other, speaking)
+
 /mob/living/captive_brain/emote(var/message)
 	return
 
@@ -53,13 +60,92 @@
 	pass_flags = PASSTABLE
 	ventcrawler = 2
 
+	var/talk_inside_host = 0 				// So that borers don't accidentally give themselves away on a botched message
 	var/used_dominate
-	var/chemicals = 10                      // Chemicals used for reproduction and spitting neurotoxin.
+	var/chemicals = 10                      // Chemicals used for reproduction and chemical injection.
+	var/max_chems = 250						// How many chemicals that can be stored in total
 	var/mob/living/carbon/human/host        // Human host for the brain worm.
 	var/truename                            // Name used for brainworm-speak.
 	var/mob/living/captive_brain/host_brain // Used for swapping control of the body back and forth.
 	var/controlling                         // Used in human death check.
 	var/docile = 0                          // Sugar can stop borers from acting.
+	var/list/borer_injection_chems = list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
+
+/mob/living/simple_animal/borer/verb/Communicate()
+	set category = "Borer"
+	set name = "Converse with Host"
+	set desc = "Send a silent message to your host."
+	if(!host)
+		src << "You do not have a host to communicate with!"
+		return
+
+	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
+	if(!input) return
+
+
+	var/say_string = (docile) ? "slurs" :"states"
+	if(host)
+		host << "<span class='changeling'><i>[src.truename] [say_string]:</i> [input]</span>"
+		log_say("Borer Communication: [key_name(src)] -> [key_name(host)] : [input]")
+		for(var/M in dead_mob_list)
+			if(istype(M, /mob/dead/observer))
+				M << "<span class='changeling'><i>Borer Communication from <b>[src.truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src.truename] [say_string]:</i> [input]</span>"
+	host.verbs += /mob/living/proc/borer_comm
+
+/mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
+	set name = "Toggle speech inside Host"
+	set category = "Borer"
+	set desc = "Toggle whether you will be able to say audible messages while inside your host."
+
+	if(talk_inside_host)
+		talk_inside_host = 0
+		src << "<span class='notice'>You will no longer talk audibly while inside a host.</span>"
+	else
+		talk_inside_host = 1
+		src << "<span class='notice'>You will now be able to audibly speak from inside of a host.</span>"
+
+/mob/living/proc/borer_comm()
+	set name = "Converse with Borer"
+	set category = "Borer"
+	set desc = "Communicate mentally with your borer."
+
+
+	var/mob/living/simple_animal/borer/B = src.has_brain_worms()
+	if(!B)
+		return
+
+	var/input = stripped_input(src, "Please enter a message to tell the borer.", "Message", "")
+	if(!input) return
+
+	B << "<span class='changeling'><i>[src] says:</i> [input]</span>"
+	log_say("Borer Communication: [key_name(src)] -> [key_name(B)] : [input]")
+
+	for(var/M in dead_mob_list)
+		if(istype(M, /mob/dead/observer))
+			M << "<span class='changeling'><i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[src] says:</i> [input]</span>"
+
+/mob/living/proc/trapped_mind_comm()
+	set name = "Converse with Trapped Mind"
+	set category = "Borer"
+	set desc = "Communicate mentally with the trapped mind of your host."
+
+
+	var/mob/living/simple_animal/borer/B = src.has_brain_worms()
+	if(!B || !B.host_brain)
+		return
+	var/mob/living/captive_brain/CB = B.host_brain
+	var/input = stripped_input(src, "Please enter a message to tell the trapped mind.", "Message", "")
+	if(!input) return
+
+	CB << "<span class='changeling'><i>[B.truename] says:</i> [input]</span>"
+	log_say("Borer Communication: [key_name(B)] -> [key_name(CB)] : [input]")
+
+	for(var/M in dead_mob_list)
+		if(istype(M, /mob/dead/observer))
+			M << "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"
+	src << "<span class='changeling'><i>[B.truename] says:</i> [input]</span>"
 
 /mob/living/simple_animal/borer/Life()
 
@@ -84,7 +170,7 @@
 						src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
 					docile = 0
 
-			if(chemicals < 250)
+			if(chemicals < max_chems)
 				chemicals++
 			if(controlling)
 
@@ -102,10 +188,15 @@
 /mob/living/simple_animal/borer/New(var/by_gamemode=0)
 	..()
 	add_language("Cortical Link")
-	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
+	updatename()
 
 	if(!by_gamemode)
 		request_player()
+
+/mob/living/simple_animal/borer/proc/updatename()
+	var/index_num = rand(1000,9999)
+	real_name = "Cortical Borer ([index_num])"
+	truename = "[pick("Primary","Secondary","Tertiary","Quaternary")] [index_num]"
 
 /mob/living/simple_animal/borer/Stat()
 	..()
@@ -127,7 +218,7 @@
 			M << "<i>Cortical link, <b>[truename]:</b> [copytext(message, 2)]</i>"
 
 /mob/living/simple_animal/borer/verb/dominate_victim()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Dominate Victim"
 	set desc = "Freeze the limbs of a potential host with supernatural fear."
 
@@ -167,7 +258,7 @@
 	used_dominate = world.time
 
 /mob/living/simple_animal/borer/verb/bond_brain()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Assume Control"
 	set desc = "Fully connect to the brain of your host."
 
@@ -233,13 +324,15 @@
 			host.verbs += /mob/living/carbon/proc/release_control
 			host.verbs += /mob/living/carbon/proc/punish_host
 			host.verbs += /mob/living/carbon/proc/spawn_larvae
+			host.verbs -= /mob/living/proc/borer_comm
+			host.verbs += /mob/living/proc/trapped_mind_comm
 
 			if(src && !src.key)
 				src.key = "@[borer_key]"
 			return
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Secrete Chemicals (30)"
 	set desc = "Push some chemicals into your host's bloodstream."
 
@@ -259,8 +352,12 @@
 	if(chemicals < chem_cost)
 		src << "You don't have enough chemicals!"
 
-
-	var/chem = input("Select a chemical to secrete.", "Chemicals") as null|anything in list("mannitol","salglu_solution","methamphetamine", "hydrocodone", "spaceacillin", "mitocholide", "charcoal", "salbutamol", "capulettium_plus")
+	var/list/nice_name_chem_list = list()
+	for(var/rgnt in borer_injection_chems)
+		var/datum/reagent/R2 = chemical_reagents_list[rgnt]
+		nice_name_chem_list[R2.name] = rgnt
+	var/chem_name = input("Select a chemical to secrete.", "Chemicals") as null|anything in nice_name_chem_list
+	var/chem = nice_name_chem_list[chem_name]
 
 	if(!chem || chemicals < chem_cost || !host || controlling || !src || stat) //Sanity check.
 		return
@@ -271,12 +368,12 @@
 		src << "<span class='warning'>Doing so would cause grievous harm to your host, reducing ability to reproduce. Aborting.</span>"
 		return
 
-	src << "<span class='notice'>You squirt a measure of [chem] from your reservoirs into [host]'s bloodstream.</span>"
+	src << "<span class='notice'>You squirt a measure of [chem_name] from your reservoirs into [host]'s bloodstream.</span>"
 	host.reagents.add_reagent(chem, injection_amount)
 	chemicals -= chem_cost
 
 /mob/living/simple_animal/borer/verb/release_host()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Release Host"
 	set desc = "Slither out of your host."
 
@@ -325,6 +422,8 @@
 	host.verbs -= /mob/living/carbon/proc/release_control
 	host.verbs -= /mob/living/carbon/proc/punish_host
 	host.verbs -= /mob/living/carbon/proc/spawn_larvae
+	host.verbs += /mob/living/proc/borer_comm
+	host.verbs -= /mob/living/proc/trapped_mind_comm
 
 
 	if(host_brain)
@@ -362,6 +461,71 @@
 
 	return
 
+
+//Brain slug proc for voluntary removal of control.
+/mob/living/carbon/proc/release_control()
+
+	set category = "Borer"
+	set name = "Release Control"
+	set desc = "Release control of your host's body."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(B && B.host_brain)
+		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
+
+		B.detatch()
+
+	else
+		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
+
+//Brain slug proc for tormenting the host.
+/mob/living/carbon/proc/punish_host()
+	set category = "Borer"
+	set name = "Torment host"
+	set desc = "Punish your host with agony."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
+
+	if(B.host_brain.ckey)
+		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
+		B.host_brain << "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>"
+
+//Check for brain worms in head.
+/mob/proc/has_brain_worms()
+
+	for(var/I in contents)
+		if(istype(I,/mob/living/simple_animal/borer))
+			return I
+
+	return 0
+
+/mob/living/carbon/proc/spawn_larvae()
+	set category = "Borer"
+	set name = "Reproduce (100)"
+	set desc = "Spawn several young."
+
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
+
+	if(B.chemicals >= 100)
+		src << "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>"
+		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
+		B.chemicals -= 100
+
+		new /obj/effect/decal/cleanable/vomit(get_turf(src))
+		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		new /mob/living/simple_animal/borer(get_turf(src))
+
+	else
+		src << "You do not have enough chemicals stored to reproduce."
+		return
+
 /mob/living/simple_animal/borer/proc/leave_host()
 
 	if(!host)	return
@@ -375,12 +539,13 @@
 	host.machine = null
 
 	var/mob/living/H = host
+	H.verbs -= /mob/living/proc/borer_comm
 	H.status_flags &= ~PASSEMOTES
 	host = null
 	return
 
 /mob/living/simple_animal/borer/verb/infest()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Infest"
 	set desc = "Infest a suitable humanoid host."
 
@@ -428,18 +593,12 @@
 
 	if(M in view(1, src))
 		src << "You wiggle into [M]'s ear."
+		/*
 		if(!M.stat)
 			M << "Something disgusting and slimy wiggles into your ear!"
+		*/ // Let's see how stealthborers work out
 
-		src.host = M
-		src.forceMove(M)
-
-		if(istype(M,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/head = H.get_organ("head")
-			head.implants += src
-
-		host.status_flags |= PASSEMOTES
+		perform_infestation(M)
 
 		return
 	else
@@ -455,8 +614,6 @@
 		var/obj/item/organ/external/head = H.get_organ("head")
 		head.implants += src
 
-	host_brain.name = M.name
-	host_brain.real_name = M.real_name
 	host.status_flags |= PASSEMOTES
 
 /mob/living/simple_animal/borer/can_use_vents()
@@ -487,13 +644,12 @@
 	if(!candidate)
 		return
 
-	src.mind = candidate.mob.mind
-	src.ckey = candidate.ckey
+	src.key = candidate.key
 	if(src.mind)
 		src.mind.assigned_role = "Cortical Borer"
 
 /mob/living/simple_animal/borer/verb/borerhide()
-	set category = "Alien"
+	set category = "Borer"
 	set name = "Hide"
 	set desc = "Allows to hide beneath tables or certain items. Toggled on or off."
 
@@ -502,13 +658,16 @@
 
 	if (layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
-		src << text("\green You are now hiding.")
-		for(var/mob/O in oviewers(src, null))
-			if ((O.client && !( O.blinded )))
-				O << text("<B>[] scurries to the ground!</B>", src)
+		src << "\green You are now hiding."
 	else
 		layer = MOB_LAYER
-		src << text("\green You have stopped hiding.")
-		for(var/mob/O in oviewers(src, null))
-			if ((O.client && !( O.blinded )))
-				O << text("[] slowly peaks up from the ground...", src)
+		src << "\green You have stopped hiding."
+
+/mob/living/simple_animal/borer/say(var/message)
+	var/datum/language/dialect = parse_language(message)
+	if(!dialect)
+		dialect = get_default_language()
+	if(!istype(dialect, /datum/language/corticalborer) && loc == host && !talk_inside_host)
+		src << "<span class='warning'>You've disabled audible speech while inside a host! Re-enable it under the borer tab, or stick to borer communications.</span>"
+		return
+	..()

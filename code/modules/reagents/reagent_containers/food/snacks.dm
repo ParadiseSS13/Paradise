@@ -397,13 +397,12 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 2)
-		reagents.add_reagent("chocolate",2)
-		reagents.add_reagent("coco", 2)
+		reagents.add_reagent("chocolate",4)
 		bitesize = 2
 
-/obj/item/weapon/reagent_containers/food/snacks/cocoa_pile //for reagent chocolate being spilled on turfs
-	name = "Pile of Cocoa Powder"
-	desc = "A pile of pure cocoa powder."
+/obj/item/weapon/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
+	name = "Pile of Chocolate"
+	desc = "A pile of pure chocolate pieces."
 	icon_state = "cocoa"
 	filling_color = "#7D5F46"
 
@@ -421,8 +420,7 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-		reagents.add_reagent("chocolate",2)
-		reagents.add_reagent("coco", 2)
+		reagents.add_reagent("chocolate",4)
 		bitesize = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/donut
@@ -477,7 +475,7 @@
 			if(5)
 				reagents.add_reagent("plasma", 3)
 			if(6)
-				reagents.add_reagent("coco", 3)
+				reagents.add_reagent("chocolate", 3)
 			if(7)
 				reagents.add_reagent("slimejelly", 3)
 			if(8)
@@ -834,7 +832,7 @@
 		reagents.add_reagent("synaptizine", 15)
 		reagents.add_reagent("salglu_solution", 15)
 		reagents.add_reagent("salbutamol", 15)
-		reagents.add_reagent("methamphetamine", 15)
+		reagents.add_reagent("methamphetamine2", 15)
 
 /obj/item/weapon/reagent_containers/food/snacks/brainburger
 	name = "brainburger"
@@ -1674,6 +1672,13 @@
 	if(volume >= 5)
 		return Expand()
 
+/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
+	if(wrapped)
+		..()
+		return
+	if(do_after(user, 40, target = source))
+		return 1
+
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(isnull(gcDestroyed))
 		visible_message("<span class='notice'>[src] expands!</span>")
@@ -1758,6 +1763,29 @@
 		reagents.add_reagent("nutriment",8)
 		reagents.add_reagent("capsaicin", 6)
 		bitesize = 4
+
+/obj/item/weapon/reagent_containers/food/snacks/burrito
+	name = "Burrito"
+	desc = "Meat, beans, cheese, and rice wrapped up as an easy-to-hold meal."
+	icon_state = "burrito"
+	trash = /obj/item/trash/plate
+	filling_color = "#A36A1F"
+
+/obj/item/weapon/reagent_containers/food/snacks/burrito/New()
+	..()
+	reagents.add_reagent("nutriment", 5)
+
+/obj/item/weapon/reagent_containers/food/snacks/chimichanga
+	name = "Chimichanga"
+	desc = "Time to eat a chimi-f***ing-changa."
+	icon_state = "chimichanga"
+	trash = /obj/item/trash/plate
+	filling_color = "#A36A1F"
+
+/obj/item/weapon/reagent_containers/food/snacks/chimichanga/New()
+	..()
+	reagents.add_reagent("omnizine", 4)		//Deadpool reference. Deal with it.
+	reagents.add_reagent("cheese", 2)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's Delight"
@@ -3321,15 +3349,6 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 3)
-
-// potato + knife = raw sticks
-/obj/item/weapon/reagent_containers/food/snacks/grown/potato/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/kitchen/knife))
-		new /obj/item/weapon/reagent_containers/food/snacks/rawsticks(src)
-		user << "You cut the potato."
-		qdel(src)
-	else
-		..()
 
 /obj/item/weapon/reagent_containers/food/snacks/rawsticks
 	name = "raw potato sticks"

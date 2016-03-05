@@ -1593,7 +1593,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.sec_record = sec_record
 	character.gen_record = gen_record
 
-	character.gender = gender
+	character.change_gender(gender)
 	character.age = age
 	character.b_type = b_type
 
@@ -1640,7 +1640,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else
 					O.robotize()
 		else
-			var/obj/item/organ/I = character.internal_organs_by_name[name]
+			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
 				if(status == "assisted")
 					I.mechassist()
@@ -1694,7 +1694,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(character.gender in list(PLURAL, NEUTER))
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
-			character.gender = MALE
+			character.change_gender(MALE)
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 

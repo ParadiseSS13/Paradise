@@ -5,10 +5,7 @@
 	health = 700
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
-	heal_rate = 5
-	plasma_rate = 20
 	move_delay_add = 3
-	max_plasma = 1000
 	large = 1
 	ventcrawler = 0
 
@@ -48,7 +45,11 @@
 			break
 
 	real_name = src.name
-	verbs.Add(/mob/living/carbon/alien/humanoid/proc/corrosive_acid,/mob/living/carbon/alien/humanoid/proc/resin)
+	internal_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
+	internal_organs += new /obj/item/organ/internal/xenos/acidgland
+	internal_organs += new /obj/item/organ/internal/xenos/eggsac
+	internal_organs += new /obj/item/organ/internal/xenos/resinspinner
+	internal_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
 /mob/living/carbon/alien/humanoid/empress
@@ -84,8 +85,8 @@
 		src << "<span class='noticealien'>There's already an egg here.</span>"
 		return
 
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustToxLoss(-75)
+	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
+		adjustPlasma(-250)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>[src] has laid an egg!</B>"), 1)
 		new /obj/structure/alien/egg(loc)

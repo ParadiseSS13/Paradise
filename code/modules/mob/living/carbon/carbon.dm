@@ -1,4 +1,4 @@
-mob/living
+/mob/living
 	var/canEnterVentWith = "/obj/item/weapon/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/device/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
@@ -264,19 +264,27 @@ mob/living
 				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						"\blue [M] shakes [src] trying to wake [t_him] up!", \
-						"\blue You shake [src] trying to wake [t_him] up!", \
+						"<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>",\
+						"<span class='notice'>You shake [src] trying to wake [t_him] up!</span>",\
 						)
 			// BEGIN HUGCODE - N3X
 			else
-				if (istype(src,/mob/living/carbon/human) && src:w_uniform)
-					var/mob/living/carbon/human/H = src
-					H.w_uniform.add_fingerprint(M)
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				M.visible_message( \
-					"\blue [M] gives [src] a [pick("hug","warm embrace")].", \
-					"\blue You hug [src].", \
+				if(M.zone_sel.selecting == "head")
+					M.visible_message(\
+					"<span class='notice'>[M] pats [src] on the head.</span>",\
+					"<span class='notice'>You pat [src] on the head.</span>",\
 					)
+				else
+
+					M.visible_message(\
+					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+					"<span class='notice'>You hug [src].</span>",\
+					)
+					if(istype(src,/mob/living/carbon/human))
+						var/mob/living/carbon/human/H = src
+						if(H.w_uniform)
+							H.w_uniform.add_fingerprint(M)
 
 
 /mob/living/carbon/proc/eyecheck()
@@ -643,73 +651,6 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 
-//Brain slug proc for voluntary removal of control.
-/mob/living/carbon/proc/release_control()
-
-	set category = "Alien"
-	set name = "Release Control"
-	set desc = "Release control of your host's body."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(B && B.host_brain)
-		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
-
-		B.detatch()
-
-		verbs -= /mob/living/carbon/proc/release_control
-		verbs -= /mob/living/carbon/proc/punish_host
-		verbs -= /mob/living/carbon/proc/spawn_larvae
-
-	else
-		src << "\red <B>ERROR NO BORER OR BRAINMOB DETECTED IN THIS MOB, THIS IS A BUG !</B>"
-
-//Brain slug proc for tormenting the host.
-/mob/living/carbon/proc/punish_host()
-	set category = "Alien"
-	set name = "Torment host"
-	set desc = "Punish your host with agony."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.host_brain.ckey)
-		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
-		B.host_brain << "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>"
-
-//Check for brain worms in head.
-/mob/proc/has_brain_worms()
-
-	for(var/I in contents)
-		if(istype(I,/mob/living/simple_animal/borer))
-			return I
-
-	return 0
-
-/mob/living/carbon/proc/spawn_larvae()
-	set category = "Alien"
-	set name = "Reproduce (100)"
-	set desc = "Spawn several young."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.chemicals >= 100)
-		src << "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>"
-		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
-		B.chemicals -= 100
-
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-		new /mob/living/simple_animal/borer(get_turf(src))
-
-	else
-		src << "You do not have enough chemicals stored to reproduce."
-		return
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
@@ -726,6 +667,18 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		return -6
 	else
 		return initial(pixel_y)
+
+/mob/living/carbon/emp_act(severity)
+	for(var/obj/item/organ/internal/O in internal_organs)
+		O.emp_act(severity)
+	..()
+
+/mob/living/carbon/Stat()
+	if(statpanel("Status"))
+		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+		if(vessel)
+			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
+	..()
 
 /mob/living/carbon/get_all_slots()
 	return list(l_hand,
@@ -760,3 +713,28 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			W.dropped(src)
 			if (W)
 				W.layer = initial(W.layer)
+
+
+/mob/living/carbon/proc/slip(var/description, var/stun, var/weaken, var/tilesSlipped, var/walkSafely, var/slipAny)
+	if (flying || buckled || (walkSafely && m_intent == "walk"))
+		return
+	if ((lying) && (!(tilesSlipped)))
+		return
+	if (!(slipAny))
+		if (istype(src, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = src
+			if ((isobj(H.shoes) && H.shoes.flags & NOSLIP) || H.species.bodyflags & FEET_NOSLIP)
+				return
+	if (tilesSlipped)
+		for(var/t = 0, t<=tilesSlipped, t++)
+			spawn (t) step(src, src.dir)
+	stop_pulling()
+	src << "<span class='notice'>You slipped on the [description]!</span>"
+	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	if (stun)
+		Stun(stun)
+	Weaken(weaken)
+	return 1
+
+/mob/living/carbon/proc/can_eat(flags = 255)
+	return 1

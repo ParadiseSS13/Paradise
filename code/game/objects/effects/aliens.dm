@@ -318,8 +318,19 @@
 
 
 /obj/structure/alien/egg/attack_hand(mob/user)
-	user << "<span class='notice'>It feels slimy.</span>"
-
+	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+		switch(status)
+			if(BURST)
+				user << "<span class='notice'>You clear the hatched egg.</span>"
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				qdel(src)
+			if(GROWING)
+				user << "<span class='notice'>The child is not developed yet.</span>"
+			if(GROWN)
+				user << "<span class='notice'>You retrieve the child.</span>"
+				Burst(0)
+	else
+		user << "<span class='notice'>It feels slimy.</span>"
 
 /obj/structure/alien/egg/proc/GetFacehugger()
 	return locate(/obj/item/clothing/mask/facehugger) in contents

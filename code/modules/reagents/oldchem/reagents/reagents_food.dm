@@ -14,7 +14,7 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags)	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			if(H.can_eat())	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
 				if(prob(50)) M.heal_organ_damage(1,0)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
@@ -36,7 +36,7 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_HERB))	//Make sure the species has it's dietflag set, and that it is not a herbivore
+			if(H.can_eat(DIET_CARN | DIET_OMNI))	//Make sure that it is not a herbivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
 				if(prob(50)) M.heal_organ_damage(1,0)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
@@ -58,7 +58,7 @@
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.species && H.species.dietflags && !(H.species.dietflags & DIET_CARN))	//Make sure the species has it's dietflag set, and that it is not a carnivore
+			if(H.can_eat(DIET_HERB | DIET_OMNI))	//Make sure that it is not a carnivore
 				H.nutrition += nutriment_factor	// For hunger and fatness
 				if(prob(50)) M.heal_organ_damage(1,0)
 		if(istype(M,/mob/living/simple_animal))		//Any nutrients can heal simple animals
@@ -185,15 +185,15 @@
 	reagent_state = SOLID
 	// no color (ie, black)
 
-/datum/reagent/coco
-	name = "Coco Powder"
-	id = "coco"
-	description = "A fatty, bitter paste made from coco beans."
+/datum/reagent/cocoa
+	name = "Cocoa Powder"
+	id = "cocoa"
+	description = "A fatty, bitter paste made from cocoa beans."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 
-/datum/reagent/coco/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/cocoa/on_mob_life(var/mob/living/M as mob)
 	M.nutrition += nutriment_factor
 	..()
 	return
@@ -201,7 +201,7 @@
 /datum/reagent/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
+	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16

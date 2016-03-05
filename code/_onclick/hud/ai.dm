@@ -100,7 +100,7 @@
 /obj/screen/ai/pda_msg_send/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.cmd_send_pdamesg(usr)
+		AI.aiPDA.cmd_send_pdamesg()
 
 /obj/screen/ai/pda_msg_show
 	name = "PDA - Show Message Log"
@@ -109,7 +109,7 @@
 /obj/screen/ai/pda_msg_show/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.cmd_show_message_log(usr)
+		AI.aiPDA.cmd_show_message_log()
 
 /obj/screen/ai/image_take
 	name = "Take Image"

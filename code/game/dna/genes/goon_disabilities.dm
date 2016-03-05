@@ -348,8 +348,7 @@
 
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("\red <b>[L.name]</b> suddenly bursts into flames!")
-	L.on_fire = 1
-	L.update_icon = 1
+	L.IgniteMob()
 	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
 
 ////////////////////////////////////////////////////////////////////////

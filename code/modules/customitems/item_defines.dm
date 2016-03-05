@@ -137,6 +137,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
+	ignore_suitadjust = 1
+	action_button_name = null
+	adjust_flavour = null
 
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
@@ -246,6 +249,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
+	ignore_suitadjust = 1
+	action_button_name = null
+	adjust_flavour = null
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"

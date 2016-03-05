@@ -15,13 +15,11 @@
 	if (isarea(A))
 		return A
 
-/proc/get_area(O)
-	if(isarea(O))
-		return O
-	var/turf/loc = get_turf(O)
-	if(loc)
-		var/area/res = loc.loc
-		.= res
+/proc/get_area(atom/A)
+	if(!istype(A))
+		return
+	for(A, A && !isarea(A), A=A.loc); //semicolon is for the empty statement
+	return A
 
 /proc/get_area_name(N) //get area by its name
 	for(var/area/A in world)

@@ -66,7 +66,7 @@
 	name = "Circuit board (ID Computer)"
 	build_path = /obj/machinery/computer/card
 /obj/item/weapon/circuitboard/card/centcom
-	name = "Circuit board (CentCom ID Computer)"
+	name = "Circuit board (CentComm ID Computer)"
 	build_path = /obj/machinery/computer/card/centcom
 /obj/item/weapon/circuitboard/teleporter
 	name = "Circuit board (Teleporter Console)"

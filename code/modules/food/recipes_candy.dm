@@ -16,12 +16,12 @@
 // ***********************************************************
 
 /datum/recipe/candy/chocolate_bar
-	reagents = list("soymilk" = 2, "coco" = 2, "sugar" = 2)
+	reagents = list("soymilk" = 2, "cocoa" = 2, "sugar" = 2)
 	items = list()
 	result = /obj/item/weapon/reagent_containers/food/snacks/chocolatebar
 
 /datum/recipe/candy/chocolate_bar2
-	reagents = list("milk" = 2, "coco" = 2, "sugar" = 2)
+	reagents = list("milk" = 2, "cocoa" = 2, "sugar" = 2)
 	items = list()
 	result = /obj/item/weapon/reagent_containers/food/snacks/chocolatebar
 

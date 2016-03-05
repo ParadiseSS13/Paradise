@@ -31,8 +31,21 @@
 	var/messagesource = M
 
 	if (can_operate(M))  //Checks if mob is lying down on table for surgery
-		if (do_surgery(M,user,src))
-			return 0
+		if(istype(src,/obj/item/robot_parts))//popup ovveride for direct attach
+			if(!attempt_initiate_surgery(src, M, user,1))
+				return 0
+			else
+				return 1
+		if(istype(src,/obj/item/weapon/screwdriver) && M.get_species() == "Machine")
+			if(!attempt_initiate_surgery(src, M, user))
+				return 0
+			else
+				return 1
+		if(is_sharp(src))
+			if(!attempt_initiate_surgery(src, M, user))
+				return 0
+			else
+				return 1
 
 	if (istype(M,/mob/living/carbon/brain))
 		messagesource = M:container
@@ -53,6 +66,8 @@
 	//	M.lastattacker = null
 	/////////////////////////
 
+	if(istype(M, /mob/living/simple_animal))
+		return 0 // No sanic-speed double-attacks for you - simple mobs will handle being attacked on their own
 	var/power = force
 
 	if(!istype(M, /mob/living/carbon/human))

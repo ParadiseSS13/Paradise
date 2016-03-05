@@ -217,7 +217,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(!(species.flags & RADIMMUNE))
 		if (radiation)
 
-			if((locate(src.internal_organs_by_name["resonant crystal"]) in src.internal_organs))
+			if(get_int_organ(/obj/item/organ/internal/nucleation/resonant_crystal))
 				var/rads = radiation/25
 				radiation -= rads
 				radiation -= 0.1
@@ -296,13 +296,13 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 					if(istype(O)) O.add_autopsy_data("Radiation Poisoning", damage)
 
 /mob/living/carbon/human/breathe()
-	if(reagents.has_reagent("lexorin"))
+
+	if((NO_BREATH in mutations) || (species && (species.flags & NO_BREATHE)) || reagents.has_reagent("lexorin"))
+		adjustOxyLoss(-5)
+		oxygen_alert = 0
+		toxins_alert = 0
 		return
-	if(NO_BREATH in mutations)
-		return // No breath mutation means no breathing. //DID YOU REALLY NEED TO FUCKING STATE THIS?
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		return
-	if(species && (species.flags & NO_BREATHE))
 		return
 
 	var/datum/gas_mixture/environment
@@ -889,7 +889,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		//Vision //god knows why this is here
 		var/obj/item/organ/vision
 		if(species.vision_organ)
-			vision = internal_organs_by_name[species.vision_organ]
+			vision = get_int_organ(species.vision_organ)
 
 		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			eye_blind =  0
@@ -1209,7 +1209,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 /mob/living/carbon/human/proc/handle_heartbeat()
 	var/client/C = src.client
 	if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-		var/obj/item/organ/heart/H = internal_organs_by_name["heart"]
+		var/obj/item/organ/internal/heart/H = get_int_organ(/obj/item/organ/internal/heart)
 
 		if(!H) //H.status will runtime if there is no H (obviously)
 			return
@@ -1279,11 +1279,10 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	if(!heart_attack)
 		return
 	else
-		losebreath += 5
-		adjustOxyLoss(10)
-		adjustBrainLoss(rand(4,10))
-		Paralyse(2)
-	return
+		if(losebreath < 3)
+			losebreath += 2
+		adjustOxyLoss(5)
+		adjustBruteLoss(1)
 
 
 

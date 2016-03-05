@@ -199,8 +199,6 @@
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
-	var/update_icon = 1 //Set to 1 to trigger update_icons() at the next life() call
-
 	var/status_flags = CANSTUN|CANWEAKEN|CANPARALYSE|CANPUSH	//bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
 
 	var/area/lastarea = null
@@ -241,3 +239,5 @@
 	var/resize = 1 //Badminnery resize
 
 	var/datum/vision_override/vision_type = null //Vision override datum.
+
+	var/list/permanent_huds = list()

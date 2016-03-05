@@ -58,6 +58,7 @@
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
+		incorporeal_move = 3
 		invisibility = INVISIBILITY_REVENANT
 		src << "<span class='revenboldnotice'>You are once more concealed.</span>"
 	if(unstun_time && world.time >= unstun_time)
@@ -86,8 +87,9 @@
 		src << "<span class='revendanger'>You feel your essence fraying!</span>"
 
 /mob/living/simple_animal/revenant/ClickOn(var/atom/A, var/params) //Copypaste from ghost code - revenants can't interact with the world directly.
-	if(client.buildmode)
-		build_click(src, client.buildmode, params, A)
+
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -315,6 +317,7 @@
 		return
 	revealed = 1
 	invisibility = 0
+	incorporeal_move = 0
 	if(!unreveal_time)
 		src << "<span class='revendanger'>You have been revealed!</span>"
 		unreveal_time = world.time + time

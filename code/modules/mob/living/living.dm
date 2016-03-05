@@ -2,7 +2,7 @@
 /mob/living/Destroy()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
-	
+
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
@@ -22,7 +22,7 @@
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(src.stat || !src.canmove || src.restrained())
+	if(incapacitated())
 		return 0
 	if(src.status_flags & FAKEDEATH)
 		return 0
@@ -34,11 +34,17 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if (InCritical())
-		src.attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
-		src.adjustOxyLoss(src.health - config.health_threshold_dead)
+		attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
+		adjustOxyLoss(health - config.health_threshold_dead)
 		updatehealth()
+		// super check for weird mobs, including ones that adjust hp
+		// we don't want to go overboard and gib them, though
+		for(var/i = 1 to 5)
+			if(health < config.health_threshold_dead)
+				break
+			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
+			updatehealth()
 		src << "<span class='notice'>You have given up life and succumbed to death.</span>"
-		death()
 
 /mob/living/proc/InCritical()
 	return (src.health < 0 && src.health > -95.0 && stat == UNCONSCIOUS)
@@ -801,6 +807,8 @@
 	if(do_mob(src, who, what.strip_delay))
 		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
 			who.unEquip(what)
+			if(silent)
+				put_in_hands(what)
 			add_logs(who, src, "stripped", addition="of [what]")
 
 // The src mob is trying to place an item on someone

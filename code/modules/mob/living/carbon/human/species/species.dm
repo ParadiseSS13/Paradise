@@ -59,7 +59,9 @@
 	var/light_effect_amp //If 0, takes/heals 1 burn and brute per tick. Otherwise, both healing and damage effects are amplified.
 
 	var/total_health = 100
-	var/max_hurt_damage = 9 // Max melee damage dealt + 5 if hulk
+	var/punchdamagelow = 0       //lowest possible punch damage
+	var/punchdamagehigh = 9      //highest possible punch damage
+	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
@@ -105,13 +107,13 @@
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.
-		"heart" =    /obj/item/organ/heart,
-		"lungs" =    /obj/item/organ/lungs,
-		"liver" =    /obj/item/organ/liver,
-		"kidneys" =  /obj/item/organ/kidneys,
-		"brain" =    /obj/item/organ/brain,
-		"appendix" = /obj/item/organ/appendix,
-		"eyes" =     /obj/item/organ/eyes
+		"heart" =    /obj/item/organ/internal/heart,
+		"lungs" =    /obj/item/organ/internal/lungs,
+		"liver" =    /obj/item/organ/internal/liver,
+		"kidneys" =  /obj/item/organ/internal/kidneys,
+		"brain" =    /obj/item/organ/internal/brain,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes
 		)
 	var/vision_organ              // If set, this organ is required for vision. Defaults to "eyes" if the species has them.
 	var/list/has_limbs = list(
@@ -133,7 +135,7 @@
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
-		vision_organ = "eyes"
+		vision_organ = /obj/item/organ/internal/eyes
 
 	unarmed = new unarmed_type()
 
@@ -143,19 +145,21 @@
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
 
+
+	for(var/obj/item/organ/internal/iorgan in H.internal_organs)
+		if(iorgan in H.internal_organs)
+			qdel(iorgan)
+
 	for(var/obj/item/organ/organ in H.contents)
-		if((organ in H.organs) || (organ in H.internal_organs))
+		if(organ in H.organs)
 			qdel(organ)
 
 	if(H.organs)                  H.organs.Cut()
-	if(H.internal_organs)         H.internal_organs.Cut()
 	if(H.organs_by_name)          H.organs_by_name.Cut()
-	if(H.internal_organs_by_name) H.internal_organs_by_name.Cut()
 
 	H.organs = list()
 	H.internal_organs = list()
 	H.organs_by_name = list()
-	H.internal_organs_by_name = list()
 
 	for(var/limb_type in has_limbs)
 		var/list/organ_data = has_limbs[limb_type]
@@ -163,9 +167,12 @@
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
-	for(var/organ in has_organ)
-		var/organ_type = has_organ[organ]
-		H.internal_organs_by_name[organ] = new organ_type(H,1)
+	for(var/index in has_organ)
+		var/organ = has_organ[index]
+		H.internal_organs |= new organ(H)
+
+	for(var/obj/item/organ/internal/I in H.internal_organs)
+		I.insert(H)
 
 	for(var/name in H.organs_by_name)
 		H.organs |= H.organs_by_name[name]
@@ -375,7 +382,7 @@
 
 /datum/unarmed_attack
 	var/attack_verb = list("attack")	// Empty hand hurt intent verb.
-	var/damage = 0						// Extra empty hand attack damage.
+	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = 0
@@ -386,7 +393,6 @@
 
 /datum/unarmed_attack/punch/weak
 	attack_verb = list("flail")
-	damage = 1
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -400,7 +406,7 @@
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
-	damage = 6	//they're huge! they should do a little more damage, i'd even go for 15-20 maybe...
+	damage = 6
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return 0
@@ -417,7 +423,7 @@
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
 		if(H.mind && H.mind.vampire)
-			if(VAMP_VISION in H.mind.vampire.powers && !(VAMP_FULL in H.mind.vampire.powers))
+			if((VAMP_VISION in H.mind.vampire.powers) && (!(VAMP_FULL in H.mind.vampire.powers)))
 				H.sight |= SEE_MOBS
 
 			else if(VAMP_FULL in H.mind.vampire.powers)
@@ -461,14 +467,6 @@
 
 				if(!G.see_darkness)
 					H.see_invisible = SEE_INVISIBLE_MINIMUM
-
-				//switch(G.HUDType)
-				//	if(SECHUD)
-				//		process_sec_hud(H,1)
-				//	if(MEDHUD)
-				//		process_med_hud(H,1)
-				//	if(ANTAGHUD)
-				//		process_antag_hud(H)
 
 		if(H.head)
 			if(istype(H.head, /obj/item/clothing/head))
@@ -640,6 +638,7 @@
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
+//Fethas Todo:Do i need to redo this?
 /datum/species/proc/return_organ(var/organ_slot)
 	if(!(organ_slot in has_organ))
 		return null

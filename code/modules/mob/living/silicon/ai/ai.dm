@@ -71,7 +71,6 @@ var/list/ai_verbs_default = list(
 
 	var/mob/living/silicon/ai/parent = null
 
-	var/apc_override = 0 //hack for letting the AI use its APC even when visionless
 	var/camera_light_on = 0	//Defines if the AI toggled the light on the camera it's looking through.
 	var/datum/trackable/track = null
 	var/last_paper_seen = null
@@ -115,7 +114,7 @@ var/list/ai_verbs_default = list(
 				pickedName = null
 
 	aiPDA = new/obj/item/device/pda/ai(src)
-	SetName(pickedName)
+	rename_character(null, pickedName)
 	anchored = 1
 	canmove = 0
 	density = 1
@@ -205,19 +204,21 @@ var/list/ai_verbs_default = list(
 
 	job = "AI"
 
-/mob/living/silicon/ai/SetName(pickedName as text)
-	..()
+/mob/living/silicon/ai/rename_character(oldname, newname)
+	if(!..(oldname, newname))
+		return 0
 
-	announcement.announcer = name
+	if(oldname != real_name)
+		announcement.announcer = name
 
-	if(eyeobj)
-		eyeobj.name = "[pickedName] (AI Eye)"
+		if(eyeobj)
+			eyeobj.name = "[newname] (AI Eye)"
 
-	// Set ai pda name
-	if(aiPDA)
-		aiPDA.ownjob = "AI"
-		aiPDA.owner = pickedName
-		aiPDA.name = pickedName + " (" + aiPDA.ownjob + ")"
+		// Set ai pda name
+		if(aiPDA)
+			aiPDA.set_name_and_job(newname, "AI")
+
+	return 1
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
@@ -999,3 +1000,11 @@ var/list/ai_verbs_default = list(
 	var/obj/item/weapon/rig/rig = src.get_rig()
 	if(rig)
 		rig.force_rest(src)
+
+/mob/living/silicon/ai/switch_to_camera(var/obj/machinery/camera/C)
+	if(!C.can_use() || !is_in_chassis())
+		return 0
+
+	eyeobj.setLoc(get_turf(C))
+	client.eye = eyeobj
+	return 1

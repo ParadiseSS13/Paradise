@@ -12,9 +12,13 @@
 	set name = "Set transfer amount"
 	set category = "Object"
 	set src in range(0)
+
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
-	var/N = input("Amount per transfer from this:","[src]") as null|anything in possible_transfer_amounts
+	var/default = null
+	if(amount_per_transfer_from_this in possible_transfer_amounts)
+		default = amount_per_transfer_from_this
+	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
 	if (N)
 		amount_per_transfer_from_this = N
 
@@ -46,11 +50,6 @@
 /obj/item/weapon/reagent_containers/attack_self(mob/user as mob)
 	return
 
-/obj/item/weapon/reagent_containers/attack(mob/M as mob, mob/user as mob, def_zone)
-	if (can_operate(M))        //Checks if mob is lying down on table for surgery
-		if (do_surgery(M,user,src))
-			return
-
 // this prevented pills, food, and other things from being picked up by bags.
 // possibly intentional, but removing it allows us to not duplicate functionality.
 // -Sayu (storage conslidation)
@@ -68,3 +67,10 @@
 			data += "[R.id]([R.volume] units); " //Using IDs because SOME chemicals(I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 		return data
 	else return "No reagents"
+
+/obj/item/weapon/reagent_containers/wash(mob/user, atom/source)
+	if(is_open_container())
+		reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
+		user << "<span class='notice'>You fill [src] from [source].</span>"
+		return
+	..()
