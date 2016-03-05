@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills.
 ////////////////////////////////////////////////////////////////////////////////
-/obj/item/weapon/reagent_containers/pill
+/obj/item/weapon/reagent_containers/food/pill
 	name = "pill"
 	desc = "a pill."
 	icon = 'icons/obj/chemical.dmi'
@@ -9,107 +9,63 @@
 	item_state = "pill"
 	possible_transfer_amounts = null
 	volume = 50
-	var/apply_type = INGEST
-	var/apply_method = "swallow"
-	var/transfer_efficiency = 1.0
+	apply_type = INGEST
+	apply_method = "swallow"
+	transfer_efficiency = 1.0
+	consume_sound = null
 
-	New()
-		..()
-		if(!icon_state)
-			icon_state = "pill[rand(1,20)]"
+/obj/item/weapon/reagent_containers/food/pill/New()
+	..()
+	if(!icon_state)
+		icon_state = "pill[rand(1,20)]"
 
-	attack_self(mob/user as mob)
-		return
-	attack(mob/M as mob, mob/user as mob, def_zone)
-		if(M == user)
-			if(istype(M,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = M
-				if(!H.check_has_mouth())
-					user << "Where do you intend to put \the [src]? You don't have a mouth!"
-					return
+/obj/item/weapon/reagent_containers/food/pill/attack_self(mob/user as mob)
+	return
 
-			M << "<span class='notify'>You [apply_method] [src].</span>"
-			M.unEquip(src) //icon update
-			if(reagents.total_volume)
-				reagents.reaction(M, apply_type)
-				spawn(0)
-					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
-					qdel(src)
-			else
-				qdel(src)
-			return 1
-
-		else if(istype(M, /mob/living/carbon/human) )
-
-			var/mob/living/carbon/human/H = M
-			if(!H.check_has_mouth())
-				user << "Where do you intend to put \the [src]? \The [H] doesn't have a mouth!"
-				return
-
-			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class='warning'>[user] attempts to force [M] to [apply_method] [src].</span>", 1)
-
-			if(!do_mob(user, M)) return
-
-			user.unEquip(src) //icon update
-			for(var/mob/O in viewers(world.view, user))
-				O.show_message("<span class='warning'>[user] forces [M] to [apply_method] [src].</span>", 1)
-
-			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [key_name(user)] Reagents: [reagentlist(src)]</font>")
-			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] to [key_name(M)]) Reagents: [reagentlist(src)]</font>")
-			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] fed [key_name_admin(M)] with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
-
-			if(reagents.total_volume)
-				reagents.reaction(M, apply_type)
-				spawn(0)
-					reagents.trans_to(M, reagents.total_volume*transfer_efficiency)
-					qdel(src)
-			else
-				qdel(src)
-
-			return 1
-
+/obj/item/weapon/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user as mob, def_zone)
+	if(!istype(M))
 		return 0
+	bitesize = reagents.total_volume
+	if(M.eat(src, user))
+		spawn(0)
+			qdel(src)
+		return 1
+	return 0
 
-	afterattack(obj/target, mob/user, proximity)
-		if(!proximity) return
+/obj/item/weapon/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
+	if(!proximity) return
 
-		if(target.is_open_container() != 0 && target.reagents)
-			if(!target.reagents.total_volume)
-				user << "<span class='warning'>[target] is empty. Cant dissolve [src].</span>"
-				return
+	if(target.is_open_container() != 0 && target.reagents)
+		if(!target.reagents.total_volume)
+			user << "<span class='warning'>[target] is empty. Cant dissolve [src].</span>"
+			return
 
-			// /vg/: Logging transfers of bad things
-			if(target.reagents_to_log.len)
-				var/list/badshit=list()
-				for(var/bad_reagent in target.reagents_to_log)
-					if(reagents.has_reagent(bad_reagent))
-						badshit += reagents_to_log[bad_reagent]
-				if(badshit.len)
-					var/hl="\red <b>([english_list(badshit)])</b> \black"
-					message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-					log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
+		// /vg/: Logging transfers of bad things
+		if(target.reagents_to_log.len)
+			var/list/badshit=list()
+			for(var/bad_reagent in target.reagents_to_log)
+				if(reagents.has_reagent(bad_reagent))
+					badshit += reagents_to_log[bad_reagent]
+			if(badshit.len)
+				var/hl="\red <b>([english_list(badshit)])</b> \black"
+				message_admins("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].[hl] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+				log_game("[user.name] ([user.ckey]) added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
-			user << "<span class='notify'>You dissolve [src] in [target].</span>"
-			reagents.trans_to(target, reagents.total_volume)
-			for(var/mob/O in viewers(2, user))
-				O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
-			spawn(5)
-				qdel(src)
+		user << "<span class='notify'>You dissolve [src] in [target].</span>"
+		reagents.trans_to(target, reagents.total_volume)
+		for(var/mob/O in viewers(2, user))
+			O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
+		spawn(5)
+			qdel(src)
 
-		return
+	return
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills. END
 ////////////////////////////////////////////////////////////////////////////////
 
 //Pills
-/obj/item/weapon/reagent_containers/pill/tox
+/obj/item/weapon/reagent_containers/food/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
 	icon_state = "pill5"
@@ -117,7 +73,7 @@
 		..()
 		reagents.add_reagent("toxin", 50)
 
-/obj/item/weapon/reagent_containers/pill/initropidril
+/obj/item/weapon/reagent_containers/food/pill/initropidril
 	name = "initropidril pill"
 	desc = "Don't swallow this."
 	icon_state = "pill5"
@@ -125,7 +81,7 @@
 		..()
 		reagents.add_reagent("initropidril", 50)
 
-/obj/item/weapon/reagent_containers/pill/adminordrazine
+/obj/item/weapon/reagent_containers/food/pill/adminordrazine
 	name = "Adminordrazine pill"
 	desc = "It's magic. We don't have to explain it."
 	icon_state = "pill16"
@@ -133,7 +89,7 @@
 		..()
 		reagents.add_reagent("adminordrazine", 50)
 
-/obj/item/weapon/reagent_containers/pill/methamphetamine
+/obj/item/weapon/reagent_containers/food/pill/methamphetamine
 	name = "Methamphetamine pill"
 	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
@@ -141,7 +97,7 @@
 		..()
 		reagents.add_reagent("methamphetamine", 5)
 
-/obj/item/weapon/reagent_containers/pill/haloperidol
+/obj/item/weapon/reagent_containers/food/pill/haloperidol
 	name = "Haloperidol pill"
 	desc = "Haloperidol is an anti-psychotic use to treat psychiatric problems."
 	icon_state = "pill8"
@@ -149,7 +105,7 @@
 		..()
 		reagents.add_reagent("haloperidol", 15)
 
-/obj/item/weapon/reagent_containers/pill/paroxetine
+/obj/item/weapon/reagent_containers/food/pill/paroxetine
 	name = "Paroxetine pill"
 	desc = "Heavy anti-depressant."
 	icon_state = "pill8"
@@ -158,7 +114,7 @@
 		reagents.add_reagent("paroxetine", 15)
 
 
-/obj/item/weapon/reagent_containers/pill/happy
+/obj/item/weapon/reagent_containers/food/pill/happy
 	name = "Happy pill"
 	desc = "Happy happy joy joy!"
 	icon_state = "pill18"
@@ -167,7 +123,7 @@
 		reagents.add_reagent("space_drugs", 15)
 		reagents.add_reagent("sugar", 15)
 
-/obj/item/weapon/reagent_containers/pill/zoom
+/obj/item/weapon/reagent_containers/food/pill/zoom
 	name = "Zoom pill"
 	desc = "Zoooom!"
 	icon_state = "pill18"
@@ -176,7 +132,7 @@
 		reagents.add_reagent("synaptizine", 5)
 		reagents.add_reagent("methamphetamine", 5)
 
-/obj/item/weapon/reagent_containers/pill/charcoal
+/obj/item/weapon/reagent_containers/food/pill/charcoal
 	name = "Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
@@ -184,7 +140,7 @@
 		..()
 		reagents.add_reagent("charcoal", 25)
 
-/obj/item/weapon/reagent_containers/pill/salicylic
+/obj/item/weapon/reagent_containers/food/pill/salicylic
 	name = "Salicylic Acid pill"
 	desc = "Commonly used to treat moderate pain and fevers."
 	icon_state = "pill4"
@@ -192,7 +148,7 @@
 		..()
 		reagents.add_reagent("sal_acid", 20)
 
-/obj/item/weapon/reagent_containers/pill/salbutamol
+/obj/item/weapon/reagent_containers/food/pill/salbutamol
 	name = "Salbutamol pill"
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
