@@ -1,1 +1,7 @@
+#define HIDDEN_PLANE -100
+
 #define CLICKCATCHER_PLANE -99
+
+#define SPACE_TURF_PLANE -5
+#define SPACE_WHITE_PLANE -4
+#define SPACE_LAYER_PLANE -3

@@ -166,6 +166,7 @@ var/area/global_space_area = null
 		bgobj.layer = (C.prefs.space_parallax) ? AREA_LAYER + 0.5 : 0
 		bgobj.blend_mode = BLEND_MULTIPLY
 		bgobj.mouse_opacity = 0
+		bgobj.plane = SPACE_LAYER_PLANE
 		C.spessbg += bgobj
 		C.screen += bgobj
 	update_parallax()
