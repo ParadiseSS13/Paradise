@@ -159,7 +159,7 @@ var/area/global_space_area = null
 			bgobj.offset_x = 480
 		if(i & 2)
 			bgobj.offset_y = 480
-		bgobj.icon = 'icons/mob/screen1_full.dmi'
+		bgobj.icon = 'icons/mob/screen_full.dmi'
 		bgobj.icon_state = "spess"
 		bgobj.name = "spess"
 		bgobj.screen_loc = "CENTER-7:[bgobj.offset_x],CENTER-7:[bgobj.offset_y]"
