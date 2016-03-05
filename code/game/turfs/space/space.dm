@@ -30,7 +30,7 @@
 				C.images |= A.white_overlay
 
 	if(!istype(src, /turf/space/transit))
-		plane = C.prefs.space_parallax ? SPACE_TURF_PLANE : HIDDEN_PLANE
+		plane = SPACE_TURF_PLANE
 		icon_state = "[((x + y) ^ ~(x * y) + z) % 25]"
 	update_starlight()
 
