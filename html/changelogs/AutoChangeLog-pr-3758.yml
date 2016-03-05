@@ -1,0 +1,11 @@
+author: ITBlackwood
+delete-after: True
+changes:
+  - tweak: Changed Timestop description
+  - soundadd: Changed Timestop sound effect
+  - soundadd: Added Cheap Lighter ignition sound
+  - bugfix: Fixed nanoui sanitization.
+  - bugfix: Fixed DN, GN and SM verbs sanitization
+  - bugfix: Fixed paper sanitization
+  - wip: Power grid consoles still broken
+  - imageadd: Updated fedora icons
