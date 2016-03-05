@@ -1882,3 +1882,27 @@
 
 /mob/living/carbon/human/can_eat(flags = 255)
 	return species && (species.dietflags & flags)
+
+/mob/living/carbon/human/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
+	if(!check_has_mouth())
+		src << "Where do you intend to put \the [toEat]? You don't have a mouth!"
+		return 0
+	return ..()
+
+/mob/living/carbon/human/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
+	if(!check_has_mouth())
+		if(!((istype(toEat, /obj/item/weapon/reagent_containers/food/drinks) && (get_species() == "Machine"))))
+			user << "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!"
+			return 0
+	return ..()
+
+/mob/living/carbon/human/selfDrink(var/obj/item/weapon/reagent_containers/food/drinks/toDrink)
+	if(!check_has_mouth())
+		if(!get_species() == "Machine")
+			src << "Where do you intend to put \the [src]? You don't have a mouth!"
+			return 0
+		else
+			src << "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>"
+	else
+		src << "<span class='notice'>You swallow a gulp of [toDrink].</span>"
+	return 1
