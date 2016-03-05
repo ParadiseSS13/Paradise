@@ -510,6 +510,8 @@
 		if(!istype(potential_parent) || potential_parent.is_stump())
 			src << "<span class='danger'>You've lost the organ that you've been growing your new part on!</span>"
 			return // No rayman for you
+		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
+		// Bothersome.
 		var/obj/item/organ/external/new_limb = new limb_path(src)
 		adjustBruteLoss(stored_brute)
 		adjustFireLoss(stored_burn)
