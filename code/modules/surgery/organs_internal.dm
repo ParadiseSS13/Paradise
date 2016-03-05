@@ -67,7 +67,7 @@
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
-	max_duration = 90
+	time = 64
 
 /datum/surgery_step/internal/manipulate_organs/New()
 	..()
@@ -313,7 +313,7 @@
 	/obj/item/weapon/hatchet = 75
 	)
 
-	max_duration = 70
+	time = 54
 
 
 /datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -351,7 +351,7 @@
 	/obj/item/weapon/pen/edagger = 5,  \
 	)
 
-	max_duration = 60
+	time = 16
 
 /datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -381,7 +381,7 @@
 	/obj/item/weapon/kitchen/utensil/fork = 50
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with \the [tool]."

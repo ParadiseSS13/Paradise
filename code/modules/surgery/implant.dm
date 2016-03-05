@@ -76,7 +76,7 @@
 	/obj/item/stack/rods = 50
 	)
 
-	max_duration = 80
+	time = 54
 
 /datum/surgery_step/cavity/make_space/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -110,7 +110,7 @@
 	/obj/item/weapon/weldingtool = 25
 	)
 
-	max_duration = 80
+	time = 24
 
 /datum/surgery_step/cavity/close_space/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -139,7 +139,7 @@
 	var/obj/item/IC = null
 	allowed_tools = list(/obj/item = 100)
 
-	max_duration = 100
+	time = 32
 
 
 /datum/surgery_step/cavity/place_item/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -236,7 +236,7 @@
 	/obj/item/weapon/kitchen/utensil/fork = 20
 	)
 	var/obj/item/weapon/implant/I = null
-	max_duration = 70
+	time = 64
 
 /datum/surgery_step/cavity/implant_removal/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -310,7 +310,7 @@
 
 /datum/surgery_step/remove_object
 	name = "remove embedded objects"
-	max_duration = 32
+	time = 32
 	accept_hand = 1
 	var/obj/item/organ/external/L = null
 
