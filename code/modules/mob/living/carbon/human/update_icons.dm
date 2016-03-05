@@ -250,7 +250,7 @@ var/global/list/damage_icon_parts = list()
 		qdel(stand_icon)
 	stand_icon = new(species.icon_template ? species.icon_template : 'icons/mob/human.dmi',"blank")
 	var/icon_key = ""
-	var/obj/item/organ/eyes/eyes = internal_organs_by_name["eyes"]
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 
 	if(eyes)
 		icon_key += "[rgb(eyes.eye_colour[1], eyes.eye_colour[2], eyes.eye_colour[3])]"
@@ -455,9 +455,12 @@ var/global/list/damage_icon_parts = list()
 
 	//base icons
 	var/icon/hair_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
+	//var/icon/debrained_s = new /icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	if(h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
+		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
+		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
 			if(src.species.name in hair_style.species_allowed)
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
@@ -469,6 +472,7 @@ var/global/list/damage_icon_parts = list()
 				hair_standing.Blend(hair_s, ICON_OVERLAY)
 		else
 			//warning("Invalid h_style for [species.name]: [h_style]")
+		//hair_standing.Blend(debrained_s, ICON_OVERLAY)//how does i overlay for fish?
 
 	overlays_standing[HAIR_LAYER]	= image(hair_standing)
 

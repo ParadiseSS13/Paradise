@@ -1640,7 +1640,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				else
 					O.robotize()
 		else
-			var/obj/item/organ/I = character.internal_organs_by_name[name]
+			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
 				if(status == "assisted")
 					I.mechassist()

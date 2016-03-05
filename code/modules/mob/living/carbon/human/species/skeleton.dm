@@ -37,7 +37,7 @@
 		"is collapsing into a pile!",
 		"is twisting their skull off!")
 	has_organ = list(
-		"brain" = /obj/item/organ/brain/golem,
+		"brain" = /obj/item/organ/internal/brain/golem,
 	)
 
 /datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)

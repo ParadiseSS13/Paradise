@@ -29,42 +29,18 @@ var/list/organ_cache = list()
 	var/freezer_update_period = 100
 	var/is_in_freezer = 0
 
-/obj/item/organ/Destroy()
-	if(!owner)
-		return ..()
-
-	if(istype(owner, /mob/living/carbon))
-		if((owner.internal_organs) && (src in owner.internal_organs))
-			owner.internal_organs -= src
-		if(istype(owner, /mob/living/carbon/human))
-			if((owner.internal_organs_by_name) && (src in owner.internal_organs_by_name))
-				owner.internal_organs_by_name -= src
-			if((owner.organs) && (src in owner.organs))
-				owner.organs -= src
-			if((owner.organs_by_name) && (src in owner.organs_by_name))
-				owner.organs_by_name -= src
-	if(src in owner.contents)
-		owner.contents -= src
-
-	return ..()
-
-/obj/item/organ/attack_self(mob/user as mob)
-
-	// Convert it to an edible form, yum yum.
-	if(!robotic && user.a_intent == I_HARM)
-		bitten(user)
-		return
+	var/sterile = 0 //can the organ be infected by germs?
+	var/tough = 0 //can organ be easily damaged?
 
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(var/mob/living/carbon/holder, var/internal)
+/obj/item/organ/New(var/mob/living/carbon/holder)
 	..(holder)
 	create_reagents(5)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
-		src.owner = holder
 		species = all_species["Human"]
 		if(holder.dna)
 			dna = holder.dna.Clone()
@@ -73,18 +49,10 @@ var/list/organ_cache = list()
 			log_to_dd("[src] at [loc] spawned without a proper DNA.")
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
-			if(internal)
-				var/obj/item/organ/external/E = H.organs_by_name[src.parent_organ]
-				if(E)
-					if(E.internal_organs == null)
-						E.internal_organs = list()
-					E.internal_organs |= src
 			if(dna)
 				if(!blood_DNA)
 					blood_DNA = list()
 				blood_DNA[dna.unique_enzymes] = dna.b_type
-		if(internal)
-			holder.internal_organs |= src
 
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
@@ -104,8 +72,6 @@ var/list/organ_cache = list()
 		owner.death()
 
 /obj/item/organ/process()
-	if(loc != owner)
-		owner = null
 
 	//dead already, no need for more processing
 	if(status & ORGAN_DEAD)
@@ -115,7 +81,7 @@ var/list/organ_cache = list()
 		return
 
 	//Process infections
-	if ((status & ORGAN_ROBOT) || (owner && owner.species && (owner.species.flags & IS_PLANT)))
+	if ((status & ORGAN_ROBOT) || (sterile) ||(owner && owner.species && (owner.species.flags & IS_PLANT)))
 		germ_level = 0
 		return
 
@@ -246,6 +212,8 @@ var/list/organ_cache = list()
 
 //Note: external organs have their own version of this proc
 /obj/item/organ/proc/take_damage(amount, var/silent=0)
+	if(tough)
+		return
 	if(src.status & ORGAN_ROBOT)
 		src.damage = between(0, src.damage + (amount * 0.8), max_damage)
 	else
@@ -288,14 +256,9 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
-/obj/item/organ/proc/removed(var/mob/living/user)
+/obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
-
-	if(is_primary_organ())
-		owner.internal_organs_by_name[organ_tag] = null
-		owner.internal_organs_by_name -= organ_tag
-		owner.internal_organs_by_name -= null // uh what does this line even do this seems silly
 
 	owner.internal_organs -= src
 
@@ -323,42 +286,13 @@ var/list/organ_cache = list()
 
 	owner = target
 	processing_objects -= src
-	target.internal_organs |= src
 	affected.internal_organs |= src
-	if (!(organ_tag in target.internal_organs_by_name))
-		target.internal_organs_by_name[organ_tag] = src // In case multiple of the same type are inserted, only the first one is the primary organ
+	if (!target.get_int_organ(src))
+		target.internal_organs += src
 	src.loc = target
 	if(robotic)
 		status |= ORGAN_ROBOT
 
-/obj/item/organ/eyes/replaced(var/mob/living/carbon/human/target)
-
-	// Apply our eye colour to the target.
-	if(istype(target) && eye_colour)
-		target.r_eyes = eye_colour[1]
-		target.g_eyes = eye_colour[2]
-		target.b_eyes = eye_colour[3]
-		target.update_eyes()
-	..()
-
-/obj/item/organ/proc/bitten(mob/user)
-
-	if(robotic)
-		return
-
-	user << "\blue You take a bite out of \the [src]."
-
-	user.unEquip(src)
-	var/obj/item/weapon/reagent_containers/food/snacks/organ/O = new(get_turf(src))
-	O.name = name
-	O.icon_state = dead_icon ? dead_icon : icon_state
-
-	if(fingerprints) O.fingerprints = fingerprints.Copy()
-	if(fingerprintshidden) O.fingerprintshidden = fingerprintshidden.Copy()
-	if(fingerprintslast) O.fingerprintslast = fingerprintslast
-
-	user.put_in_active_hand(O)
-	qdel(src)
 
 /obj/item/organ/proc/surgeryize()
 	return
@@ -373,4 +307,4 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		O = owner
 	if (!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
-	return src == O.internal_organs_by_name[organ_tag]
+	return src == O.get_int_organ(organ_tag)

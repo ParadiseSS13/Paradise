@@ -59,6 +59,16 @@
 
 	switch(M.a_intent)
 		if(I_HELP)
+			if(can_operate(src))
+				if(health >= config.health_threshold_crit)
+					if(src.surgeries.len)
+						for(var/datum/surgery/S in src.surgeries)
+							if(S.next_step(M, src))
+								return 1
+							else
+								help_shake_act(M)
+								add_logs(src, M, "shaked")
+								return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
 				add_logs(src, M, "shaked")

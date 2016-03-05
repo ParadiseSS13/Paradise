@@ -93,7 +93,7 @@
 	new /obj/effect/decal/cleanable/blood (src.loc)
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/item/weapon/demonheart(src.loc)
+	new /obj/item/organ/internal/heart/demonheart(src.loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
 	for(var/mob/living/M in consumed_mobs)
@@ -138,7 +138,7 @@
 //////////The Loot
 
 //The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
-/obj/item/weapon/demonheart
+/obj/item/organ/internal/heart/demonheart
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
 	icon = 'icons/obj/surgery.dmi'
@@ -146,7 +146,7 @@
 	origin_tech = "combat=5;biotech=8"
 
 
-/obj/item/weapon/demonheart/attack_self(mob/living/user)
+/obj/item/organ/internal/heart/demonheart/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
@@ -159,8 +159,14 @@
 		user.bloodcrawl = BLOODCRAWL_EAT
 	else
 		user <<"<span class='warning'>...and you don't feel any different.</span>"
-	qdel(src)
 
+	user.drop_item()
+	insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
+
+/obj/item/organ/internal/heart/demonheart/remove(mob/living/carbon/M, special = 0)
+	..()
+	if(M.mind)
+		M.bloodcrawl = 0
 
 //Objectives and helpers.
 
