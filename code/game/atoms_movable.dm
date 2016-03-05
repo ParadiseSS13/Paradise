@@ -88,6 +88,9 @@
 			if(loc == newloc) //Remove this check and people can accelerate. Not opening that can of worms just yet.
 				newtonian_move(last_move)
 
+	for(var/mob/M in contents)
+		M.Move(newloc,direct)
+
 	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
