@@ -89,7 +89,8 @@
 				newtonian_move(last_move)
 
 	for(var/mob/M in contents)
-		M.Move(newloc,direct)
+		if(M.hud_used)
+			M.hud_used.update_parallax()
 
 	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
