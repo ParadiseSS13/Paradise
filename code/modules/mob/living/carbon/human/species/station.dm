@@ -552,8 +552,8 @@
 	passive_temp_gain = 10 //this should cause IPCs to stabilize at ~80 C in a 20 C environment.
 
 	flags = IS_WHITELISTED | NO_BREATHE | NO_SCAN | NO_BLOOD | NO_PAIN | NO_DNA | NO_POISON | RADIMMUNE
-	clothing_flags = HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = HAS_SKIN_COLOR | HAS_MARKINGS
 	dietflags = 0		//IPCs can't eat, so no diet
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"

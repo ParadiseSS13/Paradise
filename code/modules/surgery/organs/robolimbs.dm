@@ -8,7 +8,8 @@ var/global/datum/robolimb/basic_robolimb
 		var/datum/robolimb/R = new limb_type()
 		all_robolimbs[R.company] = R
 		if(!R.unavailable_at_chargen)
-			chargen_robolimbs[R.company] = R
+			if(!(R == "head") && !(R == "chest") && !(R == "groin" )) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+				chargen_robolimbs[R.company] = R
 
 /datum/robolimb
 	var/company = "Unbranded"                            // Shown when selecting the limb.
@@ -26,16 +27,6 @@ var/global/datum/robolimb/basic_robolimb
 	desc = "This limb has a militaristic black and green casing with gold stripes."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphaistos.dmi'
 
-/datum/robolimb/zenghu
-	company = "Zeng-Hu Pharmaceuticals"
-	desc = "This limb has a rubbery fleshtone covering with visible seams."
-	icon = 'icons/mob/human_races/cyberlimbs/zenghu.dmi'
-
-/datum/robolimb/xion
-	company = "Xion Manufacturing Group"
-	desc = "This limb has a minimalist black and red casing."
-	icon = 'icons/mob/human_races/cyberlimbs/xion.dmi'
-
 /datum/robolimb/ipc
 	company = "Morpheus Cyberkinetics"
 	desc = "This limb is simple and functional; no effort has been made to make it look human."
@@ -46,3 +37,13 @@ var/global/datum/robolimb/basic_robolimb
 	company = "Ward-Takahashi"
 	desc = "This limb features sleek black and white polymers."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi.dmi'
+
+/datum/robolimb/xion
+	company = "Xion Manufacturing Group"
+	desc = "This limb has a minimalist black and red casing."
+	icon = 'icons/mob/human_races/cyberlimbs/xion.dmi'
+
+/datum/robolimb/zenghu
+	company = "Zeng-Hu Pharmaceuticals"
+	desc = "This limb has a rubbery fleshtone covering with visible seams."
+	icon = 'icons/mob/human_races/cyberlimbs/zenghu.dmi'

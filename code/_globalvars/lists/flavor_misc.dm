@@ -2,7 +2,9 @@
 	//Head accessory styles
 var/global/list/head_accessory_styles_list = list() //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
-var/global/list/marking_styles_list = list() //stores /datum/sprite_accessory/horns indexed by name
+var/global/list/marking_styles_list = list() //stores /datum/sprite_accessory/body_markings indexed by name
+	//Organs
+var/global/list/organs_data = list() //Stores organs that have been modified via preferences (amputations, prosthetics).
 	//Hairstyles
 var/global/list/hair_styles_list = list()			//stores /datum/sprite_accessory/hair indexed by name
 var/global/list/hair_styles_male_list = list()

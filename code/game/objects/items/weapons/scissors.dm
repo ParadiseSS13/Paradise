@@ -30,11 +30,14 @@
 		//this is largely copypasted from there.
 		//handle facial hair (if necessary)
 		var/list/species_facial_hair = list()
-		if(H.gender == MALE || H.get_species() == "Vulpkanin")
+		if(H.gender == MALE || H.get_species() == "Vulpkanin" || H.get_species() == "Machine")
 			if(H.species)
 				for(var/i in facial_hair_styles_list)
 					var/datum/sprite_accessory/facial_hair/tmp_facial = facial_hair_styles_list[i]
 					if(H.species.name in tmp_facial.species_allowed)
+						if(H.species.name == "Machine")
+							if(!(organs_data["head"])) //If they have the default Morpheus head, get us out of here. No facial hair to speak of. Otherwise, they got facial hair (albeit fake) so it's all good!
+								return
 						species_facial_hair += i
 			else
 				species_facial_hair = facial_hair_styles_list
@@ -45,6 +48,12 @@
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
 				if(H.species.name in tmp_hair.species_allowed)
+					if(H.species.name == "Machine")
+						if(!(organs_data["head"])) //If they have the default Morpheus head, you can't be messing with their display.
+							return
+						else
+							if(findtext(tmp_hair.name, "IPC")) //Otherwise, just exclude the 'display' hairstyles so you can mess with their fake hair.
+								continue
 					species_hair += i
 		else
 			species_hair = hair_styles_list

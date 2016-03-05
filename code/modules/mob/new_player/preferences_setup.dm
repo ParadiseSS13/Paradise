@@ -227,7 +227,10 @@ datum/preferences
 			var/icon/temp = new /icon("icon" = tail_icon, "icon_state" = tail_icon_state)
 			preview_icon.Blend(temp, ICON_OVERLAY)
 
-		for(var/name in list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand"))
+		var/rparts = list("r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand")
+		if (current_species.name == "Machine") //Since only IPCs can have head, chest and groin prosthetics, only they can be rendered with them.
+			rparts = list("head", "torso", "groin", "r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","l_arm","l_hand")
+		for(var/name in rparts)
 			if(organ_data[name] == "amputated") continue
 			if(organ_data[name] == "cyborg")
 				var/datum/robolimb/R

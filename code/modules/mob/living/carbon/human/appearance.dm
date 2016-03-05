@@ -179,6 +179,11 @@
 			continue
 		if(!(species.name in S.species_allowed))
 			continue
+		if(species.name == "Machine")
+			if (!(organs_data["head"]) && !(findtext(S.name, "IPC"))) //If an IPC character has the default head, they can't have anything but their screens.
+				continue
+			else if(organs_data["head"] && findtext(S.name, "IPC")) //Otherwise, if an IPC character has an alternate head, they cannot use screens.
+				continue
 		valid_hairstyles += hairstyle
 
 	return valid_hairstyles
@@ -194,7 +199,9 @@
 			continue
 		if(!(species.name in S.species_allowed))
 			continue
-
+		if(species == "Machine" && !(organs_data["head"]))
+			if(!(S.name == "Shaved"))
+				continue
 		valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles
