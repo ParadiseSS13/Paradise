@@ -1113,3 +1113,39 @@
 		mineral_scan_pulse(occupant,get_turf(loc))
 		spawn(equip_cooldown)
 			scanning = 0
+
+
+/obj/item/mecha_parts/mecha_equipment/tool/mimercd
+	name = "Mounted MRCD"
+	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Recitence)"
+	icon_state = "mecha_rcd"
+	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4"
+	equip_cooldown = 10
+	energy_drain = 250
+	range = MELEE|RANGED
+
+/obj/item/mecha_parts/mecha_equipment/tool/mimercd/Destroy()
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/tool/mimercd/can_attach(obj/mecha/combat/recitence/M as obj)
+	if(..())
+		if(istype(M))
+			return 1
+	return 0
+
+/obj/item/mecha_parts/mecha_equipment/tool/mimercd/action(atom/target)
+	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
+		return
+	if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
+		target = get_turf(target)
+	if(!action_checks(target) || get_dist(chassis, target)>3) return
+	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
+
+	if(istype(target, /turf/simulated/floor))
+		occupant_message("Building Wall...")
+		set_ready_state(0)
+		if(do_after_cooldown(target))
+			new /obj/structure/barricade/mime(target)
+			playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
+			chassis.spark_system.start()
+			chassis.use_power(energy_drain*2)

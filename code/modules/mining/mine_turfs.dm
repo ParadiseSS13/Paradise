@@ -133,6 +133,8 @@ var/global/list/rockTurfEdgeCache
 					M = new/turf/simulated/mineral/gibtonite(src)
 				if("Bananium")
 					M = new/turf/simulated/mineral/clown(src)
+				if("Tranquillite")
+					M = new/turf/simulated/mineral/mime(src)
 				if("BScrystal")
 					M = new/turf/simulated/mineral/bscrystal(src)
 			if(M)
@@ -156,7 +158,7 @@ var/global/list/rockTurfEdgeCache
 	mineralSpawnChanceList = list(
 		"Uranium" = 35, "Diamond" = 2,
 		"Gold" = 5, "Silver" = 5, "Plasma" = 25,
-		"Iron" = 30, "Clown" = 15, "BScrystal" = 10)
+		"Iron" = 30, "Bananium" = 15, "Tranquillite" = 15, "BScrystal" = 10)
 
 /turf/simulated/mineral/random/high_chance/New()
 	icon_state = "rock"
@@ -234,6 +236,15 @@ var/global/list/rockTurfEdgeCache
 	icon_state = "rock_Clown"
 	mineralType = /obj/item/weapon/ore/bananium
 	mineralName = "Bananium"
+	mineralAmt = 3
+	spreadChance = 0
+	spread = 0
+	hidden = 0
+
+/turf/simulated/mineral/mime
+	name = "tranquillite deposit"
+	icon_state = "rock_Mime"
+	mineralType = /obj/item/weapon/ore/tranquillite
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0

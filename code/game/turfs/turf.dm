@@ -30,6 +30,8 @@
 	var/image/obscured	//camerachunks
 
 	var/list/footstep_sounds = list()
+	var/shoe_running_volume = 50
+	var/shoe_walking_volume = 20
 
 /turf/New()
 	..()

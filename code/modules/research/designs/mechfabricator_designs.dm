@@ -459,6 +459,70 @@
 	construction_time = 200
 	category = list("H.O.N.K")
 
+//Recitence
+/datum/design/recitence_chassis
+	name = "Exosuit Chassis (\"Recitence\")"
+	id = "recitence_chassis"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/chassis/recitence
+	materials = list(MAT_METAL=20000)
+	construction_time = 100
+	category = list("Recitence")
+
+/datum/design/recitence_torso
+	name = "Exosuit Torso (\"Recitence\")"
+	id = "recitence_torso"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/recitence_torso
+	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_TRANQUILLITE=10000)
+	construction_time = 300
+	category = list("Recitence")
+
+/datum/design/recitence_head
+	name = "Exosuit Head (\"Recitence\")"
+	id = "recitence_head"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/recitence_head
+	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_TRANQUILLITE=5000)
+	construction_time = 200
+	category = list("Recitence")
+
+/datum/design/recitence_left_arm
+	name = "Exosuit Left Arm (\"Recitence\")"
+	id = "recitence_left_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/recitence_left_arm
+	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
+	construction_time = 200
+	category = list("Recitence")
+
+/datum/design/recitence_right_arm
+	name = "Exosuit Right Arm (\"Recitence\")"
+	id = "recitence_right_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/recitence_right_arm
+	materials = list(MAT_METAL=15000,MAT_TRANQUILLITE=5000)
+	construction_time = 200
+	category = list("Recitence")
+
+/datum/design/recitence_left_leg
+	name = "Exosuit Left Leg (\"Recitence\")"
+	id = "recitence_left_leg"
+	build_type = MECHFAB
+	build_path =/obj/item/mecha_parts/part/recitence_left_leg
+	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
+	construction_time = 200
+	category = list("Recitence")
+
+/datum/design/recitence_right_leg
+	name = "Exosuit Right Leg (\"Recitence\")"
+	id = "recitence_right_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/recitence_right_leg
+	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=5000)
+	construction_time = 200
+	category = list("Recitence")
+
 //Phazon
 /datum/design/phazon_chassis
 	name = "Exosuit Chassis (\"Phazon\")"
@@ -639,6 +703,25 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	materials = list(MAT_METAL=20000,MAT_BANANIUM=5000)
 	construction_time = 300
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_silentgun
+	name = "S.H.H. \"Quietus\" Carbine"
+	id = "mech_silentgun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
+	materials = list(MAT_METAL=20000,MAT_TRANQUILLITE=10000)
+	construction_time = 500
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_mimercd
+	name = "Exosuit Module (Mime RCD Module)"
+	desc = "An exosuit-mounted Mime Rapid Construction Device."
+	id = "mech_mrcd"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/tool/mimercd
+	materials = list(MAT_METAL=30000,MAT_TRANQUILLITE=10000)
+	construction_time = 700
 	category = list("Exosuit Equipment")
 
 // Exosuit Modules
