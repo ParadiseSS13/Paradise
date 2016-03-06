@@ -366,7 +366,7 @@
 	mouse_opacity = 0
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
-	var/freezerange = 2
+	var/freezerange = 7
 	var/duration = 140
 	alpha = 125
 
@@ -379,6 +379,13 @@
 
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/timestop.ogg', 100, 0, -1)
+	for(var/atom/a,var/light_color/L in freezerange)
+		var/icon/i=new(initial(a.icon))
+		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
+		a.icon=i
+		var/icon/i=new(initial(L.icon))
+		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
+		L.icon=i
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, src.loc))
 			if(istype(A, /mob/living))
@@ -410,6 +417,10 @@
 
 	for(var/obj/item/projectile/P in stopped_atoms)
 		P.paused = FALSE
+
+	for(var/atom/a,var/light_color/L in freezerange)
+		a.icon=initial(a.icon) //Reverts everything back to their original state
+		L.icon=initial(L.icon)
 	qdel(src)
 	return
 
