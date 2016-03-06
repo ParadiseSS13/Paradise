@@ -1124,9 +1124,6 @@
 	energy_drain = 250
 	range = MELEE|RANGED
 
-/obj/item/mecha_parts/mecha_equipment/tool/mimercd/Destroy()
-	return ..()
-
 /obj/item/mecha_parts/mecha_equipment/tool/mimercd/can_attach(obj/mecha/combat/recitence/M as obj)
 	if(..())
 		if(istype(M))

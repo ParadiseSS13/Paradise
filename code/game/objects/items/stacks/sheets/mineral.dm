@@ -65,7 +65,7 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 
 var/global/list/datum/stack_recipe/mime_recipes = list ( \
 	new/datum/stack_recipe("silent tile", /obj/item/stack/tile/silent, 1, 4, 20), \
-	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 10, one_per_turf = 1, on_floor = 1, time = 50), \
+	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = 1, on_floor = 1, time = 50), \
 	)
 
 /obj/item/stack/sheet/mineral
