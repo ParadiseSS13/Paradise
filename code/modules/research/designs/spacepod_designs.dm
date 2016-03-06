@@ -124,6 +124,39 @@
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
+
+/datum/design/pod_mining_laser_basic
+	construction_time = 200
+	name = "Basic Mining Laser"
+	desc = "Allows for the construction of a weak mining laser"
+	id = "pod_mining_laser_basic"
+	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2, "magnets" = 3, "combat" = 2)
+	build_type = PODFAB
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_URANIUM = 2000)
+	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_basic
+	category = list("Pod_Weaponry")
+
+/datum/design/pod_mining_laser
+	construction_time = 200
+	name = "Mining Laser"
+	desc = "Allows for the construction of a mining laser."
+	id = "pod_mining_laser"
+	req_tech = list("materials" = 6, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser
+	category = list("Pod_Weaponry")
+
+/datum/design/pod_mining_laser_burst
+	construction_time = 200
+	name = "Burst Mining Laser"
+	desc = "Allows for the construction of a mining laser. This is the burst-fire model."
+	id = "pod_mining_laser_burst"
+	req_tech = list("materials" = 7, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
+	build_type = PODFAB
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_DIAMOND = 4000)
+	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_burst
+	category = list("Pod_Weaponry")
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
@@ -137,4 +170,15 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/device/spacepod_equipment/misc/tracker
+	category = list("Pod_Parts")
+
+/datum/design/pod_cargo_ore
+	construction_time = 100
+	name = "Spacepod Ore Storage Module"
+	desc = "Allows for the construction of a Space Pod Ore Storage Module."
+	id = "podcargo_ore"
+	req_tech = list("materials" = 3)
+	build_type = PODFAB
+	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
+	build_path = /obj/item/device/spacepod_equipment/cargo/ore
 	category = list("Pod_Parts")
