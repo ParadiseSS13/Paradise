@@ -180,7 +180,7 @@
 
 /obj/item/device/spacepod_equipment/cargo/ore/unload()
 	if(box)
-		box.loc = get_turf(my_atom)
+		box.forceMove(get_turf(my_atom))
 		box = null
 
 /obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)

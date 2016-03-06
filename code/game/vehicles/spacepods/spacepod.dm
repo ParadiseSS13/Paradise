@@ -524,6 +524,7 @@
 
 		if(M == user)
 			enter_pod(user)
+
 	if(istype(A, /obj/structure/ore_box)) // For loading ore boxes
 		var/obj/structure/ore_box/O = A
 		if(equipment_system.cargo_system && istype(equipment_system.cargo_system,/obj/item/device/spacepod_equipment/cargo/ore))
@@ -532,7 +533,7 @@
 				user << "<span class='notice'>You begin loading \the [O] into \the [src]'s [equipment_system.cargo_system]</span>"
 				if(do_after(user, 40, target = src))
 					C.box = O
-					O.loc = C
+					O.forceMove(C)
 					user << "<span class='notice'>You load \the [O] into \the [src]'s [equipment_system.cargo_system]!</span>"
 				else
 					user << "<span class='warning'>You fail to load \the [O] into \the [src]'s [equipment_system.cargo_system]</span>"
