@@ -140,7 +140,7 @@
 				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == 2))
 					nanomanager.update_uis(src)
 					return
-				crew_announcement.Announce(input)
+				crew_announcement.Announce(input, msg_sanitized = 1)
 				message_cooldown = 1
 				spawn(600)//One minute cooldown
 					message_cooldown = 0
@@ -151,7 +151,7 @@
 				nanomanager.update_uis(src)
 				return
 
-			call_shuttle_proc(usr, input)
+			call_shuttle_proc(usr, input, msg_sanitized = 1)
 			if(shuttle_master.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
