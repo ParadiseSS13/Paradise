@@ -79,7 +79,7 @@
 		/obj/item/weapon/kitchen/knife = 50
 	)
 
-	max_duration = 110
+	time = 16
 
 /datum/surgery_step/robotics/external/unscrew_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
@@ -113,7 +113,7 @@
 		/obj/item/weapon/kitchen/utensil/ = 50
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/robotics/external/open_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
@@ -147,7 +147,7 @@
 		/obj/item/weapon/kitchen/utensil = 50
 	)
 
-	max_duration = 100
+	time = 24
 
 /datum/surgery_step/robotics/external/close_hatch/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
@@ -181,7 +181,7 @@
 		/obj/item/weapon/gun/energy/plasmacutter = 50
 	)
 
-	max_duration = 60
+	time = 32
 
 /datum/surgery_step/robotics/external/repair_brute/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
@@ -222,7 +222,7 @@
 		/obj/item/stack/cable_coil = 100
 	)
 
-	max_duration = 60
+	time = 32
 
 /datum/surgery_step/robotics/external/repair_burn/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(..())
@@ -270,7 +270,7 @@
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
-	max_duration = 90
+	time = 32
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/New()
 	..()
@@ -500,7 +500,7 @@
 	/obj/item/device/mmi = 100
 	)
 
-	max_duration = 80
+	time = 64
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -572,7 +572,7 @@
 	allowed_tools = list(
 	/obj/item/device/multitool = 100)
 
-	max_duration = 110
+	time = 100
 
 /datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

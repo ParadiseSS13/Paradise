@@ -39,7 +39,7 @@
 	/obj/item/weapon/pen/edagger = 5,  \
 	)
 
-	max_duration = 60
+	time = 16
 
 /datum/surgery_step/generic/cut_open/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -58,9 +58,6 @@
 	"<span class='notice'> You have made an incision on [target]'s [affected.name] with \the [tool].</span>",)
 	affected.open = 1
 	affected.status |= ORGAN_BLEEDING
-	affected.createwound(CUT, 1)
-	//if (target_zone == "head")
-	//	target.brain_op_stage = 1
 	return 1
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -83,7 +80,7 @@
 	/obj/item/device/assembly/mousetrap = 20
 	)
 
-	max_duration = 60
+	time = 24
 
 
 /datum/surgery_step/generic/clamp_bleeders/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -123,7 +120,7 @@
 	/obj/item/weapon/kitchen/utensil/fork = 50
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/generic/retract_skin/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -185,7 +182,7 @@
 	/obj/item/weapon/weldingtool = 25
 	)
 
-	max_duration = 90
+	time = 24
 
 /datum/surgery_step/generic/cauterize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -225,7 +222,7 @@
 	/obj/item/weapon/melee/arm_blade = 60
 	)
 
-	max_duration = 110
+	time = 100
 
 /datum/surgery_step/generic/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (target_zone == "eyes")	//there are specific steps for eye surgery

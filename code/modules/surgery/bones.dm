@@ -39,7 +39,7 @@
 	can_infect = 1
 	blood_level = 1
 
-	max_duration = 60
+	time = 24
 
 /datum/surgery_step/glue_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -75,7 +75,7 @@
 	/obj/item/weapon/wrench = 75		\
 	)
 
-	max_duration = 70
+	time = 32
 
 /datum/surgery_step/set_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -115,7 +115,7 @@
 	/obj/item/weapon/wrench = 75		\
 	)
 
-	max_duration = 70
+	time = 32
 
 /datum/surgery_step/mend_skull/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -153,7 +153,7 @@
 	can_infect = 1
 	blood_level = 1
 
-	max_duration = 60
+	time = 24
 
 /datum/surgery_step/finish_bone/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
