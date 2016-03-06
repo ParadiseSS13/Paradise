@@ -379,10 +379,18 @@
 
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/timestop.ogg', 100, 0, -1)
-	for(var/atom/a in orange (freezerange, src.loc))
-		var/icon/i=new(initial(a.icon))
+	for(var/obj/O in orange (freezerange, src.loc))					//Inverting colors of objects cause KONO DIO DA!
+		var/icon/i=new(initial(O.icon))
 		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
-		a.icon=i
+		O.icon=i
+	for(var/turf/simulated/S in orange (freezerange, src.loc))		//Try no to invert all of /turf/. It's gonna fuck with light and you gonna get shadow instead of light.
+		var/icon/i=new(initial(S.icon))
+		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
+		S.icon=i
+	for(var/mob/living/V in orange (freezerange, src.loc))
+		var/icon/i=new(initial(V.icon))
+		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
+		V.icon=i
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, src.loc))
 			if(istype(A, /mob/living))
@@ -403,9 +411,11 @@
 				stopped_atoms |= P
 
 		for(var/mob/living/M in stopped_atoms)
-			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them
+			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them (and invert their color)
+				M.icon=initial(M.icon)
 				unfreeze_mob(M)
 				stopped_atoms -= M
+				M.icon=initial(M.icon)
 		sleep(1)
 
 	//End
@@ -415,7 +425,10 @@
 	for(var/obj/item/projectile/P in stopped_atoms)
 		P.paused = FALSE
 
-	for(var/atom/a in orange (freezerange, src.loc)) a.icon=initial(a.icon) //Reverts everything back to their original state
+
+	for(var/obj/O in orange (freezerange, src.loc)) O.icon=initial(O.icon)  //Reverts everything back to their original state
+	for(var/mob/living/V in orange (freezerange, src.loc)) V.icon=initial(V.icon)
+	for(var/turf/simulated/S in orange (freezerange, src.loc)) S.icon=initial(S.icon)
 	qdel(src)
 	return
 
