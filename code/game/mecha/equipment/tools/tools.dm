@@ -1135,14 +1135,13 @@
 		return
 	if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
 		target = get_turf(target)
-	if(!action_checks(target) || get_dist(chassis, target)>3) return
-	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
+	if(!action_checks(target) || get_dist(chassis, target)>3)
+		return
 
 	if(istype(target, /turf/simulated/floor))
 		occupant_message("Building Wall...")
 		set_ready_state(0)
 		if(do_after_cooldown(target))
 			new /obj/structure/barricade/mime(target)
-			playsound(target, 'sound/items/Deconstruct.ogg', 50, 1)
 			chassis.spark_system.start()
 			chassis.use_power(energy_drain*2)
