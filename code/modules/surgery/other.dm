@@ -30,7 +30,7 @@
 	can_infect = 1
 	blood_level = 1
 
-	max_duration = 90
+	time = 32
 
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -83,7 +83,7 @@
 	can_infect = 1
 	blood_level = 1
 
-	max_duration = 160
+	time = 16
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(!hasorgans(target))
@@ -132,7 +132,7 @@
 	can_infect = 0
 	blood_level = 0
 
-	max_duration = 60
+	time = 24
 
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (!istype(tool, /obj/item/weapon/reagent_containers))
@@ -221,7 +221,7 @@
 	name = "cleanse contamination"
 	allowed_tools = list(/obj/item/device/flash = 100, /obj/item/device/flashlight/pen = 80, /obj/item/device/flashlight = 40)
 
-	max_duration = 120
+	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (!hasorgans(target))

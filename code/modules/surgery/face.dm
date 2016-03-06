@@ -43,7 +43,7 @@
 	/obj/item/weapon/shard = 50, 		\
 	)
 
-	max_duration = 110
+	time = 16
 
 /datum/surgery_step/generic/cut_face/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		return ..() && target_zone == "mouth" //&& target.op_stage.face == 0//I NEED TO REPLACE THE OPSTAGE SHIT!
@@ -78,7 +78,7 @@
 	/obj/item/device/assembly/mousetrap = 10	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
 
-	max_duration = 90
+	time = 24
 
 /datum/surgery_step/face/mend_vocal/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		return ..()// && target.op_stage.face == 1 //NO REALLY NED TO REPLACE, MAYBE WITH FUCKING istype(S.get_surgery_step(), /datum/surgery_step/cut_face)) OR SOMETHING
@@ -108,7 +108,7 @@
 	/obj/item/weapon/crowbar = 55,	\
 	/obj/item/weapon/kitchen/utensil/fork = 75)
 
-	max_duration = 100
+	time = 64
 
 /datum/surgery_step/face/fix_face/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		return ..() //&& target.op_stage.face == 2//I NEED TO REPLACE THE OPSTAGE SHIT!
@@ -143,7 +143,7 @@
 	/obj/item/weapon/weldingtool = 25
 	)
 
-	max_duration = 100
+	time = 24
 
 /datum/surgery_step/face/cauterize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 		return ..()// && target.op_stage.face > 0//I NEED TO REPLACE THE OPSTAGE SHIT!

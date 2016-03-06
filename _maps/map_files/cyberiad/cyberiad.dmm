@@ -357,7 +357,7 @@
 "agS" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/pickaxe,/obj/item/weapon/storage/firstaid/toxin,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "agT" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/scalpel,/obj/item/stack/cable_coil,/obj/item/weapon/storage/firstaid/regular,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "agU" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table,/obj/item/weapon/circular_saw,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
-"agV" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
+"agV" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/optable,/obj/item/organ/internal/brain,/turf/simulated/shuttle/floor4/vox,/area/shuttle/vox)
 "agW" = (/obj/machinery/door/poddoor/shutters{density = 0; dir = 4; icon_state = "shutter0"; id_tag = "voxshutters"; name = "Blast Shutters"; opacity = 0},/obj/structure/grille,/obj/structure/shuttle/window{dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5_mid"; tag = "icon-window5 (EAST)"},/turf/simulated/shuttle/plating/vox,/area/shuttle/vox)
 "agX" = (/obj/machinery/light/small,/obj/machinery/firealarm{dir = 8; pixel_x = -24},/obj/structure/closet/secure_closet/injection,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/execution{name = "\improper Prisoner Transfer Center"})
 "agY" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/execution{name = "\improper Prisoner Transfer Center"})

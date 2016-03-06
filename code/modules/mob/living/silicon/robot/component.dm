@@ -204,7 +204,7 @@
 		if("robot")
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 			var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
-			user << "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health - M.halloss]% functional"]</span>"
+			user << "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>"
 			user << "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			user << "\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 			if(M.timeofdeath && M.stat == DEAD)

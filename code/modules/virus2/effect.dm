@@ -404,9 +404,9 @@
 	name = "Phantom Pain Syndrome"
 	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 100)
+		if (mob.staminaloss < 100)
 			mob << "<span class = 'warning'> You feel like your body is on fire. Make the pain stop!</span>"
-			mob.apply_effect(20,AGONY,0)
+			mob.apply_effect(20,STAMINA,0)
 
 // === burn brute toxin clone brain damage symptoms - Bone White ===
 
@@ -655,9 +655,9 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	name = "Acute Muscle Ache"
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 50)
+		if (mob.staminaloss < 50)
 			mob << "<span class='warning'>You ache all over!</span>"
-			mob.apply_effect(10,AGONY,0)
+			mob.apply_effect(10,STAMINA,0)
 
 // === burn brute toxin clone brain damage symptoms - Bone White ===
 
@@ -844,9 +844,9 @@ var/list/compatible_mobs = list(/mob/living/carbon/human)
 	name = "Heightened Sensitivity"
 	stage = 1
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if (mob.halloss < 20)
+		if (mob.staminaloss < 20)
 			mob << "<span class='warning'>Your body aches.</span>"
-			mob.apply_effect(5,AGONY,0)
+			mob.apply_effect(5,STAMINA,0)
 
 /datum/disease2/effect/stimulant
 	name = "Adrenaline Extra"

@@ -300,7 +300,7 @@
 				user.death()
 			else
 				user << "<span class = 'notice'>Ow...</span>"
-				user.apply_effect(110,AGONY,0)
+				user.apply_effect(110,STAMINA,0)
 			del(in_chamber)
 			mouthshoot = 0
 			return
