@@ -524,7 +524,7 @@
 
 		if(M == user)
 			enter_pod(user)
-	if(istype(A,/obj/structure/ore_box)) // For loading ore boxes
+	if(istype(A, /obj/structure/ore_box)) // For loading ore boxes
 		var/obj/structure/ore_box/O = A
 		if(equipment_system.cargo_system && istype(equipment_system.cargo_system,/obj/item/device/spacepod_equipment/cargo/ore))
 			var/obj/item/device/spacepod_equipment/cargo/ore/C = equipment_system.cargo_system
@@ -838,8 +838,7 @@
 			if(equipment_system.cargo_system)
 				for (var/turf/T in locs)
 					for (var/obj/item/I in T.contents)
-						if(I.loc == T)
-							equipment_system.cargo_system.passover(I)
+						equipment_system.cargo_system.passover(I)
 
 	else
 		if(!battery)
