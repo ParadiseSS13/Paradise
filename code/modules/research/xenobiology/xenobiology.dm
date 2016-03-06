@@ -379,7 +379,7 @@
 
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/timestop.ogg', 100, 0, -1)
-	for(var/atom/a in freezerange)
+	for(var/atom/a in orange (freezerange, src.loc))
 		var/icon/i=new(initial(a.icon))
 		i.MapColors(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1)
 		a.icon=i
@@ -415,7 +415,7 @@
 	for(var/obj/item/projectile/P in stopped_atoms)
 		P.paused = FALSE
 
-	for(var/atom/a in freezerange) a.icon=initial(a.icon) //Reverts everything back to their original state
+	for(var/atom/a in orange (freezerange, src.loc)) a.icon=initial(a.icon) //Reverts everything back to their original state
 	qdel(src)
 	return
 
