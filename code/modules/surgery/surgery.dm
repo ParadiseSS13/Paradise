@@ -56,7 +56,7 @@
 	var/implement_type = null
 
 	// duration of the step
-	var/max_duration = 0
+	var/time = 10
 
 	var/name
 	var/accept_hand = 0				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
@@ -109,9 +109,9 @@
 	prob_chance *= get_location_modifier(target)
 
 	if(prob_chance > 100)//if we are using a super tool
-		max_duration = max_duration/prob_chance //PLACEHOLDER VALUES
+		time = time/prob_chance //PLACEHOLDER VALUES
 
-	if(do_after(user, max_duration, target = target))
+	if(do_after(user, time, target = target))
 
 
 		if(prob(prob_chance) || isrobot(user))

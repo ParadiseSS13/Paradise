@@ -24,7 +24,7 @@
 	/obj/item/weapon/hatchet = 75
 	)
 
-	max_duration = 70
+	time = 54
 
 /datum/surgery_step/open_encased/saw/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (!hasorgans(target))
@@ -77,7 +77,7 @@
 	/obj/item/weapon/crowbar = 75
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/open_encased/retract/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if (!hasorgans(target))
@@ -109,10 +109,6 @@
 
 	affected.open = 3
 
-	// Whoops!
-	if(prob(10) && !isrobot(user))
-		affected.fracture()//WTF WHY?!
-
 	return 1
 
 /datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -138,7 +134,7 @@
 	/obj/item/weapon/crowbar = 75
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/open_encased/close/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
@@ -195,7 +191,7 @@
 	/obj/item/weapon/screwdriver = 75
 	)
 
-	max_duration = 40
+	time = 24
 
 /datum/surgery_step/open_encased/mend/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 
