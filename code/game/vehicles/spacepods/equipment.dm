@@ -62,6 +62,7 @@
 	var/obj/spacepod/my_atom
 
 /obj/item/device/spacepod_equipment/proc/removed(var/mob/user) // So that you can unload cargo when you remove the module
+	return
 
 // base item for spacepod weapons
 
@@ -162,7 +163,10 @@
 	icon_state = "blank"
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
+	return
+
 /obj/item/device/spacepod_equipment/cargo/proc/unload()
+	return
 
 /obj/item/device/spacepod_equipment/cargo/ore
 	name = "\improper spacepod ore storage system"
@@ -172,12 +176,13 @@
 
 /obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
 	if(box && istype(I,/obj/item/weapon/ore))
-		I.loc = box
+		I.forceMove(box)
 
 /obj/item/device/spacepod_equipment/cargo/ore/unload()
 	if(box)
 		box.loc = get_turf(my_atom)
 		box = null
+
 /obj/item/device/spacepod_equipment/cargo/ore/removed(var/mob/user)
 	. = ..()
 	unload()
