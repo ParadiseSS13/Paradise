@@ -1,6 +1,6 @@
 /obj/item/pod_parts
 	parent_type = /obj/item/mecha_parts
-	icon = 'icons/pods/pod_parts.dmi'
+	icon = 'icons/goonstation/pods/pod_parts.dmi'
 
 /obj/item/pod_parts/core
 	name="Space Pod Core"
@@ -120,6 +120,6 @@
 
 /obj/item/pod_parts/armor
 	name = "civilian pod armor"
-	icon = 'icons/pods/pod_parts.dmi'
+	icon = 'icons/goonstation/pods/pod_parts.dmi'
 	icon_state = "pod_armor_civ"
 	desc = "Spacepod armor. This is the civilian version. It looks rather flimsy."
