@@ -1,6 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - rscadd: "People with VAREDIT can now write matrix variables"
-  - rscadd: "People with VAREDIT can now modify path variables"
-  - tweak: "Refactors the variable editor code somewhat."
