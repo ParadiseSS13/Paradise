@@ -159,7 +159,7 @@
 /obj/item/device/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/pods/ship.dmi'
+	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "blank"
 
 /obj/item/device/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
