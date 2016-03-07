@@ -83,5 +83,5 @@
 	var/datum/effect/system/spark_spread/sparks = new
 	sparks.set_up(4, 0, target.loc) //no idea what the 0 is
 	sparks.start()
-	playsound(target.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	..()
