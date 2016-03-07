@@ -1,0 +1,6 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - rscadd: "Gives Psychiatrist a paper bin, clipboard, and multicolored pen."
+  - rscadd: "Gives the Librarian / Jouralist a multicolored pen."
+  - rscadd: "Gives the NT Representative a clipboard."
