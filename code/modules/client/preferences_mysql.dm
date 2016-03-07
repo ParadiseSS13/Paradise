@@ -11,7 +11,6 @@
 					sound,
 					randomslot,
 					volume,
-					nanoui_fancy
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
