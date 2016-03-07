@@ -73,7 +73,7 @@
 	var/list/digsound = list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')
 	var/drill_verb = "picking"
 	sharp = 1
-
+	edge = 1
 	var/excavation_amount = 100
 
 /obj/item/weapon/pickaxe/proc/playDigSound()
