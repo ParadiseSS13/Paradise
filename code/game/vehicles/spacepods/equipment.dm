@@ -125,7 +125,7 @@
 	name = "burst mining laser system"
 	desc = "A mining laser system for space pods, this one fires 3 at a time"
 	icon_state = "pod_w_laser"
-	projectile_type = "/obj/item/projectile/kinetic/hyper"
+	projectile_type = "/obj/item/projectile/kinetic/hyper/podburst"
 	shot_cost = 1200
 	shots_per = 3
 	fire_delay = 30
