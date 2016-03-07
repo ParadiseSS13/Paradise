@@ -69,7 +69,7 @@
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	..()
-	if ((!(A) || src != A.loc))
+	if ((!(A) || !(src in A.locs)))
 		return
 
 	if(destination_z)
