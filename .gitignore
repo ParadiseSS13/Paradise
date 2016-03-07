@@ -16,4 +16,3 @@ data/
 /_maps/map_files/**/*.dmm.backup
 /nano/debug.html
 *.db
-code/_compile_options.dm
