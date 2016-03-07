@@ -5,6 +5,8 @@
 	var/datum/nano_module/crew_monitor/crew_monitor
 	var/datum/nano_module/law_manager/law_manager
 	var/datum/nano_module/power_monitor/silicon/power_monitor
+	var/datum/nano_module/camera_monitor/camera_monitor
+	
 
 /mob/living/silicon
 	var/list/silicon_subsystems = list(
@@ -18,7 +20,8 @@
 		/mob/living/silicon/proc/subsystem_atmos_control,
 		/mob/living/silicon/proc/subsystem_crew_monitor,
 		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
+		/mob/living/silicon/proc/subsystem_power_monitor,
+		/mob/living/silicon/proc/subsystem_camera_monitor
 	)
 	
 /mob/living/silicon/robot/drone
@@ -37,6 +40,7 @@
 	crew_monitor 	= new(src)
 	law_manager		= new(src)
 	power_monitor	= new(src)
+	camera_monitor	= new(src)
 
 	if(!register_alarms)
 		return
@@ -92,3 +96,11 @@
 
 	power_monitor.ui_interact(usr, state = self_state)
 
+/********************
+*	Camera Monitor	*
+********************/
+/mob/living/silicon/proc/subsystem_camera_monitor()
+	set category = "Subsystems"
+	set name = "Camera Monitor"
+
+	camera_monitor.ui_interact(usr, state = self_state)
