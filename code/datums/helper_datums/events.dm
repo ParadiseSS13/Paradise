@@ -24,7 +24,7 @@
 			return
 		addEventType(event_type)
 		var/list/event = events[event_type]
-		var/datum/event/E = new /datum/event(proc_holder,proc_name)
+		var/datum/events_event/E = new /datum/events_event(proc_holder,proc_name)
 		event += E
 		return E
 
@@ -35,14 +35,14 @@
 		var/list/event = listgetindex(events,args[1])
 		if(istype(event))
 			spawn(-1)
-				for(var/datum/event/E in event)
+				for(var/datum/events_event/E in event)
 					if(!E.Fire(arglist(args.Copy(2))))
 						clearEvent(args[1],E)
 		return
 
-	// Arguments: event_type as text, E as /datum/event
+	// Arguments: event_type as text, E as /datum/events_event
 	// Returns: 1 if event cleared, null on error
-	proc/clearEvent(event_type as text, datum/event/E)
+	proc/clearEvent(event_type as text, datum/events_event/E)
 		if(!event_type || !E)
 			return
 		var/list/event = listgetindex(events,event_type)
@@ -50,7 +50,7 @@
 		return 1
 
 
-/datum/event
+/datum/events_event
 	var/listener
 	var/proc_name
 

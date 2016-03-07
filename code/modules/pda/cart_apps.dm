@@ -127,14 +127,15 @@
 /datum/data/pda/app/crew_records/update_ui(mob/user as mob, list/data)
 	var/list/records[0]
 
-	if(general_records && general_records in data_core.general)
+	if(general_records && (general_records in data_core.general))
 		data["records"] = records
 		records["general"] = general_records.fields
 		return records
 	else
 		for(var/A in sortRecord(data_core.general))
 			var/datum/data/record/R = A
-			records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
+			if(R)
+				records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
 		data["recordsList"] = records
 		return null
 
@@ -142,7 +143,7 @@
 	switch(href_list["choice"])
 		if("Records")
 			var/datum/data/record/R = locate(href_list["target"])
-			if (R in data_core.general)
+			if (R && (R in data_core.general))
 				load_records(R)
 		if("Back")
 			general_records = null
@@ -165,7 +166,7 @@
 	if(!records)
 		return
 
-	if(medical_records && medical_records in data_core.medical)
+	if(medical_records && (medical_records in data_core.medical))
 		records["medical"] = medical_records.fields
 
 	return records
@@ -174,7 +175,7 @@
 	..(R)
 	for(var/A in data_core.medical)
 		var/datum/data/record/E = A
-		if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+		if (E && (E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			medical_records = E
 			break
 
@@ -191,7 +192,7 @@
 	if(!records)
 		return
 
-	if(security_records && security_records in data_core.security)
+	if(security_records && (security_records in data_core.security))
 		records["security"] = security_records.fields
 
 	return records
@@ -200,7 +201,7 @@
 	..(R)
 	for(var/A in data_core.security)
 		var/datum/data/record/E = A
-		if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
+		if (E && (E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
 			security_records = E
 			break
 
