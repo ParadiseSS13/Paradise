@@ -463,6 +463,8 @@ proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, 
 		if(roletext)
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
+		if(G.has_enabled_antagHUD)
+			continue
 		spawn(0)
 			G << 'sound/misc/notice2.ogg' //Alerting them to their consideration
 			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))
