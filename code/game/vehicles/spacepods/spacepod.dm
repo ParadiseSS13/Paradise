@@ -74,6 +74,8 @@
 	spacepods_list += src
 
 /obj/spacepod/Destroy()
+	if (equipment_system.cargo_system)
+		equipment_system.cargo_system.removed()
 	qdel(equipment_system)
 	equipment_system = null
 	qdel(battery)
