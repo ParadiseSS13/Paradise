@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - soundadd: "Implement's goon's gibbing sound"
+  - soundadd: "Implement's goon's gibbing sound for robots/silicons"
+  - sounddel: "Removes old gibbing sound"
