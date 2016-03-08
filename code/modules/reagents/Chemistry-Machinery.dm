@@ -583,7 +583,7 @@
 					return
 				name = reject_bad_text(name)
 				while (count--)
-					var/obj/item/weapon/reagent_containers/pill/P = new/obj/item/weapon/reagent_containers/pill(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/P = new/obj/item/weapon/reagent_containers/food/pill(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
 					P.pixel_x = rand(-7, 7) //random position
@@ -623,7 +623,7 @@
 					return
 				name = reject_bad_text(name)
 				while (count--)
-					var/obj/item/weapon/reagent_containers/pill/patch/P = new/obj/item/weapon/reagent_containers/pill/patch(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] patch"
 					P.pixel_x = rand(-7, 7) //random position
@@ -828,7 +828,7 @@
 
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
-		/obj/item/weapon/reagent_containers/pill = list(),
+		/obj/item/weapon/reagent_containers/food/pill = list(),
 		/obj/item/weapon/reagent_containers/food = list()
 	)
 
