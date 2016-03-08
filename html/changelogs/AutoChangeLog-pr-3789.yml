@@ -1,0 +1,6 @@
+author: Fethas
+delete-after: True
+changes: 
+  - bugfix: "the nest buckle now looks for the right organ path"
+  - bugfix: "Fixed some sprites."
+  - bugfix: "No more putting no drops in rechargers,"
