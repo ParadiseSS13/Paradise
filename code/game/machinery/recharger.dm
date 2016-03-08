@@ -16,6 +16,10 @@
 /obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob, params)
 	if(istype(user,/mob/living/silicon))
 		return
+
+	if(G.flags & NODROP)
+		user << "<span class='notice'>you can drop it to charge it!</span>"
+		return
 	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop) || istype(G, /obj/item/weapon/rcs))
 		if(charging)
 			return
