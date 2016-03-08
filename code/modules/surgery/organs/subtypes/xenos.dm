@@ -98,6 +98,8 @@
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
+	else//still should regen some plasma
+		owner.adjustPlasma(plasma_rate-5)//but at a lower rate
 
 /obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -114,6 +116,7 @@
 
 /obj/item/organ/internal/xenos/acidgland
 	name = "xeno acid gland"
+	icon_state = "acid"
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
@@ -122,6 +125,7 @@
 
 /obj/item/organ/internal/xenos/hivenode
 	name = "xeno hive node"
+	icon_state = "hivenode"
 	parent_organ = "head"
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
