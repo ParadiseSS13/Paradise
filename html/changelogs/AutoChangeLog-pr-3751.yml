@@ -1,5 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - bugfix: "Putting people in an active cryotube now produces the message on insertion, rather than release."
-  - bugfix: "An EMP'd cloning pod will now display its sprites correctly."
