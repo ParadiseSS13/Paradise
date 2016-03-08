@@ -412,23 +412,22 @@
 
 		for(var/mob/living/M in stopped_atoms)
 			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them (and invert their color)
-				M.icon=initial(M.icon)
 				unfreeze_mob(M)
 				stopped_atoms -= M
-				M.icon=initial(M.icon)
 		sleep(1)
 
 	//End
+	
+	for(var/obj/O in orange (freezerange, src.loc)) O.icon=initial(O.icon)  //Reverts everything back to their original state
+	for(var/mob/living/V in orange (freezerange, src.loc)) V.icon=initial(V.icon)
+	for(var/turf/simulated/S in orange (freezerange, src.loc)) S.icon=initial(S.icon)
+	
 	for(var/mob/living/M in stopped_atoms)
 		unfreeze_mob(M)
 
 	for(var/obj/item/projectile/P in stopped_atoms)
 		P.paused = FALSE
 
-
-	for(var/obj/O in orange (freezerange, src.loc)) O.icon=initial(O.icon)  //Reverts everything back to their original state
-	for(var/mob/living/V in orange (freezerange, src.loc)) V.icon=initial(V.icon)
-	for(var/turf/simulated/S in orange (freezerange, src.loc)) S.icon=initial(S.icon)
 	qdel(src)
 	return
 
