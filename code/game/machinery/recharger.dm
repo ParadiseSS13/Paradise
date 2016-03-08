@@ -17,9 +17,10 @@
 	if(istype(user,/mob/living/silicon))
 		return
 
-	if(G.flags & NODROP)
-		user << "<span class='notice'>you can drop it to charge it!</span>"
+	if(!user.canUnEquip(G, 0))
+		user << "<span class='warning'>[G] is stuck to your hand, you can't put it in [src]!</span>"
 		return
+
 	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G,/obj/item/device/laptop) || istype(G, /obj/item/weapon/rcs))
 		if(charging)
 			return
