@@ -21,6 +21,7 @@
 		required_reagents = list("cryostylane" = 1, "plasma" = 1, "acetone" = 1, "mutagen" = 1)
 		result_amount = 4
 		mix_message = "The solution bubbles softly."
+		mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 	spaceacillin
 		name = "Spaceacillin"

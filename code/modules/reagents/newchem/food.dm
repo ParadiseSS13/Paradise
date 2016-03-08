@@ -41,6 +41,7 @@ datum/reagent/triple_citrus
 	required_reagents = list("lemonjuice" = 1, "limejuice" = 1, "orangejuice" = 1)
 	result_amount = 3
 	mix_message = "The citrus juices begin to blend together."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/triple_citrus/reaction_mob(var/mob/living/carbon/M as mob, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living/carbon))
@@ -106,6 +107,7 @@ datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("carbon" = 1, "oxygen" = 1, "water" = 1, "sugar" = 1)
 	result_amount = 4
 	mix_message = "The mixture begins to fizz."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/honey
 	name = "Honey"
