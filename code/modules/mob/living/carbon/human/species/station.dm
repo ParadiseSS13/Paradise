@@ -399,7 +399,7 @@
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 	var/const/color_shift_trigger = 0.1
-	var/const/icon_update_period = 600 // 1 minute
+	var/const/icon_update_period = 200 // 20 seconds
 	var/const/blood_scaling_factor = 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
 	if((H in recolor_list) && H.reagents.total_volume > color_shift_trigger)
@@ -415,7 +415,8 @@
 				var/obj/item/organ/external/E = H.organs_by_name[organname]
 				if(istype(E) && E.dna.species == "Slime People")
 					E.sync_colour_to_human(H)
-			H.regenerate_icons() // Because update_icon didn't work
+			H.update_hair(0)
+			H.update_body()
 	return ..()
 
 /mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
@@ -478,8 +479,8 @@
 	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
 	var/chosen_limb = missing_limbs[limb_select]
 
-	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(regrowthdelay/10)] seconds)</span>")
-	if(do_after(src, regrowthdelay, needhand=0))
+	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(regrowthdelay/10)] seconds, and you must hold still.)</span>")
+	if(do_after(src, regrowthdelay, needhand=0, target = src))
 		if(stat || paralysis || stunned)
 			src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
 			return
@@ -513,28 +514,22 @@
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
 		var/obj/item/organ/external/new_limb = new limb_path(src)
+		new_limb.open = 0 // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		adjustBruteLoss(stored_brute)
 		adjustFireLoss(stored_burn)
 		update_body()
 		updatehealth()
 		UpdateDamageIcon()
 		nutrition -= hungercost
-		visible_message("<span class='notice'>[src] finishes regrowing their missing [limb_select]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		visible_message("<span class='notice'>[src] finishes regrowing their missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		src << "<span class='warning'>You need to hold still in order to regrow a limb!</span>"
 	return
-
-/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
-	..()
-	H.verbs += /mob/living/carbon/human/proc/regrow_limbs
-	H.verbs += /mob/living/carbon/human/verb/toggle_recolor_verb
 
 /datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
 	..()
 	if(H in recolor_list)
 		H.toggle_recolor(silent = 1)
-	H.verbs -= /mob/living/carbon/human/verb/toggle_recolor_verb
-	H.verbs -= /mob/living/carbon/human/proc/regrow_limbs
 
 /datum/species/grey
 	name = "Grey"
