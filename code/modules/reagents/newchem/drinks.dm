@@ -207,6 +207,4 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	result = "synthignon"
 	required_reagents = list("synthanol" = 1, "wine" = 1)
 	result_amount = 2
-	mix_message = "The ingredients mix into a dark brown substance."
-
 // ROBOT ALCOHOL ENDS
