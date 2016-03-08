@@ -49,10 +49,10 @@
 			if (used)
 				H << "You already used this contract!"
 				return
-			var/list/candidates = get_candidates(ROLE_WIZARD)
+			used = 1
+			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
 			if(candidates.len)
-				src.used = 1
-				var/client/C = pick(candidates)
+				var/mob/C = pick(candidates)
 				new /obj/effect/effect/harmless_smoke(H.loc)
 				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 				M.key = C.key
@@ -104,6 +104,7 @@
 				ticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
 			else
+				used = 0
 				H << "Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."
 	return
 
@@ -294,15 +295,16 @@ var/global/list/multiverse = list()
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
 		else
-			var/list/candidates = get_candidates(ROLE_WIZARD)
+			cooldown = world.time + cooldown_between_uses
+			for(var/obj/item/weapon/multisword/M in multiverse)
+				if(M.assigned == assigned)
+					M.cooldown = cooldown
+
+			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, 1, 100)
 			if(candidates.len)
-				var/client/C = pick(candidates)
-				spawn_copy(C, get_turf(user.loc), user)
+				var/mob/C = pick(candidates)
+				spawn_copy(C.client, get_turf(user.loc), user)
 				user << "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>"
-				cooldown = world.time + cooldown_between_uses
-				for(var/obj/item/weapon/multisword/M in multiverse)
-					if(M.assigned == assigned)
-						M.cooldown = cooldown
 
 			else
 				user << "You fail to summon any copies of yourself. Perhaps you should try again in a bit."
@@ -310,26 +312,26 @@ var/global/list/multiverse = list()
 		user << "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>"
 
 
-/obj/item/weapon/multisword/proc/spawn_copy(var/client/C, var/turf/T)
+/obj/item/weapon/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
-		usr.client.prefs.copy_to(M)
+		user.client.prefs.copy_to(M)
 	else
 		C.prefs.copy_to(M)
 	M.key = C.key
-	M.mind.name = usr.real_name
-	M << "<B>You are an alternate version of [usr.real_name] from another universe! Help them accomplish their goals at all costs.</B>"
-	M.faction = list("[usr.real_name]")
+	M.mind.name = user.real_name
+	M << "<B>You are an alternate version of [user.real_name] from another universe! Help them accomplish their goals at all costs.</B>"
+	M.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(usr.get_species()) //duplicate the sword user's species.
+		M.set_species(user.get_species()) //duplicate the sword user's species.
 	else
 		if(prob(50))
 			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin")
 			M.set_species(pick(all_species))
-	M.real_name = usr.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
-	M.name = usr.real_name
+	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
+	M.name = user.real_name
 	if(duplicate_self)
-		M.dna = usr.dna.Clone()
+		M.dna = user.dna.Clone()
 		M.UpdateAppearance()
 		domutcheck(M, null)
 	M.update_body()

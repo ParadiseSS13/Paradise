@@ -1355,7 +1355,7 @@ var/list/robot_verbs_default = list(
 	if(isnull(ckey) && !searching_for_ckey)
 		searching_for_ckey = 1
 		user << "<span class='notice'>Now checking for possible borgs.</span>"
-		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?", poll_time = 300)
+		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?")
 		if(borg_candidates.len > 0 && isnull(ckey))
 			searching_for_ckey = 0
 			var/mob/M = pick(borg_candidates)
