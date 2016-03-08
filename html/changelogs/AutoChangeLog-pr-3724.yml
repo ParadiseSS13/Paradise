@@ -1,8 +1,0 @@
-author: KasparoVy
-delete-after: True
-changes: 
-  - tweak: "Jackets who have the verb available but are not intended to be adjusted will not have the action button available."
-  - bugfix: "You can now adjust breath masks while buckled into beds and chairs."
-  - bugfix: "Known issues with adjusted jackets using the wrong sprites."
-  - rscadd: "Blueshield coat in hand and item icons."
-  - rscadd: "Hulks now rip apart adjustable and droppable jackets. The items stored in the jackets get dropped on the ground."
