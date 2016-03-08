@@ -98,8 +98,6 @@
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
-	else//still should regen some plasma
-		owner.adjustPlasma(plasma_rate-5)//but at a lower rate
 
 /obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
