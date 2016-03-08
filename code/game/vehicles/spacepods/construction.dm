@@ -5,7 +5,7 @@
 	anchored = 1
 	layer = 3.9
 
-	icon = 'icons/48x48/pod_construction.dmi'
+	icon = 'icons/goonstation/48x48/pod_construction.dmi'
 	icon_state = "pod_1"
 
 	var/datum/construction/construct
