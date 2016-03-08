@@ -74,13 +74,14 @@
 	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
 	reagent_state = LIQUID
 	color = "#1BB1FF"
-	process_flags = SYNTHETIC
+	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.4
 	vomit_start = INFINITY		//
 	blur_start = INFINITY		//
 	pass_out = INFINITY			//INFINITY, so that IPCs don't puke and stuff
-	var/collapse_start = 200	//amount absorbed after wich mob starts collapsing
-	var/braindamage_start = 300 //amount absorbed after which mob starts taking small amount of brain damage
+	var/spark_start = 50	//amount absorbed after which mob starts sparking
+	var/collapse_start = 150	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
+	var/braindamage_start = 250 //amount absorbed after which mob starts taking a small amount of brain damage
 
 
 /datum/chemical_reaction/synthanol
@@ -93,16 +94,32 @@
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
-	var/d = data 
+	var/d = data
+	if(M.get_species() == "Machine")
+		if(d >= spark_start && prob(25))
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			s.set_up(3, 1, M)
+			s.start()
+		if(d >= collapse_start && prob(10))
+			M.emote("collapse")
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			s.set_up(3, 1, M)
+			s.start()
+		if(d >= braindamage_start && prob(33))
+			M.adjustBrainLoss(1)
+		..()
+	else
+		if(prob(8))
+			M.fakevomit()
 
-	if(d >= collapse_start && prob(10))
-		M.emote("collapse")
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(3, 1, M)
-		s.start()
-	if(d >= braindamage_start && prob(33))
-		M.adjustBrainLoss(1)
-	..()
+
+datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return
+	if(M.get_species()=="Machine")
+		return
+	if(method == INGEST)
+		M << pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>")
 
 /datum/reagent/ethanol/synthanol/robottears
 	name = "Robot Tears"
@@ -147,6 +164,49 @@
 	result = "servo"
 	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
 	result_amount = 4
+	mix_message = "The ingredients mix into a dark brown substance."
+
+/datum/reagent/ethanol/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
+	reagent_state = LIQUID
+	color = "#e7ae04"
+
+/datum/chemical_reaction/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	result = "uplink"
+	required_reagents = list("rum" = 1, "vodka" = 1, "wine" = 1, "whiskey" = 1, "synthanol" = 1)
+	result_amount = 5
+
+/datum/reagent/ethanol/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	description = "The classic drink adjusted for a robot's tastes."
+	reagent_state = LIQUID
+	color = "#7204e7"
+
+/datum/chemical_reaction/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	result = "synthnsoda"
+	required_reagents = list("synthanol" = 1, "cola" = 1)
+	result_amount = 2
+
+/datum/reagent/ethanol/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
+	reagent_state = LIQUID
+	color = "#d004e7"
+
+/datum/chemical_reaction/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	result = "synthignon"
+	required_reagents = list("synthanol" = 1, "wine" = 1)
+	result_amount = 2
 	mix_message = "The ingredients mix into a dark brown substance."
 
 // ROBOT ALCOHOL ENDS
