@@ -879,6 +879,10 @@
 	if(!malfunctioning)
 		malfunctioning = 1
 
+/obj/item/weapon/lazarus_injector/emp_act()
+	if(!malfunctioning)
+		malfunctioning = 1
+
 /obj/item/weapon/lazarus_injector/examine(mob/user)
 	..(user)
 	if(!loaded)
