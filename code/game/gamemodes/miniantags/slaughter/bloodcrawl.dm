@@ -92,7 +92,7 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = NODROP
+	flags = NODROP|ABSTRACT
 
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
 	if(src.notransform)
@@ -136,38 +136,6 @@
 		spawn(30)
 			src.color = oldcolor
 
-/obj/effect/decal/cleanable/blood/CtrlClick(mob/living/user)
-	..()
-	if(user.bloodcrawl)
-		if(user.holder)
-			user.phasein(src)
-		else
-			user.phaseout(src)
-
-
-
-/obj/effect/decal/cleanable/trail_holder/CtrlClick(mob/living/user)
-	..()
-	if(user.bloodcrawl)
-		if(user.holder)
-			user.phasein(src)
-		else
-			user.phaseout(src)
-
-
-
-/turf/CtrlClick(var/mob/living/user)
-	..()
-	if(user.bloodcrawl)
-		for(var/obj/effect/decal/cleanable/B in src.contents)
-			if(istype(B, /obj/effect/decal/cleanable/blood) || istype(B, /obj/effect/decal/cleanable/trail_holder))
-				if(user.holder)
-					user.phasein(B)
-					break
-				else
-					user.phaseout(B)
-					break
-
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
@@ -176,19 +144,14 @@
 	density = 0
 	anchored = 1
 
-/obj/effect/dummy/slaughter/relaymove(var/mob/user, direction)
-	if (!src.canmove || !direction) return
-	var/turf/newLoc = get_step(src,direction)
-	loc = newLoc
-	src.canmove = 0
-	spawn(1)
-		src.canmove = 1
+/obj/effect/dummy/slaughter/relaymove(mob/user, direction)
+	forceMove(get_step(src,direction))
 
-/obj/effect/dummy/slaughter/ex_act(severity)
-	return 1
-
-/obj/effect/dummy/slaughter/bullet_act(blah)
+/obj/effect/dummy/slaughter/ex_act()
 	return
 
-/obj/effect/dummy/slaughter/singularity_act(blah)
+/obj/effect/dummy/slaughter/bullet_act()
+	return
+
+/obj/effect/dummy/slaughter/singularity_act()
 	return
