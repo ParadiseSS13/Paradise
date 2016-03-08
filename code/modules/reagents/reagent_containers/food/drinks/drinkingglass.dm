@@ -583,7 +583,7 @@
 				if("synthnsoda")
 					icon_state = "synthnsodaglass"
 					name = "Glass of Synth 'n Soda"
-					desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+					desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're a carbon-based lifeform."
 				if("synthignon")
 					icon_state = "synthignonglass"
 					name = "Glass of Synthignon"
@@ -591,11 +591,11 @@
 				if("uplink")
 					icon_state = "uplinkglass"
 					name = "Glass of Uplink"
-					desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+					desc = "An exquisite mix of the finest liquors and synthanol. Meant only for synthetics."
 				if("holywater")
 					icon_state = "glass_clear"
-					name = "Glass of Holy Water"
-					desc = "The contents of this glass seem to be filled with an energy of some kind."
+					name = "Glass of Water"
+					desc = "The father of all refreshments."//same as normal water to make the two indistinguishable
 
 
 				else

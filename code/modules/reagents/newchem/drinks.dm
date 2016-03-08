@@ -95,7 +95,7 @@
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
 	var/d = data
-	if(M.get_species() == "Machine")
+	if(M.isSynthetic())
 		if(d >= spark_start && prob(25))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, M)
@@ -116,7 +116,7 @@
 datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
-	if(M.get_species()=="Machine")
+	if(M.get_species() == "Machine")
 		return
 	if(method == INGEST)
 		M << pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>")
