@@ -573,6 +573,7 @@
 	name = "Exosuit Medical Equipment (Mounted Sleeper)"
 	id = "mech_sleeper"
 	build_type = MECHFAB
+	req_tech = list("biotech" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/sleeper
 	materials = list(MAT_METAL=5000,MAT_GLASS=10000)
 	construction_time = 100
@@ -582,6 +583,7 @@
 	name = "Exosuit Medical Equipment (Syringe Gun)"
 	id = "mech_syringe_gun"
 	build_type = MECHFAB
+	req_tech = list("magnets" = 3,"biotech" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/tool/syringe_gun
 	materials = list(MAT_METAL=3000,MAT_GLASS=2000)
 	construction_time = 200
@@ -600,6 +602,7 @@
 	name = "Exosuit Weapon (PBT \"Pacifier\" Mounted Taser)"
 	id = "mech_taser"
 	build_type = MECHFAB
+	req_tech = list("combat" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
@@ -609,6 +612,7 @@
 	name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
 	id = "mech_lmg"
 	build_type = MECHFAB
+	req_tech = list("combat" = 2)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
