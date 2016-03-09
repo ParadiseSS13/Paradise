@@ -170,6 +170,10 @@
 	name = "Circuit Board (RD Console - Public)"
 	build_path = /obj/machinery/computer/rdconsole/public
 	id = 5
+/obj/item/weapon/circuitboard/rdconsole/medical
+	name = "Circuit Board (RD Console - Public)"
+	build_path = /obj/machinery/computer/rdconsole/medical
+	id = 6
 
 
 /obj/item/weapon/circuitboard/mecha_control
