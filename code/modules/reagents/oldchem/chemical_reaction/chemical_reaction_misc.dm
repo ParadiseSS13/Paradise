@@ -172,6 +172,7 @@
 		required_reagents = list("mercury" = 1, "sugar" = 1, "lithium" = 1)
 		result_amount = 3
 		mix_message = "Slightly dizzying fumes drift from the solution."
+		mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 	lube
 		name = "Space Lube"

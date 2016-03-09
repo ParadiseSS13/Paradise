@@ -170,6 +170,7 @@
 	result = "blackpowder"
 	required_reagents = list("saltpetre" = 1, "charcoal" = 1, "sulfur" = 1)
 	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/blackpowder_explosion
 	name = "Black Powder Kaboom"
@@ -479,6 +480,7 @@ datum/reagent/cryostylane
 	result = "cryostylane"
 	required_reagents = list("water" = 1, "plasma" = 1, "nitrogen" = 1)
 	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/cryostylane/on_mob_life(var/mob/living/M as mob) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
@@ -557,6 +559,7 @@ datum/reagent/firefighting_foam
 	required_reagents = list("carbon" = 1, "chlorine" = 1, "sulfur" = 1)
 	result_amount = 3
 	mix_message = "The mixture bubbles gently."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/firefighting_foam/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
