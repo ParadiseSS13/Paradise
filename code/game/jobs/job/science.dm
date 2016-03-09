@@ -20,7 +20,7 @@
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
-		/datum/job_objective/maximize_research
+		/datum/job_objective/further_research
 	)
 
 	equip(var/mob/living/carbon/human/H)
@@ -58,7 +58,7 @@
 
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives=list(
-		/datum/job_objective/maximize_research
+		/datum/job_objective/further_research
 	)
 
 	equip(var/mob/living/carbon/human/H)
@@ -94,7 +94,6 @@
 
 	required_objectives=list(
 		/datum/job_objective/make_cyborg,
-//		/datum/job_objective/make_mommi,
 		/datum/job_objective/make_ripley
 	)
 

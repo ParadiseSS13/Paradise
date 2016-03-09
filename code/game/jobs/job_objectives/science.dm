@@ -9,6 +9,7 @@
 
 /datum/job_objective/further_research/get_description()
 	var/desc = "Research tech levels, and have cargo ship them to centcomm."
+	desc += "([units_completed] completed.)"
 	return desc
 
 /datum/job_objective/maximize_research/check_for_completion()
