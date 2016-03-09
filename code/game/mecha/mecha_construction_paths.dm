@@ -86,6 +86,9 @@
 
 /datum/construction/mecha/ripley_chassis/spawn_result()
 	var/obj/item/mecha_parts/chassis/const_holder = holder
+	var/datum/job_objective/make_ripley/task = user.mind.findJobTask(/datum/job_objective/make_ripley)
+	if(istype(task))
+		task.unit_completed()
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
 	const_holder.icon_state = "ripley0"
@@ -575,6 +578,9 @@
 
 /datum/construction/mecha/firefighter_chassis/spawn_result()
 	var/obj/item/mecha_parts/chassis/const_holder = holder
+	var/datum/job_objective/make_ripley/task = user.mind.findJobTask(/datum/job_objective/make_ripley)
+	if(istype(task))
+		task.unit_completed()
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
 	const_holder.icon_state = "fireripley0"
