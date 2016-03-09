@@ -447,6 +447,7 @@
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
 			P.info += "[printing_text]"
