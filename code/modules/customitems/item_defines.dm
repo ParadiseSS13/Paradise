@@ -283,22 +283,78 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
-/obj/item/clothing/under/fluff/tactical_suit //chronx100: Hughe O'Splash
-	name = "Hughe O'Splash's tactical suit"
-	desc = "A very comfortable suit that covers your entire body; it makes you feel very stealthy."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chronx_suit"
-	item_state = "chronx_suit"
-	item_color = "chronxsuit"
+/obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
+	transform_into = /obj/item/weapon/nullrod/sword/fluff/chronx
+	transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
 
-/obj/item/clothing/mask/fluff/tactical_balaclava //chronx100: Hughe O'Splash
-	name = "Hughe O'Splash's tactical balaclava"
-	desc = "Keeps your face warm and tactical during those cold space winter months, sadly it's not so effective against the cold void of space itself."
+/obj/item/weapon/nullrod/sword/fluff/chronx
+	name = "Soul Collector"
+	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "chronx_balaclava"
-	item_state = "chronx_balaclava"
-	flags = BLOCKHAIR
-	w_class = 2
+	icon_state = "chronx_scythe"
+	item_state = "chronx_scythe"
+
+/obj/item/clothing/head/fluff/chronx //chronx100: Hughe O'Splash
+	name = "Cthulhu's Hood"
+	desc = "Hood worn by the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "chronx_hood"
+	item_state = "chronx_hood"
+	flags = HEADCOVERSEYES | BLOCKHAIR
+	action_button_name = "Transform Hood"
+	var/adjusted = 0
+
+/obj/item/clothing/head/fluff/chronx/ui_action_click()
+	adjust()
+
+/obj/item/clothing/head/fluff/chronx/verb/adjust()
+	set name = "Transform Hood"
+	set category = "Object"
+	set src in usr
+	if(!istype(usr, /mob/living))
+		return
+	if(!usr.incapacitated())
+		if(adjusted)
+			icon_state = initial(icon_state)
+			item_state = initial(item_state)
+			usr << "You untransform \the [src]."
+			adjusted = 0
+		else
+			icon_state += "_open"
+			item_state += "_open"
+			usr << "You transform \the [src]."
+			adjusted = 1
+		usr.update_inv_head()
+
+/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx //chronx100: Hughe O'Splash
+	name = "Cthulhu's Robes"
+	desc = "Robes worn by  the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "chronx_robe"
+	item_state = "chronx_robe"
+	flags = ONESIZEFITSALL
+	action_button_name = "Transform Robes"
+	adjust_flavour = "untransform"
+	ignore_suitadjust = 0
+
+/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/New()
+	..()
+	verbs -= /obj/item/clothing/suit/verb/openjacket
+
+/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx/verb/adjust()
+	set name = "Transform Robes"
+	set category = "Object"
+	set src in usr
+	if(!istype(usr, /mob/living))
+		return
+	adjustsuit(usr)
+
+/obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
+	name = "Cthulhu's Boots"
+	desc = "Boots worn by the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "chronx_shoes"
+	item_state = "chronx_shoes"
 
 /obj/item/clothing/suit/armor/vest/fluff/tactical //m3hillus: Medusa Schlofield
 	name = "tactical armor vest"
