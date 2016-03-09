@@ -311,7 +311,7 @@
 	set name = "Transform Hood"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living))
+	if(!isliving(src))
 		return
 	if(!usr.incapacitated())
 		if(adjusted)

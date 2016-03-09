@@ -486,8 +486,10 @@ BLIND     // can't see anything
 	set name = "Open/Close Jacket"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+	if(!isliving(usr))
+		return
+	if(usr.stat)
+		return
 	adjustsuit(user)
 
 /obj/item/clothing/suit/ui_action_click() //This is what happens when you click the HUD action button to adjust your suit.
