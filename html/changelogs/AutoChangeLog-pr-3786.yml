@@ -1,0 +1,6 @@
+author: TheDZD
+delete-after: True
+changes: 
+  - rscadd: "Adds justice helmets with flashing lights and annoying sirens."
+  - rscadd: "Adds crates containing said helmets."
+  - rscadd: "Also includes a version of the helmet that can only be spawned by admins, and just has a single red light in the center instead of the stereotypical police blinkers."
