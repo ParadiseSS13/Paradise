@@ -302,7 +302,6 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	action_button_name = "Flip welding goggles"
-	var/up = 0
 	flash_protect = 2
 	tint = 2
 	species_fit = list("Vox")

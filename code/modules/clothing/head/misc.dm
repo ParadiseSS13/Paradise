@@ -338,7 +338,6 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR|NODROP
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	var/cooldown = 0
 	action_button_name = "Caw"
 
 /obj/item/clothing/head/griffin/attack_self()

@@ -11,7 +11,7 @@
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.master = src
 
-		playsound(src.loc, 'sound/effects/gib.ogg', 100, 1, 10)
+		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(istype(loc,/turf))
