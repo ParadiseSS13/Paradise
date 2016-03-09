@@ -1,9 +1,0 @@
-author: Crazylemon64
-delete-after: True
-changes: 
-  - tweak: "Slime people are now more vulnerable to low temperatures."
-  - rscadd: "Slime people are able to slowly regrow limbs at a high nutrition cost."
-  - rscadd: "Slime people now slowly shift color based on reagents inside of them - disabled by default, toggle it with an IC verb"
-  - tweak: "Slime people's cores are more vulnerable to damage"
-  - bugfix: "Species-related abilities now properly are removed - no more vox hair stylists, unfortunately."
-  - tweak: "Organs that lack encasing bones will be less able to protect the internal organs when bludgeoned"

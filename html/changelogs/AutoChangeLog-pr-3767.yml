@@ -1,7 +1,0 @@
-author: Tastyfish
-delete-after: True
-changes: 
-  - rscadd: "Mimes now have a new ore, Tranquillite, used to bring peace and quiet to the station."
-  - rscadd: "There are also permanent invisible walls and silent floors that can be made from tranquillite."
-  - rscadd: "The Recitence mech is now buildable!"
-  - tweak: "The Recitence mech is now playable!"
