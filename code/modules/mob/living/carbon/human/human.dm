@@ -1490,6 +1490,8 @@
 		if(species.default_language)
 			remove_language(species.default_language)
 
+		species.handle_pre_change(src)
+
 	species = all_species[new_species]
 
 	if(oldspecies)
