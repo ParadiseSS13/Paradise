@@ -261,8 +261,9 @@
 	mineral = "clown"
 
 /obj/machinery/door/airlock/mime
-	name = "Airlock"
+	name = "Tranquillite Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
+	mineral = "mime"
 
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"

@@ -351,6 +351,8 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/silence_steps = 0
+	var/shoe_sound_footstep = 1
+	var/shoe_sound = null
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
@@ -395,6 +397,25 @@ BLIND     // can't see anything
 			return
 	else
 		..()
+
+/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
+	if(shoe_sound)
+		var/turf/T = get_turf(H)
+
+		if(!istype(H) || !istype(T))
+			return 0
+
+		if(H.m_intent == "run")
+			if(shoe_sound_footstep >= 2)
+				if(T.shoe_running_volume)
+					playsound(src, shoe_sound, T.shoe_running_volume, 1)
+				shoe_sound_footstep = 0
+			else
+				shoe_sound_footstep++
+		else if(T.shoe_walking_volume)
+			playsound(src, shoe_sound, T.shoe_walking_volume, 1)
+
+	return 1
 
 /obj/item/proc/negates_gravity()
 	return 0

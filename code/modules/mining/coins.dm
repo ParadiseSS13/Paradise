@@ -64,6 +64,12 @@
 	materials = list(MAT_BANANIUM = 400)
 	credits = 600 //makes the clown cri
 
+/obj/item/weapon/coin/mime
+	cmineral = "tranquillite"
+	icon_state = "coin_tranquillite_heads"
+	materials = list(MAT_TRANQUILLITE = 400)
+	credits = 600 //makes the mime cri
+
 /obj/item/weapon/coin/adamantine
 	cmineral = "adamantine"
 	icon_state = "coin_adamantine_heads"
