@@ -46,11 +46,6 @@ proc/random_hair_style(var/gender, species = "Human")
 			continue
 		if( !(species in S.species_allowed))
 			continue
-		if(species == "Machine")
-			if(!(organs_data["head"]) && !(findtext(S.name, "IPC"))) //If an IPC character has the default head, they can't have anything but their screens.
-				continue
-			else if(organs_data["head"] && findtext(S.name, "IPC"))
-				continue
 
 		valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
 
@@ -83,9 +78,6 @@ proc/random_facial_hair_style(var/gender, species = "Human")
 			continue
 		if( !(species in S.species_allowed))
 			continue
-		if(species == "Machine")
-			if(!(findtext(S.name, "IPC")))
-				continue
 
 		valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
 

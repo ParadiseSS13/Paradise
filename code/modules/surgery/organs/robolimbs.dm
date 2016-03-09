@@ -8,7 +8,7 @@ var/global/datum/robolimb/basic_robolimb
 		var/datum/robolimb/R = new limb_type()
 		all_robolimbs[R.company] = R
 		if(!R.unavailable_at_chargen)
-			if(!(R == "head") && !(R == "chest") && !(R == "groin" )) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
 				chargen_robolimbs[R.company] = R
 
 /datum/robolimb

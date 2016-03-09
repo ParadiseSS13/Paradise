@@ -462,7 +462,7 @@ var/global/list/damage_icon_parts = list()
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && src.get_species() != "Machine" )//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
-			if(src.species.name in hair_style.species_allowed)
+			if((src.species.name in hair_style.species_allowed) || (src.species.flags & ALL_RPARTS))
 				var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 				if(src.get_species() == "Slime People") // I am el worstos
 					hair_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)
@@ -500,7 +500,7 @@ var/global/list/damage_icon_parts = list()
 	if(f_style)
 		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if(src.species.name in facial_hair_style.species_allowed)
+			if((src.species.name in facial_hair_style.species_allowed) | (src.species.flags & ALL_RPARTS))
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(src.get_species() == "Slime People") // I am el worstos
 					facial_s.Blend(rgb(r_skin, g_skin, b_skin, 160), ICON_AND)

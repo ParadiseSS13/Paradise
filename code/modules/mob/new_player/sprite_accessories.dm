@@ -42,7 +42,7 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human", "Slime People", "Machine")
+	var/list/species_allowed = list("Human", "Slime People")
 
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -64,7 +64,7 @@
 		name = "Bald"
 		icon_state = "bald"
 		gender = MALE
-		species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skeleton")
+		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton")
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
@@ -495,7 +495,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin", "Slime People", "Machine")
+		species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
 
 	watson
 		name = "Watson Mustache"
@@ -536,7 +536,7 @@
 	elvis
 		name = "Elvis Sideburns"
 		icon_state = "facial_elvis"
-		species_allowed = list("Human","Unathi","Machine")
+		species_allowed = list("Human","Unathi")
 
 	abe
 		name = "Abraham Lincoln Beard"
@@ -1690,7 +1690,7 @@
 
 /datum/sprite_accessory/head_accessory
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Vulpkanin", "Tajaran")
+	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/none
@@ -1777,6 +1777,11 @@
 	name = "Tajaran Ears"
 	icon_state = "ears_plain"
 	species_allowed = list("Tajaran")
+
+/datum/sprite_accessory/head_accessory/ipc_antennae
+	name = "Antennae"
+	icon_state = "antennae"
+	species_allowed = list("Machine")
 
 /* BODY MARKINGS */
 

@@ -446,7 +446,7 @@ var/list/admin_verbs_proccall = list (
 /client/proc/big_brother()
 	set category = "Admin"
 	set name = "Big Brother Mode"
-	
+
 	if(!check_rights(R_PERMISSIONS))
 		return
 

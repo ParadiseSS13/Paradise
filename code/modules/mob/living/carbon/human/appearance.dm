@@ -169,6 +169,7 @@
 	return valid_species
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
+	var/mob/living/carbon/human/user = usr
 	var/list/valid_hairstyles = new()
 	for(var/hairstyle in hair_styles_list)
 		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
@@ -177,18 +178,29 @@
 			continue
 		if(gender == FEMALE && S.gender == MALE)
 			continue
-		if(!(species.name in S.species_allowed))
-			continue
-		if(species.name == "Machine")
-			if (!(organs_data["head"]) && !(findtext(S.name, "IPC"))) //If an IPC character has the default head, they can't have anything but their screens.
+		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+			if((species.name in S.species_allowed)) //If this is a hairstyle native to the user's species...
+				if(!user.client.prefs.rlimb_data["head"]) //Check to see if they have the default head.
+					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
+					continue
+				else //If they don't have the default head, they shouldn't be getting any hairstyles they wouldn't normally.
+					continue
+			else
+				if(!user.client.prefs.rlimb_data["head"]) //If the hairstyle is not native to the user's species, and they're using the default head, don't let them access it.
+					continue
+				else
+					if(("Human" in S.species_allowed)) //If the user has a robotic head and the hairstyle can fit humans, let them use it as a wig for their humanoid robot head.
+						valid_hairstyles += hairstyle
+					continue
+		else
+			if(!(species.name in S.species_allowed)) //If the user is not a species who can have robotic heads, use the default handling.
 				continue
-			else if(organs_data["head"] && findtext(S.name, "IPC")) //Otherwise, if an IPC character has an alternate head, they cannot use screens.
-				continue
-		valid_hairstyles += hairstyle
+			valid_hairstyles += hairstyle
 
 	return valid_hairstyles
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
+	var/mob/living/carbon/human/user = usr
 	var/list/valid_facial_hairstyles = new()
 	for(var/facialhairstyle in facial_hair_styles_list)
 		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
@@ -197,11 +209,23 @@
 			continue
 		if(gender == FEMALE && S.gender == MALE)
 			continue
-		if(!(species.name in S.species_allowed))
-			continue
-		if(species == "Machine" && !(organs_data["head"]))
-			if(!(S.name == "Shaved"))
+		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+			if((species.name in S.species_allowed)) //If this is a facial hair style native to the user's species...
+				if(!user.client.prefs.rlimb_data["head"]) //Check to see if they have the default head.
+					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
+					continue
+				else //If they don't have the default head, they shouldn't be getting any facial hair styles they wouldn't normally.
+					continue
+			else
+				if(!user.client.prefs.rlimb_data["head"]) //If the facial hair style is not native to the user's species, and they're using the default head, don't let them access it.
+					continue
+				else
+					if(("Human" in S.species_allowed)) //If the user has a robotic head and the facial hair style can fit humans, let them use it as a postiche for their humanoid robot head.
+						valid_facial_hairstyles += facialhairstyle
+					continue
+		else //If the user is not a species who can have robotic heads, use the default handling.
+			if(!(species.name in S.species_allowed))
 				continue
-		valid_facial_hairstyles += facialhairstyle
+			valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles

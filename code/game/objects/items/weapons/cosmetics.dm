@@ -95,6 +95,10 @@
 			if(!get_location_accessible(H, "mouth"))
 				user << "<span class='warning'>The mask is in the way.</span>"
 				return
+			if(H.species && H.species.flags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, but doesn't have one...
+				if(!H.client.prefs.rlimb_data["head"])
+					user << "<span class='warning'>You find yourself disappointed at the astonishing lack of facial hair.</span>"
+					return
 			if(H.f_style == "Shaved")
 				user << "<span class='notice'>Already clean-shaven.</span>"
 				return
@@ -123,6 +127,10 @@
 			if(!get_location_accessible(H, "head"))
 				user << "<span class='warning'>The headgear is in the way.</span>"
 				return
+			if(H.species && H.species.flags & ALL_RPARTS) //If the target is of a species that can have prosthetic heads, but doesn't have one...
+				if(!H.client.prefs.rlimb_data["head"])
+					user << "<span class='warning'>You find yourself disappointed at the astonishing lack of hair.</span>"
+					return
 			if(H.h_style == "Bald" || H.h_style == "Balding Hair" || H.h_style == "Skinhead")
 				user << "<span class='notice'>There is not enough hair left to shave...</span>"
 				return

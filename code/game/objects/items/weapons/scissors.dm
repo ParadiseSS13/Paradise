@@ -30,15 +30,18 @@
 		//this is largely copypasted from there.
 		//handle facial hair (if necessary)
 		var/list/species_facial_hair = list()
-		if(H.gender == MALE || H.get_species() == "Vulpkanin" || H.get_species() == "Machine")
+		if(H.gender == MALE || H.get_species() == "Vulpkanin")
 			if(H.species)
 				for(var/i in facial_hair_styles_list)
 					var/datum/sprite_accessory/facial_hair/tmp_facial = facial_hair_styles_list[i]
-					if(H.species.name in tmp_facial.species_allowed)
-						if(H.species.name == "Machine")
-							if(!(organs_data["head"])) //If they have the default Morpheus head, get us out of here. No facial hair to speak of. Otherwise, they got facial hair (albeit fake) so it's all good!
-								return
+					if(H.species.name in tmp_facial.species_allowed)  //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human hair styles.
 						species_facial_hair += i
+					else
+						if(H.species.flags & ALL_RPARTS)
+							if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_facial.species_allowed))
+								species_facial_hair += i
+							else
+								return
 			else
 				species_facial_hair = facial_hair_styles_list
 		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in species_facial_hair
@@ -47,14 +50,16 @@
 		if(H.species)
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if(H.species.name in tmp_hair.species_allowed)
-					if(H.species.name == "Machine")
-						if(!(organs_data["head"])) //If they have the default Morpheus head, you can't be messing with their display.
-							return
-						else
-							if(findtext(tmp_hair.name, "IPC")) //Otherwise, just exclude the 'display' hairstyles so you can mess with their fake hair.
-								continue
+				if(H.species.name in tmp_hair.species_allowed) //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human facial hair styles.
+					if((H.species.flags & ALL_RPARTS) && !("head" in H.client.prefs.rlimb_data))
+						return
 					species_hair += i
+				else
+					if(H.species.flags & ALL_RPARTS)
+						if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_hair.species_allowed))
+							species_facial_hair += i
+						else
+							return
 		else
 			species_hair = hair_styles_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
