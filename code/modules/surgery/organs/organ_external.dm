@@ -261,10 +261,10 @@
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
 
-#undefine LIMB_SHARP_THRESH_INT_DMG
-#undefine LIMB_THRESH_INT_DMG
-#undefine LIMB_DMG_PROB
-#undefine LIMB_NO_BONE_DMG_PROB
+#undef LIMB_SHARP_THRESH_INT_DMG
+#undef LIMB_THRESH_INT_DMG
+#undef LIMB_DMG_PROB
+#undef LIMB_NO_BONE_DMG_PROB
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(status & ORGAN_ROBOT && !robo_repair)

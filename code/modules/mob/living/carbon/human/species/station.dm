@@ -420,9 +420,9 @@
 			H.update_body()
 	return ..()
 
-#undefine SLIMEPERSON_COLOR_SHIFT_TRIGGER
-#undefine SLIMEPERSON_ICON_UPDATE_PERIOD
-#undefine SLIMEPERSON_BLOOD_SCALING_FACTOR
+#undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
+#undef SLIMEPERSON_ICON_UPDATE_PERIOD
+#undef SLIMEPERSON_BLOOD_SCALING_FACTOR
 
 /mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
 	var/datum/species/slime/S = all_species[get_species()]
@@ -531,9 +531,9 @@
 		src << "<span class='warning'>You need to hold still in order to regrow a limb!</span>"
 	return
 
-#undefine SLIMEPERSON_HUNGERCOST
-#undefine SLIMEPERSON_MINHUNGER
-#undefine SLIMEPERSON_REGROWTHDELAY
+#undef SLIMEPERSON_HUNGERCOST
+#undef SLIMEPERSON_MINHUNGER
+#undef SLIMEPERSON_REGROWTHDELAY
 
 /datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
 	..()
