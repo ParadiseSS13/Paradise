@@ -399,19 +399,19 @@
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 //This is allegedly for code "style". Like a plaid sweater?
-#define DAAAAAAAAAAAAAAAAA_COLOR_SHIFT_TRIGGER 0.1
-#define DAAAAAAAAAAAAAAAAA_ICON_UPDATE_PERIOD 200 // 20 seconds
-#define DAAAAAAAAAAAAAAAAA_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
+#define SLIMEPERSON_COLOR_SHIFT_TRIGGER 0.1
+#define SLIMEPERSON_ICON_UPDATE_PERIOD 200 // 20 seconds
+#define SLIMEPERSON_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
-	if((H in recolor_list) && H.reagents.total_volume > DAAAAAAAAAAAAAAAAA_COLOR_SHIFT_TRIGGER)
+	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.vessel.total_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*DAAAAAAAAAAAAAAAAA_BLOOD_SCALING_FACTOR)/((blood_amount*DAAAAAAAAAAAAAAAAA_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
+		var/new_body_color = BlendRGB(r_color, rgb(H.r_skin, H.g_skin, H.b_skin), (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
 		var/list/new_color_list = ReadRGB(new_body_color)
 		H.r_skin = new_color_list[1]
 		H.g_skin = new_color_list[2]
 		H.b_skin = new_color_list[3]
-		if(world.time % DAAAAAAAAAAAAAAAAA_ICON_UPDATE_PERIOD > DAAAAAAAAAAAAAAAAA_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
+		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.organs_by_name)
 				var/obj/item/organ/external/E = H.organs_by_name[organname]
 				if(istype(E) && E.dna.species == "Slime People")
@@ -420,9 +420,9 @@
 			H.update_body()
 	return ..()
 
-#undefine DAAAAAAAAAAAAAAAAA_COLOR_SHIFT_TRIGGER
-#undefine DAAAAAAAAAAAAAAAAA_ICON_UPDATE_PERIOD
-#undefine DAAAAAAAAAAAAAAAAA_BLOOD_SCALING_FACTOR
+#undefine SLIMEPERSON_COLOR_SHIFT_TRIGGER
+#undefine SLIMEPERSON_ICON_UPDATE_PERIOD
+#undefine SLIMEPERSON_BLOOD_SCALING_FACTOR
 
 /mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
 	var/datum/species/slime/S = all_species[get_species()]
@@ -453,15 +453,15 @@
 	set name = "Regrow Limbs"
 	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
 
-#define DAAAAAAAAAAAAAAAAA_HUNGERCOST 125
-#define DAAAAAAAAAAAAAAAAA_MINHUNGER 300
-#define DAAAAAAAAAAAAAAAAA_REGROWTHDELAY 450 // 45 seconds
+#define SLIMEPERSON_HUNGERCOST 125
+#define SLIMEPERSON_MINHUNGER 300
+#define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
 	if(stat || paralysis || stunned)
 		src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
 		return
 
-	if(nutrition < DAAAAAAAAAAAAAAAAA_MINHUNGER)
+	if(nutrition < SLIMEPERSON_MINHUNGER)
 		src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
 		return
 
@@ -484,13 +484,13 @@
 	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
 	var/chosen_limb = missing_limbs[limb_select]
 
-	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(DAAAAAAAAAAAAAAAAA_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(src, DAAAAAAAAAAAAAAAAA_REGROWTHDELAY, needhand=0, target = src))
+	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
+	if(do_after(src, SLIMEPERSON_REGROWTHDELAY, needhand=0, target = src))
 		if(stat || paralysis || stunned)
 			src << "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>"
 			return
 
-		if(nutrition < DAAAAAAAAAAAAAAAAA_MINHUNGER)
+		if(nutrition < SLIMEPERSON_MINHUNGER)
 			src << "<span class='warning'>You're too hungry to regenerate a limb!</span>"
 			return
 
@@ -525,15 +525,15 @@
 		update_body()
 		updatehealth()
 		UpdateDamageIcon()
-		nutrition -= DAAAAAAAAAAAAAAAAA_HUNGERCOST
+		nutrition -= SLIMEPERSON_HUNGERCOST
 		visible_message("<span class='notice'>[src] finishes regrowing their missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		src << "<span class='warning'>You need to hold still in order to regrow a limb!</span>"
 	return
 
-#undefine DAAAAAAAAAAAAAAAAA_HUNGERCOST
-#undefine DAAAAAAAAAAAAAAAAA_MINHUNGER
-#undefine DAAAAAAAAAAAAAAAAA_REGROWTHDELAY
+#undefine SLIMEPERSON_HUNGERCOST
+#undefine SLIMEPERSON_MINHUNGER
+#undefine SLIMEPERSON_REGROWTHDELAY
 
 /datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
 	..()

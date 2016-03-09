@@ -170,15 +170,15 @@
 	burn *= burn_mod
 
 	// Threshold needed to have a chance of hurting internal bits with something sharp
-#define DAAAAAAAAAAAAAAAAA_SHARP_THRESH_INT_DMG 5
+#define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
-#define DAAAAAAAAAAAAAAAAA_THRESH_INT_DMG 10
+#define LIMB_THRESH_INT_DMG 10
 	// Probability of taking internal damage from sufficient force, while otherwise healthy
-#define DAAAAAAAAAAAAAAAAA_DMG_PROB 5
+#define LIMB_DMG_PROB 5
 	// Probability of taking internal damage when hit while lacking encasing bones
-#define DAAAAAAAAAAAAAAAAA_NO_BONE_DMG_PROB 30
+#define LIMB_NO_BONE_DMG_PROB 30
 	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= DAAAAAAAAAAAAAAAAA_SHARP_THRESH_INT_DMG) || brute >= DAAAAAAAAAAAAAAAAA_THRESH_INT_DMG) && prob(DAAAAAAAAAAAAAAAAA_DMG_PROB)) || (!encased && prob(DAAAAAAAAAAAAAAAAA_NO_BONE_DMG_PROB))))
+	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB)) || (!encased && prob(LIMB_NO_BONE_DMG_PROB))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
@@ -261,10 +261,10 @@
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
 
-#undefine DAAAAAAAAAAAAAAAAA_SHARP_THRESH_INT_DMG
-#undefine DAAAAAAAAAAAAAAAAA_THRESH_INT_DMG
-#undefine DAAAAAAAAAAAAAAAAA_DMG_PROB
-#undefine DAAAAAAAAAAAAAAAAA_NO_BONE_DMG_PROB
+#undefine LIMB_SHARP_THRESH_INT_DMG
+#undefine LIMB_THRESH_INT_DMG
+#undefine LIMB_DMG_PROB
+#undefine LIMB_NO_BONE_DMG_PROB
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(status & ORGAN_ROBOT && !robo_repair)
