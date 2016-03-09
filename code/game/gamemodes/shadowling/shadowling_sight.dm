@@ -42,10 +42,8 @@
 /turf/var/atom/movable/bright_overlay_container
 
 /datum/shadowchunk/New(loc, x, y, z)
-
-	// 0xf = 15
-	x &= ~0xf
-	y &= ~0xf
+	x &= ~15
+	y &= ~15
 
 	src.x = x
 	src.y = y
@@ -74,11 +72,11 @@
 		for(var/datum/shadowchunk/C in visible_shadow_chunks)
 			C.remove(src)
 		return
-	// 0xf = 15
-	var/x1 = max(0, x - 16) & ~0xf
-	var/y1 = max(0, y - 16) & ~0xf
-	var/x2 = min(world.maxx, x + 16) & ~0xf
-	var/y2 = min(world.maxy, y + 16) & ~0xf
+	
+	var/x1 = max(0, x - 16) & ~15
+	var/y1 = max(0, y - 16) & ~15
+	var/x2 = min(world.maxx, x + 16) & ~15
+	var/y2 = min(world.maxy, y + 16) & ~15
 
 	var/list/visibleChunks = list()
 
@@ -103,8 +101,8 @@
 
 var/list/shadow_chunks = list()
 proc/get_shadow_chunk(x, y, z)
-	x &= ~0xf
-	y &= ~0xf
+	x &= ~15
+	y &= ~15
 	var/key = "[x],[y],[z]"
 	if(!shadow_chunks[key])
 		shadow_chunks[key] = new /datum/shadowchunk(null, x, y, z)
