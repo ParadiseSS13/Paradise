@@ -23,6 +23,6 @@
 	while((spawncount >= 1) && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/effect/spider/spiderling/S = new(vent.loc)
-		S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/white
+		S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/white
 		vents -= vent
 		spawncount--

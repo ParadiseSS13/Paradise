@@ -27,11 +27,10 @@
 		if(prob(66))
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 		if(prob(5))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/gray
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
 		else if(prob(5))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/red
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 		else if(prob(5))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/green
-
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 		vents -= vent
 		spawncount--

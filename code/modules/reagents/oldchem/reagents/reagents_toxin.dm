@@ -155,13 +155,13 @@
 		M.Weaken(20)
 		// yes, this is a hella long stun - that's intentional. Gotta give the spiderlings time to escape.
 		var/obj/effect/spider/terror_spiderling/S1 = new(get_turf(M))
-		S1.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/red
+		S1.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
 		S1.name = "red spiderling"
 		var/obj/effect/spider/terror_spiderling/S2 = new(get_turf(M))
-		S2.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/black
+		S2.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/black
 		S2.name = "black spiderling"
 		var/obj/effect/spider/terror_spiderling/S3 = new(get_turf(M))
-		S3.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/terror/green
+		S3.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
 		S3.name = "green spiderling"
 		M.adjustBruteLoss(20)
 		M.adjustToxLoss(40)
