@@ -500,7 +500,7 @@
 
 	spawn(10)
 		if(M && usr)
-			//playsound(usr.loc, 'gib.ogg', 50, 1)
+			playsound(usr.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 			usr.UpdateAppearance(M.dna.UI)
 			usr:real_name = M:real_name
 			usr:name = M:name

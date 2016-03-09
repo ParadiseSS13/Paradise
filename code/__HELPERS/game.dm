@@ -444,7 +444,8 @@ proc/isInSight(var/atom/A, var/atom/B)
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(var/Question, var/jobbanType, var/antag_age_check = 0, var/be_special_flag = 0, var/poll_time = 300)
+proc/pollCandidates(var/Question, var/be_special_type, var/antag_age_check = 0, var/poll_time = 300)
+	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
 	if (!Question)
@@ -453,15 +454,17 @@ proc/pollCandidates(var/Question, var/jobbanType, var/antag_age_check = 0, var/b
 	for(var/mob/dead/observer/G in player_list)
 		if(!G.key || !G.client)
 			continue
-		if(be_special_flag)
-			if(!(G.client.prefs.be_special & be_special_flag))
+		if(be_special_type)
+			if(!(be_special_type in G.client.prefs.be_special))
 				continue
-		if (antag_age_check && be_special_flag)
-			if(!player_old_enough_antag(G.client,be_special_flag))
+			if(antag_age_check)
+				if(!player_old_enough_antag(G.client, be_special_type))
+					continue
+		if(roletext)
+			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
-		if (jobbanType)
-			if(jobban_isbanned(G, jobbanType) || jobban_isbanned(G, "Syndicate"))
-				continue
+		if(G.has_enabled_antagHUD)
+			continue
 		spawn(0)
 			G << 'sound/misc/notice2.ogg' //Alerting them to their consideration
 			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","Yes","No"))

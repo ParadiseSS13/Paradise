@@ -90,6 +90,8 @@ proc/CallMaterialName(ID)
 				return_name = "Diamond"
 			if("clown")
 				return_name = "Bananium"
+			if("mime")
+				return_name = "Tranquillite"
 	else
 		for(var/R in subtypesof(/datum/reagent))
 			temp_reagent = null
@@ -535,6 +537,8 @@ proc/CallMaterialName(ID)
 				MAT = MAT_DIAMOND
 			if("clown")
 				MAT = MAT_BANANIUM
+			if("mime")
+				MAT = "Tranquillite"
 		linked_lathe.materials.retrieve_sheets(desired_num_sheets, MAT)
 
 	else if(href_list["imprinter_ejectsheet"] && linked_imprinter) //Causes the protolathe to eject a sheet of material
@@ -1010,6 +1014,15 @@ proc/CallMaterialName(ID)
 				dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=custom'>C</A> "
 			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=5'>5x</A> "
 			if(bananium_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=clown;lathe_ejectsheet_amt=50'>All</A>"
+			dat += "</div>"
+			//Tranquillite
+			var/tranquillite_amount = linked_lathe.materials.amount(MAT_TRANQUILLITE)
+			dat += "* [tranquillite_amount] of Tranquillite, [round(tranquillite_amount / MINERAL_MATERIAL_AMOUNT,0.1)] sheets: "
+			if(tranquillite_amount >= MINERAL_MATERIAL_AMOUNT)
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=mime;lathe_ejectsheet_amt=1'>Eject</A> "
+				dat += "<A href='?src=\ref[src];lathe_ejectsheet=mime;lathe_ejectsheet_amt=custom'>C</A> "
+			if(tranquillite_amount >= MINERAL_MATERIAL_AMOUNT*5) dat += "<A href='?src=\ref[src];lathe_ejectsheet=mime;lathe_ejectsheet_amt=5'>5x</A> "
+			if(tranquillite_amount >= MINERAL_MATERIAL_AMOUNT) dat += "<A href='?src=\ref[src];lathe_ejectsheet=mime;lathe_ejectsheet_amt=50'>All</A>"
 			dat += "</div>"
 
 		if(3.3)

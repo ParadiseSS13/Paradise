@@ -1,5 +1,3 @@
-/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
-
 /obj/item/clothing/shoes/syndigaloshes
 	desc = "A pair of brown shoes. They seem to have extra grip."
 	name = "brown shoes"
@@ -77,18 +75,7 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	species_restricted = null
 	silence_steps = 1
-
-/obj/item/clothing/shoes/clown_shoes/step_action(var/mob/living/carbon/human/H)
-	if(!istype(H))	return 0
-
-	if(H.m_intent == "run")
-		if(footstep >= 2)
-			playsound(src, "clownstep", 50, 1)
-			footstep = 0
-		else
-			footstep++
-	else
-		playsound(src, "clownstep", 20, 1)
+	shoe_sound = "clownstep"
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
@@ -101,18 +88,7 @@
 	put_on_delay = 50
 	var/footstep = 1
 	silence_steps = 1
-
-/obj/item/clothing/shoes/jackboots/step_action(var/mob/living/carbon/human/H)
-	if(!istype(H))	return 0
-
-	if(H.m_intent == "run")
-		if(footstep >= 2)
-			playsound(src, "jackboot", 50, 1)
-			footstep = 0
-		else
-			footstep++
-	else
-		playsound(src, "jackboot", 20, 1)
+	shoe_sound = "jackboot"
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
@@ -190,6 +166,7 @@
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shoe_silencer))
 		silence_steps = 1
+		shoe_sound = null
 		user.unEquip(I)
 		qdel(I)
 	else . = ..()

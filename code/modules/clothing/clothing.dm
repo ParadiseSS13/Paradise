@@ -14,6 +14,18 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
+	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
+	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
+	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
+	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
+	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
+
+	var/toggle_message = null
+	var/alt_toggle_message = null
+	var/active_sound = null
+	var/toggle_cooldown = null
+	var/cooldown = 0
+
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
 
@@ -139,8 +151,6 @@
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
 	var/invisa_view = 0
-	var/flash_protect = 0		//Mal: What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
-	var/tint = 0				//Mal: Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/color_view = null//overrides client.color while worn
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -264,12 +274,11 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
 	var/blockTracking // Do we block AI tracking?
-	var/flash_protect = 0
-	var/tint = 0
 	var/HUDType = null
 	var/darkness_view = 0
 	var/vision_flags = 0
 	var/see_darkness = 1
+	var/can_toggle = null
 
 //Mask
 /obj/item/clothing/mask
@@ -280,8 +289,6 @@ BLIND     // can't see anything
 	var/mask_adjusted = 0
 	var/ignore_maskadjust = 1
 	var/adjusted_flags = null
-	var/flash_protect = 0
-	var/tint = 0
 	strip_delay = 40
 	put_on_delay = 40
 
@@ -351,6 +358,8 @@ BLIND     // can't see anything
 	slot_flags = SLOT_FEET
 
 	var/silence_steps = 0
+	var/shoe_sound_footstep = 1
+	var/shoe_sound = null
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
@@ -395,6 +404,25 @@ BLIND     // can't see anything
 			return
 	else
 		..()
+
+/obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
+	if(shoe_sound)
+		var/turf/T = get_turf(H)
+
+		if(!istype(H) || !istype(T))
+			return 0
+
+		if(H.m_intent == "run")
+			if(shoe_sound_footstep >= 2)
+				if(T.shoe_running_volume)
+					playsound(src, shoe_sound, T.shoe_running_volume, 1)
+				shoe_sound_footstep = 0
+			else
+				shoe_sound_footstep++
+		else if(T.shoe_walking_volume)
+			playsound(src, shoe_sound, T.shoe_walking_volume, 1)
+
+	return 1
 
 /obj/item/proc/negates_gravity()
 	return 0

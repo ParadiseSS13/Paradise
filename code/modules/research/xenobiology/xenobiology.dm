@@ -215,39 +215,13 @@
 	user << "<span class='notice'>You offer the sentience potion to [M]...</span>"
 	being_used = 1
 
-	var/list/candidates = get_candidates(ROLE_SENTIENT, ALIEN_AFK_BRACKET)
-
-	shuffle(candidates)
-
-	var/time_passed = world.time
-	var/list/consenting_candidates = list()
-
-	for(var/candidate in candidates)
-
-		if(candidate in not_interested)
-			continue
-
-		spawn(0)
-			switch(alert(candidate, "Would you like to play as [M.name]? Please choose quickly!","Confirmation","Yes","No"))
-				if("Yes")
-					if((world.time-time_passed)>=50 || !src)
-						return
-					consenting_candidates += candidate
-				if("No")
-					if(!src)
-						return
-					not_interested += candidate
-
-	sleep(50)
+	var/list/candidates = pollCandidates("Do you want to play as [M.name]?", ROLE_SENTIENT, 0, 100)
 
 	if(!src)
 		return
 
-	listclearnulls(consenting_candidates) //some candidates might have left during sleep(50)
-
-	if(consenting_candidates.len)
-		var/client/C = null
-		C = pick(consenting_candidates)
+	if(candidates.len)
+		var/mob/C = pick(candidates)
 		M.key = C.key
 		M.universal_speak = 1
 		M.faction |= "sentient"

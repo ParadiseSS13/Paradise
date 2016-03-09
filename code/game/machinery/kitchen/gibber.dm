@@ -266,7 +266,7 @@
 		occupant.attack_log += "\[[time_stamp()]\] Was gibbed by <b>an autogibber (\the [src])</b>"
 
 	occupant.emote("scream")
-	playsound(get_turf(src), 'sound/effects/gib.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
 	occupant.death(1)

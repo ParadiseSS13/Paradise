@@ -583,7 +583,7 @@
 					return
 				name = reject_bad_text(name)
 				while (count--)
-					var/obj/item/weapon/reagent_containers/pill/P = new/obj/item/weapon/reagent_containers/pill(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/P = new/obj/item/weapon/reagent_containers/food/pill(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
 					P.pixel_x = rand(-7, 7) //random position
@@ -623,7 +623,7 @@
 					return
 				name = reject_bad_text(name)
 				while (count--)
-					var/obj/item/weapon/reagent_containers/pill/patch/P = new/obj/item/weapon/reagent_containers/pill/patch(src.loc)
+					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] patch"
 					P.pixel_x = rand(-7, 7) //random position
@@ -819,6 +819,7 @@
 		/obj/item/stack/sheet/mineral/plasma = list("plasma" = 20),
 		/obj/item/stack/sheet/mineral/uranium = list("uranium" = 20),
 		/obj/item/stack/sheet/mineral/bananium = list("banana" = 20),
+		/obj/item/stack/sheet/mineral/tranquillite = list("nothing" = 20),
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/weapon/grown/novaflower = list("capsaicin" = 0),
@@ -828,7 +829,7 @@
 
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
-		/obj/item/weapon/reagent_containers/pill = list(),
+		/obj/item/weapon/reagent_containers/food/pill = list(),
 		/obj/item/weapon/reagent_containers/food = list()
 	)
 

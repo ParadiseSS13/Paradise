@@ -104,6 +104,13 @@
 	desc = "A complex, organic knot of jelly and crystalline particles."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
+//	parent_organ = "chest" Hello I am from the ministry of rubber forehead aliens how are you
+
+/obj/item/organ/brain/slime/take_damage(var/amount, var/silent = 1)
+	//Slimes are 150% more vulnerable to brain damage
+	damage = between(0, src.damage + (1.5*amount), max_damage) //Since they take the damage twice, this is +150%
+	return ..()
+
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
