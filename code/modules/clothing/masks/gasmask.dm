@@ -24,7 +24,6 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	var/up = 0
 	flash_protect = 2
 	tint = 2
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
@@ -166,7 +165,6 @@
 	desc = "Twoooo!"
 	icon_state = "owl"
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
-	var/cooldown = 0
 	action_button_name = "Hoot"
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
@@ -193,7 +191,6 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	action_button_name = "HALT!"
 	icon_state = "sechailer"
-	var/cooldown = 0
 	var/aggressiveness = 2
 	var/safety = 1
 	ignore_maskadjust = 0
