@@ -60,6 +60,14 @@
 		needs_update = 1
 		lighting_update_overlays += src
 
+/atom/movable/lighting_overlay/proc/update_shadowling_overlay(var/turf/T)
+	if(T.shadowling_bright_overlay)
+		var/mx = max(lum_r, lum_g, lum_b)
+		. = 1 // factor
+		if(mx > 1)
+			. = 1/mx
+		T.shadowling_bright_overlay.color = rgb(lum_r * 255 * ., lum_g * 255 * ., lum_b * 255 * .)
+
 /atom/movable/lighting_overlay/proc/update_overlay()
 	var/turf/T = loc
 
@@ -86,6 +94,7 @@
 				T.luminosity = 1
 			else  //No light, set the turf's luminosity to 0 to remove it from view()
 				T.luminosity = 0
+		update_shadowling_overlay(T)
 	else
 		//warning("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!") //fucking bullshit bugs means this spams when shuttles move, feel free to fix
 		log_debug("A lighting overlay realised its loc was NOT a turf (actual loc: [loc][loc ? ", " + loc.type : "null"]) in update_overlay() and got qdel'ed!")
