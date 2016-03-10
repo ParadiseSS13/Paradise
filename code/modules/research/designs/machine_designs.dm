@@ -11,6 +11,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/smes
 	name = "Machine Board (SMES)"
@@ -21,6 +22,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/smes
 	category = list ("Engineering Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/emitter
 	name = "Machine Board (Emitter)"
@@ -31,6 +33,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/emitter
 	category = list ("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/turbine_computer
 	name = "Computer Design (Power Turbine Console Board)"
@@ -41,6 +44,8 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/turbine_computer
 	category = list ("Engineering Machinery")
+	departments = list(ENG_DESIGN)
+
 
 /datum/design/power_compressor
 	name = "Machine Design (Power Compressor Board)"
@@ -51,6 +56,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/power_compressor
 	category = list ("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/power_turbine
 	name = "Machine Design (Power Turbine Board)"
@@ -61,6 +67,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/power_turbine
 	category = list ("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/telepad
 	name = "Machine Board (Telepad Board)"
@@ -71,6 +78,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/telesci_pad
 	category = list ("Teleportation Machinery")
+	departments = list(SCI_DESIGN)
 
 /datum/design/teleport_hub
 	name = "Machine Board (Teleportation Hub)"
@@ -81,6 +89,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter_hub
 	category = list ("Teleportation Machinery")
+	departments = list(SCI_DESIGN)
 
 /datum/design/teleport_station
 	name = "Machine Board (Teleportation Station)"
@@ -91,6 +100,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/teleporter_station
 	category = list ("Teleportation Machinery")
+	departments = list(SCI_DESIGN)
 
 /datum/design/bodyscanner
 	name = "Machine Board (Body Scanner)"
@@ -101,6 +111,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/bodyscanner_console
 	name = "Machine Board (Body Scanner Console)"
@@ -111,6 +122,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/bodyscanner_console
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/clonepod
 	name = "Machine Board (Cloning Pod)"
@@ -121,6 +133,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonepod
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/clonescanner
 	name = "Machine Board (Cloning Scanner)"
@@ -131,6 +144,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/clonescanner
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/cryotube
 	name = "Machine Board (Cryotube Board)"
@@ -141,6 +155,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cryo_tube
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/chem_dispenser
 	name = "Machine Board (Portable Chem Dispenser)"
@@ -151,6 +166,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_dispenser
 	category = list("Medical Machinery")
+	departments = list(SCI_DESIGN, MED_DESIGN)
 
 /datum/design/chem_master
 	name = "Machine Design (Chem Master Board)"
@@ -161,6 +177,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_master
 	category = list("Medical Machinery")
+	departments = list(SCI_DESIGN, MED_DESIGN)
 
 /datum/design/chem_heater
 	name = "Machine Design (Chemical Heater Board)"
@@ -171,6 +188,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/chem_heater
 	category = list ("Medical Machinery")
+	departments = list(SCI_DESIGN, MED_DESIGN)
 
 /datum/design/sleeper
 	name = "Machine Board (Sleeper)"
@@ -181,6 +199,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/sleeper
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/sleep_console
 	name = "Machine Board (Sleeper Console)"
@@ -191,6 +210,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/sleep_console
 	category = list("Medical Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/biogenerator
 	name = "Machine Board (Biogenerator)"
@@ -201,6 +221,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/biogenerator
 	category = list ("Hydroponics Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/hydroponics
 	name = "Machine Board (Hydroponics Tray)"
@@ -211,6 +232,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/hydroponics
 	category = list ("Hydroponics Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/autolathe
 	name = "Machine Board (Autolathe)"
@@ -221,6 +243,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/autolathe
 	category = list("Research Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/circuit_imprinter
 	name = "Machine Board (Circuit Imprinter)"
@@ -231,6 +254,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/circuit_imprinter
 	category = list("Research Machinery")
+	departments = list(PUB_DESIGN) // If you can make it, you've already got one
 
 /datum/design/cyborgrecharger
 	name = "Machine Board (Cyborg Recharger)"
@@ -241,6 +265,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cyborgrecharger
 	category = list("Research Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/destructive_analyzer
 	name = "Machine Board (Destructive Analyzer)"
@@ -251,6 +276,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/destructive_analyzer
 	category = list("Research Machinery")
+	departments = list(SCI_DESIGN)
 
 /datum/design/mechfab
 	name = "Machine Board (Exosuit Fabricator)"
@@ -261,6 +287,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mechfab
 	category = list("Research Machinery")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/mech_recharger
 	name = "Machine Board (Mech Bay Recharger)"
@@ -271,6 +298,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mech_recharger
 	category = list("Research Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/experimentor
 	name = "Machine Design (E.X.P.E.R.I-MENTOR Board)"
@@ -281,6 +309,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/experimentor
 	category = list("Research Machinery")
+	departments = list(SCI_DESIGN)
 
 /datum/design/protolathe
 	name = "Machine Board (Protolathe)"
@@ -291,6 +320,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/protolathe
 	category = list("Research Machinery")
+	departments = list(SCI_DESIGN, ENG_DESIGN)
 
 /datum/design/rdserver
 	name = "Machine Board (R&D Server)"
@@ -301,6 +331,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/rdserver
 	category = list("Research Machinery")
+	departments = list(SCI_DESIGN, ENG_DESIGN)
 
 /datum/design/gibber
 	name = "Machine Design (Gibber Board)"
@@ -311,6 +342,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/gibber
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN) // what could possibly go wrong
 
 /datum/design/smartfridge
 	name = "Machine Design (Smartfridge Board)"
@@ -321,6 +353,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/smartfridge
 	category = list ("Misc. Machinery")
+	departments = list(SCI_DESIGN, ENG_DESIGN, MED_DESIGN)
 
 /datum/design/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"
@@ -331,6 +364,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/monkey_recycler
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/seed_extractor
 	name = "Machine Design (Seed Extractor Board)"
@@ -341,6 +375,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/seed_extractor
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/processor
 	name = "Machine Design (Processor Board)"
@@ -351,6 +386,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/processor
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/recycler
 	name = "Machine Design (Recycler Board)"
@@ -361,6 +397,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/recycler
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/holopad
 	name = "Machine Design (AI Holopad Board)"
@@ -371,6 +408,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/holopad
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/arcadebattle
 	name = "Machine Board (Battle Arcade Machine)"
@@ -381,6 +419,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/arcade/battle
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/microwave
 	name = "Machine Board (Microwave)"
@@ -391,6 +430,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/microwave
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/oven
 	name = "Machine Board (Oven)"
@@ -401,6 +441,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/oven
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/grill
 	name = "Machine Board (Grill)"
@@ -411,6 +452,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/grill
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/candy_maker
 	name = "Machine Board (Candy Maker)"
@@ -421,6 +463,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/candy_maker
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
@@ -431,6 +474,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/arcade/orion_trail
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/programmable
 	name = "Machine Board (Programmable Unloader)"
@@ -441,6 +485,7 @@
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/programmable
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
@@ -451,6 +496,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/vendor
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/pod
 	name = "Machine Board (Mass Driver and Pod Doors Control)"
@@ -461,6 +507,7 @@
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pod
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/ore_redemption
 	name = "Machine Design (Ore Redemption Board)"
@@ -471,6 +518,7 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/ore_redemption
 	category = list ("Misc. Machinery")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/mining_equipment_vendor
 	name = "Machine Design (Mining Rewards Vendor Board)"
@@ -481,6 +529,7 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/mining_equipment_vendor
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/clawgame
 	name = "Machine Design (Claw Game Board)"
@@ -491,6 +540,7 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/clawgame
 	category = list ("Misc. Machinery")
+	departments = list(PUB_DESIGN)
 
 /datum/design/prize_counter
 	name = "Machine Design (Prize Counter)"
@@ -501,3 +551,4 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/prize_counter
 	category = list("Misc. Machinery")
+	departments = list(PUB_DESIGN)

@@ -12,6 +12,7 @@
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell
 	category = list("Misc","Power")
+	departments = list(PUB_DESIGN)
 
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
@@ -23,6 +24,7 @@
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/high
 	category = list("Misc","Power")
+	departments = list(PUB_DESIGN)
 
 /datum/design/hyper_cell
 	name = "Hyper-Capacity Power Cell"
@@ -35,6 +37,7 @@
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/hyper
 	category = list("Misc","Power")
+	departments = list(PUB_DESIGN)
 
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
@@ -47,6 +50,7 @@
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/super
 	category = list("Misc","Power")
+	departments = list(PUB_DESIGN)
 
 /datum/design/bluespace_cell
 	name = "Bluespace Power Cell"
@@ -59,6 +63,7 @@
 	construction_time=100
 	build_path = /obj/item/weapon/stock_parts/cell/bluespace
 	category = list("Misc","Power")
+	departments = list(PUB_DESIGN)
 
 /datum/design/pacman
 	name = "Machine Board (PACMAN-type Generator)"
@@ -70,6 +75,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman
 	category = list("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/mrspacman
 	name = "Machine Board (MRSPACMAN-type Generator)"
@@ -81,6 +87,7 @@
 	materials = list(MAT_GLASS = 2000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/mrs
 	category = list("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/superpacman
 	name = "Machine Board (SUPERPACMAN-type Generator)"
@@ -92,6 +99,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/pacman/super
 	category = list("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/tesla_coil
 	name = "Machine Design (Tesla Coil Board)"
@@ -102,6 +110,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/tesla_coil
 	category = list("Engineering Machinery")
+	departments = list(ENG_DESIGN)
 
 /datum/design/grounding_rod
 	name = "Machine Design (Grounding Rod Board)"
@@ -112,3 +121,4 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/grounding_rod
 	category = list("Engineering Machinery")
+	departments = list(ENG_DESIGN)

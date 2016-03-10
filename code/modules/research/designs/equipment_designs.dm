@@ -10,6 +10,7 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_PLASMA = 1500, MAT_URANIUM = 200)
 	build_path = /obj/item/weapon/weldingtool/experimental
 	category = list("Equipment")
+	departments = list(ROBO_DESIGN, ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/health_hud
 	name = "Health Scanner HUD"
@@ -20,6 +21,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/glasses/hud/health
 	category = list("Equipment")
+	departments = list(PUB_DESIGN) // This does not seem harmful
 
 /datum/design/magboots
 	name = "Magnetic Boots"
@@ -30,6 +32,7 @@
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	build_path = /obj/item/clothing/shoes/magboots
 	category = list("Equipment")
+	departments = list(ENG_DESIGN)
 
 /datum/design/night_vision_goggles
 	name = "Night Vision Goggles"
@@ -40,6 +43,7 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/night
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/health_hud_night
 	name = "Night Vision Health Scanner HUD"
@@ -50,6 +54,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_SILVER = 250)
 	build_path = /obj/item/clothing/glasses/hud/health/night
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/security_hud_night
 	name = "Night Vision Security HUD"
@@ -60,6 +65,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_GOLD = 350)
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
+	departments = list(SEC_DESIGN)
 
 /datum/design/nvgmesons
 	name = "Night Vision Optical Meson Scanners"
@@ -70,6 +76,7 @@
 	materials = list(MAT_METAL = 300, MAT_GLASS = 400, MAT_PLASMA = 250, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/meson/night
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/mesons
 	name = "Optical Meson Scanners"
@@ -80,6 +87,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 300, MAT_PLASMA = 100)
 	build_path = /obj/item/clothing/glasses/meson
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/security_hud
 	name = "Security HUD"
@@ -90,6 +98,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/glasses/hud/security
 	category = list("Equipment")
+	departments = list(SEC_DESIGN)
 
 /datum/design/air_horn
 	name = "Air Horn"
@@ -100,6 +109,7 @@
 	materials = list(MAT_METAL = 4000, MAT_BANANIUM = 1000)
 	build_path = /obj/item/weapon/bikehorn/airhorn
 	category = list("Equipment")
+	departments = list(PUB_DESIGN) // i have no idea what im doing send help
 
 /datum/design/welding_mask
 	name = "Welding Gas Mask"
@@ -110,6 +120,7 @@
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
 	build_path = /obj/item/clothing/mask/gas/welding
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/detective_scanner
 	name = "Forensic Scanner"
@@ -121,6 +132,7 @@
 	build_path = /obj/item/device/detective_scanner
 	locked = 1      //no validhunting scientists.
 	category = list("Equipment")
+	departments = list(SEC_DESIGN)
 
 /datum/design/sci_goggles
 	name = "Science Goggles"
@@ -131,6 +143,7 @@
 	materials = list(MAT_METAL = 250, MAT_GLASS = 300)
 	build_path = /obj/item/clothing/glasses/science
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/nv_sci_goggles
 	name = "Night Vision Science Goggles"
@@ -141,6 +154,7 @@
 	materials = list(MAT_METAL = 250, MAT_GLASS = 300, MAT_PLASMA = 250, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/science/night
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/diagnostic_hud
 	name = "Diagnostic HUD"
@@ -148,9 +162,10 @@
 	id = "dianostic_hud"
 	req_tech = list("magnets" = 3, "engineering" = 3, "materials" = 2)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 50, "$glass" = 50)
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/glasses/hud/diagnostic
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)
 
 /datum/design/diagnostic_hud_night
 	name = "Night Vision Diagnostic HUD"
@@ -158,6 +173,7 @@
 	id = "dianostic_hud_night"
 	req_tech = list("magnets" = 5, "engineering" = 4, "materials" = 4)
 	build_type = PROTOLATHE
-	materials = list("$metal" = 200, "$glass" = 200, "$uranium" = 1000, "$plasma" = 300)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_PLASMA = 300)
 	build_path = /obj/item/clothing/glasses/hud/diagnostic/night
 	category = list("Equipment")
+	departments = list(PUB_DESIGN)

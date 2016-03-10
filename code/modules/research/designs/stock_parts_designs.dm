@@ -3,6 +3,7 @@
 ////////////////////////////////////////
 
 /datum/design/basic_capacitor
+	construction_time = 5 // These are produced en masse
 	name = "Basic Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_capacitor"
@@ -11,8 +12,10 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/stock_parts/capacitor
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/basic_sensor
+	construction_time = 5
 	name = "Basic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_sensor"
@@ -21,8 +24,10 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/scanning_module
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/micro_mani
+	construction_time = 5
 	name = "Micro Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "micro_mani"
@@ -31,8 +36,10 @@
 	materials = list(MAT_METAL = 30)
 	build_path = /obj/item/weapon/stock_parts/manipulator
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/basic_micro_laser
+	construction_time = 5
 	name = "Basic Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_micro_laser"
@@ -41,8 +48,10 @@
 	materials = list(MAT_METAL = 10, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/micro_laser
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/basic_matter_bin
+	construction_time = 5
 	name = "Basic Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "basic_matter_bin"
@@ -51,8 +60,10 @@
 	materials = list(MAT_METAL = 80)
 	build_path = /obj/item/weapon/stock_parts/matter_bin
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/adv_capacitor
+	construction_time = 5
 	name = "Advanced Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_capacitor"
@@ -61,8 +72,10 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/weapon/stock_parts/capacitor/adv
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/adv_sensor
+	construction_time = 5
 	name = "Advanced Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_sensor"
@@ -71,8 +84,10 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/scanning_module/adv
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/nano_mani
+	construction_time = 5
 	name = "Nano Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "nano_mani"
@@ -81,8 +96,10 @@
 	materials = list(MAT_METAL = 30)
 	build_path = /obj/item/weapon/stock_parts/manipulator/nano
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/high_micro_laser
+	construction_time = 5
 	name = "High-Power Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "high_micro_laser"
@@ -91,8 +108,10 @@
 	materials = list(MAT_METAL = 10, MAT_GLASS = 20)
 	build_path = /obj/item/weapon/stock_parts/micro_laser/high
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/adv_matter_bin
+	construction_time = 5
 	name = "Advanced Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "adv_matter_bin"
@@ -101,8 +120,10 @@
 	materials = list(MAT_METAL = 80)
 	build_path = /obj/item/weapon/stock_parts/matter_bin/adv
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/super_capacitor
+	construction_time = 5
 	name = "Super Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "super_capacitor"
@@ -112,8 +133,10 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 50, MAT_GOLD = 20)
 	build_path = /obj/item/weapon/stock_parts/capacitor/super
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/phasic_sensor
+	construction_time = 5
 	name = "Phasic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "phasic_sensor"
@@ -123,8 +146,10 @@
 	reliability = 72
 	build_path = /obj/item/weapon/stock_parts/scanning_module/phasic
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/pico_mani
+	construction_time = 5
 	name = "Pico Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "pico_mani"
@@ -134,8 +159,10 @@
 	reliability = 73
 	build_path = /obj/item/weapon/stock_parts/manipulator/pico
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/ultra_micro_laser
+	construction_time = 5
 	name = "Ultra-High-Power Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "ultra_micro_laser"
@@ -145,8 +172,10 @@
 	reliability = 70
 	build_path = /obj/item/weapon/stock_parts/micro_laser/ultra
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/super_matter_bin
+	construction_time = 5
 	name = "Super Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "super_matter_bin"
@@ -156,8 +185,10 @@
 	reliability = 75
 	build_path = /obj/item/weapon/stock_parts/matter_bin/super
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/quadratic_capacitor
+	construction_time = 5
 	name = "Quadratic Capacitor"
 	desc = "A stock part used in the construction of various devices."
 	id = "quadratic_capacitor"
@@ -167,8 +198,10 @@
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100, MAT_DIAMOND = 40)
 	build_path = /obj/item/weapon/stock_parts/capacitor/quadratic
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/triphasic_scanning
+	construction_time = 5
 	name = "Triphasic Scanning Module"
 	desc = "A stock part used in the construction of various devices."
 	id = "triphasic_scanning"
@@ -178,8 +211,10 @@
 	reliability = 72
 	build_path = /obj/item/weapon/stock_parts/scanning_module/triphasic
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/femto_mani
+	construction_time = 5
 	name = "Femto Manipulator"
 	desc = "A stock part used in the construction of various devices."
 	id = "femto_mani"
@@ -189,8 +224,10 @@
 	reliability = 73
 	build_path = /obj/item/weapon/stock_parts/manipulator/femto
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/quadultra_micro_laser
+	construction_time = 5
 	name = "Quad-Ultra Micro-Laser"
 	desc = "A stock part used in the construction of various devices."
 	id = "quadultra_micro_laser"
@@ -200,8 +237,10 @@
 	reliability = 70
 	build_path = /obj/item/weapon/stock_parts/micro_laser/quadultra
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/bluespace_matter_bin
+	construction_time = 5
 	name = "Bluespace Matter Bin"
 	desc = "A stock part used in the construction of various devices."
 	id = "bluespace_matter_bin"
@@ -211,6 +250,7 @@
 	reliability = 75
 	build_path = /obj/item/weapon/stock_parts/matter_bin/bluespace
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/RPED
 	name = "Rapid Part Exchange Device"
@@ -221,6 +261,7 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000) //hardcore
 	build_path = /obj/item/weapon/storage/part_replacer
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)
 
 /datum/design/BS_RPED
 	name = "Bluespace RPED"
@@ -231,3 +272,4 @@
 	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_SILVER = 2500) //hardcore
 	build_path = /obj/item/weapon/storage/part_replacer/bluespace
 	category = list("Stock Parts")
+	departments = list(ENG_DESIGN, SCI_DESIGN)

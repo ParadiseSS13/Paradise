@@ -44,6 +44,7 @@
 	reliability = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	category = list("Medical")
+	departments = list(SCI_DESIGN, MED_DESIGN)
 
 /datum/design/telesci_gps
 	name = "GPS Device"
@@ -54,6 +55,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 1000)
 	build_path = /obj/item/device/gps
 	category = list("Bluespace")
+	departments = list(PUB_DESIGN)
 
 /datum/design/miningsatchel_holding
 	name = "Mining Satchel of Holding"
@@ -65,6 +67,7 @@
 	reliability = 100
 	build_path = /obj/item/weapon/storage/bag/ore/holding
 	category = list("Bluespace")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/telepad_beacon
 	name = "Telepad Beacon"
@@ -75,6 +78,7 @@
 	materials = list (MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
 	build_path = /obj/item/device/telepad_beacon
 	category = list("Bluespace")
+	departments = list(CARGO_DESIGN, SCI_DESIGN)
 
 /datum/design/beacon
 	name = "Tracking Beacon"

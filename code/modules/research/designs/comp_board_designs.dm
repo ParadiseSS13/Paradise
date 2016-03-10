@@ -11,6 +11,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aicore
 	category = list("Computer Boards")
+	departments = list(SCI_DESIGN, ROBO_DESIGN)
 
 /datum/design/aifixer
 	name = "Console Board (AI Integrity Restorer)"
@@ -41,6 +42,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/atmos_alert
 	category = list("Computer Boards")
+	departments = list(ENG_DESIGN)
 
 /datum/design/air_management
 	name = "Console Board (Atmospheric Monitor)"
@@ -51,6 +53,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/air_management
 	category = list("Computer Boards")
+	departments = list(ENG_DESIGN)
 
 /datum/design/seccamera
 	name = "Console Board (Camera Monitor)"
@@ -61,6 +64,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/camera
 	category = list("Computer Boards")
+	departments = list(SEC_DESIGN)
 
 /datum/design/clonecontrol
 	name = "Console Board (Cloning Machine Console)"
@@ -71,6 +75,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/cloning
 	category = list("Computer Boards")
+	departments = list(MED_DESIGN)
 
 /datum/design/comconsole
 	name = "Console Board (Communications Console)"
@@ -81,6 +86,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/communications
 	category = list("Computer Boards")
+	departments = list(SEC_DESIGN, SCI_DESIGN)
 
 /datum/design/crewconsole
 	name = "Console Board (Crew Monitoring Computer)"
@@ -91,6 +97,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/crew
 	category = list("Computer Boards")
+	departments = list(MED_DESIGN, SCI_DESIGN) // Since this is floor-mounted, it's less dangerous for sci to have
 
 /datum/design/borgupload
 	name = "Console Board (Cyborg Upload)"
@@ -101,6 +108,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/borgupload
 	category = list("Computer Boards")
+	departments = list(SCI_DESIGN, ROBO_DESIGN)
 
 /datum/design/scan_console
 	name = "Console Board (DNA Machine)"
@@ -111,6 +119,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/scan_consolenew
 	category = list("Computer Boards")
+	departments = list(PUB_DESIGN)
 
 /datum/design/dronecontrol
 	name = "Console Board (Drone Control Console)"
@@ -121,6 +130,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/drone_control
 	category = list("Computer Boards")
+	departments = list(ENG_DESIGN, ROBO_DESIGN)
 
 /datum/design/mechacontrol
 	name = "Console Board (Exosuit Control Console)"
@@ -131,6 +141,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mecha_control
 	category = list("Computer Boards")
+	departments = list(SCI_DESIGN, ROBO_DESIGN)
 
 /datum/design/idcardconsole
 	name = "Console Board (ID Computer)"
@@ -141,6 +152,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/card
 	category = list("Computer Boards")
+	departments = list(SCI_DESIGN)
 
 /datum/design/mechapower
 	name = "Console Board (Mech Bay Power Control Console)"
@@ -151,6 +163,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/mech_bay_power_console
 	category = list("Computer Boards")
+	departments = list(PUB_DESIGN)
 
 /datum/design/med_data
 	name = "Console Board (Medical Records)"
@@ -161,6 +174,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/med_data
 	category = list("Computer Boards")
+	departments = list(MED_DESIGN)
 
 /datum/design/message_monitor
 	name = "Console Board (Messaging Monitor Console)"
@@ -171,6 +185,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/message_monitor
 	category = list("Computer Boards")
+	departments = list(SCI_DESIGN)
 
 /datum/design/operating
 	name = "Console Board (Operating Computer)"
@@ -181,6 +196,7 @@
 	materials = list(MAT_GLASS = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/operating
 	category = list("Computer Boards")
+	departments = list(PUB_DESIGN)
 
 /datum/design/powermonitor
 	name = "Console Board (Power Monitor)"

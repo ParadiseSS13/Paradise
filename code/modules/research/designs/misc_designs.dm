@@ -10,6 +10,7 @@
 	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
 	build_path = /obj/item/weapon/disk/design_disk
 	category = list("Miscellaneous")
+	departments = list(PUB_DESIGN)
 
 /datum/design/intellicard
 	name = "Intellicard"
@@ -20,6 +21,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
 	build_path = /obj/item/device/aicard
 	category = list("Miscellaneous")
+	departments = list(SCI_DESIGN, ENG_DESIGN, ROBO_DESIGN)
 
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"
@@ -30,6 +32,7 @@
 	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
 	build_path = /obj/item/device/paicard
 	category = list("Miscellaneous")
+	departments = list(PUB_DESIGN)
 
 /datum/design/tech_disk
 	name = "Technology Data Storage Disk"
@@ -40,6 +43,7 @@
 	materials = list(MAT_METAL = 30, MAT_GLASS = 10)
 	build_path = /obj/item/weapon/disk/tech_disk
 	category = list("Miscellaneous")
+	departments = list(PUB_DESIGN)
 
 /datum/design/digital_camera
 	name = "Digital Camera"
@@ -50,3 +54,4 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
 	build_path = /obj/item/device/camera/digital
 	category = list("Miscellaneous")
+	departments = list(PUB_DESIGN)

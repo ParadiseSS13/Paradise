@@ -34,6 +34,15 @@ other types of metals and chemistry for reagents).
 
 */
 
+#define MED_DESIGN 		"medical"
+#define SEC_DESIGN 		"security"
+#define SCI_DESIGN 		"science"
+#define ENG_DESIGN 		"engineering"
+#define CARGO_DESIGN 	"cargo"
+#define ROBO_DESIGN 	"robotics"
+#define PUB_DESIGN 		"public"
+#define MECH_DESIGN 	"mechanic"
+
 /datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
@@ -42,12 +51,13 @@ other types of metals and chemistry for reagents).
 	var/reliability = 100				//Reliability of the device.
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
-	var/construction_time				//Amount of time required for building the object
+	var/construction_time	=32			//Amount of time required for building the object
 	var/build_path = ""					//The file path of the object that gets created
 	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access
 	var/access_requirement = list(access_armory) //What special access requirements will the lockbox have? Defaults to armory.
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
+	var/list/departments = list(SCI_DESIGN) 		//List of departments that are allowed to print this item
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.

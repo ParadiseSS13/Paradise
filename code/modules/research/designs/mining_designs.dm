@@ -11,6 +11,7 @@
 	reliability = 79
 	build_path = /obj/item/weapon/pickaxe/drill/diamonddrill
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/pick_diamond
 	name = "Diamond Pickaxe"
@@ -21,6 +22,7 @@
 	materials = list(MAT_DIAMOND = 3000)
 	build_path = /obj/item/weapon/pickaxe/diamond
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/drill
 	name = "Mining Drill"
@@ -31,6 +33,7 @@
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000)
 	build_path = /obj/item/weapon/pickaxe/drill
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
@@ -42,6 +45,7 @@
 	reliability = 79
 	build_path = /obj/item/weapon/gun/energy/plasmacutter
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/plasmacutter_adv
 	name = "Advanced Plasma Cutter"
@@ -53,6 +57,7 @@
 	reliability = 79
 	build_path = /obj/item/weapon/gun/energy/plasmacutter/adv
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/jackhammer
 	name = "Sonic Jackhammer"
@@ -63,6 +68,7 @@
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_SILVER = 2000, MAT_DIAMOND = 6000)
 	build_path = /obj/item/weapon/pickaxe/drill/jackhammer
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/superaccelerator
 	name = "Super-Kinetic Accelerator"
@@ -73,6 +79,7 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_URANIUM = 2000)
 	build_path = /obj/item/weapon/gun/energy/kinetic_accelerator/super
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/hyperaccelerator
 	name = "Hyper-Kinetic Accelerator"
@@ -83,6 +90,7 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/weapon/gun/energy/kinetic_accelerator/hyper
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)
 
 /datum/design/superresonator
 	name = "Upgraded Resonator"
@@ -93,3 +101,4 @@
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_URANIUM = 2000)
 	build_path = /obj/item/weapon/resonator/upgraded
 	category = list("Mining")
+	departments = list(CARGO_DESIGN)

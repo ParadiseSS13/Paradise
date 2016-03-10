@@ -229,6 +229,7 @@
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000)
 	build_path = /obj/item/weapon/gun/energy/stunrevolver
 	locked = 1
+	departments = list(SEC_DESIGN)
 	category = list("Weapons")
 
 /datum/design/temp_gun
@@ -249,6 +250,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
 	build_path = /obj/item/weapon/suppressor
+	departments = list(PUB_DESIGN)
 	category = list("Weapons")
 
 /datum/design/techshell
@@ -259,6 +261,7 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
+	departments = list(PUB_DESIGN)
 	category = list("Weapons")
 
 /datum/design/xray
@@ -270,6 +273,7 @@
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, MAT_METAL = 4000)
 	build_path = /obj/item/weapon/gun/energy/xray
 	locked = 1
+	departments = list(SEC_DESIGN)
 	category = list("Weapons")
 
 /datum/design/immolator
@@ -281,4 +285,5 @@
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
 	build_path = /obj/item/weapon/gun/energy/immolator
 	locked = 1
+	departments = list(SEC_DESIGN)
 	category = list("Weapons")

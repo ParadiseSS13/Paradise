@@ -11,6 +11,7 @@
 	reliability = 74
 	build_path = "/obj/item/device/mass_spectrometer/adv"
 	category = list("Medical")
+	departments = list(PUB_DESIGN)
 
 /datum/design/adv_reagent_scanner
 	name = "Advanced Reagent Scanner"
@@ -22,6 +23,7 @@
 	reliability = 74
 	build_path = /obj/item/device/reagent_scanner/adv
 	category = list("Medical")
+	departments = list(PUB_DESIGN)
 
 /datum/design/noreactbeaker
 	name = "Cryostasis Beaker"
@@ -33,6 +35,7 @@
 	reliability = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
+	departments = list(PUB_DESIGN)
 
 /datum/design/cyborg_analyzer
 	name = "Cyborg Analyzer"
@@ -44,6 +47,7 @@
 	reliability = 76
 	build_path = /obj/item/device/robotanalyzer
 	category = list("Medical")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/healthanalyzer_upgrade
 	name = "Health Analyzer Upgrade"
@@ -54,6 +58,7 @@
 	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
 	build_path = /obj/item/device/healthupgrade
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/defib
 	name = "Defibrillator"
@@ -65,6 +70,7 @@
 	reliability = 76
 	build_path = /obj/item/weapon/defibrillator
 	category = list("Medical")
+	departments = list(PUB_DESIGN)
 
 
 /datum/design/sensor_device
@@ -77,6 +83,7 @@
 	reliability = 76
 	build_path = /obj/item/device/sensor_device
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/mmi
 	name = "Man-Machine Interface"
@@ -89,6 +96,7 @@
 	reliability = 76
 	build_path = /obj/item/device/mmi
 	category = list("Misc","Medical")
+	departments = list(ROBO_DESIGN, MED_DESIGN)
 
 /datum/design/mass_spectrometer
 	name = "Mass-Spectrometer"
@@ -100,6 +108,7 @@
 	reliability = 76
 	build_path = /obj/item/device/mass_spectrometer
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/posibrain
 	name = "Positronic Brain"
@@ -112,6 +121,7 @@
 	construction_time = 75
 	build_path = /obj/item/device/mmi/posibrain
 	category = list("Misc","Medical")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/mmi_radio
 	name = "Radio-Enabled Man-Machine Interface"
@@ -124,6 +134,7 @@
 	reliability = 74
 	build_path = /obj/item/device/mmi/radio_enabled
 	category = list("Misc","Medical")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/nanopaste
 	name = "Nanopaste"
@@ -134,6 +145,7 @@
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
 	category = list("Medical")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/reagent_scanner
 	name = "Reagent Scanner"
@@ -145,6 +157,7 @@
 	reliability = 76
 	build_path = /obj/item/device/reagent_scanner
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/synthetic_flash
 	name = "Synthetic Flash"
@@ -157,6 +170,7 @@
 	reliability = 76
 	build_path = /obj/item/device/flash/synthetic
 	category = list("Misc")
+	departments = list(ROBO_DESIGN)
 
 /datum/design/item/scalpel_laser1
 	name = "Basic Laser Scalpel"
@@ -167,6 +181,7 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
 	build_path = /obj/item/weapon/scalpel/laser1
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/item/scalpel_laser2
 	name = "Improved Laser Scalpel"
@@ -177,6 +192,7 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
 	build_path = /obj/item/weapon/scalpel/laser2
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/item/scalpel_laser3
 	name = "Advanced Laser Scalpel"
@@ -187,6 +203,7 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/weapon/scalpel/laser3
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/item/scalpel_manager
 	name = "Incision Management System"
@@ -197,6 +214,7 @@
 	materials = list (MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/weapon/scalpel/manager
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 
 /////////////////////////////////////////
@@ -212,6 +230,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 400)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/shield
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_medical_hud
 	name = "Medical HUD implant"
@@ -222,6 +241,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_security_hud
 	name = "Security HUD implant"
@@ -232,6 +252,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 750, MAT_GOLD = 750)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_xray
 	name = "X-Ray implant"
@@ -242,6 +263,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/xray
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_thermals
 	name = "Thermals implant"
@@ -252,6 +274,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_antidrop
 	name = "Anti-Drop implant"
@@ -262,6 +285,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 400, MAT_GOLD = 400)
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_drop
 	category = list("Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_antistun
 	name = "CNS Rebooter implant"
@@ -272,6 +296,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_SILVER = 500, MAT_GOLD = 1000)
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_stun
 	category = list("Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_nutriment
 	name = "Nutriment pump implant"
@@ -282,6 +307,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 500)
 	build_path = /obj/item/organ/internal/cyberimp/chest/nutriment
 	category = list("Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_nutriment_plus
 	name = "Nutriment pump implant PLUS"
@@ -292,6 +318,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 750)
 	build_path = /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	category = list("Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /datum/design/cyberimp_reviver
 	name = "Reviver implant"
@@ -302,6 +329,7 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_GOLD = 500, MAT_URANIUM = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
 	category = list("Misc", "Medical Designs")
+	departments = list(MED_DESIGN, ROBO_DESIGN)
 
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
@@ -316,6 +344,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
 	build_path = /obj/item/weapon/implanter
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/implantcase
 	name = "Implant Case"
@@ -326,6 +355,7 @@
 	materials = list(MAT_GLASS = 500)
 	build_path = /obj/item/weapon/implantcase
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/implant_freedom
 	name = "Freedom Implant Case"
@@ -336,6 +366,7 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 500, MAT_GOLD = 250)
 	build_path = /obj/item/weapon/implantcase/freedom
 	category = list("Medical")
+	departments = list(MED_DESIGN)
 
 /datum/design/implant_adrenalin
 	name = "Adrenalin Implant Case"
@@ -346,3 +377,4 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 500, MAT_GOLD = 500, MAT_URANIUM = 100, MAT_DIAMOND = 200)
 	build_path = /obj/item/weapon/implantcase/adrenaline
 	category = list("Medical")
+	departments = list(MED_DESIGN)
