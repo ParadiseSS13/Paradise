@@ -1190,15 +1190,22 @@ proc/CallMaterialName(ID)
 	circuit = /obj/item/weapon/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
-	name = "mechanics R&D console"
+	name = "\improper Mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(access_mechanic)
 	circuit = /obj/item/weapon/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
-	name = "public R&D console"
+	name = "\improper Public R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 5
 	req_access = list()
 	circuit = /obj/item/weapon/circuitboard/rdconsole/public
+
+/obj/machinery/computer/rdconsole/medical
+	name= "\improper Medical R&D console"
+	desc = "A console used to interface with R&D tools."
+	id = 6
+	req_access = list(access_medical)
+	circuit = /obj/item/weapon/circuitboard/rdconsole/medical
