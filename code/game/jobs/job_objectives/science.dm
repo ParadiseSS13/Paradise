@@ -4,8 +4,8 @@
 
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
-	completion_payment = 50
-	per_unit = 5
+	completion_payment = 5
+	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
 	var/desc = "Research tech levels, and have cargo ship them to centcomm."
