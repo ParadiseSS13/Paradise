@@ -255,6 +255,7 @@ What a mess.*/
 			if ("Print Record")
 				if (!( printing ))
 					printing = 1
+					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"

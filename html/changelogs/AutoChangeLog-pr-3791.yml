@@ -1,0 +1,15 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - soundadd: "Adds in drink fizzing sound"
+  - tweak: "Drink/bartender recipes use this new fizzing sound in addition to a few other recipes"
+  - soundadd: "Adds in a fuse burning sound"
+  - tweak: "Bath salts, black powder, saltpetre, and charcoal use this sound now"
+  - soundadd: "Adds in a matchstrike+burning sound"
+  - tweak: "Lighting a match triggers this new sound"
+  - soundadd: "Adds in scissors cutting sound"
+  - tweak: "Cutting someone's hair uses this new sound"
+  - soundadd: "Adds in printer sounds"
+  - tweak: "printing off papers from various devices typically uses these sounds"
+  - soundadd: "Adds computer ambience sounds"
+  - tweak: "black box recorder and R&D core servers both play this sound at random rare intervals"

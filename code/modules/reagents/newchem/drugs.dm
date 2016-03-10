@@ -154,6 +154,7 @@
 	result_amount = 6
 	mix_message = "The mixture dries into a pale blue powder."
 	min_temp = 380
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/reagent/methamphetamine
 	name = "Methamphetamine"
@@ -244,6 +245,7 @@
 	result = "saltpetre"
 	required_reagents = list("potassium" = 1, "nitrogen" = 1, "oxygen" = 3)
 	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -289,6 +291,7 @@
 	result_amount = 6
 	min_temp = 374
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/reagent/bath_salts/overdose_process(var/mob/living/M as mob)
 	M.hallucination += 10

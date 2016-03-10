@@ -67,8 +67,8 @@
 
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
-
-		B.transfer_identity(user)
+		if(owner.mind)//don't transfer if the owner does not have a mind.
+			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
