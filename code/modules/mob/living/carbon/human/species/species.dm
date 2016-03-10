@@ -423,14 +423,12 @@
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
 		if(H.mind && H.mind.vampire)
-			if((VAMP_VISION in H.mind.vampire.powers) && (!(VAMP_FULL in H.mind.vampire.powers)))
-				H.sight |= SEE_MOBS
-
-			else if(VAMP_FULL in H.mind.vampire.powers)
+			if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 				H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 				H.see_in_dark = 8
 				H.see_invisible = SEE_INVISIBLE_MINIMUM
-
+			else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
+				H.sight |= SEE_MOBS
 
 		if(XRAY in H.mutations)
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
