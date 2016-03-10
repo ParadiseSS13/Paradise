@@ -147,15 +147,15 @@
 	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser
 	category = list("Pod_Weaponry")
 
-/datum/design/pod_mining_laser_burst
+/datum/design/pod_mining_laser_hyper
 	construction_time = 200
-	name = "Burst Mining Laser"
-	desc = "Allows for the construction of a mining laser. This is the burst-fire model."
-	id = "pod_mining_laser_burst"
+	name = "Enhanced Mining Laser"
+	desc = "Allows for the construction of an enhanced mining laser."
+	id = "pod_mining_laser_hyper"
 	req_tech = list("materials" = 7, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_DIAMOND = 4000)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_burst
+	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
 	category = list("Pod_Weaponry")
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////

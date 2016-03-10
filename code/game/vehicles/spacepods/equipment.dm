@@ -109,26 +109,26 @@
 	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon_state = "pod_taser"
 	projectile_type = "/obj/item/projectile/kinetic"
-	shot_cost = 200
-	fire_delay = 10
+	shot_cost = 300
+	fire_delay = 14
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 
 /obj/item/device/spacepod_equipment/weaponry/mining_laser
 	name = "mining laser system"
 	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon_state = "pod_m_laser"
-	projectile_type = "/obj/item/projectile/kinetic/hyper"
-	shot_cost = 600
+	projectile_type = "/obj/item/projectile/kinetic/super"
+	shot_cost = 250
+	fire_delay = 10
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 
-/obj/item/device/spacepod_equipment/weaponry/mining_laser_burst
-	name = "burst mining laser system"
-	desc = "A mining laser system for space pods, this one fires 3 at a time"
+/obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
+	name = "enhanced mining laser system"
+	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock"
 	icon_state = "pod_w_laser"
-	projectile_type = "/obj/item/projectile/kinetic/hyper/podburst"
-	shot_cost = 1200
-	shots_per = 3
-	fire_delay = 30
+	projectile_type = "/obj/item/projectile/kinetic/hyper"
+	shot_cost = 200
+	fire_delay = 8
 	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
 
 //base item for spacepod misc equipment (tracker)
