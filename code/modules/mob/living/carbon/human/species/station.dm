@@ -453,8 +453,8 @@
 	set name = "Regrow Limbs"
 	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
 
-#define SLIMEPERSON_HUNGERCOST 125
-#define SLIMEPERSON_MINHUNGER 300
+#define SLIMEPERSON_HUNGERCOST 50
+#define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
 	if(stat || paralysis || stunned)
