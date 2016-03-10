@@ -198,7 +198,7 @@
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(5))
-		M.emote(pick("twitch","blink_r","shiver"))
+		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
 		M.jitteriness += 5
 	M.drowsyness = max(M.drowsyness-10, 0)
@@ -397,17 +397,19 @@
 
 /datum/reagent/aranesp/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel like you're made of steel!", "You feel invigorated!", "You feel really buff!", "You feel on top of the world!", "You feel full of energy!")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.adjustStaminaLoss(-40)
 	if(prob(90))
 		M.adjustToxLoss(1)
+	if (prob(5))
+		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
+	var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
+	if(prob(8))
+		M << "<span class='notice'>[high_message]!</span>"
 	if(prob(5))
 		M << "<span class='danger'>You cannot breathe!</span>"
-		M.losebreath += 1
 		M.adjustOxyLoss(15)
 		M.Stun(1)
+		M.losebreath++
 	..()
 	return
 
@@ -476,10 +478,13 @@
 		M.SpinAnimation(speed = 5, loops = -1)
 	if(current_cycle == 50)
 		M.SpinAnimation(speed = 4, loops = -1)
-	M.AdjustParalysis(-2)
-	M.AdjustStunned(-2)
-	M.AdjustWeakened(-2)
-	M.adjustStaminaLoss(-2)
+
+	M.drowsyness = max(0, M.drowsyness-6)
+	M.AdjustParalysis(-1.5)
+	M.AdjustStunned(-1.5)
+	M.AdjustWeakened(-1.5)
+	M.adjustStaminaLoss(-1.5)
+	M.setSleeping(0)
 	..()
 	return
 

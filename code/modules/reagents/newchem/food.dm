@@ -22,8 +22,10 @@ datum/reagent/egg
 
 datum/reagent/egg/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(5))
+	if(prob(8))
 		M.emote("fart")
+	if(prob(3))
+		M.reagents.add_reagent("cholesterol", rand(1,2))
 	..()
 	return
 
@@ -118,7 +120,7 @@ datum/reagent/vhfcs/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/honey/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.reagents.add_reagent("sugar", 0.8)
+	M.reagents.add_reagent("sugar", 0.4)
 	..()
 	return
 
@@ -174,13 +176,15 @@ datum/reagent/mugwort/on_mob_life(var/mob/living/M as mob)
 	reagent_state = LIQUID
 	color = "#AB5D5D"
 	metabolization_rate = 0.2
-	overdose_threshold = 125
+	overdose_threshold = 133
 
 datum/reagent/porktonium/overdose_process(var/mob/living/M as mob)
-	if(volume > 125)
+	if(volume > 133)
+		if(prob(15))
+			M.reagents.add_reagent("cholesterol", rand(1,3))
 		if(prob(8))
-			M.reagents.add_reagent("cyanide", 10)
 			M.reagents.add_reagent("radium", 15)
+			M.reagents.add_reagent("cyanide", 10)
 	..()
 	return
 
@@ -195,7 +199,13 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
-		M << "<span class = 'danger'>Yuck!</span>"
+		var/ranchance = rand(1,10)
+		if(ranchance == 1)
+			M << "<span class = 'warning'>You feel very sick.</span>"
+			M.reagents.add_reagent("toxin", rand(1,5))
+		else if (ranchance <= 5 && ranchance != 1)
+			M << "<span class = 'warning'>That tasted absolutely FOUL.</span>"
+		else M << "<span class = 'warning'>Yuck!</span>"
 
 /datum/reagent/chicken_soup
 	name = "Chicken soup"
@@ -216,6 +226,7 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	description = "Monosodium Glutamate is a sodium salt known chiefly for its use as a controversial flavor enhancer."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
+	metabolization_rate = 0.2
 
 datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
@@ -225,9 +236,12 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 
 
 /datum/reagent/msg/on_mob_life(var/mob/living/M as mob)
-	if(prob(1))
-		M.Stun(rand(4,10))
-		M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+	if(prob(5))
+		if (prob(10))
+			M.adjustToxLoss(rand(2.4))
+		if(prob(7))
+			M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+			M.Stun(rand(2,5))
 	..()
 	return
 
@@ -237,6 +251,11 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	description = "Some cheese. Pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#FFFF00"
+
+
+/datum/reagent/cheese/on_mob_life(var/mob/living/M as mob)
+	if(prob(3))
+		M.reagents.add_reagent("cholesterol", rand(1,2)) //intentional no parent call, hehehe.
 
 datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	src = null
@@ -258,6 +277,13 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	description = "A cheese-like substance derived loosely from actual cheese."
 	reagent_state = LIQUID
 	color = "#B2B139"
+	overdose_threshold = 50
+
+/datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
+	if(prob(8))
+		M << "<span class = 'warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>"
+		M.adjustToxLoss(rand(1,2))
+	..()
 
 /datum/reagent/weird_cheese
 	name = "Weird cheese"
@@ -265,6 +291,10 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
+
+/datum/reagent/weird_cheese/on_mob_life(var/mob/living/M as mob)
+	if(prob(5))
+		M.reagents.add_reagent("cholesterol", rand(1,3)) //intentional no parent call, hehehe.
 
 datum/reagent/weird_cheese/reaction_turf(var/turf/T, var/volume)
 	src = null
@@ -289,7 +319,7 @@ datum/reagent/beans
 
 datum/reagent/beans/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(8))
+	if(prob(10))
 		M.emote("fart")
 	..()
 	return
@@ -353,7 +383,7 @@ datum/reagent/ectoplasm/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 
 /datum/reagent/ectoplasm/on_mob_life(var/mob/living/M as mob)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
-	if(prob(5))
+	if(prob(8))
 		M << "<span class='warning'>[spooky_message]</span>"
 	..()
 	return
@@ -365,15 +395,17 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		return
 
 /datum/reagent/soybeanoil
-	name = "Space-soybean oil "
+	name = "Space-soybean oil"
 	id = "soybeanoil"
 	description = "An oil derived from extra-terrestrial soybeans."
 	reagent_state = LIQUID
 	color = "#B1B0B0"
 
 /datum/reagent/soybeanoil/on_mob_life(var/mob/living/M as mob)
-	if(prob(5))
-		M.reagents.add_reagent("porktonium",5)
+	if(prob(10))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	if(prob(8))
+		M.reagents.add_reagent("porktonium", 5)
 	..()
 	return
 
@@ -383,12 +415,32 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	description = "An oil derived from extra-terrestrial soybeans, with additional hydrogen atoms added to convert it into a saturated form."
 	reagent_state = LIQUID
 	color = "#B1B0B0"
+	metabolization_rate = 0.2
+	overdose_threshold = 75
 
 /datum/reagent/hydrogenated_soybeanoil/on_mob_life(var/mob/living/M as mob)
+	if(prob(15))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
-		M.reagents.add_reagent("porktonium",5)
+		M.reagents.add_reagent("porktonium", 5)
+	if(holder.has_reagent(src.id,75))
+		metabolization_rate = 0.4
+	else
+		metabolization_rate = 0.2
 	..()
 	return
+
+/datum/reagent/hydrogenated_soybeanoil/overdose_process(var/mob/living/M as mob)
+	if(prob(33))
+		M << "<span class='warning'>You feel horribly weak.</span>"
+	if(prob(10))
+		M << "<span class='warning'>You cannot breathe!</span>"
+		M.adjustOxyLoss(5)
+	if(prob(5))
+		M << "<span class='warning'>You feel a sharp pain in your chest!</span>"
+		M.adjustOxyLoss(25)
+		M.Stun(5)
+		M.Paralyse(10)
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -405,6 +457,17 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 	description = "A paste comprised of highly-processed organic material. Uncomfortably similar to deviled ham spread."
 	reagent_state = LIQUID
 	color = "#EBD7D7"
+
+/datum/reagent/meatslurry/on_mob_life(var/mob/living/M as mob)
+	if(prob(4))
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	..()
+
+/datum/reagent/meatslurry/reaction_turf(var/turf/T, var/volume)
+	src = null
+	if(volume >= 5 && prob(10))
+		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
+		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
 /datum/chemical_reaction/meatslurry
 	name = "Meat Slurry"
@@ -447,13 +510,12 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 
 /datum/reagent/beff/on_mob_life(var/mob/living/M as mob)
 	if(prob(5))
-		M.reagents.add_reagent("porktonium",5)
-	if(prob(5))
-		M.reagents.add_reagent(pick("blood", "corn_syrup", "synthflesh", "hydrogenated_soybeanoil"), 0.8)
-	if(prob(5))
-		M.emote("groan")
-	if(prob(2))
-		M << "<span class='warning'>You feel sick.</span>"
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	if(prob(8))
+		M.reagents.add_reagent(pick("blood", "corn_syrup", "synthflesh", "hydrogenated_soybeanoil", "porktonium", "toxic_slurry"), 0.8)
+	else if(prob(6))
+		M << "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>"
+		M.emote(pick("groan","moan"))
 	..()
 	return
 
@@ -488,7 +550,7 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 
 			if(prob(50))
 				M.adjustBruteLoss(1)
-				playsound(M, 'sound/effects/woodhit.ogg', 50, 1, -1)
+				playsound(M, 'sound/effects/woodhit.ogg', 50, 1)
 				M << "<span class='warning'>A slice of pepperoni slaps you!</span>"
 			else
 				M.emote("burp")
@@ -503,3 +565,28 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 	result_amount = 2
 	mix_message = "The beff and the synthflesh combine to form a smoky red log."
 	mix_sound = 'sound/effects/blobattack.ogg'
+
+/datum/reagent/cholesterol
+	name = "cholesterol"
+	id = "cholesterol"
+	description = "Pure cholesterol. Probably not very good for you."
+	reagent_state = LIQUID
+	color = "#FFFAC8"
+
+/datum/reagent/cholesterol/on_mob_life(var/mob/living/M as mob)
+	if(holder.get_reagent_amount(src.id) >= 25 && prob(holder.get_reagent_amount(src.id)*0.15))
+		M << "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>"
+		M.adjustToxLoss(rand(1,2))
+	else if (holder.get_reagent_amount(src.id) >= 45 && prob(holder.get_reagent_amount(src.id)*0.08))
+		M << "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>"
+		M.adjustToxLoss(rand(2,4))
+		M.stunned ++
+	else if (holder.get_reagent_amount(src.id) >= 150 && prob(holder.get_reagent_amount(src.id)*0.01))
+		M << "<span class='warning'>Your chest is burning with pain!</span>"
+		M.Stun(1)
+		M.Weaken(1)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.heart_attack)
+				H.heart_attack = 1
+	..()

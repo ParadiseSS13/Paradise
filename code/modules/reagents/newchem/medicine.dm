@@ -226,11 +226,8 @@ datum/reagent/potass_iodide
 
 datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		if(prob(80))
-			M.radiation--
-	if(M.radiation < 0)
-		M.radiation = 0
+	if(prob(80))
+		M.radiation = max(0, M.radiation-1)
 	..()
 	return
 
@@ -251,18 +248,15 @@ datum/reagent/pen_acid
 
 datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		M.radiation -= 7
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id,4)
+	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
 		M.adjustToxLoss(-4*REM)
 	if(prob(33))
 		M.adjustBruteLoss(1*REM)
 		M.adjustFireLoss(1*REM)
-	if(M.radiation < 0)
-		M.radiation = 0
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
 	..()
 	return
 

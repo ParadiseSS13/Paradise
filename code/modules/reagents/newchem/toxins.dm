@@ -329,9 +329,10 @@
 				M.losebreath += 5
 				M.adjustOxyLoss(10)
 			if(2)
-				var/mob/living/carbon/human/H = M
-				if(!H.heart_attack)
-					H.heart_attack = 1 // rip in pepperoni
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(!H.heart_attack)
+						H.heart_attack = 1 // rip in pepperoni
 	..()
 	return
 
@@ -596,10 +597,10 @@
 		if(1 to 15)
 			M.jitteriness += 20
 			if(prob(20))
-				M.emote(pick("twitch","twitch_v","quiver"))
+				M.emote(pick("twitch","twitch_s","quiver"))
 		if(16 to 30)
 			if(prob(25))
-				M.emote(pick("twitch","twitch_v","drool","quiver","tremble"))
+				M.emote(pick("twitch","twitch","drool","quiver","tremble"))
 			M.eye_blurry += 5
 			M.stuttering = max(M.stuttering, 5)
 			if(prob(10))
@@ -612,7 +613,7 @@
 			M.stuttering = max(M.stuttering, 5)
 			if(prob(10))
 				M.Stun(1)
-				M.emote(pick("twitch","twitch_v","drool","shake","tremble"))
+				M.emote(pick("twitch","twitch","drool","shake","tremble"))
 			if(prob(5))
 				M.emote("collapse")
 			if(prob(5))
@@ -625,7 +626,7 @@
 				M.losebreath++
 		if(61 to INFINITY)
 			if(prob(15))
-				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch_v","collapse"))
+				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
 			M.losebreath = max(5, M.losebreath + 5)
 			M.adjustToxLoss(1)
 			M.adjustBrainLoss(1)
