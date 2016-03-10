@@ -153,6 +153,7 @@
 				//usr << "Printing the log, standby..."
 				//sleep(50)
 				var/obj/item/weapon/paper/P = new/obj/item/weapon/paper( loc )
+				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				P.name = "activity log"
 				P.info = dat
 

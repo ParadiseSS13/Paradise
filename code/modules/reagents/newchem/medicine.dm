@@ -125,6 +125,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	result_amount = 2
 	mix_message = "The mixture yields a fine black powder."
 	min_temp = 380
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
 /datum/chemical_reaction/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -133,6 +134,7 @@ datum/reagent/charcoal/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("ammonia" = 1, "silver" = 1, "sulfur" = 1, "oxygen" = 1, "chlorine" = 1)
 	result_amount = 5
 	mix_message = "A strong and cloying odor begins to bubble from the mixture."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/salglu_solution
 	name = "Saline-Glucose Solution"
@@ -307,6 +309,7 @@ datum/reagent/sal_acid/overdose_process(var/mob/living/M as mob)
 	required_reagents = list("sodium" = 1, "phenol" = 1, "carbon" = 1, "oxygen" = 1, "sacid" = 1)
 	result_amount = 5
 	mix_message = "The mixture crystallizes."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/salbutamol
 	name = "Salbutamol"
@@ -331,6 +334,7 @@ datum/reagent/salbutamol/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("sal_acid" = 1, "lithium" = 1, "aluminum" = 1, "bromine" = 1, "ammonia" = 1)
 	result_amount = 5
 	mix_message = "The solution bubbles freely, creating a head of bluish foam."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/perfluorodecalin
 	name = "Perfluorodecalin"
@@ -358,6 +362,7 @@ datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	result_amount = 3
 	min_temp = 370
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/ephedrine
 	name = "Ephedrine"
@@ -440,6 +445,7 @@ datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("oil" = 1, "carbon" = 1, "bromine" = 1, "diethylamine" = 1, "ethanol" = 1)
 	result_amount = 4
 	mix_message = "The mixture fizzes gently."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/morphine
 	name = "Morphine"
@@ -637,6 +643,7 @@ datum/reagent/epinephrine/overdose_process(var/mob/living/M as mob)
 	required_reagents = list("phenol" = 1, "acetone" = 1, "diethylamine" = 1, "oxygen" = 1, "chlorine" = 1, "hydrogen" = 1)
 	result_amount = 6
 	mix_message = "Tiny white crystals precipitate out of the solution."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/strange_reagent
 	name = "Strange Reagent"
@@ -815,6 +822,7 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("ethanol" = 1, "charcoal" = 1)
 	result_amount = 2
 	mix_message = "A minty and refreshing smell drifts from the effervescent mixture."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/stimulants
 	name = "Stimulants"
@@ -923,6 +931,7 @@ datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	required_reagents = list("acetone" = 1, "silicon" = 1, "plasma" = 1)
 	result_amount = 2
 	mix_message = "The mixture turns an odd lavender color."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 datum/reagent/haloperidol
 	name = "Haloperidol"

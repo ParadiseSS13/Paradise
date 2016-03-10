@@ -277,6 +277,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 			if("6")
 				if(!bibledelay)
 
+					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 					var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(src.loc)
 					if(ticker && ( ticker.Bible_icon_state && ticker.Bible_item_state) )
 						B.icon_state = ticker.Bible_icon_state
@@ -375,6 +376,7 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 				var/author = query.item[2]
 				var/title = query.item[3]
 				var/content = query.item[4]
+				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				var/obj/item/weapon/book/B = new(src.loc)
 				B.name = "Book: [title]"
 				B.title = title
