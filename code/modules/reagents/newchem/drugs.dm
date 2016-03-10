@@ -23,6 +23,9 @@
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
 		M.adjustStaminaLoss(-1*REM)
+	if(current_cycle >= 25)
+		if(prob(50))
+			M.jitteriness += 5
 	..()
 	return
 
@@ -43,17 +46,23 @@
 
 /datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",2)
+		M << "<span class='notice'>You feel great!</span>"
+		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.emote(pick("laugh", "giggle"))
+	if(prob(6))
+		M << "<span class='notice'>You feel warm.</span>"
+		M.bodytemperature += rand(1,10)
 	if(prob(4))
-		M.Jitter(10)
-		M.adjustToxLoss(1.0)
+		M << "<span class='notice'>You feel kinda awful!</span>"
+		M.adjustToxLoss(1)
+		M.jitteriness += 30
+		M.emote(pick("groan", "moan"))
 	..()
 	return
 /datum/reagent/crank/overdose_process(var/mob/living/M as mob)
@@ -109,9 +118,25 @@
 
 /datum/reagent/krokodil/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+	M.jitteriness -= 40
+	if(prob(25))
+		M.adjustBrainLoss(1)
+	if(prob(15))
+		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
+	if(prob(10))
+		M << "<span class='notice'>You feel pretty chill.</span>"
+		M.bodytemperature--
+		M.emote("smile")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		M << "<span class='notice'>You feel too chill!</span>"
+		M.emote(pick("yawn", "drool"))
+		M.Stun(1)
+		M.adjustToxLoss(1)
+		M.adjustBrainLoss(1)
+		M.bodytemperature -= 20
+	if(prob(2))
+		M << "<span class='warning'>Your skin feels all rough and dry.</span>"
+		M.adjustBruteLoss(2)
 	..()
 	return
 
@@ -172,19 +197,19 @@
 
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		M.emote(pick("twitch","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.jitteriness += 5
+	M.drowsyness = max(M.drowsyness-10, 0)
 	M.AdjustParalysis(-2.5)
 	M.AdjustStunned(-2.5)
 	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
+	M.SetSleeping(0)
 	M.status_flags |= GOTTAGOREALLYFAST
-	M.Jitter(3)
 	if(prob(50))
 		M.adjustBrainLoss(1.0)
-	if(prob(5))
-		M.emote(pick("twitch", "shiver"))
 	..()
 	return
 
@@ -396,10 +421,16 @@
 
 /datum/reagent/thc/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(8))
-		M.emote(pick("smile","giggle","laugh"))
-	if(prob(50))
-		M.stuttering += 2
+	M.stuttering += rand(0,2)
+	if(prob(5))
+		M.emote(pick("laugh","giggle","smile"))
+	if(prob(5))
+		M << "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]"
+	if(prob(4))
+		M.confused = max(M.confused, 10)
+	if(holder.get_reagent_amount(src.id) >= 50 && prob(25))
+		if(prob(10))
+			M.drowsyness = max(M.drowsyness, 10)
 	..()
 	return
 

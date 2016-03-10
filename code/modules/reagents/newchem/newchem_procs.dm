@@ -3,7 +3,7 @@ datum/reagent
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
-	var/current_cycle = 0
+	var/current_cycle = 1
 datum/reagents
 	var/chem_temp = 300
 	var/addiction_tick = 1
@@ -100,13 +100,6 @@ datum/reagents/proc/reagent_on_tick()
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
 	return
-
-datum/reagents/proc/check_ignoreslow(var/mob/M)
-	if(istype(M, /mob))
-		if(M.reagents.has_reagent("morphine"))
-			return 1
-		else
-			M.status_flags &= ~IGNORESLOWDOWN
 
 datum/reagents/proc/check_gofast(var/mob/M)
 	if(istype(M, /mob))

@@ -443,7 +443,7 @@
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
 	if(current_cycle >= 90)
-		M.jitteriness += 10
+		M.jitteriness += 2
 	..()
 	return
 

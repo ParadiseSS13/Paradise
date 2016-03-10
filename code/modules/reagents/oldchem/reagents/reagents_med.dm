@@ -57,9 +57,11 @@
 
 /datum/reagent/synaptizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
+	M.SetSleeping(0)
 	if(prob(50))
 		M.adjustBrainLoss(-1.0)
 	..()

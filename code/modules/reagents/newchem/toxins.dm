@@ -120,21 +120,32 @@
 	metabolization_rate = 1
 
 /datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
-	if(current_cycle <= 4)
-		M.reagents.add_reagent("neurotoxin2", 1.0)
-	if(current_cycle >= 5)
-		if(prob(5))
-			M.emote("drool")
-		if(M.getBrainLoss() < 60)
-			M.adjustBrainLoss(1*REM)
-		M.adjustToxLoss(1*REM)
-	if(current_cycle >= 9)
-		M.drowsyness = max(M.drowsyness, 10)
-	if(current_cycle >= 13)
-		M.Paralyse(8)
 	switch(current_cycle)
-		if(5 to 45)
-			M.confused = max(M.confused, 15)
+		if(1 to 4)
+			current_cycle++
+			return
+		if(5 to 8)
+			M.dizziness += 1
+			M.confused = max(M.confused, 10)
+		if(9 to 12)
+			M.drowsyness  = max(M.drowsyness, 10)
+			M.dizziness += 1
+			M.confused = max(M.confused, 20)
+		if(13)
+			M.emote("faint")
+		if(14 to INFINITY)
+			M.Paralyse(10)
+			M.drowsyness  = max(M.drowsyness, 20)
+
+	M.jitteriness = max(0, M.jitteriness-30)
+	if(M.getBrainLoss() <= 80)
+		M.adjustBrainLoss(1)
+	else
+		if(prob(10))
+			M.adjustBrainLoss(1)
+	if (prob(10))
+		M.emote("drool")
+	M.adjustToxLoss(1)
 	..()
 	return
 
@@ -349,12 +360,27 @@
 
 /datum/reagent/pancuronium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle >= 10)
-		M.Weaken(3)
-		if(prob(10))
-			M.losebreath += 1
-		if(prob(7))
-			M.losebreath += 3
+	switch(current_cycle)
+		if(1 to 5)
+			if(prob(10))
+				M.emote(pick("drool", "tremble"))
+		if(6 to 10)
+			if(prob(8))
+				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
+				M.Stun(1)
+			else if (prob(8))
+				M.emote(pick("drool", "tremble"))
+		if(11 to INFINITY)
+			M.Stun(20)
+			M.Weaken(20)
+			if(prob(10))
+				M.emote(pick("drool", "tremble", "gasp"))
+				M.losebreath++
+			if(prob(9))
+				M << "<span class='danger'>You can't [pick("move", "feel your legs", "feel your face", "feel anything")]!</span>"
+			if(prob(7))
+				M << "<span class='danger'>You can't breathe!</span>"
+				M.losebreath += 3
 	..()
 	return
 
@@ -368,12 +394,21 @@
 
 /datum/reagent/sodium_thiopental/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle == 1)
+	switch(current_cycle)
+		if (1)
+			M.emote("drool")
+			M.confused = max(M.confused, 5)
+		if (2 to 4)
+			M.drowsyness = max(M.drowsyness, 20)
+		if (5)
+			M.emote("faint")
+			M.Weaken(5)
+		if (6 to INFINITY)
+			M.Paralyse(20)
+	M.jitteriness = max(0, M.jitteriness-50)
+	if (prob(10))
 		M.emote("drool")
-	if(current_cycle >= 2)
-		M.drowsyness = max(M.drowsyness, 20)
-	if(current_cycle >= 5)
-		M.Paralyse(4)
+		M.adjustBrainLoss(1)
 	..()
 	return
 
@@ -388,13 +423,19 @@
 
 /datum/reagent/ketamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(current_cycle <= 10)
-		if(prob(20))
-			M.emote("yawn")
-	if(current_cycle == 6)
-		M.eye_blurry = max(M.eye_blurry, 5)
-	if(current_cycle >= 10)
-		M.Paralyse(10)
+	switch(current_cycle)
+		if(1 to 5)
+			if(prob(25))
+				M.emote("yawn")
+		if(6 to 9)
+			M.eye_blurry += 5
+			if (prob(35))
+				M.emote("yawn")
+		if(10)
+			M.emote("faint")
+			M.Weaken(5)
+		if(11 to INFINITY)
+			M.Paralyse(25)
 	..()
 	return
 
@@ -417,18 +458,21 @@
 
 /datum/reagent/sulfonal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(1)
-	if(current_cycle >= 11)
-		M.drowsyness = max(M.drowsyness, 20)
+	M.jitteriness = max(0, M.jitteriness-30)
 	switch(current_cycle)
-		if(0 to 10)
-			if(prob(5))
+		if(1 to 10)
+			if (prob(7))
 				M.emote("yawn")
-		if(22)
+		if(11 to 20)
+			M.drowsyness  = max(M.drowsyness, 20)
+		if(21)
 			M.emote("faint")
-		if(23 to INFINITY)
+		if(22 to INFINITY)
 			if(prob(20))
 				M.emote("faint")
+				M.Paralyse(5)
+			M.drowsyness  = max(M.drowsyness, 20)
+	M.adjustToxLoss(1)
 	..()
 	return
 
@@ -503,65 +547,94 @@
 
 /datum/reagent/curare/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(5))
-		M.emote(pick("gasp","drool", "pale"))
-	if(current_cycle >= 11)
-		M.Weaken(15)
 	M.adjustToxLoss(1)
 	M.adjustOxyLoss(1)
+	switch(current_cycle)
+		if(1 to 5)
+			if(prob(20))
+				M.emote(pick("drool", "pale", "gasp"))
+		if(6 to 10)
+			M.eye_blurry += 5
+			if(prob(8))
+				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
+				M.Stun(1)
+			else if (prob(8))
+				M.emote(pick("drool","pale", "gasp"))
+		if(11 to INFINITY)
+			M.Stun(30)
+			M.drowsyness  = max(M.drowsyness, 20)
+			if(prob(20))
+				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
+			else if (prob(8))
+				M << "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>"
+				M.losebreath++
 	..()
 	return
 
-/datum/reagent/tabun
-	name = "Tabun"
-	id = "tabun"
+/datum/reagent/sarin
+	name = "Sarin"
+	id = "sarin"
 	description = "An extremely deadly neurotoxin."
 	reagent_state = LIQUID
 	color = "#C7C7C7"
 	metabolization_rate = 0.1
 	penetrates_skin = 1
 
-/datum/chemical_reaction/tabun
-	name = "tabun"
-	id = "tabun"
-	result = "tabun"
-	required_reagents = list("phenol" = 1, "diethylamine" = 1, "phosphorus" = 1, "oxygen" = 1, "chlorine" = 1, "sodiumchloride" = 1, "ethanol" = 1, "cyanide" = 1)
-	result_amount = 8
+/datum/chemical_reaction/sarin
+	name = "sarin"
+	id = "sarin"
+	result = "sarin"
+	required_reagents = list("chlorine" = 1, "fuel" = 1, "oxygen" = 1, "phosphorus" = 1, "fluorine" = 1, "hydrogen" = 1, "acetone" = 1, "atrazine" = 1)
+	result_amount = 3
 	mix_message = "The mixture yields a colorless, odorless liquid."
 	min_temp = 374
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/reagent/tabun/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/sarin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustFireLoss(1)
-	if(prob(20))
-		M.emote(pick("twitch","drool", "quiver"))
-	if(prob(10))
-		M.emote("scream")
-		M.drop_l_hand()
-		M.drop_r_hand()
-	if(prob(5))
-		M.confused = max(M.confused, 3)
-	if(prob(15))
-		M.fakevomit()
-	if(prob(2))
-		M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='danger'>You have a seizure!</span>")
-		M.Paralyse(5)
-		M.jitteriness = 1000
-	if(current_cycle >= 5)
-		M.jitteriness += 10
-	if(current_cycle >= 20)
-		if(prob(5))
-			M.emote("collapse")
 	switch(current_cycle)
-		if(0 to 60)
-			M.adjustBrainLoss(1)
-			M.adjustToxLoss(1)
+		if(1 to 15)
+			M.jitteriness += 20
+			if(prob(20))
+				M.emote(pick("twitch","twitch_v","quiver"))
+		if(16 to 30)
+			if(prob(25))
+				M.emote(pick("twitch","twitch_v","drool","quiver","tremble"))
+			M.eye_blurry += 5
+			M.stuttering = max(M.stuttering, 5)
+			if(prob(10))
+				M.confused = max(M.confused, 15)
+			if(prob(15))
+				M.Stun(1)
+				M.emote("scream")
+		if(30 to 60)
+			M.eye_blurry += 5
+			M.stuttering = max(M.stuttering, 5)
+			if(prob(10))
+				M.Stun(1)
+				M.emote(pick("twitch","twitch_v","drool","shake","tremble"))
+			if(prob(5))
+				M.emote("collapse")
+			if(prob(5))
+				M.Weaken(3)
+				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
+				M.jitteriness = 1000
+			if(prob(5))
+				M << "<span class='warning'>You can't breathe!</span>"
+				M.emote(pick("gasp", "choke", "cough"))
+				M.losebreath++
 		if(61 to INFINITY)
-			M.adjustBrainLoss(2)
-			M.adjustToxLoss(2)
-			M.Paralyse(5)
-			M.losebreath += 5
+			if(prob(15))
+				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch_v","collapse"))
+			M.losebreath = max(5, M.losebreath + 5)
+			M.adjustToxLoss(1)
+			M.adjustBrainLoss(1)
+			M.Weaken(4)
+	if (prob(8))
+		M.fakevomit()
+	M.adjustToxLoss(1)
+	M.adjustBrainLoss(1)
+	M.adjustFireLoss(1)
 	..()
 	return
 
@@ -646,10 +719,18 @@
 
 /datum/reagent/capulettium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.eye_blurry = max(M.eye_blurry, 2)
-	if(current_cycle == 12)
-		M.emote("deathgasp")
-		M.Paralyse(10)
+	switch(current_cycle)
+		if(1 to 5)
+			M.eye_blurry += 10
+		if(6 to 10)
+			M.drowsyness  = max(M.drowsyness, 10)
+		if(11)
+			M.Paralyse(10)
+			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+		if(12 to 60)
+			M.Paralyse(10)
+		if(61 to INFINITY)
+			M.eye_blurry += 10
 	..()
 	return
 
