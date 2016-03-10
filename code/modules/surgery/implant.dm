@@ -155,7 +155,9 @@
 		if(!istype(I, /obj/item/organ))
 			IC = I
 			break
-	if(tool)
+	if(istype(tool,/obj/item/weapon/cautery))
+		user << "you prepare to close the cavity wall."
+	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
 	else if(IC)
@@ -181,8 +183,9 @@
 		user << "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>"
 		return 0
 
-
-	if(tool)
+	if(istype(tool,/obj/item/weapon/cautery))
+		return 1//god this is ugly....
+	else if(tool)
 		if(IC)
 			user << "<span class='notice'>There seems to be something in there already!</span>"
 			return 1
