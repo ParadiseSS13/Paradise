@@ -265,7 +265,7 @@
 	allowed_tools = list(/obj/item/device/mmi = 100)
 	var/implements_extract = list(/obj/item/device/multitool = 100)
 	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/weapon/bonegel = 30, /obj/item/weapon/screwdriver = 70)
-	var/implements_insert = list(/obj/item/weapon/screwdriver = 100)
+	var/implements_insert = list(/obj/item/organ/internal = 100)
 	var/implements_finish =list(/obj/item/weapon/retractor = 100,/obj/item/weapon/crowbar = 100,/obj/item/weapon/kitchen/utensil = 50)
 	var/current_type
 	var/obj/item/organ/internal/I = null
@@ -285,13 +285,11 @@
 	affected = target.get_organ(target_zone)
 	if(implement_type in implements_insert)
 		current_type = "insert"
-		//I = tool
-		var/off_tool = user.get_inactive_hand()
+		var/obj/item/organ/internal/I = tool
 
-		if(!off_tool || !istype(off_tool,/obj/item/organ/internal))
-			user << "<span class='notice'>You need a replacement internal part in your off hand.</span>"
-			return -1
-		I = off_tool //and please god let it be an organ...
+		if(I.status != ORGAN_ROBOT || I.robotic != 2)
+			user << "<span class='notice'>You can only implant cybernetic organs.</span>"
+
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 			user << "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>"
 			return -1
@@ -304,8 +302,8 @@
 			user << "<span class='warning'> \The [target] already has [I].</span>"
 			return -1
 
-		user.visible_message("[user] begins reattaching [target]'s [off_tool] with \the [tool].", \
-		"You start reattaching [target]'s [off_tool] with \the [tool].")
+		user.visible_message("[user] begins reattaching [target]'s [tool].", \
+		"You start reattaching [target]'s [tool].")
 		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
 	else if(istype(tool,/obj/item/device/mmi))
 		current_type = "install"
@@ -407,18 +405,19 @@
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
 					I.damage = 0
 	else if(current_type == "insert")
-		var/obj/item/organ/internal/I = target.get_int_organ(surgery.current_organ)
+		var/obj/item/organ/internal/I = tool
 
-		var/off_tool = user.get_inactive_hand()
-		I = off_tool
-		//user.drop_item()
+		if(!user.canUnEquip(I, 0))
+			user << "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>"
+			return 0
+
+		user.drop_item()
 		I.insert(target)
-		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I] with \the [tool].</span>" , \
-		"<span class='notice'> You have reattached [target]'s [I] with \the [tool].</span>")
+		user.visible_message("<span class='notice'> [user] has reattached [target]'s [I].</span>" , \
+		"<span class='notice'> You have reattached [target]'s [I].</span>")
 
 		if(I && istype(I))
 			I.status &= ~ORGAN_CUT_AWAY
-		qdel(off_tool)
 	else if (current_type == "install")
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")

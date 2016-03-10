@@ -143,7 +143,6 @@
 				return -1
 
 	else if(implement_type in implements_mend)
-		//todo Change message, make it heal the organs...
 		current_type = "mend"
 		var/tool_name = "\the [tool]"
 		if (istype(tool, /obj/item/stack/medical/advanced/bruise_pack))
@@ -163,11 +162,11 @@
 						spread_germs_to_organ(I, user)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-				else if(I.robotic > 2 && istype(tool, /obj/item/stack/nanopaste))
+				else if(I.robotic >= 2 && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
-			user << "No organs appear to be damaged."
+			user << "[I] does not appear to be damaged."
 		H.custom_pain("The pain in your [affected.name] is living hell!",1)
 
 	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
@@ -195,7 +194,7 @@
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
-				else if(I.robotic > 2 && istype (tool, /obj/item/stack/nanopaste))
+				else if(I.robotic >= 2 && istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
@@ -205,6 +204,10 @@
 		user.drop_item()
 		I.insert(target)
 		spread_germs_to_organ(I, user)
+		if(!user.canUnEquip(I, 0))
+			user << "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>"
+			return 0
+
 		if(affected)
 			user.visible_message("<span class='notice'> [user] has transplanted \the [tool] into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You have transplanted \the [tool] into [target]'s [affected.name].</span>")

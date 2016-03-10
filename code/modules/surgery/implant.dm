@@ -155,7 +155,9 @@
 		if(!istype(I, /obj/item/organ))
 			IC = I
 			break
-	if(tool)
+	if(istype(tool,/obj/item/weapon/cautery))
+		user << "you prepare to close the cavity wall."
+	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
 	else if(IC)
@@ -170,16 +172,22 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 
 	if(istype(tool, /obj/item/weapon/disk/nuclear))
-		user << "Central command would kill you if you implanted the disk into someone."
+		user << "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>"
 		return 0//fail
 
 	if(istype(tool,/obj/item/organ))
-		user << "This isn't the type of surgery for that!"
+		user << "<span class='warning'>This isn't the type of surgery for organ transplants!</span>"
 		return 0//fail
 
-	if(tool)
+	if(!user.canUnEquip(tool, 0))
+		user << "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>"
+		return 0
+
+	if(istype(tool,/obj/item/weapon/cautery))
+		return 1//god this is ugly....
+	else if(tool)
 		if(IC)
-			user << "There seems to be something in there already!"
+			user << "<span class='notice'>There seems to be something in there already!</span>"
 			return 1
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
