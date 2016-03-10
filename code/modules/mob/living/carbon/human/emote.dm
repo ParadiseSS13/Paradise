@@ -47,7 +47,9 @@
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
-		if("scream", "screams", "fart", "farts", "flip", "flips", "snap", "snaps")
+		if("scream", "screams")
+			on_CD = handle_emote_CD(50) //longer cooldown
+		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -721,17 +723,12 @@
 				m_type = 1
 			else
 				if (!muzzled)
-					if (!(species.name == "Vox" || species.name == "Vox Armalis"))
-						message = "<B>[src]</B> screams!"
-						m_type = 2
-						if (prob(5))
-							playsound(src.loc, 'sound/voice/WilhelmScream.ogg', 100, 1, 10)
-						else
-							playsound(src.loc, 'sound/voice/scream2.ogg', 100, 1, 10)
+					message = "<B>[src]</B> [species.scream_verb]!"
+					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
-						message = "<B>[src]</B> shrieks!"
-						m_type = 2
-						playsound(src.loc, 'sound/voice/shriek1.ogg', 100, 1, 10)
+						playsound(src.loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."

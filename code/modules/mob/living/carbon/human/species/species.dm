@@ -104,6 +104,9 @@
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
 	var/list/speech_chance                   // The likelihood of a speech sound playing.
+	var/scream_verb = "screams"
+	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
 
                               // Determines the organs that the species spawns with and
 	var/list/has_organ = list(    // which required-organ checks are conducted.

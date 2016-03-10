@@ -231,6 +231,9 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
+	scream_verb = "shrieks"
+	male_scream_sound = 'sound/voice/shriek1.ogg'
+	female_scream_sound = 'sound/voice/shriek1.ogg'
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

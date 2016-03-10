@@ -1908,3 +1908,6 @@
 	else
 		src << "<span class='notice'>You swallow a gulp of [toDrink].</span>"
 	return 1
+
+/mob/living/carbon/human/proc/get_age_pitch()
+	return 1.0 + 0.5*(30 - age)/80
