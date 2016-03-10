@@ -782,8 +782,6 @@
 
 			var/turf/location = get_turf(src)
 			var/aoe_range=2 // Default
-			if(SUPER_FART in mutations)
-				aoe_range+=3 //Was 5
 
 			// Process toxic farts first.
 			if(TOXIC_FARTS in mutations)
@@ -802,26 +800,6 @@
 					if (M == src)
 						continue
 					M.reagents.add_reagent("space_drugs",rand(1,10))
-
-			if(SUPER_FART in mutations)
-				visible_message("\red <b>[name]</b> hunches down and grits their teeth!")
-				if(do_after(usr,30, target = src))
-					visible_message("\red <b>[name]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!","You hear a [pick("tremendous","gigantic","colossal")] fart.")
-					//playsound(L.loc, 'superfart.ogg', 50, 0)
-					for(var/mob/living/V in range(location,aoe_range))
-						shake_camera(V,10,5)
-						if (V == src)
-							continue
-						if(!airborne_can_reach(get_turf(src), get_turf(V)))
-							continue
-						V << "\red You are sent flying!"
-						V.Weaken(5) // why the hell was this set to 12 christ
-						step_away(V,location,15)
-						step_away(V,location,15)
-						step_away(V,location,15)
-				else
-					usr << "\red You were interrupted and couldn't fart! Rude!"
-
 
 		if ("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \

@@ -52,6 +52,9 @@
 	M.adjustToxLoss(1*REM)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.adjustPlasma(20)
 	..()
 	return
 

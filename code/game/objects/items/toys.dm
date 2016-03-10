@@ -1399,12 +1399,12 @@ obj/item/toy/cards/deck/syndicate/black
 		user << "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>"
 		qdel(stored_minature)
 		stored_minature = null
-		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
 	if(cooldown < world.time - 8)
 		user << "<span class='notice'>You hit the gib button on \the [src].</span>"
-		playsound(user, 'sound/effects/gib.ogg', 20, 1)
+		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
 /obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)

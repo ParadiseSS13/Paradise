@@ -16,6 +16,24 @@
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
+/obj/item/clothing/head/helmet/attack_self(mob/user)
+	if(can_toggle && !user.incapacitated())
+		if(world.time > cooldown + toggle_cooldown)
+			cooldown = world.time
+			up = !up
+			flags ^= visor_flags
+			flags_inv ^= visor_flags_inv
+			icon_state = "[initial(icon_state)][up ? "up" : ""]"
+			user << "[up ? alt_toggle_message : toggle_message] \the [src]"
+
+			user.update_inv_head()
+
+			if(active_sound)
+				while(up)
+					playsound(src.loc, "[active_sound]", 100, 0, 4)
+					sleep(15)
+
+
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
 	desc = "A helmet with a built-in visor. It doesn't seem to do anything, but it sure looks cool!"
@@ -65,6 +83,25 @@
 	armor = list(melee = 82, bullet = 15, laser = 5,energy = 5, bomb = 5, bio = 2, rad = 0)
 	flags_inv = HIDEEARS
 	strip_delay = 80
+
+/obj/item/clothing/head/helmet/justice
+	name = "helmet of justice"
+	desc = "WEEEEOOO. WEEEEEOOO. WEEEEOOOO."
+	icon_state = "justice"
+	toggle_message = "You turn off the lights on"
+	alt_toggle_message = "You turn on the lights on"
+	action_button_name = "Toggle JUSTICE"
+	can_toggle = 1
+	toggle_cooldown = 20
+	active_sound = 'sound/items/WEEOO1.ogg'
+
+/obj/item/clothing/head/helmet/justice/escape
+	name = "alarm helmet"
+	desc = "WEEEEOOO. WEEEEEOOO. STOP THAT MONKEY. WEEEOOOO."
+	icon_state = "justice2"
+	toggle_message = "You turn off the light on"
+	alt_toggle_message = "You turn on the light on"
+
 
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"

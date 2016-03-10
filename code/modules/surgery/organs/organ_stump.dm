@@ -1,6 +1,7 @@
 /obj/item/organ/external/stump
 	name = "limb stump"
 	icon_name = ""
+	var/can_intake_reagents = 0
 
 /obj/item/organ/external/stump/New(var/mob/living/carbon/holder, var/internal, var/obj/item/organ/external/limb)
 	if(istype(limb))
@@ -24,3 +25,4 @@
 
 /obj/item/organ/external/stump/is_usable()
 	return 0
+

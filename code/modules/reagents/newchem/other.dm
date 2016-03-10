@@ -99,6 +99,7 @@ datum/reagent/acetone
 	required_reagents = list("water" = 1, "chlorine" = 1, "oil" = 1)
 	result_amount = 3
 	mix_message = "The mixture bubbles and gives off an unpleasant medicinal odor."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/ash
 	name = "Ash"

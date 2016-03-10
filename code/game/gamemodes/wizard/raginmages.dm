@@ -33,7 +33,7 @@
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
 	// Accidental pun!
-	var/wizard_cap = (max_mages || (num_players() / players_per_mage))
+	var/wizard_cap = (max_mages || (num_players_started() / players_per_mage))
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue

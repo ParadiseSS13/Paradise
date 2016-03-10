@@ -87,7 +87,7 @@
 		"/obj/item/weapon/reagent_containers/dropper",
 		"/obj/item/weapon/reagent_containers/glass/beaker",
 		"/obj/item/weapon/reagent_containers/glass/bottle",
-		"/obj/item/weapon/reagent_containers/pill",
+		"/obj/item/weapon/reagent_containers/food/pill",
 		"/obj/item/weapon/reagent_containers/syringe",
 		"/obj/item/weapon/reagent_containers/glass/dispenser",
 		"/obj/item/weapon/lighter/zippo",
@@ -106,13 +106,13 @@
 
 /obj/item/weapon/storage/belt/medical/response_team/New()
 	..()
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/salbutamol(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/charcoal(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
-	new /obj/item/weapon/reagent_containers/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic(src)
 
 
 /obj/item/weapon/storage/belt/botany

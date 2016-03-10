@@ -116,3 +116,12 @@
 /obj/item/stack/tile/noslip/loaded
 	amount = 20
 
+/obj/item/stack/tile/silent
+	name = "silent tile"
+	singular_name = "silent floor tile"
+	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
+	icon_state = "tile-silent"
+	origin_tech = "materials=1"
+	turf_type = /turf/simulated/floor/silent
+	mineralType = "tranquillite"
+	materials = list(MAT_TRANQUILLITE=500)

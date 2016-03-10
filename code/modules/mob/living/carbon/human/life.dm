@@ -70,6 +70,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		handle_pain()
 		handle_heartbeat()
 		handle_heartattack()
+		species.handle_life(src)
 
 		if(!client)
 			species.handle_npc(src)
@@ -457,19 +458,20 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		//Body temperature is too hot.
 		fire_alert = max(fire_alert, 1)
 		if(status_flags & GODMODE)	return 1	//godmode
+		var/mult = species.hot_env_multiplier
 
 		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
-			take_overall_damage(burn=HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
 			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
-			take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 			fire_alert = max(fire_alert, 2)
 		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
 			if(on_fire)
-				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
 				fire_alert = max(fire_alert, 2)
 			else
-				take_overall_damage(burn=HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 				fire_alert = max(fire_alert, 2)
 
 	else if(bodytemperature < species.cold_level_1)
@@ -479,14 +481,15 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 		if(stat == DEAD) return 1 //ZomgPonies -- No need for cold burn damage if dead
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+			var/mult = species.cold_env_multiplier
 			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
-				take_overall_damage(burn=COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
 				fire_alert = max(fire_alert, 1)
 			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
-				take_overall_damage(burn=COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
 				fire_alert = max(fire_alert, 1)
 			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
-				take_overall_damage(burn=COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
 				fire_alert = max(fire_alert, 1)
 
 	// Account for massive pressure differences.  Done by Polymorph

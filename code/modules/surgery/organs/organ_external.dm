@@ -34,6 +34,10 @@
 	var/list/wounds = list()
 	var/number_wounds = 0 // cache the number of wounds, which is NOT wounds.len!
 	var/perma_injury = 0
+	// 0: Don't fail when at full damage
+	// 1: Neatly pop off at full damage, stop damage propogation
+	// 2: Disintegrate at full damage, continue damage propogation
+	var/fail_at_full_damage = 0
 
 
 	var/obj/item/organ/external/parent
@@ -151,15 +155,6 @@
 				break
 			parent.update_damages()
 
-/obj/item/organ/external/robotize()
-	..()
-	//robot limbs take reduced damage
-	brute_mod = 0.66
-	burn_mod = 0.66
-	// Robot parts also lack bones
-	// This is so surgery isn't kaput, let's see how this does
-	encased = null
-
 /****************************************************
 			   DAMAGE PROCS
 ****************************************************/
@@ -174,8 +169,14 @@
 	brute *= brute_mod
 	burn *= burn_mod
 
+	// Threshold needed to have a chance of hurting internal bits with something sharp
+#define LIMB_SHARP_THRESH_INT_DMG 5
+	// Threshold needed to have a chance of hurting internal bits
+#define LIMB_THRESH_INT_DMG 10
+	// Probability of taking internal damage from sufficient force, while otherwise healthy
+#define LIMB_DMG_PROB 5
 	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= 5) || brute >= 10) && prob(5))))
+	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
@@ -222,8 +223,8 @@
 				burn = max(0, burn - can_inflict)
 		//If there are still hurties to dispense
 		if (burn || brute)
-			if (status & ORGAN_ROBOT && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
-				droplimb(1) //Robot limbs just kinda fail at full damage.
+			if (fail_at_full_damage == 1 && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+				droplimb(1) //Clean loss, just drop the limb and be done
 			else
 				//List organs we can pass it to
 				var/list/obj/item/organ/external/possible_points = list()
@@ -237,6 +238,13 @@
 					//And pass the pain around
 					var/obj/item/organ/external/target = pick(possible_points)
 					target.take_damage(brute, burn, sharp, edge, used_weapon, forbidden_limbs + src)
+				if(fail_at_full_damage == 2 && body_part != UPPER_TORSO && body_part != LOWER_TORSO)
+					var/losstype
+					if(burn > brute)
+						losstype = DROPLIMB_BURN
+					else
+						losstype = DROPLIMB_BLUNT
+					droplimb(0, losstype) // less clean than a robot arm, doesn't buffer damage either
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
@@ -250,6 +258,11 @@
 
 	if(owner_old) owner_old.updatehealth()
 	return update_icon()
+
+#undef LIMB_SHARP_THRESH_INT_DMG
+#undef LIMB_THRESH_INT_DMG
+#undef LIMB_DMG_PROB
+#undef LIMB_NO_BONE_DMG_PROB
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(status & ORGAN_ROBOT && !robo_repair)
@@ -699,6 +712,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 					throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
 			return
+		else
+			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
+			return
 
 /****************************************************
 			   HELPERS
@@ -788,6 +804,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_BROKEN
 	return 1
 
+// I put these two next to each other to highlight that both exist. This should likely be resolved.
+/obj/item/organ/external/robotize()
+	..()
+	//robot limbs take reduced damage
+	brute_mod = 0.66
+	burn_mod = 0.66
+	// Robot parts also lack bones
+	// This is so surgery isn't kaput, let's see how this does
+	encased = null
+	fail_at_full_damage = 1
+
 /obj/item/organ/external/robotize(var/company)
 	..()
 
@@ -870,7 +897,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
-	for(var/obj/item/organ/organ in internal_organs)
+	for(var/obj/item/organ/internal/organ in internal_organs)
 		organ.remove()
 		organ.forceMove(src)
 

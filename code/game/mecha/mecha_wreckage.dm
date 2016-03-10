@@ -114,17 +114,13 @@
 	icon_state = "mauler-broken"
 	desc = "The syndicate won't be very happy about this..."
 
-/obj/effect/decal/mecha_wreckage/mime
-	name = "Mimech wreckage"
-	icon_state = "mime-broken"
-
 /obj/effect/decal/mecha_wreckage/seraph
 	name = "Seraph wreckage"
 	icon_state = "seraph-broken"
 
 /obj/effect/decal/mecha_wreckage/recitence
 	name = "\improper Recitence wreckage"
-	icon_state = "recitence-broken"
+	icon_state = "mime-broken"
 
 /obj/effect/decal/mecha_wreckage/ripley
 	name = "Ripley wreckage"
