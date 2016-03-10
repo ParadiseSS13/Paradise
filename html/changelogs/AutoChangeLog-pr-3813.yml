@@ -1,0 +1,8 @@
+author: Fethas
+delete-after: True
+changes: 
+  - tweak: "Syringes are no longer sharp"
+  - bugfix: "byond likes direct pathing so item/organ/internal not item/organ even if it shouldn't be in the internal_organs list. This was preventing the list from doing stuff correctly."
+  - tweak: "fixed ipc organ manipulation surgery, you can now insert a replacment ipc organ directly instead of needing a screwdriver in your main hand"
+  - bugfix: "nanopaste now will repair organs with robotic >= 2 instead of > 2 cuase i am an idiot"
+  - bugfix: "Fix, hopefully, for a runtime for clientless mobs whos head are cut off..."
