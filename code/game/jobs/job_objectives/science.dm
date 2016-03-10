@@ -5,7 +5,7 @@
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
 	completion_payment = 50
-	perunit = 1
+	per_unit = 5
 
 /datum/job_objective/further_research/get_description()
 	var/desc = "Research tech levels, and have cargo ship them to centcomm."
@@ -17,7 +17,7 @@
 		if(shuttle_master.techLevels[tech] > 0)
 			return 1
 	return 0
-	
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Robotics
 /////////////////////////////////////////////////////////////////////////////////////////

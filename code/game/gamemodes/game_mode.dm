@@ -120,7 +120,7 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"

@@ -174,6 +174,7 @@
 					var/datum/tech/tech = disk.stored
 
 					var/cost = tech.getCost(shuttle_master.techLevels[tech.id])
+					world << "Disk tech: [tech.id], Disk worth: [cost]"
 					if(cost)
 						shuttle_master.techLevels[tech.id] = tech.level
 						shuttle_master.points += cost
