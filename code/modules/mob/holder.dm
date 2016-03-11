@@ -62,7 +62,7 @@
 	var/obj/item/weapon/holder/H = new holder_type(loc)
 	src.forceMove(H)
 	H.name = name
-	H.icon_state = icon_state
+	if(istype(H, /obj/item/weapon/holder/mouse))	H.icon_state = icon_state
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
