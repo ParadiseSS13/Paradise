@@ -141,7 +141,7 @@ obj/item/weapon/gun/energy/staff/focus
 	icon_state = "toxgun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	w_class = 3.0
-	origin_tech = "combat=5;plasmatech=4"
+	origin_tech = "combat=4;plasmatech=3"
 	projectile_type = "/obj/item/projectile/energy/plasma"
 
 /obj/item/weapon/gun/energy/sniperrifle
