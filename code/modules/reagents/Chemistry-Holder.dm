@@ -91,12 +91,22 @@ var/const/INGEST = 2
 
 	return the_id
 
-/datum/reagents/proc/trans_to(var/obj/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
-	if (!target )
+/datum/reagents/proc/trans_to(var/target, var/amount=1, var/multiplier=1, var/preserve_data=1)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+	if (!target)
 		return
-	if (!target.reagents || src.total_volume<=0)
+	if(src.total_volume <= 0)
 		return
-	var/datum/reagents/R = target.reagents
+	var/datum/reagents/R
+	if(istype(target, /obj))
+		var/obj/O = target
+		if (!O.reagents )
+			return
+		R = O.reagents
+	else if(istype(target, /datum/reagents))
+		R = target
+	else
+		return
+
 	amount = min(min(amount, src.total_volume), R.maximum_volume-R.total_volume)
 	var/part = amount / src.total_volume
 	var/trans_data = null
@@ -605,6 +615,14 @@ var/const/INGEST = 2
 atom/proc/create_reagents(var/max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
+
+/datum/reagents/proc/get_reagent_from_id(var/id)
+	var/datum/reagent/result = null
+	for(var/datum/reagent/R in reagent_list)
+		if(R.id == id)
+			result = R
+			break
+	return result
 
 /datum/reagents/Destroy()
 	. = ..()

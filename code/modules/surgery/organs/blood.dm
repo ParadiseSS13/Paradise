@@ -16,13 +16,13 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	if(vessel)
 		return
 
-	vessel = new/datum/reagents(600)
+	vessel = new/datum/reagents(max_blood)
 	vessel.my_atom = src
 
 	if(species && species.exotic_blood)
-		vessel.add_reagent(species.exotic_blood,560)
+		vessel.add_reagent(species.exotic_blood, max_blood)
 	else
-		vessel.add_reagent("blood",560)
+		vessel.add_reagent("blood", max_blood)
 	spawn(1)
 		fixblood()
 
@@ -43,21 +43,19 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		if(species.exotic_blood)
 			var/blood_reagent = species.exotic_blood // This is a string of the name of the species' blood reagent
 			blood_volume = round(vessel.get_reagent_amount(blood_reagent))
-			if(blood_volume < 560 && blood_volume)
-				var/datum/reagent/R = vessel.reagent_list[blood_reagent] //Grab some blood
-				if(R) // Make sure there's some blood at all
-					R.volume += 0.1 // regenerate blood VERY slowly
-					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
-						R.volume += 0.4
-						reagents.remove_reagent("nutriment", 0.1)
-					else if (reagents.has_reagent(blood_reagent))
-						R.volume += 0.4
-						reagents.remove_reagent(blood_reagent, 0.4)
-						
+			if(blood_volume < max_blood && blood_volume)
+				vessel.add_reagent(blood_reagent, 0.1) // regenerate blood VERY slowly
+				if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
+					vessel.add_reagent(blood_reagent, 0.4)
+					reagents.remove_reagent("nutriment", 0.1)
+				else if (reagents.has_reagent(blood_reagent))
+					vessel.add_reagent(blood_reagent, 0.4)
+					reagents.remove_reagent(blood_reagent, 0.4)
+
 		else
 			blood_volume = round(vessel.get_reagent_amount("blood"))
 			//Blood regeneration if there is some space
-			if(blood_volume < 560 && blood_volume)
+			if(blood_volume < max_blood && blood_volume)
 				var/datum/reagent/blood/B = locate() in vessel.reagent_list //Grab some blood
 				if(B) // Make sure there's some blood at all
 
@@ -79,16 +77,16 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 								B = D
 								break
 
-					B.volume += 0.1 // regenerate blood VERY slowly
+					vessel.add_reagent("blood", 0.1) // regenerate blood VERY slowly
 					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
-						B.volume += 0.4
+						vessel.add_reagent("blood", 0.4)
 						reagents.remove_reagent("nutriment", 0.1)
 					if (reagents.has_reagent("iron"))	//Hematogen candy anyone?
-						B.volume += 0.8
+						vessel.add_reagent("blood", 0.8)
 						reagents.remove_reagent("iron", 0.1)
 					if (reagents.has_reagent("salglu_solution"))	//saline is good for blood regeneration
 						if(prob(33))
-							B.volume += 1.0
+							vessel.add_reagent("blood", 1.0)
 
 		// Damaged heart virtually reduces the blood volume, as the blood isn't
 		// being pumped properly anymore.
@@ -294,7 +292,16 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 
 /mob/living/carbon/human/get_blood(datum/reagents/container)
 	if(species.exotic_blood)
-		return container.reagent_list[species.exotic_blood]
+		return container.get_reagent_from_id(species.exotic_blood)
+	else
+		return ..()
+
+/mob/living/carbon/proc/get_blood_name()
+	return "blood"
+
+/mob/living/carbon/human/get_blood_name()
+	if(species.exotic_blood)
+		return species.exotic_blood
 	else
 		return ..()
 
@@ -317,16 +324,15 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	return 0
 
 /*
-Target: Thing to get bloody
+Target: Thing/tile to get bloody
 Source: Human or blood reagent
 Large: Whether the splat should be big or not
 */
-/proc/blood_splatter(var/target,var/source,var/large)
+/proc/blood_splatter(var/target,var/source,var/large = 0)
 
 	var/obj/effect/decal/cleanable/blood/B
 	var/decal_type = /obj/effect/decal/cleanable/blood/splatter
 	var/turf/T = get_turf(target)
-
 	var/datum/reagent/blood/bld
 	if(istype(source,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = source
@@ -336,8 +342,15 @@ Large: Whether the splat should be big or not
 			return
 		else if(H.species.flags & NO_BLOOD)
 			return
-	else
+	else if(istype(source, /datum/reagent))
 		bld = source
+		if(!istype(bld, /datum/reagent/blood))
+			var/datum/reagent/R = bld
+			if(istype(R))
+				R.reaction_turf(T, R.volume)
+			return
+	else if(source)
+		log_to_dd("Non-human or reagent blood source. Area: [get_area(source)], Name: [source]")
 
 	// Are we dripping or splattering?
 	var/list/drips = list()
