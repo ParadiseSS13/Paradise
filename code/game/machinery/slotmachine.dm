@@ -3,7 +3,7 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
-	icon = 'icons/goonstation/machines/slots.dmi'
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "slots-off"
 	anchored = 1
 	density = 1
