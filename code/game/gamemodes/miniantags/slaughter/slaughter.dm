@@ -61,20 +61,20 @@
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
-	if(src.mind)
+	if(mind)
 		src << src.playstyle_string
 		src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
 		src << 'sound/misc/demon_dies.ogg'
-		src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
+		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
-			ticker.mode.traitors |= src.mind
-			objective.owner = src.mind
-			fluffObjective.owner = src.mind
+			ticker.mode.traitors |= mind
+			objective.owner = mind
+			fluffObjective.owner = mind
 			//Paradise Port:I added the objective for one spawned like this
-			src.mind.objectives += objective
-			src.mind.objectives += fluffObjective
+			mind.objectives += objective
+			mind.objectives += fluffObjective
 			src << "<B>Objective #[1]</B>: [objective.explanation_text]"
 			src << "<B>Objective #[2]</B>: [fluffObjective.explanation_text]"
 
@@ -93,10 +93,10 @@
 	innards.icon_state = "innards"
 	innards.name = "pile of viscera"
 	innards.desc = "A repulsive pile of guts and gore."
-	new /obj/effect/decal/cleanable/blood (src.loc)
+	new /obj/effect/decal/cleanable/blood(loc)
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/item/organ/internal/heart/demonheart(src.loc)
+	new /obj/item/organ/internal/heart/demonheart(loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
 	for(var/mob/living/M in consumed_mobs)

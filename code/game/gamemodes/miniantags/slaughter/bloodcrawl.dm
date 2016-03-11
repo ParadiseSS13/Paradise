@@ -18,13 +18,13 @@
 		C.regenerate_icons()
 
 	var/mob/living/kidnapped = null
-	var/turf/mobloc = get_turf(src.loc)
-	src.notransform = TRUE
+	var/turf/mobloc = get_turf(loc)
+	notransform = TRUE
 	spawn(0)
-		src.visible_message("<span class='danger'>[src] sinks into [B].</span>")
+		visible_message("<span class='danger'>[src] sinks into [B].</span>")
 		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
-		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter( mobloc )
-		var/atom/movable/overlay/animation = new /atom/movable/overlay( mobloc )
+		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
 		animation.name = "odd blood"
 		animation.density = 0
 		animation.anchored = 1
@@ -32,42 +32,42 @@
 		animation.icon_state = "jaunt"
 		animation.layer = 5
 		animation.master = holder
-		animation.dir = src.dir
+		animation.dir = dir
 
-		src.ExtinguishMob()
-		if(src.buckled)
-			src.buckled.unbuckle_mob()
-		if(src.pulling && src.bloodcrawl == BLOODCRAWL_EAT)
-			if(istype(src.pulling, /mob/living/))
-				var/mob/living/victim = src.pulling
+		ExtinguishMob()
+		if(buckled)
+			buckled.unbuckle_mob()
+		if(pulling && bloodcrawl == BLOODCRAWL_EAT)
+			if(istype(pulling, /mob/living/))
+				var/mob/living/victim = pulling
 				if(victim.stat == CONSCIOUS)
-					src.visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
+					visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
 				else
-					victim.loc = holder///holder
+					victim.forceMove(holder)//holder
 					victim.emote("scream")
-					src.visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
+					visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
 					kidnapped = victim
 		flick("jaunt",animation)
-		src.loc = holder
-		src.holder = holder
+		loc = holder
+		holder = holder
 
 		if(kidnapped)
 			src << "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>"
-			src.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
+			visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
 			sleep(6)
-			if (animation)
+			if(animation)
 				qdel(animation)
 			for(var/i = 3; i > 0; i--)
 				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
 				sleep(30)
-			if (kidnapped)
+			if(kidnapped)
 				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
-				src.adjustBruteLoss(-1000)
-				src.adjustFireLoss(-1000)
-				src.adjustOxyLoss(-1000)
-				src.adjustToxLoss(-1000)
+				adjustBruteLoss(-1000)
+				adjustFireLoss(-1000)
+				adjustOxyLoss(-1000)
+				adjustToxLoss(-1000)
 
-				if (istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
+				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
@@ -84,7 +84,7 @@
 			sleep(6)
 			if (animation)
 				qdel(animation)
-		src.notransform = 0
+		notransform = 0
 	return 1
 
 /obj/item/weapon/bloodcrawl
@@ -94,7 +94,7 @@
 	flags = NODROP|ABSTRACT
 
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
-	if(src.notransform)
+	if(notransform)
 		src << "<span class='warning'>Finish eating first!</span>"
 		return 0
 	else
@@ -106,35 +106,35 @@
 		animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
 		animation.layer = 5
 		animation.master = B.loc
-		animation.dir = src.dir
+		animation.dir = dir
 		B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
 		if(!do_after(src, 20, target = B))
 			return
 		if(!B)
 			return
-		src.forceMove(B.loc)
-		src.client.eye = src
+		forceMove(B.loc)
+		client.eye = src
 		if (prob(25) && istype(src, /mob/living/simple_animal/slaughter))
 			var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 			playsound(get_turf(src), pick(voice),50, 1, -1)
-		src.visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
+		visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 		flick("jauntup",animation)
-		qdel(src.holder)
-		src.holder = null
+		qdel(holder)
+		holder = null
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
 			for(var/obj/item/weapon/bloodcrawl/BC in C)
 				C.flags = null
 				C.unEquip(BC)
 				qdel(BC)
-		var/oldcolor = src.color
-		src.color = B.color
+		var/oldcolor = color
+		color = B.color
 		sleep(6)//wait for animation to finish
 		if(animation)
 			qdel(animation)
 		spawn(30)
-			src.color = oldcolor
+			color = oldcolor
 		return 1
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
