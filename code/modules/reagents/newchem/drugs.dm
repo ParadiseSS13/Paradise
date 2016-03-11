@@ -23,9 +23,6 @@
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
 		M.adjustStaminaLoss(-1*REM)
-	if(current_cycle >= 25)
-		if(prob(50))
-			M.jitteriness += 5
 	..()
 	return
 
@@ -202,7 +199,7 @@
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	if(current_cycle >= 25)
 		M.jitteriness += 5
-	M.drowsyness = max(M.drowsyness-10, 0)
+	M.drowsyness = max(0, M.drowsyness-10)
 	M.AdjustParalysis(-2.5)
 	M.AdjustStunned(-2.5)
 	M.AdjustWeakened(-2.5)
@@ -431,7 +428,7 @@
 		M << "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]"
 	if(prob(4))
 		M.confused = max(M.confused, 10)
-	if(holder.get_reagent_amount(src.id) >= 50 && prob(25))
+	if(volume >= 50 && prob(25))
 		if(prob(10))
 			M.drowsyness = max(M.drowsyness, 10)
 	..()

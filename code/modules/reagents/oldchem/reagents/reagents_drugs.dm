@@ -4,11 +4,13 @@
 	description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
 	reagent_state = LIQUID
 	color = "#202040" // rgb: 20, 20, 40
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/serotrotium/on_mob_life(var/mob/living/M as mob)
 	if(ishuman(M))
-		if(prob(7)) M.emote(pick("twitch","drool","moan","gasp"))
-		holder.remove_reagent(src.id, 0.25 * REAGENTS_METABOLISM)
+		if(prob(7))
+			M.emote(pick("twitch","drool","moan","gasp"))
+	..()
 	return
 
 

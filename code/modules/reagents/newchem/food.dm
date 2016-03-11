@@ -423,7 +423,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
 		M.reagents.add_reagent("porktonium", 5)
-	if(holder.has_reagent(src.id,75))
+	if(volume >= 75)
 		metabolization_rate = 0.4
 	else
 		metabolization_rate = 0.2
@@ -441,6 +441,7 @@ datum/reagent/ectoplasm/reaction_turf(var/turf/T, var/volume)
 		M.adjustOxyLoss(25)
 		M.Stun(5)
 		M.Paralyse(10)
+	..()
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -574,14 +575,14 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 	color = "#FFFAC8"
 
 /datum/reagent/cholesterol/on_mob_life(var/mob/living/M as mob)
-	if(holder.get_reagent_amount(src.id) >= 25 && prob(holder.get_reagent_amount(src.id)*0.15))
+	if(volume >= 25 && prob(volume*0.15))
 		M << "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>"
 		M.adjustToxLoss(rand(1,2))
-	else if(holder.get_reagent_amount(src.id) >= 45 && prob(holder.get_reagent_amount(src.id)*0.08))
+	else if(volume >= 45 && prob(volume*0.08))
 		M << "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>"
 		M.adjustToxLoss(rand(2,4))
-		M.stunned ++
-	else if(holder.get_reagent_amount(src.id) >= 150 && prob(holder.get_reagent_amount(src.id)*0.01))
+		M.Stun(1)
+	else if(volume >= 150 && prob(volume*0.01))
 		M << "<span class='warning'>Your chest is burning with pain!</span>"
 		M.Stun(1)
 		M.Weaken(1)
