@@ -11,7 +11,7 @@ datum/reagent/questionmark/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		return
 	if(method == INGEST)
 		M.Weaken(2)
-		M << "<span class = 'danger'>Ugh! Eating that was a terrible idea!</span>"
+		M << "<span class='danger'>Ugh! Eating that was a terrible idea!</span>"
 
 datum/reagent/egg
 	name = "Egg"
@@ -201,11 +201,11 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(method == INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
-			M << "<span class = 'warning'>You feel very sick.</span>"
+			M << "<span class='warning'>You feel very sick.</span>"
 			M.reagents.add_reagent("toxin", rand(1,5))
-		else if (ranchance <= 5 && ranchance != 1)
-			M << "<span class = 'warning'>That tasted absolutely FOUL.</span>"
-		else M << "<span class = 'warning'>Yuck!</span>"
+		else if(ranchance <= 5 && ranchance != 1)
+			M << "<span class='warning'>That tasted absolutely FOUL.</span>"
+		else M << "<span class='warning'>Yuck!</span>"
 
 /datum/reagent/chicken_soup
 	name = "Chicken soup"
@@ -232,12 +232,12 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
 		return
 	if(method == INGEST)
-		M << "<span class = 'notice'>That tasted amazing!</span>"
+		M << "<span class='notice'>That tasted amazing!</span>"
 
 
 /datum/reagent/msg/on_mob_life(var/mob/living/M as mob)
 	if(prob(5))
-		if (prob(10))
+		if(prob(10))
 			M.adjustToxLoss(rand(2.4))
 		if(prob(7))
 			M << "<span class='warning'>A horrible migraine overpowers you.</span>"
@@ -281,7 +281,7 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 
 /datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
 	if(prob(8))
-		M << "<span class = 'warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>"
+		M << "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>"
 		M.adjustToxLoss(rand(1,2))
 	..()
 
@@ -379,7 +379,7 @@ datum/reagent/ectoplasm/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		return
 	if(method == INGEST)
 		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
-		M << "<span class = 'warning'>[spooky_eat]</span>"
+		M << "<span class='warning'>[spooky_eat]</span>"
 
 /datum/reagent/ectoplasm/on_mob_life(var/mob/living/M as mob)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
@@ -577,11 +577,11 @@ datum/reagent/pepperoni/reaction_mob(var/mob/living/M, var/method=TOUCH, var/vol
 	if(holder.get_reagent_amount(src.id) >= 25 && prob(holder.get_reagent_amount(src.id)*0.15))
 		M << "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>"
 		M.adjustToxLoss(rand(1,2))
-	else if (holder.get_reagent_amount(src.id) >= 45 && prob(holder.get_reagent_amount(src.id)*0.08))
+	else if(holder.get_reagent_amount(src.id) >= 45 && prob(holder.get_reagent_amount(src.id)*0.08))
 		M << "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>"
 		M.adjustToxLoss(rand(2,4))
 		M.stunned ++
-	else if (holder.get_reagent_amount(src.id) >= 150 && prob(holder.get_reagent_amount(src.id)*0.01))
+	else if(holder.get_reagent_amount(src.id) >= 150 && prob(holder.get_reagent_amount(src.id)*0.01))
 		M << "<span class='warning'>Your chest is burning with pain!</span>"
 		M.Stun(1)
 		M.Weaken(1)

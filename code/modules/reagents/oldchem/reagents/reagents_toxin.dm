@@ -224,10 +224,7 @@
 	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	src = null
 	if((method==TOUCH && prob(33)) || method==INGEST)
-		if(prob(98))
-			randmutb(M)
-		else
-			randmutg(M)
+		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
 	return
@@ -327,7 +324,7 @@
 			var/mob/living/carbon/human/H = M
 
 			if(volume < 10)
-				M << "<span class = 'danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+				M << "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)

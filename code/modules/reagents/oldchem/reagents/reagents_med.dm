@@ -99,8 +99,8 @@
 	if(M.bodytemperature < 265)
 		M.adjustCloneLoss(-4)
 		M.adjustOxyLoss(-10)
-		M.heal_organ_damage(12,12)
 		M.adjustToxLoss(-3)
+		M.heal_organ_damage(12,12)
 		M.status_flags &= ~DISFIGURED
 	..()
 	return
@@ -135,7 +135,3 @@
 	reagent_state = LIQUID
 	color = "#0AB478"
 	metabolization_rate = 0.2
-
-/datum/reagent/spaceacillin/on_mob_life(var/mob/living/M as mob)
-	..()
-	return

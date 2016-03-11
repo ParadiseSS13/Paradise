@@ -436,22 +436,25 @@
 	overdose_threshold = 200 // Hyperglycaemic shock
 
 /datum/reagent/sugar/on_mob_life(var/mob/living/M as mob)
-	if(prob(4))
-		M.reagents.add_reagent("epinephrine", 1.2)
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(current_cycle >= 90)
+		M.jitteriness += 2
 	if(prob(50))
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-	if(current_cycle >= 90)
-		M.jitteriness += 2
+	if(prob(4))
+		M.reagents.add_reagent("epinephrine", 1.2)
 	..()
 	return
 
 /datum/reagent/sugar/overdose_process(var/mob/living/M as mob)
 	if(volume > 200)
-		M << "<span class = 'danger'>You pass out from hyperglycemic shock!</span>"
-		M.Paralyse(1)
+		M << "<span class='danger'>You pass out from hyperglycemic shock!</span>"
+		M.emote("collapse")
+		M.Paralyse(3)
+		M.Weaken(4)
 		if(prob(8))
-			M.adjustToxLoss(rand(1,2))
+			M.adjustToxLoss(1)
 	..()
 	return

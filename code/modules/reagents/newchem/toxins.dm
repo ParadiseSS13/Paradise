@@ -27,34 +27,49 @@
 	reagent_state = LIQUID
 	color = "#E7C4C4"
 	metabolization_rate = 0.2
-	overdose_threshold = 30
+	overdose_threshold = 40
 
 /datum/reagent/histamine/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
 		if(method == TOUCH)
 			M.reagents.add_reagent("histamine",10)
+		else
+			M << "<span class='danger'>You feel a burning sensation in your throat...</span>"
+			M.emote("drool")
 
 /datum/reagent/histamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	switch(pick(1, 2, 3, 4))
-		if(1)
-			M << "<span class='danger'>You can barely see!</span>"
-			M.eye_blurry = 3
-		if(2)
-			M.emote("cough")
-		if(3)
-			M.emote("sneeze")
-		if(4)
-			if(prob(75))
-				M << "You scratch at an itch."
-				M.adjustBruteLoss(2*REM)
+	if(prob(20))
+		M.emote(pick("twitch", "grumble", "sneeze", "cough"))
+	if(prob(10))
+		M << "<span class='notice'>Your eyes itch.</span>"
+		M.emote(pick("blink", "sneeze"))
+		M.eye_blurry += 3
+	if(prob(10))
+		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
+		M.adjustBruteLoss(1)
+		M.emote("grumble")
+	if(prob(5))
+		M << "<span class='danger'>You're getting a rash!</span>"
+		M.adjustBruteLoss(2)
 	..()
 	return
 
 /datum/reagent/histamine/overdose_process(var/mob/living/M as mob)
-	M.adjustOxyLoss(pick(1,3)*REM)
-	M.adjustBruteLoss(pick(1,3)*REM)
-	M.adjustToxLoss(pick(1,3)*REM)
+	if(prob(2))
+		M << "<span class='danger'>You feel mucus running down the back of your throat.</span>"
+		M.adjustToxLoss(1)
+		M.jitteriness += 4
+		M.emote("sneeze", "cough")
+	else if(prob(4))
+		M.stuttering += rand(0,5)
+		if(prob(25))
+			M.emote(pick("choke","gasp"))
+			M.adjustOxyLoss(5)
+	else if(prob(7))
+		M << "<span class='danger'>Your chest hurts!</span>"
+		M.emote(pick("cough","gasp"))
+		M.adjustOxyLoss(3)
 	..()
 	return
 
@@ -86,7 +101,7 @@
 /datum/reagent/venom
 	name = "Venom"
 	id = "venom"
-	description = "Will deal scaling amounts of Toxin and Brute damage over time. 25% chance to decay into 5-10 histamine."
+	description = "An incredibly potent poison. Origin unknown."
 	reagent_state = LIQUID
 	color = "#CF3600"
 	metabolization_rate = 0.2
@@ -94,20 +109,27 @@
 
 /datum/reagent/venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustToxLoss(1*REM)
-	M.adjustBruteLoss(1*REM)
-	if(volume >= 20)
-		M.adjustToxLoss(1*REM)
-		M.adjustBruteLoss(1*REM)
 	if(prob(25))
 		M.reagents.add_reagent("histamine",rand(5,10))
+	if(volume < 20)
+		M.adjustToxLoss(1)
+		M.adjustBruteLoss(1)
+	else if(volume < 40)
+		if(prob(8))
+			M.fakevomit()
+		M.adjustToxLoss(2)
+		M.adjustBruteLoss(2)
 	..()
 	return
 
 /datum/reagent/venom/overdose_process(var/mob/living/M as mob)
 	if(volume >= 40)
 		if(prob(4))
-			M.gib()
+			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+			M.Weaken(15)
+			M.jitteriness += 1000
+			spawn(rand(20, 100))
+				M.gib()
 	..()
 	return
 
@@ -143,7 +165,7 @@
 	else
 		if(prob(10))
 			M.adjustBrainLoss(1)
-	if (prob(10))
+	if(prob(10))
 		M.emote("drool")
 	M.adjustToxLoss(1)
 	..()
@@ -170,16 +192,17 @@
 
 /datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.adjustToxLoss(1.5*REM)
 	if(prob(5))
 		M.emote("drool")
-	M.adjustToxLoss(1.5*REM)
 	if(prob(10))
-		M << "<span class = 'danger'>You cannot breathe!</span>"
+		M << "<span class='danger'>You cannot breathe!</span>"
 		M.losebreath += 1
+		M.emote("gasp")
 	if(prob(8))
-		M << "<span class = 'danger'>You feel horrendously weak!</span>"
+		M << "<span class='danger'>You feel horrendously weak!</span>"
 		M.Stun(2)
-		M.adjustToxLoss(2*REM)
+		M.adjustToxLoss(2)
 	..()
 	return
 
@@ -205,17 +228,28 @@
 
 /datum/reagent/itching_powder/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(rand(5,50)))
-		M << "You scratch at your head."
-		M.adjustBruteLoss(0.2*REM)
-	if(prob(rand(5,50)))
-		M << "You scratch at your leg."
-		M.adjustBruteLoss(0.2*REM)
-	if(prob(rand(5,50)))
-		M << "You scratch at your arm."
-		M.adjustBruteLoss(0.2*REM)
+	if(prob(25))
+		M.emote(pick("twitch", "laugh", "sneeze", "cry"))
+	if(prob(20))
+		M << "<span class='notice'>Something tickles!</span>"
+		M.emote(pick("laugh", "giggle"))
+	if(prob(15))
+		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
+		M.adjustBruteLoss(1)
+		M.Stun(rand(0,1))
+		M.emote("grumble")
+	if(prob(10))
+		M << "<span class='danger'>So itchy!</span>"
+		M.adjustBruteLoss(2)
 	if(prob(6))
-		M.reagents.add_reagent("histamine",rand(1,3))
+		M.reagents.add_reagent("histamine", rand(1,3))
+	if(prob(2))
+		M << "<span class='danger'>AHHHHHH!</span>"
+		M.adjustBruteLoss(5)
+		M.Weaken(5)
+		M.jitteriness += 6
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
+		M.emote("scream")
 	..()
 	return
 
@@ -251,7 +285,7 @@
 			var/mob/living/carbon/human/H = M
 
 			if(volume < 5)
-				M << "<span class = 'danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+				M << "<span class='danger'>The blueish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
 
 			if(volume >=5 && volume <=10)
 				if(!H.unacidable)
@@ -316,23 +350,24 @@
 /datum/reagent/initropidril/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(33))
-		switch(pick(1,2))
-			if(1)
-				M << "<span class = 'danger'>You feel horrendously weak!</span>"
-				M.Stun(2)
-			if(2)
-				M.adjustToxLoss(rand(5,25))
+		M.adjustToxLoss(rand(5,25))
+	if(prob(33))
+		M << "<span class='danger'>You feel horribly weak.</span>"
+		M.Stun(2)
 	if(prob(10))
-		switch(pick(1,2))
-			if(1)
-				M << "<span class = 'danger'>You cannot breathe!</span>"
-				M.losebreath += 5
-				M.adjustOxyLoss(10)
-			if(2)
-				if(ishuman(M))
-					var/mob/living/carbon/human/H = M
-					if(!H.heart_attack)
-						H.heart_attack = 1 // rip in pepperoni
+		M << "<span class='danger'>You cannot breathe!</span>"
+		M.adjustOxyLoss(10)
+		M.losebreath++
+	if(prob(10))
+		M << "<span class='danger'>Your chest is burning with pain!</span>"
+		M.adjustOxyLoss(10)
+		M.losebreath++
+		M.Stun(3)
+		M.Weaken(2)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.heart_attack)
+				H.heart_attack = 1 // rip in pepperoni
 	..()
 	return
 
@@ -347,9 +382,10 @@
 /datum/reagent/concentrated_initro/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(volume >=5)
-		var/mob/living/carbon/human/H = M
-		if(!H.heart_attack)
-			H.heart_attack = 1 // rip in pepperoni
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.heart_attack)
+				H.heart_attack = 1 // rip in pepperoni
 
 /datum/reagent/pancuronium
 	name = "Pancuronium"
@@ -369,7 +405,7 @@
 			if(prob(8))
 				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
 				M.Stun(1)
-			else if (prob(8))
+			else if(prob(8))
 				M.emote(pick("drool", "tremble"))
 		if(11 to INFINITY)
 			M.Stun(20)
@@ -396,18 +432,18 @@
 /datum/reagent/sodium_thiopental/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	switch(current_cycle)
-		if (1)
+		if(1)
 			M.emote("drool")
 			M.confused = max(M.confused, 5)
-		if (2 to 4)
+		if(2 to 4)
 			M.drowsyness = max(M.drowsyness, 20)
-		if (5)
+		if(5)
 			M.emote("faint")
 			M.Weaken(5)
-		if (6 to INFINITY)
+		if(6 to INFINITY)
 			M.Paralyse(20)
 	M.jitteriness = max(0, M.jitteriness-50)
-	if (prob(10))
+	if(prob(10))
 		M.emote("drool")
 		M.adjustBrainLoss(1)
 	..()
@@ -430,7 +466,7 @@
 				M.emote("yawn")
 		if(6 to 9)
 			M.eye_blurry += 5
-			if (prob(35))
+			if(prob(35))
 				M.emote("yawn")
 		if(10)
 			M.emote("faint")
@@ -462,7 +498,7 @@
 	M.jitteriness = max(0, M.jitteriness-30)
 	switch(current_cycle)
 		if(1 to 10)
-			if (prob(7))
+			if(prob(7))
 				M.emote("yawn")
 		if(11 to 20)
 			M.drowsyness  = max(M.drowsyness, 20)
@@ -512,13 +548,18 @@
 
 /datum/reagent/lipolicide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(!holder.has_reagent("nutriment"))
-		if(prob(30))
-			M.adjustToxLoss(1)
-	M.nutrition -= 10 * REAGENTS_METABOLISM
-	M.overeatduration = 0
-	if(M.nutrition < 0)//Prevent from going into negatives.
-		M.nutrition = 0
+	if(!M.nutrition)
+		switch(rand(1,3))
+			if(1)
+				M << "<span class='warning'>You feel hungry...</span>"
+			if(2)
+				M.adjustToxLoss(1)
+				M << "<span class='warning'>Your stomach grumbles painfully!</span>"
+	else
+		if(prob(60))
+			var/fat_to_burn = max(round(M.nutrition/100,1), 5)
+			M.nutrition = max(0, M.nutrition-fat_to_burn)
+			M.overeatduration = 0
 	..()
 	return
 
@@ -532,8 +573,8 @@
 
 /datum/reagent/coniine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.losebreath += 5
 	M.adjustToxLoss(2)
+	M.losebreath += 5
 	..()
 	return
 
@@ -559,14 +600,14 @@
 			if(prob(8))
 				M << "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>"
 				M.Stun(1)
-			else if (prob(8))
+			else if(prob(8))
 				M.emote(pick("drool","pale", "gasp"))
 		if(11 to INFINITY)
 			M.Stun(30)
 			M.drowsyness  = max(M.drowsyness, 20)
 			if(prob(20))
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
-			else if (prob(8))
+			else if(prob(8))
 				M << "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>"
 				M.losebreath++
 	..()
@@ -631,7 +672,7 @@
 			M.adjustToxLoss(1)
 			M.adjustBrainLoss(1)
 			M.Weaken(4)
-	if (prob(8))
+	if(prob(8))
 		M.fakevomit()
 	M.adjustToxLoss(1)
 	M.adjustBrainLoss(1)
@@ -766,14 +807,12 @@
 /datum/reagent/toxic_slurry/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(prob(10))
-		M.adjustToxLoss(rand(2,4))
+		M.adjustToxLoss(rand(2.4))
 	if(prob(7))
-		switch(pick(1,2))
-			if(1)
-				M.fakevomit(1)
-			if(2)
-				M.Stun(rand(4,10))
-				M << "<span class='warning'>A horrible migraine overpowers you.</span>"
+		M << "<span class='danger'>A horrible migraine overpowers you.</span>"
+		M.Stun(rand(2,5))
+	if(prob(7))
+		M.fakevomit(1)
 	..()
 	return
 
@@ -788,21 +827,18 @@
 	if(!..())	return
 	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	src = null
-	if((method==TOUCH && prob(33)) || method==INGEST)
-		if(prob(98))
-			randmutb(M)
-		else
-			randmutg(M)
+	if((method==TOUCH && prob(50)) || method==INGEST)
+		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
 	return
 
 /datum/reagent/glowing_slurry/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(2*REM, IRRADIATE, 0, negate_armor = 1)
+	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
 	if(prob(15))
 		randmutb(M)
-	if(prob(5))
+	if(prob(3))
 		randmutg(M)
 	domutcheck(M, null)
 	M.UpdateAppearance()
@@ -820,9 +856,9 @@
 /datum/reagent/ants/reaction_mob(var/mob/living/M as mob, var/method=TOUCH, var/volume) //NOT THE ANTS
 	if(iscarbon(M))
 		if(method == TOUCH || method==INGEST)
-			M.adjustBruteLoss(4)
-			M.emote("scream")
 			M << "<span class='warning'>OH SHIT ANTS!!!!</span>"
+			M.emote("scream")
+			M.adjustBruteLoss(4)
 
 
 /datum/reagent/ants/on_mob_life(var/mob/living/M as mob)

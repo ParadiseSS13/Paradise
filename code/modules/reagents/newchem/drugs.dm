@@ -97,6 +97,7 @@
 	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
 	result_amount = 5
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
+	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
 	min_temp = 390
 
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -217,7 +218,7 @@
 	if(prob(20))
 		M.emote("laugh")
 	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
@@ -400,7 +401,7 @@
 	M.adjustStaminaLoss(-40)
 	if(prob(90))
 		M.adjustToxLoss(1)
-	if (prob(5))
+	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
 	if(prob(8))
@@ -484,7 +485,7 @@
 	M.AdjustStunned(-1.5)
 	M.AdjustWeakened(-1.5)
 	M.adjustStaminaLoss(-1.5)
-	M.setSleeping(0)
+	M.SetSleeping(0)
 	..()
 	return
 
@@ -499,11 +500,11 @@
 					M.emote("laugh")
 					M.adjustToxLoss(1)
 				if(2)
-					M << "<span class = 'danger'>[M] can't seem to control their legs!</span>"
+					M << "<span class='danger'>[M] can't seem to control their legs!</span>"
 					M.Weaken(8)
 					M.adjustToxLoss(1)
 				if(3)
-					M << "<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>"
+					M << "<span class='danger'>[M]'s hands flip out and flail everywhere!</span>"
 					M.drop_l_hand()
 					M.drop_r_hand()
 					M.adjustToxLoss(1)
@@ -559,7 +560,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
