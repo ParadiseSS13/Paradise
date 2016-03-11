@@ -19,74 +19,73 @@
 
 	var/mob/living/kidnapped = null
 	var/turf/mobloc = get_turf(src.loc)
-	var/turf/bloodloc = get_turf(B.loc)
-	if(Adjacent(bloodloc))
-		src.notransform = TRUE
-		spawn(0)
-			src.visible_message("<span class='danger'>[src] sinks into [B].</span>")
-			playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
-			var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter( mobloc )
-			var/atom/movable/overlay/animation = new /atom/movable/overlay( mobloc )
-			animation.name = "odd blood"
-			animation.density = 0
-			animation.anchored = 1
-			animation.icon = 'icons/mob/mob.dmi'
-			animation.icon_state = "jaunt"
-			animation.layer = 5
-			animation.master = holder
-			animation.dir = src.dir
+	src.notransform = TRUE
+	spawn(0)
+		src.visible_message("<span class='danger'>[src] sinks into [B].</span>")
+		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
+		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter( mobloc )
+		var/atom/movable/overlay/animation = new /atom/movable/overlay( mobloc )
+		animation.name = "odd blood"
+		animation.density = 0
+		animation.anchored = 1
+		animation.icon = 'icons/mob/mob.dmi'
+		animation.icon_state = "jaunt"
+		animation.layer = 5
+		animation.master = holder
+		animation.dir = src.dir
 
-			src.ExtinguishMob()
-			if(src.buckled)
-				src.buckled.unbuckle_mob()
-			if(src.pulling && src.bloodcrawl == BLOODCRAWL_EAT)
-				if(istype(src.pulling, /mob/living/))
-					var/mob/living/victim = src.pulling
-					if(victim.stat == CONSCIOUS)
-						src.visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
-					else
-						victim.loc = holder///holder
-						victim.emote("scream")
-						src.visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
-						kidnapped = victim
-			flick("jaunt",animation)
-			src.loc = holder
-			src.holder = holder
-
-			if(kidnapped)
-				src << "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>"
-				src.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
-				sleep(6)
-				if (animation)
-					qdel(animation)
-				for(var/i = 3; i > 0; i--)
-					playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
-					sleep(30)
-				if (kidnapped)
-					src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
-					src.adjustBruteLoss(-1000)
-					src.adjustFireLoss(-1000)
-					src.adjustOxyLoss(-1000)
-					src.adjustToxLoss(-1000)
-
-					if (istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
-
-						var/mob/living/simple_animal/slaughter/demon = src
-						demon.devoured++
-						kidnapped << "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>"
-						kidnapped.adjustBruteLoss(1000)
-						kidnapped.forceMove(src)
-						demon.consumed_mobs.Add(kidnapped)
-					else
-						kidnapped.ghostize()
-						qdel(kidnapped)
+		src.ExtinguishMob()
+		if(src.buckled)
+			src.buckled.unbuckle_mob()
+		if(src.pulling && src.bloodcrawl == BLOODCRAWL_EAT)
+			if(istype(src.pulling, /mob/living/))
+				var/mob/living/victim = src.pulling
+				if(victim.stat == CONSCIOUS)
+					src.visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")
 				else
-					src << "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>"
+					victim.loc = holder///holder
+					victim.emote("scream")
+					src.visible_message("<span class='warning'><b>[src] drags [victim] into [B]!</b></span>")
+					kidnapped = victim
+		flick("jaunt",animation)
+		src.loc = holder
+		src.holder = holder
+
+		if(kidnapped)
+			src << "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>"
+			src.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
+			sleep(6)
+			if (animation)
+				qdel(animation)
+			for(var/i = 3; i > 0; i--)
+				playsound(get_turf(src),'sound/misc/Demon_consume.ogg', 100, 1)
+				sleep(30)
+			if (kidnapped)
+				src << "<B>You devour [kidnapped]. Your health is fully restored.</B>"
+				src.adjustBruteLoss(-1000)
+				src.adjustFireLoss(-1000)
+				src.adjustOxyLoss(-1000)
+				src.adjustToxLoss(-1000)
+
+				if (istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
+
+					var/mob/living/simple_animal/slaughter/demon = src
+					demon.devoured++
+					kidnapped << "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>"
+					kidnapped.adjustBruteLoss(1000)
+					kidnapped.forceMove(src)
+					demon.consumed_mobs.Add(kidnapped)
+				else
+					kidnapped.ghostize()
+					qdel(kidnapped)
 			else
-				sleep(6)
-				if (animation)
-					qdel(animation)
-			src.notransform = 0
+				src << "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>"
+		else
+			sleep(6)
+			if (animation)
+				qdel(animation)
+		src.notransform = 0
+	return 1
 
 /obj/item/weapon/bloodcrawl
 	name = "blood crawl"
@@ -97,6 +96,7 @@
 /mob/living/proc/phasein(var/obj/effect/decal/cleanable/B)
 	if(src.notransform)
 		src << "<span class='warning'>Finish eating first!</span>"
+		return 0
 	else
 		var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
 		animation.name = "odd blood"
@@ -135,6 +135,7 @@
 			qdel(animation)
 		spawn(30)
 			src.color = oldcolor
+		return 1
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
@@ -143,6 +144,7 @@
 	var/canmove = 1
 	density = 0
 	anchored = 1
+	invisibility = 60
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
 	forceMove(get_step(src,direction))

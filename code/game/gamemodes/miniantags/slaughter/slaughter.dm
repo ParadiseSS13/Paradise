@@ -57,15 +57,15 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
+	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
+	AddSpell(bloodspell)
+	if(istype(loc, /obj/effect/dummy/slaughter))
+		bloodspell.phased = 1
 	if(src.mind)
-		src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
-		var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
-		AddSpell(bloodspell)
-		if(istype(loc, /obj/effect/dummy/slaughter))
-			bloodspell.phased = 1
 		src << src.playstyle_string
 		src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
 		src << 'sound/misc/demon_dies.ogg'
+		src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new

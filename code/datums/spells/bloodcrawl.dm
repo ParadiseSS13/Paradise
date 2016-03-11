@@ -9,6 +9,7 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
+	panel = "Daemon"
 	var/phased = 0
 
 /obj/effect/proc_holder/spell/bloodcrawl/choose_targets(mob/user = usr)
@@ -21,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/perform(obj/effect/decal/cleanable/target, recharge = 1, mob/living/user = usr)
 	if(istype(user))
-		if(phased)
+		if(phased == 1)
 			if(user.phasein(target))
 				phased = 0
 		else
