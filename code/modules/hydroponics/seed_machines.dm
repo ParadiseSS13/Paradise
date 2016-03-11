@@ -136,6 +136,26 @@
 	var/datum/seed/genetics // Currently scanned seed genetic structure.
 	var/degradation = 0     // Increments with each scan, stops allowing gene mods after a certain point.
 
+	var/degrade_lower = 20
+	var/degrade_upper = 60
+
+/obj/machinery/botany/extractor/New()
+	..()
+
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/botany_extractor(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	RefreshParts()
+
+/obj/machinery/botany/extractor/RefreshParts()
+	var/tier = 1
+	for (var/obj/item/weapon/stock_parts/scanning_module/S in component_parts)
+		tier = S.rating
+	degrade_lower = 25 - (tier * 5)		//Tier 1: 20, Tier 4: 5
+	degrade_upper = 70 - (tier * 10)	//Tier 1: 60, Tier 4: 30
+
 /obj/machinery/botany/extractor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
 	if(!user)
@@ -246,7 +266,7 @@
 		loaded_disk.desc += " The label reads \'[href_list["get_gene"]] gene, sampled from [genetics.display_name]\'."
 		eject_disk = 1
 
-		degradation += rand(20,60)
+		degradation += rand(degrade_lower, degrade_upper)
 		if(degradation >= 100)
 			failed_task = 1
 			genetics = null
@@ -266,6 +286,26 @@
 	name = "bioballistic delivery system"
 	icon_state = "traitgun"
 	disk_needs_genes = 1
+
+	var/degrade_lower = 5
+	var/degrade_upper = 10
+
+/obj/machinery/botany/editor/New()
+	..()
+
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/botany_editor(null)
+	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	RefreshParts()
+
+/obj/machinery/botany/editor/RefreshParts()
+	var/tier = 1
+	for (var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+		tier = M.rating
+	degrade_lower = 6 - tier		//Tier 1: 5, Tier 4: 1
+	degrade_upper = 11 - tier		//Tier 1: 10, Tier 4: 6
 
 /obj/machinery/botany/editor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
@@ -329,7 +369,7 @@
 
 		for(var/datum/plantgene/gene in loaded_disk.genes)
 			seed.seed.apply_gene(gene)
-			seed.modified += rand(5,10)
+			seed.modified += rand(degrade_lower, degrade_upper)
 
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
