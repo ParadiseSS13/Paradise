@@ -41,14 +41,19 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		return
 	if(stat != DEAD && bodytemperature >= 170)	//Dead or cryosleep people do not pump the blood.
 		if(species.exotic_blood)
-			blood_volume = round(vessel.get_reagent_amount(species.exotic_blood))
+			var/blood_reagent = species.exotic_blood // This is a string of the name of the species' blood reagent
+			blood_volume = round(vessel.get_reagent_amount(blood_reagent))
 			if(blood_volume < 560 && blood_volume)
-				var/datum/reagent/water/W = locate() in vessel.reagent_list //Grab some blood
-				if(W) // Make sure there's some blood at all
-					W.volume += 0.1 // regenerate blood VERY slowly
+				var/datum/reagent/R = vessel.reagent_list[blood_reagent] //Grab some blood
+				if(R) // Make sure there's some blood at all
+					R.volume += 0.1 // regenerate blood VERY slowly
 					if (reagents.has_reagent("nutriment"))	//Getting food speeds it up
-						W.volume += 0.4
+						R.volume += 0.4
 						reagents.remove_reagent("nutriment", 0.1)
+					else if (reagents.has_reagent(blood_reagent))
+						R.volume += 0.4
+						reagents.remove_reagent(blood_reagent, 0.4)
+						
 		else
 			blood_volume = round(vessel.get_reagent_amount("blood"))
 			//Blood regeneration if there is some space
@@ -190,8 +195,6 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 	if(!istype(B, /datum/reagent/blood))	B = new /datum/reagent/blood
 	B.holder = container
 	B.volume += amount
-
-
 
 	//set reagent data
 	B.data["donor"] = src
