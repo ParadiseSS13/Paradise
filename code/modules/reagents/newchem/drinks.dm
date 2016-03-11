@@ -95,7 +95,7 @@
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
 	var/d = data
-	if(M.isSynthetic())
+	if(M.isSynthetic()) //works normally on synthetics
 		if(d >= spark_start && prob(25))
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(3, 1, M)
@@ -107,11 +107,13 @@
 			s.start()
 		if(d >= braindamage_start && prob(33))
 			M.adjustBrainLoss(1)
-		..()
-	else
-		if(prob(8))
-			M.fakevomit()
 
+	else
+		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		if(prob(25))
+			holder.remove_reagent(id, 15)
+			M.fakevomit()
+	..()
 
 datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	if(!istype(M, /mob/living))
