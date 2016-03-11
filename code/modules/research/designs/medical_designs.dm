@@ -129,7 +129,7 @@
 	name = "Nanopaste"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
 	id = "nanopaste"
-	req_tech = list("materials" = 4, "engineering" = 3)
+	req_tech = list("materials" = 3, "engineering" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
