@@ -50,9 +50,9 @@
 	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.restrained() || usr.stat || M.buckled || istype(user, /mob/living/silicon/pai) )
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
-	if(!user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
+	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		return
 
 	unbuckle_mob()

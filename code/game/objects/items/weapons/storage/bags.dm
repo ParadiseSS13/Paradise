@@ -483,7 +483,7 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = 1
-	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
+	can_hold = list("/obj/item/weapon/reagent_containers/food/pill","/obj/item/weapon/reagent_containers/glass/beaker","/obj/item/weapon/reagent_containers/glass/bottle")
 
 /*
  *  Biowaste bag (mostly for xenobiologists)

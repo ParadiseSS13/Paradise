@@ -78,7 +78,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
 		return 1
 	return 0
 
@@ -104,7 +104,7 @@
 		return 1
 	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
 		return 1
-	if(istype(O,/obj/item/weapon/reagent_containers/pill/))
+	if(istype(O,/obj/item/weapon/reagent_containers/food/pill/))
 		return 1
 	return 0
 

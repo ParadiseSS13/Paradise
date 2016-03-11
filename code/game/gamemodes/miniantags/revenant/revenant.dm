@@ -272,7 +272,7 @@
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/weapon/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
-						"<span class='revendanger'>As the null rod passes through you, you feel your essence draining away!</span>")
+						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
 		adjustBruteLoss(25) //hella effective
 		inhibited = 1
 		spawn(30)
@@ -402,11 +402,10 @@
 	reforming = 0
 	spawn(600) //1 minutes
 		if(src && reforming)
-			return reform()
+			reform()
 		else
 			inert = 1
 			visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
-			return
 
 /obj/item/weapon/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
@@ -443,33 +442,33 @@
 				R.client = client_to_revive
 				key_of_revenant = client_to_revive.key
 
-	if(!key_of_revenant)
-		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = get_candidates(ROLE_REVENANT)
-		if(!candidates.len)
-			qdel(R)
-			message_admins("No candidates were found for the new revenant. Oh well!")
-			inert = 1
-			visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
-			return 0
-		var/client/C = pick(candidates)
-		key_of_revenant = C.key
+	spawn()
 		if(!key_of_revenant)
-			qdel(R)
-			message_admins("No ckey was found for the new revenant. Oh well!")
+			message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
+			var/list/candidates = pollCandidates("Do you want to play as a revenant?", ROLE_REVENANT, 1)
+			if(!candidates.len)
+				qdel(R)
+				message_admins("No candidates were found for the new revenant. Oh well!")
+				inert = 1
+				visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
+				return
+			var/mob/C = pick(candidates)
+			key_of_revenant = C.key
+			if(!key_of_revenant)
+				qdel(R)
+				message_admins("No ckey was found for the new revenant. Oh well!")
+				inert = 1
+				visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
+				return
+		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
+		player_mind.active = 1
+		player_mind.transfer_to(R)
+		player_mind.assigned_role = "revenant"
+		player_mind.special_role = "Revenant"
+		ticker.mode.traitors |= player_mind
+		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
+		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
+		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
+		qdel(src)
+		if(src) //Should never happen, but just in case
 			inert = 1
-			visible_message("<span class='revenwarning'>[src] settles down and seems lifeless.</span>")
-			return 0
-	var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
-	player_mind.active = 1
-	player_mind.transfer_to(R)
-	player_mind.assigned_role = "revenant"
-	player_mind.special_role = "Revenant"
-	ticker.mode.traitors |= player_mind
-	message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
-	log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
-	visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
-	qdel(src)
-	if(src) //Should never happen, but just in case
-		inert = 1
-	return 1

@@ -186,7 +186,7 @@
 	src.verbs -= /mob/living/proc/guardian_reset
 	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
 		if(G.summoner == src)
-			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", "pAI", null, FALSE, 100)
+			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, 0, 100)
 			var/mob/dead/observer/new_stand = null
 			if(candidates.len)
 				new_stand = pick(candidates)
@@ -197,7 +197,8 @@
 				G.key = new_stand.key
 			else
 				src << "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now."
-				verbs += /mob/living/proc/guardian_reset
+				spawn(3000)
+					verbs += /mob/living/proc/guardian_reset
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
@@ -656,7 +657,7 @@
 		return
 	used = TRUE
 	user << "[use_message]"
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?",ROLE_GUARDIAN, null, FALSE, 100)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)

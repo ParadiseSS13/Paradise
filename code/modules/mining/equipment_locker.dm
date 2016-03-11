@@ -19,7 +19,7 @@
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
-	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bananium" = 60))
+	var/list/ore_values = list(("sand" = 1), ("iron" = 1), ("plasma" = 15), ("silver" = 16), ("gold" = 18), ("uranium" = 30), ("diamond" = 50), ("bananium" = 60), ("tranquillite" = 60))
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"))
 
 /obj/machinery/mineral/ore_redemption/New()
@@ -721,7 +721,7 @@
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/weapon/ore/diamond, /obj/item/weapon/ore/gold, /obj/item/weapon/ore/silver,
 						  /obj/item/weapon/ore/plasma,  /obj/item/weapon/ore/uranium,    /obj/item/weapon/ore/iron,
-						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/glass)
+						  /obj/item/weapon/ore/bananium, /obj/item/weapon/ore/tranquillite, /obj/item/weapon/ore/glass)
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/weldingtool))
@@ -874,6 +874,10 @@
 		else
 			user << "<span class='info'>[src] is only effective on lesser beings.</span>"
 			return
+
+/obj/item/weapon/lazarus_injector/emag_act()
+	if(!malfunctioning)
+		malfunctioning = 1
 
 /obj/item/weapon/lazarus_injector/emp_act()
 	if(!malfunctioning)

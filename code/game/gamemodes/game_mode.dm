@@ -114,17 +114,18 @@
 					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
+					objective.is_completed() // So we don't get many messages regarding completion
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay=objective.completion_payment
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += objective.completion_payment
+						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
 						T.target_name = "[command_name()] Payroll"
 						T.purpose = "Payment"
-						T.amount = objective.completion_payment
+						T.amount = pay
 						T.date = current_date_string
 						T.time = worldtime2text()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
@@ -447,8 +448,8 @@ proc/get_nt_opposed()
 			nukecode = bomb.r_code
 	return nukecode
 
-/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type, pref)
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", "[role_type]", null, pref, 100)
+/datum/game_mode/proc/replace_jobbaned_player(mob/living/M, role_type)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
 	var/mob/dead/observer/theghost = null
 	if(candidates.len)
 		theghost = pick(candidates)

@@ -114,6 +114,7 @@
 
 /obj/item/organ/internal/xenos/acidgland
 	name = "xeno acid gland"
+	icon_state = "acid"
 	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
@@ -122,6 +123,7 @@
 
 /obj/item/organ/internal/xenos/hivenode
 	name = "xeno hive node"
+	icon_state = "hivenode"
 	parent_organ = "head"
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
@@ -148,7 +150,7 @@
 	name = "xeno resin organ"//...there tiger....
 	parent_organ = "mouth"
 	icon_state = "liver-x"
-	slot = "hivenode"
+	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
 

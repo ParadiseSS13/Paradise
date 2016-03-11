@@ -33,6 +33,7 @@
 			if (dish.virus2.addToDB())
 				ping("\The [src] pings, \"New pathogen added to data bank.\"")
 
+			playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src.loc)
 			P.name = "paper - [dish.virus2.name()]"
 

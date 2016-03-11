@@ -330,6 +330,7 @@ log transactions
 						usr << "<span class='notice'>The [src.name] flashes an error on its display.</span>"
 						return
 					lastprint = world.timeofday
+					playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 					var/obj/item/weapon/paper/R = new(src.loc)
 					R.name = "Account balance: [authenticated_account.owner_name]"
 					R.info = {"<b>NT Automated Teller Account Statement</b><br><br>

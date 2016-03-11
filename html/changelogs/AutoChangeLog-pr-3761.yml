@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "Lowers surgery times across the board"
-  - tweak: "Removes scalpels causing 1 damage on successful surgery"
-  - tweak: "Removes random chance to fracture ribs on a successful surgery"

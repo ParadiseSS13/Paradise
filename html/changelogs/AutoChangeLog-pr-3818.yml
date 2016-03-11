@@ -1,0 +1,6 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "Science members now get compensated when they ship tech disks to centcomm."
+  - rscdel: "Science crew are no longer paid when they \"max\" research."
+  - bugfix: "Roboticists now get credit for making RIPLEYs and Firefighters"

@@ -500,7 +500,7 @@
 
 	spawn(10)
 		if(M && usr)
-			//playsound(usr.loc, 'gib.ogg', 50, 1)
+			playsound(usr.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 			usr.UpdateAppearance(M.dna.UI)
 			usr:real_name = M:real_name
 			usr:name = M:name
@@ -627,7 +627,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/superfart
-/datum/dna/gene/basic/superfart
+/datum/dna/gene/basic/grant_spell/superfart
 	name = "High-Pressure Intestines"
 	desc = "Vastly increases the gas capacity of the subject's digestive tract."
 	activation_messages = list("You feel bloated and gassy.")
@@ -635,7 +635,45 @@
 	instability=1
 
 	mutation = SUPER_FART
+	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart
 
 	New()
 		..()
 		block = SUPERFARTBLOCK
+
+/obj/effect/proc_holder/spell/aoe_turf/superfart
+	name = "Super Fart"
+	desc = "Fart with the fury of 1000 burritos."
+	panel = "Abilities"
+	charge_max = 900
+	invocation_type = "emote"
+	range = 3
+	clothes_req = 0
+	selection_type = "view"
+	action_icon_state = "superfart"
+
+/obj/effect/proc_holder/spell/aoe_turf/superfart/invocation(mob/user = usr)
+	invocation = "<span class='warning'><b>[user]</b> hunches down and grits their teeth!</span>"
+	invocation_emote_self = invocation
+	..(user)
+
+/obj/effect/proc_holder/spell/aoe_turf/superfart/cast(list/targets)
+	var/UT = get_turf(usr)
+
+	if(do_after(usr, 30, target = usr))
+		playsound(UT, 'sound/goonstation/effects/superfart.ogg', 50, 0)
+		usr.visible_message("<span class='warning'><b>[usr]</b> unleashes a [pick("tremendous","gigantic","colossal")] fart!</span>", "<span class='warning'>You hear a [pick("tremendous","gigantic","colossal")] fart.</span>")
+		for(var/T in targets)
+			for(var/mob/living/M in T)
+				shake_camera(M, 10, 5)
+				if (M == usr)
+					continue
+				if(!airborne_can_reach(UT, T))
+					continue
+				M << "<span class='warning'>You are sent flying!</span>"
+				M.Weaken(5)
+				step_away(M, UT, 15)
+				step_away(M, UT, 15)
+				step_away(M, UT, 15)
+	else
+		usr << "<span class='warning'>You were interrupted and couldn't fart! Rude!</span>"

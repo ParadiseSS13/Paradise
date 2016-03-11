@@ -177,6 +177,10 @@
 					if(cost)
 						shuttle_master.techLevels[tech.id] = tech.level
 						shuttle_master.points += cost
+						for(var/mob/M in player_list)
+							if(M.mind)
+								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
+									objective.unit_completed(cost)
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 				// Sell max reliablity designs
@@ -288,6 +292,7 @@
 		return
 
 	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
+	playsound(_loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[shuttle_master.ordernum]<br>"
