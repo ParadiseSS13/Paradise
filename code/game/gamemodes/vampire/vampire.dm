@@ -204,7 +204,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
 	var/list/upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/vampire/self/rejuvinate = 0,
+		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
 		/obj/effect/proc_holder/spell/vampire/targetted/hypnotise = 0,
 		/obj/effect/proc_holder/spell/vampire/mob_aoe/glare = 0,
 		/datum/vampire_passive/vision = 100,

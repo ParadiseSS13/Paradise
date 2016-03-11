@@ -143,14 +143,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/obj/effect/proc_holder/spell/vampire/self/rejuvinate
-	name = "Rejuvinate"
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate
+	name = "Rejuvenate"
 	desc= "Flush your system with spare blood to remove any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 200
 	stat_allowed = 1
 
-/obj/effect/proc_holder/spell/vampire/self/rejuvinate/cast()
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast()
 	var/mob/living/U = usr
 
 	usr.SetWeakened(0)
