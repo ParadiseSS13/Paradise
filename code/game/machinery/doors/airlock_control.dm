@@ -9,10 +9,11 @@ obj/machinery/door/airlock
 	var/cur_command = null	//the command the door is currently attempting to complete
 
 obj/machinery/door/airlock/process()
-	..()
-	if (arePowerSystemsOn())
+	if(arePowerSystemsOn() && cur_command)
 		spawn()
 			execute_current_command()
+	else
+		return PROCESS_KILL
 
 obj/machinery/door/airlock/receive_signal(datum/signal/signal)
 	if (!arePowerSystemsOn()) return //no power
@@ -33,8 +34,11 @@ obj/machinery/door/airlock/proc/execute_current_command()
 		return
 
 	do_command(cur_command)
-	if (command_completed(cur_command))
+	if(command_completed(cur_command))
 		cur_command = null
+	else
+		if(!(src in machines))
+			addAtProcessing()
 
 obj/machinery/door/airlock/proc/do_command(var/command)
 	switch(command)
