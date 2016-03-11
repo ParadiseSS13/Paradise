@@ -102,6 +102,11 @@ var/const/INGEST = 2
 		if (!O.reagents )
 			return
 		R = O.reagents
+	else if (istype(target, /mob/living))
+		var/mob/living/M = target
+		if(!M.reagents)
+			return
+		R = M.reagents
 	else if(istype(target, /datum/reagents))
 		R = target
 	else

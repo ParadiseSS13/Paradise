@@ -1308,7 +1308,7 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		var/blood_reagent = species.exotic_blood ? species.exotic_blood : "blood"
+		var/blood_reagent = get_blood_name()
 		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
 		fixblood()
 
