@@ -583,6 +583,7 @@
 			W.lit = 1
 			W.icon_state = "match_lit"
 			processing_objects.Add(W)
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		W.update_icon()
 		return
 

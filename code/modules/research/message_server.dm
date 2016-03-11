@@ -76,6 +76,8 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	if(active && (stat & (BROKEN|NOPOWER)))
 		active = 0
 		return
+	if(prob(3))
+		playsound(loc, "computer_ambience", 50, 1)
 	update_icon()
 	return
 

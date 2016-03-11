@@ -13,7 +13,7 @@
 	var/Toxins_pp = (breath.toxins/breath.total_moles())*breath_pressure
 
 	if(Toxins_pp) // Detect toxins in air
-		adjustToxLoss(breath.toxins*250)
+		adjustPlasma(breath.toxins*250)
 		toxins_alert = max(toxins_alert, 1)
 
 		toxins_used = breath.toxins

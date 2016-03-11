@@ -12,7 +12,7 @@
 	var/creating_new_account = 0
 	var/activated = 1
 	var/const/fund_cap = 1000000
-	
+
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
@@ -127,11 +127,11 @@
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.set_initial_data(data)
 		ui.open()
-		
+
 /obj/machinery/computer/account_database/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	if(href_list["insert_card"])
 		if(held_card)
 			held_card.forceMove(loc)
@@ -146,8 +146,8 @@
 				var/obj/item/weapon/card/id/C = I
 				usr.drop_item()
 				C.forceMove(src)
-				held_card = C		
-		
+				held_card = C
+
 	if(!get_access_level(usr))
 		return 1
 
@@ -176,10 +176,10 @@
 			if("finalise_create_account")
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
-				
+
 				starting_funds = Clamp(starting_funds, 0, station_account.money)	// Not authorized to put the station in debt.
-				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.				
-				
+				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.
+
 				create_account(account_name, starting_funds, src)
 				if(starting_funds > 0)
 					//subtract the money
@@ -218,6 +218,7 @@
 
 			if("print")
 				var/text
+				playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 				var/obj/item/weapon/paper/P = new(loc)
 				if (detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"

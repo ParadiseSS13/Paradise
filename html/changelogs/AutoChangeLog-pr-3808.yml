@@ -1,0 +1,8 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes augments not showing up in R&D unless specifically searched for"
+  - bugfix: "Fixes some augments being unavailable in mech fabs"
+  - bugfix: "Fixes augments having no construction time"
+  - bugfix: "Fixes xenos not gaining plasma when breathing in plasma"
+  - bugfix: "Fixes plasma reagent not generating plasma for a person"

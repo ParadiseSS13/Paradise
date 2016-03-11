@@ -18,7 +18,7 @@
 	name = "Decloner"
 	desc = "Your opponent will bubble into a messy pile of goop."
 	id = "decloner"
-	req_tech = list("combat" = 6, "materials" = 7, "biotech" = 5, "powerstorage" = 6)
+	req_tech = list("combat" = 8, "materials" = 7, "biotech" = 5, "powerstorage" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
 	reagents = list("mutagen" = 40)
@@ -118,7 +118,7 @@
 	name = "Plasma Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	id = "ppistol"
-	req_tech = list("combat" = 5, "plasmatech" = 4)
+	req_tech = list("combat" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
 	build_path = /obj/item/weapon/gun/energy/toxgun

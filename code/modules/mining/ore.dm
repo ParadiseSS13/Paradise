@@ -130,6 +130,14 @@
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/weapon/ore/tranquillite
+	name = "tranquillite ore"
+	icon_state = "Mime ore"
+	origin_tech = "materials=4"
+	points = 60
+	refined_type = /obj/item/stack/sheet/mineral/tranquillite
+	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+
 /obj/item/weapon/ore/slag
 	name = "slag"
 	desc = "Completely useless"

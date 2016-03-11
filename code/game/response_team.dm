@@ -607,6 +607,6 @@ var/send_emergency_team
 	new /obj/item/device/flashlight/flare( src )
 	new /obj/item/weapon/kitchen/knife/combat( src )
 	new /obj/item/device/radio/centcom( src )
-	new /obj/item/weapon/reagent_containers/pill/salicylic( src )
-	new /obj/item/weapon/reagent_containers/pill/patch/synthflesh( src )
+	new /obj/item/weapon/reagent_containers/food/pill/salicylic( src )
+	new /obj/item/weapon/reagent_containers/food/pill/patch/synthflesh( src )
 	return

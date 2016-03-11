@@ -180,6 +180,7 @@
 	result_amount = 3
 	min_temp = 380
 	mix_message = "The mixture gives off a faint scent of almonds."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
 /datum/reagent/itching_powder
@@ -412,6 +413,7 @@
 	required_reagents = list("acetone" = 1, "diethylamine" = 1, "sulfur" = 1)
 	result_amount = 3
 	mix_message = "The mixture gives off quite a stench."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/sulfonal/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -527,6 +529,7 @@
 	result_amount = 8
 	mix_message = "The mixture yields a colorless, odorless liquid."
 	min_temp = 374
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/tabun/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

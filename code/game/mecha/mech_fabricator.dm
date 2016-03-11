@@ -16,6 +16,7 @@
 								MAT_METAL=0,
 								MAT_GLASS=0,
 								MAT_BANANIUM=0,
+								MAT_TRANQUILLITE=0,
 								MAT_DIAMOND=0,
 								MAT_GOLD=0,
 								MAT_PLASMA=0,
@@ -41,6 +42,7 @@
 								"Gygax",
 								"Durand",
 								"H.O.N.K",
+								"Recitence",
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",
@@ -350,7 +352,7 @@
 				</table>
 				</body>
 				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x430")
+	user << browse(dat, "window=mecha_fabricator;size=1000x490")
 	onclose(user, "mecha_fabricator")
 	return
 
@@ -468,6 +470,8 @@
 			type = /obj/item/stack/sheet/mineral/uranium
 		if(MAT_BANANIUM)
 			type = /obj/item/stack/sheet/mineral/bananium
+		if(MAT_TRANQUILLITE)
+			type = /obj/item/stack/sheet/mineral/tranquillite
 		else
 			return 0
 	var/result = 0
@@ -521,6 +525,8 @@
 				material = MAT_GLASS
 			if(/obj/item/stack/sheet/mineral/bananium)
 				material = MAT_BANANIUM
+			if(/obj/item/stack/sheet/mineral/tranquillite)
+				material = MAT_TRANQUILLITE
 			if(/obj/item/stack/sheet/mineral/uranium)
 				material = MAT_URANIUM
 			else

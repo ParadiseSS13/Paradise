@@ -12,6 +12,7 @@
 	required_reagents = list("gintonic" = 1, "methamphetamine" = 1)
 	result_amount = 2
 	mix_message = "The drink turns electric blue and starts quivering violently."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -62,6 +63,7 @@
 	result = "jackrose"
 	required_reagents = list("applejack" = 4, "lemonjuice" = 1)
 	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
 // ROBOT ALCOHOL PAST THIS POINT
@@ -93,7 +95,7 @@
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
-	var/d = data 
+	var/d = data
 
 	if(d >= collapse_start && prob(10))
 		M.emote("collapse")
@@ -118,6 +120,7 @@
 	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
 	result_amount = 3
 	mix_message = "The ingredients combine into a stiff, dark goo."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/trinary
 	name = "Trinary"
@@ -133,6 +136,7 @@
 	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
 	result_amount = 3
 	mix_message = "The ingredients mix into a colorful substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/servo
 	name = "Servo"
@@ -148,5 +152,6 @@
 	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
 	result_amount = 4
 	mix_message = "The ingredients mix into a dark brown substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 // ROBOT ALCOHOL ENDS

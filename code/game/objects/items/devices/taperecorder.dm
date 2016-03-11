@@ -93,7 +93,7 @@
 			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] exclaims, \"[msg]\""
 			return
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] says, \"[msg]\""
-		
+
 /obj/item/device/taperecorder/hear_message(mob/living/M as mob, msg)
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity
@@ -221,6 +221,7 @@
 		return
 
 	usr << "<span class='notice'>Transcript printed.</span>"
+	playsound(loc, "sound/goonstation/machines/printer_thermal.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)

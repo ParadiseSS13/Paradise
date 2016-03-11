@@ -203,7 +203,8 @@ var/list/alldepartments = list()
 		return 0	//You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, "sound/items/polaroid1.ogg", 50, 1)
+
+	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 
 	// give the sprite some time to flick
 	sleep(20)

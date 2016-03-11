@@ -464,6 +464,7 @@
 			if (href_list["print_p"])
 				if (!( src.printing ))
 					src.printing = 1
+					playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
 					P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"

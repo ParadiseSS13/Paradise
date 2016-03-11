@@ -40,7 +40,6 @@
 	armor = list(melee = 40, bullet = 30, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 50)
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	var/up = 0 //So Unathi helmets play nicely with the weldervision check.
 	species_restricted = list("Unathi")
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
