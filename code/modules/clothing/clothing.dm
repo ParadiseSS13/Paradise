@@ -378,6 +378,7 @@ BLIND     // can't see anything
 			processing_objects.Add(M)
 			M.update_icon()
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 		else if(M.lit == 1) // Match is lit, not extinguished.
 			M.dropped()
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
@@ -486,8 +487,10 @@ BLIND     // can't see anything
 	set name = "Open/Close Jacket"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+	if(!isliving(usr))
+		return
+	if(usr.stat)
+		return
 	adjustsuit(user)
 
 /obj/item/clothing/suit/ui_action_click() //This is what happens when you click the HUD action button to adjust your suit.

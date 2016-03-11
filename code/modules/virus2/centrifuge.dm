@@ -174,6 +174,7 @@
 	ping("\The [src] pings, \"Pathogen isolated.\"")
 
 /obj/machinery/computer/centrifuge/proc/print(var/mob/user)
+	playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 	P.name = "paper - Pathology Report"
 	P.info = {"

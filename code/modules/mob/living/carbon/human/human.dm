@@ -308,6 +308,9 @@
 	var/b_loss = null
 	var/f_loss = null
 
+	if(status_flags & GODMODE)
+		return 0
+
 	switch(severity)
 		if(1)
 			b_loss += 500
