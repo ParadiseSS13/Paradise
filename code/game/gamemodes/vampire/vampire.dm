@@ -243,7 +243,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/A = get_ability(path)
 	if(A)
 		powers -= A
-		owner.spell_list.Remove(A)
+		owner.mind.spell_list.Remove(A)
 		qdel(A)
 
 /mob/proc/make_vampire()
