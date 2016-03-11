@@ -897,7 +897,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
-	for(var/obj/item/organ/organ in internal_organs)
+	for(var/obj/item/organ/internal/organ in internal_organs)
 		organ.remove()
 		organ.forceMove(src)
 
