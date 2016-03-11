@@ -77,14 +77,12 @@
 	name = "diona nymph"
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
-	origin_tech = "magnets=3;biotech=5"
 
 /obj/item/weapon/holder/drone
 
 	name = "maintenance drone"
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
-	origin_tech = "magnets=3;engineering=5"
 
 /obj/item/weapon/holder/pai
 	name = "pAI"

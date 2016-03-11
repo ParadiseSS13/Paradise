@@ -185,7 +185,7 @@
 	parent_organ = "groin"
 	slot = "appendix"
 
-/obj/item/organ/internal/eyes/diona
+/obj/item/organ/internal/diona_receptor
 	name = "receptor node"
 	organ_tag = "eyes"
 	icon = 'icons/mob/alien.dmi'

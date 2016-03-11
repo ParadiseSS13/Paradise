@@ -150,7 +150,7 @@
 	name = "xeno resin organ"//...there tiger....
 	parent_organ = "mouth"
 	icon_state = "liver-x"
-	slot = "hivenode"
+	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/resin)
 

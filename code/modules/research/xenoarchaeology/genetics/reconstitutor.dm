@@ -300,7 +300,7 @@ datum/genesequence
 /obj/item/weapon/circuitboard/reconstitutor
 	name = "Circuit board (Flora Reconstitution Console)"
 	build_path = "/obj/machinery/computer/reconstitutor"
-	origin_tech = "programming=2;biotech=4;materials=6"
+	origin_tech = "programming=2;biotech=3;materials=4"
 	frame_desc = "Requires 2 Advanced Scanning Module, 1 Nano Manipulator, 1 Matter Bin and 1 Advanced Capacitor."
 	req_components = list(
 							"/obj/item/weapon/stock_parts/scanning_module/adv" = 2,

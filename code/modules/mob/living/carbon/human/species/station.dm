@@ -620,12 +620,13 @@
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
-		"receptor node" =      /obj/item/organ/internal/eyes/diona,
+		"receptor node" =      /obj/item/organ/internal/diona_receptor,
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
 		"polyp segment" =      /obj/item/organ/internal/kidneys/diona,
 		"anchoring ligament" = /obj/item/organ/internal/appendix/diona
 		)
 
+	vision_organ = /obj/item/organ/internal/diona_receptor
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/diona/chest),
 		"groin" =  list("path" = /obj/item/organ/external/diona/groin),
