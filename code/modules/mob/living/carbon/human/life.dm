@@ -88,7 +88,7 @@ var/global/list/brutefireloss_overlays = list("1" = image("icon" = 'icons/mob/sc
 	pulse = handle_pulse()
 
 	if(mind && mind.vampire)
-		handle_vampire()
+		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 

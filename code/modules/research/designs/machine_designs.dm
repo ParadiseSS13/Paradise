@@ -501,3 +501,23 @@
 	materials = list(MAT_GLASS=1000, "sacid"=20)
 	build_path = /obj/item/weapon/circuitboard/prize_counter
 	category = list("Misc. Machinery")
+
+/datum/design/botany_extractor
+	name = "Machine Design (Lysis-Isolation Centrifuge)"
+	desc = "The circuit board for a lysis-isolation centrifuge."
+	id = "botany_extractor"
+	req_tech = list("biotech" = 3, "programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/botany_extractor
+	category = list("Hydroponics Machinery")
+
+/datum/design/botany_editor
+	name = "Machine Design (Bioballistic Delivery System)"
+	desc = "The circuit board for a bioballistic delivery system."
+	id = "botany_editor"
+	req_tech = list("biotech" = 3, "programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000, "sacid"=20)
+	build_path = /obj/item/weapon/circuitboard/botany_editor
+	category = list("Hydroponics Machinery")
