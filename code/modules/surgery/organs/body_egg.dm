@@ -10,11 +10,6 @@
 	..()
 	finder << "<span class='warning'>You found an unknown alien organism in [owner]'s [parent_organ]!</span>"
 
-/obj/item/organ/internal/body_egg/New(loc)
-	if(iscarbon(loc))
-		insert(loc)
-	return ..()
-
 /obj/item/organ/internal/body_egg/insert(var/mob/living/carbon/M, special = 0)
 	..()
 	owner.status_flags |= XENO_HOST
