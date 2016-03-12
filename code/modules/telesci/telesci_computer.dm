@@ -444,7 +444,7 @@
 		O.hear_message(M, msg)
 
 /obj/machinery/computer/telescience/proc/process_activation(var/obj/item/device/D)
-    if(tele_cooldown > world.time)
+    if(remote_cooldown > world.time)
         return 0
     remote_cooldown = world.time + 30
     sending = device_mode
