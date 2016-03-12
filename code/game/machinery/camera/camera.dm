@@ -249,11 +249,6 @@
 	return
 
 /obj/machinery/camera/proc/deactivate(user as mob, var/choice = 1)
-	if(can_use())
-		cameranet.addCamera(src)
-	else
-		set_light(0)
-		cameranet.removeCamera(src)
 	if(choice==1)
 		invalidateCameraCache()
 		status = !( src.status )
@@ -274,6 +269,12 @@
 				visible_message("<span class='danger'>\The [src] reactivates!</span>")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = initial(icon_state)
+
+	if(can_use())
+		cameranet.addCamera(src)
+	else
+		set_light(0)
+		cameranet.removeCamera(src)
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
