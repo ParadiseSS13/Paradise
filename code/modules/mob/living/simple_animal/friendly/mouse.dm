@@ -30,6 +30,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 1
+	holder_type = /obj/item/weapon/holder/mouse
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -63,7 +64,6 @@
 	icon_dead = "mouse_[mouse_color]_dead"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
-
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
 	src.stat = DEAD
@@ -72,6 +72,11 @@
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
+
+/mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
+	if(M.a_intent == I_HELP)
+		get_scooped(M)
+	..()
 
 //make mice fit under tables etc? this was hacky, and not working
 /*
