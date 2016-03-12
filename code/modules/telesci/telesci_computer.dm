@@ -34,7 +34,7 @@
 	// Assembly shit
 	var/obj/item/device/assembly/attached_device = null
 	var/device_mode = 0
-	var/toggle = 1
+	var/remote_cooldown = 1
 
 /obj/machinery/computer/telescience/New()
 	..()
@@ -423,7 +423,7 @@
 			attached_device.attack_self(usr)
 	if(href_list["remove_device"])
 		attached_device.loc = get_turf(src)
-		attached_device:holder = null
+		attached_device.holder = null
 		attached_device = null
 
 	updateUsrDialog()
@@ -444,12 +444,11 @@
 		O.hear_message(M, msg)
 
 /obj/machinery/computer/telescience/proc/process_activation(var/obj/item/device/D)
-	if(toggle)
-		toggle = 0
-		sending = device_mode
-		teleport(usr)
-		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
-			toggle = 1
+    if(tele_cooldown > world.time)
+        return 0
+    remote_cooldown = world.time + 30
+    sending = device_mode
+    teleport(usr)
 
 /obj/machinery/computer/telescience/proc/recalibrate()
 	teles_left = rand(30, 40)
