@@ -580,6 +580,22 @@
 					icon_state = "servoglass"
 					name = "Glass of Servo"
 					desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+				if("synthnsoda")
+					icon_state = "synthnsodaglass"
+					name = "Glass of Synth 'n Soda"
+					desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+				if("synthignon")
+					icon_state = "synthignonglass"
+					name = "Glass of Synthignon"
+					desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+				if("uplink")
+					icon_state = "uplinkglass"
+					name = "Glass of Uplink"
+					desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+				if("holywater")
+					icon_state = "glass_clear"
+					name = "Glass of Holy Water"
+					desc = "The contents of this glass seem to be filled with an energy of some kind."
 
 
 				else
