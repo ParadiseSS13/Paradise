@@ -352,7 +352,7 @@
 			if(child)
 				child.loc = get_turf(src)
 				if(kill && istype(child))
-					child.death()
+					child.Die()
 				else
 					for(var/mob/M in range(1,src))
 						if(CanHug(M))
