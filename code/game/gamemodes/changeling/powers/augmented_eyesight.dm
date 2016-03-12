@@ -43,6 +43,7 @@
 	origin_tech = "biotech=4"
 	slot = "eye_ling"
 	status = 0
+	aug_message = "We feel a minute twitch in our eyes, our eyes feel more durable."
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	..()
@@ -64,6 +65,8 @@
 	implant_overlay = null
 	origin_tech = "biotech=5;magnets=5"
 	slot = "eye_ling"
+	darkness_view = 8
+	see_darkness = 0
 	status = 0
 	aug_message = "We feel a minute twitch in our eyes, and darkness creeps away."
 

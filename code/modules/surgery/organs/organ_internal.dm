@@ -15,6 +15,12 @@
 		insert(holder)
 	..()
 
+
+/obj/item/organ/internal/process()
+
+	..()
+
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
 		return

@@ -312,7 +312,8 @@ This function completely restores a damaged organ to perfect condition.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
-		current_organ.rejuvenate()
+		if(!istype(current_organ,/obj/item/organ/internal/cyberimp))
+			current_organ.rejuvenate()
 
 
 	// remove embedded objects and drop them on the floor
