@@ -888,6 +888,7 @@
 	color = "#20324D" //RGB: 32, 50, 77
 	metabolization_rate = 0.2
 	var/shock_timer = 0
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++
