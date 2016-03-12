@@ -12,6 +12,7 @@
 	required_reagents = list("gintonic" = 1, "methamphetamine" = 1)
 	result_amount = 2
 	mix_message = "The drink turns electric blue and starts quivering violently."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -48,7 +49,7 @@
 	max_temp = 270
 	result_amount = 1
 	mix_message = "The drink darkens as the water freezes, leaving the concentrated cider behind."
-	mix_sound = null
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/jackrose
 	name = "Jack Rose"
@@ -62,6 +63,7 @@
 	result = "jackrose"
 	required_reagents = list("applejack" = 4, "lemonjuice" = 1)
 	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 
 // ROBOT ALCOHOL PAST THIS POINT
@@ -137,6 +139,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
 	result_amount = 3
 	mix_message = "The ingredients combine into a stiff, dark goo."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/trinary
 	name = "Trinary"
@@ -152,6 +155,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
 	result_amount = 3
 	mix_message = "The ingredients mix into a colorful substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/servo
 	name = "Servo"
@@ -167,6 +171,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
 	result_amount = 4
 	mix_message = "The ingredients mix into a dark brown substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/uplink
 	name = "Uplink"
@@ -181,6 +186,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	result = "uplink"
 	required_reagents = list("rum" = 1, "vodka" = 1, "tequilla" = 1, "whiskey" = 1, "synthanol" = 1)
 	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/synthnsoda
 	name = "Synth 'n Soda"
@@ -195,6 +201,7 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	result = "synthnsoda"
 	required_reagents = list("synthanol" = 1, "cola" = 1)
 	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/synthignon
 	name = "Synthignon"
@@ -209,4 +216,5 @@ datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/vo
 	result = "synthignon"
 	required_reagents = list("synthanol" = 1, "wine" = 1)
 	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 // ROBOT ALCOHOL ENDS
