@@ -37,7 +37,6 @@
 
 	var/vampire_amount = 4
 
-
 /datum/game_mode/vampire/announce()
 	world << "<B>The current game mode is - Vampires!</B>"
 	world << "<B>There are Vampires from Space Transylvania on the station, keep your blood close and neck safe!</B>"
@@ -171,7 +170,8 @@
 	return
 
 /datum/game_mode/proc/grant_vampire_powers(mob/living/carbon/vampire_mob)
-	if(!istype(vampire_mob))	return
+	if(!istype(vampire_mob))
+		return
 	vampire_mob.make_vampire()
 
 /datum/game_mode/proc/greet_vampire(var/datum/mind/vampire, var/you_are=1)
@@ -200,188 +200,131 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	var/mob/living/owner = null
 	var/gender = FEMALE
 	var/iscloaking = 0 // handles the vampire cloak toggle
-	var/list/powers = list() // list of available powers and passives, see defines in setup.dm
+	var/list/powers = list() // list of available powers and passives
 	var/mob/living/carbon/human/draining // who the vampire is draining of blood
 	var/nullified = 0 //Nullrod makes them useless for a short while.
-	var/upgradedRegen = 0
+	var/list/upgrade_tiers = list(
+		/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
+		/obj/effect/proc_holder/spell/vampire/targetted/hypnotise = 0,
+		/obj/effect/proc_holder/spell/vampire/mob_aoe/glare = 0,
+		/datum/vampire_passive/vision = 100,
+		/obj/effect/proc_holder/spell/vampire/self/shapeshift = 100,
+		/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
+		/obj/effect/proc_holder/spell/vampire/targetted/disease = 150,
+		/obj/effect/proc_holder/spell/vampire/bats = 200,
+		/obj/effect/proc_holder/spell/vampire/self/screech = 200,
+		/datum/vampire_passive/regen = 200,
+		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
+		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
+		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
+		/datum/vampire_passive/full = 500)
+
 /datum/vampire/New(gend = FEMALE)
 	gender = gend
 
+/datum/vampire/proc/force_add_ability(path)
+	var/spell = new path(owner)
+	if(istype(spell, /obj/effect/proc_holder/spell))
+		owner.mind.AddSpell(spell)
+	powers += spell
+
+/datum/vampire/proc/get_ability(path)
+	for(var/P in powers)
+		var/datum/power = P
+		if(power.type == path)
+			return power
+	return null
+
+/datum/vampire/proc/add_ability(path)
+	if(!get_ability(path))
+		force_add_ability(path)
+
+/datum/vampire/proc/remove_ability(path)
+	var/A = get_ability(path)
+	if(A)
+		powers -= A
+		owner.mind.spell_list.Remove(A)
+		qdel(A)
+
 /mob/proc/make_vampire()
-	if(!mind)				return
+	if(!mind)
+		return
+	var/datum/vampire/vamp
 	if(!mind.vampire)
-		mind.vampire = new /datum/vampire(gender)
-		mind.vampire.owner = src
-	verbs += /client/vampire/proc/vampire_rejuvinate
-	verbs += /client/vampire/proc/vampire_hypnotise
-	verbs += /client/vampire/proc/vampire_glare
-	//testing purposes REMOVE BEFORE PUSH TO MASTER
-	/*for(var/handler in typesof(/client/proc))
-		if(findtext("[handler]","vampire_"))
-			verbs += handler*/
-	for(var/i = 1; i <= 3; i++) // CHANGE TO 3 RATHER THAN 12 AFTER TESTING IS DONE
-		if(!(i in mind.vampire.powers))
-			mind.vampire.powers.Add(i)
+		vamp = new /datum/vampire(gender)
+		vamp.owner = src
+		mind.vampire = vamp
+	else
+		vamp = mind.vampire
+		vamp.powers.Cut()
 
+	vamp.check_vampire_upgrade(0)
 
-	for(var/n in mind.vampire.powers)
-		switch(n)
-			if(VAMP_SHAPE)
-				verbs += /client/vampire/proc/vampire_shapeshift
-			if(VAMP_VISION)
-				continue
-			if(VAMP_DISEASE)
-				verbs += /client/vampire/proc/vampire_disease
-			if(VAMP_CLOAK)
-				verbs += /client/vampire/proc/vampire_cloak
-			if(VAMP_BATS)
-				verbs += /client/vampire/proc/vampire_bats
-			if(VAMP_SCREAM)
-				verbs += /client/vampire/proc/vampire_screech
-			if(VAMP_JAUNT)
-				verbs += /client/vampire/proc/vampire_jaunt
-			if(VAMP_BLINK)
-				verbs += /client/vampire/proc/vampire_shadowstep
-			if(VAMP_SLAVE)
-				verbs += /client/vampire/proc/vampire_enthrall
-			if(VAMP_FULL)
-				continue
-/mob/proc/remove_vampire_powers()
-	for(var/handler in typesof(/client/vampire/proc))
-		if(findtext("[handler]","vampire_"))
-			verbs -= handler
+/datum/vampire/proc/remove_vampire_powers()
+	for(var/P in powers)
+		remove_ability(P)
+	owner.alpha = 255
 
-/mob/proc/handle_bloodsucking(mob/living/carbon/human/H)
-	src.mind.vampire.draining = H
+/datum/vampire/proc/handle_bloodsucking(mob/living/carbon/human/H)
+	draining = H
 	var/blood = 0
-	var/bloodtotal = 0 //used to see if we increased our blood total
-	var/bloodusable = 0 //used to see if we increased our blood usable
-	src.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [src.name] ([src.ckey]) in the neck and draining their blood</font>")
-	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [src.name] ([src.ckey])</font>")
-	log_attack("[src.name] ([src.ckey]) bit [H.name] ([H.ckey]) in the neck")
-	src.visible_message("\red <b>[src.name] bites [H.name]'s neck!<b>", "\red <b>You bite [H.name]'s neck and begin to drain their blood.", "\blue You hear a soft puncture and a wet sucking noise")
-	if(!iscarbon(src))
+	var/old_bloodtotal = 0 //used to see if we increased our blood total
+	var/old_bloodusable = 0 //used to see if we increased our blood usable
+	owner.attack_log += text("\[[time_stamp()]\] <font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
+	H.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
+	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
+	owner.visible_message("<span class='danger'>[owner] bites [H]'s neck!</span>", "<span class='danger'>You bite [H]'s neck and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	if(!iscarbon(owner))
 		H.LAssailant = null
 	else
-		H.LAssailant = src
-	while(do_mob(src, H, 50))
-		if(!mind.vampire || !(mind in ticker.mode.vampires))
-			src << "\red Your fangs have disappeared!"
-			return 0
-		bloodtotal = src.mind.vampire.bloodtotal
-		bloodusable = src.mind.vampire.bloodusable
+		H.LAssailant = owner
+	while(do_mob(owner, H, 50))
+		if(!(owner.mind in ticker.mode.vampires))
+			owner << "<span class='warning'>Your fangs have disappeared!</span>"
+			return
+		old_bloodtotal = bloodtotal
+		old_bloodusable = bloodusable
 		if(!H.vessel.get_reagent_amount("blood"))
-			src << "\red They've got no blood left to give."
+			src << "<span class='warning'>They've got no blood left to give.</span>"
 			break
-		if(H.stat < 2) //alive
+		if(H.stat < DEAD)
 			blood = min(20, H.vessel.get_reagent_amount("blood"))	// if they have less than 20 blood, give them the remnant else they get 20 blood
-			src.mind.vampire.bloodtotal += blood/2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
-			src.mind.vampire.bloodusable += blood/2
-			//H.adjust CloneLoss(10)	No cloneloss -Melandor0
+			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+			bloodusable += blood / 2
 		else
 			blood = min(5, H.vessel.get_reagent_amount("blood"))	// The dead only give 5 bloods
-			src.mind.vampire.bloodtotal += blood
-		if(bloodtotal != src.mind.vampire.bloodtotal)
-			src << "\blue <b>You have accumulated [src.mind.vampire.bloodtotal] [src.mind.vampire.bloodtotal > 1 ? "units" : "unit"] of blood[src.mind.vampire.bloodusable != bloodusable ?", and have [src.mind.vampire.bloodusable] left to use" : "."]"
-		check_vampire_upgrade(mind)
-		H.vessel.remove_reagent("blood",25)
-		if(ishuman(src))
-			var/mob/living/carbon/human/V = src
-			V.nutrition = min(450,V.nutrition+(blood/2))
+			bloodtotal += blood
+		if(old_bloodtotal != bloodtotal)
+			owner << "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>"
+		check_vampire_upgrade()
+		H.vessel.remove_reagent("blood", 25)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/V = owner
+			V.nutrition = min(450, V.nutrition + (blood / 2))
 
-	src.mind.vampire.draining = null
-	src << "\blue You stop draining [H.name] of blood."
-	return 1
+	draining = null
+	owner << "<span class='notice'>You stop draining [H.name] of blood.</span>"
 
-/mob/proc/check_vampire_upgrade(datum/mind/v)
-	if(!v) return
-	if(!v.vampire) return
-	var/datum/vampire/vamp = v.vampire
-	var/list/old_powers = vamp.powers.Copy()
+/datum/vampire/proc/check_vampire_upgrade(announce = 1)
+	var/list/old_powers = powers.Copy()
 
-	// This used to be a switch statement.
-	// Don't use switch statements for shit like this, since blood can be any random-ass value.
-	// if(100) requires the blood to be at EXACTLY 100 units to trigger.
-	// if(blud >= 100) activates when blood is at or over 100 units.
-	// TODO: Make this modular.
+	for(var/ptype in upgrade_tiers)
+		var/level = upgrade_tiers[ptype]
+		if(bloodtotal >= level)
+			add_ability(ptype)
 
-	// TIER 1
-	if(vamp.bloodtotal >= 100)
-		if(!(VAMP_VISION in vamp.powers))
-			vamp.powers.Add(VAMP_VISION)
-		if(!(VAMP_SHAPE in vamp.powers))
-			vamp.powers.Add(VAMP_SHAPE)
+	if(announce)
+		announce_new_power(old_powers)
 
-	// TIER 2
-	if(vamp.bloodtotal >= 150)
-		if(!(VAMP_CLOAK in vamp.powers))
-			vamp.powers.Add(VAMP_CLOAK)
-		if(!(VAMP_DISEASE in vamp.powers))
-			vamp.powers.Add(VAMP_DISEASE)
-
-	// TIER 3
-	if(vamp.bloodtotal >= 200)
-		if(!(VAMP_BATS in vamp.powers))
-			vamp.powers.Add(VAMP_BATS)
-		if(!(VAMP_SCREAM in vamp.powers))
-			vamp.powers.Add(VAMP_SCREAM)
-		if(!(vamp.upgradedRegen))	// to prevent spamming
-			src << "<span class='notice'>Your rejuvination abilities have improved and will now heal you over time when used.</span>"
-			vamp.upgradedRegen = 1
-
-	// TIER 3.5 (/vg/)
-	if(vamp.bloodtotal >= 250)
-		if(!(VAMP_BLINK in vamp.powers))
-			vamp.powers.Add(VAMP_BLINK)
-
-	// TIER 4
-	if(vamp.bloodtotal >= 300)
-		if(!(VAMP_JAUNT in vamp.powers))
-			vamp.powers.Add(VAMP_JAUNT)
-		if(!(VAMP_SLAVE in vamp.powers))
-			vamp.powers.Add(VAMP_SLAVE)
-
-	// TIER 5
-	if(vamp.bloodtotal >= 500)
-		if(!(VAMP_FULL in vamp.powers))
-			vamp.powers.Add(VAMP_FULL)
-
-	announce_new_power(old_powers, vamp.powers)
-
-/mob/proc/announce_new_power(list/old_powers, list/new_powers)
-	for(var/n in new_powers)
-		if(!(n in old_powers))
-			switch(n)
-				if(VAMP_SHAPE)
-					src << "\blue You have gained the shapeshifting ability, at the cost of stored blood you can change your form permanently."
-					verbs += /client/vampire/proc/vampire_shapeshift
-				if(VAMP_VISION)
-					src << "\blue Your vampiric vision has improved."
-					//no verb
-				if(VAMP_DISEASE)
-					src << "\blue You have gained the Diseased Touch ability which causes those you touch to die shortly after unless treated medically."
-					verbs += /client/vampire/proc/vampire_disease
-				if(VAMP_CLOAK)
-					src << "\blue You have gained the Cloak of Darkness ability which when toggled makes you near invisible in the shroud of darkness."
-					verbs += /client/vampire/proc/vampire_cloak
-				if(VAMP_BATS)
-					src << "\blue You have gained the Summon Bats ability."
-					verbs += /client/vampire/proc/vampire_bats // work in progress
-				if(VAMP_SCREAM)
-					src << "\blue You have gained the Chriopteran Screech ability which stuns anything with ears in a large radius and shatters glass in the process."
-					verbs += /client/vampire/proc/vampire_screech
-				if(VAMP_JAUNT)
-					src << "\blue You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
-					verbs += /client/vampire/proc/vampire_jaunt
-				if(VAMP_SLAVE)
-					src << "\blue You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
-					verbs += /client/vampire/proc/vampire_enthrall
-				if(VAMP_BLINK)
-					src << "\blue You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-					verbs += /client/vampire/proc/vampire_shadowstep
-				if(VAMP_FULL)
-					src << "\blue You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
-					//no verb
+/datum/vampire/proc/announce_new_power(list/old_powers)
+	for(var/p in powers)
+		if(!(p in old_powers))
+			if(istype(p, /obj/effect/proc_holder/spell/vampire))
+				var/obj/effect/proc_holder/spell/vampire/power = p
+				owner << "<span class='notice'>[power.gain_desc]</span>"
+			else if(istype(p, /datum/vampire_passive))
+				var/datum/vampire_passive/power = p
+				owner << "<span class='notice'>[power.gain_desc]</span>"
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
@@ -411,55 +354,79 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	//world << "Removed [vampire_mind.current.name] from vampire shit"
 	vampire_mind.current << "\red <FONT size = 3><B>The fog clouding your mind clears. You remember nothing from the moment you were enthralled until now.</B></FONT>"
 
-/mob/living/carbon/human/proc/check_sun()
-
-	var/ax = x
-	var/ay = y
+/datum/vampire/proc/check_sun()
+	var/ax = owner.x
+	var/ay = owner.y
 
 	for(var/i = 1 to 20)
 		ax += sun.dx
 		ay += sun.dy
 
-		var/turf/T = locate( round(ax,0.5),round(ay,0.5),z)
+		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.z)
 
-		if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)
+		if(T.x == 1 || T.x == world.maxx || T.y == 1 || T.y == world.maxy)
 			break
 
 		if(T.density)
 			return
 	vamp_burn()
 
-/mob/living/carbon/human/proc/handle_vampire()
-	if(hud_used)
-		if(!hud_used.vampire_blood_display)
-			hud_used.vampire_hud()
-		hud_used.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[mind.vampire.bloodusable]</font></div>"
+/datum/vampire/proc/handle_vampire()
+	if(owner.hud_used)
+		var/datum/hud/hud = owner.hud_used
+		if(!hud.vampire_blood_display)
+			hud.vampire_hud()
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
-	if(istype(loc, /turf/space))
+	if(istype(owner.loc, /turf/space))
 		check_sun()
-	if(istype(loc.loc, /area/chapel) && !(VAMP_FULL in src.mind.vampire.powers))
+	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn()
-	mind.vampire.nullified = max(0, mind.vampire.nullified - 1)
+	nullified = max(0, nullified - 1)
 
-mob/living/carbon/human/proc/vamp_burn()
-	if(prob(35))
-		switch(health)
-			if(80 to 100)
-				src << "\red Your skin flakes away..."
-			if(60 to 80)
-				src << "<span class='warning'>Your skin sizzles!</span>"
-			if((-INFINITY) to 60)
-				if(!on_fire)
-					src << "<b>\red Your skin catches fire!</b>"
-				else
-					src << "<b>\red You continue to burn!</b>"
-				fire_stacks += 5
-				IgniteMob()
-		emote("scream")
+/datum/vampire/proc/handle_vampire_cloak()
+	if(!ishuman(owner))
+		owner.alpha = 255
+		return
+	var/turf/simulated/T = get_turf(owner)
+	var/atom/movable/lighting_overlay/L = locate(/atom/movable/lighting_overlay) in T
+	var/light_available
+	if(L)
+		light_available = L.get_clamped_lum(0.5) * 10
 	else
-		switch(health)
+		light_available = 10
+
+	if(!istype(T))
+		return 0
+
+	if(!iscloaking)
+		owner.alpha = 255
+		return 0
+	if(light_available <= 2)
+		owner.alpha = round((255 * 0.15))
+		return 1
+	else
+		owner.alpha = round((255 * 0.80))
+
+/datum/vampire/proc/vamp_burn()
+	if(prob(35))
+		switch(owner.health)
+			if(80 to 100)
+				owner << "<span class='warning'>Your skin flakes away...</span>"
+			if(60 to 80)
+				owner << "<span class='warning'>Your skin sizzles!</span>"
 			if((-INFINITY) to 60)
-				fire_stacks++
-				IgniteMob()
-	adjustFireLoss(3)
+				if(!owner.on_fire)
+					owner << "<span class='danger'>Your skin catches fire!</span>"
+				else
+					owner << "<span class='danger'>You continue to burn!</span>"
+				owner.fire_stacks += 5
+				owner.IgniteMob()
+		owner.emote("scream")
+	else
+		switch(owner.health)
+			if((-INFINITY) to 60)
+				owner.fire_stacks++
+				owner.IgniteMob()
+	owner.adjustFireLoss(3)
 	return

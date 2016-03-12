@@ -1,0 +1,7 @@
+author: monster860
+delete-after: True
+changes: 
+  - rscadd: "Mining station now has a podbay."
+  - rscadd: "Ore scooping module for the spacepod."
+  - rscadd: "Three mining lasers for spacepod: Basic, normal, and burst."
+  - bugfix: "Shooting weapons south or west of spacepod will actually hit adjacent targets now, and won't shoot through walls anymore."
