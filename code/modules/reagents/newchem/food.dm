@@ -203,7 +203,7 @@ datum/reagent/fungus/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 		if(ranchance == 1)
 			M << "<span class='warning'>You feel very sick.</span>"
 			M.reagents.add_reagent("toxin", rand(1,5))
-		else if(ranchance <= 5 && ranchance != 1)
+		else if(ranchance <= 5)
 			M << "<span class='warning'>That tasted absolutely FOUL.</span>"
 		else M << "<span class='warning'>Yuck!</span>"
 
@@ -251,11 +251,13 @@ datum/reagent/msg/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	description = "Some cheese. Pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#FFFF00"
+	metabolization_rate = 0 //heheheh
 
 
 /datum/reagent/cheese/on_mob_life(var/mob/living/M as mob)
 	if(prob(3))
-		M.reagents.add_reagent("cholesterol", rand(1,2)) //intentional no parent call, hehehe.
+		M.reagents.add_reagent("cholesterol", rand(1,2))
+	..()
 
 datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	src = null
@@ -270,6 +272,10 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	required_reagents = list("vomit" = 1, "milk" = 1)
 	result_amount = 1
 	mix_message = "The mixture curdles up."
+
+/datum/chemical_reaction/cheese/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='notice'>A faint cheesy smell drifts through the air...</span>")
 
 /datum/reagent/fake_cheese
 	name = "Cheese substitute"
@@ -291,10 +297,12 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
+	metabolization_rate = 0 //heheheh
 
 /datum/reagent/weird_cheese/on_mob_life(var/mob/living/M as mob)
 	if(prob(5))
-		M.reagents.add_reagent("cholesterol", rand(1,3)) //intentional no parent call, hehehe.
+		M.reagents.add_reagent("cholesterol", rand(1,3))
+	..()
 
 datum/reagent/weird_cheese/reaction_turf(var/turf/T, var/volume)
 	src = null
@@ -309,6 +317,11 @@ datum/reagent/weird_cheese/reaction_turf(var/turf/T, var/volume)
 	required_reagents = list("green_vomit" = 1, "milk" = 1)
 	result_amount = 1
 	mix_message = "The disgusting mixture sloughs together horribly, emitting a foul stench."
+	mix_sound = 'sound/goonstation/misc/gurggle.ogg'
+
+/datum/chemical_reaction/weird_cheese/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>A horrible smell assaults your nose! What in space is it?</span>")
 
 datum/reagent/beans
 	name = "Refried beans"

@@ -292,7 +292,7 @@ datum/reagent/fartonium/on_mob_life(var/mob/living/M as mob)
 
 	if(holder.has_reagent("simethicone"))
 		if(prob(25))
-			M << "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gunna die!")]</span>"
+			M << "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>"
 			M.adjustBruteLoss(1)
 		if(prob(10))
 			M.custom_emote(1,"strains, but nothing happens.")

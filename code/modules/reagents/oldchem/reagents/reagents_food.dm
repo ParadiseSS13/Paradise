@@ -448,10 +448,13 @@
 	..()
 	return
 
+/datum/reagent/sugar/overdose_start(var/mob/living/M as mob)
+	M << "<span class='danger'>You pass out from hyperglycemic shock!</span>"
+	M.emote("collapse")
+	..()
+
 /datum/reagent/sugar/overdose_process(var/mob/living/M as mob)
 	if(volume > 200)
-		M << "<span class='danger'>You pass out from hyperglycemic shock!</span>"
-		M.emote("collapse")
 		M.Paralyse(3)
 		M.Weaken(4)
 		if(prob(8))
