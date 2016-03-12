@@ -49,7 +49,7 @@
 	max_temp = 270
 	result_amount = 1
 	mix_message = "The drink darkens as the water freezes, leaving the concentrated cider behind."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	mix_sound = null
 
 /datum/reagent/ethanol/jackrose
 	name = "Jack Rose"
