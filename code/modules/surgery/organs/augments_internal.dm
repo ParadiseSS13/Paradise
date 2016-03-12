@@ -188,7 +188,7 @@
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
-	hunger_threshold = 250
+	hunger_threshold = 300
 	poison_amount = 10
 	origin_tech = "materials=5;programming=3;biotech=5"
 
