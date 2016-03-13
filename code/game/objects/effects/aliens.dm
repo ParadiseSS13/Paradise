@@ -466,7 +466,7 @@
 
 		if(istype(target, /turf/simulated/mineral))
 			var/turf/simulated/mineral/M = target
-			M.ChangeTurf(/turf/space)
+			M.ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 
 		if(istype(target, /turf/simulated/floor))
 			var/turf/simulated/floor/F = target
