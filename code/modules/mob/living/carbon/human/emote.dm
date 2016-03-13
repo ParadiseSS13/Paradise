@@ -586,7 +586,7 @@
 			m_type = 1
 
 		if ("tremble", "trembles")
-			message = "<B>[src]</B> trembles in fear!"
+			message = "<B>[src]</B> trembles."
 			m_type = 1
 
 		if ("sneeze", "sneezes")

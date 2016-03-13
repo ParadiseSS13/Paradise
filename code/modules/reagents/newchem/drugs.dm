@@ -43,17 +43,23 @@
 
 /datum/reagent/crank/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.AdjustParalysis(-2)
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
+	if(prob(15))
+		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",2)
+		M << "<span class='notice'>You feel great!</span>"
+		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.emote(pick("laugh", "giggle"))
+	if(prob(6))
+		M << "<span class='notice'>You feel warm.</span>"
+		M.bodytemperature += rand(1,10)
 	if(prob(4))
-		M.Jitter(10)
-		M.adjustToxLoss(1.0)
+		M << "<span class='notice'>You feel kinda awful!</span>"
+		M.adjustToxLoss(1)
+		M.jitteriness += 30
+		M.emote(pick("groan", "moan"))
 	..()
 	return
 /datum/reagent/crank/overdose_process(var/mob/living/M as mob)
@@ -88,6 +94,7 @@
 	required_reagents = list("diphenhydramine" = 1, "ammonia" = 1, "lithium" = 1, "sacid" = 1, "fuel" = 1)
 	result_amount = 5
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
+	mix_sound = 'sound/goonstation/effects/crystalshatter.ogg'
 	min_temp = 390
 
 /datum/chemical_reaction/crank/on_reaction(var/datum/reagents/holder, var/created_volume)
@@ -109,9 +116,25 @@
 
 /datum/reagent/krokodil/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
+	M.jitteriness -= 40
+	if(prob(25))
+		M.adjustBrainLoss(1)
+	if(prob(15))
+		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
+	if(prob(10))
+		M << "<span class='notice'>You feel pretty chill.</span>"
+		M.bodytemperature--
+		M.emote("smile")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		M << "<span class='notice'>You feel too chill!</span>"
+		M.emote(pick("yawn", "drool"))
+		M.Stun(1)
+		M.adjustToxLoss(1)
+		M.adjustBrainLoss(1)
+		M.bodytemperature -= 20
+	if(prob(2))
+		M << "<span class='warning'>Your skin feels all rough and dry.</span>"
+		M.adjustBruteLoss(2)
 	..()
 	return
 
@@ -172,19 +195,19 @@
 
 /datum/reagent/methamphetamine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
+		M.emote(pick("twitch_s","blink_r","shiver"))
+	if(current_cycle >= 25)
+		M.jitteriness += 5
+	M.drowsyness = max(0, M.drowsyness-10)
 	M.AdjustParalysis(-2.5)
 	M.AdjustStunned(-2.5)
 	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
+	M.SetSleeping(0)
 	M.status_flags |= GOTTAGOREALLYFAST
-	M.Jitter(3)
 	if(prob(50))
 		M.adjustBrainLoss(1.0)
-	if(prob(5))
-		M.emote(pick("twitch", "shiver"))
 	..()
 	return
 
@@ -192,7 +215,7 @@
 	if(prob(20))
 		M.emote("laugh")
 	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
@@ -238,6 +261,16 @@
 	required_reagents = list("ephedrine" = 1, "iodine" = 1, "phosphorus" = 1, "hydrogen" = 1)
 	result_amount = 4
 	min_temp = 374
+
+/datum/chemical_reaction/methamphetamine/on_reaction(var/datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
+	for(var/mob/living/carbon/C in range(T, 1))
+		if(!(C.wear_mask && (C.internals != null || C.wear_mask.flags & BLOCK_GAS_SMOKE_EFFECT)))
+			C.emote("gasp")
+			C.losebreath++
+			C.reagents.add_reagent("toxin",10)
+			C.reagents.add_reagent("neurotoxin2",20)
 
 /datum/chemical_reaction/saltpetre
 	name = "saltpetre"
@@ -372,17 +405,19 @@
 
 /datum/reagent/aranesp/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	var/high_message = pick("You feel like you're made of steel!", "You feel invigorated!", "You feel really buff!", "You feel on top of the world!", "You feel full of energy!")
-	if(prob(5))
-		M << "<span class='notice'>[high_message]</span>"
 	M.adjustStaminaLoss(-40)
 	if(prob(90))
 		M.adjustToxLoss(1)
 	if(prob(5))
+		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
+	var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
+	if(prob(8))
+		M << "<span class='notice'>[high_message]!</span>"
+	if(prob(5))
 		M << "<span class='danger'>You cannot breathe!</span>"
-		M.losebreath += 1
 		M.adjustOxyLoss(15)
 		M.Stun(1)
+		M.losebreath++
 	..()
 	return
 
@@ -396,10 +431,16 @@
 
 /datum/reagent/thc/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(8))
-		M.emote(pick("smile","giggle","laugh"))
-	if(prob(50))
-		M.stuttering += 2
+	M.stuttering += rand(0,2)
+	if(prob(5))
+		M.emote(pick("laugh","giggle","smile"))
+	if(prob(5))
+		M << "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]"
+	if(prob(4))
+		M.confused = max(M.confused, 10)
+	if(volume >= 50 && prob(25))
+		if(prob(10))
+			M.drowsyness = max(M.drowsyness, 10)
 	..()
 	return
 
@@ -445,10 +486,13 @@
 		M.SpinAnimation(speed = 5, loops = -1)
 	if(current_cycle == 50)
 		M.SpinAnimation(speed = 4, loops = -1)
-	M.AdjustParalysis(-2)
-	M.AdjustStunned(-2)
-	M.AdjustWeakened(-2)
-	M.adjustStaminaLoss(-2)
+
+	M.drowsyness = max(0, M.drowsyness-6)
+	M.AdjustParalysis(-1.5)
+	M.AdjustStunned(-1.5)
+	M.AdjustWeakened(-1.5)
+	M.adjustStaminaLoss(-1.5)
+	M.SetSleeping(0)
 	..()
 	return
 
@@ -463,11 +507,11 @@
 					M.emote("laugh")
 					M.adjustToxLoss(1)
 				if(2)
-					M << "<span class = 'danger'>[M] can't seem to control their legs!</span>"
+					M << "<span class='danger'>[M] can't seem to control their legs!</span>"
 					M.Weaken(8)
 					M.adjustToxLoss(1)
 				if(3)
-					M << "<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>"
+					M << "<span class='danger'>[M]'s hands flip out and flail everywhere!</span>"
 					M.drop_l_hand()
 					M.drop_r_hand()
 					M.adjustToxLoss(1)
@@ -523,7 +567,7 @@
 	if(prob(20))
 		M.emote("ping")
 	if(prob(33))
-		M.visible_message("<span class = 'danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
 			M.drop_item()
