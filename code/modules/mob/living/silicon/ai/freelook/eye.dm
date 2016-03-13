@@ -3,57 +3,27 @@
 // An invisible (no icon) mob that the AI controls to look around the station with.
 // It streams chunks as it moves around, which will show it what the AI can and cannot see.
 
-/mob/aiEye
+/mob/camera/aiEye
 	name = "Inactive AI Eye"
-	icon = 'icons/mob/AI.dmi'
+
+	icon = 'icons/mob/AI.dmi' //Allows ghosts to see what the AI is looking at.
 	icon_state = "eye"
 	alpha = 127
+	invisibility = SEE_INVISIBLE_OBSERVER
+
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
-	density = 0
-	status_flags = GODMODE  // You can't damage it.
-	mouse_opacity = 0
-	see_in_dark = 7
-	invisibility = SEE_INVISIBLE_OBSERVER
-	var/ghostimage = null
-
-/mob/aiEye/New()
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
-	updateallghostimages()
-	..()
-
-/mob/aiEye/Destroy()
-	if (ghostimage)
-		ghost_darkness_images -= ghostimage
-		qdel(ghostimage)
-		ghostimage = null;
-		updateallghostimages()
-	ai = null
-	return ..()
-
-// Movement code. Returns 0 to stop air movement from moving it.
-/mob/aiEye/Move()
-	return 0
-
-// Hide popout menu verbs
-/mob/aiEye/examinate(atom/A as mob|obj|turf in view())
-	set popup_menu = 0
-	set src = usr.contents
-	return 0
+	var/relay_speech = FALSE
 
 
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
-/mob/aiEye/setLoc(var/T, var/cancel_tracking = 1)
+
+/mob/camera/aiEye/setLoc(T)
 
 	if(ai)
 		if(!isturf(ai.loc))
 			return
-
-		if(cancel_tracking)
-			ai.ai_cancel_tracking()
-
 		T = get_turf(T)
 		loc = T
 		cameranet.visibility(src)
@@ -63,40 +33,30 @@
 		if(ai.holo)
 			ai.holo.move_hologram()
 
-/mob/aiEye/proc/getLoc()
-
-	if(ai)
-		if(!isturf(ai.loc) || !ai.client)
-			return
-		return ai.eyeobj.loc
-
-/mob/aiEye/experience_pressure_difference()
+/mob/camera/aiEye/Move()
 	return 0
 
-// AI MOVEMENT
+/mob/camera/aiEye/proc/GetViewerClient()
+	if(ai)
+		return ai.client
+	return null
 
-// The AI's "eye". Described on the top of the page.
-
-/mob/living/silicon/ai
-	var/mob/aiEye/eyeobj = new()
-	var/sprint = 10
-	var/cooldown = 0
-	var/acceleration = 1
-	var/obj/machinery/hologram/holopad/holo = null
-
-// Intiliaze the eye by assigning it's "ai" variable to us. Then set it's loc to us.
-/mob/living/silicon/ai/New()
-	..()
-	eyeobj.ai = src
-	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
-	spawn(5)
-		eyeobj.loc = src.loc
+/mob/camera/aiEye/Destroy()
+	ai = null
+	return ..()
 
 /atom/proc/move_camera_by_click()
 	if(istype(usr, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && AI.client.eye == AI.eyeobj)
-			AI.eyeobj.setLoc(src)
+			AI.cameraFollow = null
+			if (isturf(src.loc) || isturf(src))
+				AI.eyeobj.setLoc(src)
+
+/mob/aiEye/experience_pressure_difference()
+	return 0
+
+// AI MOVEMENT
 
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
@@ -120,38 +80,42 @@
 	else
 		user.sprint = initial
 
+	if(!user.tracking)
+		user.cameraFollow = null
+
 	//user.unset_machine() //Uncomment this if it causes problems.
 	//user.lightNearbyCamera()
-
+	if (user.camera_light_on)
+		user.light_cameras()
 
 // Return to the Core.
-
 /mob/living/silicon/ai/proc/core()
 	set category = "AI Commands"
 	set name = "AI Core"
 
 	view_core()
 
-
 /mob/living/silicon/ai/proc/view_core()
+
 	current = null
+	cameraFollow = null
 	unset_machine()
 
-	if(!src.eyeobj)
+	if(src.eyeobj && src.loc)
+		src.eyeobj.loc = src.loc
+	else
 		src << "ERROR: Eyeobj not found. Creating new eye..."
-		src.eyeobj = new(loc)
+		src.eyeobj = new(src.loc)
 		src.eyeobj.ai = src
-		src.rename_character(null, real_name)
+		src.eyeobj.name = "[src.name] (AI Eye)" // Give it a name
 
-	if(client && client.eye)
-		client.eye = src
-	for(var/datum/camerachunk/c in eyeobj.visibleCameraChunks)
-		c.remove(eyeobj)
-	src.eyeobj.setLoc(src)
+	eyeobj.setLoc(loc)
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
 	set category = "AI Commands"
 	set name = "Toggle Camera Acceleration"
 
+	if(usr.stat == 2)
+		return //won't work if dead
 	acceleration = !acceleration
 	usr << "Camera acceleration has been toggled [acceleration ? "on" : "off"]."
