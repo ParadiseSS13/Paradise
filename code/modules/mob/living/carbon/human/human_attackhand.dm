@@ -135,7 +135,7 @@
 							M << "<span class='warning'>Blood from a monkey is useless!</span>"
 							return 0
 						//we're good to suck the blood, blaah
-						M.handle_bloodsucking(src)
+						M.mind.vampire.handle_bloodsucking(src)
 						add_logs(src, M, "vampirebit")
 						msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
 						return

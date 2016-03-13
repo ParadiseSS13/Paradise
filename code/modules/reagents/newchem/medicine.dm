@@ -203,7 +203,7 @@ datum/reagent/calomel/on_mob_life(var/mob/living/M as mob)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
 		M.adjustToxLoss(5*REM)
-	if(prob(10))
+	if(prob(6))
 		M.fakevomit()
 	..()
 	return
@@ -226,11 +226,8 @@ datum/reagent/potass_iodide
 
 datum/reagent/potass_iodide/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		if(prob(80))
-			M.radiation--
-	if(M.radiation < 0)
-		M.radiation = 0
+	if(prob(80))
+		M.radiation = max(0, M.radiation-1)
 	..()
 	return
 
@@ -251,18 +248,15 @@ datum/reagent/pen_acid
 
 datum/reagent/pen_acid/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.radiation > 0)
-		M.radiation -= 7
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id,4)
+	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
 		M.adjustToxLoss(-4*REM)
 	if(prob(33))
 		M.adjustBruteLoss(1*REM)
 		M.adjustFireLoss(1*REM)
-	if(M.radiation < 0)
-		M.radiation = 0
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
 	..()
 	return
 
@@ -322,8 +316,7 @@ datum/reagent/salbutamol
 datum/reagent/salbutamol/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-6*REM)
-	if(M.losebreath >= 4)
-		M.losebreath -= 4
+	M.losebreath = max(0, M.losebreath-4)
 	..()
 	return
 
@@ -347,7 +340,9 @@ datum/reagent/perfluorodecalin
 datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustOxyLoss(-25*REM)
-	M.silent = max(M.silent, 5)
+	if(volume >= 4)
+		M.losebreath = max(M.losebreath, 6)
+		M.silent = max(M.silent, 6)
 	if(prob(33))
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
@@ -376,10 +371,18 @@ datum/reagent/ephedrine
 
 datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
 	M.AdjustParalysis(-1)
 	M.AdjustStunned(-1)
 	M.AdjustWeakened(-1)
 	M.adjustStaminaLoss(-1*REM)
+	if(M.losebreath > 5)
+		M.losebreath = max(5, M.losebreath-1)
+	if(M.oxyloss > 75)
+		M.adjustOxyLoss(-1)
+	if(M.health < 0 || M.health > 0 && prob(33))
+		M.adjustToxLoss(-1)
+		M.heal_organ_damage(1,1)
 	..()
 	return
 
@@ -429,12 +432,18 @@ datum/reagent/diphenhydramine
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
+
 datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.drowsyness += 1
-	M.jitteriness -= 1
+	M.jitteriness = max(0, M.jitteriness-20)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
+	if(prob(7))
+		M.emote("yawn")
+	if(prob(3))
+		M.Stun(2)
+		M.drowsyness += 1
+		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	..()
 	return
 
@@ -459,16 +468,16 @@ datum/reagent/morphine
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.status_flags |= IGNORESLOWDOWN
+	M.jitteriness = max(0, M.jitteriness-25)
 	switch(current_cycle)
-		if(0 to 15)
-			if(prob(5))
+		if(1 to 15)
+			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 10)
+			M.drowsyness = max(M.drowsyness, 20)
 		if(36 to INFINITY)
-			M.Paralyse(10)
-			M.drowsyness = max(M.drowsyness, 15)
+			M.Paralyse(15)
+			M.drowsyness = max(M.drowsyness, 20)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.traumatic_shock < 100)
@@ -575,18 +584,21 @@ datum/reagent/atropine
 
 datum/reagent/atropine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(M.health > -60)
-		M.adjustToxLoss(1*REM)
-	if(M.health < -25)
-		M.adjustBruteLoss(-3*REM)
-		M.adjustFireLoss(-3*REM)
+	M.dizziness += 1
+	M.confused = max(M.confused, 5)
+	if(prob(4))
+		M.emote("collapse")
+	if(M.losebreath > 5)
+		M.losebreath = max(5, M.losebreath-5)
 	if(M.oxyloss > 65)
 		M.adjustOxyLoss(-10*REM)
-	if(M.losebreath > 5)
-		M.losebreath = 5
-	if(M.confused > 60)
-		M.confused += 5
-	M.reagents.remove_reagent("tabun",10)
+	if(M.health < -25)
+		M.adjustToxLoss(-1)
+		M.adjustBruteLoss(-3*REM)
+		M.adjustFireLoss(-3*REM)
+	else if(M.health > -60)
+		M.adjustToxLoss(1)
+	M.reagents.remove_reagent("sarin", 20)
 	..()
 	return
 
@@ -617,14 +629,26 @@ datum/reagent/epinephrine
 
 datum/reagent/epinephrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(prob(20))
+		M.AdjustParalysis(-1)
+	if(prob(20))
+		M.AdjustStunned(-1)
+	if(prob(20))
+		M.AdjustWeakened(-1)
+	if(prob(5))
+		M.SetSleeping(0)
+	if(prob(5))
+		M.adjustBrainLoss(-1)
+	holder.remove_reagent("histamine", 15)
+	if(M.losebreath > 3)
+		M.losebreath--
+	if(M.oxyloss > 35)
+		M.adjustOxyLoss(-10*REM)
 	if(M.health < -10 && M.health > -65)
 		M.adjustToxLoss(-1*REM)
 		M.adjustBruteLoss(-1*REM)
 		M.adjustFireLoss(-1*REM)
-	if(M.oxyloss > 35)
-		M.adjustOxyLoss(-10*REM)
-	if(M.losebreath >= 3)
-		M.losebreath = 3
 	..()
 	return
 
@@ -806,12 +830,9 @@ datum/reagent/antihol
 	color = "#009CA8"
 
 datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
-	M.dizziness = 0
-	M.drowsyness = 0
 	M.slurring = 0
-	M.confused = 0
 	M.reagents.remove_all_type(/datum/reagent/ethanol, 8, 0, 1)
-	if(M.health < 25)
+	if(M.toxloss <= 25)
 		M.adjustToxLoss(-2.0)
 	..()
 
@@ -833,21 +854,29 @@ datum/reagent/antihol/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/stimulants/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.adjustOxyLoss(-5*REM)
-	M.adjustToxLoss(-5*REM)
-	M.adjustBruteLoss(-10*REM)
-	M.adjustFireLoss(-10*REM)
-	M.setStaminaLoss(0)
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-	M.status_flags &= ~status
+	if(volume > 5)
+		M.adjustOxyLoss(-5*REM)
+		M.adjustToxLoss(-5*REM)
+		M.adjustBruteLoss(-10*REM)
+		M.adjustFireLoss(-10*REM)
+		M.setStaminaLoss(0)
+		M.dizziness = max(0,M.dizziness-10)
+		M.drowsyness = max(0,M.drowsyness-10)
+		M.confused = 0
+		M.SetSleeping(0)
+		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
+		M.status_flags &= ~status
+	else
+		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		M.adjustToxLoss(2)
+		M.adjustBruteLoss(1)
+		if(prob(10))
+			M.Stun(3)
 	..()
 
 datum/reagent/stimulants/reagent_deleted(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
-	M.adjustBruteLoss(12)
-	M.adjustToxLoss(24)
-	M.Stun(4)
 	..()
 	return
 
@@ -948,14 +977,15 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 	M.reagents.remove_reagent("psilocybin", 5)
 	M.reagents.remove_reagent("ephedrine", 5)
 	M.reagents.remove_reagent("epinephrine", 5)
-	M.reagents.remove_reagent("stimulants", 5)
+	M.reagents.remove_reagent("stimulants", 3)
 	M.reagents.remove_reagent("bath_salts", 5)
 	M.reagents.remove_reagent("lsd", 5)
+	M.reagents.remove_reagent("thc", 5)
 	M.druggy -= 5
 	M.hallucination -= 5
 	M.jitteriness -= 5
-	if(prob(40))
-		M.drowsyness = max(M.drowsyness, 2)
+	if(prob(50))
+		M.drowsyness = max(M.drowsyness, 3)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
@@ -981,15 +1011,16 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 
 /datum/reagent/ether/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
+	M.jitteriness = max(M.jitteriness-25,0)
 	switch(current_cycle)
-		if(0 to 15)
-			if(prob(5))
+		if(1 to 15)
+			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.drowsyness = max(M.drowsyness, 10)
+			M.drowsyness = max(M.drowsyness, 20)
 		if(36 to INFINITY)
-			M.Paralyse(10)
-			M.drowsyness = max(M.drowsyness, 15)
+			M.Paralyse(15)
+			M.drowsyness = max(M.drowsyness, 20)
 	..()
 	return
 
@@ -1034,7 +1065,7 @@ datum/reagent/haloperidol/on_mob_life(var/mob/living/M as mob)
 		M.AdjustParalysis(-1)
 		M.AdjustStunned(-1)
 		M.AdjustWeakened(-1)
-		M.confused -= 5
+		M.confused = max(0, M.confused-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
