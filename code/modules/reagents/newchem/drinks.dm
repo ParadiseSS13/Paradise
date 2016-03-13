@@ -16,19 +16,18 @@
 
 /datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(10))
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(prob(25))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
-	M.reagents.add_reagent("ethanol",1.4)
-	if(prob(8))
-		M.say(pick("Gotta go fast!", "Let's juice.", "I feel a need for speed!", "Way Past Cool!"))
-	if(prob(8))
-		switch(pick(1, 2, 3))
-			if(1)
-				M << "<span class='notice'>Time to speed, keed!</span>"
-			if(2)
-				M << "<span class='notice'>Let's juice.</span>"
-			if(3)
-				M << "<span class='notice'>Way Past Cool!</span>"
+		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
+		if(prob(50))
+			M.say("[sonic_message]")
+		else
+			M << "<span class='notice'>[sonic_message ]</span>"
 	..()
 	return
 
