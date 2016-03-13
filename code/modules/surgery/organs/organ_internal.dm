@@ -16,14 +16,11 @@
 	..()
 
 
-/obj/item/organ/internal/process()
-
-	..()
-
-
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0)
 	if(!iscarbon(M) || owner == M)
 		return
+
+	processing_objects -= src
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
@@ -48,6 +45,8 @@
 
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	owner = null
+
+	processing_objects |= src
 	if(M)
 		M.internal_organs -= src
 		if(vital && !special)
@@ -350,7 +349,7 @@
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
-	processing_objects.Add(src)
+	processing_objects |= src
 
 /obj/item/organ/internal/shadowtumor/Destroy()
 	processing_objects.Remove(src)
@@ -383,7 +382,7 @@
 
 /obj/item/organ/internal/honktumor/New()
 	..()
-	processing_objects.Add(src)
+	processing_objects |= src
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()

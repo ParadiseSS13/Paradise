@@ -13,7 +13,6 @@
 	if(!istype(user))
 		return
 	if(user.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/thermals/ling))
-		user << "<span class='notice'>Our eyes are protected from flashes.</span>"
 		var/obj/item/organ/internal/cyberimp/eyes/O = new /obj/item/organ/internal/cyberimp/eyes/shield/ling()
 		O.insert(user)
 
@@ -65,8 +64,6 @@
 	implant_overlay = null
 	origin_tech = "biotech=5;magnets=5"
 	slot = "eye_ling"
-	darkness_view = 8
-	see_darkness = 0
 	status = 0
 	aug_message = "We feel a minute twitch in our eyes, and darkness creeps away."
 
@@ -78,9 +75,12 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.weakeyes = 1
+		if(!H.vision_type)
+			H.vision_type = new /datum/vision_override/nightvision
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.weakeyes = 0
+		H.vision_type = null
 	..()

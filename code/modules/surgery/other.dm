@@ -2,10 +2,16 @@
 //////////////////////////////////////////////////////////////////
 //					INTERNAL WOUND PATCHING						//
 //////////////////////////////////////////////////////////////////
+
+/datum/surgery/infection
+	name = "external infection treatment/autopsy"
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg")
+
 /datum/surgery/bleeding
 	name = "internal bleeding"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg")
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -14,9 +20,10 @@
 		if(!affected) return 0
 
 		var/internal_bleeding = 0
-		for(var/datum/wound/W in affected.wounds) if(W.internal)
-			internal_bleeding = 1
-			break
+		for(var/datum/wound/W in affected.wounds)
+			if(W.internal)
+				internal_bleeding = 1
+				break
 		if(internal_bleeding)
 			return 1
 		return 0
@@ -37,9 +44,10 @@
 	if(!affected) return 0
 
 	var/internal_bleeding = 0
-	for(var/datum/wound/W in affected.wounds) if(W.internal)
-		internal_bleeding = 1
-		break
+	for(var/datum/wound/W in affected.wounds)
+		if(W.internal)
+			internal_bleeding = 1
+			break
 
 	return affected.open == 2 && internal_bleeding
 

@@ -8,8 +8,6 @@
 	w_class = 1
 
 	var/vision_flags = 0
-	var/darkness_view = 0
-	var/see_darkness = 1
 	var/list/eye_colour = list(0,0,0)
 	var/list/old_eye_colour = list(0,0,0)
 	var/flash_protect = 0
