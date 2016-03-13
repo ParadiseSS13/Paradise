@@ -169,7 +169,12 @@
 	return valid_species
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
-	var/mob/living/carbon/human/user = usr
+	var/mob/living/carbon/human/user
+	if(istype(usr, /mob/new_player))
+		user = usr
+	else
+		user = src
+
 	var/list/valid_hairstyles = new()
 	for(var/hairstyle in hair_styles_list)
 		var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
@@ -200,7 +205,12 @@
 	return valid_hairstyles
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
-	var/mob/living/carbon/human/user = usr
+	var/mob/living/carbon/human/user
+	if(istype(usr, /mob/new_player))
+		user = usr
+	else
+		user = src
+
 	var/list/valid_facial_hairstyles = new()
 	for(var/facialhairstyle in facial_hair_styles_list)
 		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]

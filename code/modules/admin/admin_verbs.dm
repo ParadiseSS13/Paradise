@@ -809,7 +809,17 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	if(!istype(H))
-		return
+		if(istype(H, /mob/living/carbon/brain))
+			var/mob/living/carbon/brain/B = H
+			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
+				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
+				if(istype(P.owner, /mob/living/carbon/human))
+					H = P.owner
+			else
+				return
+		else
+			return
 
 	if(holder)
 		admin_log_and_message_admins("is altering the appearance of [H].")
@@ -825,7 +835,17 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	if(!istype(H))
-		return
+		if(istype(H, /mob/living/carbon/brain))
+			var/mob/living/carbon/brain/B = H
+			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
+				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
+				if(istype(P.owner, /mob/living/carbon/human))
+					H = P.owner
+			else
+				return
+		else
+			return
 
 	if(!H.client)
 		usr << "Only mobs with clients can alter their own appearance."
