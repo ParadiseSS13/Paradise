@@ -594,8 +594,8 @@
 					desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
 				if("holywater")
 					icon_state = "glass_clear"
-					name = "Glass of Holy Water"
-					desc = "The contents of this glass seem to be filled with an energy of some kind."
+					name = "Glass of Water"
+					desc = "The father of all refreshments."
 
 
 				else
