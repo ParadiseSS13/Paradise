@@ -418,14 +418,6 @@
 	icon_state = "chaps"
 	item_color = "combat_pants"
 
-/obj/item/clothing/suit/jacket/fluff/windbreaker // Anxipal: Kido Qasteth
-	name = "nylon windbreaker"
-	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "elliot_windbreaker"
-	item_state = "elliot_windbreaker"
-	adjust_flavour = "zip"
-
 /obj/item/clothing/suit/jacket/fluff/windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
