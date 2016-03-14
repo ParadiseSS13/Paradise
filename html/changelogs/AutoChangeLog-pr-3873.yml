@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - bugfix: "Fixes EMPs causing eye implant users to be permanently blind"
