@@ -881,8 +881,8 @@
 				todamage += firstloc
 				todamage += secondloc.contents
 				todamage += secondloc
-				todamage += thirdloc
-				todamage += fourthloc
+				todamage += thirdloc.contents
+				todamage += fourthloc.contents
 				for(var/atom/A in todamage)
 					if(istype(A, /mob/living))
 						if(A.density)
