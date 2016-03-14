@@ -12,7 +12,7 @@ var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pagetur
 //var/list/gun_sound = list('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
 var/list/computer_ambience = list('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
 
-/proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global)
+/proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global, var/pitch)
 
 	soundin = get_sfx(soundin) // same sound for everyone
 
@@ -20,7 +20,7 @@ var/list/computer_ambience = list('sound/goonstation/machines/ambicomp1.ogg', 's
 		error("[source] is an area and is trying to make the sound: [soundin]")
 		return
 
-	var/frequency = get_rand_frequency() // Same frequency for everybody
+	var/frequency = pitch
 	var/turf/turf_source = get_turf(source)
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
