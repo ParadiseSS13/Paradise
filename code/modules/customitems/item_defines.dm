@@ -285,7 +285,6 @@
 
 /obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
 	transform_into = /obj/item/weapon/nullrod/sword/fluff/chronx
-	transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
 
 /obj/item/weapon/nullrod/sword/fluff/chronx
 	name = "Soul Collector"
@@ -311,9 +310,7 @@
 	set name = "Transform Hood"
 	set category = "Object"
 	set src in usr
-	if(!isliving(src))
-		return
-	if(!usr.incapacitated())
+	if(isliving(usr) && !usr.incapacitated())
 		if(adjusted)
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
