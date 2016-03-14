@@ -24,7 +24,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H & H.mind)
+		if(H && H.mind)
 			if(H.mind.miming)
 				user << "<span class='warning'>Your vow of silence prevents you from speaking.</span>"
 				return
