@@ -186,7 +186,8 @@
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/roundstart_move				//id of port to send shuttle to at roundstart
-	var/travelDir = 0			//direction the shuttle would travel in
+	var/travelDir = 0				//direction the shuttle would travel in
+	var/rebuildable = 0				//can build new shuttle consoles for this one
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -584,6 +585,7 @@
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
+	var/max_connect_range = 7
 
 /obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
 	..()
@@ -591,10 +593,33 @@
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
+	connect()
+
+/obj/machinery/computer/shuttle/proc/connect()
+	var/obj/docking_port/mobile/M
+	if(!shuttleId)
+		// find close shuttle that is ok to mess with
+		for(var/obj/docking_port/mobile/D in shuttle_master.mobile)
+			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
+				M = D
+				shuttleId = M.id
+				break
+	else if(!possible_destinations)
+		M = shuttle_master.getShuttle(shuttleId)
+
+	if(M && !possible_destinations)
+		// find perfect fits
+		possible_destinations = ""
+		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
+				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
+
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
 	if(..(user))
 		return
 	src.add_fingerprint(usr)
+
+	connect()
 
 	var/list/options = params2list(possible_destinations)
 	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
