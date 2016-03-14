@@ -121,17 +121,17 @@
 
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
 		else
 			if(GetState(MONKEYBLOCK) && ishuman(M))
-				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] \red(MONKEY)")
+				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 			else
 				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 

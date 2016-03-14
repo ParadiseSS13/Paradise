@@ -61,7 +61,7 @@
 	stage = 4
 	badness = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		mob << "\red You feel something tearing its way out of your stomach..."
+		mob << "<span class='warning'>You feel something tearing its way out of your stomach...</span>"
 		mob.adjustToxLoss(10)
 		mob.updatehealth()
 		if(prob(40))
@@ -180,7 +180,7 @@
 		if (mob.suiciding == 0)
 			mob.suiciding = 1
 			//instead of killing them instantly, just put them at -175 health and let 'em gasp for a while
-			viewers(mob) << "\red <b>[mob.name] is holding \his breath. It looks like \he's trying to commit suicide.</b>"
+			viewers(mob) << "<span class='warning'><b>[mob.name] is holding \his breath. It looks like \he's trying to commit suicide.</b></span>"
 			mob.adjustOxyLoss(175 - mob.getToxLoss() - mob.getFireLoss() - mob.getBruteLoss() - mob.getOxyLoss())
 			mob.updatehealth()
 			spawn(200) //in case they get revived by cryo chamber or something stupid like that, let them suicide again in 20 seconds
@@ -375,7 +375,7 @@
 		if(prob(10))
 			GM.toxins += 100
 			//GM.temperature = 1500+T0C //should be enough to start a fire
-			mob << "\red You exhale a large plume of toxic gas!"
+			mob << "<span class='warning'>You exhale a large plume of toxic gas!</span>"
 		else
 			GM.toxins += 10
 			GM.temperature = istype(T) ? T.air.temperature : T20C

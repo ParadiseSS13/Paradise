@@ -55,7 +55,7 @@
 
 /obj/effect/supermatter_crystal/Del()
 	if( !deleted )
-		visible_message("\red <B>\The [src] shatters!</B>")
+		visible_message("<span class='warning'><B>\The [src] shatters!</B></span>")
 		new /obj/item/weapon/shard/supermatter( src.loc )
 
 	processing_objects -= src

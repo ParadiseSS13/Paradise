@@ -41,7 +41,7 @@
 	new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm (src.loc)
 	for(var/mob/M in viewers(src, null))
 		if((M.client && !( M.blinded )))
-			M.show_message("\red [src] collapses in a shattered heap. ")
+			M.show_message("<span class='warning'>[src] collapses in a shattered heap. </span>")
 	ghostize()
 	qdel(src)
 	return
@@ -261,7 +261,7 @@
 	if (istype(usr,/mob/living/simple_animal/constructbehemoth))
 
 		if(usr.energy<300)
-			usr << "\red You do not have enough power stored!"
+			usr << "<span class='warning'>You do not have enough power stored!</span>"
 			return
 
 		if(usr.stat)

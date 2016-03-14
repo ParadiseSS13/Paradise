@@ -7,7 +7,7 @@
 
 	if(usr.client)
 		if(usr.client.prefs.muted & MUTE_PRAY)
-			usr << "\red You cannot pray (muted)."
+			usr << "<span class='warning'>You cannot pray (muted).</span>"
 			return
 		if(src.client.handle_spam_prevention(msg,MUTE_PRAY))
 			return

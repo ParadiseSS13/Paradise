@@ -253,7 +253,7 @@
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
 			var/cooldown_time = round(request_cooldown - ((world.time / 10) - last_request), 1)
-			usr << "\red The request system is currently offline. Please wait another [cooldown_time] seconds."
+			usr << "<span class='warning'>The request system is currently offline. Please wait another [cooldown_time] seconds.</span>"
 			return
 		last_request = world.time / 10
 		src.looking_for_personality = 1

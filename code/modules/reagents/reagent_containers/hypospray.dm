@@ -17,13 +17,13 @@
 
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
-		user << "\red [src] is empty."
+		user << "<span class='warning'>[src] is empty.</span>"
 		return
 	if(!istype(M))
 		return
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)))
-		user << "\blue You inject [M] with [src]."
-		M << "\red You feel a tiny prick!"
+		user << "<span class='notice'>You inject [M] with [src].</span>"
+		M << "<span class='warning'>You feel a tiny prick!</span>"
 
 		src.reagents.add_reagent(M)
 		if(M.reagents)
@@ -41,7 +41,7 @@
 				M.LAssailant = user
 
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
-			user << "\blue [trans] units injected. [reagents.total_volume] units remaining in [src]."
+			user << "<span class='notice'>[trans] units injected. [reagents.total_volume] units remaining in [src].</span>"
 
 	return
 
@@ -102,9 +102,9 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/examine(mob/user)
 	..(user)
 	if(reagents && reagents.reagent_list.len)
-		user << "\blue It is currently loaded."
+		user << "<span class='notice'>It is currently loaded.</span>"
 	else
-		user << "\blue It is spent."
+		user << "<span class='notice'>It is spent.</span>"
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"

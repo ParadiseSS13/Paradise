@@ -48,12 +48,12 @@
 					playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
 					anim(user.loc,user,'icons/mob/mob.dmi',,"phasein",,user.dir)
 
-					user <<"\blue <b>VOID-Shift</b> translocation successful"
+					user <<"<span class='notice'><b>VOID-Shift</b> translocation successful</span>"
 
 				if("No")
 
-					user <<"\red <b>Process aborted!</b>"
+					user <<"<span class='warning'><b>Process aborted!</b></span>"
 
 					return
 		else
-			user<< "\red <B>FÄ†AL ï¿½Rrï¿½R</B>: µ§er n¤t rec¤gnized, c-c¤ntr-r¤£§-£§ £¤cked."
+			user<< "<span class='warning'><B>FÄ†AL ï¿½Rrï¿½R</B>: µ§er n¤t rec¤gnized, c-c¤ntr-r¤£§-£§ £¤cked.</span>"

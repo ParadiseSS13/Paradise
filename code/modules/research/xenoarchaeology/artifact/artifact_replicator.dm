@@ -90,7 +90,7 @@
 	if(spawning_types.len && powered())
 		spawn_progress_time += world.time - last_process_time
 		if(spawn_progress_time > max_spawn_time)
-			src.visible_message("\blue \icon[src] [src] pings!")
+			src.visible_message("<span class='notice'>\icon[src] [src] pings!</span>")
 
 			var/obj/source_material = pop(stored_materials)
 			var/spawn_type = pop(spawning_types)
@@ -132,7 +132,7 @@
 	user.drop_item()
 	W.loc = src
 	stored_materials.Add(W)
-	src.visible_message("\blue [user] inserts [W] into [src].")
+	src.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>")
 
 /obj/machinery/replicator/Topic(href, href_list)
 
@@ -143,7 +143,7 @@
 				if(spawning_types.len)
 					src.visible_message("\blue \icon[src] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].")
 				else
-					src.visible_message("\blue \icon[src] [src]'s front compartment slides shut.")
+					src.visible_message("<span class='notice'>\icon[src] [src]'s front compartment slides shut.</span>")
 
 				spawning_types.Add(construction[construction[index]])
 				spawn_progress_time = 0

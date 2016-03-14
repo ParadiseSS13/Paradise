@@ -413,9 +413,9 @@
 	proc/failcheck(mob/user as mob)
 		if (prob(src.reliability)) return 1 //No failure
 		if (prob(src.reliability))
-			user << "\red The Bluespace portal resists your attempt to add another item." //light failure
+			user << "<span class='warning'>The Bluespace portal resists your attempt to add another item.</span>" //light failure
 		else
-			user << "\red The Bluespace generator malfunctions!"
+			user << "<span class='warning'>The Bluespace generator malfunctions!</span>"
 			for (var/obj/O in src.contents) //it broke, delete what was in it
 				qdel(O)
 			crit_fail = 1
@@ -495,7 +495,7 @@
 	if(ismob(target))
 		user.attack_log += "\[[time_stamp()]\] <font color='red'> [user.real_name] tried planting [name] on [target:real_name] ([target:ckey])</font>"
 		log_attack("<font color='red'> [user.real_name] ([user.ckey]) tried planting [name] on [target:real_name] ([target:ckey])</font>")
-		user.visible_message("\red [user.name] is trying to strap a belt to [target.name]!")
+		user.visible_message("<span class='warning'>[user.name] is trying to strap a belt to [target.name]!</span>")
 
 
 	if(do_after(user, 50, target = target) && in_range(user, target))
@@ -506,7 +506,7 @@
 		if (isturf(target)) location = target
 		if (ismob(target))
 			target:attack_log += "\[[time_stamp()]\]<font color='orange'> Had the [name] planted on them by [user.real_name] ([user.ckey])</font>"
-			user.visible_message("\red [user.name] finished planting an explosive on [target.name]!")
+			user.visible_message("<span class='warning'>[user.name] finished planting an explosive on [target.name]!</span>")
 		target.overlays += image('icons/obj/assemblies.dmi', "plastic-explosive2")
 		user << "You sacrifice your belt for the sake of justice. Timer counting down from 15."
 		spawn(150)

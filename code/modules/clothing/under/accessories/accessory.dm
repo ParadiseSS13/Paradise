@@ -231,11 +231,11 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(user as mob)
 	if (emagged)
-		user << "\red [src] is already cracked."
+		user << "<span class='warning'>[src] is already cracked.</span>"
 		return
 	else
 		emagged = 1
-		user << "\red You swipe the card and crack the holobadge security checks."
+		user << "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>"
 		return
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)

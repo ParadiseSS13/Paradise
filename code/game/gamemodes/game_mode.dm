@@ -350,7 +350,7 @@
 //Reports player logouts//
 //////////////////////////
 proc/display_roundstart_logout_report()
-	var/msg = "\blue <b>Roundstart logout report\n\n"
+	var/msg = "<span class='notice'><b>Roundstart logout report\n\n</span>"
 	for(var/mob/living/L in mob_list)
 
 		if(L.ckey)
@@ -433,7 +433,7 @@ proc/get_nt_opposed()
 	if(!player || !player.current) return
 
 	var/obj_count = 1
-	player.current << "\blue Your current objectives:"
+	player.current << "<span class='notice'>Your current objectives:</span>"
 	for(var/datum/objective/objective in player.objectives)
 		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++

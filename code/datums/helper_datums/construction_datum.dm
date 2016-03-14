@@ -111,14 +111,14 @@
 			if(istype(used_atom,/obj/item/stack))
 				var/obj/item/stack/stack=used_atom
 				if(stack.amount < amount)
-					user << "\red You don't have enough [stack]! You need at least [amount]."
+					user << "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>"
 					return 0
 				stack.use(amount)
 			// CABLES
 			if(istype(used_atom,/obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil=used_atom
 				if(coil.amount < amount)
-					user << "\red You don't have enough cable! You need at least [amount] coils."
+					user << "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>"
 					return 0
 				coil.use(amount)
 			// WELDER
@@ -128,7 +128,7 @@
 					user << "\blue You tap the [src] with your unlit welder.  [pick("Ding","Dong")]."
 					return 0
 				if(!welder.remove_fuel(amount,user))
-					user << "\red You don't have enough fuel!"
+					user << "<span class='warning'>You don't have enough fuel!</span>"
 					return 0
 		return 1
 

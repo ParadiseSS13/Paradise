@@ -79,7 +79,7 @@
 			return
 
 	if(blocked)
-		user << "\red \The [src] is welded solid!"
+		user << "<span class='warning'>\The [src] is welded solid!</span>"
 		return
 
 	var/area/A = get_area_master(src)
@@ -90,7 +90,7 @@
 		if(operating)
 			return
 		if(blocked)
-			user.visible_message("\red \The [user] pries at \the [src] with \a [C], but \the [src] is welded in place!",\
+			user.visible_message("<span class='warning'>\The [user] pries at \the [src] with \a [C], but \the [src] is welded in place!</span>",\
 			"You try to pry \the [src] [density ? "open" : "closed"], but it is welded in place!",\
 			"You hear someone struggle and metal straining.")
 
@@ -100,7 +100,7 @@
 			"You hear metal strain, and a door [density ? "open" : "close"].")
 
 		else if(allowed(user))
-			user.visible_message("\blue \The [user] lifts \the [src] with \a [C].",\
+			user.visible_message("<span class='notice'>\The [user] lifts \the [src] with \a [C].</span>",\
 			"\The [src] scans your ID, and obediently opens as you apply your [C].",\
 			"You hear metal move, and a door [density ? "open" : "close"].")
 
@@ -178,7 +178,7 @@
 		return //Already doing something or depowered.
 
 	if(blocked)
-		user << "\red \The [src] is welded solid!"
+		user << "<span class='warning'>\The [src] is welded solid!</span>"
 		return
 
 	var/area/A = get_area_master(src)

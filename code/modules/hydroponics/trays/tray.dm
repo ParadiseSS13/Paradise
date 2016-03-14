@@ -410,11 +410,11 @@
 			var/obj/item/weapon/reagent_containers/glass/C = O
 			//Check if container is empty
 			if(!C.reagents.total_volume)
-				user << "\red [C] is empty."
+				user << "<span class='warning'>[C] is empty.</span>"
 				return
 			//Container not empty, transfer contents to tray
 			var/trans = C.reagents.trans_to(src, C.amount_per_transfer_from_this)
-			user << "\blue You transfer [trans] units of the solution to [src]."
+			user << "<span class='notice'>You transfer [trans] units of the solution to [src].</span>"
 
 			check_level_sanity()
 			process_reagents()
@@ -453,7 +453,7 @@
 			//Check if there is a plant in the tray
 			if(seed)
 				if(!S.reagents.total_volume)
-					user << "\red [S] is empty."
+					user << "<span class='warning'>[S] is empty.</span>"
 					return
 				//Container not empty, transfer contents to tray
 				S.reagents.trans_to(src, S.amount_per_transfer_from_this)
@@ -600,7 +600,7 @@
 			qdel(src)
 	else if ((istype(O, /obj/item/weapon/tank) && !( src.destroyed )))
 		if (src.holding)
-			user << "\blue There is alreadu a tank loaded into the [src]."
+			user << "<span class='notice'>There is alreadu a tank loaded into the [src].</span>"
 			return
 		var/obj/item/weapon/tank/T = O
 		user.drop_item()
@@ -709,9 +709,9 @@
 		return
 
 	if(!holding)
-		usr << "\red There is no tank loaded into [src] to eject."
+		usr << "<span class='warning'>There is no tank loaded into [src] to eject.</span>"
 
 	if(istype(holding, /obj/item/weapon/tank))
-		usr << "\blue You eject [holding.name] from [src]."
+		usr << "<span class='notice'>You eject [holding.name] from [src].</span>"
 		holding.loc = loc
 		holding = null

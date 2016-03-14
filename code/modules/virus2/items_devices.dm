@@ -31,7 +31,7 @@
 		report("Antibodies detected: [antigens2string(C.antibodies)]", user)
 
 /obj/item/device/antibody_scanner/proc/report(var/text, mob/user as mob)
-	user << "\blue \icon[src] \The [src] beeps, \"[text]\""
+	user << "<span class='notice'>\icon[src] \The [src] beeps, \"[text]\"</span>"
 
 ///////////////VIRUS DISH///////////////
 

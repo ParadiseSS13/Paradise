@@ -359,12 +359,12 @@
 
 	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
 		if (!check_access(W))
-			user << "\red Access Denied."
+			user << "<span class='warning'>Access Denied.</span>"
 			return
 		if ((!locked) || (isnull(occupant)))
 			return
 		if ((occupant.health < -20) && (occupant.stat != 2))
-			user << "\red Access Refused."
+			user << "<span class='warning'>Access Refused.</span>"
 			return
 		else
 			locked = 0
@@ -372,14 +372,14 @@
 
 //Removing cloning pod biomass
 	else if (istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		user << "\blue \The [src] processes \the [W]."
+		user << "<span class='notice'>\The [src] processes \the [W].</span>"
 		biomass += 50
 		user.drop_item()
 		qdel(W)
 		return
 	else if (istype(W, /obj/item/weapon/wrench))
 		if(locked && (anchored || occupant))
-			user << "\red Can not do that while [src] is in use."
+			user << "<span class='warning'>Can not do that while [src] is in use.</span>"
 		else
 			if(anchored)
 				anchored = 0

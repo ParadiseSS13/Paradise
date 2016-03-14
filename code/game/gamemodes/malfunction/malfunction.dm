@@ -212,7 +212,7 @@
 		usr << "You lost control over self-destruct system. It seems to be behind firewall. Unable to hack"
 		return
 
-	usr << "\red Self-destruct sequence initialised!"
+	usr << "<span class='warning'>Self-destruct sequence initialised!</span>"
 
 	ticker.mode:to_nuke_or_not_to_nuke = 0
 	ticker.mode:explosion_in_progress = 1

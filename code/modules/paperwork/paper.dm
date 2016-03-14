@@ -308,7 +308,7 @@
 				qdel(src)
 
 			else
-				user << "\red You must hold \the [P] steady to burn \the [src]."
+				user << "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>"
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
@@ -338,7 +338,7 @@
 		// check for exploits
 		for(var/bad in paper_blacklist)
 			if(findtext(t,bad))
-				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
+				usr << "<span class='notice'>You think to yourself, \"Hm.. this is only paper...\"</span>"
 				log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return

@@ -283,10 +283,10 @@
 					src.reagents.trans_to(J, J.chem_volume)
 					qdel(W)
 					user.put_in_active_hand(J)
-				user << "\blue You roll the [src] into a rolling paper."
+				user << "<span class='notice'>You roll the [src] into a rolling paper.</span>"
 				qdel(src)
 			else
-				user << "\red You can't roll a smokable from the [src]."
+				user << "<span class='warning'>You can't roll a smokable from the [src].</span>"
 
 	..()
 

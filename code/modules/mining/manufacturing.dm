@@ -177,7 +177,7 @@
 			usr.machine = src
 
 			if (href_list["download"])
-				if(!src.dl_list) usr << "\red This unit is not capable of downloading any additional schematics."
+				if(!src.dl_list) usr << "<span class='warning'>This unit is not capable of downloading any additional schematics.</span>"
 				else
 					var/amtdl = 0
 					//var/dontload = 0
@@ -191,8 +191,8 @@
 										src.download += new S.type(src)
 										amtdl++
 									else dontload = 0*/
-						if (amtdl) usr << "\blue [amtdl] new schematics downloaded from Robotics Research Database."
-						else usr << "\red No new schematics currently available in Robotics Research Database."
+						if (amtdl) usr << "<span class='notice'>[amtdl] new schematics downloaded from Robotics Research Database.</span>"
+						else usr << "<span class='warning'>No new schematics currently available in Robotics Research Database.</span>"
 
 			if (href_list["delete"])
 				var/operation = text2num(href_list["delete"])
@@ -201,15 +201,15 @@
 					for(var/datum/manufacture/D in src.diskload)
 						src.diskload-= D
 						amtgone++
-					if (amtgone) usr << "\blue Cleared [amtgone] schematics from database."
-					else usr << "\red No disk-loaded schematics detected in database."
+					if (amtgone) usr << "<span class='notice'>Cleared [amtgone] schematics from database.</span>"
+					else usr << "<span class='warning'>No disk-loaded schematics detected in database.</span>"
 				if(operation == 2) // Clear Download Schematics
 					var/amtgone = 0
 					for(var/datum/manufacture/D in src.download)
 						src.download-= D
 						amtgone++
-					if (amtgone) usr << "\blue Cleared [amtgone] schematics from database."
-					else usr << "\red No downloaded schematics detected in database."
+					if (amtgone) usr << "<span class='notice'>Cleared [amtgone] schematics from database.</span>"
+					else usr << "<span class='warning'>No downloaded schematics detected in database.</span>"
 
 			if (href_list["eject"])
 				var/operation = text2num(href_list["eject"])
@@ -228,7 +228,7 @@
 					if(10) ejecting = /obj/item/weapon/ore/hydrogen
 					if(11) ejecting = /obj/item/weapon/ore/fabric
 					else
-						usr << "\red Error. Unknown ore type."
+						usr << "<span class='warning'>Error. Unknown ore type.</span>"
 						return
 				sleep(3)
 				ejectamt = input(usr,"How many units do you want to eject?","Eject Materials") as num
@@ -249,7 +249,7 @@
 					if (istype(O,I.cost2)) A2++
 					if (istype(O,I.cost3)) A3++
 				if (A1 < I.amount1 || A2 < I.amount2 || A3 < I.amount3)
-					usr << "\red Insufficient materials to manufacture that item."
+					usr << "<span class='warning'>Insufficient materials to manufacture that item.</span>"
 					return
 				// Consume Mats
 				var/C1 = I.amount1
@@ -292,11 +292,11 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		var/load = 0
 		if(istype(W, /obj/item/weapon/ore/))
-			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
+			for(var/mob/O in viewers(user, null)) O.show_message(text("<span class='notice'>[] loads [] into the [].</span>", user, W, src), 1)
 			load = 1
 		else if(istype(W, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/STACK = W
-			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
+			for(var/mob/O in viewers(user, null)) O.show_message(text("<span class='notice'>[] loads [] into the [].</span>", user, W, src), 1)
 			if(istype(STACK, /obj/item/stack/sheet/metal))
 				for (var/amt = STACK.amount, amt > 0, amt--) new /obj/item/weapon/ore/iron(src)
 			if(istype(STACK, /obj/item/stack/sheet/plasteel))
@@ -314,7 +314,7 @@
 		//	new /obj/item/weapon/ore/iron(src)
 		//	load = 2
 		/*else if(istype(W, /obj/item/stack/cable_coil/))
-			for(var/mob/O in viewers(user, null)) O.show_message(text("\blue [] loads [] into the [].", user, W, src), 1)
+			for(var/mob/O in viewers(user, null)) O.show_message(text("<span class='notice'>[] loads [] into the [].</span>", user, W, src), 1)
 			for (var/amt = W:amount, amt > 0, amt--)
 				new /obj/item/weapon/ore/silver(src)
 				amt--
@@ -337,7 +337,7 @@
 					if(istype(W,/obj/item/clothing/suit/space/)) new /obj/item/weapon/ore/fabric(src)
 					load = 2
 		else if(istype(W, /obj/item/weapon/disk/data/schematic))
-			if (!src.acceptdisk) user << "\red This unit is unable to accept disks."
+			if (!src.acceptdisk) user << "<span class='warning'>This unit is unable to accept disks.</span>"
 			else
 				var/amtload = 0
 				var/dontload = 0
@@ -354,19 +354,19 @@
 						src.diskload += new WS.type(src)
 						amtload++
 					else dontload = 0
-				if (amtload) user << "\blue [amtload] new schematics downloaded from disk."
-				else user << "\red No new schematics available on disk."
+				if (amtload) user << "<span class='notice'>[amtload] new schematics downloaded from disk.</span>"
+				else user << "<span class='warning'>No new schematics available on disk.</span>"
 		else if (istype(W, /obj/item/weapon/storage/bag/ore))
-			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, W), 1)
+			for(var/mob/V in viewers(user, null)) V.show_message(text("<span class='notice'>[] uses the []'s automatic ore loader on []!</span>", user, src, W), 1)
 			var/amtload = 0
 			for (var/obj/item/weapon/ore/M in W.contents)
 				M.loc = src
 				amtload++
-			if (amtload) user << "\blue [amtload] pieces of ore loaded from [W]!"
-			else user << "\red No ore loaded!"
+			if (amtload) user << "<span class='notice'>[amtload] pieces of ore loaded from [W]!</span>"
+			else user << "<span class='warning'>No ore loaded!</span>"
 		else if(istype(W, /obj/item/weapon/card/emag))
 			src.hacked = 1
-			user << "\blue You remove the [src]'s product locks!"
+			user << "<span class='notice'>You remove the [src]'s product locks!</span>"
 		else ..()
 
 		if (load == 1)
@@ -386,30 +386,30 @@
 
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 		if (istype(O, /obj/structure/closet/crate/))
-			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] uses the []'s automatic ore loader on []!", user, src, O), 1)
+			for(var/mob/V in viewers(user, null)) V.show_message(text("<span class='notice'>[] uses the []'s automatic ore loader on []!</span>", user, src, O), 1)
 			var/amtload = 0
 			for (var/obj/item/weapon/ore/M in O.contents)
 				M.loc = src
 				amtload++
-			if (amtload) user << "\blue [amtload] pieces of ore loaded from [O]!"
-			else user << "\red No ore loaded!"
+			if (amtload) user << "<span class='notice'>[amtload] pieces of ore loaded from [O]!</span>"
+			else user << "<span class='warning'>No ore loaded!</span>"
 		else if (istype(O, /obj/item/weapon/ore/))
-			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing ore into []!", user, src), 1)
+			for(var/mob/V in viewers(user, null)) V.show_message(text("<span class='notice'>[] begins quickly stuffing ore into []!</span>", user, src), 1)
 			var/staystill = user.loc
 			for(var/obj/item/weapon/ore/M in view(1,user))
 				M.loc = src
 				sleep(3)
 				if (user.loc != staystill) break
-			user << "\blue You finish stuffing ore into [src]!"
+			user << "<span class='notice'>You finish stuffing ore into [src]!</span>"
 		/*else if (istype(O, /obj/item/weapon/plant/wheat/metal))
-			for(var/mob/V in viewers(user, null)) V.show_message(text("\blue [] begins quickly stuffing [O] into []!", user, src), 1)
+			for(var/mob/V in viewers(user, null)) V.show_message(text("<span class='notice'>[] begins quickly stuffing [O] into []!</span>", user, src), 1)
 			var/staystill = user.loc
 			for(var/obj/item/weapon/plant/wheat/metal/M in view(1,user))
 				new /obj/item/weapon/ore/iron(src)
 				del M
 				sleep(3)
 				if (user.loc != staystill) break
-			user << "\blue You finish stuffing [O] into [src]!"*/
+			user << "<span class='notice'>You finish stuffing [O] into [src]!</span>"*/
 		else ..()
 		src.updateUsrDialog()
 

@@ -36,15 +36,15 @@
 		if(!..(user, 1))
 			return
 		if(!reagents || reagents.total_volume==0)
-			user << "\blue \The [src] is empty!"
+			user << "<span class='notice'>\The [src] is empty!</span>"
 		else if (reagents.total_volume<=src.volume/4)
-			user << "\blue \The [src] is almost empty!"
+			user << "<span class='notice'>\The [src] is almost empty!</span>"
 		else if (reagents.total_volume<=src.volume*0.66)
-			user << "\blue \The [src] is half full!"
+			user << "<span class='notice'>\The [src] is half full!</span>"
 		else if (reagents.total_volume<=src.volume*0.90)
-			user << "\blue \The [src] is almost full!"
+			user << "<span class='notice'>\The [src] is almost full!</span>"
 		else
-			user << "\blue \The [src] is full!"*/
+			user << "<span class='notice'>\The [src] is full!</span>"*/
 
 
 //DRINKS

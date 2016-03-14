@@ -470,7 +470,7 @@
 		var/mob/dead/observer/ghost
 		for(var/mob/dead/observer/O in src.loc)
 			if(!check_observer(O))
-				O << "\red You are not eligible to become a golem."
+				O << "<span class='warning'>You are not eligible to become a golem.</span>"
 				continue
 			ghost = O
 			break
@@ -490,7 +490,7 @@
 			if(O.client)
 				var/area/A = get_area(src)
 				if(A)
-					O << "\blue <b>Golem rune created in [A.name]. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b>"
+					O << "<span class='notice'><b>Golem rune created in [A.name]. (<a href='?src=\ref[O];jump=\ref[src]'>Teleport</a> | <a href='?src=\ref[src];signup=\ref[O]'>Sign Up</a>)</b></span>"
 
 	Topic(href,href_list)
 		if("signup" in href_list)
@@ -515,10 +515,10 @@
 	proc/volunteer(var/mob/dead/observer/O)
 		if(O in ghosts)
 			ghosts.Remove(O)
-			O << "\red You are no longer signed up to be a golem."
+			O << "<span class='warning'>You are no longer signed up to be a golem.</span>"
 		else
 			if(!check_observer(O))
-				O << "\red You are not eligible to become a golem."
+				O << "<span class='warning'>You are not eligible to become a golem.</span>"
 				return
 			ghosts.Add(O)
-			O << "\blue You are signed up to be a golem."
+			O << "<span class='notice'>You are signed up to be a golem.</span>"

@@ -22,7 +22,7 @@
 					return
 				if(armed)
 					armed = 0
-					user << "\blue You disarm \the [src]."
+					user << "<span class='notice'>You disarm \the [src].</span>"
 					return
 				timing = !timing
 				if(timing)

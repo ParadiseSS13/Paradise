@@ -108,10 +108,10 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					pale = 1
 					update_body()
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel [word]"
+					src << "<span class='warning'>You feel [word]</span>"
 				if(prob(1))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel [word]"
+					src << "<span class='warning'>You feel [word]</span>"
 				if(oxyloss < 20)
 					oxyloss += 3
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
@@ -125,7 +125,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				if(prob(15))
 					Paralyse(rand(1,3))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel very [word]"
+					src << "<span class='warning'>You feel very [word]</span>"
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				if(!pale)
 					pale = 1
@@ -136,7 +136,7 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 				if(prob(15))
 					Paralyse(rand(1,3))
 					var/word = pick("dizzy","woosey","faint")
-					src << "\red You feel extremely [word]"
+					src << "<span class='warning'>You feel extremely [word]</span>"
 			if(0 to BLOOD_VOLUME_SURVIVE)
 				death()
 

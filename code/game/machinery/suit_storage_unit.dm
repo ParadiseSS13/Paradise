@@ -678,11 +678,11 @@
 			return
 
 		if(locked)
-			user << "\red The suit cycler is locked."
+			user << "<span class='warning'>The suit cycler is locked.</span>"
 			return
 
 		if(src.contents.len > 0)
-			user << "\red There is no room inside the cycler for [G.affecting.name]."
+			user << "<span class='warning'>There is no room inside the cycler for [G.affecting.name].</span>"
 			return
 
 		visible_message("[user] starts putting [G.affecting.name] into the suit cycler.")
@@ -712,7 +712,7 @@
 	else if(istype(I,/obj/item/clothing/head/helmet/space))
 
 		if(locked)
-			user << "\red The suit cycler is locked."
+			user << "<span class='warning'>The suit cycler is locked.</span>"
 			return
 
 		if(helmet)
@@ -731,7 +731,7 @@
 	else if(istype(I,/obj/item/clothing/suit/space/rig))
 
 		if(locked)
-			user << "\red The suit cycler is locked."
+			user << "<span class='warning'>The suit cycler is locked.</span>"
 			return
 
 		if(suit)
@@ -761,11 +761,11 @@
 
 /obj/machinery/suit_cycler/emag_act(user as mob)
 	if(emagged)
-		user << "\red The cycler has already been subverted."
+		user << "<span class='warning'>The cycler has already been subverted.</span>"
 		return
 
 	//Clear the access reqs, disable the safeties, and open up all paintjobs.
-	user << "\red You run the sequencer across the interface, corrupting the operating protocols."
+	user << "<span class='warning'>You run the sequencer across the interface, corrupting the operating protocols.</span>"
 	departments = list("Engineering","Mining","Medical","Security","Atmos","^%###^%$")
 	emagged = 1
 	safeties = 0
@@ -887,12 +887,12 @@
 			locked = !locked
 			usr << "You [locked ? "" : "un"]lock \the [src]."
 		else
-			usr << "\red Access denied."
+			usr << "<span class='warning'>Access denied.</span>"
 
 	else if(href_list["begin_decontamination"])
 
 		if(safeties && occupant)
-			usr << "\red The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle."
+			usr << "<span class='warning'>The cycler has detected an occupant. Please remove the occupant before commencing the decontamination cycle.</span>"
 			return
 
 		active = 1
@@ -991,7 +991,7 @@
 /obj/machinery/suit_cycler/proc/eject_occupant(mob/user as mob)
 
 	if(locked || active)
-		user << "\red The cycler is locked."
+		user << "<span class='warning'>The cycler is locked.</span>"
 		return
 
 	if (!occupant)

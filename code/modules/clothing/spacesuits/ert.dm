@@ -17,7 +17,7 @@
 		camera.network = list("ERT")
 		cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+		user << "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>"
 
 /obj/item/clothing/head/helmet/space/rig/ert/examine(mob/user)
 	if(..(user, 1))

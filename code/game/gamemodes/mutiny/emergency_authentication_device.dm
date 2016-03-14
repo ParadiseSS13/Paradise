@@ -45,7 +45,7 @@
 
 /obj/machinery/emergency_authentication_device/attack_hand(mob/user)
 	if(activated)
-		user << "\blue \The [src] is already active!"
+		user << "<span class='notice'>\The [src] is already active!</span>"
 		return
 
 	if(!mode.current_directive.directives_complete())
@@ -55,7 +55,7 @@
 	check_key_existence()
 	if(captains_key && secondary_key)
 		activated = 1
-		user << "\blue You activate \the [src]!"
+		user << "<span class='notice'>You activate \the [src]!</span>"
 		state("Command acknowledged. Initiating quantum entanglement relay to Nanotrasen High Command.")
 		launch_shuttle()
 		return
@@ -77,7 +77,7 @@
 
 /obj/machinery/emergency_authentication_device/attackby(obj/item/weapon/O, mob/user, params)
 	if(activated)
-		user << "\blue \The [src] is already active!"
+		user << "<span class='notice'>\The [src] is already active!</span>"
 		return
 
 	if(!mode.current_directive.directives_complete())

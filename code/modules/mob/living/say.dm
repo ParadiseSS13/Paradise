@@ -119,7 +119,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name="")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (Muted)."
+			src << "<span class='warning'>You cannot speak in IC (Muted).</span>"
 			return
 
 	message = trim_strip_html_properly(message)
@@ -311,7 +311,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	else //everything else failed, emote is probably invalid
 		if(act == "help")	return //except help, because help is handled individually
-		src << "\blue Unusable emote '[act]'. Say *help for a list."
+		src << "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>"
 
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)

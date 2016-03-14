@@ -80,10 +80,10 @@
 			else if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount<5)
-					user << "\red You do not have enough glass to build a display case."
+					user << "<span class='warning'>You do not have enough glass to build a display case.</span>"
 					return
 				G.use(5)
-				user << "\blue You add the glass to the frame."
+				user << "<span class='notice'>You add the glass to the frame.</span>"
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				new /obj/structure/displaycase_frame(src.loc)
 				qdel(src)

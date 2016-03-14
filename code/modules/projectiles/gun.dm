@@ -279,9 +279,9 @@
 	//Suicide handling.
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1
-		M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
+		M.visible_message("<span class='warning'>[user] sticks their gun in their mouth, ready to pull the trigger...</span>")
 		if(!do_after(user, 40, target = M))
-			M.visible_message("\blue [user] decided life was worth living")
+			M.visible_message("<span class='notice'>[user] decided life was worth living</span>")
 			mouthshoot = 0
 			return
 		if (process_chambered())
@@ -312,7 +312,7 @@
 	if (src.process_chambered())
 		//Point blank shooting if on harm intent or target we were targeting.
 		if(user.a_intent == I_HARM)
-			user.visible_message("\red <b> \The [user] fires \the [src] point blank at [M]!</b>")
+			user.visible_message("<span class='warning'><b> \The [user] fires \the [src] point blank at [M]!</b></span>")
 			if(istype(in_chamber)) in_chamber.damage *= 1.3
 			Fire(M,user,0,0,1)
 			return

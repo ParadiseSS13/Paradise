@@ -283,7 +283,7 @@
 
 	suspension_field = new(T)
 	suspension_field.field_type = field_type
-	src.visible_message("\blue \icon[src] [src] activates with a low hum.")
+	src.visible_message("<span class='notice'>\icon[src] [src] activates with a low hum.</span>")
 	icon_state = "suspension3"
 
 	for(var/obj/item/I in T)
@@ -308,7 +308,7 @@
 		M << "<span class='info'>You no longer feel like floating.</span>"
 		M.SetWeakened(min(M.weakened, 3))
 
-	src.visible_message("\blue \icon[src] [src] deactivates with a gentle shudder.")
+	src.visible_message("<span class='notice'>\icon[src] [src] deactivates with a gentle shudder.</span>")
 	qdel(suspension_field)
 	icon_state = "suspension2"
 
@@ -323,7 +323,7 @@
 	set category = "Object"
 
 	if(anchored)
-		usr << "\red You cannot rotate [src], it has been firmly fixed to the floor."
+		usr << "<span class='warning'>You cannot rotate [src], it has been firmly fixed to the floor.</span>"
 	else
 		dir = turn(dir, 90)
 
@@ -333,7 +333,7 @@
 	set category = "Object"
 
 	if(anchored)
-		usr << "\red You cannot rotate [src], it has been firmly fixed to the floor."
+		usr << "<span class='warning'>You cannot rotate [src], it has been firmly fixed to the floor.</span>"
 	else
 		dir = turn(dir, -90)
 

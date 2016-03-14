@@ -148,7 +148,7 @@
 		if(!target || !istype(target))
 			return
 
-		message_admins("\blue [key_name_admin(usr)] emagged [key_name_admin(target)] using robotic console!")
+		message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(target)] using robotic console!</span>")
 		log_game("[key_name(usr)] emagged [key_name(target)] using robotic console!")
 		target.emagged = 1
 		target << "<span class='notice'>Failsafe protocols overriden. New tools available.</span>"

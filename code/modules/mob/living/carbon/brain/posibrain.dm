@@ -18,7 +18,7 @@
 /obj/item/device/mmi/posibrain/attack_self(mob/user as mob)
 	if(brainmob && !brainmob.key && searching == 0)
 		//Start the process of searching for a new user.
-		user << "\blue You carefully locate the manual activation switch and start the positronic brain's boot process."
+		user << "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>"
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
 		src.searching = 1
@@ -102,7 +102,7 @@
 
 	var/turf/T = get_turf_or_move(src.loc)
 	for (var/mob/M in viewers(T))
-		M.show_message("\blue The positronic brain chimes quietly.")
+		M.show_message("<span class='notice'>The positronic brain chimes quietly.</span>")
 	icon_state = "posibrain-occupied"
 
 /obj/item/device/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
@@ -113,7 +113,7 @@
 
 	var/turf/T = get_turf_or_move(src.loc)
 	for (var/mob/M in viewers(T))
-		M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
+		M.show_message("<span class='notice'>The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>")
 
 /obj/item/device/mmi/posibrain/Topic(href,href_list)
 	if("signup" in href_list)
@@ -126,22 +126,22 @@
 		O << "Not looking for a ghost, yet."
 		return
 	if(!istype(O))
-		O << "\red Error."
+		O << "<span class='warning'>Error.</span>"
 		return
 	if(O in ghost_volunteers)
-		O << "\blue Removed from registration list."
+		O << "<span class='notice'>Removed from registration list.</span>"
 		ghost_volunteers.Remove(O)
 		return
 	if(!check_observer(O))
-		O << "\red You cannot be \a [src]."
+		O << "<span class='warning'>You cannot be \a [src].</span>"
 		return
 	if(O.has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-		O << "\red Upon using the antagHUD you forfeited the ability to join the round."
+		O << "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>"
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
-		O << "\red You are job banned from this role."
+		O << "<span class='warning'>You are job banned from this role.</span>"
 		return
-	O.<< "\blue You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."
+	O.<< "<span class='notice'>You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer.</span>"
 	ghost_volunteers.Add(O)
 
 
@@ -195,7 +195,7 @@
 	else
 		var/turf/T = get_turf_or_move(src.loc)
 		for (var/mob/M in viewers(T))
-			M.show_message("\blue The positronic brain pings softly.")
+			M.show_message("<span class='notice'>The positronic brain pings softly.</span>")
 
 /obj/item/device/mmi/posibrain/ipc
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."

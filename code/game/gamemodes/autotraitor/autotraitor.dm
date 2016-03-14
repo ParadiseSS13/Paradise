@@ -141,7 +141,7 @@
 				set_antag_hud(src, "hudsyndicate")
 
 				var/obj_count = 1
-				newtraitor << "\blue Your current objectives:"
+				newtraitor << "<span class='notice'>Your current objectives:</span>"
 				for(var/datum/objective/objective in newtraitor.mind.objectives)
 					newtraitor << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 					obj_count++

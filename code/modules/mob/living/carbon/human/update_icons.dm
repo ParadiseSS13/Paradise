@@ -643,7 +643,7 @@ var/global/list/damage_icon_parts = list()
 			if(w_uniform.flags&ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
-				src << "\red You burst out of \the [w_uniform]!"
+				src << "<span class='warning'>You burst out of \the [w_uniform]!</span>"
 				unEquip(w_uniform)
 				return
 		else
@@ -858,7 +858,7 @@ var/global/list/damage_icon_parts = list()
 			if(wear_suit.flags&ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else
-				src << "\red You burst out of \the [wear_suit]!"
+				src << "<span class='warning'>You burst out of \the [wear_suit]!</span>"
 				unEquip(wear_suit)
 				return
 		else

@@ -26,6 +26,6 @@
 
 /obj/item/device/hailer/emag_act(user as mob)
 	if(!emagged)
-		user << "\red You overload \the [src]'s voice synthesizer."
+		user << "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>"
 		emagged = 1
 

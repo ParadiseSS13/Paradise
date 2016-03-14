@@ -64,7 +64,7 @@
 
 /datum/reagent/slimejelly/on_mob_life(var/mob/living/M as mob)
 	if(prob(10))
-		M << "\red Your insides are burning!"
+		M << "<span class='warning'>Your insides are burning!</span>"
 		M.adjustToxLoss(rand(20,60)*REM)
 	else if(prob(40))
 		M.heal_organ_damage(5*REM,0)
@@ -83,9 +83,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		if(human.species.name != "Shadow")
-			M << "\red Your flesh rapidly mutates!"
+			M << "<span class='warning'>Your flesh rapidly mutates!</span>"
 			M << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-			M << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+			M << "<span class='warning'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>"
 			M << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 			human.set_species("Shadow")
 	..()
@@ -101,7 +101,7 @@
 /datum/reagent/aslimetoxin/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(istype(M, /mob/living/carbon) && M.stat != DEAD)
-		M << "\red Your flesh rapidly mutates!"
+		M << "<span class='warning'>Your flesh rapidly mutates!</span>"
 		if(M.notransform)	return
 		M.notransform = 1
 		M.canmove = 0
@@ -300,11 +300,11 @@
 			if(volume > 25)
 
 				if(H.wear_mask)
-					H << "\red Your mask protects you from the acid!"
+					H << "<span class='warning'>Your mask protects you from the acid!</span>"
 					return
 
 				if(H.head)
-					H << "\red Your helmet protects you from the acid!"
+					H << "<span class='warning'>Your helmet protects you from the acid!</span>"
 					return
 
 				if(!M.unacidable)
@@ -349,7 +349,7 @@
 			var/obj/effect/decal/cleanable/molten_item/I = new/obj/effect/decal/cleanable/molten_item(O.loc)
 			I.desc = "Looks like this was \an [O] some time ago."
 			for(var/mob/M in viewers(5, O))
-				M << "\red \the [O] melts."
+				M << "<span class='warning'>\the [O] melts.</span>"
 			qdel(O)
 
 
@@ -472,7 +472,7 @@
 	if (holder.has_reagent("atrazine",45))
 		holder.del_reagent("spore")
 	if (prob(1))
-		M << "\red Your mouth tastes funny."
+		M << "<span class='warning'>Your mouth tastes funny.</span>"
 	if (prob(1) && prob(25))
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
@@ -521,10 +521,10 @@
 				if ( !safe_thing )
 					safe_thing = victim.glasses
 			if ( eyes_covered && mouth_covered )
-				victim << "\red Your [safe_thing] protects you from the pepperspray!"
+				victim << "<span class='warning'>Your [safe_thing] protects you from the pepperspray!</span>"
 				return
 			else if ( mouth_covered )	// Reduced effects if partially protected
-				victim << "\red Your [safe_thing] protect you from most of the pepperspray!"
+				victim << "<span class='warning'>Your [safe_thing] protect you from most of the pepperspray!</span>"
 				if(prob(5))
 					victim.emote("scream")
 				victim.eye_blurry = max(M.eye_blurry, 3)
@@ -535,14 +535,14 @@
 				victim.drop_item()
 				return
 			else if ( eyes_covered ) // Eye cover is better than mouth cover
-				victim << "\red Your [safe_thing] protects your eyes from the pepperspray!"
+				victim << "<span class='warning'>Your [safe_thing] protects your eyes from the pepperspray!</span>"
 				victim.eye_blurry = max(M.eye_blurry, 3)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
-				victim << "\red You're sprayed directly in the eyes with pepperspray!"
+				victim << "<span class='warning'>You're sprayed directly in the eyes with pepperspray!</span>"
 				victim.eye_blurry = max(M.eye_blurry, 5)
 				victim.eye_blind = max(M.eye_blind, 2)
 				victim.confused = max(M.confused, 6)

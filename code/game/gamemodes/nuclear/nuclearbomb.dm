@@ -91,7 +91,7 @@ var/bomb_set
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if (WT.get_fuel() < 5) // uses up 5 fuel.
-						user << "\red You need more fuel to complete this task."
+						user << "<span class='warning'>You need more fuel to complete this task.</span>"
 						return
 
 					user.visible_message("[user] starts cutting loose the anchoring bolt covers on [src].", "You start cutting loose the anchoring bolt covers with [O]...")
@@ -118,7 +118,7 @@ var/bomb_set
 					var/obj/item/weapon/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if (WT.get_fuel() < 5) // uses up 5 fuel.
-						user << "\red You need more fuel to complete this task."
+						user << "<span class='warning'>You need more fuel to complete this task.</span>"
 						return
 
 					user.visible_message("[user] starts cutting apart the anchoring system sealant on [src].", "You start cutting apart the anchoring system's sealant with [O]...")
@@ -165,9 +165,9 @@ var/bomb_set
 	else if (deployable)
 		if(removal_stage < 5)
 			anchored = 1
-			visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring!")
+			visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 		else
-			visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
+			visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 		if(!lighthack)
 			flick("nuclearbombc", src)
 			icon_state = "nuclearbomb1"
@@ -217,10 +217,10 @@ var/bomb_set
 		return
 
 	if (deployable)
-		usr << "\red You close several panels to make [src] undeployable."
+		usr << "<span class='warning'>You close several panels to make [src] undeployable.</span>"
 		deployable = 0
 	else
-		usr << "\red You adjust some panels to make [src] deployable."
+		usr << "<span class='warning'>You adjust some panels to make [src] deployable.</span>"
 		deployable = 1
 	return
 
@@ -279,7 +279,7 @@ var/bomb_set
 					nanomanager.update_uis(src)
 					return
 				if (safety)
-					usr << "\red The safety is still on."
+					usr << "<span class='warning'>The safety is still on.</span>"
 					nanomanager.update_uis(src)
 					return
 				timing = !(timing)
@@ -309,16 +309,16 @@ var/bomb_set
 			if (href_list["anchor"])
 				if(removal_stage == 5)
 					anchored = 0
-					visible_message("\red \The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.")
+					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 					nanomanager.update_uis(src)
 					return
 
 				if(!isinspace())
 					anchored = !(anchored)
 					if(anchored)
-						visible_message("\red With a steely snap, bolts slide out of [src] and anchor it to the flooring.")
+						visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 					else
-						visible_message("\red The anchoring bolts slide back into the depths of [src].")
+						visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 				else
 					usr << "<span class='warning'>There is nothing to anchor to!</span>"
 

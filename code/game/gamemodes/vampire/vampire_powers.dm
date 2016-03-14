@@ -179,7 +179,7 @@
 		if(do_mob(usr, target, 50))
 			if(!affects(target))
 				usr << "<span class='warning'>Your piercing gaze fails to knock out [target].</span>"
-				target << "\blue [usr]'s feeble gaze is ineffective."
+				target << "<span class='notice'>[usr]'s feeble gaze is ineffective.</span>"
 			else
 				usr << "<span class='warning'>Your piercing gaze knocks out [target].</span>"
 				target << "<span class='warning'>You find yourself unable to move and barely able to speak.</span>"
@@ -498,7 +498,7 @@
 
 	if(!turfs.len)
 		revert_cast(user)
-		user << "\red You cannot find darkness to step to."
+		user << "<span class='warning'>You cannot find darkness to step to.</span>"
 		return
 
 	perform(turfs)

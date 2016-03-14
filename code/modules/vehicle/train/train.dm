@@ -61,12 +61,12 @@
 	if(emagged)
 		if(istype(A, /mob/living))
 			var/mob/living/M = A
-			visible_message("\red [src] knocks over [M]!")
+			visible_message("<span class='warning'>[src] knocks over [M]!</span>")
 			M.apply_effects(5, 5)				//knock people down if you hit them
 			M.apply_damages(22 / move_delay)	// and do damage according to how fast the train is going
 			if(istype(load, /mob/living/carbon/human))
 				var/mob/living/D = load
-				D << "\red You hit [M]!"
+				D << "<span class='warning'>You hit [M]!</span>"
 				msg_admin_attack("[key_name_admin(D)] hit [key_name_admin(M)] with [src].")
 
 
@@ -97,7 +97,7 @@
 
 	unload(user, direction)
 
-	user << "\blue You climb down from [src]."
+	user << "<span class='notice'>You climb down from [src].</span>"
 
 	return 1
 
@@ -108,7 +108,7 @@
 		latch(C, user)
 	else
 		if(!load(C))
-			user << "\red You were unable to load [C] on [src]."
+			user << "<span class='warning'>You were unable to load [C] on [src].</span>"
 
 /obj/vehicle/train/attack_hand(mob/user as mob)
 	if(user.stat || user.restrained() || !Adjacent(user))
@@ -145,22 +145,22 @@
 //attempts to attach src as a follower of the train T
 /obj/vehicle/train/proc/attach_to(obj/vehicle/train/T, mob/user)
 	if (get_dist(src, T) > 1)
-		user << "\red [src] is too far away from [T] to hitch them together."
+		user << "<span class='warning'>[src] is too far away from [T] to hitch them together.</span>"
 		return
 
 	if (lead)
-		user << "\red [src] is already hitched to something."
+		user << "<span class='warning'>[src] is already hitched to something.</span>"
 		return
 
 	if (T.tow)
-		user << "\red [T] is already towing something."
+		user << "<span class='warning'>[T] is already towing something.</span>"
 		return
 
 	//check for cycles.
 	var/obj/vehicle/train/next_car = T
 	while (next_car)
 		if (next_car == src)
-			user << "\red That seems very silly."
+			user << "<span class='warning'>That seems very silly.</span>"
 			return
 		next_car = next_car.lead
 
@@ -170,7 +170,7 @@
 	dir = lead.dir
 
 	if(user)
-		user << "\blue You hitch [src] to [T]."
+		user << "<span class='notice'>You hitch [src] to [T].</span>"
 
 	update_stats()
 
@@ -178,7 +178,7 @@
 //detaches the train from whatever is towing it
 /obj/vehicle/train/proc/unattach(mob/user)
 	if (!lead)
-		user << "\red [src] is not hitched to anything."
+		user << "<span class='warning'>[src] is not hitched to anything.</span>"
 		return
 
 	lead.tow = null

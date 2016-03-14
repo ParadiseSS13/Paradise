@@ -103,7 +103,7 @@
 					var/desc = input("Please select a telepad.", "RCS") in L
 					E.pad = L[desc]
 					playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
-					user << "\blue Teleporting [src.name]..."
+					user << "<span class='notice'>Teleporting [src.name]...</span>"
 					E.teleporting = 1
 					if(!do_after(user, 50, target = src))
 						E.teleporting = 0
@@ -121,7 +121,7 @@
 				E.rand_y = rand(50,200)
 				var/L = locate(E.rand_x, E.rand_y, 6)
 				playsound(E.loc, 'sound/machines/click.ogg', 50, 1)
-				user << "\blue Teleporting [src.name]..."
+				user << "<span class='notice'>Teleporting [src.name]...</span>"
 				E.teleporting = 1
 				if(!do_after(user, 50, target = src))
 					E.teleporting = 0

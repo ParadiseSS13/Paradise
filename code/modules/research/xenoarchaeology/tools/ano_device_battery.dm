@@ -40,7 +40,7 @@
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	if(istype(I, /obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert the battery."
+			user << "<span class='notice'>You insert the battery.</span>"
 			user.drop_item()
 			I.loc = src
 			inserted_battery = I
@@ -201,9 +201,9 @@
 	if(activated && inserted_battery.battery_effect.effect == EFFECT_TOUCH && !isnull(inserted_battery))
 		inserted_battery.battery_effect.DoEffectTouch(M)
 		inserted_battery.use_power(energy_consumed_on_touch)
-		user.visible_message("\blue [user] taps [M] with [src], and it shudders on contact.")
+		user.visible_message("<span class='notice'>[user] taps [M] with [src], and it shudders on contact.</span>")
 	else
-		user.visible_message("\blue [user] taps [M] with [src], but nothing happens.")
+		user.visible_message("<span class='notice'>[user] taps [M] with [src], but nothing happens.</span>")
 
 	//admin logging
 	user.lastattacked = M

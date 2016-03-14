@@ -213,7 +213,7 @@
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
+			O.show_message("<span class='warning'><B>[M]</B> [M.attacktext] [src]!</span>", 1)
 		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
 		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
@@ -234,7 +234,7 @@
 		if (I_HELP)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
-					O.show_message(text("\blue [M] caresses [src]'s casing with its scythe like arm."), 1)
+					O.show_message(text("<span class='notice'>[M] caresses [src]'s casing with its scythe like arm.</span>"), 1)
 
 		else //harm
 			M.do_attack_animation(src)
@@ -243,7 +243,7 @@
 				playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has slashed at []!</B>", M, src), 1)
+						O.show_message(text("<span class='warning'><B>[] has slashed at []!</B></span>", M, src), 1)
 				if(prob(8))
 					flick("noise", src.flash)
 				src.adjustBruteLoss(damage)
@@ -252,7 +252,7 @@
 				playsound(src.loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
+						O.show_message(text("<span class='warning'><B>[] took a swipe at []!</B></span>", M, src), 1)
 	return
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
@@ -312,7 +312,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	src << "<span class='notice'>Switched to [src.network] camera network.</span>"
 //End of code by Mord_Sith
 */
 
@@ -339,11 +339,11 @@
 		return
 
 	if(src.loc != card)
-		src << "\red You are already in your mobile form!"
+		src << "<span class='warning'>You are already in your mobile form!</span>"
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before folding your chassis out again!"
+		src << "<span class='warning'>You must wait before folding your chassis out again!</span>"
 		return
 
 	last_special = world.time + 200
@@ -375,11 +375,11 @@
 		return
 
 	if(src.loc == card)
-		src << "\red You are already in your card form!"
+		src << "<span class='warning'>You are already in your card form!</span>"
 		return
 
 	if(world.time <= last_special)
-		src << "\red You must wait before returning to your card form!"
+		src << "<span class='warning'>You must wait before returning to your card form!</span>"
 		return
 
 	close_up()

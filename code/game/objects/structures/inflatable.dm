@@ -7,7 +7,7 @@
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	user << "\blue You inflate [src]."
+	user << "<span class='notice'>You inflate [src].</span>"
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -97,7 +97,7 @@
 	if(!istype(W))
 		return
 	if (can_puncture(W))
-		visible_message("\red <b>[user] pierces [src] with [W]!</b>")
+		visible_message("<span class='warning'><b>[user] pierces [src] with [W]!</b></span>")
 		deflate(1)
 	if(W.damtype == BRUTE || W.damtype == BURN)
 		hit(W.force)
@@ -150,7 +150,7 @@
 
 /obj/item/inflatable/door/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	user << "\blue You inflate [src]."
+	user << "<span class='notice'>You inflate [src].</span>"
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)

@@ -192,7 +192,7 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("\red [] stuffs [] into []!", user, O, src)
+				B << text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src)
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -258,7 +258,7 @@
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if (cremating)
-		usr << "\red It's locked."
+		usr << "<span class='warning'>It's locked.</span>"
 		return
 	if ((connected) && (locked == 0))
 		for(var/atom/movable/A as mob|obj in connected.loc)
@@ -413,7 +413,7 @@
 	if (user != O)
 		for(var/mob/B in viewers(user, 3))
 			if ((B.client && !( B.blinded )))
-				B << text("\red [] stuffs [] into []!", user, O, src)
+				B << text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src)
 			//Foreach goto(99)
 	return
 
@@ -430,7 +430,7 @@
 				if (!C.cremating)
 					C.cremate(user)
 	else
-		usr << "\red Access denied."
+		usr << "<span class='warning'>Access denied.</span>"
 	return
 
 /hook/Login/proc/update_morgue(var/client/client, var/mob/L)

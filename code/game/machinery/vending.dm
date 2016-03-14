@@ -259,7 +259,7 @@
 		W.loc = src
 		coin = W
 		categories |= CAT_COIN
-		user << "\blue You insert the [W] into the [src]"
+		user << "<span class='notice'>You insert the [W] into the [src]</span>"
 		nanomanager.update_uis(src)
 		return
 	else if(istype(W, refill_canister) && refill_canister != null)
@@ -459,7 +459,7 @@
 
 		usr.put_in_hands(coin)
 		coin = null
-		usr << "\blue You remove the [coin] from the [src]"
+		usr << "<span class='notice'>You remove the [coin] from the [src]</span>"
 		categories &= ~CAT_COIN
 
 	if (href_list["pay"])
@@ -525,7 +525,7 @@
 		flick(src.icon_deny,src)
 		return
 	if(!R.amount)
-		user << "\red The vending machine has ran out of that product."
+		user << "<span class='warning'>The vending machine has ran out of that product.</span>"
 		return
 	src.vend_ready = 0 //One thing at a time!!
 	src.status_message = "Vending..."
@@ -534,13 +534,13 @@
 
 	if (R.category & CAT_COIN)
 		if(!coin)
-			user << "\blue You need to insert a coin to get this item."
+			user << "<span class='notice'>You need to insert a coin to get this item.</span>"
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				user << "\blue You successfully pull the coin out before the [src] could swallow it."
+				user << "<span class='notice'>You successfully pull the coin out before the [src] could swallow it.</span>"
 			else
-				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
+				user << "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>"
 				coin = null
 				qdel(coin)
 				categories &= ~CAT_COIN
@@ -569,7 +569,7 @@
 
 /obj/machinery/vending/proc/stock(var/datum/data/vending_product/R, var/mob/user)
 	if(src.panel_open)
-		user << "\blue You stock the [src] with \a [R.product_name]"
+		user << "<span class='notice'>You stock the [src] with \a [R.product_name]</span>"
 		R.amount++
 	src.updateUsrDialog()
 
@@ -657,7 +657,7 @@
 		return 0
 	spawn(0)
 		throw_item.throw_at(target, 16, 3, src)
-	src.visible_message("\red <b>[src] launches [throw_item.name] at [target.name]!</b>")
+	src.visible_message("<span class='warning'><b>[src] launches [throw_item.name] at [target.name]!</b></span>")
 	return 1
 
 /*

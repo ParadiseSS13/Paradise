@@ -146,9 +146,9 @@
 				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
 			update_icon()
 		else
-			user << "\red The controls are locked!"
+			user << "<span class='warning'>The controls are locked!</span>"
 	else
-		user << "\red The [src] needs to be firmly secured to the floor first."
+		user << "<span class='warning'>The [src] needs to be firmly secured to the floor first.</span>"
 		return 1
 
 
@@ -241,7 +241,7 @@
 					"You hear a ratchet")
 				src.anchored = 0
 			if(2)
-				user << "\red The [src.name] needs to be unwelded from the floor."
+				user << "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>"
 		return
 
 	if(istype(W, /obj/item/weapon/weldingtool))
@@ -251,7 +251,7 @@
 			return
 		switch(state)
 			if(0)
-				user << "\red The [src.name] needs to be wrenched to the floor."
+				user << "<span class='warning'>The [src.name] needs to be wrenched to the floor.</span>"
 			if(1)
 				if (WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
@@ -264,7 +264,7 @@
 						user << "You weld the [src] to the floor."
 						connect_to_network()
 				else
-					user << "\red You need more welding fuel to complete this task."
+					user << "<span class='warning'>You need more welding fuel to complete this task.</span>"
 			if(2)
 				if (WT.remove_fuel(0,user))
 					playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
@@ -277,12 +277,12 @@
 						user << "You cut the [src] free from the floor."
 						disconnect_from_network()
 				else
-					user << "\red You need more welding fuel to complete this task."
+					user << "<span class='warning'>You need more welding fuel to complete this task.</span>"
 		return
 
 	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
 		if(emagged)
-			user << "\red The lock seems to be broken"
+			user << "<span class='warning'>The lock seems to be broken</span>"
 			return
 		if(src.allowed(user))
 			if(active)
@@ -290,9 +290,9 @@
 				user << "The controls are now [src.locked ? "locked." : "unlocked."]"
 			else
 				src.locked = 0 //just in case it somehow gets locked
-				user << "\red The controls can only be locked when the [src] is online"
+				user << "<span class='warning'>The controls can only be locked when the [src] is online</span>"
 		else
-			user << "\red Access denied."
+			user << "<span class='warning'>Access denied.</span>"
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))

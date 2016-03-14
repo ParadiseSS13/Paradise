@@ -338,14 +338,14 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
-			user << "\blue You salvage whats left of \the [src]"
+			user << "<span class='notice'>You salvage whats left of \the [src]</span>"
 			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
 			M.amount = 3
 			qdel(src)
 		return
 
 	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
-		visible_message("\red [user] hits the [src] with a [W]!")
+		visible_message("<span class='warning'>[user] hits the [src] with a [W]!</span>")
 		src.health -= W.force
 		src.add_fingerprint(user)
 		healthcheck()
@@ -478,7 +478,7 @@ update_flag
 				else
 					name = "canister"
 			else
-				usr << "\red As you attempted to rename it the pressure rose!"
+				usr << "<span class='warning'>As you attempted to rename it the pressure rose!</span>"
 
 	if (href_list["choice"] == "Primary color")
 		if (is_a_color(href_list["icon"],"prim"))

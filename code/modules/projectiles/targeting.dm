@@ -12,7 +12,7 @@
 	set category = "Object"
 	if(target)
 		stop_aim()
-		usr.visible_message("\blue \The [usr] lowers \the [src]...")
+		usr.visible_message("<span class='notice'>\The [usr] lowers \the [src]...</span>")
 
 //Clicking gun will still lower aim for guns that don't overwrite this
 /obj/item/weapon/gun/attack_self()
@@ -64,9 +64,9 @@
 				if(L)
 					L.NotTargeted(src)
 			qdel(target)
-			usr.visible_message("\red <b>[usr] turns \the [src] on [M]!</b>")
+			usr.visible_message("<span class='warning'><b>[usr] turns \the [src] on [M]!</b></span>")
 		else
-			usr.visible_message("\red <b>[usr] aims \a [src] at [M]!</b>")
+			usr.visible_message("<span class='warning'><b>[usr] aims \a [src] at [M]!</b></span>")
 		M.Targeted(src)
 
 //HE MOVED, SHOOT HIM!
@@ -84,7 +84,7 @@
 			if(firing_check == 1)
 				Fire(T,usr, reflex = 1)
 		else if(!told_cant_shoot)
-			M << "\red They can't be hit from here!"
+			M << "<span class='warning'>They can't be hit from here!</span>"
 			told_cant_shoot = 1
 			spawn(30)
 				told_cant_shoot = 0
@@ -186,7 +186,7 @@ mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 			I.lower_aim()
 			return
 		/*if(m_intent == "run" && T.client.target_can_move == 1 && T.client.target_can_run == 0 && (ishuman(T)))
-			src << "\red Your move intent is now set to walk, as your targeter permits it."  //Self explanitory.
+			src << "<span class='warning'>Your move intent is now set to walk, as your targeter permits it.</span>"  //Self explanitory.
 			set_m_intent("walk")*/
 
 		//Processing the aiming. Should be probably in separate object with process() but lasy.
@@ -303,10 +303,10 @@ client/verb/ToggleGunMode()
 				if(target_can_move)
 					M << "Your character may now <b>walk</b> at the discretion of their targeter."
 					if(!target_can_run && (ishuman(M)))
-						M << "\red Your move intent is now set to walk, as your targeter permits it."
+						M << "<span class='warning'>Your move intent is now set to walk, as your targeter permits it.</span>"
 						M.set_m_intent("walk")
 				else
-					M << "\red <b>Your character will now be shot if they move.</b>"
+					M << "<span class='warning'><b>Your character will now be shot if they move.</b></span>"
 
 mob/living/proc/set_m_intent(var/intent)
 	if (intent != "walk" && intent != "run")
@@ -339,7 +339,7 @@ client/verb/AllowTargetRun()
 				if(target_can_run)
 					M << "Your character may now <b>run</b> at the discretion of their targeter."
 				else
-					M << "\red <b>Your character will now be shot if they run.</b>"*/
+					M << "<span class='warning'><b>Your character will now be shot if they run.</b></span>"*/
 
 client/verb/AllowTargetClick()
 	set hidden=1
@@ -363,4 +363,4 @@ client/verb/AllowTargetClick()
 				if(target_can_click)
 					M << "Your character may now <b>use items</b> at the discretion of their targeter."
 				else
-					M << "\red <b>Your character will now be shot if they use items.</b>"
+					M << "<span class='warning'><b>Your character will now be shot if they use items.</b></span>"

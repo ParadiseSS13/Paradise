@@ -36,7 +36,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	set name = "Check Urge"
 	set src in usr
 	if (src.urge)
-		owner << "\red \b You feel the urge to [src.urge]"
+		owner << "<span class='warning'>\b You feel the urge to [src.urge]</span>"
 	else
 		owner << "\b You feel no supernatural compulsions."
 
@@ -49,7 +49,7 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 
 	for(var/mob/spirit/mask/currentMask in spirits)
 		if (currentMask.is_active())
-			owner << "\red \b You feel the reassuring presence of your god."
+			owner << "<span class='warning'>\b You feel the reassuring presence of your god.</span>"
 			currentMask << "<span class='cultspeech'><span class='name'><a href='byond://?src=\ref[currentMask];track2=\ref[currentMask];track=\ref[usr]'>[get_display_name()]</a></span><span class='message'> has reached out to you.</span></span>"
 			return
 	owner << "\b You feel a chilling absence."
@@ -63,11 +63,11 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 	set src in usr
 	switch(favor)
 		if(FAVOR_PLEASED)
-			owner << "\red \b You bask in your gods favor."
+			owner << "<span class='warning'>\b You bask in your gods favor.</span>"
 		if(FAVOR_INDIFFERENT)
-			owner << "\red \b You feel nothing."
+			owner << "<span class='warning'>\b You feel nothing.</span>"
 		if(FAVOR_DISPLEASED)
-			owner << "\red \b You cringe at your gods displeasure."
+			owner << "<span class='warning'>\b You cringe at your gods displeasure.</span>"
 
 
 /obj/cult_viewpoint/verb/pray_to_mask()
@@ -120,10 +120,10 @@ var/obj/cult_viewpoint/list/cult_viewpoints = list()
 		return FALSE
 	if (newName)
 		cult_name = newName
-		owner << "\red \b You have been blessed with the secret name of '[newName]'."
+		owner << "<span class='warning'>\b You have been blessed with the secret name of '[newName]'.</span>"
 	else
 		cult_name = null
-		owner << "\red \b Your god has taken your secret name."
+		owner << "<span class='warning'>\b Your god has taken your secret name.</span>"
 
 
 /obj/cult_viewpoint/proc/get_display_name()

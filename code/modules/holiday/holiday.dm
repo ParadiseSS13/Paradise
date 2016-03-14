@@ -354,5 +354,5 @@
 	//update our hub status
 	world.update_status()
 
-	message_admins("\blue ADMIN: Event: [key_name(src)] force-set Holiday to \"[H]\"")
+	message_admins("<span class='notice'>ADMIN: Event: [key_name(src)] force-set Holiday to \"[H]\"</span>")
 	log_admin("[key_name(src)] force-set Holiday to \"[H]\"")

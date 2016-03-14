@@ -160,9 +160,9 @@
 			src.chest = W
 			src.updateicon()
 		else if(!W:wires)
-			user << "\blue You need to attach wires to it first!"
+			user << "<span class='notice'>You need to attach wires to it first!</span>"
 		else
-			user << "\blue You need to attach a cell to it first!"
+			user << "<span class='notice'>You need to attach a cell to it first!</span>"
 
 	if(istype(W, /obj/item/robot_parts/head))
 		if(src.head)	return
@@ -172,7 +172,7 @@
 			src.head = W
 			src.updateicon()
 		else
-			user << "\blue You need to attach a flash to it first!"
+			user << "<span class='notice'>You need to attach a flash to it first!</span>"
 
 	if (istype(W, /obj/item/device/multitool))
 		if(check_completion())
@@ -184,10 +184,10 @@
 		var/obj/item/device/mmi/M = W
 		if(check_completion())
 			if(!istype(loc,/turf))
-				user << "\red You can't put \the [W] in, the frame has to be standing on the ground to be perfectly precise."
+				user << "<span class='warning'>You can't put \the [W] in, the frame has to be standing on the ground to be perfectly precise.</span>"
 				return
 			if(!M.brainmob)
-				user << "\red Sticking an empty [W] into the frame would sort of defeat the purpose."
+				user << "<span class='warning'>Sticking an empty [W] into the frame would sort of defeat the purpose.</span>"
 				return
 
 			if(!M.brainmob.key)
@@ -206,15 +206,15 @@
 					return
 
 			if(M.brainmob.stat == DEAD)
-				user << "\red Sticking a dead [W] into the frame would sort of defeat the purpose."
+				user << "<span class='warning'>Sticking a dead [W] into the frame would sort of defeat the purpose.</span>"
 				return
 
 			if(M.brainmob.mind in ticker.mode.head_revolutionaries)
-				user << "\red The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [W]."
+				user << "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [W].</span>"
 				return
 
 			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
-				user << "\red This [W] does not seem to fit."
+				user << "<span class='warning'>This [W] does not seem to fit.</span>"
 				return
 
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1)
@@ -340,45 +340,45 @@
 	..()
 	if(istype(W, /obj/item/weapon/stock_parts/cell))
 		if(src.cell)
-			user << "\blue You have already inserted a cell!"
+			user << "<span class='notice'>You have already inserted a cell!</span>"
 			return
 		else
 			user.drop_item()
 			W.loc = src
 			src.cell = W
-			user << "\blue You insert the cell!"
+			user << "<span class='notice'>You insert the cell!</span>"
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(src.wires)
-			user << "\blue You have already inserted wire!"
+			user << "<span class='notice'>You have already inserted wire!</span>"
 			return
 		else
 			var/obj/item/stack/cable_coil/coil = W
 			coil.use(1)
 			src.wires = 1.0
-			user << "\blue You insert the wire!"
+			user << "<span class='notice'>You insert the wire!</span>"
 	return
 
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/device/flash))
 		if(istype(user,/mob/living/silicon/robot))
-			user << "\red How do you propose to do that?"
+			user << "<span class='warning'>How do you propose to do that?</span>"
 			return
 		else if(src.flash1 && src.flash2)
-			user << "\blue You have already inserted the eyes!"
+			user << "<span class='notice'>You have already inserted the eyes!</span>"
 			return
 		else if(src.flash1)
 			user.drop_item()
 			W.loc = src
 			src.flash2 = W
-			user << "\blue You insert the flash into the eye socket!"
+			user << "<span class='notice'>You insert the flash into the eye socket!</span>"
 		else
 			user.drop_item()
 			W.loc = src
 			src.flash1 = W
-			user << "\blue You insert the flash into the eye socket!"
+			user << "<span class='notice'>You insert the flash into the eye socket!</span>"
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
-		user << "\blue You install some manipulators and modify the head, creating a functional spider-bot!"
+		user << "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>"
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
 		user.drop_item()
 		qdel(W)
@@ -389,9 +389,9 @@
 /obj/item/robot_parts/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W,/obj/item/weapon/card/emag))
 		if(sabotaged)
-			user << "\red [src] is already sabotaged!"
+			user << "<span class='warning'>[src] is already sabotaged!</span>"
 		else
-			user << "\red You slide [W] into the dataport on [src] and short out the safeties."
+			user << "<span class='warning'>You slide [W] into the dataport on [src] and short out the safeties.</span>"
 			sabotaged = 1
 		return
 	..()

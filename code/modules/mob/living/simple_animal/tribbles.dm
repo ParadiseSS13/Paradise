@@ -196,10 +196,10 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	if (src.destroyed)
 		return
 	else
-		usr << text("\blue You kick the lab cage.")
+		usr << text("<span class='notice'>You kick the lab cage.</span>")
 		for(var/mob/O in oviewers())
 			if ((O.client && !( O.blinded )))
-				O << text("\red [] kicks the lab cage.", usr)
+				O << text("<span class='warning'>[] kicks the lab cage.</span>", usr)
 		src.health -= 2
 		healthcheck()
 		return

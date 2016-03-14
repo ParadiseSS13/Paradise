@@ -13,7 +13,7 @@
 		if(istype(I, /obj/item/clothing/head/helmet/space/rig)) // If the item to be equipped is a rigid suit helmet
 			var/obj/item/clothing/head/helmet/space/rig/C = I
 			if(C.rig_restrict_helmet)
-				src << "\red You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)" // Stop eva helms equipping.
+				src << "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>" // Stop eva helms equipping.
 				return 0
 
 		if(H.equip_to_appropriate_slot(I))
@@ -34,7 +34,7 @@
 				if(istype(S, /obj/item/weapon/storage) && S.can_be_inserted(I,1))
 					S.handle_item_insertion(I)
 				else
-					H << "\red You are unable to equip that."
+					H << "<span class='warning'>You are unable to equip that.</span>"
 
 
 /mob/living/carbon/human/proc/equip_in_one_of_slots(obj/item/W, list/slots, del_on_fail = 1)

@@ -29,7 +29,7 @@
 //Override this to avoid a runtime with suicide handling.
 /obj/item/weapon/gun/launcher/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
 	if (M == user && user.zone_sel.selecting == "mouth")
-		user << "\red Shooting yourself with \a [src] is pretty tricky. You can't seem to manage it."
+		user << "<span class='warning'>Shooting yourself with \a [src] is pretty tricky. You can't seem to manage it.</span>"
 		return
 	..()
 
@@ -39,7 +39,7 @@
 /obj/item/weapon/gun/launcher/Fire(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, params, reflex = 0)
 
 	if (!user.IsAdvancedToolUser())
-		user << "\red You don't have the dexterity to do this!"
+		user << "<span class='warning'>You don't have the dexterity to do this!</span>"
 		return 0
 
 	add_fingerprint(user)

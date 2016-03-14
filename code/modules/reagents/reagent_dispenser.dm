@@ -26,12 +26,12 @@
 /obj/structure/reagent_dispensers/examine(mob/user)
 	if(!..(user, 2))
 		return
-	user << "\blue It contains:"
+	user << "<span class='notice'>It contains:</span>"
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
-			user << "\blue [R.volume] units of [R.name]"
+			user << "<span class='notice'>[R.volume] units of [R.name]</span>"
 	else
-		user << "\blue Nothing."
+		user << "<span class='notice'>Nothing.</span>"
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -129,7 +129,7 @@
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if (istype(W,/obj/item/device/assembly_holder) && accepts_rig)
 		if (rig)
-			user << "\red There is another device in the way."
+			user << "<span class='warning'>There is another device in the way.</span>"
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20, target = src))

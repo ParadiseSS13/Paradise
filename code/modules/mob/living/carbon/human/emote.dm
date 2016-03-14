@@ -708,10 +708,10 @@
 							M = A
 							break
 				if (M)
-					message = "\red <B>[src]</B> slaps [M] across the face. Ouch!"
+					message = "<span class='warning'><B>[src]</B> slaps [M] across the face. Ouch!</span>"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 				else
-					message = "\red <B>[src]</B> slaps \himself!"
+					message = "<span class='warning'><B>[src]</B> slaps \himself!</span>"
 					playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
 					src.adjustFireLoss(4)
 
@@ -814,7 +814,7 @@
 			src << emotelist
 
 		else
-			src << "\blue Unusable emote '[act]'. Say *help for a list."
+			src << "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>"
 
 
 

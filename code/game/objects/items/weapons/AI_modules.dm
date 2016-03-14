@@ -366,7 +366,7 @@ AI MODULES
 	log_law_changes(target, sender)
 
 	lawchanges.Add("The law is '[newFreeFormLaw]'")
-	target << "\red BZZZZT"
+	target << "<span class='warning'>BZZZZT</span>"
 	var/law = "[newFreeFormLaw]"
 	target.add_ion_law(law)
 	target.show_laws()

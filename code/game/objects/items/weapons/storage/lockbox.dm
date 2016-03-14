@@ -20,34 +20,34 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 		if (istype(W, /obj/item/weapon/card/id))
 			if(src.broken)
-				user << "\red It appears to be broken."
+				user << "<span class='warning'>It appears to be broken.</span>"
 				return
 			if(src.allowed(user))
 				src.locked = !( src.locked )
 				if(src.locked)
 					src.icon_state = src.icon_locked
-					user << "\red You lock the [src.name]!"
+					user << "<span class='warning'>You lock the [src.name]!</span>"
 					return
 				else
 					src.icon_state = src.icon_closed
-					user << "\red You unlock the [src.name]!"
+					user << "<span class='warning'>You unlock the [src.name]!</span>"
 					origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 					return
 			else
-				user << "\red Access Denied"
+				user << "<span class='warning'>Access Denied</span>"
 		else if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
 			emag_act(user)
 			return
 		if(!locked)
 			..()
 		else
-			user << "\red Its locked!"
+			user << "<span class='warning'>Its locked!</span>"
 		return
 
 
 	show_to(mob/user as mob)
 		if(locked)
-			user << "\red Its locked!"
+			user << "<span class='warning'>Its locked!</span>"
 		else
 			..()
 		return

@@ -279,11 +279,11 @@
 		r.client.screen += r.throw_icon	//"store" icon
 
 		if(!r.module)
-			usr << "\red No module selected"
+			usr << "<span class='warning'>No module selected</span>"
 			return
 
 		if(!r.module.modules)
-			usr << "\red Selected module has no modules to select"
+			usr << "<span class='warning'>Selected module has no modules to select</span>"
 			return
 
 		if(!r.robot_modules_background)

@@ -76,7 +76,7 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 
 
 	if(beingharvested)
-		user << ("\red You can only harvest the pod once!")
+		user << ("<span class='warning'>You can only harvest the pod once!</span>")
 	else
 		user.visible_message("\blue [user] carefully begins to open the pod...","\blue You carefully begin to open the pod...")
 		beingharvested = 1
@@ -132,5 +132,5 @@ Growing it to term with nothing injected will grab a ghost from the observers. *
 	else
 		new /mob/living/carbon/monkey/diona(parent.loc)
 
-	parent.visible_message("\blue The pod disgorges a fully-formed plant creature!")
+	parent.visible_message("<span class='notice'>The pod disgorges a fully-formed plant creature!</span>")
 	parent.update_tray()

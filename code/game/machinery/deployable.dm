@@ -65,11 +65,11 @@ for reference:
 /obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob, params)
 	if (istype(W, stacktype))
 		if (src.health < src.maxhealth)
-			visible_message("\red [user] begins to repair the [src]!")
+			visible_message("<span class='warning'>[user] begins to repair the [src]!</span>")
 			if(do_after(user,20, target = src))
 				src.health = src.maxhealth
 				W:use(1)
-				visible_message("\red [user] repairs the [src]!")
+				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 				return
 		else
 			return
@@ -111,7 +111,7 @@ for reference:
 /obj/structure/barricade/blob_act()
 	src.health -= 25
 	if (src.health <= 0)
-		visible_message("\red <B>The blob eats through \the [src]!</B>")
+		visible_message("<span class='warning'><B>The blob eats through \the [src]!</B></span>")
 		qdel(src)
 	return
 
@@ -185,7 +185,7 @@ for reference:
 					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 					s.set_up(2, 1, src)
 					s.start()
-					visible_message("\red BZZzZZzZZzZT")
+					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 					return
 			return
 		else if (istype(W, /obj/item/weapon/wrench))
@@ -193,12 +193,12 @@ for reference:
 				src.health = src.maxhealth
 				src.emagged = 0
 				src.req_access = list(access_security)
-				visible_message("\red [user] repairs the [src]!")
+				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 				return
 			else if (src.emagged > 0)
 				src.emagged = 0
 				src.req_access = list(access_security)
-				visible_message("\red [user] repairs the [src]!")
+				visible_message("<span class='warning'>[user] repairs the [src]!</span>")
 				return
 			return
 		else
@@ -220,14 +220,14 @@ for reference:
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
-			visible_message("\red BZZzZZzZZzZT")
+			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 		else if (src.emagged == 1)
 			src.emagged = 2
 			user << "You short out the anchoring mechanism on the [src]."
 			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
-			visible_message("\red BZZzZZzZZzZT")
+			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 
 	ex_act(severity)
 		switch(severity)
@@ -263,7 +263,7 @@ for reference:
 
 	proc/explode()
 
-		visible_message("\red <B>[src] blows apart!</B>")
+		visible_message("<span class='warning'><B>[src] blows apart!</B></span>")
 		var/turf/Tsec = get_turf(src)
 
 	/*	var/obj/item/stack/rods/ =*/

@@ -157,10 +157,10 @@
 /obj/item/weapon/cloaking_device/attack_self(mob/user as mob)
 	src.active = !( src.active )
 	if (src.active)
-		user << "\blue The cloaking device is now active."
+		user << "<span class='notice'>The cloaking device is now active.</span>"
 		src.icon_state = "shield1"
 	else
-		user << "\blue The cloaking device is now inactive."
+		user << "<span class='notice'>The cloaking device is now inactive.</span>"
 		src.icon_state = "shield0"
 	src.add_fingerprint(user)
 	return

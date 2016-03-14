@@ -83,9 +83,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						user << "\red Your flesh rapidly mutates!"
+						user << "<span class='warning'>Your flesh rapidly mutates!</span>"
 						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "<span class='warning'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>"
 						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -96,9 +96,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						user << "\red Your flesh rapidly mutates!"
+						user << "<span class='warning'>Your flesh rapidly mutates!</span>"
 						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "<span class='warning'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>"
 						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -109,9 +109,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						user << "\red Your flesh rapidly mutates!"
+						user << "<span class='warning'>Your flesh rapidly mutates!</span>"
 						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "<span class='warning'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>"
 						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.set_species("Shadow")
 				user.regenerate_icons()
@@ -131,9 +131,9 @@
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(human.species.name != "Shadow")
-						user << "\red Your flesh rapidly mutates!"
+						user << "<span class='warning'>Your flesh rapidly mutates!</span>"
 						user << "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>"
-						user << "\red Your body reacts violently to light. \green However, it naturally heals in darkness."
+						user << "<span class='warning'>Your body reacts violently to light. \green However, it naturally heals in darkness.</span>"
 						user << "Aside from your new traits, you are mentally unchanged and retain your prior obligations."
 						human.set_species("Shadow")
 				user.regenerate_icons()

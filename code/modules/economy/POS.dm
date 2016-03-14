@@ -403,7 +403,7 @@ var/const/POS_HEADER = {"<html>
 		src.attack_hand(usr)
 		return
 	if(usr != logged_in)
-		usr << "\red [logged_in.name] is already logged in.  You cannot use this machine until they log out."
+		usr << "<span class='warning'>[logged_in.name] is already logged in.  You cannot use this machine until they log out.</span>"
 		return
 	if("act" in href_list)
 		switch(href_list["act"])
@@ -431,7 +431,7 @@ var/const/POS_HEADER = {"<html>
 				for(var/list/line in text2list(href_list["csv"],"\n"))
 					var/list/cells = text2list(line,",")
 					if(cells.len<2)
-						usr << "\red The CSV must have at least two columns: Product Name, followed by Price (as a number)."
+						usr << "<span class='warning'>The CSV must have at least two columns: Product Name, followed by Price (as a number).</span>"
 						src.attack_hand(usr)
 						return
 					var/line_item/LI = new
@@ -445,7 +445,7 @@ var/const/POS_HEADER = {"<html>
 			if("Save Settings")
 				var/datum/money_account/new_linked_account = get_money_account(text2num(href_list["payableto"]),z)
 				if(!new_linked_account)
-					usr << "\red Unable to link new account."
+					usr << "<span class='warning'>Unable to link new account.</span>"
 				else
 					linked_account = new_linked_account
 				screen=POS_SCREEN_SETTINGS

@@ -165,11 +165,11 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	return objs
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
-	raider.current << "\blue <B>You are a Vox Raider, fresh from the Shoal!</b>"
-	raider.current << "\blue The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both."
-	raider.current << "\blue Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious."
-	raider.current << "\blue Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!"
-	raider.current << "\blue Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them."
+	raider.current << "<span class='notice'><B>You are a Vox Raider, fresh from the Shoal!</b></span>"
+	raider.current << "<span class='notice'>The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.</span>"
+	raider.current << "<span class='notice'>Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.</span>"
+	raider.current << "<span class='notice'>Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!</span>"
+	raider.current << "<span class='notice'>Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.</span>"
 	spawn(25)
 		show_objectives(raider)
 
@@ -223,7 +223,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 		else
 			win_msg += "<B>The Vox Raiders were repelled!</B>"
 
-	world << "\red <FONT size = 3><B>[win_type] [win_group] victory!</B></FONT>"
+	world << "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>"
 	world << "[win_msg]"
 	feedback_set_details("round_end_result","heist - [win_type] [win_group]")
 

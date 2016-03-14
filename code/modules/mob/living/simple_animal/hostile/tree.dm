@@ -52,6 +52,6 @@
 
 /mob/living/simple_animal/hostile/tree/death()
 	..()
-	visible_message("\red <b>[src]</b> is hacked into pieces!")
+	visible_message("<span class='warning'><b>[src]</b> is hacked into pieces!</span>")
 	new /obj/item/stack/sheet/wood(loc)
 	qdel(src)

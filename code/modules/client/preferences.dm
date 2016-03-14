@@ -668,7 +668,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return
 
 	if (!isnum(desiredLvl))
-		user << "\red UpdateJobPreference - desired level was not a number. Please notify coders!"
+		user << "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>"
 		ShowChoices(user)
 		return
 

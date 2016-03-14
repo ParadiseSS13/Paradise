@@ -1082,14 +1082,14 @@ steam.start() -- spawns the effect
 
 	attack_hand(var/mob/user)
 		if ((HULK in user.mutations) || (prob(75 - metal*25)))
-			user << "\blue You smash through the metal foam wall."
+			user << "<span class='notice'>You smash through the metal foam wall.</span>"
 			for(var/mob/O in oviewers(user))
 				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
+					O << "<span class='warning'>[user] smashes through the foamed metal.</span>"
 
 			qdel(src)
 		else
-			user << "\blue You hit the metal foam but bounce off it."
+			user << "<span class='notice'>You hit the metal foam but bounce off it.</span>"
 		return
 
 
@@ -1100,19 +1100,19 @@ steam.start() -- spawns the effect
 			G.affecting.loc = src.loc
 			for(var/mob/O in viewers(src))
 				if (O.client)
-					O << "\red [G.assailant] smashes [G.affecting] through the foamed metal wall."
+					O << "<span class='warning'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>"
 			qdel(I)
 			qdel(src)
 			return
 
 		if(prob(I.force*20 - metal*25))
-			user << "\blue You smash through the foamed metal with \the [I]."
+			user << "<span class='notice'>You smash through the foamed metal with \the [I].</span>"
 			for(var/mob/O in oviewers(user))
 				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
+					O << "<span class='warning'>[user] smashes through the foamed metal.</span>"
 			qdel(src)
 		else
-			user << "\blue You hit the metal foam to no effect."
+			user << "<span class='notice'>You hit the metal foam to no effect.</span>"
 
 	CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 		if(air_group) return 0
@@ -1145,10 +1145,10 @@ steam.start() -- spawns the effect
 			s.start()
 
 			for(var/mob/M in viewers(5, location))
-				M << "\red The solution violently explodes."
+				M << "<span class='warning'>The solution violently explodes.</span>"
 			for(var/mob/M in viewers(1, location))
 				if (prob (50 * amount))
-					M << "\red The explosion knocks you down."
+					M << "<span class='warning'>The explosion knocks you down.</span>"
 					M.Weaken(rand(1,5))
 			return
 		else
@@ -1171,7 +1171,7 @@ steam.start() -- spawns the effect
 				flash += (round(amount/4) * flashing_factor)
 
 			for(var/mob/M in viewers(8, location))
-				M << "\red The solution violently explodes."
+				M << "<span class='warning'>The solution violently explodes.</span>"
 
 			explosion(location, devastation, heavy, light, flash)
 

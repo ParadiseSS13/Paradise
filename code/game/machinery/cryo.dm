@@ -97,13 +97,13 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "\blue <B>The cryo cell is already occupied!</B>"
+		user << "<span class='notice'><B>The cryo cell is already occupied!</B></span>"
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		user << "\red <B>Subject cannot have abiotic items on.</B>"
+		user << "<span class='warning'><B>Subject cannot have abiotic items on.</B></span>"
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
@@ -161,7 +161,7 @@
 		return
 
 	if(panel_open)
-		usr << "\blue <b>Close the maintenance panel first.</b>"
+		usr << "<span class='notice'><b>Close the maintenance panel first.</b></span>"
 		return
 
 	ui_interact(user)
@@ -273,7 +273,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "\red A beaker is already loaded into the machine."
+			user << "<span class='warning'>A beaker is already loaded into the machine.</span>"
 			return
 		if(!user.drop_item())
 			user << "The [G] is stuck to you!"
@@ -297,7 +297,7 @@
 
 	if(istype(G, /obj/item/weapon/grab))
 		if(panel_open)
-			user << "\blue <b>Close the maintenance panel first.</b>"
+			user << "<span class='notice'><b>Close the maintenance panel first.</b></span>"
 			return
 		if(!ismob(G:affecting))
 			return
@@ -424,16 +424,16 @@
 	return
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if (!istype(M))
-		usr << "\red <B>The cryo cell cannot handle such a lifeform!</B>"
+		usr << "<span class='warning'><B>The cryo cell cannot handle such a lifeform!</B></span>"
 		return
 	if (occupant)
-		usr << "\red <B>The cryo cell is already occupied!</B>"
+		usr << "<span class='warning'><B>The cryo cell is already occupied!</B></span>"
 		return
 	if (M.abiotic())
-		usr << "\red Subject may not have abiotic items on."
+		usr << "<span class='warning'>Subject may not have abiotic items on.</span>"
 		return
 	if(!node)
-		usr << "\red The cell is not correctly connected to its pipe network!"
+		usr << "<span class='warning'>The cell is not correctly connected to its pipe network!</span>"
 		return
 	if (M.client)
 		M.client.perspective = EYE_PERSPECTIVE
@@ -441,7 +441,7 @@
 	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
+		M << "<span class='notice'><b>You feel a cold liquid surround you. Your skin starts to freeze up.</b></span>"
 	occupant = M
 //	M.metabslow = 1
 	add_fingerprint(usr)
@@ -456,7 +456,7 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if (usr.stat == 2)//and he's not dead....
 			return
-		usr << "\blue Release sequence activated. This will take two minutes."
+		usr << "<span class='notice'>Release sequence activated. This will take two minutes.</span>"
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return

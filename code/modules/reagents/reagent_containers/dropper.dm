@@ -17,11 +17,11 @@
 		if(filled)
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				user << "\red [target] is full."
+				user << "<span class='warning'>[target] is full.</span>"
 				return
 
 			if(!target.is_open_container() && !ismob(target) && !istype(target,/obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/clothing/mask/cigarette)) //You can inject humans and food but you cant remove the shit.
-				user << "\red You cannot directly fill this object."
+				user << "<span class='warning'>You cannot directly fill this object.</span>"
 				return
 
 			var/trans = 0
@@ -47,13 +47,13 @@
 						trans = src.reagents.trans_to(safe_thing, amount_per_transfer_from_this)
 
 						for(var/mob/O in viewers(world.view, user))
-							O.show_message(text("\red <B>[] tries to squirt something into []'s eyes, but fails!</B>", user, target), 1)
+							O.show_message(text("<span class='warning'><B>[] tries to squirt something into []'s eyes, but fails!</B></span>", user, target), 1)
 						spawn(5)
 							src.reagents.reaction(safe_thing, TOUCH)
 
 
 
-						user << "\blue You transfer [trans] units of the solution."
+						user << "<span class='notice'>You transfer [trans] units of the solution.</span>"
 						if (src.reagents.total_volume<=0)
 							filled = 0
 							icon_state = "[initial(icon_state)]"
@@ -61,7 +61,7 @@
 
 
 				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("\red <B>[] squirts something into []'s eyes!</B>", user, target), 1)
+					O.show_message(text("<span class='warning'><B>[] squirts something into []'s eyes!</B></span>", user, target), 1)
 				src.reagents.reaction(target, TOUCH)
 
 				var/mob/living/M = target
@@ -92,7 +92,7 @@
 						log_game("[key_name(user)] added [reagents.get_reagent_ids(1)] to \a [target] with [src].")
 
 			trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-			user << "\blue You transfer [trans] units of the solution."
+			user << "<span class='notice'>You transfer [trans] units of the solution.</span>"
 			if (src.reagents.total_volume<=0)
 				filled = 0
 				icon_state = "[initial(icon_state)]"
@@ -100,16 +100,16 @@
 		else
 
 			if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
-				user << "\red You cannot directly remove reagents from [target]."
+				user << "<span class='warning'>You cannot directly remove reagents from [target].</span>"
 				return
 
 			if(!target.reagents.total_volume)
-				user << "\red [target] is empty."
+				user << "<span class='warning'>[target] is empty.</span>"
 				return
 
 			var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-			user << "\blue You fill the [src] with [trans] units of the solution."
+			user << "<span class='notice'>You fill the [src] with [trans] units of the solution.</span>"
 
 			filled = 1
 			icon_state = "[initial(icon_state)][filled]"

@@ -63,7 +63,7 @@
 	establish_db_connection()
 
 	if(!dbcon.IsConnected())
-		usr << "\red Failed to establish database connection"
+		usr << "<span class='warning'>Failed to establish database connection</span>"
 		return
 
 	if(!adm_ckey || !new_rank)
@@ -91,14 +91,14 @@
 		insert_query.Execute()
 		var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.[format_table_name("admin_log")] (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Added new admin [adm_ckey] to rank [new_rank]');")
 		log_query.Execute()
-		usr << "\blue New admin added."
+		usr << "<span class='notice'>New admin added.</span>"
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
 			var/DBQuery/insert_query = dbcon.NewQuery("UPDATE [format_table_name("admin")] SET rank = '[new_rank]' WHERE id = [admin_id]")
 			insert_query.Execute()
 			var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.[format_table_name("admin_log")] (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Edited the rank of [adm_ckey] to [new_rank]');")
 			log_query.Execute()
-			usr << "\blue Admin rank changed."
+			usr << "<span class='notice'>Admin rank changed.</span>"
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
 	if(config.admin_legacy_system)	
@@ -112,7 +112,7 @@
 
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		usr << "\red Failed to establish database connection"
+		usr << "<span class='warning'>Failed to establish database connection</span>"
 		return
 
 	if(!adm_ckey || !new_permission)
@@ -146,13 +146,13 @@
 		insert_query.Execute()
 		var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.[format_table_name("admin_log")] (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Removed permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]');")
 		log_query.Execute()
-		usr << "\blue Permission removed."
+		usr << "<span class='notice'>Permission removed.</span>"
 	else //This admin doesn't have this permission, so we are adding it.
 		var/DBQuery/insert_query = dbcon.NewQuery("UPDATE [format_table_name("admin")] SET flags = '[admin_rights | new_permission]' WHERE id = [admin_id]")
 		insert_query.Execute()
 		var/DBQuery/log_query = dbcon.NewQuery("INSERT INTO `test`.[format_table_name("admin_log")] (`id` ,`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (NULL , NOW( ) , '[usr.ckey]', '[usr.client.address]', 'Added permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]')")
 		log_query.Execute()
-		usr << "\blue Permission added."
+		usr << "<span class='notice'>Permission added.</span>"
 		
 /datum/admins/proc/updateranktodb(ckey,newrank)
 	establish_db_connection()

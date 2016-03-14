@@ -14,7 +14,7 @@
 
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("\red Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!"), 1)
+				O.show_message(text("<span class='warning'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>"), 1)
 			var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
 			S.loc = get_turf(holder.my_atom)
 
@@ -102,7 +102,7 @@
 					for(var/j = 1, j <= rand(1, 3), j++)
 						step(C, pick(NORTH,SOUTH,EAST,WEST))
 //				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-//					O.show_message(text("\red The slime core fizzles disappointingly,"), 1)
+//					O.show_message(text("<span class='warning'>The slime core fizzles disappointingly,</span>"), 1)
 
 
 	slimecritlesser
@@ -216,13 +216,13 @@
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
+				O.show_message(text("<span class='warning'>The slime extract begins to vibrate violently !</span>"), 1)
 			spawn(50)
 				if(holder && holder.my_atom)
 					playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 					for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
 						M.bodytemperature -= 140
-						M << "\blue You feel a chill!"
+						M << "<span class='notice'>You feel a chill!</span>"
 
 
 	slimefireproof
@@ -260,7 +260,7 @@
 		on_reaction(var/datum/reagents/holder)
 			feedback_add_details("slime_cores_used","[replacetext(name," ","_")]")
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
+				O.show_message(text("<span class='warning'>The slime extract begins to vibrate violently !</span>"), 1)
 			spawn(50)
 				if(holder && holder.my_atom)
 					var/turf/simulated/T = get_turf(holder.my_atom)
@@ -302,7 +302,7 @@
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("\red The contents of the slime core harden and begin to emit a warm, bright light."), 1)
+				O.show_message(text("<span class='warning'>The contents of the slime core harden and begin to emit a warm, bright light.</span>"), 1)
 			var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
 			F.loc = get_turf(holder.my_atom)
 
@@ -369,7 +369,7 @@
 			for(var/mob/living/carbon/slime/slime in viewers(get_turf(holder.my_atom), null))
 				slime.rabid = 1
 				for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-					O.show_message(text("\red The [slime] is driven into a frenzy!."), 1)
+					O.show_message(text("<span class='warning'>The [slime] is driven into a frenzy!.</span>"), 1)
 
 
 	slimespeed
@@ -421,7 +421,7 @@
 		required_other = 1
 		on_reaction(var/datum/reagents/holder)
 			for(var/mob/O in viewers(get_turf(holder.my_atom), null))
-				O.show_message(text("\red The slime extract begins to vibrate violently !"), 1)
+				O.show_message(text("<span class='warning'>The slime extract begins to vibrate violently !</span>"), 1)
 			spawn(50)
 				if(holder && holder.my_atom)
 					explosion(get_turf(holder.my_atom), 1 ,3, 6)

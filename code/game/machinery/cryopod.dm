@@ -524,7 +524,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		user << "\blue <B>The cryo pod is already occupied!</B>"
+		user << "<span class='notice'><B>The cryo pod is already occupied!</B></span>"
 		return
 
 

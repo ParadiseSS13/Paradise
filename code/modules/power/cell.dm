@@ -62,7 +62,7 @@
 		else
 			user << "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
 	if(crit_fail)
-		user << "\red This power cell seems to be faulty."
+		user << "<span class='warning'>This power cell seems to be faulty.</span>"
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)

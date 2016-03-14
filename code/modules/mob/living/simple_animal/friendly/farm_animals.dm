@@ -44,7 +44,7 @@
 	if(enemies.len && prob(10))
 		enemies = list()
 		LoseTarget()
-		src.visible_message("\blue [src] calms down.")
+		src.visible_message("<span class='notice'>[src] calms down.</span>")
 
 	if(locate(/obj/effect/plant) in loc)
 		var/obj/effect/plant/SV = locate(/obj/effect/plant) in loc
@@ -60,7 +60,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	src.visible_message("\red [src] gets an evil-looking gleam in their eye.")
+	src.visible_message("<span class='warning'>[src] gets an evil-looking gleam in their eye.</span>")
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	..()
@@ -81,9 +81,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			user << "<span class='warning'>\The [O] is full.</span>"
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			user << "<span class='warning'>The udder is dry. Wait a bit longer...</span>"
 	else
 		..()
 
@@ -125,9 +125,9 @@
 			G.reagents.add_reagent("milk", transfered)
 			milk_content -= transfered
 		else if(G.reagents.total_volume >= G.volume)
-			user << "\red \The [O] is full."
+			user << "<span class='warning'>\The [O] is full.</span>"
 		else
-			user << "\red The udder is dry. Wait a bit longer..."
+			user << "<span class='warning'>The udder is dry. Wait a bit longer...</span>"
 	else
 		..()
 
@@ -247,9 +247,9 @@ var/global/chicken_count = 0
 				eggsleft += rand(1, 4)
 				//world << eggsleft
 			else
-				user << "\blue [name] doesn't seem hungry!"
+				user << "<span class='notice'>[name] doesn't seem hungry!</span>"
 		else
-			user << "\blue [name] doesn't seem interested in [O]!"
+			user << "<span class='notice'>[name] doesn't seem interested in [O]!</span>"
 	else
 		..()
 
