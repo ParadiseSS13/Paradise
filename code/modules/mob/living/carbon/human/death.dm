@@ -14,7 +14,7 @@
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 
 	for(var/obj/item/organ/internal/I in internal_organs)
-		if(istype(loc,/turf))
+		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
 			spawn()

@@ -94,7 +94,7 @@
 
 /mob/living/carbon/gib()
 	for(var/obj/item/organ/internal/I in internal_organs)
-		if(istype(loc,/turf))
+		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
 			spawn()
