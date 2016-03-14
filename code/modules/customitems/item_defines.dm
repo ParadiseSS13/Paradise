@@ -11,8 +11,8 @@
 //////////////////////////////////
 
 /obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
-	name = "dispoable tattoo gun"
-	desc = "A cheap plastic tattoo application gun."
+	name = "dispoable tattoo pen"
+	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
 	force = 0
@@ -20,7 +20,7 @@
 	w_class = 1.0
 	var/used = 0
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
-	var/tattoo_icon = "markings_tiger" // body_accessory.dmi
+	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
@@ -33,6 +33,7 @@
 
 	if(used)
 		user << "<span class= 'notice'>The [src] is out of ink.</span>"
+		return
 
 	if(!istype(M, /mob/living/carbon/human))
 		user << "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>"
@@ -44,7 +45,7 @@
 		user << "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>"
 		return
 
-	if(target.m_style)
+	if(target.m_style != "None")
 		user << "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>"
 		return
 
@@ -63,8 +64,9 @@
 		target.g_markings = tattoo_g
 		target.b_markings = tattoo_b
 
-		target.update_icons()
+		target.update_markings()
 
+		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
 		icon_state = "tatgun_used"
 		used = 1
 
@@ -430,7 +432,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elliot_windbreaker"
 	item_state = "elliot_windbreaker"
-	adjust_flavour = "zip"
+	adjust_flavour = "unzip"
 
 /obj/item/clothing/ears/earring/fluff/industrial_piercing
 	name = "industrial piercing and stud earring"
@@ -439,8 +441,9 @@
 	icon_state = "elliot_earring"
 
 /obj/item/device/fluff/tattoo_gun/cybernetic_tat
+	desc = "A cheap plastic tattoo application pen.<br>This one seems to have light blue ink."
 	tattoo_name = "circuitry tattoo"
-	tattoo_icon = "campbell_tattoo"
+	tattoo_icon = "Elliot Circuit Tattoo"
 	tattoo_r = 100
 	tattoo_g = 150
 	tattoo_b = 255
