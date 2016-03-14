@@ -719,6 +719,8 @@
 	virus_immune = 1
 	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
+	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
