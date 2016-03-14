@@ -10,6 +10,64 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+/obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
+	name = "dispoable tattoo gun"
+	desc = "A cheap plastic tattoo application gun."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "tatgun"
+	force = 0
+	throwforce = 0
+	w_class = 1.0
+	var/used = 0
+	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
+	var/tattoo_icon = "markings_tiger" // body_accessory.dmi
+	var/tattoo_r = 1 // RGB values for the body markings
+	var/tattoo_g = 1
+	var/tattoo_b = 1
+
+/obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+	if(user.a_intent == "harm")
+		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
+		M << "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>"
+		return
+
+	if(used)
+		user << "<span class= 'notice'>The [src] is out of ink.</span>"
+
+	if(!istype(M, /mob/living/carbon/human))
+		user << "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>"
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	if(istype(target.species, /datum/species/machine))
+		user << "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>"
+		return
+
+	if(target.m_style)
+		user << "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>"
+		return
+
+	if(target == user)
+		user << "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>"
+
+	else
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		if(!do_after(user,30, target = M))
+			return
+		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+
+	if(!used) // No exploiting do_after to tattoo multiple folks.
+		target.m_style = tattoo_icon
+		target.r_markings = tattoo_r
+		target.g_markings = tattoo_g
+		target.b_markings = tattoo_b
+
+		target.update_icons()
+
+		icon_state = "tatgun_used"
+		used = 1
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -368,3 +426,32 @@
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
 	icon_state = "chaps"
 	item_color = "combat_pants"
+
+/obj/item/clothing/suit/jacket/fluff/windbreaker // Anxipal: Kido Qasteth
+	name = "nylon windbreaker"
+	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_windbreaker"
+	item_state = "elliot_windbreaker"
+	adjust_flavour = "zip"
+
+/obj/item/clothing/suit/jacket/fluff/windbreaker // DaveTheHeadcrab: Elliot Campbell
+	name = "nylon windbreaker"
+	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_windbreaker"
+	item_state = "elliot_windbreaker"
+	adjust_flavour = "zip"
+
+/obj/item/clothing/ears/earring/fluff/industrial_piercing
+	name = "industrial piercing and stud earring"
+	desc = "A set of ear piercings containing an industrial rod and a small stud. They appear to be made out of some form of non-magnetic metal."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_earring"
+
+/obj/item/device/fluff/tattoo_gun/cybernetic_tat
+	tattoo_name = "circuitry tattoo"
+	tattoo_icon = "campbell_tattoo"
+	tattoo_r = 100
+	tattoo_g = 150
+	tattoo_b = 255
