@@ -1142,6 +1142,6 @@
 		occupant_message("Building Wall...")
 		set_ready_state(0)
 		if(do_after_cooldown(target))
-			new /obj/structure/barricade/mime(target)
+			new /obj/structure/barricade/mime/mrcd(target)
 			chassis.spark_system.start()
 			chassis.use_power(energy_drain*2)
