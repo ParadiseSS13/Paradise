@@ -86,11 +86,11 @@ var/list/organ_cache = list()
 		return
 
 	if(!owner)
-		if(reagents)
-			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
-			if(B && prob(40))
-				reagents.remove_reagent("blood",0.1)
-				blood_splatter(src,B,1)
+		if(reagents && prob(40))
+			reagents.remove_any(0.1)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				R.reaction_turf(get_turf(src), 0.1)
+
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -268,8 +268,8 @@ var/list/organ_cache = list()
 	loc = get_turf(owner)
 	processing_objects |= src
 	var/datum/reagent/blood/organ_blood
-	if(reagents) organ_blood = locate(/datum/reagent/blood) in reagents.reagent_list
-	if(!organ_blood || !organ_blood.data["blood_DNA"])
+	if(reagents) organ_blood = reagents.get_reagent_from_id(owner.get_blood_name())
+	if((!organ_blood || !organ_blood.data["blood_DNA"]) && (owner && !(owner.species.flags & NO_BLOOD)))
 		owner.vessel.trans_to(src, 5, 1, 1)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead

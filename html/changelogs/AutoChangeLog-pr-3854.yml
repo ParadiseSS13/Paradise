@@ -1,0 +1,6 @@
+author: FlattestGuitar
+delete-after: True
+changes: 
+  - rscadd: "Adds three new synthanol drinks"
+  - tweak: "Drinking synthanol is now a bad idea if you're organic"
+  - tweak: "A glass of holy water now looks like normal water"
