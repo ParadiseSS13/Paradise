@@ -53,9 +53,6 @@
 			if (isturf(src.loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
 
-/mob/aiEye/experience_pressure_difference()
-	return 0
-
 // AI MOVEMENT
 
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
