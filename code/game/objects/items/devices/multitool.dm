@@ -46,7 +46,7 @@
 
 	var/found_eye = 0
 
-	for(var/mob/aiEye/A in living_mob_list)
+	for(var/mob/camera/aiEye/A in living_mob_list)
 
 		var/turf/our_turf = get_turf(src)
 		var/turf/eye_turf = get_turf(A)
