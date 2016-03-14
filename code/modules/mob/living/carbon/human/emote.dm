@@ -47,7 +47,9 @@
 
 			if(!found_slime_bodypart)								//Everyone else fails, skip the emote attempt
 				return
-		if("scream", "screams", "fart", "farts", "flip", "flips", "snap", "snaps")
+		if("scream", "screams")
+			on_CD = handle_emote_CD(50) //longer cooldown
+		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		//Everything else, including typos of the above emotes
 		else
@@ -76,7 +78,7 @@
 			else
 				message = "<B>[src]</B> pings."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = null
@@ -93,7 +95,7 @@
 			else
 				message = "<B>[src]</B> buzzes."
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("beep", "beeps")
 			var/M = null
@@ -110,7 +112,7 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("squish", "squishes")
 			var/M = null
@@ -127,7 +129,7 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
-			m_type = 1
+			m_type = 2
 
 		if("yes")
 			var/M = null
@@ -144,7 +146,7 @@
 			else
 				message = "<B>[src]</B> emits an affirmative blip."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("no")
 			var/M = null
@@ -161,7 +163,7 @@
 			else
 				message = "<B>[src]</B> emits a negative blip."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -177,6 +179,7 @@
 					return
 			else
 				return
+			m_type = 1
 
 		if("swag", "swags")
 			if(species.bodyflags & TAIL_WAGGING || body_accessory)
@@ -184,6 +187,7 @@
 				src.stop_tail_wagging(1)
 			else
 				return
+			m_type = 1
 
 		if ("airguitar")
 			if (!src.restrained())
@@ -409,6 +413,7 @@
 				message = "<B>[src]</B> glares at [param]."
 			else
 				message = "<B>[src]</B> glares."
+			m_type = 1
 
 		if ("stare", "stares")
 			var/M = null
@@ -424,6 +429,7 @@
 				message = "<B>[src]</B> stares at [param]."
 			else
 				message = "<B>[src]</B> stares."
+			m_type = 1
 
 		if ("look", "looks")
 			var/M = null
@@ -586,7 +592,7 @@
 			m_type = 1
 
 		if ("tremble", "trembles")
-			message = "<B>[src]</B> trembles in fear!"
+			message = "<B>[src]</B> trembles."
 			m_type = 1
 
 		if ("sneeze", "sneezes")
@@ -721,17 +727,12 @@
 				m_type = 1
 			else
 				if (!muzzled)
-					if (!(species.name == "Vox" || species.name == "Vox Armalis"))
-						message = "<B>[src]</B> screams!"
-						m_type = 2
-						if (prob(5))
-							playsound(src.loc, 'sound/voice/WilhelmScream.ogg', 100, 1, 10)
-						else
-							playsound(src.loc, 'sound/voice/scream2.ogg', 100, 1, 10)
+					message = "<B>[src]</B> [species.scream_verb]!"
+					m_type = 2
+					if(gender == FEMALE)
+						playsound(src.loc, "[species.female_scream_sound]", 80, 1, 0, pitch = get_age_pitch())
 					else
-						message = "<B>[src]</B> shrieks!"
-						m_type = 2
-						playsound(src.loc, 'sound/voice/shriek1.ogg', 100, 1, 10)
+						playsound(src.loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise."

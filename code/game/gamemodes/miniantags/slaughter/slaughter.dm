@@ -57,23 +57,26 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
-	spawn()
-		if(src.mind)
-			src.mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
-			src << src.playstyle_string
-			src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
-			src << 'sound/misc/demon_dies.ogg'
-			if(!(vialspawned))
-				var/datum/objective/slaughter/objective = new
-				var/datum/objective/demonFluff/fluffObjective = new
-				ticker.mode.traitors |= src.mind
-				objective.owner = src.mind
-				fluffObjective.owner = src.mind
-				//Paradise Port:I added the objective for one spawned like this
-				src.mind.objectives += objective
-				src.mind.objectives += fluffObjective
-				src << "<B>Objective #[1]</B>: [objective.explanation_text]"
-				src << "<B>Objective #[2]</B>: [fluffObjective.explanation_text]"
+	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
+	AddSpell(bloodspell)
+	if(istype(loc, /obj/effect/dummy/slaughter))
+		bloodspell.phased = 1
+	if(mind)
+		src << src.playstyle_string
+		src << "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Ctrl+Click a blood pool to manifest.</span></B>"
+		src << 'sound/misc/demon_dies.ogg'
+		mind.current.verbs += /mob/living/simple_animal/slaughter/proc/slaughterWhisper
+		if(!(vialspawned))
+			var/datum/objective/slaughter/objective = new
+			var/datum/objective/demonFluff/fluffObjective = new
+			ticker.mode.traitors |= mind
+			objective.owner = mind
+			fluffObjective.owner = mind
+			//Paradise Port:I added the objective for one spawned like this
+			mind.objectives += objective
+			mind.objectives += fluffObjective
+			src << "<B>Objective #[1]</B>: [objective.explanation_text]"
+			src << "<B>Objective #[2]</B>: [fluffObjective.explanation_text]"
 
 
 /mob/living/simple_animal/slaughter/Life()
@@ -90,10 +93,10 @@
 	innards.icon_state = "innards"
 	innards.name = "pile of viscera"
 	innards.desc = "A repulsive pile of guts and gore."
-	new /obj/effect/decal/cleanable/blood (src.loc)
+	new /obj/effect/decal/cleanable/blood(loc)
 	new /obj/effect/gibspawner/generic(get_turf(src))
 	new /obj/effect/gibspawner/generic(get_turf(src))
-	new /obj/item/organ/internal/heart/demonheart(src.loc)
+	new /obj/item/organ/internal/heart/demonheart(loc)
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] screams in anger as it collapses into a puddle of viscera, its most recent meals spilling out of it.</span>")
 	for(var/mob/living/M in consumed_mobs)
@@ -145,16 +148,23 @@
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=8"
 
+/obj/item/organ/internal/heart/demon/update_icon()
+	return //always beating visually
 
 /obj/item/organ/internal/heart/demonheart/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
+	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
+		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
+			qdel(src)
+			return
+
 	if(user.bloodcrawl == 0)
 		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
 		user.bloodcrawl = BLOODCRAWL
-	else if(user.bloodcrawl == 1)
+	else if(user.bloodcrawl == BLOODCRAWL)
 		user << "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>"
 		user.bloodcrawl = BLOODCRAWL_EAT
 	else
@@ -163,10 +173,16 @@
 	user.drop_item()
 	insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
+/obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(M.mind)
+		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+
 /obj/item/organ/internal/heart/demonheart/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(M.mind)
 		M.bloodcrawl = 0
+		M.mind.remove_spell(/obj/effect/proc_holder/spell/bloodcrawl)
 
 //Objectives and helpers.
 

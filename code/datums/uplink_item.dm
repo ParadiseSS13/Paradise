@@ -355,11 +355,11 @@ var/list/uplink_items = list()
 	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/dangerous/tabungrenades
-	name = "Tabun Gas Grenades"
-	desc = "A box of four (4) grenades filled with Tabun, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
+/datum/uplink_item/dangerous/saringrenades
+	name = "Sarin Gas Grenades"
+	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
 	reference = "TGG"
-	item = /obj/item/weapon/storage/box/syndie_kit/tabun
+	item = /obj/item/weapon/storage/box/syndie_kit/sarin
 	cost = 15
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
@@ -923,6 +923,56 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/implanter/explosive
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
+
+// Cybernetics
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
+	if(item)
+		if(findtext(item, /obj/item/organ/internal/cyberimp))
+			return new /obj/item/weapon/storage/box/cyber_implants(loc, item)
+		else
+			return ..()
+
+/datum/uplink_item/cyber_implants/thermals
+	name = "Thermal Vision Implant"
+	desc = "These cybernetic eyes will give you thermal vision. Comes with an automated implanting tool."
+	reference = "CIT"
+	item = /obj/item/organ/internal/cyberimp/eyes/thermals
+	cost = 8
+
+/datum/uplink_item/cyber_implants/xray
+	name = "X-Ray Vision Implant"
+	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
+	reference = "CIX"
+	item = /obj/item/organ/internal/cyberimp/eyes/xray
+	cost = 10
+
+/datum/uplink_item/cyber_implants/antistun
+	name = "CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. \
+			Comes with an automated implanting tool."
+	reference = "CIAS"
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	cost = 12
+
+/datum/uplink_item/cyber_implants/reviver
+	name = "Reviver Implant"
+	desc = "This implant will attempt to revive you if you lose consciousness. Comes with an automated implanting tool."
+	reference = "CIR"
+	item = /obj/item/organ/internal/cyberimp/chest/reviver
+	cost = 8
+
+/datum/uplink_item/cyber_implants/bundle
+	name = "Cybernetic Implants Bundle"
+	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. \
+			Comes with an automated implanting tool."
+	reference = "CIB"
+	item = /obj/item/weapon/storage/box/cyber_implants/bundle
+	cost = 40
 
 // POINTLESS BADASSERY
 

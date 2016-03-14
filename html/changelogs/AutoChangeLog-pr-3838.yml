@@ -1,0 +1,6 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Skeletons, slime people, IPCs, and Diona no longer leave blood when hit"
+  - bugfix: "Rejuvenating a slime person will no longer clog up their \"blood\""
+  - tweak: "Slime people will now regenerate \"blood\" from having water in their system"

@@ -134,7 +134,7 @@
 
 /obj/item/weapon/grenade/clusterbuster/nervegas
 	name = "Nerve Gas Clusterbomb"
-	payload = /obj/item/weapon/grenade/chem_grenade/tabungas
+	payload = /obj/item/weapon/grenade/chem_grenade/saringas
 
 /obj/item/weapon/grenade/clusterbuster/megadirt
 	name = "Megamaid's Revenge Grenade"

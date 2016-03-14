@@ -1308,7 +1308,8 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		vessel.add_reagent("blood",560-vessel.total_volume)
+		var/blood_reagent = get_blood_name()
+		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
 		fixblood()
 
 	// Fix up all organs.
@@ -1923,3 +1924,6 @@
 			return 0
 
 	return ..()
+
+/mob/living/carbon/human/proc/get_age_pitch()
+	return 1.0 + 0.5*(30 - age)/80

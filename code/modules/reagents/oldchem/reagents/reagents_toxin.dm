@@ -188,7 +188,7 @@
 /datum/reagent/radium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	if(M.radiation < 80)
-		M.apply_effect(4,IRRADIATE,0)
+		M.apply_effect(4, IRRADIATE, negate_armor = 1)
 	// radium may increase your chances to cure a disease
 	if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
 		var/mob/living/carbon/C = M
@@ -197,7 +197,7 @@
 				var/datum/disease2/disease/V = C.virus2[ID]
 				if(prob(5))
 					if(prob(50))
-						M.apply_effect(50,IRRADIATE,0) // curing it that way may kill you instead
+						M.apply_effect(50, IRRADIATE, negate_armor = 1) // curing it that way may kill you instead
 						M.adjustToxLoss(100)
 					C.antibodies |= V.antigen
 	..()
@@ -224,10 +224,7 @@
 	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	src = null
 	if((method==TOUCH && prob(33)) || method==INGEST)
-		if(prob(98))
-			randmutb(M)
-		else
-			randmutg(M)
+		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
 	return
@@ -235,7 +232,7 @@
 /datum/reagent/mutagen/on_mob_life(var/mob/living/M as mob)
 	if(!M.dna) return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if(!M) M = holder.my_atom
-	M.apply_effect(2*REM,IRRADIATE,0)
+	M.apply_effect(2*REM, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
 	..()
@@ -251,7 +248,7 @@
 
 /datum/reagent/uranium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	M.apply_effect(2,IRRADIATE,0)
+	M.apply_effect(2, IRRADIATE, negate_armor = 1)
 	..()
 	return
 
@@ -327,7 +324,7 @@
 			var/mob/living/carbon/human/H = M
 
 			if(volume < 10)
-				M << "<span class = 'danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
+				M << "<span class='danger'>The greenish acidic substance stings you, but isn't concentrated enough to harm you!</span>"
 
 			if(volume >=10 && volume <=25)
 				if(!H.unacidable)

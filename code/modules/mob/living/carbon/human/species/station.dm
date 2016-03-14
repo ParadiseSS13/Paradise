@@ -231,6 +231,9 @@
 	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
+	scream_verb = "shrieks"
+	male_scream_sound = 'sound/voice/shriek1.ogg'
+	female_scream_sound = 'sound/voice/shriek1.ogg'
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -453,8 +456,8 @@
 	set name = "Regrow Limbs"
 	set desc = "Regrow one of your missing limbs at the cost of a large amount of hunger"
 
-#define SLIMEPERSON_HUNGERCOST 125
-#define SLIMEPERSON_MINHUNGER 300
+#define SLIMEPERSON_HUNGERCOST 50
+#define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
 	if(stat || paralysis || stunned)
@@ -717,6 +720,8 @@
 	virus_immune = 1
 	can_revive_by_healing = 1
 	reagent_tag = PROCESS_SYN
+	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,

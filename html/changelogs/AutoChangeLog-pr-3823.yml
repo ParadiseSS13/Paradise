@@ -1,0 +1,5 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds X-Ray, Thermal, Anti-tun, and Reviver implants to the nuke ops uplink (augments come with one auto-implanter)
+rcsadd: Adds in augment auto-implanter, which inserts and implant without surgery"

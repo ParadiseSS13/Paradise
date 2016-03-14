@@ -273,14 +273,6 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/weapon/canvas/twentythreeXtwentythree
 	category = list("initial", "Miscellaneous")
-	
-/datum/design/glass_picture_frame
-	name = "Glass Picture Frame"
-	id = "glass_picture_frame"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 25, MAT_GLASS = 75)
-	build_path = /obj/item/weapon/picture_frame/glass
-	category = list("initial", "Miscellaneous")
 
 /datum/design/camera_assembly
 	name = "Camera Assembly"
