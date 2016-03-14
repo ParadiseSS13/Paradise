@@ -184,16 +184,18 @@
 	if(!istype(T)) return
 	var/datum/reagent/blood/self = src
 	src = null
-	if(!(volume >= 3)) return
+	var/big_splash = 1
+	if(volume < 3)
+		big_splash = 0
 	//var/datum/disease/D = self.data["virus"]
 	if(!self.data["donor"] || istype(self.data["donor"], /mob/living/carbon/human))
+		blood_splatter(T, src, big_splash)
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
-		if(!blood_prop) //first blood!
-			blood_prop = new(T)
-			blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
 
-		if(self.data["virus2"])
-			blood_prop.virus2 = virus_copylist(self.data["virus2"])
+		if(blood_prop)
+			blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
+			if(self.data["virus2"])
+				blood_prop.virus2 = virus_copylist(self.data["virus2"])
 
 	else if(istype(self.data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T

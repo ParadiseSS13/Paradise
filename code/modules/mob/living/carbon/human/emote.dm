@@ -76,7 +76,7 @@
 			else
 				message = "<B>[src]</B> pings."
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = null
@@ -93,7 +93,7 @@
 			else
 				message = "<B>[src]</B> buzzes."
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("beep", "beeps")
 			var/M = null
@@ -110,7 +110,7 @@
 			else
 				message = "<B>[src]</B> beeps."
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("squish", "squishes")
 			var/M = null
@@ -127,7 +127,7 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
-			m_type = 1
+			m_type = 2
 
 		if("yes")
 			var/M = null
@@ -144,7 +144,7 @@
 			else
 				message = "<B>[src]</B> emits an affirmative blip."
 			playsound(src.loc, 'sound/machines/synth_yes.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("no")
 			var/M = null
@@ -161,7 +161,7 @@
 			else
 				message = "<B>[src]</B> emits a negative blip."
 			playsound(src.loc, 'sound/machines/synth_no.ogg', 50, 0)
-			m_type = 1
+			m_type = 2
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -177,6 +177,7 @@
 					return
 			else
 				return
+			m_type = 1
 
 		if("swag", "swags")
 			if(species.bodyflags & TAIL_WAGGING || body_accessory)
@@ -184,6 +185,7 @@
 				src.stop_tail_wagging(1)
 			else
 				return
+			m_type = 1
 
 		if ("airguitar")
 			if (!src.restrained())
@@ -409,6 +411,7 @@
 				message = "<B>[src]</B> glares at [param]."
 			else
 				message = "<B>[src]</B> glares."
+			m_type = 1
 
 		if ("stare", "stares")
 			var/M = null
@@ -424,6 +427,7 @@
 				message = "<B>[src]</B> stares at [param]."
 			else
 				message = "<B>[src]</B> stares."
+			m_type = 1
 
 		if ("look", "looks")
 			var/M = null

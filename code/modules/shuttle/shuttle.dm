@@ -483,7 +483,7 @@
 	if(!istype(S0))
 		return 1
 
-	for(var/obj/machinery/door/airlock/A in machines)
+	for(var/obj/machinery/door/airlock/A in airlocks)
 		if(A.id_tag == S0.id)
 			spawn(-1)
 				A.close()
@@ -493,7 +493,7 @@
 	if(!istype(S1))
 		return 0
 
-	for(var/obj/machinery/door/airlock/A in machines)
+	for(var/obj/machinery/door/airlock/A in airlocks)
 		if(A.id_tag == S1.id)
 			spawn(-1)
 				if(A.locked)

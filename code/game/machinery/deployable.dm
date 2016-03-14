@@ -124,9 +124,10 @@ for reference:
 		return 0
 
 /obj/structure/barricade/proc/dismantle()
-	new stacktype(get_turf(src))
-	new stacktype(get_turf(src))
-	new stacktype(get_turf(src))
+	if(stacktype)
+		new stacktype(get_turf(src))
+		new stacktype(get_turf(src))
+		new stacktype(get_turf(src))
 	qdel(src)
 
 /obj/structure/barricade/wooden
@@ -142,6 +143,9 @@ for reference:
 	icon = 'icons/effects/water.dmi'
 	icon_state = "wet_floor_static"
 	stacktype = /obj/item/stack/sheet/mineral/tranquillite
+
+/obj/structure/barricade/mime/mrcd
+	stacktype = null
 
 //Actual Deployable machinery stuff
 

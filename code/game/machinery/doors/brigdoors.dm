@@ -42,7 +42,7 @@
 	pixel_y = ((src.dir & 3)? (src.dir ==1 ? 24 : -32) : (0))
 
 	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in machines)
+		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
 			if (M.id == src.id)
 				targets += M
 

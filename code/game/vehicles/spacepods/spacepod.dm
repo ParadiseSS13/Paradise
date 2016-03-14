@@ -547,6 +547,13 @@
 	set name = "Enter Pod"
 	set src in oview(1)
 
+	if (usr.stat != CONSCIOUS)
+		return
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		usr << "They are too far away to put inside"
+		return
+
 	if(!istype(user))
 		return 0
 

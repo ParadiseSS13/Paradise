@@ -62,8 +62,6 @@
 	else
 		M.LAssailant = user
 
-	//spawn(1800)            // this wont work right
-	//	M.lastattacker = null
 	/////////////////////////
 
 	if(istype(M, /mob/living/simple_animal))
