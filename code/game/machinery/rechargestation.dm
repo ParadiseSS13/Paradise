@@ -210,8 +210,14 @@
 /obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
 	set category = "Object"
 	set src in oview(1)
-
 	if(!user)
+		return
+
+	if (usr.stat != CONSCIOUS)
+		return
+
+	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
+		usr << "They are too far away to put inside"
 		return
 
 	if (panel_open)
