@@ -87,6 +87,7 @@
 	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.2
+	addiction_chance = 65
 
 /datum/reagent/space_drugs/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
