@@ -38,7 +38,7 @@ var/const/CAMERA_WIRE_NOTHING2 = 32
 
 		if(CAMERA_WIRE_POWER)
 			if(C.status && !mended || !C.status && mended)
-				C.deactivate(usr, 1)
+				C.toggle_cam(usr, 1)
 
 		if(CAMERA_WIRE_LIGHT)
 			C.light_disabled = !mended
@@ -60,7 +60,7 @@ var/const/CAMERA_WIRE_NOTHING2 = 32
 			C.setViewRange(new_range)
 
 		if(CAMERA_WIRE_POWER)
-			C.deactivate(null) // Deactivate the camera
+			C.toggle_cam(null) // Deactivate the camera
 
 		if(CAMERA_WIRE_LIGHT)
 			C.light_disabled = !C.light_disabled
