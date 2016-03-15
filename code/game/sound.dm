@@ -11,6 +11,7 @@ var/list/hiss_sound = list('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','soun
 var/list/page_sound = list('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
 //var/list/gun_sound = list('sound/weapons/Gunshot.ogg', 'sound/weapons/Gunshot2.ogg','sound/weapons/Gunshot3.ogg','sound/weapons/Gunshot4.ogg')
 var/list/computer_ambience = list('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
+var/list/growls = list('sound/goonstation/voice/growl1.ogg', 'sound/goonstation/voice/growl2.ogg', 'sound/goonstation/voice/growl3.ogg')
 
 /proc/playsound(var/atom/source, soundin, vol as num, vary, extrarange as num, falloff, var/is_global, var/pitch)
 
@@ -119,4 +120,5 @@ var/const/FALLOFF_SOUNDS = 0.5
 			if ("pageturn") soundin = pick(page_sound)
 			//if ("gunshot") soundin = pick(gun_sound)
 			if("computer_ambience") soundin = pick(computer_ambience)
+			if("growls") soundin = pick(growls)
 	return soundin

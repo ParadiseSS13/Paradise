@@ -32,6 +32,16 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else								//Everyone else fails, skip the emote attempt
 				return
+		if("howl", "howls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can howl
+				on_CD = handle_emote_CD(100)
+			else
+				return
+		if("growl", "growls")
+			if (species.name == "Vulpkanin")		//Only Vulpkanin can growl
+				on_CD = handle_emote_CD()
+			else
+				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
@@ -62,6 +72,40 @@
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
+
+		if("howl", "howls")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> howls at [param]!"
+			else
+				message = "<B>[src]</B> howls!"
+			playsound(src.loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			m_type = 2
+
+		if("growl", "growls")
+			var/M = null
+			if(param)
+				for(var/mob/A in view(null, null))
+					if(param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if(param)
+				message = "<B>[src]</B> growls at [param]!"
+			else
+				message = "<B>[src]</B> growls!"
+			playsound(src.loc, "growls", 80, 0)
+			m_type = 2
 
 		if("ping", "pings")
 			var/M = null
