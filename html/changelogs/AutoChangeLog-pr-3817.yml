@@ -1,0 +1,11 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Screaming has different sounds based on being male or female"
+  - soundadd: "Implements Goon's screaming sounds.
+rccadd: Screaming tone is now based on age of character instead of being random"
+  - tweak: "Ups the cooldown on screaming from 2 seconds to 5 seconds"
+  - tweak: "Removes chance for Whilhelm scream
+rcsadd: Borgs can now scream
+rcadd: Monkey's now have a unique screaming sound"
+  - rscadd: "IPCs now scream like cyborgs"
