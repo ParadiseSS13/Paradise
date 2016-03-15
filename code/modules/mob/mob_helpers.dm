@@ -108,7 +108,7 @@ proc/isembryo(A)
 	return 1
 
 /proc/isAIEye(A)
-	if(istype(A, /mob/aiEye))
+	if(istype(A, /mob/camera/aiEye))
 		return 1
 	return 0
 
@@ -379,7 +379,7 @@ proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 fo
 
 		var/atom/oldeye=M.client.eye
 		var/aiEyeFlag = 0
-		if(istype(oldeye, /mob/aiEye))
+		if(istype(oldeye, /mob/camera/aiEye))
 			aiEyeFlag = 1
 
 		var/x

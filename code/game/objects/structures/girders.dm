@@ -11,6 +11,23 @@
 	for(var/i=0;i < metalAmount;i++)
 		new /obj/item/stack/sheet/metal(get_turf(src))
 
+/obj/structure/girder/attack_animal(var/mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(M.environment_smash >= 1)
+		if(M.environment_smash == 3)
+			ex_act(2)
+			visible_message("<span class='warning'>You smash through \the [src].</span>", "<span class='warning'>[M] smashes through \the [src].</span>")
+		else
+			visible_message("<span class='warning'>You smash against \the [src].</span>", "<span class='warning'>[M] smash against \the [src].</span>")
+			take_damage(rand(25, 75))
+			return
+
+/obj/structure/girder/proc/take_damage(var/amount)
+	health -= amount
+	if(health < 0)
+		qdel(src)
+
 /obj/structure/girder/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/weapon/wrench) && state == 0)
 		if(anchored && !istype(src,/obj/structure/girder/displaced))

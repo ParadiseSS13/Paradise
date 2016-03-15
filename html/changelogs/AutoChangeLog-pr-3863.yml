@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - rscadd: "Environment smashing mobs can now destroy girders."
