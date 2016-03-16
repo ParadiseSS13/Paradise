@@ -43,6 +43,16 @@
 	icon_state = "purplecrack"
 	duration = 6
 
+/obj/effect/overlay/temp/guardian
+	randomdir = 0
+
+/obj/effect/overlay/temp/guardian/phase
+	duration = 5
+	icon_state = "phasein"
+
+/obj/effect/overlay/temp/guardian/phase/out
+	icon_state = "phaseout"
+
 /obj/effect/overlay/temp/emp
 	name = "emp sparks"
 	icon = 'icons/effects/effects.dmi'
