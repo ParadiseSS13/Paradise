@@ -51,6 +51,21 @@
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
+		if("mrowl", "mrowls")
+			if(species.name == "Vulpkanin")
+				on_CD = handle_emote_CD()
+			else
+				return
+		if("growl", "growls")
+			if(species.name == "Vulpkanin" || species.name == "Tajaran")
+				on_CD = handle_emote_CD()
+			else
+				return
+		if("woof", "woofs")
+			if(species.name == "Vulpkanin")
+				on_CD = handle_emote_CD()
+			else
+				return
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -129,6 +144,57 @@
 			else
 				message = "<B>[src]</B> squishes."
 			playsound(src.loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			m_type = 2
+
+		if("mrowl", "mrowls")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> mrowls at [param]."
+			else
+				message = "<B>[src]</B> mrowls."
+			playsound(src.loc, 'sound/voice/tajara_mrowl.ogg', 200, 0)
+			m_type = 2
+
+		if("growl", "growls")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> growls at [param]."
+			else
+				message = "<B>[src]</B> growls."
+			playsound(src.loc, 'sound/voice/vulvakin_growl.ogg', 200, 0)
+			m_type = 2
+
+		if("woof", "woofs")
+			var/M = null
+			if(param)
+				for (var/mob/A in view(null, null))
+					if (param == A.name)
+						M = A
+						break
+			if(!M)
+				param = null
+
+			if (param)
+				message = "<B>[src]</B> woofs at [param]."
+			else
+				message = "<B>[src]</B> woofs."
+			playsound(src.loc, 'sound/voice/woof.ogg', 200, 0) //Credit to theshaggyfreak (freesound.org)
 			m_type = 2
 
 		if("yes")
@@ -801,6 +867,8 @@
 					if (M == src)
 						continue
 					M.reagents.add_reagent("space_drugs",rand(1,10))
+
+
 
 		if ("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dap(s)(none)/mob," \
