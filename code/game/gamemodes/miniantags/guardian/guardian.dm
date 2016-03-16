@@ -64,10 +64,10 @@
 		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
 		ghostize()
 		qdel()
-	if(!summoner && !adminseal)
-		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
-		ghostize()
-		qdel()
+	//if(!summoner && !adminseal)
+	//	src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
+	//	ghostize()
+	//	qdel()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -487,9 +487,10 @@
 	melee_damage_upper = 10
 	damage_transfer = 0.9
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_cap = 1
+	ranged_cooldown_cap = 2
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
+	rapid = 1
 	range = 13
 	see_invisible = SEE_INVISIBLE_MINIMUM
 	see_in_dark = 8
