@@ -1,5 +1,3 @@
-var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
-
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
@@ -59,13 +57,13 @@ var/datum/announcement/minor/slotmachine_announcement = new(do_log = 0)
 			spawn(25)
 				if (roll == 1)
 					visible_message("<b>[src]</b> says, 'JACKPOT! [usr.name] has won a MILLION CREDITS!'")
-					slotmachine_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+					command_announcement.Announce("Congratulations to [usr.name] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
 					result = "JACKPOT! You win one million credits!"
 					resultlvl = "highlight"
 					win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
 				else if (roll > 1 && roll <= 5)
 					visible_message("<b>[src]</b> says, 'Big Winner! [usr.name] has won a hundred thousand credits!'")
-					slotmachine_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
+					command_announcement.Announce("Congratulations to [usr.name] on winning a hundred thousand credits!", "Big Winner")
 					result = "Big Winner! You win a hundred thousand credits!"
 					resultlvl = "good"
 					win_money(100000, 'sound/goonstation/misc/klaxon.ogg')

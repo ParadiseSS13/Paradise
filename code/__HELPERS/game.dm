@@ -1,4 +1,9 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+//supposedly the fastest way to do this according to https://gist.github.com/Giacom/be635398926bb463b42a
+#define RANGE_TURFS(RADIUS, CENTER) \
+  block( \
+    locate(max(CENTER.x-(RADIUS),1),          max(CENTER.y-(RADIUS),1),          CENTER.z), \
+    locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+  )
 
 /proc/dopage(src,target)
 	var/href_list

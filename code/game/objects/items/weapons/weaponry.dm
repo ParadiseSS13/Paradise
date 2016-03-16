@@ -28,7 +28,7 @@
 	w_class = 1
 	var/transformed = 0
 	var/transform_into = /obj/item/weapon/nullrod/sword
-	var/transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar)
+	var/transform_via = list(/obj/item/clothing/suit/armor/riot/knight/templar, /obj/item/clothing/suit/chaplain_hoodie/fluff/chronx)
 
 	suicide_act(mob/user)
 		viewers(user) << "<span class='suicide'>[user] is impaling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>"

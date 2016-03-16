@@ -10,6 +10,28 @@
 		if(rig)
 			SetupStat(rig)
 
+/mob/living/proc/can_track(mob/living/user)
+	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+	if(T.z == ZLEVEL_CENTCOMM) //dont detect mobs on centcomm
+		return 0
+	if(T.z >= MAX_Z)
+		return 0
+	if(user != null && src == user)
+		return 0
+	if(invisibility || alpha == 0)//cloaked
+		return 0
+	if(digitalcamo)
+		return 0
+
+	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
+	if(!near_camera(src))
+		return 0
+
+	return 1
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
@@ -759,6 +781,9 @@
 /mob/living/proc/Exhaust()
 	src << "<span class='notice'>You're too exhausted to keep going...</span>"
 	Weaken(5)
+
+/mob/living/proc/get_visible_name()
+	return name
 
 /mob/living/update_gravity(has_gravity)
 	if(!ticker)

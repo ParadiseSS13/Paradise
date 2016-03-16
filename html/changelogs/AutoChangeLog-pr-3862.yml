@@ -1,0 +1,4 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Adds in spider eggs reagent, an infectious reagent that requires surgery to correct"

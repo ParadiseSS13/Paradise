@@ -19,6 +19,10 @@
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
 
+	scream_verb = "screeches"
+	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
+
 	tail = "chimptail"
 	bodyflags = FEET_PADDED | HAS_TAIL
 	reagent_tag = PROCESS_ORG

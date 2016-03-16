@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Implements Changeling headcrabs/headspiders"
+  - bugfix: "Fixes xenos not throwing their organs when gibbed"
+  - bugfix: "Fixes swallowed mobs not being ejected when a human is gibbed"
