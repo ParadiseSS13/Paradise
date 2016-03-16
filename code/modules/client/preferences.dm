@@ -1269,7 +1269,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							valid_markings[markingstyle] = marking_styles_list[markingstyle]
 
-						var/new_marking_style = input(user, "Choose the style of your character's markings:", "Character Preference") as null|anything in valid_markings
+						var/new_marking_style = input(user, "Choose the style of your character's markings:", "Character Preference", m_style) as null|anything in valid_markings
 						if(new_marking_style)
 							m_style = new_marking_style
 
@@ -1573,7 +1573,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					UI_style_color = UI_style_color_new
 
 				if("UIalpha")
-					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255") as num
+					var/UI_style_alpha_new = input(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", UI_style_alpha) as num
 					if(!UI_style_alpha_new | !(UI_style_alpha_new <= 255 && UI_style_alpha_new >= 50)) return
 					UI_style_alpha = UI_style_alpha_new
 

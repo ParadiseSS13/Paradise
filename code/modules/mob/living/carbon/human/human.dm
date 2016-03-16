@@ -1636,7 +1636,7 @@
 				if(species.name in tmp_hair.species_allowed)
 					hair += i
 
-			var/new_style = input(src, "Select a monitor display", "Monitor Display")  as null|anything in hair
+			var/new_style = input(src, "Select a monitor display", "Monitor Display", h_style)  as null|anything in hair
 			if(incapacitated())
 				return
 			if(new_style)
