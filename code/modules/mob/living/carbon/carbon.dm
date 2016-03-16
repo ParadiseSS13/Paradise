@@ -93,13 +93,18 @@
 #undef STOMACH_ATTACK_DELAY
 
 /mob/living/carbon/gib()
+	for(var/obj/item/organ/internal/I in internal_organs)
+		if(isturf(loc))
+			I.remove(src)
+			I.forceMove(get_turf(src))
+			spawn()
+				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
 			src.stomach_contents.Remove(M)
-		M.loc = src.loc
-		for(var/mob/N in viewers(src, null))
-			if(N.client)
-				N.show_message(text("\red <B>[M] bursts out of [src]!</B>"), 2)
+		M.forceMove(get_turf(src))
+		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 	. = ..()
 
 

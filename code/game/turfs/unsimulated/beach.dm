@@ -34,11 +34,35 @@
 	icon_state = "seashallow"
 	water_overlay_image = "water_shallow"
 
-/turf/unsimulated/beach/water/drop
+/turf/unsimulated/beach/water/dense			//for boundary "walls"
+	density = 1
+
+/turf/unsimulated/beach/water/edge_drop
 	name = "Water"
 	icon_state = "seadrop"
+	water_overlay_image = "water_drop"
 
-/turf/unsimulated/beach/water/dense			//for boundary "walls"
+/turf/unsimulated/beach/water/drop
+	name = "Water"
+	icon = 'icons/turf/floors/seadrop.dmi'
+	icon_state = "seadrop"
+	water_overlay_image = null
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/unsimulated/beach/water/drop, /turf/unsimulated/beach/water/drop/dense,
+		/turf/unsimulated/beach/water, /turf/unsimulated/beach/water/dense,
+		/turf/unsimulated/beach/water/edge_drop)
+
+/turf/unsimulated/beach/water/drop/New()
+	..()
+	smooth_icon(src)
+	spawn(1)
+		overlays += image(icon, "[top_left_corner]-o", MOB_LAYER + 0.1)
+		overlays += image(icon, "[top_right_corner]-o", MOB_LAYER + 0.1)
+		overlays += image(icon, "[bottom_left_corner]-o", MOB_LAYER + 0.1)
+		overlays += image(icon, "[bottom_right_corner]-o", MOB_LAYER + 0.1)
+
+/turf/unsimulated/beach/water/drop/dense
 	density = 1
 
 /turf/unsimulated/beach/water/deep
