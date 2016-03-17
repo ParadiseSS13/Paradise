@@ -174,8 +174,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
-			if(prob(15)) // so it's not an instarape in case of acid
-				reagents.reaction(C, INGEST)
 			reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				C << "<span class='notice'>Your [name] loses its flavor.</span>"
