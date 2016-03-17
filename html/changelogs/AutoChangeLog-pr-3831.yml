@@ -1,6 +1,0 @@
-author: FalseIncarnate
-delete-after: True
-changes: 
-  - tweak: "Xeno-botany is now more user-friendly, and less random letters/numbers."
-  - rscadd: "Hydroponics now has a connector hooked up to the isolation tray and a new connector in their back room for those strange plants that like spewing plasma or eating nitrogen."
-  - rscadd: "You can now (finally) build the xeno-botany machines, and science can print off their respective boards."

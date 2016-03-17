@@ -10,6 +10,66 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+/obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
+	name = "dispoable tattoo pen"
+	desc = "A cheap plastic tattoo application pen."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "tatgun"
+	force = 0
+	throwforce = 0
+	w_class = 1.0
+	var/used = 0
+	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
+	var/tattoo_icon = "Tiger Body" // body_accessory.dmi, new icons defined in sprite_accessories.dm
+	var/tattoo_r = 1 // RGB values for the body markings
+	var/tattoo_g = 1
+	var/tattoo_b = 1
+
+/obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+	if(user.a_intent == "harm")
+		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
+		M << "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>"
+		return
+
+	if(used)
+		user << "<span class= 'notice'>The [src] is out of ink.</span>"
+		return
+
+	if(!istype(M, /mob/living/carbon/human))
+		user << "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>"
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	if(istype(target.species, /datum/species/machine))
+		user << "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>"
+		return
+
+	if(target.m_style != "None")
+		user << "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>"
+		return
+
+	if(target == user)
+		user << "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>"
+
+	else
+		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
+		if(!do_after(user,30, target = M))
+			return
+		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+
+	if(!used) // No exploiting do_after to tattoo multiple folks.
+		target.m_style = tattoo_icon
+		target.r_markings = tattoo_r
+		target.g_markings = tattoo_g
+		target.b_markings = tattoo_b
+
+		target.update_markings()
+
+		playsound(src.loc, 'sound/items/Welder2.ogg', 20, 1)
+		icon_state = "tatgun_used"
+		used = 1
+
 /obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
@@ -185,17 +245,6 @@
 	icon_state = "stobarico_jacket"
 
 //////////// Uniforms ////////////
-/obj/item/clothing/under/fluff/WornTurtleneck // DaveTheHeadcrab: Makkota Atani
-	name = "Worn Combat Turtleneck"
-	desc = "A worn out turtleneck with 'J.C. NSS Regnare' stitched on the inside of the collar. The tag reveals it to be 99% NanoCotton."
-	icon= 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "syndicate"
-	item_state = "bl_suit"
-	item_color = "syndicate"
-	has_sensor = 1 // Jumpsuit has no sensor by default
-	displays_id = 0 // Purely astetic, the ID does not show up on the player sprite when equipped. Examining still reveals it.
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0) // Standard Security jumpsuit stats
-
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
@@ -365,3 +414,25 @@
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
 	icon_state = "chaps"
 	item_color = "combat_pants"
+
+/obj/item/clothing/suit/jacket/fluff/windbreaker // DaveTheHeadcrab: Elliot Campbell
+	name = "nylon windbreaker"
+	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_windbreaker"
+	item_state = "elliot_windbreaker"
+	adjust_flavour = "unzip"
+
+/obj/item/clothing/ears/earring/fluff/industrial_piercing
+	name = "industrial piercing and stud earring"
+	desc = "A set of ear piercings containing an industrial rod and a small stud. They appear to be made out of some form of non-magnetic metal."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elliot_earring"
+
+/obj/item/device/fluff/tattoo_gun/cybernetic_tat
+	desc = "A cheap plastic tattoo application pen.<br>This one seems to have light blue ink."
+	tattoo_name = "circuitry tattoo"
+	tattoo_icon = "Elliot Circuit Tattoo"
+	tattoo_r = 100
+	tattoo_g = 150
+	tattoo_b = 255

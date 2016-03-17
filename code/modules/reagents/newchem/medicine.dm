@@ -168,6 +168,7 @@ datum/reagent/omnizine
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
+	addiction_chance = 5
 
 datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -336,6 +337,7 @@ datum/reagent/perfluorodecalin
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
+	addiction_chance = 20
 
 datum/reagent/perfluorodecalin/on_mob_life(var/mob/living/carbon/human/M as mob)
 	if(!M) M = holder.my_atom
@@ -367,7 +369,7 @@ datum/reagent/ephedrine
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 45
-	addiction_threshold = 30
+	addiction_chance = 25
 
 datum/reagent/ephedrine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -393,31 +395,6 @@ datum/reagent/ephedrine/overdose_process(var/mob/living/M as mob)
 	..()
 	return
 
-datum/reagent/ephedrine/addiction_act_stage1(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(2*REM)
-		M.losebreath += 2
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(3*REM)
-		M.losebreath += 3
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(4*REM)
-		M.losebreath += 4
-	..()
-	return
-datum/reagent/ephedrine/addiction_act_stage4(var/mob/living/M as mob)
-	if(prob(33))
-		M.adjustToxLoss(5*REM)
-		M.losebreath += 5
-	..()
-	return
-
 /datum/chemical_reaction/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
@@ -432,6 +409,7 @@ datum/reagent/diphenhydramine
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
+	addiction_chance = 10
 
 datum/reagent/diphenhydramine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -463,7 +441,7 @@ datum/reagent/morphine
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
-	addiction_threshold = 25
+	addiction_chance = 50
 	shock_reduction = 50
 
 datum/reagent/morphine/on_mob_life(var/mob/living/M as mob)
@@ -492,46 +470,6 @@ datum/reagent/morphine/overdose_process(var/mob/living/M as mob)
 			M.drop_item()
 		M.Dizzy(1)
 		M.Jitter(1)
-	..()
-	return
-
-datum/reagent/morphine/addiction_act_stage1(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.Dizzy(2)
-		M.Jitter(2)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(1*REM)
-		M.Dizzy(3)
-		M.Jitter(3)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(2*REM)
-		M.Dizzy(4)
-		M.Jitter(4)
-	..()
-	return
-datum/reagent/morphine/addiction_act_stage4(var/mob/living/M as mob)
-	if(prob(33))
-		var/obj/item/I = M.get_active_hand()
-		if(I)
-			M.drop_item()
-		M.adjustToxLoss(3*REM)
-		M.Dizzy(5)
-		M.Jitter(5)
 	..()
 	return
 
@@ -943,6 +881,7 @@ datum/reagent/teporone
 	description = "This experimental plasma-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
+	addiction_chance = 20
 
 datum/reagent/teporone/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom

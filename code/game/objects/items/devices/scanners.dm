@@ -105,7 +105,7 @@ REAGENT SCANNER
 			if(H.reagents.addiction_list.len)
 				user.show_message("<span class='danger'>Subject is addicted to the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					user.show_message("<span class='danger'>[R.name]</span>")
+					user.show_message("<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>")
 			else
 				user.show_message("<span class='notice'>Subject is not addicted to any reagents.</span>")
 
@@ -242,7 +242,7 @@ REAGENT SCANNER
 				user.show_message("<span class='warning'><b>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl</span>")
 			else
 				user.show_message("<span class='notice'>Blood Level Normal: [blood_percent]% [blood_volume]cl</span>")
-		if(H.heart_attack)
+		if(H.heart_attack && H.stat != DEAD)
 			user.show_message("<span class='userdanger'>Subject suffering from heart attack: Apply defibrillator immediately.</span>")
 		user.show_message("\blue Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>")
 		var/implant_detect

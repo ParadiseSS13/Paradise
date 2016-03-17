@@ -48,6 +48,7 @@ other types of metals and chemistry for reagents).
 	var/access_requirement = list(access_armory) //What special access requirements will the lockbox have? Defaults to armory.
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents = list()			//List of reagents. Format: "id" = amount.
+	var/maxstack = 1
 
 //A proc to calculate the reliability of a design based on tech levels and innate modifiers.
 //Input: A list of /datum/tech; Output: The new reliabilty.

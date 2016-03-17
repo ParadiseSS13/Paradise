@@ -906,6 +906,7 @@ var/list/admin_verbs_proccall = list (
 		return
 
 	prefs.toggles ^= CHAT_DEBUGLOGS
+	prefs.save_preferences(src)
 	if (prefs.toggles & CHAT_DEBUGLOGS)
 		usr << "You now will get debug log messages"
 	else
