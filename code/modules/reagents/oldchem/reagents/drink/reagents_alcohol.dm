@@ -17,7 +17,6 @@
 	var/vomit_start = 180	//amount absorbed after which mob starts vomitting
 	var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
 	var/pass_out = 325	//amount absorbed after which mob starts passing out
-	addiction_chance = 4 //chance to become alcoholic
 
 /datum/reagent/ethanol/on_mob_life(var/mob/living/M as mob, var/alien)
 	// Sobering multiplier.
