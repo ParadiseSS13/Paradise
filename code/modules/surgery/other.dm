@@ -5,7 +5,7 @@
 
 /datum/surgery/infection
 	name = "external infection treatment/autopsy"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg")
 
 /datum/surgery/bleeding
