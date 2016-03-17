@@ -350,6 +350,7 @@
 	flags = IS_WHITELISTED
 	clothing_flags = HAS_SOCKS
 	bodyflags = FEET_CLAWS
+	eyes = "kidan_eyes"
 	dietflags = DIET_HERB
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
