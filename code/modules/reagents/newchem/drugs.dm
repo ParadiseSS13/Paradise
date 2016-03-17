@@ -348,6 +348,7 @@
 		return
 	if(method == INGEST || method == TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
+	..()
 
 /datum/reagent/fliptonium/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
