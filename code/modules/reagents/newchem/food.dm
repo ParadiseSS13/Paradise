@@ -284,6 +284,7 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
+	addiction_chance = 10
 
 /datum/reagent/fake_cheese/overdose_process(var/mob/living/M as mob)
 	if(prob(8))
@@ -298,6 +299,7 @@ datum/reagent/cheese/reaction_turf(var/turf/T, var/volume)
 	reagent_state = SOLID
 	color = "#50FF00"
 	metabolization_rate = 0 //heheheh
+	addiction_chance = 5
 
 /datum/reagent/weird_cheese/on_mob_life(var/mob/living/M as mob)
 	if(prob(5))

@@ -1,7 +1,0 @@
-author: Tastyfish
-delete-after: True
-changes: 
-  - tweak: "Vampire abilities are now in their own Vampire tab, as well being action buttons at the top, like spells."
-  - bugfix: "Cloning a vampire no longer makes them lose their abilities."
-  - bugfix: "Vampires can no longer hypnotize chaplains."
-  - bugfix: "Being a full vampire (500+ total blood) actually makes you immune to holy water reliably now."
