@@ -256,6 +256,11 @@ var/list/organ_cache = list()
 		if(3.0)
 			take_damage(0,3)
 
+/obj/item/organ/internal/heart/emp_act(intensity)
+	if(owner && robotic)
+		owner.heart_attack = 1
+		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
