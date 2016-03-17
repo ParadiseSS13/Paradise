@@ -1,4 +1,0 @@
-author: DaveTheHeadcrab
-delete-after: True
-changes: 
-  - tweak: "Removes the check for species on the update_markings proc."

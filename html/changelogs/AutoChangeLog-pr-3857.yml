@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - bugfix: "Fixes up some behaviors with xeno eggs"
-  - tweak: "Xeno acid can now melt through floors and the asteroid"
-  - rscadd: "Xeno's now play the gib sound when actually gibbed"
