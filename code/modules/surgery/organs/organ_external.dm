@@ -105,7 +105,7 @@
 						O.status |= ORGAN_CUT_AWAY
 						if(!O.sterile)
 							spread_germs_to_organ(O,user) // This wouldn't be any cleaner than the actual surgery
-						O.forceMove(src)
+						O.forceMove(get_turf(src))
 					if(!(user.l_hand && user.r_hand))
 						user.put_in_hands(removing)
 					user.visible_message("<span class='danger'><b>[user]</b> extracts [removing] from [src] with [W]!")
@@ -892,13 +892,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Attached organs also fly off.
 	if(!ignore_children)
 		for(var/obj/item/organ/external/O in children)
-			O.remove()
+			O.remove(victim)
 			if(O)
 				O.forceMove(src)
 
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
-		organ.remove()
+		organ.remove(victim)
 		organ.forceMove(src)
 
 	release_restraints(victim)

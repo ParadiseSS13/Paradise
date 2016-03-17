@@ -67,7 +67,7 @@
 
 		if(borer)
 			borer.detatch() //Should remove borer if the brain is removed - RR
-		if(owner.mind)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(istype(owner,/mob/living/carbon/human))
@@ -94,7 +94,7 @@
 				brainmob.mind.transfer_to(target)
 			else
 				target.key = brainmob.key
-	..()
+	..(target, special = special, dont_remove_slot = brain_already_exists)
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
