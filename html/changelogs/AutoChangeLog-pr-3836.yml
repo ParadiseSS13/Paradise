@@ -1,9 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - tweak: "tweaks a large number of chems; behaviors are largely retained, but new flavor messages, probabilities, etc may be present; overall, you can expect chems to do the same thing"
-  - tweak: "Tabun re-replaced with Sarin
-rcsadd: New reagent: cholesterol: if overdosed on, it can cause a heart attack--fatty foods, cheese, eggs, and some meats all produce cholesterol in your body."
-  - rscadd: "Mixing Sarin, Meth, or Cyanide will poison in a very small area of the reaction if you're not on internal OR not wearing a gas mask"
-  - rscadd: "Chemist warddrobe now has two gas masks"
-  - tweak: "Teslium will now impact synthetics AND organics"

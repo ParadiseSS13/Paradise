@@ -1,6 +1,0 @@
-author: Fox McCloud
-delete-after: True
-changes: 
-  - rscadd: "Reworks addictions to bettter differentiate them betweeen overdosing and make them more realistic."
-  - tweak: "changes which chems are addictive, currently, the follow reagents are now addidctive: meth, crank, krokodil, bath salts, space drugs, perfluoradecalin, omnizine, coffee, nicotine, fliptonium, ultra lube, surge, fake cheese, weird cheese, ephedrine, diphenhydramine, teporone, and morphine"
-  - rscadd: "sleepers help you recover from addiction faster"
