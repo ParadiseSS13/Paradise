@@ -1,0 +1,6 @@
+author: Fox McCloud
+delete-after: True
+changes: 
+  - rscadd: "Removing a heart no longer kills the patient instantly, but induces a heart attack"
+  - bugfix: "Demon hearts will not work"
+  - bugfix: "Should now actually be able to re-insert hearts"
