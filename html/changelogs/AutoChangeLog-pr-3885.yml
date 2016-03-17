@@ -1,0 +1,4 @@
+author: Tastyfish
+delete-after: True
+changes: 
+  - bugfix: "Shuttle consoles now pair up to the engineering, mining, research, or labor shuttle when built or used before pairing, as long as the shuttle is near the console, or the shuttle is moved to be nearby."
