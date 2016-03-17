@@ -64,7 +64,7 @@
 		name = "Bald"
 		icon_state = "bald"
 		gender = MALE
-		species_allowed = list("Human","Unathi","Vox","Diona","Kidan","Grey","Plasmaman","Skeleton")
+		species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton")
 
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
@@ -152,7 +152,7 @@
 		name = "Pompadour"
 		icon_state = "hair_pompadour"
 		gender = MALE
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	quiff
 		name = "Quiff"
@@ -175,19 +175,19 @@
 		name = "Beehive"
 		icon_state = "hair_beehive"
 		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	bobcurl
 		name = "Bobcurl"
 		icon_state = "hair_bobcurl"
 		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	bob
 		name = "Bob"
 		icon_state = "hair_bobcut"
 		gender = FEMALE
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	bowl
 		name = "Bowl"
@@ -203,7 +203,7 @@
 		name = "Buzzcut"
 		icon_state = "hair_buzzcut"
 		gender = MALE
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	crew
 		name = "Crewcut"
@@ -266,9 +266,19 @@
 		name = "Mohawk"
 		icon_state = "hair_d"
 		species_allowed = list("Human","Unathi")
+
 	jensen
 		name = "Adam Jensen Hair"
 		icon_state = "hair_jensen"
+		gender = MALE
+	cia
+		name = "CIA"
+		icon_state = "hair_cia"
+		gender = MALE
+
+	mulder
+		name = "Mulder"
+		icon_state = "hair_mulder"
 		gender = MALE
 
 	gelled
@@ -284,7 +294,7 @@
 	spiky
 		name = "Spiky"
 		icon_state = "hair_spikey"
-		species_allowed = list("Human","Unathi")
+		species_allowed = list("Human", "Unathi")
 
 	kusangi
 		name = "Kusanagi Hair"
@@ -485,8 +495,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox","Diona","Kidan","Greys","Machine", "Vulpkanin", "Slime People")
-
+		species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
 
 	watson
 		name = "Watson Mustache"
@@ -1074,7 +1083,7 @@
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton", "Machine")
 
 	nude
 		name = "Nude"
@@ -1222,7 +1231,7 @@
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
 
-	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton")
+	species_allowed = list("Human","Unathi","Vox","Diona","Vulpkanin","Kidan","Grey","Plasmaman","Skeleton", "Machine")
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
@@ -1681,7 +1690,7 @@
 
 /datum/sprite_accessory/head_accessory
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Vulpkanin", "Tajaran")
+	species_allowed = list("Unathi", "Vulpkanin", "Tajaran", "Machine")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/none
@@ -1769,16 +1778,21 @@
 	icon_state = "ears_plain"
 	species_allowed = list("Tajaran")
 
+/datum/sprite_accessory/head_accessory/ipc_antennae
+	name = "Antennae"
+	icon_state = "antennae"
+	species_allowed = list("Machine")
+
 /* BODY MARKINGS */
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/body_accessory.dmi'
-	species_allowed = list("Unathi", "Tajaran", "Vulpkanin")
+	species_allowed = list("Unathi", "Tajaran", "Vulpkanin", "Machine")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human","Unathi","Diona","Grey","Machine","Tajaran","Vulpkanin","Slime People","Skeleton","Vox")
+	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/stripe
@@ -1810,3 +1824,8 @@
 	name = "Unathi Tiger Body + Head + Face"
 	species_allowed = list("Unathi")
 	icon_state = "markings_tigerheadface_una"
+
+/datum/sprite_accessory/body_markings/optics
+	name = "Humanoid Optics"
+	species_allowed = list("Machine")
+	icon_state = "optics"
