@@ -147,11 +147,14 @@
 /*
 When assimilate is 1, organs that have a different UE will still have their DNA overriden by that of the host
 Otherwise, this restricts itself to organs that share the UE of the host.
+
+old_ue: Set this to a UE string, and this proc will overwrite the dna of organs that have that UE, instead of the host's present UE
 */
-/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1)
+/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1, var/old_ue = null)
+	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|organs
 	for(var/obj/item/organ/O in all_bits)
-		if(assimilate || O.dna.unique_enzymes == dna.unique_enzymes)
+		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
 
 /*
