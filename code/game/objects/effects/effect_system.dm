@@ -925,6 +925,13 @@ steam.start() -- spawns the effect
 		sleep(30)
 
 		if(metal)
+			var/turf/T = get_turf(src)
+			if(istype(T, /turf/space))
+				var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+				if(L)
+					qdel(L)
+				T.ChangeTurf(/turf/simulated/floor/plating/airless)
+
 			var/obj/structure/foamedmetal/M = new(src.loc)
 			M.metal = metal
 			M.updateicon()
