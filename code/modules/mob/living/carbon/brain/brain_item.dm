@@ -59,6 +59,8 @@
 
 /obj/item/organ/internal/brain/remove(var/mob/living/user,special = 0)
 
+	name = "[dna.real_name]'s [initial(name)]"
+
 	if(!owner) return ..() // Probably a redundant removal; just bail
 
 	var/obj/item/organ/internal/brain/B = src
@@ -77,7 +79,7 @@
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
 
-	name = "brain"
+	name = "[initial(name)]"
 	var/brain_already_exists = 0
 	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
