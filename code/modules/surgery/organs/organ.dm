@@ -86,11 +86,11 @@ var/list/organ_cache = list()
 		return
 
 	if(!owner)
-		if(reagents)
-			var/datum/reagent/blood/B = locate(/datum/reagent/blood) in reagents.reagent_list
-			if(B && prob(40))
-				reagents.remove_reagent("blood",0.1)
-				blood_splatter(src,B,1)
+		if(reagents && prob(40))
+			reagents.remove_any(0.1)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				R.reaction_turf(get_turf(src), 0.1)
+
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
