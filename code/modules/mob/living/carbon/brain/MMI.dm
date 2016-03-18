@@ -30,9 +30,6 @@
 			user << "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>"
 			log_to_dd("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 			return
-		if(B.status & ORGAN_DEAD) // As it stood, a brain would never become unviable for MMI usage. Perhaps we should keep it that way?
-			user << "<span class='warning'>This [B] is dead</span>"
-			return
 		for(var/mob/V in viewers(src, null))
 			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 		brainmob = B.brainmob

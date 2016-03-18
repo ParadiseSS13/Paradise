@@ -20,8 +20,6 @@
 	if(!iscarbon(M) || owner == M)
 		return
 
-	processing_objects -= src
-
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
 		replaced.remove(M, special = 1)
@@ -46,7 +44,6 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	owner = null
 
-	processing_objects |= src
 	if(M)
 		M.internal_organs -= src
 		if(vital && !special)
