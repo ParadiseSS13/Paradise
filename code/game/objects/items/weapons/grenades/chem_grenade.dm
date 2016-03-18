@@ -282,6 +282,7 @@
 		G.reagents.trans_to(src, G.reagents.total_volume)
 		end_temp += G.reagents.chem_temp
 	reagents.chem_temp = end_temp
+	reagents.handle_reactions()
 	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
 		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
 		steam.set_up(10, 0, get_turf(src))
@@ -359,8 +360,12 @@
 		if(valid_core && valid_core.reagents && valid_core.reagents.total_volume)
 			valid_core.reagents.trans_to(src,valid_core.reagents.total_volume)
 	else
+		var/end_temp = 0
 		for(var/obj/item/weapon/reagent_containers/glass/G in beakers)
 			G.reagents.trans_to(src, G.reagents.total_volume)
+			end_temp += G.reagents.chem_temp
+		reagents.chem_temp = end_temp
+		reagents.handle_reactions()
 
 	if(reagents.total_volume)	//The possible reactions didnt use up all reagents.
 		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
