@@ -64,10 +64,10 @@
 		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
 		ghostize()
 		qdel()
-	//if(!summoner && !adminseal)
-	//	src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
-	//	ghostize()
-	//	qdel()
+	if(!summoner && !adminseal)
+		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
+		ghostize()
+		qdel()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
@@ -240,6 +240,7 @@
 	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
 	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
+	var/toggle = FALSE
 
 /mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
 	..()
@@ -247,11 +248,29 @@
 		summoner.ExtinguishMob()
 		summoner.adjust_fire_stacks(-20)
 
+/mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
+	if(src.loc == summoner)
+		if(toggle)
+			src << "You switch to dispersion mode, and will teleport victims away from your master."
+			toggle = FALSE
+		else
+			src << "You  switch to deception mode, and will turn your victims against their allies."
+			toggle = TRUE
+
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	if(..())
-		if(ishuman(target))
-			spawn(0)
-				new /obj/effect/hallucination/delusion(target.loc,target,force_kind="custom",duration=200,skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+		if(toggle)
+			if(ishuman(target) && !summoner)
+				spawn(0)
+					new /obj/effect/hallucination/delusion(target.loc,target,force_kind="custom",duration=200,skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+		else
+			if(prob(45))
+				if(istype(target, /atom/movable))
+					var/atom/movable/M = target
+					if(!M.anchored && M != summoner)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
+						do_teleport(M, M, 10)
+						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
 	..()
