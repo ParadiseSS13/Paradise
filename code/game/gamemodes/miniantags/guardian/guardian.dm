@@ -46,7 +46,6 @@
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
 	..()
-	updatehudhealth()
 	if(summoner)
 		if(summoner.stat == DEAD)
 			src << "<span class='danger'>Your summoner has died!</span>"
@@ -85,7 +84,7 @@
 	summoner.death()
 
 
-/mob/living/simple_animal/hostile/guardian/proc/updatehudhealth()
+/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
@@ -107,7 +106,6 @@
 		if(summoner.stat == UNCONSCIOUS)
 			summoner << "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>"
 			summoner.adjustCloneLoss(damage/2)
-		updatehudhealth()
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch (severity)
@@ -134,7 +132,7 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		forceMove(summoner)
+		forceMove(get_turf(summoner))
 		src.client.eye = loc
 		cooldown = world.time + 30
 
@@ -262,7 +260,7 @@
 		if(toggle)
 			if(ishuman(target) && !summoner)
 				spawn(0)
-					new /obj/effect/hallucination/delusion(target.loc,target,force_kind="custom",duration=200,skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
+					new /obj/effect/hallucination/delusion(target.loc, target, force_kind="custom", duration=200, skip_nearby=0, custom_icon = src.icon_state, custom_icon_file = src.icon)
 		else
 			if(prob(45))
 				if(istype(target, /atom/movable))
