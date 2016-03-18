@@ -246,6 +246,7 @@ CREATE TABLE `player` (
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',
+  `nanoui_fancy` smallint(4) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
