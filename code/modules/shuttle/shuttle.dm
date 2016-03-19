@@ -602,7 +602,7 @@
 				M = D
 				shuttleId = M.id
 				break
-	else if(!possible_destinations && istext(possible_destinations)) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
+	else if(!possible_destinations && shuttle_master) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
 		M = shuttle_master.getShuttle(shuttleId)
 
 	if(M && !possible_destinations)
