@@ -248,13 +248,13 @@ var/list/organ_cache = list()
 		return
 	switch (severity)
 		if (1.0)
-			take_damage(20,0)
+			take_damage(0,20)
 			return
 		if (2.0)
-			take_damage(7,0)
+			take_damage(0,7)
 			return
 		if(3.0)
-			take_damage(3,0)
+			take_damage(0,3)
 
 /obj/item/organ/internal/emp_act(severity)
 	if(!robotic)
