@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "pAIs and Drones are now affected by EMPs and explosions while held."

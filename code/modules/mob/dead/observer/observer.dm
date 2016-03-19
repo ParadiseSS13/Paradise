@@ -636,3 +636,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return 0
 	usr.visible_message("<span class='deadsay'><b>[src]</b> points to [A].</span>")
 	return 1
+
+/mob/dead/observer/proc/incarnate_ghost()
+	if(!client)
+		return
+	var/mob/living/carbon/human/new_char = new(get_turf(src))
+	client.prefs.copy_to(new_char)
+	if(mind)
+		mind.transfer_to(new_char)
+	else
+		new_char.key = key

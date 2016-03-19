@@ -1585,8 +1585,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.real_name = real_name
 	character.name = character.real_name
-	if(character.dna)
-		character.dna.real_name = character.real_name
 
 	character.flavor_text = flavor_text
 	character.med_record = med_record
@@ -1695,6 +1693,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
+
+	character.dna.ready_dna(character)
+	character.sync_organ_dna(assimilate=1)
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
