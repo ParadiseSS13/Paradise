@@ -1635,7 +1635,7 @@
 				b_markings = hex2num(copytext(optic_colour, 6, 8))
 
 			update_markings()
-		else if(!(client.prefs.rlimb_data["head"]))//Means that the character has the default Morpheus head, which has a screen. Time to customize.
+		else if(!client.prefs.rlimb_data["head"])//Means that the character has the default Morpheus head, which has a screen. Time to customize.
 			var/list/hair = list()
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]

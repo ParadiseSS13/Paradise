@@ -184,7 +184,7 @@
 		if(gender == FEMALE && S.gender == MALE)
 			continue
 		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			if((species.name in S.species_allowed)) //If this is a hairstyle native to the user's species...
+			if(species.name in S.species_allowed) //If this is a hairstyle native to the user's species...
 				if(!user.client.prefs.rlimb_data["head"]) //Check to see if they have the default head.
 					valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 					continue
@@ -194,7 +194,7 @@
 				if(!user.client.prefs.rlimb_data["head"]) //If the hairstyle is not native to the user's species, and they're using the default head, don't let them access it.
 					continue
 				else
-					if(("Human" in S.species_allowed)) //If the user has a robotic head and the hairstyle can fit humans, let them use it as a wig for their humanoid robot head.
+					if("Human" in S.species_allowed) //If the user has a robotic head and the hairstyle can fit humans, let them use it as a wig for their humanoid robot head.
 						valid_hairstyles += hairstyle
 					continue
 		else
@@ -220,7 +220,7 @@
 		if(gender == FEMALE && S.gender == MALE)
 			continue
 		if(species.flags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			if((species.name in S.species_allowed)) //If this is a facial hair style native to the user's species...
+			if(species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if(!user.client.prefs.rlimb_data["head"]) //Check to see if they have the default head.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hair styles if they do.
 					continue
@@ -230,7 +230,7 @@
 				if(!user.client.prefs.rlimb_data["head"]) //If the facial hair style is not native to the user's species, and they're using the default head, don't let them access it.
 					continue
 				else
-					if(("Human" in S.species_allowed)) //If the user has a robotic head and the facial hair style can fit humans, let them use it as a postiche for their humanoid robot head.
+					if("Human" in S.species_allowed) //If the user has a robotic head and the facial hair style can fit humans, let them use it as a postiche for their humanoid robot head.
 						valid_facial_hairstyles += facialhairstyle
 					continue
 		else //If the user is not a species who can have robotic heads, use the default handling.

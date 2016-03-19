@@ -356,7 +356,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "[TextPreview(flavor_text)]...<br>"
 			dat += "<br>"
 
-			if((species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))) //Species that have head accessories.
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have head accessories.
 				var/headaccessoryname = "Head Accessory"
 				if(species == "Unathi")
 					headaccessoryname = "Horns"
@@ -364,7 +364,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_headacc, 2)][num2hex(g_headacc, 2)][num2hex(b_headacc)]'><tr><td>__</td></tr></table></font> "
 				dat += "Style: <a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a><br>"
 
-			if((species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))) //Species that have body markings.
+			if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) //Species that have body markings.
 				dat += "<br><b>Body Markings</b><br>"
 				dat += "<a href='?_src_=prefs;preference=markings;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_markings, 2)][num2hex(g_markings, 2)][num2hex(b_markings)]'><tr><td>__</td></tr></table></font> "
 				dat += "<br>Style: <a href='?_src_=prefs;preference=m_style;task=input'>[m_style]</a><br>"
@@ -1090,7 +1090,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 							if(gender == FEMALE && S.gender == MALE)
 								continue
-							if( !(species in S.species_allowed))
+							if(!(species in S.species_allowed))
 								continue
 
 							valid_hairstyles[hairstyle] = hair_styles_list[hairstyle]
@@ -1109,7 +1109,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 							if(gender == FEMALE && S.gender == MALE)
 								continue
-							if( !(species in S.species_allowed))
+							if(!(species in S.species_allowed))
 								continue
 
 							valid_facialhairstyles[facialhairstyle] = facial_hair_styles_list[facialhairstyle]
@@ -1199,7 +1199,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					for(var/hairstyle in hair_styles_list)
 						var/datum/sprite_accessory/S = hair_styles_list[hairstyle]
 						if(species == "Machine") //Species that can use prosthetic heads.
-							if((species in S.species_allowed))
+							if(species in S.species_allowed)
 								if(!rlimb_data["head"])
 									valid_hairstyles[hairstyle] = S
 									continue
@@ -1208,7 +1208,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							else
 								if(!rlimb_data["head"])
 									continue
-								else if(("Human" in S.species_allowed))
+								else if("Human" in S.species_allowed)
 									valid_hairstyles[hairstyle] = S
 									continue
 						else
@@ -1222,7 +1222,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						h_style = new_h_style
 
 				if("headaccessory")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
 						var/input = "Choose the colour of your your character's head accessory:"
 						var/new_head_accessory = input(user, input, "Character Preference", rgb(r_headacc, g_headacc, b_headacc)) as color|null
 						if(new_head_accessory)
@@ -1231,11 +1231,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_headacc = hex2num(copytext(new_head_accessory, 6, 8))
 
 				if("ha_style")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))) // Species with head accessories
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with head accessories
 						var/list/valid_head_accessory_styles = list()
 						for(var/head_accessory_style in head_accessory_styles_list)
 							var/datum/sprite_accessory/H = head_accessory_styles_list[head_accessory_style]
-							if( !(species in H.species_allowed))
+							if(!(species in H.species_allowed))
 								continue
 
 							valid_head_accessory_styles[head_accessory_style] = head_accessory_styles_list[head_accessory_style]
@@ -1245,7 +1245,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							ha_style = new_head_accessory_style
 
 				if("markings")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran", "Machine"))) // Species with markings
+					if(species in list("Unathi", "Vulpkanin", "Tajaran", "Machine")) // Species with markings
 						var/input = "Choose the colour of your your character's markings:"
 						var/new_markings = input(user, input, "Character Preference", rgb(r_markings, g_markings, b_markings)) as color|null
 						if(new_markings)
@@ -1254,11 +1254,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							b_markings = hex2num(copytext(new_markings, 6, 8))
 
 				if("m_style")
-					if((species in list("Unathi", "Vulpkanin", "Tajaran"))) // Species with markings
+					if(species in list("Unathi", "Vulpkanin", "Tajaran")) // Species with markings
 						var/list/valid_markings = list()
 						for(var/markingstyle in marking_styles_list)
 							var/datum/sprite_accessory/M = marking_styles_list[markingstyle]
-							if( !(species in M.species_allowed))
+							if(!(species in M.species_allowed))
 								continue
 
 							if(species == "Machine") //Species that can use prosthetic heads.
@@ -1306,7 +1306,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(gender == FEMALE && S.gender == MALE)
 							continue
 						if(species == "Machine") //Species that can use prosthetic heads.
-							if((species in S.species_allowed))
+							if(species in S.species_allowed)
 								if(!rlimb_data["head"])
 									valid_facialhairstyles[facialhairstyle] = S
 									continue
@@ -1315,7 +1315,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							else
 								if(!rlimb_data["head"])
 									continue
-								else if(("Human" in S.species_allowed))
+								else if("Human" in S.species_allowed)
 									valid_facialhairstyles[facialhairstyle] = S
 									continue
 								else
