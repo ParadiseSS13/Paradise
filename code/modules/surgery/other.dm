@@ -6,12 +6,12 @@
 /datum/surgery/infection
 	name = "external infection treatment/autopsy"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand")
 
 /datum/surgery/bleeding
 	name = "internal bleeding"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg")
+	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand")
 
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
