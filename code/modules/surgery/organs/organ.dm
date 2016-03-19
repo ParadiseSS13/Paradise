@@ -57,7 +57,7 @@ var/list/organ_cache = list()
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
-		blood_DNA.Cut()
+		blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/die()
