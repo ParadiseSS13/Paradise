@@ -622,7 +622,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = 0
-	no_teleportlocs = 1
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
