@@ -856,6 +856,15 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/device_tools/assault_pod
+	name = "Assault Pod Targetting Device"
+	desc = "Use to select the landing zone of your assault pod."
+	item = /obj/item/device/assault_pod
+	reference = "APT"
+	cost = 30
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles and defending against other attacks."

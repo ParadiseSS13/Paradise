@@ -396,7 +396,7 @@
 				var/obj/O = AM
 				if(istype(O, /obj/docking_port/stationary))
 					continue
-				O.loc = T1
+				O.forceMove(T1)
 
 				//close open doors
 				if(istype(O, /obj/machinery/door))
@@ -415,7 +415,7 @@
 				var/mob/M = AM
 				if(!M.move_on_shuttle)
 					continue
-				M.loc = T1
+				M.forceMove(T1)
 
 				//docking turbulence
 				if(M.client)
@@ -433,15 +433,12 @@
 			T1.shuttleRotate(rotation)
 
 		//lighting stuff
-		T1.reconsider_lights()
-		T1.lighting_build_overlays()
 		air_master.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		air_master.add_to_active(T1,1)
 
 		T0.ChangeTurf(turf_type)
 
-		T0.reconsider_lights()
 		air_master.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
 		air_master.add_to_active(T0,1)
@@ -515,7 +512,8 @@
 			if(!AM.anchored)
 				step(AM, dir)
 			else
-				qdel(AM)
+				if(AM.simulated) //lighting overlays are static
+					qdel(AM)
 /*
 //used to check if atom/A is within the shuttle's bounding box
 /obj/docking_port/mobile/proc/onShuttleCheck(atom/A)
@@ -604,7 +602,7 @@
 				M = D
 				shuttleId = M.id
 				break
-	else if(!possible_destinations)
+	else if(!possible_destinations && istext(possible_destinations)) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
 		M = shuttle_master.getShuttle(shuttleId)
 
 	if(M && !possible_destinations)
@@ -707,30 +705,6 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
-#define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
-
-/obj/machinery/computer/shuttle/syndicate
-	name = "syndicate shuttle terminal"
-	icon_screen = "syndishuttle"
-	icon_keyboard = "syndie_key"
-	req_access = list(access_syndicate)
-	shuttleId = "syndicate"
-	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s"
-	var/challenge = FALSE
-
-/obj/machinery/computer/shuttle/syndicate/recall
-	name = "syndicate shuttle recall terminal"
-	possible_destinations = "syndicate_away"
-
-/obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
-	if(href_list["move"])
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			usr << "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>"
-			return 0
-	..()
-
-#undef SYNDICATE_CHALLENGE_TIMER
-
 /obj/machinery/computer/shuttle/vox
 	name = "skipjack control console"
 	req_access = list(access_vox)
@@ -764,7 +738,7 @@
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
-		T = new type(T)
+		T.ChangeTurf(type)
 		if(underlays.len)
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)
