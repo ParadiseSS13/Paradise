@@ -18,8 +18,8 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
-#define AGE_MIN 17			//youngest a character can be
-#define AGE_MAX 85			//oldest a character can be
+#define AGE_MIN 1			//youngest a character can be
+#define AGE_MAX 120			//oldest a character can be
 
 
 #define LEFT 1
