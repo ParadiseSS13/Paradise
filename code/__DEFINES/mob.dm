@@ -19,7 +19,7 @@
 #define DROPLIMB_BURN 2
 
 #define AGE_MIN 1			//youngest a character can be
-#define AGE_MAX 150			//oldest a character can be
+#define AGE_MAX 120			//oldest a character can be
 
 
 #define LEFT 1
