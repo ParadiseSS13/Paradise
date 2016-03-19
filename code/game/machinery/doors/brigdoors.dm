@@ -42,7 +42,7 @@
 	pixel_y = ((src.dir & 3)? (src.dir ==1 ? 24 : -32) : (0))
 
 	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in machines)
+		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
 			if (M.id == src.id)
 				targets += M
 
@@ -65,30 +65,19 @@
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
 /obj/machinery/door_timer/process()
-
 	if(stat & (NOPOWER|BROKEN))	return
 	if(timing)
-
-		// poorly done midnight rollover
-		// (no seriously there's gotta be a better way to do this)
-		var/timeleft = timeleft()
-		if(timeleft > 1e5)
-			src.releasetime = 0
-
-
-		if(world.timeofday > src.releasetime)
-			Radio.autosay("Timer has expired. Releasing prisoner.", src.name, "Security", list(src.z))
+		if(timeleft() <= 0)
+			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
+			. = PROCESS_KILL
 
 		src.updateUsrDialog()
 		src.update_icon()
-
 	else
 		timer_end()
-
-	return
-
+		return PROCESS_KILL
 
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
@@ -106,6 +95,8 @@
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
+	if(!(src in machines))
+		addAtProcessing()
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)	continue
@@ -143,9 +134,12 @@
 
 // Check for releasetime timeleft
 /obj/machinery/door_timer/proc/timeleft()
-	. = (releasetime - world.timeofday)/10
-	if(. < 0)
-		. = 0
+	var/time = releasetime - world.timeofday
+	if(time > MIDNIGHT_ROLLOVER / 2)
+		time -= MIDNIGHT_ROLLOVER
+	if(time < 0)
+		return 0
+	return time / 10
 
 // Set timetoset
 /obj/machinery/door_timer/proc/timeset(var/seconds)

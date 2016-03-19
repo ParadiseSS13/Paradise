@@ -1,0 +1,4 @@
+author: Crazylemon64
+delete-after: True
+changes: 
+  - bugfix: "Repairs all sorts of eldritch occurences that happen when you put an organic head on an IPC body, as well as some decapitation bugs"

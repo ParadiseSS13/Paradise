@@ -1,15 +1,18 @@
-datum/reagent
+#define ADDICTION_TIME 4800 //8 minutes
+
+/datum/reagent
 	var/overdose_threshold = 0
-	var/addiction_threshold = 0
-	var/addiction_stage = 0
+	var/addiction_chance = 0
+	var/addiction_stage = 1
+	var/last_addiction_dose = 0
 	var/overdosed = 0 // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
-	var/current_cycle = 0
-datum/reagents
+	var/current_cycle = 1
+
+/datum/reagents
 	var/chem_temp = 300
-	var/addiction_tick = 1
 	var/list/datum/reagent/addiction_list = new/list()
 
-datum/reagents/proc/metabolize(var/mob/M)
+/datum/reagents/proc/metabolize(var/mob/M)
 	if(M)
 		if(!istype(M, /mob/living))		//Non-living mobs can't metabolize reagents, so don't bother trying (runtime safety check)
 			return
@@ -53,39 +56,29 @@ datum/reagents/proc/metabolize(var/mob/M)
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = 0
-			if(R.volume >= R.addiction_threshold && !is_type_in_list(R, addiction_list) && R.addiction_threshold > 0)
-				var/datum/reagent/new_reagent = new R.type()
-				addiction_list.Add(new_reagent)
 			if(R.overdosed)
 				R.overdose_process(M)
-			if(is_type_in_list(R,addiction_list))
-				for(var/datum/reagent/addicted_reagent in addiction_list)
-					if(istype(R, addicted_reagent))
-						addicted_reagent.addiction_stage = -15 // you're satisfied for a good while.
 			R.on_mob_life(M)
-	if(addiction_tick == 6)
-		addiction_tick = 1
-		for(var/A in addiction_list)
-			var/datum/reagent/R = A
-			if(M && R)
-				if(R.addiction_stage <= 0)
+	for(var/A in addiction_list)
+		var/datum/reagent/R = A
+		if(M && R)
+			if(R.addiction_stage < 5)
+				if(prob(5))
 					R.addiction_stage++
-				if(R.addiction_stage > 0 && R.addiction_stage <= 10)
+			switch(R.addiction_stage)
+				if(1)
 					R.addiction_act_stage1(M)
-					R.addiction_stage++
-				if(R.addiction_stage > 10 && R.addiction_stage <= 20)
+				if(2)
 					R.addiction_act_stage2(M)
-					R.addiction_stage++
-				if(R.addiction_stage > 20 && R.addiction_stage <= 30)
+				if(3)
 					R.addiction_act_stage3(M)
-					R.addiction_stage++
-				if(R.addiction_stage > 30 && R.addiction_stage <= 40)
+				if(4)
 					R.addiction_act_stage4(M)
-					R.addiction_stage++
-				if(R.addiction_stage > 40)
-					M << "<span class = 'notice'>You feel like you've gotten over your need for [R.name].</span>"
-					addiction_list.Remove(R)
-	addiction_tick++
+				if(5)
+					R.addiction_act_stage5(M)
+			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
+				M << "<span class='notice'>You no longer feel reliant on [R.name]!</span>"
+				addiction_list.Remove(R)
 	update_total()
 
 /datum/reagents/proc/overdose_list()
@@ -96,26 +89,19 @@ datum/reagents/proc/metabolize(var/mob/M)
 	return od_chems
 
 
-datum/reagents/proc/reagent_on_tick()
+/datum/reagents/proc/reagent_on_tick()
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
 	return
 
-datum/reagents/proc/check_ignoreslow(var/mob/M)
-	if(istype(M, /mob))
-		if(M.reagents.has_reagent("morphine"))
-			return 1
-		else
-			M.status_flags &= ~IGNORESLOWDOWN
-
-datum/reagents/proc/check_gofast(var/mob/M)
+/datum/reagents/proc/check_gofast(var/mob/M)
 	if(istype(M, /mob))
 		if(M.reagents.has_reagent("unholywater")||M.reagents.has_reagent("nuka_cola")||M.reagents.has_reagent("stimulative_agent"))
 			return 1
 		else
 			M.status_flags &= ~GOTTAGOFAST
 
-datum/reagents/proc/check_goreallyfast(var/mob/M)
+/datum/reagents/proc/check_goreallyfast(var/mob/M)
 	if(istype(M, /mob))
 		if(M.reagents.has_reagent("methamphetamine"))
 			return 1
@@ -123,39 +109,61 @@ datum/reagents/proc/check_goreallyfast(var/mob/M)
 			M.status_flags &= ~GOTTAGOREALLYFAST
 
 // Called every time reagent containers process.
-datum/reagent/proc/on_tick(var/data)
+/datum/reagent/proc/on_tick(var/data)
 	return
 
 // Called when the reagent container is hit by an explosion
-datum/reagent/proc/on_ex_act(var/severity)
+/datum/reagent/proc/on_ex_act(var/severity)
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-datum/reagent/proc/overdose_process(var/mob/living/M as mob)
+/datum/reagent/proc/overdose_process(var/mob/living/M as mob)
 	return
 
-datum/reagent/proc/overdose_start(var/mob/living/M as mob)
+/datum/reagent/proc/overdose_start(var/mob/living/M as mob)
 	return
 
-datum/reagent/proc/addiction_act_stage1(var/mob/living/M as mob)
-	if(prob(30))
-		M << "<span class = 'notice'>You feel like some [name] right about now.</span>"
+/datum/reagent/proc/addiction_act_stage1(var/mob/living/M as mob)
 	return
 
-datum/reagent/proc/addiction_act_stage2(var/mob/living/M as mob)
-	if(prob(30))
-		M << "<span class = 'notice'>You feel like you need [name]. You just can't get enough.</span>"
-	return
+/datum/reagent/proc/addiction_act_stage2(var/mob/living/M as mob)
+	if(prob(8))
+		M.emote("shiver")
+	if(prob(8))
+		M.emote("sneeze")
+	if(prob(4))
+		M << "<span class='notice'>You feel a dull headache.</span>"
 
-datum/reagent/proc/addiction_act_stage3(var/mob/living/M as mob)
-	if(prob(30))
-		M << "<span class = 'danger'>You have an intense craving for [name].</span>"
-	return
+/datum/reagent/proc/addiction_act_stage3(var/mob/living/M as mob)
+	if(prob(8))
+		M.emote("twitch_s")
+	if(prob(8))
+		M.emote("shiver")
+	if(prob(4))
+		M << "<span class='warning'>You begin craving [name]!</span>"
 
-datum/reagent/proc/addiction_act_stage4(var/mob/living/M as mob)
-	if(prob(30))
-		M << "<span class = 'danger'>You're not feeling good at all! You really need some [name].</span>"
-	return
+/datum/reagent/proc/addiction_act_stage4(var/mob/living/M as mob)
+	if(prob(8))
+		M.emote("twitch")
+	if(prob(4))
+		M << "<span class='warning'>You have the strong urge for some [name]!</span>"
+	if(prob(4))
+		M << "<span class='warning'>You REALLY crave some [name]!</span>"
+
+/datum/reagent/proc/addiction_act_stage5(var/mob/living/M as mob)
+	if(prob(8))
+		M.emote("twitch")
+	if(prob(6))
+		M << "<span class='warning'>Your stomach lurches painfully!</span>"
+		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+		M.Stun(rand(2,4))
+		M.Weaken(rand(2,4))
+	if(prob(5))
+		M << "<span class='warning'>You feel like you can't live without [name]!</span>"
+	if(prob(5))
+		M << "<span class='warning'>You would DIE for some [name] right now!</span>"
 
 /datum/reagent/proc/reagent_deleted()
 	return
+
+#undef ADDICTION_TIME

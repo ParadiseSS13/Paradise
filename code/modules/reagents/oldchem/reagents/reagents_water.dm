@@ -184,16 +184,18 @@
 	if(!istype(T)) return
 	var/datum/reagent/blood/self = src
 	src = null
-	if(!(volume >= 3)) return
+	var/big_splash = 1
+	if(volume < 3)
+		big_splash = 0
 	//var/datum/disease/D = self.data["virus"]
 	if(!self.data["donor"] || istype(self.data["donor"], /mob/living/carbon/human))
+		blood_splatter(T, src, big_splash)
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
-		if(!blood_prop) //first blood!
-			blood_prop = new(T)
-			blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
 
-		if(self.data["virus2"])
-			blood_prop.virus2 = virus_copylist(self.data["virus2"])
+		if(blood_prop)
+			blood_prop.blood_DNA[self.data["blood_DNA"]] = self.data["blood_type"]
+			if(self.data["virus2"])
+				blood_prop.virus2 = virus_copylist(self.data["virus2"])
 
 	else if(istype(self.data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
@@ -264,44 +266,40 @@
 			M.stuttering = 0
 			M.confused = 0
 			return
-	if(ishuman(M) && M.mind)				.
-		if(((M.mind in ticker.mode.vampires) || M.mind.vampire) && (!(VAMP_FULL in M.mind.vampire.powers)) && prob(80))
-			switch(data)
-				if(1 to 4)
-					M << "<span class = 'warning'>Something sizzles in your veins!</span>"
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				if(5 to 12)
-					M << "<span class = 'danger'>You feel an intense burning inside of you!</span>"
-					M.adjustFireLoss(1)
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-				if(13 to INFINITY)
-					M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+		switch(data)
+			if(1 to 4)
+				M << "<span class = 'warning'>Something sizzles in your veins!</span>"
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			if(5 to 12)
+				M << "<span class = 'danger'>You feel an intense burning inside of you!</span>"
+				M.adjustFireLoss(1)
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			if(13 to INFINITY)
+				M << "<span class = 'danger'>You suddenly ignite in a holy fire!</span>"
+				for(var/mob/O in viewers(M, null))
+					O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+				M.fire_stacks = min(5,M.fire_stacks + 3)
+				M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+				M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
-	return
 
 
 /datum/reagent/holywater/reaction_mob(var/mob/living/M, var/method=TOUCH, var/volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M))
-		if((M.mind in ticker.mode.vampires) && !(VAMP_FULL in M.mind.vampire.powers))
-			var/mob/living/carbon/human/H=M
-			if(method == TOUCH)
-				if(H.wear_mask)
-					H << "\red Your mask protects you from the holy water!"
-					return
-				else if(H.head)
-					H << "\red Your helmet protects you from the holy water!"
-					return
-				else
-					M << "<span class='warning'>Something holy interferes with your powers!</span>"
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-	return
+	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+		var/mob/living/carbon/human/H=M
+		if(method == TOUCH)
+			if(H.wear_mask)
+				H << "\red Your mask protects you from the holy water!"
+				return
+			else if(H.head)
+				H << "\red Your helmet protects you from the holy water!"
+				return
+			else
+				M << "<span class='warning'>Something holy interferes with your powers!</span>"
+				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(var/turf/simulated/T, var/volume)

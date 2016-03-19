@@ -694,10 +694,10 @@
 	return
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
-/mob/living/carbon/human/proc/get_visible_name()
-	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
+/mob/living/carbon/human/get_visible_name()
+	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
-	if( head && (head.flags_inv&HIDEFACE) )
+	if(head && (head.flags_inv & HIDEFACE))
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
@@ -1308,7 +1308,8 @@
 /mob/living/carbon/human/revive()
 
 	if(species && !(species.flags & NO_BLOOD))
-		vessel.add_reagent("blood",560-vessel.total_volume)
+		var/blood_reagent = get_blood_name()
+		vessel.add_reagent(blood_reagent, max_blood-vessel.total_volume)
 		fixblood()
 
 	// Fix up all organs.
@@ -1911,3 +1912,18 @@
 	else
 		src << "<span class='notice'>You swallow a gulp of [toDrink].</span>"
 	return 1
+
+/mob/living/carbon/human/can_track(mob/living/user)
+	if(wear_id)
+		var/obj/item/weapon/card/id/id = wear_id
+		if(istype(id) && id.is_untrackable())
+			return 0
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.blockTracking)
+			return 0
+
+	return ..()
+
+/mob/living/carbon/human/proc/get_age_pitch()
+	return 1.0 + 0.5*(30 - age)/80

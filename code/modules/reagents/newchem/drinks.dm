@@ -16,19 +16,18 @@
 
 /datum/reagent/ginsonic/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
-	if(prob(10))
+	M.drowsyness = max(0, M.drowsyness-5)
+	if(prob(25))
+		M.AdjustParalysis(-1)
+		M.AdjustStunned(-1)
+		M.AdjustWeakened(-1)
+	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
-	M.reagents.add_reagent("ethanol",1.4)
-	if(prob(8))
-		M.say(pick("Gotta go fast!", "Let's juice.", "I feel a need for speed!", "Way Past Cool!"))
-	if(prob(8))
-		switch(pick(1, 2, 3))
-			if(1)
-				M << "<span class='notice'>Time to speed, keed!</span>"
-			if(2)
-				M << "<span class='notice'>Let's juice.</span>"
-			if(3)
-				M << "<span class='notice'>Way Past Cool!</span>"
+		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
+		if(prob(50))
+			M.say("[sonic_message]")
+		else
+			M << "<span class='notice'>[sonic_message ]</span>"
 	..()
 	return
 
@@ -76,13 +75,14 @@
 	description = "A runny liquid with conductive capacities. Its effects on synthetics are similar to those of alcohol on organics."
 	reagent_state = LIQUID
 	color = "#1BB1FF"
-	process_flags = SYNTHETIC
+	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 0.4
 	vomit_start = INFINITY		//
 	blur_start = INFINITY		//
 	pass_out = INFINITY			//INFINITY, so that IPCs don't puke and stuff
-	var/collapse_start = 200	//amount absorbed after wich mob starts collapsing
-	var/braindamage_start = 300 //amount absorbed after which mob starts taking small amount of brain damage
+	var/spark_start = 50	//amount absorbed after which mob starts sparking
+	var/collapse_start = 150	//amount absorbed after wich mob starts sparking and collapsing (DOUBLE THE SPARKS, DOUBLE THE FUN)
+	var/braindamage_start = 250 //amount absorbed after which mob starts taking a small amount of brain damage
 
 
 /datum/chemical_reaction/synthanol
@@ -92,19 +92,38 @@
 	required_reagents = list("lube" = 1, "plasma" = 1, "fuel" = 1)
 	result_amount = 3
 	mix_message = "The chemicals mix to create shiny, blue substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/on_mob_life(var/mob/living/M as mob, var/alien)
 
 	var/d = data
+	if(M.isSynthetic()) //works normally on synthetics
+		if(d >= spark_start && prob(25))
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			s.set_up(3, 1, M)
+			s.start()
+		if(d >= collapse_start && prob(10))
+			M.emote("collapse")
+			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			s.set_up(3, 1, M)
+			s.start()
+		if(d >= braindamage_start && prob(33))
+			M.adjustBrainLoss(1)
 
-	if(d >= collapse_start && prob(10))
-		M.emote("collapse")
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-		s.set_up(3, 1, M)
-		s.start()
-	if(d >= braindamage_start && prob(33))
-		M.adjustBrainLoss(1)
+	else
+		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		if(prob(25))
+			holder.remove_reagent(id, 15)
+			M.fakevomit()
 	..()
+
+datum/reagent/ethanol/synthanol/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+	if(!istype(M, /mob/living))
+		return
+	if(M.isSynthetic())
+		return
+	if(method == INGEST)
+		M << pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>")
 
 /datum/reagent/ethanol/synthanol/robottears
 	name = "Robot Tears"
@@ -120,7 +139,6 @@
 	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
 	result_amount = 3
 	mix_message = "The ingredients combine into a stiff, dark goo."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/trinary
 	name = "Trinary"
@@ -136,7 +154,6 @@
 	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
 	result_amount = 3
 	mix_message = "The ingredients mix into a colorful substance."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/reagent/ethanol/synthanol/servo
 	name = "Servo"
@@ -152,6 +169,47 @@
 	required_reagents = list("synthanol" = 2, "cream" = 1, "hot_coco" = 1)
 	result_amount = 4
 	mix_message = "The ingredients mix into a dark brown substance."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/ethanol/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	description = "A potent mix of alcohol and synthanol. Will only work on synthetics."
+	reagent_state = LIQUID
+	color = "#e7ae04"
+
+/datum/chemical_reaction/synthanol/uplink
+	name = "Uplink"
+	id = "uplink"
+	result = "uplink"
+	required_reagents = list("rum" = 1, "vodka" = 1, "tequilla" = 1, "whiskey" = 1, "synthanol" = 1)
+	result_amount = 5
+
+/datum/reagent/ethanol/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	description = "The classic drink adjusted for a robot's tastes."
+	reagent_state = LIQUID
+	color = "#7204e7"
+
+/datum/chemical_reaction/synthanol/synthnsoda
+	name = "Synth 'n Soda"
+	id = "synthnsoda"
+	result = "synthnsoda"
+	required_reagents = list("synthanol" = 1, "cola" = 1)
+	result_amount = 2
+
+/datum/reagent/ethanol/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	description = "Someone mixed wine and alcohol for robots. Hope you're proud of yourself."
+	reagent_state = LIQUID
+	color = "#d004e7"
+
+/datum/chemical_reaction/synthanol/synthignon
+	name = "Synthignon"
+	id = "synthignon"
+	result = "synthignon"
+	required_reagents = list("synthanol" = 1, "wine" = 1)
+	result_amount = 2
 
 // ROBOT ALCOHOL ENDS

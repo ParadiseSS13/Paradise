@@ -59,14 +59,8 @@
 	if(severity > 1)
 		if(prob(10 * severity))
 			return
-	var/save_sight = owner.sight
-	owner.sight &= 0
-	owner.sdisabilities |= BLIND
 	owner << "<span class='warning'>Static obfuscates your vision!</span>"
-	spawn(60 / severity)
-		if(owner)
-			owner.sight |= save_sight
-			owner.sdisabilities ^= BLIND
+	flick("e_flash", owner.flash)
 
 
 

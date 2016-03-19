@@ -122,7 +122,7 @@
 	set desc = "Delete image"
 	set src in usr
 
-	deletepicture()
+	deletepicture(src)
 
 /obj/item/device/camera/siliconcam/robot_camera/verb/take_image()
 	set category ="Robot Commands"

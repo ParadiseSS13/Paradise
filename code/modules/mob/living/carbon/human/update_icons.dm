@@ -389,14 +389,13 @@ var/global/list/damage_icon_parts = list()
 	//base icons
 	var/icon/markings_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 
-	if(m_style && (src.species.bodyflags & HAS_MARKINGS))
+	if(m_style && m_style != "None")
 		var/datum/sprite_accessory/marking_style = marking_styles_list[m_style]
-		if(marking_style && marking_style.species_allowed)
-			if(src.species.name in marking_style.species_allowed)
-				var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
-				if(marking_style.do_colouration)
-					markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
-				markings_standing.Blend(markings_s, ICON_OVERLAY)
+		if(marking_style)
+			var/icon/markings_s = new/icon("icon" = marking_style.icon, "icon_state" = "[marking_style.icon_state]_s")
+			if(marking_style.do_colouration)
+				markings_s.Blend(rgb(r_markings, g_markings, b_markings), ICON_ADD)
+			markings_standing.Blend(markings_s, ICON_OVERLAY)
 		else
 			//warning("Invalid m_style for [species.name]: [m_style]")
 

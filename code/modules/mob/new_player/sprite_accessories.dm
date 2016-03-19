@@ -1810,3 +1810,12 @@
 	name = "Unathi Tiger Body + Head + Face"
 	species_allowed = list("Unathi")
 	icon_state = "markings_tigerheadface_una"
+
+/datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
+	name = "base tattoo"
+	species_allowed = list()
+	icon_state = "accessory_none"
+
+/datum/sprite_accessory/body_markings/tattoo/elliot
+	name = "Elliot Circuit Tattoo"
+	icon_state = "campbell_tattoo"
