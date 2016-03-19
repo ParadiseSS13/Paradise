@@ -927,10 +927,11 @@ steam.start() -- spawns the effect
 		if(metal)
 			var/turf/T = get_turf(src)
 			if(istype(T, /turf/space))
-				var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-				if(L)
-					qdel(L)
-				T.ChangeTurf(/turf/simulated/floor/plating/airless)
+				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
+				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
+				if(istype(MF))
+					MF.metal = metal
+					MF.update_icon()
 
 			var/obj/structure/foamedmetal/M = new(src.loc)
 			M.metal = metal
@@ -1046,6 +1047,9 @@ steam.start() -- spawns the effect
 // wall formed by metal foams
 // dense and opaque, but easy to break
 
+var/const/MFOAM_ALUMINUM 	= 1
+var/const/MFOAM_IRON 		= 2
+
 /obj/structure/foamedmetal
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
@@ -1054,7 +1058,7 @@ steam.start() -- spawns the effect
 	anchored = 1
 	name = "foamed metal"
 	desc = "A lightweight foamed metal wall."
-	var/metal = 1		// 1=aluminum, 2=iron
+	var/metal = MFOAM_ALUMINUM
 
 	New()
 		..()
@@ -1071,7 +1075,7 @@ steam.start() -- spawns the effect
 		move_update_air(T)
 
 	proc/updateicon()
-		if(metal == 1)
+		if(metal == MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
 		else
 			icon_state = "ironfoam"
@@ -1088,12 +1092,10 @@ steam.start() -- spawns the effect
 			qdel(src)
 
 	attack_hand(var/mob/user)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
 		if ((HULK in user.mutations) || (prob(75 - metal*25)))
-			user << "\blue You smash through the metal foam wall."
-			for(var/mob/O in oviewers(user))
-				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
-
+			user.visible_message("<span class='warning'>[user] smashes through \the [src].</span>", "<span class='notice'>You smash through \the [src].</span>")
 			qdel(src)
 		else
 			user << "\blue You hit the metal foam but bounce off it."
@@ -1101,25 +1103,35 @@ steam.start() -- spawns the effect
 
 
 	attackby(var/obj/item/I, var/mob/user, params)
-
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(src)
 		if (istype(I, /obj/item/weapon/grab))
 			var/obj/item/weapon/grab/G = I
 			G.affecting.loc = src.loc
-			for(var/mob/O in viewers(src))
-				if (O.client)
-					O << "\red [G.assailant] smashes [G.affecting] through the foamed metal wall."
+			user.visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>")
 			qdel(I)
 			qdel(src)
 			return
 
 		if(prob(I.force*20 - metal*25))
-			user << "\blue You smash through the foamed metal with \the [I]."
-			for(var/mob/O in oviewers(user))
-				if ((O.client && !( O.blinded )))
-					O << "\red [user] smashes through the foamed metal."
+			user.visible_message("<span class='warning'>[user] smashes through the foamed metal with \the [I].</span>", "<span class='notice'>You smash through the foamed metal with \the [I].</span>")
 			qdel(src)
 		else
 			user << "\blue You hit the metal foam to no effect."
+
+	attack_animal(mob/living/simple_animal/M)
+		M.do_attack_animation(src)
+		if(M.melee_damage_upper == 0)
+			M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
+		else
+			if(M.attack_sound)
+				playsound(loc, M.attack_sound, 50, 1, 1)
+			M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
+			qdel(src)
+
+	attack_alien(mob/living/carbon/alien/humanoid/M)
+		M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
+		qdel(src)
 
 	CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 		if(air_group) return 0
