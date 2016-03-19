@@ -63,10 +63,6 @@
 		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
 		ghostize()
 		qdel()
-	if(!summoner && !adminseal)
-		src << "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>"
-		ghostize()
-		qdel()
 
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
