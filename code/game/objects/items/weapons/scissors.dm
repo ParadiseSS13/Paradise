@@ -34,8 +34,14 @@
 			if(H.species)
 				for(var/i in facial_hair_styles_list)
 					var/datum/sprite_accessory/facial_hair/tmp_facial = facial_hair_styles_list[i]
-					if(H.species.name in tmp_facial.species_allowed)
+					if(H.species.name in tmp_facial.species_allowed)  //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human hair styles.
 						species_facial_hair += i
+					else
+						if(H.species.flags & ALL_RPARTS)
+							if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_facial.species_allowed))
+								species_facial_hair += i
+							else
+								return
 			else
 				species_facial_hair = facial_hair_styles_list
 		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in species_facial_hair
@@ -44,8 +50,16 @@
 		if(H.species)
 			for(var/i in hair_styles_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_list[i]
-				if(H.species.name in tmp_hair.species_allowed)
+				if(H.species.name in tmp_hair.species_allowed) //If the species is allowed to have the style, add the style to the list. Or, if the character has a prosthetic head, give them the human facial hair styles.
+					if((H.species.flags & ALL_RPARTS) && !("head" in H.client.prefs.rlimb_data))
+						return
 					species_hair += i
+				else
+					if(H.species.flags & ALL_RPARTS)
+						if(("head" in H.client.prefs.rlimb_data) && ("Human" in tmp_hair.species_allowed))
+							species_facial_hair += i
+						else
+							return
 		else
 			species_hair = hair_styles_list
 		var/h_new_style = input(user, "Select a hair style", "Grooming")  as null|anything in species_hair
