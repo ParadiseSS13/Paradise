@@ -360,17 +360,20 @@
 	return list("val" = val, "i" = i)
 
 /proc/SDQL_var(datum/object, list/expression, start = 1)
-
+	var/v
 	if(expression[start] in object.vars)
-
-		if(start < expression.len && expression[start + 1] == ".")
-			return SDQL_var(object.vars[expression[start]], expression[start + 2])
-
-		else
-			return object.vars[expression[start]]
-
+		v = object.vars[expression[start]]
+	else if(expression[start] == "src")
+		v = object
+	else if(expression[start] == "usr")
+		v = usr
 	else
 		return null
+
+	if(start < expression.len && expression[start + 1] == ".")
+		return SDQL_var(v, expression[start + 2])
+	else
+		return v
 
 /proc/SDQL2_tokenize(query_text)
 
